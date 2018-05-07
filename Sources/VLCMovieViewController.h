@@ -16,6 +16,7 @@
 #import "VLCPlaybackController.h"
 
 @class OBSlider;
+@class VLCService;
 @class VLCStatusLabel;
 @class VLCVerticalSwipeGestureRecognizer;
 @class VLCTimeNavigationTitleView;
@@ -80,6 +81,8 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 
 @property (nonatomic, weak) id<VLCMovieViewControllerDelegate> delegate;
 
+- (instancetype)initWithServices:(VLCService *)services;
+
 - (IBAction)closePlayback:(id)sender;
 - (IBAction)minimizePlayback:(id)sender;
 
@@ -104,5 +107,7 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 - (void)hideMenu;
 
 - (BOOL)rotationIsDisabled;
+
+- (void)setupCastWithCurrentRenderer;
 
 @end

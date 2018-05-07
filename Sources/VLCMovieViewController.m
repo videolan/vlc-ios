@@ -35,6 +35,7 @@
 #import "VLCTrackSelectorView.h"
 #import "VLCMetadata.h"
 #import "UIDevice+VLC.h"
+#import "VLC_iOS-Swift.h"
 
 #define FORWARD_SWIPE_DURATION 30
 #define BACKWARD_SWIPE_DURATION 10
@@ -53,7 +54,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCRendererDiscovererManagerDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -113,10 +114,15 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     CGFloat _fov;
     CGPoint _saveLocation;
     CGSize _screenSizePixel;
+
+    UIStackView *_navigationBarStackView;
+    UIButton *_rendererButton;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
 @property (nonatomic, strong) UIWindow *externalWindow;
+@property (nonatomic, strong) VLCService *services;
+
 @end
 
 @implementation VLCMovieViewController
@@ -126,6 +132,16 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *appDefaults = @{kVLCShowRemainingTime : @(YES)};
     [defaults registerDefaults:appDefaults];
+}
+
+- (instancetype)initWithServices:(VLCService *)services
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        NSAssert([services isKindOfClass:[VLCService class]], @"VLCPlayerDisplayController: Injected services class issue");
+        _services = services;
+    }
+    return self;
 }
 
 - (void)viewDidLoad
@@ -185,8 +201,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                    name:VLCPlaybackControllerPlaybackDidStop
                  object:nil];
 
-    _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE", nil);
-    _playingExternallyDescription.text = NSLocalizedString(@"PLAYING_EXTERNALLY_DESC", nil);
     if ([[UIDevice currentDevice] VLCHasExternalDisplay])
         [self showOnExternalDisplay];
 
@@ -236,7 +250,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _saveLocation = CGPointMake(-1.f, -1.f);
 
     [self setupConstraints];
-
+    [self setupRendererDiscovererManager];
 }
 
 - (void)setupGestureRecognizers
@@ -355,7 +369,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)setupNavigationbar
 {
-    //Needs to be a UIButton since we need it to work with constraints
     _doneButton = [[UIButton alloc] initWithFrame:CGRectZero];
     [_doneButton setAccessibilityIdentifier:@"Done"];
     [_doneButton addTarget:self action:@selector(closePlayback:) forControlEvents:UIControlEventTouchUpInside];
@@ -366,21 +379,34 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.timeNavigationTitleView = [[[NSBundle mainBundle] loadNibNamed:@"VLCTimeNavigationTitleView" owner:self options:nil] objectAtIndex:0];
     self.timeNavigationTitleView.translatesAutoresizingMaskIntoConstraints = NO;
 
-    [self.navigationController.navigationBar addSubview:self.timeNavigationTitleView];
-    [self.navigationController.navigationBar addSubview:_doneButton];
+    if (_vpc.renderer != nil) {
+        [_rendererButton setSelected:YES];
+    }
+
+    _navigationBarStackView = [[UIStackView alloc] init];
+    _navigationBarStackView.translatesAutoresizingMaskIntoConstraints = NO;
+    _navigationBarStackView.spacing = 8;
+    _navigationBarStackView.axis = UILayoutConstraintAxisHorizontal;
+    _navigationBarStackView.alignment = UIStackViewAlignmentCenter;
+    [_navigationBarStackView addArrangedSubview:_doneButton];
+    [_navigationBarStackView addArrangedSubview:_timeNavigationTitleView];
+    [_navigationBarStackView addArrangedSubview:_rendererButton];
+
+    [self.navigationController.navigationBar addSubview:_navigationBarStackView];
 
     NSObject *guide = self.navigationController.navigationBar;
     if (@available(iOS 11.0, *)) {
         guide = self.navigationController.navigationBar.safeAreaLayoutGuide;
     }
-    [self.navigationController.view addConstraints: @[
-                                                      [NSLayoutConstraint constraintWithItem:_doneButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeLeft multiplier:1 constant:8],
-                                                      [NSLayoutConstraint constraintWithItem:_doneButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeCenterY multiplier:1 constant:0],
-                                                      [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_doneButton attribute:NSLayoutAttributeRight multiplier:1 constant:0],
-                                                      [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeRight multiplier:1 constant:0],
-                                                      [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeTop multiplier:1 constant:0],
-                                                      [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
-                                                      ]];
+
+    [NSLayoutConstraint activateConstraints:@[
+                                              [NSLayoutConstraint constraintWithItem:_navigationBarStackView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeCenterY multiplier:1 constant:0],
+                                              [NSLayoutConstraint constraintWithItem:_navigationBarStackView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeLeft multiplier:1 constant:8],
+                                              [NSLayoutConstraint constraintWithItem:_navigationBarStackView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeRight multiplier:1 constant:-8],
+                                              [NSLayoutConstraint constraintWithItem:_navigationBarStackView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeTop multiplier:1 constant:0],
+                                              [NSLayoutConstraint constraintWithItem:_navigationBarStackView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
+                                              [NSLayoutConstraint constraintWithItem:_timeNavigationTitleView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_navigationBarStackView attribute:NSLayoutAttributeHeight multiplier:1 constant:0]
+                                              ]];
 }
 
 - (void)resetVideoFiltersSliders
@@ -414,6 +440,13 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     //Disabling video gestures, media not init in the player yet.
     [self enableNormalVideoGestures:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDefaults) name:NSUserDefaultsDidChangeNotification object:nil];
+
+    VLCRendererDiscovererManager *manager = _services.rendererDiscovererManager;
+
+    manager.presentingViewController = self;
+    manager.delegate = self;
+
+    [self hidePlayingExternallyViewForRendererIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -631,7 +664,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                                                                      _multiSelectionView.chapterSelectorButton,
                                                                      _multiSelectionView.repeatButton,
                                                                      _multiSelectionView.shuffleButton,
-                                                                     _controllerPanel.volumeView]];
+                                                                     _controllerPanel.volumeView,
+                                                                     _rendererButton]];
 
     [[UIDevice currentDevice] isiPhoneX] ? [items addObject:_tapToToggleiPhoneXRatioRecognizer]
                                          : [items addObject:_tapToSeekRecognizer];
@@ -848,6 +882,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (IBAction)closePlayback:(id)sender
 {
     _playbackWillClose = YES;
+    [self hidePlayingExternallyViewForRendererIfNeeded];
     [_vpc stopPlayback];
 }
 
@@ -1032,6 +1067,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [_controllerPanel updateButtons];
     
     _audioOnly = metadata.isAudioOnly;
+    if (_audioOnly) {
+        // fixme: _playingExternallyView should be shown in audioOnly as well
+        _playingExternallyView.hidden = YES;
+    }
 }
 
 - (IBAction)playPause
@@ -1626,6 +1665,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     self.playingExternallyView.hidden = NO;
     self.externalWindow.screen = screen;
     self.externalWindow.hidden = NO;
+
+    _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE", nil);
+    _playingExternallyDescription.text = NSLocalizedString(@"PLAYING_EXTERNALLY_DESC", nil);
 }
 
 - (void)hideFromExternalDisplay
@@ -1647,6 +1689,50 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)handleExternalScreenDidDisconnect:(NSNotification *)notification
 {
     [self hideFromExternalDisplay];
+}
+
+#pragma mark - Renderers
+
+
+/**
+ * Checks if playingExternallyView needs to be hidden.
+ * If not, playingExternallyView will be shown with the current renderer name
+ */
+- (void)hidePlayingExternallyViewForRendererIfNeeded
+{
+    VLCRendererItem *renderer = _vpc.renderer;
+
+    if (renderer != nil) {
+        // TODO: Have a better/prettier transition between local playback frame and playingExternallyView
+        _playingExternallyView.hidden = NO;
+        _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE_CHROMECAST", nil);
+        _playingExternallyDescription.text = renderer.name;
+    } else {
+        _playingExternallyView.hidden = YES;
+    }
+}
+
+- (void)setupCastWithCurrentRenderer
+{
+    [self hidePlayingExternallyViewForRendererIfNeeded];
+    [_vpc mediaPlayerSetRenderer:_vpc.renderer];
+}
+
+- (void)setupRendererDiscovererManager
+{
+    // Create a renderer button for VLCMovieViewController
+    _rendererButton = [_services.rendererDiscovererManager setupRendererButton];
+    __weak typeof(self) weakSelf = self;
+    [_services.rendererDiscovererManager addSelectionHandlerWithSelectionHandler:^(VLCRendererItem * _Nonnull item) {
+        [weakSelf setupCastWithCurrentRenderer];
+    }];
+}
+
+#pragma mark - VLCRendererDiscovererManagerDelegate
+
+- (void)removedCurrentRendererItem:(VLCRendererItem *)item
+{
+    [self hidePlayingExternallyViewForRendererIfNeeded];
 }
 
 @end
