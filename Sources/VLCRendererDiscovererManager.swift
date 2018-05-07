@@ -9,9 +9,16 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+@objc protocol VLCRendererDiscovererManagerDelegate {
+    @objc(removedCurrentRendererItem:)
+    optional func removedCurrentRendererItem(item: VLCRendererItem)
+}
+
 class VLCRendererDiscovererManager: NSObject {
     // Array of RendererDiscoverers(Chromecast, UPnP, ...)
     @objc var discoverers: [VLCRendererDiscoverer] = [VLCRendererDiscoverer]()
+
+    @objc weak var delegate: VLCRendererDiscovererManagerDelegate?
 
     @objc lazy var actionSheet: VLCActionSheet = {
         let actionSheet = VLCActionSheet()
@@ -87,10 +94,7 @@ class VLCRendererDiscovererManager: NSObject {
             actionSheet.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
             actionSheet(collectionView: actionSheet.collectionView, didSelectItem: rendererItem, At: indexPath)
             setRendererItem(rendererItem: rendererItem)
-
-            if let movieViewController = presentingViewController as? VLCMovieViewController {
-                movieViewController.setupCastWithCurrentRenderer()
-            }
+            actionSheet.action?(rendererItem)
         } else {
             presentingViewController.present(actionSheet, animated: false, completion: nil)
         }
@@ -164,9 +168,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
                     // If playing, fall back to local playback
                     playbackController.mediaPlayerSetRenderer(nil)
                 }
-                if let movieViewController = presentingViewController as? VLCMovieViewController {
-                    movieViewController.playingExternallyView.isHidden = true
-                }
+                delegate?.removedCurrentRendererItem?(item: item)
                 // Reset buttons state
                 for button in rendererButtons {
                     button.isSelected = false
