@@ -29,8 +29,8 @@
 {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
+        [self setupReachability];
         [self setupCell];
-        [self updateHTTPServerAddress];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachabilityChanged) name:kReachabilityChangedNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
     }
@@ -47,11 +47,14 @@
     return @"VLCWiFiUploadTableViewCell";
 }
 
-- (void)setupCell
+- (void)setupReachability
 {
     self.reachability = [Reachability reachabilityForLocalWiFi];
     [self.reachability startNotifier];
+}
 
+- (void)setupCell
+{
     self.selectionStyle =  UITableViewCellSelectionStyleNone;
 
     self.textLabel.text = NSLocalizedString(@"WEBINTF_TITLE", nil);
@@ -65,6 +68,7 @@
     self.imageView.image = [UIImage imageNamed:@"WifiIcon"];
 
     [self updateTheme];
+    [self updateHTTPServerAddress];
 }
 
 - (void)updateTheme
@@ -98,4 +102,9 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    [self setupCell];
+}
 @end

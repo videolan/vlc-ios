@@ -53,6 +53,7 @@
     UIScrollView *_scrollView;
     VLCRemoteNetworkDataSourceAndDelegate *_remoteNetworkDataSourceAndDelegate;
     NSLayoutConstraint* _localNetworkHeight;
+    NSLayoutConstraint* _remoteNetworkHeight;
 }
 
 @end
@@ -115,19 +116,19 @@
     [_scrollView addSubview:_remoteNetworkTableView];
 
     [_remoteNetworkTableView layoutIfNeeded];
-    CGSize contentSize = [_remoteNetworkTableView contentSize];
     _localNetworkHeight = [_localNetworkTableView.heightAnchor constraintEqualToConstant:_localNetworkTableView.contentSize.height];
+    _remoteNetworkHeight = [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:_remoteNetworkTableView.contentSize.height];
 
     [NSLayoutConstraint activateConstraints:@[
                                               [_remoteNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
                                               [_remoteNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
                                               [_remoteNetworkTableView.topAnchor constraintEqualToAnchor:_scrollView.topAnchor],
-                                              [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:contentSize.height],
                                               [_localNetworkTableView.topAnchor constraintEqualToAnchor:_remoteNetworkTableView.bottomAnchor],
                                               [_localNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
                                               [_localNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
                                               [_localNetworkTableView.bottomAnchor constraintEqualToAnchor:_scrollView.bottomAnchor],
-                                              _localNetworkHeight
+                                              _localNetworkHeight,
+                                              _remoteNetworkHeight
                                               ]];
     _scrollView.backgroundColor = PresentationTheme.current.colors.background;
 }
@@ -137,6 +138,7 @@
     [super viewDidLoad];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
 
     NSArray *browserClasses = @[
                                 [VLCLocalNetworkServiceBrowserManualConnect class],
@@ -177,6 +179,13 @@
     return YES;
 }
 
+- (void)contentSizeDidChange
+{
+    [_localNetworkTableView layoutIfNeeded];
+    _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
+    [_remoteNetworkTableView layoutIfNeeded];
+    _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
+}
 #pragma mark - table view handling
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -191,7 +200,6 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == _remoteNetworkTableView) return;
     UIColor *color = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundB : PresentationTheme.current.colors.cellBackgroundA;
     cell.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor = color;
     cell.titleLabel.textColor = cell.folderTitleLabel.textColor = cell.subtitleLabel.textColor = cell.thumbnailView.tintColor = PresentationTheme.current.colors.cellTextColor;
