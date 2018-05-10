@@ -43,8 +43,8 @@ post_install do |installer_representation|
   installer_representation.pods_project.targets.each do |target|
      installer_representation.pods_project.build_configurations.each do |config|
        config.build_settings['SKIP_INSTALL'] = 'YES'
-       config.build_settings['VALID_ARCHS'] = 'armv7 armv7s arm64 i386 armv7k'
-       config.build_settings['ARCHS'] = 'armv7 armv7s arm64 i386 armv7k'
+       config.build_settings['VALID_ARCHS'] = 'armv7 armv7s arm64 i386 x86_64'
+       config.build_settings['ARCHS'] = 'armv7 armv7s arm64 i386 x86_64'
        config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
      end
   end
