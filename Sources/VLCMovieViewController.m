@@ -114,6 +114,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     CGFloat _fov;
     CGPoint _saveLocation;
     CGSize _screenPixelSize;
+    UIInterfaceOrientation _lockedOrientation;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
@@ -396,6 +397,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [super viewWillAppear:animated];
 
     _vpc.delegate = self;
+    _lockedOrientation = UIInterfaceOrientationPortrait;
     [_vpc recoverPlaybackState];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -1194,6 +1196,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)toggleUILock
 {
     _interfaceIsLocked = !_interfaceIsLocked;
+    if (_interfaceIsLocked) {
+        _lockedOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    }
 
     NSArray *items = [self itemsForInterfaceLock];
 
@@ -1605,9 +1610,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 #pragma mark - autorotation
 
-- (BOOL)rotationIsDisabled
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return _interfaceIsLocked || [_vpc currentMediaIs360Video];
+    BOOL orientationIslocked = _interfaceIsLocked || [_vpc currentMediaIs360Video];
+    UIInterfaceOrientationMask maskFromOrientation = 1 << _lockedOrientation;
+    return orientationIslocked ? maskFromOrientation :  UIInterfaceOrientationMaskAll;
 }
 
 - (BOOL)shouldAutorotate
