@@ -207,7 +207,7 @@
     _12K_slider.minimumValue = -20.;
     _12K_slider.maximumValue = 20.;
     [_12K_slider addTarget:self action:@selector(sliderChangedValue:) forControlEvents:UIControlEventValueChanged];
-    [self addSubview:_12K_slider],
+    [self addSubview:_12K_slider];
 
     textView = [[UITextView alloc] initWithFrame:CGRectMake(horizontal_padding * 9. + sliderWidth * 9.5, frame.size.height - vertical_padding_down, 35, 25)];
     textView.text = @"12K";

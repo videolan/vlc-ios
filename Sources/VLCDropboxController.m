@@ -198,12 +198,12 @@
     }
     [[[self client].filesRoutes listFolder:path] setResponseBlock:^(DBFILESListFolderResult * _Nullable result, DBFILESListFolderError * _Nullable routeError, DBRequestError * _Nullable networkError) {
         if (result) {
-            _currentFileList = [result.entries sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            self->_currentFileList = [result.entries sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
                 NSString *first = [(DBFILESMetadata*)a name];
                 NSString *second = [(DBFILESMetadata*)b name];
                 return [first caseInsensitiveCompare:second];
             }];
-            APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
+            APLog(@"found filtered metadata for %lu files", (unsigned long)self->_currentFileList.count);
             if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
                 [self.delegate mediaListUpdated];
         } else {
@@ -237,7 +237,7 @@
                 [self.delegate operationWithProgressInformationStopped];
             }
 
-            _downloadInProgress = NO;
+            self->_downloadInProgress = NO;
             [self _triggerNextDownload];
             if (networkError) {
                 APLog(@"downloadFile failed with network error %li and error tag %li", (long)networkError.statusCode, (long)networkError.tag);
@@ -248,9 +248,9 @@
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL", nil));
             }
 
-            if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
+            if ((self->_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - self->_lastStatsUpdate > .5)) || self->_lastStatsUpdate <= 0) {
                 [self calculateRemainingTime:(CGFloat)totalBytesWritten expectedDownloadSize:(CGFloat)totalBytesExpectedToWrite];
-                _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
+                self->_lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
             }
 
             if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])

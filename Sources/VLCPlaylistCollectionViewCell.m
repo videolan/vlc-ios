@@ -500,7 +500,7 @@
         videoTracks = audioTracks = spuTracks = nil;
     }
 
-    void (^animationBlock)() = ^() {
+    void (^animationBlock)(void) = ^() {
         self.metaDataLabel.hidden = !showMeta;
     };
 

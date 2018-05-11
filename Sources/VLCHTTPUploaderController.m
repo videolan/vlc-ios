@@ -87,8 +87,8 @@
         if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
             dispatch_block_t expirationHandler = ^{
                 [self changeHTTPServerState:NO];
-                [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
-                _backgroundTaskIdentifier = 0;
+                [[UIApplication sharedApplication] endBackgroundTask:self->_backgroundTaskIdentifier];
+                self->_backgroundTaskIdentifier = 0;
             };
             if ([[UIApplication sharedApplication] respondsToSelector:@selector(beginBackgroundTaskWithName:expirationHandler:)]) {
                 _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"VLCUploader" expirationHandler:expirationHandler];

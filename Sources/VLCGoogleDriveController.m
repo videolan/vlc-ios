@@ -202,9 +202,9 @@
                                               GTLDriveFileList *fileList,
                                               NSError *error) {
                               if (error == nil) {
-                                  _fileList = fileList;
-                                  _nextPageToken = fileList.nextPageToken;
-                                  _fileListTicket = nil;
+                                  self->_fileList = fileList;
+                                  self->_nextPageToken = fileList.nextPageToken;
+                                  self->_fileListTicket = nil;
                                   [self _listOfGoodFilesAndFolders];
                               } else {
                                   [self showAlert:NSLocalizedString(@"GDRIVE_ERROR_FETCHING_FILES",nil) message:error.localizedDescription];
@@ -311,9 +311,9 @@
         fetcher.downloadProgressBlock = ^(int64_t bytesWritten,
                                           int64_t totalBytesWritten,
                                           int64_t totalBytesExpectedToWrite) {
-            if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
+            if ((self->_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - self->_lastStatsUpdate > .5)) || self->_lastStatsUpdate <= 0) {
                 [self calculateRemainingTime:totalBytesWritten expectedDownloadSize:totalBytesExpectedToWrite];
-                _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
+                self->_lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
             }
 
             CGFloat progress = (CGFloat)weakFetcher.downloadedLength / (CGFloat)[file.size unsignedLongValue];

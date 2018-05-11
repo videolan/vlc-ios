@@ -87,7 +87,7 @@
         self.hidden = NO;
     }
 
-    void (^animationBlock)() = ^() {
+    void (^animationBlock)(void) = ^() {
         self.alpha = alpha;
     };
 

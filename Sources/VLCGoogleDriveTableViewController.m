@@ -174,13 +174,13 @@
                self.authorizationInProgress = NO;
                if (authState) {
                    // Upon successful completion...
-                   _googleDriveController.driveService.authorizer = [[GTMAppAuthFetcherAuthorization alloc] initWithAuthState:authState];
-                   [GTMAppAuthFetcherAuthorization saveAuthorization:(GTMAppAuthFetcherAuthorization *)_googleDriveController.driveService.authorizer
+                   self->_googleDriveController.driveService.authorizer = [[GTMAppAuthFetcherAuthorization alloc] initWithAuthState:authState];
+                   [GTMAppAuthFetcherAuthorization saveAuthorization:(GTMAppAuthFetcherAuthorization *)self->_googleDriveController.driveService.authorizer
                                                    toKeychainForName:kKeychainItemName];
                    [self updateViewAfterSessionChange];
                    [self.activityIndicator startAnimating];
                } else {
-                   _googleDriveController.driveService.authorizer = nil;
+                   self->_googleDriveController.driveService.authorizer = nil;
                }
            }];
 

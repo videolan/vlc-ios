@@ -110,10 +110,10 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
     // enable crash preventer
-    void (^setupBlock)() = ^{
-        void (^setupLibraryBlock)() = ^{
-            appCoordinator = [[AppCoordinator alloc] initWithTabBarController:rootViewController];
-            [appCoordinator start];
+    void (^setupBlock)(void) = ^{
+        void (^setupLibraryBlock)(void) = ^{
+            self->appCoordinator = [[AppCoordinator alloc] initWithTabBarController:self->rootViewController];
+            [self->appCoordinator start];
         };
         [self validatePasscodeIfNeededWithCompletion:setupLibraryBlock];
 
@@ -138,7 +138,7 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
             //migrate
             setupBlock();
-            _isRunningMigration = NO;
+            self->_isRunningMigration = NO;
             [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
             [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
         };
