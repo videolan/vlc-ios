@@ -93,8 +93,7 @@ class VLCRendererDiscovererManager: NSObject {
         if getAllRenderers().count == 1, let rendererItem = getAllRenderers().first {
             let indexPath = IndexPath(row: 0, section: 0)
             actionSheet.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
-            actionSheet(collectionView: actionSheet.collectionView, didSelectItem: rendererItem, At: indexPath)
-            setRendererItem(rendererItem: rendererItem)
+            actionSheet(collectionView: actionSheet.collectionView, cellForItemAt: indexPath)
             actionSheet.action?(rendererItem)
         } else {
             presentingViewController.present(actionSheet, animated: false, completion: nil)
@@ -242,6 +241,7 @@ extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
         return getAllRenderers().count
     }
 
+    @discardableResult
     func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: VLCActionSheetCell.identifier, for: indexPath) as? VLCActionSheetCell else {
