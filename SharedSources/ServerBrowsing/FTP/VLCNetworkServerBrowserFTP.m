@@ -135,16 +135,19 @@
                 [filteredList addObject:[[VLCNetworkServerBrowserItemFTP alloc] initWithDictionary:dict baseURL:self.url subtitleURL:subtitleURL]];
             }
         }
+        __weak typeof(self) weakSelf = self;
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            @synchronized(_items) {
-                _items = [NSArray arrayWithArray:filteredList];
+             __strong __typeof(weakSelf)strongSelf = weakSelf;
+            @synchronized(strongSelf.items) {
+                strongSelf->_items = [NSArray arrayWithArray:filteredList];
             }
-            _mediaList = [self buildMediaList];
+            strongSelf->_mediaList = [self buildMediaList];
             [self.delegate networkServerBrowserDidUpdate:self];
         }];
     } else
         APLog(@"unknown request %@ completed", request);
 }
+
 
 - (void)requestFailed:(WRRequest *)request
 {

@@ -228,7 +228,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
         for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
             [recognizer setEnabled:YES];
-        _trackSelectorContainer.hidden = YES;
+        self->_trackSelectorContainer.hidden = YES;
     };
     _trackSelectorContainer.completionHandler = completionBlock;
     _trackSelectorContainer.translatesAutoresizingMaskIntoConstraints = NO;
@@ -732,37 +732,37 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _trackNameLabel.hidden = NO;
     }
 
-    void (^animationBlock)() = ^() {
+    void (^animationBlock)(void) = ^() {
         self.navigationController.navigationBar.alpha = alpha;
-        _controllerPanel.alpha = alpha;
-        _videoFilterView.alpha = alpha;
-        _playbackSpeedView.alpha = alpha;
-        _trackSelectorContainer.alpha = alpha;
-        _equalizerView.alpha = alpha;
-        _multiSelectionView.alpha = alpha;
-        if (_sleepTimerContainer)
-            _sleepTimerContainer.alpha = alpha;
+        self->_controllerPanel.alpha = alpha;
+        self->_videoFilterView.alpha = alpha;
+        self->_playbackSpeedView.alpha = alpha;
+        self->_trackSelectorContainer.alpha = alpha;
+        self->_equalizerView.alpha = alpha;
+        self->_multiSelectionView.alpha = alpha;
+        if (self->_sleepTimerContainer)
+            self->_sleepTimerContainer.alpha = alpha;
 
-        CGFloat metaInfoAlpha = _audioOnly ? 1.0f : alpha;
-        _artistNameLabel.alpha = metaInfoAlpha;
-        _albumNameLabel.alpha = metaInfoAlpha;
-        _trackNameLabel.alpha = metaInfoAlpha;
+        CGFloat metaInfoAlpha = self->_audioOnly ? 1.0f : alpha;
+        self->_artistNameLabel.alpha = metaInfoAlpha;
+        self->_albumNameLabel.alpha = metaInfoAlpha;
+        self->_trackNameLabel.alpha = metaInfoAlpha;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
-        _controllerPanel.hidden = _videoFiltersHidden ? _controlsHidden : NO;
-        _videoFilterView.hidden = _videoFiltersHidden;
-        _playbackSpeedView.hidden = _playbackSpeedViewHidden;
-        self.navigationController.navigationBar.hidden = _controlsHidden;
-        _trackSelectorContainer.hidden = YES;
-        _equalizerView.hidden = YES;
-        if (_sleepTimerContainer)
-            _sleepTimerContainer.hidden = YES;
-        _multiSelectionView.hidden = YES;
+        self->_controllerPanel.hidden = self->_videoFiltersHidden ? self->_controlsHidden : NO;
+        self->_videoFilterView.hidden = self->_videoFiltersHidden;
+        self->_playbackSpeedView.hidden = self->_playbackSpeedViewHidden;
+        self.navigationController.navigationBar.hidden = self->_controlsHidden;
+        self->_trackSelectorContainer.hidden = YES;
+        self->_equalizerView.hidden = YES;
+        if (self->_sleepTimerContainer)
+            self->_sleepTimerContainer.hidden = YES;
+        self->_multiSelectionView.hidden = YES;
 
-        _artistNameLabel.hidden = _audioOnly ? NO : _controlsHidden;
-        _albumNameLabel.hidden =  _audioOnly ? NO : _controlsHidden;
-        _trackNameLabel.hidden =  _audioOnly ? NO : _controlsHidden;
+        self->_artistNameLabel.hidden = self->_audioOnly ? NO : self->_controlsHidden;
+        self->_albumNameLabel.hidden =  self->_audioOnly ? NO : self->_controlsHidden;
+        self->_trackNameLabel.hidden =  self->_audioOnly ? NO : self->_controlsHidden;
     };
 
     UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;
@@ -1196,7 +1196,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (_multiSelectionView.hidden == NO) {
         [UIView animateWithDuration:.3
                          animations:^{
-                             _multiSelectionView.hidden = YES;
+                             self->_multiSelectionView.hidden = YES;
                          }
                          completion:^(BOOL finished){
                          }];
@@ -1221,8 +1221,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     _multiSelectionView.frame = CGRectMake(workFrame.origin.x, workFrame.origin.y + workFrame.size.height, workFrame.size.width, 0.);
     [UIView animateWithDuration:.3
                      animations:^{
-                         _multiSelectionView.frame = workFrame;
-                         _multiSelectionView.hidden = NO;
+                         self->_multiSelectionView.frame = workFrame;
+                         self->_multiSelectionView.hidden = NO;
                      }
                      completion:^(BOOL finished){
                      }];
@@ -1326,7 +1326,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     [UIView animateWithDuration:.2
                      animations:^{
-                         _multiSelectionView.hidden = YES;
+                         self->_multiSelectionView.hidden = YES;
                      }
                      completion:^(BOOL finished){
                      }];
@@ -1355,7 +1355,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
         CGRect frameWithoutNotch = self.view.safeAreaLayoutGuide.layoutFrame;
         [UIView animateWithDuration:0.3 animations:^{
-            _movieView.frame = isFullScreen ? frameWithoutNotch : self.view.frame;
+            self->_movieView.frame = isFullScreen ? frameWithoutNotch : self.view.frame;
         }];
     }
 }
@@ -1678,8 +1678,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                 if (self.artworkImageView.image)
                     self.trackNameLabel.hidden = YES;
 
-                if (!_equalizerView.hidden)
-                    _equalizerView.hidden = YES;
+            if (!self->_equalizerView.hidden)
+                self->_equalizerView.hidden = YES;
         } completion:nil];
     }
 }
