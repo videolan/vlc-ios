@@ -1141,10 +1141,10 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     if (_needsMetadataUpdate == NO) {
         _needsMetadataUpdate = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_metadata updateMetadataFromMediaPlayer:_mediaPlayer];
-            _needsMetadataUpdate = NO;
+            [self->_metadata updateMetadataFromMediaPlayer:self->_mediaPlayer];
+            self->_needsMetadataUpdate = NO;
             if ([self.delegate respondsToSelector:@selector(displayMetadataForPlaybackController:metadata:)])
-                [self.delegate displayMetadataForPlaybackController:self metadata:_metadata];
+                [self.delegate displayMetadataForPlaybackController:self metadata:self->_metadata];
         });
     }
 }

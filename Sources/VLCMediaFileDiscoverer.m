@@ -109,7 +109,7 @@ const float MediaTimerInterval = 2.f;
                                               DISPATCH_VNODE_WRITE, DISPATCH_TARGET_QUEUE_DEFAULT);
 
     dispatch_source_set_event_handler(_directorySource, ^(){
-        unsigned long const data = dispatch_source_get_data(_directorySource);
+        unsigned long const data = dispatch_source_get_data(self->_directorySource);
         if (data & DISPATCH_VNODE_WRITE) {
             // Do all the work on the main thread,
             // including timer scheduling, notifications delivering

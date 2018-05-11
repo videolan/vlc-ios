@@ -232,7 +232,7 @@
     }
 
     self.alpha = 1.0f;
-    void (^animationBlock)() = ^() {
+    void (^animationBlock)(void) = ^() {
         self.alpha =  0.0f;;
     };
 

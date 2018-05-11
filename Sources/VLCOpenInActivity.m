@@ -123,7 +123,7 @@
     __block BOOL controllerWasPresentedSuccessfully = NO;
 
     dispatch_block_t controllerPresentationBlock = ^{
-        controllerWasPresentedSuccessfully = [_documentInteractionController presentOpenInMenuFromBarButtonItem:self.presentingBarButtonItem animated:YES];
+        controllerWasPresentedSuccessfully = [self->_documentInteractionController presentOpenInMenuFromBarButtonItem:self.presentingBarButtonItem animated:YES];
 
         if (!controllerWasPresentedSuccessfully) {
             VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_APPLICATIONS", nil)

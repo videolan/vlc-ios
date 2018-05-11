@@ -1695,7 +1695,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)showOnExternalDisplay
 {
     UIScreen *screen = [UIScreen screens][1];
-    screen.overscanCompensation = UIScreenOverscanCompensationInsetApplicationFrame;
+    screen.overscanCompensation = UIScreenOverscanCompensationNone;
 
     self.externalWindow = [[UIWindow alloc] initWithFrame:screen.bounds];
 

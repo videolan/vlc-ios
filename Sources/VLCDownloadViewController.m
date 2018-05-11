@@ -233,8 +233,8 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
         dispatch_block_t expirationHandler = ^{
             APLog(@"Downloads were interrupted after being in background too long, time remaining: %f", [[UIApplication sharedApplication] backgroundTimeRemaining]);
-            [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
-            _backgroundTaskIdentifier = 0;
+            [[UIApplication sharedApplication] endBackgroundTask:self->_backgroundTaskIdentifier];
+            self->_backgroundTaskIdentifier = 0;
         };
 
         _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"VLCDownloader" expirationHandler:expirationHandler];

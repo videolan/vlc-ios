@@ -42,8 +42,7 @@
         [excludedActivities addObject:UIActivityTypeMarkupAsPDF];
     }
     controller.excludedActivityTypes = excludedActivities;
-
-    controller.completionHandler = ^(UIActivityType  _Nullable activityType, BOOL completed) {
+    controller.completionWithItemsHandler = ^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
         APLog(@"UIActivityViewController finished with activity type: %@, completed: %i", activityType, completed);
 
         // Provide feedback. This could cause a false positive if the user chose "Don't Allow" in the permissions dialog, and UIActivityViewController does not inform us of that, so check the authorization status.

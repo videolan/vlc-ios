@@ -143,7 +143,7 @@
 
     BoxCollectionBlock success = ^(BoxCollection *collection)
     {
-        _fileList = collection;
+        self->_fileList = collection;
         [self _listOfGoodFilesAndFolders];
     };
 
@@ -254,9 +254,9 @@
 
     BoxAPIDataProgressBlock progressBlock = ^(long long expectedTotalBytes, unsigned long long bytesReceived)
     {
-        if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
+        if ((self->_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - self->_lastStatsUpdate > .5)) || self->_lastStatsUpdate <= 0) {
             [self calculateRemainingTime:(CGFloat)bytesReceived expectedDownloadSize:(CGFloat)expectedTotalBytes];
-            _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
+            self->_lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
         }
 
         CGFloat progress = (CGFloat)bytesReceived / (CGFloat)expectedTotalBytes;

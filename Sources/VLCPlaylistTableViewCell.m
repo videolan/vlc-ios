@@ -490,7 +490,7 @@
     } else
         self.metaDataLabel.text = @"";
 
-    void (^animationBlock)() = ^() {
+    void (^animationBlock)(void) = ^() {
         self.frame = frame;
         self.metaDataLabel.hidden = metaHidden;
     };
@@ -519,7 +519,7 @@
     frame.size.height = 90.;
     BOOL metaHidden = YES;
 
-    void (^animationBlock)() = ^() {
+    void (^animationBlock)(void) = ^() {
         self.frame = frame;
         self.metaDataLabel.hidden = metaHidden;
     };

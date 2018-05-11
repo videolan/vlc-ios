@@ -75,10 +75,10 @@
             [itemsArray addObject:[[VLCNetworkServerBrowserItemUPnP alloc] initWithBasicObject:object device:self.upnpDevice]];
         }
 
-        @synchronized(_items) {
-            _items = [itemsArray copy];
+        @synchronized(self->_items) {
+            self->_items = [itemsArray copy];
         }
-        _mediaList = [self buildMediaList];
+        self->_mediaList = [self buildMediaList];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.delegate networkServerBrowserDidUpdate:self];
         }];
