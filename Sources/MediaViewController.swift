@@ -39,7 +39,6 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         let name = String(describing: VLCEmptyLibraryView.self)
         let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
         guard let emptyView = nib?.first as? VLCEmptyLibraryView else { fatalError("Can't find nib for \(name)") }
-        emptyView.frame = view.bounds
         return emptyView
     }()
 
@@ -63,7 +62,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     @objc func reloadData() {
         collectionView?.reloadData()
-        displayEmptyViewIfNeeded()
+        updateUIForEmptyView()
     }
 
     @available(*, unavailable)
@@ -113,7 +112,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         super.viewDidAppear(animated)
         reloadData()
     }
-    
+
     func setupSearchController() {
         searchController = UISearchController(searchResultsController: nil)
         searchController?.searchResultsUpdater = self
@@ -126,20 +125,28 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
                 backgroundview.clipsToBounds = true
             }
         }
-        if #available(iOS 11.0, *) {
-            navigationItem.searchController = searchController
-        } else {
-            navigationItem.titleView = searchController?.searchBar
-            searchController?.hidesNavigationBarDuringPresentation = false
-        }
     }
-
+    
     func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""), style: .plain, target: self, action: #selector(sort))
     }
     
-    func displayEmptyViewIfNeeded() {
-        collectionView?.backgroundView = collectionView?.numberOfItems(inSection: 0) == 0 ? emptyView : nil
+    func updateUIForEmptyView() {
+        let isEmpty = collectionView?.numberOfItems(inSection: 0) == 0
+
+        if isEmpty {
+            collectionView?.backgroundView = emptyView
+            edgesForExtendedLayout = []
+        } else {
+            collectionView?.backgroundView = nil
+            edgesForExtendedLayout = .all
+        }
+        
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = isEmpty ? nil :searchController
+        } else {
+            navigationItem.titleView = isEmpty ? nil : searchController?.searchBar
+        }
     }
 
     // MARK: Renderer

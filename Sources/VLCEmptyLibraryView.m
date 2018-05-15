@@ -23,11 +23,10 @@
     _emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
     [_learnMoreButton setTitle:NSLocalizedString(@"BUTTON_LEARN_MORE", nil) forState:UIControlStateNormal];
     
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter addObserver:self
-                           selector:@selector(themeDidChange)
-                               name:kVLCThemeDidChangeNotification
-                             object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(themeDidChange)
+                                                 name:kVLCThemeDidChangeNotification
+                                               object:nil];
     [self themeDidChange];
     [super awakeFromNib];
 }
