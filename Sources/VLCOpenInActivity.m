@@ -15,6 +15,8 @@
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
+#import "VLC_iOS-Swift.h"
+
 @interface VLCOpenInActivity () <UIDocumentInteractionControllerDelegate>
 @end
 
@@ -83,13 +85,14 @@
     } else if (count == 1) {
         [self presentDocumentInteractionControllerWithFileURL:[_fileURLs firstObject]];
     } else {
-        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
-                                                              message:nil
-                                                             delegate:nil
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                    otherButtonTitles:nil];
-        [alertView show];
-
+        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
+        ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                  buttonAction: ^(UIAlertAction* action){}];
+        [buttonsAction addObject: cancelAction];
+        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
+                                             errorMessage:nil
+                                           viewController:self.activityViewController
+                                            buttonsAction:buttonsAction];
         [self activityDidFinish:NO];
     }
 }
@@ -126,13 +129,15 @@
         controllerWasPresentedSuccessfully = [self->_documentInteractionController presentOpenInMenuFromBarButtonItem:self.presentingBarButtonItem animated:YES];
 
         if (!controllerWasPresentedSuccessfully) {
-            VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_APPLICATIONS", nil)
-                                                                  message:nil
-                                                                 delegate:nil
-                                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                        otherButtonTitles:nil];
-            [alertView show];
 
+            NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
+            ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                      buttonAction: ^(UIAlertAction* action){}];
+            [buttonsAction addObject: cancelAction];
+            [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_APPLICATIONS", nil)
+                                                 errorMessage:nil
+                                               viewController:self.activityViewController
+                                                buttonsAction:buttonsAction];
             [self activityDidFinish:NO];
         }
     };

@@ -20,6 +20,7 @@
 #import "VLCNetworkLoginDataSourceLogin.h"
 #import "VLCNetworkLoginDataSourceSavedLogins.h"
 #import "VLCNetworkServerLoginInformation.h"
+#import "VLC_iOS-Swift.h"
 
 
 // for protocol identifier
@@ -171,9 +172,11 @@
     self.loginInformation = login;
     NSError *error = nil;
     if (![self.savedLoginsDataSource saveLogin:login error:&error]) {
-        [[[VLCAlertView alloc] initWithTitle:error.localizedDescription
-                                    message:error.localizedFailureReason
-                          cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil) otherButtonTitles:nil] show];
+
+        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
+        ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil) buttonAction: ^(UIAlertAction* action){}];
+        [buttonsAction addObject: cancelAction];
+        [VLCAlertViewController alertViewManagerWithTitle:error.localizedDescription errorMessage: error.localizedFailureReason viewController:self buttonsAction:buttonsAction];
     }
 
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
@@ -195,11 +198,15 @@
 - (BOOL)protocolSelected
 {
     if (self.protocolDataSource.protocol == VLCServerProtocolUndefined) {
-        VLCAlertView *alertView = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
-                                                              message:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                    otherButtonTitles:nil];
-        [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+
+        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
+        ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                  buttonAction: ^(UIAlertAction* action){}];
+        [buttonsAction addObject: cancelAction];
+        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
+                                             errorMessage: NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
+                                           viewController:self
+                                            buttonsAction:buttonsAction];
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
         return NO;
     }
