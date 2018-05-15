@@ -16,6 +16,7 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
 #import "VLCMediaFileDiscoverer.h"
+#import "VLC_iOS-Swift.h"
 #import <XKKeychain/XKKeychain.h>
 
 #import <AppAuth/AppAuth.h>
@@ -128,12 +129,14 @@
 
 - (void)showAlert:(NSString *)title message:(NSString *)message
 {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle: title
-                                                      message: message
-                                                     delegate: nil
-                                            cancelButtonTitle: @"OK"
-                                            otherButtonTitles: nil];
-    [alert show];
+    NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
+    ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                              buttonAction: ^(UIAlertAction* action){}];
+    [buttonsAction addObject: cancelAction];
+    [VLCAlertViewController alertViewManagerWithTitle:title
+                                         errorMessage:message
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                        buttonsAction:buttonsAction];
 }
 
 #pragma mark - file management

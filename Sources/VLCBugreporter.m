@@ -14,6 +14,8 @@
 
 #import "VLCBugreporter.h"
 
+#import "VLC_iOS-Swift.h"
+
 @implementation VLCBugreporter
 
 #pragma mark - Initialization
@@ -33,19 +35,19 @@
 
 - (void)handleBugreportRequest
 {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"BUG_REPORT_TITLE", nil)
-                                                      message:NSLocalizedString(@"BUG_REPORT_MESSAGE", nil) delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                            otherButtonTitles:NSLocalizedString(@"BUG_REPORT_BUTTON", nil), nil];;
-    [alert show];
+    NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
+    ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                              buttonAction: ^(UIAlertAction* action){}];
+    ButtonAction *reportAction = [[ButtonAction alloc] initWithButtonTitle:NSLocalizedString(@"BUG_REPORT_BUTTON", nil)
+                                                              buttonAction: ^(UIAlertAction* action){
+                                                                  NSURL *url = [NSURL URLWithString:@"https://trac.videolan.org/vlc/newticket"];
+                                                                  [[UIApplication sharedApplication] openURL:url];
+                                                              }];
+    [buttonsAction addObject: cancelAction];
+    [buttonsAction addObject: reportAction];
+    [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"BUG_REPORT_TITLE", nil)
+                                         errorMessage:NSLocalizedString(@"BUG_REPORT_MESSAGE", nil)
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                        buttonsAction:buttonsAction];
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        NSURL *url = [NSURL URLWithString:@"https://trac.videolan.org/vlc/newticket"];
-        [[UIApplication sharedApplication] openURL:url];
-    }
-}
-
 @end
