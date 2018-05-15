@@ -23,6 +23,7 @@
 #import "VLCConstants.h"
 #import "VLCRemoteControlService.h"
 #import "VLCMetadata.h"
+#import "VLC_iOS-Swift.h"
 
 NSString *const VLCPlaybackControllerPlaybackDidStart = @"VLCPlaybackControllerPlaybackDidStart";
 NSString *const VLCPlaybackControllerPlaybackDidPause = @"VLCPlaybackControllerPlaybackDidPause";
@@ -1172,17 +1173,19 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
             if (continuePlayback == 1) {
                 [self setPlaybackPosition:lastPosition];
             } else if (continuePlayback == 0) {
-                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
-                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), item.title]
-                                                                 delegate:self
-                                                        cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                        otherButtonTitles:NSLocalizedString(@"BUTTON_CONTINUE", nil), nil];
-                alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
-                    if (!cancelled) {
-                        [self setPlaybackPosition:lastPosition];
-                    }
-                };
-                [alert show];
+                NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
+                ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                          buttonAction: ^(UIAlertAction* action){}];
+                ButtonAction *continueAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_CONTINUE", nil)
+                                                                            buttonAction: ^(UIAlertAction* action){
+                                                                                [self setPlaybackPosition:lastPosition];
+                                                                            }];
+                [buttonsAction addObject: cancelAction];
+                [buttonsAction addObject: continueAction];
+                [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
+                                                     errorMessage:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), item.title]
+                                                   viewController:self
+                                                    buttonsAction:buttonsAction];
             }
         }
     }

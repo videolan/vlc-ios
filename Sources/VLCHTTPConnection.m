@@ -26,6 +26,7 @@
 #import "UIDevice+VLC.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMetaData.h"
+#import "VLC_iOS-Swift.h"
 
 #if TARGET_OS_IOS
 #import "VLCThumbnailsCache.h"
@@ -722,15 +723,17 @@
 - (void)notifyUserAboutEndOfFreeStorage:(NSString *)filename
 {
 #if TARGET_OS_IOS
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                      message:[NSString stringWithFormat:
-                                                               NSLocalizedString(@"DISK_FULL_FORMAT", nil),
-                                                               filename,
-                                                               [[UIDevice currentDevice] model]]
-                                                     delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                            otherButtonTitles:nil];
-    [alert show];
+    NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
+    ButtonAction *okAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                              buttonAction: ^(UIAlertAction* action){}];
+    [buttonsAction addObject: okAction];
+    [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                         errorMessage:[NSString stringWithFormat:
+                                                       NSLocalizedString(@"DISK_FULL_FORMAT", nil),
+                                                       filename,
+                                                       [[UIDevice currentDevice] model]]
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                        buttonsAction:buttonsAction];
 #else
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                                                              message:[NSString stringWithFormat:

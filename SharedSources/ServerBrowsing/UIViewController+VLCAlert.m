@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #import "UIViewController+VLCAlert.h"
-
+#import "VLC_iOS-Swift.h"
 @implementation UIViewController (UIViewController_VLCAlert)
 #if TARGET_OS_TV
 - (void)vlc_showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle
@@ -22,12 +22,14 @@
 #else
 - (void)vlc_showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle
     {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:title
-                                                      message:message
-                                                     delegate:self
-                                            cancelButtonTitle:buttonTitle
-                                            otherButtonTitles:nil];
-    [alert show];
+        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
+        ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: buttonTitle
+                                                                  buttonAction: ^(UIAlertAction* action){}];
+        [buttonsAction addObject: cancelAction];
+        [VLCAlertViewController alertViewManagerWithTitle:title
+                                             errorMessage:message
+                                           viewController:self
+                                            buttonsAction:buttonsAction];
 }
 #endif
 @end

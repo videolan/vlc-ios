@@ -15,7 +15,7 @@
 #import "VLCMiniPlaybackView.h"
 #import "VLCPlaybackNavigationController.h"
 #import "VLCPlaybackController+MediaLibrary.h"
-
+#import "VLC_iOS-Swift.h"
 #if TARGET_OS_IOS
 #import "VLC_iOS-Swift.h"
 #import "VLCMovieViewController.h"
@@ -188,6 +188,10 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 {
     NSString *failedString = NSLocalizedString(@"PLAYBACK_FAILED", nil);
 #if TARGET_OS_IOS
+    NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
+    ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                              buttonAction: ^(UIAlertAction* action){}];
+    [buttonsAction addObject: cancelAction];
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
             if ([self.movieViewController respondsToSelector:@selector(showStatusMessage:forPlaybackController:)]) {
@@ -196,12 +200,10 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
             break;
         case VLCPlayerDisplayControllerDisplayModeMiniplayer:
         default:
-
-            [[[VLCAlertView alloc] initWithTitle:failedString
-                                         message:nil
-                                        delegate:nil
-                               cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                               otherButtonTitles:nil] show];
+            [VLCAlertViewController alertViewManagerWithTitle:failedString
+                                                 errorMessage:nil
+                                               viewController:self
+                                                buttonsAction:buttonsAction];
             break;
     }
 #else
