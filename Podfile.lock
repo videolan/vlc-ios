@@ -24,7 +24,7 @@ PODS:
   - GoogleAPIClient/Drive (1.0.5):
     - GoogleAPIClient/Core
     - GTMSessionFetcher (~> 1.1)
-  - GRKArrayDiff (2.1.1)
+  - GRKArrayDiff (2.2.1)
   - GTMAppAuth (0.7.0):
     - AppAuth (~> 0.92.0)
     - GTMSessionFetcher (~> 1.1)
@@ -36,13 +36,13 @@ PODS:
   - HockeySDK-tvOS (5.0.0)
   - HockeySDK/CrashOnlyLib (5.1.2)
   - InAppSettingsKit (2.2.2)
-  - MediaLibraryKit-prod (2.6.5):
-    - MobileVLCKit (~> 3.0.1)
+  - MediaLibraryKit-prod (2.6.6):
+    - MobileVLCKit (~> 3.1.0)
   - MetaDataFetcherKit (0.3.1):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
-  - MobileVLCKit (3.0.2)
-  - NSData+Base64 (1.0.0)
+  - MobileVLCKit (3.1.0)
+  - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (1.1)
   - OBSlider (1.1.0)
   - OROpenSubtitleDownloader (1.2.0):
@@ -51,13 +51,13 @@ PODS:
   - PAPasscode (1.0)
   - SimulatorStatusMagic (2.1)
   - SwiftLint (0.25.1)
-  - TVVLCKit (3.0.2)
+  - TVVLCKit (3.1.0)
   - upnpx (1.4.0)
   - VLC-LiveSDK (5.7.0x)
   - VLC-WhiteRaccoon (1.0.0)
   - XKKeychain (1.0.1)
   - xmlrpc (2.3.4):
-    - NSData+Base64 (~> 1.0.0)
+    - "NSData+Base64 (~> 1.0.0)"
 
 DEPENDENCIES:
   - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`)
@@ -70,18 +70,43 @@ DEPENDENCIES:
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
   - MediaLibraryKit-prod
   - MetaDataFetcherKit (~> 0.3.1)
-  - MobileVLCKit (= 3.0.2)
+  - MobileVLCKit (= 3.1.0)
   - ObjectiveDropboxOfficial (from `git://github.com/carolanitz/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - PAPasscode (~> 1.0)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
-  - TVVLCKit (= 3.0.2)
+  - TVVLCKit (= 3.1.0)
   - upnpx (~> 1.4.0)
   - VLC-LiveSDK (= 5.7.0x)
   - VLC-WhiteRaccoon
   - XKKeychain (~> 1.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - AppAuth
+    - GoogleAPIClient
+    - GRKArrayDiff
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - HockeySDK
+    - HockeySDK-tvOS
+    - MediaLibraryKit-prod
+    - MetaDataFetcherKit
+    - MobileVLCKit
+    - "NSData+Base64"
+    - OBSlider
+    - PAPasscode
+    - SimulatorStatusMagic
+    - SwiftLint
+    - TVVLCKit
+    - upnpx
+    - VLC-LiveSDK
+    - VLC-WhiteRaccoon
+    - XKKeychain
+    - xmlrpc
 
 EXTERNAL SOURCES:
   box-ios-sdk-v2:
@@ -120,29 +145,29 @@ SPEC CHECKSUMS:
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
   GoogleAPIClient: 77df755d41d70ee5a99b7b752614fbb439f19438
-  GRKArrayDiff: d24cb2d9694985b7032dee96d0d55b917d7b400c
+  GRKArrayDiff: 7522e374edcc55c1731a219e428847164b04cfab
   GTMAppAuth: 8d724be29ab8f2f6d35b2bf929d76340c9d1f1b1
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   HockeySDK: 38b7e2726af1ea86ae97ce4b5de33ab0817e3500
   HockeySDK-tvOS: 6b2a69f86419ebaf23225f59a64e5761ed3a0d8a
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
-  MediaLibraryKit-prod: 095dce5faa59e2bb0a537646ac09fe57eaf3fbdf
+  MediaLibraryKit-prod: 87d856c2f5cc46da9596e5da57c97190f6216682
   MetaDataFetcherKit: d1d61b061bf74268aaffb6bf08a70396672163df
-  MobileVLCKit: a9e06de53e7a7fd43d7b04bcab4f2e68868f768a
-  NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
+  MobileVLCKit: 4e55792b03c99429c9f4716aa44e685f65b3d178
+  "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: e11cdf40e8965a6c24c6d6ff64905f2df43ab653
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   SimulatorStatusMagic: 481558caf2b9ccb2ceba2cc193728d4db3dcac07
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
-  TVVLCKit: 178e4f82f8b57320774821384e42eaac403d2faa
+  TVVLCKit: 9474d4644124917d29585b3962f2f3fb64cbc64a
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
   VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
   VLC-WhiteRaccoon: 1e7e59b0568959135a89d09c416d1e11a5d9a986
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 18e842bb60930b5cb796659752398c4976a14d88
+PODFILE CHECKSUM: 26d7b4ab48ec627ff7eb66f6ddf43aee26bd0638
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.2

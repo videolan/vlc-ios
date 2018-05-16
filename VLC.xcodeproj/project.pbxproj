@@ -2414,7 +2414,6 @@
 				41B0BC821F73ED7D0063BA26 /* Sources */,
 				41B0BC831F73ED7D0063BA26 /* Frameworks */,
 				41B0BC841F73ED7D0063BA26 /* Resources */,
-				44F337CA2691C62D5F99325D /* [CP] Embed Pods Frameworks */,
 				D769DE60C2006D222216D63D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -2435,7 +2434,6 @@
 				7D1329391BA1F10100BE647E /* Sources */,
 				7D13293A1BA1F10100BE647E /* Frameworks */,
 				7D13293B1BA1F10100BE647E /* Resources */,
-				12FBF6B8DF68C968D9AD05E3 /* [CP] Embed Pods Frameworks */,
 				0452CD613294910CB73B58CB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -2457,7 +2455,6 @@
 				7D94FCD916DE7D1000F2623B /* Resources */,
 				DD3567881B6760BF00338947 /* Embed Watch Content */,
 				7D14C3551BF4E498003DDC41 /* Embed App Extensions */,
-				50F88350D33999B9CF48A5E2 /* [CP] Embed Pods Frameworks */,
 				9706D52A0CDF446E336826A6 /* [CP] Copy Pods Resources */,
 				41F7087C1F37900A00953630 /* ShellScript */,
 			);
@@ -2814,21 +2811,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		12FBF6B8DF68C968D9AD05E3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		23B425DEB65EA5C88D873ED2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2859,36 +2841,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "python Tools/update_strings.py Resources/en.lproj/Localizable.strings";
-		};
-		44F337CA2691C62D5F99325D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-VLC for iOSUITests/Pods-VLC-iOS-VLC for iOSUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		50F88350D33999B9CF48A5E2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		9706D52A0CDF446E336826A6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
