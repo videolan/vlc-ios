@@ -29,8 +29,6 @@ typealias AlertAction = (UIAlertAction) -> Void
 
    @objc class func alertViewManager(title: String, errorMessage: String? = nil, viewController: UIViewController,
                                        buttonsAction: [ButtonAction]) {
-    print(buttonsAction[0].buttonTitle)
-    print(buttonsAction[0].buttonAction)
         let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
         alert.show(viewController, sender: Any?.self)
         for buttonAction in buttonsAction {
