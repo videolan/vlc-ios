@@ -2835,7 +2835,6 @@
 				7D1329391BA1F10100BE647E /* Sources */,
 				7D13293A1BA1F10100BE647E /* Frameworks */,
 				7D13293B1BA1F10100BE647E /* Resources */,
-				12FBF6B8DF68C968D9AD05E3 /* [CP] Embed Pods Frameworks */,
 				0452CD613294910CB73B58CB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -2855,7 +2854,6 @@
 				7D3CF7B02050265B00FA0C1F /* Sources */,
 				7D3CF82F2050265B00FA0C1F /* Frameworks */,
 				7D3CF84D2050265B00FA0C1F /* Resources */,
-				7D3CF8882050265B00FA0C1F /* [CP] Embed Pods Frameworks */,
 				7D3CF8892050265B00FA0C1F /* [CP] Copy Pods Resources */,
 				7D3CF88A2050265B00FA0C1F /* ShellScript */,
 			);
@@ -2878,7 +2876,6 @@
 				7D94FCD916DE7D1000F2623B /* Resources */,
 				DD3567881B6760BF00338947 /* Embed Watch Content */,
 				7D14C3551BF4E498003DDC41 /* Embed App Extensions */,
-				50F88350D33999B9CF48A5E2 /* [CP] Embed Pods Frameworks */,
 				9706D52A0CDF446E336826A6 /* [CP] Copy Pods Resources */,
 				41F7087C1F37900A00953630 /* ShellScript */,
 			);
@@ -2919,7 +2916,6 @@
 				DD35676C1B6760BF00338947 /* Sources */,
 				DD35676D1B6760BF00338947 /* Frameworks */,
 				DD35676E1B6760BF00338947 /* Resources */,
-				70B91CB914052D9EA124AEC3 /* [CP] Embed Pods Frameworks */,
 				E83630DE168FA377CB2B8C84 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -3362,21 +3358,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		12FBF6B8DF68C968D9AD05E3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		23B425DEB65EA5C88D873ED2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3408,36 +3389,6 @@
 			shellPath = /bin/sh;
 			shellScript = "python Tools/update_strings.py Resources/en.lproj/Localizable.strings";
 		};
-		50F88350D33999B9CF48A5E2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		70B91CB914052D9EA124AEC3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-watchOS-Extension/Pods-VLC-watchOS-Extension-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7D3CF7AF2050265B00FA0C1F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3454,21 +3405,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7D3CF8882050265B00FA0C1F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7D3CF8892050265B00FA0C1F /* [CP] Copy Pods Resources */ = {
