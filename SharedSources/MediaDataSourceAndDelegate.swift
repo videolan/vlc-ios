@@ -39,7 +39,9 @@ public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, U
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let playlistCell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), for: indexPath) as? VLCPlaylistCollectionViewCell {
-            playlistCell.mediaObject = services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory)
+            if let mediaObject = services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory) as? NSManagedObject {
+                playlistCell.mediaObject = mediaObject
+            }
             return playlistCell
         }
         return UICollectionViewCell()

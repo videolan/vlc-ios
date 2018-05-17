@@ -305,3 +305,16 @@
 "SORT" = "Sort";
 "SORT_BY" = "Sort by";
 "VIDEO" = "Video";
+
+/* New strings */
+"FOLDER_EMPTY" = "FOLDER_EMPTY";
+
+/* New strings */
+"albums" = "albums";
+"artists" = "artists";
+"genres" = "genres";
+"movies" = "movies";
+"playlists" = "playlists";
+"songs" = "songs";
+"videos" = "videos";
+"episodes" = "episodes";

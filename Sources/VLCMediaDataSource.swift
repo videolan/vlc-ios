@@ -42,14 +42,12 @@ struct VLCMediaType {
     var foundAudio = [MLFile]()
 
     var movies = [MLFile]()
-    var episodes = [MLFile]()
-    var artists = [MLFile]()
-    var albums = [MLFile]()
-    var tracks = [MLFile]() // might be just foundAudio
-    var genres = [MLFile]()
-    var audioPlaylist = [MLFile]()
-    var videoPlaylist = [MLFile]()
-    var allVideos = [MLFile]() // might be just foundVideo
+    var episodes = [MLShowEpisode]()
+    var artists = [String]()
+    var albums = [MLAlbum]()
+    var genres = [String]()
+    var audioPlaylist = [MLLabel]()
+    var videoPlaylist = [MLLabel]()
 
     override init() {
         super.init()
@@ -57,43 +55,66 @@ struct VLCMediaType {
         getAllAudio()
     }
 
-    @objc func numberOfFiles(subcategory: VLCMediaSubcategory) -> Int {
+
+    @objc
+    func numberOfFiles(subcategory: VLCMediaSubcategory) -> Int {
         return array(for: subcategory).count
     }
 
-    private func array(for subcategory: VLCMediaSubcategory) -> [MLFile] {
+    private func array(for subcategory: VLCMediaSubcategory ) -> [Any] {
         switch subcategory {
         case .unknown:
             preconditionFailure("No")
         case .movies:
-            preconditionFailure("TODO")
             return movies
         case .episodes:
-            preconditionFailure("TODO")
             return episodes
         case .artists:
-            preconditionFailure("TODO")
             return artists
         case .albums:
-            preconditionFailure("TODO")
             return albums
         case .tracks:
-            return tracks
+            return foundAudio
         case .genres:
-            preconditionFailure("TODO")
             return genres
         case .audioPlaylists:
-            preconditionFailure("TODO")
             return audioPlaylist
         case .videoPlaylists:
-            preconditionFailure("TODO")
+
             return videoPlaylist
         case .allVideos:
-            return allVideos
+            return foundVideos
         }
     }
 
-    @objc func object(at index: Int, subcategory: VLCMediaSubcategory) -> NSManagedObject {
+    func indicatorInfo(for subcategory: VLCMediaSubcategory) -> IndicatorInfo {
+        switch subcategory {
+        case .unknown:
+            preconditionFailure("No")
+        case .movies:
+            return IndicatorInfo(title: NSLocalizedString("movies", comment: ""), image: UIImage(named: "TVShowsIcon"))
+        case .episodes:
+            return IndicatorInfo(title: NSLocalizedString("episodes", comment: ""), image: UIImage(named: "episodes"))
+        case .artists:
+            return IndicatorInfo(title: NSLocalizedString("artists", comment: ""), image: UIImage(named: "artists"))
+        case .albums:
+             return IndicatorInfo(title: NSLocalizedString("albums", comment: ""), image: UIImage(named: "MusicAlbums"))
+        case .tracks:
+            return IndicatorInfo(title: NSLocalizedString("songs", comment: ""), image: UIImage(named: "songs"))
+        case .genres:
+            return IndicatorInfo(title: NSLocalizedString("genres", comment: ""), image: UIImage(named: "genres"))
+        case .audioPlaylists:
+            return IndicatorInfo(title: NSLocalizedString("playlists", comment: ""), image: UIImage(named: "playlists"))
+        case .videoPlaylists:
+            return IndicatorInfo(title: NSLocalizedString("playlists", comment: ""), image: UIImage(named: "playlists"))
+        case .allVideos:
+            return IndicatorInfo(title: NSLocalizedString("videos", comment: ""), image: UIImage(named: "videos"))
+        }
+
+    }
+
+
+    @objc func object(at index: Int, subcategory: VLCMediaSubcategory) -> Any {
 
         guard index >= 0 else {
             preconditionFailure("a negative value ? I don't think so!")
@@ -106,8 +127,8 @@ struct VLCMediaType {
         preconditionFailure("index is taller than count")
     }
 
-    func allObjects(for subcategory: VLCMediaSubcategory) -> [MLFile] {
-        return array(for: subcategory)
+    func allObjects(for subcategory: VLCMediaSubcategory) -> [Any] {
+        return array(for:subcategory)
     }
 
     internal func removeObject(at index: Int, subcategory: VLCMediaSubcategory) {
@@ -139,30 +160,88 @@ struct VLCMediaType {
                 ($0 as MLFile).isKind(ofType: kMLFileTypeTVShowEpisode) ||
                 ($0 as MLFile).isKind(ofType: kMLFileTypeClip)
         }
-        allVideosFromVideos()
-        // TODO: generate video subcategories
+        moviesFromVideos()
+        episodesFromVideos()
+        videoPlaylistsFromVideos()
     }
 
     private func getAllAudio() {
         let files = MLFile.allFiles() as! [MLFile]
         foundAudio = files.filter { $0.isSupportedAudioFile() }
-        tracksFromAudio()
-        // TODO: generate remaining subcategories
+
+        artistsFromAudio()
+        albumsFromAudio()
+        audioPlaylistsFromAudio()
+        genresFromAudio()
     }
 
-    private func tracksFromAudio() {
-        if tracks != foundAudio {
-            tracks = foundAudio
-            NotificationCenter.default.post(name: .VLCTracksDidChangeNotification, object: tracks)
+    private func artistsFromAudio() {
+        let albumtracks = MLAlbumTrack.allTracks() as! [MLAlbumTrack]
+        let tracksWithArtist = albumtracks.filter {
+            $0.artist != nil && $0.artist != ""
+            }
+        artists = tracksWithArtist.map{ $0.artist }
+    }
+
+    private func genresFromAudio(){
+        let albumtracks = MLAlbumTrack.allTracks() as! [MLAlbumTrack]
+        let tracksWithArtist = albumtracks.filter {
+            $0.genre != nil && $0.genre != ""
+        }
+        genres = tracksWithArtist.map{ $0.genre }
+    }
+
+    private func episodesFromVideos() {
+        episodes = MLShowEpisode.allEpisodes() as! [MLShowEpisode]
+
+    }
+
+    private func albumsFromAudio(){
+        albums = MLAlbum.allAlbums() as! [MLAlbum]
+    }
+
+    private func audioPlaylistsFromAudio() {
+        let labels = MLLabel.allLabels() as! [MLLabel]
+        audioPlaylist = labels.filter {
+            let audioFiles = $0.files.filter{
+                if let file = $0 as? MLFile {
+                    return file.isSupportedAudioFile()
+                }
+                return false
+            }
+            return !audioFiles.isEmpty
+        }
+    }
+    private func videoPlaylistsFromVideos() {
+        let labels = MLLabel.allLabels() as! [MLLabel]
+        audioPlaylist = labels.filter {
+            let audioFiles = $0.files.filter{
+                if let file = $0 as? MLFile {
+                    return file.isShowEpisode() || file.isMovie() || file.isClip()
+                }
+                return false
+            }
+            return !audioFiles.isEmpty
         }
     }
 
-    private func allVideosFromVideos() {
-        if allVideos != foundVideos {
-            allVideos = foundVideos
-            NotificationCenter.default.post(name: .VLCAllVideosDidChangeNotification, object: allVideos)
-        }
+    private func moviesFromVideos() {
+        movies = foundVideos.filter{ $0.isMovie() }
     }
+//    private func tracksFromAudio() {
+//        if tracks != foundAudio {
+//            tracks = foundAudio
+//            NotificationCenter.default.post(name: .VLCTracksDidChangeNotification, object: tracks)
+//        }
+//    }
+//
+//    private func allVideosFromVideos() {
+//        if allVideos != foundVideos {
+//            allVideos = foundVideos
+//            NotificationCenter.default.post(name: .VLCAllVideosDidChangeNotification, object: allVideos)
+//        }
+//    }
+
 }
 
 // Todo: implement the remove
