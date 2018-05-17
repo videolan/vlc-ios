@@ -25,7 +25,7 @@ struct DropError: Error {
 
 @available(iOS 11.0, *)
 @objc protocol VLCDragAndDropManagerDelegate: NSObjectProtocol {
-    func dragAndDropManagerRequestsFile(manager: VLCDragAndDropManager, atIndexPath indexPath: IndexPath) -> AnyObject?
+    func dragAndDropManagerRequestsFile(manager: VLCDragAndDropManager, atIndexPath indexPath: IndexPath) -> Any?
     func dragAndDropManagerInsertItem(manager: VLCDragAndDropManager, item: NSManagedObject, atIndexPath indexPath: IndexPath)
     func dragAndDropManagerDeleteItem(manager: VLCDragAndDropManager, atIndexPath indexPath: IndexPath)
     func dragAndDropManagerRemoveFileFromFolder(manager: VLCDragAndDropManager, file: NSManagedObject)
@@ -343,7 +343,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         return false
     }
 
-    private func fileIsCollection(file: AnyObject?) -> Bool {
+    private func fileIsCollection(file: Any?) -> Bool {
         let isFolder = file as? MLLabel != nil
         let isAlbum = file as? MLAlbum != nil
         let isShow = file as? MLShow != nil
@@ -352,8 +352,9 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
 
     private func fileIsCollection(atIndexPath indexPath: IndexPath?) -> Bool {
         if let indexPath = indexPath {
-            let file = delegate?.dragAndDropManagerRequestsFile(manager: self, atIndexPath: indexPath)
-            return fileIsCollection(file: file)
+            if let file = delegate?.dragAndDropManagerRequestsFile(manager: self, atIndexPath: indexPath) {
+                return fileIsCollection(file:file)
+            }
         }
         return false
     }
@@ -375,7 +376,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     ///
     /// - Parameter file: Can be of type MLAlbum, MLLabel or MLShow
     /// - Returns: An array of UIDragItems
-    private func dragItemsforCollection(file: AnyObject) -> [UIDragItem] {
+    private func dragItemsforCollection(file: Any) -> [UIDragItem] {
         var dragItems = [UIDragItem]()
         var set = Set<AnyHashable>()
         if let folder = file as? MLLabel {
@@ -403,9 +404,9 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         return dragItems
     }
 
-    // Provides an item for other applications
-    private func dragItem(fromFile file: AnyObject) -> [UIDragItem] {
-        guard let file = mlFile(from: file), let path = file.url else {
+    //Provides an item for other applications
+    private func dragItem(fromFile file: Any) -> [UIDragItem] {
+        guard let file = mlFile(from: file as AnyObject), let path = file.url else {
             assert(false, "can't create a dragitem if there is no file or the file has no url")
             return []
         }

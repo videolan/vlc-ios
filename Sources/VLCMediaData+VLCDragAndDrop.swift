@@ -14,7 +14,8 @@ import Foundation
 
 @available(iOS 11.0, *)
 extension VLCMediaDataSource: VLCDragAndDropManagerDelegate {
-    func dragAndDropManagerRequestsFile(manager: VLCDragAndDropManager, atIndexPath indexPath: IndexPath) -> AnyObject? {
+
+    func dragAndDropManagerRequestsFile(manager: VLCDragAndDropManager, atIndexPath indexPath: IndexPath) -> Any? {
         return object(at: indexPath.row, subcategory: manager.mediaType.subcategory)
     }
 

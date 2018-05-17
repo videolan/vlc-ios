@@ -18,7 +18,7 @@ import Foundation
     func mediaViewControllerDidSelectSort(_ mediaViewController: VLCMediaViewController)
 }
 
-public class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate {
+public class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
     private var services: Services
     private var mediaDataSourceAndDelegate: MediaDataSourceAndDelegate?
     private var searchController: UISearchController?
@@ -171,7 +171,9 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     // MARK: - MediaDatasourceAndDelegate
 
     override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory))
+        if let mediaObject = services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory) as? NSManagedObject {
+            delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: mediaObject)
+        }
     }
 
     // MARK: - Search
@@ -187,5 +189,9 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     public func didDismissSearchController(_ searchController: UISearchController) {
         collectionView?.dataSource = mediaDataSourceAndDelegate
+    }
+
+    public func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        return  services.mediaDataSource.indicatorInfo(for:mediaType.subcategory)
     }
 }
