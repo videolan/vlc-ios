@@ -4,8 +4,6 @@
   </a>
 </h3>
 
-#
-
 This is the official mirror repository of VLC for iOS and tvOS application.
 
 _You can find the official repository [here](https://code.videolan.org/videolan/vlc-ios/)._
