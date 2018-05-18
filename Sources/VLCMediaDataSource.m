@@ -170,7 +170,6 @@
              * syndrome (see #10435, #10464, #10432 et al) */
             if (file.showEpisode.show.name.length == 0) {
                 file.showEpisode.show.name = NSLocalizedString(@"UNTITLED_SHOW", nil);
-                [self updateContentsForSelection:_currentSelection];
             }
         } else if (file.isAlbumTrack && file.albumTrack.album.tracks.count < 2) {
             [self addObject:file];
