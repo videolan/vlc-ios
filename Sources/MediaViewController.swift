@@ -51,7 +51,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     init(services: Services, type: VLCMediaType) {
         self.services = services
         mediaType = type
-        self.rendererButton = services.rendererDiscovererManager.setupRendererButton()
+        rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         if mediaType.category == .video {
