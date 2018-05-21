@@ -123,18 +123,18 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
             laContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
                                      localizedReason: NSLocalizedString("BIOMETRIC_UNLOCK", comment: ""),
                                      reply: { [weak self] success, _ in
-                                        DispatchQueue.main.async {
-                                            if success {
-                                                UIApplication.shared.delegate?.window??.rootViewController?.dismiss(animated: true, completion: {
-                                                    self?.completion?()
-                                                    self?.completion = nil
-                                                    self?.avoidPromptingTouchOrFaceID = false
-                                                })
-                                            } else {
-                                                // user hit cancel and wants to enter the passcode
-                                                self?.avoidPromptingTouchOrFaceID = true
-                                            }
-                                        }
+                                         DispatchQueue.main.async {
+                                             if success {
+                                                 UIApplication.shared.delegate?.window??.rootViewController?.dismiss(animated: true, completion: {
+                                                     self?.completion?()
+                                                     self?.completion = nil
+                                                     self?.avoidPromptingTouchOrFaceID = false
+                                                 })
+                                             } else {
+                                                 // user hit cancel and wants to enter the passcode
+                                                 self?.avoidPromptingTouchOrFaceID = true
+                                             }
+                                         }
             })
         }
     }

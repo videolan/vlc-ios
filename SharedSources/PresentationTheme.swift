@@ -75,7 +75,7 @@ extension Notification.Name {
     static var current: PresentationTheme = {
         let isDarkTheme = UserDefaults.standard.bool(forKey: kVLCSettingAppTheme)
         return isDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
-        }() {
+    }() {
         didSet {
             NotificationCenter.default.post(name: .VLCThemeDidChangeNotification, object: self)
             AppearanceManager.setupAppearance(theme: self.current)
@@ -125,20 +125,20 @@ extension Notification.Name {
 }
 
 let brightPalette = ColorPalette(isDark: false,
-                                name: "Default",
-                                background: UIColor(0xf9f9f7),
-                                cellBackgroundA: UIColor(0xf9f9f7),
-                                cellBackgroundB: UIColor(0xe5e5e3),
-                                cellDetailTextColor: UIColor(0xa9a9a9),
-                                cellTextColor: UIColor(0x000000),
-                                lightTextColor: UIColor(0x888888),
-                                sectionHeaderTextColor: UIColor(0xf9f9f7),
-                                sectionHeaderTintColor: UIColor(0xe5efe3),
-                                settingsBackground: UIColor(0xdcdcdc),
-                                settingsCellBackground: UIColor(0xf9f9f7),
-                                settingsSeparatorColor: UIColor(0xd3d3d3),
-                                tabBarColor: UIColor(0xffffff),
-                                orangeUI: UIColor(0xff8800))
+                                 name: "Default",
+                                 background: UIColor(0xf9f9f7),
+                                 cellBackgroundA: UIColor(0xf9f9f7),
+                                 cellBackgroundB: UIColor(0xe5e5e3),
+                                 cellDetailTextColor: UIColor(0xa9a9a9),
+                                 cellTextColor: UIColor(0x000000),
+                                 lightTextColor: UIColor(0x888888),
+                                 sectionHeaderTextColor: UIColor(0xf9f9f7),
+                                 sectionHeaderTintColor: UIColor(0xe5efe3),
+                                 settingsBackground: UIColor(0xdcdcdc),
+                                 settingsCellBackground: UIColor(0xf9f9f7),
+                                 settingsSeparatorColor: UIColor(0xd3d3d3),
+                                 tabBarColor: UIColor(0xffffff),
+                                 orangeUI: UIColor(0xff8800))
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",

@@ -37,7 +37,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     @objc weak var delegate: VLCDragAndDropManagerDelegate?
 
     let utiTypeIdentifiers: [String] = VLCDragAndDropManager.supportedTypeIdentifiers()
-     var mediaType: VLCMediaType
+    var mediaType: VLCMediaType
     /// Returns the supported type identifiers that VLC can process.
     /// It fetches the identifiers in LSItemContentTypes from all the CFBundleDocumentTypes in the info.plist.
     /// Video, Audio and Subtitle formats
@@ -76,7 +76,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     }
 
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-         return dragItems(forIndexPath: indexPath)
+        return dragItems(forIndexPath: indexPath)
     }
 
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {

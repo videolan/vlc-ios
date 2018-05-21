@@ -34,7 +34,7 @@ public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, U
     }
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return Int(services.mediaDataSource.numberOfFiles(subcategory: mediaType.subcategory))
+        return Int(services.mediaDataSource.numberOfFiles(subcategory: mediaType.subcategory))
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

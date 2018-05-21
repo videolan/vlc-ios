@@ -239,8 +239,8 @@ extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
     func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath) {
         guard let renderer = item as? VLCRendererItem,
             let cell = collectionView.cellForItem(at: indexPath) as? VLCActionSheetCell else {
-                assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDelegate: Cell is not a VLCActionSheetCell")
-                return
+            assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDelegate: Cell is not a VLCActionSheetCell")
+            return
         }
         let isCurrentlySelectedRenderer = renderer == VLCPlaybackController.sharedInstance().renderer
 
@@ -262,8 +262,8 @@ extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
     func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: VLCActionSheetCell.identifier, for: indexPath) as? VLCActionSheetCell else {
-                assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: Unable to dequeue reusable cell")
-                return UICollectionViewCell()
+            assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: Unable to dequeue reusable cell")
+            return UICollectionViewCell()
         }
         let renderers = getAllRenderers()
         if indexPath.row < renderers.count {

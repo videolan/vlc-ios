@@ -113,8 +113,8 @@ class VLCActionSheet: UIViewController {
         UIView.transition(with: backgroundView, duration: 0.01, options: .transitionCrossDissolve, animations: {
             [weak self] in
             self?.backgroundView.isHidden = true
-            }, completion: { [weak self] finished in
-                self?.presentingViewController?.dismiss(animated: true, completion: nil)
+        }, completion: { [weak self] finished in
+            self?.presentingViewController?.dismiss(animated: true, completion: nil)
         })
     }
 
@@ -124,7 +124,7 @@ class VLCActionSheet: UIViewController {
         NSLayoutConstraint.activate([
             headerView.heightAnchor.constraint(equalToConstant: cellHeight),
             headerView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            ])
+        ])
     }
 
     fileprivate func setupCollectionViewConstraints() {
@@ -132,14 +132,14 @@ class VLCActionSheet: UIViewController {
             collectionViewHeightConstraint,
             maxCollectionViewHeightConstraint,
             collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            ])
+        ])
     }
 
     fileprivate func setupBottomBackgroundView() {
         NSLayoutConstraint.activate([
             bottomBackgroundViewHeightConstraint,
             bottomBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor)
-            ])
+        ])
     }
 
     fileprivate func setupMainStackViewConstraints() {
@@ -148,7 +148,7 @@ class VLCActionSheet: UIViewController {
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            ])
+        ])
     }
 
     override func updateViewConstraints() {
@@ -202,7 +202,7 @@ class VLCActionSheet: UIViewController {
 
         UIView.transition(with: backgroundView, duration: 0.2, options: .transitionCrossDissolve, animations: { [weak self] in
             self?.backgroundView.isHidden = false
-            }, completion: nil)
+        }, completion: nil)
 
         let realMainStackView = mainStackView.frame
 
@@ -211,7 +211,7 @@ class VLCActionSheet: UIViewController {
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
             [mainStackView] in
             mainStackView.frame = realMainStackView
-            }, completion: nil)
+        }, completion: nil)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
