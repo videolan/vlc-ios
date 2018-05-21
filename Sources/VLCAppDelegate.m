@@ -89,6 +89,15 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     [defaults registerDefaults:appDefaults];
 }
 
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
+{
+#if DEBUG
+    [self setupUITests];
+#endif
+
+    return YES;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     BITHockeyManager *hockeyManager = [BITHockeyManager sharedHockeyManager];
