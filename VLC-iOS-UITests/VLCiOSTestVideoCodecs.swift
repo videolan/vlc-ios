@@ -24,6 +24,7 @@ class VLCiOSTestVideoCodecs: XCTestCase {
         setupSnapshot(application)
         helper = TestHelper(application)
         setupSnapshot(application)
+        application.launchArguments = ["-disableAnimations"]
         application.launch()
     }
 

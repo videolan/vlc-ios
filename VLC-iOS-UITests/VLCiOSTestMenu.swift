@@ -23,6 +23,7 @@ class VLCiOSTestMenu: XCTestCase {
         XCUIDevice.shared.orientation = .portrait
         setupSnapshot(application)
         helper = TestHelper(application)
+        application.launchArguments = ["-disableAnimations"]
         application.launch()
     }
 
