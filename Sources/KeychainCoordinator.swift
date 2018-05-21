@@ -156,5 +156,4 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
             self.completion = nil
         })
     }
-
 }

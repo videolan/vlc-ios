@@ -18,7 +18,6 @@ import CoreMotion
 protocol DeviceMotionDelegate: NSObjectProtocol {
 
     func deviceMotionHasAttitude(deviceMotion: DeviceMotion, pitch: Double, yaw: Double, roll: Double)
-
 }
 
 struct EulerAngles {
