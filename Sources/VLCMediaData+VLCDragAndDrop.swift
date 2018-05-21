@@ -30,7 +30,7 @@ extension VLCMediaDataSource: VLCDragAndDropManagerDelegate {
     }
 
     func dragAndDropManagerCurrentSelection(manager: VLCDragAndDropManager) -> AnyObject? {
-        //  TODO:Handle playlists and Collections
+        //  TODO: Handle playlists and Collections
         fatalError()
     }
 
