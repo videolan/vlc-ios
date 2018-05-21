@@ -32,10 +32,10 @@ class DeviceMotion: NSObject {
 
     let motion = CMMotionManager()
     let sqrt2 = 0.5.squareRoot()
-    var lastEulerAngle: EulerAngles? = nil
-    var beginningQuaternion: CMQuaternion? = nil
+    var lastEulerAngle: EulerAngles?
+    var beginningQuaternion: CMQuaternion?
 
-    @objc weak var delegate: DeviceMotionDelegate? = nil
+    @objc weak var delegate: DeviceMotionDelegate?
 
     private func multQuaternion(q1: CMQuaternion, q2: CMQuaternion) -> CMQuaternion {
         var ret = CMQuaternion()

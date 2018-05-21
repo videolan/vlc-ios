@@ -102,7 +102,7 @@ class VLCRendererDiscovererManager: NSObject {
 
     fileprivate func setRendererItem(rendererItem: VLCRendererItem) {
         let vpcRenderer = VLCPlaybackController.sharedInstance().renderer
-        var finalRendererItem: VLCRendererItem? = nil
+        var finalRendererItem: VLCRendererItem?
         var isSelected: Bool = false
 
         if vpcRenderer != rendererItem {

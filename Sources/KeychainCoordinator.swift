@@ -45,7 +45,7 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
 
     static let passcodeService = "org.videolan.vlc-ios.passcode"
 
-    var completion: (() -> Void)? = nil
+    var completion: (() -> Void)?
 
     private var avoidPromptingTouchOrFaceID = false
 
