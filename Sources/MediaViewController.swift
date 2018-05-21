@@ -67,11 +67,11 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     @available(*, unavailable)
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder: ) has not been implemented")
     }
 
-    override public func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
         setupSearchController()
@@ -109,7 +109,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         }
     }
 
-    override public func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         reloadData()
     }
@@ -152,13 +152,13 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         delegate?.mediaViewControllerDidSelectSort(self)
     }
 
-    override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView?.collectionViewLayout.invalidateLayout()
     }
 
     // MARK: - MediaDatasourceAndDelegate
 
-    override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory))
     }
 
