@@ -107,7 +107,7 @@ struct VLCMediaType {
     }
 
     func allObjects(for subcategory: VLCMediaSubcategory) -> [MLFile] {
-        return array(for:subcategory)
+        return array(for: subcategory)
     }
 
     internal func removeObject(at index: Int, subcategory: VLCMediaSubcategory) {

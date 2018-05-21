@@ -40,10 +40,10 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
 
         tabBarController.addChildViewController(displayController)
         tabBarController.view.addSubview(displayController.view)
-        displayController.view.layoutMargins = UIEdgeInsets(top:0, left:0, bottom:tabBarController.tabBar.frame.size.height, right:0)
+        displayController.view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: tabBarController.tabBar.frame.size.height, right: 0)
         displayController.didMove(toParentViewController: tabBarController)
 
-        let videoVC = VLCMediaViewController(services: services, type:VLCMediaType(category: .video, subcategory: .allVideos))
+        let videoVC = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .allVideos))
         //this should probably not be the delegate
         videoVC.delegate = self
         videoVC.title = NSLocalizedString("VIDEO", comment: "")
@@ -54,14 +54,14 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
         videoVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.video
 
         // Audio
-        let audioVC = VLCMediaViewController(services: services, type:VLCMediaType(category: .audio, subcategory: .tracks))
+        let audioVC = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .tracks))
         //this should probably not be the delegate
         audioVC.delegate = self
         audioVC.title = NSLocalizedString("AUDIO", comment: "")
         audioVC.tabBarItem = UITabBarItem(
             title: NSLocalizedString("AUDIO", comment: ""),
             image: UIImage(named: "MusicAlbums"),
-            selectedImage:UIImage(named: "MusicAlbums"))
+            selectedImage: UIImage(named: "MusicAlbums"))
         audioVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.audio
 
         // Serverlist
@@ -89,7 +89,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
     // MARK: - VLCMediaViewControllerDelegate
 
     func mediaViewControllerDidSelectMediaObject(_ VLCMediaViewController: VLCMediaViewController, mediaObject: NSManagedObject) {
-        playMedia(media:mediaObject)
+        playMedia(media: mediaObject)
     }
 
     func mediaViewControllerDidSelectSort(_ VLCMediaViewController: VLCMediaViewController) {

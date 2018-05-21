@@ -60,7 +60,7 @@ public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, U
         var cellWidth = collectionView.bounds.size.width / numberOfCells
         cellWidth = cellWidth - ceil(((numberOfCells + 1) * cellPadding) / numberOfCells)
 
-        return CGSize(width:cellWidth, height:cellWidth * aspectRatio)
+        return CGSize(width: cellWidth, height: cellWidth * aspectRatio)
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

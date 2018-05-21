@@ -50,13 +50,13 @@ class DeviceMotion: NSObject {
 
     private func quaternionToEuler(qIn: CMQuaternion) -> EulerAngles {
         // Change the axes
-        var q = CMQuaternion(x:qIn.y, y:qIn.z, z:qIn.x, w:qIn.w)
+        var q = CMQuaternion(x: qIn.y, y: qIn.z, z: qIn.x, w: qIn.w)
 
         // Rotation of 90°
         let qRot = CMQuaternion(x: 0, y: 0, z: -sqrt2 / 2, w: sqrt2 / 2)
 
         // Perform the rotation
-        q = multQuaternion(q1:qRot, q2:q)
+        q = multQuaternion(q1: qRot, q2: q)
 
         // Now, we can perform the conversion and manage ourself the singularities
 
@@ -120,7 +120,7 @@ class DeviceMotion: NSObject {
                     currentEuler.pitch = lastEulerAngle.pitch + diffPitch
                     currentEuler.roll = lastEulerAngle.roll + diffRoll
                 }
-                strongSelf.delegate?.deviceMotionHasAttitude(deviceMotion:strongSelf, pitch:currentEuler.pitch, yaw:currentEuler.yaw, roll:currentEuler.roll)
+                strongSelf.delegate?.deviceMotionHasAttitude(deviceMotion: strongSelf, pitch: currentEuler.pitch, yaw: currentEuler.yaw, roll: currentEuler.roll)
             }
         }
     }

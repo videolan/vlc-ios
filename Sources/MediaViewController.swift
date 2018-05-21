@@ -95,9 +95,9 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     func setupCollectionView() {
-        mediaDataSourceAndDelegate = MediaDataSourceAndDelegate(services: services, type:mediaType)
+        mediaDataSourceAndDelegate = MediaDataSourceAndDelegate(services: services, type: mediaType)
         mediaDataSourceAndDelegate?.delegate = self
-        let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle:nil)
+        let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle: nil)
         collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true

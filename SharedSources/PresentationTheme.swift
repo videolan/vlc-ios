@@ -92,9 +92,9 @@ extension Notification.Name {
 @objc public extension UIColor {
 
     public convenience init(_ rgbValue: UInt32, _ alpha: CGFloat = 1.0) {
-        let r = CGFloat((rgbValue & 0xFF0000) >> 16)/255.0
-        let g = CGFloat((rgbValue & 0xFF00) >> 8)/255.0
-        let b = CGFloat(rgbValue & 0xFF)/255.0
+        let r = CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0
+        let g = CGFloat((rgbValue & 0xFF00) >> 8) / 255.0
+        let b = CGFloat(rgbValue & 0xFF) / 255.0
         self.init(red: r, green: g, blue: b, alpha: 1.0)
     }
 

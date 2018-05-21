@@ -22,7 +22,7 @@ extension VLCMediaDataSource: VLCDragAndDropManagerDelegate {
         if item as? MLLabel != nil && indexPath.row < numberOfFiles(subcategory: manager.mediaType.subcategory) {
             removeObject(at: indexPath.row, subcategory: manager.mediaType.subcategory)
         }
-        insert(item as! MLFile, at: indexPath.row, subcategory:manager.mediaType.subcategory)
+        insert(item as! MLFile, at: indexPath.row, subcategory: manager.mediaType.subcategory)
     }
 
     func dragAndDropManagerDeleteItem(manager: VLCDragAndDropManager, atIndexPath indexPath: IndexPath) {
