@@ -83,7 +83,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
         settingsVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
 
         let controllers = [audioVC, serverVC, videoVC, settingsVC]
-        tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
+        tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
     }
 
     // MARK: - VLCMediaViewControllerDelegate
