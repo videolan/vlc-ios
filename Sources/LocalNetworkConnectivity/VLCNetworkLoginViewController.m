@@ -172,11 +172,12 @@
     self.loginInformation = login;
     NSError *error = nil;
     if (![self.savedLoginsDataSource saveLogin:login error:&error]) {
-
-        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-        ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil) buttonAction: ^(UIAlertAction* action){}];
-        [buttonsAction addObject: cancelAction];
-        [VLCAlertViewController alertViewManagerWithTitle:error.localizedDescription errorMessage: error.localizedFailureReason viewController:self buttonsAction:buttonsAction];
+        [VLCAlertViewController alertViewManagerWithTitle:error.localizedDescription
+                                             errorMessage: error.localizedFailureReason
+                                           viewController:self
+                                            buttonsAction:@[[[VLCAlertButton alloc]
+                                                             initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                             action: ^(UIAlertAction* action){}]]];
     }
 
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
@@ -198,19 +199,14 @@
 - (BOOL)protocolSelected
 {
     if (self.protocolDataSource.protocol == VLCServerProtocolUndefined) {
-
-        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-        ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                  buttonAction: ^(UIAlertAction* action){}];
-        [buttonsAction addObject: cancelAction];
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
                                              errorMessage: NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
                                            viewController:self
-                                            buttonsAction:buttonsAction];
+                                            buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                         action: ^(UIAlertAction* action){}]]];
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
         return NO;
     }
-
     return YES;
 }
 

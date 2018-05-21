@@ -188,10 +188,6 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 {
     NSString *failedString = NSLocalizedString(@"PLAYBACK_FAILED", nil);
 #if TARGET_OS_IOS
-    NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-    ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                              buttonAction: ^(UIAlertAction* action){}];
-    [buttonsAction addObject: cancelAction];
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
             if ([self.movieViewController respondsToSelector:@selector(showStatusMessage:forPlaybackController:)]) {
@@ -203,7 +199,8 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
             [VLCAlertViewController alertViewManagerWithTitle:failedString
                                                  errorMessage:nil
                                                viewController:self
-                                                buttonsAction:buttonsAction];
+                                                buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                           action: ^(UIAlertAction* action){}]]];
             break;
     }
 #else

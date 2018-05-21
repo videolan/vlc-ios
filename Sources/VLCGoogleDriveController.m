@@ -129,14 +129,11 @@
 
 - (void)showAlert:(NSString *)title message:(NSString *)message
 {
-    NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-    ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                              buttonAction: ^(UIAlertAction* action){}];
-    [buttonsAction addObject: cancelAction];
     [VLCAlertViewController alertViewManagerWithTitle:title
                                          errorMessage:message
                                        viewController:[UIApplication sharedApplication].keyWindow.rootViewController
-                                        buttonsAction:buttonsAction];
+                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                   action: ^(UIAlertAction* action){}]]];
 }
 
 #pragma mark - file management

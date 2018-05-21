@@ -326,14 +326,12 @@
 - (void)_handleError:(NSError *)error
 {
 #if TARGET_OS_IOS
-    NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-    ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                              buttonAction: ^(UIAlertAction* action){}];
-    [buttonsAction addObject: cancelAction];
     [VLCAlertViewController alertViewManagerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
                                          errorMessage:error.localizedDescription
-                                       viewController:self.delegate
-                                        buttonsAction:buttonsAction];
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                                     action: ^(UIAlertAction* action){}]
+                                                        ]];
 #else
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
                                                                    message:error.localizedDescription

@@ -139,17 +139,19 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     if ([self.urlField.text length] > 0) {
         NSURL *URLtoSave = [NSURL URLWithString:self.urlField.text];
         if (![URLtoSave.lastPathComponent isSupportedFormat] && ![URLtoSave.lastPathComponent.pathExtension isEqualToString:@""]) {
-            NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-            ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_CANCEL", nil) buttonAction: ^(UIAlertAction* action){}];
-            [buttonsAction addObject: cancelAction];
-            [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil) errorMessage: [NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), URLtoSave.lastPathComponent] viewController:self buttonsAction:buttonsAction];
+            [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                 errorMessage: [NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), URLtoSave.lastPathComponent]
+                                               viewController:self
+                                                buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                                             action: ^(UIAlertAction* action){}]]];
             return;
         }
         if (![URLtoSave.scheme isEqualToString:@"http"] & ![URLtoSave.scheme isEqualToString:@"https"] && ![URLtoSave.scheme isEqualToString:@"ftp"]) {
-            NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-            ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_CANCEL", nil) buttonAction: ^(UIAlertAction* action){}];
-            [buttonsAction addObject: cancelAction];
-            [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil) errorMessage: [NSString stringWithFormat:NSLocalizedString(@"SCHEME_NOT_SUPPORTED_LONG", nil), URLtoSave.scheme] viewController:self buttonsAction:buttonsAction];
+            [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil)
+                                                 errorMessage: [NSString stringWithFormat:NSLocalizedString(@"SCHEME_NOT_SUPPORTED_LONG", nil), URLtoSave.scheme]
+                                               viewController:self
+                                                buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                                             action: ^(UIAlertAction* action){}]]];
             return;
         }
 
@@ -313,10 +315,11 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (void)downloadFailedWithErrorDescription:(NSString *)description
 {
-    NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-    ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_CANCEL", nil) buttonAction: ^(UIAlertAction* action){}];
-    [buttonsAction addObject: cancelAction];
-    [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil) errorMessage: description viewController:self buttonsAction:buttonsAction];
+    [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil)
+                                         errorMessage: description
+                                       viewController:self
+                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                                       action: ^(UIAlertAction* action){}]]];
 }
 
 - (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
@@ -389,10 +392,11 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 {
     _FTPDownloadRequest = nil;
     [self downloadEnded];
-    NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-    ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_CANCEL", nil) buttonAction: ^(UIAlertAction* action){}];
-    [buttonsAction addObject: cancelAction];
-    [VLCAlertViewController alertViewManagerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), request.error.errorCode] errorMessage: request.error.message viewController:self buttonsAction:buttonsAction];
+    [VLCAlertViewController alertViewManagerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), request.error.errorCode]
+                                         errorMessage: request.error.message
+                                       viewController:self
+                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                        action: ^(UIAlertAction* action){}]]];
 }
 
 #pragma mark - table view data source

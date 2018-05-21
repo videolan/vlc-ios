@@ -203,14 +203,11 @@
 - (IBAction)openButtonAction:(id)sender
 {
     if ([self.urlField.text length] <= 0 || [NSURL URLWithString:self.urlField.text] == nil) {
-        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-        ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                  buttonAction: ^(UIAlertAction* action){}];
-        [buttonsAction addObject: cancelAction];
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"URL_NOT_SUPPORTED", nil)
                                              errorMessage: NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
                                            viewController:self
-                                            buttonsAction:buttonsAction];
+                                            buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                       action: ^(UIAlertAction* action){}]]];
         return;
     }
     if (!self.privateToggleSwitch.on) {
@@ -424,10 +421,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         }
         [receivedSub writeToFile:fileSubtitlePath atomically:YES];
     } else {
-        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-        ButtonAction *okAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil) buttonAction: ^(UIAlertAction* action){}];
-        [buttonsAction addObject: okAction];
-        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil) errorMessage: [NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]] viewController:self buttonsAction:buttonsAction];
+        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                             errorMessage: [NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
+                                           viewController:self
+                                            buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                     action: ^(UIAlertAction* action){}]]];
     }
 
     return fileSubtitlePath;
