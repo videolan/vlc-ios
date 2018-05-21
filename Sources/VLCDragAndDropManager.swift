@@ -10,8 +10,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-import UIKit
 import MobileCoreServices
+import UIKit
 
 @available(iOS 11.0, *)
 struct DropError: Error {

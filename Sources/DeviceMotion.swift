@@ -11,8 +11,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-import Foundation
 import CoreMotion
+import Foundation
 
 @objc(VLCDeviceMotionDelegate)
 protocol DeviceMotionDelegate: NSObjectProtocol {
