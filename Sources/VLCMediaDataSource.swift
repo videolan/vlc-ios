@@ -61,7 +61,7 @@ struct VLCMediaType {
         return array(for: subcategory).count
     }
 
-    private func array(for subcategory: VLCMediaSubcategory ) -> [MLFile] {
+    private func array(for subcategory: VLCMediaSubcategory) -> [MLFile] {
         switch subcategory {
         case .unknown:
             preconditionFailure("No")
