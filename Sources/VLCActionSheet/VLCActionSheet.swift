@@ -24,6 +24,7 @@ import UIKit
 }
 
 // MARK: VLCActionSheet
+
 class VLCActionSheet: UIViewController {
 
     private let cellHeight: CGFloat = 50
@@ -118,6 +119,7 @@ class VLCActionSheet: UIViewController {
     }
 
     // MARK: Private methods
+
     fileprivate func setuplHeaderViewConstraints() {
         NSLayoutConstraint.activate([
             headerView.heightAnchor.constraint(equalToConstant: cellHeight),
@@ -166,6 +168,7 @@ class VLCActionSheet: UIViewController {
     }
 
     // MARK: UIViewController
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -230,6 +233,7 @@ class VLCActionSheet: UIViewController {
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
+
 extension VLCActionSheet: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: cellHeight)
@@ -237,6 +241,7 @@ extension VLCActionSheet: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: UICollectionViewDelegate
+
 extension VLCActionSheet: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let delegate = delegate, let item = delegate.itemAtIndexPath(indexPath) {
@@ -248,6 +253,7 @@ extension VLCActionSheet: UICollectionViewDelegate {
 }
 
 // MARK: UICollectionViewDataSource
+
 extension VLCActionSheet: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let dataSource = dataSource {

@@ -55,7 +55,7 @@ class VLCActionSheetSectionHeader: UIView {
             separator.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
             separator.heightAnchor.constraint(equalToConstant: 0.5),
             separator.topAnchor.constraint(equalTo: bottomAnchor, constant: -1)
-            ])
+        ])
     }
 
     fileprivate func setupTitle() {
@@ -65,6 +65,6 @@ class VLCActionSheetSectionHeader: UIView {
             title.centerYAnchor.constraint(equalTo: centerYAnchor),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             title.topAnchor.constraint(equalTo: topAnchor)
-            ])
+        ])
     }
 }

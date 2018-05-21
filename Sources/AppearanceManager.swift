@@ -31,8 +31,8 @@ class AppearanceManager: NSObject {
 
         if #available(iOS 11.0, *) {
             UINavigationBar.appearance().prefersLargeTitles = true
-            UINavigationBar.appearance(whenContainedInInstancesOf:[VLCPlaybackNavigationController.self]).prefersLargeTitles = false
-            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+            UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).prefersLargeTitles = false
+            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         }
         // For the edit selection indicators
         UITableView.appearance().tintColor = theme.colors.orangeUI

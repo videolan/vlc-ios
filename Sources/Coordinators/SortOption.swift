@@ -16,6 +16,6 @@ public enum SortOption: String {
     case size = "Size"
 
     var localizedDescription: String {
-        return NSLocalizedString(self.rawValue, comment: "")
+        return NSLocalizedString(rawValue, comment: "")
     }
 }

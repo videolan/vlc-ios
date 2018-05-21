@@ -75,12 +75,13 @@ extension Notification.Name {
     static var current: PresentationTheme = {
         let isDarkTheme = UserDefaults.standard.bool(forKey: kVLCSettingAppTheme)
         return isDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
-        }() {
+    }() {
         didSet {
             NotificationCenter.default.post(name: .VLCThemeDidChangeNotification, object: self)
             AppearanceManager.setupAppearance(theme: self.current)
         }
     }
+
     public init(colors: ColorPalette) {
         self.colors = colors
     }
@@ -91,9 +92,9 @@ extension Notification.Name {
 @objc public extension UIColor {
 
     public convenience init(_ rgbValue: UInt32, _ alpha: CGFloat = 1.0) {
-        let r = CGFloat((rgbValue & 0xFF0000) >> 16)/255.0
-        let g = CGFloat((rgbValue & 0xFF00) >> 8)/255.0
-        let b = CGFloat(rgbValue & 0xFF)/255.0
+        let r = CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0
+        let g = CGFloat((rgbValue & 0xFF00) >> 8) / 255.0
+        let b = CGFloat(rgbValue & 0xFF) / 255.0
         self.init(red: r, green: g, blue: b, alpha: 1.0)
     }
 
@@ -124,33 +125,33 @@ extension Notification.Name {
 }
 
 let brightPalette = ColorPalette(isDark: false,
-                                name: "Default",
-                                background: UIColor(0xf9f9f7),
-                                cellBackgroundA: UIColor(0xf9f9f7),
-                                cellBackgroundB: UIColor(0xe5e5e3),
-                                cellDetailTextColor: UIColor(0xa9a9a9),
-                                cellTextColor: UIColor(0x000000),
-                                lightTextColor: UIColor(0x888888),
-                                sectionHeaderTextColor: UIColor(0xf9f9f7),
-                                sectionHeaderTintColor: UIColor(0xe5efe3),
-                                settingsBackground: UIColor(0xdcdcdc),
-                                settingsCellBackground: UIColor(0xf9f9f7),
-                                settingsSeparatorColor: UIColor(0xd3d3d3),
-                                tabBarColor: UIColor(0xffffff),
-                                orangeUI: UIColor(0xff8800))
+                                 name: "Default",
+                                 background: UIColor(0xF9F9F7),
+                                 cellBackgroundA: UIColor(0xF9F9F7),
+                                 cellBackgroundB: UIColor(0xE5E5E3),
+                                 cellDetailTextColor: UIColor(0xA9A9A9),
+                                 cellTextColor: UIColor(0x000000),
+                                 lightTextColor: UIColor(0x888888),
+                                 sectionHeaderTextColor: UIColor(0xF9F9F7),
+                                 sectionHeaderTintColor: UIColor(0xE5EFE3),
+                                 settingsBackground: UIColor(0xDCDCDC),
+                                 settingsCellBackground: UIColor(0xF9F9F7),
+                                 settingsSeparatorColor: UIColor(0xD3D3D3),
+                                 tabBarColor: UIColor(0xFFFFFF),
+                                 orangeUI: UIColor(0xFF8800))
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",
-                               background: UIColor(0x292b36),
-                               cellBackgroundA: UIColor(0x292b36),
+                               background: UIColor(0x292B36),
+                               cellBackgroundA: UIColor(0x292B36),
                                cellBackgroundB: UIColor(0x000000),
-                               cellDetailTextColor: UIColor(0xd3d3d3),
-                               cellTextColor: UIColor(0xffffff),
-                               lightTextColor: UIColor(0xb8b8b8),
+                               cellDetailTextColor: UIColor(0xD3D3D3),
+                               cellTextColor: UIColor(0xFFFFFF),
+                               lightTextColor: UIColor(0xB8B8B8),
                                sectionHeaderTextColor: UIColor(0x828282),
-                               sectionHeaderTintColor: UIColor(0x3c3c3c),
-                               settingsBackground: UIColor(0x292b36),
-                               settingsCellBackground: UIColor(0x3d3f40),
-                               settingsSeparatorColor: UIColor(0xa9a9a9),
-                               tabBarColor: UIColor(0xffffff),
-                               orangeUI: UIColor(0xff8800))
+                               sectionHeaderTintColor: UIColor(0x3C3C3C),
+                               settingsBackground: UIColor(0x292B36),
+                               settingsCellBackground: UIColor(0x3D3F40),
+                               settingsSeparatorColor: UIColor(0xA9A9A9),
+                               tabBarColor: UIColor(0xFFFFFF),
+                               orangeUI: UIColor(0xFF8800))
