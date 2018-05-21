@@ -93,7 +93,7 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
             delegate?.showViewController(vc)
         }
     }
-    
+
     @objc func viewController(indexPath: IndexPath) -> UIViewController? {
         guard let cellType = RemoteNetworkCellType(rawValue: indexPath.row) else {
             assertionFailure("We're having more rows than types of cells that should never happen")

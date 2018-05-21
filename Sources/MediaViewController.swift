@@ -34,7 +34,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         dragAndDropManager.delegate = services.mediaDataSource
         return dragAndDropManager
     }()
-    
+
     lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
         let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
@@ -113,7 +113,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         super.viewDidAppear(animated)
         reloadData()
     }
-    
+
     func setupSearchController() {
         searchController = UISearchController(searchResultsController: nil)
         searchController?.searchResultsUpdater = self
@@ -137,7 +137,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""), style: .plain, target: self, action: #selector(sort))
     }
-    
+
     func displayEmptyViewIfNeeded() {
         collectionView?.backgroundView = collectionView?.numberOfItems(inSection: 0) == 0 ? emptyView : nil
     }
