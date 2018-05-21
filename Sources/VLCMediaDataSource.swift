@@ -92,6 +92,7 @@ struct VLCMediaType {
             return allVideos
         }
     }
+
     @objc func object(at index: Int, subcategory: VLCMediaSubcategory) -> NSManagedObject {
 
         guard index >= 0 else {
@@ -163,6 +164,7 @@ struct VLCMediaType {
         }
     }
 }
+
 //Todo: implement the remove
 //    - (void)removeMediaObjectFromFolder:(NSManagedObject *)managedObject
 //{

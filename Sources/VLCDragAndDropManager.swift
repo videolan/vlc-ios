@@ -22,6 +22,7 @@ struct DropError: Error {
 
     let kind: ErrorKind
 }
+
 @available(iOS 11.0, *)
 @objc protocol VLCDragAndDropManagerDelegate: NSObjectProtocol {
     func dragAndDropManagerRequestsFile(manager: VLCDragAndDropManager, atIndexPath indexPath: IndexPath) -> AnyObject?
@@ -63,6 +64,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         mediaType = type
         super.init()
     }
+
     // MARK: - TableView
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
         return canHandleDropSession(session: session)

@@ -32,6 +32,7 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
         }
         return touchIDEnabled
     }
+
     private var faceIDEnabled: Bool {
         var faceIDEnabled = UserDefaults.standard.bool(forKey:kVLCSettingPasscodeAllowFaceID)
         let laContext = LAContext()

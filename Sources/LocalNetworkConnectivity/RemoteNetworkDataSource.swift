@@ -27,6 +27,7 @@ enum RemoteNetworkCellType: Int {
 protocol RemoteNetworkDataSourceDelegate {
     func showViewController(_ viewController: UIViewController)
 }
+
 @objc(VLCRemoteNetworkDataSourceAndDelegate)
 public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     let cloudVC = VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)

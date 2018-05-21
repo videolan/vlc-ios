@@ -81,6 +81,7 @@ extension Notification.Name {
             AppearanceManager.setupAppearance(theme: self.current)
         }
     }
+
     public init(colors: ColorPalette) {
         self.colors = colors
     }
