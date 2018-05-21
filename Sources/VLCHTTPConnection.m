@@ -723,17 +723,14 @@
 - (void)notifyUserAboutEndOfFreeStorage:(NSString *)filename
 {
 #if TARGET_OS_IOS
-    NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-    ButtonAction *okAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                              buttonAction: ^(UIAlertAction* action){}];
-    [buttonsAction addObject: okAction];
     [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                          errorMessage:[NSString stringWithFormat:
                                                        NSLocalizedString(@"DISK_FULL_FORMAT", nil),
                                                        filename,
                                                        [[UIDevice currentDevice] model]]
                                        viewController:[UIApplication sharedApplication].keyWindow.rootViewController
-                                        buttonsAction:buttonsAction];
+                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                   action: ^(UIAlertAction* action){}]]];
 #else
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                                                              message:[NSString stringWithFormat:

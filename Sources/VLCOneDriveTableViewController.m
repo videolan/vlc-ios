@@ -198,29 +198,27 @@
 
     if (_selectedFile.size.longLongValue < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         /* selected item is a proper file, ask the user if s/he wants to download it */
-        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-        ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                                  buttonAction: ^(UIAlertAction* action){}];
-        ButtonAction *downloadAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
-                                                                  buttonAction: ^(UIAlertAction* action){
-                                                                      [_oneDriveController downloadObject:_selectedFile];
-                                                                      _selectedFile = nil;
-                                                                  }];
-        [buttonsAction addObject: cancelAction];
-        [buttonsAction addObject: downloadAction];
+        NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                                    action: ^(UIAlertAction* action){
+                                                                                        _selectedFile = nil;
+                                                                                    }],
+                                                     [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
+                                                                                    action: ^(UIAlertAction* action){
+                                                                                        [_oneDriveController downloadObject:_selectedFile];
+                                                                                        _selectedFile = nil;
+                                                                                    }]];
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
                                              errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
                                            viewController:self
                                             buttonsAction:buttonsAction];
     } else {
-        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-        ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                  buttonAction: ^(UIAlertAction* action){}];
-        [buttonsAction addObject: cancelAction];
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                              errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
                                            viewController:self
-                                            buttonsAction:buttonsAction];
+                                            buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                         action: ^(UIAlertAction* action){
+                                                                                             _selectedFile = nil;
+                                                                                         }]]];
     }
 }
 #endif
