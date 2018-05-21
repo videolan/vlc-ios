@@ -140,14 +140,14 @@ struct VLCMediaType {
                 ($0 as MLFile).isKind(ofType: kMLFileTypeClip)
         }
         allVideosFromVideos()
-        //TODO: generate video subcategories
+        // TODO: generate video subcategories
     }
 
     private func getAllAudio() {
         let files = MLFile.allFiles() as! [MLFile]
         foundAudio = files.filter { $0.isSupportedAudioFile() }
         tracksFromAudio()
-        //TODO: generate remaining subcategories
+        // TODO: generate remaining subcategories
     }
 
     private func tracksFromAudio() {
@@ -165,9 +165,9 @@ struct VLCMediaType {
     }
 }
 
-//Todo: implement the remove
+// Todo: implement the remove
 //    - (void)removeMediaObjectFromFolder:(NSManagedObject *)managedObject
-//{
+// {
 //    NSAssert(([managedObject isKindOfClass:[MLFile class]] && ((MLFile *)managedObject).labels.count > 0), @"All media in a folder should be of type MLFile and it should be in a folder");
 //
 //    if (![managedObject isKindOfClass:[MLFile class]]) return;
@@ -179,7 +179,7 @@ struct VLCMediaType {
 //    }
 //
 //    - (void)removeMediaObject:(NSManagedObject *)managedObject
-//{
+// {
 //    if ([managedObject isKindOfClass:[MLAlbum class]]) {
 //        MLAlbum *album = (MLAlbum *)managedObject;
 //        NSSet *iterAlbumTrack = [NSSet setWithSet:album.tracks];
@@ -231,7 +231,7 @@ struct VLCMediaType {
 //    }
 //
 //    - (void)_deleteMediaObject:(MLFile *)mediaObject
-//{
+// {
 //    [self rearrangeFolderTrackNumbersForRemovedItem:mediaObject];
 //
 //    /* stop playback if needed */
@@ -264,7 +264,7 @@ struct VLCMediaType {
 //    }
 //
 //    - (void)rearrangeFolderTrackNumbersForRemovedItem:(MLFile *) mediaObject
-//{
+// {
 //    MLLabel *label = [mediaObject.labels anyObject];
 //    NSSet *allFiles = label.files;
 //    for (MLFile *file in allFiles) {
@@ -273,5 +273,5 @@ struct VLCMediaType {
 //            file.folderTrackNumber = [NSNumber numberWithInt:value - 1];
 //        }
 //    }
-//}
-//@end
+// }
+// @end

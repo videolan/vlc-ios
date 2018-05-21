@@ -91,21 +91,21 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
 
         for item in coordinator.items {
             let itemProvider = item.dragItem.itemProvider
-            //we're not gonna handle moving of folders
+            // we're not gonna handle moving of folders
             if let sourceItem = item.dragItem.localObject, fileIsCollection(file: sourceItem as AnyObject) {
                 continue
             }
 
-            if fileIsFolder(atIndexPath:destinationPath) { //handle dropping onto a folder
+            if fileIsFolder(atIndexPath:destinationPath) { // handle dropping onto a folder
                 addDragItem(tableView:tableView, dragItem:item, toFolderAt:destinationPath)
                 continue
             }
 
-            if item.sourceIndexPath != nil { //element within VLC
+            if item.sourceIndexPath != nil { // element within VLC
                 moveItem(tableView:tableView, item:item, toIndexPath:destinationPath)
                 continue
             }
-            //Element dragging from another App
+            // Element dragging from another App
             let placeholder = UITableViewDropPlaceholder(insertionIndexPath: destinationPath, reuseIdentifier: VLCPlaylistTableViewCell.cellIdentifier(), rowHeight: VLCPlaylistTableViewCell.heightOfCell())
             let placeholderContext = coordinator.drop(item.dragItem, to: placeholder)
             createFileWith(itemProvider:itemProvider) {
@@ -142,7 +142,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     }
 
     private func addDragItem(tableView: UITableView, dragItem item: UITableViewDropItem, toFolderAt index: IndexPath) {
-        if let sourcepath = item.sourceIndexPath { //local file that just needs to be moved
+        if let sourcepath = item.sourceIndexPath { // local file that just needs to be moved
             tableView.performBatchUpdates({
                 if let file = delegate?.dragAndDropManagerRequestsFile(manager:self, atIndexPath: sourcepath) as? MLFile {
                     tableView.deleteRows(at: [sourcepath], with: .automatic)
@@ -187,18 +187,18 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         let destinationPath = coordinator.destinationIndexPath ?? IndexPath(row: row, section: section)
 
         for item in coordinator.items {
-            if let sourceItem = item.dragItem.localObject, fileIsCollection(file: sourceItem as AnyObject) { //We're not handling moving of Collection
+            if let sourceItem = item.dragItem.localObject, fileIsCollection(file: sourceItem as AnyObject) { // We're not handling moving of Collection
                 continue
             }
-            if fileIsFolder(atIndexPath:destinationPath) { //handle dropping onto a folder
+            if fileIsFolder(atIndexPath:destinationPath) { // handle dropping onto a folder
                 addDragItem(collectionView:collectionView, dragItem:item, toFolderAt:destinationPath)
                 continue
             }
-            if item.sourceIndexPath != nil { //element within VLC
+            if item.sourceIndexPath != nil { // element within VLC
                 moveItem(collectionView:collectionView, item:item, toIndexPath:destinationPath)
                 continue
             }
-            //Element from another App
+            // Element from another App
             let placeholder = UICollectionViewDropPlaceholder(insertionIndexPath: destinationPath, reuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
             let placeholderContext = coordinator.drop(item.dragItem, to: placeholder)
             createFileWith(itemProvider:item.dragItem.itemProvider) {
@@ -232,7 +232,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
 
     private func addDragItem(collectionView: UICollectionView, dragItem item: UICollectionViewDropItem, toFolderAt index: IndexPath) {
         if let sourcepath = item.sourceIndexPath {
-            //local file that just needs to be moved
+            // local file that just needs to be moved
             collectionView.performBatchUpdates({
                 if let file = delegate?.dragAndDropManagerRequestsFile(manager:self, atIndexPath: sourcepath) as? MLFile {
                     collectionView.deleteItems(at:[sourcepath])
@@ -268,7 +268,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
                 if let error = error as? DropError {
                     self?.handleError(error: error, itemProvider: item.itemProvider)
                 }
-                //no need to handle the file case since the libraryVC updates itself after getting a file
+                // no need to handle the file case since the libraryVC updates itself after getting a file
             }
         }
     }
@@ -292,27 +292,27 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     private func dropOperation(hasActiveDrag: Bool, firstSessionItem item: AnyObject?, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UIDropOperation {
         let inAlbum = delegate?.dragAndDropManagerCurrentSelection(manager: self) as? MLAlbum != nil
         let inShow = delegate?.dragAndDropManagerCurrentSelection(manager: self) as? MLShow != nil
-        //you can move files into a folder or copy from anothr app into a folder
+        // you can move files into a folder or copy from anothr app into a folder
         if fileIsFolder(atIndexPath:destinationIndexPath) {
-            //no dragging entire shows and albums into folders
+            // no dragging entire shows and albums into folders
             if let dragItem = item, let mlFile = dragItem.localObject as? MLFile, mlFile.isAlbumTrack() || mlFile.isShowEpisode() {
                 return .forbidden
             }
             return hasActiveDrag ? .move : .copy
         }
-        //you can't reorder
+        // you can't reorder
         if inFolder() {
             return hasActiveDrag ? .forbidden : .copy
         }
-        //you can't reorder in or drag into an Album or Show
+        // you can't reorder in or drag into an Album or Show
         if inAlbum || inShow {
             return .cancel
         }
-        //we're dragging a file out of a folder
+        // we're dragging a file out of a folder
         if let dragItem = item, let mlFile = dragItem.localObject as? MLFile, !mlFile.labels.isEmpty {
             return .copy
         }
-        //no reorder from another app into the top layer
+        // no reorder from another app into the top layer
         return hasActiveDrag ? .forbidden : .copy
     }
 
@@ -358,7 +358,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         return false
     }
 
-    //creating dragItems for the file at indexpath
+    // creating dragItems for the file at indexpath
     private func dragItems(forIndexPath indexPath: IndexPath) -> [UIDragItem] {
         if let file = delegate?.dragAndDropManagerRequestsFile(manager: self, atIndexPath: indexPath) {
             if fileIsCollection(atIndexPath: indexPath) {
@@ -403,7 +403,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         return dragItems
     }
 
-    //Provides an item for other applications
+    // Provides an item for other applications
     private func dragItem(fromFile file: AnyObject) -> [UIDragItem] {
         guard let file = mlFile(from: file), let path = file.url else {
             assert(false, "can't create a dragitem if there is no file or the file has no url")
@@ -413,9 +413,9 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         let data = try? Data(contentsOf: path, options: .mappedIfSafe)
         let itemProvider = NSItemProvider()
         itemProvider.suggestedName = path.lastPathComponent
-        //maybe use UTTypeForFileURL
+        // maybe use UTTypeForFileURL
         if let identifiers = try? path.resourceValues(forKeys: [.typeIdentifierKey]), let identifier = identifiers.typeIdentifier {
-            //here we can show progress
+            // here we can show progress
             itemProvider.registerDataRepresentation(forTypeIdentifier: identifier, visibility: .all) { completion -> Progress? in
                 completion(data, nil)
                 return nil
@@ -468,7 +468,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
                 }
                 return
             }
-            //returns nil for local session but this should also not be called for a local session
+            // returns nil for local session but this should also not be called for a local session
             guard let destinationURL = strongSelf.moveFileToDocuments(fromURL: url) else {
                 DispatchQueue.main.async {
                     completion(nil, DropError(kind: .moveFileToDocuments))
@@ -481,7 +481,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
 
                 if let file = MLFile.file(for: destinationURL).first as? MLFile {
                     DispatchQueue.main.async {
-                        //we dragged into a folder
+                        // we dragged into a folder
                         if let selection = strongSelf.delegate?.dragAndDropManagerCurrentSelection(manager: strongSelf) as? MLLabel {
                             file.labels = [selection]
                         }

@@ -64,7 +64,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
             selectedImage:UIImage(named: "MusicAlbums"))
         audioVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.audio
 
-        //Serverlist
+        // Serverlist
         let serverVC = VLCServerListViewController(nibName: nil, bundle: nil)
         serverVC.title = NSLocalizedString("LOCAL_NETWORK", comment: "")
         serverVC.tabBarItem = UITabBarItem(
@@ -73,7 +73,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
             selectedImage: UIImage(named: "Local"))
         serverVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork
 
-        //Settings
+        // Settings
         let settingsVC = VLCSettingsController()
         settingsVC.title = NSLocalizedString("Settings", comment: "")
         settingsVC.tabBarItem = UITabBarItem(
@@ -103,7 +103,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
     }
 
     func showSortOptions() {
-        //This should be in a subclass
+        // This should be in a subclass
         let sortOptionsAlertController = UIAlertController(title: NSLocalizedString("SORT_BY", comment: ""), message: nil, preferredStyle: .actionSheet)
         let sortByNameAction = UIAlertAction(title: SortOption.alphabetically.localizedDescription, style: .default) { action in
         }

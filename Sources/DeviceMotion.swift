@@ -101,7 +101,7 @@ class DeviceMotion: NSObject {
                 guard let strongSelf = self, let data = data else {
                     return
                 }
-                //get the first quaternion that we started with
+                // get the first quaternion that we started with
                 if strongSelf.beginningQuaternion == nil {
                     strongSelf.beginningQuaternion = data.attitude.quaternion
                 }
@@ -109,13 +109,13 @@ class DeviceMotion: NSObject {
 
                 // if we panned we will have a lastEuler value that we need to take as beginning angle
                 if let lastEulerAngle = strongSelf.lastEulerAngle {
-                    //we get the devicemotion diff between start and currentangle
+                    // we get the devicemotion diff between start and currentangle
                     let beginningEuler = strongSelf.quaternionToEuler(qIn: strongSelf.beginningQuaternion!)
                     let diffYaw = currentEuler.yaw - beginningEuler.yaw
                     let diffPitch = currentEuler.pitch - beginningEuler.pitch
                     let diffRoll = currentEuler.roll - beginningEuler.roll
 
-                    //and add that to the angle that we had after we lifted our finger
+                    // and add that to the angle that we had after we lifted our finger
                     currentEuler.yaw = lastEulerAngle.yaw + diffYaw
                     currentEuler.pitch = lastEulerAngle.pitch + diffPitch
                     currentEuler.roll = lastEulerAngle.roll + diffRoll

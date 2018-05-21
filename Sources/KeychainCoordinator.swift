@@ -20,9 +20,9 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
         return UserDefaults.standard.bool(forKey:kVLCSettingPasscodeOnKey)
     }
 
-    //Since FaceID and TouchID are both set to 1 when the defaults are registered
-    //we have to double check for the biometry type to not return true even though the setting is not visible
-    //and that type is not supported by the device
+    // Since FaceID and TouchID are both set to 1 when the defaults are registered
+    // we have to double check for the biometry type to not return true even though the setting is not visible
+    // and that type is not supported by the device
     private var touchIDEnabled: Bool {
         var touchIDEnabled = UserDefaults.standard.bool(forKey:kVLCSettingPasscodeAllowTouchID)
         let laContext = LAContext()
@@ -131,7 +131,7 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
                                                     self?.avoidPromptingTouchOrFaceID = false
                                                 })
                                             } else {
-                                                //user hit cancel and wants to enter the passcode
+                                                // user hit cancel and wants to enter the passcode
                                                 self?.avoidPromptingTouchOrFaceID = true
                                             }
                                         }
