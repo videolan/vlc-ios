@@ -95,7 +95,7 @@ class DeviceMotion: NSObject {
 
     @objc func startDeviceMotion() {
         if motion.isDeviceMotionAvailable {
-            motion.gyroUpdateInterval = 1.0 / 60.0  // 60 Hz
+            motion.gyroUpdateInterval = 1.0 / 60.0 // 60 Hz
             motion.startDeviceMotionUpdates(using: .xArbitraryZVertical, to: .main) {
                 [weak self] (data, error) in
                 guard let strongSelf = self, let data = data else {

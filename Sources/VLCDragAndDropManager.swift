@@ -295,7 +295,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
         //you can move files into a folder or copy from anothr app into a folder
         if fileIsFolder(atIndexPath:destinationIndexPath) {
             //no dragging entire shows and albums into folders
-            if let dragItem = item, let mlFile = dragItem.localObject as? MLFile, mlFile.isAlbumTrack() ||  mlFile.isShowEpisode() {
+            if let dragItem = item, let mlFile = dragItem.localObject as? MLFile, mlFile.isAlbumTrack() || mlFile.isShowEpisode() {
                 return .forbidden
             }
             return hasActiveDrag ? .move : .copy
