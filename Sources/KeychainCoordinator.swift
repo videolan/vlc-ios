@@ -148,6 +148,7 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
     }
 
     // MARK: PAPassCodeDelegate
+
     func paPasscodeViewControllerDidEnterPasscode(_ controller: PAPasscodeViewController!) {
         avoidPromptingTouchOrFaceID = false
         UIApplication.shared.delegate?.window??.rootViewController?.dismiss(animated: true, completion: {

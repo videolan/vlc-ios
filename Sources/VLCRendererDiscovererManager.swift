@@ -83,6 +83,7 @@ class VLCRendererDiscovererManager: NSObject {
     }
 
     // MARK: VLCActionSheet
+
     @objc fileprivate func displayActionSheet() {
         guard let presentingViewController = presentingViewController else {
             assertionFailure("VLCRendererDiscovererManager: Cannot display actionSheet, no viewController setted")
@@ -144,6 +145,7 @@ class VLCRendererDiscovererManager: NSObject {
 }
 
 // MARK: VLCRendererDiscovererDelegate
+
 extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
     func rendererDiscovererItemAdded(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
         for button in rendererButtons {
@@ -219,6 +221,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
 }
 
 // MARK: VLCActionSheetDelegate
+
 extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
     func headerViewTitle() -> String? {
         return NSLocalizedString("HEADER_TITLE_RENDERER", comment: "")
@@ -249,6 +252,7 @@ extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
 }
 
 // MARK: VLCActionSheetDataSource
+
 extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
     func numberOfRows() -> Int {
         return getAllRenderers().count

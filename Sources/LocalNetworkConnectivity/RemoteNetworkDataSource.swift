@@ -37,6 +37,7 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
     @objc weak var delegate: RemoteNetworkDataSourceDelegate?
 
     // MARK: - DataSource
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RemoteNetworkCellType.count
     }
@@ -81,6 +82,7 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
     }
 
     // MARK: - Delegate
+
     public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return RemoteNetworkCellType(rawValue: indexPath.row) == .wifi ? nil : indexPath
     }

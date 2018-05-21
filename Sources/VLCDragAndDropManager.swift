@@ -66,6 +66,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     }
 
     // MARK: - TableView
+
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
         return canHandleDropSession(session: session)
     }
@@ -162,6 +163,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     }
 
     // MARK: - Collectionview
+
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
         return canHandleDropSession(session: session)
     }
@@ -272,6 +274,7 @@ class VLCDragAndDropManager: NSObject, UICollectionViewDragDelegate, UITableView
     }
 
     // MARK: - Shared Methods
+
     // Checks if the session has items conforming to typeidentifiers
     private func canHandleDropSession(session: UIDropSession) -> Bool {
         if session.localDragSession != nil {

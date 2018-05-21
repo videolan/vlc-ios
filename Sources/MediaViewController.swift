@@ -143,6 +143,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     // MARK: Renderer
+
     private func setupRendererButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rendererButton)
     }
@@ -156,11 +157,13 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     // MARK: - MediaDatasourceAndDelegate
+
     override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory))
     }
 
     // MARK: - Search
+
     public func updateSearchResults(for searchController: UISearchController) {
         searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: services.mediaDataSource.allObjects(for: mediaType.subcategory))
         collectionView?.reloadData()
