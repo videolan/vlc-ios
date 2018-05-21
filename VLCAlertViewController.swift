@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCAlertControllerExtension.swift
+ * VLCAlertViewController.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -15,44 +15,42 @@ import UIKit
 typealias AlertAction = (UIAlertAction) -> Void
 
 
-@objcMembers class ButtonAction: NSObject {
-    let buttonTitle: String
-    var buttonAction: AlertAction
-    init(buttonTitle: String, buttonAction: @escaping AlertAction) {
-        self.buttonTitle = buttonTitle
-        self.buttonAction = buttonAction
+@objcMembers class VLCAlertButton: NSObject {
+    let title: String
+    var action: AlertAction
+    init(title: String, action: @escaping AlertAction) {
+        self.title = title
+        self.action = action
     }
-
 }
 
-@objc class VLCAlertViewController: UIAlertController {
+@objcMembers class VLCAlertViewController: UIAlertController {
 
-   @objc class func alertViewManager(title: String, errorMessage: String? = nil, viewController: UIViewController,
-                                       buttonsAction: [ButtonAction]) {
+    class func alertViewManager(title: String, errorMessage: String? = nil, viewController: UIViewController,
+                                      buttonsAction: [VLCAlertButton]) {
         let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
-        alert.show(viewController, sender: Any?.self)
         for buttonAction in buttonsAction {
-            let action = UIAlertAction(title: buttonAction.buttonTitle, style: UIAlertActionStyle.default, handler: buttonAction.buttonAction)
+            let action = UIAlertAction(title: buttonAction.title, style: UIAlertActionStyle.default, handler: buttonAction.action)
             alert.addAction(action)
         }
+        alert.show(viewController, sender: Any?.self)
         viewController.present(alert, animated: true, completion: nil)
     }
 
-   @objc class func alertManagerWithTextField(title: String, errorMessage: String? = nil, viewController: UIViewController,
-                                         buttonsAction: [ButtonAction], textFieldText: String? = nil,
-                                         textFieldPlaceholder: String? = nil) {
+    class func alertManagerWithTextField(title: String, errorMessage: String? = nil, viewController: UIViewController,
+                                               buttonsAction: [VLCAlertButton],
+                                               textFieldText: String? = nil,
+                                               textFieldPlaceholder: String? = nil) {
         let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
-        alert.show(viewController, sender: Any?.self)
         alert.addTextField(configurationHandler: { textField in
             textField.placeholder = textFieldPlaceholder
             textField.text = textFieldText
-            textField.isSecureTextEntry = false
-            textField.textAlignment = .left
         })
         for buttonAction in buttonsAction {
-            let action = UIAlertAction(title: buttonAction.buttonTitle, style: UIAlertActionStyle.default, handler: buttonAction.buttonAction)
+            let action = UIAlertAction(title: buttonAction.title, style: UIAlertActionStyle.default, handler: buttonAction.action)
             alert.addAction(action)
         }
+        alert.show(viewController, sender: Any?.self)
         viewController.present(alert, animated: true, completion: nil)
     }
 }

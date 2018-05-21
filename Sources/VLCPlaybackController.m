@@ -1173,18 +1173,16 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
             if (continuePlayback == 1) {
                 [self setPlaybackPosition:lastPosition];
             } else if (continuePlayback == 0) {
-                NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-                ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                                          buttonAction: ^(UIAlertAction* action){}];
-                ButtonAction *continueAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_CONTINUE", nil)
-                                                                            buttonAction: ^(UIAlertAction* action){
-                                                                                [self setPlaybackPosition:lastPosition];
-                                                                            }];
-                [buttonsAction addObject: cancelAction];
-                [buttonsAction addObject: continueAction];
+                NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                                                                       action: ^(UIAlertAction* action){}],
+                                                             [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CONTINUE", nil)
+                                                                                                                         action: ^(UIAlertAction* action){
+                                                                                                                             [self setPlaybackPosition:lastPosition];
+                                                                                                                         }]
+                                                             ];
                 [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
                                                      errorMessage:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), item.title]
-                                                   viewController:self
+                                                   viewController:self.delegate
                                                     buttonsAction:buttonsAction];
             }
         }

@@ -85,14 +85,11 @@
     } else if (count == 1) {
         [self presentDocumentInteractionControllerWithFileURL:[_fileURLs firstObject]];
     } else {
-        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-        ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                  buttonAction: ^(UIAlertAction* action){}];
-        [buttonsAction addObject: cancelAction];
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
                                              errorMessage:nil
                                            viewController:self.activityViewController
-                                            buttonsAction:buttonsAction];
+                                            buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                         action: ^(UIAlertAction* action){}]]];
         [self activityDidFinish:NO];
     }
 }
@@ -129,15 +126,12 @@
         controllerWasPresentedSuccessfully = [_documentInteractionController presentOpenInMenuFromBarButtonItem:self.presentingBarButtonItem animated:YES];
 
         if (!controllerWasPresentedSuccessfully) {
-
-            NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-            ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                      buttonAction: ^(UIAlertAction* action){}];
-            [buttonsAction addObject: cancelAction];
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_APPLICATIONS", nil)
                                                  errorMessage:nil
                                                viewController:self.activityViewController
-                                                buttonsAction:buttonsAction];
+                                                buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                               action: ^(UIAlertAction* action){}]
+                                                                ]];
             [self activityDidFinish:NO];
         }
     };

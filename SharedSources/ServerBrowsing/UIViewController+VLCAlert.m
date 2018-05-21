@@ -22,10 +22,9 @@
 #else
 - (void)vlc_showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle
     {
-        NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-        ButtonAction *cancelAction = [[ButtonAction alloc] initWithButtonTitle: buttonTitle
-                                                                  buttonAction: ^(UIAlertAction* action){}];
-        [buttonsAction addObject: cancelAction];
+        NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: buttonTitle
+                                                                                  action: ^(UIAlertAction* action){}]
+                                                   ];
         [VLCAlertViewController alertViewManagerWithTitle:title
                                              errorMessage:message
                                            viewController:self

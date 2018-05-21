@@ -270,14 +270,11 @@
 
 - (void)showAlert:(NSString *)title message:(NSString *)message
 {
-    NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-    ButtonAction *okAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                          buttonAction: ^(UIAlertAction* action){}];
-    [buttonsAction addObject: okAction];
     [VLCAlertViewController alertViewManagerWithTitle:title
                                          errorMessage:message
-                                       viewController:self.delegate
-                                        buttonsAction:buttonsAction];
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                   action: ^(UIAlertAction* action){}]]];
 }
 
 - (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize

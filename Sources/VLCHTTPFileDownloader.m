@@ -112,14 +112,11 @@
         _expectedDownloadSize = [response expectedContentLength];
         APLog(@"expected download size: %lli", _expectedDownloadSize);
         if (_expectedDownloadSize  > [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) { //handle too big a download
-            NSMutableArray<ButtonAction *> *buttonsAction = [[NSMutableArray alloc] init];
-            ButtonAction *okAction = [[ButtonAction alloc] initWithButtonTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                  buttonAction: ^(UIAlertAction* action){}];
-            [buttonsAction addObject: okAction];
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                                  errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]]
                                                viewController:self.delegate
-                                                buttonsAction:buttonsAction];
+                                                buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                             action: ^(UIAlertAction* action){}]]];
             [_sessionTask cancel];
             [self _downloadEnded];
             return;
