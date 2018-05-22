@@ -13,6 +13,7 @@
 #import <Foundation/Foundation.h>
 #import "VLCEmptyLibraryView.h"
 #import "VLCFirstStepsViewController.h"
+#import "VLC_iOS-Swift.h"
 
 @implementation VLCEmptyLibraryView
 
@@ -21,6 +22,12 @@
     _emptyLibraryLabel.text = NSLocalizedString(@"EMPTY_LIBRARY", nil);
     _emptyLibraryLongDescriptionLabel.text = NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
     [_learnMoreButton setTitle:NSLocalizedString(@"BUTTON_LEARN_MORE", nil) forState:UIControlStateNormal];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(themeDidChange)
+                                                 name:kVLCThemeDidChangeNotification
+                                               object:nil];
+    [self themeDidChange];
     [super awakeFromNib];
 }
 
@@ -30,6 +37,12 @@
       UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:firstStepsVC];
       navCon.modalPresentationStyle = UIModalPresentationFormSheet;
       [self.window.rootViewController presentViewController:navCon animated:YES completion:nil];
+}
+
+- (void)themeDidChange
+{
+    _emptyLibraryLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+    _emptyLibraryLongDescriptionLabel.textColor = PresentationTheme.current.colors.lightTextColor;
 }
 
 @end
