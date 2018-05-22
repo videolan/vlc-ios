@@ -328,8 +328,7 @@
 #if TARGET_OS_IOS
     [VLCAlertViewController alertViewManagerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
                                          errorMessage:error.localizedDescription
-                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController
-                                        buttonsAction:nil];
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController];
 #else
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
                                                                    message:error.localizedDescription

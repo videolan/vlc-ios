@@ -25,8 +25,11 @@ typealias AlertAction = (UIAlertAction) -> Void
 
 @objcMembers class VLCAlertViewController: UIAlertController {
 
-    class func alertViewManager(title: String, errorMessage: String? = nil, viewController: UIViewController,
-                                      buttonsAction: [VLCAlertButton]?) {
+    class func alertViewManager(title: String, errorMessage: String? = nil, viewController: UIViewController) {
+        VLCAlertViewController.alertViewManager(title: title, errorMessage: errorMessage, viewController: viewController, buttonsAction: nil)
+    }
+
+    class func alertViewManager(title: String, errorMessage: String? = nil, viewController: UIViewController, buttonsAction: [VLCAlertButton]?) {
         let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
         if let buttonsAction = buttonsAction {
             for buttonAction in buttonsAction {
@@ -41,10 +44,11 @@ typealias AlertAction = (UIAlertAction) -> Void
         viewController.present(alert, animated: true, completion: nil)
     }
 
-    class func alertManagerWithTextField(title: String, errorMessage: String? = nil, viewController: UIViewController,
-                                               buttonsAction: [VLCAlertButton],
-                                               textFieldText: String? = nil,
-                                               textFieldPlaceholder: String? = nil) {
+    class func alertManagerWithTextField(title: String, errorMessage: String? = nil,
+                                         viewController: UIViewController,
+                                         buttonsAction: [VLCAlertButton],
+                                         textFieldText: String? = nil,
+                                         textFieldPlaceholder: String? = nil) {
         let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
         alert.addTextField(configurationHandler: { textField in
             textField.placeholder = textFieldPlaceholder

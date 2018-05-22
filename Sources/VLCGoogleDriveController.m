@@ -131,8 +131,7 @@
 {
     [VLCAlertViewController alertViewManagerWithTitle:title
                                          errorMessage:message
-                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController
-                                        buttonsAction:nil];
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController];
 }
 
 #pragma mark - file management

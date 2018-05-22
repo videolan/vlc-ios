@@ -114,8 +114,7 @@
         if (_expectedDownloadSize  > [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) { //handle too big a download
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                                  errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]]
-                                               viewController:self.delegate
-                                                buttonsAction:nil];
+                                               viewController:self.delegate];
             [_sessionTask cancel];
             [self _downloadEnded];
             return;

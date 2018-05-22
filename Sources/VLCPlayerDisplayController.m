@@ -198,8 +198,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
         default:
             [VLCAlertViewController alertViewManagerWithTitle:failedString
                                                  errorMessage:nil
-                                               viewController:self
-                                                buttonsAction:nil];
+                                               viewController:self];
             break;
     }
 #else
