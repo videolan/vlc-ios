@@ -87,8 +87,7 @@
     } else {
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
                                              errorMessage:nil
-                                           viewController:self.activityViewController
-                                            buttonsAction:nil];
+                                           viewController:self.activityViewController];
         [self activityDidFinish:NO];
     }
 }
@@ -127,8 +126,7 @@
         if (!controllerWasPresentedSuccessfully) {
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_APPLICATIONS", nil)
                                                  errorMessage:nil
-                                               viewController:self.activityViewController
-                                                buttonsAction:nil];
+                                               viewController:self.activityViewController];
             [self activityDidFinish:NO];
         }
     };

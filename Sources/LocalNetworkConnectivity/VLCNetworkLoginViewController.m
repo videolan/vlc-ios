@@ -174,8 +174,7 @@
     if (![self.savedLoginsDataSource saveLogin:login error:&error]) {
         [VLCAlertViewController alertViewManagerWithTitle:error.localizedDescription
                                              errorMessage:error.localizedFailureReason
-                                           viewController:self
-                                            buttonsAction:nil];
+                                           viewController:self];
     }
 
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
@@ -199,8 +198,7 @@
     if (self.protocolDataSource.protocol == VLCServerProtocolUndefined) {
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
                                              errorMessage:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
-                                           viewController:self
-                                            buttonsAction:nil];
+                                           viewController:self];
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
         return NO;
     }

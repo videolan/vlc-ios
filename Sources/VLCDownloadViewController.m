@@ -141,15 +141,13 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         if (![URLtoSave.lastPathComponent isSupportedFormat] && ![URLtoSave.lastPathComponent.pathExtension isEqualToString:@""]) {
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
                                                  errorMessage:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), URLtoSave.lastPathComponent]
-                                               viewController:self
-                                                buttonsAction:nil];
+                                               viewController:self];
             return;
         }
         if (![URLtoSave.scheme isEqualToString:@"http"] & ![URLtoSave.scheme isEqualToString:@"https"] && ![URLtoSave.scheme isEqualToString:@"ftp"]) {
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil)
                                                  errorMessage:[NSString stringWithFormat:NSLocalizedString(@"SCHEME_NOT_SUPPORTED_LONG", nil), URLtoSave.scheme]
-                                               viewController:self
-                                                buttonsAction:nil];
+                                               viewController:self];
             return;
         }
 
@@ -315,8 +313,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 {
     [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil)
                                          errorMessage:description
-                                       viewController:self
-                                        buttonsAction:nil];
+                                       viewController:self];
 }
 
 - (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
@@ -391,8 +388,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     [self downloadEnded];
     [VLCAlertViewController alertViewManagerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), request.error.errorCode]
                                          errorMessage:request.error.message
-                                       viewController:self
-                                        buttonsAction:nil];
+                                       viewController:self];
 }
 
 #pragma mark - table view data source
