@@ -121,6 +121,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         let isEmpty = collectionView?.numberOfItems(inSection: 0) == 0
 
         if isEmpty {
+            collectionView?.setContentOffset(.zero, animated: false)
             collectionView?.backgroundView = emptyView
             edgesForExtendedLayout = []
         } else {
