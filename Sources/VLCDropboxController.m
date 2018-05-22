@@ -329,9 +329,7 @@
     [VLCAlertViewController alertViewManagerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
                                          errorMessage:error.localizedDescription
                                        viewController:[UIApplication sharedApplication].keyWindow.rootViewController
-                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                                                     action: ^(UIAlertAction* action){}]
-                                                        ]];
+                                        buttonsAction:nil];
 #else
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
                                                                    message:error.localizedDescription

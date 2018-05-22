@@ -1174,7 +1174,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
                 [self setPlaybackPosition:lastPosition];
             } else if (continuePlayback == 0) {
                 NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                                                                                       action: ^(UIAlertAction* action){}],
+                                                                                                                       action: nil],
                                                              [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CONTINUE", nil)
                                                                                                                          action: ^(UIAlertAction* action){
                                                                                                                              [self setPlaybackPosition:lastPosition];

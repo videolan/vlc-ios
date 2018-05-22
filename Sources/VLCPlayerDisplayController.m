@@ -199,8 +199,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
             [VLCAlertViewController alertViewManagerWithTitle:failedString
                                                  errorMessage:nil
                                                viewController:self
-                                                buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                           action: ^(UIAlertAction* action){}]]];
+                                                buttonsAction:nil];
             break;
     }
 #else

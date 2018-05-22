@@ -132,8 +132,7 @@
     [VLCAlertViewController alertViewManagerWithTitle:title
                                          errorMessage:message
                                        viewController:[UIApplication sharedApplication].keyWindow.rootViewController
-                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                   action: ^(UIAlertAction* action){}]]];
+                                        buttonsAction:nil];
 }
 
 #pragma mark - file management

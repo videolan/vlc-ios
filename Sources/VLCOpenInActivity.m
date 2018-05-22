@@ -88,8 +88,7 @@
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
                                              errorMessage:nil
                                            viewController:self.activityViewController
-                                            buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                         action: ^(UIAlertAction* action){}]]];
+                                            buttonsAction:nil];
         [self activityDidFinish:NO];
     }
 }
@@ -129,9 +128,7 @@
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_APPLICATIONS", nil)
                                                  errorMessage:nil
                                                viewController:self.activityViewController
-                                                buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                               action: ^(UIAlertAction* action){}]
-                                                                ]];
+                                                buttonsAction:nil];
             [self activityDidFinish:NO];
         }
     };

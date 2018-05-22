@@ -23,8 +23,7 @@
 - (void)vlc_showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle
     {
         NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: buttonTitle
-                                                                                  action: ^(UIAlertAction* action){}]
-                                                   ];
+                                                                                  action: nil]];
         [VLCAlertViewController alertViewManagerWithTitle:title
                                              errorMessage:message
                                            viewController:self
