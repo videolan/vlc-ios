@@ -205,8 +205,7 @@
     if ([self.urlField.text length] <= 0 || [NSURL URLWithString:self.urlField.text] == nil) {
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"URL_NOT_SUPPORTED", nil)
                                              errorMessage:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
-                                           viewController:self
-                                            buttonsAction:nil];
+                                           viewController:self];
         return;
     }
     if (!self.privateToggleSwitch.on) {
@@ -422,8 +421,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     } else {
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                              errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
-                                           viewController:self
-                                            buttonsAction:nil];
+                                           viewController:self];
     }
 
     return fileSubtitlePath;

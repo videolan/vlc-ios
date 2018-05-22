@@ -145,8 +145,7 @@
     } else {
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                              errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
-                                           viewController:self
-                                            buttonsAction:nil];
+                                           viewController:self];
     }
 }
 #pragma mark - login dialog

@@ -728,8 +728,7 @@
                                                        NSLocalizedString(@"DISK_FULL_FORMAT", nil),
                                                        filename,
                                                        [[UIDevice currentDevice] model]]
-                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController
-                                        buttonsAction:nil];
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController];
 #else
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                                                              message:[NSString stringWithFormat:

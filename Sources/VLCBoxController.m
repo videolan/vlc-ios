@@ -272,8 +272,7 @@
 {
     [VLCAlertViewController alertViewManagerWithTitle:title
                                          errorMessage:message
-                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController
-                                        buttonsAction:nil];
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController];
 }
 
 - (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
