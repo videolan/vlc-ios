@@ -729,8 +729,7 @@
                                                        filename,
                                                        [[UIDevice currentDevice] model]]
                                        viewController:[UIApplication sharedApplication].keyWindow.rootViewController
-                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                   action: ^(UIAlertAction* action){}]]];
+                                        buttonsAction:nil];
 #else
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                                                              message:[NSString stringWithFormat:

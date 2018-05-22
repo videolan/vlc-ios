@@ -273,8 +273,7 @@
     [VLCAlertViewController alertViewManagerWithTitle:title
                                          errorMessage:message
                                        viewController:[UIApplication sharedApplication].keyWindow.rootViewController
-                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                   action: ^(UIAlertAction* action){}]]];
+                                        buttonsAction:nil];
 }
 
 - (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize

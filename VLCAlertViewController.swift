@@ -14,11 +14,10 @@ import UIKit
 
 typealias AlertAction = (UIAlertAction) -> Void
 
-
 @objcMembers class VLCAlertButton: NSObject {
     let title: String
-    var action: AlertAction
-    init(title: String, action: @escaping AlertAction) {
+    var action: AlertAction?
+    init(title: String, action: AlertAction? = nil) {
         self.title = title
         self.action = action
     }
@@ -27,10 +26,15 @@ typealias AlertAction = (UIAlertAction) -> Void
 @objcMembers class VLCAlertViewController: UIAlertController {
 
     class func alertViewManager(title: String, errorMessage: String? = nil, viewController: UIViewController,
-                                      buttonsAction: [VLCAlertButton]) {
+                                      buttonsAction: [VLCAlertButton]?) {
         let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
-        for buttonAction in buttonsAction {
-            let action = UIAlertAction(title: buttonAction.title, style: UIAlertActionStyle.default, handler: buttonAction.action)
+        if let buttonsAction = buttonsAction {
+            for buttonAction in buttonsAction {
+                let action = UIAlertAction(title: buttonAction.title, style: UIAlertActionStyle.default, handler: buttonAction.action)
+                alert.addAction(action)
+            }
+        } else {
+            let action = UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment:""), style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(action)
         }
         alert.show(viewController, sender: Any?.self)

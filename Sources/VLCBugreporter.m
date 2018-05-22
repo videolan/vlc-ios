@@ -35,8 +35,8 @@
 
 - (void)handleBugreportRequest
 {
-    NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                                              action: ^(UIAlertAction* action){}],
+    NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                              action:nil],
                                                  [[VLCAlertButton alloc] initWithTitle:NSLocalizedString(@"BUG_REPORT_BUTTON", nil)
                                                                               action: ^(UIAlertAction* action){
                                                                                   NSURL *url = [NSURL URLWithString:@"https://trac.videolan.org/vlc/newticket"];

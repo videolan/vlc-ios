@@ -115,8 +115,7 @@
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                                  errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]]
                                                viewController:self.delegate
-                                                buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                             action: ^(UIAlertAction* action){}]]];
+                                                buttonsAction:nil];
             [_sessionTask cancel];
             [self _downloadEnded];
             return;

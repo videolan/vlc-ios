@@ -204,10 +204,9 @@
 {
     if ([self.urlField.text length] <= 0 || [NSURL URLWithString:self.urlField.text] == nil) {
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"URL_NOT_SUPPORTED", nil)
-                                             errorMessage: NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
+                                             errorMessage:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
                                            viewController:self
-                                            buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                       action: ^(UIAlertAction* action){}]]];
+                                            buttonsAction:nil];
         return;
     }
     if (!self.privateToggleSwitch.on) {
@@ -422,10 +421,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         [receivedSub writeToFile:fileSubtitlePath atomically:YES];
     } else {
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                             errorMessage: [NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
+                                             errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
                                            viewController:self
-                                            buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                     action: ^(UIAlertAction* action){}]]];
+                                            buttonsAction:nil];
     }
 
     return fileSubtitlePath;
