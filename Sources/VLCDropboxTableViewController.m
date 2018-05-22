@@ -188,8 +188,7 @@
         [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
                                              errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
                                            viewController:self
-                                            buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                       action: ^(UIAlertAction* action){}]]];
+                                            buttonsAction:nil];
     }
 }
 
