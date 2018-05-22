@@ -203,16 +203,9 @@
 - (IBAction)openButtonAction:(id)sender
 {
     if ([self.urlField.text length] <= 0 || [NSURL URLWithString:self.urlField.text] == nil) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"URL_NOT_SUPPORTED", nil)
-                                                                                 message:nil
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-
-        [alertController addAction:okAction];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"URL_NOT_SUPPORTED", nil)
+                                             errorMessage:NSLocalizedString(@"PROTOCOL_NOT_SELECTED", nil)
+                                           viewController:self];
         return;
     }
     if (!self.privateToggleSwitch.on) {
@@ -426,12 +419,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         }
         [receivedSub writeToFile:fileSubtitlePath atomically:YES];
     } else {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                otherButtonTitles:nil];
-        [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                             errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
+                                           viewController:self];
     }
 
     return fileSubtitlePath;

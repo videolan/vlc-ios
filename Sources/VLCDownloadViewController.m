@@ -139,21 +139,15 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     if ([self.urlField.text length] > 0) {
         NSURL *URLtoSave = [NSURL URLWithString:self.urlField.text];
         if (![URLtoSave.lastPathComponent isSupportedFormat] && ![URLtoSave.lastPathComponent.pathExtension isEqualToString:@""]) {
-            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
-                                                              message:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), URLtoSave.lastPathComponent]
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                    otherButtonTitles:nil];
-            [alert show];
+            [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
+                                                 errorMessage:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), URLtoSave.lastPathComponent]
+                                               viewController:self];
             return;
         }
         if (![URLtoSave.scheme isEqualToString:@"http"] & ![URLtoSave.scheme isEqualToString:@"https"] && ![URLtoSave.scheme isEqualToString:@"ftp"]) {
-            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil)
-                                                              message:[NSString stringWithFormat:NSLocalizedString(@"SCHEME_NOT_SUPPORTED_LONG", nil), URLtoSave.scheme]
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                    otherButtonTitles:nil];
-            [alert show];
+            [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil)
+                                                 errorMessage:[NSString stringWithFormat:NSLocalizedString(@"SCHEME_NOT_SUPPORTED_LONG", nil), URLtoSave.scheme]
+                                               viewController:self];
             return;
         }
 
@@ -317,12 +311,9 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (void)downloadFailedWithErrorDescription:(NSString *)description
 {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DOWNLOAD_FAILED", nil)
-                                                      message:description
-                                                     delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                            otherButtonTitles:nil];
-    [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+    [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil)
+                                         errorMessage:description
+                                       viewController:self];
 }
 
 - (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
@@ -395,13 +386,9 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 {
     _FTPDownloadRequest = nil;
     [self downloadEnded];
-
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), request.error.errorCode]
-                                                       message:request.error.message
-                                                      delegate:self
-                                             cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                             otherButtonTitles:nil];
-    [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+    [VLCAlertViewController alertViewManagerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), request.error.errorCode]
+                                         errorMessage:request.error.message
+                                       viewController:self];
 }
 
 #pragma mark - table view data source

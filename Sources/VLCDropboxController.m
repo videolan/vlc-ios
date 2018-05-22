@@ -17,6 +17,7 @@
 #import "VLCActivityManager.h"
 #import "VLCMediaFileDiscoverer.h"
 #import "VLCDropboxConstants.h"
+#import "VLC_iOS-Swift.h"
 
 @interface VLCDropboxController ()
 {
@@ -325,12 +326,9 @@
 - (void)_handleError:(NSError *)error
 {
 #if TARGET_OS_IOS
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
-                                                      message:error.localizedDescription
-                                                     delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                            otherButtonTitles:nil];
-    [alert show];
+    [VLCAlertViewController alertViewManagerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
+                                         errorMessage:error.localizedDescription
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController];
 #else
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), error.code]
                                                                    message:error.localizedDescription
