@@ -15,6 +15,7 @@
 #import "VLCPlaybackController.h"
 #import "VLCMediaFileDiscoverer.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
+#import "VLC_iOS-Swift.h"
 
 @interface VLCBoxController ()
 {
@@ -269,12 +270,11 @@
 
 - (void)showAlert:(NSString *)title message:(NSString *)message
 {
-    VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:title
-                                                      message:message
-                                                     delegate:nil
-                                            cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                            otherButtonTitles:nil];
-    [alert show];
+    [VLCAlertViewController alertViewManagerWithTitle:title
+                                         errorMessage:message
+                                       viewController:[UIApplication sharedApplication].keyWindow.rootViewController
+                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                   action: ^(UIAlertAction* action){}]]];
 }
 
 - (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize

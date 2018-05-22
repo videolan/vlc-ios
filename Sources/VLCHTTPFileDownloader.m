@@ -16,6 +16,7 @@
 #import "VLCActivityManager.h"
 #import "UIDevice+VLC.h"
 #import "VLCMediaFileDiscoverer.h"
+#import "VLC_iOS-Swift.h"
 
 @interface VLCHTTPFileDownloader () <NSURLSessionDelegate>
 {
@@ -111,12 +112,11 @@
         _expectedDownloadSize = [response expectedContentLength];
         APLog(@"expected download size: %lli", _expectedDownloadSize);
         if (_expectedDownloadSize  > [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) { //handle too big a download
-            VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                             message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]]
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                    otherButtonTitles:nil];
-            [alert show];
+            [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                 errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _fileName, [[UIDevice currentDevice] model]]
+                                               viewController:self.delegate
+                                                buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                             action: ^(UIAlertAction* action){}]]];
             [_sessionTask cancel];
             [self _downloadEnded];
             return;

@@ -19,6 +19,7 @@
 #import "VLCCloudStorageTableViewCell.h"
 #import "UIDevice+VLC.h"
 #import "VLCAppDelegate.h"
+#import "VLC_iOS-Swift.h"
 
 @interface VLCDropboxTableViewController () <VLCCloudStorageTableViewCell, VLCCloudStorageDelegate>
 {
@@ -168,28 +169,28 @@
 
     if (((DBFILESFileMetadata *)_selectedFile).size.longLongValue < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         /* selected item is a proper file, ask the user if s/he wants to download it */
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", nil), nil];
-        [alert show];
+        NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                                  action: ^(UIAlertAction* action){
+                                                                                      _selectedFile = nil;
+                                                                                  }],
+                                                   [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
+                                                                                action: ^(UIAlertAction* action){
+                                                                                    [_dropboxController downloadFileToDocumentFolder:_selectedFile];
+                                                                                    _selectedFile = nil;
+                                                                                }]
+                                                     ];
+        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
+                                             errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
+                                           viewController:self
+                                            buttonsAction:buttonsAction];
+
     } else {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                otherButtonTitles:nil];
-        [alert show];
+        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                             errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
+                                           viewController:self
+                                            buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                       action: ^(UIAlertAction* action){}]]];
     }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-        [_dropboxController downloadFileToDocumentFolder:_selectedFile];
-
-    _selectedFile = nil;
 }
 
 #endif

@@ -15,7 +15,7 @@
 #import "VLCMiniPlaybackView.h"
 #import "VLCPlaybackNavigationController.h"
 #import "VLCPlaybackController+MediaLibrary.h"
-
+#import "VLC_iOS-Swift.h"
 #if TARGET_OS_IOS
 #import "VLC_iOS-Swift.h"
 #import "VLCMovieViewController.h"
@@ -196,12 +196,11 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
             break;
         case VLCPlayerDisplayControllerDisplayModeMiniplayer:
         default:
-
-            [[[VLCAlertView alloc] initWithTitle:failedString
-                                         message:nil
-                                        delegate:nil
-                               cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                               otherButtonTitles:nil] show];
+            [VLCAlertViewController alertViewManagerWithTitle:failedString
+                                                 errorMessage:nil
+                                               viewController:self
+                                                buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                                                                           action: ^(UIAlertAction* action){}]]];
             break;
     }
 #else
