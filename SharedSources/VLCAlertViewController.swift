@@ -44,12 +44,12 @@ typealias AlertAction = (UIAlertAction) -> Void
         viewController.present(alert, animated: true, completion: nil)
     }
 
-    class func alertManagerWithTextField(title: String, errorMessage: String? = nil,
+    class func alertManagerWithTextField(title: String, description: String? = nil,
                                          viewController: UIViewController,
                                          buttonsAction: [VLCAlertButton],
                                          textFieldText: String? = nil,
                                          textFieldPlaceholder: String? = nil) {
-        let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: description, preferredStyle: .alert)
         alert.addTextField(configurationHandler: { textField in
             textField.placeholder = textFieldPlaceholder
             textField.text = textFieldText
