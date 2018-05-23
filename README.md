@@ -73,6 +73,18 @@ Mostly for debugging or advanced users, you might want to have a custom local VL
 
 Pull request are more than welcome! If you do submit one, please make sure to use a descriptive title and description.
 
+### Commit
+
+We try to follow a simple set of rules, outlined by this [guide](https://chris.beams.io/posts/git-commit/).
+
+Additionally, commit messages should have all the information needed to understand the commit easily as the follwing:
+
+`Subject: Brief description(ticket related action)`
+
+For example:
+
+`UPnP: Remove iOS 7 compatiblity code(closes #166)`
+
 ### Gitlab issues
 
 You can look through issues we currently have on the [VideoLAN Gitlab](https://code.videolan.org/videolan/vlc-ios/issues).
