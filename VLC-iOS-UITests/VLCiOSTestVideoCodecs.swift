@@ -14,17 +14,18 @@ import Foundation
 import XCTest
 
 class VLCiOSTestVideoCodecs: XCTestCase {
-    let app = XCUIApplication()
+    let application = XCUIApplication()
     var helper: TestHelper!
     
     override func setUp() {
         super.setUp()
         
         XCUIDevice.shared.orientation = .portrait
-        setupSnapshot(app)
-        helper = TestHelper(app)
-        setupSnapshot(app)
-        app.launch()
+        setupSnapshot(application)
+        helper = TestHelper(application)
+        setupSnapshot(application)
+        application.launchArguments = ["-disableAnimations"]
+        application.launch()
     }
 
     func testMovCodec() {
@@ -45,22 +46,22 @@ class VLCiOSTestVideoCodecs: XCTestCase {
 
     func stream(named fileName: String) {
         helper.tapTabBarItem(VLCAccessibilityIdentifier.localNetwork)
-        app.cells[VLCAccessibilityIdentifier.stream].tap()
+        application.cells[VLCAccessibilityIdentifier.stream].tap()
 
-        let addressTextField = app.textFields["http://myserver.com/file.mkv"]
+        let addressTextField = application.textFields["http://myserver.com/file.mkv"]
         addressTextField.clearAndEnter(text: fileName)
-        app.buttons["Open Network Stream"].tap()
+        application.buttons["Open Network Stream"].tap()
         
-        let displayTime = app.navigationBars["VLCMovieView"].buttons["--:--"]
+        let displayTime = application.navigationBars["VLCMovieView"].buttons["--:--"]
         let zeroPredicate = NSPredicate(format: "exists == 0")
         expectation(for: zeroPredicate, evaluatedWith: displayTime, handler: nil)
 
         waitForExpectations(timeout: 20.0) { err in
             XCTAssertNil(err)
-            if !(self.app.buttons["Done"].exists) {
-                self.app.otherElements["Video Player Title"].tap()
+            if !(self.application.buttons["Done"].exists) {
+                self.application.otherElements["Video Player Title"].tap()
             }
-            let playPause = self.app.buttons[VLCAccessibilityIdentifier.playPause]
+            let playPause = self.application.buttons[VLCAccessibilityIdentifier.playPause]
             let onePredicate = NSPredicate(format: "exists == 1")
             self.expectation(for: onePredicate, evaluatedWith: playPause, handler: nil)
             self.waitForExpectations(timeout: 20.0, handler: nil)
