@@ -34,7 +34,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         dragAndDropManager.delegate = services.mediaDataSource
         return dragAndDropManager
     }()
-    
+
     lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
         let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
@@ -51,7 +51,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     init(services: Services, type: VLCMediaType) {
         self.services = services
         mediaType = type
-        self.rendererButton = services.rendererDiscovererManager.setupRendererButton()
+        rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         if mediaType.category == .video {
@@ -67,11 +67,11 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     @available(*, unavailable)
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder: ) has not been implemented")
     }
 
-    override public func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
         setupSearchController()
@@ -95,9 +95,9 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     }
 
     func setupCollectionView() {
-        mediaDataSourceAndDelegate = MediaDataSourceAndDelegate(services: services, type:mediaType)
+        mediaDataSourceAndDelegate = MediaDataSourceAndDelegate(services: services, type: mediaType)
         mediaDataSourceAndDelegate?.delegate = self
-        let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle:nil)
+        let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle: nil)
         collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
@@ -109,11 +109,11 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         }
     }
 
-    override public func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         reloadData()
     }
-    
+
     func setupSearchController() {
         searchController = UISearchController(searchResultsController: nil)
         searchController?.searchResultsUpdater = self
@@ -137,12 +137,13 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
     func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""), style: .plain, target: self, action: #selector(sort))
     }
-    
+
     func displayEmptyViewIfNeeded() {
         collectionView?.backgroundView = collectionView?.numberOfItems(inSection: 0) == 0 ? emptyView : nil
     }
 
     // MARK: Renderer
+
     private func setupRendererButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rendererButton)
     }
@@ -151,16 +152,18 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         delegate?.mediaViewControllerDidSelectSort(self)
     }
 
-    override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView?.collectionViewLayout.invalidateLayout()
     }
 
     // MARK: - MediaDatasourceAndDelegate
-    override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory))
     }
 
     // MARK: - Search
+
     public func updateSearchResults(for searchController: UISearchController) {
         searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: services.mediaDataSource.allObjects(for: mediaType.subcategory))
         collectionView?.reloadData()

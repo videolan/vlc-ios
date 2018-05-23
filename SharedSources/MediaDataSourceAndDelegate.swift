@@ -34,7 +34,7 @@ public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, U
     }
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return Int(services.mediaDataSource.numberOfFiles(subcategory: mediaType.subcategory))
+        return Int(services.mediaDataSource.numberOfFiles(subcategory: mediaType.subcategory))
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -60,7 +60,7 @@ public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, U
         var cellWidth = collectionView.bounds.size.width / numberOfCells
         cellWidth = cellWidth - ceil(((numberOfCells + 1) * cellPadding) / numberOfCells)
 
-        return CGSize(width:cellWidth, height:cellWidth * aspectRatio)
+        return CGSize(width: cellWidth, height: cellWidth * aspectRatio)
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -70,6 +70,7 @@ public class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, U
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return cellPadding
     }
+
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellPadding
     }

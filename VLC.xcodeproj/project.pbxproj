@@ -2471,6 +2471,7 @@
 			buildConfigurationList = 7D94FD0A16DE7D1100F2623B /* Build configuration list for PBXNativeTarget "VLC-iOS" */;
 			buildPhases = (
 				23B425DEB65EA5C88D873ED2 /* [CP] Check Pods Manifest.lock */,
+				0A2996BA20B2CCAC003BE066 /* Run SwiftFormat Script */,
 				7D94FCD716DE7D1000F2623B /* Sources */,
 				7D94FCD816DE7D1000F2623B /* Frameworks */,
 				7D94FCD916DE7D1000F2623B /* Resources */,
@@ -2830,6 +2831,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		0A2996BA20B2CCAC003BE066 /* Run SwiftFormat Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftFormat Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" --disable blankLinesAtStartOfScope,hoistPatternLet,indent,redundantParens,redundantSelf,trailingCommas,unusedArguments,wrapArguments --exclude \"Docs/\",\"fastlane/\",\"PAPasscode/\",\"Pods/\",\"Resources/\",\"share/\",\"Tools/\" \"${SRCROOT}/\"\n\nfi";
 		};
 		23B425DEB65EA5C88D873ED2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -22,7 +22,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
     public init(tabBarController: UITabBarController, services: Services) {
         self.tabBarController = tabBarController
         self.services = services
-        self.displayController = VLCPlayerDisplayController(services: services)
+        displayController = VLCPlayerDisplayController(services: services)
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
     }
@@ -40,10 +40,10 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
 
         tabBarController.addChildViewController(displayController)
         tabBarController.view.addSubview(displayController.view)
-        displayController.view.layoutMargins = UIEdgeInsets(top:0, left:0, bottom:tabBarController.tabBar.frame.size.height, right:0)
+        displayController.view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: tabBarController.tabBar.frame.size.height, right: 0)
         displayController.didMove(toParentViewController: tabBarController)
 
-        let videoVC = VLCMediaViewController(services: services, type:VLCMediaType(category: .video, subcategory: .allVideos))
+        let videoVC = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .allVideos))
         //this should probably not be the delegate
         videoVC.delegate = self
         videoVC.title = NSLocalizedString("VIDEO", comment: "")
@@ -54,17 +54,17 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
         videoVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.video
 
         // Audio
-        let audioVC = VLCMediaViewController(services: services, type:VLCMediaType(category: .audio, subcategory: .tracks))
+        let audioVC = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .tracks))
         //this should probably not be the delegate
         audioVC.delegate = self
         audioVC.title = NSLocalizedString("AUDIO", comment: "")
         audioVC.tabBarItem = UITabBarItem(
             title: NSLocalizedString("AUDIO", comment: ""),
             image: UIImage(named: "MusicAlbums"),
-            selectedImage:UIImage(named: "MusicAlbums"))
+            selectedImage: UIImage(named: "MusicAlbums"))
         audioVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.audio
 
-        //Serverlist
+        // Serverlist
         let serverVC = VLCServerListViewController(nibName: nil, bundle: nil)
         serverVC.title = NSLocalizedString("LOCAL_NETWORK", comment: "")
         serverVC.tabBarItem = UITabBarItem(
@@ -73,7 +73,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
             selectedImage: UIImage(named: "Local"))
         serverVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork
 
-        //Settings
+        // Settings
         let settingsVC = VLCSettingsController()
         settingsVC.title = NSLocalizedString("Settings", comment: "")
         settingsVC.tabBarItem = UITabBarItem(
@@ -83,12 +83,13 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
         settingsVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
 
         let controllers = [audioVC, serverVC, videoVC, settingsVC]
-        tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
+        tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
     }
 
     // MARK: - VLCMediaViewControllerDelegate
+
     func mediaViewControllerDidSelectMediaObject(_ VLCMediaViewController: VLCMediaViewController, mediaObject: NSManagedObject) {
-        playMedia(media:mediaObject)
+        playMedia(media: mediaObject)
     }
 
     func mediaViewControllerDidSelectSort(_ VLCMediaViewController: VLCMediaViewController) {
@@ -102,7 +103,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
     }
 
     func showSortOptions() {
-        //This should be in a subclass
+        // This should be in a subclass
         let sortOptionsAlertController = UIAlertController(title: NSLocalizedString("SORT_BY", comment: ""), message: nil, preferredStyle: .actionSheet)
         let sortByNameAction = UIAlertAction(title: SortOption.alphabetically.localizedDescription, style: .default) { action in
         }

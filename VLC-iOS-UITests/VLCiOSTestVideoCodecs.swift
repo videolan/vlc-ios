@@ -16,10 +16,10 @@ import XCTest
 class VLCiOSTestVideoCodecs: XCTestCase {
     let app = XCUIApplication()
     var helper: TestHelper!
-    
+
     override func setUp() {
         super.setUp()
-        
+
         XCUIDevice.shared.orientation = .portrait
         setupSnapshot(app)
         helper = TestHelper(app)
@@ -50,7 +50,7 @@ class VLCiOSTestVideoCodecs: XCTestCase {
         let addressTextField = app.textFields["http://myserver.com/file.mkv"]
         addressTextField.clearAndEnter(text: fileName)
         app.buttons["Open Network Stream"].tap()
-        
+
         let displayTime = app.navigationBars["VLCMovieView"].buttons["--:--"]
         let zeroPredicate = NSPredicate(format: "exists == 0")
         expectation(for: zeroPredicate, evaluatedWith: displayTime, handler: nil)

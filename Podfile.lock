@@ -50,6 +50,7 @@ PODS:
     - xmlrpc
   - PAPasscode (1.0)
   - SimulatorStatusMagic (2.1)
+  - SwiftFormat/CLI (0.33.7)
   - SwiftLint (0.25.1)
   - TVVLCKit (3.1.0)
   - upnpx (1.4.0)
@@ -76,6 +77,7 @@ DEPENDENCIES:
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - PAPasscode (~> 1.0)
   - SimulatorStatusMagic
+  - SwiftFormat/CLI (= 0.33.7)
   - SwiftLint (~> 0.25.0)
   - TVVLCKit (= 3.1.0)
   - upnpx (~> 1.4.0)
@@ -100,6 +102,7 @@ SPEC REPOS:
     - OBSlider
     - PAPasscode
     - SimulatorStatusMagic
+    - SwiftFormat
     - SwiftLint
     - TVVLCKit
     - upnpx
@@ -160,6 +163,7 @@ SPEC CHECKSUMS:
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   SimulatorStatusMagic: 481558caf2b9ccb2ceba2cc193728d4db3dcac07
+  SwiftFormat: 2e9b261a2ded97bc2aff2710c9826c6548a45bdb
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   TVVLCKit: 9474d4644124917d29585b3962f2f3fb64cbc64a
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
@@ -168,6 +172,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 26d7b4ab48ec627ff7eb66f6ddf43aee26bd0638
+PODFILE CHECKSUM: 15d6f9e44d698dbac7fa22f25079f8f7ae5e0388
 
 COCOAPODS: 1.5.2

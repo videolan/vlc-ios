@@ -11,14 +11,13 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-import Foundation
 import CoreMotion
+import Foundation
 
 @objc(VLCDeviceMotionDelegate)
 protocol DeviceMotionDelegate: NSObjectProtocol {
 
     func deviceMotionHasAttitude(deviceMotion: DeviceMotion, pitch: Double, yaw: Double, roll: Double)
-
 }
 
 struct EulerAngles {
@@ -32,10 +31,10 @@ class DeviceMotion: NSObject {
 
     let motion = CMMotionManager()
     let sqrt2 = 0.5.squareRoot()
-    var lastEulerAngle: EulerAngles? = nil
-    var beginningQuaternion: CMQuaternion? = nil
+    var lastEulerAngle: EulerAngles?
+    var beginningQuaternion: CMQuaternion?
 
-    @objc weak var delegate: DeviceMotionDelegate? = nil
+    @objc weak var delegate: DeviceMotionDelegate?
 
     private func multQuaternion(q1: CMQuaternion, q2: CMQuaternion) -> CMQuaternion {
         var ret = CMQuaternion()
@@ -50,13 +49,13 @@ class DeviceMotion: NSObject {
 
     private func quaternionToEuler(qIn: CMQuaternion) -> EulerAngles {
         // Change the axes
-        var q = CMQuaternion(x:qIn.y, y:qIn.z, z:qIn.x, w:qIn.w)
+        var q = CMQuaternion(x: qIn.y, y: qIn.z, z: qIn.x, w: qIn.w)
 
         // Rotation of 90°
         let qRot = CMQuaternion(x: 0, y: 0, z: -sqrt2 / 2, w: sqrt2 / 2)
 
         // Perform the rotation
-        q = multQuaternion(q1:qRot, q2:q)
+        q = multQuaternion(q1: qRot, q2: q)
 
         // Now, we can perform the conversion and manage ourself the singularities
 
@@ -95,13 +94,13 @@ class DeviceMotion: NSObject {
 
     @objc func startDeviceMotion() {
         if motion.isDeviceMotionAvailable {
-            motion.gyroUpdateInterval = 1.0 / 60.0  // 60 Hz
+            motion.gyroUpdateInterval = 1.0 / 60.0 // 60 Hz
             motion.startDeviceMotionUpdates(using: .xArbitraryZVertical, to: .main) {
                 [weak self] (data, error) in
                 guard let strongSelf = self, let data = data else {
                     return
                 }
-                //get the first quaternion that we started with
+                // get the first quaternion that we started with
                 if strongSelf.beginningQuaternion == nil {
                     strongSelf.beginningQuaternion = data.attitude.quaternion
                 }
@@ -109,18 +108,18 @@ class DeviceMotion: NSObject {
 
                 // if we panned we will have a lastEuler value that we need to take as beginning angle
                 if let lastEulerAngle = strongSelf.lastEulerAngle {
-                    //we get the devicemotion diff between start and currentangle
+                    // we get the devicemotion diff between start and currentangle
                     let beginningEuler = strongSelf.quaternionToEuler(qIn: strongSelf.beginningQuaternion!)
                     let diffYaw = currentEuler.yaw - beginningEuler.yaw
                     let diffPitch = currentEuler.pitch - beginningEuler.pitch
                     let diffRoll = currentEuler.roll - beginningEuler.roll
 
-                    //and add that to the angle that we had after we lifted our finger
+                    // and add that to the angle that we had after we lifted our finger
                     currentEuler.yaw = lastEulerAngle.yaw + diffYaw
                     currentEuler.pitch = lastEulerAngle.pitch + diffPitch
                     currentEuler.roll = lastEulerAngle.roll + diffRoll
                 }
-                strongSelf.delegate?.deviceMotionHasAttitude(deviceMotion:strongSelf, pitch:currentEuler.pitch, yaw:currentEuler.yaw, roll:currentEuler.roll)
+                strongSelf.delegate?.deviceMotionHasAttitude(deviceMotion: strongSelf, pitch: currentEuler.pitch, yaw: currentEuler.yaw, roll: currentEuler.roll)
             }
         }
     }

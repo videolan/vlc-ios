@@ -83,6 +83,7 @@ class VLCRendererDiscovererManager: NSObject {
     }
 
     // MARK: VLCActionSheet
+
     @objc fileprivate func displayActionSheet() {
         guard let presentingViewController = presentingViewController else {
             assertionFailure("VLCRendererDiscovererManager: Cannot display actionSheet, no viewController setted")
@@ -101,7 +102,7 @@ class VLCRendererDiscovererManager: NSObject {
 
     fileprivate func setRendererItem(rendererItem: VLCRendererItem) {
         let vpcRenderer = VLCPlaybackController.sharedInstance().renderer
-        var finalRendererItem: VLCRendererItem? = nil
+        var finalRendererItem: VLCRendererItem?
         var isSelected: Bool = false
 
         if vpcRenderer != rendererItem {
@@ -144,6 +145,7 @@ class VLCRendererDiscovererManager: NSObject {
 }
 
 // MARK: VLCRendererDiscovererDelegate
+
 extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
     func rendererDiscovererItemAdded(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
         for button in rendererButtons {
@@ -219,6 +221,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
 }
 
 // MARK: VLCActionSheetDelegate
+
 extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
     func headerViewTitle() -> String? {
         return NSLocalizedString("HEADER_TITLE_RENDERER", comment: "")
@@ -236,8 +239,8 @@ extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
     func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath) {
         guard let renderer = item as? VLCRendererItem,
             let cell = collectionView.cellForItem(at: indexPath) as? VLCActionSheetCell else {
-                assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDelegate: Cell is not a VLCActionSheetCell")
-                return
+            assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDelegate: Cell is not a VLCActionSheetCell")
+            return
         }
         let isCurrentlySelectedRenderer = renderer == VLCPlaybackController.sharedInstance().renderer
 
@@ -249,6 +252,7 @@ extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
 }
 
 // MARK: VLCActionSheetDataSource
+
 extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
     func numberOfRows() -> Int {
         return getAllRenderers().count
@@ -258,8 +262,8 @@ extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
     func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: VLCActionSheetCell.identifier, for: indexPath) as? VLCActionSheetCell else {
-                assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: Unable to dequeue reusable cell")
-                return UICollectionViewCell()
+            assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: Unable to dequeue reusable cell")
+            return UICollectionViewCell()
         }
         let renderers = getAllRenderers()
         if indexPath.row < renderers.count {

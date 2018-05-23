@@ -70,6 +70,6 @@ class VLCActionSheetCell: UICollectionViewCell {
             stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
             stackView.heightAnchor.constraint(equalTo: heightAnchor),
             stackView.topAnchor.constraint(equalTo: topAnchor)
-            ])
+        ])
     }
 }
