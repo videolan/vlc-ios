@@ -193,11 +193,11 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
 
     fileprivate func updateCollectionViewCellApparence(cell: VLCActionSheetCell, highlighted: Bool) {
         var image = UIImage(named: "rendererGray")
-        var textColor: UIColor = .black
+        var textColor: UIColor = .white
 
         if highlighted {
             image = UIImage(named: "rendererOrangeFull")
-            textColor = UIColor.vlcOrangeTint()
+            textColor = .vlcOrangeTint()
         }
 
         cell.icon.image = image

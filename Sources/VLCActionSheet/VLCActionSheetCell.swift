@@ -22,7 +22,7 @@ class VLCActionSheetCell: UICollectionViewCell {
 
     let name: UILabel = {
         let name = UILabel()
-        name.textColor = .black
+        name.textColor = .white
         name.font = UIFont.systemFont(ofSize: 15)
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
@@ -48,7 +48,7 @@ class VLCActionSheetCell: UICollectionViewCell {
     }
 
     private func setupViews() {
-        backgroundColor = .white
+        backgroundColor = .vlcDarkBackground()
 
         stackView.addArrangedSubview(icon)
         stackView.addArrangedSubview(name)

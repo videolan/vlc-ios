@@ -22,7 +22,7 @@ class VLCActionSheetSectionHeader: UIView {
 
     let separator: UIView = {
         let separator = UIView()
-        separator.backgroundColor = .lightGray
+        separator.backgroundColor = .black
         separator.translatesAutoresizingMaskIntoConstraints = false
         return separator
     }()

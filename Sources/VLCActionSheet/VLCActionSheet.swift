@@ -53,7 +53,7 @@ class VLCActionSheet: UIViewController {
         let collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .vlcDarkBackground()
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(VLCActionSheetCell.self, forCellWithReuseIdentifier: VLCActionSheetCell.identifier)
@@ -64,15 +64,15 @@ class VLCActionSheet: UIViewController {
     lazy var headerView: VLCActionSheetSectionHeader = {
         let headerView = VLCActionSheetSectionHeader()
         headerView.title.text = delegate?.headerViewTitle?() ?? "Default header title"
-        headerView.title.textColor = .black
-        headerView.backgroundColor = .white
+        headerView.title.textColor = .white
+        headerView.backgroundColor = .vlcDarkBackground()
         headerView.translatesAutoresizingMaskIntoConstraints = false
         return headerView
     }()
 
     lazy var bottomBackgroundView: UIView = {
         let bottomBackgroundView = UIView()
-        bottomBackgroundView.backgroundColor = .white
+        bottomBackgroundView.backgroundColor = .vlcDarkBackground()
         bottomBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         return bottomBackgroundView
     }()
