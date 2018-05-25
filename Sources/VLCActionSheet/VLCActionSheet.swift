@@ -104,7 +104,7 @@ class VLCActionSheet: UIViewController {
     }()
 
     fileprivate lazy var bottomBackgroundViewHeightConstraint: NSLayoutConstraint = {
-        let bottomBackgroundViewHeightConstraint = bottomBackgroundView.heightAnchor.constraint(equalToConstant: cellHeight)
+        let bottomBackgroundViewHeightConstraint = bottomBackgroundView.heightAnchor.constraint(equalToConstant: 0)
         return bottomBackgroundViewHeightConstraint
     }()
 
