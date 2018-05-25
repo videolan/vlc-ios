@@ -31,9 +31,7 @@
                 <outlet property="playbackSpeedLabel" destination="167" id="198"/>
                 <outlet property="playbackSpeedSlider" destination="168" id="M6M-8F-t8T"/>
                 <outlet property="playbackSpeedView" destination="165" id="208"/>
-                <outlet property="playingExternallyDescription" destination="109" id="113"/>
-                <outlet property="playingExternallyTitle" destination="110" id="114"/>
-                <outlet property="playingExternallyView" destination="108" id="112"/>
+                <outlet property="playingExternalView" destination="108" id="xbW-U2-ESN"/>
                 <outlet property="resetVideoFilterButton" destination="162" id="163"/>
                 <outlet property="saturationLabel" destination="136" id="155"/>
                 <outlet property="saturationSlider" destination="135" id="152"/>
@@ -51,15 +49,15 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="yK6-Ph-SVE">
-                    <rect key="frame" x="40" y="164" width="240" height="240"/>
+                    <rect key="frame" x="68" y="214" width="240" height="240"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Album Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" id="280">
-                    <rect key="frame" x="31" y="336" width="258" height="28"/>
+                    <rect key="frame" x="31" y="397" width="313" height="28"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.72000002861022949" green="0.72000002861022949" blue="0.72000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -67,14 +65,14 @@
                     <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </label>
                 <view contentMode="scaleToFill" id="91" userLabel="Movie view">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <accessibility key="accessibilityConfiguration">
                         <bool key="isElement" value="YES"/>
                     </accessibility>
                 </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" misplaced="YES" text="Track Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" id="282">
-                    <rect key="frame" x="31" y="415" width="257" height="28"/>
+                    <rect key="frame" x="31" y="491" width="312" height="28"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -82,7 +80,7 @@
                     <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" text="Artist Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" id="279">
-                    <rect key="frame" x="31" y="267" width="257" height="28"/>
+                    <rect key="frame" x="31" y="316" width="312" height="28"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -90,31 +88,31 @@
                     <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </label>
                 <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Status Label" textAlignment="center" lineBreakMode="tailTruncation" minimumScaleFactor="0.5" id="210" customClass="VLCStatusLabel">
-                    <rect key="frame" x="61" y="273" width="199" height="22"/>
+                    <rect key="frame" x="89" y="323" width="199" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <color key="shadowColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                 </label>
-                <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="108" userLabel="Playing Externally View">
-                    <rect key="frame" x="0.0" y="135" width="320" height="257"/>
+                <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="108" userLabel="Playing Externally View" customClass="VLCPlayingExternallyView" customModule="VLC_iOS" customModuleProvider="target">
+                    <rect key="frame" x="28" y="178" width="320" height="257"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="PlayingExternally.png" id="111">
                             <rect key="frame" x="80" y="20" width="160" height="130"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="TV Connected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="110">
-                            <rect key="frame" x="20" y="170" width="280" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="TV Connected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="110">
+                            <rect key="frame" x="10" y="170" width="300" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                             <color key="textColor" red="0.3803921569" green="0.3803921569" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="This video is playing on the TV" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="109">
-                            <rect key="frame" x="20" y="199" width="289" height="53"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="This video is playing on the TV" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="109">
+                            <rect key="frame" x="10" y="199" width="300" height="53"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -123,20 +121,24 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <outlet property="playingExternallyDescription" destination="109" id="fXx-Nb-GGd"/>
+                        <outlet property="playingExternallyTitle" destination="110" id="7Bd-9p-QXk"/>
+                    </connections>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" id="241" userLabel="scrubbing indicator view" customClass="VLCFrostedGlasView">
-                    <rect key="frame" x="0.0" y="63" width="320" height="46"/>
+                    <rect key="frame" x="0.0" y="63" width="375" height="46"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="High-Speed Scrubbing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="244">
-                            <rect key="frame" x="20" y="3" width="280" height="21"/>
+                            <rect key="frame" x="20" y="3" width="335" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Slide your finger down to adjust the scrubbing rate." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="246">
-                            <rect key="frame" x="0.0" y="21" width="320" height="21"/>
+                            <rect key="frame" x="0.0" y="21" width="375" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -146,7 +148,7 @@
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" id="117" userLabel="video filters view" customClass="VLCFrostedGlasView">
-                    <rect key="frame" x="0.0" y="342" width="320" height="198"/>
+                    <rect key="frame" x="28" y="441" width="320" height="198"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="2" id="128" customClass="VLCSlider">
@@ -237,7 +239,7 @@
                     </subviews>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" misplaced="YES" id="165" userLabel="speed delay Controls panel" customClass="VLCFrostedGlasView">
-                    <rect key="frame" x="0.0" y="294" width="320" height="163"/>
+                    <rect key="frame" x="28" y="393" width="320" height="163"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Audio delay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8cb-fw-YeF">
@@ -341,7 +343,7 @@
         </view>
     </objects>
     <resources>
-        <image name="PlayingExternally.png" width="122" height="91"/>
+        <image name="PlayingExternally.png" width="16" height="16"/>
         <image name="resetIcon.png" width="24" height="30"/>
     </resources>
 </document>

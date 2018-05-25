@@ -10,8 +10,7 @@
  *****************************************************************************/
 
 @objc protocol VLCRendererDiscovererManagerDelegate {
-    @objc(removedCurrentRendererItem:)
-    optional func removedCurrentRendererItem(item: VLCRendererItem)
+    @objc optional func removedCurrentRendererItem(_ item: VLCRendererItem)
 }
 
 class VLCRendererDiscovererManager: NSObject {
@@ -116,12 +115,14 @@ class VLCRendererDiscovererManager: NSObject {
         }
     }
 
-    @objc func addSelectionHandler(selectionHandler: ((_ rendererItem: VLCRendererItem) -> Void)?) {
+    @objc func addSelectionHandler(selectionHandler: ((_ rendererItem: VLCRendererItem?) -> Void)?) {
         actionSheet.setAction { [weak self] (item) in
             if let rendererItem = item as? VLCRendererItem {
+                //if we select the same renderer we want to disconnect
+                let oldRenderer = VLCPlaybackController.sharedInstance().renderer
                 self?.setRendererItem(rendererItem: rendererItem)
                 if let handler = selectionHandler {
-                    handler(rendererItem)
+                    handler(oldRenderer == rendererItem ? nil : rendererItem)
                 }
             }
         }
@@ -164,11 +165,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
             // Current renderer has been removed
             if playbackController.renderer == item {
                 playbackController.renderer = nil
-                if playbackController.isPlaying {
-                    // If playing, fall back to local playback
-                    playbackController.mediaPlayerSetRenderer(nil)
-                }
-                delegate?.removedCurrentRendererItem?(item: item)
+                delegate?.removedCurrentRendererItem?(item)
                 // Reset buttons state
                 for button in rendererButtons {
                     button.isSelected = false
@@ -230,6 +227,8 @@ extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
 
         if !isCurrentlySelectedRenderer {
             collectionView.reloadData()
+        } else {
+            delegate?.removedCurrentRendererItem?(renderer)
         }
         updateCollectionViewCellApparence(cell: cell, highlighted: isCurrentlySelectedRenderer)
     }
