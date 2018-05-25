@@ -135,6 +135,4 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString *)subsFilePath;
 - (void)openVideoSubTitlesFromFile:(NSString *)pathToFile;
 
-- (void)mediaPlayerSetRenderer:(VLCRendererItem *)renderer;
-
 @end

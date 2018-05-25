@@ -21,7 +21,6 @@
  *****************************************************************************/
 
 #import "VLCMovieViewController.h"
-#import "VLCExternalDisplayController.h"
 #import "VLCEqualizerView.h"
 #import "VLCMultiSelectionMenuView.h"
 #import "VLCPlaybackController.h"
@@ -121,8 +120,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
-@property (nonatomic, strong) UIWindow *externalWindow;
 @property (nonatomic, strong) VLCService *services;
+@property (nonatomic, strong) IBOutlet VLCPlayingExternallyView *playingExternalView;
 
 @end
 
@@ -201,9 +200,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                selector:@selector(playbackDidStop:)
                    name:VLCPlaybackControllerPlaybackDidStop
                  object:nil];
-
-    if ([[UIDevice currentDevice] VLCHasExternalDisplay])
-        [self showOnExternalDisplay];
 
     self.trackNameLabel.text = self.artistNameLabel.text = self.albumNameLabel.text = @"";
 
@@ -443,8 +439,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     manager.presentingViewController = self;
     manager.delegate = self;
-
-    [self hidePlayingExternallyViewForRendererIfNeeded];
+    if (_vpc.renderer || [[UIDevice currentDevice] VLCHasExternalDisplay]) {
+         [self showOnDisplay:_playingExternalView.displayView];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -903,7 +900,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (IBAction)closePlayback:(id)sender
 {
     _playbackWillClose = YES;
-    [self hidePlayingExternallyViewForRendererIfNeeded];
     [_vpc stopPlayback];
 }
 
@@ -1088,10 +1084,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [_controllerPanel updateButtons];
     
     _audioOnly = metadata.isAudioOnly;
-    if (_audioOnly) {
-        // fixme: _playingExternallyView should be shown in audioOnly as well
-        _playingExternallyView.hidden = YES;
-    }
 }
 
 - (IBAction)playPause
@@ -1692,82 +1684,37 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 #pragma mark - External Display
 
-- (void)showOnExternalDisplay
+- (void)showOnDisplay:(UIView *)view
 {
-    UIScreen *screen = [UIScreen screens][1];
-    screen.overscanCompensation = UIScreenOverscanCompensationNone;
-
-    self.externalWindow = [[UIWindow alloc] initWithFrame:screen.bounds];
-
-    UIViewController *controller = [[VLCExternalDisplayController alloc] init];
-    self.externalWindow.rootViewController = controller;
-    [controller.view addSubview:_movieView];
-    controller.view.frame = screen.bounds;
-    _movieView.frame = screen.bounds;
-
-    self.playingExternallyView.hidden = NO;
-    self.externalWindow.screen = screen;
-    self.externalWindow.hidden = NO;
-
-    _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE", nil);
-    _playingExternallyDescription.text = NSLocalizedString(@"PLAYING_EXTERNALLY_DESC", nil);
-}
-
-- (void)hideFromExternalDisplay
-{
-    [self.view addSubview:_movieView];
-    [self.view sendSubviewToBack:_movieView];
-    _movieView.frame = self.view.frame;
-
-    self.playingExternallyView.hidden = YES;
-    self.externalWindow.hidden = YES;
-    self.externalWindow = nil;
+    BOOL displayExternally = view != _movieView;
+    [_playingExternalView shouldDisplay:displayExternally];
+    [_playingExternalView updateUIWithRendererItem:_vpc.renderer];
+    _vpc.videoOutputView = view;
+    _artworkImageView.hidden = displayExternally;
 }
 
 - (void)handleExternalScreenDidConnect:(NSNotification *)notification
 {
-    [self showOnExternalDisplay];
+    [self showOnDisplay:_playingExternalView.displayView];
 }
 
 - (void)handleExternalScreenDidDisconnect:(NSNotification *)notification
 {
-    [self hideFromExternalDisplay];
+    [self showOnDisplay:_movieView];
 }
 
 #pragma mark - Renderers
-
-
-/**
- * Checks if playingExternallyView needs to be hidden.
- * If not, playingExternallyView will be shown with the current renderer name
- */
-- (void)hidePlayingExternallyViewForRendererIfNeeded
-{
-    VLCRendererItem *renderer = _vpc.renderer;
-
-    if (renderer != nil) {
-        // TODO: Have a better/prettier transition between local playback frame and playingExternallyView
-        _playingExternallyView.hidden = NO;
-        _playingExternallyTitle.text = NSLocalizedString(@"PLAYING_EXTERNALLY_TITLE_CHROMECAST", nil);
-        _playingExternallyDescription.text = renderer.name;
-    } else {
-        _playingExternallyView.hidden = YES;
-    }
-}
-
-- (void)setupCastWithCurrentRenderer
-{
-    [self hidePlayingExternallyViewForRendererIfNeeded];
-    [_vpc mediaPlayerSetRenderer:_vpc.renderer];
-}
 
 - (void)setupRendererDiscovererManager
 {
     // Create a renderer button for VLCMovieViewController
     _rendererButton = [_services.rendererDiscovererManager setupRendererButton];
     __weak typeof(self) weakSelf = self;
-    [_services.rendererDiscovererManager addSelectionHandlerWithSelectionHandler:^(VLCRendererItem * _Nonnull item) {
-        [weakSelf setupCastWithCurrentRenderer];
+    [_services.rendererDiscovererManager addSelectionHandlerWithSelectionHandler:^(VLCRendererItem * item) {
+        if (item) {
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf showOnDisplay:strongSelf->_playingExternalView.displayView];
+        }
     }];
 }
 
@@ -1775,7 +1722,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)removedCurrentRendererItem:(VLCRendererItem *)item
 {
-    [self hidePlayingExternallyViewForRendererIfNeeded];
+    [self showOnDisplay:_movieView];
 }
-
 @end

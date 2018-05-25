@@ -2,7 +2,7 @@
 #import <MobileVLCKit/MobileVLCKit.h>
 #import <PAPasscode/PAPasscodeViewController.h>
 #import <XKKeychain/XKKeychain.h>
-
+#import "VLCExternalDisplayController.h"
 #import "UIColor+Presets.h"
 #import "VLCAboutViewController.h"
 #import "VLCCloudServicesTableViewController.h"
