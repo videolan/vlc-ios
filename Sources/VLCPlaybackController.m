@@ -1326,10 +1326,10 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 }
 
 #pragma mark - Renderer
-
-- (void)mediaPlayerSetRenderer:(VLCRendererItem *)renderer
+- (void)setRenderer:(VLCRendererItem *)renderer
 {
-    [_mediaPlayer setRendererItem:renderer];
+    _renderer = renderer;
+    [_mediaPlayer setRendererItem:_renderer];
 }
 
 @end
