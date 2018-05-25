@@ -31,9 +31,7 @@
                 <outlet property="playbackSpeedLabel" destination="181" id="194"/>
                 <outlet property="playbackSpeedSlider" destination="180" id="191"/>
                 <outlet property="playbackSpeedView" destination="176" id="197"/>
-                <outlet property="playingExternallyDescription" destination="124" id="132"/>
-                <outlet property="playingExternallyTitle" destination="125" id="133"/>
-                <outlet property="playingExternallyView" destination="123" id="131"/>
+                <outlet property="playingExternalView" destination="123" id="BVQ-JJ-Ckd"/>
                 <outlet property="resetVideoFilterButton" destination="142" id="175"/>
                 <outlet property="saturationLabel" destination="150" id="166"/>
                 <outlet property="saturationSlider" destination="149" id="168"/>
@@ -209,7 +207,7 @@
                         </button>
                     </subviews>
                 </view>
-                <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="123" userLabel="Playing Externally View">
+                <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="123" userLabel="Playing Externally View" customClass="VLCPlayingExternallyView" customModule="VLC_iOS" customModuleProvider="target">
                     <rect key="frame" x="184" y="312" width="400" height="400"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -217,16 +215,16 @@
                             <rect key="frame" x="51" y="0.0" width="298" height="266"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="TV Connected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="125">
-                            <rect key="frame" x="51" y="274" width="298" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="TV Connected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="125">
+                            <rect key="frame" x="10" y="274" width="380" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                             <color key="textColor" red="0.3803921569" green="0.3803921569" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="This video is playing on the TV" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="124">
-                            <rect key="frame" x="51" y="303" width="298" height="53"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="This video is playing on the TV" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="124">
+                            <rect key="frame" x="10" y="303" width="380" height="53"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -235,6 +233,10 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <outlet property="playingExternallyDescription" destination="124" id="Z9R-mg-THz"/>
+                        <outlet property="playingExternallyTitle" destination="125" id="mLx-iH-3bI"/>
+                    </connections>
                 </view>
                 <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Status Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="205" customClass="VLCStatusLabel">
                     <rect key="frame" x="224" y="799" width="320" height="21"/>
@@ -340,7 +342,7 @@
         </view>
     </objects>
     <resources>
-        <image name="PlayingExternally.png" width="261" height="195"/>
+        <image name="PlayingExternally.png" width="16" height="16"/>
         <image name="resetIcon.png" width="24" height="30"/>
     </resources>
 </document>

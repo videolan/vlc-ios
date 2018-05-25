@@ -35,10 +35,6 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @property (nonatomic, strong) IBOutlet UIButton *sleepTimerButton;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
 
-@property (nonatomic, strong) IBOutlet UIView *playingExternallyView;
-@property (nonatomic, strong) IBOutlet UILabel *playingExternallyTitle;
-@property (nonatomic, strong) IBOutlet UILabel *playingExternallyDescription;
-
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *videoFilterView;
 @property (nonatomic, strong) IBOutlet UILabel *hueLabel;
 @property (nonatomic, strong) IBOutlet UISlider *hueSlider;
@@ -95,7 +91,5 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 - (void)toggleUILock;
 - (void)toggleChapterAndTitleSelector;
 - (void)hideMenu;
-
-- (void)setupCastWithCurrentRenderer;
 
 @end

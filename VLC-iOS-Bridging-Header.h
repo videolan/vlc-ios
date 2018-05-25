@@ -10,5 +10,6 @@
 #import <PAPasscode/PAPasscodeViewController.h>
 #import <XKKeychain/XKKeychain.h>
 #import "VLCConstants.h"
+#import "VLCExternalDisplayController.h"
 #import "VLCPlaybackController.h"
 #import "UIColor+Presets.h"
