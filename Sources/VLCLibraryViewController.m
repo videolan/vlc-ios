@@ -248,7 +248,9 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
     [self setupSearchController];
-    _rendererBarButton = [[UIBarButtonItem alloc] initWithCustomView:[VLCRendererDiscovererManager.sharedInstance setupRendererButton]];
+    UIButton *rendererButton = [VLCRendererDiscovererManager.sharedInstance setupRendererButton];
+    [rendererButton sizeToFit];
+    _rendererBarButton = [[UIBarButtonItem alloc] initWithCustomView:rendererButton];
 }
 
 - (void)setupSearchController
@@ -412,12 +414,10 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         [self.view addSubview:self.emptyLibraryView];
         self.navigationItem.rightBarButtonItems = nil;
     } else {
+        self.navigationItem.rightBarButtonItems = @[self.editButtonItem, _rendererBarButton];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            UIBarButtonItem *toggleDisplayedView = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tableViewIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(toggleDisplayedView:)];
-            self.navigationItem.rightBarButtonItems = @[toggleDisplayedView, self.editButtonItem];
-            self.displayModeBarButtonItem = toggleDisplayedView;
-        } else {
-            self.navigationItem.rightBarButtonItems = @[self.editButtonItem, _rendererBarButton];
+            self.displayModeBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tableViewIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(toggleDisplayedView:)];
+            self.navigationItem.rightBarButtonItems = @[self.displayModeBarButtonItem, self.editButtonItem, _rendererBarButton];
         }
     }
     if (self.usingTableViewToShowData) {
@@ -1041,19 +1041,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
     _isSelected = NO;
 
-
-    UIBarButtonItem *editButton = self.editButtonItem;
-    editButton.tintColor = [UIColor whiteColor];
-
-    if (!editing && self.navigationItem.rightBarButtonItems.lastObject == _selectAllBarButtonItem) {
-        [self.navigationItem setRightBarButtonItems: [self.navigationItem.rightBarButtonItems subarrayWithRange:NSMakeRange(0, self.navigationItem.rightBarButtonItems.count - 1)]];
-        [self.navigationItem setRightBarButtonItems: [self.navigationItem.rightBarButtonItems arrayByAddingObject:_rendererBarButton]];
-    }
-    else {
-        // ugly workaround since the stackview doesn't seems to be working properly
-        // setRightBarButtonItem doesn't reset it correctly
-        [self.navigationItem setRightBarButtonItems:@[editButton]];
-        [self.navigationItem setRightBarButtonItems:editing ? [self.navigationItem.rightBarButtonItems arrayByAddingObject:_selectAllBarButtonItem] : [self.navigationItem rightBarButtonItems] animated:YES];
+    if (!editing) {
+        BOOL isIPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+        self.navigationItem.rightBarButtonItems = isIPad ?@[self.displayModeBarButtonItem, self.editButtonItem, _rendererBarButton] : @[self.editButtonItem, _rendererBarButton];
+    } else {
+        self.navigationItem.rightBarButtonItems = @[self.editButtonItem, _selectAllBarButtonItem];
     }
 
     [self setSearchBar:!editing resetContent:!editing];
@@ -1089,16 +1081,8 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     [self.navigationController setToolbarHidden:!editing animated:YES];
 
     [UIView performWithoutAnimation:^{
-        [editButton setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL", nil) : NSLocalizedString(@"BUTTON_EDIT", nil)];
+        [self.editButtonItem setTitle:editing ? NSLocalizedString(@"BUTTON_CANCEL", nil) : NSLocalizedString(@"BUTTON_EDIT", nil)];
     }];
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        NSMutableArray *rightBarButtonItems = [self.navigationItem.rightBarButtonItems mutableCopy];
-        UIBarButtonItem *toggleDisplayedView = rightBarButtonItems[0];
-        toggleDisplayedView.enabled = !editing;
-        rightBarButtonItems[0] = toggleDisplayedView;
-        self.navigationItem.rightBarButtonItems = rightBarButtonItems;
-    }
 }
 
 - (void)toggleDisplayedView:(UIBarButtonItem *)button
