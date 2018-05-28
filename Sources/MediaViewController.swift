@@ -62,7 +62,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     @objc func reloadData() {
         collectionView?.reloadData()
-        updateUIForEmptyView()
+        updateUIForContent()
     }
 
     @available(*, unavailable)
@@ -131,20 +131,17 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""), style: .plain, target: self, action: #selector(sort))
     }
     
-    func updateUIForEmptyView() {
+    func updateUIForContent() {
         let isEmpty = collectionView?.numberOfItems(inSection: 0) == 0
 
         if isEmpty {
             collectionView?.setContentOffset(.zero, animated: false)
-            collectionView?.backgroundView = emptyView
-            edgesForExtendedLayout = []
-        } else {
-            collectionView?.backgroundView = nil
-            edgesForExtendedLayout = .all
         }
+        collectionView?.backgroundView = isEmpty ? emptyView : nil
         
         if #available(iOS 11.0, *) {
-            navigationItem.searchController = isEmpty ? nil :searchController
+            navigationItem.searchController = isEmpty ? nil : searchController
+            navigationController?.navigationBar.prefersLargeTitles = !isEmpty
         } else {
             navigationItem.titleView = isEmpty ? nil : searchController?.searchBar
         }

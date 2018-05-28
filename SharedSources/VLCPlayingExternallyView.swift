@@ -49,7 +49,7 @@ class VLCPlayingExternallyView: UIView {
     @objc func updateUI(rendererItem: VLCRendererItem?) {
         if let rendererItem = rendererItem {
             playingExternallyTitle.text = NSLocalizedString("PLAYING_EXTERNALLY_TITLE_CHROMECAST", comment:"")
-            playingExternallyDescription.text = rendererItem.name;
+            playingExternallyDescription.text = rendererItem.name
         } else {
             playingExternallyTitle.text = NSLocalizedString("PLAYING_EXTERNALLY_TITLE", comment: "")
             playingExternallyDescription.text = NSLocalizedString("PLAYING_EXTERNALLY_DESC", comment:"")
