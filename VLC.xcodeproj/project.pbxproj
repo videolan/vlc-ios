@@ -53,7 +53,7 @@
 		41EB91DD1F7BFF8500821AA5 /* VLCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */; };
 		41EB91DE1F7BFF8500821AA5 /* VLCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */; };
 		41EB94B4209B46E9002F4C30 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EB94B3209B46E9002F4C30 /* ButtonCell.xib */; };
-		41EB94B6209B4869002F4C30 /* IconLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EB94B5209B4869002F4C30 /* IconLabelCell.xib */; };
+		41EB94B6209B4869002F4C30 /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EB94B5209B4869002F4C30 /* LabelCell.xib */; };
 		41F5C0781F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */; };
 		41F9BC7C1F4F20E400268461 /* VLCTrackSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F9BC7B1F4F20E400268461 /* VLCTrackSelectorView.m */; };
 		41FCD2F820B565B600660AAB /* VLCAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCD2F720B565B500660AAB /* VLCAlertViewController.swift */; };
@@ -584,7 +584,7 @@
 		41EB91DB1F7BFF8400821AA5 /* VLCMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMetadata.h; sourceTree = "<group>"; };
 		41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMetadata.m; sourceTree = "<group>"; };
 		41EB94B3209B46E9002F4C30 /* ButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonCell.xib; sourceTree = "<group>"; };
-		41EB94B5209B4869002F4C30 /* IconLabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconLabelCell.xib; sourceTree = "<group>"; };
+		41EB94B5209B4869002F4C30 /* LabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
 		41F5C0761F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCLibrarySearchDisplayDataSource.h; path = Sources/VLCLibrarySearchDisplayDataSource.h; sourceTree = SOURCE_ROOT; };
 		41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VLCLibrarySearchDisplayDataSource.m; path = Sources/VLCLibrarySearchDisplayDataSource.m; sourceTree = SOURCE_ROOT; };
 		41F9BC7A1F4F20E400268461 /* VLCTrackSelectorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCTrackSelectorView.h; path = Sources/VLCTrackSelectorView.h; sourceTree = SOURCE_ROOT; };
@@ -1552,7 +1552,7 @@
 				4170152B209A1D3600802E44 /* MediaSubcategoryViewController.swift */,
 				41701545209B36E800802E44 /* BaseButtonBarPagerTabStripViewController.swift */,
 				41EB94B3209B46E9002F4C30 /* ButtonCell.xib */,
-				41EB94B5209B4869002F4C30 /* IconLabelCell.xib */,
+				41EB94B5209B4869002F4C30 /* LabelCell.xib */,
 			);
 			name = "Everything Playlist";
 			sourceTree = "<group>";
@@ -2778,7 +2778,7 @@
 				7D32B384185E293D006CA474 /* Raleway.woff in Resources */,
 				7D9870691A3E03D5009CF27D /* papasscode_marker@2x.png in Resources */,
 				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
-				41EB94B6209B4869002F4C30 /* IconLabelCell.xib in Resources */,
+				41EB94B6209B4869002F4C30 /* LabelCell.xib in Resources */,
 				7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */,
 				7D92897B1877467E009108FD /* VLCFirstStepsFourthPageViewController~iphone.xib in Resources */,
 				7D1516461868D7E0004B18F3 /* VLCFirstStepsSixthPageViewController~iphone.xib in Resources */,
