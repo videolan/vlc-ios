@@ -34,14 +34,14 @@ class VLCAudioSubcategoryViewController: VLCMediaSubcategoryViewController
     }
 }
 
-class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewController<IconLabelCell> {
+class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewController<LabelCell> {
 
     internal var services: Services
 
     init(services: Services) {
         self.services = services
         super.init(nibName: nil, bundle: nil)
-        buttonBarItemSpec = ButtonBarItemSpec.nibFile(nibName: "IconLabelCell", bundle: Bundle.main, width: { _ in
+        buttonBarItemSpec = ButtonBarItemSpec.nibFile(nibName: "LabelCell", bundle: Bundle.main, width: { _ in
             return 70.0
         })
     }
@@ -55,14 +55,13 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
         settings.style.buttonBarBackgroundColor = .white
         settings.style.selectedBarBackgroundColor = PresentationTheme.current.colors.orangeUI
         settings.style.selectedBarHeight = 4.0
+        settings.style.buttonBarItemFont = UIFont.systemFont(ofSize: 24)
         settings.style.buttonBarItemTitleColor = .black
         settings.style.buttonBarItemsShouldFillAvailableWidth = true
 
-        changeCurrentIndexProgressive = { (oldCell: IconLabelCell?, newCell: IconLabelCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) in
+        changeCurrentIndexProgressive = { (oldCell: LabelCell?, newCell: LabelCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) in
             guard changeCurrentIndex == true else { return }
-            oldCell?.iconImage.tintColor = PresentationTheme.current.colors.cellDetailTextColor
             oldCell?.iconLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
-            newCell?.iconImage.tintColor = PresentationTheme.current.colors.orangeUI
             newCell?.iconLabel.textColor = PresentationTheme.current.colors.orangeUI
         }
         if #available(iOS 11.0, *) {
@@ -77,9 +76,8 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
         fatalError("this should only be used as subclass")
     }
 
-    override func configure(cell: IconLabelCell, for indicatorInfo: IndicatorInfo) {
-        cell.iconImage.image = indicatorInfo.image?.withRenderingMode(.alwaysTemplate)
-        cell.iconLabel.text = indicatorInfo.title?.trimmingCharacters(in: .whitespacesAndNewlines)
+    override func configure(cell: LabelCell, for indicatorInfo: IndicatorInfo) {
+        cell.iconLabel.text = indicatorInfo.title
     }
 
     override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {

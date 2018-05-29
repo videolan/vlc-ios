@@ -310,11 +310,12 @@
 "FOLDER_EMPTY" = "FOLDER_EMPTY";
 
 /* New strings */
-"albums" = "albums";
-"artists" = "artists";
-"genres" = "genres";
-"movies" = "movies";
-"playlists" = "playlists";
-"songs" = "songs";
-"videos" = "videos";
-"episodes" = "episodes";
+"ALBUMS" = "Albums";
+"ARTISTS" = "Artists";
+"AUDIO_PLAYLISTS" = "Playlists";
+"EPISODES" = "Episodes";
+"GENRES" = "Genres";
+"MOVIES" = "Movies";
+"SONGS" = "Songs";
+"VIDEOS" = "Videos";
+"VIDEO_PLAYLISTS" = "Playlists";

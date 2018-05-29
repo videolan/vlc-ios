@@ -92,23 +92,23 @@ struct VLCMediaType {
         case .unknown:
             preconditionFailure("No")
         case .movies:
-            return IndicatorInfo(title: NSLocalizedString("movies", comment: ""), image: UIImage(named: "TVShowsIcon"))
+            return IndicatorInfo(title: NSLocalizedString("MOVIES", comment: ""))
         case .episodes:
-            return IndicatorInfo(title: NSLocalizedString("episodes", comment: ""), image: UIImage(named: "episodes"))
+            return IndicatorInfo(title: NSLocalizedString("EPISODES", comment: ""))
         case .artists:
-            return IndicatorInfo(title: NSLocalizedString("artists", comment: ""), image: UIImage(named: "artists"))
+            return IndicatorInfo(title: NSLocalizedString("ARTISTS", comment: ""))
         case .albums:
-             return IndicatorInfo(title: NSLocalizedString("albums", comment: ""), image: UIImage(named: "MusicAlbums"))
+             return IndicatorInfo(title: NSLocalizedString("ALBUMS", comment: ""))
         case .tracks:
-            return IndicatorInfo(title: NSLocalizedString("songs", comment: ""), image: UIImage(named: "songs"))
+            return IndicatorInfo(title: NSLocalizedString("SONGS", comment: ""))
         case .genres:
-            return IndicatorInfo(title: NSLocalizedString("genres", comment: ""), image: UIImage(named: "genres"))
+            return IndicatorInfo(title: NSLocalizedString("GENRES", comment: ""))
         case .audioPlaylists:
-            return IndicatorInfo(title: NSLocalizedString("playlists", comment: ""), image: UIImage(named: "playlists"))
+            return IndicatorInfo(title: NSLocalizedString("AUDIO_PLAYLISTS", comment: ""))
         case .videoPlaylists:
-            return IndicatorInfo(title: NSLocalizedString("playlists", comment: ""), image: UIImage(named: "playlists"))
+            return IndicatorInfo(title: NSLocalizedString("VIDEO_PLAYLISTS", comment: ""))
         case .allVideos:
-            return IndicatorInfo(title: NSLocalizedString("videos", comment: ""), image: UIImage(named: "videos"))
+            return IndicatorInfo(title: NSLocalizedString("VIDEOS", comment: ""))
         }
 
     }

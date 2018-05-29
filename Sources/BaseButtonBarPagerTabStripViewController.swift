@@ -9,9 +9,8 @@
 import Foundation
 
 
-class IconLabelCell: UICollectionViewCell {
+class LabelCell: UICollectionViewCell {
 
-    @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var iconLabel: UILabel!
 
 }
@@ -46,13 +45,11 @@ public struct ButtonBarPagerTabStripSettings {
 public struct IndicatorInfo {
 
     public var title: String?
-    public var image: UIImage?
     public var accessibilityLabel: String?
 
-    public init(title: String?, image: UIImage?) {
+    public init(title: String) {
         self.title = title
         self.accessibilityLabel = title
-        self.image = image
     }
 
 }
@@ -60,12 +57,9 @@ public struct IndicatorInfo {
 public enum ButtonBarItemSpec<CellType: UICollectionViewCell> {
 
     case nibFile(nibName: String, bundle: Bundle?, width:((IndicatorInfo)-> CGFloat))
-    case cellClass(width:((IndicatorInfo)-> CGFloat))
 
     public var weight: ((IndicatorInfo) -> CGFloat) {
         switch self {
-        case .cellClass(let widthCallback):
-            return widthCallback
         case .nibFile(_, _, let widthCallback):
             return widthCallback
         }
@@ -310,8 +304,6 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
         switch buttonBarItemSpec! {
         case .nibFile(let nibName, let bundle, _):
             buttonBarView.register(UINib(nibName: nibName, bundle: bundle), forCellWithReuseIdentifier:"Cell")
-        case .cellClass:
-            buttonBarView.register(ButtonBarCellType.self, forCellWithReuseIdentifier:"Cell")
         }
     }
 
@@ -492,10 +484,6 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
             let childController = viewController as! IndicatorInfoProvider // swiftlint:disable:this force_cast
             let indicatorInfo = childController.indicatorInfo(for: self)
             switch buttonBarItemSpec! {
-            case .cellClass(let widthCallback):
-                let width = widthCallback(indicatorInfo)
-                minimumCellWidths.append(width)
-                collectionViewContentWidth += width
             case .nibFile(_, _, let widthCallback):
                 let width = widthCallback(indicatorInfo)
                 minimumCellWidths.append(width)
