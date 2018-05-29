@@ -59,9 +59,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _videoFiltersHidden;
     BOOL _playbackSpeedViewHidden;
 
-    UIActionSheet *_subtitleActionSheet;
-    UIActionSheet *_audiotrackActionSheet;
-
     NSTimer *_idleTimer;
 
     BOOL _viewAppeared;
@@ -119,7 +116,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UIButton *_rendererButton;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
-@property (nonatomic, strong) UIPopoverController *masterPopoverController;
 @property (nonatomic, strong) VLCService *services;
 @property (nonatomic, strong) IBOutlet VLCPlayingExternallyView *playingExternalView;
 
