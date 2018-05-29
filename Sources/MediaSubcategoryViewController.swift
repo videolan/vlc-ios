@@ -51,13 +51,6 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
     }
 
     override func viewDidLoad() {
-        // change selected bar color
-        settings.style.buttonBarBackgroundColor = .white
-        settings.style.selectedBarBackgroundColor = PresentationTheme.current.colors.orangeUI
-        settings.style.selectedBarHeight = 4.0
-        settings.style.buttonBarItemFont = UIFont.systemFont(ofSize: 24)
-        settings.style.buttonBarItemTitleColor = .black
-        settings.style.buttonBarItemsShouldFillAvailableWidth = true
 
         changeCurrentIndexProgressive = { (oldCell: LabelCell?, newCell: LabelCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) in
             guard changeCurrentIndex == true else { return }
