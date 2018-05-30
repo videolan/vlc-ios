@@ -152,6 +152,12 @@
     self.whatToOpenHelpLabel.textColor = PresentationTheme.current.colors.lightTextColor;
     self.openButton.backgroundColor = PresentationTheme.current.colors.orangeUI;
     [self.historyTableView reloadData];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return PresentationTheme.current.colors.statusBarStyle;
 }
 
 - (void)updatePasteboardTextInURLField

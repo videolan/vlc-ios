@@ -295,6 +295,7 @@
     _scrollView.backgroundColor = PresentationTheme.current.colors.background;
     _localNetworkTableView.separatorColor = PresentationTheme.current.colors.background;
     _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)_dismissLogin
@@ -303,6 +304,11 @@
         [self.navigationController popViewControllerAnimated:YES];
     else
         [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return PresentationTheme.current.colors.statusBarStyle;
 }
 
 #pragma mark - Refresh

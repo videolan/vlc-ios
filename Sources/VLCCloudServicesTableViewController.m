@@ -64,6 +64,7 @@
 {
     self.tableView.separatorColor = PresentationTheme.current.colors.background;
     self.tableView.backgroundColor = PresentationTheme.current.colors.background;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -95,6 +96,11 @@
     i += [[BoxSDK sharedSDK].OAuth2Session isAuthorized] ? 1 : 0;
     i += [[VLCOneDriveController sharedInstance] isAuthorized] ? 1 : 0;
     return i;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return PresentationTheme.current.colors.statusBarStyle;
 }
 
 - (UIImage *)cellImage

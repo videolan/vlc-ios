@@ -21,18 +21,18 @@ class AppearanceManager: NSObject {
         UITextField.appearance().tintColor = theme.colors.orangeUI
 
         // Don't override the 'Cancel' button color in the search bar with the previous UITextField call. Use the default blue color
-        let attributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        let attributes = [NSAttributedStringKey.foregroundColor: theme.colors.orangeUI]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
 
-        UINavigationBar.appearance().barTintColor = theme.colors.orangeUI
+        UINavigationBar.appearance().barTintColor = theme.colors.navigationbarColor
         UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).barTintColor = nil
-        UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().titleTextAttributes = attributes
+        UINavigationBar.appearance().tintColor = theme.colors.orangeUI
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: theme.colors.navigationbarTextColor]
 
         if #available(iOS 11.0, *) {
             UINavigationBar.appearance().prefersLargeTitles = true
             UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).prefersLargeTitles = false
-            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: theme.colors.navigationbarTextColor]
         }
         // For the edit selection indicators
         UITableView.appearance().tintColor = theme.colors.orangeUI
@@ -41,5 +41,12 @@ class AppearanceManager: NSObject {
         UISearchBar.appearance().barTintColor = .white
 
         UITabBar.appearance().tintColor = theme.colors.orangeUI
+    }
+}
+
+//extensions so that preferredStatusBarStyle is called on all childViewControllers otherwise this is not forwarded
+extension UINavigationController {
+    override open var childViewControllerForStatusBarStyle: UIViewController? {
+        return self.topViewController
     }
 }

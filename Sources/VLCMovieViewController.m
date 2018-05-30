@@ -505,7 +505,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _idleTimer = nil;
     }
 
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [super viewWillDisappear:animated];
 
     // hide filter UI for next run
@@ -762,11 +761,27 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         self->_trackNameLabel.hidden =  self->_audioOnly ? NO : self->_controlsHidden;
     };
 
-    UIStatusBarAnimation animationType = animated? UIStatusBarAnimationFade: UIStatusBarAnimationNone;
-    NSTimeInterval animationDuration = animated? 0.3: 0.0;
+    NSTimeInterval animationDuration = animated? 0.3 : 0.0;
+    [UIView animateWithDuration:animationDuration animations:^{
+        [self setNeedsStatusBarAppearanceUpdate];
+    }];
 
-    [[UIApplication sharedApplication] setStatusBarHidden:_viewAppeared ? _controlsHidden : NO withAnimation:animationType];
     [UIView animateWithDuration:animationDuration animations:animationBlock completion:completionBlock];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return _viewAppeared ? _controlsHidden : NO;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
+{
+    return UIStatusBarAnimationFade;
 }
 
 - (void)toggleControlsVisible
