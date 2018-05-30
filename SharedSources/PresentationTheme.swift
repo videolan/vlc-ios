@@ -20,6 +20,9 @@ extension Notification.Name {
 
     public let isDark: Bool
     public let name: String
+    public let statusBarStyle: UIStatusBarStyle
+    public let navigationbarColor: UIColor
+    public let navigationbarTextColor: UIColor
     public let background: UIColor
     public let cellBackgroundA: UIColor
     public let cellBackgroundB: UIColor
@@ -36,6 +39,9 @@ extension Notification.Name {
 
     public init(isDark: Bool,
                 name: String,
+                statusBarStyle:UIStatusBarStyle,
+                navigationbarColor: UIColor,
+                navigationbarTextColor: UIColor,
                 background: UIColor,
                 cellBackgroundA: UIColor,
                 cellBackgroundB: UIColor,
@@ -51,6 +57,9 @@ extension Notification.Name {
                 orangeUI: UIColor) {
         self.isDark = isDark
         self.name = name
+        self.statusBarStyle = statusBarStyle
+        self.navigationbarColor = navigationbarColor
+        self.navigationbarTextColor = navigationbarTextColor
         self.background = background
         self.cellBackgroundA = cellBackgroundA
         self.cellBackgroundB = cellBackgroundB
@@ -77,8 +86,8 @@ extension Notification.Name {
         return isDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
     }() {
         didSet {
-            NotificationCenter.default.post(name: .VLCThemeDidChangeNotification, object: self)
             AppearanceManager.setupAppearance(theme: self.current)
+            NotificationCenter.default.post(name: .VLCThemeDidChangeNotification, object: self)
         }
     }
 
@@ -126,6 +135,9 @@ extension Notification.Name {
 
 let brightPalette = ColorPalette(isDark: false,
                                  name: "Default",
+                                 statusBarStyle: .default,
+                                 navigationbarColor: UIColor(0xFFFFFF),
+                                 navigationbarTextColor: UIColor(0x000000),
                                  background: UIColor(0xF9F9F7),
                                  cellBackgroundA: UIColor(0xF9F9F7),
                                  cellBackgroundB: UIColor(0xE5E5E3),
@@ -142,6 +154,9 @@ let brightPalette = ColorPalette(isDark: false,
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",
+                               statusBarStyle: .lightContent,
+                               navigationbarColor: UIColor(0x292B36),
+                               navigationbarTextColor: UIColor(0xD3D3D3),
                                background: UIColor(0x292B36),
                                cellBackgroundA: UIColor(0x292B36),
                                cellBackgroundB: UIColor(0x000000),
@@ -153,5 +168,5 @@ let darkPalette = ColorPalette(isDark: true,
                                settingsBackground: UIColor(0x292B36),
                                settingsCellBackground: UIColor(0x3D3F40),
                                settingsSeparatorColor: UIColor(0xA9A9A9),
-                               tabBarColor: UIColor(0xFFFFFF),
+                               tabBarColor: UIColor(0x292B36),
                                orangeUI: UIColor(0xFF8800))

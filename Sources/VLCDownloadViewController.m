@@ -116,6 +116,12 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     self.speedRate.textColor =  PresentationTheme.current.colors.cellBackgroundB;
     self.timeDL.textColor = PresentationTheme.current.colors.cellTextColor;
     [self.downloadsTable reloadData];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return PresentationTheme.current.colors.statusBarStyle;
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -33,7 +33,19 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
     }
 
     @objc func updateTheme() {
+        //Setting this in appearanceManager doesn't update tabbar and UINavigationbar of the settingsViewController on change hence we do it here
         tabBarController.tabBar.barTintColor = PresentationTheme.current.colors.tabBarColor
+        tabBarController.viewControllers?.forEach {
+            if let navController = $0 as? UINavigationController, navController.topViewController is VLCSettingsController {
+                navController.navigationBar.barTintColor =  PresentationTheme.current.colors.navigationbarColor
+                navController.navigationBar.tintColor =  PresentationTheme.current.colors.orangeUI
+                navController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:  PresentationTheme.current.colors.navigationbarTextColor]
+
+                if #available(iOS 11.0, *) {
+                    navController.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor:  PresentationTheme.current.colors.navigationbarTextColor]
+                }
+            }
+        }
     }
 
     func setupViewControllers() {

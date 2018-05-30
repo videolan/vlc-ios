@@ -60,6 +60,10 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         }
     }
 
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
+        return PresentationTheme.current.colors.statusBarStyle
+    }
+
     @objc func reloadData() {
         collectionView?.reloadData()
         updateUIForContent()
@@ -91,6 +95,8 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
 
     @objc func themeDidChange() {
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
+        setNeedsStatusBarAppearanceUpdate()
+
     }
 
     func setupCollectionView() {

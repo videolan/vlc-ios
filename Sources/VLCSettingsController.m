@@ -47,12 +47,18 @@
     self.view.backgroundColor = PresentationTheme.current.colors.settingsBackground;
     self.tableView.separatorColor = PresentationTheme.current.colors.settingsSeparatorColor;
     [self.tableView reloadData];
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self filterCellsWithAnimation:NO];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return PresentationTheme.current.colors.statusBarStyle;
 }
 
 - (NSSet *)hiddenBiometryKeys
