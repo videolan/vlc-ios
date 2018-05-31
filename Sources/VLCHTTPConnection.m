@@ -26,9 +26,9 @@
 #import "UIDevice+VLC.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMetaData.h"
-#import "VLC_iOS-Swift.h"
 
 #if TARGET_OS_IOS
+#import "VLC_iOS-Swift.h"
 #import "VLCThumbnailsCache.h"
 #endif
 #if TARGET_OS_TV

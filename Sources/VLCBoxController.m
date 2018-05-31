@@ -15,7 +15,6 @@
 #import "VLCPlaybackController.h"
 #import "VLCMediaFileDiscoverer.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
-#import "VLC_iOS-Swift.h"
 
 @interface VLCBoxController ()
 {

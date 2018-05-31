@@ -23,7 +23,9 @@
 #import "VLCConstants.h"
 #import "VLCRemoteControlService.h"
 #import "VLCMetadata.h"
+#if TARGET_OS_IOS
 #import "VLC_iOS-Swift.h"
+#endif
 
 NSString *const VLCPlaybackControllerPlaybackDidStart = @"VLCPlaybackControllerPlaybackDidStart";
 NSString *const VLCPlaybackControllerPlaybackDidPause = @"VLCPlaybackControllerPlaybackDidPause";
