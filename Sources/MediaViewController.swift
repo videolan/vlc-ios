@@ -148,7 +148,6 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         
         if #available(iOS 11.0, *) {
             navigationItem.searchController = isEmpty ? nil : searchController
-            navigationController?.navigationBar.prefersLargeTitles = !isEmpty
         } else {
             navigationItem.titleView = isEmpty ? nil : searchController?.searchBar
         }
