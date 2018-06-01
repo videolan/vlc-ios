@@ -38,7 +38,7 @@ class VLCAudioSubcategoryViewController: VLCMediaSubcategoryViewController
     }
 }
 
-class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewController<LabelCell> {
+class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewController<VLCLabelCell> {
 
     internal var services: Services
     public weak var mediaDelegate: VLCMediaViewControllerDelegate?
@@ -50,7 +50,7 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
 
     override func viewDidLoad() {
 
-        changeCurrentIndexProgressive = { (oldCell: LabelCell?, newCell: LabelCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) in
+        changeCurrentIndexProgressive = { (oldCell: VLCLabelCell?, newCell: VLCLabelCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) in
             guard changeCurrentIndex == true else { return }
             oldCell?.iconLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
             newCell?.iconLabel.textColor = PresentationTheme.current.colors.orangeUI
@@ -67,7 +67,7 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
         fatalError("this should only be used as subclass")
     }
 
-    override func configure(cell: LabelCell, for indicatorInfo: IndicatorInfo) {
+    override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
         cell.iconLabel.text = indicatorInfo.title
     }
 

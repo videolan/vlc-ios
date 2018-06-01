@@ -12,7 +12,7 @@
 
 import Foundation
 
-class LabelCell: UICollectionViewCell {
+class VLCLabelCell: UICollectionViewCell {
 
     @IBOutlet weak var iconLabel: UILabel!
 
@@ -99,7 +99,7 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
         buttonBarView.dataSource = self
 
         // register button bar item cell
-        buttonBarView.register(UINib(nibName: "LabelCell", bundle: .main), forCellWithReuseIdentifier:"Cell")
+        buttonBarView.register(UINib(nibName: "VLCLabelCell", bundle: .main), forCellWithReuseIdentifier:"Cell")
     }
 
     open override func viewWillAppear(_ animated: Bool) {
