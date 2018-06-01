@@ -199,29 +199,23 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
         let buttonBarViewAux = buttonBarView ?? {
             let flowLayout = UICollectionViewFlowLayout()
             flowLayout.scrollDirection = .horizontal
-//            let buttonBarHeight:CGFloat = 34.0
-//            let yPos: CGFloat;
-//            if #available(iOS 11.0, *) {
-//                yPos = navigationController!.navigationBar.safeAreaInsets.top + navigationController!.navigationBar.frame.height
-//            } else {
-//                yPos = navigationController!.navigationBar.frame.maxY
-//            }
             let buttonBar = ButtonBarView(frame: .zero, collectionViewLayout: flowLayout)
             buttonBar.backgroundColor = .orange
             buttonBar.selectedBar.backgroundColor = .black
-            buttonBar.autoresizingMask = .flexibleWidth
-//            var newContainerViewFrame = containerView.frame
-//            newContainerViewFrame.origin.y = buttonBar.frame.maxY
-//            newContainerViewFrame.size.height = containerView.frame.size.height - (buttonBar.frame.maxY - containerView.frame.origin.y)
-//            containerView.frame = newContainerViewFrame
             return buttonBar
             }()
         buttonBarView = buttonBarViewAux
 
         if buttonBarView.superview == nil {
-            buttonBarView.translates
+            buttonBarView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(buttonBarView)
-            NSlAyou
+            NSLayoutConstraint.activate([
+                buttonBarView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+                buttonBarView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                buttonBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                buttonBarView.heightAnchor.constraint(equalToConstant: 35)
+                ]
+            )
         }
         if buttonBarView.delegate == nil {
             buttonBarView.delegate = self
@@ -285,18 +279,10 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
     }
+    
     open override func updateContent() {
         super.updateContent()
-//        let yPos: CGFloat;
-//        if #available(iOS 11.0, *) {
-//            yPos = navigationController!.navigationBar.safeAreaInsets.top + navigationController!.navigationBar.frame.height
-//        } else {
-//            yPos = navigationController!.navigationBar.frame.maxY
-//        }
-        buttonBarView.frame = CGRect(x: CGFloat(0), y: 150
-            - buttonBarView.frame.height, width: view.frame.width, height: buttonBarView.frame.height)
     }
-
     // MARK: - Public Methods
 
     open override func reloadPagerTabStripView() {
