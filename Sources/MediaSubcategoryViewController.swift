@@ -12,20 +12,18 @@
 
 import UIKit
 
-class VLCVideoSubcategoryViewController: VLCMediaSubcategoryViewController
-{
+class VLCVideoSubcategoryViewController: VLCMediaSubcategoryViewController {
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         let movies = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .allVideos))
         let episodes = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .episodes))
         let playlists = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .videoPlaylists))
         let viewControllers = [movies, episodes, playlists]
-        viewControllers.forEach{ $0.delegate = self.mediaDelegate }
+        viewControllers.forEach { $0.delegate = self.mediaDelegate }
         return viewControllers
     }
 }
 
-class VLCAudioSubcategoryViewController: VLCMediaSubcategoryViewController
-{
+class VLCAudioSubcategoryViewController: VLCMediaSubcategoryViewController {
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         let tracks = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .tracks))
         let genres = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .genres))
@@ -33,12 +31,12 @@ class VLCAudioSubcategoryViewController: VLCMediaSubcategoryViewController
         let albums = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .albums))
         let playlists = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .audioPlaylists))
         let viewControllers = [tracks, genres, artists, albums, playlists]
-        viewControllers.forEach{ $0.delegate = self.mediaDelegate }
+        viewControllers.forEach { $0.delegate = self.mediaDelegate }
         return viewControllers
     }
 }
 
-class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewController<LabelCell> {
+class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewController<VLCLabelCell> {
 
     internal var services: Services
     public weak var mediaDelegate: VLCMediaViewControllerDelegate?
@@ -50,7 +48,7 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
 
     override func viewDidLoad() {
 
-        changeCurrentIndexProgressive = { (oldCell: LabelCell?, newCell: LabelCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) in
+        changeCurrentIndexProgressive = { (oldCell: VLCLabelCell?, newCell: VLCLabelCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) in
             guard changeCurrentIndex == true else { return }
             oldCell?.iconLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
             newCell?.iconLabel.textColor = PresentationTheme.current.colors.orangeUI
@@ -67,7 +65,7 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
         fatalError("this should only be used as subclass")
     }
 
-    override func configure(cell: LabelCell, for indicatorInfo: IndicatorInfo) {
+    override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
         cell.iconLabel.text = indicatorInfo.title
     }
 
@@ -77,7 +75,7 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
             let child = viewControllers[toIndex] as! IndicatorInfoProvider
             UIView.performWithoutAnimation({ [weak self] in
                 guard let me = self else { return }
-                me.navigationItem.leftBarButtonItem?.title =  child.indicatorInfo(for: me).title
+                me.navigationItem.leftBarButtonItem?.title = child.indicatorInfo(for: me).title
             })
         }
     }

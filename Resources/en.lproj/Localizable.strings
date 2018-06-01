@@ -51,7 +51,9 @@
 "CONTINUE_PLAYBACK" = "Continue playback?";
 "CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 
+"BUTTON_ALL" = "Select All";
 "BUTTON_BACK" = "Back";
+"BUTTON_EDIT" = "Edit";
 "BUTTON_DONE" = "Done";
 "BUTTON_CANCEL" = "Cancel";
 "BUTTON_SAVE" = "Save";
@@ -95,6 +97,7 @@
 "DOWNLOAD_FROM_HTTP_HELP" = "Enter an address to download the file to your %@.";
 "DOWNLOAD_FROM_HTTP" = "Downloads";
 "ERROR_NUMBER" = "Error %i occured";
+"DOWNLOAD_FAILED" = "Download failed";
 "FILE_NOT_SUPPORTED" = "File format not supported";
 "FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
 "SCHEME_NOT_SUPPORTED" = "Address scheme not supported";
@@ -105,6 +108,7 @@
 "LIBRARY_SINGLE_EPISODE" = "%i Episode, %i unread";
 "LIBRARY_TRACK_N" = "Track %i";
 "LIBRARY_MINUTES_LEFT" = "%@m left";
+"RENAME_MEDIA_TO" = "Enter new name for %@";
 
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Choose a file to open:";
@@ -282,6 +286,10 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
 
+"DELETE_INVALID_MESSAGE" = "The selection can't be deleted";
+"DELETE_INVALID_TITLE" = "Invalid Selection";
+"DELETE_MESSAGE" = "Confirm the deletion of the selected files";
+"DELETE_TITLE" = "Delete Selected Files";
 
 //Drag and Drop
 "THIS_FILE" = "This file";
@@ -298,10 +306,7 @@
 "SORT_BY" = "Sort by";
 "VIDEO" = "Video";
 
-/* New strings */
-"FOLDER_EMPTY" = "FOLDER_EMPTY";
-
-/* New strings */
+// MediaViewController Swipable Header
 "ALBUMS" = "Albums";
 "ARTISTS" = "Artists";
 "AUDIO_PLAYLISTS" = "Playlists";

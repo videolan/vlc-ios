@@ -1,37 +1,42 @@
-//
-//  ButtonBarView.swift
-//  VLC-iOS
-//
-//  Created by Carola Nitz on 6/1/18.
-//  Copyright © 2018 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * ButtonBarView.Swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Carola Nitz <nitz.carola # googlemail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 
 open class ButtonBarView: UICollectionView {
 
-    open lazy var selectedBar: UIView = { [unowned self] in
-        let bar  = UIView(frame: CGRect(x: 0, y: self.frame.size.height - CGFloat(self.selectedBarHeight), width: 0, height: CGFloat(self.selectedBarHeight)))
-        bar.layer.zPosition = 9999
-        return bar
-        }()
+    open var selectedBar: UIView!
 
-    internal var selectedBarHeight: CGFloat = 4 {
-        didSet {
-            updateSelectedBarYPosition()
-        }
-    }
+    internal var selectedBarHeight: CGFloat = 4
 
     var selectedIndex = 0
 
+    @available(*, unavailable, message: "use init(frame:)")
     required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        addSubview(selectedBar)
+        fatalError()
     }
 
     public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
+        setup()
         addSubview(selectedBar)
+    }
+
+    func setup() {
+        backgroundColor = .white
+        scrollsToTop = false
+        showsHorizontalScrollIndicator = false
+        selectedBar = UIView(frame: CGRect(x: 0, y: self.frame.size.height - CGFloat(self.selectedBarHeight), width: 0, height: CGFloat(self.selectedBarHeight)))
+        selectedBar.backgroundColor = PresentationTheme.current.colors.orangeUI
     }
 
     open func moveTo(index: Int, animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
