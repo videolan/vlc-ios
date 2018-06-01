@@ -1,13 +1,16 @@
-//
-//  BaseButtonBarPagerTabStripViewController.swift
-//  VLC-iOS
-//
-//  Created by Carola Nitz on 5/3/18.
-//  Copyright © 2018 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * BaseButtonBarPageTabStripViewController.swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Carola Nitz <caro # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
-
 
 class LabelCell: UICollectionViewCell {
 
@@ -29,19 +32,6 @@ public struct IndicatorInfo {
         self.title = title
         self.accessibilityLabel = title
     }
-
-}
-
-public enum ButtonBarItemSpec<CellType: UICollectionViewCell> {
-
-    case nibFile(nibName: String, bundle: Bundle?, width:((IndicatorInfo)-> CGFloat))
-
-    public var weight: ((IndicatorInfo) -> CGFloat) {
-        switch self {
-        case .nibFile(_, _, let widthCallback):
-            return widthCallback
-        }
-    }
 }
 
 public enum PagerScroll {
@@ -50,129 +40,8 @@ public enum PagerScroll {
     case scrollOnlyIfOutOfScreen
 }
 
-open class ButtonBarView: UICollectionView {
-
-    open lazy var selectedBar: UIView = { [unowned self] in
-        let bar  = UIView(frame: CGRect(x: 0, y: self.frame.size.height - CGFloat(self.selectedBarHeight), width: 0, height: CGFloat(self.selectedBarHeight)))
-        bar.layer.zPosition = 9999
-        return bar
-        }()
-
-    internal var selectedBarHeight: CGFloat = 4 {
-        didSet {
-            updateSelectedBarYPosition()
-        }
-    }
-
-    var selectedIndex = 0
-
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        addSubview(selectedBar)
-    }
-
-    public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: frame, collectionViewLayout: layout)
-        addSubview(selectedBar)
-    }
-
-    open func moveTo(index: Int, animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
-        selectedIndex = index
-        updateSelectedBarPosition(animated, swipeDirection: swipeDirection, pagerScroll: pagerScroll)
-    }
-
-    open func move(fromIndex: Int, toIndex: Int, progressPercentage: CGFloat, pagerScroll: PagerScroll) {
-        selectedIndex = progressPercentage > 0.5 ? toIndex : fromIndex
-
-        let fromFrame = layoutAttributesForItem(at: IndexPath(item: fromIndex, section: 0))!.frame
-        let numberOfItems = dataSource!.collectionView(self, numberOfItemsInSection: 0)
-
-        var toFrame: CGRect
-
-        if toIndex < 0 || toIndex > numberOfItems - 1 {
-            if toIndex < 0 {
-                let cellAtts = layoutAttributesForItem(at: IndexPath(item: 0, section: 0))
-                toFrame = cellAtts!.frame.offsetBy(dx: -cellAtts!.frame.size.width, dy: 0)
-            } else {
-                let cellAtts = layoutAttributesForItem(at: IndexPath(item: (numberOfItems - 1), section: 0))
-                toFrame = cellAtts!.frame.offsetBy(dx: cellAtts!.frame.size.width, dy: 0)
-            }
-        } else {
-            toFrame = layoutAttributesForItem(at: IndexPath(item: toIndex, section: 0))!.frame
-        }
-
-        var targetFrame = fromFrame
-        targetFrame.size.height = selectedBar.frame.size.height
-        targetFrame.size.width += (toFrame.size.width - fromFrame.size.width) * progressPercentage
-        targetFrame.origin.x += (toFrame.origin.x - fromFrame.origin.x) * progressPercentage
-
-        selectedBar.frame = CGRect(x: targetFrame.origin.x, y: selectedBar.frame.origin.y, width: targetFrame.size.width, height: selectedBar.frame.size.height)
-
-        var targetContentOffset: CGFloat = 0.0
-        if contentSize.width > frame.size.width {
-            let toContentOffset = contentOffsetForCell(withFrame: toFrame, andIndex: toIndex)
-            let fromContentOffset = contentOffsetForCell(withFrame: fromFrame, andIndex: fromIndex)
-
-            targetContentOffset = fromContentOffset + ((toContentOffset - fromContentOffset) * progressPercentage)
-        }
-
-        setContentOffset(CGPoint(x: targetContentOffset, y: 0), animated: false)
-    }
-
-    open func updateSelectedBarPosition(_ animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
-        var selectedBarFrame = selectedBar.frame
-
-        let selectedCellIndexPath = IndexPath(item: selectedIndex, section: 0)
-        let attributes = layoutAttributesForItem(at: selectedCellIndexPath)
-        let selectedCellFrame = attributes!.frame
-
-        updateContentOffset(animated: animated, pagerScroll: pagerScroll, toFrame: selectedCellFrame, toIndex: (selectedCellIndexPath as NSIndexPath).row)
-
-        selectedBarFrame.size.width = selectedCellFrame.size.width
-        selectedBarFrame.origin.x = selectedCellFrame.origin.x
-
-        if animated {
-            UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                self?.selectedBar.frame = selectedBarFrame
-            })
-        } else {
-            selectedBar.frame = selectedBarFrame
-        }
-    }
-
-    // MARK: - Helpers
-
-    private func updateContentOffset(animated: Bool, pagerScroll: PagerScroll, toFrame: CGRect, toIndex: Int) {
-        guard pagerScroll != .no || (pagerScroll != .scrollOnlyIfOutOfScreen && (toFrame.origin.x < contentOffset.x || toFrame.origin.x >= (contentOffset.x + frame.size.width - contentInset.left))) else { return }
-        let targetContentOffset = contentSize.width > frame.size.width ? contentOffsetForCell(withFrame: toFrame, andIndex: toIndex) : 0
-        setContentOffset(CGPoint(x: targetContentOffset, y: 0), animated: animated)
-    }
-
-    private func contentOffsetForCell(withFrame cellFrame: CGRect, andIndex index: Int) -> CGFloat {
-        let alignmentOffset = (frame.size.width - cellFrame.size.width) * 0.5
-
-        var contentOffset = cellFrame.origin.x - alignmentOffset
-        contentOffset = max(0, contentOffset)
-        contentOffset = min(contentSize.width - frame.size.width, contentOffset)
-        return contentOffset
-    }
-
-    private func updateSelectedBarYPosition() {
-        var selectedBarFrame = selectedBar.frame
-        selectedBarFrame.origin.y = frame.size.height - selectedBarHeight
-        selectedBarFrame.size.height = selectedBarHeight
-        selectedBar.frame = selectedBarFrame
-    }
-
-    override open func layoutSubviews() {
-        super.layoutSubviews()
-        updateSelectedBarYPosition()
-    }
-}
-
 open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionViewCell>: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    public var buttonBarItemSpec: ButtonBarItemSpec<ButtonBarCellType>!
     public var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarCellType?, _ newCell: ButtonBarCellType?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
 
     @IBOutlet public weak var buttonBarView: ButtonBarView!
@@ -187,10 +56,9 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
         datasource = self
     }
 
+    @available(*, unavailable, message: "use init(nibName:)")
     required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        delegate = self
-        datasource = self
+        fatalError()
     }
 
     open override func viewDidLoad() {
@@ -200,8 +68,11 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
             let flowLayout = UICollectionViewFlowLayout()
             flowLayout.scrollDirection = .horizontal
             let buttonBar = ButtonBarView(frame: .zero, collectionViewLayout: flowLayout)
-            buttonBar.backgroundColor = .orange
-            buttonBar.selectedBar.backgroundColor = .black
+            buttonBar.backgroundColor = .white
+            buttonBar.selectedBar.backgroundColor = PresentationTheme.current.colors.orangeUI
+            buttonBar.scrollsToTop = false
+            buttonBar.showsHorizontalScrollIndicator = false
+            buttonBar.selectedBarHeight = 4.0
             return buttonBar
             }()
         buttonBarView = buttonBarViewAux
@@ -214,29 +85,21 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
                 buttonBarView.rightAnchor.constraint(equalTo: view.rightAnchor),
                 buttonBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
                 buttonBarView.heightAnchor.constraint(equalToConstant: 35)
+                ])
+            NSLayoutConstraint.activate([
+                containerView.topAnchor.constraint(equalTo: buttonBarView.bottomAnchor),
+                containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
                 ]
             )
         }
-        if buttonBarView.delegate == nil {
-            buttonBarView.delegate = self
-        }
-        if buttonBarView.dataSource == nil {
-            buttonBarView.dataSource = self
-        }
-        buttonBarView.scrollsToTop = false
-        let flowLayout = buttonBarView.collectionViewLayout as! UICollectionViewFlowLayout // swiftlint:disable:this force_cast
-        flowLayout.scrollDirection = .horizontal
 
-        buttonBarView.showsHorizontalScrollIndicator = false
-        buttonBarView.backgroundColor = .white
-        buttonBarView.selectedBar.backgroundColor = PresentationTheme.current.colors.orangeUI
+        buttonBarView.delegate = self
+        buttonBarView.dataSource = self
 
-        buttonBarView.selectedBarHeight = 4.0
         // register button bar item cell
-        switch buttonBarItemSpec! {
-        case .nibFile(let nibName, let bundle, _):
-            buttonBarView.register(UINib(nibName: nibName, bundle: bundle), forCellWithReuseIdentifier:"Cell")
-        }
+        buttonBarView.register(UINib(nibName: "LabelCell", bundle: .main), forCellWithReuseIdentifier:"Cell")
     }
 
     open override func viewWillAppear(_ animated: Bool) {
@@ -274,15 +137,6 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
         buttonBarView.selectItem(at: IndexPath(item: currentIndex, section: 0), animated: false, scrollPosition: [])
     }
 
-    // MARK: - View Rotation
-
-    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-    }
-    
-    open override func updateContent() {
-        super.updateContent()
-    }
     // MARK: - Public Methods
 
     open override func reloadPagerTabStripView() {
@@ -395,16 +249,11 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
 
         var minimumCellWidths = [CGFloat]()
         var collectionViewContentWidth: CGFloat = 0
+        let indicatorWidth:CGFloat = 70.0
 
-        for viewController in viewControllers {
-            let childController = viewController as! IndicatorInfoProvider // swiftlint:disable:this force_cast
-            let indicatorInfo = childController.indicatorInfo(for: self)
-            switch buttonBarItemSpec! {
-            case .nibFile(_, _, let widthCallback):
-                let width = widthCallback(indicatorInfo)
-                minimumCellWidths.append(width)
-                collectionViewContentWidth += width
-            }
+        viewControllers.forEach { _ in
+            minimumCellWidths.append(indicatorWidth)
+            collectionViewContentWidth += indicatorWidth
         }
 
         let cellSpacingTotal = CGFloat(numberOfCells - 1) * flowLayout.minimumLineSpacing
@@ -486,12 +335,11 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
     override open func viewDidLoad() {
         super.viewDidLoad()
         let containerViewAux = containerView ?? {
-            let containerView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
-            containerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            return containerView
+            return UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
             }()
         containerView = containerViewAux
         if containerView.superview == nil {
+            containerView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(containerView)
         }
         containerView.bounces = true

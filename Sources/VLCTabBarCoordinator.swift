@@ -56,7 +56,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
         displayController.didMove(toParentViewController: tabBarController)
 
         let videoVC = VLCVideoSubcategoryViewController(services: services)
-        //videoVC.delegate = self
+        videoVC.mediaDelegate = self
         videoVC.title = NSLocalizedString("VIDEO", comment: "")
         videoVC.tabBarItem = UITabBarItem(
             title: NSLocalizedString("VIDEO", comment: ""),
@@ -66,7 +66,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
 
         // Audio
         let audioVC = VLCAudioSubcategoryViewController(services: services)
-        //audioVC.delegate = self
+        audioVC.mediaDelegate = self
         audioVC.title = NSLocalizedString("AUDIO", comment: "")
         audioVC.tabBarItem = UITabBarItem(
             title: NSLocalizedString("AUDIO", comment: ""),

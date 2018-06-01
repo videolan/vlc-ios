@@ -18,7 +18,9 @@ class VLCVideoSubcategoryViewController: VLCMediaSubcategoryViewController
         let movies = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .allVideos))
         let episodes = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .episodes))
         let playlists = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .videoPlaylists))
-        return [movies, episodes, playlists]
+        let viewControllers = [movies, episodes, playlists]
+        viewControllers.forEach{ $0.delegate = self.mediaDelegate }
+        return viewControllers
     }
 }
 
@@ -30,24 +32,20 @@ class VLCAudioSubcategoryViewController: VLCMediaSubcategoryViewController
         let artists = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .artists))
         let albums = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .albums))
         let playlists = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .audioPlaylists))
-        return [tracks, genres, artists, albums, playlists]
+        let viewControllers = [tracks, genres, artists, albums, playlists]
+        viewControllers.forEach{ $0.delegate = self.mediaDelegate }
+        return viewControllers
     }
 }
 
 class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewController<LabelCell> {
 
     internal var services: Services
+    public weak var mediaDelegate: VLCMediaViewControllerDelegate?
 
     init(services: Services) {
         self.services = services
         super.init(nibName: nil, bundle: nil)
-        buttonBarItemSpec = ButtonBarItemSpec.nibFile(nibName: "LabelCell", bundle: Bundle.main, width: { _ in
-            return 70.0
-        })
-    }
-
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
