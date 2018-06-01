@@ -34,18 +34,6 @@ public struct IndicatorInfo {
     }
 }
 
-public enum ButtonBarItemSpec<CellType: UICollectionViewCell> {
-
-    case nibFile(nibName: String, bundle: Bundle?, width:((IndicatorInfo)-> CGFloat))
-
-    public var weight: ((IndicatorInfo) -> CGFloat) {
-        switch self {
-        case .nibFile(_, _, let widthCallback):
-            return widthCallback
-        }
-    }
-}
-
 public enum PagerScroll {
     case no
     case yes
@@ -54,7 +42,6 @@ public enum PagerScroll {
 
 open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionViewCell>: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    public var buttonBarItemSpec: ButtonBarItemSpec<ButtonBarCellType>!
     public var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarCellType?, _ newCell: ButtonBarCellType?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
 
     @IBOutlet public weak var buttonBarView: ButtonBarView!
@@ -69,10 +56,9 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
         datasource = self
     }
 
+    @available(*, unavailable, message: "use init(nibName:)")
     required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        delegate = self
-        datasource = self
+        fatalError()
     }
 
     open override func viewDidLoad() {
@@ -82,8 +68,11 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
             let flowLayout = UICollectionViewFlowLayout()
             flowLayout.scrollDirection = .horizontal
             let buttonBar = ButtonBarView(frame: .zero, collectionViewLayout: flowLayout)
-            buttonBar.backgroundColor = .orange
-            buttonBar.selectedBar.backgroundColor = .black
+            buttonBar.backgroundColor = .white
+            buttonBar.selectedBar.backgroundColor = PresentationTheme.current.colors.orangeUI
+            buttonBar.scrollsToTop = false
+            buttonBar.showsHorizontalScrollIndicator = false
+            buttonBar.selectedBarHeight = 4.0
             return buttonBar
             }()
         buttonBarView = buttonBarViewAux
@@ -96,29 +85,21 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
                 buttonBarView.rightAnchor.constraint(equalTo: view.rightAnchor),
                 buttonBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
                 buttonBarView.heightAnchor.constraint(equalToConstant: 35)
+                ])
+            NSLayoutConstraint.activate([
+                containerView.topAnchor.constraint(equalTo: buttonBarView.bottomAnchor),
+                containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
                 ]
             )
         }
-        if buttonBarView.delegate == nil {
-            buttonBarView.delegate = self
-        }
-        if buttonBarView.dataSource == nil {
-            buttonBarView.dataSource = self
-        }
-        buttonBarView.scrollsToTop = false
-        let flowLayout = buttonBarView.collectionViewLayout as! UICollectionViewFlowLayout // swiftlint:disable:this force_cast
-        flowLayout.scrollDirection = .horizontal
 
-        buttonBarView.showsHorizontalScrollIndicator = false
-        buttonBarView.backgroundColor = .white
-        buttonBarView.selectedBar.backgroundColor = PresentationTheme.current.colors.orangeUI
+        buttonBarView.delegate = self
+        buttonBarView.dataSource = self
 
-        buttonBarView.selectedBarHeight = 4.0
         // register button bar item cell
-        switch buttonBarItemSpec! {
-        case .nibFile(let nibName, let bundle, _):
-            buttonBarView.register(UINib(nibName: nibName, bundle: bundle), forCellWithReuseIdentifier:"Cell")
-        }
+        buttonBarView.register(UINib(nibName: "LabelCell", bundle: .main), forCellWithReuseIdentifier:"Cell")
     }
 
     open override func viewWillAppear(_ animated: Bool) {
@@ -156,15 +137,6 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
         buttonBarView.selectItem(at: IndexPath(item: currentIndex, section: 0), animated: false, scrollPosition: [])
     }
 
-    // MARK: - View Rotation
-
-    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-    }
-    
-    open override func updateContent() {
-        super.updateContent()
-    }
     // MARK: - Public Methods
 
     open override func reloadPagerTabStripView() {
@@ -277,16 +249,11 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
 
         var minimumCellWidths = [CGFloat]()
         var collectionViewContentWidth: CGFloat = 0
+        let indicatorWidth:CGFloat = 70.0
 
-        for viewController in viewControllers {
-            let childController = viewController as! IndicatorInfoProvider // swiftlint:disable:this force_cast
-            let indicatorInfo = childController.indicatorInfo(for: self)
-            switch buttonBarItemSpec! {
-            case .nibFile(_, _, let widthCallback):
-                let width = widthCallback(indicatorInfo)
-                minimumCellWidths.append(width)
-                collectionViewContentWidth += width
-            }
+        viewControllers.forEach { _ in
+            minimumCellWidths.append(indicatorWidth)
+            collectionViewContentWidth += indicatorWidth
         }
 
         let cellSpacingTotal = CGFloat(numberOfCells - 1) * flowLayout.minimumLineSpacing
@@ -368,12 +335,11 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
     override open func viewDidLoad() {
         super.viewDidLoad()
         let containerViewAux = containerView ?? {
-            let containerView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
-            containerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            return containerView
+            return UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
             }()
         containerView = containerViewAux
         if containerView.superview == nil {
+            containerView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(containerView)
         }
         containerView.bounces = true

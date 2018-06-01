@@ -46,13 +46,6 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
     init(services: Services) {
         self.services = services
         super.init(nibName: nil, bundle: nil)
-        buttonBarItemSpec = ButtonBarItemSpec.nibFile(nibName: "LabelCell", bundle: Bundle.main, width: { _ in
-            return 70.0
-        })
-    }
-
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
