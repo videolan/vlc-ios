@@ -46,6 +46,7 @@
 		41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */; };
 		41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
+		41D7DD0520C1853E00AD94F6 /* ButtonBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D7DD0420C1853E00AD94F6 /* ButtonBarView.swift */; };
 		41E6BECD207E64E900E158BA /* RemoteNetworkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6BECC207E64E900E158BA /* RemoteNetworkCell.swift */; };
 		41EA74C120C02DFC001E5D57 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AA183A9906009EE944 /* VLCDropboxController.m */; };
 		41EA74C320C02F8E001E5D57 /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
@@ -580,6 +581,7 @@
 		41CD69591A29D72600E60BCE /* VLCBoxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxController.m; path = Sources/VLCBoxController.m; sourceTree = SOURCE_ROOT; };
 		41CD695A1A29D72600E60BCE /* VLCBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxTableViewController.h; path = Sources/VLCBoxTableViewController.h; sourceTree = SOURCE_ROOT; };
 		41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxTableViewController.m; path = Sources/VLCBoxTableViewController.m; sourceTree = SOURCE_ROOT; };
+		41D7DD0420C1853E00AD94F6 /* ButtonBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonBarView.swift; path = Sources/ButtonBarView.swift; sourceTree = "<group>"; };
 		41E6BECC207E64E900E158BA /* RemoteNetworkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNetworkCell.swift; sourceTree = "<group>"; };
 		41EB91DB1F7BFF8400821AA5 /* VLCMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMetadata.h; sourceTree = "<group>"; };
 		41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMetadata.m; sourceTree = "<group>"; };
@@ -1548,11 +1550,11 @@
 				8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */,
 				41F5C0761F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.h */,
 				41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */,
-				412831632093323700FAA307 /* VLCMediaDataSource.swift */,
 				4170152B209A1D3600802E44 /* MediaSubcategoryViewController.swift */,
 				41701545209B36E800802E44 /* BaseButtonBarPagerTabStripViewController.swift */,
 				41EB94B3209B46E9002F4C30 /* ButtonCell.xib */,
 				41EB94B5209B4869002F4C30 /* LabelCell.xib */,
+				41D7DD0420C1853E00AD94F6 /* ButtonBarView.swift */,
 			);
 			name = "Everything Playlist";
 			sourceTree = "<group>";
@@ -3262,6 +3264,7 @@
 				7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */,
 				DD3EFF371BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				DD3EFF511BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
+				41D7DD0520C1853E00AD94F6 /* ButtonBarView.swift in Sources */,
 				DD3EFF2D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserFTP.m in Sources */,
 				7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */,
 				41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */,

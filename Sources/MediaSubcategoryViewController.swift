@@ -18,7 +18,9 @@ class VLCVideoSubcategoryViewController: VLCMediaSubcategoryViewController
         let movies = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .allVideos))
         let episodes = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .episodes))
         let playlists = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .videoPlaylists))
-        return [movies, episodes, playlists]
+        let viewControllers = [movies, episodes, playlists]
+        viewControllers.forEach{ $0.delegate = self.mediaDelegate }
+        return viewControllers
     }
 }
 
@@ -30,13 +32,16 @@ class VLCAudioSubcategoryViewController: VLCMediaSubcategoryViewController
         let artists = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .artists))
         let albums = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .albums))
         let playlists = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .audioPlaylists))
-        return [tracks, genres, artists, albums, playlists]
+        let viewControllers = [tracks, genres, artists, albums, playlists]
+        viewControllers.forEach{ $0.delegate = self.mediaDelegate }
+        return viewControllers
     }
 }
 
 class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewController<LabelCell> {
 
     internal var services: Services
+    public weak var mediaDelegate: VLCMediaViewControllerDelegate?
 
     init(services: Services) {
         self.services = services
