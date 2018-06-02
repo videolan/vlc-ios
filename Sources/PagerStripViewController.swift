@@ -14,7 +14,7 @@ import Foundation
 
 open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
 
-    weak public var containerView: UIScrollView!
+    public var containerView: UIScrollView!
 
     open weak var delegate: PagerTabStripIsProgressiveDelegate?
     open weak var datasource: PagerTabStripDataSource?
@@ -46,14 +46,10 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
 
     override open func viewDidLoad() {
         super.viewDidLoad()
-        let containerViewAux = containerView ?? {
-            return UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
-            }()
-        containerView = containerViewAux
-        if containerView.superview == nil {
-            containerView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(containerView)
-        }
+
+        containerView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.bounces = true
         containerView.alwaysBounceHorizontal = true
         containerView.alwaysBounceVertical = false
@@ -63,6 +59,8 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         containerView.showsHorizontalScrollIndicator = false
         containerView.isPagingEnabled = true
         containerView.backgroundColor = PresentationTheme.current.colors.background
+        view.addSubview(containerView)
+
         reloadViewControllers()
 
         let childController = viewControllers[currentIndex]

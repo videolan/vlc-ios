@@ -15,9 +15,7 @@ import Foundation
 open class ButtonBarView: UICollectionView {
 
     open lazy var selectedBar: UIView = { [unowned self] in
-        let bar = UIView(frame: CGRect(x: 0, y: self.frame.size.height - CGFloat(self.selectedBarHeight), width: 0, height: CGFloat(self.selectedBarHeight)))
-        bar.layer.zPosition = 9999
-        return bar
+        return UIView(frame: CGRect(x: 0, y: self.frame.size.height - CGFloat(self.selectedBarHeight), width: 0, height: CGFloat(self.selectedBarHeight)))
         }()
 
     internal var selectedBarHeight: CGFloat = 4 {
@@ -28,9 +26,9 @@ open class ButtonBarView: UICollectionView {
 
     var selectedIndex = 0
 
+    @available(*, unavailable, message: "use init(frame:)")
     required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        addSubview(selectedBar)
+        fatalError()
     }
 
     public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
