@@ -33,7 +33,16 @@ open class ButtonBarView: UICollectionView {
 
     public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
+        setup()
         addSubview(selectedBar)
+    }
+
+    func setup() {
+        backgroundColor = .white
+        selectedBar.backgroundColor = PresentationTheme.current.colors.orangeUI
+        scrollsToTop = false
+        showsHorizontalScrollIndicator = false
+        selectedBarHeight = 4.0
     }
 
     open func moveTo(index: Int, animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {

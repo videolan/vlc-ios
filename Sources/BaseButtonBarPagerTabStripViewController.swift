@@ -44,7 +44,7 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
 
     public var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarCellType?, _ newCell: ButtonBarCellType?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
 
-    @IBOutlet public weak var buttonBarView: ButtonBarView!
+    public var buttonBarView: ButtonBarView!
 
     lazy private var cachedCellWidths: [CGFloat]? = { [unowned self] in
         return self.calculateWidths()
@@ -64,36 +64,25 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
     open override func viewDidLoad() {
         super.viewDidLoad()
 
-        let buttonBarViewAux = buttonBarView ?? {
-            let flowLayout = UICollectionViewFlowLayout()
-            flowLayout.scrollDirection = .horizontal
-            let buttonBar = ButtonBarView(frame: .zero, collectionViewLayout: flowLayout)
-            buttonBar.backgroundColor = .white
-            buttonBar.selectedBar.backgroundColor = PresentationTheme.current.colors.orangeUI
-            buttonBar.scrollsToTop = false
-            buttonBar.showsHorizontalScrollIndicator = false
-            buttonBar.selectedBarHeight = 4.0
-            return buttonBar
-            }()
-        buttonBarView = buttonBarViewAux
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        buttonBarView = ButtonBarView(frame: .zero, collectionViewLayout: flowLayout)
 
-        if buttonBarView.superview == nil {
-            buttonBarView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(buttonBarView)
-            NSLayoutConstraint.activate([
-                buttonBarView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-                buttonBarView.rightAnchor.constraint(equalTo: view.rightAnchor),
-                buttonBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                buttonBarView.heightAnchor.constraint(equalToConstant: 35)
-                ])
-            NSLayoutConstraint.activate([
-                containerView.topAnchor.constraint(equalTo: buttonBarView.bottomAnchor),
-                containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
-                containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-                ]
-            )
-        }
+        buttonBarView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(buttonBarView)
+        NSLayoutConstraint.activate([
+            buttonBarView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            buttonBarView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            buttonBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            buttonBarView.heightAnchor.constraint(equalToConstant: 35)
+            ])
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: buttonBarView.bottomAnchor),
+            containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ]
+        )
 
         buttonBarView.delegate = self
         buttonBarView.dataSource = self
