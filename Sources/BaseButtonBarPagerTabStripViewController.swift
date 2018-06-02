@@ -249,7 +249,7 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
 
         var minimumCellWidths = [CGFloat]()
         var collectionViewContentWidth: CGFloat = 0
-        let indicatorWidth:CGFloat = 70.0
+        let indicatorWidth: CGFloat = 70.0
 
         viewControllers.forEach { _ in
             minimumCellWidths.append(indicatorWidth)

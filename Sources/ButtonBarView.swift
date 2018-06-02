@@ -1,17 +1,21 @@
-//
-//  ButtonBarView.swift
-//  VLC-iOS
-//
-//  Created by Carola Nitz on 6/1/18.
-//  Copyright © 2018 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * ButtonBarView.Swift
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Carola Nitz <nitz.carola # googlemail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 
 open class ButtonBarView: UICollectionView {
 
     open lazy var selectedBar: UIView = { [unowned self] in
-        let bar  = UIView(frame: CGRect(x: 0, y: self.frame.size.height - CGFloat(self.selectedBarHeight), width: 0, height: CGFloat(self.selectedBarHeight)))
+        let bar = UIView(frame: CGRect(x: 0, y: self.frame.size.height - CGFloat(self.selectedBarHeight), width: 0, height: CGFloat(self.selectedBarHeight)))
         bar.layer.zPosition = 9999
         return bar
         }()
