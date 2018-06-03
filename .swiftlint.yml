@@ -13,7 +13,7 @@ whitelist_rules:
   - opening_brace
   - operator_whitespace
   - private_unit_test
-  - redundant_nil_coalesing
+  - redundant_nil_coalescing
   - redundant_string_enum_value
   - return_arrow_whitespace
   - syntactic_sugar
