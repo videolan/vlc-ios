@@ -338,7 +338,7 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
             fatalError("dataSource must not be nil")
         }
         viewControllers = dataSource.viewControllers(for: self)
-        // viewControllers
+
         guard !viewControllers.isEmpty else {
             fatalError("viewControllers(for:) should provide at least one child view controller")
         }

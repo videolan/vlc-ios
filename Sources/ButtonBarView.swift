@@ -14,15 +14,9 @@ import Foundation
 
 open class ButtonBarView: UICollectionView {
 
-    open lazy var selectedBar: UIView = { [unowned self] in
-        return UIView(frame: CGRect(x: 0, y: self.frame.size.height - CGFloat(self.selectedBarHeight), width: 0, height: CGFloat(self.selectedBarHeight)))
-        }()
+    open var selectedBar: UIView!
 
-    internal var selectedBarHeight: CGFloat = 4 {
-        didSet {
-            updateSelectedBarYPosition()
-        }
-    }
+    internal var selectedBarHeight: CGFloat = 4
 
     var selectedIndex = 0
 
@@ -39,10 +33,10 @@ open class ButtonBarView: UICollectionView {
 
     func setup() {
         backgroundColor = .white
-        selectedBar.backgroundColor = PresentationTheme.current.colors.orangeUI
         scrollsToTop = false
         showsHorizontalScrollIndicator = false
-        selectedBarHeight = 4.0
+        selectedBar = UIView(frame: CGRect(x: 0, y: self.frame.size.height - CGFloat(self.selectedBarHeight), width: 0, height: CGFloat(self.selectedBarHeight)))
+        selectedBar.backgroundColor = PresentationTheme.current.colors.orangeUI
     }
 
     open func moveTo(index: Int, animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
