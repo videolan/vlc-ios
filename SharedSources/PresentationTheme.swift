@@ -39,7 +39,7 @@ extension Notification.Name {
 
     public init(isDark: Bool,
                 name: String,
-                statusBarStyle:UIStatusBarStyle,
+                statusBarStyle: UIStatusBarStyle,
                 navigationbarColor: UIColor,
                 navigationbarTextColor: UIColor,
                 background: UIColor,
