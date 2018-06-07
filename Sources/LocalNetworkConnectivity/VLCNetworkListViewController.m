@@ -50,6 +50,7 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _activityIndicator.center = _tableView.center;
+    _activityIndicator.color = [UIColor VLCOrangeTintColor];
     _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
     _activityIndicator.hidesWhenStopped = YES;
     [_activityIndicator startAnimating];

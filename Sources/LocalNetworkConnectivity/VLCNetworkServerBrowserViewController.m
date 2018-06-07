@@ -59,6 +59,9 @@
         [self.tableView addSubview:_refreshControl];
     }
 
+    self.tableView.backgroundColor = PresentationTheme.current.colors.background;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
+
     self.title = self.serverBrowser.title;
     [self update];
 }
@@ -174,8 +177,11 @@
 
     if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row)
         [[VLCActivityManager defaultManager] networkActivityStopped];
-}
 
+    UIColor *color = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundB : PresentationTheme.current.colors.cellBackgroundA;
+    cell.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor = color;
+    cell.titleLabel.textColor = cell.folderTitleLabel.textColor = cell.subtitleLabel.textColor = cell.thumbnailView.tintColor = PresentationTheme.current.colors.cellTextColor;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -202,6 +208,7 @@
 }
 
 #pragma mark - VLCNetworkListCell delegation
+
 - (void)triggerDownloadForCell:(VLCNetworkListCell *)cell
 {
     id<VLCNetworkServerBrowserItem> item;
@@ -228,6 +235,14 @@
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@",searchString];
     _searchArray = [self.serverBrowser.items filteredArrayUsingPredicate:predicate];
+}
+
+#pragma mark -
+
+- (void)themeDidChange
+{
+    self.tableView.backgroundColor = PresentationTheme.current.colors.background;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 @end
