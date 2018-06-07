@@ -19,9 +19,10 @@
 #import "VLCPlaybackController.h"
 #import "VLCDownloadViewController.h"
 
-
 #import "VLCNetworkServerBrowser-Protocol.h"
 #import "VLCServerBrowsingController.h"
+
+#import "VLC_iOS-Swift.h"
 
 @interface VLCNetworkServerBrowserViewController () <VLCNetworkServerBrowserDelegate,VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
@@ -50,10 +51,13 @@
     [super viewDidLoad];
 
     _refreshControl = [[UIRefreshControl alloc] init];
-    _refreshControl.backgroundColor = [UIColor VLCDarkBackgroundColor];
-    _refreshControl.tintColor = [UIColor whiteColor];
+    _refreshControl.tintColor = [UIColor VLCOrangeTintColor];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:_refreshControl];
+    if (@available(iOS 10, *)) {
+        self.tableView.refreshControl = _refreshControl;
+    } else {
+        [self.tableView addSubview:_refreshControl];
+    }
 
     self.title = self.serverBrowser.title;
     [self update];
@@ -92,16 +96,6 @@
 
 -(void)handleRefresh
 {
-    //set the title while refreshing
-    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"LOCAL_SERVER_REFRESH",nil)];
-    //set the date and time of refreshing
-    NSDateFormatter *formattedDate = [[NSDateFormatter alloc]init];
-    [formattedDate setDateFormat:@"MMM d, h:mm a"];
-    NSString *lastupdated = [NSString stringWithFormat:NSLocalizedString(@"LOCAL_SERVER_LAST_UPDATE",nil),[formattedDate stringFromDate:[NSDate date]]];
-    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastupdated attributes:attrsDictionary];
-    //end the refreshing
-
     [self update];
 }
 
