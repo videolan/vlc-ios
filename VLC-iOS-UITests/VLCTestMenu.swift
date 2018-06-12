@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCiOSTestMenu.swift
+ * VLCTestMenu.swift
  * VLC for iOSUITests
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -13,7 +13,7 @@
 import Foundation
 import XCTest
 
-class VLCiOSTestMenu: XCTestCase {
+class VLCTestMenu: XCTestCase {
     let app = XCUIApplication()
     var helper: TestHelper!
 
