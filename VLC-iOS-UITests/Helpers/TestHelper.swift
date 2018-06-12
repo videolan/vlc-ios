@@ -21,6 +21,8 @@ struct TestHelper {
     }
 
     func tapTabBarItem(_ identifier: String) {
-        app.tabBars.buttons[identifier].tap()
+        XCTContext.runActivity(named: "Tap \"\(identifier)\" tab") { _ in
+            app.tabBars.buttons[identifier].firstMatch.tap()
+        }
     }
 }

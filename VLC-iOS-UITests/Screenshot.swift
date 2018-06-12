@@ -60,17 +60,17 @@ class Screenshot: XCTestCase {
         helper.tapTabBarItem(VLCAccessibilityIdentifier.localNetwork)
         app.cells[VLCAccessibilityIdentifier.downloads].tap()
 
-        let downloadTextfield = app.textFields["http://myserver.com/file.mkv"]
+        let downloadTextfield = app.textFields["http://myserver.com/file.mkv"].firstMatch
         downloadTextfield.clearAndEnter(text: fileName)
-        app.buttons["Download"].tap()
+        app.buttons["Download"].firstMatch.tap()
 
-        let cancelDownloadButton = app.buttons["flatDeleteButton"]
-        let predicate = NSPredicate(format: "exists == 0")
-        expectation(for: predicate, evaluatedWith: cancelDownloadButton, handler: nil)
-
-        waitForExpectations(timeout: 20.0) { err in
-            XCTAssertNil(err)
-            downloadTextfield.typeText("\n")
+        XCTContext.runActivity(named: "Wait for download to complete") { _ in
+            let cancelDownloadButton = app.buttons["flatDeleteButton"]
+            let predicate = NSPredicate(format: "exists == 0")
+            let downloadCompleted = expectation(for: predicate, evaluatedWith: cancelDownloadButton, handler: nil)
+            wait(for: [downloadCompleted], timeout: 20.0)
         }
+        
+        downloadTextfield.typeText("\n")
     }
 }

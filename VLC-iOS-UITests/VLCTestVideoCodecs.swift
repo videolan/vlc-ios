@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCiOSTestVideoCodecs.swift
+ * VLCTestVideoCodecs.swift
  * VLC for iOSUITests
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -13,7 +13,7 @@
 import Foundation
 import XCTest
 
-class VLCiOSTestVideoCodecs: XCTestCase {
+class VLCTestVideoCodecs: XCTestCase {
     let app = XCUIApplication()
     var helper: TestHelper!
 
@@ -47,23 +47,27 @@ class VLCiOSTestVideoCodecs: XCTestCase {
         helper.tapTabBarItem(VLCAccessibilityIdentifier.localNetwork)
         app.cells[VLCAccessibilityIdentifier.stream].tap()
 
-        let addressTextField = app.textFields["http://myserver.com/file.mkv"]
+        let addressTextField = app.textFields["http://myserver.com/file.mkv"].firstMatch
         addressTextField.clearAndEnter(text: fileName)
         app.buttons["Open Network Stream"].tap()
 
-        let displayTime = app.navigationBars["VLCMovieView"].buttons["--:--"]
-        let zeroPredicate = NSPredicate(format: "exists == 0")
-        expectation(for: zeroPredicate, evaluatedWith: displayTime, handler: nil)
-
-        waitForExpectations(timeout: 20.0) { err in
-            XCTAssertNil(err)
-            if !(self.app.buttons["Done"].exists) {
-                self.app.otherElements["Video Player Title"].tap()
-            }
-            let playPause = self.app.buttons[VLCAccessibilityIdentifier.playPause]
+        XCTContext.runActivity(named: "Wait for video to load") { _ in
+            let displayTime = app.navigationBars["VLCMovieView"].buttons["--:--"]
+            let zeroPredicate = NSPredicate(format: "exists == 0")
+            let videoOpened = expectation(for: zeroPredicate, evaluatedWith: displayTime, handler: nil)
+            wait(for: [videoOpened], timeout: 20.0)
+        }
+        
+        XCTContext.runActivity(named: "Check if video is playing") { _ in
+            let playPause = app.buttons[VLCAccessibilityIdentifier.playPause]
             let onePredicate = NSPredicate(format: "exists == 1")
-            self.expectation(for: onePredicate, evaluatedWith: playPause, handler: nil)
-            self.waitForExpectations(timeout: 20.0, handler: nil)
+            let videoPlaying = expectation(for: onePredicate, evaluatedWith: playPause, handler: nil)
+            
+            if !(app.navigationBars["VLCMovieView"].buttons["Done"].exists) {
+                app.otherElements["Video Player Title"].tap()
+            }
+            
+            wait(for: [videoPlaying], timeout: 20)
         }
     }
 }
