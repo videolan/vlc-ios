@@ -14,11 +14,11 @@ import Foundation
 
 open class ButtonBarView: UICollectionView {
 
-    open var selectedBar: UIView!
-    open var separatorView: UIView!
+    var selectedBar: UIView!
+    var separatorView: UIView!
 
-    internal let selectedBarHeight: CGFloat = 4
-    internal let separatorHeight: CGFloat = 1.5
+    let selectedBarHeight: CGFloat = 4
+    let separatorHeight: CGFloat = 1.5
 
     var selectedIndex = 0
 
@@ -27,7 +27,7 @@ open class ButtonBarView: UICollectionView {
         fatalError()
     }
 
-    public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         setup()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
@@ -37,6 +37,7 @@ open class ButtonBarView: UICollectionView {
     func setup() {
         scrollsToTop = false
         showsHorizontalScrollIndicator = false
+        register(UINib(nibName: "VLCLabelCell", bundle: .main), forCellWithReuseIdentifier:VLCLabelCell.cellIdentifier)
 
         separatorView = UIView(frame: CGRect(x: 0, y: self.frame.size.height - separatorHeight, width: self.frame.size.width, height: separatorHeight))
         addSubview(separatorView)
@@ -53,12 +54,12 @@ open class ButtonBarView: UICollectionView {
         separatorView.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor
     }
 
-    open func moveTo(index: Int, animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
+    func moveTo(index: Int, animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
         selectedIndex = index
         updateSubviewPositions(animated, swipeDirection: swipeDirection, pagerScroll: pagerScroll)
     }
 
-    open func move(fromIndex: Int, toIndex: Int, progressPercentage: CGFloat, pagerScroll: PagerScroll) {
+    func move(fromIndex: Int, toIndex: Int, progressPercentage: CGFloat, pagerScroll: PagerScroll) {
         selectedIndex = progressPercentage > 0.5 ? toIndex : fromIndex
 
         let fromFrame = layoutAttributesForItem(at: IndexPath(item: fromIndex, section: 0))!.frame
@@ -96,7 +97,7 @@ open class ButtonBarView: UICollectionView {
         setContentOffset(CGPoint(x: targetContentOffset, y: 0), animated: false)
     }
 
-    open func updateSubviewPositions(_ animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
+    func updateSubviewPositions(_ animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
         var selectedBarFrame = selectedBar.frame
 
         let selectedCellIndexPath = IndexPath(item: selectedIndex, section: 0)
@@ -124,7 +125,7 @@ open class ButtonBarView: UICollectionView {
     // MARK: - Helpers
 
     private func updateContentOffset(animated: Bool, pagerScroll: PagerScroll, toFrame: CGRect, toIndex: Int) {
-        guard pagerScroll != .no || (pagerScroll != .scrollOnlyIfOutOfScreen && (toFrame.origin.x < contentOffset.x || toFrame.origin.x >= (contentOffset.x + frame.size.width - contentInset.left))) else { return }
+        guard pagerScroll != .no || (pagerScroll != .onlyIfOutOfScreen && (toFrame.origin.x < contentOffset.x || toFrame.origin.x >= (contentOffset.x + frame.size.width - contentInset.left))) else { return }
         let targetContentOffset = contentSize.width > frame.size.width ? contentOffsetForCell(withFrame: toFrame, andIndex: toIndex) : 0
         setContentOffset(CGPoint(x: targetContentOffset, y: 0), animated: animated)
     }
