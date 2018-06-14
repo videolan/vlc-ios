@@ -76,11 +76,18 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
             buttonBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
             buttonBarView.heightAnchor.constraint(equalToConstant: 35)
             ])
+        //make sure that top and bottom are not covered by tabbar and navigationbar
+        let bottomGuide: NSLayoutConstraint
+        if #available(iOS 11.0, *) {
+            bottomGuide = containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        } else {
+            bottomGuide = containerView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
+        }
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: buttonBarView.bottomAnchor),
             containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
             containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            bottomGuide
             ]
         )
 
