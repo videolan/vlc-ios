@@ -34,6 +34,7 @@ extension Notification.Name {
     public let settingsBackground: UIColor
     public let settingsCellBackground: UIColor
     public let settingsSeparatorColor: UIColor
+    public let mediaCategorySeparatorColor: UIColor
     public let tabBarColor: UIColor
     public let orangeUI: UIColor
 
@@ -53,6 +54,7 @@ extension Notification.Name {
                 settingsBackground: UIColor,
                 settingsCellBackground: UIColor,
                 settingsSeparatorColor: UIColor,
+                mediaCategorySeparatorColor: UIColor,
                 tabBarColor: UIColor,
                 orangeUI: UIColor) {
         self.isDark = isDark
@@ -71,6 +73,7 @@ extension Notification.Name {
         self.settingsBackground = settingsBackground
         self.settingsCellBackground = settingsCellBackground
         self.settingsSeparatorColor = settingsSeparatorColor
+        self.mediaCategorySeparatorColor = mediaCategorySeparatorColor
         self.tabBarColor = tabBarColor
         self.orangeUI = orangeUI
     }
@@ -149,6 +152,7 @@ let brightPalette = ColorPalette(isDark: false,
                                  settingsBackground: UIColor(0xDCDCDC),
                                  settingsCellBackground: UIColor(0xF9F9F7),
                                  settingsSeparatorColor: UIColor(0xD3D3D3),
+                                 mediaCategorySeparatorColor: UIColor(0xECF2F6),
                                  tabBarColor: UIColor(0xFFFFFF),
                                  orangeUI: UIColor(0xFF8800))
 
@@ -157,7 +161,7 @@ let darkPalette = ColorPalette(isDark: true,
                                statusBarStyle: .lightContent,
                                navigationbarColor: UIColor(0x292B36),
                                navigationbarTextColor: UIColor(0xD3D3D3),
-                               background: UIColor(0x292B36),
+                               background: UIColor(0x1B1E21),
                                cellBackgroundA: UIColor(0x292B36),
                                cellBackgroundB: UIColor(0x000000),
                                cellDetailTextColor: UIColor(0xD3D3D3),
@@ -168,5 +172,6 @@ let darkPalette = ColorPalette(isDark: true,
                                settingsBackground: UIColor(0x292B36),
                                settingsCellBackground: UIColor(0x3D3F40),
                                settingsSeparatorColor: UIColor(0xA9A9A9),
+                               mediaCategorySeparatorColor: UIColor(0x25292C),
                                tabBarColor: UIColor(0x292B36),
                                orangeUI: UIColor(0xFF8800))
