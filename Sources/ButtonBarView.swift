@@ -18,7 +18,7 @@ open class ButtonBarView: UICollectionView {
     open var separatorView: UIView!
 
     internal let selectedBarHeight: CGFloat = 4
-    internal let separatorHeight: CGFloat = 0.5
+    internal let separatorHeight: CGFloat = 1.5
 
     var selectedIndex = 0
 
