@@ -27,7 +27,7 @@ open class ButtonBarView: UICollectionView {
         fatalError()
     }
 
-    public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         setup()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
@@ -37,6 +37,7 @@ open class ButtonBarView: UICollectionView {
     func setup() {
         scrollsToTop = false
         showsHorizontalScrollIndicator = false
+        register(UINib(nibName: "VLCLabelCell", bundle: .main), forCellWithReuseIdentifier:VLCLabelCell.cellIdentifier)
 
         separatorView = UIView(frame: CGRect(x: 0, y: self.frame.size.height - separatorHeight, width: self.frame.size.width, height: separatorHeight))
         addSubview(separatorView)
@@ -124,7 +125,7 @@ open class ButtonBarView: UICollectionView {
     // MARK: - Helpers
 
     private func updateContentOffset(animated: Bool, pagerScroll: PagerScroll, toFrame: CGRect, toIndex: Int) {
-        guard pagerScroll != .no || (pagerScroll != .scrollOnlyIfOutOfScreen && (toFrame.origin.x < contentOffset.x || toFrame.origin.x >= (contentOffset.x + frame.size.width - contentInset.left))) else { return }
+        guard pagerScroll != .no || (pagerScroll != .onlyIfOutOfScreen && (toFrame.origin.x < contentOffset.x || toFrame.origin.x >= (contentOffset.x + frame.size.width - contentInset.left))) else { return }
         let targetContentOffset = contentSize.width > frame.size.width ? contentOffsetForCell(withFrame: toFrame, andIndex: toIndex) : 0
         setContentOffset(CGPoint(x: targetContentOffset, y: 0), animated: animated)
     }

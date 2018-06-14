@@ -14,20 +14,28 @@ import Foundation
 
 open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
 
-    public var containerView: UIScrollView!
+    var containerView: UIScrollView!
 
-    open weak var delegate: PagerTabStripIsProgressiveDelegate?
-    open weak var datasource: PagerTabStripDataSource?
+    weak var delegate: PagerTabStripIsProgressiveDelegate?
+    weak var datasource: PagerTabStripDataSource?
 
-    open private(set) var viewControllers = [UIViewController]()
-    open private(set) var currentIndex = 0
-    open private(set) var preCurrentIndex = 0 // used *only* to store the index to which move when the pager becomes visible
+    private(set) var viewControllers = [UIViewController]()
+    private(set) var currentIndex = 0
+    private(set) var preCurrentIndex = 0 // used *only* to store the index to which move when the pager becomes visible
 
-    open var pageWidth: CGFloat {
+    private var pagerTabStripChildViewControllersForScrolling: [UIViewController]?
+    private var lastPageNumber = 0
+    private var lastContentOffset: CGFloat = 0.0
+    private var pageBeforeRotate = 0
+    private var lastSize = CGSize(width: 0, height: 0)
+    var isViewRotating = false
+    var isViewAppearing = false
+
+    var pageWidth: CGFloat {
         return containerView.bounds.width
     }
 
-    open var scrollPercentage: CGFloat {
+    var scrollPercentage: CGFloat {
         if swipeDirection != .right {
             let module = fmod(containerView.contentOffset.x, pageWidth)
             return module == 0.0 ? 1.0 : module / pageWidth
@@ -35,7 +43,7 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         return 1 - fmod(containerView.contentOffset.x >= 0 ? containerView.contentOffset.x : pageWidth + containerView.contentOffset.x, pageWidth) / pageWidth
     }
 
-    open var swipeDirection: SwipeDirection {
+    var swipeDirection: SwipeDirection {
         if containerView.contentOffset.x > lastContentOffset {
             return .left
         } else if containerView.contentOffset.x < lastContentOffset {
@@ -50,9 +58,7 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         containerView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
 
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.bounces = true
         containerView.alwaysBounceHorizontal = true
-        containerView.alwaysBounceVertical = false
         containerView.scrollsToTop = false
         containerView.delegate = self
         containerView.showsVerticalScrollIndicator = false
@@ -154,39 +160,39 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
-    open func canMoveTo(index: Int) -> Bool {
+    func canMoveTo(index: Int) -> Bool {
         return currentIndex != index && viewControllers.count > index
     }
 
-    open func pageOffsetForChild(at index: Int) -> CGFloat {
+    func pageOffsetForChild(at index: Int) -> CGFloat {
         return CGFloat(index) * containerView.bounds.width
     }
 
-    open func offsetForChild(at index: Int) -> CGFloat {
+    func offsetForChild(at index: Int) -> CGFloat {
         return (CGFloat(index) * containerView.bounds.width) + ((containerView.bounds.width - view.bounds.width) * 0.5)
     }
 
-    public enum PagerTabStripError: Error {
+    enum PagerTabStripError: Error {
         case viewControllerOutOfBounds
     }
 
-    open func offsetForChild(viewController: UIViewController) throws -> CGFloat {
+    func offsetForChild(viewController: UIViewController) throws -> CGFloat {
         guard let index = viewControllers.index(of: viewController) else {
             throw PagerTabStripError.viewControllerOutOfBounds
         }
         return offsetForChild(at: index)
     }
 
-    open func pageFor(contentOffset: CGFloat) -> Int {
+    func pageFor(contentOffset: CGFloat) -> Int {
         let result = virtualPageFor(contentOffset: contentOffset)
         return pageFor(virtualPage: result)
     }
 
-    open func virtualPageFor(contentOffset: CGFloat) -> Int {
+    func virtualPageFor(contentOffset: CGFloat) -> Int {
         return Int((contentOffset + 1.5 * pageWidth) / pageWidth) - 1
     }
 
-    open func pageFor(virtualPage: Int) -> Int {
+    func pageFor(virtualPage: Int) -> Int {
         if virtualPage < 0 {
             return 0
         }
@@ -196,7 +202,7 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         return virtualPage
     }
 
-    open func updateContent() {
+    func updateContent() {
         if lastSize.width != containerView.bounds.size.width {
             lastSize = containerView.bounds.size
             containerView.contentOffset = CGPoint(x: pageOffsetForChild(at: currentIndex), y: 0)
@@ -246,7 +252,7 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
-    open func reloadPagerTabStripView() {
+    func reloadPagerTabStripView() {
         guard isViewLoaded else { return }
         for childController in viewControllers where childController.parent != nil {
             childController.beginAppearanceTransition(false, animated: false)
@@ -267,20 +273,20 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
 
     // MARK: - UIScrollViewDelegate
 
-    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if containerView == scrollView {
             updateContent()
             lastContentOffset = scrollView.contentOffset.x
         }
     }
 
-    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if containerView == scrollView {
             lastPageNumber = pageFor(contentOffset: scrollView.contentOffset.x)
         }
     }
 
-    open func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if containerView == scrollView {
             pagerTabStripChildViewControllersForScrolling = nil
             (navigationController?.view ?? view).isUserInteractionEnabled = true
@@ -290,7 +296,7 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
 
     // MARK: - Orientation
 
-    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         isViewRotating = true
         pageBeforeRotate = currentIndex
@@ -350,12 +356,4 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         viewControllers.forEach { if !($0 is IndicatorInfoProvider) { fatalError("Every view controller provided by PagerTabStripDataSource's viewControllers(for:) method must conform to IndicatorInfoProvider") }}
 
     }
-
-    private var pagerTabStripChildViewControllersForScrolling: [UIViewController]?
-    private var lastPageNumber = 0
-    private var lastContentOffset: CGFloat = 0.0
-    private var pageBeforeRotate = 0
-    private var lastSize = CGSize(width: 0, height: 0)
-    internal var isViewRotating = false
-    internal var isViewAppearing = false
 }

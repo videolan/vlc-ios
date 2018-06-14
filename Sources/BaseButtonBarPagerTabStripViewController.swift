@@ -13,7 +13,7 @@
 import Foundation
 
 class VLCLabelCell: UICollectionViewCell {
-
+    static var cellIdentifier = "VLCLabelCell"
     @IBOutlet weak var iconLabel: UILabel!
 
 }
@@ -25,10 +25,10 @@ public enum SwipeDirection {
 
 public struct IndicatorInfo {
 
-    public var title: String?
-    public var accessibilityLabel: String?
+    var title: String?
+    var accessibilityLabel: String?
 
-    public init(title: String) {
+    init(title: String) {
         self.title = title
         self.accessibilityLabel = title
     }
@@ -37,27 +37,27 @@ public struct IndicatorInfo {
 public enum PagerScroll {
     case no
     case yes
-    case scrollOnlyIfOutOfScreen
+    case onlyIfOutOfScreen
 }
 
-open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionViewCell>: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionViewCell>: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    public var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarCellType?, _ newCell: ButtonBarCellType?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
+    var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarCellType?, _ newCell: ButtonBarCellType?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
 
-    public var buttonBarView: ButtonBarView!
+    var buttonBarView: ButtonBarView!
 
     lazy private var cachedCellWidths: [CGFloat]? = { [unowned self] in
         return self.calculateWidths()
         }()
 
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         delegate = self
         datasource = self
     }
 
     @available(*, unavailable, message: "use init(nibName:)")
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
 
@@ -93,9 +93,6 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
 
         buttonBarView.delegate = self
         buttonBarView.dataSource = self
-
-        // register button bar item cell
-        buttonBarView.register(UINib(nibName: "VLCLabelCell", bundle: .main), forCellWithReuseIdentifier:"Cell")
     }
 
     open override func viewWillAppear(_ animated: Bool) {
@@ -129,7 +126,7 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
         // When the view first appears or is rotated we also need to ensure that the barButtonView's
         // selectedBar is resized and its contentOffset/scroll is set correctly (the selected
         // tab/cell may end up either skewed or off screen after a rotation otherwise)
-        buttonBarView.moveTo(index: currentIndex, animated: false, swipeDirection: .none, pagerScroll: .scrollOnlyIfOutOfScreen)
+        buttonBarView.moveTo(index: currentIndex, animated: false, swipeDirection: .none, pagerScroll: .onlyIfOutOfScreen)
         buttonBarView.selectItem(at: IndexPath(item: currentIndex, section: 0), animated: false, scrollPosition: [])
     }
 
@@ -211,7 +208,7 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
     }
 
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ButtonBarCellType else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCLabelCell.cellIdentifier, for: indexPath) as? ButtonBarCellType else {
             fatalError("UICollectionViewCell should be or extend from ButtonBarViewCell")
         }
         let childController = viewControllers[indexPath.item] as! IndicatorInfoProvider // swiftlint:disable:this force_cast
@@ -278,13 +275,13 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollect
 
 // MARK: Protocols
 
-public protocol IndicatorInfoProvider {
+protocol IndicatorInfoProvider {
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo
 
 }
 
-public protocol PagerTabStripIsProgressiveDelegate: class {
+protocol PagerTabStripIsProgressiveDelegate: class {
 
     func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool)
 }
