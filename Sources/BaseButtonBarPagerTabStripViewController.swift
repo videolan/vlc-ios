@@ -45,7 +45,7 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
     var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarCellType?, _ newCell: ButtonBarCellType?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
 
     var buttonBarView: ButtonBarView!
-
+    let buttonbarViewHeight: CGFloat = 45.0
     lazy private var cachedCellWidths: [CGFloat]? = { [unowned self] in
         return self.calculateWidths()
         }()
@@ -74,7 +74,7 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
             buttonBarView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
             buttonBarView.rightAnchor.constraint(equalTo: view.rightAnchor),
             buttonBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            buttonBarView.heightAnchor.constraint(equalToConstant: 35)
+            buttonBarView.heightAnchor.constraint(equalToConstant: buttonbarViewHeight)
             ])
         //make sure that top and bottom are not covered by tabbar and navigationbar
         let bottomGuide: NSLayoutConstraint

@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwk-fy-4KB">
-                        <rect key="frame" x="0.0" y="45" width="74" height="20"/>
+                        <rect key="frame" x="0.0" y="25" width="74" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="kWi-HY-P6M"/>
                         </constraints>
@@ -30,8 +30,8 @@
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="rwk-fy-4KB" firstAttribute="centerY" secondItem="2CI-9N-dP3" secondAttribute="centerY" id="GxY-Zz-FHR"/>
                 <constraint firstItem="rwk-fy-4KB" firstAttribute="leading" secondItem="2CI-9N-dP3" secondAttribute="leading" id="HFm-qh-fCk"/>
-                <constraint firstAttribute="bottom" secondItem="rwk-fy-4KB" secondAttribute="bottom" constant="5" id="Q0g-pb-bbf"/>
                 <constraint firstAttribute="trailing" secondItem="rwk-fy-4KB" secondAttribute="trailing" id="YuE-x9-9EY"/>
             </constraints>
             <size key="customSize" width="74" height="50"/>
