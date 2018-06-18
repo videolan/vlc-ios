@@ -72,17 +72,20 @@
     [self updateUI];
 }
 
-- (void)networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser {
+- (void)networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser
+{
     [self updateUI];
     [[VLCActivityManager defaultManager] networkActivityStopped];
     [_refreshControl endRefreshing];
 }
 
-- (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error {
-
-    [self vlc_showAlertWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
-                         message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
-                     buttonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)];
+- (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error
+{
+    [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
+                                         errorMessage:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
+                                       viewController:self
+                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
+                                               action: ^(UIAlertAction* action){}]]];
 }
 
 - (void)updateUI
