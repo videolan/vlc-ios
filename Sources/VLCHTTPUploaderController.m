@@ -221,7 +221,7 @@
     APLog(@"Setting document root: %@", docRoot);
 
     [_httpServer setDocumentRoot:docRoot];
-    [_httpServer setPort:80];
+    [_httpServer setPort:8080];
 
     [_httpServer setConnectionClass:[VLCHTTPConnection class]];
 
