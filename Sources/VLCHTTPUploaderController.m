@@ -102,17 +102,11 @@
 - (NSString *)httpStatus
 {
     if (_httpServer.isRunning) {
-        if (_httpServer.listeningPort != 80) {
-            return [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i",
-                    [self hostname],
-                    _httpServer.listeningPort,
-                    [self currentIPAddress],
-                    _httpServer.listeningPort];
-        } else {
-            return [NSString stringWithFormat:@"http://%@\nhttp://%@",
-                    [self hostname],
-                    [self currentIPAddress]];
-        }
+        return [NSString stringWithFormat:@"http://%@:%i\nhttp://%@:%i",
+                [self hostname],
+                _httpServer.listeningPort,
+                [self currentIPAddress],
+                _httpServer.listeningPort];
     } else {
         return NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
     }
@@ -216,7 +210,7 @@
     APLog(@"Setting document root: %@", docRoot);
 
     [_httpServer setDocumentRoot:docRoot];
-    [_httpServer setPort:80];
+    [_httpServer setPort:8080];
 
     [_httpServer setConnectionClass:[VLCHTTPConnection class]];
 
