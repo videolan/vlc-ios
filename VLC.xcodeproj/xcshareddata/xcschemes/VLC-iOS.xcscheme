@@ -37,6 +37,11 @@
                BlueprintName = "VLC for iOSUITests"
                ReferencedContainer = "container:VLC.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "Screenshot/testCaptureVideoPlayback()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO">
