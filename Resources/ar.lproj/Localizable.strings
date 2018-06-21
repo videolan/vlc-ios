@@ -25,6 +25,7 @@
 "ONE_SPU_TRACK" = "مسار ترجمة واحد";
 
 "PLAYING_EXTERNALLY_TITLE" = "التّلفاز متصل";
+"PLAYING_EXTERNALLY_TITLE_CHROMECAST" = "Chromecast Connected";
 "PLAYING_EXTERNALLY_DESC" = "شُغّلت هذه المرئية على التّلفاز";
 
 "VFILTER_HUE" = "الألوان";
@@ -70,6 +71,9 @@
 "PRIVATE_PLAYBACK_TOGGLE" = "تشغيل خاص";
 "SCAN_SUBTITLE_TOGGLE" = "البحث عن ملفات ترجمة (خدمة http فقط)";
 
+"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+
 "UPGRADING_LIBRARY" = "تحديث قائمة الوسائط";
 "UNTITLED_SHOW" = "عرض غير مُعنون";
 "UNKNOWN" = "غير معروف";
@@ -97,6 +101,7 @@
 "ERROR_NUMBER" = "حدث الخطأ %i";
 "DOWNLOAD_FAILED" = "فشل التّنزيل";
 "FILE_NOT_SUPPORTED" = "صيغة الملف غير مدعومة";
+"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
 "SCHEME_NOT_SUPPORTED" = "مسار العنوان غير مدعوم";
 "SCHEME_NOT_SUPPORTED_LONG" = "مسار العنوان (%@) غير مدعوم. رجاءً استخدم عنواناً يبدأ ب HTTP أو HTTPS أو FTP.";
 "LIBRARY_ALL_FILES" = "كلّ الملفات";
@@ -128,6 +133,7 @@
 "SHARING_SUCCESS_CAMERA_ROLL" = "حُفِظَ الملف بنجاح داخل شريط الكاميرا";
 
 "SECTION_HEADER_LIBRARY" = "مكتبة الوسائط";
+"HEADER_TITLE_RENDERER" = "Select a casting device";
 "SECTION_HEADER_NETWORK" = "الشّبكة";
 
 "LOCAL_NETWORK" = "الشّبكة المحلية";
@@ -165,21 +171,6 @@
 "DOWNLOADING" = "يجري التّنزيل";
 "REMAINING_TIME" = "الوقت المتبقي : %@";
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
-
-//PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "Change Passcode";
-"Enter Passcode" = "Enter Passcode";
-"Enter a passcode" = "Enter a passcode";
-"Enter your new passcode" = "Enter your new passcode";
-"Enter your old passcode" = "Enter your old passcode";
-"Enter your passcode" = "Enter your passcode";
-"Next" = "Next";
-"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
-"Re-enter your new passcode" = "Re-enter your new passcode";
-"Re-enter your passcode" = "Re-enter your passcode";
-"Set Passcode" = "Set Passcode";
 
 "Settings" = "الإعدادات"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "مفعل";
@@ -322,6 +313,8 @@
 "BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
 "DSM_WORKGROUP" = "Workgroup";
 
+"URL_NOT_SUPPORTED" = "The URL can't be opened";
+
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "اضغط %@ للحذف"; /* Insert %@ where play-pause-glyph should be placed */
 
@@ -338,4 +331,6 @@
 /* New strings */
 "PROTOCOL_NOT_SELECTED" = "لم يتم تحديد البروتوكول";
 "Settings" = "الإعدادات";
+"ERROR" = "Error";
+"OK" = "Ok";
 
