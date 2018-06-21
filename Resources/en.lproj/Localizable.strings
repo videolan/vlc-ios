@@ -172,8 +172,6 @@
 "REMAINING_TIME" = "Remaining time: %@";
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
-//PAPasscode Strings that we need to localize for them
-
 "Settings" = "Settings"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "On";
 "OFF" = "Off";
@@ -333,5 +331,5 @@
 /* New strings */
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "Settings";
-"ERROR" = "ERROR";
-"OK" = "OK";
+"ERROR" = "Error";
+"OK" = "Ok";

@@ -25,6 +25,7 @@
 "ONE_SPU_TRACK" = "One subtitles track";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Connected";
+"PLAYING_EXTERNALLY_TITLE_CHROMECAST" = "Chromecast Connected";
 "PLAYING_EXTERNALLY_DESC" = "This video is playing on the TV";
 
 "VFILTER_HUE" = "Hue";
@@ -72,6 +73,9 @@
 "PRIVATE_PLAYBACK_TOGGLE" = "Private Playback";
 "SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
 
+"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+
 "UPGRADING_LIBRARY" = "Upgrading Media Library";
 "UNTITLED_SHOW" = "Untitled Show";
 "UNKNOWN" = "Unknown";
@@ -99,6 +103,7 @@
 "ERROR_NUMBER" = "Error %i occured";
 "DOWNLOAD_FAILED" = "Download failed";
 "FILE_NOT_SUPPORTED" = "File format not supported";
+"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
 "SCHEME_NOT_SUPPORTED" = "Address scheme not supported";
 "SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
 "LIBRARY_ALL_FILES" = "All Files";
@@ -130,6 +135,7 @@
 "SHARING_SUCCESS_CAMERA_ROLL" = "File was successfully saved to the Camera Roll";
 
 "SECTION_HEADER_LIBRARY" = "Media Library";
+"HEADER_TITLE_RENDERER" = "Select a casting device";
 "SECTION_HEADER_NETWORK" = "Network";
 
 "LOCAL_NETWORK" = "Local Network";
@@ -319,6 +325,8 @@
 "BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
 "DSM_WORKGROUP" = "Workgroup";
 
+"URL_NOT_SUPPORTED" = "The URL can't be opened";
+
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
 
@@ -329,3 +337,5 @@
 
 /* New strings */
 "Settings" = "Settings";
+"ERROR" = "Error";
+"OK" = "Ok";
