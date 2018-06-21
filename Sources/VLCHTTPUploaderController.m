@@ -280,6 +280,11 @@
 #endif
 }
 
+- (NSString *)hostnamePort
+{
+    return [NSString stringWithFormat:@"%i", _httpServer.listeningPort];
+}
+
 - (void)moveFileFrom:(NSString *)filepath
 {
     /* update media library when file upload was completed */

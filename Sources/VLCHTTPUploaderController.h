@@ -25,6 +25,7 @@
 - (NSString *)httpStatus;
 - (BOOL)isServerRunning;
 - (NSString *)hostname;
+- (NSString *)hostnamePort;
 
 - (void)moveFileFrom:(NSString *)filepath;
 - (void)cleanCache;

@@ -216,7 +216,7 @@
     NSUInteger mediaCount = allMedia.count;
     NSMutableArray *mediaInHtml = [[NSMutableArray alloc] initWithCapacity:mediaCount];
     NSMutableArray *mediaInXml = [[NSMutableArray alloc] initWithCapacity:mediaCount];
-    NSString *hostName = [[VLCHTTPUploaderController sharedInstance] hostname];
+    NSString *hostName = [NSString stringWithFormat:@"%@:%@", [[VLCHTTPUploaderController sharedInstance] hostname], [[VLCHTTPUploaderController sharedInstance] hostnamePort]];
     NSString *duration;
 
     for (NSManagedObject *mo in allMedia) {
