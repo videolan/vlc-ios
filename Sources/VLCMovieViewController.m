@@ -1697,7 +1697,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)showOnDisplay:(UIView *)view
 {
-    BOOL displayExternally = view != _movieView;
+    // if we don't have a renderer we're mirroring and don't want to show the dialog
+    BOOL displayExternally = _vpc.renderer && view != _movieView;
     [_playingExternalView shouldDisplay:displayExternally];
     [_playingExternalView updateUIWithRendererItem:_vpc.renderer];
     _vpc.videoOutputView = view;
@@ -1721,10 +1722,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     // Create a renderer button for VLCMovieViewController
     _rendererButton = [_services.rendererDiscovererManager setupRendererButton];
     __weak typeof(self) weakSelf = self;
-    [_services.rendererDiscovererManager addSelectionHandlerWithSelectionHandler:^(VLCRendererItem * item) {
+    [_services.rendererDiscovererManager addSelectionHandler:^(VLCRendererItem * item) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
         if (item) {
-            __strong typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf showOnDisplay:strongSelf->_playingExternalView.displayView];
+        } else {
+            [strongSelf removedCurrentRendererItem:_vpc.renderer];
         }
     }];
 }
