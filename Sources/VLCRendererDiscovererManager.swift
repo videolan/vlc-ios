@@ -115,7 +115,7 @@ class VLCRendererDiscovererManager: NSObject {
         }
     }
 
-    @objc func addSelectionHandler(selectionHandler: ((_ rendererItem: VLCRendererItem?) -> Void)?) {
+    @objc func addSelectionHandler(_ selectionHandler: ((_ rendererItem: VLCRendererItem?) -> Void)?) {
         actionSheet.setAction { [weak self] (item) in
             if let rendererItem = item as? VLCRendererItem {
                 //if we select the same renderer we want to disconnect
