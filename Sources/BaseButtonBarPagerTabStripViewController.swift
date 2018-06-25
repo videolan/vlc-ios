@@ -13,7 +13,7 @@
 import Foundation
 
 class VLCLabelCell: UICollectionViewCell {
-    static var cellIdentifier = "VLCLabelCell"
+    static let cellIdentifier = "VLCLabelCell"
     @IBOutlet weak var iconLabel: UILabel!
 
 }
@@ -49,6 +49,7 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
     lazy private var cachedCellWidths: [CGFloat]? = { [unowned self] in
         return self.calculateWidths()
         }()
+    private var shouldUpdateButtonBarView = true
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -61,7 +62,7 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
         fatalError()
     }
 
-    open override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         let flowLayout = UICollectionViewFlowLayout()
@@ -95,18 +96,18 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
         buttonBarView.dataSource = self
     }
 
-    open override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         buttonBarView.layoutIfNeeded()
         isViewAppearing = true
     }
 
-    open override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isViewAppearing = false
     }
 
-    open override func viewDidLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
         guard isViewAppearing || isViewRotating else { return }
@@ -132,7 +133,7 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
 
     // MARK: - Public Methods
 
-    open override func reloadPagerTabStripView() {
+    override func reloadPagerTabStripView() {
         super.reloadPagerTabStripView()
         guard isViewLoaded else { return }
         buttonBarView.reloadData()
@@ -140,7 +141,7 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
         buttonBarView.moveTo(index: currentIndex, animated: false, swipeDirection: .none, pagerScroll: .yes)
     }
 
-    open func calculateStretchedCellWidths(_ minimumCellWidths: [CGFloat], suggestedStretchedCellWidth: CGFloat, previousNumberOfLargeCells: Int) -> CGFloat {
+    func calculateStretchedCellWidths(_ minimumCellWidths: [CGFloat], suggestedStretchedCellWidth: CGFloat, previousNumberOfLargeCells: Int) -> CGFloat {
         var numberOfLargeCells = 0
         var totalWidthOfLargeCells: CGFloat = 0
 
@@ -162,12 +163,12 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
         return calculateStretchedCellWidths(minimumCellWidths, suggestedStretchedCellWidth: newSuggestedStretchedCellWidth, previousNumberOfLargeCells: numberOfLargeCells)
     }
 
-    open func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int) {
+    func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int) {
         guard shouldUpdateButtonBarView else { return }
         buttonBarView.moveTo(index: toIndex, animated: true, swipeDirection: toIndex < fromIndex ? .right : .left, pagerScroll: .yes)
     }
 
-    open func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
+    func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
         guard shouldUpdateButtonBarView else { return }
         buttonBarView.move(fromIndex: fromIndex, toIndex: toIndex, progressPercentage: progressPercentage, pagerScroll: .yes)
         if let changeCurrentIndexProgressive = changeCurrentIndexProgressive {
@@ -179,14 +180,14 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
 
     // MARK: - UICollectionViewDelegateFlowLayut
 
-    @objc open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+    @objc func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         guard let cellWidthValue = cachedCellWidths?[indexPath.row] else {
             fatalError("cachedCellWidths for \(indexPath.row) must not be nil")
         }
         return CGSize(width: cellWidthValue, height: collectionView.frame.size.height)
     }
 
-    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard indexPath.item != currentIndex else { return }
 
         buttonBarView.moveTo(index: indexPath.item, animated: true, swipeDirection: .none, pagerScroll: .yes)
@@ -203,11 +204,11 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
 
     // MARK: - UICollectionViewDataSource
 
-    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewControllers.count
     }
 
-    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCLabelCell.cellIdentifier, for: indexPath) as? ButtonBarCellType else {
             fatalError("UICollectionViewCell should be or extend from ButtonBarViewCell")
         }
@@ -225,14 +226,14 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
 
     // MARK: - UIScrollViewDelegate
 
-    open override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         super.scrollViewDidEndScrollingAnimation(scrollView)
 
         guard scrollView == containerView else { return }
         shouldUpdateButtonBarView = true
     }
 
-    open func configure(cell: ButtonBarCellType, for indicatorInfo: IndicatorInfo) {
+    func configure(cell: ButtonBarCellType, for indicatorInfo: IndicatorInfo) {
         fatalError("You must override this method to set up ButtonBarView cell accordingly")
     }
 
@@ -269,8 +270,6 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
             return stretchedCellWidths
         }
     }
-
-    private var shouldUpdateButtonBarView = true
 }
 
 // MARK: Protocols

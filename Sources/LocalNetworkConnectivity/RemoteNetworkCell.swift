@@ -13,7 +13,7 @@
 import UIKit
 
 class VLCRemoteNetworkCell: UITableViewCell {
-    @objc static var cellIdentifier = "RemoteNetworkCell"
+    @objc static let cellIdentifier = "RemoteNetworkCell"
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)

@@ -39,7 +39,7 @@ class VLCAudioSubcategoryViewController: VLCMediaSubcategoryViewController {
 class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewController<VLCLabelCell> {
 
     var services: Services
-    public weak var mediaDelegate: VLCMediaViewControllerDelegate?
+    weak var mediaDelegate: VLCMediaViewControllerDelegate?
 
     init(services: Services) {
         self.services = services

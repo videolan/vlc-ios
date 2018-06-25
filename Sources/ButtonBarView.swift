@@ -14,11 +14,11 @@ import Foundation
 
 open class ButtonBarView: UICollectionView {
 
-    open var selectedBar: UIView!
-    open var separatorView: UIView!
+    var selectedBar: UIView!
+    var separatorView: UIView!
 
-    internal let selectedBarHeight: CGFloat = 4
-    internal let separatorHeight: CGFloat = 1.5
+    let selectedBarHeight: CGFloat = 4
+    let separatorHeight: CGFloat = 1.5
 
     var selectedIndex = 0
 
@@ -54,12 +54,12 @@ open class ButtonBarView: UICollectionView {
         separatorView.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor
     }
 
-    open func moveTo(index: Int, animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
+    func moveTo(index: Int, animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
         selectedIndex = index
         updateSubviewPositions(animated, swipeDirection: swipeDirection, pagerScroll: pagerScroll)
     }
 
-    open func move(fromIndex: Int, toIndex: Int, progressPercentage: CGFloat, pagerScroll: PagerScroll) {
+    func move(fromIndex: Int, toIndex: Int, progressPercentage: CGFloat, pagerScroll: PagerScroll) {
         selectedIndex = progressPercentage > 0.5 ? toIndex : fromIndex
 
         let fromFrame = layoutAttributesForItem(at: IndexPath(item: fromIndex, section: 0))!.frame
@@ -97,7 +97,7 @@ open class ButtonBarView: UICollectionView {
         setContentOffset(CGPoint(x: targetContentOffset, y: 0), animated: false)
     }
 
-    open func updateSubviewPositions(_ animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
+    func updateSubviewPositions(_ animated: Bool, swipeDirection: SwipeDirection, pagerScroll: PagerScroll) {
         var selectedBarFrame = selectedBar.frame
 
         let selectedCellIndexPath = IndexPath(item: selectedIndex, section: 0)
