@@ -1710,6 +1710,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     // Create a renderer button for VLCMovieViewController
     _rendererButton = [_services.rendererDiscovererManager setupRendererButton];
+    // Setting rendererIcons to white since default is orange
+    _rendererButton.tintColor = [UIColor whiteColor];
+    [_rendererButton setImage:[UIImage imageNamed:@"renderer"] forState:UIControlStateNormal];
+    [_rendererButton setImage:[UIImage imageNamed:@"rendererFull"] forState:UIControlStateSelected];
     __weak typeof(self) weakSelf = self;
     [_services.rendererDiscovererManager addSelectionHandler:^(VLCRendererItem * item) {
         __strong typeof(weakSelf) strongSelf = weakSelf;

@@ -96,6 +96,7 @@ extension Notification.Name {
 
     public init(colors: ColorPalette) {
         self.colors = colors
+        super.init()
     }
 
     public let colors: ColorPalette
