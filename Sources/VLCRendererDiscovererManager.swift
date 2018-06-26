@@ -135,6 +135,7 @@ class VLCRendererDiscovererManager: NSObject {
     @objc func setupRendererButton() -> UIButton {
         let button = UIButton()
         button.isHidden = getAllRenderers().isEmpty
+        button.tintColor = PresentationTheme.current.colors.orangeUI
         button.setImage(UIImage(named: "renderer"), for: .normal)
         button.setImage(UIImage(named: "rendererFull"), for: .selected)
         button.addTarget(self, action: #selector(displayActionSheet), for: .touchUpInside)
@@ -190,14 +191,17 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
     }
 
     fileprivate func updateCollectionViewCellApparence(cell: VLCActionSheetCell, highlighted: Bool) {
-        var image = UIImage(named: "rendererGray")
-        var textColor: UIColor = PresentationTheme.current.colors.cellTextColor
+        var image = UIImage(named: "renderer")
+        var textColor = PresentationTheme.current.colors.cellTextColor
+        var tintColor = PresentationTheme.current.colors.cellDetailTextColor
 
         if highlighted {
-            image = UIImage(named: "rendererOrangeFull")
+            image = UIImage(named: "rendererFull")
             textColor = PresentationTheme.current.colors.orangeUI
+            tintColor = PresentationTheme.current.colors.orangeUI
         }
 
+        cell.tintColor = tintColor
         cell.icon.image = image
         cell.name.textColor = textColor
     }
