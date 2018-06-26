@@ -12,7 +12,7 @@
 
 import Foundation
 
-open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
+class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
 
     var containerView: UIScrollView!
 
