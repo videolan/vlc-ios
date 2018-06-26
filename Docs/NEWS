@@ -1,12 +1,13 @@
 iOS 3.1.0:
-----------
+-----------
 · We added a feature many of you waited for: Chromecast support
-· we fixed a bug where files on your phone were not displayed in VLC
+· We fixed a bug where files on your phone were not displayed in VLC
 · 360 videos can be viewed by moving your phone now
 · Stability and performance improvements when decoding H.264/H.265 in hardware
 · Improved audio playback quality
 · Fixed a regression preventing the download of certain media files via http
 · Fixed a regression where downloaded files might disappear
+· Fixed a regression where users couldn't log into Google Drive
 
 tvOS 3.0.3:
 -----------
