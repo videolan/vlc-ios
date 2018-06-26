@@ -102,31 +102,9 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
         playMedia(media: mediaObject)
     }
 
-    func mediaViewControllerDidSelectSort(_ VLCMediaViewController: VLCMediaViewController) {
-        showSortOptions()
-    }
-
     func playMedia(media: NSManagedObject) {
         //that should go into a Coordinator itself
         let vpc = VLCPlaybackController.sharedInstance()
         vpc?.playMediaLibraryObject(media)
-    }
-
-    func showSortOptions() {
-        // This should be in a subclass
-        let sortOptionsAlertController = UIAlertController(title: NSLocalizedString("SORT_BY", comment: ""), message: nil, preferredStyle: .actionSheet)
-        let sortByNameAction = UIAlertAction(title: SortOption.alphabetically.localizedDescription, style: .default) { action in
-        }
-        let sortBySizeAction = UIAlertAction(title: SortOption.size.localizedDescription, style: .default) { action in
-        }
-        let sortbyDateAction = UIAlertAction(title: SortOption.insertonDate.localizedDescription, style: .default) { action in
-        }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .cancel, handler: nil)
-        sortOptionsAlertController.addAction(sortByNameAction)
-        sortOptionsAlertController.addAction(sortbyDateAction)
-        sortOptionsAlertController.addAction(sortBySizeAction)
-        sortOptionsAlertController.addAction(cancelAction)
-        sortOptionsAlertController.view.tintColor = UIColor.vlcOrangeTint()
-        tabBarController.present(sortOptionsAlertController, animated: true)
     }
 }

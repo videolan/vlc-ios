@@ -40,9 +40,11 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
 
     var services: Services
     weak var mediaDelegate: VLCMediaViewControllerDelegate?
+    private var rendererButton: UIButton
 
     init(services: Services) {
         self.services = services
+        rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -53,10 +55,34 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
             oldCell?.iconLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
             newCell?.iconLabel.textColor = PresentationTheme.current.colors.orangeUI
         }
+        setupNavigationBar()
+        super.viewDidLoad()
+    }
+
+    private func setupNavigationBar() {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
-        super.viewDidLoad()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""), style: .plain, target: self, action: #selector(sort))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rendererButton)
+    }
+
+    @objc func sort() {
+        // This should be in a subclass
+        let sortOptionsAlertController = UIAlertController(title: NSLocalizedString("SORT_BY", comment: ""), message: nil, preferredStyle: .actionSheet)
+        let sortByNameAction = UIAlertAction(title: SortOption.alphabetically.localizedDescription, style: .default) { action in
+        }
+        let sortBySizeAction = UIAlertAction(title: SortOption.size.localizedDescription, style: .default) { action in
+        }
+        let sortbyDateAction = UIAlertAction(title: SortOption.insertonDate.localizedDescription, style: .default) { action in
+        }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .cancel, handler: nil)
+        sortOptionsAlertController.addAction(sortByNameAction)
+        sortOptionsAlertController.addAction(sortbyDateAction)
+        sortOptionsAlertController.addAction(sortBySizeAction)
+        sortOptionsAlertController.addAction(cancelAction)
+        sortOptionsAlertController.view.tintColor = UIColor.vlcOrangeTint()
+        present(sortOptionsAlertController, animated: true)
     }
 
     // MARK: - PagerTabStripDataSource
@@ -71,13 +97,6 @@ class VLCMediaSubcategoryViewController: BaseButtonBarPagerTabStripViewControlle
 
     override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
         super.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex, withProgressPercentage: progressPercentage, indexWasChanged: indexWasChanged)
-        if indexWasChanged && toIndex >= 0 && toIndex < viewControllers.count {
-            let child = viewControllers[toIndex] as! IndicatorInfoProvider
-            UIView.performWithoutAnimation({ [weak self] in
-                guard let me = self else { return }
-                me.navigationItem.leftBarButtonItem?.title = child.indicatorInfo(for: me).title
-            })
-        }
     }
 
 }
