@@ -43,7 +43,7 @@ PODS:
   - MetaDataFetcherKit (0.3.1):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
-  - MobileVLCKit (3.1.0)
+  - MobileVLCKit (3.1.1)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (1.1)
   - OBSlider (1.1.0)
@@ -52,7 +52,7 @@ PODS:
     - xmlrpc
   - PAPasscode (1.0)
   - RESideMenu (4.0.7)
-  - TVVLCKit (3.1.0)
+  - TVVLCKit (3.1.1)
   - upnpx (1.4.0)
   - VLC-LiveSDK (5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (0.1.3v)
@@ -73,13 +73,13 @@ DEPENDENCIES:
   - MediaLibraryKit-prod
   - MediaLibraryKit-unstable
   - MetaDataFetcherKit (~> 0.3.1)
-  - MobileVLCKit (= 3.1.0)
+  - MobileVLCKit (= 3.1.1)
   - ObjectiveDropboxOfficial (from `git://github.com/carolanitz/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - PAPasscode (~> 1.0)
   - RESideMenu (~> 4.0.7)
-  - TVVLCKit (= 3.1.0)
+  - TVVLCKit (= 3.1.1)
   - upnpx (~> 1.4.0)
   - VLC-LiveSDK (= 5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (= 0.1.3v)
@@ -158,14 +158,14 @@ SPEC CHECKSUMS:
   MediaLibraryKit-prod: 87d856c2f5cc46da9596e5da57c97190f6216682
   MediaLibraryKit-unstable: aaf147005a2e024ed2f4c45440bfcc19225ca776
   MetaDataFetcherKit: d1d61b061bf74268aaffb6bf08a70396672163df
-  MobileVLCKit: 4e55792b03c99429c9f4716aa44e685f65b3d178
+  MobileVLCKit: 7465b6bea6b338d20af8e79f278b70839af8399c
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: e11cdf40e8965a6c24c6d6ff64905f2df43ab653
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
-  TVVLCKit: 9474d4644124917d29585b3962f2f3fb64cbc64a
+  TVVLCKit: d7fc9f8871400d0739b53953b1d9db301cf096a8
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
   VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
   VLC-LXReorderableCollectionViewFlowLayout: 0204946967b746ca183835e854826290be06e2f4
@@ -173,6 +173,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 2082937778b8f75b8564ea62b81a8b108a31c25d
+PODFILE CHECKSUM: 315f3c39373565c7ad5cf54bec01f9843b308a57
 
 COCOAPODS: 1.5.2
