@@ -1351,17 +1351,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 }
 
-- (void)toggleiPhoneXAspectRatio
-{
-    if (@available(iOS 11.0, *)) {
-        BOOL isFullScreen = CGRectEqualToRect(_movieView.frame , self.view.frame);
-
-        CGRect frameWithoutNotch = self.view.safeAreaLayoutGuide.layoutFrame;
-        [UIView animateWithDuration:0.3 animations:^{
-            self->_movieView.frame = isFullScreen ? frameWithoutNotch : self.view.frame;
-        }];
-    }
-}
 
 - (BOOL)prefersHomeIndicatorAutoHidden
 {
