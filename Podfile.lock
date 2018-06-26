@@ -41,7 +41,7 @@ PODS:
   - MetaDataFetcherKit (0.3.1):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
-  - MobileVLCKit (3.1.0)
+  - MobileVLCKit (3.1.1)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (1.1)
   - OBSlider (1.1.0)
@@ -51,7 +51,7 @@ PODS:
   - PAPasscode (1.0)
   - SimulatorStatusMagic (2.1)
   - SwiftLint (0.25.1)
-  - TVVLCKit (3.1.0)
+  - TVVLCKit (3.1.1)
   - upnpx (1.4.0)
   - VLC-LiveSDK (5.7.0x)
   - VLC-WhiteRaccoon (1.0.0)
@@ -70,14 +70,14 @@ DEPENDENCIES:
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
   - MediaLibraryKit-prod
   - MetaDataFetcherKit (~> 0.3.1)
-  - MobileVLCKit (= 3.1.0)
+  - MobileVLCKit (= 3.1.1)
   - ObjectiveDropboxOfficial (from `git://github.com/carolanitz/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - PAPasscode (~> 1.0)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
-  - TVVLCKit (= 3.1.0)
+  - TVVLCKit (= 3.1.1)
   - upnpx (~> 1.4.0)
   - VLC-LiveSDK (= 5.7.0x)
   - VLC-WhiteRaccoon
@@ -153,7 +153,7 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   MediaLibraryKit-prod: 87d856c2f5cc46da9596e5da57c97190f6216682
   MetaDataFetcherKit: d1d61b061bf74268aaffb6bf08a70396672163df
-  MobileVLCKit: 4e55792b03c99429c9f4716aa44e685f65b3d178
+  MobileVLCKit: 7465b6bea6b338d20af8e79f278b70839af8399c
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: e11cdf40e8965a6c24c6d6ff64905f2df43ab653
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
@@ -161,13 +161,13 @@ SPEC CHECKSUMS:
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   SimulatorStatusMagic: 481558caf2b9ccb2ceba2cc193728d4db3dcac07
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
-  TVVLCKit: 9474d4644124917d29585b3962f2f3fb64cbc64a
+  TVVLCKit: d7fc9f8871400d0739b53953b1d9db301cf096a8
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
   VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
   VLC-WhiteRaccoon: 1e7e59b0568959135a89d09c416d1e11a5d9a986
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: fcbd15eefddfd6ad2069b69e3d6e78331ab4ffb4
+PODFILE CHECKSUM: 44c4a70c2764ca4a2f5eeca6eb271c7a67872868
 
 COCOAPODS: 1.5.2
