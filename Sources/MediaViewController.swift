@@ -13,18 +13,18 @@
 
 import Foundation
 
-@objc public protocol VLCMediaViewControllerDelegate: class {
+@objc protocol VLCMediaViewControllerDelegate: class {
     func mediaViewControllerDidSelectMediaObject(_ mediaViewController: VLCMediaViewController, mediaObject: NSManagedObject)
 }
 
-public class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
+class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
     private var services: Services
     private var mediaDataSourceAndDelegate: MediaDataSourceAndDelegate?
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
     private var mediaType: VLCMediaType
 
-    public weak var delegate: VLCMediaViewControllerDelegate?
+     weak var delegate: VLCMediaViewControllerDelegate?
 
     @available(iOS 11.0, *)
     lazy var dragAndDropManager: VLCDragAndDropManager = {
@@ -58,7 +58,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         }
     }
 
-    public override var preferredStatusBarStyle: UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
     }
 
@@ -172,7 +172,7 @@ public class VLCMediaViewController: UICollectionViewController, UISearchResults
         collectionView?.dataSource = mediaDataSourceAndDelegate
     }
 
-    public func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+    func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return  services.mediaDataSource.indicatorInfo(for:mediaType.subcategory)
     }
 }
