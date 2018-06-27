@@ -54,6 +54,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     NSTimer *_sleepTimer;
 
     NSUInteger _currentAspectRatio;
+    BOOL _isInFillToScreen;
 
     UIView *_videoOutputViewWrapper;
     UIView *_actualVideoOutputView;
@@ -867,20 +868,44 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     [_mediaPlayer jumpBackward:interval];
 }
 
-- (NSString *)screenAspectRatio
+- (UIScreen *)currentScreen
 {
-    UIScreen *screen = [[UIDevice currentDevice] VLCHasExternalDisplay] ? [UIScreen screens][1] : [UIScreen mainScreen];
-    return [NSString stringWithFormat:@"%d:%d", (int)screen.bounds.size.width, (int)screen.bounds.size.height];
+    return [[UIDevice currentDevice] VLCHasExternalDisplay] ? [UIScreen screens][1] : [UIScreen mainScreen];
+}
+
+- (void)switchToFillToScreen
+{
+    UIScreen *screen = [self currentScreen];
+    CGSize screenSize = screen.bounds.size;
+
+    CGSize videoSize = _mediaPlayer.videoSize;
+
+    CGFloat ar = videoSize.width / (float)videoSize.height;
+    CGFloat dar = screenSize.width / (float)screenSize.height;
+
+    CGFloat scale;
+
+    if (dar >= ar) {
+        scale = screenSize.width / (float)videoSize.width;
+    } else {
+        scale = screenSize.height / (float)videoSize.height;
+    }
+
+    // Multiplied by screen.scale in consideration of pt to px
+    _mediaPlayer.scaleFactor = scale * screen.scale;
+    _isInFillToScreen = YES;
 }
 
 - (void)switchIPhoneXFullScreen
 {
-    BOOL inFullScreen = _mediaPlayer.videoCropGeometry && [[NSString stringWithUTF8String:_mediaPlayer.videoCropGeometry] isEqualToString:[self screenAspectRatio]];
-    if (inFullScreen) {
+    if (_isInFillToScreen) {
         const char *previousAspectRatio = _currentAspectRatio == VLCAspectRatioDefault ? NULL : [[self stringForAspectRatio:_currentAspectRatio] UTF8String];
         _mediaPlayer.videoAspectRatio = (char *)previousAspectRatio;
+        _mediaPlayer.scaleFactor = 0;
+        _isInFillToScreen = NO;
+    } else {
+        [self switchToFillToScreen];
     }
-    _mediaPlayer.videoCropGeometry = inFullScreen ? NULL : (char *)[[self screenAspectRatio] UTF8String];
 }
 
 - (void)switchAspectRatio
@@ -888,15 +913,20 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _currentAspectRatio = _currentAspectRatio == VLCAspectRatioSixteenToTen ? VLCAspectRatioDefault : _currentAspectRatio + 1;
     switch (_currentAspectRatio) {
         case VLCAspectRatioDefault:
+            _mediaPlayer.scaleFactor = 0;
             _mediaPlayer.videoAspectRatio = NULL;
             _mediaPlayer.videoCropGeometry = NULL;
             break;
         case VLCAspectRatioFillToScreen:
-            _mediaPlayer.videoCropGeometry = (char *)[[self screenAspectRatio] UTF8String];
+            // Reset aspect ratio only with aspectRatio button since we want to keep
+            // the user ratio with double tap.
+            _mediaPlayer.videoAspectRatio = NULL;
+            [self switchToFillToScreen];
             break;
         case VLCAspectRatioFourToThree:
         case VLCAspectRatioSixteenToTen:
         case VLCAspectRatioSixteenToNine:
+            _mediaPlayer.scaleFactor = 0;
             _mediaPlayer.videoCropGeometry = NULL;
             _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio:_currentAspectRatio] UTF8String];
     }
