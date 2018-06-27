@@ -45,14 +45,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
+    }
+    
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
-
+    [self.navigationItem.titleView setTintColor:PresentationTheme.current.colors.navigationbarTextColor];
+    
     UIBarButtonItem *contributeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CONTRIBUTE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(openContributePage:)];
-    contributeButton.tintColor = [UIColor whiteColor];
-
-    self.navigationItem.rightBarButtonItem = contributeButton;
+    contributeButton.accessibilityIdentifier = VLCAccessibilityIdentifier.contribute;
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+    doneButton.accessibilityIdentifier = VLCAccessibilityIdentifier.done;
+    
+    self.navigationItem.leftBarButtonItem = contributeButton;
+    self.navigationItem.rightBarButtonItem = doneButton;
+    
     [self loadWebContent];
+}
+
+- (void)dismiss
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)loadWebContent
@@ -111,6 +124,11 @@
 - (IBAction)openContributePage:(id)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.videolan.org/contribute.html"]];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return PresentationTheme.current.colors.statusBarStyle;
 }
 
 @end

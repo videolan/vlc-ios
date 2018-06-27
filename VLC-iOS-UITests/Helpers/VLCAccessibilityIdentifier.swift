@@ -19,6 +19,8 @@ import Foundation
     static let cloud = "cloud"
     static let stream = "stream"
     static let downloads = "downloads"
+    @objc static let done = "done"
+    @objc static let contribute = "contribute"
     @objc static let about = "about"
     @objc static let playPause = "playPause"
 }
