@@ -52,6 +52,7 @@
 "CONTINUE_PLAYBACK" = "Continue playback?";
 "CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 
+"BUTTON_ABOUT" = "About";
 "BUTTON_ALL" = "Select All";
 "BUTTON_BACK" = "Back";
 "BUTTON_EDIT" = "Edit";

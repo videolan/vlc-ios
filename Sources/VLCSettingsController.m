@@ -35,10 +35,16 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+
     self.modalPresentationStyle = UIModalPresentationFormSheet;
     self.delegate = self;
     self.showDoneButton = NO;
     self.showCreditsFooter = NO;
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_ABOUT", nil) style:UIBarButtonItemStylePlain target:self action:@selector(showAbout)];
+    self.navigationItem.leftBarButtonItem.accessibilityIdentifier = VLCAccessibilityIdentifier.about;
+    
     [self themeDidChange];
 }
 
@@ -123,12 +129,11 @@
     }
 }
 
-#pragma mark - IASKSettings delegate
-
-- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier
+- (void)showAbout
 {
     VLCAboutViewController *aboutVC = [[VLCAboutViewController alloc] init];
-    [self.navigationController pushViewController:aboutVC animated:YES];
+    UINavigationController *modalNavigationController = [[UINavigationController alloc] initWithRootViewController:aboutVC];
+    [self presentViewController:modalNavigationController animated:YES completion:nil];
 }
 
 #pragma mark - PAPasscode delegate
@@ -145,14 +150,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     cell.backgroundColor = PresentationTheme.current.colors.settingsCellBackground;
     cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
     cell.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
-    if ([specifier.key isEqualToString:@"about"]) {
-        cell.accessibilityIdentifier = VLCAccessibilityIdentifier.about;
-    }
     return cell;
 }
 
