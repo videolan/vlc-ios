@@ -878,12 +878,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     return [[UIDevice currentDevice] VLCHasExternalDisplay] ? [UIScreen screens][1] : [UIScreen mainScreen];
 }
 
-- (NSString *)screenAspectRatio
-{
-    CGSize currentScreenSize = [self currentScreen].bounds.size;
-    return [NSString stringWithFormat:@"%d:%d", (int)currentScreenSize.width, (int)currentScreenSize.height];
-}
-
 - (void)switchToFillToScreen
 {
     UIScreen *screen = [self currentScreen];
