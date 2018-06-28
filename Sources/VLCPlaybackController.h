@@ -90,7 +90,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (assign, readonly) BOOL currentMediaIs360Video;
 @property (readonly) NSNumber *playbackTime;
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
-@property (nonatomic, readonly) NSTimer* sleepTimer;
+@property (nonatomic, readonly) NSTimer *sleepTimer;
 
 @property (nonatomic) VLCRendererItem *renderer;
 
