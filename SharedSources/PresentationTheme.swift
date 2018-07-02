@@ -16,29 +16,29 @@ extension Notification.Name {
     static let VLCThemeDidChangeNotification = Notification.Name("themeDidChangeNotfication")
 }
 
-@objcMembers public class ColorPalette: NSObject {
+@objcMembers class ColorPalette: NSObject {
 
-    public let isDark: Bool
-    public let name: String
-    public let statusBarStyle: UIStatusBarStyle
-    public let navigationbarColor: UIColor
-    public let navigationbarTextColor: UIColor
-    public let background: UIColor
-    public let cellBackgroundA: UIColor
-    public let cellBackgroundB: UIColor
-    public let cellDetailTextColor: UIColor
-    public let cellTextColor: UIColor
-    public let lightTextColor: UIColor
-    public let sectionHeaderTextColor: UIColor
-    public let sectionHeaderTintColor: UIColor
-    public let settingsBackground: UIColor
-    public let settingsCellBackground: UIColor
-    public let settingsSeparatorColor: UIColor
-    public let mediaCategorySeparatorColor: UIColor
-    public let tabBarColor: UIColor
-    public let orangeUI: UIColor
+    let isDark: Bool
+    let name: String
+    let statusBarStyle: UIStatusBarStyle
+    let navigationbarColor: UIColor
+    let navigationbarTextColor: UIColor
+    let background: UIColor
+    let cellBackgroundA: UIColor
+    let cellBackgroundB: UIColor
+    let cellDetailTextColor: UIColor
+    let cellTextColor: UIColor
+    let lightTextColor: UIColor
+    let sectionHeaderTextColor: UIColor
+    let sectionHeaderTintColor: UIColor
+    let settingsBackground: UIColor
+    let settingsCellBackground: UIColor
+    let settingsSeparatorColor: UIColor
+    let mediaCategorySeparatorColor: UIColor
+    let tabBarColor: UIColor
+    let orangeUI: UIColor
 
-    public init(isDark: Bool,
+    init(isDark: Bool,
                 name: String,
                 statusBarStyle: UIStatusBarStyle,
                 navigationbarColor: UIColor,
@@ -79,10 +79,10 @@ extension Notification.Name {
     }
 }
 
-@objcMembers public class PresentationTheme: NSObject {
+@objcMembers class PresentationTheme: NSObject {
 
-    public static let brightTheme = PresentationTheme(colors: brightPalette)
-    public static let darkTheme = PresentationTheme(colors: darkPalette)
+    static let brightTheme = PresentationTheme(colors: brightPalette)
+    static let darkTheme = PresentationTheme(colors: darkPalette)
 
     static var current: PresentationTheme = {
         let isDarkTheme = UserDefaults.standard.bool(forKey: kVLCSettingAppTheme)
@@ -94,17 +94,17 @@ extension Notification.Name {
         }
     }
 
-    public init(colors: ColorPalette) {
+    init(colors: ColorPalette) {
         self.colors = colors
         super.init()
     }
 
-    public let colors: ColorPalette
+    let colors: ColorPalette
 }
 
-@objc public extension UIColor {
+@objc extension UIColor {
 
-    public convenience init(_ rgbValue: UInt32, _ alpha: CGFloat = 1.0) {
+    convenience init(_ rgbValue: UInt32, _ alpha: CGFloat = 1.0) {
         let r = CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0
         let g = CGFloat((rgbValue & 0xFF00) >> 8) / 255.0
         let b = CGFloat(rgbValue & 0xFF) / 255.0

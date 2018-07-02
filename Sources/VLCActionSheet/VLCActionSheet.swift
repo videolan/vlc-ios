@@ -235,7 +235,7 @@ class VLCActionSheet: UIViewController {
 // MARK: UICollectionViewDelegateFlowLayout
 
 extension VLCActionSheet: UICollectionViewDelegateFlowLayout {
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: cellHeight)
     }
 }
@@ -243,7 +243,7 @@ extension VLCActionSheet: UICollectionViewDelegateFlowLayout {
 // MARK: UICollectionViewDelegate
 
 extension VLCActionSheet: UICollectionViewDelegate {
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let delegate = delegate, let item = delegate.itemAtIndexPath(indexPath) {
             delegate.actionSheet(collectionView: collectionView, didSelectItem: item, At: indexPath)
             action?(item)
@@ -255,14 +255,14 @@ extension VLCActionSheet: UICollectionViewDelegate {
 // MARK: UICollectionViewDataSource
 
 extension VLCActionSheet: UICollectionViewDataSource {
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let dataSource = dataSource {
             return dataSource.numberOfRows()
         }
         preconditionFailure("VLCActionSheet: No data source")
     }
 
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let dataSource = dataSource {
             return dataSource.actionSheet(collectionView: collectionView, cellForItemAt: indexPath)
         }

@@ -29,7 +29,7 @@ protocol RemoteNetworkDataSourceDelegate {
 }
 
 @objc(VLCRemoteNetworkDataSourceAndDelegate)
-public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
+class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     let cloudVC = VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)
     let streamingVC = VLCOpenNetworkStreamViewController(nibName: "VLCOpenNetworkStreamViewController", bundle: Bundle.main)
     let downloadVC = VLCDownloadViewController(nibName: "VLCDownloadViewController", bundle: Bundle.main)
@@ -38,11 +38,11 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
 
     // MARK: - DataSource
 
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RemoteNetworkCellType.count
     }
 
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cellType = RemoteNetworkCellType(rawValue: indexPath.row) else {
             assertionFailure("We're having more rows than types of cells that should never happen")
             return UITableViewCell()
@@ -83,11 +83,11 @@ public class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableVi
 
     // MARK: - Delegate
 
-    public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return RemoteNetworkCellType(rawValue: indexPath.row) == .wifi ? nil : indexPath
     }
 
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let vc = viewController(indexPath: indexPath) {
             delegate?.showViewController(vc)

@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-public enum SortOption: String {
+enum SortOption: String {
     case alphabetically = "Name"
     case insertonDate = "Date"
     case size = "Size"

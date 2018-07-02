@@ -20,7 +20,7 @@
 
 @implementation VLCDocumentPickerController
 
-#pragma mark - Public Methods
+#pragma mark - Internal Methods
 
 - (void)showDocumentMenuViewController:(id)sender
 {

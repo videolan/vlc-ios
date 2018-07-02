@@ -12,7 +12,7 @@
 import Foundation
 
 @objc(VLCService)
-public class Services: NSObject {
+class Services: NSObject {
     @objc let mediaDataSource = VLCMediaDataSource()
     @objc let rendererDiscovererManager = VLCRendererDiscovererManager(presentingViewController: nil)
 }
@@ -23,12 +23,12 @@ public class Services: NSObject {
     private var tabBarController: UITabBarController
     private var services = Services()
 
-    @objc public init(tabBarController: UITabBarController) {
+    @objc init(tabBarController: UITabBarController) {
         self.tabBarController = tabBarController
         super.init()
     }
 
-    @objc public func start() {
+    @objc func start() {
         let tabbarCoordinator = VLCTabbarCooordinator(tabBarController: tabBarController, services: services)
         tabbarCoordinator.start()
         childCoordinators.append(tabbarCoordinator)

@@ -62,14 +62,14 @@ enum SnapshotError: Error, CustomDebugStringConvertible {
 }
 
 @objcMembers
-open class Snapshot: NSObject {
+class Snapshot: NSObject {
     static var app: XCUIApplication?
     static var cacheDirectory: URL?
     static var screenshotsDirectory: URL? {
         return cacheDirectory?.appendingPathComponent("screenshots", isDirectory: true)
     }
 
-    open class func setupSnapshot(_ app: XCUIApplication) {
+    class func setupSnapshot(_ app: XCUIApplication) {
 
         Snapshot.app = app
 
@@ -143,7 +143,7 @@ open class Snapshot: NSObject {
         }
     }
 
-    open class func snapshot(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20) {
+    class func snapshot(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20) {
         if timeout > 0 {
             waitForLoadingIndicatorToDisappear(within: timeout)
         }

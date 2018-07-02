@@ -17,13 +17,13 @@ class VLCLabelCell: UICollectionViewCell {
     @IBOutlet weak var iconLabel: UILabel!
 
 }
-public enum SwipeDirection {
+enum SwipeDirection {
     case left
     case right
     case none
 }
 
-public struct IndicatorInfo {
+struct IndicatorInfo {
 
     var title: String?
     var accessibilityLabel: String?
@@ -34,7 +34,7 @@ public struct IndicatorInfo {
     }
 }
 
-public enum PagerScroll {
+enum PagerScroll {
     case no
     case yes
     case onlyIfOutOfScreen
@@ -131,7 +131,7 @@ class BaseButtonBarPagerTabStripViewController<ButtonBarCellType: UICollectionVi
         buttonBarView.selectItem(at: IndexPath(item: currentIndex, section: 0), animated: false, scrollPosition: [])
     }
 
-    // MARK: - Public Methods
+    // MARK: - Methods
 
     override func reloadPagerTabStripView() {
         super.reloadPagerTabStripView()

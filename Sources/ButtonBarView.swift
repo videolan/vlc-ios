@@ -12,7 +12,7 @@
 
 import Foundation
 
-open class ButtonBarView: UICollectionView {
+class ButtonBarView: UICollectionView {
 
     var selectedBar: UIView!
     var separatorView: UIView!
@@ -23,7 +23,7 @@ open class ButtonBarView: UICollectionView {
     var selectedIndex = 0
 
     @available(*, unavailable, message: "use init(frame:)")
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
 
@@ -146,7 +146,7 @@ open class ButtonBarView: UICollectionView {
         selectedBar.frame = selectedBarFrame
     }
 
-    override open func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         updateSelectedBarYPosition()
     }
