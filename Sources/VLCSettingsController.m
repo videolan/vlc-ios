@@ -51,7 +51,7 @@
 - (void)themeDidChange
 {
     self.view.backgroundColor = PresentationTheme.current.colors.settingsBackground;
-    self.tableView.separatorColor = PresentationTheme.current.colors.settingsSeparatorColor;
+    self.tableView.separatorColor = PresentationTheme.current.colors.separatorColor;
     [self.tableView reloadData];
     [self setNeedsStatusBarAppearanceUpdate];
 }

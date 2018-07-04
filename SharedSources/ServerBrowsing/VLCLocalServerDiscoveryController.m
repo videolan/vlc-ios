@@ -114,12 +114,6 @@
     return _serviceBrowsers.count;
 }
 
-- (NSString *)titleForSection:(NSUInteger)section
-{
-    id<VLCLocalNetworkServiceBrowser> browser = _serviceBrowsers[section];
-    return browser.name;
-}
-
 - (NSUInteger)numberOfItemsInSection:(NSUInteger)section
 {
     id<VLCLocalNetworkServiceBrowser> browser = _serviceBrowsers[section];
