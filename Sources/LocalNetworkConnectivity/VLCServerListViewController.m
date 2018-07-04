@@ -29,7 +29,6 @@
 #import "VLCNetworkServerBrowserVLCMedia.h"
 #import "VLCNetworkServerBrowserPlex.h"
 
-#import "VLCLocalNetworkServiceBrowserManualConnect.h"
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCLocalNetworkServiceBrowserFTP.h"
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
@@ -42,7 +41,7 @@
 
 #import "VLC_iOS-Swift.h"
 
-@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate>
+@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate, VLCFileServerSectionTableHeaderViewDelegate>
 {
     VLCLocalServerDiscoveryController *_discoveryController;
 
@@ -86,7 +85,9 @@
     _localNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _localNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _localNetworkTableView.rowHeight = [VLCNetworkListCell heightOfCell];
-    _localNetworkTableView.separatorColor = PresentationTheme.current.colors.background;
+    _localNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    [_localNetworkTableView registerClass:[VLCFileServerSectionTableHeaderView class] forHeaderFooterViewReuseIdentifier:VLCFileServerSectionTableHeaderView.identifier];
 
     _remoteNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     _remoteNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -141,7 +142,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
 
     NSArray *browserClasses = @[
-                                [VLCLocalNetworkServiceBrowserManualConnect class],
                                 [VLCLocalNetworkServiceBrowserUPnP class],
                                 [VLCLocalNetworkServiceBrowserPlex class],
                                 [VLCLocalNetworkServiceBrowserFTP class],
@@ -186,6 +186,21 @@
     [_remoteNetworkTableView layoutIfNeeded];
     _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
 }
+
+- (void)connectToServer
+{
+    VLCNetworkLoginViewController *loginViewController = [[VLCNetworkLoginViewController alloc] initWithNibName:@"VLCNetworkLoginViewController" bundle:nil];
+
+    loginViewController.loginInformation = [[VLCNetworkServerLoginInformation alloc] init];;
+    loginViewController.delegate = self;
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    navCon.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:navCon animated:YES completion:nil];
+
+    if (loginViewController.navigationItem.leftBarButtonItem == nil)
+        loginViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStyleDone target:self action:@selector(_dismissLogin)];
+}
+
 #pragma mark - table view handling
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -198,21 +213,21 @@
     return [_discoveryController numberOfItemsInSection:section];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        VLCFileServerSectionTableHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:VLCFileServerSectionTableHeaderView.identifier];
+        headerView.delegate = self;
+        return headerView;
+    }
+    return nil;
+}
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIColor *color = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundB : PresentationTheme.current.colors.cellBackgroundA;
     cell.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor = color;
     cell.titleLabel.textColor = cell.folderTitleLabel.textColor = cell.subtitleLabel.textColor = cell.thumbnailView.tintColor = PresentationTheme.current.colors.cellTextColor;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-{
-    // Text Color
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.textLabel.textColor = PresentationTheme.current.colors.sectionHeaderTextColor;
-    header.textLabel.font = [UIFont boldSystemFontOfSize:([UIFont systemFontSize] * 0.8f)];
-
-    header.tintColor = PresentationTheme.current.colors.sectionHeaderTintColor;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -300,10 +315,11 @@
 
 - (void)_dismissLogin
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        [self.navigationController popViewControllerAnimated:YES];
-    else
+    if ([self.navigationController presentedViewController]) {
         [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -367,19 +383,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    // always hide the header of the first section
     if (section == 0)
-        return 0.;
+        return 56.;
 
-    if ([_discoveryController numberOfItemsInSection:section] == 0)
-        return 0.;
-
-    return 21.f;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return [_discoveryController titleForSection:section];
+    return 0.;
 }
 
 @end

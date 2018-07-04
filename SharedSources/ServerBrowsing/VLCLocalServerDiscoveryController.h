@@ -25,7 +25,6 @@
 - (instancetype)initWithServiceBrowserClasses:(NSArray<Class> *)serviceBrowserClasses;
 
 - (NSUInteger)numberOfSections;
-- (NSString *)titleForSection:(NSUInteger)section;
 - (NSUInteger)numberOfItemsInSection:(NSUInteger)section;
 - (BOOL)foundAnythingAtAll;
 

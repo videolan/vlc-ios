@@ -33,7 +33,7 @@ extension Notification.Name {
     let sectionHeaderTintColor: UIColor
     let settingsBackground: UIColor
     let settingsCellBackground: UIColor
-    let settingsSeparatorColor: UIColor
+    let separatorColor: UIColor
     let mediaCategorySeparatorColor: UIColor
     let tabBarColor: UIColor
     let orangeUI: UIColor
@@ -53,7 +53,7 @@ extension Notification.Name {
                 sectionHeaderTintColor: UIColor,
                 settingsBackground: UIColor,
                 settingsCellBackground: UIColor,
-                settingsSeparatorColor: UIColor,
+                separatorColor: UIColor,
                 mediaCategorySeparatorColor: UIColor,
                 tabBarColor: UIColor,
                 orangeUI: UIColor) {
@@ -72,7 +72,7 @@ extension Notification.Name {
         self.sectionHeaderTintColor = sectionHeaderTintColor
         self.settingsBackground = settingsBackground
         self.settingsCellBackground = settingsCellBackground
-        self.settingsSeparatorColor = settingsSeparatorColor
+        self.separatorColor = separatorColor
         self.mediaCategorySeparatorColor = mediaCategorySeparatorColor
         self.tabBarColor = tabBarColor
         self.orangeUI = orangeUI
@@ -152,7 +152,7 @@ let brightPalette = ColorPalette(isDark: false,
                                  sectionHeaderTintColor: UIColor(0xE5EFE3),
                                  settingsBackground: UIColor(0xDCDCDC),
                                  settingsCellBackground: UIColor(0xF9F9F7),
-                                 settingsSeparatorColor: UIColor(0xD3D3D3),
+                                 separatorColor: UIColor(0xD3D3D3),
                                  mediaCategorySeparatorColor: UIColor(0xECF2F6),
                                  tabBarColor: UIColor(0xFFFFFF),
                                  orangeUI: UIColor(0xFF8800))
@@ -172,7 +172,7 @@ let darkPalette = ColorPalette(isDark: true,
                                sectionHeaderTintColor: UIColor(0x3C3C3C),
                                settingsBackground: UIColor(0x292B36),
                                settingsCellBackground: UIColor(0x3D3F40),
-                               settingsSeparatorColor: UIColor(0xA9A9A9),
+                               separatorColor: UIColor(0xA9A9A9),
                                mediaCategorySeparatorColor: UIColor(0x25292C),
                                tabBarColor: UIColor(0x292B36),
                                orangeUI: UIColor(0xFF8800))
