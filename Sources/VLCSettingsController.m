@@ -45,13 +45,16 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_ABOUT", nil) style:UIBarButtonItemStylePlain target:self action:@selector(showAbout)];
     self.navigationItem.leftBarButtonItem.accessibilityIdentifier = VLCAccessibilityIdentifier.about;
     
+    self.neverShowPrivacySettings = YES;
+    self.tableView.estimatedRowHeight = 100;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self themeDidChange];
 }
 
 - (void)themeDidChange
 {
-    self.view.backgroundColor = PresentationTheme.current.colors.settingsBackground;
-    self.tableView.separatorColor = PresentationTheme.current.colors.separatorColor;
+    self.view.backgroundColor = PresentationTheme.current.colors.background;
     [self.tableView reloadData];
     [self setNeedsStatusBarAppearanceUpdate];
 }
@@ -150,10 +153,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    cell.backgroundColor = PresentationTheme.current.colors.settingsCellBackground;
-    cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-    cell.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    IASKSpecifier *specifier = [self.settingsReader specifierForIndexPath:indexPath];
+    VLCSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:specifier.type];
+    if (!cell) {
+        cell = [VLCSettingsTableViewCell cellWithIdentifier:specifier.type target:self];
+    }
+    [cell configureWithSpecifier:specifier value:[self.settingsStore objectForKey:specifier.key]];
     return cell;
 }
 
@@ -172,4 +177,27 @@
         [self.navigationController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     }
 }
+
+#pragma mark - InAppSettings customization
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return indexPath;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    IASKSpecifier *specifier = [self.settingsReader specifierForIndexPath:indexPath];
+    if ([specifier.type isEqual: kIASKPSToggleSwitchSpecifier]) {
+        VLCSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        IASKSwitch *toggle = (IASKSwitch *)cell.accessoryView;
+        [toggle setOn:!toggle.isOn animated:YES];
+        [self toggledValue:toggle];
+    } else {
+        [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    }
+}
+
 @end
