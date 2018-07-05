@@ -975,6 +975,7 @@
 		C6872E7B396534F3DAF4E48F /* Pods-VLC-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		CA6FB8222074601900FC9BF2 /* VLC-iOSUITest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLC-iOSUITest-Bridging-Header.h"; sourceTree = "<group>"; };
 		CAA0B0F620726A0E00B9274E /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
+		CABCBB0020EB38580040E2F5 /* IASKSettingsTableViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "IASKSettingsTableViewController+Protected.h"; path = "Sources/IASKSettingsTableViewController+Protected.h"; sourceTree = "<group>"; };
 		CAD925782075536300F88496 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		CAD925802075613100F88496 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCEmptyLibraryView.h; path = Sources/VLCEmptyLibraryView.h; sourceTree = "<group>"; };
@@ -1530,6 +1531,7 @@
 				7D3784A3183A98F5009EE944 /* VLCAboutViewController.m */,
 				7D3784A4183A98F5009EE944 /* VLCSettingsController.h */,
 				7D3784A5183A98F5009EE944 /* VLCSettingsController.m */,
+				CABCBB0020EB38580040E2F5 /* IASKSettingsTableViewController+Protected.h */,
 				7D37849F183A98EB009EE944 /* VLCBugreporter.h */,
 				7D3784A0183A98EB009EE944 /* VLCBugreporter.m */,
 				7DC19AEB1868C91400810BF7 /* First Steps */,

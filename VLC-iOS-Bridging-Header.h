@@ -20,3 +20,6 @@
 #import "VLCSettingsController.h"
 #import "VLCWiFiUploadTableViewCell.h"
 #import "VLCMovieViewController.h"
+#import "IASKSettingsTableViewController+Protected.h"
+#import "IASKSettingsReader.h"
+#import "IASKSwitch.h"
