@@ -17,6 +17,8 @@
 #import "VLCThumbnailsCache.h"
 #import "NSString+SupportedMedia.h"
 
+#import <VLCMediaLibraryKit/VLCMLFile.h>
+
 @interface VLCPlaylistCollectionViewCell ()
 {
     UIImage *_checkboxEmptyImage;
@@ -196,6 +198,22 @@
     }
 
     [self _updatedDisplayedInformationForKeyPath:nil];
+}
+
+- (void)setMedia:(VLCMLMedia *)media
+{
+    if (_media != media) {
+        _media = media;
+    }
+    [self _updateDisplayedInformations];
+}
+
+- (void)_updateDisplayedInformations
+{
+    _titleLabel.text = _media.title;
+    _subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@", [VLCTime timeWithNumber:[NSNumber numberWithLongLong:_media.duration]],
+                                                                  [NSByteCountFormatter stringFromByteCount:[_media.mainFile size] countStyle:NSByteCountFormatterCountStyleFile]];
+
 }
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
@@ -526,6 +544,7 @@
 - (void)prepareForReuse
 {
     [super prepareForReuse];
+    self.media = nil;
     self.mediaObject = nil;
     self.thumbnailView.image = nil;
     self.titleLabel.text = @"";

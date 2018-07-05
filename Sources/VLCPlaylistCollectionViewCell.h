@@ -15,6 +15,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VLCLinearProgressIndicator.h"
+#import <VLCMediaLibraryKit/VLCMLMedia.h>
 
 @interface VLCPlaylistCollectionViewCell : UICollectionViewCell
 
@@ -28,6 +29,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *metaDataLabel;
 
 @property (nonatomic, retain) NSManagedObject *mediaObject;
+@property (nonatomic, retain) VLCMLMedia *media;
 
 @property (nonatomic, weak) UICollectionView *collectionView;
 @property (readonly) BOOL showsMetaData;
