@@ -5,10 +5,18 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>Key</key>
+			<string>privacy</string>
 			<key>Title</key>
-			<string>SETTINGS_GENERIC_TITLE</string>
+			<string>SETTINGS_PRIVACY_TITLE</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>File</key>
+			<string>app-settings:</string>
+			<key>IASKSubtitle</key>
+			<string>SETTINGS_PRIVACY_SUBTITLE</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -19,6 +27,14 @@
 			<string>SETTINGS_DARKTHEME</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
+			<key>IASKSubtitle</key>
+			<string>SETTINGS_THEME_SUBTITLE</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_GENERIC_TITLE</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -29,6 +45,8 @@
 			<string>SETTINGS_PASSCODE_LOCK</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
+			<key>IASKSubtitle</key>
+			<string>SETTINGS_PASSCODE_LOCK_SUBTITLE</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
