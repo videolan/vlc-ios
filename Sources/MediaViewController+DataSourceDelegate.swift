@@ -1,5 +1,5 @@
 /*****************************************************************************
- * MediaDataSourceAndDelegate.swift
+ * MediaViewController+DataSourceDelegate.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -10,34 +10,21 @@
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
+
 extension Notification.Name {
     static let VLCTracksDidChangeNotification = Notification.Name("kTracksDidChangeNotification")
     static let VLCAllVideosDidChangeNotification = Notification.Name("kAllVideosDidChangeNotification")
 }
 
-class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+// These are the delegate and datasource calls from the MediaViewController
+extension VLCMediaViewController: UICollectionViewDelegateFlowLayout {
 
-    private let cellPadding: CGFloat = 5.0
-    private var services: Services
-    private var mediaType: VLCMediaType
-    weak var delegate: UICollectionViewDelegate?
-
-    @available(*, unavailable)
-    override init() {
-        fatalError()
-    }
-
-    init(services: Services, type: VLCMediaType) {
-        self.services = services
-        mediaType = type
-        super.init()
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    // MARK: - UICollectionViewDataSource
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Int(services.mediaDataSource.numberOfFiles(subcategory: mediaType.subcategory))
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let playlistCell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), for: indexPath) as? VLCPlaylistCollectionViewCell {
             if let mediaObject = services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory) as? NSManagedObject {
                 playlistCell.mediaObject = mediaObject
@@ -47,10 +34,14 @@ class MediaDataSourceAndDelegate: NSObject, UICollectionViewDataSource, UICollec
         return UICollectionViewCell()
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.collectionView!(collectionView, didSelectItemAt: indexPath)
+    // MARK: - UICollectionViewDelegate
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let mediaObject = services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory) as? NSManagedObject {
+            delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: mediaObject)
+        }
     }
 
+    // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let numberOfCells: CGFloat = collectionView.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0

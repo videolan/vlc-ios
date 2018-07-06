@@ -18,13 +18,12 @@ import Foundation
 }
 
 class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
-    private var services: Services
-    private var mediaDataSourceAndDelegate: MediaDataSourceAndDelegate?
+    let cellPadding: CGFloat = 5.0
+    var services: Services
+    var mediaType: VLCMediaType
+    weak var delegate: VLCMediaViewControllerDelegate?
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
-    private var mediaType: VLCMediaType
-
-     weak var delegate: VLCMediaViewControllerDelegate?
 
     @available(iOS 11.0, *)
     lazy var dragAndDropManager: VLCDragAndDropManager = {
@@ -95,14 +94,12 @@ class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdatin
     }
 
     func setupCollectionView() {
-        mediaDataSourceAndDelegate = MediaDataSourceAndDelegate(services: services, type: mediaType)
-        mediaDataSourceAndDelegate?.delegate = self
         let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle: nil)
         collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
-        collectionView?.dataSource = mediaDataSourceAndDelegate
-        collectionView?.delegate = mediaDataSourceAndDelegate
+        collectionView?.dataSource = self
+        collectionView?.delegate = self
         if #available(iOS 11.0, *) {
             collectionView?.dragDelegate = dragAndDropManager
             collectionView?.dropDelegate = dragAndDropManager
@@ -149,14 +146,6 @@ class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdatin
         collectionView?.collectionViewLayout.invalidateLayout()
     }
 
-    // MARK: - MediaDatasourceAndDelegate
-
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let mediaObject = services.mediaDataSource.object(at: indexPath.row, subcategory: mediaType.subcategory) as? NSManagedObject {
-            delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: mediaObject)
-        }
-    }
-
     // MARK: - Search
 
     func updateSearchResults(for searchController: UISearchController) {
@@ -169,7 +158,7 @@ class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdatin
     }
 
     func didDismissSearchController(_ searchController: UISearchController) {
-        collectionView?.dataSource = mediaDataSourceAndDelegate
+        collectionView?.dataSource = self
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
