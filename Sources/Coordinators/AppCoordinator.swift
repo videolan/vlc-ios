@@ -12,7 +12,7 @@
 
 @objc(VLCService)
 class Services: NSObject {
-    @objc let mediaDataSource = VLCMediaDataSource()
+    @objc let medialibraryManager = VLCMediaLibraryManager()
     @objc let rendererDiscovererManager = VLCRendererDiscovererManager(presentingViewController: nil)
 }
 
