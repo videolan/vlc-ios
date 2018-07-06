@@ -33,15 +33,15 @@ class VLCSectionTableHeaderView: UITableViewHeaderFooterView {
         contentView.addSubview(separator)
 
         NSLayoutConstraint.activate([
-            separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             separator.heightAnchor.constraint(equalToConstant: 1),
             separator.topAnchor.constraint(equalTo: contentView.topAnchor)
             ])
     }
 
     @objc func updateTheme() {
-        backgroundColor = PresentationTheme.current.colors.background
+        contentView.backgroundColor = PresentationTheme.current.colors.background
         separator.backgroundColor = PresentationTheme.current.colors.separatorColor
         textLabel?.textColor = PresentationTheme.current.colors.cellTextColor
     }

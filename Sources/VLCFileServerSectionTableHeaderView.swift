@@ -22,10 +22,8 @@ class VLCFileServerSectionTableHeaderView: VLCSectionTableHeaderView {
 
     @objc static let identifier = "VLCFileServerSectionTableHeaderView"
     @objc weak var delegate: VLCFileServerSectionTableHeaderViewDelegate?
-
-    override func setupUI() {
-        super.setupUI()
-
+    var layoutConstraints: [NSLayoutConstraint]?
+    lazy var connectButton: UIButton = {
         let connectButton = UIButton(type: .system)
         connectButton.setTitle(NSLocalizedString("CONNECT", comment: ""), for: .normal)
         connectButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
@@ -33,19 +31,32 @@ class VLCFileServerSectionTableHeaderView: VLCSectionTableHeaderView {
         connectButton.translatesAutoresizingMaskIntoConstraints = false
         connectButton.addTarget(self, action: #selector(connectButtonDidPress), for: .touchUpInside)
         contentView.addSubview(connectButton)
+        return connectButton
+    }()
 
-        NSLayoutConstraint.activate([
-            connectButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            connectButton.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-            ])
+    override func setupUI() {
+        super.setupUI()
+        self.textLabel?.text = NSLocalizedString("FILE_SERVER", comment: "")
     }
 
+    //Before layoutSubviews textlabel doesn't have a superview
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if layoutConstraints == nil {
+            layoutConstraints = [
+                connectButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+                connectButton.firstBaselineAnchor.constraint(equalTo: self.textLabel!.firstBaselineAnchor)
+                ]
+            NSLayoutConstraint.activate(layoutConstraints!)
+        }
+    }
     @objc func connectButtonDidPress() {
         delegate?.connectToServer()
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        //Text gets set to nil in prepareForReuse so we set it again
         self.textLabel?.text = NSLocalizedString("FILE_SERVER", comment: "")
     }
 }
