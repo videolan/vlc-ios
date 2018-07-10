@@ -172,7 +172,7 @@ let darkPalette = ColorPalette(isDark: true,
                                sectionHeaderTintColor: UIColor(0x3C3C3C),
                                settingsBackground: UIColor(0x292B36),
                                settingsCellBackground: UIColor(0x3D3F40),
-                               separatorColor: UIColor(0xA9A9A9),
+                               separatorColor: UIColor(0x25292C),
                                mediaCategorySeparatorColor: UIColor(0x25292C),
                                tabBarColor: UIColor(0x292B36),
                                orangeUI: UIColor(0xFF8800))
