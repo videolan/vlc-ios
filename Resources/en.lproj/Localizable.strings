@@ -124,7 +124,6 @@
 
 "LOCAL_NETWORK" = "Local Network";
 "CONNECT_TO_SERVER" = "Connect to Server";
-"CONNECT" = "Connect";
 "FILE_SERVER" = "File Servers";
 "USER_LABEL" = "User";
 "PASSWORD_LABEL" = "Password";

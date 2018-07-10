@@ -24,7 +24,7 @@ class VLCFileServerSectionTableHeaderView: VLCSectionTableHeaderView {
     var layoutConstraints: [NSLayoutConstraint]?
     lazy var connectButton: UIButton = {
         let connectButton = UIButton(type: .system)
-        connectButton.setTitle(NSLocalizedString("CONNECT", comment: ""), for: .normal)
+        connectButton.setTitle(NSLocalizedString("BUTTON_CONNECT", comment: ""), for: .normal)
         connectButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         connectButton.titleLabel?.textColor = PresentationTheme.current.colors.orangeUI
         connectButton.translatesAutoresizingMaskIntoConstraints = false
