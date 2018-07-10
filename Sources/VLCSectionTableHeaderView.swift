@@ -6,7 +6,6 @@
  * $Id$
  *
  * Author: Carola Nitz <caro # videolan.org>
-
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/

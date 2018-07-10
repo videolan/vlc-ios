@@ -6,7 +6,6 @@
  * $Id$
  *
  * Author: Carola Nitz <caro # videolan.org>
-
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -36,7 +35,7 @@ class VLCFileServerSectionTableHeaderView: VLCSectionTableHeaderView {
 
     override func setupUI() {
         super.setupUI()
-        self.textLabel?.text = NSLocalizedString("FILE_SERVER", comment: "")
+        textLabel?.text = NSLocalizedString("FILE_SERVER", comment: "")
     }
 
     //Before layoutSubviews textlabel doesn't have a superview
@@ -44,8 +43,8 @@ class VLCFileServerSectionTableHeaderView: VLCSectionTableHeaderView {
         super.layoutSubviews()
         if layoutConstraints == nil {
             layoutConstraints = [
-                connectButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-                connectButton.firstBaselineAnchor.constraint(equalTo: self.textLabel!.firstBaselineAnchor)
+                connectButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+                connectButton.firstBaselineAnchor.constraint(equalTo: textLabel!.firstBaselineAnchor)
                 ]
             NSLayoutConstraint.activate(layoutConstraints!)
         }
@@ -57,6 +56,6 @@ class VLCFileServerSectionTableHeaderView: VLCSectionTableHeaderView {
     override func prepareForReuse() {
         super.prepareForReuse()
         //Text gets set to nil in prepareForReuse so we set it again
-        self.textLabel?.text = NSLocalizedString("FILE_SERVER", comment: "")
+        textLabel?.text = NSLocalizedString("FILE_SERVER", comment: "")
     }
 }
