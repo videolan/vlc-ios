@@ -97,6 +97,8 @@
     _localNetworkTableView.rowHeight = [VLCNetworkListCell heightOfCell];
     _localNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
+    [self.navigationController.navigationBar setTranslucent:NO];
+
     [_localNetworkTableView registerClass:[VLCFileServerSectionTableHeaderView class] forHeaderFooterViewReuseIdentifier:VLCFileServerSectionTableHeaderView.identifier];
 
     _remoteNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
@@ -214,6 +216,7 @@
     loginViewController.delegate = self;
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     navCon.modalPresentationStyle = UIModalPresentationFormSheet;
+    [navCon.navigationBar setTranslucent:NO];
     [self presentViewController:navCon animated:YES completion:nil];
 
     if (loginViewController.navigationItem.leftBarButtonItem == nil)

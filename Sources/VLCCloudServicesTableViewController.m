@@ -117,7 +117,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundA: PresentationTheme.current.colors.cellBackgroundB;
+    cell.backgroundColor = PresentationTheme.current.colors.cellBackgroundA;
     [cell setSeparatorInset:UIEdgeInsetsZero];
     [cell setPreservesSuperviewLayoutMargins:NO];
     [cell setLayoutMargins:UIEdgeInsetsZero];

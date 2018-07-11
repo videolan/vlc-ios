@@ -38,7 +38,7 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
-
+        navigationController?.navigationBar.isTranslucent = false
         let fixedSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         fixedSpace.width = fixedSpaceWidth
 

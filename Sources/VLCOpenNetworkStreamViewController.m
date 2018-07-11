@@ -308,7 +308,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundB : PresentationTheme.current.colors.cellBackgroundA;
+    cell.backgroundColor = PresentationTheme.current.colors.cellBackgroundA;
     cell.textLabel.textColor =  PresentationTheme.current.colors.cellTextColor;
     cell.detailTextLabel.textColor =  PresentationTheme.current.colors.cellDetailTextColor;
 }
