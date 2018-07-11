@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import "VLCNetworkLoginDataSource.h"
+#import "VLC_iOS-Swift.h"
 
 @implementation VLCNetworkLoginDataSource
 
@@ -52,10 +53,13 @@
 
 #pragma mark - UITableViewDelegate
 
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    cell.backgroundColor = (indexPath.row % 2 == 0)? [UIColor blackColor]: [UIColor VLCDarkBackgroundColor];
-//}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id<VLCNetworkLoginDataSourceSection> dataSource = self.dataSources[indexPath.section];
+    if (![[dataSource cellIdentifierForRow:indexPath.row] isEqual:@"VLCNetworkLoginViewFieldCellIdentifier"]) {
+        cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundA : PresentationTheme.current.colors.cellBackgroundB;
+    }
+}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {

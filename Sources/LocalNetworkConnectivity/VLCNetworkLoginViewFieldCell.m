@@ -23,7 +23,7 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = PresentationTheme.current.colors.background;
         [self setupSubviews];
     }
     return self;
@@ -34,11 +34,11 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     UIView *darkView = [[UIView alloc] init];
     darkView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:darkView];
-    darkView.backgroundColor = [UIColor colorWithRed:57.0/256.0 green:57.0/256.0 blue:57.0/256.0 alpha:1.0];
+    darkView.backgroundColor = PresentationTheme.current.colors.cellBackgroundB;
     self.textField = [[UITextField alloc] initWithFrame:CGRectZero];
     self.textField.translatesAutoresizingMaskIntoConstraints = NO;
     self.textField.delegate = self;
-    self.textField.textColor = [UIColor whiteColor];
+    self.textField.textColor = PresentationTheme.current.colors.cellTextColor;
     [self addSubview:_textField];
     
     id<VLCLayoutAnchorContainer> guide = self;
@@ -78,7 +78,7 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
 
 - (void)setPlaceholderString:(NSString *)placeholderString
 {
-    UIColor *color = [UIColor VLCLightTextColor];
+    UIColor *color = PresentationTheme.current.colors.lightTextColor;
 
     self.textField.attributedPlaceholder = placeholderString ? [[NSAttributedString alloc] initWithString:placeholderString attributes:@{NSForegroundColorAttributeName: color}] : nil;
 }

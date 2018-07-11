@@ -10,6 +10,8 @@
  *****************************************************************************/
 
 #import "VLCNetworkLoginViewButtonCell.h"
+#import "VLC_iOS-Swift.h"
+
 NSString * const kVLCNetworkLoginViewButtonCellIdentifier = @"VLCNetworkLoginViewButtonCellIdentifier";
 
 @interface VLCNetworkLoginViewButtonCell ()
@@ -20,7 +22,7 @@ NSString * const kVLCNetworkLoginViewButtonCellIdentifier = @"VLCNetworkLoginVie
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [UIColor VLCDarkBackgroundColor];
+        self.backgroundColor = PresentationTheme.current.colors.background;
         self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.textColor = [UIColor whiteColor];
         self.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -28,7 +30,7 @@ NSString * const kVLCNetworkLoginViewButtonCellIdentifier = @"VLCNetworkLoginVie
 
         UIView *blackView = [[UIView alloc] init];
         [self insertSubview:blackView atIndex:0];
-        blackView.backgroundColor = [UIColor blackColor];
+        blackView.backgroundColor = PresentationTheme.current.colors.orangeUI;
         self.blackView = blackView;
     }
     return self;
@@ -51,6 +53,7 @@ NSString * const kVLCNetworkLoginViewButtonCellIdentifier = @"VLCNetworkLoginVie
     self.textLabel.text = title;
     self.accessibilityValue = title;
 }
+
 - (NSString *)titleString
 {
     return self.textLabel.text;

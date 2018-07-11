@@ -11,6 +11,7 @@
 
 
 #import "VLCNetworkLoginDataSourceProtocol.h"
+#import "VLC_iOS-Swift.h"
 
 static NSString *const VLCNetworkLoginDataSourceProtocolCellIdentifier = @"VLCNetworkLoginDataSourceProtocolCell";
 
@@ -87,9 +88,9 @@ static NSString *const VLCNetworkLoginDataSourceProtocolCellIdentifier = @"VLCNe
                                NSLocalizedString(@"FTP_SHORT", nil),
                                NSLocalizedString(@"PLEX_SHORT", nil),
                                ]];
-        _segmentedControl.tintColor = [UIColor VLCLightTextColor];
+        _segmentedControl.tintColor = PresentationTheme.current.colors.lightTextColor;
         [self.contentView addSubview:_segmentedControl];
-        self.backgroundColor = [UIColor VLCDarkBackgroundColor];
+        self.backgroundColor = PresentationTheme.current.colors.background;
     }
     return self;
 }
