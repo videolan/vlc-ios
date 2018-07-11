@@ -11,13 +11,11 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-import Foundation
-
 @objc protocol VLCMediaViewControllerDelegate: class {
     func mediaViewControllerDidSelectMediaObject(_ mediaViewController: VLCMediaViewController, mediaObject: NSManagedObject)
 }
 
-class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
+class VLCMediaViewController: UICollectionViewController {
     let cellPadding: CGFloat = 5.0
     var services: Services
     var mediaType: VLCMediaType
@@ -49,12 +47,10 @@ class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdatin
         mediaType = type
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
+        let mediaTypeNotification: Notification.Name = mediaType.category == .video ? .VLCAllVideosDidChangeNotification : .VLCTracksDidChangeNotification
+
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: mediaTypeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
-        if mediaType.category == .video {
-            NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .VLCAllVideosDidChangeNotification, object: nil)
-        } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .VLCTracksDidChangeNotification, object: nil)
-        }
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -140,19 +136,14 @@ class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdatin
         }
     }
 
-    // MARK: Renderer
-
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView?.collectionViewLayout.invalidateLayout()
     }
+}
 
-    // MARK: - Search
+// MARK: - UISearchControllerDelegate
 
-    func updateSearchResults(for searchController: UISearchController) {
-        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: services.mediaDataSource.allObjects(for: mediaType.subcategory))
-        collectionView?.reloadData()
-    }
-
+extension VLCMediaViewController: UISearchControllerDelegate {
     func didPresentSearchController(_ searchController: UISearchController) {
         collectionView?.dataSource = searchDataSource
     }
@@ -160,7 +151,20 @@ class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdatin
     func didDismissSearchController(_ searchController: UISearchController) {
         collectionView?.dataSource = self
     }
+}
 
+// MARK: - UISearchResultsUpdating
+
+extension VLCMediaViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: services.mediaDataSource.allObjects(for: mediaType.subcategory))
+        collectionView?.reloadData()
+    }
+}
+
+// MARK: - IndicatorInfoProvider
+
+extension VLCMediaViewController: IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return  services.mediaDataSource.indicatorInfo(for:mediaType.subcategory)
     }
