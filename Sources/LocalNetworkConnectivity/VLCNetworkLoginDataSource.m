@@ -79,6 +79,16 @@
     }
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id<VLCNetworkLoginDataSourceSection> dataSource = self.dataSources[indexPath.section];
+    if ([[dataSource cellIdentifierForRow:indexPath.row] isEqual:@"VLCNetworkLoginSavedLoginCell"]) {
+        return UITableViewCellEditingStyleDelete;
+    } else {
+        return UITableViewCellEditingStyleNone;
+    }
+}
+
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSIndexPath *targetIndexPath = indexPath;
     id<VLCNetworkLoginDataSourceSection> dataSource = self.dataSources[indexPath.section];
