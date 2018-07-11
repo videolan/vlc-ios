@@ -31,8 +31,6 @@ extension Notification.Name {
     let lightTextColor: UIColor
     let sectionHeaderTextColor: UIColor
     let sectionHeaderTintColor: UIColor
-    let settingsBackground: UIColor
-    let settingsCellBackground: UIColor
     let separatorColor: UIColor
     let mediaCategorySeparatorColor: UIColor
     let tabBarColor: UIColor
@@ -51,8 +49,6 @@ extension Notification.Name {
                 lightTextColor: UIColor,
                 sectionHeaderTextColor: UIColor,
                 sectionHeaderTintColor: UIColor,
-                settingsBackground: UIColor,
-                settingsCellBackground: UIColor,
                 separatorColor: UIColor,
                 mediaCategorySeparatorColor: UIColor,
                 tabBarColor: UIColor,
@@ -70,8 +66,6 @@ extension Notification.Name {
         self.lightTextColor = lightTextColor
         self.sectionHeaderTextColor = sectionHeaderTextColor
         self.sectionHeaderTintColor = sectionHeaderTintColor
-        self.settingsBackground = settingsBackground
-        self.settingsCellBackground = settingsCellBackground
         self.separatorColor = separatorColor
         self.mediaCategorySeparatorColor = mediaCategorySeparatorColor
         self.tabBarColor = tabBarColor
@@ -150,8 +144,6 @@ let brightPalette = ColorPalette(isDark: false,
                                  lightTextColor: UIColor(0x888888),
                                  sectionHeaderTextColor: UIColor(0xF9F9F7),
                                  sectionHeaderTintColor: UIColor(0xE5EFE3),
-                                 settingsBackground: UIColor(0xDCDCDC),
-                                 settingsCellBackground: UIColor(0xF9F9F7),
                                  separatorColor: UIColor(0xD3D3D3),
                                  mediaCategorySeparatorColor: UIColor(0xECF2F6),
                                  tabBarColor: UIColor(0xFFFFFF),
@@ -170,8 +162,6 @@ let darkPalette = ColorPalette(isDark: true,
                                lightTextColor: UIColor(0xB8B8B8),
                                sectionHeaderTextColor: UIColor(0x828282),
                                sectionHeaderTintColor: UIColor(0x3C3C3C),
-                               settingsBackground: UIColor(0x292B36),
-                               settingsCellBackground: UIColor(0x3D3F40),
                                separatorColor: UIColor(0x25292C),
                                mediaCategorySeparatorColor: UIColor(0x25292C),
                                tabBarColor: UIColor(0x292B36),
