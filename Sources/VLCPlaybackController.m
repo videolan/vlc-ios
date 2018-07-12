@@ -592,19 +592,11 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)toggleRepeatMode
 {
-    VLCRepeatMode nextRepeatMode = VLCDoNotRepeat;
-    switch (_listPlayer.repeatMode) {
-        case VLCDoNotRepeat:
-            nextRepeatMode = VLCRepeatCurrentItem;
-            break;
-        case VLCRepeatCurrentItem:
-            nextRepeatMode = VLCRepeatAllItems;
-            break;
-        default:
-            nextRepeatMode = VLCDoNotRepeat;
-            break;
+    if (_listPlayer.repeatMode == VLCRepeatAllItems) {
+        _listPlayer.repeatMode = VLCDoNotRepeat;
+    } else {
+        _listPlayer.repeatMode += 1;
     }
-    _listPlayer.repeatMode = nextRepeatMode;
 }
 
 - (NSInteger)indexOfCurrentAudioTrack
