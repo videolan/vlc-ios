@@ -13,23 +13,22 @@
 
 import Foundation
 
-@objc protocol VLCMediaViewControllerDelegate: class {
-    func mediaViewControllerDidSelectMediaObject(_ mediaViewController: VLCMediaViewController, mediaObject: NSManagedObject)
+protocol VLCMediaViewControllerDelegate: class {
+    func mediaViewControllerDidSelectMediaObject(_ mediaViewController: UIViewController, mediaObject: NSManagedObject)
 }
 
-class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
+class VLCMediaViewController<T>: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
     let cellPadding: CGFloat = 5.0
-    var services: Services
-    var mediaType: VLCMediaType
-    weak var delegate: VLCMediaViewControllerDelegate?
+    private var services: Services
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
+    var subcategory: VLCMediaSubcategory<T>
+    weak var delegate: VLCMediaViewControllerDelegate?
 
     @available(iOS 11.0, *)
-    lazy var dragAndDropManager: VLCDragAndDropManager = {
-        let dragAndDropManager = VLCDragAndDropManager(type: mediaType)
-        dragAndDropManager.delegate = services.mediaDataSource
-        return dragAndDropManager
+    lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
+        VLCDragAndDropManager<T>(subcategory: subcategory)
+
     }()
 
     lazy var emptyView: VLCEmptyLibraryView = {
@@ -44,17 +43,13 @@ class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdatin
         fatalError()
     }
 
-    init(services: Services, type: VLCMediaType) {
+    init(services: Services, subcategory: VLCMediaSubcategory<T>) {
         self.services = services
-        mediaType = type
+        self.subcategory = subcategory
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
-        if mediaType.category == .video {
-            NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .VLCAllVideosDidChangeNotification, object: nil)
-        } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .VLCTracksDidChangeNotification, object: nil)
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: subcategory.notificationName, object: nil)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -98,8 +93,6 @@ class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdatin
         collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
-        collectionView?.dataSource = self
-        collectionView?.delegate = self
         if #available(iOS 11.0, *) {
             collectionView?.dragDelegate = dragAndDropManager
             collectionView?.dropDelegate = dragAndDropManager
@@ -149,7 +142,7 @@ class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdatin
     // MARK: - Search
 
     func updateSearchResults(for searchController: UISearchController) {
-        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: services.mediaDataSource.allObjects(for: mediaType.subcategory))
+        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: subcategory.files)
         collectionView?.reloadData()
     }
 
@@ -162,6 +155,55 @@ class VLCMediaViewController: UICollectionViewController, UISearchResultsUpdatin
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return  services.mediaDataSource.indicatorInfo(for:mediaType.subcategory)
+        return IndicatorInfo(title:subcategory.indicatorInfoName)
+    }
+
+    // MARK: - UICollectionViewDataSource
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return subcategory.files.count
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let playlistCell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), for: indexPath) as? VLCPlaylistCollectionViewCell {
+            if let mediaObject = subcategory.files[indexPath.row] as? NSManagedObject {
+                playlistCell.mediaObject = mediaObject
+            }
+            return playlistCell
+        }
+        return UICollectionViewCell()
+    }
+
+    // MARK: - UICollectionViewDelegate
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let mediaObject = subcategory.files[indexPath.row] as? NSManagedObject {
+            delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: mediaObject)
+        }
+    }
+
+    // MARK: - UICollectionViewDelegateFlowLayout
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let numberOfCells: CGFloat = collectionView.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0
+        let aspectRatio: CGFloat = 10.0 / 16.0
+
+        // We have the number of cells and we always have numberofCells + 1 padding spaces. -pad-[Cell]-pad-[Cell]-pad-
+        // we then have the entire padding, we divide the entire padding by the number of Cells to know how much needs to be substracted from ech cell
+        // since this might be an uneven number we ceil
+        var cellWidth = collectionView.bounds.size.width / numberOfCells
+        cellWidth = cellWidth - ceil(((numberOfCells + 1) * cellPadding) / numberOfCells)
+
+        return CGSize(width: cellWidth, height: cellWidth * aspectRatio)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: cellPadding, left: cellPadding, bottom: cellPadding, right: cellPadding)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return cellPadding
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return cellPadding
     }
 }
