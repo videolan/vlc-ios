@@ -1113,9 +1113,6 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     toolbarItems[2] = _createFolderBarButtonItem;
     self.toolbarItems = toolbarItems;
     [self setLibraryMode:_previousLibraryMode];
-    if (!self.isEditing) {
-        [self setSearchBar:YES resetContent:NO];
-    }
     [self updateViewContents];
 }
 
