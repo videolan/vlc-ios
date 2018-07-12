@@ -30,10 +30,6 @@
 
 
 @interface VLCNetworkLoginViewController () <UITextFieldDelegate, VLCNetworkLoginDataSourceProtocolDelegate, VLCNetworkLoginDataSourceLoginDelegate, VLCNetworkLoginDataSourceSavedLoginsDelegate>
-{
-    UIActivityIndicatorView *_activityIndicator;
-    UIView *_activityBackgroundView;
-}
 
 @property (nonatomic) VLCNetworkLoginDataSource *dataSource;
 @property (nonatomic) VLCNetworkLoginDataSourceProtocol *protocolDataSource;
@@ -70,21 +66,6 @@
     dataSource.dataSources = @[self.protocolDataSource, self.loginDataSource, self.savedLoginsDataSource];
     [dataSource configureWithTableView:self.tableView];
     self.dataSource = dataSource;
-
-    _activityBackgroundView = [[UIView alloc] initWithFrame:self.view.frame];
-    _activityBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _activityBackgroundView.hidden = YES;
-    _activityBackgroundView.backgroundColor = [UIColor VLCDarkBackgroundColor];
-    [self.view addSubview:_activityBackgroundView];
-
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    _activityIndicator.hidesWhenStopped = YES;
-    _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-
-    [_activityBackgroundView addSubview:_activityIndicator];
-    [_activityIndicator setCenter:_activityBackgroundView.center];
-
-//    self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
 - (void)viewWillAppear:(BOOL)animated
