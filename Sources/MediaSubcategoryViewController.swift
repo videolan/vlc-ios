@@ -14,25 +14,29 @@ import UIKit
 
 class VLCVideoSubcategoryViewController: VLCMediaSubcategoryViewController {
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let movies = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .allVideos))
-        let episodes = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .episodes))
-        let playlists = VLCMediaViewController(services: services, type: VLCMediaType(category: .video, subcategory: .videoPlaylists))
-        let viewControllers = [movies, episodes, playlists]
-        viewControllers.forEach { $0.delegate = mediaDelegate }
-        return viewControllers
+        let movies = VLCMediaViewController<MLFile>(services: services, subcategory: VLCMediaSubcategories.movies)
+        movies.delegate = mediaDelegate
+        let episodes = VLCMediaViewController<MLShowEpisode>(services: services, subcategory: VLCMediaSubcategories.episodes)
+        episodes.delegate = mediaDelegate
+        let playlists = VLCMediaViewController<MLLabel>(services: services, subcategory: VLCMediaSubcategories.videoPlaylists)
+        playlists.delegate = mediaDelegate
+        return [movies, episodes, playlists]
     }
 }
 
 class VLCAudioSubcategoryViewController: VLCMediaSubcategoryViewController {
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let tracks = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .tracks))
-        let genres = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .genres))
-        let artists = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .artists))
-        let albums = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .albums))
-        let playlists = VLCMediaViewController(services: services, type: VLCMediaType(category: .audio, subcategory: .audioPlaylists))
-        let viewControllers = [tracks, genres, artists, albums, playlists]
-        viewControllers.forEach { $0.delegate = mediaDelegate }
-        return viewControllers
+        let tracks = VLCMediaViewController<MLFile>(services: services, subcategory: VLCMediaSubcategories.tracks)
+        tracks.delegate = mediaDelegate
+        let genres = VLCMediaViewController<String>(services: services, subcategory: VLCMediaSubcategories.genres)
+        genres.delegate = mediaDelegate
+        let artists = VLCMediaViewController<String>(services: services, subcategory: VLCMediaSubcategories.artists)
+        artists.delegate = mediaDelegate
+        let albums = VLCMediaViewController<MLAlbum>(services: services, subcategory: VLCMediaSubcategories.albums)
+        albums.delegate = mediaDelegate
+        let playlists = VLCMediaViewController<MLLabel>(services: services, subcategory: VLCMediaSubcategories.audioPlaylists)
+        playlists.delegate = mediaDelegate
+        return [tracks, genres, artists, albums, playlists]
     }
 }
 

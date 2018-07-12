@@ -98,7 +98,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
 
     // MARK: - VLCMediaViewControllerDelegate
 
-    func mediaViewControllerDidSelectMediaObject(_ VLCMediaViewController: VLCMediaViewController, mediaObject: NSManagedObject) {
+    func mediaViewControllerDidSelectMediaObject(_ viewcontroller: UIViewController, mediaObject: NSManagedObject) {
         playMedia(media: mediaObject)
     }
 
