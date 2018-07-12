@@ -748,16 +748,12 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         case VLCMediaPlayerStateStopped: {
             [_listPlayer.mediaList lock];
             NSUInteger listCount = _listPlayer.mediaList.count;
+            [_listPlayer.mediaList unlock];
             if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1 && self.repeatMode == VLCDoNotRepeat) {
-                [_listPlayer.mediaList unlock];
                 _sessionWillRestart = NO;
                 [self stopPlayback];
                 return;
-            } else if (listCount > 1) {
-                [_listPlayer.mediaList unlock];
-                [_listPlayer next];
-            } else
-                [_listPlayer.mediaList unlock];
+            }
         } break;
         case VLCMediaPlayerStateESAdded: {
 #if TARGET_OS_IOS
