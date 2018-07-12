@@ -257,7 +257,6 @@
 		9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		CAA0B0ED2072651000B9274E /* VLCTestMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */; };
-		CAA0B0EF2072651800B9274E /* VLCTestVideoCodecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D9120709C7000E2AD7B /* VLCTestVideoCodecs.swift */; };
 		CAA0B0F02072651A00B9274E /* XCUIElement+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D9320709C9500E2AD7B /* XCUIElement+Helpers.swift */; };
 		CAA0B0F52072686E00B9274E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		CAA0B0F720726A0E00B9274E /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B0F620726A0E00B9274E /* TestHelper.swift */; };
@@ -980,7 +979,6 @@
 		CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCEmptyLibraryView.h; path = Sources/VLCEmptyLibraryView.h; sourceTree = "<group>"; };
 		CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCEmptyLibraryView.m; path = Sources/VLCEmptyLibraryView.m; sourceTree = "<group>"; };
 		CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCTestMenu.swift; sourceTree = "<group>"; };
-		CAF76D9120709C7000E2AD7B /* VLCTestVideoCodecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCTestVideoCodecs.swift; sourceTree = "<group>"; };
 		CAF76D9320709C9500E2AD7B /* XCUIElement+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Helpers.swift"; sourceTree = "<group>"; };
 		CC1BBC451704938300A20CBF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		CC1BBC471704938B00A20CBF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
@@ -1275,7 +1273,6 @@
 				CA6FB8222074601900FC9BF2 /* VLC-iOSUITest-Bridging-Header.h */,
 				CAD925782075536300F88496 /* Screenshot.swift */,
 				CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */,
-				CAF76D9120709C7000E2AD7B /* VLCTestVideoCodecs.swift */,
 			);
 			path = "VLC-iOS-UITests";
 			sourceTree = "<group>";
@@ -3053,7 +3050,6 @@
 				CAA0B0F720726A0E00B9274E /* TestHelper.swift in Sources */,
 				CAD925792075536300F88496 /* Screenshot.swift in Sources */,
 				8DD6516F208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift in Sources */,
-				CAA0B0EF2072651800B9274E /* VLCTestVideoCodecs.swift in Sources */,
 				CAA0B0F02072651A00B9274E /* XCUIElement+Helpers.swift in Sources */,
 				CAA0B0ED2072651000B9274E /* VLCTestMenu.swift in Sources */,
 				CAD925812075613200F88496 /* SnapshotHelper.swift in Sources */,
