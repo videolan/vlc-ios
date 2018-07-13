@@ -32,6 +32,13 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         return emptyView
     }()
 
+    let editCollectionViewLayout: UICollectionViewFlowLayout = {
+        let editCollectionViewLayout = UICollectionViewFlowLayout()
+        editCollectionViewLayout.minimumLineSpacing = 1
+        editCollectionViewLayout.minimumInteritemSpacing = 0
+        return editCollectionViewLayout
+    }()
+
     @available(*, unavailable)
     init() {
         fatalError()
@@ -86,6 +93,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     func setupCollectionView() {
         let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle: nil)
         collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
+        collectionView?.register(VLCMediaViewEditCell.self, forCellWithReuseIdentifier: VLCMediaViewEditCell.identifier)
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
         if #available(iOS 11.0, *) {
@@ -132,6 +140,19 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView?.collectionViewLayout.invalidateLayout()
+    }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        let layoutToBe = editing ? editCollectionViewLayout : UICollectionViewFlowLayout()
+        collectionView?.setCollectionViewLayout(layoutToBe, animated: false, completion: {
+            [weak self] finished in
+            guard finished else {
+                assertionFailure("VLCMediaSubcategoryViewController: Edit layout transition failed.")
+                return
+            }
+            self?.reloadData()
+        })
     }
 
     // MARK: - Search
@@ -186,6 +207,12 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        if isEditing {
+            let contentInset = collectionView.contentInset
+            let insetToRemove = contentInset.left + contentInset.right + (cellPadding * 2)
+            return CGSize(width: collectionView.frame.width - insetToRemove, height: VLCMediaViewEditCell.height)
+        }
 
         let numberOfCells: CGFloat = collectionView.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0
         let aspectRatio: CGFloat = 10.0 / 16.0

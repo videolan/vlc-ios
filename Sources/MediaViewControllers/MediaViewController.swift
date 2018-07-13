@@ -15,6 +15,7 @@ import UIKit
 class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
     var services: Services
     private var rendererButton: UIButton
+    private let fixedSpaceWidth: CGFloat = 21
 
     init(services: Services) {
         self.services = services
@@ -37,8 +38,12 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
+
+        let fixedSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        fixedSpace.width = fixedSpaceWidth
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""), style: .plain, target: self, action: #selector(sort))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rendererButton)
+        navigationItem.rightBarButtonItems = [editButtonItem, fixedSpace, UIBarButtonItem(customView: rendererButton)]
     }
 
     @objc func sort() {
@@ -93,5 +98,10 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
+    }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        viewControllers[currentIndex].setEditing(editing, animated: animated)
     }
 }
