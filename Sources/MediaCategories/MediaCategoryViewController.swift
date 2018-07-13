@@ -33,6 +33,13 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
         return emptyView
     }()
 
+    let editCollectionViewLayout: UICollectionViewFlowLayout = {
+        let editCollectionViewLayout = UICollectionViewFlowLayout()
+        editCollectionViewLayout.minimumLineSpacing = 1
+        editCollectionViewLayout.minimumInteritemSpacing = 0
+        return editCollectionViewLayout
+    }()
+
     @available(*, unavailable)
     init() {
         fatalError()
@@ -86,6 +93,7 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     func setupCollectionView() {
         let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle: nil)
         collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
+        collectionView?.register(VLCMediaViewEditCell.self, forCellWithReuseIdentifier: VLCMediaViewEditCell.identifier)
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
         if #available(iOS 11.0, *) {
@@ -134,6 +142,19 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
         collectionView?.collectionViewLayout.invalidateLayout()
     }
 
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        let layoutToBe = editing ? editCollectionViewLayout : UICollectionViewFlowLayout()
+        collectionView?.setCollectionViewLayout(layoutToBe, animated: false, completion: {
+            [weak self] finished in
+            guard finished else {
+                assertionFailure("VLCMediaSubcategoryViewController: Edit layout transition failed.")
+                return
+            }
+            self?.reloadData()
+        })
+    }
+
     // MARK: - Search
 
     func updateSearchResults(for searchController: UISearchController) {
@@ -159,24 +180,45 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let playlistCell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), for: indexPath) as? VLCPlaylistCollectionViewCell {
-            if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
-                playlistCell.mediaObject = mediaObject
+        if isEditing {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCMediaViewEditCell.identifier,
+                                                             for: indexPath) as? VLCMediaViewEditCell {
+                cell.title.text = "( ｀ー´)ノ"
+                cell.subInfo.text = "(-ω-、)"
+                cell.size.text = "|ω°•)"
+                cell.thumbnail.image = UIImage(named: "vlc-xmas")
+                return cell
             }
-            return playlistCell
+        } else {
+            if let playlistCell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), for: indexPath) as? VLCPlaylistCollectionViewCell {
+                if let mediaObject = subcategory.files[indexPath.row] as? NSManagedObject {
+                    playlistCell.mediaObject = mediaObject
+                }
+                return playlistCell
+            }
         }
         return UICollectionViewCell()
     }
 
     // MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
-            play(mediaObject: mediaObject)
+        if isEditing {
+            if let cell = collectionView.cellForItem(at: indexPath) as? VLCMediaViewEditCell {
+                cell.checkView.isEnabled = !cell.checkView.isEnabled
+            }
+        } else if let mediaObject = subcategory.files[indexPath.row] as? NSManagedObject {
+            delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: mediaObject)
         }
     }
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        if isEditing {
+            let contentInset = collectionView.contentInset
+            let insetToRemove = contentInset.left + contentInset.right + (cellPadding * 2)
+            return CGSize(width: collectionView.frame.width - insetToRemove, height: VLCMediaViewEditCell.height)
+        }
 
         let numberOfCells: CGFloat = collectionView.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0
         let aspectRatio: CGFloat = 10.0 / 16.0
