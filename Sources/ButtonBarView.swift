@@ -17,7 +17,7 @@ class ButtonBarView: UICollectionView {
     var selectedBar: UIView!
     var separatorView: UIView!
 
-    let selectedBarHeight: CGFloat = 4
+    let selectedBarHeight: CGFloat = 2
     let separatorHeight: CGFloat = 1.5
 
     var selectedIndex = 0
