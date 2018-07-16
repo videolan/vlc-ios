@@ -900,10 +900,19 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 }
 
-- (void)deviceMotionHasAttitudeWithDeviceMotion:(VLCDeviceMotion *)deviceMotion pitch:(double)pitch yaw:(double)yaw roll:(double)roll
+- (void)applyYaw:(CGFloat)diffYaw pitch:(CGFloat)diffPitch;
+{
+    //Add and limit new pitch and yaw
+    self.deviceMotion.yaw += diffYaw;
+    self.deviceMotion.pitch += diffPitch;
+
+    [_vpc updateViewpoint:self.deviceMotion.yaw pitch:self.deviceMotion.pitch roll:0 fov:_fov absolute:YES];
+}
+
+- (void)deviceMotionHasAttitudeWithDeviceMotion:(VLCDeviceMotion *)deviceMotion pitch:(double)pitch yaw:(double)yaw
 {
     if (_panRecognizer.state != UIGestureRecognizerStateChanged || UIGestureRecognizerStateBegan) {
-        [_vpc updateViewpoint:yaw pitch:pitch roll:roll fov:_fov absolute:YES];
+        [self applyYaw:yaw pitch:pitch];
     }
 }
 #pragma mark - controls
@@ -1454,7 +1463,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (panRecognizer.state == UIGestureRecognizerStateEnded) {
         _currentPanType = VLCPanTypeNone;
         if ([_vpc currentMediaIs360Video]) {
-            [_deviceMotion lastAngleWithYaw:_vpc.yaw pitch:_vpc.pitch roll:_vpc.roll];
             [_deviceMotion startDeviceMotion];
         }
     }
@@ -1469,13 +1477,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     _saveLocation = newLocationInView;
 
     //screenSizePixel width is used twice to get a constant speed on the movement.
-    CGFloat yaw = _fov * -diffX / _screenPixelSize.width;
-    CGFloat pitch = _fov * -diffY / _screenPixelSize.width;
+    CGFloat diffYaw = _fov * -diffX / _screenPixelSize.width;
+    CGFloat diffPitch = _fov * -diffY / _screenPixelSize.width;
 
-    CGFloat newYaw = _vpc.yaw + yaw;
-    CGFloat newPitch = _vpc.pitch + pitch;
-
-    [_vpc updateViewpoint:newYaw pitch:newPitch roll:_vpc.roll fov:_vpc.fov absolute:YES];
+    [self applyYaw:diffYaw pitch:diffPitch];
 }
 
 - (void)swipeRecognized:(UISwipeGestureRecognizer*)swipeRecognizer
