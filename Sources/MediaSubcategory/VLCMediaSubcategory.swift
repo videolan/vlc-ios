@@ -24,7 +24,7 @@ extension Notification.Name {
 }
 
 enum VLCDataUnit {
-    case file(MLFile)
+    case file(VLCMLMedia)
     case episode(MLShowEpisode)
     case album(MLAlbum)
     case label(MLLabel)
@@ -55,19 +55,22 @@ class VLCMediaSubcategoryModel<T>: NSObject {
 }
 
 struct VLCMediaSubcategories {
-    static var movies = VLCMediaSubcategoryModel<MLFile>(
+    static var movies = VLCMediaSubcategory<VLCMLMedia>(
         files: {
-            (MLFile.allFiles() as! [MLFile]).filter {
-            ($0 as MLFile).isKind(ofType: kMLFileTypeMovie) ||
-                ($0 as MLFile).isKind(ofType: kMLFileTypeTVShowEpisode) ||
-                ($0 as MLFile).isKind(ofType: kMLFileTypeClip)
-            }
+//            (MLFile.allFiles() as! [MLFile]).filter {
+//            ($0 as MLFile).isKind(ofType: kMLFileTypeMovie) ||
+//                ($0 as MLFile).isKind(ofType: kMLFileTypeTVShowEpisode) ||
+//                ($0 as MLFile).isKind(ofType: kMLFileTypeClip)
+//            }s
+
+        //medialibrary.media(ofType: .video)
+            VLCMediaLibraryManager.media(ofType: .video)
         }(),
         indicatorInfoName: NSLocalizedString("MOVIES", comment: ""),
-        notificationName: .VLCMoviesDidChangeNotification,
+        notificationName: .VLCVideosDidChangeNotification,
         includesFunc: { (dataUnit: VLCDataUnit) in
             if case .file(let f) = dataUnit {
-                return f.isMovie()
+//                return f.isMovie()
             }
             return false
         },
@@ -98,7 +101,8 @@ struct VLCMediaSubcategories {
         notificationName: .VLCArtistsDidChangeNotification,
         includesFunc: { (dataUnit: VLCDataUnit) in
             if case .file(let f) = dataUnit {
-                return f.artist != nil
+//                return f.artist != nil
+                return true
             }
             return false
         },
@@ -126,7 +130,8 @@ struct VLCMediaSubcategories {
         notificationName: .VLCTracksDidChangeNotification,
         includesFunc: { (dataUnit: VLCDataUnit) in
             if case .file(let f) = dataUnit {
-                return f.isSupportedAudioFile()
+//                return f.isSupportedAudioFile()
+                return true
             }
             return false
         },
@@ -144,7 +149,8 @@ struct VLCMediaSubcategories {
         notificationName: .VLCGenresDidChangeNotification ,
         includesFunc: { (dataUnit: VLCDataUnit) in
             if case .file(let f) = dataUnit {
-                return f.genre != nil
+//                return f.genre != nil
+                return true
             }
             return false
         },

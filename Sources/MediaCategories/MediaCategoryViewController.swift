@@ -163,6 +163,13 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
             if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
                 playlistCell.mediaObject = mediaObject
             }
+
+            if let media = subcategory.files[indexPath.row] as? VLCMLMedia {
+                playlistCell.media = media
+                if media.mainFile() == nil {
+                    playlistCell.media = nil
+                }
+            }
             return playlistCell
         }
         return UICollectionViewCell()
