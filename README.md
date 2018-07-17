@@ -14,6 +14,7 @@ It's currently written in Objective-C / Swift and uses [VLCKit](https://code.vid
 - [Building](#building)
     - [VLC-iOS](#vlc-ios)
     - [Custom VLCKit](#custom-vlckit)
+    - [Beginner's Guide](#beginners-guide)
 - [Contribute](#contribute)
 - [Communication](#communication)
     - [Forum](#forum)
@@ -66,6 +67,12 @@ Mostly for debugging or advanced users, you might want to have a custom local VL
     `ln -s ${VLCKit}/build/MobileVLCKit.framework`
 
 4. Hit "Build and Run".
+
+### Beginner's Guide
+
+Can't get your project to build or run? Head over to the [beginner's guide](https://code.videolan.org/videolan/vlc-ios/wikis/Beginner-Guide) for help on common issues beginners tend to run into.
+
+If you can't find your problem on the guide, please feel free to [submit an issue](https://code.videolan.org/videolan/vlc-ios/issues).
 
 ## Contribute
 
