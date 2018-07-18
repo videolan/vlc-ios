@@ -47,7 +47,7 @@ class VLCSectionTableHeaderView: UITableViewHeaderFooterView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        textLabel?.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        textLabel?.font = PresentationTheme.current.font.tableHeaderFont
         textLabel?.textColor = PresentationTheme.current.colors.cellTextColor
     }
 }
