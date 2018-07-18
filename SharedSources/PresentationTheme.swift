@@ -70,6 +70,15 @@ extension Notification.Name {
     }
 }
 
+@objcMembers class Typography: NSObject {
+    
+    let tableHeaderFont: UIFont
+    
+    init(tableHeaderFont: UIFont) {
+        self.tableHeaderFont = tableHeaderFont
+    }
+}
+
 @objcMembers class PresentationTheme: NSObject {
 
     static let brightTheme = PresentationTheme(colors: brightPalette)
@@ -91,6 +100,7 @@ extension Notification.Name {
     }
 
     let colors: ColorPalette
+    let font = defaultFont
 }
 
 @objc extension UIColor {
@@ -161,3 +171,5 @@ let darkPalette = ColorPalette(isDark: true,
                                mediaCategorySeparatorColor: UIColor(0x25292C),
                                tabBarColor: UIColor(0x292B36),
                                orangeUI: UIColor(0xFF8800))
+
+let defaultFont = Typography(tableHeaderFont: UIFont.systemFont(ofSize: 24, weight: .semibold))
