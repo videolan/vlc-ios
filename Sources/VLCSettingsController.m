@@ -18,6 +18,9 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #import "VLC_iOS-Swift.h"
 
+CGFloat const SETTINGS_HEADER_HEIGHT = 64.;
+NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderViewIdentifier";
+
 @interface VLCSettingsController ()<PAPasscodeViewControllerDelegate>
 @end
 
@@ -45,13 +48,13 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_ABOUT", nil) style:UIBarButtonItemStylePlain target:self action:@selector(showAbout)];
     self.navigationItem.leftBarButtonItem.accessibilityIdentifier = VLCAccessibilityIdentifier.about;
     
+    [self.tableView registerClass:[VLCSectionTableHeaderView class] forHeaderFooterViewReuseIdentifier:kVLCSectionTableHeaderViewIdentifier];
     [self themeDidChange];
 }
 
 - (void)themeDidChange
 {
     self.view.backgroundColor = PresentationTheme.current.colors.settingsBackground;
-    self.tableView.separatorColor = PresentationTheme.current.colors.separatorColor;
     [self.tableView reloadData];
     [self setNeedsStatusBarAppearanceUpdate];
 }
@@ -172,4 +175,27 @@
         [self.navigationController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     }
 }
+
+#pragma mark - InAppSettings customization
+
+- (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView *)tableView heightForHeaderForSection:(NSInteger)section
+{
+    return section == 0. ? 0. : SETTINGS_HEADER_HEIGHT;
+}
+
+- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView *)tableView viewForHeaderForSection:(NSInteger)section
+{
+    if (section == 0) {
+        return nil;
+    }
+    VLCSectionTableHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kVLCSectionTableHeaderViewIdentifier];
+    header.textLabel.text = [self.settingsReader titleForSection:section];
+    return header;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return nil;
+}
+
 @end
