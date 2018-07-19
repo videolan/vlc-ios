@@ -269,22 +269,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 //        APLog(@"requested %@ to be opened", url);
 //
 //        if (url.isFileURL) {
-//            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//            NSString *directoryPath = searchPaths.firstObject;
-//            NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", directoryPath, url.lastPathComponent]];
-//            NSError *theError;
-//            NSFileManager *manager = [NSFileManager defaultManager];
-//            [[NSFileManager defaultManager] moveItemAtURL:url toURL:destinationURL error:&theError];
-//            if (theError.code != noErr)
-//                APLog(@"saving the file failed (%li): %@", (long)theError.code, theError.localizedDescription);
-//
-//            [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
-//
-//            NSURLRelationship relationship;
-//            [manager getRelationship:&relationship ofDirectoryAtURL:[NSURL fileURLWithPath:directoryPath] toItemAtURL:url error:&theError];
-//            if (relationship == NSURLRelationshipContains) {
-//                [self playWithURL:url completion:nil];
-//            }
+//            VLCDocumentClass *subclass = [[VLCDocumentClass alloc] initWithFileURL:url];
+//            [subclass openWithCompletionHandler:^(BOOL success) {
+//                [self playWithURL:url completion:^(BOOL success) {
+//                    [subclass closeWithCompletionHandler:nil];
+//                }];
+//            }];
 //        } else if ([url.scheme isEqualToString:@"vlc-x-callback"] || [url.host isEqualToString:@"x-callback-url"]) {
 //            // URL confirmes to the x-callback-url specification
 //            // vlc-x-callback://x-callback-url/action?param=value&x-success=callback
