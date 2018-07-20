@@ -326,7 +326,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
             NSURLRelationship relationship;
             [manager getRelationship:&relationship ofDirectoryAtURL:[NSURL fileURLWithPath:directoryPath] toItemAtURL:url error:&theError];
             if (relationship == NSURLRelationshipContains) {
-                [self playWithURL:url successCallback:nil errorCallback:nil];
+                [self playWithURL:url completion:nil];
             }
         } else if ([url.scheme isEqualToString:@"vlc-x-callback"] || [url.host isEqualToString:@"x-callback-url"]) {
             // URL confirmes to the x-callback-url specification
@@ -353,7 +353,18 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
                     errorCallback = [NSURL URLWithString:value];
             }
             if ([action isEqualToString:@"stream"] && movieURL) {
-                [self playWithURL:movieURL successCallback:successCallback errorCallback:errorCallback];
+                [self playWithURL:movieURL completion:^(BOOL success) {
+                    NSURL *callback = success ? successCallback : errorCallback;
+                    if (@available(iOS 10, *)) {
+                         [[UIApplication sharedApplication] openURL:callback options:@{} completionHandler:nil];
+                    } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                        /* UIApplication's replacement calls require iOS 10 or later, which we can't enforce as of yet */
+                       [[UIApplication sharedApplication] openURL:callback];
+#pragma clang diagnostic pop
+                    }
+                }];
             }
             else if ([action isEqualToString:@"download"] && movieURL) {
                 [self downloadMovieFromURL:movieURL fileNameOfMedia:fileName];
@@ -388,12 +399,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
                     if (cancelled)
                         [self downloadMovieFromURL:url fileNameOfMedia:nil];
                     else {
-                        [self playWithURL:url successCallback:nil errorCallback:nil];
+                        [self playWithURL:url completion:nil];
                     }
                 };
                 [alert show];
             } else {
-                [self playWithURL:url successCallback:nil errorCallback:nil];
+                [self playWithURL:url completion:nil];
             }
         }
         return YES;
@@ -500,14 +511,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 }
 
 #pragma mark - playback
-- (void)playWithURL:(NSURL *)url successCallback:(NSURL *)successCallback errorCallback:(NSURL *)errorCallback
+- (void)playWithURL:(NSURL *)url completion:(void (^ __nullable)(BOOL success))completion
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     vpc.fullscreenSessionRequested = YES;
-    vpc.successCallback = successCallback;
-    vpc.errorCallback = errorCallback;
     VLCMediaList *mediaList = [[VLCMediaList alloc] initWithArray:@[[VLCMedia mediaWithURL:url]]];
-    [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
+    [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil completion:completion];
 }
 
 #pragma mark - watch stuff

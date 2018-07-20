@@ -43,9 +43,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 @property (nonatomic, strong) UIView *videoOutputView;
 
-@property (nonatomic, strong) NSURL *successCallback;
-@property (nonatomic, strong) NSURL *errorCallback;
-
 @property (nonatomic, retain) VLCMediaList *mediaList;
 
 /* returns nil if currently playing item is not available,*/
@@ -134,7 +131,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)setNeedsMetadataUpdate;
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval;
 - (void)performNavigationAction:(VLCMediaPlaybackNavigationAction)action;
-- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString *)subsFilePath;
+- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString * _Nullable)subsFilePath;
+- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString * _Nullable)subsFilePath completion:(void (^ __nullable)(BOOL success))completion;
 - (void)openVideoSubTitlesFromFile:(NSString *)pathToFile;
 
 NS_ASSUME_NONNULL_END
