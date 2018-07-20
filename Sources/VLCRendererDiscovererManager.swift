@@ -163,22 +163,20 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
     }
 
     func rendererDiscovererItemDeleted(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
-        if let playbackController = VLCPlaybackController.sharedInstance() {
-            // Current renderer has been removed
-            if playbackController.renderer == item {
-                playbackController.renderer = nil
-                delegate?.removedCurrentRendererItem?(item)
-                // Reset buttons state
-                for button in rendererButtons {
-                    button.isSelected = false
-                }
-            }
-            if actionSheet.viewIfLoaded?.window != nil {
-                actionSheet.collectionView.reloadData()
-                actionSheet.updateViewConstraints()
+        let playbackController = VLCPlaybackController.sharedInstance()
+        // Current renderer has been removed
+        if playbackController.renderer == item {
+            playbackController.renderer = nil
+            delegate?.removedCurrentRendererItem?(item)
+            // Reset buttons state
+            for button in rendererButtons {
+                button.isSelected = false
             }
         }
-
+        if actionSheet.viewIfLoaded?.window != nil {
+            actionSheet.collectionView.reloadData()
+            actionSheet.updateViewConstraints()
+        }
         // No more renderers to show
         if getAllRenderers().isEmpty {
             for button in rendererButtons {

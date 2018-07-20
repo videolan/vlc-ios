@@ -12,7 +12,9 @@
  *****************************************************************************/
 
 #import "VLCEqualizerView.h"
-extern NSString *const VLCPlaybackControllerPlaybackDidStart;
+
+NS_ASSUME_NONNULL_BEGIN
+extern NSString * const VLCPlaybackControllerPlaybackDidStart;
 extern NSString *const VLCPlaybackControllerPlaybackDidPause;
 extern NSString *const VLCPlaybackControllerPlaybackDidResume;
 extern NSString *const VLCPlaybackControllerPlaybackDidStop;
@@ -92,7 +94,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly) NSTimer *sleepTimer;
 
-@property (nonatomic) VLCRendererItem *renderer;
+@property (nonatomic) VLCRendererItem * _Nullable renderer;
 
 + (VLCPlaybackController *)sharedInstance;
 - (VLCTime *)playedTime;
@@ -135,4 +137,5 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString *)subsFilePath;
 - (void)openVideoSubTitlesFromFile:(NSString *)pathToFile;
 
+NS_ASSUME_NONNULL_END
 @end
