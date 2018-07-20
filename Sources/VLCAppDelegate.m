@@ -264,19 +264,27 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
         func canHandleOpen(url: URL, options:[UIApplicationOpenURLOptionsKey:AnyObject]=[:]()) -> bool
         func performOpen(url: URL, options:[UIApplicationOpenURLOptionsKey:AnyObject]=[:]()) -> bool
     } */
+
 //    if (_libraryViewController && url != nil) {
-//        APLog(@"%@ requested %@ to be opened", sourceApplication, url);
+//        APLog(@"requested %@ to be opened", url);
 //
 //        if (url.isFileURL) {
 //            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//            NSString *directoryPath = searchPaths[0];
+//            NSString *directoryPath = searchPaths.firstObject;
 //            NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", directoryPath, url.lastPathComponent]];
 //            NSError *theError;
+//            NSFileManager *manager = [NSFileManager defaultManager];
 //            [[NSFileManager defaultManager] moveItemAtURL:url toURL:destinationURL error:&theError];
 //            if (theError.code != noErr)
 //                APLog(@"saving the file failed (%li): %@", (long)theError.code, theError.localizedDescription);
 //
 //            [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
+//
+//            NSURLRelationship relationship;
+//            [manager getRelationship:&relationship ofDirectoryAtURL:[NSURL fileURLWithPath:directoryPath] toItemAtURL:url error:&theError];
+//            if (relationship == NSURLRelationshipContains) {
+//                [self playWithURL:url completion:nil];
+//            }
 //        } else if ([url.scheme isEqualToString:@"vlc-x-callback"] || [url.host isEqualToString:@"x-callback-url"]) {
 //            // URL confirmes to the x-callback-url specification
 //            // vlc-x-callback://x-callback-url/action?param=value&x-success=callback
@@ -302,15 +310,18 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 //                    errorCallback = [NSURL URLWithString:value];
 //            }
 //            if ([action isEqualToString:@"stream"] && movieURL) {
-//                VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-//                vpc.fullscreenSessionRequested = YES;
-//
-//                VLCMediaList *medialist = [[VLCMediaList alloc] init];
-//                [medialist addMedia:[VLCMedia mediaWithURL:movieURL]];
-//                vpc.successCallback = successCallback;
-//                vpc.errorCallback = errorCallback;
-//                [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
-//
+//                [self playWithURL:movieURL completion:^(BOOL success) {
+//                    NSURL *callback = success ? successCallback : errorCallback;
+//                    if (@available(iOS 10, *)) {
+//                         [[UIApplication sharedApplication] openURL:callback options:@{} completionHandler:nil];
+//                    } else {
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+//                        /* UIApplication's replacement calls require iOS 10 or later, which we can't enforce as of yet */
+//                       [[UIApplication sharedApplication] openURL:callback];
+//#pragma clang diagnostic pop
+//                    }
+//                }];
 //            }
 //            else if ([action isEqualToString:@"download"] && movieURL) {
 //                [self downloadMovieFromURL:movieURL fileNameOfMedia:fileName];
@@ -345,19 +356,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 //                    if (cancelled)
 //                        [self downloadMovieFromURL:url fileNameOfMedia:nil];
 //                    else {
-//                        VLCMedia *media = [VLCMedia mediaWithURL:url];
-//                        VLCMediaList *medialist = [[VLCMediaList alloc] init];
-//                        [medialist addMedia:media];
-//                        [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+//                        [self playWithURL:url completion:nil];
 //                    }
 //                };
 //                [alert show];
 //            } else {
-//                VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-//                vpc.fullscreenSessionRequested = YES;
-//                VLCMediaList *medialist = [[VLCMediaList alloc] init];
-//                [medialist addMedia:[VLCMedia mediaWithURL:url]];
-//                [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+//                [self playWithURL:url completion:nil];
 //            }
 //        }
 //        return YES;
@@ -463,14 +467,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 }
 
 #pragma mark - playback
-- (void)playWithURL:(NSURL *)url successCallback:(NSURL *)successCallback errorCallback:(NSURL *)errorCallback
+- (void)playWithURL:(NSURL *)url completion:(void (^ __nullable)(BOOL success))completion
 {
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     vpc.fullscreenSessionRequested = YES;
-    vpc.successCallback = successCallback;
-    vpc.errorCallback = errorCallback;
     VLCMediaList *mediaList = [[VLCMediaList alloc] initWithArray:@[[VLCMedia mediaWithURL:url]]];
-    [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
+    [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil completion:completion];
 }
 
 @end

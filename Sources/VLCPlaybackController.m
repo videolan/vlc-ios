@@ -73,6 +73,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     VLCDialogProvider *_dialogProvider;
 
     NSMutableArray *_shuffleStack;
+    void (^_playbackCompletion)(BOOL success);
 }
 
 @end
@@ -144,8 +145,14 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     [_mediaPlayer addPlaybackSlave:[NSURL fileURLWithPath:pathToFile] type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
 }
 
-- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString *)subsFilePath
+- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString * _Nullable)subsFilePath
 {
+    [self playMediaList: mediaList firstIndex: index subtitlesFilePath: subsFilePath completion: nil];
+}
+
+- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString * _Nullable)subsFilePath completion:(void (^ __nullable)(BOOL success))completion
+{
+    _playbackCompletion = completion;
     self.mediaList = mediaList;
     _itemInMediaListToBePlayedFirst = (int)index;
     _pathToExternalSubtitlesFile = subsFilePath;
@@ -299,20 +306,9 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _playerIsSetup = NO;
     [_shuffleStack removeAllObjects];
 
-    if (@available(iOS 10, *)) {
-        if (_errorCallback && _mediaPlayer.state == VLCMediaPlayerStateError &&  !_sessionWillRestart)
-            [[UIApplication sharedApplication] openURL:_errorCallback options:@{} completionHandler:nil];
-        else if (_successCallback && !_sessionWillRestart)
-            [[UIApplication sharedApplication] openURL:_successCallback options:@{} completionHandler:nil];
-    } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        /* UIApplication's replacement calls require iOS 10 or later, which we can't enforce as of yet */
-        if (_errorCallback && _mediaPlayer.state == VLCMediaPlayerStateError &&  !_sessionWillRestart)
-            [[UIApplication sharedApplication] openURL:_errorCallback];
-        else if (_successCallback && !_sessionWillRestart)
-            [[UIApplication sharedApplication] openURL:_successCallback];
-#pragma clang diagnostic pop
+    if (_playbackCompletion) {
+        BOOL finishedPlaybackWithError = _mediaPlayer.state == VLCMediaPlayerStateError &&  !_sessionWillRestart;
+        _playbackCompletion(!finishedPlaybackWithError);
     }
 
     [[self remoteControlService] unsubscribeFromRemoteCommands];
