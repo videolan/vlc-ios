@@ -13,7 +13,7 @@
 import Foundation
 
 @available(iOS 11.0, *)
-extension VLCMediaSubcategory: VLCDragAndDropManagerDelegate {
+extension VLCMediaSubcategoryModel: VLCDragAndDropManagerDelegate {
 
     func dragAndDropManagerRequestsFile(manager: NSObject, atIndexPath indexPath: IndexPath) -> Any? {
         return files[indexPath.row]

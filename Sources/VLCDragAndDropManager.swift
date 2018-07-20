@@ -36,7 +36,7 @@ protocol VLCDragAndDropManagerDelegate: NSObjectProtocol {
 class VLCDragAndDropManager<T>: NSObject, UICollectionViewDragDelegate, UITableViewDragDelegate, UICollectionViewDropDelegate, UITableViewDropDelegate, UIDropInteractionDelegate {
 
     let utiTypeIdentifiers: [String] = VLCDragAndDropManager.supportedTypeIdentifiers()
-    var subcategory: VLCMediaSubcategory<T>
+    var subcategory: VLCMediaSubcategoryModel<T>
     /// Returns the supported type identifiers that VLC can process.
     /// It fetches the identifiers in LSItemContentTypes from all the CFBundleDocumentTypes in the info.plist.
     /// Video, Audio and Subtitle formats
@@ -59,7 +59,7 @@ class VLCDragAndDropManager<T>: NSObject, UICollectionViewDragDelegate, UITableV
         fatalError()
     }
 
-    init(subcategory: VLCMediaSubcategory<T>) {
+    init(subcategory: VLCMediaSubcategoryModel<T>) {
         self.subcategory = subcategory
         super.init()
     }

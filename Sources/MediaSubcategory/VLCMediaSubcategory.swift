@@ -30,10 +30,10 @@ enum VLCDataUnit {
     case label(MLLabel)
 }
 
-class VLCMediaSubcategory<T>: NSObject {
+class VLCMediaSubcategoryModel<T>: NSObject {
     var files: [T]
     var indicatorInfoName: String
-    var notificationName: Notification.Name
+    var changeNotificationName: Notification.Name
     var includesFunc: (VLCDataUnit) -> Bool
     var appendFunc: (VLCDataUnit) -> Void
 
@@ -48,14 +48,14 @@ class VLCMediaSubcategory<T>: NSObject {
          appendFunc: @escaping (VLCDataUnit) -> Void) {
         self.files = files
         self.indicatorInfoName = indicatorInfoName
-        self.notificationName = notificationName
+        self.changeNotificationName = notificationName
         self.includesFunc = includesFunc
         self.appendFunc = appendFunc
     }
 }
 
 struct VLCMediaSubcategories {
-    static var movies = VLCMediaSubcategory<MLFile>(
+    static var movies = VLCMediaSubcategoryModel<MLFile>(
         files: {
             (MLFile.allFiles() as! [MLFile]).filter {
             ($0 as MLFile).isKind(ofType: kMLFileTypeMovie) ||
@@ -75,7 +75,7 @@ struct VLCMediaSubcategories {
 
         })
 
-    static var episodes = VLCMediaSubcategory<MLShowEpisode>(
+    static var episodes = VLCMediaSubcategoryModel<MLShowEpisode>(
         files: MLShowEpisode.allEpisodes() as! [MLShowEpisode],
         indicatorInfoName: NSLocalizedString("EPISODES", comment: ""),
         notificationName: .VLCEpisodesDidChangeNotification,
@@ -89,7 +89,7 @@ struct VLCMediaSubcategories {
 
         })
 
-    static var artists = VLCMediaSubcategory<String>(
+    static var artists = VLCMediaSubcategoryModel<String>(
         files: {
             let tracksWithArtist = (MLAlbumTrack.allTracks() as! [MLAlbumTrack]).filter { $0.artist != nil && $0.artist != "" }
             return tracksWithArtist.map { $0.artist } as! [String]
@@ -106,7 +106,7 @@ struct VLCMediaSubcategories {
 
         })
 
-    static var albums = VLCMediaSubcategory<MLAlbum>(
+    static var albums = VLCMediaSubcategoryModel<MLAlbum>(
         files: MLAlbum.allAlbums() as! [MLAlbum],
         indicatorInfoName: NSLocalizedString("ALBUMS", comment: ""),
         notificationName: .VLCAlbumsDidChangeNotification,
@@ -120,7 +120,7 @@ struct VLCMediaSubcategories {
 
         })
 
-    static var tracks = VLCMediaSubcategory<MLFile>(
+    static var tracks = VLCMediaSubcategoryModel<MLFile>(
         files: (MLFile.allFiles() as! [MLFile]).filter { $0.isSupportedAudioFile()},
         indicatorInfoName: NSLocalizedString("SONGS", comment: ""),
         notificationName: .VLCTracksDidChangeNotification,
@@ -134,7 +134,7 @@ struct VLCMediaSubcategories {
 
         })
 
-    static var genres = VLCMediaSubcategory<String>(
+    static var genres = VLCMediaSubcategoryModel<String>(
         files: {
             let albumtracks = MLAlbumTrack.allTracks() as! [MLAlbumTrack]
             let tracksWithArtist = albumtracks.filter { $0.genre != nil && $0.genre != "" }
@@ -152,7 +152,7 @@ struct VLCMediaSubcategories {
 
         })
 
-    static var audioPlaylists = VLCMediaSubcategory<MLLabel>(
+    static var audioPlaylists = VLCMediaSubcategoryModel<MLLabel>(
         files: {
             let labels = MLLabel.allLabels() as! [MLLabel]
             let audioPlaylist = labels.filter {
@@ -185,7 +185,7 @@ struct VLCMediaSubcategories {
 
         })
 
-    static var videoPlaylists = VLCMediaSubcategory<MLLabel>(
+    static var videoPlaylists = VLCMediaSubcategoryModel<MLLabel>(
         files: {
             let labels = MLLabel.allLabels() as! [MLLabel]
             let audioPlaylist = labels.filter {

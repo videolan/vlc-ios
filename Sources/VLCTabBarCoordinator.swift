@@ -12,7 +12,7 @@
 
 import Foundation
 
-class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
+class VLCTabbarCooordinator: NSObject, VLCMediaCategoryViewControllerDelegate {
 
     private var childCoordinators: [NSObject] = []
     private var tabBarController: UITabBarController
@@ -55,7 +55,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
         displayController.view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: tabBarController.tabBar.frame.size.height, right: 0)
         displayController.didMove(toParentViewController: tabBarController)
 
-        let videoVC = VLCVideoSubcategoryViewController(services: services)
+        let videoVC = VLCVideoViewController(services: services)
         videoVC.mediaDelegate = self
         videoVC.title = NSLocalizedString("VIDEO", comment: "")
         videoVC.tabBarItem = UITabBarItem(
@@ -65,7 +65,7 @@ class VLCTabbarCooordinator: NSObject, VLCMediaViewControllerDelegate {
         videoVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.video
 
         // Audio
-        let audioVC = VLCAudioSubcategoryViewController(services: services)
+        let audioVC = VLCAudioViewController(services: services)
         audioVC.mediaDelegate = self
         audioVC.title = NSLocalizedString("AUDIO", comment: "")
         audioVC.tabBarItem = UITabBarItem(
