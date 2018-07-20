@@ -1344,7 +1344,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 }
 
 #pragma mark - Renderer
-- (void)setRenderer:(VLCRendererItem *)renderer
+- (void)setRenderer:(VLCRendererItem * __nullable)renderer
 {
     _renderer = renderer;
     [_mediaPlayer setRendererItem:_renderer];
