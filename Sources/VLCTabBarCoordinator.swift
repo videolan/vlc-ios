@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCTabbarCooordinator.swift
+ * VLCTabBarCoordinator.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -10,24 +10,19 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-import Foundation
-
-class VLCTabbarCooordinator: NSObject, VLCMediaCategoryViewControllerDelegate {
-
-    private var childCoordinators: [NSObject] = []
+class VLCTabBarCoordinator: NSObject {
     private var tabBarController: UITabBarController
     private var services: Services
-    private var displayController: VLCPlayerDisplayController
 
     init(tabBarController: UITabBarController, services: Services) {
         self.tabBarController = tabBarController
         self.services = services
-        displayController = VLCPlayerDisplayController(services: services)
         super.init()
+        setup()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
     }
 
-    @objc func start() {
+    private func setup() {
         setupViewControllers()
         updateTheme()
     }
@@ -48,15 +43,9 @@ class VLCTabbarCooordinator: NSObject, VLCMediaCategoryViewControllerDelegate {
         }
     }
 
-    func setupViewControllers() {
-
-        tabBarController.addChildViewController(displayController)
-        tabBarController.view.addSubview(displayController.view)
-        displayController.view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: tabBarController.tabBar.frame.size.height, right: 0)
-        displayController.didMove(toParentViewController: tabBarController)
-
+    private func setupViewControllers() {
+        // Video
         let videoVC = VLCVideoViewController(services: services)
-        videoVC.mediaDelegate = self
         videoVC.title = NSLocalizedString("VIDEO", comment: "")
         videoVC.tabBarItem = UITabBarItem(
             title: NSLocalizedString("VIDEO", comment: ""),
@@ -66,7 +55,6 @@ class VLCTabbarCooordinator: NSObject, VLCMediaCategoryViewControllerDelegate {
 
         // Audio
         let audioVC = VLCAudioViewController(services: services)
-        audioVC.mediaDelegate = self
         audioVC.title = NSLocalizedString("AUDIO", comment: "")
         audioVC.tabBarItem = UITabBarItem(
             title: NSLocalizedString("AUDIO", comment: ""),
@@ -94,17 +82,5 @@ class VLCTabbarCooordinator: NSObject, VLCMediaCategoryViewControllerDelegate {
 
         let controllers = [videoVC, audioVC, serverVC, settingsVC]
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
-    }
-
-    // MARK: - VLCMediaViewControllerDelegate
-
-    func mediaViewControllerDidSelectMediaObject(_ viewcontroller: UIViewController, mediaObject: NSManagedObject) {
-        playMedia(media: mediaObject)
-    }
-
-    func playMedia(media: NSManagedObject) {
-        //that should go into a Coordinator itself
-        let vpc = VLCPlaybackController.sharedInstance()
-        vpc.playMediaLibraryObject(media)
     }
 }

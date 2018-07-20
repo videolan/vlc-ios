@@ -15,11 +15,11 @@ import UIKit
 class VLCVideoViewController: VLCMediaViewController {
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         let movies = VLCMediaCategoryViewController<MLFile>(services: services, subcategory: VLCMediaSubcategories.movies)
-        movies.delegate = mediaDelegate
+        movies.delegate = super.self()
         let episodes = VLCMediaCategoryViewController<MLShowEpisode>(services: services, subcategory: VLCMediaSubcategories.episodes)
-        episodes.delegate = mediaDelegate
+        episodes.delegate = super.self()
         let playlists = VLCMediaCategoryViewController<MLLabel>(services: services, subcategory: VLCMediaSubcategories.videoPlaylists)
-        playlists.delegate = mediaDelegate
+        playlists.delegate = super.self()
         return [movies, episodes, playlists]
     }
 }
@@ -27,23 +27,21 @@ class VLCVideoViewController: VLCMediaViewController {
 class VLCAudioViewController: VLCMediaViewController {
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         let tracks = VLCMediaCategoryViewController<MLFile>(services: services, subcategory: VLCMediaSubcategories.tracks)
-        tracks.delegate = mediaDelegate
+        tracks.delegate = super.self()
         let genres = VLCMediaCategoryViewController<String>(services: services, subcategory: VLCMediaSubcategories.genres)
-        genres.delegate = mediaDelegate
+        genres.delegate = super.self()
         let artists = VLCMediaCategoryViewController<String>(services: services, subcategory: VLCMediaSubcategories.artists)
-        artists.delegate = mediaDelegate
+        artists.delegate = super.self()
         let albums = VLCMediaCategoryViewController<MLAlbum>(services: services, subcategory: VLCMediaSubcategories.albums)
-        albums.delegate = mediaDelegate
+        albums.delegate = super.self()
         let playlists = VLCMediaCategoryViewController<MLLabel>(services: services, subcategory: VLCMediaSubcategories.audioPlaylists)
-        playlists.delegate = mediaDelegate
+        playlists.delegate = super.self()
         return [tracks, genres, artists, albums, playlists]
     }
 }
 
 class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
-
     var services: Services
-    weak var mediaDelegate: VLCMediaCategoryViewControllerDelegate?
     private var rendererButton: UIButton
 
     init(services: Services) {
@@ -105,5 +103,19 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
+    }
+}
+
+// MARK: - VLCMediaCategoryViewControllerDelegate
+extension VLCMediaViewController: VLCMediaCategoryViewControllerDelegate {
+
+    func mediaViewControllerDidSelectMediaObject(_ viewcontroller: UIViewController, mediaObject: NSManagedObject) {
+        playMedia(media: mediaObject)
+    }
+
+    func playMedia(media: NSManagedObject) {
+        //that should go into a Coordinator itself
+        let vpc = VLCPlaybackController.sharedInstance()
+        vpc?.playMediaLibraryObject(media)
     }
 }
