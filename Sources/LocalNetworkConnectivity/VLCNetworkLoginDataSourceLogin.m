@@ -18,11 +18,10 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
     VLCNetworkServerLoginIndexPort,
     VLCNetworkServerLoginIndexUsername,
     VLCNetworkServerLoginIndexPassword,
-    VLCNetworkServerLoginIndexConnect,
     VLCNetworkServerLoginIndexSave,
 
     VLCNetworkServerLoginIndexCount,
-    VLCNetworkServerLoginIndexFieldCount = VLCNetworkServerLoginIndexConnect
+    VLCNetworkServerLoginIndexFieldCount = VLCNetworkServerLoginIndexSave
 };
 
 @interface VLCNetworkLoginDataSourceLogin () <VLCNetworkLoginViewFieldCellDelegate>
@@ -53,9 +52,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
     NSString *labelString = nil;
     NSUInteger additionalFieldsCount = self.loginInformation.additionalFields.count;
     NSUInteger buttonRowIndex = row-additionalFieldsCount;
-    if (buttonRowIndex == VLCNetworkServerLoginIndexConnect) {
-            labelString = NSLocalizedString(@"BUTTON_CONNECT", nil);
-    } else if (buttonRowIndex == VLCNetworkServerLoginIndexSave) {
+    if (buttonRowIndex == VLCNetworkServerLoginIndexSave) {
         labelString = NSLocalizedString(@"BUTTON_SAVE", nil);
     }
     buttonCell.titleString = labelString;
@@ -173,7 +170,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
     }
     NSUInteger additionalFieldsCount = self.loginInformation.additionalFields.count;
     NSUInteger buttonRowIndex = row-additionalFieldsCount;
-    if (buttonRowIndex == VLCNetworkServerLoginIndexConnect || buttonRowIndex == VLCNetworkServerLoginIndexSave) {
+    if (buttonRowIndex == VLCNetworkServerLoginIndexSave) {
         return kVLCNetworkLoginViewButtonCellIdentifier;
     } else {
         return kVLCNetworkLoginViewFieldCellIdentifier;
@@ -205,9 +202,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
 {
     NSUInteger additionalFieldsCount = self.loginInformation.additionalFields.count;
     NSUInteger buttonRowIndex = row-additionalFieldsCount;
-    if (buttonRowIndex == VLCNetworkServerLoginIndexConnect) {
-        [self.delegate connectLoginDataSource:self];
-    } else if (buttonRowIndex == VLCNetworkServerLoginIndexSave) {
+    if (buttonRowIndex == VLCNetworkServerLoginIndexSave) {
         [self.delegate saveLoginDataSource:self];
     }
 }

@@ -198,7 +198,7 @@
     [self presentViewController:navCon animated:YES completion:nil];
 
     if (loginViewController.navigationItem.leftBarButtonItem == nil)
-        loginViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStyleDone target:self action:@selector(_dismissLogin)];
+        loginViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIBarButtonItemStylePlain target:self action:@selector(_dismissLogin)];
 }
 
 #pragma mark - table view handling
@@ -294,7 +294,7 @@
         [self presentViewController:navCon animated:YES completion:nil];
 
         if (loginViewController.navigationItem.leftBarButtonItem == nil)
-            loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:self andSelector:@selector(_dismissLogin)];
+            loginViewController.navigationItem.leftBarButtonItem = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) target:self andSelector:@selector(_dismissLogin)];
     } else {
         [self.navigationController pushViewController:loginViewController animated:YES];
     }

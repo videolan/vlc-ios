@@ -66,6 +66,8 @@
     dataSource.dataSources = @[self.protocolDataSource, self.loginDataSource, self.savedLoginsDataSource];
     [dataSource configureWithTableView:self.tableView];
     self.dataSource = dataSource;
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CONNECT", nil) style:UIBarButtonItemStyleDone target:self action:@selector(connectLoginDataSource)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -170,6 +172,16 @@
     self.loginInformation = loginInformation;
 
     [self.delegate loginWithLoginViewController:self loginInfo:dataSource.loginInformation];
+
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+}
+
+- (void)connectLoginDataSource
+{
+    if (!self.protocolSelected)
+        return;
+
+    [self.delegate loginWithLoginViewController:self loginInfo:self.loginInformation];
 
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
