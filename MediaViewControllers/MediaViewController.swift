@@ -12,37 +12,6 @@
 
 import UIKit
 
-class VLCAudioViewController: VLCMediaViewController {
-
-    override init(services: Services) {
-        super.init(services: services)
-        setupUI()
-    }
-
-    private func setupUI() {
-        title = NSLocalizedString("AUDIO", comment: "")
-        tabBarItem = UITabBarItem(
-            title: NSLocalizedString("AUDIO", comment: ""),
-            image: UIImage(named: "MusicAlbums"),
-            selectedImage: UIImage(named: "MusicAlbums"))
-        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.audio
-    }
-
-    override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let tracks = VLCMediaCategoryViewController<MLFile>(services: services, subcategory: VLCMediaSubcategories.tracks)
-        tracks.delegate = super.self()
-        let genres = VLCMediaCategoryViewController<String>(services: services, subcategory: VLCMediaSubcategories.genres)
-        genres.delegate = super.self()
-        let artists = VLCMediaCategoryViewController<String>(services: services, subcategory: VLCMediaSubcategories.artists)
-        artists.delegate = super.self()
-        let albums = VLCMediaCategoryViewController<MLAlbum>(services: services, subcategory: VLCMediaSubcategories.albums)
-        albums.delegate = super.self()
-        let playlists = VLCMediaCategoryViewController<MLLabel>(services: services, subcategory: VLCMediaSubcategories.audioPlaylists)
-        playlists.delegate = super.self()
-        return [tracks, genres, artists, albums, playlists]
-    }
-}
-
 class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
     var services: Services
     private var rendererButton: UIButton
