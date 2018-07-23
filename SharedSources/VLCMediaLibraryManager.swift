@@ -16,7 +16,7 @@ class VLCMediaLibraryManager: NSObject {
     private var databasePath: String!
     private var thumbnailPath: String!
 
-    private lazy var medialibrary: VLCMediaLibrary = {
+    private lazy var medialib: VLCMediaLibrary = {
         let medialibrary = VLCMediaLibrary()
         medialibrary.delegate = self
         return medialibrary
@@ -39,17 +39,17 @@ class VLCMediaLibraryManager: NSObject {
         databasePath = dbPath + "/" + VLCMediaLibraryManager.databaseName
         thumbnailPath = documentPath
 
-        let medialibraryStatus = medialibrary.setupMediaLibrary(databasePath: databasePath,
-                                                                thumbnailPath: thumbnailPath)
+        let medialibraryStatus = medialib.setupMediaLibrary(databasePath: databasePath,
+                                                            thumbnailPath: thumbnailPath)
 
         switch medialibraryStatus {
         case .success:
-            guard medialibrary.start() else {
+            guard medialib.start() else {
                 assertionFailure("VLCMediaLibraryManager: Medialibrary failed to start.")
                 return
             }
-            medialibrary.reload()
-            medialibrary.discover(onEntryPoint: "file://" + documentPath)
+            medialib.reload()
+            medialib.discover(onEntryPoint: "file://" + documentPath)
             break
         case .alreadyInitialized:
             assertionFailure("VLCMediaLibraryManager: Medialibrary already initialized.")
@@ -68,9 +68,9 @@ class VLCMediaLibraryManager: NSObject {
 
     /// Returns number of *ALL* files(audio and video) present in the medialibrary database
     func numberOfFiles() -> Int {
-        var media = medialibrary.audioFiles(with: .filename, desc: false)
+        var media = medialib.audioFiles(with: .filename, desc: false)
 
-        media += medialibrary.videoFiles(with: .filename, desc: false)
+        media += medialib.videoFiles(with: .filename, desc: false)
         return media.count
     }
 
@@ -80,11 +80,11 @@ class VLCMediaLibraryManager: NSObject {
     /// - Parameter type: Type of the media
     /// - Returns: Array of VLCMLMedia
     func media(ofType type: VLCMLMediaType) -> [VLCMLMedia] {
-        return type == .video ? medialibrary.videoFiles(with: .filename, desc: false) : medialibrary.audioFiles(with: .filename, desc: false)
+        return type == .video ? medialib.videoFiles(with: .filename, desc: false) : medialib.audioFiles(with: .filename, desc: false)
     }
 
     func addMedia(withMrl mrl: URL) {
-        medialibrary.addMedia(withMrl: mrl)
+        medialib.addMedia(withMrl: mrl)
     }
 }
 
@@ -268,7 +268,6 @@ extension VLCMediaLibraryManager {
 
 extension VLCMediaLibraryManager {
     private func getAllVideos() {
-//        foundVideos = medialibrary.media(ofType: .video)
 //        moviesFromVideos()
 //        episodesFromVideos()
         //        videoPlaylistsFromVideos()
