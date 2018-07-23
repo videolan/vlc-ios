@@ -14,7 +14,7 @@ import Foundation
 @objc class VLCAccessibilityIdentifier: NSObject {
     static let video = "video"
     static let audio = "audio"
-    static let localNetwork = "localNetwork"
+    @objc static let localNetwork = "localNetwork"
     static let settings = "settings"
     static let cloud = "cloud"
     static let stream = "stream"

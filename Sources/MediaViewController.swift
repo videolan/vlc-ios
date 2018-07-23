@@ -13,6 +13,21 @@
 import UIKit
 
 class VLCVideoViewController: VLCMediaViewController {
+
+    override init(services: Services) {
+        super.init(services: services)
+        setupUI()
+    }
+
+    private func setupUI() {
+        title = NSLocalizedString("VIDEO", comment: "")
+        tabBarItem = UITabBarItem(
+            title: NSLocalizedString("VIDEO", comment: ""),
+            image: UIImage(named: "TVShowsIcon"),
+            selectedImage: UIImage(named: "TVShowsIcon"))
+        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.video
+    }
+
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         let movies = VLCMediaCategoryViewController<MLFile>(services: services, subcategory: VLCMediaSubcategories.movies)
         movies.delegate = super.self()
@@ -25,6 +40,21 @@ class VLCVideoViewController: VLCMediaViewController {
 }
 
 class VLCAudioViewController: VLCMediaViewController {
+
+    override init(services: Services) {
+        super.init(services: services)
+        setupUI()
+    }
+
+    private func setupUI() {
+        title = NSLocalizedString("AUDIO", comment: "")
+        tabBarItem = UITabBarItem(
+            title: NSLocalizedString("AUDIO", comment: ""),
+            image: UIImage(named: "MusicAlbums"),
+            selectedImage: UIImage(named: "MusicAlbums"))
+        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.audio
+    }
+
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         let tracks = VLCMediaCategoryViewController<MLFile>(services: services, subcategory: VLCMediaSubcategories.tracks)
         tracks.delegate = super.self()

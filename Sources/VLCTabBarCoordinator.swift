@@ -46,39 +46,15 @@ class VLCTabBarCoordinator: NSObject {
     private func setupViewControllers() {
         // Video
         let videoVC = VLCVideoViewController(services: services)
-        videoVC.title = NSLocalizedString("VIDEO", comment: "")
-        videoVC.tabBarItem = UITabBarItem(
-            title: NSLocalizedString("VIDEO", comment: ""),
-            image: UIImage(named: "TVShowsIcon"),
-            selectedImage: UIImage(named: "TVShowsIcon"))
-        videoVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.video
 
         // Audio
         let audioVC = VLCAudioViewController(services: services)
-        audioVC.title = NSLocalizedString("AUDIO", comment: "")
-        audioVC.tabBarItem = UITabBarItem(
-            title: NSLocalizedString("AUDIO", comment: ""),
-            image: UIImage(named: "MusicAlbums"),
-            selectedImage: UIImage(named: "MusicAlbums"))
-        audioVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.audio
 
         // Serverlist
         let serverVC = VLCServerListViewController(nibName: nil, bundle: nil)
-        serverVC.title = NSLocalizedString("LOCAL_NETWORK", comment: "")
-        serverVC.tabBarItem = UITabBarItem(
-            title: NSLocalizedString("LOCAL_NETWORK", comment: ""),
-            image: UIImage(named: "Local"),
-            selectedImage: UIImage(named: "Local"))
-        serverVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork
 
         // Settings
         let settingsVC = VLCSettingsController()
-        settingsVC.title = NSLocalizedString("Settings", comment: "")
-        settingsVC.tabBarItem = UITabBarItem(
-            title: NSLocalizedString("Settings", comment: ""),
-            image: UIImage(named: "Settings"),
-            selectedImage: UIImage(named: "Settings"))
-        settingsVC.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
 
         let controllers = [videoVC, audioVC, serverVC, settingsVC]
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
