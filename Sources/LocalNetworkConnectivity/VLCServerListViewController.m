@@ -59,6 +59,16 @@
 
 @implementation VLCServerListViewController
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+
+    if (self) {
+        [self setupUI];
+    }
+    return self;
+}
+
 - (void)loadView
 {
     [super loadView];
@@ -132,6 +142,15 @@
                                               _remoteNetworkHeight
                                               ]];
     _scrollView.backgroundColor = PresentationTheme.current.colors.background;
+}
+
+- (void)setupUI
+{
+    self.title = NSLocalizedString(@"LOCAL_NETWORK", nil);
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle: NSLocalizedString(@"LOCAL_NETWORK", nil)
+                                                    image: [UIImage imageNamed:@"Local"]
+                                            selectedImage: [UIImage imageNamed:@"Local"]];
+    self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork;
 }
 
 - (void)viewDidLoad
