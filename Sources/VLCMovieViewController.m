@@ -1673,11 +1673,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)showOnDisplay:(UIView *)view
 {
     // if we don't have a renderer we're mirroring and don't want to show the dialog
-    BOOL displayExternally = _vpc.renderer && view != _movieView;
-    [_playingExternalView shouldDisplay:displayExternally];
+    BOOL displayExternally = view != _movieView;
+    [_playingExternalView shouldDisplay:displayExternally movieView:_movieView];
     [_playingExternalView updateUIWithRendererItem:_vpc.renderer];
-    _vpc.videoOutputView = view;
     _artworkImageView.hidden = displayExternally;
+    if (!displayExternally && _movieView.superview != self.view) {
+        [self.view addSubview:_movieView];
+        [self.view sendSubviewToBack:_movieView];
+        _movieView.frame = self.view.frame;
+    }
 }
 
 - (void)handleExternalScreenDidConnect:(NSNotification *)notification

@@ -21,9 +21,8 @@ class VLCPlayingExternallyView: UIView {
     }
     var externalWindow: UIWindow?
 
-    @objc func shouldDisplay(_ show: Bool) {
+    @objc func shouldDisplay(_ show: Bool, movieView: UIView) {
         self.isHidden = !show
-        externalWindow?.isHidden = !show
         if show {
             guard let screen = UIScreen.screens.count > 1 ? UIScreen.screens[1] : nil else {
                 return
@@ -34,11 +33,14 @@ class VLCPlayingExternallyView: UIView {
                 return
             }
             externalWindow.rootViewController = VLCExternalDisplayController()
+            externalWindow.rootViewController?.view.addSubview(movieView)
             externalWindow.screen = screen
             externalWindow.rootViewController?.view.frame = externalWindow.bounds
+            movieView.frame = externalWindow.bounds
         } else {
             externalWindow = nil
         }
+        externalWindow?.isHidden = !show
     }
 
     override func awakeFromNib() {
