@@ -2,6 +2,7 @@
 #import <MediaLibraryKit/MediaLibraryKit.h>
 #import <MobileVLCKit/MobileVLCKit.h>
 #import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
+#import <VLCMediaLibraryKit/VLCMediaLibraryKit.h>
 #import <PAPasscode/PAPasscodeViewController.h>
 #import <XKKeychain/XKKeychain.h>
 #import "VLCExternalDisplayController.h"
