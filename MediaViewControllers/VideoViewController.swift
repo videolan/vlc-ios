@@ -26,9 +26,9 @@ class VLCVideoViewController: VLCMediaViewController {
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let movies = VLCMediaCategoryViewController<MLFile>(services: services, subcategory: VLCMediaSubcategories.movies)
-        let episodes = VLCMediaCategoryViewController<MLShowEpisode>(services: services, subcategory: VLCMediaSubcategories.episodes)
-        let playlists = VLCMediaCategoryViewController<MLLabel>(services: services, subcategory: VLCMediaSubcategories.videoPlaylists)
+        let movies = VLCMovieCategoryViewController(services)
+        let episodes = VLCShowEpisodeCategoryViewController(services)
+        let playlists = VLCVideoPlaylistCategoryViewController(services)
         return [movies, episodes, playlists]
     }
 }
