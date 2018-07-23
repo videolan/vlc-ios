@@ -48,18 +48,26 @@
     NSString *cellIdentifier = [dataSource cellIdentifierForRow:row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     [dataSource configureCell:cell forRow:row];
+    if ([[dataSource cellIdentifierForRow:indexPath.row] isEqual:@"VLCNetworkLoginViewFieldCellIdentifier"]) {
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        }
+        tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    } else {
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    id<VLCNetworkLoginDataSourceSection> dataSource = self.dataSources[indexPath.section];
-    if (![[dataSource cellIdentifierForRow:indexPath.row] isEqual:@"VLCNetworkLoginViewFieldCellIdentifier"]) {
-        cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundA : PresentationTheme.current.colors.cellBackgroundB;
-    }
-}
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    id<VLCNetworkLoginDataSourceSection> dataSource = self.dataSources[indexPath.section];
+//    if (![[dataSource cellIdentifierForRow:indexPath.row] isEqual:@"VLCNetworkLoginViewFieldCellIdentifier"]) {
+//        cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundA : PresentationTheme.current.colors.cellBackgroundB;
+//    }
+//}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -34,7 +34,7 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     UIView *darkView = [[UIView alloc] init];
     darkView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:darkView];
-    darkView.backgroundColor = PresentationTheme.current.colors.cellBackgroundB;
+    darkView.backgroundColor = PresentationTheme.current.colors.background;
     self.textField = [[UITextField alloc] initWithFrame:CGRectZero];
     self.textField.translatesAutoresizingMaskIntoConstraints = NO;
     self.textField.delegate = self;

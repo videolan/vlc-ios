@@ -51,7 +51,7 @@
     self.title = NSLocalizedString(@"CONNECT_TO_SERVER", nil);
 
     self.tableView.backgroundColor = PresentationTheme.current.colors.background;
-    self.tableView.separatorColor = PresentationTheme.current.colors.background;
+    self.tableView.separatorColor = PresentationTheme.current.colors.separatorColor;
 
     self.protocolDataSource = [[VLCNetworkLoginDataSourceProtocol alloc] init];
     self.protocolDataSource.delegate = self;
