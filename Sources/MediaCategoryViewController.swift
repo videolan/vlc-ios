@@ -13,17 +13,12 @@
 
 import Foundation
 
-protocol VLCMediaCategoryViewControllerDelegate: class {
-    func mediaViewControllerDidSelectMediaObject(_ mediaViewController: UIViewController, mediaObject: NSManagedObject)
-}
-
 class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
     let cellPadding: CGFloat = 5.0
     private var services: Services
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
     var subcategory: VLCMediaSubcategoryModel<T>
-    weak var delegate: VLCMediaCategoryViewControllerDelegate?
 
     @available(iOS 11.0, *)
     lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
@@ -176,7 +171,7 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     // MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let mediaObject = subcategory.files[indexPath.row] as? NSManagedObject {
-            delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: mediaObject)
+            play(mediaObject: mediaObject)
         }
     }
 
@@ -205,5 +200,13 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellPadding
+    }
+}
+
+// MARK: - Player
+
+extension VLCMediaCategoryViewController {
+    func play(mediaObject: NSManagedObject) {
+        VLCPlaybackController.sharedInstance().playMediaLibraryObject(mediaObject)
     }
 }

@@ -77,17 +77,3 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
         return PresentationTheme.current.colors.statusBarStyle
     }
 }
-
-// MARK: - VLCMediaCategoryViewControllerDelegate
-extension VLCMediaViewController: VLCMediaCategoryViewControllerDelegate {
-
-    func mediaViewControllerDidSelectMediaObject(_ viewcontroller: UIViewController, mediaObject: NSManagedObject) {
-        playMedia(media: mediaObject)
-    }
-
-    func playMedia(media: NSManagedObject) {
-        //that should go into a Coordinator itself
-        let vpc = VLCPlaybackController.sharedInstance()
-        vpc?.playMediaLibraryObject(media)
-    }
-}

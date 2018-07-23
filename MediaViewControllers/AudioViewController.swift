@@ -27,15 +27,10 @@ class VLCAudioViewController: VLCMediaViewController {
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         let tracks = VLCMediaCategoryViewController<MLFile>(services: services, subcategory: VLCMediaSubcategories.tracks)
-        tracks.delegate = super.self()
         let genres = VLCMediaCategoryViewController<String>(services: services, subcategory: VLCMediaSubcategories.genres)
-        genres.delegate = super.self()
         let artists = VLCMediaCategoryViewController<String>(services: services, subcategory: VLCMediaSubcategories.artists)
-        artists.delegate = super.self()
         let albums = VLCMediaCategoryViewController<MLAlbum>(services: services, subcategory: VLCMediaSubcategories.albums)
-        albums.delegate = super.self()
         let playlists = VLCMediaCategoryViewController<MLLabel>(services: services, subcategory: VLCMediaSubcategories.audioPlaylists)
-        playlists.delegate = super.self()
         return [tracks, genres, artists, albums, playlists]
     }
 }
