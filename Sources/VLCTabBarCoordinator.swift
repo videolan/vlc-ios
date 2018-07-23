@@ -44,19 +44,13 @@ class VLCTabBarCoordinator: NSObject {
     }
 
     private func setupViewControllers() {
-        // Video
-        let videoVC = VLCVideoViewController(services: services)
+        let controllers = [
+            VLCVideoViewController(services: services),
+            VLCAudioViewController(services: services),
+            VLCServerListViewController(nibName: nil, bundle: nil),
+            VLCSettingsController()
+        ]
 
-        // Audio
-        let audioVC = VLCAudioViewController(services: services)
-
-        // Serverlist
-        let serverVC = VLCServerListViewController(nibName: nil, bundle: nil)
-
-        // Settings
-        let settingsVC = VLCSettingsController()
-
-        let controllers = [videoVC, audioVC, serverVC, settingsVC]
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
     }
 }
