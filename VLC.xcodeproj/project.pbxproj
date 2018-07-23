@@ -565,7 +565,7 @@
 		417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCActivityViewControllerVendor.m; sourceTree = "<group>"; };
 		4184AA131A5492070063DF5A /* VLCCloudStorageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageController.h; path = Sources/VLCCloudStorageController.h; sourceTree = SOURCE_ROOT; };
 		4184AA141A5492070063DF5A /* VLCCloudStorageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageController.m; path = Sources/VLCCloudStorageController.m; sourceTree = SOURCE_ROOT; };
-		418B144620179C00000447AA /* MediaCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaCategoryViewController.swift; path = Sources/MediaCategoryViewController.swift; sourceTree = SOURCE_ROOT; };
+		418B144620179C00000447AA /* MediaCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaCategoryViewController.swift; path = MediaCategories/MediaCategoryViewController.swift; sourceTree = SOURCE_ROOT; };
 		418B144C20179C74000447AA /* VLCTabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VLCTabBarCoordinator.swift; path = Sources/VLCTabBarCoordinator.swift; sourceTree = SOURCE_ROOT; };
 		418B144F20179CB9000447AA /* LayoutAnchorContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutAnchorContainer.swift; path = Sources/LayoutAnchorContainer.swift; sourceTree = "<group>"; };
 		418B145820179E50000447AA /* VLCDragAndDropManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VLCDragAndDropManager.swift; path = Sources/VLCDragAndDropManager.swift; sourceTree = "<group>"; };
@@ -1556,6 +1556,7 @@
 		7D5F7AB81752658E006CCCFA /* Everything Playlist */ = {
 			isa = PBXGroup;
 			children = (
+				8DE1879821060D0B00A091D2 /* MediaCategories */,
 				8DE1877F2105DA2B00A091D2 /* MediaViewControllers */,
 				41B0948320E6844700DE38AD /* MediaSubcategory */,
 				4142AB4420A31EC500039380 /* VLCMediaDataSource.swift */,
@@ -1956,7 +1957,6 @@
 		7DEC8BE11BD686FA006E1093 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				418B144620179C00000447AA /* MediaCategoryViewController.swift */,
 				7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */,
 				7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */,
 				DD7110EE1AF38B2B00854776 /* MLMediaLibrary+playlist.h */,
@@ -2130,6 +2130,14 @@
 				8DE187802105DAB100A091D2 /* VideoViewController.swift */,
 			);
 			path = MediaViewControllers;
+			sourceTree = "<group>";
+		};
+		8DE1879821060D0B00A091D2 /* MediaCategories */ = {
+			isa = PBXGroup;
+			children = (
+				418B144620179C00000447AA /* MediaCategoryViewController.swift */,
+			);
+			path = MediaCategories;
 			sourceTree = "<group>";
 		};
 		9B51719A17EDEC8900F8FBA7 /* GoogleDrive */ = {
