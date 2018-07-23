@@ -566,7 +566,6 @@
 		418B144620179C00000447AA /* MediaCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaCategoryViewController.swift; path = Sources/MediaCategoryViewController.swift; sourceTree = SOURCE_ROOT; };
 		418B144C20179C74000447AA /* VLCTabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VLCTabBarCoordinator.swift; path = Sources/VLCTabBarCoordinator.swift; sourceTree = SOURCE_ROOT; };
 		418B144F20179CB9000447AA /* LayoutAnchorContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutAnchorContainer.swift; path = Sources/LayoutAnchorContainer.swift; sourceTree = "<group>"; };
-		418B145520179DF2000447AA /* VLCMediaData+VLCDragAndDrop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "VLCMediaData+VLCDragAndDrop.swift"; path = "Sources/VLCMediaData+VLCDragAndDrop.swift"; sourceTree = "<group>"; };
 		418B145820179E50000447AA /* VLCDragAndDropManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VLCDragAndDropManager.swift; path = Sources/VLCDragAndDropManager.swift; sourceTree = "<group>"; };
 		4195747C206A92ED00393A42 /* RemoteNetworkDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNetworkDataSource.swift; sourceTree = "<group>"; };
 		419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCStringsForLocalization.m; sourceTree = "<group>"; };
@@ -1555,7 +1554,6 @@
 			children = (
 				41B0948320E6844700DE38AD /* MediaSubcategory */,
 				4142AB4420A31EC500039380 /* VLCMediaDataSource.swift */,
-				418B145520179DF2000447AA /* VLCMediaData+VLCDragAndDrop.swift */,
 				418B145820179E50000447AA /* VLCDragAndDropManager.swift */,
 				41251ECB1FD0C5C100099110 /* VLC-iOS-Bridging-Header.h */,
 				7D378493183A98D1009EE944 /* VLCPlaylistCollectionViewCell.h */,
