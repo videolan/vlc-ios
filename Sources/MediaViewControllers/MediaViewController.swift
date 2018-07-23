@@ -15,10 +15,12 @@ import UIKit
 class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
     var services: Services
     private var rendererButton: UIButton
+    var subcategories: VLCMediaSubcategories
 
     init(services: Services) {
         self.services = services
         rendererButton = services.rendererDiscovererManager.setupRendererButton()
+        subcategories = VLCMediaSubcategories()
         super.init(nibName: nil, bundle: nil)
     }
 
