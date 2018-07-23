@@ -889,7 +889,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL mediaHasProjection = [_vpc currentMediaIs360Video];
     _fov = mediaHasProjection ? DEFAULT_FOV : 0.f;
 
-    [_panRecognizer setEnabled:mediaHasProjection];
     [_swipeRecognizerUp setEnabled:!mediaHasProjection];
     [_swipeRecognizerDown setEnabled:!mediaHasProjection];
     [_swipeRecognizerLeft setEnabled:!mediaHasProjection];
