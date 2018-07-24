@@ -40,7 +40,7 @@
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle: NSLocalizedString(@"Settings", nil)
                                                     image: [UIImage imageNamed:@"Settings"]
                                             selectedImage: [UIImage imageNamed:@"Settings"]];
-    self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork;
+    self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings;
 }
 
 - (void)viewDidLoad
