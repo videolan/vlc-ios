@@ -99,7 +99,7 @@ class VLCActionSheet: UIViewController {
 
         let collectionViewHeightConstraint = collectionView.heightAnchor.constraint(
             equalToConstant: CGFloat(dataSource.numberOfRows()) * cellHeight)
-        collectionViewHeightConstraint.priority = .required - 1
+        collectionViewHeightConstraint.priority = UILayoutPriority(rawValue: 999.0)
         return collectionViewHeightConstraint
     }()
 

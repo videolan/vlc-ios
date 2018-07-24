@@ -34,7 +34,6 @@ lane :release do |options|
 end
 
 lane :ci do
-  xcversion(version: "9.2.0")
   xcode_select "/Applications/Xcode.app"
   #Ideally we have iOS 9 support here but this is not yet added
   #https://discuss.circleci.com/t/please-add-simulators-for-ios-9-10-to-xcode-9-image/16530
