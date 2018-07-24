@@ -12,38 +12,8 @@
 
 import UIKit
 
-class VLCVideoViewController: VLCMediaViewController {
-    override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let movies = VLCMediaCategoryViewController<MLFile>(services: services, subcategory: VLCMediaSubcategories.movies)
-        movies.delegate = mediaDelegate
-        let episodes = VLCMediaCategoryViewController<MLShowEpisode>(services: services, subcategory: VLCMediaSubcategories.episodes)
-        episodes.delegate = mediaDelegate
-        let playlists = VLCMediaCategoryViewController<MLLabel>(services: services, subcategory: VLCMediaSubcategories.videoPlaylists)
-        playlists.delegate = mediaDelegate
-        return [movies, episodes, playlists]
-    }
-}
-
-class VLCAudioViewController: VLCMediaViewController {
-    override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let tracks = VLCMediaCategoryViewController<MLFile>(services: services, subcategory: VLCMediaSubcategories.tracks)
-        tracks.delegate = mediaDelegate
-        let genres = VLCMediaCategoryViewController<String>(services: services, subcategory: VLCMediaSubcategories.genres)
-        genres.delegate = mediaDelegate
-        let artists = VLCMediaCategoryViewController<String>(services: services, subcategory: VLCMediaSubcategories.artists)
-        artists.delegate = mediaDelegate
-        let albums = VLCMediaCategoryViewController<MLAlbum>(services: services, subcategory: VLCMediaSubcategories.albums)
-        albums.delegate = mediaDelegate
-        let playlists = VLCMediaCategoryViewController<MLLabel>(services: services, subcategory: VLCMediaSubcategories.audioPlaylists)
-        playlists.delegate = mediaDelegate
-        return [tracks, genres, artists, albums, playlists]
-    }
-}
-
 class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
-
     var services: Services
-    weak var mediaDelegate: VLCMediaCategoryViewControllerDelegate?
     private var rendererButton: UIButton
 
     init(services: Services) {

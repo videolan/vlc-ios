@@ -30,10 +30,20 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
 {
     self = [super initWithStyle:style];
     if (self) {
+        [self setupUI];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
     }
 
     return self;
+}
+
+- (void)setupUI
+{
+    self.title = NSLocalizedString(@"Settings", nil);
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle: NSLocalizedString(@"Settings", nil)
+                                                    image: [UIImage imageNamed:@"Settings"]
+                                            selectedImage: [UIImage imageNamed:@"Settings"]];
+    self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings;
 }
 
 - (void)viewDidLoad
