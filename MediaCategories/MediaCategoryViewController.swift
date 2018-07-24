@@ -18,11 +18,11 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     private var services: Services
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
-    var subcategory: VLCMediaSubcategoryModel<T>
+    var category: VLCMediaSubcategoryModel<T>
 
     @available(iOS 11.0, *)
     lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
-        VLCDragAndDropManager<T>(subcategory: subcategory)
+        VLCDragAndDropManager<T>(subcategory: category)
 
     }()
 
@@ -38,13 +38,13 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
         fatalError()
     }
 
-    init(services: Services, subcategory: VLCMediaSubcategoryModel<T>) {
+    init(services: Services, category: VLCMediaSubcategoryModel<T>) {
         self.services = services
-        self.subcategory = subcategory
+        self.category = category
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: subcategory.changeNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: category.changeNotificationName, object: nil)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -137,7 +137,7 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     // MARK: - Search
 
     func updateSearchResults(for searchController: UISearchController) {
-        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: subcategory.files)
+        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: category.files)
         collectionView?.reloadData()
     }
 
@@ -150,17 +150,17 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return IndicatorInfo(title:subcategory.indicatorInfoName)
+        return IndicatorInfo(title:category.indicatorInfoName)
     }
 
     // MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return subcategory.files.count
+        return category.files.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let playlistCell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), for: indexPath) as? VLCPlaylistCollectionViewCell {
-            if let mediaObject = subcategory.files[indexPath.row] as? NSManagedObject {
+            if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
                 playlistCell.mediaObject = mediaObject
             }
             return playlistCell
@@ -170,7 +170,7 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
 
     // MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let mediaObject = subcategory.files[indexPath.row] as? NSManagedObject {
+        if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
             play(mediaObject: mediaObject)
         }
     }
