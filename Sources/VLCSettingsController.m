@@ -55,7 +55,6 @@
 - (void)themeDidChange
 {
     self.view.backgroundColor = PresentationTheme.current.colors.background;
-    [self.tableView reloadData];
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
@@ -156,9 +155,9 @@
     IASKSpecifier *specifier = [self.settingsReader specifierForIndexPath:indexPath];
     VLCSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:specifier.type];
     if (!cell) {
-        cell = [VLCSettingsTableViewCell cellWithIdentifier:specifier.type target:self];
+        cell = [[VLCSettingsTableViewCell alloc] initWithReuseIdentifier:specifier.type target:self];
     }
-    [cell configureWithSpecifier:specifier value:[self.settingsStore objectForKey:specifier.key]];
+    [cell configureWithSpecifier:specifier settingsValue:[self.settingsStore objectForKey:specifier.key]];
     return cell;
 }
 
@@ -175,28 +174,6 @@
     }
     if ([self.navigationController.presentedViewController isKindOfClass:[PAPasscodeViewController class]]) {
         [self.navigationController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-
-#pragma mark - InAppSettings customization
-
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return indexPath;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    IASKSpecifier *specifier = [self.settingsReader specifierForIndexPath:indexPath];
-    if ([specifier.type isEqual: kIASKPSToggleSwitchSpecifier]) {
-        VLCSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        IASKSwitch *toggle = (IASKSwitch *)cell.accessoryView;
-        [toggle setOn:!toggle.isOn animated:YES];
-        [self toggledValue:toggle];
-    } else {
-        [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
 }
 
