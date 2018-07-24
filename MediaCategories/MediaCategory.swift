@@ -12,48 +12,48 @@
 
 class VLCMovieCategoryViewController: VLCMediaCategoryViewController<MLFile> {
     init(_ services: Services) {
-        super.init(services: services, subcategory: VLCMediaSubcategories.movies)
+        super.init(services: services, category: VLCMediaSubcategories.movies)
     }
 }
 
 class VLCShowEpisodeCategoryViewController: VLCMediaCategoryViewController<MLShowEpisode> {
     init(_ services: Services) {
-        super.init(services: services, subcategory: VLCMediaSubcategories.episodes)
+        super.init(services: services, category: VLCMediaSubcategories.episodes)
     }
 }
 
 class VLCVideoPlaylistCategoryViewController: VLCMediaCategoryViewController<MLLabel> {
     init(_ services: Services) {
-        super.init(services: services, subcategory: VLCMediaSubcategories.videoPlaylists)
+        super.init(services: services, category: VLCMediaSubcategories.videoPlaylists)
     }
 }
 
 class VLCTrackCategoryViewController: VLCMediaCategoryViewController<MLFile> {
     init(_ services: Services) {
-        super.init(services: services, subcategory: VLCMediaSubcategories.tracks)
+        super.init(services: services, category: VLCMediaSubcategories.tracks)
     }
 }
 
 class VLCGenreCategoryViewController: VLCMediaCategoryViewController<String> {
     init(_ services: Services) {
-        super.init(services: services, subcategory: VLCMediaSubcategories.genres)
+        super.init(services: services, category: VLCMediaSubcategories.genres)
     }
 }
 
 class VLCArtistCategoryViewController: VLCMediaCategoryViewController<String> {
     init(_ services: Services) {
-        super.init(services: services, subcategory: VLCMediaSubcategories.artists)
+        super.init(services: services, category: VLCMediaSubcategories.artists)
     }
 }
 
 class VLCAlbumCategoryViewController: VLCMediaCategoryViewController<MLAlbum> {
     init(_ services: Services) {
-        super.init(services: services, subcategory: VLCMediaSubcategories.albums)
+        super.init(services: services, category: VLCMediaSubcategories.albums)
     }
 }
 
 class VLCAudioPlaylistCategoryViewController: VLCMediaCategoryViewController<MLLabel> {
     init(_ services: Services) {
-        super.init(services: services, subcategory: VLCMediaSubcategories.audioPlaylists)
+        super.init(services: services, category: VLCMediaSubcategories.audioPlaylists)
     }
 }
