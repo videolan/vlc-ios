@@ -30,10 +30,10 @@ class VLCSettingsTableViewCell: UITableViewCell {
             let toggle = IASKSwitch(frame: .zero)
             toggle.addTarget(target, action: #selector(target.toggledValue(_:)), for: .valueChanged)
             accessoryView = toggle
-            selectionStyle = .none
-        case kIASKOpenURLSpecifier, kIASKPSMultiValueSpecifier:
+        case kIASKOpenURLSpecifier:
             accessoryType = .disclosureIndicator
-            selectionStyle = .default
+        case kIASKPSMultiValueSpecifier:
+            accessoryType = .none
         default:
             assertionFailure("\(reuseIdentifier) has not been defined for VLCSettingsTableViewCell")
         }
