@@ -11,18 +11,6 @@
  *****************************************************************************/
 import Foundation
 
-extension Notification.Name {
-    static let VLCMoviesDidChangeNotification = Notification.Name("MoviesDidChangeNotfication")
-    static let VLCEpisodesDidChangeNotification = Notification.Name("EpisodesDidChangeNotfication")
-    static let VLCArtistsDidChangeNotification = Notification.Name("ArtistsDidChangeNotfication")
-    static let VLCAlbumsDidChangeNotification = Notification.Name("AlbumsDidChangeNotfication")
-    static let VLCTracksDidChangeNotification = Notification.Name("TracksDidChangeNotfication")
-    static let VLCGenresDidChangeNotification = Notification.Name("GenresDidChangeNotfication")
-    static let VLCAudioPlaylistsDidChangeNotification = Notification.Name("AudioPlaylistsDidChangeNotfication")
-    static let VLCVideoPlaylistsDidChangeNotification = Notification.Name("VideoPlaylistsDidChangeNotfication")
-    static let VLCVideosDidChangeNotification = Notification.Name("VideosDidChangeNotfication")
-}
-
 enum VLCDataUnit {
     case file(VLCMLMedia)
     case episode(MLShowEpisode)
