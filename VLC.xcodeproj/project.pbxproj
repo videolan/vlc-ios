@@ -1945,6 +1945,7 @@
 		7DEC8BE11BD686FA006E1093 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				8DE1887221089AF200A091D2 /* MediaLibraryModel */,
 				7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */,
 				7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */,
 				DD7110EE1AF38B2B00854776 /* MLMediaLibrary+playlist.h */,
@@ -2130,6 +2131,13 @@
 			);
 			name = MediaCategories;
 			path = Sources/MediaCategories;
+			sourceTree = "<group>";
+		};
+		8DE1887221089AF200A091D2 /* MediaLibraryModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MediaLibraryModel;
 			sourceTree = "<group>";
 		};
 		9B51719A17EDEC8900F8FBA7 /* GoogleDrive */ = {
