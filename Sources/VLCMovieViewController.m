@@ -453,7 +453,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     manager.presentingViewController = self;
     manager.delegate = self;
-    if (_vpc.renderer || [[UIDevice currentDevice] VLCHasExternalDisplay]) {
+    if ([_vpc isPlayingOnExternalScreen]) {
          [self showOnDisplay:_playingExternalView.displayView];
     }
 }
