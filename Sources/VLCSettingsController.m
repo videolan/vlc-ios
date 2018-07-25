@@ -22,6 +22,10 @@ CGFloat const SETTINGS_HEADER_HEIGHT = 64.;
 NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderViewIdentifier";
 
 @interface VLCSettingsController ()<PAPasscodeViewControllerDelegate>
+{
+    VLCActionSheet *actionSheet;
+    VLCSettingsSpecifierManager *specifierManager;
+}
 @end
 
 @implementation VLCSettingsController
@@ -64,11 +68,16 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerClass:[VLCSectionTableHeaderView class] forHeaderFooterViewReuseIdentifier:kVLCSectionTableHeaderViewIdentifier];
     [self themeDidChange];
+    
+    actionSheet = [[VLCActionSheet alloc] init];
+    actionSheet.modalPresentationStyle = UIModalPresentationCustom;
+    [actionSheet.collectionView registerClass:[VLCSettingsSheetCell class] forCellWithReuseIdentifier:VLCSettingsSheetCell.identifier];
+    
+    specifierManager = [[VLCSettingsSpecifierManager alloc] initWithSettingsReader:self.settingsReader settingsStore:self.settingsStore];
 }
 
 - (void)themeDidChange
 {
-
     self.view.backgroundColor = PresentationTheme.current.colors.background;
     [self setNeedsStatusBarAppearanceUpdate];
 }
@@ -209,9 +218,32 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     return header;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    IASKSpecifier *specifier = [self.settingsReader specifierForIndexPath:indexPath];
+
+    if ([specifier.type isEqualToString: kIASKPSMultiValueSpecifier]) {
+        [self displayActionSheetFor:specifier];
+    } else {
+        [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    }
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return nil;
+}
+
+- (void)displayActionSheetFor:(IASKSpecifier *)specifier
+{
+    specifierManager.specifier = specifier;
+    actionSheet.delegate = specifierManager;
+    actionSheet.dataSource = specifierManager;
+    
+    [self presentViewController:actionSheet animated:YES completion:^{
+        [self->actionSheet.collectionView selectItemAtIndexPath:self->specifierManager.selectedIndex animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+    }];
 }
 
 @end
