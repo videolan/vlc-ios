@@ -1228,6 +1228,11 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _sleepTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(stopPlayback) userInfo:nil repeats:NO];
 }
 
+- (BOOL)isPlayingOnExternalScreen
+{
+    return (_renderer || [[UIDevice currentDevice] VLCHasExternalDisplay]);
+}
+
 #pragma mark - background interaction
 
 - (void)applicationWillResignActive:(NSNotification *)aNotification
@@ -1235,8 +1240,8 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 #if TARGET_OS_IOS
     [self _savePlaybackState];
 #endif
-
-    if (![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {
+    if (![self isPlayingOnExternalScreen]
+        && ![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {
         if ([_mediaPlayer isPlaying]) {
             [_mediaPlayer pause];
             _shouldResumePlaying = YES;

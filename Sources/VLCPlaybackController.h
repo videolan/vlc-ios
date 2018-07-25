@@ -130,6 +130,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)recoverDisplayedMetadata;
 - (void)recoverPlaybackState;
 
+- (BOOL)isPlayingOnExternalScreen;
+
 - (void)setNeedsMetadataUpdate;
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval;
 - (void)performNavigationAction:(VLCMediaPlaybackNavigationAction)action;
