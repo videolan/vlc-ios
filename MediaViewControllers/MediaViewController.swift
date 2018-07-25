@@ -72,7 +72,7 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
     override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
         super.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex, withProgressPercentage: progressPercentage, indexWasChanged: indexWasChanged)
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
     }
