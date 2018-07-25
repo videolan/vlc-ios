@@ -50,7 +50,7 @@ class VLCActionSheet: UIViewController {
         return collectionViewLayout
     }()
 
-    lazy var collectionView: UICollectionView = {
+    @objc lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
         collectionView.dataSource = self

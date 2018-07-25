@@ -271,6 +271,7 @@
 		CAA0B0F720726A0E00B9274E /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA0B0F620726A0E00B9274E /* TestHelper.swift */; };
 		CABCBAFF20EB15EA0040E2F5 /* VLCSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABCBAFE20EB15EA0040E2F5 /* VLCSettingsTableViewCell.swift */; };
 		CAC0AFED20CF8F6F00EDB035 /* VLCAccessibilityIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */; };
+		CAC7E3DE20F87BD000000751 /* VLCSettingsSpecifierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC7E3DD20F87BD000000751 /* VLCSettingsSpecifierManager.swift */; };
 		CAD925792075536300F88496 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD925782075536300F88496 /* Screenshot.swift */; };
 		CAD925812075613200F88496 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD925802075613100F88496 /* SnapshotHelper.swift */; };
 		CADFAD08207D128200103F33 /* VLCEmptyLibraryView.m in Sources */ = {isa = PBXBuildFile; fileRef = CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */; };
@@ -1006,6 +1007,7 @@
 		CAA0B0F620726A0E00B9274E /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		CABCBAFE20EB15EA0040E2F5 /* VLCSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCSettingsTableViewCell.swift; path = Sources/VLCSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		CABCBB0020EB38580040E2F5 /* IASKSettingsTableViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "IASKSettingsTableViewController+Protected.h"; path = "Sources/IASKSettingsTableViewController+Protected.h"; sourceTree = "<group>"; };
+		CAC7E3DD20F87BD000000751 /* VLCSettingsSpecifierManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCSettingsSpecifierManager.swift; path = Sources/VLCSettingsSpecifierManager.swift; sourceTree = "<group>"; };
 		CAD925782075536300F88496 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		CAD925802075613100F88496 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCEmptyLibraryView.h; path = Sources/VLCEmptyLibraryView.h; sourceTree = "<group>"; };
@@ -1590,6 +1592,7 @@
 				CA9734B421083ED900BBE7C7 /* VLCSettingsSheetCell.swift */,
 				CABCBB0020EB38580040E2F5 /* IASKSettingsTableViewController+Protected.h */,
 				CABCBAFE20EB15EA0040E2F5 /* VLCSettingsTableViewCell.swift */,
+				CAC7E3DD20F87BD000000751 /* VLCSettingsSpecifierManager.swift */,
 				7D37849F183A98EB009EE944 /* VLCBugreporter.h */,
 				7D3784A0183A98EB009EE944 /* VLCBugreporter.m */,
 				7DC19AEB1868C91400810BF7 /* First Steps */,
@@ -3422,6 +3425,7 @@
 				7D5CAA891A4AD763003F2CBC /* VLCTrackSelectorTableViewCell.m in Sources */,
 				7D63C19018774B1700BD5256 /* VLCFirstStepsSecondPageViewController.m in Sources */,
 				8F91EC79195CEC7900F5BCBA /* VLCOpenInActivity.m in Sources */,
+				CAC7E3DE20F87BD000000751 /* VLCSettingsSpecifierManager.swift in Sources */,
 				7D37848F183A98B6009EE944 /* VLCMovieViewController.m in Sources */,
 				DD3EFF4D1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				8D437154205808FF00F36458 /* VLCActionSheet.swift in Sources */,
