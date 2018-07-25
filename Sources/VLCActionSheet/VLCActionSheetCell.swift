@@ -11,7 +11,9 @@
 
 class VLCActionSheetCell: UICollectionViewCell {
 
-    static let identifier = "VLCActionSheetCell"
+    @objc static var identifier: String {
+        return String(describing: self)
+    }
 
     let icon: UIImageView = {
         let icon = UIImageView()
@@ -25,6 +27,7 @@ class VLCActionSheetCell: UICollectionViewCell {
         name.textColor = PresentationTheme.current.colors.cellTextColor
         name.font = UIFont.systemFont(ofSize: 15)
         name.translatesAutoresizingMaskIntoConstraints = false
+        name.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return name
     }()
 
@@ -62,9 +65,6 @@ class VLCActionSheetCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             icon.heightAnchor.constraint(equalToConstant: 25),
             icon.widthAnchor.constraint(equalTo: icon.heightAnchor),
-
-            name.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            name.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
 
             stackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
