@@ -180,6 +180,8 @@ class VLCMediaCategoryViewController<T, ModelType: MediaLibraryBaseModel>: UICol
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
             play(mediaObject: mediaObject)
+        } else if let media = category.files[indexPath.row] as? VLCMLMedia {
+            play(media: media)
         }
     }
 
@@ -216,5 +218,9 @@ class VLCMediaCategoryViewController<T, ModelType: MediaLibraryBaseModel>: UICol
 extension VLCMediaCategoryViewController {
     func play(mediaObject: NSManagedObject) {
         VLCPlaybackController.sharedInstance().playMediaLibraryObject(mediaObject)
+    }
+
+    func play(media: VLCMLMedia) {
+        VLCPlaybackController.sharedInstance().play(media)
     }
 }
