@@ -21,7 +21,7 @@ def iOS_pods
   pod 'GoogleAPIClient/Drive'
   pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
   pod 'MediaLibraryKit-prod'
-  pod 'MobileVLCKit', '3.1.2'
+  pod 'MobileVLCKit', '3.1.3'
   pod 'GTMAppAuth'
 end
 
@@ -44,7 +44,7 @@ target 'VLC-tvOS' do
   pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
   pod 'GRKArrayDiff', '~> 2.1'
   pod 'HockeySDK-tvOS', '~>5.0.0'
-  pod 'TVVLCKit', '3.1.2'
+  pod 'TVVLCKit', '3.1.3'
 end
 
 target 'VLC-watchOS-Extension' do
