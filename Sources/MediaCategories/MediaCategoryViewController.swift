@@ -13,18 +13,17 @@
 
 import Foundation
 
-class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
+class VLCMediaCategoryViewController<T, ModelType: MediaLibraryBaseModel>: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
     let cellPadding: CGFloat = 5.0
     private var services: Services
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
-    var category: VLCMediaSubcategoryModel<T>
+    var category: ModelType
 
-    @available(iOS 11.0, *)
-    lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
-        VLCDragAndDropManager<T>(subcategory: category)
-
-    }()
+//    @available(iOS 11.0, *)
+//    lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
+//        VLCDragAndDropManager<T>(subcategory: VLCMediaSubcategories<>)
+//    }()
 
     lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
@@ -38,13 +37,12 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
         fatalError()
     }
 
-    init(services: Services, category: VLCMediaSubcategoryModel<T>) {
+    init(services: Services, category: ModelType) {
         self.services = services
         self.category = category
-
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: category.changeNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: category.notificaitonName, object: nil)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -52,8 +50,11 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     }
 
     @objc func reloadData() {
-        collectionView?.reloadData()
-        updateUIForContent()
+        DispatchQueue.main.async {
+            [weak self] in
+            self?.collectionView?.reloadData()
+            self?.updateUIForContent()
+        }
     }
 
     @available(*, unavailable)
@@ -89,8 +90,8 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
         if #available(iOS 11.0, *) {
-            collectionView?.dragDelegate = dragAndDropManager
-            collectionView?.dropDelegate = dragAndDropManager
+//            collectionView?.dragDelegate = dragAndDropManager
+//            collectionView?.dropDelegate = dragAndDropManager
         }
     }
 
@@ -150,7 +151,7 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return IndicatorInfo(title:category.indicatorInfoName)
+        return IndicatorInfo(title:category.indicatorName)
     }
 
     // MARK: - UICollectionViewDataSource
