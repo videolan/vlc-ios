@@ -10,11 +10,23 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+@objc protocol MediaLibraryObserver: class {
+    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+                      didUpdateVideo video: [VLCMLMedia])
+
+    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+                      didAddVideo video: [VLCMLMedia])
+}
+
 class VLCMediaLibraryManager: NSObject {
 
     private static let databaseName: String = "medialibrary.db"
     private var databasePath: String!
     private var thumbnailPath: String!
+
+    // Using ObjectIdentifier to avoid duplication and facilitate
+    // identification of observing object
+    private var observers = [ObjectIdentifier: Observer]()
 
     private lazy var medialib: VLCMediaLibrary = {
         let medialibrary = VLCMediaLibrary()
@@ -88,139 +100,27 @@ class VLCMediaLibraryManager: NSObject {
     }
 }
 
-// MARK: MediaDataSource - Other methods
+// MARK: - Observer
+private extension VLCMediaLibraryManager {
+    struct Observer {
+        weak var observer: MediaLibraryObserver?
+
+        init(_ observer: MediaLibraryObserver) {
+            self.observer = observer
+        }
+    }
+}
 
 extension VLCMediaLibraryManager {
-//    @objc enum VLCMediaCategory: Int {
-//        case unknown
-//        case audio
-//        case video
-//    }
-//
-//    @objc enum VLCMediaSubcategory: Int {
-//        case unknown
-//        case movies
-//        case episodes
-//        case artists
-//        case albums
-//        case tracks
-//        case genres
-//        case videoPlaylists
-//        case audioPlaylists
-//        case allVideos
-//    }
-//
-//    struct VLCMediaType {
-//        let category: VLCMediaCategory
-//        var subcategory: VLCMediaSubcategory
-//    }
-//
-//
-//        var foundVideos = [VLCMLMedia]()
-//        var foundAudio = [VLCMLMedia]()
-//
-//        var movies = [VLCMLMedia]()
-//        var episodes = [VLCMLMedia]()
-//        var artists = [String]()
-//        var albums = [MLAlbum]()
-//        var genres = [String]()
-//        var audioPlaylist = [MLLabel]()
-//        var videoPlaylist = [MLLabel]()
-//
+    func addObserver(_ observer: MediaLibraryObserver) {
+        let identifier = ObjectIdentifier(observer)
+        observers[identifier] = Observer(observer)
+    }
 
-//    @objc func numberOfFiles(subcategory: VLCMediaSubcategory) -> Int {
-//        return array(for: subcategory).countSources/MediaViewController.swift
-//    }
-//
-//    private func array(for subcategory: VLCMediaSubcategory) -> [Any] {
-//        switch subcategory {
-//        case .unknown:
-//            preconditionFailure("No")
-//        case .movies:
-//            return movies
-//        case .episodes:
-//            return episodes
-//        case .artists:
-//            return artists
-//        case .albums:
-//            return albums
-//        case .tracks:
-//            return foundAudio
-//        case .genres:
-//            return genres
-//        case .audioPlaylists:
-//            return audioPlaylist
-//        case .videoPlaylists:
-//            return videoPlaylist
-//        case .allVideos:
-//            return foundVideos
-//        }
-//    }
-//
-//    func indicatorInfo(for subcategory: VLCMediaSubcategory) -> IndicatorInfo {
-//        switch subcategory {
-//        case .unknown:
-//            preconditionFailure("No")
-//        case .movies:
-//            return IndicatorInfo(title: NSLocalizedString("MOVIES", comment: ""))
-//        case .episodes:
-//            return IndicatorInfo(title: NSLocalizedString("EPISODES", comment: ""))
-//        case .artists:
-//            return IndicatorInfo(title: NSLocalizedString("ARTISTS", comment: ""))
-//        case .albums:
-//            return IndicatorInfo(title: NSLocalizedString("ALBUMS", comment: ""))
-//        case .tracks:
-//            return IndicatorInfo(title: NSLocalizedString("SONGS", comment: ""))
-//        case .genres:
-//            return IndicatorInfo(title: NSLocalizedString("GENRES", comment: ""))
-//        case .audioPlaylists:
-//            return IndicatorInfo(title: NSLocalizedString("AUDIO_PLAYLISTS", comment: ""))
-//        case .videoPlaylists:
-//            return IndicatorInfo(title: NSLocalizedString("VIDEO_PLAYLISTS", comment: ""))
-//        case .allVideos:
-//            return IndicatorInfo(title: NSLocalizedString("VIDEOS", comment: ""))
-//        }
-//
-//    }
-//
-//    @objc func object(at index: Int, subcategory: VLCMediaSubcategory) -> Any {
-//
-//        guard index >= 0 else {
-//            preconditionFailure("a negative value ? I don't think so!")
-//        }
-//
-//        let categoryArray = array(for: subcategory)
-//        if index < categoryArray.count {
-//            return categoryArray[Int(index)]
-//        }
-//        preconditionFailure("index is taller than count")
-//    }
-//
-//    func allObjects(for subcategory: VLCMediaSubcategory) -> [Any] {
-//        return array(for:subcategory)
-//    }
-//
-//    func removeObject(at index: Int, subcategory: VLCMediaSubcategory) {
-//        guard index >= 0 else {
-//            preconditionFailure("a negative value ? I don't think so!")
-//        }
-//        var categoryArray = array(for: subcategory)
-//        if index < categoryArray.count {
-//            categoryArray.remove(at: index)
-//        }
-//        preconditionFailure("index is taller than count")
-//    }
-//
-//    func insert(_ item: MLFile, at index: Int, subcategory: VLCMediaSubcategory) {
-//        guard index >= 0 else {
-//            preconditionFailure("a negative value ? I don't think so!")
-//        }
-//        var categoryArray = array(for: subcategory)
-//        if index < categoryArray.count {
-//            categoryArray.insert(item, at: index)
-//        }
-//        categoryArray.append(item)
-//    }
+    func removeObserver(_ observer: MediaLibraryObserver) {
+        let identifier = ObjectIdentifier(observer)
+        observers.removeValue(forKey: identifier)
+    }
 }
 
 // MARK: MediaDataSource - Audio methods
@@ -298,7 +198,9 @@ extension VLCMediaLibraryManager {
 // MARK: VLCMediaLibraryDelegate
 extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAddMedia media: [VLCMLMedia]) {
-        NotificationCenter.default.post(name: .VLCVideosDidChangeNotification, object: media)
+        for observer in observers {
+            observer.value.observer?.medialibrary!(self, didAddVideo: media)
+        }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didStartDiscovery entryPoint: String) {
