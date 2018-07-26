@@ -12,6 +12,7 @@
 
 #import "VLCPlaybackController+MediaLibrary.h"
 #import <CoreData/CoreData.h>
+#import <VLCMediaLibraryKit/VLCMLFile.h>
 
 @implementation VLCPlaybackController (MediaLibrary)
 
@@ -34,6 +35,11 @@
     }
     else if ([mediaObject isKindOfClass:[MLShowEpisode class]])
         [self configureWithShowEpisode:(MLShowEpisode *)mediaObject];
+}
+
+- (void)playMedia:(VLCMLMedia *)media
+{
+    [self configureMediaListWithMLMedia:@[media] indexToPlay:0];
 }
 
 /*
@@ -124,6 +130,17 @@ Open a file in the libraryViewController without changing the playstate
     VLCMedia *media;
     for (MLFile *file in files) {
         media = [VLCMedia mediaWithURL:file.url];
+        [media addOptions:self.mediaOptionsDictionary];
+        [list addMedia:media];
+    }
+    [self configureMediaList:list atIndex:index];
+}
+
+- (void)configureMediaListWithMLMedia:(NSArray<VLCMLMedia *> *)mlMedia indexToPlay:(int)index {
+    VLCMediaList *list = [[VLCMediaList alloc] init];
+    VLCMedia *media;
+    for (VLCMLMedia *file in mlMedia) {
+        media = [VLCMedia mediaWithURL: file.mainFile.mrl];
         [media addOptions:self.mediaOptionsDictionary];
         [list addMedia:media];
     }
