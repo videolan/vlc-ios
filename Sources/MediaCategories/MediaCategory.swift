@@ -31,9 +31,9 @@ class VLCVideoPlaylistCategoryViewController: VLCMediaCategoryViewController<MLL
  }
 }
 
-class VLCTrackCategoryViewController: VLCMediaCategoryViewController<MLFile, VideoModel> {
+class VLCTrackCategoryViewController: VLCMediaCategoryViewController<VLCMLMedia, AudioModel> {
     init(_ services: Services) {
-        let model = VideoModel(medialibrary: services.medialibraryManager)
+        let model = AudioModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
     }
 }
