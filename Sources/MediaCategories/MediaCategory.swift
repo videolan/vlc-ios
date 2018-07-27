@@ -52,9 +52,9 @@ class VLCArtistCategoryViewController: VLCMediaCategoryViewController<String, Ar
     }
 }
 
-class VLCAlbumCategoryViewController: VLCMediaCategoryViewController<MLAlbum, VideoModel> {
+class VLCAlbumCategoryViewController: VLCMediaCategoryViewController<MLAlbum, AlbumModel> {
     init(_ services: Services) {
-        let model = VideoModel(medialibrary: services.medialibraryManager)
+        let model = AlbumModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
     }
 }

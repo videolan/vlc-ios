@@ -30,6 +30,8 @@
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                                      didAddArtist artist: [VLCMLArtist])
 
+    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+                                     didAddAlbum album: [VLCMLAlbum])
 }
 
 class VLCMediaLibraryManager: NSObject {
@@ -152,8 +154,8 @@ extension VLCMediaLibraryManager {
         return medialib.artists(with: .artist, desc: false, all: true)
     }
 
-    private func getAlbums() {
-//        albums = MLAlbum.allAlbums() as! [MLAlbum]
+    func getAlbums() -> [VLCMLAlbum] {
+        return medialib.albums(with: .album, desc: false)
     }
 
     private func getAudioPlaylists() {
@@ -227,6 +229,13 @@ extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
         print("VLCMediaLibraryDelegate: Did add artists: \(artists), with count: \(artists.count)")
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddArtist: artists)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd albums: [VLCMLAlbum]) {
+        print("VLCMediaLibraryDelegate: Did add albums: \(albums), with count: \(albums.count)")
+        for observer in observers {
+            observer.value.observer?.medialibrary?(self, didAddAlbum: albums)
         }
     }
 
