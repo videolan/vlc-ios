@@ -19,6 +19,7 @@ extension Notification.Name {
     static let VLCAudioPlaylistsDidChangeNotification = Notification.Name("AudioPlaylistsDidChangeNotfication")
     static let VLCVideoPlaylistsDidChangeNotification = Notification.Name("VideoPlaylistsDidChangeNotfication")
     static let VLCVideosDidChangeNotification = Notification.Name("VideosDidChangeNotfication")
+    static let VLCAudioDidChangeNotification = Notification.Name("AudioDidChangeNotfication")
 }
 
 protocol MediaLibraryBaseModel {
