@@ -1,5 +1,15 @@
 # Changelog
 
+## iOS [3.1.1]
+
+· Fixed the swiping Gestures to change brightness and Volume
+· Chromecasting is not stopping anymore when locking the device
+· Fixed Video not being displayed over an external Screen via HDMI
+· Fixed Audio not working after pausing and leaving the App
+· Fixed opening external files in VLC or from the Files app
+· Fixed an issue where songs where skipped when playing albums or playlists
+· Better 360 video behavior when panning
+
 ## iOS [3.1.0]
 
 · We added a feature many of you waited for: Chromecast support
