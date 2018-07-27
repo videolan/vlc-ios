@@ -17,9 +17,9 @@ class VLCMovieCategoryViewController: VLCMediaCategoryViewController<VLCMLMedia,
     }
 }
 
-class VLCShowEpisodeCategoryViewController: VLCMediaCategoryViewController<MLShowEpisode, VideoModel> {
+class VLCShowEpisodeCategoryViewController: VLCMediaCategoryViewController<MLShowEpisode, ShowEpisodeModel> {
     init(_ services: Services) {
-        let model = VideoModel(medialibrary: services.medialibraryManager)
+        let model = ShowEpisodeModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
     }
 }
