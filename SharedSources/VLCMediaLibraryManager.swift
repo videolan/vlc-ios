@@ -26,6 +26,10 @@
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                                      didAddAlbumTrack audio: [VLCMLMedia])
+
+    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+                                     didAddArtist artist: [VLCMLArtist])
+
 }
 
 class VLCMediaLibraryManager: NSObject {
@@ -144,10 +148,8 @@ extension VLCMediaLibraryManager {
 //        genresFromAudio()
     }
 
-    private func getArtists() {
-//        let albumtracks = MLAlbumTrack.allTracks() as! [MLAlbumTrack]
-//        let tracksWithArtist = albumtracks.filter { $0.artist != nil && $0.artist != "" }
-//        artists = tracksWithArtist.map { $0.artist }
+    func getArtists() -> [VLCMLArtist] {
+        return medialib.artists(with: .artist, desc: false, all: true)
     }
 
     private func getAlbums() {
@@ -218,6 +220,13 @@ extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
             observer.value.observer?.medialibrary?(self, didAddAudio: audio)
             observer.value.observer?.medialibrary?(self, didAddShowEpisode: showEpisode)
             observer.value.observer?.medialibrary?(self, didAddAlbumTrack: albumTrack)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd artists: [VLCMLArtist]) {
+        print("VLCMediaLibraryDelegate: Did add artists: \(artists), with count: \(artists.count)")
+        for observer in observers {
+            observer.value.observer?.medialibrary?(self, didAddArtist: artists)
         }
     }
 
