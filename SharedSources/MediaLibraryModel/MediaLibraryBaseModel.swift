@@ -22,18 +22,21 @@ extension Notification.Name {
     static let VLCAudioDidChangeNotification = Notification.Name("AudioDidChangeNotfication")
 }
 
-protocol MediaLibraryBaseModel {
+protocol MediaLibraryModelView {
+    func dataChanged()
+}
+
+protocol MediaLibraryBaseModel: class {
     associatedtype MLType where MLType: VLCMLObject
 
+    init(medialibrary: VLCMediaLibraryManager)
+
     var files: [MLType] { get set }
+    var view: MediaLibraryModelView? { get set }
 
     var indicatorName: String { get }
     var notificaitonName: Notification.Name { get }
 
-    // mutating will depend if we need to handle struc/enum
     func append(_ item: MLType)
     func isIncluded(_ item: MLType)
 }
-
-// protocol can be extended to have the "generic methods" that
-// childs will share. No need an in-between class

@@ -13,7 +13,7 @@
 
 import Foundation
 
-class VLCMediaCategoryViewController<T, ModelType: MediaLibraryBaseModel>: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
+class VLCMediaCategoryViewController<T, ModelType: MediaLibraryBaseModel>: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider, MediaLibraryModelView {
     let cellPadding: CGFloat = 5.0
     private var services: Services
     private var searchController: UISearchController?
@@ -42,7 +42,7 @@ class VLCMediaCategoryViewController<T, ModelType: MediaLibraryBaseModel>: UICol
         self.category = category
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: category.notificaitonName, object: nil)
+        category.view = self
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -222,5 +222,13 @@ extension VLCMediaCategoryViewController {
 
     func play(media: VLCMLMedia) {
         VLCPlaybackController.sharedInstance().play(media)
+    }
+}
+
+// MARK: - MediaLibraryModelView
+
+extension VLCMediaCategoryViewController {
+    func dataChanged() {
+        reloadData()
     }
 }

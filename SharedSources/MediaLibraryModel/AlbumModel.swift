@@ -14,9 +14,9 @@ class AlbumModel: MediaLibraryBaseModel {
 
     var files = [VLCMLAlbum]()
 
-    var indicatorName: String = NSLocalizedString("ALBUMS", comment: "")
+    var view: MediaLibraryModelView?
 
-    var notificaitonName: Notification.Name = .VLCAlbumsDidChangeNotification
+    var indicatorName: String = NSLocalizedString("ALBUMS", comment: "")
 
     required init(medialibrary: VLCMediaLibraryManager) {
         medialibrary.addObserver(self)
@@ -36,6 +36,6 @@ class AlbumModel: MediaLibraryBaseModel {
 extension AlbumModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddAlbum album: [VLCMLAlbum]) {
         album.forEach({ append($0) })
-        NotificationCenter.default.post(name: notificaitonName, object: nil)
+        view?.dataChanged()
     }
 }
