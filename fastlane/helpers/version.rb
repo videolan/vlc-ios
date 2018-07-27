@@ -8,6 +8,6 @@ end
 
 def increment_build_number_in_plist(plistPath)
   buildNumber = `xcrun /usr/libexec/PlistBuddy -c "Print CFBundleVersion" "#{plistPath}"`
-  `/usr/libexec/PlistBuddy -c "Set :CFBundleVersion #{buildNumber.next}" "#{plistPath}"`
+  `/usr/libexec/PlistBuddy -c "Set :CFBundleVersion #{buildNumber.next.strip()}" "#{plistPath}"`
 end
 
