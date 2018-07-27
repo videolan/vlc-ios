@@ -33,6 +33,6 @@ class VideoModel: MediaLibraryBaseModel {
 extension VideoModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddVideo video: [VLCMLMedia]) {
         video.forEach({ append($0) })
-        NotificationCenter.default.post(name: .VLCVideosDidChangeNotification, object: nil)
+        NotificationCenter.default.post(name: notificaitonName, object: nil)
     }
 }
