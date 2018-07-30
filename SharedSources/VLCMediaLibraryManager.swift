@@ -32,6 +32,9 @@
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                                      didAddAlbum album: [VLCMLAlbum])
+
+    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+                                     didAddGenre genre: [VLCMLGenre])
 }
 
 class VLCMediaLibraryManager: NSObject {
@@ -113,6 +116,10 @@ class VLCMediaLibraryManager: NSObject {
 
     func addMedia(withMrl mrl: URL) {
         medialib.addMedia(withMrl: mrl)
+    }
+
+    func genre(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLGenre] {
+        return medialib.genres(with: sort, desc: desc)
     }
 }
 

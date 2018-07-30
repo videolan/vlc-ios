@@ -261,6 +261,7 @@
 		8DE18890210B53E000A091D2 /* AudioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE1888F210B53E000A091D2 /* AudioModel.swift */; };
 		8DE18892210B5BAD00A091D2 /* ArtistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE18891210B5BAD00A091D2 /* ArtistModel.swift */; };
 		8DE18894210B5F8200A091D2 /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE18893210B5F8200A091D2 /* AlbumModel.swift */; };
+		8DE18898210F144B00A091D2 /* GenreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE18897210F144B00A091D2 /* GenreModel.swift */; };
 		8F91EC79195CEC7900F5BCBA /* VLCOpenInActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */; };
 		8F91EC7F195E1DAB00F5BCBA /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F91EC7E195E1DAB00F5BCBA /* AssetsLibrary.framework */; };
 		9B088308183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */; };
@@ -953,6 +954,7 @@
 		8DE1888F210B53E000A091D2 /* AudioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioModel.swift; sourceTree = "<group>"; };
 		8DE18891210B5BAD00A091D2 /* ArtistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistModel.swift; sourceTree = "<group>"; };
 		8DE18893210B5F8200A091D2 /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
+		8DE18897210F144B00A091D2 /* GenreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreModel.swift; sourceTree = "<group>"; };
 		8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenInActivity.h; path = Sources/VLCOpenInActivity.h; sourceTree = SOURCE_ROOT; };
 		8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpenInActivity.m; path = Sources/VLCOpenInActivity.m; sourceTree = SOURCE_ROOT; };
 		8F91EC7E195E1DAB00F5BCBA /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -2142,6 +2144,7 @@
 				8DE1888F210B53E000A091D2 /* AudioModel.swift */,
 				8DE18891210B5BAD00A091D2 /* ArtistModel.swift */,
 				8DE18893210B5F8200A091D2 /* AlbumModel.swift */,
+				8DE18897210F144B00A091D2 /* GenreModel.swift */,
 			);
 			path = MediaLibraryModel;
 			sourceTree = "<group>";
@@ -3333,6 +3336,7 @@
 				414396C22023316C005E3FAF /* AppearanceManager.swift in Sources */,
 				7D30F3DC183AB2F900FFC021 /* VLCNetworkLoginViewController.m in Sources */,
 				8DE18890210B53E000A091D2 /* AudioModel.swift in Sources */,
+				8DE18898210F144B00A091D2 /* GenreModel.swift in Sources */,
 				419A2C661F37A4B70069D224 /* VLCStringsForLocalization.m in Sources */,
 				DDA1B9091CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */,
 				8DE18892210B5BAD00A091D2 /* ArtistModel.swift in Sources */,
