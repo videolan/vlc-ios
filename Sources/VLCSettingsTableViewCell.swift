@@ -46,6 +46,7 @@ class VLCSettingsTableViewCell: UITableViewCell {
 
      @objc func configure(specifier: IASKSpecifier, settingsValue: Any?) {
         textLabel?.text = specifier.title()
+        textLabel?.numberOfLines = 0
         detailTextLabel?.text = specifier.subtitle()
 
         switch specifier.type() {
