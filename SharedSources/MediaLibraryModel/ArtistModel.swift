@@ -12,9 +12,9 @@
 class ArtistModel: MediaLibraryBaseModel {
     typealias MLType = VLCMLArtist
 
-    var files = [VLCMLArtist]()
+    var updateView: (() -> Void)?
 
-    var view: MediaLibraryModelView?
+    var files = [VLCMLArtist]()
 
     var indicatorName: String = NSLocalizedString("ARTISTS", comment: "")
 
@@ -34,6 +34,6 @@ class ArtistModel: MediaLibraryBaseModel {
 extension ArtistModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddArtist artist: [VLCMLArtist]) {
         artist.forEach({ append($0) })
-        view?.dataChanged()
+        updateView?()
     }
 }

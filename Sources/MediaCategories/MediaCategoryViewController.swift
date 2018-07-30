@@ -42,7 +42,6 @@ class VLCMediaCategoryViewController<T, ModelType: MediaLibraryBaseModel>: UICol
         self.category = category
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
-        category.view = self
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

@@ -12,9 +12,9 @@
 class AudioModel: MediaLibraryBaseModel {
     typealias MLType = VLCMLMedia
 
-    var files = [VLCMLMedia]()
+    var updateView: (() -> Void)?
 
-    var view: MediaLibraryModelView?
+    var files = [VLCMLMedia]()
 
     var indicatorName: String = NSLocalizedString("SONGS", comment: "")
 
@@ -36,6 +36,6 @@ class AudioModel: MediaLibraryBaseModel {
 extension AudioModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddAudio audio: [VLCMLMedia]) {
         audio.forEach({ append($0) })
-        view?.dataChanged()
+        updateView?()
     }
 }

@@ -19,7 +19,8 @@ protocol MediaLibraryBaseModel: class {
     init(medialibrary: VLCMediaLibraryManager)
 
     var files: [MLType] { get set }
-    var view: MediaLibraryModelView? { get set }
+
+    var updateView: (() -> Void)? { get set }
 
     var indicatorName: String { get }
 

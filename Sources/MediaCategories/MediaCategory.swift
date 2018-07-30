@@ -14,6 +14,9 @@ class VLCMovieCategoryViewController: VLCMediaCategoryViewController<VLCMLMedia,
     init(_ services: Services) {
         let model = VideoModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
+        category.updateView = { [weak self] in
+            self?.reloadData()
+        }
     }
 }
 
@@ -21,6 +24,9 @@ class VLCShowEpisodeCategoryViewController: VLCMediaCategoryViewController<MLSho
     init(_ services: Services) {
         let model = ShowEpisodeModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
+        category.updateView = { [weak self] in
+            self?.reloadData()
+        }
     }
 }
 
@@ -28,13 +34,19 @@ class VLCVideoPlaylistCategoryViewController: VLCMediaCategoryViewController<MLL
     init(_ services: Services) {
         let model = VideoModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
- }
+        category.updateView = { [weak self] in
+            self?.reloadData()
+        }
+    }
 }
 
 class VLCTrackCategoryViewController: VLCMediaCategoryViewController<VLCMLMedia, AudioModel> {
     init(_ services: Services) {
         let model = AudioModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
+        category.updateView = { [weak self] in
+            self?.reloadData()
+        }
     }
 }
 
@@ -42,6 +54,9 @@ class VLCGenreCategoryViewController: VLCMediaCategoryViewController<String, Gen
     init(_ services: Services) {
         let model = GenreModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
+        category.updateView = { [weak self] in
+            self?.reloadData()
+        }
     }
 }
 
@@ -49,6 +64,9 @@ class VLCArtistCategoryViewController: VLCMediaCategoryViewController<String, Ar
     init(_ services: Services) {
         let model = ArtistModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
+        category.updateView = { [weak self] in
+            self?.reloadData()
+        }
     }
 }
 
@@ -56,6 +74,9 @@ class VLCAlbumCategoryViewController: VLCMediaCategoryViewController<MLAlbum, Al
     init(_ services: Services) {
         let model = AlbumModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
+        category.updateView = { [weak self] in
+            self?.reloadData()
+        }
     }
 }
 
@@ -63,5 +84,8 @@ class VLCAudioPlaylistCategoryViewController: VLCMediaCategoryViewController<MLL
     init(_ services: Services) {
         let model = VideoModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
+        category.updateView = { [weak self] in
+            self?.reloadData()
+        }
     }
 }

@@ -12,6 +12,8 @@
 class ShowEpisodeModel: MediaLibraryBaseModel {
     typealias MLType = VLCMLMedia
 
+    var updateView: (() -> Void)?
+
     var files = [VLCMLMedia]()
 
     var view: MediaLibraryModelView?
@@ -33,6 +35,6 @@ class ShowEpisodeModel: MediaLibraryBaseModel {
 extension ShowEpisodeModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddShowEpisode showEpisode: [VLCMLMedia]) {
         showEpisode.forEach({ append($0) })
-        view?.dataChanged()
+        updateView?()
     }
 }
