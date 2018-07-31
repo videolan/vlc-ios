@@ -15,6 +15,21 @@ import Foundation
 class VLCSectionTableHeaderView: UITableViewHeaderFooterView {
 
     let separator = UIView()
+    
+    @objc let label: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = PresentationTheme.current.font.tableHeaderFont
+        return label
+    }()
+    
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.spacing = 8
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -28,26 +43,23 @@ class VLCSectionTableHeaderView: UITableViewHeaderFooterView {
     }
 
     func setupUI() {
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(separator)
-
+        stackView.addArrangedSubview(separator)
+        stackView.addArrangedSubview(label)
+        contentView.addSubview(stackView)
+        
         NSLayoutConstraint.activate([
-            separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            separator.heightAnchor.constraint(equalToConstant: 1),
-            separator.topAnchor.constraint(equalTo: contentView.topAnchor)
-            ])
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -9),
+            
+            separator.heightAnchor.constraint(equalToConstant: 1)
+        ])
     }
 
     @objc func updateTheme() {
         contentView.backgroundColor = PresentationTheme.current.colors.background
         separator.backgroundColor = PresentationTheme.current.colors.separatorColor
-        textLabel?.textColor = PresentationTheme.current.colors.cellTextColor
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        textLabel?.font = PresentationTheme.current.font.tableHeaderFont
-        textLabel?.textColor = PresentationTheme.current.colors.cellTextColor
+        label.textColor = PresentationTheme.current.colors.cellTextColor
     }
 }
