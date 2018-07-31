@@ -13,7 +13,7 @@
 
 import Foundation
 
-class VLCMediaCategoryViewController<T, ModelType: MediaLibraryBaseModel>: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider, MediaLibraryModelView {
+class VLCMediaCategoryViewController<ModelType: MediaLibraryBaseModel>: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider, MediaLibraryModelView {
     let cellPadding: CGFloat = 5.0
     private var services: Services
     private var searchController: UISearchController?

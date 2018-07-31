@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class VLCMovieCategoryViewController: VLCMediaCategoryViewController<VLCMLMedia, VideoModel> {
+class VLCMovieCategoryViewController: VLCMediaCategoryViewController<VideoModel> {
     init(_ services: Services) {
         let model = VideoModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
@@ -20,7 +20,7 @@ class VLCMovieCategoryViewController: VLCMediaCategoryViewController<VLCMLMedia,
     }
 }
 
-class VLCShowEpisodeCategoryViewController: VLCMediaCategoryViewController<MLShowEpisode, ShowEpisodeModel> {
+class VLCShowEpisodeCategoryViewController: VLCMediaCategoryViewController<ShowEpisodeModel> {
     init(_ services: Services) {
         let model = ShowEpisodeModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
@@ -30,7 +30,7 @@ class VLCShowEpisodeCategoryViewController: VLCMediaCategoryViewController<MLSho
     }
 }
 
-class VLCVideoPlaylistCategoryViewController: VLCMediaCategoryViewController<MLLabel, VideoModel> {
+class VLCVideoPlaylistCategoryViewController: VLCMediaCategoryViewController<VideoModel> {
     init(_ services: Services) {
         let model = VideoModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
@@ -40,7 +40,7 @@ class VLCVideoPlaylistCategoryViewController: VLCMediaCategoryViewController<MLL
     }
 }
 
-class VLCTrackCategoryViewController: VLCMediaCategoryViewController<VLCMLMedia, AudioModel> {
+class VLCTrackCategoryViewController: VLCMediaCategoryViewController<AudioModel> {
     init(_ services: Services) {
         let model = AudioModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
@@ -50,7 +50,7 @@ class VLCTrackCategoryViewController: VLCMediaCategoryViewController<VLCMLMedia,
     }
 }
 
-class VLCGenreCategoryViewController: VLCMediaCategoryViewController<String, GenreModel> {
+class VLCGenreCategoryViewController: VLCMediaCategoryViewController<GenreModel> {
     init(_ services: Services) {
         let model = GenreModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
@@ -60,7 +60,7 @@ class VLCGenreCategoryViewController: VLCMediaCategoryViewController<String, Gen
     }
 }
 
-class VLCArtistCategoryViewController: VLCMediaCategoryViewController<String, ArtistModel> {
+class VLCArtistCategoryViewController: VLCMediaCategoryViewController<ArtistModel> {
     init(_ services: Services) {
         let model = ArtistModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
@@ -70,7 +70,7 @@ class VLCArtistCategoryViewController: VLCMediaCategoryViewController<String, Ar
     }
 }
 
-class VLCAlbumCategoryViewController: VLCMediaCategoryViewController<MLAlbum, AlbumModel> {
+class VLCAlbumCategoryViewController: VLCMediaCategoryViewController<AlbumModel> {
     init(_ services: Services) {
         let model = AlbumModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
@@ -80,7 +80,7 @@ class VLCAlbumCategoryViewController: VLCMediaCategoryViewController<MLAlbum, Al
     }
 }
 
-class VLCAudioPlaylistCategoryViewController: VLCMediaCategoryViewController<MLLabel, VideoModel> {
+class VLCAudioPlaylistCategoryViewController: VLCMediaCategoryViewController<VideoModel> {
     init(_ services: Services) {
         let model = VideoModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
