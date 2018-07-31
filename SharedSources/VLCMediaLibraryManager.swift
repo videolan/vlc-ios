@@ -123,8 +123,8 @@ class VLCMediaLibraryManager: NSObject {
     ///
     /// - Parameter type: Type of the media
     /// - Returns: Array of VLCMLMedia
-    func media(ofType type: VLCMLMediaType) -> [VLCMLMedia] {
-        return type == .video ? medialib.videoFiles(with: .filename, desc: false) : medialib.audioFiles(with: .filename, desc: false)
+    func media(ofType type: VLCMLMediaType, sortingCriteria sort: VLCMLSortingCriteria = .filename, desc: Bool = false) -> [VLCMLMedia] {
+        return type == .video ? medialib.videoFiles(with: sort, desc: desc) : medialib.audioFiles(with: sort, desc: desc)
     }
 
     func addMedia(withMrl mrl: URL) {
