@@ -15,7 +15,7 @@ class VLCActionSheetSectionHeader: UIView {
 
     let title: UILabel = {
         let title = UILabel()
-        title.font = UIFont.systemFont(ofSize: 13)
+        title.font = UIFont.boldSystemFont(ofSize: 13)
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
