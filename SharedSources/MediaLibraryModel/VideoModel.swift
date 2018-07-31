@@ -20,6 +20,7 @@ class VideoModel: MediaLibraryBaseModel {
 
     required init(medialibrary: VLCMediaLibraryManager) {
         medialibrary.addObserver(self)
+        files = medialibrary.media(ofType: .video)
     }
 
     func isIncluded(_ item: VLCMLMedia) {
