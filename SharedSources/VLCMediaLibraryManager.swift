@@ -65,8 +65,6 @@ class VLCMediaLibraryManager: NSObject {
                 preconditionFailure("VLCMediaLibraryManager: Unable to init medialibrary.")
         }
 
-        medialibrary.setVerbosity(.info)
-
         databasePath = dbPath + "/" + VLCMediaLibraryManager.databaseName
         thumbnailPath = documentPath
 
