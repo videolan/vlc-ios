@@ -97,9 +97,6 @@
 
     [VLCApperanceManager setupAppearanceWithTheme:PresentationTheme.current];
 
-    // Init the HTTP Server and clean its cache
-    [[VLCHTTPUploaderController sharedInstance] cleanCache];
-
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     rootViewController = [UITabBarController new];
     self.window.rootViewController = rootViewController;

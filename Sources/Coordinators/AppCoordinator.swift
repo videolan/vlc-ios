@@ -27,6 +27,10 @@ class Services: NSObject {
         self.playerController = VLCPlayerDisplayController(services: services)
         super.init()
         setupPlayerController()
+
+        // Init the HTTP Server and clean its cache
+        // FIXME: VLCHTTPUploaderController should perhaps be a service?
+        VLCHTTPUploaderController.sharedInstance().cleanCache()
     }
 
     private func setupPlayerController() {
