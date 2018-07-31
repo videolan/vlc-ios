@@ -10,6 +10,15 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+extension Notification.Name {
+    static let VLCNewFileAddedNotification = Notification.Name("NewFileAddedNotification")
+}
+
+// For objc
+extension NSNotification {
+    @objc static let VLCNewFileAddedNotification = Notification.Name.VLCNewFileAddedNotification
+}
+
 @objc protocol MediaLibraryObserver: class {
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                       didUpdateVideo video: [VLCMLMedia])
@@ -56,6 +65,8 @@ class VLCMediaLibraryManager: NSObject {
     override init() {
         super.init()
         setupMediaLibrary()
+        NotificationCenter.default.addObserver(self, selector: #selector(reload),
+                                               name: .VLCNewFileAddedNotification, object: nil)
     }
 
     // MARK: Private
@@ -94,6 +105,10 @@ class VLCMediaLibraryManager: NSObject {
     }
 
     // MARK: Internal
+
+    @objc private func reload() {
+        medialib.reload()
+    }
 
     /// Returns number of *ALL* files(audio and video) present in the medialibrary database
     func numberOfFiles() -> Int {
