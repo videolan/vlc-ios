@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class GenreModel: MediaLibraryBaseModel {
+class GenreModel: MLBaseModel {
     typealias MLType = VLCMLGenre
 
     var updateView: (() -> Void)?

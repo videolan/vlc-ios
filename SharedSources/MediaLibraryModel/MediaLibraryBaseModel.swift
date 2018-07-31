@@ -13,7 +13,21 @@ protocol MediaLibraryModelView {
     func dataChanged()
 }
 
-protocol MediaLibraryBaseModel: class {
+// Expose a "shadow" version without associatedType in order to use it as a type
+protocol MediaLibraryBaseModel {
+    init(medialibrary: VLCMediaLibraryManager)
+
+    var anyfiles: [VLCMLObject] { get }
+
+    var updateView: (() -> Void)? { get set }
+
+    var indicatorName: String { get }
+
+    func append(_ item: VLCMLObject)
+    func isIncluded(_ item: VLCMLObject)
+}
+
+protocol MLBaseModel: MediaLibraryBaseModel {
     associatedtype MLType where MLType: VLCMLObject
 
     init(medialibrary: VLCMediaLibraryManager)
@@ -26,4 +40,18 @@ protocol MediaLibraryBaseModel: class {
 
     func append(_ item: MLType)
     func isIncluded(_ item: MLType)
+}
+
+extension MLBaseModel {
+    var anyfiles: [VLCMLObject] {
+        return files
+    }
+
+    func append(_ item: VLCMLObject) {
+        fatalError()
+    }
+
+    func isIncluded(_ item: VLCMLObject) {
+        fatalError()
+    }
 }

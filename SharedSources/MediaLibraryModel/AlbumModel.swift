@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class AlbumModel: MediaLibraryBaseModel {
+class AlbumModel: MLBaseModel {
     typealias MLType = VLCMLAlbum
 
     var updateView: (() -> Void)?
