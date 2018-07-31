@@ -46,6 +46,9 @@ Look at the memory and performance while playing a video
 
 * Upload the binary and dsym to Hockeyapp so that we get crashreporting
 * Tag the version
+* Upload archive and ipa to incoming of ftp.videolan.org and ping jb, thresh or etix to move it to ftp://ftp.videolan.org/pub/videolan/vlc-iOS
+    ipa: archive > export > for App Store
+    source archive: git archive --format=tar.gz <tag> -o <tag>.tar.gz
 
 
 
