@@ -16,8 +16,7 @@
 #import "VLCPlaylistCollectionViewCell.h"
 #import "VLCThumbnailsCache.h"
 #import "NSString+SupportedMedia.h"
-
-#import <VLCMediaLibraryKit/VLCMLFile.h>
+#import "VLC-Swift.h"
 
 @interface VLCPlaylistCollectionViewCell ()
 {
@@ -211,9 +210,7 @@
 - (void)_updateDisplayedInformations
 {
     _titleLabel.text = _media.title;
-    _subtitleLabel.text = [NSString stringWithFormat:@"%@ — %@", [VLCTime timeWithNumber:[NSNumber numberWithLongLong:_media.duration]],
-                                                                  [NSByteCountFormatter stringFromByteCount:[_media.mainFile size] countStyle:NSByteCountFormatterCountStyleFile]];
-
+    _subtitleLabel.text = [_media formatDurationOfMedia:_media];
 }
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
