@@ -25,7 +25,7 @@
 #import <arpa/inet.h>
 
 #if TARGET_OS_IOS
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 #import "VLCMediaFileDiscoverer.h"
 #endif
 

@@ -204,6 +204,9 @@
     if ([fileManager fileExistsAtPath:_filePath]) {
         [fileManager moveItemAtPath:_filePath toPath:finalFilePath error:nil];
         [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+        // FIXME: Replace notifications by cleaner observers
+        [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
+                                                            object:self];
     }
 
     [self.delegate downloadEnded];
