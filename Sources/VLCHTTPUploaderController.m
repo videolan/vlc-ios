@@ -25,6 +25,7 @@
 #import <arpa/inet.h>
 
 #if TARGET_OS_IOS
+#import "VLC_iOS-Swift.h"
 #import "VLCMediaFileDiscoverer.h"
 #endif
 
@@ -328,6 +329,9 @@
     }
 
     [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+    // FIXME: Replace notifications by cleaner observers
+    [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
+                                                        object:self];
 #endif
 }
 
