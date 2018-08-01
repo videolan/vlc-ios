@@ -127,10 +127,6 @@ class VLCMediaLibraryManager: NSObject {
         return type == .video ? medialib.videoFiles(with: sort, desc: desc) : medialib.audioFiles(with: sort, desc: desc)
     }
 
-    func addMedia(withMrl mrl: URL) {
-        medialib.addMedia(withMrl: mrl)
-    }
-
     func genre(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLGenre] {
         return medialib.genres(with: sort, desc: desc)
     }
