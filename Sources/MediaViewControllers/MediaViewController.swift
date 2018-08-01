@@ -73,6 +73,7 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
         sortOptionsAlertController.addAction(sortBySizeAction)
         sortOptionsAlertController.addAction(cancelAction)
         sortOptionsAlertController.view.tintColor = UIColor.vlcOrangeTint()
+        sortOptionsAlertController.popoverPresentationController?.sourceView = self.view
         present(sortOptionsAlertController, animated: true)
     }
 
