@@ -16,7 +16,6 @@ class ShowEpisodeModel: MLBaseModel {
 
     var files = [VLCMLMedia]()
 
-    var view: MediaLibraryModelView?
 
     var indicatorName: String = NSLocalizedString("EPISODES", comment: "")
 

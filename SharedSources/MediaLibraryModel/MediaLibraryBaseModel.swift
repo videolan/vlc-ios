@@ -9,10 +9,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-protocol MediaLibraryModelView {
-    func dataChanged()
-}
-
 // Expose a "shadow" version without associatedType in order to use it as a type
 protocol MediaLibraryBaseModel {
     init(medialibrary: VLCMediaLibraryManager)
