@@ -44,6 +44,8 @@ extension VideoModel {
     }
 }
 
+// MARK: - MediaLibraryObserver
+
 extension VideoModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddVideo video: [VLCMLMedia]) {
         video.forEach({ append($0) })
