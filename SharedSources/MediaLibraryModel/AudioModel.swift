@@ -46,6 +46,7 @@ extension AudioModel {
     }
 }
 
+// MARK: - MediaLibraryObserver
 
 extension AudioModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddAudio audio: [VLCMLMedia]) {
