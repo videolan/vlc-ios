@@ -191,7 +191,7 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
             }
         } else {
             if let playlistCell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), for: indexPath) as? VLCPlaylistCollectionViewCell {
-                if let mediaObject = subcategory.files[indexPath.row] as? NSManagedObject {
+                if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
                     playlistCell.mediaObject = mediaObject
                 }
                 return playlistCell
@@ -206,8 +206,8 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
             if let cell = collectionView.cellForItem(at: indexPath) as? VLCMediaViewEditCell {
                 cell.checkView.isEnabled = !cell.checkView.isEnabled
             }
-        } else if let mediaObject = subcategory.files[indexPath.row] as? NSManagedObject {
-            delegate?.mediaViewControllerDidSelectMediaObject(self, mediaObject: mediaObject)
+        } else if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
+            play(mediaObject: mediaObject)
         }
     }
 
