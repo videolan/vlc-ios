@@ -137,6 +137,7 @@ class VLCMediaLibraryManager: NSObject {
 }
 
 // MARK: - Observer
+
 private extension VLCMediaLibraryManager {
     struct Observer {
         weak var observer: MediaLibraryObserver?
