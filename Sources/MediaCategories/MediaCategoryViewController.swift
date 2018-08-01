@@ -212,6 +212,23 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 }
 
+// MARK: - Sort
+
+extension VLCMediaCategoryViewController {
+    // FIXME: Need to add a button for ascending/descending result
+    func sortByFileName() {
+        category.sort(by: .filename)
+    }
+
+    func sortByDate() {
+        category.sort(by: .insertionDate)
+    }
+
+    func sortBySize() {
+        category.sort(by: .fileSize)
+    }
+}
+
 // MARK: - Player
 
 extension VLCMediaCategoryViewController {

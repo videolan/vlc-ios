@@ -25,6 +25,7 @@ protocol MediaLibraryBaseModel {
 
     func append(_ item: VLCMLObject)
     func isIncluded(_ item: VLCMLObject)
+    func sort(by criteria: VLCMLSortingCriteria)
 }
 
 protocol MLBaseModel: MediaLibraryBaseModel {
@@ -40,6 +41,7 @@ protocol MLBaseModel: MediaLibraryBaseModel {
 
     func append(_ item: MLType)
     func isIncluded(_ item: MLType)
+    func sort(by criteria: VLCMLSortingCriteria)
 }
 
 extension MLBaseModel {
@@ -52,6 +54,10 @@ extension MLBaseModel {
     }
 
     func isIncluded(_ item: VLCMLObject) {
+        fatalError()
+    }
+
+    func sort(by criteria: VLCMLSortingCriteria) {
         fatalError()
     }
 }

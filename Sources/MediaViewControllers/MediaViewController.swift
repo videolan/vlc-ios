@@ -44,11 +44,28 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
     @objc func sort() {
         // This should be in a subclass
         let sortOptionsAlertController = UIAlertController(title: NSLocalizedString("SORT_BY", comment: ""), message: nil, preferredStyle: .actionSheet)
-        let sortByNameAction = UIAlertAction(title: SortOption.alphabetically.localizedDescription, style: .default) { action in
+        let sortByNameAction = UIAlertAction(title: SortOption.alphabetically.localizedDescription, style: .default) {
+            [weak self] action in
+            // call medialibrary
+            if let index = self?.currentIndex {
+                let currentViewController = self?.viewControllers[index] as? VLCMediaCategoryViewController
+                currentViewController?.sortByFileName()
+            }
         }
-        let sortBySizeAction = UIAlertAction(title: SortOption.size.localizedDescription, style: .default) { action in
+        let sortBySizeAction = UIAlertAction(title: SortOption.size.localizedDescription, style: .default) {
+            [weak self] action in
+            if let index = self?.currentIndex {
+                let currentViewController = self?.viewControllers[index] as? VLCMediaCategoryViewController
+                currentViewController?.sortBySize()
+            }
+
         }
-        let sortbyDateAction = UIAlertAction(title: SortOption.insertonDate.localizedDescription, style: .default) { action in
+        let sortbyDateAction = UIAlertAction(title: SortOption.insertonDate.localizedDescription, style: .default) {
+            [weak self] action in
+            if let index = self?.currentIndex {
+                let currentViewController = self?.viewControllers[index] as? VLCMediaCategoryViewController
+                currentViewController?.sortByDate()
+            }
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .cancel, handler: nil)
         sortOptionsAlertController.addAction(sortByNameAction)
