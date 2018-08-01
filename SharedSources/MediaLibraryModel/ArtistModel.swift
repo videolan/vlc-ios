@@ -16,9 +16,12 @@ class ArtistModel: MLBaseModel {
 
     var files = [VLCMLArtist]()
 
+    var medialibrary: VLCMediaLibraryManager
+
     var indicatorName: String = NSLocalizedString("ARTISTS", comment: "")
 
     required init(medialibrary: VLCMediaLibraryManager) {
+        self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         files = medialibrary.getArtists()
     }

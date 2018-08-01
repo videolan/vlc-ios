@@ -16,10 +16,12 @@ class ShowEpisodeModel: MLBaseModel {
 
     var files = [VLCMLMedia]()
 
+    var medialibrary: VLCMediaLibraryManager
 
     var indicatorName: String = NSLocalizedString("EPISODES", comment: "")
 
     required init(medialibrary: VLCMediaLibraryManager) {
+        self.medialibrary = medialibrary
         medialibrary.addObserver(self)
     }
 

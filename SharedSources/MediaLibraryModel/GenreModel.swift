@@ -16,9 +16,12 @@ class GenreModel: MLBaseModel {
 
     var files = [VLCMLGenre]()
 
+    var medialibrary: VLCMediaLibraryManager
+
     var indicatorName: String = NSLocalizedString("GENRE", comment: "")
 
     required init(medialibrary: VLCMediaLibraryManager) {
+        self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         // created too late so missed the callback asking if he has anything
         files = medialibrary.genre()

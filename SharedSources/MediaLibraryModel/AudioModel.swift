@@ -16,9 +16,12 @@ class AudioModel: MLBaseModel {
 
     var files = [VLCMLMedia]()
 
+    var medialibrary: VLCMediaLibraryManager
+
     var indicatorName: String = NSLocalizedString("SONGS", comment: "")
 
     required init(medialibrary: VLCMediaLibraryManager) {
+        self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         // created too late so missed the callback asking if he has anything
         files = medialibrary.media(ofType: .audio)

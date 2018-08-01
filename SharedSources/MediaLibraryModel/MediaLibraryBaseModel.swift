@@ -31,6 +31,8 @@ protocol MLBaseModel: MediaLibraryBaseModel {
 
     var files: [MLType] { get set }
 
+    var medialibrary: VLCMediaLibraryManager { get }
+
     var updateView: (() -> Void)? { get set }
 
     var indicatorName: String { get }

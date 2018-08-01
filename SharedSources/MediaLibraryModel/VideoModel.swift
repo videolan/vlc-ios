@@ -16,9 +16,12 @@ class VideoModel: MLBaseModel {
 
     var files = [VLCMLMedia]()
 
+    var medialibrary: VLCMediaLibraryManager
+
     var indicatorName: String = NSLocalizedString("MOVIES", comment: "")
 
     required init(medialibrary: VLCMediaLibraryManager) {
+        self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         files = medialibrary.media(ofType: .video)
     }
