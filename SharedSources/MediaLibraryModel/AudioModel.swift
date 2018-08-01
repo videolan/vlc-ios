@@ -35,6 +35,17 @@ class AudioModel: MLBaseModel {
         files.append(item)
     }
 }
+// MARK: - Sort
+
+extension AudioModel {
+
+    func sort(by criteria: VLCMLSortingCriteria) {
+        // FIXME: Currently if sorted by name, the files are sorted by filename but displaying title
+        files = medialibrary.media(ofType: .audio, sortingCriteria: criteria, desc: false)
+        updateView?()
+    }
+}
+
 
 extension AudioModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddAudio audio: [VLCMLMedia]) {
