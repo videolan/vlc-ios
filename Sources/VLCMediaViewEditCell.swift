@@ -37,37 +37,37 @@ class VLCMediaViewEditCell: UICollectionViewCell {
         return VLCCheckView(isEnabled: false, view: view)
     }()
 
-    let thumbnail: UIImageView = {
-        let thumbnail = UIImageView()
-        thumbnail.translatesAutoresizingMaskIntoConstraints = false
-        thumbnail.contentMode = .scaleAspectFit
-        thumbnail.clipsToBounds = true
-        thumbnail.layer.cornerRadius = 3
-        return thumbnail
+    let thumbnailImageView: UIImageView = {
+        let thumbnailImageView = UIImageView()
+        thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
+        thumbnailImageView.contentMode = .scaleAspectFit
+        thumbnailImageView.clipsToBounds = true
+        thumbnailImageView.layer.cornerRadius = 3
+        return thumbnailImageView
     }()
 
-    let title: UILabel = {
-        let title = UILabel()
-        title.textColor = PresentationTheme.current.colors.cellTextColor
-        title.font = UIFont.systemFont(ofSize: 17)
-        title.translatesAutoresizingMaskIntoConstraints = false
-        return title
+    let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        titleLabel.font = UIFont.systemFont(ofSize: 17)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return titleLabel
     }()
 
-    let subInfo: UILabel = {
-        let subInfo = UILabel()
-        subInfo.textColor = PresentationTheme.current.colors.cellTextColor
-        subInfo.font = UIFont.systemFont(ofSize: 13)
-        subInfo.translatesAutoresizingMaskIntoConstraints = false
-        return subInfo
+    let subInfoLabel: UILabel = {
+        let subInfoLabel = UILabel()
+        subInfoLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        subInfoLabel.font = UIFont.systemFont(ofSize: 13)
+        subInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        return subInfoLabel
     }()
 
-    let size: UILabel = {
-        let size = UILabel()
-        size.textColor = PresentationTheme.current.colors.cellTextColor
-        size.font = UIFont.systemFont(ofSize: 11)
-        size.translatesAutoresizingMaskIntoConstraints = false
-        return size
+    let sizeLabel: UILabel = {
+        let sizeLabel = UILabel()
+        sizeLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        sizeLabel.font = UIFont.systemFont(ofSize: 11)
+        sizeLabel.translatesAutoresizingMaskIntoConstraints = false
+        return sizeLabel
     }()
 
     let mainStackView: UIStackView = {
@@ -100,12 +100,12 @@ class VLCMediaViewEditCell: UICollectionViewCell {
 
     private func setupViews() {
 
-        mediaInfoStackView.addArrangedSubview(title)
-        mediaInfoStackView.addArrangedSubview(subInfo)
-        mediaInfoStackView.addArrangedSubview(size)
+        mediaInfoStackView.addArrangedSubview(titleLabel)
+        mediaInfoStackView.addArrangedSubview(subInfoLabel)
+        mediaInfoStackView.addArrangedSubview(sizeLabel)
 
         mainStackView.addArrangedSubview(checkView.view)
-        mainStackView.addArrangedSubview(thumbnail)
+        mainStackView.addArrangedSubview(thumbnailImageView)
         mainStackView.addArrangedSubview(mediaInfoStackView)
 
         addSubview(mainStackView)
@@ -119,8 +119,8 @@ class VLCMediaViewEditCell: UICollectionViewCell {
             checkView.view.heightAnchor.constraint(equalToConstant: 20),
             checkView.view.widthAnchor.constraint(equalTo: checkView.view.heightAnchor),
 
-            thumbnail.heightAnchor.constraint(equalToConstant: VLCMediaViewEditCell.height),
-            thumbnail.widthAnchor.constraint(equalTo: thumbnail.heightAnchor),
+            thumbnailImageView.heightAnchor.constraint(equalToConstant: VLCMediaViewEditCell.height),
+            thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailImageView.heightAnchor),
 
             mainStackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
             mainStackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),

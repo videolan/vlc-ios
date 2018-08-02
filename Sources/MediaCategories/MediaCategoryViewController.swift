@@ -183,10 +183,10 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
         if isEditing {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCMediaViewEditCell.identifier,
                                                              for: indexPath) as? VLCMediaViewEditCell {
-                cell.title.text = "( ｀ー´)ノ"
-                cell.subInfo.text = "(-ω-、)"
-                cell.size.text = "|ω°•)"
-                cell.thumbnail.image = UIImage(named: "vlc-xmas")
+                cell.titleLabel.text = "( ｀ー´)ノ"
+                cell.subInfoLabel.text = "(-ω-、)"
+                cell.sizeLabel.text = "|ω°•)"
+                cell.thumbnailImageView.image = UIImage(named: "vlc-xmas")
                 return cell
             }
         } else {
