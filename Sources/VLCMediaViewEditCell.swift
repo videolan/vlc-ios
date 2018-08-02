@@ -18,7 +18,20 @@ struct VLCCheckView {
             view.layer.borderColor = borderColor.cgColor
         }
     }
-    var view: UIView
+
+    var view: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        view.layer.cornerRadius = view.frame.width / 2
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        return view
+    }()
+
+    init(isEnabled: Bool) {
+        self.isEnabled = isEnabled
+    }
 }
 
 class VLCMediaViewEditCell: UICollectionViewCell {
@@ -27,15 +40,7 @@ class VLCMediaViewEditCell: UICollectionViewCell {
 
     static let height: CGFloat = 56
 
-    var checkView: VLCCheckView = {
-        var view = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.clipsToBounds = true
-        view.layer.cornerRadius = view.frame.width / 2
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 1
-        return VLCCheckView(isEnabled: false, view: view)
-    }()
+    var checkView = VLCCheckView(isEnabled: false)
 
     let thumbnailImageView: UIImageView = {
         let thumbnailImageView = UIImageView()
