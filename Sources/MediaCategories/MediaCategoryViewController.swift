@@ -217,7 +217,8 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 extension VLCMediaCategoryViewController {
     // FIXME: Need to add a button for ascending/descending result
     func sortByFileName() {
-        category.sort(by: .filename)
+        // The issue is that for audio we show title which is quite confusing if we use filename
+        category.sort(by: .alpha)
     }
 
     func sortByDate() {
