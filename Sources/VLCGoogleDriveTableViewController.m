@@ -166,7 +166,8 @@
                                                                              additionalParameters:nil];
 
         // Perform the previously built request and saving the current authorization flow.
-        ((VLCAppDelegate *)[UIApplication sharedApplication].delegate).currentGoogleAuthorizationFlow = [OIDAuthState authStateByPresentingAuthorizationRequest:request presentingViewController:self
+
+        URLHandlers.googleURLHandler.currentGoogleAuthorizationFlow = [OIDAuthState authStateByPresentingAuthorizationRequest:request presentingViewController:self
            callback:^(OIDAuthState *_Nullable authState, NSError *_Nullable error) {
 
                self.authorizationInProgress = NO;

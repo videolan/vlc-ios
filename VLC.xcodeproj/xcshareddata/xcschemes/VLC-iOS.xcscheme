@@ -47,9 +47,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4100F9691F78F77800D94E5C"
-               BuildableName = "VLC for iOSVideoCodecTests.xctest"
-               BlueprintName = "VLC for iOSVideoCodecTests"
+               BlueprintIdentifier = "41533C90211338D500EC3ABA"
+               BuildableName = "VLC for iOSTests.xctest"
+               BlueprintName = "VLC for iOSTests"
                ReferencedContainer = "container:VLC.xcodeproj">
             </BuildableReference>
          </TestableReference>

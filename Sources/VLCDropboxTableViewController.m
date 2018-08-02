@@ -50,10 +50,6 @@
     self.controller.delegate = self;
 
 #if TARGET_OS_IOS
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(sessionWasUpdated:)
-                                                 name:VLCDropboxSessionWasAuthorized
-                                               object:nil];
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropbox-white"]];
 

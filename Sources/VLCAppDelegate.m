@@ -23,20 +23,15 @@
 #import "UIDevice+VLC.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMigrationViewController.h"
-#import <BoxSDK/BoxSDK.h>
 #import "VLCPlaybackController.h"
 #import "VLCPlaybackController+MediaLibrary.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <HockeySDK/HockeySDK.h>
 #import "VLCActivityManager.h"
 #import "VLCDropboxConstants.h"
-#import "VLCDownloadViewController.h"
-#import <ObjectiveDropboxOfficial/ObjectiveDropboxOfficial.h>
 #import "VLCPlaybackNavigationController.h"
 #import "PAPasscodeViewController.h"
 #import "VLC_iOS-Swift.h"
-
-NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
 #define BETA_DISTRIBUTION 1
 
@@ -242,120 +237,13 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-    //Handles Dropbox Authorization flow.
-    DBOAuthResult *authResult = [DBClientsManager handleRedirectURL:url];
-    if (authResult != nil) {
-        if ([authResult isSuccess]) {
-            return YES;
+    for (id<VLCURLHandler> handler in URLHandlers.handlers) {
+        if ([handler canHandleOpenWithUrl:url options:options]) {
+            if ([handler performOpenWithUrl:url options:options]) {
+                break;
+            }
         }
     }
-
-    //Handles Google Authorization flow.
-    if ([_currentGoogleAuthorizationFlow resumeAuthorizationFlowWithURL:url]) {
-        _currentGoogleAuthorizationFlow = nil;
-        return YES;
-    }
-
-    //TODO: we need a model of URLHandlers that registers with the VLCAppdelegate
-    // then we can go through the list of handlers ask if they can handle the url and the first to say yes handles the call.
-    // that way internal if elses get encapsulated
-    /*
-    protocol VLCURLHandler {
-        func canHandleOpen(url: URL, options:[UIApplicationOpenURLOptionsKey:AnyObject]=[:]()) -> bool
-        func performOpen(url: URL, options:[UIApplicationOpenURLOptionsKey:AnyObject]=[:]()) -> bool
-    } */
-
-//    if (_libraryViewController && url != nil) {
-//        APLog(@"requested %@ to be opened", url);
-//
-//        if (url.isFileURL) {
-//            VLCDocumentClass *subclass = [[VLCDocumentClass alloc] initWithFileURL:url];
-//            [subclass openWithCompletionHandler:^(BOOL success) {
-//                [self playWithURL:url completion:^(BOOL success) {
-//                    [subclass closeWithCompletionHandler:nil];
-//                }];
-//            }];
-//        } else if ([url.scheme isEqualToString:@"vlc-x-callback"] || [url.host isEqualToString:@"x-callback-url"]) {
-//            // URL confirmes to the x-callback-url specification
-//            // vlc-x-callback://x-callback-url/action?param=value&x-success=callback
-//            APLog(@"x-callback-url with host '%@' path '%@' parameters '%@'", url.host, url.path, url.query);
-//            NSString *action = [url.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
-//            NSURL *movieURL;
-//            NSURL *successCallback;
-//            NSURL *errorCallback;
-//            NSString *fileName;
-//            for (NSString *entry in [url.query componentsSeparatedByString:@"&"]) {
-//                NSArray *keyvalue = [entry componentsSeparatedByString:@"="];
-//                if (keyvalue.count < 2) continue;
-//                NSString *key = keyvalue[0];
-//                NSString *value = [keyvalue[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//
-//                if ([key isEqualToString:@"url"])
-//                    movieURL = [NSURL URLWithString:value];
-//                else if ([key isEqualToString:@"filename"])
-//                    fileName = value;
-//                else if ([key isEqualToString:@"x-success"])
-//                    successCallback = [NSURL URLWithString:value];
-//                else if ([key isEqualToString:@"x-error"])
-//                    errorCallback = [NSURL URLWithString:value];
-//            }
-//            if ([action isEqualToString:@"stream"] && movieURL) {
-//                [self playWithURL:movieURL completion:^(BOOL success) {
-//                    NSURL *callback = success ? successCallback : errorCallback;
-//                    if (@available(iOS 10, *)) {
-//                         [[UIApplication sharedApplication] openURL:callback options:@{} completionHandler:nil];
-//                    } else {
-//#pragma clang diagnostic push
-//#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-//                        /* UIApplication's replacement calls require iOS 10 or later, which we can't enforce as of yet */
-//                       [[UIApplication sharedApplication] openURL:callback];
-//#pragma clang diagnostic pop
-//                    }
-//                }];
-//            }
-//            else if ([action isEqualToString:@"download"] && movieURL) {
-//                [self downloadMovieFromURL:movieURL fileNameOfMedia:fileName];
-//            }
-//        } else {
-//            NSString *receivedUrl = [url absoluteString];
-//            if ([receivedUrl length] > 6) {
-//                NSString *verifyVlcUrl = [receivedUrl substringToIndex:6];
-//                if ([verifyVlcUrl isEqualToString:@"vlc://"]) {
-//                    NSString *parsedString = [receivedUrl substringFromIndex:6];
-//                    NSUInteger location = [parsedString rangeOfString:@"//"].location;
-//
-//                    /* Safari & al mangle vlc://http:// so fix this */
-//                    if (location != NSNotFound && [parsedString characterAtIndex:location - 1] != 0x3a) { // :
-//                            parsedString = [NSString stringWithFormat:@"%@://%@", [parsedString substringToIndex:location], [parsedString substringFromIndex:location+2]];
-//                    } else {
-//                        parsedString = [receivedUrl substringFromIndex:6];
-//                        if (![parsedString hasPrefix:@"http://"] && ![parsedString hasPrefix:@"https://"] && ![parsedString hasPrefix:@"ftp://"]) {
-//                            parsedString = [@"http://" stringByAppendingString:[receivedUrl substringFromIndex:6]];
-//                        }
-//                    }
-//                    url = [NSURL URLWithString:parsedString];
-//                }
-//            }
-//            [[VLCSidebarController sharedInstance] selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-//                                                         scrollPosition:UITableViewScrollPositionNone];
-//
-//            NSString *scheme = url.scheme;
-//            if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"] || [scheme isEqualToString:@"ftp"]) {
-//                VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"OPEN_STREAM_OR_DOWNLOAD", nil) message:url.absoluteString cancelButtonTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil) otherButtonTitles:@[NSLocalizedString(@"PLAY_BUTTON", nil)]];
-//                alert.completion = ^(BOOL cancelled, NSInteger buttonIndex) {
-//                    if (cancelled)
-//                        [self downloadMovieFromURL:url fileNameOfMedia:nil];
-//                    else {
-//                        [self playWithURL:url completion:nil];
-//                    }
-//                };
-//                [alert show];
-//            } else {
-//                [self playWithURL:url completion:nil];
-//            }
-//        }
-//        return YES;
-//    }
     return NO;
 }
 
@@ -445,24 +333,6 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     } else {
         completion();
     }
-}
-
-#pragma mark - download handling
-
-- (void)downloadMovieFromURL:(NSURL *)url
-             fileNameOfMedia:(NSString *)fileName
-{
-    [[VLCDownloadViewController sharedInstance] addURLToDownloadList:url fileNameOfMedia:fileName];
-    //TODO: open DownloadViewController
-}
-
-#pragma mark - playback
-- (void)playWithURL:(NSURL *)url completion:(void (^ __nullable)(BOOL success))completion
-{
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    vpc.fullscreenSessionRequested = YES;
-    VLCMediaList *mediaList = [[VLCMediaList alloc] initWithArray:@[[VLCMedia mediaWithURL:url]]];
-    [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil completion:completion];
 }
 
 @end

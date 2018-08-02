@@ -29,6 +29,7 @@ target 'VLC-iOS' do
   target 'VLC for iOSUITests' do
     pod 'SimulatorStatusMagic'
   end
+  target 'VLC for iOSTests'
 end
 
 target 'VLC-tvOS' do

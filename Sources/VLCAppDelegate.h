@@ -14,14 +14,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <AppAuth/AppAuth.h>
-
-extern NSString *const VLCDropboxSessionWasAuthorized;
-
 @interface VLCAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
-
-@property (atomic, strong) id<OIDAuthorizationFlowSession> currentGoogleAuthorizationFlow;
 
 @end
