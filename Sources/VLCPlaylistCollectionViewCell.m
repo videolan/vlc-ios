@@ -210,7 +210,9 @@
 - (void)_updateDisplayedInformations
 {
     _titleLabel.text = _media.title;
-    _subtitleLabel.text = [_media formatDurationOfMedia:_media];
+    _subtitleLabel.text = [NSString stringWithFormat:@"%@ - %@",
+                           [_media formatDurationOfMedia:_media],
+                           [_media formatSizeOfMedia:_media]];
 }
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
