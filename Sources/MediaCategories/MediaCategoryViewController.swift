@@ -18,6 +18,7 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     private var services: Services
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
+    private lazy var editController = VLCEditController(collectionView: self.collectionView!)
     var category: VLCMediaSubcategoryModel<T>
 
     @available(iOS 11.0, *)
@@ -142,8 +143,19 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
         collectionView?.collectionViewLayout.invalidateLayout()
     }
 
+    // MARK: - Edit
+
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
+        // might have an issue if the old datasource was search
+        // Most of the edit logic is handled inside editController
+        collectionView?.dataSource = editing ? editController : self
+        collectionView?.delegate = editing ? editController : self
+
+        if editing {
+            editController.updateData(data: category.files as [AnyObject])
+        }
+
         let layoutToBe = editing ? editCollectionViewLayout : UICollectionViewFlowLayout()
         collectionView?.setCollectionViewLayout(layoutToBe, animated: false, completion: {
             [weak self] finished in
@@ -180,45 +192,24 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if isEditing {
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCMediaViewEditCell.identifier,
-                                                             for: indexPath) as? VLCMediaViewEditCell {
-                cell.titleLabel.text = "( ｀ー´)ノ"
-                cell.subInfoLabel.text = "(-ω-、)"
-                cell.sizeLabel.text = "|ω°•)"
-                cell.thumbnailImageView.image = UIImage(named: "vlc-xmas")
-                return cell
+        if let playlistCell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), for: indexPath) as? VLCPlaylistCollectionViewCell {
+            if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
+                playlistCell.mediaObject = mediaObject
             }
-        } else {
-            if let playlistCell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), for: indexPath) as? VLCPlaylistCollectionViewCell {
-                if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
-                    playlistCell.mediaObject = mediaObject
-                }
-                return playlistCell
-            }
+            return playlistCell
         }
         return UICollectionViewCell()
     }
 
     // MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if isEditing {
-            if let cell = collectionView.cellForItem(at: indexPath) as? VLCMediaViewEditCell {
-                cell.checkView.isEnabled = !cell.checkView.isEnabled
-            }
-        } else if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
+        if let mediaObject = category.files[indexPath.row] as? NSManagedObject {
             play(mediaObject: mediaObject)
         }
     }
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        if isEditing {
-            let contentInset = collectionView.contentInset
-            let insetToRemove = contentInset.left + contentInset.right + (cellPadding * 2)
-            return CGSize(width: collectionView.frame.width - insetToRemove, height: VLCMediaViewEditCell.height)
-        }
 
         let numberOfCells: CGFloat = collectionView.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0
         let aspectRatio: CGFloat = 10.0 / 16.0
