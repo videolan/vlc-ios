@@ -358,46 +358,64 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 }
 
+- (UIButton *)doneButton
+{
+    if (!_doneButton) {
+        _doneButton = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_doneButton setAccessibilityIdentifier:@"Done"];
+        [_doneButton addTarget:self action:@selector(closePlayback:) forControlEvents:UIControlEventTouchUpInside];
+        [_doneButton setTitle:NSLocalizedString(@"BUTTON_DONE", nil) forState:UIControlStateNormal];
+        [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+        _doneButton.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _doneButton;
+}
+
+- (UIStackView *)navigationBarStackView
+{
+    if (!_navigationBarStackView) {
+        _navigationBarStackView = [[UIStackView alloc] init];
+        _navigationBarStackView.translatesAutoresizingMaskIntoConstraints = NO;
+        _navigationBarStackView.spacing = 8;
+        _navigationBarStackView.axis = UILayoutConstraintAxisHorizontal;
+        _navigationBarStackView.alignment = UIStackViewAlignmentCenter;
+        [_navigationBarStackView addArrangedSubview:self.doneButton];
+        [_navigationBarStackView addArrangedSubview:_timeNavigationTitleView];
+        [_navigationBarStackView addArrangedSubview:_rendererButton];
+    }
+    return _navigationBarStackView;
+}
+
 - (void)setupNavigationbar
 {
-    _doneButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    [_doneButton setAccessibilityIdentifier:@"Done"];
-    [_doneButton addTarget:self action:@selector(closePlayback:) forControlEvents:UIControlEventTouchUpInside];
-    [_doneButton setTitle:NSLocalizedString(@"BUTTON_DONE", nil) forState:UIControlStateNormal];
-    [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-    _doneButton.translatesAutoresizingMaskIntoConstraints = NO;
 
-    self.timeNavigationTitleView = [[[NSBundle mainBundle] loadNibNamed:@"VLCTimeNavigationTitleView" owner:self options:nil] objectAtIndex:0];
-    self.timeNavigationTitleView.translatesAutoresizingMaskIntoConstraints = NO;
+    if (!self.timeNavigationTitleView) {
+        self.timeNavigationTitleView = [[[NSBundle mainBundle] loadNibNamed:@"VLCTimeNavigationTitleView" owner:self options:nil] objectAtIndex:0];
+        self.timeNavigationTitleView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
 
     if (_vpc.renderer != nil) {
         [_rendererButton setSelected:YES];
     }
 
-    _navigationBarStackView = [[UIStackView alloc] init];
-    _navigationBarStackView.translatesAutoresizingMaskIntoConstraints = NO;
-    _navigationBarStackView.spacing = 8;
-    _navigationBarStackView.axis = UILayoutConstraintAxisHorizontal;
-    _navigationBarStackView.alignment = UIStackViewAlignmentCenter;
-    [_navigationBarStackView addArrangedSubview:_doneButton];
-    [_navigationBarStackView addArrangedSubview:_timeNavigationTitleView];
-    [_navigationBarStackView addArrangedSubview:_rendererButton];
+    if (self.navigationBarStackView.superview == nil) {
+        [self.navigationController.navigationBar addSubview:self.navigationBarStackView];
 
-    [self.navigationController.navigationBar addSubview:_navigationBarStackView];
 
-    NSObject *guide = self.navigationController.navigationBar;
-    if (@available(iOS 11.0, *)) {
-        guide = self.navigationController.navigationBar.safeAreaLayoutGuide;
+        NSObject *guide = self.navigationController.navigationBar;
+        if (@available(iOS 11.0, *)) {
+            guide = self.navigationController.navigationBar.safeAreaLayoutGuide;
+        }
+
+        [NSLayoutConstraint activateConstraints:@[
+                                                  [NSLayoutConstraint constraintWithItem:self.navigationBarStackView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeCenterY multiplier:1 constant:0],
+                                                  [NSLayoutConstraint constraintWithItem:self.navigationBarStackView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeLeft multiplier:1 constant:8],
+                                                  [NSLayoutConstraint constraintWithItem:self.navigationBarStackView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeRight multiplier:1 constant:-8],
+                                                  [NSLayoutConstraint constraintWithItem:self.navigationBarStackView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeTop multiplier:1 constant:0],
+                                                  [NSLayoutConstraint constraintWithItem:self.navigationBarStackView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
+                                                  [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.navigationBarStackView attribute:NSLayoutAttributeHeight multiplier:1 constant:0]
+                                                  ]];
     }
-
-    [NSLayoutConstraint activateConstraints:@[
-                                              [NSLayoutConstraint constraintWithItem:_navigationBarStackView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeCenterY multiplier:1 constant:0],
-                                              [NSLayoutConstraint constraintWithItem:_navigationBarStackView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeLeft multiplier:1 constant:8],
-                                              [NSLayoutConstraint constraintWithItem:_navigationBarStackView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeRight multiplier:1 constant:-8],
-                                              [NSLayoutConstraint constraintWithItem:_navigationBarStackView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeTop multiplier:1 constant:0],
-                                              [NSLayoutConstraint constraintWithItem:_navigationBarStackView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
-                                              [NSLayoutConstraint constraintWithItem:_timeNavigationTitleView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_navigationBarStackView attribute:NSLayoutAttributeHeight multiplier:1 constant:0]
-                                              ]];
 }
 
 - (void)resetVideoFiltersSliders

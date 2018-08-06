@@ -88,15 +88,19 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
             self.completion = nil
             return
         }
-        if rootViewController.presentedViewController != nil {
-            rootViewController.dismiss(animated: false, completion: nil)
+
+        //if we have no video displayed we should use the current rootViewController
+        var presentingViewController = rootViewController
+        if let presentedViewController = rootViewController.presentedViewController {
+            //but if a video is playing we have the MovieViewController presented and want to show it above
+            presentingViewController = presentedViewController
         }
 
         let navigationController = UINavigationController(rootViewController: passcodeLockController)
         navigationController.modalPresentationStyle = .fullScreen
         navigationController.modalTransitionStyle = .crossDissolve
 
-        rootViewController.present(navigationController, animated: true) {
+        presentingViewController.present(navigationController, animated: true) {
             [weak self] in
             if self?.touchIDEnabled == true || self?.faceIDEnabled == true {
                 self?.touchOrFaceIDQuery()
@@ -151,9 +155,15 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
 
     func paPasscodeViewControllerDidEnterPasscode(_ controller: PAPasscodeViewController!) {
         avoidPromptingTouchOrFaceID = false
-        UIApplication.shared.delegate?.window??.rootViewController?.dismiss(animated: true, completion: {
-            self.completion?()
-            self.completion = nil
-        })
+        if let navigationController = UIApplication.shared.delegate?.window??.rootViewController?.presentedViewController as? UINavigationController,
+            let passcodeController = navigationController.topViewController?.presentedViewController as? PAPasscodeViewController ??
+            navigationController.topViewController {
+            //either dismiss the papasscode presented from movieVC or as topViewController 
+            passcodeController.dismiss(animated: true, completion: {
+                [weak self] in
+                self?.completion?()
+                self?.completion = nil
+            })
+        }
     }
 }
