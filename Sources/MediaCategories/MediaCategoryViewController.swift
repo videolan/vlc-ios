@@ -19,6 +19,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
     var category: MediaLibraryBaseModel
+    private lazy var editController = VLCEditController(collectionView: self.collectionView!, category: self.category)
 
 //    @available(iOS 11.0, *)
 //    lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
@@ -142,8 +143,17 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         collectionView?.collectionViewLayout.invalidateLayout()
     }
 
+    // MARK: - Edit
+
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
+        // might have an issue if the old datasource was search
+        // Most of the edit logic is handled inside editController
+        collectionView?.dataSource = editing ? editController : self
+        collectionView?.delegate = editing ? editController : self
+
+        editController.toolbarNeedsUpdate(editing: editing)
+
         let layoutToBe = editing ? editCollectionViewLayout : UICollectionViewFlowLayout()
         collectionView?.setCollectionViewLayout(layoutToBe, animated: false, completion: {
             [weak self] finished in
@@ -207,12 +217,6 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        if isEditing {
-            let contentInset = collectionView.contentInset
-            let insetToRemove = contentInset.left + contentInset.right + (cellPadding * 2)
-            return CGSize(width: collectionView.frame.width - insetToRemove, height: VLCMediaViewEditCell.height)
-        }
 
         let numberOfCells: CGFloat = collectionView.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0
         let aspectRatio: CGFloat = 10.0 / 16.0
