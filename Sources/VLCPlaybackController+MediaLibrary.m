@@ -13,6 +13,7 @@
 #import "VLCPlaybackController+MediaLibrary.h"
 #import <CoreData/CoreData.h>
 #import <VLCMediaLibraryKit/VLCMLFile.h>
+#import <VLCMediaLibraryKit/VLCMLMedia.h>
 
 @implementation VLCPlaybackController (MediaLibrary)
 

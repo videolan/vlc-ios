@@ -11,8 +11,8 @@
  *****************************************************************************/
 
 #import "VLCPlaybackController.h"
-#import <VLCMediaLibraryKit/VLCMLMedia.h>
 
+@class VLCMLMedia;
 @class NSManagedObject;
 @interface VLCPlaybackController (MediaLibrary)
 - (void)playMediaLibraryObject:(NSManagedObject *)mediaObject;

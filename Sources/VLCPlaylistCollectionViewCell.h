@@ -15,7 +15,8 @@
 
 #import <UIKit/UIKit.h>
 #import "VLCLinearProgressIndicator.h"
-#import <VLCMediaLibraryKit/VLCMLMedia.h>
+
+@class VLCMLMedia;
 
 @interface VLCPlaylistCollectionViewCell : UICollectionViewCell
 
