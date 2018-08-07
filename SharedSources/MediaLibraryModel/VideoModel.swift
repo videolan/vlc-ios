@@ -54,12 +54,12 @@ extension VideoModel: MediaLibraryObserver {
 }
 
 extension VLCMLMedia {
-    @objc func formatDuration(ofMedia media: VLCMLMedia) -> String {
-        return String(format: "%@", VLCTime(int: Int32(media.duration())))
+    @objc func formatDuration() -> String {
+        return String(format: "%@", VLCTime(int: Int32(duration())))
     }
 
-    @objc func formatSize(ofMedia media: VLCMLMedia) -> String {
-        return ByteCountFormatter.string(fromByteCount: Int64(media.mainFile().size()),
+    @objc func formatSize() -> String {
+        return ByteCountFormatter.string(fromByteCount: Int64(mainFile().size()),
                                          countStyle: .file)
     }
 }
