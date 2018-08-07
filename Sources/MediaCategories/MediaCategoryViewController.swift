@@ -196,10 +196,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             }
 
             if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
-                playlistCell.media = media
-                if media.mainFile() == nil {
-                    playlistCell.media = nil
-                }
+                playlistCell.media = (media.mainFile() != nil) ? media : nil
             }
             return playlistCell
         }
