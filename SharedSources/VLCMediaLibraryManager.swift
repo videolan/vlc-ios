@@ -132,17 +132,13 @@ class VLCMediaLibraryManager: NSObject {
 private extension VLCMediaLibraryManager {
     struct Observer {
         weak var observer: MediaLibraryObserver?
-
-        init(_ observer: MediaLibraryObserver) {
-            self.observer = observer
-        }
     }
 }
 
 extension VLCMediaLibraryManager {
     func addObserver(_ observer: MediaLibraryObserver) {
         let identifier = ObjectIdentifier(observer)
-        observers[identifier] = Observer(observer)
+        observers[identifier] = Observer(observer: observer)
     }
 
     func removeObserver(_ observer: MediaLibraryObserver) {
