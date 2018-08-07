@@ -14,6 +14,7 @@ protocol VLCEditControllerDataSource {
 }
 
 class VLCEditController: NSObject {
+    private var selectedCellIndexPaths = Set<IndexPath>()
     private let collectionView: UICollectionView
     private let category: MediaLibraryBaseModel
 
@@ -38,6 +39,10 @@ class VLCEditController: NSObject {
 extension VLCEditController: VLCEditControllerDataSource {
     func toolbarNeedsUpdate(editing: Bool) {
         editToolbar.isHidden = !editing
+        if !editing {
+            // not in editing mode anymore should reset
+            selectedCellIndexPaths.removeAll(keepingCapacity: false)
+        }
     }
 }
 
@@ -78,6 +83,12 @@ extension VLCEditController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? VLCMediaViewEditCell {
             cell.checkView.isEnabled = !cell.checkView.isEnabled
+            if cell.checkView.isEnabled {
+                // cell selected, saving indexPath
+                selectedCellIndexPaths.insert(indexPath)
+            } else {
+                selectedCellIndexPaths.remove(indexPath)
+            }
         }
     }
 }
