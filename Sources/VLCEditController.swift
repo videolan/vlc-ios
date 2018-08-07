@@ -56,7 +56,39 @@ extension VLCEditController: VLCEditToolbarDelegate {
     }
 
     func rename() {
+        for indexPath in selectedCellIndexPaths {
+            if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
+                // Not using VLCAlertViewController to have more customization in text fields
+                let alertController = UIAlertController(title: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), media.title),
+                                                        message: "",
+                                                        preferredStyle: .alert)
 
+                alertController.addTextField(configurationHandler: {
+                    textField in
+                    textField.placeholder = NSLocalizedString("NEW_NAME", comment: "")
+                })
+
+                let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
+                                                 style: .default)
+
+
+                let confirmAction = UIAlertAction(title: NSLocalizedString("BUTTON_DONE", comment: ""), style: .default) {
+                    [weak alertController, weak self] _ in
+                    guard let alertController = alertController,
+                        let textField = alertController.textFields?.first else { return }
+                    media.updateTitle(textField.text)
+                    if let cell = self?.collectionView.cellForItem(at: indexPath) as? VLCMediaViewEditCell {
+                        cell.checkView.isEnabled = false
+                    }
+                    self?.collectionView.reloadData()
+                }
+
+                alertController.addAction(cancelButton)
+                alertController.addAction(confirmAction)
+
+                UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
 }
 
