@@ -26,9 +26,6 @@ class VideoModel: MLBaseModel {
         files = medialibrary.media(ofType: .video)
     }
 
-    func isIncluded(_ item: VLCMLMedia) {
-    }
-
     func append(_ item: VLCMLMedia) {
         files.append(item)
     }
@@ -37,7 +34,6 @@ class VideoModel: MLBaseModel {
 // MARK: - Sort
 
 extension VideoModel {
-
     func sort(by criteria: VLCMLSortingCriteria) {
         files = medialibrary.media(ofType: .video, sortingCriteria: criteria, desc: false)
         updateView?()

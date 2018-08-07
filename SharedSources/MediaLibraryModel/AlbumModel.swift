@@ -23,15 +23,10 @@ class AlbumModel: MLBaseModel {
     required init(medialibrary: VLCMediaLibraryManager) {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
-        // created too late so missed the callback asking if he has anything
         files = medialibrary.getAlbums()
     }
 
-    func isIncluded(_ item: VLCMLAlbum) {
-    }
-
     func append(_ item: VLCMLAlbum) {
-        // need to check more for duplicate and stuff
         files.append(item)
     }
 }

@@ -26,9 +26,6 @@ class ArtistModel: MLBaseModel {
         files = medialibrary.getArtists()
     }
 
-    func isIncluded(_ item: VLCMLArtist) {
-    }
-
     func append(_ item: VLCMLArtist) {
         files.append(item)
     }

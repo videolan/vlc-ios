@@ -25,9 +25,6 @@ class ShowEpisodeModel: MLBaseModel {
         medialibrary.addObserver(self)
     }
 
-    func isIncluded(_ item: VLCMLMedia) {
-    }
-
     func append(_ item: VLCMLMedia) {
         files.append(item)
     }
