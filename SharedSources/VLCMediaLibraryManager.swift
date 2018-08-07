@@ -20,30 +20,31 @@ extension NSNotification {
 }
 
 @objc protocol MediaLibraryObserver: class {
+    // Video
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                       didUpdateVideo video: [VLCMLMedia])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
-                      didAddVideo video: [VLCMLMedia])
+                      didAddVideos videos: [VLCMLMedia])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
-                                     didAddShowEpisode showEpisode: [VLCMLMedia])
+                                     didAddShowEpisodes showEpisodes: [VLCMLMedia])
 
     // Audio
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
-                                     didAddAudio audio: [VLCMLMedia])
+                                     didAddAudios audios: [VLCMLMedia])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
-                                     didAddAlbumTrack audio: [VLCMLMedia])
+                                     didAddAlbumTracks tracks: [VLCMLMedia])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
-                                     didAddArtist artist: [VLCMLArtist])
+                                     didAddArtists artists: [VLCMLArtist])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
-                                     didAddAlbum album: [VLCMLAlbum])
+                                     didAddAlbums albums: [VLCMLAlbum])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
-                                     didAddGenre genre: [VLCMLGenre])
+                                     didAddGenres genres: [VLCMLGenre])
 }
 
 class VLCMediaLibraryManager: NSObject {
@@ -167,28 +168,28 @@ extension VLCMediaLibraryManager {
 // MARK: VLCMediaLibraryDelegate
 extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAddMedia media: [VLCMLMedia]) {
-        let video = media.filter {( $0.type() == .video )}
+        let videos = media.filter {( $0.type() == .video )}
         let audio = media.filter {( $0.type() == .audio )}
-        let showEpisode = media.filter {( $0.subtype() == .showEpisode )}
+        let showEpisodes = media.filter {( $0.subtype() == .showEpisode )}
         let albumTrack = media.filter {( $0.subtype() == .albumTrack )}
 
         for observer in observers {
-            observer.value.observer?.medialibrary?(self, didAddVideo: video)
-            observer.value.observer?.medialibrary?(self, didAddAudio: audio)
-            observer.value.observer?.medialibrary?(self, didAddShowEpisode: showEpisode)
-            observer.value.observer?.medialibrary?(self, didAddAlbumTrack: albumTrack)
+            observer.value.observer?.medialibrary?(self, didAddVideos: videos)
+            observer.value.observer?.medialibrary?(self, didAddAudios: audio)
+            observer.value.observer?.medialibrary?(self, didAddShowEpisodes: showEpisodes)
+            observer.value.observer?.medialibrary?(self, didAddAlbumTracks: albumTrack)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd artists: [VLCMLArtist]) {
         for observer in observers {
-            observer.value.observer?.medialibrary?(self, didAddArtist: artists)
+            observer.value.observer?.medialibrary?(self, didAddArtists: artists)
         }
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd albums: [VLCMLAlbum]) {
         for observer in observers {
-            observer.value.observer?.medialibrary?(self, didAddAlbum: albums)
+            observer.value.observer?.medialibrary?(self, didAddAlbums: albums)
         }
     }
 

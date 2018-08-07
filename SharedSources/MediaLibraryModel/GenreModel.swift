@@ -32,8 +32,8 @@ class GenreModel: MLBaseModel {
 }
 
 extension GenreModel: MediaLibraryObserver {
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddGenre genre: [VLCMLGenre]) {
-        genre.forEach({ append($0) })
+    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddGenres genres: [VLCMLGenre]) {
+        genres.forEach({ append($0) })
         updateView?()
     }
 }
