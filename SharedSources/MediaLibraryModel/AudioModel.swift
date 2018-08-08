@@ -27,6 +27,11 @@ class AudioModel: MLBaseModel {
     }
 
     func append(_ item: VLCMLMedia) {
+        for file in files {
+            if file.identifier() == item.identifier() {
+                return
+            }
+        }
         files.append(item)
     }
 
