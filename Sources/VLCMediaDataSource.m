@@ -89,11 +89,9 @@
             return;
         [_foundMedia removeObjectAtIndex:fromIdx];
         [_foundMedia insertObject:object atIndex:toIdx];
-        object.folderTrackNumber = @(toIdx - 1);
-        object = [_foundMedia objectAtIndex:fromIdx];
-        if (![object isKindOfClass:[MLFile class]])
-            return;
-        object.folderTrackNumber = @(fromIdx - 1);
+        for (MLFile *object in _foundMedia) {
+            object.folderTrackNumber = @([_foundMedia indexOfObject:object]);
+        }
     }
 }
 
