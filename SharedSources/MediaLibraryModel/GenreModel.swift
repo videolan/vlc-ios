@@ -18,7 +18,7 @@ class GenreModel: MLBaseModel {
 
     var medialibrary: VLCMediaLibraryManager
 
-    var indicatorName: String = NSLocalizedString("GENRE", comment: "")
+    var indicatorName: String = NSLocalizedString("GENRES", comment: "")
 
     required init(medialibrary: VLCMediaLibraryManager) {
         self.medialibrary = medialibrary
