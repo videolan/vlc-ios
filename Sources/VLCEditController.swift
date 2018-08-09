@@ -65,7 +65,16 @@ extension VLCEditController: VLCEditControllerDataSource {
 
 extension VLCEditController: VLCEditToolbarDelegate {
     func createPlaylist() {
-
+        if let model = category as? PlaylistModel {
+            model.create(name: "new playlist")
+        } else if let model = category as? VideoModel {
+            let playlist = model.medialibrary.createPlaylist(with: "new playlist videomo")
+            for indexPath in selectedCellIndexPaths {
+                if let media = dataSet[indexPath.row] as? VLCMLMedia {
+                    playlist.appendMedia(withIdentifier: media.identifier())
+                }
+            }
+        }
     }
 
     func delete() {
