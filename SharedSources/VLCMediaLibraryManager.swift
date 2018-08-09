@@ -151,7 +151,7 @@ extension VLCMediaLibraryManager {
     }
 }
 
-// MARK: MediaDataSource - Audio methods
+// MARK: MediaLibrary - Audio methods
 
 extension VLCMediaLibraryManager {
     func getArtists() -> [VLCMLArtist] {
@@ -163,12 +163,13 @@ extension VLCMediaLibraryManager {
     }
 }
 
-// MARK: MediaDataSource - Video methods
+// MARK: MediaLibrary - Video methods
 
 extension VLCMediaLibraryManager {
 }
 
-// MARK: VLCMediaLibraryDelegate
+// MARK: - VLCMediaLibraryDelegate - Media
+
 extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAddMedia media: [VLCMLMedia]) {
         let videos = media.filter {( $0.type() == .video )}
@@ -189,19 +190,31 @@ extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
             observer.value.observer?.medialibrary?(self, didDeleteMediaWithIds: mediaIds)
         }
     }
+}
 
+// MARK: - VLCMediaLibraryDelegate - Artists
+
+extension VLCMediaLibraryManager {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd artists: [VLCMLArtist]) {
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddArtists: artists)
         }
     }
+}
 
+// MARK: - VLCMediaLibraryDelegate - Albums
+
+extension VLCMediaLibraryManager {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd albums: [VLCMLAlbum]) {
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddAlbums: albums)
         }
     }
+}
 
+// MARK: - VLCMediaLibraryDelegate - Discovery
+
+extension VLCMediaLibraryManager {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didStartDiscovery entryPoint: String) {
     }
 
