@@ -173,6 +173,14 @@ extension VLCMediaLibraryManager {
 extension VLCMediaLibraryManager {
 }
 
+// MARK: MediaLibrary - Playlist methods
+
+extension VLCMediaLibraryManager {
+    func getPlaylists(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLPlaylist] {
+        return medialib.playlists(with: sort, desc: desc)
+    }
+}
+
 // MARK: - VLCMediaLibraryDelegate - Media
 
 extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
