@@ -32,7 +32,7 @@ class VLCShowEpisodeCategoryViewController: VLCMediaCategoryViewController {
 
 class VLCVideoPlaylistCategoryViewController: VLCMediaCategoryViewController {
     init(_ services: Services) {
-        let model = VideoModel(medialibrary: services.medialibraryManager)
+        let model = PlaylistModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
         category.updateView = { [weak self] in
             self?.reloadData()
