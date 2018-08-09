@@ -176,6 +176,15 @@ extension VLCMediaLibraryManager {
 // MARK: MediaLibrary - Playlist methods
 
 extension VLCMediaLibraryManager {
+
+    func createPlaylist(with name: String) -> VLCMLPlaylist {
+        return medialib.createPlaylist(withName: name)
+    }
+
+    func deletePlaylist(with identifier: VLCMLIdentifier) -> Bool {
+        return medialib.deletePlaylist(withIdentifier: identifier)
+    }
+
     func getPlaylists(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLPlaylist] {
         return medialib.playlists(with: sort, desc: desc)
     }
