@@ -74,7 +74,7 @@ class FileURLHandler: NSObject, VLCURLHandler {
     @objc func performOpen(url: URL, options: [UIApplicationOpenURLOptionsKey: AnyObject]) -> Bool {
         let subclass = DocumentClass(fileURL: url)
         subclass.open { _ in
-            play(url: url) { _ in
+            self.play(url: url) { _ in
                 subclass.close(completionHandler: nil)
             }
         }
@@ -163,16 +163,16 @@ class VLCCallbackURLHandler: NSObject, VLCURLHandler {
         if scheme == "http" || scheme == "https" || scheme == "ftp" {
             let alert = UIAlertController(title: NSLocalizedString("OPEN_STREAM_OR_DOWNLOAD", comment:""), message: url.absoluteString, preferredStyle: .alert)
             let downloadAction = UIAlertAction(title: NSLocalizedString("BUTTON_DOWNLOAD", comment:""), style: .default) { _ in
-                downloadMovie(from:transformedURL, fileNameOfMedia:nil)
+                self.downloadMovie(from:transformedURL, fileNameOfMedia:nil)
             }
             alert.addAction(downloadAction)
             let playAction = UIAlertAction(title: NSLocalizedString("PLAY_BUTTON", comment:""), style: .default) { _ in
-                play(url: transformedURL, completion: nil)
+                self.play(url: transformedURL, completion: nil)
             }
             alert.addAction(playAction)
             alert.show(UIApplication.shared.keyWindow!.rootViewController!, sender: nil)
         } else {
-            play(url: transformedURL, completion: nil)
+            self.play(url: transformedURL, completion: nil)
         }
         return true
     }
@@ -184,20 +184,22 @@ class ElseCallbackURLHandler: NSObject, VLCURLHandler {
     }
 
     func performOpen(url: URL, options: [UIApplicationOpenURLOptionsKey: AnyObject]) -> Bool {
-        play(url: url, completion: nil)
+        self.play(url: url, completion: nil)
         return true
     }
 }
 
-// TODO: This code should probably not live here
-func play(url: URL, completion: ((Bool) -> Void)?) {
-   let vpc = VLCPlaybackController.sharedInstance()
-    vpc.fullscreenSessionRequested = true
-    if let mediaList = VLCMediaList(array: [VLCMedia(url: url)]) {
-        vpc.playMediaList(mediaList, firstIndex: 0, subtitlesFilePath: nil, completion: completion)
+extension VLCURLHandler {
+    // TODO: This code should probably not live here
+    func play(url: URL, completion: ((Bool) -> Void)?) {
+        let vpc = VLCPlaybackController.sharedInstance()
+        vpc.fullscreenSessionRequested = true
+        if let mediaList = VLCMediaList(array: [VLCMedia(url: url)]) {
+            vpc.playMediaList(mediaList, firstIndex: 0, subtitlesFilePath: nil, completion: completion)
+        }
     }
-}
 
-func downloadMovie(from url: URL, fileNameOfMedia fileName: String?) {
-    VLCDownloadViewController.sharedInstance().addURL(toDownloadList: url, fileNameOfMedia: fileName)
+    func downloadMovie(from url: URL, fileNameOfMedia fileName: String?) {
+        VLCDownloadViewController.sharedInstance().addURL(toDownloadList: url, fileNameOfMedia: fileName)
+    }
 }
