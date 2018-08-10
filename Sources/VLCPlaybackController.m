@@ -67,8 +67,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
     NSLock *_playbackSessionManagementLock;
 
-    VLCDialogProvider *_dialogProvider;
-
     NSMutableArray *_shuffleStack;
     void (^_playbackCompletion)(BOOL success);
 }
@@ -119,7 +117,8 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
                               name:UIApplicationDidEnterBackgroundNotification object:nil];
 
         _metadata = [VLCMetaData new];
-        _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:NO];
+        _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:YES];
+        _dialogProvider.customRenderer = self;
 
         _playbackSessionManagementLock = [[NSLock alloc] init];
         _shuffleMode = NO;
@@ -1345,5 +1344,4 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _renderer = renderer;
     [_mediaPlayer setRendererItem:_renderer];
 }
-
 @end
