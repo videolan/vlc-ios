@@ -1,8 +1,8 @@
 /*****************************************************************************
- * VLCPlaybackController.swift
+ * VLCPlaybackController+VLCDialogProvider.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
@@ -71,8 +71,8 @@ extension VLCPlaybackController: VLCCustomDialogRendererProtocol {
             alertController.preferredAction = confirmAction
         }
 
-        if let action2Ttile = action2String {
-            alertController.addAction(UIAlertAction(title: action2Ttile, style: .default, handler: {[weak self] action in
+        if let action2Title = action2String {
+            alertController.addAction(UIAlertAction(title: action2Title, style: .default, handler: {[weak self] action in
                 self?.dialogProvider.postAction(2, forDialogReference: reference)
             }))
         }
