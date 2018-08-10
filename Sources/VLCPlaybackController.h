@@ -24,6 +24,7 @@ extern NSString *const VLCPlaybackControllerPlaybackPositionUpdated;
 
 @class VLCPlaybackController;
 @class VLCMetaData;
+@class VLCDialogProvider;
 
 @protocol VLCPlaybackControllerDelegate <NSObject>
 @optional
@@ -90,6 +91,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (readonly) NSNumber *playbackTime;
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly) NSTimer *sleepTimer;
+@property (nonatomic, readonly) VLCDialogProvider *dialogProvider;
 
 @property (nonatomic) VLCRendererItem * _Nullable renderer;
 
