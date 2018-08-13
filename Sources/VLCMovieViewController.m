@@ -1746,7 +1746,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         if (item) {
             [strongSelf showOnDisplay:strongSelf->_playingExternalView.displayView];
         } else {
-            [strongSelf removedCurrentRendererItem:_vpc.renderer];
+            [strongSelf removedCurrentRendererItem:strongSelf->_vpc.renderer];
         }
     }];
 }
