@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VLCNetworkLoginDataSourceLogin : NSObject <VLCNetworkLoginDataSourceSection>
 @property (nonatomic, weak) id <VLCNetworkLoginDataSourceLoginDelegate> delegate;
-@property (nonatomic, nullable) VLCNetworkServerLoginInformation *loginInformation;
+@property (nonatomic, strong) VLCNetworkServerLoginInformation *loginInformation;
 @end
 
 @protocol VLCNetworkLoginDataSourceLoginDelegate <NSObject>
