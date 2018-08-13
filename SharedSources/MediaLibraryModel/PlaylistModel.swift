@@ -34,6 +34,12 @@ class PlaylistModel: MLBaseModel {
         }
         files.append(item)
     }
+
+    // Creates a VLCMLPlaylist appending it and updates linked view
+    func create(name: String) {
+        append(medialibrary.createPlaylist(with: name))
+        updateView?()
+    }
 }
 
 extension PlaylistModel: MediaLibraryObserver {
