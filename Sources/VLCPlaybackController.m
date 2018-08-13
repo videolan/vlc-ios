@@ -1195,10 +1195,13 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
                                                                                                                              [self setPlaybackPosition:lastPosition];
                                                                                                                          }]
                                                              ];
+                UIViewController *presentingVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+                presentingVC = presentingVC.presentedViewController ?: presentingVC;
                 [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
                                                      errorMessage:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), item.title]
-                                                   viewController:self.delegate
+                                                   viewController:presentingVC
                                                     buttonsAction:buttonsAction];
+
             }
         }
     }
