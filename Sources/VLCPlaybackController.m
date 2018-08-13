@@ -919,8 +919,8 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
             _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio:_currentAspectRatio] UTF8String];
     }
 
-    if ([self.delegate respondsToSelector:@selector(showStatusMessage:forPlaybackController:)]) {
-        [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), [self stringForAspectRatio:_currentAspectRatio]] forPlaybackController:self];
+    if ([self.delegate respondsToSelector:@selector(showStatusMessage:)]) {
+        [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), [self stringForAspectRatio:_currentAspectRatio]]];
     }
 }
 

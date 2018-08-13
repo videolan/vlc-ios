@@ -190,8 +190,8 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 #if TARGET_OS_IOS
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
-            if ([self.movieViewController respondsToSelector:@selector(showStatusMessage:forPlaybackController:)]) {
-                [self.movieViewController showStatusMessage:failedString forPlaybackController:nil];
+            if ([self.movieViewController respondsToSelector:@selector(showStatusMessage:)]) {
+                [self.movieViewController showStatusMessage:failedString];
             }
             break;
         case VLCPlayerDisplayControllerDisplayModeMiniplayer:

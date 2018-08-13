@@ -1090,7 +1090,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     _multiSelectionView.mediaHasChapters = currentMediaHasChapters;
 }
 
-- (void)showStatusMessage:(NSString *)statusMessage forPlaybackController:(VLCPlaybackController *)controller
+- (void)showStatusMessage:(NSString *)statusMessage
 {
     [self.statusLabel showStatusMessage:statusMessage];
 }

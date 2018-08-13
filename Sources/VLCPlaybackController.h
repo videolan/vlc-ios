@@ -35,14 +35,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         currentMediaHasChapters:(BOOL)currentMediaHasChapters
           forPlaybackController:(VLCPlaybackController *)controller;
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller;
-- (void)showStatusMessage:(NSString *)statusMessage forPlaybackController:(VLCPlaybackController *)controller;
+- (void)showStatusMessage:(NSString *)statusMessage;
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata;
 
 @end
 
 @interface VLCPlaybackController : NSObject <VLCEqualizerViewDelegate>
 
-@property (nonatomic, strong) UIView *videoOutputView;
+@property (nonatomic, strong, nullable) UIView *videoOutputView;
 
 @property (nonatomic, retain) VLCMediaList *mediaList;
 
@@ -93,7 +93,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 @property (nonatomic, readonly) NSTimer *sleepTimer;
 @property (nonatomic, readonly) VLCDialogProvider *dialogProvider;
 
-@property (nonatomic) VLCRendererItem * _Nullable renderer;
+@property (nonatomic, nullable) VLCRendererItem *renderer;
 
 + (VLCPlaybackController *)sharedInstance;
 - (VLCTime *)playedTime;
@@ -133,8 +133,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)setNeedsMetadataUpdate;
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval;
 - (void)performNavigationAction:(VLCMediaPlaybackNavigationAction)action;
-- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString * _Nullable)subsFilePath;
-- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString * _Nullable)subsFilePath completion:(void (^ __nullable)(BOOL success))completion;
+- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(nullable NSString *)subsFilePath;
+- (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(nullable NSString *)subsFilePath completion:(void (^ __nullable)(BOOL success))completion;
 - (void)openVideoSubTitlesFromFile:(NSString *)pathToFile;
 
 NS_ASSUME_NONNULL_END
