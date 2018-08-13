@@ -27,6 +27,11 @@ class PlaylistModel: MLBaseModel {
     }
 
     func append(_ item: VLCMLPlaylist) {
+        for file in files {
+            if file.identifier() == item.identifier() {
+                return
+            }
+        }
         files.append(item)
     }
 }
