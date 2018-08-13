@@ -51,6 +51,39 @@ private extension VLCEditController {
             cell.checkView.isEnabled = false
         }
     }
+
+    private struct TextFieldAlertInfo {
+        var alertTitle: String
+        var placeHolder: String
+    }
+
+    private func presentTextFieldAlert(with info: TextFieldAlertInfo,
+                                       completionHandler: @escaping (String) -> Void) {
+        let alertController = UIAlertController(title: info.alertTitle,
+                                                message: "",
+                                                preferredStyle: .alert)
+
+        alertController.addTextField(configurationHandler: {
+            textField in
+            textField.placeholder = info.placeHolder
+        })
+
+        let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
+                                         style: .default)
+
+
+        let confirmAction = UIAlertAction(title: NSLocalizedString("BUTTON_DONE", comment: ""), style: .default) {
+            [weak alertController] _ in
+            guard let alertController = alertController,
+                let textField = alertController.textFields?.first else { return }
+            completionHandler(textField.text ?? "")
+        }
+
+        alertController.addAction(cancelButton)
+        alertController.addAction(confirmAction)
+
+        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension VLCEditController: VLCEditControllerDataSource {
@@ -104,31 +137,14 @@ extension VLCEditController: VLCEditToolbarDelegate {
         for indexPath in selectedCellIndexPaths {
             if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
                 // Not using VLCAlertViewController to have more customization in text fields
-                let alertController = UIAlertController(title: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), media.title),
-                                                        message: "",
-                                                        preferredStyle: .alert)
+                let alertInfo = TextFieldAlertInfo(alertTitle: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), media.title),
+                                                   placeHolder: "NEW_NAME")
 
-                alertController.addTextField(configurationHandler: {
-                    textField in
-                    textField.placeholder = NSLocalizedString("NEW_NAME", comment: "")
-                })
-
-                let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
-                                                 style: .default)
-
-
-                let confirmAction = UIAlertAction(title: NSLocalizedString("BUTTON_DONE", comment: ""), style: .default) {
-                    [weak alertController, weak self] _ in
-                    guard let alertController = alertController,
-                        let textField = alertController.textFields?.first else { return }
-                    media.updateTitle(textField.text)
+                presentTextFieldAlert(with: alertInfo, completionHandler: {
+                    [weak self] text -> Void in
+                    media.updateTitle(text)
                     self?.resetCell(at: indexPath)
-                }
-
-                alertController.addAction(cancelButton)
-                alertController.addAction(confirmAction)
-
-                UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+                })
             }
         }
     }
