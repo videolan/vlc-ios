@@ -41,4 +41,14 @@ extension PlaylistModel: MediaLibraryObserver {
         playlists.forEach({ append($0) })
         updateView?()
     }
+
+    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didDeletePlaylistsWithIds playlistsIds: [NSNumber]) {
+        files = files.filter() {
+            for id in playlistsIds where $0.identifier() == id.int64Value {
+                return false
+            }
+            return true
+        }
+        updateView?()
+    }
 }
