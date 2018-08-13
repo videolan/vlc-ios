@@ -193,7 +193,7 @@
     [super viewWillDisappear:animated];
 }
 
-- (CGSize)contentSizeForViewInPopover {
+- (CGSize)preferredContentSize {
     return [self.view sizeThatFits:CGSizeMake(320, 800)];
 }
 
