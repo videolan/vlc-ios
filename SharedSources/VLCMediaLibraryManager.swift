@@ -38,21 +38,29 @@ extension NSNotification {
                                      didAddAudios audios: [VLCMLMedia])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
-                                     didAddAlbumTracks tracks: [VLCMLMedia])
+                                     didAddArtists artists: [VLCMLArtist])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
-                                     didAddArtists artists: [VLCMLArtist])
+                                     didDeleteArtistsWithIds artistsIds: [NSNumber])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                                      didAddAlbums albums: [VLCMLAlbum])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+                                     didDeleteAlbumsWithIds albumsIds: [NSNumber])
+
+    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+                                     didAddAlbumTracks albumTracks: [VLCMLMedia])
+
+    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                                      didAddGenres genres: [VLCMLGenre])
 
     // Playlist
-
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                                      didAddPlaylists playlists: [VLCMLPlaylist])
+
+    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+                                     didDeletePlaylistsWithIds playlistsIds: [NSNumber])
 }
 
 class VLCMediaLibraryManager: NSObject {
@@ -196,12 +204,18 @@ extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAddMedia media: [VLCMLMedia]) {
         let videos = media.filter {( $0.type() == .video )}
         let audio = media.filter {( $0.type() == .audio )}
-        let showEpisodes = media.filter {( $0.subtype() == .showEpisode )}
-        let albumTrack = media.filter {( $0.subtype() == .albumTrack )}
 
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddVideos: videos)
             observer.value.observer?.medialibrary?(self, didAddAudios: audio)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didUpdateMedia media: [VLCMLMedia]) {
+        let showEpisodes = media.filter {( $0.subtype() == .showEpisode )}
+        let albumTrack = media.filter {( $0.subtype() == .albumTrack )}
+
+        for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddShowEpisodes: showEpisodes)
             observer.value.observer?.medialibrary?(self, didAddAlbumTracks: albumTrack)
         }
@@ -222,6 +236,12 @@ extension VLCMediaLibraryManager {
             observer.value.observer?.medialibrary?(self, didAddArtists: artists)
         }
     }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didDeleteArtistsWithIds artistsIds: [NSNumber]) {
+        for observer in observers {
+            observer.value.observer?.medialibrary?(self, didDeleteArtistsWithIds: artistsIds)
+        }
+    }
 }
 
 // MARK: - VLCMediaLibraryDelegate - Albums
@@ -232,6 +252,12 @@ extension VLCMediaLibraryManager {
             observer.value.observer?.medialibrary?(self, didAddAlbums: albums)
         }
     }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didDeleteAlbumsWithIds albumsIds: [NSNumber]) {
+        for observer in observers {
+            observer.value.observer?.medialibrary?(self, didDeleteAlbumsWithIds: albumsIds)
+        }
+    }
 }
 
 // MARK: - VLCMediaLibraryDelegate - Playlists
@@ -240,6 +266,12 @@ extension VLCMediaLibraryManager {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd playlists: [VLCMLPlaylist]) {
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddPlaylists: playlists)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didDeletePlaylistsWithIds playlistsIds: [NSNumber]) {
+        for observer in observers {
+            observer.value.observer?.medialibrary?(self, didDeletePlaylistsWithIds: playlistsIds)
         }
     }
 }
