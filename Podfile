@@ -26,9 +26,11 @@ target 'VLC-iOS' do
   pod 'MobileVLCKit', '3.1.3'
   pod 'MediaLibraryKit-prod'
   pod 'GTMAppAuth'
+
   target 'VLC for iOSUITests' do
     pod 'SimulatorStatusMagic'
   end
+
   target 'VLC for iOSTests'
 end
 

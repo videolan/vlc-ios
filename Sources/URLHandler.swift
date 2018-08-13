@@ -139,7 +139,7 @@ class XCallbackURLHandler: NSObject, VLCURLHandler {
     }
 }
 
-class VLCCallbackURLHandler: NSObject, VLCURLHandler {
+public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
 
     @objc func canHandleOpen(url: URL, options: [UIApplicationOpenURLOptionsKey: AnyObject]) -> Bool {
         return url.scheme == "vlc"
