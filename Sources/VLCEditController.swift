@@ -99,14 +99,27 @@ extension VLCEditController: VLCEditControllerDataSource {
 extension VLCEditController: VLCEditToolbarDelegate {
     func createPlaylist() {
         if let model = category as? PlaylistModel {
-            model.create(name: "new playlist")
+            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("VIDEO_PLAYLISTS", comment: ""),
+                placeHolder: "NEW_PLAYLIST")
+
+            presentTextFieldAlert(with: alertInfo, completionHandler: {
+                text -> Void in
+                    model.create(name: text)
+                })
+
         } else if let model = category as? VideoModel {
-            let playlist = model.medialibrary.createPlaylist(with: "new playlist videomo")
-            for indexPath in selectedCellIndexPaths {
-                if let media = dataSet[indexPath.row] as? VLCMLMedia {
-                    playlist.appendMedia(withIdentifier: media.identifier())
+            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("VIDEO_PLAYLISTS", comment: ""),
+                                               placeHolder: "NEW_PLAYLIST")
+
+            presentTextFieldAlert(with: alertInfo, completionHandler: {
+                [selectedCellIndexPaths, category] text -> Void in
+                let playlist = model.medialibrary.createPlaylist(with: text)
+                for indexPath in selectedCellIndexPaths {
+                    if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
+                        playlist.appendMedia(withIdentifier: media.identifier())
+                    }
                 }
-            }
+            })
         }
     }
 
