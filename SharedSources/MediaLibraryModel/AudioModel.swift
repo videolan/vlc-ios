@@ -29,6 +29,18 @@ class AudioModel: MLBaseModel {
     func append(_ item: VLCMLMedia) {
         files.append(item)
     }
+
+    func delete(_ items: [VLCMLObject]) {
+        do {
+            for case let media as VLCMLMedia in items {
+                try FileManager.default.removeItem(atPath: media.mainFile().mrl.path)
+            }
+            medialibrary.reload()
+        }
+        catch let error as NSError {
+            assertionFailure("VideoModel: Delete failed: \(error.localizedDescription)")
+        }
+    }
 }
 
 // MARK: - Sort

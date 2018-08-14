@@ -20,6 +20,7 @@ protocol MediaLibraryBaseModel {
     var indicatorName: String { get }
 
     func append(_ item: VLCMLObject)
+    func delete(_ items: [VLCMLObject])
     func sort(by criteria: VLCMLSortingCriteria)
 }
 
@@ -37,6 +38,8 @@ protocol MLBaseModel: MediaLibraryBaseModel {
     var indicatorName: String { get }
 
     func append(_ item: MLType)
+    // FIXME: Ideally items should be MLType but Swift isn't happy so it will always fail
+    func delete(_ items: [VLCMLObject])
     func sort(by criteria: VLCMLSortingCriteria)
 }
 
@@ -46,6 +49,10 @@ extension MLBaseModel {
     }
 
     func append(_ item: VLCMLObject) {
+        fatalError()
+    }
+
+    func delete(_ items: [VLCMLObject]) {
         fatalError()
     }
 

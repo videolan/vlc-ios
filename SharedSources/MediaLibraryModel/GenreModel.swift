@@ -29,6 +29,10 @@ class GenreModel: MLBaseModel {
     func append(_ item: VLCMLGenre) {
         files.append(item)
     }
+
+    func delete(_ items: [VLCMLObject]) {
+        preconditionFailure("GenreModel: Cannot delete genre")
+    }
 }
 
 extension GenreModel: MediaLibraryObserver {

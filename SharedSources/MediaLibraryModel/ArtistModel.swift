@@ -29,6 +29,10 @@ class ArtistModel: MLBaseModel {
     func append(_ item: VLCMLArtist) {
         files.append(item)
     }
+
+    func delete(_ items: [VLCMLObject]) {
+        preconditionFailure("ArtistModel: Cannot delete artist")
+    }
 }
 
 extension ArtistModel: MediaLibraryObserver {

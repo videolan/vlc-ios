@@ -28,6 +28,10 @@ class ShowEpisodeModel: MLBaseModel {
     func append(_ item: VLCMLMedia) {
         files.append(item)
     }
+
+    func delete(_ items: [VLCMLObject]) {
+        preconditionFailure("ShowEpisodeModel: Cannot delete showEpisode")
+    }
 }
 
 extension ShowEpisodeModel: MediaLibraryObserver {
