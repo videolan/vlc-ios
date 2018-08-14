@@ -45,6 +45,12 @@ private extension VLCEditController {
         }
         collectionView.reloadData()
     }
+
+    private func resetAllVisibleCell() {
+        for case let cell as VLCMediaViewEditCell in collectionView.visibleCells {
+            cell.checkView.isEnabled = false
+        }
+    }
 }
 
 extension VLCEditController: VLCEditControllerDataSource {
@@ -63,7 +69,26 @@ extension VLCEditController: VLCEditToolbarDelegate {
     }
 
     func delete() {
+        var objectsToDelete = [VLCMLObject]()
 
+        for indexPath in selectedCellIndexPaths {
+            objectsToDelete.append(category.anyfiles[indexPath.row])
+        }
+
+        let cancelButton = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""))
+        let deleteButton = VLCAlertButton(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
+                                          action: {
+                                            [weak self] action in
+                                            self?.category.delete(objectsToDelete)
+                                            self?.selectedCellIndexPaths.removeAll()
+                                            self?.resetAllVisibleCell()
+        })
+
+        VLCAlertViewController.alertViewManager(title: NSLocalizedString("DELETE_TITLE", comment: ""),
+                                                errorMessage: NSLocalizedString("DELETE_MESSAGE", comment: ""),
+                                                viewController: (UIApplication.shared.keyWindow?.rootViewController)!,
+                                                buttonsAction: [cancelButton,
+                                                                deleteButton])
     }
 
     func rename() {
