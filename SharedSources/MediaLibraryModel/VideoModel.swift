@@ -59,6 +59,16 @@ extension VideoModel: MediaLibraryObserver {
         videos.forEach({ append($0) })
         updateView?()
     }
+
+    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didDeleteMediaWithIds ids: [NSNumber]) {
+        files = files.filter() {
+            for id in ids where $0.identifier() == id.int64Value {
+                return false
+            }
+            return true
+        }
+        updateView?()
+    }
 }
 
 extension VLCMLMedia {
