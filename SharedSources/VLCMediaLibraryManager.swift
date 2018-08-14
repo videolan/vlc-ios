@@ -28,6 +28,9 @@ extension NSNotification {
                       didAddVideos videos: [VLCMLMedia])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+                                     didDeleteMediaWithIds ids: [NSNumber])
+
+    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                                      didAddShowEpisodes showEpisodes: [VLCMLMedia])
 
     // Audio
@@ -178,6 +181,12 @@ extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
             observer.value.observer?.medialibrary?(self, didAddAudios: audio)
             observer.value.observer?.medialibrary?(self, didAddShowEpisodes: showEpisodes)
             observer.value.observer?.medialibrary?(self, didAddAlbumTracks: albumTrack)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didDeleteMediaWithIds mediaIds: [NSNumber]) {
+        for observer in observers {
+            observer.value.observer?.medialibrary?(self, didDeleteMediaWithIds: mediaIds)
         }
     }
 
