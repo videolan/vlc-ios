@@ -32,19 +32,19 @@ typealias AlertAction = (UIAlertAction) -> Void
 
 @objcMembers class VLCAlertViewController: UIAlertController {
 
-    class func alertViewManager(title: String,
-                                errorMessage: String? = nil,
-                                viewController: UIViewController) {
+    static func alertViewManager(title: String,
+                                 errorMessage: String? = nil,
+                                 viewController: UIViewController) {
         VLCAlertViewController.alertViewManager(title: title,
                                                 errorMessage: errorMessage,
                                                 viewController: viewController,
                                                 buttonsAction: nil)
     }
 
-    class func alertViewManager(title: String,
-                                errorMessage: String? = nil,
-                                viewController: UIViewController,
-                                buttonsAction: [VLCAlertButton]?) {
+    static func alertViewManager(title: String,
+                                 errorMessage: String? = nil,
+                                 viewController: UIViewController,
+                                 buttonsAction: [VLCAlertButton]?) {
         let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
         if let buttonsAction = buttonsAction {
             for buttonAction in buttonsAction {
@@ -63,11 +63,11 @@ typealias AlertAction = (UIAlertAction) -> Void
         viewController.present(alert, animated: true, completion: nil)
     }
 
-    class func alertManagerWithTextField(title: String, description: String? = nil,
-                                         viewController: UIViewController,
-                                         buttonsAction: [VLCAlertButton],
-                                         textFieldText: String? = nil,
-                                         textFieldPlaceholder: String? = nil) {
+    static func alertManagerWithTextField(title: String, description: String? = nil,
+                                          viewController: UIViewController,
+                                          buttonsAction: [VLCAlertButton],
+                                          textFieldText: String? = nil,
+                                          textFieldPlaceholder: String? = nil) {
         let alert = UIAlertController(title: title, message: description, preferredStyle: .alert)
         alert.addTextField(configurationHandler: { textField in
             textField.placeholder = textFieldPlaceholder
