@@ -95,6 +95,8 @@ private extension VLCEditController {
     }
 }
 
+// MARK: - VLCEditControllerDataSource
+
 extension VLCEditController: VLCEditControllerDataSource {
     func toolbarNeedsUpdate(editing: Bool) {
 //        editToolbar.isHidden = !editing
@@ -104,6 +106,8 @@ extension VLCEditController: VLCEditControllerDataSource {
         }
     }
 }
+
+// MARK: - VLCEditToolbarDelegate
 
 extension VLCEditController: VLCEditToolbarDelegate {
     func createPlaylist() {
@@ -179,6 +183,8 @@ extension VLCEditController: VLCEditToolbarDelegate {
     }
 }
 
+// MARK: - UICollectionViewDataSource
+
 extension VLCEditController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return category.anyfiles.count
@@ -198,6 +204,8 @@ extension VLCEditController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegate
+
 extension VLCEditController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? VLCMediaViewEditCell {
@@ -211,6 +219,8 @@ extension VLCEditController: UICollectionViewDelegate {
         }
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension VLCEditController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
