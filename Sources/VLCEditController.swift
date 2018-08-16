@@ -156,14 +156,21 @@ extension VLCEditController: VLCEditToolbarDelegate {
     }
 
     func rename() {
+        // FIXME: Multiple renaming of files(multiple alert can get unfriendly if too many files)
         for indexPath in selectedCellIndexPaths {
             if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
                 // Not using VLCAlertViewController to have more customization in text fields
                 let alertInfo = TextFieldAlertInfo(alertTitle: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), media.title),
-                                                   placeHolder: "NEW_NAME")
-
+                                                   placeHolder: "NEW_NAME",
+                                                   confirmActionTitle: NSLocalizedString("BUTTON_RENAME", comment: ""))
                 presentTextFieldAlert(with: alertInfo, completionHandler: {
                     [weak self] text -> Void in
+                    guard text != "" else {
+                        VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
+                                                                errorMessage: NSLocalizedString("ERROR_EMPTY_NAME", comment: ""),
+                                                                viewController: (UIApplication.shared.keyWindow?.rootViewController)!)
+                        return
+                    }
                     media.updateTitle(text)
                     self?.resetCell(at: indexPath)
                 })
