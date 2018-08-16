@@ -32,19 +32,31 @@ typealias AlertAction = (UIAlertAction) -> Void
 
 @objcMembers class VLCAlertViewController: UIAlertController {
 
-    class func alertViewManager(title: String, errorMessage: String? = nil, viewController: UIViewController) {
-        VLCAlertViewController.alertViewManager(title: title, errorMessage: errorMessage, viewController: viewController, buttonsAction: nil)
+    class func alertViewManager(title: String,
+                                errorMessage: String? = nil,
+                                viewController: UIViewController) {
+        VLCAlertViewController.alertViewManager(title: title,
+                                                errorMessage: errorMessage,
+                                                viewController: viewController,
+                                                buttonsAction: nil)
     }
 
-    class func alertViewManager(title: String, errorMessage: String? = nil, viewController: UIViewController, buttonsAction: [VLCAlertButton]?) {
+    class func alertViewManager(title: String,
+                                errorMessage: String? = nil,
+                                viewController: UIViewController,
+                                buttonsAction: [VLCAlertButton]?) {
         let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
         if let buttonsAction = buttonsAction {
             for buttonAction in buttonsAction {
-                let action = UIAlertAction(title: buttonAction.title, style: buttonAction.style, handler: buttonAction.action)
+                let action = UIAlertAction(title: buttonAction.title,
+                                           style: buttonAction.style,
+                                           handler: buttonAction.action)
                 alert.addAction(action)
             }
         } else {
-            let action = UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment:""), style: UIAlertActionStyle.default, handler: nil)
+            let action = UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment:""),
+                                       style: .default,
+                                       handler: nil)
             alert.addAction(action)
         }
         alert.show(viewController, sender: Any?.self)
@@ -62,7 +74,9 @@ typealias AlertAction = (UIAlertAction) -> Void
             textField.text = textFieldText
         })
         for buttonAction in buttonsAction {
-            let action = UIAlertAction(title: buttonAction.title, style: buttonAction.style, handler: buttonAction.action)
+            let action = UIAlertAction(title: buttonAction.title,
+                                       style: buttonAction.style,
+                                       handler: buttonAction.action)
             alert.addAction(action)
         }
         alert.show(viewController, sender: Any?.self)
