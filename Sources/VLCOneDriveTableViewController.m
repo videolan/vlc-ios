@@ -199,6 +199,7 @@
     if (_selectedFile.size.longLongValue < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         /* selected item is a proper file, ask the user if s/he wants to download it */
         NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                                     style: UIAlertActionStyleCancel
                                                                                     action: ^(UIAlertAction* action){
                                                                                         self->_selectedFile = nil;
                                                                                     }],
@@ -216,9 +217,10 @@
                                              errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
                                            viewController:self
                                             buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                         action: ^(UIAlertAction* action){
-                                                                                             self->_selectedFile = nil;
-                                                                                         }]]];
+                                                                                            style: UIAlertActionStyleDefault
+                                                                                           action: ^(UIAlertAction* action){
+                                                                                               self->_selectedFile = nil;
+                                                                                           }]]];
     }
 }
 #endif

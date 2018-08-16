@@ -16,10 +16,17 @@ typealias AlertAction = (UIAlertAction) -> Void
 
 @objcMembers class VLCAlertButton: NSObject {
     let title: String
-    var action: AlertAction?
-    init(title: String, action: AlertAction? = nil) {
+    let style: UIAlertActionStyle
+    let action: AlertAction?
+    init(title: String, style: UIAlertActionStyle = .default, action: AlertAction? = nil) {
         self.title = title
+        self.style = style
         self.action = action
+    }
+
+    // For Objc
+    convenience init(title: String, action: AlertAction? = nil) {
+        self.init(title: title, action: action)
     }
 }
 
@@ -33,7 +40,7 @@ typealias AlertAction = (UIAlertAction) -> Void
         let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
         if let buttonsAction = buttonsAction {
             for buttonAction in buttonsAction {
-                let action = UIAlertAction(title: buttonAction.title, style: UIAlertActionStyle.default, handler: buttonAction.action)
+                let action = UIAlertAction(title: buttonAction.title, style: buttonAction.style, handler: buttonAction.action)
                 alert.addAction(action)
             }
         } else {
@@ -55,7 +62,7 @@ typealias AlertAction = (UIAlertAction) -> Void
             textField.text = textFieldText
         })
         for buttonAction in buttonsAction {
-            let action = UIAlertAction(title: buttonAction.title, style: UIAlertActionStyle.default, handler: buttonAction.action)
+            let action = UIAlertAction(title: buttonAction.title, style: buttonAction.style, handler: buttonAction.action)
             alert.addAction(action)
         }
         alert.show(viewController, sender: Any?.self)
