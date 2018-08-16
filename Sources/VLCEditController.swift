@@ -55,6 +55,15 @@ private extension VLCEditController {
     private struct TextFieldAlertInfo {
         var alertTitle: String
         var placeHolder: String
+        var confirmActionTitle: String
+
+        init(alertTitle: String = "",
+             placeHolder: String = "",
+             confirmActionTitle: String = NSLocalizedString("BUTTON_DONE", comment: "")) {
+            self.alertTitle = alertTitle
+            self.placeHolder = placeHolder
+            self.confirmActionTitle = confirmActionTitle
+        }
     }
 
     private func presentTextFieldAlert(with info: TextFieldAlertInfo,
@@ -72,7 +81,7 @@ private extension VLCEditController {
                                          style: .default)
 
 
-        let confirmAction = UIAlertAction(title: NSLocalizedString("BUTTON_DONE", comment: ""), style: .default) {
+        let confirmAction = UIAlertAction(title: info.confirmActionTitle, style: .default) {
             [weak alertController] _ in
             guard let alertController = alertController,
                 let textField = alertController.textFields?.first else { return }
