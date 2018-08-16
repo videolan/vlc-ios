@@ -200,11 +200,11 @@
         /* selected item is a proper file, ask the user if s/he wants to download it */
         NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                                                      style: UIAlertActionStyleCancel
-                                                                                    action: ^(UIAlertAction* action){
+                                                                                    action: ^(UIAlertAction *action) {
                                                                                         self->_selectedFile = nil;
                                                                                     }],
                                                      [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
-                                                                                    action: ^(UIAlertAction* action){
+                                                                                    action: ^(UIAlertAction *action) {
                                                                                         [self->_oneDriveController downloadObject:self->_selectedFile];
                                                                                         self->_selectedFile = nil;
                                                                                     }]];
@@ -218,7 +218,7 @@
                                            viewController:self
                                             buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
                                                                                             style: UIAlertActionStyleDefault
-                                                                                           action: ^(UIAlertAction* action){
+                                                                                           action: ^(UIAlertAction *action) {
                                                                                                self->_selectedFile = nil;
                                                                                            }]]];
     }

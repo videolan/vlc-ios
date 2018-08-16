@@ -1192,7 +1192,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
                                                                                              style: UIAlertActionStyleCancel
                                                                                             action: nil],
                                                              [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CONTINUE", nil)
-                                                                                            action: ^(UIAlertAction* action){
+                                                                                            action: ^(UIAlertAction *action) {
                                                                                                 [self setPlaybackPosition:lastPosition];
                                                                                             }]
                                                              ];

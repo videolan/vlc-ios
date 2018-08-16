@@ -130,11 +130,11 @@
         /* selected item is a proper file, ask the user if s/he wants to download it */
         NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                                                      style: UIAlertActionStyleCancel
-                                                                                  action: ^(UIAlertAction* action){
+                                                                                  action: ^(UIAlertAction *action) {
                                                                                       self->_selectedFile = nil;
                                                                                   }],
                                                      [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
-                                                                                  action: ^(UIAlertAction* action){
+                                                                                  action: ^(UIAlertAction *action) {
                                                                                       [self->_googleDriveController downloadFileToDocumentFolder:self->_selectedFile];
                                                                                       self->_selectedFile = nil;
                                                                                   }]
