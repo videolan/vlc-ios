@@ -16,6 +16,7 @@
 #import "VLCLibraryViewController.h"
 #import "IASKSettingsReader.h"
 #import "PAPasscodeViewController.h"
+#import "VLCAppDelegate.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 #import "VLC_iOS-Swift.h"
 
@@ -104,6 +105,8 @@
     if (passcodeOn) {
         // delete whole index for VLC
         [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:nil];
+        VLCAppDelegate *appDelegate = (VLCAppDelegate *)UIApplication.sharedApplication.delegate;
+        appDelegate.libraryViewController.userActivity.eligibleForSearch = false;
     }
 }
 
