@@ -43,7 +43,6 @@
 
 
 #import <Foundation/Foundation.h>
-#import <CFNetwork/CFNetwork.h>
 
 @class WRRequest;
 @class WRRequestQueue;

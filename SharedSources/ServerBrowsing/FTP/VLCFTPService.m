@@ -37,14 +37,11 @@
 #pragma mark - WRStreamInfo
 
 @implementation WRStreamInfo
-@synthesize buffer, bytesConsumedInTotal, bytesConsumedThisIteration, readStream, writeStream;
-
 @end
 
 #pragma mark - WRBase
 
 @implementation WRBase
-@synthesize passive, password, username, schemeId, error;
 
 static NSMutableDictionary *folders;
 
@@ -156,7 +153,6 @@ static NSMutableDictionary *folders;
 #pragma mark - WRRequestQueue
 
 @implementation WRRequestQueue
-@synthesize delegate;
 
 - (id)init {
     self = [super init];
@@ -286,12 +282,11 @@ static NSMutableDictionary *folders;
 #pragma mark - WRRequest
 
 @implementation WRRequest
-@synthesize type, nextRequest, prevRequest, delegate, streamInfo, didManagedToOpenStream;
 
 - (id)init {
     self = [super init];
     if (self) {
-        streamInfo = [[WRStreamInfo alloc] init];
+        _streamInfo = [[WRStreamInfo alloc] init];
         self.streamInfo.readStream = nil;
         self.streamInfo.writeStream = nil;
         self.streamInfo.bytesConsumedThisIteration = 0;
@@ -311,7 +306,7 @@ static NSMutableDictionary *folders;
 }
 
 - (void)dealloc {
-    free(streamInfo.buffer);
+    free(_streamInfo.buffer);
 }
 
 @end
@@ -320,7 +315,6 @@ static NSMutableDictionary *folders;
 #pragma mark - WRRequestDownload
 
 @implementation WRRequestDownload
-@synthesize receivedData;
 
 - (WRRequestTypes)type {
     return kWRDownloadRequest;
@@ -523,7 +517,6 @@ static NSMutableDictionary *folders;
 @end
 
 @implementation WRRequestUpload
-@synthesize listrequest, sentData;
 
 - (WRRequestTypes)type {
     return kWRUploadRequest;
@@ -802,7 +795,6 @@ static NSMutableDictionary *folders;
 @end
 
 @implementation WRRequestListDirectory
-@synthesize filesInfo;
 
 - (WRRequestTypes)type {
     return kWRListDirectoryRequest;
@@ -936,7 +928,6 @@ static NSMutableDictionary *folders;
 #pragma mark - WRRequestError
 
 @implementation WRRequestError
-@synthesize errorCode;
 
 - (id)init {
     self = [super init];
