@@ -12,7 +12,7 @@
 
 import Foundation
 
-@objc protocol VLCURLHandler {
+@objc public protocol VLCURLHandler {
     func canHandleOpen(url: URL, options: [UIApplicationOpenURLOptionsKey: AnyObject]) -> Bool
     func performOpen(url: URL, options: [UIApplicationOpenURLOptionsKey: AnyObject]) -> Bool
 }
@@ -141,12 +141,12 @@ class XCallbackURLHandler: NSObject, VLCURLHandler {
 
 public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
 
-    @objc func canHandleOpen(url: URL, options: [UIApplicationOpenURLOptionsKey: AnyObject]) -> Bool {
+    @objc public func canHandleOpen(url: URL, options: [UIApplicationOpenURLOptionsKey: AnyObject]) -> Bool {
         return url.scheme == "vlc"
     }
 
     // Safari fixes URLs like "vlc://http://example.org" to "vlc://http//example.org"
-    func transformVLCURL(_ url: URL) -> URL {
+    public func transformVLCURL(_ url: URL) -> URL {
         var parsedString = url.absoluteString.replacingOccurrences(of: "vlc://", with: "")
         if let location = parsedString.range(of: "//"), parsedString[parsedString.index(location.lowerBound, offsetBy: -1)] != ":" {
             parsedString = "\(parsedString[parsedString.startIndex..<location.lowerBound])://\(parsedString[location.upperBound...])"
@@ -156,7 +156,7 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
         return URL(string: parsedString)!
     }
 
-    func performOpen(url: URL, options: [UIApplicationOpenURLOptionsKey: AnyObject]) -> Bool {
+    public func performOpen(url: URL, options: [UIApplicationOpenURLOptionsKey: AnyObject]) -> Bool {
 
         let transformedURL = transformVLCURL(url)
         let scheme = transformedURL.scheme
