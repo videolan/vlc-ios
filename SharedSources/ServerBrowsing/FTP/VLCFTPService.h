@@ -65,19 +65,6 @@ typedef enum {
 } WRTimeouts;
 
 
-#pragma mark - WRStreamInfo
-
-@interface WRStreamInfo:NSObject
-@property (nonatomic, strong) NSOutputStream    *writeStream;
-@property (nonatomic, strong) NSInputStream     *readStream;
-@property (nonatomic, assign) long long         bytesConsumedThisIteration;
-@property (nonatomic, assign) long long         bytesConsumedInTotal;
-@property (nonatomic, assign) float             completedPercentage;
-@property (nonatomic, assign) long long         maximumSize;
-@property (nonatomic, assign) UInt8            *buffer;
-
-@end
-
 #pragma mark - WRRequestDelegate
 
 @protocol WRRequestDelegate  <NSObject>
@@ -138,7 +125,6 @@ typedef enum {
 @property (nonatomic, strong) WRRequest * prevRequest;
 @property (nonatomic, readonly) WRRequestTypes type;
 @property (nonatomic, weak) id<WRRequestDelegate> delegate;
-@property (strong, nonatomic, readonly) WRStreamInfo * streamInfo;
 @property (nonatomic, assign) BOOL didManagedToOpenStream;
 
 @end

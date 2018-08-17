@@ -36,6 +36,18 @@
 
 #pragma mark - WRStreamInfo
 
+@interface WRStreamInfo: NSObject
+
+@property (nonatomic, strong) NSOutputStream *writeStream;
+@property (nonatomic, strong) NSInputStream *readStream;
+@property (nonatomic, assign) long long bytesConsumedThisIteration;
+@property (nonatomic, assign) long long bytesConsumedInTotal;
+@property (nonatomic, assign) float completedPercentage;
+@property (nonatomic, assign) long long maximumSize;
+@property (nonatomic, assign) UInt8 *buffer;
+
+@end
+
 @implementation WRStreamInfo
 @end
 
@@ -62,7 +74,6 @@ static NSMutableDictionary *folders;
 +(void) addFoldersToCache:(NSArray *) foldersArray forParentFolderPath:(NSString *) key {
     [folders setObject:foldersArray forKey:key];
 }
-
 
 - (id)init {
     self = [super init];
@@ -280,6 +291,11 @@ static NSMutableDictionary *folders;
 
 
 #pragma mark - WRRequest
+@interface WRRequest()
+
+@property (strong, nonatomic, readonly) WRStreamInfo * streamInfo;
+
+@end
 
 @implementation WRRequest
 
