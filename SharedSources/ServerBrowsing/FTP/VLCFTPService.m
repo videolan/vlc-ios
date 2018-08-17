@@ -110,7 +110,7 @@ static NSMutableDictionary *folders;
             break;
 
         default:
-            InfoLog(@"The scheme id was not recognized! Default FTP set!");
+            APLog(@"The scheme id was not recognized! Default FTP set!");
             return @"ftp";
             break;
     }
@@ -200,7 +200,7 @@ static NSMutableDictionary *folders;
         headRequest.nextRequest = request;
         request.prevRequest = headRequest.nextRequest;
     }else{
-        InfoLog(@"Adding in front of the queue request at least one element already in the queue. Use 'addRequest' otherwise.");
+        APLog(@"Adding in front of the queue request at least one element already in the queue. Use 'addRequest' otherwise.");
         return;
     }
 
@@ -327,7 +327,7 @@ static NSMutableDictionary *folders;
 - (void)startWithFullURL:(NSURL *)fullURL
 {
     if (self.hostname==nil && fullURL == nil) {
-        InfoLog(@"The host name is nil!");
+        APLog(@"The host name is nil!");
         self.error = [[WRRequestError alloc] init];
         self.error.errorCode = kWRFTPClientHostnameIsNil;
         [self.delegate requestFailed:self];
@@ -347,7 +347,7 @@ static NSMutableDictionary *folders;
     self.streamInfo.readStream = (NSInputStream *)CFBridgingRelease(readStreamRef);
 
     if (self.streamInfo.readStream==nil) {
-        InfoLog(@"Can't open the read stream! Possibly wrong URL");
+        APLog(@"Can't open the read stream! Possibly wrong URL");
         self.error = [[WRRequestError alloc] init];
         self.error.errorCode = kWRFTPClientCantOpenStream;
         [self.delegate requestFailed:self];
@@ -362,7 +362,7 @@ static NSMutableDictionary *folders;
     self.didManagedToOpenStream = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kWRDefaultTimeout * NSEC_PER_SEC), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
         if (!self.didManagedToOpenStream&&self.error==nil) {
-            InfoLog(@"No response from the server. Timeout.");
+            APLog(@"No response from the server. Timeout.");
             self.error = [[WRRequestError alloc] init];
             self.error.errorCode = kWRFTPClientStreamTimedOut;
             [self.delegate requestFailed:self];
@@ -401,7 +401,7 @@ static NSMutableDictionary *folders;
                             fileHandle = [NSFileHandle fileHandleForWritingAtPath:self.downloadLocation.path];
 
                             if (!fileHandle) {
-                                InfoLog(@"Stream opened, but failed to save it to file because file creation failed.");
+                                APLog(@"Stream opened, but failed to save it to file because file creation failed.");
                                 self.error = [[WRRequestError alloc] init];
                                 self.error.errorCode = kWRFTPServerUnknownError;
                                 [self.delegate requestFailed:self];
@@ -429,7 +429,7 @@ static NSMutableDictionary *folders;
                         [self.delegate progressUpdatedTo:self.streamInfo.completedPercentage receivedDataSize:self.streamInfo.bytesConsumedInTotal expectedDownloadSize:self.streamInfo.maximumSize];
                 }
             }else{
-                InfoLog(@"Stream opened, but failed while trying to read from it.");
+                APLog(@"Stream opened, but failed while trying to read from it.");
                 self.error = [[WRRequestError alloc] init];
                 self.error.errorCode = kWRFTPClientCantReadStream;
                 [self.delegate requestFailed:self];
@@ -442,7 +442,7 @@ static NSMutableDictionary *folders;
         case NSStreamEventErrorOccurred: {
             self.error = [[WRRequestError alloc] init];
             self.error.errorCode = [self.error errorCodeWithError:[theStream streamError]];
-            InfoLog(@"%@", self.error.message);
+            APLog(@"%@", self.error.message);
             [self.delegate requestFailed:self];
         } break;
 
@@ -494,7 +494,7 @@ static NSMutableDictionary *folders;
 - (void) start{
 
     if (self.hostname==nil) {
-        InfoLog(@"The host name is nil!");
+        APLog(@"The host name is nil!");
         self.error = [[WRRequestError alloc] init];
         self.error.errorCode = kWRFTPClientHostnameIsNil;
         [self.delegate requestFailed:self];
@@ -525,7 +525,7 @@ static NSMutableDictionary *folders;
 - (void) start{
 
     if (self.hostname==nil) {
-        InfoLog(@"The host name is nil!");
+        APLog(@"The host name is nil!");
         self.error = [[WRRequestError alloc] init];
         self.error.errorCode = kWRFTPClientHostnameIsNil;
         [self.delegate requestFailed:self];
@@ -557,7 +557,7 @@ static NSMutableDictionary *folders;
 
     if (fileAlreadyExists) {
         if (![self.delegate shouldOverwriteFileWithRequest:self]) {
-            InfoLog(@"There is already a file/folder with that name and the delegate decided not to overwrite!");
+            APLog(@"There is already a file/folder with that name and the delegate decided not to overwrite!");
             self.error = [[WRRequestError alloc] init];
             self.error.errorCode = kWRFTPClientFileAlreadyExists;
             [self.delegate requestFailed:self];
@@ -569,7 +569,7 @@ static NSMutableDictionary *folders;
             if (self.type!=kWRCreateDirectoryRequest) {
                 [self upload];
             }else{
-                InfoLog(@"Unfortunately, at this point, the library doesn't support directory overwriting.");
+                APLog(@"Unfortunately, at this point, the library doesn't support directory overwriting.");
                 self.error = [[WRRequestError alloc] init];
                 self.error.errorCode = kWRFTPClientCantOverwriteDirectory;
                 [self.delegate requestFailed:self];
@@ -592,7 +592,7 @@ static NSMutableDictionary *folders;
     self.streamInfo.writeStream = (NSOutputStream *)CFBridgingRelease(writeStreamRef);
 
     if (self.streamInfo.writeStream==nil) {
-        InfoLog(@"Can't open the write stream! Possibly wrong URL!");
+        APLog(@"Can't open the write stream! Possibly wrong URL!");
         self.error = [[WRRequestError alloc] init];
         self.error.errorCode = kWRFTPClientCantOpenStream;
         [self.delegate requestFailed:self];
@@ -600,7 +600,7 @@ static NSMutableDictionary *folders;
     }
 
     if (self.sentData==nil) {
-        InfoLog(@"Trying to send nil data? No way. Abort");
+        APLog(@"Trying to send nil data? No way. Abort");
         self.error = [[WRRequestError alloc] init];
         self.error.errorCode = kWRFTPClientSentDataIsNil;
         [self.delegate requestFailed:self];
@@ -614,7 +614,7 @@ static NSMutableDictionary *folders;
     self.didManagedToOpenStream = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kWRDefaultTimeout * NSEC_PER_SEC), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if (!self.didManagedToOpenStream&&self.error==nil) {
-            InfoLog(@"No response from the server. Timeout.");
+            APLog(@"No response from the server. Timeout.");
             self.error = [[WRRequestError alloc] init];
             self.error.errorCode = kWRFTPClientStreamTimedOut;
             [self.delegate requestFailed:self];
@@ -658,7 +658,7 @@ static NSMutableDictionary *folders;
                     [self destroy];
                 }
             }else{
-                InfoLog(@"");
+                APLog(@"");
                 self.error = [[WRRequestError alloc] init];
                 self.error.errorCode = kWRFTPClientCantWriteStream;
                 [self.delegate requestFailed:self];
@@ -669,13 +669,13 @@ static NSMutableDictionary *folders;
         case NSStreamEventErrorOccurred: {
             self.error = [[WRRequestError alloc] init];
             self.error.errorCode = [self.error errorCodeWithError:[theStream streamError]];
-            InfoLog(@"%@", self.error.message);
+            APLog(@"%@", self.error.message);
             [self.delegate requestFailed:self];
             [self destroy];
         } break;
 
         case NSStreamEventEndEncountered: {
-            InfoLog(@"The stream was closed by server while we were uploading the data. Upload failed!");
+            APLog(@"The stream was closed by server while we were uploading the data. Upload failed!");
             self.error = [[WRRequestError alloc] init];
             self.error.errorCode = kWRFTPServerAbortedTransfer;
             [self.delegate requestFailed:self];
@@ -726,7 +726,7 @@ static NSMutableDictionary *folders;
     self.streamInfo.writeStream = (NSOutputStream *)CFBridgingRelease(writeStreamRef);
 
     if (self.streamInfo.writeStream==nil) {
-        InfoLog(@"Can't open the write stream! Possibly wrong URL!");
+        APLog(@"Can't open the write stream! Possibly wrong URL!");
         self.error = [[WRRequestError alloc] init];
         self.error.errorCode = kWRFTPClientCantOpenStream;
         [self.delegate requestFailed:self];
@@ -740,7 +740,7 @@ static NSMutableDictionary *folders;
     self.didManagedToOpenStream = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kWRDefaultTimeout * NSEC_PER_SEC), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if (!self.didManagedToOpenStream&&self.error==nil) {
-            InfoLog(@"No response from the server. Timeout.");
+            APLog(@"No response from the server. Timeout.");
             self.error = [[WRRequestError alloc] init];
             self.error.errorCode = kWRFTPClientStreamTimedOut;
             [self.delegate requestFailed:self];
@@ -767,7 +767,7 @@ static NSMutableDictionary *folders;
         case NSStreamEventErrorOccurred: {
             self.error = [[WRRequestError alloc] init];
             self.error.errorCode = [self.error errorCodeWithError:[theStream streamError]];
-            InfoLog(@"%@", self.error.message);
+            APLog(@"%@", self.error.message);
             [self.delegate requestFailed:self];
             [self destroy];
         } break;
@@ -811,7 +811,7 @@ static NSMutableDictionary *folders;
 
 - (void) start {
     if (self.hostname==nil) {
-        InfoLog(@"The host name is not valid!");
+        APLog(@"The host name is not valid!");
         self.error = [[WRRequestError alloc] init];
         self.error.errorCode = kWRFTPClientHostnameIsNil;
         [self.delegate requestFailed:self];
@@ -826,7 +826,7 @@ static NSMutableDictionary *folders;
 
 
     if (self.streamInfo.readStream==nil) {
-        InfoLog(@"Can't open the write stream! Possibly wrong URL!");
+        APLog(@"Can't open the write stream! Possibly wrong URL!");
         self.error = [[WRRequestError alloc] init];
         self.error.errorCode = kWRFTPClientCantOpenStream;
         [self.delegate requestFailed:self];
@@ -840,7 +840,7 @@ static NSMutableDictionary *folders;
     self.didManagedToOpenStream = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kWRDefaultTimeout * NSEC_PER_SEC), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if (!self.didManagedToOpenStream&&self.error==nil) {
-            InfoLog(@"No response from the server. Timeout.");
+            APLog(@"No response from the server. Timeout.");
             self.error = [[WRRequestError alloc] init];
             self.error.errorCode = kWRFTPClientStreamTimedOut;
             [self.delegate requestFailed:self];
@@ -891,7 +891,7 @@ static NSMutableDictionary *folders;
                     }
                 }
             }else{
-                InfoLog(@"Stream opened, but failed while trying to read from it.");
+                APLog(@"Stream opened, but failed while trying to read from it.");
                 self.error = [[WRRequestError alloc] init];
                 self.error.errorCode = kWRFTPClientCantReadStream;
                 [self.delegate requestFailed:self];
@@ -905,7 +905,7 @@ static NSMutableDictionary *folders;
         case NSStreamEventErrorOccurred: {
             self.error = [[WRRequestError alloc] init];
             self.error.errorCode = [self.error errorCodeWithError:[theStream streamError]];
-            InfoLog(@"%@", self.error.message);
+            APLog(@"%@", self.error.message);
             [self.delegate requestFailed:self];
             [self destroy];
         } break;
@@ -972,8 +972,6 @@ static NSMutableDictionary *folders;
         case kWRFTPClientFileAlreadyExists:
             mess = @"File already exists!";
             break;
-
-
 
             //Server errors
         case kWRFTPServerAbortedTransfer:

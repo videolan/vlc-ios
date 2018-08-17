@@ -33,15 +33,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
-
-#ifdef DEBUG
-#    define InfoLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
-#else
-#    define InfoLog(...)
-#endif
-
-
 #import <Foundation/Foundation.h>
 
 @class WRRequest;
@@ -58,7 +49,6 @@ typedef enum {
     kWRCreateDirectoryRequest,
     kWRListDirectoryRequest
 } WRRequestTypes;
-
 
 typedef enum {
     kWRFTP
@@ -110,7 +100,6 @@ typedef enum {
 
 @required
 - (void) queueCompleted:(WRRequestQueue *)queue;
-
 
 @end
 #pragma mark - WRBase
