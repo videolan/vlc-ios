@@ -15,7 +15,7 @@
 #import "VLCDownloadViewController.h"
 #import "VLCHTTPFileDownloader.h"
 #import "VLCActivityManager.h"
-#import "WhiteRaccoon.h"
+#import "VLCFTPService.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCHTTPFileDownloader.h"
 #import "VLC-Swift.h"
