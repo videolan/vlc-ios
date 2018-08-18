@@ -1,2 +1,0 @@
-workspace "VLC.xcworkspace"
-test_without_building true
