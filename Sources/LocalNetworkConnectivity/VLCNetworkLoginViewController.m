@@ -20,7 +20,7 @@
 #import "VLCNetworkLoginDataSourceLogin.h"
 #import "VLCNetworkLoginDataSourceSavedLogins.h"
 #import "VLCNetworkServerLoginInformation.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 
 // for protocol identifier

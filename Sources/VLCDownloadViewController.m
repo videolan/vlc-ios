@@ -18,7 +18,7 @@
 #import "WhiteRaccoon.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCHTTPFileDownloader.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     VLCDownloadSchemeNone,

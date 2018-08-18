@@ -73,7 +73,7 @@ private_lane :build_for_testing do
     output_directory: 'build',
     output_types: 'junit',
     buildlog_path: 'build',
-    derived_data_path: 'DerivedData'
+    derived_data_path: './DerivedData'
   )
 end
 
@@ -85,7 +85,7 @@ private_lane :run_ios_tests do
     destination: 'platform=iOS Simulator,name=iPhone 6s,OS=10.3.1',
     code_coverage: true,
     buildlog_path: 'test',
-    derived_data_path: 'DerivedData',
+    derived_data_path: './DerivedData',
     output_types: ''
   )
 end

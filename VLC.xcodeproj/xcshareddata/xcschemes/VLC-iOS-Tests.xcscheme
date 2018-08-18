@@ -17,8 +17,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "41533C90211338D500EC3ABA"
-               BuildableName = "VLC-for-iOSTests.xctest"
-               BlueprintName = "VLC-for-iOSTests"
+               BuildableName = "VLC-iOSTests.xctest"
+               BlueprintName = "VLC-iOSTests"
                ReferencedContainer = "container:VLC.xcodeproj">
             </BuildableReference>
          </TestableReference>

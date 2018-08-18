@@ -15,7 +15,7 @@
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @interface VLCOpenInActivity () <UIDocumentInteractionControllerDelegate>
 @end

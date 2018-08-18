@@ -22,7 +22,7 @@
 #import "VLCCloudServiceCell.h"
 
 #import "VLCGoogleDriveController.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @interface VLCCloudServicesTableViewController ()
 

@@ -16,7 +16,7 @@
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
 #import "UIDevice+VLC.h"
 #import "VLCPlaybackController.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 #if TARGET_OS_IOS
 @interface VLCBoxTableViewController () <VLCCloudStorageTableViewCell, BoxAuthorizationViewControllerDelegate, VLCCloudStorageDelegate, NSURLConnectionDataDelegate>

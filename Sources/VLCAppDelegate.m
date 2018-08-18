@@ -31,7 +31,7 @@
 #import "VLCDropboxConstants.h"
 #import "VLCPlaybackNavigationController.h"
 #import "PAPasscodeViewController.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 #define BETA_DISTRIBUTION 1
 

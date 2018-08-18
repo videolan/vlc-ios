@@ -22,7 +22,7 @@
 #import "VLCNetworkServerBrowser-Protocol.h"
 #import "VLCServerBrowsingController.h"
 
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @interface VLCNetworkServerBrowserViewController () <VLCNetworkServerBrowserDelegate,VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {

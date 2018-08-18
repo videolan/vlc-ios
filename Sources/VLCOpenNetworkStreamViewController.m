@@ -16,7 +16,7 @@
 #import "VLCPlaybackController.h"
 #import "VLCStreamingHistoryCell.h"
 #import "UIDevice+VLC.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, VLCStreamingHistoryCellMenuItemProtocol>
 {
