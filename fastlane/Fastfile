@@ -56,39 +56,38 @@ end
 desc 'Run Tests'
 lane :test do
   build_for_testing
-  run_tests
+  run_ios_tests
 end
 
 #### Private ####
 
 desc 'Build the projet for testing'
-private_lane :build_for_testing
-  cocoapods(repo_update: true)
+private_lane :build_for_testing do
+  cocoapods
   scan(
     scheme: 'VLC-iOS',
     build_for_testing: true,
     clean: true,
-    devices: ['iPhone 7'],
+    destination: 'platform=iOS Simulator,name=iPhone 6s,OS=10.3.1',
     code_coverage: true,
     output_directory: 'build',
     output_types: 'junit',
     buildlog_path: 'build',
-    derived_data_path: 'DerivedData',
-    formatter: 'xcpretty-json-formatter'
+    derived_data_path: 'DerivedData'
   )
 end
 
 desc 'Run tests without building'
-private_lane :run_tests do
-    scan(
-        scheme: 'VLC-iOS',
-        test_without_building: true,
-        devices: ['iPhone 7'],
-        code_coverage: true,
-        buildlog_path: 'test',
-        derived_data_path: 'DerivedData',
-        output_types: ""
-    )
+private_lane :run_ios_tests do
+  scan(
+    scheme: 'VLC-iOS',
+    test_without_building: true,
+    destination: 'platform=iOS Simulator,name=iPhone 6s,OS=10.3.1',
+    code_coverage: true,
+    buildlog_path: 'test',
+    derived_data_path: 'DerivedData',
+    output_types: ''
+  )
 end
 
 desc 'Bump and commit app version and build number'

@@ -61,6 +61,11 @@ fastlane ci
 fastlane screenshots
 ```
 Take screenshots
+### test
+```
+fastlane test
+```
+Run Tests
 
 ----
 
