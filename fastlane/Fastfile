@@ -52,14 +52,14 @@ lane :ci do
     build: true,
     destination: 'platform=iOS Simulator,name=iPhone 6s,OS=10.3.1'
   )
-  xcodebuild(
-    workspace: 'VLC.xcworkspace',
-    scheme: 'VLC-tvOS',
-    configuration: 'Debug',
-    clean: true,
-    build: true,
-    destination: 'platform=tvOS Simulator,name=Apple TV,OS=11.3'
-  )
+  # xcodebuild(
+  #   workspace: 'VLC.xcworkspace',
+  #   scheme: 'VLC-tvOS',
+  #   configuration: 'Debug',
+  #   clean: true,
+  #   build: true,
+  #   destination: 'platform=tvOS Simulator,name=Apple TV,OS=11.3'
+  # )
   test
 end
 
@@ -69,15 +69,13 @@ lane :screenshots do
   frameit(white: true, path: './fastlane/screenshots')
 end
 
-#### Tests ####
+#### Private ####
 
 desc 'Run Tests'
-lane :test do
+private_lane :test do
   cocoapods(repo_update: true)
-  scan(scheme: 'VLC-iOS')
+  scan(scheme: 'VLC-iOS', skip_build: true)
 end
-
-#### Private ####
 
 desc 'Bump and commit app version and build number'
 private_lane :set_version_bump_build_and_commit do |options|
