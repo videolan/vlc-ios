@@ -1,2 +1,2 @@
 workspace "VLC.xcworkspace"
-skip_build true
+test_without_building true

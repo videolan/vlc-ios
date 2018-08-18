@@ -74,7 +74,7 @@ end
 desc 'Run Tests'
 private_lane :test do
   cocoapods(repo_update: true)
-  scan(scheme: 'VLC-iOS', skip_build: true)
+  scan(scheme: 'VLC-iOS', test_without_building: true)
 end
 
 desc 'Bump and commit app version and build number'
