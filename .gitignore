@@ -22,8 +22,8 @@ Pods
 
 # Others
 build
+test
 DerivedData
 External
 ImportedSources
 !Makefile
-
