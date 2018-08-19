@@ -75,14 +75,14 @@ private_lane :build_for_testing do
     buildlog_path: 'build',
     derived_data_path: './DerivedData'
   )
-  xcodebuild(		
-    workspace: 'VLC.xcworkspace',		
-    scheme: 'VLC-tvOS',		
-    configuration: 'Debug',		
-    clean: true,		
-    build: true,		
-    destination: 'platform=tvOS Simulator,name=Apple TV,OS=11.3'		
-  )		
+  xcodebuild(
+    workspace: 'VLC.xcworkspace',
+    scheme: 'VLC-tvOS',
+    configuration: 'Debug',
+    clean: true,
+    build: true,
+    destination: 'platform=tvOS Simulator,name=Apple TV,OS=11.3'
+  )
 end
 
 desc 'Run tests without building'
