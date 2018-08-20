@@ -27,12 +27,9 @@ class AudioModel: MLBaseModel {
     }
 
     func append(_ item: VLCMLMedia) {
-        for file in files {
-            if file.identifier() == item.identifier() {
-                return
-            }
+        if !files.contains { $0 == item } {
+            files.append(item)
         }
-        files.append(item)
     }
 
     func delete(_ items: [VLCMLObject]) {

@@ -28,12 +28,9 @@ class VideoModel: MLBaseModel {
     }
 
     func append(_ item: VLCMLMedia) {
-        for file in files {
-            if file.identifier() == item.identifier() {
-                return
-            }
+        if !files.contains { $0 == item } {
+            files.append(item)
         }
-        files.append(item)
     }
 
     func delete(_ items: [VLCMLObject]) {
@@ -81,8 +78,19 @@ extension VideoModel: MediaLibraryObserver {
 
 extension VideoModel {
     func medialibrary(_ medialibrary: VLCMediaLibraryManager, thumbnailReady media: VLCMLMedia) {
-        print("VideoModel: thumbnailReady for: \(media) with image: \(media.thumbnail)")
+        for (index, file) in files.enumerated() {
+            if file == media {
+                files[index] = media
+                break
+            }
+        }
         updateView?()
+    }
+}
+
+extension VLCMLMedia {
+    static func == (lhs: VLCMLMedia, rhs: VLCMLMedia) -> Bool {
+        return lhs.identifier() == rhs.identifier()
     }
 }
 
