@@ -33,6 +33,9 @@ extension NSNotification {
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                                      didAddShowEpisodes showEpisodes: [VLCMLMedia])
 
+    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+                                     thumbnailReady media: VLCMLMedia)
+
     // Audio
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                                      didAddAudios audios: [VLCMLMedia])
@@ -179,6 +182,18 @@ extension VLCMediaLibraryManager {
 // MARK: MediaLibrary - Video methods
 
 extension VLCMediaLibraryManager {
+    func requestThumbnail(for media: [VLCMLMedia]) {
+        media.forEach() {
+                // FIXME: Remind Chouquette! In the medialibrary thumbnails uses absolute paths. Workaround:
+                //         - Regenerate path is a thumbnail is detected
+                //         - Request a new thumbnail
+                // if $0.isThumbnailGenerated() { return }
+
+            if !medialib.requestThumbnail(for: $0) {
+                assertionFailure("VLCMediaLibraryManager: Failed to generate thumbnail for: \($0.identifier())")
+            }
+        }
+    }
 }
 
 // MARK: MediaLibrary - Playlist methods
@@ -205,6 +220,10 @@ extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
         let videos = media.filter {( $0.type() == .video )}
         let audio = media.filter {( $0.type() == .audio )}
 
+        // thumbnails only for videos
+        // FIXME: Endless loop of MediaAdded C++ side need fixing, disabling thumbnails
+        // requestThumbnail(for: videos)
+
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddVideos: videos)
             observer.value.observer?.medialibrary?(self, didAddAudios: audio)
@@ -224,6 +243,12 @@ extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didDeleteMediaWithIds mediaIds: [NSNumber]) {
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didDeleteMediaWithIds: mediaIds)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, thumbnailReadyFor media: VLCMLMedia, withSuccess success: Bool) {
+        for observer in observers {
+            observer.value.observer?.medialibrary?(self, thumbnailReady: media)
         }
     }
 }

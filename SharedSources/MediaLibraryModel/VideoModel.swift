@@ -24,6 +24,7 @@ class VideoModel: MLBaseModel {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         files = medialibrary.media(ofType: .video)
+        medialibrary.requestThumbnail(for: files)
     }
 
     func append(_ item: VLCMLMedia) {
@@ -72,6 +73,15 @@ extension VideoModel: MediaLibraryObserver {
             }
             return true
         }
+        updateView?()
+    }
+}
+
+// MARK: MediaLibraryObserver - Thumbnail
+
+extension VideoModel {
+    func medialibrary(_ medialibrary: VLCMediaLibraryManager, thumbnailReady media: VLCMLMedia) {
+        print("VideoModel: thumbnailReady for: \(media) with image: \(media.thumbnail)")
         updateView?()
     }
 }
