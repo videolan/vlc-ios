@@ -19,7 +19,7 @@
 #import "VLCCloudStorageTableViewCell.h"
 #import "UIDevice+VLC.h"
 #import "VLCAppDelegate.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @interface VLCDropboxTableViewController () <VLCCloudStorageTableViewCell, VLCCloudStorageDelegate>
 {

@@ -16,7 +16,7 @@
 #import "IASKSettingsReader.h"
 #import "PAPasscodeViewController.h"
 #import <LocalAuthentication/LocalAuthentication.h>
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderViewIdentifier";
 

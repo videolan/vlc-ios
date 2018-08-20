@@ -29,12 +29,12 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "41B0BC851F73ED7D0063BA26"
-               BuildableName = "VLC for iOSUITests.xctest"
-               BlueprintName = "VLC for iOSUITests"
+               BuildableName = "VLC-iOSUITests.xctest"
+               BlueprintName = "VLC-iOSUITests"
                ReferencedContainer = "container:VLC.xcodeproj">
             </BuildableReference>
             <SkippedTests>
@@ -48,8 +48,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "41533C90211338D500EC3ABA"
-               BuildableName = "VLC for iOSTests.xctest"
-               BlueprintName = "VLC for iOSTests"
+               BuildableName = "VLC-iOSTests.xctest"
+               BlueprintName = "VLC-iOSTests"
                ReferencedContainer = "container:VLC.xcodeproj">
             </BuildableReference>
          </TestableReference>

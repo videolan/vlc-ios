@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #import "VLCNetworkLoginViewButtonCell.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 NSString * const kVLCNetworkLoginViewButtonCellIdentifier = @"VLCNetworkLoginViewButtonCellIdentifier";
 

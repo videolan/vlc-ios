@@ -14,7 +14,7 @@
 #import "VLCMovieViewControlPanelView.h"
 #import "VLCPlaybackController.h"
 #import "VLCMetadata.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @interface VLCMovieViewControlPanelView ()
 

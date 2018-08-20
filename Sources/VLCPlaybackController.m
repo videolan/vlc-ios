@@ -24,7 +24,7 @@
 #import "VLCRemoteControlService.h"
 #import "VLCMetadata.h"
 #if TARGET_OS_IOS
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 #endif
 
 NSString *const VLCPlaybackControllerPlaybackDidStart = @"VLCPlaybackControllerPlaybackDidStart";

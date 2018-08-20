@@ -42,24 +42,6 @@ end
 lane :ci do
   lint
   xcode_select '/Applications/Xcode.app'
-  # Ideally we have iOS 9 support here but this is not yet added
-  # https://discuss.circleci.com/t/please-add-simulators-for-ios-9-10-to-xcode-9-image/16530
-  xcodebuild(
-    workspace: 'VLC.xcworkspace',
-    scheme: 'VLC-iOS',
-    configuration: 'Debug',
-    clean: true,
-    build: true,
-    destination: 'platform=iOS Simulator,name=iPhone 6s,OS=10.3.1'
-  )
-  xcodebuild(
-    workspace: 'VLC.xcworkspace',
-    scheme: 'VLC-tvOS',
-    configuration: 'Debug',
-    clean: true,
-    build: true,
-    destination: 'platform=tvOS Simulator,name=Apple TV,OS=11.3'
-  )
   test
 end
 
@@ -69,15 +51,52 @@ lane :screenshots do
   frameit(white: true, path: './fastlane/screenshots')
 end
 
-#### Tests ####
+##### Tests ####
 
 desc 'Run Tests'
 lane :test do
-  cocoapods(repo_update: true)
-  scan(scheme: 'VLC-iOS')
+  build_for_testing
+  run_ios_tests
 end
 
 #### Private ####
+
+desc 'Build the projet for testing'
+private_lane :build_for_testing do
+  cocoapods
+  scan(
+    scheme: 'VLC-iOS',
+    build_for_testing: true,
+    clean: true,
+    destination: 'platform=iOS Simulator,name=iPhone 6s,OS=10.3.1',
+    code_coverage: true,
+    output_directory: 'build',
+    output_types: 'junit',
+    buildlog_path: 'build',
+    derived_data_path: './DerivedData'
+  )
+  xcodebuild(
+    workspace: 'VLC.xcworkspace',
+    scheme: 'VLC-tvOS',
+    configuration: 'Debug',
+    clean: true,
+    build: true,
+    destination: 'platform=tvOS Simulator,name=Apple TV,OS=11.3'
+  )
+end
+
+desc 'Run tests without building'
+private_lane :run_ios_tests do
+  scan(
+    scheme: 'VLC-iOS',
+    test_without_building: true,
+    destination: 'platform=iOS Simulator,name=iPhone 6s,OS=10.3.1',
+    code_coverage: true,
+    buildlog_path: 'test',
+    derived_data_path: './DerivedData',
+    output_types: ''
+  )
+end
 
 desc 'Bump and commit app version and build number'
 private_lane :set_version_bump_build_and_commit do |options|

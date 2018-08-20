@@ -16,7 +16,7 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCPlaybackController.h"
 #import "VLCMediaFileDiscoverer.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 #import <XKKeychain/XKKeychain.h>
 
 #import <AppAuth/AppAuth.h>

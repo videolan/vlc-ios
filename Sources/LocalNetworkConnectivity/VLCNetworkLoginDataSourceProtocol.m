@@ -11,7 +11,7 @@
 
 
 #import "VLCNetworkLoginDataSourceProtocol.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 static NSString *const VLCNetworkLoginDataSourceProtocolCellIdentifier = @"VLCNetworkLoginDataSourceProtocolCell";
 
