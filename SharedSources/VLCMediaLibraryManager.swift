@@ -68,8 +68,6 @@ extension NSNotification {
 
 class VLCMediaLibraryManager: NSObject {
     private static let databaseName: String = "medialibrary.db"
-    private var databasePath: String!
-    private var thumbnailPath: String!
 
     // Using ObjectIdentifier to avoid duplication and facilitate
     // identification of observing object
@@ -89,14 +87,22 @@ class VLCMediaLibraryManager: NSObject {
     }
 
     // MARK: Private
+
     private func setupMediaLibrary() {
         guard let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first,
-            let dbPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first else {
+            let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first else {
                 preconditionFailure("VLCMediaLibraryManager: Unable to init medialibrary.")
         }
 
-        databasePath = dbPath + "/" + VLCMediaLibraryManager.databaseName
-        thumbnailPath = documentPath
+        let databasePath = libraryPath + "/MediaLibrary/" + VLCMediaLibraryManager.databaseName
+        let thumbnailPath = libraryPath + "/MediaLibrary/Thumbnails"
+
+        do {
+            try FileManager.default.createDirectory(atPath: thumbnailPath,
+                                                    withIntermediateDirectories: true)
+        } catch let error as NSError {
+            assertionFailure("Failed to create directory: \(error.localizedDescription)")
+        }
 
         let medialibraryStatus = medialib.setupMediaLibrary(databasePath: databasePath,
                                                             thumbnailPath: thumbnailPath)
