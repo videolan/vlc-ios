@@ -213,6 +213,7 @@
     _subtitleLabel.text = [NSString stringWithFormat:@"%@ - %@",
                            [_media formatDuration],
                            [_media formatSize]];
+    _thumbnailView.image = [UIImage imageWithContentsOfFile:_media.thumbnail];
 }
 
 - (void)_updatedDisplayedInformationForKeyPath:(NSString *)keyPath
