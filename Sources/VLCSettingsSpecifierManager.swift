@@ -20,7 +20,8 @@ class VLCSettingsSpecifierManager: NSObject {
     
     var items: NSArray {
         guard let items = specifier?.multipleValues() as NSArray? else {
-            fatalError("VLCSettingsSpecifierManager: No rows provided for \(specifier?.key() ?? "null specifier")")
+            assertionFailure("VLCSettingsSpecifierManager: No rows provided for \(specifier?.key() ?? "null specifier")")
+            return []
         }
         return items
     }
