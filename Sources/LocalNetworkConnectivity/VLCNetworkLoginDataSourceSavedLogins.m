@@ -11,7 +11,7 @@
 #import "VLCNetworkLoginDataSourceSavedLogins.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
 #import "VLCNetworkServerLoginInformation+Keychain.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 static NSString *const VLCNetworkLoginSavedLoginCellIdentifier = @"VLCNetworkLoginSavedLoginCell";
 

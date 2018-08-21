@@ -14,7 +14,7 @@
 #import "VLCWiFiUploadTableViewCell.h"
 #import "Reachability.h"
 #import "VLCHTTPUploaderController.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @interface VLCWiFiUploadTableViewCell()
 

@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 import XCTest
-@testable import VLC_iOS
+@testable import VLC
 
 class URLHandlerTests: XCTestCase {
 

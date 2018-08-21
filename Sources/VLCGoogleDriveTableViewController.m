@@ -17,7 +17,7 @@
 #import "VLCGoogleDriveController.h"
 #import "UIDevice+VLC.h"
 #import "VLCCloudStorageTableViewCell.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 #import <AppAuth/AppAuth.h>
 #import <GTMAppAuth/GTMAppAuth.h>

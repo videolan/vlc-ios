@@ -15,7 +15,7 @@
 #import "VLCCloudStorageTableViewController.h"
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCProgressView.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @interface VLCCloudStorageTableViewController()
 {

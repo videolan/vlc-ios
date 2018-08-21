@@ -19,7 +19,7 @@
 #import "UIDevice+VLC.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCConstants.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @interface VLCOneDriveTableViewController () <VLCCloudStorageDelegate>
 {

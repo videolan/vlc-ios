@@ -14,7 +14,7 @@
 
 #import "VLCBugreporter.h"
 
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @implementation VLCBugreporter
 

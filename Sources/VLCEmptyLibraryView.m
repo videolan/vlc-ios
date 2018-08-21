@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 #import "VLCEmptyLibraryView.h"
 #import "VLCFirstStepsViewController.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @implementation VLCEmptyLibraryView
 

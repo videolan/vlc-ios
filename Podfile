@@ -27,11 +27,11 @@ target 'VLC-iOS' do
   pod 'MediaLibraryKit-prod'
   pod 'GTMAppAuth'
 
-  target 'VLC-for-iOSUITests' do
+  target 'VLC-iOSUITests' do
     inherit! :search_paths
     pod 'SimulatorStatusMagic'
   end
-  target 'VLC-for-iOSTests' do
+  target 'VLC-iOSTests' do
       inherit! :search_paths
   end
 end

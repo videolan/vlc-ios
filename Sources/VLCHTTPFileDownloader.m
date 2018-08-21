@@ -16,7 +16,7 @@
 #import "VLCActivityManager.h"
 #import "UIDevice+VLC.h"
 #import "VLCMediaFileDiscoverer.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @interface VLCHTTPFileDownloader () <NSURLSessionDelegate>
 {

@@ -13,7 +13,7 @@
  *****************************************************************************/
 
 #import "VLCAboutViewController.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 @interface VLCAboutViewController ()
 {

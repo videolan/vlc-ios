@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #import "VLCNetworkLoginViewFieldCell.h"
-#import "VLC_iOS-Swift.h"
+#import "VLC-Swift.h"
 
 NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginViewFieldCellIdentifier";
 
