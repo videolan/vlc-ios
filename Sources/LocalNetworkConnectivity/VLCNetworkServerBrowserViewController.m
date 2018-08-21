@@ -83,9 +83,7 @@
 {
     [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
                                          errorMessage:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
-                                       viewController:self
-                                        buttonsAction:@[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_OK", nil)
-                                                                                       action: nil]]];
+                                       viewController:self];
 }
 
 - (void)updateUI
