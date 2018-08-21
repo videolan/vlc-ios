@@ -18,6 +18,7 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     private var services: Services
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
+    private lazy var editController = VLCEditController(collectionView: self.collectionView!)
     var category: VLCMediaSubcategoryModel<T>
 
     @available(iOS 11.0, *)
@@ -31,6 +32,13 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
         let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
         guard let emptyView = nib?.first as? VLCEmptyLibraryView else { fatalError("Can't find nib for \(name)") }
         return emptyView
+    }()
+
+    let editCollectionViewLayout: UICollectionViewFlowLayout = {
+        let editCollectionViewLayout = UICollectionViewFlowLayout()
+        editCollectionViewLayout.minimumLineSpacing = 1
+        editCollectionViewLayout.minimumInteritemSpacing = 0
+        return editCollectionViewLayout
     }()
 
     @available(*, unavailable)
@@ -86,6 +94,7 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
     func setupCollectionView() {
         let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle: nil)
         collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
+        collectionView?.register(VLCMediaViewEditCell.self, forCellWithReuseIdentifier: VLCMediaViewEditCell.identifier)
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
         if #available(iOS 11.0, *) {
@@ -132,6 +141,30 @@ class VLCMediaCategoryViewController<T>: UICollectionViewController, UICollectio
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView?.collectionViewLayout.invalidateLayout()
+    }
+
+    // MARK: - Edit
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        // might have an issue if the old datasource was search
+        // Most of the edit logic is handled inside editController
+        collectionView?.dataSource = editing ? editController : self
+        collectionView?.delegate = editing ? editController : self
+
+        if editing {
+            editController.updateData(data: category.files as [AnyObject])
+        }
+
+        let layoutToBe = editing ? editCollectionViewLayout : UICollectionViewFlowLayout()
+        collectionView?.setCollectionViewLayout(layoutToBe, animated: false, completion: {
+            [weak self] finished in
+            guard finished else {
+                assertionFailure("VLCMediaSubcategoryViewController: Edit layout transition failed.")
+                return
+            }
+            self?.reloadData()
+        })
     }
 
     // MARK: - Search
