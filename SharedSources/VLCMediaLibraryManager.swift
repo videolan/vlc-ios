@@ -22,7 +22,7 @@ extension NSNotification {
 @objc protocol MediaLibraryObserver: class {
     // Video
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
-                                     didUpdateVideo video: [VLCMLMedia])
+                                     didModifyVideo video: [VLCMLMedia])
 
     @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
                                      didDeleteMediaWithIds ids: [NSNumber])
@@ -236,7 +236,7 @@ extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
         }
     }
 
-    func medialibrary(_ medialibrary: VLCMediaLibrary, didUpdateMedia media: [VLCMLMedia]) {
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didModifyMedia media: [VLCMLMedia]) {
         let showEpisodes = media.filter {( $0.subtype() == .showEpisode )}
         let albumTrack = media.filter {( $0.subtype() == .albumTrack )}
 
