@@ -21,10 +21,10 @@
 #define remotePlaybackReuseIdentifer @"remotePlaybackReuseIdentifer"
 
 @interface VLCRemotePlaybackViewController () <UICollectionViewDataSource, UICollectionViewDelegate, VLCMediaFileDiscovererDelegate>
-{
-    Reachability *_reachability;
-    NSMutableArray<NSString *> *_discoveredFiles;
-}
+
+@property (strong, nonatomic) Reachability *reachability;
+@property (strong, nonatomic) NSMutableArray<NSString *> *discoveredFiles;
+
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
 
 @end
@@ -49,7 +49,7 @@
     [self.cachedMediaCollectionView registerNib:[UINib nibWithNibName:@"VLCRemoteBrowsingTVCell" bundle:nil]
           forCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier];
 
-    _reachability = [Reachability reachabilityForLocalWiFi];
+    self.reachability = [Reachability reachabilityForLocalWiFi];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self
@@ -60,7 +60,7 @@
     VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
     discoverer.filterResultsForPlayability = NO;
 
-    _discoveredFiles = [NSMutableArray array];
+    self.discoveredFiles = [NSMutableArray array];
 
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     discoverer.directoryPath = [[searchPaths firstObject] stringByAppendingPathComponent:@"Upload"];
@@ -113,7 +113,7 @@
 
     [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
 
-    [_reachability startNotifier];
+    [self.reachability startNotifier];
     [self updateHTTPServerAddress];
 }
 
@@ -121,7 +121,7 @@
 {
     [super viewWillDisappear:animated];
 
-    [_reachability stopNotifier];
+    [self.reachability stopNotifier];
 }
 
 - (void)reachabilityChanged
@@ -131,7 +131,7 @@
 
 - (void)updateHTTPServerAddress
 {
-    BOOL connectedViaWifi = _reachability.currentReachabilityStatus == ReachableViaWiFi;
+    BOOL connectedViaWifi = self.reachability.currentReachabilityStatus == ReachableViaWiFi;
     self.toggleHTTPServerButton.enabled = connectedViaWifi;
     NSString *uploadText = connectedViaWifi ? [[VLCHTTPUploaderController sharedInstance] httpStatus] : NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
     self.httpServerLabel.text = uploadText;
@@ -167,9 +167,9 @@
 {
     NSString *cellTitle;
     NSUInteger row = indexPath.row;
-    @synchronized(_discoveredFiles) {
-        if (_discoveredFiles.count > row) {
-            cellTitle = [_discoveredFiles[row] lastPathComponent];
+    @synchronized(self.discoveredFiles) {
+        if (self.discoveredFiles.count > row) {
+            cellTitle = [self.discoveredFiles[row] lastPathComponent];
         }
     }
 
@@ -183,8 +183,8 @@
 {
     NSUInteger ret;
 
-    @synchronized(_discoveredFiles) {
-        ret = _discoveredFiles.count;
+    @synchronized(self.discoveredFiles) {
+        ret = self.discoveredFiles.count;
     }
     self.cachedMediaConeImageView.hidden = ret > 0;
 
@@ -223,10 +223,10 @@
     }
 
     NSString *ret = nil;
-    @synchronized(_discoveredFiles) {
+    @synchronized(self.discoveredFiles) {
         NSInteger index = indexPathToDelete.item;
-        if (index < _discoveredFiles.count) {
-            ret = _discoveredFiles[index];
+        if (index < self.discoveredFiles.count) {
+            ret = self.discoveredFiles[index];
         }
     }
     return ret;
@@ -253,9 +253,9 @@
     }
     __block NSString *fileToDelete = nil;
     [self.cachedMediaCollectionView performBatchUpdates:^{
-        @synchronized(_discoveredFiles) {
-            fileToDelete = _discoveredFiles[indexPathToDelete.item];
-            [_discoveredFiles removeObject:fileToDelete];
+        @synchronized(self.discoveredFiles) {
+            fileToDelete = self.discoveredFiles[indexPathToDelete.item];
+            [self.discoveredFiles removeObject:fileToDelete];
         }
         [self.cachedMediaCollectionView deleteItemsAtIndexPaths:@[indexPathToDelete]];
     } completion:^(BOOL finished) {
@@ -269,8 +269,8 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSURL *url;
-    @synchronized(_discoveredFiles) {
-        url = [NSURL fileURLWithPath:_discoveredFiles[indexPath.row]];
+    @synchronized(self.discoveredFiles) {
+        url = [NSURL fileURLWithPath:self.discoveredFiles[indexPath.row]];
     }
 
     VLCMediaList *medialist = [[VLCMediaList alloc] init];
@@ -285,17 +285,17 @@
 #pragma mark - media file discovery
 - (void)mediaFilesFoundRequiringAdditionToStorageBackend:(NSArray<NSString *> *)foundFiles
 {
-    @synchronized(_discoveredFiles) {
-        _discoveredFiles = [NSMutableArray arrayWithArray:foundFiles];
+    @synchronized(self.discoveredFiles) {
+        self.discoveredFiles = [NSMutableArray arrayWithArray:foundFiles];
     }
     [self.cachedMediaCollectionView reloadData];
 }
 
 - (void)mediaFileAdded:(NSString *)filePath loading:(BOOL)isLoading
 {
-    @synchronized(_discoveredFiles) {
-        if (![_discoveredFiles containsObject:filePath]) {
-            [_discoveredFiles addObject:filePath];
+    @synchronized(self.discoveredFiles) {
+        if (![self.discoveredFiles containsObject:filePath]) {
+            [self.discoveredFiles addObject:filePath];
         }
     }
     [self.cachedMediaCollectionView reloadData];
@@ -303,8 +303,8 @@
 
 - (void)mediaFileDeleted:(NSString *)filePath
 {
-    @synchronized(_discoveredFiles) {
-        [_discoveredFiles removeObject:filePath];
+    @synchronized(self.discoveredFiles) {
+        [self.discoveredFiles removeObject:filePath];
     }
     [self.cachedMediaCollectionView reloadData];
 }
