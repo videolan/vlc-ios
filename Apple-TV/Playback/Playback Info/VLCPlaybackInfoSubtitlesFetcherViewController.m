@@ -18,11 +18,11 @@
 #define SPUDownloadHeaderReUseIdentifier @"SPUDownloadHeaderReUseIdentifier"
 
 @interface VLCPlaybackInfoSubtitlesFetcherViewController () <UITableViewDataSource, UITableViewDelegate, MDFOSOFetcherDataRecipient>
-{
-    MDFOSOFetcher *_osoFetcher;
-    NSArray <MDFSubtitleItem *>* _searchResults;
-    UIActivityIndicatorView *_activityIndicatorView;
-}
+
+@property (strong, nonatomic) MDFOSOFetcher *osoFetcher;
+@property (strong, nonatomic) NSArray<MDFSubtitleItem *>* searchResults;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
+
 @end
 
 @implementation VLCPlaybackInfoSubtitlesFetcherViewController
@@ -33,10 +33,10 @@
     self.titleLabel.text = self.title;
     self.tableView.backgroundColor = [UIColor clearColor];
 
-    _osoFetcher = [[MDFOSOFetcher alloc] init];
-    _osoFetcher.userAgentKey = @"VLSub 0.9";
-    _osoFetcher.dataRecipient = self;
-    [_osoFetcher prepareForFetching];
+    self.osoFetcher = [[MDFOSOFetcher alloc] init];
+    self.osoFetcher.userAgentKey = @"VLSub 0.9";
+    self.osoFetcher.dataRecipient = self;
+    [self.osoFetcher prepareForFetching];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *selectedLocale = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
@@ -53,15 +53,15 @@
         }
         [defaults setObject:selectedLocale forKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
     }
-    _osoFetcher.subtitleLanguageId = selectedLocale;
+    self.osoFetcher.subtitleLanguageId = selectedLocale;
 
-    _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    [_activityIndicatorView sizeToFit];
-    [_activityIndicatorView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    _activityIndicatorView.hidesWhenStopped = YES;
-    [self.view addSubview:_activityIndicatorView];
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [self.activityIndicatorView sizeToFit];
+    [self.activityIndicatorView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    self.activityIndicatorView.hidesWhenStopped = YES;
+    [self.view addSubview:self.activityIndicatorView];
 
-    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:_activityIndicatorView
+    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicatorView
                                                                    attribute:NSLayoutAttributeCenterY
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self.view
@@ -69,7 +69,7 @@
                                                                   multiplier:1.0
                                                                     constant:0.0];
     [self.view addConstraint:yConstraint];
-    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:_activityIndicatorView
+    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicatorView
                                                                    attribute:NSLayoutAttributeCenterX
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self.view
@@ -96,8 +96,9 @@
 
 - (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher readyToSearch:(BOOL)bValue
 {
-    if (!bValue)
+    if (!bValue) {
         return;
+    }
 
     [self searchForMedia];
 }
@@ -107,14 +108,14 @@
     [self startActivity];
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _osoFetcher.subtitleLanguageId = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
-    [_osoFetcher searchForSubtitlesWithQuery:vpc.metadata.title];
+    self.osoFetcher.subtitleLanguageId = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
+    [self.osoFetcher searchForSubtitlesWithQuery:vpc.metadata.title];
 }
 
 - (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher didFindSubtitles:(NSArray<MDFSubtitleItem *> *)subtitles forSearchRequest:(NSString *)searchRequest
 {
     [self stopActivity];
-    _searchResults = subtitles;
+    self.searchResults = subtitles;
     [self.tableView reloadData];
 }
 
@@ -143,11 +144,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
+    if (section == 0) {
         return 1;
+    }
 
-    if (_searchResults) {
-        return _searchResults.count;
+    if (self.searchResults) {
+        return self.searchResults.count;
     }
 
     return 0;
@@ -157,11 +159,12 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SPUDownloadReUseIdentifier];
 
-    if (!cell)
+    if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SPUDownloadReUseIdentifier];
-
+    }
+    
     if (indexPath.section != 0) {
-        MDFSubtitleItem *item = _searchResults[indexPath.row];
+        MDFSubtitleItem *item = self.searchResults[indexPath.row];
         cell.textLabel.text = item.name;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", item.rating, [item.format uppercaseStringWithLocale:[NSLocale currentLocale]]];
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -178,8 +181,9 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 0)
+    if (section == 0) {
         return @"";
+    }
 
     return NSLocalizedString(@"FOUND_SUBS", nil);
 }
@@ -192,7 +196,7 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LANGUAGE", nil)
                                                                                  message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-        NSArray<MDFSubtitleLanguage *> *languages = _osoFetcher.availableLanguages;
+        NSArray<MDFSubtitleLanguage *> *languages = self.osoFetcher.availableLanguages;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *currentCode = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
 
@@ -201,7 +205,7 @@
             UIAlertAction *action = [UIAlertAction actionWithTitle:item.localizedName
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
-                                                               _osoFetcher.subtitleLanguageId = itemID;
+                                                               self.osoFetcher.subtitleLanguageId = itemID;
                                                                [defaults setObject:itemID forKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
                                                                [self searchForMedia];
                                                                [self.tableView reloadData];
@@ -218,24 +222,24 @@
         [self presentViewController:alertController animated:YES completion:nil];
     } else {
         [self startActivity];
-        MDFSubtitleItem *item = _searchResults[indexPath.row];
+        MDFSubtitleItem *item = self.searchResults[indexPath.row];
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *folderPath = [searchPaths[0] stringByAppendingPathComponent:@"tempsubs"];
         [[NSFileManager defaultManager] createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
         NSString *subStorageLocation = [folderPath stringByAppendingPathComponent:item.name];
-        [_osoFetcher downloadSubtitleItem:item toPath:subStorageLocation];
+        [self.osoFetcher downloadSubtitleItem:item toPath:subStorageLocation];
     }
 }
 
 - (void)startActivity
 {
-    [_activityIndicatorView startAnimating];
+    [self.activityIndicatorView startAnimating];
     self.tableView.userInteractionEnabled = NO;
 }
 
 - (void)stopActivity
 {
-    [_activityIndicatorView stopAnimating];
+    [self.activityIndicatorView stopAnimating];
     self.tableView.userInteractionEnabled = YES;
 }
 

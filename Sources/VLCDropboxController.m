@@ -19,19 +19,18 @@
 #import "VLCDropboxConstants.h"
 
 @interface VLCDropboxController ()
-{
-    DBUserClient *_client;
-    NSArray *_currentFileList;
 
-    NSMutableArray *_listOfDropboxFilesToDownload;
-    BOOL _downloadInProgress;
+@property (strong, nonatomic) DBUserClient *client;
+@property (strong, nonatomic) NSArray *currentFileList;
 
-    CGFloat _averageSpeed;
-    NSTimeInterval _startDL;
-    NSTimeInterval _lastStatsUpdate;
+@property (strong, nonatomic) NSMutableArray *listOfDropboxFilesToDownload;
+@property (assign, nonatomic) BOOL downloadInProgress;
 
-    UINavigationController *_lastKnownNavigationController;
-}
+@property (assign, nonatomic) CGFloat averageSpeed;
+@property (assign, nonatomic) NSTimeInterval startDL;
+@property (assign, nonatomic) NSTimeInterval lastStatsUpdate;
+
+@property (strong, nonatomic) UINavigationController *lastKnownNavigationController;
 
 @end
 
@@ -69,8 +68,9 @@
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousStore synchronize];
     NSArray *credentials = [ubiquitousStore arrayForKey:kVLCStoreDropboxCredentials];
-    if (!credentials)
+    if (!credentials) {
         return NO;
+    }
     for (NSString *tmp in credentials) {
         [DBSDKKeychain storeValueWithKey:kVLCStoreDropboxCredentials value:tmp];
     }
@@ -122,8 +122,9 @@
         NSString *rawFileName = [fileName stringByDeletingPathExtension];
         for (NSUInteger x = 1; x < 100; x++) {
             potentialFilename = [NSString stringWithFormat:@"%@_%lu.%@", rawFileName, (unsigned long)x, fileExtension];
-            if (![fileManager fileExistsAtPath:[finalFilePath stringByAppendingPathComponent:potentialFilename]])
+            if (![fileManager fileExistsAtPath:[finalFilePath stringByAppendingPathComponent:potentialFilename]]) {
                 break;
+            }
         }
         return [finalFilePath stringByAppendingPathComponent:potentialFilename];
     }
@@ -137,19 +138,22 @@
 
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
-    if (self.isAuthorized)
+    if (self.isAuthorized) {
         [self listFiles:path];
+    }
 }
 
 - (void)downloadFileToDocumentFolder:(DBFILESMetadata *)file
 {
     if (![file isKindOfClass:[DBFILESFolderMetadata class]]) {
-        if (!_listOfDropboxFilesToDownload)
-            _listOfDropboxFilesToDownload = [[NSMutableArray alloc] init];
-        [_listOfDropboxFilesToDownload addObject:file];
+        if (!self.listOfDropboxFilesToDownload) {
+            self.listOfDropboxFilesToDownload = [[NSMutableArray alloc] init];
+        }
+        [self.listOfDropboxFilesToDownload addObject:file];
 
-        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
+        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)]) {
             [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
+        }
 
         [self _triggerNextDownload];
     }
@@ -157,12 +161,13 @@
 
 - (void)_triggerNextDownload
 {
-    if (_listOfDropboxFilesToDownload.count > 0 && !_downloadInProgress) {
-        [self _reallyDownloadFileToDocumentFolder:_listOfDropboxFilesToDownload[0]];
-        [_listOfDropboxFilesToDownload removeObjectAtIndex:0];
+    if (self.listOfDropboxFilesToDownload.count > 0 && !self.downloadInProgress) {
+        [self _reallyDownloadFileToDocumentFolder:self.listOfDropboxFilesToDownload[0]];
+        [self.listOfDropboxFilesToDownload removeObjectAtIndex:0];
 
-        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
+        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)]) {
             [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
+        }
     }
 }
 
@@ -170,14 +175,15 @@
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.name];
-    _startDL = [NSDate timeIntervalSinceReferenceDate];
+    self.startDL = [NSDate timeIntervalSinceReferenceDate];
 
     [self downloadFileFrom:file.pathDisplay to:filePath];
 
-    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)]) {
         [self.delegate operationWithProgressInformationStarted];
+    }
 
-    _downloadInProgress = YES;
+    self.downloadInProgress = YES;
 }
 
 - (void)streamFile:(DBFILESMetadata *)file currentNavigationController:(UINavigationController *)navigationController
@@ -198,12 +204,12 @@
     }
     [[[self client].filesRoutes listFolder:path] setResponseBlock:^(DBFILESListFolderResult * _Nullable result, DBFILESListFolderError * _Nullable routeError, DBRequestError * _Nullable networkError) {
         if (result) {
-            self->_currentFileList = [result.entries sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            self.currentFileList = [result.entries sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
                 NSString *first = [(DBFILESMetadata*)a name];
                 NSString *second = [(DBFILESMetadata*)b name];
                 return [first caseInsensitiveCompare:second];
             }];
-            APLog(@"found filtered metadata for %lu files", (unsigned long)self->_currentFileList.count);
+            APLog(@"found filtered metadata for %lu files", (unsigned long)self.currentFileList.count);
             if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
                 [self.delegate mediaListUpdated];
         } else {
@@ -230,14 +236,14 @@
 
     destination = [self _createPotentialNameFrom:destination];
 
-    [[[_client.filesRoutes downloadUrl:path overwrite:YES destination:[NSURL URLWithString:destination]]
+    [[[self.client.filesRoutes downloadUrl:path overwrite:YES destination:[NSURL URLWithString:destination]]
         setResponseBlock:^(DBFILESFileMetadata * _Nullable result, DBFILESDownloadError * _Nullable routeError, DBRequestError * _Nullable networkError, NSURL * _Nonnull destination) {
 
             if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)]) {
                 [self.delegate operationWithProgressInformationStopped];
             }
 
-            self->_downloadInProgress = NO;
+            self.downloadInProgress = NO;
             [self _triggerNextDownload];
             if (networkError) {
                 APLog(@"downloadFile failed with network error %li and error tag %li", (long)networkError.statusCode, (long)networkError.tag);
@@ -248,9 +254,9 @@
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL", nil));
             }
 
-            if ((self->_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - self->_lastStatsUpdate > .5)) || self->_lastStatsUpdate <= 0) {
+            if ((self.lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - self.lastStatsUpdate > .5)) || self.lastStatsUpdate <= 0) {
                 [self calculateRemainingTime:(CGFloat)totalBytesWritten expectedDownloadSize:(CGFloat)totalBytesExpectedToWrite];
-                self->_lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
+                self.lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
             }
 
             if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
@@ -266,7 +272,7 @@
         return;
     }
 
-    [[_client.filesRoutes getTemporaryLink:path] setResponseBlock:^(DBFILESGetTemporaryLinkResult * _Nullable result, DBFILESGetTemporaryLinkError * _Nullable routeError, DBRequestError * _Nullable networkError) {
+    [[self.client.filesRoutes getTemporaryLink:path] setResponseBlock:^(DBFILESGetTemporaryLinkResult * _Nullable result, DBFILESGetTemporaryLinkError * _Nullable routeError, DBRequestError * _Nullable networkError) {
 
         if (result) {
             VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:result.link]];
@@ -274,9 +280,9 @@
             [medialist addMedia:media];
             [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
 #if TARGET_OS_TV
-            if (_lastKnownNavigationController) {
+            if (self.lastKnownNavigationController) {
                 VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
-                [_lastKnownNavigationController presentViewController:movieVC
+                [self.lastKnownNavigationController presentViewController:movieVC
                                                              animated:YES
                                                            completion:nil];
             }
@@ -292,11 +298,11 @@
 
 - (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
 {
-    CGFloat lastSpeed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
+    CGFloat lastSpeed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - self.startDL);
     CGFloat smoothingFactor = 0.005;
-    _averageSpeed = isnan(_averageSpeed) ? lastSpeed : smoothingFactor * lastSpeed + (1 - smoothingFactor) * _averageSpeed;
+    self.averageSpeed = isnan(self.averageSpeed) ? lastSpeed : smoothingFactor * lastSpeed + (1 - smoothingFactor) * self.averageSpeed;
 
-    CGFloat RemainingInSeconds = (expectedDownloadSize - receivedDataSize)/_averageSpeed;
+    CGFloat RemainingInSeconds = (expectedDownloadSize - receivedDataSize)/self.averageSpeed;
 
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:RemainingInSeconds];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -304,20 +310,16 @@
     [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 
     NSString  *remaingTime = [formatter stringFromDate:date];
-    if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
+    if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)]) {
         [self.delegate updateRemainingTime:remaingTime];
-}
-
-- (NSArray *)currentListFiles
-{
-    return _currentFileList;
+    }
 }
 
 - (NSInteger)numberOfFilesWaitingToBeDownloaded
 {
-    if (_listOfDropboxFilesToDownload)
-        return _listOfDropboxFilesToDownload.count;
-
+    if (self.listOfDropboxFilesToDownload) {
+        return self.listOfDropboxFilesToDownload.count;
+    }
     return 0;
 }
 
@@ -340,7 +342,7 @@
 
 - (void)reset
 {
-    _currentFileList = nil;
+    self.currentFileList = nil;
 }
 
 @end
