@@ -54,17 +54,6 @@ typedef enum {
     kWRFTP
 } WRSchemes;
 
-
-typedef enum {
-    kWRDefaultBufferSize = 32768
-} WRBufferSizes;
-
-
-typedef enum {
-    kWRDefaultTimeout = 30
-} WRTimeouts;
-
-
 #pragma mark - WRRequestDelegate
 
 @protocol WRRequestDelegate  <NSObject>
@@ -91,11 +80,7 @@ typedef enum {
 @end
 #pragma mark - WRBase
 //Abstract class, do not instantiate
-@interface WRBase : NSObject {
-@protected
-    NSString * path;
-    NSString * hostname;
-}
+@interface WRBase: NSObject
 
 @property (nonatomic, strong) NSString * username;
 @property (nonatomic, assign) WRSchemes schemeId;
@@ -108,9 +93,6 @@ typedef enum {
 @property (nonatomic, strong) NSString * path;
 @property (nonatomic, assign) BOOL passive;
 @property (nonatomic, strong) WRRequestError * error;
-
-- (void) start;
-- (void) destroy;
 
 +(NSDictionary *) cachedFolders;
 +(void) addFoldersToCache:(NSArray *) foldersArray forParentFolderPath:(NSString *) key;
@@ -126,6 +108,9 @@ typedef enum {
 @property (nonatomic, readonly) WRRequestTypes type;
 @property (nonatomic, weak) id<WRRequestDelegate> delegate;
 @property (nonatomic, assign) BOOL didManagedToOpenStream;
+
+- (void) start;
+- (void) destroy;
 
 @end
 
@@ -178,12 +163,7 @@ typedef enum {
 //  The request will be sent to the server in the order in which they were added.
 //  If an error occures on one of the operations
 
-@interface WRRequestQueue : WRBase<WRRequestDelegate> {
-@private
-    WRRequest * headRequest;
-    WRRequest * tailRequest;
-
-}
+@interface WRRequestQueue : WRBase
 
 @property (nonatomic, strong) id<WRQueueDelegate> delegate;
 

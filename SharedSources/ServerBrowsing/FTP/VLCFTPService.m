@@ -34,6 +34,9 @@
 
 #import "VLCFTPService.h"
 
+static int kWRDefaultBufferSize = 32768;
+static int kWRDefaultTimeout = 30;
+
 #pragma mark - WRStreamInfo
 
 @interface WRStreamInfo: NSObject
@@ -52,7 +55,12 @@
 @end
 
 #pragma mark - WRBase
-
+@interface WRBase() {
+@protected
+    NSString * _path;
+    NSString * _hostname;
+}
+@end
 @implementation WRBase
 
 static NSMutableDictionary *folders;
@@ -89,7 +97,7 @@ static NSMutableDictionary *folders;
 }
 
 - (NSURL*) fullURL {
-    return [NSURL URLWithString:[self.fullURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return [NSURL URLWithString:[self.fullURLString stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet]];
 }
 
 - (NSString *)fullURLString {
@@ -99,7 +107,7 @@ static NSMutableDictionary *folders;
 - (NSString *)path {
     //  we remove all the extra slashes from the directory path, including the last one (if there is one)
     //  we also escape it
-    NSString * escapedPath = [path stringByStandardizingPath];
+    NSString * escapedPath = [_path stringByStandardizingPath];
 
 
     //  we need the path to be absolute, if it's not, we *make* it
@@ -111,7 +119,7 @@ static NSMutableDictionary *folders;
 }
 
 - (void) setPath:(NSString *)directoryPathLocal {
-    path = directoryPathLocal;
+    _path = directoryPathLocal;
 }
 
 - (NSString *)scheme {
@@ -130,11 +138,11 @@ static NSMutableDictionary *folders;
 }
 
 - (NSString *) hostname {
-    return [hostname stringByStandardizingPath];
+    return [_hostname stringByStandardizingPath];
 }
 
 - (void)setHostname:(NSString *)hostnamelocal {
-    hostname = hostnamelocal;
+    _hostname = hostnamelocal;
 }
 
 - (NSString *) credentials {
@@ -152,17 +160,15 @@ static NSMutableDictionary *folders;
     return [cred stringByStandardizingPath];
 }
 
-
-- (void) start{
-}
-
-- (void) destroy{
-}
-
 @end
 
 #pragma mark - WRRequestQueue
-
+@interface WRRequestQueue() <WRRequestDelegate>
+{
+    WRRequest * headRequest;
+    WRRequest * tailRequest;
+}
+@end
 @implementation WRRequestQueue
 
 - (id)init {
@@ -218,8 +224,6 @@ static NSMutableDictionary *folders;
     if (tailRequest == nil) {
         tailRequest = request;
     }
-
-
 }
 
 - (void) addRequestsFromArray: (NSArray *) array{
@@ -243,14 +247,13 @@ static NSMutableDictionary *folders;
     request.prevRequest = nil;
 }
 
-- (void) start{
+- (void)start {
     [headRequest start];
 }
 
 - (void) destroy{
     [headRequest destroy];
     headRequest.nextRequest = nil;
-    [super destroy];
 }
 
 
@@ -267,8 +270,6 @@ static NSMutableDictionary *folders;
     }else{
         [headRequest start];
     }
-
-
 }
 
 - (void) requestFailed:(WRRequest *) request{
@@ -313,12 +314,10 @@ static NSMutableDictionary *folders;
     }
     return self;
 }
-
+- (void)start{}
 - (void)destroy {
-
     self.streamInfo.bytesConsumedThisIteration = 0;
     self.streamInfo.bytesConsumedInTotal = 0;
-    [super destroy];
 }
 
 - (void)dealloc {
@@ -473,7 +472,8 @@ static NSMutableDictionary *folders;
     }
 }
 
-- (void) destroy{
+- (void)destroy
+{
     if (self.streamInfo.readStream) {
         [self.streamInfo.readStream close];
         [self.streamInfo.readStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
@@ -495,7 +495,7 @@ static NSMutableDictionary *folders;
 
 - (NSString *)path {
 
-    NSString * lastCharacter = [path substringFromIndex:[path length] - 1];
+    NSString * lastCharacter = [_path substringFromIndex:[_path length] - 1];
     isDirectory = ([lastCharacter isEqualToString:@"/"]);
 
     if (!isDirectory) return [super path];
@@ -507,7 +507,8 @@ static NSMutableDictionary *folders;
     return directoryPath;
 }
 
-- (void) start{
+- (void)start
+{
 
     if (self.hostname==nil) {
         APLog(@"The host name is nil!");
