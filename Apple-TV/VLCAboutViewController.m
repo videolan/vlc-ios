@@ -65,9 +65,8 @@
     [self stopAnimation];
 }
 
-- (UIView *)preferredFocusedView
-{
-    return self.blablaTextView;
+- (NSArray<id<UIFocusEnvironment>> *)preferredFocusEnvironments {
+    return @[self.blablaTextView];
 }
 
 - (void)scrollToTop
