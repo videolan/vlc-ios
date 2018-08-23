@@ -1,5 +1,11 @@
+iOS 3.1.2:
+----------
+· Fixed playback pausing once external output devices are unplugged
+· Deinterlacing is disabled by default now as modern devices no longer support this in hardware
+· Stability improvements for the H264 and H265 decoder
+
 iOS 3.1.1:
------------
+----------
 · Fixed the swiping Gestures to change brightness and Volume
 · Chromecasting is not stopping anymore when locking the device
 · Fixed Video not being displayed over an external Screen via HDMI
