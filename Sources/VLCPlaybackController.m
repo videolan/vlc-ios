@@ -1105,9 +1105,11 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (BOOL)areHeadphonesPlugged
 {
+    /* check what output device is currently connected
+     * this code assumes that everything which is not a builtin speaker, is some sort of headphone */
     NSArray *outputs = [[AVAudioSession sharedInstance] currentRoute].outputs;
-    NSString *portName = [[outputs firstObject] portName];
-    return [portName isEqualToString:@"Headphones"];
+    AVAudioSessionPortDescription *outputDescription = outputs.firstObject;
+    return ![outputDescription.portType isEqualToString:AVAudioSessionPortBuiltInSpeaker];
 }
 
 - (void)audioSessionRouteChange:(NSNotification *)notification
@@ -1121,6 +1123,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     BOOL headphonesPlugged = [self areHeadphonesPlugged];
 
     if (_headphonesWasPlugged && !headphonesPlugged && [_mediaPlayer isPlaying]) {
+        APLog(@"Pausing playback as previously plugged headphones were removed");
         [_mediaPlayer pause];
 #if TARGET_OS_IOS
         [self _savePlaybackState];
