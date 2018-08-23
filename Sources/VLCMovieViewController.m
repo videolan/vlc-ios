@@ -814,6 +814,24 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self setControlsHidden:!_controlsHidden animated:YES];
 }
 
+- (void)updateActivityIndicatorForState:(VLCMediaPlayerState)state {
+    UIActivityIndicatorView *indicator = self.activityIndicator;
+    switch (state) {
+        case VLCMediaPlayerStateBuffering:
+            if (!indicator.isAnimating) {
+                self.activityIndicator.alpha = 1.0;
+                [self.activityIndicator startAnimating];
+            }
+            break;
+        default:
+            if (indicator.isAnimating) {
+                [self.activityIndicator stopAnimating];
+                self.activityIndicator.alpha = 0.0;
+            }
+            break;
+    }
+}
+
 - (void)_resetIdleTimer
 {
     if (!_idleTimer)
@@ -1038,6 +1056,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller
 {
+    // FIXME: hard coded state since the state in mediaPlayer is incorrectly still buffering
+    [self updateActivityIndicatorForState:VLCMediaPlayerStatePlaying];
+
     if (!_isScrubbing) {
         self.timeNavigationTitleView.positionSlider.value = [controller playbackPosition];
     }
@@ -1079,6 +1100,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         currentMediaHasChapters:(BOOL)currentMediaHasChapters
           forPlaybackController:(VLCPlaybackController *)controller
 {
+    [self updateActivityIndicatorForState:currentState];
+
     if (currentState == VLCMediaPlayerStateBuffering)
         _mediaDuration = controller.mediaDuration;
 

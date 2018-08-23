@@ -74,6 +74,7 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @property (nonatomic, strong) IBOutlet UILabel *trackNameLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *artworkImageView;
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *widthConstraint;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic, weak) id<VLCMovieViewControllerDelegate> delegate;
 
