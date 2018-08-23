@@ -21,7 +21,9 @@
 #import "LiveApiHelper.h"
 #import "LiveAuthStorage.h"
 
-#import "VLC-Swift.h"
+#if TARGET_OS_IOS
+# import "VLC-Swift.h"
+#endif
 
 @interface VLCOneDriveController () <LiveAuthDelegate, VLCOneDriveObjectDelegate, VLCOneDriveObjectDownloadDelegate>
 {
@@ -269,10 +271,12 @@
 
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
         [self.delegate operationWithProgressInformationStopped];
+
+#if TARGET_OS_IOS
     // FIXME: Replace notifications by cleaner observers
     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                         object:self];
-
+#endif
     _downloadInProgress = NO;
     [self _triggerNextDownload];
 }

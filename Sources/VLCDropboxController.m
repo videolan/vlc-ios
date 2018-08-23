@@ -17,7 +17,10 @@
 #import "VLCActivityManager.h"
 #import "VLCMediaFileDiscoverer.h"
 #import "VLCDropboxConstants.h"
-#import "VLC-Swift.h"
+
+#if TARGET_OS_IOS
+# import "VLC-Swift.h"
+#endif
 
 @interface VLCDropboxController ()
 
@@ -244,9 +247,11 @@
                 [self.delegate operationWithProgressInformationStopped];
             }
 
+#if TARGET_OS_IOS
             // FIXME: Replace notifications by cleaner observers
             [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                                 object:self];
+#endif
             self.downloadInProgress = NO;
             [self _triggerNextDownload];
             if (networkError) {
