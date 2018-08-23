@@ -2,7 +2,7 @@
  * VLCPlaybackController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -63,7 +63,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     BOOL _needsMetadataUpdate;
     BOOL _mediaWasJustStarted;
     BOOL _recheckForExistingThumbnail;
-    BOOL _headphonesWasPlugged;
+    BOOL _externalAudioPlaybackDevicePlugged;
 
     NSLock *_playbackSessionManagementLock;
 
@@ -100,7 +100,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     self = [super init];
     if (self) {
         // listen to audiosessions and appkit callback
-        _headphonesWasPlugged = [self areHeadphonesPlugged];
+        _externalAudioPlaybackDevicePlugged = [self isExternalAudioPlaybackDevicePlugged];
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter addObserver:self selector:@selector(audioSessionRouteChange:)
                               name:AVAudioSessionRouteChangeNotification object:nil];
@@ -1098,10 +1098,10 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     }
 }
 
-- (BOOL)areHeadphonesPlugged
+- (BOOL)isExternalAudioPlaybackDevicePlugged
 {
     /* check what output device is currently connected
-     * this code assumes that everything which is not a builtin speaker, is some sort of headphone */
+     * this code assumes that everything which is not a builtin speaker, must be external */
     NSArray *outputs = [[AVAudioSession sharedInstance] currentRoute].outputs;
     AVAudioSessionPortDescription *outputDescription = outputs.firstObject;
     return ![outputDescription.portType isEqualToString:AVAudioSessionPortBuiltInSpeaker];
@@ -1115,17 +1115,17 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     if (routeChangeReason == AVAudioSessionRouteChangeReasonRouteConfigurationChange)
         return;
 
-    BOOL headphonesPlugged = [self areHeadphonesPlugged];
+    BOOL externalAudioPlaybackDevicePlugged = [self isExternalAudioPlaybackDevicePlugged];
 
-    if (_headphonesWasPlugged && !headphonesPlugged && [_mediaPlayer isPlaying]) {
-        APLog(@"Pausing playback as previously plugged headphones were removed");
+    if (_externalAudioPlaybackDevicePlugged && !externalAudioPlaybackDevicePlugged && [_mediaPlayer isPlaying]) {
+        APLog(@"Pausing playback as previously plugged external audio playback device was removed");
         [_mediaPlayer pause];
 #if TARGET_OS_IOS
         [self _savePlaybackState];
 #endif
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
     }
-    _headphonesWasPlugged = headphonesPlugged;
+    _externalAudioPlaybackDevicePlugged = externalAudioPlaybackDevicePlugged;
 }
 
 #pragma mark - Managing the media item
