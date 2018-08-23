@@ -194,10 +194,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _actualVideoOutputView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _actualVideoOutputView.autoresizesSubviews = YES;
 
-    if (_pathToExternalSubtitlesFile)
-        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[NSString stringWithFormat:@"--%@=%@", kVLCSettingSubtitlesFilePath, _pathToExternalSubtitlesFile]] andDrawable:_actualVideoOutputView];
-    else
-        _listPlayer = [[VLCMediaListPlayer alloc] initWithDrawable:_actualVideoOutputView];
+    _listPlayer = [[VLCMediaListPlayer alloc] initWithDrawable:_actualVideoOutputView];
 
     /* to enable debug logging for the playback library instance, switch the boolean below
      * note that the library instance used for playback may not necessarily match the instance
@@ -212,8 +209,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         [_mediaPlayer setDeinterlaceFilter:@"blend"];
     else
         [_mediaPlayer setDeinterlaceFilter:nil];
-    if (_pathToExternalSubtitlesFile)
-        [_mediaPlayer addPlaybackSlave:[NSURL fileURLWithPath:_pathToExternalSubtitlesFile] type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
 
     VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
     [media parseWithOptions:VLCMediaParseLocal];
@@ -260,6 +255,17 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
     [[self remoteControlService] subscribeToRemoteCommands];
 
+    if (_pathToExternalSubtitlesFile) {
+        /* this could be a path or an absolute string - let's see */
+        NSURL *subtitleURL = [NSURL URLWithString:_pathToExternalSubtitlesFile];
+        if (!subtitleURL) {
+            subtitleURL = [NSURL fileURLWithPath:_pathToExternalSubtitlesFile];
+        }
+        if (subtitleURL) {
+            [_mediaPlayer addPlaybackSlave:subtitleURL type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
+        }
+    }
+
     _playerIsSetup = YES;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStart object:self];
@@ -295,12 +301,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     }
     if (!_sessionWillRestart) {
         _mediaList = nil;
-        if (_pathToExternalSubtitlesFile) {
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            if ([fileManager fileExistsAtPath:_pathToExternalSubtitlesFile])
-                [fileManager removeItemAtPath:_pathToExternalSubtitlesFile error:nil];
-            _pathToExternalSubtitlesFile = nil;
-        }
     }
     _playerIsSetup = NO;
     [_shuffleStack removeAllObjects];

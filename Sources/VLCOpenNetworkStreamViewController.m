@@ -367,30 +367,29 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 #pragma mark - internals
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
-    NSURL *URLscheme = [NSURL URLWithString:url];
-    NSString *URLofSubtitle = nil;
+    NSURL *playbackURL = [NSURL URLWithString:url];
+    NSURL *subtitlesURL = nil;
 
-    if ([URLscheme.scheme isEqualToString:@"http"] && self.ScanSubToggleSwitch.on) {
-        URLofSubtitle = [self _checkURLofSubtitle:url];
+    if (([playbackURL.scheme isEqualToString:@"http"] || [playbackURL.scheme isEqualToString:@"https"]) && self.ScanSubToggleSwitch.on) {
+        subtitlesURL = [self _checkURLofSubtitle:playbackURL];
     }
 
     VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:url]];
     VLCMediaList *medialist = [[VLCMediaList alloc] init];
     [medialist addMedia:media];
-    [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:URLofSubtitle];
+    [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:subtitlesURL.absoluteString];
 }
 
-- (NSString *)_checkURLofSubtitle:(NSString *)url
+- (NSURL *)_checkURLofSubtitle:(NSURL *)url
 {
     NSCharacterSet *characterFilter = [NSCharacterSet characterSetWithCharactersInString:@"\\.():$"];
     NSString *subtitleFileExtensions = [[kSupportedSubtitleFileExtensions componentsSeparatedByCharactersInSet:characterFilter] componentsJoinedByString:@""];
     NSArray *arraySubtitleFileExtensions = [subtitleFileExtensions componentsSeparatedByString:@"|"];
-    NSString *urlTemp = [[url stringByDeletingPathExtension] stringByAppendingString:@"."];
+    NSURL *urlWithoutExtension = [url URLByDeletingPathExtension];
     NSUInteger count = arraySubtitleFileExtensions.count;
 
     for (int i = 0; i < count; i++) {
-        NSString *checkAddress = [urlTemp stringByAppendingString:arraySubtitleFileExtensions[i]];
-        NSURL *checkURL = [NSURL URLWithString:checkAddress];
+        NSURL *checkURL = [urlWithoutExtension URLByAppendingPathExtension:arraySubtitleFileExtensions[i]];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:checkURL];
         request.HTTPMethod = @"HEAD";
 
@@ -400,37 +399,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
 
         if (httpStatus == 200) {
-            NSString *fileSubtitlePath = [self _getFileSubtitleFromServer:checkURL];
-            return fileSubtitlePath;
+            APLog(@"%s:found matching spu file: %@", __PRETTY_FUNCTION__, checkURL);
+            return checkURL;
         }
     }
     return nil;
-}
-
-- (NSString *)_getFileSubtitleFromServer:(NSURL *)url
-{
-    NSString *fileSubtitlePath = nil;
-    NSString *fileName = [[url path] lastPathComponent];
-    NSData *receivedSub = [NSData dataWithContentsOfURL:url];
-
-    if (receivedSub.length < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
-        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString *directoryPath = [searchPaths objectAtIndex:0];
-        fileSubtitlePath = [directoryPath stringByAppendingPathComponent:fileName];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
-            [fileManager createFileAtPath:fileSubtitlePath contents:nil attributes:nil];
-            if (![fileManager fileExistsAtPath:fileSubtitlePath])
-                APLog(@"file creation failed, no data was saved");
-        }
-        [receivedSub writeToFile:fileSubtitlePath atomically:YES];
-    } else {
-        [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                             errorMessage:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), fileName, [[UIDevice currentDevice] model]]
-                                           viewController:self];
-    }
-
-    return fileSubtitlePath;
 }
 
 - (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error
