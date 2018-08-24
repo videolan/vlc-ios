@@ -7,7 +7,6 @@ def shared_pods
   pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
   pod 'upnpx', '~>1.4.0'
   pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
-  pod 'VLC-WhiteRaccoon'
   pod 'VLC-LiveSDK', '5.7.0x'
   pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/carolanitz/dropbox-sdk-obj-c.git' #update ios platform version
 

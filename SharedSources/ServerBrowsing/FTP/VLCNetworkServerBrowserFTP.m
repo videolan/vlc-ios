@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 #import "VLCNetworkServerBrowserFTP.h"
-#import "WhiteRaccoon.h"
+#import "VLCFTPService.h"
 #import "NSString+SupportedMedia.h"
 
 @interface VLCNetworkServerBrowserFTP () <WRRequestDelegate>
