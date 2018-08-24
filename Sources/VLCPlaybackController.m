@@ -203,10 +203,8 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     [_mediaPlayer setDelegate:self];
     if ([[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue] != 0)
         [_mediaPlayer setRate: [[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue]];
-    if ([[defaults objectForKey:kVLCSettingDeinterlace] intValue] != 0)
-        [_mediaPlayer setDeinterlaceFilter:@"blend"];
-    else
-        [_mediaPlayer setDeinterlaceFilter:nil];
+    int deinterlace = [[defaults objectForKey:kVLCSettingDeinterlace] intValue];
+    [_mediaPlayer setDeinterlace:deinterlace withFilter:@"blend"];
 
     VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
     [media parseWithOptions:VLCMediaParseLocal];
