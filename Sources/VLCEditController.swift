@@ -145,6 +145,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
 
         let cancelButton = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""))
         let deleteButton = VLCAlertButton(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
+                                          style: .destructive,
                                           action: {
                                             [weak self] action in
                                             self?.category.delete(objectsToDelete)
