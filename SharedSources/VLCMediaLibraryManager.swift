@@ -88,11 +88,20 @@ class VLCMediaLibraryManager: NSObject {
 
     // MARK: Private
 
+    private func setupMediaDiscovery(at path: String) {
+        let mediaFileDiscoverer = VLCMediaFileDiscoverer.sharedInstance()
+        mediaFileDiscoverer?.directoryPath = path
+        mediaFileDiscoverer?.addObserver(self)
+        mediaFileDiscoverer?.startDiscovering()
+    }
+
     private func setupMediaLibrary() {
         guard let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first,
             let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first else {
                 preconditionFailure("VLCMediaLibraryManager: Unable to init medialibrary.")
         }
+
+        setupMediaDiscovery(at: documentPath)
 
         let databasePath = libraryPath + "/MediaLibrary/" + VLCMediaLibraryManager.databaseName
         let thumbnailPath = libraryPath + "/MediaLibrary/Thumbnails"
@@ -216,6 +225,31 @@ extension VLCMediaLibraryManager {
 
     func getPlaylists(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLPlaylist] {
         return medialib.playlists(with: sort, desc: desc)
+    }
+}
+
+extension VLCMediaLibraryManager: VLCMediaFileDiscovererDelegate {
+    func mediaFileAdded(_ filePath: String!, loading isLoading: Bool) {
+        guard !isLoading else {
+            return
+        }
+        /* exclude media files from backup (QA1719) */
+        var excludeURL = URL(fileURLWithPath: filePath)
+        var resourceValue = URLResourceValues()
+
+        resourceValue.isExcludedFromBackup = true
+
+        do {
+            try excludeURL.setResourceValues(resourceValue)
+        } catch let error {
+            assertionFailure("VLCMediaLibraryManager: VLCMediaFileDiscovererDelegate: \(error.localizedDescription)")
+        }
+
+        reload()
+    }
+
+    func mediaFileDeleted(_ filePath: String!) {
+        reload()
     }
 }
 

@@ -25,3 +25,4 @@
 #import "IASKSettingsReader.h"
 #import "IASKSwitch.h"
 #import "VLCHTTPUploaderController.h"
+#import "VLCMediaFileDiscoverer.h"

@@ -35,7 +35,7 @@
 
 #define BETA_DISTRIBUTION 1
 
-@interface VLCAppDelegate () <VLCMediaFileDiscovererDelegate>
+@interface VLCAppDelegate ()
 {
     BOOL _isRunningMigration;
     BOOL _isComingFromHandoff;
@@ -112,12 +112,6 @@
         BOOL spotlightEnabled = ![VLCKeychainCoordinator passcodeLockEnabled];
         [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
         [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
-
-        VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
-        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        discoverer.directoryPath = [searchPaths firstObject];
-        [discoverer addObserver:self];
-        [discoverer startDiscovering];
     };
 
     NSError *error = nil;
@@ -281,36 +275,6 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
     //TODO: shortcutItem should be implemented
-}
-
-#pragma mark - media discovering
-
-- (void)mediaFileAdded:(NSString *)fileName loading:(BOOL)isLoading
-{
-    if (!isLoading) {
-        MLMediaLibrary *sharedLibrary = [MLMediaLibrary sharedMediaLibrary];
-        [sharedLibrary addFilePaths:@[fileName]];
-
-        /* exclude media files from backup (QA1719) */
-        NSURL *excludeURL = [NSURL fileURLWithPath:fileName];
-        [excludeURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
-
-        // TODO Should we update media db after adding new files?
-        [sharedLibrary updateMediaDatabase];
-        // TODO: update the VideoViewController
-    }
-}
-
-- (void)mediaFileDeleted:(NSString *)name
-{
-    [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-   // TODO: update the VideoViewController
-}
-
-- (void)mediaFilesFoundRequiringAdditionToStorageBackend:(NSArray<NSString *> *)foundFiles
-{
-    [[MLMediaLibrary sharedMediaLibrary] addFilePaths:foundFiles];
-  // TODO: update the VideoViewController
 }
 
 #pragma mark - pass code validation

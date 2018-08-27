@@ -14,10 +14,8 @@
 
 @protocol VLCMediaFileDiscovererDelegate <NSObject>
 
-@required
-- (void)mediaFilesFoundRequiringAdditionToStorageBackend:(NSArray <NSString *> *)foundFiles;
-
 @optional
+- (void)mediaFilesFoundRequiringAdditionToStorageBackend:(NSArray <NSString *> *)foundFiles;
 // loading is equal to YES first time when file is discovered
 - (void)mediaFileAdded:(NSString *)filePath loading:(BOOL)isLoading;
 
