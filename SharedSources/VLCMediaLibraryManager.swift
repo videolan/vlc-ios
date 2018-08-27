@@ -227,8 +227,7 @@ extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
         let audio = media.filter {( $0.type() == .audio )}
 
         // thumbnails only for videos
-        // FIXME: Endless loop of MediaAdded C++ side need fixing, disabling thumbnails
-        // requestThumbnail(for: videos)
+        requestThumbnail(for: videos)
 
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddVideos: videos)
