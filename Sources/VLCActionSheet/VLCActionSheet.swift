@@ -171,6 +171,8 @@ class VLCActionSheet: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
 
         view.addSubview(backgroundView)
         view.addSubview(mainStackView)
@@ -229,6 +231,20 @@ class VLCActionSheet: UIViewController {
 
     @objc func setAction(closure action: @escaping (_ item: Any) -> Void) {
         self.action = action
+    }
+    
+    @objc fileprivate func updateTheme() {
+        collectionView.backgroundColor = PresentationTheme.current.colors.background
+        headerView.backgroundColor = PresentationTheme.current.colors.background
+        headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
+        bottomBackgroundView.backgroundColor = PresentationTheme.current.colors.background
+        for cell in collectionView.visibleCells {
+            if let cell = cell as? VLCActionSheetCell {
+                cell.backgroundColor = PresentationTheme.current.colors.background
+                cell.name.textColor = PresentationTheme.current.colors.cellTextColor
+            }
+        }
+        collectionView.layoutIfNeeded()
     }
 }
 

@@ -39,7 +39,6 @@ class VLCRendererDiscovererManager: NSObject {
     @objc init(presentingViewController: UIViewController?) {
         self.presentingViewController = presentingViewController
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
     }
 
     // Returns renderers of *all* discoverers
@@ -202,20 +201,6 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
         cell.tintColor = tintColor
         cell.icon.image = image
         cell.name.textColor = textColor
-    }
-
-    @objc fileprivate func updateTheme() {
-        actionSheet.collectionView.backgroundColor = PresentationTheme.current.colors.background
-        actionSheet.headerView.backgroundColor = PresentationTheme.current.colors.background
-        actionSheet.headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
-        actionSheet.bottomBackgroundView.backgroundColor = PresentationTheme.current.colors.background
-        for cell in actionSheet.collectionView.visibleCells {
-            if let cell = cell as? VLCActionSheetCell {
-                cell.backgroundColor = PresentationTheme.current.colors.background
-                cell.name.textColor = PresentationTheme.current.colors.cellTextColor
-            }
-        }
-        actionSheet.collectionView.layoutIfNeeded()
     }
 }
 
