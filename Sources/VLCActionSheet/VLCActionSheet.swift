@@ -200,6 +200,12 @@ class VLCActionSheet: UIViewController {
         // This is to avoid a horrible visual glitch!
         mainStackView.isHidden = false
 
+        let roundedCornerPath = UIBezierPath(roundedRect: headerView.bounds, byRoundingCorners: [.topLeft, .topRight],
+                                             cornerRadii: CGSize(width: 10, height: 10))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = roundedCornerPath.cgPath
+        headerView.layer.mask = maskLayer
+
         UIView.transition(with: backgroundView, duration: 0.2, options: .transitionCrossDissolve, animations: { [weak self] in
             self?.backgroundView.isHidden = false
             }, completion: nil)
