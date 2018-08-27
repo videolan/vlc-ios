@@ -443,34 +443,6 @@
 			remoteGlobalIDString = 1EB617491B0A30480035A986;
 			remoteInfo = "HockeySDK FrameworkTests";
 		};
-		7D5278CA1BD7DE3D00D0CA0E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D3196B831412FE180060E7C6;
-			remoteInfo = DropboxSDK;
-		};
-		7D5278CC1BD7DE3D00D0CA0E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D3933BE5145F12AD00E15FA7;
-			remoteInfo = SDropboxSDK;
-		};
-		7D5278CE1BD7DE3D00D0CA0E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D36931CC15088350003FBA23;
-			remoteInfo = DropboxOSX;
-		};
-		7D5278D01BD7DE3D00D0CA0E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7DEC0DCA1BD7C35D00A32C79;
-			remoteInfo = DropboxTVSDK;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -775,7 +747,6 @@
 		7D51B3AD1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoMediaInfoTVViewController.h; sourceTree = "<group>"; };
 		7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoMediaInfoTVViewController.m; sourceTree = "<group>"; };
 		7D51B3AF1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaybackInfoMediaInfoTVViewController.xib; path = "Playback/Playback Info/VLCPlaybackInfoMediaInfoTVViewController.xib"; sourceTree = "<group>"; };
-		7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropboxSDK.xcodeproj; path = ImportedSources/Dropbox/DropboxSDK/DropboxSDK.xcodeproj; sourceTree = SOURCE_ROOT; };
 		7D5B26631D6350BF00FE7B4D /* gradient-cell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-cell.png"; sourceTree = "<group>"; };
 		7D5B266D1D63511700FE7B4D /* favicon.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = favicon.ico; sourceTree = "<group>"; };
 		7D5C204D17999A74004F9443 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1257,7 +1228,6 @@
 		412A87D01F3B89B000640BB7 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				DD3567891B67618F00338947 /* CoreData.framework */,
 				416DEFF51FEEA76A00F4FC59 /* LayoutAnchorContainer.swift */,
 				412BE7521FC4947400ACCC42 /* VLCMediaSubcategory+VLCDragAndDrop.swift */,
 			);
@@ -1494,7 +1464,6 @@
 				7D3E52891BD7B5E100309D15 /* VLCCloudServicesTVViewController.m */,
 				7DF383BF1BF231BC00D71A5C /* VLCCloudStorageTVViewController.h */,
 				7DF383C01BF231BC00D71A5C /* VLCCloudStorageTVViewController.m */,
-				7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */,
 			);
 			name = Cloud;
 			sourceTree = "<group>";
@@ -1517,17 +1486,6 @@
 			);
 			name = "Cloud Integration";
 			path = ..;
-			sourceTree = "<group>";
-		};
-		7D5278C41BD7DE3D00D0CA0E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7D5278CB1BD7DE3D00D0CA0E /* DropboxSDK.framework */,
-				7D5278CD1BD7DE3D00D0CA0E /* libSDropboxSDK.a */,
-				7D5278CF1BD7DE3D00D0CA0E /* DropboxOSX.framework */,
-				7D5278D11BD7DE3D00D0CA0E /* DropboxTVSDK.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		7D5E39CC174FCDBE007DAFA1 /* Cloud Integration */ = {
@@ -2690,10 +2648,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 7D5278C41BD7DE3D00D0CA0E /* Products */;
-					ProjectRef = 7D5278C31BD7DE3D00D0CA0E /* DropboxSDK.xcodeproj */;
-				},
-				{
 					ProductGroup = 7D29C7971C08C84000AEC5C4 /* Products */;
 					ProjectRef = 7D29C7961C08C84000AEC5C4 /* HockeySDK.xcodeproj */;
 				},
@@ -2742,34 +2696,6 @@
 			fileType = wrapper.cfbundle;
 			path = "HockeySDK FrameworkTests.xctest";
 			remoteRef = 7D29C7A81C08C84000AEC5C4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7D5278CB1BD7DE3D00D0CA0E /* DropboxSDK.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = DropboxSDK.framework;
-			remoteRef = 7D5278CA1BD7DE3D00D0CA0E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7D5278CD1BD7DE3D00D0CA0E /* libSDropboxSDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSDropboxSDK.a;
-			remoteRef = 7D5278CC1BD7DE3D00D0CA0E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7D5278CF1BD7DE3D00D0CA0E /* DropboxOSX.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = DropboxOSX.framework;
-			remoteRef = 7D5278CE1BD7DE3D00D0CA0E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7D5278D11BD7DE3D00D0CA0E /* DropboxTVSDK.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = DropboxTVSDK.framework;
-			remoteRef = 7D5278D01BD7DE3D00D0CA0E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
