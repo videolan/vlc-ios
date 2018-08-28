@@ -51,8 +51,12 @@ extension VLCPlaybackController: VLCCustomDialogRendererProtocol {
                 self?.dialogProvider.postUsername(username, andPassword: password, forDialogReference: reference, store: true)
             }))
         }
+        
+        if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
+            let presentingController = rootViewController.presentedViewController ?? rootViewController
+            presentingController.present(alertController, animated: true, completion: nil)
+        }
 
-        UIApplication.shared.delegate?.window??.rootViewController?.presentedViewController?.present(alertController, animated: true, completion: nil)
     }
 
     public func showQuestion(withTitle title: String, message: String, type questionType: VLCDialogQuestionType, cancel cancelString: String?, action1String: String?, action2String: String?, withReference reference: NSValue) {
@@ -76,7 +80,10 @@ extension VLCPlaybackController: VLCCustomDialogRendererProtocol {
                 self?.dialogProvider.postAction(2, forDialogReference: reference)
             }))
         }
-        UIApplication.shared.delegate?.window??.rootViewController?.presentedViewController?.present(alertController, animated: true, completion: nil)
+        if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
+            let presentingController = rootViewController.presentedViewController ?? rootViewController
+            presentingController.present(alertController, animated: true, completion: nil)
+        }
     }
 
     public func showProgress(withTitle title: String, message: String, isIndeterminate: Bool, position: Float, cancel cancelString: String?, withReference reference: NSValue) {
@@ -88,6 +95,9 @@ extension VLCPlaybackController: VLCCustomDialogRendererProtocol {
     }
 
     public func cancelDialog(withReference reference: NSValue) {
-        UIApplication.shared.delegate?.window??.rootViewController?.presentedViewController?.dismiss(animated: true, completion: nil)
+        if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
+            let presentingController = rootViewController.presentedViewController ?? rootViewController
+            presentingController.dismiss(animated: true, completion: nil)
+        }
     }
 }
