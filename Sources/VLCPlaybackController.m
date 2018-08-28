@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     BOOL _needsMetadataUpdate;
     BOOL _mediaWasJustStarted;
     BOOL _recheckForExistingThumbnail;
-    BOOL _externalAudioPlaybackDevicePlugged;
+    BOOL _externalAudioPlaybackDeviceConnected;
 
     NSLock *_playbackSessionManagementLock;
 
@@ -102,7 +102,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     self = [super init];
     if (self) {
         // listen to audiosessions and appkit callback
-        _externalAudioPlaybackDevicePlugged = [self isExternalAudioPlaybackDevicePlugged];
+        _externalAudioPlaybackDeviceConnected = [self isExternalAudioPlaybackDeviceConnected];
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter addObserver:self selector:@selector(audioSessionRouteChange:)
                               name:AVAudioSessionRouteChangeNotification object:nil];
@@ -1101,7 +1101,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     }
 }
 
-- (BOOL)isExternalAudioPlaybackDevicePlugged
+- (BOOL)isExternalAudioPlaybackDeviceConnected
 {
     /* check what output device is currently connected
      * this code assumes that everything which is not a builtin speaker, must be external */
@@ -1118,17 +1118,17 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     if (routeChangeReason == AVAudioSessionRouteChangeReasonRouteConfigurationChange)
         return;
 
-    BOOL externalAudioPlaybackDevicePlugged = [self isExternalAudioPlaybackDevicePlugged];
+    BOOL externalAudioPlaybackDeviceConnected = [self isExternalAudioPlaybackDeviceConnected];
 
-    if (_externalAudioPlaybackDevicePlugged && !externalAudioPlaybackDevicePlugged && [_mediaPlayer isPlaying]) {
-        APLog(@"Pausing playback as previously plugged external audio playback device was removed");
+    if (_externalAudioPlaybackDeviceConnected && !externalAudioPlaybackDeviceConnected && [_mediaPlayer isPlaying]) {
+        APLog(@"Pausing playback as previously connected external audio playback device was removed");
         [_mediaPlayer pause];
 #if TARGET_OS_IOS
         [self _savePlaybackState];
 #endif
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
     }
-    _externalAudioPlaybackDevicePlugged = externalAudioPlaybackDevicePlugged;
+    _externalAudioPlaybackDeviceConnected = externalAudioPlaybackDeviceConnected;
 }
 
 #pragma mark - Managing the media item
