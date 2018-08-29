@@ -66,8 +66,19 @@ extension NSNotification {
                                      didDeletePlaylistsWithIds playlistsIds: [NSNumber])
 }
 
+protocol MediaLibraryMigrationDelegate: class {
+    func medialibraryDidStartMigration(_ medialibrary: VLCMediaLibraryManager)
+
+    func medialibraryDidFinishMigration(_ medialibrary: VLCMediaLibraryManager)
+
+    func medialibraryDidStopMigration(_ medialibrary: VLCMediaLibraryManager)
+}
+
 class VLCMediaLibraryManager: NSObject {
     private static let databaseName: String = "medialibrary.db"
+    private static let migrationKey: String = "MigratedToVLCMediaLibraryKit"
+
+    private var didMigrate = UserDefaults.standard.bool(forKey: VLCMediaLibraryManager.migrationKey)
 
     // Using ObjectIdentifier to avoid duplication and facilitate
     // identification of observing object
@@ -78,6 +89,8 @@ class VLCMediaLibraryManager: NSObject {
         medialibrary.delegate = self
         return medialibrary
     }()
+
+    weak var migrationDelegate: MediaLibraryMigrationDelegate?
 
     override init() {
         super.init()
@@ -159,6 +172,105 @@ class VLCMediaLibraryManager: NSObject {
 
     func genre(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLGenre] {
         return medialib.genres(with: sort, desc: desc)
+    }
+
+    func fetchMedia(with mrl: URL?) -> VLCMLMedia? {
+        guard let mrl = mrl  else {
+            return nil
+        }
+        return medialib.media(withMrl: mrl)
+    }
+
+    @discardableResult
+    func prepareMigrationIfNeeded() -> Bool {
+        if !didMigrate {
+            migrationDelegate?.medialibraryDidStartMigration(self)
+            return true
+        }
+        return false
+    }
+}
+
+// MARK: - Migration
+
+private extension VLCMediaLibraryManager {
+    func startMigrationIfNeeded() {
+        guard !didMigrate else {
+            return
+        }
+
+        guard migrateToNewMediaLibrary() else {
+            migrationDelegate?.medialibraryDidStopMigration(self)
+            return
+        }
+
+        migrationDelegate?.medialibraryDidFinishMigration(self)
+    }
+
+    func migrateMedia(_ oldMedialibrary: MLMediaLibrary) -> Bool {
+        guard let allFiles = MLFile.allFiles() as? [MLFile] else {
+            assertionFailure("VLCMediaLibraryManager: Migration: Unable to retreive all files")
+            return false
+        }
+
+        for media in allFiles {
+            if let newMedia = fetchMedia(with: media.url) {
+                newMedia.updateTitle(media.title)
+                newMedia.setPlayCount(media.playCount.uint32Value)
+                newMedia.setMetadataOf(.progress, intValue: media.lastPosition.int64Value)
+                newMedia.setMetadataOf(.seen, intValue: media.unread.int64Value)
+                // Only delete files that are not in playlist
+                if media.labels.isEmpty {
+                    oldMedialibrary.remove(media)
+                }
+            }
+        }
+        oldMedialibrary.save()
+        return true
+    }
+
+    // This private method migrates old playlist and removes file and playlist
+    // from the old medialibrary.
+    // Note: This removes **only** files that are in a playlist
+    func migratePlaylists(_ oldMedialibrary: MLMediaLibrary) -> Bool {
+        guard let allLabels = MLLabel.allLabels() as? [MLLabel] else {
+            assertionFailure("VLCMediaLibraryManager: Migration: Unable to retreive all labels")
+            return false
+        }
+
+        for label in allLabels {
+            let newPlaylist = createPlaylist(with: label.name)
+
+            guard let files = label.files as? Set<MLFile> else {
+                assertionFailure("VLCMediaLibraryManager: Migration: Unable to retreive files from label")
+                oldMedialibrary.remove(label)
+                continue
+            }
+
+            for file in files {
+                if let newMedia = fetchMedia(with: file.url) {
+                    if newPlaylist.appendMedia(withIdentifier: newMedia.identifier()) {
+                        oldMedialibrary.remove(file)
+                    }
+                }
+            }
+            oldMedialibrary.remove(label)
+        }
+        oldMedialibrary.save()
+        return true
+    }
+
+    func migrateToNewMediaLibrary() -> Bool {
+        guard let oldMedialibrary = MLMediaLibrary.sharedMediaLibrary() as? MLMediaLibrary else {
+            assertionFailure("VLCMediaLibraryManager: Migration: Unable to retreive old medialibrary")
+            return false
+        }
+
+        if migrateMedia(oldMedialibrary) && migratePlaylists(oldMedialibrary) {
+            UserDefaults.standard.set(true, forKey: VLCMediaLibraryManager.migrationKey)
+            return true
+        }
+        return false
     }
 }
 
@@ -344,6 +456,7 @@ extension VLCMediaLibraryManager {
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didCompleteDiscovery entryPoint: String) {
+        startMigrationIfNeeded()
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didProgressDiscovery entryPoint: String) {

@@ -26,3 +26,4 @@
 #import "IASKSwitch.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMediaFileDiscoverer.h"
+#import "VLCMigrationViewController.h"
