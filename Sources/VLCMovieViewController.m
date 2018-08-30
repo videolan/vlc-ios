@@ -81,6 +81,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _playbackWillClose;
     BOOL _isTapSeeking;
     VLCMovieJumpState _previousJumpState;
+    VLCMediaPlayerState _previousPlayerStateWasPaused;
 
     UIPinchGestureRecognizer *_pinchRecognizer;
     VLCPanType _currentPanType;
@@ -778,21 +779,15 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self setControlsHidden:!_controlsHidden animated:YES];
 }
 
-- (void)updateActivityIndicatorForState:(VLCMediaPlayerState)state {
-    UIActivityIndicatorView *indicator = self.activityIndicator;
-    switch (state) {
-        case VLCMediaPlayerStateBuffering:
-            if (!indicator.isAnimating) {
-                self.activityIndicator.alpha = 1.0;
-                [self.activityIndicator startAnimating];
-            }
-            break;
-        default:
-            if (indicator.isAnimating) {
-                [self.activityIndicator stopAnimating];
-                self.activityIndicator.alpha = 0.0;
-            }
-            break;
+- (void)updateActivityIndicatorForState:(VLCMediaPlayerState)state
+{
+    if (state == VLCMediaPlayerStatePlaying || state == VLCMediaPlayerStatePaused) {
+        _previousPlayerStateWasPaused = state == VLCMediaPlayerStatePaused;
+    }
+    BOOL shouldAnimate = state == VLCMediaPlayerStateBuffering && !_previousPlayerStateWasPaused;
+    if (self.activityIndicator.isAnimating != shouldAnimate) {
+        self.activityIndicator.alpha = shouldAnimate ? 1.0 : 0.0;
+        shouldAnimate ? [self.activityIndicator startAnimating] : [self.activityIndicator stopAnimating];
     }
 }
 
