@@ -82,6 +82,19 @@
     [defaults registerDefaults:appDefaults];
 }
 
+- (void)setup
+{
+    void (^setupLibraryBlock)(void) = ^{
+        self->appCoordinator = [[AppCoordinator alloc] initWithViewController:self->rootViewController];
+        [self->appCoordinator start];
+    };
+    [self validatePasscodeIfNeededWithCompletion:setupLibraryBlock];
+
+    BOOL spotlightEnabled = ![VLCKeychainCoordinator passcodeLockEnabled];
+    [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
+    [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     BITHockeyManager *hockeyManager = [BITHockeyManager sharedHockeyManager];
@@ -99,19 +112,7 @@
     rootViewController = [UIViewController new];
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
-    // enable crash preventer
-    void (^setupBlock)(void) = ^{
-        void (^setupLibraryBlock)(void) = ^{
-            self->appCoordinator = [[AppCoordinator alloc] initWithViewController:self->rootViewController];
-            [self->appCoordinator start];
-        };
-        [self validatePasscodeIfNeededWithCompletion:setupLibraryBlock];
-
-        BOOL spotlightEnabled = ![VLCKeychainCoordinator passcodeLockEnabled];
-        [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
-        [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
-    };
-    setupBlock();
+    [self setup];
 
     /* add our static shortcut items the dynamic way to ease l10n and dynamic elements to be introduced later */
     if (@available(iOS 9, *)) {
