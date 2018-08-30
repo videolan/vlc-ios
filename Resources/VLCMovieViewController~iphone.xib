@@ -97,10 +97,10 @@
                     <color key="shadowColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                 </label>
                 <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" id="vR5-i9-KEJ">
-                    <rect key="frame" x="169" y="373" width="37" height="37"/>
+                    <rect key="frame" x="170" y="316" width="37" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
-                <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="108" userLabel="Playing Externally View" customClass="VLCPlayingExternallyView" customModule="VLC_iOS" customModuleProvider="target">
+                <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="108" userLabel="Playing Externally View" customClass="VLCPlayingExternallyView" customModule="VLC" customModuleProvider="target">
                     <rect key="frame" x="28" y="178" width="320" height="257"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
