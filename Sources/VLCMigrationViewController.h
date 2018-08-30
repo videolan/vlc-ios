@@ -16,5 +16,4 @@
 
 @property(nonatomic) IBOutlet UILabel *statusLabel;
 @property(nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-@property(nonatomic, copy) void (^completionHandler)(void);
 @end

@@ -22,7 +22,6 @@
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
 #import "VLCHTTPUploaderController.h"
-#import "VLCMigrationViewController.h"
 #import "VLCPlaybackController.h"
 #import "VLCPlaybackController+MediaLibrary.h"
 #import <MediaPlayer/MediaPlayer.h>
@@ -37,7 +36,6 @@
 
 @interface VLCAppDelegate ()
 {
-    BOOL _isRunningMigration;
     BOOL _isComingFromHandoff;
     VLCKeychainCoordinator *_keychainCoordinator;
     AppCoordinator *appCoordinator;
@@ -113,33 +111,7 @@
         [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
         [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
     };
-
-    NSError *error = nil;
-
-    if ([[MLMediaLibrary sharedMediaLibrary] libraryMigrationNeeded]){
-        _isRunningMigration = YES;
-
-        VLCMigrationViewController *migrationController = [[VLCMigrationViewController alloc] initWithNibName:@"VLCMigrationViewController" bundle:nil];
-        migrationController.completionHandler = ^{
-
-            //migrate
-            setupBlock();
-            self->_isRunningMigration = NO;
-            [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
-            [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
-        };
-
-        self.window.rootViewController = migrationController;
-        [self.window makeKeyAndVisible];
-
-    } else {
-        if (error != nil) {
-            APLog(@"removed persistentStore since it was corrupt");
-            NSURL *storeURL = ((MLMediaLibrary *)[MLMediaLibrary sharedMediaLibrary]).persistentStoreURL;
-            [[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error];
-        }
-        setupBlock();
-    }
+    setupBlock();
 
     /* add our static shortcut items the dynamic way to ease l10n and dynamic elements to be introduced later */
     if (@available(iOS 9, *)) {
@@ -263,7 +235,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    if (!_isRunningMigration && !_isComingFromHandoff) {
+    if (!_isComingFromHandoff) {
         [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
       //  [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
         [[VLCPlaybackController sharedInstance] recoverDisplayedMetadata];
