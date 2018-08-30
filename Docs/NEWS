@@ -1,8 +1,10 @@
 iOS 3.1.2:
 ----------
-· Fixed playback pausing once external output devices are unplugged
-· Deinterlacing is disabled by default now as modern devices no longer support this in hardware
-· Stability improvements for the H264 and H265 decoder
+· The background setting to continue playback is ignored when external screens are used
+· Sorting in folders gets saved correctly
+· Fixed playback pausing once external output devices like bluetooth headphones are disconnected
+· Deinterlacing is disabled by default now modern devices no longer support this, which led to high battery usage
+· Stability improvements for the H264 and H265 decoder and Chromecasting
 
 iOS 3.1.1:
 ----------
