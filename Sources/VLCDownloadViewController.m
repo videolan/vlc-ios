@@ -296,7 +296,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
     self.currentDownloadLabel.text = _humanReadableFilename;
     self.progressView.progress = 0.;
-    [self.progressPercent setText:@"0%%"];
+    [self.progressPercent setText:@"0%"];
     [self.speedRate setText:@"0 Kb/s"];
     [self.timeDL setText:@"00:00:00"];
     _startDL = [NSDate timeIntervalSinceReferenceDate];
