@@ -77,7 +77,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _playbackWillClose;
     BOOL _isTapSeeking;
     VLCMovieJumpState _previousJumpState;
-    VLCMediaPlayerState _previousPlayerStateWasPlaying;
+    VLCMediaPlayerState _previousPlayerStateWasPaused;
 
     UIPinchGestureRecognizer *_pinchRecognizer;
     VLCPanType _currentPanType;
@@ -818,9 +818,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)updateActivityIndicatorForState:(VLCMediaPlayerState)state
 {
     if (state == VLCMediaPlayerStatePlaying || state == VLCMediaPlayerStatePaused) {
-        _previousPlayerStateWasPlaying = state == VLCMediaPlayerStatePlaying;
+        _previousPlayerStateWasPaused = state == VLCMediaPlayerStatePaused;
     }
-    BOOL shouldAnimate = state == VLCMediaPlayerStateBuffering && _previousPlayerStateWasPlaying;
+    BOOL shouldAnimate = state == VLCMediaPlayerStateBuffering && !_previousPlayerStateWasPaused;
     if (self.activityIndicator.isAnimating != shouldAnimate) {
         self.activityIndicator.alpha = shouldAnimate ? 1.0 : 0.0;
         shouldAnimate ? [self.activityIndicator startAnimating] : [self.activityIndicator stopAnimating];
