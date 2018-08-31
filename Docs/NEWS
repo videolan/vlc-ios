@@ -1,5 +1,6 @@
 iOS 3.1.2:
 ----------
+. Added an activity indicator for buffering
 · The background setting to continue playback is ignored when external screens are used
 · Sorting in folders gets saved correctly
 · Fixed playback pausing once external output devices like bluetooth headphones are disconnected
