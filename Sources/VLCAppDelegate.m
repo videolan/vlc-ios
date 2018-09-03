@@ -84,11 +84,11 @@
 
 - (void)setup
 {
-    void (^setupLibraryBlock)(void) = ^{
+    void (^setupAppCoordinator)(void) = ^{
         self->appCoordinator = [[AppCoordinator alloc] initWithViewController:self->rootViewController];
         [self->appCoordinator start];
     };
-    [self validatePasscodeIfNeededWithCompletion:setupLibraryBlock];
+    [self validatePasscodeIfNeededWithCompletion:setupAppCoordinator];
 
     BOOL spotlightEnabled = ![VLCKeychainCoordinator passcodeLockEnabled];
     [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
