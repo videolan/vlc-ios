@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 #define kVLCBoxClientID @"nrjwriavk0mf8j6bhra56tyn58d5i7ci"
-#warning Box app secret missing, login will fail
 #define kVLCBoxClientSecret @""
 #define kVLCBoxService @"kVLCBoxService"
 #define kVLCBoxAccount @"kVLCBoxAccount"
