@@ -11,5 +11,4 @@
  *****************************************************************************/
 
 #define kVLCDropboxAppKey @"a60fc6qj9zdg7bw"
-#warning Dropbox app secret missing, login will fail
 #define kVLCDropboxPrivateKey @""
