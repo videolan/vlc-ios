@@ -196,7 +196,7 @@ extension VLCEditController: UICollectionViewDataSource {
                                                          for: indexPath) as? VLCMediaViewEditCell {
             if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
                 cell.titleLabel.text = media.title
-                cell.subInfoLabel.text = media.formatDuration()
+                cell.subInfoLabel.text = media.mediaDuration()
                 cell.sizeLabel.text = media.formatSize()
             }
             return cell

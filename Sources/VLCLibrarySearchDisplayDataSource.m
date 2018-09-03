@@ -11,8 +11,6 @@
  *****************************************************************************/
 
 #import "VLCLibrarySearchDisplayDataSource.h"
-#import "VLCPlaylistTableViewCell.h"
-#import "VLCPlaylistCollectionViewCell.h"
 
 @interface VLCLibrarySearchDisplayDataSource() <UITableViewDataSource>
 {
@@ -38,25 +36,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    VLCPlaylistTableViewCell *cell = (VLCPlaylistTableViewCell *)[tableView dequeueReusableCellWithIdentifier:VLCPlaylistTableViewCell.cellIdentifier forIndexPath:indexPath];
-
-    NSInteger row = indexPath.row;
-
-    if (row < _searchData.count)
-        cell.mediaObject = _searchData[row];
-
-    return cell;
+    //needs to be updated as part of https://code.videolan.org/videolan/vlc-ios/issues/182
+    return [UITableViewCell new];
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    VLCPlaylistCollectionViewCell *cell = (VLCPlaylistCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCPlaylistCollectionViewCell.cellIdentifier forIndexPath:indexPath];
 
-    NSInteger row = indexPath.row;
-
-    if (row < _searchData.count)
-        cell.mediaObject = _searchData[row];
-
-    return cell;
+    //needs to be updated as part of https://code.videolan.org/videolan/vlc-ios/issues/182
+    return [UICollectionViewCell new];
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

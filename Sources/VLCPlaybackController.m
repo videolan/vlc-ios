@@ -375,9 +375,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         APLog(@"failed to save current media state - file removed?");
     }
 }
-#endif
 
-#if TARGET_OS_IOS
 - (void)_updateStoredThumbnailForFile:(MLFile *)fileItem
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
