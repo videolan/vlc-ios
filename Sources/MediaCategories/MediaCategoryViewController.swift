@@ -214,7 +214,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let numberOfCells: CGFloat = collectionView.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0
+        let numberOfCells: CGFloat = round(collectionView.frame.size.width / 250)
         let aspectRatio: CGFloat = 10.0 / 16.0
 
         // We have the number of cells and we always have numberofCells + 1 padding spaces. -pad-[Cell]-pad-[Cell]-pad-
