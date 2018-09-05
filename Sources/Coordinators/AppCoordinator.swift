@@ -22,6 +22,8 @@ class Services: NSObject {
     private var playerController: VLCPlayerDisplayController
     private var tabBarController: UITabBarController
     private var services = Services()
+    private var migrationViewController = VLCMigrationViewController(nibName: String(describing: VLCMigrationViewController.self),
+                                                                     bundle: nil)
 
     @objc init(viewController: UIViewController) {
         self.viewController = viewController
@@ -33,6 +35,8 @@ class Services: NSObject {
         // Init the HTTP Server and clean its cache
         // FIXME: VLCHTTPUploaderController should perhaps be a service?
         VLCHTTPUploaderController.sharedInstance().cleanCache()
+        services.medialibraryManager.migrationDelegate = self
+        services.medialibraryManager.prepareMigrationIfNeeded()
     }
 
     private func setupChildViewControllers() {
@@ -55,5 +59,23 @@ class Services: NSObject {
 
         let tabbarCoordinator = VLCTabBarCoordinator(tabBarController: tabBarController, services: services)
         childCoordinators.append(tabbarCoordinator)
+    }
+}
+
+extension AppCoordinator: MediaLibraryMigrationDelegate {
+    func medialibraryDidStartMigration(_ medialibrary: VLCMediaLibraryManager) {
+        tabBarController.present(migrationViewController, animated: true, completion: nil)
+    }
+
+    func medialibraryDidFinishMigration(_ medialibrary: VLCMediaLibraryManager) {
+        if tabBarController.presentedViewController === migrationViewController {
+            tabBarController.dismiss(animated: true, completion: nil)
+        }
+    }
+
+    func medialibraryDidStopMigration(_ medialibrary: VLCMediaLibraryManager) {
+        if tabBarController.presentedViewController === migrationViewController {
+            tabBarController.dismiss(animated: true, completion: nil)
+        }
     }
 }
