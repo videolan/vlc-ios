@@ -19,6 +19,7 @@ protocol MediaLibraryBaseModel {
 
     var indicatorName: String { get }
     var cellType: BaseCollectionViewCell.Type { get }
+    var editCellType: BaseCollectionViewCell.Type { get }
 
     func append(_ item: VLCMLObject)
     func delete(_ items: [VLCMLObject])
@@ -45,6 +46,10 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
 }
 
 extension MLBaseModel {
+
+    var editCellType: BaseCollectionViewCell.Type {
+        return MediaEditCell.self
+    }
 
     var anyfiles: [VLCMLObject] {
         return files

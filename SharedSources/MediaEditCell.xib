@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U0b-qz-VRr" customClass="MediaEditCell" customModule="VLC" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QHO-Op-40P">
+                    <rect key="frame" x="12" y="12" width="351" height="62"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkboxEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="RHG-II-xmF">
+                            <rect key="frame" x="0.0" y="21" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="KHh-bO-FPO"/>
+                                <constraint firstAttribute="width" secondItem="RHG-II-xmF" secondAttribute="height" id="p2u-hc-SRe"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W4f-6Y-az7">
+                            <rect key="frame" x="40" y="0.0" width="99" height="62"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="W4f-6Y-az7" secondAttribute="height" multiplier="16:10" id="o2R-2I-WPK"/>
+                            </constraints>
+                        </imageView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ZiN-xT-sWh">
+                            <rect key="frame" x="159" y="11.5" width="192" height="39"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="22f-7o-NGo">
+                                    <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Gg7-zE-SB8">
+                                    <rect key="frame" x="0.0" y="25.5" width="68" height="13.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSL-7g-tbd" userLabel="duration">
+                                            <rect key="frame" x="0.0" y="0.0" width="30" height="13.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKc-bz-v5I" userLabel="Size">
+                                            <rect key="frame" x="38" y="0.0" width="30" height="13.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="QHO-Op-40P" firstAttribute="top" secondItem="Lgw-oV-ncW" secondAttribute="top" constant="12" id="W5v-NW-IE1"/>
+                <constraint firstItem="QHO-Op-40P" firstAttribute="leading" secondItem="Lgw-oV-ncW" secondAttribute="leading" constant="12" id="caY-MD-M4Q"/>
+                <constraint firstItem="QHO-Op-40P" firstAttribute="bottom" secondItem="Lgw-oV-ncW" secondAttribute="bottom" constant="-12" id="wd3-UE-Kr9"/>
+                <constraint firstItem="Lgw-oV-ncW" firstAttribute="trailing" secondItem="QHO-Op-40P" secondAttribute="trailing" constant="12" id="y6V-5A-beP"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Lgw-oV-ncW"/>
+            <connections>
+                <outlet property="checkboxImageView" destination="RHG-II-xmF" id="F6Y-7m-fPb"/>
+                <outlet property="sizeLabel" destination="ZKc-bz-v5I" id="wmF-9r-Gew"/>
+                <outlet property="thumbnailImageView" destination="W4f-6Y-az7" id="qx7-8D-QJK"/>
+                <outlet property="timeLabel" destination="eSL-7g-tbd" id="qOK-gw-8qT"/>
+                <outlet property="titleLabel" destination="22f-7o-NGo" id="tOe-hv-WU6"/>
+            </connections>
+            <point key="canvasLocation" x="113.5" y="-207.5"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="checkboxEmpty" width="22" height="22"/>
+    </resources>
+</document>

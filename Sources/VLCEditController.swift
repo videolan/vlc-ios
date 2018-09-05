@@ -18,21 +18,21 @@ class VLCEditController: NSObject {
     private let collectionView: UICollectionView
     private let category: MediaLibraryBaseModel
 
-//    private lazy var editToolbar: VLCEditToolbar = {
-//        let editToolbar = VLCEditToolbar(frame: CGRect(x: 0, y: 400,
-//                                                       width: collectionView.frame.width, height: 50))
-//        editToolbar.isHidden = true
-//        editToolbar.delegate = self
-//        return editToolbar
-//    }()
+    private lazy var editToolbar: VLCEditToolbar = {
+        let editToolbar = VLCEditToolbar(frame: CGRect(x: 0, y: 400,
+                                                       width: collectionView.frame.width, height: 50))
+        editToolbar.isHidden = true
+        editToolbar.delegate = self
+        return editToolbar
+    }()
 
     init(collectionView: UICollectionView, category: MediaLibraryBaseModel) {
         self.collectionView = collectionView
         self.category = category
         super.init()
 
-//        collectionView.addSubview(editToolbar)
-//        collectionView.bringSubview(toFront: editToolbar)
+        collectionView.addSubview(editToolbar)
+        collectionView.bringSubview(toFront: editToolbar)
     }
 }
 
@@ -40,15 +40,14 @@ class VLCEditController: NSObject {
 
 private extension VLCEditController {
     private func resetCell(at indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? VLCMediaViewEditCell {
-            cell.checkView.isEnabled = false
+        if let cell = collectionView.cellForItem(at: indexPath) as? MediaEditCell {
+            cell.isChecked = false
         }
-        collectionView.reloadData()
     }
 
     private func resetAllVisibleCell() {
-        for case let cell as VLCMediaViewEditCell in collectionView.visibleCells {
-            cell.checkView.isEnabled = false
+        for case let cell as MediaEditCell in collectionView.visibleCells {
+            cell.isChecked = false
         }
     }
 
@@ -192,13 +191,9 @@ extension VLCEditController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCMediaViewEditCell.identifier,
-                                                         for: indexPath) as? VLCMediaViewEditCell {
-            if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
-                cell.titleLabel.text = media.title
-                cell.subInfoLabel.text = media.mediaDuration()
-                cell.sizeLabel.text = media.formatSize()
-            }
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: category.editCellType.defaultReuseIdentifier,
+                                                         for: indexPath) as? BaseCollectionViewCell {
+            cell.media = category.anyfiles[indexPath.row]
             return cell
         }
         return UICollectionViewCell()
@@ -209,9 +204,9 @@ extension VLCEditController: UICollectionViewDataSource {
 
 extension VLCEditController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? VLCMediaViewEditCell {
-            cell.checkView.isEnabled = !cell.checkView.isEnabled
-            if cell.checkView.isEnabled {
+        if let cell = collectionView.cellForItem(at: indexPath) as? MediaEditCell {
+            cell.isChecked = !cell.isChecked
+            if cell.isChecked {
                 // cell selected, saving indexPath
                 selectedCellIndexPaths.insert(indexPath)
             } else {
@@ -228,6 +223,6 @@ extension VLCEditController: UICollectionViewDelegateFlowLayout {
         let contentInset = collectionView.contentInset
         // FIXME: 5 should be cell padding, but not usable maybe static?
         let insetToRemove = contentInset.left + contentInset.right + (5 * 2)
-        return CGSize(width: collectionView.frame.width - insetToRemove, height: VLCMediaViewEditCell.height)
+        return CGSize(width: collectionView.frame.width - insetToRemove, height: MediaEditCell.height)
     }
 }
