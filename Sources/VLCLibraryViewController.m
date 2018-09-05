@@ -574,17 +574,11 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (@available(iOS 11.0, *)) {
-        return true;
-    }
     return _inFolder;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (@available(iOS 11.0, *)) {
-        return true;
-    }
     return _inFolder;
 }
 
