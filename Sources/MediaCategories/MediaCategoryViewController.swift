@@ -190,8 +190,8 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let mediaCell = collectionView.dequeueReusableCell(withReuseIdentifier:category.cellType.defaultReuseIdentifier, for: indexPath) as? MediaCollectionViewCell else {
-            assertionFailure("you forgot to register the cell or the cell is not a subclass of MediaCollectionViewCell")
+        guard let mediaCell = collectionView.dequeueReusableCell(withReuseIdentifier:category.cellType.defaultReuseIdentifier, for: indexPath) as? BaseCollectionViewCell else {
+            assertionFailure("you forgot to register the cell or the cell is not a subclass of BaseCollectionViewCell")
             return UICollectionViewCell()
         }
 

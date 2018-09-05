@@ -59,7 +59,7 @@
 		41EB91D71F7BE6F500821AA5 /* VLCRemoteControlService.m in Sources */ = {isa = PBXBuildFile; fileRef = 417D7F5F1F7BA26200DDF36A /* VLCRemoteControlService.m */; };
 		41EB91DD1F7BFF8500821AA5 /* VLCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */; };
 		41EB91DE1F7BFF8500821AA5 /* VLCMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */; };
-		41EC28E32136D905004BCF0F /* MediaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC28E22136D905004BCF0F /* MediaCollectionViewCell.swift */; };
+		41EC28E32136D905004BCF0F /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC28E22136D905004BCF0F /* BaseCollectionViewCell.swift */; };
 		41EC28E52136DD41004BCF0F /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EC28E42136DD41004BCF0F /* MovieCollectionViewCell.swift */; };
 		41EC28E92136DE46004BCF0F /* MovieCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41EC28E82136DE46004BCF0F /* MovieCollectionViewCell.xib */; };
 		41F5C0781F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F5C0771F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.m */; };
@@ -558,7 +558,7 @@
 		41E6BECC207E64E900E158BA /* RemoteNetworkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNetworkCell.swift; sourceTree = "<group>"; };
 		41EB91DB1F7BFF8400821AA5 /* VLCMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMetadata.h; sourceTree = "<group>"; };
 		41EB91DC1F7BFF8400821AA5 /* VLCMetadata.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMetadata.m; sourceTree = "<group>"; };
-		41EC28E22136D905004BCF0F /* MediaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaCollectionViewCell.swift; path = Sources/MediaCollectionViewCell.swift; sourceTree = "<group>"; };
+		41EC28E22136D905004BCF0F /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseCollectionViewCell.swift; path = Sources/BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		41EC28E42136DD41004BCF0F /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieCollectionViewCell.swift; path = SharedSources/MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		41EC28E82136DE46004BCF0F /* MovieCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MovieCollectionViewCell.xib; path = Sources/MovieCollectionViewCell.xib; sourceTree = "<group>"; };
 		41F5C0761F41ED55005EB9CB /* VLCLibrarySearchDisplayDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCLibrarySearchDisplayDataSource.h; path = Sources/VLCLibrarySearchDisplayDataSource.h; sourceTree = SOURCE_ROOT; };
@@ -1530,7 +1530,7 @@
 				41701545209B36E800802E44 /* VLCPagingViewController.swift */,
 				41D7DD0420C1853E00AD94F6 /* ButtonBarView.swift */,
 				41D7DD2620C3060300AD94F6 /* PagerStripViewController.swift */,
-				41EC28E22136D905004BCF0F /* MediaCollectionViewCell.swift */,
+				41EC28E22136D905004BCF0F /* BaseCollectionViewCell.swift */,
 				41EC28E42136DD41004BCF0F /* MovieCollectionViewCell.swift */,
 				41EC28E82136DE46004BCF0F /* MovieCollectionViewCell.xib */,
 			);
@@ -3152,7 +3152,7 @@
 				DD3EFF311BDEBCE500B68579 /* VLCNetworkServerBrowserFTP.m in Sources */,
 				8DF966EF211C643D00D0FCD6 /* PlaylistModel.swift in Sources */,
 				9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */,
-				41EC28E32136D905004BCF0F /* MediaCollectionViewCell.swift in Sources */,
+				41EC28E32136D905004BCF0F /* BaseCollectionViewCell.swift in Sources */,
 				DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */,
 				DD870E9A1CEF929A00BBD4FE /* VLCNetworkLoginViewFieldCell.m in Sources */,
 				4195747D206A92ED00393A42 /* RemoteNetworkDataSource.swift in Sources */,

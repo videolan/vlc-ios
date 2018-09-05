@@ -18,7 +18,7 @@ protocol MediaLibraryBaseModel {
     var updateView: (() -> Void)? { get set }
 
     var indicatorName: String { get }
-    var cellType: MediaCollectionViewCell.Type { get }
+    var cellType: BaseCollectionViewCell.Type { get }
 
     func append(_ item: VLCMLObject)
     func delete(_ items: [VLCMLObject])
@@ -45,7 +45,7 @@ protocol MLBaseModel: MediaLibraryBaseModel {
 }
 
 extension MLBaseModel {
-    var cellType: MediaCollectionViewCell.Type {
+    var cellType: BaseCollectionViewCell.Type {
         return MovieCollectionViewCell.self
     }
 

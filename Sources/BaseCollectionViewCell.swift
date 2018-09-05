@@ -1,5 +1,5 @@
 /*****************************************************************************
- * MediaCollectionViewCell.Swift
+ * BaseCollectionViewCell.Swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -12,18 +12,14 @@
 
 import Foundation
 
-class MediaCollectionViewCell: UICollectionViewCell {
+class BaseCollectionViewCell: UICollectionViewCell {
 
     static var defaultReuseIdentifier: String {
         return NSStringFromClass(self)
     }
 
     class var nibName: String {
-        fatalError("needs to be implemented by subclass")
-    }
-
-    func sizeWithWidth(_ width: CGFloat, media: VLCMLObject) -> CGSize {
-        return .zero
+        return String(describing:self)
     }
 
     var media: VLCMLObject?

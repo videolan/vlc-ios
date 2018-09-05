@@ -12,7 +12,7 @@
 
 import Foundation
 
-class MovieCollectionViewCell: MediaCollectionViewCell {
+class MovieCollectionViewCell: BaseCollectionViewCell {
 
     @IBOutlet weak var thumbnailView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -20,24 +20,12 @@ class MovieCollectionViewCell: MediaCollectionViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
 
-    override class var nibName: String {
-        return "MovieCollectionViewCell"
-    }
-
     override var media: VLCMLObject? {
         didSet {
             guard let movie = media as? VLCMLMedia else {
                 fatalError("needs to be of Type VLCMLMovie")
             }
-            titleLabel.text = movie.title
-            descriptionLabel.text = movie.mediaDuration()
-            if movie.isThumbnailGenerated() {
-                thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.absoluteString)
-            }
-            let progress = movie.mediaProgress()
-            progressView.isHidden = progress == 0
-            progressView.progress = progress
-            newLabel.isHidden = !movie.isNew()
+            update(movie:movie)
         }
     }
 
@@ -55,10 +43,24 @@ class MovieCollectionViewCell: MediaCollectionViewCell {
         descriptionLabel?.textColor = PresentationTheme.current.colors.cellDetailTextColor
     }
 
+    func update(movie: VLCMLMedia) {
+        titleLabel.text = movie.title
+        descriptionLabel.text = movie.mediaDuration()
+        if movie.isThumbnailGenerated() {
+            thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.absoluteString)
+        }
+        let progress = movie.mediaProgress()
+        progressView.isHidden = progress == 0
+        progressView.progress = progress
+        newLabel.isHidden = !movie.isNew()
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = ""
         descriptionLabel.text = ""
         thumbnailView.image = nil
+        progressView.isHidden = true
+        newLabel.isHidden = true
     }
 }
