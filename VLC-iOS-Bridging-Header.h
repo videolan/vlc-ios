@@ -17,8 +17,6 @@
 #import "VLCPlaybackController+MediaLibrary.h"
 #import "VLCPlaybackNavigationController.h"
 #import "VLCPlayerDisplayController.h"
-#import "VLCPlaylistTableViewCell.h"
-#import "VLCPlaylistCollectionViewCell.h"
 #import "VLCServerListViewController.h"
 #import "VLCSettingsController.h"
 #import "VLCWiFiUploadTableViewCell.h"

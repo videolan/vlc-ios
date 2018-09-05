@@ -92,8 +92,8 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     func setupCollectionView() {
-        let playlistnib = UINib(nibName: "VLCPlaylistCollectionViewCell", bundle: nil)
-        collectionView?.register(playlistnib, forCellWithReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier())
+        let cellNib = UINib(nibName: category.cellType.nibName, bundle: nil)
+        collectionView?.register(cellNib, forCellWithReuseIdentifier: category.cellType.defaultReuseIdentifier)
         collectionView?.register(VLCMediaViewEditCell.self, forCellWithReuseIdentifier: VLCMediaViewEditCell.identifier)
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
@@ -190,24 +190,23 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let playlistCell = collectionView.dequeueReusableCell(withReuseIdentifier: VLCPlaylistCollectionViewCell.cellIdentifier(), for: indexPath) as? VLCPlaylistCollectionViewCell {
-            if let mediaObject = category.anyfiles[indexPath.row] as? NSManagedObject {
-                playlistCell.mediaObject = mediaObject
-            }
-
-            if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
-                playlistCell.media = (media.mainFile() != nil) ? media : nil
-            }
-            return playlistCell
+        guard let mediaCell = collectionView.dequeueReusableCell(withReuseIdentifier:category.cellType.defaultReuseIdentifier, for: indexPath) as? BaseCollectionViewCell else {
+            assertionFailure("you forgot to register the cell or the cell is not a subclass of BaseCollectionViewCell")
+            return UICollectionViewCell()
         }
-        return UICollectionViewCell()
+
+        guard let media = category.anyfiles[indexPath.row] as? VLCMLMedia else {
+            assertionFailure("The contained file in the category doesn't conform to VLCMLMedia")
+            return mediaCell
+        }
+        assert(media.mainFile() != nil, "The mainfile is nil")
+        mediaCell.media = media.mainFile() != nil ? media : nil
+        return mediaCell
     }
 
     // MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let mediaObject = category.anyfiles[indexPath.row] as? NSManagedObject {
-            play(mediaObject: mediaObject)
-        } else if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
+        if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
             play(media: media)
         }
     }
@@ -215,7 +214,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let numberOfCells: CGFloat = collectionView.traitCollection.horizontalSizeClass == .regular ? 3.0 : 2.0
+        let numberOfCells: CGFloat = round(collectionView.frame.size.width / 250)
         let aspectRatio: CGFloat = 10.0 / 16.0
 
         // We have the number of cells and we always have numberofCells + 1 padding spaces. -pad-[Cell]-pad-[Cell]-pad-
@@ -224,7 +223,8 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         var cellWidth = collectionView.bounds.size.width / numberOfCells
         cellWidth = cellWidth - ceil(((numberOfCells + 1) * cellPadding) / numberOfCells)
 
-        return CGSize(width: cellWidth, height: cellWidth * aspectRatio)
+        // 3*20 for the labels + 24 for 3*8 which is the padding
+        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + 3*20+24)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
