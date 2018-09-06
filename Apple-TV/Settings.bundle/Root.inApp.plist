@@ -12,38 +12,6 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Title</key>
-			<string>SETTINGS_PLAYBACK_SPEED_DEFAULT</string>
-			<key>Key</key>
-			<string>playback-speed</string>
-			<key>DefaultValue</key>
-			<real>1</real>
-			<key>Titles</key>
-			<array>
-				<string>0.25x</string>
-				<string>0.50x</string>
-				<string>0.75x</string>
-				<string>1.00x</string>
-				<string>1.25x</string>
-				<string>1.50x</string>
-				<string>2.00x</string>
-				<string>4.00x</string>
-			</array>
-			<key>Values</key>
-			<array>
-				<real>0.25</real>
-				<real>0.5</real>
-				<real>0.75</real>
-				<real>1</real>
-				<real>1.25</real>
-				<real>1.5</real>
-				<real>2</real>
-				<real>4</real>
-			</array>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_NETWORK_PLAY_ALL</string>

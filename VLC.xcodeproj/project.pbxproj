@@ -45,6 +45,7 @@
 		419A2C661F37A4B70069D224 /* VLCStringsForLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */; };
 		419A2C681F37A4B70069D224 /* VLCStringsForLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */; };
 		419D7F051F54176900AF69A2 /* VLCTimeNavigationTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419D7F041F54176900AF69A2 /* VLCTimeNavigationTitleView.xib */; };
+		41B4DA4921412BD4000BA27D /* PlaybackSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B4DA4821412BD4000BA27D /* PlaybackSettings.swift */; };
 		41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C001A53833B00102E8B /* VLCProgressView.m */; };
 		41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B93C031A53835300102E8B /* VLCCloudServiceCell.m */; };
 		41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */; };
@@ -542,6 +543,7 @@
 		419D7F041F54176900AF69A2 /* VLCTimeNavigationTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = VLCTimeNavigationTitleView.xib; path = Resources/VLCTimeNavigationTitleView.xib; sourceTree = SOURCE_ROOT; };
 		41B0BC861F73ED7D0063BA26 /* VLC-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B0BC8A1F73ED7D0063BA26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41B4DA4821412BD4000BA27D /* PlaybackSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSettings.swift; sourceTree = "<group>"; };
 		41B93BFF1A53833B00102E8B /* VLCProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCProgressView.h; path = Sources/VLCProgressView.h; sourceTree = SOURCE_ROOT; };
 		41B93C001A53833B00102E8B /* VLCProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCProgressView.m; path = Sources/VLCProgressView.m; sourceTree = SOURCE_ROOT; };
 		41B93C021A53835300102E8B /* VLCCloudServiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudServiceCell.h; path = Sources/VLCCloudServiceCell.h; sourceTree = SOURCE_ROOT; };
@@ -2002,6 +2004,7 @@
 		7DEC8BEF1BD68D71006E1093 /* Settings and stuff */ = {
 			isa = PBXGroup;
 			children = (
+				41B4DA4821412BD4000BA27D /* PlaybackSettings.swift */,
 				7DC0B56D1C0094370027BFAD /* VLCSettingsViewController.h */,
 				7DC0B56E1C0094370027BFAD /* VLCSettingsViewController.m */,
 				7DDE418C1BE9225A0065C53A /* VLCAboutViewController.h */,
@@ -3167,6 +3170,7 @@
 				8DE1887621089BB100A091D2 /* VideoModel.swift in Sources */,
 				DD3EFF351BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
 				413EC987201A329D00BF412F /* SortOption.swift in Sources */,
+				41B4DA4921412BD4000BA27D /* PlaybackSettings.swift in Sources */,
 				41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */,
 				417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */,
 				418B145920179E50000447AA /* VLCDragAndDropManager.swift in Sources */,

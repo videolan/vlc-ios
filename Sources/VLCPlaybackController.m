@@ -35,14 +35,6 @@ NSString *const VLCPlaybackControllerPlaybackMetadataDidChange = @"VLCPlaybackCo
 NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPlaybackDidFail";
 NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackControllerPlaybackPositionUpdated";
 
-typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
-    VLCAspectRatioDefault = 0,
-    VLCAspectRatioFillToScreen,
-    VLCAspectRatioFourToThree,
-    VLCAspectRatioSixteenToNine,
-    VLCAspectRatioSixteenToTen,
-};
-
 @interface VLCPlaybackController () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     VLCRemoteControlService *_remoteControlService;
@@ -56,7 +48,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     int _itemInMediaListToBePlayedFirst;
     NSTimer *_sleepTimer;
 
-    NSUInteger _currentAspectRatio;
+    PlaybackSettings *_pbcSettings;
     BOOL _isInFillToScreen;
 
     UIView *_videoOutputViewWrapper;
@@ -123,7 +115,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         _dialogProvider.customRenderer = self;
 
         _playbackSessionManagementLock = [[NSLock alloc] init];
-        _shuffleMode = NO;
         _shuffleStack = [[NSMutableArray alloc] init];
     }
     return self;
@@ -203,8 +194,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
     _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];
-    if ([[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue] != 0)
-        [_mediaPlayer setRate: [[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue]];
     int deinterlace = [[defaults objectForKey:kVLCSettingDeinterlace] intValue];
     [_mediaPlayer setDeinterlace:deinterlace withFilter:@"blend"];
 
@@ -214,8 +203,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     [media addOptions:self.mediaOptionsDictionary];
 
     [_listPlayer setMediaList:self.mediaList];
-
-    [_listPlayer setRepeatMode:VLCDoNotRepeat];
 
     [_playbackSessionManagementLock unlock];
 
@@ -247,10 +234,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
         [self.delegate prepareForMediaPlayback:self];
 
-    _currentAspectRatio = VLCAspectRatioDefault;
-    _mediaPlayer.videoAspectRatio = NULL;
-    _mediaPlayer.videoCropGeometry = NULL;
-
     [[self remoteControlService] subscribeToRemoteCommands];
 
     if (_pathToExternalSubtitlesFile) {
@@ -265,9 +248,18 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     }
 
     _playerIsSetup = YES;
-
+    [self restorePlaybackSettings];
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStart object:self];
     [_playbackSessionManagementLock unlock];
+}
+
+- (void)restorePlaybackSettings
+{
+    _pbcSettings = [PlaybackSettings restoreSettings] ?: [PlaybackSettings new];
+    [self setCurrentAspectRatio];
+    [self setRepeatMode:_pbcSettings.repeatMode];
+    [self setPlaybackRate:_pbcSettings.playbackSpeed];
+    [self setShuffleMode:_pbcSettings.shuffleMode];
 }
 
 - (void)stopPlayback
@@ -374,6 +366,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     @catch (NSException *exception) {
         APLog(@"failed to save current media state - file removed?");
     }
+    [_pbcSettings saveSettings];
 }
 #endif
 
@@ -462,7 +455,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)setRepeatMode:(VLCRepeatMode)repeatMode
 {
-    _listPlayer.repeatMode = repeatMode;
+    _listPlayer.repeatMode = _pbcSettings.repeatMode = repeatMode;
 }
 
 - (BOOL)currentMediaHasChapters
@@ -493,6 +486,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 - (void)setPlaybackRate:(float)playbackRate
 {
     [_mediaPlayer setRate:playbackRate];
+    _pbcSettings.playbackSpeed = playbackRate;
     _metadata.playbackRate = @(_mediaPlayer.rate);
 }
 
@@ -587,11 +581,8 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)toggleRepeatMode
 {
-    if (_listPlayer.repeatMode == VLCRepeatAllItems) {
-        _listPlayer.repeatMode = VLCDoNotRepeat;
-    } else {
-        _listPlayer.repeatMode += 1;
-    }
+    _listPlayer.repeatMode = _listPlayer.repeatMode == VLCRepeatAllItems ? VLCDoNotRepeat : _listPlayer.repeatMode + 1;
+    _pbcSettings.repeatMode = _listPlayer.repeatMode;
 }
 
 - (NSInteger)indexOfCurrentAudioTrack
@@ -793,12 +784,17 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
 }
 
+- (void)setShuffleMode:(BOOL)shuffleMode
+{
+    _shuffleMode = _pbcSettings.shuffleMode = shuffleMode;
+}
+
 - (void)next
 {
     NSInteger mediaListCount = _mediaList.count;
 
 #if TARGET_OS_IOS
-    if (self.repeatMode != VLCRepeatCurrentItem && mediaListCount > 2 && _shuffleMode) {
+    if (self.repeatMode != VLCRepeatCurrentItem && mediaListCount > 2 && self.shuffleMode) {
 
         NSNumber *nextIndex;
         NSUInteger currentIndex = [_mediaList indexOfMedia:_listPlayer.mediaPlayer.media];
@@ -885,7 +881,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 - (void)switchIPhoneXFullScreen
 {
     if (_isInFillToScreen) {
-        const char *previousAspectRatio = _currentAspectRatio == VLCAspectRatioDefault ? NULL : [[self stringForAspectRatio:_currentAspectRatio] UTF8String];
+        const char *previousAspectRatio = _pbcSettings.aspectRatio == VLCAspectRatioDefault ? NULL : [[self stringForAspectRatio] UTF8String];
         _mediaPlayer.videoAspectRatio = (char *)previousAspectRatio;
         _mediaPlayer.scaleFactor = 0;
         _isInFillToScreen = NO;
@@ -896,8 +892,17 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)switchAspectRatio
 {
-    _currentAspectRatio = _currentAspectRatio == VLCAspectRatioSixteenToTen ? VLCAspectRatioDefault : _currentAspectRatio + 1;
-    switch (_currentAspectRatio) {
+    _pbcSettings.aspectRatio = _pbcSettings.aspectRatio == VLCAspectRatioSixteenToTen ? VLCAspectRatioDefault : _pbcSettings.aspectRatio + 1;
+    [self setCurrentAspectRatio];
+
+    if ([self.delegate respondsToSelector:@selector(showStatusMessage:)]) {
+        [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), [self stringForAspectRatio]]];
+    }
+}
+
+- (void)setCurrentAspectRatio
+{
+    switch (_pbcSettings.aspectRatio) {
         case VLCAspectRatioDefault:
             _mediaPlayer.scaleFactor = 0;
             _mediaPlayer.videoAspectRatio = NULL;
@@ -914,17 +919,13 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         case VLCAspectRatioSixteenToNine:
             _mediaPlayer.scaleFactor = 0;
             _mediaPlayer.videoCropGeometry = NULL;
-            _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio:_currentAspectRatio] UTF8String];
-    }
-
-    if ([self.delegate respondsToSelector:@selector(showStatusMessage:)]) {
-        [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), [self stringForAspectRatio:_currentAspectRatio]]];
+            _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio] UTF8String];
     }
 }
 
-- (NSString *)stringForAspectRatio:(VLCAspectRatio)ratio
+- (NSString *)stringForAspectRatio
 {
-    switch (ratio) {
+    switch (_pbcSettings.aspectRatio) {
             case VLCAspectRatioFillToScreen:
             return NSLocalizedString(@"FILL_TO_SCREEN", nil);
             case VLCAspectRatioDefault:

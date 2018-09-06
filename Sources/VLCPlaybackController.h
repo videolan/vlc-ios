@@ -22,6 +22,14 @@ extern NSString *const VLCPlaybackControllerPlaybackDidFail;
 extern NSString *const VLCPlaybackControllerPlaybackMetadataDidChange;
 extern NSString *const VLCPlaybackControllerPlaybackPositionUpdated;
 
+typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
+    VLCAspectRatioDefault = 0,
+    VLCAspectRatioFillToScreen,
+    VLCAspectRatioFourToThree,
+    VLCAspectRatioSixteenToNine,
+    VLCAspectRatioSixteenToTen,
+};
+
 @class VLCPlaybackController;
 @class VLCMetaData;
 @class VLCDialogProvider;
