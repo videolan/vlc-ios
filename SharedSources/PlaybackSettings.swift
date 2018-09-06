@@ -15,7 +15,7 @@ import Foundation
 class PlaybackSettings: NSObject, Codable {
     var repeatMode: VLCRepeatMode
     var shuffleMode: Bool
-    var playbackSpeed: CGFloat
+    var playbackSpeed: Float
     var aspectRatio: VLCAspectRatio
 
     private enum CodingKeys: String, CodingKey {
@@ -31,7 +31,7 @@ class PlaybackSettings: NSObject, Codable {
         aspectRatio = .default
         let defaults = UserDefaults.standard
         if defaults.float(forKey: "playback-speed") != 0 {
-            playbackSpeed = CGFloat(defaults.float(forKey:"playback-speed"))
+            playbackSpeed = Float(defaults.float(forKey:"playback-speed"))
         } else {
             playbackSpeed = 1.0
         }
@@ -42,7 +42,7 @@ class PlaybackSettings: NSObject, Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         repeatMode = VLCRepeatMode(rawValue: try values.decode(NSInteger.self, forKey: .repeatMode)) ?? .doNotRepeat
         shuffleMode = try values.decode(Bool.self, forKey: .shuffleMode)
-        playbackSpeed = try values.decode(CGFloat.self, forKey: .playbackSpeed)
+        playbackSpeed = try values.decode(Float.self, forKey: .playbackSpeed)
         aspectRatio = VLCAspectRatio(rawValue: VLCAspectRatio.RawValue(try values.decode(NSInteger.self, forKey: .aspectRatio))) ?? .default
     }
 
