@@ -249,6 +249,7 @@
 		8D222DC220F779F1009C0D34 /* VLCMediaViewEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D222DC120F779F1009C0D34 /* VLCMediaViewEditCell.swift */; };
 		8D43712D2056AF1600F36458 /* VLCRendererDiscovererManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D43712C2056AF1600F36458 /* VLCRendererDiscovererManager.swift */; };
 		8D437154205808FF00F36458 /* VLCActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D437153205808FF00F36458 /* VLCActionSheet.swift */; };
+		8D4F9B472141630000E478BE /* MediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4F9B462141630000E478BE /* MediaModel.swift */; };
 		8D66A47320AC61B900FA5B92 /* VLCMediaLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D66A47220AC61B900FA5B92 /* VLCMediaLibraryManager.swift */; };
 		8DD6516F208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */; };
 		8DD651BA208F6AF00052EE68 /* VLCActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD651B9208F6AF00052EE68 /* VLCActionSheetCell.swift */; };
@@ -915,6 +916,7 @@
 		8D222DC120F779F1009C0D34 /* VLCMediaViewEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCMediaViewEditCell.swift; path = Sources/VLCMediaViewEditCell.swift; sourceTree = "<group>"; };
 		8D43712C2056AF1600F36458 /* VLCRendererDiscovererManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCRendererDiscovererManager.swift; path = Sources/VLCRendererDiscovererManager.swift; sourceTree = "<group>"; };
 		8D437153205808FF00F36458 /* VLCActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCActionSheet.swift; sourceTree = "<group>"; };
+		8D4F9B462141630000E478BE /* MediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaModel.swift; sourceTree = "<group>"; };
 		8D66A47220AC61B900FA5B92 /* VLCMediaLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCMediaLibraryManager.swift; sourceTree = "<group>"; };
 		8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCAccessibilityIdentifier.swift; sourceTree = "<group>"; };
 		8DD651B9208F6AF00052EE68 /* VLCActionSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCActionSheetCell.swift; sourceTree = "<group>"; };
@@ -2111,6 +2113,7 @@
 				8DE18893210B5F8200A091D2 /* AlbumModel.swift */,
 				8DE18897210F144B00A091D2 /* GenreModel.swift */,
 				8DF966EE211C643D00D0FCD6 /* PlaylistModel.swift */,
+				8D4F9B462141630000E478BE /* MediaModel.swift */,
 			);
 			path = MediaLibraryModel;
 			sourceTree = "<group>";
@@ -3154,6 +3157,7 @@
 				8DF966B121188BDB00D0FCD6 /* VLCEditController.swift in Sources */,
 				7DC19B051868D1C400810BF7 /* VLCFirstStepsFifthPageViewController.m in Sources */,
 				DD3EFF311BDEBCE500B68579 /* VLCNetworkServerBrowserFTP.m in Sources */,
+				8D4F9B472141630000E478BE /* MediaModel.swift in Sources */,
 				8DF966EF211C643D00D0FCD6 /* PlaylistModel.swift in Sources */,
 				9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */,
 				41EC28E32136D905004BCF0F /* BaseCollectionViewCell.swift in Sources */,

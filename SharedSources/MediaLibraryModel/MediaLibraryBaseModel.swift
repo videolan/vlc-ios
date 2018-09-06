@@ -25,7 +25,7 @@ protocol MediaLibraryBaseModel {
     func sort(by criteria: VLCMLSortingCriteria)
 }
 
-protocol MLBaseModel: MediaLibraryBaseModel {
+protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
     associatedtype MLType where MLType: VLCMLObject
 
     init(medialibrary: VLCMediaLibraryManager)

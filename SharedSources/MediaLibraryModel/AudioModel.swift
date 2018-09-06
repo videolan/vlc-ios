@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class AudioModel: MLBaseModel {
+class AudioModel: MediaModel {
     typealias MLType = VLCMLMedia
 
     var updateView: (() -> Void)?
@@ -24,24 +24,6 @@ class AudioModel: MLBaseModel {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         files = medialibrary.media(ofType: .audio)
-    }
-
-    func append(_ item: VLCMLMedia) {
-        if !files.contains { $0 == item } {
-            files.append(item)
-        }
-    }
-
-    func delete(_ items: [VLCMLObject]) {
-        do {
-            for case let media as VLCMLMedia in items {
-                try FileManager.default.removeItem(atPath: media.mainFile().mrl.path)
-            }
-            medialibrary.reload()
-        }
-        catch let error as NSError {
-            assertionFailure("VideoModel: Delete failed: \(error.localizedDescription)")
-        }
     }
 }
 
