@@ -12,7 +12,7 @@
 
 import Foundation
 
-class VLCPlayingExternallyView: UIView {
+class PlayingExternallyView: UIView {
 
     @IBOutlet weak var playingExternallyTitle: UILabel!
     @IBOutlet weak var playingExternallyDescription: UILabel!
@@ -48,12 +48,12 @@ class VLCPlayingExternallyView: UIView {
         playingExternallyDescription.text = NSLocalizedString("PLAYING_EXTERNALLY_DESC", comment:"")
     }
 
-    @objc func updateUI(rendererItem: VLCRendererItem?) {
+    @objc func updateUI(rendererItem: VLCRendererItem?, title: String) {
         if let rendererItem = rendererItem {
-            playingExternallyTitle.text = NSLocalizedString("PLAYING_EXTERNALLY_TITLE_CHROMECAST", comment:"")
-            playingExternallyDescription.text = rendererItem.name;
+            playingExternallyTitle.text = title + NSLocalizedString("PLAYING_EXTERNALLY_ADDITION", comment:"\n should stay in every translation")
+            playingExternallyDescription.text = rendererItem.name
         } else {
-            playingExternallyTitle.text = NSLocalizedString("PLAYING_EXTERNALLY_TITLE", comment: "")
+            playingExternallyTitle.text = title
             playingExternallyDescription.text = NSLocalizedString("PLAYING_EXTERNALLY_DESC", comment:"")
         }
     }

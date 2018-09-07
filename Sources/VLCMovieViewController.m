@@ -122,7 +122,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
-@property (nonatomic, strong) IBOutlet VLCPlayingExternallyView *playingExternalView;
+@property (nonatomic, strong) IBOutlet PlayingExternallyView *playingExternalView;
 
 @end
 
@@ -737,7 +737,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         CGFloat metaInfoAlpha = _audioOnly ? 1.0f : alpha;
         _artistNameLabel.alpha = metaInfoAlpha;
         _albumNameLabel.alpha = metaInfoAlpha;
-        _trackNameLabel.alpha = metaInfoAlpha;
+        _trackNameLabel.alpha = [_vpc isPlayingOnExternalScreen] ? 0.f : metaInfoAlpha;
     };
 
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
@@ -1101,6 +1101,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     [self hideShowAspectratioButton:metadata.isAudioOnly];
     [_controllerPanel updateButtons];
+    [_playingExternalView updateUIWithRendererItem:_vpc.renderer title:metadata.title];
     
     _audioOnly = metadata.isAudioOnly;
 }
@@ -1693,7 +1694,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     // if we don't have a renderer we're mirroring and don't want to show the dialog
     BOOL displayExternally = view != _movieView;
     [_playingExternalView shouldDisplay:displayExternally movieView:_movieView];
-    [_playingExternalView updateUIWithRendererItem:_vpc.renderer];
     _artworkImageView.hidden = displayExternally;
     if (!displayExternally && _movieView.superview != self.view) {
         [self.view addSubview:_movieView];
