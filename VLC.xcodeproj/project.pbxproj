@@ -33,6 +33,7 @@
 		417E68691F307D8F00DB9BB2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 417E68711F307D8F00DB9BB2 /* InfoPlist.strings */; };
 		417E686C1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 417E68711F307D8F00DB9BB2 /* InfoPlist.strings */; };
 		417E68B91F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m in Sources */ = {isa = PBXBuildFile; fileRef = 417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */; };
+		4181087A2142894A0046A931 /* PlayingExternallyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 418108792142894A0046A931 /* PlayingExternallyView.xib */; };
 		4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
 		418B144720179C00000447AA /* MediaCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418B144620179C00000447AA /* MediaCategoryViewController.swift */; };
 		418B144D20179C75000447AA /* VLCTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418B144C20179C74000447AA /* VLCTabBarCoordinator.swift */; };
@@ -527,6 +528,7 @@
 		417E689D1F307E1000DB9BB2 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		417E68B71F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCActivityViewControllerVendor.h; sourceTree = "<group>"; };
 		417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCActivityViewControllerVendor.m; sourceTree = "<group>"; };
+		418108792142894A0046A931 /* PlayingExternallyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlayingExternallyView.xib; path = Resources/PlayingExternallyView.xib; sourceTree = "<group>"; };
 		4184AA131A5492070063DF5A /* VLCCloudStorageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageController.h; path = Sources/VLCCloudStorageController.h; sourceTree = SOURCE_ROOT; };
 		4184AA141A5492070063DF5A /* VLCCloudStorageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageController.m; path = Sources/VLCCloudStorageController.m; sourceTree = SOURCE_ROOT; };
 		418B144620179C00000447AA /* MediaCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaCategoryViewController.swift; path = Sources/MediaCategories/MediaCategoryViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -1778,6 +1780,7 @@
 				7D6BEF1E19E027BE00DF3972 /* Library */,
 				7DBBF190183AB4300009A339 /* VLCMovieViewController~ipad.xib */,
 				7DBBF191183AB4300009A339 /* VLCMovieViewController~iphone.xib */,
+				418108792142894A0046A931 /* PlayingExternallyView.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -2804,6 +2807,7 @@
 				7D9870641A3E03D5009CF27D /* papasscode_background.png in Resources */,
 				7D0117F1187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib in Resources */,
 				7D63C1991877504B00BD5256 /* VLCFirstStepsSixthPageViewController~ipad.xib in Resources */,
+				4181087A2142894A0046A931 /* PlayingExternallyView.xib in Resources */,
 				7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */,
 				7D89786F185DED88009BAB5D /* VLCDownloadViewController.xib in Resources */,
 			);
