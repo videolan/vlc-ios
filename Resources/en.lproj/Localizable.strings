@@ -26,7 +26,7 @@
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Connected";
 "PLAYING_EXTERNALLY_DESC" = "This video is playing on the TV";
-"PLAYING_EXTERNALLY_ADDITION" = "\n now playing on:"; /* \n should stay in every translation */
+"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
 
 "VFILTER_HUE" = "Hue";
 "VFILTER_CONTRAST" = "Contrast";
