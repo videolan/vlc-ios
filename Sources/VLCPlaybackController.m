@@ -323,6 +323,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 
 - (void)_savePlaybackState
 {
+    [_pbcSettings saveSettings];
     @try {
         [[MLMediaLibrary sharedMediaLibrary] save];
     }
@@ -364,7 +365,6 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     @catch (NSException *exception) {
         APLog(@"failed to save current media state - file removed?");
     }
-    [_pbcSettings saveSettings];
 }
 #endif
 
