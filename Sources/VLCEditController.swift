@@ -192,8 +192,9 @@ extension VLCEditController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: category.editCellType.defaultReuseIdentifier,
-                                                         for: indexPath) as? BaseCollectionViewCell {
+                                                         for: indexPath) as? MediaEditCell {
             cell.media = category.anyfiles[indexPath.row]
+            cell.isChecked = selectedCellIndexPaths.contains(indexPath)
             return cell
         }
         return UICollectionViewCell()

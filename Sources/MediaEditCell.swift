@@ -55,7 +55,7 @@ class MediaEditCell: BaseCollectionViewCell {
 
     var isChecked: Bool = false {
          didSet {
-            checkboxImageView.image = isChecked ? UIImage(named: "checkboxEmpty") : UIImage(named: "checkboxSelected")
+            checkboxImageView.image = isChecked ? UIImage(named: "checkboxSelected") : UIImage(named: "checkboxEmpty")
         }
     }
 
@@ -65,5 +65,6 @@ class MediaEditCell: BaseCollectionViewCell {
         timeLabel.text = ""
         sizeLabel.text = ""
         thumbnailImageView.image = nil
+        isChecked = false
     }
 }
