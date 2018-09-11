@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+     <device id="retina4_7" orientation="portrait">
+         <adaptation id="fullscreen"/>
+     </device>
+     <dependencies>
+         <deployment identifier="iOS"/>
+         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+     </dependencies>
+     <objects>
+         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayingExternallyView" customModule="VLC" customModuleProvider="target">
+             <connections>
+                 <outlet property="playingExternallyDescription" destination="P6D-oZ-7p9" id="guz-N0-s0j"/>
+                 <outlet property="playingExternallyTitle" destination="qcj-wb-3NY" id="RMA-48-6rU"/>
+             </connections>
+         </placeholder>
+         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PlayingExternallyView" customModule="VLC" customModuleProvider="target">
+             <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
+             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+             <subviews>
+                 <imageView userInteractionEnabled="NO" contentMode="center" image="PlayingExternally" translatesAutoresizingMaskIntoConstraints="NO" id="y5s-bW-D2G" userLabel="PlayingExternallyImageView">
+                     <rect key="frame" x="139" y="105" width="122" height="91"/>
+                 </imageView>
+                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="TV Connected" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcj-wb-3NY">
+                     <rect key="frame" x="10" y="204" width="380" height="23"/>
+                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                     <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                     <color key="textColor" red="0.3803921569" green="0.3803921569" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                     <nil key="highlightedColor"/>
+                 </label>
+                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="This video is playing on the TV" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6D-oZ-7p9">
+                     <rect key="frame" x="10" y="235" width="380" height="19.5"/>
+                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                     <color key="textColor" red="0.3803921569" green="0.3803921569" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                     <color key="highlightedColor" red="0.3803921569" green="0.3803921569" blue="0.3803921569" alpha="0.81000000000000005" colorSpace="custom" customColorSpace="sRGB"/>
+                 </label>
+             </subviews>
+             <constraints>
+                 <constraint firstItem="qcj-wb-3NY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="9Cp-he-988"/>
+                 <constraint firstItem="y5s-bW-D2G" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="-4" id="HHD-Dn-rf8"/>
+                 <constraint firstItem="qcj-wb-3NY" firstAttribute="bottom" secondItem="P6D-oZ-7p9" secondAttribute="top" constant="-8" id="Huf-bQ-Lhc"/>
+                 <constraint firstItem="qcj-wb-3NY" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-10" id="Kvf-aR-8Jy"/>
+                 <constraint firstItem="P6D-oZ-7p9" firstAttribute="trailing" secondItem="qcj-wb-3NY" secondAttribute="trailing" id="O89-Tk-flq"/>
+                 <constraint firstItem="y5s-bW-D2G" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="PAf-oN-B54"/>
+                 <constraint firstItem="qcj-wb-3NY" firstAttribute="top" secondItem="y5s-bW-D2G" secondAttribute="bottom" constant="8" id="Vju-PL-L3u"/>
+                 <constraint firstItem="P6D-oZ-7p9" firstAttribute="leading" secondItem="qcj-wb-3NY" secondAttribute="leading" id="kZz-df-4Vg"/>
+             </constraints>
+             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+             <connections>
+                 <outlet property="playingExternallyDescription" destination="P6D-oZ-7p9" id="g2c-Ug-php"/>
+                 <outlet property="playingExternallyTitle" destination="qcj-wb-3NY" id="LJM-a6-c3Q"/>
+             </connections>
+             <point key="canvasLocation" x="55" y="77"/>
+         </view>
+     </objects>
+     <resources>
+         <image name="PlayingExternally" width="122" height="91"/>
+     </resources>
+ </document>
