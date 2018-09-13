@@ -18,21 +18,21 @@ class VLCEditController: NSObject {
     private let collectionView: UICollectionView
     private let category: MediaLibraryBaseModel
 
-    private lazy var editToolbar: VLCEditToolbar = {
-        let editToolbar = VLCEditToolbar(frame: CGRect(x: 0, y: 400,
-                                                       width: collectionView.frame.width, height: 50))
-        editToolbar.isHidden = true
-        editToolbar.delegate = self
-        return editToolbar
-    }()
+//    private lazy var editToolbar: VLCEditToolbar = {
+//        let editToolbar = VLCEditToolbar(frame: CGRect(x: 0, y: 400,
+//                                                       width: collectionView.frame.width, height: 50))
+//        editToolbar.isHidden = true
+//        editToolbar.delegate = self
+//        return editToolbar
+//    }()
 
     init(collectionView: UICollectionView, category: MediaLibraryBaseModel) {
         self.collectionView = collectionView
         self.category = category
         super.init()
 
-        collectionView.addSubview(editToolbar)
-        collectionView.bringSubview(toFront: editToolbar)
+//        collectionView.addSubview(editToolbar)
+//        collectionView.bringSubview(toFront: editToolbar)
     }
 }
 
