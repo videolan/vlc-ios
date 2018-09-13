@@ -266,6 +266,7 @@ extension VLCMediaCategoryViewController {
     }
 
     func play(media: VLCMLMedia) {
+        VLCPlaybackController.sharedInstance().fullscreenSessionRequested = media.subtype() != .albumTrack
         VLCPlaybackController.sharedInstance().play(media)
     }
 }
