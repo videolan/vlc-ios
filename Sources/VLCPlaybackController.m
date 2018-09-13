@@ -33,6 +33,14 @@ NSString *const VLCPlaybackControllerPlaybackMetadataDidChange = @"VLCPlaybackCo
 NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPlaybackDidFail";
 NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackControllerPlaybackPositionUpdated";
 
+typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
+    VLCAspectRatioDefault = 0,
+    VLCAspectRatioFillToScreen,
+    VLCAspectRatioFourToThree,
+    VLCAspectRatioSixteenToNine,
+    VLCAspectRatioSixteenToTen,
+};
+
 @interface VLCPlaybackController () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     VLCRemoteControlService *_remoteControlService;
@@ -47,6 +55,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     NSTimer *_sleepTimer;
 
     PlaybackSettings *_pbcSettings;
+    VLCAspectRatio _currentAspectRatio;
     BOOL _isInFillToScreen;
 
     UIView *_videoOutputViewWrapper;
@@ -232,6 +241,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
         [self.delegate prepareForMediaPlayback:self];
 
+    _currentAspectRatio = VLCAspectRatioDefault;
     [[self remoteControlService] subscribeToRemoteCommands];
 
     if (_pathToExternalSubtitlesFile) {
@@ -879,7 +889,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 - (void)switchIPhoneXFullScreen
 {
     if (_isInFillToScreen) {
-        const char *previousAspectRatio = _pbcSettings.aspectRatio == VLCAspectRatioDefault ? NULL : [[self stringForAspectRatio] UTF8String];
+        const char *previousAspectRatio = _currentAspectRatio == VLCAspectRatioDefault ? NULL : [[self stringForAspectRatio] UTF8String];
         _mediaPlayer.videoAspectRatio = (char *)previousAspectRatio;
         _mediaPlayer.scaleFactor = 0;
         _isInFillToScreen = NO;
@@ -890,7 +900,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 
 - (void)switchAspectRatio
 {
-    _pbcSettings.aspectRatio = _pbcSettings.aspectRatio == VLCAspectRatioSixteenToTen ? VLCAspectRatioDefault : _pbcSettings.aspectRatio + 1;
+    _currentAspectRatio = _currentAspectRatio == VLCAspectRatioSixteenToTen ? VLCAspectRatioDefault : _currentAspectRatio + 1;
     [self setCurrentAspectRatio];
 
     if ([self.delegate respondsToSelector:@selector(showStatusMessage:)]) {
@@ -900,7 +910,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 
 - (void)setCurrentAspectRatio
 {
-    switch (_pbcSettings.aspectRatio) {
+    switch (_currentAspectRatio) {
         case VLCAspectRatioDefault:
             _mediaPlayer.scaleFactor = 0;
             _mediaPlayer.videoAspectRatio = NULL;
@@ -923,7 +933,7 @@ NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackCont
 
 - (NSString *)stringForAspectRatio
 {
-    switch (_pbcSettings.aspectRatio) {
+    switch (_currentAspectRatio) {
             case VLCAspectRatioFillToScreen:
             return NSLocalizedString(@"FILL_TO_SCREEN", nil);
             case VLCAspectRatioDefault:

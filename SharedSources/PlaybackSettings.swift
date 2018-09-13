@@ -16,7 +16,6 @@ class PlaybackSettings: NSObject, Codable {
     var repeatMode: VLCRepeatMode
     var shuffleMode: Bool
     var playbackSpeed: Float
-    var aspectRatio: VLCAspectRatio
 
     private enum CodingKeys: String, CodingKey {
         case repeatMode
@@ -28,7 +27,6 @@ class PlaybackSettings: NSObject, Codable {
     override init() {
         repeatMode = .doNotRepeat
         shuffleMode = false
-        aspectRatio = .default
         let defaults = UserDefaults.standard
         if defaults.float(forKey: "playback-speed") != 0 {
             playbackSpeed = Float(defaults.float(forKey:"playback-speed"))
@@ -43,7 +41,6 @@ class PlaybackSettings: NSObject, Codable {
         repeatMode = VLCRepeatMode(rawValue: try values.decode(NSInteger.self, forKey: .repeatMode)) ?? .doNotRepeat
         shuffleMode = try values.decode(Bool.self, forKey: .shuffleMode)
         playbackSpeed = try values.decode(Float.self, forKey: .playbackSpeed)
-        aspectRatio = VLCAspectRatio(rawValue: VLCAspectRatio.RawValue(try values.decode(NSInteger.self, forKey: .aspectRatio))) ?? .default
     }
 
     func encode(to encoder: Encoder) throws {
@@ -51,7 +48,6 @@ class PlaybackSettings: NSObject, Codable {
         try container.encode(repeatMode.rawValue, forKey: .repeatMode)
         try container.encode(shuffleMode, forKey: .shuffleMode)
         try container.encode(playbackSpeed, forKey: .playbackSpeed)
-        try container.encode(aspectRatio.rawValue, forKey: .aspectRatio)
     }
 
     func saveSettings() {
