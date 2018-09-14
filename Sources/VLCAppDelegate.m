@@ -41,7 +41,7 @@
     BOOL _isComingFromHandoff;
     VLCKeychainCoordinator *_keychainCoordinator;
     AppCoordinator *appCoordinator;
-    UITabBarController *rootViewController;
+    UIViewController *rootViewController;
 }
 
 @end
@@ -98,13 +98,13 @@
     [VLCApperanceManager setupAppearanceWithTheme:PresentationTheme.current];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    rootViewController = [UITabBarController new];
+    rootViewController = [UIViewController new];
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
     // enable crash preventer
     void (^setupBlock)(void) = ^{
         void (^setupLibraryBlock)(void) = ^{
-            self->appCoordinator = [[AppCoordinator alloc] initWithTabBarController:self->rootViewController];
+            self->appCoordinator = [[AppCoordinator alloc] initWithViewController:self->rootViewController];
             [self->appCoordinator start];
         };
         [self validatePasscodeIfNeededWithCompletion:setupLibraryBlock];
