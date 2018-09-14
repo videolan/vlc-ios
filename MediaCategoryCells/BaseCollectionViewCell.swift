@@ -23,4 +23,12 @@ class BaseCollectionViewCell: UICollectionViewCell {
     }
 
     var media: VLCMLObject?
+
+    class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
+        return CGSize.zero
+    }
+
+    class var cellPadding: CGFloat {
+        return 0
+    }
 }
