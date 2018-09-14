@@ -16,6 +16,8 @@ class ArtistModel: MLBaseModel {
 
     var files = [VLCMLArtist]()
 
+    var cellType: BaseCollectionViewCell.Type { return AudioCollectionViewCell.self }
+
     var medialibrary: VLCMediaLibraryManager
 
     var indicatorName: String = NSLocalizedString("ARTISTS", comment: "")

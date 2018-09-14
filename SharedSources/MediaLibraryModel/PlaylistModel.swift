@@ -16,6 +16,8 @@ class PlaylistModel: MLBaseModel {
 
     var files = [VLCMLPlaylist]()
 
+    var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }
+
     var medialibrary: VLCMediaLibraryManager
 
     var indicatorName: String = NSLocalizedString("PLAYLISTS", comment: "")

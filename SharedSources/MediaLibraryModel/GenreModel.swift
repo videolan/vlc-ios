@@ -16,6 +16,8 @@ class GenreModel: MLBaseModel {
 
     var files = [VLCMLGenre]()
 
+    var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }
+
     var medialibrary: VLCMediaLibraryManager
 
     var indicatorName: String = NSLocalizedString("GENRES", comment: "")
