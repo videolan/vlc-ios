@@ -45,9 +45,6 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
 }
 
 extension MLBaseModel {
-    var cellType: BaseCollectionViewCell.Type {
-        return MovieCollectionViewCell.self
-    }
 
     var anyfiles: [VLCMLObject] {
         return files

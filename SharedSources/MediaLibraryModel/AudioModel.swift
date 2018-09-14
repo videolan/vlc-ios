@@ -16,6 +16,8 @@ class AudioModel: MediaModel {
 
     var files = [VLCMLMedia]()
 
+    var cellType: BaseCollectionViewCell.Type { return AudioCollectionViewCell.self }
+
     var medialibrary: VLCMediaLibraryManager
 
     var indicatorName: String = NSLocalizedString("SONGS", comment: "")

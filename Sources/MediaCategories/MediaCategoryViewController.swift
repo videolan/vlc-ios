@@ -194,13 +194,13 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             assertionFailure("you forgot to register the cell or the cell is not a subclass of BaseCollectionViewCell")
             return UICollectionViewCell()
         }
-
-        guard let media = category.anyfiles[indexPath.row] as? VLCMLMedia else {
-            assertionFailure("The contained file in the category doesn't conform to VLCMLMedia")
-            return mediaCell
+        let mediaObject = category.anyfiles[indexPath.row]
+        if let media = mediaObject as? VLCMLMedia {
+            assert(media.mainFile() != nil, "The mainfile is nil")
+            mediaCell.media = media.mainFile() != nil ? media : nil
+        } else {
+            mediaCell.media = mediaObject
         }
-        assert(media.mainFile() != nil, "The mainfile is nil")
-        mediaCell.media = media.mainFile() != nil ? media : nil
         return mediaCell
     }
 
