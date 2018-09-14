@@ -23,7 +23,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     override var media: VLCMLObject? {
         didSet {
             guard let movie = media as? VLCMLMedia else {
-                fatalError("needs to be of Type VLCMLMovie")
+                //Todo: fatalerror here once all celltypes are there and this is not abused for others anymore
+                return
             }
             update(movie:movie)
         }
