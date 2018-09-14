@@ -14,12 +14,13 @@
 import Foundation
 
 class VLCMediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
-    let cellPadding: CGFloat = 5.0
+    
     private var services: Services
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
     var category: MediaLibraryBaseModel
     private lazy var editController = VLCEditController(collectionView: self.collectionView!, category: self.category)
+    private var cachedCellSize = CGSize.zero
 
 //    @available(iOS 11.0, *)
 //    lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
@@ -194,13 +195,14 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             assertionFailure("you forgot to register the cell or the cell is not a subclass of BaseCollectionViewCell")
             return UICollectionViewCell()
         }
-
-        guard let media = category.anyfiles[indexPath.row] as? VLCMLMedia else {
+        let mediaObject = category.anyfiles[indexPath.row]
+        if let media = mediaObject as? VLCMLMedia {
+            assert(media.mainFile() != nil, "The mainfile is nil")
+            mediaCell.media = media.mainFile() != nil ? media : nil
+        } else {
+            mediaCell.media = mediaObject
             assertionFailure("The contained file in the category doesn't conform to VLCMLMedia")
-            return mediaCell
         }
-        assert(media.mainFile() != nil, "The mainfile is nil")
-        mediaCell.media = media.mainFile() != nil ? media : nil
         return mediaCell
     }
 
@@ -213,30 +215,22 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        let numberOfCells: CGFloat = round(collectionView.frame.size.width / 250)
-        let aspectRatio: CGFloat = 10.0 / 16.0
-
-        // We have the number of cells and we always have numberofCells + 1 padding spaces. -pad-[Cell]-pad-[Cell]-pad-
-        // we then have the entire padding, we divide the entire padding by the number of Cells to know how much needs to be substracted from ech cell
-        // since this might be an uneven number we ceil
-        var cellWidth = collectionView.bounds.size.width / numberOfCells
-        cellWidth = cellWidth - ceil(((numberOfCells + 1) * cellPadding) / numberOfCells)
-
-        // 3*20 for the labels + 24 for 3*8 which is the padding
-        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + 3*20+24)
+        if cachedCellSize == .zero {
+            cachedCellSize = category.cellType.cellSizeForWidth(collectionView.frame.size.width)
+        }
+        return cachedCellSize
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: cellPadding, left: cellPadding, bottom: cellPadding, right: cellPadding)
+        return UIEdgeInsets(top: category.cellType.cellPadding, left: category.cellType.cellPadding, bottom: category.cellType.cellPadding, right: category.cellType.cellPadding)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return cellPadding
+        return category.cellType.cellPadding
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return cellPadding
+        return category.cellType.cellPadding
     }
 }
 

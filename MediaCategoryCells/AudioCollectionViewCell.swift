@@ -1,5 +1,5 @@
 /*****************************************************************************
- * MovieCollectionViewCell.swift
+ * AudioCollectionViewCell.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -8,24 +8,26 @@
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
  *
  * Refer to the COPYING file of the official project for license.
-*****************************************************************************/
+ *****************************************************************************/
 
 import Foundation
 
-class MovieCollectionViewCell: BaseCollectionViewCell {
+class AudioCollectionViewCell: BaseCollectionViewCell {
 
     @IBOutlet weak var thumbnailView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var newLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var newLabel: UILabel!
+    override class var cellPadding: CGFloat {
+        return 5.0
+    }
 
     override var media: VLCMLObject? {
         didSet {
-            guard let movie = media as? VLCMLMedia else {
+            guard let albumTrack = media as? VLCMLMedia else {
                 fatalError("needs to be of Type VLCMLMovie")
             }
-            update(movie:movie)
+            update(audiotrack:albumTrack)
         }
     }
 
@@ -35,6 +37,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         themeDidChange()
+        thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
     }
 
     @objc fileprivate func themeDidChange() {
@@ -43,16 +46,25 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         descriptionLabel?.textColor = PresentationTheme.current.colors.cellDetailTextColor
     }
 
-    func update(movie: VLCMLMedia) {
-        titleLabel.text = movie.title
-        descriptionLabel.text = movie.mediaDuration()
-        if movie.isThumbnailGenerated() {
-            thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.absoluteString)
+    func update(audiotrack: VLCMLMedia) {
+        titleLabel.text = audiotrack.title
+        descriptionLabel.text = audiotrack.albumTrack.artist.name
+        if audiotrack.isThumbnailGenerated() {
+            thumbnailView.image = UIImage(contentsOfFile: audiotrack.thumbnail.absoluteString)
         }
-        let progress = movie.mediaProgress()
-        progressView.isHidden = progress == 0
-        progressView.progress = progress
-        newLabel.isHidden = !movie.isNew()
+        newLabel.isHidden = !audiotrack.isNew()
+    }
+
+    override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
+        let numberOfCells: CGFloat = round(width / 320)
+
+        // We have the number of cells and we always have numberofCells + 1 padding spaces. -pad-[Cell]-pad-[Cell]-pad-
+        // we then have the entire padding, we divide the entire padding by the number of Cells to know how much needs to be substracted from ech cell
+        // since this might be an uneven number we ceil
+        var cellWidth = width / numberOfCells
+        cellWidth = cellWidth - ceil(((numberOfCells + 1) * cellPadding) / numberOfCells)
+
+        return CGSize(width: cellWidth, height: 80)
     }
 
     override func prepareForReuse() {
@@ -60,7 +72,6 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = ""
         descriptionLabel.text = ""
         thumbnailView.image = nil
-        progressView.isHidden = true
         newLabel.isHidden = true
     }
 }

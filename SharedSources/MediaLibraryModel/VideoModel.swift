@@ -10,11 +10,14 @@
  *****************************************************************************/
 
 class VideoModel: MLBaseModel {
+
     typealias MLType = VLCMLMedia
 
     var updateView: (() -> Void)?
 
     var files = [VLCMLMedia]()
+
+    var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }
 
     var medialibrary: VLCMediaLibraryManager
 
