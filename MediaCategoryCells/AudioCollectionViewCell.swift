@@ -18,6 +18,9 @@ class AudioCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var newLabel: UILabel!
+    override class var cellPadding: CGFloat {
+        return 5.0
+    }
 
     override var media: VLCMLObject? {
         didSet {
@@ -45,11 +48,23 @@ class AudioCollectionViewCell: BaseCollectionViewCell {
 
     func update(audiotrack: VLCMLMedia) {
         titleLabel.text = audiotrack.title
-        descriptionLabel.text = audiotrack.mediaDuration()
+        descriptionLabel.text = audiotrack.albumTrack.artist.name
         if audiotrack.isThumbnailGenerated() {
             thumbnailView.image = UIImage(contentsOfFile: audiotrack.thumbnail.absoluteString)
         }
         newLabel.isHidden = !audiotrack.isNew()
+    }
+
+    override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
+        let numberOfCells: CGFloat = round(width / 320)
+
+        // We have the number of cells and we always have numberofCells + 1 padding spaces. -pad-[Cell]-pad-[Cell]-pad-
+        // we then have the entire padding, we divide the entire padding by the number of Cells to know how much needs to be substracted from ech cell
+        // since this might be an uneven number we ceil
+        var cellWidth = width / numberOfCells
+        cellWidth = cellWidth - ceil(((numberOfCells + 1) * cellPadding) / numberOfCells)
+
+        return CGSize(width: cellWidth, height: 80)
     }
 
     override func prepareForReuse() {

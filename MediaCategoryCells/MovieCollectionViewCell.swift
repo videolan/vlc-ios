@@ -19,6 +19,9 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var newLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
+    override class var cellPadding: CGFloat {
+        return 5.0
+    }
 
     override var media: VLCMLObject? {
         didSet {
@@ -53,6 +56,20 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         progressView.isHidden = progress == 0
         progressView.progress = progress
         newLabel.isHidden = !movie.isNew()
+    }
+
+    override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
+        let numberOfCells: CGFloat = round(width / 250)
+        let aspectRatio: CGFloat = 10.0 / 16.0
+
+        // We have the number of cells and we always have numberofCells + 1 padding spaces. -pad-[Cell]-pad-[Cell]-pad-
+        // we then have the entire padding, we divide the entire padding by the number of Cells to know how much needs to be substracted from ech cell
+        // since this might be an uneven number we ceil
+        var cellWidth = width / numberOfCells
+        cellWidth = cellWidth - ceil(((numberOfCells + 1) * cellPadding) / numberOfCells)
+
+        // 3*20 for the labels + 24 for 3*8 which is the padding
+        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + 3*20+24)
     }
 
     override func prepareForReuse() {
