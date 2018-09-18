@@ -34,10 +34,10 @@ class VLCTabBarCoordinator: NSObject {
             if let navController = $0 as? UINavigationController, navController.topViewController is VLCSettingsController {
                 navController.navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
                 navController.navigationBar.tintColor = PresentationTheme.current.colors.orangeUI
-                navController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:  PresentationTheme.current.colors.navigationbarTextColor]
+                navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:  PresentationTheme.current.colors.navigationbarTextColor]
 
                 if #available(iOS 11.0, *) {
-                    navController.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor:  PresentationTheme.current.colors.navigationbarTextColor]
+                    navController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:  PresentationTheme.current.colors.navigationbarTextColor]
                 }
             }
         }

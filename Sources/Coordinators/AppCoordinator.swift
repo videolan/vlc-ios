@@ -36,16 +36,19 @@ class Services: NSObject {
     }
 
     private func setupChildViewControllers() {
-        viewController.addChildViewController(tabBarController)
+        viewController.addChild(tabBarController)
         viewController.view.addSubview(tabBarController.view)
         tabBarController.view.frame = viewController.view.frame
-        tabBarController.didMove(toParentViewController: viewController)
+        tabBarController.didMove(toParent: viewController)
 
-        viewController.addChildViewController(playerController)
+        viewController.addChild(playerController)
         viewController.view.addSubview(playerController.view)
-        playerController.view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: tabBarController.tabBar.frame.size.height, right: 0)
+        playerController.view.layoutMargins = UIEdgeInsets(top: 0,
+                                                           left: 0,
+                                                           bottom: tabBarController.tabBar.frame.size.height,
+                                                           right: 0)
         playerController.realBottomAnchor = tabBarController.tabBar.topAnchor
-        playerController.didMove(toParentViewController: viewController)
+        playerController.didMove(toParent: viewController)
     }
 
     @objc func start() {

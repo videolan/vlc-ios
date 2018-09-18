@@ -58,7 +58,7 @@ lane :ci do
     configuration: 'Debug',
     clean: true,
     build: true,
-    destination: 'platform=tvOS Simulator,name=Apple TV,OS=11.3'
+    destination: 'platform=tvOS Simulator,name=Apple TV,OS=11.2'
   )
   test
 end
