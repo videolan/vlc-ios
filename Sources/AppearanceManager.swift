@@ -21,18 +21,18 @@ class AppearanceManager: NSObject {
         UITextField.appearance().tintColor = theme.colors.orangeUI
 
         // Don't override the 'Cancel' button color in the search bar with the previous UITextField call. Use the default blue color
-        let attributes = [NSAttributedStringKey.foregroundColor: theme.colors.orangeUI]
+        let attributes = [NSAttributedString.Key.foregroundColor: theme.colors.orangeUI]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
 
         UINavigationBar.appearance().barTintColor = theme.colors.navigationbarColor
         UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).barTintColor = nil
         UINavigationBar.appearance().tintColor = theme.colors.orangeUI
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: theme.colors.navigationbarTextColor]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.navigationbarTextColor]
 
         if #available(iOS 11.0, *) {
             UINavigationBar.appearance().prefersLargeTitles = true
             UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).prefersLargeTitles = false
-            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: theme.colors.navigationbarTextColor]
+            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.navigationbarTextColor]
         }
         // For the edit selection indicators
         UITableView.appearance().tintColor = theme.colors.orangeUI
@@ -46,7 +46,7 @@ class AppearanceManager: NSObject {
 
 //extensions so that preferredStatusBarStyle is called on all childViewControllers otherwise this is not forwarded
 extension UINavigationController {
-    override open var childViewControllerForStatusBarStyle: UIViewController? {
+    override open var childForStatusBarStyle: UIViewController? {
         return self.topViewController
     }
 }

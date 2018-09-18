@@ -57,7 +57,7 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
 
     override init() {
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(appInForeground), name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appInForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     @objc class func setPasscode(passcode: String?) throws {

@@ -16,9 +16,9 @@ typealias AlertAction = (UIAlertAction) -> Void
 
 @objcMembers class VLCAlertButton: NSObject {
     let title: String
-    let style: UIAlertActionStyle
+    let style: UIAlertAction.Style
     let action: AlertAction?
-    init(title: String, style: UIAlertActionStyle = .default, action: AlertAction? = nil) {
+    init(title: String, style: UIAlertAction.Style = .default, action: AlertAction? = nil) {
         self.title = title
         self.style = style
         self.action = action
