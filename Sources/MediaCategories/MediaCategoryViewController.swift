@@ -201,7 +201,6 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             mediaCell.media = media.mainFile() != nil ? media : nil
         } else {
             mediaCell.media = mediaObject
-            assertionFailure("The contained file in the category doesn't conform to VLCMLMedia")
         }
         return mediaCell
     }

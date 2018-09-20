@@ -16,7 +16,7 @@ class AlbumModel: MLBaseModel {
 
     var files = [VLCMLAlbum]()
 
-    var cellType: BaseCollectionViewCell.Type { return AudioCollectionViewCell.self }
+    var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }
 
     var medialibrary: VLCMediaLibraryManager
 
