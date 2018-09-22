@@ -1,0 +1,33 @@
+"NOW_PLAYING"="Now Playing";
+"PLAY_NOW"="Play Now";
+"PLAYING"="Playing";
+"PAUSED"="Paused";
+"DETAIL"="Detail";
+"LIBRARY_ALL_FILES"="All Files";
+"LIBRARY_MUSIC"="Music Albums";
+"LIBRARY_SERIES"="TV Shows";
+"EMPTY_LIBRARY"="Bibliuteca di Media Viota";
+
+"BWD_BUTTON" = "Saltà Nanzu";
+"FWD_BUTTON" = "Saltà Dopu";
+"PLAY_BUTTON" = "Sunà";
+"PAUSE_BUTTON"="Pause";
+
+"VOLUME" = "Vulume";
+"DURATION" = "Durata";
+"TITLE" = "Titulu";
+
+"BUTTON_OK"="Vai";
+
+
+"NOT_CONNECTED_TO_PHONE_TITLE"="Not connected to iPhone";
+"NOT_CONNECTED_TO_PHONE_MESSAGE"="Please connect your iPhone to perform remote control actions.";
+
+// accessibility labels for the playlist
+"OBJECT_TYPE_SHOW"="Show";
+"OBJECT_TYPE_SHOW_EPISODE"="Show episode";
+"OBJECT_TYPE_LABEL"="Folder";
+"OBJECT_TYPE_ALBUM"="Album";
+"OBJECT_TYPE_ALBUM_TRACK"="Album track";
+"OBJECT_TYPE_FILE"="File";
+"OBJECT_TYPE_FILE_AUDIO"="Audio file";

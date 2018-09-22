@@ -1025,6 +1025,9 @@
 		7D4136621896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = si; path = si.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D4625861A5614A1001A80B4 /* VLCEqualizerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCEqualizerView.h; path = Sources/VLCEqualizerView.h; sourceTree = SOURCE_ROOT; };
 		7D4625871A5614A1001A80B4 /* VLCEqualizerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCEqualizerView.m; path = Sources/VLCEqualizerView.m; sourceTree = SOURCE_ROOT; };
+		7D481BC42156738A006FEA51 /* co */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "co"; path = "co.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		7D481BC52156738B006FEA51 /* co */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "co"; path = "co.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		7D481BC62156738B006FEA51 /* co */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "co"; path = "co.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D49E178175A47A4002D1450 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D4BE733175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D4C484417ACF982008D228B /* bs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bs; path = bs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2999,7 +3002,6 @@
 						DevelopmentTeam = 75GAHG3SZQ;
 					};
 					7D94FCDA16DE7D1000F2623B = {
-						DevelopmentTeam = 75GAHG3SZQ;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -3086,6 +3088,7 @@
 				"sr-Latn",
 				Base,
 				nb,
+				"co",
 			);
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			productRefGroup = 7D94FCDC16DE7D1000F2623B /* Products */;
@@ -4115,6 +4118,7 @@
 				417E689B1F307E0E00DB9BB2 /* pt-BR */,
 				417E689C1F307E0F00DB9BB2 /* sr-Latn */,
 				417E689D1F307E1000DB9BB2 /* nb */,
+				7D481BC42156738A006FEA51 /* co */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4168,6 +4172,7 @@
 				7D685AAE1AAF74F9006CD82A /* sr-Latn */,
 				7D94DDC31BF76A26002DE657 /* nb */,
 				41BBDCBC1F3BAD2E00B89A9C /* Base */,
+				7D481BC52156738B006FEA51 /* co */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4200,6 +4205,7 @@
 				DD8C8FAB1B676C7700B3C4EE /* nl */,
 				DD8C8FAC1B676C8A00B3C4EE /* ja */,
 				DD8C8FAD1B676C9200B3C4EE /* en */,
+				7D481BC62156738B006FEA51 /* co */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4700,6 +4706,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 303;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = "";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = YES;
@@ -4745,6 +4752,7 @@
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 303;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = "";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4822,6 +4830,7 @@
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 303;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = "";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
