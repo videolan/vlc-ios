@@ -31,7 +31,6 @@ class VLCAudioViewController: VLCMediaViewController {
             VLCGenreCategoryViewController(services),
             VLCArtistCategoryViewController(services),
             VLCAlbumCategoryViewController(services),
-            VLCAudioPlaylistCategoryViewController(services)
         ]
     }
 }

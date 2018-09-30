@@ -15,6 +15,7 @@ import Foundation
     static let video = "video"
     static let audio = "audio"
     @objc static let localNetwork = "localNetwork"
+    static let playlist = "playlist"
     @objc static let settings = "settings"
     static let cloud = "cloud"
     static let stream = "stream"

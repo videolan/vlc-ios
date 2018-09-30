@@ -58,7 +58,6 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         containerView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
 
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.alwaysBounceHorizontal = true
         containerView.scrollsToTop = false
         containerView.delegate = self
         containerView.showsVerticalScrollIndicator = false

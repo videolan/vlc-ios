@@ -45,7 +45,7 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
     var changeCurrentIndexProgressive: ((_ oldCell: ButtonBarCellType?, _ newCell: ButtonBarCellType?, _ progressPercentage: CGFloat, _ changeCurrentIndex: Bool, _ animated: Bool) -> Void)?
 
     var buttonBarView: ButtonBarView!
-    let buttonbarViewHeight: CGFloat = 45.0
+    var buttonbarViewHeight: CGFloat = 45.0
     lazy private var cachedCellWidths: [CGFloat]? = { [unowned self] in
         return self.calculateWidths()
         }()
@@ -64,7 +64,7 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        buttonbarViewHeight = viewControllers.count == 1 ? 0 : 45
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         buttonBarView = ButtonBarView(frame: .zero, collectionViewLayout: flowLayout)

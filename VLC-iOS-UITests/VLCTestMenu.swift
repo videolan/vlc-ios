@@ -41,6 +41,11 @@ class VLCTestMenu: XCTestCase {
         XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.video])
     }
 
+    func testNavigationToPlaylistTab() {
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.playlist)
+        XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.playlist])
+    }
+
     func testNavigationToSettingsTab() {
         helper.tapTabBarItem(VLCAccessibilityIdentifier.settings)
         XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.settings])
