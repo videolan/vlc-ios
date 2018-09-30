@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VideoViewController.swift
+ * VLCPlaylistViewController.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -10,25 +10,24 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class VLCVideoViewController: VLCMediaViewController {
+class VLCPlaylistViewController: VLCMediaViewController {
     override init(services: Services) {
         super.init(services: services)
         setupUI()
     }
 
     private func setupUI() {
-        title = NSLocalizedString("VIDEO", comment: "")
+        title = NSLocalizedString("PLAYLISTS", comment: "")
         tabBarItem = UITabBarItem(
-            title: NSLocalizedString("VIDEO", comment: ""),
+            title: NSLocalizedString("PLAYLISTS", comment: ""),
             image: UIImage(named: "TVShowsIcon"),
             selectedImage: UIImage(named: "TVShowsIcon"))
-        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.video
+        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.playlist
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         return [
-            VLCMovieCategoryViewController(services),
-            VLCShowEpisodeCategoryViewController(services),
+            VLCPlaylistCategoryViewController(services)
         ]
     }
 }

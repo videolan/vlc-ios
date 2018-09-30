@@ -311,10 +311,8 @@
 // MediaViewController Swipable Header
 "ALBUMS" = "Albums";
 "ARTISTS" = "Artists";
-"AUDIO_PLAYLISTS" = "Playlists";
 "EPISODES" = "Episodes";
 "GENRES" = "Genres";
 "MOVIES" = "Movies";
 "SONGS" = "Songs";
-"VIDEOS" = "Videos";
-"VIDEO_PLAYLISTS" = "Playlists";
+"PLAYLISTS" = "Playlists";

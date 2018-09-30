@@ -30,7 +30,7 @@ class VLCShowEpisodeCategoryViewController: VLCMediaCategoryViewController {
     }
 }
 
-class VLCVideoPlaylistCategoryViewController: VLCMediaCategoryViewController {
+class VLCPlaylistCategoryViewController: VLCMediaCategoryViewController {
     init(_ services: Services) {
         let model = PlaylistModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
@@ -73,16 +73,6 @@ class VLCArtistCategoryViewController: VLCMediaCategoryViewController {
 class VLCAlbumCategoryViewController: VLCMediaCategoryViewController {
     init(_ services: Services) {
         let model = AlbumModel(medialibrary: services.medialibraryManager)
-        super.init(services: services, category: model)
-        category.updateView = { [weak self] in
-            self?.reloadData()
-        }
-    }
-}
-
-class VLCAudioPlaylistCategoryViewController: VLCMediaCategoryViewController {
-    init(_ services: Services) {
-        let model = PlaylistModel(medialibrary: services.medialibraryManager)
         super.init(services: services, category: model)
         category.updateView = { [weak self] in
             self?.reloadData()

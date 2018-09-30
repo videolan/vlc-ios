@@ -47,6 +47,7 @@ class VLCTabBarCoordinator: NSObject {
         let controllers = [
             VLCVideoViewController(services: services),
             VLCAudioViewController(services: services),
+            VLCPlaylistViewController(services: services),
             VLCServerListViewController(nibName: nil, bundle: nil),
             VLCSettingsController()
         ]

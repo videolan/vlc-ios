@@ -111,7 +111,7 @@ extension VLCEditController: VLCEditControllerDataSource {
 extension VLCEditController: VLCEditToolbarDelegate {
     func createPlaylist() {
         if let model = category as? PlaylistModel {
-            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("VIDEO_PLAYLISTS", comment: ""),
+            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
                 placeHolder: "NEW_PLAYLIST")
 
             presentTextFieldAlert(with: alertInfo, completionHandler: {
@@ -120,7 +120,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
                 })
 
         } else if let model = category as? VideoModel {
-            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("VIDEO_PLAYLISTS", comment: ""),
+            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
                                                placeHolder: "NEW_PLAYLIST")
 
             presentTextFieldAlert(with: alertInfo, completionHandler: {
