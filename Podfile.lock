@@ -55,7 +55,7 @@ PODS:
   - upnpx (1.4.0)
   - VLC-LiveSDK (5.7.0x)
   - VLC-WhiteRaccoon (1.0.0)
-  - VLCMediaLibraryKit (0.0.6):
+  - VLCMediaLibraryKit (0.0.7):
     - MobileVLCKit
   - XKKeychain (1.0.1)
   - xmlrpc (2.3.4):
@@ -169,7 +169,7 @@ SPEC CHECKSUMS:
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
   VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
   VLC-WhiteRaccoon: 1e7e59b0568959135a89d09c416d1e11a5d9a986
-  VLCMediaLibraryKit: 326ae57af5c1943cde52cf7de37f4af63655eca4
+  VLCMediaLibraryKit: 59939a20c85be0f4a1c3769ed089f4de3666d4cf
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
