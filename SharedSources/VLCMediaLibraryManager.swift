@@ -199,10 +199,7 @@ extension VLCMediaLibraryManager {
 extension VLCMediaLibraryManager {
     func requestThumbnail(for media: [VLCMLMedia]) {
         media.forEach() {
-                // FIXME: Remind Chouquette! In the medialibrary thumbnails uses absolute paths. Workaround:
-                //         - Regenerate path is a thumbnail is detected
-                //         - Request a new thumbnail
-                // if $0.isThumbnailGenerated() { return }
+            guard !$0.isThumbnailGenerated() else { return }
 
             if !medialib.requestThumbnail(for: $0) {
                 assertionFailure("VLCMediaLibraryManager: Failed to generate thumbnail for: \($0.identifier())")
