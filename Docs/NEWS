@@ -1,6 +1,13 @@
+iOS 3.1.3:
+----------
+· Added Corsican language
+· Fixed a crash when reordering files outside of folders
+· The Media title is now always visible when streaming to an external display
+· Various Stability improvements and bug fixes
+
 iOS 3.1.2:
 ----------
-. Added an activity indicator for buffering
+· Added an activity indicator for buffering
 · The background setting to continue playback is ignored when external screens are used
 · Sorting in folders gets saved correctly
 · Fixed playback pausing once external output devices like bluetooth headphones are disconnected
