@@ -101,22 +101,6 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         setNeedsStatusBarAppearanceUpdate()
     }
 
-    func setupCollectionView() {
-        let cellNib = UINib(nibName: model.cellType.nibName, bundle: nil)
-        collectionView?.register(cellNib, forCellWithReuseIdentifier: model.cellType.defaultReuseIdentifier)
-        if let editCell = (model as? EditableMLModel)?.editCellType() {
-            let editCellNib = UINib(nibName: editCell.nibName, bundle: nil)
-            collectionView?.register(editCellNib, forCellWithReuseIdentifier: editCell.defaultReuseIdentifier)
-        }
-        collectionView?.backgroundColor = PresentationTheme.current.colors.background
-        collectionView?.alwaysBounceVertical = true
-        if #available(iOS 11.0, *) {
-            collectionView?.contentInsetAdjustmentBehavior = .always
-//            collectionView?.dragDelegate = dragAndDropManager
-//            collectionView?.dropDelegate = dragAndDropManager
-        }
-    }
-
     func setupEditToolbar() {
         editToolbar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(editToolbar)
@@ -134,20 +118,6 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         reloadData()
     }
 
-    func setupSearchController() {
-        searchController = UISearchController(searchResultsController: nil)
-        searchController?.searchResultsUpdater = self
-        searchController?.dimsBackgroundDuringPresentation = false
-        searchController?.delegate = self
-        if let textfield = searchController?.searchBar.value(forKey: "searchField") as? UITextField {
-            if let backgroundview = textfield.subviews.first {
-                backgroundview.backgroundColor = UIColor.white
-                backgroundview.layer.cornerRadius = 10
-                backgroundview.clipsToBounds = true
-            }
-        }
-    }
-    
     func updateUIForContent() {
         let isEmpty = collectionView?.numberOfItems(inSection: 0) == 0
 
@@ -262,6 +232,38 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return model.cellType.cellPadding
+    }
+}
+
+private extension VLCMediaCategoryViewController {
+    func setupCollectionView() {
+        let cellNib = UINib(nibName: model.cellType.nibName, bundle: nil)
+        collectionView?.register(cellNib, forCellWithReuseIdentifier: model.cellType.defaultReuseIdentifier)
+        if let editCell = (model as? EditableMLModel)?.editCellType() {
+            let editCellNib = UINib(nibName: editCell.nibName, bundle: nil)
+            collectionView?.register(editCellNib, forCellWithReuseIdentifier: editCell.defaultReuseIdentifier)
+        }
+        collectionView?.backgroundColor = PresentationTheme.current.colors.background
+        collectionView?.alwaysBounceVertical = true
+        if #available(iOS 11.0, *) {
+            collectionView?.contentInsetAdjustmentBehavior = .always
+            //            collectionView?.dragDelegate = dragAndDropManager
+            //            collectionView?.dropDelegate = dragAndDropManager
+        }
+    }
+
+    func setupSearchController() {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController?.searchResultsUpdater = self
+        searchController?.dimsBackgroundDuringPresentation = false
+        searchController?.delegate = self
+        if let textfield = searchController?.searchBar.value(forKey: "searchField") as? UITextField {
+            if let backgroundview = textfield.subviews.first {
+                backgroundview.backgroundColor = UIColor.white
+                backgroundview.layer.cornerRadius = 10
+                backgroundview.clipsToBounds = true
+            }
+        }
     }
 }
 
