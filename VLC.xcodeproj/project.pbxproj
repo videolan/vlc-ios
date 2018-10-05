@@ -588,10 +588,6 @@
 		7AC862A11765E90C0011611A /* jquery.ui.widget.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.ui.widget.js; sourceTree = "<group>"; };
 		7D00161A17704DAC00649F27 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		7D0117F0187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCFirstStepsFirstPageViewController~ipad.xib"; path = "Resources/VLCFirstStepsFirstPageViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		7D0363A81B2F325500CC0343 /* MediaLibrary-2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.1.xcdatamodel"; sourceTree = "<group>"; };
-		7D0363A91B2F325500CC0343 /* MediaLibrary-2.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.5.xcdatamodel"; sourceTree = "<group>"; };
-		7D0363AA1B2F325500CC0343 /* MediaLibrary-2.6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.6.xcdatamodel"; sourceTree = "<group>"; };
-		7D0363AB1B2F325500CC0343 /* MediaLibrary-2.7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MediaLibrary-2.7.xcdatamodel"; sourceTree = "<group>"; };
 		7D0C352E1BD97BC50058CD19 /* libLiveTVSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLiveTVSDK.a; path = "ImportedSources/OneDrive/src/build/Debug-appletvos/libLiveTVSDK.a"; sourceTree = "<group>"; };
 		7D1052E71A4DCC1100295F08 /* VLCOneDriveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveTableViewController.h; path = Sources/VLCOneDriveTableViewController.h; sourceTree = SOURCE_ROOT; };
 		7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveTableViewController.m; path = Sources/VLCOneDriveTableViewController.m; sourceTree = SOURCE_ROOT; };
@@ -1761,7 +1757,6 @@
 			children = (
 				DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */,
 				7D31719C19FEC91F0019357A /* VLC for iOS.entitlements */,
-				7D0363A71B2F325500CC0343 /* MediaLibrary.xcdatamodeld */,
 				7DB638AA185BC0890003887C /* Images.xcassets */,
 				7D3784E8183A9A15009EE944 /* main.m */,
 				7D3784EA183A9A1E009EE944 /* VLC for iOS-Info.plist */,
@@ -1904,7 +1899,6 @@
 			isa = PBXGroup;
 			children = (
 				7DE7D2D41D42907000B3AD27 /* MappingModel_2_5_to_2_6.xcmappingmodel */,
-				7DE7D2D51D42907000B3AD27 /* MediaLibrary.xcdatamodeld */,
 			);
 			name = "MediaLibraryKit-Debug";
 			sourceTree = "<group>";
@@ -4158,32 +4152,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		7D0363A71B2F325500CC0343 /* MediaLibrary.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				7D0363A81B2F325500CC0343 /* MediaLibrary-2.1.xcdatamodel */,
-				7D0363A91B2F325500CC0343 /* MediaLibrary-2.5.xcdatamodel */,
-				7D0363AA1B2F325500CC0343 /* MediaLibrary-2.6.xcdatamodel */,
-				7D0363AB1B2F325500CC0343 /* MediaLibrary-2.7.xcdatamodel */,
-			);
-			currentVersion = 7D0363AB1B2F325500CC0343 /* MediaLibrary-2.7.xcdatamodel */;
-			name = MediaLibrary.xcdatamodeld;
-			path = ../ImportedSources/MediaLibraryKit/MediaLibrary.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		7DE7D2D51D42907000B3AD27 /* MediaLibrary.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-			);
-			name = MediaLibrary.xcdatamodeld;
-			path = ../ImportedSources/MediaLibraryKit/MediaLibrary.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 7D94FCD316DE7D1000F2623B /* Project object */;
 }
