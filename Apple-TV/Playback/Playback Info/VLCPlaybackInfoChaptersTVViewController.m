@@ -135,7 +135,7 @@
     trackCell.selectionMarkerVisible = isSelected;
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
-    NSDictionary *description = [vpc chapterDescriptionsDictAtIndex:[vpc indexOfCurrentTitle]];
+    NSDictionary *description = [vpc chapterDescriptionsDictAtIndex:row];
 
     NSString *chapter = description[VLCChapterDescriptionName];
     if (chapter == nil)
