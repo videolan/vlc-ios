@@ -98,6 +98,7 @@
         toFrame = smallFrame;
         fromFrame = largeFrame;
         [container addSubview:target.view];
+        [target.view layoutIfNeeded];
     } else if ([source isKindOfClass:[VLCPlaybackInfoTVViewController class]]) {
         infoVC = (VLCPlaybackInfoTVViewController*) source;
         infoVC.dimmingView.alpha = 1.0;
