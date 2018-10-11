@@ -59,7 +59,7 @@
             self.thumbnailImage = [UIImage imageNamed:@"folder"];
         } else {
             self.isDirectory = NO;
-            self.subtitle = (boxFile.size > 0) ? [NSByteCountFormatter stringFromByteCount:[boxFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
+            self.subtitle = (boxFile.size.intValue > 0) ? [NSByteCountFormatter stringFromByteCount:[boxFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]: @"";
             self.thumbnailImage = [UIImage imageNamed:@"blank"];
         }
         self.title = boxFile.name;
@@ -85,13 +85,13 @@
                 }
             }
 
-            if (oneDriveFile.size > 0) {
+            if (oneDriveFile.size.intValue > 0) {
                 [subtitle appendString:[NSByteCountFormatter stringFromByteCount:[oneDriveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]];
-                if (oneDriveFile.duration > 0) {
+                if (oneDriveFile.duration.intValue > 0) {
                     VLCTime *time = [VLCTime timeWithNumber:oneDriveFile.duration];
                     [subtitle appendFormat:@" — %@", [time verboseStringValue]];
                 }
-            } else if (oneDriveFile.duration > 0) {
+            } else if (oneDriveFile.duration.intValue > 0) {
                 VLCTime *time = [VLCTime timeWithNumber:oneDriveFile.duration];
                 [subtitle appendString:[time verboseStringValue]];
             }
