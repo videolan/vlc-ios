@@ -14,13 +14,13 @@
 
 @interface UIColor (Presets)
 
-+ (UIColor *)VLCDarkBackgroundColor;
-+ (UIColor *)VLCTransparentDarkBackgroundColor;
-+ (UIColor *)VLCLightTextColor;
-+ (UIColor *)VLCDarkFadedTextColor;
-+ (UIColor *)VLCDarkTextColor;
-+ (UIColor *)VLCDarkTextShadowColor;
-+ (UIColor *)VLCOrangeTintColor;
-+ (UIColor *)VLCMenuBackgroundColor;
+@property (nonatomic, strong, readonly, nonnull, class) UIColor *VLCDarkBackgroundColor;
+@property (nonatomic, strong, readonly, nonnull, class) UIColor *VLCTransparentDarkBackgroundColor;
+@property (nonatomic, strong, readonly, nonnull, class) UIColor *VLCLightTextColor;
+@property (nonatomic, strong, readonly, nonnull, class) UIColor *VLCDarkFadedTextColor;
+@property (nonatomic, strong, readonly, nonnull, class) UIColor *VLCDarkTextColor;
+@property (nonatomic, strong, readonly, nonnull, class) UIColor *VLCDarkTextShadowColor;
+@property (nonatomic, strong, readonly, nonnull, class) UIColor *VLCOrangeTintColor;
+@property (nonatomic, strong, readonly, nonnull, class) UIColor *VLCMenuBackgroundColor;
 
 @end
