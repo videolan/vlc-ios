@@ -14,41 +14,41 @@
 
 @implementation UIColor (Presets)
 
-+ (UIColor *)VLCDarkBackgroundColor
++ (nonnull UIColor *)VLCDarkBackgroundColor
 {
     return [UIColor colorWithWhite:.122 alpha:1.];
 }
 
-+ (UIColor *)VLCTransparentDarkBackgroundColor
++ (nonnull UIColor *)VLCTransparentDarkBackgroundColor
 {
     return [UIColor colorWithWhite:.122 alpha:0.75];
 }
 
-+ (UIColor *)VLCLightTextColor
++ (nonnull UIColor *)VLCLightTextColor
 {
     return [UIColor colorWithWhite:.72 alpha:1.];
 }
 
-+ (UIColor *)VLCDarkFadedTextColor {
++ (nonnull UIColor *)VLCDarkFadedTextColor {
     return [UIColor colorWithRed:0.33 green:0.33 blue:0.33 alpha:1.0];
 }
 
-+ (UIColor *)VLCDarkTextColor
++ (nonnull UIColor *)VLCDarkTextColor
 {
     return [UIColor colorWithWhite:.28 alpha:1.];
 }
 
-+ (UIColor *)VLCDarkTextShadowColor
++ (nonnull UIColor *)VLCDarkTextShadowColor
 {
     return [UIColor colorWithWhite:0. alpha:.25f];
 }
 
-+ (UIColor *)VLCMenuBackgroundColor
++ (nonnull UIColor *)VLCMenuBackgroundColor
 {
     return [UIColor colorWithWhite:.17f alpha:1.];
 }
 
-+ (UIColor *)VLCOrangeTintColor
++ (nonnull UIColor *)VLCOrangeTintColor
 {
     return [UIColor colorWithRed:1.0f green:(132.0f/255.0f) blue:0.0f alpha:1.f];
 }
