@@ -130,12 +130,12 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     if ([notification.object isEqual:kVLCSettingPasscodeOnKey]) {
         BOOL passcodeOn = [[notification.userInfo objectForKey:kVLCSettingPasscodeOnKey] boolValue];
 
+        [self updateForPasscode:nil];
         if (passcodeOn) {
+            [self updateForPasscode:nil];
             PAPasscodeViewController *passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionSet];
             passcodeLockController.delegate = self;
-            [self presentViewController:passcodeLockController animated:YES completion:nil];
-        } else {
-            [self updateForPasscode:nil];
+            [self.navigationController presentViewController:passcodeLockController animated:YES completion:nil];
         }
     }
     if ([notification.object isEqual:kVLCSettingAppTheme]) {
@@ -191,10 +191,9 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     NSError *error = nil;
     [VLCKeychainCoordinator setPasscodeWithPasscode:passcode error:&error];
     if (error == nil) {
-        if (passcode == nil) {
-            //Set manually the value to NO to disable the UISwitch.
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kVLCSettingPasscodeOnKey];
-        }
+        //Set manually the value to enable/disable the UISwitch.
+        BOOL passcodeEnabled = passcode != nil;
+        [[NSUserDefaults standardUserDefaults] setBool:passcodeEnabled forKey:kVLCSettingPasscodeOnKey];
         [self updateUIAndCoreSpotlightForPasscodeSetting:passcode != nil];
     }
     if ([self.navigationController.presentedViewController isKindOfClass:[PAPasscodeViewController class]]) {
