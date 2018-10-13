@@ -33,6 +33,7 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
 @property (nonatomic, weak) VLCPlaybackController *playbackController;
+@property (nonatomic, strong) NSLayoutYAxisAnchor *realBottomAnchor;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil

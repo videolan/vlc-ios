@@ -318,7 +318,13 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
                               delay:animationDuration
                             options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction
                          animations:^{
-                             self.bottomConstraint.constant = needsHide ? 0 : -self->_miniPlaybackView.frame.size.height -self.view.layoutMargins.bottom;
+                             self.bottomConstraint.active = NO;
+                             if (needsShow) {
+                                 self.bottomConstraint = [miniPlaybackView.bottomAnchor constraintEqualToAnchor:self.realBottomAnchor];
+                             } else {
+                                 self.bottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.bottomLayoutGuide.bottomAnchor];
+                             }
+                             self.bottomConstraint.active = YES;
                              [self.view layoutIfNeeded];
                          }
                          completion:completionBlock];
