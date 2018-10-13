@@ -44,6 +44,7 @@ class Services: NSObject {
         viewController.addChildViewController(playerController)
         viewController.view.addSubview(playerController.view)
         playerController.view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: tabBarController.tabBar.frame.size.height, right: 0)
+        playerController.realBottomAnchor = tabBarController.tabBar.topAnchor
         playerController.didMove(toParentViewController: viewController)
     }
 
