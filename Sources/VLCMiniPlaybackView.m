@@ -209,12 +209,13 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata
 {
-    _videoView.hidden = YES;
     if (metadata.isAudioOnly) {
         _artworkView.contentMode = UIViewContentModeScaleAspectFill;
         _artworkView.image = metadata.artworkImage?: [UIImage imageNamed:@"no-artwork"];
+        _videoView.hidden = YES;
     } else {
         _artworkView.image = nil;
+        _videoView.hidden = NO;
     }
 
     NSString *metaDataString;
