@@ -57,7 +57,7 @@ class VLCSettingsTableViewCell: UITableViewCell {
         case kIASKOpenURLSpecifier:
             break
         default:
-            assertionFailure("\(specifier.type()) has not been defined for VLCSettingsTableViewCell")
+            assertionFailure("\(specifier.type() ?? "nil") has not been defined for VLCSettingsTableViewCell")
         }
     }
     
