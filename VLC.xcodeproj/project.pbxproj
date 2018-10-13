@@ -2880,7 +2880,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint";
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
 		16C1AB96786C00EC189F241D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2929,7 +2929,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python Tools/update_strings.py Resources/en.lproj/Localizable.strings";
+			shellScript = "python Tools/update_strings.py Resources/en.lproj/Localizable.strings\n";
 		};
 		9706D52A0CDF446E336826A6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
