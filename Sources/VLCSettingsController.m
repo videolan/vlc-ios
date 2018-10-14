@@ -132,6 +132,7 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
 
         [self updateForPasscode:nil];
         if (passcodeOn) {
+            [self updateForPasscode:nil];
             PAPasscodeViewController *passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionSet];
             passcodeLockController.delegate = self;
             [self.navigationController presentViewController:passcodeLockController animated:YES completion:nil];
