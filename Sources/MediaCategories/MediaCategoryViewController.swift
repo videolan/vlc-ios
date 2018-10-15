@@ -95,8 +95,10 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     func setupCollectionView() {
         let cellNib = UINib(nibName: category.cellType.nibName, bundle: nil)
         collectionView?.register(cellNib, forCellWithReuseIdentifier: category.cellType.defaultReuseIdentifier)
-        let editCellNib = UINib(nibName: category.editCellType.nibName, bundle: nil)
-        collectionView?.register(editCellNib, forCellWithReuseIdentifier: category.editCellType.defaultReuseIdentifier)
+        if let editCell = (category as? EditableMLModel)?.editCellType() {
+            let editCellNib = UINib(nibName: editCell.nibName, bundle: nil)
+            collectionView?.register(editCellNib, forCellWithReuseIdentifier: editCell.defaultReuseIdentifier)
+        }
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
         if #available(iOS 11.0, *) {

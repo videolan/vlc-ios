@@ -191,11 +191,13 @@ extension VLCEditController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: category.editCellType.defaultReuseIdentifier,
-                                                         for: indexPath) as? MediaEditCell {
-            cell.media = category.anyfiles[indexPath.row]
-            cell.isChecked = selectedCellIndexPaths.contains(indexPath)
-            return cell
+        if let editCell = (category as? EditableMLModel)?.editCellType() {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: editCell.defaultReuseIdentifier,
+                                                             for: indexPath) as? MediaEditCell {
+                cell.media = category.anyfiles[indexPath.row]
+                cell.isChecked = selectedCellIndexPaths.contains(indexPath)
+                return cell
+            }
         }
         return UICollectionViewCell()
     }
