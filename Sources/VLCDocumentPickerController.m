@@ -23,13 +23,31 @@
 
 #pragma mark - Public Methods
 
+- (UIViewController *) configurePickerViewController {
+    NSArray *types = @[(id)kUTTypeAudiovisualContent];
+    UIDocumentPickerMode mode = UIDocumentPickerModeImport;
+
+    if (@available(iOS 11.2, *)) {
+        // UIDocumentMenuViewController deprecated and does not support multiple selection
+        UIDocumentPickerViewController *picker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes: types inMode:mode];
+        picker.delegate = self;
+        picker.allowsMultipleSelection = YES;
+
+        return picker;
+    } else {
+        UIDocumentMenuViewController *importMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:@[(id)kUTTypeAudiovisualContent] inMode:UIDocumentPickerModeImport];
+        importMenu.delegate = self;
+
+        return importMenu;
+    }
+}
+
 - (void)showDocumentMenuViewController:(id)sender
 {
-    UIDocumentMenuViewController *importMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:@[(id)kUTTypeAudiovisualContent] inMode:UIDocumentPickerModeImport];
-    importMenu.delegate = self;
+    UIViewController *picker = [self configurePickerViewController];
 
     UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-    UIPopoverPresentationController *popoverPres = importMenu.popoverPresentationController;
+    UIPopoverPresentationController *popoverPres = picker.popoverPresentationController;
 
     if (popoverPres) { // not-nil on iPad
         UIView *sourceView = nil;
@@ -44,7 +62,7 @@
         popoverPres.permittedArrowDirections = UIPopoverArrowDirectionLeft;
     }
 
-    [rootVC presentViewController:importMenu animated:YES completion:nil];
+    [rootVC presentViewController:picker animated:YES completion:nil];
 }
 
 #pragma mark - UIDocumentMenuDelegate
@@ -62,6 +80,13 @@
 }
 
 #pragma mark - UIDocumentPickerDelegate
+
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)urls NS_AVAILABLE_IOS(11_0);
+{
+    for (NSURL *url in urls) {
+        [self documentPicker:controller didPickDocumentAtURL:url];
+    }
+}
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url
 {
@@ -82,7 +107,6 @@
         [alert addAction:okAction];
         [rootVC presentViewController:alert animated:true completion:nil];
     }
-
 }
 
 @end
