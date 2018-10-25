@@ -834,23 +834,23 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata
 {
-    NSLog(@"%@",metadata);
     NSString *title = metadata.title;
     NSString *artist = metadata.artist;
+    NSString *albumName = metadata.albumName;
     self.titleLabel.text = title;
     if (metadata.isAudioOnly) {
         self.audioArtworkImageView.image = nil;
         self.audioDescriptionTextView.hidden = YES;
         [self stopAudioDescriptionAnimation];
 
-        if (artist != nil && metadata.albumName != nil) {
+        if (artist != nil && albumName != nil) {
             [UIView animateWithDuration:.3 animations:^{
                 self.audioArtistLabel.text = artist;
                 self.audioArtistLabel.hidden = NO;
-                self.audioAlbumNameLabel.text = metadata.albumName;
+                self.audioAlbumNameLabel.text = albumName;
                 self.audioAlbumNameLabel.hidden = NO;
             }];
-            APLog(@"Audio-only track meta changed, tracing artist '%@' and album '%@'", artist, metadata.albumName);
+            APLog(@"Audio-only track meta changed, tracing artist '%@' and album '%@'", artist, albumName);
         } else if (artist != nil) {
             [UIView animateWithDuration:.3 animations:^{
                 self.audioArtistLabel.text = artist;
