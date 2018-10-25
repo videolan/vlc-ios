@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2017 VideoLAN. All rights reserved.
+ * Copyright (c) 2017-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
