@@ -16,6 +16,7 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCSiriRemoteGestureRecognizer.h"
 #import "VLCNetworkImageView.h"
+#import "VLCMetaData.h"
 
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 {
@@ -831,28 +832,25 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 }
 
-- (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller
-                                       title:(NSString *)title
-                                     artwork:(UIImage *)artwork
-                                      artist:(NSString *)artist
-                                       album:(NSString *)album
-                                   audioOnly:(BOOL)audioOnly
+- (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata
 {
+    NSLog(@"%@",metadata);
+    NSString *title = metadata.title;
+    NSString *artist = metadata.artist;
     self.titleLabel.text = title;
-
-    if (audioOnly) {
+    if (metadata.isAudioOnly) {
         self.audioArtworkImageView.image = nil;
         self.audioDescriptionTextView.hidden = YES;
         [self stopAudioDescriptionAnimation];
 
-        if (artist != nil && album != nil) {
+        if (artist != nil && metadata.albumName != nil) {
             [UIView animateWithDuration:.3 animations:^{
                 self.audioArtistLabel.text = artist;
                 self.audioArtistLabel.hidden = NO;
-                self.audioAlbumNameLabel.text = album;
+                self.audioAlbumNameLabel.text = metadata.albumName;
                 self.audioAlbumNameLabel.hidden = NO;
             }];
-            APLog(@"Audio-only track meta changed, tracing artist '%@' and album '%@'", artist, album);
+            APLog(@"Audio-only track meta changed, tracing artist '%@' and album '%@'", artist, metadata.albumName);
         } else if (artist != nil) {
             [UIView animateWithDuration:.3 animations:^{
                 self.audioArtistLabel.text = artist;
