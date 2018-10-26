@@ -1,7 +1,7 @@
 tvOS 3.0.3:
 ----------
 · Fixed black screen when playing back Audio files
-· List of chapters isn't shown when the info pane is first opened
+· Fixed that list of chapters wasn't shown when the info pane was first opened
 · Fixed a bug where all chapters show the name of the first chapter
 · Improved audio passthrough behavior
 · Audio / Subtitles track selector now appears without pausing first
