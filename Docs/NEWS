@@ -1,3 +1,14 @@
+tvOS 3.0.3:
+----------
+· Fixed black screen when playing back Audio files
+· List of chapters isn't shown when the info pane is first opened
+· Fixed a bug where all chapters show the name of the first chapter
+· Improved audio passthrough behavior
+· Audio / Subtitles track selector now appears without pausing first
+· Greatly improved hardware decoding performance for H.264 and H.265 (Apple TV 4K only)
+· Fix playback issues with certain AVI, MP4 and MKV files
+· Improved display of subtitles
+
 iOS 3.1.3:
 ----------
 · Added Corsican language
@@ -34,14 +45,6 @@ iOS 3.1.0:
 · Fixed a regression preventing the download of certain media files via http
 · Fixed a regression where downloaded files might disappear
 · Fixed a regression where users couldn't log into Google Drive
-
-tvOS 3.0.3:
------------
-· Improved audio passthrough behavior
-· Audio / Subtitles track selector now appears without pausing first
-· Greatly improved hardware decoding performance for H.264 and H.265 (Apple TV 4K only)
-· Fix playback issues with certain AVI, MP4 and MKV files
-· Improved display of subtitles
 
 tvOS 3.0.2:
 -----------
