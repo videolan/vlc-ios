@@ -22,28 +22,28 @@
 
 #pragma mark - Internal Methods
 
-- (UIViewController *) configurePickerViewController {
+- (UIViewController *)configuredPickerViewController
+{
     NSArray *types = @[(id)kUTTypeAudiovisualContent];
     UIDocumentPickerMode mode = UIDocumentPickerModeImport;
 
     if (@available(iOS 11.2, *)) {
-        // UIDocumentMenuViewController deprecated and does not support multiple selection
-        UIDocumentPickerViewController *picker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes: types inMode:mode];
+        UIDocumentPickerViewController *picker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:types inMode:mode];
         picker.delegate = self;
         picker.allowsMultipleSelection = YES;
 
         return picker;
     } else {
-        UIDocumentMenuViewController *importMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:@[(id)kUTTypeAudiovisualContent] inMode:UIDocumentPickerModeImport];
-        importMenu.delegate = self;
+        UIDocumentMenuViewController *picker = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:types inMode:mode];
+        picker.delegate = self;
 
-        return importMenu;
+        return picker;
     }
 }
 
 - (void)showDocumentMenuViewController:(id)sender
 {
-    UIViewController *picker = [self configurePickerViewController];
+    UIViewController *picker = [self configuredPickerViewController];
 
     UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
     UIPopoverPresentationController *popoverPres = picker.popoverPresentationController;
