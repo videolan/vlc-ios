@@ -385,7 +385,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     NSObject *guide = self.navigationController.navigationBar;
     if (@available(iOS 11.0, *)) {
-        guide = self.navigationController.navigationBar.safeAreaLayoutGuide;
+        guide = self.navigationController.navigationBar.layoutMarginsGuide;
     }
 
     [NSLayoutConstraint activateConstraints:@[
