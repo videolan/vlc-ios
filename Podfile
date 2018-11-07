@@ -20,7 +20,7 @@ target 'VLC-iOS' do
   shared_pods
   pod 'OBSlider', '1.1.0'
   pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
-  pod 'HockeySDK', '~>5.1.2', :subspecs => ['CrashOnlyLib']
+  pod 'HockeySDK', '~>5.1.4', :subspecs => ['CrashOnlyLib']
   pod 'PAPasscode', '~>1.0'
   pod 'GoogleAPIClient/Drive'
   pod 'MobileVLCKit', '3.1.5'
@@ -43,7 +43,7 @@ target 'VLC-tvOS' do
   pod 'MetaDataFetcherKit', '~>0.3.1'
   pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
   pod 'GRKArrayDiff', '~> 2.1'
-  pod 'HockeySDK-tvOS', '~>5.0.0'
+  pod 'HockeySDK-tvOS', '~>5.1.0'
   pod 'TVVLCKit', '3.1.5'
 end
 

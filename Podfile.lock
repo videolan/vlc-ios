@@ -33,8 +33,8 @@ PODS:
   - GTMSessionFetcher/Core (1.2.0)
   - GTMSessionFetcher/Full (1.2.0):
     - GTMSessionFetcher/Core (= 1.2.0)
-  - HockeySDK-tvOS (5.0.0)
-  - HockeySDK/CrashOnlyLib (5.1.2)
+  - HockeySDK-tvOS (5.1.0)
+  - HockeySDK/CrashOnlyLib (5.1.4)
   - InAppSettingsKit (2.2.2)
   - MediaLibraryKit-prod (2.6.6):
     - MobileVLCKit (~> 3.1.0)
@@ -67,8 +67,8 @@ DEPENDENCIES:
   - GoogleAPIClient/Drive
   - GRKArrayDiff (~> 2.1)
   - GTMAppAuth
-  - HockeySDK-tvOS (~> 5.0.0)
-  - HockeySDK/CrashOnlyLib (~> 5.1.2)
+  - HockeySDK-tvOS (~> 5.1.0)
+  - HockeySDK/CrashOnlyLib (~> 5.1.4)
   - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
   - MediaLibraryKit-prod
   - MetaDataFetcherKit (~> 0.3.1)
@@ -152,8 +152,8 @@ SPEC CHECKSUMS:
   GRKArrayDiff: 7522e374edcc55c1731a219e428847164b04cfab
   GTMAppAuth: 8d724be29ab8f2f6d35b2bf929d76340c9d1f1b1
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
-  HockeySDK: 38b7e2726af1ea86ae97ce4b5de33ab0817e3500
-  HockeySDK-tvOS: 6b2a69f86419ebaf23225f59a64e5761ed3a0d8a
+  HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
+  HockeySDK-tvOS: 62e86233bfa7356c5ac5cd946816d1ca0e9033f6
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
   MediaLibraryKit-prod: 87d856c2f5cc46da9596e5da57c97190f6216682
   MetaDataFetcherKit: d1d61b061bf74268aaffb6bf08a70396672163df
@@ -173,6 +173,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 967c3eb170686ca46e8b26575726657bfa0f2bbf
+PODFILE CHECKSUM: bea93865166fb81434b2a6e784bedef2a355e2b9
 
 COCOAPODS: 1.5.3
