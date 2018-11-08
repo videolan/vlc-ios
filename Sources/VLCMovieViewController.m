@@ -88,8 +88,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UISwipeGestureRecognizer *_swipeRecognizerDown;
     UITapGestureRecognizer *_tapRecognizer;
     UITapGestureRecognizer *_tapOnVideoRecognizer;
-    UITapGestureRecognizer *_tapToToggleiPhoneXRatioRecognizer;
-    UITapGestureRecognizer *_tapToSeekRecognizer;
+    UITapGestureRecognizer *_doubleTapRecognizer;
 
     UIButton *_doneButton;
 
@@ -254,16 +253,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     _pinchRecognizer.delegate = self;
 
-    if ([[UIDevice currentDevice] isiPhoneX]) {
-        _tapToToggleiPhoneXRatioRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:_vpc action:@selector(switchIPhoneXFullScreen)];
-        _tapToToggleiPhoneXRatioRecognizer.numberOfTapsRequired = 2;
-        [self.view addGestureRecognizer:_tapToToggleiPhoneXRatioRecognizer];
-    } else {
-        _tapToSeekRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToSeekRecognized:)];
-        [_tapToSeekRecognizer setNumberOfTapsRequired:2];
-        [self.view addGestureRecognizer:_tapToSeekRecognizer];
-        [_tapOnVideoRecognizer requireGestureRecognizerToFail:_tapToSeekRecognizer];
-    }
+    _doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapRecognized:)];
+    [_doubleTapRecognizer setNumberOfTapsRequired:2];
+    [self.view addGestureRecognizer:_doubleTapRecognizer];
+    [_tapOnVideoRecognizer requireGestureRecognizerToFail:_doubleTapRecognizer];
+
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(togglePlayPause)];
     [_tapRecognizer setNumberOfTouchesRequired:2];
 
@@ -302,7 +296,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _swipeRecognizerUp.delegate = self;
     _swipeRecognizerDown.delegate = self;
     _tapRecognizer.delegate = self;
-    _tapToSeekRecognizer.delegate = self;
+    _doubleTapRecognizer.delegate = self;
 }
 
 - (void)setupControlPanel
@@ -655,30 +649,26 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (NSArray *)itemsForInterfaceLock
 {
-    NSMutableArray *items = [[NSMutableArray alloc] initWithArray: @[_pinchRecognizer,
-                                                                     _panRecognizer,
-                                                                     _tapRecognizer,
-                                                                     _doneButton,
-                                                                     _timeNavigationTitleView.minimizePlaybackButton,
-                                                                     _timeNavigationTitleView.positionSlider,
-                                                                     _timeNavigationTitleView.aspectRatioButton,
-                                                                     _controllerPanel.playbackSpeedButton,
-                                                                     _controllerPanel.trackSwitcherButton,
-                                                                     _controllerPanel.bwdButton,
-                                                                     _controllerPanel.playPauseButton,
-                                                                     _controllerPanel.fwdButton,
-                                                                     _controllerPanel.videoFilterButton,
-                                                                     _multiSelectionView.equalizerButton,
-                                                                     _multiSelectionView.chapterSelectorButton,
-                                                                     _multiSelectionView.repeatButton,
-                                                                     _multiSelectionView.shuffleButton,
-                                                                     _controllerPanel.volumeView,
-                                                                     _rendererButton]];
-
-    [[UIDevice currentDevice] isiPhoneX] ? [items addObject:_tapToToggleiPhoneXRatioRecognizer]
-                                         : [items addObject:_tapToSeekRecognizer];
-
-    return [items copy];
+    return @[_pinchRecognizer,
+              _panRecognizer,
+              _tapRecognizer,
+              _doneButton,
+              _doubleTapRecognizer,
+              _timeNavigationTitleView.minimizePlaybackButton,
+              _timeNavigationTitleView.positionSlider,
+              _timeNavigationTitleView.aspectRatioButton,
+              _controllerPanel.playbackSpeedButton,
+              _controllerPanel.trackSwitcherButton,
+              _controllerPanel.bwdButton,
+              _controllerPanel.playPauseButton,
+              _controllerPanel.fwdButton,
+              _controllerPanel.videoFilterButton,
+              _multiSelectionView.equalizerButton,
+              _multiSelectionView.chapterSelectorButton,
+              _multiSelectionView.repeatButton,
+              _multiSelectionView.shuffleButton,
+              _controllerPanel.volumeView,
+              _rendererButton];
 }
 
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
@@ -1559,24 +1549,25 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 }
 
-- (void)tapToSeekRecognized:(UITapGestureRecognizer *)tapRecognizer
+- (void)doubleTapRecognized:(UITapGestureRecognizer *)tapRecognizer
 {
     if (!_seekGestureEnabled)
         return;
 
-    CGFloat screenHalf;
-    CGFloat tmpPosition;
-    CGSize size = self.view.frame.size;
+    CGFloat screenWidth = self.view.frame.size.width;
+    CGFloat backwardBoundary = screenWidth / 3.0;
+    CGFloat forwardBoundary = 2 * screenWidth / 3.0;
+
     CGPoint tapPosition = [tapRecognizer locationInView:self.view];
 
-    screenHalf = size.width / 2;
-    tmpPosition = tapPosition.x;
-
     //Handling seek reset if tap orientation changes.
-    if (tmpPosition < screenHalf) {
+    if (tapPosition.x < backwardBoundary) {
         _numberOfTapSeek = _previousJumpState == VLCMovieJumpStateForward ? -1 : _numberOfTapSeek - 1;
-    } else {
+    } else if (tapPosition.x > forwardBoundary){
         _numberOfTapSeek = _previousJumpState == VLCMovieJumpStateBackward ? 1 : _numberOfTapSeek + 1;
+    } else {
+        [_vpc toggleFullScreen];
+        return;
     }
 
     _isTapSeeking = YES;
