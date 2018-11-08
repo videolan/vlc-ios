@@ -877,7 +877,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _isInFillToScreen = YES;
 }
 
-- (void)switchIPhoneXFullScreen
+- (void)toggleFullScreen
 {
     if (_isInFillToScreen) {
         const char *previousAspectRatio = _currentAspectRatio == VLCAspectRatioDefault ? NULL : [[self stringForAspectRatio:_currentAspectRatio] UTF8String];
