@@ -102,6 +102,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
         if #available(iOS 11.0, *) {
+            collectionView?.contentInsetAdjustmentBehavior = .always
 //            collectionView?.dragDelegate = dragAndDropManager
 //            collectionView?.dropDelegate = dragAndDropManager
         }
