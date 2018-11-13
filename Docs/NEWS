@@ -1,5 +1,12 @@
 # Changelog
 
+## iOS [3.1.4]
+
+· We adapted VLC for the new iPad Pro by adjusting the App and bringing external screen support and FaceID to our iPad Pro users
+· We brought the double tap to fullscreen feature to all devices, while still letting you double tap to jump back or forward on the sides of the screen
+· Multiple files selection is now possible with iCloud Drive
+· Fixed an issue where you couldn't log into the app if you killed it while setting a passcode
+
 ## tvOS [3.0.3]
 
 · Fixed black screen when playing back Audio files
@@ -10,6 +17,22 @@
 · Greatly improved hardware decoding performance for H.264 and H.265 (Apple TV 4K only)
 · Fix playback issues with certain AVI, MP4 and MKV files
 · Improved display of subtitles
+
+## iOS [3.1.3]
+
+· Added Corsican language
+· Fixed a crash when reordering files outside of folders
+· The Media title is now always visible when streaming to an external display
+· Various Stability improvements and bug fixes
+
+## iOS [3.1.2]
+
+· Added an activity indicator for buffering
+· The background setting to continue playback is ignored when external screens are used
+· Sorting in folders gets saved correctly
+· Fixed playback pausing once external output devices like bluetooth headphones are disconnected
+· Deinterlacing is disabled by default now modern devices no longer support this, which led to high battery usage
+· Stability improvements for the H264 and H265 decoder and Chromecasting
 
 ## iOS [3.1.1]
 
