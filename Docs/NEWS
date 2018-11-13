@@ -1,3 +1,10 @@
+iOS 3.1.4:
+----------
+· We adapted VLC for the new iPad Pro by adjusting the App and bringing external screen support and FaceID to our iPad Pro users
+· We brought the double tap to fullscreen feature to all devices, while still letting you double tap to jump back or forward on the sides of the screen
+· Multiple files selection is now possible with iCloud Drive
+· Fixed an issue where you couldn't log into the app if you killed it while setting a passcode
+
 tvOS 3.0.3:
 ----------
 · Fixed black screen when playing back Audio files
