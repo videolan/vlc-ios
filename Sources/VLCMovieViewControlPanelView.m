@@ -2,7 +2,7 @@
  * VLCMovieViewControlPanelView.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan@tobias-conradi.de>
@@ -188,7 +188,12 @@ static const CGFloat maxControlsWidth = 474.0;
                                                                                  metrics:nil
                                                                                    views:viewsDict]];
     } else {
-        [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[volume(>=150)]-(>=8)-[playback]-(>=8)-[speed(35)]-[track(35)]-[filter(35)]-[actions(35)]-|"
+        [_constraints addObjectsFromArray:@[
+                                            [self.volumeView.leadingAnchor constraintEqualToAnchor:self.layoutMarginsGuide.leadingAnchor constant:8],
+                                            [self.moreActionsButton.trailingAnchor constraintEqualToAnchor:self.layoutMarginsGuide.trailingAnchor constant:-8],
+                                            ]];
+
+        [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[volume(>=150)]-(>=8)-[playback]-(>=8)-[speed(35)]-[track(35)]-[filter(35)]-[actions(35)]"
                                                                                  options:NSLayoutFormatAlignAllCenterY
                                                                                  metrics:nil
                                                                                    views:viewsDict]];
