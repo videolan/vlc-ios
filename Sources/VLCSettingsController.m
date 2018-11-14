@@ -67,6 +67,7 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionHeaderHeight = 64;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerClass:[DonationTableViewCell class] forCellReuseIdentifier:DonationTableViewCell.cellIdentifier];
     [self.tableView registerClass:[VLCSectionTableHeaderView class] forHeaderFooterViewReuseIdentifier:kVLCSectionTableHeaderViewIdentifier];
     [self themeDidChange];
     
@@ -177,6 +178,11 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     IASKSpecifier *specifier = [self.settingsReader specifierForIndexPath:indexPath];
+    if (indexPath.row == 0 && indexPath.section == 0) {
+        DonationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DonationTableViewCell.cellIdentifier];
+        [cell.donationButton addTarget:self action:@selector(donate) forControlEvents:UIControlEventTouchUpInside];
+        return cell;
+    }
     VLCSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:specifier.type];
     if (!cell) {
         cell = [[VLCSettingsTableViewCell alloc] initWithReuseIdentifier:specifier.type target:self];

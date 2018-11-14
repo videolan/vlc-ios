@@ -301,6 +301,10 @@
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "Settings";
 
+//Donation
+"DONATE" = "Donate";
+"SUPPORT_VLC" = "Support VLC";
+
 "CANCEL" = "Cancel";
 "ERROR" = "Error";
 "OK" = "Ok";

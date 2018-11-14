@@ -8,6 +8,14 @@
 			<key>DefaultValue</key>
 			<string>NO</string>
 			<key>Key</key>
+			<string>donation</string>
+			<key>Type</key>
+			<string>kIASKCustomViewSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>Key</key>
 			<string>privacy</string>
 			<key>Title</key>
 			<string>SETTINGS_PRIVACY_TITLE</string>
