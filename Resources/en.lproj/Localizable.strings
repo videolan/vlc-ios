@@ -51,10 +51,8 @@
 "CONTINUE_PLAYBACK" = "Continue playback?";
 "CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 
-"BUTTON_ALL" = "Select All";
 "BUTTON_ABOUT" = "About";
 "BUTTON_BACK" = "Back";
-"BUTTON_EDIT" = "Edit";
 "BUTTON_DONE" = "Done";
 "BUTTON_CANCEL" = "Cancel";
 "BUTTON_SAVE" = "Save";
@@ -98,17 +96,10 @@
 "DOWNLOAD_FROM_HTTP_HELP" = "Enter an address to download the file to your %@.";
 "DOWNLOAD_FROM_HTTP" = "Downloads";
 "ERROR_NUMBER" = "Error %i occured";
-"DOWNLOAD_FAILED" = "Download failed";
 "FILE_NOT_SUPPORTED" = "File format not supported";
 "FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
 "SCHEME_NOT_SUPPORTED" = "Address scheme not supported";
 "SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
-"LIBRARY_TRACKS" = "%i Tracks";
-"LIBRARY_SINGLE_TRACK" = "%i Track";
-"LIBRARY_EPISODES" = "%i Episodes, %i unread";
-"LIBRARY_SINGLE_EPISODE" = "%i Episode, %i unread";
-"LIBRARY_TRACK_N" = "Track %i";
-"LIBRARY_MINUTES_LEFT" = "%@m left";
 "RENAME_MEDIA_TO" = "Enter new name for %@";
 
 
@@ -288,8 +279,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "The selection can't be deleted";
-"DELETE_INVALID_TITLE" = "Invalid Selection";
 "DELETE_MESSAGE" = "Confirm the deletion of the selected files";
 "DELETE_TITLE" = "Delete Selected Files";
 
@@ -302,8 +291,9 @@
 "Settings" = "Settings";
 
 //Donation
-"DONATE" = "Donate";
-"SUPPORT_VLC" = "Support VLC";
+"DONATE" = "Donate to VLC";
+"SUPPORT_VLC" = "Support the volunteers building VLC";
+"DONATION_AMOUNT" = "Donation Amount";
 
 "CANCEL" = "Cancel";
 "ERROR" = "Error";
@@ -315,10 +305,14 @@
 // MediaViewController Swipable Header
 "ALBUMS" = "Albums";
 "ARTISTS" = "Artists";
-"AUDIO_PLAYLISTS" = "Playlists";
 "EPISODES" = "Episodes";
 "GENRES" = "Genres";
 "MOVIES" = "Movies";
 "SONGS" = "Songs";
-"VIDEOS" = "Videos";
 "VIDEO_PLAYLISTS" = "Playlists";
+
+/* New strings */
+"ERROR_EMPTY_NAME" = "ERROR_EMPTY_NAME";
+"ERROR_RENAME_FAILED" = "ERROR_RENAME_FAILED";
+"FOLDER_EMPTY" = "FOLDER_EMPTY";
+"PLAYLISTS" = "PLAYLISTS";

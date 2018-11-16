@@ -1,4 +1,4 @@
-// !$*UTF8*$!
+                // !$*UTF8*$!
 {
 	archiveVersion = 1;
 	classes = {
@@ -13,6 +13,8 @@
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
 		411453B9219C48DA002D94E1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 411453B8219C48DA002D94E1 /* Launch Screen.storyboard */; };
 		411453BD219C7252002D94E1 /* DonationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411453BC219C7252002D94E1 /* DonationButton.swift */; };
+		411453BF219C7CE0002D94E1 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 411453BE219C7CE0002D94E1 /* PassKit.framework */; };
+		411453C1219D7A06002D94E1 /* DonationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411453C0219D7A06002D94E1 /* DonationViewController.swift */; };
 		411DC0FD20F650B10044305E /* VLCMediaSubcategory+VLCDragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412BE7521FC4947400ACCC42 /* VLCMediaSubcategory+VLCDragAndDrop.swift */; };
 		41251ED01FD0CF7900099110 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41251ECE1FD0CF7900099110 /* AppCoordinator.swift */; };
 		41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */; };
@@ -419,6 +421,8 @@
         411453B8219C48DA002D94E1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		402E6F0E5362B530B7909338 /* libPods-VLC-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		411453BC219C7252002D94E1 /* DonationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DonationButton.swift; path = Sources/DonationButton.swift; sourceTree = "<group>"; };
+		411453BE219C7CE0002D94E1 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
+		411453C0219D7A06002D94E1 /* DonationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DonationViewController.swift; path = Sources/DonationViewController.swift; sourceTree = "<group>"; };
 		41251ECB1FD0C5C100099110 /* VLC-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLC-iOS-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		41251ECE1FD0CF7900099110 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppCoordinator.swift; path = Sources/Coordinators/AppCoordinator.swift; sourceTree = SOURCE_ROOT; };
 		41273A391A955C4100A2EF77 /* VLCMigrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMigrationViewController.h; path = Sources/VLCMigrationViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1053,6 +1057,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				411453BF219C7CE0002D94E1 /* PassKit.framework in Frameworks */,
 				7D8968711BD3058800F4EAAD /* LocalAuthentication.framework in Frameworks */,
 				7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */,
 				7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */,
@@ -1359,6 +1364,7 @@
 				7D3784A0183A98EB009EE944 /* VLCBugreporter.m */,
 				7DC19AEB1868C91400810BF7 /* First Steps */,
 				411453BC219C7252002D94E1 /* DonationButton.swift */,
+				411453C0219D7A06002D94E1 /* DonationViewController.swift */,
 			);
 			name = "Accessory dialogs";
 			sourceTree = "<group>";
@@ -1492,6 +1498,7 @@
 		7D94FCDD16DE7D1000F2623B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				411453BE219C7CE0002D94E1 /* PassKit.framework */,
 				7D8968701BD3058800F4EAAD /* LocalAuthentication.framework */,
 				7D2DF7C21B67777D00FB78AB /* libc++.tbd */,
 				7D4DF2171B55209200739326 /* CoreSpotlight.framework */,
@@ -2953,6 +2960,7 @@
 				7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */,
 				8DE1887421089B3A00A091D2 /* MediaLibraryBaseModel.swift in Sources */,
 				418B145020179CB9000447AA /* LayoutAnchorContainer.swift in Sources */,
+				411453C1219D7A06002D94E1 /* DonationViewController.swift in Sources */,
 				7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */,
 				41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */,
 				DD3EFF4F1BDEBCE500B68579 /* VLCPlexParser.m in Sources */,

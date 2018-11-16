@@ -24,6 +24,7 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
 {
     VLCActionSheet *actionSheet;
     VLCSettingsSpecifierManager *specifierManager;
+    DonationViewController *donationViewController;
 }
 @end
 
@@ -206,6 +207,16 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     }
 }
 
+- (void)donate {
+
+    if (!donationViewController) {
+        donationViewController = [[DonationViewController alloc] initWithNibName:nil bundle:nil];
+        donationViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    }
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [rootViewController presentViewController:donationViewController animated:YES completion:nil];
+    
+}
 #pragma mark - InAppSettings customization
 
 - (UIView *)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView *)tableView viewForHeaderForSection:(NSInteger)section
