@@ -460,7 +460,7 @@
 		3B75A76DF6589FE678357D42 /* Pods-VLC-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		3E95DC30A81B2AF9F7442E00 /* Pods-VLC-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOSTests/Pods-VLC-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		402E6F0E5362B530B7909338 /* libPods-VLC-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		41251ECB1FD0C5C100099110 /* VLC-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLC-iOS-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		41251ECB1FD0C5C100099110 /* VLC-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "VLC-iOS-Bridging-Header.h"; path = "vlc-ios/VLC-iOS-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		41251ECE1FD0CF7900099110 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppCoordinator.swift; path = Sources/Coordinators/AppCoordinator.swift; sourceTree = SOURCE_ROOT; };
 		41273A391A955C4100A2EF77 /* VLCMigrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMigrationViewController.h; path = Sources/VLCMigrationViewController.h; sourceTree = SOURCE_ROOT; };
 		41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMigrationViewController.m; path = Sources/VLCMigrationViewController.m; sourceTree = SOURCE_ROOT; };
@@ -1541,7 +1541,6 @@
 				8DE1879821060D0B00A091D2 /* MediaCategories */,
 				8DE1877F2105DA2B00A091D2 /* MediaViewControllers */,
 				418B145820179E50000447AA /* VLCDragAndDropManager.swift */,
-				41251ECB1FD0C5C100099110 /* VLC-iOS-Bridging-Header.h */,
 				CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */,
 				CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */,
 				8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */,
@@ -1764,6 +1763,7 @@
 				7DB638AA185BC0890003887C /* Images.xcassets */,
 				7D3784E8183A9A15009EE944 /* main.m */,
 				7D3784EA183A9A1E009EE944 /* VLC for iOS-Info.plist */,
+				41251ECB1FD0C5C100099110 /* VLC-iOS-Bridging-Header.h */,
 				7D3784EB183A9A1E009EE944 /* VLC for iOS-Prefix.pch */,
 			);
 			name = "iOS Supporting Files";
@@ -3965,7 +3965,7 @@
 				PRODUCT_NAME = "VLC for iOS";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "vlc-ios/VLC-iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -4010,7 +4010,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				SWIFT_COMPILATION_MODE = singlefile;
-				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "vlc-ios/VLC-iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -4102,7 +4102,7 @@
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "vlc-ios/VLC-iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				VALID_ARCHS = "arm64 armv7 armv7s";
