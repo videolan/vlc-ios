@@ -2,13 +2,13 @@
   "images" : [
     {
       "idiom" : "iphone",
-      "scale" : "1x",
-      "filename" : "gradient-cell-ios7.png"
+      "filename" : "gradient-cell-ios7.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "iphone",
-      "scale" : "2x",
-      "filename" : "gradient-cell-ios7@2x.png"
+      "filename" : "gradient-cell-ios7@2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "iphone",
@@ -16,27 +16,37 @@
     },
     {
       "idiom" : "ipad",
-      "scale" : "1x",
-      "filename" : "gradient-cell-ios7-ipad.png"
+      "filename" : "gradient-cell-ios7-ipad.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "ipad",
+      "filename" : "gradient-cell-ios7-ipad@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "watch",
       "scale" : "2x",
-      "filename" : "gradient-cell-ios7-ipad@2x.png"
+      "screen-width" : "<=145"
     },
     {
       "idiom" : "watch",
-      "scale" : "2x"
+      "scale" : "2x",
+      "screen-width" : ">161"
     },
     {
       "idiom" : "watch",
-      "screenWidth" : "{130,145}",
-      "scale" : "2x"
+      "scale" : "2x",
+      "screen-width" : ">145"
     },
     {
       "idiom" : "watch",
-      "screenWidth" : "{146,165}",
-      "scale" : "2x"
+      "scale" : "2x",
+      "screen-width" : ">183"
     }
   ],
   "info" : {
