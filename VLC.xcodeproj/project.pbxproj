@@ -1265,7 +1265,8 @@
 				41884A4F214BE0D800D2C6B4 /* AudioCollectionViewCell.swift */,
 				41884A4D214BE0C800D2C6B4 /* AudioCollectionViewCell.xib */,
 			);
-			path = MediaCategoryCells;
+			name = MediaCategoryCells;
+			path = Sources/MediaCategoryCells;
 			sourceTree = "<group>";
 		};
 		41B0BC871F73ED7D0063BA26 /* VLC-iOS-UITests */ = {
