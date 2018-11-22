@@ -215,6 +215,9 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     [[UINavigationBar appearance] setBarTintColor:vlcOrange];
     [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[VLCPlaybackNavigationController class]]] setBarTintColor: nil];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    if (@available(iOS 11.0, *)) {
+        [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[UIDocumentBrowserViewController class]]] setTintColor: vlcOrange];
+    }
     [[UINavigationBar appearance] setTitleTextAttributes: @{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     // For the edit selection indicators
     [[UITableView appearance] setTintColor:vlcOrange];
