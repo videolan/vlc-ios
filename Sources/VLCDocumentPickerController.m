@@ -92,6 +92,8 @@
     [fileManager moveItemAtPath:[url path] toPath:filePath error:&error];
     if (!error) {
         [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
+    } else if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError) {
+        // skip it
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE", nil) message:error.description preferredStyle:UIAlertControllerStyleAlert];
         UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
