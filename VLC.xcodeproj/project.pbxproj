@@ -1896,7 +1896,6 @@
 				41F5C0791F42E567005EB9CB /* VLCMediaDataSource.h */,
 				41F5C07A1F42E567005EB9CB /* VLCMediaDataSource.m */,
 				41BBF90F1FC31A8E003A72CB /* VLCDragAndDropManager.swift */,
-				41BBF90E1FC31A8E003A72CB /* VLC-iOS-Bridging-Header.h */,
 				412BE7521FC4947400ACCC42 /* VLCMediaData+VLCDragAndDrop.swift */,
 			);
 			name = "Everything Playlist";
@@ -2117,6 +2116,7 @@
 		7D94FCE516DE7D1000F2623B /* iOS Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				41BBF90E1FC31A8E003A72CB /* VLC-iOS-Bridging-Header.h */,
 				DD9FBE791BADA8E300FFE77A /* VLC WatchKit Extension.entitlements */,
 				7D8E19271B6BC186000D7C74 /* VLC WatchKit App.entitlements */,
 				DDB959411AFBB30500BB8CFF /* MappingModel_2_5_to_2_6.xcmappingmodel */,
@@ -4722,7 +4722,7 @@
 				PRODUCT_NAME = "VLC for iOS";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "vlc-ios/VLC-iOS-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -4768,7 +4768,7 @@
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "vlc-ios/VLC-iOS-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
@@ -4846,7 +4846,7 @@
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "VLC-iOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "vlc-ios/VLC-iOS-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Distribution;
