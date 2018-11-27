@@ -110,22 +110,12 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     // enable crash preventer
     void (^setupBlock)() = ^{
         __weak typeof(self) weakSelf = self;
-        void (^setupLibraryBlock)() = ^{
-            _libraryViewController = [[VLCLibraryViewController alloc] init];
-            UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_libraryViewController];
-
-            VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
-            sidebarVC.contentViewController = navCon;
-
-            VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
-            playerDisplayController.childViewController = sidebarVC.fullViewController;
-
-            weakSelf.window.rootViewController = playerDisplayController;
-        };
         UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] init]];
         self.window.rootViewController = navCon;
         [self.window makeKeyAndVisible];
-        [self validatePasscodeIfNeededWithCompletion:setupLibraryBlock];
+        [self validatePasscodeIfNeededWithCompletion:^{
+            [weakSelf setupLibrary];
+        }];
 
         BOOL spotlightEnabled = ![VLCKeychainCoordinator passcodeLockEnabled];
         [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
@@ -200,6 +190,20 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
     }
 
     return YES;
+}
+
+- (void)setupLibrary
+{
+    _libraryViewController = [[VLCLibraryViewController alloc] init];
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:_libraryViewController];
+
+    VLCSidebarController *sidebarVC = [VLCSidebarController sharedInstance];
+    sidebarVC.contentViewController = navCon;
+
+    VLCPlayerDisplayController *playerDisplayController = [VLCPlayerDisplayController sharedInstance];
+    playerDisplayController.childViewController = sidebarVC.fullViewController;
+
+    _window.rootViewController = playerDisplayController;
 }
 
 - (void)setupAppearence
@@ -294,6 +298,17 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
+    __weak typeof(self) weakSelf = self;
+    [self validatePasscodeIfNeededWithCompletion:^{
+        if (!_libraryViewController) {
+            [weakSelf setupLibrary];
+        }
+        [weakSelf openURL:url options:options];
+    }];
+    return YES;
+}
+
+- (BOOL)openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     //Handles Dropbox Authorization flow.
     DBOAuthResult *authResult = [DBClientsManager handleRedirectURL:url];
     if (authResult != nil) {
@@ -346,12 +361,12 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
                 [self playWithURL:movieURL completion:^(BOOL success) {
                     NSURL *callback = success ? successCallback : errorCallback;
                     if (@available(iOS 10, *)) {
-                         [[UIApplication sharedApplication] openURL:callback options:@{} completionHandler:nil];
+                        [[UIApplication sharedApplication] openURL:callback options:@{} completionHandler:nil];
                     } else {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
                         /* UIApplication's replacement calls require iOS 10 or later, which we can't enforce as of yet */
-                       [[UIApplication sharedApplication] openURL:callback];
+                        [[UIApplication sharedApplication] openURL:callback];
 #pragma clang diagnostic pop
                     }
                 }];
@@ -369,7 +384,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
                     /* Safari & al mangle vlc://http:// so fix this */
                     if (location != NSNotFound && [parsedString characterAtIndex:location - 1] != 0x3a) { // :
-                            parsedString = [NSString stringWithFormat:@"%@://%@", [parsedString substringToIndex:location], [parsedString substringFromIndex:location+2]];
+                        parsedString = [NSString stringWithFormat:@"%@://%@", [parsedString substringToIndex:location], [parsedString substringFromIndex:location+2]];
                     } else {
                         parsedString = [receivedUrl substringFromIndex:6];
                         if (![parsedString hasPrefix:@"http://"] && ![parsedString hasPrefix:@"https://"] && ![parsedString hasPrefix:@"ftp://"]) {
