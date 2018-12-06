@@ -2,7 +2,7 @@
  * VLCMovieViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2017 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -101,7 +101,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     UIView *_sleepTimerContainer;
     UIDatePicker *_sleepTimeDatePicker;
-    NSTimer *_sleepCountDownTimer;
 
     NSInteger _mediaDuration;
     NSInteger _numberOfTapSeek;
@@ -118,6 +117,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) VLCService *services;
 @property (nonatomic, strong) IBOutlet PlayingExternallyView *playingExternalView;
+@property (nonatomic, strong) IBOutlet PlaybackSpeedView *playbackSpeedView;
 
 @end
 
@@ -162,16 +162,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _saturationSlider.accessibilityLabel = _saturationLabel.text;
     _gammaLabel.text = NSLocalizedString(@"VFILTER_GAMMA", nil);
     _gammaSlider.accessibilityLabel = _gammaLabel.text;
-    _playbackSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SPEED", nil);
-    _playbackSpeedSlider.accessibilityLabel = _playbackSpeedLabel.text;
-    _audioDelayLabel.text = NSLocalizedString(@"AUDIO_DELAY", nil);
-    _audioDelaySlider.accessibilityLabel = _audioDelayLabel.text;
-    _spuDelayLabel.text = NSLocalizedString(@"SPU_DELAY", nil);
-    _spuDelaySlider.accessibilityLabel = _spuDelayLabel.text;
 
     _resetVideoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER_RESET_BUTTON", nil);
-    _sleepTimerButton.accessibilityLabel = NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil);
-    [_sleepTimerButton setTitle:NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil) forState:UIControlStateNormal];
 
     _multiSelectionView = [[VLCMultiSelectionMenuView alloc] init];
     _multiSelectionView.delegate = self;
@@ -183,6 +175,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     self.playbackSpeedView.hidden = YES;
     _playbackSpeedViewHidden = YES;
+    _playbackSpeedView.delegate = self;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(handleExternalScreenDidConnect:)
                    name:UIScreenDidConnectNotification object:nil];
@@ -799,6 +792,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (_controlsHidden && !_videoFiltersHidden)
         _videoFiltersHidden = YES;
 
+    if (_controlsHidden && !_playbackSpeedViewHidden)
+        _playbackSpeedViewHidden = YES;
+
     if (_isTapSeeking)
         _numberOfTapSeek = 0;
 
@@ -1021,22 +1017,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self.timeNavigationTitleView setNeedsLayout];
 }
 
-- (void)updateSleepTimerButton
-{
-    NSMutableString *title = [NSMutableString stringWithString:NSLocalizedString(@"BUTTON_SLEEP_TIMER", nil)];
-    if (_vpc.sleepTimer != nil && _vpc.sleepTimer.valid) {
-        int remainSeconds = (int)[_vpc.sleepTimer.fireDate timeIntervalSinceNow];
-        int hour = remainSeconds / 3600;
-        int minute = (remainSeconds - hour * 3600) / 60;
-        int second = remainSeconds % 60;
-        [title appendFormat:@"  %02d:%02d:%02d", hour, minute, second];
-    } else {
-        [_sleepCountDownTimer invalidate];
-    }
-
-    [_sleepTimerButton setTitle:title forState:UIControlStateNormal];
-}
-
 #pragma mark - playback controller delegation
 
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller
@@ -1059,17 +1039,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.timeNavigationTitleView.timeDisplayButton.accessibilityLabel = @"";
     [_equalizerView reloadData];
 
-    double playbackRate = controller.playbackRate;
-    self.playbackSpeedSlider.value = log2(playbackRate);
-    self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", playbackRate];
-
-    float audioDelay = controller.audioDelay;
-    self.audioDelaySlider.value = audioDelay;
-    self.audioDelayIndicator.text = [NSString stringWithFormat:@"%d ms", (int) audioDelay];
-
-    float subtitleDelay = controller.subtitleDelay;
-    self.spuDelaySlider.value = subtitleDelay;
-    self.spuDelayIndicator.text = [NSString stringWithFormat:@"%d ms", (int) subtitleDelay];
+    [_playbackSpeedView prepareForMediaPlaybackWithController:controller];
 
     [self _resetIdleTimer];
 }
@@ -1183,7 +1153,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self _resetIdleTimer];
 }
 
-- (IBAction)sleepTimer:(id)sender
+- (void)showSleepTimer
 {
     if (!_playbackSpeedViewHidden)
         self.playbackSpeedView.hidden = _playbackSpeedViewHidden = YES;
@@ -1218,13 +1188,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     [_vpc scheduleSleepTimerWithInterval:_sleepTimeDatePicker.countDownDuration];
 
-    if (_sleepCountDownTimer == nil || _sleepCountDownTimer.valid == NO) {
-        _sleepCountDownTimer = [NSTimer scheduledTimerWithTimeInterval:1
-                                                                   target:self
-                                                                 selector:@selector(updateSleepTimerButton)
-                                                                 userInfo:nil
-                                                                  repeats:YES];
-    }
+    [_playbackSpeedView setupSleepTimerIfNecessary];
     [self.statusLabel showStatusMessage:NSLocalizedString(@"SLEEP_TIMER_UPDATED", nil)];
     [self setControlsHidden:YES animated:YES];
 }
@@ -1630,26 +1594,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 }
 
 #pragma mark - playback view
-- (IBAction)playbackSliderAction:(UISlider *)sender
-{
-    if (sender == _playbackSpeedSlider) {
-        double speed = exp2(sender.value);
-        _vpc.playbackRate = speed;
-        self.playbackSpeedIndicator.text = [NSString stringWithFormat:@"%.2fx", speed];
-    } else if (sender == _audioDelaySlider) {
-        int delay = ((int) round(sender.value / 50.)) * 50;
-        _vpc.audioDelay = delay;
-        [sender setValue:delay animated:NO];
-        _audioDelayIndicator.text = [NSString stringWithFormat:@"%d ms", delay];
-    } else if (sender == _spuDelaySlider) {
-        int delay = (int) (round(sender.value / 50.)) * 50;
-        _vpc.subtitleDelay = delay;
-        [sender setValue:delay animated:NO];
-        _spuDelayIndicator.text = [NSString stringWithFormat:@"%d ms", delay];
-    }
-
-    [self _resetIdleTimer];
-}
 
 - (IBAction)videoDimensionAction:(id)sender
 {
@@ -1766,4 +1710,17 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     [self showOnDisplay:_movieView];
 }
+
+#pragma mark - PlaybackSpeedViewDelegate
+
+- (void)playbackSpeedViewShouldResetIdleTimer:(PlaybackSpeedView *)playbackSpeedView
+{
+    [self _resetIdleTimer];
+}
+
+- (void)playbackSpeedViewSleepTimerHit:(PlaybackSpeedView *)playbackSpeedView
+{
+    [self showSleepTimer];
+}
+
 @end

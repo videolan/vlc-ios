@@ -38,7 +38,6 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
 @property (nonatomic, strong) IBOutlet VLCTimeNavigationTitleView *timeNavigationTitleView;
-@property (nonatomic, strong) IBOutlet UIButton *sleepTimerButton;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
 
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *videoFilterView;
@@ -53,17 +52,6 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @property (nonatomic, strong) IBOutlet UILabel *gammaLabel;
 @property (nonatomic, strong) IBOutlet UISlider *gammaSlider;
 @property (nonatomic, strong) IBOutlet UIButton *resetVideoFilterButton;
-
-@property (nonatomic, strong) IBOutlet VLCFrostedGlasView *playbackSpeedView;
-@property (nonatomic, strong) IBOutlet UISlider *playbackSpeedSlider;
-@property (nonatomic, strong) IBOutlet UILabel *playbackSpeedLabel;
-@property (nonatomic, strong) IBOutlet UILabel *playbackSpeedIndicator;
-@property (nonatomic, strong) IBOutlet UISlider *audioDelaySlider;
-@property (nonatomic, strong) IBOutlet UILabel *audioDelayLabel;
-@property (nonatomic, strong) IBOutlet UILabel *audioDelayIndicator;
-@property (nonatomic, strong) IBOutlet UISlider *spuDelaySlider;
-@property (nonatomic, strong) IBOutlet UILabel *spuDelayLabel;
-@property (nonatomic, strong) IBOutlet UILabel *spuDelayIndicator;
 
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *scrubIndicatorView;
 @property (nonatomic, strong) IBOutlet UILabel *currentScrubSpeedLabel;
@@ -89,11 +77,8 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 - (IBAction)positionSliderDrag:(id)sender;
 - (IBAction)toggleTimeDisplay:(id)sender;
 
-- (IBAction)sleepTimer:(id)sender;
-
 - (IBAction)videoFilterSliderAction:(id)sender;
 
-- (IBAction)playbackSliderAction:(id)sender;
 - (IBAction)videoDimensionAction:(id)sender;
 
 - (void)toggleRepeatMode;

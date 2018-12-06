@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,9 +15,6 @@
                 <outlet property="albumNameLabel" destination="305" id="308"/>
                 <outlet property="artistNameLabel" destination="303" id="306"/>
                 <outlet property="artworkImageView" destination="g3j-bZ-K3S" id="fPn-6f-Kez"/>
-                <outlet property="audioDelayIndicator" destination="FYO-Rd-Vjg" id="FVE-DI-BJ2"/>
-                <outlet property="audioDelayLabel" destination="bQc-dz-mB8" id="69P-Q3-3l3"/>
-                <outlet property="audioDelaySlider" destination="ahb-li-nqH" id="tQp-Zu-Sqd"/>
                 <outlet property="brightnessLabel" destination="148" id="165"/>
                 <outlet property="brightnessSlider" destination="147" id="163"/>
                 <outlet property="contrastLabel" destination="146" id="160"/>
@@ -28,9 +25,6 @@
                 <outlet property="hueLabel" destination="143" id="158"/>
                 <outlet property="hueSlider" destination="144" id="157"/>
                 <outlet property="movieView" destination="121" id="122"/>
-                <outlet property="playbackSpeedIndicator" destination="179" id="193"/>
-                <outlet property="playbackSpeedLabel" destination="181" id="194"/>
-                <outlet property="playbackSpeedSlider" destination="180" id="191"/>
                 <outlet property="playbackSpeedView" destination="176" id="197"/>
                 <outlet property="playingExternalView" destination="123" id="BVQ-JJ-Ckd"/>
                 <outlet property="resetVideoFilterButton" destination="142" id="175"/>
@@ -38,10 +32,6 @@
                 <outlet property="saturationSlider" destination="149" id="168"/>
                 <outlet property="scrubHelpLabel" destination="243" id="247"/>
                 <outlet property="scrubIndicatorView" destination="242" id="245"/>
-                <outlet property="sleepTimerButton" destination="aXd-S6-sb9" id="g5b-DC-APw"/>
-                <outlet property="spuDelayIndicator" destination="cTE-tb-Z89" id="Ll9-wY-xca"/>
-                <outlet property="spuDelayLabel" destination="NX8-Zc-K6Y" id="WLd-cA-fUn"/>
-                <outlet property="spuDelaySlider" destination="juX-HR-PqD" id="x4D-ki-Lwk"/>
                 <outlet property="statusLabel" destination="205" id="206"/>
                 <outlet property="trackNameLabel" destination="304" id="307"/>
                 <outlet property="videoFilterView" destination="141" id="156"/>
@@ -72,7 +62,7 @@
                         <bool key="isElement" value="YES"/>
                     </accessibility>
                 </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" misplaced="YES" text="Track Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" id="304">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" text="Track Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" id="304">
                     <rect key="frame" x="84" y="820" width="600" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
@@ -109,104 +99,12 @@
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" id="176" userLabel="Delays &amp; Speed" customClass="VLCFrostedGlasView">
-                    <rect key="frame" x="224" y="805" width="320" height="157"/>
+                <view contentMode="scaleToFill" id="176" userLabel="PlaybackspeedView" customClass="PlaybackSpeedView" customModule="VLC" customModuleProvider="target">
+                    <rect key="frame" x="224" y="705" width="320" height="157"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Audio delay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bQc-dz-mB8">
-                            <rect key="frame" x="20" y="7" width="280" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-5000" maxValue="5000" id="ahb-li-nqH" customClass="VLCResettingSlider">
-                            <rect key="frame" x="18" y="21" width="284" height="29"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="resetOnDoubleTap" value="YES"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="defaultValue">
-                                    <real key="value" value="0.0"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="playbackSliderAction:" destination="-1" eventType="valueChanged" id="MB1-sB-W8m"/>
-                            </connections>
-                        </slider>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0 ms" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FYO-Rd-Vjg">
-                            <rect key="frame" x="20" y="7" width="280" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitles delay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NX8-Zc-K6Y">
-                            <rect key="frame" x="20" y="44" width="280" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-5000" maxValue="5000" id="juX-HR-PqD" customClass="VLCResettingSlider">
-                            <rect key="frame" x="18" y="58" width="284" height="29"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="resetOnDoubleTap" value="YES"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="defaultValue">
-                                    <real key="value" value="0.0"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="playbackSliderAction:" destination="-1" eventType="valueChanged" id="acG-8w-Mgd"/>
-                            </connections>
-                        </slider>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0 ms" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cTE-tb-Z89">
-                            <rect key="frame" x="20" y="44" width="280" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Playback speed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="181">
-                            <rect key="frame" x="20" y="82" width="280" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-2" maxValue="2" id="180" customClass="VLCResettingSlider">
-                            <rect key="frame" x="18" y="96" width="284" height="29"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="resetOnDoubleTap" value="YES"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="defaultValue">
-                                    <real key="value" value="0.0"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="playbackSliderAction:" destination="-1" eventType="valueChanged" id="4Xo-T4-hPJ"/>
-                            </connections>
-                        </slider>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1.00x" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="179">
-                            <rect key="frame" x="20" y="82" width="280" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aXd-S6-sb9">
-                            <rect key="frame" x="20" y="119" width="280" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="Sleep Timer">
-                                <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <color key="titleShadowColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                            </state>
-                            <connections>
-                                <action selector="sleepTimer:" destination="-1" eventType="touchUpInside" id="2s3-Kx-4uh"/>
-                            </connections>
-                        </button>
-                    </subviews>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="nibName" value="PlaybackSpeedView"/>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="123" userLabel="Playing Externally View" customClass="PlayingExternallyView" customModule="VLC" customModuleProvider="target">
                     <rect key="frame" x="184" y="312" width="400" height="400"/>
@@ -223,7 +121,7 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" id="1Bq-rl-k4J">
+                <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" id="1Bq-rl-k4J">
                     <rect key="frame" x="366" y="542" width="37" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
