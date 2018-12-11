@@ -82,7 +82,7 @@
                     <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </label>
                 <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Status Label" textAlignment="center" lineBreakMode="tailTruncation" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="210" customClass="VLCStatusLabel">
-                    <rect key="frame" x="20" y="196" width="696" height="22"/>
+                    <rect key="frame" x="320.66666666666669" y="196" width="95" height="22"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -233,8 +233,8 @@
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="241" firstAttribute="top" secondItem="1" secondAttribute="top" id="17c-gK-WU7"/>
-                <constraint firstItem="210" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="1Jo-j2-hD6"/>
                 <constraint firstAttribute="trailing" secondItem="279" secondAttribute="trailing" constant="20" id="4Qt-0h-qAV"/>
+                <constraint firstItem="210" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="7Vi-af-4cH"/>
                 <constraint firstItem="yK6-Ph-SVE" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="9m0-dB-TJV"/>
                 <constraint firstItem="vR5-i9-KEJ" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="Al3-H2-oYT"/>
                 <constraint firstItem="279" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="Cf6-1N-E2d"/>
@@ -243,7 +243,6 @@
                 <constraint firstItem="210" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="MHR-gH-pTD"/>
                 <constraint firstItem="241" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="NlR-AR-oDp"/>
                 <constraint firstItem="yK6-Ph-SVE" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="Vea-d4-8Yb"/>
-                <constraint firstItem="210" firstAttribute="trailing" secondItem="1" secondAttribute="trailing" constant="-20" id="Y01-Bg-s0k"/>
                 <constraint firstItem="108" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="iXa-B5-wPd"/>
                 <constraint firstAttribute="trailing" secondItem="241" secondAttribute="trailing" id="ibm-5A-ERl"/>
                 <constraint firstItem="108" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="kWo-ta-1LU"/>
