@@ -131,9 +131,8 @@
                         <constraint firstItem="244" firstAttribute="bottom" secondItem="241" secondAttribute="centerY" id="rxI-v2-pON"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="117" userLabel="video filters view" customClass="VLCFrostedGlasView">
-                    <rect key="frame" x="208" y="205" width="320" height="198"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="117" userLabel="video filters view" customClass="VLCFrostedGlasView">
+                    <rect key="frame" x="396" y="234" width="320" height="200"/>
                     <subviews>
                         <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="128" customClass="VLCSlider">
                             <rect key="frame" x="18" y="19" width="284" height="29"/>
@@ -221,6 +220,10 @@
                             </connections>
                         </button>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="5Fz-GY-Hxm"/>
+                        <constraint firstAttribute="width" constant="320" id="Plh-Rw-EMF"/>
+                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="165" customClass="PlaybackSpeedView" customModule="VLC" customModuleProvider="target">
                     <rect key="frame" x="208" y="159" width="320" height="163"/>
@@ -246,6 +249,7 @@
                 <constraint firstItem="108" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="iXa-B5-wPd"/>
                 <constraint firstAttribute="trailing" secondItem="241" secondAttribute="trailing" id="ibm-5A-ERl"/>
                 <constraint firstItem="108" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="kWo-ta-1LU"/>
+                <constraint firstItem="117" firstAttribute="trailing" secondItem="1" secondAttribute="trailing" constant="-20" id="xW9-Om-vnF"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
         </view>
