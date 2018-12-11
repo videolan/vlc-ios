@@ -19,7 +19,6 @@
 @class VLCService;
 @class VLCStatusLabel;
 @class VLCVerticalSwipeGestureRecognizer;
-@class VLCTimeNavigationTitleView;
 @class VLCMovieViewControlPanelView;
 @class VLCMovieViewController;
 
@@ -37,7 +36,6 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @interface VLCMovieViewController : UIViewController <UIActionSheetDelegate, VLCPlaybackControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
-@property (nonatomic, strong) IBOutlet VLCTimeNavigationTitleView *timeNavigationTitleView;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
 
 @property (nonatomic, strong) IBOutlet VLCFrostedGlasView *videoFilterView;
@@ -67,9 +65,6 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @property (nonatomic, weak) id<VLCMovieViewControllerDelegate> delegate;
 
 - (instancetype)initWithServices:(VLCService *)services;
-
-- (IBAction)closePlayback:(id)sender;
-- (IBAction)minimizePlayback:(id)sender;
 
 - (IBAction)positionSliderAction:(id)sender;
 - (IBAction)positionSliderTouchDown:(id)sender;

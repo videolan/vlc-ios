@@ -118,6 +118,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 @property (nonatomic, strong) VLCService *services;
 @property (nonatomic, strong) IBOutlet PlayingExternallyView *playingExternalView;
 @property (nonatomic, strong) IBOutlet PlaybackSpeedView *playbackSpeedView;
+@property (nonatomic, strong) VLCTimeNavigationTitleView *timeNavigationTitleView;
 
 @end
 
@@ -933,7 +934,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 }
 #pragma mark - controls
 
-- (IBAction)closePlayback:(id)sender
+- (void)closePlayback:(id)sender
 {
     _playbackWillClose = YES;
     [_vpc stopPlayback];
