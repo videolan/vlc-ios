@@ -32,6 +32,7 @@
                 <outlet property="saturationSlider" destination="135" id="152"/>
                 <outlet property="scrubHelpLabel" destination="246" id="249"/>
                 <outlet property="scrubIndicatorView" destination="241" id="247"/>
+                <outlet property="scrubViewTopConstraint" destination="17c-gK-WU7" id="6VV-GR-hcO"/>
                 <outlet property="statusLabel" destination="210" id="211"/>
                 <outlet property="trackNameLabel" destination="282" id="284"/>
                 <outlet property="videoFilterView" destination="117" id="147"/>
@@ -231,6 +232,7 @@
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="241" firstAttribute="top" secondItem="1" secondAttribute="top" id="17c-gK-WU7"/>
                 <constraint firstItem="210" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="1Jo-j2-hD6"/>
                 <constraint firstAttribute="trailing" secondItem="279" secondAttribute="trailing" constant="20" id="4Qt-0h-qAV"/>
                 <constraint firstItem="yK6-Ph-SVE" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="9m0-dB-TJV"/>
@@ -240,7 +242,6 @@
                 <constraint firstItem="vR5-i9-KEJ" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="JxU-VS-ZDs"/>
                 <constraint firstItem="210" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="MHR-gH-pTD"/>
                 <constraint firstItem="241" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="NlR-AR-oDp"/>
-                <constraint firstItem="241" firstAttribute="top" secondItem="1" secondAttribute="top" id="Rbo-yX-bEI"/>
                 <constraint firstItem="yK6-Ph-SVE" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="Vea-d4-8Yb"/>
                 <constraint firstItem="210" firstAttribute="trailing" secondItem="1" secondAttribute="trailing" constant="-20" id="Y01-Bg-s0k"/>
                 <constraint firstItem="108" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="iXa-B5-wPd"/>

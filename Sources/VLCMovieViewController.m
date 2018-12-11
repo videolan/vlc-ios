@@ -24,7 +24,6 @@
 #import "VLCEqualizerView.h"
 #import "VLCMultiSelectionMenuView.h"
 #import "VLCPlaybackController.h"
-#import "UIDevice+VLC.h"
 #import "VLCTimeNavigationTitleView.h"
 #import "VLCAppDelegate.h"
 #import "VLCStatusLabel.h"
@@ -116,9 +115,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) VLCService *services;
+@property (nonatomic, strong) VLCTimeNavigationTitleView *timeNavigationTitleView;
 @property (nonatomic, strong) IBOutlet PlayingExternallyView *playingExternalView;
 @property (nonatomic, strong) IBOutlet PlaybackSpeedView *playbackSpeedView;
-@property (nonatomic, strong) VLCTimeNavigationTitleView *timeNavigationTitleView;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *scrubViewTopConstraint;
 
 @end
 
@@ -144,7 +144,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    CGRect rect;
 
     _vpc = [VLCPlaybackController sharedInstance];
 
@@ -201,7 +200,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _previousJumpState = VLCMovieJumpStateDefault;
     _numberOfTapSeek = 0;
 
-    rect = self.resetVideoFilterButton.frame;
+    CGRect rect = self.resetVideoFilterButton.frame;
     rect.origin.y = rect.origin.y + 5.;
     self.resetVideoFilterButton.frame = rect;
 
@@ -377,7 +376,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)setupNavigationbar
 {
-
     if (!self.timeNavigationTitleView) {
         self.timeNavigationTitleView = [[[NSBundle mainBundle] loadNibNamed:@"VLCTimeNavigationTitleView" owner:self options:nil] objectAtIndex:0];
         self.timeNavigationTitleView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -390,7 +388,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if (self.navigationBarStackView.superview == nil) {
         [self.navigationController.navigationBar addSubview:self.navigationBarStackView];
 
-
         NSObject *guide = self.navigationController.navigationBar;
         if (@available(iOS 11.0, *)) {
             guide = self.navigationController.navigationBar.layoutMarginsGuide;
@@ -402,8 +399,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                                                   [NSLayoutConstraint constraintWithItem:self.navigationBarStackView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:guide attribute:NSLayoutAttributeRight multiplier:1 constant:-8],
                                                   [NSLayoutConstraint constraintWithItem:self.navigationBarStackView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeTop multiplier:1 constant:0],
                                                   [NSLayoutConstraint constraintWithItem:self.navigationBarStackView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.navigationController.navigationBar attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
-                                                  [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.navigationBarStackView attribute:NSLayoutAttributeHeight multiplier:1 constant:0]
+                                                  [NSLayoutConstraint constraintWithItem:self.timeNavigationTitleView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.navigationBarStackView attribute:NSLayoutAttributeHeight multiplier:1 constant:0],
                                                   ]];
+        self.scrubViewTopConstraint.constant = CGRectGetMaxY(self.navigationController.navigationBar.frame);
     }
 }
 
@@ -494,6 +492,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
     }
     _multiSelectionView.frame = multiSelectionFrame;
+
+    self.scrubViewTopConstraint.constant = CGRectGetMaxY(self.navigationController.navigationBar.frame);
 }
 
 - (void)viewWillDisappear:(BOOL)animated
