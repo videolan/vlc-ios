@@ -341,6 +341,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                              [NSLayoutConstraint constraintWithItem:_trackSelectorContainer attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationLessThanOrEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1 constant:420.0],
                              widthConstraint,
                              [NSLayoutConstraint constraintWithItem:_trackSelectorContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:2.0/3.0 constant:0],
+                             [_videoFilterView.bottomAnchor constraintEqualToAnchor:_controllerPanel.topAnchor constant:-20]
                              ];
     [NSLayoutConstraint activateConstraints:constraints];
 
