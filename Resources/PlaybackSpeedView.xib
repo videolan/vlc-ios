@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaybackSpeedView" customModule="VLC" customModuleProvider="target">
             <connections>
-                <outlet property="audioDelayIndicator" destination="7Ll-yU-MYC" id="oU6-5S-mFZ"/>
+                <outlet property="audioDelayIndicator" destination="7Ll-yU-MYC" id="GHm-dx-K0U"/>
                 <outlet property="audioDelayLabel" destination="hdg-PF-74y" id="eed-3i-thi"/>
                 <outlet property="audioDelaySlider" destination="hjh-be-2Cl" id="TZX-6Y-jZD"/>
                 <outlet property="playbackSpeedIndicator" destination="Eii-kE-m3f" id="moH-XM-G5e"/>
@@ -142,7 +142,6 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="N7w-nS-oNM"/>
             <connections>
-                <outlet property="audioDelayIndicator" destination="7Ll-yU-MYC" id="TUg-du-Ktv"/>
                 <outlet property="audioDelayLabel" destination="hdg-PF-74y" id="PUu-UB-u9u"/>
                 <outlet property="audioDelaySlider" destination="hjh-be-2Cl" id="ZLg-nb-d4X"/>
                 <outlet property="playbackSpeedIndicator" destination="Eii-kE-m3f" id="fJW-7H-MmK"/>
