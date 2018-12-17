@@ -28,22 +28,22 @@ PODS:
   - GTMAppAuth (0.7.0):
     - AppAuth (~> 0.92.0)
     - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.2.0):
-    - GTMSessionFetcher/Full (= 1.2.0)
-  - GTMSessionFetcher/Core (1.2.0)
-  - GTMSessionFetcher/Full (1.2.0):
-    - GTMSessionFetcher/Core (= 1.2.0)
+  - GTMSessionFetcher (1.2.1):
+    - GTMSessionFetcher/Full (= 1.2.1)
+  - GTMSessionFetcher/Core (1.2.1)
+  - GTMSessionFetcher/Full (1.2.1):
+    - GTMSessionFetcher/Core (= 1.2.1)
   - HockeySDK-tvOS (5.1.0)
   - HockeySDK/CrashOnlyLib (5.1.4)
   - InAppSettingsKit (2.2.2)
-  - MediaLibraryKit-prod (2.6.6):
-    - MobileVLCKit (~> 3.1.0)
+  - MediaLibraryKit-prod (2.6.7):
+    - MobileVLCKit (~> 3.2.0)
   - MediaLibraryKit-unstable (2.6.5):
     - MobileVLCKit-unstable (~> 3.0.0a8)
   - MetaDataFetcherKit (0.3.1):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
-  - MobileVLCKit (3.1.5)
+  - MobileVLCKit (3.2.0)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (1.1)
   - OBSlider (1.1.0)
@@ -52,7 +52,7 @@ PODS:
     - xmlrpc
   - PAPasscode (1.0)
   - RESideMenu (4.0.7)
-  - TVVLCKit (3.1.5)
+  - TVVLCKit (3.2.0)
   - upnpx (1.4.0)
   - VLC-LiveSDK (5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (0.1.3v)
@@ -73,13 +73,13 @@ DEPENDENCIES:
   - MediaLibraryKit-prod
   - MediaLibraryKit-unstable
   - MetaDataFetcherKit (~> 0.3.1)
-  - MobileVLCKit (= 3.1.5)
+  - MobileVLCKit (= 3.2.0)
   - ObjectiveDropboxOfficial (from `git://github.com/carolanitz/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - PAPasscode (~> 1.0)
   - RESideMenu (~> 4.0.7)
-  - TVVLCKit (= 3.1.5)
+  - TVVLCKit (= 3.2.0)
   - upnpx (~> 1.4.0)
   - VLC-LiveSDK (= 5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (= 0.1.3v)
@@ -151,21 +151,21 @@ SPEC CHECKSUMS:
   GoogleAPIClient: 77df755d41d70ee5a99b7b752614fbb439f19438
   GRKArrayDiff: 7522e374edcc55c1731a219e428847164b04cfab
   GTMAppAuth: 8d724be29ab8f2f6d35b2bf929d76340c9d1f1b1
-  GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
+  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
   HockeySDK-tvOS: 62e86233bfa7356c5ac5cd946816d1ca0e9033f6
   InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
-  MediaLibraryKit-prod: 87d856c2f5cc46da9596e5da57c97190f6216682
+  MediaLibraryKit-prod: 0d4ae859e95322649b641fc6092c30af005aafe9
   MediaLibraryKit-unstable: aaf147005a2e024ed2f4c45440bfcc19225ca776
   MetaDataFetcherKit: d1d61b061bf74268aaffb6bf08a70396672163df
-  MobileVLCKit: 4d44e56380d0ee41c76f9ec7015d3a4b62a963a3
+  MobileVLCKit: f7af7d6bee693b904265768eaae6a0ed29fdcd65
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: e11cdf40e8965a6c24c6d6ff64905f2df43ab653
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
-  TVVLCKit: 3449ff8cbf37946c53aa6240788842657456fc6e
+  TVVLCKit: 8dbd6e0b9cc4dc40676128981823c25dbc1b5afa
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
   VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
   VLC-LXReorderableCollectionViewFlowLayout: 0204946967b746ca183835e854826290be06e2f4
@@ -173,6 +173,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 1fd603142c46d3c4fbe3109f7a1f53352883ae98
+PODFILE CHECKSUM: 2076d8ffdee0a57a08257f8f45057ca85bb55f94
 
 COCOAPODS: 1.5.3
