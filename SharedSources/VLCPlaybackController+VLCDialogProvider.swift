@@ -90,7 +90,7 @@ extension VLCPlaybackController: VLCCustomDialogRendererProtocol {
         print("title: \(title), message: \(message), isIndeterminate: \(isIndeterminate), position: \(position), cancel: \(cancelString ?? ""), reference: \(reference)")
     }
 
-    public func updateProgress(withReference reference: NSValue, message: String?, postion position: Float) {
+    public func updateProgress(withReference reference: NSValue, message: String?, position: Float) {
         print("reference: \(reference) message: \(message ?? "") position: \(position)")
     }
 
