@@ -1,3 +1,10 @@
+iOS 3.1.5:
+-----------
+· Fixed an issue with mkv videos crashing on iOS 12
+· Adjusted the filterview and timer view to not be hidden by the playback controls on newer iPhones
+· Addressed CVE-2018-19937 a user was able to bypass the Passcode screen by opening a URL and turning the phone
+· Bugfixes and stability improvements
+
 iOS 3.1.4:
 -----------
 · We adapted VLC for the new iPad Pro by adjusting the App and bringing external screen support and FaceID to our iPad Pro users
