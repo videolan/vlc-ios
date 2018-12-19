@@ -1447,7 +1447,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     if (!_seekGestureEnabled)
         return;
 
-    NSString * hudString = @" ";
+    NSString *hudString = @" ";
 
     int swipeForwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : FORWARD_SWIPE_DURATION;
     int swipeBackwardDuration = (_variableJumpDurationEnabled) ? ((int)(_mediaDuration*0.001*0.05)) : BACKWARD_SWIPE_DURATION;
@@ -1465,15 +1465,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             [_vpc jumpForward:(timeRemaining - 5)];
             hudString = [NSString stringWithFormat:@"⇒ %is",(timeRemaining - 5)];
         }
-    }
-    else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+    } else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         [_vpc jumpBackward:swipeBackwardDuration];
         hudString = [NSString stringWithFormat:@"⇐ %is",swipeBackwardDuration];
-    }else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionUp) {
+    } else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionUp) {
         [self backward:self];
-    }
-    else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionDown) {
+        hudString = NSLocalizedString(@"BWD_BUTTON", "");
+    } else if (swipeRecognizer.direction == UISwipeGestureRecognizerDirectionDown) {
         [self forward:self];
+        hudString = NSLocalizedString(@"FWD_BUTTON", "");
     }
 
     if (swipeRecognizer.state == UIGestureRecognizerStateEnded) {
