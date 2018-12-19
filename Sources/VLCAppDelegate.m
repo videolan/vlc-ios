@@ -184,7 +184,9 @@ continueUserActivity:(NSUserActivity *)userActivity
             APLog(@"%s file not found: %@",__PRETTY_FUNCTION__,userActivity);
             return NO;
         }
-        [[VLCPlaybackController sharedInstance] openMediaLibraryObject:managedObject];
+        [self validatePasscodeIfNeededWithCompletion:^{
+            [[VLCPlaybackController sharedInstance] openMediaLibraryObject:managedObject];
+        }];
         return YES;
     }
     return NO;
