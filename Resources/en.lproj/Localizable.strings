@@ -294,6 +294,8 @@
 "DONATE" = "Donate to VLC";
 "SUPPORT_VLC" = "Support the volunteers building VLC";
 "DONATION_AMOUNT" = "Donation Amount";
+"THANKS" = "Thank you!";
+"THANKS_DESCRIPTION" = "Your contribution means a lot to us.";
 
 "CANCEL" = "Cancel";
 "ERROR" = "Error";
