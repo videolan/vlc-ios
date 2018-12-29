@@ -16,7 +16,7 @@ class GenreModel: MLBaseModel {
 
     var files = [VLCMLGenre]()
 
-    var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }
+    var cellType: BaseCollectionViewCell.Type { return GenreCollectionViewCell.self }
 
     var medialibrary: VLCMediaLibraryManager
 
@@ -41,5 +41,15 @@ extension GenreModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddGenres genres: [VLCMLGenre]) {
         genres.forEach({ append($0) })
         updateView?()
+    }
+}
+
+extension VLCMLGenre {
+    @objc func numberOfTracksString() -> String {
+        let numberOftracks = numberOfTracks()
+        if numberOftracks != 1 {
+            return String(format: NSLocalizedString("TRACKS", comment: ""), numberOftracks)
+        }
+        return String(format: NSLocalizedString("TRACK", comment: ""), numberOftracks)
     }
 }

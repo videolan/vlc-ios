@@ -23,6 +23,8 @@
 "ONE_AUDIO_TRACK" = "One audio track";
 "FORMAT_SPU_TRACKS" = "%i subtitles tracks";
 "ONE_SPU_TRACK" = "One subtitles track";
+"TRACKS" = "%i Tracks";
+"TRACK" = "%i Track";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Connected";
 "PLAYING_EXTERNALLY_DESC" = "This video is playing on the TV";
