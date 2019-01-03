@@ -25,7 +25,7 @@ class PlaylistModel: MLBaseModel {
     required init(medialibrary: VLCMediaLibraryManager) {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
-        files = medialibrary.getPlaylists()
+        files = medialibrary.playlists()
     }
 
     func append(_ item: VLCMLPlaylist) {

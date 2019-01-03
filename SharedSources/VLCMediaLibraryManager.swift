@@ -331,7 +331,7 @@ extension VLCMediaLibraryManager {
         return medialib.deletePlaylist(withIdentifier: identifier)
     }
 
-    func getPlaylists(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLPlaylist] {
+    func playlists(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLPlaylist] {
         return medialib.playlists(with: sort, desc: desc)
     }
 }
