@@ -25,7 +25,7 @@ class GenreModel: MLBaseModel {
     required init(medialibrary: VLCMediaLibraryManager) {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
-        files = medialibrary.genre()
+        files = medialibrary.genres()
     }
 
     func append(_ item: VLCMLGenre) {
