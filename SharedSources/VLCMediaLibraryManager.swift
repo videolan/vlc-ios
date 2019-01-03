@@ -296,11 +296,11 @@ extension VLCMediaLibraryManager {
 // MARK: MediaLibrary - Audio methods
 
 extension VLCMediaLibraryManager {
-    func getArtists(sortingCriteria sort: VLCMLSortingCriteria = .artist, desc: Bool = false) -> [VLCMLArtist] {
+    func artists(sortingCriteria sort: VLCMLSortingCriteria = .artist, desc: Bool = false) -> [VLCMLArtist] {
         return medialib.artists(with: sort, desc: desc, all: true)
     }
 
-    func getAlbums(sortingCriteria sort: VLCMLSortingCriteria = .album, desc: Bool = false) -> [VLCMLAlbum] {
+    func albums(sortingCriteria sort: VLCMLSortingCriteria = .album, desc: Bool = false) -> [VLCMLAlbum] {
         return medialib.albums(with: sort, desc: desc)
     }
 }

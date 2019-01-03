@@ -25,7 +25,7 @@ class AlbumModel: MLBaseModel {
     required init(medialibrary: VLCMediaLibraryManager) {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
-        files = medialibrary.getAlbums()
+        files = medialibrary.albums()
     }
 
     func append(_ item: VLCMLAlbum) {
