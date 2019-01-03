@@ -161,7 +161,6 @@ class VLCMediaLibraryManager: NSObject {
         return media.count
     }
 
-
     /// Returns *ALL* file found for a specified VLCMLMediaType
     ///
     /// - Parameter type: Type of the media

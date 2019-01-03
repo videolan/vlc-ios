@@ -45,7 +45,6 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
 }
 
 extension MLBaseModel {
-
     var anyfiles: [VLCMLObject] {
         return files
     }

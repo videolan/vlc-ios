@@ -10,7 +10,6 @@
  *****************************************************************************/
 
 class VideoModel: MediaModel {
-
     typealias MLType = VLCMLMedia
 
     var updateView: (() -> Void)?
@@ -34,11 +33,9 @@ class VideoModel: MediaModel {
 // MARK: - Edit
 
 extension VideoModel: EditableMLModel {
-
     func editCellType() -> BaseCollectionViewCell.Type {
         return MediaEditCell.self
     }
-
 }
 
 // MARK: - Sort
