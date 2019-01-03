@@ -233,6 +233,35 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return model.cellType.cellPadding
     }
+
+    override func handleSort() {
+        let sortOptionsAlertController = UIAlertController(title: NSLocalizedString("SORT_BY", comment: ""),
+                                                           message: nil,
+                                                           preferredStyle: .actionSheet)
+
+        var alertActions = [UIAlertAction]()
+
+        for (index, enabled) in model.sortModel.sortingCriteria.enumerated() {
+            guard enabled else { continue }
+            let criteria = VLCMLSortingCriteria(value: UInt(index))
+
+            alertActions.append(UIAlertAction(title: String(describing: criteria), style: .default) {
+                [weak self] action in
+                self?.model.sort(by: criteria)
+            })
+        }
+        alertActions.forEach() { sortOptionsAlertController.addAction($0) }
+
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""),
+                                         style: .cancel,
+                                         handler: nil)
+
+        sortOptionsAlertController.addAction(cancelAction)
+        sortOptionsAlertController.view.tintColor = UIColor.vlcOrangeTint
+        sortOptionsAlertController.popoverPresentationController?.sourceView = self.view
+
+        present(sortOptionsAlertController, animated: true)
+    }
 }
 
 private extension VLCMediaCategoryViewController {
@@ -264,24 +293,6 @@ private extension VLCMediaCategoryViewController {
                 backgroundview.clipsToBounds = true
             }
         }
-    }
-}
-
-// MARK: - Sort
-
-extension VLCMediaCategoryViewController {
-    // FIXME: Need to add a button for ascending/descending result
-    func sortByFileName() {
-        // The issue is that for audio we show title which is quite confusing if we use filename
-        model.sort(by: .alpha)
-    }
-
-    func sortByDate() {
-        model.sort(by: .insertionDate)
-    }
-
-    func sortBySize() {
-        model.sort(by: .fileSize)
     }
 }
 

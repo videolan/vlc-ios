@@ -12,6 +12,9 @@
 class PlaylistModel: MLBaseModel {
     typealias MLType = VLCMLPlaylist
 
+    var sortModel = SortModel(alpha: true,
+                              duration: true)
+
     var updateView: (() -> Void)?
 
     var files = [VLCMLPlaylist]()
@@ -48,6 +51,16 @@ class PlaylistModel: MLBaseModel {
     // Creates a VLCMLPlaylist appending it and updates linked view
     func create(name: String) {
         append(medialibrary.createPlaylist(with: name))
+        updateView?()
+    }
+}
+
+// MARK: - Sort
+
+extension PlaylistModel {
+    func sort(by criteria: VLCMLSortingCriteria) {
+        files = medialibrary.playlists(sortingCriteria: criteria)
+        sortModel.currentSort = criteria
         updateView?()
     }
 }

@@ -18,7 +18,7 @@
 		41273A3D1A955C4100A2EF77 /* VLCMigrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */; };
 		41364DF621FF5B7D00AC22B3 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41364DF521FF5B7D00AC22B3 /* ArtistCollectionViewCell.swift */; };
 		41364DF821FF5D2600AC22B3 /* ArtistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41364DF721FF5D2600AC22B3 /* ArtistCollectionViewCell.xib */; };
-		413EC987201A329D00BF412F /* SortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC986201A329D00BF412F /* SortOption.swift */; };
+		413EC987201A329D00BF412F /* SortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC986201A329D00BF412F /* SortModel.swift */; };
 		413EC98B201B4F2C00BF412F /* PresentationTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC98A201B4F2B00BF412F /* PresentationTheme.swift */; };
 		414327A521B6E55700B061F6 /* PlaybackSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414327A421B6E55700B061F6 /* PlaybackSpeedView.swift */; };
 		414327A721B6E66E00B061F6 /* PlaybackSpeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 414327A621B6E66E00B061F6 /* PlaybackSpeedView.xib */; };
@@ -425,7 +425,7 @@
 		412BE7521FC4947400ACCC42 /* VLCMediaSubcategory+VLCDragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "VLCMediaSubcategory+VLCDragAndDrop.swift"; path = "Sources/VLCMediaSubcategory+VLCDragAndDrop.swift"; sourceTree = SOURCE_ROOT; };
 		41364DF521FF5B7D00AC22B3 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		41364DF721FF5D2600AC22B3 /* ArtistCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistCollectionViewCell.xib; sourceTree = "<group>"; };
-		413EC986201A329D00BF412F /* SortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SortOption.swift; path = Sources/Coordinators/SortOption.swift; sourceTree = SOURCE_ROOT; };
+		413EC986201A329D00BF412F /* SortModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SortModel.swift; path = Sources/Coordinators/SortModel.swift; sourceTree = SOURCE_ROOT; };
 		413EC98A201B4F2B00BF412F /* PresentationTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationTheme.swift; sourceTree = "<group>"; };
 		414327A421B6E55700B061F6 /* PlaybackSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaybackSpeedView.swift; path = Sources/PlaybackSpeedView.swift; sourceTree = "<group>"; };
 		414327A621B6E66E00B061F6 /* PlaybackSpeedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlaybackSpeedView.xib; path = Resources/PlaybackSpeedView.xib; sourceTree = "<group>"; };
@@ -1117,7 +1117,7 @@
 			children = (
 				41251ECE1FD0CF7900099110 /* AppCoordinator.swift */,
 				418B144C20179C74000447AA /* VLCTabBarCoordinator.swift */,
-				413EC986201A329D00BF412F /* SortOption.swift */,
+				413EC986201A329D00BF412F /* SortModel.swift */,
 				414396C12023316C005E3FAF /* AppearanceManager.swift */,
 			);
 			name = Coordinators;
@@ -2896,7 +2896,7 @@
 				CA9734B521083EDA00BBE7C7 /* VLCSettingsSheetCell.swift in Sources */,
 				8DE1887621089BB100A091D2 /* VideoModel.swift in Sources */,
 				DD3EFF351BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
-				413EC987201A329D00BF412F /* SortOption.swift in Sources */,
+				413EC987201A329D00BF412F /* SortModel.swift in Sources */,
 				41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */,
 				417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */,
 				418B145920179E50000447AA /* VLCDragAndDropManager.swift in Sources */,

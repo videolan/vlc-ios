@@ -12,6 +12,8 @@
 class GenreModel: MLBaseModel {
     typealias MLType = VLCMLGenre
 
+    var sortModel = SortModel(alpha: true)
+
     var updateView: (() -> Void)?
 
     var files = [VLCMLGenre]()
@@ -34,6 +36,16 @@ class GenreModel: MLBaseModel {
 
     func delete(_ items: [VLCMLObject]) {
         preconditionFailure("GenreModel: Cannot delete genre")
+    }
+}
+
+// MARK: - Sort
+
+extension GenreModel {
+    func sort(by criteria: VLCMLSortingCriteria) {
+        files = medialibrary.genres(sortingCriteria: criteria)
+        sortModel.currentSort = criteria
+        updateView?()
     }
 }
 

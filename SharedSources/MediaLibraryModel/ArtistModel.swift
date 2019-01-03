@@ -12,6 +12,8 @@
 class ArtistModel: MLBaseModel {
     typealias MLType = VLCMLArtist
 
+    var sortModel = SortModel(alpha: true)
+
     var updateView: (() -> Void)?
 
     var files = [VLCMLArtist]()
@@ -34,6 +36,16 @@ class ArtistModel: MLBaseModel {
 
     func delete(_ items: [VLCMLObject]) {
         preconditionFailure("ArtistModel: Cannot delete artist")
+    }
+}
+
+// MARK: - Sort
+
+extension ArtistModel {
+    func sort(by criteria: VLCMLSortingCriteria) {
+        files = medialibrary.artists(sortingCriteria: criteria)
+        sortModel.currentSort = criteria
+        updateView?()
     }
 }
 

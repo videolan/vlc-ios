@@ -12,6 +12,12 @@
 class ShowEpisodeModel: MLBaseModel {
     typealias MLType = VLCMLMedia
 
+    var sortModel = SortModel(alpha: true,
+                              duration: true,
+                              insertionDate: true,
+                              releaseDate: true,
+                              fileSize: true)
+
     var updateView: (() -> Void)?
 
     var files = [VLCMLMedia]()
@@ -33,6 +39,14 @@ class ShowEpisodeModel: MLBaseModel {
 
     func delete(_ items: [VLCMLObject]) {
         preconditionFailure("ShowEpisodeModel: Cannot delete showEpisode")
+    }
+}
+
+// MARK: - Sort
+
+extension ShowEpisodeModel {
+    func sort(by criteria: VLCMLSortingCriteria) {
+        // Currently no show specific getter on medialibrary.
     }
 }
 

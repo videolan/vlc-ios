@@ -12,6 +12,11 @@
 class AlbumModel: MLBaseModel {
     typealias MLType = VLCMLAlbum
 
+    var sortModel = SortModel(alpha: true,
+                              duration: true,
+                              releaseDate: true,
+                              trackNumber: true)
+
     var updateView: (() -> Void)?
 
     var files = [VLCMLAlbum]()
@@ -34,6 +39,16 @@ class AlbumModel: MLBaseModel {
 
     func delete(_ items: [VLCMLObject]) {
         preconditionFailure("AlbumModel: Cannot delete album")
+    }
+}
+
+// MARK: - Sort
+
+extension AlbumModel {
+    func sort(by criteria: VLCMLSortingCriteria) {
+        files = medialibrary.albums(sortingCriteria: criteria)
+        sortModel.currentSort = criteria
+        updateView?()
     }
 }
 

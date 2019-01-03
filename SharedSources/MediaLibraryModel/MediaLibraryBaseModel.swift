@@ -15,6 +15,8 @@ protocol MediaLibraryBaseModel {
 
     var anyfiles: [VLCMLObject] { get }
 
+    var sortModel: SortModel { get }
+
     var updateView: (() -> Void)? { get set }
 
     var indicatorName: String { get }

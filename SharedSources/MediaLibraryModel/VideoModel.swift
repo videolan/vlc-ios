@@ -12,6 +12,12 @@
 class VideoModel: MediaModel {
     typealias MLType = VLCMLMedia
 
+    var sortModel = SortModel(alpha: true,
+                              duration: true,
+                              insertionDate: true,
+                              releaseDate: true,
+                              fileSize: true)
+
     var updateView: (() -> Void)?
 
     var files = [VLCMLMedia]()
@@ -42,7 +48,8 @@ extension VideoModel: EditableMLModel {
 
 extension VideoModel {
     func sort(by criteria: VLCMLSortingCriteria) {
-        files = medialibrary.media(ofType: .video, sortingCriteria: criteria, desc: false)
+        files = medialibrary.media(ofType: .video, sortingCriteria: criteria)
+        sortModel.currentSort = criteria
         updateView?()
     }
 }

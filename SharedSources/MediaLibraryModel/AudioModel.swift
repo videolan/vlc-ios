@@ -12,6 +12,10 @@
 class AudioModel: MediaModel {
     typealias MLType = VLCMLMedia
 
+    var sortModel = SortModel(alpha: true,
+                              duration: true,
+                              fileSize: true)
+
     var updateView: (() -> Void)?
 
     var files = [VLCMLMedia]()
@@ -34,7 +38,8 @@ class AudioModel: MediaModel {
 extension AudioModel {
     func sort(by criteria: VLCMLSortingCriteria) {
         // FIXME: Currently if sorted by name, the files are sorted by filename but displaying title
-        files = medialibrary.media(ofType: .audio, sortingCriteria: criteria, desc: false)
+        files = medialibrary.media(ofType: .audio, sortingCriteria: criteria)
+        sortModel.currentSort = criteria
         updateView?()
     }
 }
