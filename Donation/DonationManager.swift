@@ -12,10 +12,8 @@
  *****************************************************************************/
 import PassKit
 protocol DonationManagerDelegate: PKPaymentAuthorizationViewControllerDelegate {
-    //Since we're not doing calculations CGFloat should be fine otherwise switch to NSDecimalNumber
-    func donationManagerAmountForDonation(donationManager: DonationManager) -> Float
+    func donationManagerAmountForDonation(donationManager: DonationManager) -> NSNumber
     func donationManagerShouldPresentViewController(donationManager: DonationManager, viewController: UIViewController)
-    func donationManagerFinished(donationManager: DonationManager)
 }
 
 class DonationManager: NSObject {
@@ -31,26 +29,31 @@ class DonationManager: NSObject {
 
         let request = PKPaymentRequest()
         guard let currencyCode = Locale.current.currencyCode, let countrycode = Locale.current.regionCode else {
-            return assertionFailure("missng currencycode or reegioncode")
+            return assertionFailure("missing currencycode or reegioncode")
         }
         request.currencyCode = currencyCode
         request.countryCode = countrycode
         request.merchantIdentifier = "merchant.com.example.vlc-ios"
         request.merchantCapabilities = .capability3DS
         request.requiredBillingAddressFields = .email
+        request.supportedNetworks = supportedNetworks()
 
-        let decimalamount = NSDecimalNumber(mantissa: UInt64(amount*100), exponent: -2, isNegative: false)
-        let item = PKPaymentSummaryItem(label: NSLocalizedString("DONATE", comment: ""), amount: decimalamount)
+        let decimalamount = NSDecimalNumber(decimal: amount.decimalValue)
+        let item = PKPaymentSummaryItem(label: "VideoLAN", amount: decimalamount)
         request.paymentSummaryItems = [item]
-
+        authorizePayment(request: request)
     }
 
-    func authorizepayment(request: PKPaymentRequest) {
-        let authorizationVC = PKPaymentAuthorizationViewController(paymentRequest: request)
-        authorizationVC?.delegate = delegate
+    func authorizePayment(request: PKPaymentRequest) {
+        guard let authorizationVC = PKPaymentAuthorizationViewController(paymentRequest: request) else {
+            assertionFailure("no authorizationVC")
+            return
+        }
+        authorizationVC.delegate = delegate
+        delegate?.donationManagerShouldPresentViewController(donationManager: self, viewController: authorizationVC)
     }
 
-    func needsToSetupCard() -> Bool {
+    func supportedNetworks() -> [PKPaymentNetwork] {
         var networks: [PKPaymentNetwork] = [.masterCard, .visa]
 
         if #available(iOS 10.3, *) {
@@ -65,13 +68,10 @@ class DonationManager: NSObject {
         if #available(iOS 12.0, *) {
             networks.append(.maestro)
         }
-
-        return PKPaymentAuthorizationViewController.canMakePayments(usingNetworks:networks)
+        return networks
     }
 
     @objc func setupApplePay() {
-        delegate?.donationManagerFinished(donationManager: self)
-        return
         passLibrary.openPaymentSetup()
     }
 
@@ -81,7 +81,7 @@ class DonationManager: NSObject {
         }
         let style: PKPaymentButtonStyle = isDarkTheme ? .white : .black
         let button: PKPaymentButton
-        if needsToSetupCard() {
+        if !PKPaymentAuthorizationViewController.canMakePayments(usingNetworks:supportedNetworks()) {
             button = PKPaymentButton(paymentButtonType: .setUp, paymentButtonStyle: style)
             button.addTarget(self, action: #selector(setupApplePay), for: .touchUpInside)
             return button

@@ -160,7 +160,7 @@ import PassKit
         }
     }
 
-    func makeItRain() {
+    private func makeItRain() {
         confettiView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(confettiView, belowSubview: backgroundView)
         NSLayoutConstraint.activate([
@@ -176,30 +176,42 @@ import PassKit
 
 extension DonationViewController: PKPaymentAuthorizationViewControllerDelegate {
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
-        
-    }
-}
-
-extension DonationViewController: DonationManagerDelegate {
-
-    func donationManagerAmountForDonation(donationManager: DonationManager) -> Float {
-        return donationAmountView.currentAmount()
+        controller.dismiss(animated: true, completion: nil)
     }
 
-    func donationManagerShouldPresentViewController(donationManager: DonationManager, viewController: UIViewController) {
-        present(viewController, animated: true, completion: nil)
+    @available(iOS 9.0, *) // this method is needed for < iOS11 please bump when dropping iOS9 and remove after dropping iOS10
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
+        controller.dismiss(animated: true, completion: nil)
+        showDonationFinished()
     }
 
-    func donationManagerFinished(donationManager: DonationManager) {
+    @available(iOS 11.0, *)
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        controller.dismiss(animated: true, completion: nil)
+        showDonationFinished()
+    }
+
+    private func showDonationFinished() {
         updateViewForPosition(to: .hidden)
         donationAmountView.removeFromSuperview()
         NSLayoutConstraint.deactivate([
             bottomConstraint!,
             minBottomConstraint!
-        ])
+            ])
         makeItRain()
         displayView(donationFinished)
         updateViewForPosition(to: .bottom)
+    }
+}
+
+extension DonationViewController: DonationManagerDelegate {
+
+    func donationManagerAmountForDonation(donationManager: DonationManager) -> NSNumber {
+        return donationAmountView.currentAmount()
+    }
+
+    func donationManagerShouldPresentViewController(donationManager: DonationManager, viewController: UIViewController) {
+        present(viewController, animated: true, completion: nil)
     }
 }
 

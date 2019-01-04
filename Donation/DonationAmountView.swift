@@ -33,7 +33,6 @@ class DonationAmountView: UIStackView {
     }()
 
     lazy var header: UIStackView = {
-
         closebutton.setImage( UIImage(named: "close"), for: .normal)
 
         donationTitle.font = .boldSystemFont(ofSize: 13)
@@ -138,7 +137,6 @@ class DonationAmountView: UIStackView {
             separator.heightAnchor.constraint(equalToConstant: 1.0),
             separator2.heightAnchor.constraint(equalToConstant: 1.0)
         ])
-
     }
 
     @objc func toggleKeyboard() {
@@ -157,14 +155,11 @@ class DonationAmountView: UIStackView {
         donationAmount.text = sender.titleLabel?.text
     }
 
-    func currentAmount() -> Float {
-        guard let amount = donationAmount.text else {
+    func currentAmount() -> NSNumber {
+        guard let amount = self.numberFormatter.number(from: donationAmount.text ?? "") else {
             return 0
         }
-        var amountWithoutCurrency = amount
-        let currencySymbol = Character(Locale.current.currencySymbol!)
-        amountWithoutCurrency.removeAll { $0 == currencySymbol }
-        return Float(amountWithoutCurrency)!
+        return amount
     }
 }
 
