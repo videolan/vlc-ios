@@ -22,7 +22,8 @@
 	</array>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(KEYCHAIN_ACCESS_GROUP)</string>
+		<string>$(AppIdentifierPrefix)$(KEYCHAIN_ACCESS_GROUP)</string>
+		<string>$(AppIdentifierPrefix)com.microsoft.adalcache</string>
 	</array>
 </dict>
 </plist>
