@@ -16,6 +16,8 @@
 		41251ED01FD0CF7900099110 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41251ECE1FD0CF7900099110 /* AppCoordinator.swift */; };
 		41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */; };
 		41273A3D1A955C4100A2EF77 /* VLCMigrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */; };
+		41364DF621FF5B7D00AC22B3 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41364DF521FF5B7D00AC22B3 /* ArtistCollectionViewCell.swift */; };
+		41364DF821FF5D2600AC22B3 /* ArtistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41364DF721FF5D2600AC22B3 /* ArtistCollectionViewCell.xib */; };
 		413EC987201A329D00BF412F /* SortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC986201A329D00BF412F /* SortOption.swift */; };
 		413EC98B201B4F2C00BF412F /* PresentationTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC98A201B4F2B00BF412F /* PresentationTheme.swift */; };
 		414327A521B6E55700B061F6 /* PlaybackSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414327A421B6E55700B061F6 /* PlaybackSpeedView.swift */; };
@@ -421,6 +423,8 @@
 		41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMigrationViewController.m; path = Sources/VLCMigrationViewController.m; sourceTree = SOURCE_ROOT; };
 		41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCMigrationViewController.xib; path = Sources/VLCMigrationViewController.xib; sourceTree = SOURCE_ROOT; };
 		412BE7521FC4947400ACCC42 /* VLCMediaSubcategory+VLCDragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "VLCMediaSubcategory+VLCDragAndDrop.swift"; path = "Sources/VLCMediaSubcategory+VLCDragAndDrop.swift"; sourceTree = SOURCE_ROOT; };
+		41364DF521FF5B7D00AC22B3 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
+		41364DF721FF5D2600AC22B3 /* ArtistCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistCollectionViewCell.xib; sourceTree = "<group>"; };
 		413EC986201A329D00BF412F /* SortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SortOption.swift; path = Sources/Coordinators/SortOption.swift; sourceTree = SOURCE_ROOT; };
 		413EC98A201B4F2B00BF412F /* PresentationTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationTheme.swift; sourceTree = "<group>"; };
 		414327A421B6E55700B061F6 /* PlaybackSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaybackSpeedView.swift; path = Sources/PlaybackSpeedView.swift; sourceTree = "<group>"; };
@@ -1138,6 +1142,8 @@
 				41884A4D214BE0C800D2C6B4 /* AudioCollectionViewCell.xib */,
 				41CF03E721D117D100B449E0 /* GenreCollectionViewCell.swift */,
 				41CF03E921D1181100B449E0 /* GenreCollectionViewCell.xib */,
+				41364DF521FF5B7D00AC22B3 /* ArtistCollectionViewCell.swift */,
+				41364DF721FF5D2600AC22B3 /* ArtistCollectionViewCell.xib */,
 			);
 			name = MediaCategoryCells;
 			path = Sources/MediaCategoryCells;
@@ -2530,6 +2536,7 @@
 				7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */,
 				7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */,
 				7D1516421868D7E0004B18F3 /* VLCFirstStepsFifthPageViewController.xib in Resources */,
+				41364DF821FF5D2600AC22B3 /* ArtistCollectionViewCell.xib in Resources */,
 				41B4DA3E21400E8E000BA27D /* MediaEditCell.xib in Resources */,
 				7D9870641A3E03D5009CF27D /* papasscode_background.png in Resources */,
 				7D0117F1187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib in Resources */,
@@ -2870,6 +2877,7 @@
 				8DF9669D2113317E00D0FCD6 /* VLCEditToolbar.swift in Sources */,
 				416443862048419E00CAC646 /* DeviceMotion.swift in Sources */,
 				7D9289751877459B009108FD /* VLCFirstStepsThirdPageViewController.m in Sources */,
+				41364DF621FF5B7D00AC22B3 /* ArtistCollectionViewCell.swift in Sources */,
 				7D95610B1AF3E9E800779745 /* VLCMiniPlaybackView.m in Sources */,
 				DD3EFF451BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
 				8DF966B121188BDB00D0FCD6 /* VLCEditController.swift in Sources */,
