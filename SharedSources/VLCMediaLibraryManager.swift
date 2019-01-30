@@ -79,7 +79,7 @@ class VLCMediaLibraryManager: NSObject {
     private static let migrationKey: String = "MigratedToVLCMediaLibraryKit"
 
     private var didMigrate = UserDefaults.standard.bool(forKey: VLCMediaLibraryManager.migrationKey)
-
+    private var didFinishDiscovery = false
     // Using ObjectIdentifier to avoid duplication and facilitate
     // identification of observing object
     private var observers = [ObjectIdentifier: Observer]()
@@ -455,12 +455,15 @@ extension VLCMediaLibraryManager {
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didCompleteDiscovery entryPoint: String) {
-        startMigrationIfNeeded()
+        didFinishDiscovery = true
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didProgressDiscovery entryPoint: String) {
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didUpdateParsingStatsWithPercent percent: UInt32) {
+        if didFinishDiscovery && percent == 100 {
+             startMigrationIfNeeded()
+        }
     }
 }
