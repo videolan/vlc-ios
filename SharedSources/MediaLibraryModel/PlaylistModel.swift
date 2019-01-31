@@ -68,3 +68,10 @@ extension PlaylistModel: MediaLibraryObserver {
         updateView?()
     }
 }
+
+extension VLCMLPlaylist {
+    func description() -> String {
+        let tracksString = media.count == 1 ? NSLocalizedString("TRACK", comment: "") : NSLocalizedString("TRACKS", comment: "")
+        return String(format: tracksString, media.count)
+    }
+}
