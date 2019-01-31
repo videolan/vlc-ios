@@ -105,12 +105,6 @@
 "FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
 "SCHEME_NOT_SUPPORTED" = "Address scheme not supported";
 "SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
-"LIBRARY_TRACKS" = "%i Tracks";
-"LIBRARY_SINGLE_TRACK" = "%i Track";
-"LIBRARY_EPISODES" = "%i Episodes, %i unread";
-"LIBRARY_SINGLE_EPISODE" = "%i Episode, %i unread";
-"LIBRARY_TRACK_N" = "Track %i";
-"LIBRARY_MINUTES_LEFT" = "%@m left";
 "RENAME_MEDIA_TO" = "Enter new name for %@";
 
 

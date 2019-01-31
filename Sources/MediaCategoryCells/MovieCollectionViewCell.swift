@@ -19,17 +19,21 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var newLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var collectionOverlay: UIView!
+    @IBOutlet weak var numberOfTracks: UILabel!
     override class var cellPadding: CGFloat {
         return 5.0
     }
 
     override var media: VLCMLObject? {
         didSet {
-            guard let movie = media as? VLCMLMedia else {
-                //Todo: fatalerror here once all celltypes are there and this is not abused for others anymore
-                return
+            if let movie = media as? VLCMLMedia {
+                update(movie:movie)
+            } else if let playlist = media as? VLCMLPlaylist {
+                update(playlist:playlist)
+            } else {
+                fatalError("wrong object")
             }
-            update(movie:movie)
         }
     }
 
@@ -59,6 +63,13 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         newLabel.isHidden = !movie.isNew()
     }
 
+    func update(playlist: VLCMLPlaylist) {
+        collectionOverlay.isHidden = false
+        numberOfTracks.text = String(playlist.media.count)
+        titleLabel.text = playlist.name
+        descriptionLabel.text = playlist.description()
+    }
+
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
         let numberOfCells: CGFloat = round(width / 250)
         let aspectRatio: CGFloat = 10.0 / 16.0
@@ -80,5 +91,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         thumbnailView.image = nil
         progressView.isHidden = true
         newLabel.isHidden = true
+        collectionOverlay.isHidden = true
+        numberOfTracks.text = ""
     }
 }

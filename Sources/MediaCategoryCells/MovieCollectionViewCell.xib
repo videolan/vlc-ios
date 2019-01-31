@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -37,10 +36,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VeB-L1-KVk">
-                                <rect key="frame" x="0.0" y="216.5" width="63" height="13.5"/>
+                                <rect key="frame" x="0.0" y="216.5" width="63.5" height="13.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Cgk-mu-ntx">
-                                        <rect key="frame" x="0.0" y="0.0" width="63" height="13.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="63.5" height="13.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aby-eq-q1j" userLabel="NewLabel">
                                                 <rect key="frame" x="0.0" y="0.0" width="23" height="13.5"/>
@@ -49,7 +48,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oac-dS-Qcd" userLabel="descriptionLabel">
-                                                <rect key="frame" x="31" y="0.0" width="32" height="13.5"/>
+                                                <rect key="frame" x="31" y="0.0" width="32.5" height="13.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -64,26 +63,50 @@
                         <rect key="frame" x="0.0" y="191" width="309" height="2"/>
                         <color key="tintColor" red="0.9552378654" green="0.65840983580000001" blue="0.28695866590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </progressView>
+                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WKB-IM-zLb" userLabel="collectionOverlay">
+                        <rect key="frame" x="154.5" y="0.0" width="154.5" height="193"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBg-2t-TeB" userLabel="numberofTracks">
+                                <rect key="frame" x="60.5" y="80" width="34" height="33.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DBg-2t-TeB" firstAttribute="centerX" secondItem="HVo-IJ-YFl" secondAttribute="centerX" id="0Sz-OL-ZRA"/>
+                            <constraint firstItem="DBg-2t-TeB" firstAttribute="centerY" secondItem="HVo-IJ-YFl" secondAttribute="centerY" id="5mR-yg-G3k"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="HVo-IJ-YFl"/>
+                    </view>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstItem="iWM-y0-SUe" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="YyZ-zI-cD7" secondAttribute="bottom" id="3VI-xW-KQ4"/>
                 <constraint firstItem="iWM-y0-SUe" firstAttribute="leading" secondItem="YyZ-zI-cD7" secondAttribute="leading" id="43e-Na-uN0"/>
                 <constraint firstItem="VeB-L1-KVk" firstAttribute="leading" secondItem="BvH-0B-sVS" secondAttribute="leading" id="8tP-cl-aIe"/>
+                <constraint firstItem="WKB-IM-zLb" firstAttribute="centerY" secondItem="jmi-G0-XOo" secondAttribute="centerY" id="9h3-zd-Ied"/>
+                <constraint firstItem="WKB-IM-zLb" firstAttribute="width" secondItem="jmi-G0-XOo" secondAttribute="width" multiplier="0.5" id="AyM-ua-RM1"/>
                 <constraint firstItem="4zQ-Mf-dw7" firstAttribute="leading" secondItem="BvH-0B-sVS" secondAttribute="leading" id="Ijd-61-ouV"/>
+                <constraint firstItem="WKB-IM-zLb" firstAttribute="leading" secondItem="jmi-G0-XOo" secondAttribute="centerX" id="Klj-oS-Zn0"/>
                 <constraint firstAttribute="trailing" secondItem="iWM-y0-SUe" secondAttribute="trailing" id="PrI-Yq-B9j"/>
                 <constraint firstItem="iWM-y0-SUe" firstAttribute="leading" secondItem="X8l-k0-1oc" secondAttribute="leading" id="Rq2-SS-aA2"/>
                 <constraint firstItem="X8l-k0-1oc" firstAttribute="leading" secondItem="jmi-G0-XOo" secondAttribute="leading" id="WvI-Ra-xlu"/>
                 <constraint firstItem="iWM-y0-SUe" firstAttribute="top" secondItem="YyZ-zI-cD7" secondAttribute="top" id="Y4b-8y-MOG"/>
                 <constraint firstItem="X8l-k0-1oc" firstAttribute="trailing" secondItem="jmi-G0-XOo" secondAttribute="trailing" id="d8L-w5-ba5"/>
                 <constraint firstItem="X8l-k0-1oc" firstAttribute="bottom" secondItem="jmi-G0-XOo" secondAttribute="bottom" id="dWh-bB-nfd"/>
+                <constraint firstItem="WKB-IM-zLb" firstAttribute="height" secondItem="jmi-G0-XOo" secondAttribute="height" id="rlj-bJ-yVp"/>
                 <constraint firstItem="jmi-G0-XOo" firstAttribute="width" secondItem="YyZ-zI-cD7" secondAttribute="width" id="t8h-GJ-GvI"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="BvH-0B-sVS"/>
             <size key="customSize" width="309" height="230"/>
             <connections>
+                <outlet property="collectionOverlay" destination="WKB-IM-zLb" id="uPK-1i-9Jc"/>
                 <outlet property="descriptionLabel" destination="oac-dS-Qcd" id="1iJ-b6-gC6"/>
                 <outlet property="newLabel" destination="Aby-eq-q1j" id="4rD-oo-gdq"/>
+                <outlet property="numberOfTracks" destination="DBg-2t-TeB" id="0QT-uN-5fZ"/>
                 <outlet property="progressView" destination="X8l-k0-1oc" id="mf9-zf-3ya"/>
                 <outlet property="thumbnailView" destination="jmi-G0-XOo" id="gMW-XK-9MV"/>
                 <outlet property="titleLabel" destination="4zQ-Mf-dw7" id="iGP-8x-anz"/>
