@@ -24,10 +24,13 @@ class AudioCollectionViewCell: BaseCollectionViewCell {
 
     override var media: VLCMLObject? {
         didSet {
-            guard let albumTrack = media as? VLCMLMedia else {
-                fatalError("needs to be of Type VLCMLMovie")
+            if let albumTrack = media as? VLCMLMedia {
+                update(audiotrack:albumTrack)
+            } else if let album = media as? VLCMLAlbum {
+                update(album:album)
+            } else {
+                fatalError("needs to be of Type VLCMLMedia or VLCMLAlbum")
             }
-            update(audiotrack:albumTrack)
         }
     }
 
@@ -37,7 +40,6 @@ class AudioCollectionViewCell: BaseCollectionViewCell {
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         themeDidChange()
-        thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
     }
 
     @objc fileprivate func themeDidChange() {
@@ -47,12 +49,18 @@ class AudioCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(audiotrack: VLCMLMedia) {
+        thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = audiotrack.title
         descriptionLabel.text = audiotrack.albumTrack.artist.name
         if audiotrack.isThumbnailGenerated() {
             thumbnailView.image = UIImage(contentsOfFile: audiotrack.thumbnail.absoluteString)
         }
         newLabel.isHidden = !audiotrack.isNew()
+    }
+
+    func update(album: VLCMLAlbum) {
+        titleLabel.text = album.title
+        descriptionLabel.text = album.albumArtist.name
     }
 
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
