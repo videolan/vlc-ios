@@ -91,7 +91,8 @@
         if (passcodeOn) {
             PAPasscodeViewController *passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionSet];
             passcodeLockController.delegate = self;
-            [self.navigationController presentViewController:passcodeLockController animated:YES completion:nil];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:passcodeLockController];
+            [self.navigationController presentViewController:navigationController animated:YES completion:nil];
         }
     }
 }
@@ -138,7 +139,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:passcodeEnabled forKey:kVLCSettingPasscodeOnKey];
         [self updateUIAndCoreSpotlightForPasscodeSetting:passcode != nil];
     }
-    if ([self.navigationController.presentedViewController isKindOfClass:[PAPasscodeViewController class]]) {
+    if ([self.navigationController.presentedViewController isKindOfClass:[UINavigationController class]] && [((UINavigationController *)self.navigationController.presentedViewController).viewControllers.firstObject isKindOfClass:[PAPasscodeViewController class]]) {
         [self.navigationController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     }
 }
