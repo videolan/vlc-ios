@@ -312,3 +312,6 @@
 "MOVIES" = "Movies";
 "SONGS" = "Songs";
 "PLAYLISTS" = "Playlists";
+
+"MODIFIED_DATE" = "Modified date";
+"NAME" = "Name";

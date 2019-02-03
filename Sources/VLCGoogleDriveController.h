@@ -23,5 +23,5 @@
 - (void)streamFile:(GTLRDrive_File *)file;
 - (void)downloadFileToDocumentFolder:(GTLRDrive_File *)file;
 - (BOOL)hasMoreFiles;
-
+- (BOOL)supportSorting;
 @end

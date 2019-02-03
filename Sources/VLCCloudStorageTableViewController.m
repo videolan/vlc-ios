@@ -20,6 +20,8 @@
 @interface VLCCloudStorageTableViewController()
 {
     VLCProgressView *_progressView;
+    VLCActionSheet *sheet;
+    VLCCloudSortingSpecifierManager *manager;
     UIRefreshControl *_refreshControl;
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_logoutButton;
@@ -58,7 +60,9 @@
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
 
     _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
-    [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
+    _sortBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: [NSString stringWithFormat:NSLocalizedString(@"SORT", nil), 0]
+                                                          style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonClicked:)];
+    _sortBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
     _numberOfFilesBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
 
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -73,6 +77,13 @@
     _progressView = [VLCProgressView new];
     _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
     _progressView.tintColor = PresentationTheme.current.colors.orangeUI;
+    
+    sheet = [[VLCActionSheet alloc] init];
+    manager = [[VLCCloudSortingSpecifierManager alloc] initWithController: self];
+    sheet.dataSource = manager;
+    sheet.delegate = manager;
+    sheet.modalPresentationStyle = UIModalPresentationCustom;
+    [sheet.collectionView registerClass:[VLCSettingsSheetCell class] forCellWithReuseIdentifier:VLCSettingsSheetCell.identifier];
 
     [self _showProgressInToolbar:NO];
     [self updateForTheme];
@@ -138,10 +149,23 @@
         self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
 }
 
+- (NSArray*)_generateToolbarItemsWithSortButton : (BOOL)withsb
+{
+    NSMutableArray* result = [NSMutableArray array];
+    if (withsb)
+    {
+        [result addObjectsFromArray:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _sortBarButtonItem]];
+    }
+    [result addObjectsFromArray:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+    return result;
+}
+
 - (void)_showProgressInToolbar:(BOOL)value
 {
-    if (!value)
-        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+    if (!value) {
+        [self setToolbarItems:[self _generateToolbarItemsWithSortButton:[self.controller supportSorting]] animated:YES];
+        
+    }
     else {
         _progressView.progressBar.progress = 0.;
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
@@ -203,13 +227,25 @@
 
 - (void)updateViewAfterSessionChange
 {
+    BOOL hasProgressbar = NO;
+    for (id item in self.toolbarItems) {
+        if (item == _progressBarButtonItem) {
+            hasProgressbar = YES;
+        }
+    }
+    if (!hasProgressbar) {
+        //Only show sorting button and number of files button when there is no progress bar in the toolbar
+        //Only show sorting button when controller support sorting and is authorized
+        [self setToolbarItems:[self _generateToolbarItemsWithSortButton:self.controller.isAuthorized && [self.controller supportSorting]] animated:YES];
+       
+    }
     if (self.controller.canPlayAll) {
         self.navigationItem.rightBarButtonItems = @[_logoutButton, [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
     } else {
         self.navigationItem.rightBarButtonItem = _logoutButton;
     }
 
-    if(_authorizationInProgress || [self.controller isAuthorized]) {
+    if (_authorizationInProgress || [self.controller isAuthorized]) {
         if (self.loginToCloudStorageView.superview) {
             [self.loginToCloudStorageView removeFromSuperview];
         }
@@ -225,7 +261,7 @@
     if (self.currentPath == nil) {
         self.currentPath = @"";
     }
-    if([self.controller.currentListFiles count] == 0)
+    if ([self.controller.currentListFiles count] == 0)
         [self requestInformationForCurrentPath];
 }
 
@@ -233,6 +269,13 @@
 {
     [self.controller logout];
     [self updateViewAfterSessionChange];
+}
+
+- (void)sortButtonClicked:(UIBarButtonItem*)sender
+{
+    [self presentViewController:self->sheet animated:YES completion:^{
+        [self->sheet.collectionView selectItemAtIndexPath:self->manager.selectedIndex animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+    }];
 }
 
 - (IBAction)loginAction:(id)sender

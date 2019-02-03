@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM (NSInteger, VLCCloudSortingCriteria) {
+    VLCCloudSortingCriteriaName,
+    VLCCloudSortingCriteriaModifiedDate
+};
+
 @protocol VLCCloudStorageDelegate <NSObject>
 
 @required
@@ -28,11 +33,14 @@
 @property (nonatomic, readwrite) BOOL isAuthorized;
 @property (nonatomic, readonly) NSArray *currentListFiles;
 @property (nonatomic, readonly) BOOL canPlayAll;
+@property (nonatomic, readwrite) VLCCloudSortingCriteria sortBy;
+
 
 + (instancetype)sharedInstance;
 
 - (void)startSession;
 - (void)logout;
 - (void)requestDirectoryListingAtPath:(NSString *)path;
+- (BOOL)supportSorting;
 
 @end
