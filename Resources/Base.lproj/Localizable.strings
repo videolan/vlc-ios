@@ -330,3 +330,6 @@
 
 /* New strings */
 "Settings" = "Settings";
+
+"MODIFIED_DATE" = "Modified date";
+"NAME" = "Name";

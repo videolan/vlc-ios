@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    SORTINGMETHOD_NAME,
+    SORTINGMETHOD_MODIFIED_DATE
+} sortingMethod;
+
 @protocol VLCCloudStorageDelegate <NSObject>
 
 @required
@@ -28,11 +33,14 @@
 @property (nonatomic, readwrite) BOOL isAuthorized;
 @property (nonatomic, readonly) NSArray *currentListFiles;
 @property (nonatomic, readonly) BOOL canPlayAll;
+@property (nonatomic, readwrite) sortingMethod sortBy;
+
 
 + (instancetype)sharedInstance;
 
 - (void)startSession;
 - (void)logout;
 - (void)requestDirectoryListingAtPath:(NSString *)path;
+- (BOOL)supportSorting;
 
 @end

@@ -58,7 +58,9 @@
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
 
     _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
-    [_numberOfFilesBarButtonItem setTitleTextAttributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:11.] } forState:UIControlStateNormal];
+    _sortBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: [NSString stringWithFormat:NSLocalizedString(@"SORT", nil), 0]
+                                                          style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonClicked:)];
+    _sortBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
     _numberOfFilesBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
 
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -140,8 +142,13 @@
 
 - (void)_showProgressInToolbar:(BOOL)value
 {
-    if (!value)
-        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+    if (!value) {
+        if([self.controller supportSorting]) {
+            [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _sortBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+        } else {
+            [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+        }
+    }
     else {
         _progressView.progressBar.progress = 0.;
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
@@ -203,6 +210,21 @@
 
 - (void)updateViewAfterSessionChange
 {
+    BOOL hasProgressbar = NO;
+    for(id item in self.toolbarItems) {
+        if(item == _progressBarButtonItem) {
+            hasProgressbar = YES;
+        }
+    }
+    if(!hasProgressbar) {
+        //Only show sorting button and number of files button when there is no progress bar in the toolbar
+        if(self.controller.isAuthorized && [self.controller supportSorting]) {
+            //Only show sorting button when controller support sorting and is authorized
+            [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _sortBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+        } else {
+            [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+        }
+    }
     if (self.controller.canPlayAll) {
         self.navigationItem.rightBarButtonItems = @[_logoutButton, [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
     } else {
@@ -233,6 +255,25 @@
 {
     [self.controller logout];
     [self updateViewAfterSessionChange];
+}
+
+- (void)sortButtonClicked:(UIBarButtonItem*)sender
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SORT_BY", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    alert.view.tintColor = PresentationTheme.current.colors.orangeUI;
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"NAME", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.controller.sortBy = SORTINGMETHOD_NAME;
+        [self requestInformationForCurrentPath];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"MODIFIED_DATE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.controller.sortBy = SORTINGMETHOD_MODIFIED_DATE;
+        [self requestInformationForCurrentPath];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        ;
+    }]];
+    
+    [self presentViewController:alert animated:TRUE completion:nil];
 }
 
 - (IBAction)loginAction:(id)sender

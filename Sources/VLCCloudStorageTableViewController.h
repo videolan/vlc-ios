@@ -22,6 +22,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *cloudStorageLogo;
 
 @property (nonatomic, strong) UIBarButtonItem *numberOfFilesBarButtonItem;
+@property (nonatomic, strong) UIBarButtonItem *sortBarButtonItem;
 @property (nonatomic, strong) VLCCloudStorageController *controller;
 @property (nonatomic, strong) NSString *currentPath;
 @property (nonatomic) BOOL authorizationInProgress;

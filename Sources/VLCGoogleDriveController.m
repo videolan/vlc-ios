@@ -53,6 +53,7 @@
 
     dispatch_once(&pred, ^{
         sharedInstance = [VLCGoogleDriveController new];
+        sharedInstance.sortBy = SORTINGMETHOD_NAME; //Default sort by file names
     });
 
     return sharedInstance;
@@ -141,6 +142,11 @@
     return NO;
 }
 
+- (BOOL)supportSorting
+{
+    return YES; //Google drive controller implemented sorting
+}
+
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
     if (self.isAuthorized) {
@@ -185,10 +191,17 @@
     query.pageToken = _nextPageToken;
     //the results don't come in alphabetical order when paging. So the maxresult (default 100) is set to 1000 in order to get a few more files at once.
     //query.pageSize = 1000;
+    
     query.includeDeleted = NO;
     query.includeRemoved = NO;
     query.restrictToMyDrive = YES;
     query.fields = @"files(*)";
+    
+    //Set orderBy parameter based on sortBy
+    if(self.sortBy == SORTINGMETHOD_NAME)
+        query.orderBy = @"folder,name,modifiedTime desc";
+    else
+        query.orderBy = @"modifiedTime desc,folder,name";
 
     if (![_folderId isEqualToString:@""]) {
         parentName = [_folderId lastPathComponent];
@@ -279,13 +292,16 @@
 
     APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
 
+    //We use Google Drive's sorting to sort files
+    
     //the files come in a chaotic order so we order alphabetically
-     NSArray *sortedArray = [_currentFileList sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+    /*
+    NSArray *sortedArray = [_currentFileList sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
         NSString *first = [(GTLDriveFile *)a name];
         NSString *second = [(GTLDriveFile *)b name];
         return [first compare:second];
     }];
-    _currentFileList = sortedArray;
+    _currentFileList = sortedArray;*/
 
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];

@@ -25,5 +25,8 @@
 {
     // nop
 }
+- (BOOL)supportSorting {
+    return NO;  //Return NO by default. If a subclass implemented sorting, override this method to return YES
+}
 
 @end

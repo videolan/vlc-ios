@@ -23,5 +23,5 @@
 - (void)streamFile:(GTLDriveFile *)file;
 - (void)downloadFileToDocumentFolder:(GTLDriveFile *)file;
 - (BOOL)hasMoreFiles;
-
+- (BOOL)supportSorting;
 @end
