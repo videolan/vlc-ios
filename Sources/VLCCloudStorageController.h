@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum {
-    SORTINGMETHOD_NAME,
-    SORTINGMETHOD_MODIFIED_DATE
-} sortingMethod;
+typedef NS_ENUM (NSInteger, VLCCloudSortingCriteria) {
+    VLCCloudSortingCriteriaName,
+    VLCCloudSortingCriteriaModifiedDate
+};
 
 @protocol VLCCloudStorageDelegate <NSObject>
 
@@ -33,7 +33,7 @@ typedef enum {
 @property (nonatomic, readwrite) BOOL isAuthorized;
 @property (nonatomic, readonly) NSArray *currentListFiles;
 @property (nonatomic, readonly) BOOL canPlayAll;
-@property (nonatomic, readwrite) sortingMethod sortBy;
+@property (nonatomic, readwrite) VLCCloudSortingCriteria sortBy;
 
 
 + (instancetype)sharedInstance;

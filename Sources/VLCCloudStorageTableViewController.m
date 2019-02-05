@@ -140,13 +140,24 @@
         self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
 }
 
+- (NSArray*)_generateToolbarItemsWithSortButton : (BOOL)withsb
+{
+    NSMutableArray* result = [NSMutableArray array];
+    if (withsb)
+    {
+        [result addObjectsFromArray:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _sortBarButtonItem]];
+    }
+    [result addObjectsFromArray:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+    return result;
+}
+
 - (void)_showProgressInToolbar:(BOOL)value
 {
     if (!value) {
-        if([self.controller supportSorting]) {
-            [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _sortBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+        if ([self.controller supportSorting]) {
+            [self setToolbarItems:[self _generateToolbarItemsWithSortButton:YES] animated:YES];
         } else {
-            [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+            [self setToolbarItems:[self _generateToolbarItemsWithSortButton:NO] animated:YES];
         }
     }
     else {
@@ -211,18 +222,18 @@
 - (void)updateViewAfterSessionChange
 {
     BOOL hasProgressbar = NO;
-    for(id item in self.toolbarItems) {
-        if(item == _progressBarButtonItem) {
+    for (id item in self.toolbarItems) {
+        if (item == _progressBarButtonItem) {
             hasProgressbar = YES;
         }
     }
-    if(!hasProgressbar) {
+    if (!hasProgressbar) {
         //Only show sorting button and number of files button when there is no progress bar in the toolbar
-        if(self.controller.isAuthorized && [self.controller supportSorting]) {
+        if (self.controller.isAuthorized && [self.controller supportSorting]) {
             //Only show sorting button when controller support sorting and is authorized
-            [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _sortBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+            [self setToolbarItems:[self _generateToolbarItemsWithSortButton:YES] animated:YES];
         } else {
-            [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+            [self setToolbarItems:[self _generateToolbarItemsWithSortButton:NO] animated:YES];
         }
     }
     if (self.controller.canPlayAll) {
@@ -231,7 +242,7 @@
         self.navigationItem.rightBarButtonItem = _logoutButton;
     }
 
-    if(_authorizationInProgress || [self.controller isAuthorized]) {
+    if (_authorizationInProgress || [self.controller isAuthorized]) {
         if (self.loginToCloudStorageView.superview) {
             [self.loginToCloudStorageView removeFromSuperview];
         }
@@ -247,7 +258,7 @@
     if (self.currentPath == nil) {
         self.currentPath = @"";
     }
-    if([self.controller.currentListFiles count] == 0)
+    if ([self.controller.currentListFiles count] == 0)
         [self requestInformationForCurrentPath];
 }
 
@@ -262,11 +273,11 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SORT_BY", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     alert.view.tintColor = PresentationTheme.current.colors.orangeUI;
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"NAME", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        self.controller.sortBy = SORTINGMETHOD_NAME;
+        self.controller.sortBy = VLCCloudSortingCriteriaName;
         [self requestInformationForCurrentPath];
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"MODIFIED_DATE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        self.controller.sortBy = SORTINGMETHOD_MODIFIED_DATE;
+        self.controller.sortBy = VLCCloudSortingCriteriaModifiedDate;
         [self requestInformationForCurrentPath];
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

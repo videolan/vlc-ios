@@ -53,7 +53,7 @@
 
     dispatch_once(&pred, ^{
         sharedInstance = [VLCGoogleDriveController new];
-        sharedInstance.sortBy = SORTINGMETHOD_NAME; //Default sort by file names
+        sharedInstance.sortBy = VLCCloudSortingCriteriaName; //Default sort by file names
     });
 
     return sharedInstance;
@@ -198,7 +198,7 @@
     query.fields = @"files(*)";
     
     //Set orderBy parameter based on sortBy
-    if(self.sortBy == SORTINGMETHOD_NAME)
+    if (self.sortBy == VLCCloudSortingCriteriaName)
         query.orderBy = @"folder,name,modifiedTime desc";
     else
         query.orderBy = @"modifiedTime desc,folder,name";
@@ -291,17 +291,6 @@
     }
 
     APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
-
-    //We use Google Drive's sorting to sort files
-    
-    //the files come in a chaotic order so we order alphabetically
-    /*
-    NSArray *sortedArray = [_currentFileList sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSString *first = [(GTLDriveFile *)a name];
-        NSString *second = [(GTLDriveFile *)b name];
-        return [first compare:second];
-    }];
-    _currentFileList = sortedArray;*/
 
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];
