@@ -154,11 +154,8 @@
 - (void)_showProgressInToolbar:(BOOL)value
 {
     if (!value) {
-        if ([self.controller supportSorting]) {
-            [self setToolbarItems:[self _generateToolbarItemsWithSortButton:YES] animated:YES];
-        } else {
-            [self setToolbarItems:[self _generateToolbarItemsWithSortButton:NO] animated:YES];
-        }
+        [self setToolbarItems:[self _generateToolbarItemsWithSortButton:[self.controller supportSorting]] animated:YES];
+        
     }
     else {
         _progressView.progressBar.progress = 0.;
@@ -229,12 +226,9 @@
     }
     if (!hasProgressbar) {
         //Only show sorting button and number of files button when there is no progress bar in the toolbar
-        if (self.controller.isAuthorized && [self.controller supportSorting]) {
-            //Only show sorting button when controller support sorting and is authorized
-            [self setToolbarItems:[self _generateToolbarItemsWithSortButton:YES] animated:YES];
-        } else {
-            [self setToolbarItems:[self _generateToolbarItemsWithSortButton:NO] animated:YES];
-        }
+        //Only show sorting button when controller support sorting and is authorized
+        [self setToolbarItems:[self _generateToolbarItemsWithSortButton:self.controller.isAuthorized && [self.controller supportSorting]] animated:YES];
+       
     }
     if (self.controller.canPlayAll) {
         self.navigationItem.rightBarButtonItems = @[_logoutButton, [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
