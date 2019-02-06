@@ -46,8 +46,6 @@
 
     [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
 
-    [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"sudHeaderBg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
 
     _refreshControl = [[UIRefreshControl alloc] init];
@@ -97,13 +95,12 @@
     _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
     _activityIndicator.activityIndicatorViewStyle = PresentationTheme.current == PresentationTheme.brightTheme ? UIActivityIndicatorViewStyleGray : UIActivityIndicatorViewStyleWhiteLarge;
     self.loginToCloudStorageView.backgroundColor = PresentationTheme.current.colors.background;
+    self.navigationController.toolbar.barStyle = PresentationTheme.current.colors.toolBarStyle;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = NO;
-    self.navigationController.toolbar.barStyle = UIBarStyleBlack;
-    [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"bottomBlackBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [super viewWillAppear:animated];
 }
 

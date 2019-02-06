@@ -34,6 +34,7 @@ extension Notification.Name {
     let mediaCategorySeparatorColor: UIColor
     let tabBarColor: UIColor
     let orangeUI: UIColor
+    let toolBarStyle: UIBarStyle
 
     init(isDark: Bool,
                 name: String,
@@ -50,7 +51,8 @@ extension Notification.Name {
                 separatorColor: UIColor,
                 mediaCategorySeparatorColor: UIColor,
                 tabBarColor: UIColor,
-                orangeUI: UIColor) {
+                orangeUI: UIColor,
+                toolBarStyle: UIBarStyle) {
         self.isDark = isDark
         self.name = name
         self.statusBarStyle = statusBarStyle
@@ -67,6 +69,7 @@ extension Notification.Name {
         self.mediaCategorySeparatorColor = mediaCategorySeparatorColor
         self.tabBarColor = tabBarColor
         self.orangeUI = orangeUI
+        self.toolBarStyle = toolBarStyle
     }
 }
 
@@ -153,7 +156,8 @@ let brightPalette = ColorPalette(isDark: false,
                                  separatorColor: UIColor(0xF0F2F7),
                                  mediaCategorySeparatorColor: UIColor(0xECF2F6),
                                  tabBarColor: UIColor(0xFFFFFF),
-                                 orangeUI: UIColor(0xFF8800))
+                                 orangeUI: UIColor(0xFF8800),
+                                 toolBarStyle: UIBarStyle.default)
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",
@@ -170,6 +174,7 @@ let darkPalette = ColorPalette(isDark: true,
                                separatorColor: UIColor(0x25292C),
                                mediaCategorySeparatorColor: UIColor(0x25292C),
                                tabBarColor: UIColor(0x292B36),
-                               orangeUI: UIColor(0xFF8800))
+                               orangeUI: UIColor(0xFF8800),
+                               toolBarStyle: UIBarStyle.black)
 
 let defaultFont = Typography(tableHeaderFont: UIFont.systemFont(ofSize: 24, weight: .semibold))
