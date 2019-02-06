@@ -79,10 +79,9 @@
     _progressView.tintColor = PresentationTheme.current.colors.orangeUI;
     
     sheet = [[VLCActionSheet alloc] init];
-    manager = [[VLCCloudSortingSpecifierManager alloc] init];
+    manager = [[VLCCloudSortingSpecifierManager alloc] initWithController: self];
     sheet.dataSource = manager;
     sheet.delegate = manager;
-    manager.controller = self;
     sheet.modalPresentationStyle = UIModalPresentationCustom;
     [sheet.collectionView registerClass:[VLCSettingsSheetCell class] forCellWithReuseIdentifier:VLCSettingsSheetCell.identifier];
 
