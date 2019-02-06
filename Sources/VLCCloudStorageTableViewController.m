@@ -20,6 +20,8 @@
 @interface VLCCloudStorageTableViewController()
 {
     VLCProgressView *_progressView;
+    VLCActionSheet *sheet;
+    VLCCloudSortingSpecifierManager *manager;
     UIRefreshControl *_refreshControl;
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_logoutButton;
@@ -75,6 +77,14 @@
     _progressView = [VLCProgressView new];
     _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
     _progressView.tintColor = PresentationTheme.current.colors.orangeUI;
+    
+    sheet = [[VLCActionSheet alloc] init];
+    manager = [[VLCCloudSortingSpecifierManager alloc] init];
+    sheet.dataSource = manager;
+    sheet.delegate = manager;
+    manager.controller = self;
+    sheet.modalPresentationStyle = UIModalPresentationCustom;
+    [sheet.collectionView registerClass:[VLCSettingsSheetCell class] forCellWithReuseIdentifier:VLCSettingsSheetCell.identifier];
 
     [self _showProgressInToolbar:NO];
     [self updateForTheme];
@@ -264,21 +274,9 @@
 
 - (void)sortButtonClicked:(UIBarButtonItem*)sender
 {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SORT_BY", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    alert.view.tintColor = PresentationTheme.current.colors.orangeUI;
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"NAME", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        self.controller.sortBy = VLCCloudSortingCriteriaName;
-        [self requestInformationForCurrentPath];
-    }]];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"MODIFIED_DATE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        self.controller.sortBy = VLCCloudSortingCriteriaModifiedDate;
-        [self requestInformationForCurrentPath];
-    }]];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        ;
-    }]];
-    
-    [self presentViewController:alert animated:TRUE completion:nil];
+    [self presentViewController:self->sheet animated:YES completion:^{
+        [self->sheet.collectionView selectItemAtIndexPath:self->manager.selectedIndex animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+    }];
 }
 
 - (IBAction)loginAction:(id)sender
