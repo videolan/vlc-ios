@@ -40,7 +40,7 @@
 }
 
 #if TARGET_OS_IOS
-- (void)setDriveFile:(GTLDriveFile *)driveFile
+- (void)setDriveFile:(GTLRDrive_File *)driveFile
 {
     if (driveFile != _driveFile)
         _driveFile = driveFile;

@@ -15,7 +15,7 @@
 #import "VLCOneDriveObject.h"
 #import <BoxSDK/BoxSDK.h>
 #if TARGET_OS_IOS
-#import "GTLDrive.h"
+#import "GTLRDrive.h"
 #endif
 
 @class VLCNetworkImageView;
@@ -34,7 +34,7 @@
 @property (nonatomic, retain) VLCOneDriveObject *oneDriveFile;
 @property (nonatomic, retain) BoxItem *boxFile;
 #if TARGET_OS_IOS
-@property (nonatomic, retain) GTLDriveFile *driveFile;
+@property (nonatomic, retain) GTLRDrive_File *driveFile;
 #endif
 
 @property (nonatomic, readwrite) BOOL isDownloadable;
