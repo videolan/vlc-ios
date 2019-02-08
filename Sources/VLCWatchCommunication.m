@@ -277,6 +277,9 @@ static VLCWatchCommunication *_singeltonInstance = nil;
     NSString *imageName = [[NSUUID UUID] UUIDString];
     NSURL *tmpDirectoryURL = [[WCSession defaultSession] watchDirectoryURL];
     NSURL *tmpURL = [tmpDirectoryURL URLByAppendingPathComponent:imageName];
+    if (tmpURL == nil) {
+        return;
+    }
 
     NSData *data = UIImageJPEGRepresentation(image, 0.7);
     [data writeToURL:tmpURL atomically:YES];
