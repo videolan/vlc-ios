@@ -3378,7 +3378,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh",
 				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/Resources/backArrow_black.png",
 				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-tvOS/XKKeychain.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK-tvOS/HockeySDKResources.bundle",
@@ -3391,7 +3391,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		23B425DEB65EA5C88D873ED2 /* [CP] Check Pods Manifest.lock */ = {
@@ -3449,7 +3449,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/Base.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/de.lproj",
@@ -3500,7 +3500,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VLC-iOS-no-watch/Pods-VLC-iOS-no-watch-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7D3CF88A2050265B00FA0C1F /* ShellScript */ = {
@@ -3522,7 +3522,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/Base.lproj",
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/de.lproj",
@@ -3573,7 +3573,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CEAC60B72FF5CB91256BC99B /* [CP] Check Pods Manifest.lock */ = {
@@ -3600,7 +3600,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-VLC-watchOS-Extension/Pods-VLC-watchOS-Extension-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-VLC-watchOS-Extension/Pods-VLC-watchOS-Extension-resources.sh",
 				"${PODS_ROOT}/MediaLibraryKit-unstable/MappingModel_2_5_to_2_6.xcmappingmodel",
 				"${PODS_ROOT}/MediaLibraryKit-unstable/MediaLibrary.xcdatamodeld",
 			);
@@ -3611,7 +3611,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VLC-watchOS-Extension/Pods-VLC-watchOS-Extension-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VLC-watchOS-Extension/Pods-VLC-watchOS-Extension-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F7403765A53B71CD3E9EF429 /* [CP] Check Pods Manifest.lock */ = {

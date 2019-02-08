@@ -18,7 +18,8 @@ def iOS_pods
   pod 'HockeySDK', '~>5.1.4', :subspecs => ['CrashOnlyLib']
   pod 'RESideMenu', '~>4.0.7'
   pod 'PAPasscode', '~>1.0'
-  pod 'GoogleAPIClient/Drive'
+
+  pod 'GoogleAPIClientForREST/Drive'
   pod 'VLC-LXReorderableCollectionViewFlowLayout', '0.1.3v'
   pod 'MediaLibraryKit-prod'
   pod 'MobileVLCKit', '3.2.0'

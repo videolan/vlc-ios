@@ -25,7 +25,7 @@
 {
     VLCGoogleDriveController *_googleDriveController;
 
-    GTLDriveFile *_selectedFile;
+    GTLRDrive_File *_selectedFile;
 }
 
 @end
@@ -162,7 +162,7 @@
         OIDAuthorizationRequest *request = [[OIDAuthorizationRequest alloc] initWithConfiguration:[GTMAppAuthFetcherAuthorization configurationForGoogle]
                                                                                          clientId:kVLCGoogleDriveClientID
                                                                                      clientSecret:kVLCGoogleDriveClientSecret
-                                                                                           scopes:@[OIDScopeOpenID, kGTLAuthScopeDrive]
+                                                                                           scopes:@[OIDScopeOpenID, kGTLRAuthScopeDrive]
                                                                                       redirectURL:[NSURL URLWithString:kVLCGoogleRedirectURI]
                                                                                      responseType:OIDResponseTypeCode
                                                                              additionalParameters:nil];
