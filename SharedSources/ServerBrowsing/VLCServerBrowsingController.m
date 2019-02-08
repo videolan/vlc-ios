@@ -286,8 +286,14 @@
     NSString *FileSubtitlePath = nil;
     NSURL *subtitleURL = item.subtitleURL;
     NSString *extension = [subtitleURL pathExtension];
-    if ([extension isEqualToString:@""])
-        extension = item.subtitleType;
+    if ([extension isEqualToString:@""]) {
+        if ([item respondsToSelector:@selector(subtitleType)]) {
+            extension = item.subtitleType;
+        } else {
+            /* insert a generic subtitle file extension here because otherwise the file would be lost */
+            extension = @"sub";
+        }
+    }
 
     filename = [NSString stringWithFormat:@"%@.%@", [filename stringByDeletingPathExtension], extension];
 
