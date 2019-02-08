@@ -22,7 +22,7 @@ target 'VLC-iOS' do
   pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
   pod 'HockeySDK', '~>5.1.4', :subspecs => ['CrashOnlyLib']
   pod 'PAPasscode', '~>1.0'
-  pod 'GoogleAPIClient/Drive'
+  pod 'GoogleAPIClientForREST/Drive'
   pod 'MobileVLCKit', '3.2.0'
   pod 'VLCMediaLibraryKit'
   pod 'MediaLibraryKit-prod'

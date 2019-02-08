@@ -50,14 +50,14 @@ class DropBoxURLHandler: NSObject, VLCURLHandler {
 
 class GoogleURLHandler: NSObject, VLCURLHandler {
 
-    @objc var currentGoogleAuthorizationFlow: OIDAuthorizationFlowSession?
+    @objc var currentGoogleAuthorizationFlow: OIDExternalUserAgentSession?
 
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         return url.scheme == "com.googleusercontent.apps.CLIENT"
     }
 
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
-        if currentGoogleAuthorizationFlow?.resumeAuthorizationFlow(with: url) == true {
+        if currentGoogleAuthorizationFlow?.resumeExternalUserAgentFlow(with: url) == true {
             currentGoogleAuthorizationFlow = nil
             return true
         }

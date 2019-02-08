@@ -11,17 +11,17 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "GTLDrive.h"
+#import "GTLRDrive.h"
 #import "VLCCloudStorageController.h"
 #import "VLCGoogleDriveConstants.h"
 
 @interface VLCGoogleDriveController : VLCCloudStorageController
 
-@property (nonatomic, retain) GTLServiceDrive *driveService;
+@property (nonatomic, retain) GTLRDriveService *driveService;
 
 - (void)stopSession;
-- (void)streamFile:(GTLDriveFile *)file;
-- (void)downloadFileToDocumentFolder:(GTLDriveFile *)file;
+- (void)streamFile:(GTLRDrive_File *)file;
+- (void)downloadFileToDocumentFolder:(GTLRDrive_File *)file;
 - (BOOL)hasMoreFiles;
 
 @end

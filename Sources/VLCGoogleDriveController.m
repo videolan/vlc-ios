@@ -19,13 +19,13 @@
 #import "VLC-Swift.h"
 #import <XKKeychain/XKKeychain.h>
 
-#import <AppAuth/AppAuth.h>
 #import <GTMAppAuth/GTMAppAuth.h>
+#import <GTMSessionFetcher/GTMSessionFetcherService.h>
 
 @interface VLCGoogleDriveController ()
 {
-    GTLDriveFileList *_fileList;
-    GTLServiceTicket *_fileListTicket;
+    GTLRDrive_FileList *_fileList;
+    GTLRServiceTicket *_fileListTicket;
 
     NSArray *_currentFileList;
 
@@ -61,7 +61,7 @@
 - (void)startSession
 {
     [self restoreFromSharedCredentials];
-    self.driveService = [GTLServiceDrive new];
+    self.driveService = [GTLRDriveService new];
     self.driveService.authorizer = [GTMAppAuthFetcherAuthorization authorizationFromKeychainForName:kKeychainItemName];
 }
 
@@ -156,7 +156,7 @@
     return _nextPageToken != nil;
 }
 
-- (void)downloadFileToDocumentFolder:(GTLDriveFile *)file
+- (void)downloadFileToDocumentFolder:(GTLRDrive_File *)file
 {
     if (file == nil)
         return;
@@ -178,16 +178,13 @@
 {
     _fileList = nil;
     _folderId = folderId;
-    GTLQueryDrive *query;
+    GTLRDriveQuery_FilesList *query;
     NSString *parentName = @"root";
 
-    query = [GTLQueryDrive queryForFilesList];
+    query = [GTLRDriveQuery_FilesList query];
     query.pageToken = _nextPageToken;
     //the results don't come in alphabetical order when paging. So the maxresult (default 100) is set to 1000 in order to get a few more files at once.
     //query.pageSize = 1000;
-    query.includeDeleted = NO;
-    query.includeRemoved = NO;
-    query.restrictToMyDrive = YES;
     query.fields = @"files(*)";
 
     if (![_folderId isEqualToString:@""]) {
@@ -196,8 +193,8 @@
     query.q = [NSString stringWithFormat:@"'%@' in parents", parentName];
 
     _fileListTicket = [self.driveService executeQuery:query
-                          completionHandler:^(GTLServiceTicket *ticket,
-                                              GTLDriveFileList *fileList,
+                          completionHandler:^(GTLRServiceTicket *ticket,
+                                              GTLRDrive_FileList *fileList,
                                               NSError *error) {
                               if (error == nil) {
                                   self->_fileList = fileList;
@@ -210,7 +207,7 @@
                           }];
 }
 
-- (void)streamFile:(GTLDriveFile *)file
+- (void)streamFile:(GTLRDrive_File *)file
 {
     NSString *token = [((GTMAppAuthFetcherAuthorization *)self.driveService.authorizer).authState.lastTokenResponse accessToken];
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media&access_token=%@",
@@ -234,7 +231,7 @@
     }
 }
 
-- (void)_reallyDownloadFileToDocumentFolder:(GTLDriveFile *)file
+- (void)_reallyDownloadFileToDocumentFolder:(GTLRDrive_File *)file
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.originalFilename];
@@ -259,7 +256,7 @@
 {
     NSMutableArray *listOfGoodFilesAndFolders = [[NSMutableArray alloc] init];
 
-    for (GTLDriveFile *iter in _fileList.files) {
+    for (GTLRDrive_File *iter in _fileList.files) {
         if (iter.trashed.boolValue) {
             continue;
         }
@@ -281,8 +278,8 @@
 
     //the files come in a chaotic order so we order alphabetically
      NSArray *sortedArray = [_currentFileList sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSString *first = [(GTLDriveFile *)a name];
-        NSString *second = [(GTLDriveFile *)b name];
+        NSString *first = [(GTLRDrive_File *)a name];
+        NSString *second = [(GTLRDrive_File *)b name];
         return [first compare:second];
     }];
     _currentFileList = sortedArray;
@@ -291,7 +288,7 @@
         [self.delegate mediaListUpdated];
 }
 
-- (void)loadFile:(GTLDriveFile*)file intoPath:(NSString*)destinationPath
+- (void)loadFile:(GTLRDrive_File*)file intoPath:(NSString*)destinationPath
 {
     NSString *exportURLStr =  [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media",
                            file.identifier];
