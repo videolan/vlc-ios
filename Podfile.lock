@@ -74,7 +74,6 @@ PODS:
   - SwiftLint (0.25.1)
   - TVVLCKit (3.2.1)
   - upnpx (1.4.0)
-  - VLC-LiveSDK (5.7.0x)
   - VLC-WhiteRaccoon (1.0.0)
   - VLCMediaLibraryKit (0.1.0):
     - MobileVLCKit
@@ -103,7 +102,6 @@ DEPENDENCIES:
   - SwiftLint (~> 0.25.0)
   - TVVLCKit (= 3.2.1)
   - upnpx (~> 1.4.0)
-  - VLC-LiveSDK (= 5.7.0x)
   - VLC-WhiteRaccoon
   - VLCMediaLibraryKit
   - XKKeychain (~> 1.0)
@@ -131,7 +129,6 @@ SPEC REPOS:
     - SwiftLint
     - TVVLCKit
     - upnpx
-    - VLC-LiveSDK
     - VLC-WhiteRaccoon
     - VLCMediaLibraryKit
     - XKKeychain
@@ -195,12 +192,11 @@ SPEC CHECKSUMS:
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   TVVLCKit: 981de7bab2b086a6cf574e64edc74ee53d79795a
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
-  VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
   VLC-WhiteRaccoon: 1e7e59b0568959135a89d09c416d1e11a5d9a986
   VLCMediaLibraryKit: 20b34ef599056f60abf73a4fd022ea45c1830f0a
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 80dbb489c983b4bae6c8a2eae6e5c4c2375fbc27
+PODFILE CHECKSUM: fd8d040ef91fe858235f313ea69f30a1b456136c
 
 COCOAPODS: 1.6.0

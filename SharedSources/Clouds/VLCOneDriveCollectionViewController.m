@@ -34,7 +34,7 @@
 
         _currentFolder = object;
         _oneDriveController.currentFolder = object;
-        [_oneDriveController loadCurrentFolder];
+        [_oneDriveController loadODItems];
     }
 
     return self;
