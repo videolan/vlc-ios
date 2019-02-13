@@ -1,4 +1,5 @@
 PODS:
+  - ADAL (1.2.10)
   - AFNetworking (3.1.0):
     - AFNetworking/NSURLSession (= 3.1.0)
     - AFNetworking/Reachability (= 3.1.0)
@@ -15,6 +16,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - AppAuth (0.95.0)
+  - Base32 (1.1.2)
   - box-ios-sdk-v2 (1.2.3):
     - box-ios-sdk-v2/no-arc (= 1.2.3)
   - box-ios-sdk-v2/no-arc (1.2.3)
@@ -45,6 +47,25 @@ PODS:
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (1.1)
   - OBSlider (1.1.0)
+  - OneDriveSDK (1.3.0):
+    - OneDriveSDK/Auth (= 1.3.0)
+    - OneDriveSDK/Common (= 1.3.0)
+    - OneDriveSDK/Extensions (= 1.3.0)
+    - OneDriveSDK/Implementations (= 1.3.0)
+    - OneDriveSDK/OneDriveCoreSDK (= 1.3.0)
+  - OneDriveSDK/Auth (1.3.0):
+    - ADAL (~> 1.2)
+    - Base32 (~> 1.1)
+    - OneDriveSDK/Common
+  - OneDriveSDK/Common (1.3.0)
+  - OneDriveSDK/Extensions (1.3.0):
+    - OneDriveSDK/Auth
+    - OneDriveSDK/Implementations
+    - OneDriveSDK/OneDriveCoreSDK
+  - OneDriveSDK/Implementations (1.3.0):
+    - OneDriveSDK/Common
+  - OneDriveSDK/OneDriveCoreSDK (1.3.0):
+    - OneDriveSDK/Common
   - OROpenSubtitleDownloader (1.2.0):
     - AFNetworking
     - xmlrpc
@@ -75,6 +96,7 @@ DEPENDENCIES:
   - MobileVLCKit (= 3.2.1)
   - ObjectiveDropboxOfficial (from `git://github.com/carolanitz/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
+  - OneDriveSDK
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
   - PAPasscode (~> 1.0)
   - SimulatorStatusMagic
@@ -88,8 +110,10 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - ADAL
     - AFNetworking
     - AppAuth
+    - Base32
     - GoogleAPIClientForREST
     - GRKArrayDiff
     - GTMAppAuth
@@ -101,6 +125,7 @@ SPEC REPOS:
     - MobileVLCKit
     - "NSData+Base64"
     - OBSlider
+    - OneDriveSDK
     - PAPasscode
     - SimulatorStatusMagic
     - SwiftLint
@@ -144,8 +169,10 @@ CHECKOUT OPTIONS:
     :git: https://github.com/orta/OROpenSubtitleDownloader.git
 
 SPEC CHECKSUMS:
+  ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AppAuth: 137f6bb6fc9dfbaf2cf9f6fcff1d336ff0163bc6
+  Base32: 163c298644d184e89ca4e00a996bad6bf5166390
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
   GoogleAPIClientForREST: 5447a194eae517986cafe6421a5330b80b820591
@@ -161,6 +188,7 @@ SPEC CHECKSUMS:
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: e11cdf40e8965a6c24c6d6ff64905f2df43ab653
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
+  OneDriveSDK: 90ab8781f0992c37d96b68cc340585f5cf36701f
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   SimulatorStatusMagic: 0c0e711acef6e70dd8a0710962347635a9cdef24
@@ -173,6 +201,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: ef35ad0d03c6abe08063574a5ced665cb54bdb1f
+PODFILE CHECKSUM: 80dbb489c983b4bae6c8a2eae6e5c4c2375fbc27
 
 COCOAPODS: 1.6.0

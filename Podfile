@@ -27,6 +27,7 @@ target 'VLC-iOS' do
   pod 'VLCMediaLibraryKit'
   pod 'MediaLibraryKit-prod'
   pod 'GTMAppAuth'
+  pod 'OneDriveSDK'
 
   target 'VLC-iOSUITests' do
     inherit! :search_paths
