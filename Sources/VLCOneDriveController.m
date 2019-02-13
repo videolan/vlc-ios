@@ -2,7 +2,7 @@
  * VLCOneDriveController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2019 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -12,23 +12,13 @@
 
 #import "VLCOneDriveController.h"
 #import "VLCOneDriveConstants.h"
-#import "VLCOneDriveObject.h"
+#import "UIDevice+VLC.h"
+#import "NSString+SupportedMedia.h"
+#import "VLCHTTPFileDownloader.h"
+#import <OneDriveSDK.h>
 
-/* the Live SDK doesn't have an umbrella header so we need to import what we need */
-#import "LiveConnectClient.h"
-
-/* include private API headers */
-#import "LiveApiHelper.h"
-#import "LiveAuthStorage.h"
-
-@interface VLCOneDriveController () <LiveAuthDelegate, VLCOneDriveObjectDelegate, VLCOneDriveObjectDownloadDelegate>
+@interface VLCOneDriveController ()
 {
-    LiveConnectClient *_liveClient;
-    NSString *_folderId;
-    NSArray *_liveScopes;
-    BOOL _activeSession;
-    BOOL _userAuthenticated;
-
     NSMutableArray *_pendingDownloads;
     BOOL _downloadInProgress;
 
@@ -36,6 +26,10 @@
     CGFloat _fileSize;
     NSTimeInterval _startDL;
     NSTimeInterval _lastStatsUpdate;
+
+    ODClient *_oneDriveClient;
+    NSMutableArray *_currentItems;
+    VLCHTTPFileDownloader *_fileDownloader;
 }
 
 @end
@@ -60,103 +54,83 @@
 
     if (!self)
         return self;
-
+//    [self restoreFromSharedCredentials];
+    _oneDriveClient = [ODClient loadCurrentClient];
     [self setupSession];
-
     return self;
 }
 
 - (void)setupSession
 {
-    [self restoreFromSharedCredentials];
-
-    _liveScopes = @[@"wl.signin",@"wl.offline_access",@"wl.skydrive"];
-
-    _liveClient = [[LiveConnectClient alloc] initWithClientId:kVLCOneDriveClientID
-                                                       scopes:_liveScopes
-                                                     delegate:self
-                                                    userState:@"init"];
+    _parentItem = nil;
+    _currentItem  = nil;
+    _rootItemID = nil;
+    _currentItems = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - authentication
 
 - (BOOL)activeSession
 {
-    return _activeSession;
+    return _oneDriveClient != nil;
 }
 
 - (void)loginWithViewController:(UIViewController *)presentingViewController
 {
-    [_liveClient login:presentingViewController
-                scopes:_liveScopes
-              delegate:self
-             userState:@"login"];
-#if TARGET_OS_IOS
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-#endif
+    _presentingViewController = presentingViewController;
+
+    [ODClient authenticatedClientWithCompletion:^(ODClient *client, NSError *error) {
+        if (error) {
+            [self authFailed:error];
+            return;
+        }
+        self->_oneDriveClient = client;
+        [self authSuccess];
+    }];
 }
 
 - (void)logout
 {
-    [_liveClient logoutWithDelegate:self userState:@"logout"];
-
-    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousStore removeObjectForKey:kVLCStoreOneDriveCredentials];
-    [ubiquitousStore synchronize];
-
-    _activeSession = NO;
-    _userAuthenticated = NO;
-    _currentFolder = nil;
-    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
-        [self.delegate mediaListUpdated];
+    [_oneDriveClient signOutWithCompletion:^(NSError *error) {
+        NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+        [ubiquitousStore removeObjectForKey:kVLCStoreOneDriveCredentials];
+        [ubiquitousStore synchronize];
+        self->_oneDriveClient = nil;
+        self->_currentItem  = nil;
+        self->_currentItems = nil;
+        self->_rootItemID = nil;
+        self->_parentItem = nil;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self->_presentingViewController) {
+                [self->_presentingViewController.navigationController popViewControllerAnimated:YES];
+            }
+        });
+    }];
 }
 
 - (NSArray *)currentListFiles
 {
-    return _currentFolder.items;
+    return [_currentItems copy];
 }
 
 - (BOOL)isAuthorized
 {
-    return _liveClient.session != NULL;
+    return _oneDriveClient != nil;
 }
 
-- (void)authCompleted:(LiveConnectSessionStatus)status session:(LiveConnectSession *)session userState:(id)userState
+- (void)authSuccess
 {
-#if TARGET_OS_IOS
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-#endif
+    APLog(@"VLCOneDriveController: Authentication complete.");
 
-    APLog(@"OneDrive: authCompleted, status %i, state %@", status, userState);
+    [self setupSession];
 
-    if (session != NULL && [userState isEqualToString:@"init"] && status == 1)
-        _activeSession = YES;
-
-    if (session != NULL && [userState isEqualToString:@"login"] && status == 1)
-        _userAuthenticated = YES;
-
-    if (status == 0) {
-        _activeSession = NO;
-        _userAuthenticated = NO;
-    }
-
-    if (self.delegate) {
-        if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)])
-            [self.delegate performSelector:@selector(sessionWasUpdated)];
-    }
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCOneDriveControllerSessionUpdated object:self];
-
-    [self shareCredentials];
+//    [self shareCredentials];
 }
 
-- (void)authFailed:(NSError *)error userState:(id)userState
+- (void)authFailed:(NSError *)error
 {
-#if TARGET_OS_IOS
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-#endif
-
-    APLog(@"OneDrive auth failed: %@, %@", error, userState);
-    _activeSession = NO;
+    APLog(@"VLCOneDriveController: Authentication failure.");
 
     if (self.delegate) {
         if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)])
@@ -167,68 +141,184 @@
 
 - (void)shareCredentials
 {
-    /* share our credentials */
-    LiveAuthStorage *authStorage = [[LiveAuthStorage alloc] initWithClientId:kVLCOneDriveClientID];
-    NSString *credentials = [authStorage refreshToken];
-    if (credentials == nil)
-        return;
+    // FIXME: https://github.com/OneDrive/onedrive-sdk-ios/issues/187
 
-    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousStore setString:credentials forKey:kVLCStoreOneDriveCredentials];
-    [ubiquitousStore synchronize];
+/* share our credentials */
+//    LiveAuthStorage *authStorage = [[LiveAuthStorage alloc] initWithClientId:kVLCOneDriveClientID];
+//    _oneDriveClient = [[ODClient alloc] ]
+//    _oneDriveClient.authProvider.accountSession.refreshToken;
+//NSString *credentials = [authStorage refreshToken];
+//  NSString *credentials = [_oneDriveClient token]
+//    if (credentials == nil)
+//        return;
+//
+//    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+//    [ubiquitousStore setString:credentials forKey:kVLCStoreOneDriveCredentials];
+//    [ubiquitousStore synchronize];
 }
 
 - (BOOL)restoreFromSharedCredentials
 {
-    LiveAuthStorage *authStorage = [[LiveAuthStorage alloc] initWithClientId:kVLCOneDriveClientID];
-    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousStore synchronize];
-    NSString *credentials = [ubiquitousStore stringForKey:kVLCStoreOneDriveCredentials];
-    if (!credentials)
-        return NO;
-
-    [authStorage setRefreshToken:credentials];
+//    LiveAuthStorage *authStorage = [[LiveAuthStorage alloc] initWithClientId:kVLCOneDriveClientID];
+//    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+//    [ubiquitousStore synchronize];
+//    NSString *credentials = [ubiquitousStore stringForKey:kVLCStoreOneDriveCredentials];
+//    if (!credentials)
+//        return NO;
+//
+//    [authStorage setRefreshToken:credentials];
     return YES;
-}
-
-- (void)liveOperationSucceeded:(LiveDownloadOperation *)operation
-{
-    APLog(@"ODC: liveOperationSucceeded (%@)", operation.userState);
-}
-
-- (void)liveOperationFailed:(NSError *)error operation:(LiveDownloadOperation *)operation
-{
-    APLog(@"ODC: liveOperationFailed %@ (%@)", error, operation.userState);
 }
 
 #pragma mark - listing
 
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
-    [self loadCurrentFolder];
+    [self loadODItems];
 }
 
-- (void)loadTopLevelFolder
+- (void)prepareODItems:(NSArray<ODItem *> *)items
 {
-    _rootFolder = [[VLCOneDriveObject alloc] init];
-    _rootFolder.objectId = @"me/skydrive";
-    _rootFolder.name = @"OneDrive";
-    _rootFolder.type = @"folder";
-    _rootFolder.liveClient = _liveClient;
-    _rootFolder.delegate = self;
+    for (ODItem *item in items) {
+        if (!_rootItemID) {
+            _rootItemID = item.parentReference.id;
+        }
 
-    _currentFolder = _rootFolder;
-    [_rootFolder loadFolderContent];
-}
-
-- (void)loadCurrentFolder
-{
-    if (_currentFolder == nil)
-        [self loadTopLevelFolder];
-    else {
-        _currentFolder.delegate = self;
-        [_currentFolder loadFolderContent];
+        if (![_currentItems containsObject:item.id] && ([item.name isSupportedFormat] || item.folder)) {
+            [_currentItems addObject:item];
+        }
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.delegate) {
+            [self.delegate performSelector:@selector(mediaListUpdated)];
+        }
+    });
+
+}
+
+- (void)loadODItemsWithCompletionHandler:(void (^)(void))completionHandler
+{
+    NSString *itemID = _currentItem ? _currentItem.id : @"root";
+    ODChildrenCollectionRequest * request = [[[[_oneDriveClient drive] items:itemID] children] request];
+
+    // Clear all current
+    [_currentItems removeAllObjects];
+
+    __weak typeof(self) weakSelf = self;
+
+    [request getWithCompletion:^(ODCollection *response, ODChildrenCollectionRequest *nextRequest, NSError *error) {
+        if (!error) {
+            [self prepareODItems:response.value];
+            if (completionHandler) {
+                completionHandler();
+            }
+        } else {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[error localizedFailureReason]
+                                                                                     message:[error localizedDescription]
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:^(UIAlertAction *alertAction) {
+                                                                 if (weakSelf.presentingViewController && [itemID isEqualToString:@"root"]) {
+                                                                     [weakSelf.presentingViewController.navigationController popViewControllerAnimated:YES];
+                                                                 }
+                                                             }];
+
+            [alertController addAction:okAction];
+
+            if (weakSelf.presentingViewController) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.presentingViewController presentViewController:alertController animated:YES completion:nil];
+                });
+            }
+        }
+    }];
+}
+
+- (void)loadODItems
+{
+    [self loadODItemsWithCompletionHandler:nil];
+}
+
+- (void)loadThumbnails:(NSArray<ODItem *> *)items
+{
+    for (ODItem *item in items) {
+        if ([item thumbnails:0]) {
+            [[[[[_oneDriveClient.drive items:item.id] thumbnails:@"0"] small] contentRequest]
+             downloadWithCompletion:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                 if (!error) {
+                 }
+             }];
+        }
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.delegate) {
+            [self.delegate performSelector:@selector(mediaListUpdated)];
+        }
+    });
+}
+
+#pragma - subtitle
+
+- (NSString *)configureSubtitleWithFileName:(NSString *)fileName folderItems:(NSArray *)folderItems
+{
+    return [self _getFileSubtitleFromServer:[NSURL URLWithString:[self _searchSubtitle:fileName
+                                                                           folderItems:folderItems]]];
+}
+
+- (NSString *)_searchSubtitle:(NSString *)fileName folderItems:(NSArray *)folderItems
+{
+    NSString *urlTemp = [[fileName lastPathComponent] stringByDeletingPathExtension];
+    NSString *itemPath = nil;
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", urlTemp];
+    NSArray *results = [folderItems filteredArrayUsingPredicate:predicate];
+
+    for (ODItem *item in results) {
+        if ([item.name isSupportedSubtitleFormat]) {
+            itemPath = item.dictionaryFromItem[@"@content.downloadUrl"];
+        }
+    }
+    return itemPath;
+}
+
+- (NSString *)_getFileSubtitleFromServer:(NSURL *)subtitleURL
+{
+    NSString *fileSubtitlePath = nil;
+    NSData *receivedSub = [NSData dataWithContentsOfURL:subtitleURL]; // TODO: fix synchronous load
+
+    if (receivedSub.length < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *directoryPath = searchPaths.firstObject;
+        fileSubtitlePath = [directoryPath stringByAppendingPathComponent:[subtitleURL lastPathComponent]];
+
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
+            //create local subtitle file
+            [fileManager createFileAtPath:fileSubtitlePath contents:nil attributes:nil];
+            if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
+                APLog(@"file creation failed, no data was saved");
+                return nil;
+            }
+        }
+        [receivedSub writeToFile:fileSubtitlePath atomically:YES];
+    } else {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                                                 message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil),
+                                                                                          [subtitleURL lastPathComponent],
+                                                                                          [[UIDevice currentDevice] model]]
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+
+        [alertController addAction:okAction];
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    }
+
+    return fileSubtitlePath;
 }
 
 #pragma mark - file handling
@@ -238,26 +328,37 @@
     return YES;
 }
 
-- (void)downloadObject:(VLCOneDriveObject *)object
+- (void)startDownloadingODItem:(ODItem *)item
 {
-    if (object == nil)
+    if (item == nil)
         return;
-    if (object.isFolder)
+    if (item.folder)
         return;
 
-    object.downloadDelegate = self;
     if (!_pendingDownloads)
         _pendingDownloads = [[NSMutableArray alloc] init];
-    [_pendingDownloads addObject:object];
+    [_pendingDownloads addObject:item];
 
     [self _triggerNextDownload];
+}
+
+- (void)downloadODItem:(ODItem *)item
+{
+#if TARGET_OS_IOS
+    if (!_fileDownloader) {
+        _fileDownloader = [[VLCHTTPFileDownloader alloc] init];
+        _fileDownloader.delegate = self;
+    }
+    [_fileDownloader downloadFileFromURL:[NSURL URLWithString:item.dictionaryFromItem[@"@content.downloadUrl"]]
+                            withFileName:item.name];
+#endif
 }
 
 - (void)_triggerNextDownload
 {
     if (_pendingDownloads.count > 0 && !_downloadInProgress) {
         _downloadInProgress = YES;
-        [_pendingDownloads[0] saveObjectToDocuments];
+        [self downloadODItem:_pendingDownloads.firstObject];
         [_pendingDownloads removeObjectAtIndex:0];
 
         if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
@@ -265,14 +366,14 @@
     }
 }
 
-- (void)downloadStarted:(VLCOneDriveObject *)object
+- (void)downloadStarted
 {
     _startDL = [NSDate timeIntervalSinceReferenceDate];
     if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
         [self.delegate operationWithProgressInformationStarted];
 }
 
-- (void)downloadEnded:(VLCOneDriveObject *)object
+- (void)downloadEnded
 {
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL", nil));
 
@@ -281,6 +382,17 @@
 
     _downloadInProgress = NO;
     [self _triggerNextDownload];
+}
+
+- (void)downloadFailedWithErrorDescription:(NSString *)description
+{
+    APLog(@"VLCOneDriveController: Download failed (%@)", description);
+}
+
+- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
+{
+    [self progressUpdated:percentage];
+    [self calculateRemainingTime:receivedDataSize expectedDownloadSize:expectedDownloadSize];
 }
 
 - (void)progressUpdated:(CGFloat)progress
@@ -305,25 +417,6 @@
     NSString  *remaingTime = [formatter stringFromDate:date];
     if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
         [self.delegate updateRemainingTime:remaingTime];
-}
-
-#pragma mark - onedrive object delegation
-
-- (void)folderContentLoaded:(VLCOneDriveObject *)sender
-{
-    if (self.delegate)
-        [self.delegate performSelector:@selector(mediaListUpdated)];
-}
-
-- (void)folderContentLoadingFailed:(NSError *)error sender:(VLCOneDriveObject *)sender
-{
-    APLog(@"folder content loading failed %@", error);
-}
-
-- (void)fullFolderTreeLoaded:(VLCOneDriveObject *)sender
-{
-    if (self.delegate)
-        [self.delegate performSelector:@selector(mediaListUpdated)];
 }
 
 @end

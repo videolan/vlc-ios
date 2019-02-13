@@ -75,7 +75,6 @@ PODS:
   - RESideMenu (4.0.7)
   - TVVLCKit (3.2.1)
   - upnpx (1.4.0)
-  - VLC-LiveSDK (5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (0.1.3v)
   - VLC-WhiteRaccoon (1.0.0)
   - XKKeychain (1.0.1)
@@ -103,7 +102,6 @@ DEPENDENCIES:
   - RESideMenu (~> 4.0.7)
   - TVVLCKit (= 3.2.1)
   - upnpx (~> 1.4.0)
-  - VLC-LiveSDK (= 5.7.0x)
   - VLC-LXReorderableCollectionViewFlowLayout (= 0.1.3v)
   - VLC-WhiteRaccoon
   - XKKeychain (~> 1.0)
@@ -131,7 +129,6 @@ SPEC REPOS:
     - RESideMenu
     - TVVLCKit
     - upnpx
-    - VLC-LiveSDK
     - VLC-LXReorderableCollectionViewFlowLayout
     - VLC-WhiteRaccoon
     - XKKeychain
@@ -195,12 +192,11 @@ SPEC CHECKSUMS:
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
   TVVLCKit: 981de7bab2b086a6cf574e64edc74ee53d79795a
   upnpx: c695b99229e08154d23abe5c252cb64f1600f35d
-  VLC-LiveSDK: c9566a9edde968f969138f84cfd40b540a109b3f
   VLC-LXReorderableCollectionViewFlowLayout: 0204946967b746ca183835e854826290be06e2f4
   VLC-WhiteRaccoon: 1e7e59b0568959135a89d09c416d1e11a5d9a986
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 6ba3505ae78599c5ec94436ac8058bea11b1ac63
+PODFILE CHECKSUM: 13d9fb27f2c0ef54c2474c521da16482ac3ed64a
 
 COCOAPODS: 1.6.0

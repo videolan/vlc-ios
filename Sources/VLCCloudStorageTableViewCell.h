@@ -2,7 +2,7 @@
  * VLCCloudStorageTableViewCell.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2019 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -12,13 +12,13 @@
  *****************************************************************************/
 
 #import "VLCDropboxController.h"
-#import "VLCOneDriveObject.h"
 #import <BoxSDK/BoxSDK.h>
 #if TARGET_OS_IOS
 #import "GTLRDrive.h"
 #endif
 
 @class VLCNetworkImageView;
+@class ODItem;
 
 @interface VLCCloudStorageTableViewCell : UITableViewCell
 
@@ -31,7 +31,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 
 @property (nonatomic, retain) DBFILESMetadata *dropboxFile;
-@property (nonatomic, retain) VLCOneDriveObject *oneDriveFile;
+@property (nonatomic, retain) ODItem *oneDriveFile;
 @property (nonatomic, retain) BoxItem *boxFile;
 #if TARGET_OS_IOS
 @property (nonatomic, retain) GTLRDrive_File *driveFile;

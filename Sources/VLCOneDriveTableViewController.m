@@ -2,7 +2,7 @@
  * VLCOneDriveTableViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014-2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2019 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -20,10 +20,12 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCConstants.h"
 
+#import <OneDriveSDK/ODItem.h>
+#import <OneDriveSDK/ODItemReference.h>
+
 @interface VLCOneDriveTableViewController () <VLCCloudStorageDelegate>
 {
     VLCOneDriveController *_oneDriveController;
-    VLCOneDriveObject *_selectedFile;
 }
 @end
 
@@ -32,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _oneDriveController = (VLCOneDriveController *)[VLCOneDriveController sharedInstance];
+    [self prepareOneDriveControllerIfNeeded];
     self.controller = _oneDriveController;
     self.controller.delegate = self;
 
@@ -51,24 +53,38 @@
     [super viewWillAppear:animated];
     [self updateViewAfterSessionChange];
     self.authorizationInProgress = NO;
+    [self prepareOneDriveControllerIfNeeded];
+}
+
+- (void)prepareOneDriveControllerIfNeeded
+{
+    if (!_oneDriveController) {
+        _oneDriveController = [VLCOneDriveController sharedInstance];
+        _oneDriveController.presentingViewController = self;
+    }
 }
 
 #pragma mark - generic interface interaction
 
 - (void)goBack
 {
-    if ((_oneDriveController.rootFolder != _oneDriveController.currentFolder) && [_oneDriveController isAuthorized]) {
-        if ([_oneDriveController.rootFolder.name isEqualToString:_oneDriveController.currentFolder.parent.name]) {
-            _oneDriveController.currentFolder = nil;
-            self.title = _oneDriveController.rootFolder.name;
+    NSString *currentItemID = _oneDriveController.currentItem.id;
+
+    if (currentItemID && ![currentItemID isEqualToString:_oneDriveController.rootItemID]) {
+        if (!_oneDriveController.parentItem
+            || [_oneDriveController.rootItemID isEqualToString:_oneDriveController.parentItem.id]) {
+            _oneDriveController.currentItem = nil;
         } else {
-            _oneDriveController.currentFolder = _oneDriveController.currentFolder.parent;
-            self.title = _oneDriveController.currentFolder.name;
+            _oneDriveController.currentItem = [[ODItem alloc] initWithDictionary:_oneDriveController.parentItem.dictionaryFromItem];
+            _oneDriveController.parentItem.id = _oneDriveController.parentItem.parentReference.id;
         }
         [self.activityIndicator startAnimating];
-        [_oneDriveController loadCurrentFolder];
-    } else
+        [_oneDriveController loadODItems];
+    } else {
+        // We're at root, we need to pop the view
         [self.navigationController popViewControllerAnimated:YES];
+    }
+    return;
 }
 
 #pragma mark - table view data source
@@ -81,10 +97,10 @@
     if (cell == nil)
         cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
 
-    NSArray *items = _oneDriveController.currentFolder.items;
+    NSArray *items = _oneDriveController.currentListFiles;
 
     if (indexPath.row < items.count) {
-        cell.oneDriveFile = _oneDriveController.currentFolder.items[indexPath.row];
+        cell.oneDriveFile = items[indexPath.row];
         cell.delegate = self;
     }
 
@@ -95,78 +111,86 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *folderItems = _oneDriveController.currentFolder.items;
+    NSArray *items = _oneDriveController.currentListFiles;
     NSInteger row = indexPath.row;
-    if (row >= folderItems.count)
+    if (row >= items.count)
         return;
 
-    VLCOneDriveObject *selectedObject = folderItems[row];
-    if (selectedObject.isFolder) {
-        /* dive into sub folder */
+    ODItem *selectedItem = items[row];
+
+    if (selectedItem.folder) {
         [self.activityIndicator startAnimating];
-        _oneDriveController.currentFolder = selectedObject;
-        [_oneDriveController loadCurrentFolder];
-        self.title = selectedObject.name;
+        _oneDriveController.parentItem = _oneDriveController.currentItem;
+        _oneDriveController.currentItem = selectedItem;
+        [_oneDriveController loadODItems];
+        self.title = selectedItem.name;
     } else {
+        VLCMediaList *mediaList;
+        NSURL *url = [NSURL URLWithString:selectedItem.dictionaryFromItem[@"@content.downloadUrl"]];
+        NSString *subtitlePath = nil;
+        NSInteger positionIndex = 0;
+
         if (![[NSUserDefaults standardUserDefaults] boolForKey:kVLCAutomaticallyPlayNextItem]) {
-            /* stream file */
-            NSURL *url = [NSURL URLWithString:selectedObject.downloadPath];
-
-            VLCMediaList *mediaList = [[VLCMediaList alloc] initWithArray:@[[VLCMedia mediaWithURL:url]]];
-            [self streamMediaList:mediaList startingAtIndex:0 subtitlesFilePath:selectedObject.subtitleURL];
+            mediaList = [[VLCMediaList alloc] initWithArray:@[[VLCMedia mediaWithURL:url]]];
+            subtitlePath = [_oneDriveController configureSubtitleWithFileName:selectedItem.name
+                                                                  folderItems:items];
         } else {
-            NSInteger posIndex = 0;
-            NSUInteger counter = 0;
-            VLCMediaList *mediaList = [[VLCMediaList alloc] init];
-            for (VLCOneDriveObject *item in folderItems) {
-                if ((item.isFolder) || [item.name isSupportedSubtitleFormat])
-                    continue;
-                NSURL *url = [NSURL URLWithString:item.downloadPath];
-                if (url) {
-                    [mediaList addMedia:[VLCMedia mediaWithURL:url]];
-                    if (item.subtitleURL)
-                        [[mediaList mediaAtIndex:counter] addOptions:@{ kVLCSettingSubtitlesFilePath : item.subtitleURL }];
-                    counter ++;
-
-                    if (item == selectedObject)
-                        posIndex = mediaList.count - 1;
-                }
-            }
-
-            if (mediaList.count > 0)
-                [self streamMediaList:mediaList startingAtIndex:posIndex subtitlesFilePath:nil];
+            mediaList = [self createMediaListWithODItem:selectedItem positionIndex:&positionIndex];
         }
-    }
 
+        [self streamMediaList:mediaList startingAtIndex:positionIndex subtitlesFilePath:subtitlePath];
+    }
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (void)streamMediaList:(VLCMediaList *)mediaList startingAtIndex:(NSInteger)startIndex subtitlesFilePath:(NSString *)subtitlesFilePath
 {
+    if (mediaList.count <= 0) {
+        NSLog(@"VLCOneDriveTableViewController: Empty or wrong mediaList");
+        return;
+    }
+
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     vpc.fullscreenSessionRequested = NO;
     [vpc playMediaList:mediaList firstIndex:startIndex subtitlesFilePath:subtitlesFilePath];
 }
 
-- (void)playAllAction:(id)sender
+- (VLCMediaList *)createMediaListWithODItem:(ODItem *)item positionIndex:(NSInteger *)index
 {
     NSUInteger counter = 0;
-    NSArray *folderItems = _oneDriveController.currentFolder.items;
+    NSArray *folderItems = _oneDriveController.currentListFiles;
     VLCMediaList *mediaList = [[VLCMediaList alloc] init];
-    for (VLCOneDriveObject *item in folderItems) {
-        if ((item.isFolder) || [item.name isSupportedSubtitleFormat])
+    for (ODItem *tmpItem in folderItems) {
+        if (tmpItem.folder || [tmpItem.name isSupportedSubtitleFormat]) {
             continue;
-        NSURL *url = [NSURL URLWithString:item.downloadPath];
+        }
+        NSURL *url = [NSURL URLWithString:tmpItem.dictionaryFromItem[@"@content.downloadUrl"]];
         if (url) {
             [mediaList addMedia:[VLCMedia mediaWithURL:url]];
-            if (item.subtitleURL)
-                [[mediaList mediaAtIndex:counter] addOptions:@{ kVLCSettingSubtitlesFilePath : item.subtitleURL }];
-            counter ++;
+            NSString *subtitlePath = [_oneDriveController configureSubtitleWithFileName:tmpItem.name
+                                                                            folderItems:folderItems];
+            if (subtitlePath) {
+                [[mediaList mediaAtIndex:counter] addOptions:@{ kVLCSettingSubtitlesFilePath : subtitlePath }];
+            }
+            // Index needed to know where to begin in the medialist
+            if (item == tmpItem) {
+                *index = mediaList.count - 1;
+            }
+
+            counter++;
         }
     }
+    return mediaList;
+}
 
-    if (mediaList.count > 0)
-        [self streamMediaList:mediaList startingAtIndex:0 subtitlesFilePath:nil];
+- (VLCMediaList *)createMediaList
+{
+    return [self createMediaListWithODItem:nil positionIndex:0];
+}
+
+- (void)playAllAction:(id)sender
+{
+    [self streamMediaList:[self createMediaList] startingAtIndex:0 subtitlesFilePath:nil];
 }
 
 #pragma mark - login dialog
@@ -193,33 +217,45 @@
 - (void)triggerDownloadForCell:(VLCCloudStorageTableViewCell *)cell
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    _selectedFile = _oneDriveController.currentFolder.items[indexPath.row];
+    ODItem *selectedItem = _oneDriveController.currentListFiles[indexPath.row];
 
-    if (_selectedFile.size.longLongValue < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
+    if (selectedItem.size < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
         /* selected item is a proper file, ask the user if s/he wants to download it */
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                otherButtonTitles:NSLocalizedString(@"BUTTON_DOWNLOAD", nil), nil];
-        [alert show];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DROPBOX_DOWNLOAD", nil)
+                                                                                 message:[NSString stringWithFormat:NSLocalizedString(@"DROPBOX_DL_LONG", nil),
+                                                                                          selectedItem.name,
+                                                                                          [[UIDevice currentDevice] model]]
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *downloadAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction *alertAction){
+                                                             [_oneDriveController startDownloadingODItem:selectedItem];
+                                                         }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
+
+
+        [alertController addAction:downloadAction];
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:nil];
     } else {
-        VLCAlertView *alert = [[VLCAlertView alloc] initWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                          message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil), _selectedFile.name, [[UIDevice currentDevice] model]]
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                otherButtonTitles:nil];
-        [alert show];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                                                 message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil),
+                                                                                          selectedItem.name,
+                                                                                          [[UIDevice currentDevice] model]]
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                                 style:UIAlertActionStyleCancel
+                                                               handler:nil];
+
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-        [_oneDriveController downloadObject:_selectedFile];
-
-    _selectedFile = nil;
-}
 #endif
 
 @end

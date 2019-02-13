@@ -2,7 +2,7 @@
  * VLCCloudStorageTableViewCell.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2019 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
@@ -13,6 +13,10 @@
 
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCNetworkImageView.h"
+
+#import <OneDriveSDK/ODItem.h>
+#import <OneDriveSDK/ODAudio.h>
+#import <OneDriveSDK/ODVideo.h>
 
 @implementation VLCCloudStorageTableViewCell
 
@@ -59,15 +63,70 @@
                            withObject:nil waitUntilDone:NO];
 }
 
-- (void)setOneDriveFile:(VLCOneDriveObject *)oneDriveFile
+- (void)updateOneDriveDisplayAsFolder
 {
-    if (oneDriveFile != _oneDriveFile)
-        _oneDriveFile = oneDriveFile;
-
-    [self performSelectorOnMainThread:@selector(_updatedDisplayedInformation)
-                           withObject:nil waitUntilDone:NO];
+    _downloadButton.hidden = YES;
+    _folderTitleLabel.text = _oneDriveFile.name;
+    _titleLabel.hidden = _subtitleLabel.hidden = YES;
+    _folderTitleLabel.hidden = NO;
+    _thumbnailView.image = [UIImage imageNamed:@"folder"];
 }
 
+- (void)updateOneDriveDisplayAsItem
+{
+    int64_t duration = 0;
+    NSString *title = self.oneDriveFile.name;
+    NSMutableString *subtitle = [[NSMutableString alloc] init];
+
+    _downloadButton.hidden = NO;
+    _titleLabel.text = title;
+
+    if (_oneDriveFile.audio) {
+        _thumbnailView.image = [UIImage imageNamed:@"audio"];
+        duration = _oneDriveFile.audio.duration;
+    } else if (_oneDriveFile.video) {
+        _thumbnailView.image = [UIImage imageNamed:@"movie"];
+        duration = _oneDriveFile.video.duration;
+        //        NSString *thumbnailURLString = _oneDriveFile.thumbnailURL;
+        //        if ([thumbnailURLString isKindOfClass:[NSString class]]) {
+        //            [_thumbnailView setImageWithURL:[NSURL URLWithString:thumbnailURLString]];
+        //        }
+    } else {
+        _thumbnailView.image = [UIImage imageNamed:@"blank"];
+    }
+
+    if (duration > 0) {
+        VLCTime *time = [VLCTime timeWithNumber:[NSNumber numberWithLong:duration]];
+        [subtitle appendString:[time verboseStringValue]];
+    }
+
+    if (_oneDriveFile.size > 0) {
+        subtitle = [NSMutableString stringWithString:[NSByteCountFormatter
+                                                      stringFromByteCount:_oneDriveFile.size
+                                                      countStyle:NSByteCountFormatterCountStyleFile]];
+        if (duration > 0) {
+            VLCTime *time = [VLCTime timeWithNumber:[NSNumber numberWithLong:duration]];
+            [subtitle appendFormat:@" — %@", [time verboseStringValue]];
+        }
+    }
+
+    _subtitleLabel.text = subtitle;
+    _titleLabel.hidden = _subtitleLabel.hidden = NO;
+    _folderTitleLabel.hidden = YES;
+}
+
+- (void)updateOneDriveDisplayedInformation
+{
+    _oneDriveFile.folder ? [self updateOneDriveDisplayAsFolder] : [self updateOneDriveDisplayAsItem];
+}
+
+- (void)setOneDriveFile:(ODItem *)oneDriveFile
+{
+    if (oneDriveFile != _oneDriveFile) {
+        _oneDriveFile = oneDriveFile;
+    }
+    [self updateOneDriveDisplayedInformation];
+}
 - (void)_updatedDisplayedInformation
 {
     if (_dropboxFile != nil) {
@@ -146,43 +205,7 @@
             APLog(@"missing icon for type '%@'", self.boxFile);
         }
     } else if(_oneDriveFile != nil) {
-        if (_oneDriveFile.isFolder) {
-            self.downloadButton.hidden = YES;
-            self.folderTitleLabel.text = self.oneDriveFile.name;
-            self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
-            self.folderTitleLabel.hidden = NO;
-            self.thumbnailView.image = [UIImage imageNamed:@"folder"];
-        } else {
-            self.downloadButton.hidden = NO;
-            NSString *title = self.oneDriveFile.name;
-            self.titleLabel.text = title;
-            NSMutableString *subtitle = [[NSMutableString alloc] init];
-
-            if (self.oneDriveFile.isAudio)
-                self.thumbnailView.image = [UIImage imageNamed:@"audio"];
-            else if (self.oneDriveFile.isVideo) {
-                self.thumbnailView.image = [UIImage imageNamed:@"movie"];
-                NSString *thumbnailURLString = _oneDriveFile.thumbnailURL;
-                if ([thumbnailURLString isKindOfClass:[NSString class]]) {
-                    [self.thumbnailView setImageWithURL:[NSURL URLWithString:thumbnailURLString]];
-                }
-            } else
-                self.thumbnailView.image = [UIImage imageNamed:@"blank"];
-
-            if (self.oneDriveFile.size > 0) {
-                [subtitle appendString:[NSByteCountFormatter stringFromByteCount:[self.oneDriveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]];
-                if (self.oneDriveFile.duration > 0) {
-                    VLCTime *time = [VLCTime timeWithNumber:self.oneDriveFile.duration];
-                    [subtitle appendFormat:@" — %@", [time verboseStringValue]];
-                }
-            } else if (self.oneDriveFile.duration > 0) {
-                VLCTime *time = [VLCTime timeWithNumber:self.oneDriveFile.duration];
-                [subtitle appendString:[time verboseStringValue]];
-            }
-            self.subtitleLabel.text = subtitle;
-            self.titleLabel.hidden = self.subtitleLabel.hidden = NO;
-            self.folderTitleLabel.hidden = YES;
-        }
+        [self updateOneDriveDisplayedInformation];
     }
 
     [self setNeedsDisplay];

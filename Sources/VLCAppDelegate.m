@@ -2,7 +2,7 @@
  * VLCAppDelegate.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2019 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -37,6 +37,8 @@
 #import "VLCPlaybackNavigationController.h"
 #import "PAPasscodeViewController.h"
 #import "VLC_iOS-Swift.h"
+#import <OneDriveSDK.h>
+#import "VLCOneDriveConstants.h"
 
 NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorized";
 
@@ -100,6 +102,10 @@ NSString *const VLCDropboxSessionWasAuthorized = @"VLCDropboxSessionWasAuthorize
 
     // Configure Dropbox
     [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
+
+    // Configure OneDrive
+    [ODClient setMicrosoftAccountAppId:kVLCOneDriveClientID scopes:@[@"onedrive.readwrite", @"offline_access"]];
+
 
     [self setupAppearence];
 

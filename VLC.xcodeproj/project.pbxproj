@@ -65,7 +65,6 @@
 		7D0117F1187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0117F0187F4BA400C5671C /* VLCFirstStepsFirstPageViewController~ipad.xib */; };
 		7D0C34E71BD951080058CD19 /* NSString+SupportedMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784C5183A9972009EE944 /* NSString+SupportedMedia.m */; };
 		7D0C35331BD97C100058CD19 /* VLCOneDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */; };
-		7D0C35341BD97C7B0058CD19 /* VLCOneDriveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */; };
 		7D0EDE091BE7752800363AA1 /* VLCLocalNetworkServiceBrowserFTP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEF21BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserFTP.m */; };
 		7D0EDE0A1BE7752C00363AA1 /* VLCNetworkServerBrowserFTP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEF61BDEBCE500B68579 /* VLCNetworkServerBrowserFTP.m */; };
 		7D1052E91A4DCC1100295F08 /* VLCOneDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */; };
@@ -232,7 +231,7 @@
 		7D3CF81B2050265B00FA0C1F /* VLCMediaFileDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */; };
 		7D3CF81C2050265B00FA0C1F /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
 		7D3CF81D2050265B00FA0C1F /* VLCServerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEEC1BDEBA3800B68579 /* VLCServerListViewController.m */; };
-		7D3CF81E2050265B00FA0C1F /* VLCOneDriveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */; };
+		7D3CF81E2050265B00FA0C1F /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		7D3CF81F2050265B00FA0C1F /* VLCOneDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */; };
 		7D3CF8202050265B00FA0C1F /* VLCLocalNetworkServiceUPnP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF251BDEBCE500B68579 /* VLCLocalNetworkServiceUPnP.m */; };
 		7D3CF8212050265B00FA0C1F /* VLCNetworkListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3D2183AB2F100FFC021 /* VLCNetworkListCell.m */; };
@@ -399,7 +398,6 @@
 		7DB174B41CD20DC00085BCF0 /* VLCNetworkServerSearchBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB174B11CD20DC00085BCF0 /* VLCNetworkServerSearchBrowser.m */; };
 		7DB174B51CD20DC00085BCF0 /* VLCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB174B31CD20DC00085BCF0 /* VLCSearchController.m */; };
 		7DB638AB185BC0890003887C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
-		7DB847D71A5871570002DC30 /* VLCOneDriveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */; };
 		7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */; };
 		7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */; };
 		7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */; };
@@ -1118,8 +1116,6 @@
 		7DB174B31CD20DC00085BCF0 /* VLCSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSearchController.m; path = "Apple-TV/VLCSearchController.m"; sourceTree = SOURCE_ROOT; };
 		7DB2486E18EA1D6D0097ADD2 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DB638AA185BC0890003887C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "../vlc-ios/Images.xcassets"; sourceTree = "<group>"; };
-		7DB847D51A5871570002DC30 /* VLCOneDriveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveObject.h; path = Sources/VLCOneDriveObject.h; sourceTree = SOURCE_ROOT; };
-		7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveObject.m; path = Sources/VLCOneDriveObject.m; sourceTree = SOURCE_ROOT; };
 		7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAppDelegate.h; path = Sources/VLCAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAppDelegate.m; path = Sources/VLCAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCCloudStorageTableViewCell~ipad.xib"; path = "Resources/VLCCloudStorageTableViewCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
@@ -1650,8 +1646,6 @@
 				7DF383CA1BF2498800D71A5C /* VLCOneDriveCollectionViewController.m */,
 				7D1052EC1A4DCD1E00295F08 /* VLCOneDriveController.h */,
 				7D1052ED1A4DCD1E00295F08 /* VLCOneDriveController.m */,
-				7DB847D51A5871570002DC30 /* VLCOneDriveObject.h */,
-				7DB847D61A5871570002DC30 /* VLCOneDriveObject.m */,
 			);
 			name = OneDrive;
 			sourceTree = "<group>";
@@ -3379,13 +3373,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh",
-				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/Resources/backArrow_black.png",
 				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-tvOS/XKKeychain.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK-tvOS/HockeySDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/backArrow_black.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XKKeychain.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HockeySDKResources.bundle",
 			);
@@ -3470,9 +3462,6 @@
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/tr.lproj",
 				"${PODS_ROOT}/MediaLibraryKit-prod/MappingModel_2_5_to_2_6.xcmappingmodel",
 				"${PODS_ROOT}/MediaLibraryKit-prod/MediaLibrary.xcdatamodeld",
-				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/Resources/backArrow_black.png",
-				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib",
-				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib",
 				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-iOS/XKKeychain.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3497,9 +3486,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/tr.lproj",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MappingModel_2_5_to_2_6.cdm",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MediaLibrary.momd",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/backArrow_black.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LiveAuthDialog_iPad.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LiveAuthDialog_iPhone.nib",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XKKeychain.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3547,9 +3533,6 @@
 				"${PODS_ROOT}/InAppSettingsKit/InAppSettingsKit/Resources/tr.lproj",
 				"${PODS_ROOT}/MediaLibraryKit-prod/MappingModel_2_5_to_2_6.xcmappingmodel",
 				"${PODS_ROOT}/MediaLibraryKit-prod/MediaLibrary.xcdatamodeld",
-				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/Resources/backArrow_black.png",
-				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPad.xib",
-				"${PODS_ROOT}/VLC-LiveSDK/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib",
 				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-iOS/XKKeychain.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3574,9 +3557,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/tr.lproj",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MappingModel_2_5_to_2_6.cdm",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MediaLibrary.momd",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/backArrow_black.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LiveAuthDialog_iPad.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LiveAuthDialog_iPhone.nib",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XKKeychain.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3720,7 +3700,6 @@
 				7D398DC21CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */,
 				DD3EAC051BE153B4003668DA /* VLCNetworkImageView.m in Sources */,
 				7DF383B91BF21E4400D71A5C /* VLCPlayerControlWebSocket.m in Sources */,
-				7D0C35341BD97C7B0058CD19 /* VLCOneDriveObject.m in Sources */,
 				7D0C35331BD97C100058CD19 /* VLCOneDriveController.m in Sources */,
 				7DB174B51CD20DC00085BCF0 /* VLCSearchController.m in Sources */,
 				DD13A37B1BEE2FAA00A35554 /* VLCMaskView.m in Sources */,
@@ -3866,7 +3845,7 @@
 				7D3CF81B2050265B00FA0C1F /* VLCMediaFileDiscoverer.m in Sources */,
 				7D3CF81C2050265B00FA0C1F /* VLCActivityManager.m in Sources */,
 				7D3CF81D2050265B00FA0C1F /* VLCServerListViewController.m in Sources */,
-				7D3CF81E2050265B00FA0C1F /* VLCOneDriveObject.m in Sources */,
+				7D3CF81E2050265B00FA0C1F /* BuildFile in Sources */,
 				7D3CF81F2050265B00FA0C1F /* VLCOneDriveTableViewController.m in Sources */,
 				7D3CF8202050265B00FA0C1F /* VLCLocalNetworkServiceUPnP.m in Sources */,
 				7D3CF8212050265B00FA0C1F /* VLCNetworkListCell.m in Sources */,
@@ -4008,7 +3987,6 @@
 				7D30F3D0183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m in Sources */,
 				7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */,
 				DD3EFEEE1BDEBA3800B68579 /* VLCServerListViewController.m in Sources */,
-				7DB847D71A5871570002DC30 /* VLCOneDriveObject.m in Sources */,
 				7D1052E91A4DCC1100295F08 /* VLCOneDriveTableViewController.m in Sources */,
 				DD3EFF591BDEBCE500B68579 /* VLCLocalNetworkServiceUPnP.m in Sources */,
 				7D30F3D7183AB2F100FFC021 /* VLCNetworkListCell.m in Sources */,
