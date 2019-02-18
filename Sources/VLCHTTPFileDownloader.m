@@ -42,12 +42,45 @@
     [self downloadFileFromURL:url withFileName:nil];
 }
 
+- (NSString *)createPotentialNameFromName:(NSString *)name
+{
+    NSString *documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                          NSUserDomainMask,
+                                                                          YES).firstObject;
+
+    return [[self createPotentialPathFromPath:[documentDirectoryPath
+                                               stringByAppendingPathComponent:name]] lastPathComponent];
+}
+
+- (NSString *)createPotentialPathFromPath:(NSString *)path
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *fileName = [path lastPathComponent];
+    NSString *finalFilePath = [path stringByDeletingLastPathComponent];
+
+    if ([fileManager fileExistsAtPath:path]) {
+        NSString *potentialFilename;
+        NSString *fileExtension = [fileName pathExtension];
+        NSString *rawFileName = [fileName stringByDeletingPathExtension];
+        for (NSUInteger x = 1; x < 100; x++) {
+            potentialFilename = [NSString stringWithFormat:@"%@_%lu.%@",
+                                 rawFileName, (unsigned long)x, fileExtension];
+            if (![fileManager fileExistsAtPath:[finalFilePath stringByAppendingPathComponent:potentialFilename]]) {
+                break;
+            }
+        }
+        return [finalFilePath stringByAppendingPathComponent:potentialFilename];
+    }
+    return path;
+}
+
 - (void)downloadFileFromURL:(NSURL *)url withFileName:(NSString*)fileName
 {
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *basePath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
+    NSString *basePath = [searchPaths.firstObject stringByAppendingPathComponent:@"Upload"];
+
     if (fileName)
-        _fileName = fileName;
+        _fileName = [self createPotentialNameFromName:fileName];
     else
         _fileName = [url.lastPathComponent stringByRemovingPercentEncoding];
 
