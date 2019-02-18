@@ -14,10 +14,6 @@
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCNetworkImageView.h"
 
-#import <OneDriveSDK/ODItem.h>
-#import <OneDriveSDK/ODAudio.h>
-#import <OneDriveSDK/ODVideo.h>
-
 @implementation VLCCloudStorageTableViewCell
 
 + (VLCCloudStorageTableViewCell *)cellWithReuseIdentifier:(NSString *)ident
@@ -72,6 +68,22 @@
     _thumbnailView.image = [UIImage imageNamed:@"folder"];
 }
 
+- (void)loadThumbnail
+{
+    // The dropboxapi has no way to cancel a request and the ODThumbnail has no back reference to it's item
+    // so this might lead to wrong thumbnails if the cell is reused since we have no way of cancelling requests or check if the completion is still for the set item
+    ODDriveRequestBuilder *drive = [[ODClient loadCurrentClient] drive];
+    ODThumbnailRequest *request = [[[[drive items:_oneDriveFile.id] thumbnails:@"0"] medium] request];
+    __weak typeof(self) weakSelf = self;
+    [request getWithCompletion:^(ODThumbnail *response, NSError *error) {
+        if (error == nil && response.url) {// we don't care about errors for thumbnails
+            dispatch_async(dispatch_get_main_queue(), ^{
+                 [weakSelf.thumbnailView setImageWithURL:[NSURL URLWithString:response.url]];
+            });
+        }
+    }];
+}
+
 - (void)updateOneDriveDisplayAsItem
 {
     int64_t duration = 0;
@@ -84,13 +96,11 @@
     if (_oneDriveFile.audio) {
         _thumbnailView.image = [UIImage imageNamed:@"audio"];
         duration = _oneDriveFile.audio.duration;
+        [self loadThumbnail];
     } else if (_oneDriveFile.video) {
         _thumbnailView.image = [UIImage imageNamed:@"movie"];
         duration = _oneDriveFile.video.duration;
-        //        NSString *thumbnailURLString = _oneDriveFile.thumbnailURL;
-        //        if ([thumbnailURLString isKindOfClass:[NSString class]]) {
-        //            [_thumbnailView setImageWithURL:[NSURL URLWithString:thumbnailURLString]];
-        //        }
+        [self loadThumbnail];
     } else {
         _thumbnailView.image = [UIImage imageNamed:@"blank"];
     }
@@ -124,9 +134,10 @@
 {
     if (oneDriveFile != _oneDriveFile) {
         _oneDriveFile = oneDriveFile;
+        [self updateOneDriveDisplayedInformation];
     }
-    [self updateOneDriveDisplayedInformation];
 }
+
 - (void)_updatedDisplayedInformation
 {
     if (_dropboxFile != nil) {
@@ -234,4 +245,8 @@
     self.downloadButton.hidden = !isDownloadable;
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    _thumbnailView.image = nil;
+}
 @end

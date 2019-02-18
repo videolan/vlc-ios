@@ -15,6 +15,7 @@
 #import <BoxSDK/BoxSDK.h>
 #if TARGET_OS_IOS
 #import "GTLRDrive.h"
+#import <OneDriveSDK/OneDriveSDK.h>
 #endif
 
 @class VLCNetworkImageView;
