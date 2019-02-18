@@ -70,7 +70,7 @@
 
 - (void)loadThumbnail
 {
-    // The dropboxapi has no way to cancel a request and the ODThumbnail has no back reference to it's item
+    // The onedrive Api has no way to cancel a request and the ODThumbnail has no back reference to it's item
     // so this might lead to wrong thumbnails if the cell is reused since we have no way of cancelling requests or check if the completion is still for the set item
     ODDriveRequestBuilder *drive = [[ODClient loadCurrentClient] drive];
     ODThumbnailRequest *request = [[[[drive items:_oneDriveFile.id] thumbnails:@"0"] medium] request];

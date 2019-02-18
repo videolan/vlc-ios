@@ -125,20 +125,33 @@
         [_oneDriveController loadODItems];
         self.title = selectedItem.name;
     } else {
-        VLCMediaList *mediaList;
-        NSURL *url = [NSURL URLWithString:selectedItem.dictionaryFromItem[@"@content.downloadUrl"]];
-        NSString *subtitlePath = nil;
-        NSInteger positionIndex = 0;
+        NSString *streamingURLString = selectedItem.dictionaryFromItem[@"@content.downloadUrl"];
+        if (streamingURLString) {
+            VLCMediaList *mediaList;
+            NSURL *url = [NSURL URLWithString:streamingURLString];
+            NSString *subtitlePath = nil;
+            NSInteger positionIndex = 0;
 
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:kVLCAutomaticallyPlayNextItem]) {
-            mediaList = [[VLCMediaList alloc] initWithArray:@[[VLCMedia mediaWithURL:url]]];
-            subtitlePath = [_oneDriveController configureSubtitleWithFileName:selectedItem.name
-                                                                  folderItems:items];
+            if (![[NSUserDefaults standardUserDefaults] boolForKey:kVLCAutomaticallyPlayNextItem]) {
+                mediaList = [[VLCMediaList alloc] initWithArray:@[[VLCMedia mediaWithURL:url]]];
+                subtitlePath = [_oneDriveController configureSubtitleWithFileName:selectedItem.name
+                                                                      folderItems:items];
+            } else {
+                mediaList = [self createMediaListWithODItem:selectedItem positionIndex:&positionIndex];
+            }
+            [self streamMediaList:mediaList startingAtIndex:positionIndex subtitlesFilePath:subtitlePath];
         } else {
-            mediaList = [self createMediaListWithODItem:selectedItem positionIndex:&positionIndex];
-        }
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ERROR", nil)
+                                                                                     message:NSLocalizedString(@"ONEDRIVE_MEDIA_WITHOUT_URL", nil)
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
 
-        [self streamMediaList:mediaList startingAtIndex:positionIndex subtitlesFilePath:subtitlePath];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
+
+            [alertController addAction:okAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -230,7 +243,7 @@
         UIAlertAction *downloadAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil)
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction *alertAction){
-                                                             [_oneDriveController startDownloadingODItem:selectedItem];
+                                                             [self->_oneDriveController startDownloadingODItem:selectedItem];
                                                          }];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                                style:UIAlertActionStyleCancel

@@ -162,6 +162,8 @@
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "An error occured while downloading";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "ERROR";
 
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+
 "DISK_FULL" = "Storage limit reached";
 "DISK_FULL_FORMAT" = "%@ cannot be stored on your %@, because you don't have enough free space left.";
 
