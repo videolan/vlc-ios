@@ -1,3 +1,11 @@
+iOS 3.1.6:
+-----------
+· Fixed OneDrive integration by adopting newer Api
+· Fixed common crashes with Chromecast and display of black videos
+· Fixed crashes when backgrounding the App
+· Added better support for AV1 video playback by shipping dav1d decoder
+· Fixed playback problems with certain HEVC streams
+
 iOS 3.1.5:
 -----------
 · Fixed an issue with mkv videos crashing on iOS 12
