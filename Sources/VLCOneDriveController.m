@@ -267,59 +267,62 @@
 
 - (NSString *)configureSubtitleWithFileName:(NSString *)fileName folderItems:(NSArray *)folderItems
 {
-    return [self _getFileSubtitleFromServer:[NSURL URLWithString:[self _searchSubtitle:fileName
-                                                                           folderItems:folderItems]]];
+    return [self _getFileSubtitleFromServer:[self _searchSubtitle:fileName folderItems:folderItems]];
 }
 
-- (NSString *)_searchSubtitle:(NSString *)fileName folderItems:(NSArray *)folderItems
+- (NSMutableDictionary *)_searchSubtitle:(NSString *)fileName folderItems:(NSArray *)folderItems
 {
+    NSMutableDictionary *itemSubtitle = [[NSMutableDictionary alloc] init];
+
     NSString *urlTemp = [[fileName lastPathComponent] stringByDeletingPathExtension];
-    NSString *itemPath = nil;
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", urlTemp];
     NSArray *results = [folderItems filteredArrayUsingPredicate:predicate];
 
     for (ODItem *item in results) {
         if ([item.name isSupportedSubtitleFormat]) {
-            itemPath = item.dictionaryFromItem[@"@content.downloadUrl"];
+            [itemSubtitle setObject:item.name forKey:@"filename"];
+            [itemSubtitle setObject:[NSURL URLWithString:item.dictionaryFromItem[@"@content.downloadUrl"]] forKey:@"url"];
         }
     }
-    return itemPath;
+    return itemSubtitle;
 }
 
-- (NSString *)_getFileSubtitleFromServer:(NSURL *)subtitleURL
+- (NSString *)_getFileSubtitleFromServer:(NSMutableDictionary *)itemSubtitle
 {
     NSString *fileSubtitlePath = nil;
-    NSData *receivedSub = [NSData dataWithContentsOfURL:subtitleURL]; // TODO: fix synchronous load
+    if (itemSubtitle[@"filename"]) {
+        NSData *receivedSub = [NSData dataWithContentsOfURL:[itemSubtitle objectForKey:@"url"]]; // TODO: fix synchronous load
 
-    if (receivedSub.length < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
-        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString *directoryPath = searchPaths.firstObject;
-        fileSubtitlePath = [directoryPath stringByAppendingPathComponent:[subtitleURL lastPathComponent]];
+        if (receivedSub.length < [[UIDevice currentDevice] VLCFreeDiskSpace].longLongValue) {
+            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *directoryPath = searchPaths.firstObject;
+            fileSubtitlePath = [directoryPath stringByAppendingPathComponent:[itemSubtitle objectForKey:@"filename"]];
 
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
-            //create local subtitle file
-            [fileManager createFileAtPath:fileSubtitlePath contents:nil attributes:nil];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
             if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
-                APLog(@"file creation failed, no data was saved");
-                return nil;
+                //create local subtitle file
+                [fileManager createFileAtPath:fileSubtitlePath contents:nil attributes:nil];
+                if (![fileManager fileExistsAtPath:fileSubtitlePath]) {
+                    APLog(@"file creation failed, no data was saved");
+                    return nil;
+                }
             }
+            [receivedSub writeToFile:fileSubtitlePath atomically:YES];
+        } else {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
+                                                                                     message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil),
+                                                                                              [itemSubtitle objectForKey:@"filename"],
+                                                                                              [[UIDevice currentDevice] model]]
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
+
+            [alertController addAction:okAction];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
         }
-        [receivedSub writeToFile:fileSubtitlePath atomically:YES];
-    } else {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DISK_FULL", nil)
-                                                                                 message:[NSString stringWithFormat:NSLocalizedString(@"DISK_FULL_FORMAT", nil),
-                                                                                          [subtitleURL lastPathComponent],
-                                                                                          [[UIDevice currentDevice] model]]
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-
-        [alertController addAction:okAction];
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
     }
 
     return fileSubtitlePath;
