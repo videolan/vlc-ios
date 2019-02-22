@@ -254,7 +254,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     if (_pathToExternalSubtitlesFile) {
         /* this could be a path or an absolute string - let's see */
         NSURL *subtitleURL = [NSURL URLWithString:_pathToExternalSubtitlesFile];
-        if (!subtitleURL) {
+        if (!subtitleURL || !subtitleURL.scheme) {
             subtitleURL = [NSURL fileURLWithPath:_pathToExternalSubtitlesFile];
         }
         if (subtitleURL) {
