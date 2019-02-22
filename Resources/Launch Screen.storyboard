@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Ht-sK-31E">
-    <device id="retina3_5" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,19 +15,27 @@
             <objects>
                 <viewController id="4Ht-sK-31E" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fUV-Cm-0Ob">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="TaG-bU-mw5">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenBack" translatesAutoresizingMaskIntoConstraints="NO" id="TaG-bU-mw5">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchCone" translatesAutoresizingMaskIntoConstraints="NO" id="sLw-FA-6aS">
+                                <rect key="frame" x="123.66666666666669" y="336" width="128" height="140"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="sLw-FA-6aS" secondAttribute="height" multiplier="32:35" id="uZo-Vp-OUB"/>
+                                </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.9552378654" green="0.65840983580000001" blue="0.28695866590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="1" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="TaG-bU-mw5" firstAttribute="leading" secondItem="Zv1-f0-1pc" secondAttribute="leading" id="b5d-W8-USh"/>
-                            <constraint firstAttribute="top" secondItem="TaG-bU-mw5" secondAttribute="top" id="svO-47-itw"/>
-                            <constraint firstItem="TaG-bU-mw5" firstAttribute="trailing" secondItem="Zv1-f0-1pc" secondAttribute="trailing" id="wqm-9c-hyR"/>
-                            <constraint firstAttribute="bottom" secondItem="TaG-bU-mw5" secondAttribute="bottom" id="x5X-e9-OLl"/>
+                            <constraint firstItem="sLw-FA-6aS" firstAttribute="centerY" secondItem="TaG-bU-mw5" secondAttribute="centerY" id="0Mq-SH-2dH"/>
+                            <constraint firstItem="sLw-FA-6aS" firstAttribute="centerX" secondItem="TaG-bU-mw5" secondAttribute="centerX" id="2Z8-to-6QL"/>
+                            <constraint firstItem="TaG-bU-mw5" firstAttribute="leading" secondItem="fUV-Cm-0Ob" secondAttribute="leading" id="5Da-Vs-rdH"/>
+                            <constraint firstAttribute="bottom" secondItem="TaG-bU-mw5" secondAttribute="bottom" id="Q0k-iQ-1m1"/>
+                            <constraint firstAttribute="trailing" secondItem="TaG-bU-mw5" secondAttribute="trailing" id="bnf-VU-OOT"/>
+                            <constraint firstItem="TaG-bU-mw5" firstAttribute="top" secondItem="fUV-Cm-0Ob" secondAttribute="top" id="cq3-A8-UVt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Zv1-f0-1pc"/>
                     </view>
@@ -35,10 +43,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7cO-QZ-wP7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="429.60000000000002" y="296.40179910044981"/>
+            <point key="canvasLocation" x="428" y="294.82758620689657"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Launch" width="768" height="1024"/>
+        <image name="LaunchCone" width="128" height="140"/>
+        <image name="LaunchScreenBack" width="768" height="1024"/>
     </resources>
 </document>
