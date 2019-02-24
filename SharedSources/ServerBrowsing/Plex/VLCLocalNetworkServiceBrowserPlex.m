@@ -2,7 +2,7 @@
  * VLCLocalNetworkServiceBrowserPlex.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2019 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -14,7 +14,9 @@
 #import "VLCNetworkServerBrowserPlex.h"
 
 @implementation VLCLocalNetworkServiceBrowserPlex
-- (instancetype)init {
+
+- (instancetype)init
+{
 #if TARGET_OS_TV
     NSString *name = NSLocalizedString(@"PLEX_SHORT",nil);
 #else
@@ -24,7 +26,9 @@
                    serviceType:@"_plexmediasvr._tcp."
                         domain:@""];
 }
-- (VLCLocalNetworkServiceNetService *)localServiceForNetService:(NSNetService *)netService {
+
+- (VLCLocalNetworkServiceNetService *)localServiceForNetService:(NSNetService *)netService
+{
     return [[VLCLocalNetworkServicePlex alloc] initWithNetService:netService serviceName:self.name];
 }
 @end
@@ -32,11 +36,23 @@
 NSString *const VLCNetworkServerProtocolIdentifierPlex = @"plex";
 
 @implementation VLCLocalNetworkServicePlex
-- (UIImage *)icon {
+- (UIImage *)icon
+{
     return [UIImage imageNamed:@"PlexServerIcon"];
 }
-- (id<VLCNetworkServerBrowser>)serverBrowser {
+#if TARGET_OS_TV
+- (nullable id<VLCNetworkServerLoginInformation>)loginInformation
+{
+    VLCNetworkServerLoginInformation *login = [[VLCNetworkServerLoginInformation alloc] init];
+    login.address = self.netService.hostName;
+    login.port = [NSNumber numberWithInteger:self.netService.port];
+    login.protocolIdentifier = VLCNetworkServerProtocolIdentifierPlex;
 
+    return login;
+}
+#else
+- (id<VLCNetworkServerBrowser>)serverBrowser
+{
     NSNetService *service = self.netService;
     if (service.hostName == nil || service.port == 0) {
         return nil;
@@ -45,9 +61,11 @@ NSString *const VLCNetworkServerProtocolIdentifierPlex = @"plex";
     NSString *name = service.name;
     NSString *hostName = service.hostName;
     NSUInteger portNum = service.port;
+
     VLCNetworkServerBrowserPlex *serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithName:name host:hostName portNumber:@(portNum) path:@"" authentificication:@""];
 
     return serverBrowser;
 }
-@end
+#endif
 
+@end

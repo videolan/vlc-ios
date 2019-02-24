@@ -125,7 +125,8 @@
 
     [self vlc_showAlertWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
                          message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
-                     buttonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)];
+                     buttonTitle:NSLocalizedString(@"BUTTON_OK", nil)];
+
 }
 
 #pragma mark -
