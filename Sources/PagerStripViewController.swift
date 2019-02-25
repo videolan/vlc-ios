@@ -159,8 +159,8 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
-    func canMoveTo(index: Int) -> Bool {
-        return currentIndex != index && viewControllers.count > index
+    func scrollingEnabled(_ enabled: Bool) {
+        containerView.isScrollEnabled = enabled
     }
 
     func pageOffsetForChild(at index: Int) -> CGFloat {
