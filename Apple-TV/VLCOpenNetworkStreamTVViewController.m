@@ -44,6 +44,7 @@
     self.playURLField.placeholder = NSLocalizedString(@"ENTER_URL", nil);
 
     self.previouslyPlayedStreamsTableView.backgroundColor = [UIColor clearColor];
+    self.previouslyPlayedStreamsTableView.rowHeight = UITableViewAutomaticDimension;
 
     /* After day 354 of the year, the usual VLC cone is replaced by another cone
      * wearing a Father Xmas hat.
