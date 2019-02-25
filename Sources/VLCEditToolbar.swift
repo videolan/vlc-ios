@@ -32,8 +32,9 @@ class VLCEditToolbar: UIView {
         delegate?.rename()
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(category: MediaLibraryBaseModel) {
+        super.init(frame: .zero)
+        //depending on category show edit buttons
     }
 
     required init?(coder aDecoder: NSCoder) {
