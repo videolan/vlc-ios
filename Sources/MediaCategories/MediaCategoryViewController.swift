@@ -14,12 +14,19 @@
 import Foundation
 
 class VLCMediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
-    
+
+    var category: MediaLibraryBaseModel
+
     private var services: Services
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
-    var category: MediaLibraryBaseModel
     private lazy var editController = VLCEditController(collectionView: self.collectionView!, category: self.category)
+    private lazy var editToolbar: VLCEditToolbar = {
+        let editToolbar = VLCEditToolbar(category: category)
+        editToolbar.delegate = editController
+        return editToolbar
+    }()
+    private var editToolbarConstraint: NSLayoutConstraint?
     private var cachedCellSize = CGSize.zero
 
 //    @available(iOS 11.0, *)
@@ -74,6 +81,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         super.viewDidLoad()
         setupCollectionView()
         setupSearchController()
+        setupEditToolbar()
         _ = (MLMediaLibrary.sharedMediaLibrary() as! MLMediaLibrary).libraryDidAppear()
     }
 
@@ -89,6 +97,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     @objc func themeDidChange() {
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
+        editToolbar.backgroundColor = PresentationTheme.current.colors.background
         setNeedsStatusBarAppearanceUpdate()
     }
 
@@ -106,6 +115,19 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 //            collectionView?.dragDelegate = dragAndDropManager
 //            collectionView?.dropDelegate = dragAndDropManager
         }
+    }
+
+    func setupEditToolbar() {
+        editToolbar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(editToolbar)
+        editToolbarConstraint = editToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 50)
+        NSLayoutConstraint.activate([
+            editToolbarConstraint!,
+            editToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            editToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            editToolbar.heightAnchor.constraint(equalToConstant: 50)
+        ])
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -157,8 +179,8 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         collectionView?.dataSource = editing ? editController : self
         collectionView?.delegate = editing ? editController : self
 
-        editController.toolbarNeedsUpdate(editing: editing)
-
+        editController.resetSelections()
+        displayEditToolbar()
         let layoutToBe = editing ? editCollectionViewLayout : UICollectionViewFlowLayout()
         collectionView?.setCollectionViewLayout(layoutToBe, animated: false, completion: {
             [weak self] finished in
@@ -168,6 +190,13 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             }
             self?.reloadData()
         })
+    }
+
+    private func displayEditToolbar() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.editToolbarConstraint?.constant = self?.isEditing == true ? 0 : 50
+            self?.view.layoutIfNeeded()
+        }
     }
 
     // MARK: - Search

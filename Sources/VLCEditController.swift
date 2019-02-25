@@ -9,30 +9,19 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-protocol VLCEditControllerDataSource {
-    func toolbarNeedsUpdate(editing: Bool)
-}
-
 class VLCEditController: NSObject {
     private var selectedCellIndexPaths = Set<IndexPath>()
     private let collectionView: UICollectionView
     private let category: MediaLibraryBaseModel
 
-//    private lazy var editToolbar: VLCEditToolbar = {
-//        let editToolbar = VLCEditToolbar(frame: CGRect(x: 0, y: 400,
-//                                                       width: collectionView.frame.width, height: 50))
-//        editToolbar.isHidden = true
-//        editToolbar.delegate = self
-//        return editToolbar
-//    }()
-
     init(collectionView: UICollectionView, category: MediaLibraryBaseModel) {
         self.collectionView = collectionView
         self.category = category
         super.init()
+    }
 
-//        collectionView.addSubview(editToolbar)
-//        collectionView.bringSubview(toFront: editToolbar)
+    func resetSelections() {
+        selectedCellIndexPaths.removeAll(keepingCapacity: false)
     }
 }
 
@@ -91,18 +80,6 @@ private extension VLCEditController {
         alertController.addAction(confirmAction)
 
         UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
-    }
-}
-
-// MARK: - VLCEditControllerDataSource
-
-extension VLCEditController: VLCEditControllerDataSource {
-    func toolbarNeedsUpdate(editing: Bool) {
-//        editToolbar.isHidden = !editing
-        if !editing {
-            // not in editing mode anymore should reset
-            selectedCellIndexPaths.removeAll(keepingCapacity: false)
-        }
     }
 }
 
