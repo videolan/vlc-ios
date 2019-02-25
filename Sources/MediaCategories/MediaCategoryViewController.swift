@@ -213,8 +213,11 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             play(media: media)
         }
     }
+}
 
-    // MARK: - UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension VLCMediaCategoryViewController {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if cachedCellSize == .zero {
             cachedCellSize = model.cellType.cellSizeForWidth(collectionView.frame.size.width)
