@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCMigrationViewController.h"
+#import "VLC-Swift.h"
 
 @implementation VLCMigrationViewController
 
@@ -21,6 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = PresentationTheme.current.colors.background;
     [self.statusLabel setText:NSLocalizedString(@"UPGRADING_LIBRARY", "")];
 }
 @end
