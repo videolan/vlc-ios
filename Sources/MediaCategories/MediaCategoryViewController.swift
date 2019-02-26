@@ -127,7 +127,6 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             editToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             editToolbar.heightAnchor.constraint(equalToConstant: 50)
         ])
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
