@@ -136,6 +136,10 @@ extension VLCEditController: VLCEditToolbarDelegate {
                                                                 deleteButton])
     }
 
+    func share() {
+        assertionFailure("Implement me")
+    }
+
     func rename() {
         // FIXME: Multiple renaming of files(multiple alert can get unfriendly if too many files)
         for indexPath in selectedCellIndexPaths {
@@ -168,15 +172,20 @@ extension VLCEditController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let editCell = (category as? EditableMLModel)?.editCellType() {
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: editCell.defaultReuseIdentifier,
-                                                             for: indexPath) as? MediaEditCell {
-                cell.media = category.anyfiles[indexPath.row]
-                cell.isChecked = selectedCellIndexPaths.contains(indexPath)
-                return cell
-            }
+        guard let editCell = (category as? EditableMLModel)?.editCellType() else {
+            assertionFailure("no editcell")
+            return UICollectionViewCell()
         }
-        return UICollectionViewCell()
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: editCell.defaultReuseIdentifier,
+                                                         for: indexPath) as? MediaEditCell {
+            cell.media = category.anyfiles[indexPath.row]
+            cell.isChecked = selectedCellIndexPaths.contains(indexPath)
+            return cell
+        } else {
+            assertionFailure("wait what")
+            return UICollectionViewCell()
+        }
+
     }
 }
 
