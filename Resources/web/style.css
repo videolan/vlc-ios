@@ -212,7 +212,7 @@ div.main.drop {
   background-color: rgba(0,0,0,0.2);
 }
 
-.uploads .filename {
+.uploads .filename, .done, .fail {
   font-size: 20px;
   line-height: 50px;
   text-align: left;

@@ -72,7 +72,7 @@ $(function(){
     function done (e, data) {
         $.each(data.files, function (index, file) {
             xhrCache.splice(file._ID, 1);
-            $('li[data-file-id=' + file._ID + ']').addClass('done').text('100%');
+            $('li[data-file-id=' + file._ID + ']').addClass('done').text(file.name  + ' - 100%');
         });
     }
 
@@ -87,7 +87,7 @@ $(function(){
         console.log('File transfer failed', data.errorThrown, data.textStatus);
         $.each(data.files, function (index, file) {
             xhrCache.splice(file._ID, 1);
-            $('li[data-file-id=' + file._ID + ']').addClass('fail').text('');
+            $('li[data-file-id=' + file._ID + ']').addClass('fail').text(file.name  + ' - fail');
         });
     }
 
