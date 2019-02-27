@@ -79,6 +79,7 @@
             _oneDriveController.currentItem = [[ODItem alloc] initWithDictionary:_oneDriveController.parentItem.dictionaryFromItem];
             _oneDriveController.parentItem.id = _oneDriveController.parentItem.parentReference.id;
         }
+        self.title = _oneDriveController.currentItem.name;
         [self.activityIndicator startAnimating];
         [_oneDriveController loadODItems];
         [_oneDriveController loadODParentItem];
