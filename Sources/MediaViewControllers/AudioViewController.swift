@@ -20,8 +20,8 @@ class VLCAudioViewController: VLCMediaViewController {
         title = NSLocalizedString("AUDIO", comment: "")
         tabBarItem = UITabBarItem(
             title: NSLocalizedString("AUDIO", comment: ""),
-            image: UIImage(named: "MusicAlbums"),
-            selectedImage: UIImage(named: "MusicAlbums"))
+            image: UIImage(named: "Audio"),
+            selectedImage: UIImage(named: "Audio"))
         tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.audio
     }
 

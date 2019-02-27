@@ -150,8 +150,8 @@
 {
     self.title = NSLocalizedString(@"LOCAL_NETWORK", nil);
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle: NSLocalizedString(@"LOCAL_NETWORK", nil)
-                                                    image: [UIImage imageNamed:@"Local"]
-                                            selectedImage: [UIImage imageNamed:@"Local"]];
+                                                    image: [UIImage imageNamed:@"Network"]
+                                            selectedImage: [UIImage imageNamed:@"Network"]];
     self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork;
 }
 

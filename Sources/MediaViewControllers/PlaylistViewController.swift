@@ -20,8 +20,8 @@ class VLCPlaylistViewController: VLCMediaViewController {
         title = NSLocalizedString("PLAYLISTS", comment: "")
         tabBarItem = UITabBarItem(
             title: NSLocalizedString("PLAYLISTS", comment: ""),
-            image: UIImage(named: "TVShowsIcon"),
-            selectedImage: UIImage(named: "TVShowsIcon"))
+            image: UIImage(named: "tableViewIcon"),
+            selectedImage: UIImage(named: "tableViewIcon"))
         tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.playlist
     }
 

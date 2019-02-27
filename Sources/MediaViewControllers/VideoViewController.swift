@@ -20,8 +20,8 @@ class VLCVideoViewController: VLCMediaViewController {
         title = NSLocalizedString("VIDEO", comment: "")
         tabBarItem = UITabBarItem(
             title: NSLocalizedString("VIDEO", comment: ""),
-            image: UIImage(named: "TVShowsIcon"),
-            selectedImage: UIImage(named: "TVShowsIcon"))
+            image: UIImage(named: "Video"),
+            selectedImage: UIImage(named: "Video"))
         tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.video
     }
 
