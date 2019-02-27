@@ -81,6 +81,7 @@
         }
         [self.activityIndicator startAnimating];
         [_oneDriveController loadODItems];
+        [_oneDriveController loadODParentItem];
     } else {
         // We're at root, we need to pop the view
         [self.navigationController popViewControllerAnimated:YES];
