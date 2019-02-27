@@ -188,7 +188,7 @@ class VLCPagingViewController<ButtonBarCellType: UICollectionViewCell>: PagerTab
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard indexPath.item != currentIndex else { return }
+        guard indexPath.item != currentIndex && containerView.isScrollEnabled else { return }
 
         buttonBarView.moveTo(index: indexPath.item, animated: true, swipeDirection: .none, pagerScroll: .yes)
         shouldUpdateButtonBarView = false
