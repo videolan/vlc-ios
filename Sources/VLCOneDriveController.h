@@ -33,6 +33,7 @@
 - (NSString *)configureSubtitleWithFileName:(NSString *)fileName folderItems:(NSArray *)folderItems;
 
 - (void)loadODItems;
+- (void)loadODParentItem;
 - (void)loadODItemsWithCompletionHandler:(void (^)(void))completionHandler;
 
 @end

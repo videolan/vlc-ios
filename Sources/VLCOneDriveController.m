@@ -213,25 +213,49 @@
                 completionHandler();
             }
         } else {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[error localizedFailureReason]
-                                                                                     message:[error localizedDescription]
-                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            [weakSelf handleLoadODItemErrorWithError:error itemID:itemID];
+        }
+    }];
+}
 
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                                                               style:UIAlertActionStyleCancel
-                                                             handler:^(UIAlertAction *alertAction) {
-                                                                 if (weakSelf.presentingViewController && [itemID isEqualToString:@"root"]) {
-                                                                     [weakSelf.presentingViewController.navigationController popViewControllerAnimated:YES];
-                                                                 }
-                                                             }];
+- (void)handleLoadODItemErrorWithError:(NSError *)error itemID:(NSString *)itemID
+{
+    __weak typeof(self) weakSelf = self;
 
-            [alertController addAction:okAction];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[error localizedFailureReason]
+                                                                             message:[error localizedDescription]
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
 
-            if (weakSelf.presentingViewController) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.presentingViewController presentViewController:alertController animated:YES completion:nil];
-                });
-            }
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:^(UIAlertAction *alertAction) {
+                                                         if (weakSelf.presentingViewController && [itemID isEqualToString:@"root"]) {
+                                                             [weakSelf.presentingViewController.navigationController popViewControllerAnimated:YES];
+                                                         }
+                                                     }];
+
+    [alertController addAction:okAction];
+
+    if (weakSelf.presentingViewController) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.presentingViewController presentViewController:alertController animated:YES completion:nil];
+        });
+    }
+}
+
+- (void)loadODParentItem
+{
+    NSString *parentID = _parentItem.id ? _parentItem.id : @"root";
+
+    ODItemRequest *request = [[[_oneDriveClient drive] items:parentID] request];
+
+    __weak typeof(self) weakSelf = self;
+
+    [request getWithCompletion:^(ODItem *response, NSError *error) {
+        if (!error) {
+            weakSelf.parentItem = response;
+        } else {
+            [weakSelf handleLoadODItemErrorWithError:error itemID:parentID];
         }
     }];
 }
