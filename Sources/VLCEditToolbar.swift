@@ -45,14 +45,14 @@ class VLCEditToolbar: UIView {
 
         return deleteButton
     }()
-    private var addtoPlaylist: UIButton = {
-        let addtoPlaylist = UIButton(type: .system)
-        addtoPlaylist.setTitle(NSLocalizedString("ADD_TO_PLAYLIST", comment: ""), for: .normal)
-        addtoPlaylist.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-        addtoPlaylist.contentHorizontalAlignment = .left
-        addtoPlaylist.addTarget(self, action: #selector(addToPlaylist), for: .touchUpInside)
-        addtoPlaylist.tintColor = .orange
-        return addtoPlaylist
+    private var addToPlaylistButton: UIButton = {
+        let addToPlaylistButton = UIButton(type: .system)
+        addToPlaylistButton.setTitle(NSLocalizedString("ADD_TO_PLAYLIST", comment: ""), for: .normal)
+        addToPlaylistButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        addToPlaylistButton.contentHorizontalAlignment = .left
+        addToPlaylistButton.addTarget(self, action: #selector(addToPlaylist), for: .touchUpInside)
+        addToPlaylistButton.tintColor = .orange
+        return addToPlaylistButton
     }()
 
     @objc func addToPlaylist() {
@@ -72,7 +72,7 @@ class VLCEditToolbar: UIView {
     }
 
     private func setupStackView() {
-        let stackView = UIStackView(arrangedSubviews: [addtoPlaylist, deleteButton, shareButton])
+        let stackView = UIStackView(arrangedSubviews: [addToPlaylistButton, deleteButton, shareButton])
         let file = category.anyfiles.first
         if !(file is VLCMLAlbum) && !(file is VLCMLArtist) && !(file is VLCMLGenre) {
             stackView.addArrangedSubview(renameButton)

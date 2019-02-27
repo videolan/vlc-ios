@@ -173,7 +173,7 @@ extension VLCEditController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let editCell = (category as? EditableMLModel)?.editCellType() else {
-            assertionFailure("no editcell")
+            assertionFailure("The category either doesn't implement EditableMLModel or doesn't have a editcellType defined")
             return UICollectionViewCell()
         }
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: editCell.defaultReuseIdentifier,
@@ -182,10 +182,9 @@ extension VLCEditController: UICollectionViewDataSource {
             cell.isChecked = selectedCellIndexPaths.contains(indexPath)
             return cell
         } else {
-            assertionFailure("wait what")
+            assertionFailure("We couldn't dequeue a reusable cell, the cell might not be registered or is not a MediaEditCell")
             return UICollectionViewCell()
         }
-
     }
 }
 
