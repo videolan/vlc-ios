@@ -248,9 +248,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
     [self setupSearchController];
-    UIButton *rendererButton = [VLCRendererDiscovererManager.sharedInstance setupRendererButton];
-    [rendererButton sizeToFit];
-    _rendererBarButton = [[UIBarButtonItem alloc] initWithCustomView:rendererButton];
+    _rendererBarButton = [[UIBarButtonItem alloc] initWithCustomView:[VLCRendererDiscovererManager.sharedInstance setupRendererButton]];
 }
 
 - (void)setupSearchController
