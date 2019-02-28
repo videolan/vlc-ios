@@ -132,7 +132,7 @@ class VLCRendererDiscovererManager: NSObject {
     ///
     /// - Returns: New `UIButton`
     @objc func setupRendererButton() -> UIButton {
-        let button = UIButton()
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         button.isHidden = getAllRenderers().isEmpty
         button.tintColor = PresentationTheme.current.colors.orangeUI
         button.setImage(UIImage(named: "renderer"), for: .normal)
