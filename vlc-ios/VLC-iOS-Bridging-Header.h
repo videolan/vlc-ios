@@ -29,3 +29,5 @@
 #import "VLCMediaFileDiscoverer.h"
 #import "VLCMigrationViewController.h"
 #import "VLCCloudStorageTableViewController.h"
+#import "VLCMetadata.h"
+#import "VLCPlayerDisplayController.h"

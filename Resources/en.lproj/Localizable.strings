@@ -181,6 +181,8 @@
 "BWD_BUTTON" = "Jump Backwards";
 "FWD_BUTTON" = "Jump Forwards";
 "PLAY_BUTTON" = "Play";
+"NEXT_BUTTON" = "Next";
+"PREV_BUTTON" = "Previous";
 "PLAY_ALL_BUTTON" = "Play all";
 
 "VERSION_FORMAT" = "Version: %@";
