@@ -88,9 +88,14 @@ class VLCEditToolbar: UIView {
             ])
     }
 
+    private func setupView() {
+        backgroundColor = PresentationTheme.current.colors.background
+    }
+
     init(category: MediaLibraryBaseModel) {
         self.category = category
         super.init(frame: .zero)
+        setupView()
         setupStackView()
     }
 
