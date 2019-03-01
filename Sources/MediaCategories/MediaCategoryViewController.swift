@@ -120,7 +120,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     func setupEditToolbar() {
         editToolbar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(editToolbar)
-        editToolbarConstraint = editToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 50)
+        editToolbarConstraint = editToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 60)
         NSLayoutConstraint.activate([
             editToolbarConstraint!,
             editToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -193,7 +193,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     private func displayEditToolbar() {
         UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.editToolbarConstraint?.constant = self?.isEditing == true ? 0 : 50
+            self?.editToolbarConstraint?.constant = self?.isEditing == true ? 0 : 60
             self?.view.layoutIfNeeded()
         }
     }
