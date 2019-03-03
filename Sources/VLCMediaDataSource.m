@@ -90,8 +90,11 @@
         [_foundMedia removeObjectAtIndex:fromIdx];
         [_foundMedia insertObject:object atIndex:toIdx];
         int count = 0;
-        for (MLFile *object in _foundMedia) {
-            object.folderTrackNumber = @(count++);
+        for (id object in _foundMedia) {
+            /* _foundMedia may include instances of MLLabel in addition to MLFile, which don't respond to the setter */
+            if ([object respondsToSelector:@selector(setFolderTrackNumber:)]) {
+                [object setFolderTrackNumber:@(count++)];
+            }
         }
     }
 }
