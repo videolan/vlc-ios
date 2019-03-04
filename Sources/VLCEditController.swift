@@ -12,11 +12,11 @@
 class VLCEditController: NSObject {
     private var selectedCellIndexPaths = Set<IndexPath>()
     private let collectionView: UICollectionView
-    private let category: MediaLibraryBaseModel
+    private let model: MediaLibraryBaseModel
 
-    init(collectionView: UICollectionView, category: MediaLibraryBaseModel) {
+    init(collectionView: UICollectionView, model: MediaLibraryBaseModel) {
         self.collectionView = collectionView
-        self.category = category
+        self.model = model
         super.init()
     }
 
@@ -87,7 +87,7 @@ private extension VLCEditController {
 
 extension VLCEditController: VLCEditToolbarDelegate {
     func createPlaylist() {
-        if let model = category as? PlaylistModel {
+        if let model = model as? PlaylistModel {
             let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
                 placeHolder: "NEW_PLAYLIST")
 
@@ -96,15 +96,15 @@ extension VLCEditController: VLCEditToolbarDelegate {
                     model.create(name: text)
                 })
 
-        } else if let model = category as? VideoModel {
+        } else if let model = model as? VideoModel {
             let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
                                                placeHolder: "NEW_PLAYLIST")
 
             presentTextFieldAlert(with: alertInfo, completionHandler: {
-                [selectedCellIndexPaths, category] text -> Void in
+                [selectedCellIndexPaths, model] text -> Void in
                 let playlist = model.medialibrary.createPlaylist(with: text)
                 for indexPath in selectedCellIndexPaths {
-                    if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
+                    if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
                         playlist.appendMedia(withIdentifier: media.identifier())
                     }
                 }
@@ -116,7 +116,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
         var objectsToDelete = [VLCMLObject]()
 
         for indexPath in selectedCellIndexPaths {
-            objectsToDelete.append(category.anyfiles[indexPath.row])
+            objectsToDelete.append(model.anyfiles[indexPath.row])
         }
 
         let cancelButton = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""))
@@ -124,7 +124,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
                                           style: .destructive,
                                           action: {
                                             [weak self] action in
-                                            self?.category.delete(objectsToDelete)
+                                            self?.model.delete(objectsToDelete)
                                             self?.selectedCellIndexPaths.removeAll()
                                             self?.resetAllVisibleCell()
         })
@@ -143,7 +143,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
     func rename() {
         // FIXME: Multiple renaming of files(multiple alert can get unfriendly if too many files)
         for indexPath in selectedCellIndexPaths {
-            if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
+            if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
                 // Not using VLCAlertViewController to have more customization in text fields
                 let alertInfo = TextFieldAlertInfo(alertTitle: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), media.title),
                                                    placeHolder: "NEW_NAME",
@@ -168,17 +168,17 @@ extension VLCEditController: VLCEditToolbarDelegate {
 
 extension VLCEditController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return category.anyfiles.count
+        return model.anyfiles.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let editCell = (category as? EditableMLModel)?.editCellType() else {
+        guard let editCell = (model as? EditableMLModel)?.editCellType() else {
             assertionFailure("The category either doesn't implement EditableMLModel or doesn't have a editcellType defined")
             return UICollectionViewCell()
         }
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: editCell.defaultReuseIdentifier,
                                                          for: indexPath) as? MediaEditCell {
-            cell.media = category.anyfiles[indexPath.row]
+            cell.media = model.anyfiles[indexPath.row]
             cell.isChecked = selectedCellIndexPaths.contains(indexPath)
             return cell
         } else {

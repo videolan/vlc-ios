@@ -15,14 +15,14 @@ import Foundation
 
 class VLCMediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
 
-    var category: MediaLibraryBaseModel
+    var model: MediaLibraryBaseModel
 
     private var services: Services
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
-    private lazy var editController = VLCEditController(collectionView: self.collectionView!, category: self.category)
+    private lazy var editController = VLCEditController(collectionView: self.collectionView!, model: self.model)
     private lazy var editToolbar: VLCEditToolbar = {
-        let editToolbar = VLCEditToolbar(category: category)
+        let editToolbar = VLCEditToolbar(category: model)
         editToolbar.delegate = editController
         return editToolbar
     }()
@@ -53,9 +53,9 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         fatalError()
     }
 
-    init(services: Services, category: MediaLibraryBaseModel) {
+    init(services: Services, model: MediaLibraryBaseModel) {
         self.services = services
-        self.category = category
+        self.model = model
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
     }
@@ -102,9 +102,9 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     func setupCollectionView() {
-        let cellNib = UINib(nibName: category.cellType.nibName, bundle: nil)
-        collectionView?.register(cellNib, forCellWithReuseIdentifier: category.cellType.defaultReuseIdentifier)
-        if let editCell = (category as? EditableMLModel)?.editCellType() {
+        let cellNib = UINib(nibName: model.cellType.nibName, bundle: nil)
+        collectionView?.register(cellNib, forCellWithReuseIdentifier: model.cellType.defaultReuseIdentifier)
+        if let editCell = (model as? EditableMLModel)?.editCellType() {
             let editCellNib = UINib(nibName: editCell.nibName, bundle: nil)
             collectionView?.register(editCellNib, forCellWithReuseIdentifier: editCell.defaultReuseIdentifier)
         }
@@ -201,7 +201,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     // MARK: - Search
 
     func updateSearchResults(for searchController: UISearchController) {
-        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: category.anyfiles)
+        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: model.anyfiles)
         collectionView?.reloadData()
     }
 
@@ -214,20 +214,20 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return IndicatorInfo(title:category.indicatorName)
+        return IndicatorInfo(title:model.indicatorName)
     }
 
     // MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return category.anyfiles.count
+        return model.anyfiles.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let mediaCell = collectionView.dequeueReusableCell(withReuseIdentifier:category.cellType.defaultReuseIdentifier, for: indexPath) as? BaseCollectionViewCell else {
+        guard let mediaCell = collectionView.dequeueReusableCell(withReuseIdentifier:model.cellType.defaultReuseIdentifier, for: indexPath) as? BaseCollectionViewCell else {
             assertionFailure("you forgot to register the cell or the cell is not a subclass of BaseCollectionViewCell")
             return UICollectionViewCell()
         }
-        let mediaObject = category.anyfiles[indexPath.row]
+        let mediaObject = model.anyfiles[indexPath.row]
         if let media = mediaObject as? VLCMLMedia {
             assert(media.mainFile() != nil, "The mainfile is nil")
             mediaCell.media = media.mainFile() != nil ? media : nil
@@ -239,7 +239,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     // MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let media = category.anyfiles[indexPath.row] as? VLCMLMedia {
+        if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
             play(media: media)
         }
     }
@@ -247,21 +247,21 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if cachedCellSize == .zero {
-            cachedCellSize = category.cellType.cellSizeForWidth(collectionView.frame.size.width)
+            cachedCellSize = model.cellType.cellSizeForWidth(collectionView.frame.size.width)
         }
         return cachedCellSize
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: category.cellType.cellPadding, left: category.cellType.cellPadding, bottom: category.cellType.cellPadding, right: category.cellType.cellPadding)
+        return UIEdgeInsets(top: model.cellType.cellPadding, left: model.cellType.cellPadding, bottom: model.cellType.cellPadding, right: model.cellType.cellPadding)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return category.cellType.cellPadding
+        return model.cellType.cellPadding
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return category.cellType.cellPadding
+        return model.cellType.cellPadding
     }
 }
 
@@ -271,15 +271,15 @@ extension VLCMediaCategoryViewController {
     // FIXME: Need to add a button for ascending/descending result
     func sortByFileName() {
         // The issue is that for audio we show title which is quite confusing if we use filename
-        category.sort(by: .alpha)
+        model.sort(by: .alpha)
     }
 
     func sortByDate() {
-        category.sort(by: .insertionDate)
+        model.sort(by: .insertionDate)
     }
 
     func sortBySize() {
-        category.sort(by: .fileSize)
+        model.sort(by: .fileSize)
     }
 }
 
