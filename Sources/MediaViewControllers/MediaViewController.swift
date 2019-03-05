@@ -16,7 +16,6 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
     var services: Services
     private var rendererButton: UIButton
     private var sortButton: UIBarButtonItem?
-    private let fixedSpaceWidth: CGFloat = 21
 
     init(services: Services) {
         self.services = services
@@ -40,11 +39,9 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
         navigationController?.navigationBar.isTranslucent = false
-        let fixedSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        fixedSpace.width = fixedSpaceWidth
         sortButton = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""), style: .plain, target: self, action: #selector(sort))
         navigationItem.leftBarButtonItem = sortButton
-        navigationItem.rightBarButtonItems = [editButtonItem, fixedSpace, UIBarButtonItem(customView: rendererButton)]
+        navigationItem.rightBarButtonItems = [editButtonItem, UIBarButtonItem(customView: rendererButton)]
     }
 
     @objc func sort() {
