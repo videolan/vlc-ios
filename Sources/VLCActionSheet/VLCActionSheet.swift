@@ -36,7 +36,7 @@ class VLCActionSheet: UIViewController {
 
     lazy var backgroundView: UIView = {
         let backgroundView = UIView()
-        backgroundView.isHidden = true
+        backgroundView.alpha = 0
         backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.removeActionSheet)))
@@ -110,11 +110,25 @@ class VLCActionSheet: UIViewController {
     }()
 
     @objc func removeActionSheet() {
-        UIView.transition(with: backgroundView, duration: 0.01, options: .transitionCrossDissolve, animations: {
-            [weak self] in
-            self?.backgroundView.isHidden = true
-            }, completion: { [weak self] finished in
-                self?.presentingViewController?.dismiss(animated: true, completion: nil)
+        let realMainStackView = mainStackView.frame
+
+        UIView.animate(withDuration: 0.55, delay: 0,
+                       usingSpringWithDamping: 1,
+                       initialSpringVelocity: 0,
+                       options: .curveEaseIn,
+                       animations: {
+                        [mainStackView, backgroundView] in
+                        // Dismiss the mainStackView to the bottom of the screen
+                        mainStackView.frame.origin.y += mainStackView.frame.size.height
+                        backgroundView.alpha = 0
+            }, completion: {
+                [presentingViewController] finished in
+                presentingViewController?.dismiss(animated: false,
+                                                        completion: {
+                                                            [unowned self] in
+                                                            // When everything is complete, reset the frame for the re-use
+                                                            self.mainStackView.frame = realMainStackView
+                })
         })
     }
 
@@ -208,18 +222,19 @@ class VLCActionSheet: UIViewController {
         maskLayer.path = roundedCornerPath.cgPath
         headerView.layer.mask = maskLayer
 
-        UIView.transition(with: backgroundView, duration: 0.2, options: .transitionCrossDissolve, animations: { [weak self] in
-            self?.backgroundView.isHidden = false
-            }, completion: nil)
-
         let realMainStackView = mainStackView.frame
 
         mainStackView.frame.origin.y += mainStackView.frame.origin.y
 
-        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
-            [mainStackView] in
-            mainStackView.frame = realMainStackView
-            }, completion: nil)
+        UIView.animate(withDuration: 0.65, delay: 0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 0,
+                       options: .curveEaseOut,
+                       animations: {
+                        [mainStackView, backgroundView] in
+                        mainStackView.frame = realMainStackView
+                        backgroundView.alpha = 1
+        })
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
