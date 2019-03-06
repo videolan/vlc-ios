@@ -108,61 +108,6 @@ class VLCActionSheet: UIViewController {
         return bottomBackgroundViewHeightConstraint
     }()
 
-    @objc func removeActionSheet() {
-        let realMainStackView = mainStackView.frame
-
-        UIView.animate(withDuration: 0.55, delay: 0,
-                       usingSpringWithDamping: 1,
-                       initialSpringVelocity: 0,
-                       options: .curveEaseIn,
-                       animations: {
-                        [mainStackView, backgroundView] in
-                        // Dismiss the mainStackView to the bottom of the screen
-                        mainStackView.frame.origin.y += mainStackView.frame.size.height
-                        backgroundView.alpha = 0
-            }, completion: {
-                [presentingViewController] finished in
-                presentingViewController?.dismiss(animated: false,
-                                                        completion: {
-                                                            [unowned self] in
-                                                            // When everything is complete, reset the frame for the re-use
-                                                            self.mainStackView.frame = realMainStackView
-                })
-        })
-    }
-
-    // MARK: Private methods
-    fileprivate func setuplHeaderViewConstraints() {
-        NSLayoutConstraint.activate([
-            headerView.heightAnchor.constraint(equalToConstant: cellHeight),
-            headerView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            ])
-    }
-
-    fileprivate func setupCollectionViewConstraints() {
-        NSLayoutConstraint.activate([
-            collectionViewHeightConstraint,
-            maxCollectionViewHeightConstraint,
-            collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            ])
-    }
-
-    fileprivate func setupBottomBackgroundView() {
-        NSLayoutConstraint.activate([
-            bottomBackgroundViewHeightConstraint,
-            bottomBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor)
-            ])
-    }
-
-    fileprivate func setupMainStackViewConstraints() {
-        NSLayoutConstraint.activate([
-            mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 10),
-            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            ])
-    }
-
     override func updateViewConstraints() {
         super.updateViewConstraints()
 
@@ -238,9 +183,72 @@ class VLCActionSheet: UIViewController {
         super.viewWillLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
     }
+}
 
+// MARK: Private setup methods
+
+private extension VLCActionSheet {
+    private func setuplHeaderViewConstraints() {
+        NSLayoutConstraint.activate([
+            headerView.heightAnchor.constraint(equalToConstant: cellHeight),
+            headerView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            ])
+    }
+
+    private func setupCollectionViewConstraints() {
+        NSLayoutConstraint.activate([
+            collectionViewHeightConstraint,
+            maxCollectionViewHeightConstraint,
+            collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            ])
+    }
+
+    private func setupBottomBackgroundView() {
+        NSLayoutConstraint.activate([
+            bottomBackgroundViewHeightConstraint,
+            bottomBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor)
+            ])
+    }
+
+    private func setupMainStackViewConstraints() {
+        NSLayoutConstraint.activate([
+            // Extra padding for spring animation
+            mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 10),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
+    }
+}
+
+// MARK: Actions
+
+extension VLCActionSheet {
     @objc func setAction(closure action: @escaping (_ item: Any) -> Void) {
         self.action = action
+    }
+
+    @objc func removeActionSheet() {
+        let realMainStackView = mainStackView.frame
+
+        UIView.animate(withDuration: 0.55, delay: 0,
+                       usingSpringWithDamping: 1,
+                       initialSpringVelocity: 0,
+                       options: .curveEaseIn,
+                       animations: {
+                        [mainStackView, backgroundView] in
+                        // Dismiss the mainStackView to the bottom of the screen
+                        mainStackView.frame.origin.y += mainStackView.frame.size.height
+                        backgroundView.alpha = 0
+            }, completion: {
+                [presentingViewController] finished in
+                presentingViewController?.dismiss(animated: false,
+                                                  completion: {
+                                                    [unowned self] in
+                                                    // When everything is complete, reset the frame for the re-use
+                                                    self.mainStackView.frame = realMainStackView
+                })
+        })
     }
 }
 
