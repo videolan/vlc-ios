@@ -156,7 +156,7 @@ class VLCActionSheet: UIViewController {
 
     fileprivate func setupMainStackViewConstraints() {
         NSLayoutConstraint.activate([
-            mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 10),
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
