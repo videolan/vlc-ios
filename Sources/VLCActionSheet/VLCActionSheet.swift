@@ -157,14 +157,10 @@ class VLCActionSheet: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        setHeaderRoundedCorners()
+
         // This is to avoid a horrible visual glitch!
         mainStackView.isHidden = false
-
-        let roundedCornerPath = UIBezierPath(roundedRect: headerView.bounds, byRoundingCorners: [.topLeft, .topRight],
-                                             cornerRadii: CGSize(width: 10, height: 10))
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = roundedCornerPath.cgPath
-        headerView.layer.mask = maskLayer
 
         let realMainStackView = mainStackView.frame
 
@@ -186,6 +182,7 @@ class VLCActionSheet: UIViewController {
         coordinator.animate(alongsideTransition: { [weak self] _ in
             self?.maxCollectionViewHeightConstraint.constant = size.height / 2
             self?.collectionView.layoutIfNeeded()
+            self?.setHeaderRoundedCorners()
         })
     }
 
@@ -242,6 +239,18 @@ private extension VLCActionSheet {
             mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ])
+    }
+}
+
+// MARK: Helpers
+
+private extension VLCActionSheet {
+    private func setHeaderRoundedCorners() {
+        let roundedCornerPath = UIBezierPath(roundedRect: headerView.bounds, byRoundingCorners: [.topLeft, .topRight],
+                                             cornerRadii: CGSize(width: 10, height: 10))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = roundedCornerPath.cgPath
+        headerView.layer.mask = maskLayer
     }
 }
 
