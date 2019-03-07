@@ -20,7 +20,11 @@
 #import "UIDevice+VLC.h"
 #import <AVFoundation/AVFoundation.h>
 #import "VLCPlayerDisplayController.h"
+#if TARGET_OS_TV
+#import "VLCTVConstants.h"
+#else
 #import "VLCConstants.h"
+#endif
 #import "VLCRemoteControlService.h"
 #import "VLCMetadata.h"
 #if TARGET_OS_IOS
