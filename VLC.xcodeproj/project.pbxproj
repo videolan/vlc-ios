@@ -14,6 +14,7 @@
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
 		411453B9219C48DA002D94E1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 411453B8219C48DA002D94E1 /* Launch Screen.storyboard */; };
 		411DC0FD20F650B10044305E /* VLCMediaSubcategory+VLCDragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412BE7521FC4947400ACCC42 /* VLCMediaSubcategory+VLCDragAndDrop.swift */; };
+		412086362231FE43006A6630 /* UIViewController+VLCAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.m */; };
 		41251ED01FD0CF7900099110 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41251ECE1FD0CF7900099110 /* AppCoordinator.swift */; };
 		41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */; };
 		41273A3D1A955C4100A2EF77 /* VLCMigrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */; };
@@ -2891,6 +2892,7 @@
 				8DF966EF211C643D00D0FCD6 /* PlaylistModel.swift in Sources */,
 				9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */,
 				41EC28E32136D905004BCF0F /* BaseCollectionViewCell.swift in Sources */,
+				412086362231FE43006A6630 /* UIViewController+VLCAlert.m in Sources */,
 				DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */,
 				DD870E9A1CEF929A00BBD4FE /* VLCNetworkLoginViewFieldCell.m in Sources */,
 				4195747D206A92ED00393A42 /* RemoteNetworkDataSource.swift in Sources */,

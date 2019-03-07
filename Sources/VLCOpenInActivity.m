@@ -73,7 +73,7 @@
 
 - (void)performActivity
 {
-    if (!self.presentingViewController || !self.presentingBarButtonItem) {
+    if (!self.presentingViewController || !self.presentingButton) {
         [self activityDidFinish:NO];
         return;
     }
@@ -109,7 +109,7 @@
         return;
     }
 
-    if (!self.presentingBarButtonItem) {
+    if (!self.presentingButton) {
         [self activityDidFinish:NO];
         return;
     }
@@ -121,7 +121,8 @@
     __block BOOL controllerWasPresentedSuccessfully = NO;
 
     dispatch_block_t controllerPresentationBlock = ^{
-        controllerWasPresentedSuccessfully = [self->_documentInteractionController presentOpenInMenuFromBarButtonItem:self.presentingBarButtonItem animated:YES];
+
+        controllerWasPresentedSuccessfully = [self->_documentInteractionController presentOpenInMenuFromRect:self.presentingButton.frame inView: self.presentingViewController.view animated:YES];
 
         if (!controllerWasPresentedSuccessfully) {
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_APPLICATIONS", nil)

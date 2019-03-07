@@ -16,7 +16,7 @@
 
 @implementation VLCActivityViewControllerVendor
 
-+ (UIActivityViewController *)activityViewControllerForFiles:(NSArray *)files presentingButton:(UIBarButtonItem *)button presentingViewController:(UIViewController *)viewController;
++ (UIActivityViewController *)activityViewControllerForFiles:(NSArray *)files presentingButton:(UIButton *)button presentingViewController:(UIViewController *)viewController;
 {
     if (![files count]) {
         [viewController vlc_showAlertWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
@@ -27,7 +27,7 @@
 
     VLCOpenInActivity *openInActivity = [[VLCOpenInActivity alloc] init];
     openInActivity.presentingViewController = viewController;
-    openInActivity.presentingBarButtonItem = button;
+    openInActivity.presentingButton = button;
 
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:files applicationActivities:@[openInActivity]];
 
