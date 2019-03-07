@@ -22,6 +22,8 @@ protocol MediaLibraryBaseModel {
     var indicatorName: String { get }
     var cellType: BaseCollectionViewCell.Type { get }
 
+    var medialibrary: VLCMediaLibraryManager { get }
+
     func append(_ item: VLCMLObject)
     func delete(_ items: [VLCMLObject])
     func sort(by criteria: VLCMLSortingCriteria)
@@ -33,8 +35,6 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
     init(medialibrary: VLCMediaLibraryManager)
 
     var files: [MLType] { get set }
-
-    var medialibrary: VLCMediaLibraryManager { get }
 
     var updateView: (() -> Void)? { get set }
 

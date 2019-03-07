@@ -91,29 +91,19 @@ private extension VLCEditController {
 extension VLCEditController: VLCEditToolbarDelegate {
 
     func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar) {
-        if let model = model as? PlaylistModel {
-            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
-                placeHolder: "NEW_PLAYLIST")
+        let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
+                                           alertDescription: NSLocalizedString("PLAYLIST_DESCRIPTION", comment: ""),
+                                           placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER", comment:""))
 
-            presentTextFieldAlert(with: alertInfo, completionHandler: {
-                text -> Void in
-                    model.create(name: text)
-                })
-
-        } else if let model = model as? VideoModel {
-            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
-                                               placeHolder: "NEW_PLAYLIST")
-
-            presentTextFieldAlert(with: alertInfo, completionHandler: {
-                [selectedCellIndexPaths, model] text -> Void in
-                let playlist = model.medialibrary.createPlaylist(with: text)
-                for indexPath in selectedCellIndexPaths {
-                    if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
-                        playlist.appendMedia(withIdentifier: media.identifier())
-                    }
+        presentTextFieldAlert(with: alertInfo, completionHandler: {
+            [selectedCellIndexPaths, model] text -> Void in
+            let playlist = model.medialibrary.createPlaylist(with: text)
+            for indexPath in selectedCellIndexPaths {
+                if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
+                    playlist.appendMedia(withIdentifier: media.identifier())
                 }
-            })
-        }
+            }
+        })
     }
 
     func editToolbarDidDelete(_ editToolbar: VLCEditToolbar) {

@@ -14,7 +14,6 @@ protocol VLCEditToolbarDelegate: class {
     func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar)
     func editToolbarDidRename(_ editToolbar: VLCEditToolbar)
     func editToolbarDidShare(_ editToolbar: VLCEditToolbar)
-
 }
 
 class VLCEditToolbar: UIView {
