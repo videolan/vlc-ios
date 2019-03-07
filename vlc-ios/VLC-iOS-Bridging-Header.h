@@ -25,6 +25,7 @@
 #import "IASKSettingsReader.h"
 #import "IASKSwitch.h"
 #import "VLCHTTPUploaderController.h"
+#import "VLCActivityViewControllerVendor.h"
 #import "VLCMediaFileDiscoverer.h"
 #import "VLCMigrationViewController.h"
 #import "VLCCloudStorageTableViewController.h"

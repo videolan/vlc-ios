@@ -130,8 +130,29 @@ extension VLCEditController: VLCEditToolbarDelegate {
                                                                 deleteButton])
     }
 
-    func editToolbarDidShare(_ editToolbar: VLCEditToolbar) {
-        assertionFailure("Implement me")
+    func editToolbarDidShare(_ editToolbar: VLCEditToolbar, presentFrom button: UIButton) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        let rootViewController = UIApplication.shared.keyWindow?.rootViewController
+        guard let controller = VLCActivityViewControllerVendor.activityViewController(forFiles: fileURLsFromSelection(), presenting: button, presenting: rootViewController) else {
+            UIApplication.shared.endIgnoringInteractionEvents()
+            return
+        }
+        controller.popoverPresentationController?.sourceView = editToolbar
+        rootViewController?.present(controller, animated: true) {
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+    }
+
+    func fileURLsFromSelection() -> [URL] {
+        var fileURLS = [URL]()
+        for indexPath in selectedCellIndexPaths {
+            guard let file = model.anyfiles[indexPath.row] as? VLCMLMedia else {
+                assertionFailure("we're trying to share something that doesn't have an mrl")
+                return fileURLS
+            }
+            fileURLS.append(file.mainFile().mrl)
+        }
+        return fileURLS
     }
 
     func editToolbarDidRename(_ editToolbar: VLCEditToolbar) {

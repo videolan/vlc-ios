@@ -13,7 +13,7 @@ protocol VLCEditToolbarDelegate: class {
     func editToolbarDidDelete(_ editToolbar: VLCEditToolbar)
     func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar)
     func editToolbarDidRename(_ editToolbar: VLCEditToolbar)
-    func editToolbarDidShare(_ editToolbar: VLCEditToolbar)
+    func editToolbarDidShare(_ editToolbar: VLCEditToolbar, presentFrom button: UIButton)
 }
 
 class VLCEditToolbar: UIView {
@@ -68,7 +68,7 @@ class VLCEditToolbar: UIView {
     }
 
     @objc func share() {
-        delegate?.editToolbarDidShare(self)
+        delegate?.editToolbarDidShare(self, presentFrom: shareButton)
     }
 
     private func setupStackView() {

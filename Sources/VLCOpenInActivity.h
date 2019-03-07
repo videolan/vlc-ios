@@ -15,6 +15,6 @@
 @interface VLCOpenInActivity : UIActivity
 
 @property (nonatomic, weak) UIViewController *presentingViewController;
-@property (nonatomic, weak) UIBarButtonItem *presentingBarButtonItem;
+@property (nonatomic, weak) UIButton *presentingButton;
 
 @end

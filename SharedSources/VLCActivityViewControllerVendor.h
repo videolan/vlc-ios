@@ -12,6 +12,6 @@
 
 @interface VLCActivityViewControllerVendor : NSObject
 
-+ (UIActivityViewController *)activityViewControllerForFiles:(NSArray *)files presentingButton:(UIBarButtonItem *)button presentingViewController:(UIViewController *)controller;
++ (UIActivityViewController *)activityViewControllerForFiles:(NSArray *)files presentingButton:(UIButton *)button presentingViewController:(UIViewController *)controller;
 
 @end
