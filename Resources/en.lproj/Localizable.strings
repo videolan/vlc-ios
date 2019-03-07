@@ -56,7 +56,6 @@
 "BUTTON_ALL" = "Select All";
 "BUTTON_ABOUT" = "About";
 "BUTTON_BACK" = "Back";
-"BUTTON_EDIT" = "Edit";
 "BUTTON_DONE" = "Done";
 "BUTTON_CANCEL" = "Cancel";
 "BUTTON_SAVE" = "Save";
@@ -321,6 +320,12 @@
 //EDIT
 "ADD_TO_PLAYLIST" = "Add to Playlist";
 
+"PLAYLIST_PLACEHOLDER" = "Playlist title";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+
+"RENAME_PLACEHOLDER" = "New title";
+"ERROR_RENAME_FAILED" = "Renaming failed";
+"ERROR_EMPTY_NAME" = "The title can't be empty";
 // VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alphanumerically";

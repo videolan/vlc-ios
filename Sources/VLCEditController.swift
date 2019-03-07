@@ -150,7 +150,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
             if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
                 // Not using VLCAlertViewController to have more customization in text fields
                 let alertInfo = TextFieldAlertInfo(alertTitle: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), media.title),
-                                                   placeHolder: "NEW_NAME",
+                                                   placeHolder: NSLocalizedString("RENAME_PLACEHOLDER", comment: ""),
                                                    confirmActionTitle: NSLocalizedString("BUTTON_RENAME", comment: ""))
                 presentTextFieldAlert(with: alertInfo, completionHandler: {
                     [weak self] text -> Void in
