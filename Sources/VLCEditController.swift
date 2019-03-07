@@ -42,13 +42,16 @@ private extension VLCEditController {
 
     private struct TextFieldAlertInfo {
         var alertTitle: String
+        var alertDescription: String
         var placeHolder: String
         var confirmActionTitle: String
 
         init(alertTitle: String = "",
+             alertDescription: String = "",
              placeHolder: String = "",
              confirmActionTitle: String = NSLocalizedString("BUTTON_DONE", comment: "")) {
             self.alertTitle = alertTitle
+            self.alertDescription = alertDescription
             self.placeHolder = placeHolder
             self.confirmActionTitle = confirmActionTitle
         }
@@ -57,7 +60,7 @@ private extension VLCEditController {
     private func presentTextFieldAlert(with info: TextFieldAlertInfo,
                                        completionHandler: @escaping (String) -> Void) {
         let alertController = UIAlertController(title: info.alertTitle,
-                                                message: "",
+                                                message: info.alertDescription,
                                                 preferredStyle: .alert)
 
         alertController.addTextField(configurationHandler: {
