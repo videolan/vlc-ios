@@ -89,7 +89,8 @@ private extension VLCEditController {
 // MARK: - VLCEditToolbarDelegate
 
 extension VLCEditController: VLCEditToolbarDelegate {
-    func createPlaylist() {
+
+    func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar) {
         if let model = model as? PlaylistModel {
             let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
                 placeHolder: "NEW_PLAYLIST")
@@ -115,7 +116,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
         }
     }
 
-    func delete() {
+    func editToolbarDidDelete(_ editToolbar: VLCEditToolbar) {
         var objectsToDelete = [VLCMLObject]()
 
         for indexPath in selectedCellIndexPaths {
@@ -139,11 +140,11 @@ extension VLCEditController: VLCEditToolbarDelegate {
                                                                 deleteButton])
     }
 
-    func share() {
+    func editToolbarDidShare(_ editToolbar: VLCEditToolbar) {
         assertionFailure("Implement me")
     }
 
-    func rename() {
+    func editToolbarDidRename(_ editToolbar: VLCEditToolbar) {
         // FIXME: Multiple renaming of files(multiple alert can get unfriendly if too many files)
         for indexPath in selectedCellIndexPaths {
             if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
