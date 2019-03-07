@@ -10,10 +10,11 @@
  *****************************************************************************/
 
 protocol VLCEditToolbarDelegate: class {
-    func delete()
-    func createPlaylist()
-    func rename()
-    func share()
+    func editToolbarDidDelete(_ edittoolbar: VLCEditToolbar)
+    func editToolbarDidAddToPlaylist(_ edittoolbar: VLCEditToolbar)
+    func editToolbarDidRename(_ edittoolbar: VLCEditToolbar)
+    func editToolbarDidShare(_ edittoolbar: VLCEditToolbar)
+
 }
 
 class VLCEditToolbar: UIView {
@@ -56,19 +57,19 @@ class VLCEditToolbar: UIView {
     }()
 
     @objc func addToPlaylist() {
-        delegate?.createPlaylist()
+        delegate?.editToolbarDidAddToPlaylist(self)
     }
 
     @objc func deleteSelection() {
-        delegate?.delete()
+        delegate?.editToolbarDidDelete(self)
     }
 
     @objc func rename() {
-        delegate?.rename()
+        delegate?.editToolbarDidRename(self)
     }
 
     @objc func share() {
-        delegate?.share()
+        delegate?.editToolbarDidShare(self)
     }
 
     private func setupStackView() {
