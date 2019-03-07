@@ -14,9 +14,11 @@
 
 @implementation VLCPlaybackNavigationController
 
+#if !TARGET_OS_TV
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return [self.topViewController supportedInterfaceOrientations];
 }
+#endif
 
 @end
