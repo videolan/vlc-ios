@@ -56,6 +56,12 @@ extension GenreModel: MediaLibraryObserver {
     }
 }
 
+// MARK: - Edit
+extension GenreModel: EditableMLModel {
+    func editCellType() -> BaseCollectionViewCell.Type {
+        return MediaEditCell.self
+    }
+}
 extension VLCMLGenre {
     @objc func numberOfTracksString() -> String {
         let numberOftracks = numberOfTracks()

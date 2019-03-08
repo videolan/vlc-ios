@@ -38,6 +38,12 @@ class ArtistModel: MLBaseModel {
         preconditionFailure("ArtistModel: Cannot delete artist")
     }
 }
+// MARK: - Edit
+extension ArtistModel: EditableMLModel {
+    func editCellType() -> BaseCollectionViewCell.Type {
+        return MediaEditCell.self
+    }
+}
 
 // MARK: - Sort
 

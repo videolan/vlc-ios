@@ -52,6 +52,13 @@ extension AlbumModel {
     }
 }
 
+// MARK: - Edit
+extension AlbumModel: EditableMLModel {
+    func editCellType() -> BaseCollectionViewCell.Type {
+        return MediaEditCell.self
+    }
+}
+
 extension AlbumModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddAlbums albums: [VLCMLAlbum]) {
         albums.forEach({ append($0) })

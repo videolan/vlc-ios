@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.59" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.45"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,14 +27,20 @@
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W4f-6Y-az7">
-                            <rect key="frame" x="40" y="0.0" width="99" height="62"/>
+                            <rect key="frame" x="40" y="6" width="80" height="50"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="W4f-6Y-az7" secondAttribute="height" multiplier="16:10" id="o2R-2I-WPK"/>
+                                <constraint firstAttribute="width" secondItem="W4f-6Y-az7" secondAttribute="height" multiplier="1:1" id="0S0-Dm-pFV" userLabel="AudioAspectt = 1:1"/>
+                                <constraint firstAttribute="width" secondItem="W4f-6Y-az7" secondAttribute="height" multiplier="16:10" id="o2R-2I-WPK" userLabel="VideoAspectRatio"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="0S0-Dm-pFV"/>
+                                </mask>
+                            </variation>
                         </imageView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ZiN-xT-sWh">
-                            <rect key="frame" x="159" y="11.5" width="192" height="39"/>
+                            <rect key="frame" x="140" y="11.5" width="211" height="39"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="22f-7o-NGo">
                                     <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
@@ -73,6 +78,8 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="Lgw-oV-ncW"/>
             <connections>
+                <outlet property="AudioAspectRatio" destination="0S0-Dm-pFV" id="fup-hh-pq5"/>
+                <outlet property="VideoAspectRatio" destination="o2R-2I-WPK" id="hQw-An-wIt"/>
                 <outlet property="checkboxImageView" destination="RHG-II-xmF" id="F6Y-7m-fPb"/>
                 <outlet property="sizeLabel" destination="ZKc-bz-v5I" id="wmF-9r-Gew"/>
                 <outlet property="thumbnailImageView" destination="W4f-6Y-az7" id="qx7-8D-QJK"/>
