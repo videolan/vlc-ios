@@ -60,7 +60,7 @@ class AudioCollectionViewCell: BaseCollectionViewCell {
 
     func update(album: VLCMLAlbum) {
         titleLabel.text = album.title
-        descriptionLabel.text = album.albumArtist.name
+        descriptionLabel.text = album.albumArtist != nil ? album.albumArtist.name : ""
     }
 
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
