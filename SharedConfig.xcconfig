@@ -18,5 +18,7 @@
 
 BUNDLE_IDENTIFIER_PREFIX=com.example
 
+test to make the app fail when building it on circle ci, remove afterwareds
+
 GROUP_IDENTIFIER=group.$(BUNDLE_IDENTIFIER_PREFIX).vlc-ios
 KEYCHAIN_ACCESS_GROUP=$(AppIdentifierPrefix)$(BUNDLE_IDENTIFIER_PREFIX).vlc-ios
