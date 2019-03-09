@@ -14,6 +14,8 @@
 // The different target bundle identifer automatically use the identifier
 // Using com.example leads to com.example.vlc-ios for the iOS target.
 
+// TODO: Remove - comment used for testing circle CI
+
 BUNDLE_IDENTIFIER_PREFIX=com.example
 
 GROUP_IDENTIFIER=group.$(BUNDLE_IDENTIFIER_PREFIX).vlc-ios
