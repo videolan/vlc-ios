@@ -933,6 +933,29 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self applyYaw:yaw pitch:pitch];
     }
 }
+
+#pragma mark - keyboard controls
+
+- (NSArray<UIKeyCommand *> *)keyCommands
+{
+    return @[
+             [UIKeyCommand keyCommandWithInput:@" " modifierFlags:0 action:@selector(playPause) discoverabilityTitle:@"Play/Pause"],
+             [UIKeyCommand keyCommandWithInput:@"\r" modifierFlags:0 action:@selector(playPause) discoverabilityTitle:@"Play/Pause"],
+             [UIKeyCommand keyCommandWithInput:UIKeyInputLeftArrow modifierFlags:0 action:@selector(keyBackward) discoverabilityTitle:@"Skip Back"],
+             [UIKeyCommand keyCommandWithInput:UIKeyInputRightArrow modifierFlags:0 action:@selector(keyForward) discoverabilityTitle:@"Skip Forward"],
+             ];
+}
+
+- (void)keyForward
+{
+    [_vpc jumpForward:FORWARD_SWIPE_DURATION];
+}
+
+- (void)keyBackward
+{
+    [_vpc jumpBackward:BACKWARD_SWIPE_DURATION];
+}
+
 #pragma mark - controls
 
 - (void)closePlayback:(id)sender
