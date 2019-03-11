@@ -21,7 +21,7 @@ typealias AlertAction = (UIAlertAction) -> Void
     init(title: String, style: UIAlertAction.Style = .default, action: AlertAction? = nil) {
         self.title = title
         self.style = style
-      
+    }
 
     // For Objc
     convenience init(title: String, action: AlertAction? = nil) {
