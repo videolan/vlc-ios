@@ -84,16 +84,14 @@ class VLCMediaLibraryManager: NSObject {
     // identification of observing object
     private var observers = [ObjectIdentifier: Observer]()
 
-    private lazy var medialib: VLCMediaLibrary = {
-        let medialibrary = VLCMediaLibrary()
-        medialibrary.delegate = self
-        return medialibrary
-    }()
+    private var medialib: VLCMediaLibrary!
 
     weak var migrationDelegate: MediaLibraryMigrationDelegate?
 
     override init() {
         super.init()
+        medialib = VLCMediaLibrary()
+        medialib.delegate = self
         setupMediaLibrary()
         NotificationCenter.default.addObserver(self, selector: #selector(reload),
                                                name: .VLCNewFileAddedNotification, object: nil)
@@ -179,15 +177,6 @@ class VLCMediaLibraryManager: NSObject {
         }
         return medialib.media(withMrl: mrl)
     }
-
-    @discardableResult
-    func prepareMigrationIfNeeded() -> Bool {
-        if !didMigrate {
-            migrationDelegate?.medialibraryDidStartMigration(self)
-            return true
-        }
-        return false
-    }
 }
 
 // MARK: - Migration
@@ -197,7 +186,7 @@ private extension VLCMediaLibraryManager {
         guard !didMigrate else {
             return
         }
-
+        migrationDelegate?.medialibraryDidStartMigration(self)
         guard migrateToNewMediaLibrary() else {
             migrationDelegate?.medialibraryDidStopMigration(self)
             return
