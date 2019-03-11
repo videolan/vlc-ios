@@ -79,3 +79,13 @@ class VLCAlbumCategoryViewController: VLCMediaCategoryViewController {
         }
     }
 }
+
+class VLCCollectionCategoryViewController: VLCMediaCategoryViewController {
+    init(_ services: Services, mediaCollection: MediaCollectionModel) {
+        let model = CollectionModel(mediaService: services.medialibraryService, mediaCollection: mediaCollection)
+        super.init(services: services, model: model)
+        model.updateView = { [weak self] in
+            self?.reloadData()
+        }
+    }
+}

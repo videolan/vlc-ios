@@ -62,3 +62,9 @@ extension AlbumModel: MediaLibraryObserver {
         updateView?()
     }
 }
+
+extension VLCMLAlbum: MediaCollectionModel {
+    func files() -> [VLCMLMedia] {
+        return tracks
+    }
+}

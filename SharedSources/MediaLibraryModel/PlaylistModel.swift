@@ -87,3 +87,9 @@ extension VLCMLPlaylist {
         return String(format: tracksString, media.count)
     }
 }
+
+extension VLCMLPlaylist: MediaCollectionModel {
+    func files() -> [VLCMLMedia] {
+        return media
+    }
+}
