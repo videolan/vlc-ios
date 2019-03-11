@@ -71,3 +71,9 @@ extension VLCMLGenre {
         return String(format: NSLocalizedString("TRACK", comment: ""), numberOftracks)
     }
 }
+
+extension VLCMLGenre: MediaCollectionModel {
+    func files() -> [VLCMLMedia] {
+        return []
+    }
+}

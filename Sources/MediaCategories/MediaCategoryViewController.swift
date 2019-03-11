@@ -20,6 +20,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     private var services: Services
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
+    private var rendererButton: UIButton
     private lazy var editController: VLCEditController = {
         let editController = VLCEditController(mediaLibraryService:services.medialibraryService, model: model)
         editController.delegate = self
@@ -72,8 +73,10 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     init(services: Services, model: MediaLibraryBaseModel) {
         self.services = services
         self.model = model
+        self.rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
+        navigationItem.rightBarButtonItems = [editButtonItem, UIBarButtonItem(customView: rendererButton)]
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -227,6 +230,9 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
             play(media: media)
+        } else if let mediaCollection = model.anyfiles[indexPath.row] as? MediaCollectionModel {
+            let collectionViewController = VLCCollectionCategoryViewController(services, mediaCollection: mediaCollection)
+            navigationController?.pushViewController(collectionViewController, animated: true)
         }
     }
 }

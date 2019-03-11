@@ -69,3 +69,7 @@ protocol EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type
 
 }
+
+protocol MediaCollectionModel {
+    func files() -> [VLCMLMedia]
+}
