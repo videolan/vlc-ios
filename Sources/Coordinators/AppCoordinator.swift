@@ -36,7 +36,6 @@ class Services: NSObject {
         // FIXME: VLCHTTPUploaderController should perhaps be a service?
         VLCHTTPUploaderController.sharedInstance().cleanCache()
         services.medialibraryManager.migrationDelegate = self
-        services.medialibraryManager.prepareMigrationIfNeeded()
     }
 
     private func setupChildViewControllers() {
