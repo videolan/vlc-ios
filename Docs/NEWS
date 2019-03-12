@@ -1,5 +1,12 @@
 # Changelog
 
+## tvOS [3.0.4]
+
+· Added support for SMB 2
+· Added support for AV1 video playback by shipping dav1d decoder
+· Fixed cut off text in Network Stream tab
+· Bugfixes and stability improvements
+
 ## iOS [3.1.7]
 
 · Added support for SMB 2
