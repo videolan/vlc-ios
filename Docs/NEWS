@@ -1,3 +1,11 @@
+iOS 3.1.7:
+-----------
+· Added support for SMB 2
+· Added support for external keyboard shortcuts
+· Fixed Chromecast showing a black screen for certain files
+· Fixed an issue where a user couldn't navigate out of a OneDrive folder
+· Bugfixes and stability improvements
+
 iOS 3.1.6:
 -----------
 · Fixed OneDrive integration by adopting newer Api
