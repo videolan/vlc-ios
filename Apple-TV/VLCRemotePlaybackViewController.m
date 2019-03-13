@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2019 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -18,14 +18,17 @@
 #import "VLCMaskView.h"
 #import "CAAnimation+VLCWiggle.h"
 #import "NSString+SupportedMedia.h"
+#import "VLC_iOS-Swift.h"
 
 #define remotePlaybackReuseIdentifer @"remotePlaybackReuseIdentifer"
 
 @interface VLCRemotePlaybackViewController () <UICollectionViewDataSource, UICollectionViewDelegate, VLCMediaFileDiscovererDelegate>
-{
-    Reachability *_reachability;
-    NSMutableArray<NSString *> *_discoveredFiles;
-}
+
+@property (strong, nonatomic) Reachability *reachability;
+@property (strong, nonatomic) NSMutableArray<NSString *> *discoveredFiles;
+
+@property (strong, nonatomic) VLCMediaThumbnailerCache *thumbnailerCache;
+
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
 
 @end
@@ -81,6 +84,12 @@
     NSUInteger dayOfYear = [gregorian ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:[NSDate date]];
     if (dayOfYear >= 354)
         self.cachedMediaConeImageView.image = [UIImage imageNamed:@"xmas-cone"];
+
+    self.thumbnailerCache = [VLCMediaThumbnailerCache alloc];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(realoadMediaCollectionView:)
+                                                 name:@"thumbnailIComplete" object:nil];
 }
 
 - (void)viewDidLayoutSubviews
@@ -168,15 +177,22 @@
 {
     NSString *cellTitle;
     NSUInteger row = indexPath.row;
-    @synchronized(_discoveredFiles) {
-        if (_discoveredFiles.count > row) {
-            cellTitle = [_discoveredFiles[row] lastPathComponent];
+    NSURL *thumbnailURL = nil;
+
+    @synchronized(self.discoveredFiles) {
+        if (self.discoveredFiles.count > row) {
+            cellTitle = [self.discoveredFiles[row] lastPathComponent];
+            if (cellTitle.isSupportedMediaFormat) {
+                thumbnailURL = [self.thumbnailerCache getThumbnailURL:self.discoveredFiles[row]];
+            }
         }
     }
 
     [cell prepareForReuse];
     [cell setIsDirectory:NO];
-    if (cellTitle.isSupportedMediaFormat) {
+    if (thumbnailURL) {
+        [cell setThumbnailURL:thumbnailURL];
+    } else if (cellTitle.isSupportedMediaFormat) {
         [cell setThumbnailImage:[UIImage imageNamed:@"movie"]];
     } else if (cellTitle.isSupportedAudioMediaFormat) {
         [cell setThumbnailImage:[UIImage imageNamed:@"audio"]];
@@ -292,8 +308,13 @@
 #pragma mark - media file discovery
 - (void)mediaFilesFoundRequiringAdditionToStorageBackend:(NSArray<NSString *> *)foundFiles
 {
-    @synchronized(_discoveredFiles) {
-        _discoveredFiles = [NSMutableArray arrayWithArray:foundFiles];
+    @synchronized(self.discoveredFiles) {
+        self.discoveredFiles = [NSMutableArray arrayWithArray:foundFiles];
+            for (int cnt = 0; cnt < [self.discoveredFiles count]; cnt++) {
+				if (self.discoveredFiles[cnt].isSupportedMediaFormat) {
+                	[self.thumbnailerCache getVideoThumbnail:self.discoveredFiles[cnt]];
+				}
+            }
     }
     [self.cachedMediaCollectionView reloadData];
 }
@@ -310,9 +331,15 @@
 
 - (void)mediaFileDeleted:(NSString *)filePath
 {
-    @synchronized(_discoveredFiles) {
-        [_discoveredFiles removeObject:filePath];
+    @synchronized(self.discoveredFiles) {
+        [self.discoveredFiles removeObject:filePath];
+        [self.thumbnailerCache removeThumbnail:filePath];
     }
+    [self.cachedMediaCollectionView reloadData];
+}
+
+- (void)realoadMediaCollectionView:(NSNotification *)notification
+{
     [self.cachedMediaCollectionView reloadData];
 }
 
