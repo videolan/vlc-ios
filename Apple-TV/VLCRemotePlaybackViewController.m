@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2019 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -18,6 +18,7 @@
 #import "VLCMaskView.h"
 #import "CAAnimation+VLCWiggle.h"
 #import "NSString+SupportedMedia.h"
+#import "VLC-Swift.h"
 
 #define remotePlaybackReuseIdentifer @"remotePlaybackReuseIdentifer"
 
@@ -25,6 +26,8 @@
 
 @property (strong, nonatomic) Reachability *reachability;
 @property (strong, nonatomic) NSMutableArray<NSString *> *discoveredFiles;
+
+@property (strong, nonatomic) VLCMediaThumbnailerCache *thumbnailerCache;
 
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
 
@@ -81,6 +84,12 @@
     NSUInteger dayOfYear = [gregorian ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:[NSDate date]];
     if (dayOfYear >= 354)
         self.cachedMediaConeImageView.image = [UIImage imageNamed:@"xmas-cone"];
+
+    self.thumbnailerCache = [VLCMediaThumbnailerCache alloc];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(realoadMediaCollectionView:)
+                                                 name:@"thumbnailIComplete" object:nil];
 }
 
 - (void)viewDidLayoutSubviews
@@ -168,15 +177,23 @@
 {
     NSString *cellTitle;
     NSUInteger row = indexPath.row;
+
+   NSURL *thumbnailURL = nil;
+
     @synchronized(self.discoveredFiles) {
         if (self.discoveredFiles.count > row) {
             cellTitle = [self.discoveredFiles[row] lastPathComponent];
+            if (cellTitle.isSupportedMediaFormat) {
+                thumbnailURL = [self.thumbnailerCache getThumbnailURL:self.discoveredFiles[row]];
+            }
         }
     }
 
     [cell prepareForReuse];
     [cell setIsDirectory:NO];
-    if (cellTitle.isSupportedMediaFormat) {
+    if (thumbnailURL) {
+        [cell setThumbnailURL:thumbnailURL];
+    } else if (cellTitle.isSupportedMediaFormat) {
         [cell setThumbnailImage:[UIImage imageNamed:@"movie"]];
     } else if (cellTitle.isSupportedAudioMediaFormat) {
         [cell setThumbnailImage:[UIImage imageNamed:@"audio"]];
@@ -294,6 +311,11 @@
 {
     @synchronized(self.discoveredFiles) {
         self.discoveredFiles = [NSMutableArray arrayWithArray:foundFiles];
+            for (int cnt = 0; cnt < [self.discoveredFiles count]; cnt++) {
+				if (self.discoveredFiles[cnt].isSupportedMediaFormat) {
+                	[self.thumbnailerCache getVideoThumbnail:self.discoveredFiles[cnt]];
+				}
+            }
     }
     [self.cachedMediaCollectionView reloadData];
 }
@@ -312,7 +334,13 @@
 {
     @synchronized(self.discoveredFiles) {
         [self.discoveredFiles removeObject:filePath];
+        [self.thumbnailerCache removeThumbnail:filePath];
     }
+    [self.cachedMediaCollectionView reloadData];
+}
+
+- (void)realoadMediaCollectionView:(NSNotification *)notification
+{
     [self.cachedMediaCollectionView reloadData];
 }
 
