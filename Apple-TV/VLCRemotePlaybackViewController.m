@@ -17,6 +17,7 @@
 #import "VLCRemoteBrowsingTVCell.h"
 #import "VLCMaskView.h"
 #import "CAAnimation+VLCWiggle.h"
+#import "NSString+SupportedMedia.h"
 
 #define remotePlaybackReuseIdentifer @"remotePlaybackReuseIdentifer"
 
@@ -175,7 +176,13 @@
 
     [cell prepareForReuse];
     [cell setIsDirectory:NO];
-    [cell setThumbnailImage:[UIImage imageNamed:@"blank"]];
+    if (cellTitle.isSupportedMediaFormat) {
+        [cell setThumbnailImage:[UIImage imageNamed:@"movie"]];
+    } else if (cellTitle.isSupportedAudioMediaFormat) {
+        [cell setThumbnailImage:[UIImage imageNamed:@"audio"]];
+    } else {
+        [cell setThumbnailImage:[UIImage imageNamed:@"blank"]];
+    }
     [cell setTitle:cellTitle];
 }
 
