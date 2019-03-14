@@ -34,6 +34,22 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 //        VLCDragAndDropManager<T>(subcategory: VLCMediaSubcategories<>)
 //    }()
 
+    @objc private lazy var sortActionSheet: VLCActionSheet = {
+        let actionSheet = VLCActionSheet()
+        actionSheet.delegate = self
+        actionSheet.dataSource = self
+        actionSheet.modalPresentationStyle = .custom
+        actionSheet.setAction { [weak self] item in
+            guard let sortingCriteria = item as? VLCMLSortingCriteria else {
+                return
+            }
+            self?.model.sort(by: sortingCriteria)
+            self?.sortActionSheet.removeActionSheet()
+        }
+        return actionSheet
+    }()
+
+
     lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
         let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
@@ -238,32 +254,52 @@ extension VLCMediaCategoryViewController {
     }
 
     override func handleSort() {
-        let sortOptionsAlertController = UIAlertController(title: NSLocalizedString("SORT_BY", comment: ""),
-                                                           message: nil,
-                                                           preferredStyle: .actionSheet)
+        present(sortActionSheet, animated: false, completion: nil)
+    }
+}
 
-        var alertActions = [UIAlertAction]()
+// MARK: VLCActionSheetDelegate
 
-        for (index, enabled) in model.sortModel.sortingCriteria.enumerated() {
-            guard enabled else { continue }
-            let criteria = VLCMLSortingCriteria(value: UInt(index))
+extension VLCMediaCategoryViewController: VLCActionSheetDelegate {
+    func headerViewTitle() -> String? {
+        return NSLocalizedString("HEADER_TITLE_SORT", comment: "")
+    }
 
-            alertActions.append(UIAlertAction(title: String(describing: criteria), style: .default) {
-                [weak self] action in
-                self?.model.sort(by: criteria)
-            })
+    // This provide the item to send to the selection action
+    func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
+        let enabledSortCriteria = model.sortModel.sortingCriteria
+
+        if indexPath.row < enabledSortCriteria.count {
+            return enabledSortCriteria[indexPath.row]
         }
-        alertActions.forEach() { sortOptionsAlertController.addAction($0) }
+        assertionFailure("VLCMediaCategoryViewController: VLCActionSheetDelegate: IndexPath out of range")
+        return nil
+    }
+}
 
-        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""),
-                                         style: .cancel,
-                                         handler: nil)
+// MARK: VLCActionSheetDataSource
 
-        sortOptionsAlertController.addAction(cancelAction)
-        sortOptionsAlertController.view.tintColor = UIColor.vlcOrangeTint
-        sortOptionsAlertController.popoverPresentationController?.sourceView = self.view
+extension VLCMediaCategoryViewController: VLCActionSheetDataSource {
+    func numberOfRows() -> Int {
+        return model.sortModel.sortingCriteria.count
+    }
 
-        present(sortOptionsAlertController, animated: true)
+    func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: VLCActionSheetCell.identifier, for: indexPath) as? VLCActionSheetCell else {
+                assertionFailure("VLCMediaCategoryViewController: VLCActionSheetDataSource: Unable to dequeue reusable cell")
+                return UICollectionViewCell()
+        }
+
+        let sortingCriterias = model.sortModel.sortingCriteria
+
+        guard indexPath.row < sortingCriterias.count else {
+            assertionFailure("VLCMediaCategoryViewController: VLCActionSheetDataSource: IndexPath out of range")
+            return cell
+        }
+
+        cell.name.text = String(describing: sortingCriterias[indexPath.row])
+        return cell
     }
 }
 

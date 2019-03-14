@@ -326,6 +326,11 @@
 "RENAME_PLACEHOLDER" = "New title";
 "ERROR_RENAME_FAILED" = "Renaming failed";
 "ERROR_EMPTY_NAME" = "The title can't be empty";
+
+// Sort
+
+"HEADER_TITLE_SORT" = "Sort by";
+
 // VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alphanumerically";
