@@ -20,7 +20,7 @@ import UIKit
 @objc protocol VLCActionSheetDelegate {
     @objc optional func headerViewTitle() -> String?
     @objc func itemAtIndexPath(_ indexPath: IndexPath) -> Any?
-    @objc func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath)
+    @objc optional func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath)
 }
 
 // MARK: VLCActionSheet
@@ -298,7 +298,7 @@ extension VLCActionSheet: UICollectionViewDelegateFlowLayout {
 extension VLCActionSheet: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let delegate = delegate, let item = delegate.itemAtIndexPath(indexPath) {
-            delegate.actionSheet(collectionView: collectionView, didSelectItem: item, At: indexPath)
+            delegate.actionSheet?(collectionView: collectionView, didSelectItem: item, At: indexPath)
             action?(item)
         }
         removeActionSheet()
