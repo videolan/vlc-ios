@@ -16,6 +16,7 @@ protocol VLCEditControllerDelegate: class {
 class VLCEditController: UIViewController {
     private var selectedCellIndexPaths = Set<IndexPath>()
     private let model: MediaLibraryBaseModel
+    private let services: Services
     weak var delegate: VLCEditControllerDelegate?
 
     override func loadView() {
@@ -25,7 +26,8 @@ class VLCEditController: UIViewController {
         self.view = editToolbar
     }
 
-    init(model: MediaLibraryBaseModel) {
+    init(services: Services, model: MediaLibraryBaseModel) {
+        self.services = services
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
@@ -94,29 +96,25 @@ private extension VLCEditController {
 extension VLCEditController: VLCEditToolbarDelegate {
 
     func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar) {
-        if let model = model as? PlaylistModel {
-            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
-                placeHolder: "NEW_PLAYLIST")
+        //Todo: replace with Viewcontroller that shows existing Playlists
+        let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
+                                           alertDescription: NSLocalizedString("PLAYLIST_DESCRIPTION", comment: ""),
+                                           placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER", comment:""))
 
-            presentTextFieldAlert(with: alertInfo, completionHandler: {
-                text -> Void in
-                    model.create(name: text)
-                })
-
-        } else if let model = model as? VideoModel {
-            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
-                                               placeHolder: "NEW_PLAYLIST")
-
-            presentTextFieldAlert(with: alertInfo, completionHandler: {
-                [selectedCellIndexPaths, model] text -> Void in
-                let playlist = model.medialibrary.createPlaylist(with: text)
-                for indexPath in selectedCellIndexPaths {
-                    if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
-                        playlist.appendMedia(withIdentifier: media.identifier())
-                    }
+        presentTextFieldAlert(with: alertInfo, completionHandler: {
+            [weak self, selectedCellIndexPaths, model] text -> Void in
+            guard let playlist = self?.services.medialibraryManager.createPlaylist(with: text) else {
+                assertionFailure("couldn't create playlist")
+                return
+            }
+            for indexPath in selectedCellIndexPaths {
+                guard let media = model.anyfiles[indexPath.row] as? VLCMLMedia else {
+                    assertionFailure("we're not handling collections yet")
+                    return
                 }
-            })
-        }
+                playlist.appendMedia(withIdentifier: media.identifier())
+            }
+        })
     }
 
     func editToolbarDidDelete(_ editToolbar: VLCEditToolbar) {
