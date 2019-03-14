@@ -9,15 +9,30 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class VLCEditController: NSObject {
-    private var selectedCellIndexPaths = Set<IndexPath>()
-    private let collectionView: UICollectionView
-    private let model: MediaLibraryBaseModel
+protocol VLCEditControllerDelegate: class {
+    func editController(editController: VLCEditController, cellforItemAt indexPath: IndexPath) -> MediaEditCell?
+}
 
-    init(collectionView: UICollectionView, model: MediaLibraryBaseModel) {
-        self.collectionView = collectionView
+class VLCEditController: UIViewController {
+    private var selectedCellIndexPaths = Set<IndexPath>()
+    private let model: MediaLibraryBaseModel
+    private let mediaLibraryManager: VLCMediaLibraryManager
+    weak var delegate: VLCEditControllerDelegate?
+
+    override func loadView() {
+        let editToolbar = VLCEditToolbar(category: model)
+        editToolbar.delegate = self
+        self.view = editToolbar
+    }
+
+    init(mediaLibraryManager: VLCMediaLibraryManager, model: MediaLibraryBaseModel) {
+        self.mediaLibraryManager = mediaLibraryManager
         self.model = model
-        super.init()
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     func resetSelections() {
@@ -28,17 +43,6 @@ class VLCEditController: NSObject {
 // MARK: - Helpers
 
 private extension VLCEditController {
-    private func resetCell(at indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? MediaEditCell {
-            cell.isChecked = false
-        }
-    }
-
-    private func resetAllVisibleCell() {
-        for case let cell as MediaEditCell in collectionView.visibleCells {
-            cell.isChecked = false
-        }
-    }
 
     private struct TextFieldAlertInfo {
         var alertTitle: String
@@ -82,7 +86,7 @@ private extension VLCEditController {
         alertController.addAction(cancelButton)
         alertController.addAction(confirmAction)
 
-        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -91,29 +95,26 @@ private extension VLCEditController {
 extension VLCEditController: VLCEditToolbarDelegate {
 
     func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar) {
-        if let model = model as? PlaylistModel {
-            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
-                placeHolder: "NEW_PLAYLIST")
+        //Todo: replace with Viewcontroller that shows existing Playlists
+        let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
+                                           alertDescription: NSLocalizedString("PLAYLIST_DESCRIPTION", comment: ""),
+                                           placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER", comment:""))
 
-            presentTextFieldAlert(with: alertInfo, completionHandler: {
-                text -> Void in
-                    model.create(name: text)
-                })
+        presentTextFieldAlert(with: alertInfo, completionHandler: {
+            [weak self] text -> Void in
+            guard let strongSelf = self else {
+                return
+            }
+            let playlist = strongSelf.mediaLibraryManager.createPlaylist(with: text)
 
-        } else if let model = model as? VideoModel {
-            let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
-                                               placeHolder: "NEW_PLAYLIST")
-
-            presentTextFieldAlert(with: alertInfo, completionHandler: {
-                [selectedCellIndexPaths, model] text -> Void in
-                let playlist = model.medialibrary.createPlaylist(with: text)
-                for indexPath in selectedCellIndexPaths {
-                    if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
-                        playlist.appendMedia(withIdentifier: media.identifier())
-                    }
+            for indexPath in strongSelf.selectedCellIndexPaths {
+                guard let media = strongSelf.model.anyfiles[indexPath.row] as? VLCMLMedia else {
+                    assertionFailure("we're not handling collections yet")
+                    return
                 }
-            })
-        }
+                playlist.appendMedia(withIdentifier: media.identifier())
+            }
+        })
     }
 
     func editToolbarDidDelete(_ editToolbar: VLCEditToolbar) {
@@ -130,7 +131,6 @@ extension VLCEditController: VLCEditToolbarDelegate {
                                             [weak self] action in
                                             self?.model.delete(objectsToDelete)
                                             self?.selectedCellIndexPaths.removeAll()
-                                            self?.resetAllVisibleCell()
         })
 
         VLCAlertViewController.alertViewManager(title: NSLocalizedString("DELETE_TITLE", comment: ""),
@@ -182,7 +182,9 @@ extension VLCEditController: VLCEditToolbarDelegate {
                         return
                     }
                     media.updateTitle(text)
-                    self?.resetCell(at: indexPath)
+                    if let strongself = self {
+                        strongself.delegate?.editController(editController: strongself, cellforItemAt: indexPath)?.isChecked = false
+                    }
                 })
             }
         }
