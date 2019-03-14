@@ -12,11 +12,7 @@
 class ShowEpisodeModel: MLBaseModel {
     typealias MLType = VLCMLMedia
 
-    var sortModel = SortModel(alpha: true,
-                              duration: true,
-                              insertionDate: true,
-                              releaseDate: true,
-                              fileSize: true)
+    var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize])
 
     var updateView: (() -> Void)?
 

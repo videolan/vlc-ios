@@ -12,7 +12,7 @@
 class ArtistModel: MLBaseModel {
     typealias MLType = VLCMLArtist
 
-    var sortModel = SortModel(alpha: true)
+    var sortModel = SortModel([.alpha])
 
     var updateView: (() -> Void)?
 

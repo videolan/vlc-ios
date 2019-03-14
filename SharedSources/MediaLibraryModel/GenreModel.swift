@@ -12,7 +12,7 @@
 class GenreModel: MLBaseModel {
     typealias MLType = VLCMLGenre
 
-    var sortModel = SortModel(alpha: true)
+    var sortModel = SortModel([.alpha])
 
     var updateView: (() -> Void)?
 

@@ -12,10 +12,7 @@
 class AlbumModel: MLBaseModel {
     typealias MLType = VLCMLAlbum
 
-    var sortModel = SortModel(alpha: true,
-                              duration: true,
-                              releaseDate: true,
-                              trackNumber: true)
+    var sortModel = SortModel([.alpha, .duration, .releaseDate, .trackNumber])
 
     var updateView: (() -> Void)?
 

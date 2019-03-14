@@ -13,35 +13,12 @@
 struct SortModel {
     var currentSort: VLCMLSortingCriteria
     var desc: Bool
-    var sortingCriteria: [Bool]
+    var sortingCriteria: [VLCMLSortingCriteria]
 
-    init(alpha: Bool = true,
-         duration: Bool = false,
-         insertionDate: Bool = false,
-         lastModificationDate: Bool = false,
-         releaseDate: Bool = false,
-         fileSize: Bool = false,
-         artist: Bool = false,
-         playCount: Bool = false,
-         album: Bool = false,
-         filename: Bool = false,
-         trackNumber: Bool = false) {
-
+    init(_ criteria: [VLCMLSortingCriteria]) {
+        sortingCriteria = criteria
         currentSort = .default
         desc = false
-        // The first element of this array should always be VLCMLSortingCriteriaDefault
-        sortingCriteria = [false,
-                           alpha,
-                           duration,
-                           insertionDate,
-                           lastModificationDate,
-                           releaseDate,
-                           fileSize,
-                           artist,
-                           playCount,
-                           album,
-                           filename,
-                           trackNumber]
     }
 }
 

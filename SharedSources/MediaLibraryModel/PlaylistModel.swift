@@ -12,8 +12,7 @@
 class PlaylistModel: MLBaseModel {
     typealias MLType = VLCMLPlaylist
 
-    var sortModel = SortModel(alpha: true,
-                              duration: true)
+    var sortModel = SortModel([.alpha, .duration])
 
     var updateView: (() -> Void)?
 

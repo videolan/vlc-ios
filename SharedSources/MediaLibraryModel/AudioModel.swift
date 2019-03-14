@@ -12,9 +12,7 @@
 class AudioModel: MediaModel {
     typealias MLType = VLCMLMedia
 
-    var sortModel = SortModel(alpha: true,
-                              duration: true,
-                              fileSize: true)
+    var sortModel = SortModel([.alpha, .duration, .fileSize])
 
     var updateView: (() -> Void)?
 
