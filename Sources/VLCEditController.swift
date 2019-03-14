@@ -9,15 +9,29 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class VLCEditController: NSObject {
-    private var selectedCellIndexPaths = Set<IndexPath>()
-    private let collectionView: UICollectionView
-    private let model: MediaLibraryBaseModel
+protocol VLCEditControllerDelegate: class {
+    func editController(editController: VLCEditController, cellforItemAt indexPath: IndexPath) -> MediaEditCell?
+}
 
-    init(collectionView: UICollectionView, model: MediaLibraryBaseModel) {
-        self.collectionView = collectionView
+class VLCEditController: UIViewController {
+    private var selectedCellIndexPaths = Set<IndexPath>()
+    private let model: MediaLibraryBaseModel
+    weak var delegate: VLCEditControllerDelegate?
+
+    override func loadView() {
+        super.loadView()
+        let editToolbar = VLCEditToolbar(category: model)
+        editToolbar.delegate = self
+        self.view = editToolbar
+    }
+
+    init(model: MediaLibraryBaseModel) {
         self.model = model
-        super.init()
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     func resetSelections() {
@@ -28,17 +42,6 @@ class VLCEditController: NSObject {
 // MARK: - Helpers
 
 private extension VLCEditController {
-    private func resetCell(at indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? MediaEditCell {
-            cell.isChecked = false
-        }
-    }
-
-    private func resetAllVisibleCell() {
-        for case let cell as MediaEditCell in collectionView.visibleCells {
-            cell.isChecked = false
-        }
-    }
 
     private struct TextFieldAlertInfo {
         var alertTitle: String
@@ -82,7 +85,7 @@ private extension VLCEditController {
         alertController.addAction(cancelButton)
         alertController.addAction(confirmAction)
 
-        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -130,7 +133,6 @@ extension VLCEditController: VLCEditToolbarDelegate {
                                             [weak self] action in
                                             self?.model.delete(objectsToDelete)
                                             self?.selectedCellIndexPaths.removeAll()
-                                            self?.resetAllVisibleCell()
         })
 
         VLCAlertViewController.alertViewManager(title: NSLocalizedString("DELETE_TITLE", comment: ""),
@@ -161,7 +163,9 @@ extension VLCEditController: VLCEditToolbarDelegate {
                         return
                     }
                     media.updateTitle(text)
-                    self?.resetCell(at: indexPath)
+                    if let strongself = self {
+                        strongself.delegate?.editController(editController: strongself, cellforItemAt: indexPath)?.isChecked = false
+                    }
                 })
             }
         }
