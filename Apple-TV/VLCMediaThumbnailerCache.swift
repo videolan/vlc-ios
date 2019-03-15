@@ -32,9 +32,9 @@ import UIKit
 
     // MARK: - VLCMediaThumbnailer data source
     func mediaThumbnailer(_ mediaThumbnailer: VLCMediaThumbnailer!, didFinishThumbnail thumbnail: CGImage!) {
-        if (thumbnail != nil) {
+        if thumbnail != nil {
             let thumbnailImage: UIImage? = UIImage.init(cgImage: thumbnail)
-            if (thumbnailImage != nil) {
+            if thumbnailImage != nil {
                 saveThumbnail(thumbnailImage!, mediaURL: mediaThumbnailer.media.url)
                 NotificationCenter.default.post(name: Notification.Name("thumbnailIComplete"), object: nil)
             }
@@ -42,7 +42,7 @@ import UIKit
     }
 
     func mediaThumbnailerDidTimeOut(_ mediaThumbnailer: VLCMediaThumbnailer!) {
-        print("Time out : \(mediaThumbnailer.media.url)");
+        print("Time out : \(mediaThumbnailer.media.url)")
     }
 
     // MARK: - 
@@ -54,20 +54,20 @@ import UIKit
 
     @objc func getThumbnailURL(_ mediaPath: NSString) -> URL? {
         let thumbnailDir = getThumbnailDirectory()
-        let thumbnailPath =  String(format: "%@/%@.%@", thumbnailDir, (mediaPath.lastPathComponent as NSString).deletingPathExtension.removingPercentEncoding!, "png")
+        let thumbnailPath = String(format: "%@/%@.%@", thumbnailDir, (mediaPath.lastPathComponent as NSString).deletingPathExtension.removingPercentEncoding!, "png")
 
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: thumbnailPath) {
             return URL.init(fileURLWithPath: thumbnailPath)
         }
-        return nil;
+        return nil
     }
 
     @objc func removeThumbnail(_ mediaPath: NSString? = nil) {
         var thumbnailPath = getThumbnailDirectory()
 
         if mediaPath != nil {
-            thumbnailPath =  NSString(format: "%@/%@.%@", thumbnailPath, (mediaPath!.lastPathComponent as NSString ).deletingPathExtension.removingPercentEncoding!, "png")
+            thumbnailPath = NSString(format: "%@/%@.%@", thumbnailPath, (mediaPath!.lastPathComponent as NSString ).deletingPathExtension.removingPercentEncoding!, "png")
         }
 
         let fileManager = FileManager.default
@@ -92,7 +92,7 @@ import UIKit
         }
 
         let thumbnailDir = getThumbnailDirectory()
-        let thumbnailPath =  NSString(format: "%@/%@.%@", thumbnailDir, ((mediaURL.relativePath.removingPercentEncoding! as NSString).lastPathComponent as NSString).deletingPathExtension, "png")
+        let thumbnailPath = NSString(format: "%@/%@.%@", thumbnailDir, ((mediaURL.relativePath.removingPercentEncoding! as NSString).lastPathComponent as NSString).deletingPathExtension, "png")
 
         let fileManager = FileManager.default
         if !fileManager.fileExists(atPath: thumbnailDir as String) {
