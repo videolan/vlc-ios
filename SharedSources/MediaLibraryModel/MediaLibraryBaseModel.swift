@@ -11,7 +11,7 @@
 
 // Expose a "shadow" version without associatedType in order to use it as a type
 protocol MediaLibraryBaseModel {
-    init(medialibrary: VLCMediaLibraryManager)
+    init(medialibrary: MediaLibraryService)
 
     var anyfiles: [VLCMLObject] { get }
 
@@ -30,11 +30,11 @@ protocol MediaLibraryBaseModel {
 protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
     associatedtype MLType where MLType: VLCMLObject
 
-    init(medialibrary: VLCMediaLibraryManager)
+    init(medialibrary: MediaLibraryService)
 
     var files: [MLType] { get set }
 
-    var medialibrary: VLCMediaLibraryManager { get }
+    var medialibrary: MediaLibraryService { get }
 
     var updateView: (() -> Void)? { get set }
 

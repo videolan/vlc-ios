@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCMediaLibraryManager.swift
+ * MediaLibraryService.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright © 2018 VideoLAN. All rights reserved.
@@ -21,64 +21,64 @@ extension NSNotification {
 
 @objc protocol MediaLibraryObserver: class {
     // Video
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didModifyVideo video: [VLCMLMedia])
 
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeleteMediaWithIds ids: [NSNumber])
 
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddVideos videos: [VLCMLMedia])
 
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddShowEpisodes showEpisodes: [VLCMLMedia])
 
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      thumbnailReady media: VLCMLMedia)
 
     // Audio
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddAudios audios: [VLCMLMedia])
 
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddArtists artists: [VLCMLArtist])
 
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeleteArtistsWithIds artistsIds: [NSNumber])
 
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddAlbums albums: [VLCMLAlbum])
 
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeleteAlbumsWithIds albumsIds: [NSNumber])
 
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddAlbumTracks albumTracks: [VLCMLMedia])
 
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddGenres genres: [VLCMLGenre])
 
     // Playlist
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddPlaylists playlists: [VLCMLPlaylist])
 
-    @objc optional func medialibrary(_ medialibrary: VLCMediaLibraryManager,
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeletePlaylistsWithIds playlistsIds: [NSNumber])
 }
 
 protocol MediaLibraryMigrationDelegate: class {
-    func medialibraryDidStartMigration(_ medialibrary: VLCMediaLibraryManager)
+    func medialibraryDidStartMigration(_ medialibrary: MediaLibraryService)
 
-    func medialibraryDidFinishMigration(_ medialibrary: VLCMediaLibraryManager)
+    func medialibraryDidFinishMigration(_ medialibrary: MediaLibraryService)
 
-    func medialibraryDidStopMigration(_ medialibrary: VLCMediaLibraryManager)
+    func medialibraryDidStopMigration(_ medialibrary: MediaLibraryService)
 }
 
-class VLCMediaLibraryManager: NSObject {
+class MediaLibraryService: NSObject {
     private static let databaseName: String = "medialibrary.db"
     private static let migrationKey: String = "MigratedToVLCMediaLibraryKit"
 
-    private var didMigrate = UserDefaults.standard.bool(forKey: VLCMediaLibraryManager.migrationKey)
+    private var didMigrate = UserDefaults.standard.bool(forKey: MediaLibraryService.migrationKey)
     private var didFinishDiscovery = false
     // Using ObjectIdentifier to avoid duplication and facilitate
     // identification of observing object
@@ -109,12 +109,12 @@ class VLCMediaLibraryManager: NSObject {
     private func setupMediaLibrary() {
         guard let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first,
             let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first else {
-                preconditionFailure("VLCMediaLibraryManager: Unable to init medialibrary.")
+                preconditionFailure("MediaLibraryService: Unable to init medialibrary.")
         }
 
         setupMediaDiscovery(at: documentPath)
 
-        let databasePath = libraryPath + "/MediaLibrary/" + VLCMediaLibraryManager.databaseName
+        let databasePath = libraryPath + "/MediaLibrary/" + MediaLibraryService.databaseName
         let thumbnailPath = libraryPath + "/MediaLibrary/Thumbnails"
 
         do {
@@ -130,18 +130,18 @@ class VLCMediaLibraryManager: NSObject {
         switch medialibraryStatus {
         case .success:
             guard medialib.start() else {
-                assertionFailure("VLCMediaLibraryManager: Medialibrary failed to start.")
+                assertionFailure("MediaLibraryService: Medialibrary failed to start.")
                 return
             }
             medialib.reload()
             medialib.discover(onEntryPoint: "file://" + documentPath)
         case .alreadyInitialized:
-            assertionFailure("VLCMediaLibraryManager: Medialibrary already initialized.")
+            assertionFailure("MediaLibraryService: Medialibrary already initialized.")
         case .failed:
-            preconditionFailure("VLCMediaLibraryManager: Failed to setup medialibrary.")
+            preconditionFailure("MediaLibraryService: Failed to setup medialibrary.")
         case .dbReset:
             // should still start and discover but warn the user that the db has been wipped
-            assertionFailure("VLCMediaLibraryManager: The database was resetted, please re-configure.")
+            assertionFailure("MediaLibraryService: The database was resetted, please re-configure.")
         }
     }
 
@@ -181,7 +181,7 @@ class VLCMediaLibraryManager: NSObject {
 
 // MARK: - Migration
 
-private extension VLCMediaLibraryManager {
+private extension MediaLibraryService {
     func startMigrationIfNeeded() {
         guard !didMigrate else {
             return
@@ -197,7 +197,7 @@ private extension VLCMediaLibraryManager {
 
     func migrateMedia(_ oldMedialibrary: MLMediaLibrary) -> Bool {
         guard let allFiles = MLFile.allFiles() as? [MLFile] else {
-            assertionFailure("VLCMediaLibraryManager: Migration: Unable to retreive all files")
+            assertionFailure("MediaLibraryService: Migration: Unable to retreive all files")
             return false
         }
 
@@ -222,7 +222,7 @@ private extension VLCMediaLibraryManager {
     // Note: This removes **only** files that are in a playlist
     func migratePlaylists(_ oldMedialibrary: MLMediaLibrary) -> Bool {
         guard let allLabels = MLLabel.allLabels() as? [MLLabel] else {
-            assertionFailure("VLCMediaLibraryManager: Migration: Unable to retreive all labels")
+            assertionFailure("MediaLibraryService: Migration: Unable to retreive all labels")
             return false
         }
 
@@ -230,7 +230,7 @@ private extension VLCMediaLibraryManager {
             let newPlaylist = createPlaylist(with: label.name)
 
             guard let files = label.files as? Set<MLFile> else {
-                assertionFailure("VLCMediaLibraryManager: Migration: Unable to retreive files from label")
+                assertionFailure("MediaLibraryService: Migration: Unable to retreive files from label")
                 oldMedialibrary.remove(label)
                 continue
             }
@@ -250,12 +250,12 @@ private extension VLCMediaLibraryManager {
 
     func migrateToNewMediaLibrary() -> Bool {
         guard let oldMedialibrary = MLMediaLibrary.sharedMediaLibrary() as? MLMediaLibrary else {
-            assertionFailure("VLCMediaLibraryManager: Migration: Unable to retreive old medialibrary")
+            assertionFailure("MediaLibraryService: Migration: Unable to retreive old medialibrary")
             return false
         }
 
         if migrateMedia(oldMedialibrary) && migratePlaylists(oldMedialibrary) {
-            UserDefaults.standard.set(true, forKey: VLCMediaLibraryManager.migrationKey)
+            UserDefaults.standard.set(true, forKey: MediaLibraryService.migrationKey)
             return true
         }
         return false
@@ -264,13 +264,13 @@ private extension VLCMediaLibraryManager {
 
 // MARK: - Observer
 
-private extension VLCMediaLibraryManager {
+private extension MediaLibraryService {
     struct Observer {
         weak var observer: MediaLibraryObserver?
     }
 }
 
-extension VLCMediaLibraryManager {
+extension MediaLibraryService {
     func addObserver(_ observer: MediaLibraryObserver) {
         let identifier = ObjectIdentifier(observer)
         observers[identifier] = Observer(observer: observer)
@@ -284,7 +284,7 @@ extension VLCMediaLibraryManager {
 
 // MARK: MediaLibrary - Audio methods
 
-extension VLCMediaLibraryManager {
+extension MediaLibraryService {
     func artists(sortingCriteria sort: VLCMLSortingCriteria = .artist, desc: Bool = false) -> [VLCMLArtist] {
         return medialib.artists(with: sort, desc: desc, all: true)
     }
@@ -296,13 +296,13 @@ extension VLCMediaLibraryManager {
 
 // MARK: MediaLibrary - Video methods
 
-extension VLCMediaLibraryManager {
+extension MediaLibraryService {
     func requestThumbnail(for media: [VLCMLMedia]) {
         media.forEach() {
             guard !$0.isThumbnailGenerated() else { return }
 
             if !medialib.requestThumbnail(for: $0) {
-                assertionFailure("VLCMediaLibraryManager: Failed to generate thumbnail for: \($0.identifier())")
+                assertionFailure("MediaLibraryService: Failed to generate thumbnail for: \($0.identifier())")
             }
         }
     }
@@ -310,7 +310,7 @@ extension VLCMediaLibraryManager {
 
 // MARK: MediaLibrary - Playlist methods
 
-extension VLCMediaLibraryManager {
+extension MediaLibraryService {
 
     func createPlaylist(with name: String) -> VLCMLPlaylist {
         return medialib.createPlaylist(withName: name)
@@ -325,7 +325,7 @@ extension VLCMediaLibraryManager {
     }
 }
 
-extension VLCMediaLibraryManager: VLCMediaFileDiscovererDelegate {
+extension MediaLibraryService: VLCMediaFileDiscovererDelegate {
     func mediaFileAdded(_ filePath: String!, loading isLoading: Bool) {
         guard !isLoading else {
             return
@@ -339,7 +339,7 @@ extension VLCMediaLibraryManager: VLCMediaFileDiscovererDelegate {
         do {
             try excludeURL.setResourceValues(resourceValue)
         } catch let error {
-            assertionFailure("VLCMediaLibraryManager: VLCMediaFileDiscovererDelegate: \(error.localizedDescription)")
+            assertionFailure("MediaLibraryService: VLCMediaFileDiscovererDelegate: \(error.localizedDescription)")
         }
 
         reload()
@@ -352,7 +352,7 @@ extension VLCMediaLibraryManager: VLCMediaFileDiscovererDelegate {
 
 // MARK: - VLCMediaLibraryDelegate - Media
 
-extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
+extension MediaLibraryService: VLCMediaLibraryDelegate {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAddMedia media: [VLCMLMedia]) {
         let videos = media.filter {( $0.type() == .video )}
         let audio = media.filter {( $0.type() == .audio )}
@@ -391,7 +391,7 @@ extension VLCMediaLibraryManager: VLCMediaLibraryDelegate {
 
 // MARK: - VLCMediaLibraryDelegate - Artists
 
-extension VLCMediaLibraryManager {
+extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd artists: [VLCMLArtist]) {
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddArtists: artists)
@@ -407,7 +407,7 @@ extension VLCMediaLibraryManager {
 
 // MARK: - VLCMediaLibraryDelegate - Albums
 
-extension VLCMediaLibraryManager {
+extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd albums: [VLCMLAlbum]) {
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddAlbums: albums)
@@ -423,7 +423,7 @@ extension VLCMediaLibraryManager {
 
 // MARK: - VLCMediaLibraryDelegate - Playlists
 
-extension VLCMediaLibraryManager {
+extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd playlists: [VLCMLPlaylist]) {
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddPlaylists: playlists)
@@ -439,7 +439,7 @@ extension VLCMediaLibraryManager {
 
 // MARK: - VLCMediaLibraryDelegate - Discovery
 
-extension VLCMediaLibraryManager {
+extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didStartDiscovery entryPoint: String) {
     }
 

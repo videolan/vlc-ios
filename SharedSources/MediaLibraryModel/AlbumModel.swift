@@ -23,11 +23,11 @@ class AlbumModel: MLBaseModel {
 
     var cellType: BaseCollectionViewCell.Type { return AudioCollectionViewCell.self }
 
-    var medialibrary: VLCMediaLibraryManager
+    var medialibrary: MediaLibraryService
 
     var indicatorName: String = NSLocalizedString("ALBUMS", comment: "")
 
-    required init(medialibrary: VLCMediaLibraryManager) {
+    required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         files = medialibrary.albums()
@@ -53,7 +53,7 @@ extension AlbumModel {
 }
 
 extension AlbumModel: MediaLibraryObserver {
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddAlbums albums: [VLCMLAlbum]) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddAlbums albums: [VLCMLAlbum]) {
         albums.forEach({ append($0) })
         updateView?()
     }

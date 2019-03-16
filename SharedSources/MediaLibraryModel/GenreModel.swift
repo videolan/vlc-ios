@@ -20,11 +20,11 @@ class GenreModel: MLBaseModel {
 
     var cellType: BaseCollectionViewCell.Type { return GenreCollectionViewCell.self }
 
-    var medialibrary: VLCMediaLibraryManager
+    var medialibrary: MediaLibraryService
 
     var indicatorName: String = NSLocalizedString("GENRES", comment: "")
 
-    required init(medialibrary: VLCMediaLibraryManager) {
+    required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         files = medialibrary.genres()
@@ -50,7 +50,7 @@ extension GenreModel {
 }
 
 extension GenreModel: MediaLibraryObserver {
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddGenres genres: [VLCMLGenre]) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddGenres genres: [VLCMLGenre]) {
         genres.forEach({ append($0) })
         updateView?()
     }

@@ -24,11 +24,11 @@ class ShowEpisodeModel: MLBaseModel {
 
     var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }
 
-    var medialibrary: VLCMediaLibraryManager
+    var medialibrary: MediaLibraryService
 
     var indicatorName: String = NSLocalizedString("EPISODES", comment: "")
 
-    required init(medialibrary: VLCMediaLibraryManager) {
+    required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
     }
@@ -51,7 +51,7 @@ extension ShowEpisodeModel {
 }
 
 extension ShowEpisodeModel: MediaLibraryObserver {
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddShowEpisodes showEpisodes: [VLCMLMedia]) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddShowEpisodes showEpisodes: [VLCMLMedia]) {
         showEpisodes.forEach({ append($0) })
         updateView?()
     }

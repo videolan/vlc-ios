@@ -12,7 +12,7 @@
 
 @objc(VLCService)
 class Services: NSObject {
-    @objc let medialibraryManager = VLCMediaLibraryManager()
+    @objc let medialibraryManager = MediaLibraryService()
     @objc let rendererDiscovererManager = VLCRendererDiscovererManager(presentingViewController: nil)
 }
 
@@ -62,14 +62,14 @@ class Services: NSObject {
 }
 
 extension AppCoordinator: MediaLibraryMigrationDelegate {
-    func medialibraryDidStartMigration(_ medialibrary: VLCMediaLibraryManager) {
+    func medialibraryDidStartMigration(_ medialibrary: MediaLibraryService) {
         DispatchQueue.main.async {
             [tabBarController, migrationViewController] in
             tabBarController.present(migrationViewController, animated: true, completion: nil)
         }
     }
 
-    func medialibraryDidFinishMigration(_ medialibrary: VLCMediaLibraryManager) {
+    func medialibraryDidFinishMigration(_ medialibrary: MediaLibraryService) {
         if tabBarController.presentedViewController === migrationViewController {
             DispatchQueue.main.async {
                 [tabBarController] in
@@ -78,7 +78,7 @@ extension AppCoordinator: MediaLibraryMigrationDelegate {
         }
     }
 
-    func medialibraryDidStopMigration(_ medialibrary: VLCMediaLibraryManager) {
+    func medialibraryDidStopMigration(_ medialibrary: MediaLibraryService) {
         if tabBarController.presentedViewController === migrationViewController {
             DispatchQueue.main.async {
                 [tabBarController] in

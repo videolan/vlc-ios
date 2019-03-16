@@ -20,11 +20,11 @@ class ArtistModel: MLBaseModel {
 
     var cellType: BaseCollectionViewCell.Type { return ArtistCollectionViewCell.self }
 
-    var medialibrary: VLCMediaLibraryManager
+    var medialibrary: MediaLibraryService
 
     var indicatorName: String = NSLocalizedString("ARTISTS", comment: "")
 
-    required init(medialibrary: VLCMediaLibraryManager) {
+    required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         files = medialibrary.artists()
@@ -50,7 +50,7 @@ extension ArtistModel {
 }
 
 extension ArtistModel: MediaLibraryObserver {
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddArtists artists: [VLCMLArtist]) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddArtists artists: [VLCMLArtist]) {
         artists.forEach({ append($0) })
         updateView?()
     }

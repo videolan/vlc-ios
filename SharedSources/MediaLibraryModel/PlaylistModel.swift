@@ -21,11 +21,11 @@ class PlaylistModel: MLBaseModel {
 
     var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }
 
-    var medialibrary: VLCMediaLibraryManager
+    var medialibrary: MediaLibraryService
 
     var indicatorName: String = NSLocalizedString("PLAYLISTS", comment: "")
 
-    required init(medialibrary: VLCMediaLibraryManager) {
+    required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         files = medialibrary.playlists()
@@ -66,12 +66,12 @@ extension PlaylistModel {
 }
 
 extension PlaylistModel: MediaLibraryObserver {
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddPlaylists playlists: [VLCMLPlaylist]) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddPlaylists playlists: [VLCMLPlaylist]) {
         playlists.forEach({ append($0) })
         updateView?()
     }
 
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didDeletePlaylistsWithIds playlistsIds: [NSNumber]) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didDeletePlaylistsWithIds playlistsIds: [NSNumber]) {
         files = files.filter() {
             for id in playlistsIds where $0.identifier() == id.int64Value {
                 return false

@@ -22,11 +22,11 @@ class AudioModel: MediaModel {
 
     var cellType: BaseCollectionViewCell.Type { return AudioCollectionViewCell.self }
 
-    var medialibrary: VLCMediaLibraryManager
+    var medialibrary: MediaLibraryService
 
     var indicatorName: String = NSLocalizedString("SONGS", comment: "")
 
-    required init(medialibrary: VLCMediaLibraryManager) {
+    required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         files = medialibrary.media(ofType: .audio)
@@ -47,12 +47,12 @@ extension AudioModel {
 // MARK: - MediaLibraryObserver
 
 extension AudioModel: MediaLibraryObserver {
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddAudios audios: [VLCMLMedia]) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddAudios audios: [VLCMLMedia]) {
         audios.forEach({ append($0) })
         updateView?()
     }
 
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didDeleteMediaWithIds ids: [NSNumber]) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
         files = files.filter() {
             for id in ids where $0.identifier() == id.int64Value {
                 return false

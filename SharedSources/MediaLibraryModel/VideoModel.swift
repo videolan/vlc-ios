@@ -24,11 +24,11 @@ class VideoModel: MediaModel {
 
     var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }
 
-    var medialibrary: VLCMediaLibraryManager
+    var medialibrary: MediaLibraryService
 
     var indicatorName: String = NSLocalizedString("MOVIES", comment: "")
 
-    required init(medialibrary: VLCMediaLibraryManager) {
+    required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         files = medialibrary.media(ofType: .video)
@@ -57,12 +57,12 @@ extension VideoModel {
 // MARK: - MediaLibraryObserver
 
 extension VideoModel: MediaLibraryObserver {
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didAddVideos videos: [VLCMLMedia]) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddVideos videos: [VLCMLMedia]) {
         videos.forEach({ append($0) })
         updateView?()
     }
 
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, didDeleteMediaWithIds ids: [NSNumber]) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
         files = files.filter() {
             for id in ids where $0.identifier() == id.int64Value {
                 return false
@@ -76,7 +76,7 @@ extension VideoModel: MediaLibraryObserver {
 // MARK: MediaLibraryObserver - Thumbnail
 
 extension VideoModel {
-    func medialibrary(_ medialibrary: VLCMediaLibraryManager, thumbnailReady media: VLCMLMedia) {
+    func medialibrary(_ medialibrary: MediaLibraryService, thumbnailReady media: VLCMLMedia) {
         for (index, file) in files.enumerated() {
             if file == media {
                 files[index] = media
