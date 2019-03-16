@@ -63,18 +63,27 @@ class Services: NSObject {
 
 extension AppCoordinator: MediaLibraryMigrationDelegate {
     func medialibraryDidStartMigration(_ medialibrary: VLCMediaLibraryManager) {
-        tabBarController.present(migrationViewController, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            [tabBarController, migrationViewController] in
+            tabBarController.present(migrationViewController, animated: true, completion: nil)
+        }
     }
 
     func medialibraryDidFinishMigration(_ medialibrary: VLCMediaLibraryManager) {
         if tabBarController.presentedViewController === migrationViewController {
-            tabBarController.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async {
+                [tabBarController] in
+                tabBarController.dismiss(animated: true, completion: nil)
+            }
         }
     }
 
     func medialibraryDidStopMigration(_ medialibrary: VLCMediaLibraryManager) {
         if tabBarController.presentedViewController === migrationViewController {
-            tabBarController.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async {
+                [tabBarController] in
+                tabBarController.dismiss(animated: true, completion: nil)
+            }
         }
     }
 }
