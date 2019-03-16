@@ -10,6 +10,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+// MARK: - Notification names
+
 extension Notification.Name {
     static let VLCNewFileAddedNotification = Notification.Name("NewFileAddedNotification")
 }
@@ -18,6 +20,8 @@ extension Notification.Name {
 extension NSNotification {
     @objc static let VLCNewFileAddedNotification = Notification.Name.VLCNewFileAddedNotification
 }
+
+// MARK: -
 
 @objc protocol MediaLibraryObserver: class {
     // Video
@@ -66,6 +70,8 @@ extension NSNotification {
                                      didDeletePlaylistsWithIds playlistsIds: [NSNumber])
 }
 
+// MARK: -
+
 protocol MediaLibraryMigrationDelegate: class {
     func medialibraryDidStartMigration(_ medialibrary: MediaLibraryService)
 
@@ -73,6 +79,8 @@ protocol MediaLibraryMigrationDelegate: class {
 
     func medialibraryDidStopMigration(_ medialibrary: MediaLibraryService)
 }
+
+// MARK: -
 
 class MediaLibraryService: NSObject {
     private static let databaseName: String = "medialibrary.db"
@@ -96,9 +104,11 @@ class MediaLibraryService: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(reload),
                                                name: .VLCNewFileAddedNotification, object: nil)
     }
+}
 
-    // MARK: Private
+// MARK: - Private initializers
 
+private extension MediaLibraryService {
     private func setupMediaDiscovery(at path: String) {
         let mediaFileDiscoverer = VLCMediaFileDiscoverer.sharedInstance()
         mediaFileDiscoverer?.directoryPath = path
@@ -143,39 +153,6 @@ class MediaLibraryService: NSObject {
             // should still start and discover but warn the user that the db has been wipped
             assertionFailure("MediaLibraryService: The database was resetted, please re-configure.")
         }
-    }
-
-    // MARK: Internal
-
-    @objc func reload() {
-        medialib.reload()
-    }
-
-    /// Returns number of *ALL* files(audio and video) present in the medialibrary database
-    func numberOfFiles() -> Int {
-        var media = medialib.audioFiles(with: .filename, desc: false)
-
-        media += medialib.videoFiles(with: .filename, desc: false)
-        return media.count
-    }
-
-    /// Returns *ALL* file found for a specified VLCMLMediaType
-    ///
-    /// - Parameter type: Type of the media
-    /// - Returns: Array of VLCMLMedia
-    func media(ofType type: VLCMLMediaType, sortingCriteria sort: VLCMLSortingCriteria = .filename, desc: Bool = false) -> [VLCMLMedia] {
-        return type == .video ? medialib.videoFiles(with: sort, desc: desc) : medialib.audioFiles(with: sort, desc: desc)
-    }
-
-    func genres(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLGenre] {
-        return medialib.genres(with: sort, desc: desc)
-    }
-
-    func fetchMedia(with mrl: URL?) -> VLCMLMedia? {
-        guard let mrl = mrl  else {
-            return nil
-        }
-        return medialib.media(withMrl: mrl)
     }
 }
 
@@ -282,7 +259,38 @@ extension MediaLibraryService {
     }
 }
 
-// MARK: MediaLibrary - Audio methods
+// MARK: - Helpers
+
+extension MediaLibraryService {
+    @objc func reload() {
+        medialib.reload()
+    }
+
+    /// Returns number of *ALL* files(audio and video) present in the medialibrary database
+    func numberOfFiles() -> Int {
+        var media = medialib.audioFiles(with: .filename, desc: false)
+
+        media += medialib.videoFiles(with: .filename, desc: false)
+        return media.count
+    }
+
+    /// Returns *ALL* file found for a specified VLCMLMediaType
+    ///
+    /// - Parameter type: Type of the media
+    /// - Returns: Array of VLCMLMedia
+    func media(ofType type: VLCMLMediaType, sortingCriteria sort: VLCMLSortingCriteria = .filename, desc: Bool = false) -> [VLCMLMedia] {
+        return type == .video ? medialib.videoFiles(with: sort, desc: desc) : medialib.audioFiles(with: sort, desc: desc)
+    }
+
+    func fetchMedia(with mrl: URL?) -> VLCMLMedia? {
+        guard let mrl = mrl  else {
+            return nil
+        }
+        return medialib.media(withMrl: mrl)
+    }
+}
+
+// MARK: - Audio methods
 
 extension MediaLibraryService {
     func artists(sortingCriteria sort: VLCMLSortingCriteria = .artist, desc: Bool = false) -> [VLCMLArtist] {
@@ -294,7 +302,7 @@ extension MediaLibraryService {
     }
 }
 
-// MARK: MediaLibrary - Video methods
+// MARK: - Video methods
 
 extension MediaLibraryService {
     func requestThumbnail(for media: [VLCMLMedia]) {
@@ -308,10 +316,9 @@ extension MediaLibraryService {
     }
 }
 
-// MARK: MediaLibrary - Playlist methods
+// MARK: - Playlist methods
 
 extension MediaLibraryService {
-
     func createPlaylist(with name: String) -> VLCMLPlaylist {
         return medialib.createPlaylist(withName: name)
     }
@@ -324,6 +331,16 @@ extension MediaLibraryService {
         return medialib.playlists(with: sort, desc: desc)
     }
 }
+
+// MARK: - Genre methods
+
+extension MediaLibraryService {
+    func genres(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLGenre] {
+        return medialib.genres(with: sort, desc: desc)
+    }
+}
+
+// MARK: - VLCMediaFileDiscovererDelegate
 
 extension MediaLibraryService: VLCMediaFileDiscovererDelegate {
     func mediaFileAdded(_ filePath: String!, loading isLoading: Bool) {
