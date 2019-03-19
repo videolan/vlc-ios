@@ -21,7 +21,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     private var searchController: UISearchController?
     private let searchDataSource = VLCLibrarySearchDisplayDataSource()
     private lazy var editController: VLCEditController = {
-        let editController = VLCEditController(services:self.services, model: self.model)
+        let editController = VLCEditController(mediaLibraryManager:services.medialibraryManager, model: model)
         editController.delegate = self
         return editController
     }()
@@ -148,6 +148,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         collectionView?.dataSource = editing ? editController : self
         collectionView?.delegate = editing ? editController : self
 
+        editController.resetSelections()
         displayEditToolbar()
         let layoutToBe = editing ? editCollectionViewLayout : UICollectionViewFlowLayout()
         collectionView?.setCollectionViewLayout(layoutToBe, animated: false, completion: {

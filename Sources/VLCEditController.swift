@@ -16,18 +16,17 @@ protocol VLCEditControllerDelegate: class {
 class VLCEditController: UIViewController {
     private var selectedCellIndexPaths = Set<IndexPath>()
     private let model: MediaLibraryBaseModel
-    private let services: Services
+    private let mediaLibraryManager: VLCMediaLibraryManager
     weak var delegate: VLCEditControllerDelegate?
 
     override func loadView() {
-        super.loadView()
         let editToolbar = VLCEditToolbar(category: model)
         editToolbar.delegate = self
         self.view = editToolbar
     }
 
-    init(services: Services, model: MediaLibraryBaseModel) {
-        self.services = services
+    init(mediaLibraryManager: VLCMediaLibraryManager, model: MediaLibraryBaseModel) {
+        self.mediaLibraryManager = mediaLibraryManager
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
@@ -102,13 +101,14 @@ extension VLCEditController: VLCEditToolbarDelegate {
                                            placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER", comment:""))
 
         presentTextFieldAlert(with: alertInfo, completionHandler: {
-            [weak self, selectedCellIndexPaths, model] text -> Void in
-            guard let playlist = self?.services.medialibraryManager.createPlaylist(with: text) else {
-                assertionFailure("couldn't create playlist")
+            [weak self] text -> Void in
+            guard let strongSelf = self else {
                 return
             }
-            for indexPath in selectedCellIndexPaths {
-                guard let media = model.anyfiles[indexPath.row] as? VLCMLMedia else {
+            let playlist = strongSelf.mediaLibraryManager.createPlaylist(with: text)
+
+            for indexPath in strongSelf.selectedCellIndexPaths {
+                guard let media = strongSelf.model.anyfiles[indexPath.row] as? VLCMLMedia else {
                     assertionFailure("we're not handling collections yet")
                     return
                 }
