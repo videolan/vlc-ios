@@ -18,7 +18,6 @@
 #import "VLCProgressView.h"
 #import "UIDevice+VLC.h"
 #import "NSString+SupportedMedia.h"
-#import "VLCConstants.h"
 #import "VLC-Swift.h"
 
 #import <OneDriveSDK/ODItem.h>
