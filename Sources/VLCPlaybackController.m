@@ -20,7 +20,6 @@
 #import "UIDevice+VLC.h"
 #import <AVFoundation/AVFoundation.h>
 #import "VLCPlayerDisplayController.h"
-#import "VLCConstants.h"
 #import "VLCRemoteControlService.h"
 #import "VLCMetadata.h"
 
