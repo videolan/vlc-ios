@@ -38,6 +38,10 @@ class CollectionModel: MLBaseModel {
     func delete(_ items: [VLCMLObject]) {
        assertionFailure("still needs implementation")
     }
+
+    func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>?) {
+        assertionFailure("still needs implementation")
+    }
 }
 
 // MARK: - Edit

@@ -52,6 +52,26 @@ class PlaylistModel: MLBaseModel {
         append(medialibrary.createPlaylist(with: name))
         updateView?()
     }
+
+    func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>? = nil) {
+        let playlist = medialibrary.createPlaylist(with: name)
+
+        guard let fileIndexes = fileIndexes else {
+            return
+        }
+
+        for index in fileIndexes  where index.row < files.count {
+            // Get all tracks from a VLCMLPlaylist
+            guard let media = files[index.row].media else {
+                assertionFailure("PlaylistModel: createPlaylist: Failed to retreive media.")
+                return
+            }
+
+            media.forEach() {
+                playlist.appendMedia(withIdentifier: $0.identifier())
+            }
+        }
+    }
 }
 
 // MARK: - Sort

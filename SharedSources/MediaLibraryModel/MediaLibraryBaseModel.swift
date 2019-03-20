@@ -25,6 +25,7 @@ protocol MediaLibraryBaseModel {
     func append(_ item: VLCMLObject)
     func delete(_ items: [VLCMLObject])
     func sort(by criteria: VLCMLSortingCriteria)
+    func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>?)
 }
 
 protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
@@ -44,6 +45,7 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
     // FIXME: Ideally items should be MLType but Swift isn't happy so it will always fail
     func delete(_ items: [VLCMLObject])
     func sort(by criteria: VLCMLSortingCriteria)
+    func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>?)
 }
 
 extension MLBaseModel {

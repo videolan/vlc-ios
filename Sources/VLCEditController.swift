@@ -93,27 +93,21 @@ private extension VLCEditController {
 // MARK: - VLCEditToolbarDelegate
 
 extension VLCEditController: VLCEditToolbarDelegate {
-
     func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar) {
-        //Todo: replace with Viewcontroller that shows existing Playlists
         let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
-                                           alertDescription: NSLocalizedString("PLAYLIST_DESCRIPTION", comment: ""),
-                                           placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER", comment:""))
-
+                                           placeHolder: "NEW_PLAYLIST")
         presentTextFieldAlert(with: alertInfo, completionHandler: {
-            [weak self] text -> Void in
-            guard let strongSelf = self else {
+            [unowned self] text -> Void in
+            guard text != "" else {
+                DispatchQueue.main.async {
+                    VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_EMPTY_NAME",
+                                                                                     comment: ""),
+                                                            viewController: self)
+                }
                 return
             }
-            let playlist = strongSelf.mediaLibraryService.createPlaylist(with: text)
-
-            for indexPath in strongSelf.selectedCellIndexPaths {
-                guard let media = strongSelf.model.anyfiles[indexPath.row] as? VLCMLMedia else {
-                    assertionFailure("we're not handling collections yet")
-                    return
-                }
-                playlist.appendMedia(withIdentifier: media.identifier())
-            }
+            self.model.createPlaylist(text, self.selectedCellIndexPaths)
+            self.selectedCellIndexPaths.removeAll()
         })
     }
 

@@ -36,6 +36,10 @@ class ShowEpisodeModel: MLBaseModel {
     func delete(_ items: [VLCMLObject]) {
         preconditionFailure("ShowEpisodeModel: Cannot delete showEpisode")
     }
+
+    func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>? = nil) {
+        assertionFailure("ShowEpisodeModel: createPlaylist: Not integrated.")
+    }
 }
 
 // MARK: - Sort
