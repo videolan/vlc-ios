@@ -71,11 +71,9 @@ extension VideoModel: MediaLibraryObserver {
     // MARK: - Thumbnail
 
     func medialibrary(_ medialibrary: MediaLibraryService, thumbnailReady media: VLCMLMedia) {
-        for (index, file) in files.enumerated() {
-            if file == media {
-                files[index] = media
-                break
-            }
+        for (index, file) in files.enumerated() where file == media {
+            files[index] = media
+            break
         }
         updateView?()
     }
