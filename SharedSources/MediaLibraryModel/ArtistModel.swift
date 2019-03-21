@@ -76,6 +76,8 @@ extension ArtistModel {
     }
 }
 
+// MARK: - MediaLibraryObserver
+
 extension ArtistModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddArtists artists: [VLCMLArtist]) {
         artists.forEach({ append($0) })

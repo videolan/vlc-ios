@@ -70,11 +70,14 @@ extension AlbumModel {
 }
 
 // MARK: - Edit
+
 extension AlbumModel: EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type {
         return MediaEditCell.self
     }
 }
+
+// MARK: - MediaLibraryObserver
 
 extension AlbumModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddAlbums albums: [VLCMLAlbum]) {

@@ -50,6 +50,8 @@ extension ShowEpisodeModel {
     }
 }
 
+// MARK: - MediaLibraryObserver
+
 extension ShowEpisodeModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddShowEpisodes showEpisodes: [VLCMLMedia]) {
         showEpisodes.forEach({ append($0) })

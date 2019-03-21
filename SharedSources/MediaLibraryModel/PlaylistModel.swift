@@ -84,6 +84,8 @@ extension PlaylistModel {
     }
 }
 
+// MARK: - MediaLibraryObserver
+
 extension PlaylistModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddPlaylists playlists: [VLCMLPlaylist]) {
         playlists.forEach({ append($0) })
@@ -100,6 +102,8 @@ extension PlaylistModel: MediaLibraryObserver {
         updateView?()
     }
 }
+
+// MARK: - Helpers
 
 extension VLCMLPlaylist {
     func description() -> String {

@@ -69,6 +69,8 @@ extension GenreModel {
     }
 }
 
+// MARK: - MediaLibraryObserver
+
 extension GenreModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddGenres genres: [VLCMLGenre]) {
         genres.forEach({ append($0) })
@@ -77,11 +79,15 @@ extension GenreModel: MediaLibraryObserver {
 }
 
 // MARK: - Edit
+
 extension GenreModel: EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type {
         return MediaEditCell.self
     }
 }
+
+// MARK: - Helpers
+
 extension VLCMLGenre {
     @objc func numberOfTracksString() -> String {
         let numberOftracks = numberOfTracks()

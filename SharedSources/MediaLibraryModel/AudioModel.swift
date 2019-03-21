@@ -43,6 +43,7 @@ extension AudioModel {
 }
 
 // MARK: - Edit
+
 extension AudioModel: EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type {
         return MediaEditCell.self

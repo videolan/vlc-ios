@@ -43,7 +43,7 @@ extension MediaModel {
     }
 }
 
-// MARK: - VLCMLMedia
+// MARK: - Helpers
 
 extension VLCMLMedia {
     static func == (lhs: VLCMLMedia, rhs: VLCMLMedia) -> Bool {

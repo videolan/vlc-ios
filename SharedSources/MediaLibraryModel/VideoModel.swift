@@ -33,6 +33,7 @@ class VideoModel: MediaModel {
 }
 
 // MARK: - Edit
+
 extension VideoModel: EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type {
         return MediaEditCell.self
@@ -66,11 +67,9 @@ extension VideoModel: MediaLibraryObserver {
         }
         updateView?()
     }
-}
 
-// MARK: MediaLibraryObserver - Thumbnail
+    // MARK: - Thumbnail
 
-extension VideoModel {
     func medialibrary(_ medialibrary: MediaLibraryService, thumbnailReady media: VLCMLMedia) {
         for (index, file) in files.enumerated() {
             if file == media {
@@ -81,4 +80,3 @@ extension VideoModel {
         updateView?()
     }
 }
-
