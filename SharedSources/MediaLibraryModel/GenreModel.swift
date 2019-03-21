@@ -73,6 +73,10 @@ extension VLCMLGenre {
 }
 
 extension VLCMLGenre: MediaCollectionModel {
+    func sortModel() -> SortModel? {
+        return SortModel([.alpha])
+    }
+
     func files() -> [VLCMLMedia] {
         return []
     }

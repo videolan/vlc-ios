@@ -63,6 +63,11 @@ extension ArtistModel: MediaLibraryObserver {
 }
 
 extension VLCMLArtist: MediaCollectionModel {
+
+    func sortModel() -> SortModel? {
+        return SortModel([.alpha])
+    }
+
     func files() -> [VLCMLMedia] {
         return []
     }

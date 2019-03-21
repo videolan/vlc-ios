@@ -64,6 +64,10 @@ extension AlbumModel: MediaLibraryObserver {
 }
 
 extension VLCMLAlbum: MediaCollectionModel {
+    func sortModel() -> SortModel? {
+        return nil
+    }
+
     func files() -> [VLCMLMedia] {
         return tracks
     }
