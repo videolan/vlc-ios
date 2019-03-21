@@ -70,11 +70,9 @@ extension AppCoordinator: MediaLibraryMigrationDelegate {
     }
 
     func medialibraryDidFinishMigration(_ medialibrary: MediaLibraryService) {
-        if tabBarController.presentedViewController === migrationViewController {
-            DispatchQueue.main.async {
-                [tabBarController] in
-                tabBarController.dismiss(animated: true, completion: nil)
-            }
+        DispatchQueue.main.async {
+            [migrationViewController] in
+            migrationViewController.dismiss(animated: true, completion: nil)
         }
     }
 
