@@ -12,7 +12,7 @@
 
 @objc(VLCService)
 class Services: NSObject {
-    @objc let medialibraryManager = MediaLibraryService()
+    @objc let medialibraryService = MediaLibraryService()
     @objc let rendererDiscovererManager = VLCRendererDiscovererManager(presentingViewController: nil)
 }
 
@@ -35,7 +35,7 @@ class Services: NSObject {
         // Init the HTTP Server and clean its cache
         // FIXME: VLCHTTPUploaderController should perhaps be a service?
         VLCHTTPUploaderController.sharedInstance().cleanCache()
-        services.medialibraryManager.migrationDelegate = self
+        services.medialibraryService.migrationDelegate = self
     }
 
     private func setupChildViewControllers() {
