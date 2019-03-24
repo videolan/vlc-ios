@@ -18,17 +18,15 @@ class Services: NSObject {
 
 @objc class AppCoordinator: NSObject {
     private var childCoordinators: [NSObject] = []
-    private var viewController: UIViewController
     private var playerController: VLCPlayerDisplayController
     private var tabBarController: UITabBarController
     private var services = Services()
     private var migrationViewController = VLCMigrationViewController(nibName: String(describing: VLCMigrationViewController.self),
                                                                      bundle: nil)
 
-    @objc init(viewController: UIViewController) {
-        self.viewController = viewController
+    @objc init(tabBarController: UITabBarController) {
         self.playerController = VLCPlayerDisplayController(services: services)
-        self.tabBarController = UITabBarController()
+        self.tabBarController = tabBarController
         super.init()
         setupChildViewControllers()
 
@@ -39,19 +37,14 @@ class Services: NSObject {
     }
 
     private func setupChildViewControllers() {
-        viewController.addChild(tabBarController)
-        viewController.view.addSubview(tabBarController.view)
-        tabBarController.view.frame = viewController.view.frame
-        tabBarController.didMove(toParent: viewController)
-
-        viewController.addChild(playerController)
-        viewController.view.addSubview(playerController.view)
+        self.tabBarController.addChild(playerController)
+        self.tabBarController.view.addSubview(playerController.view)
         playerController.view.layoutMargins = UIEdgeInsets(top: 0,
                                                            left: 0,
                                                            bottom: tabBarController.tabBar.frame.size.height,
                                                            right: 0)
         playerController.realBottomAnchor = tabBarController.tabBar.topAnchor
-        playerController.didMove(toParent: viewController)
+        playerController.didMove(toParent: self.tabBarController)
     }
 
     @objc func start() {
