@@ -46,7 +46,7 @@ class AppearanceManager: NSObject {
 
 //extensions so that preferredStatusBarStyle is called on all childViewControllers otherwise this is not forwarded
 extension UINavigationController {
-    override open var childForStatusBarStyle: UIViewController? {
-        return self.topViewController
+    override open var preferredStatusBarStyle: UIStatusBarStyle {
+        return PresentationTheme.current == PresentationTheme.darkTheme ? .lightContent : .default
     }
 }
