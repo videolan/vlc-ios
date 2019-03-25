@@ -69,3 +69,6 @@
 #define kVLCSettingWiFiSharingIPv6DefaultValue @(NO)
 
 #define kVLCfortvOSMovieDBKey @""
+
+#define kVLCStoredServerList @"kVLCStoredServerList"
+

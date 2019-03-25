@@ -33,6 +33,8 @@
 #import "VLCRemoteBrowsingTVCell.h"
 #import "GRKArrayDiff+UICollectionView.h"
 
+#import "VLC_iOS-Swift.h"
+
 @interface VLCServerListTVViewController ()
 {
     UILabel *_nothingFoundLabel;
@@ -83,6 +85,7 @@
     [self.view addConstraint:xConstraint];
 
     NSArray *classes = @[
+                         [VLCLocalNetworkServiceBrowserManualConnect class],
                          [VLCLocalNetworkServiceBrowserHTTP class],
                          [VLCLocalNetworkServiceBrowserUPnP class],
                          [VLCLocalNetworkServiceBrowserDSM class],
@@ -168,7 +171,12 @@
         NSError *error = nil;
         if ([login loadLoginInformationFromKeychainWithError:&error])
         {
-            [self showLoginAlertWithLogin:login];
+            if (login.protocolIdentifier)
+                [self showLoginAlertWithLogin:login];
+            else {
+                VLCNetworkLoginTVViewController *targetViewController = [VLCNetworkLoginTVViewController alloc];
+                [self presentViewController:targetViewController animated:YES completion:nil];
+            }
         } else {
             [self showKeychainLoadError:error forLogin:login];
         }
