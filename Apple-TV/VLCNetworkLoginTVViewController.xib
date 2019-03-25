@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="light"/>
+    </device>
+    <dependencies>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCNetworkLoginTVViewController" customModule="VLC" customModuleProvider="target">
+            <connections>
+                <outlet property="buttonConnect" destination="sqn-ne-gi8" id="TXw-Lb-rui"/>
+                <outlet property="buttonSave" destination="c1A-mX-LxM" id="D3q-7B-e3U"/>
+                <outlet property="nothingFoundLabel" destination="xzD-hl-t2b" id="SCq-6a-vav"/>
+                <outlet property="nothingFoundView" destination="DRv-sP-mwh" id="vw5-ei-Twm"/>
+                <outlet property="passwordField" destination="vid-P5-6NG" id="EGV-IP-pNY"/>
+                <outlet property="portField" destination="PWg-iD-EqV" id="Zjv-GN-Y7v"/>
+                <outlet property="segmentedControl" destination="qoc-Y9-1Zo" id="Xfo-Ge-BZY"/>
+                <outlet property="serverField" destination="TKy-NO-Xtu" id="MXT-c7-08p"/>
+                <outlet property="tableView" destination="D8I-qj-1Ff" id="MDh-OF-VnW"/>
+                <outlet property="usernameField" destination="fOo-BA-aNJ" id="3ib-9c-PQ1"/>
+                <outlet property="view" destination="iN0-l3-epB" id="d1e-6i-lwj"/>
+                <outlet property="workgroupField" destination="vEX-VM-fdk" id="Mrx-7y-qXB"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bjz-vU-NEt">
+                    <rect key="frame" x="110" y="144" width="625" height="785"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="wYk-iy-RMM">
+                            <rect key="frame" x="0.0" y="0.0" width="625" height="785"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="qoc-Y9-1Zo" userLabel="segCtrl">
+                                    <rect key="frame" x="0.0" y="0.0" width="625" height="86"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="85" id="7M2-5G-bsJ"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="82" id="Lva-1H-o23"/>
+                                        <constraint firstAttribute="width" constant="625" id="bcJ-OH-2IZ"/>
+                                    </constraints>
+                                    <segments>
+                                        <segment title="SMB"/>
+                                        <segment title="FTP"/>
+                                        <segment title="PLEX"/>
+                                    </segments>
+                                </segmentedControl>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Server" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TKy-NO-Xtu" userLabel="adress">
+                                    <rect key="frame" x="0.0" y="100" width="625" height="85"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="625" id="KIs-Z4-nZt"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="82" id="NlA-gP-QeO"/>
+                                        <constraint firstAttribute="height" constant="85" id="q5y-bg-7nH"/>
+                                    </constraints>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="url"/>
+                                </textField>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Port" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PWg-iD-EqV" userLabel="port">
+                                    <rect key="frame" x="0.0" y="200" width="625" height="85"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="85" id="N3Q-zZ-p7t"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="82" id="T26-XZ-DdY"/>
+                                        <constraint firstAttribute="width" constant="625" id="ecM-lo-QrN"/>
+                                    </constraints>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                </textField>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Login" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fOo-BA-aNJ" userLabel="username">
+                                    <rect key="frame" x="0.0" y="300" width="625" height="85"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="82" id="2kk-Ab-KwE"/>
+                                        <constraint firstAttribute="width" constant="625" id="Q3z-58-itj"/>
+                                        <constraint firstAttribute="height" constant="85" id="kZ2-Bb-HZo"/>
+                                    </constraints>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="username"/>
+                                </textField>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vid-P5-6NG" userLabel="password">
+                                    <rect key="frame" x="0.0" y="400" width="625" height="85"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="85" id="0NJ-fx-5V8"/>
+                                        <constraint firstAttribute="width" constant="625" id="D8T-jw-2gb"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="82" id="EwO-UX-qrf"/>
+                                    </constraints>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
+                                </textField>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Workgroup" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vEX-VM-fdk" userLabel="workgroup">
+                                    <rect key="frame" x="0.0" y="500" width="625" height="85"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="625" id="0OP-rK-Al9"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="82" id="b9V-fk-mYd"/>
+                                        <constraint firstAttribute="height" constant="85" id="rRQ-V0-lSS"/>
+                                    </constraints>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="username"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1A-mX-LxM" userLabel="save">
+                                    <rect key="frame" x="0.0" y="600" width="625" height="85"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="625" id="OMu-dv-bOB"/>
+                                        <constraint firstAttribute="height" constant="85" id="oXV-CB-6K8"/>
+                                    </constraints>
+                                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                    <state key="normal" title="Save"/>
+                                    <connections>
+                                        <action selector="saveLogin:" destination="-1" eventType="primaryActionTriggered" id="pOg-1Q-pNA"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqn-ne-gi8" userLabel="connect">
+                                    <rect key="frame" x="0.0" y="700" width="625" height="85"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="625" id="CPw-Op-Wil"/>
+                                        <constraint firstAttribute="height" constant="85" id="M6k-nk-JKQ"/>
+                                    </constraints>
+                                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                    <state key="normal" title="Connect"/>
+                                    <connections>
+                                        <action selector="ConnectToServer:" destination="-1" eventType="primaryActionTriggered" id="CXY-In-rya"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DRv-sP-mwh" userLabel="Nothing Found View">
+                    <rect key="frame" x="1008" y="60" width="802" height="960"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cone" translatesAutoresizingMaskIntoConstraints="NO" id="9TZ-BM-yM1">
+                            <rect key="frame" x="328" y="349" width="143" height="158"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="nuting found" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzD-hl-t2b">
+                            <rect key="frame" x="0.0" y="579" width="802" height="46"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <color key="textColor" red="0.33333334329999997" green="0.33333334329999997" blue="0.33333334329999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="ToZ-7P-SRa"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="7" sectionFooterHeight="7" translatesAutoresizingMaskIntoConstraints="NO" id="D8I-qj-1Ff">
+                    <rect key="frame" x="1008" y="60" width="802" height="960"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Pmt-tb-8Ig"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="cone" width="143" height="158"/>
+    </resources>
+</document>
