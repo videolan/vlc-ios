@@ -523,6 +523,7 @@ static NSString *kUsingTableViewToShowData = @"UsingTableViewToShowData";
         _isSelected = NO;
     } else {
         [self.collectionView reloadData];
+        [self.collectionView.collectionViewLayout invalidateLayout];
 
         [self updateActionBarButtonItemStateWithSelectedIndexPaths:[self.collectionView indexPathsForSelectedItems]];
         if (_libraryMode == VLCLibraryModeAllFiles) {
