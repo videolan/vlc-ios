@@ -32,6 +32,7 @@ class VLCTabBarCoordinator: NSObject {
         tabBarController.tabBar.isTranslucent = false
         tabBarController.tabBar.backgroundColor = PresentationTheme.current.colors.tabBarColor
         tabBarController.tabBar.barTintColor = PresentationTheme.current.colors.tabBarColor
+        tabBarController.tabBar.itemPositioning = .fill
         tabBarController.viewControllers?.forEach {
             if let navController = $0 as? UINavigationController, navController.topViewController is VLCSettingsController {
                 navController.navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
@@ -56,5 +57,11 @@ class VLCTabBarCoordinator: NSObject {
         ]
 
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
+    }
+}
+
+extension UITabBarController {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return PresentationTheme.current.colors.statusBarStyle
     }
 }
