@@ -236,6 +236,8 @@
 
     __block UITextField *usernameField = nil;
     __block UITextField *passwordField = nil;
+    __block UITextField *portField = nil;
+
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = NSLocalizedString(@"USER_LABEL", nil);
         textField.text = login.username;
@@ -246,6 +248,12 @@
         textField.placeholder = NSLocalizedString(@"PASSWORD_LABEL", nil);
         textField.text = login.password;
         passwordField = textField;
+    }];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = NSLocalizedString(@"SERVER_PORT", nil);
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.text = login.port.stringValue;
+        portField = textField;
     }];
 
     NSMutableDictionary *additionalFieldsDict = [NSMutableDictionary dictionaryWithCapacity:login.additionalFields.count];
@@ -269,6 +277,7 @@
     void(^loginBlock)(BOOL) = ^(BOOL save) {
         login.username = usernameField.text;
         login.password = passwordField.text;
+        login.port = [NSNumber numberWithInt:portField.text.intValue];
         for (VLCNetworkServerLoginInformationField *fieldInfo in login.additionalFields) {
             UITextField *textField = additionalFieldsDict[fieldInfo.identifier];
             fieldInfo.textValue = textField.text;
