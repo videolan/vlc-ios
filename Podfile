@@ -22,7 +22,7 @@ target 'VLC-iOS' do
   pod 'HockeySDK', '~>5.1.4', :subspecs => ['CrashOnlyLib']
   pod 'PAPasscode', '~>1.0'
   pod 'GoogleAPIClientForREST/Drive'
-  pod 'MobileVLCKit', '3.3.0'
+  pod 'MobileVLCKit', '3.3.1'
   pod 'VLCMediaLibraryKit'
   pod 'MediaLibraryKit-prod'
   pod 'GTMAppAuth'
@@ -44,7 +44,7 @@ target 'VLC-tvOS' do
   pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
   pod 'GRKArrayDiff', '~> 2.1'
   pod 'HockeySDK-tvOS', '~>5.1.0'
-  pod 'TVVLCKit', '3.3.0'
+  pod 'TVVLCKit', '3.3.1'
 end
 
 post_install do |installer_representation|
