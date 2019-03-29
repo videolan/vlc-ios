@@ -1,3 +1,10 @@
+iOS 3.1.8:
+-----------
+· Improve action sheet animation
+· Fix SMB 2 issue
+· Fix Chromecast no video issue
+· Bugfixes and stability improvements
+
 tvOS 3.0.4:
 -----------
 · Added support for SMB 2
