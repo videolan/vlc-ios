@@ -233,7 +233,7 @@
 		7D3CF81B2050265B00FA0C1F /* VLCMediaFileDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */; };
 		7D3CF81C2050265B00FA0C1F /* VLCActivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18F0A11B34522000651A30 /* VLCActivityManager.m */; };
 		7D3CF81D2050265B00FA0C1F /* VLCServerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFEEC1BDEBA3800B68579 /* VLCServerListViewController.m */; };
-		7D3CF81E2050265B00FA0C1F /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		7D3CF81E2050265B00FA0C1F /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7D3CF81F2050265B00FA0C1F /* VLCOneDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1052E81A4DCC1100295F08 /* VLCOneDriveTableViewController.m */; };
 		7D3CF8202050265B00FA0C1F /* VLCLocalNetworkServiceUPnP.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF251BDEBCE500B68579 /* VLCLocalNetworkServiceUPnP.m */; };
 		7D3CF8212050265B00FA0C1F /* VLCNetworkListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3D2183AB2F100FFC021 /* VLCNetworkListCell.m */; };
@@ -314,7 +314,7 @@
 		7D3CF86F2050265B00FA0C1F /* gradient-cell.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D5B26631D6350BF00FE7B4D /* gradient-cell.png */; };
 		7D3CF8702050265B00FA0C1F /* VLCPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF18C183AB4300009A339 /* VLCPlaylistTableViewCell.xib */; };
 		7D3CF8712050265B00FA0C1F /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D63C19618774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib */; };
-		7D3CF8722050265B00FA0C1F /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		7D3CF8722050265B00FA0C1F /* (null) in Resources */ = {isa = PBXBuildFile; };
 		7D3CF8732050265B00FA0C1F /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
 		7D3CF8742050265B00FA0C1F /* VLCMovieViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF191183AB4300009A339 /* VLCMovieViewController.xib */; };
 		7D3CF8752050265B00FA0C1F /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */; };
@@ -3268,7 +3268,7 @@
 				7D3CF86F2050265B00FA0C1F /* gradient-cell.png in Resources */,
 				7D3CF8702050265B00FA0C1F /* VLCPlaylistTableViewCell.xib in Resources */,
 				7D3CF8712050265B00FA0C1F /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */,
-				7D3CF8722050265B00FA0C1F /* BuildFile in Resources */,
+				7D3CF8722050265B00FA0C1F /* (null) in Resources */,
 				7D3CF8732050265B00FA0C1F /* libMediaVLC.xml in Resources */,
 				7D3CF8742050265B00FA0C1F /* VLCMovieViewController.xib in Resources */,
 				7D3CF8752050265B00FA0C1F /* VLCOpenNetworkStreamViewController.xib in Resources */,
@@ -3425,7 +3425,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python Tools/update_strings.py Resources/en.lproj/Localizable.strings";
+			shellScript = "python Tools/update_strings.py Resources/en.lproj/Localizable.strings\n";
 		};
 		7D3CF7AF2050265B00FA0C1F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3702,7 +3702,6 @@
 				7DEBF37F1C076EE8007A4043 /* NSString+Locale.m in Sources */,
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
 				DD3EFF3E1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
-				7DF383CB1BF2498800D71A5C /* VLCOneDriveCollectionViewController.m in Sources */,
 				7D5278E21BD7E06E00D0CA0E /* VLCDropboxController.m in Sources */,
 				7DC0B5701C0094370027BFAD /* VLCSettingsViewController.m in Sources */,
 				7DEC8BDA1BD67112006E1093 /* VLCFrostedGlasView.m in Sources */,
@@ -3855,7 +3854,7 @@
 				7D3CF81B2050265B00FA0C1F /* VLCMediaFileDiscoverer.m in Sources */,
 				7D3CF81C2050265B00FA0C1F /* VLCActivityManager.m in Sources */,
 				7D3CF81D2050265B00FA0C1F /* VLCServerListViewController.m in Sources */,
-				7D3CF81E2050265B00FA0C1F /* BuildFile in Sources */,
+				7D3CF81E2050265B00FA0C1F /* (null) in Sources */,
 				7D3CF81F2050265B00FA0C1F /* VLCOneDriveTableViewController.m in Sources */,
 				7D3CF8202050265B00FA0C1F /* VLCLocalNetworkServiceUPnP.m in Sources */,
 				7D3CF8212050265B00FA0C1F /* VLCNetworkListCell.m in Sources */,
