@@ -1,3 +1,10 @@
+tvOS 3.0.5:
+-----------
+· Fix SMB 2 issue
+· Add thumbnail for video in remote playback
+· Add manual connection to SMB/FTP/Plex
+· Bugfixes and stability improvements
+
 iOS 3.1.8:
 -----------
 · Improve action sheet animation
