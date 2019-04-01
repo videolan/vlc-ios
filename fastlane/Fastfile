@@ -91,9 +91,9 @@ private_lane :update_changelog do |options|
   if (match = File.read('../Docs/NEWS').match(regex))
     changelog = match.captures
     set_changelog(app_identifier: 'org.videolan.vlc-ios',
-                  changelog: changelog,
                   username: '*',
-                  team: 'VideoLAN',
+                  changelog: changelog.first.strip,
+                  team_name: 'VideoLAN',
                   platform: platform == 'tvOS' ? 'appletvos' : 'ios')
   else
     puts("⚠️  Changelog not found for: #{platform} [#{version}]")
