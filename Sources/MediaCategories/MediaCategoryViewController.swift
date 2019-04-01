@@ -136,7 +136,9 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     // MARK: Renderer
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         collectionView?.collectionViewLayout.invalidateLayout()
+        cachedCellSize = .zero
     }
 
     // MARK: - Edit
@@ -220,21 +222,25 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 extension VLCMediaCategoryViewController {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if cachedCellSize == .zero {
-            cachedCellSize = model.cellType.cellSizeForWidth(collectionView.frame.size.width)
+            if #available(iOS 11.0, *) {
+                cachedCellSize = model.cellType.cellSizeForWidth(collectionView.safeAreaLayoutGuide.layoutFrame.width)
+            } else {
+                cachedCellSize = model.cellType.cellSizeForWidth(collectionView.frame.size.width)
+            }
         }
         return cachedCellSize
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: model.cellType.cellPadding, left: model.cellType.cellPadding, bottom: model.cellType.cellPadding, right: model.cellType.cellPadding)
+        return UIEdgeInsets(top: model.cellType.edgePadding, left: model.cellType.edgePadding, bottom: model.cellType.edgePadding, right: model.cellType.edgePadding)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return model.cellType.cellPadding
+        return model.cellType.edgePadding
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return model.cellType.cellPadding
+        return model.cellType.interItemPadding
     }
 
     override func handleSort() {

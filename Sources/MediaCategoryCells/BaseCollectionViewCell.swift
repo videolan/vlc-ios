@@ -28,7 +28,11 @@ class BaseCollectionViewCell: UICollectionViewCell {
         return CGSize.zero
     }
 
-    class var cellPadding: CGFloat {
-        return 0
+    class var edgePadding: CGFloat {
+        return 15
+    }
+
+    class var interItemPadding: CGFloat {
+        return 5
     }
 }

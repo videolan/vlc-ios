@@ -21,8 +21,11 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var collectionOverlay: UIView!
     @IBOutlet weak var numberOfTracks: UILabel!
-    override class var cellPadding: CGFloat {
-        return 5.0
+    override class var edgePadding: CGFloat {
+        return 12.5
+    }
+    override class var interItemPadding: CGFloat {
+        return 7.5
     }
 
     override var media: VLCMLObject? {
@@ -71,14 +74,26 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     }
 
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
-        let numberOfCells: CGFloat = round(width / 250)
+        let numberOfCells: CGFloat
+        if width <= 414 { //max iPhone portrait width
+            numberOfCells = 2
+        } else if width <= 896 { // max landscape iPhone width includes small iPads in protrait
+            numberOfCells = 3
+        } else if width <= 1024 { // max landscape for small iPads
+            numberOfCells = 4
+        } else { //ipad Pro in Landscape
+            numberOfCells = 5
+        }
         let aspectRatio: CGFloat = 10.0 / 16.0
 
-        // We have the number of cells and we always have numberofCells + 1 padding spaces. -pad-[Cell]-pad-[Cell]-pad-
-        // we then have the entire padding, we divide the entire padding by the number of Cells to know how much needs to be substracted from ech cell
-        // since this might be an uneven number we ceil
-        var cellWidth = width / numberOfCells
-        cellWidth = cellWidth - ceil(((numberOfCells + 1) * cellPadding) / numberOfCells)
+        // We have the number of cells and we always have numberofCells + 1 interItemPadding spaces.
+        //
+        // edgePadding-interItemPadding-[Cell]-interItemPadding-[Cell]-interItemPadding-edgePadding
+        //
+
+        let overallWidth = width - (2 * edgePadding)
+        let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
+        let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
 
         // 3*20 for the labels + 24 for 3*8 which is the padding
         return CGSize(width: cellWidth, height: cellWidth * aspectRatio + 3*20+24)
