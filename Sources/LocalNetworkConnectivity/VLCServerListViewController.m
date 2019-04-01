@@ -41,7 +41,7 @@
 
 #import "VLC-Swift.h"
 
-@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate, VLCFileServerSectionTableHeaderViewDelegate>
+@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate, VLCFileServerViewDelegate>
 {
     VLCLocalServerDiscoveryController *_discoveryController;
 
@@ -99,8 +99,6 @@
 
     [self.navigationController.navigationBar setTranslucent:NO];
 
-    [_localNetworkTableView registerClass:[VLCFileServerSectionTableHeaderView class] forHeaderFooterViewReuseIdentifier:VLCFileServerSectionTableHeaderView.identifier];
-
     _remoteNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     _remoteNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
     _remoteNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
@@ -109,6 +107,10 @@
     _remoteNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _remoteNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _remoteNetworkTableView.bounces = NO;
+
+    VLCFileServerView *fileServerView = [VLCFileServerView new];
+    fileServerView.translatesAutoresizingMaskIntoConstraints = NO;
+    fileServerView.delegate = self;
 
     [_remoteNetworkTableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:[VLCWiFiUploadTableViewCell cellIdentifier]];
     [_remoteNetworkTableView registerClass:[VLCRemoteNetworkCell class] forCellReuseIdentifier:VLCRemoteNetworkCell.cellIdentifier];
@@ -126,6 +128,7 @@
     [_localNetworkTableView addSubview:_activityIndicator];
 
     [_scrollView addSubview:_localNetworkTableView];
+    [_scrollView addSubview:fileServerView];
     [_scrollView addSubview:_remoteNetworkTableView];
 
     [_remoteNetworkTableView layoutIfNeeded];
@@ -136,7 +139,10 @@
                                               [_remoteNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
                                               [_remoteNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
                                               [_remoteNetworkTableView.topAnchor constraintEqualToAnchor:_scrollView.topAnchor],
-                                              [_localNetworkTableView.topAnchor constraintEqualToAnchor:_remoteNetworkTableView.bottomAnchor],
+                                              [fileServerView.topAnchor constraintEqualToAnchor:_remoteNetworkTableView.bottomAnchor],
+                                              [fileServerView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+                                              [fileServerView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
+                                              [_localNetworkTableView.topAnchor constraintEqualToAnchor:fileServerView.bottomAnchor],
                                               [_localNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
                                               [_localNetworkTableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
                                               [_localNetworkTableView.bottomAnchor constraintEqualToAnchor:_scrollView.bottomAnchor],
@@ -233,16 +239,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [_discoveryController numberOfItemsInSection:section];
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (section == 0) {
-        VLCFileServerSectionTableHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:VLCFileServerSectionTableHeaderView.identifier];
-        headerView.delegate = self;
-        return headerView;
-    }
-    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -402,16 +398,6 @@
     [_localNetworkTableView reloadData];
     [_localNetworkTableView layoutIfNeeded];
     _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
-}
-
-#pragma mark - custom table view appearance
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (section == 0)
-        return 56.;
-
-    return 0.;
 }
 
 @end

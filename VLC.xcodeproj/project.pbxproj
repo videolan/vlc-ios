@@ -28,7 +28,7 @@
 		414327A721B6E66E00B061F6 /* PlaybackSpeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 414327A621B6E66E00B061F6 /* PlaybackSpeedView.xib */; };
 		414396C22023316C005E3FAF /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414396C12023316C005E3FAF /* AppearanceManager.swift */; };
 		4144156A20ECD2620078EC37 /* VLCSectionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4144156920ECD2620078EC37 /* VLCSectionTableHeaderView.swift */; };
-		4144156C20ECE6330078EC37 /* VLCFileServerSectionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4144156B20ECE6330078EC37 /* VLCFileServerSectionTableHeaderView.swift */; };
+		4144156C20ECE6330078EC37 /* VLCFileServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4144156B20ECE6330078EC37 /* VLCFileServerView.swift */; };
 		4144C4661A0ED6C700918C89 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
 		4152F1621FEF19BD00F1908B /* KeychainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */; };
 		41533C9E2113392F00EC3ABA /* URLHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */; };
@@ -440,7 +440,7 @@
 		414327A621B6E66E00B061F6 /* PlaybackSpeedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlaybackSpeedView.xib; path = Resources/PlaybackSpeedView.xib; sourceTree = "<group>"; };
 		414396C12023316C005E3FAF /* AppearanceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppearanceManager.swift; path = Sources/AppearanceManager.swift; sourceTree = SOURCE_ROOT; };
 		4144156920ECD2620078EC37 /* VLCSectionTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCSectionTableHeaderView.swift; path = Sources/VLCSectionTableHeaderView.swift; sourceTree = "<group>"; };
-		4144156B20ECE6330078EC37 /* VLCFileServerSectionTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCFileServerSectionTableHeaderView.swift; path = Sources/VLCFileServerSectionTableHeaderView.swift; sourceTree = "<group>"; };
+		4144156B20ECE6330078EC37 /* VLCFileServerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCFileServerView.swift; path = Sources/VLCFileServerView.swift; sourceTree = "<group>"; };
 		4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeychainCoordinator.swift; path = Sources/KeychainCoordinator.swift; sourceTree = "<group>"; };
 		41533C91211338D500EC3ABA /* VLC-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandlerTests.swift; sourceTree = "<group>"; };
@@ -1292,7 +1292,7 @@
 				DD1CB0591BBAC549006EDDE6 /* VLCVolumeView.m */,
 				8DD651B0208F62B70052EE68 /* VLCActionSheet */,
 				4144156920ECD2620078EC37 /* VLCSectionTableHeaderView.swift */,
-				4144156B20ECE6330078EC37 /* VLCFileServerSectionTableHeaderView.swift */,
+				4144156B20ECE6330078EC37 /* VLCFileServerView.swift */,
 				8D222DC120F779F1009C0D34 /* MediaEditCell.swift */,
 				8DF9669C2113317100D0FCD6 /* VLCEditToolbar.swift */,
 				8DF966B021188BDB00D0FCD6 /* VLCEditController.swift */,
@@ -2974,7 +2974,7 @@
 				41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */,
 				7D3784C2183A9938009EE944 /* VLCSlider.m in Sources */,
 				7D3784C3183A9938009EE944 /* VLCStatusLabel.m in Sources */,
-				4144156C20ECE6330078EC37 /* VLCFileServerSectionTableHeaderView.swift in Sources */,
+				4144156C20ECE6330078EC37 /* VLCFileServerView.swift in Sources */,
 				7D1276621AADA0E600F0260C /* VLCMultiSelectionMenuView.m in Sources */,
 				416DACB720B6DB9A001BC75D /* PlayingExternallyView.swift in Sources */,
 				41EC28E52136DD41004BCF0F /* MovieCollectionViewCell.swift in Sources */,
