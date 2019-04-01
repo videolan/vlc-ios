@@ -16,7 +16,7 @@ protocol VLCEditControllerDelegate: class {
 class VLCEditController: UIViewController {
     private var selectedCellIndexPaths = Set<IndexPath>()
     private let model: MediaLibraryBaseModel
-    private let mediaLibraryManager: VLCMediaLibraryManager
+    private let mediaLibraryService: MediaLibraryService
     weak var delegate: VLCEditControllerDelegate?
 
     override func loadView() {
@@ -25,8 +25,8 @@ class VLCEditController: UIViewController {
         self.view = editToolbar
     }
 
-    init(mediaLibraryManager: VLCMediaLibraryManager, model: MediaLibraryBaseModel) {
-        self.mediaLibraryManager = mediaLibraryManager
+    init(mediaLibraryService: MediaLibraryService, model: MediaLibraryBaseModel) {
+        self.mediaLibraryService = mediaLibraryService
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
@@ -105,7 +105,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
             guard let strongSelf = self else {
                 return
             }
-            let playlist = strongSelf.mediaLibraryManager.createPlaylist(with: text)
+            let playlist = strongSelf.mediaLibraryService.createPlaylist(with: text)
 
             for indexPath in strongSelf.selectedCellIndexPaths {
                 guard let media = strongSelf.model.anyfiles[indexPath.row] as? VLCMLMedia else {
