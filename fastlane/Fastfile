@@ -104,11 +104,7 @@ end
 desc 'Apply privateConstants patch including credentials'
 private_lane :git_apply_private_constants do
   Dir.chdir('..') do
-    gitapply = `xcrun git apply 0001-privateConstants.patch`
-    if gitapply != ''
-      puts("⚠️  There are conflicts. Please resolve the conflicts and update the privateConstants.patch before continuing.\n#{gitapply}")
-      exit 1
-    end
+    sh("xcrun git apply 0001-privateConstants.patch")
   end
 end
 
