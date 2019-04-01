@@ -16,9 +16,6 @@ class ArtistCollectionViewCell: BaseCollectionViewCell {
 
     @IBOutlet weak var thumbnailView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    override class var cellPadding: CGFloat {
-        return 5.0
-    }
 
     override var media: VLCMLObject? {
         didSet {
@@ -49,13 +46,25 @@ class ArtistCollectionViewCell: BaseCollectionViewCell {
     }
 
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
-        let numberOfCells: CGFloat = round(width / 320)
+        let numberOfCells: CGFloat
+        if width <= DeviceWidth.iPhonePortrait.rawValue {
+            numberOfCells = 1
+        } else if width <= DeviceWidth.iPhoneLandscape.rawValue {
+            numberOfCells = 2
+        } else if width <= DeviceWidth.iPadLandscape.rawValue {
+            numberOfCells = 3
+        } else {
+            numberOfCells = 4
+        }
 
-        // We have the number of cells and we always have numberofCells + 1 padding spaces. -pad-[Cell]-pad-[Cell]-pad-
-        // we then have the entire padding, we divide the entire padding by the number of Cells to know how much needs to be substracted from ech cell
-        // since this might be an uneven number we ceil
-        var cellWidth = width / numberOfCells
-        cellWidth = cellWidth - ceil(((numberOfCells + 1) * cellPadding) / numberOfCells)
+        // We have the number of cells and we always have numberofCells + 1 interItemPadding spaces.
+        //
+        // edgePadding-interItemPadding-[Cell]-interItemPadding-[Cell]-interItemPadding-edgePadding
+        //
+
+        let overallWidth = width - (2 * edgePadding)
+        let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
+        let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
 
         return CGSize(width: cellWidth, height: 80)
     }

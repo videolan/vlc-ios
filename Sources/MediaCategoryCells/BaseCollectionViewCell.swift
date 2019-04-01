@@ -28,7 +28,17 @@ class BaseCollectionViewCell: UICollectionViewCell {
         return CGSize.zero
     }
 
-    class var cellPadding: CGFloat {
-        return 0
+    class var edgePadding: CGFloat {
+        return 15
     }
+
+    class var interItemPadding: CGFloat {
+        return 5
+    }
+}
+
+enum DeviceWidth: CGFloat {
+    case iPhonePortrait = 414
+    case iPhoneLandscape = 896
+    case iPadLandscape = 1024
 }
