@@ -1,0 +1,55 @@
+1
+00:00:01,480 --> 00:00:04,920
+Le navigateur Web constitue le programme le plus important de votre ordinateur.
+
+2
+00:00:04,920 --> 00:00:11,330
+Pourtant, peu de gens savent ce qu'ils utilisent ou même ce qu'est un navigateur Web.
+
+3
+00:00:11,330 --> 00:00:16,970
+Je vais vous l'expliquer. Tout d'abord, voyons ce qu'un navigateur Web n'est pas.
+
+4
+00:00:16,970 --> 00:00:20,100
+Un navigateur Web n'est pas un système d'exploitation,
+
+5
+00:00:20,100 --> 00:00:24,820
+destiné à gérer les fichiers, les dossiers et les programmes. 
+
+6
+00:00:24,820 --> 00:00:30,660
+Ce n'est pas non plus un moteur de recherche avec lequel vous effectuez des recherches sur Internet.
+
+7
+00:00:30,660 --> 00:00:37,300
+En fait, un navigateur Web est un programme que vous installez sur votre ordinateur afin de pouvoir consulter des sites Web.
+
+8
+00:00:37,300 --> 00:00:41,330
+Pour ouvrir votre navigateur, cliquez sur son icône.
+
+9
+00:00:41,330 --> 00:00:47,510
+Lorsque vous saisissez des adresses Web dans le navigateur, les pages Web correspondantes s'affichent.
+
+10
+00:00:47,510 --> 00:00:50,510
+Le navigateur Web est le logiciel le plus important de votre ordinateur,
+
+11
+00:00:50,510 --> 00:00:53,480
+car c'est une porte d'accès vers toutes les pages Web.
+
+12
+00:00:53,480 --> 00:00:58,300
+Un navigateur rapide vous fait donc gagner du temps pour chaque page Web que vous ouvrez.
+
+13
+00:00:58,300 --> 00:01:02,360
+L'installation d'un nouveau navigateur Web est gratuite et ne prend que quelques minutes.
+
+14
+00:01:02,360 --> 00:01:06,426
+Prenez le temps de choisir le navigateur que vous préférez.

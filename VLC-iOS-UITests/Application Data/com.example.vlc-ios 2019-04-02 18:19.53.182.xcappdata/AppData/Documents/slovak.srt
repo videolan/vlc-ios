@@ -1,0 +1,99 @@
+1
+00:00:00,250 --> 00:00:01,700
+Toto je Raspberry Pi
+
+2
+00:00:01,700 --> 00:00:05,009
+Počítač veľkosti kreditnej karty a cenou okolo 37 €.
+
+3
+00:00:05,350 --> 00:00:10,649
+Stvorený ako pomôcka na výučbu programovania pre mladých ľudí a schopný vykonávať všetky druhy úžasných vecí.
+
+4
+00:00:11,380 --> 00:00:16,619
+V 80. rokoch sa deti museli učiť, používať a programovať počítače. A výsledok
+
+5
+00:00:16,720 --> 00:00:20,160
+Tieto deti vyrástli a majú prirodzené znalosti o tom, ako fungujú počítače.
+
+6
+00:00:21,040 --> 00:00:23,920
+Teraz potrebujeme viac programátorov ako kedykoľvek predtým
+
+7
+00:00:24,080 --> 00:00:26,120
+Aby sme sa vysporiadali s týmto problémom
+
+8
+00:00:26,340 --> 00:00:30,500
+Pár múdrych ľudí prišlo s Raspberry Pi aby znova zapálili iskru...
+
+9
+00:00:30,500 --> 00:00:31,260
+ 
+
+10
+00:00:31,620 --> 00:00:34,740
+Beží na slobodnom operačnom systéme Linux
+
+11
+00:00:34,740 --> 00:00:39,040
+z SD karty, takej akú používate vo svojom digitálnom fotoaparáte.
+
+12
+00:00:39,040 --> 00:00:41,600
+a je napájaný cez USB adaptér pre mobilný telefón.
+
+13
+00:00:41,940 --> 00:00:48,440
+Stačí len pripojiť myš a klávesnicu, prepojiť s TV alebo monitorom a ste pripravený
+
+14
+00:00:48,580 --> 00:00:53,980
+Raspberry Pi na školách nie je len skvelou cestou ako učiť deti programovať
+
+15
+00:00:53,980 --> 00:01:00,500
+Existuje desiatky ďalších spôsobov využitia ako fyzika, hudobná výchova
+
+16
+00:01:00,500 --> 00:01:03,000
+ 
+
+17
+00:01:03,000 --> 00:01:06,640
+A po celom svete ľudia experimentujú s Raspberry Pi
+
+18
+00:01:06,640 --> 00:01:08,447
+a zúčastňujú sa Raspberry Jam podujatí
+
+19
+00:01:08,447 --> 00:01:12,540
+Kde sa ľudia každej vekovej kategórie učia, čo všetko sa dá dokázať s Raspberry Pi
+
+20
+00:01:13,820 --> 00:01:21,680
+Odkedy bolo odoslané prvé Raspberry Pi, videli sme príklady rôznych, úžasných a zaujímavých  projektov s Pi
+
+21
+00:01:22,380 --> 00:01:29,460
+Využíva výhody svojej veľkosti, prenosnosti, ceny, programovatelnosti, a pripojitelnosti
+
+22
+00:01:29,460 --> 00:01:34,980
+Takže či sa chcete naučiť vytvárať hry, robotov alebo dokonca naučiť medveďa skákať s padákom
+
+23
+00:01:34,980 --> 00:01:35,480
+ 
+
+24
+00:01:35,480 --> 00:01:38,000
+S Raspberry Pi neexistujú žiadne limity.
+
+25
+00:01:38,000 --> 00:01:39,640
+ 

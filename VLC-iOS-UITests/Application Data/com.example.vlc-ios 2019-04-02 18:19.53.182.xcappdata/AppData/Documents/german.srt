@@ -1,0 +1,67 @@
+1
+00:00:00,240 --> 00:00:02,380
+Das ist ein "Raspberry Pi".
+
+2
+00:00:02,540 --> 00:00:05,620
+Es ist ein Kreditkarten großer Computer, welcher um die 25£ kostet.
+
+3
+00:00:05,760 --> 00:00:10,680
+Designed jungen Leuten das programmieren beizubringen, ist er fähig alle möglichen wundervollen Sachen damit zu machen.
+
+4
+00:00:11,780 --> 00:00:15,780
+Zurück in den 80. Jahren. Mussten Kinder lernen Computer zu programmieren, um diese zu benutzen.
+
+5
+00:00:16,000 --> 00:00:21,160
+Daraus folgte, dass diese Kinder mit einem selbstverständlichen Wissen aufwuchsen, wie Computer funktionieren.
+
+6
+00:00:21,360 --> 00:00:23,860
+Heutzutage brauchen wir mehr Programmierer als jemals zuvor.
+
+7
+00:00:24,500 --> 00:00:30,980
+Um dieses Problem anzugehen, entwickelten ein paar clevere Typen den "Raspberry Pi", damit der Funken wieder neu entfacht wird.
+
+8
+00:00:32,060 --> 00:00:42,240
+Übersetzt bedeutet das, ein frei operierbares System von einer SD-Karte, so wie die in deiner Digitalkamera, und es wird von einem USB-Ladekabel mit Strom versorgt.
+
+9
+00:00:42,500 --> 00:00:48,300
+Du steckst einfach Maus und Tastatur an, verbindest ihn mit einem Monitor und bist bereit loszulegen.
+
+10
+00:00:48,580 --> 00:00:53,820
+In Schulen ist der "Raspberry Pi" nicht nur ein großartiger weg Programmieren als Teil des Informatikunterricht zu lernen.
+
+11
+00:00:54,160 --> 00:01:01,960
+Es gibt auch dutzende fachübergreifende Anwendungsmöglichkeiten, na­he­lie­gend sind Wissenschaftsfächer und Musik.
+
+12
+00:01:02,680 --> 00:01:13,900
+Auf der ganzen Welt sind Leute, welche mit dem "Raspberry Pi" experimentieren und an "Raspberry Pi Jam"-Events teilnehmen, bei welchen Personen aller Altersklassen lernen, was mit einem "Raspberry Pi" gemacht werden kann.
+
+13
+00:01:14,380 --> 00:01:16,380
+seitdem der erste "Raspberry Pi" ausgeliefert wurde,
+
+14
+00:01:16,700 --> 00:01:21,720
+haben wir viele Beispiele gesehen, wie Leute ihn in einer Großzahl erstaunlicher und interessanter Projekte verwenden.
+
+15
+00:01:22,320 --> 00:01:29,680
+Sie nutzen den Vorteil seiner Größe, Tragbarkeit, Kosten, Programmierbarkeit und seiner Verbindungsmöglichkeiten
+
+16
+00:01:30,020 --> 00:01:36,640
+Also egal ob du lernen möchtest Spiele zu programmieren, Roboter zu bauen oder sogar wie man einem Bären das Fallschirmspringen beibringt,
+
+17
+00:01:36,780 --> 00:01:38,540
+mit "RaspberryPi" ist nur der Himmel die Grenze.

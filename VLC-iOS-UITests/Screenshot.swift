@@ -33,9 +33,8 @@ class Screenshot: XCTestCase {
     }
 
     func testCaptureVideoPlayback() {
-        download(name: "http://jell.yfish.us/media/jellyfish-10-mbps-hd-h264.mkv")
         helper.tapTabBarItem(VLCAccessibilityIdentifier.video)
-        app.collectionViews.cells.element(boundBy: 0).tap()
+        app.staticTexts["bird.m4v"].tap()
         XCUIDevice.shared.orientation = .landscapeLeft
 
         snapshot("playback")
@@ -54,23 +53,5 @@ class Screenshot: XCTestCase {
     func testCaptureVideoTab() {
         helper.tapTabBarItem(VLCAccessibilityIdentifier.video)
         snapshot("video_tab")
-    }
-
-    func download(name fileName: String) {
-        helper.tapTabBarItem(VLCAccessibilityIdentifier.localNetwork)
-        app.cells[VLCAccessibilityIdentifier.downloads].tap()
-
-        let downloadTextfield = app.textFields["http://myserver.com/file.mkv"].firstMatch
-        downloadTextfield.clearAndEnter(text: fileName)
-        app.buttons["Download"].firstMatch.tap()
-
-        XCTContext.runActivity(named: "Wait for download to complete") { _ in
-            let cancelDownloadButton = app.buttons["flatDeleteButton"]
-            let predicate = NSPredicate(format: "exists == 0")
-            let downloadCompleted = expectation(for: predicate, evaluatedWith: cancelDownloadButton, handler: nil)
-            wait(for: [downloadCompleted], timeout: 20.0)
-        }
-        
-        downloadTextfield.typeText("\n")
     }
 }

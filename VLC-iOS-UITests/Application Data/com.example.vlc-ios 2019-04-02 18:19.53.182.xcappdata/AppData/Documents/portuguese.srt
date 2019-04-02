@@ -1,0 +1,102 @@
+1
+00:00:00,540 --> 00:00:02,060
+Essa é a Raspberry Pi,
+
+2
+00:00:02,060 --> 00:00:04,160
+um computador do tamanho de um cartão de crédito
+
+3
+00:00:04,160 --> 00:00:05,900
+que custa em torno de £25,
+
+4
+00:00:05,900 --> 00:00:07,780
+projetado para ensinar jovens a programarem
+
+5
+00:00:07,780 --> 00:00:11,020
+e que é capaz de fazer várias coisas incríveis.
+
+6
+00:00:11,460 --> 00:00:15,740
+Na década de 80, as crianças tinham que aprender como programar os computadores para utilizá-los.
+Por isso, essas crianças cresceram com o conhecimento de como funciona um computador.
+
+7
+00:00:21,200 --> 00:00:24,460
+Hoje, nós precisamos de mais programadores que nunca.
+
+8
+00:00:24,460 --> 00:00:28,880
+Para lidar com esse problema, algumas pessoas inteligentes criaram a "Raspberry Pi"
+para reacender essa curiosidade.
+
+9
+00:00:32,180 --> 00:00:36,780
+Ela roda o Linux, um sistema operacional aberto, de um cartão SD,
+
+10
+00:00:36,780 --> 00:00:38,920
+semelhante ao presente na sua câmera digital,
+
+11
+00:00:38,920 --> 00:00:41,680
+e é alimentado por um carregador USB de celular.
+
+12
+00:00:42,260 --> 00:00:47,660
+Você conecta o mouse e o teclado, liga a uma TV ou monitor e está pronto para usá-la.
+
+13
+00:00:48,380 --> 00:00:51,400
+Na escola, a Raspberry Pi não é apenas uma ótima forma
+de aprender a programar nas aulas de informática,
+
+14
+00:00:54,100 --> 00:00:57,140
+ela também pode fazer dezenas de atividades multidisciplinares.
+
+15
+00:00:57,320 --> 00:01:01,500
+Como ciência e música.
+
+16
+00:01:02,580 --> 00:01:04,300
+E por todo o mundo,
+
+17
+00:01:04,300 --> 00:01:06,860
+as pessoas estão fazendo experimentos com a Raspberry Pi
+
+18
+00:01:06,860 --> 00:01:08,840
+e indo a diversos eventos
+
+19
+00:01:08,840 --> 00:01:12,740
+onde pessoas de todas as idades estão aprendendo o que se pode fazer com uma Raspberry Pi.
+
+20
+00:01:14,220 --> 00:01:18,820
+Desde a rápida adoção da Raspberry Pi, nós vemos exemplos de pessoas utilizando a Raspberry
+
+21
+00:01:18,820 --> 00:01:22,320
+para uma variedade de projetos incríveis e interessantes.
+
+22
+00:01:22,440 --> 00:01:29,580
+Aproveitando do seu tamanho, custo, fácil programação e conectividade.
+
+23
+00:01:29,920 --> 00:01:34,360
+Assim, se você quer aprender a desenvolver jogos, construir robôs, ou até mesmo
+
+24
+00:01:34,360 --> 00:01:36,040
+ensinar um urso a usar um paraquedas,
+
+25
+00:01:36,040 --> 00:01:38,680
+com a Raspberry Pi, o céu é o limite.

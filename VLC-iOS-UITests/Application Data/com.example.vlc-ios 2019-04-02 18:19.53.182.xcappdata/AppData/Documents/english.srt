@@ -1,0 +1,64 @@
+1
+00:00:01,300 --> 00:00:06,180
+The most important program on your computer
+is your web browser-- and yet most people
+
+2
+00:00:06,180 --> 00:00:11,800
+aren't sure which web browser they're using
+or what a web browser even is.
+
+3
+00:00:11,800 --> 00:00:16,980
+Let me try to explain by first telling you
+what a web browser is not.
+
+4
+00:00:16,980 --> 00:00:20,919
+A web browser is different from Windows or
+Mac, which are systems that allow you to manage
+
+5
+00:00:20,919 --> 00:00:24,329
+files and programs.
+
+6
+00:00:24,329 --> 00:00:31,169
+And it's different from a search engine, which
+is a website that is used to search the Internet.
+
+7
+00:00:31,169 --> 00:00:37,090
+Instead, a web browser is a program on your
+computer that allows you to visit websites.
+
+8
+00:00:37,090 --> 00:00:41,859
+You get to your web browser by clicking on
+its icon.
+
+9
+00:00:41,859 --> 00:00:47,190
+From there, you enter web addresses and the
+web browser displays the web pages for you.
+The web browser is the most important piece
+of software on your computer because every
+
+10
+00:00:51,320 --> 00:00:53,370
+web page runs through it.
+
+11
+00:00:53,370 --> 00:00:58,800
+So a faster web browser means that you'll
+save time on every web page you open.
+
+12
+00:00:58,800 --> 00:01:02,550
+Installing a new web browser is free and only
+takes minutes.
+
+13
+00:01:02,550 --> 00:01:05,480
+So take a moment to choose a web browser that
+you like best today.
