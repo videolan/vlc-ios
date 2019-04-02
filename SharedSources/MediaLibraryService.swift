@@ -233,6 +233,7 @@ private extension MediaLibraryService {
 
         if migrateMedia(oldMedialibrary) && migratePlaylists(oldMedialibrary) {
             UserDefaults.standard.set(true, forKey: MediaLibraryService.migrationKey)
+            didMigrate = true
             return true
         }
         return false
