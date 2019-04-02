@@ -155,7 +155,9 @@
 
 #if TARGET_OS_IOS
     if (self.artworkImage) {
-        MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithImage:self.artworkImage];
+        MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:self.artworkImage.size requestHandler:^UIImage * _Nonnull(CGSize size) {
+            return self.artworkImage;
+        }];
         currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = mpartwork;
     }
 #endif
