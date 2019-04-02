@@ -142,7 +142,7 @@
         [DBClientsManager authorizeFromController:[UIApplication sharedApplication]
                                        controller:self
                                           openURL:^(NSURL *url) {
-                                              [[UIApplication sharedApplication] openURL:url];
+                                              [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
                                           }];
     } else
         [_dropboxController logout];

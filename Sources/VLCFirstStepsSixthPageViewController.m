@@ -42,7 +42,7 @@
 
 - (IBAction)learnMore:(id)sender
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.videolan.org/contribute.html"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.videolan.org/contribute.html"] options:@{} completionHandler:nil];
 }
 
 @end

@@ -109,10 +109,12 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSURL *requestURL = request.URL;
-    if (![requestURL.scheme isEqualToString:@""])
-        return ![[UIApplication sharedApplication] openURL:requestURL];
-    else
+    if (![requestURL.scheme isEqualToString:@""] && [[UIApplication sharedApplication] canOpenURL:requestURL]) {
+        [[UIApplication sharedApplication] openURL:requestURL options:@{} completionHandler:nil];
+        return NO;
+    } else {
         return YES;
+    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -123,7 +125,7 @@
 
 - (IBAction)openContributePage:(id)sender
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.videolan.org/contribute.html"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.videolan.org/contribute.html"] options:@{} completionHandler:nil];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
