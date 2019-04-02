@@ -114,7 +114,7 @@ end
 desc 'Apply privateConstants patch including credentials'
 private_lane :git_apply_private_constants do
   Dir.chdir('..') do
-    sh("xcrun git apply 0001-privateConstants.patch")
+    sh('xcrun git apply 0001-privateConstants.patch')
   end
 end
 
