@@ -1,4 +1,3 @@
 "NSPhotoLibraryUsageDescription" = "כדי לשמור את הווידאו יש צורך לגשת לגלריה שלך";
 "NSPhotoLibraryAddUsageDescription" = "כדי לשמור את הווידאו יש צורך לגשת לגלריה שלך";
-"NSFaceIDUsageDescription" = "Enable access to Face ID to unlock VLC";
-
+"NSFaceIDUsageDescription" = "לאפשר גישה לזיהוי פנים כדי לשחרר את VLC";
