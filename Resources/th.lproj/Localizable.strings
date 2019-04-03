@@ -1,305 +1,348 @@
-"CHOOSE_AUDIO_TRACK"="เลือกรายการเสียง";
-"CHOOSE_SUBTITLE_TRACK"="เลือกรายการคำบรรยาย";
-"OPEN_TRACK_PANEL"="เปิดแฟ้มรายการที่เลือก";
-"CHOOSE_TITLE"="เลือก Title";
-"CHOOSE_CHAPTER"="เลือก Chapter";
-"MINIMIZE_PLAYBACK_VIEW"="Minimize playback";
-"FULLSCREEN_PLAYBACK"="Play in fullscreen";
-"TRACK_SELECTION"="Track Selection";
-"AUDIO"="Audio";
-"SUBTITLES"="Subtitles";
-"LANGUAGE"="Language";
-"MEDIA_INFO"="Media Information";
-"VIDEO_DIMENSIONS"="Video dimensions";
-"FORMAT_VIDEO_DIMENSIONS"="%ix%i pixel";
-"FORMAT_AUDIO_TRACKS"="%i audio tracks";
-"ONE_AUDIO_TRACK"="One audio track";
-"FORMAT_SPU_TRACKS"="%i subtitles tracks";
-"ONE_SPU_TRACK"="One subtitles track";
+"STORE_DESCRIPTION" = "VLC สำหรับ iOS คือช่องทางฟรีของโปรแกรมเล่นสื่อ VLC บน iPad, iPhone และ iPod touch\nคุณสามารถเล่นภาพยนตร์ รายการ และเพลงทั้งหมดของคุณในรูปแบบต่าง ๆ ได้โดยตรงโดยไม่ต้องแปลงไฟล์\nคุณสามารถซิงค์ไฟล์กับ Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, การดาวน์โหลดโดยตรงและผ่านทางการแชร์บน WiFi และการสตรีมจาก SMB, FTP, เซิร์ฟเวอร์สื่อ UPnP/DLNA และเว็บ\nVLC รองรับกับคำบรรยายขั้นสูง รวมทั้งเข้ากันได้กับ SSA แบบเต็ม, ระบบเสียงมัลติแทร็ก และการควบคุมความเร็วการเล่น\n\nVLC สำหรับ iOS นั้นฟรีอย่างสมบูรณ์และเป็นโอเพนซอร์ส";
 
-"PLAYING_EXTERNALLY_TITLE"="เชื่อมต่อทีวีเรียบร้อยแล้ว";
-"PLAYING_EXTERNALLY_DESC"="วีดีโอนี้กำลังเล่นอยู่บนทีวี";
+"STORE_DESCRIPTION_TV" = "โปรแกรมเล่นสื่อ VLC ฟรีและเป็นโปรแกรมเล่นมัลติมีเดียโอเพนซอร์สข้ามแพลตฟอร์ม\nคุณสามารถเล่นภาพยนตร์ รายการ และเพลงทั้งหมดของคุณในรูปแบบส่วนใหญ่ได้โดยตรงโดยไม่ต้องแปลงไฟล์\nคุณยังสามารถสตรีมจากบริการคลาวด์ (Dropbox, OneDrive, Box) การเล่นระยะไกลจาก Mac หรือพีซีของคุณผ่านทาง UI เว็บ และการสตรีมผ่าน SMB, FTP, เซิร์ฟเวอร์สื่อ UPnP/DLNA และเว็บ\nVLC ยังรองรับคำบรรยายขั้นสูง รวมถึงเข้ากันได้กับ SSA แบบเต็ม, เสียงแบบมัลติแทรค, และการควบคุมความเร็วการเล่น\n\nVLC สำหรับ iOS นั้นฟรีอย่างสมบูรณ์และเป็นโอเพนซอร์ส\n\nข้อมูลเมตาและปกอัลบั้มอยู่ภายใต้เงื่อนไขโดย TMDb และ Hatchet ซึ่งรักษาไว้โดยชุมชนภาพยนตร์และฐานข้อมูลเพลง";
 
-"VFILTER_HUE"="องศาเฉดสี";
-"VFILTER_CONTRAST"="ความต่างระดับสี";
-"VFILTER_BRIGHTNESS"="ความสว่าง";
-"VFILTER_SATURATION"="ความอิ่มสี";
-"VFILTER_GAMMA"="แกมมา";
+"CHOOSE_AUDIO_TRACK" = "เลือกแทร็กเสียง";
+"CHOOSE_SUBTITLE_TRACK" = "เลือกแทร็กคำบรรยาย";
+"OPEN_TRACK_PANEL" = "เปิดแทร็กที่เลือก";
+"CHOOSE_TITLE" = "เลือกชื่อเรื่อง";
+"CHOOSE_CHAPTER" = "เลือกตอน";
+"CHAPTER_SELECTION_TITLE" = "ตอน";
+"TITLE" = "เรื่อง";
+"CHAPTER" = "ตอน";
+"MINIMIZE_PLAYBACK_VIEW" = "ย่อการเล่น";
+"FULLSCREEN_PLAYBACK" = "เล่นแบบเต็มจอ";
+"TRACK_SELECTION" = "เลือกแทร็ก";
+"AUDIO" = "เสียง";
+"SUBTITLES" = "คำบรรยาย";
+"LANGUAGE" = "ภาษา";
+"MEDIA_INFO" = "ข้อมูลสื่อ";
+"VIDEO_DIMENSIONS" = "มิติวีดีโอ";
+"FORMAT_VIDEO_DIMENSIONS" = "%ix%i พิกเซล";
+"FORMAT_AUDIO_TRACKS" = "%i แทร็กเสียง";
+"ONE_AUDIO_TRACK" = "หนึ่งแทร็กเสียง";
+"FORMAT_SPU_TRACKS" = "%i แทร็กคำบรรยาย";
+"ONE_SPU_TRACK" = "หนึ่งแทร็กคำบรรยาย";
+"TRACKS" = "%i Tracks";
+"TRACK" = "%i Track";
 
-"BUTTON_EQUALIZER"="ตัวปรับสมดุลเสียง";
-"PREAMP"="Preamp";
-"DB_FORMAT"="%i dB";
-"CHOOSE_EQUALIZER_PROFILES"="เลือกโปรไฟล์ของตัวปรับสมดุลเสียง";
+"PLAYING_EXTERNALLY_TITLE" = "เชื่อมต่อทีวีเรียบร้อยแล้ว";
+"PLAYING_EXTERNALLY_DESC" = "วีดีโอนี้กำลังเล่นอยู่บนทีวี";
+"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
 
-"PLAYBACK_FAILED"="การเล่นล้มเหลว";
-"PLEASE_WAIT"="Please wait";
-"AR_CHANGED"="อัตราส่วนการเล่น: %@";
-"DEFAULT"="ปริยาย";
-"FILL_TO_SCREEN"="ตัดขอบให้พอดีจอ";
-"DEVICE_TOOSLOW_TITLE"="อุปกรณ์ช้าเกินไป";
-"DEVICE_TOOSLOW"="ดูเหมือนว่า %@ ของคุณช้าเกินว่าจะเล่น \"%@\" ต้องการเล่นต่อหรือไม่ ?";
-"PLAYBACK_SPEED"="ความเร็วการเล่น";
-"SPU_DELAY"="หน่วงเวลาบทบรรยาย";
-"AUDIO_DELAY"="หน่วงเวลาเสียง";
-"BUTTON_SLEEP_TIMER"="พักเครื่อง";
-"CONTINUE_PLAYBACK"="Continue playback?";
-"CONTINUE_PLAYBACK_LONG"="Would you like to continue playback of \"%@\" where you left off?";
+"VFILTER_HUE" = "องศาเฉดสี";
+"VFILTER_CONTRAST" = "ความต่างระดับสี";
+"VFILTER_BRIGHTNESS" = "ความสว่าง";
+"VFILTER_SATURATION" = "ความอิ่มสี";
+"VFILTER_GAMMA" = "แกมมา";
 
-"BUTTON_EDIT"="แก้ไข";
-"BUTTON_DONE"="เรียบร้อยแล้ว";
-"BUTTON_OPEN"="เปิด";
-"BUTTON_CANCEL"="ยกเลิก";
-"BUTTON_SAVE"="บันทึก";
-"BUTTON_DOWNLOAD"="ดาวน์โหลด";
-"BUTTON_DELETE"="ปุ่ม Delete";
-"BUTTON_OK"="ตกลง";
-"BUTTON_NEXT"="ถัดไป";
-"BUTTON_CONTRIBUTE"="เข้าร่วม";
-"BUTTON_BACK"="กลับ";
-"BUTTON_CONNECT"="การเชื่อมต่อ";
-"BUTTON_REPEAT"="เล่นซ้ำ";
-"BUTTON_RENAME"="เปลี่ยนชื่อ";
-"BUTTON_LEARN_MORE"="เรียนรู้เพิ่มเติม";
-"BUTTON_LOGOUT"="ออกจากระบบ";
-"BUTTON_CONTINUE"="Continue";
-"BUTTON_RETRY"="Retry";
-"PRIVATE_PLAYBACK_TOGGLE"="การเล่นส่วนบุคคล";
-"SCAN_SUBTITLE_TOGGLE"="ค้นหาบทบรรยาย (http-only)";
+"PREAMP" = "Preamp";
+"DB_FORMAT" = "%i dB";
+"CHOOSE_EQUALIZER_PROFILES" = "เลือกโปรไฟล์ของอีควอไลเซอร์";
 
-"UPGRADING_LIBRARY"="อัพเกรดคลังสื่อ";
-"UNTITLED_SHOW"="รายการแสดงที่ยังไม่มีชื่อ";
-"UNKNOWN"="ไม่ทราบ";
+"PLAYBACK_FAILED" = "การเล่นล้มเหลว";
+"PLEASE_WAIT" = "รอสักครู่";
+"AR_CHANGED" = "อัตราส่วนการเล่น: %@";
+"DEFAULT" = "ค่าเริ่มต้น";
+"FILL_TO_SCREEN" = "ตัดขอบให้พอดีจอ";
+"PLAYBACK_SPEED" = "ความเร็วการเล่น";
+"SPU_DELAY" = "หน่วงเวลาคำบรรยาย";
+"AUDIO_DELAY" = "หน่วงเวลาเสียง";
+"BUTTON_SLEEP_TIMER" = "พักเครื่อง";
+"SLEEP_TIMER_UPDATED" = "อัปเดตการพักเครื่องแล้ว";
+"CONTINUE_PLAYBACK" = "เล่นต่อหรือไม่";
+"CONTINUE_PLAYBACK_LONG" = "คุณต้องการเล่น \"%@\" ต่อเมื่อคุณออกหรือไม่?";
 
-"OPEN_NETWORK"="เปิดสตรีมผ่านเครือข่าย";
-"NETWORK_TITLE"="กระแสเครือข่าย";
-"OPEN_NETWORK_HELP"="ใส่ที่อยู่ HTTP, RTSP, RTMP, MMS, FTP หรือ UDP/RTP เพื่อเปิดการสตรีมโดยตรง";
-"ABOUT_APP"="เกี่ยวกับ VLC สำหรับ iOS";
-"OPEN_VLC_MENU"="เปิดเมนู VLC ด้านข้าง";
-"HTTP_UPLOAD_SERVER_OFF"="เซิร์ฟเวอร์ไม่ตอบสนอง";
-"HTTP_UPLOAD_NO_CONNECTIVITY"="ไม่มี WiFi ที่เชื่อมต่อได้";
-"OPEN_STREAM_OR_DOWNLOAD"="คุณต้องการดาวน์โหลดหรือเล่น URL นี้หรือไม่?";
-"SELECT_RESOURCE_TO_PLAY"="เลือกรายการที่ต้องการเล่น:";
-"SELECT_RESOURCE_TO_DOWNLOAD"="เลือกรายการที่ต้องการดาวน์โหลด";
-"SHARED_VLC_IOS_LIBRARY"="คลังสื่อ VLC สำหรับ iOS ที่มีการแชร์";
-"SAP_STREAMS"="Network Streams (SAP)";
-"SMB_CIFS_FILE_SERVERS"="File Servers (SMB/CIFS)";
+"BUTTON_ALL" = "เลือกทั้งหมด";
+"BUTTON_ABOUT" = "About";
+"BUTTON_BACK" = "กลับ";
+"BUTTON_DONE" = "เสร็จสิ้น";
+"BUTTON_CANCEL" = "ยกเลิก";
+"BUTTON_SAVE" = "บันทึก";
+"BUTTON_DOWNLOAD" = "ดาวน์โหลด";
+"BUTTON_DELETE" = "ลบ";
+"BUTTON_OK" = "ตกลง";
+"BUTTON_CONTRIBUTE" = "เข้าร่วม";
+"BUTTON_CONNECT" = "การเชื่อมต่อ";
+"BUTTON_RENAME" = "เปลี่ยนชื่อ";
+"BUTTON_LEARN_MORE" = "เรียนรู้เพิ่มเติม";
+"BUTTON_LOGOUT" = "ออกจากระบบ";
+"BUTTON_CONTINUE" = "ทำต่อ";
+"BUTTON_SET" = "ตั้งค่า";
+"BUTTON_RESET" = "รีเซ็ต";
+"PRIVATE_PLAYBACK_TOGGLE" = "การเล่นส่วนบุคคล";
+"SCAN_SUBTITLE_TOGGLE" = "ค้นหาคำบรรยาย (http-only)";
 
-"SMB_CIFS_FILE_SERVERS_SHORT"="SMB/CIFS";
+"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+
+"UPGRADING_LIBRARY" = "อัพเกรดคลังสื่อ";
+"UNTITLED_SHOW" = "รายการแสดงที่ยังไม่มีชื่อ";
+"UNKNOWN" = "ไม่ทราบ";
+
+"OPEN_NETWORK" = "เปิดสตรีมผ่านเครือข่าย";
+"NETWORK_TITLE" = "สตรีมเครือข่าย";
+"OPEN_NETWORK_HELP" = "ใส่ที่อยู่ HTTP, RTSP, RTMP, MMS, FTP หรือ UDP/RTP เพื่อเปิดการสตรีมโดยตรง";
+"HTTP_UPLOAD_SERVER_OFF" = "เซิร์ฟเวอร์ไม่ตอบสนอง";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "ไม่มี WiFi ที่เชื่อมต่อได้";
+"OPEN_STREAM_OR_DOWNLOAD" = "คุณต้องการดาวน์โหลดหรือเล่น URL นี้หรือไม่?";
+"SHARED_VLC_IOS_LIBRARY" = "คลังสื่อ VLC สำหรับ iOS ที่มีการแชร์";
+"SMB_CIFS_FILE_SERVERS" = "เซิร์ฟเวอร์ไฟล์ (SMB)";
+
+"SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED"="การดาวน์โหลดล้มเหลวด้วย HTTP code %i";
-"HTTP_FILE_CREATION_FAILED"="การสร้างไฟล์ล้มเหลว";
-"HTTP_DOWNLOAD_CANCELLED"="การดาวน์โหลดถูกยกเลิกโดยผู้ใช้";
+"HTTP_DOWNLOAD_FAILED" = "การดาวน์โหลดล้มเหลวด้วย HTTP code %i";
+"HTTP_FILE_CREATION_FAILED" = "การสร้างไฟล์ล้มเหลว";
+"HTTP_DOWNLOAD_CANCELLED" = "การดาวน์โหลดถูกยกเลิกโดยผู้ใช้";
 
-"DOWNLOAD_FROM_HTTP_HELP"="ใส่ตำแหน่งที่ต้องการดาวน์โหลดไฟล์ไปยัง %@ ของคุณ";
-"DOWNLOAD_FROM_HTTP"="ดาวน์โหลด";
-"ERROR_NUMBER"="เกิดปัญหา %i";
-"DOWNLOAD_FAILED"="การดาวน์โหลดล้มเหลว";
-"FILE_NOT_SUPPORTED"="ยังไม่รองรับรูปแบบไฟล์นี้";
-"FILE_NOT_SUPPORTED_LONG"="รูปแบบไฟล์ที่ถูกใช้โดย %@ VLC for iOS เวอร์ชั่นนี้ยังไม่รองรับ";
-"SCHEME_NOT_SUPPORTED"="Address scheme not supported";
-"SCHEME_NOT_SUPPORTED_LONG"="The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
-"LIBRARY_ALL_FILES"="แฟ้มทั้งหมด";
-"LIBRARY_MUSIC"="อัลบัมเพลง";
-"LIBRARY_SERIES"="รายการโทรทัศน์";
-"LIBRARY_TRACKS"="%i ร่องข้อมูล";
-"LIBRARY_SINGLE_TRACK"="%i ร่องข้อมูล";
-"LIBRARY_EPISODES"="%i Episodes, %i unread";
-"LIBRARY_SINGLE_EPISODE"="%i Episode, %i unread";
-"LIBRARY_TRACK_N"="ร่องข้อมูล %i";
-"LIBRARY_MINUTES_LEFT"="%@m คงเหลือ";
-"RENAME_MEDIA_TO"="ใส่ชื่อใหม่ให้กับ %@";
+"DOWNLOAD_FROM_HTTP_HELP" = "ใส่ตำแหน่งที่ต้องการดาวน์โหลดไฟล์ไปยัง %@ ของคุณ";
+"DOWNLOAD_FROM_HTTP" = "ดาวน์โหลด";
+"ERROR_NUMBER" = "เกิดปัญหา %i";
+"DOWNLOAD_FAILED" = "การดาวน์โหลดล้มเหลว";
+"FILE_NOT_SUPPORTED" = "ยังไม่รองรับรูปแบบไฟล์นี้";
+"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"SCHEME_NOT_SUPPORTED" = "รายการที่อยู่ไม่รองรับ";
+"SCHEME_NOT_SUPPORTED_LONG" = "รายการที่อยู่ (%@) ไม่รองรับ กรุณาใช้ที่อยู่เริ่มต้นด้วย HTTP, HTTPS หรือ FTP";
+"RENAME_MEDIA_TO" = "ใส่ชื่อใหม่ให้กับ %@";
 
-"FOLDER_EMPTY"="โฟลเดอร์เปล่า";
-"FOLDER_EMPTY_LONG"="เพิ่มไฟล์ ให้กดแก้ไข แล้วเลือกไฟล์ที่ต้องการ จากนั้นกดที่ปุ่มรูปโฟลเดอร์แล้วทำการเลือกโฟลเดอร์นั้น";
-"FOLDER_INVALID_TYPE_TITLE"="ประเภทของไฟล์ไม่ถูกต้อง";
-"FOLDER_INVALID_TYPE_MESSAGE"="คุณสามารถใช้สองไฟล์เท่านั้นเพื่อสร้างโฟลเดอร์ใหม่หรือเพิ่มหนึ่งไฟล์ลงในโฟลเดอร์ที่มีอยู่แล้ว";
-"FOLDER_CHOOSE_NAME_TITLE"="โฟลเดอร์ใหม่";
-"FOLDER_CHOOSE_NAME_MESSAGE"="ใส่ชื่อให้กับโฟลเดอร์ของคุณ";
-"FOLDER_NAME_PLACEHOLDER"="ชื่อโฟลเดอร์";
-"FOLDER_NAME_DUPLICATE_TITLE"="มีเรื่องนี้";
-"FOLDER_NAME_DUPLICATE_MESSAGE"="กรุณาเลือกเรื่องอื่น";
-"SELECT_FOLDER"="เลือกโฟลเดอร์";
 
-"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE"="เลือกไฟล์เพื่อเปิด";
-"SHARING_ACTIVITY_OPEN_IN_TITLE"="เปิดใน...";
-"SHARING_ERROR_NO_FILES"="ไม่พบไฟล์สำหรับแชร์";
-"SHARING_ERROR_NO_APPLICATIONS"="ไม่พบแอปพลิเคชั่นที่จะเปิดไฟล์ประเภทนี้";
-"SHARING_SUCCESS_CAMERA_ROLL"="ไฟล์ถูกบันทึกลงใน Camera Roll เรียบร้อย";
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "เลือกไฟล์เพื่อเปิด";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "เปิดใน...";
+"SHARING_ERROR_NO_FILES" = "ไม่พบไฟล์สำหรับแชร์";
+"SHARING_ERROR_NO_APPLICATIONS" = "ไม่พบแอปพลิเคชั่นที่จะเปิดไฟล์ประเภทนี้";
+"SHARING_SUCCESS_CAMERA_ROLL" = "ไฟล์ถูกบันทึกลงใน Camera Roll เรียบร้อย";
 
-"SECTION_HEADER_LIBRARY"="คลังสื่อ";
-"SECTION_HEADER_NETWORK"="เครือข่าย";
+"SECTION_HEADER_LIBRARY" = "คลังสื่อ";
+"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
+"DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
+"HEADER_TITLE_RENDERER" = "Select a casting device";
 
-"LOCAL_NETWORK"="เครือข่ายท้องถิ่น";
-"CONNECT_TO_SERVER"="เชื่อมต่อไปยังเซิร์ฟเวอร์";
-"ENTER_SERVER_CREDS_HELP"="ใส่ชื่อผู้ใช้และรหัสผ่านหากเซิร์ฟเวอร์ต้องการ";
-"USER_LABEL"="ผู้ใช้";
-"PASSWORD_LABEL"="รหัสผ่าน";
-"DISABLE_LABEL"="Disable";
+"LOCAL_NETWORK" = "เครือข่ายท้องถิ่น";
+"CONNECT_TO_SERVER" = "เชื่อมต่อไปยังเซิร์ฟเวอร์";
+"FILE_SERVER" = "File Servers";
+"USER_LABEL" = "ผู้ใช้";
+"PASSWORD_LABEL" = "รหัสผ่าน";
+"DISABLE_LABEL" = "ปิดใช้งาน";
+"BUTTON_ANONYMOUS_LOGIN" = "เข้าสู่ระบบแบบนิรนาม";
 
-"LOCAL_SERVER_REFRESH"="ฟื้นฟู";
-"LOCAL_SERVER_LAST_UPDATE"="ถูกปรับปรุงครั้งล่าสุดเมื่อ %@";
-"LOCAL_SERVER_CONNECTION_FAILED_TITLE"="การเชื่อมต่อไปยังเซิร์ฟเวอร์ล้มเหลว";
-"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE"="กรุณาตรวจสอบ Address และ Credential ของเซิร์ฟเวอร์";
+"LOCAL_SERVER_REFRESH" = "รีเฟรช";
+"LOCAL_SERVER_LAST_UPDATE" = "ถูกอัปเดตครั้งล่าสุดเมื่อ %@";
+"LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "การเชื่อมต่อไปยังเซิร์ฟเวอร์ล้มเหลว";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "กรุณาตรวจสอบ Address และ Credential ของเซิร์ฟเวอร์";
 
-"CLOUD_SERVICES"="บริการคลาวด์";
-"LOGIN"="เข้าใช้งาน";
-"LOGGED_IN"="เข้าระบบเรียบร้อย";
+"CLOUD_SERVICES" = "บริการคลาวด์";
+"LOGIN" = "เข้าใช้งาน";
+"LOGGED_IN" = "เข้าระบบเรียบร้อย";
+"LOGGED_IN_SERVICES" = "%d logged in services";
+"LOGGED_IN_SERVICE" = "1 logged in service";
 
-"DROPBOX_DOWNLOAD"="ดาวน์โหลดไฟล์หรือไม่?";
-"DROPBOX_DL_LONG"="คุณต้องการดาวน์โหลด \"%@\" มายัง %@ หรือไม่?";
-"DROPBOX_LOGIN"="เข้าใช้งาน";
+"DROPBOX_DOWNLOAD" = "ดาวน์โหลดไฟล์หรือไม่?";
+"DROPBOX_DL_LONG" = "คุณต้องการดาวน์โหลด \"%@\" มายัง %@ หรือไม่?";
+"DROPBOX_LOGIN" = "เข้าใช้งาน";
 
-"GDRIVE_ERROR_FETCHING_FILES"="เกิดข้อขัดข้องขณะดึงไฟล์";
-"GDRIVE_DOWNLOAD_SUCCESSFUL"="ดาวน์โหลดไฟล์เรียบร้อยแล้ว";
-"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE"="สำเร็จ";
-"GDRIVE_ERROR_DOWNLOADING_FILE"="เกิดข้อผิดพลาดขณะดาวน์โหลด";
-"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE"="ปัญหา";
+"GDRIVE_ERROR_FETCHING_FILES" = "เกิดข้อขัดข้องขณะดึงไฟล์";
+"GDRIVE_DOWNLOAD_SUCCESSFUL" = "ดาวน์โหลดไฟล์เรียบร้อยแล้ว";
+"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "สำเร็จ";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "เกิดข้อผิดพลาดขณะดาวน์โหลด";
+"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "ปัญหา";
 
-"DISK_FULL"="ที่จัดเก็บข้อมูลเต็ม";
-"DISK_FULL_FORMAT"="%@ ไม่สามารถจัดเก็บบน %@ ของคุณได้เพราะคุณมีพื้นที่จัดเก็บคงเหลือไม่เพียงพอ";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
 
-"NUM_OF_FILES"="%i ไฟล์";
-"ONE_FILE"="1 ไฟล์";
-"NO_FILES"="ไม่รองรับไฟล์นี้";
-"DOWNLOADING"="กำลังดาวน์โหลด....";
-"REMAINING_TIME"= "เวลาที่เหลือ: %@";
-"ENTER_PASSCODE"="กรอกรหัสผ่าน";
-"REENTER_PASSCODE"="กรอกรหัสผ่านอีกครั้ง";
-"PASSCODE_SET"="กำหนดรหัสผ่าน";
-"PASSCODE_CHANGE"="เปลี่ยนรหัสผ่าน";
-"PASSCODE_ENTER_OLD"="ระบุรหัสผ่านเก่าของคุณ";
-"PASSCODE_ENTER_NEW"="กรอกรหัสผ่านใหม่";
-"PASSCODE_REENTER_NEW"="กรอกรหัสผ่านใหม่อีกครั้ง";
-"PASSCODES_DID_NOT_MATCH"="รหัสผ่านไม่ตรงกัน กรุณาลองอีกครั้ง";
-"PASSCODE_FAILED_1"="กรอกรหัสผ่านไม่สำเร็จ 1 ครั้ง";
-"PASSCODE_FAILED_FORMAT"="กรอกรหัสผ่านไม่สำเร็จ %d ครั้ง";
-"TOUCHID_UNLOCK"="Unlock Media Library\nCancel to enter Passcode";
+"DISK_FULL" = "ที่จัดเก็บข้อมูลเต็ม";
+"DISK_FULL_FORMAT" = "%@ ไม่สามารถจัดเก็บบน %@ ของคุณได้เพราะคุณมีพื้นที่จัดเก็บคงเหลือไม่เพียงพอ";
 
-"Settings"="ค่าตั้ง"; // plain text key to keep compatibility with InAppSettingsKit's upstream
-"ON"="On";
-"OFF"="Off";
+"NUM_OF_FILES" = "%i ไฟล์";
+"ONE_FILE" = "1 ไฟล์";
+"NO_FILES" = "ไม่รองรับไฟล์นี้";
+"DOWNLOADING" = "กำลังดาวน์โหลด....";
+"REMAINING_TIME" = "เวลาที่เหลือ: %@";
+"BIOMETRIC_UNLOCK" = "ปลดล็อกคลังสื่อ\nยกเลิกเพื่อใส่รหัสผ่าน";
 
-"EMPTY_LIBRARY"="ไม่มีสื่อในคลัง";
-"EMPTY_LIBRARY_LONG"="For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, WiFi Upload or Cloud services.";
+//PAPasscode Strings that we need to localize for them
 
-"PLAYBACK_SCRUB_HELP"="Slide your finger down to adjust the scrubbing rate.";
-"PLAYBACK_SCRUB_HIGH"="High-Speed Scrubbing";
-"PLAYBACK_SCRUB_HALF"="Half-Speed Scrubbing";
-"PLAYBACK_SCRUB_QUARTER"="Quarter-Speed Scrubbing";
-"PLAYBACK_SCRUB_FINE"="Fine Scrubbing";
-"PLAYBACK_POSITION"="ตำแหน่งการเล่น";
-"VIDEO_FILTER"="ตัวผันค่าวีดิทัศน์";
-"VIDEO_FILTER_RESET_BUTTON"="Reset Video Filters";
-"VIDEO_ASPECT_RATIO_BUTTON"="Switch Video Aspect Ratio";
-"PLAY_PAUSE_BUTTON"="เล่นหรือหยุดสื่อที่กำลังเล่นอยู่";
-"BWD_BUTTON"="ช่วงก่อนหน้า";
-"FWD_BUTTON"="ช่วงถัดไป";
-"PLAY_BUTTON"="Play";
-"PAUSE_BUTTON"="Pause";
+"Settings" = "การตั้งค่า"; // plain text key to keep compatibility with InAppSettingsKit's upstream
+"ON" = "เปิด";
+"OFF" = "ปิด";
 
-"VERSION_FORMAT"="เวอร์ชั่น: %@";
-"BASED_ON_FORMAT"="อิงจาก:<br />%@";
+"EMPTY_LIBRARY" = "ไม่มีสื่อในคลัง";
+"EMPTY_LIBRARY_LONG" = "สำหรับการเปิดเล่น คุณสามารถสตรีมสื่อจากเซิร์ฟเวอร์บทเครือข่ายท้องถิ่นของคุณ, จากคลาวด์หรือซิงค์สื่อไปยังอุปกรณ์ของคุณผ่าน iTunes, อัปโหลดผ่าน WiFi หรือบริการคลาวด์";
 
-"NEW"="ใหม่";
+"PLAYBACK_SCRUB_HELP" = "ไถลนิ้วของคุณลงเพื่อปรับอัตราการสครับบิง";
+"PLAYBACK_SCRUB_HIGH" = "การสครับบิงความเร็วสูง";
+"PLAYBACK_SCRUB_HALF" = "การสครับบิงความเร็วกลาง";
+"PLAYBACK_SCRUB_QUARTER" = "การสครับบิงความเร็วหนึ่งในสี่";
+"PLAYBACK_SCRUB_FINE" = "การสครับบิงแบบสบาย";
+"PLAYBACK_POSITION" = "ตำแหน่งการเล่น";
+"VIDEO_FILTER" = "ตัวกรองวิดีโอ";
+"VIDEO_FILTER_RESET_BUTTON" = "รีเซ็ตตัวกรองวีดีโอ";
+"VIDEO_ASPECT_RATIO_BUTTON" = "เปลี่ยนอัตราส่วนภาพวิดีโอ";
+"PLAY_PAUSE_BUTTON" = "เล่นหรือพักสื่อที่กำลังเล่นอยู่";
+"BWD_BUTTON" = "ช่วงก่อนหน้า";
+"FWD_BUTTON" = "ช่วงถัดไป";
+"PLAY_BUTTON" = "เล่น";
+"NEXT_BUTTON" = "Next";
+"PREV_BUTTON" = "Previous";
+"PLAY_ALL_BUTTON" = "เล่นทั้งหมด";
 
-"BUG_REPORT_TITLE"="รายงานบั๊ก";
-"BUG_REPORT_MESSAGE"="คุณต้องการสร้างรายงานข้อผิดพลาดหรือไม่?";
-"BUG_REPORT_BUTTON"="เปิด Safari";
+"VERSION_FORMAT" = "เวอร์ชั่น: %@";
+"BASED_ON_FORMAT" = "อิงจาก:<br />%@";
 
-"VO_VIDEOPLAYER_TITLE"="ตัวเล่นวีดีโอ";
-"VO_VIDEOPLAYER_DOUBLETAP"="แตะสองครั้งเพื่อแสดงหรือซ่อนตัวควบคุมการเล่น";
+"NEW" = "ใหม่";
 
-"FIRST_STEPS_WELCOME"="ยินดีต้อนรับ";
-"FIRST_STEPS_WELCOME_DETAIL"="First steps to Sync and Play Your Media.";
-"FIRST_STEPS_ITUNES"="iTunes File Sync";
-"FIRST_STEPS_ITUNES_DETAILS"="Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSwitch to the \"Apps\" tab, scroll down and look for VLC.\nTransfer your files.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS"="Connect your %@ to the same network as your Mac or PC.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS"="Switch the toggle in the sidebar, enter the URL to the web browser and upload your files.";
-"FIRST_STEPS_CLOUDS"="คลาวด์";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS"="อัพโหลดไฟล์ของคุณไปยัง Google Drive หรือ Dropbox";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS"="Open the sidebar to select your Cloud provider and access your media for downloading or streaming.";
-"FIRST_STEPS_PLAYBACK"="การเล่น";
-"FIRST_STEPS_FLOSS"="VLC for iOS เป็นโอเพนซอร์สซอฟต์แวร์ที่พัฒนาโดยกลุ่มนักพัฒนาจิตอาสา สามารถใช้งานได้ฟรี\nพวกเราหวังว่าคุณจะรัก VLC";
+"BUG_REPORT_TITLE" = "รายงานบั๊ก";
+"BUG_REPORT_MESSAGE" = "คุณต้องการสร้างรายงานข้อผิดพลาดหรือไม่?";
+"BUG_REPORT_BUTTON" = "เปิด Safari";
 
-"FIRST_STEPS_TIME"="เวลา";
-"FIRST_STEPS_ASPECT"="อัตราส่วนการแสดงผล";
-"FIRST_STEPS_SPEED"="ความเร็ว";
-"FIRST_STEPS_REPEAT"="เล่นซ้ำ";
-"FIRST_STEPS_SUBTITLES"="ร่องบทบรรยาย";
-"FIRST_STEPS_AUDIO"="ร่องข้อมูลเสียง";
-"FIRST_STEPS_POSITION"="ตำแหน่งเวลาการเล่น";
+"VO_VIDEOPLAYER_TITLE" = "ตัวเล่นวีดีโอ";
+"VO_VIDEOPLAYER_DOUBLETAP" = "แตะสองครั้งเพื่อแสดงหรือซ่อนตัวควบคุมการเล่น";
 
-"PLEX_WATCHED"="ทำเครื่องหมายว่าดูแล้ว";
-"PLEX_UNWATCHED"="ทำเครื่องหมายว่ายังไม่ได้ดู";
-"PLEX_ERROR_MARK"="Error marking media";
-"PLEX_CONNECT_TO_SERVER"="เชื่อมต่อไปยัง Plex มีเดียเซิร์ฟเวอร์";
-"PLEX_CHECK_ACCOUNT"="Check your Plex account in settings";
-"PLEX_ERROR_ACCOUNT"="Plex login Error";
+"FIRST_STEPS_WELCOME" = "ยินดีต้อนรับ";
+"FIRST_STEPS_WELCOME_DETAIL" = "ขั้นตอนแรกเพื่อซิงค์และเล่นสื่อของคุณ";
+"FIRST_STEPS_ITUNES" = "ซิงค์ไฟล์จาก iTunes";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
+"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "เชื่อมต่อ %@ ของคุณด้วยเครือข่ายเดียวกันกับ Mac หรือพีซีของคุณ";
+"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "เปลี่ยนตัวเปิดปิดในแถบด้านข้าง ใส่ URL ไปยังเว็บบราวเซอร์ และอัพโหลดไฟล์ของคุณ";
+"FIRST_STEPS_CLOUDS" = "คลาวด์";
+"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "อัพโหลดไฟล์ของคุณไปยัง Google Drive หรือ Dropbox";
+"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "เปิดแถบด้านข้างเพื่อเลือกผู้ให้บริการคลาวด์ของคุณ และเข้าไปยังสื่อของคุณเพื่อดาวน์โหลดหรือสตรีมมิ่ง";
+"FIRST_STEPS_PLAYBACK" = "การเล่น";
+"FIRST_STEPS_FLOSS" = "VLC for iOS เป็นโอเพนซอร์สซอฟต์แวร์ที่พัฒนาโดยกลุ่มนักพัฒนาจิตอาสา สามารถใช้งานได้ฟรี\nพวกเราหวังว่าคุณจะรัก VLC";
 
-"UNAUTHORIZED"="Unauthorized";
+"FIRST_STEPS_TIME" = "เวลา";
+"FIRST_STEPS_ASPECT" = "อัตราส่วนการแสดงผล";
+"FIRST_STEPS_SPEED" = "ความเร็ว";
+"FIRST_STEPS_REPEAT" = "เล่นซ้ำ";
+"FIRST_STEPS_SUBTITLES" = "แทร็กคำบรรยาย";
+"FIRST_STEPS_AUDIO" = "แทร็กเสียง";
+"FIRST_STEPS_POSITION" = "ตำแหน่งเวลาการเล่น";
 
-"SERVER"="เซิร์ฟเวอร์";
-"SERVER_PORT"="พอร์ต";
-"BOOKMARK"="บุ๊คมาร์ก";
-"INVALID_IP_PORT"="กรุณาใส่ IP address และ port ที่ถูกต้อง";
-"NO_SERVER_FOUND"="No server found";
-"NO_RECENT_STREAMS"="No stream was played recently";
+"PLEX_CHECK_ACCOUNT" = "ตรวจสอบบัญชี Plex ของคุณใน การตั้งค่า";
+"PLEX_ERROR_ACCOUNT" = "เข้าสู่ระบบ Plex ผิดพลาด";
 
-"WEBINTF_TITLE"="แชร์ผ่าน WiFi";
-"WEBINTF_DROPFILES"="วางไฟล์";
-"WEBINTF_DROPFILES_LONG"="Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
-"WEBINTF_DOWNLOADFILES"="ดาวน์โหลดแฟ้ม";
-"WEBINTF_DOWNLOADFILES_LONG"="เพียงคลิกที่ไฟล์ที่คุณต้องการดาวน์โหลดจาก %@ ของคุณ";
-"WEBINTF_TITLE_ATV"="Remote Playback";
-"WEBINTF_DROPFILES_LONG_ATV"="Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"UNAUTHORIZED" = "ไม่ได้รับอนุญาต";
 
-"CLOUD_DRIVES"="ไดร์ฟคลาวด์อื่น";
+"SERVER" = "เซิร์ฟเวอร์";
+"SERVER_PORT" = "พอร์ต";
+"NO_SERVER_FOUND" = "ไม่พบเซิร์ฟเวอร์";
+"NO_RECENT_STREAMS" = "ไม่มีการสตรีมถูกเล่นเมื่อเร็ว ๆ นี้";
 
-"NOW_PLAYING"="Now Playing";
-"PLAY_NOW"="Play Now";
-"PLAYING"="Playing";
-"PAUSED"="Paused";
-"DETAIL"="Detail";
+"WEBINTF_TITLE" = "แชร์ผ่าน WiFi";
+"WEBINTF_DROPFILES" = "วางไฟล์";
+"WEBINTF_DROPFILES_LONG" = "วางไฟล์ในหน้าต่างเพื่อเพิ่มมันลงไปใน %@ ของคุณ<br>หรือคลิกที่ปุ่ม \"+\" เพื่อใช้กล่องโต้ตอบไฟล์";
+"WEBINTF_DOWNLOADFILES" = "ดาวน์โหลดไฟล์";
+"WEBINTF_DOWNLOADFILES_LONG" = "เพียงคลิกที่ไฟล์ที่คุณต้องการดาวน์โหลดจาก %@ ของคุณ";
+"WEBINTF_TITLE_ATV" = "รีโมตการเล่น";
+"WEBINTF_DROPFILES_LONG_ATV" = "วางไฟล์ในหน้าต่างเพื่อเพิ่มมันลงไปใน %@ ของคุณ<br>หรือคลิกที่ปุ่ม \"+\" เพื่อใช้กล่องโต้ตอบไฟล์";
+"WEBINTF_URL_SENT" = "ส่ง URL สำเร็จ";
+"WEBINTF_URL_EMPTY" = "URL ไม่สามารถปล่อยว่างได้";
+"WEBINTF_URL_INVALID" = "URL ไม่ถูกต้อง";
 
-"VOLUME"="Volume";
-"DURATION"="Duration";
-"TITLE"="Title";
+
+
+"VOLUME" = "ระดับเสียง";
+"DURATION" = "ระยะเวลา";
+"TITLE" = "เรื่อง";
 
 // strings from VLCKit
-"%ld hours %ld minutes remaining"="%ld hours %ld minutes remaining";
-"%ld hours %ld minutes"="%ld hours %ld minutes";
-"%ld minutes remaining"="%ld minutes remaining";
-"%ld minutes"="%ld minutes";
-"%ld minutes %ld seconds remaining"="%ld minutes %ld seconds remaining";
-"%ld minutes %ld seconds"="%ld minutes %ld seconds";
-"%ld seconds remaining" = "%ld seconds remaining";
-"%ld seconds"="%ld seconds";
 
 // accessibility labels for the playlist
-"OBJECT_TYPE_SHOW"="Show";
-"OBJECT_TYPE_SHOW_EPISODE"="Show episode";
-"OBJECT_TYPE_LABEL"="Folder";
-"OBJECT_TYPE_ALBUM"="Album";
-"OBJECT_TYPE_ALBUM_TRACK"="Album track";
-"OBJECT_TYPE_FILE"="File";
-"OBJECT_TYPE_FILE_AUDIO"="Audio file";
 
-"LONGPRESS_TO_STOP"="Long-press to stop playback.";
+
+"LONGPRESS_TO_STOP" = "กดยาวเพื่อหยุดการเล่น";
 
 // ATV specific
-"LOGIN_FAIL"="Login failure";
-"CLOUD_LOGIN_LONG"="To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
-"ENTER_URL"="Enter URL to play";
-"HTTP_SERVER_ON"="Remote Playback enabled";
-"HTTP_SERVER_OFF"="Enable Remote Playback";
+"AUDIO_INFO_VC_TITLE" = "ข้อมูลเสียง";
+"CLOUD_LOGIN_LONG" = "เพื่อเข้าถึงบริการคลาวด์ เข้าสู่ระบบ iCloud บนทั้ง Apple TV และอุปกรณ์ iOS ด้วย Apple ID เดียวกัน และอนุญาตการแชร์ Keychain ในการตั้งค่าระบบ\nหลังจากนั้น เข้าสู่ระบบไปยังผู้ให้บริการคลาวด์ของคุณ เลือกใช้แอพ VLC บนอุปกรณ์ iOS ของคุณ ขั้นสุดท้าย เลือกสิ่งที่คุณต้องการเล่นบนจอนี้";
+"ENTER_URL" = "ใส่ URL เพื่อเล่น";
+"HTTP_SERVER_ON" = "ปิดรีโมตการเล่น";
+"HTTP_SERVER_OFF" = "เปิดรีโมตการเล่น";
+"CACHED_MEDIA" = "แคชสื่อ";
+"CACHED_MEDIA_LONG" = "สื่อที่แสดงอยู่ที่นี่คือที่เก็บเฉพาะที่บน Apple TV ของคุณ บันทึกเนื้อหานั้นสามารถรีโมตโดยระบบปฏิบัติการโดยไม่ปราศจากข้อสังเกตที่มาก่อนทุกเวลา เมื่อ VLC ไม่ได้ถูกดำเนินการอยู่ในกรณีที่อุปกรณ์ของคุณออกจากที่จัดเก็บไปแล้ว";
+"DOWNLOAD_SUBS_FROM_OSO" = "ดาวน์โหลดบทบรรยายจาก OpenSubtitles.org...";
+"FOUND_SUBS" = "พบบทบรรยาย";
+"USE_SPDIF" = "ใช้ Pass-through (S/PDIF)";
+
+"PLAYBACK" = "การเล่น";
+"REPEAT_MODE" = "เล่นซ้ำ";
+"REPEAT_DISABLED" = "ปิดใช้งาน";
+"REPEAT_SINGLE" = "โดดเดี่ยว";
+"REPEAT_FOLDER" = "โฟลเดอร์";
 
 // Local Network Service Names
-"UPNP_LONG"="Universal Plug'n'Play (UPnP)";
-"UPNP_SHORT"="UPnP";
+"UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
+"UPNP_SHORT" = "UPnP";
 
-"PLEX_LONG"="Plex Media Server (via Bonjour)";
-"PLEX_SHORT"="Plex";
+"PLEX_LONG" = "บริการสื่อ Plex (ผ่านทาง Bonjour)";
+"PLEX_SHORT" = "Plex";
 
-"FTP_LONG"="File Transfer Protocol (FTP)";
-"FTP_SHORT"="FTP";
+"FTP_LONG" = "เกณฑ์วิธีถ่ายโอนแฟ้ม (FTP)";
+"FTP_SHORT" = "FTP";
+
+"BONJOUR_FILE_SERVERS" = "ไฟล์เซิร์ฟเวอร์ BONJOUR";
+"DSM_WORKGROUP" = "เวิร์กกรุ๊ป";
+
+"URL_NOT_SUPPORTED" = "ไม่สามารถเปิด URL ได้";
+
+// Insert %@ where play-pause-glyph should be placed
+"DELETE_ITEM_HINT" = "กด %@ เพื่อลบ"; /* Insert %@ where play-pause-glyph should be placed */
+
+"DELETE_INVALID_MESSAGE" = "ไม่สามารถลบรายการที่เลือกได้";
+"DELETE_INVALID_TITLE" = "เลือกไม่ถูกต้อง";
+"DELETE_MESSAGE" = "ยืนยันการลบไฟล์ที่เลือก";
+"DELETE_TITLE" = "ลบไฟล์ที่เลือก";
+
+//Drag and Drop
+"THIS_FILE" = "ไฟล์นี้";
+"NOT_SUPPORTED_FILETYPE" = "%@ ไม่ใช่ชนิดไฟล์ที่รองรับโดย VLC";
+"FILE_EXISTS" = "มี 1%@ อยู่แล้ว";
+
+"PROTOCOL_NOT_SELECTED" = "ไม่ได้เลือกโพรโทคอลไว้";
+"Settings" = "การตั้งค่า";
+
+"CANCEL" = "Cancel";
+"ERROR" = "ผิดพลาด";
+"OK" = "ตกลง";
+"SORT" = "Sort";
+"SORT_BY" = "Sort by";
+"VIDEO" = "Video";
+
+// MediaViewController Swipable Header
+"ALBUMS" = "Albums";
+"ARTISTS" = "Artists";
+"EPISODES" = "Episodes";
+"GENRES" = "Genres";
+"MOVIES" = "Movies";
+"SONGS" = "Songs";
+"PLAYLISTS" = "Playlists";
+
+"MODIFIED_DATE" = "Modified date";
+"NAME" = "Name";
+
+//EDIT
+"ADD_TO_PLAYLIST" = "Add to Playlist";
+
+"PLAYLIST_PLACEHOLDER" = "Playlist title";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+
+"RENAME_PLACEHOLDER" = "New title";
+"ERROR_RENAME_FAILED" = "Renaming failed";
+"ERROR_EMPTY_NAME" = "The title can't be empty";
+
+// Sort
+
+"HEADER_TITLE_SORT" = "Sort by";
+
+// VLCMediaLibraryKit - Sorting Criteria
+
+"ALPHA" = "Alphanumerically";
+"DURATION" = "ระยะเวลา";
+"INSERTION_DATE" = "Insertion date";
+"LAST_MODIFICATION_DATE" = "Last modification date";
+"RELEASE_DATE" = "Release date";
+"FILE_SIZE" = "File size";
+"ARTIST" = "Artist";
+"PLAY_COUNT" = "Play count";
+"ALBUM" = "Album";
+"FILENAME" = "Filename";
+"TRACK_NUMBER" = "Track number";
