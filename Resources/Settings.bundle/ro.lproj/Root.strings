@@ -1,12 +1,12 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
-"SETTINGS_PRIVACY_TITLE" = "Privacy";
+"SETTINGS_PRIVACY_TITLE" = "Confidențialitate";
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_SUBTITLE" = "Change app colors";
-"SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
-"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_THEME_SUBTITLE" = "Modificare culori aplicație";
+"SETTINGS_PRIVACY_SUBTITLE" = "Deschide în Setări";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Acces în siguranță la conținutul dvs.";
 
 "SETTINGS_DARKTHEME" = "Tema întunecată";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio întindere-timp";
