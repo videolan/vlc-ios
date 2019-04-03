@@ -1,4 +1,3 @@
 "NSPhotoLibraryUsageDescription" = "비디오를 저장하려면 카메라 롤에 대한 접근을 허용해야 합니다";
 "NSPhotoLibraryAddUsageDescription" = "비디오를 저장하려면 카메라 롤에 대한 접근을 허용해야 합니다";
 "NSFaceIDUsageDescription" = "VLC의 잠금해제를 위해 페이스 ID에 접근 활성화";
-
