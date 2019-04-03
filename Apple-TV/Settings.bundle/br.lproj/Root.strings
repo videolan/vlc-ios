@@ -1,0 +1,98 @@
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+
+"SETTINGS_PRIVACY_TITLE" = "Prevezded";
+"SETTINGS_VIDEO_TITLE" = "Video";
+"SETTINGS_AUDIO_TITLE" = "Aodio";
+
+"SETTINGS_THEME_SUBTITLE" = "Cheñch livioù an arload";
+"SETTINGS_PRIVACY_SUBTITLE" = "Digeriñ en arventennoù";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Moned suraet betek hoc'h endalc'had";
+
+"SETTINGS_DARKTHEME" = "Tem teñval";
+"SETTINGS_TIME_STRETCH_AUDIO" = "Dic'hourdañ-amzerel aodio";
+"SETTINGS_BACKGROUND_AUDIO" = "Lenn aodio en drek-leur";
+"SETTINGS_GENERIC_TITLE" = "Generek";
+"SETTINGS_PASSCODE_LOCK" = "Kod-tremen alc'hwezet";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Aotren an divorailhañ dre Touch ID";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Aotren an divorailhañ dre Face ID";
+"SETTINGS_DECRAPIFY" = "Gwellekaat anvioù an elfennoù evit skrammañ";
+"SETTINGS_VIDEO_FULLSCREEN" = "Lenn ar video er skramm-leun";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Kenderc'hel da lenn ar video";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Kenderc'hel da lenn an aodio";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Morse";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Goulenn";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Dalc'hmat";
+"SETTINGS_NETWORK_PLAY_ALL" = "Lenn an elfenn da-heul ent emgefreek";
+
+"SETTINGS_SKIP_LOOP_FILTER" = "Sil enep-bloc'hoù";
+"SETTINGS_SKIP_LOOP_FILTER_NONE" = "Tamm enep-bloc'hoù (ar buanañ)";
+"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Enep-bloc'hoù etre";
+"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Enep-bloc'hoù krenn";
+
+"SETTINGS_NETWORK_CACHING_TITLE" = "Live Kuzh ar Rouedad";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Gortozadenn izelañ";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Gortozadenn izel";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Gortozadenn uhel";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Gortozadenn uhelañ";
+
+"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Tizh lenn dre ziouer";
+
+"SETTINGS_GESTURES" = "Koñtrol al lenn gant jestroù";
+"SETTINGS_GESTURES_VOLUME" = "Skubat betek ar c'hrec'h/an traoñ evit al live-son";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Pouezañ evit lenn/paouez";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Skubat betek ar c'hrec'h/an traoñ evit ar sked";
+"SETTINGS_GESTURES_SEEK" = "Skubat dehou/kleiz evit klask";
+"SETTINGS_GESTURES_CLOSE" = "Piñsat evit serriñ";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Padelezh lamm kemmus";
+
+"SETTINGS_SUBTITLES_TITLE" = "Istitloù";
+"SETTINGS_SUBTITLES_FONT" = "Font";
+"SETTINGS_SUBTITLES_TEXT_ENCODING" = "Enkodañ an destenn";
+"SETTINGS_SUBTITLES_FONTSIZE" = "Ment ar font keñverel";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "Bihanañ";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALL" = "Bihan";
+"SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "Normal";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGE" = "Ledan";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "Ledanañ";
+"SETTINGS_SUBTITLES_BOLDFONT" = "Implij Arouezenn druz";
+"SETTINGS_SUBTITLES_FONTCOLOR" = "Liv ar font";
+"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "Gwenn";
+"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "Du";
+"SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "Gris";
+"SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "Arc'hant";
+"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "Ruz";
+"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "Fuchia";
+"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Melen";
+"SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Gwer";
+"SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Mor";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Tevder an tro-dro";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Tra ebet";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Moan";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normal";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Tev";
+
+"SETTINGS_DEINTERLACE" = "Digenweañ";
+"SETTINGS_DEINTERLACE_ON" = "Enaout";
+"SETTINGS_DEINTERLACE_OFF" = "Lazhet";
+"SETTINGS_DEINTERLACE_AUTO" = "Emgefre";
+
+"SETTINGS_HWDECODING" = "Digodur ar periant";
+"SETTINGS_HWDECODING_ON" = "Enaout";
+"SETTINGS_HWDECODING_OFF" = "Lazhet";
+
+"SETTINGS_FEEDBACK" = "Evezhiadennoù";
+"SETTINGS_SEND_FEEDBACK" = "Kas evezhiadennoù";
+"SETTINGS_SEND_RATING" = "Notennit VLC evit iOS mar plij";
+
+"SETTINGS_FILE_SYNC" = "Sinkroneladur ar restr";
+"SETTINGS_WIFISHARING_IPv6" = "Skor IPv6 evit rannañ WiFi";
+"SETTINGS_UNLINK_DROPBOX" = "Distagañ diouzh Dropbox";
+"SETTINGS_UNLINK_GOOGLEDRIVE" = "Distagañ diouzh Google Drive";
+"SETTINGS_UNLINK_ONEDRIVE" = "Distagañ diouzh OneDrive";
+"SETTINGS_FTP_TEXT_ENCODING" = "Enkodañ an destenn evit ar c'hevreadurioù FTP";
+
+"SETTINGS_ARTWORK" = "Jaketenn";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Pellgargañ ar jaketenn";
+
+"ABOUT_APP_TV" = "Diwar-benn VLC evit tvOS";
