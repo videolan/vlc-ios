@@ -23,9 +23,12 @@
 "ONE_AUDIO_TRACK" = "مسار واحد";
 "FORMAT_SPU_TRACKS" = "%i مسار للترجمة";
 "ONE_SPU_TRACK" = "مسار ترجمة واحد";
+"TRACKS" = "%i Tracks";
+"TRACK" = "%i Track";
 
 "PLAYING_EXTERNALLY_TITLE" = "التّلفاز متصل";
 "PLAYING_EXTERNALLY_DESC" = "شُغّلت هذه المرئية على التّلفاز";
+"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
 
 "VFILTER_HUE" = "الألوان";
 "VFILTER_CONTRAST" = "التّباين";
@@ -51,8 +54,8 @@
 "CONTINUE_PLAYBACK_LONG" = "هل ترغب بمواصلة التشغيل \"%@\" من مكان التوقف السابق؟";
 
 "BUTTON_ALL" = "Select All";
+"BUTTON_ABOUT" = "About";
 "BUTTON_BACK" = "الخلف";
-"BUTTON_EDIT" = "حرّر";
 "BUTTON_DONE" = "تمّ";
 "BUTTON_CANCEL" = "ألغِ";
 "BUTTON_SAVE" = "احفظ";
@@ -70,6 +73,9 @@
 "PRIVATE_PLAYBACK_TOGGLE" = "تشغيل خاص";
 "SCAN_SUBTITLE_TOGGLE" = "البحث عن ملفات ترجمة (خدمة http فقط)";
 
+"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+
 "UPGRADING_LIBRARY" = "تحديث قائمة الوسائط";
 "UNTITLED_SHOW" = "عرض غير مُعنون";
 "UNKNOWN" = "غير معروف";
@@ -77,8 +83,6 @@
 "OPEN_NETWORK" = "افتح بثًا شبكيًا";
 "NETWORK_TITLE" = "بث شبكي";
 "OPEN_NETWORK_HELP" = "أدخل عنوان أحد البروتوكولات HTTP ، RTSP ، MMS ، FTP ، UDP/RTP لتفتح بثّه مُباشرةً.";
-"ABOUT_APP" = "حول VLC لـ iOS";
-"OPEN_VLC_MENU" = "افتح قائمة VLC الجانبية";
 "HTTP_UPLOAD_SERVER_OFF" = "خادومٌ غيرُ نشط";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "لا يتوفر اتّصالُ شبكةٍ لاسلكيةٍ نشط";
 "OPEN_STREAM_OR_DOWNLOAD" = "هل تودّ تحميل أو تشغيل هذا الرابط؟";
@@ -97,29 +101,11 @@
 "ERROR_NUMBER" = "حدث الخطأ %i";
 "DOWNLOAD_FAILED" = "فشل التّنزيل";
 "FILE_NOT_SUPPORTED" = "صيغة الملف غير مدعومة";
+"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
 "SCHEME_NOT_SUPPORTED" = "مسار العنوان غير مدعوم";
 "SCHEME_NOT_SUPPORTED_LONG" = "مسار العنوان (%@) غير مدعوم. رجاءً استخدم عنواناً يبدأ ب HTTP أو HTTPS أو FTP.";
-"LIBRARY_ALL_FILES" = "كلّ الملفات";
-"LIBRARY_MUSIC" = "المجموعات الصّوتية";
-"LIBRARY_SERIES" = "برامج تلفزيونيّة";
-"LIBRARY_TRACKS" = "%i مقطع";
-"LIBRARY_SINGLE_TRACK" = "%i مقطع";
-"LIBRARY_EPISODES" = "%i حلقة، %i غير مقروءة";
-"LIBRARY_SINGLE_EPISODE" = "%i حلقة، %i غير مقروءة";
-"LIBRARY_TRACK_N" = "المقطع %i";
-"LIBRARY_MINUTES_LEFT" = "%@ دقيقة مُتبقية";
 "RENAME_MEDIA_TO" = "أعد التسمية ل  %@";
 
-"FOLDER_EMPTY" = "مجلد فارغ";
-"FOLDER_EMPTY_LONG" = "لإضافة الملفات المس حرّر، اختر الملفات التي تريد، انقر زر المجلد وحدد هذا المجلد.";
-"FOLDER_INVALID_TYPE_TITLE" = "أصناف الملفات غير صالحة";
-"FOLDER_INVALID_TYPE_MESSAGE" = "يمكنك أخذ ملفين لتكوين مجلد أو إضافة ملف وحيد لمجلد موجود مسبقا.";
-"FOLDER_CHOOSE_NAME_TITLE" = "مجلد جديد";
-"FOLDER_CHOOSE_NAME_MESSAGE" = "أدخل عنوانا لمجلدك";
-"FOLDER_NAME_PLACEHOLDER" = "عنوان المجلد";
-"FOLDER_NAME_DUPLICATE_TITLE" = "العنوان موجود";
-"FOLDER_NAME_DUPLICATE_MESSAGE" = "رجاءً اختر عنوانا آخر";
-"SELECT_FOLDER" = "حدّد مجلدا";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "اختر ملفا لفتحه";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "افتح في";
@@ -128,10 +114,13 @@
 "SHARING_SUCCESS_CAMERA_ROLL" = "حُفِظَ الملف بنجاح داخل شريط الكاميرا";
 
 "SECTION_HEADER_LIBRARY" = "مكتبة الوسائط";
-"SECTION_HEADER_NETWORK" = "الشّبكة";
+"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
+"DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
+"HEADER_TITLE_RENDERER" = "Select a casting device";
 
 "LOCAL_NETWORK" = "الشّبكة المحلية";
 "CONNECT_TO_SERVER" = "اتّصل إلى الخادوم";
+"FILE_SERVER" = "File Servers";
 "USER_LABEL" = "المُستخدم";
 "PASSWORD_LABEL" = "كلمة المرور";
 "DISABLE_LABEL" = "معطّل";
@@ -145,6 +134,8 @@
 "CLOUD_SERVICES" = "الخدمات السحابية";
 "LOGIN" = "تسجيل الدخول";
 "LOGGED_IN" = "متصل";
+"LOGGED_IN_SERVICES" = "%d logged in services";
+"LOGGED_IN_SERVICE" = "1 logged in service";
 
 "DROPBOX_DOWNLOAD" = "أأنزّل الملف؟";
 "DROPBOX_DL_LONG" = "هل ترغب بتنزيل \"%@\" إلى %@؟";
@@ -155,6 +146,8 @@
 "GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "نجاح";
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "حدث خطأ أثناء التحميل";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "خطأ";
+
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
 
 "DISK_FULL" = "تم بلوغ حد التخزين";
 "DISK_FULL_FORMAT" = "%@ لا يمكن تخزينه على %@, لأنه ليس لديك مساحة فارغة";
@@ -167,19 +160,6 @@
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "Change Passcode";
-"Enter Passcode" = "Enter Passcode";
-"Enter a passcode" = "Enter a passcode";
-"Enter your new passcode" = "Enter your new passcode";
-"Enter your old passcode" = "Enter your old passcode";
-"Enter your passcode" = "Enter your passcode";
-"Next" = "Next";
-"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
-"Re-enter your new passcode" = "Re-enter your new passcode";
-"Re-enter your passcode" = "Re-enter your passcode";
-"Set Passcode" = "Set Passcode";
 
 "Settings" = "الإعدادات"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "مفعل";
@@ -201,7 +181,8 @@
 "BWD_BUTTON" = "اقفز إلى الخلف";
 "FWD_BUTTON" = "اقفز إلى الأمام";
 "PLAY_BUTTON" = "شغل";
-"PAUSE_BUTTON" = "توقيف";
+"NEXT_BUTTON" = "Next";
+"PREV_BUTTON" = "Previous";
 "PLAY_ALL_BUTTON" = "تشغيل الكل";
 
 "VERSION_FORMAT" = "الإصدار: %@";
@@ -219,7 +200,7 @@
 "FIRST_STEPS_WELCOME" = "مرحباُ";
 "FIRST_STEPS_WELCOME_DETAIL" = "البدء فى المزامنة لتشغيل المرئية الخاصة بك";
 "FIRST_STEPS_ITUNES" = "تطبيق iTunes لمزامنة الملفات";
-"FIRST_STEPS_ITUNES_DETAILS" = "قم بتوصيل %@ مع جهاز ال Mac أو الحاسوب الخاص بك مستخدماً الوصلة.\nإفتح تطبيق iTunes.\nإختر القيمة  %@.\nإختر علامة التبويب الخاصة بالتطبيقات من القائمة المنسدلة وابحث عن مشغل VLC.\nقم بنقل الملفات.";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
 "FIRST_STEPS_WIFI_CONNECT_DETAILS" = "اربِطْ القيمة %@ بنفس الشبكة الخاصة بجهاز Mac أو حاسوبك الشخصي.";
 "FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "حوّل الرؤية فى القائمة الجانبية، ثم أدخل العنوان في المتصفح وارفع ملفاتك.";
 "FIRST_STEPS_CLOUDS" = "التخزين السحابي";
@@ -258,36 +239,15 @@
 "WEBINTF_URL_INVALID" = "لايوجد رابط فعّال.";
 
 
-"NOW_PLAYING" = "يشتغل الآن";
-"PLAY_NOW" = "شغِّل الآن";
-"PLAYING" = "شغّال";
-"DETAIL" = "التفاصيل";
 
 "VOLUME" = "الصوت";
 "DURATION" = "المدة";
 "TITLE" = "العنوان";
 
 // strings from VLCKit
-"%ld hours %ld minutes remaining" = "%1$ld hours %2$ld minutes remaining";
-"%ld hours %ld minutes" = "%1$ld hours %2$ld minutes";
-"%ld minutes remaining" = "%ld دقيقة متبقية";
-"%ld minutes" = "%ld دقيقة ";
-"%ld minutes %ld seconds remaining" = "%1$ld minutes %2$ld seconds remaining";
-"%ld minutes %ld seconds" = "%1$ld minutes %2$ld seconds";
-"%ld seconds remaining" = "%ld ثواني متبقية";
-"%ld seconds" = "%ld ثانية";
 
 // accessibility labels for the playlist
-"OBJECT_TYPE_SHOW" = "مسلسل";
-"OBJECT_TYPE_SHOW_EPISODE" = "حلقة المسلسل";
-"OBJECT_TYPE_LABEL" = "مجلد";
-"OBJECT_TYPE_ALBUM" = "ألبوم";
-"OBJECT_TYPE_ALBUM_TRACK" = "مسار الألبوم";
-"OBJECT_TYPE_FILE" = "ملف";
-"OBJECT_TYPE_FILE_AUDIO" = "ملف الصوت";
 
-"NOT_CONNECTED_TO_PHONE_TITLE" = "غير متصل بالايفون";
-"NOT_CONNECTED_TO_PHONE_MESSAGE" = "فضلاً اقترن بالايفون لتفعّل خصائص الريموت.";
 
 "LONGPRESS_TO_STOP" = "ضغطه طويلة لإيقاف المشغل";
 
@@ -322,6 +282,8 @@
 "BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
 "DSM_WORKGROUP" = "Workgroup";
 
+"URL_NOT_SUPPORTED" = "The URL can't be opened";
+
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "اضغط %@ للحذف"; /* Insert %@ where play-pause-glyph should be placed */
 
@@ -335,7 +297,52 @@
 "NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
 "FILE_EXISTS" = "%@ already exists";
 
-/* New strings */
-"PROTOCOL_NOT_SELECTED" = "لم يتم تحديد البروتوكول";
+"PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "الإعدادات";
 
+"CANCEL" = "Cancel";
+"ERROR" = "Error";
+"OK" = "Ok";
+"SORT" = "Sort";
+"SORT_BY" = "Sort by";
+"VIDEO" = "Video";
+
+// MediaViewController Swipable Header
+"ALBUMS" = "Albums";
+"ARTISTS" = "Artists";
+"EPISODES" = "Episodes";
+"GENRES" = "Genres";
+"MOVIES" = "Movies";
+"SONGS" = "Songs";
+"PLAYLISTS" = "Playlists";
+
+"MODIFIED_DATE" = "Modified date";
+"NAME" = "Name";
+
+//EDIT
+"ADD_TO_PLAYLIST" = "Add to Playlist";
+
+"PLAYLIST_PLACEHOLDER" = "Playlist title";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+
+"RENAME_PLACEHOLDER" = "New title";
+"ERROR_RENAME_FAILED" = "Renaming failed";
+"ERROR_EMPTY_NAME" = "The title can't be empty";
+
+// Sort
+
+"HEADER_TITLE_SORT" = "Sort by";
+
+// VLCMediaLibraryKit - Sorting Criteria
+
+"ALPHA" = "Alphanumerically";
+"DURATION" = "المدة";
+"INSERTION_DATE" = "Insertion date";
+"LAST_MODIFICATION_DATE" = "Last modification date";
+"RELEASE_DATE" = "Release date";
+"FILE_SIZE" = "File size";
+"ARTIST" = "Artist";
+"PLAY_COUNT" = "Play count";
+"ALBUM" = "Album";
+"FILENAME" = "Filename";
+"TRACK_NUMBER" = "Track number";
