@@ -1,305 +1,348 @@
-"CHOOSE_AUDIO_TRACK"="ເລືອກ Track ສຽງ";
-"CHOOSE_SUBTITLE_TRACK"="ເລືອກ Track ຄຳບັນຍາຍ";
-"OPEN_TRACK_PANEL"="Track ການເລືອກເປີດ";
-"CHOOSE_TITLE"="ເລືອກຫົວຂໍ້";
-"CHOOSE_CHAPTER"="ເລືອກຫົວບົດ";
-"MINIMIZE_PLAYBACK_VIEW"="ຫຍໍ້ໜ້າຕ່າງໂປແກມລົງ";
-"FULLSCREEN_PLAYBACK"="ຫຼີ້ນໃນຮູບແບບເຕັມໜ້າຈໍ";
-"TRACK_SELECTION"="Track Selection";
-"AUDIO"="Audio";
-"SUBTITLES"="Subtitles";
-"LANGUAGE"="Language";
-"MEDIA_INFO"="Media Information";
-"VIDEO_DIMENSIONS"="Video dimensions";
-"FORMAT_VIDEO_DIMENSIONS"="%ix%i pixel";
-"FORMAT_AUDIO_TRACKS"="%i audio tracks";
-"ONE_AUDIO_TRACK"="One audio track";
-"FORMAT_SPU_TRACKS"="%i subtitles tracks";
-"ONE_SPU_TRACK"="One subtitles track";
+"STORE_DESCRIPTION" = "VLC ສຳລັບໄອໂອເອສ ເປັນໂປຣແກຣມຫລີ້ນໄຟລເພງ ແລະ ວິດີໂອຕ່າງ ສຳລັບໄອແພດ, ໄອໂຟນ ແລະ ໄອພອດທັສ \nສາມາດຫລີ້ນໄຟລໄດ້ຫລາຍຟໍແມັດໂດຍບໍ່ຕ້ອງຄອນເວີດກ່ອນ\nສາມາດເຊື່ອມຕໍ່ກັບຖານເກັບຂໍ້ມູນອອນລາຍເຊັ່ນ: ດ໋ອບບ໋ອກ, ວັນໄດຣ, ໄອຄຣາວ, ໄອຈູນ, ສາມາດດາວໂຫລດໂດຍກົງຜ່ານໄວຟາຍ ຫລື ຫລີ້ນໂດຍຕົງຈາກເຊີບເວີ SMB, FTP, UPnP/DLNA  ຫລື ເວັບໄຊ.\nVLC ສາມາດສະແດງຕົວຫນັງສືຊັບໄຕເຕີ້ນຂອງວີດີໂອ, ຮອງຮັບ SSA, ສຽງແບບຫລາຍຊ່ອງທາງ ແລະ ສາມາດຄວບຄຸມຄວາມໄວຂອງການຫລີ້ນໄດ້.\nVLC ສຳລັບໄອໂອເອັສ ແມ່ນໃຊ້ຟຣີ ແລະ ເປັນໂກຣມແບບເປີດທີ່ທຸກຄົນສາມາດປຸງໄດ້";
 
-"PLAYING_EXTERNALLY_TITLE"="ເຊື່ອມຕໍ່ໂທລະພາບ";
-"PLAYING_EXTERNALLY_DESC"="ວິດີໂອນີ້ໄດ້ຖືກຫຼີ້ນການໂທລະພາບ";
+"STORE_DESCRIPTION_TV" = "ໂປແກຣມຫລີ້ນໄຟລມີເດຍ  VLC  ເປັນໂປແກຣມຟຣີ ແລະ ສາມາດເຂົ້າໄດ້ກັບອຸປະກອນເຄື່ອງຫລີ້ນມັລຕີມີເດຍເກືອບທຸກປະເພດ\nມັນສາມາດຫລີ້ນໄຟລໄດ້ຫລາຍຟໍແມັດໂດຍບໍ່ຕ້ອງຄອນເວີດກ່ອນ\nສາມາດເຊື່ອມຕໍ່ກັບຖານເກັບຂໍ້ມູນອອນລາຍເຊັ່ນ: (ດ໋ອບບ໋ອກ, ວັນໄດຣ, ໄອຄຣາວ, ໄອຈູນ) ສາມາດດາວໂຫລດໂດຍກົງຜ່ານໄວຟາຍ ຫລື ຫລີ້ນໂດຍຕົງຈາກເຊີບເວີ SMB, FTP, UPnP/DLNA  ຫລື ເວັບໄຊ.\nVLC ສາມາດສະແດງຕົວຫນັງສືຊັບໄຕເຕີ້ນຂອງວີດີໂອ, ຮອງຮັບ SSA, ສຽງແບບຫລາຍຊ່ອງທາງ ແລະ ສາມາດຄວບຄຸມຄວາມໄວຂອງການຫລີ້ນໄດ້.\nVLC ສຳລັບໄອໂອເອັສ ແມ່ນໃຊ້ຟຣີ ແລະ ເປັນໂກຣມແບບເປີດທີ່ທຸກຄົນສາມາດປຸງໄດ້\nຖານຂໍ້ມູນໃຫຍ່ຂອງໂປຣແກມ ແລະ ງານສິລະປະຕ່າງ ແມ່ນສະຫນັບສະຫນູນໂດຍ TMDb and Hatchet, ທີ່ເປັນຊຸມຊົນປັບປຸງຫນັງ ແລະ ຖານຂໍ້ມູນເພງ.";
 
-"VFILTER_HUE"="ແຖບສີ";
-"VFILTER_CONTRAST"="ຄວາມແຕກຕ່າງກັນ";
-"VFILTER_BRIGHTNESS"="ຄວາມສະຫວ່າງ";
-"VFILTER_SATURATION"="ການອິ່ມຕົວ";
-"VFILTER_GAMMA"="ແກມມາ";
+"CHOOSE_AUDIO_TRACK" = "ເລືອກເພງ";
+"CHOOSE_SUBTITLE_TRACK" = "ເລືອກຄຳບັນຍາຍ";
+"OPEN_TRACK_PANEL" = "ເປີດການເລືອກເພງ";
+"CHOOSE_TITLE" = "ເລືອກຫົວຂໍ້";
+"CHOOSE_CHAPTER" = "ເລືອກພາກຫນັງ";
+"CHAPTER_SELECTION_TITLE" = "ພາກຫນັງ";
+"TITLE" = "ຫົວຂໍ້";
+"CHAPTER" = "ພາກຫນັງ";
+"MINIMIZE_PLAYBACK_VIEW" = "ຫຍໍ້ໜ້າຕ່າງໂປແກມລົງ";
+"FULLSCREEN_PLAYBACK" = "ຫຼີ້ນໃນຮູບແບບເຕັມໜ້າຈໍ";
+"TRACK_SELECTION" = "ການເລືອກເພງ";
+"AUDIO" = "ສຽງ";
+"SUBTITLES" = "ຄຳບັນຍາຍ";
+"LANGUAGE" = "ພາສາ";
+"MEDIA_INFO" = "ຂໍ້ມູນຂອງໄຟລເພງ ຫລື ຫນັງ";
+"VIDEO_DIMENSIONS" = "ຂະຫນາດຂອງວີດີໂອ";
+"FORMAT_VIDEO_DIMENSIONS" = "%ix%i ຈຸດ";
+"FORMAT_AUDIO_TRACKS" = "%i ເພງ";
+"ONE_AUDIO_TRACK" = "1 ເພງ";
+"FORMAT_SPU_TRACKS" = "%i ສຽງປະກອບຄຳບັນຍາຍ";
+"ONE_SPU_TRACK" = "ຫນື່ງສຽງຄຳບັນຍາຍ";
+"TRACKS" = "%i Tracks";
+"TRACK" = "%i Track";
 
-"BUTTON_EQUALIZER"="ຄໍໄລເຊີຣ໌";
-"PREAMP"="ພຣີແອມປ໌";
-"DB_FORMAT"="%i dB";
-"CHOOSE_EQUALIZER_PROFILES"="ເລືອກຂໍ້ມູນຂອງຄໍໄລເຊີຣ໌";
+"PLAYING_EXTERNALLY_TITLE" = "ເຊື່ອມຕໍ່ໂທລະພາບ";
+"PLAYING_EXTERNALLY_DESC" = "ວິດີໂອນີ້ຫຼີ້ນໃນໂທລະພາບແລ້ວ";
+"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
 
-"PLAYBACK_FAILED"="ເກີດຂໍ້ຜິດພາດໃນການຫຼີ້ນ";
-"PLEASE_WAIT"="Please wait";
-"AR_CHANGED"="ອັດຕາສ່ວນ: %@";
-"DEFAULT"="ຄ່າມາດຕະຖານ";
-"FILL_TO_SCREEN"="Crop ໃຫ້ເຕັມໜ້າຈໍ";
-"DEVICE_TOOSLOW_TITLE"="ອຸປະກອນຊ້າເກີນໄປ";
-"DEVICE_TOOSLOW"="%@ ຂອງທ່ານມີໂອກາດຊ້າເກີນໄປທີ່ຈະຫລິ້ນ \"%@\". ເປີດ ຫລື ບໍ່?";
-"PLAYBACK_SPEED"="ຄວາມໄວໃນການຫຼິ້ນ";
-"SPU_DELAY"="ຄວາມຊັກຊ້າໃນການບັນຍາຍ";
-"AUDIO_DELAY"="ຄວາມຊັກຊ້າຂອງສຽງ";
-"BUTTON_SLEEP_TIMER"="ເວລານອນຫຼັບ";
-"CONTINUE_PLAYBACK"="Continue playback?";
-"CONTINUE_PLAYBACK_LONG"="Would you like to continue playback of \"%@\" where you left off?";
+"VFILTER_HUE" = "ຄວາມເຂັ້ມຂອງສີ";
+"VFILTER_CONTRAST" = "ຄວາມເຂັ້ມຂອງແສງ";
+"VFILTER_BRIGHTNESS" = "ຄວາມສະຫວ່າງ";
+"VFILTER_SATURATION" = "ການອິ່ມຕົວຂອງສີ";
+"VFILTER_GAMMA" = "ແກມມາຂອງສີ";
 
-"BUTTON_EDIT"="ແກ້ໄຂ";
-"BUTTON_DONE"="ສຳເລັດ";
-"BUTTON_OPEN"="ເປີດ";
-"BUTTON_CANCEL"="ຍົກເລີກ";
-"BUTTON_SAVE"="ບັນທຶກ";
-"BUTTON_DOWNLOAD"="ດາວໂຫຼດ";
-"BUTTON_DELETE"="ລຶບ";
-"BUTTON_OK"="ຕົກລົງ";
-"BUTTON_NEXT"="ຖັດໄປ";
-"BUTTON_CONTRIBUTE"="ການປະກອບສ່ວນ";
-"BUTTON_BACK"="ກັບ";
-"BUTTON_CONNECT"="ເຊື່ອມຕໍ່";
-"BUTTON_REPEAT"="ເຮັດຊ້ຳ";
-"BUTTON_RENAME"="ປ່ຽນຊື່";
-"BUTTON_LEARN_MORE"="ຮຽນຮູ້ເພີ່ມເຕີມ";
-"BUTTON_LOGOUT"="ອອກຈາກລະບົບ";
-"BUTTON_CONTINUE"="Continue";
-"BUTTON_RETRY"="Retry";
-"PRIVATE_PLAYBACK_TOGGLE"="ການຫຼິ້ນສ່ວນຕົວ";
-"SCAN_SUBTITLE_TOGGLE"="ການສະແກນຫາຄຳບັນຍາຍ (http ເທົ່ານັ້ນ)";
+"PREAMP" = "ພຣີແອມປ໌";
+"DB_FORMAT" = "%i dB";
+"CHOOSE_EQUALIZER_PROFILES" = "ເລືອກແບບຕົວປັບສຽງ";
 
-"UPGRADING_LIBRARY"="ອັບເກຣດ Media Library";
-"UNTITLED_SHOW"="ສະແດງບໍ່ໄດ້ຕັ້ງຫົວຂໍ້";
-"UNKNOWN"="ບໍ່ລະບຸ";
+"PLAYBACK_FAILED" = "ເກີດຂໍ້ຜິດພາດໃນການຫຼີ້ນ";
+"PLEASE_WAIT" = "ກະລຸນາລໍຖ້າ";
+"AR_CHANGED" = "ອັດຕາສ່ວນ: %@";
+"DEFAULT" = "ຄ່າມາດຕະຖານ";
+"FILL_TO_SCREEN" = "ປັບໃຫ້ເຕັມໜ້າຈໍ";
+"PLAYBACK_SPEED" = "ຄວາມໄວໃນການຫຼິ້ນ";
+"SPU_DELAY" = "ຄວາມຊ້າຂອງຄຳບັນຍາຍ";
+"AUDIO_DELAY" = "ຄວາມຊ້າຂອງສຽງ";
+"BUTTON_SLEEP_TIMER" = "ຕັ້ງປິດເຄື່ອງ";
+"SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
+"CONTINUE_PLAYBACK" = "ສືບຕໍ່ການຫຼີ້ນເພງບໍ່?";
+"CONTINUE_PLAYBACK_LONG" = "ທ່ານຕ້ອງການທີ່ຈະສືບຕໍ່ການຫຼີ້ນຂອງ \"%@\" ຈາກຕອນລ່າສຸດເລີຍບໍ ?";
 
-"OPEN_NETWORK"="ເປີດກະແສເຄືອຂ່າຍ";
-"NETWORK_TITLE"="ກະແສເຄືອຂ່າຍ";
-"OPEN_NETWORK_HELP"="ກະລຸນາໃສ່ HTTP, RTSP, RTMP, MMS, FTP ຫຼືທີ່ຢູ່ UDP / RTP ທີ່ຈະເປີດກະແສໄດ້ໂດຍກົງ.";
-"ABOUT_APP"="ກ່ຽວກັບ VLC ສຳລັບ iOS";
-"OPEN_VLC_MENU"="ເປີດເມນູແຖບດ້ານຂ້າງຂອງ VLC ";
-"HTTP_UPLOAD_SERVER_OFF"="Server ບໍ່ໄດ້ເຮັດວຽກ";
-"HTTP_UPLOAD_NO_CONNECTIVITY"="ບໍ່ໄດ້ເຊື່ອມຕໍ່ອີນເຕີເນັດ WiFi ທີ່ເຮັດວຽກ";
-"OPEN_STREAM_OR_DOWNLOAD"="ທ່ານຕ້ອງການທີ່ຈະດາວໂຫລດ ຫລື ຫລິ້ນ URL ນີ້?";
-"SELECT_RESOURCE_TO_PLAY"="ເລືອກຊັບພະຍາກອນໃນການຫລິ້ນ:";
-"SELECT_RESOURCE_TO_DOWNLOAD"="ເລືອກຊັບພະຍາກອນໃນການດາວໂຫຼດ:";
-"SHARED_VLC_IOS_LIBRARY"="ການແບ່ງປັນ VLC ສໍາລັບ iOS Library";
-"SAP_STREAMS"=" ກະແສເຄືອຂ່າຍ (SAP)";
-"SMB_CIFS_FILE_SERVERS"="File Servers (SMB/CIFS)";
+"BUTTON_ALL" = "Select All";
+"BUTTON_ABOUT" = "About";
+"BUTTON_BACK" = "ກັບຄືນ";
+"BUTTON_DONE" = "ສຳເລັດ";
+"BUTTON_CANCEL" = "ຍົກເລີກ";
+"BUTTON_SAVE" = "ບັນທຶກ";
+"BUTTON_DOWNLOAD" = "ດາວໂຫຼດ";
+"BUTTON_DELETE" = "ລຶບ";
+"BUTTON_OK" = "ຕົກລົງ";
+"BUTTON_CONTRIBUTE" = "ການປະກອບສ່ວນ";
+"BUTTON_CONNECT" = "ເຊື່ອມຕໍ່";
+"BUTTON_RENAME" = "ປ່ຽນຊື່";
+"BUTTON_LEARN_MORE" = "ຂໍ້ມູນເພີ່ມເຕີມ";
+"BUTTON_LOGOUT" = "ອອກຈາກລະບົບ";
+"BUTTON_CONTINUE" = "ສືບຕໍ່";
+"BUTTON_SET" = "Set";
+"BUTTON_RESET" = "Reset";
+"PRIVATE_PLAYBACK_TOGGLE" = "ການຫຼິ້ນສ່ວນຕົວ";
+"SCAN_SUBTITLE_TOGGLE" = "ຊອກຫາຄຳບັນຍາຍ (http ເທົ່ານັ້ນ)";
 
-"SMB_CIFS_FILE_SERVERS_SHORT"="SMB/CIFS";
+"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+
+"UPGRADING_LIBRARY" = "ປັບປຸງຖານຂໍ້ມູນເພງ, ວິດີໂອ";
+"UNTITLED_SHOW" = "ບໍ່ມີຊື່ສະແດງ";
+"UNKNOWN" = "ບໍ່ລະບຸ";
+
+"OPEN_NETWORK" = "ເປີດຫລີ້ນຈາກເຄືອຂ່າຍ";
+"NETWORK_TITLE" = "ກະແສເຄືອຂ່າຍ";
+"OPEN_NETWORK_HELP" = "ກະລຸນາໃສ່ທີ່ຢູ່ຂອງ HTTP, RTSP, RTMP, MMS, FTP ຫຼື UDP / RTP ທີ່ຈະເປີດຫລີ້ນເພງໄດ້ໂດຍກົງ.";
+"HTTP_UPLOAD_SERVER_OFF" = "Server ບໍ່ໄດ້ເຮັດວຽກ";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "ບໍ່ມີ WiFi ທີ່ໃຊ້ໄດ້";
+"OPEN_STREAM_OR_DOWNLOAD" = "ທ່ານຕ້ອງການທີ່ຈະດາວໂຫລດ ຫລື ຫລິ້ນ URL ນີ້?";
+"SHARED_VLC_IOS_LIBRARY" = "ການແບ່ງປັນ VLC ສໍາລັບ iOS Library";
+"SMB_CIFS_FILE_SERVERS" = "ຖານຂໍ້ມຸນໄຟລ (SMB)";
+
+"SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED"="ດາວໂຫຼດບໍ່ສຳເລັດ ດ້ວຍລະຫັດ HTTP %i";
-"HTTP_FILE_CREATION_FAILED"="ການສ້າງຟຼາຍບໍ່ສຳເລັດ";
-"HTTP_DOWNLOAD_CANCELLED"="ຜູ້ໃຊ້ສາມາດຍົກເລີກການດາວໂຫຼດ";
+"HTTP_DOWNLOAD_FAILED" = "ດາວໂຫຼດບໍ່ສຳເລັດ ດ້ວຍລະຫັດ HTTP %i";
+"HTTP_FILE_CREATION_FAILED" = "ການສ້າງຟຼາຍບໍ່ສຳເລັດ";
+"HTTP_DOWNLOAD_CANCELLED" = "ຜູ້ໃຊ້ຍົກເລີກການດາວໂຫຼດ";
 
-"DOWNLOAD_FROM_HTTP_HELP"="ກາລຸນາໃສ່ທີ່ຢູ່ເພື່ອດາວໂຫຼດຟຼາຍຂອງທ່ານໄປຍັງ %@.";
-"DOWNLOAD_FROM_HTTP"="ດາວໂຫຼດທັງໝົດ";
-"ERROR_NUMBER"="ຂໍ້ຜິດພາດ %i ທີ່ເກີດຂຶ້ນ";
-"DOWNLOAD_FAILED"="ການດາວໂຫຼດບໍ່ສຳເລັດ";
-"FILE_NOT_SUPPORTED"="ຮູບແບບຟຼາຍທີ່ບໍ່ໄດ້ຮັບການສະໜັບສະໜູນ";
-"FILE_NOT_SUPPORTED_LONG"="ຮູບແບບຟຼາຍທີ່ໃຊ້ໂດຍ %@ ບໍ່ສະໜັບສະໜູນໂດຍລຸ້ນຂອງ VLC ສຳລັບ iOS.";
-"SCHEME_NOT_SUPPORTED"="ທີ່ຢູ່ໂຄງການບໍ່ໄດ້ສະໜັບສະໜູນ";
-"SCHEME_NOT_SUPPORTED_LONG"="ໂຄງການທີ່ຢູ່ (%@) ບໍ່ສະໜັບສະໜູນ. ກະລຸນາໃຊ້ທີ່ຢູ່ທີ່ເລີ່ມຕົ້ນດ້ວຍ HTTP, HTTPS ຫຼື FTP.";
-"LIBRARY_ALL_FILES"="ຟຼາຍທັງໝົດ";
-"LIBRARY_MUSIC"="ອາລະບຳເພງ";
-"LIBRARY_SERIES"="ລາຍການໂທລະພາບ";
-"LIBRARY_TRACKS"="%i ເພງທັງຫຼາຍ";
-"LIBRARY_SINGLE_TRACK"="%i ເພງ";
-"LIBRARY_EPISODES"="%i ຕອນ, %i ຍັງບໍ່ໄດ້ອ່ານ";
-"LIBRARY_SINGLE_EPISODE"="%i ຕອນ, %i ຍັງບໍ່ໄດ້ອ່ານ";
-"LIBRARY_TRACK_N"="ເພງ %i";
-"LIBRARY_MINUTES_LEFT"="%@m ຊ້າຍ";
-"RENAME_MEDIA_TO"="ໃສ່ຊື່ໃໝ່ສຳລັບ %@";
+"DOWNLOAD_FROM_HTTP_HELP" = "ກາລຸນາໃສ່ທີ່ຢູ່ເພື່ອດາວໂຫຼດຟຼາຍຂອງທ່ານໄປຍັງ %@.";
+"DOWNLOAD_FROM_HTTP" = "ດາວໂຫຼດທັງໝົດ";
+"ERROR_NUMBER" = "ຂໍ້ຜິດພາດ %i ທີ່ເກີດຂຶ້ນ";
+"DOWNLOAD_FAILED" = "ການດາວໂຫຼດບໍ່ສຳເລັດ";
+"FILE_NOT_SUPPORTED" = "ຮູບແບບໄຟລບໍ່ຮອງຮັບ";
+"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"SCHEME_NOT_SUPPORTED" = "ທີ່ຢູ່ຂອງໂຄງຮ່າງບໍ່ຮອງຮັບ";
+"SCHEME_NOT_SUPPORTED_LONG" = "ໂຄງຮ່າງທີ່ຢູ່ (%@) ບໍ່ຮອງຮັບ. ກະລຸນາໃຊ້ທີ່ຢູ່ທີ່ເລີ່ມຕົ້ນດ້ວຍ HTTP, HTTPS ຫຼື FTP.";
+"RENAME_MEDIA_TO" = "ໃສ່ຊື່ໃໝ່ສຳລັບ %@";
 
-"FOLDER_EMPTY"="ໂຟນເດີທີ່ເປົ່າຫວ່າງ";
-"FOLDER_EMPTY_LONG"="ເພື່ອເພີ່ມຟຼາຍ, ແກ້ໄຂ, ເລືອກຟຼາຍທີ່ທ່ານຕ້ອງການ, ໃຫ້ຄລິກທີ່ປຸ່ມໂຟນເດີ ແລະ ເລືອກໂຟນເດີນີ້.";
-"FOLDER_INVALID_TYPE_TITLE"="ປະເພດຟຼາຍທີ່ບໍ່ຖຶກຕ້ອງ";
-"FOLDER_INVALID_TYPE_MESSAGE"="ທ່ານສາມາດໃຊ້ເວລາສອງຟຼາຍໄປຫາໂຟນເດີທີ່ປະກອບຫຼືເພີ່ມເປັນຟຼາຍດຽວກັບໂຟນເດີທີ່ມີຢູ່ແລ້ວ.";
-"FOLDER_CHOOSE_NAME_TITLE"="ສ້າງໂຟນເດີໃໝ່";
-"FOLDER_CHOOSE_NAME_MESSAGE"="ໃ່ສ່ຫົວຂໍ້ສຳລັບໂຟນເດີຂອງທ່ານ";
-"FOLDER_NAME_PLACEHOLDER"="ຫົວຂໍ້ຂອງໂຟນເດີ";
-"FOLDER_NAME_DUPLICATE_TITLE"="ຊື່ຫົວຂໍ້ທີ່ມີຢູ່ແລ້ວ";
-"FOLDER_NAME_DUPLICATE_MESSAGE"="ກາລຸນາເລືອກຫົວຂໍ້ທີ່ແຕກຕ່າງກັນ";
-"SELECT_FOLDER"="ເລືອກໂຟນເດີ";
 
-"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE"="ເລືອກຟຼາຍເພື່ອເປີດ:";
-"SHARING_ACTIVITY_OPEN_IN_TITLE"="ເປີດໃນ...";
-"SHARING_ERROR_NO_FILES"="ບໍ່ສາມາດຊອກຫາຟຼາຍໃດໆທີ່ຈະແບ່ງປັນ";
-"SHARING_ERROR_NO_APPLICATIONS"="ບໍ່ພົບການໃຊ້ງານໃດໆ ເພື່ອເປີດຟຼາຍປະເພດນີ້";
-"SHARING_SUCCESS_CAMERA_ROLL"="ຟຼາຍໄດ້ຖຶກບັນທຶກສຳເລັດຮຽບຮ້ອຍແລ້ວໃນຮູບແບບມ້ວນຟິມ";
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "ເລືອກຟຼາຍເພື່ອເປີດ:";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "ເປີດໃນ...";
+"SHARING_ERROR_NO_FILES" = "ບໍ່ສາມາດຊອກຫາຟຼາຍໃດໆທີ່ຈະແບ່ງປັນ";
+"SHARING_ERROR_NO_APPLICATIONS" = "ບໍ່ພົບການໃຊ້ງານໃດໆ ເພື່ອເປີດຟຼາຍປະເພດນີ້";
+"SHARING_SUCCESS_CAMERA_ROLL" = "ຟຼາຍໄດ້ຖຶກບັນທຶກສຳເລັດຮຽບຮ້ອຍແລ້ວໃນຮູບແບບມ້ວນຟິມ";
 
-"SECTION_HEADER_LIBRARY"="ສື່ຫ້ອງສະໝຸດ";
-"SECTION_HEADER_NETWORK"="ເຄືອຂ່າຍ";
+"SECTION_HEADER_LIBRARY" = "ສື່ຫ້ອງສະໝຸດ";
+"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
+"DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
+"HEADER_TITLE_RENDERER" = "Select a casting device";
 
-"LOCAL_NETWORK"="ເຄືອຂ່າຍທ້ອງຖິ່ນ";
-"CONNECT_TO_SERVER"="ເຊື່ອມຕໍ່ໄປຍັງເຊີເວີ";
-"ENTER_SERVER_CREDS_HELP"="ຖ້າຫາກຈຳເປັນຕ້ອງການໃຊ້ເຊີເວີ, ໃຫ້ໃສ່ຊື່ຜູ້ໃຊ້  ແລະ ລະຫັດຜ່ານ.";
-"USER_LABEL"="ຜູ້ໃຊ້";
-"PASSWORD_LABEL"="ລະຫັດຜ່ານ";
-"DISABLE_LABEL"="Disable";
+"LOCAL_NETWORK" = "ເຄືອຂ່າຍທ້ອງຖິ່ນ";
+"CONNECT_TO_SERVER" = "ເຊື່ອມຕໍ່ໄປຍັງເຊີເວີ";
+"FILE_SERVER" = "File Servers";
+"USER_LABEL" = "ຜູ້ໃຊ້";
+"PASSWORD_LABEL" = "ລະຫັດຜ່ານ";
+"DISABLE_LABEL" = "ປິດໃຊ້";
+"BUTTON_ANONYMOUS_LOGIN" = "ເຂົ້າໃຊ້ໂດຍຊື່ຫຍໍ້";
 
-"LOCAL_SERVER_REFRESH"="ຟື້ນຟູ";
-"LOCAL_SERVER_LAST_UPDATE"="ແກ້ໄຂລ່າສຸດໃນ %@";
-"LOCAL_SERVER_CONNECTION_FAILED_TITLE"="ການເຊື່ອມຕໍ່ເຊີເວີມີຄວາມຜິດພາດ";
-"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE"="ກາລຸນາກວດສອບທີ່ຢູ່ເຊີເວີຂອງທ່ານ ແລະ ປ້ອນຂໍ້ມູນສວນຕົວ";
+"LOCAL_SERVER_REFRESH" = "ຟື້ນຟູ";
+"LOCAL_SERVER_LAST_UPDATE" = "ແກ້ໄຂລ່າສຸດເມື່ອ %@";
+"LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "ການເຊື່ອມຕໍ່ເຊີເວີມີຄວາມຜິດພາດ";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "ກາລຸນາກວດສອບທີ່ຢູ່ເຊີເວີຂອງທ່ານ ແລະ ປ້ອນຂໍ້ມູນສວນຕົວ";
 
-"CLOUD_SERVICES"="ການບໍລິການ​ Cloud";
-"LOGIN"="ເຂົ້າສູ່ລະບົບ";
-"LOGGED_IN"="ເຂົ້າສູ່ລະບົບ";
+"CLOUD_SERVICES" = "ການບໍລິການ​ Cloud";
+"LOGIN" = "ເຂົ້າສູ່ລະບົບ";
+"LOGGED_IN" = "ເຂົ້າສູ່ລະບົບ";
+"LOGGED_IN_SERVICES" = "%d logged in services";
+"LOGGED_IN_SERVICE" = "1 logged in service";
 
-"DROPBOX_DOWNLOAD"="ດາວໂຫຼດຟຼາຍ?";
-"DROPBOX_DL_LONG"="ທ່ານຕ້ອງການທີ່ຈະດາວໂຫຼດ \"%@\" ເພຶ່ອ %@?";
-"DROPBOX_LOGIN"="ເຂົ້າສູ່ລະບົບ";
+"DROPBOX_DOWNLOAD" = "ດາວໂຫຼດຟຼາຍ?";
+"DROPBOX_DL_LONG" = "ທ່ານຕ້ອງການທີ່ຈະດາວໂຫຼດ \"%@\" ເພຶ່ອ %@?";
+"DROPBOX_LOGIN" = "ເຂົ້າສູ່ລະບົບ";
 
-"GDRIVE_ERROR_FETCHING_FILES"="ຄວາມຜິດພາດໃນຂະນະທີ່ເອີ້ນໄຟ";
-"GDRIVE_DOWNLOAD_SUCCESSFUL"="ຟຼາຍຂອງທ່ານໄດ້ຮັບການດາວໂຫຼດສໍາເລັດແລ້ວ";
-"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE"="ຄວາມສຳເລັດ";
-"GDRIVE_ERROR_DOWNLOADING_FILE"="ເກີດຄວາມຜິດພາດໃນຂະນະທີ່ກຳລັງດາວໂຫຼດ";
-"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE"="ຄວາມຜິດພາດ";
+"GDRIVE_ERROR_FETCHING_FILES" = "ຄວາມຜິດພາດໃນຂະນະທີ່ເອີ້ນໄຟ";
+"GDRIVE_DOWNLOAD_SUCCESSFUL" = "ຟຼາຍຂອງທ່ານໄດ້ຮັບການດາວໂຫຼດສໍາເລັດແລ້ວ";
+"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "ຄວາມສຳເລັດ";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "ເກີດຄວາມຜິດພາດໃນຂະນະທີ່ກຳລັງດາວໂຫຼດ";
+"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "ຄວາມຜິດພາດ";
 
-"DISK_FULL"="ຂອບເຂດຈຳກັດຂອງການເກັບຮັກສາຂໍ້ມູນ";
-"DISK_FULL_FORMAT"="%@ ບໍ່ສາມາດເກັບຮັກສາໄວ້ຢູ່ໃນ %@ ຂອງທ່ານ, ເພາະວ່າທ່ານບໍ່ມີພື້ນທີ່ພຽງພໍໄວ້.";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
 
-"NUM_OF_FILES"="%i ຟຼາຍ";
-"ONE_FILE"="1 ຟຼາຍ";
-"NO_FILES"="ບໍ່ມີຟຼາຍໄດ້ຮັບສະໜັບສະໜູນ";
-"DOWNLOADING"="ກຳລັງດາວໂຫຼດ...";
-"REMAINING_TIME"= "ເວລາທີ່ຍັງເຫຼືອ: %@";
-"ENTER_PASSCODE"="ໃສ່ລະຫັດຜ່ານ";
-"REENTER_PASSCODE"="ໃສ່ລະຫັດຜ່ານອີກເທື່ອໜຶ່ງ";
-"PASSCODE_SET"="ການຕັ້ງຄ່າລະຫັດຜ່ານ";
-"PASSCODE_CHANGE"="ປ່ຽນລະຫັດຜ່ານ";
-"PASSCODE_ENTER_OLD"="ໃສ່ລະຫັດຜ່ານເກົ່າຂອງທ່ານ";
-"PASSCODE_ENTER_NEW"="ໃສ່ລະຫັດຜ່ານໃໝ່ຂອງທ່ານ";
-"PASSCODE_REENTER_NEW"="ໃສ່ລະຫັດຜ່ານໃໝ່ຂອງທ່ານອີກເທື່ອໜຶ່ງ";
-"PASSCODES_DID_NOT_MATCH"="ລະຫັດຜ່ານທີ່ທ່ານປ້ອນບໍ່ຄືກັນ. ກະລຸນາລອງໃໝ່ອີກເທື່ອໜຶ່ງ.";
-"PASSCODE_FAILED_1"="1 ຄວາມພະຍາຍາມທີ່່ລົ້ມເຫຼວຂອງລະຫັດຜ່ານ";
-"PASSCODE_FAILED_FORMAT"="%d ບໍ່ປະສົບຜົນສຳເລັດໃນຄວາມພະຍາຍາມຂອງລະຫັດຜ່ານ";
-"TOUCHID_UNLOCK"="Unlock Media Library\nCancel to enter Passcode";
+"DISK_FULL" = "ຂອບເຂດຈຳກັດຂອງການເກັບຮັກສາຂໍ້ມູນ";
+"DISK_FULL_FORMAT" = "%@ ບໍ່ສາມາດເກັບຮັກສາໄວ້ຢູ່ໃນ %@ ຂອງທ່ານ, ເພາະວ່າທ່ານບໍ່ມີພື້ນທີ່ພຽງພໍໄວ້.";
 
-"Settings"="ການຕັ້ັ້ງຄ່າ"; // plain text key to keep compatibility with InAppSettingsKit's upstream
-"ON"="On";
-"OFF"="Off";
+"NUM_OF_FILES" = "%i ຟຼາຍ";
+"ONE_FILE" = "1 ຟຼາຍ";
+"NO_FILES" = "ບໍ່ມີຟຼາຍໄດ້ຮັບສະໜັບສະໜູນ";
+"DOWNLOADING" = "ກຳລັງດາວໂຫຼດ...";
+"REMAINING_TIME" = "ເວລາທີ່ຍັງເຫຼືອ: %@";
+"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
-"EMPTY_LIBRARY"="ສື່ຫ້ອງສະໜຸດເປົ່າຫວ່າງ";
-"EMPTY_LIBRARY_LONG"="ສໍາລັບການຫຼິ້ນ, ທ່ານສາມາດນຳໃຊ້ສື່ Media ຈາກເຄື່ອງເຊີເວີໃນເຄືອຂ່າຍທ້ອງຖິ່ນຂອງທ່ານ, ຈາກການຟັງ ຫຼືການປັບສື່ Media ກັບອຸປະກອນຂອງທ່ານໂດຍນໍາໃຊ້ iTunes, WiFi Upload ຫຼື ການບໍລິການ Cloud.";
+//PAPasscode Strings that we need to localize for them
 
-"PLAYBACK_SCRUB_HELP"="ເລື່ອນນິ້ວຂອງທ່ານລົງເພື່ອປັບອັດຕາການຂັດໄດ້";
-"PLAYBACK_SCRUB_HIGH"="ຄວາມໄວສູງທີ່ຂັດ";
-"PLAYBACK_SCRUB_HALF"="ເຄິ່ງຫນຶ່ງຂອງຄວາມໄວຂັດ";
-"PLAYBACK_SCRUB_QUARTER"="ໄຕມາດຂອງຄວາມໄວຂັດ";
-"PLAYBACK_SCRUB_FINE"="ຄວາມລະອຽດຂັດ";
-"PLAYBACK_POSITION"="ຕຳແໜ່ງທີ່ຫຼິ້ນໄດ້";
-"VIDEO_FILTER"="ການກັ່ນຕອງວິດີໂອ";
-"VIDEO_FILTER_RESET_BUTTON"="ຕັ້ງຄ່າການກັ່ນຕອງວິດີໂອ";
-"VIDEO_ASPECT_RATIO_BUTTON"="ປ່ຽນອັດຕາສ່ວນດ້ານວິດີໂອ";
-"PLAY_PAUSE_BUTTON"="ຫຼິ້ນ ຫຼື ຢຸດການຫຼິ້ນໃນປັດຈຸບັນ";
-"BWD_BUTTON"="ກັບຫຼັງ";
-"FWD_BUTTON"="ໄປໜ້າ";
-"PLAY_BUTTON"="ຫຼິ້ນ";
-"PAUSE_BUTTON"="ຢຸດ";
+"Settings" = "ການຕັ້ັ້ງຄ່າ"; // plain text key to keep compatibility with InAppSettingsKit's upstream
+"ON" = "ເປີດ";
+"OFF" = "ປິດ";
 
-"VERSION_FORMAT"="ລຸ້ນ: %@";
-"BASED_ON_FORMAT"="ອີງໃສ່:<br />%@";
+"EMPTY_LIBRARY" = "ສື່ຫ້ອງສະໜຸດເປົ່າຫວ່າງ";
+"EMPTY_LIBRARY_LONG" = "ສໍາລັບການຫຼິ້ນ, ທ່ານສາມາດນຳໃຊ້ສື່ Media ຈາກເຄື່ອງເຊີເວີໃນເຄືອຂ່າຍທ້ອງຖິ່ນຂອງທ່ານ, ຈາກການຟັງ ຫຼືການປັບສື່ Media ກັບອຸປະກອນຂອງທ່ານໂດຍນໍາໃຊ້ iTunes, WiFi Upload ຫຼື ການບໍລິການ Cloud.";
 
-"NEW"="ໃໝ່";
+"PLAYBACK_SCRUB_HELP" = "ເລື່ອນນິ້ວຂອງທ່ານລົງເພື່ອປັບອັດຕາການຂັດໄດ້";
+"PLAYBACK_SCRUB_HIGH" = "ຄວາມໄວສູງທີ່ຂັດ";
+"PLAYBACK_SCRUB_HALF" = "ເຄິ່ງຫນຶ່ງຂອງຄວາມໄວຂັດ";
+"PLAYBACK_SCRUB_QUARTER" = "ໄຕມາດຂອງຄວາມໄວຂັດ";
+"PLAYBACK_SCRUB_FINE" = "ຄວາມລະອຽດຂັດ";
+"PLAYBACK_POSITION" = "ຕຳແໜ່ງທີ່ຫຼິ້ນໄດ້";
+"VIDEO_FILTER" = "ການກັ່ນຕອງວິດີໂອ";
+"VIDEO_FILTER_RESET_BUTTON" = "ຕັ້ງຄ່າການກັ່ນຕອງວິດີໂອ";
+"VIDEO_ASPECT_RATIO_BUTTON" = "ປ່ຽນອັດຕາສ່ວນດ້ານວິດີໂອ";
+"PLAY_PAUSE_BUTTON" = "ຫຼິ້ນ ຫຼື ຢຸດການຫຼິ້ນໃນປັດຈຸບັນ";
+"BWD_BUTTON" = "ກັບຫຼັງ";
+"FWD_BUTTON" = "ໄປໜ້າ";
+"PLAY_BUTTON" = "ຫຼິ້ນ";
+"NEXT_BUTTON" = "Next";
+"PREV_BUTTON" = "Previous";
+"PLAY_ALL_BUTTON" = "ຫລີ້ນທັງຫມົດ";
 
-"BUG_REPORT_TITLE"="ລາຍງານຂໍ້ຜິດພາດ";
-"BUG_REPORT_MESSAGE"="ທ່ານຕ້ອງການທີ່ຈະສ້າງລາຍງານຂໍ້ຜິດພາດຫຼືບໍ່?";
-"BUG_REPORT_BUTTON"="ເປີດ Safari";
+"VERSION_FORMAT" = "ລຸ້ນ: %@";
+"BASED_ON_FORMAT" = "ອີງໃສ່:<br />%@";
 
-"VO_VIDEOPLAYER_TITLE"="ເຄື່ອງຫຼິ້ນວິດີໂອ";
-"VO_VIDEOPLAYER_DOUBLETAP"="ແຕະສອງເທື່ອເພື່ອສະແດງ ຫຼື ຊ້ອນໂຕຄວບຄຸມການຫຼິ້ນ";
+"NEW" = "ໃໝ່";
 
-"FIRST_STEPS_WELCOME"="ຍີນດີຕ້ອນຮັບ";
-"FIRST_STEPS_WELCOME_DETAIL"="ຂັ້ນຕອນທໍາອິດເພື່ອຊິງຄ໌ ແລະ ຫຼິ້ນສື່ Media ຂອງທ່ານ.";
-"FIRST_STEPS_ITUNES"="iTunes ຊິງຄ໌ຟຼາຍ";
-"FIRST_STEPS_ITUNES_DETAILS"="ເຊື່ອມຕໍ່ %@ ຂອງທ່ານກັບ Mac ຫຼື PC ໂດຍໃຊ້ cable.\nເປີດ iTunes.\nເລືອກ %@ ຂອງທ່ານ.\nສະລັບໄປທີ່ \"Apps\" ແຸຖບເລື່ອນລົງ ແລະ ໃຫ້ຫາເບີ່ງ VLC.\nການຖ່າຍໂອນຟຼາຍຂອງທ່ານ.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS"="ການເຊື່ອມຕໍ່ %@ ຂອງທ່ານກັບເຄືອຂ່າຍເຊັ່ນດຽວກັນກັບ Mac ຫຼື PC ຂອງທ່ານ.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS"="ສະວິດສະຫຼັບໃນແຖບດ້ານຂ້າງໃຫ້ປ້ອນ URL ໄປຍັງເວັບບາວເຊີ ແລະ ອັບໂຫຼດຟຼາຍຂອງທ່ານ.";
-"FIRST_STEPS_CLOUDS"="ກໍ່ໃກ້ເກີດມີບັນຫາ";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS"="ອັບໂຫຼດສື່  Media ຂອງທ່ານໄປຍັງ Google Drive or Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS"="ເປີດແຖບດ້ານຂ້າງເພື່ອເລືອກຜູ້ໃຫ້ບໍລິການຄຼາວດ໌ຂອງທ່ານ ແລະ ເຂົ້າເຖິງສື່ຂອງທ່ານສຳລັບການດາວໂຫຼດ ຫຼື ສະຕີມມິ່ງ.";
-"FIRST_STEPS_PLAYBACK"="ການຟັງເພງ";
-"FIRST_STEPS_FLOSS"="VLC ສຳລັບ iOS ເປັນຊອບແວຣ໌ຟຣີ ແລະ ເປີດແຫຼ່ງພັດທະນາໂດຍ volunteers.\nພວກເຮົາຫວັງວ່າທ່ານຈະຮັກມັນ.";
+"BUG_REPORT_TITLE" = "ລາຍງານຂໍ້ຜິດພາດ";
+"BUG_REPORT_MESSAGE" = "ທ່ານຕ້ອງການທີ່ຈະສ້າງລາຍງານຂໍ້ຜິດພາດຫຼືບໍ່?";
+"BUG_REPORT_BUTTON" = "ເປີດ Safari";
 
-"FIRST_STEPS_TIME"="ເວລາ";
-"FIRST_STEPS_ASPECT"="ອັດຕາສ່ວນ";
-"FIRST_STEPS_SPEED"="ຄວາມໄວ";
-"FIRST_STEPS_REPEAT"="ເຮັດຊ້ຳ";
-"FIRST_STEPS_SUBTITLES"="ຄຳອະທິບາຍເພງ";
-"FIRST_STEPS_AUDIO"="ການຕິດຕາມສຽງ";
-"FIRST_STEPS_POSITION"="ຕຳແໜ່ງ";
+"VO_VIDEOPLAYER_TITLE" = "ເຄື່ອງຫຼິ້ນວິດີໂອ";
+"VO_VIDEOPLAYER_DOUBLETAP" = "ແຕະສອງເທື່ອເພື່ອສະແດງ ຫຼື ຊ້ອນໂຕຄວບຄຸມການຫຼິ້ນ";
 
-"PLEX_WATCHED"="ເຄື່ອງໝາຍໃຫ້ເບີ່ງ";
-"PLEX_UNWATCHED"="ເຄື່ອງໝາຍການຍັກເລີກການເບີ່ງ";
-"PLEX_ERROR_MARK"="ຂໍ້ຜິດພາດຂອງສື່ໃນການເຮັດເຄື່ອງໝາຍ";
-"PLEX_CONNECT_TO_SERVER"="ເຊື່ອມຕໍ່ເຊີເວີໄປຍັງສື່ຂອງລະບົບ Plex";
-"PLEX_CHECK_ACCOUNT"="ກວດສອບເບີ່ງບັນຊີ Plex ຂອງທ່ານໃນການຕັ້ງຄ່າ";
-"PLEX_ERROR_ACCOUNT"="ມີຄວາມຜິດພາດໃນການເຂົ້າສູ່ລະບົບ Plex";
+"FIRST_STEPS_WELCOME" = "ຍີນດີຕ້ອນຮັບ";
+"FIRST_STEPS_WELCOME_DETAIL" = "ຂັ້ນຕອນທໍາອິດເພື່ອຊິງຄ໌ ແລະ ຫຼິ້ນສື່ Media ຂອງທ່ານ.";
+"FIRST_STEPS_ITUNES" = "iTunes ຊິງຄ໌ຟຼາຍ";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
+"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "ການເຊື່ອມຕໍ່ %@ ຂອງທ່ານກັບເຄືອຂ່າຍເຊັ່ນດຽວກັນກັບ Mac ຫຼື PC ຂອງທ່ານ.";
+"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "ສະວິດສະຫຼັບໃນແຖບດ້ານຂ້າງໃຫ້ປ້ອນ URL ໄປຍັງເວັບບາວເຊີ ແລະ ອັບໂຫຼດຟຼາຍຂອງທ່ານ.";
+"FIRST_STEPS_CLOUDS" = "ກໍ່ໃກ້ເກີດມີບັນຫາ";
+"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "ອັບໂຫຼດສື່  Media ຂອງທ່ານໄປຍັງ Google Drive or Dropbox.";
+"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "ເປີດແຖບດ້ານຂ້າງເພື່ອເລືອກຜູ້ໃຫ້ບໍລິການຄຼາວດ໌ຂອງທ່ານ ແລະ ເຂົ້າເຖິງສື່ຂອງທ່ານສຳລັບການດາວໂຫຼດ ຫຼື ສະຕີມມິ່ງ.";
+"FIRST_STEPS_PLAYBACK" = "ການຟັງເພງ";
+"FIRST_STEPS_FLOSS" = "VLC ສຳລັບ iOS ເປັນຊອບແວຣ໌ຟຣີ ແລະ ເປີດແຫຼ່ງພັດທະນາໂດຍ volunteers.\nພວກເຮົາຫວັງວ່າທ່ານຈະຮັກມັນ.";
 
-"UNAUTHORIZED"="ບໍ່ໄດ້ຮັບອະນຸຍາດ";
+"FIRST_STEPS_TIME" = "ເວລາ";
+"FIRST_STEPS_ASPECT" = "ອັດຕາສ່ວນ";
+"FIRST_STEPS_SPEED" = "ຄວາມໄວ";
+"FIRST_STEPS_REPEAT" = "ເຮັດຊ້ຳ";
+"FIRST_STEPS_SUBTITLES" = "ຄຳອະທິບາຍເພງ";
+"FIRST_STEPS_AUDIO" = "ການຕິດຕາມສຽງ";
+"FIRST_STEPS_POSITION" = "ຕຳແໜ່ງ";
 
-"SERVER"="ເຄືອຂ່າຍແມ່";
-"SERVER_PORT"="ພອດ";
-"BOOKMARK"="Bookmark";
-"INVALID_IP_PORT"="ກະລຸນາໃສ່ທີ່ຢູ່ IP ແລະ Port ໃຫ້ຖືກຕ້ອງ";
-"NO_SERVER_FOUND"="No server found";
-"NO_RECENT_STREAMS"="No stream was played recently";
+"PLEX_CHECK_ACCOUNT" = "ກວດສອບເບີ່ງບັນຊີ Plex ຂອງທ່ານໃນການຕັ້ງຄ່າ";
+"PLEX_ERROR_ACCOUNT" = "ມີຄວາມຜິດພາດໃນການເຂົ້າສູ່ລະບົບ Plex";
 
-"WEBINTF_TITLE"="ແບ່ງປັນກັນຜ່ານລະບົບ WiFi";
-"WEBINTF_DROPFILES"="ລຶບຟຼາຍ";
-"WEBINTF_DROPFILES_LONG"="ວາງຟຼາຍໃນ window ເພື່ອເພີ່ມທີມຂອງທ່ານ %@.<br> ຫຼື ຄຼິກທີ່ \"+\" ປຸ້ມເພື່ອໃຊ້ໃນການເລືອກຟຼາຍ.";
-"WEBINTF_DOWNLOADFILES"="ຟຼາຍດາວໂຫຼດ";
-"WEBINTF_DOWNLOADFILES_LONG"="ພຽງແຕ່ຄລິກໃສ່ໄຟລ໌ທີ່ທ່ານຕ້ອງການເພື່ອດາວໂຫລດຈາກ %@.";
-"WEBINTF_TITLE_ATV"="Remote Playback";
-"WEBINTF_DROPFILES_LONG_ATV"="Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"UNAUTHORIZED" = "ບໍ່ໄດ້ຮັບອະນຸຍາດ";
 
-"CLOUD_DRIVES"="Cloud Drives ອື່ນໆ";
+"SERVER" = "ເຄືອຂ່າຍແມ່";
+"SERVER_PORT" = "ພອດ";
+"NO_SERVER_FOUND" = "ບໍ່ພົບເຊີບເວີ";
+"NO_RECENT_STREAMS" = "ບໍ່ມີ stream ທີ່ຖືກຫຼີ້ນຫລ້າສຸດ";
 
-"NOW_PLAYING"="ກຳລັງຫຼິ້ນ";
-"PLAY_NOW"="ຫຼິ້ນດຽວນີ້";
-"PLAYING"="ຫຼິ້ນ";
-"PAUSED"="ຢຸດ";
-"DETAIL"="ລາຍລະອຽດ";
+"WEBINTF_TITLE" = "ແບ່ງປັນກັນຜ່ານລະບົບ WiFi";
+"WEBINTF_DROPFILES" = "ລຶບຟຼາຍ";
+"WEBINTF_DROPFILES_LONG" = "ວາງຟຼາຍໃນ window ເພື່ອເພີ່ມທີມຂອງທ່ານ %@.<br> ຫຼື ຄຼິກທີ່ \"+\" ປຸ້ມເພື່ອໃຊ້ໃນການເລືອກຟຼາຍ.";
+"WEBINTF_DOWNLOADFILES" = "ຟຼາຍດາວໂຫຼດ";
+"WEBINTF_DOWNLOADFILES_LONG" = "ພຽງແຕ່ຄລິກໃສ່ໄຟລ໌ທີ່ທ່ານຕ້ອງການເພື່ອດາວໂຫລດຈາກ %@.";
+"WEBINTF_TITLE_ATV" = "ຫຼີ້ນເພງທາງໄກ";
+"WEBINTF_DROPFILES_LONG_ATV" = "ກະລຸນາວາງແຟ້ມລົງໃນ window ເພື່ອເລີ່ມຫຼີ້ນພວກມັນຢູ່ %@ ຂອງທ່ານ.<br>ຫຼືຄລິກທີ່ປຸ່ມ \"+\" ໃນການເອີ້ນໃຊ້ ໄດອາລັອກ file picker.";
+"WEBINTF_URL_SENT" = "ສົ່ງທີ່ຢູ່ URL ສຳເລັດ";
+"WEBINTF_URL_EMPTY" = "ປະວ່າງ URL ໄວ້ບໍ່ໄດ້";
+"WEBINTF_URL_INVALID" = "URL ບໍ່ສາມາດໃຊ້ໄດ້";
 
-"VOLUME"="ປະລິມານ";
-"DURATION"="ໄລຍະເວລາ";
-"TITLE"="ຫົວຂໍ້";
+
+
+"VOLUME" = "ປະລິມານ";
+"DURATION" = "ໄລຍະເວລາ";
+"TITLE" = "ຫົວຂໍ້";
 
 // strings from VLCKit
-"%ld hours %ld minutes remaining"="%ld hours %ld minutes remaining";
-"%ld hours %ld minutes"="%ld hours %ld minutes";
-"%ld minutes remaining"="%ld minutes remaining";
-"%ld minutes"="%ld minutes";
-"%ld minutes %ld seconds remaining"="%ld minutes %ld seconds remaining";
-"%ld minutes %ld seconds"="%ld minutes %ld seconds";
-"%ld seconds remaining" = "%ld seconds remaining";
-"%ld seconds"="%ld seconds";
 
 // accessibility labels for the playlist
-"OBJECT_TYPE_SHOW"="ສະແດງ";
-"OBJECT_TYPE_SHOW_EPISODE"="ສະແດງຕອນ";
-"OBJECT_TYPE_LABEL"="ໂຟນເດີ";
-"OBJECT_TYPE_ALBUM"="ອາລະບຳ";
-"OBJECT_TYPE_ALBUM_TRACK"="ການຕິດຕາມອາລະບຳ";
-"OBJECT_TYPE_FILE"="ຟຼາຍ";
-"OBJECT_TYPE_FILE_AUDIO"="ຟຼາຍສຽງ";
 
-"LONGPRESS_TO_STOP"="ກົດເພື່ອຢຸດການຫຼິ້ນ";
+
+"LONGPRESS_TO_STOP" = "ກົດເພື່ອຢຸດການຫຼິ້ນ";
 
 // ATV specific
-"LOGIN_FAIL"="Login failure";
-"CLOUD_LOGIN_LONG"="To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
-"ENTER_URL"="Enter URL to play";
-"HTTP_SERVER_ON"="Remote Playback enabled";
-"HTTP_SERVER_OFF"="Enable Remote Playback";
+"AUDIO_INFO_VC_TITLE" = "Audio Info";
+"CLOUD_LOGIN_LONG" = "ຫາກຕ້ອງການເຂົ້າໃຊ້ງານບໍລິການ Cloud, ໃຫ້ເຊັ່ນເຂົ້າ iCloud ທັງທາງ Apple TV ແລະເຄື່ອງ iOS ຜ່ານ Apple ID ຄືກັນ ແລ້ວເປີດການໃຊ້ Keychain ລ່ວມກັນໃນການຕັ້ງຄ່າລະບົບ.\nຫຼັງຈາກນັ້ນ, ລັອກອິນໄປຫາຜູ້ຈັດຫາ cloud ຕົວເລືອກຂອງທ່ານໂດຍໃຊ້ແອັບ VLC ເທິງອຸປະກອນ iOS ຂອງທ່ານ. ຫຼັງຈາກນັ້ນ, ເລືອກມັນຢູ່ເທິງຫນ້າຈໍ";
+"ENTER_URL" = "ໃສ່ URL ເພື່ອເລີ່ມການຫຼີ້ນ";
+"HTTP_SERVER_ON" = "ຍົກເລີກການຫລີ້ນແບບທາງໄກ";
+"HTTP_SERVER_OFF" = "ທຳການຫລີ້ນແບບທາງໄກ";
+"CACHED_MEDIA" = "ມີເດຍໄຟລທີ່ສະສົມໄວ້";
+"CACHED_MEDIA_LONG" = "ບັນດາຫນັງ, ເພງທີ່ຢູ່ນີ້ແມ່ນໄດ້ບັນທຶກໄວ້ໃນ ແອັບເປີ້ນທີວີຂອງທ່ານ. ກະລຸນາຮັບຮູ້ວ່າຂໍ້ມູນເຫລົ່ານີ້ສາມາດລືບອອກໄດ້ລະບົບປະຕິບັດການໄດ້ຕະຫລອດເວລາໂດຍບໍ່ໄດ້ແຈ້ງເຕືອນລ່ວງຫນ້າເມື່ອບໍ່ໄດ້ເປີດ VLC ໃນກະນີ້ທີ່ພື້ນທີ່ຈັດເກັບຂໍ້ມູນບໍ່ພຽງພໍ.";
+"DOWNLOAD_SUBS_FROM_OSO" = "ດາວໂຫລດຄຳບັນລະຍາຍຈາກ OpenSubtitles.org...";
+"FOUND_SUBS" = "ພົບຄຳບັນລະຍາຍ";
+"USE_SPDIF" = "Use Pass-through (S/PDIF)";
+
+"PLAYBACK" = "Playback";
+"REPEAT_MODE" = "Repeat";
+"REPEAT_DISABLED" = "Disabled";
+"REPEAT_SINGLE" = "Single";
+"REPEAT_FOLDER" = "Folder";
 
 // Local Network Service Names
-"UPNP_LONG"="Universal Plug'n'Play (UPnP)";
-"UPNP_SHORT"="UPnP";
+"UPNP_LONG" = "ລະບົບ Plug'n'Play (UPnP)";
+"UPNP_SHORT" = "UPnP";
 
-"PLEX_LONG"="Plex Media Server (via Bonjour)";
-"PLEX_SHORT"="Plex";
+"PLEX_LONG" = "ເຂົ້າຫາເຊີບເວີຂອງມີເດຍ(ຜ່ານ Bonjour)";
+"PLEX_SHORT" = "ເຂົ້າຫາ";
 
-"FTP_LONG"="File Transfer Protocol (FTP)";
-"FTP_SHORT"="FTP";
+"FTP_LONG" = "ລະບົບສົ່ງໄຟລ (FTP)";
+"FTP_SHORT" = "ລະບົບສົ່ງໄຟລ FTP";
+
+"BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
+"DSM_WORKGROUP" = "Workgroup";
+
+"URL_NOT_SUPPORTED" = "The URL can't be opened";
+
+// Insert %@ where play-pause-glyph should be placed
+"DELETE_ITEM_HINT" = "ກົດ %@ ເພື່ອລືບ"; /* Insert %@ where play-pause-glyph should be placed */
+
+"DELETE_INVALID_MESSAGE" = "The selection can't be deleted";
+"DELETE_INVALID_TITLE" = "Invalid Selection";
+"DELETE_MESSAGE" = "Confirm the deletion of the selected files";
+"DELETE_TITLE" = "Delete Selected Files";
+
+//Drag and Drop
+"THIS_FILE" = "This file";
+"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
+"FILE_EXISTS" = "%@ already exists";
+
+"PROTOCOL_NOT_SELECTED" = "Protocol not selected";
+"Settings" = "ການຕັ້ັ້ງຄ່າ";
+
+"CANCEL" = "Cancel";
+"ERROR" = "Error";
+"OK" = "Ok";
+"SORT" = "Sort";
+"SORT_BY" = "Sort by";
+"VIDEO" = "Video";
+
+// MediaViewController Swipable Header
+"ALBUMS" = "Albums";
+"ARTISTS" = "Artists";
+"EPISODES" = "Episodes";
+"GENRES" = "Genres";
+"MOVIES" = "Movies";
+"SONGS" = "Songs";
+"PLAYLISTS" = "Playlists";
+
+"MODIFIED_DATE" = "Modified date";
+"NAME" = "Name";
+
+//EDIT
+"ADD_TO_PLAYLIST" = "Add to Playlist";
+
+"PLAYLIST_PLACEHOLDER" = "Playlist title";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+
+"RENAME_PLACEHOLDER" = "New title";
+"ERROR_RENAME_FAILED" = "Renaming failed";
+"ERROR_EMPTY_NAME" = "The title can't be empty";
+
+// Sort
+
+"HEADER_TITLE_SORT" = "Sort by";
+
+// VLCMediaLibraryKit - Sorting Criteria
+
+"ALPHA" = "Alphanumerically";
+"DURATION" = "ໄລຍະເວລາ";
+"INSERTION_DATE" = "Insertion date";
+"LAST_MODIFICATION_DATE" = "Last modification date";
+"RELEASE_DATE" = "Release date";
+"FILE_SIZE" = "File size";
+"ARTIST" = "Artist";
+"PLAY_COUNT" = "Play count";
+"ALBUM" = "Album";
+"FILENAME" = "Filename";
+"TRACK_NUMBER" = "Track number";
