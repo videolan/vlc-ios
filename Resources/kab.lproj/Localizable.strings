@@ -1,305 +1,348 @@
-"CHOOSE_AUDIO_TRACK"="Fren tafuɣalt n imesli";
-"CHOOSE_SUBTITLE_TRACK"="Fren tafuɣalt n iduzewlen";
-"OPEN_TRACK_PANEL"="Ldi tafrayt n tfuɣalt";
-"CHOOSE_TITLE"="Fren azwel";
-"CHOOSE_CHAPTER"="Fren ixf";
-"MINIMIZE_PLAYBACK_VIEW"="Simẓi ameɣri";
-"FULLSCREEN_PLAYBACK"="Taɣuri deg wegdil ačuran";
-"TRACK_SELECTION"="Track Selection";
-"AUDIO"="Audio";
-"SUBTITLES"="Subtitles";
-"LANGUAGE"="Language";
-"MEDIA_INFO"="Media Information";
-"VIDEO_DIMENSIONS"="Video dimensions";
-"FORMAT_VIDEO_DIMENSIONS"="%ix%i pixel";
-"FORMAT_AUDIO_TRACKS"="%i audio tracks";
-"ONE_AUDIO_TRACK"="One audio track";
-"FORMAT_SPU_TRACKS"="%i subtitles tracks";
-"ONE_SPU_TRACK"="One subtitles track";
+"STORE_DESCRIPTION" = "VLC i iOS d tabburt n umeɣṛi madia VLC i iPAD, iPhone d Ipod touch.\nIzmer ad yurar akk isura, timwaliyin d imesliyen n tugett n imasalen s srid s war aselket.\nAd yeǧǧ amtawi n ifuyla d Dropbox, GDrive, OneDrive, Box, iCould Drive, iTunes, izedman usriden ed tbeṭṭu s Wifi neɣ taɣuṛi tusriṭ seg iqeddacen SMB, FTP, UPnP/DLNA ed web.\nVLC ittmuddu tallalt i wadizwilen leqqayen gar asen amsaḍa SSA ačuṛan, imesli aget-tafuɣalt ed usenqed n urered n tɣuṛi tideffirt.\n\nVLC i iOS d ilelli u d aɣbalu yeldin.";
 
-"PLAYING_EXTERNALLY_TITLE"="TV teqqen";
-"PLAYING_EXTERNALLY_DESC"="Abidyu-agi al yetteddu di TV";
+"STORE_DESCRIPTION_TV" = "VLC media player is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows streaming from cloud services (Dropbox, OneDrive, Box), Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.\n\nMetadata and artwork are provided by TMDb and Hatchet, which are community maintained movie and music databases.";
 
-"VFILTER_HUE"="Tiɣmi";
-"VFILTER_CONTRAST"="Amyeẓli";
-"VFILTER_BRIGHTNESS"="Tafat";
-"VFILTER_SATURATION"="Aseṛwu";
-"VFILTER_GAMMA"="Gamma";
+"CHOOSE_AUDIO_TRACK" = "Fren tafuɣalt n imesli";
+"CHOOSE_SUBTITLE_TRACK" = "Fren tafuɣalt n iduzewlen";
+"OPEN_TRACK_PANEL" = "Ldi tafrayt n tfuɣalt";
+"CHOOSE_TITLE" = "Fren azwel";
+"CHOOSE_CHAPTER" = "Fren ixf";
+"CHAPTER_SELECTION_TITLE" = "Ixfan";
+"TITLE" = "Azwel";
+"CHAPTER" = "Ixf";
+"MINIMIZE_PLAYBACK_VIEW" = "Simẓi ameɣri";
+"FULLSCREEN_PLAYBACK" = "Taɣuri deg wegdil ačuran";
+"TRACK_SELECTION" = "Tafrayt n tfuɣalt";
+"AUDIO" = "Ameslaw";
+"SUBTITLES" = "Idduzewlen";
+"LANGUAGE" = "Tutlayt";
+"MEDIA_INFO" = "Isalen ɣef umidya";
+"VIDEO_DIMENSIONS" = "Tisekta n uvidyu";
+"FORMAT_VIDEO_DIMENSIONS" = "%ix%i pixel";
+"FORMAT_AUDIO_TRACKS" = "%i audio tracks";
+"ONE_AUDIO_TRACK" = "Yiwen n tfuɣalt tasfeldant";
+"FORMAT_SPU_TRACKS" = "%i subtitles tracks";
+"ONE_SPU_TRACK" = "One subtitles track";
+"TRACKS" = "%i Tracks";
+"TRACK" = "%i Track";
 
-"BUTTON_EQUALIZER"="Asegday";
-"PREAMP"="Preamp";
-"DB_FORMAT"="%i dB";
-"CHOOSE_EQUALIZER_PROFILES"="Fren amkil n usegday";
+"PLAYING_EXTERNALLY_TITLE" = "TV teqqen";
+"PLAYING_EXTERNALLY_DESC" = "Abidyu-agi al yetteddu di TV";
+"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
 
-"PLAYBACK_FAILED"="Anezri di tɣuri";
-"PLEASE_WAIT"="Please wait";
-"AR_CHANGED"="Amasal n ubeqqeḍ : %@";
-"DEFAULT"="Lexṣas";
-"FILL_TO_SCREEN"="Nǧer tugna iwaken ad tačar agdil";
-"DEVICE_TOOSLOW_TITLE"="Anagraw bezaf ẓẓay";
-"DEVICE_TOOSLOW"="%@ inek ittban-d iẓẓay iwaken ad d-iɣer  \"%@\". Ad teldiḍ afaylu-agi ?";
-"PLAYBACK_SPEED"="Arured n tɣuriu";
-"SPU_DELAY"="Agellel n iduzewlen";
-"AUDIO_DELAY"="Agellel n imesli";
-"BUTTON_SLEEP_TIMER"="Sleep Timer";
-"CONTINUE_PLAYBACK"="Continue playback?";
-"CONTINUE_PLAYBACK_LONG"="Would you like to continue playback of \"%@\" where you left off?";
+"VFILTER_HUE" = "Tiɣmi";
+"VFILTER_CONTRAST" = "Amyeẓli";
+"VFILTER_BRIGHTNESS" = "Tafat";
+"VFILTER_SATURATION" = "Aseṛwu";
+"VFILTER_GAMMA" = "Gamma";
 
-"BUTTON_EDIT"="Taẓrigt";
-"BUTTON_DONE"="Ih";
-"BUTTON_OPEN"="Ldi";
-"BUTTON_CANCEL"="Semmet";
-"BUTTON_SAVE"="Sekles";
-"BUTTON_DOWNLOAD"="Zdem";
-"BUTTON_DELETE"="Kkes";
-"BUTTON_OK"="Ih";
-"BUTTON_NEXT"="Uḍfir";
-"BUTTON_CONTRIBUTE"="Attekki";
-"BUTTON_BACK"="Tuɣalin";
-"BUTTON_CONNECT"="Tuqqna";
-"BUTTON_REPEAT"="Alles";
-"BUTTON_RENAME"="Beddel isem";
-"BUTTON_LEARN_MORE"="Issin ugar";
-"BUTTON_LOGOUT"="Tuffɣa";
-"BUTTON_CONTINUE"="Continue";
-"BUTTON_RETRY"="Retry";
-"PRIVATE_PLAYBACK_TOGGLE"="Taɣuṛi tusliṭ";
-"SCAN_SUBTITLE_TOGGLE"="Nadi iduzwelen (ḥaca s http)";
+"PREAMP" = "Preamp";
+"DB_FORMAT" = "%i dB";
+"CHOOSE_EQUALIZER_PROFILES" = "Fren amkil n usegday";
 
-"UPGRADING_LIBRARY"="Aleqqem n temkarḍit";
-"UNTITLED_SHOW"="Tasgilt war azwel";
-"UNKNOWN"="Ur yettwassen ara";
+"PLAYBACK_FAILED" = "Anezri di tɣuri";
+"PLEASE_WAIT" = "Please wait";
+"AR_CHANGED" = "Amasal n ubeqqeḍ : %@";
+"DEFAULT" = "Lexṣas";
+"FILL_TO_SCREEN" = "Nǧer tugna iwaken ad tačar agdil";
+"PLAYBACK_SPEED" = "Arured n tɣuriu";
+"SPU_DELAY" = "Agellel n iduzewlen";
+"AUDIO_DELAY" = "Agellel n imesli";
+"BUTTON_SLEEP_TIMER" = "Sleep Timer";
+"SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
+"CONTINUE_PLAYBACK" = "Continue playback?";
+"CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 
-"OPEN_NETWORK"="Ldi asuddem n uẓeṭṭa";
-"NETWORK_TITLE"="Asuddem n uẓeṭtâ";
-"OPEN_NETWORK_HELP"="Sekcem tansa  HTTP, RTSP, RTMP, MMS, FTP neɣ UDP/RTP iwakken ad teldiḍ srid asuddem n uẓeṭṭa.";
-"ABOUT_APP"="Ɣef  VLC n iOS";
-"OPEN_VLC_MENU"="Ldi umuɣ n yidis n VLC";
-"HTTP_UPLOAD_SERVER_OFF"="Aqeddac yensa";
-"HTTP_UPLOAD_NO_CONNECTIVITY"="Ulac tuqqna Wifi turmidt";
-"OPEN_STREAM_OR_DOWNLOAD"="Tebɣiḍ ad tzedmeḍ neɣ ad turareḍ URL agi ?";
-"SELECT_RESOURCE_TO_PLAY"="Fren aɣbalu i tɣuri :";
-"SELECT_RESOURCE_TO_DOWNLOAD"="Fren aɣbalu i wezdam :";
-"SHARED_VLC_IOS_LIBRARY"="Shared VLC for iOS Library";
-"SAP_STREAMS"="Network Streams (SAP)";
-"SMB_CIFS_FILE_SERVERS"="File Servers (SMB/CIFS)";
+"BUTTON_ALL" = "Select All";
+"BUTTON_ABOUT" = "About";
+"BUTTON_BACK" = "Tuɣalin";
+"BUTTON_DONE" = "Ih";
+"BUTTON_CANCEL" = "Semmet";
+"BUTTON_SAVE" = "Sekles";
+"BUTTON_DOWNLOAD" = "Zdem";
+"BUTTON_DELETE" = "Kkes";
+"BUTTON_OK" = "Ih";
+"BUTTON_CONTRIBUTE" = "Attekki";
+"BUTTON_CONNECT" = "Tuqqna";
+"BUTTON_RENAME" = "Beddel isem";
+"BUTTON_LEARN_MORE" = "Issin ugar";
+"BUTTON_LOGOUT" = "Tuffɣa";
+"BUTTON_CONTINUE" = "Kemmel";
+"BUTTON_SET" = "Set";
+"BUTTON_RESET" = "Reset";
+"PRIVATE_PLAYBACK_TOGGLE" = "Taɣuṛi tusliṭ";
+"SCAN_SUBTITLE_TOGGLE" = "Nadi iduzwelen (ḥaca s http)";
 
-"SMB_CIFS_FILE_SERVERS_SHORT"="SMB/CIFS";
+"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+
+"UPGRADING_LIBRARY" = "Aleqqem n temkarḍit";
+"UNTITLED_SHOW" = "Tasgilt war azwel";
+"UNKNOWN" = "Ur yettwassen ara";
+
+"OPEN_NETWORK" = "Ldi asuddem n uẓeṭṭa";
+"NETWORK_TITLE" = "Asuddem n uẓeṭtâ";
+"OPEN_NETWORK_HELP" = "Sekcem tansa  HTTP, RTSP, RTMP, MMS, FTP neɣ UDP/RTP iwakken ad teldiḍ srid asuddem n uẓeṭṭa.";
+"HTTP_UPLOAD_SERVER_OFF" = "Aqeddac yensa";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Ulac tuqqna Wifi turmidt";
+"OPEN_STREAM_OR_DOWNLOAD" = "Tebɣiḍ ad tzedmeḍ neɣ ad turareḍ URL agi ?";
+"SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
+"SMB_CIFS_FILE_SERVERS" = "Aqeddac n ifuyla (SMB)";
+
+"SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED"=" Anezri deg wezdam s tengalt HTTP %i";
-"HTTP_FILE_CREATION_FAILED"="Afaylu yegumma ad d-yenulfu";
-"HTTP_DOWNLOAD_CANCELLED"="Azdam iḥebs-it useqdac";
+"HTTP_DOWNLOAD_FAILED" = " Anezri deg wezdam s tengalt HTTP %i";
+"HTTP_FILE_CREATION_FAILED" = "Afaylu yegumma ad d-yenulfu";
+"HTTP_DOWNLOAD_CANCELLED" = "Azdam iḥebs-it useqdac";
 
-"DOWNLOAD_FROM_HTTP_HELP"="Sekcem tansa iwakken ad teskelseḍ afaylu ɣef %@ inek.";
-"DOWNLOAD_FROM_HTTP"="Izdamen";
-"ERROR_NUMBER"="Yeḍra-d unezri %i";
-"DOWNLOAD_FAILED"="Anezri deg wezdam";
-"FILE_NOT_SUPPORTED"="Ahil ur yezmir ara i wemasal n ufaylu";
-"FILE_NOT_SUPPORTED_LONG"="Amasal n ufaylu iseqdec %@ ur s-yezmir ara lqem n VLC n iOS.";
-"SCHEME_NOT_SUPPORTED"="Ahil ur yezmir ara i wemasal-agi n tansa";
-"SCHEME_NOT_SUPPORTED_LONG"="Ahil ur yezmir ara i wemasal n tansa (%@). Ttxil-k seqdec tansa ibeddun s HTTP, HTTPS neɣ FTP.";
-"LIBRARY_ALL_FILES"="Ifuyla merra";
-"LIBRARY_MUSIC"="Albumen";
-"LIBRARY_SERIES"="Imazraren n TV";
-"LIBRARY_TRACKS"="%i n tfuɣalin";
-"LIBRARY_SINGLE_TRACK"="%i n tfuɣalt";
-"LIBRARY_EPISODES"="%i Episodes, %i unread";
-"LIBRARY_SINGLE_EPISODE"="%i Épisode, %i non lu";
-"LIBRARY_TRACK_N"="Tafuɣalt %i";
-"LIBRARY_MINUTES_LEFT"="%@m i d-yegran";
-"RENAME_MEDIA_TO"="Sekcem awal amaynut i %@";
+"DOWNLOAD_FROM_HTTP_HELP" = "Sekcem tansa iwakken ad teskelseḍ afaylu ɣef %@ inek.";
+"DOWNLOAD_FROM_HTTP" = "Izdamen";
+"ERROR_NUMBER" = "Yeḍra-d unezri %i";
+"DOWNLOAD_FAILED" = "Anezri deg wezdam";
+"FILE_NOT_SUPPORTED" = "Ahil ur yezmir ara i wemasal n ufaylu";
+"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"SCHEME_NOT_SUPPORTED" = "Ahil ur yezmir ara i wemasal-agi n tansa";
+"SCHEME_NOT_SUPPORTED_LONG" = "Ahil ur yezmir ara i wemasal n tansa (%@). Ttxil-k seqdec tansa ibeddun s HTTP, HTTPS neɣ FTP.";
+"RENAME_MEDIA_TO" = "Sekcem awal amaynut i %@";
 
-"FOLDER_EMPTY"="Akaram d ilem";
-"FOLDER_EMPTY_LONG"="Iwakken ad ternuḍ ifuyla ssed ɣef Taẓrigt, fren ifuyla i tebɣiḍ, ssed ɣef tanast n ukaram u tferneḍ akaram.";
-"FOLDER_INVALID_TYPE_TITLE"="Anawen n ifuyla d urmeɣtuyen";
-"FOLDER_INVALID_TYPE_MESSAGE"="Sin n yifuyla kan i tzemreḍ ad teddmeḍ iwakken ad d-tesnulfuḍ akaram neɣ ad ternuḍ yiwen n ufaylu ɣer ukaram i yellan.";
-"FOLDER_CHOOSE_NAME_TITLE"="Akaram amaynut";
-"FOLDER_CHOOSE_NAME_MESSAGE"="Sekcem azwel i wekaram";
-"FOLDER_NAME_PLACEHOLDER"="Azwel n ukaram";
-"FOLDER_NAME_DUPLICATE_TITLE"="Azwel yella yakan";
-"FOLDER_NAME_DUPLICATE_MESSAGE"="Ttxil-k fren azwel-nniḍen";
-"SELECT_FOLDER"="Fren akaram";
 
-"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE"="Fren afaylu ara teldiḍ :";
-"SHARING_ACTIVITY_OPEN_IN_TITLE"="Ldi di";
-"SHARING_ERROR_NO_FILES"="Ulac afaylu ara tcerkeḍ";
-"SHARING_ERROR_NO_APPLICATIONS"="Ur d-nufi ara asnas izemren ad yeldi anaw n ufaylu-agi";
-"SHARING_SUCCESS_CAMERA_ROLL"="Afaylu yekles akken ilaq di Camera Roll";
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Fren afaylu ara teldiḍ :";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Ldi di";
+"SHARING_ERROR_NO_FILES" = "Ulac afaylu ara tcerkeḍ";
+"SHARING_ERROR_NO_APPLICATIONS" = "Ur d-nufi ara asnas izemren ad yeldi anaw n ufaylu-agi";
+"SHARING_SUCCESS_CAMERA_ROLL" = "Afaylu yekles akken ilaq di Camera Roll";
 
-"SECTION_HEADER_LIBRARY"="Tamkarḍa";
-"SECTION_HEADER_NETWORK"="Aẓeṭṭa";
+"SECTION_HEADER_LIBRARY" = "Tamkarḍa";
+"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
+"DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
+"HEADER_TITLE_RENDERER" = "Select a casting device";
 
-"LOCAL_NETWORK"="Aẓeṭṭa adigan";
-"CONNECT_TO_SERVER"="Qqen ɣer uqeddac";
-"ENTER_SERVER_CREDS_HELP"="Ma yelaq, sekcem isem n useqdac aked wawal n uɛeddi";
-"USER_LABEL"="Aseqdac";
-"PASSWORD_LABEL"="Awal n uɛeddi";
-"DISABLE_LABEL"="Disable";
+"LOCAL_NETWORK" = "Aẓeṭṭa adigan";
+"CONNECT_TO_SERVER" = "Qqen ɣer uqeddac";
+"FILE_SERVER" = "File Servers";
+"USER_LABEL" = "Aseqdac";
+"PASSWORD_LABEL" = "Awal n uɛeddi";
+"DISABLE_LABEL" = "Sens";
+"BUTTON_ANONYMOUS_LOGIN" = "Anonymous Login";
 
-"LOCAL_SERVER_REFRESH"="Sismeḍ";
-"LOCAL_SERVER_LAST_UPDATE"="Amucceḍ angarru di %@";
-"LOCAL_SERVER_CONNECTION_FAILED_TITLE"="ANEZRI DI TUQQNA ƔER UQEDDAC";
-"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE"="Ttxil-k selken tansa n uqeddac aked isalen n usnekwu";
+"LOCAL_SERVER_REFRESH" = "Sismeḍ";
+"LOCAL_SERVER_LAST_UPDATE" = "Amucceḍ angarru di %@";
+"LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "ANEZRI DI TUQQNA ƔER UQEDDAC";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Ttxil-k selken tansa n uqeddac aked isalen n usnekwu";
 
-"CLOUD_SERVICES"="Cloud Services";
-"LOGIN"="Login";
-"LOGGED_IN"="Yeqqen";
+"CLOUD_SERVICES" = "Imeẓluyen Cloud";
+"LOGIN" = "Qqen";
+"LOGGED_IN" = "Yeqqen";
+"LOGGED_IN_SERVICES" = "%d logged in services";
+"LOGGED_IN_SERVICE" = "1 logged in service";
 
-"DROPBOX_DOWNLOAD"="Zdem afaylu";
-"DROPBOX_DL_LONG"="Tebɣiḍ ad tzedmeḍ \"%@\" ɣer %@ inek ?";
-"DROPBOX_LOGIN"="Login";
+"DROPBOX_DOWNLOAD" = "Zdem afaylu";
+"DROPBOX_DL_LONG" = "Tebɣiḍ ad tzedmeḍ \"%@\" ɣer %@ inek ?";
+"DROPBOX_LOGIN" = "Qqen";
 
-"GDRIVE_ERROR_FETCHING_FILES"="Anezri di tririt n ifuyla";
-"GDRIVE_DOWNLOAD_SUCCESSFUL"="Afaylu yettwazdem";
-"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE"="SUCCESS";
-"GDRIVE_ERROR_DOWNLOADING_FILE"="Yeḍra-d unezri deg wezdam";
-"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE"="ANEZRI";
+"GDRIVE_ERROR_FETCHING_FILES" = "Anezri di tririt n ifuyla";
+"GDRIVE_DOWNLOAD_SUCCESSFUL" = "Afaylu yettwazdem";
+"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "AYYUZ";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "Yeḍra-d unezri deg wezdam";
+"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "ANEZRI";
 
-"DISK_FULL"="Tallast n uktur tewweḍ";
-"DISK_FULL_FORMAT"="%@ ur yezmir ara ad ikles di  %@ inek, acku ur tesɛiḍ ara aṭṭas n tallunt tilellit. ";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
 
-"NUM_OF_FILES"="%i n yifuyla";
-"ONE_FILE"="1 n ufaylu";
-"NO_FILES"="Ulac ifuyla umi yezmer wahil";
-"DOWNLOADING"="Azdam...";
-"REMAINING_TIME"= "Akud i d-yeqqimen: %@";
-"ENTER_PASSCODE"="Sekcem awal n uɛeddi";
-"REENTER_PASSCODE"="Sekcem tikkelt-nniḍen awal n uɛeddi";
-"PASSCODE_SET"="Sbadu wawal n uɛeddi";
-"PASSCODE_CHANGE"="Beddel awal n uɛeddi";
-"PASSCODE_ENTER_OLD"="Sekcem awal n uɛeddi aqbur";
-"PASSCODE_ENTER_NEW"="Sekcem tikkelt-nniḍen awal n uɛeddi";
-"PASSCODE_REENTER_NEW"="Sekcem tikkelt-nniḍen awal n uɛeddi amaynut";
-"PASSCODES_DID_NOT_MATCH"="Awalen n uɛeddi ur nmeɣran ara. Ttxil-k alles.";
-"PASSCODE_FAILED_1"="1 n unezri deg wesekcem n wawal n uɛeddi";
-"PASSCODE_FAILED_FORMAT"="%d n inezriyen deg wesekcem n wawal n uɛeddi";
-"TOUCHID_UNLOCK"="Unlock Media Library\nCancel to enter Passcode";
+"DISK_FULL" = "Tallast n uktur tewweḍ";
+"DISK_FULL_FORMAT" = "%@ ur yezmir ara ad ikles di  %@ inek, acku ur tesɛiḍ ara aṭṭas n tallunt tilellit. ";
 
-"Settings"="Iɣewwaren"; // plain text key to keep compatibility with InAppSettingsKit's upstream
-"ON"="On";
-"OFF"="Off";
+"NUM_OF_FILES" = "%i n yifuyla";
+"ONE_FILE" = "1 n ufaylu";
+"NO_FILES" = "Ulac ifuyla umi yezmer wahil";
+"DOWNLOADING" = "Azdam...";
+"REMAINING_TIME" = "Akud i d-yeqqimen: %@";
+"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
-"EMPTY_LIBRARY"="Tamkarḍit n imidyaten d tilemt";
-"EMPTY_LIBRARY_LONG"="For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, WiFi Upload or Cloud services.";
+//PAPasscode Strings that we need to localize for them
 
-"PLAYBACK_SCRUB_HELP"="Seḥlucceg aḍad-ik d aksar iwakked ad tesgadiḍ arured.";
-"PLAYBACK_SCRUB_HIGH"="Sbadu arured";
-"PLAYBACK_SCRUB_HALF"="Adrudem s uzgen n urured";
-"PLAYBACK_SCRUB_QUARTER"="Adrudem s rbeɛ n nurured";
-"PLAYBACK_SCRUB_FINE"="Défilement de précision";
-"PLAYBACK_POSITION"="Ideg n tɣuri";
-"VIDEO_FILTER"="Tistayin n ubidyu";
-"VIDEO_FILTER_RESET_BUTTON"="Alles awennez n testayin n ubidyu";
-"VIDEO_ASPECT_RATIO_BUTTON"="Beddel amasal n ugdil";
-"PLAY_PAUSE_BUTTON"="Bdu neɣ ḥbes taɣuri";
-"BWD_BUTTON"="Uɣal ɣer deffir";
-"FWD_BUTTON"="Aẓ ɣer sdat";
-"PLAY_BUTTON"="Taɣuri";
-"PAUSE_BUTTON"="Asgunfu";
+"Settings" = "Iɣewwaren"; // plain text key to keep compatibility with InAppSettingsKit's upstream
+"ON" = "Ih";
+"OFF" = "Ala";
 
-"VERSION_FORMAT"="Lqem: %@";
-"BASED_ON_FORMAT"="Yebna ɣef:<br />%@";
+"EMPTY_LIBRARY" = "Tamkarḍit n imidyaten d tilemt";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, WiFi Upload or Cloud services.";
 
-"NEW"="AMAYNUT";
+"PLAYBACK_SCRUB_HELP" = "Seḥlucceg aḍad-ik d aksar iwakked ad tesgadiḍ arured.";
+"PLAYBACK_SCRUB_HIGH" = "Sbadu arured";
+"PLAYBACK_SCRUB_HALF" = "Adrurem s uzgen n urured";
+"PLAYBACK_SCRUB_QUARTER" = "Adrurem s rbeɛ n urured";
+"PLAYBACK_SCRUB_FINE" = "Fine Scrubbing";
+"PLAYBACK_POSITION" = "Ideg n tɣuri";
+"VIDEO_FILTER" = "Tistayin n ubidyu";
+"VIDEO_FILTER_RESET_BUTTON" = "Alles awennez n testayin n ubidyu";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Beddel amasal n ugdil";
+"PLAY_PAUSE_BUTTON" = "Bdu neɣ ḥbes taɣuri";
+"BWD_BUTTON" = "Uɣal ɣer deffir";
+"FWD_BUTTON" = "Aẓ ɣer sdat";
+"PLAY_BUTTON" = "Taɣuri";
+"NEXT_BUTTON" = "Next";
+"PREV_BUTTON" = "Previous";
+"PLAY_ALL_BUTTON" = "Play all";
 
-"BUG_REPORT_TITLE"="Mel anezri";
-"BUG_REPORT_MESSAGE"="Tebɣiḍ ad d-tesnulfuḍ aneqqis n unezri ?";
-"BUG_REPORT_BUTTON"="Ldi Safari";
+"VERSION_FORMAT" = "Lqem: %@";
+"BASED_ON_FORMAT" = "Yebna ɣef:<br />%@";
 
-"VO_VIDEOPLAYER_TITLE"="Ameɣri n ubidyu";
-"VO_VIDEOPLAYER_DOUBLETAP"="Ssed snat n tikkal iwakken  ad tbeqqeḍeḍ neɣ ad tefreḍ isenqaden";
+"NEW" = "AMAYNUT";
 
-"FIRST_STEPS_WELCOME"="Anṣuf";
-"FIRST_STEPS_WELCOME_DETAIL"="Isurifen imezwura i wsemwati aked tɣuri n imidyaten.";
-"FIRST_STEPS_ITUNES"="Semtawi ifuyla aked iTunes";
-"FIRST_STEPS_ITUNES_DETAILS"="Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSwitch to the \"Apps\" tab, scroll down and look for VLC.\nTransfer your files.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS"="Qqen %@ inekɣer yiwen n uẓeṭṭa aked   Mac inek neɣ  PC inek.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS"="Senfel agezzam di tfeggagt n yidis, sekcem tansa URL deg weminig n web sakin azen ifuyla-inek.";
-"FIRST_STEPS_CLOUDS"="Clouds";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS"="Azen amidya-inek ɣer Google Drive neɣ Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS"="Ldi tafeggagt n yidis sakin fren imefki Cloud iwakken ad tkecmeḍ ɣer umidya i wezdam neɣ i tɣuri streaming.";
-"FIRST_STEPS_PLAYBACK"="Taɣuri";
-"FIRST_STEPS_FLOSS"="VLC for iOS is free and open source software developed by volunteers.\nWe hope you'll love it.";
+"BUG_REPORT_TITLE" = "Mel anezri";
+"BUG_REPORT_MESSAGE" = "Tebɣiḍ ad d-tesnulfuḍ aneqqis n unezri ?";
+"BUG_REPORT_BUTTON" = "Ldi Safari";
 
-"FIRST_STEPS_TIME"="Akud";
-"FIRST_STEPS_ASPECT"="Aspect Ratio";
-"FIRST_STEPS_SPEED"="Arured";
-"FIRST_STEPS_REPEAT"="Alles";
-"FIRST_STEPS_SUBTITLES"="Tifuɣalin n iduzwelen";
-"FIRST_STEPS_AUDIO"="Tifuɣalin n imesli";
-"FIRST_STEPS_POSITION"="Ideg";
+"VO_VIDEOPLAYER_TITLE" = "Ameɣri n ubidyu";
+"VO_VIDEOPLAYER_DOUBLETAP" = "Ssed snat n tikkal iwakken  ad tbeqqeḍeḍ neɣ ad tefreḍ isenqaden";
 
-"PLEX_WATCHED"="Creḍ-it belli twalaḍ-t";
-"PLEX_UNWATCHED"="Creḍ-it belli ur t-twalaḍ ara";
-"PLEX_ERROR_MARK"="Anezri deg wecraḍ n imidyaten";
-"PLEX_CONNECT_TO_SERVER"="Connect to Plex Media Server";
-"PLEX_CHECK_ACCOUNT"="Check your Plex account in settings";
-"PLEX_ERROR_ACCOUNT"="Plex login Error";
+"FIRST_STEPS_WELCOME" = "Anṣuf";
+"FIRST_STEPS_WELCOME_DETAIL" = "Isurifen imezwura i wsemwati aked tɣuri n imidyaten.";
+"FIRST_STEPS_ITUNES" = "Semtawi ifuyla aked iTunes";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
+"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Qqen %@ inekɣer yiwen n uẓeṭṭa aked   Mac inek neɣ  PC inek.";
+"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Senfel agezzam di tfeggagt n yidis, sekcem tansa URL deg weminig n web sakin azen ifuyla-inek.";
+"FIRST_STEPS_CLOUDS" = "Clouds";
+"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Azen amidya-inek ɣer Google Drive neɣ Dropbox.";
+"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Ldi tafeggagt n yidis sakin fren imefki Cloud iwakken ad tkecmeḍ ɣer umidya i wezdam neɣ i tɣuri streaming.";
+"FIRST_STEPS_PLAYBACK" = "Taɣuri";
+"FIRST_STEPS_FLOSS" = "VLC for iOS is free and open source software developed by volunteers.\nWe hope you'll love it.";
 
-"UNAUTHORIZED"="Ur yettusureg ara";
+"FIRST_STEPS_TIME" = "Akud";
+"FIRST_STEPS_ASPECT" = "Aspect Ratio";
+"FIRST_STEPS_SPEED" = "Arured";
+"FIRST_STEPS_REPEAT" = "Alles";
+"FIRST_STEPS_SUBTITLES" = "Tifuɣalin n iduzwelen";
+"FIRST_STEPS_AUDIO" = "Tifuɣalin n imesli";
+"FIRST_STEPS_POSITION" = "Ideg";
 
-"SERVER"="Aqeddac";
-"SERVER_PORT"="Tawwurt";
-"BOOKMARK"="Isɣalen";
-"INVALID_IP_PORT"="Ttxil-k sekcem tansa IP tameɣtut neɣ tawwurt tameɣtut";
-"NO_SERVER_FOUND"="No server found";
-"NO_RECENT_STREAMS"="No stream was played recently";
+"PLEX_CHECK_ACCOUNT" = "Check your Plex account in settings";
+"PLEX_ERROR_ACCOUNT" = "Plex login Error";
 
-"WEBINTF_TITLE"="Crek s WiFi";
-"WEBINTF_DROPFILES"="Sers ifuyla";
-"WEBINTF_DROPFILES_LONG"="Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
-"WEBINTF_DOWNLOADFILES"="Download Files";
-"WEBINTF_DOWNLOADFILES_LONG"="Just click the file you want to download from your %@.";
-"WEBINTF_TITLE_ATV"="Remote Playback";
-"WEBINTF_DROPFILES_LONG_ATV"="Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"UNAUTHORIZED" = "Ur yettusureg ara";
 
-"CLOUD_DRIVES"="Imeɣriyen-nniḍen n Cloud";
+"SERVER" = "Aqeddac";
+"SERVER_PORT" = "Tawwurt";
+"NO_SERVER_FOUND" = "No server found";
+"NO_RECENT_STREAMS" = "No stream was played recently";
 
-"NOW_PLAYING"="Taɣuri ala tetteddu";
-"PLAY_NOW"="Ɣer";
-"PLAYING"="Taɣuri al tetteddu";
-"PAUSED"="Yeḥbes";
-"DETAIL"="Amenḍar";
+"WEBINTF_TITLE" = "Crek s WiFi";
+"WEBINTF_DROPFILES" = "Sers ifuyla";
+"WEBINTF_DROPFILES_LONG" = "Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"WEBINTF_DOWNLOADFILES" = "Download Files";
+"WEBINTF_DOWNLOADFILES_LONG" = "Just click the file you want to download from your %@.";
+"WEBINTF_TITLE_ATV" = "Remote Playback";
+"WEBINTF_DROPFILES_LONG_ATV" = "Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"WEBINTF_URL_SENT" = "URL sent successfully.";
+"WEBINTF_URL_EMPTY" = "URL cannot be empty.";
+"WEBINTF_URL_INVALID" = "Not a valid URL.";
 
-"VOLUME"="Ableɣ";
-"DURATION"="Tanzagt";
-"TITLE"="Azwel";
+
+
+"VOLUME" = "Ableɣ";
+"DURATION" = "Tanzagt";
+"TITLE" = "Azwel";
 
 // strings from VLCKit
-"%ld hours %ld minutes remaining"="%ld hours %ld minutes remaining";
-"%ld hours %ld minutes"="%ld hours %ld minutes";
-"%ld minutes remaining"="%ld minutes remaining";
-"%ld minutes"="%ld minutes";
-"%ld minutes %ld seconds remaining"="%ld minutes %ld seconds remaining";
-"%ld minutes %ld seconds"="%ld minutes %ld seconds";
-"%ld seconds remaining" = "%ld seconds remaining";
-"%ld seconds"="%ld seconds";
 
 // accessibility labels for the playlist
-"OBJECT_TYPE_SHOW"="Amazrar";
-"OBJECT_TYPE_SHOW_EPISODE"="Show episode";
-"OBJECT_TYPE_LABEL"="Akaram";
-"OBJECT_TYPE_ALBUM"="Album";
-"OBJECT_TYPE_ALBUM_TRACK"="Tafuɣalt";
-"OBJECT_TYPE_FILE"="Afaylu";
-"OBJECT_TYPE_FILE_AUDIO"="Afaylu imesli";
 
-"LONGPRESS_TO_STOP"="Tussda taɣezfant iwakken ad tḥebseḍ taɣuri";
+
+"LONGPRESS_TO_STOP" = "Tussda taɣezfant iwakken ad tḥebseḍ taɣuri";
 
 // ATV specific
-"LOGIN_FAIL"="Login failure";
-"CLOUD_LOGIN_LONG"="To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
-"ENTER_URL"="Enter URL to play";
-"HTTP_SERVER_ON"="Remote Playback enabled";
-"HTTP_SERVER_OFF"="Enable Remote Playback";
+"AUDIO_INFO_VC_TITLE" = "Audio Info";
+"CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
+"ENTER_URL" = "Enter URL to play";
+"HTTP_SERVER_ON" = "Disable Remote Playback";
+"HTTP_SERVER_OFF" = "Enable Remote Playback";
+"CACHED_MEDIA" = "Cached Media";
+"CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
+"DOWNLOAD_SUBS_FROM_OSO" = "Download subtitles from OpenSubtitles.org...";
+"FOUND_SUBS" = "Found subtitles";
+"USE_SPDIF" = "Use Pass-through (S/PDIF)";
+
+"PLAYBACK" = "Playback";
+"REPEAT_MODE" = "Repeat";
+"REPEAT_DISABLED" = "Disabled";
+"REPEAT_SINGLE" = "Single";
+"REPEAT_FOLDER" = "Folder";
 
 // Local Network Service Names
-"UPNP_LONG"="Universal Plug'n'Play (UPnP)";
-"UPNP_SHORT"="UPnP";
+"UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
+"UPNP_SHORT" = "UPnP";
 
-"PLEX_LONG"="Plex Media Server (via Bonjour)";
-"PLEX_SHORT"="Plex";
+"PLEX_LONG" = "Plex Media Server (via Bonjour)";
+"PLEX_SHORT" = "Plex";
 
-"FTP_LONG"="File Transfer Protocol (FTP)";
-"FTP_SHORT"="FTP";
+"FTP_LONG" = "File Transfer Protocol (FTP)";
+"FTP_SHORT" = "FTP";
+
+"BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
+"DSM_WORKGROUP" = "Workgroup";
+
+"URL_NOT_SUPPORTED" = "The URL can't be opened";
+
+// Insert %@ where play-pause-glyph should be placed
+"DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
+
+"DELETE_INVALID_MESSAGE" = "The selection can't be deleted";
+"DELETE_INVALID_TITLE" = "Invalid Selection";
+"DELETE_MESSAGE" = "Confirm the deletion of the selected files";
+"DELETE_TITLE" = "Delete Selected Files";
+
+//Drag and Drop
+"THIS_FILE" = "This file";
+"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
+"FILE_EXISTS" = "%@ already exists";
+
+"PROTOCOL_NOT_SELECTED" = "Protocol not selected";
+"Settings" = "Iɣewwaren";
+
+"CANCEL" = "Cancel";
+"ERROR" = "Error";
+"OK" = "Ok";
+"SORT" = "Sort";
+"SORT_BY" = "Sort by";
+"VIDEO" = "Video";
+
+// MediaViewController Swipable Header
+"ALBUMS" = "Albums";
+"ARTISTS" = "Artists";
+"EPISODES" = "Episodes";
+"GENRES" = "Genres";
+"MOVIES" = "Movies";
+"SONGS" = "Songs";
+"PLAYLISTS" = "Playlists";
+
+"MODIFIED_DATE" = "Modified date";
+"NAME" = "Name";
+
+//EDIT
+"ADD_TO_PLAYLIST" = "Add to Playlist";
+
+"PLAYLIST_PLACEHOLDER" = "Playlist title";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+
+"RENAME_PLACEHOLDER" = "New title";
+"ERROR_RENAME_FAILED" = "Renaming failed";
+"ERROR_EMPTY_NAME" = "The title can't be empty";
+
+// Sort
+
+"HEADER_TITLE_SORT" = "Sort by";
+
+// VLCMediaLibraryKit - Sorting Criteria
+
+"ALPHA" = "Alphanumerically";
+"DURATION" = "Tanzagt";
+"INSERTION_DATE" = "Insertion date";
+"LAST_MODIFICATION_DATE" = "Last modification date";
+"RELEASE_DATE" = "Release date";
+"FILE_SIZE" = "File size";
+"ARTIST" = "Artist";
+"PLAY_COUNT" = "Play count";
+"ALBUM" = "Album";
+"FILENAME" = "Filename";
+"TRACK_NUMBER" = "Track number";
