@@ -25,8 +25,8 @@
 "ONE_SPU_TRACK" = "مسار ترجمة واحد";
 
 "PLAYING_EXTERNALLY_TITLE" = "التّلفاز متصل";
-"PLAYING_EXTERNALLY_TITLE_CHROMECAST" = "Chromecast Connected";
 "PLAYING_EXTERNALLY_DESC" = "شُغّلت هذه المرئية على التّلفاز";
+"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
 
 "VFILTER_HUE" = "الألوان";
 "VFILTER_CONTRAST" = "التّباين";
@@ -161,6 +161,8 @@
 "GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "نجاح";
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "حدث خطأ أثناء التحميل";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "خطأ";
+
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
 
 "DISK_FULL" = "تم بلوغ حد التخزين";
 "DISK_FULL_FORMAT" = "%@ لا يمكن تخزينه على %@, لأنه ليس لديك مساحة فارغة";
