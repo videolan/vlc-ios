@@ -1,4 +1,3 @@
-"NSPhotoLibraryUsageDescription" = "Um das Video zu speichern, benötigen wir Zugang zu Ihrer Kamerarolle";
-"NSPhotoLibraryAddUsageDescription" = "Um das Video zu speichern, benötigen wir Zugang zu Ihrer Kamerarolle";
-"NSFaceIDUsageDescription" = "Aktiviere den Zugriff auf Face ID, um VLC zu entsperren";
-
+"NSPhotoLibraryUsageDescription" = "Um das Video zu speichern, benötigen wir Zugang zu Deinen Fotos.";
+"NSPhotoLibraryAddUsageDescription" = "Um das Video zu speichern, benötigen wir Zugang zu Deinen Fotos.";
+"NSFaceIDUsageDescription" = "Aktiviere Face ID um VLC entsperren zu können.";
