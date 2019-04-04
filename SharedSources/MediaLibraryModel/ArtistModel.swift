@@ -92,6 +92,6 @@ extension VLCMLArtist: MediaCollectionModel {
     }
 
     func files() -> [VLCMLMedia] {
-        return []
+        return tracks()
     }
 }
