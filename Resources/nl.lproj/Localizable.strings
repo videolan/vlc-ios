@@ -150,7 +150,7 @@
 "ONEDRIVE_MEDIA_WITHOUT_URL" = "Het geselecteerde medium heeft geen afspeelbare url";
 
 "DISK_FULL" = "Opslaglimiet bereikt";
-"DISK_FULL_FORMAT" = "%@ kan niet opgeslagen worden op uw %@, omdat u niet genoeg vrije ruime over heeft.";
+"DISK_FULL_FORMAT" = "%@ kan niet opgeslagen worden op uw %@, omdat u niet genoeg vrije ruime over hebt.";
 
 "NUM_OF_FILES" = "%i bestanden";
 "ONE_FILE" = "1 bestand";
@@ -207,7 +207,7 @@
 "FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Upload uw media naar Google Drive of Dropbox.";
 "FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Open de zijbalk om uw cloudprovider te selecteren en toegang te krijgen tot uw media voor downloaden of streamen.";
 "FIRST_STEPS_PLAYBACK" = "Afspelen";
-"FIRST_STEPS_FLOSS" = "VLC voor iOS is gratis en open source software ontwikkeld door vrijwilligers.\nWe hopen dat u er genot van heeft.";
+"FIRST_STEPS_FLOSS" = "VLC voor iOS is gratis en open source software ontwikkeld door vrijwilligers.\nWe hopen dat u er genot van hebt.";
 
 "FIRST_STEPS_TIME" = "Tijd";
 "FIRST_STEPS_ASPECT" = "Beeldverhouding";
