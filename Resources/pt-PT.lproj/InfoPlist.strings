@@ -1,4 +1,3 @@
 "NSPhotoLibraryUsageDescription" = "Para podermos guardar o vídeo, nós iremos precisar de aceder ao rolo da sua câmara";
 "NSPhotoLibraryAddUsageDescription" = "Para podermos guardar o vídeo, nós iremos precisar de aceder ao rolo da sua câmara";
-"NSFaceIDUsageDescription" = "Enable access to Face ID to unlock VLC";
-
+"NSFaceIDUsageDescription" = "Ativar o acesso para a Id. de Face para desbloquear o VLC";
