@@ -1,0 +1,98 @@
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+
+"SETTINGS_PRIVACY_TITLE" = "Riservadesa";
+"SETTINGS_VIDEO_TITLE" = "Vìdeu";
+"SETTINGS_AUDIO_TITLE" = "Àudio";
+
+"SETTINGS_THEME_SUBTITLE" = "Muda sos colores de s'aplicatzione";
+"SETTINGS_PRIVACY_SUBTITLE" = "Aberi in sas impostatziones";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Atzessu seguru a sos cuntenutos tuos";
+
+"SETTINGS_DARKTHEME" = "Tema iscuru";
+"SETTINGS_TIME_STRETCH_AUDIO" = "Illonghiamentu temporale àudio";
+"SETTINGS_BACKGROUND_AUDIO" = "Riprodutzione àudio in s'isfundu";
+"SETTINGS_GENERIC_TITLE" = "Genèricu";
+"SETTINGS_PASSCODE_LOCK" = "Blocu cun còdighe de seguresa";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Permiti su Touch ID pro s'isblocu";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permiti su Face ID pro s'isblocu";
+"SETTINGS_DECRAPIFY" = "Otimiza sos nùmenes de sos elementos pro sa visualizatzione";
+"SETTINGS_VIDEO_FULLSCREEN" = "Riprodui su vìdeu a ischermu intreu";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Sighi cun sa riprodutzione de su vìdeu";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Sighi cun sa riprodutzione àudio";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Mai";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Pedi";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Semper";
+"SETTINGS_NETWORK_PLAY_ALL" = "Riprodui automaticamente s'elementu imbeniente";
+
+"SETTINGS_SKIP_LOOP_FILTER" = "Filtru de deblocu";
+"SETTINGS_SKIP_LOOP_FILTER_NONE" = "Perunu deblocu (prus lestru)";
+"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Deblocu mèdiu";
+"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Deblocu mìnimu";
+
+"SETTINGS_NETWORK_CACHING_TITLE" = "Livellu de sa cache de retza";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latèntzia mìnima";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latèntzia bassa";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normale";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latèntzia arta";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latèntzia màssima";
+
+"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Lestresa de riprodutzione predefinida";
+
+"SETTINGS_GESTURES" = "Controlla sa riprodutzione cun sos gestos";
+"SETTINGS_GESTURES_VOLUME" = "Trìsina in subra/in suta pro su volume";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Toca pro riproduire/pònnere in pàusa";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Trìsina in subra/in suta pro sa luminosidade";
+"SETTINGS_GESTURES_SEEK" = "Trìsina a destra/a manca pro positzionare";
+"SETTINGS_GESTURES_CLOSE" = "Pìtziga pro serrare";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Longària variàbile de su brincu";
+
+"SETTINGS_SUBTITLES_TITLE" = "Sutatìtulos";
+"SETTINGS_SUBTITLES_FONT" = "Caràtere";
+"SETTINGS_SUBTITLES_TEXT_ENCODING" = "Codìfica de su testu";
+"SETTINGS_SUBTITLES_FONTSIZE" = "Mannària relativa de su caràtere";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "Minore meda";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALL" = "Minore";
+"SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "Normale";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGE" = "Mannu";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "Mannu meda";
+"SETTINGS_SUBTITLES_BOLDFONT" = "Imprea su caràtere in grassetu";
+"SETTINGS_SUBTITLES_FONTCOLOR" = "Colore de su caràtere";
+"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "Arbu/biancu";
+"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "Nieddu";
+"SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "Murru";
+"SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "Prata";
+"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "Ruju";
+"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "Fùcsia";
+"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Grogu";
+"SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Birde";
+"SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Biaitu marinu";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Grussesa de s'oru";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Perunu";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Sùtile";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normale";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Grussu";
+
+"SETTINGS_DEINTERLACE" = "Deinterlatziamentu";
+"SETTINGS_DEINTERLACE_ON" = "Allutu";
+"SETTINGS_DEINTERLACE_OFF" = "Istudadu";
+"SETTINGS_DEINTERLACE_AUTO" = "Automàticu";
+
+"SETTINGS_HWDECODING" = "Decodìfica hardware";
+"SETTINGS_HWDECODING_ON" = "Alluta";
+"SETTINGS_HWDECODING_OFF" = "Istudada";
+
+"SETTINGS_FEEDBACK" = "Sinnalatzione";
+"SETTINGS_SEND_FEEDBACK" = "Imbia una sinnalatzione";
+"SETTINGS_SEND_RATING" = "Pro praghere vàluta VLC pro iOS";
+
+"SETTINGS_FILE_SYNC" = "Sincronizatzione de documentos";
+"SETTINGS_WIFISHARING_IPv6" = "Suportu IPv6 pro sa cumpartzidura WiFi";
+"SETTINGS_UNLINK_DROPBOX" = "Disconnete·ti dae Dropbox";
+"SETTINGS_UNLINK_GOOGLEDRIVE" = "Disconnete·ti dae Google Drive";
+"SETTINGS_UNLINK_ONEDRIVE" = "Disconnete·ti dae OneDrive";
+"SETTINGS_FTP_TEXT_ENCODING" = "Codìfica de su testu pro sas connessiones FTP";
+
+"SETTINGS_ARTWORK" = "Gràfica artìstica";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Iscàrriga sa gràfica artìstica";
+
+"ABOUT_APP_TV" = "Informatziones a pitzu de VLC pro tvOS";
