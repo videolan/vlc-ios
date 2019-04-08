@@ -362,7 +362,14 @@ extension VLCMediaCategoryViewController {
 
     func play(media: VLCMLMedia) {
         VLCPlaybackController.sharedInstance().fullscreenSessionRequested = media.subtype() != .albumTrack
-        VLCPlaybackController.sharedInstance().play(media)
+        if let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist || collectionModel.mediaCollection is VLCMLAlbum {
+            guard let index = collectionModel.files.index(of: media) else {
+                return
+            }
+            VLCPlaybackController.sharedInstance().playMedia(at: index, fromCollection: collectionModel.files)
+        } else {
+            VLCPlaybackController.sharedInstance().play(media)
+        }
     }
 }
 

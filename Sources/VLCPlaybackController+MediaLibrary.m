@@ -38,6 +38,11 @@
         [self configureWithShowEpisode:(MLShowEpisode *)mediaObject];
 }
 
+- (void)playMediaAtIndex:(NSInteger)index fromCollection:(NSArray<VLCMLMedia *> *)collection
+{
+    [self configureMediaListWithMLMedia:collection indexToPlay:(int) index];
+}
+
 - (void)playMedia:(VLCMLMedia *)media
 {
     [self configureMediaListWithMLMedia:@[media] indexToPlay:0];
@@ -138,6 +143,7 @@ Open a file in the libraryViewController without changing the playstate
 }
 
 - (void)configureMediaListWithMLMedia:(NSArray<VLCMLMedia *> *)mlMedia indexToPlay:(int)index {
+    NSAssert(index >= 0, @"The index should never be negative");
     VLCMediaList *list = [[VLCMediaList alloc] init];
     VLCMedia *media;
     for (VLCMLMedia *file in mlMedia) {

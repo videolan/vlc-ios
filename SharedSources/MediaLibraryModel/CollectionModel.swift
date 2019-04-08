@@ -10,6 +10,7 @@ import Foundation
 
 class CollectionModel: MLBaseModel {
     var sortModel: SortModel
+    var mediaCollection: MediaCollectionModel
 
     typealias MLType = VLCMLMedia // could be anything
     required init(medialibrary: MediaLibraryService) {
@@ -18,6 +19,7 @@ class CollectionModel: MLBaseModel {
 
     required init(mediaService: MediaLibraryService, mediaCollection: MediaCollectionModel) {
         self.medialibrary = mediaService
+        self.mediaCollection = mediaCollection
         files = mediaCollection.files()
         sortModel = mediaCollection.sortModel() ?? SortModel([.default])
     }
