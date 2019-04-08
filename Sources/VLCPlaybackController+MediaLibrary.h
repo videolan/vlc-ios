@@ -17,5 +17,6 @@
 @interface VLCPlaybackController (MediaLibrary)
 - (void)playMediaLibraryObject:(NSManagedObject *)mediaObject;
 - (void)playMedia:(VLCMLMedia *)media;
+- (void)playMediaAtIndex:(NSInteger)index fromCollection:(NSArray<VLCMLMedia *> *)collection;
 - (void)openMediaLibraryObject:(NSManagedObject *)mediaObject;
 @end
