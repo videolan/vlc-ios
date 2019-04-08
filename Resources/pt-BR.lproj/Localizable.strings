@@ -323,7 +323,7 @@
 "ADD_TO_PLAYLIST" = "Adicionar à Lista de Reprodução";
 
 "PLAYLIST_PLACEHOLDER" = "Título da lista de Reprodução";
-"PLAYLIST_DESCRIPTION" = "Digite um título para a sua nova Lista de Reprodução";
+"PLAYLIST_DESCRIPTION" = "Digite um título para a sua nova lista de reprodução";
 
 "RENAME_PLACEHOLDER" = "Novo título";
 "ERROR_RENAME_FAILED" = "Falha ao renomear";
