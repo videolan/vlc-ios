@@ -262,7 +262,7 @@ extension MediaLibraryService {
 
 // MARK: - Helpers
 
-extension MediaLibraryService {
+@objc extension MediaLibraryService {
     @objc func reload() {
         medialib.reload()
     }
@@ -293,7 +293,7 @@ extension MediaLibraryService {
 
 // MARK: - Audio methods
 
-extension MediaLibraryService {
+@objc extension MediaLibraryService {
     func artists(sortingCriteria sort: VLCMLSortingCriteria = .artist, desc: Bool = false) -> [VLCMLArtist] {
         return medialib.artists(with: sort, desc: desc, all: true)
     }
@@ -319,7 +319,7 @@ extension MediaLibraryService {
 
 // MARK: - Playlist methods
 
-extension MediaLibraryService {
+@objc extension MediaLibraryService {
     func createPlaylist(with name: String) -> VLCMLPlaylist {
         return medialib.createPlaylist(withName: name)
     }
