@@ -212,14 +212,14 @@
                 [allMedia addObject:file];
         }
     }
+ return shouldReturnLibVLCXML ? [self generateXMLResponseFrom:allMedia path:path] : [self generateHttpResponseFrom:allMedia path:path];
+}
 
-    NSUInteger mediaCount = allMedia.count;
-    NSMutableArray *mediaInHtml = [[NSMutableArray alloc] initWithCapacity:mediaCount];
-    NSMutableArray *mediaInXml = [[NSMutableArray alloc] initWithCapacity:mediaCount];
-    NSString *hostName = [NSString stringWithFormat:@"%@:%@", [[VLCHTTPUploaderController sharedInstance] hostname], [[VLCHTTPUploaderController sharedInstance] hostnamePort]];
+- (HTTPDynamicFileResponse *)generateHttpResponseFrom:(NSArray *)media path:(NSString *)path
+{
+    NSMutableArray *mediaInHtml = [[NSMutableArray alloc] initWithCapacity:media.count];
     NSString *duration;
-
-    for (NSManagedObject *mo in allMedia) {
+    for (NSManagedObject *mo in media) {
         if ([mo isKindOfClass:[MLFile class]]) {
             MLFile *file = (MLFile *)mo;
             duration = [[VLCTime timeWithNumber:file.duration] stringValue];
@@ -237,12 +237,6 @@
                                     [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
                                     file.title,
                                     duration, (float)(file.fileSizeInBytes / 1e6)]];
-            if (shouldReturnLibVLCXML) {
-                NSString *pathSub = [self _checkIfSubtitleWasFound:file.path];
-                if (pathSub)
-                    pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation.absoluteString, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
-            }
         }
         else if ([mo isKindOfClass:[MLShow class]]) {
             MLShow *show = (MLShow *)mo;
@@ -279,12 +273,6 @@
                                         showEp.episodeNumber,
                                         showEp.name,
                                         duration, (float)([anyFileFromEpisode fileSizeInBytes] / 1e6)]];
-                if (shouldReturnLibVLCXML) {
-                    NSString *pathSub = [self _checkIfSubtitleWasFound:[anyFileFromEpisode path]];
-                    if (![pathSub isEqualToString:@""])
-                        pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@ - S%@E%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", show.name, showEp.seasonNumber, showEp.episodeNumber, hostName, showEp.objectID.URIRepresentation, duration, [anyFileFromEpisode fileSizeInBytes], hostName, [anyFileFromEpisode.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
-                }
             }
             [mediaInHtml addObject:@"</div></div>"];
         } else if ([mo isKindOfClass:[MLLabel class]]) {
@@ -319,12 +307,6 @@
                                         [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
                                         file.title,
                                         duration, (float)(file.fileSizeInBytes / 1e6)]];
-                if (shouldReturnLibVLCXML) {
-                    NSString *pathSub = [self _checkIfSubtitleWasFound:file.path];
-                    if (pathSub)
-                        pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
-                }
             }
             [mediaInHtml addObject:@"</div></div>"];
         } else if ([mo isKindOfClass:[MLAlbum class]]) {
@@ -360,43 +342,85 @@
                                         [anyFileFromTrack.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
                                         track.title,
                                         duration, (float)([anyFileFromTrack fileSizeInBytes] / 1e6)]];
-                if (shouldReturnLibVLCXML)
-                    [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"\"/>", track.title, hostName, track.objectID.URIRepresentation, duration, [anyFileFromTrack fileSizeInBytes], hostName, [anyFileFromTrack.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet]]];
             }
             [mediaInHtml addObject:@"</div></div>"];
         }
-    }
+    } // end of forloop
+    NSString *deviceModel = [[UIDevice currentDevice] model];
 
+    NSDictionary *replacementDict = @{@"FILES" : [mediaInHtml componentsJoinedByString:@" "],
+                        @"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
+                        @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
+                        @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil), deviceModel],
+                        @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
+                        @"WEBINTF_DOWNLOADFILES_LONG" : [NSString stringWithFormat: NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil), deviceModel]};
+    HTTPDynamicFileResponse *fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
+                                                       forConnection:self
+                                                           separator:@"%%"
+                                               replacementDictionary:replacementDict];
+    fileResponse.contentType = @"text/html";
 
-    UIDevice *currentDevice = [UIDevice currentDevice];
-    NSString *deviceModel = [currentDevice model];
-    NSDictionary *replacementDict;
-    HTTPDynamicFileResponse *fileResponse;
+    return fileResponse;
+}
 
-    if (shouldReturnLibVLCXML) {
-        replacementDict = @{@"FILES" : [mediaInXml componentsJoinedByString:@" "],
-                            @"NB_FILE" : [NSString stringWithFormat:@"%li", (unsigned long)mediaInXml.count],
-                            @"LIB_TITLE" : [currentDevice name]};
+- (HTTPDynamicFileResponse *)generateXMLResponseFrom:(NSArray *)media path:(NSString *)path
+{
+    NSMutableArray *mediaInXml = [[NSMutableArray alloc] initWithCapacity:media.count];
+    NSString *hostName = [NSString stringWithFormat:@"%@:%@", [[VLCHTTPUploaderController sharedInstance] hostname], [[VLCHTTPUploaderController sharedInstance] hostnamePort]];
+    NSString *duration;
+    for (NSManagedObject *mo in media) {
+        if ([mo isKindOfClass:[MLFile class]]) {
+            MLFile *file = (MLFile *)mo;
+            duration = [[VLCTime timeWithNumber:file.duration] stringValue];
 
-        fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
-                                                           forConnection:self
-                                                               separator:@"%%"
-                                                   replacementDictionary:replacementDict];
-        fileResponse.contentType = @"application/xml";
-    } else {
-        replacementDict = @{@"FILES" : [mediaInHtml componentsJoinedByString:@" "],
-                            @"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
-                            @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
-                            @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil), deviceModel],
-                            @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
-                            @"WEBINTF_DOWNLOADFILES_LONG" : [NSString stringWithFormat: NSLocalizedString(@"WEBINTF_DOWNLOADFILES_LONG", nil), deviceModel]};
-        fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
-                                                           forConnection:self
-                                                               separator:@"%%"
-                                                   replacementDictionary:replacementDict];
-        fileResponse.contentType = @"text/html";
-    }
+            NSString *pathSub = [self _checkIfSubtitleWasFound:file.path];
+            if (pathSub)
+                pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
+            [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation.absoluteString, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
+        }
+        else if ([mo isKindOfClass:[MLShow class]]) {
+            MLShow *show = (MLShow *)mo;
+            NSArray *episodes = [show sortedEpisodes];
+            for (MLShowEpisode *showEp in episodes) {
+                MLFile *anyFileFromEpisode = (MLFile *)[[showEp files] anyObject];
+                duration = [[VLCTime timeWithNumber:[anyFileFromEpisode duration]] stringValue];
 
+                NSString *pathSub = [self _checkIfSubtitleWasFound:[anyFileFromEpisode path]];
+                if (![pathSub isEqualToString:@""])
+                    pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
+                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@ - S%@E%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", show.name, showEp.seasonNumber, showEp.episodeNumber, hostName, showEp.objectID.URIRepresentation, duration, [anyFileFromEpisode fileSizeInBytes], hostName, [anyFileFromEpisode.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
+            }
+        } else if ([mo isKindOfClass:[MLLabel class]]) {
+            MLLabel *label = (MLLabel *)mo;
+            NSArray *folderItems = [label sortedFolderItems];
+            for (MLFile *file in folderItems) {
+                duration = [[VLCTime timeWithNumber:[file duration]] stringValue];
+                NSString *pathSub = [self _checkIfSubtitleWasFound:file.path];
+                if (pathSub)
+                    pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
+                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
+            }
+        } else if ([mo isKindOfClass:[MLAlbum class]]) {
+            MLAlbum *album = (MLAlbum *)mo;
+            NSArray *albumTracks = [album sortedTracks];
+            for (MLAlbumTrack *track in albumTracks) {
+                MLFile *anyFileFromTrack = [track anyFileFromTrack];
+                duration = [[VLCTime timeWithNumber:[anyFileFromTrack duration]] stringValue];
+
+                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"\"/>", track.title, hostName, track.objectID.URIRepresentation, duration, [anyFileFromTrack fileSizeInBytes], hostName, [anyFileFromTrack.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet]]];
+            }
+        }
+    } // end of forloop
+
+    NSDictionary *replacementDict = @{@"FILES" : [mediaInXml componentsJoinedByString:@" "],
+                        @"NB_FILE" : [NSString stringWithFormat:@"%li", (unsigned long)mediaInXml.count],
+                        @"LIB_TITLE" : [[UIDevice currentDevice] name]};
+
+    HTTPDynamicFileResponse *fileResponse = [[HTTPDynamicFileResponse alloc] initWithFilePath:[self filePathForURI:path]
+                                                       forConnection:self
+                                                           separator:@"%%"
+                                               replacementDictionary:replacementDict];
+    fileResponse.contentType = @"application/xml";
     return fileResponse;
 }
 #else
