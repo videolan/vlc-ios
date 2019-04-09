@@ -21,12 +21,14 @@ class AudioCollectionViewCell: BaseCollectionViewCell {
 
     override var media: VLCMLObject? {
         didSet {
-            if let albumTrack = media as? VLCMLMedia {
+            if let albumTrack = media as? VLCMLMedia, albumTrack.subtype() == .albumTrack {
                 update(audiotrack:albumTrack)
             } else if let album = media as? VLCMLAlbum {
                 update(album:album)
             } else if let artist = media as? VLCMLArtist {
                 update(artist:artist)
+            } else if let movie = media as? VLCMLMedia, movie.subtype() == .unknown {
+                update(movie:movie)
             } else {
                 fatalError("needs to be of Type VLCMLMedia or VLCMLAlbum")
             }
@@ -66,6 +68,15 @@ class AudioCollectionViewCell: BaseCollectionViewCell {
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = artist.name
         descriptionLabel.text = artist.numberOfTracksString()
+    }
+
+    func update(movie: VLCMLMedia) {
+        titleLabel.text = movie.title
+        descriptionLabel.text = movie.mediaDuration()
+        if movie.isThumbnailGenerated() {
+            thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.absoluteString)
+        }
+        newLabel.isHidden = !movie.isNew()
     }
 
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
