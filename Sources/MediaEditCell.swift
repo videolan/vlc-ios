@@ -32,6 +32,8 @@ class MediaEditCell: BaseCollectionViewCell {
                 updateForAlbum(album: album)
             } else if let genre = media as? VLCMLGenre {
                 updateForGenre(genre: genre)
+            } else if let playlist = media as? VLCMLPlaylist {
+                updateForPlaylist(playlist: playlist)
             } else {
                 fatalError("needs to be of a supported Type")
             }
@@ -80,6 +82,15 @@ class MediaEditCell: BaseCollectionViewCell {
         titleLabel.text = genre.name
         timeLabel.text = genre.numberOfTracksString()
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
+        //TODO: add thumbnail
+    }
+
+    func updateForPlaylist(playlist: VLCMLPlaylist) {
+        thumbnailImageView.layer.cornerRadius = 3
+        AudioAspectRatio.isActive = false
+        VideoAspectRatio.isActive = true
+        titleLabel.text = playlist.name
+        timeLabel.text = playlist.numberOfTracksString()
         //TODO: add thumbnail
     }
 

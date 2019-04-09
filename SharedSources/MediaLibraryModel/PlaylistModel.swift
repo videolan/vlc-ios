@@ -84,8 +84,14 @@ extension PlaylistModel {
     }
 }
 
-// MARK: - MediaLibraryObserver
+// MARK: - Edit
+extension PlaylistModel: EditableMLModel {
+    func editCellType() -> BaseCollectionViewCell.Type {
+        return MediaEditCell.self
+    }
+}
 
+// MARK: - MediaLibraryObserver
 extension PlaylistModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddPlaylists playlists: [VLCMLPlaylist]) {
         playlists.forEach({ append($0) })
