@@ -82,7 +82,7 @@ extension PlaylistModel: MediaLibraryObserver {
 }
 
 extension VLCMLPlaylist {
-    func description() -> String {
+    func numberOfTracksString() -> String {
         let tracksString = media.count == 1 ? NSLocalizedString("TRACK", comment: "") : NSLocalizedString("TRACKS", comment: "")
         return String(format: tracksString, media.count)
     }

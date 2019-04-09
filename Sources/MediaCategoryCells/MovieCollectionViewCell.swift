@@ -70,7 +70,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         collectionOverlay.isHidden = false
         numberOfTracks.text = String(playlist.media.count)
         titleLabel.text = playlist.name
-        descriptionLabel.text = playlist.description()
+        descriptionLabel.text = playlist.numberOfTracksString()
     }
 
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
