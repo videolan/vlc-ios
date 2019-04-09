@@ -18,7 +18,7 @@ class ArtistModel: MLBaseModel {
 
     var files = [VLCMLArtist]()
 
-    var cellType: BaseCollectionViewCell.Type { return ArtistCollectionViewCell.self }
+    var cellType: BaseCollectionViewCell.Type { return AudioCollectionViewCell.self }
 
     var medialibrary: MediaLibraryService
 
@@ -93,5 +93,12 @@ extension VLCMLArtist: MediaCollectionModel {
 
     func files() -> [VLCMLMedia] {
         return tracks()
+    }
+}
+
+extension VLCMLArtist {
+    func numberOfTracksString() -> String {
+        let tracksString = tracks()?.count == 1 ? NSLocalizedString("TRACK", comment: "") : NSLocalizedString("TRACKS", comment: "")
+        return String(format: tracksString, tracks()?.count ?? 0)
     }
 }
