@@ -15,11 +15,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class MediaLibraryService;
+
 @interface VLCHTTPUploaderController : NSObject
 
 + (instancetype)sharedInstance;
 
 @property (nonatomic, readonly) BOOL isReachable;
+@property (nonatomic, readwrite) MediaLibraryService *medialibrary;
 
 - (BOOL)changeHTTPServerState:(BOOL)state;
 - (NSString *)httpStatus;

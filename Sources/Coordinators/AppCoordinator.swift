@@ -33,6 +33,7 @@ class Services: NSObject {
         // Init the HTTP Server and clean its cache
         // FIXME: VLCHTTPUploaderController should perhaps be a service?
         VLCHTTPUploaderController.sharedInstance().cleanCache()
+        VLCHTTPUploaderController.sharedInstance().medialibrary = services.medialibraryService
         services.medialibraryService.migrationDelegate = self
     }
 
