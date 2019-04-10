@@ -111,4 +111,17 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             return nil
         }
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let cellType = RemoteNetworkCellType(rawValue: indexPath.row) else {
+            assertionFailure("We're having more rows than types of cells that should never happen")
+            return UITableView.automaticDimension
+        }
+        switch cellType {
+        case .cloud, .streaming, .download:
+            return UITableView.automaticDimension
+        case .wifi:
+            return 60
+        }
+    }
 }
