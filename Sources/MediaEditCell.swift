@@ -24,8 +24,8 @@ class MediaEditCell: BaseCollectionViewCell {
 
     override var media: VLCMLObject? {
         didSet {
-            if let media = media as? VLCMLMedia {
-                updateForMedia(media: media)
+            if let movie = media as? VLCMLMedia, movie.type() == .video {
+                updateForMovie(movie: movie)
             } else if let artist = media as? VLCMLArtist {
                 updateForArtist(artist: artist)
             } else if let album = media as? VLCMLAlbum {
@@ -34,6 +34,8 @@ class MediaEditCell: BaseCollectionViewCell {
                 updateForGenre(genre: genre)
             } else if let playlist = media as? VLCMLPlaylist {
                 updateForPlaylist(playlist: playlist)
+            } else if let audio = media as? VLCMLMedia, audio.type() == .audio {
+                updateForAudio(audio: audio)
             } else {
                 fatalError("needs to be of a supported Type")
             }
@@ -54,16 +56,26 @@ class MediaEditCell: BaseCollectionViewCell {
         sizeLabel.textColor = PresentationTheme.current.colors.cellTextColor
     }
 
-    func updateForMedia(media: VLCMLMedia) {
+    func updateForMovie(movie: VLCMLMedia) {
         thumbnailImageView.layer.cornerRadius = 3
         AudioAspectRatio.isActive = false
         VideoAspectRatio.isActive = true
-        titleLabel.text = media.title
-        timeLabel.text = media.mediaDuration()
-        sizeLabel.text = media.formatSize()
-        if media.isThumbnailGenerated() {
-            thumbnailImageView.image = UIImage(contentsOfFile: media.thumbnail.absoluteString)
+        titleLabel.text = movie.title
+        timeLabel.text = movie.mediaDuration()
+        sizeLabel.text = movie.formatSize()
+        if movie.isThumbnailGenerated() {
+            thumbnailImageView.image = UIImage(contentsOfFile: movie.thumbnail.absoluteString)
         }
+    }
+
+    func updateForAudio(audio: VLCMLMedia) {
+        titleLabel.text = audio.title
+        timeLabel.text = audio.mediaDuration()
+        sizeLabel.text = audio.formatSize()
+        if audio.isThumbnailGenerated() {
+            thumbnailImageView.image = UIImage(contentsOfFile: audio.thumbnail.absoluteString)
+        }
+        thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
     }
 
     func updateForArtist(artist: VLCMLArtist) {
