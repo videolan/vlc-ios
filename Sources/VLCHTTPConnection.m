@@ -194,9 +194,9 @@
 - (HTTPDynamicFileResponse *)generateHttpResponseFrom:(NSArray *)media path:(NSString *)path
 {
     NSMutableArray *mediaInHtml = [[NSMutableArray alloc] initWithCapacity:media.count];
-    for (NSObject <VLCMLObject> *mo in media) {
-        if ([mo isKindOfClass:[VLCMLMedia class]]) {
-            VLCMLMedia *media = (VLCMLMedia *)mo;
+    for (NSObject <VLCMLObject> *mediaObject in media) {
+        if ([mediaObject isKindOfClass:[VLCMLMedia class]]) {
+            VLCMLMedia *media = (VLCMLMedia *)mediaObject;
             [mediaInHtml addObject:[NSString stringWithFormat:
                                     @"<div style=\"background-image:url('Thumbnail/%@')\"> \
                                     <a href=\"download/%@\" class=\"inner\"> \
@@ -211,8 +211,8 @@
                                     [[media mainFile].mrl.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
                                     media.title,
                                     [media mediaDuration], [media formatSize]]];
-        } else if ([mo isKindOfClass:[VLCMLPlaylist class]]) {
-            VLCMLPlaylist *playlist = (VLCMLPlaylist *)mo;
+        } else if ([mediaObject isKindOfClass:[VLCMLPlaylist class]]) {
+            VLCMLPlaylist *playlist = (VLCMLPlaylist *)mediaObject;
             NSArray *playlistItems = [playlist media];
             [mediaInHtml addObject:[NSString stringWithFormat:
                                     @"<div style=\"background-image:url('Thumbnail/%@')\"> \
@@ -244,8 +244,8 @@
                                         [media mediaDuration], [media formatSize]]];
             }
             [mediaInHtml addObject:@"</div></div>"];
-        } else if ([mo isKindOfClass:[VLCMLAlbum class]]) {
-            VLCMLAlbum *album = (VLCMLAlbum *)mo;
+        } else if ([mediaObject isKindOfClass:[VLCMLAlbum class]]) {
+            VLCMLAlbum *album = (VLCMLAlbum *)mediaObject;
             NSArray *albumTracks = [album tracks];
             [mediaInHtml addObject:[NSString stringWithFormat:
                                     @"<div style=\"background-image:url('Thumbnail/%@')\"> \
@@ -300,34 +300,46 @@
 {
     NSMutableArray *mediaInXml = [[NSMutableArray alloc] initWithCapacity:media.count];
     NSString *hostName = [NSString stringWithFormat:@"%@:%@", [[VLCHTTPUploaderController sharedInstance] hostname], [[VLCHTTPUploaderController sharedInstance] hostnamePort]];
-    NSString *duration;
-    for (NSManagedObject *mo in media) {
-        if ([mo isKindOfClass:[MLFile class]]) {
-            MLFile *file = (MLFile *)mo;
-            duration = [[VLCTime timeWithNumber:file.duration] stringValue];
-
-            NSString *pathSub = [self _checkIfSubtitleWasFound:file.path];
+    for (NSObject <VLCMLObject> *mediaObject in media) {
+        if ([mediaObject isKindOfClass:[VLCMLMedia class]]) {
+            VLCMLMedia *file = (VLCMLMedia *)mediaObject;
+            NSString *pathSub = [self _checkIfSubtitleWasFound:[file mainFile].mrl.path];
             if (pathSub)
                 pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-            [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation.absoluteString, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
-        } else if ([mo isKindOfClass:[MLLabel class]]) {
-            MLLabel *label = (MLLabel *)mo;
-            NSArray *folderItems = [label sortedFolderItems];
-            for (MLFile *file in folderItems) {
-                duration = [[VLCTime timeWithNumber:[file duration]] stringValue];
-                NSString *pathSub = [self _checkIfSubtitleWasFound:file.path];
+            [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/Thumbnail/%@\" duration=\"%@\" size=\"%@\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>",
+                                   file.title,
+                                   hostName,
+                                   file.thumbnail.absoluteString,
+                                   [file mediaDuration], [file formatSize],
+                                   hostName,
+                                   [[file mainFile].mrl.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
+        } else if ([mediaObject isKindOfClass:[VLCMLPlaylist class]]) {
+            VLCMLPlaylist *playlist = (VLCMLPlaylist *)mediaObject;
+            NSArray *playlistItems = [playlist media];
+            for (VLCMLMedia *file in playlistItems) {
+                NSString *pathSub = [self _checkIfSubtitleWasFound:[file mainFile].mrl.path];
                 if (pathSub)
                     pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
-                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title, hostName, file.objectID.URIRepresentation, duration, file.fileSizeInBytes, hostName, [file.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
+                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/Thumbnail/%@\" duration=\"%@\" size=\"%@\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title,
+                                       hostName,
+                                       file.thumbnail.absoluteString,
+                                       [file mediaDuration],
+                                       [file formatSize],
+                                       hostName,
+                                       [[file mainFile].mrl.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
             }
-        } else if ([mo isKindOfClass:[MLAlbum class]]) {
-            MLAlbum *album = (MLAlbum *)mo;
-            NSArray *albumTracks = [album sortedTracks];
-            for (MLAlbumTrack *track in albumTracks) {
-                MLFile *anyFileFromTrack = [track anyFileFromTrack];
-                duration = [[VLCTime timeWithNumber:[anyFileFromTrack duration]] stringValue];
+        } else if ([mediaObject isKindOfClass:[VLCMLAlbum class]]) {
+            VLCMLAlbum *album = (VLCMLAlbum *)mediaObject;
+            NSArray *albumTracks = [album tracks];
+            for (VLCMLMedia *track in albumTracks) {
 
-                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/thumbnail/%@.png\" duration=\"%@\" size=\"%li\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"\"/>", track.title, hostName, track.objectID.URIRepresentation, duration, [anyFileFromTrack fileSizeInBytes], hostName, [anyFileFromTrack.url.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet]]];
+                [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/Thumbnail/%@\" duration=\"%@\" size=\"%@\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"\"/>", track.title,
+                                       hostName,
+                                       track.thumbnail.absoluteString,
+                                       [track mediaDuration],
+                                       [track formatSize],
+                                       hostName,
+                                       [[track mainFile].mrl.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet]]];
             }
         }
     } // end of forloop
