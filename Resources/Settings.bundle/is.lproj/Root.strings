@@ -1,0 +1,98 @@
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+
+"SETTINGS_PRIVACY_TITLE" = "Gagnaleynd";
+"SETTINGS_VIDEO_TITLE" = "Myndmerki";
+"SETTINGS_AUDIO_TITLE" = "Hljóð";
+
+"SETTINGS_THEME_SUBTITLE" = "Breyta litum í forriti";
+"SETTINGS_PRIVACY_SUBTITLE" = "Opna í stillingum";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Tryggðu öruggt aðgengi að efninu þínu";
+
+"SETTINGS_DARKTHEME" = "Dökkt þema";
+"SETTINGS_TIME_STRETCH_AUDIO" = "Tímaaðlögun hljóðs (time streching)";
+"SETTINGS_BACKGROUND_AUDIO" = "Hljóðspilun í bakgrunni";
+"SETTINGS_GENERIC_TITLE" = "Algengt";
+"SETTINGS_PASSCODE_LOCK" = "Læsing með lykilorði";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Leyfa Touch ID til að aflæsa";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Leyfa Face ID til að aflæsa";
+"SETTINGS_DECRAPIFY" = "Besta heiti atriða fyrir birtingu";
+"SETTINGS_VIDEO_FULLSCREEN" = "Spila í heilskjásham";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Halda myndspilun áfram";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Halda hljóðspilun áfram";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Aldrei";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Spyrja";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Alltaf";
+"SETTINGS_NETWORK_PLAY_ALL" = "Spila næsta atriði sjálfkrafa";
+
+"SETTINGS_SKIP_LOOP_FILTER" = "Afblokkunarsía";
+"SETTINGS_SKIP_LOOP_FILTER_NONE" = "Engin afblokkun (hraðast)";
+"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Miðlungs afblokkun";
+"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Lítil afblokkun";
+
+"SETTINGS_NETWORK_CACHING_TITLE" = "Stig skyndiminnis fyrir netkerfi";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Minnsti biðtími";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Lítill biðtími";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Venjulegt";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Mikill biðtími";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Mesti biðtími";
+
+"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Sjálfgefinn afspilunarhraði";
+
+"SETTINGS_GESTURES" = "Stýra afspilun með hreyfingum";
+"SETTINGS_GESTURES_VOLUME" = "Strjúka upp/niður til að stilla hljóðstyrk";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Slá létt til að spila/setja í bið";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Strjúka upp/niður til að stilla birtustig";
+"SETTINGS_GESTURES_SEEK" = "Strjúka hægri/vinstri til að leita";
+"SETTINGS_GESTURES_CLOSE" = "Klípa til að loka";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Breytileg tímalengd hoppa";
+
+"SETTINGS_SUBTITLES_TITLE" = "Skjátextar";
+"SETTINGS_SUBTITLES_FONT" = "Letur";
+"SETTINGS_SUBTITLES_TEXT_ENCODING" = "Kóðun texta";
+"SETTINGS_SUBTITLES_FONTSIZE" = "Hlutfallsleg leturstærð";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "Minnst";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALL" = "Lítið";
+"SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "Venjulegt";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGE" = "Stórt";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "Stærst";
+"SETTINGS_SUBTITLES_BOLDFONT" = "Nota feitletrun";
+"SETTINGS_SUBTITLES_FONTCOLOR" = "Litur á letri";
+"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "Hvítt";
+"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "Svart";
+"SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "Grátt";
+"SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "Silfur";
+"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "Rautt";
+"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "Dökkbleikt";
+"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Gult";
+"SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Grænt";
+"SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Flotablátt";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Breidd útlína";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Engin";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Mjó";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Venjuleg";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Sver";
+
+"SETTINGS_DEINTERLACE" = "Afflétta";
+"SETTINGS_DEINTERLACE_ON" = "Kveikt";
+"SETTINGS_DEINTERLACE_OFF" = "Slökkt";
+"SETTINGS_DEINTERLACE_AUTO" = "Sjálfvirkt";
+
+"SETTINGS_HWDECODING" = "Vélbúnaðarafkóðun";
+"SETTINGS_HWDECODING_ON" = "Kveikt";
+"SETTINGS_HWDECODING_OFF" = "Slökkt";
+
+"SETTINGS_FEEDBACK" = "Umsagnir";
+"SETTINGS_SEND_FEEDBACK" = "Senda umsögn";
+"SETTINGS_SEND_RATING" = "Gefðu VLC fyrir iOS einkunn";
+
+"SETTINGS_FILE_SYNC" = "Samstilling skráa";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 stuðningur vegna WiFi-deilingar";
+"SETTINGS_UNLINK_DROPBOX" = "Aftengja frá Dropbox";
+"SETTINGS_UNLINK_GOOGLEDRIVE" = "Aftengja frá Google Drive";
+"SETTINGS_UNLINK_ONEDRIVE" = "Aftengja frá OneDrive";
+"SETTINGS_FTP_TEXT_ENCODING" = "Stafatafla texta í FTP-tengingum";
+
+"SETTINGS_ARTWORK" = "Myndefni";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Sækja myndefni";
+
+"ABOUT_APP_TV" = "Um VLC fyrir tvOS";
