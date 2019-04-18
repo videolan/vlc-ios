@@ -11,7 +11,7 @@
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
-
+@class NSManagedObject;
 @interface VLCThumbnailsCache : NSObject
 
 + (UIImage *)thumbnailForManagedObject:(NSManagedObject *)object;

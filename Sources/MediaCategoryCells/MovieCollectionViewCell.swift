@@ -60,10 +60,10 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         if movie.isThumbnailGenerated() {
             thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.path)
         }
-        let progress = movie.mediaProgress()
+        let progress = movie.progress
         progressView.isHidden = progress == 0
         progressView.progress = progress
-        newLabel.isHidden = !movie.isNew()
+        newLabel.isHidden = !movie.isNew
     }
 
     func update(playlist: VLCMLPlaylist) {

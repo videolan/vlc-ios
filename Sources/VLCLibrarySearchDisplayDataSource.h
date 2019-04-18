@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-@interface VLCLibrarySearchDisplayDataSource : NSObject<UITableViewDataSource, UICollectionViewDataSource>
+@interface VLCLibrarySearchDisplayDataSource : NSObject<UITableViewDataSource>
 
 - (NSManagedObject *)objectAtIndex:(NSUInteger)index;
 - (void)shouldReloadTableForSearchString:(NSString *)searchString searchableFiles:(NSArray *)files;

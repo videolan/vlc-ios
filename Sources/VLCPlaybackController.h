@@ -25,8 +25,13 @@ extern NSString *const VLCPlaybackControllerPlaybackPositionUpdated;
 @class VLCPlaybackController;
 @class VLCMetaData;
 @class VLCDialogProvider;
+@class VLCMLMedia;
 
 @protocol VLCPlaybackControllerDelegate <NSObject>
+#if TARGET_OS_IOS
+- (void)savePlaybackState:(VLCPlaybackController *)controller;
+- (VLCMLMedia *_Nullable)mediaForPlayingMedia:(VLCMedia *)media;
+#endif
 @optional
 - (void)playbackPositionUpdated:(VLCPlaybackController *)controller;
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState

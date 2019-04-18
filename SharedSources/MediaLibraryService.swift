@@ -291,13 +291,32 @@ extension MediaLibraryService {
 
     @objc func fetchMedia(with mrl: URL?) -> VLCMLMedia? {
         guard let mrl = mrl  else {
+            assertionFailure("MedialibraryService: no mrl")
             return nil
         }
         return medialib.media(withMrl: mrl)
     }
 
+
     @objc func media(for identifier: VLCMLIdentifier) -> VLCMLMedia? {
         return medialib.media(withIdentifier: identifier)
+    }
+
+    func savePlaybackState(from player: VLCPlaybackController) {
+
+        let media = player.currentlyPlayingMedia
+        guard let mlMedia = fetchMedia(with: media.url.absoluteURL) else {
+            // we opened a url and not a local file
+            return
+        }
+
+        mlMedia.isNew = false
+        mlMedia.progress = player.playbackPosition
+        mlMedia.audioTrackIndex = Int64(player.indexOfCurrentAudioTrack)
+        mlMedia.subtitleTrackIndex = Int64(player.indexOfCurrentSubtitleTrack)
+        mlMedia.chapterIndex = Int64(player.indexOfCurrentChapter)
+        mlMedia.titleIndex = Int64(player.indexOfCurrentTitle)
+        //create a new thumbnail
     }
 }
 
