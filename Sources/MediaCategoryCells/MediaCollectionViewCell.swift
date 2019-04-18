@@ -59,7 +59,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         if audiotrack.isThumbnailGenerated() {
             thumbnailView.image = UIImage(contentsOfFile: audiotrack.thumbnail.path)
         }
-        newLabel.isHidden = !audiotrack.isNew()
+        newLabel.isHidden = !audiotrack.isNew
     }
 
     func update(album: VLCMLAlbum) {
@@ -80,7 +80,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         if movie.isThumbnailGenerated() {
             thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.path)
         }
-        newLabel.isHidden = !movie.isNew()
+        newLabel.isHidden = !movie.isNew
     }
 
     func update(playlist: VLCMLPlaylist) {

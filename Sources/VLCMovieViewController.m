@@ -1093,6 +1093,16 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     _multiSelectionView.mediaHasChapters = currentMediaHasChapters;
 }
 
+- (void)savePlaybackState:(VLCPlaybackController *)controller
+{
+    [_services.medialibraryService savePlaybackStateFrom:controller];
+}
+
+- (VLCMLMedia *)mediaForPlayingMedia:(VLCMedia *)media
+{
+    return [_services.medialibraryService fetchMediaWith:media.url];
+}
+
 - (void)showStatusMessage:(NSString *)statusMessage
 {
     [self.statusLabel showStatusMessage:statusMessage];

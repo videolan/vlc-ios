@@ -293,7 +293,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         if (_mediaPlayer.media) {
             [_mediaPlayer pause];
 #if TARGET_OS_IOS
-            [self _savePlaybackState];
+            [_delegate savePlaybackState: self];
 #endif
             [_mediaPlayer stop];
         }
@@ -326,93 +326,12 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)restoreAudioAndSubtitleTrack
 {
-    MLFile *item = [MLFile fileForURL:_mediaPlayer.media.url].firstObject;
+    VLCMLMedia *media = [_delegate mediaForPlayingMedia:_mediaPlayer.media];
 
-    if (item) {
-        _mediaPlayer.currentAudioTrackIndex = item.lastAudioTrack.intValue;
-        _mediaPlayer.currentVideoSubTitleIndex = item.lastSubtitleTrack.intValue;
+    if (media) {
+        _mediaPlayer.currentAudioTrackIndex = (int) media.audioTrackIndex;
+        _mediaPlayer.currentVideoSubTitleIndex = (int) media.subtitleTrackIndex;
     }
-}
-
-- (void)_savePlaybackState
-{
-    @try {
-        [[MLMediaLibrary sharedMediaLibrary] save];
-    }
-    @catch (NSException *exception) {
-        APLog(@"saving playback state failed");
-    }
-
-    NSArray *files = [MLFile fileForURL:_mediaPlayer.media.url];
-    MLFile *fileItem = files.firstObject;
-
-    if (!fileItem) {
-        APLog(@"couldn't find file, not saving playback progress");
-        return;
-    }
-
-    @try {
-        float position = _mediaPlayer.position;
-        fileItem.lastPosition = @(position);
-        fileItem.lastAudioTrack = @(_mediaPlayer.currentAudioTrackIndex);
-        fileItem.lastSubtitleTrack = @(_mediaPlayer.currentVideoSubTitleIndex);
-
-        if (position > .95)
-            return;
-
-        if (_mediaPlayer.hasVideoOut) {
-            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-            NSString *newThumbnailPath = [searchPaths.firstObject stringByAppendingPathComponent:@"VideoSnapshots"];
-            NSError *error;
-
-            [[NSFileManager defaultManager] createDirectoryAtPath:newThumbnailPath withIntermediateDirectories:YES attributes:nil error:&error];
-            if (error == nil) {
-                newThumbnailPath = [newThumbnailPath stringByAppendingPathComponent:fileItem.objectID.URIRepresentation.lastPathComponent];
-                [_mediaPlayer saveVideoSnapshotAt:newThumbnailPath withWidth:0 andHeight:0];
-                _recheckForExistingThumbnail = YES;
-                [self performSelector:@selector(_updateStoredThumbnailForFile:) withObject:fileItem afterDelay:.25];
-            }
-        }
-    }
-    @catch (NSException *exception) {
-        APLog(@"failed to save current media state - file removed?");
-    }
-}
-#endif
-
-#if TARGET_OS_IOS
-- (void)_updateStoredThumbnailForFile:(MLFile *)fileItem
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString* newThumbnailPath = [searchPaths[0] stringByAppendingPathComponent:@"VideoSnapshots"];
-    newThumbnailPath = [newThumbnailPath stringByAppendingPathComponent:fileItem.objectID.URIRepresentation.lastPathComponent];
-
-    if (![fileManager fileExistsAtPath:newThumbnailPath]) {
-        if (_recheckForExistingThumbnail) {
-            [self performSelector:@selector(_updateStoredThumbnailForFile:) withObject:fileItem afterDelay:1.];
-            _recheckForExistingThumbnail = NO;
-        } else
-            return;
-    }
-
-    UIImage *newThumbnail = [UIImage imageWithContentsOfFile:newThumbnailPath];
-    if (!newThumbnail) {
-        if (_recheckForExistingThumbnail) {
-            [self performSelector:@selector(_updateStoredThumbnailForFile:) withObject:fileItem afterDelay:1.];
-            _recheckForExistingThumbnail = NO;
-        } else
-            return;
-    }
-
-    @try {
-        [fileItem setComputedThumbnailScaledForDevice:newThumbnail];
-    }
-    @catch (NSException *exception) {
-        APLog(@"updating thumbnail failed");
-    }
-
-    [fileManager removeItemAtPath:newThumbnailPath error:nil];
 }
 #endif
 
@@ -422,9 +341,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         _mediaWasJustStarted = NO;
 #if TARGET_OS_IOS
         if (self.mediaList) {
-            NSArray *matches = [MLFile fileForURL:_mediaPlayer.media.url];
-            MLFile *item = matches.firstObject;
-            [self _recoverLastPlaybackStateOfItem:item];
+            [self _recoverLastPlaybackState];
         }
 #else
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -756,11 +673,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
                 return;
             }
         } break;
-        case VLCMediaPlayerStateESAdded: {
-#if TARGET_OS_IOS
-            [self restoreAudioAndSubtitleTrack];
-#endif
-        } break;
         default:
             break;
     }
@@ -791,7 +703,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 {
     [_listPlayer pause];
 #if TARGET_OS_IOS
-    [self _savePlaybackState];
+    [_delegate savePlaybackState: self];
 #endif
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
 }
@@ -1131,7 +1043,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         APLog(@"Pausing playback as previously connected external audio playback device was removed");
         [_mediaPlayer pause];
 #if TARGET_OS_IOS
-        [self _savePlaybackState];
+       [_delegate savePlaybackState: self];
 #endif
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
     }
@@ -1173,46 +1085,40 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 }
 
 #if TARGET_OS_IOS
-- (void)_recoverLastPlaybackStateOfItem:(MLFile *)item
+- (void)_recoverLastPlaybackState
 {
-    if (item) {
-        CGFloat lastPosition = .0;
-        NSInteger duration = 0;
+    VLCMLMedia *media = [_delegate mediaForPlayingMedia:_mediaPlayer.media];
+    if (!media) return;
 
-        if (item.lastPosition) {
-            lastPosition = item.lastPosition.floatValue;
-        }
-        
-        duration = item.duration.intValue;
+    CGFloat lastPosition = media.progress;
+    if (_mediaPlayer.position < lastPosition) {
+        NSInteger continuePlayback;
+        if (media.type == VLCMLMediaTypeAudio)
+            continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
+        else
+            continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
 
-        if (lastPosition < .95 && _mediaPlayer.position < lastPosition) {
-            NSInteger continuePlayback;
-            if ([item isAlbumTrack] || [item isSupportedAudioFile])
-                continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
-            else
-                continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
+        if (continuePlayback == 1) {
+            [self setPlaybackPosition:lastPosition];
+        } else if (continuePlayback == 0) {
+            NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                                                         style: UIAlertActionStyleCancel
+                                                                                        action: nil],
+                                                         [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CONTINUE", nil)
+                                                                                        action: ^(UIAlertAction *action) {
+                                                                                            [self setPlaybackPosition:lastPosition];
+                                                                                        }]
+                                                         ];
+            UIViewController *presentingVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+            presentingVC = presentingVC.presentedViewController ?: presentingVC;
+            [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
+                                                 errorMessage:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), media.title]
+                                               viewController:presentingVC
+                                                buttonsAction:buttonsAction];
 
-            if (continuePlayback == 1) {
-                [self setPlaybackPosition:lastPosition];
-            } else if (continuePlayback == 0) {
-                NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                                                             style: UIAlertActionStyleCancel
-                                                                                            action: nil],
-                                                             [[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CONTINUE", nil)
-                                                                                            action: ^(UIAlertAction *action) {
-                                                                                                [self setPlaybackPosition:lastPosition];
-                                                                                            }]
-                                                             ];
-                UIViewController *presentingVC = [UIApplication sharedApplication].delegate.window.rootViewController;
-                presentingVC = presentingVC.presentedViewController ?: presentingVC;
-                [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"CONTINUE_PLAYBACK", nil)
-                                                     errorMessage:[NSString stringWithFormat:NSLocalizedString(@"CONTINUE_PLAYBACK_LONG", nil), item.title]
-                                                   viewController:presentingVC
-                                                    buttonsAction:buttonsAction];
-
-            }
         }
     }
+    [self restoreAudioAndSubtitleTrack];
 }
 #endif
 
@@ -1253,7 +1159,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 - (void)applicationWillResignActive:(NSNotification *)aNotification
 {
 #if TARGET_OS_IOS
-    [self _savePlaybackState];
+    [_delegate savePlaybackState: self];
 #endif
     if (![self isPlayingOnExternalScreen]
         && ![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {

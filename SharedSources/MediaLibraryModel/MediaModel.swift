@@ -40,7 +40,7 @@ extension VLCMLMedia {
         return lhs.identifier() == rhs.identifier()
     }
 }
-
+// MARK: - ViewModel
 extension VLCMLMedia {
     @objc func mediaDuration() -> String {
         return String(format: "%@", VLCTime(int: Int32(duration())))
@@ -49,18 +49,6 @@ extension VLCMLMedia {
     @objc func formatSize() -> String {
         return ByteCountFormatter.string(fromByteCount: Int64(mainFile()?.size() ?? 0),
                                          countStyle: .file)
-    }
-
-    func mediaProgress() -> Float {
-        guard let string = metadata(of: .progress).str as NSString? else {
-            return 0.0
-        }
-        return string.floatValue
-    }
-
-    func isNew() -> Bool {
-        let integer = metadata(of: .seen).integer()
-        return integer == 0
     }
 }
 

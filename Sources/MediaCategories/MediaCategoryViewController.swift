@@ -397,9 +397,6 @@ private extension VLCMediaCategoryViewController {
 // MARK: - Player
 
 extension VLCMediaCategoryViewController {
-    func play(mediaObject: NSManagedObject) {
-        VLCPlaybackController.sharedInstance().playMediaLibraryObject(mediaObject)
-    }
 
     func play(media: VLCMLMedia) {
         VLCPlaybackController.sharedInstance().fullscreenSessionRequested = media.subtype() != .albumTrack
