@@ -26,10 +26,12 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     @IBOutlet private weak var previousButton: UIButton!
     @IBOutlet private weak var nextButton: UIButton!
 
+    private var mediaService: MediaLibraryService
     private lazy var playbackController = VLCPlaybackController.sharedInstance()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    @objc init(service: MediaLibraryService) {
+        self.mediaService = service
+        super.init(frame: .zero)
         initView()
         setupConstraint()
     }
@@ -107,6 +109,14 @@ extension AudioMiniPlayer {
 
     func playbackPositionUpdated(_ controller: VLCPlaybackController) {
         progressBarView.progress = controller.playbackPosition
+    }
+
+    func savePlaybackState(_ controller: VLCPlaybackController) {
+        mediaService.savePlaybackState(from: controller)
+    }
+
+    func media(forPlaying media: VLCMedia) -> VLCMLMedia? {
+        return mediaService.fetchMedia(with: media.url)
     }
 }
 

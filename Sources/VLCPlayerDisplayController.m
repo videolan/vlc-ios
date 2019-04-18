@@ -275,7 +275,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     if (needsShow) {
         if (!miniPlaybackView) {
             // Until VideoMiniPlayer is integrated, only AudioMiniPlayer is used.
-            self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithFrame:CGRectZero];
+            self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithService:_services.medialibraryService];
             miniPlaybackView.translatesAutoresizingMaskIntoConstraints = NO;
             miniPlaybackView.userInteractionEnabled = YES;
             [self.view addSubview:miniPlaybackView];
