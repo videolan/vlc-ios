@@ -26,9 +26,6 @@ class VLCVideoViewController: VLCMediaViewController {
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        return [
-            VLCMovieCategoryViewController(services),
-            VLCShowEpisodeCategoryViewController(services),
-        ]
+        return [VLCMovieCategoryViewController(services)]
     }
 }
