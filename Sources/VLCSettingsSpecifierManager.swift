@@ -31,7 +31,7 @@ class VLCSettingsSpecifierManager: NSObject {
         if let selectedItem = settingsStore.object(forKey: specifier?.key()) {
             index = items.index(of: selectedItem)
         } else if let specifier = specifier {
-            index = items.index(of: specifier.defaultValue())
+            index = items.index(of: specifier.defaultValue() as Any)
         } else {
             fatalError("VLCSettingsSpecifierManager: No specifier provided")
         }

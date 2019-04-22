@@ -155,6 +155,8 @@ private extension MediaLibraryService {
         case .dbReset:
             // should still start and discover but warn the user that the db has been wipped
             assertionFailure("MediaLibraryService: The database was resetted, please re-configure.")
+        @unknown default:
+            assertionFailure("MediaLibraryService: unhandled case")
         }
     }
 }
