@@ -95,10 +95,10 @@ div.main.drop {
   line-height: 52px;
 
   text-align: center;
-  padding: 0 12px;  
+  padding: 0 12px;
   height: 58px;
   min-width: 140px;
-  cursor: pointer;  
+  cursor: pointer;
 }
 .btn:hover{
   opacity: 0.5;
@@ -369,14 +369,13 @@ div.main.drop {
   width: 100%;
   /*background:red;*/
   padding:3px 10px 0 13px;
-  white-space: nowrap;
   overflow-y: hidden;
   display: inline-block;
   text-shadow: 0 2px 0 rgba(0,0,0,0.5);
 }
 
 .downloads .inner .infos span.first-line {
-  font-size: 1.7em;
+  font-size: 1.3em;
 }
 
 .downloads .inner .infos span.second-line {
@@ -535,7 +534,7 @@ div.main.drop {
   font-size: .9em;
   line-height: 1.3em;
   margin-top: 40px;
-  padding-bottom: 8px; 
+  padding-bottom: 8px;
   text-align: center;
   color: rgb(120, 120, 120);
   text-shadow: 1px 1px 2px black;
