@@ -147,7 +147,7 @@
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "אירעה שגיאה בעת ההורדה";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "שגיאה";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "למדיה הנבחרת אין כתובת לנגינה";
 
 "DISK_FULL" = "דיסק מלא, הגעת למגבלת האחסון";
 "DISK_FULL_FORMAT" = "%@ לא יכול להישמר על %@, מכיוון שאין מספיק מקום פנוי.";
@@ -181,8 +181,8 @@
 "BWD_BUTTON" = "קפיצה אחורה";
 "FWD_BUTTON" = "קפיצה קדימה";
 "PLAY_BUTTON" = "נגן";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
+"NEXT_BUTTON" = "הבא";
+"PREV_BUTTON" = "הקודם";
 "PLAY_ALL_BUTTON" = "לנגן הכול";
 
 "VERSION_FORMAT" = "גרסה: %@";
@@ -320,29 +320,29 @@
 "NAME" = "שם";
 
 //EDIT
-"ADD_TO_PLAYLIST" = "Add to Playlist";
+"ADD_TO_PLAYLIST" = "הוספה לרשימת הנגינה";
 
-"PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"PLAYLIST_PLACEHOLDER" = "כותרת רשימת נגינה";
+"PLAYLIST_DESCRIPTION" = "נא לבחור כותרת לרשימת הנגינה החדשה שלך";
 
-"RENAME_PLACEHOLDER" = "New title";
-"ERROR_RENAME_FAILED" = "Renaming failed";
-"ERROR_EMPTY_NAME" = "The title can't be empty";
+"RENAME_PLACEHOLDER" = "כותרת חדשה";
+"ERROR_RENAME_FAILED" = "שינוי השם נכשל";
+"ERROR_EMPTY_NAME" = "הכותרת לא יכולה להישאר ריקה";
 
 // Sort
 
-"HEADER_TITLE_SORT" = "Sort by";
+"HEADER_TITLE_SORT" = "מיון לפי";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
-"ALPHA" = "Alphanumerically";
+"ALPHA" = "אלפבית";
 "DURATION" = "משך";
-"INSERTION_DATE" = "Insertion date";
-"LAST_MODIFICATION_DATE" = "Last modification date";
-"RELEASE_DATE" = "Release date";
-"FILE_SIZE" = "File size";
-"ARTIST" = "Artist";
-"PLAY_COUNT" = "Play count";
-"ALBUM" = "Album";
-"FILENAME" = "Filename";
-"TRACK_NUMBER" = "Track number";
+"INSERTION_DATE" = "מועד הוספה";
+"LAST_MODIFICATION_DATE" = "מועד שינוי אחרון";
+"RELEASE_DATE" = "מועד שחרור";
+"FILE_SIZE" = "גודל קובץ";
+"ARTIST" = "אמן";
+"PLAY_COUNT" = "מניין ניגונים";
+"ALBUM" = "אלבום";
+"FILENAME" = "שם קובץ";
+"TRACK_NUMBER" = "מספר רצועה";
