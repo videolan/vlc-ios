@@ -147,7 +147,7 @@
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "Ralat berlaku ketika memuat turun";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "RALAT";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "Media terpilih tidak mempunyai url boleh main";
 
 "DISK_FULL" = "Had storan dicapai";
 "DISK_FULL_FORMAT" = "%@ tidak dapat disimpan dalam %@ anda, kerana anda tidak mempunyai ruang bebas yang mencukupi.";
@@ -181,8 +181,8 @@
 "BWD_BUTTON" = "Lompat Mengundur";
 "FWD_BUTTON" = "Lompat Ke Hadapan";
 "PLAY_BUTTON" = "Main";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
+"NEXT_BUTTON" = "Berikutnya";
+"PREV_BUTTON" = "Terdahulu";
 "PLAY_ALL_BUTTON" = "Main semua";
 
 "VERSION_FORMAT" = "Versi: %@";
@@ -314,35 +314,35 @@
 "GENRES" = "Genre";
 "MOVIES" = "Cereka";
 "SONGS" = "Lagu";
-"PLAYLISTS" = "Playlists";
+"PLAYLISTS" = "Senarai Main";
 
-"MODIFIED_DATE" = "Modified date";
-"NAME" = "Name";
+"MODIFIED_DATE" = "Tarikh ubah suai";
+"NAME" = "Nama";
 
 //EDIT
-"ADD_TO_PLAYLIST" = "Add to Playlist";
+"ADD_TO_PLAYLIST" = "Tambah ke dalam Senarai Main";
 
-"PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"PLAYLIST_PLACEHOLDER" = "Tajuk senarai nama";
+"PLAYLIST_DESCRIPTION" = "Pilih satu tajuk untuk Senarai Main baharu anda";
 
-"RENAME_PLACEHOLDER" = "New title";
-"ERROR_RENAME_FAILED" = "Renaming failed";
-"ERROR_EMPTY_NAME" = "The title can't be empty";
+"RENAME_PLACEHOLDER" = "Tajuk baharu";
+"ERROR_RENAME_FAILED" = "Penamaan semula gagal";
+"ERROR_EMPTY_NAME" = "Tajuk tidak boleh kosong";
 
 // Sort
 
-"HEADER_TITLE_SORT" = "Sort by";
+"HEADER_TITLE_SORT" = "Isih mengikut";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
-"ALPHA" = "Alphanumerically";
+"ALPHA" = "secara Abjad Angka";
 "DURATION" = "Tempoh";
-"INSERTION_DATE" = "Insertion date";
-"LAST_MODIFICATION_DATE" = "Last modification date";
-"RELEASE_DATE" = "Release date";
-"FILE_SIZE" = "File size";
-"ARTIST" = "Artist";
-"PLAY_COUNT" = "Play count";
+"INSERTION_DATE" = "Tarikh disisip";
+"LAST_MODIFICATION_DATE" = "Tarikh pengubahsuaian terakhir";
+"RELEASE_DATE" = "Tarikh pelepasan";
+"FILE_SIZE" = "Saiz fail";
+"ARTIST" = "Artis";
+"PLAY_COUNT" = "Kiraan main";
 "ALBUM" = "Album";
-"FILENAME" = "Filename";
-"TRACK_NUMBER" = "Track number";
+"FILENAME" = "Nama fail";
+"TRACK_NUMBER" = "Nombor trek";
