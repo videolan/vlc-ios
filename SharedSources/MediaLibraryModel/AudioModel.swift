@@ -18,7 +18,7 @@ class AudioModel: MediaModel {
 
     var files = [VLCMLMedia]()
 
-    var cellType: BaseCollectionViewCell.Type { return AudioCollectionViewCell.self }
+    var cellType: BaseCollectionViewCell.Type { return MediaCollectionViewCell.self }
 
     var medialibrary: MediaLibraryService
 
