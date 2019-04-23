@@ -48,6 +48,7 @@
                                   kVLCSettingDeinterlace : kVLCSettingDeinterlaceDefaultValue,
                                   kVLCSettingHardwareDecoding : kVLCSettingHardwareDecodingDefault,
                                   kVLCSettingNetworkCaching : kVLCSettingNetworkCachingDefaultValue,
+                                  kVLCSettingEqualizerProfileDisabled : @(YES),
                                   kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue,
                                   kVLCSettingPlaybackForwardSkipLength : kVLCSettingPlaybackForwardSkipLengthDefaultValue,
                                   kVLCSettingPlaybackBackwardSkipLength : kVLCSettingPlaybackBackwardSkipLengthDefaultValue,

@@ -58,6 +58,7 @@
 #define kVLCSettingWiFiSharingIPv6 @"wifi-sharing-ipv6"
 #define kVLCSettingWiFiSharingIPv6DefaultValue @(NO)
 #define kVLCSettingEqualizerProfile @"EqualizerProfile"
+#define kVLCSettingEqualizerProfileDisabled @"EqualizerDisabled"
 #define kVLCSettingEqualizerProfileDefaultValue @(0)
 #define kVLCSettingPlaybackForwardSkipLength @"playback-forward-skip-length"
 #define kVLCSettingPlaybackForwardSkipLengthDefaultValue @(60)
