@@ -31,7 +31,7 @@ class CollectionModel: MLBaseModel {
 
     var files = [VLCMLMedia]()
 
-    var cellType: BaseCollectionViewCell.Type { return AudioCollectionViewCell.self } //TODO: this approach will not work here because playlists can contain audio or videocells
+    var cellType: BaseCollectionViewCell.Type { return MediaCollectionViewCell.self }
 
     var indicatorName: String = NSLocalizedString("Collections", comment: "")
 

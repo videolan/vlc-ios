@@ -1,5 +1,5 @@
 /*****************************************************************************
- * AudioCollectionViewCell.swift
+ * MediaCollectionViewCell.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -12,7 +12,7 @@
 
 import Foundation
 
-class AudioCollectionViewCell: BaseCollectionViewCell {
+class MediaCollectionViewCell: BaseCollectionViewCell {
 
     @IBOutlet weak var thumbnailView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
