@@ -229,10 +229,14 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         return;
     }
 
-    // Set last selected equalizer profile
-    unsigned int profile = (unsigned int)[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingEqualizerProfile] integerValue];
-    [_mediaPlayer resetEqualizerFromProfile:profile];
-    [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
+    // Set last selected equalizer profile if enabled
+    _mediaPlayer.equalizerEnabled = ![[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingEqualizerProfileDisabled];
+
+    if (_mediaPlayer.equalizerEnabled) {
+        unsigned int profile = (unsigned int)[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingEqualizerProfile] integerValue];
+        [_mediaPlayer resetEqualizerFromProfile:profile];
+        [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
+    }
 
     _mediaWasJustStarted = YES;
 
@@ -1063,8 +1067,12 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)resetEqualizerFromProfile:(unsigned int)profile
 {
-    [[NSUserDefaults standardUserDefaults] setObject:@(profile) forKey:kVLCSettingEqualizerProfile];
-    [_mediaPlayer resetEqualizerFromProfile:profile];
+    _mediaPlayer.equalizerEnabled = profile != 0;
+    [[NSUserDefaults standardUserDefaults] setBool:profile == 0 forKey:kVLCSettingEqualizerProfileDisabled];
+    if (profile != 0) {
+        [[NSUserDefaults standardUserDefaults] setObject:@(profile - 1) forKey:kVLCSettingEqualizerProfile];
+        [_mediaPlayer resetEqualizerFromProfile:profile - 1];
+    }
 }
 
 - (void)setPreAmplification:(CGFloat)preAmplification

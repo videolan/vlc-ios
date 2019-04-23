@@ -328,18 +328,22 @@
 
     NSInteger row = indexPath.row;
 
-    cell.textLabel.text = [[self.delegate equalizerProfiles] objectAtIndex:row];
-    unsigned int profile = (unsigned int)[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingEqualizerProfile] integerValue];
+    cell.textLabel.text = row == 0 ? NSLocalizedString(@"OFF", nil) : [[self.delegate equalizerProfiles] objectAtIndex:row - 1];
 
-    if (profile == row)
+    unsigned int profile = (unsigned int)[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingEqualizerProfile] integerValue];
+    BOOL equalizerDisabled = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingEqualizerProfileDisabled];
+    if (row == 0 && equalizerDisabled) {
         [cell setShowsCurrentTrack];
+    } else if (!equalizerDisabled && profile + 1 == row) {
+        [cell setShowsCurrentTrack];
+    }
 
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.delegate equalizerProfiles].count;
+    return [self.delegate equalizerProfiles].count +1;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
