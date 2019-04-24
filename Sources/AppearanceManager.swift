@@ -49,4 +49,8 @@ extension UINavigationController {
     override open var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
     }
+
+    override open var childForStatusBarStyle: UIViewController? {
+        return self.topViewController
+    }
 }
