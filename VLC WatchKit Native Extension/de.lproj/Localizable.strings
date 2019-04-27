@@ -1,33 +1,33 @@
-"NOW_PLAYING"="Jetzt läuft";
-"PLAY_NOW"="Jetzt spielen";
-"PLAYING"="Es läuft";
-"PAUSED"="Pausiert";
-"DETAIL"="Details";
-"LIBRARY_ALL_FILES"="Alle Dateien";
-"LIBRARY_MUSIC"="Musikalben";
-"LIBRARY_SERIES"="TV-Sendungen";
-"EMPTY_LIBRARY"="Leere Mediathek";
+"NOW_PLAYING" = "Jetzt läuft";
+"PLAY_NOW" = "Jetzt spielen";
+"PLAYING" = "Es läuft";
+"PAUSED" = "Pausiert";
+"DETAIL" = "Details";
+"LIBRARY_ALL_FILES" = "Alle Dateien";
+"LIBRARY_MUSIC" = "Musikalben";
+"LIBRARY_SERIES" = "TV-Sendungen";
+"EMPTY_LIBRARY" = "Leere Mediathek";
 
-"BWD_BUTTON"="Sprung zurück";
-"FWD_BUTTON"="Sprung vorwärts";
-"PLAY_BUTTON"="Abspielen";
-"PAUSE_BUTTON"="Pause";
+"BWD_BUTTON" = "Sprung zurück";
+"FWD_BUTTON" = "Sprung vorwärts";
+"PLAY_BUTTON" = "Abspielen";
+"PAUSE_BUTTON" = "Pause";
 
-"VOLUME"="Lautstärke";
-"DURATION"="Laufzeit";
-"TITLE"="Titel";
+"VOLUME" = "Lautstärke";
+"DURATION" = "Laufzeit";
+"TITLE" = "Titel";
 
-"BUTTON_OK"="OK";
+"BUTTON_OK" = "OK";
 
 
-"NOT_CONNECTED_TO_PHONE_TITLE"="Nicht mit iPhone verbunden";
-"NOT_CONNECTED_TO_PHONE_MESSAGE"="Bitte mit Ihrem iPhone verbinden, um die Fernsteuerung zu verwenden.";
+"NOT_CONNECTED_TO_PHONE_TITLE" = "Nicht mit iPhone verbunden";
+"NOT_CONNECTED_TO_PHONE_MESSAGE" = "Bitte mit Ihrem iPhone verbinden, um die Fernsteuerung zu verwenden.";
 
 // accessibility labels for the playlist
-"OBJECT_TYPE_SHOW"="Sendung";
-"OBJECT_TYPE_SHOW_EPISODE"="Sendungsepisode";
-"OBJECT_TYPE_LABEL"="Ordner";
-"OBJECT_TYPE_ALBUM"="Album";
-"OBJECT_TYPE_ALBUM_TRACK"="Albumtitel";
-"OBJECT_TYPE_FILE"="Datei";
-"OBJECT_TYPE_FILE_AUDIO"="Audiodatei";
+"OBJECT_TYPE_SHOW" = "Sendung";
+"OBJECT_TYPE_SHOW_EPISODE" = "Sendungsepisode";
+"OBJECT_TYPE_LABEL" = "Ordner";
+"OBJECT_TYPE_ALBUM" = "Album";
+"OBJECT_TYPE_ALBUM_TRACK" = "Albumtitel";
+"OBJECT_TYPE_FILE" = "Datei";
+"OBJECT_TYPE_FILE_AUDIO" = "Audiodatei";
