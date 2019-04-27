@@ -808,7 +808,6 @@
 		417E68991F307E0A00DB9BB2 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		417E689A1F307E0D00DB9BB2 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		417E689B1F307E0E00DB9BB2 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		417E689C1F307E0F00DB9BB2 /* sr-Latn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-Latn"; path = "sr-Latn.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		417E689D1F307E1000DB9BB2 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		417E68B71F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCActivityViewControllerVendor.h; sourceTree = "<group>"; };
 		417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCActivityViewControllerVendor.m; sourceTree = "<group>"; };
@@ -1063,7 +1062,6 @@
 		7D685A9F1AAF745B006CD82A /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D685AA41AAF7472006CD82A /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D685AA91AAF7488006CD82A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		7D685AAE1AAF74F9006CD82A /* sr-Latn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sr-Latn"; path = "sr-Latn.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D6B08BB174A72A900A05173 /* VLCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCConstants.h; path = Sources/VLCConstants.h; sourceTree = "<group>"; };
 		7D6B08F9174D716200A05173 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7D6B08FB174D773C00A05173 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = SOURCE_ROOT; };
@@ -3085,7 +3083,6 @@
 				ta,
 				"pt-PT",
 				"pt-BR",
-				"sr-Latn",
 				Base,
 				nb,
 				co,
@@ -4108,7 +4105,6 @@
 				417E68991F307E0A00DB9BB2 /* ta */,
 				417E689A1F307E0D00DB9BB2 /* pt-PT */,
 				417E689B1F307E0E00DB9BB2 /* pt-BR */,
-				417E689C1F307E0F00DB9BB2 /* sr-Latn */,
 				417E689D1F307E1000DB9BB2 /* nb */,
 				7D481BC42156738A006FEA51 /* co */,
 			);
@@ -4161,7 +4157,6 @@
 				7D685A9F1AAF745B006CD82A /* ta */,
 				7D685AA41AAF7472006CD82A /* pt-PT */,
 				7D685AA91AAF7488006CD82A /* pt-BR */,
-				7D685AAE1AAF74F9006CD82A /* sr-Latn */,
 				7D94DDC31BF76A26002DE657 /* nb */,
 				41BBDCBC1F3BAD2E00B89A9C /* Base */,
 				7D481BC52156738B006FEA51 /* co */,
