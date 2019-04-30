@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC pour iOS est un portage du Lecteur Multimédia Libre VLC pour iPad, iPhone et iPod touch.\nIl peut jouer tous vos films, séries et musiques dans la plupart des formats, directement sans conversion.\nIl offre la synchronisation avec les services Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, permet les téléchargements directs, le partage WiFi et le streaming à partir de serveurs SMB, FTP, UPnP/DLNA ou à partir du web.\nVLC supporte les sous-titres avancés, incluant une compatibilité SSA complète, le multi-pistes audio, et le contrôle de la vitesse de lecture.\n\nVLC pour iOS est complètement libre et open source.";
+"STORE_DESCRIPTION" = "VLC pour iOS est un portage du lecteur multimédia libre VLC pour iPad, iPhone et iPod touch.\nIl lit tous vos films, séries et musiques dans la plupart des formats, directement sans conversion.\nIl offre la synchronisation avec les services Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, permet les téléchargements directs, le partage WiFi et la diffusion directe à partir de serveurs SMB, FTP, UPnP/DLNA ou à partir du web.\nVLC prend en charge les sous-titres avancés, avec une compatibilité SSA complète, le multi-pistes audio, et le contrôle de la vitesse de lecture.\n\nVLC pour iOS est complètement libre et open source.";
 
 "STORE_DESCRIPTION_TV" = "VLC est un lecteur multimédia multiplateforme gratuit et libre.\nIl peut lire tous vos films, séries et musiques dans la majorité des formats directement sans conversion.\nIl permet la lecture de fichiers depuis le nuage (Dropbox, OneDrive, Box), la lecture à distance via une interface web ainsi que la lecture de fichiers depuis les serveurs SMB, FTP, UPnP/DLNA et le web.\nVLC est prend aussi en charge les sous-titres avancés, avec une compatibilité SSA totale, l'audio multipiste, et le contrôle de la vitesse de lecture.\n\nVLC pour iOS est complètement gratuit et libre.\n\nLes métadonnées et les illustrations proviennent de TMDb et Hatchet, des bases de données sur les films et la musique gérées par la communauté.";
 
@@ -181,8 +181,8 @@
 "BWD_BUTTON" = "Reculer";
 "FWD_BUTTON" = "Avancer";
 "PLAY_BUTTON" = "Lecture";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
+"NEXT_BUTTON" = "Suivant";
+"PREV_BUTTON" = "Précédent";
 "PLAY_ALL_BUTTON" = "Lire tout";
 
 "VERSION_FORMAT" = "Version : %@";
@@ -331,7 +331,7 @@
 
 // Sort
 
-"HEADER_TITLE_SORT" = "Sort by";
+"HEADER_TITLE_SORT" = "Trier par";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
