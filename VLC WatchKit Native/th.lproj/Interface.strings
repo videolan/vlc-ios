@@ -1,0 +1,39 @@
+
+/* Class = "WKInterfaceButton"; accessibilityHint = "starts playing or pauses the current playback"; ObjectID = "3x6-ox-bnK"; */
+"3x6-ox-bnK.accessibilityHint" = "starts playing or pauses the current playback";
+
+/* Class = "WKInterfaceButton"; accessibilityLabel = "play / pause"; ObjectID = "3x6-ox-bnK"; */
+"3x6-ox-bnK.accessibilityLabel" = "play / pause";
+
+/* Class = "WKInterfaceButton"; title = "︿"; ObjectID = "6Cs-sA-OnZ"; */
+"6Cs-sA-OnZ.title" = "︿";
+
+/* Class = "WKInterfaceButton"; accessibilityLabel = "backward"; ObjectID = "D9t-yh-TGk"; */
+"D9t-yh-TGk.accessibilityLabel" = "backward";
+
+/* Class = "WKInterfaceButton"; title = "﹀"; ObjectID = "N06-Yc-JEB"; */
+"N06-Yc-JEB.title" = "﹀";
+
+/* Class = "WKInterfaceLabel"; text = "duration"; ObjectID = "PK7-sh-qfO"; */
+"PK7-sh-qfO.text" = "duration";
+
+/* Class = "WKInterfaceLabel"; text = "title"; ObjectID = "UnX-S3-Jsk"; */
+"UnX-S3-Jsk.text" = "title";
+
+/* Class = "WKInterfaceLabel"; accessibilityLabel = "playback duration"; ObjectID = "YZ5-DZ-LtT"; */
+"YZ5-DZ-LtT.accessibilityLabel" = "playback duration";
+
+/* Class = "WKInterfaceLabel"; text = "duration"; ObjectID = "YZ5-DZ-LtT"; */
+"YZ5-DZ-LtT.text" = "duration";
+
+/* Class = "WKInterfaceLabel"; text = "title"; ObjectID = "gzb-lW-3d6"; */
+"gzb-lW-3d6.text" = "title";
+
+/* Class = "WKInterfaceButton"; accessibilityLabel = "forward"; ObjectID = "k1c-4V-CVV"; */
+"k1c-4V-CVV.accessibilityLabel" = "forward";
+
+/* Class = "WKInterfaceLabel"; text = "title"; ObjectID = "mQk-aM-hhz"; */
+"mQk-aM-hhz.text" = "title";
+
+/* Class = "WKInterfaceButton"; title = "▶︎"; ObjectID = "wQV-jM-QFL"; */
+"wQV-jM-QFL.title" = "▶︎";
