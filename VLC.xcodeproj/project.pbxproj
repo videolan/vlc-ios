@@ -250,6 +250,8 @@
 		81334053F6D89AB90E14A1C3 /* libPods-VLC-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CCB170FBC97B6B93B99E0A /* libPods-VLC-iOSTests.a */; };
 		8D144D6322298E8E00984C46 /* AudioMiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */; };
 		8D222DC220F779F1009C0D34 /* MediaEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D222DC120F779F1009C0D34 /* MediaEditCell.swift */; };
+		8D2AD4D822786F4000393833 /* AddToPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D722786F4000393833 /* AddToPlaylistViewController.swift */; };
+		8D2AD4DA227AEE8E00393833 /* AddToPlaylistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D9227AEE8E00393833 /* AddToPlaylistView.xib */; };
 		8D3B4C0E2226E49A00B9F652 /* AudioMiniPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */; };
 		8D43712D2056AF1600F36458 /* VLCRendererDiscovererManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D43712C2056AF1600F36458 /* VLCRendererDiscovererManager.swift */; };
 		8D437154205808FF00F36458 /* VLCActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D437153205808FF00F36458 /* VLCActionSheet.swift */; };
@@ -822,6 +824,8 @@
 		7FC9CCF39DD8843873A42D34 /* Pods-VLC-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOSTests/Pods-VLC-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMiniPlayer.swift; sourceTree = "<group>"; };
 		8D222DC120F779F1009C0D34 /* MediaEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaEditCell.swift; path = Sources/MediaEditCell.swift; sourceTree = "<group>"; };
+		8D2AD4D722786F4000393833 /* AddToPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddToPlaylistViewController.swift; path = Sources/AddToPlaylistViewController.swift; sourceTree = "<group>"; };
+		8D2AD4D9227AEE8E00393833 /* AddToPlaylistView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddToPlaylistView.xib; sourceTree = "<group>"; };
 		8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMiniPlayer.xib; sourceTree = "<group>"; };
 		8D43712C2056AF1600F36458 /* VLCRendererDiscovererManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCRendererDiscovererManager.swift; path = Sources/VLCRendererDiscovererManager.swift; sourceTree = "<group>"; };
 		8D437153205808FF00F36458 /* VLCActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCActionSheet.swift; sourceTree = "<group>"; };
@@ -1294,6 +1298,7 @@
 				8DF9669C2113317100D0FCD6 /* VLCEditToolbar.swift */,
 				8DF966B021188BDB00D0FCD6 /* VLCEditController.swift */,
 				41B4DA3D21400E8E000BA27D /* MediaEditCell.xib */,
+				8D2AD4D722786F4000393833 /* AddToPlaylistViewController.swift */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -1596,6 +1601,7 @@
 				7DBBF191183AB4300009A339 /* VLCMovieViewController.xib */,
 				418108792142894A0046A931 /* PlayingExternallyView.xib */,
 				414327A621B6E66E00B061F6 /* PlaybackSpeedView.xib */,
+				8D2AD4D6227869AF00393833 /* AddToPlaylist */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -1880,6 +1886,15 @@
 			);
 			name = MiniPlayer;
 			path = Sources/MiniPlayer;
+			sourceTree = "<group>";
+		};
+		8D2AD4D6227869AF00393833 /* AddToPlaylist */ = {
+			isa = PBXGroup;
+			children = (
+				8D2AD4D9227AEE8E00393833 /* AddToPlaylistView.xib */,
+			);
+			name = AddToPlaylist;
+			path = Resources/Xib/AddToPlaylist;
 			sourceTree = "<group>";
 		};
 		8D3B4C0C2226E47900B9F652 /* MiniPlayer */ = {
@@ -2554,6 +2569,7 @@
 				7D63C19518774E0100BD5256 /* VLCFirstStepsThirdPageViewController~ipad.xib in Resources */,
 				7D9870651A3E03D5009CF27D /* papasscode_background@2x.png in Resources */,
 				7D5B26641D6350BF00FE7B4D /* gradient-cell.png in Resources */,
+				8D2AD4DA227AEE8E00393833 /* AddToPlaylistView.xib in Resources */,
 				7D63C19718774F1000BD5256 /* VLCFirstStepsFourthPageViewController~ipad.xib in Resources */,
 				26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */,
 				7DBBF1A6183AB4300009A339 /* VLCMovieViewController.xib in Resources */,
@@ -2934,6 +2950,7 @@
 				417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */,
 				418B145920179E50000447AA /* VLCDragAndDropManager.swift in Sources */,
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
+				8D2AD4D822786F4000393833 /* AddToPlaylistViewController.swift in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
 				DD3EFF331BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
 				7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackController.m in Sources */,

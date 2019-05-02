@@ -29,6 +29,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
                 update(artist:artist)
             } else if let movie = media as? VLCMLMedia, movie.subtype() == .unknown {
                 update(movie:movie)
+            } else if let playlist = media as? VLCMLPlaylist {
+                update(playlist: playlist)
             } else {
                 fatalError("needs to be of Type VLCMLMedia or VLCMLAlbum")
             }
@@ -77,6 +79,13 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
             thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.absoluteString)
         }
         newLabel.isHidden = !movie.isNew()
+    }
+
+    func update(playlist: VLCMLPlaylist) {
+        newLabel.isHidden = true
+        titleLabel.text = playlist.name
+        descriptionLabel.text = playlist.numberOfTracksString()
+        thumbnailView.image = UIImage(contentsOfFile: playlist.artworkMrl())
     }
 
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {

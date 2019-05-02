@@ -319,6 +319,12 @@ extension VLCMediaCategoryViewController: VLCEditControllerDelegate {
     func editController(editController: VLCEditController, cellforItemAt indexPath: IndexPath) -> MediaEditCell? {
         return collectionView.cellForItem(at: indexPath) as? MediaEditCell
     }
+
+    func editController(editController: VLCEditController,
+                        present viewController: UIViewController) {
+        let newNavigationController = UINavigationController(rootViewController: viewController)
+        navigationController?.present(newNavigationController, animated: true, completion: nil)
+    }
 }
 
 private extension VLCMediaCategoryViewController {

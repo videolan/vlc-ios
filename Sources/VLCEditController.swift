@@ -11,12 +11,19 @@
 
 protocol VLCEditControllerDelegate: class {
     func editController(editController: VLCEditController, cellforItemAt indexPath: IndexPath) -> MediaEditCell?
+    func editController(editController: VLCEditController, present viewController: UIViewController)
 }
 
 class VLCEditController: UIViewController {
     private var selectedCellIndexPaths = Set<IndexPath>()
     private let model: MediaLibraryBaseModel
     private let mediaLibraryService: MediaLibraryService
+    private lazy var addToPlaylistViewController: AddToPlaylistViewController = {
+        var addToPlaylistViewController = AddToPlaylistViewController(playlists: mediaLibraryService.playlists())
+        addToPlaylistViewController.delegate = self
+        return addToPlaylistViewController
+    }()
+
     weak var delegate: VLCEditControllerDelegate?
 
     override func loadView() {
@@ -93,10 +100,11 @@ private extension VLCEditController {
 // MARK: - VLCEditToolbarDelegate
 
 extension VLCEditController: VLCEditToolbarDelegate {
-    func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar) {
+    func addToNewPlaylist() {
         let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
                                            placeHolder: "NEW_PLAYLIST")
-        presentTextFieldAlert(with: alertInfo, completionHandler: {
+        presentTextFieldAlert(with: alertInfo,
+                              completionHandler: {
             [unowned self] text -> Void in
             guard text != "" else {
                 DispatchQueue.main.async {
@@ -109,6 +117,16 @@ extension VLCEditController: VLCEditToolbarDelegate {
             self.model.createPlaylist(text, self.selectedCellIndexPaths)
             self.selectedCellIndexPaths.removeAll()
         })
+    }
+
+    func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar) {
+        if !mediaLibraryService.playlists().isEmpty && !selectedCellIndexPaths.isEmpty {
+            addToPlaylistViewController.playlists = mediaLibraryService.playlists()
+            delegate?.editController(editController: self,
+                                     present: addToPlaylistViewController)
+        } else {
+            addToNewPlaylist()
+        }
     }
 
     func editToolbarDidDelete(_ editToolbar: VLCEditToolbar) {
@@ -233,5 +251,25 @@ extension VLCEditController: UICollectionViewDelegateFlowLayout {
         // FIXME: 5 should be cell padding, but not usable maybe static?
         let insetToRemove = contentInset.left + contentInset.right + (5 * 2)
         return CGSize(width: collectionView.frame.width - insetToRemove, height: MediaEditCell.height)
+    }
+}
+
+extension VLCEditController: AddToPlaylistViewControllerDelegate {
+    func addToPlaylistViewController(_ addToPlaylistViewController: AddToPlaylistViewController,
+                                     didSelectPlaylist playlist: VLCMLPlaylist) {
+        let files = model.anyfiles
+        for index in selectedCellIndexPaths where index.row < files.count {
+            if !playlist.appendMedia(withIdentifier: files[index.row].identifier()) {
+                assertionFailure("VLCEditController: AddToPlaylistViewControllerDelegate: Failed to add item.")
+            }
+        }
+        addToPlaylistViewController.dismiss(animated: true, completion: nil)
+    }
+
+    func addToPlaylistViewController(_ addToPlaylistViewController: AddToPlaylistViewController,
+                                     newPlaylistWithName name: String) {
+        model.createPlaylist(name, self.selectedCellIndexPaths)
+        selectedCellIndexPaths.removeAll()
+        addToPlaylistViewController.dismiss(animated: true, completion: nil)
     }
 }
