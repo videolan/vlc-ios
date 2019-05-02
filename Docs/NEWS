@@ -1,3 +1,10 @@
+## iOS [3.1.9]
+
+· Equalizer is now off by default, this fixes a couple of audio issues some users were experiencing
+· Scrollbars are replaced by wrapping text in the Web UI for up and downloading media
+· Fix a crash when drag and dropping media
+· Add Store Translations for Czech, Hungarian, Polish, Romanian, Slovak, Thai, Ukrainian
+
 ## tvOS [3.0.6]
 
 · Fix SMB 2 issue
