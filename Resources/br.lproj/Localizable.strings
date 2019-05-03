@@ -174,12 +174,12 @@
 "PLAYBACK_SCRUB_QUARTER" = "Quarter-Speed Scrubbing";
 "PLAYBACK_SCRUB_FINE" = "Fine Scrubbing";
 "PLAYBACK_POSITION" = "Playback Position";
-"VIDEO_FILTER" = "Video Filters";
-"VIDEO_FILTER_RESET_BUTTON" = "Reset Video Filters";
+"VIDEO_FILTER" = "Siloù Video";
+"VIDEO_FILTER_RESET_BUTTON" = "Adderaouekaat ar Siloù Video";
 "VIDEO_ASPECT_RATIO_BUTTON" = "Switch Video Aspect Ratio";
 "PLAY_PAUSE_BUTTON" = "Play or Pause current playback";
-"BWD_BUTTON" = "Jump Backwards";
-"FWD_BUTTON" = "Jump Forwards";
+"BWD_BUTTON" = "Mont war-gil";
+"FWD_BUTTON" = "Mont war-raok";
 "PLAY_BUTTON" = "Lenn";
 "NEXT_BUTTON" = "Next";
 "PREV_BUTTON" = "Previous";
