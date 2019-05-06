@@ -35,7 +35,7 @@ class AlbumModel: MLBaseModel {
     }
 
     func delete(_ items: [VLCMLObject]) {
-        preconditionFailure("AlbumModel: Cannot delete album")
+        preconditionFailure("AlbumModel: Albums can not be deleted, they disappear when their last title got deleted")
     }
 
     func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>? = nil) {
