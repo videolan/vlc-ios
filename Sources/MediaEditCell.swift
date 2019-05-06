@@ -122,5 +122,7 @@ class MediaEditCell: BaseCollectionViewCell {
         thumbnailImageView.layer.cornerRadius = 0
         AudioAspectRatio.isActive = true
         VideoAspectRatio.isActive = false
+        setNeedsDisplay()
+        layoutIfNeeded()
     }
 }
