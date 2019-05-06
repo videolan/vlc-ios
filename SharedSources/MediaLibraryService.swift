@@ -67,6 +67,9 @@ extension NSNotification {
                                      didAddPlaylists playlists: [VLCMLPlaylist])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didModifyPlaylists playlists: [VLCMLPlaylist])
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeletePlaylistsWithIds playlistsIds: [NSNumber])
 }
 
@@ -445,6 +448,12 @@ extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd playlists: [VLCMLPlaylist]) {
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddPlaylists: playlists)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didModifyPlaylists playlists: [VLCMLPlaylist]) {
+        for observer in observers {
+            observer.value.observer?.medialibrary?(self, didModifyPlaylists: playlists)
         }
     }
 

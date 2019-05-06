@@ -29,6 +29,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     private var editToolbarConstraint: NSLayoutConstraint?
     private var cachedCellSize = CGSize.zero
+    private var longPressGesture: UILongPressGestureRecognizer!
 
 //    @available(iOS 11.0, *)
 //    lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
@@ -337,6 +338,9 @@ private extension VLCMediaCategoryViewController {
         }
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
+
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
+        collectionView?.addGestureRecognizer(longPressGesture)
         if #available(iOS 11.0, *) {
             collectionView?.contentInsetAdjustmentBehavior = .always
             //            collectionView?.dragDelegate = dragAndDropManager
@@ -355,6 +359,23 @@ private extension VLCMediaCategoryViewController {
                 backgroundview.layer.cornerRadius = 10
                 backgroundview.clipsToBounds = true
             }
+        }
+    }
+
+    @objc func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+
+        switch gesture.state {
+        case .began:
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else {
+                break
+            }
+            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            collectionView.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
+        case .ended:
+            collectionView.endInteractiveMovement()
+        default:
+            collectionView.cancelInteractiveMovement()
         }
     }
 }
