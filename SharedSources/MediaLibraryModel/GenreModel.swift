@@ -35,7 +35,7 @@ class GenreModel: MLBaseModel {
     }
 
     func delete(_ items: [VLCMLObject]) {
-        preconditionFailure("GenreModel: Cannot delete genre")
+        preconditionFailure("GenreModel: Genres can not be deleted, they disappear when their last title got deleted")
     }
 
     func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>? = nil) {
