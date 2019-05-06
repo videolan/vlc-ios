@@ -22,6 +22,7 @@ class CollectionModel: MLBaseModel {
         self.mediaCollection = mediaCollection
         files = mediaCollection.files()
         sortModel = mediaCollection.sortModel() ?? SortModel([.default])
+        medialibrary.addObserver(self)
     }
 
     func append(_ item: VLCMLMedia) {
@@ -50,6 +51,16 @@ class CollectionModel: MLBaseModel {
 extension CollectionModel: EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type {
         return MediaEditCell.self
+    }
+}
+
+// MARK: - MediaLibraryObserver
+extension CollectionModel: MediaLibraryObserver {
+    func medialibrary(_ medialibrary: MediaLibraryService, didModifyPlaylists playlists: [VLCMLPlaylist]) {
+        if mediaCollection is VLCMLPlaylist {
+            files = mediaCollection.files()
+            updateView?()
+        }
     }
 }
 

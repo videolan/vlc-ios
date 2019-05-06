@@ -207,6 +207,21 @@ extension VLCEditController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        guard let collectionModel = model as? CollectionModel, let playlist = collectionModel.mediaCollection as? VLCMLPlaylist else {
+            assertionFailure("can Move should've been false")
+            return
+        }
+        playlist.moveMedia(fromPosition: UInt32(sourceIndexPath.row), toDestination: UInt32(destinationIndexPath.row))
+    }
+
+    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+        if let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist {
+            return true
+        }
+        return false
+    }
 }
 
 // MARK: - UICollectionViewDelegate
