@@ -17,11 +17,11 @@ class Services: NSObject {
 }
 
 @objc class AppCoordinator: NSObject {
+    private var services = Services()
     private var childCoordinators: [NSObject] = []
     private var playerController: VLCPlayerDisplayController
     private var tabBarController: UITabBarController
     private var tabBarCoordinator: VLCTabBarCoordinator
-    private var services = Services()
     private var migrationViewController = VLCMigrationViewController(nibName: String(describing: VLCMigrationViewController.self),
                                                                      bundle: nil)
 
@@ -57,6 +57,22 @@ class Services: NSObject {
     @objc func handleShortcutItem(_ item: UIApplicationShortcutItem) {
         tabBarCoordinator.handleShortcutItem(item)
     }
+
+    @objc func mediaForUserActivity(_ activity: NSUserActivity) -> VLCMLMedia? {
+        let userActivityType = activity.activityType
+        guard let dict = activity.userInfo else { return nil }
+        var identifier: Int64? = nil
+
+        if userActivityType == CSSearchableItemActionType, let searchIdentifier = dict[CSSearchableItemActivityIdentifier] as? NSString {
+            identifier = Int64(searchIdentifier.integerValue)
+        } else if let mediaIdentifier = dict["playingmedia"] as? Int64 {
+            identifier = mediaIdentifier
+        }
+        guard let mediaIdentifier = identifier else { return nil }
+
+        return services.medialibraryService.media(for: mediaIdentifier)
+    }
+
 }
 
 extension AppCoordinator: MediaLibraryMigrationDelegate {

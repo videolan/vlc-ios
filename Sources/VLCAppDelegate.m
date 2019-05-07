@@ -92,10 +92,6 @@
         [self->appCoordinator start];
     };
     [self validatePasscodeIfNeededWithCompletion:setupAppCoordinator];
-
-    BOOL spotlightEnabled = ![VLCKeychainCoordinator passcodeLockEnabled];
-    [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:spotlightEnabled];
-    [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -152,48 +148,20 @@
 
 - (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType
 {
-    if ([userActivityType isEqualToString:kVLCUserActivityLibraryMode] ||
-        [userActivityType isEqualToString:kVLCUserActivityPlaying] ||
-        [userActivityType isEqualToString:kVLCUserActivityLibrarySelection])
-        return YES;
-
-    return NO;
+    return [userActivityType isEqualToString:kVLCUserActivityPlaying];
 }
 
 - (BOOL)application:(UIApplication *)application
 continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *))restorationHandler
 {
-    NSString *userActivityType = userActivity.activityType;
-    NSDictionary *dict = userActivity.userInfo;
-    if([userActivityType isEqualToString:kVLCUserActivityLibraryMode] ||
-       [userActivityType isEqualToString:kVLCUserActivityLibrarySelection]) {
-        //TODO: Add restoreUserActivityState to the mediaviewcontroller
-        _isComingFromHandoff = YES;
-        return YES;
-    } else {
-        NSURL *uriRepresentation = nil;
-        if ([userActivityType isEqualToString:CSSearchableItemActionType]) {
-            uriRepresentation = [NSURL URLWithString:dict[CSSearchableItemActivityIdentifier]];
-        } else {
-            uriRepresentation = dict[@"playingmedia"];
-        }
+    VLCMLMedia *media = [appCoordinator mediaForUserActivity:userActivity];
+    if (!media) return NO;
 
-        if (!uriRepresentation) {
-            return NO;
-        }
-
-        NSManagedObject *managedObject = [[MLMediaLibrary sharedMediaLibrary] objectForURIRepresentation:uriRepresentation];
-        if (managedObject == nil) {
-            APLog(@"%s file not found: %@",__PRETTY_FUNCTION__,userActivity);
-            return NO;
-        }
-        [self validatePasscodeIfNeededWithCompletion:^{
-            [[VLCPlaybackController sharedInstance] openMediaLibraryObject:managedObject];
-        }];
-        return YES;
-    }
-    return NO;
+    [self validatePasscodeIfNeededWithCompletion:^{
+        [[VLCPlaybackController sharedInstance] playMedia:media];
+    }];
+    return YES;
 }
 
 - (void)application:(UIApplication *)application

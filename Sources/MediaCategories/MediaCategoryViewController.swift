@@ -233,10 +233,24 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
             play(media: media)
+            createSpotlightItem(media: media)
         } else if let mediaCollection = model.anyfiles[indexPath.row] as? MediaCollectionModel {
             let collectionViewController = VLCCollectionCategoryViewController(services, mediaCollection: mediaCollection)
             navigationController?.pushViewController(collectionViewController, animated: true)
         }
+    }
+
+    func createSpotlightItem(media: VLCMLMedia) {
+        if KeychainCoordinator.passcodeLockEnabled {
+            return
+        }
+        userActivity = NSUserActivity(activityType: kVLCUserActivityPlaying)
+        userActivity?.title = media.title
+        userActivity?.contentAttributeSet = media.coreSpotlightAttributeSet()
+        userActivity?.userInfo = ["playingmedia" : media.identifier()]
+        userActivity?.isEligibleForSearch = true
+        userActivity?.isEligibleForHandoff = true
+        userActivity?.becomeCurrent()
     }
 }
 

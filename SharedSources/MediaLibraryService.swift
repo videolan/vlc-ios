@@ -289,11 +289,15 @@ extension MediaLibraryService {
                               : medialib.audioFiles(with: sort, desc: desc) ?? []
     }
 
-    func fetchMedia(with mrl: URL?) -> VLCMLMedia? {
+    @objc func fetchMedia(with mrl: URL?) -> VLCMLMedia? {
         guard let mrl = mrl  else {
             return nil
         }
         return medialib.media(withMrl: mrl)
+    }
+
+    @objc func media(for identifier: VLCMLIdentifier) -> VLCMLMedia? {
+        return medialib.media(withIdentifier: identifier)
     }
 }
 
@@ -378,6 +382,9 @@ extension MediaLibraryService: VLCMediaFileDiscovererDelegate {
 
 extension MediaLibraryService: VLCMediaLibraryDelegate {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAddMedia media: [VLCMLMedia]) {
+
+        media.forEach { $0.updateCoreSpotlightEntry() }
+
         let videos = media.filter {( $0.type() == .video )}
         let audio = media.filter {( $0.type() == .audio )}
 
@@ -391,6 +398,9 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didModifyMedia media: [VLCMLMedia]) {
+
+        media.forEach { $0.updateCoreSpotlightEntry() }
+
         let showEpisodes = media.filter {( $0.subtype() == .showEpisode )}
         let albumTrack = media.filter {( $0.subtype() == .albumTrack )}
 
@@ -401,6 +411,11 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didDeleteMediaWithIds mediaIds: [NSNumber]) {
+
+        var stringIds = [String]()
+        mediaIds.forEach { stringIds.append("\($0)") }
+        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: stringIds, completionHandler: nil)
+
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didDeleteMediaWithIds: mediaIds)
         }

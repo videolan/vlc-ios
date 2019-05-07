@@ -145,17 +145,6 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     }
 }
 
-- (void)updateUIAndCoreSpotlightForPasscodeSetting:(BOOL)passcodeOn
-{
-    [self filterCellsWithAnimation:YES];
-
-    [[MLMediaLibrary sharedMediaLibrary] setSpotlightIndexingEnabled:!passcodeOn];
-    if (passcodeOn) {
-        // delete whole index for VLC
-        [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:nil];
-    }
-}
-
 - (void)showAbout
 {
     VLCAboutViewController *aboutVC = [[VLCAboutViewController alloc] init];
@@ -191,10 +180,11 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     NSError *error = nil;
     [VLCKeychainCoordinator setPasscodeWithPasscode:passcode error:&error];
     if (error == nil) {
+        if (passcode != nil) {
+            [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:nil];
+        }
         //Set manually the value to enable/disable the UISwitch.
-        BOOL passcodeEnabled = passcode != nil;
-        [[NSUserDefaults standardUserDefaults] setBool:passcodeEnabled forKey:kVLCSettingPasscodeOnKey];
-        [self updateUIAndCoreSpotlightForPasscodeSetting:passcode != nil];
+        [self filterCellsWithAnimation:YES];
     }
     if ([self.navigationController.presentedViewController isKindOfClass:[UINavigationController class]] && [((UINavigationController *)self.navigationController.presentedViewController).viewControllers.firstObject isKindOfClass:[PAPasscodeViewController class]]) {
         [self.navigationController.presentedViewController dismissViewControllerAnimated:YES completion:nil];

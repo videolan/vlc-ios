@@ -97,8 +97,6 @@
 #define kVLCStoreGDriveCredentials @"kVLCStoreGDriveCredentials"
 
 #define kVLCUserActivityPlaying @"org.videolan.vlc-ios.playing"
-#define kVLCUserActivityLibrarySelection @"org.videolan.vlc-ios.libraryselection"
-#define kVLCUserActivityLibraryMode @"org.videolan.vlc-ios.librarymode"
 
 #define kVLCApplicationShortcutLocalVideo @"ApplicationShortcutLocalVideo"
 #define kVLCApplicationShortcutLocalAudio @"ApplicationShortcutLocalAudio"
