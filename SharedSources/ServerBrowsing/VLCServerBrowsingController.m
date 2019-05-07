@@ -35,9 +35,11 @@
         _viewController = viewController;
         _serverBrowser = browser;
 #if TARGET_OS_TV
-        MDFMovieDBSessionManager *movieDBSessionManager = [MDFMovieDBSessionManager sharedInstance];
-        movieDBSessionManager.apiKey = kVLCfortvOSMovieDBKey;
-        [movieDBSessionManager fetchProperties];
+        if (![kVLCfortvOSMovieDBKey isEqualToString:@""]) {
+            MDFMovieDBSessionManager *movieDBSessionManager = [MDFMovieDBSessionManager sharedInstance];
+            movieDBSessionManager.apiKey = kVLCfortvOSMovieDBKey;
+            [movieDBSessionManager fetchProperties];
+        }
 #endif
     }
     return self;
