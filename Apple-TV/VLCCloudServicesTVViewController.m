@@ -38,9 +38,11 @@
 //    [center addObserver:self selector:@selector(oneDriveSessionUpdated:) name:VLCOneDriveControllerSessionUpdated object:nil];
     [center addObserver:self selector:@selector(boxSessionUpdated:) name:VLCBoxControllerSessionUpdated object:nil];
 
-    MDFMovieDBSessionManager *movieDBSessionManager = [MDFMovieDBSessionManager sharedInstance];
-    movieDBSessionManager.apiKey = kVLCfortvOSMovieDBKey;
-    [movieDBSessionManager fetchProperties];
+    if (![kVLCfortvOSMovieDBKey isEqualToString:@""]) {
+        MDFMovieDBSessionManager *movieDBSessionManager = [MDFMovieDBSessionManager sharedInstance];
+        movieDBSessionManager.apiKey = kVLCfortvOSMovieDBKey;
+        [movieDBSessionManager fetchProperties];
+    }
 
 //    _oneDriveController = [VLCOneDriveController sharedInstance];
     _boxController = [VLCBoxController sharedInstance];
