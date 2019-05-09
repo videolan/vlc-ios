@@ -102,7 +102,8 @@ private extension VLCEditController {
 extension VLCEditController: VLCEditToolbarDelegate {
     func addToNewPlaylist() {
         let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
-                                           placeHolder: "NEW_PLAYLIST")
+                                           placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER",
+                                                                          comment: ""))
         presentTextFieldAlert(with: alertInfo,
                               completionHandler: {
             [unowned self] text -> Void in
