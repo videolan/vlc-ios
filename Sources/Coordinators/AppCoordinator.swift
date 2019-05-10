@@ -49,7 +49,6 @@ class Services: NSObject {
     }
 
     @objc func start() {
-
         let tabbarCoordinator = VLCTabBarCoordinator(tabBarController: tabBarController, services: services)
         childCoordinators.append(tabbarCoordinator)
     }
