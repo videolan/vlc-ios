@@ -96,6 +96,7 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         }
         isViewAppearing = false
         children.forEach { $0.endAppearanceTransition() }
+        //updateSearchbarController()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -122,7 +123,6 @@ class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
             preCurrentIndex = index
             return
         }
-
         if animated && abs(currentIndex - index) > 1 {
             var tmpViewControllers = viewControllers
             let currentChildVC = viewControllers[currentIndex]

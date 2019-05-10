@@ -17,13 +17,15 @@ protocol MediaCategoryViewControllerDelegate: NSObjectProtocol {
     func needsToUpdateNavigationbarIfNeeded(_ viewController: VLCMediaCategoryViewController)
 }
 
-class VLCMediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
+class VLCMediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, IndicatorInfoProvider {
 
     var model: MediaLibraryBaseModel
-
+    private var searchBar = UISearchBar(frame: .zero)
+    private var searchbarConstraint: NSLayoutConstraint?
     private var services: Services
-    private var searchController: UISearchController?
     private let searchDataSource: LibrarySearchDataSource
+    private var isSearching = false
+    private let searchBarSize: CGFloat = 50.0
     private var rendererButton: UIButton
     private lazy var editController: VLCEditController = {
         let editController = VLCEditController(mediaLibraryService:services.medialibraryService, model: model)
@@ -82,12 +84,27 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         self.model = model
         self.rendererButton = services.rendererDiscovererManager.setupRendererButton()
         self.searchDataSource = LibrarySearchDataSource(model: model)
+
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
+        setupHeader()
         if let collection = model as? CollectionModel {
             title = collection.mediaCollection.title()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         navigationItem.rightBarButtonItems = [editButtonItem, UIBarButtonItem(customView: rendererButton)]
+    }
+
+    func setupHeader() {
+
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(searchBar)
+        searchbarConstraint = searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -searchBarSize)
+        NSLayoutConstraint.activate([
+            searchbarConstraint!,
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: searchBarSize)
+            ])
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -167,12 +184,6 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             collectionView?.setContentOffset(.zero, animated: false)
         }
         collectionView?.backgroundView = isEmpty ? emptyView : nil
-        
-        if #available(iOS 11.0, *) {
-            navigationItem.searchController = isEmpty ? nil : searchController
-        } else {
-            navigationItem.titleView = isEmpty ? nil : searchController?.searchBar
-        }
     }
 
     // MARK: Renderer
@@ -185,6 +196,16 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     // MARK: - Edit
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchbarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
+        if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
+            collectionView.contentInset = UIEdgeInsets(top: searchBarSize, left: 0, bottom: 0, right: 0)
+        }
+        if scrollView.contentOffset.y >= 0 && scrollView.contentInset.top != 0 {
+            collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
+    }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -216,20 +237,10 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     // MARK: - Search
 
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text else {
-            return
-        }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchDataSource.shouldReloadFor(searchString: searchText)
+        isSearching = searchText != ""
         collectionView?.reloadData()
-    }
-
-    func didPresentSearchController(_ searchController: UISearchController) {
-        collectionView?.dataSource = searchDataSource
-    }
-
-    func didDismissSearchController(_ searchController: UISearchController) {
-        collectionView?.dataSource = self
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
@@ -238,7 +249,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     // MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return model.anyfiles.count
+        return isSearching ? searchDataSource.searchData.count : model.anyfiles.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -246,7 +257,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             assertionFailure("you forgot to register the cell or the cell is not a subclass of BaseCollectionViewCell")
             return UICollectionViewCell()
         }
-        let mediaObject = model.anyfiles[indexPath.row]
+        let mediaObject = isSearching ? searchDataSource.objectAtIndex(index: indexPath.row) : model.anyfiles[indexPath.row]
         if let media = mediaObject as? VLCMLMedia {
             assert(media.mainFile() != nil, "The mainfile is nil")
             mediaCell.media = media.mainFile() != nil ? media : nil
@@ -401,7 +412,6 @@ private extension VLCMediaCategoryViewController {
         }
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
-
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
         collectionView?.addGestureRecognizer(longPressGesture)
         if #available(iOS 11.0, *) {
@@ -412,11 +422,12 @@ private extension VLCMediaCategoryViewController {
     }
 
     func setupSearchController() {
-        searchController = UISearchController(searchResultsController: nil)
-        searchController?.searchResultsUpdater = self
-        searchController?.dimsBackgroundDuringPresentation = false
-        searchController?.delegate = self
-        if let textfield = searchController?.searchBar.value(forKey: "searchField") as? UITextField {
+        searchBar.delegate = self
+        searchBar.searchBarStyle = .minimal
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        }
+        if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
             if let backgroundview = textfield.subviews.first {
                 backgroundview.backgroundColor = UIColor.white
                 backgroundview.layer.cornerRadius = 10

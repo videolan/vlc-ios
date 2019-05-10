@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class LibrarySearchDataSource: NSObject, UICollectionViewDataSource {
+class LibrarySearchDataSource: NSObject {
 
     var searchData = [VLCMLObject]()
     var model: MediaLibraryBaseModel
@@ -18,25 +18,7 @@ class LibrarySearchDataSource: NSObject, UICollectionViewDataSource {
     init(model: MediaLibraryBaseModel) {
         self.model = model
         super.init()
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return searchData.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let mediaCell = collectionView.dequeueReusableCell(withReuseIdentifier:model.cellType.defaultReuseIdentifier, for: indexPath) as? BaseCollectionViewCell else {
-            assertionFailure("you forgot to register the cell or the cell is not a subclass of BaseCollectionViewCell")
-            return UICollectionViewCell()
-        }
-        let mediaObject = searchData[indexPath.row]
-        if let media = mediaObject as? VLCMLMedia {
-            assert(media.mainFile() != nil, "The mainfile is nil")
-            mediaCell.media = media.mainFile() != nil ? media : nil
-        } else {
-            mediaCell.media = mediaObject
-        }
-        return mediaCell
+        shouldReloadFor(searchString: "")
     }
 
     func objectAtIndex(index: Int) -> VLCMLObject? {
