@@ -46,17 +46,17 @@
                                     <rect key="frame" x="52" y="0.0" width="157" height="40"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rRG-rj-ixk">
-                                            <rect key="frame" x="0.0" y="0.0" width="157" height="34.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="157" height="33.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAs-Lc-dt8" userLabel="Title">
-                                                    <rect key="frame" x="0.0" y="0.0" width="157" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="157" height="19"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cVn-oI-gin" userLabel="Artist">
-                                                    <rect key="frame" x="0.0" y="20" width="157" height="14.5"/>
+                                                    <rect key="frame" x="0.0" y="19" width="157" height="14.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -65,11 +65,12 @@
                                             </subviews>
                                         </stackView>
                                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="IcU-Lc-kf0">
-                                            <rect key="frame" x="0.0" y="38.5" width="157" height="2.5"/>
+                                            <rect key="frame" x="0.0" y="37.5" width="157" height="2.5"/>
                                             <color key="backgroundColor" red="0.1461089551448822" green="0.16114577651023865" blue="0.17342603206634521" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="progressTintColor" red="1" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </progressView>
                                     </subviews>
+                                    <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="1" right="0.0"/>
                                     <viewLayoutGuide key="safeArea" id="qEk-QE-Gm4"/>
                                 </stackView>
                             </subviews>
