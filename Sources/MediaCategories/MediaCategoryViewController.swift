@@ -23,7 +23,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     private var services: Services
     private var searchController: UISearchController?
-    private let searchDataSource = VLCLibrarySearchDisplayDataSource()
+    private let searchDataSource: LibrarySearchDataSource
     private var rendererButton: UIButton
     private lazy var editController: VLCEditController = {
         let editController = VLCEditController(mediaLibraryService:services.medialibraryService, model: model)
@@ -81,6 +81,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         self.services = services
         self.model = model
         self.rendererButton = services.rendererDiscovererManager.setupRendererButton()
+        self.searchDataSource = LibrarySearchDataSource(model: model)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         if let collection = model as? CollectionModel {
             title = collection.mediaCollection.title()
@@ -216,7 +217,10 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     // MARK: - Search
 
     func updateSearchResults(for searchController: UISearchController) {
-        searchDataSource.shouldReloadTable(forSearch: searchController.searchBar.text, searchableFiles: model.anyfiles)
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
+        searchDataSource.shouldReloadFor(searchString: searchText)
         collectionView?.reloadData()
     }
 

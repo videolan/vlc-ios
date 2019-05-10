@@ -12,7 +12,6 @@
 #import "VLCConstants.h"
 #import "VLCDownloadViewController.h"
 #import "VLCEmptyLibraryView.h"
-#import "VLCLibrarySearchDisplayDataSource.h"
 #import "VLCOpenNetworkStreamViewController.h"
 #import "VLCPlaybackController+MediaLibrary.h"
 #import "VLCPlaybackNavigationController.h"
