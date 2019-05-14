@@ -58,6 +58,29 @@ class VLCTabBarCoordinator: NSObject {
 
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
     }
+
+    func handleShortcutItem(_ item: UIApplicationShortcutItem) {
+        switch item.type {
+        case kVLCApplicationShortcutLocalVideo:
+            tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in
+                vc is VLCVideoViewController
+            }) ?? 0
+        case kVLCApplicationShortcutLocalAudio:
+            tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in
+                vc is VLCAudioViewController
+            }) ?? 1
+        case kVLCApplicationShortcutPlaylist:
+            tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in
+                vc is VLCPlaylistViewController
+            }) ?? 2
+        case kVLCApplicationShortcutNetwork:
+            tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in
+                vc is VLCServerListViewController
+            }) ?? 3
+        default:
+            assertionFailure("unhandled shortcut")
+        }
+    }
 }
 
 extension UITabBarController {

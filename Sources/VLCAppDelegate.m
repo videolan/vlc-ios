@@ -121,30 +121,28 @@
     [self setup];
 
     /* add our static shortcut items the dynamic way to ease l10n and dynamic elements to be introduced later */
-    if (@available(iOS 9, *)) {
-        if (application.shortcutItems == nil || application.shortcutItems.count < 4) {
-            UIApplicationShortcutItem *localLibraryItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalLibrary
-                                                                                           localizedTitle:NSLocalizedString(@"SECTION_HEADER_LIBRARY",nil)
-                                                                                        localizedSubtitle:nil
-                                                                                                     icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"AllFiles"]
-                                                                                                 userInfo:nil];
-            UIApplicationShortcutItem *localServerItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalServers
-                                                                                           localizedTitle:NSLocalizedString(@"LOCAL_NETWORK",nil)
-                                                                                        localizedSubtitle:nil
-                                                                                                     icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Local"]
-                                                                                                 userInfo:nil];
-            UIApplicationShortcutItem *openNetworkStreamItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutOpenNetworkStream
-                                                                                           localizedTitle:NSLocalizedString(@"OPEN_NETWORK",nil)
-                                                                                        localizedSubtitle:nil
-                                                                                                     icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"OpenNetStream"]
-                                                                                                 userInfo:nil];
-            UIApplicationShortcutItem *cloudsItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutClouds
-                                                                                           localizedTitle:NSLocalizedString(@"CLOUD_SERVICES",nil)
-                                                                                        localizedSubtitle:nil
-                                                                                                     icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"iCloudIcon"]
-                                                                                                 userInfo:nil];
-            application.shortcutItems = @[localLibraryItem, localServerItem, openNetworkStreamItem, cloudsItem];
-        }
+    if (application.shortcutItems == nil || application.shortcutItems.count < 4) {
+        UIApplicationShortcutItem *localVideoItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalVideo
+                                                                                     localizedTitle:NSLocalizedString(@"VIDEO",nil)
+                                                                                  localizedSubtitle:nil
+                                                                                               icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Video"]
+                                                                                           userInfo:nil];
+        UIApplicationShortcutItem *localAudioItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalAudio
+                                                                                     localizedTitle:NSLocalizedString(@"AUDIO",nil)
+                                                                                  localizedSubtitle:nil
+                                                                                               icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Audio"]
+                                                                                           userInfo:nil];
+        UIApplicationShortcutItem *localplaylistItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutPlaylist
+                                                                                        localizedTitle:NSLocalizedString(@"PLAYLISTS",nil)
+                                                                                     localizedSubtitle:nil
+                                                                                                  icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Playlist"]
+                                                                                              userInfo:nil];
+        UIApplicationShortcutItem *networkItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutNetwork
+                                                                                  localizedTitle:NSLocalizedString(@"LOCAL_NETWORK",nil)
+                                                                               localizedSubtitle:nil
+                                                                                            icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Network"]
+                                                                                        userInfo:nil];
+        application.shortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, networkItem];
     }
 
     return YES;
@@ -255,7 +253,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
-    //TODO: shortcutItem should be implemented
+    [appCoordinator handleShortcutItem:shortcutItem];
 }
 
 #pragma mark - pass code validation
