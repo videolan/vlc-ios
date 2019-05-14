@@ -11,12 +11,10 @@
  *****************************************************************************/
 
 #import "VLCFirstStepsViewController.h"
-#import "VLCFirstStepsFirstPageViewController.h"
-#import "VLCFirstStepsSecondPageViewController.h"
-#import "VLCFirstStepsThirdPageViewController.h"
-#import "VLCFirstStepsFourthPageViewController.h"
-#import "VLCFirstStepsFifthPageViewController.h"
-#import "VLCFirstStepsSixthPageViewController.h"
+#import "VLCFirstStepsiTunesSyncViewController.h"
+#import "VLCFirstStepsWifiSharingViewController.h"
+#import "VLCFirstStepsCloudViewController.h"
+#import "VLC-Swift.h"
 
 @interface VLCFirstStepsViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 {
@@ -37,16 +35,29 @@
 
     [[pageVC view] setFrame:[[self view] bounds]];
 
-    [pageVC setViewControllers:@[[[VLCFirstStepsFirstPageViewController alloc] initWithNibName:nil bundle:nil]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    [pageVC setViewControllers:@[[[VLCFirstStepsiTunesSyncViewController alloc] initWithNibName:nil bundle:nil]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 
-    UIBarButtonItem *dismissButton = [UIBarButtonItem themedDarkToolbarButtonWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) target:self andSelector:@selector(dismissFirstSteps)];
+    UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStyleDone target:self action:@selector(dismissFirstSteps)];
+
     self.navigationItem.rightBarButtonItem = dismissButton;
-    self.title = NSLocalizedString(@"FIRST_STEPS_WELCOME", nil);
-    self.view.backgroundColor = [UIColor blackColor];
+    self.navigationController.navigationBar.translucent = NO;
+    self.title = NSLocalizedString(@"FIRST_STEPS_ITUNES", nil);
 
     [self addChildViewController:pageVC];
     [self.view addSubview:[pageVC view]];
     [pageVC didMoveToParentViewController:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
+    [self updateTheme];
+}
+
+- (void)updateTheme
+{
+    self.view.backgroundColor = PresentationTheme.current.colors.background;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return PresentationTheme.current.colors.statusBarStyle;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
@@ -58,20 +69,11 @@
         currentPage = (NSUInteger)[viewController performSelector:@selector(page) withObject:nil];
 
     switch (currentPage) {
+        case 0:
+            returnedVC = [[VLCFirstStepsWifiSharingViewController alloc] initWithNibName:nil bundle:nil];
+            break;
         case 1:
-            returnedVC = [[VLCFirstStepsSecondPageViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-        case 2:
-            returnedVC = [[VLCFirstStepsThirdPageViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-        case 3:
-            returnedVC = [[VLCFirstStepsFourthPageViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-        case 4:
-            returnedVC = [[VLCFirstStepsFifthPageViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-        case 5:
-            returnedVC = [[VLCFirstStepsSixthPageViewController alloc] initWithNibName:nil bundle:nil];
+            returnedVC = [[VLCFirstStepsCloudViewController alloc] initWithNibName:nil bundle:nil];
             break;
 
         default:
@@ -90,20 +92,11 @@
         currentPage = (NSUInteger)[viewController performSelector:@selector(page) withObject:nil];
 
     switch (currentPage) {
+        case 1:
+            returnedVC = [[VLCFirstStepsiTunesSyncViewController alloc] initWithNibName:nil bundle:nil];
+            break;
         case 2:
-            returnedVC = [[VLCFirstStepsFirstPageViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-        case 3:
-            returnedVC = [[VLCFirstStepsSecondPageViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-        case 4:
-            returnedVC = [[VLCFirstStepsThirdPageViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-        case 5:
-            returnedVC = [[VLCFirstStepsFourthPageViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-        case 6:
-            returnedVC = [[VLCFirstStepsFifthPageViewController alloc] initWithNibName:nil bundle:nil];
+            returnedVC = [[VLCFirstStepsWifiSharingViewController alloc] initWithNibName:nil bundle:nil];
             break;
 
         default:
@@ -115,7 +108,7 @@
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
 {
-    return 6;
+    return 3;
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
