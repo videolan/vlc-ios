@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,17 +18,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="141-gp-zTI" userLabel="Empty View">
-                    <rect key="frame" x="24.5" y="153" width="326" height="381"/>
+                    <rect key="frame" x="24.5" y="152.5" width="326" height="382"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="VLCCone512x512.png" translatesAutoresizingMaskIntoConstraints="NO" id="115">
-                            <rect key="frame" x="90" y="0.0" width="146" height="146"/>
+                            <rect key="frame" x="89.5" y="0.0" width="147" height="147"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="51y-b0-uDd"/>
                                 <constraint firstAttribute="width" secondItem="115" secondAttribute="height" multiplier="1:1" id="cc7-4o-L1f"/>
                             </constraints>
                         </imageView>
                         <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hAg-Nw-10g" userLabel="Descriptions">
-                            <rect key="frame" x="0.0" y="164" width="326" height="217"/>
+                            <rect key="frame" x="0.0" y="165" width="326" height="217"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Empty Media Library" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="114">
                                     <rect key="frame" x="78.5" y="0.0" width="169" height="67"/>
@@ -46,10 +44,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A78-83-MhQ">
-                                    <rect key="frame" x="117" y="150" width="92" height="67"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <rect key="frame" x="116" y="150" width="94" height="67"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                     <state key="normal" title="Learn More">
-                                        <color key="titleColor" red="0.0" green="0.37647058820000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleColor" red="1" green="0.60783044529999997" blue="0.1420323705" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
