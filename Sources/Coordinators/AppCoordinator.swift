@@ -20,6 +20,7 @@ class Services: NSObject {
     private var childCoordinators: [NSObject] = []
     private var playerController: VLCPlayerDisplayController
     private var tabBarController: UITabBarController
+    private var tabBarCoordinator: VLCTabBarCoordinator
     private var services = Services()
     private var migrationViewController = VLCMigrationViewController(nibName: String(describing: VLCMigrationViewController.self),
                                                                      bundle: nil)
@@ -27,6 +28,7 @@ class Services: NSObject {
     @objc init(tabBarController: UITabBarController) {
         self.playerController = VLCPlayerDisplayController(services: services)
         self.tabBarController = tabBarController
+        tabBarCoordinator = VLCTabBarCoordinator(tabBarController: tabBarController, services: services)
         super.init()
         setupChildViewControllers()
 
@@ -49,7 +51,11 @@ class Services: NSObject {
     }
 
     @objc func start() {
-        childCoordinators.append(VLCTabBarCoordinator(tabBarController: tabBarController, services: services))
+        childCoordinators.append(tabBarCoordinator)
+    }
+
+    @objc func handleShortcutItem(_ item: UIApplicationShortcutItem) {
+        tabBarCoordinator.handleShortcutItem(item)
     }
 }
 

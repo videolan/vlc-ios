@@ -100,10 +100,10 @@
 #define kVLCUserActivityLibrarySelection @"org.videolan.vlc-ios.libraryselection"
 #define kVLCUserActivityLibraryMode @"org.videolan.vlc-ios.librarymode"
 
-#define kVLCApplicationShortcutLocalLibrary @"ApplicationShortcutLocalLibrary"
-#define kVLCApplicationShortcutLocalServers @"ApplicationShortcutLocalServers"
-#define kVLCApplicationShortcutOpenNetworkStream @"ApplicationShortcutOpenNetworkStream"
-#define kVLCApplicationShortcutClouds @"ApplicationShortcutClouds"
+#define kVLCApplicationShortcutLocalVideo @"ApplicationShortcutLocalVideo"
+#define kVLCApplicationShortcutLocalAudio @"ApplicationShortcutLocalAudio"
+#define kVLCApplicationShortcutNetwork @"ApplicationShortcutNetwork"
+#define kVLCApplicationShortcutPlaylist @"ApplicationShortcutPlaylist"
 
 /* LEGACY KEYS, DO NOT USE IN NEW CODE */
 #define kVLCFTPServer @"ftp-server"
