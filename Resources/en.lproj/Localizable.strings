@@ -196,25 +196,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Video Player";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Double tap to show or hide playback controls";
 
-"FIRST_STEPS_WELCOME" = "Welcome";
-"FIRST_STEPS_WELCOME_DETAIL" = "First steps to Sync and Play Your Media.";
 "FIRST_STEPS_ITUNES" = "iTunes File Sync";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Connect your %@ to the same network as your Mac or PC.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Switch the toggle in the sidebar, enter the URL to the web browser and upload your files.";
+"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Clouds";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Upload your media to Google Drive or Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Open the sidebar to select your Cloud provider and access your media for downloading or streaming.";
-"FIRST_STEPS_PLAYBACK" = "Playback";
-"FIRST_STEPS_FLOSS" = "VLC for iOS is free and open source software developed by volunteers.\nWe hope you'll love it.";
+"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
+"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
 
-"FIRST_STEPS_TIME" = "Time";
-"FIRST_STEPS_ASPECT" = "Aspect Ratio";
-"FIRST_STEPS_SPEED" = "Speed";
-"FIRST_STEPS_REPEAT" = "Repeat";
-"FIRST_STEPS_SUBTITLES" = "Subtitles Tracks";
-"FIRST_STEPS_AUDIO" = "Audio Tracks";
-"FIRST_STEPS_POSITION" = "Position";
 
 "PLEX_CHECK_ACCOUNT" = "Check your Plex account in settings";
 "PLEX_ERROR_ACCOUNT" = "Plex login Error";
@@ -239,7 +229,6 @@
 
 
 
-"VOLUME" = "Volume";
 "DURATION" = "Duration";
 "TITLE" = "Title";
 

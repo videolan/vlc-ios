@@ -41,6 +41,10 @@ class AppearanceManager: NSObject {
         UISearchBar.appearance().barTintColor = .white
 
         UITabBar.appearance().tintColor = theme.colors.orangeUI
+
+        UIPageControl.appearance().backgroundColor = theme.colors.background
+        UIPageControl.appearance().pageIndicatorTintColor = .lightGray
+        UIPageControl.appearance().currentPageIndicatorTintColor = theme.colors.orangeUI
     }
 }
 
