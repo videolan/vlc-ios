@@ -49,7 +49,7 @@
         self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
     
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"AboutTitle"]];
     [self.navigationItem.titleView setTintColor:PresentationTheme.current.colors.navigationbarTextColor];
     
     UIBarButtonItem *contributeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CONTRIBUTE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(openContributePage:)];
