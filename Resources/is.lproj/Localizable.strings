@@ -253,12 +253,12 @@
 
 // ATV specific
 "AUDIO_INFO_VC_TITLE" = "Upplýsingar um hljóð";
-"CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
+"CLOUD_LOGIN_LONG" = "Til að komast í Cloud Services skýjaþjónusturnar, skráðu þig inn í iCloud á bæði þessu Apple TV og á iOS-tæki með sama Apple ID auðkenninu og virkjaðu Keychain Sharing í kerfisstillingunum (System Settings).\nAð því loknu skaltu skrá þig inn í skýjaþjónustu (cloud provider) að eigin vali með VLC-forritinu á iOS-tækinu þínu. Að lokum skaltu velja það á þessum skjá.";
 "ENTER_URL" = "Settu inn slóðina sem á að spila";
 "HTTP_SERVER_ON" = "Gera fjartengda afspilun óvirka";
 "HTTP_SERVER_OFF" = "Virkja fjartengda afspilun";
 "CACHED_MEDIA" = "Efni í biðminni";
-"CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
+"CACHED_MEDIA_LONG" = "Efni sem er sýnt hérna er geymt staðvært á Apple TV tækinu þínu. Athugaðu að efni getur verið fjarlægt án viðvörunar af stýrikerfinu þegar VLC er ekki keyrandi, fari svo að tækið þitt verði uppiskroppa með geymslupláss.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Ná í skjátexta frá OpenSubtitles.org...";
 "FOUND_SUBS" = "Fann skjátexta";
 "USE_SPDIF" = "Nota gegnumstreymi (S/PDIF)";
