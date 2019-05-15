@@ -20,7 +20,7 @@ class CollectionModel: MLBaseModel {
     required init(mediaService: MediaLibraryService, mediaCollection: MediaCollectionModel) {
         self.medialibrary = mediaService
         self.mediaCollection = mediaCollection
-        files = mediaCollection.files()
+        files = mediaCollection.files() ?? []
         sortModel = mediaCollection.sortModel() ?? SortModel([.default])
         medialibrary.addObserver(self)
     }
@@ -58,7 +58,7 @@ extension CollectionModel: EditableMLModel {
 extension CollectionModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyPlaylists playlists: [VLCMLPlaylist]) {
         if mediaCollection is VLCMLPlaylist {
-            files = mediaCollection.files()
+            files = mediaCollection.files() ?? []
             updateView?()
         }
     }

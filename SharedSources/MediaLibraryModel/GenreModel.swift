@@ -39,7 +39,10 @@ class GenreModel: MLBaseModel {
     }
 
     func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>? = nil) {
-        let playlist = medialibrary.createPlaylist(with: name)
+        guard let playlist = medialibrary.createPlaylist(with: name) else {
+            assertionFailure("GenreModel: createPlaylist: Failed to create a playlist.")
+            return
+        }
 
         guard let fileIndexes = fileIndexes else {
             return
@@ -103,7 +106,7 @@ extension VLCMLGenre: MediaCollectionModel {
         return SortModel([.alpha])
     }
 
-    func files() -> [VLCMLMedia] {
+    func files() -> [VLCMLMedia]? {
         return tracks()
     }
 }

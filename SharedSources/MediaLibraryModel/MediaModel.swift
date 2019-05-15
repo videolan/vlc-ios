@@ -21,7 +21,9 @@ extension MediaModel {
     func delete(_ items: [VLCMLObject]) {
         do {
             for case let media as VLCMLMedia in items {
-                try FileManager.default.removeItem(atPath: media.mainFile().mrl.path)
+                if let mainFile = media.mainFile() {
+                    try FileManager.default.removeItem(atPath: mainFile.mrl.path)
+                }
             }
             medialibrary.reload()
         }
@@ -31,7 +33,10 @@ extension MediaModel {
     }
 
     func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>? = nil) {
-        let playlist = medialibrary.createPlaylist(with: name)
+        guard let playlist = medialibrary.createPlaylist(with: name) else {
+            assertionFailure("MediaModel: createPlaylist: Failed to create a playlist.")
+            return
+        }
 
         guard let fileIndexes = fileIndexes else {
             return
@@ -57,7 +62,7 @@ extension VLCMLMedia {
     }
 
     @objc func formatSize() -> String {
-        return ByteCountFormatter.string(fromByteCount: Int64(mainFile().size()),
+        return ByteCountFormatter.string(fromByteCount: Int64(mainFile()?.size() ?? 0),
                                          countStyle: .file)
     }
 

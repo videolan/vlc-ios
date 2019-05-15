@@ -207,7 +207,10 @@ private extension MediaLibraryService {
         }
 
         for label in allLabels {
-            let newPlaylist = createPlaylist(with: label.name)
+            guard let newPlaylist = createPlaylist(with: label.name) else {
+                assertionFailure("MediaLibraryService: Migration: Unable to create playlist.")
+                continue
+            }
 
             guard let files = label.files as? Set<MLFile> else {
                 assertionFailure("MediaLibraryService: Migration: Unable to retreive files from label")
@@ -272,18 +275,18 @@ extension MediaLibraryService {
 
     /// Returns number of *ALL* files(audio and video) present in the medialibrary database
     func numberOfFiles() -> Int {
-        var media = medialib.audioFiles(with: .filename, desc: false)
-
-        media += medialib.videoFiles(with: .filename, desc: false)
-        return media.count
+        return (medialib.audioFiles()?.count ?? 0) + (medialib.videoFiles()?.count ?? 0)
     }
 
     /// Returns *ALL* file found for a specified VLCMLMediaType
     ///
     /// - Parameter type: Type of the media
     /// - Returns: Array of VLCMLMedia
-    func media(ofType type: VLCMLMediaType, sortingCriteria sort: VLCMLSortingCriteria = .filename, desc: Bool = false) -> [VLCMLMedia] {
-        return type == .video ? medialib.videoFiles(with: sort, desc: desc) : medialib.audioFiles(with: sort, desc: desc)
+    func media(ofType type: VLCMLMediaType,
+               sortingCriteria sort: VLCMLSortingCriteria = .filename,
+               desc: Bool = false) -> [VLCMLMedia] {
+        return type == .video ? medialib.videoFiles(with: sort, desc: desc) ?? []
+                              : medialib.audioFiles(with: sort, desc: desc) ?? []
     }
 
     func fetchMedia(with mrl: URL?) -> VLCMLMedia? {
@@ -298,11 +301,11 @@ extension MediaLibraryService {
 
 @objc extension MediaLibraryService {
     func artists(sortingCriteria sort: VLCMLSortingCriteria = .artist, desc: Bool = false) -> [VLCMLArtist] {
-        return medialib.artists(with: sort, desc: desc, all: true)
+        return medialib.artists(with: sort, desc: desc, all: true) ?? []
     }
 
     func albums(sortingCriteria sort: VLCMLSortingCriteria = .album, desc: Bool = false) -> [VLCMLAlbum] {
-        return medialib.albums(with: sort, desc: desc)
+        return medialib.albums(with: sort, desc: desc) ?? []
     }
 }
 
@@ -323,7 +326,7 @@ extension MediaLibraryService {
 // MARK: - Playlist methods
 
 @objc extension MediaLibraryService {
-    func createPlaylist(with name: String) -> VLCMLPlaylist {
+    func createPlaylist(with name: String) -> VLCMLPlaylist? {
         return medialib.createPlaylist(withName: name)
     }
 
@@ -332,7 +335,7 @@ extension MediaLibraryService {
     }
 
     func playlists(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLPlaylist] {
-        return medialib.playlists(with: sort, desc: desc)
+        return medialib.playlists(with: sort, desc: desc) ?? []
     }
 }
 
@@ -340,7 +343,7 @@ extension MediaLibraryService {
 
 extension MediaLibraryService {
     func genres(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLGenre] {
-        return medialib.genres(with: sort, desc: desc)
+        return medialib.genres(with: sort, desc: desc) ?? []
     }
 }
 

@@ -73,6 +73,6 @@ protocol EditableMLModel {
 }
 
 protocol MediaCollectionModel {
-    func files() -> [VLCMLMedia]
+    func files() -> [VLCMLMedia]?
     func sortModel() -> SortModel?
 }

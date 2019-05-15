@@ -49,12 +49,19 @@ class PlaylistModel: MLBaseModel {
 
     // Creates a VLCMLPlaylist appending it and updates linked view
     func create(name: String) {
-        append(medialibrary.createPlaylist(with: name))
+        guard let playlist = medialibrary.createPlaylist(with: name) else {
+            assertionFailure("PlaylistModel: create: Failed to create a playlist.")
+            return
+        }
+        append(playlist)
         updateView?()
     }
 
     func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>? = nil) {
-        let playlist = medialibrary.createPlaylist(with: name)
+        guard let playlist = medialibrary.createPlaylist(with: name) else {
+            assertionFailure("PlaylistModel: createPlaylist: Failed to create a playlist.")
+            return
+        }
 
         guard let fileIndexes = fileIndexes else {
             return
@@ -113,8 +120,9 @@ extension PlaylistModel: MediaLibraryObserver {
 
 extension VLCMLPlaylist {
     func numberOfTracksString() -> String {
-        let tracksString = media.count == 1 ? NSLocalizedString("TRACK", comment: "") : NSLocalizedString("TRACKS", comment: "")
-        return String(format: tracksString, media.count)
+        let mediaCount = media?.count ?? 0
+        let tracksString = mediaCount > 1 ? NSLocalizedString("TRACKS", comment: "") : NSLocalizedString("TRACK", comment: "")
+        return String(format: tracksString, mediaCount)
     }
 }
 
@@ -123,7 +131,7 @@ extension VLCMLPlaylist: MediaCollectionModel {
         return nil
     }
 
-    func files() -> [VLCMLMedia] {
+    func files() -> [VLCMLMedia]? {
         return media
     }
 }

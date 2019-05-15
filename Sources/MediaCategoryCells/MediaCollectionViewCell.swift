@@ -55,7 +55,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         thumbnailView.layer.masksToBounds = true
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = audiotrack.title
-        descriptionLabel.text = audiotrack.albumTrack.artist.name
+        descriptionLabel.text = audiotrack.albumTrack?.artist?.name ?? ""
         if audiotrack.isThumbnailGenerated() {
             thumbnailView.image = UIImage(contentsOfFile: audiotrack.thumbnail.path)
         }
@@ -64,7 +64,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
 
     func update(album: VLCMLAlbum) {
         titleLabel.text = album.title
-        descriptionLabel.text = album.albumArtist != nil ? album.albumArtist.name : ""
+        descriptionLabel.text = album.albumArtist?.name ?? ""
     }
 
     func update(artist: VLCMLArtist) {

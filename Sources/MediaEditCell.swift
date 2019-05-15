@@ -88,7 +88,7 @@ class MediaEditCell: BaseCollectionViewCell {
 
     func updateForAlbum(album: VLCMLAlbum) {
         titleLabel.text = album.title
-        timeLabel.text = album.albumArtist != nil ? album.albumArtist.name : ""
+        timeLabel.text = album.albumArtist?.name ?? ""
         //TODO: add size, number of tracks, thumbnail
     }
 

@@ -170,12 +170,15 @@ extension VLCEditController: VLCEditToolbarDelegate {
         var fileURLS = [URL]()
         for indexPath in selectedCellIndexPaths {
             let file = model.anyfiles[indexPath.row]
-            if let collection = file as? MediaCollectionModel {
-                collection.files().forEach {
-                    fileURLS.append($0.mainFile().mrl)
+            if let collection = file as? MediaCollectionModel,
+                let files = collection.files() {
+                files.forEach {
+                    if let mainFile = $0.mainFile() {
+                        fileURLS.append(mainFile.mrl)
+                    }
                 }
-            } else if let media = file as? VLCMLMedia {
-                fileURLS.append(media.mainFile().mrl)
+            } else if let media = file as? VLCMLMedia, let mainFile = media.mainFile() {
+                fileURLS.append(mainFile.mrl)
             } else {
                 assertionFailure("we're trying to share something that doesn't have an mrl")
                 return fileURLS

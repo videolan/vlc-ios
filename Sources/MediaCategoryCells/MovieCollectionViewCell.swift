@@ -68,7 +68,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
     func update(playlist: VLCMLPlaylist) {
         collectionOverlay.isHidden = false
-        numberOfTracks.text = String(playlist.media.count)
+        numberOfTracks.text = String(playlist.media?.count ?? 0)
         titleLabel.text = playlist.name
         descriptionLabel.text = playlist.numberOfTracksString()
     }
