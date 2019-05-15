@@ -323,7 +323,7 @@
 "ADD_TO_PLAYLIST" = "Ajouter à la liste de lecture";
 
 "PLAYLIST_PLACEHOLDER" = "Titre de la liste de lecture";
-"PLAYLIST_DESCRIPTION" = "Choisir un titre pour cette nouvelle liste de lecture";
+"PLAYLIST_DESCRIPTION" = "Choisissez un titre pour votre nouvelle liste de lecture";
 
 "RENAME_PLACEHOLDER" = "Nouveau titre";
 "ERROR_RENAME_FAILED" = "Échec du renommage";
