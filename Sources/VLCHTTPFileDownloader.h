@@ -13,24 +13,22 @@
 
 @protocol VLCHTTPFileDownloader <NSObject>
 @required
-- (void)downloadStarted;
-- (void)downloadEnded;
+- (void)downloadStartedWithIdentifier:(NSString *)identifier;
+- (void)downloadEndedWithIdentifier:(NSString *)identifier;
 
 @optional
-- (void)downloadFailedWithErrorDescription:(NSString *)description;
-- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize;
+- (void)downloadFailedWithIdentifier:(NSString *)identifier errorDescription:(NSString *)description;
+- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize identifier:(NSString *)identifier;
 
 @end
 
 @interface VLCHTTPFileDownloader : NSObject
 
-@property (readonly, nonatomic) NSString *userReadableDownloadName;
-
 @property (nonatomic, readonly) BOOL downloadInProgress;
 @property (nonatomic, retain) id delegate;
 
-- (void)cancelDownload;
-- (void)downloadFileFromURL:(NSURL *)url;
-- (void)downloadFileFromURL:(NSURL *)url withFileName:(NSString*) fileName;
+- (void)cancelDownloadWithIdentifier:(NSString *)identifier;
+- (NSString *)downloadFileFromURL:(NSURL *)url;
+- (NSString *)downloadFileFromURL:(NSURL *)url withFileName:(NSString*)fileName;
 
 @end

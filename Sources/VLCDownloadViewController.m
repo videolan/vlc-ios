@@ -33,6 +33,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     NSString *_humanReadableFilename;
     NSMutableArray *_currentDownloadFilename;
     NSTimeInterval _startDL;
+    NSString *_currentDownloadIdentifier;
 
     VLCHTTPFileDownloader *_httpDownloader;
 
@@ -168,7 +169,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (void)_updateUI
 {
-    _currentDownloadType != VLCDownloadSchemeNone ? [self downloadStarted] : [self downloadEnded];
+    _currentDownloadType != VLCDownloadSchemeNone ? [self downloadStartedWithIdentifier:nil] : [self downloadEndedWithIdentifier:nil];
     [self.downloadsTable reloadData];
 }
 
@@ -203,16 +204,16 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (void)_downloadSchemeHttp
 {
-    if (self.httpDownloader.downloadInProgress) {
+    if (_currentDownloadIdentifier) {
         return;
     }
     _currentDownloadType = VLCDownloadSchemeHTTP;
     if (![_currentDownloadFilename.firstObject isEqualToString:@""]) {
         _humanReadableFilename = [[_currentDownloadFilename firstObject] stringByRemovingPercentEncoding];
-        [self.httpDownloader downloadFileFromURL:_currentDownloads.firstObject withFileName:_humanReadableFilename];
+        _currentDownloadIdentifier = [self.httpDownloader downloadFileFromURL:_currentDownloads.firstObject withFileName:_humanReadableFilename];
     } else {
-        [self.httpDownloader downloadFileFromURL:_currentDownloads.firstObject];
-        _humanReadableFilename = self.httpDownloader.userReadableDownloadName;
+        _currentDownloadIdentifier = [self.httpDownloader downloadFileFromURL:_currentDownloads.firstObject];
+        _humanReadableFilename = [_currentDownloads.firstObject lastPathComponent];
     }
     [self _startDownload];
 }
@@ -273,7 +274,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 - (IBAction)cancelDownload:(id)sender
 {
     if (_currentDownloadType == VLCDownloadSchemeHTTP && self.httpDownloader.downloadInProgress) {
-        [self.httpDownloader cancelDownload];
+        [self.httpDownloader cancelDownloadWithIdentifier:_currentDownloadIdentifier];
     } else if (_currentDownloadType == VLCDownloadSchemeFTP && _FTPDownloadRequest) {
         NSURL *target = _FTPDownloadRequest.downloadLocation;
         [_FTPDownloadRequest destroy];
@@ -286,8 +287,9 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 #pragma mark - VLC HTTP Downloader delegate
 
-- (void)downloadStarted
+- (void)downloadStartedWithIdentifier:(NSString *)identifier
 {
+    _currentDownloadIdentifier = identifier;
     [self.activityIndicator stopAnimating];
 
     VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
@@ -305,8 +307,9 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     APLog(@"download started");
 }
 
-- (void)downloadEnded
+- (void)downloadEndedWithIdentifier:(NSString *)identifier
 {
+    _currentDownloadIdentifier = nil;
     [[VLCActivityManager defaultManager] networkActivityStopped];
     _currentDownloadType = VLCDownloadSchemeNone;
     APLog(@"download ended");
@@ -315,14 +318,14 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     [self _triggerNextDownload];
 }
 
-- (void)downloadFailedWithErrorDescription:(NSString *)description
+- (void)downloadFailedWithIdentifier:(NSString *)identifier errorDescription:(NSString *)description
 {
     [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DOWNLOAD_FAILED", nil)
                                          errorMessage:description
                                        viewController:self];
 }
 
-- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
+- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize identifier:(NSString *)identifier
 {
     if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
         [self.progressPercent setText:[NSString stringWithFormat:@"%.1f%%", percentage*100]];
@@ -379,19 +382,19 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (void)requestStarted:(WRRequest *)request
 {
-    [self downloadStarted];
+    [self downloadStartedWithIdentifier:request.fullURLString];
 }
 
 - (void)requestCompleted:(WRRequest *)request
 {
     _FTPDownloadRequest = nil;
-    [self downloadEnded];
+    [self downloadEndedWithIdentifier:request.fullURLString];
 }
 
 - (void)requestFailed:(WRRequest *)request
 {
     _FTPDownloadRequest = nil;
-    [self downloadEnded];
+    [self downloadEndedWithIdentifier:request.fullURLString];
     [VLCAlertViewController alertViewManagerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"ERROR_NUMBER", nil), request.error.errorCode]
                                          errorMessage:request.error.message
                                        viewController:self];
