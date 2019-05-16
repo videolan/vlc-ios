@@ -323,8 +323,9 @@ extension MediaLibraryService {
 // MARK: - Audio methods
 
 @objc extension MediaLibraryService {
-    func artists(sortingCriteria sort: VLCMLSortingCriteria = .artist, desc: Bool = false) -> [VLCMLArtist] {
-        return medialib.artists(with: sort, desc: desc, all: true) ?? []
+    func artists(sortingCriteria sort: VLCMLSortingCriteria = .artist,
+                 desc: Bool = false, listAll all: Bool = false) -> [VLCMLArtist] {
+        return medialib.artists(with: sort, desc: desc, all: all) ?? []
     }
 
     func albums(sortingCriteria sort: VLCMLSortingCriteria = .album, desc: Bool = false) -> [VLCMLAlbum] {
