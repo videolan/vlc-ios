@@ -52,6 +52,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(audiotrack: VLCMLMedia) {
+        thumbnailView.layer.masksToBounds = true
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = audiotrack.title
         descriptionLabel.text = audiotrack.albumTrack.artist.name
@@ -67,6 +68,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(artist: VLCMLArtist) {
+        thumbnailView.layer.masksToBounds = true
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = artist.name
         descriptionLabel.text = artist.numberOfTracksString()

@@ -75,12 +75,14 @@ class MediaEditCell: BaseCollectionViewCell {
         if audio.isThumbnailGenerated() {
             thumbnailImageView.image = UIImage(contentsOfFile: audio.thumbnail.path)
         }
+        thumbnailImageView.layer.masksToBounds = true
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
     }
 
     func updateForArtist(artist: VLCMLArtist) {
         //TODO: add size, number of tracks, thumbnail
         titleLabel.text = artist.name
+        thumbnailImageView.layer.masksToBounds = true
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
     }
 
@@ -93,6 +95,7 @@ class MediaEditCell: BaseCollectionViewCell {
     func updateForGenre(genre: VLCMLGenre) {
         titleLabel.text = genre.name
         timeLabel.text = genre.numberOfTracksString()
+        thumbnailImageView.layer.masksToBounds = true
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
         //TODO: add thumbnail
     }

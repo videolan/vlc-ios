@@ -31,6 +31,7 @@ class GenreCollectionViewCell: BaseCollectionViewCell {
         super.awakeFromNib()
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         themeDidChange()
+        thumbnailView.layer.masksToBounds = true
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
     }
 
