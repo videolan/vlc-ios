@@ -47,7 +47,7 @@ class VLCSettingsSpecifierManager: NSObject {
 
 // MARK: VLCActionSheetDelegate
 
-extension VLCSettingsSpecifierManager: VLCActionSheetDelegate {
+extension VLCSettingsSpecifierManager: ActionSheetDelegate {
     
     func headerViewTitle() -> String? {
         return specifier?.title()
@@ -65,7 +65,7 @@ extension VLCSettingsSpecifierManager: VLCActionSheetDelegate {
 
 // MARK: VLCActionSheetDataSource
 
-extension VLCSettingsSpecifierManager: VLCActionSheetDataSource {
+extension VLCSettingsSpecifierManager: ActionSheetDataSource {
     
     func numberOfRows() -> Int {
         return items.count

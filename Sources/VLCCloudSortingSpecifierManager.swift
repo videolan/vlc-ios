@@ -33,7 +33,7 @@ class VLCCloudSortingSpecifierManager: NSObject {
 
 // MARK: VLCActionSheetDelegate
 
-extension VLCCloudSortingSpecifierManager: VLCActionSheetDelegate {
+extension VLCCloudSortingSpecifierManager: ActionSheetDelegate {
     
     func headerViewTitle() -> String? {
         return NSLocalizedString("SORT_BY", comment: "")
@@ -51,7 +51,7 @@ extension VLCCloudSortingSpecifierManager: VLCActionSheetDelegate {
 
 // MARK: VLCActionSheetDataSource
 
-extension VLCCloudSortingSpecifierManager: VLCActionSheetDataSource {
+extension VLCCloudSortingSpecifierManager: ActionSheetDataSource {
     
     func numberOfRows() -> Int {
         return items.count

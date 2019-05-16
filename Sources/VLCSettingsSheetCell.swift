@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class VLCSettingsSheetCell: VLCActionSheetCell {
+class VLCSettingsSheetCell: ActionSheetCell {
 
     override var isSelected: Bool {
         didSet {

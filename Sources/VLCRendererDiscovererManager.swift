@@ -19,8 +19,8 @@ class VLCRendererDiscovererManager: NSObject {
 
     @objc weak var delegate: VLCRendererDiscovererManagerDelegate?
 
-    @objc lazy var actionSheet: VLCActionSheet = {
-        let actionSheet = VLCActionSheet()
+    @objc lazy var actionSheet: ActionSheet = {
+        let actionSheet = ActionSheet()
         actionSheet.delegate = self
         actionSheet.dataSource = self
         actionSheet.modalPresentationStyle = .custom
@@ -187,7 +187,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
         }
     }
 
-    fileprivate func updateCollectionViewCellApparence(cell: VLCActionSheetCell, highlighted: Bool) {
+    fileprivate func updateCollectionViewCellApparence(cell: ActionSheetCell, highlighted: Bool) {
         var image = UIImage(named: "renderer")
         var textColor = PresentationTheme.current.colors.cellTextColor
         var tintColor = PresentationTheme.current.colors.cellDetailTextColor
@@ -206,7 +206,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
 
 // MARK: VLCActionSheetDelegate
 
-extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
+extension VLCRendererDiscovererManager: ActionSheetDelegate {
     func headerViewTitle() -> String? {
         return NSLocalizedString("HEADER_TITLE_RENDERER", comment: "")
     }
@@ -222,7 +222,7 @@ extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
 
     func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath) {
         guard let renderer = item as? VLCRendererItem,
-            let cell = collectionView.cellForItem(at: indexPath) as? VLCActionSheetCell else {
+            let cell = collectionView.cellForItem(at: indexPath) as? ActionSheetCell else {
             assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDelegate: Cell is not a VLCActionSheetCell")
             return
         }
@@ -239,7 +239,7 @@ extension VLCRendererDiscovererManager: VLCActionSheetDelegate {
 
 // MARK: VLCActionSheetDataSource
 
-extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
+extension VLCRendererDiscovererManager: ActionSheetDataSource {
     func numberOfRows() -> Int {
         return getAllRenderers().count
     }
@@ -247,7 +247,7 @@ extension VLCRendererDiscovererManager: VLCActionSheetDataSource {
     @discardableResult
     func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: VLCActionSheetCell.identifier, for: indexPath) as? VLCActionSheetCell else {
+            withReuseIdentifier: ActionSheetCell.identifier, for: indexPath) as? ActionSheetCell else {
             assertionFailure("VLCRendererDiscovererManager: VLCActionSheetDataSource: Unable to dequeue reusable cell")
             return UICollectionViewCell()
         }

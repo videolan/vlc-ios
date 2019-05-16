@@ -36,8 +36,8 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 //        VLCDragAndDropManager<T>(subcategory: VLCMediaSubcategories<>)
 //    }()
 
-    @objc private lazy var sortActionSheet: VLCActionSheet = {
-        let actionSheet = VLCActionSheet()
+    @objc private lazy var sortActionSheet: ActionSheet = {
+        let actionSheet = ActionSheet()
         actionSheet.delegate = self
         actionSheet.dataSource = self
         actionSheet.modalPresentationStyle = .custom
@@ -273,7 +273,7 @@ extension VLCMediaCategoryViewController {
 
 // MARK: VLCActionSheetDelegate
 
-extension VLCMediaCategoryViewController: VLCActionSheetDelegate {
+extension VLCMediaCategoryViewController: ActionSheetDelegate {
     func headerViewTitle() -> String? {
         return NSLocalizedString("HEADER_TITLE_SORT", comment: "")
     }
@@ -292,14 +292,14 @@ extension VLCMediaCategoryViewController: VLCActionSheetDelegate {
 
 // MARK: VLCActionSheetDataSource
 
-extension VLCMediaCategoryViewController: VLCActionSheetDataSource {
+extension VLCMediaCategoryViewController: ActionSheetDataSource {
     func numberOfRows() -> Int {
         return model.sortModel.sortingCriteria.count
     }
 
     func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: VLCActionSheetCell.identifier, for: indexPath) as? VLCActionSheetCell else {
+            withReuseIdentifier: ActionSheetCell.identifier, for: indexPath) as? ActionSheetCell else {
                 assertionFailure("VLCMediaCategoryViewController: VLCActionSheetDataSource: Unable to dequeue reusable cell")
                 return UICollectionViewCell()
         }

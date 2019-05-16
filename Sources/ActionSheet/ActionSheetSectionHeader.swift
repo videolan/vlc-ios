@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCActionSheetSectionHeader.swift
+ * ActionSheetSectionHeader.swift
  *
  * Copyright © 2018 VLC authors and VideoLAN
  * Copyright © 2018 Videolabs
@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class VLCActionSheetSectionHeader: UIView {
+class ActionSheetSectionHeader: UIView {
 
     static let identifier = "VLCActionSheetSectionHeader"
 

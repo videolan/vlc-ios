@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCActionSheetCell.swift
+ * ActionSheetCell.swift
  *
  * Copyright © 2018 VLC authors and VideoLAN
  * Copyright © 2018 Videolabs
@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class VLCActionSheetCell: UICollectionViewCell {
+class ActionSheetCell: UICollectionViewCell {
 
     @objc static var identifier: String {
         return String(describing: self)

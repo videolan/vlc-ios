@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCActionSheet.swift
+ * ActionSheet.swift
  *
  * Copyright © 2018 VLC authors and VideoLAN
  * Copyright © 2018 Videolabs
@@ -12,27 +12,30 @@
 import Foundation
 import UIKit
 
-@objc protocol VLCActionSheetDataSource {
+@objc(VLCActionSheetDataSource)
+protocol ActionSheetDataSource {
     @objc func numberOfRows() -> Int
     @objc func actionSheet(collectionView: UICollectionView,
                            cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
 }
 
-@objc protocol VLCActionSheetDelegate {
+@objc(VLCActionSheetDelegate)
+protocol ActionSheetDelegate {
     @objc optional func headerViewTitle() -> String?
     @objc func itemAtIndexPath(_ indexPath: IndexPath) -> Any?
     @objc optional func actionSheet(collectionView: UICollectionView,
                                     didSelectItem item: Any, At indexPath: IndexPath)
 }
 
-// MARK: VLCActionSheet
+// MARK: ActionSheet
 
-class VLCActionSheet: UIViewController {
+@objc(VLCActionSheet)
+class ActionSheet: UIViewController {
 
     private let cellHeight: CGFloat = 50
 
-    @objc weak var dataSource: VLCActionSheetDataSource?
-    @objc weak var delegate: VLCActionSheetDelegate?
+    @objc weak var dataSource: ActionSheetDataSource?
+    @objc weak var delegate: ActionSheetDelegate?
 
     var action: ((_ item: Any) -> Void)?
 
@@ -61,14 +64,14 @@ class VLCActionSheet: UIViewController {
         collectionView.backgroundColor = PresentationTheme.current.colors.background
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(VLCActionSheetCell.self,
-                                forCellWithReuseIdentifier: VLCActionSheetCell.identifier)
+        collectionView.register(ActionSheetCell.self,
+                                forCellWithReuseIdentifier: ActionSheetCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
 
-    lazy var headerView: VLCActionSheetSectionHeader = {
-        let headerView = VLCActionSheetSectionHeader()
+    lazy var headerView: ActionSheetSectionHeader = {
+        let headerView = ActionSheetSectionHeader()
         headerView.title.text = delegate?.headerViewTitle?() ?? "Default header title"
         headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
         headerView.backgroundColor = PresentationTheme.current.colors.background
@@ -204,7 +207,7 @@ class VLCActionSheet: UIViewController {
         headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
         bottomBackgroundView.backgroundColor = PresentationTheme.current.colors.background
         for cell in collectionView.visibleCells {
-            if let cell = cell as? VLCActionSheetCell {
+            if let cell = cell as? ActionSheetCell {
                 cell.backgroundColor = PresentationTheme.current.colors.background
                 cell.name.textColor = PresentationTheme.current.colors.cellTextColor
             }
@@ -215,7 +218,7 @@ class VLCActionSheet: UIViewController {
 
 // MARK: Private setup methods
 
-private extension VLCActionSheet {
+private extension ActionSheet {
     private func setuplHeaderViewConstraints() {
         NSLayoutConstraint.activate([
             headerView.heightAnchor.constraint(equalToConstant: cellHeight),
@@ -251,7 +254,7 @@ private extension VLCActionSheet {
 
 // MARK: Helpers
 
-private extension VLCActionSheet {
+private extension ActionSheet {
     private func setHeaderRoundedCorners() {
         let roundedCornerPath = UIBezierPath(roundedRect: headerView.bounds,
                                              byRoundingCorners: [.topLeft, .topRight],
@@ -264,7 +267,7 @@ private extension VLCActionSheet {
 
 // MARK: Actions
 
-extension VLCActionSheet {
+extension ActionSheet {
     @objc func setAction(closure action: @escaping (_ item: Any) -> Void) {
         self.action = action
     }
@@ -295,7 +298,7 @@ extension VLCActionSheet {
 
 // MARK: UICollectionViewDelegateFlowLayout
 
-extension VLCActionSheet: UICollectionViewDelegateFlowLayout {
+extension ActionSheet: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -305,7 +308,7 @@ extension VLCActionSheet: UICollectionViewDelegateFlowLayout {
 
 // MARK: UICollectionViewDelegate
 
-extension VLCActionSheet: UICollectionViewDelegate {
+extension ActionSheet: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         if let delegate = delegate, let item = delegate.itemAtIndexPath(indexPath) {
@@ -318,7 +321,7 @@ extension VLCActionSheet: UICollectionViewDelegate {
 
 // MARK: UICollectionViewDataSource
 
-extension VLCActionSheet: UICollectionViewDataSource {
+extension ActionSheet: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         if let dataSource = dataSource {
