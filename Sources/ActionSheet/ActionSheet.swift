@@ -285,13 +285,10 @@ extension ActionSheet {
                         mainStackView.frame.origin.y += mainStackView.frame.size.height
                         backgroundView.alpha = 0
             }, completion: {
-                [presentingViewController] finished in
-                presentingViewController?.dismiss(animated: false,
-                                                  completion: {
-                                                    [unowned self] in
-                                                    // When everything is complete, reset the frame for the re-use
-                                                    self.mainStackView.frame = realMainStackView
-                })
+                [unowned self, presentingViewController] finished in
+                // When everything is complete, reset the frame for the re-use
+                self.mainStackView.frame = realMainStackView
+                presentingViewController?.dismiss(animated: false, completion: nil)
         })
     }
 }
