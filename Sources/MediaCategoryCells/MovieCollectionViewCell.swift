@@ -58,7 +58,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = movie.title
         descriptionLabel.text = movie.mediaDuration()
         if movie.isThumbnailGenerated() {
-            thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.absoluteString)
+            thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.path)
         }
         let progress = movie.mediaProgress()
         progressView.isHidden = progress == 0

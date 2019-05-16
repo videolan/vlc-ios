@@ -64,7 +64,7 @@ class MediaEditCell: BaseCollectionViewCell {
         timeLabel.text = movie.mediaDuration()
         sizeLabel.text = movie.formatSize()
         if movie.isThumbnailGenerated() {
-            thumbnailImageView.image = UIImage(contentsOfFile: movie.thumbnail.absoluteString)
+            thumbnailImageView.image = UIImage(contentsOfFile: movie.thumbnail.path)
         }
     }
 
@@ -73,7 +73,7 @@ class MediaEditCell: BaseCollectionViewCell {
         timeLabel.text = audio.mediaDuration()
         sizeLabel.text = audio.formatSize()
         if audio.isThumbnailGenerated() {
-            thumbnailImageView.image = UIImage(contentsOfFile: audio.thumbnail.absoluteString)
+            thumbnailImageView.image = UIImage(contentsOfFile: audio.thumbnail.path)
         }
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
     }

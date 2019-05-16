@@ -56,7 +56,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = audiotrack.title
         descriptionLabel.text = audiotrack.albumTrack.artist.name
         if audiotrack.isThumbnailGenerated() {
-            thumbnailView.image = UIImage(contentsOfFile: audiotrack.thumbnail.absoluteString)
+            thumbnailView.image = UIImage(contentsOfFile: audiotrack.thumbnail.path)
         }
         newLabel.isHidden = !audiotrack.isNew()
     }
@@ -76,7 +76,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = movie.title
         descriptionLabel.text = movie.mediaDuration()
         if movie.isThumbnailGenerated() {
-            thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.absoluteString)
+            thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.path)
         }
         newLabel.isHidden = !movie.isNew()
     }
