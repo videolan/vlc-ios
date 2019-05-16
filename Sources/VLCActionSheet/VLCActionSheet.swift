@@ -14,13 +14,15 @@ import UIKit
 
 @objc protocol VLCActionSheetDataSource {
     @objc func numberOfRows() -> Int
-    @objc func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    @objc func actionSheet(collectionView: UICollectionView,
+                           cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
 }
 
 @objc protocol VLCActionSheetDelegate {
     @objc optional func headerViewTitle() -> String?
     @objc func itemAtIndexPath(_ indexPath: IndexPath) -> Any?
-    @objc optional func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath)
+    @objc optional func actionSheet(collectionView: UICollectionView,
+                                    didSelectItem item: Any, At indexPath: IndexPath)
 }
 
 // MARK: VLCActionSheet
@@ -39,7 +41,8 @@ class VLCActionSheet: UIViewController {
         backgroundView.alpha = 0
         backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.removeActionSheet)))
+        backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                   action: #selector(self.removeActionSheet)))
         return backgroundView
     }()
 
@@ -51,13 +54,15 @@ class VLCActionSheet: UIViewController {
     }()
 
     @objc lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: UIScreen.main.bounds, collectionViewLayout: collectionViewLayout)
+        let collectionView = UICollectionView(frame: UIScreen.main.bounds,
+                                              collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = PresentationTheme.current.colors.background
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(VLCActionSheetCell.self, forCellWithReuseIdentifier: VLCActionSheetCell.identifier)
+        collectionView.register(VLCActionSheetCell.self,
+                                forCellWithReuseIdentifier: VLCActionSheetCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -130,7 +135,8 @@ class VLCActionSheet: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTheme),
+                                               name: .VLCThemeDidChangeNotification, object: nil)
 
         view.addSubview(backgroundView)
         view.addSubview(mainStackView)
@@ -177,7 +183,8 @@ class VLCActionSheet: UIViewController {
         })
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { [weak self] _ in
             self?.maxCollectionViewHeightConstraint.constant = size.height / 2
@@ -246,7 +253,8 @@ private extension VLCActionSheet {
 
 private extension VLCActionSheet {
     private func setHeaderRoundedCorners() {
-        let roundedCornerPath = UIBezierPath(roundedRect: headerView.bounds, byRoundingCorners: [.topLeft, .topRight],
+        let roundedCornerPath = UIBezierPath(roundedRect: headerView.bounds,
+                                             byRoundingCorners: [.topLeft, .topRight],
                                              cornerRadii: CGSize(width: 10, height: 10))
         let maskLayer = CAShapeLayer()
         maskLayer.path = roundedCornerPath.cgPath
@@ -288,7 +296,9 @@ extension VLCActionSheet {
 // MARK: UICollectionViewDelegateFlowLayout
 
 extension VLCActionSheet: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: cellHeight)
     }
 }
@@ -296,7 +306,8 @@ extension VLCActionSheet: UICollectionViewDelegateFlowLayout {
 // MARK: UICollectionViewDelegate
 
 extension VLCActionSheet: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
         if let delegate = delegate, let item = delegate.itemAtIndexPath(indexPath) {
             delegate.actionSheet?(collectionView: collectionView, didSelectItem: item, At: indexPath)
             action?(item)
@@ -308,16 +319,19 @@ extension VLCActionSheet: UICollectionViewDelegate {
 // MARK: UICollectionViewDataSource
 
 extension VLCActionSheet: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         if let dataSource = dataSource {
             return dataSource.numberOfRows()
         }
         preconditionFailure("VLCActionSheet: No data source")
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let dataSource = dataSource {
-            return dataSource.actionSheet(collectionView: collectionView, cellForItemAt: indexPath)
+            return dataSource.actionSheet(collectionView: collectionView,
+                                          cellForItemAt: indexPath)
         }
         preconditionFailure("VLCActionSheet: No data source")
     }
