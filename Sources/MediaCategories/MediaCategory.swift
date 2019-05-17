@@ -42,7 +42,7 @@ class VLCPlaylistCategoryViewController: VLCMediaCategoryViewController {
 
 class VLCTrackCategoryViewController: VLCMediaCategoryViewController {
     init(_ services: Services) {
-        let model = AudioModel(medialibrary: services.medialibraryService)
+        let model = TrackModel(medialibrary: services.medialibraryService)
         super.init(services: services, model: model)
         model.updateView = { [weak self] in
             self?.reloadData()

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * AudioModel.swift
+ * TrackModel.swift
  *
  * Copyright © 2018 VLC authors and VideoLAN
  * Copyright © 2018 Videolabs
@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class AudioModel: MediaModel {
+class TrackModel: MediaModel {
     typealias MLType = VLCMLMedia
 
     var sortModel = SortModel([.alpha, .duration, .fileSize])
@@ -33,7 +33,7 @@ class AudioModel: MediaModel {
 
 // MARK: - Sort
 
-extension AudioModel {
+extension TrackModel {
     func sort(by criteria: VLCMLSortingCriteria) {
         // FIXME: Currently if sorted by name, the files are sorted by filename but displaying title
         files = medialibrary.media(ofType: .audio, sortingCriteria: criteria)
@@ -44,14 +44,14 @@ extension AudioModel {
 
 // MARK: - Edit
 
-extension AudioModel: EditableMLModel {
+extension TrackModel: EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type {
         return MediaEditCell.self
     }
 }
 // MARK: - MediaLibraryObserver
 
-extension AudioModel: MediaLibraryObserver {
+extension TrackModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddAudios audios: [VLCMLMedia]) {
         audios.forEach({ append($0) })
         updateView?()

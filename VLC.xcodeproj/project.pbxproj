@@ -267,7 +267,7 @@
 		8DE1887421089B3A00A091D2 /* MediaLibraryBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE1887321089B3A00A091D2 /* MediaLibraryBaseModel.swift */; };
 		8DE1887621089BB100A091D2 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE1887521089BB100A091D2 /* VideoModel.swift */; };
 		8DE1888C210B459000A091D2 /* ShowEpisodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE1888B210B459000A091D2 /* ShowEpisodeModel.swift */; };
-		8DE18890210B53E000A091D2 /* AudioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE1888F210B53E000A091D2 /* AudioModel.swift */; };
+		8DE18890210B53E000A091D2 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE1888F210B53E000A091D2 /* TrackModel.swift */; };
 		8DE18892210B5BAD00A091D2 /* ArtistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE18891210B5BAD00A091D2 /* ArtistModel.swift */; };
 		8DE18894210B5F8200A091D2 /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE18893210B5F8200A091D2 /* AlbumModel.swift */; };
 		8DE18898210F144B00A091D2 /* GenreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE18897210F144B00A091D2 /* GenreModel.swift */; };
@@ -849,7 +849,7 @@
 		8DE1887321089B3A00A091D2 /* MediaLibraryBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLibraryBaseModel.swift; sourceTree = "<group>"; };
 		8DE1887521089BB100A091D2 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		8DE1888B210B459000A091D2 /* ShowEpisodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEpisodeModel.swift; sourceTree = "<group>"; };
-		8DE1888F210B53E000A091D2 /* AudioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioModel.swift; sourceTree = "<group>"; };
+		8DE1888F210B53E000A091D2 /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
 		8DE18891210B5BAD00A091D2 /* ArtistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistModel.swift; sourceTree = "<group>"; };
 		8DE18893210B5F8200A091D2 /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
 		8DE18897210F144B00A091D2 /* GenreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreModel.swift; sourceTree = "<group>"; };
@@ -1953,7 +1953,7 @@
 				8DE1887321089B3A00A091D2 /* MediaLibraryBaseModel.swift */,
 				8DE1887521089BB100A091D2 /* VideoModel.swift */,
 				8DE1888B210B459000A091D2 /* ShowEpisodeModel.swift */,
-				8DE1888F210B53E000A091D2 /* AudioModel.swift */,
+				8DE1888F210B53E000A091D2 /* TrackModel.swift */,
 				8DE18891210B5BAD00A091D2 /* ArtistModel.swift */,
 				8DE18893210B5F8200A091D2 /* AlbumModel.swift */,
 				8DE18897210F144B00A091D2 /* GenreModel.swift */,
@@ -3070,7 +3070,7 @@
 				7D1052EE1A4DCD1E00295F08 /* VLCOneDriveController.m in Sources */,
 				414396C22023316C005E3FAF /* AppearanceManager.swift in Sources */,
 				7D30F3DC183AB2F900FFC021 /* VLCNetworkLoginViewController.m in Sources */,
-				8DE18890210B53E000A091D2 /* AudioModel.swift in Sources */,
+				8DE18890210B53E000A091D2 /* TrackModel.swift in Sources */,
 				8DE18898210F144B00A091D2 /* GenreModel.swift in Sources */,
 				419A2C661F37A4B70069D224 /* VLCStringsForLocalization.m in Sources */,
 				D0AF091F220A741300076D07 /* VLCCloudSortingSpecifierManager.swift in Sources */,
