@@ -11,7 +11,6 @@
 "TITLE" = "Title";
 "CHAPTER" = "Chapter";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimize playback";
-"FULLSCREEN_PLAYBACK" = "Play in fullscreen";
 "TRACK_SELECTION" = "Track Selection";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Subtitles";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Continue playback?";
 "CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 
-"BUTTON_ALL" = "Select All";
 "BUTTON_ABOUT" = "About";
 "BUTTON_BACK" = "Back";
 "BUTTON_DONE" = "Done";
@@ -99,13 +97,13 @@
 "DOWNLOAD_FROM_HTTP_HELP" = "Enter an address to download the file to your %@.";
 "DOWNLOAD_FROM_HTTP" = "Downloads";
 "ERROR_NUMBER" = "Error %i occured";
-"DOWNLOAD_FAILED" = "Download failed";
 "FILE_NOT_SUPPORTED" = "File format not supported";
 "FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
 "SCHEME_NOT_SUPPORTED" = "Address scheme not supported";
 "SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
 "RENAME_MEDIA_TO" = "Enter new name for %@";
 
+"FOLDER_EMPTY" = "Empty folder";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Choose a file to open:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Open In...";
@@ -286,8 +284,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "The selection can't be deleted";
-"DELETE_INVALID_TITLE" = "Invalid Selection";
 "DELETE_MESSAGE" = "Confirm the deletion of the selected files";
 "DELETE_TITLE" = "Delete Selected Files";
 
@@ -299,7 +295,6 @@
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "Settings";
 
-"CANCEL" = "Cancel";
 "ERROR" = "Error";
 "OK" = "Ok";
 "SORT" = "Sort";
@@ -347,3 +342,7 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filename";
 "TRACK_NUMBER" = "Track number";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nothing found";
