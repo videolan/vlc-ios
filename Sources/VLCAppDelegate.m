@@ -134,7 +134,7 @@
                                                                                                   icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Playlist"]
                                                                                               userInfo:nil];
         UIApplicationShortcutItem *networkItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutNetwork
-                                                                                  localizedTitle:NSLocalizedString(@"LOCAL_NETWORK",nil)
+                                                                                  localizedTitle:NSLocalizedString(@"NETWORK",nil)
                                                                                localizedSubtitle:nil
                                                                                             icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"Network"]
                                                                                         userInfo:nil];
