@@ -95,6 +95,41 @@ private extension VLCEditController {
 
         present(alertController, animated: true, completion: nil)
     }
+
+    private func createPlaylist(_ name: String) {
+        guard let playlist = mediaLibraryService.createPlaylist(with: name) else {
+            assertionFailure("MediaModel: createPlaylist: Failed to create a playlist.")
+            DispatchQueue.main.async {
+                VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_PLAYLIST_CREATION",
+                                                                                 comment: ""),
+                                                        viewController: self)
+            }
+            return
+        }
+
+        // In the case of Video, Tracks
+        if let files = model.anyfiles as? [VLCMLMedia] {
+            for index in selectedCellIndexPaths where index.row < files.count {
+                playlist.appendMedia(withIdentifier: files[index.row].identifier())
+            }
+        } else if let mediaCollectionArray = model.anyfiles as? [MediaCollectionModel] {
+            for index in selectedCellIndexPaths where index.row < mediaCollectionArray.count {
+                guard let tracks = mediaCollectionArray[index.row].files() else {
+                    assertionFailure("EditController: Fail to retreive tracks.")
+                    DispatchQueue.main.async {
+                        VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_PLAYLIST_TRACKS",
+                                                                                         comment: ""),
+                                                                viewController: self)
+                    }
+                    return
+                }
+                tracks.forEach() {
+                    playlist.appendMedia(withIdentifier: $0.identifier())
+                }
+            }
+        }
+        selectedCellIndexPaths.removeAll()
+    }
 }
 
 // MARK: - VLCEditToolbarDelegate
@@ -104,8 +139,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
         let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
                                            placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER",
                                                                           comment: ""))
-        presentTextFieldAlert(with: alertInfo,
-                              completionHandler: {
+        presentTextFieldAlert(with: alertInfo) {
             [unowned self] text -> Void in
             guard text != "" else {
                 DispatchQueue.main.async {
@@ -115,9 +149,8 @@ extension VLCEditController: VLCEditToolbarDelegate {
                 }
                 return
             }
-            self.model.createPlaylist(text, self.selectedCellIndexPaths)
-            self.selectedCellIndexPaths.removeAll()
-        })
+            self.createPlaylist(text)
+        }
     }
 
     func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar) {
@@ -293,8 +326,7 @@ extension VLCEditController: AddToPlaylistViewControllerDelegate {
 
     func addToPlaylistViewController(_ addToPlaylistViewController: AddToPlaylistViewController,
                                      newPlaylistWithName name: String) {
-        model.createPlaylist(name, self.selectedCellIndexPaths)
-        selectedCellIndexPaths.removeAll()
+        createPlaylist(name)
         addToPlaylistViewController.dismiss(animated: true, completion: nil)
     }
 }

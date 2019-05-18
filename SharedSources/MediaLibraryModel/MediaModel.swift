@@ -31,21 +31,6 @@ extension MediaModel {
             assertionFailure("MediaModel: Delete failed: \(error.localizedDescription)")
         }
     }
-
-    func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>? = nil) {
-        guard let playlist = medialibrary.createPlaylist(with: name) else {
-            assertionFailure("MediaModel: createPlaylist: Failed to create a playlist.")
-            return
-        }
-
-        guard let fileIndexes = fileIndexes else {
-            return
-        }
-
-        for index in fileIndexes  where index.row < files.count {
-            playlist.appendMedia(withIdentifier: files[index.row].identifier())
-        }
-    }
 }
 
 // MARK: - Helpers

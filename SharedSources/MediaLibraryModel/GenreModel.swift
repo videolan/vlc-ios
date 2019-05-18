@@ -37,29 +37,6 @@ class GenreModel: MLBaseModel {
     func delete(_ items: [VLCMLObject]) {
         preconditionFailure("GenreModel: Genres can not be deleted, they disappear when their last title got deleted")
     }
-
-    func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>? = nil) {
-        guard let playlist = medialibrary.createPlaylist(with: name) else {
-            assertionFailure("GenreModel: createPlaylist: Failed to create a playlist.")
-            return
-        }
-
-        guard let fileIndexes = fileIndexes else {
-            return
-        }
-
-        for index in fileIndexes  where index.row < files.count {
-            // Get all tracks from a VLCMLGenre
-            guard let tracks = files[index.row].tracks(with: .default, desc: false) else {
-                assertionFailure("GenreModel: createPlaylist: Fail to retreive tracks.")
-                return
-            }
-
-            tracks.forEach() {
-                playlist.appendMedia(withIdentifier: $0.identifier())
-            }
-        }
-    }
 }
 
 // MARK: - Sort

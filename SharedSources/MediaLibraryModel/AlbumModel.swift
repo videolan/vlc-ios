@@ -37,29 +37,6 @@ class AlbumModel: MLBaseModel {
     func delete(_ items: [VLCMLObject]) {
         preconditionFailure("AlbumModel: Albums can not be deleted, they disappear when their last title got deleted")
     }
-
-    func createPlaylist(_ name: String, _ fileIndexes: Set<IndexPath>? = nil) {
-        guard let playlist = medialibrary.createPlaylist(with: name) else {
-            assertionFailure("AlbumModel: createPlaylist: Failed to create a playlist.")
-            return
-        }
-
-        guard let fileIndexes = fileIndexes else {
-            return
-        }
-
-        for index in fileIndexes  where index.row < files.count {
-            // Get all tracks from a VLCMLAlbum
-            guard let tracks = files[index.row].tracks(with: .default, desc: false) else {
-                assertionFailure("AlbumModel: createPlaylist: Fail to retreive tracks.")
-                return
-            }
-
-            tracks.forEach() {
-                playlist.appendMedia(withIdentifier: $0.identifier())
-            }
-        }
-    }
 }
 
 // MARK: - Sort
