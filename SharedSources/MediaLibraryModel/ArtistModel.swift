@@ -38,6 +38,7 @@ class ArtistModel: MLBaseModel {
         preconditionFailure("ArtistModel: Artists can not be deleted, they disappear when their last title got deleted")
     }
 }
+
 // MARK: - Edit
 extension ArtistModel: EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type {

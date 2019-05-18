@@ -50,7 +50,6 @@ class VLCEditController: UIViewController {
 // MARK: - Helpers
 
 private extension VLCEditController {
-
     private struct TextFieldAlertInfo {
         var alertTitle: String
         var alertDescription: String
