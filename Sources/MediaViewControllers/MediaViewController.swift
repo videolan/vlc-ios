@@ -72,12 +72,9 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
         viewControllers[currentIndex].setEditing(editing, animated: animated)
     }
 
-    // Hack to send to the child vc the sort event
-    override func handleSort() {
-        viewControllers[currentIndex].handleSort()
+    @objc func handleSort() {
+        if let mediaCategoryViewController = viewControllers[currentIndex] as? VLCMediaCategoryViewController {
+            mediaCategoryViewController.handleSort()
+        }
     }
-}
-
-extension UIViewController {
-    @objc func handleSort() {}
 }
