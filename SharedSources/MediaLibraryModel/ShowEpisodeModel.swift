@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class ShowEpisodeModel: MLBaseModel {
+class ShowEpisodeModel: MediaModel {
     typealias MLType = VLCMLMedia
 
     var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize])
