@@ -317,7 +317,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (void)downloadFailedWithErrorDescription:(NSString *)description
 {
-    [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"SCHEME_NOT_SUPPORTED", nil)
+    [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DOWNLOAD_FAILED", nil)
                                          errorMessage:description
                                        viewController:self];
 }
