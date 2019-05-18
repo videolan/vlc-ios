@@ -36,7 +36,8 @@ class CollectionModel: MLBaseModel {
 
     var cellType: BaseCollectionViewCell.Type { return MediaCollectionViewCell.self }
 
-    var indicatorName: String = NSLocalizedString("Collections", comment: "")
+    // No indicator for this model so no localization needed.
+    var indicatorName: String = "Collections"
 
     func delete(_ items: [VLCMLObject]) {
        assertionFailure("still needs implementation")
