@@ -40,10 +40,11 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
         }
         navigationController?.navigationBar.isTranslucent = false
         navigationItem.rightBarButtonItems = [editButtonItem, UIBarButtonItem(customView: rendererButton)]
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""),
-                                                           style: .plain,
-                                                           target: self,
-                                                           action: #selector(handleSort))
+        sortButton = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""),
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(handleSort))
+        navigationItem.leftBarButtonItem = sortButton
     }
 
     // MARK: - PagerTabStripDataSource
