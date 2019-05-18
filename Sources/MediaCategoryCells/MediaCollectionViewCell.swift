@@ -31,6 +31,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
                 update(movie:movie)
             } else if let playlist = media as? VLCMLPlaylist {
                 update(playlist: playlist)
+            } else if let genre = media as? VLCMLGenre {
+                update(genre: genre)
             } else {
                 fatalError("needs to be of Type VLCMLMedia or VLCMLAlbum")
             }
@@ -88,6 +90,19 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = playlist.name
         descriptionLabel.text = playlist.numberOfTracksString()
         thumbnailView.image = UIImage(contentsOfFile: playlist.artworkMrl())
+    }
+
+    func update(genre: VLCMLGenre) {
+        newLabel.isHidden = true
+        titleLabel.text = genre.name
+
+        for track in genre.tracks() ?? [] {
+            if track.isThumbnailGenerated() {
+                thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
+                break
+            }
+        }
+        descriptionLabel.text = genre.numberOfTracksString()
     }
 
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {

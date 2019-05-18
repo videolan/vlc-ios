@@ -61,8 +61,6 @@
 		41B93C081A53853B00102E8B /* VLCCloudServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41B93C071A53853B00102E8B /* VLCCloudServiceCell.xib */; };
 		41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */; };
-		41CF03E821D117D100B449E0 /* GenreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CF03E721D117D100B449E0 /* GenreCollectionViewCell.swift */; };
-		41CF03EA21D1181100B449E0 /* GenreCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41CF03E921D1181100B449E0 /* GenreCollectionViewCell.xib */; };
 		41D7DD0520C1853E00AD94F6 /* ButtonBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D7DD0420C1853E00AD94F6 /* ButtonBarView.swift */; };
 		41D7DD2120C1FC2D00AD94F6 /* VLCLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41D7DD2020C1FC2D00AD94F6 /* VLCLabelCell.xib */; };
 		41D7DD2720C3060300AD94F6 /* PagerStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D7DD2620C3060300AD94F6 /* PagerStripViewController.swift */; };
@@ -538,8 +536,6 @@
 		41CD69591A29D72600E60BCE /* VLCBoxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxController.m; path = Sources/VLCBoxController.m; sourceTree = SOURCE_ROOT; };
 		41CD695A1A29D72600E60BCE /* VLCBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxTableViewController.h; path = Sources/VLCBoxTableViewController.h; sourceTree = SOURCE_ROOT; };
 		41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxTableViewController.m; path = Sources/VLCBoxTableViewController.m; sourceTree = SOURCE_ROOT; };
-		41CF03E721D117D100B449E0 /* GenreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCollectionViewCell.swift; sourceTree = "<group>"; };
-		41CF03E921D1181100B449E0 /* GenreCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenreCollectionViewCell.xib; sourceTree = "<group>"; };
 		41D7DD0420C1853E00AD94F6 /* ButtonBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonBarView.swift; path = Sources/ButtonBarView.swift; sourceTree = "<group>"; };
 		41D7DD2020C1FC2D00AD94F6 /* VLCLabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCLabelCell.xib; path = Resources/VLCLabelCell.xib; sourceTree = "<group>"; };
 		41D7DD2620C3060300AD94F6 /* PagerStripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PagerStripViewController.swift; path = Sources/PagerStripViewController.swift; sourceTree = "<group>"; };
@@ -1157,8 +1153,6 @@
 				41EC28E82136DE46004BCF0F /* MovieCollectionViewCell.xib */,
 				41884A4F214BE0D800D2C6B4 /* MediaCollectionViewCell.swift */,
 				41884A4D214BE0C800D2C6B4 /* MediaCollectionViewCell.xib */,
-				41CF03E721D117D100B449E0 /* GenreCollectionViewCell.swift */,
-				41CF03E921D1181100B449E0 /* GenreCollectionViewCell.xib */,
 			);
 			name = MediaCategoryCells;
 			path = Sources/MediaCategoryCells;
@@ -2587,7 +2581,6 @@
 				417CDA241A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.xib in Resources */,
 				7D9870671A3E03D5009CF27D /* papasscode_failed_bg@2x.png in Resources */,
 				41884A4E214BE0C800D2C6B4 /* MediaCollectionViewCell.xib in Resources */,
-				41CF03EA21D1181100B449E0 /* GenreCollectionViewCell.xib in Resources */,
 				7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */,
 				7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */,
 				7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */,
@@ -2971,7 +2964,6 @@
 				DD3EFF4D1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				8D437154205808FF00F36458 /* ActionSheet.swift in Sources */,
 				DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */,
-				41CF03E821D117D100B449E0 /* GenreCollectionViewCell.swift in Sources */,
 				8D66A47320AC61B900FA5B92 /* MediaLibraryService.swift in Sources */,
 				7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */,
 				8DE1888C210B459000A091D2 /* ShowEpisodeModel.swift in Sources */,

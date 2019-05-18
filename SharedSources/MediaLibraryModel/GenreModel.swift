@@ -18,7 +18,7 @@ class GenreModel: MLBaseModel {
 
     var files = [VLCMLGenre]()
 
-    var cellType: BaseCollectionViewCell.Type { return GenreCollectionViewCell.self }
+    var cellType: BaseCollectionViewCell.Type { return MediaCollectionViewCell.self }
 
     var medialibrary: MediaLibraryService
 
