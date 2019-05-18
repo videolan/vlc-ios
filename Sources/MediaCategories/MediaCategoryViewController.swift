@@ -281,7 +281,7 @@ extension VLCMediaCategoryViewController {
         return model.cellType.interItemPadding
     }
 
-    override func handleSort() {
+    func handleSort() {
         present(sortActionSheet, animated: false, completion: nil)
     }
 }
