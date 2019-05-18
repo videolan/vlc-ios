@@ -17,6 +17,7 @@ protocol VLCEditToolbarDelegate: class {
 }
 
 class VLCEditToolbar: UIView {
+    static let height: CGFloat = 60
     weak var delegate: VLCEditToolbarDelegate?
     private var category: MediaLibraryBaseModel
     private var stackView = UIStackView()
