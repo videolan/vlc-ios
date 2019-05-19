@@ -1077,7 +1077,12 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     if (_needsMetadataUpdate == NO) {
         _needsMetadataUpdate = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
+#if TARGET_OS_IOS
+            VLCMLMedia *media = self->_mediaPlayer.media ? [self->_delegate mediaForPlayingMedia:self->_mediaPlayer.media] : nil;
+            [self->_metadata updateMetadataFromMedia:media mediaPlayer:self->_mediaPlayer];
+#else
             [self->_metadata updateMetadataFromMediaPlayer:self->_mediaPlayer];
+#endif
             self->_needsMetadataUpdate = NO;
             [self recoverDisplayedMetadata];
         });
