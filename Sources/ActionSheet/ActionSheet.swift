@@ -160,6 +160,7 @@ class ActionSheet: UIViewController {
         super.viewWillAppear(animated)
         mainStackView.isHidden = true
         collectionView.reloadData()
+        headerView.title.text = delegate?.headerViewTitle?()
         updateViewConstraints()
     }
 
