@@ -125,6 +125,9 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="uhh-wt-a89"/>
                     </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="dft-Hv-WtH" appends="YES" id="2pN-xA-XJE"/>
+                    </connections>
                 </stackView>
             </subviews>
             <color key="backgroundColor" red="0.13333333333333333" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
@@ -147,6 +150,11 @@
         <swipeGestureRecognizer direction="left" id="LWT-xp-2fu" userLabel="leftSwipeRecognizer">
             <connections>
                 <action selector="handleSwipe:" destination="-1" id="yyG-mh-caS"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <swipeGestureRecognizer direction="down" id="dft-Hv-WtH" userLabel="downSwipeRecognizer">
+            <connections>
+                <action selector="handleDismiss:" destination="-1" id="azk-4A-3wU"/>
             </connections>
         </swipeGestureRecognizer>
         <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="RZE-7i-aax">

@@ -166,6 +166,10 @@ private extension AudioMiniPlayer {
             break
         }
     }
+
+    @IBAction private func handleDismiss(_ sender: UISwipeGestureRecognizer) {
+        playbackController.stopPlayback()
+    }
 }
 
 // MARK: - Setters
