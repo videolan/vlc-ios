@@ -111,4 +111,8 @@ extension VLCMLPlaylist: MediaCollectionModel {
     func files() -> [VLCMLMedia]? {
         return media
     }
+
+    func title() -> String? {
+        return name
+    }
 }

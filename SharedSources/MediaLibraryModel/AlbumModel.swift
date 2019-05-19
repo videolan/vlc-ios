@@ -74,4 +74,8 @@ extension VLCMLAlbum: MediaCollectionModel {
     func files() -> [VLCMLMedia]? {
         return tracks
     }
+
+    func title() -> String? {
+        return title
+    }
 }

@@ -86,4 +86,8 @@ extension VLCMLGenre: MediaCollectionModel {
     func files() -> [VLCMLMedia]? {
         return tracks()
     }
+
+    func title() -> String? {
+        return name
+    }
 }

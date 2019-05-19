@@ -74,6 +74,10 @@ extension VLCMLArtist: MediaCollectionModel {
     func files() -> [VLCMLMedia]? {
         return tracks()
     }
+
+    func title() -> String? {
+        return name
+    }
 }
 
 extension VLCMLArtist {
