@@ -67,6 +67,13 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     func update(album: VLCMLAlbum) {
         titleLabel.text = album.title
         descriptionLabel.text = album.albumArtist?.name ?? ""
+        thumbnailView.image = UIImage(contentsOfFile: album.artworkMrl.path)
+        if thumbnailView.image == nil {
+            for track in album.files() ?? [] where track.isThumbnailGenerated() {
+                thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
+                break
+            }
+        }
     }
 
     func update(artist: VLCMLArtist) {
@@ -74,6 +81,13 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = artist.name
         descriptionLabel.text = artist.numberOfTracksString()
+        thumbnailView.image = UIImage(contentsOfFile: artist.artworkMrl.path)
+        if thumbnailView.image == nil {
+            for track in artist.files() ?? [] where track.isThumbnailGenerated() {
+                thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
+                break
+            }
+        }
     }
 
     func update(movie: VLCMLMedia) {
@@ -90,17 +104,21 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = playlist.name
         descriptionLabel.text = playlist.numberOfTracksString()
         thumbnailView.image = UIImage(contentsOfFile: playlist.artworkMrl())
+        if thumbnailView.image == nil {
+            for track in playlist.files() ?? [] where track.isThumbnailGenerated() {
+                thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
+                break
+            }
+        }
     }
 
     func update(genre: VLCMLGenre) {
         newLabel.isHidden = true
         titleLabel.text = genre.name
 
-        for track in genre.tracks() ?? [] {
-            if track.isThumbnailGenerated() {
-                thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
-                break
-            }
+        for track in genre.tracks() ?? [] where track.isThumbnailGenerated() {
+            thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
+            break
         }
         descriptionLabel.text = genre.numberOfTracksString()
     }

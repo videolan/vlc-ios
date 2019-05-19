@@ -71,6 +71,13 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         numberOfTracks.text = String(playlist.media?.count ?? 0)
         titleLabel.text = playlist.name
         descriptionLabel.text = playlist.numberOfTracksString()
+        thumbnailView.image = UIImage(contentsOfFile: playlist.artworkMrl())
+        if thumbnailView.image == nil {
+            for track in playlist.files() ?? [] where track.isThumbnailGenerated() {
+                thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
+                break
+            }
+        }
     }
 
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
