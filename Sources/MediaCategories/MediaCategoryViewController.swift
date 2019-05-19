@@ -29,6 +29,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     private var editToolbarConstraint: NSLayoutConstraint?
     private var cachedCellSize = CGSize.zero
+    private var toSize = CGSize.zero
     private var longPressGesture: UILongPressGestureRecognizer!
 
 //    @available(iOS 11.0, *)
@@ -164,8 +165,9 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        collectionView?.collectionViewLayout.invalidateLayout()
         cachedCellSize = .zero
+        toSize = size
+        collectionView?.collectionViewLayout.invalidateLayout()
     }
 
     // MARK: - Edit
@@ -267,13 +269,21 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 extension VLCMediaCategoryViewController {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if cachedCellSize == .zero {
+            //For iOS 10 when rotating we take the value from willTransition to size, for the first layout pass that value is 0 though,
+            //so we need the frame.size width. For rotation on iOS 11 this approach doesn't work because at the time when this is called
+            //we don't have yet the updated safeare layout frame. This is addressed by relayouting from viewSafeAreaInsetsDidChange
+            var toWidth = toSize.width != 0 ? toSize.width : collectionView.frame.size.width
             if #available(iOS 11.0, *) {
-                cachedCellSize = model.cellType.cellSizeForWidth(collectionView.safeAreaLayoutGuide.layoutFrame.width)
-            } else {
-                cachedCellSize = model.cellType.cellSizeForWidth(collectionView.frame.size.width)
+                toWidth = collectionView.safeAreaLayoutGuide.layoutFrame.width
             }
+            cachedCellSize = model.cellType.cellSizeForWidth(toWidth)
         }
         return cachedCellSize
+    }
+
+    override func viewSafeAreaInsetsDidChange() {
+        cachedCellSize = .zero
+        collectionView?.collectionViewLayout.invalidateLayout()
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
