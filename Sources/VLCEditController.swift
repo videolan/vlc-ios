@@ -114,7 +114,7 @@ private extension VLCEditController {
         } else if let mediaCollectionArray = model.anyfiles as? [MediaCollectionModel] {
             for index in selectedCellIndexPaths where index.row < mediaCollectionArray.count {
                 guard let tracks = mediaCollectionArray[index.row].files() else {
-                    assertionFailure("EditController: Fail to retreive tracks.")
+                    assertionFailure("EditController: Fail to retrieve tracks.")
                     DispatchQueue.main.async {
                         VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_PLAYLIST_TRACKS",
                                                                                          comment: ""),

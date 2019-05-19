@@ -177,7 +177,7 @@ private extension MediaLibraryService {
 
     func migrateMedia(_ oldMedialibrary: MLMediaLibrary) -> Bool {
         guard let allFiles = MLFile.allFiles() as? [MLFile] else {
-            assertionFailure("MediaLibraryService: Migration: Unable to retreive all files")
+            assertionFailure("MediaLibraryService: Migration: Unable to retrieve all files")
             return false
         }
 
@@ -202,7 +202,7 @@ private extension MediaLibraryService {
     // Note: This removes **only** files that are in a playlist
     func migratePlaylists(_ oldMedialibrary: MLMediaLibrary) -> Bool {
         guard let allLabels = MLLabel.allLabels() as? [MLLabel] else {
-            assertionFailure("MediaLibraryService: Migration: Unable to retreive all labels")
+            assertionFailure("MediaLibraryService: Migration: Unable to retrieve all labels")
             return false
         }
 
@@ -213,7 +213,7 @@ private extension MediaLibraryService {
             }
 
             guard let files = label.files as? Set<MLFile> else {
-                assertionFailure("MediaLibraryService: Migration: Unable to retreive files from label")
+                assertionFailure("MediaLibraryService: Migration: Unable to retrieve files from label")
                 oldMedialibrary.remove(label)
                 continue
             }
@@ -233,7 +233,7 @@ private extension MediaLibraryService {
 
     func migrateToNewMediaLibrary() -> Bool {
         guard let oldMedialibrary = MLMediaLibrary.sharedMediaLibrary() as? MLMediaLibrary else {
-            assertionFailure("MediaLibraryService: Migration: Unable to retreive old medialibrary")
+            assertionFailure("MediaLibraryService: Migration: Unable to retrieve old medialibrary")
             return false
         }
 

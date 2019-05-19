@@ -307,7 +307,7 @@
 "PLAYLIST_PLACEHOLDER" = "Playlist title";
 "PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
 "ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
-"ERROR_PLAYLIST_TRACKS" = "Failed to retreive tracks";
+"ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
 
 "RENAME_PLACEHOLDER" = "New title";
 "ERROR_RENAME_FAILED" = "Renaming failed";
