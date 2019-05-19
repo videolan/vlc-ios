@@ -24,65 +24,41 @@
 {
     self = [super init];
     if (self) {
+        self.trackNumber = nil;
+        self.title = @"";
+        self.artist = @"";
+        self.albumName = @"";
+        self.artworkImage = nil;
+        self.isAudioOnly = NO;
     }
     return self;
 }
-
+#if TARGET_OS_TV
 - (void)updateMetadataFromMediaPlayer:(VLCMediaPlayer *)mediaPlayer;
 {
-    self.trackNumber = nil;
-    self.title = @"";
-    self.artist = @"";
-    self.albumName = @"";
-    self.artworkImage = nil;
-    self.isAudioOnly = NO;
-#if TARGET_OS_IOS
-    [self updateMetadataFromMediaPlayerForiOS:mediaPlayer];
-#else
     [self updateMetadataFromMediaPlayerFortvOS:mediaPlayer];
-#endif
 }
+#endif
 
 #if TARGET_OS_IOS
-- (void)updateMetadataFromMediaPlayerForiOS:(VLCMediaPlayer *)mediaPlayer
+- (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer
 {
-    MLFile *item;
-
-    if ([VLCPlaybackController sharedInstance].mediaList) {
-        item = [MLFile fileForURL:mediaPlayer.media.url].firstObject;
-    }
-
-    if (item) {
-        if (item.isAlbumTrack) {
-            self.title = item.albumTrack.title;
-            self.artist = item.albumTrack.artist;
-            self.albumName = item.albumTrack.album.name;
-        } else
-            self.title = item.title;
-
-        /* MLKit knows better than us if this thing is audio only or not */
-        self.isAudioOnly = [item isSupportedAudioFile];
-    } else {
+    if ([VLCKeychainCoordinator passcodeLockEnabled]) return;
+    if (media) {
+        self.title = media.title;
+        self.artist = media.albumTrack.artist.name;
+        self.trackNumber = @(media.albumTrack.trackNumber);
+        self.albumName = media.albumTrack.album.title;
+        self.artworkImage = [[UIImage alloc] initWithContentsOfFile:media.thumbnail.path];
+    } else { // We're streaming something
+        self.artworkImage = nil;
+        self.trackNumber = nil;
+        self.artist = nil;
+        self.albumName = nil;
         [self fillFromMetaDict:mediaPlayer];
-    }
-
-    [self checkIsAudioOnly:mediaPlayer];
-
-    if (self.isAudioOnly) {
-        self.artworkImage = [VLCThumbnailsCache thumbnailForManagedObject:item];
-
-        if (self.artworkImage) {
-            if (self.artist)
-                self.title = [self.title stringByAppendingFormat:@" — %@", self.artist];
-            if (self.albumName)
-                self.title = [self.title stringByAppendingFormat:@" — %@", self.albumName];
-        }
-        if (self.title.length < 1)
-            self.title = [[mediaPlayer.media url] lastPathComponent];
+        self.title = [[mediaPlayer.media url] lastPathComponent];
     }
     [self updatePlaybackRate:mediaPlayer];
-
-    if ([VLCKeychainCoordinator passcodeLockEnabled]) return;
 
     [self populateInfoCenterFromMetadata];
 }
