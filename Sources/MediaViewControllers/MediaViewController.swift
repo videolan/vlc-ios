@@ -16,11 +16,17 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
     var services: Services
     private var rendererButton: UIButton
     private var sortButton: UIBarButtonItem?
+    private var rigthBarButtons: [UIBarButtonItem]?
 
     init(services: Services) {
         self.services = services
         rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(nibName: nil, bundle: nil)
+        rigthBarButtons = [editButtonItem, UIBarButtonItem(customView: rendererButton)]
+        sortButton = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""),
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(handleSort))
     }
 
     override func viewDidLoad() {
@@ -30,8 +36,8 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
             oldCell?.iconLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
             newCell?.iconLabel.textColor = PresentationTheme.current.colors.orangeUI
         }
-        setupNavigationBar()
         super.viewDidLoad()
+        setupNavigationBar()
     }
 
     private func setupNavigationBar() {
@@ -39,12 +45,7 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
         navigationController?.navigationBar.isTranslucent = false
-        navigationItem.rightBarButtonItems = [editButtonItem, UIBarButtonItem(customView: rendererButton)]
-        sortButton = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""),
-                                     style: .plain,
-                                     target: self,
-                                     action: #selector(handleSort))
-        navigationItem.leftBarButtonItem = sortButton
+        updateButtonsFor(viewControllers[currentIndex])
     }
 
     // MARK: - PagerTabStripDataSource
@@ -53,11 +54,24 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
         fatalError("this should only be used as subclass")
     }
 
+    func updateButtonsFor(_ viewController: UIViewController) {
+        var showButtons = false
+        if let mediaCategoryViewController = viewController as? VLCMediaCategoryViewController,
+            !mediaCategoryViewController.isEmptyCollectionView() {
+            showButtons = true
+        }
+        navigationItem.rightBarButtonItems = showButtons ? rigthBarButtons : nil
+        navigationItem.leftBarButtonItem = showButtons ? sortButton : nil
+    }
+
     override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
         cell.iconLabel.text = indicatorInfo.title
     }
 
     override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
+        if indexWasChanged {
+            updateButtonsFor(viewControllers[toIndex])
+        }
         super.updateIndicator(for: viewController, fromIndex: fromIndex, toIndex: toIndex, withProgressPercentage: progressPercentage, indexWasChanged: indexWasChanged)
     }
 
