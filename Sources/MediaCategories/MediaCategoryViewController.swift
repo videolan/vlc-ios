@@ -138,8 +138,12 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         reloadData()
     }
 
+    func isEmptyCollectionView() -> Bool {
+        return collectionView?.numberOfItems(inSection: 0) == 0
+    }
+
     func updateUIForContent() {
-        let isEmpty = collectionView?.numberOfItems(inSection: 0) == 0
+        let isEmpty = isEmptyCollectionView()
 
         if isEmpty {
             collectionView?.setContentOffset(.zero, animated: false)
