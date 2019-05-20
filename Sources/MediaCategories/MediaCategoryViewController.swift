@@ -289,7 +289,19 @@ extension VLCMediaCategoryViewController {
     }
 
     func handleSort() {
-        present(sortActionSheet, animated: false, completion: nil)
+        var currentSortIndex: Int = 0
+        for (index, criteria) in
+            model.sortModel.sortingCriteria.enumerated()
+            where criteria == model.sortModel.currentSort {
+                currentSortIndex = index
+                break
+        }
+        present(sortActionSheet, animated: false) {
+            [sortActionSheet, currentSortIndex] in
+            sortActionSheet.collectionView.selectItem(at:
+                IndexPath(row: currentSortIndex, section: 0), animated: false,
+                                                    scrollPosition: .centeredVertically)
+        }
     }
 }
 
