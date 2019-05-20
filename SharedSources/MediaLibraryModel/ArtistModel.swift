@@ -63,6 +63,14 @@ extension ArtistModel: MediaLibraryObserver {
         artists.forEach({ append($0) })
         updateView?()
     }
+
+    func medialibrary(_ medialibrary: MediaLibraryService, didDeleteArtistsWithIds artistsIds: [NSNumber]) {
+        files.removeAll {
+            artistsIds.contains(NSNumber(value: $0.identifier()))
+        }
+        updateView?()
+    }
+
 }
 
 extension VLCMLArtist: MediaCollectionModel {

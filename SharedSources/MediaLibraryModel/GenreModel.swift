@@ -56,6 +56,14 @@ extension GenreModel: MediaLibraryObserver {
         genres.forEach({ append($0) })
         updateView?()
     }
+
+    func medialibrary(_ medialibrary: MediaLibraryService, didDeleteGenresWithIds genreIds: [NSNumber]) {
+        files.removeAll {
+            genreIds.contains(NSNumber(value: $0.identifier()))
+        }
+        updateView?()
+    }
+
 }
 
 // MARK: - Edit

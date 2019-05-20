@@ -64,6 +64,13 @@ extension AlbumModel: MediaLibraryObserver {
         albums.forEach({ append($0) })
         updateView?()
     }
+
+    func medialibrary(_ medialibrary: MediaLibraryService, didDeleteAlbumsWithIds albumsIds: [NSNumber]) {
+        files.removeAll {
+            albumsIds.contains(NSNumber(value: $0.identifier()))
+        }
+        updateView?()
+    }
 }
 
 extension VLCMLAlbum: MediaCollectionModel {
