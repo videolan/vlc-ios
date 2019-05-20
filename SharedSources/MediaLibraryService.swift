@@ -283,7 +283,7 @@ extension MediaLibraryService {
     /// - Parameter type: Type of the media
     /// - Returns: Array of VLCMLMedia
     func media(ofType type: VLCMLMediaType,
-               sortingCriteria sort: VLCMLSortingCriteria = .filename,
+               sortingCriteria sort: VLCMLSortingCriteria = .alpha,
                desc: Bool = false) -> [VLCMLMedia] {
         return type == .video ? medialib.videoFiles(with: sort, desc: desc) ?? []
                               : medialib.audioFiles(with: sort, desc: desc) ?? []
@@ -323,12 +323,13 @@ extension MediaLibraryService {
 // MARK: - Audio methods
 
 @objc extension MediaLibraryService {
-    func artists(sortingCriteria sort: VLCMLSortingCriteria = .artist,
+    func artists(sortingCriteria sort: VLCMLSortingCriteria = .alpha,
                  desc: Bool = false, listAll all: Bool = false) -> [VLCMLArtist] {
         return medialib.artists(with: sort, desc: desc, all: all) ?? []
     }
 
-    func albums(sortingCriteria sort: VLCMLSortingCriteria = .album, desc: Bool = false) -> [VLCMLAlbum] {
+    func albums(sortingCriteria sort: VLCMLSortingCriteria = .alpha,
+                desc: Bool = false) -> [VLCMLAlbum] {
         return medialib.albums(with: sort, desc: desc) ?? []
     }
 }
@@ -358,7 +359,8 @@ extension MediaLibraryService {
         return medialib.deletePlaylist(withIdentifier: identifier)
     }
 
-    func playlists(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLPlaylist] {
+    func playlists(sortingCriteria sort: VLCMLSortingCriteria = .default,
+                   desc: Bool = false) -> [VLCMLPlaylist] {
         return medialib.playlists(with: sort, desc: desc) ?? []
     }
 }
@@ -366,7 +368,8 @@ extension MediaLibraryService {
 // MARK: - Genre methods
 
 extension MediaLibraryService {
-    func genres(sortingCriteria sort: VLCMLSortingCriteria = .default, desc: Bool = false) -> [VLCMLGenre] {
+    func genres(sortingCriteria sort: VLCMLSortingCriteria = .alpha,
+                desc: Bool = false) -> [VLCMLGenre] {
         return medialib.genres(with: sort, desc: desc) ?? []
     }
 }
