@@ -307,7 +307,11 @@ extension VLCEditController: UICollectionViewDelegateFlowLayout {
         let contentInset = collectionView.contentInset
         // FIXME: 5 should be cell padding, but not usable maybe static?
         let insetToRemove = contentInset.left + contentInset.right + (5 * 2)
-        return CGSize(width: collectionView.frame.width - insetToRemove, height: MediaEditCell.height)
+        var width = collectionView.frame.width
+        if #available(iOS 11.0, *) {
+            width = collectionView.safeAreaLayoutGuide.layoutFrame.width
+        }
+        return CGSize(width: width - insetToRemove, height: MediaEditCell.height)
     }
 }
 
