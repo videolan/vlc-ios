@@ -81,7 +81,7 @@
     sheet.dataSource = manager;
     sheet.delegate = manager;
     sheet.modalPresentationStyle = UIModalPresentationCustom;
-    [sheet.collectionView registerClass:[VLCSettingsSheetCell class] forCellWithReuseIdentifier:VLCSettingsSheetCell.identifier];
+    [sheet.collectionView registerClass:[VLCActionSheetCell class] forCellWithReuseIdentifier:VLCActionSheetCell.identifier];
 
     [self _showProgressInToolbar:NO];
     [self updateForTheme];

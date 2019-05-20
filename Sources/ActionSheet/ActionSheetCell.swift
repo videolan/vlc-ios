@@ -9,10 +9,20 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+@objc(VLCActionSheetCell)
 class ActionSheetCell: UICollectionViewCell {
 
     @objc static var identifier: String {
         return String(describing: self)
+    }
+
+    override var isSelected: Bool {
+        didSet {
+            let colors = PresentationTheme.current.colors
+            name.textColor = isSelected ? colors.orangeUI : colors.cellTextColor
+            tintColor = isSelected ? colors.orangeUI : colors.cellDetailTextColor
+            checkmark.isHidden = !isSelected
+        }
     }
 
     let icon: UIImageView = {
@@ -29,6 +39,16 @@ class ActionSheetCell: UICollectionViewCell {
         name.translatesAutoresizingMaskIntoConstraints = false
         name.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return name
+    }()
+
+    let checkmark: UILabel = {
+        let checkmark = UILabel()
+        checkmark.text = "✓"
+        checkmark.font = UIFont.systemFont(ofSize: 18)
+        checkmark.textColor = PresentationTheme.current.colors.orangeUI
+        checkmark.translatesAutoresizingMaskIntoConstraints = false
+        checkmark.isHidden = true
+        return checkmark
     }()
 
     let stackView: UIStackView = {
@@ -55,6 +75,7 @@ class ActionSheetCell: UICollectionViewCell {
 
         stackView.addArrangedSubview(icon)
         stackView.addArrangedSubview(name)
+        stackView.addArrangedSubview(checkmark)
         addSubview(stackView)
 
         var guide: LayoutAnchorContainer = self
