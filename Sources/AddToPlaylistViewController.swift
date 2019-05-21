@@ -22,13 +22,13 @@ class AddToPlaylistViewController: UIViewController {
     @IBOutlet private weak var playlistCollectionView: UICollectionView!
 
     private let cellHeight: CGFloat = 56
-    private let sidePadding: CGFloat = 8
+    private let sidePadding: CGFloat = 20
 
     var playlists: [VLCMLPlaylist]
 
     private lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let collectionViewLayout = UICollectionViewFlowLayout()
-        collectionViewLayout.minimumLineSpacing = 1
+        collectionViewLayout.minimumLineSpacing = 10
         collectionViewLayout.minimumInteritemSpacing = 0
         return collectionViewLayout
     }()
