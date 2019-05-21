@@ -135,6 +135,7 @@ private extension AddToPlaylistViewController {
         newPlaylistButton.layer.masksToBounds = true
         newPlaylistButton.layer.cornerRadius = 10
         newPlaylistButton.backgroundColor = PresentationTheme.current.colors.orangeUI
+        newPlaylistButton.setTitle(NSLocalizedString("PLAYLIST_CREATION", comment: ""), for: .normal)
         newPlaylistButton.accessibilityLabel = NSLocalizedString("PLAYLIST_CREATION", comment: "")
         newPlaylistButton.accessibilityHint = NSLocalizedString("PLAYLIST_CREATION_HINT", comment: "")
     }
