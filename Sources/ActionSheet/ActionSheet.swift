@@ -79,13 +79,6 @@ class ActionSheet: UIViewController {
         return headerView
     }()
 
-    lazy var bottomBackgroundView: UIView = {
-        let bottomBackgroundView = UIView()
-        bottomBackgroundView.backgroundColor = PresentationTheme.current.colors.background
-        bottomBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        return bottomBackgroundView
-    }()
-
     lazy var mainStackView: UIStackView = {
         let mainStackView = UIStackView()
         mainStackView.spacing = 0
@@ -112,25 +105,15 @@ class ActionSheet: UIViewController {
         return collectionViewHeightConstraint
     }()
 
-    fileprivate lazy var bottomBackgroundViewHeightConstraint: NSLayoutConstraint = {
-        let bottomBackgroundViewHeightConstraint = bottomBackgroundView.heightAnchor.constraint(equalToConstant: 0)
-        return bottomBackgroundViewHeightConstraint
-    }()
-
     override func updateViewConstraints() {
         super.updateViewConstraints()
 
         if let presentingViewController = presentingViewController, let dataSource = dataSource {
-            collectionViewHeightConstraint.constant = CGFloat(dataSource.numberOfRows()) * cellHeight
+            collectionViewHeightConstraint.constant = CGFloat(dataSource.numberOfRows()) * cellHeight + cellHeight / 2
             maxCollectionViewHeightConstraint.constant = presentingViewController.view.frame.size.height / 2
             collectionView.setNeedsLayout()
             collectionView.layoutIfNeeded()
         }
-    }
-
-    @available(iOS 11.0, *)
-    override func viewSafeAreaInsetsDidChange() {
-        bottomBackgroundViewHeightConstraint.constant = view.safeAreaInsets.bottom
     }
 
     // MARK: UIViewController
@@ -146,14 +129,12 @@ class ActionSheet: UIViewController {
 
         mainStackView.addArrangedSubview(headerView)
         mainStackView.addArrangedSubview(collectionView)
-        mainStackView.addArrangedSubview(bottomBackgroundView)
 
         backgroundView.frame = UIScreen.main.bounds
 
         setupMainStackViewConstraints()
         setupCollectionViewConstraints()
         setuplHeaderViewConstraints()
-        setupBottomBackgroundView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -206,7 +187,6 @@ class ActionSheet: UIViewController {
         collectionView.backgroundColor = PresentationTheme.current.colors.background
         headerView.backgroundColor = PresentationTheme.current.colors.background
         headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
-        bottomBackgroundView.backgroundColor = PresentationTheme.current.colors.background
         for cell in collectionView.visibleCells {
             if let cell = cell as? ActionSheetCell {
                 cell.backgroundColor = PresentationTheme.current.colors.background
@@ -232,13 +212,6 @@ private extension ActionSheet {
             collectionViewHeightConstraint,
             maxCollectionViewHeightConstraint,
             collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            ])
-    }
-
-    private func setupBottomBackgroundView() {
-        NSLayoutConstraint.activate([
-            bottomBackgroundViewHeightConstraint,
-            bottomBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor)
             ])
     }
 
