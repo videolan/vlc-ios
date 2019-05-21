@@ -39,7 +39,7 @@ class ActionSheet: UIViewController {
 
     var action: ((_ item: Any) -> Void)?
 
-    lazy var backgroundView: UIView = {
+    private lazy var backgroundView: UIView = {
         let backgroundView = UIView()
         backgroundView.alpha = 0
         backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -49,7 +49,7 @@ class ActionSheet: UIViewController {
         return backgroundView
     }()
 
-    lazy var collectionViewLayout: UICollectionViewFlowLayout = {
+    private lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.minimumLineSpacing = 1
         collectionViewLayout.minimumInteritemSpacing = 0
@@ -70,7 +70,7 @@ class ActionSheet: UIViewController {
         return collectionView
     }()
 
-    lazy var headerView: ActionSheetSectionHeader = {
+    private lazy var headerView: ActionSheetSectionHeader = {
         let headerView = ActionSheetSectionHeader()
         headerView.title.text = delegate?.headerViewTitle?() ?? "Default header title"
         headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
@@ -79,7 +79,7 @@ class ActionSheet: UIViewController {
         return headerView
     }()
 
-    lazy var mainStackView: UIStackView = {
+    private lazy var mainStackView: UIStackView = {
         let mainStackView = UIStackView()
         mainStackView.spacing = 0
         mainStackView.axis = .vertical
@@ -88,13 +88,13 @@ class ActionSheet: UIViewController {
         return mainStackView
     }()
 
-    fileprivate lazy var maxCollectionViewHeightConstraint: NSLayoutConstraint = {
+    private lazy var maxCollectionViewHeightConstraint: NSLayoutConstraint = {
         let maxCollectionViewHeightConstraint = collectionView.heightAnchor.constraint(
             lessThanOrEqualToConstant: (view.bounds.height / 2) - cellHeight)
         return maxCollectionViewHeightConstraint
     }()
 
-    fileprivate lazy var collectionViewHeightConstraint: NSLayoutConstraint = {
+    private lazy var collectionViewHeightConstraint: NSLayoutConstraint = {
         guard let dataSource = dataSource else {
             preconditionFailure("VLCActionSheet: Data source not set correctly!")
         }
@@ -183,7 +183,7 @@ class ActionSheet: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
 
-    @objc fileprivate func updateTheme() {
+    @objc private func updateTheme() {
         collectionView.backgroundColor = PresentationTheme.current.colors.background
         headerView.backgroundColor = PresentationTheme.current.colors.background
         headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
