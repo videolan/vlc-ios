@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCEditToolbar.swift
+ * EditToolbar.swift
  *
  * Copyright © 2018 VLC authors and VideoLAN
  * Copyright © 2018 Videolabs
@@ -9,16 +9,16 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-protocol VLCEditToolbarDelegate: class {
-    func editToolbarDidDelete(_ editToolbar: VLCEditToolbar)
-    func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar)
-    func editToolbarDidRename(_ editToolbar: VLCEditToolbar)
-    func editToolbarDidShare(_ editToolbar: VLCEditToolbar, presentFrom button: UIButton)
+protocol EditToolbarDelegate: class {
+    func editToolbarDidDelete(_ editToolbar: EditToolbar)
+    func editToolbarDidAddToPlaylist(_ editToolbar: EditToolbar)
+    func editToolbarDidRename(_ editToolbar: EditToolbar)
+    func editToolbarDidShare(_ editToolbar: EditToolbar, presentFrom button: UIButton)
 }
 
-class VLCEditToolbar: UIView {
+class EditToolbar: UIView {
     static let height: CGFloat = 60
-    weak var delegate: VLCEditToolbarDelegate?
+    weak var delegate: EditToolbarDelegate?
     private var category: MediaLibraryBaseModel
     private var stackView = UIStackView()
     private var shareButton: UIButton = {

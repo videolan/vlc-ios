@@ -27,7 +27,7 @@ class VLCEditController: UIViewController {
     weak var delegate: VLCEditControllerDelegate?
 
     override func loadView() {
-        let editToolbar = VLCEditToolbar(category: model)
+        let editToolbar = EditToolbar(category: model)
         editToolbar.delegate = self
         self.view = editToolbar
     }
@@ -133,7 +133,7 @@ private extension VLCEditController {
 
 // MARK: - VLCEditToolbarDelegate
 
-extension VLCEditController: VLCEditToolbarDelegate {
+extension VLCEditController: EditToolbarDelegate {
     func addToNewPlaylist() {
         let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
                                            placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER",
@@ -152,7 +152,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
         }
     }
 
-    func editToolbarDidAddToPlaylist(_ editToolbar: VLCEditToolbar) {
+    func editToolbarDidAddToPlaylist(_ editToolbar: EditToolbar) {
         if !mediaLibraryService.playlists().isEmpty && !selectedCellIndexPaths.isEmpty {
             addToPlaylistViewController.playlists = mediaLibraryService.playlists()
             delegate?.editController(editController: self,
@@ -162,7 +162,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
         }
     }
 
-    func editToolbarDidDelete(_ editToolbar: VLCEditToolbar) {
+    func editToolbarDidDelete(_ editToolbar: EditToolbar) {
         var objectsToDelete = [VLCMLObject]()
 
         for indexPath in selectedCellIndexPaths {
@@ -185,7 +185,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
                                                                 deleteButton])
     }
 
-    func editToolbarDidShare(_ editToolbar: VLCEditToolbar, presentFrom button: UIButton) {
+    func editToolbarDidShare(_ editToolbar: EditToolbar, presentFrom button: UIButton) {
         UIApplication.shared.beginIgnoringInteractionEvents()
         let rootViewController = UIApplication.shared.keyWindow?.rootViewController
         guard let controller = VLCActivityViewControllerVendor.activityViewController(forFiles: fileURLsFromSelection(), presenting: button, presenting: rootViewController) else {
@@ -219,7 +219,7 @@ extension VLCEditController: VLCEditToolbarDelegate {
         return fileURLS
     }
 
-    func editToolbarDidRename(_ editToolbar: VLCEditToolbar) {
+    func editToolbarDidRename(_ editToolbar: EditToolbar) {
         // FIXME: Multiple renaming of files(multiple alert can get unfriendly if too many files)
         for indexPath in selectedCellIndexPaths {
             if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
