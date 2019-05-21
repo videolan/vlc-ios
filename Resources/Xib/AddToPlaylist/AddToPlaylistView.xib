@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ozj-oC-7Dg">
-                    <rect key="frame" x="0.0" y="54" width="414" height="758"/>
+                    <rect key="frame" x="0.0" y="54" width="414" height="748"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="o3C-iH-Udd">
                         <size key="itemSize" width="50" height="50"/>
@@ -33,7 +33,7 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6v-5Z-MTf">
-                    <rect key="frame" x="57" y="822" width="300" height="40"/>
+                    <rect key="frame" x="57" y="812" width="300" height="40"/>
                     <color key="backgroundColor" red="0.96470588235294119" green="0.49803921568627452" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="TSH-AI-tWF"/>
@@ -55,7 +55,7 @@
                 <constraint firstItem="A6v-5Z-MTf" firstAttribute="centerX" secondItem="SK5-46-lSh" secondAttribute="centerX" id="9K9-Ci-hVU"/>
                 <constraint firstItem="Ozj-oC-7Dg" firstAttribute="leading" secondItem="SK5-46-lSh" secondAttribute="leading" id="dl6-v8-tY0"/>
                 <constraint firstItem="Ozj-oC-7Dg" firstAttribute="trailing" secondItem="SK5-46-lSh" secondAttribute="trailing" id="mCs-Yn-ebq"/>
-                <constraint firstItem="A6v-5Z-MTf" firstAttribute="bottom" secondItem="SK5-46-lSh" secondAttribute="bottom" id="tPj-cf-ZBR"/>
+                <constraint firstItem="A6v-5Z-MTf" firstAttribute="bottom" secondItem="SK5-46-lSh" secondAttribute="bottom" constant="-10" id="tPj-cf-ZBR"/>
                 <constraint firstItem="A6v-5Z-MTf" firstAttribute="top" secondItem="Ozj-oC-7Dg" secondAttribute="bottom" constant="10" id="zKP-g6-kJG"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SK5-46-lSh"/>
