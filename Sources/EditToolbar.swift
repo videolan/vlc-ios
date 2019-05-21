@@ -27,6 +27,8 @@ class EditToolbar: UIView {
         shareButton.setImage(UIImage(named: "share"), for: .normal)
         shareButton.tintColor = .orange
         shareButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
+        shareButton.accessibilityLabel = NSLocalizedString("SHARE_LABEL", comment: "")
+        shareButton.accessibilityHint = NSLocalizedString("SHARE_HINT", comment: "")
         return shareButton
     }()
     private var renameButton: UIButton = {
@@ -35,6 +37,8 @@ class EditToolbar: UIView {
         renameButton.setImage(UIImage(named: "rename"), for: .normal)
         renameButton.tintColor = .orange
         renameButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
+        renameButton.accessibilityLabel = NSLocalizedString("BUTTON_RENAME", comment: "")
+        renameButton.accessibilityHint = NSLocalizedString("RENAME_HINT", comment: "")
         return renameButton
     }()
     private var deleteButton: UIButton = {
@@ -43,7 +47,8 @@ class EditToolbar: UIView {
         deleteButton.setImage(UIImage(named: "delete"), for: .normal)
         deleteButton.tintColor = .orange
         deleteButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
-
+        deleteButton.accessibilityLabel = NSLocalizedString("BUTTON_DELETE", comment: "")
+        deleteButton.accessibilityHint = NSLocalizedString("DELETE_HINT", comment: "")
         return deleteButton
     }()
     private var addToPlaylistButton: UIButton = {
@@ -53,6 +58,8 @@ class EditToolbar: UIView {
         addToPlaylistButton.contentHorizontalAlignment = .left
         addToPlaylistButton.addTarget(self, action: #selector(addToPlaylist), for: .touchUpInside)
         addToPlaylistButton.tintColor = .orange
+        addToPlaylistButton.accessibilityLabel = NSLocalizedString("ADD_TO_PLAYLIST", comment: "")
+        addToPlaylistButton.accessibilityHint = NSLocalizedString("ADD_TO_PLAYLIST_HINT", comment: "")
         return addToPlaylistButton
     }()
 
