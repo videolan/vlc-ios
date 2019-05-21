@@ -40,7 +40,13 @@ class CollectionModel: MLBaseModel {
     var indicatorName: String = "Collections"
 
     func delete(_ items: [VLCMLObject]) {
-       assertionFailure("still needs implementation")
+        if let playlist = mediaCollection as? VLCMLPlaylist {
+            for item in items where item is VLCMLMedia {
+                if let index = files.firstIndex(of: item as! VLCMLMedia) {
+                    playlist.removeMedia(fromPosition: UInt32(index))
+                }
+            }
+        }
     }
 }
 
