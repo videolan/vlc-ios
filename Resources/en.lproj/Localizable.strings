@@ -306,6 +306,8 @@
 
 "PLAYLIST_PLACEHOLDER" = "Playlist title";
 "PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
+"PLAYLIST_CREATION" = "Create a new playlist";
+"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
 "ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
 "ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
 
