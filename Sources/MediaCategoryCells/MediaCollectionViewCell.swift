@@ -57,23 +57,15 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         thumbnailView.layer.masksToBounds = true
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = audiotrack.title
-        descriptionLabel.text = audiotrack.albumTrack?.artist?.name ?? ""
-        if audiotrack.isThumbnailGenerated() {
-            thumbnailView.image = UIImage(contentsOfFile: audiotrack.thumbnail.path)
-        }
+        descriptionLabel.text = audiotrack.albumTrack?.artist?.name ?? NSLocalizedString("UNKNOWN_ARTIST", comment: "")
         newLabel.isHidden = !audiotrack.isNew
+        thumbnailView.image = audiotrack.thumbnailImage()
     }
 
     func update(album: VLCMLAlbum) {
-        titleLabel.text = album.title
-        descriptionLabel.text = album.albumArtist?.name ?? ""
-        thumbnailView.image = UIImage(contentsOfFile: album.artworkMrl.path)
-        if thumbnailView.image == nil {
-            for track in album.files() ?? [] where track.isThumbnailGenerated() {
-                thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
-                break
-            }
-        }
+        titleLabel.text = album.title != "" ? album.title : NSLocalizedString("UNKNOWN_TITLE", comment: "")
+        descriptionLabel.text = album.albumArtist?.name != "" ? album.albumArtist?.name : NSLocalizedString("UNKNOWN_ARTIST", comment: "")
+        thumbnailView.image = album.thumbnail()
     }
 
     func update(artist: VLCMLArtist) {
@@ -81,13 +73,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = artist.name
         descriptionLabel.text = artist.numberOfTracksString()
-        thumbnailView.image = UIImage(contentsOfFile: artist.artworkMrl.path)
-        if thumbnailView.image == nil {
-            for track in artist.files() ?? [] where track.isThumbnailGenerated() {
-                thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
-                break
-            }
-        }
+        thumbnailView.image = artist.thumbnail()
     }
 
     func update(movie: VLCMLMedia) {
@@ -103,23 +89,14 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         newLabel.isHidden = true
         titleLabel.text = playlist.name
         descriptionLabel.text = playlist.numberOfTracksString()
-        thumbnailView.image = UIImage(contentsOfFile: playlist.artworkMrl())
-        if thumbnailView.image == nil {
-            for track in playlist.files() ?? [] where track.isThumbnailGenerated() {
-                thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
-                break
-            }
-        }
+        thumbnailView.image = playlist.thumbnail()
     }
 
     func update(genre: VLCMLGenre) {
         newLabel.isHidden = true
         titleLabel.text = genre.name
 
-        for track in genre.tracks() ?? [] where track.isThumbnailGenerated() {
-            thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
-            break
-        }
+        thumbnailView.image = genre.thumbnail()
         descriptionLabel.text = genre.numberOfTracksString()
     }
 
