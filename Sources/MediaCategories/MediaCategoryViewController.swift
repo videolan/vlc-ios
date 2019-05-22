@@ -255,7 +255,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     // MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
-            play(media: media)
+            play(media: media, at: indexPath)
             createSpotlightItem(media: media)
         } else if let mediaCollection = model.anyfiles[indexPath.row] as? MediaCollectionModel {
             let collectionViewController = VLCCollectionCategoryViewController(services, mediaCollection: mediaCollection)
@@ -443,16 +443,24 @@ private extension VLCMediaCategoryViewController {
 
 extension VLCMediaCategoryViewController {
 
-    func play(media: VLCMLMedia) {
-        VLCPlaybackController.sharedInstance().fullscreenSessionRequested = media.subtype() != .albumTrack
-        if let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist || collectionModel.mediaCollection is VLCMLAlbum {
-            guard let index = collectionModel.files.firstIndex(of: media) else {
-                return
-            }
-            VLCPlaybackController.sharedInstance().playMedia(at: index, fromCollection: collectionModel.files)
-        } else {
-            VLCPlaybackController.sharedInstance().play(media)
+    func play(media: VLCMLMedia, at indexPath: IndexPath) {
+        let playbackController = VLCPlaybackController.sharedInstance()
+        let autoPlayNextItem = UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem)
+
+        playbackController.fullscreenSessionRequested = media.type() != .audio
+        if !autoPlayNextItem {
+            playbackController.play(media)
+            return
         }
+
+        var tracks = [VLCMLMedia]()
+
+        if let model = model as? MediaCollectionModel {
+            tracks = model.files() ?? []
+        } else {
+            tracks = model.anyfiles as? [VLCMLMedia] ?? []
+        }
+        playbackController.playMedia(at: indexPath.row, fromCollection: tracks)
     }
 }
 
