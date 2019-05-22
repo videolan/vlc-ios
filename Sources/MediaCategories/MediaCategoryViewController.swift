@@ -13,6 +13,10 @@
 
 import Foundation
 
+protocol MediaCategoryViewControllerDelegate {
+    func needsToUpdateNavigationbarIfNeeded(_ viewcontroller: VLCMediaCategoryViewController)
+}
+
 class VLCMediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating, UISearchControllerDelegate, IndicatorInfoProvider {
 
     var model: MediaLibraryBaseModel
@@ -31,6 +35,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     private var cachedCellSize = CGSize.zero
     private var toSize = CGSize.zero
     private var longPressGesture: UILongPressGestureRecognizer!
+    var delegate: MediaCategoryViewControllerDelegate?
 
 //    @available(iOS 11.0, *)
 //    lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
@@ -91,8 +96,12 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     @objc func reloadData() {
         DispatchQueue.main.async {
             [weak self] in
-            self?.collectionView?.reloadData()
-            self?.updateUIForContent()
+            guard let self = self else {
+                return
+            }
+            self.delegate?.needsToUpdateNavigationbarIfNeeded(self)
+            self.collectionView?.reloadData()
+            self.updateUIForContent()
         }
     }
 
