@@ -12,7 +12,8 @@
 
 import UIKit
 
-class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
+class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCategoryViewControllerDelegate {
+
     var services: Services
     private var rendererButton: UIButton
     private var sortButton: UIBarButtonItem?
@@ -37,6 +38,9 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
             newCell?.iconLabel.textColor = PresentationTheme.current.colors.orangeUI
         }
         super.viewDidLoad()
+        viewControllers.forEach {
+            ($0 as? VLCMediaCategoryViewController)?.delegate = self
+        }
         setupNavigationBar()
     }
 
@@ -47,7 +51,13 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell> {
         navigationController?.navigationBar.isTranslucent = false
         updateButtonsFor(viewControllers[currentIndex])
     }
+    // MARK: - MediaCatgoryViewControllerDelegate
 
+    func needsToUpdateNavigationbarIfNeeded(_ viewController: VLCMediaCategoryViewController) {
+        if viewcontroller == viewControllers[currentIndex] {
+            updateButtonsFor(viewcontroller)
+        }
+    }
     // MARK: - PagerTabStripDataSource
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
