@@ -54,8 +54,8 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
     // MARK: - MediaCatgoryViewControllerDelegate
 
     func needsToUpdateNavigationbarIfNeeded(_ viewController: VLCMediaCategoryViewController) {
-        if viewcontroller == viewControllers[currentIndex] {
-            updateButtonsFor(viewcontroller)
+        if viewController == viewControllers[currentIndex] {
+            updateButtonsFor(viewController)
         }
     }
     // MARK: - PagerTabStripDataSource
