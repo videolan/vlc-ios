@@ -50,6 +50,20 @@ extension VLCMLMedia {
         return ByteCountFormatter.string(fromByteCount: Int64(mainFile()?.size() ?? 0),
                                          countStyle: .file)
     }
+
+    @objc func thumbnailImage() -> UIImage? {
+        var image = UIImage(contentsOfFile: thumbnail.path)
+        if image == nil {
+            let isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme
+            if subtype() == .albumTrack {
+                image = isDarktheme ? UIImage(named: "song-placeholder-dark") : UIImage(named: "song-placeholder-white")
+            } else {
+                image = isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
+            }
+        }
+        return image
+    }
+
 }
 
 // MARK: - CoreSpotlight

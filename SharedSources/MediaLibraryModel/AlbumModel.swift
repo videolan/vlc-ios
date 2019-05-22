@@ -86,3 +86,19 @@ extension VLCMLAlbum: MediaCollectionModel {
         return title
     }
 }
+extension VLCMLAlbum {
+    @objc func thumbnail() -> UIImage? {
+        var image = UIImage(contentsOfFile: artworkMrl.path)
+        if image == nil {
+            for track in files() ?? [] where track.isThumbnailGenerated() {
+                image = UIImage(contentsOfFile: track.thumbnail.path)
+                break
+            }
+        }
+        if image == nil {
+            let isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme
+            image = isDarktheme ? UIImage(named: "album-placeholder-dark") : UIImage(named: "album-placeholder-white")
+        }
+        return image
+    }
+}

@@ -101,6 +101,21 @@ extension VLCMLPlaylist {
         let tracksString = mediaCount > 1 ? NSLocalizedString("TRACKS", comment: "") : NSLocalizedString("TRACK", comment: "")
         return String(format: tracksString, mediaCount)
     }
+
+    @objc func thumbnail() -> UIImage? {
+        var image = UIImage(contentsOfFile: artworkMrl())
+        if image == nil {
+            for track in files() ?? [] where track.isThumbnailGenerated() {
+                image = UIImage(contentsOfFile: track.thumbnail.path)
+                break
+            }
+        }
+        if image == nil {
+            let isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme
+            image = isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
+        }
+        return image
+    }
 }
 
 extension VLCMLPlaylist: MediaCollectionModel {

@@ -57,9 +57,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     func update(movie: VLCMLMedia) {
         titleLabel.text = movie.title
         descriptionLabel.text = movie.mediaDuration()
-        if movie.isThumbnailGenerated() {
-            thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.path)
-        }
+        thumbnailView.image = movie.thumbnailImage()
         let progress = movie.progress
         progressView.isHidden = progress == 0
         progressView.progress = progress
@@ -71,13 +69,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         numberOfTracks.text = String(playlist.media?.count ?? 0)
         titleLabel.text = playlist.name
         descriptionLabel.text = playlist.numberOfTracksString()
-        thumbnailView.image = UIImage(contentsOfFile: playlist.artworkMrl())
-        if thumbnailView.image == nil {
-            for track in playlist.files() ?? [] where track.isThumbnailGenerated() {
-                thumbnailView.image = UIImage(contentsOfFile: track.thumbnail.path)
-                break
-            }
-        }
+        thumbnailView.image = playlist.thumbnail()
     }
 
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {

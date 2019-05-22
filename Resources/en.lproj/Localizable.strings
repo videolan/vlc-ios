@@ -355,3 +355,7 @@
 // VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Nothing found";
+
+/* New strings */
+"UNKNOWN_ARTIST" = "Unknown Artist";
+"UNKNOWN_TITLE" = "Unknown Title";

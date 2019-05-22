@@ -49,7 +49,8 @@
         self.artist = media.albumTrack.artist.name;
         self.trackNumber = @(media.albumTrack.trackNumber);
         self.albumName = media.albumTrack.album.title;
-        self.artworkImage = [[UIImage alloc] initWithContentsOfFile:media.thumbnail.path];
+        self.artworkImage = [media thumbnailImage];
+        self.isAudioOnly = [media subtype] == VLCMLMediaSubtypeAlbumTrack;
     } else { // We're streaming something
         self.artworkImage = nil;
         self.trackNumber = nil;
