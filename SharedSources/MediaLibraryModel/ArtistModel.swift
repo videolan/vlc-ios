@@ -108,4 +108,14 @@ extension VLCMLArtist {
         }
         return image
     }
+
+    func artistName() -> String {
+        if identifier() == UnknownArtistID {
+            return NSLocalizedString("UNKNOWN_ARTIST", comment: "")
+        } else if identifier() == VariousArtistID {
+            return NSLocalizedString("VARIOUS_ARTIST", comment: "")
+        } else {
+            return name
+        }
+    }
 }

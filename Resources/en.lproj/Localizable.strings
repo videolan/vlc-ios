@@ -356,6 +356,8 @@
 
 "NO_SAVING_DATA" = "Nothing found";
 
-/* New strings */
+// MediaCollectionViewCell
+
 "UNKNOWN_ARTIST" = "Unknown Artist";
-"UNKNOWN_TITLE" = "Unknown Title";
+"VARIOUS_ARTIST" = "Various Artists";
+"UNKNOWN_ALBUM" = "Unknown Album";

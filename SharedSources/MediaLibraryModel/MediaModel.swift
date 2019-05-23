@@ -156,3 +156,12 @@ extension VLCMLMedia {
         }
     }
 }
+
+extension VLCMLMedia {
+    func albumTrackArtistName() -> String {
+        guard let albumTrack = albumTrack else {
+            return NSLocalizedString("UNKNOWN_ARTIST", comment: "")
+        }
+        return albumTrack.albumArtistName()
+    }
+}

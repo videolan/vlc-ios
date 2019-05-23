@@ -60,21 +60,21 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         thumbnailView.layer.masksToBounds = true
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = audiotrack.title
-        descriptionLabel.text = audiotrack.albumTrack?.artist?.name ?? NSLocalizedString("UNKNOWN_ARTIST", comment: "")
+        descriptionLabel.text = audiotrack.albumTrackArtistName()
         newLabel.isHidden = !audiotrack.isNew
         thumbnailView.image = audiotrack.thumbnailImage()
     }
 
     func update(album: VLCMLAlbum) {
-        titleLabel.text = album.title != "" ? album.title : NSLocalizedString("UNKNOWN_TITLE", comment: "")
-        descriptionLabel.text = album.albumArtist?.name != "" ? album.albumArtist?.name : NSLocalizedString("UNKNOWN_ARTIST", comment: "")
+        titleLabel.text = album.albumName()
+        descriptionLabel.text = album.albumArtistName()
         thumbnailView.image = album.thumbnail()
     }
 
     func update(artist: VLCMLArtist) {
         thumbnailView.layer.masksToBounds = true
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
-        titleLabel.text = artist.name
+        titleLabel.text = artist.artistName()
         descriptionLabel.text = artist.numberOfTracksString()
         thumbnailView.image = artist.thumbnail()
     }
