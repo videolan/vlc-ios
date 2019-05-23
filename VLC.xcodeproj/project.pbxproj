@@ -2363,10 +2363,9 @@
 			};
 			buildConfigurationList = 7D94FCD616DE7D1000F2623B /* Build configuration list for PBXProject "VLC" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				ru,
 				de,
