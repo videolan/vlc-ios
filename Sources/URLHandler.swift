@@ -91,6 +91,7 @@ class XCallbackURLHandler: NSObject, VLCURLHandler {
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         let action = url.path.replacingOccurrences(of: "/", with: "")
         var movieURL: URL?
+        var subURL: URL?
         var successCallback: URL?
         var errorCallback: URL?
         var fileName: String?
@@ -107,6 +108,8 @@ class XCallbackURLHandler: NSObject, VLCURLHandler {
             if let key = components.first, let value = components[1].removingPercentEncoding {
                 if key == "url"{
                     movieURL = URL(string: value)
+                } else if key == "sub" {
+                    subURL = URL(string: value)
                 } else if key == "filename" {
                     fileName = value
                 } else if key == "x-success" {
@@ -119,7 +122,7 @@ class XCallbackURLHandler: NSObject, VLCURLHandler {
             }
         }
         if action == "stream", let movieURL = movieURL {
-            play(url: movieURL) { success in
+            play(url: movieURL, sub: subURL) { success in
                 guard let callback = success ? successCallback : errorCallback else {
                     assertionFailure("no CallbackURL")
                     return
@@ -191,11 +194,11 @@ class ElseCallbackURLHandler: NSObject, VLCURLHandler {
 
 extension VLCURLHandler {
     // TODO: This code should probably not live here
-    func play(url: URL, completion: ((Bool) -> Void)?) {
+    func play(url: URL, sub: URL? = nil, completion: ((Bool) -> Void)?) {
         let vpc = VLCPlaybackController.sharedInstance()
         vpc.fullscreenSessionRequested = true
         if let mediaList = VLCMediaList(array: [VLCMedia(url: url)]) {
-            vpc.playMediaList(mediaList, firstIndex: 0, subtitlesFilePath: nil, completion: completion)
+            vpc.playMediaList(mediaList, firstIndex: 0, subtitlesFilePath: sub?.absoluteString, completion: completion)
         }
     }
 
