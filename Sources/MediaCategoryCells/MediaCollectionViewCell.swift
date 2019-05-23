@@ -14,10 +14,11 @@ import Foundation
 
 class MediaCollectionViewCell: BaseCollectionViewCell {
 
-    @IBOutlet weak var thumbnailView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var newLabel: UILabel!
+    @IBOutlet private weak var thumbnailView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var newLabel: UILabel!
+    @IBOutlet private weak var thumbnailWidth: NSLayoutConstraint!
 
     override var media: VLCMLObject? {
         didSet {
@@ -46,6 +47,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         }
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
+        let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+        thumbnailWidth.constant = isIpad ? 72 : 56
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         themeDidChange()
     }
@@ -107,12 +110,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         let numberOfCells: CGFloat
         if width <= DeviceWidth.iPhonePortrait.rawValue {
             numberOfCells = 1
-        } else if width <= DeviceWidth.iPhoneLandscape.rawValue {
-            numberOfCells = 2
         } else if width <= DeviceWidth.iPadLandscape.rawValue {
-            numberOfCells = 3
+            numberOfCells = 2
         } else {
-            numberOfCells = 4
+            numberOfCells = 3
         }
 
         // We have the number of cells and we always have numberofCells + 1 interItemPadding spaces.
@@ -124,7 +125,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
 
-        return CGSize(width: cellWidth, height: 80)
+        let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+        return CGSize(width: cellWidth, height: isIpad ? 94 : 80)
     }
 
     override func prepareForReuse() {
