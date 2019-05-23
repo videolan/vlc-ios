@@ -108,4 +108,24 @@ extension VLCMLAlbum {
         }
         return image
     }
+
+    func albumName() -> String {
+        return isUnknownAlbum() ? NSLocalizedString("UNKNOWN_ALBUM", comment: "") : title
+    }
+
+    func albumArtistName() -> String {
+        guard let artist = albumArtist else {
+            return NSLocalizedString("UNKNOWN_ARTIST", comment: "")
+        }
+        return artist.artistName()
+    }
+}
+
+extension VLCMLAlbumTrack {
+    func albumArtistName() -> String {
+        guard let artist = artist else {
+            return NSLocalizedString("UNKNOWN_ARTIST", comment: "")
+        }
+        return artist.artistName()
+    }
 }
