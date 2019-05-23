@@ -115,6 +115,29 @@ class MediaEditCell: BaseCollectionViewCell {
         }
     }
 
+    override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
+        let numberOfCells: CGFloat
+        if width <= DeviceWidth.iPhonePortrait.rawValue {
+            numberOfCells = 1
+        } else if width <= DeviceWidth.iPhoneLandscape.rawValue {
+            numberOfCells = 2
+        } else if width <= DeviceWidth.iPadLandscape.rawValue {
+            numberOfCells = 3
+        } else {
+            numberOfCells = 4
+        }
+
+        // We have the number of cells and we always have numberofCells + 1 interItemPadding spaces.
+        //
+        // edgePadding-interItemPadding-[Cell]-interItemPadding-[Cell]-interItemPadding-edgePadding
+        //
+
+        let overallWidth = width - (2 * edgePadding)
+        let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
+        let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
+
+        return CGSize(width: cellWidth, height: height)
+    }
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = ""

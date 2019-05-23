@@ -311,7 +311,7 @@ extension VLCEditController: UICollectionViewDelegateFlowLayout {
         if #available(iOS 11.0, *) {
             width = collectionView.safeAreaLayoutGuide.layoutFrame.width
         }
-        return CGSize(width: width - insetToRemove, height: MediaEditCell.height)
+        return MediaEditCell.cellSizeForWidth(width - insetToRemove)
     }
 }
 
