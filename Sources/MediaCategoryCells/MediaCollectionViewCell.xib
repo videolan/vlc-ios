@@ -81,6 +81,7 @@
                 <outlet property="descriptionLabel" destination="5N8-js-t0W" id="8YA-5P-R6q"/>
                 <outlet property="newLabel" destination="Klo-Bq-5nI" id="8jr-y0-SoR"/>
                 <outlet property="thumbnailView" destination="DpW-xo-rll" id="U2i-pe-qCM"/>
+                <outlet property="thumbnailWidth" destination="vgz-Bg-lit" id="ZZf-xz-EIV"/>
                 <outlet property="titleLabel" destination="Zkn-vN-SN4" id="H77-N8-sRM"/>
             </connections>
             <point key="canvasLocation" x="110" y="-53.5"/>
