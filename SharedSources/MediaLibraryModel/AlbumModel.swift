@@ -87,6 +87,13 @@ extension VLCMLAlbum: MediaCollectionModel {
     }
 }
 extension VLCMLAlbum {
+
+    func numberOfTracksString() -> String {
+        let trackCount = numberOfTracks()
+        let tracksString = trackCount > 1 ? NSLocalizedString("TRACKS", comment: "") : NSLocalizedString("TRACK", comment: "")
+        return String(format: tracksString, trackCount)
+    }
+
     @objc func thumbnail() -> UIImage? {
         var image = UIImage(contentsOfFile: artworkMrl.path)
         if image == nil {

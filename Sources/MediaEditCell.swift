@@ -63,33 +63,31 @@ class MediaEditCell: BaseCollectionViewCell {
         titleLabel.text = movie.title
         timeLabel.text = movie.mediaDuration()
         sizeLabel.text = movie.formatSize()
-        if movie.isThumbnailGenerated() {
-            thumbnailImageView.image = UIImage(contentsOfFile: movie.thumbnail.path)
-        }
+        thumbnailImageView.image = movie.thumbnailImage()
     }
 
     func updateForAudio(audio: VLCMLMedia) {
         titleLabel.text = audio.title
         timeLabel.text = audio.mediaDuration()
         sizeLabel.text = audio.formatSize()
-        if audio.isThumbnailGenerated() {
-            thumbnailImageView.image = UIImage(contentsOfFile: audio.thumbnail.path)
-        }
+        thumbnailImageView.image = audio.thumbnailImage()
         thumbnailImageView.layer.masksToBounds = true
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
     }
 
     func updateForArtist(artist: VLCMLArtist) {
-        //TODO: add size, number of tracks, thumbnail
         titleLabel.text = artist.name
+        timeLabel.text = artist.numberOfTracksString()
         thumbnailImageView.layer.masksToBounds = true
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
+        thumbnailImageView.image = artist.thumbnail()
     }
 
     func updateForAlbum(album: VLCMLAlbum) {
         titleLabel.text = album.title
-        timeLabel.text = album.albumArtist?.name ?? ""
-        //TODO: add size, number of tracks, thumbnail
+        timeLabel.text = album.albumArtist?.name ?? NSLocalizedString("UNKNOWN_ARTIST", comment: "")
+        sizeLabel.text = album.numberOfTracksString()
+        thumbnailImageView.image = album.thumbnail()
     }
 
     func updateForGenre(genre: VLCMLGenre) {
@@ -97,7 +95,7 @@ class MediaEditCell: BaseCollectionViewCell {
         timeLabel.text = genre.numberOfTracksString()
         thumbnailImageView.layer.masksToBounds = true
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
-        //TODO: add thumbnail
+        thumbnailImageView.image = genre.thumbnail()
     }
 
     func updateForPlaylist(playlist: VLCMLPlaylist) {
@@ -106,7 +104,7 @@ class MediaEditCell: BaseCollectionViewCell {
         VideoAspectRatio.isActive = true
         titleLabel.text = playlist.name
         timeLabel.text = playlist.numberOfTracksString()
-        //TODO: add thumbnail
+        thumbnailImageView.image = playlist.thumbnail()
     }
 
     var isChecked: Bool = false {
@@ -121,10 +119,8 @@ class MediaEditCell: BaseCollectionViewCell {
             numberOfCells = 1
         } else if width <= DeviceWidth.iPhoneLandscape.rawValue {
             numberOfCells = 2
-        } else if width <= DeviceWidth.iPadLandscape.rawValue {
-            numberOfCells = 3
         } else {
-            numberOfCells = 4
+            numberOfCells = 3
         }
 
         // We have the number of cells and we always have numberofCells + 1 interItemPadding spaces.
