@@ -59,6 +59,9 @@ private extension AudioMiniPlayer {
         progressBarView.clipsToBounds = true
         progressBarView.layer.cornerRadius = 1
 
+        if #available(iOS 11.0, *) {
+            artworkImageView.accessibilityIgnoresInvertColors = true
+        }
         artworkImageView.clipsToBounds = true
         artworkImageView.layer.cornerRadius = 2
 
