@@ -44,6 +44,9 @@ class MediaEditCell: BaseCollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        if #available(iOS 11.0, *) {
+            thumbnailImageView.accessibilityIgnoresInvertColors = true
+        }
         thumbnailImageView.clipsToBounds = true
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         themeDidChange()

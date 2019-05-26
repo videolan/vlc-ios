@@ -42,6 +42,9 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        if #available(iOS 11.0, *) {
+            thumbnailView.accessibilityIgnoresInvertColors = true
+        }
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
