@@ -204,6 +204,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     rect.origin.y = rect.origin.y + 5.;
     self.resetVideoFilterButton.frame = rect;
 
+    if (@available(iOS 11.0, *)) {
+        [self.movieView setAccessibilityIgnoresInvertColors:YES];
+    }
     [self.movieView setAccessibilityIdentifier:@"Video Player Title"];
     [self.movieView setAccessibilityLabel:NSLocalizedString(@"VO_VIDEOPLAYER_TITLE", nil)];
     [self.movieView setAccessibilityHint:NSLocalizedString(@"VO_VIDEOPLAYER_DOUBLETAP", nil)];

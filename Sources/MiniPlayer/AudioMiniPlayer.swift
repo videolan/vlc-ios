@@ -61,7 +61,7 @@ private extension AudioMiniPlayer {
 
         artworkImageView.clipsToBounds = true
         artworkImageView.layer.cornerRadius = 2
-
+        
         playPauseButton.accessibilityLabel = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
         nextButton.accessibilityLabel = NSLocalizedString("NEXT_BUTTON", comment: "")
         previousButton.accessibilityLabel = NSLocalizedString("PREV_BUTTON", comment: "")
@@ -180,6 +180,10 @@ private extension AudioMiniPlayer {
         artistLabel.text = metadata.artist
         if metadata.isAudioOnly {
             artworkImageView.image = metadata.artworkImage ?? UIImage(named: "no-artwork")
+            
+            if #available(iOS 11.0, *) {
+                artworkImageView.accessibilityIgnoresInvertColors = metadata.artworkImage != nil
+            }
         }
     }
 }
