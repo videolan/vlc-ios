@@ -2,7 +2,7 @@
  * VLCPlexParser.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014-2017 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2019 VideoLAN. All rights reserved.
  *
  * Authors: Pierre Sagaspe <pierre.sagaspe # me.com>
  *
@@ -14,5 +14,6 @@
 
 - (NSArray *)PlexMediaServerParser:(NSString *)adress port:(NSNumber *)port navigationPath:(NSString *)navPath authentification:(NSString *)auth error:(NSError *__autoreleasing *)error;
 - (NSArray *)PlexExtractDeviceInfo:(NSData *)data;
+- (NSString *)PlexExtractToken:(NSData *)data;
 
 @end

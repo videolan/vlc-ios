@@ -2,7 +2,7 @@
  * VLCPlexWebAPI.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014-2017 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2019 VideoLAN. All rights reserved.
  *
  * Authors: Pierre Sagaspe <pierre.sagaspe # me.com>
  *
@@ -15,98 +15,86 @@
 #import "sysexits.h"
 
 #define kPlexMediaServerSignIn @"https://plex.tv/users/sign_in.xml"
+//#define kPlexMediaServerSignIn @"https://plex.tv/users/sign_in.json"
 #define kPlexURLdeviceInfo @"https://plex.tv/devices.xml"
 
 @implementation VLCPlexWebAPI
 
 #pragma mark - Authentification
 
-- (NSArray *)PlexBasicAuthentification:(NSString *)username password:(NSString *)password
-{
-    NSArray *authToken = nil;
-
-    NSURL *url = [NSURL URLWithString:kPlexMediaServerSignIn];
-
-    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url];
-    if ([cookies count])
-        return cookies;
-
-    NSString *authString = [NSString stringWithFormat:@"%@:%@", username, password];
-    NSData *authData = [authString dataUsingEncoding:NSASCIIStringEncoding];
-    NSString *authBase64 = [NSString stringWithFormat:@"Basic %@", [authData base64EncodedStringWithOptions:0]];
-
-    NSString *timeString = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
-
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:authBase64 forHTTPHeaderField:@"Authorization"];
-    [request setValue:timeString forHTTPHeaderField:@"X-Plex-Access-Time"];
-
-    NSHTTPURLResponse *response = nil;
-    NSError *error = nil;
-    [self sendSynchronousRequest:request returningResponse:&response error:&error];
-
-    authToken = [NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[NSURL URLWithString:@""]];
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:authToken forURL:url mainDocumentURL:nil];
-
-    return authToken;
-}
-
-- (BOOL)PlexCreateIdentification:(NSString *)username password:(NSString *)password
+- (NSMutableDictionary *)PlexBasicAuthentification:(NSString *)username password:(NSString *)password
 {
     NSURL *url = [NSURL URLWithString:kPlexMediaServerSignIn];
-
-    NSString *authString = [NSString stringWithFormat:@"%@:%@", username, password];
-    NSData *authData = [authString dataUsingEncoding:NSASCIIStringEncoding];
-    NSString *authBase64 = [NSString stringWithFormat:@"Basic %@", [authData base64EncodedStringWithOptions:0]];
 
     NSString *appVersion = [NSString stringWithFormat:@"%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
+
+    NSMutableDictionary *authDict = [NSMutableDictionary dictionary];
+    NSString *clientIdentifier = [NSString stringWithFormat:@"PlexVLC-%@", [[UIDevice currentDevice] model]];
+    [authDict setObject:clientIdentifier forKey:@"clientIdentifier"];
+    [authDict setObject:@"PlexVLC" forKey:@"product"];
+    [authDict setObject:appVersion forKey:@"productVersion"];
+    [authDict setObject:[[UIDevice currentDevice] model] forKey:@"device"];
+    [authDict setObject:@"" forKey:@"token"];
+    [authDict setObject:@"VLC for iOS" forKey:@"name"];
+    [authDict setObject:username forKey:@"username"];
+
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url];
+    if ([cookies count]) {
+        for (NSHTTPCookie *cookie in cookies) {
+            if ([cookie.name isEqualToString:@"plexToken"]) {
+                [authDict setObject:cookie.value forKey:@"token"];
+                return authDict;
+            }
+        }
+    }
+
+    NSString *authString = [NSString stringWithFormat:@"%@:%@", username, password];
+    NSData *authData = [authString dataUsingEncoding:NSASCIIStringEncoding];
+    NSString *authBase64 = [NSString stringWithFormat:@"Basic %@", [authData base64EncodedStringWithOptions:0]];
+
     NSString *timeString = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
 
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
     [request setHTTPMethod:@"POST"];
     [request setValue:authBase64 forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"iOS" forHTTPHeaderField:@"X-Plex-Platform"];
-    [request setValue:[[UIDevice currentDevice] systemVersion] forHTTPHeaderField:@"X-Plex-Platform-Version"];
-    [request setValue:@"client" forHTTPHeaderField:@"X-Plex-Provides"];
-    [request setValue:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forHTTPHeaderField:@"X-Plex-Client-Identifier"];
-    [request setValue:@"PlexVLC" forHTTPHeaderField:@"X-Plex-Product"];
+    [request setValue:[authDict objectForKey:@"device"] forHTTPHeaderField:@"X-Plex-Device"];
+    [request setValue:[authDict objectForKey:@"name"] forHTTPHeaderField:@"X-Plex-Device-Name"];
+    [request setValue:[authDict objectForKey:@"clientIdentifier"] forHTTPHeaderField:@"X-Plex-Client-Identifier"];
+    [request setValue:[authDict objectForKey:@"product"] forHTTPHeaderField:@"X-Plex-Product"];
     [request setValue:appVersion forHTTPHeaderField:@"X-Plex-Version"];
-    [request setValue:@"VLC for iOS" forHTTPHeaderField:@"X-Plex-Device-Name"];
-    [request setValue:[[UIDevice currentDevice] model] forHTTPHeaderField:@"X-Plex-Device"];
     [request setValue:timeString forHTTPHeaderField:@"X-Plex-Access-Time"];
 
     NSHTTPURLResponse *response = nil;
     NSError *error = nil;
-    [self sendSynchronousRequest:request returningResponse:&response error:&error];
-
-    if ([response statusCode] == 201)
-        return YES;
-    else {
-        APLog(@"Plex Create Identification Error : %@", [response allHeaderFields]);
-        return NO;
-    }
-}
-
-- (NSData *)HttpRequestWithCookie:(NSURL *)url cookies:(NSArray *)authToken HTTPMethod:(NSString *)method
-{
-    NSString *timeString = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
-
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
-    NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:authToken];
-    [request setHTTPMethod:method];
-    [request setAllHTTPHeaderFields:headers];
-    [request setValue:timeString forHTTPHeaderField:@"X-Plex-Access-Time"];
-
-    NSHTTPURLResponse *response = nil;
-    NSError *error = nil;
-    NSData *urlData = [self sendSynchronousRequest:request returningResponse:&response error:&error];
-
+    NSData *data = [self sendSynchronousRequest:request returningResponse:&response error:&error];
     // for debug
-    //NSString *debugStr = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
-    //APLog(@"data : %@", debugStr);
+    /*if ([response statusCode] == 201) {
+        NSLog(@"Plex token : %@", [response allHeaderFields]);
+        NSLog(@"Plex token : %@", [NSString stringWithUTF8String:[data bytes]]);
+    } else {
+        NSLog(@"%ld", (long)response.statusCode);
+        NSLog(@"Plex Create Identification Error : %@", [response allHeaderFields]);
+        NSLog(@"Plex token error : %@", [NSString stringWithUTF8String:[data bytes]]);
+    }*/
 
-    return urlData;
+    VLCPlexParser *plexParser = [[VLCPlexParser alloc] init];
+    NSString *token = [plexParser PlexExtractToken:data];
+    if (![token isEqualToString:@""]) {
+        [authDict setObject:token forKey:@"token"];
+        NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
+        [cookieProperties setObject:@"plexToken" forKey:NSHTTPCookieName];
+        [cookieProperties setObject:[NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]] forKey:NSHTTPCookieValue];
+        [cookieProperties setObject:@"plex.tv" forKey:NSHTTPCookieDomain];
+        [cookieProperties setObject:kPlexMediaServerSignIn forKey:NSHTTPCookieOriginURL];
+        [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
+        [cookieProperties setObject:@"0" forKey:NSHTTPCookieVersion];
+        [cookieProperties setObject:token forKey:NSHTTPCookieValue];
+
+        NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+    }
+
+    return authDict;
 }
 
 - (NSString *)PlexAuthentification:(NSString *)username password:(NSString *)password
@@ -114,36 +102,16 @@
     NSString *authentification = @"";
 
     if ((![username isEqualToString:@""]) && (![password isEqualToString:@""])) {
-        NSArray *deviceInfo;
-        NSString *appVersion = [NSString stringWithFormat:@"%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
 
-        NSArray *authToken = [self PlexBasicAuthentification:username password:password];
-        NSData *data = [self PlexDeviceInfo:authToken];
+        NSDictionary *authDict = [self PlexBasicAuthentification:username password:password];
 
-        VLCPlexParser *plexParser = [[VLCPlexParser alloc] init];
-        deviceInfo = [plexParser PlexExtractDeviceInfo:data];
-        NSDictionary *firstObject = [deviceInfo firstObject];
-
-        if ((deviceInfo.count == 0) ||
-            ((![firstObject[@"productVersion"] isEqualToString:appVersion]) ||
-             (![firstObject[@"platformVersion"] isEqualToString:[[UIDevice currentDevice] systemVersion]]))) {
-
-            [self PlexCreateIdentification:username password:password];
-            data = [self PlexDeviceInfo:authToken];
-            deviceInfo = [plexParser PlexExtractDeviceInfo:data];
-        }
-
-        if (deviceInfo.count != 0) {
-            firstObject = [deviceInfo firstObject];
-            UIDevice *currentDevice = [UIDevice currentDevice];
-            authentification = [[NSString stringWithFormat:@"X-Plex-Product=%@&X-Plex-Version=%@&X-Plex-Client-Identifier=%@&X-Plex-Platform=iOS&X-Plex-Platform-Version=%@&X-Plex-Device=%@&X-Plex-Device-Name=%@&X-Plex-Token=%@&X-Plex-Username=%@",
-                                 firstObject[@"product"],
-                                 firstObject[@"productVersion"],
-                                 firstObject[@"clientIdentifier"],
-                                 [currentDevice systemVersion],
-                                 [currentDevice model],
-                                 firstObject[@"name"],
-                                 firstObject[@"token"], username]
+        if (![[authDict objectForKey:@"token"] isEqualToString:@""]) {
+            authentification = [[NSString stringWithFormat:@"X-Plex-Product=%@&X-Plex-Version=%@&X-Plex-Client-Identifier=%@&X-Plex-Device=%@&X-Plex-Token=%@&X-Plex-Username=%@",
+                                 [authDict objectForKey:@"product"],
+                                 [authDict objectForKey:@"productVersion"],
+                                 [authDict objectForKey:@"clientIdentifier"],
+                                 [authDict objectForKey:@"device"],
+                                 [authDict objectForKey:@"token"], username]
                                 stringByReplacingOccurrencesOfString:@" " withString:@"+"];
         }
     }
@@ -151,7 +119,8 @@
     return authentification;
 }
 
-- (NSString *)urlAuth:(NSString *)url authentification:(NSString *)auth {
+- (NSString *)urlAuth:(NSString *)url authentification:(NSString *)auth 
+{
     return [[self class] urlAuth:url authentification:auth];
 }
 
@@ -159,7 +128,7 @@
 {
     NSString *key = @"";
 
-    if (![auth isEqualToString:@""]) {
+    if ((![auth isEqualToString:@""]) && (auth)) {
         NSRange isRange = [url rangeOfString:@"?" options:NSCaseInsensitiveSearch];
         if(isRange.location != NSNotFound)
             key = @"&";
@@ -240,33 +209,6 @@
     return FileSubtitlePath;
 }
 
-- (NSURL *)CreatePlexStreamingURL:(NSString *)address port:(NSString *)port videoKey:(NSString *)key username:(NSString *)username deviceInfo:(NSDictionary *)deviceInfo session:(NSString *)session
-{
-    /* it starts video transcoding but without sound !!! why ? */
-    UIDevice *currentDevice = [UIDevice currentDevice];
-
-    NSString *authentification = [[NSString stringWithFormat:@"&X-Plex-Product=%@&X-Plex-Version=%@&X-Plex-Client-Identifier=%@&X-Plex-Platform=iOS&X-Plex-Platform-Version=%@&X-Plex-Device=%@&X-Plex-Device-Name=%@&X-Plex-Token=%@&X-Plex-Username=%@",
-                                   deviceInfo[@"product"],
-                                   deviceInfo[@"productVersion"],
-                                   deviceInfo[@"clientIdentifier"],
-                                   [currentDevice systemVersion],
-                                   [currentDevice model],
-                                   deviceInfo[@"name"],
-                                   deviceInfo[@"token"], username]
-                                  stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-
-    NSString *unescaped = [NSString stringWithFormat:@"http://127.0.0.1:32400%@", key];
-    NSString *escapedString = [unescaped stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-
-    NSURL *url = [NSURL URLWithString:[[NSString stringWithFormat:@"http://%@%@/video/:/transcode/universal/start.m3u8?path=%@&mediaIndex=0&partIndex=0&protocol=hls&offset=0&fastSeek=1&directPlay=0&directStream=1&subtitleSize=100&audioBoost=100&session=%@&subtitles=burn",
-                                        address,
-                                        port,
-                                        escapedString,
-                                        session] stringByAppendingString:authentification]];
-
-    return url;
-}
-
 - (void)stopSession:(NSString *)adress port:(NSString *)port session:(NSString *)session
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/video/:/transcode/universal/stop?session=%@", adress, port, session]];
@@ -286,13 +228,6 @@
 {
     NSString *session = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
     return session;
-}
-
-- (NSData *)PlexDeviceInfo:(NSArray *)cookies
-{
-    NSURL *url = [NSURL URLWithString:kPlexURLdeviceInfo];
-    NSData *data = [self HttpRequestWithCookie:url cookies:cookies HTTPMethod:@"GET"];
-    return data;
 }
 
 - (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error
