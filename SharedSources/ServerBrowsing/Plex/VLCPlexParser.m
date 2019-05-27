@@ -2,7 +2,7 @@
  * VLCPlexParser.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014-2017 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2019 VideoLAN. All rights reserved.
  *
  * Authors: Pierre Sagaspe <pierre.sagaspe # me.com>
  *
@@ -144,6 +144,23 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
     return [NSArray arrayWithArray:_containerInfo];
 }
 
+- (NSString *)PlexExtractToken:(NSData *)data
+{
+    NSString *token = @"";
+    _containerInfo = [[NSMutableArray alloc] init];
+    _dicoInfo = [[NSMutableDictionary alloc] init];
+    NSXMLParser *xmlparser = [[NSXMLParser alloc] initWithData:data];
+    [xmlparser setDelegate:self];
+
+    if (![xmlparser parse]) {
+        NSLog(@"PlexParser data Errors : %@", data);
+    } else {
+        token = [[NSArray arrayWithArray:_containerInfo] firstObject][@"token"];
+    }
+
+    return token;
+}
+
 #pragma mark - Parser
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
@@ -216,6 +233,12 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
             [_dicoInfo setObject:[attributeDict objectForKey:@"clientIdentifier"] forKey:@"clientIdentifier"];
         if ([attributeDict objectForKey:@"id"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"id"] forKey:@"id"];
+
+    } else if ([elementName isEqualToString:@"user"]) {
+        if ([attributeDict objectForKey:@"authToken"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"authToken"] forKey:@"token"];
+        if ([attributeDict objectForKey:@"authenticationToken"])
+            [_dicoInfo setObject:[attributeDict objectForKey:@"authenticationToken"] forKey:@"token"];
     }
 
     if ([attributeDict objectForKey:@"thumb"] && ([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"Part"] || [elementName isEqualToString:@"Track"]))
@@ -225,7 +248,7 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    if (([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Track"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"MediaContainer"] || [elementName isEqualToString:@"Device"]) && [_dicoInfo count] > 0) {
+    if (([elementName isEqualToString:@"Video"] || [elementName isEqualToString:@"Track"] || [elementName isEqualToString:@"Directory"] || [elementName isEqualToString:@"MediaContainer"] || [elementName isEqualToString:@"Device"] || [elementName isEqualToString:@"user"]) && [_dicoInfo count] > 0) {
         [_containerInfo addObject:_dicoInfo];
         _dicoInfo = [[NSMutableDictionary alloc] init];
     }
