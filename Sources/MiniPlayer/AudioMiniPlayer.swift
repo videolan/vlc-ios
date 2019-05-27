@@ -61,7 +61,6 @@ private extension AudioMiniPlayer {
 
         artworkImageView.clipsToBounds = true
         artworkImageView.layer.cornerRadius = 2
-        
         playPauseButton.accessibilityLabel = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
         nextButton.accessibilityLabel = NSLocalizedString("NEXT_BUTTON", comment: "")
         previousButton.accessibilityLabel = NSLocalizedString("PREV_BUTTON", comment: "")
