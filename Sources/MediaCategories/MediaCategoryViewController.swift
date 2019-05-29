@@ -20,9 +20,10 @@ protocol MediaCategoryViewControllerDelegate: NSObjectProtocol {
 class VLCMediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, IndicatorInfoProvider {
 
     var model: MediaLibraryBaseModel
-    var searchBar = UISearchBar(frame: .zero)
-    private var searchbarConstraint: NSLayoutConstraint?
     private var services: Services
+
+    var searchBar = UISearchBar(frame: .zero)
+    private var searchBarConstraint: NSLayoutConstraint?
     private let searchDataSource: LibrarySearchDataSource
     private let searchBarSize: CGFloat = 50.0
     private var rendererButton: UIButton
@@ -85,7 +86,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         self.searchDataSource = LibrarySearchDataSource(model: model)
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
-        setupHeader()
+        setupSearchBar()
         if let collection = model as? CollectionModel {
             title = collection.mediaCollection.title()
         }
@@ -93,13 +94,13 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         navigationItem.rightBarButtonItems = [editButtonItem, UIBarButtonItem(customView: rendererButton)]
     }
 
-    func setupHeader() {
+    func setupSearchBar() {
 
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchBar)
-        searchbarConstraint = searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -searchBarSize)
+        searchBarConstraint = searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -searchBarSize)
         NSLayoutConstraint.activate([
-            searchbarConstraint!,
+            searchBarConstraint!,
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             searchBar.heightAnchor.constraint(equalToConstant: searchBarSize)
@@ -197,7 +198,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     // MARK: - Edit
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        searchbarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
+        searchBarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
         if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
             collectionView.contentInset = UIEdgeInsets(top: searchBarSize, left: 0, bottom: 0, right: 0)
         }
@@ -241,6 +242,10 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchDataSource.shouldReloadFor(searchString: searchText)
+        reloadData()
+        if searchText.isEmpty {
+            self.searchBar.resignFirstResponder
+        }
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {

@@ -16,7 +16,6 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
 
     var services: Services
     private var rendererButton: UIButton
-    
     private var sortButton: UIBarButtonItem?
     private var rigthBarButtons: [UIBarButtonItem]?
 
