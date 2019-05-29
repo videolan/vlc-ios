@@ -425,8 +425,7 @@
                                     that._isInstanceOf('Blob', file)) {
                                 formData.append(
                                     options.paramName[index] || paramName,
-                                    file,
-                                    file.name
+                                    file, file.path
                                 );
                             }
                         });

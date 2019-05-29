@@ -303,22 +303,40 @@
      * while on iOS we have persistent storage, so move it there */
 #if TARGET_OS_IOS
     NSString *fileName = [filepath lastPathComponent];
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *libraryPath = searchPaths[0];
-    NSString *finalFilePath = [libraryPath stringByAppendingPathComponent:fileName];
+    NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *uploadPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
+                            firstObject] stringByAppendingPathComponent:@"Upload"];
+
+    NSString *finalFilePath = [libraryPath
+                               stringByAppendingString:[filepath
+                                                        stringByReplacingOccurrencesOfString:uploadPath
+                                                        withString:@""]];
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    // Re-create the folder structure of the user
+    if (![fileManager createDirectoryAtPath:[finalFilePath stringByDeletingLastPathComponent]
+                withIntermediateDirectories:YES attributes:nil error:nil])
+        APLog(@"Could not create directory at path: %@", finalFilePath);
 
     if ([fileManager fileExistsAtPath:finalFilePath]) {
         /* we don't want to over-write existing files, so add an integer to the file name */
-        NSString *potentialFilename;
+        NSString *potentialFullPath;
+        NSString *currentPath = [finalFilePath stringByDeletingLastPathComponent];
         NSString *fileExtension = [fileName pathExtension];
         NSString *rawFileName = [fileName stringByDeletingPathExtension];
         for (NSUInteger x = 1; x < 100; x++) {
-            potentialFilename = [NSString stringWithFormat:@"%@ %lu.%@", rawFileName, (unsigned long)x, fileExtension];
-            if (![[NSFileManager defaultManager] fileExistsAtPath:[libraryPath stringByAppendingPathComponent:potentialFilename]])
+            potentialFullPath = [currentPath stringByAppendingString:[NSString
+                                                                      stringWithFormat:@"/%@-%lu.%@",
+                                                                      rawFileName,
+                                                                      (unsigned long)x,
+                                                                      fileExtension]];
+
+            if (![[NSFileManager defaultManager] fileExistsAtPath:potentialFullPath]) {
+                finalFilePath = potentialFullPath;
                 break;
+            }
         }
-        finalFilePath = [libraryPath stringByAppendingPathComponent:potentialFilename];
     }
 
     NSError *error;

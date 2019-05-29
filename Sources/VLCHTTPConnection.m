@@ -612,7 +612,7 @@
      * check content disposition to find out filename */
 
     MultipartMessageHeaderField* disposition = (header.fields)[@"Content-Disposition"];
-    NSString* filename = [(disposition.params)[@"filename"] lastPathComponent];
+    NSString* filename = (disposition.params)[@"filename"];
 
     if ((nil == filename) || [filename isEqualToString: @""]) {
         // it's either not a file part, or
@@ -641,7 +641,8 @@
     }
 
     APLog(@"Saving file to %@", _filepath);
-    if (![fileManager createDirectoryAtPath:uploadDirPath withIntermediateDirectories:true attributes:nil error:nil])
+    if (![fileManager createDirectoryAtPath:[_filepath stringByDeletingLastPathComponent]
+                withIntermediateDirectories:true attributes:nil error:nil])
         APLog(@"Could not create directory at path: %@", _filepath);
 
     if (![fileManager createFileAtPath:_filepath contents:nil attributes:nil])
