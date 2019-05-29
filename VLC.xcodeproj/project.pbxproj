@@ -379,6 +379,7 @@
 		DDF908D01CF4CCAA00108B70 /* VLCNetworkLoginViewButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908CF1CF4CCAA00108B70 /* VLCNetworkLoginViewButtonCell.m */; };
 		DDF908E01CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908DF1CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m */; };
 		DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
+		E09B2EF5229DA4A9006B9382 /* VLCVideoOptionsControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09B2EF4229DA4A9006B9382 /* VLCVideoOptionsControlBar.swift */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
 /* End PBXBuildFile section */
 
@@ -1002,6 +1003,7 @@
 		DDF908E11CF4E70900108B70 /* VLCNetworkLoginDataSourceSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkLoginDataSourceSection.h; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginDataSourceSection.h; sourceTree = SOURCE_ROOT; };
 		DDF908E21CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkLoginDataSourceProtocol.h; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginDataSourceProtocol.h; sourceTree = SOURCE_ROOT; };
 		DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkLoginDataSourceProtocol.m; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginDataSourceProtocol.m; sourceTree = SOURCE_ROOT; };
+		E09B2EF4229DA4A9006B9382 /* VLCVideoOptionsControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCVideoOptionsControlBar.swift; path = Sources/VLCVideoOptionsControlBar.swift; sourceTree = "<group>"; };
 		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
 		E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentPickerController.m; path = Sources/VLCDocumentPickerController.m; sourceTree = SOURCE_ROOT; };
 		E39E49F085F7C54D2DB79534 /* Pods-VLC-iOSTests.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOSTests.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOSTests/Pods-VLC-iOSTests.distribution.xcconfig"; sourceTree = "<group>"; };
@@ -1270,6 +1272,7 @@
 				8DF966B021188BDB00D0FCD6 /* VLCEditController.swift */,
 				41B4DA3D21400E8E000BA27D /* MediaEditCell.xib */,
 				8D2AD4D722786F4000393833 /* AddToPlaylistViewController.swift */,
+				E09B2EF4229DA4A9006B9382 /* VLCVideoOptionsControlBar.swift */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -2886,6 +2889,7 @@
 				4195747D206A92ED00393A42 /* RemoteNetworkDataSource.swift in Sources */,
 				DD3EAC041BE153B4003668DA /* VLCNetworkImageView.m in Sources */,
 				E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */,
+				E09B2EF5229DA4A9006B9382 /* VLCVideoOptionsControlBar.swift in Sources */,
 				DDF908E01CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */,
 				8DE1887621089BB100A091D2 /* VideoModel.swift in Sources */,
 				DD3EFF351BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
