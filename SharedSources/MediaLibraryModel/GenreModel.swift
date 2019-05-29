@@ -39,16 +39,6 @@ class GenreModel: MLBaseModel {
     }
 }
 
-// MARK: - Sort
-
-extension GenreModel {
-    func sort(by criteria: VLCMLSortingCriteria) {
-        files = medialibrary.genres(sortingCriteria: criteria)
-        sortModel.currentSort = criteria
-        updateView?()
-    }
-}
-
 // MARK: - MediaLibraryObserver
 
 extension GenreModel: MediaLibraryObserver {
@@ -66,16 +56,29 @@ extension GenreModel: MediaLibraryObserver {
 
 }
 
+// MARK: - Sort
+extension GenreModel {
+    func sort(by criteria: VLCMLSortingCriteria) {
+        files = medialibrary.genres(sortingCriteria: criteria)
+        sortModel.currentSort = criteria
+        updateView?()
+    }
+}
 // MARK: - Edit
-
 extension GenreModel: EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type {
         return MediaEditCell.self
     }
 }
 
-// MARK: - Helpers
+// MARK: - Search
+extension VLCMLGenre: SearchableMLModel {
+    func contains(_ searchString: String) -> Bool {
+        return name.lowercased().contains(searchString)
+    }
+}
 
+// MARK: - Helpers
 extension VLCMLGenre {
     @objc func numberOfTracksString() -> String {
         let numberOftracks = numberOfTracks()

@@ -59,7 +59,6 @@ class PlaylistModel: MLBaseModel {
 }
 
 // MARK: - Sort
-
 extension PlaylistModel {
     func sort(by criteria: VLCMLSortingCriteria) {
         files = medialibrary.playlists(sortingCriteria: criteria)
@@ -72,6 +71,13 @@ extension PlaylistModel {
 extension PlaylistModel: EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type {
         return MediaEditCell.self
+    }
+}
+
+// MARK: - Search
+extension VLCMLPlaylist: SearchableMLModel {
+    func contains(_ searchString: String) -> Bool {
+        return name.lowercased().contains(searchString)
     }
 }
 

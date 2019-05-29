@@ -39,6 +39,15 @@ class ArtistModel: MLBaseModel {
     }
 }
 
+// MARK: - Sort
+extension ArtistModel {
+    func sort(by criteria: VLCMLSortingCriteria) {
+        files = medialibrary.artists(sortingCriteria: criteria)
+        sortModel.currentSort = criteria
+        updateView?()
+    }
+}
+
 // MARK: - Edit
 extension ArtistModel: EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type {
@@ -46,13 +55,10 @@ extension ArtistModel: EditableMLModel {
     }
 }
 
-// MARK: - Sort
-
-extension ArtistModel {
-    func sort(by criteria: VLCMLSortingCriteria) {
-        files = medialibrary.artists(sortingCriteria: criteria)
-        sortModel.currentSort = criteria
-        updateView?()
+// MARK: - Search
+extension VLCMLArtist: SearchableMLModel {
+    func contains(_ searchString: String) -> Bool {
+        return name.lowercased().contains(searchString)
     }
 }
 

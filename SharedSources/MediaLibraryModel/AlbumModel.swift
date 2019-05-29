@@ -40,7 +40,6 @@ class AlbumModel: MLBaseModel {
 }
 
 // MARK: - Sort
-
 extension AlbumModel {
     func sort(by criteria: VLCMLSortingCriteria) {
         files = medialibrary.albums(sortingCriteria: criteria)
@@ -50,10 +49,32 @@ extension AlbumModel {
 }
 
 // MARK: - Edit
-
 extension AlbumModel: EditableMLModel {
     func editCellType() -> BaseCollectionViewCell.Type {
         return MediaEditCell.self
+    }
+}
+
+// MARK: - Search
+extension VLCMLAlbum: SearchableMLModel {
+    func contains(_ searchString: String) -> Bool {
+        var matches = false
+        matches = matches || title.lowercased().contains(searchString)
+        matches = matches || String(releaseYear()).lowercased().contains(searchString)
+        matches = matches || shortSummary.lowercased().contains(searchString)
+        matches = matches || albumArtist?.contains(searchString) ?? false
+        matches = matches || tracks?.filter({ $0.contains(searchString)}).isEmpty == false
+        return matches
+    }
+}
+
+extension VLCMLAlbumTrack: SearchableMLModel {
+    func contains(_ searchString: String) -> Bool {
+        var matches = false
+        matches = matches || artist?.contains(searchString) ?? false
+        matches = matches || genre?.contains(searchString) ?? false
+        matches = matches || album?.contains(searchString) ?? false
+        return matches
     }
 }
 
@@ -86,6 +107,7 @@ extension VLCMLAlbum: MediaCollectionModel {
         return title
     }
 }
+
 extension VLCMLAlbum {
 
     func numberOfTracksString() -> String {

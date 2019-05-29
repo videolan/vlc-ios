@@ -65,9 +65,11 @@ extension MLBaseModel {
 }
 
 protocol EditableMLModel {
-
     func editCellType() -> BaseCollectionViewCell.Type
+}
 
+protocol SearchableMLModel {
+    func contains(_ searchString: String) -> Bool
 }
 
 protocol MediaCollectionModel {

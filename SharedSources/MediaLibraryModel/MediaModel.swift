@@ -157,6 +157,13 @@ extension VLCMLMedia {
     }
 }
 
+// MARK: - Search
+extension VLCMLMedia: SearchableMLModel {
+    func contains(_ searchString: String) -> Bool {
+        return title.lowercased().contains(searchString)
+    }
+}
+
 extension VLCMLMedia {
     func albumTrackArtistName() -> String {
         guard let albumTrack = albumTrack else {
