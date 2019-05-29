@@ -20,11 +20,10 @@ protocol MediaCategoryViewControllerDelegate: NSObjectProtocol {
 class VLCMediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, IndicatorInfoProvider {
 
     var model: MediaLibraryBaseModel
-    private var searchBar = UISearchBar(frame: .zero)
+    var searchBar = UISearchBar(frame: .zero)
     private var searchbarConstraint: NSLayoutConstraint?
     private var services: Services
     private let searchDataSource: LibrarySearchDataSource
-    private var isSearching = false
     private let searchBarSize: CGFloat = 50.0
     private var rendererButton: UIButton
     private lazy var editController: VLCEditController = {
@@ -178,7 +177,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     func updateUIForContent() {
-        let isEmpty = isEmptyCollectionView()
+        let isEmpty = isEmptyCollectionView() && !searchBar.isFirstResponder
         if isEmpty {
             collectionView?.setContentOffset(.zero, animated: false)
         }
@@ -236,11 +235,12 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     // MARK: - Search
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        reloadData()
+    }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchDataSource.shouldReloadFor(searchString: searchText)
-        isSearching = searchText != ""
-        collectionView?.reloadData()
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
@@ -249,7 +249,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     // MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isSearching ? searchDataSource.searchData.count : model.anyfiles.count
+        return searchBar.isFirstResponder ? searchDataSource.searchData.count : model.anyfiles.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -257,7 +257,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             assertionFailure("you forgot to register the cell or the cell is not a subclass of BaseCollectionViewCell")
             return UICollectionViewCell()
         }
-        let mediaObject = isSearching ? searchDataSource.objectAtIndex(index: indexPath.row) : model.anyfiles[indexPath.row]
+        let mediaObject = searchBar.isFirstResponder ? searchDataSource.objectAtIndex(index: indexPath.row) : model.anyfiles[indexPath.row]
         if let media = mediaObject as? VLCMLMedia {
             assert(media.mainFile() != nil, "The mainfile is nil")
             mediaCell.media = media.mainFile() != nil ? media : nil
