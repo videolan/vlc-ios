@@ -179,10 +179,10 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     func updateUIForContent() {
         let isEmpty = isEmptyCollectionView()
-
         if isEmpty {
             collectionView?.setContentOffset(.zero, animated: false)
         }
+        searchBar.isHidden = isEmpty
         collectionView?.backgroundView = isEmpty ? emptyView : nil
     }
 
