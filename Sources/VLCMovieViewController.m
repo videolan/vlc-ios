@@ -44,6 +44,7 @@
 #define DEFAULT_FOV 80.f
 #define MAX_FOV 150.f
 #define MIN_FOV 20.f
+#define NEW_UI 0
 
 typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeNone,
@@ -53,7 +54,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -96,6 +97,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     VLCEqualizerView *_equalizerView;
     VLCMultiSelectionMenuView *_multiSelectionView;
+    VLCVideoOptionsControlBar *_videoOptionsControlBar;
 
     VLCPlaybackController *_vpc;
 
@@ -163,14 +165,13 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _saturationSlider.accessibilityLabel = _saturationLabel.text;
     _gammaLabel.text = NSLocalizedString(@"VFILTER_GAMMA", nil);
     _gammaSlider.accessibilityLabel = _gammaLabel.text;
-
     _resetVideoFilterButton.accessibilityLabel = NSLocalizedString(@"VIDEO_FILTER_RESET_BUTTON", nil);
 
-    _multiSelectionView = [[VLCMultiSelectionMenuView alloc] init];
-    _multiSelectionView.delegate = self;
-    _multiSelectionView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-    _multiSelectionView.hidden = YES;
-    [self.view addSubview:_multiSelectionView];
+    #if !NEW_UI
+        [self setupMultiSelectionView];
+    #else
+        [self setupVideoOptionsControlBar];
+    #endif
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", nil);
 
@@ -239,6 +240,26 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self setupConstraints];
     [self setupRendererDiscovererManager];
+}
+
+- (void) setupMultiSelectionView
+{
+    _multiSelectionView = [[VLCMultiSelectionMenuView alloc] init];
+    _multiSelectionView.delegate = self;
+    _multiSelectionView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+    _multiSelectionView.hidden = YES;
+    _multiSelectionView.repeatMode = _vpc.repeatMode;
+    [self.view addSubview:_multiSelectionView];
+}
+
+- (void)setupVideoOptionsControlBar
+{
+    _videoOptionsControlBar = [[VLCVideoOptionsControlBar alloc] init];
+    _videoOptionsControlBar.delegate = self;
+    _videoOptionsControlBar.hidden = YES;
+    _videoOptionsControlBar.repeatMode = _vpc.repeatMode;
+    _videoOptionsControlBar.spacing = 32.0f;
+    [self.view addSubview:_videoOptionsControlBar];
 }
 
 - (void)setupGestureRecognizers
@@ -347,8 +368,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                              [NSLayoutConstraint constraintWithItem:_trackSelectorContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:2.0/3.0 constant:0],
                              [_videoFilterView.bottomAnchor constraintEqualToAnchor:_controllerPanel.topAnchor]
                              ];
-    [NSLayoutConstraint activateConstraints:constraints];
-
+    #if NEW_UI
+        constraints = [constraints arrayByAddingObjectsFromArray:[self getVideoOptionsConstraints]];
+    #endif
+    [NSLayoutConstraint activateConstraints: constraints];
 }
 
 - (UIButton *)doneButton
@@ -450,6 +473,26 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 }
 
+- (void)layoutFrameForMultiSelectionView
+{
+    CGRect controllerPanelFrame = _controllerPanel.frame;
+    CGRect multiSelectionFrame;
+    
+    BOOL isIphone = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone);
+    if (!isIphone) {
+        _multiSelectionView.showsEqualizer = YES;
+        return;
+    }
+    
+    BOOL isLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
+    _multiSelectionView.showsEqualizer = isLandscape;
+    
+    multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
+    multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
+    multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
+    _multiSelectionView.frame = multiSelectionFrame;
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -459,8 +502,13 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [_vpc recoverDisplayedMetadata];
     [self resetVideoFiltersSliders];
     _vpc.videoOutputView = self.movieView;
-    _multiSelectionView.repeatMode = _vpc.repeatMode;
-    _multiSelectionView.shuffleMode = _vpc.isShuffleMode;
+    
+    #if !NEW_UI
+        _multiSelectionView.repeatMode = _vpc.repeatMode;
+        _multiSelectionView.shuffleMode = _vpc.isShuffleMode;
+    #else
+        _videoOptionsControlBar.repeatMode = _vpc.repeatMode;
+    #endif
 
     //Media is loaded in the media player, checking the projection type and configuring accordingly.
     [self setupForMediaProjection];
@@ -472,31 +520,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     equalizerRect.origin.x = CGRectGetMidX(self.view.bounds) - CGRectGetWidth(equalizerRect)/2.0;
     equalizerRect.origin.y = CGRectGetMidY(self.view.bounds) - CGRectGetHeight(equalizerRect)/2.0;
     _equalizerView.frame = equalizerRect;
-
-    CGRect multiSelectionFrame;
-    CGRect controllerPanelFrame = _controllerPanel.frame;;
-
-    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) {
-        multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
-        multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
-        multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
-        _multiSelectionView.frame = multiSelectionFrame;
-        _multiSelectionView.showsEqualizer = YES;
-        return;
-    }
-
-    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
-        _multiSelectionView.showsEqualizer = YES;
-        multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
-        multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
-        multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
-    } else {
-        _multiSelectionView.showsEqualizer = NO;
-        multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
-        multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
-        multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
-    }
-    _multiSelectionView.frame = multiSelectionFrame;
+    
+    #if !NEW_UI
+        [self layoutFrameForMultiSelectionView];
+    #endif
 
     self.scrubViewTopConstraint.constant = CGRectGetMaxY(self.navigationController.navigationBar.frame);
 }
@@ -648,26 +675,39 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (NSArray *)itemsForInterfaceLock
 {
-    return @[_pinchRecognizer,
-              _panRecognizer,
-              _tapRecognizer,
-              _doneButton,
-              _doubleTapRecognizer,
-              _timeNavigationTitleView.minimizePlaybackButton,
-              _timeNavigationTitleView.positionSlider,
-              _timeNavigationTitleView.aspectRatioButton,
-              _controllerPanel.playbackSpeedButton,
-              _controllerPanel.trackSwitcherButton,
-              _controllerPanel.bwdButton,
-              _controllerPanel.playPauseButton,
-              _controllerPanel.fwdButton,
-              _controllerPanel.videoFilterButton,
-              _multiSelectionView.equalizerButton,
-              _multiSelectionView.chapterSelectorButton,
-              _multiSelectionView.repeatButton,
-              _multiSelectionView.shuffleButton,
-              _controllerPanel.volumeView,
-              _rendererButton];
+    NSArray *arr = [NSArray arrayWithObjects:
+                        _pinchRecognizer,
+                        _panRecognizer,
+                        _tapRecognizer,
+                        _doneButton,
+                        _doubleTapRecognizer,
+                        _timeNavigationTitleView.minimizePlaybackButton,
+                        _timeNavigationTitleView.positionSlider,
+                        _timeNavigationTitleView.aspectRatioButton,
+                        _controllerPanel.playbackSpeedButton,
+                        _controllerPanel.trackSwitcherButton,
+                        _controllerPanel.bwdButton,
+                        _controllerPanel.playPauseButton,
+                        _controllerPanel.fwdButton,
+                        _controllerPanel.videoFilterButton,
+                        _controllerPanel.volumeView,
+                        _rendererButton,
+                        nil];
+    #if !NEW_UI
+        return [arr arrayByAddingObjectsFromArray:
+                  @[_multiSelectionView.equalizerButton,
+                      _multiSelectionView.chapterSelectorButton,
+                      _multiSelectionView.repeatButton,
+                      _multiSelectionView.shuffleButton,
+                      _controllerPanel.volumeView,
+                      _rendererButton]];
+    #else
+        return [arr arrayByAddingObjectsFromArray:
+                    @[_videoOptionsControlBar.toggleFullScreenButton,
+                      _videoOptionsControlBar.selectSubtitleButton,
+                      _videoOptionsControlBar.moreOptionsButton,
+                      _videoOptionsControlBar.repeatButton]];
+    #endif
 }
 
 - (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
@@ -724,8 +764,14 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
             _sleepTimerContainer.alpha = 0.0f;
             _sleepTimerContainer.hidden = YES;
         }
+        
+    #if !NEW_UI
         _multiSelectionView.alpha = 0.0f;
         _multiSelectionView.hidden = YES;
+    #else
+        _videoOptionsControlBar.alpha = 0.0f;
+        _videoOptionsControlBar.hidden = YES;
+    #endif
 
         _artistNameLabel.hidden = NO;
         _albumNameLabel.hidden = NO;
@@ -738,8 +784,14 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         self->_videoFilterView.alpha = alpha;
         self->_playbackSpeedView.alpha = alpha;
         self->_trackSelectorContainer.alpha = alpha;
+        
+       #if !NEW_UI
+            self->_multiSelectionView.alpha = alpha;
+       #else
+            self->_videoOptionsControlBar.alpha = alpha;
+       #endif
+        
         self->_equalizerView.alpha = alpha;
-        self->_multiSelectionView.alpha = alpha;
         if (self->_sleepTimerContainer)
             self->_sleepTimerContainer.alpha = alpha;
 
@@ -758,7 +810,13 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         self->_equalizerView.hidden = YES;
         if (self->_sleepTimerContainer)
             self->_sleepTimerContainer.hidden = YES;
-        self->_multiSelectionView.hidden = YES;
+        
+        #if !NEW_UI
+            self->_multiSelectionView.hidden = YES;
+        #else
+            self->_videoOptionsControlBar.hidden = YES;
+        #endif
+        
 
         self->_artistNameLabel.hidden = self->_audioOnly ? NO : self->_controlsHidden;
         self->_albumNameLabel.hidden =  self->_audioOnly ? NO : self->_controlsHidden;
@@ -1118,8 +1176,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [self.statusLabel showStatusMessage:NSLocalizedString(@"PLAYBACK_FAILED", nil)];
 
     [_controllerPanel updateButtons];
-
-    _multiSelectionView.mediaHasChapters = currentMediaHasChapters;
+    
+    #if !NEW_UI
+        _multiSelectionView.mediaHasChapters = currentMediaHasChapters;
+    #endif
 }
 
 - (void)savePlaybackState:(VLCPlaybackController *)controller
@@ -1257,32 +1317,26 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self setControlsHidden:YES animated:YES];
 }
 
-- (void)moreActions:(UIButton *)sender
-{
+- (void)toggleMultiSelectionView:(UIButton *)sender {
     if (_multiSelectionView.hidden == NO) {
         [UIView animateWithDuration:.3
                          animations:^{
                              self->_multiSelectionView.hidden = YES;
                          }
-                         completion:^(BOOL finished){
-                         }];
+                         completion:nil];
         return;
     }
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
-            _multiSelectionView.showsEqualizer = YES;
-        } else {
-            _multiSelectionView.showsEqualizer = NO;
-        }
-    }
-
+    
+    BOOL isLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
+    BOOL isIphone = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone);
+    _multiSelectionView.showsEqualizer = (isLandscape && isIphone) || !isIphone;
+    
     CGRect workFrame = _multiSelectionView.frame;
     workFrame.size = [_multiSelectionView proposedDisplaySize];
     workFrame.origin.x = CGRectGetMaxX(sender.frame) - workFrame.size.width;
-
+    
     _multiSelectionView.alpha = 1.0f;
-
+    
     /* animate */
     _multiSelectionView.frame = CGRectMake(workFrame.origin.x, workFrame.origin.y + workFrame.size.height, workFrame.size.width, 0.);
     [UIView animateWithDuration:.3
@@ -1290,8 +1344,29 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                          self->_multiSelectionView.frame = workFrame;
                          self->_multiSelectionView.hidden = NO;
                      }
-                     completion:^(BOOL finished){
-                     }];
+                     completion:nil];
+}
+
+- (void) toggleVideoOptionsBar
+{
+    CGFloat alpha =  _videoOptionsControlBar.hidden ? 1.0f : 0.0f;
+    BOOL hidden = !_videoOptionsControlBar.hidden;
+
+    [UIView animateWithDuration:.3
+                     animations:^{
+                         self->_videoOptionsControlBar.alpha = alpha;
+                         self->_videoOptionsControlBar.hidden = hidden;
+                     }
+                     completion:nil];
+}
+
+- (void)moreActions:(UIButton *)sender
+{
+    #if !NEW_UI
+        [self toggleMultiSelectionView:sender];
+    #else
+        [self toggleVideoOptionsBar];
+    #endif
     [self _resetIdleTimer];
 }
 
@@ -1322,7 +1397,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             NSAssert(NO, @"class not handled");
         }
     }
-    _multiSelectionView.displayLock = _interfaceIsLocked;
+    
+    #if !NEW_UI
+        _multiSelectionView.displayLock = _interfaceIsLocked;
+    #endif
 }
 
 - (void)toggleEqualizer
@@ -1379,20 +1457,30 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)toggleRepeatMode
 {
     [[VLCPlaybackController sharedInstance] toggleRepeatMode];
-    _multiSelectionView.repeatMode = [VLCPlaybackController sharedInstance].repeatMode;
+    #if !NEW_UI
+        _multiSelectionView.repeatMode = [VLCPlaybackController sharedInstance].repeatMode;
+    #else
+        _videoOptionsControlBar.repeatMode = [VLCPlaybackController sharedInstance].repeatMode;
+    #endif
 }
 
 - (void)toggleShuffleMode
 {
     _vpc.shuffleMode = !_vpc.isShuffleMode;
-    _multiSelectionView.shuffleMode = _vpc.isShuffleMode;
+    #if !NEW_UI
+        _multiSelectionView.shuffleMode = _vpc.isShuffleMode;
+    #endif
 }
 
 - (void)hideMenu
 {
     [UIView animateWithDuration:.2
                      animations:^{
+                    #if !NEW_UI
                          self->_multiSelectionView.hidden = YES;
+                    #else
+                         self->_videoOptionsControlBar.hidden = YES;
+                    #endif
                      }
                      completion:^(BOOL finished){
                      }];
@@ -1691,12 +1779,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-                if (self.artworkImageView.image)
-                    self.trackNameLabel.hidden = YES;
+            if (self.artworkImageView.image)
+                self.trackNameLabel.hidden = YES;
 
             if (!self->_equalizerView.hidden)
                 self->_equalizerView.hidden = YES;
@@ -1708,6 +1794,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     if (_vpc.isPlaying && _controlsHidden)
         [self setControlsHidden:NO animated:YES];
+}
+
+- (NSArray *)getVideoOptionsConstraints
+{
+    return @[
+                 [_videoOptionsControlBar.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+                 [_videoOptionsControlBar.bottomAnchor constraintEqualToAnchor:_controllerPanel.topAnchor constant:-50],
+            ];
 }
 
 #pragma mark - External Display
@@ -1773,6 +1867,28 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)playbackSpeedViewSleepTimerHit:(PlaybackSpeedView *)playbackSpeedView
 {
     [self showSleepTimer];
+}
+
+#pragma mark - VLCVideoOptionsControlBarDelegate
+
+- (void)didSelectMoreOptions:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
+    [self moreActions:optionsBar.moreOptionsButton];
+}
+
+- (void)didSelectSubtitle:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
+    NSLog(@"subtitles Selected");
+}
+
+- (void)didToggleFullScreen:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
+    [_vpc toggleFullScreen];
+}
+
+- (void)didToggleInterfaceLock:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
+    [self toggleUILock];
+}
+
+- (void)didToggleRepeat:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
+    [self toggleRepeatMode];
 }
 
 @end
