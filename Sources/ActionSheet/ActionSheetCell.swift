@@ -18,9 +18,7 @@ class ActionSheetCell: UICollectionViewCell {
 
     override var isSelected: Bool {
         didSet {
-            let colors = PresentationTheme.current.colors
-            name.textColor = isSelected ? colors.orangeUI : colors.cellTextColor
-            tintColor = isSelected ? colors.orangeUI : colors.cellDetailTextColor
+            updateColors()
             checkmark.isHidden = !isSelected
         }
     }
@@ -68,6 +66,17 @@ class ActionSheetCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupViews()
+    }
+
+    private func updateColors() {
+        let colors = PresentationTheme.current.colors
+        name.textColor = isSelected ? colors.orangeUI : colors.cellTextColor
+        tintColor = isSelected ? colors.orangeUI : colors.cellDetailTextColor
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        updateColors()
     }
 
     private func setupViews() {
