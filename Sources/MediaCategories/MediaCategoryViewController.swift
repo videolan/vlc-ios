@@ -87,7 +87,6 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         self.searchDataSource = LibrarySearchDataSource(model: model)
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
-        setupSearchBar()
         if let collection = model as? CollectionModel {
             title = collection.mediaCollection.title()
         }
@@ -101,6 +100,20 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         cancelSearchButton.setTitleColor(.vlcOrangeTint, for: .normal)
         cancelSearchButton.translatesAutoresizingMaskIntoConstraints = false
         cancelSearchButton.isHidden = true
+
+        searchBar.delegate = self
+        searchBar.searchBarStyle = .minimal
+        searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        }
+        if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
+            if let backgroundview = textfield.subviews.first {
+                backgroundview.backgroundColor = UIColor.white
+                backgroundview.layer.cornerRadius = 10
+                backgroundview.clipsToBounds = true
+            }
+        }
         let searchBarStackView = UIStackView(arrangedSubviews: [searchBar, cancelSearchButton])
         searchBarStackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchBarStackView)
@@ -137,7 +150,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        setupSearchController()
+        setupSearchBar()
         setupEditToolbar()
         _ = (MLMediaLibrary.sharedMediaLibrary() as! MLMediaLibrary).libraryDidAppear()
     }
@@ -440,21 +453,6 @@ private extension VLCMediaCategoryViewController {
             collectionView?.contentInsetAdjustmentBehavior = .always
             //            collectionView?.dragDelegate = dragAndDropManager
             //            collectionView?.dropDelegate = dragAndDropManager
-        }
-    }
-
-    func setupSearchController() {
-        searchBar.delegate = self
-        searchBar.searchBarStyle = .minimal
-        if #available(iOS 11.0, *) {
-            navigationItem.largeTitleDisplayMode = .never
-        }
-        if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
-            if let backgroundview = textfield.subviews.first {
-                backgroundview.backgroundColor = UIColor.white
-                backgroundview.layer.cornerRadius = 10
-                backgroundview.clipsToBounds = true
-            }
         }
     }
 
