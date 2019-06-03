@@ -23,7 +23,6 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     private var services: Services
 
     var searchBar = UISearchBar(frame: .zero)
-    private var cancelSearchButton = UIButton(type: .custom)
     private var searchBarConstraint: NSLayoutConstraint?
     private let searchDataSource: LibrarySearchDataSource
     private let searchBarSize: CGFloat = 50.0
@@ -95,14 +94,9 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     func setupSearchBar() {
-        cancelSearchButton.setTitle(NSLocalizedString("BUTTON_CANCEL", comment: ""), for: .normal)
-        cancelSearchButton.addTarget(self, action: #selector(cancelSearch), for: .touchUpInside)
-        cancelSearchButton.setTitleColor(.vlcOrangeTint, for: .normal)
-        cancelSearchButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelSearchButton.isHidden = true
-
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
@@ -114,15 +108,14 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
                 backgroundview.clipsToBounds = true
             }
         }
-        let searchBarStackView = UIStackView(arrangedSubviews: [searchBar, cancelSearchButton])
-        searchBarStackView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(searchBarStackView)
-        searchBarConstraint = searchBarStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: -searchBarSize)
+
+        searchBarConstraint = searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -searchBarSize)
+        view.addSubview(searchBar)
         NSLayoutConstraint.activate([
             searchBarConstraint!,
-            searchBarStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            searchBarStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            searchBarStackView.heightAnchor.constraint(equalToConstant: searchBarSize)
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            searchBar.heightAnchor.constraint(equalToConstant: searchBarSize)
             ])
     }
 
@@ -257,17 +250,12 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     // MARK: - Search
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         reloadData()
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.cancelSearchButton.alpha = 1
-            self?.cancelSearchButton.isHidden = false
-        }
+        searchBar.setShowsCancelButton(true, animated: true)
     }
-    @objc func cancelSearch() {
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.cancelSearchButton.alpha = 0
-            self?.cancelSearchButton.isHidden = true
-        }
+        searchBar.setShowsCancelButton(false, animated: true)
         reloadData()
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
