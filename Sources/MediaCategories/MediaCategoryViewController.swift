@@ -247,31 +247,6 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         }
     }
 
-    // MARK: - Search
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        reloadData()
-        searchBar.setShowsCancelButton(true, animated: true)
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-        searchBar.text = ""
-        searchBar.setShowsCancelButton(false, animated: true)
-        reloadData()
-    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-    }
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchDataSource.shouldReloadFor(searchString: searchText)
-        reloadData()
-        if searchText.isEmpty {
-            self.searchBar.resignFirstResponder
-        }
-    }
-
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return IndicatorInfo(title:model.indicatorName)
     }
@@ -318,6 +293,34 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         userActivity?.isEligibleForSearch = true
         userActivity?.isEligibleForHandoff = true
         userActivity?.becomeCurrent()
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension VLCMediaCategoryViewController {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        reloadData()
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        searchBar.setShowsCancelButton(false, animated: true)
+        reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchDataSource.shouldReloadFor(searchString: searchText)
+        reloadData()
+        if searchText.isEmpty {
+            self.searchBar.resignFirstResponder
+        }
     }
 }
 
