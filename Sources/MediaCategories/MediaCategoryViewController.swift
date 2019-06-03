@@ -259,6 +259,11 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         searchBar.setShowsCancelButton(false, animated: true)
         reloadData()
     }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchDataSource.shouldReloadFor(searchString: searchText)
         reloadData()
