@@ -941,12 +941,22 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (NSArray<UIKeyCommand *> *)keyCommands
 {
-    return @[
-             [UIKeyCommand keyCommandWithInput:@" " modifierFlags:0 action:@selector(playPause) discoverabilityTitle:@"Play/Pause"],
-             [UIKeyCommand keyCommandWithInput:@"\r" modifierFlags:0 action:@selector(playPause) discoverabilityTitle:@"Play/Pause"],
-             [UIKeyCommand keyCommandWithInput:UIKeyInputLeftArrow modifierFlags:0 action:@selector(keyBackward) discoverabilityTitle:@"Skip Back"],
-             [UIKeyCommand keyCommandWithInput:UIKeyInputRightArrow modifierFlags:0 action:@selector(keyForward) discoverabilityTitle:@"Skip Forward"],
-             ];
+    NSMutableArray<UIKeyCommand *> *commands = [NSMutableArray arrayWithObjects:
+                                                [UIKeyCommand keyCommandWithInput:@" " modifierFlags:0 action:@selector(playPause) discoverabilityTitle:@"Play/Pause"],
+                                                [UIKeyCommand keyCommandWithInput:@"\r" modifierFlags:0 action:@selector(playPause) discoverabilityTitle:@"Play/Pause"],
+                                                [UIKeyCommand keyCommandWithInput:UIKeyInputLeftArrow modifierFlags:0 action:@selector(keyBackward) discoverabilityTitle:@"Skip Back"],
+                                                [UIKeyCommand keyCommandWithInput:UIKeyInputRightArrow modifierFlags:0 action:@selector(keyForward) discoverabilityTitle:@"Skip Forward"],
+                                                [UIKeyCommand keyCommandWithInput:@"[" modifierFlags:0 action:@selector(keyLeftBracket) discoverabilityTitle:@"Decrease playback speed"],
+                                                [UIKeyCommand keyCommandWithInput:@"]" modifierFlags:0 action:@selector(keyRightBracket) discoverabilityTitle:@"Increase playback speed"],
+                                                nil];
+
+    bool playbackRateIsOne = ((fabsf(_vpc.playbackRate) - 1) < FLT_EPSILON);
+    if (playbackRateIsOne) {
+        UIKeyCommand *resetPlaybackCommand = [UIKeyCommand keyCommandWithInput:@"=" modifierFlags:0 action:@selector(keyEqual) discoverabilityTitle:@"Reset playback speed"];
+        [commands addObject:resetPlaybackCommand];
+    }
+
+    return commands;
 }
 
 - (void)keyForward
@@ -957,6 +967,21 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)keyBackward
 {
     [_vpc jumpBackward:BACKWARD_SWIPE_DURATION];
+}
+
+- (void)keyEqual
+{
+    [_vpc setPlaybackRate:1];
+}
+
+- (void)keyLeftBracket
+{
+    [_vpc setPlaybackRate:_vpc.playbackRate * 0.75];
+}
+
+- (void)keyRightBracket
+{
+    [_vpc setPlaybackRate:_vpc.playbackRate * 1.5];
 }
 
 #pragma mark - controls
