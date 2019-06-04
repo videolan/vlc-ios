@@ -43,7 +43,7 @@
 #define DEFAULT_FOV 80.f
 #define MAX_FOV 150.f
 #define MIN_FOV 20.f
-#define NEW_UI 0
+#define NEW_UI 1
 
 typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeNone,
@@ -501,18 +501,16 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         }
 
         // TODO: Refactor this and remove duplicate code
-        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])
             _multiSelectionView.showsEqualizer = YES;
-            multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
-            multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
-            multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
-        } else {
+        else
             _multiSelectionView.showsEqualizer = NO;
-            multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
-            multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
-            multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
-        }
+            
+        multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
+        multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
+        multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
         _multiSelectionView.frame = multiSelectionFrame;
+            
     #else
         CGRect videoOptionsBarFrame = CGRectMake(0., 0., 24., 120.);
         CGFloat x,y;
