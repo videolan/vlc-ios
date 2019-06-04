@@ -67,7 +67,8 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
     func updateButtonsFor(_ viewController: UIViewController) {
         var showButtons = false
         if let mediaCategoryViewController = viewController as? VLCMediaCategoryViewController,
-            !mediaCategoryViewController.isEmptyCollectionView() && !mediaCategoryViewController.searchBar.isFirstResponder {
+            !mediaCategoryViewController.isEmptyCollectionView()
+                && !mediaCategoryViewController.isSearching {
             showButtons = true
         }
         navigationItem.rightBarButtonItems = showButtons ? rigthBarButtons : nil

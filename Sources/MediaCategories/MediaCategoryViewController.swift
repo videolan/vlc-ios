@@ -23,6 +23,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     private var services: Services
 
     var searchBar = UISearchBar(frame: .zero)
+    var isSearching: Bool = false
     private var searchBarConstraint: NSLayoutConstraint?
     private let searchDataSource: LibrarySearchDataSource
     private let searchBarSize: CGFloat = 50.0
@@ -190,7 +191,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     func updateUIForContent() {
-        let isEmpty = isEmptyCollectionView() && !searchBar.isFirstResponder
+        let isEmpty = isEmptyCollectionView() && !isSearching
         if isEmpty {
             collectionView?.setContentOffset(.zero, animated: false)
         }
@@ -253,7 +254,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     // MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return searchBar.isFirstResponder ? searchDataSource.searchData.count : model.anyfiles.count
+        return isSearching ? searchDataSource.searchData.count : model.anyfiles.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -261,7 +262,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             assertionFailure("you forgot to register the cell or the cell is not a subclass of BaseCollectionViewCell")
             return UICollectionViewCell()
         }
-        let mediaObject = searchBar.isFirstResponder ? searchDataSource.objectAtIndex(index: indexPath.row) : model.anyfiles[indexPath.row]
+        let mediaObject = isSearching ? searchDataSource.objectAtIndex(index: indexPath.row) : model.anyfiles[indexPath.row]
         if let media = mediaObject as? VLCMLMedia {
             assert(media.mainFile() != nil, "The mainfile is nil")
             mediaCell.media = media.mainFile() != nil ? media : nil
@@ -273,10 +274,12 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
     // MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
+        let modelContent = isSearching ? searchDataSource.objectAtIndex(index: indexPath.row) : model.anyfiles[indexPath.row]
+
+        if let media = modelContent as? VLCMLMedia {
             play(media: media, at: indexPath)
             createSpotlightItem(media: media)
-        } else if let mediaCollection = model.anyfiles[indexPath.row] as? MediaCollectionModel {
+        } else if let mediaCollection = modelContent as? MediaCollectionModel {
             let collectionViewController = VLCCollectionCategoryViewController(services, mediaCollection: mediaCollection)
             navigationController?.pushViewController(collectionViewController, animated: true)
         }
@@ -301,6 +304,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 extension VLCMediaCategoryViewController {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         reloadData()
+        isSearching = true
         searchBar.setShowsCancelButton(true, animated: true)
     }
 
@@ -310,6 +314,7 @@ extension VLCMediaCategoryViewController {
         searchBar.text = ""
         searchDataSource.shouldReloadFor(searchString: "")
         searchBar.setShowsCancelButton(false, animated: true)
+        isSearching = false
         reloadData()
     }
 
@@ -492,7 +497,7 @@ extension VLCMediaCategoryViewController {
         if let model = model as? MediaCollectionModel {
             tracks = model.files() ?? []
         } else {
-            tracks = model.anyfiles as? [VLCMLMedia] ?? []
+            tracks = (isSearching ? searchDataSource.searchData : model.anyfiles) as? [VLCMLMedia] ?? []
         }
         playbackController.playMedia(at: indexPath.row, fromCollection: tracks)
     }
