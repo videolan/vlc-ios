@@ -191,11 +191,11 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     func updateUIForContent() {
-        let isEmpty = isEmptyCollectionView() && !isSearching
+        let isEmpty = isEmptyCollectionView()
         if isEmpty {
             collectionView?.setContentOffset(.zero, animated: false)
         }
-        searchBar.isHidden = isEmpty
+        searchBar.isHidden = isEmpty || isEditing
         collectionView?.backgroundView = isEmpty ? emptyView : nil
     }
 
@@ -231,12 +231,13 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         displayEditToolbar()
         let layoutToBe = editing ? editCollectionViewLayout : UICollectionViewFlowLayout()
         collectionView?.setCollectionViewLayout(layoutToBe, animated: false, completion: {
-            [weak self] finished in
+            [unowned self] finished in
             guard finished else {
                 assertionFailure("VLCMediaSubcategoryViewController: Edit layout transition failed.")
                 return
             }
-            self?.reloadData()
+            self.searchBarConstraint?.constant = -self.searchBarSize
+            self.reloadData()
         })
     }
 
