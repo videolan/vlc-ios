@@ -306,7 +306,9 @@ extension VLCMediaCategoryViewController {
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        // Empty the text field and reset the research
         searchBar.text = ""
+        searchDataSource.shouldReloadFor(searchString: "")
         searchBar.setShowsCancelButton(false, animated: true)
         reloadData()
     }
