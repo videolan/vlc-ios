@@ -62,7 +62,6 @@ class VideoOptionsControlBar: UIStackView {
     
     @objc var toggleFullScreenButton: UIButton = {
         var toggle = UIButton(type: .system)
-        toggle.addTarget(self, action: #selector(toggleFullscreen), for: .touchUpInside)
         toggle.setImage(UIImage(named: "fullscreenIcon-new"), for: .normal)
         toggle.tintColor = .white
         //TODO: add accessability options for fullScreenButton
@@ -71,7 +70,6 @@ class VideoOptionsControlBar: UIStackView {
     
     @objc var selectSubtitleButton: UIButton = {
         var subbutton = UIButton(type: .system)
-        subbutton.addTarget(self, action: #selector(selectSubtitle), for: .touchUpInside)
         subbutton.setImage(UIImage(named: "subtitleIcon-new"), for: .normal)
         subbutton.tintColor = .white
         // TODO: add accessability options for selectingSubtitleButton
@@ -80,7 +78,6 @@ class VideoOptionsControlBar: UIStackView {
     
     @objc var repeatButton: UIButton = {
         var rptButton = UIButton(type: .system)
-        rptButton.addTarget(self, action: #selector(toggleRepeat), for: .touchUpInside)
         rptButton.setImage(UIImage(named: "no-repeat-new"), for: .normal)
         rptButton.tintColor = .white
         // TODO: add accessability options for repeatButton
@@ -89,7 +86,6 @@ class VideoOptionsControlBar: UIStackView {
     
     @objc var interfaceLockButton: UIButton = {
         var interfaceLockButton = UIButton(type: .system)
-        interfaceLockButton.addTarget(self, action: #selector(toggleInterfaceLock), for: .touchUpInside)
         interfaceLockButton.setImage(UIImage(named: "lock-new"), for: .normal)
         interfaceLockButton.tintColor = .white
         // TODO: add accessability options for orientationLockButton
@@ -98,7 +94,6 @@ class VideoOptionsControlBar: UIStackView {
     
     @objc var moreOptionsButton: UIButton = {
         var moreOptionsButton = UIButton(type: .system)
-        moreOptionsButton.addTarget(self, action: #selector(selectMoreOptions), for: .touchUpInside)
         moreOptionsButton.setImage(UIImage(named: "moreWhite-new"), for: .normal)
         moreOptionsButton.tintColor = .white
         // TODO: add accessability options for moreOptionsButton
@@ -110,13 +105,22 @@ class VideoOptionsControlBar: UIStackView {
         super.init(coder: aDecoder)
     }
     
+    private func setupButtonTargets() {
+        toggleFullScreenButton.addTarget(self, action: #selector(toggleFullscreen), for: .touchUpInside)
+        interfaceLockButton.addTarget(self, action: #selector(toggleInterfaceLock), for: .touchUpInside)
+        repeatButton.addTarget(self, action: #selector(toggleRepeat), for: .touchUpInside)
+        selectSubtitleButton.addTarget(self, action: #selector(selectSubtitle), for: .touchUpInside)
+        moreOptionsButton.addTarget(self, action: #selector(selectMoreOptions), for: .touchUpInside)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addArrangedSubview(toggleFullScreenButton)
-        addArrangedSubview(selectSubtitleButton)
-        addArrangedSubview(repeatButton)
-        addArrangedSubview(interfaceLockButton)
-        addArrangedSubview(moreOptionsButton)
+        setupButtonTargets()
+        self.addArrangedSubview(toggleFullScreenButton)
+        self.addArrangedSubview(selectSubtitleButton)
+        self.addArrangedSubview(repeatButton)
+        self.addArrangedSubview(interfaceLockButton)
+        self.addArrangedSubview(moreOptionsButton)
         axis = NSLayoutConstraint.Axis.vertical
     }
     
