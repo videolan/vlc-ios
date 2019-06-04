@@ -9,6 +9,24 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+class ActionSheetCellImageView: UIImageView {
+    override var image: UIImage? {
+        didSet {
+            super.image = image
+            isHidden = false
+        }
+    }
+
+    override init(image: UIImage? = nil) {
+        super.init(image: image)
+        isHidden = true
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 @objc(VLCActionSheetCell)
 class ActionSheetCell: UICollectionViewCell {
 
@@ -23,8 +41,8 @@ class ActionSheetCell: UICollectionViewCell {
         }
     }
 
-    let icon: UIImageView = {
-        let icon = UIImageView()
+    let icon: ActionSheetCellImageView = {
+        let icon = ActionSheetCellImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleAspectFit
         return icon
