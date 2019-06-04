@@ -16,6 +16,7 @@
  *          Marc Etcheverry <marc # taplightsoftware dot com>
  *          Christopher Loessl <cloessl # x-berg dot de>
  *          Sylver Bruneau <sylver.bruneau # gmail dot com>
+ *          Andrew Breckenridge <asbreckenridge # me dot com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
