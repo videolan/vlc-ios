@@ -43,9 +43,12 @@ extension VideoModel: EditableMLModel {
 // MARK: - Sort
 
 extension VideoModel {
-    func sort(by criteria: VLCMLSortingCriteria) {
-        files = medialibrary.media(ofType: .video, sortingCriteria: criteria)
+    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
+        files = medialibrary.media(ofType: .video,
+                                   sortingCriteria: criteria,
+                                   desc: desc)
         sortModel.currentSort = criteria
+        sortModel.desc = desc
         updateView?()
     }
 }

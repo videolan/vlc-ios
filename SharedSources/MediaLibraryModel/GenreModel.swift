@@ -58,9 +58,10 @@ extension GenreModel: MediaLibraryObserver {
 
 // MARK: - Sort
 extension GenreModel {
-    func sort(by criteria: VLCMLSortingCriteria) {
-        files = medialibrary.genres(sortingCriteria: criteria)
+    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
+        files = medialibrary.genres(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
+        sortModel.desc = desc
         updateView?()
     }
 }

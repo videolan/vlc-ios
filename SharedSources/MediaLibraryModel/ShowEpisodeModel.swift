@@ -41,7 +41,7 @@ class ShowEpisodeModel: MediaModel {
 // MARK: - Sort
 
 extension ShowEpisodeModel {
-    func sort(by criteria: VLCMLSortingCriteria) {
+    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
         // Currently no show specific getter on medialibrary.
     }
 }

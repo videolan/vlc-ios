@@ -41,9 +41,10 @@ class AlbumModel: MLBaseModel {
 
 // MARK: - Sort
 extension AlbumModel {
-    func sort(by criteria: VLCMLSortingCriteria) {
-        files = medialibrary.albums(sortingCriteria: criteria)
+    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
+        files = medialibrary.albums(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
+        sortModel.desc = desc
         updateView?()
     }
 }

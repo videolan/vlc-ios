@@ -118,6 +118,19 @@ class ActionSheet: UIViewController {
 
     // MARK: UIViewController
 
+    init () {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    init(header: ActionSheetSectionHeader) {
+        super.init(nibName: nil, bundle: nil)
+        headerView = header
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -202,7 +215,7 @@ class ActionSheet: UIViewController {
 private extension ActionSheet {
     private func setuplHeaderViewConstraints() {
         NSLayoutConstraint.activate([
-            headerView.heightAnchor.constraint(equalToConstant: cellHeight),
+            headerView.heightAnchor.constraint(equalToConstant: headerView.cellHeight),
             headerView.widthAnchor.constraint(equalTo: view.widthAnchor),
             ])
     }

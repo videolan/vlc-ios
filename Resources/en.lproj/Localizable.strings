@@ -344,6 +344,9 @@
 "BUTTON_SORT" = "Sort";
 "BUTTON_SORT_HINT" = "Display sort action sheet";
 "HEADER_TITLE_SORT" = "Sort by";
+"DESCENDING_LABEL" = "Descending Order";
+"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
+"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 
 // VLCMediaLibraryKit - Sorting Criteria
 

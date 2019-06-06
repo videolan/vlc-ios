@@ -236,6 +236,7 @@
 		7DF9352F1958AB0600E60FD4 /* UIColor+Presets.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */; };
 		81334053F6D89AB90E14A1C3 /* libPods-VLC-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CCB170FBC97B6B93B99E0A /* libPods-VLC-iOSTests.a */; };
 		8D144D6322298E8E00984C46 /* AudioMiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */; };
+		8D15A1ED22A9603300CFA758 /* ActionSheetSortSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */; };
 		8D222DC220F779F1009C0D34 /* MediaEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D222DC120F779F1009C0D34 /* MediaEditCell.swift */; };
 		8D2AD4D822786F4000393833 /* AddToPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D722786F4000393833 /* AddToPlaylistViewController.swift */; };
 		8D2AD4DA227AEE8E00393833 /* AddToPlaylistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D9227AEE8E00393833 /* AddToPlaylistView.xib */; };
@@ -799,6 +800,7 @@
 		7DF9352E1958AB0600E60FD4 /* UIColor+Presets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Presets.m"; path = "Sources/UIColor+Presets.m"; sourceTree = SOURCE_ROOT; };
 		7FC9CCF39DD8843873A42D34 /* Pods-VLC-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOSTests/Pods-VLC-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMiniPlayer.swift; sourceTree = "<group>"; };
+		8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetSortSectionHeader.swift; sourceTree = "<group>"; };
 		8D222DC120F779F1009C0D34 /* MediaEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaEditCell.swift; path = Sources/MediaEditCell.swift; sourceTree = "<group>"; };
 		8D2AD4D722786F4000393833 /* AddToPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddToPlaylistViewController.swift; path = Sources/AddToPlaylistViewController.swift; sourceTree = "<group>"; };
 		8D2AD4D9227AEE8E00393833 /* AddToPlaylistView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddToPlaylistView.xib; sourceTree = "<group>"; };
@@ -1865,6 +1867,7 @@
 				8D437153205808FF00F36458 /* ActionSheet.swift */,
 				8DD651B9208F6AF00052EE68 /* ActionSheetCell.swift */,
 				8DD651C3208F786F0052EE68 /* ActionSheetSectionHeader.swift */,
+				8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */,
 			);
 			name = ActionSheet;
 			path = Sources/ActionSheet;
@@ -2944,6 +2947,7 @@
 				7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */,
 				41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */,
 				DD3EFF4F1BDEBCE500B68579 /* VLCPlexParser.m in Sources */,
+				8D15A1ED22A9603300CFA758 /* ActionSheetSortSectionHeader.swift in Sources */,
 				41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */,
 				7D3784C2183A9938009EE944 /* VLCSlider.m in Sources */,
 				7D3784C3183A9938009EE944 /* VLCStatusLabel.m in Sources */,

@@ -34,10 +34,13 @@ class TrackModel: MediaModel {
 // MARK: - Sort
 
 extension TrackModel {
-    func sort(by criteria: VLCMLSortingCriteria) {
+    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
         // FIXME: Currently if sorted by name, the files are sorted by filename but displaying title
-        files = medialibrary.media(ofType: .audio, sortingCriteria: criteria)
+        files = medialibrary.media(ofType: .audio,
+                                   sortingCriteria: criteria,
+                                   desc: desc)
         sortModel.currentSort = criteria
+        sortModel.desc = desc
         updateView?()
     }
 }

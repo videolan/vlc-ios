@@ -60,9 +60,10 @@ class PlaylistModel: MLBaseModel {
 
 // MARK: - Sort
 extension PlaylistModel {
-    func sort(by criteria: VLCMLSortingCriteria) {
-        files = medialibrary.playlists(sortingCriteria: criteria)
+    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
+        files = medialibrary.playlists(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
+        sortModel.desc = desc
         updateView?()
     }
 }

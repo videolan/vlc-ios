@@ -46,7 +46,9 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 //    }()
 
     @objc private lazy var sortActionSheet: ActionSheet = {
-        let actionSheet = ActionSheet()
+        let header = ActionSheetSortSectionHeader()
+        let actionSheet = ActionSheet(header: header)
+        header.delegate = self
         actionSheet.delegate = self
         actionSheet.dataSource = self
         actionSheet.modalPresentationStyle = .custom
@@ -54,7 +56,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             guard let sortingCriteria = item as? VLCMLSortingCriteria else {
                 return
             }
-            self?.model.sort(by: sortingCriteria)
+            self?.model.sort(by: sortingCriteria, desc: header.actionSwitch.isOn)
             self?.sortActionSheet.removeActionSheet()
         }
         return actionSheet
@@ -427,6 +429,15 @@ extension VLCMediaCategoryViewController: ActionSheetDataSource {
 
         cell.name.text = String(describing: sortingCriterias[indexPath.row])
         return cell
+    }
+}
+
+// MARK: - ActionSheetSortSectionHeaderDelegate
+
+extension VLCMediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
+    func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader,
+                                      onSwitchIsOnChange: Bool) {
+        model.sort(by: model.sortModel.currentSort, desc: onSwitchIsOnChange)
     }
 }
 

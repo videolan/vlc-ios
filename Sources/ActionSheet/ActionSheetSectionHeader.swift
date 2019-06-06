@@ -13,9 +13,14 @@ class ActionSheetSectionHeader: UIView {
 
     static let identifier = "VLCActionSheetSectionHeader"
 
+    var cellHeight: CGFloat {
+        return 50
+    }
+
     let title: UILabel = {
         let title = UILabel()
-        title.font = UIFont.boldSystemFont(ofSize: 13)
+        title.font = UIFont.boldSystemFont(ofSize: 17)
+        title.textColor = PresentationTheme.current.colors.cellTextColor
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -62,9 +67,7 @@ class ActionSheetSectionHeader: UIView {
         addSubview(title)
         NSLayoutConstraint.activate([
             title.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
-            title.centerYAnchor.constraint(equalTo: centerYAnchor),
-            title.centerXAnchor.constraint(equalTo: centerXAnchor),
-            title.topAnchor.constraint(equalTo: topAnchor)
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 20)
         ])
     }
 }
