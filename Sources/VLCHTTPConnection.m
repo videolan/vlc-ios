@@ -191,90 +191,68 @@
     return [allMedia copy];
 }
 
+- (NSString *)createHTMLMediaObjectFromMedia:(VLCMLMedia *)media
+{
+    return [NSString stringWithFormat:
+            @"<div style=\"background-image:url('Thumbnail/%@')\"> \
+            <a href=\"download/%@\" class=\"inner\"> \
+            <div class=\"down icon\"></div> \
+            <div class=\"infos\"> \
+            <span class=\"first-line\">%@</span> \
+            <span class=\"second-line\">%@ - %@</span> \
+            </div> \
+            </a> \
+            </div>",
+            media.thumbnail.absoluteString,
+            [[media mainFile].mrl.path
+             stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
+            media.title,
+            [media mediaDuration], [media formatSize]];
+}
+
+- (NSString *)createHTMLFolderObjectWithImagePath:(NSString *)imagePath
+                                             name:(NSString *)name
+                                            count:(NSUInteger)count
+{
+    return [NSString stringWithFormat:
+            @"<div style=\"background-image:url('Thumbnail/%@')\"> \
+            <a href=\"#\" class=\"inner folder\"> \
+            <div class=\"open icon\"></div> \
+            <div class=\"infos\"> \
+            <span class=\"first-line\">%@</span> \
+            <span class=\"second-line\">%lu items</span> \
+            </div> \
+            </a> \
+            <div class=\"content\">",
+            imagePath,
+            name,
+            count];
+}
+
 - (HTTPDynamicFileResponse *)generateHttpResponseFrom:(NSArray *)media path:(NSString *)path
 {
     NSMutableArray *mediaInHtml = [[NSMutableArray alloc] initWithCapacity:media.count];
     for (NSObject <VLCMLObject> *mediaObject in media) {
         if ([mediaObject isKindOfClass:[VLCMLMedia class]]) {
-            VLCMLMedia *media = (VLCMLMedia *)mediaObject;
-            [mediaInHtml addObject:[NSString stringWithFormat:
-                                    @"<div style=\"background-image:url('Thumbnail/%@')\"> \
-                                    <a href=\"download/%@\" class=\"inner\"> \
-                                    <div class=\"down icon\"></div> \
-                                    <div class=\"infos\"> \
-                                    <span class=\"first-line\">%@</span> \
-                                    <span class=\"second-line\">%@ - %@</span> \
-                                    </div> \
-                                    </a> \
-                                    </div>",
-                                    media.thumbnail.absoluteString,
-                                    [[media mainFile].mrl.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
-                                    media.title,
-                                    [media mediaDuration], [media formatSize]]];
+            [mediaInHtml addObject:[self createHTMLMediaObjectFromMedia:(VLCMLMedia *)mediaObject]];
         } else if ([mediaObject isKindOfClass:[VLCMLPlaylist class]]) {
             VLCMLPlaylist *playlist = (VLCMLPlaylist *)mediaObject;
             NSArray *playlistItems = [playlist media];
-            [mediaInHtml addObject:[NSString stringWithFormat:
-                                    @"<div style=\"background-image:url('Thumbnail/%@')\"> \
-                                    <a href=\"#\" class=\"inner folder\"> \
-                                    <div class=\"open icon\"></div> \
-                                    <div class=\"infos\"> \
-                                    <span class=\"first-line\">%@</span> \
-                                    <span class=\"second-line\">%lu items</span> \
-                                    </div> \
-                                    </a> \
-                                    <div class=\"content\">",
-                                    playlist.artworkMrl,
-                                    playlist.name,
-                                    (unsigned long)playlistItems.count]];
+            [mediaInHtml addObject: [self createHTMLFolderObjectWithImagePath:playlist.artworkMrl
+                                                                name:playlist.name
+                                                               count:playlistItems.count]];
             for (VLCMLMedia *media in playlistItems) {
-                [mediaInHtml addObject:[NSString stringWithFormat:
-                                        @"<div style=\"background-image:url('Thumbnail/%@')\"> \
-                                        <a href=\"download/%@\" class=\"inner\"> \
-                                        <div class=\"down icon\"></div> \
-                                        <div class=\"infos\"> \
-                                        <span class=\"first-line\">%@</span> \
-                                        <span class=\"second-line\">%@ - %@</span> \
-                                        </div> \
-                                        </a> \
-                                        </div>",
-                                        media.thumbnail.path,
-                                        [[media mainFile].mrl.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
-                                        media.title,
-                                        [media mediaDuration], [media formatSize]]];
+                [mediaInHtml addObject:[self createHTMLMediaObjectFromMedia:media]];
             }
             [mediaInHtml addObject:@"</div></div>"];
         } else if ([mediaObject isKindOfClass:[VLCMLAlbum class]]) {
             VLCMLAlbum *album = (VLCMLAlbum *)mediaObject;
             NSArray *albumTracks = [album tracks];
-            [mediaInHtml addObject:[NSString stringWithFormat:
-                                    @"<div style=\"background-image:url('Thumbnail/%@')\"> \
-                                    <a href=\"#\" class=\"inner folder\"> \
-                                    <div class=\"open icon\"></div> \
-                                    <div class=\"infos\"> \
-                                    <span class=\"first-line\">%@</span> \
-                                    <span class=\"second-line\">%lu items</span> \
-                                    </div> \
-                                    </a> \
-                                    <div class=\"content\">",
-                                    album.artworkMrl,
-                                    album.title,
-                                    (unsigned long)albumTracks.count]];
+            [mediaInHtml addObject:[self createHTMLFolderObjectWithImagePath:album.artworkMrl.path
+                                                                        name:album.title
+                                                                       count:albumTracks.count]];
             for (VLCMLMedia *track in albumTracks) {
-                [mediaInHtml addObject:[NSString stringWithFormat:
-                                        @"<div style=\"background-image:url('Thumbnail/%@')\"> \
-                                        <a href=\"download/%@\" class=\"inner\"> \
-                                        <div class=\"down icon\"></div> \
-                                        <div class=\"infos\"> \
-                                        <span class=\"first-line\">%@</span> \
-                                        <span class=\"second-line\">%@ - %@</span> \
-                                        </div> \
-                                        </a> \
-                                        </div>",
-                                        track.thumbnail.absoluteString,
-                                        [[track mainFile].mrl.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
-                                        track.title,
-                                        [track mediaDuration], [track formatSize]]];
+                [mediaInHtml addObject:[self createHTMLMediaObjectFromMedia:track]];
             }
             [mediaInHtml addObject:@"</div></div>"];
         }
