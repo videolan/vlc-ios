@@ -203,7 +203,7 @@
             </div> \
             </a> \
             </div>",
-            media.thumbnail.absoluteString,
+            media.thumbnail.path,
             [[media mainFile].mrl.path
              stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
             media.title,
@@ -287,7 +287,7 @@
             [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/Thumbnail/%@\" duration=\"%@\" size=\"%@\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>",
                                    file.title,
                                    hostName,
-                                   file.thumbnail.absoluteString,
+                                   file.thumbnail.path,
                                    [file mediaDuration], [file formatSize],
                                    hostName,
                                    [[file mainFile].mrl.path stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet], pathSub]];
@@ -300,7 +300,7 @@
                     pathSub = [NSString stringWithFormat:@"http://%@/download/%@", hostName, pathSub];
                 [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/Thumbnail/%@\" duration=\"%@\" size=\"%@\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"%@\"/>", file.title,
                                        hostName,
-                                       file.thumbnail.absoluteString,
+                                       file.thumbnail.path,
                                        [file mediaDuration],
                                        [file formatSize],
                                        hostName,
@@ -313,7 +313,7 @@
 
                 [mediaInXml addObject:[NSString stringWithFormat:@"<Media title=\"%@\" thumb=\"http://%@/Thumbnail/%@\" duration=\"%@\" size=\"%@\" pathfile=\"http://%@/download/%@\" pathSubtitle=\"\"/>", track.title,
                                        hostName,
-                                       track.thumbnail.absoluteString,
+                                       track.thumbnail.path,
                                        [track mediaDuration],
                                        [track formatSize],
                                        hostName,
