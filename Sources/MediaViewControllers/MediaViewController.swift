@@ -17,17 +17,27 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
     var services: Services
     private var rendererButton: UIButton
     private var sortButton: UIBarButtonItem?
+    private lazy var editButton: UIBarButtonItem = {
+        var editButton = UIBarButtonItem(image: UIImage(named: "edit"),
+                                     style: .plain, target: self,
+                                     action: #selector(customSetEditing(button:)))
+        editButton.tintColor = PresentationTheme.current.colors.orangeUI
+        editButton.accessibilityLabel = NSLocalizedString("BUTTON_EDIT", comment: "")
+        editButton.accessibilityHint = NSLocalizedString("BUTTON_EDIT_HINT", comment: "")
+        return editButton
+    }()
+
     private var rigthBarButtons: [UIBarButtonItem]?
 
     init(services: Services) {
         self.services = services
         rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(nibName: nil, bundle: nil)
-        rigthBarButtons = [editButtonItem, UIBarButtonItem(customView: rendererButton)]
         sortButton = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""),
                                      style: .plain,
                                      target: self,
                                      action: #selector(handleSort))
+        rigthBarButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
     }
 
     override func viewDidLoad() {
@@ -90,17 +100,25 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
         return PresentationTheme.current.colors.statusBarStyle
     }
 
+    @objc func handleSort() {
+        if let mediaCategoryViewController = viewControllers[currentIndex] as? VLCMediaCategoryViewController {
+            mediaCategoryViewController.handleSort()
+        }
+    }
+}
+
+// MARK: - Edit
+
+extension VLCMediaViewController {
+    @objc private func customSetEditing(button: UIButton) {
+        isEditing = !isEditing
+    }
+
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
 
         scrollingEnabled(!editing)
         navigationItem.leftBarButtonItem = editing ? nil : sortButton
         viewControllers[currentIndex].setEditing(editing, animated: animated)
-    }
-
-    @objc func handleSort() {
-        if let mediaCategoryViewController = viewControllers[currentIndex] as? VLCMediaCategoryViewController {
-            mediaCategoryViewController.handleSort()
-        }
     }
 }

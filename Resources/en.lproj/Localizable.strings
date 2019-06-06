@@ -316,6 +316,10 @@
 "NAME" = "Name";
 
 //EDIT
+
+"BUTTON_EDIT" = "Edit";
+"BUTTON_EDIT_HINT" = "Edit mode";
+
 "ADD_TO_PLAYLIST" = "Add to Playlist";
 "ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
 
