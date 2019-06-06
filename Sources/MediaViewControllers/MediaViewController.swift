@@ -16,7 +16,16 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
 
     var services: Services
     private var rendererButton: UIButton
-    private var sortButton: UIBarButtonItem?
+    private lazy var sortButton: UIBarButtonItem = {
+        var sortButton = UIBarButtonItem(image: UIImage(named: "sort"),
+                                     style: .plain, target: self,
+                                     action: #selector(handleSort))
+        sortButton.tintColor = PresentationTheme.current.colors.orangeUI
+        sortButton.accessibilityLabel = NSLocalizedString("BUTTON_SORT", comment: "")
+        sortButton.accessibilityHint = NSLocalizedString("BUTTON_SORT_HINT", comment: "")
+        return sortButton
+    }()
+
     private lazy var editButton: UIBarButtonItem = {
         var editButton = UIBarButtonItem(image: UIImage(named: "edit"),
                                      style: .plain, target: self,
@@ -33,10 +42,6 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
         self.services = services
         rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(nibName: nil, bundle: nil)
-        sortButton = UIBarButtonItem(title: NSLocalizedString("SORT", comment: ""),
-                                     style: .plain,
-                                     target: self,
-                                     action: #selector(handleSort))
         rigthBarButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
     }
 
@@ -99,12 +104,6 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
     }
-
-    @objc func handleSort() {
-        if let mediaCategoryViewController = viewControllers[currentIndex] as? VLCMediaCategoryViewController {
-            mediaCategoryViewController.handleSort()
-        }
-    }
 }
 
 // MARK: - Edit
@@ -120,5 +119,15 @@ extension VLCMediaViewController {
         scrollingEnabled(!editing)
         navigationItem.leftBarButtonItem = editing ? nil : sortButton
         viewControllers[currentIndex].setEditing(editing, animated: animated)
+    }
+}
+
+// MARK: - Sort
+
+extension VLCMediaViewController {
+    @objc func handleSort() {
+        if let mediaCategoryViewController = viewControllers[currentIndex] as? VLCMediaCategoryViewController {
+            mediaCategoryViewController.handleSort()
+        }
     }
 }
