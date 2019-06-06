@@ -184,7 +184,7 @@
     // Adding all audio files which are not in an Album
     NSArray* audioFiles = [medialibrary mediaOfType:VLCMLMediaTypeAudio sortingCriteria:VLCMLSortingCriteriaDefault desc:false];
     for (VLCMLMedia *track in audioFiles) {
-        if (![track isKindOfClass:[VLCMLAlbumTrack class]]) {
+        if (track.subtype != VLCMLMediaSubtypeAlbumTrack) {
             [allMedia addObject:track];
         }
     }
