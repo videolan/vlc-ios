@@ -28,8 +28,8 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     private let searchDataSource: LibrarySearchDataSource
     private let searchBarSize: CGFloat = 50.0
     private var rendererButton: UIButton
-    private lazy var editController: VLCEditController = {
-        let editController = VLCEditController(mediaLibraryService:services.medialibraryService, model: model)
+    private lazy var editController: EditController = {
+        let editController = EditController(mediaLibraryService:services.medialibraryService, model: model)
         editController.delegate = self
         return editController
     }()
@@ -430,12 +430,14 @@ extension VLCMediaCategoryViewController: ActionSheetDataSource {
     }
 }
 
-extension VLCMediaCategoryViewController: VLCEditControllerDelegate {
-    func editController(editController: VLCEditController, cellforItemAt indexPath: IndexPath) -> MediaEditCell? {
+// MARK: - EditControllerDelegate
+
+extension VLCMediaCategoryViewController: EditControllerDelegate {
+    func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> MediaEditCell? {
         return collectionView.cellForItem(at: indexPath) as? MediaEditCell
     }
 
-    func editController(editController: VLCEditController,
+    func editController(editController: EditController,
                         present viewController: UIViewController) {
         let newNavigationController = UINavigationController(rootViewController: viewController)
         navigationController?.present(newNavigationController, animated: true, completion: nil)

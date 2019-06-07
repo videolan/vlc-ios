@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCEditController.swift
+ * EditController.swift
  *
  * Copyright © 2018 VLC authors and VideoLAN
  * Copyright © 2018 Videolabs
@@ -9,12 +9,12 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-protocol VLCEditControllerDelegate: class {
-    func editController(editController: VLCEditController, cellforItemAt indexPath: IndexPath) -> MediaEditCell?
-    func editController(editController: VLCEditController, present viewController: UIViewController)
+protocol EditControllerDelegate: class {
+    func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> MediaEditCell?
+    func editController(editController: EditController, present viewController: UIViewController)
 }
 
-class VLCEditController: UIViewController {
+class EditController: UIViewController {
     private var selectedCellIndexPaths = Set<IndexPath>()
     private let model: MediaLibraryBaseModel
     private let mediaLibraryService: MediaLibraryService
@@ -24,7 +24,7 @@ class VLCEditController: UIViewController {
         return addToPlaylistViewController
     }()
 
-    weak var delegate: VLCEditControllerDelegate?
+    weak var delegate: EditControllerDelegate?
 
     override func loadView() {
         let editToolbar = EditToolbar(category: model)
@@ -49,7 +49,7 @@ class VLCEditController: UIViewController {
 
 // MARK: - Helpers
 
-private extension VLCEditController {
+private extension EditController {
     private struct TextFieldAlertInfo {
         var alertTitle: String
         var alertDescription: String
@@ -133,7 +133,7 @@ private extension VLCEditController {
 
 // MARK: - VLCEditToolbarDelegate
 
-extension VLCEditController: EditToolbarDelegate {
+extension EditController: EditToolbarDelegate {
     func addToNewPlaylist() {
         let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
                                            placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER",
@@ -247,7 +247,7 @@ extension VLCEditController: EditToolbarDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension VLCEditController: UICollectionViewDataSource {
+extension EditController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return model.anyfiles.count
     }
@@ -286,7 +286,7 @@ extension VLCEditController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension VLCEditController: UICollectionViewDelegate {
+extension EditController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? MediaEditCell {
             cell.isChecked = !cell.isChecked
@@ -302,7 +302,7 @@ extension VLCEditController: UICollectionViewDelegate {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension VLCEditController: UICollectionViewDelegateFlowLayout {
+extension EditController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let contentInset = collectionView.contentInset
         // FIXME: 5 should be cell padding, but not usable maybe static?
@@ -315,13 +315,13 @@ extension VLCEditController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension VLCEditController: AddToPlaylistViewControllerDelegate {
+extension EditController: AddToPlaylistViewControllerDelegate {
     func addToPlaylistViewController(_ addToPlaylistViewController: AddToPlaylistViewController,
                                      didSelectPlaylist playlist: VLCMLPlaylist) {
         let files = model.anyfiles
         for index in selectedCellIndexPaths where index.row < files.count {
             if !playlist.appendMedia(withIdentifier: files[index.row].identifier()) {
-                assertionFailure("VLCEditController: AddToPlaylistViewControllerDelegate: Failed to add item.")
+                assertionFailure("EditController: AddToPlaylistViewControllerDelegate: Failed to add item.")
             }
         }
         addToPlaylistViewController.dismiss(animated: true, completion: nil)
