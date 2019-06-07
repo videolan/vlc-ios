@@ -43,7 +43,7 @@ class EditController: UIViewController {
     }
 
     func resetSelections() {
-        selectedCellIndexPaths.removeAll(keepingCapacity: false)
+        selectedCellIndexPaths.removeAll()
     }
 }
 
