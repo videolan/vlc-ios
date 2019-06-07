@@ -79,7 +79,7 @@ class MediaEditCell: BaseCollectionViewCell {
     }
 
     func updateForArtist(artist: VLCMLArtist) {
-        titleLabel.text = artist.name
+        titleLabel.text = artist.artistName()
         timeLabel.text = artist.numberOfTracksString()
         thumbnailImageView.layer.masksToBounds = true
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
@@ -87,8 +87,8 @@ class MediaEditCell: BaseCollectionViewCell {
     }
 
     func updateForAlbum(album: VLCMLAlbum) {
-        titleLabel.text = album.title
-        timeLabel.text = album.albumArtist?.name ?? NSLocalizedString("UNKNOWN_ARTIST", comment: "")
+        titleLabel.text = album.albumName()
+        timeLabel.text = album.albumArtistName()
         sizeLabel.text = album.numberOfTracksString()
         thumbnailImageView.image = album.thumbnail()
     }
