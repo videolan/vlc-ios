@@ -324,6 +324,7 @@ extension EditController: AddToPlaylistViewControllerDelegate {
                 assertionFailure("EditController: AddToPlaylistViewControllerDelegate: Failed to add item.")
             }
         }
+        resetSelections()
         addToPlaylistViewController.dismiss(animated: true, completion: nil)
     }
 
