@@ -359,7 +359,8 @@
         return;
 
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString* uploadDirPath = [searchPaths[0] stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
+    NSString *uploadDirPath = [searchPaths.firstObject
+                               stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:uploadDirPath])
         [fileManager removeItemAtPath:uploadDirPath error:nil];
