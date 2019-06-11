@@ -67,7 +67,7 @@
     self.discoveredFiles = [NSMutableArray array];
 
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    discoverer.directoryPath = [[searchPaths firstObject] stringByAppendingPathComponent:@"Upload"];
+    discoverer.directoryPath = [[searchPaths firstObject] stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
     [discoverer addObserver:self];
     [discoverer startDiscovering];
 

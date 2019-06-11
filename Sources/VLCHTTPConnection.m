@@ -622,7 +622,7 @@
 
     // create the path where to store the media temporarily
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *uploadDirPath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
+    NSString *uploadDirPath = [searchPaths[0] stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
     BOOL isDir = YES;

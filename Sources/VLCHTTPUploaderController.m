@@ -305,7 +305,7 @@
     NSString *fileName = [filepath lastPathComponent];
     NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSString *uploadPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
-                            firstObject] stringByAppendingPathComponent:@"Upload"];
+                            firstObject] stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
 
     NSString *finalFilePath = [libraryPath
                                stringByAppendingString:[filepath
@@ -359,7 +359,7 @@
         return;
 
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString* uploadDirPath = [searchPaths[0] stringByAppendingPathComponent:@"Upload"];
+    NSString* uploadDirPath = [searchPaths[0] stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:uploadDirPath])
         [fileManager removeItemAtPath:uploadDirPath error:nil];

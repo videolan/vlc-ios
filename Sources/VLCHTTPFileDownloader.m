@@ -150,7 +150,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
         [fileManager removeItemAtURL:downloadTask.fileURL error:nil];
 
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *basePath = [[searchPaths firstObject] stringByAppendingPathComponent:@"Upload"];
+    NSString *basePath = [[searchPaths firstObject] stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
     downloadTask.fileName = [[newUrl lastPathComponent] stringByRemovingPercentEncoding];
     downloadTask.fileURL = [NSURL fileURLWithPath:[basePath stringByAppendingPathComponent:downloadTask.fileName]];
 
