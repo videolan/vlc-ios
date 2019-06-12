@@ -11,7 +11,6 @@
 "TITLE" = "Titel";
 "CHAPTER" = "Kapitel";
 "MINIMIZE_PLAYBACK_VIEW" = "Wiedergabe minimieren";
-"FULLSCREEN_PLAYBACK" = "Im Vollbildmodus wiedergeben ";
 "TRACK_SELECTION" = "Spurauswahl";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Untertitel";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Wiedergabe fortsetzen?";
 "CONTINUE_PLAYBACK_LONG" = "Möchten Sie die Wiedergabe von \"%@\" an der Stelle fortsetzen, an der Sie zuletzt waren?";
 
-"BUTTON_ALL" = "Alles auswählen";
 "BUTTON_ABOUT" = "Über";
 "BUTTON_BACK" = "Zurück";
 "BUTTON_DONE" = "Fertig";
@@ -62,7 +60,7 @@
 "BUTTON_DOWNLOAD" = "Download";
 "BUTTON_DELETE" = "Löschen";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "Beitragen";
+"BUTTON_CONTRIBUTE" = "Mitwirken";
 "BUTTON_CONNECT" = "Verbinden";
 "BUTTON_RENAME" = "Umbenennen";
 "BUTTON_LEARN_MORE" = "Erfahren Sie mehr";
@@ -71,13 +69,12 @@
 "BUTTON_SET" = "Einstellen";
 "BUTTON_RESET" = "Zurücksetzen";
 "PRIVATE_PLAYBACK_TOGGLE" = "Private Wiedergabe";
-"SCAN_SUBTITLE_TOGGLE" = "Nach Untertitel suchen (nur HTTP)";
+"SCAN_SUBTITLE_TOGGLE" = "Untertitelsuche (nur HTTP)";
 
 "BUTTON_RENDERER" = "Casting-Geräte";
 "BUTTON_RENDERER_HINT" = "Menü mit verfügbaren Casting-Geräten anzeigen";
 
 "UPGRADING_LIBRARY" = "Mediathek aktualisieren";
-"UNTITLED_SHOW" = "Serie ohne Titel";
 "UNKNOWN" = "Unbekannt";
 
 "OPEN_NETWORK" = "Netzwerkstream öffnen";
@@ -85,46 +82,45 @@
 "OPEN_NETWORK_HELP" = "Geben Sie eine HTTP, RTSP, RTMP, MMS, FTP oder UDP/RTP-Addresse zum direkten Öffnen des Streams ein.";
 "HTTP_UPLOAD_SERVER_OFF" = "Server inaktiv";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "Keine aktive WLAN Verbindung";
-"OPEN_STREAM_OR_DOWNLOAD" = "Möchten Sie von dieser Adresse herunterladen oder diese Adresse wiedergeben?";
-"SHARED_VLC_IOS_LIBRARY" = "Geteilte VLC für iOS Mediatheken";
+"OPEN_STREAM_OR_DOWNLOAD" = "Möchten Sie von dieser Adresse herunterladen oder diese wiedergeben?";
+"SHARED_VLC_IOS_LIBRARY" = "Geteilte VLC für iOS Mediathek";
 "SMB_CIFS_FILE_SERVERS" = "Dateiserver (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Herunterladen mit HTTP-Code %i fehlgeschlagen";
-"HTTP_FILE_CREATION_FAILED" = "Dateierstellung fehlgeschlagen";
-"HTTP_DOWNLOAD_CANCELLED" = "Herunterladen durch den Nutzer abgebrochen";
+"HTTP_DOWNLOAD_CANCELLED" = "Download durch Nutzer abgebrochen";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Geben Sie eine Adresse ein, um eine Datei auf Ihr %@ herunterzuladen.";
 "DOWNLOAD_FROM_HTTP" = "Downloads";
 "ERROR_NUMBER" = "Fehler %i aufgetreten";
-"DOWNLOAD_FAILED" = "Herunterladen fehlgeschlagen";
+"DOWNLOAD_FAILED" = "Download fehlgeschlagen";
 "FILE_NOT_SUPPORTED" = "Dateiformat nicht unterstützt";
 "FILE_NOT_SUPPORTED_LONG" = "Das Dateiformat, benutzt in %@, wird in dieser Version von VLC für iOS nicht unterstützt.";
-"SCHEME_NOT_SUPPORTED" = "Adressenschema wird nicht unterstützt";
-"SCHEME_NOT_SUPPORTED_LONG" = "Das Adressenschema (%@) wird nicht unterstützt. Bitte eine Adresse benutzen, die mit HTTP, HTTPS oder FTP beginnt.";
+"SCHEME_NOT_SUPPORTED" = "Adressschema nicht unterstützt";
+"SCHEME_NOT_SUPPORTED_LONG" = "Das Adressschema (%@) wird nicht unterstützt. Bitte eine Adresse benutzen, die mit HTTP, HTTPS oder FTP beginnt.";
 "RENAME_MEDIA_TO" = "Neuen Namen für %@ eingeben";
 
+"FOLDER_EMPTY" = "Leerer Ordner";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Datei zum Öffnen wählen:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Öffnen mit …";
-"SHARING_ERROR_NO_FILES" = "Es wurden keine Dateien zum Freigeben gefunden";
+"SHARING_ERROR_NO_FILES" = "Es wurden keine Dateien zur Freigabe gefunden";
 "SHARING_ERROR_NO_APPLICATIONS" = "Es wurde keine Anwendung zum Öffnen dieses Dateityps gefunden";
-"SHARING_SUCCESS_CAMERA_ROLL" = "Datei erfolgreich in Camera Roll gespeichert";
+"SHARING_SUCCESS_CAMERA_ROLL" = "Datei erfolgreich in Fotos gespeichert";
 
-"SECTION_HEADER_LIBRARY" = "Medienbibliothek";
-"STREAMVC_DETAILTEXT" = "Streams direkt wiedergeben, ohne diese vorher herunterzuladen";
+"STREAMVC_DETAILTEXT" = "Spiele Streams ohne vorherigen Download";
 "DOWNLOADVC_DETAILTEXT" = "Dateien direkt auf Ihr Gerät herunterladen";
 "HEADER_TITLE_RENDERER" = "Ein Casting-Gerät auswählen";
 
+"NETWORK" = "Netzwerk";
 "LOCAL_NETWORK" = "Lokales Netzwerk";
 "CONNECT_TO_SERVER" = "Zum Server verbinden";
 "FILE_SERVER" = "Dateiserver";
 "USER_LABEL" = "Benutzer";
 "PASSWORD_LABEL" = "Passwort";
 "DISABLE_LABEL" = "Deaktivieren";
-"BUTTON_ANONYMOUS_LOGIN" = "Anonyme Anmeldung";
+"BUTTON_ANONYMOUS_LOGIN" = "Anonymer Login";
 
 "LOCAL_SERVER_REFRESH" = "Aktualisieren";
 "LOCAL_SERVER_LAST_UPDATE" = "Zuletzt aktualisiert am %@";
@@ -141,7 +137,7 @@
 "DROPBOX_DL_LONG" = "Möchten Sie \"%@\" auf Ihr %@ herunterladen?";
 "DROPBOX_LOGIN" = "Anmelden";
 
-"GDRIVE_ERROR_FETCHING_FILES" = "Fehler beim Abrufen der Dateien";
+"GDRIVE_ERROR_FETCHING_FILES" = "Fehler beim Abruf der Dateien";
 "GDRIVE_DOWNLOAD_SUCCESSFUL" = "Ihre Datei wurde erfolgreich heruntergeladen";
 "GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "FERTIG";
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "Beim Herunterladen ist ein Fehler aufgetreten";
@@ -149,7 +145,7 @@
 
 "ONEDRIVE_MEDIA_WITHOUT_URL" = "Das ausgewählte Medium besitzt keine abspielbare Adresse";
 
-"DISK_FULL" = "Speichergrenze erreicht";
+"DISK_FULL" = "Speicherlimit erreicht";
 "DISK_FULL_FORMAT" = "%@ kann nicht auf Ihrem %@ gespeichert werden, da Sie nicht mehr genügend freien Speicherplatz zur Verfügung haben.";
 
 "NUM_OF_FILES" = "%i Dateien";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "Mediathek entsperren\nAbbrechen um Passcode einzugeben";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d fehlgeschlagene Eingabeversuche";
+"1 Failed Passcode Attempt" = "1 fehlgeschlagener Eingabeversuch";
+"Change Passcode" = "Passcode ändern";
+"Enter Passcode" = "Passcode eingeben";
+"Enter a passcode" = "Passcode eingeben";
+"Enter your new passcode" = "Geben Sie Ihren neuen Passcode ein";
+"Enter your old passcode" = "Geben Sie Ihren alten Passcode ein";
+"Enter your passcode" = "Geben Sie Ihren Passcode ein";
+"Next" = "Fortfahren";
+"Passcodes did not match. Try again." = "Passcodes stimmen nicht überein. Erneut probieren.";
+"Re-enter your new passcode" = "Neuen Passcode erneut eingeben";
+"Re-enter your passcode" = "Passcode erneut eingeben";
+"Set Passcode" = "Passcode festlegen";
 
 "Settings" = "Einstellungen"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "An";
@@ -177,10 +186,10 @@
 "VIDEO_FILTER" = "Videofilter";
 "VIDEO_FILTER_RESET_BUTTON" = "Videofilter zurück setzen";
 "VIDEO_ASPECT_RATIO_BUTTON" = "Video-Seitenverhältnis ändern";
-"PLAY_PAUSE_BUTTON" = "Aktuelle Wiedergabe pausieren oder Wiedergeben";
+"PLAY_PAUSE_BUTTON" = "Aktuelle Wiedergabe pausieren oder fortsetzen";
 "BWD_BUTTON" = "Sprung zurück";
 "FWD_BUTTON" = "Sprung vorwärts";
-"PLAY_BUTTON" = "Wiedergeben";
+"PLAY_BUTTON" = "Wiedergabe";
 "NEXT_BUTTON" = "Nächster";
 "PREV_BUTTON" = "Vorheriger";
 "PLAY_ALL_BUTTON" = "Alle wiedergeben";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Video-Player";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Tippen Sie zweimal zum Ein- oder Ausblenden der Steuerelemente für die Wiedergabe";
 
-"FIRST_STEPS_WELCOME" = "Willkommen";
-"FIRST_STEPS_WELCOME_DETAIL" = "Erste Schritte zur Synchronisation und Wiedergabe Ihrer Medien.";
 "FIRST_STEPS_ITUNES" = "iTunes-Dateisynchronisation";
-"FIRST_STEPS_ITUNES_DETAILS" = "Verbinden Sie Ihr %@ über ein Kabel mit Ihrem Mac oder PC. Öffnen Sie iTunes. Wählen Sie Ihr %@ aus. Wechseln Sie zu \"Dateifreigabe\" im Menü links, scrollen Sie nach unten und suchen Sie nach VLC. Übertragen Sie Ihre Dateien.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Verbinden Sie Ihr %@ mit dem gleichen Netzwerk, wie Ihren Mac oder PC.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Den Schalter in der Seitenleiste betätigen, die Adresse im Browser eingeben und Ihre Dateien hochladen.";
+"FIRST_STEPS_ITUNES_TITLE" = "Mit Ihrem Computer synchronisieren";
+"FIRST_STEPS_ITUNES_DETAILS" = "Verbinden Sie Ihr Gerät mit iTunes und wählen Sie es aus. Wählen Sie \"Datei teilen\" im linken Menü von iTunes und suchen Sie nach VLC, um Dateien zu übertragen";
+"FIRST_STEPS_WIFI_TITLE" = "Netzwerkfreigabe über WLAN";
+"FIRST_STEPS_WIFI_DETAILS" = "Geben Sie die generierte URL in Ihrem bevorzugten Webbrowser ein, während Sie mit demselben Netzwerk wie Ihr Telefon verbunden sind";
 "FIRST_STEPS_CLOUDS" = "Netzspeicher";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Laden Sie Ihre Medien auf Google Drive oder in die Dropbox hoch.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Die Seitenleiste zur Auswahl Ihrer Netzspeichers öffnen und durch Herunterladen oder Streaming auf Ihre Medien zugreifen.";
-"FIRST_STEPS_PLAYBACK" = "Wiedergabe";
-"FIRST_STEPS_FLOSS" = "VLC für iOS ist eine freie und quelloffene Software, entwickelt durch Freiwillige. \nWir hoffen, dass es Ihnen gefällt.";
+"FIRST_STEPS_CLOUD_TITLE" = "Online-Speicher";
+"FIRST_STEPS_CLOUD_DETAILS" = "Laden Sie Ihre Medien auf einen Online-Speicher, z.B. Google Drive oder in die Dropbox, zum entfernten Herunterladen oder streamen, hoch.";
 
-"FIRST_STEPS_TIME" = "Zeit";
-"FIRST_STEPS_ASPECT" = "Seitenverhältnis";
-"FIRST_STEPS_SPEED" = "Geschwindigkeit";
-"FIRST_STEPS_REPEAT" = "Wiederholen";
-"FIRST_STEPS_SUBTITLES" = "Untertitelspuren";
-"FIRST_STEPS_AUDIO" = "Audiospuren";
-"FIRST_STEPS_POSITION" = "Position";
 
 "PLEX_CHECK_ACCOUNT" = "Überprüfen Sie Ihren Plex-Account in den Einstellungen";
 "PLEX_ERROR_ACCOUNT" = "Plex-Anmeldefehler";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "Lautstärke";
 "DURATION" = "Laufzeit";
 "TITLE" = "Titel";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "%@ zum Löschen drücken"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "Die Auswahl kann nicht gelöscht werden";
-"DELETE_INVALID_TITLE" = "Ungültige Auswahl";
 "DELETE_MESSAGE" = "Löschung der ausgewählten Dateien bestätigen";
 "DELETE_TITLE" = "Ausgewählte Dateien löschen";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protokoll nicht ausgewählt";
 "Settings" = "Einstellungen";
 
-"CANCEL" = "Abbrechen";
 "ERROR" = "Fehler";
 "OK" = "OK";
 "SORT" = "Sortieren";
 "SORT_BY" = "Sortieren nach";
+"SEARCH" = "Suchen";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -320,29 +316,58 @@
 "NAME" = "Name";
 
 //EDIT
+
+"BUTTON_EDIT" = "Bearbeiten";
+"BUTTON_EDIT_HINT" = "Bearbeitungsmodus";
+
 "ADD_TO_PLAYLIST" = "Zur Wiedergabeliste hinzufügen";
+"ADD_TO_PLAYLIST_HINT" = "Menü zum Wiedergabeliste hinzufügen öffnen";
 
 "PLAYLIST_PLACEHOLDER" = "Titel der Wiedergabeliste";
 "PLAYLIST_DESCRIPTION" = "Wählen Sie einen Titel für die neue Wiedergabeliste";
+"PLAYLIST_CREATION" = "Eine neue Wiedergabeliste erstellen";
+"PLAYLIST_CREATION_HINT" = "Eine interaktive Aktion anzeigen, um eine Wiedergabeliste zu erstellen";
+"ERROR_PLAYLIST_CREATION" = "Fehler beim Erstellen einer Wiedergabeliste";
+"ERROR_PLAYLIST_TRACKS" = "Fehler beim Abrufen der Titel";
 
 "RENAME_PLACEHOLDER" = "Neuer Titel";
 "ERROR_RENAME_FAILED" = "Umbenennung fehlgeschlagen";
 "ERROR_EMPTY_NAME" = "Der Titel darf nicht leer sein";
 
+"SHARE_LABEL" = "Teilen";
+"SHARE_HINT" = "Ausgewählte Dateien teilen";
+"RENAME_HINT" = "Ausgewählte Dateien umbenennen";
+"DELETE_HINT" = "Ausgewählte Dateien löschen";
+
 // Sort
 
+"BUTTON_SORT" = "Sortieren";
+"BUTTON_SORT_HINT" = "Hinweis zur Sortierung anzeigen";
 "HEADER_TITLE_SORT" = "Sortieren nach";
+"DESCENDING_LABEL" = "Absteigende Sortierung";
+"DESCENDING_SWITCH_LABEL" = "Aufsteigende oder Absteigende Sortierung";
+"DESCENDING_SWITCH_HINT" = "Inhalt aufsteigend oder absteigend sortieren";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alphanumerisch";
 "DURATION" = "Laufzeit";
-"INSERTION_DATE" = "Hinzugefügt am";
-"LAST_MODIFICATION_DATE" = "Geändert am";
-"RELEASE_DATE" = "Veröffentlicht am";
+"INSERTION_DATE" = "Hinzufügungsdatum";
+"LAST_MODIFICATION_DATE" = "Änderungsdatum";
+"RELEASE_DATE" = "Veröffentlichungsdatum";
 "FILE_SIZE" = "Dateigröße";
 "ARTIST" = "Künstler";
 "PLAY_COUNT" = "Anzahl der Wiedergaben";
 "ALBUM" = "Album";
 "FILENAME" = "Dateiname";
 "TRACK_NUMBER" = "Titelnummer";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nichts gefunden";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Unbekannter Künstler";
+"VARIOUS_ARTIST" = "Verschiedene Künstler";
+"UNKNOWN_ALBUM" = "Unbekanntes Album";
