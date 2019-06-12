@@ -11,7 +11,6 @@
 "TITLE" = "Tìtulos";
 "CHAPTER" = "Capìtulu";
 "MINIMIZE_PLAYBACK_VIEW" = "Mìnima sa riprodutzione";
-"FULLSCREEN_PLAYBACK" = "Riprodui a ischermu intreu";
 "TRACK_SELECTION" = "Seletzione de sas rastas";
 "AUDIO" = "Àudio";
 "SUBTITLES" = "Sutatìtulos";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Cheres fàghere sighire sa riprodutzione?";
 "CONTINUE_PLAYBACK_LONG" = "Cheres sighire cun sa riprodutzione de \"%@\" dae ue l'as firmada?";
 
-"BUTTON_ALL" = "Seletziona totu";
 "BUTTON_ABOUT" = "Informatziones";
 "BUTTON_BACK" = "In segus";
 "BUTTON_DONE" = "Fatu";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "Ammustra unu menù cun sos dispositivos de trasmissione disponìbiles";
 
 "UPGRADING_LIBRARY" = "Agiornende sa regorta multimediale";
-"UNTITLED_SHOW" = "Ispetàculu chene nùmene";
 "UNKNOWN" = "Disconnotu";
 
 "OPEN_NETWORK" = "Aberi flussu de retza";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Iscarrigamentu fallidu cun còdighe HTTP %i";
-"HTTP_FILE_CREATION_FAILED" = "Creatzione de su documentu fallida";
 "HTTP_DOWNLOAD_CANCELLED" = "Iscarrigamentu annulladu dae s'impradore";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Inserta un'indiritzu pro iscarrigare su documentu in su %@ tuo.";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "Su formatu de s'indiritzu (%@) no est suportadu. Pro praghere imprea un'indiritzu chi incumintzet cun HTTP, HTTPS o FTP.";
 "RENAME_MEDIA_TO" = "Inserta unu nùmene nou pro %@";
 
+"FOLDER_EMPTY" = "Cartella bòida";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Issèbera unu documentu de abèrrere:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Aberi in...";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Impossìbile agatare un'aplicatzione pro abèrrere custa casta de documentu";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Su documentu est istadu sarvadu in su rullinu de sas fotografias";
 
-"SECTION_HEADER_LIBRARY" = "Regorta multimediale";
 "STREAMVC_DETAILTEXT" = "Riprodui flussos diretamente chene los iscarrigare";
 "DOWNLOADVC_DETAILTEXT" = "Iscàrriga sos documentos diretamanete in su dispositivu tuo";
 "HEADER_TITLE_RENDERER" = "Issèbera unu dispositivu de trasmissione";
 
+"NETWORK" = "Retza";
 "LOCAL_NETWORK" = "Retza locale";
 "CONNECT_TO_SERVER" = "Connete·ti a su server";
 "FILE_SERVER" = "Servers pro sos documentos";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "Isblocu regorta multimediale\nAnnulla pro insertare su còdighe de seguresa";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d tentativos de insertada de su còdighe crae fallidos";
+"1 Failed Passcode Attempt" = "1 tentativu de insertada de su còdighe crae fallidu";
+"Change Passcode" = "Càmbia su còdighe crae";
+"Enter Passcode" = "Inserta su còdighe crae";
+"Enter a passcode" = "Inserta unu còdighe crae";
+"Enter your new passcode" = "Inserta su còdighe crae nou tuo";
+"Enter your old passcode" = "Inserta su còdighe crae betzu tuo";
+"Enter your passcode" = "Inserta su còdighe crae tuo";
+"Next" = "Imbeniente";
+"Passcodes did not match. Try again." = "Sos còdighes crae non sunt sos matessi. Torra a proare.";
+"Re-enter your new passcode" = "Torra a insertare su còdighe crae nou tuo";
+"Re-enter your passcode" = "Torra a insertare su còdighe crae tuo";
+"Set Passcode" = "Imposta su còdighe crae";
 
 "Settings" = "Impostatziones"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Allutu";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Leghidore de vìdeos";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Toca duas bortas pro ammustrare o istichire sos controllos de riprodutzione";
 
-"FIRST_STEPS_WELCOME" = "Bene bènnidu";
-"FIRST_STEPS_WELCOME_DETAIL" = "Primos passos pro sincronizare e riproduire sos cuntenutos tuos.";
 "FIRST_STEPS_ITUNES" = "Sincroniza documentos cun iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Collega su %@ tuo a su Mac o su PC tuo impreende su cavu.\nAberi iTunes.\nSeletziona su %@ tuo.\nIncarca \"Cumpartzidura de documentos\" in su menù a manca e chirca VLC.\nTràmuda sos documentos tuos.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Collega su %@ tuo a sa matessi retza de su Mac o su PC tuo.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Ativa s'interrutore in sa barra laterale, inserta s'URL in s'esploradore web e càrriga sos documentos tuos.";
+"FIRST_STEPS_ITUNES_TITLE" = "Sincroniza cun s'elaboradore tuo";
+"FIRST_STEPS_ITUNES_DETAILS" = "Collega su dispositivu tuo a iTunes e ischerta·lu. Ischerta \"Cumpartzidura de documentos\" in su menù a manca de iTunes e chirca VLC pro tramudare documentos.";
+"FIRST_STEPS_WIFI_TITLE" = "Cumpartzi impreende su WiFi";
+"FIRST_STEPS_WIFI_DETAILS" = "Inserta s'URL ingendradu in s'esploradore (browser) web preferidu tuo abarrende connessu a sa matessi retza de su telèfonu tuo.";
 "FIRST_STEPS_CLOUDS" = "Nues";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Càrriga sos documentos multimediales tuos in Google Drive o Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Aberi sa barra laterale pro seletzionare su servìtziu Nue tuo e atzèdere a sos documentos tuos pro los iscarrigare o trasmìtere.";
-"FIRST_STEPS_PLAYBACK" = "Riprodutzione";
-"FIRST_STEPS_FLOSS" = "VLC pro iOS est unu programma lìberu e a mitza aberta isvilupadu dae voluntàrios.\nNois isperamus chi t'agradet.";
+"FIRST_STEPS_CLOUD_TITLE" = "Nue";
+"FIRST_STEPS_CLOUD_DETAILS" = "Càrriga sos documentos multimediales tuos in unu servìtziu de nue comente a Google Drive o Dropbox pro los iscarrigare o trasmìtere a distàntzia.";
 
-"FIRST_STEPS_TIME" = "Tempus";
-"FIRST_STEPS_ASPECT" = "Proportziones";
-"FIRST_STEPS_SPEED" = "Lestresa";
-"FIRST_STEPS_REPEAT" = "Ripite";
-"FIRST_STEPS_SUBTITLES" = "Rastas de sos sutatìtulos";
-"FIRST_STEPS_AUDIO" = "Rastas àudio";
-"FIRST_STEPS_POSITION" = "Positzione";
 
 "PLEX_CHECK_ACCOUNT" = "Controlla su contu Plex tuo in sas impostztziones";
 "PLEX_ERROR_ACCOUNT" = "Errore de atzessu a Plex";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "Volume";
 "DURATION" = "Longària";
 "TITLE" = "Tìtulos";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Incarca %@ pro iscantzellare"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "Sa seletzione non podet èssere iscantzellada";
-"DELETE_INVALID_TITLE" = "Seletzione non vàlida";
 "DELETE_MESSAGE" = "Cunfirma s'iscantzellamentu de sos documentos isseberados";
 "DELETE_TITLE" = "Iscantzella sos documentos isseberados";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protocollu non seletzionadu";
 "Settings" = "Impostatziones";
 
-"CANCEL" = "Annulla";
 "ERROR" = "Errore";
 "OK" = "AB";
 "SORT" = "Òrdina";
 "SORT_BY" = "Òrdina pro";
+"SEARCH" = "Chirca";
 "VIDEO" = "Vìdeu";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,37 @@
 "NAME" = "Nùmene";
 
 //EDIT
+
+"BUTTON_EDIT" = "Modìfica";
+"BUTTON_EDIT_HINT" = "Modalidade de modìfica";
+
 "ADD_TO_PLAYLIST" = "Annanghe a s'iscalita";
+"ADD_TO_PLAYLIST_HINT" = "Aberi su menù pro annànghere a s'iscalita";
 
 "PLAYLIST_PLACEHOLDER" = "Tìtulu de s'iscalita";
 "PLAYLIST_DESCRIPTION" = "Issèbera unu tìtulu pro s'iscalita noa tua";
+"PLAYLIST_CREATION" = "Crea un'iscalita noa";
+"PLAYLIST_CREATION_HINT" = "Ammustra un'atzione interativa pro creare un'iscalita";
+"ERROR_PLAYLIST_CREATION" = "Creatzione de s'iscalita fallida";
+"ERROR_PLAYLIST_TRACKS" = "Recùperu de sas rastas fallidu";
 
 "RENAME_PLACEHOLDER" = "Tìtulu nou";
 "ERROR_RENAME_FAILED" = "Càmbiu de nùmene fallidu";
 "ERROR_EMPTY_NAME" = "Su tìtulu non podet èssere bòidu";
 
+"SHARE_LABEL" = "Cumpartzi";
+"SHARE_HINT" = "Cumpartzi sos documentos isseberados";
+"RENAME_HINT" = "Càmbia su nùmene a sos documentos isseberados";
+"DELETE_HINT" = "Iscantzella sos documentos isseberados";
+
 // Sort
 
+"BUTTON_SORT" = "Òrdina";
+"BUTTON_SORT_HINT" = "Ammustra su fògiu de atzione de ordinamentu";
 "HEADER_TITLE_SORT" = "Òrdina pro";
+"DESCENDING_LABEL" = "Òrdine minimante";
+"DESCENDING_SWITCH_LABEL" = "Òrdine artiante o minimante";
+"DESCENDING_SWITCH_HINT" = "Òrdina su cuntestu in manera artiante o minimante";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +361,13 @@
 "ALBUM" = "Album";
 "FILENAME" = "Nùmene documentu";
 "TRACK_NUMBER" = "Nùmeru rasta";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nudda de agatadu";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Artista disconnotu";
+"VARIOUS_ARTIST" = "Artistas vàrios";
+"UNKNOWN_ALBUM" = "Album disconnotu";
