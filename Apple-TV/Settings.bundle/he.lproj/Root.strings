@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "שליטה בנגינה עם מחוות";
 "SETTINGS_GESTURES_VOLUME" = "החלק אצבע למעלה/למטה לעוצמת שמע";
-"SETTINGS_GESTURES_PLAYPAUSE" = "הקש לעצירה/נגינה";
+"SETTINGS_GESTURES_PLAYPAUSE" = "נגיעה בשתי אצבעות מנגנת/משהה";
 "SETTINGS_GESTURES_BRIGHTNESS" = "החלק אצבע למעלה/למטה לבהירות";
 "SETTINGS_GESTURES_SEEK" = "החלק אצבע ימינה/שמאלה לחיפוש";
 "SETTINGS_GESTURES_CLOSE" = "צבוט לסגירה";
