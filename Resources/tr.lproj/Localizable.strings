@@ -1,28 +1,27 @@
-"STORE_DESCRIPTION" = "iOS için VLC, özgür VLC ortam oynatıcısının iPad, iPhone ve iPod touch üzerinde kullanılmak üzere derlenmiş sürümüdür.\nÇeşitli biçimlerdeki tüm film, dizi ve müziklerinizi herhangi bir dönüştürme işlemine gerek duymadan doğrudan oynatabilir.\nDropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes gibi bulut hizmetleri ile dosya eşitleme, doğrudan dosya indirme ve WiFi paylaşımı aracılığıyla SMB, FTP, UPnP/DLNA gibi ortam sunucularından ve web üzerinden akış yapma olanaklarını sağlar.\nTam SSA uyumluluğu ile gelişmiş alt yazılar, çok izli sesleri ve oynatma hızı denetimini VLC tarafından desteklenen özelliklerden bazılarıdır.\n\niOS için VLC tamamen özgür ve açık kaynaklıdır.";
+"STORE_DESCRIPTION" = "iOS için VLC, özgür VLC ortam oynatıcısının iPad, iPhone ve iPod touch üzerinde kullanılmak üzere derlenmiş sürümüdür.\nÇeşitli biçimlerdeki tüm film, dizi ve müziklerinizi herhangi bir dönüştürme işlemine gerek duymadan doğrudan oynatabilir.\nDropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes gibi bulut hizmetleri ile dosya eşitleme, doğrudan dosya indirme ve WiFi paylaşımı aracılığıyla SMB, FTP, UPnP/DLNA gibi ortam sunucularından ve web üzerinden akış yapma olanaklarını sağlar.\nTam SSA uyumluluğu ile gelişmiş alt yazılar, çok kayıtlı sesler ve oynatma hızı denetimini VLC tarafından desteklenen özelliklerden bazılarıdır.\n\niOS için VLC tamamen özgür ve açık kaynaklıdır.";
 
-"STORE_DESCRIPTION_TV" = "VLC ortam oynatıcısı platformlar arasında kullanılabilen özgür ve açık kaynaklı bir çoklu ortam oynatma çözümüdür.\nÇeşitli biçimlerdeki tüm film, dizi ve müziklerinizi herhangi bir dönüştürme işlemine gerek duymadan doğrudan oynatabilir.\nBulut hizmetleri (Dropbox, OneDrive, Box), ortam sunucuları (SMB, FTP, UPnP/DLNA) ve web üzerinden ortam akışı ile Mac ya da Windows bilgisayarınızdan bir Web Arayüzü aracılığıyla Uzaktan Oynatım olanaklarını sağlar.\nTam SSA uyumluluğu ile gelişmiş alt yazılar, çok izli sesler ve oynatma hızı denetimi VLC tarafından desteklenen özelliklerden bazılarıdır.\n\niOS için VLC tamamen özgür ve açık kaynaklıdır.\n\nÜst veri ve kapak görselleri TMDb ve Hatchet toplulukları tarafından güncellenen film ve müzik veritabanları üzerinden sağlanmaktadır.";
+"STORE_DESCRIPTION_TV" = "VLC ortam oynatıcısı platformlar arasında kullanılabilen özgür ve açık kaynaklı bir çoklu ortam oynatma çözümüdür.\nÇeşitli biçimlerdeki tüm film, dizi ve müziklerinizi herhangi bir dönüştürme işlemine gerek duymadan doğrudan oynatabilir.\nBulut hizmetleri (Dropbox, OneDrive, Box), ortam sunucuları (SMB, FTP, UPnP/DLNA) ve web üzerinden ortam akışı ile Mac ya da Windows bilgisayarınızdan bir Web Arayüzü aracılığıyla Uzaktan Oynatım olanaklarını sağlar.\nTam SSA uyumluluğu ile gelişmiş alt yazılar, çok kayıtlı sesler ve oynatma hızı denetimi VLC tarafından desteklenen özelliklerden bazılarıdır.\n\niOS için VLC tamamen özgür ve açık kaynaklıdır.\n\nÜst veri ve kapak görselleri TMDb ve Hatchet toplulukları tarafından güncellenen film ve müzik veritabanları üzerinden sağlanmaktadır.";
 
-"CHOOSE_AUDIO_TRACK" = "Ses İzi Seç";
-"CHOOSE_SUBTITLE_TRACK" = "Alt Yazı İzi Seçin";
-"OPEN_TRACK_PANEL" = "İz seçimini aç";
+"CHOOSE_AUDIO_TRACK" = "Ses Kaydı Seçin";
+"CHOOSE_SUBTITLE_TRACK" = "Alt Yazı Kaydı Seçin";
+"OPEN_TRACK_PANEL" = "Kayıt seçimini aç";
 "CHOOSE_TITLE" = "Başlık Seç";
 "CHOOSE_CHAPTER" = "Bölüm Seç";
 "CHAPTER_SELECTION_TITLE" = "Bölümler";
 "TITLE" = "Başlık";
 "CHAPTER" = "Bölüm";
 "MINIMIZE_PLAYBACK_VIEW" = "Oynatımı küçült";
-"FULLSCREEN_PLAYBACK" = "Tam ekranda oynat";
-"TRACK_SELECTION" = "İz Seçimi";
+"TRACK_SELECTION" = "Kayıt Seçimi";
 "AUDIO" = "Ses";
 "SUBTITLES" = "Alt yazılar";
 "LANGUAGE" = "Dil";
 "MEDIA_INFO" = "Ortam Bilgileri";
 "VIDEO_DIMENSIONS" = "Görüntü boyutu";
 "FORMAT_VIDEO_DIMENSIONS" = "%ix%i piksel";
-"FORMAT_AUDIO_TRACKS" = "%i ses izi";
-"ONE_AUDIO_TRACK" = "Bir ses izi";
-"FORMAT_SPU_TRACKS" = "%i alt yazı izi";
-"ONE_SPU_TRACK" = "Bir alt yazı izi";
+"FORMAT_AUDIO_TRACKS" = "%i ses kaydı";
+"ONE_AUDIO_TRACK" = "Bir ses kaydı";
+"FORMAT_SPU_TRACKS" = "%i alt yazı kaydı";
+"ONE_SPU_TRACK" = "Bir alt yazı kaydı";
 "TRACKS" = "%i Kayıt";
 "TRACK" = "%i Kayıt";
 
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Oynatma sürdürülsün mü?";
 "CONTINUE_PLAYBACK_LONG" = "\"%@\" oynatımı kaldığınız yerden sürdürülsün mü?";
 
-"BUTTON_ALL" = "Tümünü Seç";
 "BUTTON_ABOUT" = "Hakkında";
 "BUTTON_BACK" = "Geri";
 "BUTTON_DONE" = "Bitti";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "Kullanılabilecek akış oynatma aygıtları menüsünü görüntüler";
 
 "UPGRADING_LIBRARY" = "Ortam Kitaplığı Yükseltiliyor";
-"UNTITLED_SHOW" = "Başlıksız Gösteri";
 "UNKNOWN" = "Bilinmeyen";
 
 "OPEN_NETWORK" = "Ağ Akışı Aç";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "%i HTTP koduyla indirilemedi";
-"HTTP_FILE_CREATION_FAILED" = "Dosya oluşturulamadı";
 "HTTP_DOWNLOAD_CANCELLED" = "Kullanıcı indirmeyi iptal etti";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Dosyayı %@ üzerine indireceğiniz adresi yazın.";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "Adres şeması (%@) desteklenmiyor. Lütfen HTTP, HTTPS ya da FTP ile başlayan bir adres kullanın.";
 "RENAME_MEDIA_TO" = "%@ için yeni bir ad yazın";
 
+"FOLDER_EMPTY" = "Klasör boş";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Açılacak bir dosya seçin:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Şununla Aç...";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Bu dosya türünü açacak bir uygulama bulunamadı";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Dosya Film Rulosuna kaydedildi";
 
-"SECTION_HEADER_LIBRARY" = "Ortam Kitaplığı";
 "STREAMVC_DETAILTEXT" = "Akışlar indirilmeden doğrudan oynatılsın";
 "DOWNLOADVC_DETAILTEXT" = "Dosyalar doğrudan aygıtınıza indirilsin";
 "HEADER_TITLE_RENDERER" = " Bir akış oynatma aygıtı seçin";
 
+"NETWORK" = "Ağ";
 "LOCAL_NETWORK" = "Yerel Ağ";
 "CONNECT_TO_SERVER" = "Sunucuya Bağlan";
 "FILE_SERVER" = "Dosya Sunucuları";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "Ortam Kitaplığının Kilidini Aç\nParola yazmayı iptal et";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Başarısız Parola Denemesi";
+"1 Failed Passcode Attempt" = "1 Başarısız Parola Denemesi";
+"Change Passcode" = "Parolayı Değiştir";
+"Enter Passcode" = "Parolayı Yazın";
+"Enter a passcode" = "Bir parola yazın";
+"Enter your new passcode" = "Yeni parolanızı yazın";
+"Enter your old passcode" = "Eski parolanızı yazın";
+"Enter your passcode" = "Parolanızı yazın";
+"Next" = "Sonraki";
+"Passcodes did not match. Try again." = "Parola ile onayı aynı değil. Yeniden deneyin.";
+"Re-enter your new passcode" = "Yeni parolanızı onaylayın";
+"Re-enter your passcode" = "Parolanızı onaylayın";
+"Set Passcode" = "Parola Koruması";
 
 "Settings" = "Ayarlar"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Açık";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Görüntü Oynatıcı";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Oynatma denetimlerini görüntülemek ya da gizlemek için çift dokunun";
 
-"FIRST_STEPS_WELCOME" = "Hoş Geldiniz";
-"FIRST_STEPS_WELCOME_DETAIL" = "Ortamlarınızı Eşitlemek ve Oynatmak için ilk adımlar.";
 "FIRST_STEPS_ITUNES" = "iTunes Dosya Eşitlemesi";
-"FIRST_STEPS_ITUNES_DETAILS" = "%@ aygıtını Mac ya da PC bilgisayara kablo ile bağlayın.\niTunes uygulamasını açın.\n%@ aygıtını seçin.\nSol menüden \"Dosya Paylaşımı\" üzerine tıklayın ve VLC uygulamasına bakın.\nDosyaları aktarın.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "%@ aygıtınızı Mac ya da bilgisayarınız ile aynı ağa bağlayın.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Yan menüye geçin, web tarayıcısına Internet adresini yazın ve dosyalarınızı yükleyin.";
+"FIRST_STEPS_ITUNES_TITLE" = "Bilgisayarınızla Eşitleyin";
+"FIRST_STEPS_ITUNES_DETAILS" = "Aygıtınızı iTunes uygulamasına bağlayıp seçin. Sol taraftaki iTunes menüsünden \"Dosya Paylaşımı\" seçin ve VLC tarafından dosyaların aktarılmasını bekleyin";
+"FIRST_STEPS_WIFI_TITLE" = "Wi-Fi ile Paylaş";
+"FIRST_STEPS_WIFI_DETAILS" = "Telefonunuz ile aynı ağa bağlıyken üretilen adresi web tarayıcınıza yazın ";
 "FIRST_STEPS_CLOUDS" = "Bulut";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Ortamınızı Google Drive ya da Dropbox üzerine yükleyin.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "İndirmek ya da oynatmak için yan menüyü açıp Bulut hizmet sağlayıcınızı seçin ve ortamınıza erişin.";
-"FIRST_STEPS_PLAYBACK" = "Oynatım";
-"FIRST_STEPS_FLOSS" = "iOS için VLC, gönüllüler tarafından geliştirilen özgür ve açık kaynaklı bir yazılımdır.\nBeğeneceğinizi umarız.";
+"FIRST_STEPS_CLOUD_TITLE" = "Bulut";
+"FIRST_STEPS_CLOUD_DETAILS" = "Ortamlarınızı Google Drive ya da Dropbox gibi bulut hizmetlerine yükleyerek uzaktan indirebilir ya da akmasını sağlayabilirsiniz.";
 
-"FIRST_STEPS_TIME" = "Zaman";
-"FIRST_STEPS_ASPECT" = "En Boy Oranı";
-"FIRST_STEPS_SPEED" = "Hız";
-"FIRST_STEPS_REPEAT" = "Yinele";
-"FIRST_STEPS_SUBTITLES" = "Alt Yazı İzleri";
-"FIRST_STEPS_AUDIO" = "Ses İzleri";
-"FIRST_STEPS_POSITION" = "Konum";
 
 "PLEX_CHECK_ACCOUNT" = "Plex hesap ayarlarını denetleyin";
 "PLEX_ERROR_ACCOUNT" = "Plex Oturum Açma Hatası";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "Ses Düzeyi";
 "DURATION" = "Süre";
 "TITLE" = "Başlık";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Silmek için %@ Üzerine Dokunun"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "Seçim silinemez";
-"DELETE_INVALID_TITLE" = "Seçim Geçersiz";
 "DELETE_MESSAGE" = "Seçilmiş dosyaları silmek istiyor musunuz";
 "DELETE_TITLE" = "Seçilmiş Dosyaları Sil";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "İletişim kuralı seçilmemiş";
 "Settings" = "Ayarlar";
 
-"CANCEL" = "İptal";
 "ERROR" = "Hata";
 "OK" = "Tamam";
 "SORT" = "Sırala";
 "SORT_BY" = "Sıralama";
+"SEARCH" = "Arama";
 "VIDEO" = "Görüntü";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,37 @@
 "NAME" = "Ad";
 
 //EDIT
+
+"BUTTON_EDIT" = "Düzenle";
+"BUTTON_EDIT_HINT" = "Düzenleme kipi";
+
 "ADD_TO_PLAYLIST" = "Oynatma Listesine Ekle";
+"ADD_TO_PLAYLIST_HINT" = "Oynatma listesine ekle menüsünü aç";
 
 "PLAYLIST_PLACEHOLDER" = "Oynatma listesi adı";
 "PLAYLIST_DESCRIPTION" = "Yeni oynatma listenize bir ad verin";
+"PLAYLIST_CREATION" = "Yeni oynatma listesi ekle";
+"PLAYLIST_CREATION_HINT" = "Bir oynatma listesi eklemek için etkileşimli bir işlem görüntüler";
+"ERROR_PLAYLIST_CREATION" = "Bir oynatma listesi eklenemedi";
+"ERROR_PLAYLIST_TRACKS" = "Kayıtlar alınamadı";
 
 "RENAME_PLACEHOLDER" = "Yeni ad";
 "ERROR_RENAME_FAILED" = "Yeniden adlandırılamadı";
 "ERROR_EMPTY_NAME" = "Ad boş olamaz";
 
+"SHARE_LABEL" = "Paylaş";
+"SHARE_HINT" = "Seçilmiş dosyaları paylaş";
+"RENAME_HINT" = "Seçilmiş dosyaları yeniden adlandır";
+"DELETE_HINT" = "Seçilmiş dosyaları sil";
+
 // Sort
 
+"BUTTON_SORT" = "Sıralama";
+"BUTTON_SORT_HINT" = "Sıralama işlemi sayfasını görüntüle";
 "HEADER_TITLE_SORT" = "Sıralama";
+"DESCENDING_LABEL" = "Azalan Sıralama";
+"DESCENDING_SWITCH_LABEL" = "Artan ya da azalan sıralama";
+"DESCENDING_SWITCH_HINT" = "İçeriği artan ya da azalan şekilde sıralar";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -345,4 +360,14 @@
 "PLAY_COUNT" = "Oynatma sayısı";
 "ALBUM" = "Albüm";
 "FILENAME" = "Dosya adı";
-"TRACK_NUMBER" = "İz numarası";
+"TRACK_NUMBER" = "Kayıt numarası";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Herhangi bir şey bulunamadı";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Sanatçı Bilinmiyor";
+"VARIOUS_ARTIST" = "Çeşitli Sanatçılar";
+"UNKNOWN_ALBUM" = "Albüm Bilinmiyor";
