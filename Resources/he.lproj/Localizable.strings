@@ -11,7 +11,6 @@
 "TITLE" = "כותר";
 "CHAPTER" = "פרק";
 "MINIMIZE_PLAYBACK_VIEW" = "צמצם תצוגת נגן";
-"FULLSCREEN_PLAYBACK" = "נגן במסך מלא";
 "TRACK_SELECTION" = "בחירת ערוץ";
 "AUDIO" = "שמע";
 "SUBTITLES" = "תרגומים";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "להמשיך נגינה?";
 "CONTINUE_PLAYBACK_LONG" = "האם את/ה מעוניין/ת להמשיך את הנגינה של \"%@\" בנקודה שהופסקה?";
 
-"BUTTON_ALL" = "בחירת הכול";
 "BUTTON_ABOUT" = "על אודות";
 "BUTTON_BACK" = "חזרה";
 "BUTTON_DONE" = "בוצע";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "הצגת תפריט עם התקני השידור הזמינים";
 
 "UPGRADING_LIBRARY" = "ספריית המדיה משתדרגת";
-"UNTITLED_SHOW" = "מופע ללא שם";
 "UNKNOWN" = "לא ידוע";
 
 "OPEN_NETWORK" = "פתיחת תזרים רשת";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "ההורדה נכשלה עם קוד ה־HTTP %i";
-"HTTP_FILE_CREATION_FAILED" = "יצירת הקובץ נכשלה";
 "HTTP_DOWNLOAD_CANCELLED" = "ההורדה בוטלה על ידי המשתמש";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "נא להזין כתובת כדי להוריד את הקובץ אל ה־%@ שלך.";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "מבנה הכתובת (%@) אינו נתמך. נא להשתמש בכתובת המתחילה ב־HTTP,‏ HTTPS או FTP.";
 "RENAME_MEDIA_TO" = "נא להזין שם חדש עבור %@";
 
+"FOLDER_EMPTY" = "תיקייה ריקה";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "בחירת קובץ לפתיחה:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "פתיחה בתוך…";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "לא ניתן למצוא אף יישום לפתיחת סוג כזה של קובץ";
 "SHARING_SUCCESS_CAMERA_ROLL" = "הקובץ נשמר בהצלחה למאגר התמונות";
 
-"SECTION_HEADER_LIBRARY" = "ספריית המדיה";
 "STREAMVC_DETAILTEXT" = "נגינת תזרימים ללא הורדה";
 "DOWNLOADVC_DETAILTEXT" = "הורדת הקבצים ישירות למכשיר שלך";
 "HEADER_TITLE_RENDERER" = "בחירת התקן שידור";
 
+"NETWORK" = "רשת";
 "LOCAL_NETWORK" = "רשת מקומית";
 "CONNECT_TO_SERVER" = "התחברות לשרת";
 "FILE_SERVER" = "שרתי קבצים";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "שחרור נעילת ספריית המדיה\nיש לבטל כדי להכניס קוד";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d ניסיונות צופן שנכשלו";
+"1 Failed Passcode Attempt" = "ניסיון צופן אחד נכשל";
+"Change Passcode" = "החלפת צופן";
+"Enter Passcode" = "נא להקליד צופן";
+"Enter a passcode" = "נא להקליד צופן";
+"Enter your new passcode" = "נא להקליד את הצופן החדש שלך";
+"Enter your old passcode" = "נא להקליד את הצופן החדש שלך";
+"Enter your passcode" = "נא להקליד את הצופן שלך";
+"Next" = "הבא";
+"Passcodes did not match. Try again." = "הצפנים אינם תואמים. נא לנסות שוב.";
+"Re-enter your new passcode" = "נא להקליד את הצופן החדש שלך שוב";
+"Re-enter your passcode" = "נא להקליד את הצופן שלך שוב";
+"Set Passcode" = "הגדרת צופן";
 
 "Settings" = "הגדרות"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "פעיל";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "נגן וידאו";
 "VO_VIDEOPLAYER_DOUBLETAP" = "יש לגעת פעמיים כדי להציג או להסתיר את פקדי הנגינה";
 
-"FIRST_STEPS_WELCOME" = "ברוך בואך";
-"FIRST_STEPS_WELCOME_DETAIL" = "הצעדים הראשונים לסנכרון ונגינה של המדיה שלך.";
 "FIRST_STEPS_ITUNES" = "סנכרון קבצים עם iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "יש לחבר את %@ ל־Mac או למחשב שלך באמצעות הכבל.\nלפתוח את iTunes.\nלבחור את ה־%@ שלך.\nלבחור ב־„שיתוף קבצים” בתפריט מימין ולחפש את VLC.\nלהעביר את הקבצים שלך.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "ניתן לחבר את ה־%@ שלך לאותה הרשת עם ה־Mac או המחשב שלך.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "ניתן להחליף את מצב הבורר בסרגל הצד, להזין את הכתובת לדפדפן האינטרנט ולהעלות את הקבצים שלך.";
+"FIRST_STEPS_ITUNES_TITLE" = "סנכרון עם המחשב שלך";
+"FIRST_STEPS_ITUNES_DETAILS" = "עליך לחבר את המכשיר שלך ל־iTunes ולבחור במכשיר שלך. לאחר מכן לבחור ב„שיתוף קבצים” בצדו הימני של ה־iTunes ולחפש את VLC כדי להעביר קבצים";
+"FIRST_STEPS_WIFI_TITLE" = "שיתוף דרך רשת אלחוטית";
+"FIRST_STEPS_WIFI_DETAILS" = "נא להכניס את הכתובת שנוצרה בדפדפן המועדף עליך בעוד החיבור שלך זהה לזה של הטלפון שלך";
 "FIRST_STEPS_CLOUDS" = "עננים";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "ניתן להעלות את המדיה שלך ל־Google Drive או ל־Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "ניתן לפתוח את סרגל הצד כדי לבחור את ספק הענן שלך ולגשת למדיה שלך להורדה או להזרמה.";
-"FIRST_STEPS_PLAYBACK" = "נגינה";
-"FIRST_STEPS_FLOSS" = "VLC ל־iOS הנה תכנה חופשית בקוד פתוח המפותחת על ידי מתנדבים.\nכולנו תקווה שעבודתנו נושאת חן בעיניך.";
+"FIRST_STEPS_CLOUD_TITLE" = "ענן";
+"FIRST_STEPS_CLOUD_DETAILS" = "ניתן להעלות את המדיה שלך לשירות ענן כגון Google Drive או Dropbox כדי להוריד או להזרים אותה מרחוק.";
 
-"FIRST_STEPS_TIME" = "זמן";
-"FIRST_STEPS_ASPECT" = "יחס תצוגה";
-"FIRST_STEPS_SPEED" = "מהירות";
-"FIRST_STEPS_REPEAT" = "חזרה";
-"FIRST_STEPS_SUBTITLES" = "רצועות כתוביות";
-"FIRST_STEPS_AUDIO" = "רצועות שמע";
-"FIRST_STEPS_POSITION" = "מיקום";
 
 "PLEX_CHECK_ACCOUNT" = "בדוק את חשבון ה Plex שלך תחת הגדרות";
 "PLEX_ERROR_ACCOUNT" = "שגיאת התחברות עם Plex";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "עוצמת שמע";
 "DURATION" = "משך";
 "TITLE" = "כותר";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "לחץ על %@ למחיקה"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "לא ניתן למחוק את הבחירה";
-"DELETE_INVALID_TITLE" = "הבחירה שגויה";
 "DELETE_MESSAGE" = "יש לאשר את מחיקת הקבצים הנבחרים";
 "DELETE_TITLE" = "מחיקת הקבצים הנבחרים";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "הפרוטוקול לא נבחר";
 "Settings" = "הגדרות";
 
-"CANCEL" = "ביטול";
 "ERROR" = "שגיאה";
 "OK" = "בסדר";
 "SORT" = "סידור";
 "SORT_BY" = "סידור לפי";
+"SEARCH" = "חיפוש";
 "VIDEO" = "וידאו";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,37 @@
 "NAME" = "שם";
 
 //EDIT
+
+"BUTTON_EDIT" = "עריכה";
+"BUTTON_EDIT_HINT" = "מצב עריכה";
+
 "ADD_TO_PLAYLIST" = "הוספה לרשימת הנגינה";
+"ADD_TO_PLAYLIST_HINT" = "פתיחת תפריט ההוספה לרשימת נגינה";
 
 "PLAYLIST_PLACEHOLDER" = "כותרת רשימת נגינה";
 "PLAYLIST_DESCRIPTION" = "נא לבחור כותרת לרשימת הנגינה החדשה שלך";
+"PLAYLIST_CREATION" = "יצירת רשימת נגינה חדשה";
+"PLAYLIST_CREATION_HINT" = "הצגת פעולה אינטראקטיבית כדי ליצור רשימת נגינה";
+"ERROR_PLAYLIST_CREATION" = "יצירת רשימת הנגינה נכשלה";
+"ERROR_PLAYLIST_TRACKS" = "קבלת הרצועות נכשלה";
 
 "RENAME_PLACEHOLDER" = "כותרת חדשה";
 "ERROR_RENAME_FAILED" = "שינוי השם נכשל";
 "ERROR_EMPTY_NAME" = "הכותרת לא יכולה להישאר ריקה";
 
+"SHARE_LABEL" = "שיתוף";
+"SHARE_HINT" = "שיתוף הקבצים הנבחרים";
+"RENAME_HINT" = "שינוי שמם של הקבצים הנבחרים";
+"DELETE_HINT" = "מחיקת הקבצים הנבחרים";
+
 // Sort
 
+"BUTTON_SORT" = "מיון";
+"BUTTON_SORT_HINT" = "הצגת גיליון פעולת מיון";
 "HEADER_TITLE_SORT" = "מיון לפי";
+"DESCENDING_LABEL" = "בסדר יורד";
+"DESCENDING_SWITCH_LABEL" = "בסדר עולה או יורד";
+"DESCENDING_SWITCH_HINT" = "מיון הקשר בסדר עולה או יורד";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +361,13 @@
 "ALBUM" = "אלבום";
 "FILENAME" = "שם קובץ";
 "TRACK_NUMBER" = "מספר רצועה";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "שום דבר לא נמצא";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "אמן לא ידוע";
+"VARIOUS_ARTIST" = "מגוון אמנים";
+"UNKNOWN_ALBUM" = "אלבום לא ידוע";
