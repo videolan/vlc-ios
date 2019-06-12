@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "Controlar a reprodução com gestos";
 "SETTINGS_GESTURES_VOLUME" = "Deslizar cima/baixo para volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tocar para reproduzir/pausar";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Dois toques para reproduzir/pausar";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Deslizar cima/baixo para brilho";
 "SETTINGS_GESTURES_SEEK" = "Deslizar direita/esquerda para procurar";
 "SETTINGS_GESTURES_CLOSE" = "Juntar os dedos para fechar";
