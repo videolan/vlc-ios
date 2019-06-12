@@ -73,3 +73,4 @@
 
 #define kVLCStoredServerList @"kVLCStoredServerList"
 
+#define kVLCHTTPUploadDirectory @"Upload"
