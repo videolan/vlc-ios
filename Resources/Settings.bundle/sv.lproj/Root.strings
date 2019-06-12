@@ -40,11 +40,11 @@
 
 "SETTINGS_GESTURES" = "Styr uppspelningen med gester";
 "SETTINGS_GESTURES_VOLUME" = "Svep upp/ned för volym";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tryck för att spela/pausa";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Tryck med två fingrar för att spela upp/pausa";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Svep upp/ned för ljusstyrka";
 "SETTINGS_GESTURES_SEEK" = "Svep åt höger/vänster för att snabbspola";
 "SETTINGS_GESTURES_CLOSE" = "Nyp för att stänga";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Variabel för hopplängd";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Föränderlig hopplängd";
 
 "SETTINGS_SUBTITLES_TITLE" = "Undertexter";
 "SETTINGS_SUBTITLES_FONT" = "Typsnitt";
