@@ -74,6 +74,11 @@
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
+"BUTTON_DISMISS" = "Dismiss";
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
 "UPGRADING_LIBRARY" = "Upgrading Media Library";
 "UNKNOWN" = "Unknown";
 
@@ -371,3 +376,10 @@
 "UNKNOWN_ARTIST" = "Unknown Artist";
 "VARIOUS_ARTIST" = "Various Artists";
 "UNKNOWN_ALBUM" = "Unknown Album";
+
+// MARK: - QueueViewController
+
+"QUEUE_TITLE" = "Play Queue";
+"QUEUE_MEDIA_LIST" = "Play List";
+"QUEUE_CURRENT_MEDIA" = "Currently playing";
+"QUEUE_DISMISS_HINT" = "Closes play queue view";

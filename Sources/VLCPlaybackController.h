@@ -42,6 +42,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller;
 - (void)showStatusMessage:(NSString *)statusMessage;
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata;
+- (void)playbackController:(VLCPlaybackController *)playbackController
+                 nextMedia:(VLCMedia *)media;
 
 @end
 
@@ -125,6 +127,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)selectTitleAtIndex:(NSInteger)index;
 - (void)selectChapterAtIndex:(NSInteger)index;
 - (void)setAudioPassthrough:(BOOL)shouldPass;
+
+- (void)playItemAtIndex:(NSUInteger)index;
 
 - (void)switchAspectRatio;
 - (void)toggleFullScreen;

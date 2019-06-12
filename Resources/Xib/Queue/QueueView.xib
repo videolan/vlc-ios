@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QueueViewController" customModule="VLC" customModuleProvider="target">
+            <connections>
+                <outlet property="playerView" destination="53X-e1-fcq" id="QBF-ob-ASF"/>
+                <outlet property="queueCollectionView" destination="vtO-U6-cBN" id="OQi-Rg-q2I"/>
+                <outlet property="view" destination="iN0-l3-epB" id="ufe-Vz-owG"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="QueueView" id="iN0-l3-epB" userLabel="QueueView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tdK-mE-sNF">
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <subviews>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vtO-U6-cBN" userLabel="QueueCollectionView">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="702"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="P1Y-I1-lyI">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="50" height="50"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="53X-e1-fcq" userLabel="PlayerView">
+                            <rect key="frame" x="0.0" y="702" width="414" height="150"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="150" id="XbQ-7M-CCu"/>
+                            </constraints>
+                            <viewLayoutGuide key="safeArea" id="qIE-ot-sKr"/>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="tdK-mE-sNF" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="17E-1w-4Iy"/>
+                <constraint firstItem="tdK-mE-sNF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4mB-oX-qrB"/>
+                <constraint firstAttribute="trailing" secondItem="tdK-mE-sNF" secondAttribute="trailing" id="ITp-u9-uUd"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="tdK-mE-sNF" secondAttribute="bottom" constant="-34" id="csZ-re-bBo"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="140.57971014492756" y="150"/>
+        </view>
+    </objects>
+</document>

@@ -113,6 +113,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     UIStackView *_navigationBarStackView;
     UIButton *_rendererButton;
+    UIButton *_playQueueButton;
+
+    VLCQueueViewController *_queueViewController;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) VLCService *services;
@@ -239,6 +242,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self setupConstraints];
     [self setupRendererDiscovererManager];
+    [self setupPlayQueueButton];
 }
 
 - (void)setupGestureRecognizers
@@ -364,6 +368,31 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     return _doneButton;
 }
 
+- (void)setupPlayQueueButton
+{
+    _playQueueButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    _playQueueButton.translatesAutoresizingMaskIntoConstraints = NO;
+    _playQueueButton.accessibilityLabel = NSLocalizedString(@"BUTTON_PLAY_QUEUE", nil);
+    _playQueueButton.accessibilityHint = NSLocalizedString(@"BUTTON_PLAY_QUEUE_HINT", nil);
+    [_playQueueButton addTarget:self
+                         action:@selector(handlePlayQueue)
+               forControlEvents:UIControlEventTouchUpInside];
+    [_playQueueButton setImage:[UIImage imageNamed:@"play-queue"]
+                      forState:UIControlStateNormal];
+    _queueViewController = [[VLCQueueViewController alloc]
+                            init:_services.medialibraryService];
+}
+
+- (void)handlePlayQueue
+{
+    UINavigationController *newNavController = [[UINavigationController alloc]
+                                                initWithRootViewController:_queueViewController];
+
+    [self.navigationController presentViewController:newNavController
+                                            animated:YES
+                                          completion:nil];
+}
+
 - (UIStackView *)navigationBarStackView
 {
     if (!_navigationBarStackView) {
@@ -375,6 +404,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [_navigationBarStackView addArrangedSubview:self.doneButton];
         [_navigationBarStackView addArrangedSubview:_timeNavigationTitleView];
         [_navigationBarStackView addArrangedSubview:_rendererButton];
+        [_navigationBarStackView addArrangedSubview:_playQueueButton];
     }
     return _navigationBarStackView;
 }

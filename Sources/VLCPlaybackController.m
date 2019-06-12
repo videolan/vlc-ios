@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     VLCAspectRatioSixteenToTen,
 };
 
-@interface VLCPlaybackController () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCRemoteControlServiceDelegate>
+@interface VLCPlaybackController () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, VLCRemoteControlServiceDelegate>
 {
     VLCRemoteControlService *_remoteControlService;
     VLCMediaPlayer *_mediaPlayer;
@@ -194,6 +194,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _actualVideoOutputView.autoresizesSubviews = YES;
 
     _listPlayer = [[VLCMediaListPlayer alloc] initWithDrawable:_actualVideoOutputView];
+    _listPlayer.delegate = self;
 
     /* to enable debug logging for the playback library instance, switch the boolean below
      * note that the library instance used for playback may not necessarily match the instance
@@ -708,6 +709,15 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidPause object:self];
 }
 
+- (void)playItemAtIndex:(NSUInteger)index
+{
+    VLCMedia *media = [_mediaList mediaAtIndex:index];
+    [_listPlayer playItemAtNumber:[NSNumber numberWithUnsignedInteger:index]];
+    _mediaPlayer.media = media;
+    if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
+        [self.delegate prepareForMediaPlayback:self];
+}
+
 - (void)next
 {
     NSInteger mediaListCount = _mediaList.count;
@@ -733,6 +743,9 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         [_listPlayer playItemAtNumber:[NSNumber numberWithUnsignedInteger:nextIndex.unsignedIntegerValue]];
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
 
+        if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
+            [self.delegate prepareForMediaPlayback:self];
+
         return;
     }
 #endif
@@ -740,6 +753,11 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     if (mediaListCount > 1) {
         [_listPlayer next];
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
+
+        if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
+            [self.delegate prepareForMediaPlayback:self];
+
+
     } else {
         NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackForwardSkipLength];
         [_mediaPlayer jumpForward:skipLength.intValue];
@@ -1276,4 +1294,14 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _renderer = renderer;
     [_mediaPlayer setRendererItem:_renderer];
 }
+
+#pragma mark - VLCMediaListPlayerDelegate
+
+- (void)mediaListPlayer:(VLCMediaListPlayer *)player nextMedia:(VLCMedia *)media
+{
+    if ([_delegate respondsToSelector:@selector(playbackController:nextMedia:)]) {
+        [_delegate playbackController:self nextMedia:media];
+    }
+}
+
 @end
