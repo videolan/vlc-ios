@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "Управління відтворенням через жести";
 "SETTINGS_GESTURES_VOLUME" = "Проведіть вгору/вниз для зміни гучності";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Натисніть для відтворення/паузи";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Дотик двома пальцями для відтворення/паузи";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Проведіть вгору/вниз для яскравості";
 "SETTINGS_GESTURES_SEEK" = "Проведіть вправо/вліво для пошуку";
 "SETTINGS_GESTURES_CLOSE" = "Натисніть, щоб закрити";

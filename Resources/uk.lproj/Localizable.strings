@@ -11,7 +11,6 @@
 "TITLE" = "Назва";
 "CHAPTER" = "Частина";
 "MINIMIZE_PLAYBACK_VIEW" = "Сховати відтворення";
-"FULLSCREEN_PLAYBACK" = "Відтворювати на увесь екран";
 "TRACK_SELECTION" = "Вибір доріжки";
 "AUDIO" = "Аудіо";
 "SUBTITLES" = "Субтитри";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Продовжити відтворення?";
 "CONTINUE_PLAYBACK_LONG" = "Ви б хотіли продовжити відтворення \"%@\", де ви зупинилися";
 
-"BUTTON_ALL" = "Виділити все";
 "BUTTON_ABOUT" = "Про програму";
 "BUTTON_BACK" = "Назад";
 "BUTTON_DONE" = "Готово";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "Показати меню доступних пристроїв для трансляції";
 
 "UPGRADING_LIBRARY" = "Оновлюється медіабібліотека";
-"UNTITLED_SHOW" = "Безіменний показ";
 "UNKNOWN" = "Невідомо";
 
 "OPEN_NETWORK" = "Відкрити мережевий потік";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Провал завантаження з кодом HTTP %i";
-"HTTP_FILE_CREATION_FAILED" = "Сталася помилка створення файлу";
 "HTTP_DOWNLOAD_CANCELLED" = "Завантаження скасовано користувачем";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Введіть адресу для завантаження файлу на ваш %@.";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "Ця схема адрес (%@) не підтримується. Будь ласка, використовуйте адресу, яка починається із HTTP, HTTPS або FTP.";
 "RENAME_MEDIA_TO" = "Введіть нове ім'я для %@";
 
+"FOLDER_EMPTY" = "Порожня тека";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Вибрати файл для відкриття:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Відкрити у …";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Неможливо знайти жодну програму, щоб відкрити цей тип файлу";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Файл успішно збережено у галереї камери";
 
-"SECTION_HEADER_LIBRARY" = "Медіатека";
 "STREAMVC_DETAILTEXT" = "Відтворювати потоки напрямку без завантаження";
 "DOWNLOADVC_DETAILTEXT" = "Завантажувити файли напряму на ваш пристрій";
 "HEADER_TITLE_RENDERER" = "Вибрати пристрій для трансляції";
 
+"NETWORK" = "Мережа";
 "LOCAL_NETWORK" = "Локальна мережа";
 "CONNECT_TO_SERVER" = "З'єднатися з сервером";
 "FILE_SERVER" = "Файлові сервери";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "Розблокуйте бібліотеку медіа\nСкасуйте для введення парольного коду";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d невдалих спроб вводу пароля";
+"1 Failed Passcode Attempt" = "1 невдала спроба вводу пароля";
+"Change Passcode" = "Змінити пароль";
+"Enter Passcode" = "Введення паролю";
+"Enter a passcode" = "Введіть пароль";
+"Enter your new passcode" = "Введіть ваш новий пароль";
+"Enter your old passcode" = "Введіть ваш старий пароль";
+"Enter your passcode" = "Введіть ваш пароль";
+"Next" = "Далі";
+"Passcodes did not match. Try again." = "Паролі не збігаються. Спробуйте знову.";
+"Re-enter your new passcode" = "Повторно введіть ваш новий пароль";
+"Re-enter your passcode" = "Повторно введіть ваш пароль";
+"Set Passcode" = "Задання пароля";
 
 "Settings" = "Параметри"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Увімкн.";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Відеопрогравач";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Подвійний натиск, щоб сховати або показати управління відтворенням";
 
-"FIRST_STEPS_WELCOME" = "Ласкаво просимо";
-"FIRST_STEPS_WELCOME_DETAIL" = "Перші кроки для синхронізації та відтворення ваших медіафайлів.";
 "FIRST_STEPS_ITUNES" = "Синхронізація файлів через iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Під'єднайте ваш %@ до Mac або ПК за допомогою кабелю.\nВідкрийте iTunes.\nВиберіть ваш %@.\nВиберіть \"Поширення файлів\" на лівій стороні меню та знайдіть VLC.\nПеренесіть ваші файли.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Під'єднайте ваш %@ до тої ж мережі,  в якій ваш Mac або ПК.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Перемкніть перемикач у бічній панелі, введіть URL у веб-переглядач і завантажте ваші файли.";
+"FIRST_STEPS_ITUNES_TITLE" = "Синхронізувати з вашим комп'ютером";
+"FIRST_STEPS_ITUNES_DETAILS" = "Під'єднайте пристрій до iTunes і виберіть свій пристрій. Виберіть \"Поширення файлу\" у меню з лівого боку iTunes і знайдіть VLC для передачі файлів";
+"FIRST_STEPS_WIFI_TITLE" = "Поділитися через Wifi";
+"FIRST_STEPS_WIFI_DETAILS" = "Введіть згенеровану URL-адресу у вашому улюбленому веб-переглядачі під час під'єднання до тієї ж мережі, що й ваш телефон";
 "FIRST_STEPS_CLOUDS" = "Хмари";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Завантажте ваші медіафайли на Диск Google або Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Відкрийте бічну панель для вибору вашого постачальника хмари і для доступу до ваших медіафайлів для завантаження або потокової трасляції.";
-"FIRST_STEPS_PLAYBACK" = "Відтворення";
-"FIRST_STEPS_FLOSS" = "VLC для iOS - це вільне програмне забезпечення з відкритим кодом, яке розробляється добровольцями.\nСподіваємося, що ви полюбите його.";
+"FIRST_STEPS_CLOUD_TITLE" = "Хмара";
+"FIRST_STEPS_CLOUD_DETAILS" = "Вивантажте ваше медіа на хмарну службу на кшталт диску Google чи Dropbox, аби віддалено завантажувати чи транслювати його.";
 
-"FIRST_STEPS_TIME" = "Час";
-"FIRST_STEPS_ASPECT" = "Співвідношення сторін";
-"FIRST_STEPS_SPEED" = "Швидкість";
-"FIRST_STEPS_REPEAT" = "Повторювати";
-"FIRST_STEPS_SUBTITLES" = "Доріжки субтитрів";
-"FIRST_STEPS_AUDIO" = "Звукові доріжки";
-"FIRST_STEPS_POSITION" = "Позиція";
 
 "PLEX_CHECK_ACCOUNT" = "Перевірте ваш профіль Plex у налаштуваннях";
 "PLEX_ERROR_ACCOUNT" = "Помилка входу у Plex";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "Гучність";
 "DURATION" = "Тривалість";
 "TITLE" = "Назва";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Натисніть %@ для видалення"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "Це виділення не можна вилучити";
-"DELETE_INVALID_TITLE" = "Недійсне виділення";
 "DELETE_MESSAGE" = "Підтвердіть вилучення обраних файлів";
 "DELETE_TITLE" = "Вилучити обрані файли";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "Протокол не вибрано";
 "Settings" = "Параметри";
 
-"CANCEL" = "Скасувати";
 "ERROR" = "Помилка";
 "OK" = "Гаразд";
 "SORT" = "Сортувати";
 "SORT_BY" = "Сортування за";
+"SEARCH" = "Пошук";
 "VIDEO" = "Відео";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,37 @@
 "NAME" = "Назва";
 
 //EDIT
+
+"BUTTON_EDIT" = "Редагувати";
+"BUTTON_EDIT_HINT" = "Режим редагування";
+
 "ADD_TO_PLAYLIST" = "Додати до списку відтворення";
+"ADD_TO_PLAYLIST_HINT" = "Відкрити „додати до меню списку відтворення“";
 
 "PLAYLIST_PLACEHOLDER" = "Назва списку";
 "PLAYLIST_DESCRIPTION" = "Виберіть назву для вашого нового списку відтворення";
+"PLAYLIST_CREATION" = "Створити новий список відтворення";
+"PLAYLIST_CREATION_HINT" = "Показати інтерактивну дію, щоб створити список відтворення";
+"ERROR_PLAYLIST_CREATION" = "Не вдалося створити список відтворення";
+"ERROR_PLAYLIST_TRACKS" = "Не вдалося отримати доріжки";
 
 "RENAME_PLACEHOLDER" = "Нова назва";
 "ERROR_RENAME_FAILED" = "Перейменування не вдалося";
 "ERROR_EMPTY_NAME" = "Назва не може бути порожньою";
 
+"SHARE_LABEL" = "Поширити";
+"SHARE_HINT" = "Поширити обрані файли";
+"RENAME_HINT" = "Перейменувати обрані файли";
+"DELETE_HINT" = "Вилучити обрані файли";
+
 // Sort
 
+"BUTTON_SORT" = "Сортувати";
+"BUTTON_SORT_HINT" = "Показати аркуш дій сортування";
 "HEADER_TITLE_SORT" = "Сортування за";
+"DESCENDING_LABEL" = "Спадний порядок";
+"DESCENDING_SWITCH_LABEL" = "Зростальний чи спадний порядок";
+"DESCENDING_SWITCH_HINT" = "Упорядкувати вміст за порядком зростанням чи спадання";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +361,13 @@
 "ALBUM" = "Альбом";
 "FILENAME" = "Ім'я файлу";
 "TRACK_NUMBER" = "Номер доріжки";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Нічого не знайдено";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Невідомий виконавець";
+"VARIOUS_ARTIST" = "Різні виконавці";
+"UNKNOWN_ALBUM" = "Невідомий альбом";
