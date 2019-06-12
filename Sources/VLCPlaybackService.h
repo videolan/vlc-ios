@@ -52,6 +52,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)displayMetadataForPlaybackService:(VLCPlaybackService *)playbackService
                                  metadata:(VLCMetaData *)metadata;
 - (void)playbackServiceDidSwitchAspectRatio:(VLCAspectRatio)aspectRatio;
+- (void)playbackService:(VLCPlaybackService *)playbackService
+              nextMedia:(VLCMedia *)media;
 
 @end
 
@@ -141,6 +143,8 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)selectChapterAtIndex:(NSInteger)index;
 - (void)setAudioPassthrough:(BOOL)shouldPass;
 - (void)switchAspectRatio:(BOOL)toggleFullScreen;
+
+- (void)playItemAtIndex:(NSUInteger)index;
 
 #if !TARGET_OS_TV
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute;

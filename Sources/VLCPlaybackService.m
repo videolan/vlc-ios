@@ -33,7 +33,7 @@ NSString *const VLCPlaybackServicePlaybackMetadataDidChange = @"VLCPlaybackServi
 NSString *const VLCPlaybackServicePlaybackDidFail = @"VLCPlaybackServicePlaybackDidFail";
 NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackServicePlaybackPositionUpdated";
 
-@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCRemoteControlServiceDelegate>
+@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, VLCRemoteControlServiceDelegate>
 {
     VLCRemoteControlService *_remoteControlService;
     VLCMediaPlayer *_backgroundDummyPlayer;
@@ -128,6 +128,8 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         // stay alive in background exclusively for Chromecast.
         _backgroundDummyPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[@"--demux=rawaud"]];
         _backgroundDummyPlayer.media = [[VLCMedia alloc] initWithPath:@"/dev/zero"];
+
+        _mediaList = [[VLCMediaList alloc] init];
     }
     return self;
 }
@@ -207,6 +209,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     } else {
         _listPlayer = [[VLCMediaListPlayer alloc] initWithDrawable:_actualVideoOutputView];
     }
+    _listPlayer.delegate = self;
 
     /* to enable debug logging for the playback library instance, switch the boolean below
      * note that the library instance used for playback may not necessarily match the instance
@@ -332,6 +335,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     }
     if (!_sessionWillRestart) {
         _mediaList = nil;
+        _mediaList = [[VLCMediaList alloc] init];
     }
     _playerIsSetup = NO;
     [_shuffleStack removeAllObjects];
@@ -747,6 +751,15 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     [_delegate savePlaybackState: self];
 #endif
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
+}
+
+- (void)playItemAtIndex:(NSUInteger)index
+{
+    VLCMedia *media = [_mediaList mediaAtIndex:index];
+    [_listPlayer playItemAtNumber:[NSNumber numberWithUnsignedInteger:index]];
+    _mediaPlayer.media = media;
+    if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
+        [self.delegate prepareForMediaPlayback:self];
 }
 
 - (void)setShuffleMode:(BOOL)shuffleMode
@@ -1377,6 +1390,15 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 {
     [_playerDisplayController setEditing:hidden];
     [_playerDisplayController dismissPlaybackView];
+}
+
+#pragma mark - VLCMediaListPlayerDelegate
+
+- (void)mediaListPlayer:(VLCMediaListPlayer *)player nextMedia:(VLCMedia *)media
+{
+    if ([_delegate respondsToSelector:@selector(playbackService:nextMedia:)]) {
+        [_delegate playbackService:self nextMedia:media];
+    }
 }
 
 @end

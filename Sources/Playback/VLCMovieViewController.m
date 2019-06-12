@@ -56,7 +56,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackServiceDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoSubControlDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate, VLCMediaScrubProgressBarDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackServiceDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoSubControlDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate, VLCMediaScrubProgressBarDelegate, VLCQueueViewControllerDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -124,6 +124,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     NSLayoutConstraint *_movieViewLeadingConstraint;
     NSLayoutConstraint *_movieViewTrailingConstraint;
+
+    UIButton *_playQueueButton;
+    VLCQueueViewController *_queueViewController;
+    UIView *_darkOverlayView;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) VLCServices *services;
@@ -252,6 +256,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self setupConstraints];
     [self setupRendererDiscovererManager];
+    [self setupPlayQueueButton];
 }
 
 - (void)setupMovieViewConstraints
@@ -380,6 +385,12 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self.view addSubview:_controllerPanel];
 }
 
+- (void)setupQueueViewController:(VLCQueueViewController*)qvc
+{
+    _queueViewController = qvc;
+    _queueViewController.delegate = self;
+}
+
 - (NSArray *) getMediaNavigationBarConstraints
 {
     UILayoutGuide *guide = self.view.layoutMarginsGuide;
@@ -476,6 +487,33 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     return _doneButton;
 }
 
+- (void)setupPlayQueueButton
+{
+    _playQueueButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    _playQueueButton.translatesAutoresizingMaskIntoConstraints = NO;
+    _playQueueButton.accessibilityLabel = NSLocalizedString(@"BUTTON_PLAY_QUEUE", nil);
+    _playQueueButton.accessibilityHint = NSLocalizedString(@"BUTTON_PLAY_QUEUE_HINT", nil);
+    [_playQueueButton addTarget:self
+                         action:@selector(handlePlayQueue)
+               forControlEvents:UIControlEventTouchUpInside];
+    [_playQueueButton setImage:[UIImage imageNamed:@"play-queue"]
+                      forState:UIControlStateNormal];
+}
+
+- (void)handlePlayQueue
+{
+    if (_queueViewController) {
+        self.darkOverlayView.hidden = NO;
+        [_queueViewController removeFromParentViewController];
+        [_queueViewController show];
+        _queueViewController.topView.hidden = NO;
+        [self addChildViewController:_queueViewController];
+        [_queueViewController didMoveToParentViewController:self];
+        [self setControlsHidden:YES animated:YES];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
+}
+
 - (UIStackView *)navigationBarStackView
 {
     if (!_navigationBarStackView) {
@@ -487,8 +525,21 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [_navigationBarStackView addArrangedSubview:self.doneButton];
         [_navigationBarStackView addArrangedSubview:_timeNavigationTitleView];
         [_navigationBarStackView addArrangedSubview:_rendererButton];
+        [_navigationBarStackView addArrangedSubview:_playQueueButton];
     }
     return _navigationBarStackView;
+}
+
+- (UIView *)darkOverlayView
+{
+    if (!_darkOverlayView) {
+        _darkOverlayView = [[UIView alloc] init];
+        _darkOverlayView.alpha = 0.8;
+        _darkOverlayView.hidden = YES;
+        _darkOverlayView.backgroundColor = UIColor.blackColor;
+        _darkOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _darkOverlayView;
 }
 
 - (void) setupMediaNavigationBar {
@@ -529,6 +580,40 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     }
 }
 
+- (void)setupDarkOverlayView {
+    [self.view addSubview:self.darkOverlayView];
+    [NSLayoutConstraint activateConstraints:@[
+        [NSLayoutConstraint constraintWithItem:self.darkOverlayView
+                                     attribute:NSLayoutAttributeTop
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.view
+                                     attribute:NSLayoutAttributeTop
+                                    multiplier:1
+                                      constant:0],
+        [NSLayoutConstraint constraintWithItem:self.darkOverlayView
+                                     attribute:NSLayoutAttributeLeading
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.view
+                                     attribute:NSLayoutAttributeLeading
+                                    multiplier:1
+                                      constant:0],
+        [NSLayoutConstraint constraintWithItem:self.darkOverlayView
+                                     attribute:NSLayoutAttributeTrailing
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.view
+                                     attribute:NSLayoutAttributeTrailing
+                                    multiplier:1
+                                      constant:0],
+        [NSLayoutConstraint constraintWithItem:self.darkOverlayView
+                                     attribute:NSLayoutAttributeBottom
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.view
+                                     attribute:NSLayoutAttributeBottom
+                                    multiplier:1
+                                      constant:0]
+    ]];
+}
+
 - (void)resetVideoFiltersSliders
 {
     _brightnessSlider.value = 1.;
@@ -547,6 +632,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [_vpc recoverPlaybackState];
     #if !NEW_UI
         [self setupNavigationbar];
+        [self setupDarkOverlayView];
         self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
         self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
         self.trackNameLabel.text = nil;
@@ -966,7 +1052,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (BOOL)prefersStatusBarHidden
 {
-    return _viewAppeared ? _controlsHidden : NO;
+    return _viewAppeared ? _controlsHidden && _darkOverlayView.hidden : NO;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -2173,4 +2259,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     [self _resetIdleTimer];
 }
+
+#pragma mark - VLCQueueViewControllerDelegate
+
+- (void)queueViewControllerDidDisappear:(VLCQueueViewController *)queueViewController
+{
+    _darkOverlayView.hidden = YES;
+    [self setControlsHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 @end

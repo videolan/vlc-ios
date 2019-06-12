@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16092.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16082.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QueueViewController" customModule="VLC" customModuleProvider="target">
+            <connections>
+                <outlet property="grabberView" destination="B60-wi-0eH" id="MBL-j4-Lxg"/>
+                <outlet property="queueCollectionView" destination="vtO-U6-cBN" id="dM4-7a-iVJ"/>
+                <outlet property="topView" destination="dEz-fQ-e4l" id="gag-de-9bU"/>
+                <outlet property="view" destination="iN0-l3-epB" id="ufe-Vz-owG"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="QueueView" id="iN0-l3-epB" userLabel="QueueView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vtO-U6-cBN" userLabel="QueueCollectionView">
+                    <rect key="frame" x="0.0" y="44" width="414" height="896"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="P1Y-I1-lyI">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="50" height="50"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEz-fQ-e4l" userLabel="topView">
+                    <rect key="frame" x="0.0" y="44" width="414" height="48"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CWf-cj-njw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B60-wi-0eH" userLabel="grabberView">
+                                <rect key="frame" x="187" y="15" width="40" height="5"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="6yN-zY-TPZ"/>
+                                    <constraint firstAttribute="height" constant="5" id="Z01-QJ-Aa8"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="B60-wi-0eH" firstAttribute="centerX" secondItem="CWf-cj-njw" secondAttribute="centerX" id="M4j-Vr-wSw"/>
+                            <constraint firstItem="B60-wi-0eH" firstAttribute="top" secondItem="CWf-cj-njw" secondAttribute="top" constant="15" id="uf3-Qn-Ldb"/>
+                        </constraints>
+                    </view>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="04s-nY-hCo"/>
+                    </constraints>
+                    <blurEffect style="regular"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="fvk-8E-LA6" appends="YES" id="gnt-Lb-BQd"/>
+                    </connections>
+                </visualEffectView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="vtO-U6-cBN" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="4zA-fg-WmJ"/>
+                <constraint firstItem="vtO-U6-cBN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Bsu-Td-VNA"/>
+                <constraint firstItem="vtO-U6-cBN" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="SAr-aD-8eP"/>
+                <constraint firstItem="dEz-fQ-e4l" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="VPm-6i-9Xy"/>
+                <constraint firstItem="vtO-U6-cBN" firstAttribute="width" secondItem="vUN-kp-3ea" secondAttribute="width" id="VcE-aW-NrS"/>
+                <constraint firstItem="dEz-fQ-e4l" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Zhp-Jh-41H"/>
+                <constraint firstItem="vtO-U6-cBN" firstAttribute="top" secondItem="dEz-fQ-e4l" secondAttribute="top" id="ea5-aa-dfU"/>
+                <constraint firstItem="vtO-U6-cBN" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="lYc-Of-c2m"/>
+                <constraint firstItem="dEz-fQ-e4l" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="p1m-RR-OpP"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="140.57971014492756" y="150"/>
+        </view>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="fvk-8E-LA6">
+            <connections>
+                <action selector="didDrag:" destination="-1" id="7QR-tr-wFc"/>
+            </connections>
+        </panGestureRecognizer>
+    </objects>
+</document>

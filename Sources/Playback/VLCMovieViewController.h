@@ -21,6 +21,7 @@
 @class VLCVerticalSwipeGestureRecognizer;
 @class VLCMovieViewControlPanelView;
 @class VLCMovieViewController;
+@class VLCQueueViewController;
 
 typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
     VLCMovieJumpStateDefault,
@@ -65,6 +66,8 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @property (nonatomic, weak) id<VLCMovieViewControllerDelegate> delegate;
 
 - (instancetype)initWithServices:(VLCServices *)services;
+
+- (void)setupQueueViewController:(VLCQueueViewController*)qvc;
 
 - (IBAction)positionSliderAction:(id)sender;
 - (IBAction)positionSliderTouchDown:(id)sender;

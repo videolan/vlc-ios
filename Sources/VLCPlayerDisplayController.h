@@ -10,6 +10,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+#import "VLCPlaybackService.h"
+
 @class VLCPlaybackService;
 @class VLCServices;
 
@@ -32,19 +34,22 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 
 @end
 
+@protocol VLCMiniPlayer;
+
 @interface VLCPlayerDisplayController : UIViewController
 
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
-@property (nonatomic, weak) VLCPlaybackService *playbackController;
-@property (nonatomic, strong) NSLayoutYAxisAnchor *realBottomAnchor;
+@property (nonatomic, weak, nullable) VLCPlaybackService *playbackController;
+@property (nonatomic, strong, nullable) NSLayoutYAxisAnchor *realBottomAnchor;
 @property (nonatomic, readonly) BOOL isMiniPlayerVisible;
+@property (nonatomic, strong, nullable) UIView *miniPlaybackView;
 
-- (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil
-                         bundle:(NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
-- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
+- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil
+                                 bundle:(nullable NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)aDecoder NS_UNAVAILABLE;
 
-- (instancetype)initWithServices:(id)services NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithServices:(nullable id)services NS_DESIGNATED_INITIALIZER;
 
 - (void)showFullscreenPlayback;
 - (void)closeFullscreenPlayback;

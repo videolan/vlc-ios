@@ -118,6 +118,11 @@ class EditToolbar: UIView {
                 deleteButton.isHidden = false
             case .share:
                 shareButton.isHidden = false
+            //Not supported in edit mode
+            case .play,
+                 .playNextInQueue,
+                 .appendToQueue:
+                break
             }
         }
     }
@@ -144,6 +149,11 @@ class EditToolbar: UIView {
             case .share:
                 shareButton = button.button(#selector(share))
                 rightStackView.addArrangedSubview(shareButton)
+            //Not supported in edit mode
+            case .play,
+                 .playNextInQueue,
+                 .appendToQueue:
+                break
             }
         }
     }

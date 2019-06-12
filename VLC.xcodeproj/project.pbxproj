@@ -270,6 +270,8 @@
 		81334053F6D89AB90E14A1C3 /* libPods-VLC-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91CCB170FBC97B6B93B99E0A /* libPods-VLC-iOSTests.a */; };
 		8D144D6322298E8E00984C46 /* AudioMiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */; };
 		8D15A1ED22A9603300CFA758 /* ActionSheetSortSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */; };
+		8D15A1F022B0FB9300CFA758 /* QueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D15A1EF22B0FB9300CFA758 /* QueueViewController.swift */; };
+		8D15A1F322B0FCE000CFA758 /* QueueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D15A1F222B0FCE000CFA758 /* QueueView.xib */; };
 		8D2AD4D822786F4000393833 /* AddToCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D722786F4000393833 /* AddToCollectionViewController.swift */; };
 		8D2AD4DA227AEE8E00393833 /* AddToCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AD4D9227AEE8E00393833 /* AddToCollectionView.xib */; };
 		8D3B4C0E2226E49A00B9F652 /* AudioMiniPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */; };
@@ -875,6 +877,8 @@
 		7FC9CCF39DD8843873A42D34 /* Pods-VLC-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOSTests/Pods-VLC-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMiniPlayer.swift; sourceTree = "<group>"; };
 		8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetSortSectionHeader.swift; sourceTree = "<group>"; };
+		8D15A1EF22B0FB9300CFA758 /* QueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueViewController.swift; sourceTree = "<group>"; };
+		8D15A1F222B0FCE000CFA758 /* QueueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QueueView.xib; sourceTree = "<group>"; };
 		8D2AD4D722786F4000393833 /* AddToCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddToCollectionViewController.swift; path = Sources/AddToCollectionViewController.swift; sourceTree = "<group>"; };
 		8D2AD4D9227AEE8E00393833 /* AddToCollectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddToCollectionView.xib; sourceTree = "<group>"; };
 		8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMiniPlayer.xib; sourceTree = "<group>"; };
@@ -1707,6 +1711,7 @@
 				7DCD84F0242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */,
 				7DB078B8242F6970002A776F /* VLCStoreViewController.xib */,
 				8D2AD4D6227869AF00393833 /* AddToCollection */,
+				8D15A1F122B0FC8300CFA758 /* Queue */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -1994,6 +1999,23 @@
 			path = Sources/Playback/MiniPlayer;
 			sourceTree = SOURCE_ROOT;
 		};
+		8D15A1EE22B0FB1900CFA758 /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+				8D15A1EF22B0FB9300CFA758 /* QueueViewController.swift */,
+			);
+			path = Queue;
+			sourceTree = "<group>";
+		};
+		8D15A1F122B0FC8300CFA758 /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+				8D15A1F222B0FCE000CFA758 /* QueueView.xib */,
+			);
+			name = Queue;
+			path = Resources/Xib/Queue;
+			sourceTree = "<group>";
+		};
 		8D2AD4D6227869AF00393833 /* AddToCollection */ = {
 			isa = PBXGroup;
 			children = (
@@ -2017,6 +2039,7 @@
 			children = (
 				8D9F1F9C249385BB0074BDBB /* MovieView */,
 				8D144D6122298E5800984C46 /* MiniPlayer */,
+				8D15A1EE22B0FB1900CFA758 /* Queue */,
 				416443852048419E00CAC646 /* DeviceMotion.swift */,
 				DD8F842F1B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.h */,
 				DD8F84301B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.m */,
@@ -2764,6 +2787,7 @@
 				7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */,
 				7DF04F4F1961F2B8004A5429 /* web-open-fixed.png in Resources */,
 				7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */,
+				8D15A1F322B0FCE000CFA758 /* QueueView.xib in Resources */,
 				411453B9219C48DA002D94E1 /* Launch Screen.storyboard in Resources */,
 				4181087A2142894A0046A931 /* PlayingExternallyView.xib in Resources */,
 				7DF04F4D1961F2B8004A5429 /* web-download-fixed.png in Resources */,
@@ -3150,6 +3174,7 @@
 				DD3EFF551BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
 				8DD651C4208F786F0052EE68 /* ActionSheetSectionHeader.swift in Sources */,
 				DD3EFF411BDEBCE500B68579 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
+				8D15A1F022B0FB9300CFA758 /* QueueViewController.swift in Sources */,
 				418E88412110E51B00DDA6A7 /* URLHandler.swift in Sources */,
 				7D3784A1183A98EB009EE944 /* VLCBugreporter.m in Sources */,
 				8DE187812105DAB100A091D2 /* VideoViewController.swift in Sources */,

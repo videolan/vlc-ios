@@ -636,6 +636,44 @@ extension MediaCategoryViewController {
 // MARK: - UICollectionViewDelegate - Private Helpers
 
 private extension MediaCategoryViewController {
+    private func generatePlayAction(for modelContent: VLCMLObject?, type: EditButtonType) {
+        if let media = modelContent as? VLCMLMedia {
+            let playbackController = PlaybackService.sharedInstance()
+            playbackController.mediaList.lock()
+            switch type {
+                case .play:
+                    playbackController.play(media)
+                case .playNextInQueue:
+                    playbackController.playMediaNextInQueue(media)
+                case .appendToQueue:
+                    playbackController.appendMediaToQueue(media)
+                default:
+                    assertionFailure("generatePlayAction: cannot be used with other actions")
+            }
+            playbackController.mediaList.unlock()
+        } else if let collection = modelContent as? MediaCollectionModel {
+            let playbackController = PlaybackService.sharedInstance()
+            playbackController.mediaList.lock()
+            let files: [VLCMLMedia]?
+            if collection is VLCMLAlbum {
+                files = collection.files(with: .trackNumber, desc: false)
+            } else {
+                files = collection.files(with: .default, desc: false)
+            }
+            switch type {
+                case .play:
+                    playbackController.playCollection(files)
+                case .playNextInQueue:
+                    playbackController.playCollectionNextInQueue(files)
+                case .appendToQueue:
+                    playbackController.appendCollectionToQueue(files)
+                default:
+                    assertionFailure("generatePlayAction: cannot be used with other actions")
+            }
+            playbackController.mediaList.unlock()
+        }
+    }
+
     @available(iOS 13.0, *)
     private func generateUIMenuForContent(at indexPath: IndexPath) -> UIMenu {
         let modelContentArray = isSearching ? searchDataSource.searchData : model.anyfiles
@@ -698,6 +736,21 @@ private extension MediaCategoryViewController {
                             self?.editController.editActions.share(origin: cell)
                         }
                     }
+                })
+            case .play:
+                return $0.action({
+                    _ in
+                    self.generatePlayAction(for: modelContent, type: .play)
+                })
+            case .playNextInQueue:
+                return $0.action({
+                    _ in
+                    self.generatePlayAction(for: modelContent, type: .playNextInQueue)
+                })
+            case .appendToQueue:
+                return $0.action({
+                    _ in
+                    self.generatePlayAction(for: modelContent, type: .appendToQueue)
                 })
             }
         })

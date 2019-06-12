@@ -17,4 +17,9 @@
 
 - (void)playMedia:(VLCMLMedia *)media;
 - (void)playMediaAtIndex:(NSInteger)index fromCollection:(NSArray<VLCMLMedia *> *)collection;
+- (void)playMediaNextInQueue:(VLCMLMedia *)media NS_SWIFT_NAME(playMediaNextInQueue(_:));
+- (void)appendMediaToQueue:(VLCMLMedia *)media NS_SWIFT_NAME(appendMediaToQueue(_:));
+- (void)playCollection:(NSArray<VLCMLMedia *> *)collection;
+- (void)playCollectionNextInQueue:(NSArray<VLCMLMedia *> *)collection NS_SWIFT_NAME(playCollectionNextInQueue(_:));
+- (void)appendCollectionToQueue:(NSArray<VLCMLMedia *> *)collection NS_SWIFT_NAME(appendCollectionToQueue(_:));
 @end

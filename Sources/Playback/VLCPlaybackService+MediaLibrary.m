@@ -14,6 +14,7 @@
 #import "VLCPlaybackService+MediaLibrary.h"
 #import <VLCMediaLibraryKit/VLCMLFile.h>
 #import <VLCMediaLibraryKit/VLCMLMedia.h>
+#import "VLC-Swift.h"
 
 @implementation VLCPlaybackService (MediaLibrary)
 
@@ -25,6 +26,74 @@
 - (void)playMedia:(VLCMLMedia *)media
 {
     [self configureMediaListWithMLMedia:@[media] indexToPlay:0];
+}
+
+- (void)playMedia:(VLCMLMedia *)media withMode:(EditButtonType)mode
+{
+    if ([self.mediaList count] > 0) {
+        VLCMedia *vlcmedia = [VLCMedia mediaWithURL:media.mainFile.mrl];
+
+        [vlcmedia addOptions:self.mediaOptionsDictionary];
+        switch (mode) {
+            case EditButtonTypePlayNextInQueue:
+                [self.mediaList insertMedia:vlcmedia atIndex:[self.mediaList indexOfMedia:self.currentlyPlayingMedia] + 1];
+                break;
+            case EditButtonTypeAppendToQueue:
+                [self.mediaList addMedia:vlcmedia];
+                break;
+            default:
+                break;
+        }
+    } else {
+        [self playMedia:media];
+    }
+}
+
+- (void)playMediaNextInQueue:(VLCMLMedia *)media
+{
+    [self playMedia:media withMode:EditButtonTypePlayNextInQueue];
+}
+
+- (void)appendMediaToQueue:(VLCMLMedia *)media
+{
+    [self playMedia:media withMode:EditButtonTypeAppendToQueue];
+}
+
+- (void)playCollection:(NSArray<VLCMLMedia *> *)collection
+{
+    [self playMediaAtIndex:0 fromCollection:collection];
+}
+
+- (void)playCollection:(NSArray<VLCMLMedia *> *)collection withMode:(EditButtonType)mode
+{
+    if ([self.mediaList count] > 0) {
+        switch (mode) {
+            case EditButtonTypePlayNextInQueue:
+                for (VLCMLMedia *media in [collection reverseObjectEnumerator]) {
+                    [self playMedia:media withMode:EditButtonTypePlayNextInQueue];
+                }
+                break;
+            case EditButtonTypeAppendToQueue:
+                for (VLCMLMedia *media in collection) {
+                    [self playMedia:media withMode:EditButtonTypeAppendToQueue];
+                }
+                break;
+            default:
+                break;
+        }
+    } else {
+        [self playCollection:collection];
+    }
+}
+
+- (void)playCollectionNextInQueue:(NSArray<VLCMLMedia *> *)collection
+{
+    [self playCollection:collection withMode:EditButtonTypePlayNextInQueue];
+}
+
+- (void)appendCollectionToQueue:(NSArray<VLCMLMedia *> *)collection
+{
+    [self playCollection:collection withMode:EditButtonTypeAppendToQueue];
 }
 
 - (void)configureMediaListWithMLMedia:(NSArray<VLCMLMedia *> *)mlMedia indexToPlay:(int)index {

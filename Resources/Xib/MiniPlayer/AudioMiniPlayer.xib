@@ -18,6 +18,8 @@
                 <outlet property="nextButton" destination="eyt-Pj-hU6" id="bWI-0V-wbd"/>
                 <outlet property="playPauseButton" destination="2Kp-xd-t2N" id="gXw-IZ-eUx"/>
                 <outlet property="previousButton" destination="Hmp-0g-6lI" id="mbs-Td-8nH"/>
+                <outlet property="previousNextImage" destination="hlW-Fp-grY" id="G9v-xz-1Aw"/>
+                <outlet property="previousNextOverlay" destination="P5g-cO-YBI" id="nOU-Pe-PCd"/>
                 <outlet property="progressBarView" destination="IcU-Lc-kf0" id="2nw-wK-b2u"/>
                 <outlet property="titleLabel" destination="aAs-Lc-dt8" id="Ze5-Us-djK"/>
             </connections>
@@ -76,8 +78,7 @@
                             </subviews>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="brR-fc-lZO" appends="YES" id="Nb4-rh-jQL"/>
-                                <outletCollection property="gestureRecognizers" destination="F5d-0u-KFK" appends="YES" id="vlA-dj-cvy"/>
-                                <outletCollection property="gestureRecognizers" destination="LWT-xp-2fu" appends="YES" id="ska-dZ-uCt"/>
+                                <outletCollection property="gestureRecognizers" destination="bXF-pN-btw" appends="YES" id="8cq-zK-HSD"/>
                             </connections>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Lh6-Gu-frg" userLabel="Control Stack View">
@@ -125,38 +126,46 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="uhh-wt-a89"/>
                     </constraints>
-                    <connections>
-                        <outletCollection property="gestureRecognizers" destination="dft-Hv-WtH" appends="YES" id="2pN-xA-XJE"/>
-                    </connections>
                 </stackView>
+                <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P5g-cO-YBI">
+                    <rect key="frame" x="0.0" y="0.0" width="360" height="56"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hlW-Fp-grY">
+                            <rect key="frame" x="157.5" y="5.5" width="45" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="hlW-Fp-grY" secondAttribute="height" multiplier="1:1" id="mPY-8A-bOa"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="hlW-Fp-grY" firstAttribute="height" secondItem="P5g-cO-YBI" secondAttribute="height" multiplier="0.8" id="Pcr-ws-AS3"/>
+                        <constraint firstItem="hlW-Fp-grY" firstAttribute="centerX" secondItem="P5g-cO-YBI" secondAttribute="centerX" id="bMR-3n-Lm7"/>
+                        <constraint firstItem="hlW-Fp-grY" firstAttribute="centerY" secondItem="P5g-cO-YBI" secondAttribute="centerY" id="tKR-9L-jA6"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.13333333333333333" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
             <gestureRecognizers/>
             <constraints>
+                <constraint firstItem="3Tx-iI-Z1w" firstAttribute="trailing" secondItem="P5g-cO-YBI" secondAttribute="trailing" id="9er-FE-CPV"/>
+                <constraint firstItem="P5g-cO-YBI" firstAttribute="leading" secondItem="3Tx-iI-Z1w" secondAttribute="leading" id="JAk-V8-NVr"/>
+                <constraint firstItem="P5g-cO-YBI" firstAttribute="top" secondItem="3Tx-iI-Z1w" secondAttribute="top" id="T41-RG-Shv"/>
                 <constraint firstItem="ciB-dn-lxu" firstAttribute="leading" secondItem="3Tx-iI-Z1w" secondAttribute="leading" constant="8" id="Wlf-Uy-z8K"/>
+                <constraint firstItem="3Tx-iI-Z1w" firstAttribute="bottom" secondItem="P5g-cO-YBI" secondAttribute="bottom" id="e9g-Mm-OV3"/>
                 <constraint firstItem="3Tx-iI-Z1w" firstAttribute="bottom" secondItem="ciB-dn-lxu" secondAttribute="bottom" constant="8" id="fLR-CQ-9Es"/>
                 <constraint firstItem="3Tx-iI-Z1w" firstAttribute="trailing" secondItem="ciB-dn-lxu" secondAttribute="trailing" constant="8" id="gWp-eU-MSF"/>
                 <constraint firstItem="ciB-dn-lxu" firstAttribute="top" secondItem="3Tx-iI-Z1w" secondAttribute="top" constant="8" id="rGr-wd-DPi"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="3Tx-iI-Z1w"/>
-            <point key="canvasLocation" x="204.80000000000001" y="293.25337331334333"/>
+            <point key="canvasLocation" x="49.600000000000001" y="75.562218890554732"/>
         </view>
-        <swipeGestureRecognizer direction="right" id="F5d-0u-KFK" userLabel="rightSwipeRecognizer">
+        <panGestureRecognizer minimumNumberOfTouches="1" id="bXF-pN-btw">
             <connections>
-                <action selector="handleSwipe:" destination="-1" id="ey7-0c-s91"/>
+                <action selector="didDrag:" destination="-1" id="cZm-NF-Zxj"/>
             </connections>
-        </swipeGestureRecognizer>
-        <swipeGestureRecognizer direction="left" id="LWT-xp-2fu" userLabel="leftSwipeRecognizer">
-            <connections>
-                <action selector="handleSwipe:" destination="-1" id="yyG-mh-caS"/>
-            </connections>
-        </swipeGestureRecognizer>
-        <swipeGestureRecognizer direction="down" id="dft-Hv-WtH" userLabel="downSwipeRecognizer">
-            <connections>
-                <action selector="handleDismiss:" destination="-1" id="azk-4A-3wU"/>
-            </connections>
-        </swipeGestureRecognizer>
+        </panGestureRecognizer>
         <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="RZE-7i-aax">
             <connections>
                 <action selector="handleLongPressPlayPause:" destination="-1" id="e0w-jB-cB1"/>

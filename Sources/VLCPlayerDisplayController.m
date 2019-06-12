@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 #import "VLCPlayerDisplayController.h"
-#import "VLCPlaybackService.h"
 #import "VLCPlaybackNavigationController.h"
 #import "VLCPlaybackService+MediaLibrary.h"
 #import "VLC-Swift.h"
@@ -41,14 +40,14 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 @interface VLCPlayerDisplayController () <VLCMovieViewControllerDelegate>
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *movieViewController;
-@property (nonatomic, strong) UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer> *miniPlaybackView;
+@property (nonatomic, strong) VLCQueueViewController *queueViewController;
 @property (nonatomic, strong) NSLayoutConstraint *bottomConstraint;
 @property (nonatomic, strong) VLCServices *services;
 @end
 
 @implementation VLCPlayerDisplayController
 
-- (instancetype)initWithServices:(id)services
+- (instancetype _Nullable)initWithServices:(nullable id)services
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
@@ -102,6 +101,10 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         _movieViewController = [[VLCFullscreenMovieTVViewController alloc] initWithNibName:nil bundle:nil];
 #endif
         self.playbackController.delegate = _movieViewController;
+        if (!_queueViewController) {
+            [self initQueueViewController];
+        }
+        [(VLCMovieViewController *)_movieViewController setupQueueViewController:_queueViewController];
     }
     return _movieViewController;
 }
@@ -254,7 +257,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (BOOL)isMiniPlayerVisible
 {
-    return _miniPlaybackView.visible;
+    return ((UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer>*)_miniPlaybackView).visible;
 }
 
 - (void)_showHideMiniPlaybackView
@@ -268,7 +271,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     }
 
     VLCPlaybackService *playbackController = [VLCPlaybackService sharedInstance];
-    UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer> *miniPlaybackView = self.miniPlaybackView;
+    UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer> *miniPlaybackView = (UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer>*)self.miniPlaybackView;
     const NSTimeInterval animationDuration = 0.25;
     const BOOL activePlaybackSession = playbackController.isPlaying || playbackController.willPlay || playbackController.playerIsSetup;
     const BOOL miniPlayerVisible = miniPlaybackView.visible;
@@ -286,31 +289,37 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         if (!miniPlaybackView) {
             // Until VideoMiniPlayer is integrated, only AudioMiniPlayer is used.
             self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithService:_services.medialibraryService];
+            if (!_queueViewController) {
+                [self initQueueViewController];
+            }
             miniPlaybackView.translatesAutoresizingMaskIntoConstraints = NO;
             miniPlaybackView.userInteractionEnabled = YES;
             [self.view addSubview:miniPlaybackView];
             _bottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.bottomAnchor];
             [NSLayoutConstraint activateConstraints:
              @[_bottomConstraint,
-               [miniPlaybackView.heightAnchor constraintEqualToConstant:self.miniPlaybackView.contentHeight],
+               [miniPlaybackView.heightAnchor constraintEqualToConstant:((UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer>*)self.miniPlaybackView).contentHeight],
                [miniPlaybackView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
                [miniPlaybackView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
                ]];
+            ((VLCAudioMiniPlayer*)_miniPlaybackView).queueViewController = _queueViewController;
             [self.view layoutIfNeeded];
         }
+        [self addPlayqueueToMiniPlayer];
         miniPlaybackView.visible = YES;
         [[NSNotificationCenter defaultCenter]
          postNotificationName:VLCPlayerDisplayControllerDisplayMiniPlayer object:self];
     } else if (needsHide) {
         miniPlaybackView.visible = NO;
         completionBlock = ^(BOOL finished) {
-            UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer> *miniPlaybackView = self.miniPlaybackView;
+            UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer> *miniPlaybackView = (UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer>*)self.miniPlaybackView;
             if (miniPlaybackView.visible == NO) {
                 [miniPlaybackView removeFromSuperview];
                 self.miniPlaybackView = nil;
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:VLCPlayerDisplayControllerHideMiniPlayer object:self];
             }
+            [self->_queueViewController removeFromParentViewController];
         };
     }
     //when switching between tableview and collectionview all subviews are removed, make sure to readd it when this happens
@@ -339,11 +348,27 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 #endif
 }
 
+- (void)addPlayqueueToMiniPlayer
+{
+    [_queueViewController didMoveToParentViewController:self];
+}
+
+#pragma mark - QueueViewController
+#if TARGET_OS_IOS
+
+- (void)initQueueViewController
+{
+    _queueViewController = [[VLCQueueViewController alloc] initWithMedialibraryService:_services.medialibraryService playbackService:_playbackController];
+}
+
+#endif
+
 #pragma mark - MovieViewControllerDelegate
 
 - (void)movieViewControllerDidSelectMinimize:(VLCMovieViewController *)movieViewController
 {
     [self closeFullscreenPlayback];
+    [self addPlayqueueToMiniPlayer];
 }
 
 - (BOOL)movieViewControllerShouldBeDisplayed:(VLCMovieViewController *)movieViewController

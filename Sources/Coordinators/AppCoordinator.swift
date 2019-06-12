@@ -30,7 +30,10 @@ class Services: NSObject {
                                                                      bundle: nil)
 
     @objc init(tabBarController: UITabBarController) {
-        self.playerDisplayController = VLCPlayerDisplayController(services: services)
+        guard let playerDisplayController = VLCPlayerDisplayController(services: services) else {
+            preconditionFailure("AppCoordinator: playerDisplayController cannot be null")
+        }
+        self.playerDisplayController = playerDisplayController
         self.tabBarController = tabBarController
         super.init()
         setupChildViewControllers()
