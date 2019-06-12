@@ -11,7 +11,6 @@
 "TITLE" = "Título";
 "CHAPTER" = "Capítulo";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimizar reprodução";
-"FULLSCREEN_PLAYBACK" = "Reproduzir em ecrã completo";
 "TRACK_SELECTION" = "Seleção de faixa";
 "AUDIO" = "Áudio";
 "SUBTITLES" = "Legendas";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Continuar reprodução?";
 "CONTINUE_PLAYBACK_LONG" = "Pretende continuar a reprodução de “%@” a partir da última posição?";
 
-"BUTTON_ALL" = "Selecionar Tudo";
 "BUTTON_ABOUT" = "Sobre";
 "BUTTON_BACK" = "Anterior";
 "BUTTON_DONE" = "OK";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "Mostrar um menu de dispositivos de transmissão disponíveis";
 
 "UPGRADING_LIBRARY" = "Atualização da Mediateca";
-"UNTITLED_SHOW" = "Programa sem nome";
 "UNKNOWN" = "Desconhecido";
 
 "OPEN_NETWORK" = "Abrir transmissão em rede";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "A transferência falhou com o código HTTP %i";
-"HTTP_FILE_CREATION_FAILED" = "Erro ao criar ficheiro";
 "HTTP_DOWNLOAD_CANCELLED" = "Transferência cancelada pelo utilizador";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Insira um endereço para transferir o ficheiro para o seu %@.";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "O esquema de endereço (%@) não é suportado. Por favor, use um endereço que comece por HTTP, HTTPS ou FTP.";
 "RENAME_MEDIA_TO" = "Digite um novo nome para %@";
 
+"FOLDER_EMPTY" = "Pasta vazia";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Escolha um ficheiro para abrir:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Abrir com…";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Não foi possível encontrar aplicações para abrir este tipo de ficheiros";
 "SHARING_SUCCESS_CAMERA_ROLL" = "O ficheiro foi guardado com sucesso no Rolo da câmara.";
 
-"SECTION_HEADER_LIBRARY" = "Mediateca";
 "STREAMVC_DETAILTEXT" = "Reproduzir diretamente transmissões sem transferir";
 "DOWNLOADVC_DETAILTEXT" = "Transferir diretamente ficheiros para o seu dispositivo";
 "HEADER_TITLE_RENDERER" = "Selecionar dispositivo de transmissão";
 
+"NETWORK" = "Rede";
 "LOCAL_NETWORK" = "Rede local";
 "CONNECT_TO_SERVER" = "Ligar ao servidor";
 "FILE_SERVER" = "Servidores de Ficheiro";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "Desbloquear a Mediateca\nCancelar para inserir 'Código'";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d tentativas de código falhadas";
+"1 Failed Passcode Attempt" = "1 tentativa de código falhada";
+"Change Passcode" = "Alterar código";
+"Enter Passcode" = "Introduzir código";
+"Enter a passcode" = "Introduza um código";
+"Enter your new passcode" = "Introduza o seu novo código";
+"Enter your old passcode" = "Introduza o seu código antigo";
+"Enter your passcode" = "Introduza o seu código";
+"Next" = "Seguinte";
+"Passcodes did not match. Try again." = "Os códigos não coincidem. Tente novamente.";
+"Re-enter your new passcode" = "Reintroduza o seu novo código";
+"Re-enter your passcode" = "Reintroduza o seu código";
+"Set Passcode" = "Definir código";
 
 "Settings" = "Definições"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Sim";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Reprodutor de vídeos";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dê dois toques para mostrar ou ocultar os controlos de reprodução";
 
-"FIRST_STEPS_WELCOME" = "Bem-vindo";
-"FIRST_STEPS_WELCOME_DETAIL" = "Passe o dedo para ver como pode sincronizar e reproduzir os seus ficheiros.";
 "FIRST_STEPS_ITUNES" = "Sincronização através do iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Ligue o seu %@ ao seu Mac or PC utilizando o cabo.\nAbra o iTunes.\nSelecione o seu %@.\nSelecione \"Partilha de Ficheiro\" no menu lateral à esquerda e procure pelo VLC.\nTransfira os seus ficheiros.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Ligue o seu %@ à mesma rede do seu Mac ou PC.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Mude o alternar na barra lateral, insira o URL para o navegador da Web e envie os seus ficheiros.";
+"FIRST_STEPS_ITUNES_TITLE" = "Sincronizar com o seu computador";
+"FIRST_STEPS_ITUNES_DETAILS" = "Ligue o seu dispositivo ao iTunes e selecione o seu dispositivo. Selecione \"Partilha de ficheiro\" do menu lateral do iTunes e procure pelo VLC para transferir os ficherios";
+"FIRST_STEPS_WIFI_TITLE" = "Partilhar via Wi-Fi";
+"FIRST_STEPS_WIFI_DETAILS" = "Introduza o seu URL gerado no seu navegador de Internet favorito enquanto estiver ligado à mesma rede do seu telemóvel";
 "FIRST_STEPS_CLOUDS" = "Nuvens";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Envie os seus ficheiros para o Dropbox ou Google Drive.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Abra a barra lateral para selecionar o seu provedor da 'Nuvem' e aceder à sua multimédia para transferir ou transmitir.";
-"FIRST_STEPS_PLAYBACK" = "Reprodução";
-"FIRST_STEPS_FLOSS" = "O VLC é gratuito, open source e foi desenvolvido por voluntários.\nEsperamos que goste.";
+"FIRST_STEPS_CLOUD_TITLE" = "Nuvem";
+"FIRST_STEPS_CLOUD_DETAILS" = "Envie os seus ficheiros multimédia para um serviço da nuvem, como o Google Drive ou o Dropbox para os descarregar ou transmitir remotamente.";
 
-"FIRST_STEPS_TIME" = "Tempo";
-"FIRST_STEPS_ASPECT" = "Formato";
-"FIRST_STEPS_SPEED" = "Velocidade";
-"FIRST_STEPS_REPEAT" = "Repetir";
-"FIRST_STEPS_SUBTITLES" = "Faixas de Legendas";
-"FIRST_STEPS_AUDIO" = "Faixas de áudio";
-"FIRST_STEPS_POSITION" = "Posição";
 
 "PLEX_CHECK_ACCOUNT" = "Verifique a sua conta Plex nas definições";
 "PLEX_ERROR_ACCOUNT" = "Erro ao iniciar sessão no Plex";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "Volume ";
 "DURATION" = "Duração";
 "TITLE" = "Título";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Pressione %@ para apagar"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "A seleção não pode eliminada";
-"DELETE_INVALID_TITLE" = "Seleção Inválida";
 "DELETE_MESSAGE" = "Confirmação de eliminação dos ficheiros selecionados";
 "DELETE_TITLE" = "Eliminar Ficheiros Selecionados";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protocolo não selecionado";
 "Settings" = "Definições";
 
-"CANCEL" = "Cancelar";
 "ERROR" = "Erro";
 "OK" = "Ok";
 "SORT" = "Ordenar";
 "SORT_BY" = "Ordenar por";
+"SEARCH" = "Procurar";
 "VIDEO" = "Vídeo";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,37 @@
 "NAME" = "Nome";
 
 //EDIT
+
+"BUTTON_EDIT" = "Editar";
+"BUTTON_EDIT_HINT" = "Modo de edição";
+
 "ADD_TO_PLAYLIST" = "Adicionar à lista de reprodução";
+"ADD_TO_PLAYLIST_HINT" = "Abrir o menu adicionar à lista de reprodução";
 
 "PLAYLIST_PLACEHOLDER" = "Título da lista de reprodução";
 "PLAYLIST_DESCRIPTION" = "Escolha um título para a nova lista de reprodução";
+"PLAYLIST_CREATION" = "Criar uma nova lista de reprodução";
+"PLAYLIST_CREATION_HINT" = "Mostrar uma ação interativa para criar uma lista de reprodução";
+"ERROR_PLAYLIST_CREATION" = "Não foi possível criar uma lista de reprodução";
+"ERROR_PLAYLIST_TRACKS" = "Não foi possível obter as faixas";
 
 "RENAME_PLACEHOLDER" = "Novo título";
 "ERROR_RENAME_FAILED" = "Não foi possível alterar o nome";
 "ERROR_EMPTY_NAME" = "O título não pode estar vazio";
 
+"SHARE_LABEL" = "Partilhar";
+"SHARE_HINT" = "Partilhar os ficheiros selecionados";
+"RENAME_HINT" = "Alterar nome dos ficheiros selecionados";
+"DELETE_HINT" = "Eliminar os ficheiros selecionados";
+
 // Sort
 
+"BUTTON_SORT" = "Ordenar";
+"BUTTON_SORT_HINT" = "Mostrar folha da ação de ordenar";
 "HEADER_TITLE_SORT" = "Ordenar por";
+"DESCENDING_LABEL" = "Ordem descendente";
+"DESCENDING_SWITCH_LABEL" = "Ordem ascendente ou descendente";
+"DESCENDING_SWITCH_HINT" = "Contexto de ordenação ascendente ou descendente";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +361,13 @@
 "ALBUM" = "Álbum";
 "FILENAME" = "Nome do ficheiro";
 "TRACK_NUMBER" = "Número da faixa";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nada encontrado";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Artista desconhecido";
+"VARIOUS_ARTIST" = "Vários artistas";
+"UNKNOWN_ALBUM" = "Álbum desconhecido";
