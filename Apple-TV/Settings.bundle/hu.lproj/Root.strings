@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "Lejátszás vezérlése mozdulatokkal";
 "SETTINGS_GESTURES_VOLUME" = "Legyintés fel/le a hangerő állításához";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Koppintás a lejátszáshoz/szüneteltetéshez";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Kétujjas koppintás a lejátszáshoz/szüneteltetéshez";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Legyintés fel/le a fényerő állításához";
 "SETTINGS_GESTURES_SEEK" = "Legyintés balra/jobbra a kereséshez";
 "SETTINGS_GESTURES_CLOSE" = "Csippentés a bezáráshoz";
