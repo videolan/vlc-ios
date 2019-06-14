@@ -11,7 +11,6 @@
 "TITLE" = "標題";
 "CHAPTER" = "章節";
 "MINIMIZE_PLAYBACK_VIEW" = "最小化播放窗格";
-"FULLSCREEN_PLAYBACK" = "全螢幕播放";
 "TRACK_SELECTION" = "軌道選擇";
 "AUDIO" = "音訊";
 "SUBTITLES" = "字幕";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "繼續播放?";
 "CONTINUE_PLAYBACK_LONG" = "你想從\"%@\"繼續播放上次的媒體嗎?";
 
-"BUTTON_ALL" = "選取全部";
 "BUTTON_ABOUT" = "關於";
 "BUTTON_BACK" = "上一步";
 "BUTTON_DONE" = "完成";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "顯示可用的投放裝置選單";
 
 "UPGRADING_LIBRARY" = "升級媒體櫃中";
-"UNTITLED_SHOW" = "未命名的節目";
 "UNKNOWN" = "未知的";
 
 "OPEN_NETWORK" = "開啟網路串流";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "下載失敗之 HTTP 狀態碼 %i";
-"HTTP_FILE_CREATION_FAILED" = "新增檔案失敗";
 "HTTP_DOWNLOAD_CANCELLED" = "檔案被使用者刪除";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "請輸入一個地址來下載檔案到您的 %@ 。";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "地址格式 (%@) 沒有支援。請使用以 HTTP, HTTPS 或 FTP 開頭的地址。";
 "RENAME_MEDIA_TO" = "請輸入 %@ 的新名稱";
 
+"FOLDER_EMPTY" = "空的資料夾";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "選擇開啟檔案：";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "使用 .. 開啟";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "無法找到任何可開啟這種檔案類型的應用程式";
 "SHARING_SUCCESS_CAMERA_ROLL" = "檔案成功存入 Camera Roll";
 
-"SECTION_HEADER_LIBRARY" = "媒體櫃";
 "STREAMVC_DETAILTEXT" = "直接播放串流而不下載";
 "DOWNLOADVC_DETAILTEXT" = "直接下載檔案至您的裝置";
 "HEADER_TITLE_RENDERER" = "選擇投放裝置";
 
+"NETWORK" = "網路";
 "LOCAL_NETWORK" = "區域網路";
 "CONNECT_TO_SERVER" = "連線到伺服器";
 "FILE_SERVER" = "檔案伺服器";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "解鎖媒體庫\n輸入密碼以取消";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d 次嘗試通關密碼失敗";
+"1 Failed Passcode Attempt" = "一次嘗試通關密碼失敗";
+"Change Passcode" = "更換通關密碼";
+"Enter Passcode" = "輸入通關密碼";
+"Enter a passcode" = "輸入通關密碼";
+"Enter your new passcode" = "輸入您新的通關密碼";
+"Enter your old passcode" = "輸入您舊的通關密碼";
+"Enter your passcode" = "輸入您的通關密碼";
+"Next" = "下一個";
+"Passcodes did not match. Try again." = "通關密碼不一致。請再試一次。";
+"Re-enter your new passcode" = "再次輸入您新的通關密碼";
+"Re-enter your passcode" = "再次輸入您的通關密碼";
+"Set Passcode" = "設定通關密碼";
 
 "Settings" = "設定"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "開啟";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "影片播放棄";
 "VO_VIDEOPLAYER_DOUBLETAP" = "雙擊以顯示或是隱藏播放控制";
 
-"FIRST_STEPS_WELCOME" = "歡迎";
-"FIRST_STEPS_WELCOME_DETAIL" = "開始同步和播放您的媒體。";
 "FIRST_STEPS_ITUNES" = "iTunes 檔案同步";
-"FIRST_STEPS_ITUNES_DETAILS" = "使用傳輸線連接您的 %@ 到您的 Mac 或是 PC。\n打開 iTunes。\n選擇您的 %@。\n選擇左側選單中的「檔案分享」並尋找 VLC。\n傳輸您的檔案。";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "連接您的 %@ 到相同網路下的 Mac 或 PC。";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "切換到側邊欄，輸入 URL 到瀏覽器然後上傳您的檔案。";
+"FIRST_STEPS_ITUNES_TITLE" = "與電腦同步";
+"FIRST_STEPS_ITUNES_DETAILS" = "將您的裝置連接到 iTunes 並選擇您的裝置。選擇 iTunes 左側選單中的「檔案分享」並尋找 VLC 來傳輸檔案";
+"FIRST_STEPS_WIFI_TITLE" = "透過 WiFi 分享";
+"FIRST_STEPS_WIFI_DETAILS" = "連接到與手機相同的網路，並在您喜歡的網路瀏覽器中輸入產生的網址";
 "FIRST_STEPS_CLOUDS" = "雲端";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "上傳您的媒體到 Google Drive 或是 Dropbox。";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "打開側邊欄以選擇您的雲端供應商，然後透過下載或是串流的方式取得您的媒體。";
-"FIRST_STEPS_PLAYBACK" = "播放";
-"FIRST_STEPS_FLOSS" = "VLC for iOS 是自由而且是由志願者開放原始碼的軟體。\n我們期望您會喜歡他。";
+"FIRST_STEPS_CLOUD_TITLE" = "雲端";
+"FIRST_STEPS_CLOUD_DETAILS" = "將您的媒體上傳到雲端服務，例如 Google 雲端硬碟或是 Dropbox，來遠端下載或串流它們。";
 
-"FIRST_STEPS_TIME" = "時間";
-"FIRST_STEPS_ASPECT" = "寬高比";
-"FIRST_STEPS_SPEED" = "速度";
-"FIRST_STEPS_REPEAT" = "重複";
-"FIRST_STEPS_SUBTITLES" = "字幕軌";
-"FIRST_STEPS_AUDIO" = "音效軌";
-"FIRST_STEPS_POSITION" = "位置";
 
 "PLEX_CHECK_ACCOUNT" = "在設定中件查您的Plex帳號";
 "PLEX_ERROR_ACCOUNT" = "Plex登入錯誤";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "音量";
 "DURATION" = "時間";
 "TITLE" = "標題";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "按下 %@ 來刪除"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "選擇的將不會刪除";
-"DELETE_INVALID_TITLE" = "無效的選擇";
 "DELETE_MESSAGE" = "確認刪除選擇的檔案";
 "DELETE_TITLE" = "刪除選定的檔案";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "尚未選擇通訊協定";
 "Settings" = "設定";
 
-"CANCEL" = "取消";
 "ERROR" = "錯誤";
 "OK" = "確定";
 "SORT" = "排序";
 "SORT_BY" = "排序依";
+"SEARCH" = "搜尋";
 "VIDEO" = "視訊";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,37 @@
 "NAME" = "名稱";
 
 //EDIT
+
+"BUTTON_EDIT" = "編輯";
+"BUTTON_EDIT_HINT" = "編輯模式";
+
 "ADD_TO_PLAYLIST" = "加到播放清單";
+"ADD_TO_PLAYLIST_HINT" = "開啟加入至播放清單選單";
 
 "PLAYLIST_PLACEHOLDER" = "播放清單標題";
 "PLAYLIST_DESCRIPTION" = "選擇您新的播放清單的標題";
+"PLAYLIST_CREATION" = "建立新的播放清單";
+"PLAYLIST_CREATION_HINT" = "顯示互動式動作來建立播放清單";
+"ERROR_PLAYLIST_CREATION" = "無法建立播放清單";
+"ERROR_PLAYLIST_TRACKS" = "無法擷取軌道";
 
 "RENAME_PLACEHOLDER" = "新標題";
 "ERROR_RENAME_FAILED" = "重新命名失敗";
 "ERROR_EMPTY_NAME" = "標題不能為空";
 
+"SHARE_LABEL" = "分享";
+"SHARE_HINT" = "分享選取的檔案";
+"RENAME_HINT" = "重新命名選取的檔案";
+"DELETE_HINT" = "刪除選取的檔案";
+
 // Sort
 
+"BUTTON_SORT" = "排序";
+"BUTTON_SORT_HINT" = "顯示排序動作表";
 "HEADER_TITLE_SORT" = "排序依";
+"DESCENDING_LABEL" = "遞減排序";
+"DESCENDING_SWITCH_LABEL" = "遞增或遞減排序";
+"DESCENDING_SWITCH_HINT" = "以遞增或遞減順序排序內容";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +361,13 @@
 "ALBUM" = "專輯";
 "FILENAME" = "檔案名稱";
 "TRACK_NUMBER" = "音軌編號";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "什麼都沒找到";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "未知藝人";
+"VARIOUS_ARTIST" = "多個藝人";
+"UNKNOWN_ALBUM" = "未知專輯";
