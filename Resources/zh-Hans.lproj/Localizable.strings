@@ -11,7 +11,6 @@
 "TITLE" = "标题";
 "CHAPTER" = "章节";
 "MINIMIZE_PLAYBACK_VIEW" = "最小化回放";
-"FULLSCREEN_PLAYBACK" = "全屏播放";
 "TRACK_SELECTION" = "轨道选择";
 "AUDIO" = "音频";
 "SUBTITLES" = "字幕";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "继续回放?";
 "CONTINUE_PLAYBACK_LONG" = "是否从上次离开的地方继续播放“%@”?";
 
-"BUTTON_ALL" = "全选";
 "BUTTON_ABOUT" = "关于";
 "BUTTON_BACK" = "返回";
 "BUTTON_DONE" = "完成";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "显示可用投屏设备菜单";
 
 "UPGRADING_LIBRARY" = "正在升级媒体库";
-"UNTITLED_SHOW" = "无标题节目";
 "UNKNOWN" = "未知";
 
 "OPEN_NETWORK" = "打开网络串流";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "下载失败，HTTP 代码 %i";
-"HTTP_FILE_CREATION_FAILED" = "文件创建失败";
 "HTTP_DOWNLOAD_CANCELLED" = "下载已被用户取消";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "请输入文件的地址，以便将其下载到您的 %@。";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "不支持此地址协议 (%@)。请使用以 HTTP、HTTPS 或 FTP 开头的地址。";
 "RENAME_MEDIA_TO" = "请为 %@ 输入新名称";
 
+"FOLDER_EMPTY" = "空文件夹";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "选择要打开的文件:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "打开方式...";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "找不到可以打开该类型文件的应用程序";
 "SHARING_SUCCESS_CAMERA_ROLL" = "文件已成功存入相机胶卷";
 
-"SECTION_HEADER_LIBRARY" = "媒体库";
 "STREAMVC_DETAILTEXT" = "直接播放串流，不必下载";
 "DOWNLOADVC_DETAILTEXT" = "将文件直接下载到设备";
 "HEADER_TITLE_RENDERER" = "选择投屏设备";
 
+"NETWORK" = "网络";
 "LOCAL_NETWORK" = "本地网络";
 "CONNECT_TO_SERVER" = "连接到服务器";
 "FILE_SERVER" = "文件服务器";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "解锁媒体库\n按「取消」可输入密码解锁";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "口令验证失败 %d 次";
+"1 Failed Passcode Attempt" = "口令验证失败 1 次";
+"Change Passcode" = "更改锁定口令";
+"Enter Passcode" = "输入锁定口令";
+"Enter a passcode" = "请输入锁定口令";
+"Enter your new passcode" = "请输入新口令";
+"Enter your old passcode" = "请输入旧口令";
+"Enter your passcode" = "请输入您的锁定口令";
+"Next" = "下一步";
+"Passcodes did not match. Try again." = "口令不匹配。请再试一次。";
+"Re-enter your new passcode" = "请再次输入新口令";
+"Re-enter your passcode" = "请再次输入口令";
+"Set Passcode" = "设置锁定口令";
 
 "Settings" = "设置"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "开";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "视频播放器";
 "VO_VIDEOPLAYER_DOUBLETAP" = "轻按两次可显示或隐藏回放控件";
 
-"FIRST_STEPS_WELCOME" = "欢迎";
-"FIRST_STEPS_WELCOME_DETAIL" = "了解同步和播放媒体文件的几个步骤。";
 "FIRST_STEPS_ITUNES" = "iTunes 文件同步";
-"FIRST_STEPS_ITUNES_DETAILS" = "使用数据线将您的 %@ 连接到 Mac 或 PC。\n打开 iTunes。\n选择您的 %@。\n在左侧侧边栏选择「文件共享」，然后找 VLC。\n传输文件。";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "将您的 %@ 连接到您 Mac 或 PC 所属的网络。";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "切换侧边栏开关，在 web 浏览器中输入 URL，并上传文件。";
+"FIRST_STEPS_ITUNES_TITLE" = "与计算机同步";
+"FIRST_STEPS_ITUNES_DETAILS" = "将设备连接到 iTunes 并选择该设备。在 iTunes 左侧菜单中选择「文件共享」，找到「VLC」，即可开始传输文件";
+"FIRST_STEPS_WIFI_TITLE" = "通过 wifi 共享";
+"FIRST_STEPS_WIFI_DETAILS" = "连接到手机所处的网络，并在您偏好的 web 浏览器中输入生成的 URL";
 "FIRST_STEPS_CLOUDS" = "云存储";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "将您的媒体上传到 Google Drive 或 Dropbox。";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "打开侧边栏，选择您的云存储服务商，并查找您要下载或播放的媒体。";
-"FIRST_STEPS_PLAYBACK" = "回放";
-"FIRST_STEPS_FLOSS" = "VLC for iOS 是由志愿者开发的自由、开源软件。\n希望您能喜欢它。";
+"FIRST_STEPS_CLOUD_TITLE" = "云";
+"FIRST_STEPS_CLOUD_DETAILS" = "将媒体上传到云服务，例如 Google Drive 或 Dropbox，即可远程下载/串流播放。";
 
-"FIRST_STEPS_TIME" = "时间";
-"FIRST_STEPS_ASPECT" = "宽高比";
-"FIRST_STEPS_SPEED" = "速度";
-"FIRST_STEPS_REPEAT" = "重复";
-"FIRST_STEPS_SUBTITLES" = "字幕轨";
-"FIRST_STEPS_AUDIO" = "音频轨";
-"FIRST_STEPS_POSITION" = "位置";
 
 "PLEX_CHECK_ACCOUNT" = "在设置中检查您的 Plex 账号";
 "PLEX_ERROR_ACCOUNT" = "Plex 登录错误";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "音量";
 "DURATION" = "时长";
 "TITLE" = "标题";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "按住 %@ 可删除"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "选中项目无法删除";
-"DELETE_INVALID_TITLE" = "无效选择";
 "DELETE_MESSAGE" = "确认删除选中文件";
 "DELETE_TITLE" = "删除选中文件";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "未选择协议";
 "Settings" = "设置";
 
-"CANCEL" = "取消";
 "ERROR" = "错误";
 "OK" = "确定";
 "SORT" = "排序";
 "SORT_BY" = "排序条件";
+"SEARCH" = "搜索";
 "VIDEO" = "视频";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,37 @@
 "NAME" = "名称";
 
 //EDIT
+
+"BUTTON_EDIT" = "编辑";
+"BUTTON_EDIT_HINT" = "编辑模式";
+
 "ADD_TO_PLAYLIST" = "添加到播放列表";
+"ADD_TO_PLAYLIST_HINT" = "打开「添加到播放列表」菜单";
 
 "PLAYLIST_PLACEHOLDER" = "播放列表标题";
 "PLAYLIST_DESCRIPTION" = "为新播放列表选择标题";
+"PLAYLIST_CREATION" = "新建播放列表";
+"PLAYLIST_CREATION_HINT" = "显示用于创建播放列表的交互操作";
+"ERROR_PLAYLIST_CREATION" = "无法创建播放列表";
+"ERROR_PLAYLIST_TRACKS" = "无法获取轨道信息";
 
 "RENAME_PLACEHOLDER" = "新标题";
 "ERROR_RENAME_FAILED" = "重命名失败";
 "ERROR_EMPTY_NAME" = "标题不能为空";
 
+"SHARE_LABEL" = "分享";
+"SHARE_HINT" = "分享选中文件";
+"RENAME_HINT" = "重命名选中文件";
+"DELETE_HINT" = "删除选中文件";
+
 // Sort
 
+"BUTTON_SORT" = "排序";
+"BUTTON_SORT_HINT" = "显示排序方式菜单";
 "HEADER_TITLE_SORT" = "排序条件";
+"DESCENDING_LABEL" = "降序";
+"DESCENDING_SWITCH_LABEL" = "升序或降序";
+"DESCENDING_SWITCH_HINT" = "以升序或降序排列内容";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +361,13 @@
 "ALBUM" = "专辑";
 "FILENAME" = "文件名";
 "TRACK_NUMBER" = "轨道号";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "未发现任何内容";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "未知艺术家";
+"VARIOUS_ARTIST" = "群星";
+"UNKNOWN_ALBUM" = "未知专辑";
