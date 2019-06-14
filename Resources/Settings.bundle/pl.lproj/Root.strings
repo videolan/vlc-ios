@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "Sterowanie odtwarzania gestami";
 "SETTINGS_GESTURES_VOLUME" = "Przesuń w górę/w dół dla głośności";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Dotknij, aby odtworzyć/zatrzymać";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Dotknij dwoma palcami, aby odtworzyć/zatrzymać";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Przesuń w górę/w dół dla jasności";
 "SETTINGS_GESTURES_SEEK" = "Przesuń w prawo/w lewo, aby szukać";
 "SETTINGS_GESTURES_CLOSE" = "Ściśnij, aby zamknąć";
