@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "Ovládať prehrávanie gestami";
 "SETTINGS_GESTURES_VOLUME" = "Hlasitosť - posunutím nahor/nadol";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Klepnutím spustiť/pozastaviť";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Prehrať/pozastaviť dotykom dvomi prstami";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Úprava jasu - posunutím nahor/nadol";
 "SETTINGS_GESTURES_SEEK" = "Vyhľadávanie - posunutím doprava/doľava";
 "SETTINGS_GESTURES_CLOSE" = "Klepnutím zatvoriť";
@@ -69,10 +69,10 @@
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Hrúbka obrysu";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Žiadny";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Tenký";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normálny";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Hrubý";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normálne";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Hrubé";
 
-"SETTINGS_DEINTERLACE" = "Prekladanie";
+"SETTINGS_DEINTERLACE" = "Odstrániť prekladanie";
 "SETTINGS_DEINTERLACE_ON" = "Zap.";
 "SETTINGS_DEINTERLACE_OFF" = "Vyp.";
 "SETTINGS_DEINTERLACE_AUTO" = "Automaticky";
