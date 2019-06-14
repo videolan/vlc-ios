@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "Afspelen besturen met gebaren";
 "SETTINGS_GESTURES_VOLUME" = "Omhoog/omlaag vegen voor volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tikken voor afspelen/pauzeren";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Tikken met twee vingers om af te spelen of te pauzeren";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Omhoog/omlaag vegen voor helderheid";
 "SETTINGS_GESTURES_SEEK" = "Rechts/links vegen om te zoeken";
 "SETTINGS_GESTURES_CLOSE" = "Knijpen om te sluiten";
