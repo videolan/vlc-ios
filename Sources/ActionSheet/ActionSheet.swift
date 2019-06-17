@@ -70,7 +70,7 @@ class ActionSheet: UIViewController {
         return collectionView
     }()
 
-    private lazy var headerView: ActionSheetSectionHeader = {
+    private(set) lazy var headerView: ActionSheetSectionHeader = {
         let headerView = ActionSheetSectionHeader()
         headerView.title.text = delegate?.headerViewTitle?() ?? "Default header title"
         headerView.title.textColor = PresentationTheme.current.colors.cellTextColor

@@ -46,7 +46,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 //    }()
 
     @objc private lazy var sortActionSheet: ActionSheet = {
-        let header = ActionSheetSortSectionHeader()
+        let header = ActionSheetSortSectionHeader(model: model.sortModel)
         let actionSheet = ActionSheet(header: header)
         header.delegate = self
         actionSheet.delegate = self
@@ -382,6 +382,10 @@ extension VLCMediaCategoryViewController {
                 IndexPath(row: currentSortIndex, section: 0), animated: false,
                                                     scrollPosition: .centeredVertically)
         }
+    }
+
+    func handleSortShortcut() {
+        model.sort(by: model.sortModel.currentSort, desc: !model.sortModel.desc)
     }
 }
 

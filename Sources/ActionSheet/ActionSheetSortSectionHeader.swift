@@ -18,7 +18,9 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return 100
     }
 
-    let descendingStackView: UIStackView = {
+    private let sortModel: SortModel
+
+    private let descendingStackView: UIStackView = {
         let descendingStackView = UIStackView()
         descendingStackView.spacing = 0
         descendingStackView.alignment = .center
@@ -26,7 +28,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return descendingStackView
     }()
 
-    let descendingLabel: UILabel = {
+    private let descendingLabel: UILabel = {
         let descendingLabel = UILabel()
         descendingLabel.textColor = PresentationTheme.current.colors.cellTextColor
         descendingLabel.text = NSLocalizedString("DESCENDING_LABEL", comment: "")
@@ -46,8 +48,10 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
 
     weak var delegate: ActionSheetSortSectionHeaderDelegate?
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(model: SortModel) {
+        sortModel = model
+        super.init(frame: .zero)
+        actionSwitch.isOn = sortModel.desc
         translatesAutoresizingMaskIntoConstraints = false
         setupStackView()
         updateTheme()
@@ -55,6 +59,14 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
                                                name: .VLCThemeDidChangeNotification, object: nil)
     }
 
+    override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
+
+        if newWindow != nil {
+            // ActionSheetSortSectionHeader did appear.
+            actionSwitch.isOn = sortModel.desc
+        }
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

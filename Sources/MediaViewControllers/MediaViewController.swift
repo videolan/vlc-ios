@@ -17,13 +17,21 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
     var services: Services
     private var rendererButton: UIButton
     private lazy var sortButton: UIBarButtonItem = {
-        var sortButton = UIBarButtonItem(image: UIImage(named: "sort"),
-                                     style: .plain, target: self,
-                                     action: #selector(handleSort))
+        var sortButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        sortButton.setImage(UIImage(named: "sort"), for: .normal)
+        // It seems that using a custom view, UIBarButtonItem have a offset of 16, therefore adding a large margin
+        if UIView.userInterfaceLayoutDirection(for: sortButton.semanticContentAttribute) == .rightToLeft {
+            sortButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16)
+        } else {
+            sortButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        }
+        sortButton.addTarget(self, action: #selector(handleSort), for: .touchUpInside)
         sortButton.tintColor = PresentationTheme.current.colors.orangeUI
         sortButton.accessibilityLabel = NSLocalizedString("BUTTON_SORT", comment: "")
         sortButton.accessibilityHint = NSLocalizedString("BUTTON_SORT_HINT", comment: "")
-        return sortButton
+        sortButton.addGestureRecognizer(UILongPressGestureRecognizer(target: self,
+                                                                     action: #selector(handleSortShortcut(sender:))))
+        return UIBarButtonItem(customView: sortButton)
     }()
 
     private lazy var editButton: UIBarButtonItem = {
@@ -128,6 +136,17 @@ extension VLCMediaViewController {
     @objc func handleSort() {
         if let mediaCategoryViewController = viewControllers[currentIndex] as? VLCMediaCategoryViewController {
             mediaCategoryViewController.handleSort()
+        }
+    }
+
+    @objc func handleSortShortcut(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            if #available(iOS 10.0, *) {
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            }
+            if let mediaCategoryViewController = viewControllers[currentIndex] as? VLCMediaCategoryViewController {
+                mediaCategoryViewController.handleSortShortcut()
+            }
         }
     }
 }
