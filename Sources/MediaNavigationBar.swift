@@ -3,32 +3,31 @@
  *
  * Copyright © 2019 VLC authors and VideoLAN
  *
- * Authors: Robert Gordon <robwaynegordon@gmail.com>
+ * Authors: Robert Gordon <robwaynegordon # gmail.com>
  *
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+import AVKit
+
 @objc (VLCMediaNavigationBarDelegate)
-protocol VLCMediaNavigationBarDelegate {
-    func didMinimizePlayback(_ navigationBar: MediaNavigationBar)
-    func didToggleChromeCast(_ navigationBar: MediaNavigationBar)
-    func didToggleAirPlay(_ navigationBar: MediaNavigationBar)
+protocol MediaNavigationBarDelegate {
+    func mediaNavigationBarDidMinimizePlayback(_ navigationBar: MediaNavigationBar)
+    func mediaNavigationBarDidToggleChromeCast(_ navigationBar: MediaNavigationBar)
 }
 
 @objc (VLCMediaNavigationBar)
 @objcMembers class MediaNavigationBar: UIView {
     
     // MARK: Instance Variables
-    weak var delegate:  VLCMediaNavigationBarDelegate?
+    weak var delegate: MediaNavigationBarDelegate?
     
     lazy var minimizePlaybackButton: UIButton = {
         var minButton = UIButton(type: .system)
         minButton.addTarget(self, action: #selector(minimizePlayback), for: .touchUpInside)
-        minButton.setImage(UIImage(named: "minimizePlayback"), for: .normal)
+        minButton.setImage(UIImage(named: "iconChevron"), for: .normal)
         minButton.tintColor = .white
-        
-        // Constraints
         minButton.translatesAutoresizingMaskIntoConstraints = false
         return minButton
     }()
@@ -36,10 +35,10 @@ protocol VLCMediaNavigationBarDelegate {
     private var mediaTitleTextLabel: UILabel = {
         var label = UILabel()
         label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
         label.textColor = .white
         label.font = UIFont(name: "SFProDisplay-Medium", size: 17)
         label.text = NSLocalizedString("TITLE", comment: "Video Title")
-        label.isUserInteractionEnabled = false
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -53,51 +52,30 @@ protocol VLCMediaNavigationBarDelegate {
         return chromeButton
     }()
     
-    lazy var airPlayButton: UIButton = {
-        var airPlayButton = UIButton(type: .system)
-        airPlayButton.addTarget(self, action: #selector(toggleAirPlay), for: .touchUpInside)
-        airPlayButton.setImage(UIImage(named: "TVBroadcastIcon"), for: .normal)
-        airPlayButton.tintColor = .white
-        airPlayButton.translatesAutoresizingMaskIntoConstraints = false
-        return airPlayButton
+    @available(iOS 11.0, *)
+    lazy var airplayRoutePickerView: AVRoutePickerView = {
+        var airPlayRoutePicker = AVRoutePickerView(frame: .zero)
+        airPlayRoutePicker.activeTintColor = .orange
+        airPlayRoutePicker.tintColor = .white
+        airPlayRoutePicker.translatesAutoresizingMaskIntoConstraints = false
+        return airPlayRoutePicker
     }()
     
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            minimizePlaybackButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            minimizePlaybackButton.topAnchor.constraint(equalTo: self.topAnchor),
-            minimizePlaybackButton.widthAnchor.constraint(equalToConstant: minimizePlaybackButton.frame.width),
-            minimizePlaybackButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            mediaTitleTextLabel.leadingAnchor.constraint(equalTo: minimizePlaybackButton.trailingAnchor, constant: 16),
-            mediaTitleTextLabel.topAnchor.constraint(equalTo: self.topAnchor),
-            mediaTitleTextLabel.trailingAnchor.constraint(equalTo: chromeCastButton.leadingAnchor, constant: 50),
-            chromeCastButton.trailingAnchor.constraint(equalTo: airPlayButton.leadingAnchor, constant: 20),
-            chromeCastButton.topAnchor.constraint(equalTo: self.topAnchor),
-            chromeCastButton.widthAnchor.constraint(equalToConstant: 24),
-            airPlayButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 20),
-            airPlayButton.topAnchor.constraint(equalTo: self.topAnchor),
-            airPlayButton.widthAnchor.constraint(equalToConstant: 24)
-        ])
-    }
-    
-    private func setupViews() {
-        self.addSubview(minimizePlaybackButton)
-        self.addSubview(mediaTitleTextLabel)
-        self.addSubview(chromeCastButton)
-        self.addSubview(airPlayButton)
-        
-        if UIApplication.shared.statusBarOrientation.isLandscape {
-            mediaTitleTextLabel.isHidden = true
-        }
-    }
+    lazy var airplayVolumeView: MPVolumeView = {
+        var airplayVolumeView = MPVolumeView()
+        airplayVolumeView.tintColor = .white
+        airplayVolumeView.translatesAutoresizingMaskIntoConstraints = false
+        airplayVolumeView.showsVolumeSlider = false
+        return airplayVolumeView
+    }()
     
     // MARK: Initializers
     required init(coder: NSCoder) {
         fatalError("init(coder: NSCoder) not implemented")
     }
     
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupViews()
         setupConstraints()
     }
@@ -107,31 +85,51 @@ protocol VLCMediaNavigationBarDelegate {
         mediaTitleTextLabel.text = titleText
     }
     
-    // Mark: Button Actions
-    func minimizePlayback() {
-        guard let delegate = delegate else {
-            print("Delegate not set for MediaNavigationBar")
-            return
+    private func setupConstraints() {
+        let margin: CGFloat = 35.0
+        var airplayView: UIView
+        
+        if #available(iOS 11.0, *) {
+            airplayView = airplayRoutePickerView
+        } else {
+            airplayView = airplayVolumeView
         }
+        
+        let constraints: [NSLayoutConstraint] = [
+            minimizePlaybackButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            minimizePlaybackButton.topAnchor.constraint(equalTo: topAnchor),
+            minimizePlaybackButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+            mediaTitleTextLabel.leadingAnchor.constraint(equalTo: minimizePlaybackButton.trailingAnchor, constant: margin),
+            mediaTitleTextLabel.topAnchor.constraint(equalTo: topAnchor),
+            mediaTitleTextLabel.trailingAnchor.constraint(lessThanOrEqualTo: chromeCastButton.leadingAnchor, constant: margin),
+            chromeCastButton.topAnchor.constraint(equalTo: topAnchor),
+            chromeCastButton.trailingAnchor.constraint(equalTo: airplayView.leadingAnchor, constant: margin),
+            airplayView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: margin),
+            airplayView.topAnchor.constraint(equalTo: topAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(constraints)
+    }
     
-        delegate.didMinimizePlayback(self)
+    private func setupViews() {
+        addSubview(minimizePlaybackButton)
+        addSubview(mediaTitleTextLabel)
+        addSubview(chromeCastButton)
+        if #available(iOS 11.0, *) {
+            addSubview(airplayRoutePickerView)
+        } else {
+            addSubview(airplayVolumeView)
+        }
+    }
+    
+    // MARK: Button Actions
+    func minimizePlayback() {
+        assert(delegate != nil, "Delegate not set for MediaNavigationBar")
+        delegate?.mediaNavigationBarDidMinimizePlayback(self)
     }
     
     func toggleChromeCast() {
-        guard let delegate = delegate else {
-            print("Delegate not set for MediaNavigationBar")
-            return
-        }
-        
-        delegate.didToggleChromeCast(self)
-    }
-    
-    func toggleAirPlay() {
-        guard let delegate = delegate else {
-            print("Delegate not set for MediaNavigationBar")
-            return
-        }
-        
-        delegate.didToggleAirPlay(self)
+        assert(delegate != nil, "Delegate not set for MediaNavigationBar")
+        delegate?.mediaNavigationBarDidToggleChromeCast(self)
     }
 }
