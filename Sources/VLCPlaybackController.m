@@ -1096,7 +1096,8 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     if (!media) return;
 
     CGFloat lastPosition = media.progress;
-    if (_mediaPlayer.position < lastPosition) {
+    // .95 prevents the controller from opening and closing immediatly when restoring state
+    if (lastPosition < .95 && _mediaPlayer.position < lastPosition) {
         NSInteger continuePlayback;
         if (media.type == VLCMLMediaTypeAudio)
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
