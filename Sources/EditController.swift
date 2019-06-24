@@ -54,15 +54,18 @@ private extension EditController {
         var alertTitle: String
         var alertDescription: String
         var placeHolder: String
+        var textfieldText: String
         var confirmActionTitle: String
 
         init(alertTitle: String = "",
              alertDescription: String = "",
              placeHolder: String = "",
+             textfieldText: String = "",
              confirmActionTitle: String = NSLocalizedString("BUTTON_DONE", comment: "")) {
             self.alertTitle = alertTitle
             self.alertDescription = alertDescription
             self.placeHolder = placeHolder
+            self.textfieldText = textfieldText
             self.confirmActionTitle = confirmActionTitle
         }
     }
@@ -75,6 +78,7 @@ private extension EditController {
 
         alertController.addTextField(configurationHandler: {
             textField in
+            textField.text = info.textfieldText
             textField.placeholder = info.placeHolder
         })
 
@@ -220,27 +224,35 @@ extension EditController: EditToolbarDelegate {
     }
 
     func editToolbarDidRename(_ editToolbar: EditToolbar) {
-        // FIXME: Multiple renaming of files(multiple alert can get unfriendly if too many files)
-        for indexPath in selectedCellIndexPaths {
-            if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
-                // Not using VLCAlertViewController to have more customization in text fields
-                let alertInfo = TextFieldAlertInfo(alertTitle: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), media.title),
-                                                   placeHolder: NSLocalizedString("RENAME_PLACEHOLDER", comment: ""),
-                                                   confirmActionTitle: NSLocalizedString("BUTTON_RENAME", comment: ""))
-                presentTextFieldAlert(with: alertInfo, completionHandler: {
-                    [weak self] text -> Void in
-                    guard text != "" else {
-                        VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
-                                                                errorMessage: NSLocalizedString("ERROR_EMPTY_NAME", comment: ""),
-                                                                viewController: (UIApplication.shared.keyWindow?.rootViewController)!)
-                        return
-                    }
-                    media.updateTitle(text)
-                    if let strongself = self {
-                        strongself.delegate?.editController(editController: strongself, cellforItemAt: indexPath)?.isChecked = false
-                    }
-                })
-            }
+
+        guard let indexPath = selectedCellIndexPaths.first else {
+            assertionFailure("called without selectedcells")
+            return
+        }
+        if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
+            // Not using VLCAlertViewController to have more customization in text fields
+            let alertInfo = TextFieldAlertInfo(alertTitle: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), media.title),
+                                               textfieldText: media.title,
+                                               confirmActionTitle: NSLocalizedString("BUTTON_RENAME", comment: ""))
+            presentTextFieldAlert(with: alertInfo, completionHandler: {
+                [weak self] text -> Void in
+                guard text != "" else {
+                    VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
+                                                            errorMessage: NSLocalizedString("ERROR_EMPTY_NAME", comment: ""),
+                                                            viewController: (UIApplication.shared.keyWindow?.rootViewController)!)
+                    return
+                }
+                media.updateTitle(text)
+                guard let strongself = self else {
+                    return
+                }
+                strongself.delegate?.editController(editController: strongself, cellforItemAt: indexPath)?.isChecked = false
+                strongself.selectedCellIndexPaths.remove(indexPath)
+                //call until all items are renamed
+                if !strongself.selectedCellIndexPaths.isEmpty {
+                    strongself.editToolbarDidRename(editToolbar)
+                }
+            })
         }
     }
 }
