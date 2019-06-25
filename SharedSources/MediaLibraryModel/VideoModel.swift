@@ -61,6 +61,13 @@ extension VideoModel: MediaLibraryObserver {
         updateView?()
     }
 
+    func medialibrary(_ medialibrary: MediaLibraryService, didModifyVideos videos: [VLCMLMedia]) {
+        if !videos.isEmpty {
+            files = swapMedias(with: videos)
+            updateView?()
+        }
+    }
+
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
         files = files.filter() {
             for id in ids where $0.identifier() == id.int64Value {

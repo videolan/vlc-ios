@@ -60,6 +60,13 @@ extension TrackModel: MediaLibraryObserver {
         updateView?()
     }
 
+    func medialibrary(_ medialibrary: MediaLibraryService, didModifyTracks tracks: [VLCMLMedia]) {
+        if !tracks.isEmpty {
+            files = swapMedias(with: tracks)
+            updateView?()
+        }
+    }
+
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
         files = files.filter() {
             for id in ids where $0.identifier() == id.int64Value {
