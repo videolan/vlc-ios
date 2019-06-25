@@ -332,8 +332,18 @@ extension EditController: AddToPlaylistViewControllerDelegate {
     func addToPlaylistViewController(_ addToPlaylistViewController: AddToPlaylistViewController,
                                      didSelectPlaylist playlist: VLCMLPlaylist) {
         let files = model.anyfiles
+        var mediaObjects = [VLCMLObject]()
+
         for index in selectedCellIndexPaths where index.row < files.count {
-            if !playlist.appendMedia(withIdentifier: files[index.row].identifier()) {
+            if let mediaCollection = files[index.row] as? MediaCollectionModel {
+                mediaObjects += mediaCollection.files() ?? []
+            } else {
+                mediaObjects.append(files[index.row])
+            }
+        }
+
+        for media in mediaObjects {
+            if !playlist.appendMedia(withIdentifier: media.identifier()) {
                 assertionFailure("EditController: AddToPlaylistViewControllerDelegate: Failed to add item.")
             }
         }
