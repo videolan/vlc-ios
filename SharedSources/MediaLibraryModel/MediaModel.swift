@@ -60,7 +60,9 @@ extension VLCMLMedia {
         return lhs.identifier() == rhs.identifier()
     }
 }
+
 // MARK: - ViewModel
+
 extension VLCMLMedia {
     @objc func mediaDuration() -> String {
         return String(format: "%@", VLCTime(int: Int32(duration())))
