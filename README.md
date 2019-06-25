@@ -61,7 +61,7 @@ Mostly for debugging or advanced users, you might want to have a custom local VL
 
     Inside your vlc-ios folder, after a `pod update`, do:
 
-    `cd Pods/MobileVLCKit-unstable/MobileVLCKit-binary`
+    `cd Pods/MobileVLCKit`
 
     `rm -rf MobileVLCKit.framework`
 
