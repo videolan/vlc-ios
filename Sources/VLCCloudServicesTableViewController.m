@@ -126,48 +126,51 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     VLCCloudServiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CloudServiceCell" forIndexPath:indexPath];
-    cell.cloudTitle.textColor = cell.cloudInformation.textColor = cell.lonesomeCloudTitle.textColor = PresentationTheme.current.colors.cellTextColor;
-    cell.icon.tintColor = PresentationTheme.current.colors.cellTextColor;
+    cell.cloudTitle.textColor = cell.lonesomeCloudTitle.textColor = PresentationTheme.current.colors.cellTextColor;
     switch (indexPath.row) {
         case 0: {
             //Dropbox
             BOOL isAuthorized = [[VLCDropboxController sharedInstance] isAuthorized];
-            cell.icon.image = [UIImage imageNamed:@"Dropbox"];
+            cell.icon.image = [UIImage imageNamed:@"DropboxCell"];
             cell.cloudTitle.text = @"Dropbox";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
+            cell.cloudInformation.textColor = isAuthorized ? PresentationTheme.current.colors.orangeUI : PresentationTheme.current.colors.cellDetailTextColor;
             cell.lonesomeCloudTitle.text = @"";
             break;
         }
         case 1: {
             //GoogleDrive
             BOOL isAuthorized = [[VLCGoogleDriveController sharedInstance] isAuthorized];
-            cell.icon.image = [UIImage imageNamed:@"Drive"];
+            cell.icon.image = [UIImage imageNamed:@"DriveCell"];
             cell.cloudTitle.text = @"Google Drive";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
+            cell.cloudInformation.textColor = isAuthorized ? PresentationTheme.current.colors.orangeUI : PresentationTheme.current.colors.cellDetailTextColor;
             cell.lonesomeCloudTitle.text = @"";
             break;
         }
         case 2: {
             //Box
             BOOL isAuthorized = [[BoxSDK sharedSDK].OAuth2Session isAuthorized];
-            cell.icon.image = [UIImage imageNamed:@"Box"];
+            cell.icon.image = [UIImage imageNamed:@"BoxCell"];
             cell.cloudTitle.text = @"Box";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
+            cell.cloudInformation.textColor = isAuthorized ? PresentationTheme.current.colors.orangeUI : PresentationTheme.current.colors.cellDetailTextColor;
             cell.lonesomeCloudTitle.text = @"";
             break;
         }
         case 3: {
             //OneDrive
             BOOL isAuthorized = [[VLCOneDriveController sharedInstance] isAuthorized];
-            cell.icon.image = [UIImage imageNamed:@"OneDrive"];
+            cell.icon.image = [UIImage imageNamed:@"OneDriveCell"];
             cell.cloudTitle.text = @"OneDrive";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
+            cell.cloudInformation.textColor = isAuthorized ? PresentationTheme.current.colors.orangeUI : PresentationTheme.current.colors.cellDetailTextColor;
             cell.lonesomeCloudTitle.text = @"";
             break;
         }
         case 4:
             //Cloud Drives
-            cell.icon.image = [UIImage imageNamed:@"iCloud"];
+            cell.icon.image = [UIImage imageNamed:@"iCloudCell"];
             cell.lonesomeCloudTitle.text = NSLocalizedString(@"CLOUD_SERVICES", nil);
             cell.cloudTitle.text = cell.cloudInformation.text = @"";
             break;
