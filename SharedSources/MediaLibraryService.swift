@@ -25,6 +25,8 @@ extension NSNotification {
 
 @objc protocol MediaLibraryObserver: class {
     // Video
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didAddVideos videos: [VLCMLMedia])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didModifyVideos videos: [VLCMLMedia])
@@ -32,22 +34,22 @@ extension NSNotification {
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeleteMediaWithIds ids: [NSNumber])
 
-    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
-                                     didAddVideos videos: [VLCMLMedia])
-
+    // ShowEpisodes
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddShowEpisodes showEpisodes: [VLCMLMedia])
 
+    // Tumbnail
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      thumbnailReady media: VLCMLMedia)
 
-    // Audio
+    // Tracks
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddTracks tracks: [VLCMLMedia])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didModifyTracks tracks: [VLCMLMedia])
 
+    // Artists
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddArtists artists: [VLCMLArtist])
 
@@ -57,6 +59,7 @@ extension NSNotification {
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeleteArtistsWithIds artistsIds: [NSNumber])
 
+    // Albums
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddAlbums albums: [VLCMLAlbum])
 
@@ -66,9 +69,11 @@ extension NSNotification {
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeleteAlbumsWithIds albumsIds: [NSNumber])
 
+    // AlbumTracks
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddAlbumTracks albumTracks: [VLCMLMedia])
 
+    // Genres
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddGenres genres: [VLCMLGenre])
 
