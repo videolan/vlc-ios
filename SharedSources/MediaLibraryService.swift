@@ -42,7 +42,7 @@ extension NSNotification {
 
     // Audio
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
-                                     didAddAudios audios: [VLCMLMedia])
+                                     didAddTracks tracks: [VLCMLMedia])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddArtists artists: [VLCMLArtist])
@@ -414,14 +414,14 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
         media.forEach { $0.updateCoreSpotlightEntry() }
 
         let videos = media.filter {( $0.type() == .video )}
-        let audio = media.filter {( $0.type() == .audio )}
+        let tracks = media.filter {( $0.type() == .audio )}
 
         // thumbnails only for videos
         requestThumbnail(for: videos)
 
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddVideos: videos)
-            observer.value.observer?.medialibrary?(self, didAddAudios: audio)
+            observer.value.observer?.medialibrary?(self, didAddTracks: tracks)
         }
     }
 

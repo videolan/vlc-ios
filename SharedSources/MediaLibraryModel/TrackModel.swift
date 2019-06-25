@@ -55,8 +55,8 @@ extension TrackModel: EditableMLModel {
 // MARK: - MediaLibraryObserver
 
 extension TrackModel: MediaLibraryObserver {
-    func medialibrary(_ medialibrary: MediaLibraryService, didAddAudios audios: [VLCMLMedia]) {
-        audios.forEach({ append($0) })
+    func medialibrary(_ medialibrary: MediaLibraryService, didAddTracks tracks: [VLCMLMedia]) {
+        tracks.forEach({ append($0) })
         updateView?()
     }
 
