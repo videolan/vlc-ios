@@ -330,7 +330,6 @@
 "ERROR_PLAYLIST_CREATION" = "Falha ao criar lista de reprodução";
 "ERROR_PLAYLIST_TRACKS" = "Falha ao acessar trilhas";
 
-"RENAME_PLACEHOLDER" = "Novo título";
 "ERROR_RENAME_FAILED" = "Falha ao renomear";
 "ERROR_EMPTY_NAME" = "O título não pode estar vazio";
 
