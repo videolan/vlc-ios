@@ -330,7 +330,6 @@
 "ERROR_PLAYLIST_CREATION" = "Bir oynatma listesi eklenemedi";
 "ERROR_PLAYLIST_TRACKS" = "Kayıtlar alınamadı";
 
-"RENAME_PLACEHOLDER" = "Yeni ad";
 "ERROR_RENAME_FAILED" = "Yeniden adlandırılamadı";
 "ERROR_EMPTY_NAME" = "Ad boş olamaz";
 
