@@ -330,7 +330,6 @@
 "ERROR_PLAYLIST_CREATION" = "יצירת רשימת הנגינה נכשלה";
 "ERROR_PLAYLIST_TRACKS" = "קבלת הרצועות נכשלה";
 
-"RENAME_PLACEHOLDER" = "כותרת חדשה";
 "ERROR_RENAME_FAILED" = "שינוי השם נכשל";
 "ERROR_EMPTY_NAME" = "הכותרת לא יכולה להישאר ריקה";
 
