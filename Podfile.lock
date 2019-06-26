@@ -93,7 +93,7 @@ DEPENDENCIES:
   - MediaLibraryKit-prod
   - MetaDataFetcherKit (~> 0.3.1)
   - MobileVLCKit (= 3.3.2)
-  - ObjectiveDropboxOfficial (from `git://github.com/carolanitz/dropbox-sdk-obj-c.git`)
+  - ObjectiveDropboxOfficial (from `git://github.com/Mikanbu/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OneDriveSDK
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
@@ -143,7 +143,7 @@ EXTERNAL SOURCES:
     :commit: 415ea6bb
     :git: git://github.com/fkuehne/InAppSettingsKit.git
   ObjectiveDropboxOfficial:
-    :git: git://github.com/carolanitz/dropbox-sdk-obj-c.git
+    :git: git://github.com/Mikanbu/dropbox-sdk-obj-c.git
   OROpenSubtitleDownloader:
     :commit: 0509eac2
     :git: https://github.com/orta/OROpenSubtitleDownloader.git
@@ -159,8 +159,8 @@ CHECKOUT OPTIONS:
     :commit: 415ea6bb
     :git: git://github.com/fkuehne/InAppSettingsKit.git
   ObjectiveDropboxOfficial:
-    :commit: 153b109c26aa8546fbe99567d229d91e09d2cd3b
-    :git: git://github.com/carolanitz/dropbox-sdk-obj-c.git
+    :commit: e07b5aa5bc41879ac664b73e03a2d2c162d89b5b
+    :git: git://github.com/Mikanbu/dropbox-sdk-obj-c.git
   OROpenSubtitleDownloader:
     :commit: 0509eac2
     :git: https://github.com/orta/OROpenSubtitleDownloader.git
@@ -183,7 +183,7 @@ SPEC CHECKSUMS:
   MetaDataFetcherKit: d1d61b061bf74268aaffb6bf08a70396672163df
   MobileVLCKit: d7b6146025626c795e29e7083170adbed2950062
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
-  ObjectiveDropboxOfficial: e11cdf40e8965a6c24c6d6ff64905f2df43ab653
+  ObjectiveDropboxOfficial: b9e95d98e3ff2baa0cd86aea7c8322a712f356d6
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: 90ab8781f0992c37d96b68cc340585f5cf36701f
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
@@ -197,6 +197,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: a9496fc889a031267484a35723f442cfa23c0918
+PODFILE CHECKSUM: 760bb6224deb4354eae6b1efb5ee5375ad8fc319
 
 COCOAPODS: 1.7.0
