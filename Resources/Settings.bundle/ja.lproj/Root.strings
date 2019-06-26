@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "ジェスチャーで再生を制御";
 "SETTINGS_GESTURES_VOLUME" = "上下にスワイプでボリューム変更";
-"SETTINGS_GESTURES_PLAYPAUSE" = "タップで再生/一時停止";
+"SETTINGS_GESTURES_PLAYPAUSE" = "二本指タップで再生/一時停止";
 "SETTINGS_GESTURES_BRIGHTNESS" = "上下にスワイプで輝度変更";
 "SETTINGS_GESTURES_SEEK" = "左右にスワイプでシーク";
 "SETTINGS_GESTURES_CLOSE" = "ピンチでクローズ";

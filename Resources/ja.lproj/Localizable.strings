@@ -11,7 +11,6 @@
 "TITLE" = "タイトル";
 "CHAPTER" = "チャプター";
 "MINIMIZE_PLAYBACK_VIEW" = "最小化して再生";
-"FULLSCREEN_PLAYBACK" = "全画面表示で再生";
 "TRACK_SELECTION" = "トラックの選択";
 "AUDIO" = "オーディオ";
 "SUBTITLES" = "字幕";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "再生を継続しますか?";
 "CONTINUE_PLAYBACK_LONG" = "再生を停止した位置から \"%@\" の再生を継続しますか？";
 
-"BUTTON_ALL" = "すべて選択";
 "BUTTON_ABOUT" = "VLCについて";
 "BUTTON_BACK" = "戻る";
 "BUTTON_DONE" = "完了";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "利用可能なキャスティングデバイスのメニューを表示";
 
 "UPGRADING_LIBRARY" = "メディアライブラリのアップグレード中";
-"UNTITLED_SHOW" = "タイトル無しのショー";
 "UNKNOWN" = "不明";
 
 "OPEN_NETWORK" = "ネットワークストリームを開く";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "HTTPによるダウンロードに失敗しました コード %i";
-"HTTP_FILE_CREATION_FAILED" = "ファイルの作成に失敗しました";
 "HTTP_DOWNLOAD_CANCELLED" = "ダウンロードがユーザーによってキャンセルされました";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "あなたの %@ にファイルをダウンロードするためのアドレスを入力してください。";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "アドレススキーマ (%@) はサポートされていません。HTTP, HTTPSまたは、FTPで始まるアドレスを使用してください。";
 "RENAME_MEDIA_TO" = "%@への新しい名前を入力してください";
 
+"FOLDER_EMPTY" = "空のフォルダ";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "開くファイルが見つかりません:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "開く...";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "このファイルを開くアプリケーションが見つかりません";
 "SHARING_SUCCESS_CAMERA_ROLL" = "ファイルはカメラロールに正常に保存されました";
 
-"SECTION_HEADER_LIBRARY" = "メディアライブラリ";
 "STREAMVC_DETAILTEXT" = "ダウンロードせずにストリームを直接再生";
 "DOWNLOADVC_DETAILTEXT" = "デバイス上のダウンロードファイルのディレクトリ";
 "HEADER_TITLE_RENDERER" = "キャスティングデバイスの選択";
 
+"NETWORK" = "ネットワーク";
 "LOCAL_NETWORK" = "ローカルネットワーク";
 "CONNECT_TO_SERVER" = "サーバーに接続";
 "FILE_SERVER" = "ファイルサーバー";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "メディアライブラリのロック解除\nパスコード入力をキャンセル";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "パスコードの試行に %d 回失敗しました";
+"1 Failed Passcode Attempt" = "パスコードの試行に1回失敗しました";
+"Change Passcode" = "パスコード変更";
+"Enter Passcode" = "パスコードを入力してください";
+"Enter a passcode" = "パスコードを入力してください";
+"Enter your new passcode" = "新しいパスコードを入力してください";
+"Enter your old passcode" = "古いパスコードを入力してください";
+"Enter your passcode" = "パスコードを入力してください";
+"Next" = "次";
+"Passcodes did not match. Try again." = "パスコードが一致しません。再入力してください。";
+"Re-enter your new passcode" = "新しいパスコードを再入力してください";
+"Re-enter your passcode" = "パスコードを再入力してください";
+"Set Passcode" = "パスコード設定";
 
 "Settings" = "設定"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "オン";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "ビデオプレイヤー";
 "VO_VIDEOPLAYER_DOUBLETAP" = "ダブルタップで再生コントロールを表示/非表示";
 
-"FIRST_STEPS_WELCOME" = "ようこそ";
-"FIRST_STEPS_WELCOME_DETAIL" = "メディアを同期して再生する最初の手順。";
 "FIRST_STEPS_ITUNES" = "iTunesファイル同期";
-"FIRST_STEPS_ITUNES_DETAILS" = "あなたの %@ をあなたのMacまたはPCにケーブルを使って接続してください。\niTunesを開いてください。\nあなたの %@を選択してください。\n左側のメニューから \"ファイル共有\" を選択し、VLCを探してください。\nファイルを転送してください。";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "あなたの %@ をあなたのMacまたは、PCと同じネットワークに接続してください。";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "サイドバーにあるトグルを切り替えてWebブラウザーへURLを入力し、ファイルをアップロードしてください。";
+"FIRST_STEPS_ITUNES_TITLE" = "あなたのコンピューターと同期";
+"FIRST_STEPS_ITUNES_DETAILS" = "あなたのデバイスをiTunesに接続してあなたのデバイスを選択してください。左のメニューから\"ファイル共有\"を選択し、VLCで転送するファイルを探してください。";
+"FIRST_STEPS_WIFI_TITLE" = "WiFiで共有";
+"FIRST_STEPS_WIFI_DETAILS" = "あなたの電話と同じネットワークに接続されているお気に入りのブラウザに生成されたURLを入力してください。";
 "FIRST_STEPS_CLOUDS" = "クラウド";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "メディアをGoogleドライブまたは、Dropboxにアップロードしてください。";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "あなたのクラウドプロバイダーを選択するためにサイドバーを開いて、ダウンロードまたは、ストリーミングしたいファイルにアクセスしてください。";
-"FIRST_STEPS_PLAYBACK" = "再生";
-"FIRST_STEPS_FLOSS" = "VLC for iOSは有志によって開発されたフリーなオープンソースソフトウェアです。\n気に入って頂けたら幸いです。";
+"FIRST_STEPS_CLOUD_TITLE" = "クラウド";
+"FIRST_STEPS_CLOUD_DETAILS" = "メディアをリモートからダウンロードしたり、ストリーミングするために、GoogleドライブやDropboxのようなクラウドサービスにアップロードしてください。";
 
-"FIRST_STEPS_TIME" = "時間";
-"FIRST_STEPS_ASPECT" = "アスペクト比";
-"FIRST_STEPS_SPEED" = "速度";
-"FIRST_STEPS_REPEAT" = "リピート";
-"FIRST_STEPS_SUBTITLES" = "字幕トラック";
-"FIRST_STEPS_AUDIO" = "オーディオトラック";
-"FIRST_STEPS_POSITION" = "位置";
 
 "PLEX_CHECK_ACCOUNT" = "設定のPlexアカウントを確認してください";
 "PLEX_ERROR_ACCOUNT" = "Plexログインエラー";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "音量";
 "DURATION" = "長さ";
 "TITLE" = "タイトル";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "%@ で削除"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "選択されたものは削除できません";
-"DELETE_INVALID_TITLE" = "選択が正しくありません";
 "DELETE_MESSAGE" = "選択されたファイルを削除してもいいですか?";
 "DELETE_TITLE" = "選択したファイルを削除";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "プロトコルが選択されていません";
 "Settings" = "設定";
 
-"CANCEL" = "キャンセル";
 "ERROR" = "エラー";
 "OK" = "Ok";
 "SORT" = "並べ替え";
 "SORT_BY" = "並べ替え";
+"SEARCH" = "検索";
 "VIDEO" = "ビデオ";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,36 @@
 "NAME" = "名前";
 
 //EDIT
+
+"BUTTON_EDIT" = "編集";
+"BUTTON_EDIT_HINT" = "編集モード";
+
 "ADD_TO_PLAYLIST" = "プレイリストに追加";
+"ADD_TO_PLAYLIST_HINT" = "プレイリストに追加メニューを表示";
 
 "PLAYLIST_PLACEHOLDER" = "プレイリストタイトル";
 "PLAYLIST_DESCRIPTION" = "新しいプレイリストの名前を選択してください";
+"PLAYLIST_CREATION" = "新しいプレイリストを作成";
+"PLAYLIST_CREATION_HINT" = "プレイリスト作成のために対話アクションを表示";
+"ERROR_PLAYLIST_CREATION" = "プレイリストの作成に失敗しました";
+"ERROR_PLAYLIST_TRACKS" = "トラックの取得に失敗しました";
 
-"RENAME_PLACEHOLDER" = "新しいタイトル";
 "ERROR_RENAME_FAILED" = "名前の変更に失敗しました";
 "ERROR_EMPTY_NAME" = "タイトルは空にできません";
 
+"SHARE_LABEL" = "共有";
+"SHARE_HINT" = "選択されたファイルを共有";
+"RENAME_HINT" = "選択されたファイルを変名";
+"DELETE_HINT" = "選択されたファイルを削除";
+
 // Sort
 
+"BUTTON_SORT" = "並べ替え";
+"BUTTON_SORT_HINT" = "並び替えアクションシートを表示";
 "HEADER_TITLE_SORT" = "並べ替え順";
+"DESCENDING_LABEL" = "逆順";
+"DESCENDING_SWITCH_LABEL" = "昇順/逆順";
+"DESCENDING_SWITCH_HINT" = "並び替えの順序";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +360,13 @@
 "ALBUM" = "アルバム";
 "FILENAME" = "ファイル名";
 "TRACK_NUMBER" = "トラック番号";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "見つかりませんでした";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "未知のアーティスト";
+"VARIOUS_ARTIST" = "複数アーティスト";
+"UNKNOWN_ALBUM" = "未知のアルバム";
