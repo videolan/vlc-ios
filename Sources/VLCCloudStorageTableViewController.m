@@ -75,6 +75,7 @@
     _progressView = [VLCProgressView new];
     _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
     _progressView.tintColor = PresentationTheme.current.colors.orangeUI;
+    _progressView.progressLabel.textColor = PresentationTheme.current.colors.cellTextColor;
     
     sheet = [[VLCActionSheet alloc] init];
     manager = [[VLCCloudSortingSpecifierManager alloc] initWithController: self];
@@ -96,6 +97,7 @@
     _activityIndicator.activityIndicatorViewStyle = PresentationTheme.current == PresentationTheme.brightTheme ? UIActivityIndicatorViewStyleGray : UIActivityIndicatorViewStyleWhiteLarge;
     self.loginToCloudStorageView.backgroundColor = PresentationTheme.current.colors.background;
     self.navigationController.toolbar.barStyle = PresentationTheme.current.colors.toolBarStyle;
+    _progressView.progressLabel.textColor = PresentationTheme.current.colors.cellTextColor;
 }
 
 - (void)viewWillAppear:(BOOL)animated
