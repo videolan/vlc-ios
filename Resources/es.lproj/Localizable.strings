@@ -11,7 +11,6 @@
 "TITLE" = "Título";
 "CHAPTER" = "Capítulo";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimizar reproducción";
-"FULLSCREEN_PLAYBACK" = "Reproducir a pantalla completa";
 "TRACK_SELECTION" = "Selección de pista";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Subtítulos";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "¿Continuar reproducción?";
 "CONTINUE_PLAYBACK_LONG" = "¿Desea continuar la reproducción de «%@» donde la dejó?";
 
-"BUTTON_ALL" = "Seleccionar todo";
 "BUTTON_ABOUT" = "Acerca de";
 "BUTTON_BACK" = "Atrás";
 "BUTTON_DONE" = "Hecho";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "Mostrar un menú de los dispositivos disponibles de emisión";
 
 "UPGRADING_LIBRARY" = "Actualizando biblioteca multimedia";
-"UNTITLED_SHOW" = "Programa sin nombre";
 "UNKNOWN" = "Desconocido";
 
 "OPEN_NETWORK" = "Abrir ubicación de red";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "La descarga ha fallado con el código HTTP %i";
-"HTTP_FILE_CREATION_FAILED" = "La creación del archivo ha fallado";
 "HTTP_DOWNLOAD_CANCELLED" = "Descarga cancelada por el usuario";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Introduzca una dirección para descargar el archivo a su %@.";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "El protocolo de la dirección (%@) no está soportado. Use una dirección que empiece por HTTP, HTTPS o FTP.";
 "RENAME_MEDIA_TO" = "Introduzca un nuevo nombre para %@";
 
+"FOLDER_EMPTY" = "Carpeta vacía";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Seleccione un archivo a abrir:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Abrir en...";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "No se ha encontrado niguna aplicación para abrir este tipo de archivo ";
 "SHARING_SUCCESS_CAMERA_ROLL" = "El archivo ha sido guardado correctamente al «Camera Roll»";
 
-"SECTION_HEADER_LIBRARY" = "Biblioteca multimedia";
 "STREAMVC_DETAILTEXT" = "Reproducir emisiones directamente sin descargar";
 "DOWNLOADVC_DETAILTEXT" = "Descargar archivos directamente a su dispositivo";
 "HEADER_TITLE_RENDERER" = "Seleccionar dispositivos de emisión";
 
+"NETWORK" = "Red";
 "LOCAL_NETWORK" = "Red local";
 "CONNECT_TO_SERVER" = "Conectar al servidor";
 "FILE_SERVER" = "Servidores de archivos";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "Desbloquear librería de medios\nCancelar para introducir clave";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d intentos fallidos de contraseña";
+"1 Failed Passcode Attempt" = "1 intento fallido de contraseña";
+"Change Passcode" = "Cambiar contraseña";
+"Enter Passcode" = "Escriba su contraseña";
+"Enter a passcode" = "Escriba una contraseña";
+"Enter your new passcode" = "Escriba su nueva contraseña";
+"Enter your old passcode" = "Escriba su antigua contraseña";
+"Enter your passcode" = "Escriba su contraseña";
+"Next" = "Siguiente";
+"Passcodes did not match. Try again." = "Las contraseñas no coinciden. Pruebe de nuevo. ";
+"Re-enter your new passcode" = "Rescriba su nueva contraseña";
+"Re-enter your passcode" = "Rescriba su contraseña";
+"Set Passcode" = "Establecer contraseña";
 
 "Settings" = "Preferencias"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Activo";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Reproductor de vídeo";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Presione dos veces la pantalla para mostrar u ocultar los controles de reproducción";
 
-"FIRST_STEPS_WELCOME" = "Bienvenid@";
-"FIRST_STEPS_WELCOME_DETAIL" = "Primeros pasos para sincronizar y reproducir sus archivos multimedia.";
 "FIRST_STEPS_ITUNES" = "Sincronización de archivos via iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Conecte su %@ a su Mac o PC usando el cable.\nAbra iTunes.\nSeleccione su %@.\nSeleccione «Compartir archivos» en el menú de la parte izquierda y busque VLC.\nTransfiera sus archivos.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Conecte su %@ a la misma red que su Mac o PC.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Cambie el pulsador en la barra lateral, introduzca la URL en el navegador web y suba sus archivos.";
+"FIRST_STEPS_ITUNES_TITLE" = "Sincronizar con su computadora";
+"FIRST_STEPS_ITUNES_DETAILS" = "Conecte su dispositivo a iTunes y seleccione su dispositvo. Seleccione «Compartición de archivos» en el menú de la parte izquierda de iTunes y busque transferir archivos en VLC";
+"FIRST_STEPS_WIFI_TITLE" = "Compartir mediante WiFi";
+"FIRST_STEPS_WIFI_DETAILS" = "Introduzca la URL generada en su navegador web favorito mientras está conectado a la misma red que su teléfono";
 "FIRST_STEPS_CLOUDS" = "Nubes";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Suba sus archivos multimedia a Google Drive o Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Abra la barra lateral para seleccionar su proveedor de nube y acceda a sus archivos multimedia para descargar o emitir.";
-"FIRST_STEPS_PLAYBACK" = "Reproducción";
-"FIRST_STEPS_FLOSS" = "VLC para iOS es software libre y de código abierto desarrollado por voluntarios. Esperamos que le guste.";
+"FIRST_STEPS_CLOUD_TITLE" = "Nube";
+"FIRST_STEPS_CLOUD_DETAILS" = "Suba sus medios a un servicio de la nube como Google Drive o Dropbox para descargarlos o emitirlos remotamente.";
 
-"FIRST_STEPS_TIME" = "Tiempo";
-"FIRST_STEPS_ASPECT" = "Proporción";
-"FIRST_STEPS_SPEED" = "Velocidad";
-"FIRST_STEPS_REPEAT" = "Repetir";
-"FIRST_STEPS_SUBTITLES" = "Pistas de subtítulos";
-"FIRST_STEPS_AUDIO" = "Pistas de audio";
-"FIRST_STEPS_POSITION" = "Posición";
 
 "PLEX_CHECK_ACCOUNT" = "Compruebe su cuenta Plex en preferencias";
 "PLEX_ERROR_ACCOUNT" = "Error de inicio de sesión Plex";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "Volumen";
 "DURATION" = "Duración";
 "TITLE" = "Título";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Presione %@ para eliminar"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "La selección no puede ser eliminada";
-"DELETE_INVALID_TITLE" = "Selección inválida";
 "DELETE_MESSAGE" = "Confirmar la eliminación de los archivos seleccionados";
 "DELETE_TITLE" = "Eliminar archivos seleccionados";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protocolo no selecionado";
 "Settings" = "Preferencias";
 
-"CANCEL" = "Cancelar";
 "ERROR" = "Error";
 "OK" = "Aceptar";
 "SORT" = "Ordenar";
 "SORT_BY" = "Ordenar por";
+"SEARCH" = "Buscar";
 "VIDEO" = "Vídeo";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,36 @@
 "NAME" = "Nombre";
 
 //EDIT
+
+"BUTTON_EDIT" = "Editar";
+"BUTTON_EDIT_HINT" = "Modo edición";
+
 "ADD_TO_PLAYLIST" = "Añadir a la lista de reproducción";
+"ADD_TO_PLAYLIST_HINT" = "Abrir el menu añadir a lista de reproducción";
 
 "PLAYLIST_PLACEHOLDER" = "Titulo de la lista de reproducción";
 "PLAYLIST_DESCRIPTION" = "Elija un título para su nueva lista de reproducción";
+"PLAYLIST_CREATION" = "Crear una nueva lista de reproducción";
+"PLAYLIST_CREATION_HINT" = "Mostrar una acción interactiva para crear una lista de reproducción";
+"ERROR_PLAYLIST_CREATION" = "Fallo al crear una lista de reproducción";
+"ERROR_PLAYLIST_TRACKS" = "Fallo al obtener las pistas";
 
-"RENAME_PLACEHOLDER" = "Nuevo título";
 "ERROR_RENAME_FAILED" = "Falló el renombrado";
 "ERROR_EMPTY_NAME" = "El título no puede estar vacío";
 
+"SHARE_LABEL" = "Compartir";
+"SHARE_HINT" = "Compartir archivos seleccionados";
+"RENAME_HINT" = "Renombrar archivos seleccionados";
+"DELETE_HINT" = "Eliminar archivos seleccionados";
+
 // Sort
 
+"BUTTON_SORT" = "Ordenar";
+"BUTTON_SORT_HINT" = "Mostrar información de acción de ordenación";
 "HEADER_TITLE_SORT" = "Ordenar por";
+"DESCENDING_LABEL" = "Orden descendente";
+"DESCENDING_SWITCH_LABEL" = "Orden ascendente o descendente";
+"DESCENDING_SWITCH_HINT" = "Ordenar contexto ascendentemente o descendentemente";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +360,13 @@
 "ALBUM" = "Álbum";
 "FILENAME" = "Nombre de archivo";
 "TRACK_NUMBER" = "Número de pista";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "No se ha encontrado nada";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Artista desconocido";
+"VARIOUS_ARTIST" = "Varios artistas";
+"UNKNOWN_ALBUM" = "Álbum desconocido";
