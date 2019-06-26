@@ -244,6 +244,9 @@
     destination = [destination stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 
     destination = [self _createPotentialNameFrom:destination];
+    destination = [destination
+                   stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet
+                                                                       URLPathAllowedCharacterSet]];
 
     [[[self.client.filesRoutes downloadUrl:path overwrite:YES destination:[NSURL URLWithString:destination]]
         setResponseBlock:^(DBFILESFileMetadata * _Nullable result, DBFILESDownloadError * _Nullable routeError, DBRequestError * _Nullable networkError, NSURL * _Nonnull destination) {
