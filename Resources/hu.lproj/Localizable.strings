@@ -330,7 +330,6 @@
 "ERROR_PLAYLIST_CREATION" = "Nem sikerült létrehozni a lejátszólistát";
 "ERROR_PLAYLIST_TRACKS" = "Nem sikerült lekérni a számokat";
 
-"RENAME_PLACEHOLDER" = "Új cím";
 "ERROR_RENAME_FAILED" = "Átnevezés sikertelen";
 "ERROR_EMPTY_NAME" = "A cím nem lehet üres";
 
