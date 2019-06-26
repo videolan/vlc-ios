@@ -223,6 +223,11 @@
     }];
 }
 
+- (NSArray *)currentListFiles
+{
+    return _currentFileList;
+}
+
 - (void)downloadFileFrom:(NSString *)path to:(NSString *)destination
 {
     if (![self _supportedFileExtension:[path lastPathComponent]]) {
