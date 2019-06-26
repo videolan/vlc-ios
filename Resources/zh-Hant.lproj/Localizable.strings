@@ -330,7 +330,6 @@
 "ERROR_PLAYLIST_CREATION" = "無法建立播放清單";
 "ERROR_PLAYLIST_TRACKS" = "無法擷取軌道";
 
-"RENAME_PLACEHOLDER" = "新標題";
 "ERROR_RENAME_FAILED" = "重新命名失敗";
 "ERROR_EMPTY_NAME" = "標題不能為空";
 
