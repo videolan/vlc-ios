@@ -330,7 +330,6 @@
 "ERROR_PLAYLIST_CREATION" = "Nepodarilo sa vytvoriť playlist";
 "ERROR_PLAYLIST_TRACKS" = "Nepodarilo sa získať stopy";
 
-"RENAME_PLACEHOLDER" = "Nový názov";
 "ERROR_RENAME_FAILED" = "Premenovanie bolo neúspešné";
 "ERROR_EMPTY_NAME" = "Názov nemôže zostať prázdny";
 
