@@ -330,7 +330,6 @@
 "ERROR_PLAYLIST_CREATION" = "无法创建播放列表";
 "ERROR_PLAYLIST_TRACKS" = "无法获取轨道信息";
 
-"RENAME_PLACEHOLDER" = "新标题";
 "ERROR_RENAME_FAILED" = "重命名失败";
 "ERROR_EMPTY_NAME" = "标题不能为空";
 
@@ -346,7 +345,7 @@
 "HEADER_TITLE_SORT" = "排序条件";
 "DESCENDING_LABEL" = "降序";
 "DESCENDING_SWITCH_LABEL" = "升序或降序";
-"DESCENDING_SWITCH_HINT" = "以升序或降序排列内容";
+"DESCENDING_SWITCH_HINT" = "以升序或降序排列上下文";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
