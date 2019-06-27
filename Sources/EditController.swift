@@ -273,6 +273,7 @@ extension EditController: UICollectionViewDataSource {
                                                          for: indexPath) as? MediaEditCell {
             cell.media = model.anyfiles[indexPath.row]
             cell.isChecked = selectedCellIndexPaths.contains(indexPath)
+            cell.isAccessibilityElement = true
             return cell
         } else {
             assertionFailure("We couldn't dequeue a reusable cell, the cell might not be registered or is not a MediaEditCell")
