@@ -101,6 +101,10 @@ extension VLCMLGenre {
         }
         return image
     }
+
+    func accessibilityText() -> String? {
+        return name + " " + numberOfTracksString()
+    }
 }
 
 extension VLCMLGenre: MediaCollectionModel {

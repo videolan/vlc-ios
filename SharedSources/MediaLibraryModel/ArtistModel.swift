@@ -125,4 +125,8 @@ extension VLCMLArtist {
             return name
         }
     }
+
+    func accessibilityText() -> String? {
+        return artistName() + " " + numberOfTracksString()
+    }
 }

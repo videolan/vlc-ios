@@ -272,6 +272,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         } else {
             mediaCell.media = mediaObject
         }
+        mediaCell.isAccessibilityElement = true
         return mediaCell
     }
 
