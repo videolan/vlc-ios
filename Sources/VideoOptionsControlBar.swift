@@ -24,24 +24,38 @@ protocol VideoOptionsControlBarDelegate: class {
     // MARK: Instance variables
     weak var delegate: VideoOptionsControlBarDelegate?
     
+    var subtitleToggled: Bool {
+        didSet {
+            selectSubtitleButton.tintColor = subtitleToggled ? .orange : .white
+        }
+    }
+    
+    var interfaceDisabled: Bool {
+        didSet {
+            interfaceLockButton.tintColor = interfaceDisabled ? .orange : .white
+        }
+    }
+    
     var repeatMode: VLCRepeatMode {
         didSet {
             switch repeatMode {
             case .repeatCurrentItem:
-                repeatButton.setImage(UIImage(named: "repeatOne-new"), for: .normal)
+                repeatButton.setImage(UIImage(named: "iconRepeatOne"), for: .normal)
             case .repeatAllItems:
-                repeatButton.setImage(UIImage(named: "repeat-new"), for: .normal)
+                repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
             case .doNotRepeat:
-                repeatButton.setImage(UIImage(named: "no-repeat-new"), for: .normal)
+                repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
             default:
                 assertionFailure("unhandled repeatmode")
             }
+            
+            repeatButton.tintColor = (repeatMode == .doNotRepeat) ? .white : .orange // highlight the colors that are not the default (.doNotRepeat)
         }
     }
     
     lazy var toggleFullScreenButton: UIButton = {
         var toggle = UIButton(type: .system)
-        toggle.setImage(UIImage(named: "fullscreenIcon-new"), for: .normal)
+        toggle.setImage(UIImage(named: "iconExpand"), for: .normal)
         toggle.addTarget(self, action: #selector(toggleFullscreen), for: .touchUpInside)
         toggle.tintColor = .white
         toggle.accessibilityLabel = NSLocalizedString("VIDEO_ASPECT_RATIO_BUTTON", comment: "")
@@ -51,7 +65,7 @@ protocol VideoOptionsControlBarDelegate: class {
     
     lazy var selectSubtitleButton: UIButton = {
         var subbutton = UIButton(type: .system)
-        subbutton.setImage(UIImage(named: "subtitlesIcon-new"), for: .normal)
+        subbutton.setImage(UIImage(named: "iconSubtitle"), for: .normal)
         subbutton.addTarget(self, action: #selector(selectSubtitle), for: .touchUpInside)
         subbutton.tintColor = .white
         subbutton.accessibilityHint = NSLocalizedString("CHOOSE_SUBTITLE_TRACK", comment: "")
@@ -62,7 +76,7 @@ protocol VideoOptionsControlBarDelegate: class {
     lazy var repeatButton: UIButton = {
         var rptButton = UIButton(type: .system)
         rptButton.addTarget(self, action: #selector(toggleRepeat), for: .touchUpInside)
-        rptButton.setImage(UIImage(named: "no-repeat-new"), for: .normal)
+        rptButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
         rptButton.tintColor = .white
         rptButton.accessibilityHint = NSLocalizedString("REPEAT_MODE", comment: "")
         rptButton.accessibilityLabel = NSLocalizedString("REPEAT_MODE_HINT", comment: "")
@@ -71,7 +85,7 @@ protocol VideoOptionsControlBarDelegate: class {
     
     lazy var interfaceLockButton: UIButton = {
         var interfaceLockButton = UIButton(type: .system)
-        interfaceLockButton.setImage(UIImage(named: "lock-new"), for: .normal)
+        interfaceLockButton.setImage(UIImage(named: "iconLock"), for: .normal)
         interfaceLockButton.addTarget(self, action: #selector(toggleInterfaceLock), for: .touchUpInside)
         interfaceLockButton.tintColor = .white
         interfaceLockButton.accessibilityHint = NSLocalizedString("INTERFACE_LOCK_HINT", comment: "")
@@ -81,7 +95,7 @@ protocol VideoOptionsControlBarDelegate: class {
     
     lazy var moreOptionsButton: UIButton = {
         var moreOptionsButton = UIButton(type: .system)
-        moreOptionsButton.setImage(UIImage(named: "moreWhite-new"), for: .normal)
+        moreOptionsButton.setImage(UIImage(named: "iconMoreOptions"), for: .normal)
         moreOptionsButton.addTarget(self, action: #selector(selectMoreOptions), for: .touchUpInside)
         moreOptionsButton.tintColor = .white
         moreOptionsButton.accessibilityHint = NSLocalizedString("MORE_OPTIONS_HINT", comment: "")
@@ -94,19 +108,26 @@ protocol VideoOptionsControlBarDelegate: class {
         fatalError("init(coder aDecoder: NSCoder) not implemented")
     }
     
-    override init(frame: CGRect) {
-        repeatMode = .doNotRepeat
-        super.init(frame: frame)
+    private func setupView() {
         addArrangedSubview(toggleFullScreenButton)
         addArrangedSubview(selectSubtitleButton)
         addArrangedSubview(repeatButton)
         addArrangedSubview(interfaceLockButton)
         addArrangedSubview(moreOptionsButton)
         axis = .horizontal
+        spacing = 32
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    // MARK: Button Action Buttons
+    override init(frame: CGRect) {
+        repeatMode = .doNotRepeat
+        subtitleToggled = false
+        interfaceDisabled = false
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    // MARK: Button Actions
     func toggleFullscreen() {
         delegate?.didToggleFullScreen(self)
     }

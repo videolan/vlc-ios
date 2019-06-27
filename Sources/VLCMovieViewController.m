@@ -258,7 +258,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _videoOptionsControlBar.delegate = self;
     _videoOptionsControlBar.hidden = YES;
     _videoOptionsControlBar.repeatMode = _vpc.repeatMode;
-    _videoOptionsControlBar.spacing = 32.0f;
     [self.view addSubview:_videoOptionsControlBar];
 }
 
@@ -1375,6 +1374,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     
     #if !NEW_UI
         _multiSelectionView.displayLock = _interfaceIsLocked;
+    #else
+        _videoOptionsControlBar.interfaceDisabled = _interfaceIsLocked;
     #endif
 }
 
@@ -1851,7 +1852,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 }
 
 - (void)didSelectSubtitle:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
-    NSLog(@"subtitles Selected");
+    NSAssert(0, @"didSelectSubtitle not implemented");
 }
 
 - (void)didToggleFullScreen:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
