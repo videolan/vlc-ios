@@ -64,6 +64,7 @@ class MediaEditCell: BaseCollectionViewCell {
         AudioAspectRatio.isActive = false
         VideoAspectRatio.isActive = true
         titleLabel.text = movie.title
+        accessibilityLabel = movie.accessibilityText(editing: true)
         timeLabel.text = movie.mediaDuration()
         sizeLabel.text = movie.formatSize()
         thumbnailImageView.image = movie.thumbnailImage()
@@ -71,6 +72,7 @@ class MediaEditCell: BaseCollectionViewCell {
 
     func updateForAudio(audio: VLCMLMedia) {
         titleLabel.text = audio.title
+        accessibilityLabel = audio.accessibilityText(editing: true)
         timeLabel.text = audio.mediaDuration()
         sizeLabel.text = audio.formatSize()
         thumbnailImageView.image = audio.thumbnailImage()
@@ -80,6 +82,7 @@ class MediaEditCell: BaseCollectionViewCell {
 
     func updateForArtist(artist: VLCMLArtist) {
         titleLabel.text = artist.artistName()
+        accessibilityLabel = artist.accessibilityText()
         timeLabel.text = artist.numberOfTracksString()
         thumbnailImageView.layer.masksToBounds = true
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
@@ -88,6 +91,7 @@ class MediaEditCell: BaseCollectionViewCell {
 
     func updateForAlbum(album: VLCMLAlbum) {
         titleLabel.text = album.albumName()
+        accessibilityLabel = album.accessibilityText(editing: true)
         timeLabel.text = album.albumArtistName()
         sizeLabel.text = album.numberOfTracksString()
         thumbnailImageView.image = album.thumbnail()
@@ -95,6 +99,7 @@ class MediaEditCell: BaseCollectionViewCell {
 
     func updateForGenre(genre: VLCMLGenre) {
         titleLabel.text = genre.name
+        accessibilityLabel = genre.accessibilityText()
         timeLabel.text = genre.numberOfTracksString()
         thumbnailImageView.layer.masksToBounds = true
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.size.height / 2
@@ -106,6 +111,7 @@ class MediaEditCell: BaseCollectionViewCell {
         AudioAspectRatio.isActive = false
         VideoAspectRatio.isActive = true
         titleLabel.text = playlist.name
+        accessibilityLabel = playlist.accessibilityText()
         timeLabel.text = playlist.numberOfTracksString()
         thumbnailImageView.image = playlist.thumbnail()
     }
@@ -142,6 +148,7 @@ class MediaEditCell: BaseCollectionViewCell {
         titleLabel.text = ""
         timeLabel.text = ""
         sizeLabel.text = ""
+        accessibilityLabel = ""
         thumbnailImageView.image = nil
         isChecked = false
         thumbnailImageView.layer.cornerRadius = 0
