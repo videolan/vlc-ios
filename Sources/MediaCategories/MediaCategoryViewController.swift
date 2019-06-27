@@ -159,6 +159,8 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
             manager.start()
         }
         manager.presentingViewController = self
+        cachedCellSize = .zero
+        collectionView.collectionViewLayout.invalidateLayout()
     }
 
     @objc func themeDidChange() {
