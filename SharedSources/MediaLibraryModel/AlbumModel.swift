@@ -142,6 +142,13 @@ extension VLCMLAlbum {
         }
         return artist.artistName()
     }
+
+    func accessibilityText(editing: Bool) -> String? {
+        if editing {
+            return albumName()+" "+albumArtistName()+" "+numberOfTracksString()
+        }
+        return albumName()+" "+albumArtistName()
+    }
 }
 
 extension VLCMLAlbumTrack {

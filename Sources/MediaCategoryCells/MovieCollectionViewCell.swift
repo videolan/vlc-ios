@@ -59,6 +59,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
     func update(movie: VLCMLMedia) {
         titleLabel.text = movie.title
+        accessibilityLabel = movie.accessibilityText(editing: false)
         descriptionLabel.text = movie.mediaDuration()
         thumbnailView.image = movie.thumbnailImage()
         let progress = movie.progress
@@ -71,6 +72,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         collectionOverlay.isHidden = false
         numberOfTracks.text = String(playlist.media?.count ?? 0)
         titleLabel.text = playlist.name
+        accessibilityLabel = playlist.accessibilityText()
         descriptionLabel.text = playlist.numberOfTracksString()
         thumbnailView.image = playlist.thumbnail()
     }

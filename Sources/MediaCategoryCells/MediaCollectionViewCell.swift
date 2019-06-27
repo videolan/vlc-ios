@@ -61,6 +61,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
 
     func update(audiotrack: VLCMLMedia) {
         titleLabel.text = audiotrack.title
+        accessibilityLabel = audiotrack.accessibilityText(editing: false)
         descriptionLabel.text = audiotrack.albumTrackArtistName()
         newLabel.isHidden = !audiotrack.isNew
         thumbnailView.image = audiotrack.thumbnailImage()
@@ -68,6 +69,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
 
     func update(album: VLCMLAlbum) {
         titleLabel.text = album.albumName()
+        accessibilityLabel = album.accessibilityText(editing: false)
         descriptionLabel.text = album.albumArtistName()
         thumbnailView.image = album.thumbnail()
     }
@@ -76,12 +78,14 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         thumbnailView.layer.masksToBounds = true
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = artist.artistName()
+        accessibilityLabel = artist.accessibilityText()
         descriptionLabel.text = artist.numberOfTracksString()
         thumbnailView.image = artist.thumbnail()
     }
 
     func update(movie: VLCMLMedia) {
         titleLabel.text = movie.title
+        accessibilityLabel = movie.accessibilityText(editing: false)
         descriptionLabel.text = movie.mediaDuration()
         if movie.isThumbnailGenerated() {
             thumbnailView.image = UIImage(contentsOfFile: movie.thumbnail.path)
@@ -92,6 +96,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     func update(playlist: VLCMLPlaylist) {
         newLabel.isHidden = true
         titleLabel.text = playlist.name
+        accessibilityLabel = playlist.accessibilityText()
         descriptionLabel.text = playlist.numberOfTracksString()
         thumbnailView.image = playlist.thumbnail()
     }
@@ -99,6 +104,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     func update(genre: VLCMLGenre) {
         newLabel.isHidden = true
         titleLabel.text = genre.name
+        accessibilityLabel = genre.accessibilityText()
 
         thumbnailView.image = genre.thumbnail()
         descriptionLabel.text = genre.numberOfTracksString()
@@ -130,6 +136,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = ""
+        accessibilityLabel = ""
         descriptionLabel.text = ""
         thumbnailView.image = nil
         newLabel.isHidden = true

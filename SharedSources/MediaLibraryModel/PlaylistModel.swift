@@ -123,6 +123,10 @@ extension VLCMLPlaylist {
         }
         return image
     }
+
+    func accessibilityText() -> String? {
+        return name+" "+numberOfTracksString()
+    }
 }
 
 extension VLCMLPlaylist: MediaCollectionModel {

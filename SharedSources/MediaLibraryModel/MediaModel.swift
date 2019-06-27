@@ -64,6 +64,12 @@ extension VLCMLMedia {
         return image
     }
 
+    func accessibilityText(editing: Bool) -> String? {
+        if editing {
+            return title+" "+mediaDuration()+" "+formatSize()
+        }
+        return title+" "+albumTrackArtistName()+" "+(isNew ? NSLocalizedString("NEW", comment: "") : "")
+    }
 }
 
 // MARK: - CoreSpotlight
