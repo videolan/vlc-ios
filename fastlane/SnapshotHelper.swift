@@ -3,7 +3,6 @@
 //  Example
 //
 //  Created by Felix Krause on 10/8/15.
-//  Copyright © 2015 Felix Krause. All rights reserved.
 //
 
 // -----------------------------------------------------
@@ -62,15 +61,15 @@ enum SnapshotError: Error, CustomDebugStringConvertible {
 }
 
 @objcMembers
-class Snapshot: NSObject {
+open class Snapshot: NSObject {
     static var app: XCUIApplication?
     static var cacheDirectory: URL?
     static var screenshotsDirectory: URL? {
         return cacheDirectory?.appendingPathComponent("screenshots", isDirectory: true)
     }
 
-    class func setupSnapshot(_ app: XCUIApplication) {
-
+    open class func setupSnapshot(_ app: XCUIApplication) {
+        
         Snapshot.app = app
 
         do {
@@ -89,7 +88,7 @@ class Snapshot: NSObject {
             print("CacheDirectory is not set - probably running on a physical device?")
             return
         }
-
+        
         let path = cacheDirectory.appendingPathComponent("language.txt")
 
         do {
@@ -106,7 +105,7 @@ class Snapshot: NSObject {
             print("CacheDirectory is not set - probably running on a physical device?")
             return
         }
-
+        
         let path = cacheDirectory.appendingPathComponent("locale.txt")
 
         do {
@@ -115,10 +114,14 @@ class Snapshot: NSObject {
         } catch {
             print("Couldn't detect/set locale...")
         }
+        
         if locale.isEmpty {
             locale = Locale(identifier: deviceLanguage).identifier
         }
-        app.launchArguments += ["-AppleLocale", "\"\(locale)\""]
+        
+        if !locale.isEmpty {
+            app.launchArguments += ["-AppleLocale", "\"\(locale)\""]
+        }
     }
 
     class func setLaunchArguments(_ app: XCUIApplication) {
@@ -126,7 +129,7 @@ class Snapshot: NSObject {
             print("CacheDirectory is not set - probably running on a physical device?")
             return
         }
-
+        
         let path = cacheDirectory.appendingPathComponent("snapshot-launch_arguments.txt")
         app.launchArguments += ["-FASTLANE_SNAPSHOT", "YES", "-ui_testing"]
 
@@ -143,7 +146,7 @@ class Snapshot: NSObject {
         }
     }
 
-    class func snapshot(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20) {
+    open class func snapshot(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20) {
         if timeout > 0 {
             waitForLoadingIndicatorToDisappear(within: timeout)
         }
@@ -155,13 +158,14 @@ class Snapshot: NSObject {
         #if os(OSX)
             XCUIApplication().typeKey(XCUIKeyboardKeySecondaryFn, modifierFlags: [])
         #else
-
+            
             guard let app = self.app else {
                 print("XCUIApplication is not set. Please call setupSnapshot(app) before snapshot().")
                 return
             }
-
-            let screenshot = app.windows.firstMatch.screenshot()
+            
+            let window = app.windows.firstMatch
+            let screenshot = window.screenshot()
             guard let simulator = ProcessInfo().environment["SIMULATOR_DEVICE_NAME"], let screenshotsDir = screenshotsDirectory else { return }
             let path = screenshotsDir.appendingPathComponent("\(simulator)-\(name).png")
             do {
@@ -253,7 +257,7 @@ private extension XCUIElementQuery {
     }
 
     var deviceStatusBars: XCUIElementQuery {
-        let deviceWidth = XCUIApplication().frame.width
+        let deviceWidth = XCUIApplication().windows.firstMatch.frame.width
 
         let isStatusBar = NSPredicate { (evaluatedObject, _) in
             guard let element = evaluatedObject as? XCUIElementAttributes else { return false }
@@ -273,4 +277,4 @@ private extension CGFloat {
 
 // Please don't remove the lines below
 // They are used to detect outdated configuration files
-// SnapshotHelperVersion [1.9]
+// SnapshotHelperVersion [1.13]
