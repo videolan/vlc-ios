@@ -36,7 +36,6 @@ class Screenshot: XCTestCase {
         download(name: "http://jell.yfish.us/media/jellyfish-10-mbps-hd-h264.mkv")
         helper.tapTabBarItem(VLCAccessibilityIdentifier.video)
         app.collectionViews.cells.element(boundBy: 0).tap()
-        XCUIDevice.shared.orientation = .landscapeLeft
 
         snapshot("playback")
     }
@@ -44,11 +43,6 @@ class Screenshot: XCTestCase {
     func testCaptureAudioTab() {
         helper.tapTabBarItem(VLCAccessibilityIdentifier.audio)
         snapshot("audio_tab")
-    }
-
-    func testCaptureNetworkTab() {
-        helper.tapTabBarItem(VLCAccessibilityIdentifier.localNetwork)
-        snapshot("network_tab")
     }
 
     func testCaptureVideoTab() {
