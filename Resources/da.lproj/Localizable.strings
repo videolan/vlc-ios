@@ -11,7 +11,6 @@
 "TITLE" = "Titel";
 "CHAPTER" = "Kapitel";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimér afspilning";
-"FULLSCREEN_PLAYBACK" = "Afspil i fuldskærm";
 "TRACK_SELECTION" = "Valg af spor";
 "AUDIO" = "Lyd";
 "SUBTITLES" = "Undertekster";
@@ -23,8 +22,8 @@
 "ONE_AUDIO_TRACK" = "Et lydspor";
 "FORMAT_SPU_TRACKS" = "%i underteksterspor";
 "ONE_SPU_TRACK" = "Et underteksterspor";
-"TRACKS" = "%i Tracks";
-"TRACK" = "%i Track";
+"TRACKS" = "%i spor";
+"TRACK" = "%i spor";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV tilsluttet";
 "PLAYING_EXTERNALLY_DESC" = "Denne video afspilles på TV'et";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Fortsæt afspilning?";
 "CONTINUE_PLAYBACK_LONG" = "Vil du fortsætte afspilningen af \"%@\" der, hvor du nåede til?";
 
-"BUTTON_ALL" = "Vælg alle";
 "BUTTON_ABOUT" = "Om";
 "BUTTON_BACK" = "Tilbage";
 "BUTTON_DONE" = "Færdig";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "Vis en menu over tilgængelige transmitteringsenheder";
 
 "UPGRADING_LIBRARY" = "Opgraderer mediebibliotek";
-"UNTITLED_SHOW" = "Unavngivet udsendelse";
 "UNKNOWN" = "Ukendt";
 
 "OPEN_NETWORK" = "Åbn netværksstream";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Download mislykkedes med HTTP-kode %i";
-"HTTP_FILE_CREATION_FAILED" = "Oprettelse af fil mislykkedes";
 "HTTP_DOWNLOAD_CANCELLED" = "Download annulleret af bruger";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Indtast en adresse for at downloade filen til din %@.";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "Adressens protokol (%@) er ikke understøttet. Brug en adresse, der begynder med HTTP, HTTPS eller FTP.";
 "RENAME_MEDIA_TO" = "Angiv nyt navn for %@";
 
+"FOLDER_EMPTY" = "Tom mappe";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Vælg en fil at åbne:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Åbn i...";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Kunne ikke finde nogen apps, der kan åbne denne filtype";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Filen blev gemt i kamerarullen";
 
-"SECTION_HEADER_LIBRARY" = "Mediebibliotek";
 "STREAMVC_DETAILTEXT" = "Afspil streams direkte uden at downloade";
 "DOWNLOADVC_DETAILTEXT" = "Download filer direkte til din enhed";
 "HEADER_TITLE_RENDERER" = "Vælg en transmitteringsenhed";
 
+"NETWORK" = "Netværk";
 "LOCAL_NETWORK" = "Lokalt netværk";
 "CONNECT_TO_SERVER" = "Forbind til server";
 "FILE_SERVER" = "Filservere";
@@ -147,7 +143,7 @@
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "Der opstod en fejl under overførslen";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "FEJL";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "Det valgte medie har ikke en url som kan afspilles";
 
 "DISK_FULL" = "Lagergrænse nået";
 "DISK_FULL_FORMAT" = "%@ kan ikke lagres på din %@, fordi du ikke har nok ledig plads.";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "Lås mediebibliotek op\nAnnuller for at indtaste adgangskode";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d fejlslagne adgangskode forsøg";
+"1 Failed Passcode Attempt" = "1 fejlslagent adgangskode forsøg";
+"Change Passcode" = "Skift adgangskode";
+"Enter Passcode" = "Indtast adgangskode";
+"Enter a passcode" = "Indtast en adgangskode";
+"Enter your new passcode" = "Indtast din nye adgangskode";
+"Enter your old passcode" = "Indtast din gamle adgangskode";
+"Enter your passcode" = "Indtast din adgangskode";
+"Next" = "Næste";
+"Passcodes did not match. Try again." = "Adgangskoderne er ikke ens. Prøv igen.";
+"Re-enter your new passcode" = "Indtast din nye adgangskode igen";
+"Re-enter your passcode" = "Indtast din adgangskode igen";
+"Set Passcode" = "Indstil adgangskode";
 
 "Settings" = "Indstillinger"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Til";
@@ -181,8 +190,8 @@
 "BWD_BUTTON" = "Hop tilbage";
 "FWD_BUTTON" = "Hop fremad";
 "PLAY_BUTTON" = "Afspil";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
+"NEXT_BUTTON" = "Næste";
+"PREV_BUTTON" = "Forrige";
 "PLAY_ALL_BUTTON" = "Afspil alle";
 
 "VERSION_FORMAT" = "Version: %@";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Videoafspiller";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dobbelttryk for at vise eller skjule betjeningspanel";
 
-"FIRST_STEPS_WELCOME" = "Velkommen";
-"FIRST_STEPS_WELCOME_DETAIL" = "Første trin i synkronisering og afspilning af dine medier.";
 "FIRST_STEPS_ITUNES" = "Synkronisering af iTunes-filer";
-"FIRST_STEPS_ITUNES_DETAILS" = "Tilslut din %@ til din Mac eller PC med kablet.\nÅbn iTunes.\nVælg din %@.\nVælg \"Arkivdeling\" i menuen til venstre og kig efter VLC.\nOverfør dine filer.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Forbind din %@ til samme netværk som din Mac eller PC.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Slå WiFi-overførsel til vha. knappen i sidepanelet, indtast URLen i en browser, og overfør dine filer.";
+"FIRST_STEPS_ITUNES_TITLE" = "Synkroniser med din computer";
+"FIRST_STEPS_ITUNES_DETAILS" = "Tilslut din enhed til iTunes og vælg din enhed. Vælg \"Arkivdeling\" i menuen til venstre i iTunes og kig efter VLC for at overføre filer";
+"FIRST_STEPS_WIFI_TITLE" = "Del via Wifi";
+"FIRST_STEPS_WIFI_DETAILS" = "Indtast den genererede URL i din favorit webbrowser mens der er forbindelse til det samme netværk som din telefon";
 "FIRST_STEPS_CLOUDS" = "Skyer";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Overfør dine medier til Google Drive eller Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Åbn sidepanelet for at vælge din udbyder i skyen, og download eller stream dine medier.";
-"FIRST_STEPS_PLAYBACK" = "Afspilning";
-"FIRST_STEPS_FLOSS" = "VLC til iOS er frit open source-software, der er udviklet af frivillige.\nVi håber, at du vil elske det!";
+"FIRST_STEPS_CLOUD_TITLE" = "Sky";
+"FIRST_STEPS_CLOUD_DETAILS" = "Upload dine medier til en skytjeneste såsom Google Drive eller Dropbox for at downloade eller streame dem fra et fjernsted.";
 
-"FIRST_STEPS_TIME" = "Tid";
-"FIRST_STEPS_ASPECT" = "Billedformat";
-"FIRST_STEPS_SPEED" = "Hastighed";
-"FIRST_STEPS_REPEAT" = "Gentag";
-"FIRST_STEPS_SUBTITLES" = "Undertekstspor";
-"FIRST_STEPS_AUDIO" = "Lydspor";
-"FIRST_STEPS_POSITION" = "Position";
 
 "PLEX_CHECK_ACCOUNT" = "Tjek din Plex-konto under indstillinger.";
 "PLEX_ERROR_ACCOUNT" = "Plex loginfejl";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "Lydstyrke";
 "DURATION" = "Varighed";
 "TITLE" = "Titel";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Tryk på %@ for at slette"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "Valget kan ikke slettes";
-"DELETE_INVALID_TITLE" = "Ugyldigt valg";
 "DELETE_MESSAGE" = "Bekræft sletning af de valgte filer";
 "DELETE_TITLE" = "Slet valgte filer";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protokol ikke valgt";
 "Settings" = "Indstillinger";
 
-"CANCEL" = "Annuller";
 "ERROR" = "Fejl";
 "OK" = "Ok";
 "SORT" = "Sortér";
 "SORT_BY" = "Sortér efter";
+"SEARCH" = "Søgning";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -314,35 +310,63 @@
 "GENRES" = "Genre";
 "MOVIES" = "Film";
 "SONGS" = "Sange";
-"PLAYLISTS" = "Playlists";
+"PLAYLISTS" = "Afspilningsliste";
 
-"MODIFIED_DATE" = "Modified date";
-"NAME" = "Name";
+"MODIFIED_DATE" = "Ændringsdato";
+"NAME" = "Navn";
 
 //EDIT
-"ADD_TO_PLAYLIST" = "Add to Playlist";
 
-"PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"BUTTON_EDIT" = "Rediger";
+"BUTTON_EDIT_HINT" = "Redigeringstilstand";
 
-"RENAME_PLACEHOLDER" = "New title";
-"ERROR_RENAME_FAILED" = "Renaming failed";
-"ERROR_EMPTY_NAME" = "The title can't be empty";
+"ADD_TO_PLAYLIST" = "Tilføj til afspilningsliste";
+"ADD_TO_PLAYLIST_HINT" = "Åbn tilføj til afspilningsliste-menuen";
+
+"PLAYLIST_PLACEHOLDER" = "Titel for afspilningsliste";
+"PLAYLIST_DESCRIPTION" = "Vælg en titel til din nye afspilningsliste";
+"PLAYLIST_CREATION" = "Opret en ny afspilningsliste";
+"PLAYLIST_CREATION_HINT" = "Vis en interaktiv handling til at oprette en afspilningsliste";
+"ERROR_PLAYLIST_CREATION" = "Kunne ikke oprette en afspilningsliste";
+"ERROR_PLAYLIST_TRACKS" = "Kunne ikke hente spor";
+
+"ERROR_RENAME_FAILED" = "Omdøbning mislykkedes";
+"ERROR_EMPTY_NAME" = "Titlen må ikke være tom";
+
+"SHARE_LABEL" = "Del";
+"SHARE_HINT" = "Del de valgte filer";
+"RENAME_HINT" = "Omdøb de valgte filer";
+"DELETE_HINT" = "Slet de valgte filer";
 
 // Sort
 
-"HEADER_TITLE_SORT" = "Sort by";
+"BUTTON_SORT" = "Sortér";
+"BUTTON_SORT_HINT" = "Vis sorteringshandlingsark";
+"HEADER_TITLE_SORT" = "Sortér efter";
+"DESCENDING_LABEL" = "Faldende rækkefølge";
+"DESCENDING_SWITCH_LABEL" = "Stigende eller faldende rækkefølge";
+"DESCENDING_SWITCH_HINT" = "Sortér indholdet i stigende eller faldende rækkefølge";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
-"ALPHA" = "Alphanumerically";
+"ALPHA" = "Alfanumerisk";
 "DURATION" = "Varighed";
-"INSERTION_DATE" = "Insertion date";
-"LAST_MODIFICATION_DATE" = "Last modification date";
-"RELEASE_DATE" = "Release date";
-"FILE_SIZE" = "File size";
-"ARTIST" = "Artist";
-"PLAY_COUNT" = "Play count";
+"INSERTION_DATE" = "Indsættelsesdato";
+"LAST_MODIFICATION_DATE" = "Dato for sidste ændring";
+"RELEASE_DATE" = "Udgivelsesdato";
+"FILE_SIZE" = "Filstørrelse";
+"ARTIST" = "Kunstner";
+"PLAY_COUNT" = "Antal afspilninger";
 "ALBUM" = "Album";
-"FILENAME" = "Filename";
-"TRACK_NUMBER" = "Track number";
+"FILENAME" = "Filnavn";
+"TRACK_NUMBER" = "Spornummer";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Intet fundet";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Ukendt kunstner";
+"VARIOUS_ARTIST" = "Diverse kunstnere";
+"UNKNOWN_ALBUM" = "Ukendt album";

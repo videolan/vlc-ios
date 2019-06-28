@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "Styr afspilningen med gestusser";
 "SETTINGS_GESTURES_VOLUME" = "Stryg op/ned for lydstyrke";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tryk for at afspille/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Tryk med to fingre for at afspille/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Stryg op/ned for lysstyrke";
 "SETTINGS_GESTURES_SEEK" = "Stryg højre/venstre for at søge";
 "SETTINGS_GESTURES_CLOSE" = "Knib sammen for at lukke";
