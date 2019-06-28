@@ -99,8 +99,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
 
-        // 3*20 for the labels + 24 for 3*8 which is the padding
-        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + 3*20+24)
+        // 17 * 2 for title, 14 for new + duration, 3 * 4 paddings for lines
+        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + (17 * 2) + 14 + (3 * 4))
     }
 
     override func prepareForReuse() {
