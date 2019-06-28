@@ -27,10 +27,12 @@ struct IndicatorInfo {
 
     var title: String?
     var accessibilityLabel: String?
+    var accessibilityIdentifier: String?
 
-    init(title: String) {
+    init(title: String, accessibilityIdentifier: String? = nil) {
         self.title = title
         self.accessibilityLabel = title
+        self.accessibilityIdentifier = accessibilityIdentifier
     }
 }
 

@@ -106,6 +106,7 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
 
     override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
         cell.iconLabel.text = indicatorInfo.title
+        cell.accessibilityIdentifier = indicatorInfo.accessibilityIdentifier
     }
 
     override func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {

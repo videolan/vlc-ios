@@ -254,7 +254,8 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return IndicatorInfo(title:model.indicatorName)
+        let uiTestAccessibilityIdentifier = model is TrackModel ? VLCAccessibilityIdentifier.songs : nil
+        return IndicatorInfo(title: model.indicatorName, accessibilityIdentifier: uiTestAccessibilityIdentifier)
     }
 
     // MARK: - UICollectionViewDataSource
