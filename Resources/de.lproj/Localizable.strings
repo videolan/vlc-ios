@@ -330,7 +330,6 @@
 "ERROR_PLAYLIST_CREATION" = "Fehler beim Erstellen einer Wiedergabeliste";
 "ERROR_PLAYLIST_TRACKS" = "Fehler beim Abrufen der Titel";
 
-"RENAME_PLACEHOLDER" = "Neuer Titel";
 "ERROR_RENAME_FAILED" = "Umbenennung fehlgeschlagen";
 "ERROR_EMPTY_NAME" = "Der Titel darf nicht leer sein";
 
@@ -342,7 +341,7 @@
 // Sort
 
 "BUTTON_SORT" = "Sortieren";
-"BUTTON_SORT_HINT" = "Hinweis zur Sortierung anzeigen";
+"BUTTON_SORT_HINT" = "Aktionsmenü zur Sortierung anzeigen";
 "HEADER_TITLE_SORT" = "Sortieren nach";
 "DESCENDING_LABEL" = "Absteigende Sortierung";
 "DESCENDING_SWITCH_LABEL" = "Aufsteigende oder Absteigende Sortierung";
