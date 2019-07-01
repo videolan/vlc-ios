@@ -330,7 +330,6 @@
 "ERROR_PLAYLIST_CREATION" = "Nie udało się utworzyć listy odtwarzania";
 "ERROR_PLAYLIST_TRACKS" = "Nie można pobrać utworów";
 
-"RENAME_PLACEHOLDER" = "Nowy tytuł";
 "ERROR_RENAME_FAILED" = "Zmiana nazwy nie powiodła się";
 "ERROR_EMPTY_NAME" = "Tytuł nie może być pusty";
 
@@ -342,7 +341,7 @@
 // Sort
 
 "BUTTON_SORT" = "Sortuj";
-"BUTTON_SORT_HINT" = "Wyświetl uwagę o sortowaniu";
+"BUTTON_SORT_HINT" = "Wyświetl arkusz akcji sortowania";
 "HEADER_TITLE_SORT" = "Sortuj według";
 "DESCENDING_LABEL" = "Kolejność malejąca";
 "DESCENDING_SWITCH_LABEL" = "Kolejność rosnąca lub malejąca";
