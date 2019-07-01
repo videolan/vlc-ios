@@ -11,7 +11,6 @@
 "TITLE" = "Titolo";
 "CHAPTER" = "Capitolo";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimizza la riproduzione";
-"FULLSCREEN_PLAYBACK" = "Riproduci a schermo intero";
 "TRACK_SELECTION" = "Selezione tracce";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Sottotitoli";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Vuoi continuare la riproduzione?";
 "CONTINUE_PLAYBACK_LONG" = "Vuoi continuare la riproduzione di \"%@\" da dove l'hai lasciata?";
 
-"BUTTON_ALL" = "Seleziona tutto";
 "BUTTON_ABOUT" = "Informazioni";
 "BUTTON_BACK" = "Indietro";
 "BUTTON_DONE" = "Fine";
@@ -74,10 +72,9 @@
 "SCAN_SUBTITLE_TOGGLE" = "Scansione sottotitoli (solo http)";
 
 "BUTTON_RENDERER" = "Dispositivi di trasmissione";
-"BUTTON_RENDERER_HINT" = "Mostra un emnu dei dispositivi di trasmissione disponibili";
+"BUTTON_RENDERER_HINT" = "Mostra un menu dei dispositivi di trasmissione disponibili";
 
 "UPGRADING_LIBRARY" = "Aggiornamento raccolta multimediale";
-"UNTITLED_SHOW" = "Spettacolo senza titolo";
 "UNKNOWN" = "Sconosciuto";
 
 "OPEN_NETWORK" = "Apri flusso di rete";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Scaricamento non riuscito con codice HTTP %i";
-"HTTP_FILE_CREATION_FAILED" = "Creazione file non riuscita";
 "HTTP_DOWNLOAD_CANCELLED" = "Scaricamento annullato dall'utente";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Inserisci un indirizzo per scaricare il file al tuo %@.";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "Il formato dell'indirizzo (%@) non è supportato. Usa un indirizzo che comincia con HTTP, HTTPS o FTP.";
 "RENAME_MEDIA_TO" = "Digita un nuovo nome per %@";
 
+"FOLDER_EMPTY" = "Cartella vuota";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Scegli un file da aprire:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Apri in...";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Impossibile trovare un'applicazione per aprire questo tipo di file";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Il file è stato salvato correttamente nel Rullino fotografico";
 
-"SECTION_HEADER_LIBRARY" = "Raccolta multimediale";
 "STREAMVC_DETAILTEXT" = "Riproduci i flussi direttamente senza scaricarli";
 "DOWNLOADVC_DETAILTEXT" = "Scarica i file direttamente sul tuo dispositivo";
 "HEADER_TITLE_RENDERER" = "Seleziona un dispositivo di trasmissione";
 
+"NETWORK" = "Rete";
 "LOCAL_NETWORK" = "Rete locale";
 "CONNECT_TO_SERVER" = "Connetti al server";
 "FILE_SERVER" = "File server";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "Sblocco raccolta multimediale\nAnnulla per digitare il codice di sicurezza";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d tentativi non riusciti";
+"1 Failed Passcode Attempt" = "Un tentativo non riuscito";
+"Change Passcode" = "Cambia codice di sicurezza";
+"Enter Passcode" = "Digita codice di sicurezza";
+"Enter a passcode" = "Digita un codice di sicurezza";
+"Enter your new passcode" = "Digita il tuo nuovo codice di sicurezza";
+"Enter your old passcode" = "Digita il tuo codice di sicurezza precedente";
+"Enter your passcode" = "Digita il tuo codice di sicurezza";
+"Next" = "Successivo";
+"Passcodes did not match. Try again." = "I codici di sicurezza non corrispondono. Riprova.";
+"Re-enter your new passcode" = "Digita ancora il tuo nuovo codice di sicurezza";
+"Re-enter your passcode" = "Digita ancora il tuo codice di sicurezza";
+"Set Passcode" = "Imposta codice di sicurezza";
 
 "Settings" = "Impostazioni"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "On";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Lettore video";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Tocca due volte per mostrare o nascondere i controlli di riproduzione";
 
-"FIRST_STEPS_WELCOME" = "Benvenuto";
-"FIRST_STEPS_WELCOME_DETAIL" = "Primi passi per sincronizzare e riprodurre i tuoi contenuti.";
 "FIRST_STEPS_ITUNES" = "Sincronizza file con iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connetti %@ al tuo Mac o PC utilizzando il cavo.\nApri iTunes.\nSeleziona il tuo %@.\nSeleziona \"Condivisione file\" nel menu a sinistra e cerca VLC.\nTrasferisci i tuoi file.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Connetti il tuo %@ alla stessa rete del tuo Mac o PC.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Attiva l'interruttore nella barra laterale, inserisci l'URL nel browser web e carica i tuoi file.";
+"FIRST_STEPS_ITUNES_TITLE" = "Sincronizza con il tuo computer";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connetti il tuo dispositivo a iTunes e seleziona il dispositivo.\nSeleziona \"Condivisione file\" nel menu a sinistra e cerca VLC per trasferire i file";
+"FIRST_STEPS_WIFI_TITLE" = "Condivisione tramite WiFi";
+"FIRST_STEPS_WIFI_DETAILS" = "Digita l'URL generato nel tuo browser web preferito mentre sei connesso alla stessa rete del tuo telefono";
 "FIRST_STEPS_CLOUDS" = "Cloud";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Carica i tuoi contenuti su Google Drive o su Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Apri la barra laterale per selezionare il tuo servizio Cloud e accedere ai tuoi contenuti per scaricarli o trasmetterli.";
-"FIRST_STEPS_PLAYBACK" = "Riproduzione";
-"FIRST_STEPS_FLOSS" = "VLC per iOS è un programma gratuito e open source sviluppato da volontari.\nSperiamo che ti piaccia.";
+"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
+"FIRST_STEPS_CLOUD_DETAILS" = "Carica i tuoi contenuti su un servizio cloud come Google Drive o su Dropbox per scaricarli da remoto o trasmetterli.";
 
-"FIRST_STEPS_TIME" = "Tempo";
-"FIRST_STEPS_ASPECT" = "Proporzioni";
-"FIRST_STEPS_SPEED" = "Velocità";
-"FIRST_STEPS_REPEAT" = "Ripeti";
-"FIRST_STEPS_SUBTITLES" = "Tracce sottotitoli";
-"FIRST_STEPS_AUDIO" = "Tracce audio";
-"FIRST_STEPS_POSITION" = "Posizione";
 
 "PLEX_CHECK_ACCOUNT" = "Controlla il tuo account Plex nelle impostazioni";
 "PLEX_ERROR_ACCOUNT" = "Errore di accesso a Plex";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "Volume";
 "DURATION" = "Durata";
 "TITLE" = "Titolo";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Premi %@ per eliminare"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "La selezione non può essere eliminata";
-"DELETE_INVALID_TITLE" = "Selezione non valida";
 "DELETE_MESSAGE" = "Conferma l'eliminazione dei file selezionati";
 "DELETE_TITLE" = "Elimina file selezionati";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protocollo non selezionato";
 "Settings" = "Impostazioni";
 
-"CANCEL" = "Annulla";
 "ERROR" = "Errore";
 "OK" = "Ok";
 "SORT" = "Ordina";
 "SORT_BY" = "Ordina per";
+"SEARCH" = "Cerca";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,36 @@
 "NAME" = "Nome";
 
 //EDIT
+
+"BUTTON_EDIT" = "Modifica";
+"BUTTON_EDIT_HINT" = "Modalità modifica";
+
 "ADD_TO_PLAYLIST" = "Aggiungi alla scaletta";
+"ADD_TO_PLAYLIST_HINT" = "Apri il menu Aggiungi a scaletta";
 
 "PLAYLIST_PLACEHOLDER" = "Titolo della scaletta";
 "PLAYLIST_DESCRIPTION" = "Scegli un titolo per la nuova scaletta";
+"PLAYLIST_CREATION" = "Crea una nuova scaletta";
+"PLAYLIST_CREATION_HINT" = "Mostra un'azione interattiva per creare una scaletta";
+"ERROR_PLAYLIST_CREATION" = "Creazione scaletta non riuscita";
+"ERROR_PLAYLIST_TRACKS" = "Recupero delle tracce non riuscito";
 
-"RENAME_PLACEHOLDER" = "Nuovo titolo";
 "ERROR_RENAME_FAILED" = "Rinomina non riuscita";
 "ERROR_EMPTY_NAME" = "Il titolo non può essere vuoto";
 
+"SHARE_LABEL" = "Condividi";
+"SHARE_HINT" = "Condividi file selezionati";
+"RENAME_HINT" = "Rinomina file selezionati";
+"DELETE_HINT" = "Elimina file selezionati";
+
 // Sort
 
+"BUTTON_SORT" = "Ordina";
+"BUTTON_SORT_HINT" = "Visualizza foglio delle azioni di ordinamento";
 "HEADER_TITLE_SORT" = "Ordina per";
+"DESCENDING_LABEL" = "Ordine decrescente";
+"DESCENDING_SWITCH_LABEL" = "Ordine crescente o decrescente";
+"DESCENDING_SWITCH_HINT" = "Mostra il contesto in ordine crescente o decrescente";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +360,13 @@
 "ALBUM" = "Album";
 "FILENAME" = "Nome file";
 "TRACK_NUMBER" = "Numero traccia";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Non abbiamo trovato niente";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Artista sconosciuto";
+"VARIOUS_ARTIST" = "Artisti vari";
+"UNKNOWN_ALBUM" = "Album sconosciuto";

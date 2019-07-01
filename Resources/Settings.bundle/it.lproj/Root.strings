@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "Controlla la riproduzione con i gesti";
 "SETTINGS_GESTURES_VOLUME" = "Scivola in su/giù per il volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tocca per riprodurre/sospendere";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Tocca con con due dita per riprodurre/sospendere";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Scivola in su/giù per la luminosità";
 "SETTINGS_GESTURES_SEEK" = "Scivola a destra/sinistra per posizionare";
 "SETTINGS_GESTURES_CLOSE" = "Pizzica per chiudere";
