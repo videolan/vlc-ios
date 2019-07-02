@@ -11,7 +11,6 @@
 "TITLE" = "Titill";
 "CHAPTER" = "Kafli";
 "MINIMIZE_PLAYBACK_VIEW" = "Lágmarka í afspilun";
-"FULLSCREEN_PLAYBACK" = "Spila í heilskjásham";
 "TRACK_SELECTION" = "Val spora";
 "AUDIO" = "Hljóð";
 "SUBTITLES" = "Skjátextar";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Halda afspilun áfram?";
 "CONTINUE_PLAYBACK_LONG" = "Viltu halda afspilun \"%@\" áfram þar sem þú hættir?";
 
-"BUTTON_ALL" = "Velja allt";
 "BUTTON_ABOUT" = "Um hugbúnaðinn";
 "BUTTON_BACK" = "Tilbaka";
 "BUTTON_DONE" = "Búið";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "Birta valmynd yfir tiltæk útvarpandi tæki (casting)";
 
 "UPGRADING_LIBRARY" = "Uppfærsla á miðlasafni";
-"UNTITLED_SHOW" = "Ónefndur þáttur";
 "UNKNOWN" = "Óþekkt";
 
 "OPEN_NETWORK" = "Opna straum af neti";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Niðurhal tókst ekki með HTTP-kóðanum %i";
-"HTTP_FILE_CREATION_FAILED" = "Mistókst að búa til skrá";
 "HTTP_DOWNLOAD_CANCELLED" = "Hætt var við niðurhal af notanda";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Settu inn vistfang til að senda skrána inn á %@.";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "Vistfangaskemað (%@) er ekki stutt. Notaðu vistfang sem byrjar á HTTP, HTTPS eða FTP.";
 "RENAME_MEDIA_TO" = "Skrifið inn nýtt nafn fyrir %@";
 
+"FOLDER_EMPTY" = "Tóm mappa";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Veldu skrá til að opna:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Opna í...";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Fann engin forrit til að opna þessa tegund skráa";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Tókst að vista skrána í myndasafnið þitt (camera roll)";
 
-"SECTION_HEADER_LIBRARY" = "Miðlasafn";
 "STREAMVC_DETAILTEXT" = "Spila streymi beint án niðurhals";
 "DOWNLOADVC_DETAILTEXT" = "Sækja skrár beint á tækið þitt";
 "HEADER_TITLE_RENDERER" = "Veldu tæki til útvörpunar (casting)";
 
+"NETWORK" = "Netkerfi";
 "LOCAL_NETWORK" = "Staðarnet";
 "CONNECT_TO_SERVER" = "Tengjast þjóni";
 "FILE_SERVER" = "Skráaþjónar";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "Aflæsa margmiðlunarsafni\nHættu við til að setja inn aðgangsorð";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d misfarnar tilraunir með lykilorð";
+"1 Failed Passcode Attempt" = "1 misfarin tilraun með lykilorð";
+"Change Passcode" = "Breyta lykilorði";
+"Enter Passcode" = "Settu inn lykilorð";
+"Enter a passcode" = "Settu inn lykilorð";
+"Enter your new passcode" = "Settu inn nýja lykilorðið þitt";
+"Enter your old passcode" = "Settu inn gamla lykilorðið þitt";
+"Enter your passcode" = "Settu inn lykilorðið þitt";
+"Next" = "Næsta";
+"Passcodes did not match. Try again." = "Lykilorðin eru ekki eins. Reyndu aftur.";
+"Re-enter your new passcode" = "Settu nýja lykilorðið inn aftur";
+"Re-enter your passcode" = "Settu lykilorðið inn aftur";
+"Set Passcode" = "Stilla lykilorð";
 
 "Settings" = "Stillingar"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Kveikt";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Myndskeiðaspilari";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Tvíbankaðu til að birta eða fela stýringar fyrir afspilun";
 
-"FIRST_STEPS_WELCOME" = "Velkomin";
-"FIRST_STEPS_WELCOME_DETAIL" = "Fyrstu skrefin við að samstilla og spila margmiðlunarefnið þitt.";
 "FIRST_STEPS_ITUNES" = "iTunes skráasamstilling";
-"FIRST_STEPS_ITUNES_DETAILS" = "Tengdu %@ við Mac- eða PC-tölvuna með snúrunni.\nOpnaðu iTunes.\nVeldu %@.\nVeldu \"Skráadeiling/File Sharing\" á valmyndinni til vinstri og leitaðu að VLC.\nFærðu skrárnar þínar yfir.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Tengdu %@ við sama netkerfi og Mac- eða PC-vélina þína.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Víxlaðu rofanum á hliðarspjaldinu, settu inn slóðina að vafranum þínum og yfirfærðu skrárnar þínar.";
+"FIRST_STEPS_ITUNES_TITLE" = "Samstilla við tölvuna þína";
+"FIRST_STEPS_ITUNES_DETAILS" = "Tengdu tækið við iTunes og veldu tækið þitt. Veldu \"Skráadeiling/File Sharing\" á valmyndinni til vinstri í iTunes og leitaðu að VLC til að yfirfæra skrár";
+"FIRST_STEPS_WIFI_TITLE" = "Deila með þráðlausu neti";
+"FIRST_STEPS_WIFI_DETAILS" = "Settu þessa sérútbúnu slóð inn í vafrann þinn á meðan þú tengist við sama netkerfi og síminn þinn";
 "FIRST_STEPS_CLOUDS" = "Tölvuský";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Sendu gögnin þín inn á Google Drive eða Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Opnaðu hliðarspjaldið til að velja skýjaþjónustuna og nálgast þannig margmiðlunargögnin þín svo að þú getir sótt þau eða streymt.";
-"FIRST_STEPS_PLAYBACK" = "Afspilun";
-"FIRST_STEPS_FLOSS" = "VLC fyrir iOS er frjáls og opinn hugbúnaður sem er hannaður og þróaður af áhugasömum sjálfboðaliðum.\nVið vonum að þér líki við hann.";
+"FIRST_STEPS_CLOUD_TITLE" = "Tölvuský";
+"FIRST_STEPS_CLOUD_DETAILS" = "Sendu gögnin þín inn á skýjaþjónustu eins og Google Drive eða Dropbox til að sækja eða streyma þeim fjartengt.";
 
-"FIRST_STEPS_TIME" = "Tími";
-"FIRST_STEPS_ASPECT" = "Stærðarhlutföll";
-"FIRST_STEPS_SPEED" = "Hraði";
-"FIRST_STEPS_REPEAT" = "Endurtaka";
-"FIRST_STEPS_SUBTITLES" = "Textaspor";
-"FIRST_STEPS_AUDIO" = "Hljóðspor";
-"FIRST_STEPS_POSITION" = "Staðsetning";
 
 "PLEX_CHECK_ACCOUNT" = "Athugaðu Plex-aðganginn þinn í stillingunum";
 "PLEX_ERROR_ACCOUNT" = "Villa í innskráningu í Plex";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "Hljóðstyrkur";
 "DURATION" = "Lengd";
 "TITLE" = "Titill";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Ýttu á %@ til að eyða"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "Ekki er hægt að eyða völdu";
-"DELETE_INVALID_TITLE" = "Ótækt val";
 "DELETE_MESSAGE" = "Staðfestu eyðingu á völdum skrám";
 "DELETE_TITLE" = "Eyða völdum skrám";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "Samskiptamáti ekki valinn";
 "Settings" = "Stillingar";
 
-"CANCEL" = "Hætta við";
 "ERROR" = "Villa";
 "OK" = "Í lagi";
 "SORT" = "Raða";
 "SORT_BY" = "Raða eftir";
+"SEARCH" = "Leita";
 "VIDEO" = "Myndskeið";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,36 @@
 "NAME" = "Nafn";
 
 //EDIT
+
+"BUTTON_EDIT" = "Breyta";
+"BUTTON_EDIT_HINT" = "Breytingahamur";
+
 "ADD_TO_PLAYLIST" = "Bæta við spilunarlista";
+"ADD_TO_PLAYLIST_HINT" = "Opna valmyndina til að bæta við spilunarlista";
 
 "PLAYLIST_PLACEHOLDER" = "Titill spilunarlista";
 "PLAYLIST_DESCRIPTION" = "Veldu titil fyrir nýja spilunarlistann";
+"PLAYLIST_CREATION" = "Búa til nýjan spilunarlista";
+"PLAYLIST_CREATION_HINT" = "Birta gagnvirka aðgerð til að búa til spilunarlista";
+"ERROR_PLAYLIST_CREATION" = "Mistókst að búa til spilunarlista";
+"ERROR_PLAYLIST_TRACKS" = "Mistókst að finna lög";
 
-"RENAME_PLACEHOLDER" = "Nýr titill";
 "ERROR_RENAME_FAILED" = "Endurnefning mistókst";
 "ERROR_EMPTY_NAME" = "Titillinn má ekki vera auður";
 
+"SHARE_LABEL" = "Deila";
+"SHARE_HINT" = "Deila völdum skrám";
+"RENAME_HINT" = "Endurnefna valdar skrár";
+"DELETE_HINT" = "Eyða völdum skrám";
+
 // Sort
 
+"BUTTON_SORT" = "Raða";
+"BUTTON_SORT_HINT" = "Birta glugga með röðunaraðgerðum";
 "HEADER_TITLE_SORT" = "Raða eftir";
+"DESCENDING_LABEL" = "Lækkandi röð";
+"DESCENDING_SWITCH_LABEL" = "Hækkandi eða lækkandi röð";
+"DESCENDING_SWITCH_HINT" = "Raða efni í hækkandi eða lækkandi röð";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +360,13 @@
 "ALBUM" = "Hljómplata";
 "FILENAME" = "Skráarheiti";
 "TRACK_NUMBER" = "Spornúmer";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Ekkert fannst";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Óþekktur flytjandi";
+"VARIOUS_ARTIST" = "Ýmsir flytjendur";
+"UNKNOWN_ALBUM" = "Óþekkt hljómplata";
