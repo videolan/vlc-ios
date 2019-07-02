@@ -11,7 +11,6 @@
 "TITLE" = "Titel";
 "CHAPTER" = "Kapitel";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimera uppspelningen";
-"FULLSCREEN_PLAYBACK" = "Spela i helskärm";
 "TRACK_SELECTION" = "Spårval";
 "AUDIO" = "Ljud";
 "SUBTITLES" = "Undertexter";
@@ -36,7 +35,7 @@
 "VFILTER_SATURATION" = "Färgmättnad";
 "VFILTER_GAMMA" = "Gamma";
 
-"PREAMP" = "Förstärk";
+"PREAMP" = "Försteg";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Välj equalizerprofil";
 
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Återuppta uppspelningen?";
 "CONTINUE_PLAYBACK_LONG" = "Skulle du vilja återuppta uppspelningen av \"%@\" där du lämnade den?";
 
-"BUTTON_ALL" = "Markera alla";
 "BUTTON_ABOUT" = "Om";
 "BUTTON_BACK" = "Tillbaka";
 "BUTTON_DONE" = "Färdig";
@@ -77,7 +75,6 @@
 "BUTTON_RENDERER_HINT" = "Visa en meny med tillgängliga castenheter";
 
 "UPGRADING_LIBRARY" = "Uppgraderar mediabiblioteket";
-"UNTITLED_SHOW" = "Namnlöst program";
 "UNKNOWN" = "Okänd";
 
 "OPEN_NETWORK" = "Öppna nätverksström";
@@ -92,8 +89,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Nedladdnings misslyckades med HTTP-koden %i";
-"HTTP_FILE_CREATION_FAILED" = "Misslyckades att skapa fil";
 "HTTP_DOWNLOAD_CANCELLED" = "Nedladdning avbruten av användare";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Ange en adress för att ladda ned filen till din %@";
@@ -106,6 +101,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "Adresschemat (%@) stöds inte. Var god använd en adress som börjar med HTTP, HTTPS eller FTP.";
 "RENAME_MEDIA_TO" = "Ange ett nytt namn för %@";
 
+"FOLDER_EMPTY" = "Tom mapp";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Välj en fil att öppna:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Öppna med...";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Kunde inte hitta några applikationer att öppna denna filtyp";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Filen sparades på Kamerarullen";
 
-"SECTION_HEADER_LIBRARY" = "Mediabibliotek";
 "STREAMVC_DETAILTEXT" = "Spela upp strömmar direkt utan att ladda ned";
 "DOWNLOADVC_DETAILTEXT" = "Ladda ned filer direkt till din enhet";
 "HEADER_TITLE_RENDERER" = "Välj en castenhet";
 
+"NETWORK" = "Nätverk";
 "LOCAL_NETWORK" = "Lokalt nätverk";
 "CONNECT_TO_SERVER" = "Anslut till server";
 "FILE_SERVER" = "Filservrar";
@@ -160,6 +156,19 @@
 "BIOMETRIC_UNLOCK" = "Lås upp mediabiblioteket\nAvbryt för att ange lösenkod";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d misslyckade lösenkodsförsök";
+"1 Failed Passcode Attempt" = "1 misslyckat lösenkodsförsök";
+"Change Passcode" = "Ändra lösenkod";
+"Enter Passcode" = "Ange lösenkod";
+"Enter a passcode" = "Ange en lösenkod";
+"Enter your new passcode" = "Ange din nya lösenkod";
+"Enter your old passcode" = "Ange din gamla lösenkod";
+"Enter your passcode" = "Ange din lösenkod";
+"Next" = "Nästa";
+"Passcodes did not match. Try again." = "Lösenkoderna stämmer inte överens. Försök igen.";
+"Re-enter your new passcode" = "Ange din nya lösenkod igen";
+"Re-enter your passcode" = "Ange din lösenkod igen";
+"Set Passcode" = "Ändra lösenkod";
 
 "Settings" = "Inställningar"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "På";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Videospelare";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dubbelknacka för att visa eller dölja uppspelningskontroller";
 
-"FIRST_STEPS_WELCOME" = "Välkommen";
-"FIRST_STEPS_WELCOME_DETAIL" = "Första stegen att synkronisera och spela upp din media.";
 "FIRST_STEPS_ITUNES" = "iTunes Filsynkronisering";
-"FIRST_STEPS_ITUNES_DETAILS" = "Anslut din %@ till din Mac eller PC med kabeln.\nÖppna iTunes.\nVälj din %@.\nVälj \"Fildelning\" i sidomenyn till vänster och leta efter VLC.\nÖverför dina filer.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Anslut din %@ till samma nätverk som din Mac eller PC.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Tryck på knappen i sidpanelen, ange webbadressen till webbläsaren och ladda upp dina filer.";
+"FIRST_STEPS_ITUNES_TITLE" = "Synkronisera med din dator";
+"FIRST_STEPS_ITUNES_DETAILS" = "Anslut din enhet till iTunes och välj din enhet. Välj \"Fildelning\" i sidomenyn till vänster i iTunes och leta efter VLC för att överföra filer";
+"FIRST_STEPS_WIFI_TITLE" = "Dela via WiFi";
+"FIRST_STEPS_WIFI_DETAILS" = "Ange den genererade webbadressen i din favoritwebbläsare medan du är ansluten till samma nätverk som din telefon";
 "FIRST_STEPS_CLOUDS" = "Moln";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Ladda upp din media till Google Drive eller Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Öppna sidpanelen för att välja din molnleverantör och komma åt din media för nedladdning eller strömning.";
-"FIRST_STEPS_PLAYBACK" = "Uppspelning";
-"FIRST_STEPS_FLOSS" = "VLC för iOS är en fri programvara med öppen källkod som utvecklats av volontärer.\nVi hoppas att du kommer gillar den.";
+"FIRST_STEPS_CLOUD_TITLE" = "Molnet";
+"FIRST_STEPS_CLOUD_DETAILS" = "Ladda upp din media till en molntjänst som Google Drive eller Dropbox för att fjärrnedladda eller strömma den.";
 
-"FIRST_STEPS_TIME" = "Tid";
-"FIRST_STEPS_ASPECT" = "Bildförhållande";
-"FIRST_STEPS_SPEED" = "Hastighet";
-"FIRST_STEPS_REPEAT" = "Upprepa";
-"FIRST_STEPS_SUBTITLES" = "Undertextspår";
-"FIRST_STEPS_AUDIO" = "Ljudspår";
-"FIRST_STEPS_POSITION" = "Position";
 
 "PLEX_CHECK_ACCOUNT" = "Kontrollera ditt Plex-konto i inställningarna";
 "PLEX_ERROR_ACCOUNT" = "Plex-inloggningsfel";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "Volym";
 "DURATION" = "Speltid";
 "TITLE" = "Titel";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Tryck på %@ för att radera"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "Markeringen kan inte raderas";
-"DELETE_INVALID_TITLE" = "Ogiltig markering";
 "DELETE_MESSAGE" = "Bekräfta att markerade filer ska raderas";
 "DELETE_TITLE" = "Radera markerade filer";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protokoll har inte valts";
 "Settings" = "Inställningar";
 
-"CANCEL" = "Avbryt";
 "ERROR" = "Fel";
 "OK" = "OK";
 "SORT" = "Sortera";
 "SORT_BY" = "Sortera efter";
+"SEARCH" = "Sök";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,36 @@
 "NAME" = "Namn";
 
 //EDIT
+
+"BUTTON_EDIT" = "Redigera";
+"BUTTON_EDIT_HINT" = "Redigeringsläge";
+
 "ADD_TO_PLAYLIST" = "Lägg till i spellista";
+"ADD_TO_PLAYLIST_HINT" = "Öppna menyn för att lägga till i spellista";
 
 "PLAYLIST_PLACEHOLDER" = "Titel på spellista";
 "PLAYLIST_DESCRIPTION" = "Välj en titel för din nya spellista";
+"PLAYLIST_CREATION" = "Skapa en ny spellista";
+"PLAYLIST_CREATION_HINT" = "Visa en interaktiv åtgärd för att skapa en spellista";
+"ERROR_PLAYLIST_CREATION" = "Misslyckades att skapa en spellista";
+"ERROR_PLAYLIST_TRACKS" = "Misslyckades att hämta spår";
 
-"RENAME_PLACEHOLDER" = "Ny titel";
 "ERROR_RENAME_FAILED" = "Namnbyte misslyckades";
 "ERROR_EMPTY_NAME" = "Titeln kan inte vara tom";
 
+"SHARE_LABEL" = "Dela";
+"SHARE_HINT" = "Dela markerade filer";
+"RENAME_HINT" = "Byt namn på markerade filer";
+"DELETE_HINT" = "Radera markerade filer";
+
 // Sort
 
+"BUTTON_SORT" = "Sortera";
+"BUTTON_SORT_HINT" = "Visningsordning för alternativmenyn";
 "HEADER_TITLE_SORT" = "Sortera efter";
+"DESCENDING_LABEL" = "Fallande ordning";
+"DESCENDING_SWITCH_LABEL" = "Stigande eller fallande ordning";
+"DESCENDING_SWITCH_HINT" = "Sortera alternativmenyn i stigande eller fallande ordning";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +360,13 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filnamn";
 "TRACK_NUMBER" = "Spårnummer";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Ingenting hittades";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Okänd artist";
+"VARIOUS_ARTIST" = "Blandade artister";
+"UNKNOWN_ALBUM" = "Okänt album";
