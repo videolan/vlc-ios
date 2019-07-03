@@ -314,8 +314,7 @@ extension MediaLibraryService {
 
     @objc func fetchMedia(with mrl: URL?) -> VLCMLMedia? {
         guard let mrl = mrl  else {
-            assertionFailure("MedialibraryService: no mrl")
-            return nil
+            return nil //Happens when we have a URL or there is no currently playing file
         }
         return medialib.media(withMrl: mrl)
     }
