@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC pour iOS est un portage du lecteur multimédia libre VLC pour iPad, iPhone et iPod touch.\nIl lit tous vos films, séries et musiques dans la plupart des formats, directement sans conversion.\nIl offre la synchronisation avec les services Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, permet les téléchargements directs, le partage WiFi et la diffusion directe à partir de serveurs SMB, FTP, UPnP/DLNA ou à partir du web.\nVLC prend en charge les sous-titres avancés, avec une compatibilité SSA complète, le multi-pistes audio, et le contrôle de la vitesse de lecture.\n\nVLC pour iOS est complètement libre et open source.";
+"STORE_DESCRIPTION" = "VLC pour iOS est un portage du lecteur multimédia libre VLC pour iPad, iPhone et iPod touch.\nIl lit tous vos films, séries et musiques dans la plupart des formats, directement sans conversion.\nIl offre la synchronisation avec les services Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, permet les téléchargements directs, le partage Wi-Fi et la diffusion directe à partir de serveurs SMB, FTP, UPnP/DLNA ou à partir du web.\nVLC prend en charge les sous-titres avancés, avec une compatibilité SSA complète, le multi-pistes audio, et le contrôle de la vitesse de lecture.\n\nVLC pour iOS est complètement gratuit et libre.";
 
 "STORE_DESCRIPTION_TV" = "VLC est un lecteur multimédia multiplateforme gratuit et libre.\nIl peut lire tous vos films, séries et musiques dans la majorité des formats directement sans conversion.\nIl permet la lecture de fichiers depuis le nuage (Dropbox, OneDrive, Box), la lecture à distance via une interface web ainsi que la lecture de fichiers depuis les serveurs SMB, FTP, UPnP/DLNA et le web.\nVLC est prend aussi en charge les sous-titres avancés, avec une compatibilité SSA totale, l'audio multipiste, et le contrôle de la vitesse de lecture.\n\nVLC pour iOS est complètement gratuit et libre.\n\nLes métadonnées et les illustrations proviennent de TMDb et Hatchet, des bases de données sur les films et la musique gérées par la communauté.";
 
@@ -11,7 +11,6 @@
 "TITLE" = "Titre";
 "CHAPTER" = "Chapitre";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimiser le lecteur";
-"FULLSCREEN_PLAYBACK" = "Lire en plein écran";
 "TRACK_SELECTION" = "Sélection de piste";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Sous-titres";
@@ -40,7 +39,7 @@
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Choisissez le profil d’égaliseur";
 
-"PLAYBACK_FAILED" = "Erreur pendant la lecture";
+"PLAYBACK_FAILED" = "La lecture a échoué";
 "PLEASE_WAIT" = "Veuillez patienter";
 "AR_CHANGED" = "Format de l'affichage : %@";
 "DEFAULT" = "Par défaut";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Reprendre la lecture ?";
 "CONTINUE_PLAYBACK_LONG" = "Voulez-vous reprendre la lecture de « %@ » là où vous l'aviez arrêtée ?";
 
-"BUTTON_ALL" = "Tout sélectionner";
 "BUTTON_ABOUT" = "À propos";
 "BUTTON_BACK" = "Retour";
 "BUTTON_DONE" = "OK";
@@ -77,14 +75,13 @@
 "BUTTON_RENDERER_HINT" = "Afficher un menu des périphériques de diffusion";
 
 "UPGRADING_LIBRARY" = "Mise à jour de la médiathèque";
-"UNTITLED_SHOW" = "Émission sans titre";
 "UNKNOWN" = "Inconnu";
 
 "OPEN_NETWORK" = "Ouvrir un flux réseau";
 "NETWORK_TITLE" = "Flux réseau";
 "OPEN_NETWORK_HELP" = "Entrez une adresse du type HTTP, RTSP, RTMP, MMS, FTP ou UDP/RTP pour lire directement le flux réseau.";
 "HTTP_UPLOAD_SERVER_OFF" = "Serveur inactif";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Pas de connexion WiFi active";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Pas de connexion Wi-Fi active";
 "OPEN_STREAM_OR_DOWNLOAD" = "Voulez-vous télécharger ou lire cette URL ?";
 "SHARED_VLC_IOS_LIBRARY" = "VLC partagé pour la bibliothèque iOS";
 "SMB_CIFS_FILE_SERVERS" = "Serveurs de fichiers (SMB)";
@@ -92,20 +89,19 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Échec du téléchargement avec le code HTTP %i";
-"HTTP_FILE_CREATION_FAILED" = "Échec de la création du fichier";
 "HTTP_DOWNLOAD_CANCELLED" = "Téléchargement annulé par l'utilisateur";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Entrez une adresse pour enregistrer le fichier sur votre %@.";
 "DOWNLOAD_FROM_HTTP" = "Téléchargements";
 "ERROR_NUMBER" = "Erreur %i ";
-"DOWNLOAD_FAILED" = "Échec du téléchargement";
+"DOWNLOAD_FAILED" = "Le téléchargement a échoué";
 "FILE_NOT_SUPPORTED" = "Format de fichier non pris en charge";
 "FILE_NOT_SUPPORTED_LONG" = "Le format de fichier utilisé par %@ n'est pas compatible avec cette version VLC pour iOS.";
 "SCHEME_NOT_SUPPORTED" = "Format d’adresse non pris en charge";
 "SCHEME_NOT_SUPPORTED_LONG" = "Le format d’adresse (%@) n’est pas pris en charge. Veuillez utiliser une adresse commençant par HTTP, HTTPS ou FTP.";
 "RENAME_MEDIA_TO" = "Entrez le nouveau nom pour %@";
 
+"FOLDER_EMPTY" = "Dossier vide";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Choisissez un fichier à ouvrir :";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Ouvrir dans...";
@@ -113,11 +109,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Aucune application n'a été trouvée pour ouvrir ce type de fichier";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Le fichier a été enregistré dans Camera Roll avec succès";
 
-"SECTION_HEADER_LIBRARY" = "Médiathèque";
-"STREAMVC_DETAILTEXT" = "Jouer le flux directement sans téléchargement";
+"STREAMVC_DETAILTEXT" = "Lire le flux directement sans téléchargement";
 "DOWNLOADVC_DETAILTEXT" = "Télécharger les fichiers directement sur votre appareil";
 "HEADER_TITLE_RENDERER" = "Sélectionner un périphérique de diffusion";
 
+"NETWORK" = "Réseau";
 "LOCAL_NETWORK" = "Réseau local";
 "CONNECT_TO_SERVER" = "Connexion au serveur";
 "FILE_SERVER" = "Fichier serveurs";
@@ -160,13 +156,26 @@
 "BIOMETRIC_UNLOCK" = "Déverrouiller la médiathèque\nAnnuler pour entrer le mot de passe";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d tentatives échouées pour le mot de passe";
+"1 Failed Passcode Attempt" = "1 tentative échouée pour le mot de passe";
+"Change Passcode" = "Changer le mot de passe";
+"Enter Passcode" = "Entrer le mot de passe";
+"Enter a passcode" = "Entrer un mot de passe";
+"Enter your new passcode" = "Entrer votre nouveau mot de passe";
+"Enter your old passcode" = "Entrer votre ancien mot de passe";
+"Enter your passcode" = "Entrer votre mot de passe";
+"Next" = "Suivant";
+"Passcodes did not match. Try again." = "Les mots de passe ne correspondent pas. Veuillez recommencer.";
+"Re-enter your new passcode" = "Entrer à nouveau votre nouveau mot de passe";
+"Re-enter your passcode" = "Entrer à nouveau votre mot de passe";
+"Set Passcode" = "Définir le mot de passe";
 
 "Settings" = "Préférences"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Oui";
 "OFF" = "Non";
 
 "EMPTY_LIBRARY" = "Médiathèque vide";
-"EMPTY_LIBRARY_LONG" = "Pour la lecture, vous pouvez diffuser le contenu multimédia d'un serveur sur votre réseau local, à partir du cloud ou synchroniser les médias avec votre appareil en utilisant iTunes, WiFi Upload ou les services Cloud.";
+"EMPTY_LIBRARY_LONG" = "Pour la lecture, vous pouvez diffuser le contenu multimédia d'un serveur sur votre réseau local, à partir du nuage ou synchroniser les médias avec votre appareil en utilisant iTunes, le téléversement Wi-Fi ou les services de nuage.";
 
 "PLAYBACK_SCRUB_HELP" = "Faites glisser votre doigt vers le bas pour régler la vitesse.";
 "PLAYBACK_SCRUB_HIGH" = "Défilement haute vitesse";
@@ -197,25 +206,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Lecteur vidéo";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Cliquez deux fois pour voir ou cacher les contrôles";
 
-"FIRST_STEPS_WELCOME" = "Bienvenue";
-"FIRST_STEPS_WELCOME_DETAIL" = "Premières étapes pour synchroniser et lire vos médias.";
 "FIRST_STEPS_ITUNES" = "Synchronisation de fichiers avec iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connectez votre %@ à votre Mac ou PC en utilisant un câble.\nOuvrez Itunes.\nSélectionnez votre %@.\nSélectionnez \"Partage de fichier\" dans le menu à gauche et cherchez VLC.\nTransférez vos fichiers.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Connectez votre %@ au même réseau que votre Mac ou PC.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Commutez l'interrupteur dans la barre latérale, entrez l'URL dans le navigateur Web et envoyez vos fichiers.";
+"FIRST_STEPS_ITUNES_TITLE" = "Synchroniser avec votre ordinateur";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connecter votre appareil à iTunes et sélectionner-le. Choisir « Partage de fichier » dans le menu à gauche et chercher VLC pour transférer des fichiers.";
+"FIRST_STEPS_WIFI_TITLE" = "Partager via Wi-Fi";
+"FIRST_STEPS_WIFI_DETAILS" = "Entrer l'URL générée dans votre navigateur préféré, qui doit être connecté au même réseau que votre téléphone";
 "FIRST_STEPS_CLOUDS" = "Nuages";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Envoyez vos médias à Google Drive ou à Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Ouvrez la barre latérale pour sélectionner votre fournisseur de nuage et accédez à vos médias pour le téléchargement ou le streaming.";
-"FIRST_STEPS_PLAYBACK" = "Lecture";
-"FIRST_STEPS_FLOSS" = "VLC pour iOS est un logiciel gratuit et open source développé par des bénévoles.\nNous espérons que vous l'aimerez.";
+"FIRST_STEPS_CLOUD_TITLE" = "Nuage";
+"FIRST_STEPS_CLOUD_DETAILS" = "Téléverser votre média vers un service de nuage tel que Google Drive ou Dropbox pour les télécharger ou les diffuser à distance.";
 
-"FIRST_STEPS_TIME" = "Temps";
-"FIRST_STEPS_ASPECT" = "Proportions";
-"FIRST_STEPS_SPEED" = "Vitesse";
-"FIRST_STEPS_REPEAT" = "Répéter";
-"FIRST_STEPS_SUBTITLES" = "Pistes des sous-titres";
-"FIRST_STEPS_AUDIO" = "Pistes Audio";
-"FIRST_STEPS_POSITION" = "Position";
 
 "PLEX_CHECK_ACCOUNT" = "Contrôler votre compte Plex dans les préférences";
 "PLEX_ERROR_ACCOUNT" = "Plex : erreur de connexion";
@@ -227,7 +226,7 @@
 "NO_SERVER_FOUND" = "Aucun serveur trouvé";
 "NO_RECENT_STREAMS" = "Aucun historique de flux récent";
 
-"WEBINTF_TITLE" = "Partage via WiFi";
+"WEBINTF_TITLE" = "Partage via Wi-Fi";
 "WEBINTF_DROPFILES" = "Déposer les fichiers";
 "WEBINTF_DROPFILES_LONG" = "Déposez les fichiers dans la fenêtre pour les ajouter à votre %@.<br>Ou cliquez sur le bouton « + » pour utiliser la boîte de dialogue de sélection de fichiers.";
 "WEBINTF_DOWNLOADFILES" = "Téléchargement de fichiers";
@@ -240,7 +239,6 @@
 
 
 
-"VOLUME" = "Volume";
 "DURATION" = "Durée";
 "TITLE" = "Titre";
 
@@ -287,8 +285,6 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Enfoncez %@ pour supprimer"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "La sélection ne peut pas être supprimée";
-"DELETE_INVALID_TITLE" = "Sélection invalide";
 "DELETE_MESSAGE" = "Confirmer la suppression des fichiers sélectionnés";
 "DELETE_TITLE" = "Supprimer les fichiers sélectionnés";
 
@@ -300,11 +296,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protocole non sélectionné";
 "Settings" = "Préférences";
 
-"CANCEL" = "Annuler";
 "ERROR" = "Erreur";
 "OK" = "OK";
 "SORT" = "Trier";
 "SORT_BY" = "Trier par";
+"SEARCH" = "Rechercher";
 "VIDEO" = "Vidéo";
 
 // MediaViewController Swipable Header
@@ -320,18 +316,36 @@
 "NAME" = "Nom";
 
 //EDIT
+
+"BUTTON_EDIT" = "Modifier";
+"BUTTON_EDIT_HINT" = "Mode édition";
+
 "ADD_TO_PLAYLIST" = "Ajouter à la liste de lecture";
+"ADD_TO_PLAYLIST_HINT" = "Ouvrir le menu Ajouter à la liste de lecture";
 
 "PLAYLIST_PLACEHOLDER" = "Titre de la liste de lecture";
 "PLAYLIST_DESCRIPTION" = "Choisissez un titre pour votre nouvelle liste de lecture";
+"PLAYLIST_CREATION" = "Créer une nouvelle liste de lecture";
+"PLAYLIST_CREATION_HINT" = "Afficher une interaction pour créer une liste de lecture";
+"ERROR_PLAYLIST_CREATION" = "Échec à la création de la liste de lecture";
+"ERROR_PLAYLIST_TRACKS" = "Échec de la récupération des pistes";
 
-"RENAME_PLACEHOLDER" = "Nouveau titre";
-"ERROR_RENAME_FAILED" = "Échec du renommage";
+"ERROR_RENAME_FAILED" = "Le renommage a échoué";
 "ERROR_EMPTY_NAME" = "Le titre ne peut pas être vide";
+
+"SHARE_LABEL" = "Partager";
+"SHARE_HINT" = "Partager les fichiers sélectionnés";
+"RENAME_HINT" = "Renommer les fichiers sélectionnés";
+"DELETE_HINT" = "Supprimer les fichiers sélectionnés";
 
 // Sort
 
+"BUTTON_SORT" = "Trier";
+"BUTTON_SORT_HINT" = "Afficher la feuille des actions de tri";
 "HEADER_TITLE_SORT" = "Trier par";
+"DESCENDING_LABEL" = "Ordre décroissant";
+"DESCENDING_SWITCH_LABEL" = "Ordre croissant ou décroissant";
+"DESCENDING_SWITCH_HINT" = "Trier le contexte par ordre croissant ou décroissant";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +360,13 @@
 "ALBUM" = "Album";
 "FILENAME" = "Nom de fichier";
 "TRACK_NUMBER" = "Numéro de piste";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Rien n'a été trouvé";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Artiste inconnu";
+"VARIOUS_ARTIST" = "Artistes divers";
+"UNKNOWN_ALBUM" = "Album inconnu";

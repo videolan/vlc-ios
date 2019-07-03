@@ -4,11 +4,11 @@
 "SETTINGS_VIDEO_TITLE" = "Vidéo";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_SUBTITLE" = "Changer couleurs l'app";
+"SETTINGS_THEME_SUBTITLE" = "Changer les couleurs de l'application";
 "SETTINGS_PRIVACY_SUBTITLE" = "Ouvrir dans les paramètres";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accès sécurisé à votre contenu";
 
-"SETTINGS_DARKTHEME" = "Thème Sombre";
+"SETTINGS_DARKTHEME" = "Thème sombre";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Étirement temporel audio";
 "SETTINGS_BACKGROUND_AUDIO" = "Lecture audio en arrière-plan";
 "SETTINGS_GENERIC_TITLE" = "Générique";
@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "Contrôle de la lecture par gestes";
 "SETTINGS_GESTURES_VOLUME" = "Balayer vers le haut / le bas pour le volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Toucher pour lire / mettre en pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Toucher à deux doigts pour lire / mettre en pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Balayer vers le haut / le bas pour la luminosité";
 "SETTINGS_GESTURES_SEEK" = "Balayer vers la droite / la gauche pour déplacer";
 "SETTINGS_GESTURES_CLOSE" = "Pincer pour fermer";
