@@ -21,7 +21,6 @@ class VLCTestMenu: XCTestCase {
         super.setUp()
 
         XCUIDevice.shared.orientation = .portrait
-        setupSnapshot(app)
         helper = TestHelper(app)
         app.launch()
     }

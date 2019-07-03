@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7D94FCDA16DE7D1000F2623B"
-               BuildableName = "VLC for iOS.app"
-               BlueprintName = "VLC-iOS"
+               BlueprintIdentifier = "4133CADB22CCB0620047A4EC"
+               BuildableName = "VLC-iOS-Screenshots.xctest"
+               BlueprintName = "VLC-iOS-Screenshots"
                ReferencedContainer = "container:VLC.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,31 +32,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "41533C90211338D500EC3ABA"
-               BuildableName = "VLC-iOSTests.xctest"
-               BlueprintName = "VLC-iOSTests"
-               ReferencedContainer = "container:VLC.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "41B0BC851F73ED7D0063BA26"
-               BuildableName = "VLC-iOSUITests.xctest"
-               BlueprintName = "VLC-iOSUITests"
-               ReferencedContainer = "container:VLC.xcodeproj">
-            </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "Screenshot/testCaptureVideoPlayback()">
-               </Test>
-            </SkippedTests>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "4133CADB22CCB0620047A4EC"
                BuildableName = "VLC-iOS-Screenshots.xctest"
                BlueprintName = "VLC-iOS-Screenshots"
@@ -64,15 +39,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7D94FCDA16DE7D1000F2623B"
-            BuildableName = "VLC for iOS.app"
-            BlueprintName = "VLC-iOS"
-            ReferencedContainer = "container:VLC.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -86,16 +52,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7D94FCDA16DE7D1000F2623B"
-            BuildableName = "VLC for iOS.app"
-            BlueprintName = "VLC-iOS"
+            BlueprintIdentifier = "4133CADB22CCB0620047A4EC"
+            BuildableName = "VLC-iOS-Screenshots.xctest"
+            BlueprintName = "VLC-iOS-Screenshots"
             ReferencedContainer = "container:VLC.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -105,16 +70,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7D94FCDA16DE7D1000F2623B"
-            BuildableName = "VLC for iOS.app"
-            BlueprintName = "VLC-iOS"
+            BlueprintIdentifier = "4133CADB22CCB0620047A4EC"
+            BuildableName = "VLC-iOS-Screenshots.xctest"
+            BlueprintName = "VLC-iOS-Screenshots"
             ReferencedContainer = "container:VLC.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

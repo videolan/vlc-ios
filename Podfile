@@ -28,7 +28,7 @@ target 'VLC-iOS' do
   pod 'GTMAppAuth'
   pod 'OneDriveSDK'
 
-  target 'VLC-iOSUITests' do
+  target 'VLC-iOS-Screenshots' do
     inherit! :search_paths
     pod 'SimulatorStatusMagic'
   end

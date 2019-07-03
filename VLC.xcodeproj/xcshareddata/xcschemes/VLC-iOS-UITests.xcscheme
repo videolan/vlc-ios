@@ -39,6 +39,15 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7D94FCDA16DE7D1000F2623B"
+            BuildableName = "VLC for iOS.app"
+            BlueprintName = "VLC-iOS"
+            ReferencedContainer = "container:VLC.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -52,15 +61,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "41B0BC851F73ED7D0063BA26"
-            BuildableName = "VLC-iOSUITests.xctest"
-            BlueprintName = "VLC-iOSUITests"
+            BlueprintIdentifier = "7D94FCDA16DE7D1000F2623B"
+            BuildableName = "VLC for iOS.app"
+            BlueprintName = "VLC-iOS"
             ReferencedContainer = "container:VLC.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -70,15 +80,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "41B0BC851F73ED7D0063BA26"
-            BuildableName = "VLC-iOSUITests.xctest"
-            BlueprintName = "VLC-iOSUITests"
-            ReferencedContainer = "container:VLC.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -80,7 +80,8 @@ end
 desc 'Run Tests'
 lane :test do
   cocoapods(repo_update: true)
-  scan(scheme: 'VLC-iOS')
+  scan(scheme: 'VLC-iOS-Tests')
+  scan(scheme: 'VLC-iOS-UITests')
 end
 
 #### Private ####
