@@ -1,4 +1,4 @@
- scheme("VLC-iOS-UITests")
+ scheme("VLC-iOS-Screenshots")
 
  devices([
    "iPhone 5s",
