@@ -3,7 +3,7 @@
 "STORE_DESCRIPTION_TV" = "VLC media player é um reprodutor de multimédia multiplataforma de código aberto e gratuito.\nEste pode reproduzir diretamente todos os seus filmes, programas e músicas sem conversão.\nEste permite a transmissão através dos serviços da nuvem (Box, Dropbox, OnerDrive), reprodução remota a partir do seu computador Mac ou PC através de uma interface do utilizador da Web, bem como a transmissão através de servidores FTP, SMB, UPnP/DLNA e da Web.\nO VLC oferece suporte avançado para legendas, incluindo compatibilidade total com SSA, múltiplas faixas de áudio, e controlo de velocidade da reprodução.\n\nO VLC para iOS é de código livre e completamente gratuito.\n\nOs metadados e as capas são disponibilizados por Hatchet e TMDb, que são bases de dados de filmes e músicas geridas por uma comunidade.";
 
 "CHOOSE_AUDIO_TRACK" = "Escolha uma faixa de áudio";
-"CHOOSE_SUBTITLE_TRACK" = "Escolher Faixa de Legendas";
+"CHOOSE_SUBTITLE_TRACK" = "Escolha uma faixa de legendas";
 "OPEN_TRACK_PANEL" = "Abrir seleção de faixas";
 "CHOOSE_TITLE" = "Escolha um título";
 "CHOOSE_CHAPTER" = "Escolha um capítulo";
@@ -330,7 +330,6 @@
 "ERROR_PLAYLIST_CREATION" = "Não foi possível criar uma lista de reprodução";
 "ERROR_PLAYLIST_TRACKS" = "Não foi possível obter as faixas";
 
-"RENAME_PLACEHOLDER" = "Novo título";
 "ERROR_RENAME_FAILED" = "Não foi possível alterar o nome";
 "ERROR_EMPTY_NAME" = "O título não pode estar vazio";
 
