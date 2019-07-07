@@ -1,34 +1,33 @@
-"STORE_DESCRIPTION" = "VLC per iOS hè una purtera di u lettore media liberu VLC nant'à iPad, iPhone è iPod touch.\nPò sunà tutti i vostri video, spettaculi è musica in a maiò parte di i furmati direttamente, senza cunversione.\nPermette a sincrunizazione di i schedarii cù Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, offre i scaricamenti diretti, u spartimentu WiFi, ma dinù a lettura di cuntinuu à partesi di servitori media SMB, FTP, UPnP/DLNA è da u web.\nVLC permette l'impiegu di sottutituli avanzati includendu a cumpatibilità sana SSA, l'audio multi-traccia, è u cuntrollu di a vitezza di ripruduzzione.\n\nVLC per iOS hè sanu di rigalu è 'open source'.";
+"STORE_DESCRIPTION" = "VLC per iOS hè una purtera di u lettore media liberu VLC nant’à iPad, iPhone è iPod touch.\nPò sunà tutti i vostri video, spettaculi è musica in a maiò parte di i furmati direttamente, senza cunversione.\nPermette a sincrunizazione di i schedarii cù Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, offre i scaricamenti diretti, u spartimentu WiFi, ma dinù a lettura di cuntinuu à partesi di servitori media SMB, FTP, UPnP/DLNA è da u web.\nVLC permette l’impiegu di sottutituli avanzati includendu a cumpatibilità sana SSA, l’audio multi-traccia, è u cuntrollu di a vitezza di ripruduzzione.\n\nVLC per iOS hè liberu è sanu di rigalu.";
 
-"STORE_DESCRIPTION_TV" = "VLC media player hè un lettore di media liberu è in 'open source' per tutti i sistemi.\nPò sunà tutti i vostri video, spettaculi è musica in a maiò parte di i furmati direttamente, senza cunversione.\nPermette a lettura di cuntinuu à partesi di servizii Nivulu (Dropbox, OneDrive, Box), a Ripruduzzione Alluntanata da u vostru Mac o PC grazia à un'interfaccia web, ma dinù a lettura di cuntinuu à partesi di servitori media SMB, FTP, UPnP/DLNA è da u web.\nVLC permette l'impiegu di sottutituli avanzati includendu a cumpatibilità sana SSA, l'audio multi-traccia, è u cuntrollu di a vitezza di ripruduzzione.\n\nVLC per iOS hè sanu di rigalu è 'open source'.\n\nI metadati è l'illustrazioni sò pruvisti da TMDb è Hatchet, chì sò banche di dati di filmi è musica mentenute da a cumunità.";
+"STORE_DESCRIPTION_TV" = "VLC media player hè un lettore di media liberu è di rigalu per tutti i sistemi.\nPò sunà tutti i vostri video, spettaculi è musica in a maiò parte di i furmati direttamente, senza cunversione.\nPermette a lettura di cuntinuu à partesi di servizii Nivulu (Dropbox, OneDrive, Box), a Ripruduzzione Alluntanata da u vostru Mac o PC grazia à un’interfaccia web, ma dinù a lettura di cuntinuu à partesi di servitori media SMB, FTP, UPnP/DLNA è da u web.\nVLC permette l’impiegu di sottutituli avanzati includendu a cumpatibilità sana SSA, l’audio multi-traccia, è u cuntrollu di a vitezza di ripruduzzione.\n\nVLC per iOS hè liberu è sanu di rigalu.\n\nI metadati è l’illustrazioni sò pruvisti da TMDb è Hatchet, chì sò banche di dati di filmi è musica mentenute da a cumunità.";
 
-"CHOOSE_AUDIO_TRACK" = "Sceglie a Traccia Audio";
-"CHOOSE_SUBTITLE_TRACK" = "Sceglie a Traccia di Sottutitulu";
+"CHOOSE_AUDIO_TRACK" = "Sceglie a traccia audio";
+"CHOOSE_SUBTITLE_TRACK" = "Sceglie a traccia di sottutitulu";
 "OPEN_TRACK_PANEL" = "Apre a selezzione di traccia";
-"CHOOSE_TITLE" = "Sceglie u Titulu";
-"CHOOSE_CHAPTER" = "Sceglie u Capitulu";
+"CHOOSE_TITLE" = "Sceglie u titulu";
+"CHOOSE_CHAPTER" = "Sceglie u capitulu";
 "CHAPTER_SELECTION_TITLE" = "Capituli";
 "TITLE" = "Titulu";
 "CHAPTER" = "Capitulu";
 "MINIMIZE_PLAYBACK_VIEW" = "Inchjuculì a ripruduzzione";
-"FULLSCREEN_PLAYBACK" = "Sunà in screnu sanu";
-"TRACK_SELECTION" = "Selezzione di Traccia";
+"TRACK_SELECTION" = "Selezzione di traccia";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Sottutituli";
 "LANGUAGE" = "Lingua";
-"MEDIA_INFO" = "Infurmazione Media";
+"MEDIA_INFO" = "Infurmazione media";
 "VIDEO_DIMENSIONS" = "Dimensioni di a video";
-"FORMAT_VIDEO_DIMENSIONS" = " %ix%i pixel";
-"FORMAT_AUDIO_TRACKS" = " %i traccie audio";
+"FORMAT_VIDEO_DIMENSIONS" = "%ix%i pixel";
+"FORMAT_AUDIO_TRACKS" = "%i traccie audio";
 "ONE_AUDIO_TRACK" = "Una traccia audio";
-"FORMAT_SPU_TRACKS" = " %i traccie di sottutituli";
+"FORMAT_SPU_TRACKS" = "%i traccie di sottutituli";
 "ONE_SPU_TRACK" = "Una traccia di sottutituli";
-"TRACKS" = "%i Tracks";
-"TRACK" = "%i Track";
+"TRACKS" = "%i Traccie";
+"TRACK" = "%i Traccia";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Cunnetta";
-"PLAYING_EXTERNALLY_DESC" = "Sta video hè sunata nant'à a TV";
-"PLAYING_EXTERNALLY_ADDITION" = "\nRipruduzzione in corsu nant'à :"; /* \n should stay in every translation */
+"PLAYING_EXTERNALLY_DESC" = "Sta video hè sunata nant’à a TV";
+"PLAYING_EXTERNALLY_ADDITION" = "\n Ripruduzzione in corsu nant’à :"; /* \n should stay in every translation */
 
 "VFILTER_HUE" = "Tinta";
 "VFILTER_CONTRAST" = "Cunstrastu";
@@ -37,23 +36,22 @@
 "VFILTER_GAMMA" = "Gamma";
 
 "PREAMP" = "Preamplificazione";
-"DB_FORMAT" = " %i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Sceglie u Prufilu d'Ugualizatore";
+"DB_FORMAT" = "%i dB";
+"CHOOSE_EQUALIZER_PROFILES" = "Sceglie u prufilu d’ugualizatore";
 
 "PLAYBACK_FAILED" = "Fiascu di a ripruduzzione";
 "PLEASE_WAIT" = "Aspittate per piacè";
-"AR_CHANGED" = "Furmatu di Screnu : %@";
+"AR_CHANGED" = "Furmatu di screnu : %@";
 "DEFAULT" = "Predefinitu";
 "FILL_TO_SCREEN" = "Taglià per riempie u screnu";
 "PLAYBACK_SPEED" = "Vitezza di ripruduzzione";
 "SPU_DELAY" = "Cumportu di sottutituli";
 "AUDIO_DELAY" = "Cumportu audio";
-"BUTTON_SLEEP_TIMER" = "Minuteria di Veghja";
-"SLEEP_TIMER_UPDATED" = "Minuteria di Veghja Rinnovata";
+"BUTTON_SLEEP_TIMER" = "Minuteria di veghja";
+"SLEEP_TIMER_UPDATED" = "Minuteria di veghja mudificata";
 "CONTINUE_PLAYBACK" = "Cuntinuà a ripruduzzione ?";
-"CONTINUE_PLAYBACK_LONG" = "Vulete cuntinuà a ripruduzzione di \"%@\" induve l'avete lasciata ?";
+"CONTINUE_PLAYBACK_LONG" = "Vulete cuntinuà a ripruduzzione di \"%@\" induve l’avete lasciata ?";
 
-"BUTTON_ALL" = "Selezziunà Tuttu";
 "BUTTON_ABOUT" = "Apprupositu";
 "BUTTON_BACK" = "Precedente";
 "BUTTON_DONE" = "Fattu";
@@ -65,128 +63,139 @@
 "BUTTON_CONTRIBUTE" = "Cuntribuì";
 "BUTTON_CONNECT" = "Cunnettà";
 "BUTTON_RENAME" = "Rinumà";
-"BUTTON_LEARN_MORE" = "Per Sapene di Più";
+"BUTTON_LEARN_MORE" = "Per sapene di più";
 "BUTTON_LOGOUT" = "Esce";
 "BUTTON_CONTINUE" = "Cuntinuà";
 "BUTTON_SET" = "Definisce";
-"BUTTON_RESET" = "Rimette d'urigine";
-"PRIVATE_PLAYBACK_TOGGLE" = "Ripruduzzione Privata";
-"SCAN_SUBTITLE_TOGGLE" = "Ricerca di i Sottutituli (solu http)";
+"BUTTON_RESET" = "Viutà";
+"PRIVATE_PLAYBACK_TOGGLE" = "Ripruduzzione privata";
+"SCAN_SUBTITLE_TOGGLE" = "Ricerca di i sottutituli (solu http)";
 
 "BUTTON_RENDERER" = "Apparechji di diffusione";
-"BUTTON_RENDERER_HINT" = "Affissà un listinu di l'apparechji di diffusione dispunibule";
+"BUTTON_RENDERER_HINT" = "Affissà un listinu di l’apparechji di diffusione dispunibule";
 
-"UPGRADING_LIBRARY" = "Rinnovà a Bibliuteca di Musica";
-"UNTITLED_SHOW" = "Spettaculu senza Titulu";
+"UPGRADING_LIBRARY" = "Rinnovà a bibliuteca media";
 "UNKNOWN" = "Scunnisciutu";
 
-"OPEN_NETWORK" = "Apre un Flussu di Reta";
-"NETWORK_TITLE" = "Flussu di Reta";
-"OPEN_NETWORK_HELP" = "scrive un indirizzu HTTP, RTSP, RTMP, MMS, FTP o UDP/RTP per apre direttamente u flussu.";
-"HTTP_UPLOAD_SERVER_OFF" = "Servitore Inattivu";
+"OPEN_NETWORK" = "Apre un flussu di reta";
+"NETWORK_TITLE" = "Flussu di reta";
+"OPEN_NETWORK_HELP" = "Scrive un indirizzu HTTP, RTSP, RTMP, MMS, FTP o UDP/RTP per apre direttamente u flussu.";
+"HTTP_UPLOAD_SERVER_OFF" = "Servitore inattivu";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "Alcuna cunnessione WiFi attiva";
-"OPEN_STREAM_OR_DOWNLOAD" = "Vulete scaricà o sunà ist'URL ?";
+"OPEN_STREAM_OR_DOWNLOAD" = "Vulete scaricà o sunà ist’URL ?";
 "SHARED_VLC_IOS_LIBRARY" = "Bibliuteca sparta di VLC per iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servitori di schedariu (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Fiascu di u scaricamentu cù codice %i";
-"HTTP_FILE_CREATION_FAILED" = "Fiascu durante a creazione di u schedariu";
-"HTTP_DOWNLOAD_CANCELLED" = "Scaricamentu abbandunatu da l'utilizatore";
+"HTTP_DOWNLOAD_CANCELLED" = "Scaricamentu abbandunatu da l’utilizatore";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Scrivite un indirizzu per scaricà u schedariu nant'à u vostru %@.";
+"DOWNLOAD_FROM_HTTP_HELP" = "Scrivite un indirizzu per scaricà u schedariu nant’à u vostru %@.";
 "DOWNLOAD_FROM_HTTP" = "Scaricamenti";
-"ERROR_NUMBER" = "U sbagliu %i s'hè accadatu";
+"ERROR_NUMBER" = "U sbagliu %i hè accadutu";
 "DOWNLOAD_FAILED" = "Fiascu di u scaricamentu";
 "FILE_NOT_SUPPORTED" = "Furmatu di schedariu micca accettatu";
 "FILE_NOT_SUPPORTED_LONG" = "U furmatu di schedariu impiegatu da %@ ùn hè micca accettatu da sta versione di VLC per iOS.";
-"SCHEME_NOT_SUPPORTED" = "Furmatu d'indirizzu micca accettatu";
-"SCHEME_NOT_SUPPORTED_LONG" = "U furmatu d'indirizzu (%@) ùn hè micca accettatu. Ci vole à impiegà un indirizzu principiendu cù HTTP, HTTPS o FTP.";
+"SCHEME_NOT_SUPPORTED" = "Furmatu d’indirizzu micca accettatu";
+"SCHEME_NOT_SUPPORTED_LONG" = "U furmatu d’indirizzu (%@) ùn hè micca accettatu. Ci vole à impiegà un indirizzu principiendu cù HTTP, HTTPS o FTP.";
 "RENAME_MEDIA_TO" = "Scrivite un novu nome per %@";
 
+"FOLDER_EMPTY" = "Cartulare viotu";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Sceglie un schedariu à apre :";
-"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Apre In...";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Apre In…";
 "SHARING_ERROR_NO_FILES" = "Alcunu schedariu à sparte";
-"SHARING_ERROR_NO_APPLICATIONS" = "Ùn si trova micca d'appiecazione per apre stu tipu di schedariu";
-"SHARING_SUCCESS_CAMERA_ROLL" = "U schedariu hè statu arregistratu bè in u Rotulu di Filmu";
+"SHARING_ERROR_NO_APPLICATIONS" = "Ùn si trova micca d’appiecazione per apre stu tipu di schedariu";
+"SHARING_SUCCESS_CAMERA_ROLL" = "U schedariu hè statu arregistratu bè in a bibliuteca di filmu";
 
-"SECTION_HEADER_LIBRARY" = "Bibliuteca di Media";
-"STREAMVC_DETAILTEXT" = "Sunà direttamente i flussi senza scaricalli";
-"DOWNLOADVC_DETAILTEXT" = "Scaricà schedarii direttamente ver di u vostru apparechju";
+"STREAMVC_DETAILTEXT" = "Sunà i flussi puru senza scaricalli";
+"DOWNLOADVC_DETAILTEXT" = "Scaricà i schedarii puru ver di u vostru apparechju";
 "HEADER_TITLE_RENDERER" = "Selezziunà un apparechju di diffusione";
 
-"LOCAL_NETWORK" = "Reta Lucale";
-"CONNECT_TO_SERVER" = "Cunnettà à u Servitore";
-"FILE_SERVER" = "Servitori di Schedariu";
+"NETWORK" = "Reta";
+"LOCAL_NETWORK" = "Reta lucale";
+"CONNECT_TO_SERVER" = "Cunnettà à u servitore";
+"FILE_SERVER" = "Servitori di schedariu";
 "USER_LABEL" = "Utilizatore";
-"PASSWORD_LABEL" = "Parolla d'intrata";
+"PASSWORD_LABEL" = "Parolla d’entrata";
 "DISABLE_LABEL" = "Disattivà";
-"BUTTON_ANONYMOUS_LOGIN" = "Cunnessione Anonima";
+"BUTTON_ANONYMOUS_LOGIN" = "Cunnessione anonima";
 
 "LOCAL_SERVER_REFRESH" = "Attualizà";
 "LOCAL_SERVER_LAST_UPDATE" = "Ultima mudificazione : %@";
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "FIASCU DI A CUNNESSIONE À U SERVITORE";
-"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Ci vole à verificà u vostru indirizzu di servitore è l'infurmazioni d'identificazione";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Ci vole à verificà u vostru indirizzu di servitore è l’infurmazioni d’identificazione";
 
-"CLOUD_SERVICES" = "Servizii di Nivulu";
+"CLOUD_SERVICES" = "Servizii di nivulu";
 "LOGIN" = "Identificazione";
 "LOGGED_IN" = "Identificatu bè";
 "LOGGED_IN_SERVICES" = "%d servizii cunnetti";
 "LOGGED_IN_SERVICE" = "1 serviziu cunnettu";
 
 "DROPBOX_DOWNLOAD" = "Scaricà u schedariu ?";
-"DROPBOX_DL_LONG" = "Vulete scaricà \"%@\" nant'à u vostru %@ ?";
+"DROPBOX_DL_LONG" = "Vulete scaricà \"%@\" nant’à u vostru %@ ?";
 "DROPBOX_LOGIN" = "Identificazione";
 
 "GDRIVE_ERROR_FETCHING_FILES" = "Sbagliu durante a ricuperazione di i schedarii";
 "GDRIVE_DOWNLOAD_SUCCESSFUL" = "U vostru schedariu hè statu scaricatu bè";
 "GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "SUCCESSU";
-"GDRIVE_ERROR_DOWNLOADING_FILE" = "Un sbagliu s'hè accadatu durante u scaricamentu";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "Un sbagliu hè accadutu durante u scaricamentu";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "SBAGLIU";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "U media selezziunatu ùn hà micca un indirizzu chì si pò sunà";
 
-"DISK_FULL" = "Cunfina d'allucamentu tocca";
-"DISK_FULL_FORMAT" = " %@ ùn pò micca esse allucatu nant'à u vostru %@, perchè ùn avete micca abbastanza di spaziu liberu.";
+"DISK_FULL" = "Cunfina d’allucamentu tocca";
+"DISK_FULL_FORMAT" = "%@ ùn pò micca esse allucatu nant’à u vostru %@, perchè ùn avete micca abbastanza di spaziu liberu.";
 
 "NUM_OF_FILES" = "%i schedarii";
 "ONE_FILE" = "1 schedariu";
 "NO_FILES" = "Alcunu schedariu accettatu";
-"DOWNLOADING" = "Scaricamentu in corsu...";
+"DOWNLOADING" = "Scaricamentu…";
 "REMAINING_TIME" = "Tempu rimanentu : %@";
-"BIOMETRIC_UNLOCK" = "Sbluccà a Bibliuteca di Media\nAbbandunà a scrittura di Parolla d'Intrata";
+"BIOMETRIC_UNLOCK" = "Sbluccà a bibliuteca di media\nAbbandunà a scrittura di u codice d’accessu";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d tentativi fiaschi di codice d’accessu";
+"1 Failed Passcode Attempt" = "1 tentativu fiascu di codice d’accessu";
+"Change Passcode" = "Cambià u codice d’accessu";
+"Enter Passcode" = "Scrivite u codice d’accessu";
+"Enter a passcode" = "Scrive un codice d’accessu";
+"Enter your new passcode" = "Scrive u vostru novu codice d’accessu";
+"Enter your old passcode" = "Scrive u vostru vechju codice d’accessu";
+"Enter your passcode" = "Scrive u vostru codice d’accessu";
+"Next" = "Seguente";
+"Passcodes did not match. Try again." = "I codici d’accessu ùn currispundenu micca. Pruvate torna.";
+"Re-enter your new passcode" = "Scrive torna u vostru novu codice d’accessu";
+"Re-enter your passcode" = "Scrive torna u vostru codice d’accessu";
+"Set Passcode" = "Definisce un codice d’accessu";
 
 "Settings" = "Preferenze"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Iè";
 "OFF" = "Innò";
 
-"EMPTY_LIBRARY" = "Bibliuteca di Media Viota";
+"EMPTY_LIBRARY" = "Bibliuteca di media viota";
 "EMPTY_LIBRARY_LONG" = "Per a ripruduzzione, pudete diffonde un media à partesi di un servitore di a vostra reta lucale, da u cloud o sincrunizà u media cù u vostru apparechju impieghendu iTunes, WiFi Upload o i servizii di Nivulu.";
 
 "PLAYBACK_SCRUB_HELP" = "Fate sculiscià u ditu inghjò per adattà a cadenza di scaruschjera.";
-"PLAYBACK_SCRUB_HIGH" = "Scaruschjera à Alta Vitezza";
-"PLAYBACK_SCRUB_HALF" = "Scaruschjera à Mezu Vitezza";
-"PLAYBACK_SCRUB_QUARTER" = "Scaruschjera à Quartu Vitezza";
-"PLAYBACK_SCRUB_FINE" = "Scaruschjera di Precisione";
-"PLAYBACK_POSITION" = "Pusizione di Ripruduzzione";
-"VIDEO_FILTER" = "Filtri Video";
-"VIDEO_FILTER_RESET_BUTTON" = "Rimette à Zeru i Filtri Video";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Cambià a Prupurzione di a Video";
+"PLAYBACK_SCRUB_HIGH" = "Scaruschjera à alta vitezza";
+"PLAYBACK_SCRUB_HALF" = "Scaruschjera à meza vitezza";
+"PLAYBACK_SCRUB_QUARTER" = "Scaruschjera à quartu vitezza";
+"PLAYBACK_SCRUB_FINE" = "Scaruschjera di precisione";
+"PLAYBACK_POSITION" = "Pusizione di ripruduzzione";
+"VIDEO_FILTER" = "Filtri video";
+"VIDEO_FILTER_RESET_BUTTON" = "Rimette à zeru i filtri video";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Cambià a prupurzione di a video";
 "PLAY_PAUSE_BUTTON" = "Sunà o Interrompe a ripruduzzione attuale";
-"BWD_BUTTON" = "Saltà Nanzu";
-"FWD_BUTTON" = "Saltà Dopu";
+"BWD_BUTTON" = "Saltà nanzu";
+"FWD_BUTTON" = "Saltà dopu";
 "PLAY_BUTTON" = "Sunà";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
+"NEXT_BUTTON" = "Seguente";
+"PREV_BUTTON" = "Precedente";
 "PLAY_ALL_BUTTON" = "Sunà tutti";
 
 "VERSION_FORMAT" = "Versione : %@";
-"BASED_ON_FORMAT" = "Appughjatu nant'à :<br />%@";
+"BASED_ON_FORMAT" = "Appughjatu nant’à :<br />%@";
 
 "NEW" = "NOVU";
 
@@ -194,31 +203,21 @@
 "BUG_REPORT_MESSAGE" = "Vulete creà un raportu di penseru ?";
 "BUG_REPORT_BUTTON" = "Apre Safari";
 
-"VO_VIDEOPLAYER_TITLE" = "Lettore Video";
+"VO_VIDEOPLAYER_TITLE" = "Lettore video";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Picchichjà duie volte per affissà o piattà i cuntrolli di ripruduzzione";
 
-"FIRST_STEPS_WELCOME" = "Benvenuta";
-"FIRST_STEPS_WELCOME_DETAIL" = "Primi passi per Sincrunizà è Sunà i vostri Media.";
-"FIRST_STEPS_ITUNES" = "Sincrunizazione di Schedariu cù iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Cunnettà u vostru %@ à u vostru Mac o PC impieghendu u cavu.\nApre iTunes.\nSelezziunà u vostru %@.\nSelezziunà \"Spartimentu di Schedariu\" nant'à u listinu à manu manca è circà VLC.\nTrasferà i vostri schedarii.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Cunnettà u vostru %@ à a listessa reta chì u vostru Mac o PC.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Attivà l'interruttore in a barra laterale, scrive l'URL in u navigatore web è incaricà i vostri schedarii.";
+"FIRST_STEPS_ITUNES" = "Sincrunizazione di schedariu cù iTunes";
+"FIRST_STEPS_ITUNES_TITLE" = "Sincrunizà cù u vostru urdinatore";
+"FIRST_STEPS_ITUNES_DETAILS" = "Cunnettà u vostru apparechju à iTunes è selezziunà u vostru apparechju. Selezziunà \"Spartimentu di schedariu\" nant’à u listinu à manu manca d’iTunes è circà VLC per trasferà i schedarii";
+"FIRST_STEPS_WIFI_TITLE" = "Sparte via WiFi";
+"FIRST_STEPS_WIFI_DETAILS" = "Scrite l’indirizzu generata in u vostru navigatore favuritu quandu site cunnettu à a listessa reta chì u vostru telefonu";
 "FIRST_STEPS_CLOUDS" = "Nivuli";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Incaricà u vostru media ver di Google Drive o Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Apre a barra laterale per selezziunà u vostru furnidore di Nivulu è accede à u vostru media per scaricallu o leghjellu di cuntinuu.";
-"FIRST_STEPS_PLAYBACK" = "Ripruduzzione";
-"FIRST_STEPS_FLOSS" = "VLC per iOS hè un prugramma di rigalu è 'open source' sviluppatu da vuluntarii.\nSperemu ch'ellu vi piacerà.";
+"FIRST_STEPS_CLOUD_TITLE" = "Nivulu";
+"FIRST_STEPS_CLOUD_DETAILS" = "Incaricà u vostru media ver di un serviziu di nivulu cum’è Google Drive o Dropbox per scaricalli da luntanu o leghjeli da cuntinuu.";
 
-"FIRST_STEPS_TIME" = "Ora";
-"FIRST_STEPS_ASPECT" = "Prupurzioni";
-"FIRST_STEPS_SPEED" = "Vitezza";
-"FIRST_STEPS_REPEAT" = "Ripete";
-"FIRST_STEPS_SUBTITLES" = "Traccie di Sottutituli";
-"FIRST_STEPS_AUDIO" = "Traccie Audio";
-"FIRST_STEPS_POSITION" = "Pusizione";
 
 "PLEX_CHECK_ACCOUNT" = "Cuntrollà u vostru contu Plex in e preferenze";
-"PLEX_ERROR_ACCOUNT" = "Sbagliu d'accessu à Plex";
+"PLEX_ERROR_ACCOUNT" = "Sbagliu d’accessu à Plex";
 
 "UNAUTHORIZED" = "Micca auturizatu";
 
@@ -228,19 +227,18 @@
 "NO_RECENT_STREAMS" = "Alcunu flussu ùn hè statu sunatu pocu fà";
 
 "WEBINTF_TITLE" = "Spartimentu via WiFi";
-"WEBINTF_DROPFILES" = "Depone i Schedarii";
-"WEBINTF_DROPFILES_LONG" = "Depone i schedarii in a finestra per aghjunghjelli à u vostru %@.<br>O cliccà nant'à u buttone \"+\" per impiegà u dialogu di u selettore di schedariu.";
-"WEBINTF_DOWNLOADFILES" = "Scaricà i Schedarii";
-"WEBINTF_DOWNLOADFILES_LONG" = "Basta à cliccà nant'à u schedariu chì voi vulete scaricà da u vostru %@.";
-"WEBINTF_TITLE_ATV" = "Ripruduzzione Alluntanata";
-"WEBINTF_DROPFILES_LONG_ATV" = "Depone i schedarii in a finestra per sunalli nant'à u vostru %@.<br>O cliccà nant'à u buttone \"+\" per impiegà u dialogu di u selettore di schedariu.";
+"WEBINTF_DROPFILES" = "Depone i schedarii";
+"WEBINTF_DROPFILES_LONG" = "Depone i schedarii in a finestra per aghjunghjelli à u vostru %@.<br>O cliccà nant’à u buttone \"+\" per impiegà u dialogu di u selettore di schedariu.";
+"WEBINTF_DOWNLOADFILES" = "Scaricà i schedarii";
+"WEBINTF_DOWNLOADFILES_LONG" = "Basta à cliccà nant’à u schedariu chì voi vulete scaricà da u vostru %@.";
+"WEBINTF_TITLE_ATV" = "Ripruduzzione alluntanata";
+"WEBINTF_DROPFILES_LONG_ATV" = "Depone i schedarii in a finestra per sunalli nant’à u vostru %@.<br>O cliccà nant’à u buttone \"+\" per impiegà u dialogu di u selettore di schedariu.";
 "WEBINTF_URL_SENT" = "URL mandatu bè.";
 "WEBINTF_URL_EMPTY" = "Un URL ùn pò micca esse viotu.";
 "WEBINTF_URL_INVALID" = "Ùn hè micca un URL accettevule.";
 
 
 
-"VOLUME" = "Vulume";
 "DURATION" = "Durata";
 "TITLE" = "Titulu";
 
@@ -253,13 +251,13 @@
 
 // ATV specific
 "AUDIO_INFO_VC_TITLE" = "Infurmazione Audio";
-"CLOUD_LOGIN_LONG" = "Per accede à i Servizii di Nivulu, autenticassi à iCloud cù u listessu contu Apple ID à partesi di quessa Apple TV è di u vostru apparechju iOS dinù è attivà u Spartimentu di Portachjavi in e Preferenze di Sistema.\nDopu, autenticassi à u furnidore di Nivulu di a vostra scelta à partesi di l'appiecazione VLC nant'à u vostru apparechju iOS. Infine, selezziunallu nant'à stu screnu.";
-"ENTER_URL" = "Scrivite l'URL à sunà";
-"HTTP_SERVER_ON" = "Disattivà a Ripruduzzione Alluntanata";
-"HTTP_SERVER_OFF" = "Attivà a Ripruduzzione Alluntanata";
-"CACHED_MEDIA" = "Media in Impiatta";
-"CACHED_MEDIA_LONG" = "I media affissati quì sò allucati lucalmente nant'à a vostra Apple TV. Nota : stu cuntenutu pò esse cacciatu à ogni mumentu senza avertimentu da u sistema quandu VLC ùn funziona micca s'ellu u vostru apparechju si trova troppu pienu.";
-"DOWNLOAD_SUBS_FROM_OSO" = "Scaricà sottutituli à partesi di OpenSubtitles.org...";
+"CLOUD_LOGIN_LONG" = "Per accede à i servizii di nivulu, autenticassi à iCloud cù u listessu contu Apple ID à partesi di quessa Apple TV è di u vostru apparechju iOS dinù è attivà u spartimentu di portachjavi in e preferenze di sistema.\nDopu, autenticassi à u furnidore di nivulu di a vostra scelta à partesi di l’appiecazione VLC nant’à u vostru apparechju iOS. Infine, selezziunallu nant’à stu screnu.";
+"ENTER_URL" = "Scrivite l’URL à sunà";
+"HTTP_SERVER_ON" = "Disattivà a ripruduzzione alluntanata";
+"HTTP_SERVER_OFF" = "Attivà a ripruduzzione alluntanata";
+"CACHED_MEDIA" = "Media in impiatta";
+"CACHED_MEDIA_LONG" = "I media affissati quì sò allucati lucalmente nant’à a vostra Apple TV. Nota : stu cuntenutu pò esse cacciatu à ogni mumentu senza avertimentu da u sistema quandu VLC ùn funzioneghja micca s’è u vostru apparechju si trova troppu pienu.";
+"DOWNLOAD_SUBS_FROM_OSO" = "Scaricà sottutituli à partesi di OpenSubtitles.org…";
 "FOUND_SUBS" = "Sottutituli trovi";
 "USE_SPDIF" = "Impiegà Pass-through (S/PDIF)";
 
@@ -267,44 +265,42 @@
 "REPEAT_MODE" = "Ripete";
 "REPEAT_DISABLED" = "Disattivata";
 "REPEAT_SINGLE" = "Schedariu attuale";
-"REPEAT_FOLDER" = "Cartulare attuale";
+"REPEAT_FOLDER" = "Cartulare";
 
 // Local Network Service Names
-"UPNP_LONG" = "Plug'n'Play (UPnP) Universale";
+"UPNP_LONG" = "Plug’n’Play (UPnP) Universale";
 "UPNP_SHORT" = "UPnP";
 
 "PLEX_LONG" = "Plex Media Server (via Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "Protocollu di Trasferimentu di Schedariu (FTP)";
+"FTP_LONG" = "Protocollu di trasferimentu di schedariu (FTP)";
 "FTP_SHORT" = "FTP";
 
-"BONJOUR_FILE_SERVERS" = "Servu di Schedariu BONJOUR";
+"BONJOUR_FILE_SERVERS" = "Servitore di schedariu BONJOUR";
 "DSM_WORKGROUP" = "Gruppu di travagliu";
 
-"URL_NOT_SUPPORTED" = "L'URL ùn pò micca esse aperta";
+"URL_NOT_SUPPORTED" = "L’URL ùn pò micca esse aperta";
 
 // Insert %@ where play-pause-glyph should be placed
-"DELETE_ITEM_HINT" = "Appughjà %@ per Squassà"; /* Insert %@ where play-pause-glyph should be placed */
+"DELETE_ITEM_HINT" = "Appughjà %@ per squassà"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "A selezzione ùn pò micca esse squassata";
-"DELETE_INVALID_TITLE" = "Selezzione Micca Accettevule";
 "DELETE_MESSAGE" = "Cunfirmà a squassatura di i schedarii selezziunati";
-"DELETE_TITLE" = "Squassà i Schedarii Selezziunati";
+"DELETE_TITLE" = "Squassà i schedarii selezziunati";
 
 //Drag and Drop
 "THIS_FILE" = "Stu schedariu";
-"NOT_SUPPORTED_FILETYPE" = "%@ hà un tipu (estensione) ch'ùn hè micca accettatu da VLC ";
+"NOT_SUPPORTED_FILETYPE" = "%@  hà un tipu (estensione) ch’ùn hè micca accettatu da VLC";
 "FILE_EXISTS" = "%@ esiste dighjà";
 
 "PROTOCOL_NOT_SELECTED" = "Protocollu micca selezziunatu";
 "Settings" = "Preferenze";
 
-"CANCEL" = "Abbandunà";
 "ERROR" = "Sbagliu";
 "OK" = "Vai";
-"SORT" = "Classificà";
+"SORT" = "Classificazione";
 "SORT_BY" = "Classificà da";
+"SEARCH" = "Ricerca";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -314,35 +310,63 @@
 "GENRES" = "Generi";
 "MOVIES" = "Filmi";
 "SONGS" = "Canzone";
-"PLAYLISTS" = "Playlists";
+"PLAYLISTS" = "Liste di lettura";
 
-"MODIFIED_DATE" = "Modified date";
-"NAME" = "Name";
+"MODIFIED_DATE" = "Data di mudificazione";
+"NAME" = "Nome";
 
 //EDIT
-"ADD_TO_PLAYLIST" = "Add to Playlist";
 
-"PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"BUTTON_EDIT" = "Mudificà";
+"BUTTON_EDIT_HINT" = "Modu di mudificazione";
 
-"RENAME_PLACEHOLDER" = "New title";
-"ERROR_RENAME_FAILED" = "Renaming failed";
-"ERROR_EMPTY_NAME" = "The title can't be empty";
+"ADD_TO_PLAYLIST" = "Aghjunghje à a lista di lettura";
+"ADD_TO_PLAYLIST_HINT" = "Apre u listinu per aghjunghje à a lista di lettura";
+
+"PLAYLIST_PLACEHOLDER" = "Titulu di a lista di lettura";
+"PLAYLIST_DESCRIPTION" = "Sceglie un titulu per a vostra nova lista di lettura";
+"PLAYLIST_CREATION" = "Creà una nova lista di lettura";
+"PLAYLIST_CREATION_HINT" = "Affissà un azzione interrattiva per creà una lista di lettura";
+"ERROR_PLAYLIST_CREATION" = "Fiascu per creà una lista di lettura";
+"ERROR_PLAYLIST_TRACKS" = "Fiascu per ritruvà e traccie";
+
+"ERROR_RENAME_FAILED" = "Fiascu di rinumà";
+"ERROR_EMPTY_NAME" = "U titulu ùn pò micca esse viotu";
+
+"SHARE_LABEL" = "Sparte";
+"SHARE_HINT" = "Sparte i schedarii selezziunati";
+"RENAME_HINT" = "Rinumà i schedarii selezziunati";
+"DELETE_HINT" = "Squassà i schedarii selezziunati";
 
 // Sort
 
-"HEADER_TITLE_SORT" = "Sort by";
+"BUTTON_SORT" = "Classificazione";
+"BUTTON_SORT_HINT" = "Affissà a scheda d’azzioni di classificazione";
+"HEADER_TITLE_SORT" = "Classificà da";
+"DESCENDING_LABEL" = "Ordine discendente";
+"DESCENDING_SWITCH_LABEL" = "Ordine crescente o discendente";
+"DESCENDING_SWITCH_HINT" = "Classificà u cuntestu da l’ordine crescente o discendente";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
-"ALPHA" = "Alphanumerically";
+"ALPHA" = "Alfa-numericamente";
 "DURATION" = "Durata";
-"INSERTION_DATE" = "Insertion date";
-"LAST_MODIFICATION_DATE" = "Last modification date";
-"RELEASE_DATE" = "Release date";
-"FILE_SIZE" = "File size";
-"ARTIST" = "Artist";
-"PLAY_COUNT" = "Play count";
-"ALBUM" = "Album";
-"FILENAME" = "Filename";
-"TRACK_NUMBER" = "Track number";
+"INSERTION_DATE" = "Data d’inserzione";
+"LAST_MODIFICATION_DATE" = "Data di l’ultima mudificazione";
+"RELEASE_DATE" = "Data d’esciuta";
+"FILE_SIZE" = "Dimensione di schedariu";
+"ARTIST" = "Artista";
+"PLAY_COUNT" = "Contu di ripruduzzione";
+"ALBUM" = "Albumu";
+"FILENAME" = "Nome di schedariu";
+"TRACK_NUMBER" = "Numeru di traccia";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nunda trovu";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Artista scunnisciutu";
+"VARIOUS_ARTIST" = "Artisti diversi";
+"UNKNOWN_ALBUM" = "Albumu scunnisciutu";
