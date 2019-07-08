@@ -43,7 +43,6 @@
 #if TARGET_OS_IOS
 - (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer
 {
-    if ([VLCKeychainCoordinator passcodeLockEnabled]) return;
     if (media) {
         self.title = media.title;
         self.artist = media.albumTrack.artist.name;
@@ -60,6 +59,9 @@
         self.title = [[mediaPlayer.media url] lastPathComponent];
     }
     [self updatePlaybackRate:mediaPlayer];
+
+    //Down here because we still need to populate the miniplayer
+    if ([VLCKeychainCoordinator passcodeLockEnabled]) return;
 
     [self populateInfoCenterFromMetadata];
 }
