@@ -25,6 +25,7 @@
     UIRefreshControl *_refreshControl;
     UIBarButtonItem *_progressBarButtonItem;
     UIBarButtonItem *_logoutButton;
+    UINavigationController *tempNav;
 }
 
 @end
@@ -102,13 +103,16 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.toolbarHidden = NO;
+    //Workaround since in viewWillDisappear self.navigationController can be nil which will lead to a lingering toolbar
+    tempNav = self.navigationController;
+    tempNav.toolbarHidden = NO;
     [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    self.navigationController.toolbarHidden = YES;
+    tempNav.toolbarHidden = YES;
+    tempNav = nil;
     [super viewWillDisappear:animated];
 }
 
