@@ -330,7 +330,6 @@
 "ERROR_PLAYLIST_CREATION" = "Creatzione de s'iscalita fallida";
 "ERROR_PLAYLIST_TRACKS" = "Recùperu de sas rastas fallidu";
 
-"RENAME_PLACEHOLDER" = "Tìtulu nou";
 "ERROR_RENAME_FAILED" = "Càmbiu de nùmene fallidu";
 "ERROR_EMPTY_NAME" = "Su tìtulu non podet èssere bòidu";
 
@@ -342,7 +341,7 @@
 // Sort
 
 "BUTTON_SORT" = "Òrdina";
-"BUTTON_SORT_HINT" = "Ammustra su fògiu de atzione de ordinamentu";
+"BUTTON_SORT_HINT" = "Ammustra su fògiu de sas atziones de ordinamentu";
 "HEADER_TITLE_SORT" = "Òrdina pro";
 "DESCENDING_LABEL" = "Òrdine minimante";
 "DESCENDING_SWITCH_LABEL" = "Òrdine artiante o minimante";
@@ -371,3 +370,11 @@
 "UNKNOWN_ARTIST" = "Artista disconnotu";
 "VARIOUS_ARTIST" = "Artistas vàrios";
 "UNKNOWN_ALBUM" = "Album disconnotu";
+
+/* New strings */
+"INTERFACE_LOCK_BUTTON" = "Bloca s'interfache";
+"INTERFACE_LOCK_HINT" = "Disabìlita sos controllos de interfache";
+"MORE_OPTIONS_BUTTON" = "Àteru";
+"MORE_OPTIONS_HINT" = "Abbàida àteros controllos optzionales";
+"REPEAT_MODE_HINT" = "Muda sa modalidade de ripetitzione de s'elementu atuale";
+"VIDEO_ASPECT_RATIO_HINT" = "Muda sas proportziones de su vìdeu atuale";
