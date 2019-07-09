@@ -370,3 +370,11 @@
 "UNKNOWN_ARTIST" = "Nieznany wykonawca";
 "VARIOUS_ARTIST" = "Różni wykonawcy";
 "UNKNOWN_ALBUM" = "Nieznany album";
+
+/* New strings */
+"INTERFACE_LOCK_BUTTON" = "Zablokuj interfejs";
+"INTERFACE_LOCK_HINT" = "Wyłącz kontrolki interfejsu";
+"MORE_OPTIONS_BUTTON" = "Więcej";
+"MORE_OPTIONS_HINT" = "Zobacz więcej opcji sterowania";
+"REPEAT_MODE_HINT" = "Zmień tryb powtarzania bieżącego elementu";
+"VIDEO_ASPECT_RATIO_HINT" = "Zmień współczynnik proporcji bieżącego wideo";
