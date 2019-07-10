@@ -370,3 +370,11 @@
 "UNKNOWN_ARTIST" = "Ismeretlen előadó";
 "VARIOUS_ARTIST" = "Különböző előadók";
 "UNKNOWN_ALBUM" = "Ismeretlen album";
+
+/* New strings */
+"INTERFACE_LOCK_BUTTON" = "Felület zárolása";
+"INTERFACE_LOCK_HINT" = "Felületi vezérlők letiltása";
+"MORE_OPTIONS_BUTTON" = "Több";
+"MORE_OPTIONS_HINT" = "További beállításvezérlők megjelenítése";
+"REPEAT_MODE_HINT" = "A jelenlegi elem ismétlési módjának módosítása";
+"VIDEO_ASPECT_RATIO_HINT" = "A jelenlegi videó képarányának módosítása";
