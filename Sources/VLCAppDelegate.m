@@ -109,6 +109,7 @@
     [ODClient setMicrosoftAccountAppId:kVLCOneDriveClientID scopes:@[@"onedrive.readwrite", @"offline_access"]];
 
     [VLCApperanceManager setupAppearanceWithTheme:PresentationTheme.current];
+    self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     rootViewController = [UITabBarController new];
@@ -241,6 +242,11 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     } else {
         completion();
     }
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    return self.orientationLock;
 }
 
 @end

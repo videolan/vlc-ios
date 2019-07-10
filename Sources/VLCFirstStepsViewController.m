@@ -50,6 +50,22 @@
     [self updateTheme];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        [AppUtility lockOrientation:UIInterfaceOrientationMaskPortrait];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        [AppUtility lockOrientation: UIInterfaceOrientationMaskLandscape | UIInterfaceOrientationMaskPortrait];
+    }
+}
+
 - (void)updateTheme
 {
     self.view.backgroundColor = PresentationTheme.current.colors.background;
