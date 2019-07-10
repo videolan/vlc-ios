@@ -1,10 +1,14 @@
-//
-//  AppUtitlity.swift
-//  VLC-iOS
-//
-//  Created by Carola Nitz on 10.07.19.
-//  Copyright © 2019 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * Prefix header for all source files of the 'vlc-ios' target
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2019 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Carola Nitx <caro # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 
