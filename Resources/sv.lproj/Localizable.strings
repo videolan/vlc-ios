@@ -370,3 +370,11 @@
 "UNKNOWN_ARTIST" = "Okänd artist";
 "VARIOUS_ARTIST" = "Blandade artister";
 "UNKNOWN_ALBUM" = "Okänt album";
+
+/* New strings */
+"INTERFACE_LOCK_BUTTON" = "Lås gränssnitt";
+"INTERFACE_LOCK_HINT" = "Inaktivera gränssnittskontroller";
+"MORE_OPTIONS_BUTTON" = "Mer";
+"MORE_OPTIONS_HINT" = "Visa fler kontrollalternativ";
+"REPEAT_MODE_HINT" = "Ändra upprepningsläget för aktuellt objekt";
+"VIDEO_ASPECT_RATIO_HINT" = "Ändra bildförhållandet för aktuell video";
