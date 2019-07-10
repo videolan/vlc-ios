@@ -60,7 +60,11 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(audiotrack: VLCMLMedia) {
-        titleLabel.text = audiotrack.title
+        var title = audiotrack.title
+        if  UserDefaults.standard.bool(forKey: kVLCOptimizeItemNamesForDisplay) == true {
+            title = (title as NSString).deletingPathExtension
+        }
+        titleLabel.text = title
         accessibilityLabel = audiotrack.accessibilityText(editing: false)
         descriptionLabel.text = audiotrack.albumTrackArtistName()
         newLabel.isHidden = !audiotrack.isNew
@@ -84,7 +88,11 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(movie: VLCMLMedia) {
-        titleLabel.text = movie.title
+        var title = movie.title
+        if  UserDefaults.standard.bool(forKey: kVLCOptimizeItemNamesForDisplay) == true {
+            title = (title as NSString).deletingPathExtension
+        }
+        titleLabel.text = title
         accessibilityLabel = movie.accessibilityText(editing: false)
         descriptionLabel.text = movie.mediaDuration()
         if movie.isThumbnailGenerated() {
