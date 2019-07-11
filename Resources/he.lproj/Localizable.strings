@@ -370,3 +370,11 @@
 "UNKNOWN_ARTIST" = "אמן לא ידוע";
 "VARIOUS_ARTIST" = "מגוון אמנים";
 "UNKNOWN_ALBUM" = "אלבום לא ידוע";
+
+/* New strings */
+"INTERFACE_LOCK_BUTTON" = "נעילת המנשק";
+"INTERFACE_LOCK_HINT" = "השבתת פקדי מנשק";
+"MORE_OPTIONS_BUTTON" = "עוד";
+"MORE_OPTIONS_HINT" = "הצגת פקדים לאפשרויות נוספות";
+"REPEAT_MODE_HINT" = "להחליף את מצב החזרה של הפריט הנוכחי";
+"VIDEO_ASPECT_RATIO_HINT" = "להחליף את יחס התצוגה של הסרטון הנוכחי";
