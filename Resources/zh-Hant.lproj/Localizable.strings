@@ -370,3 +370,11 @@
 "UNKNOWN_ARTIST" = "未知藝人";
 "VARIOUS_ARTIST" = "多個藝人";
 "UNKNOWN_ALBUM" = "未知專輯";
+
+/* New strings */
+"INTERFACE_LOCK_BUTTON" = "鎖定介面";
+"INTERFACE_LOCK_HINT" = "停用介面控制";
+"MORE_OPTIONS_BUTTON" = "更多";
+"MORE_OPTIONS_HINT" = "檢視更多選項控制";
+"REPEAT_MODE_HINT" = "變更目前項目的重複模式";
+"VIDEO_ASPECT_RATIO_HINT" = "變更目前影片的長寬比例";
