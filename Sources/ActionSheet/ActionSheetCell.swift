@@ -9,6 +9,50 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+enum ActionSheetCellAccessoryType: Equatable {
+        case checkmark
+        case disclosureChevron
+        case custom(image: UIImage)
+    
+        static func ==(lhs: ActionSheetCellAccessoryType, rhs: ActionSheetCellAccessoryType) -> Bool {
+            switch lhs {
+            case .checkmark:
+                switch rhs {
+                case .checkmark:
+                    return true
+                default:
+                    return false
+                }
+            case .disclosureChevron:
+                switch rhs {
+                case .disclosureChevron:
+                    return true
+                default:
+                    return false
+                }
+            case .custom( _):
+                switch rhs {
+                case .custom( _):
+                    return true
+                default:
+                    return false
+                }
+            default:
+                assertionFailure("Unhandled ActionSheetAccessoryType")
+            }
+        }
+    }
+
+extension UIImage {
+        class var checkmark: UIImage? {
+                return UIImage(named: "checkboxSelected")
+            }
+    
+        class var disclosureChevron: UIImage? {
+                return UIImage(named: "disclosureChevron")
+            }
+    }
+
 class ActionSheetCellImageView: UIImageView {
     override var image: UIImage? {
         didSet {
@@ -37,7 +81,11 @@ class ActionSheetCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             updateColors()
-            checkmark.isHidden = !isSelected
+//            checkmark.isHidden = !isSelected
+            if accessoryType == .checkmark {
+                accessoryTypeImageView.isHidden = !isSelected
+                accessoryTypeImageView.tintColor = isSelected ? .orange : .white
+            }
         }
     }
 
@@ -56,16 +104,41 @@ class ActionSheetCell: UICollectionViewCell {
         name.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return name
     }()
-
-    let checkmark: UILabel = {
-        let checkmark = UILabel()
-        checkmark.text = "✓"
-        checkmark.font = UIFont.systemFont(ofSize: 18)
-        checkmark.textColor = PresentationTheme.current.colors.orangeUI
-        checkmark.translatesAutoresizingMaskIntoConstraints = false
-        checkmark.isHidden = true
-        return checkmark
+    
+    var accessoryType: ActionSheetCellAccessoryType {
+        didSet {
+            switch accessoryType {
+            case .checkmark:
+                accessoryTypeImageView.image = .checkmark
+                accessoryTypeImageView.isHidden = true
+            case .disclosureChevron:
+                accessoryTypeImageView.image = .disclosureChevron
+            case .custom(let image):
+                accessoryTypeImageView.image = image
+            default:
+                assertionFailure("Unhandled ActionSheetAccessoryType")
+            }
+        }
+    }
+    
+    private let accessoryTypeImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = .checkmark
+        imageView.backgroundColor = .none
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
+
+//    let checkmark: UILabel = {
+//        let checkmark = UILabel()
+//        checkmark.text = "✓"
+//        checkmark.font = UIFont.systemFont(ofSize: 18)
+//        checkmark.textColor = PresentationTheme.current.colors.orangeUI
+//        checkmark.translatesAutoresizingMaskIntoConstraints = false
+//        checkmark.isHidden = true
+//        return checkmark
+//    }()
 
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -77,11 +150,13 @@ class ActionSheetCell: UICollectionViewCell {
     }()
 
     override init(frame: CGRect) {
+        accessoryType = .checkmark
         super.init(frame: frame)
         setupViews()
     }
 
     required init?(coder aDecoder: NSCoder) {
+        accessoryType = .checkmark
         super.init(coder: aDecoder)
         setupViews()
     }
@@ -102,7 +177,7 @@ class ActionSheetCell: UICollectionViewCell {
 
         stackView.addArrangedSubview(icon)
         stackView.addArrangedSubview(name)
-        stackView.addArrangedSubview(checkmark)
+        stackView.addArrangedSubview(accessoryTypeImageView)
         addSubview(stackView)
 
         var guide: LayoutAnchorContainer = self
