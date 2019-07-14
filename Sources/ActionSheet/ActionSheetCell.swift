@@ -14,7 +14,7 @@ enum ActionSheetCellAccessoryType: Equatable {
     case disclosureChevron
     case custom(image: UIImage)
     
-    static func ==(lhs: ActionSheetCellAccessoryType, rhs: ActionSheetCellAccessoryType) -> Bool {
+    static func == (lhs: ActionSheetCellAccessoryType, rhs: ActionSheetCellAccessoryType) -> Bool {
         switch lhs {
         case .checkmark:
             switch rhs {
@@ -81,7 +81,6 @@ class ActionSheetCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             updateColors()
-//            checkmark.isHidden = !isSelected
         }
     }
 
@@ -126,16 +125,6 @@ class ActionSheetCell: UICollectionViewCell {
             }
         }
     }
-
-//    let checkmark: UILabel = {
-//        let checkmark = UILabel()
-//        checkmark.text = "✓"
-//        checkmark.font = UIFont.systemFont(ofSize: 18)
-//        checkmark.textColor = PresentationTheme.current.colors.orangeUI
-//        checkmark.translatesAutoresizingMaskIntoConstraints = false
-//        checkmark.isHidden = true
-//        return checkmark
-//    }()
 
     let stackView: UIStackView = {
         let stackView = UIStackView()
