@@ -10,47 +10,9 @@
  *****************************************************************************/
 
 enum ActionSheetCellAccessoryType: Equatable {
+    case none
     case checkmark
     case disclosureChevron
-    case custom(image: UIImage)
-    
-    static func == (lhs: ActionSheetCellAccessoryType, rhs: ActionSheetCellAccessoryType) -> Bool {
-        switch lhs {
-        case .checkmark:
-            switch rhs {
-            case .checkmark:
-                return true
-            default:
-                return false
-            }
-        case .disclosureChevron:
-            switch rhs {
-            case .disclosureChevron:
-                return true
-            default:
-                return false
-            }
-        case .custom( _):
-            switch rhs {
-            case .custom( _):
-                return true
-            default:
-                return false
-            }
-        default:
-            assertionFailure("Unhandled ActionSheetAccessoryType")
-        }
-    }
-}
-
-extension UIImage {
-    class var checkmark: UIImage? {
-        return UIImage(named: "checkmark")?.withRenderingMode(.alwaysTemplate)
-    }
-    
-    class var disclosureChevron: UIImage? {
-        return UIImage(named: "disclosureChevron")?.withRenderingMode(.alwaysTemplate)
-    }
 }
 
 class ActionSheetCellImageView: UIImageView {
@@ -81,6 +43,8 @@ class ActionSheetCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             updateColors()
+            // only checkmarks should be hidden if they arent selected
+            accessoryTypeImageView.isHidden = !isSelected && accessoryType == .checkmark
         }
     }
 
@@ -105,23 +69,22 @@ class ActionSheetCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .none
         imageView.tintColor = PresentationTheme.current.colors.cellDetailTextColor
-        imageView.image = .checkmark
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    var accessoryType: ActionSheetCellAccessoryType {
+    var accessoryType: ActionSheetCellAccessoryType = .checkmark {
         didSet {
             switch accessoryType {
             case .checkmark:
-                accessoryTypeImageView.image = .checkmark
+                accessoryTypeImageView.image = UIImage(named: "checkmark")?.withRenderingMode(.alwaysTemplate)
                 accessoryTypeImageView.isHidden = !isSelected
             case .disclosureChevron:
-                accessoryTypeImageView.image = .disclosureChevron
-            case .custom(let image):
-                accessoryTypeImageView.image = image.withRenderingMode(.alwaysTemplate)
-            default:
-                assertionFailure("Unhandled ActionSheetCellAccessoryType")
+                accessoryTypeImageView.image = UIImage(named: "disclosureChevron")?.withRenderingMode(.alwaysTemplate)
+                accessoryTypeImageView.isHidden = false
+            case .none:
+                accessoryTypeImageView.image = nil
+                accessoryTypeImageView.isHidden = true
             }
         }
     }
@@ -134,15 +97,13 @@ class ActionSheetCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
+    
     override init(frame: CGRect) {
-        accessoryType = .checkmark
         super.init(frame: frame)
         setupViews()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        accessoryType = .checkmark
         super.init(coder: aDecoder)
         setupViews()
     }
@@ -152,7 +113,6 @@ class ActionSheetCell: UICollectionViewCell {
         name.textColor = isSelected ? colors.orangeUI : colors.cellTextColor
         tintColor = isSelected ? colors.orangeUI : colors.cellDetailTextColor
         if accessoryType == .checkmark {
-            accessoryTypeImageView.isHidden = !isSelected
             let defaultColor = PresentationTheme.current.colors.cellDetailTextColor
             accessoryTypeImageView.tintColor = isSelected ? .orange : defaultColor
         }
@@ -164,10 +124,12 @@ class ActionSheetCell: UICollectionViewCell {
     }
 
     private func setupViews() {
-        accessoryType = .checkmark // set the accessoryType initial value again so that the property observer didSet is called
-        
         backgroundColor = PresentationTheme.current.colors.background
 
+        // property observers only trigger after the first time the values are set.
+        // allow the didSet to set the checkmark image
+        accessoryType = .checkmark
+        
         stackView.addArrangedSubview(icon)
         stackView.addArrangedSubview(name)
         stackView.addArrangedSubview(accessoryTypeImageView)
