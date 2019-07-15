@@ -44,13 +44,19 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
         return editButton
     }()
 
+    private lazy var doneButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(customSetEditing(button:)))
+    }()
+
     private var rigthBarButtons: [UIBarButtonItem]?
+    private var leftBarButton: UIBarButtonItem?
 
     init(services: Services) {
         self.services = services
         rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(nibName: nil, bundle: nil)
         rigthBarButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
+        leftBarButton = sortButton
     }
 
     override func viewDidLoad() {
@@ -95,7 +101,7 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
             showButtons = true
         }
         navigationItem.rightBarButtonItems = showButtons ? rigthBarButtons : nil
-        navigationItem.leftBarButtonItem = showButtons ? sortButton : nil
+        navigationItem.leftBarButtonItem = showButtons ? leftBarButton : nil
     }
 
     override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
@@ -119,13 +125,14 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
 extension VLCMediaViewController {
     @objc private func customSetEditing(button: UIButton) {
         isEditing = !isEditing
+        rigthBarButtons = isEditing ? [doneButton] : [editButton, UIBarButtonItem(customView: rendererButton)]
+        leftBarButton = isEditing ? nil : sortButton
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
 
         scrollingEnabled(!editing)
-        navigationItem.leftBarButtonItem = editing ? nil : sortButton
         viewControllers[currentIndex].setEditing(editing, animated: animated)
     }
 }
