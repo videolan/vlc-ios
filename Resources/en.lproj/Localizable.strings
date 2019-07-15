@@ -44,7 +44,7 @@
 "AR_CHANGED" = "Aspect Ratio: %@";
 "DEFAULT" = "Default";
 "FILL_TO_SCREEN" = "Crop to fill screen";
-"PLAYBACK_SPEED" = "Playback speed";
+"PLAYBACK_SPEED" = "Playback Speed";
 "SPU_DELAY" = "Subtitles delay";
 "AUDIO_DELAY" = "Audio delay";
 "BUTTON_SLEEP_TIMER" = "Sleep Timer";
@@ -378,3 +378,7 @@
 "MORE_OPTIONS_HINT" = "View more option controls";
 "REPEAT_MODE_HINT" = "Change repeat mode of current item";
 "VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* New strings */
+"EQUALIZER_CELL_TITLE" = "Equalizer";

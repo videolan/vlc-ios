@@ -33,6 +33,17 @@ class ActionSheetCellImageView: UIImageView {
     }
 }
 
+@objc (VLCActionSheetCellItem)
+@objcMembers class ActionSheetCellItem: NSObject {
+    var imageIdentifier: String
+    var title: String
+    
+    init(imageIdentifier: String, title: String) {
+        self.title = title
+        self.imageIdentifier = imageIdentifier
+    }
+}
+
 @objc(VLCActionSheetCell)
 class ActionSheetCell: UICollectionViewCell {
 
@@ -48,14 +59,14 @@ class ActionSheetCell: UICollectionViewCell {
         }
     }
 
-    let icon: ActionSheetCellImageView = {
+    @objc let icon: ActionSheetCellImageView = {
         let icon = ActionSheetCellImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleAspectFit
         return icon
     }()
 
-    let name: UILabel = {
+    @objc let name: UILabel = {
         let name = UILabel()
         name.textColor = PresentationTheme.current.colors.cellTextColor
         name.font = UIFont.systemFont(ofSize: 15)

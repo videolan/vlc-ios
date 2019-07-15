@@ -44,7 +44,7 @@
 #define DEFAULT_FOV 80.f
 #define MAX_FOV 150.f
 #define MIN_FOV 20.f
-#define NEW_UI 0
+#define NEW_UI 1
 
 typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeNone,
@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate, VLCActionSheetDelegate, VLCActionSheetDataSource>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -98,6 +98,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCEqualizerView *_equalizerView;
     VLCMultiSelectionMenuView *_multiSelectionView;
     VLCVideoOptionsControlBar *_videoOptionsControlBar;
+    VLCActionSheet *_moreOptionsActionSheet;
 
     VLCPlaybackController *_vpc;
 
@@ -115,6 +116,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     UIStackView *_navigationBarStackView;
     UIButton *_rendererButton;
+    
+    NSArray *_moreOptionsActionSheetCellItems;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) VLCService *services;
@@ -171,6 +174,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self setupMultiSelectionView];
     #else
         [self setupVideoOptionsControlBar];
+        [self setupMoreOptionsActionSheet];
     #endif
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", nil);
@@ -256,7 +260,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     _videoOptionsControlBar = [[VLCVideoOptionsControlBar alloc] init];
     _videoOptionsControlBar.delegate = self;
-    _videoOptionsControlBar.hidden = YES;
+//    _videoOptionsControlBar.hidden = NO;
     _videoOptionsControlBar.repeatMode = _vpc.repeatMode;
     [self.view addSubview:_videoOptionsControlBar];
 }
@@ -813,7 +817,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         #if !NEW_UI
             self->_multiSelectionView.hidden = YES;
         #else
-            self->_videoOptionsControlBar.hidden = YES;
+            self->_videoOptionsControlBar.hidden = NO;
         #endif
         
 
@@ -1346,25 +1350,23 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                      completion:nil];
 }
 
-- (void) toggleVideoOptionsBar
-{
-    CGFloat alpha =  _videoOptionsControlBar.hidden ? 1.0f : 0.0f;
-    BOOL hidden = !_videoOptionsControlBar.hidden;
-
-    [UIView animateWithDuration:.3
-                     animations:^{
-                         self->_videoOptionsControlBar.alpha = alpha;
-                         self->_videoOptionsControlBar.hidden = hidden;
-                     }
-                     completion:nil];
-}
+//- (void) toggleVideoOptionsBar
+//{
+//    CGFloat alpha =  _videoOptionsControlBar.hidden ? 1.0f : 0.0f;
+//    BOOL hidden = !_videoOptionsControlBar.hidden;
+//
+//    [UIView animateWithDuration:.3
+//                     animations:^{
+//                         self->_videoOptionsControlBar.alpha = alpha;
+//                         self->_videoOptionsControlBar.hidden = hidden;
+//                     }
+//                     completion:nil];
+//}
 
 - (void)moreActions:(UIButton *)sender
 {
     #if !NEW_UI
         [self toggleMultiSelectionView:sender];
-    #else
-        [self toggleVideoOptionsBar];
     #endif
     [self _resetIdleTimer];
 }
@@ -1873,7 +1875,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 #pragma mark - VLCVideoOptionsControlBarDelegate
 
 - (void)didSelectMoreOptions:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
-    [self moreActions:optionsBar.moreOptionsButton];
+    [self toggleMoreOptionsActionSheet];
 }
 
 - (void)didSelectSubtitle:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
@@ -1890,6 +1892,80 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)didToggleRepeat:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
     [self toggleRepeatMode];
+}
+
+#pragma mark - MoreOptionsActionSheet
+- (void)setupMoreOptionsActionSheet
+{
+    _moreOptionsActionSheetCellItems = [NSArray new];
+    _moreOptionsActionSheetCellItems = [self itemsForMoreOptionsActionSheet];
+    
+    _moreOptionsActionSheet = [[VLCActionSheet alloc] init];
+    _moreOptionsActionSheet.delegate = self;
+    _moreOptionsActionSheet.dataSource = self;
+    _moreOptionsActionSheet.modalPresentationStyle = UIModalPresentationCustom;
+    [_moreOptionsActionSheet setActionWithClosure:^(id item) {
+        NSCAssert(0, @"Items action not set"); // used NSCAssert to avoid retain cycle
+    }];
+}
+
+- (void)toggleMoreOptionsActionSheet
+{
+    [self presentViewController:_moreOptionsActionSheet animated:false completion:^{
+        // TODO: display the interfaceLock switch and toggle it to the correct position
+    }];
+}
+
+- (NSArray *) itemsForMoreOptionsActionSheet
+{
+    return @[
+               [[VLCActionSheetCellItem alloc] initWithImageIdentifier:@"playback" title:@"PLAYBACK_SPEED"],
+               [[VLCActionSheetCellItem alloc] initWithImageIdentifier:@"filter" title:@"VIDEO_FILTER"],
+               [[VLCActionSheetCellItem alloc] initWithImageIdentifier:@"equalizer" title:@"EQUALIZER_CELL_TITLE"],
+               [[VLCActionSheetCellItem alloc] initWithImageIdentifier:@"iconLock" title:@"INTERFACE_LOCK_BUTTON"],
+               [[VLCActionSheetCellItem alloc] initWithImageIdentifier:@"speedIcon" title:@"BUTTON_SLEEP_TIMER"]
+            ];
+}
+
+#pragma mark - ActionSheetDelegate
+- (NSString *)headerViewTitle
+{
+    return NSLocalizedString(@"MORE_OPTIONS_HEADER_TITLE", nil);
+}
+
+- (id)itemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%li selected", (long)indexPath.row);
+    return nil;
+}
+
+#pragma mark - ActionSheetDataSource
+- (NSInteger)numberOfRows
+{
+    return _moreOptionsActionSheetCellItems.count;
+}
+
+- (UICollectionViewCell *)actionSheetWithCollectionView:(UICollectionView *)collectionView cellForItemAt:(NSIndexPath *)indexPath
+{
+    VLCActionSheetCell *moreOptionsCell = (VLCActionSheetCell *)[collectionView
+                                                                 dequeueReusableCellWithReuseIdentifier:VLCActionSheetCell.identifier
+                                                                 forIndexPath:indexPath
+                                                                 ];
+    
+    if (moreOptionsCell == NULL) {
+        NSAssert(0, @"VLCMovieViewController's ActionSheet was unable to dequeue reusable cell");
+        return [UICollectionViewCell new];
+    }
+    
+    if (indexPath.row < _moreOptionsActionSheetCellItems.count) {
+        VLCActionSheetCellItem *cellItem = _moreOptionsActionSheetCellItems[indexPath.row];
+        NSString *title = NSLocalizedString(cellItem.title, nil);
+        [moreOptionsCell.name setText: title];
+        moreOptionsCell.icon.image = [[UIImage imageNamed: cellItem.imageIdentifier] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        moreOptionsCell.icon.tintColor = UIColor.VLCOrangeTintColor;
+    }
+    
+    return moreOptionsCell;
 }
 
 @end
