@@ -370,3 +370,11 @@
 "UNKNOWN_ARTIST" = "Onbekende artiest";
 "VARIOUS_ARTIST" = "Diverse artiesten";
 "UNKNOWN_ALBUM" = "Onbekend album";
+
+/* New strings */
+"INTERFACE_LOCK_BUTTON" = "Interface vergrendelen";
+"INTERFACE_LOCK_HINT" = "Interfacebedieningen uitschakelen";
+"MORE_OPTIONS_BUTTON" = "Meer";
+"MORE_OPTIONS_HINT" = "Meer optiebedieningen weergeven";
+"REPEAT_MODE_HINT" = "Herhaalmodus van huidig item veranderen";
+"VIDEO_ASPECT_RATIO_HINT" = "Beelverhouding van de huidige video veranderen";
