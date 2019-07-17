@@ -248,7 +248,7 @@
         } else if ([mediaObject isKindOfClass:[VLCMLAlbum class]]) {
             VLCMLAlbum *album = (VLCMLAlbum *)mediaObject;
             NSArray *albumTracks = [album tracks];
-            [mediaInHtml addObject:[self createHTMLFolderObjectWithImagePath:album.artworkMrl.path
+            [mediaInHtml addObject:[self createHTMLFolderObjectWithImagePath:[album artworkMRL].path
                                                                         name:album.title
                                                                        count:albumTracks.count]];
             for (VLCMLMedia *track in albumTracks) {

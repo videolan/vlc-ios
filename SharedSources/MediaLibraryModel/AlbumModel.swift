@@ -118,10 +118,10 @@ extension VLCMLAlbum {
     }
 
     @objc func thumbnail() -> UIImage? {
-        var image = UIImage(contentsOfFile: artworkMrl.path)
+        var image = UIImage(contentsOfFile: artworkMRL()?.path ?? "")
         if image == nil {
             for track in files() ?? [] where track.isThumbnailGenerated() {
-                image = UIImage(contentsOfFile: track.thumbnail.path)
+                image = UIImage(contentsOfFile: track.thumbnail()?.path ?? "")
                 break
             }
         }

@@ -362,8 +362,7 @@ extension MediaLibraryService {
     func requestThumbnail(for media: [VLCMLMedia]) {
         media.forEach() {
             guard !$0.isThumbnailGenerated() else { return }
-
-            if !medialib.requestThumbnail(for: $0) {
+            if !$0.requestThumbnail(of: .thumbnail, desiredWidth: 320, desiredHeight: 200, atPosition: 0.3) {
                 assertionFailure("MediaLibraryService: Failed to generate thumbnail for: \($0.identifier())")
             }
         }
