@@ -92,7 +92,7 @@ extension VLCMLGenre {
     func thumbnail() -> UIImage? {
         var image: UIImage? = nil
         for track in tracks() ?? [] where track.isThumbnailGenerated() {
-            image = UIImage(contentsOfFile: track.thumbnail.path)
+            image = UIImage(contentsOfFile: track.thumbnail()?.path ?? "")
             break
         }
         if image == nil {

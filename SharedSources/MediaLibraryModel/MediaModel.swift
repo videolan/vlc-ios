@@ -74,7 +74,7 @@ extension VLCMLMedia {
     }
 
     @objc func thumbnailImage() -> UIImage? {
-        var image = UIImage(contentsOfFile: thumbnail.path)
+        var image = UIImage(contentsOfFile: thumbnail()?.path ?? "")
         if image == nil {
             let isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme
             if subtype() == .albumTrack {
@@ -108,7 +108,8 @@ extension VLCMLMedia {
         attributeSet.local = 1
         attributeSet.playCount = NSNumber(value: playCount())
         if isThumbnailGenerated() {
-            attributeSet.thumbnailData = UIImage(contentsOfFile: thumbnail.path)?.jpegData(compressionQuality: 0.9)
+            let image = UIImage(contentsOfFile: thumbnail()?.path ?? "")
+            attributeSet.thumbnailData = image?.jpegData(compressionQuality: 0.9)
         }
         attributeSet.codecs = codecs()
         attributeSet.languages = languages()
