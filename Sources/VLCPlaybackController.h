@@ -13,6 +13,14 @@
 
 #import "VLCEqualizerView.h"
 
+typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
+    VLCAspectRatioDefault = 0,
+    VLCAspectRatioFillToScreen,
+    VLCAspectRatioFourToThree,
+    VLCAspectRatioSixteenToNine,
+    VLCAspectRatioSixteenToTen,
+};
+
 NS_ASSUME_NONNULL_BEGIN
 extern NSString * const VLCPlaybackControllerPlaybackDidStart;
 extern NSString *const VLCPlaybackControllerPlaybackDidPause;
@@ -42,6 +50,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller;
 - (void)showStatusMessage:(NSString *)statusMessage;
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata;
+- (void)playbackControllerDidSwitchAspectRatio:(VLCAspectRatio)aspectRatio;
 
 @end
 
@@ -126,9 +135,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)selectTitleAtIndex:(NSInteger)index;
 - (void)selectChapterAtIndex:(NSInteger)index;
 - (void)setAudioPassthrough:(BOOL)shouldPass;
+- (void)switchAspectRatio:(BOOL)toggleFullScreen;
 
-- (void)switchAspectRatio;
-- (void)toggleFullScreen;
 #if !TARGET_OS_TV
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute;
 - (NSInteger)currentMediaProjection;
