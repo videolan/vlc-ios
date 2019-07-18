@@ -1066,8 +1066,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self.timeNavigationTitleView.timeDisplayButton setTitle:newPosition.stringValue forState:UIControlStateNormal];
         [self.timeNavigationTitleView setNeedsLayout];
         self.timeNavigationTitleView.timeDisplayButton.accessibilityLabel = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"PLAYBACK_POSITION", nil), newPosition.stringValue];
-        _positionSet = NO;
     }
+    _positionSet = NO;
     [self _resetIdleTimer];
 }
 
