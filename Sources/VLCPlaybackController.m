@@ -56,6 +56,9 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
     NSUInteger _currentAspectRatio;
     BOOL _isInFillToScreen;
+    BOOL _toggledFullScreen;
+    NSUInteger _previousAspectRatio;
+    
 
     UIView *_videoOutputViewWrapper;
     UIView *_actualVideoOutputView;
@@ -123,6 +126,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         _playbackSessionManagementLock = [[NSLock alloc] init];
         _shuffleMode = NO;
         _shuffleStack = [[NSMutableArray alloc] init];
+        _toggledFullScreen = NO;
     }
     return self;
 }
@@ -798,19 +802,23 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
 - (void)toggleFullScreen
 {
-    if (_isInFillToScreen) {
-        const char *previousAspectRatio = _currentAspectRatio == VLCAspectRatioDefault ? NULL : [[self stringForAspectRatio:_currentAspectRatio] UTF8String];
-        _mediaPlayer.videoAspectRatio = (char *)previousAspectRatio;
-        _mediaPlayer.scaleFactor = 0;
-        _isInFillToScreen = NO;
-    } else {
-        [self switchToFillToScreen];
-    }
+    _toggledFullScreen = YES;
+    _previousAspectRatio = _currentAspectRatio != VLCAspectRatioFillToScreen ? _currentAspectRatio: _previousAspectRatio;
+    [self switchAspectRatio];
+    _toggledFullScreen = NO;
 }
 
 - (void)switchAspectRatio
 {
-    _currentAspectRatio = _currentAspectRatio == VLCAspectRatioSixteenToTen ? VLCAspectRatioDefault : _currentAspectRatio + 1;
+    if (_toggledFullScreen) {
+        _currentAspectRatio = _isInFillToScreen ? _previousAspectRatio : VLCAspectRatioFillToScreen;
+    } else {
+        _currentAspectRatio = _currentAspectRatio == VLCAspectRatioSixteenToTen ? VLCAspectRatioDefault : _currentAspectRatio + 1;
+    }
+    
+    if (_isInFillToScreen)  _isInFillToScreen = NO; // reset isInFillToScreen in the event toggleFullScreen was called after
+    // previously switching the aspectRatio directly
+    
     switch (_currentAspectRatio) {
         case VLCAspectRatioDefault:
             _mediaPlayer.scaleFactor = 0;
