@@ -1159,6 +1159,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (void)playbackDidStop:(NSNotification *)notification
 {
     [self minimizePlayback:nil];
+    // reset toggleButton to default icon when movieviewcontroller is dismissed
+    _videoOptionsControlBar.isInFullScreen = NO;
 }
 
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
@@ -1206,6 +1208,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                      }];
 }
 
+- (void) playbackControllerDidSwitchAspectRatio:(NSUInteger)aspectRatio
+{
+    _videoOptionsControlBar.isInFullScreen = aspectRatio == VLCAspectRatioFillToScreen;
+}
+
 - (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata
 {
     if (!_viewAppeared)
@@ -1222,8 +1229,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self hideShowAspectratioButton:metadata.isAudioOnly];
     [_controllerPanel updateButtons];
     [_playingExternalView updateUIWithRendererItem:_vpc.renderer title:metadata.title];
-    
+
     _audioOnly = metadata.isAudioOnly;
+
+    #if NEW_UI
+        _videoOptionsControlBar.toggleFullScreenButton.hidden = _audioOnly;
+    #endif
 }
 
 - (IBAction)playPause
@@ -1669,7 +1680,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     } else if (tapPosition.x > forwardBoundary){
         _numberOfTapSeek = _previousJumpState == VLCMovieJumpStateBackward ? 1 : _numberOfTapSeek + 1;
     } else {
-        [_vpc toggleFullScreen];
+        [_vpc switchAspectRatio:YES];
         return;
     }
 
@@ -1731,7 +1742,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (IBAction)videoDimensionAction:(id)sender
 {
     if (sender == self.timeNavigationTitleView.aspectRatioButton) {
-        [[VLCPlaybackController sharedInstance] switchAspectRatio];
+        [[VLCPlaybackController sharedInstance] switchAspectRatio:NO];
     }
 }
 
@@ -1867,7 +1878,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 }
 
 - (void)didToggleFullScreen:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
-    [_vpc toggleFullScreen];
+    [_vpc switchAspectRatio:YES];
 }
 
 - (void)didToggleInterfaceLock:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {

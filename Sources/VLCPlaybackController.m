@@ -34,14 +34,6 @@ NSString *const VLCPlaybackControllerPlaybackMetadataDidChange = @"VLCPlaybackCo
 NSString *const VLCPlaybackControllerPlaybackDidFail = @"VLCPlaybackControllerPlaybackDidFail";
 NSString *const VLCPlaybackControllerPlaybackPositionUpdated = @"VLCPlaybackControllerPlaybackPositionUpdated";
 
-typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
-    VLCAspectRatioDefault = 0,
-    VLCAspectRatioFillToScreen,
-    VLCAspectRatioFourToThree,
-    VLCAspectRatioSixteenToNine,
-    VLCAspectRatioSixteenToTen,
-};
-
 @interface VLCPlaybackController () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     VLCRemoteControlService *_remoteControlService;
@@ -56,7 +48,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
     NSUInteger _currentAspectRatio;
     BOOL _isInFillToScreen;
-    BOOL _toggledFullScreen;
     NSUInteger _previousAspectRatio;
     
 
@@ -126,7 +117,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
         _playbackSessionManagementLock = [[NSLock alloc] init];
         _shuffleMode = NO;
         _shuffleStack = [[NSMutableArray alloc] init];
-        _toggledFullScreen = NO;
     }
     return self;
 }
@@ -279,6 +269,7 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 - (void)stopPlayback
 {
     BOOL ret = [_playbackSessionManagementLock tryLock];
+    _isInFillToScreen = NO; // reset _isInFillToScreen after playback is finished
     if (!ret) {
         APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
         return;
@@ -317,9 +308,8 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     [[self remoteControlService] unsubscribeFromRemoteCommands];
 
     [_playbackSessionManagementLock unlock];
-    if (!_sessionWillRestart) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStop object:self];
-    } else {
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackDidStop object:self];
+    if (_sessionWillRestart) {
         _sessionWillRestart = NO;
         [self startPlayback];
     }
@@ -800,25 +790,25 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     _isInFillToScreen = YES;
 }
 
-- (void)toggleFullScreen
+- (void)switchAspectRatio:(BOOL)toggleFullScreen
 {
-    _toggledFullScreen = YES;
-    _previousAspectRatio = _currentAspectRatio != VLCAspectRatioFillToScreen ? _currentAspectRatio: _previousAspectRatio;
-    [self switchAspectRatio];
-    _toggledFullScreen = NO;
-}
-
-- (void)switchAspectRatio
-{
-    if (_toggledFullScreen) {
+    if (toggleFullScreen) {
+        // set the previousAspectRatio to current, unless it already is in full screen, so that later
+        // when the fullScreen is un-toggled we switch back to what is current
+        _previousAspectRatio = _isInFillToScreen ? _previousAspectRatio : _currentAspectRatio;
+        
+        // if a request to switch directly from/to full screen is made, either switch back to previous or to full screen
         _currentAspectRatio = _isInFillToScreen ? _previousAspectRatio : VLCAspectRatioFillToScreen;
     } else {
+        // if switch through the aspect ratios without directly requesting a switch to full screen, then increment current
+        // aspect ratio
         _currentAspectRatio = _currentAspectRatio == VLCAspectRatioSixteenToTen ? VLCAspectRatioDefault : _currentAspectRatio + 1;
     }
-    
-    if (_isInFillToScreen)  _isInFillToScreen = NO; // reset isInFillToScreen in the event toggleFullScreen was called after
-    // previously switching the aspectRatio directly
-    
+
+    // reset isInFillToScreen if fullScreen was toggled directly but then the aspect ratio
+    // was changed and fullScreen wasn't previously reset
+    if (_isInFillToScreen)  _isInFillToScreen = NO;
+
     switch (_currentAspectRatio) {
         case VLCAspectRatioDefault:
             _mediaPlayer.scaleFactor = 0;
@@ -841,6 +831,10 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 
     if ([self.delegate respondsToSelector:@selector(showStatusMessage:)]) {
         [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), [self stringForAspectRatio:_currentAspectRatio]]];
+    }
+
+    if ([self.delegate respondsToSelector:@selector(playbackControllerDidSwitchAspectRatio:)]) {
+        [_delegate playbackControllerDidSwitchAspectRatio:_currentAspectRatio];
     }
 }
 

@@ -24,13 +24,20 @@ protocol VideoOptionsControlBarDelegate: class {
     // MARK: Instance variables
     weak var delegate: VideoOptionsControlBarDelegate?
     
-    var subtitleToggled: Bool {
+    var isInFullScreen: Bool = false {
+        didSet {
+            let image: UIImage? = isInFullScreen ? UIImage(named: "iconReduce") : UIImage(named: "iconExpand")
+            toggleFullScreenButton.setImage(image, for: .normal)
+        }
+    }
+    
+    var subtitleToggled: Bool = false {
         didSet {
             selectSubtitleButton.tintColor = subtitleToggled ? .orange : .white
         }
     }
     
-    var interfaceDisabled: Bool {
+    var interfaceDisabled: Bool = false {
         didSet {
             interfaceLockButton.tintColor = interfaceDisabled ? .orange : .white
         }
@@ -121,8 +128,6 @@ protocol VideoOptionsControlBarDelegate: class {
     
     override init(frame: CGRect) {
         repeatMode = .doNotRepeat
-        subtitleToggled = false
-        interfaceDisabled = false
         super.init(frame: frame)
         setupView()
     }
