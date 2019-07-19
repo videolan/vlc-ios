@@ -18,7 +18,7 @@ protocol MediaNavigationBarDelegate {
 }
 
 @objc (VLCMediaNavigationBar)
-@objcMembers class MediaNavigationBar: UIView {
+@objcMembers class MediaNavigationBar: UIStackView {
     
     // MARK: Instance Variables
     weak var delegate: MediaNavigationBarDelegate?
@@ -38,7 +38,7 @@ protocol MediaNavigationBarDelegate {
         label.lineBreakMode = .byTruncatingTail
         label.textColor = .white
         label.font = UIFont(name: "SFProDisplay-Medium", size: 17)
-        label.text = NSLocalizedString("TITLE", comment: "Video Title")
+        label.text = NSLocalizedString("TITLE", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -77,7 +77,7 @@ protocol MediaNavigationBarDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        setupConstraints()
+//        setupConstraints()
     }
     
     // MARK: Instance Methods
@@ -104,21 +104,24 @@ protocol MediaNavigationBarDelegate {
             mediaTitleTextLabel.trailingAnchor.constraint(lessThanOrEqualTo: chromeCastButton.leadingAnchor, constant: margin),
             chromeCastButton.topAnchor.constraint(equalTo: topAnchor),
             chromeCastButton.trailingAnchor.constraint(equalTo: airplayView.leadingAnchor, constant: margin),
+            chromeCastButton.bottomAnchor.constraint(equalTo: bottomAnchor),
             airplayView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: margin),
-            airplayView.topAnchor.constraint(equalTo: topAnchor)
+            airplayView.topAnchor.constraint(equalTo: topAnchor),
+            airplayView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)
     }
     
     private func setupViews() {
-        addSubview(minimizePlaybackButton)
-        addSubview(mediaTitleTextLabel)
-        addSubview(chromeCastButton)
+        axis = .horizontal
+        addArrangedSubview(minimizePlaybackButton)
+        addArrangedSubview(mediaTitleTextLabel)
+        addArrangedSubview(chromeCastButton)
         if #available(iOS 11.0, *) {
-            addSubview(airplayRoutePickerView)
+            addArrangedSubview(airplayRoutePickerView)
         } else {
-            addSubview(airplayVolumeView)
+            addArrangedSubview(airplayVolumeView)
         }
     }
     

@@ -44,7 +44,7 @@
 #define DEFAULT_FOV 80.f
 #define MAX_FOV 150.f
 #define MIN_FOV 20.f
-#define NEW_UI 0
+#define NEW_UI 1
 
 typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeNone,
@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate, VLCMediaMoreOptionsActionSheetDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -94,11 +94,14 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UIButton *_doneButton;
 
     VLCTrackSelectorView *_trackSelectorContainer;
-
     VLCEqualizerView *_equalizerView;
+    
+    UIStackView *_navigationBarStackView;
     VLCMultiSelectionMenuView *_multiSelectionView;
+    
     VLCVideoOptionsControlBar *_videoOptionsControlBar;
     VLCMediaMoreOptionsActionSheet *_moreOptionsActionSheet;
+    VLCMediaNavigationBar *_mediaNavigationBar;
 
     VLCPlaybackController *_vpc;
 
@@ -113,8 +116,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     CGPoint _saveLocation;
     CGSize _screenPixelSize;
     UIInterfaceOrientation _lockedOrientation;
-
-    UIStackView *_navigationBarStackView;
     UIButton *_rendererButton;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
@@ -174,6 +175,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self setupVideoOptionsControlBar];
         _moreOptionsActionSheet = [[VLCMediaMoreOptionsActionSheet alloc] init];
         _moreOptionsActionSheet.moreOptionsDelegate = self;
+        [self setupMediaNavigationBar];
     #endif
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", nil);
@@ -370,7 +372,16 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                              [_videoFilterView.bottomAnchor constraintEqualToAnchor:_controllerPanel.topAnchor]
                              ];
     #if NEW_UI
+        UINavigationBar *navbar = self.navigationController.navigationBar;
         constraints = [constraints arrayByAddingObjectsFromArray:[self getVideoOptionsConstraints]];
+        constraints = [constraints arrayByAddingObjectsFromArray: @[
+                                                                    [_mediaNavigationBar.centerXAnchor constraintEqualToAnchor:navbar.centerXAnchor],
+                                                                    [_mediaNavigationBar.centerYAnchor constraintEqualToAnchor:navbar.centerYAnchor],
+                                                                    [_mediaNavigationBar.leadingAnchor constraintEqualToAnchor:navbar.leadingAnchor],
+                                                                    [_mediaNavigationBar.trailingAnchor constraintEqualToAnchor:navbar.trailingAnchor],
+                                                                    [_mediaNavigationBar.bottomAnchor constraintEqualToAnchor:navbar.bottomAnchor],
+                                                                    [_mediaNavigationBar.topAnchor constraintEqualToAnchor:navbar.topAnchor]
+                                                                  ]];
     #endif
     [NSLayoutConstraint activateConstraints: constraints];
 }
@@ -401,6 +412,13 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [_navigationBarStackView addArrangedSubview:_rendererButton];
     }
     return _navigationBarStackView;
+}
+
+- (void) setupMediaNavigationBar {
+    CGRect navbarFrame = self.navigationController.navigationBar.frame;
+    _mediaNavigationBar = [[VLCMediaNavigationBar alloc] init]; // not using initWithFrame: to show how the view is displayed
+    _mediaNavigationBar.delegate = self;
+    [self.navigationController.navigationBar addSubview:_mediaNavigationBar];
 }
 
 - (void)setupNavigationbar
@@ -452,7 +470,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [_vpc recoverPlaybackState];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    #if !NEW_UI
     [self setupNavigationbar];
+    #endif
     /* reset audio meta data views */
     self.artworkImageView.image = nil;
     self.trackNameLabel.text = nil;
