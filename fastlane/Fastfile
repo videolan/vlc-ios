@@ -65,8 +65,14 @@ end
 
 desc 'Take screenshots'
 lane :screenshots do
+  git_apply_fake_VolumeSlider
   capture_screenshots(stop_after_first_error: true)
   frameit(white: true, path: './fastlane/screenshots')
+end
+
+desc 'Apply fakeVolumeSlider patch'
+private_lane :git_apply_fake_VolumeSlider do
+  sh('xcrun git apply 0001-fakeVolumeSlider.patch')
 end
 
 #### Tests ####
