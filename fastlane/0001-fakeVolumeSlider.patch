@@ -1,0 +1,69 @@
+From 1904e24cc3ea90da807b25ff17d4dd197894f521 Mon Sep 17 00:00:00 2001
+From: Carola Nitz <nitz.carola@googlemail.com>
+Date: Wed, 10 Jul 2019 19:50:54 +0200
+Subject: [PATCH] VLCMovieViewControlpanelView: Add in fake VolumeControl for
+ screenshots
+
+(closes #575)
+---
+ Sources/VLCMovieViewControlPanelView.m | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/Sources/VLCMovieViewControlPanelView.m b/Sources/VLCMovieViewControlPanelView.m
+index a0eb8fe2..03dbcb66 100644
+--- a/Sources/VLCMovieViewControlPanelView.m
++++ b/Sources/VLCMovieViewControlPanelView.m
+@@ -24,6 +24,7 @@ @interface VLCMovieViewControlPanelView ()
+ @property (nonatomic, strong) NSMutableArray *constraints;
+ @property (nonatomic, assign) BOOL compactMode;
+ @property (nonatomic, strong) VLCPlaybackController *playbackController;
++@property (nonatomic, strong) UISlider *fakeVolumeSlider; //Needed for Screenshots
+ @end
+ 
+ @implementation VLCMovieViewControlPanelView
+@@ -92,10 +93,17 @@ - (void)setupSubviews
+     [_moreActionsButton setImage:[UIImage imageNamed:@"More"] forState:UIControlStateNormal];
+     _moreActionsButton.translatesAutoresizingMaskIntoConstraints = NO;
+     [self addSubview:_moreActionsButton];
+-
++#if TARGET_OS_SIMULATOR
++    _fakeVolumeSlider = [UISlider new];
++    _fakeVolumeSlider.value = 0.5;
++    [_fakeVolumeSlider setThumbImage:[UIImage imageNamed:@"sliderKnob"] forState:UIControlStateNormal];
++    _fakeVolumeSlider.translatesAutoresizingMaskIntoConstraints = NO;
++    [self addSubview:_fakeVolumeSlider];
++#else
+     _volumeView = [[VLCVolumeView alloc] initWithFrame:CGRectZero];
+     _volumeView.translatesAutoresizingMaskIntoConstraints = NO;
+     [self addSubview:_volumeView];
++#endif
+ 
+     _playbackSpeedButton.accessibilityLabel = NSLocalizedString(@"PLAYBACK_SPEED", nil);
+     _trackSwitcherButton.accessibilityLabel = NSLocalizedString(@"OPEN_TRACK_PANEL", nil);
+@@ -122,7 +130,11 @@ - (void)setupConstraints
+                                 @"track" : self.trackSwitcherButton,
+                                 @"more" : self.moreActionsButton,
+                                 @"filter" : self.videoFilterButton,
++#if TARGET_OS_SIMULATOR
++                                @"volume" : _fakeVolumeSlider,
++#else
+                                 @"volume" : self.volumeView,
++#endif
+                                 @"spacer1" : _spacer1,
+                                 @"spacer2" : _spacer2,
+                                 };
+@@ -168,7 +180,11 @@ - (void)setupConstraints:(BOOL)compactMode
+                                 @"playback" : self.playbackControls,
+                                 @"filter" : self.videoFilterButton,
+                                 @"actions" : self.moreActionsButton,
++#if TARGET_OS_SIMULATOR
++                                @"volume" : _fakeVolumeSlider,
++#else
+                                 @"volume" : self.volumeView,
++#endif
+                                 };
+ 
+     _constraints = [NSMutableArray array];
+-- 
+2.20.1 (Apple Git-117)
+
