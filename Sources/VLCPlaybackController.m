@@ -47,7 +47,6 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     VLCRemoteControlService *_remoteControlService;
     VLCMediaPlayer *_mediaPlayer;
     VLCMediaListPlayer *_listPlayer;
-    BOOL _playerIsSetup;
     BOOL _shouldResumePlaying;
     BOOL _sessionWillRestart;
 
