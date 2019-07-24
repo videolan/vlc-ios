@@ -9,8 +9,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-enum ActionSheetCellAccessoryType: Equatable {
-    case none
+enum ActionSheetCellAccessoryType {
+    case toggleSwitch
     case checkmark
     case disclosureChevron
 }
@@ -33,8 +33,45 @@ class ActionSheetCellImageView: UIImageView {
     }
 }
 
+/// Model that determines the layout presentation of the ActionSheetCell.
+@objc (VLCActionSheetCellModel)
+@objcMembers class ActionSheetCellModel: NSObject {
+    var title: String
+    var iconImage: UIImage?
+    var viewToPresent: UIView?
+    var accessoryType: ActionSheetCellAccessoryType
+    var cellIdentifier: MediaPlayerActionSheetCellIdentifier?
+    
+    init(
+        title: String,
+        imageIdentifier: String,
+        accessoryType: ActionSheetCellAccessoryType = .checkmark,
+        viewToPresent: UIView? = nil,
+        cellIdentifier: MediaPlayerActionSheetCellIdentifier? = nil) {
+            self.title = title
+            iconImage = UIImage(named: imageIdentifier)?.withRenderingMode(.alwaysTemplate)
+            self.accessoryType = accessoryType
+            self.viewToPresent = viewToPresent
+            self.cellIdentifier = cellIdentifier
+    }
+}
+
+@objc (VLCActionSheetCellDelegate)
+protocol ActionSheetCellDelegate {
+    func actionSheetCellShouldUpdateColors() -> Bool
+    func actionSheetCellDidToggleSwitch(for cell: ActionSheetCell, state: Bool)
+}
+
 @objc(VLCActionSheetCell)
 class ActionSheetCell: UICollectionViewCell {
+
+    /// UIViewController to present on cell selection
+    weak var viewToPresent: UIView?
+    /// Rightmost accessory view that the cell should use. Default `checkmark`.
+    /// If `viewControllerToPresent` is set, defaults to `disclosureChevron`, otherwise `checkmark` is main default.
+    private(set) var accessoryView = UIView ()
+    weak var delegate: ActionSheetCellDelegate?
+    var identifier: MediaPlayerActionSheetCellIdentifier?
 
     @objc static var identifier: String {
         return String(describing: self)
@@ -44,13 +81,16 @@ class ActionSheetCell: UICollectionViewCell {
         didSet {
             updateColors()
             // only checkmarks should be hidden if they arent selected
-            accessoryTypeImageView.isHidden = !isSelected && accessoryType == .checkmark
+            if accessoryType == .checkmark {
+                accessoryView.isHidden = !isSelected
+            }
         }
     }
 
     let icon: ActionSheetCellImageView = {
         let icon = ActionSheetCellImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.setContentHuggingPriority(.required, for: .horizontal)
         icon.contentMode = .scaleAspectFit
         return icon
     }()
@@ -60,31 +100,42 @@ class ActionSheetCell: UICollectionViewCell {
         name.textColor = PresentationTheme.current.colors.cellTextColor
         name.font = UIFont.systemFont(ofSize: 15)
         name.translatesAutoresizingMaskIntoConstraints = false
-        name.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return name
     }()
 
-    private var accessoryTypeImageView: UIImageView = {
+    lazy private var accessoryTypeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .none
-        imageView.tintColor = PresentationTheme.current.colors.cellDetailTextColor
+        imageView.setContentHuggingPriority(.required, for: .horizontal)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
+    lazy private var toggleSwitch: UISwitch = {
+        let toggleSwitch = UISwitch()
+        toggleSwitch.onTintColor = .orange
+        toggleSwitch.translatesAutoresizingMaskIntoConstraints = false
+        toggleSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
+        return toggleSwitch
+    }()
 
-    var accessoryType: ActionSheetCellAccessoryType = .checkmark {
+    private(set) var accessoryType: ActionSheetCellAccessoryType = .checkmark {
         didSet {
             switch accessoryType {
             case .checkmark:
                 accessoryTypeImageView.image = UIImage(named: "checkmark")?.withRenderingMode(.alwaysTemplate)
-                accessoryTypeImageView.isHidden = !isSelected
+                add(view: accessoryTypeImageView, to: accessoryView)
             case .disclosureChevron:
                 accessoryTypeImageView.image = UIImage(named: "disclosureChevron")?.withRenderingMode(.alwaysTemplate)
-                accessoryTypeImageView.isHidden = false
-            case .none:
-                accessoryTypeImageView.image = nil
-                accessoryTypeImageView.isHidden = true
+                add(view: accessoryTypeImageView, to: accessoryView)
+            case .toggleSwitch:
+                add(view: toggleSwitch, to: accessoryView)
+            }
+            if accessoryType == .checkmark {
+                accessoryView.isHidden = !isSelected
+            } else {
+                accessoryView.isHidden = false
             }
         }
     }
@@ -107,33 +158,78 @@ class ActionSheetCell: UICollectionViewCell {
         super.init(coder: aDecoder)
         setupViews()
     }
+    
+    convenience init(withCellModel model: ActionSheetCellModel) {
+        self.init()
+        configure(withModel: model)
+        setupViews()
+    }
 
     private func updateColors() {
+        let shouldUpdateColors = delegate?.actionSheetCellShouldUpdateColors() ?? true
         let colors = PresentationTheme.current.colors
-        name.textColor = isSelected ? colors.orangeUI : colors.cellTextColor
-        tintColor = isSelected ? colors.orangeUI : colors.cellDetailTextColor
-        if accessoryType == .checkmark {
-            let defaultColor = PresentationTheme.current.colors.cellDetailTextColor
-            accessoryTypeImageView.tintColor = isSelected ? .orange : defaultColor
+        if shouldUpdateColors {
+            name.textColor = isSelected ? colors.orangeUI : colors.cellTextColor
+            tintColor = isSelected ? colors.orangeUI : colors.cellDetailTextColor
         }
+        if accessoryType != .toggleSwitch {
+            accessoryView.tintColor = isSelected && accessoryType == .checkmark ? colors.orangeUI : colors.cellDetailTextColor
+        }
+    }
+
+    @objc private func switchToggled(_ sender: UISwitch) {
+        delegate?.actionSheetCellDidToggleSwitch(for: self, state: sender.isOn)
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        toggleSwitch.removeFromSuperview()
+        accessoryType = .checkmark
         updateColors()
+    }
+
+    private func add(view: UIView, to parentView: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        parentView.subviews.forEach { $0.removeFromSuperview() }
+        parentView.addSubview(view)
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: parentView.topAnchor),
+            view.bottomAnchor.constraint(equalTo: parentView.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: parentView.trailingAnchor)
+        ])
+    }
+    
+    func configure(withModel model: ActionSheetCellModel) {
+        if model.accessoryType == .disclosureChevron {
+            assert(model.viewToPresent != nil, "ActionSheetCell: Cell with disclosure chevron must have accompanying presentable UIView")
+        }
+        name.text = model.title
+        icon.image = model.iconImage
+        viewToPresent = model.viewToPresent
+        identifier = model.cellIdentifier
+        // disclosure chevron is set as the default accessoryView if a viewController is present
+        accessoryType = model.viewToPresent != nil ? .disclosureChevron : model.accessoryType
+    }
+
+    func setToggleSwitch(state: Bool) {
+        if accessoryType == .toggleSwitch {
+            toggleSwitch.isOn = state
+        }
     }
 
     private func setupViews() {
         backgroundColor = PresentationTheme.current.colors.background
 
+        stackView.addArrangedSubview(icon)
+        stackView.addArrangedSubview(name)
+        stackView.addArrangedSubview(accessoryView)
+
+        addSubview(stackView)
+
         // property observers only trigger after the first time the values are set.
         // allow the didSet to set the checkmark image
         accessoryType = .checkmark
-        
-        stackView.addArrangedSubview(icon)
-        stackView.addArrangedSubview(name)
-        stackView.addArrangedSubview(accessoryTypeImageView)
-        addSubview(stackView)
 
         var guide: LayoutAnchorContainer = self
 
@@ -141,9 +237,6 @@ class ActionSheetCell: UICollectionViewCell {
             guide = safeAreaLayoutGuide
         }
         NSLayoutConstraint.activate([
-            icon.heightAnchor.constraint(equalToConstant: 25),
-            icon.widthAnchor.constraint(equalTo: icon.heightAnchor),
-
             stackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
             stackView.heightAnchor.constraint(equalTo: heightAnchor),
