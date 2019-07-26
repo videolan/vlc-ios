@@ -138,7 +138,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
 
         let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
-        return CGSize(width: cellWidth, height: isIpad ? 94 : 80)
+        return CGSize(width: cellWidth, height: isIpad ? 94 : 60)
     }
 
     override func prepareForReuse() {
