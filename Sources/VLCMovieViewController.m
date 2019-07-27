@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate, VLCActionSheetDelegate, VLCActionSheetDataSource>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -116,8 +116,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     UIStackView *_navigationBarStackView;
     UIButton *_rendererButton;
-    
-    NSArray *_moreOptionsActionSheetCellItems;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) VLCService *services;
