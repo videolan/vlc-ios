@@ -208,6 +208,10 @@ class ActionSheet: UIViewController {
         }
         collectionView.layoutIfNeeded()
     }
+    
+    func addChildToStackView(_ child: UIView) {
+        mainStackView.addSubview(child)
+    }
 }
 
 // MARK: Private setup methods
