@@ -98,6 +98,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCEqualizerView *_equalizerView;
     VLCMultiSelectionMenuView *_multiSelectionView;
     VLCVideoOptionsControlBar *_videoOptionsControlBar;
+    VLCMediaMoreOptionsActionSheet *_moreOptionsActionSheet;
 
     VLCPlaybackController *_vpc;
 
@@ -171,6 +172,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self setupMultiSelectionView];
     #else
         [self setupVideoOptionsControlBar];
+        _moreOptionsActionSheet = [[VLCMediaMoreOptionsActionSheet alloc] init];
     #endif
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", nil);
@@ -1890,6 +1892,13 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)didToggleRepeat:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
     [self toggleRepeatMode];
+}
+
+- (void)toggleMoreOptionsActionSheet
+{
+    [self presentViewController:_moreOptionsActionSheet animated:false completion:^{
+        // TODO: display the interfaceLock switch and toggle it to the correct position
+    }];
 }
 
 @end
