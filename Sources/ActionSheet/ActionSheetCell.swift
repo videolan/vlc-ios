@@ -33,8 +33,23 @@ class ActionSheetCellImageView: UIImageView {
     }
 }
 
+@objc (VLCActionSheetCellItem)
+@objcMembers class ActionSheetCellItem: NSObject {
+    var title: String
+    var iconImage: UIImage?
+    var associatedViewController: UIViewController?
+    
+    init(imageIdentifier: String, title: String, viewController: UIViewController? = nil) {
+        self.title = title
+        self.iconImage = UIImage(named: imageIdentifier)
+        self.associatedViewController = viewController
+    }
+}
+
 @objc(VLCActionSheetCell)
 class ActionSheetCell: UICollectionViewCell {
+    
+    weak var associatedViewController: UIViewController?
 
     @objc static var identifier: String {
         return String(describing: self)
@@ -45,6 +60,20 @@ class ActionSheetCell: UICollectionViewCell {
             updateColors()
             // only checkmarks should be hidden if they arent selected
             accessoryTypeImageView.isHidden = !isSelected && accessoryType == .checkmark
+        }
+    }
+    
+    var cellItemModel: ActionSheetCellItem? = nil {
+        didSet {
+            if let cellItemModel = cellItemModel {
+                name.text = cellItemModel.title
+                icon.image = cellItemModel.iconImage?.withRenderingMode(.alwaysTemplate)
+                icon.tintColor = .orange
+                associatedViewController = cellItemModel.associatedViewController
+            } else {
+                icon.tintColor = .none
+                associatedViewController = nil
+            }
         }
     }
 
