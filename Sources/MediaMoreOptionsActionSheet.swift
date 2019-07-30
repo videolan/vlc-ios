@@ -14,6 +14,15 @@ class MediaMoreOptionsActionSheet: ActionSheet {
     
     // MARK: Private Instance Properties
     private var currentChildViewController: UIViewController?
+
+    private var externalFrame: CGRect {
+        get {
+            let y = collectionView.frame.origin.y + headerView.cellHeight
+            let w = collectionView.frame.size.width
+            let h = collectionView.frame.size.height
+            return CGRect(x: w, y: y, width: w, height: h)
+        }
+    }
     
     // To be removed when Designs are done for the Filters, Equalizer etc views are added to Figma
     lazy private var mockViewController: UIViewController = {
@@ -21,6 +30,7 @@ class MediaMoreOptionsActionSheet: ActionSheet {
         vc.view.backgroundColor = .green
         let gestureTap = UITapGestureRecognizer(target: self, action: #selector(removeCurrentChild))
         vc.view.addGestureRecognizer(gestureTap)
+        vc.view.frame = externalFrame
         return vc
     }()
     
@@ -38,30 +48,30 @@ class MediaMoreOptionsActionSheet: ActionSheet {
     // MARK: Private Methods
     private func add(childViewController child: UIViewController) {
         addChild(child)
-        child.view.frame = collectionView.frame
-        addChildToStackView(child.view)
-        child.didMove(toParent: self)
+        UIView.animate(withDuration: 0.3, animations: {
+            child.view.frame = self.collectionView.frame
+            self.addChildToStackView(child.view)
+        }) {
+            (completed) in
+            child.didMove(toParent: self)
+            self.currentChildViewController = child
+        }
     }
     
     private func remove(childViewController child: UIViewController) {
         child.didMove(toParent: nil)
-        child.view.removeFromSuperview()
-        child.removeFromParent()
+        UIView.animate(withDuration: 0.3, animations: {
+            child.view.frame = self.externalFrame
+        }) { (completed) in
+            child.view.removeFromSuperview()
+            child.removeFromParent()
+        }
     }
     
     @objc func removeCurrentChild() {
         if let current = currentChildViewController {
             remove(childViewController: current)
-            print("removed currentChildViewController")
         }
-    }
-    
-    private func replaceCurrentChildViewController(withViewController newViewController: UIViewController) {
-        if let current = currentChildViewController {
-            remove(childViewController: current)
-        }
-        add(childViewController: newViewController)
-        currentChildViewController = newViewController
     }
     
     // MARK: Initializers
@@ -72,7 +82,7 @@ class MediaMoreOptionsActionSheet: ActionSheet {
         modalPresentationStyle = .custom
         setAction { (item) in
             if let item = item as? UIViewController {
-               self.replaceCurrentChildViewController(withViewController: item)
+               self.add(childViewController: item)
             } else {
                 assert(false, "MediaMoreOptionsActionSheet: Action:: Item's viewController is either nil or could not be instantiated")
             }
