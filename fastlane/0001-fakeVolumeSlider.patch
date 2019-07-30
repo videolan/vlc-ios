@@ -1,16 +1,16 @@
-From 1904e24cc3ea90da807b25ff17d4dd197894f521 Mon Sep 17 00:00:00 2001
+From 1bc9328c7b22452eaa4ebfa6923967691c81aa52 Mon Sep 17 00:00:00 2001
 From: Carola Nitz <nitz.carola@googlemail.com>
-Date: Wed, 10 Jul 2019 19:50:54 +0200
+Date: Tue, 30 Jul 2019 17:11:58 +0200
 Subject: [PATCH] VLCMovieViewControlpanelView: Add in fake VolumeControl for
  screenshots
 
 (closes #575)
 ---
- Sources/VLCMovieViewControlPanelView.m | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ Sources/VLCMovieViewControlPanelView.m | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/Sources/VLCMovieViewControlPanelView.m b/Sources/VLCMovieViewControlPanelView.m
-index a0eb8fe2..03dbcb66 100644
+index a0eb8fe2..f35389cc 100644
 --- a/Sources/VLCMovieViewControlPanelView.m
 +++ b/Sources/VLCMovieViewControlPanelView.m
 @@ -24,6 +24,7 @@ @interface VLCMovieViewControlPanelView ()
@@ -64,6 +64,18 @@ index a0eb8fe2..03dbcb66 100644
                                  };
  
      _constraints = [NSMutableArray array];
+@@ -189,7 +205,11 @@ - (void)setupConstraints:(BOOL)compactMode
+                                                                                    views:viewsDict]];
+     } else {
+         [_constraints addObjectsFromArray:@[
++#if TARGET_OS_SIMULATOR
++                                            [_fakeVolumeSlider.leadingAnchor constraintEqualToAnchor:self.layoutMarginsGuide.leadingAnchor constant:8],
++#else
+                                             [self.volumeView.leadingAnchor constraintEqualToAnchor:self.layoutMarginsGuide.leadingAnchor constant:8],
++#endif
+                                             [self.moreActionsButton.trailingAnchor constraintEqualToAnchor:self.layoutMarginsGuide.trailingAnchor constant:-8],
+                                             ]];
+ 
 -- 
 2.20.1 (Apple Git-117)
 
