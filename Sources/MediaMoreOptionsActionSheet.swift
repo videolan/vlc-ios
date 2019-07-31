@@ -16,20 +16,22 @@ class MediaMoreOptionsActionSheet: ActionSheet {
     private var currentChildViewController: UIViewController?
 
     private var externalFrame: CGRect {
-        get {
-            let y = collectionView.frame.origin.y + headerView.cellHeight
-            let w = collectionView.frame.size.width
-            let h = collectionView.frame.size.height
-            return CGRect(x: w, y: y, width: w, height: h)
-        }
+        let y = collectionView.frame.origin.y + headerView.cellHeight
+        let w = collectionView.frame.size.width
+        let h = collectionView.frame.size.height
+        return CGRect(x: w, y: y, width: w, height: h)
+    }
+    
+    private var leftToRightGesture: UISwipeGestureRecognizer {
+        let leftToRight = UISwipeGestureRecognizer(target: self, action: #selector(self.removeCurrentChild))
+        leftToRight.direction = .right
+        return leftToRight
     }
     
     // To be removed when Designs are done for the Filters, Equalizer etc views are added to Figma
     lazy private var mockViewController: UIViewController = {
         let vc = UIViewController()
         vc.view.backgroundColor = .green
-        let gestureTap = UITapGestureRecognizer(target: self, action: #selector(removeCurrentChild))
-        vc.view.addGestureRecognizer(gestureTap)
         vc.view.frame = externalFrame
         return vc
     }()
@@ -54,6 +56,7 @@ class MediaMoreOptionsActionSheet: ActionSheet {
         }) {
             (completed) in
             child.didMove(toParent: self)
+            child.view.addGestureRecognizer(self.leftToRightGesture)
             self.currentChildViewController = child
         }
     }
@@ -64,6 +67,7 @@ class MediaMoreOptionsActionSheet: ActionSheet {
             child.view.frame = self.externalFrame
         }) { (completed) in
             child.view.removeFromSuperview()
+            child.view.removeGestureRecognizer(self.leftToRightGesture)
             child.removeFromParent()
         }
     }
@@ -72,6 +76,35 @@ class MediaMoreOptionsActionSheet: ActionSheet {
         if let current = currentChildViewController {
             remove(childViewController: current)
         }
+    }
+    
+    func setTheme() {
+        collectionView.backgroundColor = PresentationTheme.darkTheme.colors.background
+        headerView.backgroundColor = PresentationTheme.darkTheme.colors.background
+        headerView.title.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        for cell in collectionView.visibleCells {
+            if let cell = cell as? ActionSheetCell {
+                cell.backgroundColor = PresentationTheme.darkTheme.colors.background
+                cell.name.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+            }
+        }
+        collectionView.layoutIfNeeded()
+    }
+    
+    // MARK: Overridden superclass methods
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let delegate = delegate, let item = delegate.itemAtIndexPath(indexPath) {
+            delegate.actionSheet?(collectionView: collectionView, didSelectItem: item, At: indexPath)
+            action?(item)
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Remove the themeDidChangeNotification set in the superclass
+        // MovieViewController Video Options should be dark at all times
+        NotificationCenter.default.removeObserver(self, name: .VLCThemeDidChangeNotification, object: nil)
+        setTheme()
     }
     
     // MARK: Initializers
@@ -87,6 +120,7 @@ class MediaMoreOptionsActionSheet: ActionSheet {
                 assert(false, "MediaMoreOptionsActionSheet: Action:: Item's viewController is either nil or could not be instantiated")
             }
         }
+        setTheme()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -95,7 +129,6 @@ class MediaMoreOptionsActionSheet: ActionSheet {
 }
 
 extension MediaMoreOptionsActionSheet: ActionSheetDataSource {
-    
     func numberOfRows() -> Int {
         return cellItems.count
     }
@@ -104,6 +137,9 @@ extension MediaMoreOptionsActionSheet: ActionSheetDataSource {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActionSheetCell.identifier,
                                                          for: indexPath) as? ActionSheetCell {
                 cell.cellItemModel = cellItems[indexPath.row]
+                // private method UpdateColors in ActionSheetCell updates the cell text colors based on theme
+                // override this by explicitly setting the textColor
+                cell.name.textColor = PresentationTheme.darkTheme.colors.cellTextColor
                 return cell
         }
         
