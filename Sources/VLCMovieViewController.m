@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate, VLCMediaMoreOptionsActionSheetDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -173,6 +173,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     #else
         [self setupVideoOptionsControlBar];
         _moreOptionsActionSheet = [[VLCMediaMoreOptionsActionSheet alloc] init];
+        _moreOptionsActionSheet.moreOptionsDelegate = self;
     #endif
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", nil);
@@ -706,7 +707,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         return [arr arrayByAddingObjectsFromArray:
                     @[_videoOptionsControlBar.toggleFullScreenButton,
                       _videoOptionsControlBar.selectSubtitleButton,
-                      _videoOptionsControlBar.moreOptionsButton,
                       _videoOptionsControlBar.repeatButton]];
     #endif
 }
@@ -1401,6 +1401,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         _multiSelectionView.displayLock = _interfaceIsLocked;
     #else
         _videoOptionsControlBar.interfaceDisabled = _interfaceIsLocked;
+        _moreOptionsActionSheet.interfaceDisabled = _interfaceIsLocked;
     #endif
 }
 
@@ -1895,8 +1896,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)toggleMoreOptionsActionSheet
 {
     [self presentViewController:_moreOptionsActionSheet animated:false completion:^{
-        // TODO: display the interfaceLock switch and toggle it to the correct position
+        self->_moreOptionsActionSheet.interfaceDisabled = self->_interfaceIsLocked;
     }];
 }
 
+#pragma mark - VLCMediaMoreOptionsActionSheetDelegate
+
+- (void) mediaMoreOptionsDidToggleInterfaceLockWithState:(BOOL)state
+{
+    [self toggleUILock];
+}
 @end
