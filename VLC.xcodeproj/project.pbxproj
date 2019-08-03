@@ -384,9 +384,9 @@
 		DDF908E01CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908DF1CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m */; };
 		DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
 		E03DECA622BEE27E00F44A05 /* MediaNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */; };
+		E03F36B122ED8DBB00057525 /* MediaMoreOptionsActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03F36B022ED8DBA00057525 /* MediaMoreOptionsActionSheet.swift */; };
 		E0539E8C22E5E2EC009317CB /* VideoOptionsControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0539E8B22E5E2EC009317CB /* VideoOptionsControlBar.swift */; };
 		E0BA21B922D7C8C700937CFD /* MediaPlaybackControlToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BA21B822D7C8C700937CFD /* MediaPlaybackControlToolbar.swift */; };
-		E03F36B122ED8DBB00057525 /* MediaMoreOptionsActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03F36B022ED8DBA00057525 /* MediaMoreOptionsActionSheet.swift */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
 /* End PBXBuildFile section */
 
@@ -1023,9 +1023,9 @@
 		DDF908E21CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkLoginDataSourceProtocol.h; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginDataSourceProtocol.h; sourceTree = SOURCE_ROOT; };
 		DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkLoginDataSourceProtocol.m; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginDataSourceProtocol.m; sourceTree = SOURCE_ROOT; };
 		E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaNavigationBar.swift; path = Sources/MediaNavigationBar.swift; sourceTree = "<group>"; };
+		E03F36B022ED8DBA00057525 /* MediaMoreOptionsActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaMoreOptionsActionSheet.swift; path = Sources/MediaMoreOptionsActionSheet.swift; sourceTree = "<group>"; };
 		E0539E8B22E5E2EC009317CB /* VideoOptionsControlBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoOptionsControlBar.swift; path = Sources/VideoOptionsControlBar.swift; sourceTree = "<group>"; };
 		E0BA21B822D7C8C700937CFD /* MediaPlaybackControlToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaPlaybackControlToolbar.swift; path = Sources/MediaPlaybackControlToolbar.swift; sourceTree = "<group>"; };
-		E03F36B022ED8DBA00057525 /* MediaMoreOptionsActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaMoreOptionsActionSheet.swift; path = Sources/MediaMoreOptionsActionSheet.swift; sourceTree = "<group>"; };
 		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
 		E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentPickerController.m; path = Sources/VLCDocumentPickerController.m; sourceTree = SOURCE_ROOT; };
 		E39E49F085F7C54D2DB79534 /* Pods-VLC-iOSTests.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOSTests.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOSTests/Pods-VLC-iOSTests.distribution.xcconfig"; sourceTree = "<group>"; };

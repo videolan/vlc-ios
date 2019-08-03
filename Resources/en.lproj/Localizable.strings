@@ -378,3 +378,7 @@
 "MORE_OPTIONS_HINT" = "View more option controls";
 "REPEAT_MODE_HINT" = "Change repeat mode of current item";
 "VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
