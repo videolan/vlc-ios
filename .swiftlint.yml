@@ -23,6 +23,7 @@ whitelist_rules:
 excluded:
   - Pods
   - .bundle
+  - fastlane
 
 colon:
   apply_to_dictionaries: false
