@@ -110,7 +110,6 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
         CGAffineTransform transform = context.nextFocusedView != self ? CGAffineTransformIdentity : CGAffineTransformMakeScale(1.1, 1.1);
         self.titleLabel.transform = transform;
         self.subtitleLabel.transform = transform;
-        self.titleThumbnailConstraint.constant = context.nextFocusedView != self ? 15 : 40;
     } completion:nil];
 }
 
