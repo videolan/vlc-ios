@@ -359,12 +359,19 @@ extension MediaLibraryService {
 // MARK: - Video methods
 
 extension MediaLibraryService {
+    func requestThumbnail(for media: VLCMLMedia) {
+        if media.isThumbnailGenerated() || media.thumbnail() != nil {
+            return
+        }
+
+        if !media.requestThumbnail(of: .thumbnail, desiredWidth: 320, desiredHeight: 200, atPosition: 0.03) {
+            assertionFailure("MediaLibraryService: Failed to generate thumbnail for: \(media.identifier())")
+        }
+    }
+
     func requestThumbnail(for media: [VLCMLMedia]) {
         media.forEach() {
-            guard !$0.isThumbnailGenerated() else { return }
-            if !$0.requestThumbnail(of: .thumbnail, desiredWidth: 320, desiredHeight: 200, atPosition: 0.3) {
-                assertionFailure("MediaLibraryService: Failed to generate thumbnail for: \($0.identifier())")
-            }
+            requestThumbnail(for: $0)
         }
     }
 }
@@ -431,9 +438,6 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
 
         let videos = media.filter {( $0.type() == .video )}
         let tracks = media.filter {( $0.type() == .audio )}
-
-        // thumbnails only for videos
-        requestThumbnail(for: videos)
 
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didAddVideos: videos)

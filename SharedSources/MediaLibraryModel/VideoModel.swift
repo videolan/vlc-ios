@@ -28,7 +28,6 @@ class VideoModel: MediaModel {
         self.medialibrary = medialibrary
         medialibrary.addObserver(self)
         files = medialibrary.media(ofType: .video)
-        medialibrary.requestThumbnail(for: files)
     }
 }
 

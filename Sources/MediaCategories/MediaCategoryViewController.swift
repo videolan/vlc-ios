@@ -270,6 +270,8 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
         }
         let mediaObject = isSearching ? searchDataSource.objectAtIndex(index: indexPath.row) : model.anyfiles[indexPath.row]
         if let media = mediaObject as? VLCMLMedia {
+            // FIXME: This should be done in the VModel, workaround for the release.
+            services.medialibraryService.requestThumbnail(for: media)
             assert(media.mainFile() != nil, "The mainfile is nil")
             mediaCell.media = media.mainFile() != nil ? media : nil
         } else {
