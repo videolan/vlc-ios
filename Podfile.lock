@@ -103,7 +103,7 @@ DEPENDENCIES:
   - TVVLCKit (= 3.3.2)
   - upnpx (~> 1.4.0)
   - VLC-WhiteRaccoon
-  - VLCMediaLibraryKit (= 0.3.0)
+  - VLCMediaLibraryKit (from `https://code.videolan.org/videolan/VLCMediaLibraryKit`)
   - XKKeychain (~> 1.0)
 
 SPEC REPOS:
@@ -130,7 +130,6 @@ SPEC REPOS:
     - TVVLCKit
     - upnpx
     - VLC-WhiteRaccoon
-    - VLCMediaLibraryKit
     - XKKeychain
     - xmlrpc
 
@@ -147,6 +146,8 @@ EXTERNAL SOURCES:
   OROpenSubtitleDownloader:
     :commit: 0509eac2
     :git: https://github.com/orta/OROpenSubtitleDownloader.git
+  VLCMediaLibraryKit:
+    :git: https://code.videolan.org/videolan/VLCMediaLibraryKit
 
 CHECKOUT OPTIONS:
   box-ios-sdk-v2:
@@ -164,6 +165,9 @@ CHECKOUT OPTIONS:
   OROpenSubtitleDownloader:
     :commit: 0509eac2
     :git: https://github.com/orta/OROpenSubtitleDownloader.git
+  VLCMediaLibraryKit:
+    :commit: 91e08cd794f5b1147cc4ce0eea9f2d97c94ada85
+    :git: https://code.videolan.org/videolan/VLCMediaLibraryKit
 
 SPEC CHECKSUMS:
   ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
@@ -197,6 +201,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: b0dc5ed2c85e1c9679b1ae49a6155921720f03be
+PODFILE CHECKSUM: 83b89952de3f14b2c7819e81d6c70d0081d40d1f
 
 COCOAPODS: 1.7.4
