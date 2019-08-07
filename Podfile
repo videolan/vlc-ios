@@ -23,7 +23,7 @@ target 'VLC-iOS' do
   pod 'PAPasscode', '~>1.0'
   pod 'GoogleAPIClientForREST/Drive'
   pod 'MobileVLCKit', '3.3.3'
-  pod 'VLCMediaLibraryKit', '0.3.0'
+  pod 'VLCMediaLibraryKit', '0.4.0'
   pod 'MediaLibraryKit-prod'
   pod 'GTMAppAuth'
   pod 'OneDriveSDK'
