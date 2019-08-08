@@ -25,7 +25,7 @@ target 'VLC-iOS' do
   pod 'MobileVLCKit', '3.3.3'
   pod 'VLCMediaLibraryKit', '0.4.0'
   pod 'MediaLibraryKit-prod'
-  pod 'GTMAppAuth'
+  pod 'GTMAppAuth', '0.7.1'
   pod 'OneDriveSDK'
 
   target 'VLC-iOS-Screenshots' do
