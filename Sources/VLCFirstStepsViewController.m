@@ -69,6 +69,10 @@
 - (void)updateTheme
 {
     self.view.backgroundColor = PresentationTheme.current.colors.background;
+    if (@available(iOS 13.0, *)) {
+        self.navigationController.navigationBar.standardAppearance = [VLCApperanceManager navigationbarAppearance];
+        self.navigationController.navigationBar.scrollEdgeAppearance = [VLCApperanceManager navigationbarAppearance];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

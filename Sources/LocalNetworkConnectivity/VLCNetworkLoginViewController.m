@@ -68,6 +68,10 @@
     self.dataSource = dataSource;
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CONNECT", nil) style:UIBarButtonItemStyleDone target:self action:@selector(connectLoginDataSource)];
+    if (@available(iOS 13.0, *)) {
+        self.navigationController.navigationBar.standardAppearance = [VLCApperanceManager navigationbarAppearance];
+        self.navigationController.navigationBar.scrollEdgeAppearance = [VLCApperanceManager navigationbarAppearance];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
