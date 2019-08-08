@@ -199,8 +199,8 @@
 
 "NEW" = "YENİ";
 
-"BUG_REPORT_TITLE" = "Bir hata bildir";
-"BUG_REPORT_MESSAGE" = "Hatayı bildirmek ister misiniz?";
+"BUG_REPORT_TITLE" = "Sorun bildir";
+"BUG_REPORT_MESSAGE" = "Sorun bildirmek ister misiniz?";
 "BUG_REPORT_BUTTON" = "Safari Tarayıcısını Aç";
 
 "VO_VIDEOPLAYER_TITLE" = "Görüntü Oynatıcı";
@@ -370,3 +370,11 @@
 "UNKNOWN_ARTIST" = "Sanatçı Bilinmiyor";
 "VARIOUS_ARTIST" = "Çeşitli Sanatçılar";
 "UNKNOWN_ALBUM" = "Albüm Bilinmiyor";
+
+/* New strings */
+"INTERFACE_LOCK_BUTTON" = "Arayüzü kilitle";
+"INTERFACE_LOCK_HINT" = "Arayüz denetimlerini devre dışı bırak";
+"MORE_OPTIONS_BUTTON" = "Diğerleri";
+"MORE_OPTIONS_HINT" = "Diğer seçenek denetimlerini görüntüle";
+"REPEAT_MODE_HINT" = "Geçerli ögenin yinelenme kipini değiştir";
+"VIDEO_ASPECT_RATIO_HINT" = "Geçerli görüntünün en boy oranını değiştir";
