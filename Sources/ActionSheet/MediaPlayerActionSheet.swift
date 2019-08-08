@@ -1,5 +1,5 @@
 /*****************************************************************************
- * MediaMoreOptionsActionSheet.swift
+ * MediaPlayerActionSheet.swift
  *
  * Copyright © 2019 VLC authors and VideoLAN
  *
@@ -32,34 +32,26 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
     }
 }
 
-@objc (VLCMediaMoreOptionsActionSheetDelegate)
-protocol MediaMoreOptionsActionSheetDelegate {
-    func mediaMoreOptionsDidToggleInterfaceLock(state: Bool)
+@objc (VLCMediaPlayerActionSheetDataSource)
+protocol MediaPlayerActionSheetDataSource {
+    var configurableCellModels: [ActionSheetCellModel] { get }
 }
 
-@objc (VLCMediaMoreOptionsActionSheet)
-class MediaMoreOptionsActionSheet: ActionSheet {
+@objc (VLCMediaPlayerActionSheetDelegate)
+protocol MediaPlayerActionSheetDelegate {
+    func mediaPlayerActionSheetHeaderTitle() -> String?
+    @objc optional func mediaPlayerDidToggleSwitch(for cell: ActionSheetCell, state: Bool)
+}
+
+@objc (VLCMediaPlayerActionSheet)
+class MediaPlayerActionSheet: ActionSheet {
     
     // MARK: Private Instance Properties
     private weak var currentChildView: UIView?
-    @objc weak var moreOptionsDelegate: MediaMoreOptionsActionSheetDelegate?
-
-    @objc var interfaceDisabled: Bool = false {
-        didSet {
-            collectionView.visibleCells.forEach {
-                if let cell = $0 as? ActionSheetCell, let id = cell.identifier {
-                    if id == .interfaceLock {
-                        cell.setToggleSwitch(state: interfaceDisabled)
-                    } else {
-                        cell.alpha = interfaceDisabled ? 0.5 : 1
-                    }
-                }
-            }
-            collectionView.allowsSelection = !interfaceDisabled
-        }
-    }
-
-    private var offScreenFrame: CGRect {
+    @objc weak var mediaPlayerActionSheetDelegate: MediaPlayerActionSheetDelegate?
+    @objc weak var mediaPlayerActionSheetDataSource: MediaPlayerActionSheetDataSource?
+    
+    var offScreenFrame: CGRect {
         let y = collectionView.frame.origin.y + headerView.cellHeight
         let w = collectionView.frame.size.width
         let h = collectionView.frame.size.height
@@ -70,33 +62,7 @@ class MediaMoreOptionsActionSheet: ActionSheet {
         let leftToRight = UIPanGestureRecognizer(target: self, action: #selector(draggedRight(panGesture:)))
         return leftToRight
     }
-    
-    // To be removed when Designs are done for the Filters, Equalizer etc views are added to Figma
-    lazy private var mockView: UIView = {
-        let v = UIView()
-        v.backgroundColor = .green
-        v.frame = offScreenFrame
-        return v
-    }()
-    
-    lazy private var cellModels: [ActionSheetCellModel] = {
-        var models: [ActionSheetCellModel] = []
-        MediaPlayerActionSheetCellIdentifier.allCases.forEach {
-            var cellModel = ActionSheetCellModel(
-                title: String(describing: $0),
-                imageIdentifier: $0.rawValue,
-                viewToPresent: mockView,
-                cellIdentifier: $0
-            )
-            if $0 == .interfaceLock {
-                cellModel.accessoryType = .toggleSwitch
-                cellModel.viewToPresent = nil
-            }
-            models.append(cellModel)
-        }
-        return models
-    }()
-    
+
     // MARK: Private Methods
     private func add(childView child: UIView) {
         UIView.animate(withDuration: 0.3, animations: {
@@ -108,7 +74,7 @@ class MediaMoreOptionsActionSheet: ActionSheet {
             self.currentChildView = child
         }
     }
-    
+
     private func remove(childView child: UIView) {
         UIView.animate(withDuration: 0.3, animations: {
             child.frame = self.offScreenFrame
@@ -117,7 +83,7 @@ class MediaMoreOptionsActionSheet: ActionSheet {
             child.removeGestureRecognizer(self.leftToRightGesture)
         }
     }
-    
+
     @objc func removeCurrentChild() {
         if let current = currentChildView {
             remove(childView: current)
@@ -191,9 +157,13 @@ class MediaMoreOptionsActionSheet: ActionSheet {
         // Remove the themeDidChangeNotification set in the superclass
         // MovieViewController Video Options should be dark at all times
         NotificationCenter.default.removeObserver(self, name: .VLCThemeDidChangeNotification, object: nil)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setTheme()
     }
-    
+
     // MARK: Initializers
     override init() {
         super.init()
@@ -202,9 +172,9 @@ class MediaMoreOptionsActionSheet: ActionSheet {
         modalPresentationStyle = .custom
         setAction { (item) in
             if let item = item as? UIView {
-               self.add(childView: item)
+                self.add(childView: item)
             } else {
-                preconditionFailure("MediaMoreOptionsActionSheet: Cell item could not be casted as UIView")
+                preconditionFailure("MediaMoreOptionsActionSheet: Action:: Item's could not be cased as UIView")
             }
         }
         setTheme()
@@ -215,59 +185,64 @@ class MediaMoreOptionsActionSheet: ActionSheet {
     }
 }
 
-extension MediaMoreOptionsActionSheet: ActionSheetDataSource {
+extension MediaPlayerActionSheet: ActionSheetDataSource {
     func numberOfRows() -> Int {
-        return cellModels.count
+        return mediaPlayerActionSheetDataSource?.configurableCellModels.count ?? 0
     }
     
     func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        guard indexPath.row < cellModels.count else {
-            assertionFailure("MediaMoreOptionsActionSheet: Out of range.")
+        guard let source = mediaPlayerActionSheetDataSource,
+            indexPath.row < source.configurableCellModels.count else {
+            preconditionFailure("MediaPlayerActionSheet: mediaPlayerActionSheetDataSource or invalid indexPath")
             return ActionSheetCell()
         }
 
         var sheetCell: ActionSheetCell
+        let cellModel = source.configurableCellModels[indexPath.row]
 
         if let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ActionSheetCell.identifier,
             for: indexPath) as? ActionSheetCell {
             sheetCell = cell
-            sheetCell.configure(withModel: cellModels[indexPath.row])
+            sheetCell.configure(withModel: cellModel)
         } else {
             assertionFailure("MediaMoreOptionsActionSheet: Could not dequeue reusable cell")
-            sheetCell = ActionSheetCell(withCellModel: cellModels[indexPath.row])
+            sheetCell = ActionSheetCell(withCellModel: cellModel)
         }
+
         sheetCell.accessoryView.tintColor = PresentationTheme.darkTheme.colors.cellDetailTextColor
         sheetCell.delegate = self
         return sheetCell
     }
 }
 
-extension MediaMoreOptionsActionSheet: ActionSheetDelegate {
+extension MediaPlayerActionSheet: ActionSheetDelegate {
     func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
-        if indexPath.row < cellModels.count {
-            return cellModels[indexPath.row].viewToPresent
+        guard let source = mediaPlayerActionSheetDataSource,
+            indexPath.row < source.configurableCellModels.count else {
+                preconditionFailure("MediaPlayerActionSheet: mediaPlayerActionSheetDataSource not set")
+                return nil
         }
-        return nil
+
+        let cellModel = source.configurableCellModels[indexPath.row]
+        return cellModel.viewToPresent
     }
     
     func headerViewTitle() -> String? {
-        return NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
+        return mediaPlayerActionSheetDelegate?.mediaPlayerActionSheetHeaderTitle()
     }
 }
 
-extension MediaMoreOptionsActionSheet: ActionSheetCellDelegate {
+extension MediaPlayerActionSheet: ActionSheetCellDelegate {
     func actionSheetCellShouldUpdateColors() -> Bool {
         return false
     }
 
     func actionSheetCellDidToggleSwitch(for cell: ActionSheetCell, state: Bool) {
-        assert(moreOptionsDelegate != nil, "MediaMoreOptionsActionSheet: Delegate not set.")
-        if let identifier = cell.identifier {
-            if identifier == .interfaceLock {
-                moreOptionsDelegate?.mediaMoreOptionsDidToggleInterfaceLock(state: state)
-            }
+        guard let mediaDelegate = mediaPlayerActionSheetDelegate else {
+            preconditionFailure("MediaPlayerActionSheet: mediaPlayerActionSheetDelegate not set")
         }
+
+        mediaDelegate.mediaPlayerDidToggleSwitch?(for: cell, state: state)
     }
 }

@@ -1887,7 +1887,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 #pragma mark - VLCMediaMoreOptionsActionSheetDelegate
 
-- (void) mediaMoreOptionsDidToggleInterfaceLockWithState:(BOOL)state
+- (void) mediaMoreOptionsActionSheetDidToggleInterfaceLockWithState:(BOOL)state
 {
     [self toggleUILock];
 }
