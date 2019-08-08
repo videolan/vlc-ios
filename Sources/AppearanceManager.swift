@@ -27,12 +27,12 @@ class AppearanceManager: NSObject {
         UINavigationBar.appearance().barTintColor = theme.colors.navigationbarColor
         UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).barTintColor = nil
         UINavigationBar.appearance().tintColor = theme.colors.orangeUI
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.navigationbarTextColor]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: theme.colors.navigationbarTextColor]
 
         if #available(iOS 11.0, *) {
             UINavigationBar.appearance().prefersLargeTitles = true
             UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).prefersLargeTitles = false
-            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.navigationbarTextColor]
+            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: theme.colors.navigationbarTextColor]
         }
         // For the edit selection indicators
         UITableView.appearance().tintColor = theme.colors.orangeUI
@@ -45,6 +45,15 @@ class AppearanceManager: NSObject {
         UIPageControl.appearance().backgroundColor = theme.colors.background
         UIPageControl.appearance().pageIndicatorTintColor = .lightGray
         UIPageControl.appearance().currentPageIndicatorTintColor = theme.colors.orangeUI
+    }
+
+    @available(iOS 13.0, *)
+    @objc class func navigationbarAppearance() -> UINavigationBarAppearance {
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.backgroundColor = PresentationTheme.current.colors.navigationbarColor
+        navBarAppearance.titleTextAttributes = [.foregroundColor: PresentationTheme.current.colors.navigationbarTextColor]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: PresentationTheme.current.colors.navigationbarTextColor]
+        return navBarAppearance
     }
 }
 

@@ -168,7 +168,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
-
+    [self themeDidChange];
     NSArray *browserClasses = @[
                                 [VLCLocalNetworkServiceBrowserUPnP class],
                                 [VLCLocalNetworkServiceBrowserPlex class],
@@ -336,6 +336,10 @@
     _localNetworkTableView.separatorColor = PresentationTheme.current.colors.background;
     _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
     self.navigationController.view.backgroundColor = PresentationTheme.current.colors.background;
+    if (@available(iOS 13.0, *)) {
+        self.navigationController.navigationBar.standardAppearance = [VLCApperanceManager navigationbarAppearance];
+        self.navigationController.navigationBar.scrollEdgeAppearance = [VLCApperanceManager navigationbarAppearance];
+    }
     [self setNeedsStatusBarAppearanceUpdate];
 }
 

@@ -335,7 +335,7 @@ extension MediaCategoryViewController {
         searchDataSource.shouldReloadFor(searchString: searchText)
         reloadData()
         if searchText.isEmpty {
-            self.searchBar.resignFirstResponder
+            self.searchBar.resignFirstResponder()
         }
     }
 }
