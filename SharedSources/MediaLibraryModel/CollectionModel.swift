@@ -46,6 +46,18 @@ class CollectionModel: MLBaseModel {
                     playlist.removeMedia(fromPosition: UInt32(index))
                 }
             }
+        } else {
+            do {
+                for case let media as VLCMLMedia in items {
+                    if let mainFile = media.mainFile() {
+                        try FileManager.default.removeItem(atPath: mainFile.mrl.path)
+                    }
+                }
+                medialibrary.reload()
+            }
+            catch let error as NSError {
+                assertionFailure("CollectionModel: Delete failed: \(error.localizedDescription)")
+            }
         }
     }
 }
@@ -64,6 +76,11 @@ extension CollectionModel: MediaLibraryObserver {
             files = mediaCollection.files() ?? []
             updateView?()
         }
+    }
+
+    func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
+        files = mediaCollection.files() ?? []
+        updateView?()
     }
 }
 
