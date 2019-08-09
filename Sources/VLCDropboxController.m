@@ -113,28 +113,6 @@
         || [filename isSupportedSubtitleFormat];
 }
 
-- (NSString *)_createPotentialNameFrom:(NSString *)path
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-
-    NSString *fileName = [path lastPathComponent];
-    NSString *finalFilePath = [path stringByDeletingLastPathComponent];
-
-    if ([fileManager fileExistsAtPath:path]) {
-        NSString *potentialFilename;
-        NSString *fileExtension = [fileName pathExtension];
-        NSString *rawFileName = [fileName stringByDeletingPathExtension];
-        for (NSUInteger x = 1; x < 100; x++) {
-            potentialFilename = [NSString stringWithFormat:@"%@_%lu.%@", rawFileName, (unsigned long)x, fileExtension];
-            if (![fileManager fileExistsAtPath:[finalFilePath stringByAppendingPathComponent:potentialFilename]]) {
-                break;
-            }
-        }
-        return [finalFilePath stringByAppendingPathComponent:potentialFilename];
-    }
-    return path;
-}
-
 - (BOOL)canPlayAll
 {
     return NO;
@@ -243,7 +221,7 @@
     // Need to replace all ' ' by '_' because it causes a `NSInvalidArgumentException ... destination path is nil` in the dropbox library.
     destination = [destination stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 
-    destination = [self _createPotentialNameFrom:destination];
+    destination = [self createPotentialPathFrom:destination];
     destination = [destination
                    stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet
                                                                        URLPathAllowedCharacterSet]];

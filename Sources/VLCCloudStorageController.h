@@ -42,5 +42,6 @@ typedef NS_ENUM (NSInteger, VLCCloudSortingCriteria) {
 - (void)logout;
 - (void)requestDirectoryListingAtPath:(NSString *)path;
 - (BOOL)supportSorting;
+- (NSString *)createPotentialPathFrom:(NSString *)path;
 
 @end
