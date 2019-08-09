@@ -14,7 +14,6 @@
 #import "VLCOneDriveConstants.h"
 #import "UIDevice+VLC.h"
 #import "NSString+SupportedMedia.h"
-#import "VLCHTTPFileDownloader.h"
 #import <OneDriveSDK.h>
 
 #if TARGET_OS_IOS
@@ -33,7 +32,6 @@
 
     ODClient *_oneDriveClient;
     NSMutableArray *_currentItems;
-    VLCHTTPFileDownloader *_fileDownloader;
 }
 
 @end
@@ -375,14 +373,29 @@
 
 - (void)downloadODItem:(ODItem *)item
 {
-#if TARGET_OS_IOS
-    if (!_fileDownloader) {
-        _fileDownloader = [[VLCHTTPFileDownloader alloc] init];
-        _fileDownloader.delegate = self;
-    }
-    [_fileDownloader downloadFileFromURL:[NSURL URLWithString:item.dictionaryFromItem[@"@content.downloadUrl"]]
-                            withFileName:item.name];
-#endif
+    [self downloadStarted];
+    [[[_oneDriveClient.drive items:item.id] contentRequest]
+     downloadWithCompletion:^(NSURL *filePath, NSURLResponse *response, NSError *error) {
+         if (error) {
+             [self downloadFailedWithErrorDescription: error.localizedDescription];
+         } else {
+             NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                          NSUserDomainMask, YES).firstObject;
+             NSString *newFilePath = [self createPotentialPathFrom:[documentPath
+                                                                    stringByAppendingPathComponent:item.name]];
+             NSError *movingError;
+
+             [[NSFileManager defaultManager] moveItemAtURL:filePath
+                                                     toURL:[NSURL fileURLWithPath:newFilePath] error:&movingError];
+
+             if (movingError) {
+                 [self downloadFailedWithErrorDescription: movingError.localizedDescription];
+             }
+         }
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self downloadEnded];
+         });
+     }];
 }
 
 - (void)_triggerNextDownload
