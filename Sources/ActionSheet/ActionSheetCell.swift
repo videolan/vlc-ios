@@ -38,7 +38,7 @@ class ActionSheetCellImageView: UIImageView {
 @objcMembers class ActionSheetCellModel: NSObject {
     var title: String
     var iconImage: UIImage?
-    var viewControllerToPresent: UIViewController?
+    var viewToPresent: UIView?
     var accessoryType: ActionSheetCellAccessoryType
     var cellIdentifier: MediaPlayerActionSheetCellIdentifier?
     
@@ -46,12 +46,12 @@ class ActionSheetCellImageView: UIImageView {
         title: String,
         imageIdentifier: String,
         accessoryType: ActionSheetCellAccessoryType = .checkmark,
-        viewControllerToPresent: UIViewController? = nil,
+        viewToPresent: UIView? = nil,
         cellIdentifier: MediaPlayerActionSheetCellIdentifier? = nil) {
             self.title = title
             iconImage = UIImage(named: imageIdentifier)?.withRenderingMode(.alwaysTemplate)
             self.accessoryType = accessoryType
-            self.viewControllerToPresent = viewControllerToPresent
+            self.viewToPresent = viewToPresent
             self.cellIdentifier = cellIdentifier
     }
 }
@@ -66,7 +66,7 @@ protocol ActionSheetCellDelegate {
 class ActionSheetCell: UICollectionViewCell {
 
     /// UIViewController to present on cell selection
-    weak var viewControllerToPresent: UIViewController?
+    weak var viewToPresent: UIView?
     /// Rightmost accessory view that the cell should use. Default `checkmark`. If `viewControllerToPresent` is set, defaults to `disclosureChevron`, otherwise `checkmark` is main default.
     private(set) var accessoryView = UIView ()
     weak var delegate: ActionSheetCellDelegate?
@@ -201,14 +201,14 @@ class ActionSheetCell: UICollectionViewCell {
     
     func configure(withModel model: ActionSheetCellModel) {
         if model.accessoryType == .disclosureChevron {
-            assert(model.viewControllerToPresent != nil, "ActionSheetCell: Cell with disclosure chevron must have accompanying presentable UIViewController")
+            assert(model.viewToPresent != nil, "ActionSheetCell: Cell with disclosure chevron must have accompanying presentable UIView")
         }
         name.text = model.title
         icon.image = model.iconImage
-        viewControllerToPresent = model.viewControllerToPresent
+        viewToPresent = model.viewToPresent
         identifier = model.cellIdentifier
         // disclosure chevron is set as the default accessoryView if a viewController is present
-        accessoryType = model.viewControllerToPresent != nil ? .disclosureChevron : model.accessoryType
+        accessoryType = model.viewToPresent != nil ? .disclosureChevron : model.accessoryType
     }
 
     func setToggleSwitch(state: Bool) {

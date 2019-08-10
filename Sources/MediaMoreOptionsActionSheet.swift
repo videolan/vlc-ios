@@ -9,12 +9,27 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-enum MediaPlayerActionSheetCellIdentifier {
+enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
     case filter
     case playback
     case equalizer
     case sleepTimer
     case interfaceLock
+
+    var description: String {
+        switch self {
+        case .filter:
+            return NSLocalizedString("VIDEO_FILTER", comment: "")
+        case .playback:
+            return NSLocalizedString("PLAYBACK_SPEED", comment: "")
+        case .equalizer:
+            return NSLocalizedString("EQUALIZER_CELL_TITLE", comment: "")
+        case .sleepTimer:
+            return NSLocalizedString("BUTTON_SLEEP_TIMER", comment: "")
+        case .interfaceLock:
+            return NSLocalizedString("INTERFACE_LOCK_BUTTON", comment: "")
+        }
+    }
 }
 
 @objc (VLCMediaMoreOptionsActionSheetDelegate)
@@ -26,7 +41,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
 class MediaMoreOptionsActionSheet: ActionSheet {
     
     // MARK: Private Instance Properties
-    private weak var currentChildViewController: UIViewController?
+    private weak var currentChildView: UIView?
     @objc weak var moreOptionsDelegate: MediaMoreOptionsActionSheetDelegate?
 
     @objc var interfaceDisabled: Bool = false {
@@ -44,7 +59,7 @@ class MediaMoreOptionsActionSheet: ActionSheet {
         }
     }
 
-    private var externalFrame: CGRect {
+    private var offScreenFrame: CGRect {
         let y = collectionView.frame.origin.y + headerView.cellHeight
         let w = collectionView.frame.size.width
         let h = collectionView.frame.size.height
@@ -57,77 +72,55 @@ class MediaMoreOptionsActionSheet: ActionSheet {
     }
     
     // To be removed when Designs are done for the Filters, Equalizer etc views are added to Figma
-    lazy private var mockViewController: UIViewController = {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .green
-        vc.view.frame = externalFrame
-        return vc
+    lazy private var mockView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .green
+        v.frame = offScreenFrame
+        return v
     }()
     
     lazy private var cellModels: [ActionSheetCellModel] = {
-        let models: [ActionSheetCellModel] = [
-            ActionSheetCellModel(
-                title:NSLocalizedString("VIDEO_FILTER", comment: ""),
-                imageIdentifier:"filter",
-                viewControllerToPresent: mockViewController,
-                cellIdentifier: .filter
-            ),
-            ActionSheetCellModel(
-                title:NSLocalizedString("PLAYBACK_SPEED", comment: ""),
-                imageIdentifier:"playback",
-                viewControllerToPresent: mockViewController,
-                cellIdentifier: .playback
-            ),
-            ActionSheetCellModel(
-                title:NSLocalizedString("EQUALIZER_CELL_TITLE", comment: ""),
-                imageIdentifier:"equalizer",
-                viewControllerToPresent: mockViewController,
-                cellIdentifier: .equalizer
-            ),
-            ActionSheetCellModel(
-                title:NSLocalizedString("BUTTON_SLEEP_TIMER", comment: ""),
-                imageIdentifier:"speedIcon",
-                viewControllerToPresent: mockViewController,
-                cellIdentifier: .sleepTimer
-            ),
-            ActionSheetCellModel(
-                title:NSLocalizedString("INTERFACE_LOCK_BUTTON", comment: ""),
-                imageIdentifier:"iconLock",
-                accessoryType: .toggleSwitch,
-                cellIdentifier: .interfaceLock
+        var models: [ActionSheetCellModel] = []
+        MediaPlayerActionSheetCellIdentifier.allCases.forEach {
+            var cellModel = ActionSheetCellModel(
+                title: String(describing: $0),
+                imageIdentifier: $0.rawValue,
+                viewToPresent: mockView,
+                cellIdentifier: $0
             )
-        ]
+            if $0 == .interfaceLock {
+                cellModel.accessoryType = .toggleSwitch
+                cellModel.viewToPresent = nil
+            }
+            models.append(cellModel)
+        }
         return models
     }()
     
     // MARK: Private Methods
-    private func add(childViewController child: UIViewController) {
-        addChild(child)
+    private func add(childView child: UIView) {
         UIView.animate(withDuration: 0.3, animations: {
-            child.view.frame = self.collectionView.frame
-            self.addChildToStackView(child.view)
+            child.frame = self.collectionView.frame
+            self.addChildToStackView(child)
         }) {
             (completed) in
-            child.didMove(toParent: self)
-            child.view.addGestureRecognizer(self.leftToRightGesture)
-            self.currentChildViewController = child
+            child.addGestureRecognizer(self.leftToRightGesture)
+            self.currentChildView = child
         }
     }
     
-    private func remove(childViewController child: UIViewController) {
-        child.didMove(toParent: nil)
+    private func remove(childView child: UIView) {
         UIView.animate(withDuration: 0.3, animations: {
-            child.view.frame = self.externalFrame
+            child.frame = self.offScreenFrame
         }) { (completed) in
-            child.view.removeFromSuperview()
-            child.view.removeGestureRecognizer(self.leftToRightGesture)
-            child.removeFromParent()
+            child.removeFromSuperview()
+            child.removeGestureRecognizer(self.leftToRightGesture)
         }
     }
     
     @objc func removeCurrentChild() {
-        if let current = currentChildViewController {
-            remove(childViewController: current)
+        if let current = currentChildView {
+            remove(childView: current)
         }
     }
 
@@ -154,24 +147,24 @@ class MediaMoreOptionsActionSheet: ActionSheet {
 
     /// Animates the removal of the `currentChildViewController` when it is dragged from its left edge to the right
     @objc private func draggedRight(panGesture: UIPanGestureRecognizer) {
-        if let current = currentChildViewController {
+        if let current = currentChildView {
 
             let translation = panGesture.translation(in: view)
-            let x = translation.x + current.view.center.x
-            let halfWidth = current.view.frame.size.width / 2
+            let x = translation.x + current.center.x
+            let halfWidth = current.frame.size.width / 2
             panGesture.setTranslation(.zero, in: view)
 
             if panGesture.state == .began || panGesture.state == .changed {
                 // only enable left-to-right drags
-                if current.view.frame.minX + translation.x >= 0 {
-                    current.view.center = CGPoint(x: x, y: current.view.center.y)
+                if current.frame.minX + translation.x >= 0 {
+                    current.center = CGPoint(x: x, y: current.center.y)
                 }
             } else if panGesture.state == .ended {
-                if current.view.frame.minX > halfWidth {
+                if current.frame.minX > halfWidth {
                     removeCurrentChild()
                 } else {
                     UIView.animate(withDuration: 0.3) {
-                        current.view.frame = self.collectionView.frame
+                        current.frame = self.collectionView.frame
                     }
                 }
             }
@@ -208,10 +201,10 @@ class MediaMoreOptionsActionSheet: ActionSheet {
         dataSource = self
         modalPresentationStyle = .custom
         setAction { (item) in
-            if let item = item as? UIViewController {
-               self.add(childViewController: item)
+            if let item = item as? UIView {
+               self.add(childView: item)
             } else {
-                preconditionFailure("MediaMoreOptionsActionSheet: Action:: Item's could not be cased as UIViewController")
+                preconditionFailure("MediaMoreOptionsActionSheet: Cell item could not be casted as UIView")
             }
         }
         setTheme()
@@ -228,12 +221,14 @@ extension MediaMoreOptionsActionSheet: ActionSheetDataSource {
     }
     
     func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var sheetCell: ActionSheetCell
-        
-        if indexPath.row >= cellModels.count {
+
+        guard indexPath.row < cellModels.count else {
+            assertionFailure("MediaMoreOptionsActionSheet")
             return ActionSheetCell()
         }
-        
+
+        var sheetCell: ActionSheetCell
+
         if let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ActionSheetCell.identifier,
             for: indexPath) as? ActionSheetCell {
@@ -252,7 +247,7 @@ extension MediaMoreOptionsActionSheet: ActionSheetDataSource {
 extension MediaMoreOptionsActionSheet: ActionSheetDelegate {
     func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
         if indexPath.row < cellModels.count {
-            return cellModels[indexPath.row].viewControllerToPresent
+            return cellModels[indexPath.row].viewToPresent
         }
         return nil
     }

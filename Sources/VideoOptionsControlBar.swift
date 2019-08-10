@@ -85,7 +85,7 @@ protocol VideoOptionsControlBarDelegate: class {
     
     lazy var interfaceLockButton: UIButton = {
         var interfaceLockButton = UIButton(type: .system)
-        interfaceLockButton.setImage(UIImage(named: "iconLock"), for: .normal)
+        interfaceLockButton.setImage(UIImage(named: "interfaceLock"), for: .normal)
         interfaceLockButton.addTarget(self, action: #selector(toggleInterfaceLock), for: .touchUpInside)
         interfaceLockButton.tintColor = .white
         interfaceLockButton.accessibilityHint = NSLocalizedString("INTERFACE_LOCK_HINT", comment: "")
