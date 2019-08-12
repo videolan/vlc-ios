@@ -191,7 +191,11 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
 
 class ElseCallbackURLHandler: NSObject, VLCURLHandler {
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
-        return true
+        guard let scheme = url.scheme else {
+            return false
+        }
+        return scheme.range(of: kSupportedProtocolSchemes,
+                            options: [.regularExpression, .caseInsensitive], range: nil, locale: nil) != nil
     }
 
     func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
