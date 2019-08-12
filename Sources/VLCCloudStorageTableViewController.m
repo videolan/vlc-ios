@@ -109,6 +109,11 @@
     [super viewWillAppear:animated];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return PresentationTheme.current.colors.statusBarStyle;
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     tempNav.toolbarHidden = YES;
