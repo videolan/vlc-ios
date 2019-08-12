@@ -98,6 +98,7 @@
     _localNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self.navigationController.navigationBar setTranslucent:NO];
+    self.navigationController.view.backgroundColor = PresentationTheme.current.colors.background;
 
     _remoteNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     _remoteNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -331,6 +332,7 @@
     _scrollView.backgroundColor = PresentationTheme.current.colors.background;
     _localNetworkTableView.separatorColor = PresentationTheme.current.colors.background;
     _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
+    self.navigationController.view.backgroundColor = PresentationTheme.current.colors.background;
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
