@@ -47,6 +47,11 @@ extension GenreModel: MediaLibraryObserver {
         updateView?()
     }
 
+    func medialibrary(_ medialibrary: MediaLibraryService, didModifyGenres genres: [VLCMLGenre]) {
+        files = swapModels(with: genres)
+        updateView?()
+    }
+
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteGenresWithIds genreIds: [NSNumber]) {
         files.removeAll {
             genreIds.contains(NSNumber(value: $0.identifier()))
