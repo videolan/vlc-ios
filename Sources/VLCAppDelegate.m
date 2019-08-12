@@ -179,7 +179,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     for (id<VLCURLHandler> handler in URLHandlers.handlers) {
         if ([handler canHandleOpenWithUrl:url options:options]) {
             if ([handler performOpenWithUrl:url options:options]) {
-                break;
+                return YES;
             }
         }
     }
