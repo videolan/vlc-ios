@@ -34,6 +34,14 @@ import Foundation
 class DropBoxURLHandler: NSObject, VLCURLHandler {
 
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
+
+        let components = url.pathComponents
+        let methodName = components.count > 1 ? components[1] : nil
+
+        if methodName == "cancel" {
+            return false
+        }
+
         return url.scheme == "db-a60fc6qj9zdg7bw"
     }
 
