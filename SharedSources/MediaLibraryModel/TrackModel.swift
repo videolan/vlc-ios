@@ -62,7 +62,7 @@ extension TrackModel: MediaLibraryObserver {
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyTracks tracks: [VLCMLMedia]) {
         if !tracks.isEmpty {
-            files = swapMedias(with: tracks)
+            files = swapModels(with: tracks)
             updateView?()
         }
     }

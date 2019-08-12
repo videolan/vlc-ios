@@ -62,7 +62,7 @@ extension VideoModel: MediaLibraryObserver {
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyVideos videos: [VLCMLMedia]) {
         if !videos.isEmpty {
-            files = swapMedias(with: videos)
+            files = swapModels(with: videos)
             updateView?()
         }
     }

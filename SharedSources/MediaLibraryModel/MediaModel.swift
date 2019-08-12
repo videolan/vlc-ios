@@ -33,34 +33,6 @@ extension MediaModel {
     }
 }
 
-// MARK: - Helpers
-
-extension MediaModel {
-    /// Swap the given [VLCMLMedia] to the cached array.
-    /// This only swaps media with the same VLCMLIdentifiers
-    /// - Parameter medias: To be swapped medias
-    /// - Returns: New array of `VLCMLMedia` if changes have been made, else return a unchanged cached version.
-    func swapMedias(with medias: [VLCMLMedia]) -> [VLCMLMedia] {
-        var newFiles = files
-
-        // FIXME: This should be handled in a thread safe way
-        for var media in medias {
-            for (currentMediaIndex, file) in files.enumerated()
-                where file.identifier() == media.identifier() {
-                    swap(&newFiles[currentMediaIndex], &media)
-                    break
-            }
-        }
-        return newFiles
-    }
-}
-
-extension VLCMLMedia {
-    static func == (lhs: VLCMLMedia, rhs: VLCMLMedia) -> Bool {
-        return lhs.identifier() == rhs.identifier()
-    }
-}
-
 // MARK: - ViewModel
 
 extension VLCMLMedia {

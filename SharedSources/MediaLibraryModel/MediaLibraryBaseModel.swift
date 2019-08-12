@@ -77,3 +77,31 @@ protocol MediaCollectionModel {
     func sortModel() -> SortModel?
     func title() -> String?
 }
+
+// MARK: - Helper methods
+
+extension MLBaseModel {
+    /// Swap the given [MLType] to the cached array.
+    /// This only swaps models with the same VLCMLIdentifiers
+    /// - Parameter models: To be swapped models
+    /// - Returns: New array of `MLType` if changes have been made, else return a unchanged cached version.
+    func swapModels(with models: [MLType]) -> [MLType] {
+        var newFiles = files
+
+        // FIXME: This should be handled in a thread safe way
+        for var model in models {
+            for (currentMediaIndex, file) in files.enumerated()
+                where file.identifier() == model.identifier() {
+                    swap(&newFiles[currentMediaIndex], &model)
+                    break
+            }
+        }
+        return newFiles
+    }
+}
+
+extension VLCMLObject {
+    static func == (lhs: VLCMLObject, rhs: VLCMLObject) -> Bool {
+        return lhs.identifier() == rhs.identifier()
+    }
+}
