@@ -197,6 +197,9 @@
 {
     [super viewWillAppear:animated];
     [_discoveryController startDiscovery];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
+    }
 }
 
 - (BOOL)shouldAutorotate

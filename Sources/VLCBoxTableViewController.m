@@ -114,6 +114,10 @@
     self.controller = _boxController;
     self.controller.delegate = self;
 
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
+    }
+
     if (!_listOfFiles || _listOfFiles.count == 0)
         [self requestInformationForCurrentPath];
 }
