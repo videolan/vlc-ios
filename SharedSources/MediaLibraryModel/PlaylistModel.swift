@@ -89,6 +89,11 @@ extension PlaylistModel: MediaLibraryObserver {
         updateView?()
     }
 
+    func medialibrary(_ medialibrary: MediaLibraryService, didModifyPlaylists playlists: [VLCMLPlaylist]) {
+        files = swapModels(with: playlists)
+        updateView?()
+    }
+
     func medialibrary(_ medialibrary: MediaLibraryService, didDeletePlaylistsWithIds playlistsIds: [NSNumber]) {
         files = files.filter() {
             for id in playlistsIds where $0.identifier() == id.int64Value {

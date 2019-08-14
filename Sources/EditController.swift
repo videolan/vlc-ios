@@ -228,31 +228,50 @@ extension EditController: EditToolbarDelegate {
             assertionFailure("EditController: Rename called without selection.")
             return
         }
-        if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
-            // Not using VLCAlertViewController to have more customization in text fields
-            let alertInfo = TextFieldAlertInfo(alertTitle: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), media.title),
-                                               textfieldText: media.title,
-                                               confirmActionTitle: NSLocalizedString("BUTTON_RENAME", comment: ""))
-            presentTextFieldAlert(with: alertInfo, completionHandler: {
-                [weak self] text -> Void in
-                guard text != "" else {
-                    VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
-                                                            errorMessage: NSLocalizedString("ERROR_EMPTY_NAME", comment: ""),
-                                                            viewController: (UIApplication.shared.keyWindow?.rootViewController)!)
-                    return
-                }
-                media.updateTitle(text)
-                guard let strongself = self else {
-                    return
-                }
-                strongself.delegate?.editController(editController: strongself, cellforItemAt: indexPath)?.isChecked = false
-                strongself.selectedCellIndexPaths.remove(indexPath)
-                //call until all items are renamed
-                if !strongself.selectedCellIndexPaths.isEmpty {
-                    strongself.editToolbarDidRename(editToolbar)
-                }
-            })
+
+        var mlObjectName = ""
+
+        let mlObject = model.anyfiles[indexPath.row]
+
+        if let media = mlObject as? VLCMLMedia {
+            mlObjectName = media.title
+        } else if let playlist = mlObject as? VLCMLPlaylist {
+            mlObjectName = playlist.name
+        } else {
+            assertionFailure("EditController: Rename called with wrong model.")
         }
+
+        // Not using VLCAlertViewController to have more customization in text fields
+        let alertInfo = TextFieldAlertInfo(alertTitle: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), mlObjectName),
+                                           textfieldText: mlObjectName,
+                                           confirmActionTitle: NSLocalizedString("BUTTON_RENAME", comment: ""))
+        presentTextFieldAlert(with: alertInfo, completionHandler: {
+            [weak self] text -> Void in
+            guard text != "" else {
+                VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
+                                                        errorMessage: NSLocalizedString("ERROR_EMPTY_NAME", comment: ""),
+                                                        viewController: (UIApplication.shared.keyWindow?.rootViewController)!)
+                return
+            }
+
+            let mlObject = self?.model.anyfiles[indexPath.row]
+
+            if let media = mlObject as? VLCMLMedia {
+                media.updateTitle(text)
+            } else if let playlist = mlObject as? VLCMLPlaylist {
+                playlist.updateName(text)
+            }
+
+           guard let strongself = self else {
+                return
+            }
+            strongself.delegate?.editController(editController: strongself, cellforItemAt: indexPath)?.isChecked = false
+            strongself.selectedCellIndexPaths.remove(indexPath)
+            //call until all items are renamed
+            if !strongself.selectedCellIndexPaths.isEmpty {
+                strongself.editToolbarDidRename(editToolbar)
+            }
+        })
     }
 }
 
