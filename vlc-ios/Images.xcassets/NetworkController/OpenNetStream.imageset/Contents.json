@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "OpenNetStream.png",
+      "filename" : "icnStreaming.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "OpenNetStream@2x.png",
+      "filename" : "icnStreaming@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "OpenNetStream@3x.png",
+      "filename" : "icnStreaming@3x.png",
       "scale" : "3x"
     }
   ],
