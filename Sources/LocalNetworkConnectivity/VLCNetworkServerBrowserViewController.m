@@ -86,6 +86,11 @@
                                        viewController:self];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return PresentationTheme.current.colors.statusBarStyle;
+}
+
 - (void)updateUI
 {
     [self.tableView reloadData];
