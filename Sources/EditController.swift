@@ -224,9 +224,8 @@ extension EditController: EditToolbarDelegate {
     }
 
     func editToolbarDidRename(_ editToolbar: EditToolbar) {
-
         guard let indexPath = selectedCellIndexPaths.first else {
-            assertionFailure("called without selectedcells")
+            assertionFailure("EditController: Rename called without selection.")
             return
         }
         if let media = model.anyfiles[indexPath.row] as? VLCMLMedia {
