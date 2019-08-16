@@ -19,6 +19,7 @@
 #import "VLCPlayerDisplayController.h"
 #import "VLCServerListViewController.h"
 #import "VLCSettingsController.h"
+#import "VLCSlider.h"
 #import "VLCWiFiUploadTableViewCell.h"
 #import "VLCMovieViewController.h"
 #import "IASKSettingsTableViewController+Protected.h"

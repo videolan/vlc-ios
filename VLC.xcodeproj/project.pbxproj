@@ -384,6 +384,7 @@
 		DDF908E01CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908DF1CF4E04A00108B70 /* VLCNetworkLoginDataSourceSavedLogins.m */; };
 		DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
 		E021B63622FB80360041CB7A /* MediaMoreOptionsActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */; };
+		E0307EF42306A2F80072529E /* VLCSlider.h in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784BA183A9938009EE944 /* VLCSlider.h */; };
 		E03DECA622BEE27E00F44A05 /* MediaNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */; };
 		E0539E8C22E5E2EC009317CB /* VideoOptionsControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0539E8B22E5E2EC009317CB /* VideoOptionsControlBar.swift */; };
 		E08AD1712304DDE800E023B9 /* MediaPlayerActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08AD1702304DDE800E023B9 /* MediaPlayerActionSheet.swift */; };
@@ -2963,6 +2964,7 @@
 				8D222DC220F779F1009C0D34 /* MediaEditCell.swift in Sources */,
 				DD3EFF3D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				DDEAECBE1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m in Sources */,
+				E0307EF42306A2F80072529E /* VLCSlider.h in Sources */,
 				418DFE9F211C93C6005D3652 /* VLCPlaybackController+VLCDialogProvider.swift in Sources */,
 				7D92897A1877467E009108FD /* VLCFirstStepsCloudViewController.m in Sources */,
 				DD3EFF391BDEBCE500B68579 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,

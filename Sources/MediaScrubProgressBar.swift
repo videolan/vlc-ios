@@ -9,46 +9,82 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-@objc (VLCMediaProgressBarDelegate)
+@objc (VLCMediaScrubProgressBarDelegate)
 protocol MediaScrubProgressBarDelegate {
-    func didMoveMediaScrubProgressSlider(_ progressBar: MediaScrubProgressBar, sender: UISlider)
+    func mediaScrubProgressBarShouldResetIdleTimer()
 }
 
-@objc (VLCMediaProgressBar)
-@objcMembers class MediaScrubProgressBar: UIView {
+@objc (VLCMediaScrubProgressBar)
+class MediaScrubProgressBar: UIStackView {
     
     // MARK: Instance Variables
-    weak var delegate: MediaScrubProgressBarDelegate?
+    @objc weak var delegate: MediaScrubProgressBarDelegate?
+    private var playbackController = VLCPlaybackController.sharedInstance()
+    private var positionSet: Bool = true
+    private var isScrubbing: Bool = false
     
-    lazy var progressSlider: UISlider = {
-        var slider = UISlider()
+    @objc lazy private(set) var progressSlider: VLCOBSlider = {
+        var slider = VLCOBSlider()
         slider.minimumValue = 0
-        slider.maximumValue = 100
+        slider.maximumValue = 1
         slider.minimumTrackTintColor = .orange
-        slider.maximumTrackTintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.2)
+        slider.maximumTrackTintColor = UIColor(white: 1, alpha: 0.2)
         slider.setThumbImage(UIImage(named: "sliderThumb"), for: .normal)
-        slider.thumbTintColor = .orange
         slider.isContinuous = true
-        slider.addTarget(self, action: #selector(moveSliderThumb), for: .touchUpInside)
-        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.addTarget(self, action: #selector(moveSliderThumb), for: .valueChanged)
+        slider.addTarget(self, action: #selector(progressSliderTouchDown), for: .touchDown)
+        slider.addTarget(self, action: #selector(progressSliderTouchUp), for: .touchUpInside)
+        slider.addTarget(self, action: #selector(progressSliderTouchUp), for: .touchUpOutside)
+        slider.addTarget(self, action: #selector(updateScrubLabel), for: .touchDragInside)
+        slider.addTarget(self, action: #selector(updateScrubLabel), for: .touchDragOutside)
         return slider
     }()
     
-    var elapsedTimeLabel: UILabel = {
+    private lazy var elapsedTimeLabel: UILabel = {
         var label = UILabel()
-        label.font = UIFont(name: "SFProDisplay-Bold", size: 12)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .orange
-        label.text = "000:00"
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "--:--"
+        label.numberOfLines = 1
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return label
     }()
     
-    var remainingTimeLabel: UILabel = {
-        var label = UILabel()
-        label.font = UIFont(name: "SFProDisplay-Bold", size: 12)
-        label.text = "-0000:00"
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var remainingTimeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = .white
+        label.text = "--:--"
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return label
+    }()
+
+    private lazy var scrubbingIndicatorLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.setContentHuggingPriority(.defaultLow, for: .vertical)
+        label.backgroundColor = UIColor(white: 0, alpha: 0.4)
+        return label
+    }()
+
+    private lazy var scrubbingHelpLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = .white
+        label.text = NSLocalizedString("PLAYBACK_SCRUB_HELP", comment: "")
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        label.backgroundColor = UIColor(white: 0, alpha: 0.4)
+        label.textAlignment = .center
+        return label
+    }()
+
+    private lazy var scrubLabelStackView: UIStackView = {
+        let scrubLabelStack = UIStackView(arrangedSubviews: [scrubbingIndicatorLabel, scrubbingHelpLabel])
+        scrubLabelStack.axis = .vertical
+        scrubLabelStack.isHidden = true
+        return scrubLabelStack
     }()
     
     // MARK: Initializers
@@ -59,33 +95,67 @@ protocol MediaScrubProgressBarDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        setupConstraints()
     }
     
-    // MARK: Private Instance Methods
-    private func setupConstraints() {
-        let margin: CGFloat = 30
-        NSLayoutConstraint.activate([
-            progressSlider.centerYAnchor.constraint(equalTo: centerYAnchor),
-            progressSlider.centerXAnchor.constraint(equalTo: centerXAnchor),
-            elapsedTimeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin),
-            elapsedTimeLabel.trailingAnchor.constraint(equalTo: progressSlider.leadingAnchor, constant: margin),
-            elapsedTimeLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            remainingTimeLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            remainingTimeLabel.leadingAnchor.constraint(equalTo: progressSlider.trailingAnchor, constant: margin),
-            remainingTimeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: margin),
-        ])
-    }
-    
+    // MARK: Instance Methods
     private func setupViews() {
-        addSubview(elapsedTimeLabel)
-        addSubview(progressSlider)
-        addSubview(remainingTimeLabel)
+        let horizontalStack = UIStackView(arrangedSubviews: [elapsedTimeLabel, remainingTimeLabel])
+        horizontalStack.distribution = .equalSpacing
+        addArrangedSubview(scrubLabelStackView)
+        addArrangedSubview(horizontalStack)
+        addArrangedSubview(progressSlider)
+        spacing = 5
+        axis = .vertical
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    @objc private func updateScrubLabel() {
+        let speed = progressSlider.scrubbingSpeed
+        if  speed == 1 {
+            scrubbingIndicatorLabel.text = NSLocalizedString("PLAYBACK_SCRUB_HIGH", comment:"")
+        } else if speed == 0.5 {
+            scrubbingIndicatorLabel.text = NSLocalizedString("PLAYBACK_SCRUB_HALF", comment: "")
+        } else if speed == 0.25 {
+            scrubbingIndicatorLabel.text = NSLocalizedString("PLAYBACK_SCRUB_QUARTER", comment: "")
+        } else {
+            scrubbingIndicatorLabel.text = NSLocalizedString("PLAYBACK_SCRUB_FINE", comment: "")
+        }
+    }
+
+    @objc private func updatePlaybackPosition() {
+        if !positionSet {
+            playbackController.playbackPosition = progressSlider.value
+            playbackController.setNeedsMetadataUpdate()
+            positionSet = true
+        }
+    }
+
+    @objc func updateUI() {
+        if !isScrubbing {
+            progressSlider.value = playbackController.playbackPosition
+        }
+        remainingTimeLabel.text = playbackController.remainingTime().stringValue
+        elapsedTimeLabel.text = playbackController.playedTime().stringValue
     }
     
-    // MARK: Slider Action Function
+    // MARK: Slider Methods
     @objc private func moveSliderThumb() {
-        assert(delegate != nil, "Delegate not set for MediaProgressBar")
-        delegate?.didMoveMediaScrubProgressSlider(self, sender: progressSlider)
+        perform(#selector(updatePlaybackPosition), with: nil, afterDelay: 0.3)
+        if playbackController.mediaDuration > 0 {
+            updateUI()
+        }
+        positionSet = false
+        delegate?.mediaScrubProgressBarShouldResetIdleTimer()
+    }
+
+    @objc private func progressSliderTouchDown() {
+        updateScrubLabel()
+        isScrubbing = true
+        scrubLabelStackView.isHidden = !isScrubbing
+    }
+
+    @objc private func progressSliderTouchUp() {
+        isScrubbing = false
+        scrubLabelStackView.isHidden = !isScrubbing
     }
 }

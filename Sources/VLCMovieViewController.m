@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate, VLCMediaScrubProgressBarDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -103,6 +103,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCVideoOptionsControlBar *_videoOptionsControlBar;
     VLCMediaMoreOptionsActionSheet *_moreOptionsActionSheet;
     VLCMediaNavigationBar *_mediaNavigationBar;
+    VLCMediaScrubProgressBar *_scrubProgressBar;
 
     VLCPlaybackController *_vpc;
 
@@ -180,6 +181,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         self.navigationController.navigationBar.hidden = YES;
         self.trackNameLabel.hidden = YES;
         [self setupMediaNavigationBar];
+        [self setupScrubProgressBar];
     #endif
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", nil);
@@ -394,8 +396,26 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     #if NEW_UI
         constraints = [constraints arrayByAddingObjectsFromArray:[self getVideoOptionsConstraints]];
         constraints = [constraints arrayByAddingObjectsFromArray:[self getMediaNavigationBarConstraints]];
+        constraints = [constraints arrayByAddingObjectsFromArray:[self getScrubProgressBarConstraints]];
     #endif
     [NSLayoutConstraint activateConstraints: constraints];
+}
+
+- (NSArray *)getScrubProgressBarConstraints
+{
+    float margin = 20.0f;
+    UILayoutGuide *guide = self.view.layoutMarginsGuide;;
+    if (@available(iOS 11.0, *)) {
+        guide = self.view.safeAreaLayoutGuide;
+    }
+
+    return @[[_scrubProgressBar.bottomAnchor
+              constraintEqualToAnchor: _videoOptionsControlBar.topAnchor constant:-margin],
+             [_scrubProgressBar.leadingAnchor
+              constraintEqualToAnchor:guide.leadingAnchor constant:margin],
+             [_scrubProgressBar.trailingAnchor
+              constraintEqualToAnchor:guide.trailingAnchor constant:-margin]
+             ];
 }
 
 - (UIButton *)doneButton
@@ -735,11 +755,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                       _doneButton,
                       _rendererButton]];
     #else
-        UIView *airplayView;
+        UIView *airplayView = (UIView *)_mediaNavigationBar.airplayVolumeView;
         if (@available(iOS 11.0, *)) {
             airplayView = (UIView *)_mediaNavigationBar.airplayRoutePickerView;
-        } else {
-            airplayView = (UIView *)_mediaNavigationBar.airplayVolumeView;
         }
         arr = [arr arrayByAddingObjectsFromArray:
                     @[_videoOptionsControlBar.toggleFullScreenButton,
@@ -747,7 +765,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                       _videoOptionsControlBar.repeatButton,
                       _mediaNavigationBar.minimizePlaybackButton,
                       _mediaNavigationBar.chromeCastButton,
-                      airplayView]
+                      airplayView,
+                      _scrubProgressBar.progressSlider]
                ];
     #endif
     return arr;
@@ -817,6 +836,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _videoOptionsControlBar.hidden = YES;
         _mediaNavigationBar.alpha = 0.0f;
         _mediaNavigationBar.hidden = YES;
+        _scrubProgressBar.alpha = 0.0f;
+        _scrubProgressBar.hidden = YES;
     #endif
 
         _artistNameLabel.hidden = NO;
@@ -840,6 +861,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
        #else
             self->_videoOptionsControlBar.alpha = alpha;
             self->_mediaNavigationBar.alpha = alpha;
+            self->_scrubProgressBar.alpha = alpha;
        #endif
         
         self->_equalizerView.alpha = alpha;
@@ -863,6 +885,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         #else
             self->_videoOptionsControlBar.hidden = NO;
             self->_mediaNavigationBar.hidden = self->_controlsHidden;
+            self->_scrubProgressBar.hidden = NO;
         #endif
 
         self->_artistNameLabel.hidden = self->_audioOnly ? NO : self->_controlsHidden;
@@ -1129,7 +1152,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (IBAction)positionSliderTouchDown:(id)sender
 {
-    [self _updateScrubLabel];
+    float speed = 1.0;
+    VLCOBSlider *slider = (VLCOBSlider *)sender;
+    if (slider != nil) speed  = slider.scrubbingSpeed;
+    [self _updateScrubLabel: speed];
     self.scrubIndicatorView.hidden = NO;
     _isScrubbing = YES;
 }
@@ -1140,9 +1166,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _isScrubbing = NO;
 }
 
-- (void)_updateScrubLabel
+- (void)_updateScrubLabel:(float)speed
 {
-    float speed = self.timeNavigationTitleView.positionSlider.scrubbingSpeed;
     if (speed == 1.)
         self.currentScrubSpeedLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HIGH", nil);
     else if (speed == .5)
@@ -1157,7 +1182,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (IBAction)positionSliderDrag:(id)sender
 {
-    [self _updateScrubLabel];
+    [self _updateScrubLabel:self.timeNavigationTitleView.positionSlider.scrubbingSpeed];
 }
 
 - (void)volumeSliderAction:(id)sender
@@ -1167,11 +1192,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)updateTimeDisplayButton
 {
+    NSString *elapsedTime = _displayRemainingTime ? [[_vpc remainingTime] stringValue] : [[_vpc playedTime] stringValue];
     UIButton *timeDisplayButton = self.timeNavigationTitleView.timeDisplayButton;
-    if (_displayRemainingTime)
-        [timeDisplayButton setTitle:[[_vpc remainingTime] stringValue] forState:UIControlStateNormal];
-    else
-        [timeDisplayButton setTitle:[[_vpc playedTime] stringValue] forState:UIControlStateNormal];
+    [timeDisplayButton setTitle:elapsedTime forState:UIControlStateNormal];
     [self.timeNavigationTitleView setNeedsLayout];
 }
 
@@ -1182,11 +1205,12 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     // FIXME: hard coded state since the state in mediaPlayer is incorrectly still buffering
     [self updateActivityIndicatorForState:VLCMediaPlayerStatePlaying];
 
-    if (!_isScrubbing) {
-        self.timeNavigationTitleView.positionSlider.value = [controller playbackPosition];
-    }
-
+    if (!_isScrubbing) self.timeNavigationTitleView.positionSlider.value = [controller playbackPosition];
     [self updateTimeDisplayButton];
+
+    #if NEW_UI
+        [_scrubProgressBar updateUI];
+    #endif
 }
 
 - (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
@@ -1541,11 +1565,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     [UIView animateWithDuration:.2
                      animations:^{
-                    #if !NEW_UI
-                         self->_multiSelectionView.hidden = YES;
-                    #else
-                         self->_videoOptionsControlBar.hidden = YES;
-                    #endif
+                        #if !NEW_UI
+                             self->_multiSelectionView.hidden = YES;
+                        #endif
                      }
                      completion:nil];
     [self _resetIdleTimer];
@@ -1824,6 +1846,13 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self _resetIdleTimer];
 }
 
+- (void)setupScrubProgressBar
+{
+    _scrubProgressBar = [[VLCMediaScrubProgressBar alloc] init];
+    _scrubProgressBar.delegate = self;
+    [self.view addSubview:_scrubProgressBar];
+}
+
 #pragma mark - autorotation
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
@@ -1986,5 +2015,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)mediaNavigationBarDidToggleChromeCast:(VLCMediaNavigationBar * _Nonnull)mediaNavigationBar {
     // TODO: Add current renderer functionality to chromeCast Button
     NSAssert(0, @"didToggleChromeCast not implemented");
+}
+
+#pragma mark - VLCMediaScrubProgressBarDelegate
+
+- (void)mediaScrubProgressBarShouldResetIdleTimer
+{
+    [self _resetIdleTimer];
 }
 @end
