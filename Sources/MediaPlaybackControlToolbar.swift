@@ -9,26 +9,17 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-// MARK: Protocol definition
-@objc (VLCMediaPlaybackControlToolbarDelegate)
-protocol MediaPlaybackControlToolbarDelegate: class {
-    func mediaPlaybackControlDidTogglePlayPause(_ mediaPlaybackControlToolbar: MediaPlaybackControlToolbar)
-    func mediaPlaybackControlDidSkipForward(_ mediaPlaybackControlToolbar: MediaPlaybackControlToolbar)
-    func mediaPlaybackControlDidSkipBackward(_ mediaPlaybackControlToolbar: MediaPlaybackControlToolbar)
-    func mediaPlaybackControlDidSkipToNextMedia(_ mediaPlaybackControlToolbar: MediaPlaybackControlToolbar)
-    func mediaPlaybackControlDidSkipToPreviousMedia(_ mediaPlaybackControlToolbar: MediaPlaybackControlToolbar)
-}
-
 @objc (VLCMediaPlaybackControlToolbar)
 @objcMembers class MediaPlaybackControlToolbar: UIStackView {
     
     // MARK: Instance Variables
-    weak var delegate: MediaPlaybackControlToolbarDelegate?
+    private let playbackController = PlaybackService.sharedInstance()
+    private let JUMP_DURATION: Int32 = 10
     
     lazy var playPauseButton: UIButton = {
         var playBtn = UIButton(type: .system)
         playBtn.addTarget(self, action: #selector(togglePlayPause), for: .touchUpInside)
-        playBtn.setImage(UIImage(named: "iconPause"), for: .normal)
+        playBtn.setImage(UIImage(named: "iconPauseLarge"), for: .normal)
         playBtn.tintColor = .white
         return playBtn
     }()
@@ -43,7 +34,7 @@ protocol MediaPlaybackControlToolbarDelegate: class {
     
     lazy var skipBackwardButton: UIButton = {
         var bwdButton = UIButton(type: .system)
-        bwdButton.setImage(UIImage(named: "iconSkipBackward"), for: .normal)
+        bwdButton.setImage(UIImage(named: "iconSkipBack"), for: .normal)
         bwdButton.addTarget(self, action: #selector(skipBackward), for: .touchUpInside)
         bwdButton.tintColor = .white
         return bwdButton
@@ -51,29 +42,19 @@ protocol MediaPlaybackControlToolbarDelegate: class {
     
     lazy var skipToPreviousMediaButton: UIButton = {
         var previousMediaButton = UIButton(type: .system)
-        previousMediaButton.setImage(UIImage(named: "iconSkipToPrevious"), for: .normal)
-        previousMediaButton.addTarget(self, action: #selector(skipForward), for: .touchUpInside)
+        previousMediaButton.setImage(UIImage(named: "iconPreviousVideo"), for: .normal)
+        previousMediaButton.addTarget(self, action: #selector(skipToPreviousMedia), for: .touchUpInside)
         previousMediaButton.tintColor = .white
         return previousMediaButton
     }()
     
     lazy var skipToNextMediaButton: UIButton = {
         var nextMediaButton = UIButton(type: .system)
-        nextMediaButton.setImage(UIImage(named: "iconSkipToNext"), for: .normal)
-        nextMediaButton.addTarget(self, action: #selector(skipForward), for: .touchUpInside)
+        nextMediaButton.setImage(UIImage(named: "iconNextVideo"), for: .normal)
+        nextMediaButton.addTarget(self, action: #selector(skipToNextMedia), for: .touchUpInside)
         nextMediaButton.tintColor = .white
         return nextMediaButton
     }()
-    
-    var isPlaying: Bool {
-        didSet {
-            if isPlaying {
-                playPauseButton.setImage(UIImage(named: "iconPause"), for: .normal)
-            } else {
-                playPauseButton.setImage(UIImage(named: "iconPlay"), for: .normal)
-            }
-        }
-    }
     
     // MARK: Initializers
     required init(coder: NSCoder) {
@@ -81,39 +62,66 @@ protocol MediaPlaybackControlToolbarDelegate: class {
     }
     
     override init(frame: CGRect) {
-        isPlaying = true
         super.init(frame: frame)
-        axis = .horizontal
+        addObsersers()
+        setupViews()
+    }
+
+    // MARK: Methods
+    private func setupViews() {
+        spacing = 20
+        distribution = .equalCentering
         addArrangedSubview(skipBackwardButton)
         addArrangedSubview(skipToPreviousMediaButton)
         addArrangedSubview(playPauseButton)
         addArrangedSubview(skipToNextMediaButton)
         addArrangedSubview(skipForwardButton)
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    private func addObsersers() {
+        let resumeNotification = Notification.Name(rawValue: VLCPlaybackServicePlaybackDidResume)
+        let pauseNotification = Notification.Name(rawValue: VLCPlaybackServicePlaybackDidPause)
+        let playbackStartNotification = Notification.Name(rawValue: VLCPlaybackServicePlaybackDidStart)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleNotification(_:)),
+                                               name: resumeNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleNotification(_:)),
+                                               name: pauseNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleNotification(_:)),
+                                               name: playbackStartNotification,
+                                               object: nil)
+    }
+
+    @objc private func handleNotification(_ notification: Notification) {
+        var isPlaying = notification.name.rawValue == VLCPlaybackServicePlaybackDidResume
+        isPlaying = isPlaying || notification.name.rawValue == VLCPlaybackServicePlaybackDidStart
+        let image = isPlaying ? UIImage(named: "iconPauseLarge") : UIImage(named: "iconPlayLarge")
+        playPauseButton.setImage(image, for: .normal)
     }
     
     // MARK: Button Action Methods
     func togglePlayPause() {
-        assert(delegate != nil, "Delegate for MediaPlaybackControlToolBar not set.")
-        delegate?.mediaPlaybackControlDidTogglePlayPause(self)
+        playbackController.playPause()
     }
     
     func skipForward() {
-        assert(delegate != nil, "Delegate for MediaPlaybackControlToolBar not set.")
-        delegate?.mediaPlaybackControlDidSkipForward(self)
+        playbackController.jumpForward(JUMP_DURATION)
     }
     
     func skipBackward() {
-        assert(delegate != nil, "Delegate for MediaPlaybackControlToolBar not set.")
-        delegate?.mediaPlaybackControlDidSkipBackward(self)
+        playbackController.jumpBackward(JUMP_DURATION)
     }
     
     func skipToPreviousMedia() {
-        assert(delegate != nil, "Delegate for MediaPlaybackControlToolBar not set.")
-        delegate?.mediaPlaybackControlDidSkipToPreviousMedia(self)
+        playbackController.next()
     }
     
     func skipToNextMedia() {
-        assert(delegate != nil, "Delegate for MediaPlaybackControlToolBar not set.")
-        delegate?.mediaPlaybackControlDidSkipToNextMedia(self)
+        playbackController.previous()
     }
 }

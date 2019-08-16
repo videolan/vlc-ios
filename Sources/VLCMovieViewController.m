@@ -104,6 +104,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCVideoOptionsControlBar *_videoOptionsControlBar;
     VLCMediaMoreOptionsActionSheet *_moreOptionsActionSheet;
     VLCMediaNavigationBar *_mediaNavigationBar;
+    VLCMediaPlaybackControlToolbar *_playbackControlToolbar;
 
     VLCPlaybackService *_vpc;
 
@@ -183,6 +184,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         self.navigationController.navigationBar.hidden = YES;
         self.trackNameLabel.hidden = YES;
         [self setupMediaNavigationBar];
+        [self setupPlaybackControlToolbar];
     #endif
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", nil);
@@ -392,6 +394,22 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
       ];
 }
 
+-(NSArray *)getPlaybackControlToolbarConstraints
+{
+    float margin = 40.0f;
+    UILayoutGuide *guide = self.view.layoutMarginsGuide;
+    if(@available(iOS 11.0, *)) {
+        guide = self.view.safeAreaLayoutGuide;
+    }
+    return @[[_playbackControlToolbar.bottomAnchor
+              constraintEqualToAnchor:_videoOptionsControlBar.topAnchor constant:-margin],
+             [_playbackControlToolbar.leadingAnchor
+              constraintEqualToAnchor:guide.leadingAnchor constant:margin],
+             [_playbackControlToolbar.trailingAnchor
+              constraintEqualToAnchor:guide.trailingAnchor constant:-margin]
+            ];
+}
+
 - (void)setupConstraints
 {
     NSArray *controlPanelHorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[panel]|"
@@ -420,6 +438,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     #if NEW_UI
         constraints = [constraints arrayByAddingObjectsFromArray:[self getVideoOptionsConstraints]];
         constraints = [constraints arrayByAddingObjectsFromArray:[self getMediaNavigationBarConstraints]];
+        constraints = [constraints arrayByAddingObjectsFromArray:[self getPlaybackControlToolbarConstraints]];
     #endif
     [NSLayoutConstraint activateConstraints: constraints];
 }
@@ -776,7 +795,12 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                       _videoOptionsControlBar.repeatButton,
                       _mediaNavigationBar.minimizePlaybackButton,
                       _mediaNavigationBar.chromeCastButton,
-                      airplayView]
+                      airplayView,
+                      _playbackControlToolbar.playPauseButton,
+                      _playbackControlToolbar.skipForwardButton,
+                      _playbackControlToolbar.skipBackwardButton,
+                      _playbackControlToolbar.skipToNextMediaButton,
+                      _playbackControlToolbar.skipToPreviousMediaButton]
                ];
     #endif
     return arr;
@@ -846,6 +870,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _videoOptionsControlBar.hidden = YES;
         _mediaNavigationBar.alpha = 0.0f;
         _mediaNavigationBar.hidden = YES;
+        _playbackControlToolbar.alpha = 0.0f;
+        _playbackControlToolbar.hidden = YES;
     #endif
 
         _artistNameLabel.hidden = NO;
@@ -869,6 +895,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
        #else
             self->_videoOptionsControlBar.alpha = alpha;
             self->_mediaNavigationBar.alpha = alpha;
+            self->_playbackControlToolbar.alpha = alpha;
        #endif
         
         self->_equalizerView.alpha = alpha;
@@ -892,6 +919,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         #else
             self->_videoOptionsControlBar.hidden = NO;
             self->_mediaNavigationBar.hidden = self->_controlsHidden;
+            self->_playbackControlToolbar.hidden = NO;
         #endif
 
         self->_artistNameLabel.hidden = self->_audioOnly ? NO : self->_controlsHidden;
@@ -2092,4 +2120,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     // TODO: Add current renderer functionality to chromeCast Button
     NSAssert(0, @"didToggleChromeCast not implemented");
 }
+
+#pragma mark - VLCMediaPlaybackControlToolbar
+- (void)setupPlaybackControlToolbar
+{
+    _playbackControlToolbar = [[VLCMediaPlaybackControlToolbar alloc] init];
+    [self.view addSubview:_playbackControlToolbar];
+}
+
 @end
