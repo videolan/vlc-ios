@@ -526,11 +526,3 @@ extension VLCMediaCategoryViewController {
         playbackController.playMedia(at: indexPath.row, fromCollection: tracks)
     }
 }
-
-// MARK: - MediaLibraryModelView
-
-extension VLCMediaCategoryViewController {
-    func dataChanged() {
-        reloadData()
-    }
-}
