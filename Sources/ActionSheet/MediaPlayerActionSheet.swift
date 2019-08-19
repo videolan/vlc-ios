@@ -194,7 +194,6 @@ extension MediaPlayerActionSheet: ActionSheetDataSource {
         guard let source = mediaPlayerActionSheetDataSource,
             indexPath.row < source.configurableCellModels.count else {
             preconditionFailure("MediaPlayerActionSheet: mediaPlayerActionSheetDataSource or invalid indexPath")
-            return ActionSheetCell()
         }
 
         var sheetCell: ActionSheetCell
@@ -221,7 +220,6 @@ extension MediaPlayerActionSheet: ActionSheetDelegate {
         guard let source = mediaPlayerActionSheetDataSource,
             indexPath.row < source.configurableCellModels.count else {
                 preconditionFailure("MediaPlayerActionSheet: mediaPlayerActionSheetDataSource not set")
-                return nil
         }
 
         let cellModel = source.configurableCellModels[indexPath.row]
