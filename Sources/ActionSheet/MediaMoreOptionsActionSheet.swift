@@ -84,6 +84,15 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
             if $0 == .interfaceLock {
                 cellModel.accessoryType = .toggleSwitch
                 cellModel.viewToPresent = nil
+            } else if $0 == .playback {
+                if let playbackView = Bundle.main.loadNibNamed("PlaybackSpeedView", owner: self, options: nil)?.first
+                    as? PlaybackSpeedView {
+                    cellModel.viewToPresent = playbackView
+                } else {
+                    print("MoreOptionsSheet: PlaybackSpeedView could not be loaded from Nib")
+                }
+                // Only option that does not cause a crash
+                // cellModel.viewToPresent = PlaybackSpeedView()
             }
             models.append(cellModel)
         }
