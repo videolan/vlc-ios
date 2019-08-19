@@ -514,7 +514,7 @@ extension MediaLibraryService {
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didModify albums: [VLCMLAlbum]) {
         for observer in observers {
-            observer.value.observer?.medialibrary?(self, didAddAlbums: albums)
+            observer.value.observer?.medialibrary?(self, didModifyAlbums: albums)
         }
     }
 
