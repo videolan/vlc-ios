@@ -13,6 +13,14 @@
 import Foundation
 import LocalAuthentication
 
+// MARK: - PAPasscodeViewController UI
+
+extension PAPasscodeViewController {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return PresentationTheme.current.colors.statusBarStyle
+    }
+}
+
 @objc(VLCKeychainCoordinator)
 class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
 
