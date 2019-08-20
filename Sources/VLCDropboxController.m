@@ -89,6 +89,9 @@
 - (void)logout
 {
     [DBClientsManager unlinkAndResetClients];
+    [self reset];
+    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+        [self.delegate mediaListUpdated];
 }
 
 - (BOOL)isAuthorized
