@@ -14,8 +14,6 @@ class PlaylistModel: MLBaseModel {
 
     var sortModel = SortModel([.alpha, .duration])
 
-    var updateView: (() -> Void)?
-
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLPlaylist]()
@@ -56,7 +54,9 @@ class PlaylistModel: MLBaseModel {
             return
         }
         append(playlist)
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 
@@ -66,7 +66,9 @@ extension PlaylistModel {
         files = medialibrary.playlists(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 
@@ -88,12 +90,16 @@ extension VLCMLPlaylist: SearchableMLModel {
 extension PlaylistModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddPlaylists playlists: [VLCMLPlaylist]) {
         playlists.forEach({ append($0) })
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyPlaylists playlists: [VLCMLPlaylist]) {
         files = swapModels(with: playlists)
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeletePlaylistsWithIds playlistsIds: [NSNumber]) {
@@ -103,7 +109,9 @@ extension PlaylistModel: MediaLibraryObserver {
             }
             return true
         }
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 

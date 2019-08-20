@@ -14,8 +14,6 @@ class ArtistModel: MLBaseModel {
 
     var sortModel = SortModel([.alpha])
 
-    var updateView: (() -> Void)?
-
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLArtist]()
@@ -47,7 +45,9 @@ extension ArtistModel {
         files = medialibrary.artists(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 
@@ -70,14 +70,18 @@ extension VLCMLArtist: SearchableMLModel {
 extension ArtistModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddArtists artists: [VLCMLArtist]) {
         artists.forEach({ append($0) })
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteArtistsWithIds artistsIds: [NSNumber]) {
         files.removeAll {
             artistsIds.contains(NSNumber(value: $0.identifier()))
         }
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
 }

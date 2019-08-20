@@ -24,8 +24,6 @@ protocol MediaLibraryBaseModel {
 
     var sortModel: SortModel { get }
 
-    var updateView: (() -> Void)? { get set }
-
     var indicatorName: String { get }
     var cellType: BaseCollectionViewCell.Type { get }
 
@@ -42,8 +40,6 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
     var files: [MLType] { get set }
 
     var medialibrary: MediaLibraryService { get }
-
-    var updateView: (() -> Void)? { get set }
 
     var observable: Observable<MediaLibraryBaseModelObserver> { get }
 

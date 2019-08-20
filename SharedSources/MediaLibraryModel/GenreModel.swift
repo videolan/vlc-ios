@@ -14,8 +14,6 @@ class GenreModel: MLBaseModel {
 
     var sortModel = SortModel([.alpha])
 
-    var updateView: (() -> Void)?
-
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLGenre]()
@@ -46,19 +44,25 @@ class GenreModel: MLBaseModel {
 extension GenreModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddGenres genres: [VLCMLGenre]) {
         genres.forEach({ append($0) })
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyGenres genres: [VLCMLGenre]) {
         files = swapModels(with: genres)
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteGenresWithIds genreIds: [NSNumber]) {
         files.removeAll {
             genreIds.contains(NSNumber(value: $0.identifier()))
         }
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
 }
@@ -69,7 +73,9 @@ extension GenreModel {
         files = medialibrary.genres(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 // MARK: - Edit

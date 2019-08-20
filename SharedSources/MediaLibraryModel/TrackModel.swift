@@ -14,8 +14,6 @@ class TrackModel: MediaModel {
 
     var sortModel = SortModel([.alpha, .duration, .fileSize])
 
-    var updateView: (() -> Void)?
-
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLMedia]()
@@ -43,7 +41,9 @@ extension TrackModel {
                                    desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 
@@ -59,13 +59,17 @@ extension TrackModel: EditableMLModel {
 extension TrackModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddTracks tracks: [VLCMLMedia]) {
         tracks.forEach({ append($0) })
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyTracks tracks: [VLCMLMedia]) {
         if !tracks.isEmpty {
             files = swapModels(with: tracks)
-            updateView?()
+            observable.observers.forEach() {
+                $0.value.observer?.mediaLibraryBaseModelReloadView()
+            }
         }
     }
 
@@ -76,6 +80,8 @@ extension TrackModel: MediaLibraryObserver {
             }
             return true
         }
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }

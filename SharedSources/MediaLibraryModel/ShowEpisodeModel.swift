@@ -14,8 +14,6 @@ class ShowEpisodeModel: MediaModel {
 
     var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize])
 
-    var updateView: (() -> Void)?
-
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLMedia]()
@@ -53,6 +51,8 @@ extension ShowEpisodeModel {
 extension ShowEpisodeModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddShowEpisodes showEpisodes: [VLCMLMedia]) {
         showEpisodes.forEach({ append($0) })
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }

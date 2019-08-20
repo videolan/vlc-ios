@@ -14,8 +14,6 @@ class VideoModel: MediaModel {
 
     var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize])
 
-    var updateView: (() -> Void)?
-
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLMedia]()
@@ -50,7 +48,9 @@ extension VideoModel {
                                    desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 
@@ -59,13 +59,17 @@ extension VideoModel {
 extension VideoModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddVideos videos: [VLCMLMedia]) {
         videos.forEach({ append($0) })
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyVideos videos: [VLCMLMedia]) {
         if !videos.isEmpty {
             files = swapModels(with: videos)
-            updateView?()
+            observable.observers.forEach() {
+                $0.value.observer?.mediaLibraryBaseModelReloadView()
+            }
         }
     }
 
@@ -76,7 +80,9 @@ extension VideoModel: MediaLibraryObserver {
             }
             return true
         }
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     // MARK: - Thumbnail
@@ -86,6 +92,8 @@ extension VideoModel: MediaLibraryObserver {
             files[index] = media
             break
         }
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }

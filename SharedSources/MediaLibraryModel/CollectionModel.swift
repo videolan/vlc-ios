@@ -19,8 +19,6 @@ class CollectionModel: MLBaseModel {
 
     var medialibrary: MediaLibraryService
 
-    var updateView: (() -> Void)?
-
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLMedia]()
@@ -81,13 +79,17 @@ extension CollectionModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyPlaylists playlists: [VLCMLPlaylist]) {
         if mediaCollection is VLCMLPlaylist {
             files = mediaCollection.files() ?? []
-            updateView?()
+            observable.observers.forEach() {
+                $0.value.observer?.mediaLibraryBaseModelReloadView()
+            }
         }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
         files = mediaCollection.files() ?? []
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 
