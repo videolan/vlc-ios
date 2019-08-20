@@ -275,6 +275,7 @@
 
 - (void)logout
 {
+    _currentPath = nil;
     [self.controller logout];
     [self updateViewAfterSessionChange];
 }
