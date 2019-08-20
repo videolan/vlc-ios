@@ -1,10 +1,12 @@
-//
-//  CollectionModel.swift
-//  VLC-iOS
-//
-//  Created by Carola Nitz on 08.03.19.
-//  Copyright © 2019 VideoLAN. All rights reserved.
-//
+/*****************************************************************************
+ * MediaLibraryBaseModel.swift
+ *
+ * Copyright © 2019 VLC authors and VideoLAN
+ *
+ * Authors: Carola Nitz <nitz.carola # gmail.com>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
 
 import Foundation
 
