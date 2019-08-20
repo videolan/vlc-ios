@@ -68,7 +68,7 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
         }
         super.viewDidLoad()
         viewControllers.forEach {
-            ($0 as? VLCMediaCategoryViewController)?.delegate = self
+            ($0 as? MediaCategoryViewController)?.delegate = self
         }
         setupNavigationBar()
     }
@@ -82,7 +82,7 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
     }
     // MARK: - MediaCatgoryViewControllerDelegate
 
-    func needsToUpdateNavigationbarIfNeeded(_ viewController: VLCMediaCategoryViewController) {
+    func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController) {
         if viewController == viewControllers[currentIndex] {
             updateButtonsFor(viewController)
         }
@@ -95,7 +95,7 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
 
     func updateButtonsFor(_ viewController: UIViewController) {
         var showButtons = false
-        if let mediaCategoryViewController = viewController as? VLCMediaCategoryViewController,
+        if let mediaCategoryViewController = viewController as? MediaCategoryViewController,
             !mediaCategoryViewController.isEmptyCollectionView()
                 && !mediaCategoryViewController.isSearching {
             showButtons = true
@@ -142,7 +142,7 @@ extension VLCMediaViewController {
 
 extension VLCMediaViewController {
     @objc func handleSort() {
-        if let mediaCategoryViewController = viewControllers[currentIndex] as? VLCMediaCategoryViewController {
+        if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
             mediaCategoryViewController.handleSort()
         }
     }
@@ -152,7 +152,7 @@ extension VLCMediaViewController {
             if #available(iOS 10.0, *) {
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
             }
-            if let mediaCategoryViewController = viewControllers[currentIndex] as? VLCMediaCategoryViewController {
+            if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
                 mediaCategoryViewController.handleSortShortcut()
             }
         }

@@ -14,10 +14,10 @@
 import Foundation
 
 protocol MediaCategoryViewControllerDelegate: NSObjectProtocol {
-    func needsToUpdateNavigationbarIfNeeded(_ viewController: VLCMediaCategoryViewController)
+    func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController)
 }
 
-class VLCMediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, IndicatorInfoProvider {
+class MediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, IndicatorInfoProvider {
 
     var model: MediaLibraryBaseModel
     private var services: Services
@@ -310,7 +310,7 @@ class VLCMediaCategoryViewController: UICollectionViewController, UICollectionVi
 
 // MARK: - UISearchBarDelegate
 
-extension VLCMediaCategoryViewController {
+extension MediaCategoryViewController {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         reloadData()
         isSearching = true
@@ -342,7 +342,7 @@ extension VLCMediaCategoryViewController {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension VLCMediaCategoryViewController {
+extension MediaCategoryViewController {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if cachedCellSize == .zero {
             //For iOS 10 when rotating we take the value from willTransition to size, for the first layout pass that value is 0 though,
@@ -397,7 +397,7 @@ extension VLCMediaCategoryViewController {
 
 // MARK: VLCActionSheetDelegate
 
-extension VLCMediaCategoryViewController: ActionSheetDelegate {
+extension MediaCategoryViewController: ActionSheetDelegate {
     func headerViewTitle() -> String? {
         return NSLocalizedString("HEADER_TITLE_SORT", comment: "")
     }
@@ -416,7 +416,7 @@ extension VLCMediaCategoryViewController: ActionSheetDelegate {
 
 // MARK: VLCActionSheetDataSource
 
-extension VLCMediaCategoryViewController: ActionSheetDataSource {
+extension MediaCategoryViewController: ActionSheetDataSource {
     func numberOfRows() -> Int {
         return model.sortModel.sortingCriteria.count
     }
@@ -444,7 +444,7 @@ extension VLCMediaCategoryViewController: ActionSheetDataSource {
 
 // MARK: - ActionSheetSortSectionHeaderDelegate
 
-extension VLCMediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
+extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
     func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader,
                                       onSwitchIsOnChange: Bool) {
         model.sort(by: model.sortModel.currentSort, desc: onSwitchIsOnChange)
@@ -453,7 +453,7 @@ extension VLCMediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
 
 // MARK: - EditControllerDelegate
 
-extension VLCMediaCategoryViewController: EditControllerDelegate {
+extension MediaCategoryViewController: EditControllerDelegate {
     func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> MediaEditCell? {
         return collectionView.cellForItem(at: indexPath) as? MediaEditCell
     }
@@ -465,7 +465,7 @@ extension VLCMediaCategoryViewController: EditControllerDelegate {
     }
 }
 
-private extension VLCMediaCategoryViewController {
+private extension MediaCategoryViewController {
     func setupCollectionView() {
         let cellNib = UINib(nibName: model.cellType.nibName, bundle: nil)
         collectionView?.register(cellNib, forCellWithReuseIdentifier: model.cellType.defaultReuseIdentifier)
@@ -504,7 +504,7 @@ private extension VLCMediaCategoryViewController {
 
 // MARK: - Player
 
-extension VLCMediaCategoryViewController {
+extension MediaCategoryViewController {
 
     func play(media: VLCMLMedia, at indexPath: IndexPath) {
         let playbackController = VLCPlaybackController.sharedInstance()
