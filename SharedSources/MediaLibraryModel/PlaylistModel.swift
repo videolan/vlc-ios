@@ -16,6 +16,8 @@ class PlaylistModel: MLBaseModel {
 
     var updateView: (() -> Void)?
 
+    var observable = Observable<MediaLibraryBaseModelObserver>()
+
     var files = [VLCMLPlaylist]()
 
     var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }

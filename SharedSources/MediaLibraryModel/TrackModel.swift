@@ -16,6 +16,8 @@ class TrackModel: MediaModel {
 
     var updateView: (() -> Void)?
 
+    var observable = Observable<MediaLibraryBaseModelObserver>()
+
     var files = [VLCMLMedia]()
 
     var cellType: BaseCollectionViewCell.Type { return MediaCollectionViewCell.self }

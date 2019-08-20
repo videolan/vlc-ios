@@ -16,6 +16,8 @@ class AlbumModel: MLBaseModel {
 
     var updateView: (() -> Void)?
 
+    var observable = Observable<MediaLibraryBaseModelObserver>()
+
     var files = [VLCMLAlbum]()
 
     var cellType: BaseCollectionViewCell.Type { return MediaCollectionViewCell.self }

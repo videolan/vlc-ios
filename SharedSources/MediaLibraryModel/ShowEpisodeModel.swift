@@ -16,6 +16,8 @@ class ShowEpisodeModel: MediaModel {
 
     var updateView: (() -> Void)?
 
+    var observable = Observable<MediaLibraryBaseModelObserver>()
+
     var files = [VLCMLMedia]()
 
     var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }

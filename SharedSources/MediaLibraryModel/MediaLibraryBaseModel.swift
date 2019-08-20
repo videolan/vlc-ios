@@ -45,6 +45,8 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
 
     var updateView: (() -> Void)? { get set }
 
+    var observable: Observable<MediaLibraryBaseModelObserver> { get }
+
     var indicatorName: String { get }
 
     func append(_ item: MLType)

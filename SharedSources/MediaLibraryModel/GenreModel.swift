@@ -16,6 +16,8 @@ class GenreModel: MLBaseModel {
 
     var updateView: (() -> Void)?
 
+    var observable = Observable<MediaLibraryBaseModelObserver>()
+
     var files = [VLCMLGenre]()
 
     var cellType: BaseCollectionViewCell.Type { return MediaCollectionViewCell.self }
