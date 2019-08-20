@@ -11,10 +11,23 @@
 import Foundation
 
 class CollectionModel: MLBaseModel {
+    typealias MLType = VLCMLMedia
+
     var sortModel: SortModel
+
     var mediaCollection: MediaCollectionModel
 
-    typealias MLType = VLCMLMedia // could be anything
+    var medialibrary: MediaLibraryService
+
+    var updateView: (() -> Void)?
+
+    var files = [VLCMLMedia]()
+
+    var cellType: BaseCollectionViewCell.Type { return MediaCollectionViewCell.self }
+
+    // No indicator for this model so no localization needed.
+    var indicatorName: String = "Collections"
+
     required init(medialibrary: MediaLibraryService) {
         preconditionFailure("")
     }
@@ -30,16 +43,6 @@ class CollectionModel: MLBaseModel {
     func append(_ item: VLCMLMedia) {
         files.append(item)
     }
-
-    var medialibrary: MediaLibraryService
-    var updateView: (() -> Void)?
-
-    var files = [VLCMLMedia]()
-
-    var cellType: BaseCollectionViewCell.Type { return MediaCollectionViewCell.self }
-
-    // No indicator for this model so no localization needed.
-    var indicatorName: String = "Collections"
 
     func delete(_ items: [VLCMLObject]) {
         if let playlist = mediaCollection as? VLCMLPlaylist {
