@@ -851,6 +851,14 @@ private extension MediaCategoryViewController {
     }
 }
 
+// MARK: - MediaLibraryBaseModelObserver
+
+extension MediaCategoryViewController: MediaLibraryBaseModelObserver {
+    func mediaLibraryBaseModelReloadView() {
+        reloadData()
+    }
+}
+
 // MARK: - Player
 
 extension MediaCategoryViewController {

@@ -14,7 +14,7 @@ class GenreModel: AudioCollectionModel {
 
     var sortModel = SortModel([.alpha])
 
-    var updateView: (() -> Void)?
+    var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLGenre]()
 
@@ -26,7 +26,7 @@ class GenreModel: AudioCollectionModel {
 
     required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
-        medialibrary.addObserver(self)
+        medialibrary.observable.addObserver(self)
         files = medialibrary.genres()
     }
 
@@ -40,7 +40,9 @@ class GenreModel: AudioCollectionModel {
 extension GenreModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddGenres genres: [VLCMLGenre]) {
         genres.forEach({ append($0) })
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService,
@@ -55,14 +57,18 @@ extension GenreModel: MediaLibraryObserver {
         }
 
         files = swapModels(with: genres)
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteGenresWithIds genresIds: [NSNumber]) {
         files.removeAll {
             genresIds.contains(NSNumber(value: $0.identifier()))
         }
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibraryDidStartRescan() {
@@ -76,7 +82,9 @@ extension GenreModel {
         files = medialibrary.genres(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 

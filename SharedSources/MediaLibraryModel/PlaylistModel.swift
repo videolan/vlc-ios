@@ -14,7 +14,7 @@ class PlaylistModel: MLBaseModel {
 
     var sortModel = SortModel([.alpha, .duration])
 
-    var updateView: (() -> Void)?
+    var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLPlaylist]()
 
@@ -26,7 +26,7 @@ class PlaylistModel: MLBaseModel {
 
     required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
-        medialibrary.addObserver(self)
+        medialibrary.observable.addObserver(self)
         files = medialibrary.playlists()
     }
 
@@ -57,7 +57,9 @@ class PlaylistModel: MLBaseModel {
 
         // Update directly the UI without waiting the delegate to avoid showing 'ghost' items
         filterFilesFromDeletion(of: items)
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     // Creates a VLCMLPlaylist appending it and updates linked view
@@ -67,7 +69,9 @@ class PlaylistModel: MLBaseModel {
             return
         }
         append(playlist)
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 
@@ -77,7 +81,9 @@ extension PlaylistModel {
         files = medialibrary.playlists(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 
@@ -92,7 +98,9 @@ extension VLCMLPlaylist: SearchableMLModel {
 extension PlaylistModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddPlaylists playlists: [VLCMLPlaylist]) {
         playlists.forEach({ append($0) })
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService,
@@ -108,7 +116,9 @@ extension PlaylistModel: MediaLibraryObserver {
         }
 
         files = swapModels(with: playlists)
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeletePlaylistsWithIds playlistsIds: [NSNumber]) {
@@ -118,7 +128,9 @@ extension PlaylistModel: MediaLibraryObserver {
             }
             return true
         }
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibraryDidStartRescan() {

@@ -13,7 +13,7 @@ class MediaGroupViewModel: MLBaseModel {
 
     var sortModel = SortModel([.alpha, .duration, .insertionDate, .lastModificationDate, .nbVideo])
 
-    var updateView: (() -> Void)?
+    var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files: [VLCMLMediaGroup]
 
@@ -26,7 +26,7 @@ class MediaGroupViewModel: MLBaseModel {
     required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
         files = medialibrary.medialib.mediaGroups() ?? []
-        medialibrary.addObserver(self)
+        medialibrary.observable.addObserver(self)
     }
 
     func append(_ item: VLCMLMediaGroup) {
@@ -74,7 +74,9 @@ class MediaGroupViewModel: MLBaseModel {
         files = medialibrary.medialib.mediaGroups(with: criteria, desc: desc) ?? []
         sortModel.currentSort = criteria
         sortModel.desc = desc
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func create(with name: String,
@@ -137,7 +139,9 @@ extension MediaGroupViewModel: MediaLibraryObserver {
                 files.append(mediaGroup)
             }
         }
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService,
@@ -153,7 +157,9 @@ extension MediaGroupViewModel: MediaLibraryObserver {
         }
 
         files = swapModels(with: mediaGroups)
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService,
@@ -161,7 +167,9 @@ extension MediaGroupViewModel: MediaLibraryObserver {
         files.removeAll {
             mediaGroupsIds.contains(NSNumber(value: $0.identifier()))
         }
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 
     // MARK: - Thumbnail
@@ -172,7 +180,9 @@ extension MediaGroupViewModel: MediaLibraryObserver {
         guard success else {
             return
         }
-        updateView?()
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
     }
 }
 

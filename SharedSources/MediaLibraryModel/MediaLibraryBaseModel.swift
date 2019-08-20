@@ -9,6 +9,13 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+@objc(VLCMediaLibraryBaseModelObserver)
+protocol MediaLibraryBaseModelObserver {
+    func mediaLibraryBaseModelReloadView()
+    @objc optional func mediaLibraryBaseModelReload(at indexPaths: [IndexPath])
+    @objc optional func mediaLibraryBaseModelPopView()
+}
+
 // Expose a "shadow" version without associatedType in order to use it as a type
 protocol MediaLibraryBaseModel {
     init(medialibrary: MediaLibraryService)
@@ -16,8 +23,6 @@ protocol MediaLibraryBaseModel {
     var anyfiles: [VLCMLObject] { get }
 
     var sortModel: SortModel { get }
-
-    var updateView: (() -> Void)? { get set }
 
     var indicatorName: String { get }
     var cellType: BaseCollectionViewCell.Type { get }
@@ -36,7 +41,7 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
 
     var medialibrary: MediaLibraryService { get }
 
-    var updateView: (() -> Void)? { get set }
+    var observable: Observable<MediaLibraryBaseModelObserver> { get }
 
     var indicatorName: String { get }
 
