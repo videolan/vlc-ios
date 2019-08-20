@@ -9,6 +9,13 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+@objc(VLCMediaLibraryBaseModelObserver)
+protocol MediaLibraryBaseModelObserver {
+    func mediaLibraryBaseModelReloadView()
+    func mediaLibraryBaseModelReload(at indexPaths: [IndexPath])
+    @objc optional func mediaLibraryBaseModelPopView()
+}
+
 // Expose a "shadow" version without associatedType in order to use it as a type
 protocol MediaLibraryBaseModel {
     init(medialibrary: MediaLibraryService)
