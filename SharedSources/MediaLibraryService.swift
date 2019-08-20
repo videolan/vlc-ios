@@ -116,13 +116,12 @@ class MediaLibraryService: NSObject {
     // identification of observing object
     private var observers = [ObjectIdentifier: Observer]()
 
-    private var medialib: VLCMediaLibrary!
+    private lazy var medialib = VLCMediaLibrary()
 
     weak var migrationDelegate: MediaLibraryMigrationDelegate?
 
     override init() {
         super.init()
-        medialib = VLCMediaLibrary()
         medialib.delegate = self
         setupMediaLibrary()
         NotificationCenter.default.addObserver(self, selector: #selector(reload),
