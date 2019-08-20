@@ -27,10 +27,10 @@ class VLCAudioViewController: VLCMediaViewController {
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         return [
-            VLCArtistCategoryViewController(services),
-            VLCAlbumCategoryViewController(services),
-            VLCTrackCategoryViewController(services),
-            VLCGenreCategoryViewController(services)
+            ArtistCategoryViewController(services),
+            AlbumCategoryViewController(services),
+            TrackCategoryViewController(services),
+            GenreCategoryViewController(services)
         ]
     }
 }

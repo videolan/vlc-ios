@@ -289,7 +289,7 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
             play(media: media, at: indexPath)
             createSpotlightItem(media: media)
         } else if let mediaCollection = modelContent as? MediaCollectionModel {
-            let collectionViewController = VLCCollectionCategoryViewController(services, mediaCollection: mediaCollection)
+            let collectionViewController = CollectionCategoryViewController(services, mediaCollection: mediaCollection)
             navigationController?.pushViewController(collectionViewController, animated: true)
         }
     }
