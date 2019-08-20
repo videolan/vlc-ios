@@ -26,7 +26,7 @@ class PlaylistModel: MLBaseModel {
 
     required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
-        medialibrary.addObserver(self)
+        medialibrary.observable.addObserver(self)
         files = medialibrary.playlists()
     }
 

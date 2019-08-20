@@ -37,7 +37,7 @@ class CollectionModel: MLBaseModel {
         self.mediaCollection = mediaCollection
         files = mediaCollection.files() ?? []
         sortModel = mediaCollection.sortModel() ?? SortModel([.default])
-        medialibrary.addObserver(self)
+        medialibrary.observable.addObserver(self)
     }
 
     func append(_ item: VLCMLMedia) {
