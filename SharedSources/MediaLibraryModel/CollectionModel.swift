@@ -1,5 +1,5 @@
 /*****************************************************************************
- * MediaLibraryBaseModel.swift
+ * CollectionModel.swift
  *
  * Copyright © 2019 VLC authors and VideoLAN
  *
