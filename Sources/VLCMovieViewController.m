@@ -516,12 +516,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL isIphone = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone);
     if (!isIphone) {
         _multiSelectionView.showsEqualizer = YES;
-        return;
+    } else {
+        BOOL isLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
+        _multiSelectionView.showsEqualizer = isLandscape;
     }
-    
-    BOOL isLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
-    _multiSelectionView.showsEqualizer = isLandscape;
-    
+
     multiSelectionFrame = (CGRect){CGPointMake(0., 0.), [_multiSelectionView proposedDisplaySize]};
     multiSelectionFrame.origin.x = controllerPanelFrame.size.width - multiSelectionFrame.size.width;
     multiSelectionFrame.origin.y = controllerPanelFrame.origin.y - multiSelectionFrame.size.height;
