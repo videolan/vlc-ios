@@ -1949,10 +1949,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [_vpc switchAspectRatio:YES];
 }
 
-- (void)didToggleInterfaceLock:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
-    [self toggleUILock];
-}
-
 - (void)didToggleRepeat:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
     [self toggleRepeatMode];
 }

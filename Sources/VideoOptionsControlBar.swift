@@ -15,7 +15,6 @@ protocol VideoOptionsControlBarDelegate: class {
     func didToggleRepeat(_ optionsBar: VideoOptionsControlBar)
     func didSelectSubtitle(_ optionsBar: VideoOptionsControlBar)
     func didSelectMoreOptions(_ optionsBar: VideoOptionsControlBar)
-    func didToggleInterfaceLock(_ optionsBar: VideoOptionsControlBar)
 }
 
 @objc (VLCVideoOptionsControlBar)
@@ -90,16 +89,6 @@ protocol VideoOptionsControlBarDelegate: class {
         return rptButton
     }()
     
-    lazy var interfaceLockButton: UIButton = {
-        var interfaceLockButton = UIButton(type: .system)
-        interfaceLockButton.setImage(UIImage(named: "interfaceLock"), for: .normal)
-        interfaceLockButton.addTarget(self, action: #selector(toggleInterfaceLock), for: .touchUpInside)
-        interfaceLockButton.tintColor = .white
-        interfaceLockButton.accessibilityHint = NSLocalizedString("INTERFACE_LOCK_HINT", comment: "")
-        interfaceLockButton.accessibilityLabel = NSLocalizedString("INTERFACE_LOCK_BUTTON", comment: "")
-        return interfaceLockButton
-    }()
-    
     lazy var moreOptionsButton: UIButton = {
         var moreOptionsButton = UIButton(type: .system)
         moreOptionsButton.setImage(UIImage(named: "iconMoreOptions"), for: .normal)
@@ -119,7 +108,6 @@ protocol VideoOptionsControlBarDelegate: class {
         addArrangedSubview(toggleFullScreenButton)
         addArrangedSubview(selectSubtitleButton)
         addArrangedSubview(repeatButton)
-        addArrangedSubview(interfaceLockButton)
         addArrangedSubview(moreOptionsButton)
         axis = .horizontal
         spacing = 32
@@ -147,10 +135,6 @@ protocol VideoOptionsControlBarDelegate: class {
     
     func toggleRepeat() {
         delegate?.didToggleRepeat(self)
-    }
-    
-    func toggleInterfaceLock() {
-        delegate?.didToggleInterfaceLock(self)
     }
 }
 
