@@ -223,6 +223,10 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
         if isSearching {
             searchBar.endEditing(true)
             delegate?.enableCategorySwitching(for: self, enable: true)
+            // End search if scrolled and the textfield is empty
+            if let searchBarText = searchBar.text, searchBarText.isEmpty {
+                searchBarCancelButtonClicked(searchBar)
+            }
             return
         }
 
