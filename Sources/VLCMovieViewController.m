@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCMediaNavigationBarDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -1936,20 +1936,5 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self presentViewController:_moreOptionsActionSheet animated:false completion:^{
         self->_moreOptionsActionSheet.interfaceDisabled = self->_interfaceIsLocked;
     }];
-}
-
-#pragma mark - VLCMediaNavigationBarDelegate
-
-- (void)mediaNavigationBarDidTapMinimize:(VLCMediaNavigationBar * _Nonnull)mediaNavigationBar {
-    [_delegate movieViewControllerDidSelectMinimize:self];
-}
-
-- (void)mediaNavigationBarDidLongPressMinimize:(VLCMediaNavigationBar * _Nonnull)mediaNavigationBar {
-    [self closePlayback:mediaNavigationBar.minimizePlaybackButton];
-}
-
-- (void)mediaNavigationBarDidToggleChromeCast:(VLCMediaNavigationBar * _Nonnull)mediaNavigationBar {
-    // TODO: Add current renderer functionality to chromeCast Button
-    NSAssert(0, @"didToggleChromeCast not implemented");
 }
 @end

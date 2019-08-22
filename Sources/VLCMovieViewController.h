@@ -85,5 +85,6 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 - (void)toggleChapterAndTitleSelector;
 - (void)hideMenu;
 - (void)toggleMoreOptionsActionSheet;
+- (void)closePlayback:(id)sender;
 
 @end

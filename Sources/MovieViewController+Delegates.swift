@@ -9,7 +9,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-
 extension VLCMovieViewController: VideoOptionsControlBarDelegate {
 
     func videoOptionsControlBarDidToggleFullScreen(_ optionsBar: VideoOptionsControlBar) {
@@ -33,5 +32,20 @@ extension VLCMovieViewController: VideoOptionsControlBarDelegate {
 extension VLCMovieViewController: MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
         toggleUILock()
+    }
+}
+
+extension VLCMovieViewController: MediaNavigationBarDelegate {
+    func mediaNavigationBarDidTapMinimize(_ mediaNavigationBar: MediaNavigationBar) {
+        delegate.movieViewControllerDidSelectMinimize(self)
+    }
+
+    func mediaNavigationBarDidLongPressMinimize(_ mediaNavigationBar: MediaNavigationBar) {
+        closePlayback(mediaNavigationBar.minimizePlaybackButton)
+    }
+
+    func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar) {
+        // TODO: Add current renderer functionality to chromeCast Button
+        assertionFailure("Renderer (toggleChromeCast) not implemented")
     }
 }
