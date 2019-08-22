@@ -11,10 +11,10 @@
 
 @objc (VLCVideoOptionsControlBarDelegate)
 protocol VideoOptionsControlBarDelegate: class {
-    func didToggleFullScreen(_ optionsBar: VideoOptionsControlBar)
-    func didToggleRepeat(_ optionsBar: VideoOptionsControlBar)
-    func didSelectSubtitle(_ optionsBar: VideoOptionsControlBar)
-    func didSelectMoreOptions(_ optionsBar: VideoOptionsControlBar)
+    func videoOptionsControlBarDidToggleFullScreen(_ optionsBar: VideoOptionsControlBar)
+    func videoOptionsControlBarDidToggleRepeat(_ optionsBar: VideoOptionsControlBar)
+    func videoOptionsControlBarDidSelectSubtitle(_ optionsBar: VideoOptionsControlBar)
+    func videoOptionsControlBarDidSelectMoreOptions(_ optionsBar: VideoOptionsControlBar)
 }
 
 @objc (VLCVideoOptionsControlBar)
@@ -33,12 +33,6 @@ protocol VideoOptionsControlBarDelegate: class {
     var subtitleToggled: Bool = false {
         didSet {
             selectSubtitleButton.tintColor = subtitleToggled ? .orange : .white
-        }
-    }
-    
-    var interfaceDisabled: Bool = false {
-        didSet {
-            interfaceLockButton.tintColor = interfaceDisabled ? .orange : .white
         }
     }
     
@@ -122,19 +116,19 @@ protocol VideoOptionsControlBarDelegate: class {
     
     // MARK: Button Actions
     func toggleFullscreen() {
-        delegate?.didToggleFullScreen(self)
+        delegate?.videoOptionsControlBarDidToggleFullScreen(self)
     }
     
     func selectSubtitle() {
-        delegate?.didSelectSubtitle(self)
+        delegate?.videoOptionsControlBarDidSelectSubtitle(self)
     }
     
     func selectMoreOptions() {
-        delegate?.didSelectMoreOptions(self)
+        delegate?.videoOptionsControlBarDidSelectMoreOptions(self)
     }
     
     func toggleRepeat() {
-        delegate?.didToggleRepeat(self)
+        delegate?.videoOptionsControlBarDidToggleRepeat(self)
     }
 }
 

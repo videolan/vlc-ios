@@ -62,6 +62,8 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *widthConstraint;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 
+@property (nonatomic, weak) VLCPlaybackController *vpc;
+
 @property (nonatomic, weak) id<VLCMovieViewControllerDelegate> delegate;
 
 - (instancetype)initWithServices:(VLCService *)services;
@@ -82,5 +84,6 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 - (void)toggleUILock;
 - (void)toggleChapterAndTitleSelector;
 - (void)hideMenu;
+- (void)toggleMoreOptionsActionSheet;
 
 @end

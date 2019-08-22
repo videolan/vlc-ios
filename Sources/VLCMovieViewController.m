@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -103,8 +103,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCVideoOptionsControlBar *_videoOptionsControlBar;
     VLCMediaMoreOptionsActionSheet *_moreOptionsActionSheet;
     VLCMediaNavigationBar *_mediaNavigationBar;
-
-    VLCPlaybackController *_vpc;
 
     UIView *_sleepTimerContainer;
     UIDatePicker *_sleepTimeDatePicker;
@@ -1463,7 +1461,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     #if !NEW_UI
         _multiSelectionView.displayLock = _interfaceIsLocked;
     #else
-        _videoOptionsControlBar.interfaceDisabled = _interfaceIsLocked;
         _moreOptionsActionSheet.interfaceDisabled = _interfaceIsLocked;
     #endif
 }
@@ -1524,8 +1521,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [[VLCPlaybackController sharedInstance] toggleRepeatMode];
     #if !NEW_UI
         _multiSelectionView.repeatMode = [VLCPlaybackController sharedInstance].repeatMode;
-    #else
-        _videoOptionsControlBar.repeatMode = [VLCPlaybackController sharedInstance].repeatMode;
     #endif
 }
 
@@ -1933,24 +1928,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)playbackSpeedViewSleepTimerHit:(PlaybackSpeedView *)playbackSpeedView
 {
     [self showSleepTimer];
-}
-
-#pragma mark - VLCVideoOptionsControlBarDelegate
-
-- (void)didSelectMoreOptions:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
-    [self toggleMoreOptionsActionSheet];
-}
-
-- (void)didSelectSubtitle:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
-    NSAssert(0, @"didSelectSubtitle not implemented");
-}
-
-- (void)didToggleFullScreen:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
-    [_vpc switchAspectRatio:YES];
-}
-
-- (void)didToggleRepeat:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
-    [self toggleRepeatMode];
 }
 
 #pragma mark - VLCMediaMoreOptionsActionSheetDelegate
