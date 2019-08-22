@@ -12,6 +12,10 @@
  *****************************************************************************/
 
 #import "IASKAppSettingsViewController.h"
+
+@class MediaLibraryService;
 @interface VLCSettingsController : IASKAppSettingsViewController
+
+- (instancetype)initWithMediaLibraryService:(MediaLibraryService *)medialibraryService NS_DESIGNATED_INITIALIZER;
 
 @end

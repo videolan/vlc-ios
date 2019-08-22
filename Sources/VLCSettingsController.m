@@ -24,16 +24,18 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
 {
     VLCActionSheet *actionSheet;
     VLCSettingsSpecifierManager *specifierManager;
+    MediaLibraryService *_medialibraryService;
 }
 @end
 
 @implementation VLCSettingsController
 
-- (instancetype)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithMediaLibraryService:(MediaLibraryService *)medialibraryService
 {
-    self = [super initWithStyle:style];
+    self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
         [self setupUI];
+        _medialibraryService = medialibraryService;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
     }
 
@@ -182,6 +184,8 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     if (error == nil) {
         if (passcode != nil) {
             [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:nil];
+        } else {
+            [_medialibraryService reindexAllMediaForSpotlight];
         }
         //Set manually the value to enable/disable the UISwitch.
         [self filterCellsWithAnimation:YES];

@@ -295,6 +295,10 @@ extension MediaLibraryService {
         medialib.reload()
     }
 
+    @objc func reindexAllMediaForSpotlight() {
+        media(ofType: .video).forEach { $0.updateCoreSpotlightEntry() }
+        media(ofType: .audio).forEach { $0.updateCoreSpotlightEntry() }
+    }
     /// Returns number of *ALL* files(audio and video) present in the medialibrary database
     func numberOfFiles() -> Int {
         return (medialib.audioFiles()?.count ?? 0) + (medialib.videoFiles()?.count ?? 0)
