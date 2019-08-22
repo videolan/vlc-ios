@@ -87,6 +87,11 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
             updateButtonsFor(viewController)
         }
     }
+
+    func enableCategorySwitching(for viewController: MediaCategoryViewController, enable: Bool) {
+        scrollingEnabled(enable)
+    }
+
     // MARK: - PagerTabStripDataSource
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {

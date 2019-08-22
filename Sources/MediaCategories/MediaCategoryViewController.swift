@@ -15,6 +15,8 @@ import Foundation
 
 protocol MediaCategoryViewControllerDelegate: NSObjectProtocol {
     func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController)
+    func enableCategorySwitching(for viewController: MediaCategoryViewController,
+                               enable: Bool)
 }
 
 class MediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, IndicatorInfoProvider {
@@ -314,6 +316,7 @@ extension MediaCategoryViewController {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         reloadData()
         isSearching = true
+        delegate?.enableCategorySwitching(for: self, enable: false)
         searchBar.setShowsCancelButton(true, animated: true)
     }
 
@@ -324,11 +327,13 @@ extension MediaCategoryViewController {
         searchDataSource.shouldReloadFor(searchString: "")
         searchBar.setShowsCancelButton(false, animated: true)
         isSearching = false
+        delegate?.enableCategorySwitching(for: self, enable: true)
         reloadData()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        delegate?.enableCategorySwitching(for: self, enable: true)
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
