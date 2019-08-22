@@ -220,7 +220,9 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // This ensures that the search bar is always visible like a sticky while searching
-        guard !isSearching else {
+        if isSearching {
+            searchBar.endEditing(true)
+            delegate?.enableCategorySwitching(for: self, enable: true)
             return
         }
 
