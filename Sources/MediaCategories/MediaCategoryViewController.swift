@@ -103,6 +103,7 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
         searchBar.searchBarStyle = .minimal
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = NSLocalizedString("SEARCH", comment: "")
+        searchBar.backgroundColor = PresentationTheme.current.colors.background
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
         }
@@ -167,6 +168,7 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
 
     @objc func themeDidChange() {
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
+        searchBar.backgroundColor = PresentationTheme.current.colors.background
         editController.view.backgroundColor = PresentationTheme.current.colors.background
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -217,6 +219,11 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
     // MARK: - Edit
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // This ensures that the search bar is always visible like a sticky while searching
+        guard !isSearching else {
+            return
+        }
+
         searchBarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
         if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
             collectionView.contentInset = UIEdgeInsets(top: searchBarSize, left: 0, bottom: 0, right: 0)
