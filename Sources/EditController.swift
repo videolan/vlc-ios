@@ -169,7 +169,7 @@ extension EditController: EditToolbarDelegate {
     func editToolbarDidDelete(_ editToolbar: EditToolbar) {
         var objectsToDelete = [VLCMLObject]()
 
-        for indexPath in selectedCellIndexPaths {
+        for indexPath in selectedCellIndexPaths.sorted(by: { $0 > $1 }) {
             objectsToDelete.append(model.anyfiles[indexPath.row])
         }
 
