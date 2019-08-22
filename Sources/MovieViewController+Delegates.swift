@@ -26,6 +26,12 @@ extension VLCMovieViewController: VideoOptionsControlBarDelegate {
     }
 
     func videoOptionsControlBarDidSelectMoreOptions(_ optionsBar: VideoOptionsControlBar) {
-        self.toggleMoreOptionsActionSheet()
+        toggleMoreOptionsActionSheet()
+    }
+}
+
+extension VLCMovieViewController: MediaMoreOptionsActionSheetDelegate {
+    func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
+        toggleUILock()
     }
 }

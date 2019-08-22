@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCMediaNavigationBarDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -1931,19 +1931,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 }
 
 #pragma mark - VLCMediaMoreOptionsActionSheetDelegate
-
 - (void)toggleMoreOptionsActionSheet
 {
     [self presentViewController:_moreOptionsActionSheet animated:false completion:^{
         self->_moreOptionsActionSheet.interfaceDisabled = self->_interfaceIsLocked;
     }];
-}
-
-#pragma mark - VLCMediaMoreOptionsActionSheetDelegate
-
-- (void) mediaMoreOptionsActionSheetDidToggleInterfaceLockWithState:(BOOL)state
-{
-    [self toggleUILock];
 }
 
 #pragma mark - VLCMediaNavigationBarDelegate
