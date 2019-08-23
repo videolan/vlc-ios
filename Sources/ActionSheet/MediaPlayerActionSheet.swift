@@ -15,6 +15,9 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
     case equalizer
     case sleepTimer
     case interfaceLock
+    case audioTrack
+    case subtitleTrack
+    case chapter
 
     var description: String {
         switch self {
@@ -28,7 +31,31 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
             return NSLocalizedString("BUTTON_SLEEP_TIMER", comment: "")
         case .interfaceLock:
             return NSLocalizedString("INTERFACE_LOCK_BUTTON", comment: "")
+        case .audioTrack:
+            return NSLocalizedString("CHOOSE_AUDIO_TRACK", comment: "")
+        case .subtitleTrack:
+            return NSLocalizedString("CHOOSE_SUBTITLE_TRACK", comment: "")
+        case .chapter:
+            return NSLocalizedString("CHOOSE_CHAPTER", comment: "")
         }
+    }
+
+    static var moreOptionsCellIdentifiers: [MediaPlayerActionSheetCellIdentifier] {
+        return [
+            .filter,
+            .playback,
+            .equalizer,
+            .sleepTimer,
+            .interfaceLock
+        ]
+    }
+
+    static var subtitleCellIdentifiers: [MediaPlayerActionSheetCellIdentifier] {
+        return [
+            .audioTrack,
+            .subtitleTrack,
+            .chapter
+        ]
     }
 }
 

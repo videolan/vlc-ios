@@ -103,6 +103,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCVideoOptionsControlBar *_videoOptionsControlBar;
     VLCMediaMoreOptionsActionSheet *_moreOptionsActionSheet;
     VLCMediaNavigationBar *_mediaNavigationBar;
+    VLCSubtitleActionSheet *_subtitleActionSheet;
 
     VLCPlaybackController *_vpc;
 
@@ -180,6 +181,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         self.navigationController.navigationBar.hidden = YES;
         self.trackNameLabel.hidden = YES;
         [self setupMediaNavigationBar];
+        _subtitleActionSheet = [[VLCSubtitleActionSheet alloc] init];
     #endif
 
     _scrubHelpLabel.text = NSLocalizedString(@"PLAYBACK_SCRUB_HELP", nil);
@@ -1941,7 +1943,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 }
 
 - (void)didSelectSubtitle:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
-    NSAssert(0, @"didSelectSubtitle not implemented");
+    [self showSubtitleActionSheet];
 }
 
 - (void)didToggleFullScreen:(VLCVideoOptionsControlBar * _Nonnull)optionsBar {
@@ -1986,4 +1988,12 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     // TODO: Add current renderer functionality to chromeCast Button
     NSAssert(0, @"didToggleChromeCast not implemented");
 }
+
+#pragma mark - VLCSubtitleActionSheet
+
+- (void)showSubtitleActionSheet
+{
+    [self presentViewController:_subtitleActionSheet animated:NO completion:nil];
+}
+
 @end

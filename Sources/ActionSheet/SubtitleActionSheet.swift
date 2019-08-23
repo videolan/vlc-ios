@@ -9,25 +9,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-enum SubtitleActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
-    case audioTrack
-    case subtitleTrack
-    case chapter
-
-    var description: String {
-        switch self {
-        case .audioTrack:
-            return NSLocalizedString("CHOOSE_AUDIO_TRACK", comment: "")
-        case .subtitleTrack:
-            return NSLocalizedString("CHOOSE_SUBTITLE_TRACK", comment: "")
-        case .chapter:
-            return NSLocalizedString("CHOOSE_CHAPTER", comment: "")
-        }
-    }
-}
-
 @objc (VLCSubtitleActionSheet)
-@objcMembers class SubtitleActionSheet: MediaPlayerActionSheet {
+class SubtitleActionSheet: MediaPlayerActionSheet {
 
     override init() {
         super.init()
@@ -50,13 +33,14 @@ extension SubtitleActionSheet: MediaPlayerActionSheetDataSource {
     var configurableCellModels: [ActionSheetCellModel] {
         var models = [ActionSheetCellModel]()
 
-        SubtitleActionSheetCellIdentifier.allCases.forEach {
+        MediaPlayerActionSheetCellIdentifier.subtitleCellIdentifiers.forEach {
             let v = UIView(frame: offScreenFrame)
             v.backgroundColor = .blue
             let cellModel = ActionSheetCellModel(
                 title: $0.description,
                 imageIdentifier: $0.rawValue,
-                viewToPresent: v
+                viewToPresent: v,
+                cellIdentifier: $0
             )
             models.append(cellModel)
         }

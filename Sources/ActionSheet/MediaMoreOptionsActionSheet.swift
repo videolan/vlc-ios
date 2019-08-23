@@ -74,7 +74,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
 
     var configurableCellModels: [ActionSheetCellModel] {
         var models: [ActionSheetCellModel] = []
-        MediaPlayerActionSheetCellIdentifier.allCases.forEach {
+        MediaPlayerActionSheetCellIdentifier.moreOptionsCellIdentifiers.forEach {
             let cellModel = ActionSheetCellModel(
                 title: String(describing: $0),
                 imageIdentifier: $0.rawValue,
