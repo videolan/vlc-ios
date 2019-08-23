@@ -199,6 +199,10 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
     }
 
     func updateUIForContent() {
+        if isSearching {
+            return
+        }
+
         let isEmpty = isEmptyCollectionView()
         if isEmpty {
             collectionView?.setContentOffset(.zero, animated: false)
