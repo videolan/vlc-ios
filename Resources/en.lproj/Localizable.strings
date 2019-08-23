@@ -382,3 +382,6 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* SubtitleActionSheet */
+"SUBTITLES_AND_AUDIO_HEADER" = "Subtitle and Audio Tracks";
