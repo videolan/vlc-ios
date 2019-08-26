@@ -1,5 +1,14 @@
 # Changelog
 
+## iOS [3.2.0]
+· We completely overhauled the UI for a more intuitive, easy to use and up to date look
+· We also moved to a new Medialibrary and with that added Audio subcategories like Album, Genre, Artist and Songs
+· Your folders have now become playlists and have their own tab
+· A feature that many asked for ships with this new version: Sorting!
+· Prefer light over dark mode or dark over light. Just choose your favorite in the settings
+· Fix a bluetooth Audio drop issue
+· For SMB2 we added support for NTLM anonymous login and port specification
+
 ## tvOS [3.0.6]
 
 · Fix SMB 2 issue
