@@ -90,20 +90,7 @@
 
 - (void)checkIsAudioOnly:(VLCMediaPlayer *)mediaPlayer
 {
-    if (!self.isAudioOnly) {
-        /* either what we are playing is not a file known to MLKit or
-         * MLKit fails to acknowledge that it is audio-only.
-         * Either way, do a more expensive check to see if it is really audio-only */
-        NSArray *tracks = mediaPlayer.media.tracksInformation;
-        NSUInteger trackCount = tracks.count;
-        self.isAudioOnly = YES;
-        for (NSUInteger x = 0 ; x < trackCount; x++) {
-            if ([[tracks[x] objectForKey:VLCMediaTracksInformationType] isEqualToString:VLCMediaTracksInformationTypeVideo]) {
-                self.isAudioOnly = NO;
-                break;
-            }
-        }
-    }
+    _isAudioOnly = mediaPlayer.numberOfVideoTracks == 0;
 }
 
 - (void)fillFromMetaDict:(VLCMediaPlayer *)mediaPlayer
