@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCFileServerView.swift
+ * FileServerView.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -12,14 +12,16 @@
 
 import Foundation
 
-@objc protocol VLCFileServerViewDelegate: NSObjectProtocol {
+@objc(VLCFileServerViewDelegate)
+protocol FileServerViewDelegate: NSObjectProtocol {
 
     func connectToServer()
 }
 
-class VLCFileServerView: UIView {
+@objc(VLCFileServerView)
+class FileServerView: UIView {
 
-    @objc weak var delegate: VLCFileServerViewDelegate?
+    @objc weak var delegate: FileServerViewDelegate?
     lazy var connectButton: UIButton = {
         let connectButton = UIButton(type: .system)
         connectButton.setTitle(NSLocalizedString("BUTTON_CONNECT", comment: ""), for: .normal)
