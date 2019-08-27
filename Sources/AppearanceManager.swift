@@ -41,6 +41,9 @@ class AppearanceManager: NSObject {
         UISearchBar.appearance().barTintColor = .white
 
         UITabBar.appearance().tintColor = theme.colors.orangeUI
+        if #available(iOS 10.0, *) {
+            UITabBar.appearance().unselectedItemTintColor = theme.colors.cellDetailTextColor
+        }
 
         UIPageControl.appearance().backgroundColor = theme.colors.background
         UIPageControl.appearance().pageIndicatorTintColor = .lightGray
