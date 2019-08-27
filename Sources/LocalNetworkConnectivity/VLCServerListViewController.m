@@ -96,6 +96,7 @@
     _localNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _localNetworkTableView.rowHeight = [VLCNetworkListCell heightOfCell];
     _localNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _localNetworkTableView.estimatedRowHeight = [VLCNetworkListCell heightOfCell];
 
     [self.navigationController.navigationBar setTranslucent:NO];
     self.navigationController.view.backgroundColor = PresentationTheme.current.colors.background;
