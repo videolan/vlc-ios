@@ -16,7 +16,10 @@
 #import "VLCCloudServicesTVViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCRemotePlaybackViewController.h"
-#import <HockeySDK/HockeySDK.h>
+
+#import <AppCenter/AppCenter.h>
+#import <AppCenterAnalytics/AppCenterAnalytics.h>
+#import <AppCenterCrashes/AppCenterCrashes.h>
 
 @interface AppleTVAppDelegate ()
 {
@@ -61,11 +64,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    BITHockeyManager *hockeyManager = [BITHockeyManager sharedHockeyManager];
-    [hockeyManager configureWithIdentifier:@"f8697706993b44bba1c03cb7016cc325"];
-
-    // Configure the SDK in here only!
-    [hockeyManager startManager];
+    [MSAppCenter start:@"f8697706-993b-44bb-a1c0-3cb7016cc325" withServices:@[
+                                                                              [MSAnalytics class],
+                                                                              [MSCrashes class]
+                                                                              ]];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _localNetworkVC = [[VLCServerListTVViewController alloc] initWithNibName:nil bundle:nil];

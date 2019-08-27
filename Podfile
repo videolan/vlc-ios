@@ -10,6 +10,7 @@ def shared_pods
   pod 'VLC-WhiteRaccoon'
   pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/Mikanbu/dropbox-sdk-obj-c.git' #update ios platform version
 
+  pod 'AppCenter', '2.3.0'
   # debug
   pod 'SwiftLint', '~> 0.25.0', :configurations => ['Debug']
 end
@@ -19,7 +20,6 @@ target 'VLC-iOS' do
   shared_pods
   pod 'OBSlider', '1.1.0'
   pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
-  pod 'HockeySDK', '~>5.1.4', :subspecs => ['CrashOnlyLib']
   pod 'PAPasscode', '~>1.0'
   pod 'GoogleAPIClientForREST/Drive'
   pod 'MobileVLCKit', '3.3.3'
@@ -38,12 +38,11 @@ target 'VLC-iOS' do
 end
 
 target 'VLC-tvOS' do
-  platform :tvos, '10.2'
+  platform :tvos, '11.0'
   shared_pods
   pod 'MetaDataFetcherKit', '~>0.3.1'
   pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
   pod 'GRKArrayDiff', '~> 2.1'
-  pod 'HockeySDK-tvOS', '~>5.1.0'
   pod 'TVVLCKit', '3.3.3'
 end
 

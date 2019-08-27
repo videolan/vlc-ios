@@ -25,7 +25,6 @@
 #import "VLCPlaybackService.h"
 #import "VLCPlaybackService+MediaLibrary.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import <HockeySDK/HockeySDK.h>
 #import "VLCActivityManager.h"
 #import "VLCDropboxConstants.h"
 #import "VLCPlaybackNavigationController.h"
@@ -33,6 +32,10 @@
 #import "VLC-Swift.h"
 #import <OneDriveSDK.h>
 #import "VLCOneDriveConstants.h"
+
+#import <AppCenter/AppCenter.h>
+#import <AppCenterAnalytics/AppCenterAnalytics.h>
+#import <AppCenterCrashes/AppCenterCrashes.h>
 
 #define BETA_DISTRIBUTION 1
 
@@ -96,12 +99,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    BITHockeyManager *hockeyManager = [BITHockeyManager sharedHockeyManager];
-    [hockeyManager configureWithBetaIdentifier:@"0114ca8e265244ce588d2ebd035c3577"
-                                liveIdentifier:@"c95f4227dff96c61f8b3a46a25edc584"
-                                      delegate:nil];
-    [hockeyManager startManager];
-
+    [MSAppCenter start:@"0114ca8e-2652-44ce-588d-2ebd035c3577" withServices:@[
+                                                                              [MSAnalytics class],
+                                                                              [MSCrashes class]
+                                                                              ]];
     // Configure Dropbox
     [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
 
