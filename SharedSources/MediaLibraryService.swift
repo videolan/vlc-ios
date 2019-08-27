@@ -161,7 +161,7 @@ private extension MediaLibraryService {
                                                             thumbnailPath: thumbnailPath)
 
         switch medialibraryStatus {
-        case .success:
+        case .success, .dbReset:
             guard medialib.start() else {
                 assertionFailure("MediaLibraryService: Medialibrary failed to start.")
                 return
@@ -172,9 +172,6 @@ private extension MediaLibraryService {
             assertionFailure("MediaLibraryService: Medialibrary already initialized.")
         case .failed:
             preconditionFailure("MediaLibraryService: Failed to setup medialibrary.")
-        case .dbReset:
-            // should still start and discover but warn the user that the db has been wipped
-            assertionFailure("MediaLibraryService: The database was resetted, please re-configure.")
         @unknown default:
             assertionFailure("MediaLibraryService: unhandled case")
         }
