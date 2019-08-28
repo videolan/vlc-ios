@@ -315,7 +315,7 @@
                 self->_lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
             }
 
-            CGFloat progress = (CGFloat)weakFetcher.downloadedLength / (CGFloat)[file.size unsignedLongValue];
+            CGFloat progress = (CGFloat)totalBytesWritten / (CGFloat)[file.size unsignedLongValue];
             if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
                 [self.delegate currentProgressInformation:progress];
         };
