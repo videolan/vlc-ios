@@ -186,18 +186,23 @@ private extension MediaLibraryService {
             return
         }
         migrationDelegate?.medialibraryDidStartMigration(self)
-        guard migrateToNewMediaLibrary() else {
-            migrationDelegate?.medialibraryDidStopMigration(self)
-            return
-        }
 
-        migrationDelegate?.medialibraryDidFinishMigration(self)
+        migrateToNewMediaLibrary() {
+            [unowned self] success in
+            if success {
+                self.migrationDelegate?.medialibraryDidFinishMigration(self)
+            } else {
+                self.migrationDelegate?.medialibraryDidStopMigration(self)
+            }
+        }
     }
 
-    func migrateMedia(_ oldMedialibrary: MLMediaLibrary) -> Bool {
+    func migrateMedia(_ oldMedialibrary: MLMediaLibrary,
+                      completionHandler: @escaping (Bool) -> Void) {
         guard let allFiles = MLFile.allFiles() as? [MLFile] else {
             assertionFailure("MediaLibraryService: Migration: Unable to retrieve all files")
-            return false
+            completionHandler(false)
+            return
         }
 
         for media in allFiles {
@@ -212,17 +217,22 @@ private extension MediaLibraryService {
                 }
             }
         }
-        oldMedialibrary.save()
-        return true
+
+        oldMedialibrary.save {
+            success in
+            completionHandler(success)
+        }
     }
 
     // This private method migrates old playlist and removes file and playlist
     // from the old medialibrary.
     // Note: This removes **only** files that are in a playlist
-    func migratePlaylists(_ oldMedialibrary: MLMediaLibrary) -> Bool {
+    func migratePlaylists(_ oldMedialibrary: MLMediaLibrary,
+                          completionHandler: @escaping (Bool) -> Void) {
         guard let allLabels = MLLabel.allLabels() as? [MLLabel] else {
             assertionFailure("MediaLibraryService: Migration: Unable to retrieve all labels")
-            return false
+            completionHandler(false)
+            return
         }
 
         for label in allLabels {
@@ -246,22 +256,39 @@ private extension MediaLibraryService {
             }
             oldMedialibrary.remove(label)
         }
-        oldMedialibrary.save()
-        return true
+        oldMedialibrary.save() {
+            success in
+            completionHandler(success)
+        }
     }
 
-    func migrateToNewMediaLibrary() -> Bool {
+    func migrateToNewMediaLibrary(completionHandler: @escaping (Bool) -> Void) {
         guard let oldMedialibrary = MLMediaLibrary.sharedMediaLibrary() as? MLMediaLibrary else {
             assertionFailure("MediaLibraryService: Migration: Unable to retrieve old medialibrary")
-            return false
+            completionHandler(false)
+            return
         }
 
-        if migrateMedia(oldMedialibrary) && migratePlaylists(oldMedialibrary) {
-            UserDefaults.standard.set(true, forKey: MediaLibraryService.migrationKey)
-            didMigrate = true
-            return true
+        migrateMedia(oldMedialibrary) {
+            [unowned self] success in
+
+            guard success else {
+                assertionFailure("MediaLibraryService: Failed to migrate Media.")
+                completionHandler(false)
+                return
+            }
+
+            self.migratePlaylists(oldMedialibrary) {
+                [unowned self] success in
+                if success {
+                    UserDefaults.standard.set(true, forKey: MediaLibraryService.migrationKey)
+                    self.didMigrate = true
+                } else {
+                    assertionFailure("MediaLibraryService: Failed to migrate Playlist.")
+                }
+                completionHandler(success)
+            }
         }
-        return false
     }
 }
 
