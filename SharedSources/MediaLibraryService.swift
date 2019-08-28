@@ -142,6 +142,15 @@ private extension MediaLibraryService {
         mediaFileDiscoverer?.startDiscovering()
     }
 
+    private func startMediaLibrary(on path: String) {
+        guard medialib.start() else {
+            assertionFailure("MediaLibraryService: Medialibrary failed to start.")
+            return
+        }
+        medialib.reload()
+        medialib.discover(onEntryPoint: "file://" + path)
+    }
+
     private func setupMediaLibrary() {
         guard let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first,
             let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first else {
@@ -152,29 +161,30 @@ private extension MediaLibraryService {
 
         let databasePath = libraryPath + "/MediaLibrary/" + MediaLibraryService.databaseName
         let thumbnailPath = libraryPath + "/MediaLibrary/Thumbnails"
+        let medialibraryPath = libraryPath + "/MediaLibrary/Internal"
+
+        _ = try? FileManager.default.removeItem(atPath: thumbnailPath)
 
         do {
-            try FileManager.default.createDirectory(atPath: thumbnailPath,
+            try FileManager.default.createDirectory(atPath: medialibraryPath,
                                                     withIntermediateDirectories: true)
         } catch let error as NSError {
             assertionFailure("Failed to create directory: \(error.localizedDescription)")
         }
 
         let medialibraryStatus = medialib.setupMediaLibrary(databasePath: databasePath,
-                                                            thumbnailPath: thumbnailPath)
+                                                            medialibraryPath: medialibraryPath)
 
         switch medialibraryStatus {
         case .success, .dbReset:
-            guard medialib.start() else {
-                assertionFailure("MediaLibraryService: Medialibrary failed to start.")
-                return
-            }
-            medialib.reload()
-            medialib.discover(onEntryPoint: "file://" + documentPath)
+            startMediaLibrary(on: documentPath)
         case .alreadyInitialized:
             assertionFailure("MediaLibraryService: Medialibrary already initialized.")
         case .failed:
             preconditionFailure("MediaLibraryService: Failed to setup medialibrary.")
+        case .dbCorrupted:
+            medialib.clearDatabase(restorePlaylists: true)
+            startMediaLibrary(on: documentPath)
         @unknown default:
             assertionFailure("MediaLibraryService: unhandled case")
         }
