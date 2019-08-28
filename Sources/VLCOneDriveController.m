@@ -24,6 +24,7 @@
 {
     NSMutableArray *_pendingDownloads;
     BOOL _downloadInProgress;
+    NSProgress *_progress;
 
     CGFloat _averageSpeed;
     CGFloat _fileSize;
@@ -35,6 +36,8 @@
 }
 
 @end
+
+static void *ProgressObserverContext = &ProgressObserverContext;
 
 @implementation VLCOneDriveController
 
@@ -374,7 +377,7 @@
 - (void)downloadODItem:(ODItem *)item
 {
     [self downloadStarted];
-    [[[_oneDriveClient.drive items:item.id] contentRequest]
+    ODURLSessionDownloadTask *task = [[[_oneDriveClient.drive items:item.id] contentRequest]
      downloadWithCompletion:^(NSURL *filePath, NSURLResponse *response, NSError *error) {
          if (error) {
              [self downloadFailedWithErrorDescription: error.localizedDescription];
@@ -396,6 +399,8 @@
              [self downloadEnded];
          });
      }];
+    task.progress.totalUnitCount = item.size;
+    [self showProgress:task.progress];
 }
 
 - (void)_triggerNextDownload
@@ -429,6 +434,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                         object:self];
 #endif
+    [self hideProgress];
     _downloadInProgress = NO;
     [self _triggerNextDownload];
 }
@@ -436,6 +442,20 @@
 - (void)downloadFailedWithErrorDescription:(NSString *)description
 {
     APLog(@"VLCOneDriveController: Download failed (%@)", description);
+}
+
+- (void)showProgress:(NSProgress *)progress
+{
+    _progress = progress;
+    [progress addObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) options:0 context:ProgressObserverContext];
+}
+
+- (void)hideProgress
+{
+    if (_progress) {
+        [_progress removeObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) context:ProgressObserverContext];
+        _progress = nil;
+    }
 }
 
 - (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
@@ -448,6 +468,18 @@
 {
     if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
         [self.delegate currentProgressInformation:progress];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == ProgressObserverContext) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSProgress *progress = object;
+            [self progressUpdatedTo:progress.fractionCompleted receivedDataSize:progress.completedUnitCount expectedDownloadSize:progress.totalUnitCount];
+        });
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (void)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
