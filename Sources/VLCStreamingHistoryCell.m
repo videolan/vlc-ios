@@ -23,11 +23,8 @@
 }
 
 - (void)customizeAppearance {
-    UIColor *blackColor = [UIColor blackColor];
     self.textLabel.textColor = [UIColor whiteColor];
-    self.textLabel.highlightedTextColor = blackColor;
     self.detailTextLabel.textColor = [UIColor VLCLightTextColor];
-    self.detailTextLabel.highlightedTextColor = blackColor;
 }
 
 - (void)renameStream:(id)sender {

@@ -33,10 +33,6 @@
     self.subtitleLabel.text = @"";
     self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
     self.downloadButton.hidden = YES;
-    self.titleLabel.highlightedTextColor = [UIColor blackColor];
-    self.folderTitleLabel.highlightedTextColor = [UIColor blackColor];
-    self.subtitleLabel.highlightedTextColor = [UIColor blackColor];
-    self.statusLabel.highlightedTextColor = [UIColor blackColor];
     [super awakeFromNib];
 }
 
