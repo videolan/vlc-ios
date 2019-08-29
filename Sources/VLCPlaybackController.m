@@ -19,7 +19,6 @@
 #import "VLCPlaybackController.h"
 #import "UIDevice+VLC.h"
 #import <AVFoundation/AVFoundation.h>
-#import "VLCPlayerDisplayController.h"
 #import "VLCRemoteControlService.h"
 #import "VLCMetadata.h"
 #if TARGET_OS_IOS
