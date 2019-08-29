@@ -120,7 +120,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UIButton *_rendererButton;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
-@property (nonatomic, strong) VLCService *services;
+@property (nonatomic, strong) VLCServices *services;
 @property (nonatomic, strong) VLCTimeNavigationTitleView *timeNavigationTitleView;
 @property (nonatomic, strong) IBOutlet PlayingExternallyView *playingExternalView;
 @property (nonatomic, strong) IBOutlet PlaybackSpeedView *playbackSpeedView;
@@ -137,11 +137,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [defaults registerDefaults:appDefaults];
 }
 
-- (instancetype)initWithServices:(VLCService *)services
+- (instancetype)initWithServices:(VLCServices *)services
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        NSAssert([services isKindOfClass:[VLCService class]], @"VLCPlayerDisplayController: Injected services class issue");
+        NSAssert([services isKindOfClass:[VLCServices class]], @"VLCPlayerDisplayController: Injected services class issue");
         _services = services;
     }
     return self;

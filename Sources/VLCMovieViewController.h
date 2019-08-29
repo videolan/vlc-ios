@@ -16,7 +16,7 @@
 #import "VLCPlaybackController.h"
 
 @class OBSlider;
-@class VLCService;
+@class VLCServices;
 @class VLCStatusLabel;
 @class VLCVerticalSwipeGestureRecognizer;
 @class VLCMovieViewControlPanelView;
@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 
 @property (nonatomic, weak) id<VLCMovieViewControllerDelegate> delegate;
 
-- (instancetype)initWithServices:(VLCService *)services;
+- (instancetype)initWithServices:(VLCServices *)services;
 
 - (IBAction)positionSliderAction:(id)sender;
 - (IBAction)positionSliderTouchDown:(id)sender;
