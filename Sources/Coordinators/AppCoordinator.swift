@@ -19,7 +19,7 @@ class Services: NSObject {
 @objc class AppCoordinator: NSObject {
     private var services = Services()
     private var childCoordinators: [NSObject] = []
-    private var playerController: VLCPlayerDisplayController
+    private var playerDisplayController: VLCPlayerDisplayController
     private var tabBarController: UITabBarController
     private lazy var tabBarCoordinator: VLCTabBarCoordinator = {
         return VLCTabBarCoordinator(tabBarController: tabBarController, services: services)
@@ -28,7 +28,7 @@ class Services: NSObject {
                                                                      bundle: nil)
 
     @objc init(tabBarController: UITabBarController) {
-        self.playerController = VLCPlayerDisplayController(services: services)
+        self.playerDisplayController = VLCPlayerDisplayController(services: services)
         self.tabBarController = tabBarController
         super.init()
         setupChildViewControllers()
@@ -41,14 +41,14 @@ class Services: NSObject {
     }
 
     private func setupChildViewControllers() {
-        tabBarController.addChild(playerController)
-        tabBarController.view.addSubview(playerController.view)
-        playerController.view.layoutMargins = UIEdgeInsets(top: 0,
+        tabBarController.addChild(playerDisplayController)
+        tabBarController.view.addSubview(playerDisplayController.view)
+        playerDisplayController.view.layoutMargins = UIEdgeInsets(top: 0,
                                                            left: 0,
                                                            bottom: tabBarController.tabBar.frame.size.height,
                                                            right: 0)
-        playerController.realBottomAnchor = tabBarController.tabBar.topAnchor
-        playerController.didMove(toParent: tabBarController)
+        playerDisplayController.realBottomAnchor = tabBarController.tabBar.topAnchor
+        playerDisplayController.didMove(toParent: tabBarController)
     }
 
     @objc func start() {
