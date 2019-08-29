@@ -34,6 +34,11 @@ class AppearanceManager: NSObject {
             UINavigationBar.appearance(whenContainedInInstancesOf: [VLCPlaybackNavigationController.self]).prefersLargeTitles = false
             UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.colors.navigationbarTextColor]
         }
+
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = theme.colors.mediaCategorySeparatorColor
+        UITableViewCell.appearance().selectedBackgroundView = selectedBackgroundView
+
         // For the edit selection indicators
         UITableView.appearance().tintColor = theme.colors.orangeUI
         UISegmentedControl.appearance().tintColor = theme.colors.orangeUI
