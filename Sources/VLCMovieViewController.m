@@ -141,7 +141,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        NSAssert([services isKindOfClass:[VLCServices class]], @"VLCPlayerDisplayController: Injected services class issue");
         _services = services;
     }
     return self;
