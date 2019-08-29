@@ -41,7 +41,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 @property (nonatomic, strong) UIViewController<VLCPlaybackControllerDelegate> *movieViewController;
 @property (nonatomic, strong) UIView<VLCPlaybackControllerDelegate, VLCMiniPlayer> *miniPlaybackView;
 @property (nonatomic, strong) NSLayoutConstraint *bottomConstraint;
-@property (nonatomic, strong) VLCService *services;
+@property (nonatomic, strong) VLCServices *services;
 @end
 
 @implementation VLCPlayerDisplayController
@@ -50,7 +50,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        NSAssert([services isKindOfClass:[VLCService class]], @"VLCPlayerDisplayController: Injected services class issue");
+        NSAssert([services isKindOfClass:[VLCServices class]], @"VLCPlayerDisplayController: Injected services class issue");
 
         _services = services;
 

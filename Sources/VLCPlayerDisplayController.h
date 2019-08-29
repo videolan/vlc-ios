@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 @class VLCPlaybackController;
-@class VLCService;
+@class VLCServices;
 
 typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
     VLCPlayerDisplayControllerDisplayModeFullscreen,
