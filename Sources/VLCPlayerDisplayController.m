@@ -16,7 +16,6 @@
 #import "VLCPlaybackController+MediaLibrary.h"
 #import "VLC-Swift.h"
 #if TARGET_OS_IOS
-#import "VLC-Swift.h"
 #import "VLCMovieViewController.h"
 #else
 #import "VLCFullscreenMovieTVViewController.h"
