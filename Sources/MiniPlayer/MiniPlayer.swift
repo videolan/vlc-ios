@@ -11,7 +11,7 @@
  *****************************************************************************/
 
 @objc(VLCMiniPlayer)
-protocol MiniPlayer: VLCMiniPlaybackViewInterface, VLCPlaybackControllerDelegate {
+protocol MiniPlayer: VLCMiniPlaybackViewInterface, VLCPlaybackServiceDelegate {
     var contentHeight: Float { get }
     func updatePlayPauseButton()
 }

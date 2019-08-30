@@ -13,7 +13,7 @@
 
 #import "VLCDropboxController.h"
 #import "NSString+SupportedMedia.h"
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCActivityManager.h"
 #import "VLCMediaFileDiscoverer.h"
 #import "VLCDropboxConstants.h"
@@ -276,7 +276,7 @@
             VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:result.link]];
             VLCMediaList *medialist = [[VLCMediaList alloc] init];
             [medialist addMedia:media];
-            [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+            [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
 #if TARGET_OS_TV
             if (self.lastKnownNavigationController) {
                 VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];

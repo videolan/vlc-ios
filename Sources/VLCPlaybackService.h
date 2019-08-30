@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCPlaybackController.h
+ * VLCPlaybackService.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
@@ -22,39 +22,41 @@ typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
 };
 
 NS_ASSUME_NONNULL_BEGIN
-extern NSString * const VLCPlaybackControllerPlaybackDidStart;
-extern NSString *const VLCPlaybackControllerPlaybackDidPause;
-extern NSString *const VLCPlaybackControllerPlaybackDidResume;
-extern NSString *const VLCPlaybackControllerPlaybackDidStop;
-extern NSString *const VLCPlaybackControllerPlaybackDidFail;
-extern NSString *const VLCPlaybackControllerPlaybackMetadataDidChange;
-extern NSString *const VLCPlaybackControllerPlaybackPositionUpdated;
+extern NSString *const VLCPlaybackServicePlaybackDidStart;
+extern NSString *const VLCPlaybackServicePlaybackDidPause;
+extern NSString *const VLCPlaybackServicePlaybackDidResume;
+extern NSString *const VLCPlaybackServicePlaybackDidStop;
+extern NSString *const VLCPlaybackServicePlaybackDidFail;
+extern NSString *const VLCPlaybackServicePlaybackMetadataDidChange;
+extern NSString *const VLCPlaybackServicePlaybackPositionUpdated;
 
-@class VLCPlaybackController;
+@class VLCPlaybackService;
 @class VLCMetaData;
 @class VLCDialogProvider;
 @class VLCMLMedia;
 
-@protocol VLCPlaybackControllerDelegate <NSObject>
+@protocol VLCPlaybackServiceDelegate <NSObject>
 #if TARGET_OS_IOS
-- (void)savePlaybackState:(VLCPlaybackController *)controller;
+- (void)savePlaybackState:(VLCPlaybackService *)playbackService;
 - (VLCMLMedia *_Nullable)mediaForPlayingMedia:(VLCMedia *)media;
 #endif
 @optional
-- (void)playbackPositionUpdated:(VLCPlaybackController *)controller;
+- (void)playbackPositionUpdated:(VLCPlaybackService *)playbackService;
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
                       isPlaying:(BOOL)isPlaying
 currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         currentMediaHasChapters:(BOOL)currentMediaHasChapters
-          forPlaybackController:(VLCPlaybackController *)controller;
-- (void)prepareForMediaPlayback:(VLCPlaybackController *)controller;
+             forPlaybackService:(VLCPlaybackService *)playbackService;
+- (void)prepareForMediaPlayback:(VLCPlaybackService *)playbackService;
 - (void)showStatusMessage:(NSString *)statusMessage;
-- (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata;
-- (void)playbackControllerDidSwitchAspectRatio:(VLCAspectRatio)aspectRatio;
+- (void)displayMetadataForPlaybackService:(VLCPlaybackService *)playbackService
+                                 metadata:(VLCMetaData *)metadata;
+- (void)playbackServiceDidSwitchAspectRatio:(VLCAspectRatio)aspectRatio;
 
 @end
 
-@interface VLCPlaybackController : NSObject <VLCEqualizerViewDelegate>
+NS_SWIFT_NAME(PlaybackService)
+@interface VLCPlaybackService : NSObject <VLCEqualizerViewDelegate>
 
 @property (nonatomic, strong, nullable) UIView *videoOutputView;
 
@@ -64,7 +66,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 @property (nonatomic, strong, readonly) VLCMedia *currentlyPlayingMedia;
 
-@property (nonatomic, weak) id<VLCPlaybackControllerDelegate> delegate;
+@property (nonatomic, weak) id<VLCPlaybackServiceDelegate> delegate;
 
 @property (nonatomic, readonly) VLCMediaPlayerState mediaPlayerState;
 @property (nonatomic, readonly) VLCMetaData *metadata;
@@ -110,7 +112,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 @property (nonatomic, nullable) VLCRendererItem *renderer;
 
-+ (VLCPlaybackController *)sharedInstance;
++ (VLCPlaybackService *)sharedInstance;
 - (VLCTime *)playedTime;
 #pragma mark - playback
 - (void)startPlayback;

@@ -14,7 +14,7 @@
 #import "VLCBoxCollectionViewController.h"
 #import "VLCBoxController.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCRemoteBrowsingTVCell+CloudStorage.h"
 
 @interface VLCBoxCollectionViewController () <VLCCloudStorageDelegate, NSURLConnectionDataDelegate>
@@ -161,7 +161,7 @@
         /* now ask VLC to stream the URL we were just passed */
         VLCMediaList *medialist = [[VLCMediaList alloc] init];
         [medialist addMedia:[VLCMedia mediaWithURL:theActualURL]];
-        [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+        [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
 
         VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
         [self presentViewController:movieVC

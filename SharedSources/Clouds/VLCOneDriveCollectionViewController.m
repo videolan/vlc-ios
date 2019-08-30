@@ -99,7 +99,7 @@
 
         VLCMediaList *medialist = [[VLCMediaList alloc] init];
         [medialist addMedia:[VLCMedia mediaWithURL:url]];
-        [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+        [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
 
         VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
         [self presentViewController:movieVC

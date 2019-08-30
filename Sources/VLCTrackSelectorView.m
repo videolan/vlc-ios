@@ -12,7 +12,7 @@
 
 #import "VLCTrackSelectorView.h"
 
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCTrackSelectorHeaderView.h"
 #import "VLCTrackSelectorTableViewCell.h"
 
@@ -84,7 +84,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     NSInteger sections = 0;
-    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *playbackController = [VLCPlaybackService sharedInstance];
 
     if (_switchingTracksNotChapters) {
         if([playbackController numberOfAudioTracks] > 2)
@@ -122,7 +122,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *playbackController = [VLCPlaybackService sharedInstance];
 
     if (_switchingTracksNotChapters) {
         if ([playbackController numberOfAudioTracks] > 2 && section == 0)
@@ -147,7 +147,7 @@
 
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
-    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *playbackController = [VLCPlaybackService sharedInstance];
 
     if (_switchingTracksNotChapters) {
         NSString *trackName;
@@ -196,7 +196,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *playbackController = [VLCPlaybackService sharedInstance];
 
     if (_switchingTracksNotChapters) {
         if ([playbackController numberOfAudioTracks] > 2 && section == 0)
@@ -215,7 +215,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSInteger index = indexPath.row;
-    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *playbackController = [VLCPlaybackService sharedInstance];
 
     if (_switchingTracksNotChapters) {
         if ([playbackController numberOfAudioTracks] > 2 && indexPath.section == 0) {

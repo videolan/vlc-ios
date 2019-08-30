@@ -207,7 +207,7 @@ class ElseCallbackURLHandler: NSObject, VLCURLHandler {
 extension VLCURLHandler {
     // TODO: This code should probably not live here
     func play(url: URL, sub: URL? = nil, completion: ((Bool) -> Void)?) {
-        let vpc = VLCPlaybackController.sharedInstance()
+        let vpc = PlaybackService.sharedInstance()
         vpc.fullscreenSessionRequested = true
         if let mediaList = VLCMediaList(array: [VLCMedia(url: url)]) {
             vpc.playMediaList(mediaList, firstIndex: 0, subtitlesFilePath: sub?.absoluteString, completion: completion)

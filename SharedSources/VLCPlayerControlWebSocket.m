@@ -20,31 +20,31 @@
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self
                            selector:@selector(playbackStarted)
-                               name:VLCPlaybackControllerPlaybackDidStart
+                               name:VLCPlaybackServicePlaybackDidStart
                              object:nil];
     [notificationCenter addObserver:self
                            selector:@selector(playbackStarted)
-                               name:VLCPlaybackControllerPlaybackDidResume
+                               name:VLCPlaybackServicePlaybackDidResume
                              object:nil];
     [notificationCenter addObserver:self
                            selector:@selector(_respondToPlaying)
-                               name:VLCPlaybackControllerPlaybackMetadataDidChange
+                               name:VLCPlaybackServicePlaybackMetadataDidChange
                              object:nil];
     [notificationCenter addObserver:self
                            selector:@selector(playbackPaused)
-                               name:VLCPlaybackControllerPlaybackDidPause
+                               name:VLCPlaybackServicePlaybackDidPause
                              object:nil];
     [notificationCenter addObserver:self
                            selector:@selector(playbackEnded)
-                               name:VLCPlaybackControllerPlaybackDidStop
+                               name:VLCPlaybackServicePlaybackDidStop
                              object:nil];
     [notificationCenter addObserver:self
                            selector:@selector(playbackEnded)
-                               name:VLCPlaybackControllerPlaybackDidFail
+                               name:VLCPlaybackServicePlaybackDidFail
                              object:nil];
     [notificationCenter addObserver:self
                            selector:@selector(playbackSeekTo)
-                               name:VLCPlaybackControllerPlaybackPositionUpdated
+                               name:VLCPlaybackServicePlaybackPositionUpdated
                              object:nil];
 
     APLog(@"web socket did open");
@@ -108,7 +108,7 @@
      }
      */
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSDictionary *returnDict;
 
     if (vpc.isPlaying) {
@@ -138,7 +138,7 @@
 
 - (void)_respondToPlay
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     [vpc play];
 }
 
@@ -150,7 +150,7 @@
         "currentTime": 42
      }
      */
-     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSDictionary *dict = @{ @"currentTime" : @([vpc playedTime].intValue),
                                   @"type" : @"play" };
     [self sendDataWithDict:dict];
@@ -161,7 +161,7 @@
 
 - (void)_respondToPause
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     [vpc pause];
 }
 
@@ -173,7 +173,7 @@
         "currentTime": 42,
      }
      */
-     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSDictionary *dict = @{ @"currentTime" : @([vpc playedTime].intValue),
                             @"type" : @"pause" };
     [self sendDataWithDict:dict];
@@ -181,7 +181,7 @@
 
 - (void)sendDataWithDict:(NSDictionary *)dict
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
 
     VLCMedia *media = [vpc currentlyPlayingMedia];
     if (media) {
@@ -199,7 +199,7 @@
 
 - (void)_respondToEnded
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     [vpc stopPlayback];
 }
 
@@ -224,7 +224,7 @@
         "type" = seekTo;
      }
      */
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
 
     VLCMedia *media = [vpc currentlyPlayingMedia];
     if (!media)
@@ -245,7 +245,7 @@
      }
      */
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     VLCMedia *media = [vpc currentlyPlayingMedia];
     NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString};
     NSDictionary *dict = @{ @"currentTime" : @([vpc playedTime].intValue),
@@ -265,7 +265,7 @@
      */
     BOOL needsMediaList = NO;
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     VLCMediaList *mediaList = vpc.mediaList;
     if (!mediaList) {
         needsMediaList = YES;

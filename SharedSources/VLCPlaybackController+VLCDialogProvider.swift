@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCPlaybackController+VLCDialogProvider.swift
+ * VLCPlaybackService+VLCDialogProvider.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -12,7 +12,7 @@
 
 import Foundation
 
-extension VLCPlaybackController: VLCCustomDialogRendererProtocol {
+extension PlaybackService: VLCCustomDialogRendererProtocol {
     public func showError(withTitle error: String, message: String) {
         //noop
     }

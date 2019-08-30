@@ -35,7 +35,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateMediaTitle)
-                                                 name:VLCPlaybackControllerPlaybackMetadataDidChange
+                                                 name:VLCPlaybackServicePlaybackMetadataDidChange
                                                object:nil];
 }
 
@@ -51,7 +51,7 @@
         self.metaDataLabel.textColor = darkColor;
     }
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     self.titleLabel.text = vpc.metadata.title;
 
     VLCMedia *media = [vpc currentlyPlayingMedia];
@@ -149,7 +149,7 @@
 
 - (void)updateMediaTitle
 {
-    self.titleLabel.text = [VLCPlaybackController sharedInstance].metadata.title;
+    self.titleLabel.text = [VLCPlaybackService sharedInstance].metadata.title;
 }
 
 @end

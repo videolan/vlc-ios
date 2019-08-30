@@ -11,12 +11,12 @@
 
 #import <UIKit/UIKit.h>
 
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCTransportBar.h"
 
 @class VLCNetworkImageView;
 
-@interface VLCFullscreenMovieTVViewController : UIViewController <VLCPlaybackControllerDelegate>
+@interface VLCFullscreenMovieTVViewController : UIViewController <VLCPlaybackServiceDelegate>
 
 @property (readwrite, nonatomic, weak) IBOutlet UIView *movieView;
 

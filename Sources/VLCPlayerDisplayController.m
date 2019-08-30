@@ -11,9 +11,9 @@
  *****************************************************************************/
 
 #import "VLCPlayerDisplayController.h"
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCPlaybackNavigationController.h"
-#import "VLCPlaybackController+MediaLibrary.h"
+#import "VLCPlaybackService+MediaLibrary.h"
 #import "VLC-Swift.h"
 #if TARGET_OS_IOS
 #import "VLCMovieViewController.h"
@@ -37,8 +37,8 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 @end
 
 @interface VLCPlayerDisplayController () <VLCMovieViewControllerDelegate>
-@property (nonatomic, strong) UIViewController<VLCPlaybackControllerDelegate> *movieViewController;
-@property (nonatomic, strong) UIView<VLCPlaybackControllerDelegate, VLCMiniPlayer> *miniPlaybackView;
+@property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *movieViewController;
+@property (nonatomic, strong) UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer> *miniPlaybackView;
 @property (nonatomic, strong) NSLayoutConstraint *bottomConstraint;
 @property (nonatomic, strong) VLCServices *services;
 @end
@@ -54,9 +54,9 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
         _services = services;
 
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        [notificationCenter addObserver:self selector:@selector(playbackDidStart:) name:VLCPlaybackControllerPlaybackDidStart object:nil];
-        [notificationCenter addObserver:self selector:@selector(playbackDidFail:) name:VLCPlaybackControllerPlaybackDidFail object:nil];
-        [notificationCenter addObserver:self selector:@selector(playbackDidStop:) name:VLCPlaybackControllerPlaybackDidStop object:nil];
+        [notificationCenter addObserver:self selector:@selector(playbackDidStart:) name:VLCPlaybackServicePlaybackDidStart object:nil];
+        [notificationCenter addObserver:self selector:@selector(playbackDidFail:) name:VLCPlaybackServicePlaybackDidFail object:nil];
+        [notificationCenter addObserver:self selector:@selector(playbackDidStop:) name:VLCPlaybackServicePlaybackDidStop object:nil];
         [[NSUserDefaults standardUserDefaults] registerDefaults:@{VLCPlayerDisplayControllerDisplayModeKey : @(VLCPlayerDisplayControllerDisplayModeFullscreen)}];
     }
     return self;
@@ -80,14 +80,14 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     [[NSUserDefaults standardUserDefaults] setInteger:displayMode forKey:VLCPlayerDisplayControllerDisplayModeKey];
 }
 
-- (VLCPlaybackController *)playbackController {
+- (VLCPlaybackService *)playbackController {
     if (_playbackController == nil) {
-        _playbackController = [VLCPlaybackController sharedInstance];
+        _playbackController = [VLCPlaybackService sharedInstance];
     }
     return _playbackController;
 }
 
-- (UIViewController<VLCPlaybackControllerDelegate> *)movieViewController
+- (UIViewController<VLCPlaybackServiceDelegate> *)movieViewController
 {
     if (!_movieViewController) {
 #if TARGET_OS_IOS
@@ -236,7 +236,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 
 - (void)_presentMovieViewControllerAnimated:(BOOL)animated
 {
-    UIViewController<VLCPlaybackControllerDelegate> *movieViewController = self.movieViewController;
+    UIViewController<VLCPlaybackServiceDelegate> *movieViewController = self.movieViewController;
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:movieViewController];
     [movieViewController prepareForMediaPlayback:self.playbackController];
 
@@ -256,8 +256,8 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
         return;
     }
 
-    VLCPlaybackController *playbackController = [VLCPlaybackController sharedInstance];
-    UIView<VLCPlaybackControllerDelegate, VLCMiniPlayer> *miniPlaybackView = self.miniPlaybackView;
+    VLCPlaybackService *playbackController = [VLCPlaybackService sharedInstance];
+    UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer> *miniPlaybackView = self.miniPlaybackView;
     const NSTimeInterval animationDuration = 0.25;
     const BOOL activePlaybackSession = playbackController.isPlaying || playbackController.willPlay || playbackController.playerIsSetup;
     const BOOL miniPlayerVisible = miniPlaybackView.visible;
@@ -291,7 +291,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     } else if (needsHide) {
         miniPlaybackView.visible = NO;
         completionBlock = ^(BOOL finished) {
-            UIView<VLCPlaybackControllerDelegate, VLCMiniPlayer> *miniPlaybackView = self.miniPlaybackView;
+            UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer> *miniPlaybackView = self.miniPlaybackView;
             if (miniPlaybackView.visible == NO) {
                 [miniPlaybackView removeFromSuperview];
                 self.miniPlaybackView = nil;

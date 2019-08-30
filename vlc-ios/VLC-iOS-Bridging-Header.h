@@ -14,7 +14,7 @@
 #import "VLCDownloadViewController.h"
 #import "VLCEmptyLibraryView.h"
 #import "VLCOpenNetworkStreamViewController.h"
-#import "VLCPlaybackController+MediaLibrary.h"
+#import "VLCPlaybackService+MediaLibrary.h"
 #import "VLCPlaybackNavigationController.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCServerListViewController.h"

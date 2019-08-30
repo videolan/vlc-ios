@@ -18,7 +18,7 @@
 #import "VLCServerListViewController.h"
 #import "VLCLocalServerDiscoveryController.h"
 
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCNetworkListCell.h"
 #import "VLCNetworkLoginViewController.h"
 #import "VLCNetworkServerBrowserViewController.h"
@@ -294,7 +294,7 @@
 
             VLCMediaList *medialist = [[VLCMediaList alloc] init];
             [medialist addMedia:[VLCMedia mediaWithURL:playbackURL]];
-            [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+            [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
             return;
         }
     }

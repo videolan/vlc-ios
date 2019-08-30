@@ -27,7 +27,7 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     @IBOutlet private weak var nextButton: UIButton!
 
     private var mediaService: MediaLibraryService
-    private lazy var playbackController = VLCPlaybackController.sharedInstance()
+    private lazy var playbackController = PlaybackService.sharedInstance()
 
     @objc init(service: MediaLibraryService) {
         self.mediaService = service
@@ -87,35 +87,35 @@ private extension AudioMiniPlayer {
     }
 }
 
-// MARK: - VLCPlaybackControllerDelegate
+// MARK: - VLCPlaybackServiceDelegate
 
 extension AudioMiniPlayer {
-    func prepare(forMediaPlayback controller: VLCPlaybackController) {
+    func prepare(forMediaPlayback playbackService: PlaybackService) {
         updatePlayPauseButton()
-        controller.delegate = self
-        controller.recoverDisplayedMetadata()
+        playbackService.delegate = self
+        playbackService.recoverDisplayedMetadata()
         // For now, AudioMiniPlayer will be used for all media
-        controller.videoOutputView = artworkImageView
+        playbackService.videoOutputView = artworkImageView
     }
 
     func mediaPlayerStateChanged(_ currentState: VLCMediaPlayerState,
                                  isPlaying: Bool,
                                  currentMediaHasTrackToChooseFrom: Bool,
                                  currentMediaHasChapters: Bool,
-                                 for controller: VLCPlaybackController) {
+                                 for playbackService: PlaybackService) {
         updatePlayPauseButton()
     }
 
-    func displayMetadata(for controller: VLCPlaybackController, metadata: VLCMetaData) {
+    func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {
         setMediaInfo(metadata)
     }
 
-    func playbackPositionUpdated(_ controller: VLCPlaybackController) {
-        progressBarView.progress = controller.playbackPosition
+    func playbackPositionUpdated(_ playbackService: PlaybackService) {
+        progressBarView.progress = playbackService.playbackPosition
     }
 
-    func savePlaybackState(_ controller: VLCPlaybackController) {
-        mediaService.savePlaybackState(from: controller)
+    func savePlaybackState(_ playbackService: PlaybackService) {
+        mediaService.savePlaybackState(from: playbackService)
     }
 
     func media(forPlaying media: VLCMedia) -> VLCMLMedia? {
