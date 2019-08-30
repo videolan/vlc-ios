@@ -106,7 +106,7 @@
 - (void)searchForMedia
 {
     [self startActivity];
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.osoFetcher.subtitleLanguageId = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
     [self.osoFetcher searchForSubtitlesWithQuery:vpc.metadata.title];
@@ -129,10 +129,10 @@
 - (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher subtitleDownloadSucceededForItem:(MDFSubtitleItem *)subtitleItem atPath:(NSString *)pathToFile
 {
     [self stopActivity];
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     [vpc openVideoSubTitlesFromFile:pathToFile];
     [self dismissViewControllerAnimated:YES completion:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:nil];
 }
 
 #pragma mark - table view datasource

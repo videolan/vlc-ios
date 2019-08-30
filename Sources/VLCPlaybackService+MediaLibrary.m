@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCPlaybackController+MediaLibrary.m
+ * VLCPlaybackService+MediaLibrary.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2015-2019 VideoLAN. All rights reserved.
@@ -11,11 +11,11 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCPlaybackController+MediaLibrary.h"
+#import "VLCPlaybackService+MediaLibrary.h"
 #import <VLCMediaLibraryKit/VLCMLFile.h>
 #import <VLCMediaLibraryKit/VLCMLMedia.h>
 
-@implementation VLCPlaybackController (MediaLibrary)
+@implementation VLCPlaybackService (MediaLibrary)
 
 - (void)playMediaAtIndex:(NSInteger)index fromCollection:(NSArray<VLCMLMedia *> *)collection
 {

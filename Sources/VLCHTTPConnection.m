@@ -389,7 +389,7 @@
      }
      */
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     if (!vpc.isPlaying) {
         return [[HTTPErrorResponse alloc] initWithErrorCode:404];
     }
@@ -459,7 +459,7 @@
      ...]
      */
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     if (!vpc.isPlaying || !vpc.mediaList) {
         return [[HTTPErrorResponse alloc] initWithErrorCode:404];
     }
@@ -579,7 +579,7 @@
 
     [_receivedFiles addObject:path];
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     VLCMediaList *mediaList = vpc.mediaList;
 
     if (!mediaList) {

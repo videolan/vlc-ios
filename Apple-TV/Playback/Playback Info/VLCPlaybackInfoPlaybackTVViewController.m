@@ -31,7 +31,7 @@
     return CGSizeMake(CGRectGetWidth(self.view.bounds), 200);
 }
 
-+ (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackController *)vpc
++ (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackService *)vpc
 {
     return [vpc isSeekable];
 }
@@ -86,7 +86,7 @@
 
 - (void)updateRateControl
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     float currentRate = vpc.playbackRate;
 
     NSInteger currentIndex = [self.possibleRates indexOfObjectPassingTest:^BOOL(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -100,13 +100,13 @@
 - (IBAction)rateControlChanged:(UISegmentedControl *)sender
 {
     float newRate = self.possibleRates[sender.selectedSegmentIndex].floatValue;
-    [VLCPlaybackController sharedInstance].playbackRate = newRate;
+    [VLCPlaybackService sharedInstance].playbackRate = newRate;
 }
 
 - (void)updateRepeatControl
 {
     NSUInteger selectedIndex;
-    VLCRepeatMode repeatMode = [VLCPlaybackController sharedInstance].repeatMode;
+    VLCRepeatMode repeatMode = [VLCPlaybackService sharedInstance].repeatMode;
     switch (repeatMode) {
         case VLCRepeatCurrentItem:
             selectedIndex = 1;
@@ -139,7 +139,7 @@
             break;
     }
 
-    [VLCPlaybackController sharedInstance].repeatMode = repeatMode;
+    [VLCPlaybackService sharedInstance].repeatMode = repeatMode;
 }
 
 @end

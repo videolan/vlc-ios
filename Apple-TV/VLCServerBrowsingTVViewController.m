@@ -12,7 +12,7 @@
 #import "VLCServerBrowsingTVViewController.h"
 #import "VLCRemoteBrowsingTVCell.h"
 #import "VLCPlayerDisplayController.h"
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCServerBrowsingController.h"
 #import "VLCMaskView.h"
 #import "GRKArrayDiff+UICollectionView.h"

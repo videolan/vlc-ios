@@ -11,7 +11,7 @@
 
 #import "VLCMetadata.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 
 #if TARGET_OS_IOS
 #import "VLC-Swift.h"
@@ -85,7 +85,7 @@
     self.playbackDuration = @(mediaPlayer.media.length.intValue / 1000.);
     self.playbackRate = @(mediaPlayer.rate);
     self.elapsedPlaybackTime = @(mediaPlayer.time.value.floatValue / 1000.);
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackControllerPlaybackMetadataDidChange object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
 }
 
 - (void)checkIsAudioOnly:(VLCMediaPlayer *)mediaPlayer

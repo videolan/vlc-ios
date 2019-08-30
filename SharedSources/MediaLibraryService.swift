@@ -324,7 +324,7 @@ extension MediaLibraryService {
         return medialib.media(withIdentifier: identifier)
     }
 
-    func savePlaybackState(from player: VLCPlaybackController) {
+    func savePlaybackState(from player: PlaybackService) {
 
         let media: VLCMedia? = player.currentlyPlayingMedia
         guard let mlMedia = fetchMedia(with: media?.url.absoluteURL) else {

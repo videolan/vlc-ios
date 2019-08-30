@@ -14,7 +14,7 @@
 #import "VLCOneDriveTableViewController.h"
 #import "VLCOneDriveController.h"
 #import "VLCCloudStorageTableViewCell.h"
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCProgressView.h"
 #import "UIDevice+VLC.h"
 #import "NSString+SupportedMedia.h"
@@ -170,7 +170,7 @@
         return;
     }
 
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     vpc.fullscreenSessionRequested = NO;
     [vpc playMediaList:mediaList firstIndex:startIndex subtitlesFilePath:subtitlesFilePath];
 }

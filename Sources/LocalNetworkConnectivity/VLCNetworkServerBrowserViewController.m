@@ -16,7 +16,7 @@
 #import "VLCNetworkListCell.h"
 #import "VLCActivityManager.h"
 #import "VLCStatusLabel.h"
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCDownloadViewController.h"
 
 #import "VLCNetworkServerBrowser-Protocol.h"

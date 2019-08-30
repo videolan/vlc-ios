@@ -15,7 +15,7 @@
 #import "VLCBoxController.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
 #import "UIDevice+VLC.h"
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLC-Swift.h"
 
 #if TARGET_OS_IOS
@@ -223,7 +223,7 @@
         VLCMedia *media = [VLCMedia mediaWithURL:theActualURL];
         VLCMediaList *medialist = [[VLCMediaList alloc] init];
         [medialist addMedia:media];
-        [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+        [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
     }
 
     return request;

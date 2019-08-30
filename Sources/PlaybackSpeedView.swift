@@ -30,7 +30,7 @@ class PlaybackSpeedView: VLCFrostedGlasView {
     @objc weak var delegate: PlaybackSpeedViewDelegate?
     private var sleepCountDownTimer: Timer?
 
-    let vpc = VLCPlaybackController.sharedInstance()
+    let vpc = PlaybackService.sharedInstance()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,7 +62,7 @@ class PlaybackSpeedView: VLCFrostedGlasView {
             options: nil).first as? PlaybackSpeedView
     }
 
-    @objc func prepareForMediaPlayback(controller: VLCPlaybackController) {
+    @objc func prepareForMediaPlayback(controller: PlaybackService) {
         let playbackRate = controller.playbackRate
         playbackSpeedSlider.value = log2(playbackRate)
         playbackSpeedIndicator.text = String(format: "%.2fx", playbackRate)

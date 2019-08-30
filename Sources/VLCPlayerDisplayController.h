@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-@class VLCPlaybackController;
+@class VLCPlaybackService;
 @class VLCServices;
 
 typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 @interface VLCPlayerDisplayController : UIViewController
 
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
-@property (nonatomic, weak) VLCPlaybackController *playbackController;
+@property (nonatomic, weak) VLCPlaybackService *playbackController;
 @property (nonatomic, strong) NSLayoutYAxisAnchor *realBottomAnchor;
 
 - (instancetype)init NS_UNAVAILABLE;

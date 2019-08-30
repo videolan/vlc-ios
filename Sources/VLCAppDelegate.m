@@ -22,8 +22,8 @@
 #import "NSString+SupportedMedia.h"
 #import "UIDevice+VLC.h"
 #import "VLCHTTPUploaderController.h"
-#import "VLCPlaybackController.h"
-#import "VLCPlaybackController+MediaLibrary.h"
+#import "VLCPlaybackService.h"
+#import "VLCPlaybackService+MediaLibrary.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <HockeySDK/HockeySDK.h>
 #import "VLCActivityManager.h"
@@ -160,7 +160,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     if (!media) return NO;
 
     [self validatePasscodeIfNeededWithCompletion:^{
-        [[VLCPlaybackController sharedInstance] playMedia:media];
+        [[VLCPlaybackService sharedInstance] playMedia:media];
     }];
     return YES;
 }
@@ -202,7 +202,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     }
     [self validatePasscodeIfNeededWithCompletion:^{
         //TODO: handle updating the videoview and
-        if ([VLCPlaybackController sharedInstance].isPlaying){
+        if ([VLCPlaybackService sharedInstance].isPlaying){
             //TODO: push playback
         }
     }];
@@ -214,7 +214,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     if (!_isComingFromHandoff) {
         [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
       //  [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
-        [[VLCPlaybackController sharedInstance] recoverDisplayedMetadata];
+        [[VLCPlaybackService sharedInstance] recoverDisplayedMetadata];
     } else if(_isComingFromHandoff) {
         _isComingFromHandoff = NO;
     }

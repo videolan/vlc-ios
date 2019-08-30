@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #import "VLCOpenNetworkStreamTVViewController.h"
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCPlayerDisplayController.h"
 #import "VLCFullscreenMovieTVViewController.h"
 #import "CAAnimation+VLCWiggle.h"
@@ -145,7 +145,7 @@
 
 - (void)_openURLStringAndDismiss:(NSString *)urlString
 {
-    VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:urlString]];
     VLCMediaList *medialist = [[VLCMediaList alloc] init];
     [medialist addMedia:media];

@@ -24,7 +24,7 @@
 #import "VLCMovieViewController.h"
 #import "VLCEqualizerView.h"
 #import "VLCMultiSelectionMenuView.h"
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCTimeNavigationTitleView.h"
 #import "VLCAppDelegate.h"
 #import "VLCStatusLabel.h"
@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackControllerDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackServiceDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoOptionsControlBarDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCMediaMoreOptionsActionSheet *_moreOptionsActionSheet;
     VLCMediaNavigationBar *_mediaNavigationBar;
 
-    VLCPlaybackController *_vpc;
+    VLCPlaybackService *_vpc;
 
     UIView *_sleepTimerContainer;
     UIDatePicker *_sleepTimeDatePicker;
@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     [super viewDidLoad];
 
-    _vpc = [VLCPlaybackController sharedInstance];
+    _vpc = [VLCPlaybackService sharedInstance];
 
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.edgesForExtendedLayout = UIRectEdgeAll;
@@ -198,7 +198,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                  object:nil];
     [center addObserver:self
                selector:@selector(playbackDidStop:)
-                   name:VLCPlaybackControllerPlaybackDidStop
+                   name:VLCPlaybackServicePlaybackDidStop
                  object:nil];
 
     self.artistNameLabel.text = self.albumNameLabel.text = @"";
@@ -234,7 +234,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self.view addSubview:_trackSelectorContainer];
 
     _equalizerView = [[VLCEqualizerView alloc] initWithFrame:CGRectMake(0, 0, 450., 240.)];
-    _equalizerView.delegate = [VLCPlaybackController sharedInstance];
+    _equalizerView.delegate = [VLCPlaybackService sharedInstance];
     _equalizerView.UIdelegate = self;
     _equalizerView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     _equalizerView.hidden = YES;
@@ -1176,7 +1176,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 #pragma mark - playback controller delegation
 
-- (void)playbackPositionUpdated:(VLCPlaybackController *)controller
+- (void)playbackPositionUpdated:(VLCPlaybackService *)controller
 {
     // FIXME: hard coded state since the state in mediaPlayer is incorrectly still buffering
     [self updateActivityIndicatorForState:VLCMediaPlayerStatePlaying];
@@ -1188,7 +1188,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self updateTimeDisplayButton];
 }
 
-- (void)prepareForMediaPlayback:(VLCPlaybackController *)controller
+- (void)prepareForMediaPlayback:(VLCPlaybackService *)controller
 {
     #if !NEW_UI
         self.trackNameLabel.text = @"";
@@ -1217,7 +1217,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                       isPlaying:(BOOL)isPlaying
 currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         currentMediaHasChapters:(BOOL)currentMediaHasChapters
-          forPlaybackController:(VLCPlaybackController *)controller
+          forPlaybackController:(VLCPlaybackService *)controller
 {
     [self updateActivityIndicatorForState:currentState];
 
@@ -1234,7 +1234,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     #endif
 }
 
-- (void)savePlaybackState:(VLCPlaybackController *)controller
+- (void)savePlaybackState:(VLCPlaybackService *)controller
 {
     [_services.medialibraryService savePlaybackStateFrom:controller];
 }
@@ -1263,7 +1263,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     _videoOptionsControlBar.isInFullScreen = aspectRatio == VLCAspectRatioFillToScreen;
 }
 
-- (void)displayMetadataForPlaybackController:(VLCPlaybackController *)controller metadata:(VLCMetaData *)metadata
+- (void)displayMetadataForPlaybackController:(VLCPlaybackService *)controller metadata:(VLCMetaData *)metadata
 {
     if (!_viewAppeared)
         return;
@@ -1520,11 +1520,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)toggleRepeatMode
 {
-    [[VLCPlaybackController sharedInstance] toggleRepeatMode];
+    [[VLCPlaybackService sharedInstance] toggleRepeatMode];
     #if !NEW_UI
-        _multiSelectionView.repeatMode = [VLCPlaybackController sharedInstance].repeatMode;
+        _multiSelectionView.repeatMode = [VLCPlaybackService sharedInstance].repeatMode;
     #else
-        _videoOptionsControlBar.repeatMode = [VLCPlaybackController sharedInstance].repeatMode;
+        _videoOptionsControlBar.repeatMode = [VLCPlaybackService sharedInstance].repeatMode;
     #endif
 }
 
@@ -1807,7 +1807,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (IBAction)videoDimensionAction:(id)sender
 {
     if (sender == self.timeNavigationTitleView.aspectRatioButton) {
-        [[VLCPlaybackController sharedInstance] switchAspectRatio:NO];
+        [[VLCPlaybackService sharedInstance] switchAspectRatio:NO];
     }
 }
 

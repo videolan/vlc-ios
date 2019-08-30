@@ -12,7 +12,7 @@
 #import "VLCRemoteBrowsingCollectionViewController.h"
 #import "VLCRemoteBrowsingTVCell.h"
 #import "VLCPlayerDisplayController.h"
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCServerBrowsingController.h"
 #import "VLCMaskView.h"
 

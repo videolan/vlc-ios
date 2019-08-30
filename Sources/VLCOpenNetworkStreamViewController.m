@@ -13,7 +13,7 @@
  *****************************************************************************/
 
 #import "VLCOpenNetworkStreamViewController.h"
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 #import "VLCStreamingHistoryCell.h"
 #import "UIDevice+VLC.h"
 #import "VLC-Swift.h"
@@ -377,7 +377,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:url]];
     VLCMediaList *medialist = [[VLCMediaList alloc] init];
     [medialist addMedia:media];
-    [[VLCPlaybackController sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:subtitlesURL.absoluteString];
+    [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:subtitlesURL.absoluteString];
 }
 
 - (NSURL *)_checkURLofSubtitle:(NSURL *)url

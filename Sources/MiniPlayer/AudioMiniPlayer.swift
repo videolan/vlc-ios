@@ -27,7 +27,7 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     @IBOutlet private weak var nextButton: UIButton!
 
     private var mediaService: MediaLibraryService
-    private lazy var playbackController = VLCPlaybackController.sharedInstance()
+    private lazy var playbackController = PlaybackService.sharedInstance()
 
     @objc init(service: MediaLibraryService) {
         self.mediaService = service
@@ -87,10 +87,10 @@ private extension AudioMiniPlayer {
     }
 }
 
-// MARK: - VLCPlaybackControllerDelegate
+// MARK: - VLCPlaybackServiceDelegate
 
 extension AudioMiniPlayer {
-    func prepare(forMediaPlayback controller: VLCPlaybackController) {
+    func prepare(forMediaPlayback controller: PlaybackService) {
         updatePlayPauseButton()
         controller.delegate = self
         controller.recoverDisplayedMetadata()
@@ -102,19 +102,19 @@ extension AudioMiniPlayer {
                                  isPlaying: Bool,
                                  currentMediaHasTrackToChooseFrom: Bool,
                                  currentMediaHasChapters: Bool,
-                                 for controller: VLCPlaybackController) {
+                                 for controller: PlaybackService) {
         updatePlayPauseButton()
     }
 
-    func displayMetadata(for controller: VLCPlaybackController, metadata: VLCMetaData) {
+    func displayMetadata(for controller: PlaybackService, metadata: VLCMetaData) {
         setMediaInfo(metadata)
     }
 
-    func playbackPositionUpdated(_ controller: VLCPlaybackController) {
+    func playbackPositionUpdated(_ controller: PlaybackService) {
         progressBarView.progress = controller.playbackPosition
     }
 
-    func savePlaybackState(_ controller: VLCPlaybackController) {
+    func savePlaybackState(_ controller: PlaybackService) {
         mediaService.savePlaybackState(from: controller)
     }
 

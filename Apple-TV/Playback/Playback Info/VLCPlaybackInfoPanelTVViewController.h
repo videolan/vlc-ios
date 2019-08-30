@@ -11,10 +11,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class VLCPlaybackController;
+@class VLCPlaybackService;
 @protocol VLCPlaybackInfoPanelTVViewController <NSObject>
 
-+ (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackController *)vpc;
++ (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackService *)vpc;
 
 @end
 

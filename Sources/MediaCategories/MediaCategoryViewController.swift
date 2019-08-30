@@ -531,7 +531,7 @@ private extension MediaCategoryViewController {
 extension MediaCategoryViewController {
 
     func play(media: VLCMLMedia, at indexPath: IndexPath) {
-        let playbackController = VLCPlaybackController.sharedInstance()
+        let playbackController = PlaybackService.sharedInstance()
         let autoPlayNextItem = UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem)
 
         playbackController.fullscreenSessionRequested = media.type() != .audio

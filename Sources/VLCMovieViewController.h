@@ -13,7 +13,7 @@
 
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCFrostedGlasView.h"
-#import "VLCPlaybackController.h"
+#import "VLCPlaybackService.h"
 
 @class OBSlider;
 @class VLCServices;
@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 - (BOOL)movieViewControllerShouldBeDisplayed:(VLCMovieViewController *)movieViewController;
 @end
 
-@interface VLCMovieViewController : UIViewController <UIActionSheetDelegate, VLCPlaybackControllerDelegate>
+@interface VLCMovieViewController : UIViewController <UIActionSheetDelegate, VLCPlaybackServiceDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *movieView;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
