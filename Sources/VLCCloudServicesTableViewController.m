@@ -175,7 +175,7 @@
         case 4:
             //Cloud Drives
             cell.icon.image = [UIImage imageNamed:@"iCloudCell"];
-            cell.lonesomeCloudTitle.text = NSLocalizedString(@"CLOUD_SERVICES", nil);
+            cell.lonesomeCloudTitle.text = @"iCloud";
             cell.cloudTitle.text = cell.cloudInformation.text = @"";
             break;
         default:
