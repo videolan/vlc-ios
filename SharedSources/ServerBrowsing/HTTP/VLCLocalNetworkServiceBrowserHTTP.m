@@ -62,7 +62,7 @@
 @implementation VLCLocalNetworkServiceHTTP
 
 - (UIImage *)icon {
-    return [UIImage imageNamed:@"vlc-sharing"];
+    return [UIImage imageNamed:@"WifiIcon"];
 }
 
 - (id<VLCNetworkServerBrowser>)serverBrowser {
