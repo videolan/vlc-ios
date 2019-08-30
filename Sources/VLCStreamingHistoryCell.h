@@ -20,6 +20,7 @@
 
 @property (weak, nonatomic) id<VLCStreamingHistoryCellMenuItemProtocol> delegate;
 
+- (void)renameStream:(id)sender;
 - (void)customizeAppearance;
 
 @end
