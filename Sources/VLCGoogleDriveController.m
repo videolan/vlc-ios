@@ -305,7 +305,6 @@
 
         // Fetcher logging can include comments.
         [fetcher setCommentWithFormat:@"Downloading \"%@\"", file.name];
-        __weak GTMSessionFetcher *weakFetcher = fetcher;
         _startDL = [NSDate timeIntervalSinceReferenceDate];
         fetcher.downloadProgressBlock = ^(int64_t bytesWritten,
                                           int64_t totalBytesWritten,
