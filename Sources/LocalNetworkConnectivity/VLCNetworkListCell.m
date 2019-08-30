@@ -15,6 +15,8 @@
 
 #import "VLCStatusLabel.h"
 
+#import "VLC-Swift.h"
+
 @implementation VLCNetworkListCell
 
 + (VLCNetworkListCell *)cellWithReuseIdentifier:(NSString *)ident
@@ -33,7 +35,18 @@
     self.subtitleLabel.text = @"";
     self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
     self.downloadButton.hidden = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange)
+                                                 name:kVLCThemeDidChangeNotification object:nil];
     [super awakeFromNib];
+}
+
+- (void)themeDidChange
+{
+    self.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+    self.titleLabel.backgroundColor = PresentationTheme.current.colors.background;
+    self.subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    self.subtitleLabel.backgroundColor = PresentationTheme.current.colors.background;
+    self.backgroundColor = PresentationTheme.current.colors.background;
 }
 
 - (void)setTitleLabelCentered:(BOOL)titleLabelCentered
