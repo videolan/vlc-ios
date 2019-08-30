@@ -1258,7 +1258,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                      }];
 }
 
-- (void) playbackControllerDidSwitchAspectRatio:(NSUInteger)aspectRatio
+- (void)playbackControllerDidSwitchAspectRatio:(VLCAspectRatio)aspectRatio
 {
     _videoOptionsControlBar.isInFullScreen = aspectRatio == VLCAspectRatioFillToScreen;
 }
