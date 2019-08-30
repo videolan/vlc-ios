@@ -161,6 +161,7 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
             // Either didn't start or stopped before
             manager.start()
         }
+        displayMiniPlayer()
         manager.presentingViewController = self
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
@@ -252,6 +253,8 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
 
         editController.resetSelections()
         displayEditToolbar()
+        displayMiniPlayer()
+
         let layoutToBe = editing ? editCollectionViewLayout : UICollectionViewFlowLayout()
         collectionView?.setCollectionViewLayout(layoutToBe, animated: false, completion: {
             [unowned self] finished in
@@ -262,6 +265,12 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
             self.searchBarConstraint?.constant = -self.searchBarSize
             self.reloadData()
         })
+    }
+
+    private func displayMiniPlayer() {
+        let playerDisplayController: VLCPlayerDisplayController = services.playerDisplayService
+        playerDisplayController.isEditing = isEditing
+        playerDisplayController.dismissPlaybackView()
     }
 
     private func displayEditToolbar() {
