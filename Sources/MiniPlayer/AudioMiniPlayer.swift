@@ -27,10 +27,12 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     @IBOutlet private weak var nextButton: UIButton!
 
     private var mediaService: MediaLibraryService
-    private lazy var playbackController = PlaybackService.sharedInstance()
+    private var playbackService: VLCPlaybackService
 
-    @objc init(service: MediaLibraryService) {
-        self.mediaService = service
+    @objc init(medialibraryService: MediaLibraryService,
+               playbackService: VLCPlaybackService) {
+        self.mediaService = medialibraryService
+        self.playbackService = playbackService
         super.init(frame: .zero)
         initView()
         setupConstraint()
@@ -41,7 +43,7 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     }
 
     func updatePlayPauseButton() {
-        let imageName = playbackController.isPlaying ? "MiniPause" : "MiniPlay"
+        let imageName = playbackService.isPlaying ? "MiniPause" : "MiniPlay"
         playPauseButton.imageView?.image = UIImage(named: imageName)
     }
 }
@@ -127,15 +129,15 @@ extension AudioMiniPlayer {
 
 private extension AudioMiniPlayer {
     @IBAction private func handlePrevious(_ sender: UIButton) {
-        playbackController.previous()
+        playbackService.previous()
     }
 
     @IBAction private func handlePlayPause(_ sender: UIButton) {
-        playbackController.playPause()
+        playbackService.playPause()
     }
 
     @IBAction private func handleNext(_ sender: UIButton) {
-        playbackController.next()
+        playbackService.next()
     }
 
     @IBAction private func handleFullScreen(_ sender: Any) {
@@ -148,9 +150,9 @@ private extension AudioMiniPlayer {
     @IBAction private func handleSwipe(_ sender: UISwipeGestureRecognizer) {
         switch sender.direction {
         case .right:
-            playbackController.previous()
+            playbackService.previous()
         case .left:
-            playbackController.next()
+            playbackService.next()
         default:
             break
         }
@@ -161,9 +163,9 @@ private extension AudioMiniPlayer {
         // case .began:
         // In the case of .began we could a an icon like the old miniplayer
         case .ended:
-            playbackController.stopPlayback()
+            playbackService.stopPlayback()
         case .cancelled, .failed:
-            playbackController.playPause()
+            playbackService.playPause()
             updatePlayPauseButton()
         default:
             break
@@ -171,7 +173,7 @@ private extension AudioMiniPlayer {
     }
 
     @IBAction private func handleDismiss(_ sender: UISwipeGestureRecognizer) {
-        playbackController.stopPlayback()
+        playbackService.stopPlayback()
     }
 }
 

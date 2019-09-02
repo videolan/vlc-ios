@@ -80,11 +80,11 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     [[NSUserDefaults standardUserDefaults] setInteger:displayMode forKey:VLCPlayerDisplayControllerDisplayModeKey];
 }
 
-- (VLCPlaybackService *)playbackController {
-    if (_playbackController == nil) {
-        _playbackController = [VLCPlaybackService sharedInstance];
+- (VLCPlaybackService *)playbackService {
+    if (_playbackService == nil) {
+        _playbackService = _services.playbackService
     }
-    return _playbackController;
+    return _playbackService;
 }
 
 - (UIViewController<VLCPlaybackServiceDelegate> *)movieViewController
@@ -96,7 +96,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 #else
         _movieViewController = [[VLCFullscreenMovieTVViewController alloc] initWithNibName:nil bundle:nil];
 #endif
-        self.playbackController.delegate = _movieViewController;
+        self.playbackService.delegate = _movieViewController;
     }
     return _movieViewController;
 }
@@ -108,7 +108,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL enforceFullscreen = [[defaults objectForKey:kVLCSettingVideoFullscreenPlayback] boolValue];
 
-    if (self.playbackController.fullscreenSessionRequested && enforceFullscreen) {
+    if (self.playbackService.fullscreenSessionRequested && enforceFullscreen) {
         [self showFullscreenPlayback];
         return;
     }
@@ -238,7 +238,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 {
     UIViewController<VLCPlaybackServiceDelegate> *movieViewController = self.movieViewController;
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:movieViewController];
-    [movieViewController prepareForMediaPlayback:self.playbackController];
+    [movieViewController prepareForMediaPlayback:self.playbackService];
 
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     [window.rootViewController presentViewController:navCon animated:animated completion:nil];
@@ -256,10 +256,9 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
         return;
     }
 
-    VLCPlaybackService *playbackController = [VLCPlaybackService sharedInstance];
     UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer> *miniPlaybackView = self.miniPlaybackView;
     const NSTimeInterval animationDuration = 0.25;
-    const BOOL activePlaybackSession = playbackController.isPlaying || playbackController.willPlay || playbackController.playerIsSetup;
+    const BOOL activePlaybackSession = _playbackService.isPlaying || _playbackService.willPlay || _playbackService.playerIsSetup;
     const BOOL miniPlayerVisible = miniPlaybackView.visible;
 
     BOOL needsShow = activePlaybackSession && !miniPlayerVisible;
@@ -274,7 +273,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
     if (needsShow) {
         if (!miniPlaybackView) {
             // Until VideoMiniPlayer is integrated, only AudioMiniPlayer is used.
-            self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithService:_services.medialibraryService];
+            self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithMedialibraryService:_services.medialibraryService playbackService:_services.playbackService];
             miniPlaybackView.translatesAutoresizingMaskIntoConstraints = NO;
             miniPlaybackView.userInteractionEnabled = YES;
             [self.view addSubview:miniPlaybackView];
@@ -303,7 +302,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
         [self.view addSubview:miniPlaybackView];
     }
     // either way update view
-    [miniPlaybackView prepareForMediaPlayback:playbackController];
+    [miniPlaybackView prepareForMediaPlayback:playbackService];
 
     if (needsShow || needsHide) {
         [UIView animateWithDuration:animationDuration

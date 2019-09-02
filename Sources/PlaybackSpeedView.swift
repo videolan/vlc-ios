@@ -30,7 +30,7 @@ class PlaybackSpeedView: VLCFrostedGlasView {
     @objc weak var delegate: PlaybackSpeedViewDelegate?
     private var sleepCountDownTimer: Timer?
 
-    let vpc = PlaybackService.sharedInstance()
+    private var playbackService: VLCPlaybackService
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,6 +43,15 @@ class PlaybackSpeedView: VLCFrostedGlasView {
         spuDelaySlider.accessibilityLabel = spuDelayLabel.text
         sleepTimerButton.setTitle(NSLocalizedString("BUTTON_SLEEP_TIMER", comment:""), for: .normal)
         sleepTimerButton.accessibilityLabel = sleepTimerButton.title(for: .normal)
+    }
+
+    init(playbackService: VLCPlaybackService) {
+        self.playbackService = playbackService
+        super.init()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     func xibSetup() {
@@ -79,8 +88,8 @@ class PlaybackSpeedView: VLCFrostedGlasView {
     @objc func updateSleepTimerButton() {
         var title = NSLocalizedString("BUTTON_SLEEP_TIMER", comment:"")
 
-        if vpc.sleepTimer.isValid {
-            let remainSeconds = vpc.sleepTimer.fireDate.timeIntervalSinceNow
+        if playbackService.sleepTimer.isValid {
+            let remainSeconds = playbackService.sleepTimer.fireDate.timeIntervalSinceNow
             let hour = remainSeconds / 3600
             let minute = (remainSeconds - hour * 3600) / 60
             let second = remainSeconds.truncatingRemainder(dividingBy: 60)
@@ -105,16 +114,16 @@ class PlaybackSpeedView: VLCFrostedGlasView {
     @IBAction func playbackSliderAction(sender: UISlider) {
         if sender == playbackSpeedSlider {
             let speed = exp2(sender.value)
-            vpc.playbackRate = speed
+            playbackService.playbackRate = speed
             playbackSpeedIndicator.text = String(format: "%.2fx", speed)
         } else if sender == audioDelaySlider {
             let delay = round(sender.value / 50) * 50
-            vpc.audioDelay = delay
+            playbackService.audioDelay = delay
             sender.setValue(delay, animated: false)
             audioDelayIndicator.text = String(format: "%.0f ms", delay)
         } else if sender == spuDelaySlider {
             let delay = round(sender.value / 50) * 50
-            vpc.subtitleDelay = delay
+            playbackService.subtitleDelay = delay
             sender.setValue(delay, animated: false)
             spuDelayIndicator.text = String(format: "%.0f ms", delay)
         }

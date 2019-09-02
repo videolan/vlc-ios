@@ -129,7 +129,7 @@ class VLCRendererDiscovererManager: NSObject {
 
     /// Add the given button to VLCRendererDiscovererManager.
     /// The button state will be handled by the manager.
-    ///
+    ///t
     /// - Returns: New `UIButton`
     @objc func setupRendererButton() -> UIButton {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))

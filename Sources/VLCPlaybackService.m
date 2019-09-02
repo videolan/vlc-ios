@@ -71,17 +71,17 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 #pragma mark instance management
 
-+ (VLCPlaybackService *)sharedInstance
-{
-    static VLCPlaybackService *sharedInstance = nil;
-    static dispatch_once_t pred;
-
-    dispatch_once(&pred, ^{
-        sharedInstance = [VLCPlaybackService new];
-    });
-
-    return sharedInstance;
-}
+//+ (VLCPlaybackService *)sharedInstance
+//{
+//    static VLCPlaybackService *sharedInstance = nil;
+//    static dispatch_once_t pred;
+//
+//    dispatch_once(&pred, ^{
+//        sharedInstance = [VLCPlaybackService new];
+//    });
+//
+//    return sharedInstance;
+//}
 
 - (void)dealloc
 {
