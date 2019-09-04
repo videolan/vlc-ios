@@ -173,6 +173,15 @@ extension EditController: EditToolbarDelegate {
             objectsToDelete.append(model.anyfiles[indexPath.row])
         }
 
+        var message = NSLocalizedString("DELETE_MESSAGE", comment: "")
+
+        // Check if we are deleting media inside a playlist
+        if let collectionModel = model as? CollectionModel {
+            if collectionModel.mediaCollection is VLCMLPlaylist {
+                message = NSLocalizedString("DELETE_MESSAGE_PLAYLIST", comment: "")
+            }
+        }
+
         let cancelButton = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""))
         let deleteButton = VLCAlertButton(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
                                           style: .destructive,
@@ -183,7 +192,7 @@ extension EditController: EditToolbarDelegate {
         })
 
         VLCAlertViewController.alertViewManager(title: NSLocalizedString("DELETE_TITLE", comment: ""),
-                                                errorMessage: NSLocalizedString("DELETE_MESSAGE", comment: ""),
+                                                errorMessage: message,
                                                 viewController: (UIApplication.shared.keyWindow?.rootViewController)!,
                                                 buttonsAction: [cancelButton,
                                                                 deleteButton])
