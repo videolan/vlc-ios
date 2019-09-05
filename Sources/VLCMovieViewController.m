@@ -367,17 +367,17 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
 - (void)setupConstraints
 {
-    NSArray *hConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[panel]|"
-                                                                    options:0
-                                                                    metrics:nil
-                                                                      views:@{@"panel":_controllerPanel}];
+    NSArray *controlPanelHorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[panel]|"
+                                                                                      options:0
+                                                                                      metrics:nil
+                                                                                        views:@{@"panel":_controllerPanel}];
 
-    NSArray *vConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[panel]|"
+    NSArray *controlPanelVerticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[panel]|"
                                                                     options:0
                                                                     metrics:nil
                                                                       views:@{@"panel":_controllerPanel}];
-    [self.view addConstraints:hConstraints];
-    [self.view addConstraints:vConstraints];
+    [self.view addConstraints:controlPanelHorizontalConstraints];
+    [self.view addConstraints:controlPanelVerticalConstraints];
 
     //constraint within _trackSelectorContainer is setting it's height to the tableviews contentview
     NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_trackSelectorContainer attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:2.0/3.0 constant:0];
