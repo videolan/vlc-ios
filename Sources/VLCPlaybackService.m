@@ -45,7 +45,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     int _itemInMediaListToBePlayedFirst;
     NSTimer *_sleepTimer;
 
-    NSUInteger _currentAspectRatio;
     BOOL _isInFillToScreen;
     NSUInteger _previousAspectRatio;
     
