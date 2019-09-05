@@ -66,6 +66,8 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 {
     self.view = [[VLCUntouchableView alloc] initWithFrame:self.view.frame];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
+    [[VLCPlaybackService sharedInstance] setPlayerDisplayController:self];
 }
 
 #pragma mark - properties

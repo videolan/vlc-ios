@@ -34,6 +34,7 @@ extern NSString *const VLCPlaybackServicePlaybackPositionUpdated;
 @class VLCMetaData;
 @class VLCDialogProvider;
 @class VLCMLMedia;
+@class VLCPlayerDisplayController;
 
 @protocol VLCPlaybackServiceDelegate <NSObject>
 #if TARGET_OS_IOS
@@ -149,6 +150,8 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)recoverPlaybackState;
 
 - (BOOL)isPlayingOnExternalScreen;
+
+- (void)setPlayerDisplayController:(VLCPlayerDisplayController *)playerDisplayController;
 
 - (void)setNeedsMetadataUpdate;
 - (void)scheduleSleepTimerWithInterval:(NSTimeInterval)timeInterval;

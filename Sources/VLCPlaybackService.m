@@ -21,6 +21,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "VLCRemoteControlService.h"
 #import "VLCMetadata.h"
+#import "VLCPlayerDisplayController.h"
+
 #if TARGET_OS_IOS
 #import "VLC-Swift.h"
 #endif
@@ -62,6 +64,8 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     NSMutableArray *_shuffleStack;
     void (^_playbackCompletion)(BOOL success);
+
+    VLCPlayerDisplayController *_playerDisplayController;
 }
 
 @end
@@ -1271,4 +1275,13 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     _renderer = renderer;
     [_mediaPlayer setRendererItem:_renderer];
 }
+
+
+#pragma mark - PlayerDisplayController
+
+- (void)setPlayerDisplayController:(VLCPlayerDisplayController *)playerDisplayController
+{
+    _playerDisplayController = playerDisplayController;
+}
+
 @end
