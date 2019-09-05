@@ -118,6 +118,9 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     CGSize _screenPixelSize;
     UIInterfaceOrientation _lockedOrientation;
     UIButton *_rendererButton;
+
+    NSLayoutConstraint *_movieViewLeadingConstraint;
+    NSLayoutConstraint *_movieViewTrailingConstraint;
 }
 @property (nonatomic, strong) VLCMovieViewControlPanelView *controllerPanel;
 @property (nonatomic, strong) VLCServices *services;
@@ -214,12 +217,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     rect.origin.y = rect.origin.y + 5.;
     self.resetVideoFilterButton.frame = rect;
 
-    if (@available(iOS 11.0, *)) {
-        [self.movieView setAccessibilityIgnoresInvertColors:YES];
-    }
-    [self.movieView setAccessibilityIdentifier:@"Video Player Title"];
-    [self.movieView setAccessibilityLabel:NSLocalizedString(@"VO_VIDEOPLAYER_TITLE", nil)];
-    [self.movieView setAccessibilityHint:NSLocalizedString(@"VO_VIDEOPLAYER_DOUBLETAP", nil)];
+    [self setupMovieView];
 
     _trackSelectorContainer = [[VLCTrackSelectorView alloc] initWithFrame:CGRectZero];
     _trackSelectorContainer.hidden = YES;
@@ -248,6 +246,30 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     [self setupConstraints];
     [self setupRendererDiscovererManager];
+}
+
+- (void)setupMovieView
+{
+    _movieView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    if (@available(iOS 11.0, *)) {
+        [self.movieView setAccessibilityIgnoresInvertColors:YES];
+    }
+
+    _movieViewLeadingConstraint = [_movieView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor];
+    _movieViewTrailingConstraint = [_movieView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
+
+    [NSLayoutConstraint
+     activateConstraints:@[
+                           _movieViewLeadingConstraint,
+                           _movieViewTrailingConstraint,
+                           [_movieView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+                           [_movieView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+                           ]];
+
+    [self.movieView setAccessibilityIdentifier:@"Video Player Title"];
+    [self.movieView setAccessibilityLabel:NSLocalizedString(@"VO_VIDEOPLAYER_TITLE", nil)];
+    [self.movieView setAccessibilityHint:NSLocalizedString(@"VO_VIDEOPLAYER_DOUBLETAP", nil)];
 }
 
 - (void) setupMultiSelectionView
@@ -504,6 +526,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     manager.delegate = self;
     if ([_vpc isPlayingOnExternalScreen]) {
          [self showOnDisplay:_playingExternalView.displayView];
+    }
+
+    if (@available(iOS 11.0, *)) {
+        [self adaptMovieViewToNotch];
     }
 }
 
@@ -1260,6 +1286,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void) playbackServiceDidSwitchAspectRatio:(VLCAspectRatio)aspectRatio
 {
     _videoOptionsControlBar.isInFullScreen = aspectRatio == VLCAspectRatioFillToScreen;
+    [self adaptMovieViewToNotch];
 }
 
 - (void)displayMetadataForPlaybackService:(VLCPlaybackService *)playbackService
@@ -1728,6 +1755,25 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 }
 
+- (void)adaptMovieViewToNotch
+{
+    // 30.0 represents the exact size of the notch
+    CGFloat constant = _vpc.currentAspectRatio != VLCAspectRatioFillToScreen ? 30.0 : 0.0;
+
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+
+    if (orientation == UIDeviceOrientationLandscapeLeft
+        || orientation == UIDeviceOrientationLandscapeRight) {
+        [_movieViewLeadingConstraint setConstant:constant];
+        [_movieViewTrailingConstraint setConstant:-constant];
+    } else {
+        // Reset when in portrait
+        [_movieViewLeadingConstraint setConstant:0];
+        [_movieViewTrailingConstraint setConstant:0];
+    }
+    [_movieView layoutIfNeeded];
+}
+
 - (void)doubleTapRecognized:(UITapGestureRecognizer *)tapRecognizer
 {
     if (!_seekGestureEnabled)
@@ -1851,6 +1897,9 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
             if (!self->_equalizerView.hidden)
                 self->_equalizerView.hidden = YES;
+
+            // Make sure we have the correct constraint upon rotation for 'notch' devices.
+            [self adaptMovieViewToNotch];
         } completion:nil];
     }
 }
