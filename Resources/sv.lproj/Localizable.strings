@@ -285,8 +285,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Tryck på %@ för att radera"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Bekräfta att markerade filer ska raderas";
-"DELETE_TITLE" = "Radera markerade filer";
+"DELETE_MESSAGE" = "Bekräfta om markeringen ska raderas";
+"DELETE_MESSAGE_PLAYLIST" = "Bekräfta om markeringen ska raderas från spellistan\nMediaobjekten kommer inte att raderas";
+"DELETE_TITLE" = "Radera markering";
 
 //Drag and Drop
 "THIS_FILE" = "Denna fil";
@@ -371,10 +372,14 @@
 "VARIOUS_ARTIST" = "Blandade artister";
 "UNKNOWN_ALBUM" = "Okänt album";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Lås gränssnitt";
 "INTERFACE_LOCK_HINT" = "Inaktivera gränssnittskontroller";
 "MORE_OPTIONS_BUTTON" = "Mer";
 "MORE_OPTIONS_HINT" = "Visa fler kontrollalternativ";
 "REPEAT_MODE_HINT" = "Ändra upprepningsläget för aktuellt objekt";
 "VIDEO_ASPECT_RATIO_HINT" = "Ändra bildförhållandet för aktuell video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Videoalternativ";
