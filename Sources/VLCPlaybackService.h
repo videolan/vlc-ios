@@ -151,6 +151,7 @@ NS_SWIFT_NAME(PlaybackService)
 
 - (BOOL)isPlayingOnExternalScreen;
 
+- (void)setPlayerHidden:(BOOL)hidden;
 - (void)setPlayerDisplayController:(VLCPlayerDisplayController *)playerDisplayController;
 
 - (void)setNeedsMetadataUpdate;

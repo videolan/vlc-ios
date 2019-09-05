@@ -1284,4 +1284,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     _playerDisplayController = playerDisplayController;
 }
 
+- (void)setPlayerHidden:(BOOL)hidden
+{
+    [_playerDisplayController setEditing:hidden];
+    [_playerDisplayController dismissPlaybackView];
+}
+
 @end

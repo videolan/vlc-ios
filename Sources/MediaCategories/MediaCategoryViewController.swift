@@ -161,6 +161,9 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
             // Either didn't start or stopped before
             manager.start()
         }
+
+        PlaybackService.sharedInstance().setPlayerHidden(isEditing)
+
         manager.presentingViewController = self
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
@@ -252,6 +255,9 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
 
         editController.resetSelections()
         displayEditToolbar()
+
+        PlaybackService.sharedInstance().setPlayerHidden(editing)
+
         let layoutToBe = editing ? editCollectionViewLayout : UICollectionViewFlowLayout()
         collectionView?.setCollectionViewLayout(layoutToBe, animated: false, completion: {
             [unowned self] finished in
