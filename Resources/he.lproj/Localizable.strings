@@ -285,8 +285,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "לחץ על %@ למחיקה"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "יש לאשר את מחיקת הקבצים הנבחרים";
-"DELETE_TITLE" = "מחיקת הקבצים הנבחרים";
+"DELETE_MESSAGE" = "אישור מחיקת הבחירה";
+"DELETE_MESSAGE_PLAYLIST" = "נא לאשר את מחיקת הבחירה מרשימת הנגינה\nפרטי המדיה לא נמחקים";
+"DELETE_TITLE" = "מחיקת הבחירה";
 
 //Drag and Drop
 "THIS_FILE" = "הקובץ הזה";
@@ -371,10 +372,14 @@
 "VARIOUS_ARTIST" = "מגוון אמנים";
 "UNKNOWN_ALBUM" = "אלבום לא ידוע";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "נעילת המנשק";
 "INTERFACE_LOCK_HINT" = "השבתת פקדי מנשק";
 "MORE_OPTIONS_BUTTON" = "עוד";
 "MORE_OPTIONS_HINT" = "הצגת פקדים לאפשרויות נוספות";
 "REPEAT_MODE_HINT" = "להחליף את מצב החזרה של הפריט הנוכחי";
 "VIDEO_ASPECT_RATIO_HINT" = "להחליף את יחס התצוגה של הסרטון הנוכחי";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "אקולייזר";
+"MORE_OPTIONS_HEADER_TITLE" = "אפשרויות וידאו";
