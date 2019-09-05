@@ -285,8 +285,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Silmek için %@ Üzerine Dokunun"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Seçilmiş dosyaları silmek istiyor musunuz";
-"DELETE_TITLE" = "Seçilmiş Dosyaları Sil";
+"DELETE_MESSAGE" = "Seçimi silmek istiyor musunuz?";
+"DELETE_MESSAGE_PLAYLIST" = "Oynatma listesindeki seçimi silmek istediğinizi onaylayın\nOrtam ögeleri silinmeyecek";
+"DELETE_TITLE" = "Seçimi Sil";
 
 //Drag and Drop
 "THIS_FILE" = "Bu dosya";
@@ -371,10 +372,14 @@
 "VARIOUS_ARTIST" = "Çeşitli Sanatçılar";
 "UNKNOWN_ALBUM" = "Albüm Bilinmiyor";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Arayüzü kilitle";
 "INTERFACE_LOCK_HINT" = "Arayüz denetimlerini devre dışı bırak";
 "MORE_OPTIONS_BUTTON" = "Diğerleri";
 "MORE_OPTIONS_HINT" = "Diğer seçenek denetimlerini görüntüle";
 "REPEAT_MODE_HINT" = "Geçerli ögenin yinelenme kipini değiştir";
 "VIDEO_ASPECT_RATIO_HINT" = "Geçerli görüntünün en boy oranını değiştir";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Dengeleyici";
+"MORE_OPTIONS_HEADER_TITLE" = "Görüntü Ayarları";
