@@ -285,8 +285,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Pre vymazanie stlačte %@"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Potvrďte vymazanie vybraných súborov";
-"DELETE_TITLE" = "Vymazať vybrané súbory";
+"DELETE_MESSAGE" = "Potvrďte vymazanie výberu";
+"DELETE_MESSAGE_PLAYLIST" = "Potvrďte vymazanie výberu z playlistu\nMediálne položky sa nevymažú";
+"DELETE_TITLE" = "Vymazať výber";
 
 //Drag and Drop
 "THIS_FILE" = "Tento súbor";
@@ -371,10 +372,14 @@
 "VARIOUS_ARTIST" = "Rôzni umelci";
 "UNKNOWN_ALBUM" = "Neznámy album";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Uzamknúť rozhranie";
 "INTERFACE_LOCK_HINT" = "Zablokovať ovládače rozhrania";
 "MORE_OPTIONS_BUTTON" = "Viac";
 "MORE_OPTIONS_HINT" = "Zobraziť viac možností ovládania";
 "REPEAT_MODE_HINT" = "Zmeniť režim opakovania aktuálnej položky";
 "VIDEO_ASPECT_RATIO_HINT" = "Zmeniť pomer strán aktuálneho videa";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Ekvalizér";
+"MORE_OPTIONS_HEADER_TITLE" = "Možnosti videa";
