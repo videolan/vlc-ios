@@ -285,8 +285,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "%@ zum Löschen drücken"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Löschung der ausgewählten Dateien bestätigen";
-"DELETE_TITLE" = "Ausgewählte Dateien löschen";
+"DELETE_MESSAGE" = "Bitte das Löschen der Auswahl bestätigen";
+"DELETE_MESSAGE_PLAYLIST" = "Bitte das Löschen der Auswahl der Medieneinträge in der Wiedergabeliste bestätigen,\ndie Einträge sind noch nicht gelöscht";
+"DELETE_TITLE" = "Auswahl löschen";
 
 //Drag and Drop
 "THIS_FILE" = "Diese Datei";
@@ -371,10 +372,14 @@
 "VARIOUS_ARTIST" = "Verschiedene Künstler";
 "UNKNOWN_ALBUM" = "Unbekanntes Album";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Schnittstelle sperren";
 "INTERFACE_LOCK_HINT" = "Schnittstellensteuerung deaktivieren";
 "MORE_OPTIONS_BUTTON" = "Mehr";
 "MORE_OPTIONS_HINT" = "Weitere Optionen der Steuerelemente anzeigen";
 "REPEAT_MODE_HINT" = "Wiederholungsmodus des aktuellen Elements ändern";
 "VIDEO_ASPECT_RATIO_HINT" = "Seitenverhältnis des aktuellen Videos ändern";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Videoeinstellungen";
