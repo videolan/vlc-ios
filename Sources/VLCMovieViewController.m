@@ -645,7 +645,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     if (!_playbackWillClose) {
         _displayRemainingTime = [[defaults objectForKey:kVLCShowRemainingTime] boolValue];
-        [self updateTimeDisplayButton];
+        [self performSelectorOnMainThread:@selector(updateTimeDisplayButton) withObject:nil waitUntilDone:NO];
     }
 
     _volumeGestureEnabled = [[defaults objectForKey:kVLCSettingVolumeGesture] boolValue];
