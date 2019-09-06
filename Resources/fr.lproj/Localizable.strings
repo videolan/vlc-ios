@@ -54,7 +54,7 @@
 
 "BUTTON_ABOUT" = "À propos";
 "BUTTON_BACK" = "Retour";
-"BUTTON_DONE" = "OK";
+"BUTTON_DONE" = "Fait";
 "BUTTON_CANCEL" = "Annuler";
 "BUTTON_SAVE" = "Enregistrer";
 "BUTTON_DOWNLOAD" = "Télécharger";
@@ -285,8 +285,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Enfoncez %@ pour supprimer"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Confirmer la suppression des fichiers sélectionnés";
-"DELETE_TITLE" = "Supprimer les fichiers sélectionnés";
+"DELETE_MESSAGE" = "Confirmer la suppression de la sélection";
+"DELETE_MESSAGE_PLAYLIST" = "Confirmer la suppression de la sélection d'une liste de lecture\nLes médias ne seront pas effacés";
+"DELETE_TITLE" = "Supprimer la sélection";
 
 //Drag and Drop
 "THIS_FILE" = "Ce fichier";
@@ -371,10 +372,14 @@
 "VARIOUS_ARTIST" = "Artistes divers";
 "UNKNOWN_ALBUM" = "Album inconnu";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Verrouiller l'interface";
 "INTERFACE_LOCK_HINT" = "Désactiver les contrôles d'interface";
 "MORE_OPTIONS_BUTTON" = "Détails";
 "MORE_OPTIONS_HINT" = "Voir plus de contrôles d'option";
 "REPEAT_MODE_HINT" = "Changer le mode de répétition de l'élément en cours";
 "VIDEO_ASPECT_RATIO_HINT" = "Modifier le format de la vidéo en cours";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equaliseur";
+"MORE_OPTIONS_HEADER_TITLE" = "Options vidéo";
