@@ -1286,7 +1286,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void) playbackServiceDidSwitchAspectRatio:(VLCAspectRatio)aspectRatio
 {
     _videoOptionsControlBar.isInFullScreen = aspectRatio == VLCAspectRatioFillToScreen;
-    [self adaptMovieViewToNotch];
+
+    if (@available(iOS 11, *)) {
+        [self adaptMovieViewToNotch];
+    }
 }
 
 - (void)displayMetadataForPlaybackService:(VLCPlaybackService *)playbackService
@@ -1755,8 +1758,27 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     }
 }
 
-- (void)adaptMovieViewToNotch
+- (void)viewSafeAreaInsetsDidChange
 {
+    [super viewSafeAreaInsetsDidChange];
+
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone) {
+        return;
+    }
+
+    // safeAreaInsets can take some time to get set.
+    // Once updated, check if we need to update the constraints for notches
+    [self adaptMovieViewToNotch];
+}
+
+- (void)adaptMovieViewToNotch API_AVAILABLE(ios(11));
+{
+    // Ignore the constraint updates for iPads and notchless devices.
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone
+        || (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && self.view.safeAreaInsets.bottom == 0)) {
+        return;
+    }
+
     // 30.0 represents the exact size of the notch
     CGFloat constant = _vpc.currentAspectRatio != VLCAspectRatioFillToScreen ? 30.0 : 0.0;
 
