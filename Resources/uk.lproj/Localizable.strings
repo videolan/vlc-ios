@@ -285,8 +285,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Натисніть %@ для видалення"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Підтвердіть вилучення обраних файлів";
-"DELETE_TITLE" = "Вилучити обрані файли";
+"DELETE_MESSAGE" = "Підтвердіть вилучення обраного";
+"DELETE_MESSAGE_PLAYLIST" = "Підтвердіть вилучення обраного зі списку відтворення\nМедіаелементи не вилучаються";
+"DELETE_TITLE" = "Вилучити обране";
 
 //Drag and Drop
 "THIS_FILE" = "Цей файл";
@@ -371,10 +372,14 @@
 "VARIOUS_ARTIST" = "Різні виконавці";
 "UNKNOWN_ALBUM" = "Невідомий альбом";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Заблокувати інтерфейс";
 "INTERFACE_LOCK_HINT" = "Вимкнути управління інтерфейсом";
 "MORE_OPTIONS_BUTTON" = "Більше";
 "MORE_OPTIONS_HINT" = "Переглянути більше параметрів управління";
 "REPEAT_MODE_HINT" = "Змінити режим повторення поточного елемента";
 "VIDEO_ASPECT_RATIO_HINT" = "Змінити співвідношення сторін поточного відео";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Еквалайзер";
+"MORE_OPTIONS_HEADER_TITLE" = "Параметри відео";
