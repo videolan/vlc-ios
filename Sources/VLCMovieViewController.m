@@ -1920,8 +1920,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             if (!self->_equalizerView.hidden)
                 self->_equalizerView.hidden = YES;
 
-            // Make sure we have the correct constraint upon rotation for 'notch' devices.
-            [self adaptMovieViewToNotch];
         } completion:nil];
     }
 }
