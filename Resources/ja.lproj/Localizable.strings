@@ -285,8 +285,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "%@ で削除"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "選択されたファイルを削除してもいいですか?";
-"DELETE_TITLE" = "選択したファイルを削除";
+"DELETE_MESSAGE" = "選択されたものを削除してもいいですか？";
+"DELETE_MESSAGE_PLAYLIST" = "プレイリストから選択したものを削除してもいいですか？\nメディア項目は削除されません";
+"DELETE_TITLE" = "選択したものを削除";
 
 //Drag and Drop
 "THIS_FILE" = "このファイル";
@@ -371,10 +372,14 @@
 "VARIOUS_ARTIST" = "複数アーティスト";
 "UNKNOWN_ALBUM" = "未知のアルバム";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "インターフェースをロック";
 "INTERFACE_LOCK_HINT" = "インターフェース制御を無効化";
 "MORE_OPTIONS_BUTTON" = "もっと";
 "MORE_OPTIONS_HINT" = "より多くの制御オプションを表示";
 "REPEAT_MODE_HINT" = "現在の項目の再生モードを変更";
 "VIDEO_ASPECT_RATIO_HINT" = "現在のビデオのアスペクト比を変更";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "イコライザー";
+"MORE_OPTIONS_HEADER_TITLE" = "ビデオオプション";
