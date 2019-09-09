@@ -22,7 +22,7 @@ target 'VLC-iOS' do
   pod 'InAppSettingsKit', :git => 'git://github.com/fkuehne/InAppSettingsKit.git', :commit => '415ea6bb' #tvOS fix
   pod 'PAPasscode', '~>1.0'
   pod 'GoogleAPIClientForREST/Drive'
-  pod 'MobileVLCKit', '3.3.3'
+  pod 'MobileVLCKit', '3.3.4'
   pod 'VLCMediaLibraryKit', '0.4.0'
   pod 'MediaLibraryKit-prod'
   pod 'GTMAppAuth', '0.7.1'
