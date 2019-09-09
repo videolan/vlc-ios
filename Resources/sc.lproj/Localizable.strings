@@ -285,8 +285,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Incarca %@ pro iscantzellare"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Cunfirma s'iscantzellamentu de sos documentos isseberados";
-"DELETE_TITLE" = "Iscantzella sos documentos isseberados";
+"DELETE_MESSAGE" = "Cunfirma s'iscantzellamentu de sa seletzione";
+"DELETE_MESSAGE_PLAYLIST" = "Cunfirma s'iscantzellamentu de sa seletzione dae s'iscalita\nSos elementos multimediales non benint iscantzellados";
+"DELETE_TITLE" = "Iscantzella sa seletzione";
 
 //Drag and Drop
 "THIS_FILE" = "Custu documentu";
@@ -371,10 +372,14 @@
 "VARIOUS_ARTIST" = "Artistas vàrios";
 "UNKNOWN_ALBUM" = "Album disconnotu";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Bloca s'interfache";
 "INTERFACE_LOCK_HINT" = "Disabìlita sos controllos de interfache";
 "MORE_OPTIONS_BUTTON" = "Àteru";
-"MORE_OPTIONS_HINT" = "Abbàida àteros controllos optzionales";
+"MORE_OPTIONS_HINT" = "Pòmpia àteros controllos optzionales";
 "REPEAT_MODE_HINT" = "Muda sa modalidade de ripetitzione de s'elementu atuale";
 "VIDEO_ASPECT_RATIO_HINT" = "Muda sas proportziones de su vìdeu atuale";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Ecualizadore";
+"MORE_OPTIONS_HEADER_TITLE" = "Optziones vìdeu";
