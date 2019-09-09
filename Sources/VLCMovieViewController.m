@@ -1771,7 +1771,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self adaptMovieViewToNotch];
 }
 
-- (void)adaptMovieViewToNotch API_AVAILABLE(ios(11));
+- (void)adaptMovieViewToNotch API_AVAILABLE(ios(11))
 {
     // Ignore the constraint updates for iPads and notchless devices.
     if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone
