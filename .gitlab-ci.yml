@@ -1,0 +1,88 @@
+cache:
+    paths:
+        - Pods/
+
+stages:
+    - lint
+    - build
+
+default:
+    before_script:
+        - pod install --no-repo-update
+
+variables:
+    LANG: "en_US.UTF-8"
+    LC_ALL: "en_US.UTF-8"
+
+## Shared configuration
+
+.job-base:
+    only:
+        refs:
+            - master
+            - merge_requests
+
+.build-base:
+    script:
+        - xcodebuild -version
+        - xcodebuild -workspace "VLC.xcworkspace" -scheme "$BUILD_SCHEME" -configuration "Debug" clean build -destination "$BUILD_DESTINATION"
+
+## Lint
+
+lint:
+    extends: .job-base
+    tags:
+        - macos
+    stage: lint
+    script:
+        - ./Pods/SwiftLint/swiftlint
+
+## Builds
+
+### iOS Builds
+
+# iOS 9.0:
+# extends:
+#     - .job-base
+#     - .build-base
+# tags:
+#     - macos
+# stage: build
+# variables:
+#     BUILD_SCHEME: "VLC-iOS"
+#     BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone 5,OS=9.0"
+
+iOS 12.0:
+    extends:
+        - .job-base
+        - .build-base
+    tags:
+        - macos
+    stage: build
+    variables:
+        BUILD_SCHEME: "VLC-iOS"
+        BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone X,OS=12.2"
+
+### tvOS Builds
+
+# tvOS 11.0:
+# extends:
+#     - .job-base
+#     - .build-base
+# tags:
+#     - macos
+# stage: build
+# variables:
+#     BUILD_SCHEME: "VLC-tvOS"
+#     BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=11.0"
+
+tvOS 12.0:
+    extends:
+        - .job-base
+        - .build-base
+    tags:
+        - macos
+    stage: build
+    variables:
+        BUILD_SCHEME: "VLC-tvOS"
+        BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=12.2"
