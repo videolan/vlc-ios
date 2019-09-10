@@ -39,7 +39,7 @@ extern NSString *const VLCPlaybackServicePlaybackPositionUpdated;
 @protocol VLCPlaybackServiceDelegate <NSObject>
 #if TARGET_OS_IOS
 - (void)savePlaybackState:(VLCPlaybackService *)playbackService;
-- (VLCMLMedia *_Nullable)mediaForPlayingMedia:(VLCMedia *)media;
+- (VLCMLMedia *_Nullable)mediaForPlayingMedia:(nullable VLCMedia *)media;
 #endif
 @optional
 - (void)playbackPositionUpdated:(VLCPlaybackService *)playbackService;

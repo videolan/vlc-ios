@@ -118,7 +118,11 @@ extension AudioMiniPlayer {
         mediaService.savePlaybackState(from: playbackService)
     }
 
-    func media(forPlaying media: VLCMedia) -> VLCMLMedia? {
+    func media(forPlaying media: VLCMedia?) -> VLCMLMedia? {
+        guard let media = media else {
+            return nil
+        }
+
         return mediaService.fetchMedia(with: media.url)
     }
 }
