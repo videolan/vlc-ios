@@ -35,6 +35,7 @@ class VLCTabBarCoordinator: NSObject {
         tabBarController.tabBar.itemPositioning = .fill
         tabBarController.viewControllers?.forEach {
             if let navController = $0 as? UINavigationController, navController.topViewController is VLCSettingsController {
+                navController.navigationBar.isTranslucent = false
                 navController.navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
                 navController.navigationBar.tintColor = PresentationTheme.current.colors.orangeUI
                 navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:  PresentationTheme.current.colors.navigationbarTextColor]
