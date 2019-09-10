@@ -91,4 +91,20 @@ extension UITabBarController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
     }
+
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 13.0, *) {
+            guard previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle else {
+                // Since traitCollectionDidChange is called in, for example rotations, we make sure that
+                // there was a userInterfaceStyle change.
+                return
+            }
+
+            let isSystemDarkTheme = traitCollection.userInterfaceStyle == .dark
+
+            UserDefaults.standard.set(isSystemDarkTheme, forKey: kVLCSettingAppTheme)
+            PresentationTheme.current = isSystemDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
+        }
+    }
 }

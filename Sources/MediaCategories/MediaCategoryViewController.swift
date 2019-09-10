@@ -173,6 +173,11 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         searchBar.backgroundColor = PresentationTheme.current.colors.background
         editController.view.backgroundColor = PresentationTheme.current.colors.background
+
+        if #available(iOS 13.0, *) {
+            navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
+            navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
+        }
         setNeedsStatusBarAppearanceUpdate()
     }
 
