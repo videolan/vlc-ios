@@ -76,6 +76,11 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     actionSheet.modalPresentationStyle = UIModalPresentationCustom;
     
     specifierManager = [[VLCSettingsSpecifierManager alloc] initWithSettingsReader:self.settingsReader settingsStore:self.settingsStore];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(themeDidChange)
+                                                 name:kVLCThemeDidChangeNotification
+                                               object:nil];
 }
 
 - (void)themeDidChange
@@ -142,7 +147,6 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     if ([notification.object isEqual:kVLCSettingAppTheme]) {
         BOOL darkTheme = [[notification.userInfo objectForKey:kVLCSettingAppTheme] boolValue];
         PresentationTheme.current = darkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme;
-        [self themeDidChange];
     }
 }
 
