@@ -126,6 +126,9 @@ class MediaLibraryService: NSObject {
         setupMediaLibrary()
         NotificationCenter.default.addObserver(self, selector: #selector(reload),
                                                name: .VLCNewFileAddedNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWillEnterForegroundNotification),
+                                               name: UIApplication.willEnterForegroundNotification, object: nil)
     }
 }
 
@@ -366,6 +369,21 @@ extension MediaLibraryService {
         mlMedia.chapterIndex = Int64(player.indexOfCurrentChapter)
         mlMedia.titleIndex = Int64(player.indexOfCurrentTitle)
         //create a new thumbnail
+    }
+
+    private func handleWillEnterForegroundNotification() {
+        guard let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
+            assertionFailure("MediaLibraryService: handleWillEnterForegroundNotification: Failed to retrieve documentPath")
+            return
+        }
+        // On each foreground notification we check if there is a `.Trash` folder which is invisible
+        // for the user that can be created by deleting media from the Files app.
+        // This could lead to disk space issues.
+        // For now since we do not handle restoration, we delete the `.Trash` folder every time.
+         _ = try? FileManager.default.removeItem(atPath: documentPath + "/.Trash")
+
+        // Reload in order to make sure that there is no old artifacts left
+        reload()
     }
 }
 
