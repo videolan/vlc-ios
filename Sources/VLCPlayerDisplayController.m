@@ -240,6 +240,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 {
     UIViewController<VLCPlaybackServiceDelegate> *movieViewController = self.movieViewController;
     UINavigationController *navCon = [[VLCPlaybackNavigationController alloc] initWithRootViewController:movieViewController];
+    navCon.modalPresentationStyle = UIModalPresentationFullScreen;
     [movieViewController prepareForMediaPlayback:self.playbackController];
 
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
