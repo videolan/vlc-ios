@@ -14,9 +14,6 @@
 #import "NSString+SupportedMedia.h"
 
 @interface VLCNetworkServerBrowserVLCMedia () <VLCMediaListDelegate, VLCMediaDelegate>
-{
-    BOOL _needsNotifyDelegate;
-}
 
 @property (nonatomic) VLCMedia *rootMedia;
 @property (nonatomic) VLCMediaList *mediaList;
@@ -111,26 +108,7 @@
 
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
-    [self setNeedsNotifyDelegateForDidUpdate];
-}
-- (void)mediaMetaDataDidChange:(VLCMedia *)aMedia
-{
-    [self setNeedsNotifyDelegateForDidUpdate];
-}
-
-- (void)setNeedsNotifyDelegateForDidUpdate
-{
-    if (_needsNotifyDelegate) {
-        return;
-    }
-    _needsNotifyDelegate = YES;
-
-    double amountOfSeconds = 0.1;
-    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(amountOfSeconds * NSEC_PER_SEC));
-    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
-        self->_needsNotifyDelegate = NO;
-        [self.delegate networkServerBrowserDidUpdate:self];
-    });
+    [self.delegate networkServerBrowserDidUpdate:self];
 }
 
 @end
