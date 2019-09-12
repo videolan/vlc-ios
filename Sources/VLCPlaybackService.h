@@ -32,7 +32,6 @@ extern NSString *const VLCPlaybackServicePlaybackPositionUpdated;
 
 @class VLCPlaybackService;
 @class VLCMetaData;
-@class VLCDialogProvider;
 @class VLCMLMedia;
 @class VLCPlayerDisplayController;
 
@@ -109,7 +108,6 @@ NS_SWIFT_NAME(PlaybackService)
 @property (readonly) NSNumber *playbackTime;
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly) NSTimer *sleepTimer;
-@property (nonatomic, readonly) VLCDialogProvider *dialogProvider;
 
 @property (nonatomic, nullable) VLCRendererItem *renderer;
 

@@ -65,6 +65,8 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     NSMutableArray *_shuffleStack;
     void (^_playbackCompletion)(BOOL success);
 
+    VLCDialogProvider *_dialogProvider;
+    VLCCustomDialogRendererHandler *_customDialogHandler;
     VLCPlayerDisplayController *_playerDisplayController;
 }
 
@@ -114,7 +116,11 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
         _metadata = [VLCMetaData new];
         _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:YES];
-        _dialogProvider.customRenderer = self;
+
+        _customDialogHandler = [[VLCCustomDialogRendererHandler alloc]
+                                initWithDialogProvider:_dialogProvider];
+
+        _dialogProvider.customRenderer = _customDialogHandler;
 
         _playbackSessionManagementLock = [[NSLock alloc] init];
         _shuffleMode = NO;
