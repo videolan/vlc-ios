@@ -12,8 +12,13 @@
 
 #import "VLCNetworkServerBrowserVLCMedia.h"
 #import "NSString+SupportedMedia.h"
+#import "VLC-Swift.h"
 
 @interface VLCNetworkServerBrowserVLCMedia () <VLCMediaListDelegate, VLCMediaDelegate>
+{
+    VLCDialogProvider *_dialogProvider;
+    VLCCustomDialogRendererHandler *_customDialogHandler;
+}
 
 @property (nonatomic) VLCMedia *rootMedia;
 @property (nonatomic) VLCMediaList *mediaList;
@@ -33,15 +38,37 @@
         _mediaList = [[VLCMediaList alloc] init];
         _rootMedia = media;
         _rootMedia.delegate = self;
-        [media parseWithOptions:VLCMediaParseNetwork];
+        [media parseWithOptions:VLCMediaParseNetwork|VLCMediaDoInteract];
         _mediaListUnfiltered = [_rootMedia subitems];
         _mediaListUnfiltered.delegate = self;
         NSMutableDictionary *mediaOptionsNoFilter = [mediaOptions mutableCopy];
         [mediaOptionsNoFilter setObject:@" " forKey:@":ignore-filetypes"];
         _mediaOptions = [mediaOptionsNoFilter copy];
         [self _addMediaListRootItemsToList];
+
+        _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:YES];
+        _customDialogHandler = [[VLCCustomDialogRendererHandler alloc]
+                                initWithDialogProvider:_dialogProvider];
+
+        __weak typeof(self) weakSelf = self;
+        _customDialogHandler.completionHandler = ^(VLCCustomDialogRendererHandlerCompletionType status)
+        {
+            [weakSelf customDialogCompletionHandlerWithStatus:status];
+        };
+        _dialogProvider.customRenderer = _customDialogHandler;
     }
     return self;
+}
+
+- (void)customDialogCompletionHandlerWithStatus:(VLCCustomDialogRendererHandlerCompletionType)status
+{
+    switch (status) {
+        case VLCCustomDialogRendererHandlerCompletionTypeError:
+            [self.delegate networkServerBrowserShouldPopView:self];
+            break;
+        default:
+            break;
+    }
 }
 
 - (BOOL)shouldFilterMedia:(VLCMedia *)media
