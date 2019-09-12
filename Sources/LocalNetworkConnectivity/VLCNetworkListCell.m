@@ -37,16 +37,30 @@
     self.downloadButton.hidden = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange)
                                                  name:kVLCThemeDidChangeNotification object:nil];
+    // If a tableViewCell is highlighted, one needs to manualy set the opaque property
+    if (@available(iOS 13.0, *)) {
+        self.opaque = NO;
+    }
+    [self themeDidChange];
     [super awakeFromNib];
 }
 
 - (void)themeDidChange
 {
     self.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-    self.titleLabel.backgroundColor = PresentationTheme.current.colors.background;
     self.subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
-    self.subtitleLabel.backgroundColor = PresentationTheme.current.colors.background;
-    self.backgroundColor = PresentationTheme.current.colors.background;
+    self.folderTitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+
+    UIColor *backgroundColor = PresentationTheme.current.colors.background;
+
+    if (@available(iOS 13.0, *)) {
+        backgroundColor = UIColor.clearColor;
+    }
+
+    self.backgroundColor = backgroundColor;
+    self.titleLabel.backgroundColor = backgroundColor;
+    self.folderTitleLabel.backgroundColor = backgroundColor;
+    self.subtitleLabel.backgroundColor = backgroundColor;
 }
 
 - (void)setTitleLabelCentered:(BOOL)titleLabelCentered

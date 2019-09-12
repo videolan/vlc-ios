@@ -248,8 +248,6 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIColor *color = PresentationTheme.current.colors.cellBackgroundA;
-    cell.backgroundColor = cell.titleLabel.backgroundColor = cell.folderTitleLabel.backgroundColor = cell.subtitleLabel.backgroundColor = color;
     cell.titleLabel.textColor = cell.folderTitleLabel.textColor = cell.thumbnailView.tintColor = PresentationTheme.current.colors.cellTextColor;
     cell.subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
 }
