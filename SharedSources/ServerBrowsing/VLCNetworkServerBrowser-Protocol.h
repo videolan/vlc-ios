@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol VLCNetworkServerBrowserDelegate <NSObject>
 - (void) networkServerBrowserDidUpdate:(id<VLCNetworkServerBrowser>)networkBrowser;
 - (void) networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error;
+
+@optional
+- (void)networkServerBrowserShouldPopView:(id<VLCNetworkServerBrowser>)networkBrowser;
 @end
 
 
