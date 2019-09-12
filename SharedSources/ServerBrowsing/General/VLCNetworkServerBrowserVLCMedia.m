@@ -38,7 +38,8 @@
         _mediaList = [[VLCMediaList alloc] init];
         _rootMedia = media;
         _rootMedia.delegate = self;
-        [media parseWithOptions:VLCMediaParseNetwork|VLCMediaDoInteract];
+        // Set timeout to 0 in order to avoid getting interrupted in dialogs for timeout reasons
+        [media parseWithOptions:VLCMediaParseNetwork|VLCMediaDoInteract timeout:0];
         _mediaListUnfiltered = [_rootMedia subitems];
         _mediaListUnfiltered.delegate = self;
         NSMutableDictionary *mediaOptionsNoFilter = [mediaOptions mutableCopy];
