@@ -16,6 +16,7 @@ class VLCSettingsTableViewCell: UITableViewCell {
     
     @objc fileprivate func themeDidChange() {
         backgroundColor = PresentationTheme.current.colors.background
+        selectedBackgroundView?.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor
         textLabel?.textColor = PresentationTheme.current.colors.cellTextColor
         detailTextLabel?.textColor = PresentationTheme.current.colors.cellDetailTextColor
     }
