@@ -49,6 +49,9 @@
     self.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
     self.subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
     self.folderTitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    self.titleLabel.highlightedTextColor = PresentationTheme.current.colors.cellTextColor;
+    self.subtitleLabel.highlightedTextColor = PresentationTheme.current.colors.cellTextColor;
+    self.folderTitleLabel.highlightedTextColor = PresentationTheme.current.colors.cellTextColor;
 
     UIColor *backgroundColor = PresentationTheme.current.colors.background;
 
