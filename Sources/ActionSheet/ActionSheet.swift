@@ -200,12 +200,6 @@ class ActionSheet: UIViewController {
         collectionView.backgroundColor = PresentationTheme.current.colors.background
         headerView.backgroundColor = PresentationTheme.current.colors.background
         headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
-        for cell in collectionView.visibleCells {
-            if let cell = cell as? ActionSheetCell {
-                cell.backgroundColor = PresentationTheme.current.colors.background
-                cell.name.textColor = PresentationTheme.current.colors.cellTextColor
-            }
-        }
         collectionView.layoutIfNeeded()
     }
     
