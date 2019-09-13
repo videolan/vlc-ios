@@ -143,7 +143,7 @@ extension Notification.Name {
 
 let brightPalette = ColorPalette(isDark: false,
                                  name: "Default",
-                                 statusBarStyle: .default,
+                                 statusBarStyle: .autoDarkContent,
                                  navigationbarColor: UIColor(0xFFFFFF),
                                  navigationbarTextColor: UIColor(0x000000),
                                  background: UIColor(0xFFFFFF),
@@ -178,3 +178,15 @@ let darkPalette = ColorPalette(isDark: true,
                                toolBarStyle: UIBarStyle.black)
 
 let defaultFont = Typography(tableHeaderFont: UIFont.systemFont(ofSize: 24, weight: .semibold))
+
+// MARK: - UIStatusBarStyle - autoDarkContent
+
+extension UIStatusBarStyle {
+    static var autoDarkContent: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        } else {
+            return .default
+        }
+    }
+}
