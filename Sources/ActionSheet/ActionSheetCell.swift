@@ -219,7 +219,9 @@ class ActionSheetCell: UICollectionViewCell {
     }
 
     private func setupViews() {
-        backgroundColor = PresentationTheme.current.colors.background
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTheme),
+                                               name: .VLCThemeDidChangeNotification, object: nil)
+        updateTheme()
 
         stackView.addArrangedSubview(icon)
         stackView.addArrangedSubview(name)
@@ -242,5 +244,10 @@ class ActionSheetCell: UICollectionViewCell {
             stackView.heightAnchor.constraint(equalTo: heightAnchor),
             stackView.topAnchor.constraint(equalTo: topAnchor)
         ])
+    }
+
+    @objc private func updateTheme() {
+        backgroundColor = PresentationTheme.current.colors.background
+        name.textColor = PresentationTheme.current.colors.cellTextColor
     }
 }
