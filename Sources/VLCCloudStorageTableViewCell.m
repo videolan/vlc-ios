@@ -175,16 +175,19 @@
                 [self.thumbnailView setImageWithURL:[NSURL URLWithString:_driveFile.thumbnailLink]];
             }
         }
-        NSString *iconName = self.driveFile.iconLink;
-        if (isDirectory) {
-            self.thumbnailView.image = [UIImage imageNamed:@"folder"];
-        } else if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_10_audio_list.png"]) {
-            self.thumbnailView.image = [UIImage imageNamed:@"audio"];
-        } else if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_11_video_list.png"]) {
-            self.thumbnailView.image = [UIImage imageNamed:@"movie"];
-        } else {
-            self.thumbnailView.image = [UIImage imageNamed:@"blank"];
-            APLog(@"missing icon for type '%@'", self.driveFile.iconLink);
+
+        if (!self.thumbnailView.image) {
+            NSString *iconName = self.driveFile.iconLink;
+            if (isDirectory) {
+                self.thumbnailView.image = [UIImage imageNamed:@"folder"];
+            } else if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_10_audio_list.png"]) {
+                self.thumbnailView.image = [UIImage imageNamed:@"audio"];
+            } else if ([iconName isEqualToString:@"https://ssl.gstatic.com/docs/doclist/images/icon_11_video_list.png"]) {
+                self.thumbnailView.image = [UIImage imageNamed:@"movie"];
+            } else {
+                self.thumbnailView.image = [UIImage imageNamed:@"blank"];
+                APLog(@"missing icon for type '%@'", self.driveFile.iconLink);
+            }
         }
     }
 #endif
