@@ -82,14 +82,22 @@ extension Notification.Name {
     }
 }
 
+// MARK: - PresentationThemeType
+
+enum PresentationThemeType: Int {
+    case bright = 0
+    case dark
+    case auto
+}
+
 @objcMembers class PresentationTheme: NSObject {
 
     static let brightTheme = PresentationTheme(colors: brightPalette)
     static let darkTheme = PresentationTheme(colors: darkPalette)
 
     static var current: PresentationTheme = {
-        let isDarkTheme = UserDefaults.standard.bool(forKey: kVLCSettingAppTheme)
-        return isDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
+        let themeSettings = UserDefaults.standard.integer(forKey: kVLCSettingAppTheme)
+        return PresentationTheme.respectiveTheme(for: PresentationThemeType(rawValue: themeSettings))
     }() {
         didSet {
             AppearanceManager.setupAppearance(theme: self.current)
@@ -100,6 +108,30 @@ extension Notification.Name {
     init(colors: ColorPalette) {
         self.colors = colors
         super.init()
+    }
+
+    static func themeDidUpdate() {
+        let themeSettings = UserDefaults.standard.integer(forKey: kVLCSettingAppTheme)
+        PresentationTheme.current = PresentationTheme.respectiveTheme(for:
+            PresentationThemeType(rawValue: themeSettings))
+    }
+
+    static func respectiveTheme(for theme: PresentationThemeType?) -> PresentationTheme {
+        guard let theme = theme else {
+            return PresentationTheme.brightTheme
+        }
+
+        var presentationTheme = PresentationTheme.brightTheme
+
+        if theme == .dark {
+            presentationTheme = PresentationTheme.darkTheme
+        } else if theme == .auto {
+            if #available(iOS 13.0, *) {
+                let isSystemDarkTheme = UIScreen.main.traitCollection.userInterfaceStyle == .dark
+                presentationTheme = isSystemDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
+            }
+        }
+        return presentationTheme
     }
 
     let colors: ColorPalette

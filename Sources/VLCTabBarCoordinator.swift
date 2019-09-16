@@ -100,10 +100,12 @@ extension UITabBarController {
                 // there was a userInterfaceStyle change.
                 return
             }
+            guard UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeSystem else {
+                // Theme is specificly set, do not follow systeme theme.
+                return
+            }
 
             let isSystemDarkTheme = traitCollection.userInterfaceStyle == .dark
-
-            UserDefaults.standard.set(isSystemDarkTheme, forKey: kVLCSettingAppTheme)
             PresentationTheme.current = isSystemDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
         }
     }

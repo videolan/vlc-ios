@@ -146,10 +146,6 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
             [self.navigationController presentViewController:navigationController animated:YES completion:nil];
         }
     }
-    if ([notification.object isEqual:kVLCSettingAppTheme]) {
-        BOOL darkTheme = [[notification.userInfo objectForKey:kVLCSettingAppTheme] boolValue];
-        PresentationTheme.current = darkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme;
-    }
 }
 
 - (void)showAbout

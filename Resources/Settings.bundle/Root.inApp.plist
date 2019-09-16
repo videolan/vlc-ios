@@ -20,15 +20,25 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>NO</string>
+			<integer>0</integer>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
 			<key>Key</key>
 			<string>darkMode</string>
 			<key>Title</key>
 			<string>SETTINGS_DARKTHEME</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>IASKSubtitle</key>
-			<string>SETTINGS_THEME_SUBTITLE</string>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_THEME_BRIGHT</string>
+				<string>SETTINGS_THEME_DARK</string>
+				<string>SETTINGS_THEME_SYSTEM</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
 		</dict>
 		<dict>
 			<key>Type</key>
