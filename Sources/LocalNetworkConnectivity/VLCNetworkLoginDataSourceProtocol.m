@@ -89,6 +89,17 @@ static NSString *const VLCNetworkLoginDataSourceProtocolCellIdentifier = @"VLCNe
                                NSLocalizedString(@"PLEX_SHORT", nil),
                                ]];
         _segmentedControl.tintColor = PresentationTheme.current.colors.orangeUI;
+
+        if (@available(iOS 13.0, *)) {
+            [self.segmentedControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
+                                                                PresentationTheme.current.colors.cellDetailTextColor}
+                                                 forState:UIControlStateNormal];
+
+            // Always use black since the background is always white.
+            [self.segmentedControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
+                                                                [UIColor blackColor]}
+                                                 forState:UIControlStateSelected];
+        }
         [self.contentView addSubview:_segmentedControl];
         self.backgroundColor = PresentationTheme.current.colors.background;
     }
