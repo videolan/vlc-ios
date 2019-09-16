@@ -88,8 +88,11 @@ extension Notification.Name {
     static let darkTheme = PresentationTheme(colors: darkPalette)
 
     static var current: PresentationTheme = {
-        let isDarkTheme = UserDefaults.standard.bool(forKey: kVLCSettingAppTheme)
-        return isDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
+        if let appTheme = UserDefaults.standard.value(forKey: kVLCSettingAppTheme) {
+            return appTheme as! Int32 == kVLCSettingAppThemeDark ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
+        } else {
+            return PresentationTheme.brightTheme
+        }
     }() {
         didSet {
             AppearanceManager.setupAppearance(theme: self.current)
@@ -100,6 +103,22 @@ extension Notification.Name {
     init(colors: ColorPalette) {
         self.colors = colors
         super.init()
+    }
+
+    static func settingsDidUpdate() {
+        if let themeSettings = UserDefaults.standard.value(forKey: kVLCSettingAppTheme) {
+            let mode = themeSettings as! Int32
+            if mode == kVLCSettingAppThemeBright {
+                PresentationTheme.current = PresentationTheme.brightTheme
+            } else if mode == kVLCSettingAppThemeDark {
+                PresentationTheme.current = PresentationTheme.darkTheme
+            } else {
+                if #available(iOS 13.0, *) {
+                    let isSystemDarkTheme = UIScreen.main.traitCollection.userInterfaceStyle == .dark
+                    PresentationTheme.current = isSystemDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
+                }
+            }
+        }
     }
 
     let colors: ColorPalette

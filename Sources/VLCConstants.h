@@ -18,6 +18,9 @@
 #define kVLCSettingPasscodeAllowFaceID @"AllowFaceID"
 #define kVLCThemeDidChangeNotification @"themeDidChangeNotfication"
 #define kVLCSettingAppTheme @"darkMode"
+#define kVLCSettingAppThemeBright 0
+#define kVLCSettingAppThemeDark 1
+#define kVLCSettingAppThemeSystem 2
 #define kVLCOptimizeItemNamesForDisplay @"MLDecrapifyTitles"
 #define kVLCSettingAbout @"about"
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"

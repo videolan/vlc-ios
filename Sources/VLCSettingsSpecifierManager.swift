@@ -23,6 +23,13 @@ class VLCSettingsSpecifierManager: NSObject {
             assertionFailure("VLCSettingsSpecifierManager: No rows provided for \(specifier?.key() ?? "null specifier")")
             return []
         }
+        if specifier?.key() == kVLCSettingAppTheme {
+            if #available(iOS 13.0, *) {
+                return items
+            } else {
+                return items.subarray(with: NSRange(location: 0, length: items.count - 1)) as NSArray
+            }
+        }
         return items
     }
     
@@ -60,6 +67,9 @@ extension VLCSettingsSpecifierManager: ActionSheetDelegate {
     func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath) {
         settingsStore.setObject(item, forKey: specifier?.key())
         settingsStore.synchronize()
+        if specifier?.key() == kVLCSettingAppTheme {
+            PresentationTheme.settingsDidUpdate()
+        }
     }
 }
 
