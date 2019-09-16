@@ -163,6 +163,7 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
 {
     [self updateForPasscode:nil];
     [self.settingsStore setBool:false forKey:kVLCSettingPasscodeOnKey];
+    [self filterCellsWithAnimation:NO];
 }
 
 - (void)PAPasscodeViewControllerDidSetPasscode:(PAPasscodeViewController *)controller
