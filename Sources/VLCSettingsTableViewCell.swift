@@ -78,7 +78,7 @@ class VLCSettingsTableViewCell: UITableViewCell {
                 state = currentValue
             }
         }
-        
+
         if let toggle = accessoryView as? IASKSwitch {
             toggle.isOn = state
             toggle.key = specifier.key()
