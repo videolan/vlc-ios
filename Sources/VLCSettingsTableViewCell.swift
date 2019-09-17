@@ -83,6 +83,8 @@ class VLCSettingsTableViewCell: UITableViewCell {
             toggle.isOn = state
             toggle.key = specifier.key()
         }
+
+        selectionStyle = .none
     }
     
     fileprivate func configureMultiValue(_ specifier: IASKSpecifier, _ value: Any?) {
