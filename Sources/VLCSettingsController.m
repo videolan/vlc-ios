@@ -141,6 +141,8 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
             PAPasscodeViewController *passcodeLockController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionSet];
             passcodeLockController.delegate = self;
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:passcodeLockController];
+            // Specify modal presentation style due to iOS 13 behaviour
+            navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
             [self.navigationController presentViewController:navigationController animated:YES completion:nil];
         }
     }
