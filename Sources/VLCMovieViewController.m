@@ -1316,6 +1316,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [_playingExternalView updateUIWithRendererItem:_vpc.renderer title:metadata.title];
 
     _audioOnly = metadata.isAudioOnly;
+    _artworkImageView.hidden = !_audioOnly;
 
     #if NEW_UI
         _videoOptionsControlBar.toggleFullScreenButton.hidden = _audioOnly;
