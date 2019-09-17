@@ -129,6 +129,16 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
         return PresentationTheme.current.colors.statusBarStyle
     }
 
+    private func popViewIfNecessary() {
+        // Inside a collection without files
+        if let collectionModel = model as? CollectionModel, collectionModel.anyfiles.isEmpty {
+            // Pop view if collection is not a playlist since a playlist is user created
+            if !(collectionModel.mediaCollection is VLCMLPlaylist) {
+                navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+
     @objc func reloadData() {
         DispatchQueue.main.async {
             [weak self] in
@@ -138,6 +148,10 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
             self.delegate?.needsToUpdateNavigationbarIfNeeded(self)
             self.collectionView?.reloadData()
             self.updateUIForContent()
+
+            if !self.isSearching {
+                self.popViewIfNecessary()
+            }
         }
     }
 
