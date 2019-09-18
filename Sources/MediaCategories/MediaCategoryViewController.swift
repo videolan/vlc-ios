@@ -167,6 +167,7 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
         manager.presentingViewController = self
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
+        reloadData()
     }
 
     @objc func themeDidChange() {
@@ -195,11 +196,6 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
             editController.view.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
             editController.view.heightAnchor.constraint(equalToConstant: 50)
         ])
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        reloadData()
     }
 
     func isEmptyCollectionView() -> Bool {
