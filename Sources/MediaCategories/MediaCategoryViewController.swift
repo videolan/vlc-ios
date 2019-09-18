@@ -69,6 +69,13 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
         let name = String(describing: VLCEmptyLibraryView.self)
         let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
         guard let emptyView = nib?.first as? VLCEmptyLibraryView else { fatalError("Can't find nib for \(name)") }
+
+        // Check if it is inside a playlist
+        if let collectionModel = model as? CollectionModel,
+            collectionModel.mediaCollection is VLCMLPlaylist {
+            emptyView.contentType = .playlist
+        }
+
         return emptyView
     }()
 

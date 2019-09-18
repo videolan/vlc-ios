@@ -45,4 +45,29 @@
     _emptyLibraryLongDescriptionLabel.textColor = PresentationTheme.current.colors.lightTextColor;
 }
 
+- (void)setContentType:(VLCEmptyLibraryViewContentType)contentType
+{
+    _contentType = contentType;
+
+    NSString *title;
+    NSString *description;
+
+    switch (contentType) {
+        case VLCEmptyLibraryViewContentTypeVideo:
+        case VLCEmptyLibraryViewContentTypeAudio:
+            title = NSLocalizedString(@"EMPTY_LIBRARY", nil);
+            description = NSLocalizedString(@"EMPTY_LIBRARY_LONG", nil);
+            _learnMoreButton.hidden = NO;
+            break;
+        case VLCEmptyLibraryViewContentTypePlaylist:
+            title = NSLocalizedString(@"EMPTY_PLAYLIST", nil);
+            description = NSLocalizedString(@"EMPTY_PLAYLIST_DESCRIPTION",
+                                            nil);
+            _learnMoreButton.hidden = YES;
+            break;
+    }
+    _emptyLibraryLabel.text = title;
+    _emptyLibraryLongDescriptionLabel.text = description;
+}
+
 @end

@@ -12,11 +12,20 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM (NSUInteger, VLCEmptyLibraryViewContentType)
+{
+    VLCEmptyLibraryViewContentTypeVideo,
+    VLCEmptyLibraryViewContentTypeAudio,
+    VLCEmptyLibraryViewContentTypePlaylist
+};
+
 @interface VLCEmptyLibraryView: UIView
 
 @property (nonatomic, strong) IBOutlet UILabel *emptyLibraryLabel;
 @property (nonatomic, strong) IBOutlet UILabel *emptyLibraryLongDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UIButton *learnMoreButton;
+@property (nonatomic, strong) IBOutlet UIImageView *iconView;
+@property (nonatomic) VLCEmptyLibraryViewContentType contentType;
 
 - (IBAction)learnMore:(id)sender;
 

@@ -177,6 +177,9 @@
 "EMPTY_LIBRARY" = "Empty Media Library";
 "EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, WiFi Upload or Cloud services.";
 
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+
 "PLAYBACK_SCRUB_HELP" = "Slide your finger down to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "High-Speed Scrubbing";
 "PLAYBACK_SCRUB_HALF" = "Half-Speed Scrubbing";
