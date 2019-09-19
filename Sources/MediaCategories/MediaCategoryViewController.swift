@@ -148,6 +148,16 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 11.0, *) {
+            if let applicationSharedWindow = UIApplication.shared.keyWindow {
+                // Sets additional safe area insets as
+                //  - view controller's view doesn't know about safe area until it's shown
+                //  - viewSafeAreaInsetsDidChange is not called on tab switch
+                // These additional safe area insets are to be set to .zero on viewSafeAreaInsetsDidChange
+                // since the view will have the true safe area insets at this point.
+                additionalSafeAreaInsets = applicationSharedWindow.safeAreaInsets
+            }
+        }
         setupCollectionView()
         setupSearchBar()
         setupEditToolbar()
@@ -393,6 +403,13 @@ extension MediaCategoryViewController {
     }
 
     override func viewSafeAreaInsetsDidChange() {
+        if #available(iOS 11.0, *) {
+            // At this point, we have valid safe area insets for the view
+            // therefore we do not need any additional insets anymore.
+            if additionalSafeAreaInsets != .zero {
+                additionalSafeAreaInsets = .zero
+            }
+        }
         cachedCellSize = .zero
         collectionView?.collectionViewLayout.invalidateLayout()
     }
