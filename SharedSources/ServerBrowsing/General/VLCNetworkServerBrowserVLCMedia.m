@@ -65,7 +65,8 @@
 {
     switch (status) {
         case VLCCustomDialogRendererHandlerCompletionTypeError:
-            [self.delegate networkServerBrowserShouldPopView:self];
+            // Disable for now, it seems that vlc is sending us a bit too much error callbacks
+            // [self.delegate networkServerBrowserShouldPopView:self];
             break;
         default:
             break;
@@ -136,7 +137,11 @@
 
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
-    [self.delegate networkServerBrowserDidUpdate:self];
+    if ([aMedia parsedStatus] != VLCMediaParsedStatusDone) {
+        [self.delegate networkServerBrowserShouldPopView:self];
+    } else {
+        [self.delegate networkServerBrowserDidUpdate:self];
+    }
 }
 
 @end
