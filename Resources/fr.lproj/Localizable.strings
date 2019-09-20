@@ -177,6 +177,9 @@
 "EMPTY_LIBRARY" = "Médiathèque vide";
 "EMPTY_LIBRARY_LONG" = "Pour la lecture, vous pouvez diffuser le contenu multimédia d'un serveur sur votre réseau local, à partir du nuage ou synchroniser les médias avec votre appareil en utilisant iTunes, le téléversement Wi-Fi ou les services de nuage.";
 
+"EMPTY_PLAYLIST" = "Liste de lecture vide";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Ajouter des fichiers média durant leur édition dans leurs catégories respectives.";
+
 "PLAYBACK_SCRUB_HELP" = "Faites glisser votre doigt vers le bas pour régler la vitesse.";
 "PLAYBACK_SCRUB_HIGH" = "Défilement haute vitesse";
 "PLAYBACK_SCRUB_HALF" = "Défilement demi-vitesse";
