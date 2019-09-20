@@ -321,7 +321,7 @@
 "BUTTON_EDIT" = "Bearbeiten";
 "BUTTON_EDIT_HINT" = "Bearbeitungsmodus";
 
-"ADD_TO_PLAYLIST" = "Zur Wiedergabeliste hinzufügen";
+"ADD_TO_PLAYLIST" = "Zu Liste hinzufügen";
 "ADD_TO_PLAYLIST_HINT" = "Menü zum Wiedergabeliste hinzufügen öffnen";
 
 "PLAYLIST_PLACEHOLDER" = "Titel der Wiedergabeliste";
