@@ -4,11 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Vídeo";
 "SETTINGS_AUDIO_TITLE" = "Áudio";
 
-"SETTINGS_THEME_SUBTITLE" = "Modificar as cores do aplicativo";
+"SETTINGS_THEME_BRIGHT" = "Tema brilhante";
+"SETTINGS_THEME_DARK" = "Tema escuro";
+"SETTINGS_THEME_SYSTEM" = "Automático";
 "SETTINGS_PRIVACY_SUBTITLE" = "Abrir em Configurações";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Acesso seguro para o seu conteúdo";
 
-"SETTINGS_DARKTHEME" = "Tema Escuro";
+"SETTINGS_DARKTHEME" = "Aparência";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Áudio de tempo comprimido";
 "SETTINGS_BACKGROUND_AUDIO" = "Reprodução de áudio em segundo plano";
 "SETTINGS_GENERIC_TITLE" = "Genérico";

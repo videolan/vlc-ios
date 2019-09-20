@@ -177,6 +177,9 @@
 "EMPTY_LIBRARY" = "Biblioteca de Mídias Vazia";
 "EMPTY_LIBRARY_LONG" = "Para reprodução, você pode iniciar um fluxo de mídia de uma servidor da sua rede local, da nuvem, ou sincronizar mídias para o seu dispositivo usando o iTunes, Wifi Upload ou os serviços Cloud.";
 
+"EMPTY_PLAYLIST" = "Lista de reprodução vazia";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Adiciona mídias enquanto estiver editando as respectivas categorias";
+
 "PLAYBACK_SCRUB_HELP" = "Deslize o dedo para baixo para ajustar a taxa de rolagem.";
 "PLAYBACK_SCRUB_HIGH" = "Rolagem de Alta Velocidade";
 "PLAYBACK_SCRUB_HALF" = "Rolagem de Média Velocidade";
