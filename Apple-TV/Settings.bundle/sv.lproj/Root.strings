@@ -4,11 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Ljud";
 
-"SETTINGS_THEME_SUBTITLE" = "Ändra appens färger";
+"SETTINGS_THEME_BRIGHT" = "Ljust tema";
+"SETTINGS_THEME_DARK" = "Mörkt tema";
+"SETTINGS_THEME_SYSTEM" = "Automatiskt";
 "SETTINGS_PRIVACY_SUBTITLE" = "Öppna i inställningarna";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Säker åtkomst till ditt innehåll";
 
-"SETTINGS_DARKTHEME" = "Mörkt tema";
+"SETTINGS_DARKTHEME" = "Utseende";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tidsutsträckt ljud";
 "SETTINGS_BACKGROUND_AUDIO" = "Ljuduppspelning i bakgrunden";
 "SETTINGS_GENERIC_TITLE" = "Allmän";

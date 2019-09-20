@@ -177,6 +177,9 @@
 "EMPTY_LIBRARY" = "Tomt mediabibliotek";
 "EMPTY_LIBRARY_LONG" = "För uppspelning kan du strömma media från en server på ditt lokala nätverk, från molnet eller synkronisera media till din enhet via iTunes, WiFi eller molntjänster.";
 
+"EMPTY_PLAYLIST" = "Tom spellista";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Lägg till media medan du redigerar de respektive kategorierna.";
+
 "PLAYBACK_SCRUB_HELP" = "Dra ditt finger nedåt för att justera skrubbningsgraden.";
 "PLAYBACK_SCRUB_HIGH" = "Skrubbning i högfart";
 "PLAYBACK_SCRUB_HALF" = "Skrubbning i halvfart";
