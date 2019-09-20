@@ -4,11 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Відео";
 "SETTINGS_AUDIO_TITLE" = "Аудіо";
 
-"SETTINGS_THEME_SUBTITLE" = "Змінити кольори програми";
+"SETTINGS_THEME_BRIGHT" = "Яскрава тема";
+"SETTINGS_THEME_DARK" = "Темна тема";
+"SETTINGS_THEME_SYSTEM" = "Автоматично";
 "SETTINGS_PRIVACY_SUBTITLE" = "Відкрити у налаштуваннях";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Безпечний доступ до вашого вмісту";
 
-"SETTINGS_DARKTHEME" = "Темна тема";
+"SETTINGS_DARKTHEME" = "Зовнішній вигляд";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Часове розтягнення звуку";
 "SETTINGS_BACKGROUND_AUDIO" = "Відтворення звуку у фоні";
 "SETTINGS_GENERIC_TITLE" = "Базовий";
