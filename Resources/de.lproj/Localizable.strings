@@ -177,6 +177,9 @@
 "EMPTY_LIBRARY" = "Leere Mediathek";
 "EMPTY_LIBRARY_LONG" = "Zur Wiedergabe können Sie Medien von einem Server innerhalb des lokalen Netzwerks streamen, Daten aus dem Netzspeicher abrufen oder Medien über iTunes, WLAN oder des Netzspeichers auf Ihr Gerät synchronisieren.";
 
+"EMPTY_PLAYLIST" = "Leere Wiedergabeliste";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Medien während der Bearbeitung in den jeweiligen Kategorien hinzufügen.";
+
 "PLAYBACK_SCRUB_HELP" = "Zum Anpassen mit dem Finger nach unten streichen.";
 "PLAYBACK_SCRUB_HIGH" = "Scrubbing-Geschwindigkeit: 100%";
 "PLAYBACK_SCRUB_HALF" = "Scrubbing-Geschwindigkeit: 50%";
