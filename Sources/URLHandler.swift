@@ -181,7 +181,14 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
                 self.play(url: transformedURL, completion: nil)
             }
             alert.addAction(playAction)
-            alert.show(UIApplication.shared.keyWindow!.rootViewController!, sender: nil)
+
+            var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+            if let tabBarController = UIApplication.shared.keyWindow?.rootViewController
+                as? UITabBarController {
+                rootViewController = tabBarController.selectedViewController
+            }
+            rootViewController?.present(alert, animated: true, completion: nil)
+
         } else {
             self.play(url: transformedURL, completion: nil)
         }
