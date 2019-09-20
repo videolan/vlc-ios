@@ -295,7 +295,6 @@ class MediaCategoryViewController: UICollectionViewController, UICollectionViewD
     private func displayEditToolbar() {
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.editToolbarConstraint?.constant = self?.isEditing == true ? 0 : EditToolbar.height
-            self?.view.layoutIfNeeded()
             self?.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self?.isEditing == true ? EditToolbar.height : 0, right: 0)
         }
     }
