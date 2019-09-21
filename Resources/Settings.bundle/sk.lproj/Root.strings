@@ -4,11 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Zvuk";
 
-"SETTINGS_THEME_SUBTITLE" = "Zmeniť farby aplikácie";
+"SETTINGS_THEME_BRIGHT" = "Svetlá téma";
+"SETTINGS_THEME_DARK" = "Tmavá téma";
+"SETTINGS_THEME_SYSTEM" = "Automaticky";
 "SETTINGS_PRIVACY_SUBTITLE" = "Otvoriť v nastaveniach";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Bezpečný prístup k vášmu obsahu";
 
-"SETTINGS_DARKTHEME" = "Tmavá téma";
+"SETTINGS_DARKTHEME" = "Vzhľad";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časové roztiahnutie zvuku";
 "SETTINGS_BACKGROUND_AUDIO" = "Prehrávanie zvuku na pozadí";
 "SETTINGS_GENERIC_TITLE" = "Všeobecné";

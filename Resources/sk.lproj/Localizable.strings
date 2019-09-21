@@ -177,6 +177,9 @@
 "EMPTY_LIBRARY" = "Prázdna knižnica médií";
 "EMPTY_LIBRARY_LONG" = "Na prehratie môžete streamovať médium zo servera vo vašej lokálnej sieti, z cloud-úložiska alebo môžete synchronizovať médium so svojím zariadením, s použitím služieb iTunes, WiFi Upload alebo Cloud.";
 
+"EMPTY_PLAYLIST" = "Vyprázdniť playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Pridať médium počas úpravy v príslušných kategóriách.";
+
 "PLAYBACK_SCRUB_HELP" = "Pre úpravu rýchlosti posúvania prejdite prstom nadol.";
 "PLAYBACK_SCRUB_HIGH" = "Posúvanie vysokou rýchlosťou";
 "PLAYBACK_SCRUB_HALF" = "Posúvanie polovičnou rýchlosťou";
