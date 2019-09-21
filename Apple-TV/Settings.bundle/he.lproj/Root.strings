@@ -4,11 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "סרט";
 "SETTINGS_AUDIO_TITLE" = "שמע";
 
-"SETTINGS_THEME_SUBTITLE" = "החלפת צבעי היישומון";
+"SETTINGS_THEME_BRIGHT" = "ערכת עיצוב בהירה";
+"SETTINGS_THEME_DARK" = "ערכת עיצוב כהה";
+"SETTINGS_THEME_SYSTEM" = "אוטומטית";
 "SETTINGS_PRIVACY_SUBTITLE" = "פתיחה בהגדרות";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "גישה מאובטחת לתוכן שלך";
 
-"SETTINGS_DARKTHEME" = "ערכת עיצוב כהה";
+"SETTINGS_DARKTHEME" = "מראה";
 "SETTINGS_TIME_STRETCH_AUDIO" = "מתיחת זמן השמע";
 "SETTINGS_BACKGROUND_AUDIO" = "נגינת שמע ברקע";
 "SETTINGS_GENERIC_TITLE" = "כללי";
