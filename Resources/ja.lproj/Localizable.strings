@@ -177,6 +177,9 @@
 "EMPTY_LIBRARY" = "メディアライブラリが空です";
 "EMPTY_LIBRARY_LONG" = "再生用にローカルネットワーク上のサーバー、クラウドまたは、同期メディアからのメディアをiTunes、WiFiアップロードまたは、クラウドサービスを使ってデバイス上にストリーミングすることができます。";
 
+"EMPTY_PLAYLIST" = "プレイリストを空に";
+"EMPTY_PLAYLIST_DESCRIPTION" = "カテゴリを編集中にメディアを追加する";
+
 "PLAYBACK_SCRUB_HELP" = "指をスライドさせてスクラビングレートを調整してください";
 "PLAYBACK_SCRUB_HIGH" = "高速なスクラビング";
 "PLAYBACK_SCRUB_HALF" = "中速のスクラビング";
