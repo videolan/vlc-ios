@@ -4,11 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Görüntü";
 "SETTINGS_AUDIO_TITLE" = "Ses";
 
-"SETTINGS_THEME_SUBTITLE" = "Uygulama renklerini değiştir";
+"SETTINGS_THEME_BRIGHT" = "Açık tema";
+"SETTINGS_THEME_DARK" = "Koyu tema";
+"SETTINGS_THEME_SYSTEM" = "Otomatik";
 "SETTINGS_PRIVACY_SUBTITLE" = "Ayarlarda Aç";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "İçeriğinize güvenli erişim";
 
-"SETTINGS_DARKTHEME" = "Koyu Tema";
+"SETTINGS_DARKTHEME" = "Görünüm";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Zamana yaymalı ses";
 "SETTINGS_BACKGROUND_AUDIO" = "Ses arka planda oynatılsın";
 "SETTINGS_GENERIC_TITLE" = "Soysal";

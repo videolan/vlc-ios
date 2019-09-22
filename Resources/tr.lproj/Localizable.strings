@@ -177,6 +177,9 @@
 "EMPTY_LIBRARY" = "Ortam Kitaplığı Boş";
 "EMPTY_LIBRARY_LONG" = "Oynatılacak ortam akışı yerel ağınızdaki bir sunucudan ya da buluttan alınabilir. Ortamlar iTunes, WiFi Yükleme ya da Bulut hizmetleri ile eşitlenebilir.";
 
+"EMPTY_PLAYLIST" = "Boş oynatma listesi";
+"EMPTY_PLAYLIST_DESCRIPTION" = "İlgili kategorilerde düzenleme yaparken ortam ekle.";
+
 "PLAYBACK_SCRUB_HELP" = "Sürtme hızını ayarlamak için parmağınızı aşağı kaydırın.";
 "PLAYBACK_SCRUB_HIGH" = "Yüksek Hızlı Sürtme";
 "PLAYBACK_SCRUB_HALF" = "Yarım Hızlı Sürtme";
