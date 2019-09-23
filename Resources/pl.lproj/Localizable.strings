@@ -177,6 +177,9 @@
 "EMPTY_LIBRARY" = "Pusta Biblioteka mediów";
 "EMPTY_LIBRARY_LONG" = "Dla odtwarzania, możesz przesyłać strumień z serwera lub z chmury do sieci lokalnej albo synchronizować pliki do Twojego urządzenia za pomocą programu iTunes, połączenia WiFi lub usług w chmurze.";
 
+"EMPTY_PLAYLIST" = "Pusta lista odtwarzania";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Dodaj multimedia podczas edycji w odpowiednich kategoriach.";
+
 "PLAYBACK_SCRUB_HELP" = "Aby dostosować szybkość przewijania, przesuń palec w dół.";
 "PLAYBACK_SCRUB_HIGH" = "Najwyższa prędkość przewijania";
 "PLAYBACK_SCRUB_HALF" = "Połowa prędkości przewijania";
