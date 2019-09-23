@@ -121,8 +121,10 @@
 {
     if ([aMedia parsedStatus] != VLCMediaParsedStatusDone) {
         [self.delegate networkServerBrowserShouldPopView:self];
-    } else {
+    } else if (self.mediaList.count != 0) {
         [self.delegate networkServerBrowserDidUpdate:self];
+    } else {
+        [self.delegate networkServerBrowserEndParsing:self];
     }
 }
 
