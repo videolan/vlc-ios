@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (void)networkServerBrowserShouldPopView:(id<VLCNetworkServerBrowser>)networkBrowser;
+- (void)networkServerBrowserEndParsing:(id<VLCNetworkServerBrowser>)networkBrowser;
 @end
 
 

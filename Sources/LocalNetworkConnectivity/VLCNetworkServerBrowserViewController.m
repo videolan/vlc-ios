@@ -84,6 +84,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)networkServerBrowserEndParsing:(id<VLCNetworkServerBrowser>)networkBrowser
+{
+    [self stopActivityIndicator];
+}
+
 - (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error
 {
     [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_TITLE", nil)
