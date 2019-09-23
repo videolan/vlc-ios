@@ -1951,6 +1951,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [self.view addSubview:_movieView];
         [self.view sendSubviewToBack:_movieView];
         _movieView.frame = self.view.frame;
+        _artworkImageView.hidden = !_audioOnly;
     }
 }
 
