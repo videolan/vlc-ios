@@ -177,6 +177,9 @@
 "EMPTY_LIBRARY" = "Mediateca Vazia";
 "EMPTY_LIBRARY_LONG" = "Para reproduzir, pode transmitir os ficheiros de um servidor na sua rede local, da nuvem ou sincronizar os ficheiros para o seu dispositivo, utilizando o iTunes, Envio por Wi-Fi ou serviços da Nuvem.";
 
+"EMPTY_PLAYLIST" = "Lista de reprodução vazia";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Adicione média durante a edição nas respectivas categorias.";
+
 "PLAYBACK_SCRUB_HELP" = "Passe o dedo para baixo para ajustar a velocidade do avanço.";
 "PLAYBACK_SCRUB_HIGH" = "Avanço rápido";
 "PLAYBACK_SCRUB_HALF" = "Avanço médio";
@@ -285,8 +288,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Pressione %@ para apagar"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Confirmação de eliminação dos ficheiros selecionados";
-"DELETE_TITLE" = "Eliminar Ficheiros Selecionados";
+"DELETE_MESSAGE" = "Confirme a eliminação da seleção";
+"DELETE_MESSAGE_PLAYLIST" = "Confirme a eliminação da seleção da lista de reprodução\nOs itens de média não são eliminados";
+"DELETE_TITLE" = "Eliminar seleção";
 
 //Drag and Drop
 "THIS_FILE" = "Este ficheiro";
@@ -371,10 +375,14 @@
 "VARIOUS_ARTIST" = "Vários artistas";
 "UNKNOWN_ALBUM" = "Álbum desconhecido";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Bloquear interface";
 "INTERFACE_LOCK_HINT" = "Desativar controlos da interface";
 "MORE_OPTIONS_BUTTON" = "Mais";
 "MORE_OPTIONS_HINT" = "Ver mais opções de controlos";
 "REPEAT_MODE_HINT" = "Alterar o modo de repetição do item atual";
 "VIDEO_ASPECT_RATIO_HINT" = "Alterar a proporção do vídeo atual";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizador";
+"MORE_OPTIONS_HEADER_TITLE" = "Opções de vídeo";
