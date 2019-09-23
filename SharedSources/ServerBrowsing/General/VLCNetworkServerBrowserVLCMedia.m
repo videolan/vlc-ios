@@ -50,27 +50,9 @@
         _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:YES];
         _customDialogHandler = [[VLCCustomDialogRendererHandler alloc]
                                 initWithDialogProvider:_dialogProvider];
-
-        __weak typeof(self) weakSelf = self;
-        _customDialogHandler.completionHandler = ^(VLCCustomDialogRendererHandlerCompletionType status)
-        {
-            [weakSelf customDialogCompletionHandlerWithStatus:status];
-        };
         _dialogProvider.customRenderer = _customDialogHandler;
     }
     return self;
-}
-
-- (void)customDialogCompletionHandlerWithStatus:(VLCCustomDialogRendererHandlerCompletionType)status
-{
-    switch (status) {
-        case VLCCustomDialogRendererHandlerCompletionTypeError:
-            // Disable for now, it seems that vlc is sending us a bit too much error callbacks
-            // [self.delegate networkServerBrowserShouldPopView:self];
-            break;
-        default:
-            break;
-    }
 }
 
 - (BOOL)shouldFilterMedia:(VLCMedia *)media
