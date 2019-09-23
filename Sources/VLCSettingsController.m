@@ -232,7 +232,7 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     actionSheet.delegate = specifierManager;
     actionSheet.dataSource = specifierManager;
     
-    [self presentViewController:actionSheet animated:YES completion:^{
+    [self presentViewController:actionSheet animated:NO completion:^{
         [self->actionSheet.collectionView selectItemAtIndexPath:self->specifierManager.selectedIndex animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
     }];
 }
