@@ -399,8 +399,6 @@
         APLog(@"Unsupported URL Scheme requested %@", identifier);
     }
 
-    [self _dismissLogin];
-
     if (serverBrowser) {
         VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
         [self.navigationController pushViewController:targetViewController animated:YES];
