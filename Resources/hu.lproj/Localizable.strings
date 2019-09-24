@@ -177,6 +177,9 @@
 "EMPTY_LIBRARY" = "A médiatár üres";
 "EMPTY_LIBRARY_LONG" = "Lejátszhat streameket egy helyi hálózaton található kiszolgálóról, a felhőből, vagy átvihet médiafájlokat az eszközére az iTunes, a Wi-Fi feltöltés és a felhőszolgáltatások segítségével.";
 
+"EMPTY_PLAYLIST" = "Üres lejátszólista";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Média hozzáadása a megfelelő kategóriák szerkesztésekor";
+
 "PLAYBACK_SCRUB_HELP" = "A tekerési sebesség állításához csúsztassa lefelé az ujját.";
 "PLAYBACK_SCRUB_HIGH" = "Nagysebességű tekerés";
 "PLAYBACK_SCRUB_HALF" = "Félsebességű tekerés";
@@ -285,8 +288,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Kattintson a(z) %@ gombra a törléshez"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "A kijelölt fájlok törlésének megerősítése";
-"DELETE_TITLE" = "Kijelölt profil eltávolítása";
+"DELETE_MESSAGE" = "A kiválasztás törlésének megerősítése";
+"DELETE_MESSAGE_PLAYLIST" = "Erősítse meg a kiválasztás törlését a lejátszólistáról\nA médiaelemek nem lesznek törölve";
+"DELETE_TITLE" = "Kiválasztás törlése";
 
 //Drag and Drop
 "THIS_FILE" = "Ez a fájl";
@@ -371,10 +375,14 @@
 "VARIOUS_ARTIST" = "Különböző előadók";
 "UNKNOWN_ALBUM" = "Ismeretlen album";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Felület zárolása";
 "INTERFACE_LOCK_HINT" = "Felületi vezérlők letiltása";
 "MORE_OPTIONS_BUTTON" = "Több";
 "MORE_OPTIONS_HINT" = "További beállításvezérlők megjelenítése";
 "REPEAT_MODE_HINT" = "A jelenlegi elem ismétlési módjának módosítása";
 "VIDEO_ASPECT_RATIO_HINT" = "A jelenlegi videó képarányának módosítása";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Hangszínszabályzó";
+"MORE_OPTIONS_HEADER_TITLE" = "Videobeállítások";

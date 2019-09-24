@@ -4,11 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Videó";
 "SETTINGS_AUDIO_TITLE" = "Hang";
 
-"SETTINGS_THEME_SUBTITLE" = "Alkalmazás színeinek módosítása";
+"SETTINGS_THEME_BRIGHT" = "Világos téma";
+"SETTINGS_THEME_DARK" = "Sötét téma";
+"SETTINGS_THEME_SYSTEM" = "Automatikus";
 "SETTINGS_PRIVACY_SUBTITLE" = "Megnyitás a Beállításokban";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Biztonságos hozzáférés a tartalmához";
 
-"SETTINGS_DARKTHEME" = "Sötét téma";
+"SETTINGS_DARKTHEME" = "Megjelenés";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Időbeli hangnyújtás";
 "SETTINGS_BACKGROUND_AUDIO" = "Hang lejátszása a háttérben";
 "SETTINGS_GENERIC_TITLE" = "Általános";
