@@ -1,5 +1,20 @@
 # Changelog
 
+## iOS [3.2.1]
+
+· Add automatic appearance setting for iOS 13
+· Add indicator inside a playlist for reordering
+· Adapt empty view for current context
+· Fix SMB 2 credential storage
+· Fix local network navigation
+· Fix local network infinite reloading
+· Fix local network connection dialog
+· Fix external screen, AirPlay mirroring black screen
+· Fix opening media from other applications using x-callback-url
+· Fix artwork being shown after backgrounding the application during playback
+· Fix cancel button not being shown on the local network connect screen on iPads
+· Fix minor stability and interface issues
+
 ## iOS [3.2.0]
 · This releases introduces a completely new interface, more intuitive, easier to use and features an up-to-date look. This is a first step for future releases that will improve this interface even more.
 · It also introduces a completely new media library backend, that allows a much easier management of Music and Audio files.
