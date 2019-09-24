@@ -190,12 +190,7 @@
 
 - (void)connectLoginDataSource
 {
-    if (!self.protocolSelected)
-        return;
-
-    [self.delegate loginWithLoginViewController:self loginInfo:self.loginInformation];
-
-    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    [self connectLoginDataSource:self.loginDataSource];
 }
 
 - (BOOL)protocolSelected
