@@ -248,6 +248,19 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self setupRendererDiscovererManager];
 }
 
+- (void)setupMovieViewConstraints
+{
+    _movieViewLeadingConstraint = [_movieView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor];
+    _movieViewTrailingConstraint = [_movieView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
+
+    [NSLayoutConstraint activateConstraints:@[
+        _movieViewLeadingConstraint,
+        _movieViewTrailingConstraint,
+        [_movieView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+        [_movieView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+    ]];
+}
+
 - (void)setupMovieView
 {
     _movieView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -256,17 +269,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         [self.movieView setAccessibilityIgnoresInvertColors:YES];
     }
 
-    _movieViewLeadingConstraint = [_movieView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor];
-    _movieViewTrailingConstraint = [_movieView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
-
-    [NSLayoutConstraint
-     activateConstraints:@[
-                           _movieViewLeadingConstraint,
-                           _movieViewTrailingConstraint,
-                           [_movieView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-                           [_movieView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
-                           ]];
-
+    [self setupMovieViewConstraints];
     [self.movieView setAccessibilityIdentifier:@"Video Player Title"];
     [self.movieView setAccessibilityLabel:NSLocalizedString(@"VO_VIDEOPLAYER_TITLE", nil)];
     [self.movieView setAccessibilityHint:NSLocalizedString(@"VO_VIDEOPLAYER_DOUBLETAP", nil)];
