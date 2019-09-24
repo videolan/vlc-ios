@@ -1791,10 +1791,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     // 30.0 represents the exact size of the notch
     CGFloat constant = _vpc.currentAspectRatio != VLCAspectRatioFillToScreen ? 30.0 : 0.0;
 
-    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
 
-    if (orientation == UIDeviceOrientationLandscapeLeft
-        || orientation == UIDeviceOrientationLandscapeRight) {
+    if (orientation == UIInterfaceOrientationLandscapeLeft
+        || orientation == UIInterfaceOrientationLandscapeRight) {
         [_movieViewLeadingConstraint setConstant:constant];
         [_movieViewTrailingConstraint setConstant:-constant];
     } else {
