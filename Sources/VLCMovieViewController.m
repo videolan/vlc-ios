@@ -1955,11 +1955,30 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     BOOL displayExternally = view != _movieView;
     [_playingExternalView shouldDisplay:displayExternally movieView:_movieView];
     _artworkImageView.hidden = displayExternally;
+
+    if (displayExternally) {
+        // Adjust constraints for external display
+        UIView *displayView = _playingExternalView.displayView;
+
+        [NSLayoutConstraint activateConstraints:@[
+            [_movieView.leadingAnchor constraintEqualToAnchor:displayView.leadingAnchor],
+            [_movieView.trailingAnchor constraintEqualToAnchor:displayView.trailingAnchor],
+            [_movieView.topAnchor constraintEqualToAnchor:displayView.topAnchor],
+            [_movieView.bottomAnchor constraintEqualToAnchor:displayView.bottomAnchor],
+        ]];
+    }
+
     if (!displayExternally && _movieView.superview != self.view) {
         [self.view addSubview:_movieView];
         [self.view sendSubviewToBack:_movieView];
         _movieView.frame = self.view.frame;
         _artworkImageView.hidden = !_audioOnly;
+
+        // Adjust constraint for local display
+        [self setupMovieViewConstraints];
+        if (@available(iOS 11, *)) {
+            [self adaptMovieViewToNotch];
+        }
     }
 }
 
