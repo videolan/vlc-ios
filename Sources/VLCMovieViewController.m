@@ -1783,6 +1783,11 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         return;
     }
 
+    // Ignore if playing on a external screen since there is no notches.
+    if ([_vpc isPlayingOnExternalScreen]) {
+        return;
+    }
+
     // 30.0 represents the exact size of the notch
     CGFloat constant = _vpc.currentAspectRatio != VLCAspectRatioFillToScreen ? 30.0 : 0.0;
 
