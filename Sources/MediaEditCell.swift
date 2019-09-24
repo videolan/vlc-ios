@@ -19,6 +19,7 @@ class MediaEditCell: BaseCollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var dragImage: UIImageView!
     @IBOutlet weak var VideoAspectRatio: NSLayoutConstraint!
     @IBOutlet weak var AudioAspectRatio: NSLayoutConstraint!
 
@@ -57,6 +58,7 @@ class MediaEditCell: BaseCollectionViewCell {
         titleLabel.textColor = PresentationTheme.current.colors.cellTextColor
         timeLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
         sizeLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        dragImage.tintColor = PresentationTheme.current.colors.cellDetailTextColor
     }
 
     func updateForMovie(movie: VLCMLMedia) {

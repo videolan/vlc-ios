@@ -301,6 +301,9 @@ extension EditController: UICollectionViewDataSource {
             cell.media = model.anyfiles[indexPath.row]
             cell.isChecked = selectedCellIndexPaths.contains(indexPath)
             cell.isAccessibilityElement = true
+            if let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist {
+                cell.dragImage.isHidden = false
+            }
             return cell
         } else {
             assertionFailure("We couldn't dequeue a reusable cell, the cell might not be registered or is not a MediaEditCell")
