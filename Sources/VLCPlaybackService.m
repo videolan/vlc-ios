@@ -23,9 +23,7 @@
 #import "VLCMetadata.h"
 #import "VLCPlayerDisplayController.h"
 
-#if TARGET_OS_IOS
 #import "VLC-Swift.h"
-#endif
 
 NSString *const VLCPlaybackServicePlaybackDidStart = @"VLCPlaybackServicePlaybackDidStart";
 NSString *const VLCPlaybackServicePlaybackDidPause = @"VLCPlaybackServicePlaybackDidPause";

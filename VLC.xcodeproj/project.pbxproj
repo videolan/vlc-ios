@@ -252,6 +252,7 @@
 		8D4F9B472141630000E478BE /* MediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4F9B462141630000E478BE /* MediaModel.swift */; };
 		8D66A47320AC61B900FA5B92 /* MediaLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D66A47220AC61B900FA5B92 /* MediaLibraryService.swift */; };
 		8D6E1588223BBAF600077DD3 /* MiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6E1587223BBAF600077DD3 /* MiniPlayer.swift */; };
+		8D96D2F2233A3D4000E3FB44 /* CustomDialogRendererHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418DFE9E211C93C6005D3652 /* CustomDialogRendererHandler.swift */; };
 		8DD6516F208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6516E208C89BC0052EE68 /* VLCAccessibilityIdentifier.swift */; };
 		8DD651BA208F6AF00052EE68 /* ActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD651B9208F6AF00052EE68 /* ActionSheetCell.swift */; };
 		8DD651C4208F786F0052EE68 /* ActionSheetSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD651C3208F786F0052EE68 /* ActionSheetSectionHeader.swift */; };
@@ -2844,6 +2845,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D96D2F2233A3D4000E3FB44 /* CustomDialogRendererHandler.swift in Sources */,
 				DD3EFF441BDEBCE500B68579 /* VLCSharedLibraryParser.m in Sources */,
 				DD3EFF5E1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */,
 				DD8095E01BE3EFC20065D8E1 /* VLCPlaybackInfoTVViewController.m in Sources */,
