@@ -35,7 +35,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
             } else if let playlist = media as? VLCMLPlaylist {
                 update(playlist:playlist)
             } else {
-                fatalError("wrong object")
+                assertionFailure("MovieCollectionViewCell: media: Needs to be of a supported Type.")
             }
         }
     }

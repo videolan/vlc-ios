@@ -38,7 +38,7 @@ class MediaEditCell: BaseCollectionViewCell {
             } else if let audio = media as? VLCMLMedia, audio.type() == .audio {
                 updateForAudio(audio: audio)
             } else {
-                fatalError("needs to be of a supported Type")
+                assertionFailure("MediaEditCell: media: Needs to be of a supported Type.")
             }
         }
     }

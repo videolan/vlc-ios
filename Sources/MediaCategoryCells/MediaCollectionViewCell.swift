@@ -35,7 +35,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
             } else if let genre = media as? VLCMLGenre {
                 update(genre: genre)
             } else {
-                fatalError("needs to be of Type VLCMLMedia or VLCMLAlbum")
+                assertionFailure("MovieCollectionViewCell: media: Needs to be of a supported Type.")
             }
         }
     }
