@@ -22,14 +22,16 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
 
     override var media: VLCMLObject? {
         didSet {
-            if let albumTrack = media as? VLCMLMedia, albumTrack.subtype() == .albumTrack {
-                update(audiotrack:albumTrack)
+            if let media = media as? VLCMLMedia {
+                if media.subtype() == .albumTrack {
+                    update(audiotrack: media)
+                } else {
+                    update(movie: media)
+                }
             } else if let album = media as? VLCMLAlbum {
                 update(album:album)
             } else if let artist = media as? VLCMLArtist {
                 update(artist:artist)
-            } else if let movie = media as? VLCMLMedia, movie.subtype() == .unknown {
-                update(movie:movie)
             } else if let playlist = media as? VLCMLPlaylist {
                 update(playlist: playlist)
             } else if let genre = media as? VLCMLGenre {
