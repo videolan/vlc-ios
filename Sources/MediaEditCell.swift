@@ -25,8 +25,12 @@ class MediaEditCell: BaseCollectionViewCell {
 
     override var media: VLCMLObject? {
         didSet {
-            if let movie = media as? VLCMLMedia, movie.type() == .video {
-                updateForMovie(movie: movie)
+            if let media = media as? VLCMLMedia {
+                if media.type() == .audio {
+                    updateForAudio(audio: media)
+                } else {
+                    updateForMovie(movie: media)
+                }
             } else if let artist = media as? VLCMLArtist {
                 updateForArtist(artist: artist)
             } else if let album = media as? VLCMLAlbum {
@@ -35,8 +39,6 @@ class MediaEditCell: BaseCollectionViewCell {
                 updateForGenre(genre: genre)
             } else if let playlist = media as? VLCMLPlaylist {
                 updateForPlaylist(playlist: playlist)
-            } else if let audio = media as? VLCMLMedia, audio.type() == .audio {
-                updateForAudio(audio: audio)
             } else {
                 assertionFailure("MediaEditCell: media: Needs to be of a supported Type.")
             }
