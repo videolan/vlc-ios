@@ -124,15 +124,18 @@ class MediaEditCell: BaseCollectionViewCell {
         }
     }
 
-    override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
-        let numberOfCells: CGFloat
+    override class func numberOfColumns(for width: CGFloat) -> CGFloat {
         if width <= DeviceWidth.iPhonePortrait.rawValue {
-            numberOfCells = 1
+            return 1
         } else if width <= DeviceWidth.iPhoneLandscape.rawValue {
-            numberOfCells = 2
+            return 2
         } else {
-            numberOfCells = 3
+            return 3
         }
+    }
+
+    override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
+        let numberOfCells: CGFloat = numberOfColumns(for: width)
 
         // We have the number of cells and we always have numberofCells + 1 interItemPadding spaces.
         //

@@ -85,17 +85,20 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         thumbnailView.image = playlist.thumbnail()
     }
 
-    override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
-        let numberOfCells: CGFloat
+    override class func numberOfColumns(for width: CGFloat) -> CGFloat {
         if width <= DeviceWidth.iPhonePortrait.rawValue {
-            numberOfCells = 2
+            return 2
         } else if width <= DeviceWidth.iPhoneLandscape.rawValue {
-            numberOfCells = 3
+            return 3
         } else if width <= DeviceWidth.iPadLandscape.rawValue {
-            numberOfCells = 4
+            return 4
         } else {
-            numberOfCells = 5
+            return 5
         }
+    }
+
+    override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
+        let numberOfCells: CGFloat = numberOfColumns(for: width)
         let aspectRatio: CGFloat = 10.0 / 16.0
 
         // We have the number of cells and we always have numberofCells + 1 interItemPadding spaces.

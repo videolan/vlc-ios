@@ -24,6 +24,10 @@ class BaseCollectionViewCell: UICollectionViewCell {
 
     var media: VLCMLObject?
 
+    class func numberOfColumns(for width: CGFloat) -> CGFloat {
+        return CGFloat.zero
+    }
+
     class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
         return CGSize.zero
     }
