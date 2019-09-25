@@ -527,6 +527,7 @@ private extension MediaCategoryViewController {
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
+        longPressGesture.minimumPressDuration = 0.2
         collectionView?.addGestureRecognizer(longPressGesture)
         if #available(iOS 11.0, *) {
             collectionView?.contentInsetAdjustmentBehavior = .always
