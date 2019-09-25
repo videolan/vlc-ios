@@ -535,8 +535,15 @@ private extension MediaCategoryViewController {
         }
     }
 
-    @objc func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+    func constrainOnX(_ location: CGPoint, for width: CGFloat) -> CGPoint {
+        var constrainedLocation = location
+        if model.cellType.numberOfColumns(for: width) == 1 {
+            constrainedLocation.x = width / 2
+        }
+        return constrainedLocation
+    }
 
+    @objc func handleLongGesture(gesture: UILongPressGestureRecognizer) {
         switch gesture.state {
         case .began:
             guard let selectedIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else {
@@ -544,7 +551,9 @@ private extension MediaCategoryViewController {
             }
             collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
         case .changed:
-            collectionView.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
+            let location = constrainOnX(gesture.location(in: gesture.view!),
+                                        for: collectionView.frame.width)
+            collectionView.updateInteractiveMovementTargetPosition(location)
         case .ended:
             collectionView.endInteractiveMovement()
         default:
