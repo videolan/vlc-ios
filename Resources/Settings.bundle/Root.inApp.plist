@@ -79,16 +79,6 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>MLDecrapifyTitles</string>
-			<key>Title</key>
-			<string>SETTINGS_DECRAPIFY</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -607,6 +597,22 @@
 			<string>BackgroundAudioPlayback</string>
 			<key>Title</key>
 			<string>SETTINGS_BACKGROUND_AUDIO</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_MEDIA_LIBRARY</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>MLDecrapifyTitles</string>
+			<key>Title</key>
+			<string>SETTINGS_DECRAPIFY</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
