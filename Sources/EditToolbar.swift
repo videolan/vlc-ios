@@ -80,11 +80,10 @@ class EditToolbar: UIView {
     }
 
     private func setupStackView() {
-        let stackView = UIStackView(arrangedSubviews: [addToPlaylistButton])
+        let stackView = UIStackView(arrangedSubviews: [addToPlaylistButton, deleteButton])
         let file = category.anyfiles.first
 
         if !(file is VLCMLArtist) && !(file is VLCMLGenre) && !(file is VLCMLAlbum) {
-            stackView.addArrangedSubview(deleteButton)
             stackView.addArrangedSubview(renameButton)
         }
 

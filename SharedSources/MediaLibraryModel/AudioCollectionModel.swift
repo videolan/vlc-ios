@@ -13,8 +13,29 @@ import Foundation
 protocol AudioCollectionModel: MLBaseModel { }
 
 extension AudioCollectionModel {
-
     func delete(_ items: [VLCMLObject]) {
-        preconditionFailure("AudioCollectionModel: Audio collections can not be deleted, they disappear when their last title got deleted")
+        do {
+            for case let item as MediaCollectionModel in items {
+                if let tracks = item.files() {
+                    for track in tracks {
+                        if let mainFile = track.mainFile() {
+                            try FileManager.default.removeItem(atPath: mainFile.mrl.path)
+                        }
+                    }
+                    let folderPaths = Set(tracks.map {
+                        $0.mainFile()?.mrl.deletingLastPathComponent()
+                    })
+                    for path in folderPaths {
+                        if let path = path {
+                            try FileManager.default.deleteMediaFolder(name: item.title(), at: path)
+                        }
+                    }
+                }
+            }
+            medialibrary.reload()
+        }
+        catch let error as NSError {
+            assertionFailure("AudioCollectionModel: Delete failed: \(error.localizedDescription)")
+        }
     }
 }
