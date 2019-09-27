@@ -119,7 +119,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         }
         switch cellType {
         case .cloud, .streaming, .download:
-            return UITableView.automaticDimension
+            return 64
         case .wifi:
             return 80
         }
