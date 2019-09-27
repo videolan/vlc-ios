@@ -19,7 +19,7 @@ protocol MediaCategoryViewControllerDelegate: NSObjectProtocol {
                                enable: Bool)
 }
 
-class MediaCategoryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, IndicatorInfoProvider {
+class MediaCategoryViewController: UICollectionViewController, UISearchBarDelegate, IndicatorInfoProvider {
 
     var model: MediaLibraryBaseModel
     private var services: Services
@@ -393,7 +393,7 @@ extension MediaCategoryViewController {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension MediaCategoryViewController {
+extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if cachedCellSize == .zero {
             //For iOS 10 when rotating we take the value from willTransition to size, for the first layout pass that value is 0 though,
