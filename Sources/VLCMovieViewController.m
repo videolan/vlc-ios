@@ -1956,10 +1956,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [_playingExternalView shouldDisplay:displayExternally movieView:_movieView];
     _artworkImageView.hidden = displayExternally;
 
-    if (displayExternally) {
-        // Adjust constraints for external display
-        UIView *displayView = _playingExternalView.displayView;
+    UIView *displayView = _playingExternalView.displayView;
 
+    if (displayExternally && _movieView.superview == displayView) {
+        // Adjust constraints for external display
         [NSLayoutConstraint activateConstraints:@[
             [_movieView.leadingAnchor constraintEqualToAnchor:displayView.leadingAnchor],
             [_movieView.trailingAnchor constraintEqualToAnchor:displayView.trailingAnchor],
