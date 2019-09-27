@@ -14,6 +14,7 @@
 · Fix artwork being shown after backgrounding the application during playback
 · Fix cancel button not being shown on the local network connect screen on iPads
 · Fix minor stability and interface issues
+· Video Grouping will be back soon in a new version of VLC-iOS
 
 ## iOS [3.2.0]
 · This releases introduces a completely new interface, more intuitive, easier to use and features an up-to-date look. This is a first step for future releases that will improve this interface even more.
