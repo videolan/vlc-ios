@@ -58,6 +58,12 @@ extension VLCMLSortingCriteria: CustomStringConvertible {
             return NSLocalizedString("FILENAME", comment: "")
         case .trackNumber:
             return NSLocalizedString("TRACK_NUMBER", comment: "")
+        case.nbVideo:
+            return NSLocalizedString("NB_VIDEO", comment: "")
+        case.nbAudio:
+            return NSLocalizedString("NB_AUDIO", comment: "")
+        case.nbMedia:
+            return NSLocalizedString("NB_MEDIA", comment: "")
         default:
             return NSLocalizedString("DEFAULT", comment: "")
         }
