@@ -132,9 +132,10 @@ class MediaEditCell: BaseCollectionViewCell {
         thumbnailImageView.image = videoGroup.thumbnail()
     }
 
-    var isChecked: Bool = false {
-         didSet {
-            checkboxImageView.image = isChecked ? UIImage(named: "checkboxSelected") : UIImage(named: "checkboxEmpty")
+    override var isSelected: Bool {
+        didSet {
+            checkboxImageView.image = isSelected ? UIImage(named: "checkboxSelected")
+                : UIImage(named: "checkboxEmpty")
         }
     }
 
@@ -169,7 +170,7 @@ class MediaEditCell: BaseCollectionViewCell {
         sizeLabel.text = ""
         accessibilityLabel = ""
         thumbnailImageView.image = nil
-        isChecked = false
+        isSelected = false
         thumbnailImageView.layer.cornerRadius = 0
         AudioAspectRatio.isActive = true
         VideoAspectRatio.isActive = false

@@ -31,7 +31,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private let searchBarSize: CGFloat = 50.0
     private var rendererButton: UIButton
     private lazy var editController: EditController = {
-        let editController = EditController(mediaLibraryService:services.medialibraryService, model: model)
+        let editController = EditController(mediaLibraryService:services.medialibraryService,
+                                            model: model,
+                                            presentingView: collectionView)
         editController.delegate = self
         return editController
     }()
@@ -294,7 +296,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         collectionView?.dataSource = editing ? editController : self
         collectionView?.delegate = editing ? editController : self
 
-        editController.resetSelections()
+        editController.resetSelections(resetUI: true)
         displayEditToolbar()
 
         PlaybackService.sharedInstance().setPlayerHidden(editing)
@@ -600,6 +602,7 @@ private extension MediaCategoryViewController {
             let editCellNib = UINib(nibName: editCell.nibName, bundle: nil)
             collectionView?.register(editCellNib, forCellWithReuseIdentifier: editCell.defaultReuseIdentifier)
         }
+        collectionView.allowsMultipleSelection = true
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))

@@ -15,9 +15,12 @@ protocol EditControllerDelegate: class {
 }
 
 class EditController: UIViewController {
+    // Cache selectedIndexPath separately to indexPathsForSelectedItems in order to have persistance
     private var selectedCellIndexPaths = Set<IndexPath>()
     private let model: MediaLibraryBaseModel
     private let mediaLibraryService: MediaLibraryService
+    private let presentingView: UICollectionView
+
     private lazy var addToPlaylistViewController: AddToPlaylistViewController = {
         var addToPlaylistViewController = AddToPlaylistViewController(playlists: mediaLibraryService.playlists())
         addToPlaylistViewController.delegate = self
@@ -32,9 +35,12 @@ class EditController: UIViewController {
         self.view = editToolbar
     }
 
-    init(mediaLibraryService: MediaLibraryService, model: MediaLibraryBaseModel) {
+    init(mediaLibraryService: MediaLibraryService,
+         model: MediaLibraryBaseModel,
+         presentingView: UICollectionView) {
         self.mediaLibraryService = mediaLibraryService
         self.model = model
+        self.presentingView = presentingView
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -42,7 +48,13 @@ class EditController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func resetSelections() {
+    func resetSelections(resetUI: Bool) {
+        for indexPath in selectedCellIndexPaths {
+            presentingView.deselectItem(at: indexPath, animated: true)
+            if resetUI {
+                collectionView(presentingView, didDeselectItemAt: indexPath)
+            }
+        }
         selectedCellIndexPaths.removeAll()
     }
 }
@@ -131,7 +143,7 @@ private extension EditController {
                 }
             }
         }
-        selectedCellIndexPaths.removeAll()
+        resetSelections(resetUI: true)
     }
 }
 
@@ -194,6 +206,7 @@ extension EditController: EditToolbarDelegate {
                                           action: {
                                             [weak self] action in
                                             self?.model.delete(objectsToDelete)
+                                            // Update directly the cached indexes since cells will be destroyed
                                             self?.selectedCellIndexPaths.removeAll()
         })
 
@@ -280,13 +293,26 @@ extension EditController: EditToolbarDelegate {
             guard let strongself = self else {
                 return
             }
-            strongself.delegate?.editController(editController: strongself, cellforItemAt: indexPath)?.isChecked = false
-            strongself.selectedCellIndexPaths.remove(indexPath)
+            strongself.presentingView.deselectItem(at: indexPath, animated: true)
+            strongself.collectionView(strongself.presentingView, didDeselectItemAt: indexPath)
+
             //call until all items are renamed
             if !strongself.selectedCellIndexPaths.isEmpty {
                 strongself.editToolbarDidRename(editToolbar)
             }
         })
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension EditController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCellIndexPaths.insert(indexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        selectedCellIndexPaths.remove(indexPath)
     }
 }
 
@@ -305,7 +331,7 @@ extension EditController: UICollectionViewDataSource {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: editCell.defaultReuseIdentifier,
                                                          for: indexPath) as? MediaEditCell {
             cell.media = model.anyfiles[indexPath.row]
-            cell.isChecked = selectedCellIndexPaths.contains(indexPath)
+            cell.isSelected = selectedCellIndexPaths.contains(indexPath)
             cell.isAccessibilityElement = true
             if let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist {
                 cell.dragImage.isHidden = false
@@ -330,22 +356,6 @@ extension EditController: UICollectionViewDataSource {
             return true
         }
         return false
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension EditController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? MediaEditCell {
-            cell.isChecked = !cell.isChecked
-            if cell.isChecked {
-                // cell selected, saving indexPath
-                selectedCellIndexPaths.insert(indexPath)
-            } else {
-                selectedCellIndexPaths.remove(indexPath)
-            }
-        }
     }
 }
 
@@ -385,7 +395,7 @@ extension EditController: AddToPlaylistViewControllerDelegate {
                 assertionFailure("EditController: AddToPlaylistViewControllerDelegate: Failed to add item.")
             }
         }
-        resetSelections()
+        resetSelections(resetUI: false)
         addToPlaylistViewController.dismiss(animated: true, completion: nil)
     }
 
