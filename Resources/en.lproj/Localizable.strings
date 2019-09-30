@@ -316,6 +316,7 @@
 "MOVIES" = "Movies";
 "SONGS" = "Songs";
 "PLAYLISTS" = "Playlists";
+"VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "Modified date";
 "NAME" = "Name";

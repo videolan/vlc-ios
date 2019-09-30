@@ -147,6 +147,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
     }
 
+    private func updateVideoGroups() {
+        // Manually update video groups since there is no callbacks for it
+        if let videoGroupViewModel = model as? VideoGroupViewModel {
+            videoGroupViewModel.updateVideoGroups()
+        }
+    }
+
     @objc func reloadData() {
         DispatchQueue.main.async {
             [weak self] in
@@ -189,6 +196,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         manager.presentingViewController = self
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
+        updateVideoGroups()
         reloadData()
     }
 

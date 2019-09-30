@@ -39,6 +39,8 @@ class MediaEditCell: BaseCollectionViewCell {
                 updateForGenre(genre: genre)
             } else if let playlist = media as? VLCMLPlaylist {
                 updateForPlaylist(playlist: playlist)
+            } else if let videoGroup = media as? VLCMLVideoGroup {
+                update(videoGroup: videoGroup)
             } else {
                 assertionFailure("MediaEditCell: media: Needs to be of a supported Type.")
             }
@@ -118,6 +120,16 @@ class MediaEditCell: BaseCollectionViewCell {
         accessibilityLabel = playlist.accessibilityText()
         timeLabel.text = playlist.numberOfTracksString()
         thumbnailImageView.image = playlist.thumbnail()
+    }
+
+    func update(videoGroup: VLCMLVideoGroup) {
+        thumbnailImageView.layer.cornerRadius = 3
+        AudioAspectRatio.isActive = false
+        VideoAspectRatio.isActive = true
+        titleLabel.text = videoGroup.name()
+        accessibilityLabel = videoGroup.accessibilityText()
+        timeLabel.text = videoGroup.numberOfTracksString()
+        thumbnailImageView.image = videoGroup.thumbnail()
     }
 
     var isChecked: Bool = false {

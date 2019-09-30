@@ -34,6 +34,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
                 update(movie:movie)
             } else if let playlist = media as? VLCMLPlaylist {
                 update(playlist:playlist)
+            } else if let videoGroup = media as? VLCMLVideoGroup {
+                update(videoGroup: videoGroup)
             } else {
                 assertionFailure("MovieCollectionViewCell: media: Needs to be of a supported Type.")
             }
@@ -83,6 +85,15 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         accessibilityLabel = playlist.accessibilityText()
         descriptionLabel.text = playlist.numberOfTracksString()
         thumbnailView.image = playlist.thumbnail()
+    }
+
+    func update(videoGroup: VLCMLVideoGroup) {
+        collectionOverlay.isHidden = false
+        numberOfTracks.text = String(videoGroup.count())
+        titleLabel.text = videoGroup.name()
+        accessibilityLabel = videoGroup.accessibilityText()
+        descriptionLabel.text = videoGroup.numberOfTracksString()
+        thumbnailView.image = videoGroup.thumbnail()
     }
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
