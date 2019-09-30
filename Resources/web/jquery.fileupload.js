@@ -425,7 +425,9 @@
                                     that._isInstanceOf('Blob', file)) {
                                 formData.append(
                                     options.paramName[index] || paramName,
-                                    file, file.path
+                                    //file.relativePath + file.name will handle both Chrome and Firefox
+                                    //behaviours with filenames whereas file.path will only work with Firefox.
+                                    file, file.relativePath + file.name
                                 );
                             }
                         });
