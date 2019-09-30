@@ -83,6 +83,22 @@ extension AlbumModel: MediaLibraryObserver {
         updateView?()
     }
 
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didModifyAlbumsWithIds albumsIds: [NSNumber]) {
+        var albums = [VLCMLAlbum]()
+
+        albumsIds.forEach() {
+            guard let safeAlbum = medialibrary.medialib.album(withIdentifier: $0.int64Value)
+                else {
+                    return
+            }
+            albums.append(safeAlbum)
+        }
+
+        files = swapModels(with: albums)
+        updateView?()
+    }
+
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteAlbumsWithIds albumsIds: [NSNumber]) {
         files.removeAll {
             albumsIds.contains(NSNumber(value: $0.identifier()))

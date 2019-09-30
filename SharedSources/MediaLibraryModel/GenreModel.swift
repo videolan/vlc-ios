@@ -43,7 +43,17 @@ extension GenreModel: MediaLibraryObserver {
         updateView?()
     }
 
-    func medialibrary(_ medialibrary: MediaLibraryService, didModifyGenres genres: [VLCMLGenre]) {
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didModifyGenresWithIds genresIds: [NSNumber]) {
+        var genres = [VLCMLGenre]()
+
+        genresIds.forEach() {
+            guard let safeGenre = medialibrary.medialib.genre(withIdentifier: $0.int64Value) else {
+                return
+            }
+            genres.append(safeGenre)
+        }
+
         files = swapModels(with: genres)
         updateView?()
     }

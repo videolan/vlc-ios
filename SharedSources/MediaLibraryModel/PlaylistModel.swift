@@ -89,7 +89,18 @@ extension PlaylistModel: MediaLibraryObserver {
         updateView?()
     }
 
-    func medialibrary(_ medialibrary: MediaLibraryService, didModifyPlaylists playlists: [VLCMLPlaylist]) {
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didModifyPlaylistsWithIds playlistsIds: [NSNumber]) {
+        var playlists = [VLCMLPlaylist]()
+
+        playlistsIds.forEach() {
+            guard let safePlaylist = medialibrary.medialib.playlist(withIdentifier: $0.int64Value)
+                else {
+                    return
+            }
+            playlists.append(safePlaylist)
+        }
+
         files = swapModels(with: playlists)
         updateView?()
     }

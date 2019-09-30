@@ -76,7 +76,8 @@ extension CollectionModel: EditableMLModel {
 
 // MARK: - MediaLibraryObserver
 extension CollectionModel: MediaLibraryObserver {
-    func medialibrary(_ medialibrary: MediaLibraryService, didModifyPlaylists playlists: [VLCMLPlaylist]) {
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didModifyPlaylistsWithIds playlistsIds: [NSNumber]) {
         if mediaCollection is VLCMLPlaylist {
             files = mediaCollection.files() ?? []
             updateView?()

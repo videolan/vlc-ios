@@ -54,7 +54,7 @@ extension NSNotification {
                                      didAddArtists artists: [VLCMLArtist])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
-                                     didModifyArtists artists: [VLCMLArtist])
+                                     didModifyArtistsWithIds artistsIds: [NSNumber])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeleteArtistsWithIds artistsIds: [NSNumber])
@@ -64,7 +64,7 @@ extension NSNotification {
                                      didAddAlbums albums: [VLCMLAlbum])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
-                                     didModifyAlbums albums: [VLCMLAlbum])
+                                     didModifyAlbumsWithIds albumsIds: [NSNumber])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeleteAlbumsWithIds albumsIds: [NSNumber])
@@ -78,7 +78,7 @@ extension NSNotification {
                                      didAddGenres genres: [VLCMLGenre])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
-                                     didModifyGenres genres: [VLCMLGenre])
+                                     didModifyGenresWithIds genresIds: [NSNumber])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeleteGenresWithIds genresIds: [NSNumber])
@@ -88,7 +88,7 @@ extension NSNotification {
                                      didAddPlaylists playlists: [VLCMLPlaylist])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
-                                     didModifyPlaylists playlists: [VLCMLPlaylist])
+                                     didModifyPlaylistsWithIds playlistsIds: [NSNumber])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeletePlaylistsWithIds playlistsIds: [NSNumber])
@@ -116,7 +116,7 @@ class MediaLibraryService: NSObject {
     // identification of observing object
     private var observers = [ObjectIdentifier: Observer]()
 
-    private lazy var medialib = VLCMediaLibrary()
+    private(set) lazy var medialib = VLCMediaLibrary()
 
     weak var migrationDelegate: MediaLibraryMigrationDelegate?
 
@@ -504,7 +504,15 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
         }
     }
 
-    func medialibrary(_ medialibrary: VLCMediaLibrary, didModifyMedia media: [VLCMLMedia]) {
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didModifyMediaWithIds mediaIds: [NSNumber]) {
+        var media = [VLCMLMedia]()
+
+        mediaIds.forEach() {
+            guard let safeMedia = medialib.media(withIdentifier: $0.int64Value) else {
+                return
+            }
+            media.append(safeMedia)
+        }
 
         media.forEach { $0.updateCoreSpotlightEntry() }
 
@@ -548,9 +556,10 @@ extension MediaLibraryService {
         }
     }
 
-    func medialibrary(_ medialibrary: VLCMediaLibrary, didModifyArtists artists: [VLCMLArtist]) {
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didModifyArtistsWithIds artistsIds: [NSNumber]) {
         for observer in observers {
-            observer.value.observer?.medialibrary?(self, didModifyArtists: artists)
+            observer.value.observer?.medialibrary?(self, didModifyArtistsWithIds: artistsIds)
         }
     }
 
@@ -570,9 +579,10 @@ extension MediaLibraryService {
         }
     }
 
-    func medialibrary(_ medialibrary: VLCMediaLibrary, didModify albums: [VLCMLAlbum]) {
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didModifyAlbumsWithIds albumsIds: [NSNumber]) {
         for observer in observers {
-            observer.value.observer?.medialibrary?(self, didModifyAlbums: albums)
+            observer.value.observer?.medialibrary?(self, didModifyAlbumsWithIds: albumsIds)
         }
     }
 
@@ -591,9 +601,10 @@ extension MediaLibraryService {
         }
     }
 
-    func medialibrary(_ medialibrary: VLCMediaLibrary, didModifyGenres genres: [VLCMLGenre]) {
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didModifyGenresWithIds genresIds: [NSNumber]) {
         for observer in observers {
-            observer.value.observer?.medialibrary?(self, didModifyGenres: genres)
+            observer.value.observer?.medialibrary?(self, didModifyGenresWithIds: genresIds)
         }
     }
 
@@ -614,9 +625,10 @@ extension MediaLibraryService {
         }
     }
 
-    func medialibrary(_ medialibrary: VLCMediaLibrary, didModifyPlaylists playlists: [VLCMLPlaylist]) {
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didModifyPlaylistsWithIds playlistsIds: [NSNumber]) {
         for observer in observers {
-            observer.value.observer?.medialibrary?(self, didModifyPlaylists: playlists)
+            observer.value.observer?.medialibrary?(self, didModifyPlaylistsWithIds: playlistsIds)
         }
     }
 

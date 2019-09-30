@@ -67,6 +67,22 @@ extension ArtistModel: MediaLibraryObserver {
         updateView?()
     }
 
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      didModifyArtistsWithIds artistsIds: [NSNumber]) {
+        var artists = [VLCMLArtist]()
+
+        artistsIds.forEach() {
+            guard let safeArtist = medialibrary.medialib.artist(withIdentifier: $0.int64Value)
+                else {
+                    return
+            }
+            artists.append(safeArtist)
+        }
+
+        files = swapModels(with: artists)
+        updateView?()
+    }
+
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteArtistsWithIds artistsIds: [NSNumber]) {
         files.removeAll {
             artistsIds.contains(NSNumber(value: $0.identifier()))
