@@ -271,7 +271,7 @@ extension EditController: EditToolbarDelegate {
                 playlist.updateName(text)
             }
 
-           guard let strongself = self else {
+            guard let strongself = self else {
                 return
             }
             strongself.delegate?.editController(editController: strongself, cellforItemAt: indexPath)?.isChecked = false
