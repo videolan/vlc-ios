@@ -48,9 +48,9 @@ extension GenreModel: MediaLibraryObserver {
         updateView?()
     }
 
-    func medialibrary(_ medialibrary: MediaLibraryService, didDeleteGenresWithIds genreIds: [NSNumber]) {
+    func medialibrary(_ medialibrary: MediaLibraryService, didDeleteGenresWithIds genresIds: [NSNumber]) {
         files.removeAll {
-            genreIds.contains(NSNumber(value: $0.identifier()))
+            genresIds.contains(NSNumber(value: $0.identifier()))
         }
         updateView?()
     }

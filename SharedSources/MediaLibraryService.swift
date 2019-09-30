@@ -81,7 +81,7 @@ extension NSNotification {
                                      didModifyGenres genres: [VLCMLGenre])
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
-                                     didDeleteGenresWithIds genreIds: [NSNumber])
+                                     didDeleteGenresWithIds genresIds: [NSNumber])
 
     // Playlist
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
