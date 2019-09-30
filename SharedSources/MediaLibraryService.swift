@@ -523,7 +523,6 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didDeleteMediaWithIds mediaIds: [NSNumber]) {
-
         var stringIds = [String]()
         mediaIds.forEach { stringIds.append("\($0)") }
         CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: stringIds, completionHandler: nil)
