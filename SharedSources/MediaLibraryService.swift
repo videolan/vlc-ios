@@ -332,6 +332,10 @@ extension MediaLibraryService {
         medialib.reload()
     }
 
+    @objc func forceRescan() {
+        medialib.forceRescan()
+    }
+
     @objc func reindexAllMediaForSpotlight() {
         media(ofType: .video).forEach { $0.updateCoreSpotlightEntry() }
         media(ofType: .audio).forEach { $0.updateCoreSpotlightEntry() }
