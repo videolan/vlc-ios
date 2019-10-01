@@ -101,8 +101,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if let collection = model as? CollectionModel {
             title = collection.mediaCollection.title()
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         navigationItem.rightBarButtonItems = [editButtonItem, UIBarButtonItem(customView: rendererButton)]
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
+                                               name: .VLCThemeDidChangeNotification, object: nil)
     }
 
     func setupSearchBar() {
