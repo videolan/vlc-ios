@@ -16,7 +16,7 @@ import Foundation
 protocol MediaCategoryViewControllerDelegate: NSObjectProtocol {
     func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController)
     func enableCategorySwitching(for viewController: MediaCategoryViewController,
-                               enable: Bool)
+                                 enable: Bool)
 }
 
 class MediaCategoryViewController: UICollectionViewController, UISearchBarDelegate, IndicatorInfoProvider {
