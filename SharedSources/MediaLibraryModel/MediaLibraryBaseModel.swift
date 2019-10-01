@@ -76,6 +76,8 @@ protocol MediaCollectionModel {
     func files() -> [VLCMLMedia]?
     func sortModel() -> SortModel?
     func title() -> String
+    func sortFilesInCollection(with criteria: VLCMLSortingCriteria,
+                               desc: Bool) -> [VLCMLMedia]?
 }
 
 // MARK: - Helper methods

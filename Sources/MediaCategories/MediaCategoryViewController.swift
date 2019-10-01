@@ -13,7 +13,7 @@
 
 import Foundation
 
-protocol MediaCategoryViewControllerDelegate: NSObjectProtocol {
+@objc protocol MediaCategoryViewControllerDelegate: NSObjectProtocol {
     func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController)
     func enableCategorySwitching(for viewController: MediaCategoryViewController,
                                  enable: Bool)
@@ -64,6 +64,17 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return actionSheet
     }()
 
+    private lazy var sortBarButton: UIBarButtonItem = {
+        return UIBarButtonItem(customView: setupSortButton())
+    }()
+
+    private lazy var editBarButton: UIBarButtonItem = {
+        return setupEditBarButton()
+    }()
+
+    private lazy var rendererBarButton: UIBarButtonItem = {
+        return UIBarButtonItem(customView: rendererButton)
+    }()
 
     lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
@@ -101,7 +112,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if let collection = model as? CollectionModel {
             title = collection.mediaCollection.title()
         }
-        navigationItem.rightBarButtonItems = [editButtonItem, UIBarButtonItem(customView: rendererButton)]
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
                                                name: .VLCThemeDidChangeNotification, object: nil)
     }
@@ -346,7 +356,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             play(media: media, at: indexPath)
             createSpotlightItem(media: media)
         } else if let mediaCollection = modelContent as? MediaCollectionModel {
-            let collectionViewController = CollectionCategoryViewController(services, mediaCollection: mediaCollection)
+            let collectionViewController = CollectionCategoryViewController(services,
+                                                                            mediaCollection: mediaCollection)
+
+            collectionViewController.navigationItem.rightBarButtonItems = collectionViewController.rightBarButtonItems()
+
             navigationController?.pushViewController(collectionViewController, animated: true)
         }
     }
@@ -362,6 +376,79 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         userActivity?.isEligibleForSearch = true
         userActivity?.isEligibleForHandoff = true
         userActivity?.becomeCurrent()
+    }
+}
+
+// MARK: - NavigationItem
+
+extension MediaCategoryViewController {
+    private func setupEditBarButton() -> UIBarButtonItem {
+        let editButton = UIBarButtonItem(image: UIImage(named: "edit"),
+                                         style: .plain, target: self,
+                                         action: #selector(handleEditing))
+        editButton.tintColor = PresentationTheme.current.colors.orangeUI
+        editButton.accessibilityLabel = NSLocalizedString("BUTTON_EDIT", comment: "")
+        editButton.accessibilityHint = NSLocalizedString("BUTTON_EDIT_HINT", comment: "")
+        return editButton
+    }
+
+    private func setupSortButton() -> UIButton {
+        // Fetch sortButton configuration from MediaVC
+        let sortButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        sortButton.setImage(UIImage(named: "sort"), for: .normal)
+        sortButton.addTarget(self,
+                             action: #selector(handleSort),
+                             for: .touchUpInside)
+        sortButton
+            .addGestureRecognizer(UILongPressGestureRecognizer(target: self,
+                                                               action: #selector(handleSortShortcut)))
+
+        sortButton.tintColor = PresentationTheme.current.colors.orangeUI
+        sortButton.accessibilityLabel = NSLocalizedString("BUTTON_SORT", comment: "")
+        sortButton.accessibilityHint = NSLocalizedString("BUTTON_SORT_HINT", comment: "")
+        return sortButton
+    }
+
+    private func rightBarButtonItems() -> [UIBarButtonItem] {
+        var rightBarButtonItems = [UIBarButtonItem]()
+
+        // Sort is only available for VideoGroups
+        if let model = model as? CollectionModel, model.mediaCollection is VLCMLVideoGroup {
+            rightBarButtonItems.append(sortBarButton)
+        }
+        rightBarButtonItems.append(editBarButton)
+        rightBarButtonItems.append(rendererBarButton)
+        return rightBarButtonItems
+    }
+
+    @objc func handleSort() {
+        var currentSortIndex: Int = 0
+        for (index, criteria) in
+            model.sortModel.sortingCriteria.enumerated()
+            where criteria == model.sortModel.currentSort {
+                currentSortIndex = index
+                break
+        }
+        present(sortActionSheet, animated: false) {
+            [sortActionSheet, currentSortIndex] in
+            sortActionSheet.collectionView.selectItem(at:
+                IndexPath(row: currentSortIndex, section: 0), animated: false,
+                                                              scrollPosition: .centeredVertically)
+        }
+    }
+
+    @objc func handleSortShortcut() {
+        model.sort(by: model.sortModel.currentSort, desc: !model.sortModel.desc)
+    }
+
+    @objc func handleEditing() {
+        isEditing = !isEditing
+        setEditing(isEditing, animated: true)
+        navigationItem.rightBarButtonItems = isEditing ? [UIBarButtonItem(barButtonSystemItem: .done,
+                                                                          target: self,
+                                                                          action: #selector(handleEditing))]
+            : rightBarButtonItems()
+        navigationItem.setHidesBackButton(isEditing, animated: true)
     }
 }
 
@@ -432,26 +519,6 @@ extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return model.cellType.interItemPadding
-    }
-
-    func handleSort() {
-        var currentSortIndex: Int = 0
-        for (index, criteria) in
-            model.sortModel.sortingCriteria.enumerated()
-            where criteria == model.sortModel.currentSort {
-                currentSortIndex = index
-                break
-        }
-        present(sortActionSheet, animated: false) {
-            [sortActionSheet, currentSortIndex] in
-            sortActionSheet.collectionView.selectItem(at:
-                IndexPath(row: currentSortIndex, section: 0), animated: false,
-                                                    scrollPosition: .centeredVertically)
-        }
-    }
-
-    func handleSortShortcut() {
-        model.sort(by: model.sortModel.currentSort, desc: !model.sortModel.desc)
     }
 }
 

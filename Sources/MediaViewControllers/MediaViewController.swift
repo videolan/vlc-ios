@@ -16,19 +16,10 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
 
     var services: Services
     private var rendererButton: UIButton
-    private lazy var sortButton: UIBarButtonItem = {
-        var sortButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        sortButton.setImage(UIImage(named: "sort"), for: .normal)
-        // It seems that using a custom view, UIBarButtonItem have a offset of 16, therefore adding a large margin
-        if UIView.userInterfaceLayoutDirection(for: sortButton.semanticContentAttribute) == .rightToLeft {
-            sortButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16)
-        } else {
-            sortButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-        }
+    private(set) lazy var sortButton: UIBarButtonItem = {
+        let sortButton = setupSortbutton()
+
         sortButton.addTarget(self, action: #selector(handleSort), for: .touchUpInside)
-        sortButton.tintColor = PresentationTheme.current.colors.orangeUI
-        sortButton.accessibilityLabel = NSLocalizedString("BUTTON_SORT", comment: "")
-        sortButton.accessibilityHint = NSLocalizedString("BUTTON_SORT_HINT", comment: "")
         sortButton.addGestureRecognizer(UILongPressGestureRecognizer(target: self,
                                                                      action: #selector(handleSortShortcut(sender:))))
         return UIBarButtonItem(customView: sortButton)
@@ -71,6 +62,22 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
             ($0 as? MediaCategoryViewController)?.delegate = self
         }
         setupNavigationBar()
+    }
+
+    private func setupSortbutton() -> UIButton {
+        let sortButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+
+        sortButton.setImage(UIImage(named: "sort"), for: .normal)
+        // It seems that using a custom view, UIBarButtonItem have a offset of 16, therefore adding a large margin
+        if UIView.userInterfaceLayoutDirection(for: sortButton.semanticContentAttribute) == .rightToLeft {
+            sortButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16)
+        } else {
+            sortButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        }
+        sortButton.tintColor = PresentationTheme.current.colors.orangeUI
+        sortButton.accessibilityLabel = NSLocalizedString("BUTTON_SORT", comment: "")
+        sortButton.accessibilityHint = NSLocalizedString("BUTTON_SORT_HINT", comment: "")
+        return sortButton
     }
 
     private func setupNavigationBar() {

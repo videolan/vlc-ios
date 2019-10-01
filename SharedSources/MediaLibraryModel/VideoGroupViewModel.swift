@@ -87,6 +87,11 @@ extension VLCMLVideoGroup: MediaCollectionModel {
     func title() -> String {
         return name()
     }
+
+    func sortFilesInCollection(with criteria: VLCMLSortingCriteria,
+                               desc: Bool) -> [VLCMLMedia]? {
+        return media(with: criteria, desc: desc)
+    }
 }
 
 // MARK: - VLCMLVideoGroup - Helpers

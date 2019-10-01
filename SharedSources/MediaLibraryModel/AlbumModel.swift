@@ -119,6 +119,11 @@ extension VLCMLAlbum: MediaCollectionModel {
     func title() -> String {
         return title
     }
+
+    func sortFilesInCollection(with criteria: VLCMLSortingCriteria,
+                               desc: Bool) -> [VLCMLMedia]? {
+        return nil
+    }
 }
 
 extension VLCMLAlbum {

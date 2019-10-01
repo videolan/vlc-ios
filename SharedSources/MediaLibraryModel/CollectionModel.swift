@@ -13,7 +13,7 @@ import Foundation
 class CollectionModel: MLBaseModel {
     typealias MLType = VLCMLMedia
 
-    var sortModel: SortModel
+    var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize])
 
     var mediaCollection: MediaCollectionModel
 
@@ -36,7 +36,6 @@ class CollectionModel: MLBaseModel {
         self.medialibrary = mediaService
         self.mediaCollection = mediaCollection
         files = mediaCollection.files() ?? []
-        sortModel = mediaCollection.sortModel() ?? SortModel([.default])
         medialibrary.addObserver(self)
     }
 
@@ -64,6 +63,13 @@ class CollectionModel: MLBaseModel {
                 assertionFailure("CollectionModel: Delete failed: \(error.localizedDescription)")
             }
         }
+    }
+
+    func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
+        files = mediaCollection.sortFilesInCollection(with: criteria, desc: desc) ?? []
+        sortModel.currentSort = criteria
+        sortModel.desc = desc
+        updateView?()
     }
 }
 
