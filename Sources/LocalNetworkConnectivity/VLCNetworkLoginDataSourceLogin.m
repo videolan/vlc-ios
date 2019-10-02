@@ -106,6 +106,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
 
     fieldCell.placeholderString = labelString;
     UITextField *textField = fieldCell.textField;
+    textField.autocorrectionType = UITextAutocorrectionTypeNo;
     textField.autocapitalizationType = autocapitalizationType;
     textField.text              = valueString;
     textField.keyboardType      = keyboardType;
