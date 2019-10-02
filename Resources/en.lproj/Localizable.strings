@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Continue";
 "BUTTON_SET" = "Set";
 "BUTTON_RESET" = "Reset";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Private Playback";
 "SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
 
@@ -386,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";

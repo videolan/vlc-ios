@@ -608,6 +608,16 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>Key</key>
+			<string>forceMediaLibraryRescan</string>
+			<key>Title</key>
+			<string>SETTINGS_MEDIA_LIBRARY_RESCAN</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
 			<string>MLDecrapifyTitles</string>

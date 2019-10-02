@@ -87,6 +87,7 @@
 "SETTINGS_SEND_RATING" = "Please Rate VLC for iOS";
 
 "SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "Optimize item names for display";
 
 "SETTINGS_FILE_SYNC" = "File Synchronization";

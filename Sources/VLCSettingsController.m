@@ -216,6 +216,8 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
 
     if ([specifier.type isEqualToString: kIASKPSMultiValueSpecifier]) {
         [self displayActionSheetFor:specifier];
+    } else if ([specifier.type isEqualToString: kIASKButtonSpecifier]) {
+        [self buttonTappedFor:specifier];
     } else {
         [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
@@ -235,6 +237,34 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     [self presentViewController:actionSheet animated:NO completion:^{
         [self->actionSheet.collectionView selectItemAtIndexPath:self->specifierManager.selectedIndex animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
     }];
+}
+
+- (void)buttonTappedFor:(IASKSpecifier *)specifier
+{
+    __weak typeof(self) weakSelf = self;
+
+    if ([specifier.specifierDict[@"Key"] isEqual: @"forceMediaLibraryRescan"]) {
+        UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle:NSLocalizedString(@"FORCE_RESCAN_TITLE", "")
+                                                     message:NSLocalizedString(@"FORCE_RESCAN_MESSAGE", "")
+                                              preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction* rescanAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_RESCAN", "")
+                                                                style:UIAlertActionStyleDestructive
+                                                              handler:^(UIAlertAction * action) {
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                [strongSelf->_medialibraryService forceRescan];
+            });
+        }];
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", "")
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
+
+        [alert addAction:cancelAction];
+        [alert addAction:rescanAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 @end

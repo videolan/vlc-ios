@@ -35,6 +35,8 @@ class VLCSettingsTableViewCell: UITableViewCell {
             accessoryType = .disclosureIndicator
         case kIASKPSMultiValueSpecifier:
             accessoryType = .none
+        case kIASKButtonSpecifier:
+            accessoryType = .none
         default:
             assertionFailure("\(reuseIdentifier) has not been defined for VLCSettingsTableViewCell")
         }
@@ -56,6 +58,8 @@ class VLCSettingsTableViewCell: UITableViewCell {
         case kIASKPSMultiValueSpecifier:
             configureMultiValue(specifier, settingsValue)
         case kIASKOpenURLSpecifier:
+            break
+        case kIASKButtonSpecifier:
             break
         default:
             assertionFailure("\(specifier.type() ?? "nil") has not been defined for VLCSettingsTableViewCell")
