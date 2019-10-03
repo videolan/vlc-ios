@@ -194,7 +194,7 @@
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *filePath = [searchPaths[0] stringByAppendingFormat:@"/%@", file.name];
 
-    [self loadFile:file intoPath:filePath];
+    [self loadFile:file intoPath:[self createPotentialPathFrom:filePath]];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
