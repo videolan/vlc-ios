@@ -101,11 +101,10 @@
     VLCHTTPFileDownloaderTask *downloadTask = [[VLCHTTPFileDownloaderTask alloc] init];
     downloadTask.url = url;
     NSString *downloadFileName;
-    if (fileName) {
-        downloadFileName = [self createPotentialNameFromName:fileName];
-    } else {
-        downloadFileName = [url.lastPathComponent stringByRemovingPercentEncoding];
-    }
+
+    fileName = fileName ?: [url.lastPathComponent stringByRemovingPercentEncoding];
+
+    downloadFileName = [self createPotentialNameFromName:fileName];
 
     if (downloadFileName.pathExtension.length == 0 || ![downloadFileName isSupportedFormat]) {
         NSString *urlExtension = url.pathExtension;
