@@ -1807,9 +1807,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)doubleTapRecognized:(UITapGestureRecognizer *)tapRecognizer
 {
-    if (!_swipeSeekGestureEnabled)
-        return;
-
     CGFloat screenWidth = self.view.frame.size.width;
     CGFloat backwardBoundary = screenWidth / 3.0;
     CGFloat forwardBoundary = 2 * screenWidth / 3.0;
