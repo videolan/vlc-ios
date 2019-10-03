@@ -276,7 +276,8 @@
     [ubiquitousStore setString:token forKey:kVLCStoreBoxCredentials];
     [ubiquitousStore synchronize];
     self.authorizationInProgress = YES;
-    [self updateViewAfterSessionChange];
+    [self performSelectorOnMainThread:@selector(updateViewAfterSessionChange)
+                           withObject:nil waitUntilDone:NO];
     self.authorizationInProgress = NO;
 }
 

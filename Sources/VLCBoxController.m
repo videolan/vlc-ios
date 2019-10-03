@@ -196,9 +196,10 @@
 
     [self loadFile:file intoPath:filePath];
 
-    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
-        [self.delegate operationWithProgressInformationStarted];
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
+            [self.delegate operationWithProgressInformationStarted];
+    });
     _downloadInProgress = YES;
 }
 #endif
@@ -263,8 +264,11 @@
         }
 
         CGFloat progress = (CGFloat)bytesReceived / (CGFloat)expectedTotalBytes;
-        if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
-            [self.delegate currentProgressInformation:progress];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
+                [self.delegate currentProgressInformation:progress];
+        });
     };
 
     [[BoxSDK sharedSDK].filesManager downloadFileWithID:file.modelID outputStream:outputStream requestBuilder:nil success:successBlock failure:failureBlock progress:progressBlock];
@@ -292,8 +296,11 @@
     [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 
     NSString *remainingTime = [formatter stringFromDate:date];
-    if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
-        [self.delegate updateRemainingTime:remainingTime];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
+            [self.delegate updateRemainingTime:remainingTime];
+    });
 }
 
 - (void)downloadSuccessful
@@ -307,8 +314,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                         object:self];
 #endif
-    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
-        [self.delegate operationWithProgressInformationStopped];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+            [self.delegate operationWithProgressInformationStopped];
+    });
     _downloadInProgress = NO;
 
     [self _triggerNextDownload];
@@ -317,8 +326,10 @@
 - (void)downloadFailedWithError:(NSError*)error
 {
     APLog(@"BoxFile download failed with error %li", (long)error.code);
-    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
-        [self.delegate operationWithProgressInformationStopped];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+            [self.delegate operationWithProgressInformationStopped];
+    });
     _downloadInProgress = NO;
 
     [self _triggerNextDownload];
