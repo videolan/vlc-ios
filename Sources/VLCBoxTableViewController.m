@@ -118,8 +118,7 @@
         self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
 
-    if (!_listOfFiles || _listOfFiles.count == 0)
-        [self requestInformationForCurrentPath];
+    [self updateViewAfterSessionChange];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
