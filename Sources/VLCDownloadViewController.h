@@ -18,8 +18,11 @@
 
 + (instancetype)sharedInstance;
 
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIView *downloadFieldContainer;
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 @property (nonatomic, strong) IBOutlet UITextField *urlField;
+@property (weak, nonatomic) IBOutlet UIView *urlBorder;
 @property (nonatomic, strong) IBOutlet UILabel *whatToDownloadHelpLabel;
 @property (nonatomic, strong) IBOutlet UITableView *downloadsTable;
 
@@ -27,7 +30,6 @@
 @property (nonatomic, strong) IBOutlet UIProgressView *progressView;
 @property (nonatomic, strong) IBOutlet UIButton *cancelButton;
 @property (nonatomic, strong) IBOutlet UILabel *currentDownloadLabel;
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) IBOutlet UILabel *progressPercent;
 @property (nonatomic, strong) IBOutlet UILabel *speedRate;
 @property (nonatomic, strong) IBOutlet UILabel *timeDL;

@@ -35,6 +35,8 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     NSTimeInterval _startDL;
     NSString *_currentDownloadIdentifier;
 
+    NSLayoutConstraint *_contentViewHeight;
+
     VLCHTTPFileDownloader *_httpDownloader;
 
     WRRequestDownload *_FTPDownloadRequest;
@@ -77,12 +79,18 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
     [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil) forState:UIControlStateNormal];
     [self.downloadButton setAccessibilityIdentifier:@"Download"];
+    self.downloadButton.layer.cornerRadius = 4.0;
     self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", nil), [[UIDevice currentDevice] model]];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
     self.progressContainer.hidden = YES;
     self.downloadsTable.hidden = YES;
+    self.downloadsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.whatToDownloadHelpLabel.backgroundColor = [UIColor clearColor];
+
+    _contentViewHeight = [_contentView.heightAnchor constraintEqualToConstant:0];
+    _contentViewHeight.active = YES;
+    [self updateContentViewHeightConstraint];
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self updateForTheme];
@@ -105,17 +113,19 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 {
     NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: PresentationTheme.current.colors.lightTextColor}];
     self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
-    self.urlField.backgroundColor = PresentationTheme.current.colors.cellBackgroundB;
+    self.urlField.backgroundColor = PresentationTheme.current.colors.background;
     self.urlField.textColor = PresentationTheme.current.colors.cellTextColor;
+    self.urlBorder.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor;
     self.downloadsTable.backgroundColor = PresentationTheme.current.colors.background;
     self.view.backgroundColor = PresentationTheme.current.colors.background;
     self.downloadButton.backgroundColor = PresentationTheme.current.colors.orangeUI;
     self.whatToDownloadHelpLabel.textColor = PresentationTheme.current.colors.lightTextColor;
-    self.progressContainer.backgroundColor = PresentationTheme.current.colors.cellBackgroundB;
+    self.progressContainer.backgroundColor = PresentationTheme.current.colors.background;
     self.currentDownloadLabel.textColor =  PresentationTheme.current.colors.cellTextColor;
     self.progressPercent.textColor =  PresentationTheme.current.colors.cellDetailTextColor;
     self.speedRate.textColor =  PresentationTheme.current.colors.cellDetailTextColor;
     self.timeDL.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    self.progressView.progressTintColor = PresentationTheme.current.colors.orangeUI;
     [self.downloadsTable reloadData];
     [self setNeedsStatusBarAppearanceUpdate];
 }
@@ -162,6 +172,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         [_currentDownloadFilename addObject:@""];
         self.urlField.text = @"";
         [self.downloadsTable reloadData];
+        [self updateContentViewHeightConstraint];
         [self _triggerNextDownload];
 
     }
@@ -171,6 +182,14 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 {
     _currentDownloadType != VLCDownloadSchemeNone ? [self downloadStartedWithIdentifier:_currentDownloadIdentifier] : [self downloadEndedWithIdentifier:_currentDownloadIdentifier];
     [self.downloadsTable reloadData];
+    [self updateContentViewHeightConstraint];
+}
+
+- (void)updateContentViewHeightConstraint
+{
+    _contentViewHeight.constant = _downloadFieldContainer.frame.size.height
+                                    + _progressContainer.frame.size.height
+                                    + _downloadsTable.contentSize.height;
 }
 
 - (VLCHTTPFileDownloader *)httpDownloader
@@ -257,7 +276,6 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         return;
     }
 
-    [self.activityIndicator startAnimating];
     NSString *downloadScheme = [_currentDownloads.firstObject scheme];
 
     if ([downloadScheme isEqualToString:@"http"] || [downloadScheme isEqualToString:@"https"]) {
@@ -290,7 +308,6 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 - (void)downloadStartedWithIdentifier:(NSString *)identifier
 {
     _currentDownloadIdentifier = identifier;
-    [self.activityIndicator stopAnimating];
 
     VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
     [activityManager networkActivityStopped];
@@ -435,11 +452,16 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+
 #pragma mark - table view delegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundA : PresentationTheme.current.colors.cellBackgroundB;
+    cell.backgroundColor = PresentationTheme.current.colors.cellBackgroundA;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -453,6 +475,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         [_currentDownloads removeObjectAtIndex:indexPath.row];
         [_currentDownloadFilename removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
+        [self updateContentViewHeightConstraint];
     }
 }
 
@@ -464,6 +487,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         fileName = @"";
     [_currentDownloadFilename addObject:fileName];
     [self.downloadsTable reloadData];
+    [self updateContentViewHeightConstraint];
     if (_currentDownloadType == VLCDownloadSchemeNone)
         [self _triggerNextDownload];
 }
