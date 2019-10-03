@@ -51,9 +51,9 @@
     self.controller.delegate = self;
 
 #if TARGET_OS_IOS
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Box"]];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BoxCell"]];
 
-    [self.cloudStorageLogo setImage:[UIImage imageNamed:@"Box"]];
+    [self.cloudStorageLogo setImage:[UIImage imageNamed:@"box"]];
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
