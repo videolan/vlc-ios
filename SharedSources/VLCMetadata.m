@@ -51,12 +51,24 @@
         self.artworkImage = [media thumbnailImage];
         self.isAudioOnly = [media subtype] == VLCMLMediaSubtypeAlbumTrack;
     } else { // We're streaming something
-        self.artworkImage = nil;
-        self.trackNumber = nil;
-        self.artist = nil;
-        self.albumName = nil;
+        BOOL isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme;
+        self.artworkImage = isDarktheme ? [UIImage imageNamed:@"song-placeholder-dark"]
+                                        : [UIImage imageNamed:@"song-placeholder-white"];
         [self fillFromMetaDict:mediaPlayer];
-        self.title = [[mediaPlayer.media url] lastPathComponent];
+    }
+
+    [self checkIsAudioOnly:mediaPlayer];
+
+    if (self.isAudioOnly) {
+        if (self.artworkImage) {
+            if (self.artist)
+                self.title = [self.title stringByAppendingFormat:@" — %@", self.artist];
+            if (self.albumName)
+                self.title = [self.title stringByAppendingFormat:@" — %@", self.albumName];
+        }
+        if (self.title.length < 1)
+            self.title = [[mediaPlayer.media url] lastPathComponent];
+
     }
     [self updatePlaybackRate:mediaPlayer];
 
