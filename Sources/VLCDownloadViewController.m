@@ -169,7 +169,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (void)_updateUI
 {
-    _currentDownloadType != VLCDownloadSchemeNone ? [self downloadStartedWithIdentifier:nil] : [self downloadEndedWithIdentifier:nil];
+    _currentDownloadType != VLCDownloadSchemeNone ? [self downloadStartedWithIdentifier:_currentDownloadIdentifier] : [self downloadEndedWithIdentifier:_currentDownloadIdentifier];
     [self.downloadsTable reloadData];
 }
 
@@ -420,8 +420,6 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-        cell.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
     }
 
     NSInteger row = indexPath.row;
@@ -431,6 +429,8 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         cell.textLabel.text = [[_currentDownloadFilename[row] lastPathComponent] stringByRemovingPercentEncoding];
 
     cell.detailTextLabel.text = [_currentDownloads[row] absoluteString];
+    cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+    cell.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
 
     return cell;
 }
@@ -464,7 +464,8 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         fileName = @"";
     [_currentDownloadFilename addObject:fileName];
     [self.downloadsTable reloadData];
-    [self _triggerNextDownload];
+    if (_currentDownloadType == VLCDownloadSchemeNone)
+        [self _triggerNextDownload];
 }
 
 #pragma mark - text view delegate
