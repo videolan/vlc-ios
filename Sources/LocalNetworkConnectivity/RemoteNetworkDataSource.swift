@@ -32,7 +32,7 @@ protocol RemoteNetworkDataSourceDelegate {
 class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     let cloudVC = VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)
     let streamingVC = VLCOpenNetworkStreamViewController(nibName: "VLCOpenNetworkStreamViewController", bundle: Bundle.main)
-    let downloadVC = VLCDownloadViewController(nibName: "VLCDownloadViewController", bundle: Bundle.main)
+    let downloadVC = VLCDownloadViewController.sharedInstance()
 
     @objc weak var delegate: RemoteNetworkDataSourceDelegate?
 
@@ -66,9 +66,9 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             }
         case .download:
             if let networkCell = tableView.dequeueReusableCell(withIdentifier: VLCRemoteNetworkCell.cellIdentifier) {
-                networkCell.textLabel?.text = downloadVC.title
-                networkCell.detailTextLabel?.text = downloadVC.detailText
-                networkCell.imageView?.image = downloadVC.cellImage
+                networkCell.textLabel?.text = downloadVC?.title
+                networkCell.detailTextLabel?.text = downloadVC?.detailText
+                networkCell.imageView?.image = downloadVC?.cellImage
                 networkCell.accessibilityIdentifier = VLCAccessibilityIdentifier.downloads
                 return networkCell
             }

@@ -112,10 +112,10 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     self.downloadButton.backgroundColor = PresentationTheme.current.colors.orangeUI;
     self.whatToDownloadHelpLabel.textColor = PresentationTheme.current.colors.lightTextColor;
     self.progressContainer.backgroundColor = PresentationTheme.current.colors.cellBackgroundB;
-    self.currentDownloadLabel.textColor =  PresentationTheme.current.colors.cellBackgroundB;
-    self.progressPercent.textColor =  PresentationTheme.current.colors.cellBackgroundB;
-    self.speedRate.textColor =  PresentationTheme.current.colors.cellBackgroundB;
-    self.timeDL.textColor = PresentationTheme.current.colors.cellTextColor;
+    self.currentDownloadLabel.textColor =  PresentationTheme.current.colors.cellTextColor;
+    self.progressPercent.textColor =  PresentationTheme.current.colors.cellDetailTextColor;
+    self.speedRate.textColor =  PresentationTheme.current.colors.cellDetailTextColor;
+    self.timeDL.textColor = PresentationTheme.current.colors.cellDetailTextColor;
     [self.downloadsTable reloadData];
     [self setNeedsStatusBarAppearanceUpdate];
 }

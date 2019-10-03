@@ -131,7 +131,7 @@
 
     downloadTask.sessionTask = sessionTask;
     [self _addDownloadTask:downloadTask identifier:identifier];
-
+    _downloadInProgress = YES;
     return identifier;
 }
 
@@ -241,7 +241,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
     }
 
     [self _removeDownloadWithIdentifier:identifier];
-
+    _downloadInProgress = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate downloadEndedWithIdentifier:identifier];
     });
