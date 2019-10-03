@@ -73,7 +73,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     BOOL _volumeGestureEnabled;
     BOOL _playPauseGestureEnabled;
     BOOL _brightnessGestureEnabled;
-    BOOL _seekGestureEnabled;
+    BOOL _swipeSeekGestureEnabled;
     BOOL _closeGestureEnabled;
     BOOL _variableJumpDurationEnabled;
     BOOL _playbackWillClose;
@@ -654,7 +654,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     _volumeGestureEnabled = [[defaults objectForKey:kVLCSettingVolumeGesture] boolValue];
     _playPauseGestureEnabled = [[defaults objectForKey:kVLCSettingPlayPauseGesture] boolValue];
     _brightnessGestureEnabled = [[defaults objectForKey:kVLCSettingBrightnessGesture] boolValue];
-    _seekGestureEnabled = [[defaults objectForKey:kVLCSettingSeekGesture] boolValue];
+    _swipeSeekGestureEnabled = [[defaults objectForKey:kVLCSettingSeekGesture] boolValue];
     _closeGestureEnabled = [[defaults objectForKey:kVLCSettingCloseGesture] boolValue];
     _variableJumpDurationEnabled = [[defaults objectForKey:kVLCSettingVariableJumpDuration] boolValue];
 }
@@ -1642,7 +1642,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     
     switch (_currentPanType) {
         case VLCPanTypeSeek: {
-            if (!_seekGestureEnabled)
+            if (!_swipeSeekGestureEnabled)
                 return;
             double timeRemainingDouble = (-[_vpc remainingTime].intValue*0.001);
             int timeRemaining = timeRemainingDouble;
@@ -1724,7 +1724,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)swipeRecognized:(UISwipeGestureRecognizer*)swipeRecognizer
 {
-    if (!_seekGestureEnabled)
+    if (!_swipeSeekGestureEnabled)
         return;
 
     NSString *hudString = @" ";
@@ -1807,7 +1807,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void)doubleTapRecognized:(UITapGestureRecognizer *)tapRecognizer
 {
-    if (!_seekGestureEnabled)
+    if (!_swipeSeekGestureEnabled)
         return;
 
     CGFloat screenWidth = self.view.frame.size.width;
