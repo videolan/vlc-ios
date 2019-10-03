@@ -135,7 +135,11 @@
 - (void)mediaListUpdated
 {
     _listOfFiles = [[VLCBoxController sharedInstance].currentListFiles copy];
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        [super mediaListUpdated];
+    });
 }
 
 - (VLCCloudStorageTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
