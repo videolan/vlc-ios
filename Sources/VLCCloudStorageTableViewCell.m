@@ -197,6 +197,7 @@
             self.folderTitleLabel.text = self.boxFile.name;
             self.titleLabel.hidden = self.subtitleLabel.hidden = YES;
             self.folderTitleLabel.hidden = NO;
+            self.downloadButton.hidden = YES;
         } else {
             NSString *title = self.boxFile.name;
             self.titleLabel.text = title;
