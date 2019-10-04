@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Aodio";
 
-"SETTINGS_THEME_SUBTITLE" = "Cheñch livioù an arload";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Digeriñ en arventennoù";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Moned suraet betek hoc'h endalc'had";
 
-"SETTINGS_DARKTHEME" = "Tem teñval";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Dic'hourdañ-amzerel aodio";
 "SETTINGS_BACKGROUND_AUDIO" = "Lenn aodio en drek-leur";
 "SETTINGS_GENERIC_TITLE" = "Generek";
 "SETTINGS_PASSCODE_LOCK" = "Kod-tremen alc'hwezet";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Aotren an divorailhañ dre Touch ID";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Aotren an divorailhañ dre Face ID";
-"SETTINGS_DECRAPIFY" = "Gwellekaat anvioù an elfennoù evit skrammañ";
 "SETTINGS_VIDEO_FULLSCREEN" = "Lenn ar video er skramm-leun";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Kenderc'hel da lenn ar video";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Kenderc'hel da lenn an aodio";
@@ -40,7 +41,7 @@
 
 "SETTINGS_GESTURES" = "Koñtrol al lenn gant jestroù";
 "SETTINGS_GESTURES_VOLUME" = "Skubat betek ar c'hrec'h/an traoñ evit al live-son";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Pouezañ evit lenn/paouez";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Skubat betek ar c'hrec'h/an traoñ evit ar sked";
 "SETTINGS_GESTURES_SEEK" = "Skubat dehou/kleiz evit klask";
 "SETTINGS_GESTURES_CLOSE" = "Piñsat evit serriñ";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Evezhiadennoù";
 "SETTINGS_SEND_FEEDBACK" = "Kas evezhiadennoù";
 "SETTINGS_SEND_RATING" = "Notennit VLC evit iOS mar plij";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Gwellekaat anvioù an elfennoù evit skrammañ";
 
 "SETTINGS_FILE_SYNC" = "Sinkroneladur ar restr";
 "SETTINGS_WIFISHARING_IPv6" = "Skor IPv6 evit rannañ WiFi";
