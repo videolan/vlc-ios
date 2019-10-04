@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Continuar";
 "BUTTON_SET" = "Definir";
 "BUTTON_RESET" = "Restaurar Padrão";
+"BUTTON_RESCAN" = "Verificar novamente";
 "PRIVATE_PLAYBACK_TOGGLE" = "Reprodução Privada";
 "SCAN_SUBTITLE_TOGGLE" = "Procurar Legenda (somente http)";
 
@@ -386,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equalizador";
 "MORE_OPTIONS_HEADER_TITLE" = "Opções de Vídeo";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Forçar nova verificação da biblioteca de mídias";
+"FORCE_RESCAN_MESSAGE" = "Deseja forçar o VLC a verificar novamente sua biblioteca de mídias?\nPode levar algum tempo.";
