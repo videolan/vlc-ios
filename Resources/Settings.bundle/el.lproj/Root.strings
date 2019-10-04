@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Βίντεο";
 "SETTINGS_AUDIO_TITLE" = "Ήχος";
 
-"SETTINGS_THEME_SUBTITLE" = "Change app colors";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
 
-"SETTINGS_DARKTHEME" = "Dark Theme";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Χρονική διαστολή ήχου";
 "SETTINGS_BACKGROUND_AUDIO" = "Αναπαραγωγή ήχου στο υπόβαθρο";
 "SETTINGS_GENERIC_TITLE" = "Γενικό";
 "SETTINGS_PASSCODE_LOCK" = "Κλείδωμα με κωδικό";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Επιτρέψτε το Touch ID για ξεκλείδωμα";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
-"SETTINGS_DECRAPIFY" = "Βελτιστοποιήστε τα ονόματα των στοιχείων για την οθόνη";
 "SETTINGS_VIDEO_FULLSCREEN" = "Αναπαραγωγή βίντεο σε πλήρη οθόνη";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Συνέχιση της αναπαραγωγής βίντεο";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Συνέχιση της αναπαραγωγής ήχου";
@@ -40,7 +41,7 @@
 
 "SETTINGS_GESTURES" = "Έλεγχος της αναπαραγωγής με χειρονομίες";
 "SETTINGS_GESTURES_VOLUME" = "Σαρώστε πάνω/κάτω για εύρεση  ";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Πατήστε για αναπαραγωγή/παύση";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Σαρώστε πάνω/κάτω για φωτεινότητα";
 "SETTINGS_GESTURES_SEEK" = "Σαρώστε δεξιά/αριστερά για εύρεση";
 "SETTINGS_GESTURES_CLOSE" = "Τσιμπήστε για κλείσιμο";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Σχόλια";
 "SETTINGS_SEND_FEEDBACK" = "Αποστολή σχολίων";
 "SETTINGS_SEND_RATING" = "Παρακαλούμε βαθμολογήστε το VLC για το iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Βελτιστοποιήστε τα ονόματα των στοιχείων για την οθόνη";
 
 "SETTINGS_FILE_SYNC" = "Συγχρονισμός Αρχείου";
 "SETTINGS_WIFISHARING_IPv6" = "Υποστήριξη του IPv6 για κοινή χρήση μέσω WiFi";
