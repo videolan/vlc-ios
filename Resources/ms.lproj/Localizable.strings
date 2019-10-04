@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Teruskan";
 "BUTTON_SET" = "Tetap";
 "BUTTON_RESET" = "Tetap Semula";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Main Balik Persendirian";
 "SCAN_SUBTITLE_TOGGLE" = "Imbas untuk Sarikata (http-sahaja)";
 
@@ -177,6 +178,9 @@
 "EMPTY_LIBRARY" = "Pustaka Media Kosong";
 "EMPTY_LIBRARY_LONG" = "Untuk main balik, anda boleh strimkan media dari pelayan pada rangkaian setempat anda, dari awan atau segerakkan media ke peranti anda menggunakan iTunes, Muat Naik WiFi atau perkhidmatan Awam.";
 
+"EMPTY_PLAYLIST" = "Senarai main kosong";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Tambah media ketika menyunting dalam kategori masing-masing.";
+
 "PLAYBACK_SCRUB_HELP" = "Leret jari anda untuk melaras kadar penggerakan.";
 "PLAYBACK_SCRUB_HIGH" = "Penggerakan Berkelajuan-Tinggi";
 "PLAYBACK_SCRUB_HALF" = "Penggerakan Berkelajuan-Separa";
@@ -285,8 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Tekan %@ untuk Padam"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Sahkan pemadaman fail terpilih?";
-"DELETE_TITLE" = "Padam Fail Terpilih";
+"DELETE_MESSAGE" = "Sahkan pemadaman pemilihan";
+"DELETE_MESSAGE_PLAYLIST" = "Sahkan pemadaman pemilihan melalui senarai main\nItem media tidak dipadamkan";
+"DELETE_TITLE" = "Padam Pemilihan";
 
 //Drag and Drop
 "THIS_FILE" = "Fail ini";
@@ -371,10 +376,18 @@
 "VARIOUS_ARTIST" = "Pelbagai Artis";
 "UNKNOWN_ALBUM" = "Album Tidak Diketahui";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Kunci antaramuka";
 "INTERFACE_LOCK_HINT" = "Lumpuhkan kawalan antaramuka";
 "MORE_OPTIONS_BUTTON" = "Lagi";
 "MORE_OPTIONS_HINT" = "Lihat lebih banyak kawalan pilihan";
 "REPEAT_MODE_HINT" = "Ubah mod ulang bagi item semasa";
 "VIDEO_ASPECT_RATIO_HINT" = "Ubah nisbah bidang video semasa";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Penyama";
+"MORE_OPTIONS_HEADER_TITLE" = "Pilihan Video";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
