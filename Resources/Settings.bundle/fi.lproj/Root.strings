@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Ääni";
 
-"SETTINGS_THEME_SUBTITLE" = "Change app colors";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
 
-"SETTINGS_DARKTHEME" = "Dark Theme";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Äänen tasaus";
 "SETTINGS_BACKGROUND_AUDIO" = "Äänen toistaminen taustalla";
 "SETTINGS_GENERIC_TITLE" = "Yleinen";
 "SETTINGS_PASSCODE_LOCK" = "Lukitus pääsykoodilla";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Salli Touch ID avataksesi lukituksen";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
-"SETTINGS_DECRAPIFY" = "Optimoi kohteiden nimet näytölle";
 "SETTINGS_VIDEO_FULLSCREEN" = "Toista video koko näytöllä";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Jatka videon toistoa";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Jatka äänen toistoa";
@@ -40,7 +41,7 @@
 
 "SETTINGS_GESTURES" = "Hallitse toistoa eleillä";
 "SETTINGS_GESTURES_VOLUME" = "Säädä äänenvoimakkuutta pyyhkäisemällä ylös ja alas";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Toista tai keskeytä napauttamalla";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Säädä kirkkautta pyyhkäisemällä ylös ja alas";
 "SETTINGS_GESTURES_SEEK" = "Kelaa pyyhkäisemällä vasemmalle tai oikealle";
 "SETTINGS_GESTURES_CLOSE" = "Sulje nipistämällä";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Palaute";
 "SETTINGS_SEND_FEEDBACK" = "Lähetä palautetta";
 "SETTINGS_SEND_RATING" = "Arvostele VLC:n iOS-sovellus";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Optimoi kohteiden nimet näytölle";
 
 "SETTINGS_FILE_SYNC" = "Tiedostojen synkronointi";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-tuki Wi-Fi-jaolle";
