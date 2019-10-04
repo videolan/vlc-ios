@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Kontynuuj";
 "BUTTON_SET" = "Ustaw";
 "BUTTON_RESET" = "Resetuj";
+"BUTTON_RESCAN" = "Skanuj ponownie";
 "PRIVATE_PLAYBACK_TOGGLE" = "Prywatne odtwarzanie";
 "SCAN_SUBTITLE_TOGGLE" = "Szukaj napisów (tylko za pośrednictwem protokołu HTTP)";
 
@@ -386,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Korektor graficzny";
 "MORE_OPTIONS_HEADER_TITLE" = "Opcje wideo";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Wymuś ponowne skanowanie biblioteki multimediów";
+"FORCE_RESCAN_MESSAGE" = "Czy chcesz zmusić VLC do ponownego skanowania biblioteki multimediów?\nTo może zająć trochę czasu.";
