@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Fortsæt";
 "BUTTON_SET" = "Indstil";
 "BUTTON_RESET" = "Nulstil";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Privat afspilning";
 "SCAN_SUBTITLE_TOGGLE" = "Søg efter undertekster (kun http)";
 
@@ -177,6 +178,9 @@
 "EMPTY_LIBRARY" = "Tomt mediebibliotek";
 "EMPTY_LIBRARY_LONG" = "Du kan afspille medier ved at streame dem fra en server på dit lokale netværk eller fra skyen, eller ved at synkronisere medier til din enhed vha. iTunes, WiFi-overførsel eller sky-tjenester.";
 
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+
 "PLAYBACK_SCRUB_HELP" = "Stryg din finger nedad for at justere spolinghastigheden.";
 "PLAYBACK_SCRUB_HIGH" = "Spoling med høj hastighed";
 "PLAYBACK_SCRUB_HALF" = "Spoling med halv hastighed";
@@ -285,8 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Tryk på %@ for at slette"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Bekræft sletning af de valgte filer";
-"DELETE_TITLE" = "Slet valgte filer";
+"DELETE_MESSAGE" = "Bekræft sletningen af markeringen?";
+"DELETE_MESSAGE_PLAYLIST" = "Bekræft sletningen af markeringen fra afspilningslisten.\nMedieelementer slettes ikke";
+"DELETE_TITLE" = "Slet markering";
 
 //Drag and Drop
 "THIS_FILE" = "Denne fil";
@@ -370,3 +375,19 @@
 "UNKNOWN_ARTIST" = "Ukendt kunstner";
 "VARIOUS_ARTIST" = "Diverse kunstnere";
 "UNKNOWN_ALBUM" = "Ukendt album";
+
+/* VideoOptionsControlBar */
+"INTERFACE_LOCK_BUTTON" = "Lås brugerflade";
+"INTERFACE_LOCK_HINT" = "Deaktivér brugerfladestyringer";
+"MORE_OPTIONS_BUTTON" = "Mere";
+"MORE_OPTIONS_HINT" = "Vis flere indstillingsstyringer";
+"REPEAT_MODE_HINT" = "Skift gentagelsestilstand for det nuværende element";
+"VIDEO_ASPECT_RATIO_HINT" = "Skift højde-bredde-forholdet for den nuværende video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Videoindstillinger";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
