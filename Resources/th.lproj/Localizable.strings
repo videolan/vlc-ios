@@ -11,7 +11,6 @@
 "TITLE" = "เรื่อง";
 "CHAPTER" = "ตอน";
 "MINIMIZE_PLAYBACK_VIEW" = "ย่อการเล่น";
-"FULLSCREEN_PLAYBACK" = "เล่นแบบเต็มจอ";
 "TRACK_SELECTION" = "เลือกแทร็ก";
 "AUDIO" = "เสียง";
 "SUBTITLES" = "คำบรรยาย";
@@ -23,12 +22,12 @@
 "ONE_AUDIO_TRACK" = "หนึ่งแทร็กเสียง";
 "FORMAT_SPU_TRACKS" = "%i แทร็กคำบรรยาย";
 "ONE_SPU_TRACK" = "หนึ่งแทร็กคำบรรยาย";
-"TRACKS" = "%i Tracks";
-"TRACK" = "%i Track";
+"TRACKS" = "%i แทร็ก";
+"TRACK" = "%i แทร็ก";
 
 "PLAYING_EXTERNALLY_TITLE" = "เชื่อมต่อทีวีเรียบร้อยแล้ว";
 "PLAYING_EXTERNALLY_DESC" = "วีดีโอนี้กำลังเล่นอยู่บนทีวี";
-"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
+"PLAYING_EXTERNALLY_ADDITION" = "\nกำลังเล่นอยู่บน:"; /* \n should stay in every translation */
 
 "VFILTER_HUE" = "องศาเฉดสี";
 "VFILTER_CONTRAST" = "ความต่างระดับสี";
@@ -53,8 +52,7 @@
 "CONTINUE_PLAYBACK" = "เล่นต่อหรือไม่";
 "CONTINUE_PLAYBACK_LONG" = "คุณต้องการเล่น \"%@\" ต่อเมื่อคุณออกหรือไม่?";
 
-"BUTTON_ALL" = "เลือกทั้งหมด";
-"BUTTON_ABOUT" = "About";
+"BUTTON_ABOUT" = "เกี่ยวกับ";
 "BUTTON_BACK" = "กลับ";
 "BUTTON_DONE" = "เสร็จสิ้น";
 "BUTTON_CANCEL" = "ยกเลิก";
@@ -70,6 +68,7 @@
 "BUTTON_CONTINUE" = "ทำต่อ";
 "BUTTON_SET" = "ตั้งค่า";
 "BUTTON_RESET" = "รีเซ็ต";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "การเล่นส่วนบุคคล";
 "SCAN_SUBTITLE_TOGGLE" = "ค้นหาคำบรรยาย (http-only)";
 
@@ -77,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "อัพเกรดคลังสื่อ";
-"UNTITLED_SHOW" = "รายการแสดงที่ยังไม่มีชื่อ";
 "UNKNOWN" = "ไม่ทราบ";
 
 "OPEN_NETWORK" = "เปิดสตรีมผ่านเครือข่าย";
@@ -92,8 +90,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "การดาวน์โหลดล้มเหลวด้วย HTTP code %i";
-"HTTP_FILE_CREATION_FAILED" = "การสร้างไฟล์ล้มเหลว";
 "HTTP_DOWNLOAD_CANCELLED" = "การดาวน์โหลดถูกยกเลิกโดยผู้ใช้";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "ใส่ตำแหน่งที่ต้องการดาวน์โหลดไฟล์ไปยัง %@ ของคุณ";
@@ -101,11 +97,12 @@
 "ERROR_NUMBER" = "เกิดปัญหา %i";
 "DOWNLOAD_FAILED" = "การดาวน์โหลดล้มเหลว";
 "FILE_NOT_SUPPORTED" = "ยังไม่รองรับรูปแบบไฟล์นี้";
-"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"FILE_NOT_SUPPORTED_LONG" = "รูปแบบไฟล์ที่ใช้โดย %@ ไม่รองรับโดย VLC สำหรับ iOS รุ่นนี้";
 "SCHEME_NOT_SUPPORTED" = "รายการที่อยู่ไม่รองรับ";
 "SCHEME_NOT_SUPPORTED_LONG" = "รายการที่อยู่ (%@) ไม่รองรับ กรุณาใช้ที่อยู่เริ่มต้นด้วย HTTP, HTTPS หรือ FTP";
 "RENAME_MEDIA_TO" = "ใส่ชื่อใหม่ให้กับ %@";
 
+"FOLDER_EMPTY" = "โฟลเดอร์เปล่า";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "เลือกไฟล์เพื่อเปิด";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "เปิดใน...";
@@ -113,14 +110,14 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "ไม่พบแอปพลิเคชั่นที่จะเปิดไฟล์ประเภทนี้";
 "SHARING_SUCCESS_CAMERA_ROLL" = "ไฟล์ถูกบันทึกลงใน Camera Roll เรียบร้อย";
 
-"SECTION_HEADER_LIBRARY" = "คลังสื่อ";
-"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
-"DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
+"STREAMVC_DETAILTEXT" = "เล่นสตรีมโดยตรงโดยไม่ดาวน์โหลด";
+"DOWNLOADVC_DETAILTEXT" = "ดาวน์โหลดไฟล์ลงในอุปกรณ์ของคุณโดยตรง";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
+"NETWORK" = "เครือข่าย";
 "LOCAL_NETWORK" = "เครือข่ายท้องถิ่น";
 "CONNECT_TO_SERVER" = "เชื่อมต่อไปยังเซิร์ฟเวอร์";
-"FILE_SERVER" = "File Servers";
+"FILE_SERVER" = "เซิร์ฟเวอร์ไฟล์";
 "USER_LABEL" = "ผู้ใช้";
 "PASSWORD_LABEL" = "รหัสผ่าน";
 "DISABLE_LABEL" = "ปิดใช้งาน";
@@ -160,6 +157,19 @@
 "BIOMETRIC_UNLOCK" = "ปลดล็อกคลังสื่อ\nยกเลิกเพื่อใส่รหัสผ่าน";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Change Passcode";
+"Enter Passcode" = "Enter Passcode";
+"Enter a passcode" = "Enter a passcode";
+"Enter your new passcode" = "Enter your new passcode";
+"Enter your old passcode" = "Enter your old passcode";
+"Enter your passcode" = "Enter your passcode";
+"Next" = "ถัดไป";
+"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
+"Re-enter your new passcode" = "Re-enter your new passcode";
+"Re-enter your passcode" = "Re-enter your passcode";
+"Set Passcode" = "Set Passcode";
 
 "Settings" = "การตั้งค่า"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "เปิด";
@@ -167,6 +177,9 @@
 
 "EMPTY_LIBRARY" = "ไม่มีสื่อในคลัง";
 "EMPTY_LIBRARY_LONG" = "สำหรับการเปิดเล่น คุณสามารถสตรีมสื่อจากเซิร์ฟเวอร์บทเครือข่ายท้องถิ่นของคุณ, จากคลาวด์หรือซิงค์สื่อไปยังอุปกรณ์ของคุณผ่าน iTunes, อัปโหลดผ่าน WiFi หรือบริการคลาวด์";
+
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "ไถลนิ้วของคุณลงเพื่อปรับอัตราการสครับบิง";
 "PLAYBACK_SCRUB_HIGH" = "การสครับบิงความเร็วสูง";
@@ -181,8 +194,8 @@
 "BWD_BUTTON" = "ช่วงก่อนหน้า";
 "FWD_BUTTON" = "ช่วงถัดไป";
 "PLAY_BUTTON" = "เล่น";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
+"NEXT_BUTTON" = "ถัดไป";
+"PREV_BUTTON" = "ก่อนหน้า";
 "PLAY_ALL_BUTTON" = "เล่นทั้งหมด";
 
 "VERSION_FORMAT" = "เวอร์ชั่น: %@";
@@ -197,25 +210,15 @@
 "VO_VIDEOPLAYER_TITLE" = "ตัวเล่นวีดีโอ";
 "VO_VIDEOPLAYER_DOUBLETAP" = "แตะสองครั้งเพื่อแสดงหรือซ่อนตัวควบคุมการเล่น";
 
-"FIRST_STEPS_WELCOME" = "ยินดีต้อนรับ";
-"FIRST_STEPS_WELCOME_DETAIL" = "ขั้นตอนแรกเพื่อซิงค์และเล่นสื่อของคุณ";
 "FIRST_STEPS_ITUNES" = "ซิงค์ไฟล์จาก iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "เชื่อมต่อ %@ ของคุณด้วยเครือข่ายเดียวกันกับ Mac หรือพีซีของคุณ";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "เปลี่ยนตัวเปิดปิดในแถบด้านข้าง ใส่ URL ไปยังเว็บบราวเซอร์ และอัพโหลดไฟล์ของคุณ";
+"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_WIFI_TITLE" = "แชร์ผ่าน Wifi";
+"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "คลาวด์";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "อัพโหลดไฟล์ของคุณไปยัง Google Drive หรือ Dropbox";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "เปิดแถบด้านข้างเพื่อเลือกผู้ให้บริการคลาวด์ของคุณ และเข้าไปยังสื่อของคุณเพื่อดาวน์โหลดหรือสตรีมมิ่ง";
-"FIRST_STEPS_PLAYBACK" = "การเล่น";
-"FIRST_STEPS_FLOSS" = "VLC for iOS เป็นโอเพนซอร์สซอฟต์แวร์ที่พัฒนาโดยกลุ่มนักพัฒนาจิตอาสา สามารถใช้งานได้ฟรี\nพวกเราหวังว่าคุณจะรัก VLC";
+"FIRST_STEPS_CLOUD_TITLE" = "คลาวด์";
+"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
 
-"FIRST_STEPS_TIME" = "เวลา";
-"FIRST_STEPS_ASPECT" = "อัตราส่วนการแสดงผล";
-"FIRST_STEPS_SPEED" = "ความเร็ว";
-"FIRST_STEPS_REPEAT" = "เล่นซ้ำ";
-"FIRST_STEPS_SUBTITLES" = "แทร็กคำบรรยาย";
-"FIRST_STEPS_AUDIO" = "แทร็กเสียง";
-"FIRST_STEPS_POSITION" = "ตำแหน่งเวลาการเล่น";
 
 "PLEX_CHECK_ACCOUNT" = "ตรวจสอบบัญชี Plex ของคุณใน การตั้งค่า";
 "PLEX_ERROR_ACCOUNT" = "เข้าสู่ระบบ Plex ผิดพลาด";
@@ -240,7 +243,6 @@
 
 
 
-"VOLUME" = "ระดับเสียง";
 "DURATION" = "ระยะเวลา";
 "TITLE" = "เรื่อง";
 
@@ -287,10 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "กด %@ เพื่อลบ"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "ไม่สามารถลบรายการที่เลือกได้";
-"DELETE_INVALID_TITLE" = "เลือกไม่ถูกต้อง";
-"DELETE_MESSAGE" = "ยืนยันการลบไฟล์ที่เลือก";
-"DELETE_TITLE" = "ลบไฟล์ที่เลือก";
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Confirm the deletion of the selection from the playlist\nMedia items are not deleted";
+"DELETE_TITLE" = "Delete Selection";
 
 //Drag and Drop
 "THIS_FILE" = "ไฟล์นี้";
@@ -300,49 +301,93 @@
 "PROTOCOL_NOT_SELECTED" = "ไม่ได้เลือกโพรโทคอลไว้";
 "Settings" = "การตั้งค่า";
 
-"CANCEL" = "Cancel";
 "ERROR" = "ผิดพลาด";
 "OK" = "ตกลง";
-"SORT" = "Sort";
-"SORT_BY" = "Sort by";
-"VIDEO" = "Video";
+"SORT" = "จัดเรียง";
+"SORT_BY" = "จัดเรียงตาม";
+"SEARCH" = "ค้นหา";
+"VIDEO" = "วิดีโอ";
 
 // MediaViewController Swipable Header
-"ALBUMS" = "Albums";
-"ARTISTS" = "Artists";
-"EPISODES" = "Episodes";
-"GENRES" = "Genres";
-"MOVIES" = "Movies";
-"SONGS" = "Songs";
-"PLAYLISTS" = "Playlists";
+"ALBUMS" = "อัลบั้ม";
+"ARTISTS" = "ศิลปิน";
+"EPISODES" = "ตอน";
+"GENRES" = "ประเภท";
+"MOVIES" = "ภาพยนตร์";
+"SONGS" = "เพลง";
+"PLAYLISTS" = "เพลย์ลิสต์";
 
 "MODIFIED_DATE" = "Modified date";
-"NAME" = "Name";
+"NAME" = "ชื่อ";
 
 //EDIT
-"ADD_TO_PLAYLIST" = "Add to Playlist";
 
-"PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"BUTTON_EDIT" = "Edit";
+"BUTTON_EDIT_HINT" = "Edit mode";
 
-"RENAME_PLACEHOLDER" = "New title";
-"ERROR_RENAME_FAILED" = "Renaming failed";
-"ERROR_EMPTY_NAME" = "The title can't be empty";
+"ADD_TO_PLAYLIST" = "เพิ่มลงในเพลย์ลิสต์";
+"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
+
+"PLAYLIST_PLACEHOLDER" = "ชื่อเรื่องเพลย์ลิสต์";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
+"PLAYLIST_CREATION" = "สร้างเพลย์ลิสต์ใหม่";
+"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
+"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
+"ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
+
+"ERROR_RENAME_FAILED" = "การเปลี่ยนชื่อล้มเหลว";
+"ERROR_EMPTY_NAME" = "ชื่อเรื่องต้องไม่ว่างเปล่า";
+
+"SHARE_LABEL" = "แชร์";
+"SHARE_HINT" = "แชร์ไฟล์ที่เลือก";
+"RENAME_HINT" = "เปลี่ยนชื่อไฟล์ที่เลือก";
+"DELETE_HINT" = "ลบไฟล์ที่เลือก";
 
 // Sort
 
-"HEADER_TITLE_SORT" = "Sort by";
+"BUTTON_SORT" = "Sort";
+"BUTTON_SORT_HINT" = "Display sort action sheet";
+"HEADER_TITLE_SORT" = "จัดเรียงตาม";
+"DESCENDING_LABEL" = "Descending Order";
+"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
+"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
-"ALPHA" = "Alphanumerically";
+"ALPHA" = "ตามลำดับตัวอักษร";
 "DURATION" = "ระยะเวลา";
-"INSERTION_DATE" = "Insertion date";
+"INSERTION_DATE" = "วันที่แทรก";
 "LAST_MODIFICATION_DATE" = "Last modification date";
 "RELEASE_DATE" = "Release date";
-"FILE_SIZE" = "File size";
-"ARTIST" = "Artist";
-"PLAY_COUNT" = "Play count";
-"ALBUM" = "Album";
-"FILENAME" = "Filename";
-"TRACK_NUMBER" = "Track number";
+"FILE_SIZE" = "ขนาดไฟล์";
+"ARTIST" = "ศิลปิน";
+"PLAY_COUNT" = "จำนวนการเล่น";
+"ALBUM" = "อัลบั้ม";
+"FILENAME" = "ชื่อไฟล์";
+"TRACK_NUMBER" = "หมายเลขแทร็ก";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nothing found";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "ไม่ทราบศิลปิน";
+"VARIOUS_ARTIST" = "หลายศิลปิน";
+"UNKNOWN_ALBUM" = "ไม่ทราบอัลบั้ม";
+
+/* VideoOptionsControlBar */
+"INTERFACE_LOCK_BUTTON" = "Lock interface";
+"INTERFACE_LOCK_HINT" = "Disable interface controls";
+"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_HINT" = "View more option controls";
+"REPEAT_MODE_HINT" = "Change repeat mode of current item";
+"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
