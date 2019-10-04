@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Continua";
 "BUTTON_SET" = "Imposta";
 "BUTTON_RESET" = "Ripristina";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Riproduzione privata";
 "SCAN_SUBTITLE_TOGGLE" = "Scansione sottotitoli (solo http)";
 
@@ -177,6 +178,9 @@
 "EMPTY_LIBRARY" = "Raccolta multimediale vuota";
 "EMPTY_LIBRARY_LONG" = "Per la riproduzione puoi trasmettere contenuti da un server sulla tua rete locale, dal cloud o sincronizzare contenuti sul tuo dispositivo utilizzando iTunes, Wifi Upload o altri servizi Cloud.";
 
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+
 "PLAYBACK_SCRUB_HELP" = "Scorri dito verso il basso per regolare la velocità di scrubbing.";
 "PLAYBACK_SCRUB_HIGH" = "Scrubbing ad alta velocità";
 "PLAYBACK_SCRUB_HALF" = "Scrubbing con velocità al 50%";
@@ -285,8 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Premi %@ per eliminare"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Conferma l'eliminazione dei file selezionati";
-"DELETE_TITLE" = "Elimina file selezionati";
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Confirm the deletion of the selection from the playlist\nMedia items are not deleted";
+"DELETE_TITLE" = "Delete Selection";
 
 //Drag and Drop
 "THIS_FILE" = "Questo file";
@@ -371,10 +376,18 @@
 "VARIOUS_ARTIST" = "Artisti vari";
 "UNKNOWN_ALBUM" = "Album sconosciuto";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Blocca interfaccia";
 "INTERFACE_LOCK_HINT" = "Disabilita controlli interfaccia";
 "MORE_OPTIONS_BUTTON" = "Altro";
 "MORE_OPTIONS_HINT" = "Visualizza altri controlli opzionali";
 "REPEAT_MODE_HINT" = "Cambia la modalità di ripetizione dell'elemento attuale";
 "VIDEO_ASPECT_RATIO_HINT" = "Cambia le  proporzioni del video attuale";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizzatore";
+"MORE_OPTIONS_HEADER_TITLE" = "Opzioni video";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
