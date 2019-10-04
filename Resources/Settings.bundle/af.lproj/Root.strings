@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Oudio";
 
-"SETTINGS_THEME_SUBTITLE" = "Verander toepkleure";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Instellings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Veilige toegang tot u inhoud";
 
-"SETTINGS_DARKTHEME" = "Donkertema";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tydstrekkende oudio";
 "SETTINGS_BACKGROUND_AUDIO" = "Oudio-afspeel in agtergrond";
 "SETTINGS_GENERIC_TITLE" = "Generies";
 "SETTINGS_PASSCODE_LOCK" = "Wagkodeslot";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Staan Touch ID toe vir ontgrendeling";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Staan Face ID toe vir ontgrendeling";
-"SETTINGS_DECRAPIFY" = "Optimeer itemname vir vertoon";
 "SETTINGS_VIDEO_FULLSCREEN" = "Speel video af in volskerm";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Sit video-afspeel voort";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Sit oudio-afspeel voort";
@@ -40,7 +41,7 @@
 
 "SETTINGS_GESTURES" = "Beheer afspeel met gebare";
 "SETTINGS_GESTURES_VOLUME" = "Vee op/af vir volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tik om te speel/wag";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Vee op/af vir helderheid";
 "SETTINGS_GESTURES_SEEK" = "Vee regs/links om te soek";
 "SETTINGS_GESTURES_CLOSE" = "Knyp om toe te maak";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Terugvoer";
 "SETTINGS_SEND_FEEDBACK" = "Stuur Terugvoer";
 "SETTINGS_SEND_RATING" = "Gradeer asb. VLC vir iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Optimeer itemname vir vertoon";
 
 "SETTINGS_FILE_SYNC" = "Lêersinchronisering";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-ondersteuning vir WiFi-deling";
