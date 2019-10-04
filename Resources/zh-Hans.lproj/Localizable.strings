@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "继续";
 "BUTTON_SET" = "设置";
 "BUTTON_RESET" = "重置";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "私密回放";
 "SCAN_SUBTITLE_TOGGLE" = "扫描字幕文件 (仅限 http)";
 
@@ -177,6 +178,9 @@
 "EMPTY_LIBRARY" = "媒体库为空";
 "EMPTY_LIBRARY_LONG" = "要开始使用回放功能，您可以在线播放云端媒体，或本地网络中服务器上的媒体文件，或通过 iTunes、WiFi 上传或云存储服务将媒体文件同步到您的设备中。";
 
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+
 "PLAYBACK_SCRUB_HELP" = "向下滑动手指可调整步进间隔。";
 "PLAYBACK_SCRUB_HIGH" = "高速步进";
 "PLAYBACK_SCRUB_HALF" = "半速步进";
@@ -285,8 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "按住 %@ 可删除"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "确认删除选中文件";
-"DELETE_TITLE" = "删除选中文件";
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Confirm the deletion of the selection from the playlist\nMedia items are not deleted";
+"DELETE_TITLE" = "Delete Selection";
 
 //Drag and Drop
 "THIS_FILE" = "此文件";
@@ -371,10 +376,18 @@
 "VARIOUS_ARTIST" = "群星";
 "UNKNOWN_ALBUM" = "未知专辑";
 
-/* New strings */
+/* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "锁定界面";
 "INTERFACE_LOCK_HINT" = "禁用界面控件";
 "MORE_OPTIONS_BUTTON" = "更多";
 "MORE_OPTIONS_HINT" = "查看更多选项控件";
 "REPEAT_MODE_HINT" = "更改当前项目的重复模式";
 "VIDEO_ASPECT_RATIO_HINT" = "更改当前视频的宽高比";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
