@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Продовжити";
 "BUTTON_SET" = "Задати";
 "BUTTON_RESET" = "Очистити";
+"BUTTON_RESCAN" = "Пересканувати";
 "PRIVATE_PLAYBACK_TOGGLE" = "Особисте відтворення";
 "SCAN_SUBTITLE_TOGGLE" = "Сканувати за субтитрами (лише http)";
 
@@ -386,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Еквалайзер";
 "MORE_OPTIONS_HEADER_TITLE" = "Параметри відео";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Примусово пересканувати медіабібліотеку";
+"FORCE_RESCAN_MESSAGE" = "Ви хочете примусити VLC пересканувати вашу медіабібліотеку?\nЦе займе певний час.";

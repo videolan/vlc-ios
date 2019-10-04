@@ -17,7 +17,6 @@
 "SETTINGS_PASSCODE_LOCK" = "Захист паролем";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Дозволити сенсорний ІД для розблокування";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Дозволити ІД обличчям для розблокування";
-"SETTINGS_DECRAPIFY" = "Оптимізувати назви пунктів для відображення";
 "SETTINGS_VIDEO_FULLSCREEN" = "Відтворювати відео на увесь екран";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Продовжити відтворення відео";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Продовжити відтворення аудіо";
@@ -86,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Відгук";
 "SETTINGS_SEND_FEEDBACK" = "Надіслати відгук";
 "SETTINGS_SEND_RATING" = "Будь ласка, оцініть VLC для iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Оптимізувати назви пунктів для відображення";
 
 "SETTINGS_FILE_SYNC" = "Синхронізація файлу";
 "SETTINGS_WIFISHARING_IPv6" = "Підтримка IPv6 для поширення WiFi";
