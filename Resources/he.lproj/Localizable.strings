@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "המשך";
 "BUTTON_SET" = "הגדרה";
 "BUTTON_RESET" = "איפוס";
+"BUTTON_RESCAN" = "סריקה מחדש";
 "PRIVATE_PLAYBACK_TOGGLE" = "נגינה פרטית";
 "SCAN_SUBTITLE_TOGGLE" = "חיפוש אחר כתוביות (http בלבד)";
 
@@ -386,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "אקולייזר";
 "MORE_OPTIONS_HEADER_TITLE" = "אפשרויות וידאו";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "אילוץ סריקת ספריית המדיה מחדש";
+"FORCE_RESCAN_MESSAGE" = "לאלץ את VLC לסרוק את תיקיית המדיה שלך מחדש?\nפעולה זו עשויה לארוך זמן מה.";
