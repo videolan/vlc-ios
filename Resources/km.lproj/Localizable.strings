@@ -11,7 +11,6 @@
 "TITLE" = "Title";
 "CHAPTER" = "Chapter";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimize playback";
-"FULLSCREEN_PLAYBACK" = "Play in fullscreen";
 "TRACK_SELECTION" = "Track Selection";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Subtitles";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Continue playback?";
 "CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 
-"BUTTON_ALL" = "Select All";
 "BUTTON_ABOUT" = "About";
 "BUTTON_BACK" = "ថយក្រោយ";
 "BUTTON_DONE" = "រួចរាល់";
@@ -70,6 +68,7 @@
 "BUTTON_CONTINUE" = "Continue";
 "BUTTON_SET" = "Set";
 "BUTTON_RESET" = "Reset";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "ការ​ចាក់​ឡើងវិញ​ឯកជន";
 "SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
 
@@ -77,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "ធ្វើ​បច្ចុប្បន្នភាព​បណ្ណាល័យ​មេឌៀ";
-"UNTITLED_SHOW" = "គ្មាន​ចំណងជើង​បង្ហាញ";
 "UNKNOWN" = "មិន​ត្រូវ​បាន​ស្គាល់\n";
 
 "OPEN_NETWORK" = "បើក​ចរន្ត​​បណ្ដាញ";
@@ -92,8 +90,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "ការ​ទាញ​យក​បាន​បរាជ័យ​ជាមួយ​កូដ HTTP  %i";
-"HTTP_FILE_CREATION_FAILED" = "បាន​បរាជ័យ​ក្នុង​ការ​បង្កើត​ឯកសារ";
 "HTTP_DOWNLOAD_CANCELLED" = "ការ​ទាញ​យក​ត្រូវ​បាន​បោះបង់​ដោយ​អ្នក​ប្រើ";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "បញ្ចូល​អាសយដ្ឋាន​ដើម្បី​ទាញ​យក​ឯកសារ​ទៅកាន់ %@ របស់​អ្នក។";
@@ -106,6 +102,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "គ្រោង​អាសយដ្ឋាន (%@) មិន​ត្រូវ​បាន​គាំទ្រ។ សូម​ប្រើ​​អាសយដ្ឋាន​ដែល​ចាប់​ផ្ដើម​ដោយ HTTP, HTTPS ឬ FTP ។";
 "RENAME_MEDIA_TO" = "បញ្ចូល​ឈ្មោះ​ថ្មី​សម្រាប់ %@";
 
+"FOLDER_EMPTY" = "Empty folder";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "ជ្រើសរើស​ឯកសារ​ដើម្បី​បើកៈ";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "បើក​នៅ​ក្នុង​...";
@@ -113,11 +110,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "មិន​ត្រូវ​បាន​រក​ឃើញ​កម្ម​វិធីដើម្បី​បើក​ឯកសារ​ប្រភេទ​នេះ​ទេ";
 "SHARING_SUCCESS_CAMERA_ROLL" = "ឯកសារ​ត្រូវ​បាន​រក្សារ​ទុក​នៅ​ក្នុង​អាល់ប៊ុមការមេរ៉ាជោគ​ជ័យ​";
 
-"SECTION_HEADER_LIBRARY" = "បណ្ណាល័យ​មេឌៀ";
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
 "DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
+"NETWORK" = "Network";
 "LOCAL_NETWORK" = "បណ្ដាញ​មូលដ្ឋាន";
 "CONNECT_TO_SERVER" = "តភ្ជាប់​ទៅ​ម៉ាស៊ីន​មេ";
 "FILE_SERVER" = "File Servers";
@@ -160,6 +157,19 @@
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Change Passcode";
+"Enter Passcode" = "Enter Passcode";
+"Enter a passcode" = "Enter a passcode";
+"Enter your new passcode" = "Enter your new passcode";
+"Enter your old passcode" = "Enter your old passcode";
+"Enter your passcode" = "Enter your passcode";
+"Next" = "Next";
+"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
+"Re-enter your new passcode" = "Re-enter your new passcode";
+"Re-enter your passcode" = "Re-enter your passcode";
+"Set Passcode" = "Set Passcode";
 
 "Settings" = "ការ​កំណត់"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "On";
@@ -167,6 +177,9 @@
 
 "EMPTY_LIBRARY" = "បណ្ណាល័យ​មេឌៀ​ទទេ";
 "EMPTY_LIBRARY_LONG" = "សម្រាប់​ការ​ចាក់​ឡើងវិញ, អ្នក​អាច​ស្ទ្រីម​មេឌៀ​ពី​ម៉ាស៊ីន​មេ​តាម​បណ្ដាញ​មូលដ្ឋាន​របស់​អ្នក, ពី​​ពពក ឬ​ការ​ធ្វើ​សមកាលកម្ម​មេឌៀ​ទៅកាន់​ឧបករណ៍​របស់​អ្នក​ដោយ​ប្រើ iTunes, វ៉ាយហ្វាយ​ការ​ផ្ទុក​ឡើង ឬ​សេវា​ពពក។";
+
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "រុញ​ម្រាមដៃ​របស់​អ្នក​ចុះក្រោម​ដើម្បី​លៃ​តម្រូវ​អត្រា​សម្អាត។";
 "PLAYBACK_SCRUB_HIGH" = "ការ​សម្អាត​ល្បឿន​លឿន";
@@ -197,25 +210,15 @@
 "VO_VIDEOPLAYER_TITLE" = "កម្មវិធី​ចាក់​វីដេអូ";
 "VO_VIDEOPLAYER_DOUBLETAP" = "ប៉ះ​ទ្វេដង​ដើម្បី​បង្ហាញ ឬ​លាក់​ឧបករណ៍​បញ្ជា​ការ​ចាក់";
 
-"FIRST_STEPS_WELCOME" = "សូម​ស្វាគមន៍";
-"FIRST_STEPS_WELCOME_DETAIL" = "ជំហាន​ដំបូង​គឺ​ត្រូវ​ធ្វើ​សមកាលកម្ម រួច​ចាក់​មេឌៀ​របស់​អ្នក។";
 "FIRST_STEPS_ITUNES" = "ការ​ធ្វើ​សមកាលកម្ម​ឯកសារ​ iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "តភ្ជាប់ %@ របស់​អ្នក​ទៅ​បណ្ដាញ​តែ​មួយ​ដូចជា Mac ឬ PC របស់​អ្នក។";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "ប្ដូរ​ការ​បិទ/បើក​នៅ​ក្នុង​របារ​ចំហៀង, បញ្ចូល URL នៅ​ក្នុង​កម្មវិធី​អ៊ីនធឺណិត រួច​ផ្ទុក​ឯកសារ​របស់​អ្នក​ឡើង។";
+"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "ពពក";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "ផ្ទុក​មេឌៀ​របស់​អ្នក​ឡើង​ទៅ​ Google Drive ឬ Dropbox ។";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "បើក​របារ​ចំហៀង ដើម្បី​ជ្រើស​​ក្រុម​ហ៊ុន​ផ្ដល់​​សេវាកម្ម​ពពក ហើយ​ចូល​ដំណើរការ​មេឌៀ​របស់​អ្នក​សម្រាប់​ការ​ទាញ​យក ឬ​ស្ទ្រីម។";
-"FIRST_STEPS_PLAYBACK" = "ចាក់​ឡើងវិញ";
-"FIRST_STEPS_FLOSS" = "VLC សម្រាប់ iOS ជា​កម្មវិធី​ប្រភព​កូដ​ចំ និង​ឥត​គិត​ថ្លៃ​ដែល​បាន​អភិវឌ្ឍ​ដោយ​អ្នក​ស្ម័គ្រចិត្ត។\nយើង​សង្ឃឹម​ថា​អ្នក​នឹង​ចូលចិត្ត​វា។";
+"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
+"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
 
-"FIRST_STEPS_TIME" = "ពេលវេលា";
-"FIRST_STEPS_ASPECT" = "សមាមាត្រ";
-"FIRST_STEPS_SPEED" = "ល្បឿន";
-"FIRST_STEPS_REPEAT" = "ចាក់​ឡើងវិញ";
-"FIRST_STEPS_SUBTITLES" = "បទ​ចំណងជើង​រង";
-"FIRST_STEPS_AUDIO" = "បទ​អូឌីយ៉ូ";
-"FIRST_STEPS_POSITION" = "ទីតាំង";
 
 "PLEX_CHECK_ACCOUNT" = "Check your Plex account in settings";
 "PLEX_ERROR_ACCOUNT" = "Plex login Error";
@@ -240,7 +243,6 @@
 
 
 
-"VOLUME" = "Volume";
 "DURATION" = "Duration";
 "TITLE" = "Title";
 
@@ -287,10 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "The selection can't be deleted";
-"DELETE_INVALID_TITLE" = "Invalid Selection";
-"DELETE_MESSAGE" = "Confirm the deletion of the selected files";
-"DELETE_TITLE" = "Delete Selected Files";
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Confirm the deletion of the selection from the playlist\nMedia items are not deleted";
+"DELETE_TITLE" = "Delete Selection";
 
 //Drag and Drop
 "THIS_FILE" = "This file";
@@ -300,11 +301,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "ការ​កំណត់";
 
-"CANCEL" = "Cancel";
 "ERROR" = "Error";
 "OK" = "Ok";
 "SORT" = "Sort";
 "SORT_BY" = "Sort by";
+"SEARCH" = "Search";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -320,18 +321,36 @@
 "NAME" = "Name";
 
 //EDIT
+
+"BUTTON_EDIT" = "Edit";
+"BUTTON_EDIT_HINT" = "Edit mode";
+
 "ADD_TO_PLAYLIST" = "Add to Playlist";
+"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
 
 "PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
+"PLAYLIST_CREATION" = "Create a new playlist";
+"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
+"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
+"ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
 
-"RENAME_PLACEHOLDER" = "New title";
 "ERROR_RENAME_FAILED" = "Renaming failed";
 "ERROR_EMPTY_NAME" = "The title can't be empty";
 
+"SHARE_LABEL" = "Share";
+"SHARE_HINT" = "Share selected files";
+"RENAME_HINT" = "Rename selected files";
+"DELETE_HINT" = "Delete selected files";
+
 // Sort
 
+"BUTTON_SORT" = "Sort";
+"BUTTON_SORT_HINT" = "Display sort action sheet";
 "HEADER_TITLE_SORT" = "Sort by";
+"DESCENDING_LABEL" = "Descending Order";
+"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
+"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +365,29 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filename";
 "TRACK_NUMBER" = "Track number";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nothing found";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Unknown Artist";
+"VARIOUS_ARTIST" = "Various Artists";
+"UNKNOWN_ALBUM" = "Unknown Album";
+
+/* VideoOptionsControlBar */
+"INTERFACE_LOCK_BUTTON" = "Lock interface";
+"INTERFACE_LOCK_HINT" = "Disable interface controls";
+"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_HINT" = "View more option controls";
+"REPEAT_MODE_HINT" = "Change repeat mode of current item";
+"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
