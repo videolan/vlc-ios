@@ -11,7 +11,6 @@
 "TITLE" = "Tittel";
 "CHAPTER" = "Kapittel";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimer avspeling";
-"FULLSCREEN_PLAYBACK" = "Spel av i fullskjerm";
 "TRACK_SELECTION" = "Sporval";
 "AUDIO" = "Lyd";
 "SUBTITLES" = "Undertekstar";
@@ -44,16 +43,15 @@
 "PLEASE_WAIT" = "Ver snill og vent";
 "AR_CHANGED" = "Bildeforhold: %@";
 "DEFAULT" = "Standard";
-"FILL_TO_SCREEN" = "Skjer til for å fylle skjermen";
+"FILL_TO_SCREEN" = "Skjer til for å fylla skjermen";
 "PLAYBACK_SPEED" = "Avspelingsfart";
 "SPU_DELAY" = "Undertekstforsinking";
 "AUDIO_DELAY" = "Lydforseinking";
 "BUTTON_SLEEP_TIMER" = "Sovetidsur";
 "SLEEP_TIMER_UPDATED" = "Tidsur oppdatert";
 "CONTINUE_PLAYBACK" = "Halde fram avspelinga?";
-"CONTINUE_PLAYBACK_LONG" = "Vil du halde fram avspelinga av \"%@\" der du slapp?";
+"CONTINUE_PLAYBACK_LONG" = "Vil du halda fram avspelinga av \"%@\" der du slapp?";
 
-"BUTTON_ALL" = "Vel alle";
 "BUTTON_ABOUT" = "Om";
 "BUTTON_BACK" = "Tilbake";
 "BUTTON_DONE" = "Ferdig";
@@ -70,54 +68,53 @@
 "BUTTON_CONTINUE" = "Hald fram";
 "BUTTON_SET" = "Still inn";
 "BUTTON_RESET" = "Nullstill";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Privat avspeling";
 "SCAN_SUBTITLE_TOGGLE" = "Søk etter undertekstar (berre http)";
 
-"BUTTON_RENDERER" = "Casting-einingar";
+"BUTTON_RENDERER" = "Strøyme-einingar";
 "BUTTON_RENDERER_HINT" = "Vis ein meny med tilgjengelege casting-einingar";
 
 "UPGRADING_LIBRARY" = "Oppgraderer mediabiblioteket";
-"UNTITLED_SHOW" = "Namnlaust show";
 "UNKNOWN" = "Ukjend";
 
-"OPEN_NETWORK" = "Opne nettverksstraum";
+"OPEN_NETWORK" = "Opna nettverksstraum";
 "NETWORK_TITLE" = "Nettverksstraum";
-"OPEN_NETWORK_HELP" = "Skriv inn ei HTTP-, RTSP-, RTMP-, MMS-, FTP- eller UDP/RTP-adresse for å opne straumen direkte.";
+"OPEN_NETWORK_HELP" = "Skriv inn ei HTTP-, RTSP-, RTMP-, MMS-, FTP- eller UDP/RTP-adresse for å opna straumen direkte.";
 "HTTP_UPLOAD_SERVER_OFF" = "Uverksam tenar";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "Ingen verksame WiFi-tikoplingar";
-"OPEN_STREAM_OR_DOWNLOAD" = "Vil du laste ned eller spele av denne URL-en?";
+"OPEN_STREAM_OR_DOWNLOAD" = "Vil du lasta ned eller spela av denne URL-en?";
 "SHARED_VLC_IOS_LIBRARY" = "Delt VLC for iOS-bibliotek";
 "SMB_CIFS_FILE_SERVERS" = "Filtenarar (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Mislykka nedlasting med HTTP-koden %i";
-"HTTP_FILE_CREATION_FAILED" = "Mislykka oppretting av fil";
 "HTTP_DOWNLOAD_CANCELLED" = "Nedlasting avbroten av brukar";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Skriv inn ei adresse for å laste ned fila til %@.";
+"DOWNLOAD_FROM_HTTP_HELP" = "Skriv inn ei adresse for å lasta ned fila til %@.";
 "DOWNLOAD_FROM_HTTP" = "Nedlastingar";
 "ERROR_NUMBER" = "Feilen %i oppstod";
 "DOWNLOAD_FAILED" = "Mislykka nedlasting";
 "FILE_NOT_SUPPORTED" = "Filformatet er ikkje støtta";
 "FILE_NOT_SUPPORTED_LONG" = "Filformatet brukt av %@ er ikkje støtta i denne versjonen av VLC for iOS.";
-"SCHEME_NOT_SUPPORTED" = "Adresse-skjemaet er ikkje støtta";
+"SCHEME_NOT_SUPPORTED" = "Adresseskjemaet er ikkje støtta";
 "SCHEME_NOT_SUPPORTED_LONG" = "Adresseskjemaet (%@) er ikkje støtta. Ver snill og bruk ei adresse som byrjar med HTTP, HTTPS eller FTP.";
 "RENAME_MEDIA_TO" = "Skriv inn nytt namn for %@";
 
+"FOLDER_EMPTY" = "Tom mappe";
 
-"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Vel ei fil å opne:";
-"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Opne i …";
-"SHARING_ERROR_NO_FILES" = "Fann ingen filer å dele";
-"SHARING_ERROR_NO_APPLICATIONS" = "Fann ingen program som kan opne denne filtypen";
-"SHARING_SUCCESS_CAMERA_ROLL" = "Fila vart vellykka lagra i Kamerarullen";
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Vel ei fil å opna:";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Opna i…";
+"SHARING_ERROR_NO_FILES" = "Fann ingen filer å dela";
+"SHARING_ERROR_NO_APPLICATIONS" = "Fann ingen program som kan opna denne filtypen";
+"SHARING_SUCCESS_CAMERA_ROLL" = "Fila vart vellykka lagra i kamerabilda";
 
-"SECTION_HEADER_LIBRARY" = "Mediabibliotek";
 "STREAMVC_DETAILTEXT" = "Spel av straumar direkte utan nedlasting";
 "DOWNLOADVC_DETAILTEXT" = "Last ned filer direkte til eininga di";
-"HEADER_TITLE_RENDERER" = "Vel ei casting-eining";
+"HEADER_TITLE_RENDERER" = "Vel ei strøyme-eining";
 
+"NETWORK" = "Nettverk";
 "LOCAL_NETWORK" = "Lokalt nettverk";
 "CONNECT_TO_SERVER" = "Kopla til tenar";
 "FILE_SERVER" = "Filserverar";
@@ -137,17 +134,17 @@
 "LOGGED_IN_SERVICES" = "%d innlogga tenester";
 "LOGGED_IN_SERVICE" = "1 innlogga teneste";
 
-"DROPBOX_DOWNLOAD" = "Laste ned fil?";
-"DROPBOX_DL_LONG" = "Vil du laste ned \"%@\" til %@-en din?";
+"DROPBOX_DOWNLOAD" = "Lasta ned fil?";
+"DROPBOX_DL_LONG" = "Vil du lasta ned \"%@\" til %@-en din?";
 "DROPBOX_LOGIN" = "Innlogging";
 
 "GDRIVE_ERROR_FETCHING_FILES" = "Feil under henting av filer";
-"GDRIVE_DOWNLOAD_SUCCESSFUL" = "Fila di er vellukka lasta ned";
-"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "VELLUKKA";
+"GDRIVE_DOWNLOAD_SUCCESSFUL" = "Vellykka nedlasting av fil";
+"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "VELLYKKA";
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "Det oppstod ein feil under nedlastinga";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "FEIL";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "Det valde mediet har ikkje ein gyldig url";
 
 "DISK_FULL" = "Lagringsgrense er nådd";
 "DISK_FULL_FORMAT" = "%@ kan ikkje lagrast på %@, fordi du ikkje har nok ledig plass.";
@@ -155,11 +152,24 @@
 "NUM_OF_FILES" = "%i filer";
 "ONE_FILE" = "1 fil";
 "NO_FILES" = "Ingen støtta filer";
-"DOWNLOADING" = "Lastar ned …";
+"DOWNLOADING" = "Lastar ned…";
 "REMAINING_TIME" = "Attståande tid: %@";
 "BIOMETRIC_UNLOCK" = "Lås opp mediebiblioteket\nAvbryt for å skriva inn passord";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d mislykka passordforsøk";
+"1 Failed Passcode Attempt" = "1 mislykka passordforsøk";
+"Change Passcode" = "Endra passord";
+"Enter Passcode" = "Skriv inn passord";
+"Enter a passcode" = "Skriv inn passord";
+"Enter your new passcode" = "Skriv inn det nye passordet ditt";
+"Enter your old passcode" = "Skriv inn det gamle passordet ditt";
+"Enter your passcode" = "Skriv inn passordet ditt";
+"Next" = "Neste";
+"Passcodes did not match. Try again." = "Passorda matchar ikkje. Prøv igjen.";
+"Re-enter your new passcode" = "Skriv inn nytt passord ein gong til";
+"Re-enter your passcode" = "Skriv inn passord på nytt";
+"Set Passcode" = "Vel passord";
 
 "Settings" = "Innstillingar"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "På";
@@ -167,6 +177,9 @@
 
 "EMPTY_LIBRARY" = "Tomt mediabibliotek";
 "EMPTY_LIBRARY_LONG" = "For avspeling kan du strøyma media frå ein tenar på det lokale nettverket ditt, frå skya, eller synkronisera media til eininga di med iTunes, WiFi-opplasting eller skytenester.";
+
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "Sveip fingeren ned for å justera skrubbingsgraden";
 "PLAYBACK_SCRUB_HIGH" = "Høgfartskrubbing";
@@ -181,8 +194,8 @@
 "BWD_BUTTON" = "Spol tilbake";
 "FWD_BUTTON" = "Spol framover";
 "PLAY_BUTTON" = "Spel";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
+"NEXT_BUTTON" = "Neste";
+"PREV_BUTTON" = "Førre";
 "PLAY_ALL_BUTTON" = "Spel alle";
 
 "VERSION_FORMAT" = "Versjon: %@";
@@ -197,30 +210,20 @@
 "VO_VIDEOPLAYER_TITLE" = "Videospelar";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dobbeltrykk for å visa eller gøyma avspelingskontrollane";
 
-"FIRST_STEPS_WELCOME" = "Velkomen";
-"FIRST_STEPS_WELCOME_DETAIL" = "Fyrste steg i å synkronisera og spela av media";
 "FIRST_STEPS_ITUNES" = "iTunes filsynkronisering";
-"FIRST_STEPS_ITUNES_DETAILS" = "Kopla %@ til Mac-en eller PC-en din med kabel.\nOpna iTunes.\nVel %@.\nVel ‹‹Fildeling›› på venstre side av menyen og sjå etter VLC.\nOverfør filene dine.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Kople til %@ din til det same nettverket som Mac-en eller PC-en din er på.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Trykk på knappen, skriv inn adressa i nettlesaren og last opp filene dine.";
+"FIRST_STEPS_ITUNES_TITLE" = "Synkroniser med datamaskina di";
+"FIRST_STEPS_ITUNES_DETAILS" = "Kopla eininga di til iTunes og vel eininga di. Vel ‹‹Fildeling›› på venstre side av menyen i iTunes og sjå etter VLC for å overføra filer";
+"FIRST_STEPS_WIFI_TITLE" = "Del via Wifi";
+"FIRST_STEPS_WIFI_DETAILS" = "Skriv inn den genererte URL-en i favorittnettlesaren din medan du er kopla til det same nettverket som telefonen din";
 "FIRST_STEPS_CLOUDS" = "Skyer";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Last opp media til Google Drive eller Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Opna sidestolpen for å velja Sky-tilbydar og få tilgang til eigne media for nedlasting og strøyming.";
-"FIRST_STEPS_PLAYBACK" = "Avspeling";
-"FIRST_STEPS_FLOSS" = "VLC for iOS er gratis, open kjeldekodeprogramvare, utvikla av friviljuge.\nVi håpar du likar det.";
+"FIRST_STEPS_CLOUD_TITLE" = "Sky";
+"FIRST_STEPS_CLOUD_DETAILS" = "Last opp media til Google Drive eller Dropbox for å fjern-nedlasta eller støyma dei.";
 
-"FIRST_STEPS_TIME" = "Tid";
-"FIRST_STEPS_ASPECT" = "Bildeforhold";
-"FIRST_STEPS_SPEED" = "Fart";
-"FIRST_STEPS_REPEAT" = "Repeter";
-"FIRST_STEPS_SUBTITLES" = "Undertekstspor";
-"FIRST_STEPS_AUDIO" = "Lydspor";
-"FIRST_STEPS_POSITION" = "Plassering";
 
 "PLEX_CHECK_ACCOUNT" = "Kontroller innstillingane for Plex-kontoen din";
 "PLEX_ERROR_ACCOUNT" = "Plex innloggingsfeil";
 
-"UNAUTHORIZED" = "Uatorisert";
+"UNAUTHORIZED" = "Uautorisert";
 
 "SERVER" = "Tenar";
 "SERVER_PORT" = "Port";
@@ -233,14 +236,13 @@
 "WEBINTF_DOWNLOADFILES" = "Last ned filer";
 "WEBINTF_DOWNLOADFILES_LONG" = "Berre klikk  på fila du vil lasta ned frå %@.";
 "WEBINTF_TITLE_ATV" = "Fjernavspeling";
-"WEBINTF_DROPFILES_LONG_ATV" = "Slepp filer i vindauget for å spele dei på %@ din.<br>Eller trykk på ‹‹+››-knappen for å bruke filveljar dialogen.";
-"WEBINTF_URL_SENT" = "Adressa vart vellukka sendt";
+"WEBINTF_DROPFILES_LONG_ATV" = "Slepp filer i vindauget for å spela dei på %@ din.<br>Eller trykk på ‹‹+››-knappen for å bruka filveljar-dialogen.";
+"WEBINTF_URL_SENT" = "Adressa vart vellykka sendt";
 "WEBINTF_URL_EMPTY" = "URL kan ikkje vera tom.";
 "WEBINTF_URL_INVALID" = "Ikkje ei gyldig adresse.";
 
 
 
-"VOLUME" = "Lydstyrke";
 "DURATION" = "Tid";
 "TITLE" = "Tittel";
 
@@ -255,10 +257,10 @@
 "AUDIO_INFO_VC_TITLE" = "Lydinfo";
 "CLOUD_LOGIN_LONG" = "For å få tilgang til skytenester loggar du inn på iCloud, både på denne Apple TV-en og på ei iOS-eining med same Apple ID, og slår på Keychain Sharing i systeminnstilligane.\nEtterpå loggar du inn på skytilbydaren din med VLC-appen på iOS-eininga di. Og til slutt vel du den på skjermen..";
 "ENTER_URL" = "Skriv inn ei adresse å spela av";
-"HTTP_SERVER_ON" = "Skå av ekstern (remote) avspeling";
+"HTTP_SERVER_ON" = "Slå av ekstern (remote) avspeling";
 "HTTP_SERVER_OFF" = "Slå på ekstern (remote) avspeling";
 "CACHED_MEDIA" = "Snøgglagra media";
-"CACHED_MEDIA_LONG" = "Media vist her er lagra lokalt på ditt Apple TV. Merk at innhald kan verta fjerna av operativsystemet, når som helst og utan førehandsvarsel, når VLC ikkje køyrer, i tilfelle der eininga di ikkje har nok lagringsplass.";
+"CACHED_MEDIA_LONG" = "Media viste her er lagra lokalt på ditt Apple TV. Merk at innhald kan verta fjerna av operativsystemet, når som helst og utan førehandsvarsel, når VLC ikkje køyrer, i tilfelle der eininga di ikkje har nok lagringsplass.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Last ned undertekstar frå OpenSubtitles.org …";
 "FOUND_SUBS" = "Fann undertekstar";
 "USE_SPDIF" = "Bruk Pass-through (S/PDIF)";
@@ -279,7 +281,7 @@
 "FTP_LONG" = "File Transfer Protocol (FTP)";
 "FTP_SHORT" = "FTP";
 
-"BONJOUR_FILE_SERVERS" = "BONJOUR filserver";
+"BONJOUR_FILE_SERVERS" = "BONJOUR-filserver";
 "DSM_WORKGROUP" = "Arbeidsgruppe";
 
 "URL_NOT_SUPPORTED" = "Kan ikkje opna oppsettadressa";
@@ -287,10 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Trykk %@ for å sletta"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "Utvalet kan ikkje slettast";
-"DELETE_INVALID_TITLE" = "Ugyldig utval";
-"DELETE_MESSAGE" = "Stadfest sletting av valde filer";
-"DELETE_TITLE" = "Slett valde filer";
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Confirm the deletion of the selection from the playlist\nMedia items are not deleted";
+"DELETE_TITLE" = "Delete Selection";
 
 //Drag and Drop
 "THIS_FILE" = "Denne fila";
@@ -300,11 +301,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protokoll ikkje vald";
 "Settings" = "Innstillingar";
 
-"CANCEL" = "Avbryt";
 "ERROR" = "Feil";
 "OK" = "Ok";
 "SORT" = "Sorter";
 "SORT_BY" = "Sorter etter";
+"SEARCH" = "Søk";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -314,35 +315,79 @@
 "GENRES" = "Sjangrar";
 "MOVIES" = "Filmar";
 "SONGS" = "Songar";
-"PLAYLISTS" = "Playlists";
+"PLAYLISTS" = "Speleliste";
 
-"MODIFIED_DATE" = "Modified date";
-"NAME" = "Name";
+"MODIFIED_DATE" = "Dato endra";
+"NAME" = "Namn";
 
 //EDIT
-"ADD_TO_PLAYLIST" = "Add to Playlist";
 
-"PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"BUTTON_EDIT" = "Rediger";
+"BUTTON_EDIT_HINT" = "Redigeringsmodus";
 
-"RENAME_PLACEHOLDER" = "New title";
-"ERROR_RENAME_FAILED" = "Renaming failed";
-"ERROR_EMPTY_NAME" = "The title can't be empty";
+"ADD_TO_PLAYLIST" = "Legg til i speleliste";
+"ADD_TO_PLAYLIST_HINT" = "Opna menyen legg til i speleliste";
+
+"PLAYLIST_PLACEHOLDER" = "Spelelistenamn";
+"PLAYLIST_DESCRIPTION" = "Vel eit namn på den nye spelelista di";
+"PLAYLIST_CREATION" = "Lag ei ny speleliste";
+"PLAYLIST_CREATION_HINT" = "Vis ei interaktiv handling for å lage ei speleliste";
+"ERROR_PLAYLIST_CREATION" = "Klarte ikkje å laga ei speleliste";
+"ERROR_PLAYLIST_TRACKS" = "Klarte ikkje å henta spor";
+
+"ERROR_RENAME_FAILED" = "Mislykka namneendring";
+"ERROR_EMPTY_NAME" = "Tittel kan ikkje stå tom";
+
+"SHARE_LABEL" = "Del";
+"SHARE_HINT" = "Del valde filer";
+"RENAME_HINT" = "Endre namn på valde filer";
+"DELETE_HINT" = "Slett valde filer";
 
 // Sort
 
-"HEADER_TITLE_SORT" = "Sort by";
+"BUTTON_SORT" = "Sorter";
+"BUTTON_SORT_HINT" = "Sorter etter";
+"HEADER_TITLE_SORT" = "Sorter etter";
+"DESCENDING_LABEL" = "Fallande rekkjefølgje";
+"DESCENDING_SWITCH_LABEL" = "Stigande eller fallande rekkjefølgje";
+"DESCENDING_SWITCH_HINT" = "Sorter kontekst i stigande eller fallande rekkjefølgje";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
-"ALPHA" = "Alphanumerically";
+"ALPHA" = "Alfanumerisk";
 "DURATION" = "Tid";
-"INSERTION_DATE" = "Insertion date";
-"LAST_MODIFICATION_DATE" = "Last modification date";
-"RELEASE_DATE" = "Release date";
-"FILE_SIZE" = "File size";
+"INSERTION_DATE" = "Dato lagt til";
+"LAST_MODIFICATION_DATE" = "Siste endringsdato";
+"RELEASE_DATE" = "Sleppedato";
+"FILE_SIZE" = "Filstorleik";
 "ARTIST" = "Artist";
-"PLAY_COUNT" = "Play count";
+"PLAY_COUNT" = "Tal på avspelingar";
 "ALBUM" = "Album";
-"FILENAME" = "Filename";
-"TRACK_NUMBER" = "Track number";
+"FILENAME" = "Filenamn";
+"TRACK_NUMBER" = "Spornummer";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Fann ingenting";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Ukjend artist";
+"VARIOUS_ARTIST" = "Ulike artistar";
+"UNKNOWN_ALBUM" = "Ukjend album";
+
+/* VideoOptionsControlBar */
+"INTERFACE_LOCK_BUTTON" = "Lock interface";
+"INTERFACE_LOCK_HINT" = "Disable interface controls";
+"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_HINT" = "View more option controls";
+"REPEAT_MODE_HINT" = "Change repeat mode of current item";
+"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
