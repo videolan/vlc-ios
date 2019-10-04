@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "चित्रफीत";
 "SETTINGS_AUDIO_TITLE" = "ध्वनी";
 
-"SETTINGS_THEME_SUBTITLE" = "Change app colors";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
 
-"SETTINGS_DARKTHEME" = "Dark Theme";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "टाईम-स्ट्रेचिंग ध्वनी";
 "SETTINGS_BACKGROUND_AUDIO" = "ध्वनी प्लेबॅक पार्श्वभूमीवर चालू ठेवा";
 "SETTINGS_GENERIC_TITLE" = "जेन्रिक";
 "SETTINGS_PASSCODE_LOCK" = "पासकोड लॉक";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
-"SETTINGS_DECRAPIFY" = "प्रदर्शनासाठी आयटमची नावे अनुकूलित करा";
 "SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
@@ -40,7 +41,7 @@
 
 "SETTINGS_GESTURES" = "जेश्चरने प्लेबॅक नियंत्रित करा";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tap to play/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
 "SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "अभिप्राय";
 "SETTINGS_SEND_FEEDBACK" = "अभिप्राय पाठवा";
 "SETTINGS_SEND_RATING" = "IOS साठी VLC ला रेट करा ";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "प्रदर्शनासाठी आयटमची नावे अनुकूलित करा";
 
 "SETTINGS_FILE_SYNC" = "फाईल ताळमेळ";
 "SETTINGS_WIFISHARING_IPv6" = "WiFi शेअरिंगसाठी IPv6 समर्थन";
