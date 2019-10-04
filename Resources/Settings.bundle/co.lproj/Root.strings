@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_SUBTITLE" = "Cambià culori di l’app";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Apre in Preferenze";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accessu assicuratu à u vostru cuntenutu";
 
-"SETTINGS_DARKTHEME" = "Temu scuru";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Stinzata di tempu audio";
 "SETTINGS_BACKGROUND_AUDIO" = "Ripruduzzione audio in fondu";
 "SETTINGS_GENERIC_TITLE" = "Genericu";
 "SETTINGS_PASSCODE_LOCK" = "Codice di serratura";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Permette di sbluccà cù Touch ID";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permette Face ID per sbluccà";
-"SETTINGS_DECRAPIFY" = "Megliurà i nomi d’elementi per l’affissu";
 "SETTINGS_VIDEO_FULLSCREEN" = "Sunà a video di screnu sanu";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Cuntinuà a ripruduzzione video";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Cuntinuà a ripruduzzione audio";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Ritornu d’avisu";
 "SETTINGS_SEND_FEEDBACK" = "Mandà u vostru avisu";
 "SETTINGS_SEND_RATING" = "Vi ringraziemu d’apprezzià VLC for iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Megliurà i nomi d’elementi per l’affissu";
 
 "SETTINGS_FILE_SYNC" = "Sincrunizazione di schedariu";
 "SETTINGS_WIFISHARING_IPv6" = "Supportu IPv6 per spartimentu WiFi";
