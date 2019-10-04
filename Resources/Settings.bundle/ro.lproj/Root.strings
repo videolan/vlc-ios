@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_SUBTITLE" = "Modificare culori aplicație";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Deschide în Setări";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Acces în siguranță la conținutul dvs.";
 
-"SETTINGS_DARKTHEME" = "Tema întunecată";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio întindere-timp";
 "SETTINGS_BACKGROUND_AUDIO" = "Redare audio în fundal";
 "SETTINGS_GENERIC_TITLE" = "Generic";
 "SETTINGS_PASSCODE_LOCK" = "Cod pentru deblocare";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permiteți Face ID pentru deblocare";
-"SETTINGS_DECRAPIFY" = "Optimizează pentru afişare numele obiectelor.";
 "SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
@@ -40,7 +41,7 @@
 
 "SETTINGS_GESTURES" = "Control redare prin gesturi";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tap to play/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
 "SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Send Feedback";
 "SETTINGS_SEND_RATING" = "Please Rate VLC for iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Optimizează pentru afişare numele obiectelor.";
 
 "SETTINGS_FILE_SYNC" = "Sincronizarea fișierului";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for WiFi Sharing";

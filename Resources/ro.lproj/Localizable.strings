@@ -11,7 +11,6 @@
 "TITLE" = "Titlu";
 "CHAPTER" = "Capitol";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimizează fereastra de redare";
-"FULLSCREEN_PLAYBACK" = "Redă piesa pe întregul ecran";
 "TRACK_SELECTION" = "Selecție piese";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Subtitrări";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Continui redarea?";
 "CONTINUE_PLAYBACK_LONG" = "Doriți să continuați redarea \"%@\" de unde a rămas?";
 
-"BUTTON_ALL" = "Selectează tot";
 "BUTTON_ABOUT" = "Despre";
 "BUTTON_BACK" = "Înapoi";
 "BUTTON_DONE" = "Efectuat";
@@ -70,14 +68,14 @@
 "BUTTON_CONTINUE" = "Continuă";
 "BUTTON_SET" = "Setări";
 "BUTTON_RESET" = "Resetare";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Redare Privată";
 "SCAN_SUBTITLE_TOGGLE" = "Caută subtitrări (doar http)";
 
 "BUTTON_RENDERER" = "Casting devices";
-"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+"BUTTON_RENDERER_HINT" = "Afișează un meniu din dispozitivele disponibile";
 
 "UPGRADING_LIBRARY" = "Actualizare mediatecă";
-"UNTITLED_SHOW" = "Afişare fără nume";
 "UNKNOWN" = "Necunoscut";
 
 "OPEN_NETWORK" = "Deschidere Flux Rețea";
@@ -92,8 +90,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Descărcare eșuată, având codul HTTP %i";
-"HTTP_FILE_CREATION_FAILED" = "Crearea fișierului a eșuat";
 "HTTP_DOWNLOAD_CANCELLED" = "Decărcare anulată de utilizator";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Introduceţi o adresă pentru descărcarea fişierului în %@ dvs.";
@@ -106,6 +102,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "Schema adresei (%@) este nesuportată. Te rugăm să folosești o adresă care începe cu HTTP, HTTPS sau FTP.";
 "RENAME_MEDIA_TO" = "Introdu nume nou pentru %@";
 
+"FOLDER_EMPTY" = "Folder gol";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Alegeți un fișier pentru a fi deschis";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Deschide în...";
@@ -113,11 +110,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Nu pot găsi nicio aplicație cu care să deschid acest tip de fișier";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Fișierul a fost salvat cu succes în Camera Roll";
 
-"SECTION_HEADER_LIBRARY" = "Mediatecă";
 "STREAMVC_DETAILTEXT" = " Redare fluxuri direct, fără descărcare ";
 "DOWNLOADVC_DETAILTEXT" = "Descărcare fișiere direct în dispozitiv";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
+"NETWORK" = "Rețea";
 "LOCAL_NETWORK" = "Rețea Locală";
 "CONNECT_TO_SERVER" = "Conectare la Server";
 "FILE_SERVER" = "Servere de fișiere";
@@ -160,6 +157,19 @@
 "BIOMETRIC_UNLOCK" = "Deblocare bibliotecă Media \nAnulare pentru a introduce parola";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Modificare parolă";
+"Enter Passcode" = "Introduceți parola";
+"Enter a passcode" = "Introduceți o parolă";
+"Enter your new passcode" = "Introduceți o parolă nouă";
+"Enter your old passcode" = "Introduceți parola veche";
+"Enter your passcode" = "Introduceți parola dumneavoastră";
+"Next" = "Înainte";
+"Passcodes did not match. Try again." = "Parolele nu se potrivesc. Mai încercați.";
+"Re-enter your new passcode" = "Reintroduceți noua parolă";
+"Re-enter your passcode" = "Reintroduceți parola dumneavoastră";
+"Set Passcode" = "Setare parolă";
 
 "Settings" = "Configurări"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Deschis";
@@ -167,6 +177,9 @@
 
 "EMPTY_LIBRARY" = "Golire mediatecă";
 "EMPTY_LIBRARY_LONG" = "Pentru redare, puteţi folosi fluxul media de pe un server, pe reţeaua dvs. locală,  din cloud sau vă puteţi sincroniza fişierele media pe dispozitivul dvs., folosind iTunes, Încărcare WiFi ori servicii de tip Cloud.";
+
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "Glisaţi degetul în jos pentru ajustarea ratei de redare.";
 "PLAYBACK_SCRUB_HIGH" = "Rată Redare Viteză-Mare";
@@ -181,8 +194,8 @@
 "BWD_BUTTON" = "Salt Înapoi";
 "FWD_BUTTON" = "Salt Înainte";
 "PLAY_BUTTON" = "Redă";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
+"NEXT_BUTTON" = "Înainte";
+"PREV_BUTTON" = "Înapoi";
 "PLAY_ALL_BUTTON" = "Redați toate";
 
 "VERSION_FORMAT" = "Versiune: %@";
@@ -197,25 +210,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Player Video";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Atingere dublă pentru afişarea sau ascuderea contoalelor de redare";
 
-"FIRST_STEPS_WELCOME" = "Bun venit";
-"FIRST_STEPS_WELCOME_DETAIL" = "Primii pași pentru a sincroniza și reda fișierele media.";
 "FIRST_STEPS_ITUNES" = "Sincronizare de fișiere iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Conectați %@ dvs. la Mac sau PC folosind cablul.\nDeschideți iTunes.\nSelectați %@ dvs.\nSelectați \"File Sharing\" din meniul aflat în partea stângă și alegeți VLC.\nTransferați fișierele dvs.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Conectează %@ la aceeași rețea folosită de către Mac-ul sau PC-ul tău.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Comută butonul din bara laterală, introdu adresa URL în navigatorul web și încarcă fișierele.";
+"FIRST_STEPS_ITUNES_TITLE" = "Sincronizare cu computerul dumneavoastră";
+"FIRST_STEPS_ITUNES_DETAILS" = "Conectași dispozitivul dumneavoastră la iTunes și selectați dispozitivul. Selectați \"Partajare fișiere\" în meniul din partea stângă iTunes și căutați VLC pentru a transfera fișierele";
+"FIRST_STEPS_WIFI_TITLE" = "Partajare prin Wifi";
+"FIRST_STEPS_WIFI_DETAILS" = "Introduceți adresa URL generată în programul de navigare  preferat în timpul conectării la aceeași rețea cu a telefonului dumneavoastră";
 "FIRST_STEPS_CLOUDS" = "Clouds";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Încarcă fişierele media pe Google Drive sau pe Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Deschide bara laterală pentru a selecta furnizoul cloud şi accesează-ți fișierele media pentru a le descărca sau reda în flux.";
-"FIRST_STEPS_PLAYBACK" = "Redare";
-"FIRST_STEPS_FLOSS" = "VLC pentru iOS este o aplicație gratuită de tip open source, dezvoltată de către voluntari.\nSperăm să îți placă.";
+"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
+"FIRST_STEPS_CLOUD_DETAILS" = "Încărcați fișierele media într-un serviciu Cloud, cum ar fi Google Drive sau Dropbox pentru a le descărca la distanță sau a le transmite.";
 
-"FIRST_STEPS_TIME" = "Timp";
-"FIRST_STEPS_ASPECT" = "Raport de aspect";
-"FIRST_STEPS_SPEED" = "Viteză";
-"FIRST_STEPS_REPEAT" = "Repetă";
-"FIRST_STEPS_SUBTITLES" = "Piste subtitrări";
-"FIRST_STEPS_AUDIO" = "Piste audio";
-"FIRST_STEPS_POSITION" = "Poziție";
 
 "PLEX_CHECK_ACCOUNT" = "Verificați contul dvs. Plex în setări";
 "PLEX_ERROR_ACCOUNT" = "Eroare de autentificate în Plex";
@@ -240,7 +243,6 @@
 
 
 
-"VOLUME" = "Volum";
 "DURATION" = "Durată";
 "TITLE" = "Titlu";
 
@@ -261,7 +263,7 @@
 "CACHED_MEDIA_LONG" = "Fișierele media afișate aici sunt stocate local pe Apple TV. Rețineți că conținutul poate fi eliminat de pe sistemul de operare fără o notificare prealabilă atunci cînd VLC nu rulează pentru că dispozitivul nu mai are spațiu de stocare.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Descarcă subtitrarea de pe OpenSubtitles.org...";
 "FOUND_SUBS" = "Am găsit subtitrari";
-"USE_SPDIF" = "Use Pass-through (S/PDIF)";
+"USE_SPDIF" = "Folosiți Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Redare";
 "REPEAT_MODE" = "Repetă";
@@ -279,7 +281,7 @@
 "FTP_LONG" = "Protocol de transfer fișiere (FTP)";
 "FTP_SHORT" = "FTP";
 
-"BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
+"BONJOUR_FILE_SERVERS" = "Servere de fișiere BONJOUR";
 "DSM_WORKGROUP" = "Rețea";
 
 "URL_NOT_SUPPORTED" = "Adresa URL nu poate fi deschisă";
@@ -287,10 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Apasa %@ pentru a sterge"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "Selectia nu poate fi stearsa";
-"DELETE_INVALID_TITLE" = "Selecția nu este validă";
-"DELETE_MESSAGE" = "Confirmă ștergerea fișierelor selectate";
-"DELETE_TITLE" = "Șterge fișierele selectate";
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Confirm the deletion of the selection from the playlist\nMedia items are not deleted";
+"DELETE_TITLE" = "Delete Selection";
 
 //Drag and Drop
 "THIS_FILE" = "Acest fișier";
@@ -300,11 +301,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protocol neselectat";
 "Settings" = "Configurări";
 
-"CANCEL" = "Anulare";
 "ERROR" = "Eroare";
 "OK" = "Ok";
 "SORT" = "Sortare";
 "SORT_BY" = " Sortare după";
+"SEARCH" = "Search";
 "VIDEO" = "Fișier video";
 
 // MediaViewController Swipable Header
@@ -316,22 +317,40 @@
 "SONGS" = "Cântece";
 "PLAYLISTS" = "Liste de redare";
 
-"MODIFIED_DATE" = "Modified date";
-"NAME" = "Name";
+"MODIFIED_DATE" = "Data modificării";
+"NAME" = "Nume";
 
 //EDIT
-"ADD_TO_PLAYLIST" = "Add to Playlist";
 
-"PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"BUTTON_EDIT" = "Edit";
+"BUTTON_EDIT_HINT" = "Edit mode";
 
-"RENAME_PLACEHOLDER" = "New title";
-"ERROR_RENAME_FAILED" = "Renaming failed";
-"ERROR_EMPTY_NAME" = "The title can't be empty";
+"ADD_TO_PLAYLIST" = "Adăugați la lista de redare";
+"ADD_TO_PLAYLIST_HINT" = "Deschideți meniul de adăugare la lista de redare";
+
+"PLAYLIST_PLACEHOLDER" = "Titlul listei de redare";
+"PLAYLIST_DESCRIPTION" = "Alegeți un titlu pentru noua listă de redare";
+"PLAYLIST_CREATION" = "Creați o listă nouă de redare";
+"PLAYLIST_CREATION_HINT" = "Afișați o acțiune interactivă pentru a crea o listă de redare";
+"ERROR_PLAYLIST_CREATION" = "Eroare la crearea listei de redare";
+"ERROR_PLAYLIST_TRACKS" = "Eroare la recuperarea fișierelor";
+
+"ERROR_RENAME_FAILED" = "Redenumirea a eșuat";
+"ERROR_EMPTY_NAME" = "Titlul nu poate fi necompletat";
+
+"SHARE_LABEL" = "Partajare";
+"SHARE_HINT" = "Partajați fișierele selectate";
+"RENAME_HINT" = "Redenumiți fișierele selectate";
+"DELETE_HINT" = "Ștergeți fișierele selectate";
 
 // Sort
 
-"HEADER_TITLE_SORT" = "Sort by";
+"BUTTON_SORT" = "Sort";
+"BUTTON_SORT_HINT" = "Display sort action sheet";
+"HEADER_TITLE_SORT" = "Ordonare după";
+"DESCENDING_LABEL" = "Descending Order";
+"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
+"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +365,29 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filename";
 "TRACK_NUMBER" = "Track number";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nothing found";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Unknown Artist";
+"VARIOUS_ARTIST" = "Various Artists";
+"UNKNOWN_ALBUM" = "Unknown Album";
+
+/* VideoOptionsControlBar */
+"INTERFACE_LOCK_BUTTON" = "Lock interface";
+"INTERFACE_LOCK_HINT" = "Disable interface controls";
+"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_HINT" = "View more option controls";
+"REPEAT_MODE_HINT" = "Change repeat mode of current item";
+"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
