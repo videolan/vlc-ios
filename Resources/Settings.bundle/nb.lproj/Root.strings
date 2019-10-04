@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Lyd";
 
-"SETTINGS_THEME_SUBTITLE" = "Endre appens farger";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Åpne i Innstillinger";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Sikre tilgangen til ditt innhold";
 
-"SETTINGS_DARKTHEME" = "Mørkt tema";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Strekking av lyd";
 "SETTINGS_BACKGROUND_AUDIO" = "Lydavspilling i bakgrunnen";
 "SETTINGS_GENERIC_TITLE" = "Generelt";
 "SETTINGS_PASSCODE_LOCK" = "Passordlås";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Tillat Touch ID for opplåsing";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Tillat Face ID for opplåsing";
-"SETTINGS_DECRAPIFY" = "Optimer emnenavn for visning";
 "SETTINGS_VIDEO_FULLSCREEN" = "Spill video i fullskjerm";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Fortsett videoavspilling";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Fortsett lydavspilling";
@@ -40,7 +41,7 @@
 
 "SETTINGS_GESTURES" = "Kontroller avspilling med fakter";
 "SETTINGS_GESTURES_VOLUME" = "Sveip opp/ned for volum";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Trykk for å spille av/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Trykk på to fingre for å spille av/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Sveip opp/ned for lysstyrke";
 "SETTINGS_GESTURES_SEEK" = "Sveip til høyre/venstre for å søke";
 "SETTINGS_GESTURES_CLOSE" = "Knip for å lukke";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Tilbakemelding";
 "SETTINGS_SEND_FEEDBACK" = "Send tilbakemelding";
 "SETTINGS_SEND_RATING" = "Gi en vurdering av VLC for iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Optimer emnenavn for visning";
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-støtte for WiFi-deling";
