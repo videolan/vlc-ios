@@ -11,7 +11,6 @@
 "TITLE" = "தலைப்பு";
 "CHAPTER" = "அத்தியாயம்";
 "MINIMIZE_PLAYBACK_VIEW" = "பின்னணி சிறியதாக்கு";
-"FULLSCREEN_PLAYBACK" = "காணொளி முழுத்திரையில் இயக்கவும்";
 "TRACK_SELECTION" = "சுவடு அமைப்புகள்";
 "AUDIO" = "ஆடியோ";
 "SUBTITLES" = "துணைஉரைகள்";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "பின்னணியை தொடர் ?";
 "CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 
-"BUTTON_ALL" = "அனைத்தையும் தேர்";
 "BUTTON_ABOUT" = "About";
 "BUTTON_BACK" = "பின்னே";
 "BUTTON_DONE" = "முடிந்தது";
@@ -70,6 +68,7 @@
 "BUTTON_CONTINUE" = "தொடர்க";
 "BUTTON_SET" = "Set";
 "BUTTON_RESET" = "Reset";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "தனிப்பட்ட பின்னணி இயக்கம்";
 "SCAN_SUBTITLE_TOGGLE" = "துணைத்தலைப்புகளுக்காக தேடிப் பார் (http மட்டும்)";
 
@@ -77,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "பல்லூடக நூலகத்தைப் புதுப்பிக்கிறது";
-"UNTITLED_SHOW" = "தலைப்பிடாத காட்சி";
 "UNKNOWN" = "அறியாத";
 
 "OPEN_NETWORK" = "பிணைய ஓடையை திற";
@@ -92,8 +90,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "HTTP குறியீடு %i உடன் பதிவிறக்கம் தேல்வியுற்றது";
-"HTTP_FILE_CREATION_FAILED" = "கோப்பு உருவாக்கம் தோல்வியுற்றது";
 "HTTP_DOWNLOAD_CANCELLED" = "பயனர் பதிவிறக்கத்தை இரத்து செய்தார்";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "உங்கள் %@ இடத்திற்கு கோப்பை பதிவிறக்க ஒரு முகவரியை உள்ளிடு.";
@@ -106,6 +102,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "முகவரி திட்டம்(%@) ஆதரவற்றது. HTTP, HTTPS அல்லது FTP போன்வற்றை கொண்டு தொடங்கும் முகவரியைப் பயன்படுத்தவும்.";
 "RENAME_MEDIA_TO" = "%@ இற்கு புதிய பெயரை உள்ளிடு";
 
+"FOLDER_EMPTY" = "Empty folder";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "திறக்க ஒரு கோப்பைத் தேர்:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "இல் திற...";
@@ -113,11 +110,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "இந்த மாதிரியான கோப்பு வகையைத் திறக்க பயனபாடுகள் ஏதுமில்லை";
 "SHARING_SUCCESS_CAMERA_ROLL" = "கோப்பானது படச்சுருளில் வெற்றிகரமாகச் சேமிக்கப்பட்டது";
 
-"SECTION_HEADER_LIBRARY" = "ஊடக நூலகம்";
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
 "DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
+"NETWORK" = "Network";
 "LOCAL_NETWORK" = "உள்ளூர் பிணையம்";
 "CONNECT_TO_SERVER" = "சேவனுடன் இணை";
 "FILE_SERVER" = "File Servers";
@@ -160,6 +157,19 @@
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Change Passcode";
+"Enter Passcode" = "Enter Passcode";
+"Enter a passcode" = "Enter a passcode";
+"Enter your new passcode" = "Enter your new passcode";
+"Enter your old passcode" = "Enter your old passcode";
+"Enter your passcode" = "Enter your passcode";
+"Next" = "Next";
+"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
+"Re-enter your new passcode" = "Re-enter your new passcode";
+"Re-enter your passcode" = "Re-enter your passcode";
+"Set Passcode" = "Set Passcode";
 
 "Settings" = "அமைவுகள்"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "செயலில்";
@@ -167,6 +177,9 @@
 
 "EMPTY_LIBRARY" = "காலியான ஊடக நூலகம்";
 "EMPTY_LIBRARY_LONG" = "பின்னணி இயக்கத்திற்கு, உங்கள் உள்ளூர் பிணையத்தில் உள்ள சேவகனிலிருந்து காணொளியை ஓடையிடலாம், கிளவுட்ல இருந்தோ அல்லது சாதனத்திலிருந்தோ ஐடியூனைப் பயன்படுத்தி ஒத்திசைக்கலாம், வை-பை மூலம் பதிவேற்றலாம் அல்லது கிளவுட் சேவைகள் மூலமும் முடியும்.";
+
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "தேய்க்கும் விகிதத்தைச் சரிசெய்ய உங்கள் விரலை கீழே இழுக்கவும்.";
 "PLAYBACK_SCRUB_HIGH" = "அதிவேகத்தில்";
@@ -197,25 +210,15 @@
 "VO_VIDEOPLAYER_TITLE" = "காணொளி இயக்கி";
 "VO_VIDEOPLAYER_DOUBLETAP" = "இரட்டை தட்டலில் பின்னணி இயக்கக் கட்டுப்பாடுகளைக் காண்பி/மறை";
 
-"FIRST_STEPS_WELCOME" = "நல்வரவு";
-"FIRST_STEPS_WELCOME_DETAIL" = "முதல் படி உங்களுடைய ஊடகத்தை ஒத்திசைவுச் செய்து இயக்கவும்";
 "FIRST_STEPS_ITUNES" = "ஐடியூன்ஸ் கோப்பு ஒத்திசைவு";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "உங்களுடைய %@ ஐயும் மேக் அல்லது கணினியையும் ஒரே பிணையத்தில் இணைக்கவும்.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "பக்கப்பட்டையில் நிலைமாற்றிக்கு மாறி, இணைய உலாவியில் URL ஐ உள்ளிட்டு உங்கள் கோப்புகளைப் பதிவேற்றவும்.";
+"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "கிளவுட்ஸ்";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "உங்களுடைய ஊடகத்தை கூகுள் டிரைவ்/டிராபாக்ஸுக்கு பதிவேற்றவும்.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "பக்கப்பட்டையைத் திறந்து கிளவுட் வழங்குநர்களைத் தேர்வுச்செய்து உங்கள் ஊடகத்தை பதிவிறக்கவும் அல்லது ஓடையிடவும்.";
-"FIRST_STEPS_PLAYBACK" = "பின்னணி இயக்கம்";
-"FIRST_STEPS_FLOSS" = "தன்னார்வளர்களால் உருவாக்கப்பட்ட கட்டற்ற திற மூல மென்பொருள் ஆகும்.\nநீங்க இதை விரும்புவீர்கள் என எதிர் பார்க்கிறோம்.";
+"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
+"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
 
-"FIRST_STEPS_TIME" = "நேரம்";
-"FIRST_STEPS_ASPECT" = "தோற்ற விகிதம்";
-"FIRST_STEPS_SPEED" = "வேகம்";
-"FIRST_STEPS_REPEAT" = "மீள் இயக்கு";
-"FIRST_STEPS_SUBTITLES" = "துணைத்தலைப்பு தடங்கள்";
-"FIRST_STEPS_AUDIO" = "ஒலித் தடங்கள்";
-"FIRST_STEPS_POSITION" = "நிலை";
 
 "PLEX_CHECK_ACCOUNT" = "அமைப்புகளில் உங்கள் Plex கணக்கை சரிபார்க்க";
 "PLEX_ERROR_ACCOUNT" = "Plex புகுபதிகை பிழை";
@@ -240,7 +243,6 @@
 
 
 
-"VOLUME" = "ஒலியளவு";
 "DURATION" = "காலம்";
 "TITLE" = "தலைப்பு";
 
@@ -287,10 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "The selection can't be deleted";
-"DELETE_INVALID_TITLE" = "Invalid Selection";
-"DELETE_MESSAGE" = "Confirm the deletion of the selected files";
-"DELETE_TITLE" = "Delete Selected Files";
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Confirm the deletion of the selection from the playlist\nMedia items are not deleted";
+"DELETE_TITLE" = "Delete Selection";
 
 //Drag and Drop
 "THIS_FILE" = "This file";
@@ -300,11 +301,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "அமைவுகள்";
 
-"CANCEL" = "Cancel";
 "ERROR" = "Error";
 "OK" = "Ok";
 "SORT" = "Sort";
 "SORT_BY" = "Sort by";
+"SEARCH" = "Search";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -320,18 +321,36 @@
 "NAME" = "Name";
 
 //EDIT
+
+"BUTTON_EDIT" = "Edit";
+"BUTTON_EDIT_HINT" = "Edit mode";
+
 "ADD_TO_PLAYLIST" = "Add to Playlist";
+"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
 
 "PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
+"PLAYLIST_CREATION" = "Create a new playlist";
+"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
+"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
+"ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
 
-"RENAME_PLACEHOLDER" = "New title";
 "ERROR_RENAME_FAILED" = "Renaming failed";
 "ERROR_EMPTY_NAME" = "The title can't be empty";
 
+"SHARE_LABEL" = "Share";
+"SHARE_HINT" = "Share selected files";
+"RENAME_HINT" = "Rename selected files";
+"DELETE_HINT" = "Delete selected files";
+
 // Sort
 
+"BUTTON_SORT" = "Sort";
+"BUTTON_SORT_HINT" = "Display sort action sheet";
 "HEADER_TITLE_SORT" = "Sort by";
+"DESCENDING_LABEL" = "Descending Order";
+"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
+"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +365,29 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filename";
 "TRACK_NUMBER" = "Track number";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nothing found";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Unknown Artist";
+"VARIOUS_ARTIST" = "Various Artists";
+"UNKNOWN_ALBUM" = "Unknown Album";
+
+/* VideoOptionsControlBar */
+"INTERFACE_LOCK_BUTTON" = "Lock interface";
+"INTERFACE_LOCK_HINT" = "Disable interface controls";
+"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_HINT" = "View more option controls";
+"REPEAT_MODE_HINT" = "Change repeat mode of current item";
+"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";

@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "காணொளி";
 "SETTINGS_AUDIO_TITLE" = "ஒலி";
 
-"SETTINGS_THEME_SUBTITLE" = "Change app colors";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
 
-"SETTINGS_DARKTHEME" = "Dark Theme";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "நேரம் நீட்டித்த ஒலி";
 "SETTINGS_BACKGROUND_AUDIO" = "பின்புலத்தில் ஒலி இயக்கம்";
 "SETTINGS_GENERIC_TITLE" = "பொதுவான";
 "SETTINGS_PASSCODE_LOCK" = "கடவுகுறியீடு பூட்டு ";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
-"SETTINGS_DECRAPIFY" = "உருப்படி பெயர்களை காட்ட உகந்ததாக்கவும்";
 "SETTINGS_VIDEO_FULLSCREEN" = "காணொளி முழுத்திரையில் இயக்கவும்";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
@@ -40,7 +41,7 @@
 
 "SETTINGS_GESTURES" = "சைகையுடன் இயக்கத்தை கட்டுப்படுத்தவும்";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tap to play/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
 "SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "கருத்து";
 "SETTINGS_SEND_FEEDBACK" = "கருத்தை அனுப்பு";
 "SETTINGS_SEND_RATING" = "தயவுச்செய்து iOS-க்கான VLC ஐ மதிப்பிடுங்கள்";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "உருப்படி பெயர்களை காட்ட உகந்ததாக்கவும்";
 
 "SETTINGS_FILE_SYNC" = "கோப்பு ஒத்திசைவு";
 "SETTINGS_WIFISHARING_IPv6" = "வை-பை பகிருவுக்கான IPv6 ஆதரவு";
