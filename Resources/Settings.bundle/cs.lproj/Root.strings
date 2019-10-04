@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Zvuk";
 
-"SETTINGS_THEME_SUBTITLE" = "Změnit barvy aplikace";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Otevřít v nastavení";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Bezpečný přístup k vašemu obsahu";
 
-"SETTINGS_DARKTHEME" = "Tmavý motiv";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časové roztažení zvuku";
 "SETTINGS_BACKGROUND_AUDIO" = "Přehrávání zvuku na pozadí";
 "SETTINGS_GENERIC_TITLE" = "Obecné";
 "SETTINGS_PASSCODE_LOCK" = "Uzamčení heslem";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Povolit dotykové ID pro odemčení";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Povolit Face ID pro odemčení";
-"SETTINGS_DECRAPIFY" = "Přizpůsobit názvy položek pro zobrazení";
 "SETTINGS_VIDEO_FULLSCREEN" = "Přehrát video v režimu celé obrazovky";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Pokračovat v přehrávání videa";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Pokračovat v přehrávání zvuku";
@@ -40,7 +41,7 @@
 
 "SETTINGS_GESTURES" = "Ovládat přehrávání pomocí gest";
 "SETTINGS_GESTURES_VOLUME" = "Přejeďte nahoru/dolů pro nastavení hlasitosti";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Klepnutím přehrávání pozastavíte/spustíte";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Posuňte prstem nahoru/dolů pro jas";
 "SETTINGS_GESTURES_SEEK" = "Přejděte prstem doprava/doleva pro posun času";
 "SETTINGS_GESTURES_CLOSE" = "Štípnutím zavřete";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Zpětná vazba";
 "SETTINGS_SEND_FEEDBACK" = "Odeslat zpětnou vazbu";
 "SETTINGS_SEND_RATING" = "Prosím ohodnoťte VLC pro iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Přizpůsobit názvy položek pro zobrazení";
 
 "SETTINGS_FILE_SYNC" = "Synchronizace souborů";
 "SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pro sdílení skrze WiFi";
