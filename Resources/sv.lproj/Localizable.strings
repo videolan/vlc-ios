@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Återuppta";
 "BUTTON_SET" = "Ändra";
 "BUTTON_RESET" = "Återställ";
+"BUTTON_RESCAN" = "Sök igenom";
 "PRIVATE_PLAYBACK_TOGGLE" = "Privat uppspelning";
 "SCAN_SUBTITLE_TOGGLE" = "Sök efter undertexter (endast http)";
 
@@ -386,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoalternativ";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Tvinga genomsökning av mediabiblioteket";
+"FORCE_RESCAN_MESSAGE" = "Vill du tvinga VLC att söka igenom ditt mediabibliotek?\nDet kan ta en stund.";
