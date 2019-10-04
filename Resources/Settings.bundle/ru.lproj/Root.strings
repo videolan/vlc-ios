@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Видео";
 "SETTINGS_AUDIO_TITLE" = "Звук";
 
-"SETTINGS_THEME_SUBTITLE" = "Изменение цветов приложения";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Открыть настройки";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Защита доступа к вашему содержимому";
 
-"SETTINGS_DARKTHEME" = "Тёмная тема";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Изменение скорости звука";
 "SETTINGS_BACKGROUND_AUDIO" = "Звук в фоновом режиме";
 "SETTINGS_GENERIC_TITLE" = "Общее";
 "SETTINGS_PASSCODE_LOCK" = "Защита паролем";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Разрешить разблокировку по отпечатку пальца";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Разрешить разблокировку по Face ID";
-"SETTINGS_DECRAPIFY" = "Оптимизация имен";
 "SETTINGS_VIDEO_FULLSCREEN" = "Воспроизводить видео в полноэкранном режиме";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Продолжать воспроизведение видео";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Продолжать воспроизведение аудио";
@@ -40,7 +41,7 @@
 
 "SETTINGS_GESTURES" = "Управление жестами";
 "SETTINGS_GESTURES_VOLUME" = "Смахивание вверх/вниз — громкость";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Касание — воспроизведение/пауза";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Воспроизведение/пауза при касании двумя пальцами";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Смахивание вверх/вниз — яркость";
 "SETTINGS_GESTURES_SEEK" = "Смахивание вправо/влево — перемотка";
 "SETTINGS_GESTURES_CLOSE" = "Щипок — закрытие";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Отзыв";
 "SETTINGS_SEND_FEEDBACK" = "Отправить отзыв";
 "SETTINGS_SEND_RATING" = "Пожалуйста, оцените VLC для IOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Оптимизация имен";
 
 "SETTINGS_FILE_SYNC" = "Синхронизация файлов";
 "SETTINGS_WIFISHARING_IPv6" = "Поддержка IPv6 встроенным сервером (по WiFi)";
