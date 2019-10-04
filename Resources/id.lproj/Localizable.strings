@@ -11,7 +11,6 @@
 "TITLE" = "Judul";
 "CHAPTER" = "Chapter";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimize playback";
-"FULLSCREEN_PLAYBACK" = "Play in fullscreen";
 "TRACK_SELECTION" = "Track Selection";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Terjemahan";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Continue playback?";
 "CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 
-"BUTTON_ALL" = "Select All";
 "BUTTON_ABOUT" = "About";
 "BUTTON_BACK" = "Kembali";
 "BUTTON_DONE" = "Selesai";
@@ -70,6 +68,7 @@
 "BUTTON_CONTINUE" = "Continue";
 "BUTTON_SET" = "Set";
 "BUTTON_RESET" = "Reset";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Pemutaran Privat";
 "SCAN_SUBTITLE_TOGGLE" = "Pindai Terjemahan (hanya http)";
 
@@ -77,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "Pembaruan Pustaka Media";
-"UNTITLED_SHOW" = "Tontonan tanpa judul";
 "UNKNOWN" = "Tidak Diketahui";
 
 "OPEN_NETWORK" = "Buka Strim Jaringan";
@@ -92,8 +90,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Pengunduhan gagal dengan kode HTTP %i";
-"HTTP_FILE_CREATION_FAILED" = "Membuat berkas gagal";
 "HTTP_DOWNLOAD_CANCELLED" = "Pengunduhan dibatalkan oleh pengguna";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Masukkan alamat untuk mengunduh berkas ke %@ anda.";
@@ -106,6 +102,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "Skema alamat (%@) tidak didukung. Mohon gunakan alamat yang dimulai oleh HTTP, HTTPS atau FTP.";
 "RENAME_MEDIA_TO" = "Masukkan nama baru untuk %@";
 
+"FOLDER_EMPTY" = "Empty folder";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Pilih sebuah berkas untuk dibuka:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Buka di...";
@@ -113,11 +110,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Tidak dapat menemukan aplikasi apapun untuk membuka jenis berkas ini";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Berkas dengan sukses disimpan ke Camera Roll";
 
-"SECTION_HEADER_LIBRARY" = "Pustaka Media";
 "STREAMVC_DETAILTEXT" = "Putar strim langsung tanpa diunduh";
 "DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
+"NETWORK" = "Network";
 "LOCAL_NETWORK" = "Jaringan Lokal";
 "CONNECT_TO_SERVER" = "Sambung ke Server";
 "FILE_SERVER" = "File Servers";
@@ -160,6 +157,19 @@
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Change Passcode";
+"Enter Passcode" = "Enter Passcode";
+"Enter a passcode" = "Enter a passcode";
+"Enter your new passcode" = "Enter your new passcode";
+"Enter your old passcode" = "Enter your old passcode";
+"Enter your passcode" = "Enter your passcode";
+"Next" = "Next";
+"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
+"Re-enter your new passcode" = "Re-enter your new passcode";
+"Re-enter your passcode" = "Re-enter your passcode";
+"Set Passcode" = "Set Passcode";
 
 "Settings" = "Pengaturan"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "On";
@@ -167,6 +177,9 @@
 
 "EMPTY_LIBRARY" = "Pustaka Media Kosong";
 "EMPTY_LIBRARY_LONG" = "Untuk pemutaran, anda dapat mengalirkan media dari server di jaringan anda, dari server awan, atau menyelaraskan media ke perangkat anda menggunakan iTunes, layanan Unggah WiFi atau Awan.";
+
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "Geser jari anda ke bawah untuk menyesuaikan laju penyusuran.";
 "PLAYBACK_SCRUB_HIGH" = "Penyusuran Sangat Cepat";
@@ -197,25 +210,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Pemutar Video";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Tepuk dengan jari dua kali untuk menampilkan atau menyembunyikan pengendali pemutaran";
 
-"FIRST_STEPS_WELCOME" = "Selamat Datang";
-"FIRST_STEPS_WELCOME_DETAIL" = "Langkah pertama untuk Sinkron dan Putar Media Anda";
 "FIRST_STEPS_ITUNES" = "Selaras Berkas iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Sambung %@ anda ke jaringan yang sama dengan Mac atau PC anda.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Jungkitkan sakelar di bilah sisi, masukkan URL ke peramban web dan unggah berkas anda.";
+"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Awan";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Unggah media anda ke Google Drive atau Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Buka bilah sisi untuk memilih penyedia layanan Awan anda dan akses media anda untuk pengunduhan atau strim.";
-"FIRST_STEPS_PLAYBACK" = "Pemutaran";
-"FIRST_STEPS_FLOSS" = "VLC untuk iOS adalah perangkat lunak sumber terbuka dan bebas yang dikembangkan oleh para relawan. Kami harap anda menyukainya";
+"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
+"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
 
-"FIRST_STEPS_TIME" = "Waktu";
-"FIRST_STEPS_ASPECT" = "Nisbah Bidang";
-"FIRST_STEPS_SPEED" = "Kecepatan";
-"FIRST_STEPS_REPEAT" = "Pengulangan";
-"FIRST_STEPS_SUBTITLES" = "Trek Terjemahan";
-"FIRST_STEPS_AUDIO" = "Trek Audio";
-"FIRST_STEPS_POSITION" = "Posisi";
 
 "PLEX_CHECK_ACCOUNT" = "Periksa akun Plex anda di pengaturan";
 "PLEX_ERROR_ACCOUNT" = "Galat log masuk Plex";
@@ -240,7 +243,6 @@
 
 
 
-"VOLUME" = "Volume";
 "DURATION" = "Durasi";
 "TITLE" = "Judul";
 
@@ -287,10 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "The selection can't be deleted";
-"DELETE_INVALID_TITLE" = "Invalid Selection";
-"DELETE_MESSAGE" = "Confirm the deletion of the selected files";
-"DELETE_TITLE" = "Delete Selected Files";
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Confirm the deletion of the selection from the playlist\nMedia items are not deleted";
+"DELETE_TITLE" = "Delete Selection";
 
 //Drag and Drop
 "THIS_FILE" = "This file";
@@ -300,11 +301,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "Pengaturan";
 
-"CANCEL" = "Batal";
 "ERROR" = "Error";
 "OK" = "Ok";
 "SORT" = "Sort";
 "SORT_BY" = "Sort by";
+"SEARCH" = "Search";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -320,18 +321,36 @@
 "NAME" = "Nama";
 
 //EDIT
+
+"BUTTON_EDIT" = "Edit";
+"BUTTON_EDIT_HINT" = "Edit mode";
+
 "ADD_TO_PLAYLIST" = "Add to Playlist";
+"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
 
 "PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
+"PLAYLIST_CREATION" = "Create a new playlist";
+"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
+"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
+"ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
 
-"RENAME_PLACEHOLDER" = "New title";
 "ERROR_RENAME_FAILED" = "Renaming failed";
 "ERROR_EMPTY_NAME" = "The title can't be empty";
 
+"SHARE_LABEL" = "Share";
+"SHARE_HINT" = "Share selected files";
+"RENAME_HINT" = "Rename selected files";
+"DELETE_HINT" = "Delete selected files";
+
 // Sort
 
+"BUTTON_SORT" = "Sort";
+"BUTTON_SORT_HINT" = "Display sort action sheet";
 "HEADER_TITLE_SORT" = "Sort by";
+"DESCENDING_LABEL" = "Descending Order";
+"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
+"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +365,29 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filename";
 "TRACK_NUMBER" = "Track number";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nothing found";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Unknown Artist";
+"VARIOUS_ARTIST" = "Various Artists";
+"UNKNOWN_ALBUM" = "Unknown Album";
+
+/* VideoOptionsControlBar */
+"INTERFACE_LOCK_BUTTON" = "Lock interface";
+"INTERFACE_LOCK_HINT" = "Disable interface controls";
+"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_HINT" = "View more option controls";
+"REPEAT_MODE_HINT" = "Change repeat mode of current item";
+"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
