@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "مرئي";
 "SETTINGS_AUDIO_TITLE" = "صوتي";
 
-"SETTINGS_THEME_SUBTITLE" = "Change app colors";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
 
-"SETTINGS_DARKTHEME" = "مظهر مظلم";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "الوقت المُمتد للصّوت";
 "SETTINGS_BACKGROUND_AUDIO" = "تشغيل الصّوت بالخلفية";
 "SETTINGS_GENERIC_TITLE" = "عام";
 "SETTINGS_PASSCODE_LOCK" = "قفل برمز مرور";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "السماح لمعرف اللمس لفتح القفل";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "السماح لمعرف الوجه لفتح القفل";
-"SETTINGS_DECRAPIFY" = "تحسين أسماء العناصر للعرض";
 "SETTINGS_VIDEO_FULLSCREEN" = "التشغيل في وضع ملئ الشاشة";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
@@ -40,7 +41,7 @@
 
 "SETTINGS_GESTURES" = "التحكم بالتشغيل بواسطة الايمائات ";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tap to play/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
 "SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "النتائج";
 "SETTINGS_SEND_FEEDBACK" = "ارسال النتائج";
 "SETTINGS_SEND_RATING" = "رجاء قيم VLC للـiOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "تحسين أسماء العناصر للعرض";
 
 "SETTINGS_FILE_SYNC" = "مزامنة الملفات";
 "SETTINGS_WIFISHARING_IPv6" = "دعم IPv6 لمشاركة الواي فاي";

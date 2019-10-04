@@ -11,7 +11,6 @@
 "TITLE" = "العنوان";
 "CHAPTER" = "فصل";
 "MINIMIZE_PLAYBACK_VIEW" = "تصغير المشغِّل";
-"FULLSCREEN_PLAYBACK" = "التشغيل في وضع ملئ الشاشة";
 "TRACK_SELECTION" = "اختيار المسار";
 "AUDIO" = "صوت";
 "SUBTITLES" = "ترجمات";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "مواصلة التشغيل؟";
 "CONTINUE_PLAYBACK_LONG" = "هل ترغب بمواصلة التشغيل \"%@\" من مكان التوقف السابق؟";
 
-"BUTTON_ALL" = "Select All";
 "BUTTON_ABOUT" = "About";
 "BUTTON_BACK" = "الخلف";
 "BUTTON_DONE" = "تمّ";
@@ -70,6 +68,7 @@
 "BUTTON_CONTINUE" = "استمرار";
 "BUTTON_SET" = "Set";
 "BUTTON_RESET" = "Reset";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "تشغيل خاص";
 "SCAN_SUBTITLE_TOGGLE" = "البحث عن ملفات ترجمة (خدمة http فقط)";
 
@@ -77,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "تحديث قائمة الوسائط";
-"UNTITLED_SHOW" = "عرض غير مُعنون";
 "UNKNOWN" = "غير معروف";
 
 "OPEN_NETWORK" = "افتح بثًا شبكيًا";
@@ -92,8 +90,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "فشل التنزيل بكود الHTTP %i ";
-"HTTP_FILE_CREATION_FAILED" = "فشل إنشاء الملف";
 "HTTP_DOWNLOAD_CANCELLED" = "تم إلغاء التّنزيل من طرف المستخدم";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "أدخل عنوانًا لتنزّل ملفّه إلى %@.";
@@ -106,6 +102,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "مسار العنوان (%@) غير مدعوم. رجاءً استخدم عنواناً يبدأ ب HTTP أو HTTPS أو FTP.";
 "RENAME_MEDIA_TO" = "أعد التسمية ل  %@";
 
+"FOLDER_EMPTY" = "Empty folder";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "اختر ملفا لفتحه";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "افتح في";
@@ -113,11 +110,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "لم يعثر على أي تطبيق لكي يفتح هذا الصنف من الملفات";
 "SHARING_SUCCESS_CAMERA_ROLL" = "حُفِظَ الملف بنجاح داخل شريط الكاميرا";
 
-"SECTION_HEADER_LIBRARY" = "مكتبة الوسائط";
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
 "DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
+"NETWORK" = "Network";
 "LOCAL_NETWORK" = "الشّبكة المحلية";
 "CONNECT_TO_SERVER" = "اتّصل إلى الخادوم";
 "FILE_SERVER" = "File Servers";
@@ -160,6 +157,19 @@
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Change Passcode";
+"Enter Passcode" = "Enter Passcode";
+"Enter a passcode" = "Enter a passcode";
+"Enter your new passcode" = "Enter your new passcode";
+"Enter your old passcode" = "Enter your old passcode";
+"Enter your passcode" = "Enter your passcode";
+"Next" = "Next";
+"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
+"Re-enter your new passcode" = "Re-enter your new passcode";
+"Re-enter your passcode" = "Re-enter your passcode";
+"Set Passcode" = "Set Passcode";
 
 "Settings" = "الإعدادات"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "مفعل";
@@ -167,6 +177,9 @@
 
 "EMPTY_LIBRARY" = "أفرِغ مكتبة الوسائط";
 "EMPTY_LIBRARY_LONG" = "لغرض التشغيل، يمكنك بث المرئيات من خادم على شبكتك المحلية، إما بالتخزين السحابي أو بالمزامنة المرئية مع جهازك مستخدماً تطبيق iTunes أو عبر التحميل بالشبكة اللاسلكية أو عبر الخدمات السحابية.";
+
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "مرر إصبعك للأسفل لتضبط نسبة التّنقية.";
 "PLAYBACK_SCRUB_HIGH" = "تنقية سريعة جدًا";
@@ -197,25 +210,15 @@
 "VO_VIDEOPLAYER_TITLE" = "مُشغّل المرئيات";
 "VO_VIDEOPLAYER_DOUBLETAP" = "انقر مرّتين لإظهار أو إخفاء عناصر التّحكم بالتّشغيل";
 
-"FIRST_STEPS_WELCOME" = "مرحباُ";
-"FIRST_STEPS_WELCOME_DETAIL" = "البدء فى المزامنة لتشغيل المرئية الخاصة بك";
 "FIRST_STEPS_ITUNES" = "تطبيق iTunes لمزامنة الملفات";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "اربِطْ القيمة %@ بنفس الشبكة الخاصة بجهاز Mac أو حاسوبك الشخصي.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "حوّل الرؤية فى القائمة الجانبية، ثم أدخل العنوان في المتصفح وارفع ملفاتك.";
+"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "التخزين السحابي";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "إرفع ملفاتك المرئية إلى قرص Google أو خدمة Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "  للدخول إلى مرئياتك لأغراض التحميل والبث. إختر القائمة الجانبية وحدد خادم التخزين السحابي.";
-"FIRST_STEPS_PLAYBACK" = "شغّل";
-"FIRST_STEPS_FLOSS" = "مشغل VLC لنظام iOS برنامج مجاني ومفتوح المصدر تم تطويره من قبل متطوعين.\nنأمل أن يلقى إعجابك.";
+"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
+"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
 
-"FIRST_STEPS_TIME" = "الوقت";
-"FIRST_STEPS_ASPECT" = "معدل الترميز";
-"FIRST_STEPS_SPEED" = "سرعة العرض";
-"FIRST_STEPS_REPEAT" = "إعادة";
-"FIRST_STEPS_SUBTITLES" = "مقطوعة الترجمة";
-"FIRST_STEPS_AUDIO" = "مقطوعة الصوت";
-"FIRST_STEPS_POSITION" = "الموضع";
 
 "PLEX_CHECK_ACCOUNT" = "الرجاء التحقق من حسابك في Plex في الإعدادات";
 "PLEX_ERROR_ACCOUNT" = "خطأ في تسجيل الدخول في Plex";
@@ -240,7 +243,6 @@
 
 
 
-"VOLUME" = "الصوت";
 "DURATION" = "المدة";
 "TITLE" = "العنوان";
 
@@ -287,10 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "اضغط %@ للحذف"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "The selection can't be deleted";
-"DELETE_INVALID_TITLE" = "Invalid Selection";
-"DELETE_MESSAGE" = "Confirm the deletion of the selected files";
-"DELETE_TITLE" = "Delete Selected Files";
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Confirm the deletion of the selection from the playlist\nMedia items are not deleted";
+"DELETE_TITLE" = "Delete Selection";
 
 //Drag and Drop
 "THIS_FILE" = "This file";
@@ -300,11 +301,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "الإعدادات";
 
-"CANCEL" = "Cancel";
 "ERROR" = "Error";
 "OK" = "Ok";
 "SORT" = "Sort";
 "SORT_BY" = "Sort by";
+"SEARCH" = "Search";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -320,18 +321,36 @@
 "NAME" = "Name";
 
 //EDIT
+
+"BUTTON_EDIT" = "Edit";
+"BUTTON_EDIT_HINT" = "Edit mode";
+
 "ADD_TO_PLAYLIST" = "Add to Playlist";
+"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
 
 "PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
+"PLAYLIST_CREATION" = "Create a new playlist";
+"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
+"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
+"ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
 
-"RENAME_PLACEHOLDER" = "New title";
 "ERROR_RENAME_FAILED" = "Renaming failed";
 "ERROR_EMPTY_NAME" = "The title can't be empty";
 
+"SHARE_LABEL" = "Share";
+"SHARE_HINT" = "Share selected files";
+"RENAME_HINT" = "Rename selected files";
+"DELETE_HINT" = "Delete selected files";
+
 // Sort
 
+"BUTTON_SORT" = "Sort";
+"BUTTON_SORT_HINT" = "Display sort action sheet";
 "HEADER_TITLE_SORT" = "Sort by";
+"DESCENDING_LABEL" = "Descending Order";
+"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
+"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +365,29 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filename";
 "TRACK_NUMBER" = "Track number";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nothing found";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Unknown Artist";
+"VARIOUS_ARTIST" = "Various Artists";
+"UNKNOWN_ALBUM" = "Unknown Album";
+
+/* VideoOptionsControlBar */
+"INTERFACE_LOCK_BUTTON" = "Lock interface";
+"INTERFACE_LOCK_HINT" = "Disable interface controls";
+"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_HINT" = "View more option controls";
+"REPEAT_MODE_HINT" = "Change repeat mode of current item";
+"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
