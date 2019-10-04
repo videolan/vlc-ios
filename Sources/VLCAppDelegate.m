@@ -85,7 +85,9 @@
                                   kVLCSettingPlaybackForwardSkipLength : kVLCSettingPlaybackForwardSkipLengthDefaultValue,
                                   kVLCSettingPlaybackBackwardSkipLength : kVLCSettingPlaybackBackwardSkipLengthDefaultValue,
                                   kVLCSettingOpenAppForPlayback : kVLCSettingOpenAppForPlaybackDefaultValue,
-                                  kVLCAutomaticallyPlayNextItem : @(YES)};
+                                  kVLCAutomaticallyPlayNextItem : @(YES),
+                                  kVLCSettingsMediaLibraryVideoGroupPrefixLength: kVLCSettingsMediaLibraryVideoGroupPrefixLengthDefaultValue
+    };
     [defaults registerDefaults:appDefaults];
 }
 

@@ -74,6 +74,9 @@
 #define kVLCSettingOpenAppForPlayback @"open-app-for-playback"
 #define kVLCSettingOpenAppForPlaybackDefaultValue @YES
 
+#define kVLCSettingsMediaLibraryVideoGroupPrefixLength @"VideoGroupPrefixLength"
+#define kVLCSettingsMediaLibraryVideoGroupPrefixLengthDefaultValue @"6"
+
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
 #define kVLCRecentURLTitles @"recent-url-titles"

@@ -31,10 +31,14 @@ class VideoGroupViewModel: MLBaseModel {
 
     var indicatorName: String = NSLocalizedString("VIDEO_GROUPS", comment: "")
 
+    var prefixLength: UInt32 = 0
+
     required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
         self.files = medialibrary.medialib.videoGroups() ?? []
         medialibrary.medialib.setVideoGroupsAllowSingleVideo(false)
+
+        setPrefixLength()
     }
 
     func append(_ item: VLCMLVideoGroup) {
@@ -46,6 +50,7 @@ class VideoGroupViewModel: MLBaseModel {
     }
 
     func updateVideoGroups() {
+        setPrefixLength()
         files = medialibrary.medialib.videoGroups() ?? []
     }
 
@@ -54,6 +59,21 @@ class VideoGroupViewModel: MLBaseModel {
         sortModel.currentSort = criteria
         sortModel.desc = desc
         updateView?()
+    }
+}
+
+// MARK: - Private helpers
+
+private extension VideoGroupViewModel {
+    private func setPrefixLength() {
+        let settingPrefixLength = UserDefaults.standard.integer(forKey:
+            kVLCSettingsMediaLibraryVideoGroupPrefixLength)
+
+        if prefixLength != settingPrefixLength {
+            prefixLength = UInt32(settingPrefixLength)
+            assert(prefixLength != 0, "VideoGroupViewModel: Failed to retrieve setting value.")
+            medialibrary.medialib.setVideoGroupPrefixLength(prefixLength)
+        }
     }
 }
 
