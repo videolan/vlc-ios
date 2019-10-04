@@ -11,7 +11,6 @@
 "TITLE" = "Title";
 "CHAPTER" = "Chapter";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimize playback";
-"FULLSCREEN_PLAYBACK" = "Play in fullscreen";
 "TRACK_SELECTION" = "Track Selection";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Subtitles";
@@ -53,7 +52,6 @@
 "CONTINUE_PLAYBACK" = "Continue playback?";
 "CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 
-"BUTTON_ALL" = "Select All";
 "BUTTON_ABOUT" = "About";
 "BUTTON_BACK" = "Назад";
 "BUTTON_DONE" = "Гатова";
@@ -70,6 +68,7 @@
 "BUTTON_CONTINUE" = "Continue";
 "BUTTON_SET" = "Set";
 "BUTTON_RESET" = "Reset";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Прыватнае прайграванне";
 "SCAN_SUBTITLE_TOGGLE" = "Пашукаць субтытры (толькі HTTP)";
 
@@ -77,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "Абнаўленне медыятэкі";
-"UNTITLED_SHOW" = "Безназоўнае відовішча";
 "UNKNOWN" = "Невядома";
 
 "OPEN_NETWORK" = "Адкрыць сеткавы паток";
@@ -92,8 +90,6 @@
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_FAILED" = "Сцягнуць файл не ўдалося праз памылку HTTP %i";
-"HTTP_FILE_CREATION_FAILED" = "Не ўдалося стварыць файл";
 "HTTP_DOWNLOAD_CANCELLED" = "Сцягванне скасавана карыстальнікам";
 
 "DOWNLOAD_FROM_HTTP_HELP" = "Увядзіце адрас, каб сцягнуць файл на %@.";
@@ -106,6 +102,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "Схема адраса (%@) не падтрымліваецца. Задайце HTTP-, HTTPS- альбо FTP-адрас.";
 "RENAME_MEDIA_TO" = "Задайце новую назву для %@";
 
+"FOLDER_EMPTY" = "Empty folder";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Адкрыць файл:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Адкрыць праз...";
@@ -113,11 +110,11 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Не знайшлося жаднай праграмы, каб адкрыць гэты тып файла";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Файл паспяхова захаваны ў здымках камеры";
 
-"SECTION_HEADER_LIBRARY" = "Медыятэка";
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
 "DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
+"NETWORK" = "Network";
 "LOCAL_NETWORK" = "Лакальная сетка";
 "CONNECT_TO_SERVER" = "Злучыцца з серверам";
 "FILE_SERVER" = "File Servers";
@@ -160,6 +157,19 @@
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 //PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Change Passcode";
+"Enter Passcode" = "Enter Passcode";
+"Enter a passcode" = "Enter a passcode";
+"Enter your new passcode" = "Enter your new passcode";
+"Enter your old passcode" = "Enter your old passcode";
+"Enter your passcode" = "Enter your passcode";
+"Next" = "Next";
+"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
+"Re-enter your new passcode" = "Re-enter your new passcode";
+"Re-enter your passcode" = "Re-enter your passcode";
+"Set Passcode" = "Set Passcode";
 
 "Settings" = "Настаўленні"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "On";
@@ -167,6 +177,9 @@
 
 "EMPTY_LIBRARY" = "Пустая медыятэка";
 "EMPTY_LIBRARY_LONG" = "Прайграваць медыя-аб’екты можна анлайн з сервера ў лакальнай сетцы, з воблака; можна таксама сінхранізаваць прыладу праз iTunes, WiFi-загрузку альбо воблачныя службы.";
+
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "Правядзіце пальцам долу, каб адрэгуляваць хуткасць перамоткі.";
 "PLAYBACK_SCRUB_HIGH" = "Найхуткая перамотка";
@@ -197,25 +210,15 @@
 "VO_VIDEOPLAYER_TITLE" = "Відэаплэер";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Падвойны шчаўчок, каб паказаць/схаваць кіраванне прайграваннем";
 
-"FIRST_STEPS_WELCOME" = "Вітаем";
-"FIRST_STEPS_WELCOME_DETAIL" = "Уводзіны ў сінхранізацыю і прайграванне медыя-аб’ектаў.";
 "FIRST_STEPS_ITUNES" = "Сінхранізацыя файлаў з iTunes";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your %@ to your Mac or PC using the cable.\nOpen iTunes.\nSelect your %@.\nSelect \"File Sharing\" on the left side menu and look for VLC.\nTransfer your files.";
-"FIRST_STEPS_WIFI_CONNECT_DETAILS" = "Падлучыце %@ да той самай сеткі, што ваш Макінтош ці PC.";
-"FIRST_STEPS_WIFI_UPLOAD_DETAILS" = "Перавядзіце перамыкач у бакавой панэлі, увядзіце URL у браўзеры і загрузіце файлы.";
+"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Воблакі";
-"FIRST_STEPS_CLOUD_UPLOAD_DETAILS" = "Загрузіць медыя-аб’екты на Google Drive або Dropbox.";
-"FIRST_STEPS_CLOUD_ACCESS_DETAILS" = "Адкрыйце бакавую панэль, каб выбраць воблачнага правайдара і даступіцца да сваіх медыя-аб’ектаў для сцягвання альбо анлайн-прайгравання.";
-"FIRST_STEPS_PLAYBACK" = "Прайграванне";
-"FIRST_STEPS_FLOSS" = "VLC для iOS — гэта бясплатны і свабодны софт, распрацаваны валанцёрамі.\nСпадзяемся, вас спадабаецца.";
+"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
+"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
 
-"FIRST_STEPS_TIME" = "Час";
-"FIRST_STEPS_ASPECT" = "Стасунак бакоў";
-"FIRST_STEPS_SPEED" = "Хуткасць";
-"FIRST_STEPS_REPEAT" = "Паўтор";
-"FIRST_STEPS_SUBTITLES" = "Дарожкі субтытраў";
-"FIRST_STEPS_AUDIO" = "Аўдыёдарожкі";
-"FIRST_STEPS_POSITION" = "Пазіцыя";
 
 "PLEX_CHECK_ACCOUNT" = "Check your Plex account in settings";
 "PLEX_ERROR_ACCOUNT" = "Plex login Error";
@@ -240,7 +243,6 @@
 
 
 
-"VOLUME" = "Volume";
 "DURATION" = "Duration";
 "TITLE" = "Title";
 
@@ -287,10 +289,9 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_INVALID_MESSAGE" = "The selection can't be deleted";
-"DELETE_INVALID_TITLE" = "Invalid Selection";
-"DELETE_MESSAGE" = "Confirm the deletion of the selected files";
-"DELETE_TITLE" = "Delete Selected Files";
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Confirm the deletion of the selection from the playlist\nMedia items are not deleted";
+"DELETE_TITLE" = "Delete Selection";
 
 //Drag and Drop
 "THIS_FILE" = "This file";
@@ -300,11 +301,11 @@
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "Настаўленні";
 
-"CANCEL" = "Cancel";
 "ERROR" = "Error";
 "OK" = "Ok";
 "SORT" = "Sort";
 "SORT_BY" = "Sort by";
+"SEARCH" = "Search";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -320,18 +321,36 @@
 "NAME" = "Name";
 
 //EDIT
+
+"BUTTON_EDIT" = "Edit";
+"BUTTON_EDIT_HINT" = "Edit mode";
+
 "ADD_TO_PLAYLIST" = "Add to Playlist";
+"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
 
 "PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new Playlist";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
+"PLAYLIST_CREATION" = "Create a new playlist";
+"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
+"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
+"ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
 
-"RENAME_PLACEHOLDER" = "New title";
 "ERROR_RENAME_FAILED" = "Renaming failed";
 "ERROR_EMPTY_NAME" = "The title can't be empty";
 
+"SHARE_LABEL" = "Share";
+"SHARE_HINT" = "Share selected files";
+"RENAME_HINT" = "Rename selected files";
+"DELETE_HINT" = "Delete selected files";
+
 // Sort
 
+"BUTTON_SORT" = "Sort";
+"BUTTON_SORT_HINT" = "Display sort action sheet";
 "HEADER_TITLE_SORT" = "Sort by";
+"DESCENDING_LABEL" = "Descending Order";
+"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
+"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -346,3 +365,29 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filename";
 "TRACK_NUMBER" = "Track number";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nothing found";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Unknown Artist";
+"VARIOUS_ARTIST" = "Various Artists";
+"UNKNOWN_ALBUM" = "Unknown Album";
+
+/* VideoOptionsControlBar */
+"INTERFACE_LOCK_BUTTON" = "Lock interface";
+"INTERFACE_LOCK_HINT" = "Disable interface controls";
+"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_HINT" = "View more option controls";
+"REPEAT_MODE_HINT" = "Change repeat mode of current item";
+"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
