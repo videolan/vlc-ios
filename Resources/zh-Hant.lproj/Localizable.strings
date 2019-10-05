@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "繼續";
 "BUTTON_SET" = "設定";
 "BUTTON_RESET" = "重設";
+"BUTTON_RESCAN" = "重新掃瞄";
 "PRIVATE_PLAYBACK_TOGGLE" = "私有播放";
 "SCAN_SUBTITLE_TOGGLE" = "掃描字幕 (http-only)";
 
@@ -176,6 +177,9 @@
 
 "EMPTY_LIBRARY" = "空媒體櫃";
 "EMPTY_LIBRARY_LONG" = "為了播放，您可以從您區域網路中的一台伺服器串流媒體，透過 iTunes 從雲端或是同步媒體到您的設備上，WiFi 上傳或是雲端服務。";
+
+"EMPTY_PLAYLIST" = "空白播放清單";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "下滑以調整刷新率。";
 "PLAYBACK_SCRUB_HIGH" = "高速刷新";
@@ -383,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "等化器";
 "MORE_OPTIONS_HEADER_TITLE" = "視訊選項";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "強制重新掃描媒體櫃";
+"FORCE_RESCAN_MESSAGE" = "您要強制 VLC 重新掃描媒體櫃嗎？這可能需要一些時間。";
