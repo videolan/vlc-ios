@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Folytatás";
 "BUTTON_SET" = "Beállítás";
 "BUTTON_RESET" = "Visszaállítás ";
+"BUTTON_RESCAN" = "Újra átvizsgálás";
 "PRIVATE_PLAYBACK_TOGGLE" = "Privát lejátszás";
 "SCAN_SUBTITLE_TOGGLE" = "Felirat keresése (HTTP)";
 
@@ -386,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Hangszínszabályzó";
 "MORE_OPTIONS_HEADER_TITLE" = "Videobeállítások";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Médiatár átvizsgálásának kényszerítése";
+"FORCE_RESCAN_MESSAGE" = "Biztos, hogy arra kényszeríti a VLC-t, hogy újra átvizsgálja a médiatárat?\nEz eltarthat egy ideig.";
