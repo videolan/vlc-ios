@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Pokračovať";
 "BUTTON_SET" = "Nastaviť";
 "BUTTON_RESET" = "Reset";
+"BUTTON_RESCAN" = "Preskenovať znovu";
 "PRIVATE_PLAYBACK_TOGGLE" = "Súkromné prehrávanie";
 "SCAN_SUBTITLE_TOGGLE" = "Skenovať na titulky (len cez http)";
 
@@ -386,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Ekvalizér";
 "MORE_OPTIONS_HEADER_TITLE" = "Možnosti videa";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Vynútiť si opätovné skenovanie knižnice médií";
+"FORCE_RESCAN_MESSAGE" = "Chcete si vynútiť opätovné preskenovanie knižnice médií aplikáciou VLC? Zrejme to bude chvíľu trvať.";
