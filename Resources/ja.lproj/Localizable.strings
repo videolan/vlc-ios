@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "続ける";
 "BUTTON_SET" = "設定";
 "BUTTON_RESET" = "リセット";
+"BUTTON_RESCAN" = "再スキャン";
 "PRIVATE_PLAYBACK_TOGGLE" = "プライベート再生";
 "SCAN_SUBTITLE_TOGGLE" = "字幕のスキャン (httpのみ)";
 
@@ -386,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "イコライザー";
 "MORE_OPTIONS_HEADER_TITLE" = "ビデオオプション";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "メディアライブラリを強制的に再スキャン";
+"FORCE_RESCAN_MESSAGE" = "メディアライブラリをVLCに強制的に再スキャンさせますか?\n実行には時間がかかります。";
