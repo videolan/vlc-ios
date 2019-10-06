@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Sürdür";
 "BUTTON_SET" = "Ayarla";
 "BUTTON_RESET" = "Sıfırla";
+"BUTTON_RESCAN" = "Yeniden tara";
 "PRIVATE_PLAYBACK_TOGGLE" = "Özel Oynatım";
 "SCAN_SUBTITLE_TOGGLE" = "Alt Yazı Araması (yalnız-http)";
 
@@ -386,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Dengeleyici";
 "MORE_OPTIONS_HEADER_TITLE" = "Görüntü Ayarları";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Ortam kitaplığı yeniden taranmaya zorlansın";
+"FORCE_RESCAN_MESSAGE" = "VLC uygulamasını ortam kitaplığını taramaya zorlamak istiyor musunuz?\nBu işlem uzun sürebilir.";
