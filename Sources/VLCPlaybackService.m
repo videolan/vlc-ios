@@ -1099,7 +1099,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     CGFloat lastPosition = media.progress;
     // .95 prevents the controller from opening and closing immediatly when restoring state
-    if (lastPosition < .95 && _mediaPlayer.position < lastPosition) {
+    //  Additionaly, check if the media is more than 10 sec
+    if (lastPosition < .95
+        && media.duration > 10000
+        && _mediaPlayer.position < lastPosition) {
         NSInteger continuePlayback;
         if (media.type == VLCMLMediaTypeAudio)
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
