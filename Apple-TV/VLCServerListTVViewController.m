@@ -52,6 +52,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    if (@available(tvOS 13.0, *)) {
+        self.navigationController.navigationBarHidden = YES;
+    }
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
 

@@ -29,6 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    if (@available(tvOS 13.0, *)) {
+        self.navigationController.navigationBarHidden = YES;
+    }
+
     self.userDefaults = [NSUserDefaults standardUserDefaults];
     self.settingsReader = [[IASKSettingsReader alloc] init];
 

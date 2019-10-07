@@ -44,6 +44,10 @@
 {
     [super viewDidLoad];
 
+    if (@available(tvOS 13.0, *)) {
+        self.navigationController.navigationBarHidden = YES;
+    }
+
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.cachedMediaCollectionView.collectionViewLayout;
     const CGFloat inset = 50.;
     flowLayout.sectionInset = UIEdgeInsetsMake(inset, inset, inset, inset);

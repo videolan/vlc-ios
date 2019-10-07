@@ -33,6 +33,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    if (@available(tvOS 13.0, *)) {
+        self.navigationController.navigationBarHidden = YES;
+    }
+
     self.nothingFoundLabel.text = NSLocalizedString(@"NO_RECENT_STREAMS", nil);
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
