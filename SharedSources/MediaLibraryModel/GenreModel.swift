@@ -121,7 +121,7 @@ extension VLCMLGenre: MediaCollectionModel {
         return tracks()
     }
 
-    func title() -> String? {
+    func title() -> String {
         return name
     }
 }

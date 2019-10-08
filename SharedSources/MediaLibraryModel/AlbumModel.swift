@@ -104,7 +104,7 @@ extension VLCMLAlbum: MediaCollectionModel {
         return tracks
     }
 
-    func title() -> String? {
+    func title() -> String {
         return title
     }
 }

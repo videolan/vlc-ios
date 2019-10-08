@@ -143,7 +143,7 @@ extension VLCMLPlaylist: MediaCollectionModel {
         return media
     }
 
-    func title() -> String? {
+    func title() -> String {
         return name
     }
 }

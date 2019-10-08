@@ -75,7 +75,7 @@ protocol SearchableMLModel {
 protocol MediaCollectionModel {
     func files() -> [VLCMLMedia]?
     func sortModel() -> SortModel?
-    func title() -> String?
+    func title() -> String
 }
 
 // MARK: - Helper methods

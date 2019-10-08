@@ -90,7 +90,7 @@ extension VLCMLArtist: MediaCollectionModel {
         return tracks()
     }
 
-    func title() -> String? {
+    func title() -> String {
         return name
     }
 }
