@@ -348,9 +348,8 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         [self.progressPercent setText:[NSString stringWithFormat:@"%.1f%%", percentage*100]];
         [self.timeDL setText:[self calculateRemainingTime:receivedDataSize expectedDownloadSize:expectedDownloadSize]];
         [self.speedRate setText:[self calculateSpeedString:receivedDataSize]];
-            _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
+        _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
     }
-
     [self.progressView setProgress:percentage animated:YES];
 }
 
@@ -373,7 +372,8 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 - (NSString*)calculateSpeedString:(CGFloat)receivedDataSize
 {
     CGFloat speed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
-    NSString *string = [NSByteCountFormatter stringFromByteCount:speed countStyle:NSByteCountFormatterCountStyleDecimal];
+    NSString *string = [NSByteCountFormatter stringFromByteCount:speed
+                                                      countStyle:NSByteCountFormatterCountStyleDecimal];
     string = [string stringByAppendingString:@"/s"];
     return string;
 }
