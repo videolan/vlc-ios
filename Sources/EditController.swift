@@ -167,6 +167,11 @@ extension EditController: EditToolbarDelegate {
     }
 
     func editToolbarDidDelete(_ editToolbar: EditToolbar) {
+        guard !selectedCellIndexPaths.isEmpty else {
+            assertionFailure("EditController: Delete called without selection")
+            return
+        }
+
         var objectsToDelete = [VLCMLObject]()
 
         for indexPath in selectedCellIndexPaths.sorted(by: { $0 > $1 }) {
