@@ -358,6 +358,8 @@ extension EditController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - AddToPlaylistViewControllerDelegate
+
 extension EditController: AddToPlaylistViewControllerDelegate {
     func addToPlaylistViewController(_ addToPlaylistViewController: AddToPlaylistViewController,
                                      didSelectPlaylist playlist: VLCMLPlaylist) {
