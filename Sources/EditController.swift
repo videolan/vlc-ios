@@ -83,7 +83,7 @@ private extension EditController {
         })
 
         let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
-                                         style: .default)
+                                         style: .cancel)
 
 
         let confirmAction = UIAlertAction(title: info.confirmActionTitle, style: .default) {
@@ -182,7 +182,8 @@ extension EditController: EditToolbarDelegate {
             }
         }
 
-        let cancelButton = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""))
+        let cancelButton = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
+                                          style: .cancel)
         let deleteButton = VLCAlertButton(title: NSLocalizedString("BUTTON_DELETE", comment: ""),
                                           style: .destructive,
                                           action: {
