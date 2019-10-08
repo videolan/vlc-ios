@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class GenreModel: MLBaseModel {
+class GenreModel: AudioCollectionModel {
     typealias MLType = VLCMLGenre
 
     var sortModel = SortModel([.alpha])
@@ -32,10 +32,6 @@ class GenreModel: MLBaseModel {
 
     func append(_ item: VLCMLGenre) {
         files.append(item)
-    }
-
-    func delete(_ items: [VLCMLObject]) {
-        preconditionFailure("GenreModel: Genres can not be deleted, they disappear when their last title got deleted")
     }
 }
 

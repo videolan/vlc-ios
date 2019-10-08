@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class AlbumModel: MLBaseModel {
+class AlbumModel: AudioCollectionModel {
     typealias MLType = VLCMLAlbum
 
     var sortModel = SortModel([.alpha, .duration, .releaseDate, .trackNumber])
@@ -32,10 +32,6 @@ class AlbumModel: MLBaseModel {
 
     func append(_ item: VLCMLAlbum) {
         files.append(item)
-    }
-
-    func delete(_ items: [VLCMLObject]) {
-        preconditionFailure("AlbumModel: Albums can not be deleted, they disappear when their last title got deleted")
     }
 }
 
