@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Sighi";
 "BUTTON_SET" = "Imposta";
 "BUTTON_RESET" = "Riprìstina";
+"BUTTON_RESCAN" = "Torra a iscansire";
 "PRIVATE_PLAYBACK_TOGGLE" = "Riprodutzione privada";
 "SCAN_SUBTITLE_TOGGLE" = "Iscansi pro sutatìtulos (petzi http)";
 
@@ -177,6 +178,9 @@
 "EMPTY_LIBRARY" = "Regorta multimediale bòida";
 "EMPTY_LIBRARY_LONG" = "Pro sa riprodutziones podes trasmìtere documentos multimediales dae unu server in sa retza locale tua, dae sa Nue o sincronizare sos documentos in su dispositivu tuo impreende using iTunes, WiFi Upload àteros servìtzios de Nue.";
 
+"EMPTY_PLAYLIST" = "Iscalita bòida";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Annaghe documentos multimediales cando ses faghende modìficas in sas categorias chi lis pertocant.";
+
 "PLAYBACK_SCRUB_HELP" = "Iscurre su pòddighe cara a bassu pro acontzare sa letresa de trisinadura.";
 "PLAYBACK_SCRUB_HIGH" = "Trisinadura a lestresa arta";
 "PLAYBACK_SCRUB_HALF" = "Trisinadura cun lestresa a su 50%";
@@ -262,7 +266,7 @@
 "USE_SPDIF" = "Imprea unu coladòrgiu (S/PDIF)";
 
 "PLAYBACK" = "Riprodutzione";
-"REPEAT_MODE" = "Ripite";
+"REPEAT_MODE" = "Repite";
 "REPEAT_DISABLED" = "Disabilitadu";
 "REPEAT_SINGLE" = "Sìngulu";
 "REPEAT_FOLDER" = "Cartella";
@@ -383,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Ecualizadore";
 "MORE_OPTIONS_HEADER_TITLE" = "Optziones vìdeu";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Fortza un'iscansidura noa de sa biblioteca multimediale";
+"FORCE_RESCAN_MESSAGE" = "Cheres fortzare VLC a iscansire torra sa biblioteca multimediale tua?\nBi diat pòdere chèrrere unu pagu de tempus.";
