@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_SUBTITLE" = "App-kleuren wijzigen";
+"SETTINGS_THEME_BRIGHT" = "Helder thema";
+"SETTINGS_THEME_DARK" = "Donker thema";
+"SETTINGS_THEME_SYSTEM" = "Automatisch";
 "SETTINGS_PRIVACY_SUBTITLE" = "Openen in instellingen";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Toegang tot uw inhoud beveiligen";
 
-"SETTINGS_DARKTHEME" = "Donker thema";
+"SETTINGS_DARKTHEME" = "Uiterlijk";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio tijdrekken";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio afspelen op achtergrond";
 "SETTINGS_GENERIC_TITLE" = "Algemeen";
 "SETTINGS_PASSCODE_LOCK" = "Codeslot";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Touch ID voor ontgrendelen toestaan";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Face ID toestaan voor ontgrendelen";
-"SETTINGS_DECRAPIFY" = "Namen van items optimaliseren voor scherm";
 "SETTINGS_VIDEO_FULLSCREEN" = "Video afspelen in volledig scherm";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Afspelen van video hervatten";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Afspelen van audio hervatten";
@@ -84,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Feedback zenden";
 "SETTINGS_SEND_RATING" = "VLC voor iOS beoordelen";
+
+"SETTINGS_MEDIA_LIBRARY" = "Mediabibliotheek";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC dwingen om de mediabibliotheek opnieuw te scannen";
+"SETTINGS_DECRAPIFY" = "Namen van items optimaliseren voor scherm";
 
 "SETTINGS_FILE_SYNC" = "Bestandssynchronisatie";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-ondersteuning voor WiFi-delen";

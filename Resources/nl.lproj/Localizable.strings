@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Hervatten";
 "BUTTON_SET" = "Instellen";
 "BUTTON_RESET" = "Herstellen";
+"BUTTON_RESCAN" = "Opnieuw scannen";
 "PRIVATE_PLAYBACK_TOGGLE" = "Privé-afspelen";
 "SCAN_SUBTITLE_TOGGLE" = "Scannen voor ondertitels (alleen http)";
 
@@ -176,6 +177,9 @@
 
 "EMPTY_LIBRARY" = "Mediabibliotheek leeg";
 "EMPTY_LIBRARY_LONG" = "Voor het afspelen kunt u media streamen vanaf een server op uw lokale netwerk of van de cloud, of u kunt media met uw apparaat synchroniseren met behulp van iTunes, Wifi-upload of clouddiensten.";
+
+"EMPTY_PLAYLIST" = "Afspeellijst leegmaken";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Media toevoegen tijdens het bewerken in de respectievelijke categorieën";
 
 "PLAYBACK_SCRUB_HELP" = "Beweeg uw vinger naar beneden om de scrubbing-ratio te wijzigen.";
 "PLAYBACK_SCRUB_HIGH" = "Hoge snelheid scrubben";
@@ -383,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video-opties";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Opnieuw scannen van mediabibliotheek forceren";
+"FORCE_RESCAN_MESSAGE" = "Wilt u VLC dwingen om uw mediabibliotheek opnieuw te scannen?\nHet kan enige tijd duren.";
