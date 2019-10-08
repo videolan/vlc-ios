@@ -219,6 +219,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     [_currentDownloadFilename removeObjectAtIndex:0];
     [self _beginBackgroundDownload];
     [self _updateUI];
+    _startDL = [NSDate timeIntervalSinceReferenceDate];
 }
 
 - (void)_downloadSchemeHttp
@@ -318,7 +319,6 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     [self.progressPercent setText:@"0%"];
     [self.speedRate setText:@"0 Kb/s"];
     [self.timeDL setText:@"00:00:00"];
-    _startDL = [NSDate timeIntervalSinceReferenceDate];
     self.progressContainer.hidden = NO;
 
     APLog(@"download started");
@@ -371,7 +371,8 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (NSString*)calculateSpeedString:(CGFloat)receivedDataSize
 {
-    CGFloat speed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
+    CGFloat timeInterval = [NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate;
+    CGFloat speed = receivedDataSize / timeInterval;
     NSString *string = [NSByteCountFormatter stringFromByteCount:speed
                                                       countStyle:NSByteCountFormatterCountStyleDecimal];
     string = [string stringByAppendingString:@"/s"];
