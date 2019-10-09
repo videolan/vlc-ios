@@ -316,6 +316,7 @@
 "MOVIES" = "Kvikmyndir";
 "SONGS" = "Lög";
 "PLAYLISTS" = "Spilunarlistar";
+"VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "Dagsetning þegar breytt";
 "NAME" = "Nafn";
@@ -365,6 +366,9 @@
 "ALBUM" = "Hljómplata";
 "FILENAME" = "Skráarheiti";
 "TRACK_NUMBER" = "Spornúmer";
+"NB_AUDIO" = "Number of audio";
+"NB_MEDIA" = "Number of media";
+"NB_VIDEO" = "Number of video";
 
 // VLCNetworkLoginTVViewController
 
