@@ -23,7 +23,7 @@ target 'VLC-iOS' do
   pod 'PAPasscode', '~>1.0'
   pod 'GoogleAPIClientForREST/Drive'
   pod 'MobileVLCKit', '3.3.6'
-  pod 'VLCMediaLibraryKit', '0.5.0'
+  pod 'VLCMediaLibraryKit', '0.6.0'
   pod 'MediaLibraryKit-prod'
   pod 'GTMAppAuth', '0.7.1'
   pod 'OneDriveSDK'
@@ -54,5 +54,11 @@ post_install do |installer_representation|
        config.build_settings['ARCHS'] = 'armv7 armv7s arm64 i386 x86_64'
        config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
      end
+    target.build_configurations.each do |config|
+        xcconfig_path = config.base_configuration_reference.real_path
+        xcconfig = File.read(xcconfig_path)
+        new_xcconfig = xcconfig.sub('-l"sqlite3"', '')
+        File.open(xcconfig_path, "w") { |file| file << new_xcconfig }
+    end
   end
 end
