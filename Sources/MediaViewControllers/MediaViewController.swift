@@ -108,8 +108,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCategoryV
     func updateButtonsFor(_ viewController: UIViewController) {
         var showButtons = false
         if let mediaCategoryViewController = viewController as? MediaCategoryViewController,
-            !mediaCategoryViewController.isEmptyCollectionView()
-                && !mediaCategoryViewController.isSearching {
+            !mediaCategoryViewController.isSearching {
             showButtons = true
         }
         navigationItem.rightBarButtonItems = showButtons ? rigthBarButtons : nil
