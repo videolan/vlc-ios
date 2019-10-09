@@ -41,7 +41,9 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
     WRRequestDownload *_FTPDownloadRequest;
     NSTimeInterval _lastStatsUpdate;
-    CGFloat _averageSpeed;
+    NSMutableArray *_lastSpeeds;
+    CGFloat _totalReceived;
+    CGFloat _lastReceived;
 
     UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
 }
@@ -65,6 +67,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
+        _lastSpeeds = [[NSMutableArray alloc] init];
         _currentDownloads = [[NSMutableArray alloc] init];
         _currentDownloadFilename = [[NSMutableArray alloc] init];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
@@ -220,6 +223,9 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     [self _beginBackgroundDownload];
     [self _updateUI];
     _startDL = [NSDate timeIntervalSinceReferenceDate];
+    [_lastSpeeds removeAllObjects];
+    _lastReceived = 0;
+    _totalReceived = 0;
 }
 
 - (void)_downloadSchemeHttp
@@ -344,39 +350,55 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize identifier:(NSString *)identifier
 {
+    _totalReceived += receivedDataSize;
+    _lastReceived += receivedDataSize;
     if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
+        CGFloat speed = [self getAverageSpeed:_lastReceived / ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate)];
         [self.progressPercent setText:[NSString stringWithFormat:@"%.1f%%", percentage*100]];
-        [self.timeDL setText:[self calculateRemainingTime:receivedDataSize expectedDownloadSize:expectedDownloadSize]];
-        [self.speedRate setText:[self calculateSpeedString:receivedDataSize]];
+        [self.timeDL setText:[self getRemainingTimeString:speed expectedDownloadSize:expectedDownloadSize]];
+        [self.speedRate setText:[self getSpeedString:speed]];
         _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
+        _lastReceived = 0;
     }
     [self.progressView setProgress:percentage animated:YES];
 }
 
-- (NSString*)calculateRemainingTime:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
+- (CGFloat)getAverageSpeed:(CGFloat)speed
 {
-    CGFloat lastSpeed = receivedDataSize / ([NSDate timeIntervalSinceReferenceDate] - _startDL);
-    CGFloat smoothingFactor = 0.005;
-    _averageSpeed = isnan(_averageSpeed) ? lastSpeed : smoothingFactor * lastSpeed + (1 - smoothingFactor) * _averageSpeed;
-    CGFloat RemainingInSeconds = (expectedDownloadSize - receivedDataSize)/_averageSpeed;
+    [_lastSpeeds addObject:[NSNumber numberWithFloat:speed]];
+    if (_lastSpeeds.count > 10) {
+        [_lastSpeeds removeObjectAtIndex:0];
+    }
 
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:RemainingInSeconds];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm:ss"];
-    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-
-    NSString  *remaingTime = [formatter stringFromDate:date];
-    return remaingTime;
+    CGFloat averageSpeed = 0;
+    int i = 0;
+    while (i < _lastSpeeds.count) {
+        averageSpeed += [_lastSpeeds[i] floatValue];
+        i += 1;
+    }
+    averageSpeed /= i;
+    return averageSpeed;
 }
 
-- (NSString*)calculateSpeedString:(CGFloat)receivedDataSize
+- (NSString *)getSpeedString:(CGFloat)speed
 {
-    CGFloat timeInterval = [NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate;
-    CGFloat speed = receivedDataSize / timeInterval;
     NSString *string = [NSByteCountFormatter stringFromByteCount:speed
                                                       countStyle:NSByteCountFormatterCountStyleDecimal];
     string = [string stringByAppendingString:@"/s"];
     return string;
+}
+
+- (NSString *)getRemainingTimeString:(CGFloat)speed expectedDownloadSize:(CGFloat)expectedDownloadSize
+{
+    CGFloat remainingInSeconds = (expectedDownloadSize - _totalReceived)/speed;
+
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:remainingInSeconds];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+
+    NSString *remaingTime = [formatter stringFromDate:date];
+    return remaingTime;
 }
 
 #pragma mark - ftp networking
