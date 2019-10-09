@@ -316,6 +316,7 @@
 "MOVIES" = "Film";
 "SONGS" = "Sange";
 "PLAYLISTS" = "Afspilningsliste";
+"VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "Ændringsdato";
 "NAME" = "Navn";
@@ -365,6 +366,9 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filnavn";
 "TRACK_NUMBER" = "Spornummer";
+"NB_AUDIO" = "Number of audio";
+"NB_MEDIA" = "Number of media";
+"NB_VIDEO" = "Number of video";
 
 // VLCNetworkLoginTVViewController
 
