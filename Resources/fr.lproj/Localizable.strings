@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Reprendre";
 "BUTTON_SET" = "Définir";
 "BUTTON_RESET" = "Réinitialisation";
+"BUTTON_RESCAN" = "Réanalyser";
 "PRIVATE_PLAYBACK_TOGGLE" = "Lecture privée";
 "SCAN_SUBTITLE_TOGGLE" = "Rechercher les sous-titres (seulement par http)";
 
@@ -386,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equaliseur";
 "MORE_OPTIONS_HEADER_TITLE" = "Options vidéo";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Forcer la réanalyse de la médiathèque";
+"FORCE_RESCAN_MESSAGE" = "Voulez-vous forcer VLC à réanalyser la médiathèque ?\nCela pourrait prendre du temps.";

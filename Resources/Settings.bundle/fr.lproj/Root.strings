@@ -17,7 +17,6 @@
 "SETTINGS_PASSCODE_LOCK" = "Code de verrouillage";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Autoriser le déverrouillage par Touch ID";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Autoriser le déverrouillage par Face ID";
-"SETTINGS_DECRAPIFY" = "Optimiser les noms des éléments pour l'affichage";
 "SETTINGS_VIDEO_FULLSCREEN" = "Lire la vidéo en plein écran";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continuer la lecture vidéo";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continuer la lecture audio";
@@ -86,6 +85,10 @@
 "SETTINGS_FEEDBACK" = "Retour";
 "SETTINGS_SEND_FEEDBACK" = "Envoyer un retour";
 "SETTINGS_SEND_RATING" = "Merci de noter VLC pour iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Médiathèque";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forcer la réanalyse de la médiathèque";
+"SETTINGS_DECRAPIFY" = "Optimiser les noms des éléments pour l'affichage";
 
 "SETTINGS_FILE_SYNC" = "Synchronisation de fichier";
 "SETTINGS_WIFISHARING_IPv6" = "Support IPV6 pour partage Wi-Fi";
