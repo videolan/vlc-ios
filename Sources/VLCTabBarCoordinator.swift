@@ -53,9 +53,9 @@ class VLCTabBarCoordinator: NSObject {
 
     private func setupViewControllers() {
         let controllers: [UIViewController] = [
-            VLCVideoViewController(services: services),
-            VLCAudioViewController(services: services),
-            VLCPlaylistViewController(services: services),
+            VideoViewController(services: services),
+            AudioViewController(services: services),
+            PlaylistViewController(services: services),
             VLCServerListViewController(nibName: nil, bundle: nil),
             VLCSettingsController(mediaLibraryService: services.medialibraryService)
         ]
@@ -67,15 +67,15 @@ class VLCTabBarCoordinator: NSObject {
         switch item.type {
         case kVLCApplicationShortcutLocalVideo:
             tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in
-                vc is VLCVideoViewController
+                vc is VideoViewController
             }) ?? 0
         case kVLCApplicationShortcutLocalAudio:
             tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in
-                vc is VLCAudioViewController
+                vc is AudioViewController
             }) ?? 1
         case kVLCApplicationShortcutPlaylist:
             tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in
-                vc is VLCPlaylistViewController
+                vc is PlaylistViewController
             }) ?? 2
         case kVLCApplicationShortcutNetwork:
             tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in

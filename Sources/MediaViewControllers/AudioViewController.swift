@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class VLCAudioViewController: VLCMediaViewController {
+class AudioViewController: MediaViewController {
     override init(services: Services) {
         super.init(services: services)
         setupUI()

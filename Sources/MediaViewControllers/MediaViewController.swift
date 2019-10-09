@@ -12,7 +12,7 @@
 
 import UIKit
 
-class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCategoryViewControllerDelegate {
+class MediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCategoryViewControllerDelegate {
 
     var services: Services
     private var rendererButton: UIButton
@@ -135,7 +135,7 @@ class VLCMediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCatego
 
 // MARK: - Edit
 
-extension VLCMediaViewController {
+extension MediaViewController {
     @objc private func customSetEditing(button: UIButton) {
         isEditing = !isEditing
         rigthBarButtons = isEditing ? [doneButton] : [editButton, UIBarButtonItem(customView: rendererButton)]
@@ -152,7 +152,7 @@ extension VLCMediaViewController {
 
 // MARK: - Sort
 
-extension VLCMediaViewController {
+extension MediaViewController {
     @objc func handleSort() {
         if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
             mediaCategoryViewController.handleSort()
