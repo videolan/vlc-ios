@@ -316,6 +316,7 @@
 "MOVIES" = "Filmoù";
 "SONGS" = "Kanaouennoù";
 "PLAYLISTS" = "Rolloù-lenn";
+"VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "Modified date";
 "NAME" = "Name";
@@ -365,6 +366,9 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filename";
 "TRACK_NUMBER" = "Track number";
+"NB_AUDIO" = "Number of audio";
+"NB_MEDIA" = "Number of media";
+"NB_VIDEO" = "Number of video";
 
 // VLCNetworkLoginTVViewController
 
