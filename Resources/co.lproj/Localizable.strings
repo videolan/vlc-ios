@@ -316,6 +316,7 @@
 "MOVIES" = "Filmi";
 "SONGS" = "Canzone";
 "PLAYLISTS" = "Liste di lettura";
+"VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "Data di mudificazione";
 "NAME" = "Nome";
@@ -365,6 +366,9 @@
 "ALBUM" = "Albumu";
 "FILENAME" = "Nome di schedariu";
 "TRACK_NUMBER" = "Numeru di traccia";
+"NB_AUDIO" = "Number of audio";
+"NB_MEDIA" = "Number of media";
+"NB_VIDEO" = "Number of video";
 
 // VLCNetworkLoginTVViewController
 
