@@ -68,6 +68,7 @@
 "BUTTON_CONTINUE" = "Continue";
 "BUTTON_SET" = "Set";
 "BUTTON_RESET" = "Reset";
+"BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Private Playback";
 "SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
 
@@ -176,6 +177,9 @@
 
 "EMPTY_LIBRARY" = "Empty Media Library";
 "EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronise media to your device using iTunes, WiFi Upload or Cloud services.";
+
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "Slide your finger down to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "High-Speed Scrubbing";
@@ -383,3 +387,7 @@
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
