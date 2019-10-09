@@ -414,11 +414,11 @@ extension MediaCategoryViewController {
     private func rightBarButtonItems() -> [UIBarButtonItem] {
         var rightBarButtonItems = [UIBarButtonItem]()
 
+        rightBarButtonItems.append(editBarButton)
         // Sort is only available for VideoGroups
         if let model = model as? CollectionModel, model.mediaCollection is VLCMLVideoGroup {
             rightBarButtonItems.append(sortBarButton)
         }
-        rightBarButtonItems.append(editBarButton)
         rightBarButtonItems.append(rendererBarButton)
         return rightBarButtonItems
     }
