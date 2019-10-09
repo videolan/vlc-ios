@@ -316,6 +316,7 @@
 "MOVIES" = "Фильмы";
 "SONGS" = "Композиции";
 "PLAYLISTS" = "Плейлисты";
+"VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "по дате изменения";
 "NAME" = "по имени";
@@ -365,6 +366,9 @@
 "ALBUM" = "Альбом";
 "FILENAME" = "Имя файла";
 "TRACK_NUMBER" = "Номер дорожки";
+"NB_AUDIO" = "Number of audio";
+"NB_MEDIA" = "Number of media";
+"NB_VIDEO" = "Number of video";
 
 // VLCNetworkLoginTVViewController
 
