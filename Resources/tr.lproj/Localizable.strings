@@ -316,6 +316,7 @@
 "MOVIES" = "Filmler";
 "SONGS" = "Şarkılar";
 "PLAYLISTS" = "Oynatma Listeleri";
+"VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "Son değişiklik";
 "NAME" = "Ad";
@@ -365,6 +366,9 @@
 "ALBUM" = "Albüm";
 "FILENAME" = "Dosya adı";
 "TRACK_NUMBER" = "Kayıt numarası";
+"NB_AUDIO" = "Number of audio";
+"NB_MEDIA" = "Number of media";
+"NB_VIDEO" = "Number of video";
 
 // VLCNetworkLoginTVViewController
 
