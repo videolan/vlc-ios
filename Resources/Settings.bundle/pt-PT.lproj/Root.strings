@@ -89,6 +89,11 @@
 "SETTINGS_MEDIA_LIBRARY" = "Biblioteca multimédia";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forçar o VLC a nova verificação da biblioteca de multimédia";
 "SETTINGS_DECRAPIFY" = "Otimizar nomes de item para exibir";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Video groups dectection short";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Video groups detection default";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Video groups detection long";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Video groups detection extra long";
 
 "SETTINGS_FILE_SYNC" = "Sincronização de Ficheiros";
 "SETTINGS_WIFISHARING_IPv6" = "Suporte de IPv6 para partilha por Wi-Fi";
