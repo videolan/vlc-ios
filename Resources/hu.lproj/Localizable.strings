@@ -316,6 +316,7 @@
 "MOVIES" = "Filmek";
 "SONGS" = "Számok";
 "PLAYLISTS" = "Lejátszólisták";
+"VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "Módosítás dátuma";
 "NAME" = "Név";
@@ -365,6 +366,9 @@
 "ALBUM" = "Album";
 "FILENAME" = "Fájlnév";
 "TRACK_NUMBER" = "Szám sorszáma";
+"NB_AUDIO" = "Number of audio";
+"NB_MEDIA" = "Number of media";
+"NB_VIDEO" = "Number of video";
 
 // VLCNetworkLoginTVViewController
 
