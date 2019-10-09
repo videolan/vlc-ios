@@ -316,6 +316,7 @@
 "MOVIES" = "影片";
 "SONGS" = "歌曲";
 "PLAYLISTS" = "播放列表";
+"VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "修改日期";
 "NAME" = "名称";
@@ -365,6 +366,9 @@
 "ALBUM" = "专辑";
 "FILENAME" = "文件名";
 "TRACK_NUMBER" = "轨道号";
+"NB_AUDIO" = "Number of audio";
+"NB_MEDIA" = "Number of media";
+"NB_VIDEO" = "Number of video";
 
 // VLCNetworkLoginTVViewController
 
