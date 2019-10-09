@@ -90,6 +90,10 @@ extension CollectionModel: MediaLibraryObserver {
         }
     }
 
+    func medialibrary(_ medialibrary: MediaLibraryService, didModifyTracks tracks: [VLCMLMedia]) {
+        updateView?()
+    }
+
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
         files = mediaCollection.files() ?? []
         updateView?()
