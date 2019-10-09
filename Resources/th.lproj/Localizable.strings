@@ -316,6 +316,7 @@
 "MOVIES" = "ภาพยนตร์";
 "SONGS" = "เพลง";
 "PLAYLISTS" = "เพลย์ลิสต์";
+"VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "Modified date";
 "NAME" = "ชื่อ";
@@ -365,6 +366,9 @@
 "ALBUM" = "อัลบั้ม";
 "FILENAME" = "ชื่อไฟล์";
 "TRACK_NUMBER" = "หมายเลขแทร็ก";
+"NB_AUDIO" = "Number of audio";
+"NB_MEDIA" = "Number of media";
+"NB_VIDEO" = "Number of video";
 
 // VLCNetworkLoginTVViewController
 
