@@ -204,8 +204,6 @@
                         <constraint firstItem="idF-Hx-Zjl" firstAttribute="height" secondItem="UdO-9t-oLy" secondAttribute="height" priority="250" id="dIu-rZ-feB"/>
                         <constraint firstItem="idF-Hx-Zjl" firstAttribute="width" secondItem="UdO-9t-oLy" secondAttribute="width" id="lod-3g-Hqh"/>
                     </constraints>
-                    <viewLayoutGuide key="contentLayoutGuide" id="GVu-9h-Ual"/>
-                    <viewLayoutGuide key="frameLayoutGuide" id="mJP-FU-rlc"/>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
