@@ -316,6 +316,7 @@
 "MOVIES" = "Films";
 "SONGS" = "Musiques";
 "PLAYLISTS" = "Listes de lecture";
+"VIDEO_GROUPS" = "Groupes vidéo";
 
 "MODIFIED_DATE" = "Date de modification";
 "NAME" = "Nom";
@@ -365,6 +366,9 @@
 "ALBUM" = "Album";
 "FILENAME" = "Nom de fichier";
 "TRACK_NUMBER" = "Numéro de piste";
+"NB_AUDIO" = "Nombre de pistes audio";
+"NB_MEDIA" = "Nombre de médias";
+"NB_VIDEO" = "Nombre de pistes vidéo";
 
 // VLCNetworkLoginTVViewController
 
