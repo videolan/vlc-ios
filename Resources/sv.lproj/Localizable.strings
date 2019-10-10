@@ -316,6 +316,7 @@
 "MOVIES" = "Filmer";
 "SONGS" = "Låtar";
 "PLAYLISTS" = "Spellistor";
+"VIDEO_GROUPS" = "Videogrupper";
 
 "MODIFIED_DATE" = "Datum ändrat";
 "NAME" = "Namn";
@@ -365,6 +366,9 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filnamn";
 "TRACK_NUMBER" = "Spårnummer";
+"NB_AUDIO" = "Antal ljud";
+"NB_MEDIA" = "Antal media";
+"NB_VIDEO" = "Antal videor";
 
 // VLCNetworkLoginTVViewController
 
