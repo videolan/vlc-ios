@@ -1,5 +1,21 @@
 # Changelog
 
+## iOS [3.2.2]
+
+· Add automatic video grouping by name
+· Add deletion to audio collections such as artist and albums
+· Add setting to force rescan of the media library
+· Fix HTTP download if file already exist
+· Fix swipe gesture settings affecting double tap to seek
+· Fix meta data for external media
+· Fix Box cloud service overall usage
+· Fix download progress
+· Fix download enqueuing
+· Fix download speed calculation
+· Remove network login automatic capitalization and completion
+· Rework download view according to new design
+· Update translations
+
 ## iOS [3.2.1]
 
 · Add automatic appearance setting for iOS 13
