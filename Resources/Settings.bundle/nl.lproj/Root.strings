@@ -89,6 +89,11 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediabibliotheek";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC dwingen om de mediabibliotheek opnieuw te scannen";
 "SETTINGS_DECRAPIFY" = "Namen van items optimaliseren voor scherm";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Detectielengte videogroepen";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Korte detectie videogroepen";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Standaard detectie videogroepen";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Lange detectie videogroepen";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra lange detectie videogroepen";
 
 "SETTINGS_FILE_SYNC" = "Bestandssynchronisatie";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-ondersteuning voor WiFi-delen";
