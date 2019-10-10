@@ -86,9 +86,14 @@
 "SETTINGS_SEND_FEEDBACK" = "Надіслати відгук";
 "SETTINGS_SEND_RATING" = "Будь ласка, оцініть VLC для iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Медіа бібліотека";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Примусити VLC пересканувати бібліотеку медіа";
 "SETTINGS_DECRAPIFY" = "Оптимізувати назви пунктів для відображення";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Video groups dectection short";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Video groups detection default";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Video groups detection long";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Video groups detection extra long";
 
 "SETTINGS_FILE_SYNC" = "Синхронізація файлу";
 "SETTINGS_WIFISHARING_IPv6" = "Підтримка IPv6 для поширення WiFi";
