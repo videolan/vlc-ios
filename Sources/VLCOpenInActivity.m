@@ -169,6 +169,9 @@
                                                          handler:^(UIAlertAction * _Nonnull action) {
                                                              [self activityDidFinish:NO];
                                                          }];
+
+    actionController.popoverPresentationController.sourceView = self.presentingViewController.view;
+
     [actionController addAction:cancelAction];
     [self.presentingViewController presentViewController:actionController animated:YES completion:nil];
 }
