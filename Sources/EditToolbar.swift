@@ -35,7 +35,7 @@ class EditToolbar: UIView {
 
         return rightStackView
     }()
-    private var shareButton: UIButton = {
+    private lazy var shareButton: UIButton = {
         let shareButton = UIButton(type: .system)
         shareButton.addTarget(self, action: #selector(share), for: .touchUpInside)
         shareButton.setImage(UIImage(named: "share"), for: .normal)
@@ -45,7 +45,7 @@ class EditToolbar: UIView {
         shareButton.accessibilityHint = NSLocalizedString("SHARE_HINT", comment: "")
         return shareButton
     }()
-    private var renameButton: UIButton = {
+    private lazy var renameButton: UIButton = {
         let renameButton = UIButton(type: .system)
         renameButton.addTarget(self, action: #selector(rename), for: .touchUpInside)
         renameButton.setImage(UIImage(named: "rename"), for: .normal)
@@ -55,7 +55,7 @@ class EditToolbar: UIView {
         renameButton.accessibilityHint = NSLocalizedString("RENAME_HINT", comment: "")
         return renameButton
     }()
-    private var deleteButton: UIButton = {
+    private lazy var deleteButton: UIButton = {
         let deleteButton = UIButton(type: .system)
         deleteButton.addTarget(self, action: #selector(deleteSelection), for: .touchUpInside)
         deleteButton.setImage(UIImage(named: "delete"), for: .normal)
