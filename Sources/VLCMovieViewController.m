@@ -1955,7 +1955,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
     UIView *displayView = _playingExternalView.displayView;
 
-    if (displayExternally && _movieView.superview == displayView) {
+    if (displayExternally && displayView
+        && _movieView.superview == displayView) {
         // Adjust constraints for external display
         [NSLayoutConstraint activateConstraints:@[
             [_movieView.leadingAnchor constraintEqualToAnchor:displayView.leadingAnchor],
