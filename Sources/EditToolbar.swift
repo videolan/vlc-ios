@@ -20,7 +20,21 @@ class EditToolbar: UIView {
     static let height: CGFloat = 60
     weak var delegate: EditToolbarDelegate?
     private var category: MediaLibraryBaseModel
-    private var stackView = UIStackView()
+    private var stackView: UIStackView = {
+        let stackView = UIStackView()
+
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .equalSpacing
+
+        return stackView
+    }()
+    private var rightStackView: UIStackView = {
+        let rightStackView = UIStackView()
+
+        rightStackView.translatesAutoresizingMaskIntoConstraints = false
+
+        return rightStackView
+    }()
     private var shareButton: UIButton = {
         let shareButton = UIButton(type: .system)
         shareButton.addTarget(self, action: #selector(share), for: .touchUpInside)
@@ -79,27 +93,30 @@ class EditToolbar: UIView {
         delegate?.editToolbarDidShare(self, presentFrom: shareButton)
     }
 
-    private func setupStackView() {
-        let stackView = UIStackView(arrangedSubviews: [addToPlaylistButton])
+    private func setupRightStackView() {
         let file = category.anyfiles.first
 
         if !(file is VLCMLArtist) && !(file is VLCMLGenre) && !(file is VLCMLAlbum)
             && !(file is VLCMLVideoGroup) {
-            stackView.addArrangedSubview(renameButton)
+            rightStackView.addArrangedSubview(renameButton)
         }
 
         if  !(file is VLCMLVideoGroup) {
-            stackView.addArrangedSubview(deleteButton)
+            rightStackView.addArrangedSubview(deleteButton)
         }
 
-        stackView.addArrangedSubview(shareButton)
+        rightStackView.addArrangedSubview(shareButton)
+    }
 
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+    private func setupStackView() {
+        stackView.addArrangedSubview(addToPlaylistButton)
+        stackView.addArrangedSubview(rightStackView)
+
         addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
     }
@@ -114,6 +131,7 @@ class EditToolbar: UIView {
         self.category = category
         super.init(frame: .zero)
         setupView()
+        setupRightStackView()
         setupStackView()
     }
 
