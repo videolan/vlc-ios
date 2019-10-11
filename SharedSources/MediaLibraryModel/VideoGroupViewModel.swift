@@ -100,17 +100,13 @@ extension VLCMLVideoGroup: MediaCollectionModel {
         return nil
     }
 
-    func files() -> [VLCMLMedia]? {
-        return media()
+    func files(with criteria: VLCMLSortingCriteria,
+               desc: Bool) -> [VLCMLMedia]? {
+        return media(with: criteria, desc: desc)
     }
 
     func title() -> String {
         return name()
-    }
-
-    func sortFilesInCollection(with criteria: VLCMLSortingCriteria,
-                               desc: Bool) -> [VLCMLMedia]? {
-        return media(with: criteria, desc: desc)
     }
 }
 

@@ -73,11 +73,10 @@ protocol SearchableMLModel {
 }
 
 protocol MediaCollectionModel {
-    func files() -> [VLCMLMedia]?
+    func files(with criteria: VLCMLSortingCriteria,
+               desc: Bool) -> [VLCMLMedia]?
     func sortModel() -> SortModel?
     func title() -> String
-    func sortFilesInCollection(with criteria: VLCMLSortingCriteria,
-                               desc: Bool) -> [VLCMLMedia]?
 }
 
 // MARK: - Helper methods
@@ -105,5 +104,12 @@ extension MLBaseModel {
 extension VLCMLObject {
     static func == (lhs: VLCMLObject, rhs: VLCMLObject) -> Bool {
         return lhs.identifier() == rhs.identifier()
+    }
+}
+
+extension MediaCollectionModel {
+    func files(with criteria: VLCMLSortingCriteria = .alpha,
+               desc: Bool = false) -> [VLCMLMedia]? {
+        return files(with: criteria, desc: desc)
     }
 }

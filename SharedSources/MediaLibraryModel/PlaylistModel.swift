@@ -150,16 +150,12 @@ extension VLCMLPlaylist: MediaCollectionModel {
         return nil
     }
 
-    func files() -> [VLCMLMedia]? {
+    func files(with criteria: VLCMLSortingCriteria = .alpha,
+               desc: Bool = false) -> [VLCMLMedia]? {
         return media
     }
 
     func title() -> String {
         return name
-    }
-
-    func sortFilesInCollection(with criteria: VLCMLSortingCriteria,
-                               desc: Bool) -> [VLCMLMedia]? {
-        return nil
     }
 }

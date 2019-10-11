@@ -66,7 +66,7 @@ class CollectionModel: MLBaseModel {
     }
 
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        files = mediaCollection.sortFilesInCollection(with: criteria, desc: desc) ?? []
+        files = mediaCollection.files(with: criteria, desc: desc) ?? []
         sortModel.currentSort = criteria
         sortModel.desc = desc
         updateView?()
