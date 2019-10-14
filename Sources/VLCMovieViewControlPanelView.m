@@ -34,6 +34,7 @@ static const CGFloat maxControlsWidth = 474.0;
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
         [self setupSubviews];
         [self setupConstraints];
         _compactMode = YES;
@@ -56,6 +57,7 @@ static const CGFloat maxControlsWidth = 474.0;
 
     _playbackControls = [[UIView alloc] initWithFrame:CGRectZero];
     _playbackControls.translatesAutoresizingMaskIntoConstraints = NO;
+    _playbackControls.semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
     [self addSubview:_playbackControls];
 
     _bwdButton = [[UIButton alloc] initWithFrame:CGRectZero];
