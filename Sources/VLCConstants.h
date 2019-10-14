@@ -73,6 +73,10 @@
 #define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(60)
 #define kVLCSettingOpenAppForPlayback @"open-app-for-playback"
 #define kVLCSettingOpenAppForPlaybackDefaultValue @YES
+#define kVLCSettingShowThumbnails @"ShowThumbnails"
+#define kVLCSettingShowThumbnailsDefaultValue @YES
+#define kVLCSettingShowArtworks @"ShowArtworks"
+#define kVLCSettingShowArtworksDefaultValue @YES
 
 #define kVLCSettingsMediaLibraryVideoGroupPrefixLength @"VideoGroupPrefixLength"
 #define kVLCSettingsMediaLibraryVideoGroupPrefixLengthDefaultValue @"6"

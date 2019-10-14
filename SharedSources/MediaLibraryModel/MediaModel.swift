@@ -47,7 +47,9 @@ extension VLCMLMedia {
 
     @objc func thumbnailImage() -> UIImage? {
         var image = UIImage(contentsOfFile: thumbnail()?.path ?? "")
-        if image == nil {
+        if image == nil
+            || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && subtype() != .albumTrack)
+            || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && subtype() == .albumTrack) {
             let isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme
             if subtype() == .albumTrack {
                 image = isDarktheme ? UIImage(named: "song-placeholder-dark") : UIImage(named: "song-placeholder-white")

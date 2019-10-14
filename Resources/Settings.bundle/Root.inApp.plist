@@ -651,6 +651,26 @@
 			</array>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>ShowThumbnails</string>
+			<key>Title</key>
+			<string>SETTINGS_SHOW_THUMBNAILS</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>ShowArtworks</string>
+			<key>Title</key>
+			<string>SETTINGS_SHOW_ARTWORKS</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
