@@ -64,7 +64,7 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="IcU-Lc-kf0">
+                                        <progressView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="IcU-Lc-kf0">
                                             <rect key="frame" x="0.0" y="37.5" width="157" height="2.5"/>
                                             <color key="backgroundColor" red="0.1461089551448822" green="0.16114577651023865" blue="0.17342603206634521" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="progressTintColor" red="1" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -80,7 +80,7 @@
                                 <outletCollection property="gestureRecognizers" destination="LWT-xp-2fu" appends="YES" id="ska-dZ-uCt"/>
                             </connections>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Lh6-Gu-frg" userLabel="Control Stack View">
+                        <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Lh6-Gu-frg" userLabel="Control Stack View">
                             <rect key="frame" x="214" y="0.0" width="130" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hmp-0g-6lI" userLabel="Previous">
