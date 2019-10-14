@@ -92,13 +92,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return emptyView
     }()
 
-    let editCollectionViewLayout: UICollectionViewFlowLayout = {
-        let editCollectionViewLayout = UICollectionViewFlowLayout()
-        editCollectionViewLayout.minimumLineSpacing = 1
-        editCollectionViewLayout.minimumInteritemSpacing = 0
-        return editCollectionViewLayout
-    }()
-
     @available(*, unavailable)
     init() {
         fatalError()
@@ -301,16 +294,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         PlaybackService.sharedInstance().setPlayerHidden(editing)
 
-        let layoutToBe = editing ? editCollectionViewLayout : UICollectionViewFlowLayout()
-        collectionView?.setCollectionViewLayout(layoutToBe, animated: false, completion: {
-            [unowned self] finished in
-            guard finished else {
-                assertionFailure("VLCMediaSubcategoryViewController: Edit layout transition failed.")
-                return
-            }
-            self.searchBarConstraint?.constant = -self.searchBarSize
-            self.reloadData()
-        })
+        searchBarConstraint?.constant = -self.searchBarSize
+        reloadData()
     }
 
     private func displayEditToolbar() {
@@ -583,8 +568,8 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
 // MARK: - EditControllerDelegate
 
 extension MediaCategoryViewController: EditControllerDelegate {
-    func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> MediaEditCell? {
-        return collectionView.cellForItem(at: indexPath) as? MediaEditCell
+    func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> BaseCollectionViewCell? {
+        return collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell
     }
 
     func editController(editController: EditController,
@@ -598,10 +583,6 @@ private extension MediaCategoryViewController {
     func setupCollectionView() {
         let cellNib = UINib(nibName: model.cellType.nibName, bundle: nil)
         collectionView?.register(cellNib, forCellWithReuseIdentifier: model.cellType.defaultReuseIdentifier)
-        if let editCell = (model as? EditableMLModel)?.editCellType() {
-            let editCellNib = UINib(nibName: editCell.nibName, bundle: nil)
-            collectionView?.register(editCellNib, forCellWithReuseIdentifier: editCell.defaultReuseIdentifier)
-        }
         collectionView.allowsMultipleSelection = true
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true

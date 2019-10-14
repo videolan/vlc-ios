@@ -45,13 +45,6 @@ extension AlbumModel {
     }
 }
 
-// MARK: - Edit
-extension AlbumModel: EditableMLModel {
-    func editCellType() -> BaseCollectionViewCell.Type {
-        return MediaEditCell.self
-    }
-}
-
 // MARK: - Search
 extension VLCMLAlbum: SearchableMLModel {
     func contains(_ searchString: String) -> Bool {

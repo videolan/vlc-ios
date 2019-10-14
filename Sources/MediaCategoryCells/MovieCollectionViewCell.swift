@@ -13,6 +13,7 @@
 import Foundation
 
 class MovieCollectionViewCell: BaseCollectionViewCell {
+    @IBOutlet weak var checkboxImageView: UIImageView!
 
     @IBOutlet weak var thumbnailView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -21,11 +22,29 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var collectionOverlay: UIView!
     @IBOutlet weak var numberOfTracks: UILabel!
+
+    @IBOutlet weak var selectionOverlay: UIView!
+
     override class var edgePadding: CGFloat {
         return 12.5
     }
     override class var interItemPadding: CGFloat {
         return 7.5
+    }
+
+    override var isSelected: Bool {
+        didSet {
+            checkboxImageView.image = isSelected ? UIImage(named: "checkboxSelected")
+                : UIImage(named: "checkboxEmpty")
+        }
+    }
+
+    override var checkImageView: UIImageView? {
+        return checkboxImageView
+    }
+
+    override var selectionViewOverlay: UIView? {
+        return selectionOverlay
     }
 
     override var media: VLCMLObject? {
@@ -134,5 +153,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         newLabel.isHidden = true
         collectionOverlay.isHidden = true
         numberOfTracks.text = ""
+        checkboxImageView.isHidden = true
+        selectionOverlay.isHidden = true
     }
 }

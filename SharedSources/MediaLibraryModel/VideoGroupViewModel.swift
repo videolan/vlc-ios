@@ -77,14 +77,6 @@ private extension VideoGroupViewModel {
     }
 }
 
-// MARK: - Edit
-
-extension VideoGroupViewModel: EditableMLModel {
-    func editCellType() -> BaseCollectionViewCell.Type {
-        return MediaEditCell.self
-    }
-}
-
 // MARK: - VLCMLVideoGroup - Search
 
 extension VLCMLVideoGroup: SearchableMLModel {

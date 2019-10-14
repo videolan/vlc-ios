@@ -78,36 +78,58 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HVo-IJ-YFl"/>
                     </view>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UTe-u3-NWI">
+                        <rect key="frame" x="0.0" y="0.0" width="309" height="193"/>
+                        <color key="backgroundColor" red="0.94509803920000002" green="0.49019607840000001" blue="0.0" alpha="0.39982421875000002" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkboxEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="hBS-N5-2jA">
+                        <rect key="frame" x="275" y="159" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="XDD-Ik-eSa"/>
+                            <constraint firstAttribute="width" constant="24" id="hmt-6D-9QW"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstItem="iWM-y0-SUe" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="YyZ-zI-cD7" secondAttribute="bottom" id="3VI-xW-KQ4"/>
                 <constraint firstItem="iWM-y0-SUe" firstAttribute="leading" secondItem="YyZ-zI-cD7" secondAttribute="leading" id="43e-Na-uN0"/>
+                <constraint firstItem="UTe-u3-NWI" firstAttribute="leading" secondItem="jmi-G0-XOo" secondAttribute="leading" id="8WQ-jt-pW6"/>
                 <constraint firstItem="WKB-IM-zLb" firstAttribute="centerY" secondItem="jmi-G0-XOo" secondAttribute="centerY" id="9h3-zd-Ied"/>
                 <constraint firstItem="WKB-IM-zLb" firstAttribute="width" secondItem="jmi-G0-XOo" secondAttribute="width" multiplier="0.5" id="AyM-ua-RM1"/>
                 <constraint firstItem="4zQ-Mf-dw7" firstAttribute="leading" secondItem="BvH-0B-sVS" secondAttribute="leading" id="Ijd-61-ouV"/>
                 <constraint firstItem="WKB-IM-zLb" firstAttribute="leading" secondItem="jmi-G0-XOo" secondAttribute="centerX" id="Klj-oS-Zn0"/>
+                <constraint firstItem="hBS-N5-2jA" firstAttribute="bottom" secondItem="UTe-u3-NWI" secondAttribute="bottom" constant="-10" id="OvE-CT-KCf"/>
                 <constraint firstAttribute="trailing" secondItem="iWM-y0-SUe" secondAttribute="trailing" id="PrI-Yq-B9j"/>
                 <constraint firstItem="iWM-y0-SUe" firstAttribute="leading" secondItem="X8l-k0-1oc" secondAttribute="leading" id="Rq2-SS-aA2"/>
+                <constraint firstItem="UTe-u3-NWI" firstAttribute="trailing" secondItem="jmi-G0-XOo" secondAttribute="trailing" id="SJY-g5-oV0"/>
                 <constraint firstItem="X8l-k0-1oc" firstAttribute="leading" secondItem="jmi-G0-XOo" secondAttribute="leading" id="WvI-Ra-xlu"/>
                 <constraint firstItem="iWM-y0-SUe" firstAttribute="top" secondItem="YyZ-zI-cD7" secondAttribute="top" id="Y4b-8y-MOG"/>
                 <constraint firstItem="X8l-k0-1oc" firstAttribute="trailing" secondItem="jmi-G0-XOo" secondAttribute="trailing" id="d8L-w5-ba5"/>
                 <constraint firstItem="X8l-k0-1oc" firstAttribute="bottom" secondItem="jmi-G0-XOo" secondAttribute="bottom" id="dWh-bB-nfd"/>
+                <constraint firstItem="UTe-u3-NWI" firstAttribute="bottom" secondItem="jmi-G0-XOo" secondAttribute="bottom" id="dp1-hW-Twu"/>
+                <constraint firstItem="hBS-N5-2jA" firstAttribute="trailing" secondItem="UTe-u3-NWI" secondAttribute="trailing" constant="-10" id="gNo-ax-rg5"/>
+                <constraint firstItem="UTe-u3-NWI" firstAttribute="top" secondItem="jmi-G0-XOo" secondAttribute="top" id="jBL-cf-d2I"/>
                 <constraint firstItem="WKB-IM-zLb" firstAttribute="height" secondItem="jmi-G0-XOo" secondAttribute="height" id="rlj-bJ-yVp"/>
                 <constraint firstItem="jmi-G0-XOo" firstAttribute="width" secondItem="YyZ-zI-cD7" secondAttribute="width" id="t8h-GJ-GvI"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="BvH-0B-sVS"/>
             <size key="customSize" width="309" height="230"/>
             <connections>
+                <outlet property="checkboxImageView" destination="hBS-N5-2jA" id="pCm-ST-YdN"/>
                 <outlet property="collectionOverlay" destination="WKB-IM-zLb" id="uPK-1i-9Jc"/>
                 <outlet property="descriptionLabel" destination="oac-dS-Qcd" id="1iJ-b6-gC6"/>
                 <outlet property="newLabel" destination="Aby-eq-q1j" id="4rD-oo-gdq"/>
                 <outlet property="numberOfTracks" destination="DBg-2t-TeB" id="0QT-uN-5fZ"/>
                 <outlet property="progressView" destination="X8l-k0-1oc" id="mf9-zf-3ya"/>
+                <outlet property="selectionOverlay" destination="UTe-u3-NWI" id="h7a-Ck-88y"/>
                 <outlet property="thumbnailView" destination="jmi-G0-XOo" id="gMW-XK-9MV"/>
                 <outlet property="titleLabel" destination="4zQ-Mf-dw7" id="iGP-8x-anz"/>
             </connections>
             <point key="canvasLocation" x="-99.5" y="136"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="checkboxEmpty" width="24" height="24"/>
+    </resources>
 </document>

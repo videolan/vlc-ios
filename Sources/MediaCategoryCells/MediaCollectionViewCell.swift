@@ -20,6 +20,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet private weak var newLabel: UILabel!
     @IBOutlet private weak var thumbnailWidth: NSLayoutConstraint!
 
+    @IBOutlet weak var checkboxImageView: UIImageView!
+    @IBOutlet weak var selectionOverlay: UIView!
+    @IBOutlet weak var dragIndicatorImageView: UIImageView!
+
     override var media: VLCMLObject? {
         didSet {
             if let media = media as? VLCMLMedia {
@@ -42,6 +46,21 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         }
     }
 
+    override var checkImageView: UIImageView? {
+        return checkboxImageView
+    }
+
+    override var selectionViewOverlay: UIView? {
+        return selectionOverlay
+    }
+
+    override var isSelected: Bool {
+        didSet {
+            checkboxImageView.image = isSelected ? UIImage(named: "checkboxSelected")
+                : UIImage(named: "checkboxEmpty")
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         if #available(iOS 11.0, *) {
@@ -59,6 +78,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         backgroundColor = PresentationTheme.current.colors.background
         titleLabel?.textColor = PresentationTheme.current.colors.cellTextColor
         descriptionLabel?.textColor = PresentationTheme.current.colors.cellDetailTextColor
+        dragIndicatorImageView.tintColor = PresentationTheme.current.colors.cellDetailTextColor
     }
 
     func update(audiotrack: VLCMLMedia) {
@@ -151,5 +171,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         descriptionLabel.text = ""
         thumbnailView.image = nil
         newLabel.isHidden = true
+        checkboxImageView.isHidden = true
+        selectionOverlay.isHidden = true
+        dragIndicatorImageView.isHidden = true
     }
 }

@@ -31,14 +31,6 @@ class VideoModel: MediaModel {
     }
 }
 
-// MARK: - Edit
-
-extension VideoModel: EditableMLModel {
-    func editCellType() -> BaseCollectionViewCell.Type {
-        return MediaEditCell.self
-    }
-}
-
 // MARK: - Sort
 
 extension VideoModel {

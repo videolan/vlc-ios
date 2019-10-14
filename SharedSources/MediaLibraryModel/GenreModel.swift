@@ -76,12 +76,6 @@ extension GenreModel {
         updateView?()
     }
 }
-// MARK: - Edit
-extension GenreModel: EditableMLModel {
-    func editCellType() -> BaseCollectionViewCell.Type {
-        return MediaEditCell.self
-    }
-}
 
 // MARK: - Search
 extension VLCMLGenre: SearchableMLModel {

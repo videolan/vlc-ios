@@ -24,6 +24,9 @@ class BaseCollectionViewCell: UICollectionViewCell {
 
     var media: VLCMLObject?
 
+    private(set) var checkImageView: UIImageView?
+    private(set) var selectionViewOverlay: UIView?
+
     class func numberOfColumns(for width: CGFloat) -> CGFloat {
         return CGFloat.zero
     }

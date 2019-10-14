@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 protocol EditControllerDelegate: class {
-    func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> MediaEditCell?
+    func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> BaseCollectionViewCell?
     func editController(editController: EditController, present viewController: UIViewController)
 }
 
@@ -309,10 +309,17 @@ extension EditController: EditToolbarDelegate {
 extension EditController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedCellIndexPaths.insert(indexPath)
+        // Isolate selectionViewOverlay changes inside EditController
+        if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
+            cell.selectionViewOverlay?.isHidden = false
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectedCellIndexPaths.remove(indexPath)
+        if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
+            cell.selectionViewOverlay?.isHidden = true
+        }
     }
 }
 
@@ -324,17 +331,20 @@ extension EditController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let editCell = (model as? EditableMLModel)?.editCellType() else {
-            assertionFailure("The category either doesn't implement EditableMLModel or doesn't have a editcellType defined")
-            return UICollectionViewCell()
-        }
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: editCell.defaultReuseIdentifier,
-                                                         for: indexPath) as? MediaEditCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.cellType.defaultReuseIdentifier,
+                                                         for: indexPath) as? BaseCollectionViewCell {
             cell.media = model.anyfiles[indexPath.row]
             cell.isSelected = selectedCellIndexPaths.contains(indexPath)
             cell.isAccessibilityElement = true
-            if let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist {
-                cell.dragImage.isHidden = false
+            cell.checkImageView?.isHidden = false
+
+            if let cell = cell as? MediaCollectionViewCell,
+                let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist {
+                cell.dragIndicatorImageView.isHidden = false
+            }
+
+            if cell.isSelected {
+                cell.selectionViewOverlay?.isHidden = false
             }
             return cell
         } else {
@@ -362,15 +372,36 @@ extension EditController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension EditController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let contentInset = collectionView.contentInset
-        // FIXME: 5 should be cell padding, but not usable maybe static?
-        let insetToRemove = contentInset.left + contentInset.right + (5 * 2)
-        var width = collectionView.frame.width
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var toWidth = collectionView.frame.size.width
         if #available(iOS 11.0, *) {
-            width = collectionView.safeAreaLayoutGuide.layoutFrame.width
+            toWidth = collectionView.safeAreaLayoutGuide.layoutFrame.width
         }
-        return MediaEditCell.cellSizeForWidth(width - insetToRemove)
+
+        return model.cellType.cellSizeForWidth(toWidth)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: model.cellType.edgePadding,
+                            left: model.cellType.edgePadding,
+                            bottom: model.cellType.edgePadding,
+                            right: model.cellType.edgePadding)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return model.cellType.edgePadding
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return model.cellType.interItemPadding
     }
 }
 

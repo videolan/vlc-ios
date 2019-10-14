@@ -68,13 +68,6 @@ extension PlaylistModel {
     }
 }
 
-// MARK: - Edit
-extension PlaylistModel: EditableMLModel {
-    func editCellType() -> BaseCollectionViewCell.Type {
-        return MediaEditCell.self
-    }
-}
-
 // MARK: - Search
 extension VLCMLPlaylist: SearchableMLModel {
     func contains(_ searchString: String) -> Bool {

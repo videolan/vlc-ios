@@ -45,13 +45,6 @@ extension TrackModel {
     }
 }
 
-// MARK: - Edit
-
-extension TrackModel: EditableMLModel {
-    func editCellType() -> BaseCollectionViewCell.Type {
-        return MediaEditCell.self
-    }
-}
 // MARK: - MediaLibraryObserver
 
 extension TrackModel: MediaLibraryObserver {

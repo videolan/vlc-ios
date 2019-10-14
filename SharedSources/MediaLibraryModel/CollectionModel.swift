@@ -73,13 +73,6 @@ class CollectionModel: MLBaseModel {
     }
 }
 
-// MARK: - Edit
-extension CollectionModel: EditableMLModel {
-    func editCellType() -> BaseCollectionViewCell.Type {
-        return MediaEditCell.self
-    }
-}
-
 // MARK: - MediaLibraryObserver
 extension CollectionModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService,
