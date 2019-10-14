@@ -100,19 +100,6 @@ extension VLCMLGenre {
         return String(format: NSLocalizedString("TRACK", comment: ""), numberOftracks)
     }
 
-    func thumbnail() -> UIImage? {
-        var image: UIImage? = nil
-        for track in tracks() ?? [] where track.isThumbnailGenerated() {
-            image = UIImage(contentsOfFile: track.thumbnail()?.path ?? "")
-            break
-        }
-        if image == nil {
-            let isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme
-            image = isDarktheme ? UIImage(named: "song-placeholder-dark") : UIImage(named: "song-placeholder-white")
-        }
-        return image
-    }
-
     func accessibilityText() -> String? {
         return name + " " + numberOfTracksString()
     }

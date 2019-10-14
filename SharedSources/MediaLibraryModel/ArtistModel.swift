@@ -119,21 +119,6 @@ extension VLCMLArtist {
         return String(format: tracksString, tracks()?.count ?? 0)
     }
 
-    @objc func thumbnail() -> UIImage? {
-        var image = UIImage(contentsOfFile: artworkMRL()?.path ?? "")
-        if image == nil {
-            for track in files() ?? [] where track.isThumbnailGenerated() {
-                image = UIImage(contentsOfFile: track.thumbnail()?.path ?? "")
-                break
-            }
-        }
-        if image == nil {
-            let isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme
-            image = isDarktheme ? UIImage(named: "artist-placeholder-dark") : UIImage(named: "artist-placeholder-white")
-        }
-        return image
-    }
-
     func artistName() -> String {
         if identifier() == UnknownArtistID {
             return NSLocalizedString("UNKNOWN_ARTIST", comment: "")

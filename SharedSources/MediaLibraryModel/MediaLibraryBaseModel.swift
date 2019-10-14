@@ -112,4 +112,23 @@ extension MediaCollectionModel {
                desc: Bool = false) -> [VLCMLMedia]? {
         return files(with: criteria, desc: desc)
     }
+
+    func thumbnail() -> UIImage? {
+        var image: UIImage? = nil
+        if image == nil {
+            for track in files() ?? [] where track.isThumbnailGenerated() {
+                image = UIImage(contentsOfFile: track.thumbnail()?.path ?? "")
+                break
+            }
+        }
+        if image == nil {
+            let isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme
+            if self is VLCMLVideoGroup {
+                image = isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
+            } else {
+                image = isDarktheme ? UIImage(named: "album-placeholder-dark") : UIImage(named: "album-placeholder-white")
+            }
+        }
+        return image
+    }
 }
