@@ -139,6 +139,8 @@ extension MediaViewController {
         isEditing = !isEditing
         rightBarButtons = isEditing ? [doneButton] : [editButton, UIBarButtonItem(customView: rendererButton)]
         leftBarButton = isEditing ? nil : sortButton
+        navigationItem.rightBarButtonItems = rightBarButtons
+        navigationItem.leftBarButtonItem = leftBarButton
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
