@@ -39,14 +39,14 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCategoryV
         return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(customSetEditing(button:)))
     }()
 
-    private var rigthBarButtons: [UIBarButtonItem]?
+    private var rightBarButtons: [UIBarButtonItem]?
     private var leftBarButton: UIBarButtonItem?
 
     init(services: Services) {
         self.services = services
         rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(nibName: nil, bundle: nil)
-        rigthBarButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
+        rightBarButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
         leftBarButton = sortButton
     }
 
@@ -111,7 +111,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCategoryV
             !mediaCategoryViewController.isSearching {
             showButtons = true
         }
-        navigationItem.rightBarButtonItems = showButtons ? rigthBarButtons : nil
+        navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : nil
         navigationItem.leftBarButtonItem = showButtons ? leftBarButton : nil
     }
 
@@ -137,7 +137,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCategoryV
 extension MediaViewController {
     @objc private func customSetEditing(button: UIButton) {
         isEditing = !isEditing
-        rigthBarButtons = isEditing ? [doneButton] : [editButton, UIBarButtonItem(customView: rendererButton)]
+        rightBarButtons = isEditing ? [doneButton] : [editButton, UIBarButtonItem(customView: rendererButton)]
         leftBarButton = isEditing ? nil : sortButton
     }
 
