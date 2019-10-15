@@ -83,11 +83,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(movie: VLCMLMedia) {
-        var title = movie.title
-        if UserDefaults.standard.bool(forKey: kVLCOptimizeItemNamesForDisplay) == true {
-            title = (title as NSString).deletingPathExtension
-        }
-        titleLabel.text = title
+        titleLabel.text = movie.title()
         accessibilityLabel = movie.accessibilityText(editing: false)
         descriptionLabel.text = movie.mediaDuration()
         thumbnailView.image = movie.thumbnailImage()

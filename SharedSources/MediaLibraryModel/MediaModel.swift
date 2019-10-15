@@ -66,6 +66,13 @@ extension VLCMLMedia {
         }
         return title + " " + albumTrackArtistName() + " " + (isNew ? NSLocalizedString("NEW", comment: "") : "")
     }
+
+    func title() -> String {
+        if UserDefaults.standard.bool(forKey: kVLCOptimizeItemNamesForDisplay) == true {
+            return (title as NSString).deletingPathExtension
+        }
+        return title
+    }
 }
 
 // MARK: - CoreSpotlight
