@@ -122,7 +122,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
 
         // 17 * 2 for title, 14 for new + duration, 3 * 4 paddings for lines
-        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + (17 * 2) + 14 + (3 * 4))
+        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + (16 * 2) + 14 + (3 * 3))
     }
 
     override func prepareForReuse() {
