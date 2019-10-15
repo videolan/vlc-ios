@@ -167,18 +167,18 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     @objc func reloadData() {
-        DispatchQueue.main.async {
-            [weak self] in
-            guard let self = self else {
-                return
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async {
+                self.reloadData()
             }
-            self.delegate?.needsToUpdateNavigationbarIfNeeded(self)
-            self.collectionView?.reloadData()
-            self.updateUIForContent()
+            return
+        }
+        delegate?.needsToUpdateNavigationbarIfNeeded(self)
+        collectionView?.reloadData()
+        updateUIForContent()
 
-            if !self.isSearching {
-                self.popViewIfNecessary()
-            }
+        if !isSearching {
+            popViewIfNecessary()
         }
     }
 
