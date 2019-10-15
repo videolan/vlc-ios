@@ -31,3 +31,4 @@
 #import "VLCCloudStorageTableViewController.h"
 #import "VLCMetadata.h"
 #import "VLCPlayerDisplayController.h"
+#import "NSString+SupportedMedia.h"

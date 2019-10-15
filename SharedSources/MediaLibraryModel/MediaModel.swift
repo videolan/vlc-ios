@@ -68,7 +68,9 @@ extension VLCMLMedia {
     }
 
     func title() -> String {
-        if UserDefaults.standard.bool(forKey: kVLCOptimizeItemNamesForDisplay) == true {
+        if UserDefaults.standard.bool(forKey: kVLCOptimizeItemNamesForDisplay) == true
+            && ((subtype() == .albumTrack && title.isSupportedAudioMediaFormat())
+                || (subtype() != .albumTrack && title.isSupportedMediaFormat())) {
             return (title as NSString).deletingPathExtension
         }
         return title
