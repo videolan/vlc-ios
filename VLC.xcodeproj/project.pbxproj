@@ -85,8 +85,8 @@
 		41FCD2F820B565B600660AAB /* VLCAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCD2F720B565B500660AAB /* VLCAlertViewController.swift */; };
 		6B4E33D11BF2A39400A35255 /* playerControl.css in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33CF1BF2A39400A35255 /* playerControl.css */; };
 		6B4E33D21BF2A39400A35255 /* playerControl.js in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33D01BF2A39400A35255 /* playerControl.js */; };
-		6D8E642A234CBF2200EBC8FC /* AudioCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8E6429234CBF2200EBC8FC /* AudioCollectionModel.swift */; };
 		6D220D0D234B8E3700BD694F /* FileManager+DeleteMediaFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D220D0C234B8E3700BD694F /* FileManager+DeleteMediaFolder.swift */; };
+		6D8E642A234CBF2200EBC8FC /* AudioCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8E6429234CBF2200EBC8FC /* AudioCollectionModel.swift */; };
 		7AC8629D1765DC560011611A /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
 		7AC862A61765E9510011611A /* jquery-1.10.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */; };
 		7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629F1765E90C0011611A /* jquery.fileupload.js */; };
@@ -565,8 +565,8 @@
 		65EC8984D840047F50AA00A1 /* libPods-VLC-iOSUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOSUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B4E33CF1BF2A39400A35255 /* playerControl.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = playerControl.css; path = Resources/web/playerControl.css; sourceTree = SOURCE_ROOT; };
 		6B4E33D01BF2A39400A35255 /* playerControl.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = playerControl.js; path = Resources/web/playerControl.js; sourceTree = SOURCE_ROOT; };
-		6D8E6429234CBF2200EBC8FC /* AudioCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCollectionModel.swift; sourceTree = "<group>"; };
 		6D220D0C234B8E3700BD694F /* FileManager+DeleteMediaFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FileManager+DeleteMediaFolder.swift"; path = "Sources/FileManager+DeleteMediaFolder.swift"; sourceTree = "<group>"; };
+		6D8E6429234CBF2200EBC8FC /* AudioCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCollectionModel.swift; sourceTree = "<group>"; };
 		703A80CCC005093CCDFBECBF /* Pods-VLC-iOS-Screenshots.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-Screenshots.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-Screenshots/Pods-VLC-iOS-Screenshots.distribution.xcconfig"; sourceTree = "<group>"; };
 		7AC8629B1765DC560011611A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		7AC8629E1765E90C0011611A /* jquery-1.10.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.10.1.min.js"; sourceTree = "<group>"; };
