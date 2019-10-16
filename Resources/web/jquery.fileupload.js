@@ -419,15 +419,15 @@
                         formData.append(paramName, options.blob, file.name);
                     } else {
                         $.each(options.files, function (index, file) {
+                            var filepath = file.relativePath !== undefined ? file.relativePath : "";
+                            filepath += file.name !== undefined ? file.name : "";
                             // This check allows the tests to run with
                             // dummy objects:
                             if (that._isInstanceOf('File', file) ||
                                     that._isInstanceOf('Blob', file)) {
                                 formData.append(
                                     options.paramName[index] || paramName,
-                                    //file.relativePath + file.name will handle both Chrome and Firefox
-                                    //behaviours with filenames whereas file.path will only work with Firefox.
-                                    file, file.relativePath + file.name
+                                    file, filepath
                                 );
                             }
                         });
