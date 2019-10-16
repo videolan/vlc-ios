@@ -384,8 +384,12 @@ extension MediaLibraryService {
         mlMedia.titleIndex = Int64(player.indexOfCurrentTitle)
         //create a new thumbnail
     }
+}
 
-    private func handleWillEnterForegroundNotification() {
+// MARK: - Application notifications
+
+@objc private extension MediaLibraryService {
+    @objc private func handleWillEnterForegroundNotification() {
         guard let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
             assertionFailure("MediaLibraryService: handleWillEnterForegroundNotification: Failed to retrieve documentPath")
             return
