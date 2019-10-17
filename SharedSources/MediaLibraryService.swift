@@ -662,3 +662,18 @@ extension MediaLibraryService {
         }
     }
 }
+
+// MARK: - VLCMediaLibraryDelegate - Exception handling
+
+extension MediaLibraryService {
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      unhandledExceptionWithContext context: String,
+                      errorMessage: String, clearSuggested: Bool) -> Bool {
+        if clearSuggested {
+            medialib.clearDatabase(restorePlaylists: true)
+            setupMediaLibrary()
+            return true
+        }
+        return false
+    }
+}
