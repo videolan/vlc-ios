@@ -65,6 +65,9 @@ extension GenreModel: MediaLibraryObserver {
         updateView?()
     }
 
+    func medialibraryDidStartRescan() {
+        files.removeAll()
+    }
 }
 
 // MARK: - Sort

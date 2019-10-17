@@ -93,5 +93,9 @@ extension CollectionModel: MediaLibraryObserver {
         files = mediaCollection.files() ?? []
         updateView?()
     }
+
+    func medialibraryDidStartRescan() {
+        files.removeAll()
+    }
 }
 

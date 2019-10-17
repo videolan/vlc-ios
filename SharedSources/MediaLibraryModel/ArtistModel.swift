@@ -83,6 +83,9 @@ extension ArtistModel: MediaLibraryObserver {
         updateView?()
     }
 
+    func medialibraryDidStartRescan() {
+        files.removeAll()
+    }
 }
 
 extension VLCMLArtist: MediaCollectionModel {

@@ -78,4 +78,8 @@ extension VideoModel: MediaLibraryObserver {
         }
         updateView?()
     }
+
+    func medialibraryDidStartRescan() {
+        files.removeAll()
+    }
 }

@@ -92,6 +92,9 @@ extension NSNotification {
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeletePlaylistsWithIds playlistsIds: [NSNumber])
+
+    // Force Rescan
+    @objc func medialibraryDidStartRescan()
 }
 
 // MARK: -
@@ -675,5 +678,15 @@ extension MediaLibraryService {
             return true
         }
         return false
+    }
+}
+
+// MARK: - VLCMLMediaLibraryDelegate - Force rescan
+
+extension MediaLibraryService {
+    func medialibraryDidStartRescan(_ medialibrary: VLCMediaLibrary) {
+        for observer in observers {
+            observer.value.observer?.medialibraryDidStartRescan()
+        }
     }
 }

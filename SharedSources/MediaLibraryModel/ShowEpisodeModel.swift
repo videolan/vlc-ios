@@ -53,4 +53,8 @@ extension ShowEpisodeModel: MediaLibraryObserver {
         showEpisodes.forEach({ append($0) })
         updateView?()
     }
+
+    func medialibraryDidStartRescan() {
+        files.removeAll()
+    }
 }

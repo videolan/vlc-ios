@@ -98,6 +98,10 @@ extension AlbumModel: MediaLibraryObserver {
         }
         updateView?()
     }
+
+    func medialibraryDidStartRescan() {
+        files.removeAll()
+    }
 }
 
 extension VLCMLAlbum: MediaCollectionModel {

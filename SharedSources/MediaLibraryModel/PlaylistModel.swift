@@ -111,6 +111,10 @@ extension PlaylistModel: MediaLibraryObserver {
         }
         updateView?()
     }
+
+    func medialibraryDidStartRescan() {
+        files.removeAll()
+    }
 }
 
 // MARK: - Helpers
