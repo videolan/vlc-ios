@@ -12,7 +12,7 @@
 
 import UIKit
 
-class MediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCategoryViewControllerDelegate {
+class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     var services: Services
     private var rendererButton: UIButton
@@ -87,17 +87,6 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCategoryV
         navigationController?.navigationBar.isTranslucent = false
         updateButtonsFor(viewControllers[currentIndex])
     }
-    // MARK: - MediaCatgoryViewControllerDelegate
-
-    func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController) {
-        if viewController == viewControllers[currentIndex] {
-            updateButtonsFor(viewController)
-        }
-    }
-
-    func enableCategorySwitching(for viewController: MediaCategoryViewController, enable: Bool) {
-        scrollingEnabled(enable)
-    }
 
     // MARK: - PagerTabStripDataSource
 
@@ -129,6 +118,20 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell>, MediaCategoryV
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
+    }
+}
+
+// MARK: - MediaCatgoryViewControllerDelegate
+
+extension MediaViewController: MediaCategoryViewControllerDelegate {
+    func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController) {
+        if viewController == viewControllers[currentIndex] {
+            updateButtonsFor(viewController)
+        }
+    }
+
+    func enableCategorySwitching(for viewController: MediaCategoryViewController, enable: Bool) {
+        scrollingEnabled(enable)
     }
 }
 
