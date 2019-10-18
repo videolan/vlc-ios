@@ -28,7 +28,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     private lazy var editButton: UIBarButtonItem = {
         var editButton = UIBarButtonItem(image: UIImage(named: "edit"),
                                      style: .plain, target: self,
-                                     action: #selector(customSetEditing(button:)))
+                                     action: #selector(customSetEditing))
         editButton.tintColor = PresentationTheme.current.colors.orangeUI
         editButton.accessibilityLabel = NSLocalizedString("BUTTON_EDIT", comment: "")
         editButton.accessibilityHint = NSLocalizedString("BUTTON_EDIT_HINT", comment: "")
@@ -36,7 +36,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     }()
 
     private lazy var doneButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(customSetEditing(button:)))
+        return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(customSetEditing))
     }()
 
     private var rightBarButtons: [UIBarButtonItem]?
@@ -138,7 +138,7 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
 // MARK: - Edit
 
 extension MediaViewController {
-    @objc private func customSetEditing(button: UIButton) {
+    @objc private func customSetEditing() {
         isEditing = !isEditing
         rightBarButtons = isEditing ? [doneButton] : [editButton, UIBarButtonItem(customView: rendererButton)]
         leftBarButton = isEditing ? nil : sortButton
