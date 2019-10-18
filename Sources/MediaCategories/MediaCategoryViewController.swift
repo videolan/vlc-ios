@@ -430,7 +430,6 @@ extension MediaCategoryViewController {
 
     @objc func handleEditing() {
         isEditing = !isEditing
-        setEditing(isEditing, animated: true)
         navigationItem.rightBarButtonItems = isEditing ? [UIBarButtonItem(barButtonSystemItem: .done,
                                                                           target: self,
                                                                           action: #selector(handleEditing))]
