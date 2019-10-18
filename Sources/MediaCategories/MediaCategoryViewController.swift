@@ -17,6 +17,7 @@ import Foundation
     func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController)
     func enableCategorySwitching(for viewController: MediaCategoryViewController,
                                  enable: Bool)
+    func setEditingStateChanged(for viewController: MediaCategoryViewController, editing: Bool)
 }
 
 class MediaCategoryViewController: UICollectionViewController, UISearchBarDelegate, IndicatorInfoProvider {
@@ -283,6 +284,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
+        guard editing != isEditing else {
+            // Guard in case where setEditing is called twice with the same state
+            return
+        }
         super.setEditing(editing, animated: animated)
         // might have an issue if the old datasource was search
         // Most of the edit logic is handled inside editController
@@ -575,6 +580,15 @@ extension MediaCategoryViewController: EditControllerDelegate {
                         present viewController: UIViewController) {
         let newNavigationController = UINavigationController(rootViewController: viewController)
         navigationController?.present(newNavigationController, animated: true, completion: nil)
+    }
+
+    func editControllerDidFinishEditing(editController: EditController?) {
+        // NavigationItems for Collections are create from the parent, there is no need to propagate the information.
+        if self is CollectionCategoryViewController {
+            handleEditing()
+        } else {
+            delegate?.setEditingStateChanged(for: self, editing: false)
+        }
     }
 }
 

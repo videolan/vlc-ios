@@ -133,6 +133,10 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
     func enableCategorySwitching(for viewController: MediaCategoryViewController, enable: Bool) {
         scrollingEnabled(enable)
     }
+
+    func setEditingStateChanged(for viewController: MediaCategoryViewController, editing: Bool) {
+        customSetEditing()
+    }
 }
 
 // MARK: - Edit

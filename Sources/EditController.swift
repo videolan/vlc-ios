@@ -12,6 +12,8 @@
 protocol EditControllerDelegate: class {
     func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> BaseCollectionViewCell?
     func editController(editController: EditController, present viewController: UIViewController)
+
+    func editControllerDidFinishEditing(editController: EditController?)
 }
 
 class EditController: UIViewController {
@@ -144,6 +146,7 @@ private extension EditController {
             }
         }
         resetSelections(resetUI: true)
+        delegate?.editControllerDidFinishEditing(editController: self)
     }
 }
 
@@ -208,6 +211,7 @@ extension EditController: EditToolbarDelegate {
                                             self?.model.delete(objectsToDelete)
                                             // Update directly the cached indexes since cells will be destroyed
                                             self?.selectedCellIndexPaths.removeAll()
+                                            self?.delegate?.editControllerDidFinishEditing(editController: self)
         })
 
         VLCAlertViewController.alertViewManager(title: NSLocalizedString("DELETE_TITLE", comment: ""),
@@ -220,7 +224,14 @@ extension EditController: EditToolbarDelegate {
     func editToolbarDidShare(_ editToolbar: EditToolbar, presentFrom button: UIButton) {
         UIApplication.shared.beginIgnoringInteractionEvents()
         let rootViewController = UIApplication.shared.keyWindow?.rootViewController
-        guard let controller = VLCActivityViewControllerVendor.activityViewController(forFiles: fileURLsFromSelection(), presenting: button, presenting: rootViewController) else {
+        guard let controller = VLCActivityViewControllerVendor
+            .activityViewController(forFiles: fileURLsFromSelection(),
+                                    presenting: button,
+                                    presenting: rootViewController,
+                                    completionHandler: {
+                                        [weak self] completion in
+            self?.delegate?.editControllerDidFinishEditing(editController: self)
+        }) else {
             UIApplication.shared.endIgnoringInteractionEvents()
             return
         }
@@ -299,6 +310,8 @@ extension EditController: EditToolbarDelegate {
             //call until all items are renamed
             if !strongself.selectedCellIndexPaths.isEmpty {
                 strongself.editToolbarDidRename(editToolbar)
+            } else {
+                strongself.delegate?.editControllerDidFinishEditing(editController: self)
             }
         })
     }
@@ -428,6 +441,7 @@ extension EditController: AddToPlaylistViewControllerDelegate {
         }
         resetSelections(resetUI: false)
         addToPlaylistViewController.dismiss(animated: true, completion: nil)
+        delegate?.editControllerDidFinishEditing(editController: self)
     }
 
     func addToPlaylistViewController(_ addToPlaylistViewController: AddToPlaylistViewController,
