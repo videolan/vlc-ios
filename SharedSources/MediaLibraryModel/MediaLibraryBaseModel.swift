@@ -95,6 +95,15 @@ extension MLBaseModel {
         }
         return newFiles
     }
+
+    func filterFilesFromDeletion(of items: [VLCMLObject]) {
+        files = files.filter() {
+            for item in items where $0.identifier() == item.identifier() {
+                return false
+            }
+            return true
+        }
+    }
 }
 
 extension VLCMLObject {

@@ -30,6 +30,8 @@ extension MediaModel {
         catch let error as NSError {
             assertionFailure("MediaModel: Delete failed: \(error.localizedDescription)")
         }
+
+        filterFilesFromDeletion(of: items)
     }
 }
 

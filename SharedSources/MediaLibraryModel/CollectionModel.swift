@@ -62,6 +62,7 @@ class CollectionModel: MLBaseModel {
             catch let error as NSError {
                 assertionFailure("CollectionModel: Delete failed: \(error.localizedDescription)")
             }
+            filterFilesFromDeletion(of: items)
         }
     }
 

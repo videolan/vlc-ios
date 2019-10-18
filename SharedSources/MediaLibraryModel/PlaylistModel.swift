@@ -45,6 +45,10 @@ class PlaylistModel: MLBaseModel {
                 assertionFailure("PlaylistModel: Failed to delete playlist: \(playlist.identifier())")
             }
         }
+
+        // Update directly the UI without waiting the delegate to avoid showing 'ghost' items
+        filterFilesFromDeletion(of: items)
+        updateView?()
     }
 
     // Creates a VLCMLPlaylist appending it and updates linked view
