@@ -16,7 +16,10 @@
 
 @implementation VLCActivityViewControllerVendor
 
-+ (UIActivityViewController *)activityViewControllerForFiles:(NSArray *)files presentingButton:(UIButton *)button presentingViewController:(UIViewController *)viewController;
++ (UIActivityViewController *)activityViewControllerForFiles:(NSArray *)files
+                                            presentingButton:(UIButton *)button
+                                    presentingViewController:(UIViewController *)viewController
+                                           completionHandler:(void (^)(BOOL))completionHandler
 {
     if (![files count]) {
         [viewController vlc_showAlertWithTitle:NSLocalizedString(@"SHARING_ERROR_NO_FILES", nil)
@@ -53,6 +56,7 @@
                                            message:nil
                                        buttonTitle:NSLocalizedString(@"BUTTON_OK", nil)];
         }
+        completionHandler(completed);
     };
     return controller;
 }
