@@ -38,6 +38,7 @@
         _mediaList = [[VLCMediaList alloc] init];
         _rootMedia = media;
         _rootMedia.delegate = self;
+        [media addOption:kVLCForceSMBV1];
         // Set timeout to 0 in order to avoid getting interrupted in dialogs for timeout reasons
         [media parseWithOptions:VLCMediaParseNetwork|VLCMediaDoInteract timeout:0];
         _mediaListUnfiltered = [_rootMedia subitems];
@@ -50,9 +51,22 @@
         _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:YES];
         _customDialogHandler = [[VLCCustomDialogRendererHandler alloc]
                                 initWithDialogProvider:_dialogProvider];
+
+        __weak typeof(self) weakSelf = self;
+        _customDialogHandler.completionHandler = ^(VLCCustomDialogRendererHandlerCompletionType status)
+        {
+            [weakSelf customDialogCompletionHandlerWithStatus:status];
+        };
         _dialogProvider.customRenderer = _customDialogHandler;
     }
     return self;
+}
+
+- (void)customDialogCompletionHandlerWithStatus:(VLCCustomDialogRendererHandlerCompletionType)status
+{
+    if (status == VLCCustomDialogRendererHandlerCompletionTypeStop) {
+        [_rootMedia parseStop];
+    }
 }
 
 - (BOOL)shouldFilterMedia:(VLCMedia *)media

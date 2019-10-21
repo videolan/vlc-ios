@@ -78,6 +78,8 @@
 #define kVLCSettingShowArtworks @"ShowArtworks"
 #define kVLCSettingShowArtworksDefaultValue @YES
 
+#define kVLCForceSMBV1 @"smb-force-v1"
+
 #define kVLCSettingsMediaLibraryVideoGroupPrefixLength @"VideoGroupPrefixLength"
 #define kVLCSettingsMediaLibraryVideoGroupPrefixLengthDefaultValue @"6"
 
