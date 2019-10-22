@@ -85,6 +85,7 @@ extension CollectionModel: MediaLibraryObserver {
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyTracks tracks: [VLCMLMedia]) {
+        files = mediaCollection.files() ?? []
         updateView?()
     }
 
