@@ -32,7 +32,7 @@ class EditController: UIViewController {
     weak var delegate: EditControllerDelegate?
 
     override func loadView() {
-        let editToolbar = EditToolbar(category: model)
+        let editToolbar = EditToolbar(model: model)
         editToolbar.delegate = self
         self.view = editToolbar
     }

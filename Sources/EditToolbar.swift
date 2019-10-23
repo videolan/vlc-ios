@@ -19,7 +19,7 @@ protocol EditToolbarDelegate: class {
 class EditToolbar: UIView {
     static let height: CGFloat = 60
     weak var delegate: EditToolbarDelegate?
-    private var category: MediaLibraryBaseModel
+    private var model: MediaLibraryBaseModel
     private var stackView: UIStackView = {
         let stackView = UIStackView()
 
@@ -94,7 +94,7 @@ class EditToolbar: UIView {
     }
 
     private func setupRightStackView() {
-        let file = category.anyfiles.first
+        let file = model.anyfiles.first
 
         if !(file is VLCMLArtist) && !(file is VLCMLGenre) && !(file is VLCMLAlbum)
             && !(file is VLCMLVideoGroup) {
@@ -127,8 +127,8 @@ class EditToolbar: UIView {
         backgroundColor = PresentationTheme.current.colors.background
     }
 
-    init(category: MediaLibraryBaseModel) {
-        self.category = category
+    init(model: MediaLibraryBaseModel) {
+        self.model = model
         super.init(frame: .zero)
         setupView()
         setupRightStackView()
