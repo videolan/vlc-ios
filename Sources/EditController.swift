@@ -195,11 +195,10 @@ extension EditController: EditToolbarDelegate {
 
         var message = NSLocalizedString("DELETE_MESSAGE", comment: "")
 
-        // Check if we are deleting media inside a playlist
-        if let collectionModel = model as? CollectionModel {
-            if collectionModel.mediaCollection is VLCMLPlaylist {
-                message = NSLocalizedString("DELETE_MESSAGE_PLAYLIST", comment: "")
-            }
+        if model is PlaylistModel {
+            message = NSLocalizedString("DELETE_MESSAGE_PLAYLIST", comment: "")
+        } else if (model as? CollectionModel)?.mediaCollection is VLCMLPlaylist {
+            message = NSLocalizedString("DELETE_MESSAGE_PLAYLIST_CONTENT", comment: "")
         }
 
         let cancelButton = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
