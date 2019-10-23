@@ -101,6 +101,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         descriptionLabel.text = playlist.numberOfTracksString()
         thumbnailView.image = playlist.thumbnail()
         progressView.isHidden = true
+        newLabel.isHidden = true
     }
 
     func update(videoGroup: VLCMLVideoGroup) {
@@ -111,6 +112,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         descriptionLabel.text = videoGroup.numberOfTracksString()
         thumbnailView.image = videoGroup.thumbnail()
         progressView.isHidden = true
+        newLabel.isHidden = true
     }
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
