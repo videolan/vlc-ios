@@ -41,6 +41,17 @@ class EditButton {
         generatedButton.accessibilityHint = accessibilityHint
         return generatedButton
     }
+
+    @available(iOS 13.0, *)
+    func action(_ handler: @escaping (UIAction) -> Void) -> UIAction {
+        let generatedAction = UIAction(title: title,
+                                       image: UIImage(named: image),
+                                       identifier: UIAction.Identifier(rawValue: image),
+                                       handler: handler)
+        generatedAction.accessibilityLabel = accessibilityLabel
+        generatedAction.accessibilityHint = accessibilityHint
+        return generatedAction
+    }
 }
 
 class EditButtonsFactory {

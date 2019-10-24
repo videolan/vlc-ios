@@ -14,7 +14,7 @@ import Foundation
 
 class MediaCollectionViewCell: BaseCollectionViewCell {
 
-    @IBOutlet private weak var thumbnailView: UIImageView!
+    @IBOutlet weak var thumbnailView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var newLabel: UILabel!

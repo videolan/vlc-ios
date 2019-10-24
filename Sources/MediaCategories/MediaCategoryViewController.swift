@@ -357,6 +357,78 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
     }
 
+    func objects(from modelContent: VLCMLObject) -> [VLCMLObject] {
+        if let media = modelContent as? VLCMLMedia {
+            return [media]
+        } else if let mediaCollection = modelContent as? MediaCollectionModel {
+            return mediaCollection.files() ?? [VLCMLObject]()
+        }
+        return [VLCMLObject]()
+    }
+
+    @available(iOS 13.0, *)
+    override func collectionView(_ collectionView: UICollectionView,
+                                 contextMenuConfigurationForItemAt indexPath: IndexPath,
+                                 point: CGPoint) -> UIContextMenuConfiguration? {
+        let cell = collectionView.cellForItem(at: indexPath)
+        var thumbnail: UIImage? = nil
+        if let cell = cell as? MovieCollectionViewCell {
+            thumbnail = cell.thumbnailView.image
+        } else if let cell = cell as? MediaCollectionViewCell {
+            thumbnail = cell.thumbnailView.image
+        }
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: {
+            if let thumbnail = thumbnail {
+                return CollectionViewCellPreviewController(thumbnail: thumbnail)
+            } else {
+                return nil
+            }
+        }) {
+                [weak self] action in
+                let modelContent = self?.isSearching ?? false ? self?.searchDataSource.objectAtIndex(index: indexPath.row) : self?.model.anyfiles[indexPath.row]
+
+                let actionList = EditButtonsFactory.buttonList(for: self?.model.anyfiles.first)
+                let actions = EditButtonsFactory.generate(buttons: actionList)
+                return UIMenu(title: "", image: nil, identifier: nil, children: actions.map {
+                    switch $0.identifier {
+                    case .addToPlaylist:
+                        return $0.action({
+                            [weak self] _ in
+                            if let modelContent = modelContent {
+                                self?.editController.editActions.objects = self?.objects(from: modelContent) ?? []
+                                self?.editController.editActions.addToPlaylist()
+                            }
+                        })
+                    case .rename:
+                        return $0.action({
+                            [weak self] _ in
+                            if let modelContent = modelContent {
+                                self?.editController.editActions.objects = [modelContent]
+                                self?.editController.editActions.rename()
+                            }
+                        })
+                    case .delete:
+                        return $0.action({
+                            [weak self] _ in
+                            if let modelContent = modelContent {
+                                self?.editController.editActions.objects = [modelContent]
+                                self?.editController.editActions.delete()
+                            }
+                        })
+                    case .share:
+                        return $0.action({
+                            [weak self] _ in
+                            if let modelContent = modelContent {
+                                self?.editController.editActions.objects = self?.objects(from: modelContent) ?? []
+                                self?.editController.editActions.share()
+                            }
+                        })
+                    }
+                })
+            }
+            return configuration
+    }
+
     func createSpotlightItem(media: VLCMLMedia) {
         if KeychainCoordinator.passcodeLockEnabled {
             return
