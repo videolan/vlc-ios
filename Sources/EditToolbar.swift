@@ -20,6 +20,7 @@ class EditToolbar: UIView {
     static let height: CGFloat = 60
     weak var delegate: EditToolbarDelegate?
     private var model: MediaLibraryBaseModel
+
     private var stackView: UIStackView = {
         let stackView = UIStackView()
 
@@ -28,6 +29,7 @@ class EditToolbar: UIView {
 
         return stackView
     }()
+
     private var rightStackView: UIStackView = {
         let rightStackView = UIStackView()
 
@@ -35,6 +37,7 @@ class EditToolbar: UIView {
 
         return rightStackView
     }()
+
     private lazy var shareButton: UIButton = {
         let shareButton = UIButton(type: .system)
         shareButton.addTarget(self, action: #selector(share), for: .touchUpInside)
@@ -45,6 +48,7 @@ class EditToolbar: UIView {
         shareButton.accessibilityHint = NSLocalizedString("SHARE_HINT", comment: "")
         return shareButton
     }()
+
     private lazy var renameButton: UIButton = {
         let renameButton = UIButton(type: .system)
         renameButton.addTarget(self, action: #selector(rename), for: .touchUpInside)
@@ -55,6 +59,7 @@ class EditToolbar: UIView {
         renameButton.accessibilityHint = NSLocalizedString("RENAME_HINT", comment: "")
         return renameButton
     }()
+
     private lazy var deleteButton: UIButton = {
         let deleteButton = UIButton(type: .system)
         deleteButton.addTarget(self, action: #selector(deleteSelection), for: .touchUpInside)
@@ -65,6 +70,7 @@ class EditToolbar: UIView {
         deleteButton.accessibilityHint = NSLocalizedString("DELETE_HINT", comment: "")
         return deleteButton
     }()
+
     private var addToPlaylistButton: UIButton = {
         let addToPlaylistButton = UIButton(type: .system)
         addToPlaylistButton.setTitle(NSLocalizedString("ADD_TO_PLAYLIST", comment: ""), for: .normal)
@@ -138,5 +144,4 @@ class EditToolbar: UIView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
