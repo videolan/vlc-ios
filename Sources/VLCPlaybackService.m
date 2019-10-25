@@ -707,6 +707,15 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
 }
 
+- (void)setShuffleMode:(BOOL)shuffleMode
+{
+    _shuffleMode = shuffleMode;
+
+    if (_shuffleMode) {
+        [_shuffleStack removeAllObjects];
+    }
+}
+
 - (void)next
 {
     NSInteger mediaListCount = _mediaList.count;
