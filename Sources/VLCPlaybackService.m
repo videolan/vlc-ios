@@ -663,13 +663,15 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         } break;
         case VLCMediaPlayerStateEnded:
         case VLCMediaPlayerStateStopped: {
-            [_listPlayer.mediaList lock];
-            NSUInteger listCount = _listPlayer.mediaList.count;
-            [_listPlayer.mediaList unlock];
-            if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1 && self.repeatMode == VLCDoNotRepeat) {
+            NSInteger nextIndex = [self nextMediaIndex];
+
+            if (nextIndex == -1) {
                 _sessionWillRestart = NO;
                 [self stopPlayback];
-                return;
+            } else {
+                [_listPlayer playItemAtNumber:@(nextIndex)];
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
             }
         } break;
         default:
@@ -716,42 +718,55 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     }
 }
 
-- (void)next
+- (NSInteger)nextMediaIndex
 {
+    NSInteger nextIndex = -1;
     NSInteger mediaListCount = _mediaList.count;
+    NSUInteger currentIndex = [_mediaList indexOfMedia:_listPlayer.mediaPlayer.media];
 
-#if TARGET_OS_IOS
-    if (self.repeatMode != VLCRepeatCurrentItem && mediaListCount > 2 && _shuffleMode) {
+    if (self.repeatMode == VLCRepeatCurrentItem) {
+        return currentIndex;
+    }
 
-        NSNumber *nextIndex;
-        NSUInteger currentIndex = [_mediaList indexOfMedia:_listPlayer.mediaPlayer.media];
-
+    if (_shuffleMode && mediaListCount > 2) {
         //Reached end of playlist
         if (_shuffleStack.count + 1 == mediaListCount) {
             if ([self repeatMode] == VLCDoNotRepeat)
-                return;
+                return -1;
             [_shuffleStack removeAllObjects];
         }
 
-        [_shuffleStack addObject:[NSNumber numberWithUnsignedInteger:currentIndex]];
+        [_shuffleStack addObject:@(currentIndex)];
         do {
-            nextIndex = [NSNumber numberWithUnsignedInt:arc4random_uniform((uint32_t)mediaListCount)];
-        } while (currentIndex == nextIndex.unsignedIntegerValue || [_shuffleStack containsObject:nextIndex]);
-
-        [_listPlayer playItemAtNumber:[NSNumber numberWithUnsignedInteger:nextIndex.unsignedIntegerValue]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
-
-        return;
-    }
-#endif
-
-    if (mediaListCount > 1) {
-        [_listPlayer next];
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
+            nextIndex = arc4random_uniform((uint32_t)mediaListCount);
+        } while (currentIndex == nextIndex || [_shuffleStack containsObject:@(nextIndex)]);
     } else {
+        // Normal playback
+        if (currentIndex + 1 < mediaListCount) {
+            nextIndex =  currentIndex + 1;
+        } else if ([self repeatMode] == VLCDoNotRepeat) {
+            nextIndex = -1;
+        }
+    }
+    return nextIndex;
+}
+
+- (void)next
+{
+    if (_mediaList.count == 1) {
         NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackForwardSkipLength];
         [_mediaPlayer jumpForward:skipLength.intValue];
+        return;
     }
+
+    NSInteger nextIndex = [self nextMediaIndex];
+
+    if (nextIndex < 0) {
+        return;
+    }
+
+    [_listPlayer playItemAtNumber:@(nextIndex)];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
 }
 
 - (void)previous
