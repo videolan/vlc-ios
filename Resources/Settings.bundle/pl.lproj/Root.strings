@@ -89,11 +89,13 @@
 "SETTINGS_MEDIA_LIBRARY" = "Biblioteka mediów";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Zmuś VLC do ponownego skanowania biblioteki multimediów";
 "SETTINGS_DECRAPIFY" = "Optymalizuj nazwy elementów do wyświetlania";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Video groups dectection short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Video groups detection default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Video groups detection long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Video groups detection extra long";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Długość wykrywania grup wideo";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Krótka";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Domyślna";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Długa";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Bardzo długa";
+"SETTINGS_SHOW_THUMBNAILS" = "Pokaż miniaturki wideo";
+"SETTINGS_SHOW_ARTWORKS" = "Pokaż okładki muzyczne";
 
 "SETTINGS_FILE_SYNC" = "Synchronizacja plików";
 "SETTINGS_WIFISHARING_IPv6" = "Obsługa protokołu IPv6 dla udostępnienia WiFi";
@@ -102,7 +104,7 @@
 "SETTINGS_UNLINK_ONEDRIVE" = "Odłącz z dysku OneDrive";
 "SETTINGS_FTP_TEXT_ENCODING" = "Kodowanie tekstu dla połączeń FTP";
 
-"SETTINGS_ARTWORK" = "Grafika";
-"SETTINGS_DOWNLOAD_ARTWORK" = "Pobierz grafikę";
+"SETTINGS_ARTWORK" = "Okładka";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Pobierz okładkę";
 
 "ABOUT_APP_TV" = "O VLC dla tvOS";
