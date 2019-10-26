@@ -290,7 +290,8 @@
 "DELETE_ITEM_HINT" = "Enfoncez %@ pour supprimer"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Confirmer la suppression de la sélection";
-"DELETE_MESSAGE_PLAYLIST" = "Confirmer la suppression de la sélection d'une liste de lecture\nLes médias ne seront pas effacés";
+"DELETE_MESSAGE_PLAYLIST" = "Êtes-vous sûr de vouloir supprimer la liste de lecture sélectionnée ?\nLes fichiers multimédia associés ne seront pas supprimés.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Êtes-vous sûr de vouloir supprimer la sélection de fichier multimédia de la liste de lecture ?\nLes fichiers multimédia ne seront pas supprimés.";
 "DELETE_TITLE" = "Supprimer la sélection";
 
 //Drag and Drop
@@ -395,3 +396,10 @@
 /* Settings - Force rescan alert */
 "FORCE_RESCAN_TITLE" = "Forcer la réanalyse de la médiathèque";
 "FORCE_RESCAN_MESSAGE" = "Voulez-vous forcer VLC à réanalyser la médiathèque ?\nCela pourrait prendre du temps.";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "Avertissement de connexion SMBv1";
+"SMBV1_WARN_DESCRIPTION" = "Nous avons détecté un ancien protocole (SMBv1).\nÊtes-vous vraiment sûr de continuer avec SMBv1?\nNous vous conseillons de mettre à niveau ou de modifier les paramètres de votre serveur.";
+"SMBV1_CONTINUE" = "Continuer avec SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Essayer SMBv2 / v3";

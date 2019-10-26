@@ -90,10 +90,12 @@
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forcer la réanalyse de la médiathèque";
 "SETTINGS_DECRAPIFY" = "Optimiser les noms des éléments pour l'affichage";
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Longueur pour la détection des groupes vidéo";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Longueur court pour la détection des groupes vidéo";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Longueur par défaut pour la détection des groupes vidéo";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Longueur longue pour la détection des groupes vidéo";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Longueur extra-longue pour la détection des groupes vidéo";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Court";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Défaut";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Très long";
+"SETTINGS_SHOW_THUMBNAILS" = "Afficher les miniatures des fichiers vidéo.";
+"SETTINGS_SHOW_ARTWORKS" = "Afficher les jaquettes des fichiers audio.";
 
 "SETTINGS_FILE_SYNC" = "Synchronisation de fichier";
 "SETTINGS_WIFISHARING_IPv6" = "Support IPV6 pour partage Wi-Fi";
