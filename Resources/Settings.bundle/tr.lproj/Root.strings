@@ -89,11 +89,13 @@
 "SETTINGS_MEDIA_LIBRARY" = "Ortam kitaplığı";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC ortam kitaplığını yeniden taramaya zorlansın";
 "SETTINGS_DECRAPIFY" = "Öge adları uygun şekilde görüntülensin";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Video groups dectection short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Video groups detection default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Video groups detection long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Video groups detection extra long";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Görüntü grupları algılama derinliği";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Kısa";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Varsayılan";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Uzun";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Çok uzun";
+"SETTINGS_SHOW_THUMBNAILS" = "Görüntü küçük görselleri görüntülensin";
+"SETTINGS_SHOW_ARTWORKS" = "Ses kapak görselleri görüntülensin";
 
 "SETTINGS_FILE_SYNC" = "Dosya Eşitleme";
 "SETTINGS_WIFISHARING_IPv6" = "WiFi Paylaşımı için IPv6 desteği";
