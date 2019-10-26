@@ -290,7 +290,8 @@
 "DELETE_ITEM_HINT" = "%@ で削除"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "選択されたものを削除してもいいですか？";
-"DELETE_MESSAGE_PLAYLIST" = "プレイリストから選択したものを削除してもいいですか？\nメディア項目は削除されません";
+"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_TITLE" = "選択したものを削除";
 
 //Drag and Drop
@@ -316,7 +317,7 @@
 "MOVIES" = "映画";
 "SONGS" = "楽曲";
 "PLAYLISTS" = "プレイリスト";
-"VIDEO_GROUPS" = "Video groups";
+"VIDEO_GROUPS" = "ビデオグループ";
 
 "MODIFIED_DATE" = "更新日付";
 "NAME" = "名前";
@@ -366,9 +367,9 @@
 "ALBUM" = "アルバム";
 "FILENAME" = "ファイル名";
 "TRACK_NUMBER" = "トラック番号";
-"NB_AUDIO" = "Number of audio";
-"NB_MEDIA" = "Number of media";
-"NB_VIDEO" = "Number of video";
+"NB_AUDIO" = "オーディオ数";
+"NB_MEDIA" = "メディア数";
+"NB_VIDEO" = "ビデオ数";
 
 // VLCNetworkLoginTVViewController
 
@@ -395,3 +396,10 @@
 /* Settings - Force rescan alert */
 "FORCE_RESCAN_TITLE" = "メディアライブラリを強制的に再スキャン";
 "FORCE_RESCAN_MESSAGE" = "メディアライブラリをVLCに強制的に再スキャンさせますか?\n実行には時間がかかります。";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
+"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
+"SMBV1_CONTINUE" = "Continue with SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
