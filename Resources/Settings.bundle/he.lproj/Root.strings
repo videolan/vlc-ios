@@ -96,6 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "ארוך במיוחד";
 "SETTINGS_SHOW_THUMBNAILS" = "הצגת תמונות ממוזערות של סרטונים";
 "SETTINGS_SHOW_ARTWORKS" = "הצגת מיצג אומנותי של מקטע שמע";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "לכלול את תיקיות המדיה בגיבוי המכשיר";
 
 "SETTINGS_FILE_SYNC" = "סנכרון קבצים";
 "SETTINGS_WIFISHARING_IPv6" = "תמיכה ב IPv6 לשיתוף באמצעות WiFi";
