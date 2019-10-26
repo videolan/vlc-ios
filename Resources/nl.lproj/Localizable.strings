@@ -290,7 +290,8 @@
 "DELETE_ITEM_HINT" = "Druk op %@ om te verwijderen"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Bevestig het wissen van de selectie";
-"DELETE_MESSAGE_PLAYLIST" = "Bevestig het wissen van de selectie uit de afspeellijst\nMedia-items worden niet verwijderd";
+"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_TITLE" = "Selectie verwijderen";
 
 //Drag and Drop
@@ -395,3 +396,10 @@
 /* Settings - Force rescan alert */
 "FORCE_RESCAN_TITLE" = "Opnieuw scannen van mediabibliotheek forceren";
 "FORCE_RESCAN_MESSAGE" = "Wilt u VLC dwingen om uw mediabibliotheek opnieuw te scannen?\nHet kan enige tijd duren.";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
+"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
+"SMBV1_CONTINUE" = "Continue with SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
