@@ -1,6 +1,6 @@
-"STORE_DESCRIPTION" = "VLC för iOS är en portering av den fria mediaspelaren VLC media player till iPad, iPhone och iPod touch.\nDen kan direkt spela upp alla dina filmer, TV-program och musik i de flesta formaten utan att behöva konvertera.\nDen stödjer filsynkronisering med Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direkt nedladdning och genom WiFi-delning såväl som strömning från SMB-, FTP- och UPnP/DLNA-mediaservrar samt webben.\nVLC tillhandahåller stöd för avancerade undertexter inklusive full SSA-kompatibilitet, flerspårigt ljud och kontroll för hastighetsuppspelning.\n\nVLC för iOS är helt fritt och har öppen källkod.";
+"STORE_DESCRIPTION" = "VLC for iOS är en portering av den fria mediaspelaren VLC media player till iPad, iPhone och iPod touch.\nDen kan spela upp alla dina filmer, TV-program och musik i de flesta formaten direkt utan att behöva konvertera.\nDen stödjer filsynkronisering med Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direkt nedladdning och genom WiFi-delning såväl som strömning från SMB-, FTP- och UPnP/DLNA-mediaservrar samt webben.\nVLC tillhandahåller stöd för avancerade undertexter inklusive full SSA-kompatibilitet, flerspårigt ljud och kontroll för uppspelningshastighet.\n\nVLC for iOS är helt fritt och har öppen källkod.";
 
-"STORE_DESCRIPTION_TV" = "VLC media player är en fri och plattformsoberoende multimediaspelare med öppen källkod.\nDen kan spela upp alla dina filmer, TV-program och musik i de flesta formaten utan att behöva konvertera.\nDen tillåter strömning från från molntjänster (Dropbox, OneDrive, Box), fjärruppspelning från din Mac eller PC via ett webbgränssnitt såväl som strömning från SMB-, FTP- och UPnP/DLNA-mediaservrar samt webben.\nVLC tillhandahåller stöd för avancerade undertexter inklusive full SSA-kompatibilitet, flerspårigt ljud och kontroll för hastighetsuppspelning.\n\nVLC för iOS är helt fritt och har öppen källkod.\n\nMetadata och omslag tillhandahålls av film- och musikdatabaserna TMDb och Hatchet, som drivs av dess gemenskaper.";
+"STORE_DESCRIPTION_TV" = "VLC media player är en fri och plattformsoberoende multimediaspelare med öppen källkod.\nDen kan spela upp alla dina filmer, TV-program och musik i de flesta formaten direkt utan att behöva konvertera.\nDen tillåter strömning från molntjänster (Dropbox, OneDrive, Box), fjärruppspelning från din Mac eller PC via ett webbgränssnitt såväl som strömning från SMB-, FTP- och UPnP/DLNA-mediaservrar samt webben.\nVLC tillhandahåller stöd för avancerade undertexter inklusive full SSA-kompatibilitet, flerspårigt ljud och kontroll för uppspelningshastighet.\n\nVLC for iOS är helt fritt och har öppen källkod.\n\nMetadata och omslag tillhandahålls av film- och musikdatabaserna TMDb och Hatchet, som drivs av dess gemenskaper.";
 
 "CHOOSE_AUDIO_TRACK" = "Välj ljudspår";
 "CHOOSE_SUBTITLE_TRACK" = "Välj undertextspår";
@@ -290,7 +290,8 @@
 "DELETE_ITEM_HINT" = "Tryck på %@ för att radera"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Bekräfta om markeringen ska raderas";
-"DELETE_MESSAGE_PLAYLIST" = "Bekräfta om markeringen ska raderas från spellistan\nMediaobjekten kommer inte att raderas";
+"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_TITLE" = "Radera markering";
 
 //Drag and Drop
@@ -395,3 +396,10 @@
 /* Settings - Force rescan alert */
 "FORCE_RESCAN_TITLE" = "Tvinga genomsökning av mediabiblioteket";
 "FORCE_RESCAN_MESSAGE" = "Vill du tvinga VLC att söka igenom ditt mediabibliotek?\nDet kan ta en stund.";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
+"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
+"SMBV1_CONTINUE" = "Continue with SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
