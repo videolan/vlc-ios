@@ -290,7 +290,8 @@
 "DELETE_ITEM_HINT" = "Kattintson a(z) %@ gombra a törléshez"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "A kiválasztás törlésének megerősítése";
-"DELETE_MESSAGE_PLAYLIST" = "Erősítse meg a kiválasztás törlését a lejátszólistáról\nA médiaelemek nem lesznek törölve";
+"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_TITLE" = "Kiválasztás törlése";
 
 //Drag and Drop
@@ -316,7 +317,7 @@
 "MOVIES" = "Filmek";
 "SONGS" = "Számok";
 "PLAYLISTS" = "Lejátszólisták";
-"VIDEO_GROUPS" = "Video groups";
+"VIDEO_GROUPS" = "Videócsoportok";
 
 "MODIFIED_DATE" = "Módosítás dátuma";
 "NAME" = "Név";
@@ -366,9 +367,9 @@
 "ALBUM" = "Album";
 "FILENAME" = "Fájlnév";
 "TRACK_NUMBER" = "Szám sorszáma";
-"NB_AUDIO" = "Number of audio";
-"NB_MEDIA" = "Number of media";
-"NB_VIDEO" = "Number of video";
+"NB_AUDIO" = "Hangok száma";
+"NB_MEDIA" = "Médiák száma";
+"NB_VIDEO" = "Videók száma";
 
 // VLCNetworkLoginTVViewController
 
@@ -395,3 +396,10 @@
 /* Settings - Force rescan alert */
 "FORCE_RESCAN_TITLE" = "Médiatár átvizsgálásának kényszerítése";
 "FORCE_RESCAN_MESSAGE" = "Biztos, hogy arra kényszeríti a VLC-t, hogy újra átvizsgálja a médiatárat?\nEz eltarthat egy ideig.";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
+"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
+"SMBV1_CONTINUE" = "Continue with SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
