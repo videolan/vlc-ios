@@ -89,6 +89,13 @@
 "SETTINGS_MEDIA_LIBRARY" = "Knižnica médií";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Vynútiť si preskenovanie knižnice médií aplikáciou VLC";
 "SETTINGS_DECRAPIFY" = "Optimalizovať názvy položiek pre displej";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Dĺžka detekcie skupín videí";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Krátke";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Predvolené";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Dlhé";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Mimoriadne dlhé";
+"SETTINGS_SHOW_THUMBNAILS" = "Zobraziť náhľady videa";
+"SETTINGS_SHOW_ARTWORKS" = "Zobraziť vyobrazenia obalov";
 
 "SETTINGS_FILE_SYNC" = "Synchronizácia súboru";
 "SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pre zdieľanie cez WiFi";
