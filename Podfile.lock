@@ -79,7 +79,7 @@ PODS:
   - SimulatorStatusMagic (2.4.1)
   - SwiftLint (0.25.1)
   - TVVLCKit (3.3.6)
-  - upnpx (1.4.1)
+  - upnpx (1.4.2)
   - VLC-WhiteRaccoon (1.0.0)
   - VLCMediaLibraryKit (0.6.2):
     - MobileVLCKit
@@ -106,7 +106,7 @@ DEPENDENCIES:
   - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
   - TVVLCKit (= 3.3.6)
-  - upnpx (~> 1.4.0)
+  - upnpx (~> 1.4.2)
   - VLC-WhiteRaccoon
   - VLCMediaLibraryKit (= 0.6.2)
   - XKKeychain (~> 1.0)
@@ -194,12 +194,12 @@ SPEC CHECKSUMS:
   SimulatorStatusMagic: 28d4a9d1a500ac7cea0b2b5a43c1c6ddb40ba56c
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   TVVLCKit: c568ead8117ed607f837f1e9579500abe5fb4ed0
-  upnpx: f2a1b44c095b90e0a017ec0394e367053e78c31f
+  upnpx: 80b6f30273db0b477f803a94d6e394b39a5d03ad
   VLC-WhiteRaccoon: 1e7e59b0568959135a89d09c416d1e11a5d9a986
   VLCMediaLibraryKit: 37bb14b691994a49bcba40873c610c521e76122c
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: fcee9d421bcf0fa0369868aaf4810cfd6a7f09de
+PODFILE CHECKSUM: e6d975d30ab1d5a016b0651cc9dd798f315b393a
 
 COCOAPODS: 1.8.3
