@@ -61,7 +61,7 @@
 "BUTTON_DELETE" = "Iscantzella";
 "BUTTON_OK" = "AB";
 "BUTTON_CONTRIBUTE" = "Contribui";
-"BUTTON_CONNECT" = "Cunnete";
+"BUTTON_CONNECT" = "Connete·ti";
 "BUTTON_RENAME" = "Càmbia nùmene";
 "BUTTON_LEARN_MORE" = "Pro nde ischire de prus";
 "BUTTON_LOGOUT" = "Essi";
@@ -75,7 +75,7 @@
 "BUTTON_RENDERER" = "Dispositivos de trasmissione";
 "BUTTON_RENDERER_HINT" = "Ammustra unu menù cun sos dispositivos de trasmissione disponìbiles";
 
-"UPGRADING_LIBRARY" = "Agiornende sa regorta multimediale";
+"UPGRADING_LIBRARY" = "Agiornende sa biblioteca multimediale";
 "UNKNOWN" = "Disconnotu";
 
 "OPEN_NETWORK" = "Aberi flussu de retza";
@@ -84,7 +84,7 @@
 "HTTP_UPLOAD_SERVER_OFF" = "Server non ativu";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "Peruna connessione WiFi ativa";
 "OPEN_STREAM_OR_DOWNLOAD" = "Cheres iscarrigare o riproduire custu URL?";
-"SHARED_VLC_IOS_LIBRARY" = "Regorta cumpartzida de VLC pro iOS";
+"SHARED_VLC_IOS_LIBRARY" = "Biblioteca cumpartzida de VLC pro iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servers pro sos documentos (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
@@ -154,7 +154,7 @@
 "NO_FILES" = "Perunu documentu suportadu";
 "DOWNLOADING" = "Iscarrighende...";
 "REMAINING_TIME" = "Tempus chi abarrat: %@";
-"BIOMETRIC_UNLOCK" = "Isblocu regorta multimediale\nAnnulla pro insertare su còdighe de seguresa";
+"BIOMETRIC_UNLOCK" = "Isblocu biblioteca multimediale\nAnnulla pro insertare su còdighe de seguresa";
 
 //PAPasscode Strings that we need to localize for them
 "%d Failed Passcode Attempts" = "%d tentativos de insertada de su còdighe crae fallidos";
@@ -175,7 +175,7 @@
 "ON" = "Allutu";
 "OFF" = "Istudadu";
 
-"EMPTY_LIBRARY" = "Regorta multimediale bòida";
+"EMPTY_LIBRARY" = "Biblioteca multimediale bòida";
 "EMPTY_LIBRARY_LONG" = "Pro sa riprodutziones podes trasmìtere documentos multimediales dae unu server in sa retza locale tua, dae sa Nue o sincronizare sos documentos in su dispositivu tuo impreende using iTunes, WiFi Upload àteros servìtzios de Nue.";
 
 "EMPTY_PLAYLIST" = "Iscalita bòida";
@@ -290,7 +290,8 @@
 "DELETE_ITEM_HINT" = "Incarca %@ pro iscantzellare"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Cunfirma s'iscantzellamentu de sa seletzione";
-"DELETE_MESSAGE_PLAYLIST" = "Cunfirma s'iscantzellamentu de sa seletzione dae s'iscalita\nSos elementos multimediales non benint iscantzellados";
+"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_TITLE" = "Iscantzella sa seletzione";
 
 //Drag and Drop
@@ -316,6 +317,7 @@
 "MOVIES" = "Films";
 "SONGS" = "Branos";
 "PLAYLISTS" = "Iscalitas";
+"VIDEO_GROUPS" = "Grupos de vìdeos";
 
 "MODIFIED_DATE" = "Data modificada";
 "NAME" = "Nùmene";
@@ -365,6 +367,9 @@
 "ALBUM" = "Album";
 "FILENAME" = "Nùmene documentu";
 "TRACK_NUMBER" = "Nùmeru rasta";
+"NB_AUDIO" = "Nùmeru de documentos àudio";
+"NB_MEDIA" = "Nùmeru de documentos multimediales";
+"NB_VIDEO" = "Nùmeru de vìdeos";
 
 // VLCNetworkLoginTVViewController
 
@@ -391,3 +396,10 @@
 /* Settings - Force rescan alert */
 "FORCE_RESCAN_TITLE" = "Fortza un'iscansidura noa de sa biblioteca multimediale";
 "FORCE_RESCAN_MESSAGE" = "Cheres fortzare VLC a iscansire torra sa biblioteca multimediale tua?\nBi diat pòdere chèrrere unu pagu de tempus.";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
+"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
+"SMBV1_CONTINUE" = "Continue with SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";

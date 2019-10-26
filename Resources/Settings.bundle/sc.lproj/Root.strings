@@ -86,9 +86,16 @@
 "SETTINGS_SEND_FEEDBACK" = "Imbia una sinnalatzione";
 "SETTINGS_SEND_RATING" = "Pro praghere vàluta VLC pro iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Regorta multimediale";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Fortza un'iscansidura noa de sa regorta multimediale";
+"SETTINGS_MEDIA_LIBRARY" = "Biblioteca multimediale";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Fortza un'iscansidura noa de sa biblioteca multimediale";
 "SETTINGS_DECRAPIFY" = "Otimiza sos nùmenes de sos elementos pro sa visualizatzione";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Longària pro su reconnoschimentu de grupos de vìdeos";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Curtza";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Predefinida";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "LOnga";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Longa meda";
+"SETTINGS_SHOW_THUMBNAILS" = "Ammustra sas miniaturas de sos vìdeos";
+"SETTINGS_SHOW_ARTWORKS" = "Ammustra sas coberteddas de sas rastas àudio";
 
 "SETTINGS_FILE_SYNC" = "Sincronizatzione de documentos";
 "SETTINGS_WIFISHARING_IPv6" = "Suportu IPv6 pro sa cumpartzidura WiFi";
