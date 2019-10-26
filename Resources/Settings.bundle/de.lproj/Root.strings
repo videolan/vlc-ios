@@ -96,6 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra lang";
 "SETTINGS_SHOW_THUMBNAILS" = "Video-Vorschau anzeigen";
 "SETTINGS_SHOW_ARTWORKS" = "Musik-Cover anzeigen";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Medienbibliothek in Gerätesicherung mit einbeziehen";
 
 "SETTINGS_FILE_SYNC" = "Dateiaustausch";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-Unterstützung für WLAN-Freigabe";
