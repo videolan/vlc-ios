@@ -89,11 +89,13 @@
 "SETTINGS_MEDIA_LIBRARY" = "Biblioteca de mídias";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forçar o VLC a verificar novamente a biblioteca de mídias";
 "SETTINGS_DECRAPIFY" = "Otimizar os nomes dos itens para exibição";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Video groups dectection short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Video groups detection default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Video groups detection long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Video groups detection extra long";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Tamanho para detecção de grupos de vídeos";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Curto";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Padrão";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Extenso";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Muito extenso";
+"SETTINGS_SHOW_THUMBNAILS" = "Exibir miniaturas de vídeos";
+"SETTINGS_SHOW_ARTWORKS" = "Exibir capas de áudios";
 
 "SETTINGS_FILE_SYNC" = "Sincronização de arquivo";
 "SETTINGS_WIFISHARING_IPv6" = "Suporte ao IPv6 para compartilhamento WiFi";
