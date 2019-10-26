@@ -1,29 +1,29 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
-"SETTINGS_PRIVACY_TITLE" = "Privacy";
+"SETTINGS_PRIVACY_TITLE" = "Privātums";
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
 "SETTINGS_THEME_BRIGHT" = "Bright theme";
 "SETTINGS_THEME_DARK" = "Dark theme";
 "SETTINGS_THEME_SYSTEM" = "Automatic";
-"SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
-"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_PRIVACY_SUBTITLE" = "Atvērt iestatījumos";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Droša satura pieeja";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Tumšā tēma";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Laika stiepšana audio";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio atskaņošanu fonā";
 "SETTINGS_GENERIC_TITLE" = "Vispārējs";
 "SETTINGS_PASSCODE_LOCK" = "Patentatslēgas Bloķēšana";
-"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
-"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
-"SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
-"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
-"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
-"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Never";
-"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
-"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Always";
-"SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Atļaut skrāriena ID atbloķēšanu";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Atļaut sejas ID atbloķēšanu";
+"SETTINGS_VIDEO_FULLSCREEN" = "Atskaņot video pilnekrāna režīmā";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Turpināt video atskaņošanu";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Turpināt audio atskaņošanu";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Nekad";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Jautāt";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Vienmēr";
+"SETTINGS_NETWORK_PLAY_ALL" = "Automātiski atskaņot nākamo vienību";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Atbloķēšanas filtrs";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Nav atbloķēšanas (ātrākais)";
@@ -37,15 +37,15 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Augsts Latentums";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Augstākais Latentums";
 
-"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Default playback speed";
+"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Noklusētais atskaņošanas ātrums";
 
 "SETTINGS_GESTURES" = "Regulēt atskaņošanu ar žestiem";
-"SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
-"SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
-"SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
-"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
+"SETTINGS_GESTURES_VOLUME" = "Pavilk uz augšu/leju, lai piekļūtu skaļumam";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Nospiest atskaņot/pauze";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Pavilk uz augšu/leju, lai piekļūtu spilgtumam";
+"SETTINGS_GESTURES_SEEK" = "Pavilk pa labi/kreisi, lai meklētu";
+"SETTINGS_GESTURES_CLOSE" = "Savilkt, lai aizvērtu";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Mainīgs lēciena ilgums";
 
 "SETTINGS_SUBTITLES_TITLE" = "Subtitri";
 "SETTINGS_SUBTITLES_FONT" = "Fonts";
@@ -78,13 +78,13 @@
 "SETTINGS_DEINTERLACE_OFF" = "Izslēgt";
 "SETTINGS_DEINTERLACE_AUTO" = "Automātisks";
 
-"SETTINGS_HWDECODING" = "Hardware Decoding";
-"SETTINGS_HWDECODING_ON" = "On";
-"SETTINGS_HWDECODING_OFF" = "Off";
+"SETTINGS_HWDECODING" = "Aparatūras atkodēšana";
+"SETTINGS_HWDECODING_ON" = "Ieslēgts";
+"SETTINGS_HWDECODING_OFF" = "Izslēgts";
 
-"SETTINGS_FEEDBACK" = "Feedback";
-"SETTINGS_SEND_FEEDBACK" = "Send Feedback";
-"SETTINGS_SEND_RATING" = "Please Rate VLC for iOS";
+"SETTINGS_FEEDBACK" = "Atsauksmes";
+"SETTINGS_SEND_FEEDBACK" = "Nosūtīt atsauksmi";
+"SETTINGS_SEND_RATING" = "Lūdzu novērtējiet VLC iOS lietotni";
 
 "SETTINGS_MEDIA_LIBRARY" = "Media library";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
@@ -96,15 +96,16 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra long";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
 "SETTINGS_FILE_SYNC" = "Faila sinhronizācija";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for WiFi Sharing";
-"SETTINGS_UNLINK_DROPBOX" = "Atsaistīt no Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Atsaistīt no Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Unlink from OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Text Encoding for FTP connections";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 atbaulsts WiFi koplietošanai";
+"SETTINGS_UNLINK_DROPBOX" = "Atiestatīt no Dropbox";
+"SETTINGS_UNLINK_GOOGLEDRIVE" = "Atiestatīt no Google Drive";
+"SETTINGS_UNLINK_ONEDRIVE" = "Atiestatīt no OneDrive";
+"SETTINGS_FTP_TEXT_ENCODING" = "Teksta enkodēšana FTP savienojumam";
 
-"SETTINGS_ARTWORK" = "Artwork";
-"SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
+"SETTINGS_ARTWORK" = "Mākslas darbs";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Lejupielādēt mākslas darbu";
 
-"ABOUT_APP_TV" = "About VLC for tvOS";
+"ABOUT_APP_TV" = "Par VLC tvOS lietotni";
