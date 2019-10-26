@@ -290,7 +290,8 @@
 "DELETE_ITEM_HINT" = "按下 %@ 來刪除"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "確認刪除選取的項目";
-"DELETE_MESSAGE_PLAYLIST" = "確認刪除播放清單中選取的項目\n媒體項目不會被刪除";
+"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_TITLE" = "刪除選取的項目";
 
 //Drag and Drop
@@ -316,7 +317,7 @@
 "MOVIES" = "電影";
 "SONGS" = "歌曲";
 "PLAYLISTS" = "播放列表";
-"VIDEO_GROUPS" = "Video groups";
+"VIDEO_GROUPS" = "影片分組";
 
 "MODIFIED_DATE" = "修改日期";
 "NAME" = "名稱";
@@ -366,9 +367,9 @@
 "ALBUM" = "專輯";
 "FILENAME" = "檔案名稱";
 "TRACK_NUMBER" = "音軌編號";
-"NB_AUDIO" = "Number of audio";
-"NB_MEDIA" = "Number of media";
-"NB_VIDEO" = "Number of video";
+"NB_AUDIO" = "音訊數量";
+"NB_MEDIA" = "媒體數量";
+"NB_VIDEO" = "影片數量";
 
 // VLCNetworkLoginTVViewController
 
@@ -395,3 +396,10 @@
 /* Settings - Force rescan alert */
 "FORCE_RESCAN_TITLE" = "強制重新掃描媒體櫃";
 "FORCE_RESCAN_MESSAGE" = "您要強制 VLC 重新掃描媒體櫃嗎？這可能需要一些時間。";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
+"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
+"SMBV1_CONTINUE" = "Continue with SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
