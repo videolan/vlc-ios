@@ -290,8 +290,8 @@
 "DELETE_ITEM_HINT" = "Kattintson a(z) %@ gombra a törléshez"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "A kiválasztás törlésének megerősítése";
-"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
+"DELETE_MESSAGE_PLAYLIST" = "Biztos, hogy törli a kiválasztott lejátszólistát?\nA kapcsolódó médiafájlok nem lesznek törölve.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Biztos, hogy eltávolítja a kiválasztott médiafájlt a lejátszólistáról?\nEzek nem lesznek törölve a lemezről.";
 "DELETE_TITLE" = "Kiválasztás törlése";
 
 //Drag and Drop
@@ -399,7 +399,7 @@
 
 // Local Network
 
-"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
-"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
-"SMBV1_CONTINUE" = "Continue with SMBv1";
-"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+"SMBV1_WARN_TITLE" = "SMBv1 kapcsolati figyelmeztetés";
+"SMBV1_WARN_DESCRIPTION" = "Egy régi protokollt (SMBv1) észleltünk.\nBiztos, hogy folytatja az SMBv1-el?\nA kiszolgáló frissítését vagy a beállítások módosítását javasoljuk.";
+"SMBV1_CONTINUE" = "Folytatás az SMBv1-el";
+"SMBV1_NEXT_PROTOCOL" = "SMBv2/v3 kipróbálása";
