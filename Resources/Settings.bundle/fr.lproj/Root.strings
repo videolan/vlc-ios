@@ -94,8 +94,9 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Défaut";
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Très long";
-"SETTINGS_SHOW_THUMBNAILS" = "Afficher les miniatures des fichiers vidéo.";
-"SETTINGS_SHOW_ARTWORKS" = "Afficher les jaquettes des fichiers audio.";
+"SETTINGS_SHOW_THUMBNAILS" = "Afficher les miniatures des fichiers vidéo";
+"SETTINGS_SHOW_ARTWORKS" = "Afficher les jaquettes des fichiers audio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inclure la médiathèque dans la sauvegarde de l'appareil";
 
 "SETTINGS_FILE_SYNC" = "Synchronisation de fichier";
 "SETTINGS_WIFISHARING_IPv6" = "Support IPV6 pour partage Wi-Fi";
