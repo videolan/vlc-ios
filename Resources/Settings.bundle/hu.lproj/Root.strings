@@ -96,6 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra hosszú";
 "SETTINGS_SHOW_THUMBNAILS" = "Videó bélyegképek megjelenítése";
 "SETTINGS_SHOW_ARTWORKS" = "Hang grafikák megjelenítése";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "A médiatár belevétele az eszköz biztonsági mentésébe";
 
 "SETTINGS_FILE_SYNC" = "Fájlszinkronizáció";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 támogatás a WiFi megosztáshoz";
