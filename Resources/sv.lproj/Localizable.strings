@@ -290,8 +290,8 @@
 "DELETE_ITEM_HINT" = "Tryck på %@ för att radera"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Bekräfta om markeringen ska raderas";
-"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
+"DELETE_MESSAGE_PLAYLIST" = "Är du säker på att du vill radera den markerade spellistan?\nDe associerade mediafilerna kommer inte att raderas.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Är du säker på att du vill ta bort markerade mediafiler från spellistan?\nDe kommer inte att raderas från hårddisken.";
 "DELETE_TITLE" = "Radera markering";
 
 //Drag and Drop
@@ -399,7 +399,7 @@
 
 // Local Network
 
-"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
-"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
-"SMBV1_CONTINUE" = "Continue with SMBv1";
-"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+"SMBV1_WARN_TITLE" = "Varning om SMBv1-anslutning";
+"SMBV1_WARN_DESCRIPTION" = "Vi upptäckte ett gammalt protokoll (SMBv1).\nÄr du säker på att du vill fortsätta med SMBv1?\nVi råder dig att uppgradera eller ändra dina serverinställningar.";
+"SMBV1_CONTINUE" = "Fortsätt med SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Prova SMBv2/v3";
