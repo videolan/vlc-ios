@@ -1,5 +1,23 @@
 # Changelog
 
+## iOS [3.2.3]
+
+· Add sorting into media collections
+· Add settings to hide thumbnails and artwork
+· Fix shuffle mode
+· Fix right to left experience for media players
+· Fix optimize name setting
+· Fix Fritzbox UPnP listing
+· Fix cell height in settings
+· Fix progress bar being shown for media collections
+· Fix undefined media names when importing through Wi-Fi
+· Fix crash with "Open in" activity for iPads
+· Fix potential crash after media deletion
+· Fix potential crash with external and Chromecast devices
+· Rework overall edit mode layout and behaviour
+· Various SMB improvements
+· Various media library stability improvements
+
 ## iOS [3.2.2]
 
 · Add automatic video grouping by name
