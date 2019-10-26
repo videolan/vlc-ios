@@ -90,10 +90,12 @@
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "បង្កើន​ប្រសិទ្ធភាព​ឈ្មោះ​ធាតុ​សម្រាប់​ការ​បង្ហាញ";
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Video groups dectection short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Video groups detection default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Video groups detection long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Video groups detection extra long";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Short";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Default";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra long";
+"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 
 "SETTINGS_FILE_SYNC" = "ការ​ធ្វើ​សមកាលកម្ម​ឯកសារ";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 ទទួល​ស្គាល់​ការ​ចែក​ចាយ​តាម​ WiFi";
