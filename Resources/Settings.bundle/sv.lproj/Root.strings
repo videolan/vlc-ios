@@ -96,6 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra lång";
 "SETTINGS_SHOW_THUMBNAILS" = "Visa videominiatyrer";
 "SETTINGS_SHOW_ARTWORKS" = "Visa ljudomslag";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inkludera mediabibliotek från enhetens säkerhetskopia";
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-stöd för WiFi-delning";
