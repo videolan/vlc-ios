@@ -86,9 +86,16 @@
 "SETTINGS_SEND_FEEDBACK" = "Hantar Maklumbalas";
 "SETTINGS_SEND_RATING" = "Sila Beri Penarafan VLC untuk iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Pustaka media";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Paksa VLC mengimbas semula pustaka media";
 "SETTINGS_DECRAPIFY" = "Optimumkan nama item untuk paparan";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Tempoh pengesanan kumpulan video";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Short";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Default";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra long";
+"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 
 "SETTINGS_FILE_SYNC" = "Penyegerakan Fail";
 "SETTINGS_WIFISHARING_IPv6" = "Sokongan IPv6 untuk Perkongsian WiFi";

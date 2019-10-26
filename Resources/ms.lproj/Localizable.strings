@@ -68,7 +68,7 @@
 "BUTTON_CONTINUE" = "Teruskan";
 "BUTTON_SET" = "Tetap";
 "BUTTON_RESET" = "Tetap Semula";
-"BUTTON_RESCAN" = "Rescan";
+"BUTTON_RESCAN" = "Imbas Semula";
 "PRIVATE_PLAYBACK_TOGGLE" = "Main Balik Persendirian";
 "SCAN_SUBTITLE_TOGGLE" = "Imbas untuk Sarikata (http-sahaja)";
 
@@ -290,7 +290,8 @@
 "DELETE_ITEM_HINT" = "Tekan %@ untuk Padam"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Sahkan pemadaman pemilihan";
-"DELETE_MESSAGE_PLAYLIST" = "Sahkan pemadaman pemilihan melalui senarai main\nItem media tidak dipadamkan";
+"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_TITLE" = "Padam Pemilihan";
 
 //Drag and Drop
@@ -316,6 +317,7 @@
 "MOVIES" = "Cereka";
 "SONGS" = "Lagu";
 "PLAYLISTS" = "Senarai Main";
+"VIDEO_GROUPS" = "Kumpulan video";
 
 "MODIFIED_DATE" = "Tarikh ubah suai";
 "NAME" = "Nama";
@@ -365,6 +367,9 @@
 "ALBUM" = "Album";
 "FILENAME" = "Nama fail";
 "TRACK_NUMBER" = "Nombor trek";
+"NB_AUDIO" = "Bilangan audio";
+"NB_MEDIA" = "Bilangan media";
+"NB_VIDEO" = "Bilangan video";
 
 // VLCNetworkLoginTVViewController
 
@@ -389,5 +394,12 @@
 "MORE_OPTIONS_HEADER_TITLE" = "Pilihan Video";
 
 /* Settings - Force rescan alert */
-"FORCE_RESCAN_TITLE" = "Force media library rescan";
-"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
+"FORCE_RESCAN_TITLE" = "Paksa imbas semula pustaka media";
+"FORCE_RESCAN_MESSAGE" = "Anda mahu paksa VLC mengimbas semula pustaka media anda?\nIa mengambil masa.";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
+"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
+"SMBV1_CONTINUE" = "Continue with SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
