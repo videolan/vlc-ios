@@ -96,6 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Çok uzun";
 "SETTINGS_SHOW_THUMBNAILS" = "Görüntü küçük görselleri görüntülensin";
 "SETTINGS_SHOW_ARTWORKS" = "Ses kapak görselleri görüntülensin";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Aygıt yedeğine ortam kitaplığı katılsın";
 
 "SETTINGS_FILE_SYNC" = "Dosya Eşitleme";
 "SETTINGS_WIFISHARING_IPv6" = "WiFi Paylaşımı için IPv6 desteği";
