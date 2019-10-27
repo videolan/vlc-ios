@@ -96,6 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Longa meda";
 "SETTINGS_SHOW_THUMBNAILS" = "Ammustra sas miniaturas de sos vìdeos";
 "SETTINGS_SHOW_ARTWORKS" = "Ammustra sas coberteddas de sas rastas àudio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inclue sa biblioteca multimediale in sa còpia de seguresa de su dispositivu";
 
 "SETTINGS_FILE_SYNC" = "Sincronizatzione de documentos";
 "SETTINGS_WIFISHARING_IPv6" = "Suportu IPv6 pro sa cumpartzidura WiFi";
