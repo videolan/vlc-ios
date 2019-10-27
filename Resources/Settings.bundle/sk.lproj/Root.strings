@@ -96,6 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Mimoriadne dlhé";
 "SETTINGS_SHOW_THUMBNAILS" = "Zobraziť náhľady videa";
 "SETTINGS_SHOW_ARTWORKS" = "Zobraziť vyobrazenia obalov";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Zahrnúť knižnicu médií do zálohovania zariadenia";
 
 "SETTINGS_FILE_SYNC" = "Synchronizácia súboru";
 "SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pre zdieľanie cez WiFi";
