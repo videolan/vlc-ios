@@ -69,8 +69,4 @@ extension TrackModel: MediaLibraryObserver {
         }
         updateView?()
     }
-
-    func medialibraryDidStartRescan() {
-        files.removeAll()
-    }
 }
