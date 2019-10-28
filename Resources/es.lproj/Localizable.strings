@@ -290,8 +290,8 @@
 "DELETE_ITEM_HINT" = "Presione %@ para eliminar"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Confirmar la eliminación de la selección";
-"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
+"DELETE_MESSAGE_PLAYLIST" = "¿Desea eliminar la lista de reproducción seleccionada?\nLos archivos de medio asociados no serán eliminados.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "¿Desea eliminar el medio seleccionado de la lista de reproducción?\nNo serán eliminados del disco.";
 "DELETE_TITLE" = "Eliimnar selección";
 
 //Drag and Drop
@@ -399,7 +399,7 @@
 
 // Local Network
 
-"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
-"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
-"SMBV1_CONTINUE" = "Continue with SMBv1";
-"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+"SMBV1_WARN_TITLE" = "Advertencia de conexión SMBv1";
+"SMBV1_WARN_DESCRIPTION" = "Hemos detectado un protocolo antiguo (SMBv1).\n¿Desea continuar con SMBv1?\nAconsejamos actualizar o cambiar sus preferencias de servidor.";
+"SMBV1_CONTINUE" = "Continuar con SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Intentar con SMBv2/v3";
