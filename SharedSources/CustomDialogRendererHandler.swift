@@ -24,6 +24,8 @@ typealias CustomDialogRendererHandlerClosure = (_ status: CustomDialogRendererHa
 class CustomDialogRendererHandler: NSObject {
     private var dialogProvider: VLCDialogProvider
 
+    private var selectedSMBv1 = false
+
     @objc var completionHandler: CustomDialogRendererHandlerClosure?
 
     @objc init(dialogProvider: VLCDialogProvider) {
@@ -60,8 +62,7 @@ private extension CustomDialogRendererHandler {
 
     private func handleLoginAlert(with title: String, message: String,
                                   username: String?, askingForStorage: Bool,
-                                  withReference reference: NSValue,
-                                  shouldIgnoreNextDialog: Bool) {
+                                  withReference reference: NSValue) {
         let alertController = UIAlertController(title: title, message: message,
                                                 preferredStyle: .alert)
 
@@ -99,7 +100,7 @@ private extension CustomDialogRendererHandler {
         alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment:""),
                                                 style: .cancel, handler: {
                                                     [weak self] action in
-                                                    if shouldIgnoreNextDialog {
+                                                    if self?.selectedSMBv1 ?? true {
                                                         self?.completionHandler?(.stop)
                                                     } else {
                                                         self?.completionHandler?(.cancel)
@@ -146,26 +147,27 @@ extension CustomDialogRendererHandler: VLCCustomDialogRendererProtocol {
     func showLogin(withTitle title: String, message: String,
                    defaultUsername username: String?, askingForStorage: Bool,
                    withReference reference: NSValue) {
-
-        if title.contains("SMBv1") {
-            handleSMBv1() {
-                [weak self] isSMBv1 in
-                if isSMBv1 {
-                    self?.handleLoginAlert(with: title, message: message,
-                                           username: username,
-                                           askingForStorage: askingForStorage,
-                                           withReference: reference, shouldIgnoreNextDialog: true)
-                } else {
-                    self?.dialogProvider.dismissDialog(withReference: reference)
-                }
-            }
-        } else {
+        if !title.contains("SMBv1") || selectedSMBv1 {
             handleLoginAlert(with: title, message: message,
                              username: username,
                              askingForStorage: askingForStorage,
-                             withReference: reference, shouldIgnoreNextDialog: false)
+                             withReference: reference)
+            return
         }
-    }
+
+        handleSMBv1() {
+            [weak self] isSMBv1 in
+            if isSMBv1 {
+                self?.selectedSMBv1 = true
+                self?.handleLoginAlert(with: title, message: message,
+                                       username: username,
+                                       askingForStorage: askingForStorage,
+                                       withReference: reference)
+            } else {
+                self?.dialogProvider.dismissDialog(withReference: reference)
+            }
+        }
+}
 
     func showQuestion(withTitle title: String, message: String,
                       type questionType: VLCDialogQuestionType, cancel cancelString: String?,
