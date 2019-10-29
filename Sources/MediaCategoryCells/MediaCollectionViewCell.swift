@@ -90,6 +90,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(album: VLCMLAlbum) {
+        newLabel.isHidden = true
         titleLabel.text = album.albumName()
         accessibilityLabel = album.accessibilityText(editing: false)
         descriptionLabel.text = album.albumArtistName()
@@ -97,6 +98,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(artist: VLCMLArtist) {
+        newLabel.isHidden = true
         thumbnailView.layer.masksToBounds = true
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = artist.artistName()
