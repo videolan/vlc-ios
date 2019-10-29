@@ -68,7 +68,7 @@
 "BUTTON_CONTINUE" = "Fortsæt";
 "BUTTON_SET" = "Indstil";
 "BUTTON_RESET" = "Nulstil";
-"BUTTON_RESCAN" = "Rescan";
+"BUTTON_RESCAN" = "Genskan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Privat afspilning";
 "SCAN_SUBTITLE_TOGGLE" = "Søg efter undertekster (kun http)";
 
@@ -178,8 +178,8 @@
 "EMPTY_LIBRARY" = "Tomt mediebibliotek";
 "EMPTY_LIBRARY_LONG" = "Du kan afspille medier ved at streame dem fra en server på dit lokale netværk eller fra skyen, eller ved at synkronisere medier til din enhed vha. iTunes, WiFi-overførsel eller sky-tjenester.";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
-"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+"EMPTY_PLAYLIST" = "Tom afspilningsliste";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Tilføj medier når de respektive kategorier redigeres.";
 
 "PLAYBACK_SCRUB_HELP" = "Stryg din finger nedad for at justere spolinghastigheden.";
 "PLAYBACK_SCRUB_HIGH" = "Spoling med høj hastighed";
@@ -290,8 +290,8 @@
 "DELETE_ITEM_HINT" = "Tryk på %@ for at slette"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Bekræft sletningen af markeringen?";
-"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
+"DELETE_MESSAGE_PLAYLIST" = "Er du sikker på, at du vil slette den valgte afspilningsliste?\nTilknyttede mediefiler slettes ikke.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Er du sikker på, at du vil fjerne de valgte medier fra afspilningslisten?\nDe slettes ikke fra disken.";
 "DELETE_TITLE" = "Slet markering";
 
 //Drag and Drop
@@ -317,7 +317,7 @@
 "MOVIES" = "Film";
 "SONGS" = "Sange";
 "PLAYLISTS" = "Afspilningsliste";
-"VIDEO_GROUPS" = "Video groups";
+"VIDEO_GROUPS" = "Videogrupper";
 
 "MODIFIED_DATE" = "Ændringsdato";
 "NAME" = "Navn";
@@ -367,9 +367,9 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filnavn";
 "TRACK_NUMBER" = "Spornummer";
-"NB_AUDIO" = "Number of audio";
-"NB_MEDIA" = "Number of media";
-"NB_VIDEO" = "Number of video";
+"NB_AUDIO" = "Antal lyd";
+"NB_MEDIA" = "Antal medier";
+"NB_VIDEO" = "Antal video";
 
 // VLCNetworkLoginTVViewController
 
@@ -394,12 +394,12 @@
 "MORE_OPTIONS_HEADER_TITLE" = "Videoindstillinger";
 
 /* Settings - Force rescan alert */
-"FORCE_RESCAN_TITLE" = "Force media library rescan";
-"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
+"FORCE_RESCAN_TITLE" = "Tving genskanning af mediebibliotek";
+"FORCE_RESCAN_MESSAGE" = "Vil du tvinge VLC til at genskanne dit mediebiblitek?\nDet kan tage en del tid.";
 
 // Local Network
 
-"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
-"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
-"SMBV1_CONTINUE" = "Continue with SMBv1";
-"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+"SMBV1_WARN_TITLE" = "Advarsel om SMBv1-forbindelse";
+"SMBV1_WARN_DESCRIPTION" = "Vi registrerede en gammel protokol (SMBv1).\nEr du sikker på, at du vil fortsætte med SMBv1?\nVi anbefaler at du opgraderer eller ændrer dine serverindstillinger.";
+"SMBV1_CONTINUE" = "Fortsæt med SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Prøv SMBv2/v3";
