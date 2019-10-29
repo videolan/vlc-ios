@@ -372,7 +372,6 @@ extension MediaLibraryService {
     }
 
     func savePlaybackState(from player: PlaybackService) {
-
         let media: VLCMedia? = player.currentlyPlayingMedia
         guard let mlMedia = fetchMedia(with: media?.url.absoluteURL) else {
             // we opened a url and not a local file
