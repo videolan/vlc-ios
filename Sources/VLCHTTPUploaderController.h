@@ -32,5 +32,6 @@
 
 - (void)moveFileFrom:(NSString *)filepath;
 - (void)cleanCache;
+- (void)resetIdleTimer;
 
 @end

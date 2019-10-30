@@ -685,6 +685,7 @@
     if (_storeFile) {
         @try {
             [_storeFile writeData:data];
+            [[VLCHTTPUploaderController sharedInstance] resetIdleTimer];
         }
         @catch (NSException *exception) {
             APLog(@"File to write further data because storage is full.");

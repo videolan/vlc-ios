@@ -35,6 +35,9 @@
     HTTPServer *_httpServer;
     UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
     Reachability *_reachability;
+
+    NSTimer *_idleTimer;
+    NSMutableSet<NSString *> *_playlistUploadPaths;
 }
 @end
 
@@ -65,7 +68,7 @@
         BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
         [self netReachabilityChanged];
         [self changeHTTPServerState:isHTTPServerOn];
-
+        _playlistUploadPaths = [NSMutableSet set];
     }
 
     return self;
@@ -292,16 +295,8 @@
     return [NSString stringWithFormat:@"%i", _httpServer.listeningPort];
 }
 
-- (void)moveFileFrom:(NSString *)filepath
+- (void)moveFileOutOfCache:(NSString *)filepath
 {
-    /* update media library when file upload was completed */
-    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
-    [activityManager networkActivityStopped];
-    [activityManager activateIdleTimer];
-
-    /* on tvOS, the media remains in the cache folder and will disappear from there
-     * while on iOS we have persistent storage, so move it there */
-#if TARGET_OS_IOS
     NSString *fileName = [filepath lastPathComponent];
     NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSString *uploadPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
@@ -350,6 +345,26 @@
     // FIXME: Replace notifications by cleaner observers
     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                         object:self];
+}
+
+
+- (void)moveFileFrom:(NSString *)filepath
+{
+    // Check if downloaded file is a playlist in order to parse at the end of the download.
+    if ([[filepath lastPathComponent] isSupportedPlaylistFormat]) {
+        [_playlistUploadPaths addObject:filepath];
+        return;
+    }
+
+    /* update media library when file upload was completed */
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStopped];
+    [activityManager activateIdleTimer];
+
+    /* on tvOS, the media remains in the cache folder and will disappear from there
+     * while on iOS we have persistent storage, so move it there */
+#if TARGET_OS_IOS
+    [self moveFileOutOfCache:filepath];
 #endif
 }
 
@@ -364,6 +379,35 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:uploadDirPath])
         [fileManager removeItemAtPath:uploadDirPath error:nil];
+}
+
+- (void)resetIdleTimer
+{
+    const int timeInterval = 4;
+
+    if (!_idleTimer)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self->_idleTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
+                                                                target:self
+                                                              selector:@selector(idleTimerDone)
+                                                              userInfo:nil
+                                                               repeats:NO];
+        });
+    else {
+        if (fabs([_idleTimer.fireDate timeIntervalSinceNow]) < timeInterval)
+            [_idleTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval]];
+    }
+}
+
+- (void)idleTimerDone
+{
+    _idleTimer = nil;
+
+    for (NSString *path in _playlistUploadPaths) {
+        [self moveFileOutOfCache:path];
+    }
+
+    [_playlistUploadPaths removeAllObjects];
 }
 
 @end
