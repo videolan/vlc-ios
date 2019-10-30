@@ -169,7 +169,7 @@ extension EditController: EditToolbarDelegate {
         })
     }
 
-    func editToolbarDidShare(_ editToolbar: EditToolbar, presentFrom button: UIButton) {
+    func editToolbarDidShare(_ editToolbar: EditToolbar) {
         guard !selectedCellIndexPaths.isEmpty else {
             assertionFailure("EditController: Share called without selection")
             return

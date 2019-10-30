@@ -13,7 +13,7 @@ protocol EditToolbarDelegate: class {
     func editToolbarDidDelete(_ editToolbar: EditToolbar)
     func editToolbarDidAddToPlaylist(_ editToolbar: EditToolbar)
     func editToolbarDidRename(_ editToolbar: EditToolbar)
-    func editToolbarDidShare(_ editToolbar: EditToolbar, presentFrom button: UIButton)
+    func editToolbarDidShare(_ editToolbar: EditToolbar)
 }
 
 class EditToolbar: UIView {
@@ -36,39 +36,6 @@ class EditToolbar: UIView {
         rightStackView.translatesAutoresizingMaskIntoConstraints = false
 
         return rightStackView
-    }()
-
-    private lazy var shareButton: UIButton = {
-        let shareButton = UIButton(type: .system)
-        shareButton.addTarget(self, action: #selector(share), for: .touchUpInside)
-        shareButton.setImage(UIImage(named: "share"), for: .normal)
-        shareButton.tintColor = .orange
-        shareButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
-        shareButton.accessibilityLabel = NSLocalizedString("SHARE_LABEL", comment: "")
-        shareButton.accessibilityHint = NSLocalizedString("SHARE_HINT", comment: "")
-        return shareButton
-    }()
-
-    private lazy var renameButton: UIButton = {
-        let renameButton = UIButton(type: .system)
-        renameButton.addTarget(self, action: #selector(rename), for: .touchUpInside)
-        renameButton.setImage(UIImage(named: "rename"), for: .normal)
-        renameButton.tintColor = .orange
-        renameButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
-        renameButton.accessibilityLabel = NSLocalizedString("BUTTON_RENAME", comment: "")
-        renameButton.accessibilityHint = NSLocalizedString("RENAME_HINT", comment: "")
-        return renameButton
-    }()
-
-    private lazy var deleteButton: UIButton = {
-        let deleteButton = UIButton(type: .system)
-        deleteButton.addTarget(self, action: #selector(deleteSelection), for: .touchUpInside)
-        deleteButton.setImage(UIImage(named: "delete"), for: .normal)
-        deleteButton.tintColor = .orange
-        deleteButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
-        deleteButton.accessibilityLabel = NSLocalizedString("BUTTON_DELETE", comment: "")
-        deleteButton.accessibilityHint = NSLocalizedString("DELETE_HINT", comment: "")
-        return deleteButton
     }()
 
     private var addToPlaylistButton: UIButton = {
@@ -96,22 +63,30 @@ class EditToolbar: UIView {
     }
 
     @objc func share() {
-        delegate?.editToolbarDidShare(self, presentFrom: shareButton)
+        delegate?.editToolbarDidShare(self)
     }
 
     private func setupRightStackView() {
-        let file = model.anyfiles.first
-
-        if !(file is VLCMLArtist) && !(file is VLCMLGenre) && !(file is VLCMLAlbum)
-            && !(file is VLCMLVideoGroup) {
-            rightStackView.addArrangedSubview(renameButton)
+        var buttonList = EditButtonsFactory.buttonList(for: model.anyfiles.first)
+        // For now we remove the first button which is Add to playlist since it is not in the same group
+        if buttonList.contains(.addToPlaylist) {
+            if let index = buttonList.firstIndex(of: .addToPlaylist) {
+                buttonList.remove(at: index)
+            }
         }
-
-        if  !(file is VLCMLVideoGroup) {
-            rightStackView.addArrangedSubview(deleteButton)
+        let buttons = EditButtonsFactory.generate(buttons: buttonList)
+        for button in buttons {
+            switch button.identifier {
+                case .addToPlaylist:
+                    rightStackView.addArrangedSubview(button.button(#selector(addToPlaylist)))
+                case .rename:
+                    rightStackView.addArrangedSubview(button.button(#selector(rename)))
+                case .delete:
+                    rightStackView.addArrangedSubview(button.button(#selector(deleteSelection)))
+                case .share:
+                    rightStackView.addArrangedSubview(button.button(#selector(share)))
+            }
         }
-
-        rightStackView.addArrangedSubview(shareButton)
     }
 
     private func setupStackView() {
