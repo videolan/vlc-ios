@@ -40,7 +40,8 @@ extension NSNotification {
 
     // Tumbnail
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
-                                     thumbnailReady media: VLCMLMedia)
+                                     thumbnailReady media: VLCMLMedia,
+                                     type: VLCMLThumbnailSizeType, success: Bool)
 
     // Tracks
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
@@ -546,9 +547,11 @@ extension MediaLibraryService: VLCMediaLibraryDelegate {
         }
     }
 
-    func medialibrary(_ medialibrary: VLCMediaLibrary, thumbnailReadyFor media: VLCMLMedia, withSuccess success: Bool) {
+    func medialibrary(_ medialibrary: VLCMediaLibrary, thumbnailReadyFor media: VLCMLMedia,
+                      of type: VLCMLThumbnailSizeType, withSuccess success: Bool) {
         for observer in observers {
-            observer.value.observer?.medialibrary?(self, thumbnailReady: media)
+            observer.value.observer?.medialibrary?(self, thumbnailReady: media,
+                                                   type: type, success: success)
         }
     }
 }

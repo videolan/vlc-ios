@@ -71,7 +71,13 @@ extension VideoModel: MediaLibraryObserver {
 
     // MARK: - Thumbnail
 
-    func medialibrary(_ medialibrary: MediaLibraryService, thumbnailReady media: VLCMLMedia) {
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      thumbnailReady media: VLCMLMedia,
+                      type: VLCMLThumbnailSizeType, success: Bool) {
+        guard success else {
+            return
+        }
+
         for (index, file) in files.enumerated() where file == media {
             files[index] = media
             break
