@@ -77,11 +77,7 @@ extension VideoModel: MediaLibraryObserver {
         guard success else {
             return
         }
-
-        for (index, file) in files.enumerated() where file == media {
-            files[index] = media
-            break
-        }
+        files = swapModels(with: [media])
         updateView?()
     }
 }
