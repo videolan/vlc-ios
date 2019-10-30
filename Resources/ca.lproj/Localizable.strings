@@ -5,8 +5,8 @@
 "CHOOSE_AUDIO_TRACK" = "Trieu la pista d'àudio";
 "CHOOSE_SUBTITLE_TRACK" = "Trieu la pista de subtítol";
 "OPEN_TRACK_PANEL" = "Open track selection";
-"CHOOSE_TITLE" = "Choose Title";
-"CHOOSE_CHAPTER" = "Choose Chapter";
+"CHOOSE_TITLE" = "Trieu el títol";
+"CHOOSE_CHAPTER" = "Trieu el càpitol";
 "CHAPTER_SELECTION_TITLE" = "Capítols";
 "TITLE" = "Títol";
 "CHAPTER" = "Capítol";
@@ -37,22 +37,22 @@
 
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Choose Equalizer Profile";
+"CHOOSE_EQUALIZER_PROFILES" = "Trieu un perfil d'equalizador";
 
 "PLAYBACK_FAILED" = "S'ha produït un error en la reproducció";
-"PLEASE_WAIT" = "Please wait";
+"PLEASE_WAIT" = "Espereu";
 "AR_CHANGED" = "Relació d'aspecte: %@";
 "DEFAULT" = "Per defecte";
 "FILL_TO_SCREEN" = "Escapça per ajustar a la pantalla";
 "PLAYBACK_SPEED" = "Velocitat de reproducció";
 "SPU_DELAY" = "Subtitles delay";
 "AUDIO_DELAY" = "Audio delay";
-"BUTTON_SLEEP_TIMER" = "Sleep Timer";
+"BUTTON_SLEEP_TIMER" = "Temporitzador";
 "SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
-"CONTINUE_PLAYBACK" = "Continue playback?";
+"CONTINUE_PLAYBACK" = "Voleu continuar la reproducció?";
 "CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
 
-"BUTTON_ABOUT" = "About";
+"BUTTON_ABOUT" = "Quant a";
 "BUTTON_BACK" = "Endarrere";
 "BUTTON_DONE" = "Fet";
 "BUTTON_CANCEL" = "Cancel·la";
@@ -65,7 +65,7 @@
 "BUTTON_RENAME" = "Canvia el nom";
 "BUTTON_LEARN_MORE" = "Per saber més";
 "BUTTON_LOGOUT" = "Logout";
-"BUTTON_CONTINUE" = "Continue";
+"BUTTON_CONTINUE" = "Continua";
 "BUTTON_SET" = "Set";
 "BUTTON_RESET" = "Reset";
 "BUTTON_RESCAN" = "Rescan";
@@ -76,7 +76,7 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "Actualitza la biblioteca de medis";
-"UNKNOWN" = "Unknown";
+"UNKNOWN" = "Desconegut";
 
 "OPEN_NETWORK" = "Obre un flux de xarxa";
 "NETWORK_TITLE" = "Flux de xarxa";
@@ -85,7 +85,7 @@
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "Cap connexió WiFi activa";
 "OPEN_STREAM_OR_DOWNLOAD" = "Voleu baixar or reproduir aquesta URL?";
 "SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
-"SMB_CIFS_FILE_SERVERS" = "File Servers (SMB)";
+"SMB_CIFS_FILE_SERVERS" = "Servidors de fitxers (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -104,7 +104,7 @@
 
 "FOLDER_EMPTY" = "Empty folder";
 
-"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Choose a file to open:";
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Trieu un fitxer per obrir:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Open In...";
 "SHARING_ERROR_NO_FILES" = "Could not find any files to share";
 "SHARING_ERROR_NO_APPLICATIONS" = "Could not find any applications to open this type of file";
@@ -114,13 +114,13 @@
 "DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
-"NETWORK" = "Network";
+"NETWORK" = "Xarxa";
 "LOCAL_NETWORK" = "Xarxa local";
 "CONNECT_TO_SERVER" = "Connecta amb el servidor";
-"FILE_SERVER" = "File Servers";
+"FILE_SERVER" = "Servidors de fitxers";
 "USER_LABEL" = "Usuari";
 "PASSWORD_LABEL" = "Contrasenya";
-"DISABLE_LABEL" = "Disable";
+"DISABLE_LABEL" = "Inhabilita";
 "BUTTON_ANONYMOUS_LOGIN" = "Anonymous Login";
 
 "LOCAL_SERVER_REFRESH" = "Actualitza";
@@ -128,7 +128,7 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "Ha fallat la connexió al servidor";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Comprova la teua adreça i contrasenya del servidor";
 
-"CLOUD_SERVICES" = "Cloud Services";
+"CLOUD_SERVICES" = "Serveis al núvol";
 "LOGIN" = "Login";
 "LOGGED_IN" = "Logged in";
 "LOGGED_IN_SERVICES" = "%d logged in services";
@@ -165,7 +165,7 @@
 "Enter your new passcode" = "Enter your new passcode";
 "Enter your old passcode" = "Enter your old passcode";
 "Enter your passcode" = "Enter your passcode";
-"Next" = "Next";
+"Next" = "Endavant";
 "Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
 "Re-enter your new passcode" = "Re-enter your new passcode";
 "Re-enter your passcode" = "Re-enter your passcode";
@@ -193,10 +193,10 @@
 "PLAY_PAUSE_BUTTON" = "Reprodueix o pausa la reproducció actual";
 "BWD_BUTTON" = "Salta cap enrere";
 "FWD_BUTTON" = "Salta cap endavant";
-"PLAY_BUTTON" = "Play";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
-"PLAY_ALL_BUTTON" = "Play all";
+"PLAY_BUTTON" = "Reprodueix";
+"NEXT_BUTTON" = "Endavant";
+"PREV_BUTTON" = "Enrere";
+"PLAY_ALL_BUTTON" = "Reprodueix-ho tot";
 
 "VERSION_FORMAT" = "Versió: %@";
 "BASED_ON_FORMAT" = "Basat en:<br />%@";
@@ -213,10 +213,10 @@
 "FIRST_STEPS_ITUNES" = "Sincronització de fitxers a l'iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
 "FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Comparteix via WiFi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Núvols";
-"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
+"FIRST_STEPS_CLOUD_TITLE" = "Núvol";
 "FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
 
 
@@ -225,9 +225,9 @@
 
 "UNAUTHORIZED" = "Unauthorized";
 
-"SERVER" = "Server";
+"SERVER" = "Servidor";
 "SERVER_PORT" = "Port";
-"NO_SERVER_FOUND" = "No server found";
+"NO_SERVER_FOUND" = "No s'ha trobat cap servidor";
 "NO_RECENT_STREAMS" = "No stream was played recently";
 
 "WEBINTF_TITLE" = "Sharing via WiFi";
@@ -243,7 +243,7 @@
 
 
 
-"DURATION" = "Duration";
+"DURATION" = "Durada";
 "TITLE" = "Títol";
 
 // strings from VLCKit
@@ -269,7 +269,7 @@
 "REPEAT_MODE" = "Repeat";
 "REPEAT_DISABLED" = "Disabled";
 "REPEAT_SINGLE" = "Single";
-"REPEAT_FOLDER" = "Folder";
+"REPEAT_FOLDER" = "Carpeta";
 
 // Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
@@ -282,9 +282,9 @@
 "FTP_SHORT" = "FTP";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
-"DSM_WORKGROUP" = "Workgroup";
+"DSM_WORKGROUP" = "Grup de treball";
 
-"URL_NOT_SUPPORTED" = "The URL can't be opened";
+"URL_NOT_SUPPORTED" = "No es pot obrir l'URL";
 
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
@@ -295,7 +295,7 @@
 "DELETE_TITLE" = "Delete Selection";
 
 //Drag and Drop
-"THIS_FILE" = "This file";
+"THIS_FILE" = "Aquest fitxer";
 "NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
 "FILE_EXISTS" = "%@ already exists";
 
@@ -303,36 +303,36 @@
 "Settings" = "Paràmetres";
 
 "ERROR" = "Error";
-"OK" = "Ok";
-"SORT" = "Sort";
-"SORT_BY" = "Sort by";
-"SEARCH" = "Search";
-"VIDEO" = "Video";
+"OK" = "D'acord";
+"SORT" = "Ordena";
+"SORT_BY" = "Ordena per";
+"SEARCH" = "Cerca";
+"VIDEO" = "Vídeo";
 
 // MediaViewController Swipable Header
-"ALBUMS" = "Albums";
-"ARTISTS" = "Artists";
-"EPISODES" = "Episodes";
-"GENRES" = "Genres";
-"MOVIES" = "Movies";
-"SONGS" = "Songs";
-"PLAYLISTS" = "Playlists";
+"ALBUMS" = "Àlbums";
+"ARTISTS" = "Artistes";
+"EPISODES" = "Episodis";
+"GENRES" = "Gèneres";
+"MOVIES" = "Pel·lícules";
+"SONGS" = "Cançons";
+"PLAYLISTS" = "Llistes de reproducció";
 "VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "Modified date";
-"NAME" = "Name";
+"NAME" = "Nom";
 
 //EDIT
 
-"BUTTON_EDIT" = "Edit";
+"BUTTON_EDIT" = "Edita";
 "BUTTON_EDIT_HINT" = "Edit mode";
 
-"ADD_TO_PLAYLIST" = "Add to Playlist";
+"ADD_TO_PLAYLIST" = "Afegeix a la llista de reproducció";
 "ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
 
 "PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
-"PLAYLIST_CREATION" = "Create a new playlist";
+"PLAYLIST_DESCRIPTION" = "Trieu un títol per a la llista de reproducció nova";
+"PLAYLIST_CREATION" = "Crea una llista de reproducció nova";
 "PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
 "ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
 "ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
@@ -340,58 +340,58 @@
 "ERROR_RENAME_FAILED" = "Renaming failed";
 "ERROR_EMPTY_NAME" = "The title can't be empty";
 
-"SHARE_LABEL" = "Share";
+"SHARE_LABEL" = "Comparteix";
 "SHARE_HINT" = "Share selected files";
 "RENAME_HINT" = "Rename selected files";
 "DELETE_HINT" = "Delete selected files";
 
 // Sort
 
-"BUTTON_SORT" = "Sort";
+"BUTTON_SORT" = "Ordena";
 "BUTTON_SORT_HINT" = "Display sort action sheet";
-"HEADER_TITLE_SORT" = "Sort by";
-"DESCENDING_LABEL" = "Descending Order";
+"HEADER_TITLE_SORT" = "Ordena per";
+"DESCENDING_LABEL" = "Ordre descendent";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alphanumerically";
-"DURATION" = "Duration";
+"DURATION" = "Durada";
 "INSERTION_DATE" = "Insertion date";
 "LAST_MODIFICATION_DATE" = "Last modification date";
 "RELEASE_DATE" = "Release date";
-"FILE_SIZE" = "File size";
-"ARTIST" = "Artist";
+"FILE_SIZE" = "Mida del fitxer";
+"ARTIST" = "Artista";
 "PLAY_COUNT" = "Play count";
 "ALBUM" = "Album";
-"FILENAME" = "Filename";
-"TRACK_NUMBER" = "Track number";
+"FILENAME" = "Nom del fitxer";
+"TRACK_NUMBER" = "Número de pista";
 "NB_AUDIO" = "Number of audio";
 "NB_MEDIA" = "Number of media";
 "NB_VIDEO" = "Number of video";
 
 // VLCNetworkLoginTVViewController
 
-"NO_SAVING_DATA" = "Nothing found";
+"NO_SAVING_DATA" = "No s'ha trobat res";
 
 // MediaCollectionViewCell
 
-"UNKNOWN_ARTIST" = "Unknown Artist";
+"UNKNOWN_ARTIST" = "Artista desconegut";
 "VARIOUS_ARTIST" = "Various Artists";
-"UNKNOWN_ALBUM" = "Unknown Album";
+"UNKNOWN_ALBUM" = "Àlbum desconegut";
 
 /* VideoOptionsControlBar */
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
-"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_BUTTON" = "Més";
 "MORE_OPTIONS_HINT" = "View more option controls";
 "REPEAT_MODE_HINT" = "Change repeat mode of current item";
 "VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
 
 /* MediaMoreOptionsActionSheet */
-"EQUALIZER_CELL_TITLE" = "Equalizer";
-"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+"EQUALIZER_CELL_TITLE" = "Equalitzador";
+"MORE_OPTIONS_HEADER_TITLE" = "Opcions de vídeo";
 
 /* Settings - Force rescan alert */
 "FORCE_RESCAN_TITLE" = "Force media library rescan";
