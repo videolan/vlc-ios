@@ -600,6 +600,7 @@ extension MediaLibraryService {
 }
 
 // MARK: - VLCMediaLibraryDelegate - Genres
+
 extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd genres: [VLCMLGenre]) {
         for observer in observers {
