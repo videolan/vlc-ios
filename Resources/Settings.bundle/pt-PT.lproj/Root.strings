@@ -96,6 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra comprido";
 "SETTINGS_SHOW_THUMBNAILS" = "Exibir miniaturas de vídeos";
 "SETTINGS_SHOW_ARTWORKS" = "Exibir capas áudio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
 "SETTINGS_FILE_SYNC" = "Sincronização de Ficheiros";
 "SETTINGS_WIFISHARING_IPv6" = "Suporte de IPv6 para partilha por Wi-Fi";
