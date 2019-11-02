@@ -104,9 +104,29 @@ class PlaybackSpeedView: VLCFrostedGlasView {
 
     @IBAction func playbackSliderAction(sender: UISlider) {
         if sender == playbackSpeedSlider {
-            let speed = exp2(sender.value)
-            vpc.playbackRate = speed
-            playbackSpeedIndicator.text = String(format: "%.2fx", speed)
+            let values: [Float] = [0.25, 0.5, 0.75, 0.9, 1.0, 1.1, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 3.5, 4.0]
+            let rawSpeed = exp2(sender.value)
+            
+            var snappedSpeed: Float = 1.0
+            var closestSpeedDiff: Float = Float.greatestFiniteMagnitude
+            for value in values {
+                let diff = abs(value - rawSpeed)
+                if diff < closestSpeedDiff {
+                    snappedSpeed = value
+                    closestSpeedDiff = diff
+                }
+            }
+            
+            playbackSpeedSlider.value = log2(snappedSpeed)
+            playbackSpeedIndicator.text = String(format: "%.2fx", snappedSpeed)
+            
+            if snappedSpeed != vpc.playbackRate {
+                vpc.playbackRate = snappedSpeed
+                if #available(iOS 10.0, *) {
+                    let generator = UIImpactFeedbackGenerator(style: .medium)
+                    generator.impactOccurred()
+                }
+            }
         } else if sender == audioDelaySlider {
             let delay = round(sender.value / 50) * 50
             vpc.audioDelay = delay
