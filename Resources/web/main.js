@@ -1,4 +1,13 @@
 $(function(){
+    function escapeTags(string) {
+        return string
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
     $(document).bind('drop dragover', function (e) {
         e.preventDefault();
     });
@@ -39,7 +48,7 @@ $(function(){
             xhrCache[file._ID] = xhr;
             var hasProgressbar = ('FormData' in window);
             var html = '<li data-file-id="' + file._ID + '">';
-            html += '<div class="filename">' + file.name + '</div>';
+            html += '<div class="filename">' + escapeTags(file.name) + '</div>';
             html += '<div class="progress"><div class="bar" style="width: 0%">0%</div>';
             if (!hasProgressbar) { html += '<span class="dots"></span>'; }
             html += '</div>';

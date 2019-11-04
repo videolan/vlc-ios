@@ -191,6 +191,15 @@
     return [allMedia copy];
 }
 
+- (NSString *)escapeTags:(NSString *)string
+{
+    return [[[[[string stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]
+                        stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
+                        stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
+                        stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"]
+                        stringByReplacingOccurrencesOfString:@"'" withString:@"&#039;"];
+}
+
 - (NSString *)createHTMLMediaObjectFromMedia:(VLCMLMedia *)media
 {
     return [NSString stringWithFormat:
@@ -206,7 +215,7 @@
             media.thumbnail.path,
             [[media mainFile].mrl.path
              stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet],
-            media.title,
+            [self escapeTags:media.title],
             [media mediaDuration], [media formatSize]];
 }
 
@@ -225,7 +234,7 @@
             </a> \
             <div class=\"content\">",
             imagePath,
-            name,
+            [self escapeTags:name],
             count];
 }
 
