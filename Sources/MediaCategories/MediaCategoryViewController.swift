@@ -465,7 +465,7 @@ extension MediaCategoryViewController {
                              for: .touchUpInside)
         sortButton
             .addGestureRecognizer(UILongPressGestureRecognizer(target: self,
-                                                               action: #selector(handleSortShortcut)))
+                                                               action: #selector(handleSortLongPress(sender:))))
 
         sortButton.tintColor = PresentationTheme.current.colors.orangeUI
         sortButton.accessibilityLabel = NSLocalizedString("BUTTON_SORT", comment: "")
@@ -498,6 +498,15 @@ extension MediaCategoryViewController {
             sortActionSheet.collectionView.selectItem(at:
                 IndexPath(row: currentSortIndex, section: 0), animated: false,
                                                               scrollPosition: .centeredVertically)
+        }
+    }
+
+    @objc func handleSortLongPress(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            if #available(iOS 10.0, *) {
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            }
+            handleSortShortcut()
         }
     }
 

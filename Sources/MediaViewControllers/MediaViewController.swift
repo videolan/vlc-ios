@@ -168,13 +168,8 @@ extension MediaViewController {
     }
 
     @objc func handleSortShortcut(sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
-            if #available(iOS 10.0, *) {
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-            }
-            if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
-                mediaCategoryViewController.handleSortShortcut()
-            }
+        if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
+            mediaCategoryViewController.handleSortLongPress(sender: sender)
         }
     }
 }
