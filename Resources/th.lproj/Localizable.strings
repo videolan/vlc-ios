@@ -68,12 +68,12 @@
 "BUTTON_CONTINUE" = "ทำต่อ";
 "BUTTON_SET" = "ตั้งค่า";
 "BUTTON_RESET" = "รีเซ็ต";
-"BUTTON_RESCAN" = "Rescan";
+"BUTTON_RESCAN" = "สแกนซ้ำ";
 "PRIVATE_PLAYBACK_TOGGLE" = "การเล่นส่วนบุคคล";
 "SCAN_SUBTITLE_TOGGLE" = "ค้นหาคำบรรยาย (http-only)";
 
-"BUTTON_RENDERER" = "Casting devices";
-"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+"BUTTON_RENDERER" = "อุปกรณ์การแคสต์";
+"BUTTON_RENDERER_HINT" = "แสดงเมนูอุปกรณ์การแคสต์ที่ใช้ได้";
 
 "UPGRADING_LIBRARY" = "อัพเกรดคลังสื่อ";
 "UNKNOWN" = "ไม่ทราบ";
@@ -92,13 +92,13 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "การดาวน์โหลดถูกยกเลิกโดยผู้ใช้";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "ใส่ตำแหน่งที่ต้องการดาวน์โหลดไฟล์ไปยัง %@ ของคุณ";
-"DOWNLOAD_FROM_HTTP" = "ดาวน์โหลด";
+"DOWNLOAD_FROM_HTTP_HELP" = "ป้อนที่อยู่ที่ต้องการดาวน์โหลดไฟล์ไปที่ %@ ของคุณ";
+"DOWNLOAD_FROM_HTTP" = "รายการดาวน์โหลด";
 "ERROR_NUMBER" = "เกิดปัญหา %i";
 "DOWNLOAD_FAILED" = "การดาวน์โหลดล้มเหลว";
 "FILE_NOT_SUPPORTED" = "ยังไม่รองรับรูปแบบไฟล์นี้";
 "FILE_NOT_SUPPORTED_LONG" = "รูปแบบไฟล์ที่ใช้โดย %@ ไม่รองรับโดย VLC สำหรับ iOS รุ่นนี้";
-"SCHEME_NOT_SUPPORTED" = "รายการที่อยู่ไม่รองรับ";
+"SCHEME_NOT_SUPPORTED" = "ไม่รองรับแบบแผนที่อยู่นี้";
 "SCHEME_NOT_SUPPORTED_LONG" = "รายการที่อยู่ (%@) ไม่รองรับ กรุณาใช้ที่อยู่เริ่มต้นด้วย HTTP, HTTPS หรือ FTP";
 "RENAME_MEDIA_TO" = "ใส่ชื่อใหม่ให้กับ %@";
 
