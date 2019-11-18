@@ -84,7 +84,11 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     func update(audiotrack: VLCMLMedia) {
         titleLabel.text = audiotrack.title()
         accessibilityLabel = audiotrack.accessibilityText(editing: false)
-        descriptionLabel.text = audiotrack.albumTrackArtistName()
+        var descriptionText = audiotrack.albumTrackArtistName()
+        if let albumTitle = audiotrack.albumTrack?.album?.title, !albumTitle.isEmpty {
+            descriptionText += " - " + albumTitle
+        }
+        descriptionLabel.text = descriptionText
         newLabel.isHidden = !audiotrack.isNew
         thumbnailView.image = audiotrack.thumbnailImage()
     }
