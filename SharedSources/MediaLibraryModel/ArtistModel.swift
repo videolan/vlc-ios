@@ -94,7 +94,7 @@ extension VLCMLArtist: MediaCollectionModel {
         return SortModel([.alpha])
     }
 
-    func files(with criteria: VLCMLSortingCriteria = .alpha,
+    func files(with criteria: VLCMLSortingCriteria,
                desc: Bool = false) -> [VLCMLMedia]? {
         return tracks(with: criteria, desc: desc)
     }

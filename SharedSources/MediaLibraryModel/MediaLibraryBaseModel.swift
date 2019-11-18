@@ -113,7 +113,7 @@ extension VLCMLObject {
 }
 
 extension MediaCollectionModel {
-    func files(with criteria: VLCMLSortingCriteria = .alpha,
+    func files(with criteria: VLCMLSortingCriteria = .default,
                desc: Bool = false) -> [VLCMLMedia]? {
         return files(with: criteria, desc: desc)
     }
