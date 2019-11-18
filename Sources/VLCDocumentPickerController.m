@@ -22,9 +22,26 @@
 
 #pragma mark - Internal Methods
 
+- (NSArray *)supportedUTIs
+{
+    NSArray *dict = [[[NSBundle mainBundle] infoDictionary]
+                     objectForKey:@"CFBundleDocumentTypes"];
+
+    NSMutableArray *result = [NSMutableArray array];
+
+    for (NSDictionary *item in dict) {
+        NSArray *contentTypes = [item objectForKey:@"LSItemContentTypes"];
+
+        if (contentTypes != nil) {
+            [result addObjectsFromArray:contentTypes];
+        }
+    }
+    return [result copy];
+}
+
 - (UIViewController *)configuredPickerViewController
 {
-    NSArray *types = @[(id)kUTTypeAudiovisualContent];
+    NSArray *types = [self supportedUTIs];
     UIDocumentPickerMode mode = UIDocumentPickerModeImport;
 
     if (@available(iOS 11.2, *)) {
