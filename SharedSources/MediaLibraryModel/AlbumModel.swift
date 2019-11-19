@@ -106,7 +106,7 @@ extension AlbumModel: MediaLibraryObserver {
 
 extension VLCMLAlbum: MediaCollectionModel {
     func sortModel() -> SortModel? {
-        return nil
+        return SortModel([.alpha, .album, .duration, .releaseDate])
     }
 
     func files(with criteria: VLCMLSortingCriteria,

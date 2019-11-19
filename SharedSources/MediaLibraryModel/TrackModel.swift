@@ -12,7 +12,7 @@
 class TrackModel: MediaModel {
     typealias MLType = VLCMLMedia
 
-    var sortModel = SortModel([.alpha, .duration, .fileSize])
+    var sortModel = SortModel([.alpha, .album, .duration, .fileSize])
 
     var updateView: (() -> Void)?
 
