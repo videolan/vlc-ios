@@ -51,7 +51,7 @@
     [super viewDidLoad];
 
     _refreshControl = [[UIRefreshControl alloc] init];
-    _refreshControl.tintColor = [UIColor VLCOrangeTintColor];
+    _refreshControl.tintColor = PresentationTheme.current.colors.orangeUI;
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     if (@available(iOS 10, *)) {
         self.tableView.refreshControl = _refreshControl;
