@@ -23,7 +23,8 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = PresentationTheme.current.colors.background;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
+        [self themeDidChange];
         [self setupSubviews];
     }
     return self;
@@ -31,10 +32,9 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
 
 - (void)setupSubviews
 {
-    UIView *darkView = [[UIView alloc] init];
-    darkView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:darkView];
-    darkView.backgroundColor = PresentationTheme.current.colors.background;
+    _darkView = [[UIView alloc] init];
+    _darkView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_darkView];
     self.textField = [[UITextField alloc] initWithFrame:CGRectZero];
     self.textField.translatesAutoresizingMaskIntoConstraints = NO;
     self.textField.delegate = self;
@@ -46,10 +46,10 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
         guide = self.safeAreaLayoutGuide;
     }
     [NSLayoutConstraint activateConstraints:@[
-                                              [darkView.leftAnchor constraintEqualToAnchor:self.leftAnchor],
-                                              [darkView.topAnchor constraintEqualToAnchor:self.topAnchor],
-                                              [darkView.rightAnchor constraintEqualToAnchor:self.rightAnchor],
-                                              [darkView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-1],
+                                              [_darkView.leftAnchor constraintEqualToAnchor:self.leftAnchor],
+                                              [_darkView.topAnchor constraintEqualToAnchor:self.topAnchor],
+                                              [_darkView.rightAnchor constraintEqualToAnchor:self.rightAnchor],
+                                              [_darkView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-1],
                                               [self.textField.leftAnchor constraintEqualToAnchor:guide.leftAnchor constant:8.0],
                                               [self.textField.topAnchor constraintEqualToAnchor:guide.topAnchor],
                                               [self.textField.rightAnchor constraintEqualToAnchor:guide.rightAnchor constant:8.0],
@@ -72,6 +72,13 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     if (selected) {
         [self.textField becomeFirstResponder];
     }
+}
+
+- (void)themeDidChange
+{
+    self.backgroundColor = PresentationTheme.current.colors.background;
+    self.textField.textColor = PresentationTheme.current.colors.cellTextColor;
+    _darkView.backgroundColor = PresentationTheme.current.colors.background;
 }
 
 #pragma mark - Properties

@@ -50,8 +50,8 @@
 
     self.title = NSLocalizedString(@"CONNECT_TO_SERVER", nil);
 
-    self.tableView.backgroundColor = PresentationTheme.current.colors.background;
-    self.tableView.separatorColor = PresentationTheme.current.colors.separatorColor;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
+    [self themeDidChange];
 
     self.protocolDataSource = [[VLCNetworkLoginDataSourceProtocol alloc] init];
     self.protocolDataSource.delegate = self;
@@ -132,6 +132,13 @@
     _loginInformation = loginInformation;
     self.protocolDataSource.protocol = [self protocolForProtocolIdentifier:loginInformation.protocolIdentifier];
     self.loginDataSource.loginInformation = loginInformation;
+}
+
+- (void)themeDidChange
+{
+    self.view.backgroundColor = PresentationTheme.current.colors.background;
+    self.tableView.backgroundColor = PresentationTheme.current.colors.background;
+    self.tableView.separatorColor = PresentationTheme.current.colors.background;
 }
 
 #pragma mark - VLCNetworkLoginDataSourceProtocolDelegate

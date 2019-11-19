@@ -101,7 +101,8 @@ static NSString *const VLCNetworkLoginDataSourceProtocolCellIdentifier = @"VLCNe
                                                  forState:UIControlStateSelected];
         }
         [self.contentView addSubview:_segmentedControl];
-        self.backgroundColor = PresentationTheme.current.colors.background;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
+        [self themeDidChange];
     }
     return self;
 }
@@ -110,6 +111,11 @@ static NSString *const VLCNetworkLoginDataSourceProtocolCellIdentifier = @"VLCNe
 {
     [super layoutSubviews];
     self.segmentedControl.frame = CGRectInset(self.contentView.bounds, 20, 5);
+}
+
+- (void)themeDidChange
+{
+    self.backgroundColor = PresentationTheme.current.colors.background;
 }
 
 @end
