@@ -52,7 +52,7 @@
 		41884A4E214BE0C800D2C6B4 /* MediaCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41884A4D214BE0C800D2C6B4 /* MediaCollectionViewCell.xib */; };
 		41884A50214BE0D800D2C6B4 /* MediaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41884A4F214BE0D800D2C6B4 /* MediaCollectionViewCell.swift */; };
 		418B144720179C00000447AA /* MediaCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418B144620179C00000447AA /* MediaCategoryViewController.swift */; };
-		418B144D20179C75000447AA /* VLCTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418B144C20179C74000447AA /* VLCTabBarCoordinator.swift */; };
+		418B144D20179C75000447AA /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418B144C20179C74000447AA /* TabBarCoordinator.swift */; };
 		418B145020179CB9000447AA /* LayoutAnchorContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418B144F20179CB9000447AA /* LayoutAnchorContainer.swift */; };
 		418B145920179E50000447AA /* VLCDragAndDropManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418B145820179E50000447AA /* VLCDragAndDropManager.swift */; };
 		418DFE9F211C93C6005D3652 /* CustomDialogRendererHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418DFE9E211C93C6005D3652 /* CustomDialogRendererHandler.swift */; };
@@ -527,7 +527,7 @@
 		41884A4D214BE0C800D2C6B4 /* MediaCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaCollectionViewCell.xib; sourceTree = "<group>"; };
 		41884A4F214BE0D800D2C6B4 /* MediaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCollectionViewCell.swift; sourceTree = "<group>"; };
 		418B144620179C00000447AA /* MediaCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaCategoryViewController.swift; path = Sources/MediaCategories/MediaCategoryViewController.swift; sourceTree = SOURCE_ROOT; };
-		418B144C20179C74000447AA /* VLCTabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VLCTabBarCoordinator.swift; path = Sources/VLCTabBarCoordinator.swift; sourceTree = SOURCE_ROOT; };
+		418B144C20179C74000447AA /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarCoordinator.swift; path = Sources/TabBarCoordinator.swift; sourceTree = SOURCE_ROOT; };
 		418B144F20179CB9000447AA /* LayoutAnchorContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutAnchorContainer.swift; path = Sources/LayoutAnchorContainer.swift; sourceTree = "<group>"; };
 		418B145820179E50000447AA /* VLCDragAndDropManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VLCDragAndDropManager.swift; path = Sources/VLCDragAndDropManager.swift; sourceTree = "<group>"; };
 		418DFE9E211C93C6005D3652 /* CustomDialogRendererHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDialogRendererHandler.swift; sourceTree = "<group>"; };
@@ -1153,7 +1153,7 @@
 			isa = PBXGroup;
 			children = (
 				41251ECE1FD0CF7900099110 /* AppCoordinator.swift */,
-				418B144C20179C74000447AA /* VLCTabBarCoordinator.swift */,
+				418B144C20179C74000447AA /* TabBarCoordinator.swift */,
 				413EC986201A329D00BF412F /* SortModel.swift */,
 				414396C12023316C005E3FAF /* AppearanceManager.swift */,
 			);
@@ -3065,7 +3065,7 @@
 				417E68B91F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m in Sources */,
 				DD3EFF5B1BDEBCE500B68579 /* VLCNetworkServerBrowserUPnP.m in Sources */,
 				8DD651BA208F6AF00052EE68 /* ActionSheetCell.swift in Sources */,
-				418B144D20179C75000447AA /* VLCTabBarCoordinator.swift in Sources */,
+				418B144D20179C75000447AA /* TabBarCoordinator.swift in Sources */,
 				DD3EABF81BE14BD6003668DA /* BasicUPnPDevice+VLC.m in Sources */,
 				DD3EAC091BE2192A003668DA /* VLCServerBrowsingController.m in Sources */,
 				7D3784C9183A9972009EE944 /* UIDevice+VLC.m in Sources */,

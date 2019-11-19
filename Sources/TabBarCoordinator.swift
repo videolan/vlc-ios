@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCTabBarCoordinator.swift
+ * TabBarCoordinator.swift
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2018 VideoLAN. All rights reserved.
@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class VLCTabBarCoordinator: NSObject {
+class TabBarCoordinator: NSObject {
     private var tabBarController: UITabBarController
     private var services: Services
 

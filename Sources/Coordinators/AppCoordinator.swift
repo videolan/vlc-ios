@@ -21,8 +21,8 @@ class Services: NSObject {
     private var childCoordinators: [NSObject] = []
     private var playerDisplayController: VLCPlayerDisplayController
     private var tabBarController: UITabBarController
-    private lazy var tabBarCoordinator: VLCTabBarCoordinator = {
-        return VLCTabBarCoordinator(tabBarController: tabBarController, services: services)
+    private lazy var tabBarCoordinator: TabBarCoordinator = {
+        return TabBarCoordinator(tabBarController: tabBarController, services: services)
     }()
     private var migrationViewController = VLCMigrationViewController(nibName: String(describing: VLCMigrationViewController.self),
                                                                      bundle: nil)
