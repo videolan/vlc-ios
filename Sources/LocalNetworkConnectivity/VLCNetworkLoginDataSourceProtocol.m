@@ -97,7 +97,7 @@ static NSString *const VLCNetworkLoginDataSourceProtocolCellIdentifier = @"VLCNe
 
             // Always use black since the background is always white.
             [self.segmentedControl setTitleTextAttributes:@{NSForegroundColorAttributeName:
-                                                                [UIColor blackColor]}
+                                                                UIColor.blackColor}
                                                  forState:UIControlStateSelected];
         }
         [self.contentView addSubview:_segmentedControl];

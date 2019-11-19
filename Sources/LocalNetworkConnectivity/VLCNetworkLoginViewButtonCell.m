@@ -24,8 +24,8 @@ NSString * const kVLCNetworkLoginViewButtonCellIdentifier = @"VLCNetworkLoginVie
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
         [self themeDidChange];
-        self.textLabel.backgroundColor = [UIColor clearColor];
-        self.textLabel.textColor = [UIColor whiteColor];
+        self.textLabel.backgroundColor = UIColor.clearColor;
+        self.textLabel.textColor = UIColor.whiteColor;
         self.textLabel.textAlignment = NSTextAlignmentCenter;
         self.accessibilityTraits = UIAccessibilityTraitButton;
 
