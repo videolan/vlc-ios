@@ -35,6 +35,17 @@ class CollectionModel: MLBaseModel {
     required init(mediaService: MediaLibraryService, mediaCollection: MediaCollectionModel) {
         self.medialibrary = mediaService
         self.mediaCollection = mediaCollection
+        self.sortModel = mediaCollection.sortModel() ?? self.sortModel
+
+        var sortingCriteria: VLCMLSortingCriteria = .default
+
+        if mediaCollection is VLCMLArtist
+            || mediaCollection is VLCMLGenre
+            || mediaCollection is VLCMLAlbum {
+            sortingCriteria = .album
+        }
+
+        self.sortModel.currentSort = sortingCriteria
         files = mediaCollection.files() ?? []
         medialibrary.addObserver(self)
     }
