@@ -26,12 +26,6 @@ class EditController: UIViewController {
 
     weak var delegate: EditControllerDelegate?
 
-    override func loadView() {
-        let editToolbar = EditToolbar(model: model)
-        editToolbar.delegate = self
-        self.view = editToolbar
-    }
-
     init(mediaLibraryService: MediaLibraryService,
          model: MediaLibraryBaseModel,
          presentingView: UICollectionView) {

@@ -19,7 +19,6 @@ protocol EditToolbarDelegate: class {
 class EditToolbar: UIView {
     static let height: CGFloat = 60
     weak var delegate: EditToolbarDelegate?
-    private var model: MediaLibraryBaseModel
 
     private var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -50,6 +49,10 @@ class EditToolbar: UIView {
         return addToPlaylistButton
     }()
 
+    private var renameButton: UIButton!
+    private var deleteButton: UIButton!
+    private var shareButton: UIButton!
+
     @objc func addToPlaylist() {
         delegate?.editToolbarDidAddToPlaylist(self)
     }
@@ -66,7 +69,7 @@ class EditToolbar: UIView {
         delegate?.editToolbarDidShare(self)
     }
 
-    private func setupRightStackView() {
+    func updateEditToolbar(for model: MediaLibraryBaseModel) {
         var buttonList = EditButtonsFactory.buttonList(for: model.anyfiles.first)
         // For now we remove the first button which is Add to playlist since it is not in the same group
         if buttonList.contains(.addToPlaylist) {
@@ -74,17 +77,41 @@ class EditToolbar: UIView {
                 buttonList.remove(at: index)
             }
         }
-        let buttons = EditButtonsFactory.generate(buttons: buttonList)
+
+        // Hide all buttons and show depending on model
+        renameButton.isHidden = true
+        deleteButton.isHidden = true
+        shareButton.isHidden = true
+
+        for buttonType in buttonList {
+            switch buttonType {
+            case .addToPlaylist:
+                addToPlaylistButton.isHidden = false
+            case .rename:
+                renameButton.isHidden = false
+            case .delete:
+                deleteButton.isHidden = false
+            case .share:
+                shareButton.isHidden = false
+            }
+        }
+    }
+
+    private func setupRightStackView() {
+        let buttons = EditButtonsFactory.generate(buttons: [.rename, .delete, .share])
         for button in buttons {
             switch button.identifier {
                 case .addToPlaylist:
                     rightStackView.addArrangedSubview(button.button(#selector(addToPlaylist)))
                 case .rename:
-                    rightStackView.addArrangedSubview(button.button(#selector(rename)))
+                    renameButton = button.button(#selector(rename))
+                    rightStackView.addArrangedSubview(renameButton)
                 case .delete:
-                    rightStackView.addArrangedSubview(button.button(#selector(deleteSelection)))
+                    deleteButton = button.button(#selector(deleteSelection))
+                    rightStackView.addArrangedSubview(deleteButton)
                 case .share:
-                    rightStackView.addArrangedSubview(button.button(#selector(share)))
+                    shareButton = button.button(#selector(share))
+                    rightStackView.addArrangedSubview(shareButton)
             }
         }
     }
@@ -103,13 +130,10 @@ class EditToolbar: UIView {
     }
 
     private func setupView() {
-        layer.shadowOpacity = 0.1
-        layer.shadowOffset = CGSize(width: 0, height: -1)
         backgroundColor = PresentationTheme.current.colors.background
     }
 
-    init(model: MediaLibraryBaseModel) {
-        self.model = model
+    init() {
         super.init(frame: .zero)
         setupView()
         setupRightStackView()

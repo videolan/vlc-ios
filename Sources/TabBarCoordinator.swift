@@ -14,6 +14,8 @@ class TabBarCoordinator: NSObject {
     private var tabBarController: UITabBarController
     private var services: Services
 
+    private lazy var editToolbar = EditToolbar()
+
     init(tabBarController: UITabBarController, services: Services) {
         self.tabBarController = tabBarController
         self.services = services
@@ -24,10 +26,12 @@ class TabBarCoordinator: NSObject {
 
     private func setup() {
         setupViewControllers()
+        setupEditToolbar()
         updateTheme()
     }
 
     @objc func updateTheme() {
+        editToolbar.backgroundColor = PresentationTheme.current.colors.tabBarColor
         //Setting this in appearanceManager doesn't update tabbar and UINavigationbar of the settingsViewController on change hence we do it here
         tabBarController.tabBar.isTranslucent = false
         tabBarController.tabBar.backgroundColor = PresentationTheme.current.colors.tabBarColor
@@ -87,6 +91,30 @@ class TabBarCoordinator: NSObject {
     }
 }
 
+// MARK: - Edit ToolBar
+
+private extension TabBarCoordinator {
+    func setupEditToolbar() {
+        editToolbar.isHidden = true
+        editToolbar.translatesAutoresizingMaskIntoConstraints = false
+        tabBarController.tabBar.addSubview(editToolbar)
+        tabBarController.tabBar.bringSubviewToFront(editToolbar)
+
+        let view = tabBarController.tabBar
+        var guide: LayoutAnchorContainer = view
+        if #available(iOS 11.0, *) {
+            guide = view.safeAreaLayoutGuide
+        }
+
+        NSLayoutConstraint.activate([
+            editToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            editToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            editToolbar.topAnchor.constraint(equalTo: guide.topAnchor),
+            editToolbar.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+        ])
+    }
+}
+
 extension UITabBarController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
@@ -108,5 +136,28 @@ extension UITabBarController {
             let isSystemDarkTheme = traitCollection.userInterfaceStyle == .dark
             PresentationTheme.current = isSystemDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
         }
+    }
+}
+
+// MARK: UITabBarController - Edit
+
+extension UITabBarController {
+    func editToolBar() -> EditToolbar? {
+        return tabBar.subviews.filter() { $0 is EditToolbar }.first as? EditToolbar
+    }
+
+    func displayEditToolbar(with model: MediaLibraryBaseModel) {
+        guard let editToolbar = editToolBar() else {
+            return
+        }
+        editToolbar.updateEditToolbar(for: model)
+        editToolbar.isHidden = false
+    }
+
+    func hideEditToolbar() {
+        guard let editToolbar = editToolBar() else {
+            return
+        }
+        editToolbar.isHidden = true
     }
 }

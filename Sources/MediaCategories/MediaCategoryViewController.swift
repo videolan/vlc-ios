@@ -39,7 +39,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return editController
     }()
 
-    private var editToolbarConstraint: NSLayoutConstraint?
     private var cachedCellSize = CGSize.zero
     private var toSize = CGSize.zero
     private var longPressGesture: UILongPressGestureRecognizer!
@@ -185,7 +184,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         super.viewDidLoad()
         setupCollectionView()
         setupSearchBar()
-        setupEditToolbar()
         _ = (MLMediaLibrary.sharedMediaLibrary() as! MLMediaLibrary).libraryDidAppear()
     }
 
@@ -209,29 +207,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     @objc func themeDidChange() {
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         searchBar.backgroundColor = PresentationTheme.current.colors.background
-        editController.view.backgroundColor = PresentationTheme.current.colors.background
 
         if #available(iOS 13.0, *) {
             navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
             navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
         }
         setNeedsStatusBarAppearanceUpdate()
-    }
-
-    func setupEditToolbar() {
-        editController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(editController.view)
-        var guide: LayoutAnchorContainer = view
-        if #available(iOS 11.0, *) {
-            guide = view.safeAreaLayoutGuide
-        }
-        editToolbarConstraint = editController.view.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: EditToolbar.height)
-        NSLayoutConstraint.activate([
-            editToolbarConstraint!,
-            editController.view.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            editController.view.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-            editController.view.heightAnchor.constraint(equalToConstant: 50)
-        ])
     }
 
     func isEmptyCollectionView() -> Bool {
@@ -304,9 +285,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     private func displayEditToolbar() {
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.editToolbarConstraint?.constant = self?.isEditing == true ? 0 : EditToolbar.height
-            self?.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self?.isEditing == true ? EditToolbar.height : 0, right: 0)
+        if isEditing {
+            tabBarController?.editToolBar()?.delegate = editController
+            tabBarController?.displayEditToolbar(with: model)
+        } else {
+            tabBarController?.hideEditToolbar()
         }
     }
 
