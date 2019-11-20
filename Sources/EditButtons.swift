@@ -33,7 +33,6 @@ class EditButton {
     func button(_ selector: Selector) -> UIButton {
         let generatedButton = UIButton(type: .system)
         generatedButton.setImage(UIImage(named: image), for: .normal)
-        generatedButton.contentHorizontalAlignment = .left
         generatedButton.addTarget(self, action: selector, for: .touchUpInside)
         generatedButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
         generatedButton.tintColor = .orange
