@@ -36,6 +36,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 @interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCRemoteControlServiceDelegate>
 {
     VLCRemoteControlService *_remoteControlService;
+    VLCMediaPlayer *_backgroundDummyPlayer;
     VLCMediaPlayer *_mediaPlayer;
     VLCMediaListPlayer *_listPlayer;
     BOOL _shouldResumePlaying;
@@ -123,6 +124,11 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         _playbackSessionManagementLock = [[NSLock alloc] init];
         _shuffleMode = NO;
         _shuffleStack = [[NSMutableArray alloc] init];
+
+        // Initialize a separate media player in order to play silence so that the application can
+        // stay alive in background exclusively for Chromecast.
+        _backgroundDummyPlayer = [[VLCMediaPlayer alloc] initWithOptions:@[@"--demux=rawaud"]];
+        _backgroundDummyPlayer.media = [[VLCMedia alloc] initWithPath:@"/dev/zero"];
     }
     return self;
 }
@@ -1211,6 +1217,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     if (!_renderer && _mediaPlayer.audioTrackIndexes.count > 0)
         [self setVideoTrackEnabled:false];
+
+    if (_renderer) {
+        [_backgroundDummyPlayer play];
+    }
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
@@ -1218,6 +1228,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     if (_preBackgroundWrapperView) {
         [self setVideoOutputView:_preBackgroundWrapperView];
         _preBackgroundWrapperView = nil;
+    }
+
+    if (_renderer) {
+        [_backgroundDummyPlayer stop];
     }
 
     [self setVideoTrackEnabled:true];
