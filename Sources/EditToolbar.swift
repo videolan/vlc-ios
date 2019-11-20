@@ -70,11 +70,11 @@ class EditToolbar: UIView {
     }
 
     func updateEditToolbar(for model: MediaLibraryBaseModel) {
-        var buttonList = EditButtonsFactory.buttonList(for: model.anyfiles.first)
+        var buttonTypeList = EditButtonsFactory.buttonList(for: model.anyfiles.first)
         // For now we remove the first button which is Add to playlist since it is not in the same group
-        if buttonList.contains(.addToPlaylist) {
-            if let index = buttonList.firstIndex(of: .addToPlaylist) {
-                buttonList.remove(at: index)
+        if buttonTypeList.contains(.addToPlaylist) {
+            if let index = buttonTypeList.firstIndex(of: .addToPlaylist) {
+                buttonTypeList.remove(at: index)
             }
         }
 
@@ -83,7 +83,7 @@ class EditToolbar: UIView {
         deleteButton.isHidden = true
         shareButton.isHidden = true
 
-        for buttonType in buttonList {
+        for buttonType in buttonTypeList {
             switch buttonType {
             case .addToPlaylist:
                 addToPlaylistButton.isHidden = false
