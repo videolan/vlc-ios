@@ -1,5 +1,15 @@
 # Changelog
 
+## iOS [3.2.4]
+
+· Fix iOS 9 audio playback issues
+· Improve the edit mode toolbar, following user feedback
+· Add import for all supported files from iCloud
+· Add album title inside a audio track description label
+· Fix wrong colors in network views
+· Fix Chromecast background playback
+· Fix default sort for audio collections
+
 ## iOS [3.2.3]
 
 · Add sorting into media collections
