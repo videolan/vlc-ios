@@ -4,13 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_BRIGHT" = "Tema chiaro";
+"SETTINGS_THEME_DARK" = "Tema scuro";
+"SETTINGS_THEME_SYSTEM" = "Automatico";
 "SETTINGS_PRIVACY_SUBTITLE" = "Apri in Impostazioni";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Rendi sicuro l'accesso ai tuoi contenuti";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Aspetto";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio dilatato temporalmente";
 "SETTINGS_BACKGROUND_AUDIO" = "Riproduzione audio in sottofondo";
 "SETTINGS_GENERIC_TITLE" = "Generico";
@@ -86,16 +86,17 @@
 "SETTINGS_SEND_FEEDBACK" = "Invia segnalazione";
 "SETTINGS_SEND_RATING" = "Valuta VLC per iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Raccolta multimediale";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forza VLC a eseguire una nuova scansione della raccolta ";
 "SETTINGS_DECRAPIFY" = "Ottimizza i nome degli elementi per la visualizzazione";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra long";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Durata rilevamento dei gruppi di video";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Breve";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Predefinita";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Lunga";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Molto lunga";
+"SETTINGS_SHOW_THUMBNAILS" = "Mostra miniature dei video";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Includi la raccolta multimediale nel backup del dispositivo";
 
 "SETTINGS_FILE_SYNC" = "Sincronizzazione file";
 "SETTINGS_WIFISHARING_IPv6" = "Supporto IPv6 per condivisione WiFi";

@@ -68,7 +68,7 @@
 "BUTTON_CONTINUE" = "Continua";
 "BUTTON_SET" = "Imposta";
 "BUTTON_RESET" = "Ripristina";
-"BUTTON_RESCAN" = "Rescan";
+"BUTTON_RESCAN" = "Nuona scansione";
 "PRIVATE_PLAYBACK_TOGGLE" = "Riproduzione privata";
 "SCAN_SUBTITLE_TOGGLE" = "Scansione sottotitoli (solo http)";
 
@@ -178,8 +178,8 @@
 "EMPTY_LIBRARY" = "Raccolta multimediale vuota";
 "EMPTY_LIBRARY_LONG" = "Per la riproduzione puoi trasmettere contenuti da un server sulla tua rete locale, dal cloud o sincronizzare contenuti sul tuo dispositivo utilizzando iTunes, Wifi Upload o altri servizi Cloud.";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
-"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+"EMPTY_PLAYLIST" = "Scaletta vuota";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Aggiungi media durante la modifica nelle categorie rispettive.";
 
 "PLAYBACK_SCRUB_HELP" = "Scorri dito verso il basso per regolare la velocità di scrubbing.";
 "PLAYBACK_SCRUB_HIGH" = "Scrubbing ad alta velocità";
@@ -289,10 +289,10 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Premi %@ per eliminare"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Confirm the deletion of the selection";
-"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
-"DELETE_TITLE" = "Delete Selection";
+"DELETE_MESSAGE" = "Conferma l'eliminazione della sezione";
+"DELETE_MESSAGE_PLAYLIST" = "Sei sicuro di voler eliminare la scaletta selezionata?\nI file multimediali associati non saranno eliminati.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Sei sicuro di voler rimuovere i media selezionati dalla scaletta?\nEssi non saranno eliminati dal disco.";
+"DELETE_TITLE" = "Elimina selezione";
 
 //Drag and Drop
 "THIS_FILE" = "Questo file";
@@ -317,7 +317,7 @@
 "MOVIES" = "Film";
 "SONGS" = "Brani";
 "PLAYLISTS" = "Scalette";
-"VIDEO_GROUPS" = "Video groups";
+"VIDEO_GROUPS" = "Gruppi di video";
 
 "MODIFIED_DATE" = "Data di modifica";
 "NAME" = "Nome";
@@ -367,9 +367,9 @@
 "ALBUM" = "Album";
 "FILENAME" = "Nome file";
 "TRACK_NUMBER" = "Numero traccia";
-"NB_AUDIO" = "Number of audio";
-"NB_MEDIA" = "Number of media";
-"NB_VIDEO" = "Number of video";
+"NB_AUDIO" = "Numero di audio";
+"NB_MEDIA" = "Numero di media";
+"NB_VIDEO" = "Numero di video";
 
 // VLCNetworkLoginTVViewController
 
@@ -394,12 +394,12 @@
 "MORE_OPTIONS_HEADER_TITLE" = "Opzioni video";
 
 /* Settings - Force rescan alert */
-"FORCE_RESCAN_TITLE" = "Force media library rescan";
-"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
+"FORCE_RESCAN_TITLE" = "Forza nuova scansione della raccolta multimediale";
+"FORCE_RESCAN_MESSAGE" = "Vuoi forzare VLC eseguire una nuova scansione della raccolta multimediale?\nPotrebbe richiedere del tempo.";
 
 // Local Network
 
-"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
-"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
-"SMBV1_CONTINUE" = "Continue with SMBv1";
-"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+"SMBV1_WARN_TITLE" = "Avviso di connessione SMBv1";
+"SMBV1_WARN_DESCRIPTION" = "Abbiamo rilevato un protocollo obsoleto (SMBv1).\nSei sicuro di voler continuare con SMBv1?\nTi consigliamo di aggiornare o modificare le impostazioni del tuo server.";
+"SMBV1_CONTINUE" = "Continua con SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Prova SMBv2/v3";
