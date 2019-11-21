@@ -263,7 +263,6 @@ const float MediaTimerInterval = 2.f;
     NSString *directoryPath = [self directoryPath];
     NSMutableArray *foundFiles = [NSMutableArray arrayWithArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil]];
     NSMutableArray *filePaths = [NSMutableArray array];
-    NSURL *fileURL;
     while (foundFiles.count) {
         NSString *fileName = foundFiles.firstObject;
         NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
@@ -276,17 +275,9 @@ const float MediaTimerInterval = 2.f;
             if (self.filterResultsForPlayability) {
                 if ([fileName isSupportedMediaFormat] || [fileName isSupportedAudioMediaFormat]) {
                     [filePaths addObject:filePath];
-
-                    /* exclude media files from backup (QA1719) */
-                    fileURL = [NSURL fileURLWithPath:filePath];
-                    [fileURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
                 }
             } else {
                 [filePaths addObject:filePath];
-
-                /* exclude media files from backup (QA1719) */
-                fileURL = [NSURL fileURLWithPath:filePath];
-                [fileURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
             }
         } else if (exists && isDirectory) {
             // add folders

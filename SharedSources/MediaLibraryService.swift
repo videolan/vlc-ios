@@ -151,6 +151,21 @@ private extension MediaLibraryService {
             assertionFailure("MediaLibraryService: Medialibrary failed to start.")
             return
         }
+
+        /* exclude Document directory from backup (QA1719) */
+        if let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+            var excludeURL = URL(fileURLWithPath: documentPath)
+            var resourceValue = URLResourceValues()
+
+            resourceValue.isExcludedFromBackup = true
+
+            do {
+                try excludeURL.setResourceValues(resourceValue)
+            } catch let error {
+                assertionFailure("MediaLibraryService: start: \(error.localizedDescription)")
+            }
+        }
+
         medialib.reload()
         medialib.discover(onEntryPoint: "file://" + path)
     }
@@ -474,17 +489,6 @@ extension MediaLibraryService: VLCMediaFileDiscovererDelegate {
     func mediaFileAdded(_ filePath: String!, loading isLoading: Bool) {
         guard !isLoading else {
             return
-        }
-        /* exclude media files from backup (QA1719) */
-        var excludeURL = URL(fileURLWithPath: filePath)
-        var resourceValue = URLResourceValues()
-
-        resourceValue.isExcludedFromBackup = true
-
-        do {
-            try excludeURL.setResourceValues(resourceValue)
-        } catch let error {
-            assertionFailure("MediaLibraryService: VLCMediaFileDiscovererDelegate: \(error.localizedDescription)")
         }
 
         reload()
