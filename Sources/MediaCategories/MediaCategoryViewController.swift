@@ -173,6 +173,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if !isSearching {
             popViewIfNecessary()
         }
+
+        if isEditing {
+            if let editToolbar = tabBarController?.editToolBar() {
+                editToolbar.updateEditToolbar(for: model)
+            }
+        }
     }
 
     @available(*, unavailable)
