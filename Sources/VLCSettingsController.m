@@ -133,7 +133,7 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
 
 - (void)settingDidChange:(NSNotification*)notification
 {
-    if ([notification.object isEqual:kVLCSettingPasscodeOnKey]) {
+    if ([notification.userInfo objectForKey: kVLCSettingPasscodeOnKey]) {
         BOOL passcodeOn = [[notification.userInfo objectForKey:kVLCSettingPasscodeOnKey] boolValue];
 
         [self updateForPasscode:nil];

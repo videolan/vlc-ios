@@ -87,7 +87,7 @@ extension VLCSettingsSpecifierManager: ActionSheetDataSource {
         }
         
         if let titles = specifier?.multipleTitles(), indexPath.row < titles.count {
-            cell.name.text = settingsReader.title(forStringId: titles[indexPath.row] as? String)
+            cell.name.text = settingsReader.title(forId: titles[indexPath.row] as? NSObject)
         }
 
         return cell

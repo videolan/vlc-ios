@@ -43,7 +43,7 @@ PODS:
   - GTMSessionFetcher/Core (1.2.2)
   - GTMSessionFetcher/Full (1.2.2):
     - GTMSessionFetcher/Core (= 1.2.2)
-  - InAppSettingsKit (2.2.2)
+  - InAppSettingsKit (2.14)
   - MediaLibraryKit-prod (2.6.9):
     - MobileVLCKit (~> 3.3.0)
   - MetaDataFetcherKit (0.3.1):
@@ -94,7 +94,7 @@ DEPENDENCIES:
   - GoogleAPIClientForREST/Drive
   - GRKArrayDiff (~> 2.1)
   - GTMAppAuth (= 0.7.1)
-  - InAppSettingsKit (from `git://github.com/fkuehne/InAppSettingsKit.git`, commit `415ea6bb`)
+  - InAppSettingsKit (from `git://github.com/Mikanbu/InAppSettingsKit.git`, commit `f3ede15`)
   - MediaLibraryKit-prod
   - MetaDataFetcherKit (~> 0.3.1)
   - MobileVLCKit (= 3.3.9)
@@ -144,8 +144,8 @@ EXTERNAL SOURCES:
   CocoaHTTPServer:
     :git: git://github.com/fkuehne/CocoaHTTPServer.git
   InAppSettingsKit:
-    :commit: 415ea6bb
-    :git: git://github.com/fkuehne/InAppSettingsKit.git
+    :commit: f3ede15
+    :git: git://github.com/Mikanbu/InAppSettingsKit.git
   ObjectiveDropboxOfficial:
     :git: git://github.com/Mikanbu/dropbox-sdk-obj-c.git
   OROpenSubtitleDownloader:
@@ -160,8 +160,8 @@ CHECKOUT OPTIONS:
     :commit: a73589dbb4c67a3a6e6441e1981ba1b5b70a77ad
     :git: git://github.com/fkuehne/CocoaHTTPServer.git
   InAppSettingsKit:
-    :commit: 415ea6bb
-    :git: git://github.com/fkuehne/InAppSettingsKit.git
+    :commit: f3ede15
+    :git: git://github.com/Mikanbu/InAppSettingsKit.git
   ObjectiveDropboxOfficial:
     :commit: e07b5aa5bc41879ac664b73e03a2d2c162d89b5b
     :git: git://github.com/Mikanbu/dropbox-sdk-obj-c.git
@@ -181,7 +181,7 @@ SPEC CHECKSUMS:
   GRKArrayDiff: 7522e374edcc55c1731a219e428847164b04cfab
   GTMAppAuth: c5e41aaf039ac1ccc41543e6ea2ef7abd255ad41
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
-  InAppSettingsKit: 76d5cfbaa3e3f8aa53fe3628516da7eb1aa6a5cb
+  InAppSettingsKit: 800853da39388780c15191846688c0974c5b13b5
   MediaLibraryKit-prod: 718b52b55cb40b479eeae29fb5cc0cfbbbce0191
   MetaDataFetcherKit: d1d61b061bf74268aaffb6bf08a70396672163df
   MobileVLCKit: cf10c4a138d89f3843b6290f94823609b34215a1
@@ -200,6 +200,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: c3a1af0638c2a94492aaffb21e0922ae7c94dbff
+PODFILE CHECKSUM: 8cdb129c6d2a27aedc0fa84b3c5393bea5800bbf
 
 COCOAPODS: 1.8.4
