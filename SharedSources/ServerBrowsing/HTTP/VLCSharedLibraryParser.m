@@ -35,10 +35,12 @@ NSString *const VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance = @"VLCS
     NSArray *parsedContents = [self downloadAndProcessDataFromServer:hostnamePort];
 
     if (parsedContents.count > 0) {
-        if ([[parsedContents.firstObject objectForKey:@"identifier"] isEqualToString:@"org.videolan.vlc-ios"]) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
-                                                                object:self
-                                                              userInfo:@{@"aNetService" : aNetService}];
+        if ([parsedContents.firstObject isKindOfClass:[NSDictionary class]]) {
+            if ([[parsedContents.firstObject objectForKey:@"identifier"] isEqualToString:@"org.videolan.vlc-ios"]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance
+                                                                    object:self
+                                                                  userInfo:@{@"aNetService" : aNetService}];
+            }
         }
     }
 }
