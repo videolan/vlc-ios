@@ -286,6 +286,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         PlaybackService.sharedInstance().setPlayerHidden(editing)
 
+        searchBar.resignFirstResponder()
         searchBarConstraint?.constant = -self.searchBarSize
         reloadData()
     }
