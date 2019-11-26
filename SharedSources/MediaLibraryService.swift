@@ -156,8 +156,9 @@ private extension MediaLibraryService {
         if let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
             var excludeURL = URL(fileURLWithPath: documentPath)
             var resourceValue = URLResourceValues()
+            let excludeMediaLibrary = !UserDefaults.standard.bool(forKey: kVLCSettingBackupMediaLibrary)
 
-            resourceValue.isExcludedFromBackup = true
+            resourceValue.isExcludedFromBackup = excludeMediaLibrary
 
             do {
                 try excludeURL.setResourceValues(resourceValue)

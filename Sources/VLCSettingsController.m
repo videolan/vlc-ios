@@ -145,6 +145,18 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
             navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
             [self.navigationController presentViewController:navigationController animated:YES completion:nil];
         }
+    } else if ([notification.userInfo objectForKey:kVLCSettingBackupMediaLibrary]) {
+        BOOL backupMediaLibrary = [[notification.userInfo objectForKey:kVLCSettingBackupMediaLibrary] boolValue];
+        NSNumber *excludeMediaLibrary = [NSNumber numberWithBool:!backupMediaLibrary];
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentPath = [searchPaths firstObject];
+
+        if (documentPath) {
+            NSURL *documentURL = [NSURL fileURLWithPath:documentPath];
+            [documentURL setResourceValue:excludeMediaLibrary forKey:NSURLIsExcludedFromBackupKey error:nil];
+        } else {
+            [self.settingsStore setBool:!backupMediaLibrary forKey:kVLCSettingBackupMediaLibrary];
+        }
     }
 }
 

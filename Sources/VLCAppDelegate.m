@@ -88,7 +88,8 @@
                                   kVLCAutomaticallyPlayNextItem : @(YES),
                                   kVLCSettingsMediaLibraryVideoGroupPrefixLength: kVLCSettingsMediaLibraryVideoGroupPrefixLengthDefaultValue,
                                   kVLCSettingShowThumbnails : kVLCSettingShowThumbnailsDefaultValue,
-                                  kVLCSettingShowArtworks : kVLCSettingShowArtworksDefaultValue
+                                  kVLCSettingShowArtworks : kVLCSettingShowArtworksDefaultValue,
+                                  kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue
     };
     [defaults registerDefaults:appDefaults];
 }
