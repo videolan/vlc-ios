@@ -158,7 +158,7 @@ static NSString *const kPlexVLCDeviceName = @"VLC for iOS";
         token = [[NSArray arrayWithArray:_containerInfo] firstObject][@"token"];
     }
 
-    return token;
+    return token ? token : @"";
 }
 
 #pragma mark - Parser
