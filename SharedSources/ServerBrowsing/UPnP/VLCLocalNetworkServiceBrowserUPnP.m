@@ -117,6 +117,8 @@
     NSUInteger count = _UPNPdevices.count;
     BasicUPnPDevice *device;
     NSMutableArray<VLCLocalNetworkServiceUPnP*> *mutArray = [[NSMutableArray alloc] init];
+
+    [[[UPnPManager GetInstance] DB] lock];
     for (NSUInteger x = 0; x < count; x++) {
         device = _UPNPdevices[x];
         if ([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
@@ -124,6 +126,7 @@
         else
             APLog(@"found device '%@' with unsupported urn '%@'", [device friendlyName], [device urn]);
     }
+    [[[UPnPManager GetInstance] DB] unlock];
     _filteredUPNPDevices = nil;
     _filteredUPNPDevices = [NSArray arrayWithArray:mutArray];
 
