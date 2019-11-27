@@ -96,6 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra lang";
 "SETTINGS_SHOW_THUMBNAILS" = "Video-miniaturen weergeven";
 "SETTINGS_SHOW_ARTWORKS" = "Albumhoezen weergeven";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "De mediabibliotheek opnemen in de back-up van het apparaat";
 
 "SETTINGS_FILE_SYNC" = "Bestandssynchronisatie";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-ondersteuning voor WiFi-delen";
