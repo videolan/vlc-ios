@@ -33,6 +33,33 @@ class ArtistModel: AudioCollectionModel {
     func append(_ item: VLCMLArtist) {
         files.append(item)
     }
+
+    private func addNewArtists(_ artists: [VLCMLArtist]) {
+        let newArtists = artists.filter() {
+            for artist in files {
+                if artist.identifier() == $0.identifier() {
+                    return false
+                }
+            }
+            return true
+        }
+
+        for artist in newArtists {
+            if !files.contains(where: { $0.identifier() == artist.identifier() }) {
+                files.append(artist)
+            }
+        }
+    }
+
+    private func filterGeneratedArtists() {
+        for (index, artist) in files.enumerated() {
+            if artist.identifier() == UnknownArtistID || artist.identifier() == VariousArtistID {
+                if artist.tracksCount() == 0 {
+                    files.remove(at: index)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Sort
@@ -62,9 +89,11 @@ extension ArtistModel: MediaLibraryObserver {
 
     func medialibrary(_ medialibrary: MediaLibraryService,
                       didModifyArtistsWithIds artistsIds: [NSNumber]) {
+
+        let uniqueArtistsIds = Array(Set(artistsIds))
         var artists = [VLCMLArtist]()
 
-        artistsIds.forEach() {
+        uniqueArtistsIds.forEach() {
             guard let safeArtist = medialibrary.medialib.artist(withIdentifier: $0.int64Value)
                 else {
                     return
@@ -73,6 +102,8 @@ extension ArtistModel: MediaLibraryObserver {
         }
 
         files = swapModels(with: artists)
+        addNewArtists(artists)
+        filterGeneratedArtists()
         updateView?()
     }
 
