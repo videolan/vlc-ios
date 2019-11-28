@@ -32,6 +32,7 @@ extension AudioCollectionModel {
                     }
                 }
             }
+            filterFilesFromDeletion(of: items)
             medialibrary.reload()
         }
         catch let error as NSError {
