@@ -121,7 +121,7 @@ extension MediaCollectionModel {
     func thumbnail() -> UIImage? {
         var image: UIImage? = nil
         if image == nil {
-            for track in files() ?? [] where track.isThumbnailGenerated() {
+            for track in files() ?? [] where track.isThumbnailGenerated() == .available {
                 image = UIImage(contentsOfFile: track.thumbnail()?.path ?? "")
                 break
             }
