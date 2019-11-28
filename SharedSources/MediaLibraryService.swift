@@ -401,7 +401,11 @@ extension MediaLibraryService {
         mlMedia.subtitleTrackIndex = Int64(player.indexOfCurrentSubtitleTrack)
         mlMedia.chapterIndex = Int64(player.indexOfCurrentChapter)
         mlMedia.titleIndex = Int64(player.indexOfCurrentTitle)
-        //create a new thumbnail
+
+        if mlMedia.type() == .video {
+            mlMedia.requestThumbnail(of: .thumbnail, desiredWidth: 320,
+                                     desiredHeight: 200, atPosition: player.playbackPosition)
+        }
     }
 }
 
