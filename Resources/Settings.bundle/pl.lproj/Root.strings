@@ -96,6 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Bardzo długa";
 "SETTINGS_SHOW_THUMBNAILS" = "Pokaż miniaturki wideo";
 "SETTINGS_SHOW_ARTWORKS" = "Pokaż okładki muzyczne";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Dołącz bibliotekę multimediów do kopii zapasowej urządzenia";
 
 "SETTINGS_FILE_SYNC" = "Synchronizacja plików";
 "SETTINGS_WIFISHARING_IPv6" = "Obsługa protokołu IPv6 dla udostępnienia WiFi";
