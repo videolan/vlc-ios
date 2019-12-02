@@ -201,6 +201,7 @@
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
     }
+    [_remoteNetworkTableView reloadData];
 }
 
 - (BOOL)shouldAutorotate
