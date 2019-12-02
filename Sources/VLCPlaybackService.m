@@ -667,8 +667,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
             _sessionWillRestart = NO;
             [self stopPlayback];
         } break;
-        case VLCMediaPlayerStateEnded:
-        case VLCMediaPlayerStateStopped: {
+        case VLCMediaPlayerStateEnded: {
             NSInteger nextIndex = [self nextMediaIndex];
 
             if (nextIndex == -1) {
@@ -678,6 +677,17 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
                 [_listPlayer playItemAtNumber:@(nextIndex)];
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
+            }
+        } break;
+        case VLCMediaPlayerStateStopped: {
+            [_listPlayer.mediaList lock];
+            NSUInteger listCount = _listPlayer.mediaList.count;
+            [_listPlayer.mediaList unlock];
+
+            if ([_listPlayer.mediaList indexOfMedia:_mediaPlayer.media] == listCount - 1
+                && self.repeatMode == VLCDoNotRepeat) {
+                _sessionWillRestart = NO;
+                [self stopPlayback];
             }
         } break;
         default:
