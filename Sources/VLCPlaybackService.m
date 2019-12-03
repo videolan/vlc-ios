@@ -108,10 +108,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         // appkit because we neeed to know when we go to background in order to stop the video, so that we don't crash
         [defaultCenter addObserver:self selector:@selector(applicationWillResignActive:)
                               name:UIApplicationWillResignActiveNotification object:nil];
-        [defaultCenter addObserver:self selector:@selector(applicationDidBecomeActive:)
-                              name:UIApplicationDidBecomeActiveNotification object:nil];
         [defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:)
                               name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [defaultCenter addObserver:self selector:@selector(applicationWillEnterForeground:)
+                              name:UIApplicationWillEnterForegroundNotification object:nil];
 
         _metadata = [VLCMetaData new];
         _dialogProvider = [[VLCDialogProvider alloc] initWithLibrary:[VLCLibrary sharedLibrary] customUI:YES];
@@ -1238,7 +1238,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     }
 }
 
-- (void)applicationDidBecomeActive:(NSNotification *)notification
+- (void)applicationWillEnterForeground:(NSNotification *)notification
 {
     if (_preBackgroundWrapperView) {
         [self setVideoOutputView:_preBackgroundWrapperView];
