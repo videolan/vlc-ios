@@ -1258,6 +1258,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         [_listPlayer play];
     }
 }
+
 #pragma mark - remoteControlDelegate
 
 - (void)remoteControlServiceHitPause:(VLCRemoteControlService *)rcs
