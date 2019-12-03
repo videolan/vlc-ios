@@ -39,6 +39,8 @@
 
 #import "VLCWiFiUploadTableViewCell.h"
 
+#import "VLCBoxController.h"
+
 #import "VLC-Swift.h"
 
 @interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate, VLCFileServerViewDelegate>
@@ -65,6 +67,11 @@
 
     if (self) {
         [self setupUI];
+
+        // Start Box session on init to check whether it is logged in or not as soon as possible
+        [[VLCBoxController sharedInstance] startSession];
+        // Request directory listing to check authorization
+        [[VLCBoxController sharedInstance] requestDirectoryListingAtPath:nil];
     }
     return self;
 }
@@ -169,6 +176,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boxSessionUpdated) name:VLCBoxControllerSessionUpdated object:nil];
     [self themeDidChange];
     NSArray *browserClasses = @[
                                 [VLCLocalNetworkServiceBrowserUPnP class],
@@ -233,6 +241,16 @@
 
     if (loginViewController.navigationItem.leftBarButtonItem == nil)
         loginViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIBarButtonItemStylePlain target:self action:@selector(_dismissLogin)];
+}
+
+- (void)boxSessionUpdated
+{
+    __weak typeof(self) weakSelf = self;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf->_remoteNetworkTableView reloadData];
+    });
 }
 
 #pragma mark - table view handling
