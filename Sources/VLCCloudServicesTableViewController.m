@@ -97,7 +97,7 @@
 {
     int i = [[VLCDropboxController sharedInstance] isAuthorized] ? 1 : 0;
     i += [[VLCGoogleDriveController sharedInstance] isAuthorized] ? 1 : 0;
-    i += [[BoxSDK sharedSDK].OAuth2Session isAuthorized] ? 1 : 0;
+    i += [[VLCBoxController sharedInstance] isAuthorized] ? 1 : 0;
     i += [[VLCOneDriveController sharedInstance] isAuthorized] ? 1 : 0;
     return i;
 }
@@ -154,7 +154,7 @@
         }
         case 2: {
             //Box
-            BOOL isAuthorized = [[BoxSDK sharedSDK].OAuth2Session isAuthorized];
+            BOOL isAuthorized = [[VLCBoxController sharedInstance] isAuthorized];
             cell.icon.image = [UIImage imageNamed:@"BoxCell"];
             cell.cloudTitle.text = @"Box";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
