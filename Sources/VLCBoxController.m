@@ -108,6 +108,14 @@
 
 - (void)boxApiTokenDidRefresh
 {
+    XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
+    keychainItem.service = kVLCBoxService;
+    keychainItem.account = kVLCBoxAccount;
+    keychainItem.secret.stringValue = [[BoxSDK sharedSDK].OAuth2Session refreshToken];
+    [keychainItem saveWithError:nil];
+    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
+    [ubiquitousStore setString:[[BoxSDK sharedSDK].OAuth2Session refreshToken] forKey:kVLCStoreBoxCredentials];
+    [ubiquitousStore synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCBoxControllerSessionUpdated object:nil];
 }
 
