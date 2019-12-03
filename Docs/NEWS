@@ -1,5 +1,21 @@
 # Changelog
 
+## iOS [3.2.5]
+
+· Add setting to enable/disable media library iCloud backup
+· Add snap to playback speed with haptic feedback
+· Improve overall iOS 9 stability
+· Update media thumbnail after playback
+· Fix UPnP CPU usage issue
+· Fix potential crash with Plex
+· Fix repeat all mode in playback
+· Fix thumbnail generation on iOS 9
+· Fix media library backup on iCloud
+· Fix cloud services connected account count
+· Fix launch of media playback during a playback
+· Fix unknown and various artists addition and deletion
+· Fix potential crash while deleting an audio collection
+
 ## iOS [3.2.4]
 
 · Fix iOS 9 audio playback issues
