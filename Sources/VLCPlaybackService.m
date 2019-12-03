@@ -1230,7 +1230,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 {
     _preBackgroundWrapperView = _videoOutputViewWrapper;
 
-    if (!_renderer && _mediaPlayer.audioTrackIndexes.count > 0)
+    if (!_renderer && _mediaPlayer.audioTrackIndexes.count > 0 && [_mediaPlayer isPlaying])
         [self setVideoTrackEnabled:false];
 
     if (_renderer) {
@@ -1249,7 +1249,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         [_backgroundDummyPlayer stop];
     }
 
-    [self setVideoTrackEnabled:true];
+    if (_mediaPlayer.currentVideoTrackIndex == -1) {
+        [self setVideoTrackEnabled:true];
+    }
 
     if (_shouldResumePlaying) {
         _shouldResumePlaying = NO;
