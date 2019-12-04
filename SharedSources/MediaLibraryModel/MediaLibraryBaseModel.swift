@@ -73,6 +73,7 @@ protocol MediaCollectionModel {
                desc: Bool) -> [VLCMLMedia]?
     func sortModel() -> SortModel?
     func title() -> String
+    func numberOfTracksString() -> String
 }
 
 // MARK: - Helper methods
