@@ -528,6 +528,7 @@ extension MediaCategoryViewController {
     override func collectionView(_ collectionView: UICollectionView,
                                  contextMenuConfigurationForItemAt indexPath: IndexPath,
                                  point: CGPoint) -> UIContextMenuConfiguration? {
+        let modelContent = self.isSearching ? self.searchDataSource.searchData.objectAtIndex(index: indexPath.row) : self.model.anyfiles[indexPath.row]
         let cell = collectionView.cellForItem(at: indexPath)
         var thumbnail: UIImage? = nil
         if let cell = cell as? MovieCollectionViewCell {
@@ -539,7 +540,7 @@ extension MediaCategoryViewController {
             guard let thumbnail = thumbnail else {
                 return nil
             }
-            return CollectionViewCellPreviewController(thumbnail: thumbnail)
+            return CollectionViewCellPreviewController(thumbnail: thumbnail, with: modelContent)
         }) {
             [weak self] action in
             return self?.generateUIMenuForContent(at: indexPath.row)

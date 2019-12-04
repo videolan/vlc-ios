@@ -8,27 +8,231 @@
 * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
 
-class CollectionViewCellPreviewController: UIViewController {
-    var thumbnailView = UIImageView()
+enum PreviewInformationType {
+    case title
+    case subtitle
+    case metadata
+}
 
-    override func loadView() {
-        view = thumbnailView
+struct PreviewInformation {
+    var value: String
+    var label: String?
+    var type: PreviewInformationType = .metadata
+}
+
+class PreviewElement {
+    var info: PreviewInformation
+    var uiLabel: UILabel?
+
+    init(with info: PreviewInformation) {
+        self.info = info
+        switch info.type {
+            default:
+                uiLabel = UILabel()
+        }
+    }
+}
+
+class CollectionViewCellPreviewController: UIViewController {
+    private let titleHeight: CGFloat = 25
+    private let subtitleHeight: CGFloat = 23
+    private let metadataHeight: CGFloat = 20
+    private let marginHeight: CGFloat = 10
+    private let separationHeight: CGFloat = 2
+    private let listSeparator: String = " · "
+
+    private var thumbnailView = UIImageView()
+    private var previewElements: [PreviewElement]
+    private var ratio: CGFloat = 0
+
+    private var width: CGFloat {
+        return view.frame.width
     }
 
-    init(thumbnail: UIImage) {
+    private var thumbnailHeight: CGFloat {
+        return ratio * width
+    }
+
+    private var subtitleCount: CGFloat {
+        return CGFloat(previewElements.filter { $0.info.type == .subtitle }.count)
+    }
+
+    private var metadataCount: CGFloat {
+        return CGFloat(previewElements.filter { $0.info.type == .metadata }.count)
+    }
+
+    private var height: CGFloat {
+        if !previewElements.isEmpty {
+            return thumbnailHeight
+                + marginHeight
+                + titleHeight + separationHeight
+                + subtitleCount * (subtitleHeight + separationHeight)
+                + metadataCount * metadataHeight
+                + marginHeight
+        }
+        return thumbnailHeight
+    }
+
+    init(thumbnail: UIImage, with modelContent: VLCMLObject?) {
+        self.previewElements = []
         super.init(nibName: nil, bundle: nil)
+
+        let infos = previewInformation(from: modelContent)
+        for info in infos {
+            self.previewElements.append(PreviewElement(with: info))
+        }
 
         thumbnailView.clipsToBounds = true
         thumbnailView.contentMode = .scaleAspectFill
         thumbnailView.image = thumbnail
 
-        let ratio = thumbnail.size.height / thumbnail.size.width
-        let width = UIApplication.shared.keyWindow?.frame.width ?? 0
-        let height = ratio * width
+        ratio = thumbnail.size.height / thumbnail.size.width
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
+                                               name: .VLCThemeDidChangeNotification, object: nil)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        view.backgroundColor = PresentationTheme.current.colors.background
+
+        thumbnailView.frame = CGRect(x: 0, y: 0, width: width, height: thumbnailHeight)
+        view.addSubview(thumbnailView)
+
         preferredContentSize = CGSize(width: width, height: height)
+        addPreviewInformations()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Private setup
+
+extension CollectionViewCellPreviewController {
+    private func previewInformation(from modelContent: VLCMLObject?) -> [PreviewInformation] {
+        var infos: [PreviewInformation] = []
+
+        if let media = modelContent as? VLCMLMedia {
+            infos.append(PreviewInformation(value: media.title, type: .title))
+
+            if media.subtype() == .albumTrack {
+                var description: [String] = [media.albumTrackArtistName()]
+
+                if let album = media.albumTrack?.album, !album.title.isEmpty {
+                    description.append(album.title)
+                }
+                infos.append(PreviewInformation(value: description.joined(separator: listSeparator),
+                                                type: .subtitle))
+
+                var oneLineMetadata: [String] = []
+                oneLineMetadata.append(media.mediaDuration())
+                if !media.formatSize().isEmpty {
+                    oneLineMetadata.append(media.formatSize())
+                }
+                infos.append(PreviewInformation(value: oneLineMetadata.joined(separator: listSeparator)))
+                let codecs = media.codecs().joined(separator: " ")
+                if !codecs.isEmpty {
+                    infos.append(PreviewInformation(value: codecs))
+                }
+            } else {
+                infos.append(PreviewInformation(value: media.mediaDuration(),
+                                                label: NSLocalizedString("DURATION", comment: "")))
+                infos.append(PreviewInformation(value: media.formatSize(),
+                                                label: NSLocalizedString("FILE_SIZE", comment: "")))
+                infos.append(PreviewInformation(value: media.codecs().joined(separator: " "),
+                                                label: NSLocalizedString("ENCODING", comment: "")))
+            }
+        } else if let collection = modelContent as? MediaCollectionModel {
+            infos.append(PreviewInformation(value: collection.title(), type: .title))
+            var collectionDetails: [String] = [collection.numberOfTracksString()]
+            if let collection = collection as? VLCMLAlbum {
+                infos.append(PreviewInformation(value: collection.albumArtistName()))
+                collectionDetails.append(String(collection.releaseYear()))
+            }
+            infos.append(PreviewInformation(value: collectionDetails.joined(separator: listSeparator)))
+        }
+
+        return infos
+    }
+
+    private func addPreviewInformations() {
+        var y: CGFloat = thumbnailView.frame.height + marginHeight
+        for element in previewElements {
+            if let label = element.uiLabel {
+                label.text = labelText(for: element.info)
+                label.frame = labelFrame(for: element.info, at: y)
+                label.font = labelFont(for: element.info)
+                label.textColor = labelColor(for: element.info)
+                y += yIncrement(for: element.info)
+                view.addSubview(label)
+            }
+        }
+    }
+}
+
+// MARK: - Private helpers
+
+extension CollectionViewCellPreviewController {
+    private func labelText(for info: PreviewInformation) -> String {
+        var text = info.value
+        if let label = info.label {
+            text = label + " : " + text
+        }
+        return text
+    }
+
+    private func labelFrame(for info: PreviewInformation, at y: CGFloat) -> CGRect {
+        let frameHeight: CGFloat
+        switch info.type {
+            case .title:
+                frameHeight = titleHeight
+            case .subtitle:
+                frameHeight = subtitleHeight
+            default:
+                frameHeight = metadataHeight
+        }
+        return CGRect(x: 20, y: y, width: width - 40, height: frameHeight)
+    }
+
+    private func labelFont(for info: PreviewInformation) -> UIFont {
+        switch info.type {
+            case .title:
+                return .boldSystemFont(ofSize: 18)
+            default:
+                return .systemFont(ofSize: 15)
+        }
+    }
+
+    private func labelColor(for info: PreviewInformation) -> UIColor {
+        switch info.type {
+            case .title, .subtitle:
+                return PresentationTheme.current.colors.cellTextColor
+            default:
+                return PresentationTheme.current.colors.cellDetailTextColor
+        }
+    }
+
+    private func yIncrement(for info: PreviewInformation) -> CGFloat {
+        switch info.type {
+            case .title:
+                return titleHeight + separationHeight
+            case .subtitle:
+                return subtitleHeight + separationHeight
+            default:
+                return metadataHeight
+        }
+    }
+}
+
+// MARK: - Theme management
+
+@objc extension CollectionViewCellPreviewController {
+    @objc func themeDidChange() {
+        view.backgroundColor = PresentationTheme.current.colors.background
+        for element in previewElements {
+            element.uiLabel?.textColor = labelColor(for: element.info)
+        }
     }
 }
