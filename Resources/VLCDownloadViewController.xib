@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCDownloadViewController">
             <connections>
+                <outlet property="activityIndicator" destination="sXN-Fm-2dn" id="9Pa-jZ-RHr"/>
                 <outlet property="cancelButton" destination="86" id="89"/>
                 <outlet property="contentView" destination="idF-Hx-Zjl" id="ipl-30-FOs"/>
                 <outlet property="currentDownloadLabel" destination="84" id="88"/>
@@ -150,14 +151,19 @@
                                             <color key="textColor" red="0.79277843236923218" green="0.79277843236923218" blue="0.79277843236923218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="sXN-Fm-2dn">
+                                            <rect key="frame" x="150" y="38.5" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="85" firstAttribute="top" secondItem="98" secondAttribute="bottom" constant="8" id="5m8-CM-by5"/>
                                         <constraint firstAttribute="trailing" secondItem="98" secondAttribute="trailing" constant="11" id="8Rd-M0-M6p"/>
+                                        <constraint firstItem="sXN-Fm-2dn" firstAttribute="centerY" secondItem="99" secondAttribute="centerY" id="O8t-ev-Vj4"/>
                                         <constraint firstAttribute="trailing" secondItem="85" secondAttribute="trailing" constant="11" id="Sfe-E3-mzB"/>
                                         <constraint firstItem="85" firstAttribute="top" secondItem="97" secondAttribute="bottom" constant="8" id="TBq-8t-Hfi"/>
                                         <constraint firstItem="86" firstAttribute="top" secondItem="79" secondAttribute="top" constant="8" id="UV9-gt-jFK"/>
+                                        <constraint firstItem="sXN-Fm-2dn" firstAttribute="centerX" secondItem="99" secondAttribute="centerX" id="Ug1-zF-6zw"/>
                                         <constraint firstItem="85" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="8" id="Wer-cE-ybK"/>
                                         <constraint firstItem="85" firstAttribute="leading" secondItem="79" secondAttribute="leading" constant="11" id="iI8-x5-MJB"/>
                                         <constraint firstItem="84" firstAttribute="top" secondItem="79" secondAttribute="top" constant="11" id="lbf-s9-EBt"/>

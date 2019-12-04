@@ -128,6 +128,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     self.progressPercent.textColor =  PresentationTheme.current.colors.cellDetailTextColor;
     self.speedRate.textColor =  PresentationTheme.current.colors.cellDetailTextColor;
     self.timeDL.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    self.activityIndicator.color = PresentationTheme.current.colors.cellDetailTextColor;
     self.progressView.progressTintColor = PresentationTheme.current.colors.orangeUI;
     [self.downloadsTable reloadData];
     [self setNeedsStatusBarAppearanceUpdate];
@@ -323,6 +324,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     self.currentDownloadLabel.text = _humanReadableFilename;
     self.progressView.progress = 0.;
     [self.progressPercent setText:@"0%"];
+    self.activityIndicator.hidden = YES;
     [self.speedRate setText:@"0 Kb/s"];
     [self.timeDL setText:@"00:00:00"];
     self.progressContainer.hidden = NO;
@@ -336,6 +338,9 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     [[VLCActivityManager defaultManager] networkActivityStopped];
     _currentDownloadType = VLCDownloadSchemeNone;
     APLog(@"download ended");
+    self.progressPercent.hidden = NO;
+    self.activityIndicator.hidden = YES;
+    [self.activityIndicator stopAnimating];
     self.progressContainer.hidden = YES;
 
     [self _triggerNextDownload];
@@ -354,7 +359,15 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     _lastReceived += receivedDataSize;
     if ((_lastStatsUpdate > 0 && ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate > .5)) || _lastStatsUpdate <= 0) {
         CGFloat speed = [self getAverageSpeed:_lastReceived / ([NSDate timeIntervalSinceReferenceDate] - _lastStatsUpdate)];
-        [self.progressPercent setText:[NSString stringWithFormat:@"%.1f%%", percentage*100]];
+        if (expectedDownloadSize <= 0) {
+            if (self.activityIndicator.hidden) {
+                self.progressPercent.hidden = YES;
+                self.activityIndicator.hidden = NO;
+                [self.activityIndicator startAnimating];
+            }
+        } else {
+            [self.progressPercent setText:[NSString stringWithFormat:@"%.1f%%", percentage*100]];
+        }
         [self.timeDL setText:[self getRemainingTimeString:speed expectedDownloadSize:expectedDownloadSize]];
         [self.speedRate setText:[self getSpeedString:speed]];
         _lastStatsUpdate = [NSDate timeIntervalSinceReferenceDate];
@@ -390,6 +403,9 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (NSString *)getRemainingTimeString:(CGFloat)speed expectedDownloadSize:(CGFloat)expectedDownloadSize
 {
+    if (expectedDownloadSize <= 0) {
+        return @"--:--";
+    }
     CGFloat remainingInSeconds = (expectedDownloadSize - _totalReceived)/speed;
 
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:remainingInSeconds];

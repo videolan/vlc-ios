@@ -33,6 +33,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *progressPercent;
 @property (nonatomic, strong) IBOutlet UILabel *speedRate;
 @property (nonatomic, strong) IBOutlet UILabel *timeDL;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (IBAction)downloadAction:(id)sender;
 - (IBAction)cancelDownload:(id)sender;
