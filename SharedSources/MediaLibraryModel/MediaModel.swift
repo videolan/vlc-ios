@@ -92,7 +92,7 @@ extension VLCMLMedia {
         attributeSet.deliveryType = 0
         attributeSet.local = 1
         attributeSet.playCount = NSNumber(value: playCount())
-        if isThumbnailGenerated() == .available {
+        if isThumbnailGenerated() {
             let image = UIImage(contentsOfFile: thumbnail()?.path ?? "")
             attributeSet.thumbnailData = image?.jpegData(compressionQuality: 0.9)
         }
