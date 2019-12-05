@@ -1,5 +1,10 @@
 # Changelog
 
+## iOS [3.2.6]
+
+· Fix media title display
+· Fix Box session storage
+
 ## iOS [3.2.5]
 
 · Add setting to enable/disable media library iCloud backup
