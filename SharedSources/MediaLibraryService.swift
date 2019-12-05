@@ -113,6 +113,7 @@ protocol MediaLibraryMigrationDelegate: class {
 class MediaLibraryService: NSObject {
     private static let databaseName: String = "medialibrary.db"
     private static let migrationKey: String = "MigratedToVLCMediaLibraryKit"
+    private static let didForceRescan: String = "MediaLibraryDidForceRescan"
 
     private var didMigrate = UserDefaults.standard.bool(forKey: MediaLibraryService.migrationKey)
     private var didFinishDiscovery = false
@@ -150,6 +151,11 @@ private extension MediaLibraryService {
         guard medialib.start() else {
             assertionFailure("MediaLibraryService: Medialibrary failed to start.")
             return
+        }
+
+        if UserDefaults.standard.bool(forKey: MediaLibraryService.didForceRescan) == false {
+            medialib.forceRescan()
+            UserDefaults.standard.set(true, forKey: MediaLibraryService.didForceRescan)
         }
 
         /* exclude Document directory from backup (QA1719) */
