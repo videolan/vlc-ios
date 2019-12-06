@@ -44,6 +44,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     NSMutableArray *_lastSpeeds;
     CGFloat _totalReceived;
     CGFloat _lastReceived;
+    CGFloat _ftpLastReceivedDataSize;
 
     UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
 }
@@ -227,6 +228,7 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     [_lastSpeeds removeAllObjects];
     _lastReceived = 0;
     _totalReceived = 0;
+    _ftpLastReceivedDataSize = 0;
 }
 
 - (void)_downloadSchemeHttp
@@ -351,6 +353,13 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"DOWNLOAD_FAILED", nil)
                                          errorMessage:description
                                        viewController:self];
+}
+
+- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize expectedDownloadSize:(CGFloat)expectedDownloadSize
+{
+    CGFloat receivedSinceLastCall = receivedDataSize - _ftpLastReceivedDataSize;
+    _ftpLastReceivedDataSize = receivedDataSize;
+    [self progressUpdatedTo:percentage receivedDataSize:receivedSinceLastCall expectedDownloadSize:expectedDownloadSize identifier:nil];
 }
 
 - (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize identifier:(NSString *)identifier
