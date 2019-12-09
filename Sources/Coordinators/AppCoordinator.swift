@@ -49,13 +49,6 @@ class Services: NSObject {
                                                            right: 0)
         playerDisplayController.realBottomAnchor = tabBarController.tabBar.topAnchor
         playerDisplayController.didMove(toParent: tabBarController)
-
-        // Set app cornerRadius back to 0
-        // For some unknown reason, reading tabBarController anchors sets round corners for the entire app.
-        // We set cornerRadius to 0 for the topmost layer so there are no round corners anymore.
-        if #available(iOS 13, *) {
-            tabBarController.view.layer.superlayer?.cornerRadius = 0
-        }
     }
 
     @objc func start() {
