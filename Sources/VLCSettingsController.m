@@ -62,6 +62,7 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_ABOUT", nil) style:UIBarButtonItemStylePlain target:self action:@selector(showAbout)];
     self.navigationItem.leftBarButtonItem.accessibilityIdentifier = VLCAccessibilityIdentifier.about;
+    self.navigationItem.rightBarButtonItem = nil;
 
     self.neverShowPrivacySettings = YES;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
