@@ -365,6 +365,52 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     @available(iOS 13.0, *)
+    private func generateUIMenuForContent(at index: Int) -> UIMenu {
+        let modelContentArray = isSearching ? searchDataSource.searchData : model.anyfiles
+        let modelContent = modelContentArray.objectAtIndex(index: index)
+
+        let actionList = EditButtonsFactory.buttonList(for: model.anyfiles.first)
+        let actions = EditButtonsFactory.generate(buttons: actionList)
+
+        return UIMenu(title: "", image: nil, identifier: nil, children: actions.map {
+            switch $0.identifier {
+            case .addToPlaylist:
+                return $0.action({
+                    [weak self] _ in
+                    if let modelContent = modelContent {
+                        self?.editController.editActions.objects = self?.objects(from: modelContent) ?? []
+                        self?.editController.editActions.addToPlaylist()
+                    }
+                })
+            case .rename:
+                return $0.action({
+                    [weak self] _ in
+                    if let modelContent = modelContent {
+                        self?.editController.editActions.objects = [modelContent]
+                        self?.editController.editActions.rename()
+                    }
+                })
+            case .delete:
+                return $0.action({
+                    [weak self] _ in
+                    if let modelContent = modelContent {
+                        self?.editController.editActions.objects = [modelContent]
+                        self?.editController.editActions.delete()
+                    }
+                })
+            case .share:
+                return $0.action({
+                    [weak self] _ in
+                    if let modelContent = modelContent {
+                        self?.editController.editActions.objects = self?.objects(from: modelContent) ?? []
+                        self?.editController.editActions.share()
+                    }
+                })
+            }
+        })
+    }
+
+    @available(iOS 13.0, *)
     override func collectionView(_ collectionView: UICollectionView,
                                  contextMenuConfigurationForItemAt indexPath: IndexPath,
                                  point: CGPoint) -> UIContextMenuConfiguration? {
@@ -382,50 +428,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                 return nil
             }
         }) {
-                [weak self] action in
-                let modelContentArray = (self?.isSearching ?? false) ? self?.searchDataSource.searchData : self?.model.anyfiles
-                let modelContent = modelContentArray?.objectAtIndex(index: indexPath.row)
-
-                let actionList = EditButtonsFactory.buttonList(for: self?.model.anyfiles.first)
-                let actions = EditButtonsFactory.generate(buttons: actionList)
-                return UIMenu(title: "", image: nil, identifier: nil, children: actions.map {
-                    switch $0.identifier {
-                    case .addToPlaylist:
-                        return $0.action({
-                            [weak self] _ in
-                            if let modelContent = modelContent {
-                                self?.editController.editActions.objects = self?.objects(from: modelContent) ?? []
-                                self?.editController.editActions.addToPlaylist()
-                            }
-                        })
-                    case .rename:
-                        return $0.action({
-                            [weak self] _ in
-                            if let modelContent = modelContent {
-                                self?.editController.editActions.objects = [modelContent]
-                                self?.editController.editActions.rename()
-                            }
-                        })
-                    case .delete:
-                        return $0.action({
-                            [weak self] _ in
-                            if let modelContent = modelContent {
-                                self?.editController.editActions.objects = [modelContent]
-                                self?.editController.editActions.delete()
-                            }
-                        })
-                    case .share:
-                        return $0.action({
-                            [weak self] _ in
-                            if let modelContent = modelContent {
-                                self?.editController.editActions.objects = self?.objects(from: modelContent) ?? []
-                                self?.editController.editActions.share()
-                            }
-                        })
-                    }
-                })
-            }
-            return configuration
+            [weak self] action in
+            return self?.generateUIMenuForContent(at: indexPath.row)
+        }
+        return configuration
     }
 
     func createSpotlightItem(media: VLCMLMedia) {
