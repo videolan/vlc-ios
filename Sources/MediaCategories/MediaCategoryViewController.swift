@@ -323,6 +323,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         let mediaObjectArray = isSearching ? searchDataSource.searchData : model.anyfiles
         let mediaObject = mediaObjectArray.objectAtIndex(index: indexPath.row)
 
+        guard mediaObject != nil else {
+            assertionFailure("MediaCategoryViewController: Failed to fetch media object.")
+            return mediaCell
+        }
+
         if let media = mediaObject as? VLCMLMedia {
             // FIXME: This should be done in the VModel, workaround for the release.
             if media.type() == .video {
