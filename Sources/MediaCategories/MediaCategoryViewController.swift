@@ -21,7 +21,7 @@ import Foundation
 }
 
 class MediaCategoryViewController: UICollectionViewController, UISearchBarDelegate, IndicatorInfoProvider {
-
+    // MARK: - Properties
     var model: MediaLibraryBaseModel
     private var services: Services
 
@@ -91,6 +91,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         return emptyView
     }()
+
+    // MARK: - Initializers
 
     @available(*, unavailable)
     init() {
@@ -238,7 +240,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         collectionView?.backgroundView = isEmpty ? emptyView : nil
     }
 
-    // MARK: Renderer
+    // MARK: - Renderer
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -613,7 +615,7 @@ extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: VLCActionSheetDelegate
+// MARK: - VLCActionSheetDelegate
 
 extension MediaCategoryViewController: ActionSheetDelegate {
     func headerViewTitle() -> String? {
@@ -632,7 +634,7 @@ extension MediaCategoryViewController: ActionSheetDelegate {
     }
 }
 
-// MARK: VLCActionSheetDataSource
+// MARK: - VLCActionSheetDataSource
 
 extension MediaCategoryViewController: ActionSheetDataSource {
     func numberOfRows() -> Int {
