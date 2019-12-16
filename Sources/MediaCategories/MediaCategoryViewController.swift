@@ -113,7 +113,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                                                name: .VLCThemeDidChangeNotification, object: nil)
     }
 
-    func setupSearchBar() {
+    private func setupSearchBar() {
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -223,11 +223,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         setNeedsStatusBarAppearanceUpdate()
     }
 
-    func isEmptyCollectionView() -> Bool {
+    private func isEmptyCollectionView() -> Bool {
         return collectionView?.numberOfItems(inSection: 0) == 0
     }
 
-    func updateUIForContent() {
+    private func updateUIForContent() {
         if isSearching {
             return
         }
@@ -311,7 +311,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return IndicatorInfo(title: model.indicatorName, accessibilityIdentifier: uiTestAccessibilityIdentifier)
     }
 
-    func objects(from modelContent: VLCMLObject) -> [VLCMLObject] {
+    private func objects(from modelContent: VLCMLObject) -> [VLCMLObject] {
         if let media = modelContent as? VLCMLMedia {
             return [media]
         } else if let mediaCollection = modelContent as? MediaCollectionModel {
@@ -320,7 +320,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return [VLCMLObject]()
     }
 
-    func createSpotlightItem(media: VLCMLMedia) {
+    private func createSpotlightItem(media: VLCMLMedia) {
         if KeychainCoordinator.passcodeLockEnabled {
             return
         }
