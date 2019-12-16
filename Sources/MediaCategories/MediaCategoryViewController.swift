@@ -319,7 +319,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             assertionFailure("you forgot to register the cell or the cell is not a subclass of BaseCollectionViewCell")
             return UICollectionViewCell()
         }
-        let mediaObject = isSearching ? searchDataSource.objectAtIndex(index: indexPath.row) : model.anyfiles[indexPath.row]
+        let mediaObject = isSearching ? searchDataSource.searchData.objectAtIndex(index: indexPath.row) : model.anyfiles[indexPath.row]
         if let media = mediaObject as? VLCMLMedia {
             // FIXME: This should be done in the VModel, workaround for the release.
             if media.type() == .video {
@@ -336,7 +336,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     // MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let modelContent = isSearching ? searchDataSource.objectAtIndex(index: indexPath.row) : model.anyfiles[indexPath.row]
+        let modelContent = isSearching ? searchDataSource.searchData.objectAtIndex(index: indexPath.row) : model.anyfiles[indexPath.row]
 
         if let media = modelContent as? VLCMLMedia {
             play(media: media, at: indexPath)
@@ -379,7 +379,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             }
         }) {
                 [weak self] action in
-                let modelContent = self?.isSearching ?? false ? self?.searchDataSource.objectAtIndex(index: indexPath.row) : self?.model.anyfiles[indexPath.row]
+                let modelContent = self?.isSearching ?? false ? self?.searchDataSource.searchData.objectAtIndex(index: indexPath.row) : self?.model.anyfiles[indexPath.row]
 
                 let actionList = EditButtonsFactory.buttonList(for: self?.model.anyfiles.first)
                 let actions = EditButtonsFactory.generate(buttons: actionList)

@@ -21,10 +21,6 @@ class LibrarySearchDataSource: NSObject {
         shouldReloadFor(searchString: "")
     }
 
-    func objectAtIndex(index: Int) -> VLCMLObject? {
-         return index < searchData.count ? searchData[index] : nil
-    }
-
     func shouldReloadFor(searchString: String) {
         guard searchString != "" else {
             searchData = model.anyfiles
