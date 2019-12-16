@@ -422,11 +422,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             thumbnail = cell.thumbnailView.image
         }
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: {
-            if let thumbnail = thumbnail {
-                return CollectionViewCellPreviewController(thumbnail: thumbnail)
-            } else {
+            guard let thumbnail = thumbnail else {
                 return nil
             }
+            return CollectionViewCellPreviewController(thumbnail: thumbnail)
         }) {
             [weak self] action in
             return self?.generateUIMenuForContent(at: indexPath.row)
