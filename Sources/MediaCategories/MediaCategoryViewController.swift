@@ -143,24 +143,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
     }
-
-    private func popViewIfNecessary() {
-        // Inside a collection without files
-        if let collectionModel = model as? CollectionModel, collectionModel.anyfiles.isEmpty {
-            // Pop view if collection is not a playlist since a playlist is user created
-            if !(collectionModel.mediaCollection is VLCMLPlaylist) {
-                navigationController?.popViewController(animated: true)
-            }
-        }
-    }
-
-    private func updateVideoGroups() {
-        // Manually update video groups since there is no callbacks for it
-        if let videoGroupViewModel = model as? VideoGroupViewModel {
-            videoGroupViewModel.updateVideoGroups()
-        }
-    }
-
     @objc func reloadData() {
         guard Thread.isMainThread else {
             DispatchQueue.main.async {
@@ -221,23 +203,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
         }
         setNeedsStatusBarAppearanceUpdate()
-    }
-
-    private func isEmptyCollectionView() -> Bool {
-        return collectionView?.numberOfItems(inSection: 0) == 0
-    }
-
-    private func updateUIForContent() {
-        if isSearching {
-            return
-        }
-
-        let isEmpty = isEmptyCollectionView()
-        if isEmpty {
-            collectionView?.setContentOffset(.zero, animated: false)
-        }
-        searchBar.isHidden = isEmpty || isEditing
-        collectionView?.backgroundView = isEmpty ? emptyView : nil
     }
 
     // MARK: - Renderer
@@ -309,6 +274,44 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         let uiTestAccessibilityIdentifier = model is TrackModel ? VLCAccessibilityIdentifier.songs : nil
         return IndicatorInfo(title: model.indicatorName, accessibilityIdentifier: uiTestAccessibilityIdentifier)
+    }
+}
+
+// MARK: - MediaCategoryViewController - Private Helpers
+
+private extension MediaCategoryViewController {
+    private func popViewIfNecessary() {
+        // Inside a collection without files
+        if let collectionModel = model as? CollectionModel, collectionModel.anyfiles.isEmpty {
+            // Pop view if collection is not a playlist since a playlist is user created
+            if !(collectionModel.mediaCollection is VLCMLPlaylist) {
+                navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+
+    private func updateVideoGroups() {
+        // Manually update video groups since there is no callbacks for it
+        if let videoGroupViewModel = model as? VideoGroupViewModel {
+            videoGroupViewModel.updateVideoGroups()
+        }
+    }
+
+    private func isEmptyCollectionView() -> Bool {
+        return collectionView?.numberOfItems(inSection: 0) == 0
+    }
+
+    private func updateUIForContent() {
+        if isSearching {
+            return
+        }
+
+        let isEmpty = isEmptyCollectionView()
+        if isEmpty {
+            collectionView?.setContentOffset(.zero, animated: false)
+        }
+        searchBar.isHidden = isEmpty || isEditing
+        collectionView?.backgroundView = isEmpty ? emptyView : nil
     }
 
     private func objects(from modelContent: VLCMLObject) -> [VLCMLObject] {
