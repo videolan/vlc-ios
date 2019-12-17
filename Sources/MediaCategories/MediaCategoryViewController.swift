@@ -92,6 +92,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return emptyView
     }()
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return PresentationTheme.current.colors.statusBarStyle
+    }
+
     // MARK: - Initializers
 
     @available(*, unavailable)
@@ -140,9 +144,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         ])
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return PresentationTheme.current.colors.statusBarStyle
-    }
     @objc func reloadData() {
         guard Thread.isMainThread else {
             DispatchQueue.main.async {
