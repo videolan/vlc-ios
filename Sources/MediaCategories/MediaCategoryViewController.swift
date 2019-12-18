@@ -78,7 +78,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return UIBarButtonItem(customView: rendererButton)
     }()
 
-    lazy var emptyView: VLCEmptyLibraryView = {
+    private lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
         let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
         guard let emptyView = nib?.first as? VLCEmptyLibraryView else { fatalError("Can't find nib for \(name)") }
