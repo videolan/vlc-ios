@@ -26,6 +26,7 @@
 #import "UIDevice+VLC.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMetaData.h"
+#import "GCDAsyncSocket.h"
 
 #if TARGET_OS_IOS
 #import "VLC-Swift.h"
@@ -34,6 +35,9 @@
 #if TARGET_OS_TV
 #import "VLCPlayerControlWebSocket.h"
 #endif
+
+#define TIMEOUT_WRITE_ERROR 30
+#define HTTP_RESPONSE       90
 
 @interface VLCHTTPConnection()
 {
@@ -49,6 +53,57 @@
 @end
 
 @implementation VLCHTTPConnection
+
+#if TARGET_OS_IOS
+static NSMutableDictionary *authentificationAttemptsHosts;
+static NSMutableDictionary *authentifiedHosts;
+#endif
+
+#if TARGET_OS_IOS
++ (void)initialize
+{
+    authentificationAttemptsHosts = [[NSMutableDictionary alloc] init];
+    authentifiedHosts = [[NSMutableDictionary alloc] init];
+    [super initialize];
+}
+
+- (BOOL)isPasswordProtected:(NSString *)path
+{
+    if ([authentifiedHosts objectForKey:[asyncSocket connectedHost]]
+        || [path hasPrefix:@"/public"]
+        || [path isEqualToString:@"/favicon.ico"]) {
+        return NO;
+    }
+    return [VLCKeychainCoordinator passcodeLockEnabled];
+}
+
+- (void)handleAuthenticationFailed
+{
+    // Status Code 401 - Unauthorized
+    HTTPMessage *response = [[HTTPMessage alloc] initResponseWithStatusCode:401
+                                                                description:nil
+                                                                    version:HTTPVersion1_1];
+
+    NSData *authData = [NSData dataWithContentsOfFile:[self filePathForURI:@"/public/auth.html"]];
+    NSString *authContent = [[NSString alloc] initWithData:authData encoding:NSUTF8StringEncoding];
+    NSDictionary *replacementDict = @{
+        @"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
+        @"WEBINTF_AUTH_REQUIRED" : NSLocalizedString(@"WEBINTF_AUTH_REQUIRED", nil)
+    };
+
+    for(id key in replacementDict) {
+        NSString *placeholder = [NSString stringWithFormat:@"%@%@%@", @"%%", key, @"%%"];
+        authContent = [authContent stringByReplacingOccurrencesOfString:placeholder withString:[replacementDict objectForKey:key]];
+    }
+
+    [response setHeaderField:@"WWW-Authenticate" value:@"VLCAuth"];
+    [response setBody: [authContent dataUsingEncoding:NSUTF8StringEncoding]];
+    [response setHeaderField:@"Content-Length" value:[NSString stringWithFormat:@"%li", [[response body] length]]];
+
+    NSData *responseData = [self preprocessErrorResponse:response];
+    [asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_RESPONSE];
+}
+#endif
 
 - (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path
 {
@@ -102,6 +157,88 @@
     }
     return [super expectsRequestBodyFromMethod:method atPath:path];
 }
+
+#if TARGET_OS_IOS
+- (int)authenticate:(NSString *)host
+{
+    NSDictionary *params = [self parseGetParams];
+    int attempts = 1;
+    int ret = kVLCWifiAuthentificationBanned;
+
+    @synchronized (authentificationAttemptsHosts) {
+        if ([authentificationAttemptsHosts objectForKey:host]) {
+            attempts += [[authentificationAttemptsHosts objectForKey:host] intValue];
+        }
+
+        if (attempts < kVLCWifiAuthentificationMaxAttempts) {
+            if ([[params allKeys] containsObject:@"code"]) {
+                XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem
+                                                               itemForService:@"org.videolan.vlc-ios.passcode"
+                                                               account:@"org.videolan.vlc-ios.passcode"
+                                                               error:nil];
+                NSString *storedCode = keychainItem.secret.stringValue;
+                NSString *code = [params valueForKey:@"code"];
+
+                if ([code isEqualToString:storedCode]) {
+                    [authentifiedHosts setObject:@(YES) forKey:host];
+                    [authentificationAttemptsHosts setObject:@(1) forKey:host];
+                    ret = kVLCWifiAuthentificationSuccess;
+                } else {
+                    [authentificationAttemptsHosts setObject:@(attempts) forKey:host];
+                    ret = kVLCWifiAuthentificationFailure;
+                }
+            } else {
+                [authentificationAttemptsHosts setObject:@(attempts) forKey:host];
+                ret = kVLCWifiAuthentificationFailure;
+            }
+        }
+    }
+    return ret;
+}
+
+- (NSObject<HTTPResponse> *)_httpGETAuthentification
+{
+    NSString *result;
+    NSString *message;
+    NSString *remainingAttempts;
+    NSString *host = [asyncSocket connectedHost];
+    int authResult = [self authenticate:host];
+    int attempts = 0;
+
+    @synchronized (authentificationAttemptsHosts) {
+        if ([authentificationAttemptsHosts objectForKey:host]) {
+            attempts += [[authentificationAttemptsHosts objectForKey:host] intValue];
+        }
+    }
+
+    switch (authResult) {
+        case kVLCWifiAuthentificationSuccess:
+            result = @"ok";
+            message = @"";
+            remainingAttempts = @"";
+            break;
+        case kVLCWifiAuthentificationFailure:
+            result = @"ko";
+            message = NSLocalizedString(@"WEBINTF_AUTH_WRONG_PASSCODE", nil);
+            remainingAttempts = [NSString stringWithFormat:@"%d", 5 - attempts];
+            break;
+        case kVLCWifiAuthentificationBanned:
+            result = @"ban";
+            message = NSLocalizedString(@"WEBINTF_AUTH_BANNED", nil);
+            remainingAttempts = @"";
+            break;
+    }
+    NSDictionary *returnData = @{
+        @"result": result,
+        @"message": message,
+        @"remainingAttempts": remainingAttempts
+    };
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:returnData options:kNilOptions error:nil];
+    HTTPDataResponse *response = [[HTTPDataResponse alloc] initWithData:jsonData];
+    response.contentType = @"text/html";
+    return response;
+}
+#endif
 
 - (NSObject<HTTPResponse> *)_httpPOSTresponseUploadJSON
 {
@@ -510,6 +647,9 @@
         return [self _httpPOSTresponseUploadJSON];
 
 #if TARGET_OS_IOS
+    if ([path hasPrefix:@"/public/auth.html"]) {
+        return [self _httpGETAuthentification];
+    }
     if ([path hasPrefix:@"/download/"]) {
         return [self _httpGETDownloadForPath:path];
     }

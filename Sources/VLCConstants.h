@@ -121,6 +121,11 @@
 #define kVLCApplicationShortcutNetwork @"ApplicationShortcutNetwork"
 #define kVLCApplicationShortcutPlaylist @"ApplicationShortcutPlaylist"
 
+#define kVLCWifiAuthentificationMaxAttempts 5
+#define kVLCWifiAuthentificationSuccess 0
+#define kVLCWifiAuthentificationFailure 1
+#define kVLCWifiAuthentificationBanned 2
+
 /* LEGACY KEYS, DO NOT USE IN NEW CODE */
 #define kVLCFTPServer @"ftp-server"
 #define kVLCFTPLogin @"ftp-login"

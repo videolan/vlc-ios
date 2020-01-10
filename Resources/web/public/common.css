@@ -1,0 +1,150 @@
+/* YUI CSS Reset */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre,
+form, fieldset, input, textarea, p, blockquote, th, td, nav, header, footer {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+caption, th {
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+q:before, q:after {
+    content: '';
+}
+
+abbr, acronym {
+    border: 0;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Raleway'), url("/public/Raleway.woff") format('woff');
+}
+
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    font: 14px/22px "Helvetica Neue","Helvetica", Arial, sans-serif;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    background-color: rgb(31,31,31);
+    background-position: 0 88px;
+}
+
+#header {
+    text-align: center;
+    height: 88px;
+    background-color: rgb(255, 132, 0);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 132, 0)), to(rgb(255, 100, 0)));
+    background-image: -webkit-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+    background-image: -moz-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+    background-image: -ms-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+    background-image: -o-linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+    background-image: linear-gradient(top, rgb(255, 132, 0), rgb(255, 100, 0));
+
+}
+
+.nav {
+    height: 88px;
+    padding: 14px;
+    font-family: "Raleway", "Helvetica Neue";
+    font-size: 36px;
+    line-height: 60px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: transparent;
+
+    color: white;
+    font-size: 1.3em;
+    font-weight: bold;
+    line-height: 52px;
+
+    text-align: center;
+    padding: 0 12px;
+    height: 58px;
+    min-width: 140px;
+    cursor: pointer;
+}
+
+.btn:hover{
+    opacity: 0.5;
+}
+
+.btn:active{
+    opacity: 0.25;
+}
+
+.linkBtn {
+    float: left;
+    width: 82px;
+}
+
+.linkBtn .icon {
+    height: 60px;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAAN\
+    SUhEUgAAACYAAAAqCAYAAADf/ynVAAAEMElEQVRYw82YbUhTURjHLbPUMkojQ\
+    7Awh4rh28ygQCR6ISg/hIj4gkQmFvjNUszYFyXKan5JIqQMihTRRCkzzWmGgS\
+    0T8q10rmEiNjXNmpJTb/9Hzmxd3bzb1c0H/nC455zn/u55ec5zrgPHcQ5iBHO\
+    HAiApFMrK7qL9ioTaxIDCeaJnjvYEc6+rq7s6OTnZNT8//2d2dlZH5fr6+hyx\
+    oyYKLCkpSQogPcczepaQkBBqFzDYhsbGxhzOhCkUimxqYw+w7cPDw/WmwIaGh\
+    l6hjZvNwaRSqQRT9ssUGOom/P39fWwOVl1dncatYOXl5edtCgZzwVQ9RjkBio\
+    WuQTegW5AMSoQuDQ4OPkJbZ1uC7dHr9V9QdjHTbufMzIyK2toMrLCwMBox68V\
+    K7dDmTUFBwWmbgFG07+3tLUD5ooD2GT09PXLqYwswj+npaSXK3gLa+01NTSmp\
+    z5qDpaWlHdTpdN0UxwR8xA6AqVNTUyPWFIwieXNzswzT85Ad1iGQBNoLeTF5Q\
+    76sLryvr+8J9bH0FLAUzA3R/jVG4WtZWVm6q6trxDKZxYKorqqqKgM7cwR9Go\
+    SMsNVgQUFB+7HTfhsCKELGj5GRkbdqtbqsu7v7QWdnZ1F/f3+JVqtVoG7M0I7\
+    6UN81A6uoqEjhrDT0vbAmYBTBVSrVU2vBqK8lp4AlYJ4IEwPWgqHvN/Kx6mBy\
+    ufwUJ9KYj9UDo/y9q6srXywYNki+0LuA4NweIeIdyjUiuF6RD6F3AUFg8fHxw\
+    XNzc5RN0NdmQeMWAE1B16kvQsgn3BNCrAaj4YZ20WKlaN7U1HQFYLeN2m\yFz\
+    kJ3oOfQB+gzbT6oHaKU+y50DlocIfi4ibtAJjshPNk7HC0B8zOO4qOjo5V4Hi\
+    X2EgsdQ0Cu4p0SfoLAYFsiIyOjWlpa8tra2uRY9PdxrGjYNIoFc8Yp8J18km9\
+    6B70L79wsB\MxzfHy8zXiRYMRq8XzjKvxOcJqYmGg19j02NvYez3evCJabm3u\
+    cv3o7Ojrusel1EgHlAh2gc5XvXyaTHTULRplme3u7nN8R+Zc6ICDgCOrDWFrj\
+    JiSNoVGmrALyof8ZcXFxJ+ng5/tXKpVL4tuSeIWh/rjcnqchj42NPcH7cRLIc\
+    q99DNiblX1Z3eIPl7y8vDjEMY0J3638+PYfWHJychguqnOmAhK2uw6HcUlxcX\
+    Gqh4fHIVO5mEESieRwaWlpOq56NfA7a+ZyrI+JiQleFoymBvEqW2jUhLMZTHE\
+    fcq/GgYGBSsoeSBqN5hkSQwXqVOZg+NbQ0JBlvDyMwbbhy2o5Oxne/ZIYloB5\
+    eXl5I8b8tBcYvZsYloBhLSRydjbG8A+MtipSkiJ7gxGDIWws/uvCL8pOe4MRg\
+    +E2tQCWkpIiMRcmbGXEQCyLYDjxz3DrxMASbbz4M7n1Y5eNwQIh7TqA0jIWh7\
+    9sCR/uX\PB8PQAAAABJRU5ErkJggg==');
+    background-position: 36px 6px;
+    background-repeat: no-repeat;
+}

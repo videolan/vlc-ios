@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "URL sent successfully.";
 "WEBINTF_URL_EMPTY" = "URL cannot be empty.";
 "WEBINTF_URL_INVALID" = "Not a valid URL.";
+"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
+"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
 
 
 
