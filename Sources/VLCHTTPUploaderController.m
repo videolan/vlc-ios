@@ -24,6 +24,8 @@
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
+#import "NSString+SupportedMedia.h"
+
 #if TARGET_OS_IOS
 #import "VLC-Swift.h"
 #import "VLCMediaFileDiscoverer.h"
@@ -295,6 +297,7 @@
     return [NSString stringWithFormat:@"%i", _httpServer.listeningPort];
 }
 
+#if TARGET_OS_IOS
 - (void)moveFileOutOfCache:(NSString *)filepath
 {
     NSString *fileName = [filepath lastPathComponent];
@@ -346,7 +349,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                         object:self];
 }
-
+#endif
 
 - (void)moveFileFrom:(NSString *)filepath
 {
@@ -381,6 +384,7 @@
         [fileManager removeItemAtPath:uploadDirPath error:nil];
 }
 
+#if TARGET_OS_IOS
 - (void)resetIdleTimer
 {
     const int timeInterval = 4;
@@ -409,5 +413,6 @@
 
     [_playlistUploadPaths removeAllObjects];
 }
+#endif
 
 @end

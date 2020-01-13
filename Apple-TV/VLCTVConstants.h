@@ -74,3 +74,5 @@
 #define kVLCStoredServerList @"kVLCStoredServerList"
 
 #define kVLCHTTPUploadDirectory @"Upload"
+
+#define kVLCForceSMBV1 @"smb-force-v1"
