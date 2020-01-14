@@ -58,10 +58,13 @@ import UIKit
         tableView.delegate = self
     }
 
-    func configureAppreance() {
+    override func viewWillAppear(_ animated: Bool) {
         segmentedControl.setTitle(NSLocalizedString("SMB_CIFS_FILE_SERVERS_SHORT", comment: ""), forSegmentAt: 0)
         segmentedControl.setTitle(NSLocalizedString("FTP_SHORT", comment: ""), forSegmentAt: 1)
         segmentedControl.setTitle(NSLocalizedString("PLEX_SHORT", comment: ""), forSegmentAt: 2)
+    }
+
+    func configureAppreance() {
         setSegControlProtocolIdentifier(VLCNetworkServerProtocolIdentifierFTP)
 
         serverField.placeholder = NSLocalizedString("SERVER", comment: "")
