@@ -760,6 +760,8 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         // Normal playback
         if (currentIndex + 1 < mediaListCount) {
             nextIndex =  currentIndex + 1;
+        } else if (self.repeatMode == VLCRepeatAllItems) {
+            nextIndex = 0;
         } else if ([self repeatMode] == VLCDoNotRepeat) {
             nextIndex = -1;
         }
