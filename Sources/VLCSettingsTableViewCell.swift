@@ -14,6 +14,9 @@ import UIKit
 
 class VLCSettingsTableViewCell: UITableViewCell {
     
+    @objc var toggle: IASKSwitch?
+    @objc let activityIndicator: UIActivityIndicatorView
+
     @objc fileprivate func themeDidChange() {
         backgroundColor = PresentationTheme.current.colors.background
         selectedBackgroundView?.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor
@@ -22,6 +25,7 @@ class VLCSettingsTableViewCell: UITableViewCell {
     }
 
     @objc init(reuseIdentifier: String, target: IASKAppSettingsViewController) {
+        activityIndicator = UIActivityIndicatorView()
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         themeDidChange()
@@ -29,8 +33,10 @@ class VLCSettingsTableViewCell: UITableViewCell {
         switch reuseIdentifier {
         case kIASKPSToggleSwitchSpecifier:
             let toggle = IASKSwitch(frame: .zero)
+            self.toggle = toggle
             toggle.addTarget(target, action: #selector(target.toggledValue(_:)), for: .valueChanged)
             accessoryView = toggle
+            activityIndicator.frame = toggle.frame
         case kIASKOpenURLSpecifier:
             accessoryType = .disclosureIndicator
         case kIASKPSMultiValueSpecifier:
@@ -45,6 +51,10 @@ class VLCSettingsTableViewCell: UITableViewCell {
     @available(*, unavailable, message: "use init(reuseIdentifier: String)")
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func prepareForReuse() {
+        showActivityIndicator(false)
     }
 
      @objc func configure(specifier: IASKSpecifier, settingsValue: Any?) {
@@ -95,5 +105,17 @@ class VLCSettingsTableViewCell: UITableViewCell {
         assert(specifier.type() == kIASKPSMultiValueSpecifier, "configureMultiValue should only be called for kIASKPSMultiValueSpecifier")
 
         detailTextLabel?.text = specifier.title(forCurrentValue: value ?? specifier.defaultValue())
+    }
+
+    @objc func showActivityIndicator(_ show: Bool) {
+        toggle?.isHidden = show
+        activityIndicator.isHidden = !show
+        if show {
+            activityIndicator.startAnimating()
+            accessoryView = activityIndicator
+        } else {
+            activityIndicator.stopAnimating()
+            accessoryView = toggle
+        }
     }
 }

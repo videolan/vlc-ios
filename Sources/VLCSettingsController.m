@@ -20,7 +20,7 @@
 
 NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderViewIdentifier";
 
-@interface VLCSettingsController ()<PAPasscodeViewControllerDelegate>
+@interface VLCSettingsController ()<PAPasscodeViewControllerDelegate, MediaLibraryDeviceBackupDelegate>
 {
     VLCActionSheet *actionSheet;
     VLCSettingsSpecifierManager *specifierManager;
@@ -36,6 +36,7 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     if (self) {
         [self setupUI];
         _medialibraryService = medialibraryService;
+        _medialibraryService.deviceBackupDelegate = self;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
     }
 
@@ -148,15 +149,12 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
         }
     } else if ([notification.userInfo objectForKey:kVLCSettingBackupMediaLibrary]) {
         BOOL backupMediaLibrary = [[notification.userInfo objectForKey:kVLCSettingBackupMediaLibrary] boolValue];
-        NSNumber *excludeMediaLibrary = [NSNumber numberWithBool:!backupMediaLibrary];
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentPath = [searchPaths firstObject];
 
         if (documentPath) {
-            NSURL *documentURL = [NSURL fileURLWithPath:documentPath];
-            [documentURL setResourceValue:excludeMediaLibrary forKey:NSURLIsExcludedFromBackupKey error:nil];
-        } else {
-            [self.settingsStore setBool:!backupMediaLibrary forKey:kVLCSettingBackupMediaLibrary];
+            [_medialibraryService excludeFromDeviceBackup:!backupMediaLibrary];
+            [self.settingsStore setBool:backupMediaLibrary forKey:kVLCSettingBackupMediaLibrary];
         }
     }
 }
@@ -189,6 +187,11 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
         cell = [[VLCSettingsTableViewCell alloc] initWithReuseIdentifier:specifier.type target:self];
     }
     [cell configureWithSpecifier:specifier settingsValue:[self.settingsStore objectForKey:specifier.key]];
+    if ([specifier.key isEqualToString:kVLCSettingBackupMediaLibrary]) {
+        if (cell.toggle) {
+            [cell showActivityIndicator:_medialibraryService.isExcludingFromBackup];
+        }
+    }
     return cell;
 }
 
@@ -283,6 +286,20 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
         [alert addAction:rescanAction];
         [self presentViewController:alert animated:YES completion:nil];
     }
+}
+
+// MARK: MediaLibraryDeviceBackupDelegate
+
+- (void)medialibraryDidCompleteExclusion {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
+- (void)medialibraryDidStartExclusion {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 @end

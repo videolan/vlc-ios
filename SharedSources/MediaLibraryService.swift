@@ -108,6 +108,14 @@ protocol MediaLibraryMigrationDelegate: class {
     func medialibraryDidStopMigration(_ medialibrary: MediaLibraryService)
 }
 
+// MARK: - Delegate for "Backup Media Library" setting
+
+@objc protocol MediaLibraryDeviceBackupDelegate: class {
+    @objc func medialibraryDidStartExclusion()
+
+    @objc func medialibraryDidCompleteExclusion()
+}
+
 // MARK: -
 
 class MediaLibraryService: NSObject {
@@ -124,6 +132,9 @@ class MediaLibraryService: NSObject {
     private(set) lazy var medialib = VLCMediaLibrary()
 
     weak var migrationDelegate: MediaLibraryMigrationDelegate?
+    @objc weak var deviceBackupDelegate: MediaLibraryDeviceBackupDelegate?
+
+    @objc var isExcludingFromBackup: Bool = false
 
     override init() {
         super.init()
@@ -153,24 +164,12 @@ private extension MediaLibraryService {
             return
         }
 
+        let excludeMediaLibrary = !UserDefaults.standard.bool(forKey: kVLCSettingBackupMediaLibrary)
+        excludeFromDeviceBackup(excludeMediaLibrary)
+
         if UserDefaults.standard.bool(forKey: MediaLibraryService.didForceRescan) == false {
             medialib.forceRescan()
             UserDefaults.standard.set(true, forKey: MediaLibraryService.didForceRescan)
-        }
-
-        /* exclude Document directory from backup (QA1719) */
-        if let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-            var excludeURL = URL(fileURLWithPath: documentPath)
-            var resourceValue = URLResourceValues()
-            let excludeMediaLibrary = !UserDefaults.standard.bool(forKey: kVLCSettingBackupMediaLibrary)
-
-            resourceValue.isExcludedFromBackup = excludeMediaLibrary
-
-            do {
-                try excludeURL.setResourceValues(resourceValue)
-            } catch let error {
-                assertionFailure("MediaLibraryService: start: \(error.localizedDescription)")
-            }
         }
 
         medialib.reload()
@@ -411,6 +410,26 @@ extension MediaLibraryService {
         if mlMedia.type() == .video {
             mlMedia.requestThumbnail(of: .thumbnail, desiredWidth: 320,
                                      desiredHeight: 200, atPosition: player.playbackPosition)
+        }
+    }
+
+    @objc func excludeFromDeviceBackup(_ exclude: Bool) {
+        if let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+            var documentURL = URL(fileURLWithPath: documentPath)
+            isExcludingFromBackup = true
+            deviceBackupDelegate?.medialibraryDidStartExclusion()
+            DispatchQueue.global().async {
+                documentURL.setExcludedFromBackup(exclude, recursive: true, onlyFirstLevel: true) {
+                    self.isExcludingFromBackup = false
+                    self.deviceBackupDelegate?.medialibraryDidCompleteExclusion()
+                }
+            }
+        }
+        if let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first {
+            var mlURL = URL(fileURLWithPath: libraryPath).appendingPathComponent("MediaLibrary")
+            DispatchQueue.global().async {
+                mlURL.setExcludedFromBackup(exclude, recursive: true, onlyFirstLevel: true)
+            }
         }
     }
 }

@@ -13,6 +13,7 @@
 
 #import "VLCMediaFileDiscoverer.h"
 #import "NSString+SupportedMedia.h"
+#import "VLC-Swift.h"
 
 const float MediaTimerInterval = 2.f;
 
@@ -198,6 +199,9 @@ const float MediaTimerInterval = 2.f;
                     }
                 }
             }
+            BOOL backupMediaLibrary = [NSUserDefaults.standardUserDefaults boolForKey:kVLCSettingBackupMediaLibrary];
+            NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+            [fileURL setExcludedFromBackup:!backupMediaLibrary recursive:NO onlyFirstLevel:NO :nil];
         }
 
         if (![_addMediaTimer isValid]) {
