@@ -10,6 +10,8 @@
 
 enum EditButtonType {
     case addToPlaylist
+    case addToMediaGroup
+    case removeFromMediaGroup
     case rename
     case delete
     case share
@@ -54,19 +56,22 @@ class EditButton {
 }
 
 class EditButtonsFactory {
-    static func buttonList(for file: VLCMLObject?) -> [EditButtonType] {
+    static func buttonList(for model: MediaLibraryBaseModel) -> [EditButtonType] {
         var actionList = [EditButtonType]()
 
-        if let file = file {
-            actionList.append(.addToPlaylist)
-            if !(file is VLCMLArtist) && !(file is VLCMLGenre) && !(file is VLCMLAlbum) && !(file is VLCMLVideoGroup) {
-                actionList.append(.rename)
-            }
-            if !(file is VLCMLVideoGroup) {
-                actionList.append(.delete)
-            }
-            actionList.append(.share)
+        actionList.append(.addToPlaylist)
+        if model is MediaGroupViewModel {
+            actionList.append(.addToMediaGroup)
+        } else if let collectionModel = model as? CollectionModel,
+            collectionModel.mediaCollection is VLCMLMediaGroup {
+            actionList.append(.removeFromMediaGroup)
         }
+
+        if !(model is ArtistModel) && !(model is GenreModel) && !(model is AlbumModel) {
+            actionList.append(.rename)
+        }
+        actionList.append(.delete)
+        actionList.append(.share)
         return actionList
     }
 
@@ -80,6 +85,21 @@ class EditButtonsFactory {
                                                   image: "addToPlaylist",
                                                   accessibilityLabel: NSLocalizedString("ADD_TO_PLAYLIST", comment: ""),
                                                   accessibilityHint: NSLocalizedString("ADD_TO_PLAYLIST_HINT", comment: "")))
+                case .addToMediaGroup:
+                    editButtons.append(EditButton(identifier: button,
+                                                  title: NSLocalizedString("ADD_TO_MEDIA_GROUP", comment: ""),
+                                                  image: "addToMediaGroup",
+                                                  accessibilityLabel: NSLocalizedString("ADD_TO_MEDIA_GROUP", comment: ""),
+                                                  accessibilityHint: NSLocalizedString("ADD_TO_MEDIA_GROUP_HINT",
+                                                                                       comment: "")))
+                case .removeFromMediaGroup:
+                    editButtons.append(EditButton(identifier: button,
+                                                  title: NSLocalizedString("REMOVE_FROM_MEDIA_GROUP", comment: ""),
+                                                  image: "removeFromMediaGroup",
+                                                  accessibilityLabel: NSLocalizedString("REMOVE_FROM_MEDIA_GROUP",
+                                                                                        comment: ""),
+                                                  accessibilityHint: NSLocalizedString("REMOVE_FROM_MEDIA_GROUP_HINT",
+                                                                                       comment: "")))
                 case .rename:
                     editButtons.append(EditButton(identifier: button,
                                                   title: NSLocalizedString("BUTTON_RENAME", comment: ""),

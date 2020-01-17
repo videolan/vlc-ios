@@ -59,8 +59,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
                 update(movie:movie)
             } else if let playlist = media as? VLCMLPlaylist {
                 update(playlist:playlist)
-            } else if let videoGroup = media as? VLCMLVideoGroup {
-                update(videoGroup: videoGroup)
+            } else if let mediaGroup = media as? VLCMLMediaGroup {
+                update(mediaGroup: mediaGroup)
             } else {
                 assertionFailure("MovieCollectionViewCell: media: Needs to be of a supported Type.")
             }
@@ -112,13 +112,24 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         newLabel.isHidden = true
     }
 
-    func update(videoGroup: VLCMLVideoGroup) {
+    func update(mediaGroup: VLCMLMediaGroup) {
+        let isSingleMediaGroup = mediaGroup.nbMedia() == 1
+
+        if isSingleMediaGroup && !mediaGroup.userInteracted() {
+            guard let media = mediaGroup.media(of: .video)?.first else {
+                assertionFailure("MovieCollectionViewCell: Failed to fetch media.")
+                return
+            }
+            update(movie: media)
+            return
+        }
+
         collectionOverlay.isHidden = false
-        numberOfTracks.text = String(videoGroup.count())
-        titleLabel.text = videoGroup.name()
-        accessibilityLabel = videoGroup.accessibilityText()
-        descriptionLabel.text = videoGroup.numberOfTracksString()
-        thumbnailView.image = videoGroup.thumbnail()
+        numberOfTracks.text = String(mediaGroup.nbVideo())
+        titleLabel.text = mediaGroup.name()
+        accessibilityLabel = mediaGroup.accessibilityText()
+        descriptionLabel.text = mediaGroup.numberOfTracksString()
+        thumbnailView.image = mediaGroup.thumbnail()
         progressView.isHidden = true
         newLabel.isHidden = true
     }

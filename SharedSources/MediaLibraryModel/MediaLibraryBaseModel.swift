@@ -110,6 +110,12 @@ extension MLBaseModel {
             return true
         }
     }
+
+    func filterFilesFromDeletion(of ids: [VLCMLIdentifier]) {
+        files = files.filter() {
+            return !ids.contains($0.identifier())
+        }
+    }
 }
 
 extension VLCMLObject {
@@ -133,10 +139,10 @@ extension MediaCollectionModel {
             }
         }
         if image == nil
-            || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && self is VLCMLVideoGroup)
-            || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && !(self is VLCMLVideoGroup)) {
+            || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && self is VLCMLMediaGroup)
+            || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && !(self is VLCMLMediaGroup)) {
             let isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme
-            if self is VLCMLVideoGroup {
+            if self is VLCMLMediaGroup {
                 image = isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
             } else {
                 image = isDarktheme ? UIImage(named: "album-placeholder-dark") : UIImage(named: "album-placeholder-white")

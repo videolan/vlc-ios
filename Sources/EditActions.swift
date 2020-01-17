@@ -37,20 +37,100 @@ class EditActions {
 // MARK: - Main edit actions
 
 extension EditActions {
-    private func addToCollection(_ collection: [MediaCollectionModel]) {
+    private func addToCollection(_ collection: [MediaCollectionModel], for type: MediaCollectionModel.Type) {
         addToCollectionViewController.mlCollection = collection
-        addToCollectionViewController.updateInterface(for: type(of: collection[0]))
+        addToCollectionViewController.updateInterface(for: type)
         let navigationController = UINavigationController(rootViewController: addToCollectionViewController)
         rootViewController.present(navigationController, animated: true, completion: nil)
+    }
+
+    private func createMediaGroup(from mediaGroupIds: [VLCMLIdentifier],
+                                  _ completion: ((completionState) -> Void)? = nil) {
+        let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("MEDIA_GROUPS", comment: ""),
+                                           placeHolder: NSLocalizedString("MEDIA_GROUPS_PLACEHOLDER",
+                                                                          comment: ""))
+
+        presentTextFieldAlert(with: alertInfo) {
+            [unowned self] text -> Void in
+            guard text != "" else {
+                DispatchQueue.main.async {
+                    VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_EMPTY_NAME",
+                                                                                     comment: ""),
+                                                            viewController: self.rootViewController)
+                    completion?(.fail)
+                }
+                return
+            }
+            self.createMediaGroup(with: text)
+        }
     }
 
     func addToPlaylist(_ completion: ((completionState) -> Void)? = nil) {
         self.completion = completion
         if !mediaLibraryService.playlists().isEmpty {
-            addToCollection(mediaLibraryService.playlists())
+            addToCollection(mediaLibraryService.playlists(), for: VLCMLPlaylist.self)
         } else {
             addToNewPlaylist()
         }
+    }
+
+    func addToMediaGroup(_ completion: ((completionState) -> Void)? = nil) {
+        self.completion = completion
+
+        var mediaGroupIds = [VLCMLIdentifier]()
+        objects.forEach() { mediaGroupIds.append($0.identifier()) }
+
+        guard var mediaGroups = mediaLibraryService.medialib.mediaGroups() else {
+            assertionFailure("EditActions: addToMediaGroup: Failed to retrieve mediaGroups.")
+            completion?(.fail)
+            return
+        }
+
+        // Filter out visible groups and action originated source media groups
+        mediaGroups = mediaGroups.filter() {
+            if mediaGroupIds.contains($0.identifier()) {
+                // Do not include the current selection
+                return false
+            } else if $0.nbMedia() == 1 && !$0.userInteracted() {
+                // Do not include elements shown as a media
+                return false
+            }
+            return true
+        }
+        addToCollection(mediaGroups, for: VLCMLMediaGroup.self)
+    }
+
+    func removeFromMediaGroup(_ completion: ((completionState) -> Void)? = nil) {
+        self.completion = completion
+        guard !objects.isEmpty else {
+            completion?(.fail)
+            return
+        }
+
+        guard let media = objects as? [VLCMLMedia] else {
+            assertionFailure("EditActions: removeFromMediaGroup: Unknown type inside media group.")
+            completion?(.fail)
+            return
+        }
+
+        guard let collectionModel = model as? CollectionModel else {
+            assertionFailure("EditActions: removeFromMediaGroup: Unknown model type for media groups.")
+            completion?(.fail)
+            return
+        }
+
+        if let mediaGroup = collectionModel.mediaCollection as? VLCMLMediaGroup,
+            mediaGroup.nbMedia() == media.count {
+            guard mediaGroup.destroy() else {
+                assertionFailure("EditActions: removeFromMediaGroup: Failed to destroy mediaGroup.")
+                completion?(.fail)
+                return
+            }
+        } else {
+            media.forEach() { $0.removeFromGroup() }
+        }
+        collectionModel.filterFilesFromDeletion(of: media)
+        completion?(.success)
     }
 
     func rename(_ completion: ((completionState) -> Void)? = nil) {
@@ -63,6 +143,8 @@ extension EditActions {
                 mlObjectName = media.title
             } else if let playlist = mlObject as? VLCMLPlaylist {
                 mlObjectName = playlist.name
+            } else if let mediaGroup = mlObject as? VLCMLMediaGroup {
+                mlObjectName = mediaGroup.name()
             } else {
                 assertionFailure("EditActions: Rename called with wrong model.")
             }
@@ -85,6 +167,9 @@ extension EditActions {
                     media.updateTitle(text)
                 } else if let playlist = mlObject as? VLCMLPlaylist {
                     playlist.updateName(text)
+                } else if let mediaGroup = mlObject as? VLCMLMediaGroup,
+                    let mediaGroupViewModel = self.model as? MediaGroupViewModel {
+                    mediaGroupViewModel.rename(mediaGroup, to: text)
                 }
                 self.objects.removeFirst()
                 self.completion?(.inProgress)
@@ -221,6 +306,32 @@ private extension EditActions {
         return fileURLs
     }
 
+    // MARK: Media Groups
+
+    private func createMediaGroup(with name: String) {
+        var media = [VLCMLMedia]()
+        var mediaGroupIds = [VLCMLIdentifier]()
+
+        objects.forEach() {
+            if let mediaGroup = $0 as? VLCMLMediaGroup {
+                media += mediaGroup.media(of: .video) ?? []
+                mediaGroupIds.append(mediaGroup.identifier())
+            } else if let medium = $0 as? VLCMLMedia {
+                media.append(medium)
+            } else {
+                assertionFailure("EditActions: createMediaGroup: Unknown type.")
+            }
+        }
+
+        if let mediaGroupModel = model as? MediaGroupViewModel {
+            if !mediaGroupModel.create(with: name, from: mediaGroupIds, content: media) {
+                completion?(.fail)
+                return
+            }
+        }
+        completion?(.success)
+    }
+
     // MARK: Playlist
 
     private func addToNewPlaylist() {
@@ -267,9 +378,24 @@ private extension EditActions {
 extension EditActions: AddToCollectionViewControllerDelegate {
     func addToCollectionViewController(_ addToCollectionViewController: AddToCollectionViewController,
                                        didSelectCollection collection: MediaCollectionModel) {
-        for media in objects {
+
+        guard let mediaGroups = objects as? [VLCMLMediaGroup] else {
+            assertionFailure("EditActions: AddToCollectionViewControllerDelegate: Failed to retrieve media groups.")
+            completion?(.fail)
+            return
+        }
+
+        var media = [VLCMLMedia]()
+        mediaGroups.forEach() { media += $0.media(of: .video) ?? [] }
+
+        if let mediaGroupModel = self.model as? MediaGroupViewModel,
+            let mediaGroup = collection as? VLCMLMediaGroup {
+            mediaGroupModel.append(media, to: mediaGroup)
+        }
+
+        for medium in media {
             if let playlist = collection as? VLCMLPlaylist,
-                !playlist.appendMedia(withIdentifier: media.identifier()) {
+                !playlist.appendMedia(withIdentifier: medium.identifier()) {
                 assertionFailure("EditActions: AddToPlaylistViewControllerDelegate: Failed to add item.")
                 completion?(.fail)
             }
@@ -281,7 +407,39 @@ extension EditActions: AddToCollectionViewControllerDelegate {
     func addToCollectionViewController(_ addToCollectionViewController: AddToCollectionViewController,
                                        newCollectionName name: String,
                                        from mlType: MediaCollectionModel.Type) {
-        createPlaylist(name)
+        if mlType is VLCMLPlaylist.Type {
+            createPlaylist(name)
+        } else if mlType is VLCMLMediaGroup.Type {
+            createMediaGroup(with: name)
+        }
         addToCollectionViewController.dismiss(animated: true, completion: nil)
+    }
+
+    func addToCollectionViewControllerMoveCollections(_
+        addToCollectionViewController: AddToCollectionViewController) {
+        guard let mediaGroups = objects as? [VLCMLMediaGroup] else {
+            assertionFailure("EditActions: Cannot move out if not VLCMLMediaGroups.")
+            completion?(.fail)
+            return
+        }
+
+        guard let mediaGroupViewModel = model as? MediaGroupViewModel else {
+            assertionFailure("EditActions: Cannot move out if not MediaGroupViewModel.")
+            completion?(.fail)
+            return
+        }
+
+        var mediaGroupsIds = [VLCMLIdentifier]()
+
+        mediaGroups.forEach() {
+            // Skip mediaGroups that are shown as media
+            if $0.userInteracted() || $0.nbMedia() > 1 {
+                mediaGroupsIds.append($0.identifier())
+                $0.destroy()
+            }
+        }
+        mediaGroupViewModel.filterFilesFromDeletion(of: mediaGroupsIds)
+        addToCollectionViewController.dismiss(animated: true, completion: nil)
+        completion?(.success)
     }
 }

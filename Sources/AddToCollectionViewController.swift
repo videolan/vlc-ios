@@ -16,6 +16,13 @@ protocol AddToCollectionViewControllerDelegate: class {
     func addToCollectionViewController(_ addToPlaylistViewController: AddToCollectionViewController,
                                        newCollectionName name: String,
                                        from mlType: MediaCollectionModel.Type)
+    func addToCollectionViewControllerMoveCollections(_
+        addToCollectionViewController: AddToCollectionViewController)
+}
+
+enum AddToCollectionSection: Int, CaseIterable {
+    case moveToRoot = 0
+    case collection
 }
 
 class AddToCollectionViewController: UIViewController {
@@ -24,6 +31,7 @@ class AddToCollectionViewController: UIViewController {
 
     private let cellHeight: CGFloat = 56
     private let sidePadding: CGFloat = 20
+    private var collectionModelType: MediaCollectionModel.Type?
 
     var mlCollection = [MediaCollectionModel]()
 
@@ -85,24 +93,27 @@ class AddToCollectionViewController: UIViewController {
         } else {
             title = NSLocalizedString("ADD_TO_MEDIA_GROUP", comment: "")
         }
+        self.collectionModelType = collectionModelType
         setupNewCollectionButton(for: collectionModelType)
     }
 
     // MARK: - Create new Actions
 
+    @IBAction private func handleMoveCollection() {
+        delegate?.addToCollectionViewControllerMoveCollections(self)
+    }
+
     @IBAction private func handleNewCollection(_ sender: UIButton) {
-        guard let mlObject = mlCollection.first else {
-            assertionFailure("AddToCollectionViewController: handleNewCollection: Failed to retrieve type of mlModel")
+        guard let collectionModelType = collectionModelType else {
+            assertionFailure("AddToCollectionViewController: handleNewCollection: Failed to retrieve type")
             return
         }
-
-        let mlType = type(of: mlObject)
 
         var title: String
         var description: String
         var placeholder: String
 
-        if mlType is VLCMLPlaylist.Type {
+        if collectionModelType is VLCMLPlaylist.Type {
             title = NSLocalizedString("PLAYLISTS", comment: "")
             description = NSLocalizedString("PLAYLIST_DESCRIPTION", comment: "")
             placeholder = NSLocalizedString("PLAYLIST_PLACEHOLDER", comment: "")
@@ -140,7 +151,7 @@ class AddToCollectionViewController: UIViewController {
             }
             self.delegate?.addToCollectionViewController(self,
                                                          newCollectionName: text,
-                                                         from: mlType)
+                                                         from: collectionModelType)
         }
         alertController.addAction(cancelButton)
         alertController.addAction(confirmAction)
@@ -218,6 +229,11 @@ extension AddToCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 extension AddToCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == AddToCollectionSection.moveToRoot.rawValue {
+            delegate?.addToCollectionViewControllerMoveCollections(self)
+            return
+        }
+
         guard indexPath.row <= mlCollection.count else {
             assertionFailure("AddToPlaylistViewController: didSelectItemAt: IndexPath out of range.")
             return
@@ -229,9 +245,17 @@ extension AddToCollectionViewController: UICollectionViewDelegate {
 // MARK: - UICollectionViewDataSource
 
 extension AddToCollectionViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return AddToCollectionSection.allCases.count
+    }
+
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return mlCollection.count
+        if section == AddToCollectionSection.moveToRoot.rawValue {
+            return 1
+        } else {
+            return mlCollection.count
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -240,6 +264,16 @@ extension AddToCollectionViewController: UICollectionViewDataSource {
                                                             for: indexPath) as? MediaCollectionViewCell else {
             return UICollectionViewCell()
         }
+        if indexPath.section == AddToCollectionSection.moveToRoot.rawValue {
+            cell.thumbnailView.image = UIImage(named: "removeFromMediaGroup")
+            cell.thumbnailView.contentMode = .center
+            cell.titleLabel.text = NSLocalizedString("MEDIA_GROUP_MOVE_TO_ROOT", comment: "")
+            cell.accessibilityLabel = NSLocalizedString("MEDIA_GROUP_MOVE_TO_ROOT_HINT", comment: "")
+            cell.newLabel.isHidden = true
+            cell.descriptionLabel.isHidden = true
+            return cell
+        }
+
         guard indexPath.row <= mlCollection.count else {
             assertionFailure("AddToPlaylistViewController: cellForItemAt: IndexPath out of range.")
             return UICollectionViewCell()

@@ -12,6 +12,8 @@
 protocol EditToolbarDelegate: class {
     func editToolbarDidDelete(_ editToolbar: EditToolbar)
     func editToolbarDidAddToPlaylist(_ editToolbar: EditToolbar)
+    func editToolbarDidAddToMediaGroup(_ editToolbar: EditToolbar)
+    func editToolbarDidRemoveFromMediaGroup(_ editToolbar: EditToolbar)
     func editToolbarDidRename(_ editToolbar: EditToolbar)
     func editToolbarDidShare(_ editToolbar: EditToolbar)
 }
@@ -47,12 +49,22 @@ class EditToolbar: UIView {
         return addToPlaylistButton
     }()
 
+    private(set) var addToMediaGroupButton: UIButton!
+    private var removeFromMediaGroupButton: UIButton!
     private var renameButton: UIButton!
     private var deleteButton: UIButton!
     private(set) var shareButton: UIButton!
 
     @objc func addToPlaylist() {
         delegate?.editToolbarDidAddToPlaylist(self)
+    }
+
+    @objc func addToMediaGroup() {
+        delegate?.editToolbarDidAddToMediaGroup(self)
+    }
+
+    @objc func removeFromMediaGroup() {
+        delegate?.editToolbarDidRemoveFromMediaGroup(self)
     }
 
     @objc func deleteSelection() {
@@ -67,8 +79,15 @@ class EditToolbar: UIView {
         delegate?.editToolbarDidShare(self)
     }
 
+    func enableMediaGroupButton(_ enable: Bool) {
+        guard let mediaGroupButton = addToMediaGroupButton else {
+            return
+        }
+        mediaGroupButton.isEnabled = enable
+    }
+
     func updateEditToolbar(for model: MediaLibraryBaseModel) {
-        var buttonTypeList = EditButtonsFactory.buttonList(for: model.anyfiles.first)
+        var buttonTypeList = EditButtonsFactory.buttonList(for: model)
         // For now we remove the first button which is Add to playlist since it is not in the same group
         if buttonTypeList.contains(.addToPlaylist) {
             if let index = buttonTypeList.firstIndex(of: .addToPlaylist) {
@@ -77,6 +96,8 @@ class EditToolbar: UIView {
         }
 
         // Hide all buttons and show depending on model
+        addToMediaGroupButton.isHidden = true
+        removeFromMediaGroupButton.isHidden = true
         renameButton.isHidden = true
         deleteButton.isHidden = true
         shareButton.isHidden = true
@@ -85,6 +106,12 @@ class EditToolbar: UIView {
             switch buttonType {
             case .addToPlaylist:
                 addToPlaylistButton.isHidden = false
+            case .addToMediaGroup:
+                // Disable button by default, enable it depeding on selected items.
+                addToMediaGroupButton.isEnabled = false
+                addToMediaGroupButton.isHidden = false
+            case .removeFromMediaGroup:
+                removeFromMediaGroupButton.isHidden = false
             case .rename:
                 renameButton.isHidden = false
             case .delete:
@@ -96,20 +123,27 @@ class EditToolbar: UIView {
     }
 
     private func setupRightStackView() {
-        let buttons = EditButtonsFactory.generate(buttons: [.rename, .delete, .share])
+        let buttons = EditButtonsFactory.generate(buttons: [.addToMediaGroup, .removeFromMediaGroup,
+                                                            .rename, .delete, .share])
         for button in buttons {
             switch button.identifier {
-                case .addToPlaylist:
-                    rightStackView.addArrangedSubview(button.button(#selector(addToPlaylist)))
-                case .rename:
-                    renameButton = button.button(#selector(rename))
-                    rightStackView.addArrangedSubview(renameButton)
-                case .delete:
-                    deleteButton = button.button(#selector(deleteSelection))
-                    rightStackView.addArrangedSubview(deleteButton)
-                case .share:
-                    shareButton = button.button(#selector(share))
-                    rightStackView.addArrangedSubview(shareButton)
+            case .addToPlaylist:
+                rightStackView.addArrangedSubview(button.button(#selector(addToPlaylist)))
+            case .addToMediaGroup:
+                addToMediaGroupButton = button.button(#selector(addToMediaGroup))
+                rightStackView.addArrangedSubview(addToMediaGroupButton)
+            case .removeFromMediaGroup:
+                removeFromMediaGroupButton = button.button(#selector(removeFromMediaGroup))
+                rightStackView.addArrangedSubview(removeFromMediaGroupButton)
+            case .rename:
+                renameButton = button.button(#selector(rename))
+                rightStackView.addArrangedSubview(renameButton)
+            case .delete:
+                deleteButton = button.button(#selector(deleteSelection))
+                rightStackView.addArrangedSubview(deleteButton)
+            case .share:
+                shareButton = button.button(#selector(share))
+                rightStackView.addArrangedSubview(shareButton)
             }
         }
     }

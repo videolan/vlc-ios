@@ -12,17 +12,7 @@
 
 class MovieCategoryViewController: MediaCategoryViewController {
     init(_ services: Services) {
-        let model = VideoModel(medialibrary: services.medialibraryService)
-        super.init(services: services, model: model)
-        model.updateView = { [weak self] in
-            self?.reloadData()
-        }
-    }
-}
-
-class VideoGroupCategoryViewController: MediaCategoryViewController {
-    init(_ services: Services) {
-        let model = VideoGroupViewModel(medialibrary: services.medialibraryService)
+        let model = MediaGroupViewModel(medialibrary: services.medialibraryService)
         super.init(services: services, model: model)
         model.updateView = { [weak self] in
             self?.reloadData()

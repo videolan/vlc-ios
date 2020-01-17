@@ -35,6 +35,16 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         return editButton
     }()
 
+    private lazy var regroupButton: UIBarButtonItem = {
+        var regroup = UIBarButtonItem(image: UIImage(named: "regroupMediaGroups"),
+                                     style: .plain, target: self,
+                                     action: #selector(handleRegroup))
+        regroup.tintColor = PresentationTheme.current.colors.orangeUI
+        regroup.accessibilityLabel = NSLocalizedString("BUTTON_REGROUP", comment: "")
+        regroup.accessibilityHint = NSLocalizedString("BUTTON_REGROUP_HINT", comment: "")
+        return regroup
+    }()
+
     private lazy var doneButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(customSetEditing))
     }()
@@ -145,7 +155,13 @@ extension MediaViewController {
     @objc private func customSetEditing() {
         isEditing = !isEditing
         rightBarButtons = isEditing ? [doneButton] : [editButton, UIBarButtonItem(customView: rendererButton)]
-        leftBarButton = isEditing ? nil : sortButton
+
+        if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController,
+            mediaCategoryViewController.model is MediaGroupViewModel {
+            leftBarButton = isEditing ? regroupButton : sortButton
+        } else {
+            leftBarButton = isEditing ? nil : sortButton
+        }
         navigationItem.rightBarButtonItems = rightBarButtons
         navigationItem.leftBarButtonItem = leftBarButton
     }
@@ -161,6 +177,16 @@ extension MediaViewController {
 // MARK: - Sort
 
 extension MediaViewController {
+    @objc func handleRegroup() {
+        if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
+            guard mediaCategoryViewController.model is MediaGroupViewModel else {
+                assertionFailure("MediaViewController: handleRegroup: Mismatching model can't regroup.")
+                return
+            }
+            mediaCategoryViewController.handleRegroup()
+        }
+    }
+
     @objc func handleSort() {
         if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
             mediaCategoryViewController.handleSort()

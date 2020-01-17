@@ -26,7 +26,6 @@ class VideoViewController: MediaViewController {
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        return [MovieCategoryViewController(services),
-                VideoGroupCategoryViewController(services)]
+        return [MovieCategoryViewController(services)]
     }
 }

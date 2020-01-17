@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ozj-oC-7Dg">
-                    <rect key="frame" x="0.0" y="54" width="414" height="748"/>
+                    <rect key="frame" x="0.0" y="54" width="414" height="753"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="o3C-iH-Udd">
                         <size key="itemSize" width="50" height="50"/>
@@ -30,31 +30,39 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6v-5Z-MTf">
-                    <rect key="frame" x="57" y="812" width="300" height="40"/>
-                    <color key="backgroundColor" red="0.96470588235294119" green="0.49803921568627452" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="TSH-AI-tWF"/>
-                        <constraint firstAttribute="width" constant="300" id="yiR-DN-Qy2"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                    <color key="tintColor" red="0.59460381650000005" green="0.83921135540000003" blue="0.31552115819999998" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Default">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="handleNewCollection:" destination="-1" eventType="touchUpInside" id="jUw-JJ-D4r"/>
-                    </connections>
-                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LvI-AK-2Br">
+                    <rect key="frame" x="57" y="817" width="300" height="45"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6v-5Z-MTf">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="45"/>
+                            <color key="backgroundColor" red="0.96470588235294119" green="0.49803921568627452" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="TSH-AI-tWF"/>
+                                <constraint firstAttribute="width" priority="900" constant="300" id="YiE-VL-osc"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="100" id="emw-Ex-QpX"/>
+                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="yiR-DN-Qy2"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                            <color key="tintColor" red="0.59460381650000005" green="0.83921135540000003" blue="0.31552115819999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Default">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="handleNewCollection:" destination="-1" eventType="touchUpInside" id="jUw-JJ-D4r"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <variation key="heightClass=compact" axis="horizontal"/>
+                </stackView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Ozj-oC-7Dg" firstAttribute="top" secondItem="SK5-46-lSh" secondAttribute="top" constant="10" id="8uz-If-6Ys"/>
-                <constraint firstItem="A6v-5Z-MTf" firstAttribute="centerX" secondItem="SK5-46-lSh" secondAttribute="centerX" id="9K9-Ci-hVU"/>
+                <constraint firstItem="Ozj-oC-7Dg" firstAttribute="top" secondItem="SK5-46-lSh" secondAttribute="top" constant="10" id="8fV-aV-Q9C"/>
+                <constraint firstItem="LvI-AK-2Br" firstAttribute="centerX" secondItem="Ozj-oC-7Dg" secondAttribute="centerX" id="H1O-dS-Z1s"/>
+                <constraint firstItem="LvI-AK-2Br" firstAttribute="bottom" secondItem="SK5-46-lSh" secondAttribute="bottom" id="Uxq-6O-bL3"/>
+                <constraint firstItem="LvI-AK-2Br" firstAttribute="top" secondItem="Ozj-oC-7Dg" secondAttribute="bottom" constant="10" id="Yuf-oR-drD"/>
                 <constraint firstItem="Ozj-oC-7Dg" firstAttribute="leading" secondItem="SK5-46-lSh" secondAttribute="leading" id="dl6-v8-tY0"/>
                 <constraint firstItem="Ozj-oC-7Dg" firstAttribute="trailing" secondItem="SK5-46-lSh" secondAttribute="trailing" id="mCs-Yn-ebq"/>
-                <constraint firstItem="A6v-5Z-MTf" firstAttribute="bottom" secondItem="SK5-46-lSh" secondAttribute="bottom" constant="-10" id="tPj-cf-ZBR"/>
-                <constraint firstItem="A6v-5Z-MTf" firstAttribute="top" secondItem="Ozj-oC-7Dg" secondAttribute="bottom" constant="10" id="zKP-g6-kJG"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SK5-46-lSh"/>
             <point key="canvasLocation" x="47.826086956521742" y="35.491071428571423"/>

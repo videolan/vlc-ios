@@ -12,7 +12,8 @@
 protocol EditControllerDelegate: class {
     func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> BaseCollectionViewCell?
     func editController(editController: EditController, present viewController: UIViewController)
-
+    func editControllerDidSelectMultipleItem(editContrller: EditController)
+    func editControllerDidDeSelectMultipleItem(editContrller: EditController)
     func editControllerDidFinishEditing(editController: EditController?)
 }
 
@@ -144,6 +145,44 @@ extension EditController: EditToolbarDelegate {
         })
     }
 
+    func editToolbarDidAddToMediaGroup(_ editToolbar: EditToolbar) {
+        guard !selectedCellIndexPaths.isEmpty else {
+            assertionFailure("EditController: Add to mediagroup called without selection")
+            return
+        }
+        editActions.objects.removeAll()
+
+        for index in selectedCellIndexPaths where index.row < model.anyfiles.count {
+            editActions.objects.append(model.anyfiles[index.row])
+        }
+
+        editActions.addToMediaGroup() {
+            [weak self] state in
+            if state == .success || state == .fail {
+                self?.resetSelections(resetUI: false)
+                self?.delegate?.editControllerDidFinishEditing(editController: self)
+            }
+        }
+    }
+
+    func editToolbarDidRemoveFromMediaGroup(_ editToolbar: EditToolbar) {
+        guard !selectedCellIndexPaths.isEmpty else {
+            assertionFailure("EditController: Remove from mediagroup called without selection")
+            return
+        }
+
+        editActions.objects.removeAll()
+        getSelectedObjects()
+
+        editActions.removeFromMediaGroup() {
+            [weak self] state in
+            if state == .success || state == .fail {
+                self?.resetSelections(resetUI: false)
+                self?.delegate?.editControllerDidFinishEditing(editController: self)
+            }
+        }
+    }
+
     func editToolbarDidDelete(_ editToolbar: EditToolbar) {
         guard !selectedCellIndexPaths.isEmpty else {
             assertionFailure("EditController: Delete called without selection")
@@ -203,6 +242,9 @@ extension EditController: EditToolbarDelegate {
 extension EditController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedCellIndexPaths.insert(indexPath)
+        if !selectedCellIndexPaths.isEmpty {
+            delegate?.editControllerDidSelectMultipleItem(editContrller: self)
+        }
         // Isolate selectionViewOverlay changes inside EditController
         if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
             cell.selectionViewOverlay?.isHidden = false
@@ -211,13 +253,16 @@ extension EditController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectedCellIndexPaths.remove(indexPath)
+        if selectedCellIndexPaths.isEmpty {
+            delegate?.editControllerDidDeSelectMultipleItem(editContrller: self)
+        }
         if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
             cell.selectionViewOverlay?.isHidden = true
         }
     }
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - UICollectdiionViewDataSource
 
 extension EditController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

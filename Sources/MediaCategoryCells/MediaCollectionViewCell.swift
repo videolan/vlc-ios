@@ -15,11 +15,11 @@ import Foundation
 class MediaCollectionViewCell: BaseCollectionViewCell {
 
     @IBOutlet weak var thumbnailView: UIImageView!
-    @IBOutlet private weak var titleLabel: VLCMarqueeLabel!
-    @IBOutlet private weak var descriptionLabel: VLCMarqueeLabel!
-    @IBOutlet private weak var newLabel: UILabel!
-    @IBOutlet private weak var thumbnailWidth: NSLayoutConstraint!
-    @IBOutlet private weak var sizeLabel: UILabel!
+    @IBOutlet private(set) weak var titleLabel: VLCMarqueeLabel!
+    @IBOutlet private(set) weak var descriptionLabel: VLCMarqueeLabel!
+    @IBOutlet private(set) weak var newLabel: UILabel!
+    @IBOutlet private(set) weak var thumbnailWidth: NSLayoutConstraint!
+    @IBOutlet private(set) weak var sizeLabel: UILabel!
     @IBOutlet weak var descriptionStackView: UIStackView!
 
     @IBOutlet weak var checkboxImageView: UIImageView!
@@ -209,6 +209,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         titleLabel.labelize = enableMarquee
         descriptionLabel.labelize = enableMarquee
         thumbnailView.image = nil
+        thumbnailView.contentMode = .scaleAspectFill
+        descriptionLabel.isHidden = false
         newLabel.isHidden = true
         checkboxImageView.isHidden = true
         selectionOverlay.isHidden = true

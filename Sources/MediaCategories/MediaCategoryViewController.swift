@@ -154,6 +154,14 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             }
             return
         }
+
+        // If we are a MediaGroupViewModel, check if there are no empty groups from ungrouping.
+        if let mediaGroupModel = model as? MediaGroupViewModel {
+            mediaGroupModel.files = mediaGroupModel.files.filter() {
+                return $0.nbMedia() != 0
+            }
+        }
+
         delegate?.needsToUpdateNavigationbarIfNeeded(self)
         collectionView?.reloadData()
         updateUIForContent()
@@ -195,7 +203,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         manager.presentingViewController = self
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
-        updateVideoGroups()
         reloadData()
     }
 
@@ -295,13 +302,6 @@ private extension MediaCategoryViewController {
         }
     }
 
-    private func updateVideoGroups() {
-        // Manually update video groups since there is no callbacks for it
-        if let videoGroupViewModel = model as? VideoGroupViewModel {
-            videoGroupViewModel.updateVideoGroups()
-        }
-    }
-
     private func isEmptyCollectionView() -> Bool {
         return collectionView?.numberOfItems(inSection: 0) == 0
     }
@@ -384,6 +384,31 @@ extension MediaCategoryViewController {
             rightBarButtonItems.append(rendererBarButton)
         }
         return rightBarButtonItems
+    }
+
+    func handleRegroup() {
+        guard let mediaGroupViewModel = model as? MediaGroupViewModel else {
+            assertionFailure("MediaCategoryViewController: handleRegroup: Mismatching model can't regroup.")
+            return
+        }
+
+        let cancelButton = VLCAlertButton(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
+                                          style: .cancel)
+        let regroupButton = VLCAlertButton(title: NSLocalizedString("BUTTON_REGROUP", comment: ""),
+                                           style: .destructive,
+                                           action: {
+                                            [unowned self] action in
+                                            self.services.medialibraryService.medialib.regroupAll()
+                                            mediaGroupViewModel.files = self.services.medialibraryService.medialib.mediaGroups() ?? []
+                                            self.delegate?.setEditingStateChanged(for: self, editing: false)
+        })
+
+        VLCAlertViewController.alertViewManager(title: NSLocalizedString("BUTTON_REGROUP_TITLE", comment: ""),
+                                                errorMessage: NSLocalizedString("BUTTON_REGROUP_DESCRIPTION",
+                                                                                comment: ""),
+                                                viewController: self,
+                                                buttonsAction: [cancelButton,
+                                                                regroupButton])
     }
 
     @objc func handleSort() {
@@ -487,7 +512,10 @@ private extension MediaCategoryViewController {
         let index = indexPath.row
         let modelContent = modelContentArray.objectAtIndex(index: index)
 
-        let actionList = EditButtonsFactory.buttonList(for: model.anyfiles.first)
+        // Remove addToMediaGroup from quick actions since it is applicable only to multiple media
+        let actionList = EditButtonsFactory.buttonList(for: model).filter({
+            return $0 != .addToMediaGroup
+        })
         let actions = EditButtonsFactory.generate(buttons: actionList)
 
         return UIMenu(title: "", image: nil, identifier: nil, children: actions.map {
@@ -498,6 +526,16 @@ private extension MediaCategoryViewController {
                     if let modelContent = modelContent {
                         self?.editController.editActions.objects = self?.objects(from: modelContent) ?? []
                         self?.editController.editActions.addToPlaylist()
+                    }
+                })
+            case .addToMediaGroup:
+                return $0.action() { _ in }
+            case .removeFromMediaGroup:
+                return $0.action({
+                    [weak self] _ in
+                    if let modelContent = modelContent {
+                        self?.editController.editActions.objects = [modelContent]
+                        self?.editController.editActions.removeFromMediaGroup()
                     }
                 })
             case .rename:
@@ -537,6 +575,18 @@ extension MediaCategoryViewController {
     private func selectedItem(at indexPath: IndexPath) {
         let mediaObjectArray = isSearching ? searchDataSource.searchData : model.anyfiles
         let modelContent = mediaObjectArray.objectAtIndex(index: indexPath.row)
+
+        if let mediaGroup = modelContent as? VLCMLMediaGroup,
+            mediaGroup.nbMedia() == 1 && !mediaGroup.userInteracted() {
+            // We handle only mediagroups of video
+            guard let media = mediaGroup.media(of: .video)?.first else {
+                assertionFailure("MediaCategoryViewController: Failed to fetch mediagroup video.")
+                return
+            }
+            play(media: media, at: indexPath)
+            createSpotlightItem(media: media)
+            return
+        }
 
         if let media = modelContent as? VLCMLMedia {
             play(media: media, at: indexPath)
@@ -612,16 +662,20 @@ extension MediaCategoryViewController {
             return mediaCell
         }
 
-        if let media = mediaObject as? VLCMLMedia {
-            // FIXME: This should be done in the VModel, workaround for the release.
+        if let mediaGroup = mediaObject as? VLCMLMediaGroup {
+            guard let media = mediaGroup.media(of: .video)?.first else {
+                assertionFailure("MediaCategoryViewController: Failed to retrieve media")
+                return mediaCell
+            }
+            services.medialibraryService.requestThumbnail(for: media)
+        } else if let media = mediaObject as? VLCMLMedia {
             if media.type() == .video {
                 services.medialibraryService.requestThumbnail(for: media)
+                assert(media.mainFile() != nil, "The mainfile is nil")
             }
-            assert(media.mainFile() != nil, "The mainfile is nil")
-            mediaCell.media = media.mainFile() != nil ? media : nil
-        } else {
-            mediaCell.media = mediaObject
         }
+
+        mediaCell.media = mediaObject
         mediaCell.isAccessibilityElement = true
         return mediaCell
     }
@@ -731,6 +785,18 @@ extension MediaCategoryViewController: EditControllerDelegate {
         navigationController?.present(newNavigationController, animated: true, completion: nil)
     }
 
+    func editControllerDidSelectMultipleItem(editContrller: EditController) {
+        if let editToolbar = tabBarController?.editToolBar() {
+            editToolbar.enableMediaGroupButton(true)
+        }
+    }
+
+    func editControllerDidDeSelectMultipleItem(editContrller: EditController) {
+        if let editToolbar = tabBarController?.editToolBar() {
+            editToolbar.enableMediaGroupButton(false)
+        }
+    }
+
     func editControllerDidFinishEditing(editController: EditController?) {
         // NavigationItems for Collections are create from the parent, there is no need to propagate the information.
         if self is CollectionCategoryViewController {
@@ -799,12 +865,27 @@ extension MediaCategoryViewController {
         }
 
         var tracks = [VLCMLMedia]()
+        var index = indexPath.row
 
-        if let model = model as? MediaCollectionModel {
+        if let mediaGroupModel = model as? MediaGroupViewModel {
+            var singleGroup = [VLCMLMediaGroup]()
+            // Filter single groups
+            singleGroup = mediaGroupModel.files.filter() {
+                return $0.nbMedia() == 1 && !$0.userInteracted()
+            }
+            singleGroup.forEach() {
+                guard let media = $0.media(of: .video)?.first else {
+                    assertionFailure("MediaCategoryViewController: play: Failed to fetch media.")
+                    return
+                }
+                tracks.append(media)
+            }
+            index = tracks.firstIndex(where: { $0.identifier() == media.identifier() }) ?? 0
+        } else if let model = model as? MediaCollectionModel {
             tracks = model.files() ?? []
         } else {
             tracks = (isSearching ? searchDataSource.searchData : model.anyfiles) as? [VLCMLMedia] ?? []
         }
-        playbackController.playMedia(at: indexPath.row, fromCollection: tracks)
+        playbackController.playMedia(at: index, fromCollection: tracks)
     }
 }

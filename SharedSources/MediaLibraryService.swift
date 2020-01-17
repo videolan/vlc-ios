@@ -94,6 +94,16 @@ extension NSNotification {
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeletePlaylistsWithIds playlistsIds: [NSNumber])
 
+    // MediaGroups
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didAddMediaGroups mediaGroups: [VLCMLMediaGroup])
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didModifyMediaGroupsWithIds mediaGroupsIds: [NSNumber])
+
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     didDeleteMediaGroupsWithIds mediaGroupsIds: [NSNumber])
+
     // Force Rescan
     @objc optional func medialibraryDidStartRescan()
 }
@@ -682,6 +692,33 @@ extension MediaLibraryService {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didDeletePlaylistsWithIds playlistsIds: [NSNumber]) {
         for observer in observers {
             observer.value.observer?.medialibrary?(self, didDeletePlaylistsWithIds: playlistsIds)
+        }
+    }
+}
+
+// MARK: - VLCMediaLibraryDelegate - Media groups
+
+extension MediaLibraryService {
+    func medialibrary(_ medialibrary: VLCMediaLibrary, didAdd mediaGroups: [VLCMLMediaGroup]) {
+        for observer in observers {
+            observer.value.observer?.medialibrary?(self,
+                                                   didAddMediaGroups: mediaGroups)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didModifyMediaGroupsWithIds mediaGroupsIds: [NSNumber]) {
+        for observer in observers {
+            observer.value.observer?.medialibrary?(self,
+                                                   didModifyMediaGroupsWithIds: mediaGroupsIds)
+        }
+    }
+
+    func medialibrary(_ medialibrary: VLCMediaLibrary,
+                      didDeleteMediaGroupsWithIds mediaGroupsIds: [NSNumber]) {
+        for observer in observers {
+            observer.value.observer?.medialibrary?(self,
+                                                   didDeleteMediaGroupsWithIds: mediaGroupsIds)
         }
     }
 }
