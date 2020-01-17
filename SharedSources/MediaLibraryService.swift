@@ -470,8 +470,13 @@ extension MediaLibraryService {
 
 extension MediaLibraryService {
     func requestThumbnail(for media: VLCMLMedia) {
-        if media.isThumbnailGenerated() || media.thumbnail() != nil {
+        switch media.thumbnailStatus() {
+        case .available, .persistentFailure, .crash:
             return
+        case .missing, .failure:
+            break
+        @unknown default:
+            assertionFailure("MediaLibraryService: requestThumbnail: unknown case.")
         }
 
         if !media.requestThumbnail(of: .thumbnail, desiredWidth: 320, desiredHeight: 200, atPosition: 0.03) {
