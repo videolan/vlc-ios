@@ -13,7 +13,6 @@
 import UIKit
 
 class VLCSettingsTableViewCell: UITableViewCell {
-    
     @objc var toggle: IASKSwitch?
     @objc let activityIndicator: UIActivityIndicatorView
 
@@ -29,7 +28,7 @@ class VLCSettingsTableViewCell: UITableViewCell {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         themeDidChange()
-        
+
         switch reuseIdentifier {
         case kIASKPSToggleSwitchSpecifier:
             let toggle = IASKSwitch(frame: .zero)

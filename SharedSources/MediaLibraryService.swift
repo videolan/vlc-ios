@@ -388,7 +388,6 @@ extension MediaLibraryService {
         return medialib.media(withMrl: mrl)
     }
 
-
     @objc func media(for identifier: VLCMLIdentifier) -> VLCMLMedia? {
         return medialib.media(withIdentifier: identifier)
     }
@@ -533,7 +532,6 @@ extension MediaLibraryService: VLCMediaFileDiscovererDelegate {
 
 extension MediaLibraryService: VLCMediaLibraryDelegate {
     func medialibrary(_ medialibrary: VLCMediaLibrary, didAddMedia media: [VLCMLMedia]) {
-
         media.forEach { $0.updateCoreSpotlightEntry() }
 
         let videos = media.filter {( $0.type() == .video )}
