@@ -22,7 +22,7 @@ class VideoModel: MediaModel {
 
     var medialibrary: MediaLibraryService
 
-    var indicatorName: String = NSLocalizedString("MOVIES", comment: "")
+    var indicatorName: String = NSLocalizedString("ALL_VIDEOS", comment: "")
 
     required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
