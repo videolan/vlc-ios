@@ -31,9 +31,7 @@ class EditToolbar: UIView {
 
     private var rightStackView: UIStackView = {
         let rightStackView = UIStackView()
-
         rightStackView.translatesAutoresizingMaskIntoConstraints = false
-
         return rightStackView
     }()
 
