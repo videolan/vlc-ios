@@ -252,6 +252,9 @@
 
     VLCPlaybackController *vpc = [VLCPlaybackController sharedInstance];
     VLCMedia *media = [vpc currentlyPlayingMedia];
+    if (!media) {
+        return;
+    }
     NSDictionary *mediaDict = @{ @"id" : media.url.absoluteString};
     NSDictionary *dict = @{ @"currentTime" : @([vpc playedTime].intValue),
                                   @"type" : @"seekTo",
