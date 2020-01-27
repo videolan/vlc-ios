@@ -39,8 +39,8 @@ class PlaylistModel: MLBaseModel {
         files.append(item)
     }
 
-    func delete(_ items: [VLCMLObject]) {
-        for case let playlist as VLCMLPlaylist in items {
+    func delete(_ items: [VLCMLPlaylist]) {
+        for case let playlist in items {
             if !(medialibrary.deletePlaylist(with: playlist.identifier())) {
                 assertionFailure("PlaylistModel: Failed to delete playlist: \(playlist.identifier())")
             }

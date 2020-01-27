@@ -141,7 +141,7 @@ class EditActions {
                                           style: .destructive,
                                           action: {
                                             [unowned self] action in
-                                            self.model.delete(self.objects)
+                                            self.model.anyDelete(self.objects)
                                             self.objects.removeAll()
                                             self.completion?(.success)
         })

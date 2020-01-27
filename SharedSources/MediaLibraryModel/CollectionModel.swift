@@ -54,16 +54,16 @@ class CollectionModel: MLBaseModel {
         files.append(item)
     }
 
-    func delete(_ items: [VLCMLObject]) {
+    func delete(_ items: [MLType]) {
         if let playlist = mediaCollection as? VLCMLPlaylist {
-            for case let media as VLCMLMedia in items {
+            for case let media in items {
                 if let index = files.firstIndex(of: media) {
                     playlist.removeMedia(fromPosition: UInt32(index))
                 }
             }
         } else {
             do {
-                for case let media as VLCMLMedia in items {
+                for case let media in items {
                     if let mainFile = media.mainFile() {
                         try FileManager.default.removeItem(atPath: mainFile.mrl.path)
                     }

@@ -33,7 +33,7 @@ class ShowEpisodeModel: MediaModel {
         files.append(item)
     }
 
-    func delete(_ items: [VLCMLObject]) {
+    func delete(_ items: [VLCMLMedia]) {
         preconditionFailure("ShowEpisodeModel: Cannot delete showEpisode")
     }
 }

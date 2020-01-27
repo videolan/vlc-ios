@@ -22,8 +22,8 @@ protocol MediaLibraryBaseModel {
     var indicatorName: String { get }
     var cellType: BaseCollectionViewCell.Type { get }
 
-    func append(_ item: VLCMLObject)
-    func delete(_ items: [VLCMLObject])
+    func anyAppend(_ item: VLCMLObject)
+    func anyDelete(_ items: [VLCMLObject])
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool)
 }
 
@@ -41,8 +41,7 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
     var indicatorName: String { get }
 
     func append(_ item: MLType)
-    // FIXME: Ideally items should be MLType but Swift isn't happy so it will always fail
-    func delete(_ items: [VLCMLObject])
+    func delete(_ items: [MLType])
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool)
 }
 
@@ -51,12 +50,18 @@ extension MLBaseModel {
         return files
     }
 
-    func append(_ item: VLCMLObject) {
-        fatalError()
+    func anyAppend(_ item: VLCMLObject) {
+        guard let item = item as? MLType else {
+            preconditionFailure("MLBaseModel: Wrong underlying ML type.")
+        }
+        append(item)
     }
 
-    func delete(_ items: [VLCMLObject]) {
-        fatalError()
+    func anyDelete(_ items: [VLCMLObject]) {
+        guard let items = items as? [MLType] else {
+            preconditionFailure("MLBaseModel: Wrong underlying ML type.")
+        }
+        delete(items)
     }
 
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {

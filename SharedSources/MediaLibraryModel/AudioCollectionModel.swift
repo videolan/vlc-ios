@@ -13,7 +13,7 @@ import Foundation
 protocol AudioCollectionModel: MLBaseModel { }
 
 extension AudioCollectionModel {
-    func delete(_ items: [VLCMLObject]) {
+    func delete(_ items: [MLType]) {
         do {
             for case let item as MediaCollectionModel in items {
                 if let tracks = item.files() {

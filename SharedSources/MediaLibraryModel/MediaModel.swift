@@ -18,9 +18,9 @@ extension MediaModel {
         }
     }
 
-    func delete(_ items: [VLCMLObject]) {
+    func delete(_ items: [VLCMLMedia]) {
         do {
-            for case let media as VLCMLMedia in items {
+            for case let media in items {
                 if let mainFile = media.mainFile() {
                     try FileManager.default.removeItem(atPath: mainFile.mrl.path)
                 }
