@@ -51,6 +51,12 @@
                                         <nil key="highlightedColor"/>
                                         <size key="shadowOffset" width="0.0" height="0.0"/>
                                     </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vI-Rw-ybg" userLabel="sizeLabel">
+                                        <rect key="frame" x="61" y="0.0" width="0.0" height="9"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -119,10 +125,12 @@
                 <outlet property="checkboxImageView" destination="hBS-N5-2jA" id="pCm-ST-YdN"/>
                 <outlet property="collectionOverlay" destination="WKB-IM-zLb" id="uPK-1i-9Jc"/>
                 <outlet property="descriptionLabel" destination="oac-dS-Qcd" id="1iJ-b6-gC6"/>
+                <outlet property="descriptionStackView" destination="Cgk-mu-ntx" id="t31-D9-Nxb"/>
                 <outlet property="newLabel" destination="Aby-eq-q1j" id="4rD-oo-gdq"/>
                 <outlet property="numberOfTracks" destination="DBg-2t-TeB" id="0QT-uN-5fZ"/>
                 <outlet property="progressView" destination="X8l-k0-1oc" id="mf9-zf-3ya"/>
                 <outlet property="selectionOverlay" destination="UTe-u3-NWI" id="h7a-Ck-88y"/>
+                <outlet property="sizeLabel" destination="5vI-Rw-ybg" id="h7H-Hm-pcu"/>
                 <outlet property="thumbnailView" destination="jmi-G0-XOo" id="gMW-XK-9MV"/>
                 <outlet property="titleLabel" destination="4zQ-Mf-dw7" id="iGP-8x-anz"/>
             </connections>

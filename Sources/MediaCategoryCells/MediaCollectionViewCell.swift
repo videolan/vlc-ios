@@ -19,10 +19,14 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var newLabel: UILabel!
     @IBOutlet private weak var thumbnailWidth: NSLayoutConstraint!
+    @IBOutlet private weak var sizeLabel: UILabel!
+    @IBOutlet weak var descriptionStackView: UIStackView!
 
     @IBOutlet weak var checkboxImageView: UIImageView!
     @IBOutlet weak var selectionOverlay: UIView!
     @IBOutlet weak var dragIndicatorImageView: UIImageView!
+
+    private var separatorLabel: UILabel = UILabel()
 
     override var media: VLCMLObject? {
         didSet {
@@ -54,6 +58,14 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         return selectionOverlay
     }
 
+    override var descriptionSeparatorLabel: UILabel? {
+        return separatorLabel
+    }
+
+    override var secondDescriptionLabelView: UILabel? {
+        return sizeLabel
+    }
+
     override var isSelected: Bool {
         didSet {
             checkboxImageView.image = isSelected ? UIImage(named: "checkboxSelected")
@@ -68,6 +80,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         }
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
+        separatorLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        separatorLabel.setContentHuggingPriority(.required, for: .horizontal)
+        separatorLabel.font = sizeLabel.font
         let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
         thumbnailWidth.constant = isIpad ? 72 : 56
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
@@ -78,6 +93,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         backgroundColor = PresentationTheme.current.colors.background
         titleLabel?.textColor = PresentationTheme.current.colors.cellTextColor
         descriptionLabel?.textColor = PresentationTheme.current.colors.cellDetailTextColor
+        sizeLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
+        separatorLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
         dragIndicatorImageView.tintColor = PresentationTheme.current.colors.cellDetailTextColor
     }
 
@@ -91,6 +108,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         descriptionLabel.text = descriptionText
         newLabel.isHidden = !audiotrack.isNew
         thumbnailView.image = audiotrack.thumbnailImage()
+        sizeLabel.text = audiotrack.formatSize()
+        separatorLabel.text = "·"
+        separatorLabel.isHidden = true
+        descriptionStackView.insertArrangedSubview(separatorLabel, at: 1)
     }
 
     func update(album: VLCMLAlbum) {
@@ -172,5 +193,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         checkboxImageView.isHidden = true
         selectionOverlay.isHidden = true
         dragIndicatorImageView.isHidden = true
+        sizeLabel.isHidden = true
+        separatorLabel.isHidden = true
     }
 }

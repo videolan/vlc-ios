@@ -22,6 +22,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var collectionOverlay: UIView!
     @IBOutlet weak var numberOfTracks: UILabel!
+    @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var descriptionStackView: UIStackView!
 
     @IBOutlet weak var selectionOverlay: UIView!
 
@@ -45,6 +47,10 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
     override var selectionViewOverlay: UIView? {
         return selectionOverlay
+    }
+
+    override var secondDescriptionLabelView: UILabel? {
+        return sizeLabel
     }
 
     override var media: VLCMLObject? {
@@ -80,6 +86,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         backgroundColor = PresentationTheme.current.colors.background
         titleLabel?.textColor = PresentationTheme.current.colors.cellTextColor
         descriptionLabel?.textColor = PresentationTheme.current.colors.cellDetailTextColor
+        sizeLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
     }
 
     func update(movie: VLCMLMedia) {
@@ -91,6 +98,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         progressView.isHidden = progress == 0
         progressView.progress = progress
         newLabel.isHidden = !movie.isNew
+        sizeLabel.text = movie.formatSize()
     }
 
     func update(playlist: VLCMLPlaylist) {
@@ -155,5 +163,6 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         numberOfTracks.text = ""
         checkboxImageView.isHidden = true
         selectionOverlay.isHidden = true
+        sizeLabel.isHidden = true
     }
 }

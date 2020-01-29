@@ -26,6 +26,8 @@ class BaseCollectionViewCell: UICollectionViewCell {
 
     private(set) var checkImageView: UIImageView?
     private(set) var selectionViewOverlay: UIView?
+    private(set) var secondDescriptionLabelView: UILabel?
+    private(set) var descriptionSeparatorLabel: UILabel?
 
     class func numberOfColumns(for width: CGFloat) -> CGFloat {
         return CGFloat.zero

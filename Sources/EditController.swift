@@ -236,6 +236,10 @@ extension EditController: UICollectionViewDataSource {
                 let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist {
                 cell.dragIndicatorImageView.isHidden = false
             }
+            if cell.media is VLCMLMedia {
+                cell.secondDescriptionLabelView?.isHidden = false
+                cell.descriptionSeparatorLabel?.isHidden = false
+            }
 
             if cell.isSelected {
                 cell.selectionViewOverlay?.isHidden = false
