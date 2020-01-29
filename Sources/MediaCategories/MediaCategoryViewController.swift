@@ -507,7 +507,7 @@ private extension MediaCategoryViewController {
 // MARK: - UICollectionViewDelegate
 
 extension MediaCategoryViewController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    private func selectedItem(at indexPath: IndexPath) {
         let mediaObjectArray = isSearching ? searchDataSource.searchData : model.anyfiles
         let modelContent = mediaObjectArray.objectAtIndex(index: indexPath.row)
 
@@ -524,6 +524,10 @@ extension MediaCategoryViewController {
         }
     }
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedItem(at: indexPath)
+    }
+
     @available(iOS 13.0, *)
     override func collectionView(_ collectionView: UICollectionView,
                                  contextMenuConfigurationForItemAt indexPath: IndexPath,
@@ -536,7 +540,7 @@ extension MediaCategoryViewController {
         } else if let cell = cell as? MediaCollectionViewCell {
             thumbnail = cell.thumbnailView.image
         }
-        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: {
+        let configuration = UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: {
             guard let thumbnail = thumbnail else {
                 return nil
             }
@@ -546,6 +550,17 @@ extension MediaCategoryViewController {
             return self?.generateUIMenuForContent(at: indexPath.row)
         })
         return configuration
+    }
+
+    @available(iOS 13.0, *)
+    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        if let indexPath = configuration.identifier as? IndexPath {
+            if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
+                if !(cell.media is VLCMLMedia) {
+                    self.selectedItem(at: indexPath)
+                }
+            }
+        }
     }
 }
 
