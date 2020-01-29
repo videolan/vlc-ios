@@ -541,10 +541,10 @@ extension MediaCategoryViewController {
                 return nil
             }
             return CollectionViewCellPreviewController(thumbnail: thumbnail, with: modelContent)
-        }) {
+        }, actionProvider: {
             [weak self] action in
             return self?.generateUIMenuForContent(at: indexPath.row)
-        }
+        })
         return configuration
     }
 }
