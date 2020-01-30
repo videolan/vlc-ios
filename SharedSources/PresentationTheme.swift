@@ -35,6 +35,7 @@ extension Notification.Name {
     let tabBarColor: UIColor
     let orangeUI: UIColor
     let toolBarStyle: UIBarStyle
+    let blurStyle: UIBlurEffect.Style
 
     init(isDark: Bool,
                 name: String,
@@ -52,7 +53,8 @@ extension Notification.Name {
                 mediaCategorySeparatorColor: UIColor,
                 tabBarColor: UIColor,
                 orangeUI: UIColor,
-                toolBarStyle: UIBarStyle) {
+                toolBarStyle: UIBarStyle,
+                blurStyle: UIBlurEffect.Style) {
         self.isDark = isDark
         self.name = name
         self.statusBarStyle = statusBarStyle
@@ -70,6 +72,7 @@ extension Notification.Name {
         self.tabBarColor = tabBarColor
         self.orangeUI = orangeUI
         self.toolBarStyle = toolBarStyle
+        self.blurStyle = blurStyle
     }
 }
 
@@ -189,7 +192,8 @@ let brightPalette = ColorPalette(isDark: false,
                                  mediaCategorySeparatorColor: UIColor(0xECF2F6),
                                  tabBarColor: UIColor(0xFFFFFF),
                                  orangeUI: UIColor(0xFF8800),
-                                 toolBarStyle: UIBarStyle.default)
+                                 toolBarStyle: UIBarStyle.default,
+                                 blurStyle: .extraLight)
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",
@@ -207,7 +211,8 @@ let darkPalette = ColorPalette(isDark: true,
                                mediaCategorySeparatorColor: UIColor(0x25292C),
                                tabBarColor: UIColor(0x25292C),
                                orangeUI: UIColor(0xFF8800),
-                               toolBarStyle: UIBarStyle.black)
+                               toolBarStyle: UIBarStyle.black,
+                               blurStyle: .dark)
 
 let defaultFont = Typography(tableHeaderFont: UIFont.systemFont(ofSize: 24, weight: .semibold))
 

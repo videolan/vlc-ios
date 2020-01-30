@@ -43,6 +43,8 @@ class CollectionViewCellPreviewController: UIViewController {
 
     private var thumbnailView = UIImageView()
     private var actionImageView = UIImageView()
+    private var backThumbnailView = UIImageView()
+    private var blurView = UIVisualEffectView()
     private var previewElements: [PreviewElement]
     private var ratio: CGFloat = 0
 
@@ -86,6 +88,7 @@ class CollectionViewCellPreviewController: UIViewController {
         thumbnailView.clipsToBounds = true
         thumbnailView.contentMode = .scaleAspectFill
         thumbnailView.image = thumbnail
+        backThumbnailView.image = thumbnail
 
         ratio = thumbnail.size.height / thumbnail.size.width
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
@@ -96,6 +99,10 @@ class CollectionViewCellPreviewController: UIViewController {
         super.viewWillAppear(animated)
 
         view.backgroundColor = PresentationTheme.current.colors.background
+
+        if !UIAccessibility.isReduceTransparencyEnabled {
+            setupBlurredView()
+        }
 
         thumbnailView.frame = CGRect(x: 0, y: 0, width: width, height: thumbnailHeight)
         view.addSubview(thumbnailView)
@@ -157,6 +164,15 @@ extension CollectionViewCellPreviewController {
         }
 
         return infos
+    }
+
+    private func setupBlurredView() {
+        blurView.effect = UIBlurEffect(style: PresentationTheme.current.colors.blurStyle)
+        view.addSubview(backThumbnailView)
+        view.addSubview(blurView)
+
+        backThumbnailView.frame = view.bounds
+        blurView.frame = view.bounds
     }
 
     private func addPreviewInformations() {
@@ -223,7 +239,11 @@ extension CollectionViewCellPreviewController {
             case .title, .subtitle:
                 return PresentationTheme.current.colors.cellTextColor
             default:
-                return PresentationTheme.current.colors.cellDetailTextColor
+                if !UIAccessibility.isReduceTransparencyEnabled {
+                    return PresentationTheme.current.colors.cellTextColor.withAlphaComponent(0.7)
+                } else {
+                    return PresentationTheme.current.colors.cellDetailTextColor
+                }
         }
     }
 
@@ -244,6 +264,7 @@ extension CollectionViewCellPreviewController {
 @objc extension CollectionViewCellPreviewController {
     @objc func themeDidChange() {
         view.backgroundColor = PresentationTheme.current.colors.background
+        blurView.effect = UIBlurEffect(style: PresentationTheme.current.colors.blurStyle)
         for element in previewElements {
             element.uiLabel?.textColor = labelColor(for: element.info)
         }
