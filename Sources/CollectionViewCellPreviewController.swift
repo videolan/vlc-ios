@@ -42,6 +42,7 @@ class CollectionViewCellPreviewController: UIViewController {
     private let listSeparator: String = " · "
 
     private var thumbnailView = UIImageView()
+    private var actionImageView = UIImageView()
     private var previewElements: [PreviewElement]
     private var ratio: CGFloat = 0
 
@@ -101,6 +102,7 @@ class CollectionViewCellPreviewController: UIViewController {
 
         preferredContentSize = CGSize(width: width, height: height)
         addPreviewInformations()
+        addActionImage()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -170,6 +172,11 @@ extension CollectionViewCellPreviewController {
             }
         }
     }
+
+    private func addActionImage() {
+        actionImageView.frame = CGRect(x: width - 50, y: (height + thumbnailView.frame.height) / 2 - 18, width: 36, height: 36)
+        view.addSubview(actionImageView)
+    }
 }
 
 // MARK: - Private helpers
@@ -184,6 +191,12 @@ extension CollectionViewCellPreviewController {
     }
 
     private func labelFrame(for info: PreviewInformation, at y: CGFloat) -> CGRect {
+        let rightMargin: CGFloat
+        if actionImageView.image != nil {
+            rightMargin = 80
+        } else {
+            rightMargin = 40
+        }
         let frameHeight: CGFloat
         switch info.type {
             case .title:
@@ -193,7 +206,7 @@ extension CollectionViewCellPreviewController {
             default:
                 frameHeight = metadataHeight
         }
-        return CGRect(x: 20, y: y, width: width - 40, height: frameHeight)
+        return CGRect(x: 20, y: y, width: width - rightMargin, height: frameHeight)
     }
 
     private func labelFont(for info: PreviewInformation) -> UIFont {
