@@ -788,7 +788,6 @@ private extension MediaCategoryViewController {
 // MARK: - Player
 
 extension MediaCategoryViewController {
-
     func play(media: VLCMLMedia, at indexPath: IndexPath) {
         let playbackController = PlaybackService.sharedInstance()
         let autoPlayNextItem = UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem)
