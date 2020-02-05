@@ -32,25 +32,11 @@ class EditActions {
         self.model = model
         self.mediaLibraryService = mediaLibraryService
     }
+}
 
-    private func addToNewPlaylist() {
-        let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
-                                           placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER",
-                                                                          comment: ""))
-        presentTextFieldAlert(with: alertInfo) {
-            [unowned self] text -> Void in
-            guard text != "" else {
-                DispatchQueue.main.async {
-                    VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_EMPTY_NAME",
-                                                                                     comment: ""),
-                                                            viewController: self.rootViewController)
-                }
-                return
-            }
-            self.createPlaylist(text)
-        }
-    }
+// MARK: - Main edit actions
 
+extension EditActions {
     func addToPlaylist(_ completion: ((completionState) -> Void)? = nil) {
         self.completion = completion
         if !mediaLibraryService.playlists().isEmpty {
@@ -102,27 +88,6 @@ class EditActions {
         } else {
             self.completion?(.success)
         }
-    }
-
-    private func URLs() -> [URL] {
-        var fileURLs = [URL]()
-
-        for object in objects {
-            if let media = object as? VLCMLMedia {
-                if let file = media.mainFile() {
-                    fileURLs.append(file.mrl)
-                }
-            } else if let mediaCollection = object as? MediaCollectionModel {
-                if let files = mediaCollection.files() {
-                    for media in files {
-                        if let file = media.mainFile() {
-                            fileURLs.append(file.mrl)
-                        }
-                    }
-                }
-            }
-        }
-        return fileURLs
     }
 
     func delete(_ completion: ((completionState) -> Void)? = nil) {
@@ -178,6 +143,8 @@ class EditActions {
     }
 }
 
+// MARK: - Private helpers
+
 private extension EditActions {
     private struct TextFieldAlertInfo {
         var alertTitle: String
@@ -226,6 +193,47 @@ private extension EditActions {
         alertController.addAction(confirmAction)
 
         rootViewController.present(alertController, animated: true, completion: nil)
+    }
+
+    private func URLs() -> [URL] {
+        var fileURLs = [URL]()
+
+        for object in objects {
+            if let media = object as? VLCMLMedia {
+                if let file = media.mainFile() {
+                    fileURLs.append(file.mrl)
+                }
+            } else if let mediaCollection = object as? MediaCollectionModel {
+                if let files = mediaCollection.files() {
+                    for media in files {
+                        if let file = media.mainFile() {
+                            fileURLs.append(file.mrl)
+                        }
+                    }
+                }
+            }
+        }
+        return fileURLs
+    }
+
+    // MARK: Playlist
+
+    private func addToNewPlaylist() {
+        let alertInfo = TextFieldAlertInfo(alertTitle: NSLocalizedString("PLAYLISTS", comment: ""),
+                                           placeHolder: NSLocalizedString("PLAYLIST_PLACEHOLDER",
+                                                                          comment: ""))
+        presentTextFieldAlert(with: alertInfo) {
+            [unowned self] text -> Void in
+            guard text != "" else {
+                DispatchQueue.main.async {
+                    VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_EMPTY_NAME",
+                                                                                     comment: ""),
+                                                            viewController: self.rootViewController)
+                }
+                return
+            }
+            self.createPlaylist(text)
+        }
     }
 
     private func createPlaylist(_ name: String) {
