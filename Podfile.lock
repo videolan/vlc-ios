@@ -44,6 +44,7 @@ PODS:
   - GTMSessionFetcher/Full (1.2.2):
     - GTMSessionFetcher/Core (= 1.2.2)
   - InAppSettingsKit (2.14)
+  - MarqueeLabel (4.0.2)
   - MediaLibraryKit-prod (2.6.9):
     - MobileVLCKit (~> 3.3.0)
   - MetaDataFetcherKit (0.3.1):
@@ -95,6 +96,7 @@ DEPENDENCIES:
   - GRKArrayDiff (~> 2.1)
   - GTMAppAuth (= 0.7.1)
   - InAppSettingsKit (from `git://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
+  - MarqueeLabel (= 4.0.2)
   - MediaLibraryKit-prod
   - MetaDataFetcherKit (~> 0.3.1)
   - MobileVLCKit (= 3.3.9)
@@ -122,6 +124,7 @@ SPEC REPOS:
     - GRKArrayDiff
     - GTMAppAuth
     - GTMSessionFetcher
+    - MarqueeLabel
     - MediaLibraryKit-prod
     - MetaDataFetcherKit
     - MobileVLCKit
@@ -182,6 +185,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: c5e41aaf039ac1ccc41543e6ea2ef7abd255ad41
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
+  MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MediaLibraryKit-prod: 718b52b55cb40b479eeae29fb5cc0cfbbbce0191
   MetaDataFetcherKit: d1d61b061bf74268aaffb6bf08a70396672163df
   MobileVLCKit: cf10c4a138d89f3843b6290f94823609b34215a1
@@ -200,6 +204,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: ad607404b93e94a4505d0a2ca6bcb11e94ccb055
+PODFILE CHECKSUM: 5397725717f22b3a85e81e4e946906538ad65e3e
 
 COCOAPODS: 1.8.4

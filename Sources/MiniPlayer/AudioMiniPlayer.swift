@@ -19,8 +19,8 @@ class AudioMiniPlayer: UIView, MiniPlayer {
 
     @IBOutlet private weak var audioMiniPlayer: UIView!
     @IBOutlet private weak var artworkImageView: UIImageView!
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var artistLabel: UILabel!
+    @IBOutlet private weak var titleLabel: VLCMarqueeLabel!
+    @IBOutlet private weak var artistLabel: VLCMarqueeLabel!
     @IBOutlet private weak var progressBarView: UIProgressView!
     @IBOutlet private weak var playPauseButton: UIButton!
     @IBOutlet private weak var previousButton: UIButton!

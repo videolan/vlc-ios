@@ -22,13 +22,13 @@ struct PreviewInformation {
 
 class PreviewElement {
     var info: PreviewInformation
-    var uiLabel: UILabel?
+    var uiLabel: VLCMarqueeLabel?
 
     init(with info: PreviewInformation) {
         self.info = info
         switch info.type {
             default:
-                uiLabel = UILabel()
+                uiLabel = VLCMarqueeLabel()
         }
     }
 }

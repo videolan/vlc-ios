@@ -110,9 +110,12 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         self.searchDataSource = LibrarySearchDataSource(model: model)
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
+        let marqueeTitle = VLCMarqueeLabel()
         if let collection = model as? CollectionModel {
             title = collection.mediaCollection.title()
         }
+        marqueeTitle.text = title
+        self.navigationItem.titleView = marqueeTitle
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
                                                name: .VLCThemeDidChangeNotification, object: nil)
     }

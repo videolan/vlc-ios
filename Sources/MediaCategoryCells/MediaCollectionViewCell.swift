@@ -15,8 +15,8 @@ import Foundation
 class MediaCollectionViewCell: BaseCollectionViewCell {
 
     @IBOutlet weak var thumbnailView: UIImageView!
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var titleLabel: VLCMarqueeLabel!
+    @IBOutlet private weak var descriptionLabel: VLCMarqueeLabel!
     @IBOutlet private weak var newLabel: UILabel!
     @IBOutlet private weak var thumbnailWidth: NSLayoutConstraint!
     @IBOutlet private weak var sizeLabel: UILabel!
@@ -73,6 +73,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         }
     }
 
+    private var enableMarquee: Bool {
+        return !UserDefaults.standard.bool(forKey: kVLCSettingEnableMediaCellTextScrolling)
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         if #available(iOS 11.0, *) {
@@ -80,6 +84,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         }
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
+        titleLabel.labelize = enableMarquee
+        descriptionLabel.labelize = enableMarquee
         separatorLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         separatorLabel.setContentHuggingPriority(.required, for: .horizontal)
         separatorLabel.font = sizeLabel.font
@@ -188,6 +194,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = ""
         accessibilityLabel = ""
         descriptionLabel.text = ""
+        titleLabel.labelize = enableMarquee
+        descriptionLabel.labelize = enableMarquee
         thumbnailView.image = nil
         newLabel.isHidden = true
         checkboxImageView.isHidden = true

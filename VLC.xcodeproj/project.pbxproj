@@ -88,6 +88,7 @@
 		6D220D0D234B8E3700BD694F /* FileManager+DeleteMediaFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D220D0C234B8E3700BD694F /* FileManager+DeleteMediaFolder.swift */; };
 		6D3C676C23CDF1FC0039ACFD /* public in Resources */ = {isa = PBXBuildFile; fileRef = 6D3C676B23CDF1FC0039ACFD /* public */; };
 		6D4756B123607D4A005F670E /* EditActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4756B023607D49005F670E /* EditActions.swift */; };
+		6D63C06B23FEE93C00B9C05A /* VLCMarqueeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D63C06A23FEE93C00B9C05A /* VLCMarqueeLabel.swift */; };
 		6D8E642A234CBF2200EBC8FC /* AudioCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8E6429234CBF2200EBC8FC /* AudioCollectionModel.swift */; };
 		6DBCE3CB23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */; };
 		6DBCE3CD2368811000BCA7D5 /* EditButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */; };
@@ -570,6 +571,7 @@
 		6D220D0C234B8E3700BD694F /* FileManager+DeleteMediaFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FileManager+DeleteMediaFolder.swift"; path = "Sources/FileManager+DeleteMediaFolder.swift"; sourceTree = "<group>"; };
 		6D3C676B23CDF1FC0039ACFD /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 		6D4756B023607D49005F670E /* EditActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditActions.swift; path = Sources/EditActions.swift; sourceTree = "<group>"; };
+		6D63C06A23FEE93C00B9C05A /* VLCMarqueeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCMarqueeLabel.swift; path = Sources/VLCMarqueeLabel.swift; sourceTree = "<group>"; };
 		6D8E6429234CBF2200EBC8FC /* AudioCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCollectionModel.swift; sourceTree = "<group>"; };
 		6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCellPreviewController.swift; path = Sources/CollectionViewCellPreviewController.swift; sourceTree = "<group>"; };
 		6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditButtons.swift; path = Sources/EditButtons.swift; sourceTree = "<group>"; };
@@ -1319,6 +1321,7 @@
 				8D2AD4D722786F4000393833 /* AddToPlaylistViewController.swift */,
 				E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */,
 				6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */,
+				6D63C06A23FEE93C00B9C05A /* VLCMarqueeLabel.swift */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -2972,6 +2975,7 @@
 				418B145920179E50000447AA /* VLCDragAndDropManager.swift in Sources */,
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
 				8D2AD4D822786F4000393833 /* AddToPlaylistViewController.swift in Sources */,
+				6D63C06B23FEE93C00B9C05A /* VLCMarqueeLabel.swift in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
 				DD3EFF331BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
 				7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackService.m in Sources */,
