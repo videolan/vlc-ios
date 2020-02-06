@@ -19,18 +19,10 @@ extension MediaModel {
     }
 
     func delete(_ items: [VLCMLMedia]) {
-        do {
-            for case let media in items {
-                if let mainFile = media.mainFile() {
-                    try FileManager.default.removeItem(atPath: mainFile.mrl.path)
-                }
-            }
-            medialibrary.reload()
+        for case let media in items {
+            media.deleteMainFile()
         }
-        catch let error as NSError {
-            assertionFailure("MediaModel: Delete failed: \(error.localizedDescription)")
-        }
-
+        medialibrary.reload()
         filterFilesFromDeletion(of: items)
     }
 }
@@ -38,6 +30,16 @@ extension MediaModel {
 // MARK: - ViewModel
 
 extension VLCMLMedia {
+    func deleteMainFile() {
+        do {
+            if let mainFile = mainFile() {
+                try FileManager.default.removeItem(atPath: mainFile.mrl.path)
+            }
+        } catch let error as NSError {
+            assertionFailure("VLCMLMedia: Delete failed: \(error.localizedDescription)")
+        }
+    }
+
     @objc func mediaDuration() -> String {
         return String(format: "%@", VLCTime(int: Int32(duration())))
     }
