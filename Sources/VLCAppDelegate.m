@@ -115,13 +115,13 @@
     // Configure OneDrive
     [ODClient setMicrosoftAccountAppId:kVLCOneDriveClientID scopes:@[@"onedrive.readwrite", @"offline_access"]];
 
-    [VLCApperanceManager setupAppearanceWithTheme:PresentationTheme.current];
     self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     rootViewController = [UITabBarController new];
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
+    [VLCApperanceManager setupAppearanceWithTheme:PresentationTheme.current];
     [self setup];
 
     /* add our static shortcut items the dynamic way to ease l10n and dynamic elements to be introduced later */
