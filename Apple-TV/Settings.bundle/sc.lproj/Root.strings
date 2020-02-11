@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Vìdeu";
 "SETTINGS_AUDIO_TITLE" = "Àudio";
 
-"SETTINGS_THEME_SUBTITLE" = "Muda sos colores de s'aplicatzione";
+"SETTINGS_THEME_BRIGHT" = "Tema craru";
+"SETTINGS_THEME_DARK" = "Tema iscuru";
+"SETTINGS_THEME_SYSTEM" = "Automàticu";
 "SETTINGS_PRIVACY_SUBTITLE" = "Aberi in sas impostatziones";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Atzessu seguru a sos cuntenutos tuos";
 
-"SETTINGS_DARKTHEME" = "Tema iscuru";
+"SETTINGS_DARKTHEME" = "Aparèntzia";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Illonghiamentu temporale àudio";
 "SETTINGS_BACKGROUND_AUDIO" = "Riprodutzione àudio in s'isfundu";
 "SETTINGS_GENERIC_TITLE" = "Genèricu";
 "SETTINGS_PASSCODE_LOCK" = "Blocu cun còdighe de seguresa";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Permiti su Touch ID pro s'isblocu";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permiti su Face ID pro s'isblocu";
-"SETTINGS_DECRAPIFY" = "Otimiza sos nùmenes de sos elementos pro sa visualizatzione";
 "SETTINGS_VIDEO_FULLSCREEN" = "Riprodui su vìdeu a ischermu intreu";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Sighi cun sa riprodutzione de su vìdeu";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Sighi cun sa riprodutzione àudio";
@@ -84,6 +85,18 @@
 "SETTINGS_FEEDBACK" = "Sinnalatzione";
 "SETTINGS_SEND_FEEDBACK" = "Imbia una sinnalatzione";
 "SETTINGS_SEND_RATING" = "Pro praghere vàluta VLC pro iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Biblioteca multimediale";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Fortza un'iscansidura noa de sa biblioteca multimediale";
+"SETTINGS_DECRAPIFY" = "Otimiza sos nùmenes de sos elementos pro sa visualizatzione";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Longària pro su reconnoschimentu de grupos de vìdeos";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Curtza";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Predefinida";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "LOnga";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Longa meda";
+"SETTINGS_SHOW_THUMBNAILS" = "Ammustra sas miniaturas de sos vìdeos";
+"SETTINGS_SHOW_ARTWORKS" = "Ammustra sas coberteddas de sas rastas àudio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inclue sa biblioteca multimediale in sa còpia de seguresa de su dispositivu";
 
 "SETTINGS_FILE_SYNC" = "Sincronizatzione de documentos";
 "SETTINGS_WIFISHARING_IPv6" = "Suportu IPv6 pro sa cumpartzidura WiFi";

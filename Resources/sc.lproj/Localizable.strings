@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "URL imbiadu cun sutzessu.";
 "WEBINTF_URL_EMPTY" = "S'URL non podet èssere bòidu.";
 "WEBINTF_URL_INVALID" = "No est un'URL vàlidu.";
+"WEBINTF_AUTH_REQUIRED" = "Inserta sa crae de intrada chi as impostadu in VLC pro iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Crae isballiada. <br> tentativu/os rimanentes:";
+"WEBINTF_AUTH_BANNED" = "As insertadu tropu craes. <br>Pro praghere torra a allùghere VLC pro iOS e a proare.";
 
 
 
@@ -403,3 +406,7 @@
 "SMBV1_WARN_DESCRIPTION" = "Amos rilevadu unu protocollu betzu (SMBv1).\nSes seguru de chèrrere sighire cun su SMBv1?\nTi cunsigiamus de agiornare o mudare sas impostatziones de su servidore tuas.";
 "SMBV1_CONTINUE" = "Sighi cun su SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Proa su SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "Codìfica";
