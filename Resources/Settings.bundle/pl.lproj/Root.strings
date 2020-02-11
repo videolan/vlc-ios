@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Pytaj";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Zawsze";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automatyczne odtwarzanie następnego elementu";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Włącz przewijanie tekstu na liście mediów";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtr usuwania efektu blokowego";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Usuwanie efektu blokowego wyłączone (najszybciej)";
