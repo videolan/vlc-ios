@@ -17,7 +17,6 @@
 "SETTINGS_PASSCODE_LOCK" = "Uzamknutie pomocou hesla";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Povoliť Touch ID pre odomknutie";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Povoliť Face ID pre odomknutie";
-"SETTINGS_DECRAPIFY" = "Optimalizovať názvy položiek pre displej";
 "SETTINGS_VIDEO_FULLSCREEN" = "Prehrať video na celej obrazovke";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Pokračovať v prehrávaní videa";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Pokračovať v prehrávaní zvuku";
@@ -86,6 +85,18 @@
 "SETTINGS_FEEDBACK" = "Spätná odozva";
 "SETTINGS_SEND_FEEDBACK" = "Odoslať spätnú odozvu";
 "SETTINGS_SEND_RATING" = "Prosím ohodnoťte VLC pre iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Knižnica médií";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Vynútiť si preskenovanie knižnice médií aplikáciou VLC";
+"SETTINGS_DECRAPIFY" = "Optimalizovať názvy položiek pre displej";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Dĺžka detekcie skupín videí";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Krátke";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Predvolené";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Dlhé";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Mimoriadne dlhé";
+"SETTINGS_SHOW_THUMBNAILS" = "Zobraziť náhľady videa";
+"SETTINGS_SHOW_ARTWORKS" = "Zobraziť vyobrazenia obalov";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Zahrnúť knižnicu médií do zálohovania zariadenia";
 
 "SETTINGS_FILE_SYNC" = "Synchronizácia súboru";
 "SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pre zdieľanie cez WiFi";

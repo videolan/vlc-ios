@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "Adresa URL bola úspešne odoslaná.";
 "WEBINTF_URL_EMPTY" = "Adresa URL nemôže byť prázdna.";
 "WEBINTF_URL_INVALID" = "Neplatná adresa URL.";
+"WEBINTF_AUTH_REQUIRED" = "Prosím zadajte prístupový kód nastavený vo VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Nesprávny prístupový kód.<br>Zostávajúce pokusy:";
+"WEBINTF_AUTH_BANNED" = "Zadali ste príliš veľa nesprávnych prístupových kódov.<br>Prosím reštartujte VLC iOS a skúste to znovu.";
 
 
 
@@ -403,3 +406,7 @@
 "SMBV1_WARN_DESCRIPTION" = "Bol detegovaný starý protokol (SMBv1).\nNaozaj chcete pokračovať s SMBv1?\nOdporúčame vykonať aktualizáciu alebo zmenu nastavení servera.";
 "SMBV1_CONTINUE" = "Pokračovať s SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Vyskúšať SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "Kódovanie";
