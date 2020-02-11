@@ -17,7 +17,6 @@
 "SETTINGS_PASSCODE_LOCK" = "Захист паролем";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Дозволити сенсорний ІД для розблокування";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Дозволити ІД обличчям для розблокування";
-"SETTINGS_DECRAPIFY" = "Оптимізувати назви пунктів для відображення";
 "SETTINGS_VIDEO_FULLSCREEN" = "Відтворювати відео на увесь екран";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Продовжити відтворення відео";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Продовжити відтворення аудіо";
@@ -86,6 +85,18 @@
 "SETTINGS_FEEDBACK" = "Відгук";
 "SETTINGS_SEND_FEEDBACK" = "Надіслати відгук";
 "SETTINGS_SEND_RATING" = "Будь ласка, оцініть VLC для iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Медіа бібліотека";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Примусити VLC пересканувати бібліотеку медіа";
+"SETTINGS_DECRAPIFY" = "Оптимізувати назви пунктів для відображення";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Довжина виявлення відеогруп";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Коротка";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Типова";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Довга";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Дуже довга";
+"SETTINGS_SHOW_THUMBNAILS" = "Показувати ескізи відео";
+"SETTINGS_SHOW_ARTWORKS" = "Показувати аудіо обкладинки";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Долучити бібліотеку медіа у резервну копію пристрою";
 
 "SETTINGS_FILE_SYNC" = "Синхронізація файлу";
 "SETTINGS_WIFISHARING_IPv6" = "Підтримка IPv6 для поширення WiFi";

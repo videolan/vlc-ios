@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "URL успішно надіслано.";
 "WEBINTF_URL_EMPTY" = "URL-адреса не може бути порожньою.";
 "WEBINTF_URL_INVALID" = "Не чинна URL-адреса.";
+"WEBINTF_AUTH_REQUIRED" = "Будь ласка, введіть пароль, який ви задали у VLC iOS. ";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Помилковий пароль.<br>Залишилося спроб: ";
+"WEBINTF_AUTH_BANNED" = "Ви ввели забагато неправильних паролва.<br>Будь ласка, перезапустіть VLC iOS та спробуйте знову. ";
 
 
 
@@ -403,3 +406,7 @@
 "SMBV1_WARN_DESCRIPTION" = "Ми виявили старий протокол (SMBv1).\nВи переконані, що хочете продовжити з SMBv1?\nМи рекомендуємо оновлення або зміну ваших налаштувань сервера.";
 "SMBV1_CONTINUE" = "Продовжити з SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Спробувати SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "Кодування";
