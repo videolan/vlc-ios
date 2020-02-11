@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Nachfragen";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Immer";
 "SETTINGS_NETWORK_PLAY_ALL" = "Autom. nächstes spielen";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Scrollen von Text in der Medienliste aktivieren";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblockierungsfilter";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Keine Deblockierung (schnellstes)";
