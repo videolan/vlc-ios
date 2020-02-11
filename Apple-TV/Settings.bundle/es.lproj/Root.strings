@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Vídeo";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_SUBTITLE" = "Cambiar los colores de la app";
+"SETTINGS_THEME_BRIGHT" = "Tema claro";
+"SETTINGS_THEME_DARK" = "Tema oscuro";
+"SETTINGS_THEME_SYSTEM" = "Automático";
 "SETTINGS_PRIVACY_SUBTITLE" = "Abrir en preferencias";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Acceso seguro a su contenido";
 
-"SETTINGS_DARKTHEME" = "Tema oscuro";
+"SETTINGS_DARKTHEME" = "Apariencia";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio «time-stretching»";
 "SETTINGS_BACKGROUND_AUDIO" = "Reproducir audio de fondo";
 "SETTINGS_GENERIC_TITLE" = "Genérico";
 "SETTINGS_PASSCODE_LOCK" = "Contraseña de bloqueo";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Permitir Touch ID para desbloquear";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permitir Touch ID para desbloquear";
-"SETTINGS_DECRAPIFY" = "Optimizar nombres de elementos para visualizar";
 "SETTINGS_VIDEO_FULLSCREEN" = "Reproducir vídeo a pantalla completa";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continuar reproducción de vídeo";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continuar reproducción de audio";
@@ -84,6 +85,18 @@
 "SETTINGS_FEEDBACK" = "Reacción";
 "SETTINGS_SEND_FEEDBACK" = "Enviar reacción";
 "SETTINGS_SEND_RATING" = "Valore VLC para iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Librería de medios";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forzar a VLC a volver a buscar en la librería de medios";
+"SETTINGS_DECRAPIFY" = "Optimizar nombres de elementos para visualizar";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Detección de longitud de grupos de vídeo";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Corto";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Predeterminado";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Largo";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra largo";
+"SETTINGS_SHOW_THUMBNAILS" = "Mostrar previsualización de vídeos";
+"SETTINGS_SHOW_ARTWORKS" = "Mostrar material artístico de audio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Incluir la biblioteca multimedia en la copia de seguridad del dispositivo";
 
 "SETTINGS_FILE_SYNC" = "Sincronización de archivos";
 "SETTINGS_WIFISHARING_IPv6" = "Soporte IPv6 para compartición de WiFi";
