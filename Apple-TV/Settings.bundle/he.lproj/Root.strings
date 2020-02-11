@@ -17,7 +17,6 @@
 "SETTINGS_PASSCODE_LOCK" = "נעילה בצופן";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "אפשר Touch ID לפתיחת נעילה";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "לאפשר זיהוי פנים לשחרור";
-"SETTINGS_DECRAPIFY" = "התאמת השמות לתצוגה";
 "SETTINGS_VIDEO_FULLSCREEN" = "נגן סרט במסך מלא";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "המשך נגינת סרט";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "המשך נגינת שמע";
@@ -86,6 +85,18 @@
 "SETTINGS_FEEDBACK" = "משוב";
 "SETTINGS_SEND_FEEDBACK" = "שלח משוב";
 "SETTINGS_SEND_RATING" = "אנא דרג את VLC בחנות האפליקציות";
+
+"SETTINGS_MEDIA_LIBRARY" = "ספריית מדיה";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "אילוץ סריקת ספריית המדיה מחדש על ידי VLC";
+"SETTINGS_DECRAPIFY" = "התאמת השמות לתצוגה";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "זיהוי קבוצות וידאו אורך";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "קצר";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "בררת מחדל";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "ארוך";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "ארוך במיוחד";
+"SETTINGS_SHOW_THUMBNAILS" = "הצגת תמונות ממוזערות של סרטונים";
+"SETTINGS_SHOW_ARTWORKS" = "הצגת מיצג אומנותי של מקטע שמע";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "לכלול את תיקיות המדיה בגיבוי המכשיר";
 
 "SETTINGS_FILE_SYNC" = "סנכרון קבצים";
 "SETTINGS_WIFISHARING_IPv6" = "תמיכה ב IPv6 לשיתוף באמצעות WiFi";

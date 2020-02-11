@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "כתובת URL נשלחה בהצלחה.";
 "WEBINTF_URL_EMPTY" = "כתובת URL לא יכולה להיות ריקה.";
 "WEBINTF_URL_INVALID" = "כתובת URL לא תקינה.";
+"WEBINTF_AUTH_REQUIRED" = "נא להקליד את קוד הגישה שהגדרת ב־VLC ל־iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "קוד גישה שגוי.<br>ניסיונות שנותרו:";
+"WEBINTF_AUTH_BANNED" = "הקלדת יותר מדי קודים שגויים.<br>נא להפעיל את VLC ל־iOS מחדש ולנסות שוב.";
 
 
 
@@ -403,3 +406,7 @@
 "SMBV1_WARN_DESCRIPTION" = "זיהינו פרוטוקול ישן (SMBv1).\nלהמשיך עם SMBv1?\nאנו ממליצים לשדרג או לערוך את הגדרות השרת שלך.";
 "SMBV1_CONTINUE" = "להמשיך עם SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "לנסות SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "קידוד";
