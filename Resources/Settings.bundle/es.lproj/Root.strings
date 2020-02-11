@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Preguntar";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Siempre";
 "SETTINGS_NETWORK_PLAY_ALL" = "Reproducir automáticamente el siguiente elemento";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Habilitar desplazamiento de texto en la lista de medios";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtro de desbloqueo";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Sin desbloqueo (el más rápido)";
