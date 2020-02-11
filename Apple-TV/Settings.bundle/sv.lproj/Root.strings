@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Fråga";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Alltid";
 "SETTINGS_NETWORK_PLAY_ALL" = "Spela upp nästa objekt automatiskt";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Aktivera rullande text i medialistan";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Avblockeringsfilter";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Ingen avblockering (snabbast)";
