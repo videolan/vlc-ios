@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "Webbadressen skickades.";
 "WEBINTF_URL_EMPTY" = "Webbadressen kan inte vara tom.";
 "WEBINTF_URL_INVALID" = "Inte en giltig webbadress";
+"WEBINTF_AUTH_REQUIRED" = "Ange lösenkoden du angav i VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Fel lösenkod.<br>Återstående försök: ";
+"WEBINTF_AUTH_BANNED" = "Du angav fel lösenkod för många gånger.<br>Starta om VLC iOS och försök igen.";
 
 
 
@@ -403,3 +406,7 @@
 "SMBV1_WARN_DESCRIPTION" = "Vi upptäckte ett gammalt protokoll (SMBv1).\nÄr du säker på att du vill fortsätta med SMBv1?\nVi råder dig att uppgradera eller ändra dina serverinställningar.";
 "SMBV1_CONTINUE" = "Fortsätt med SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Prova SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "Kodning";

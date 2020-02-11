@@ -7,7 +7,7 @@
 "SETTINGS_THEME_BRIGHT" = "Ljust tema";
 "SETTINGS_THEME_DARK" = "Mörkt tema";
 "SETTINGS_THEME_SYSTEM" = "Automatiskt";
-"SETTINGS_PRIVACY_SUBTITLE" = "Öppna i inställningarna";
+"SETTINGS_PRIVACY_SUBTITLE" = "Öppna i Inställningar";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Säker åtkomst till ditt innehåll";
 
 "SETTINGS_DARKTHEME" = "Utseende";
@@ -17,7 +17,6 @@
 "SETTINGS_PASSCODE_LOCK" = "Lösenkodslås";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Tillåt Touch ID att låsa upp";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Tillåt Face ID för att låsa upp";
-"SETTINGS_DECRAPIFY" = "Optimera objektnamn för visning";
 "SETTINGS_VIDEO_FULLSCREEN" = "Spela upp video i helskärm";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Återuppta videouppspelning";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Återuppta ljuduppspelning";
@@ -52,12 +51,12 @@
 "SETTINGS_SUBTITLES_FONT" = "Typsnitt";
 "SETTINGS_SUBTITLES_TEXT_ENCODING" = "Textkodning";
 "SETTINGS_SUBTITLES_FONTSIZE" = "Relativ typsnittsstorlek";
-"SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "Minst";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "Minsta";
 "SETTINGS_SUBTITLES_FONTSIZE_SMALL" = "Liten";
 "SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "Normal";
 "SETTINGS_SUBTITLES_FONTSIZE_LARGE" = "Stor";
-"SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "Störst";
-"SETTINGS_SUBTITLES_BOLDFONT" = "Använd fel stil";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "Största";
+"SETTINGS_SUBTITLES_BOLDFONT" = "Använd fet stil";
 "SETTINGS_SUBTITLES_FONTCOLOR" = "Typsnittsfärg";
 "SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "Vit";
 "SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "Svart";
@@ -86,6 +85,18 @@
 "SETTINGS_FEEDBACK" = "Återkoppling";
 "SETTINGS_SEND_FEEDBACK" = "Skicka återkoppling";
 "SETTINGS_SEND_RATING" = "Betygsätt VLC för iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Mediabibliotek";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Tvinga VLC att söka igenom mediabiblioteket";
+"SETTINGS_DECRAPIFY" = "Optimera objektnamn för visning";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Identifieringslängd för videogrupper";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Kort";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Standard";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Lång";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra lång";
+"SETTINGS_SHOW_THUMBNAILS" = "Visa videominiatyrer";
+"SETTINGS_SHOW_ARTWORKS" = "Visa ljudomslag";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inkludera mediabibliotek från enhetens säkerhetskopia";
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-stöd för WiFi-delning";
