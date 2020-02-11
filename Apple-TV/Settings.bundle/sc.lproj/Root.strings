@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Pedi";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Semper";
 "SETTINGS_NETWORK_PLAY_ALL" = "Riprodui automaticamente s'elementu imbeniente";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Abìlita s'iscorrimentu de su testu in sa lista de mèdios";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtru de deblocu";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Perunu deblocu (prus lestru)";
