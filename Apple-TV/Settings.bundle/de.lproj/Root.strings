@@ -17,7 +17,6 @@
 "SETTINGS_PASSCODE_LOCK" = "Codesperre";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Touch ID zum Entsperren erlauben";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Face ID zum Entsperren erlauben";
-"SETTINGS_DECRAPIFY" = "Optimierte Elementnamen";
 "SETTINGS_VIDEO_FULLSCREEN" = "Vollbildvideowiedergabe";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Videowiedergabe fortsetzen";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Audiowiedergabe fortsetzen";
@@ -87,6 +86,18 @@
 "SETTINGS_SEND_FEEDBACK" = "Bewertung senden";
 "SETTINGS_SEND_RATING" = "Bitte bewerten Sie VLC für iOS";
 
+"SETTINGS_MEDIA_LIBRARY" = "Medienbibliothek";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC veranlassen, die Medienbibliothek erneut zu durchsuchen";
+"SETTINGS_DECRAPIFY" = "Optimierte Elementnamen";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Erkennungslänge der Videogruppen";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Kurz";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Standard";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Lang";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra lang";
+"SETTINGS_SHOW_THUMBNAILS" = "Video-Vorschau anzeigen";
+"SETTINGS_SHOW_ARTWORKS" = "Musik-Cover anzeigen";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Medienbibliothek in Gerätesicherung mit einbeziehen";
+
 "SETTINGS_FILE_SYNC" = "Dateiaustausch";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-Unterstützung für WLAN-Freigabe";
 "SETTINGS_UNLINK_DROPBOX" = "Dropboxabmeldung";
@@ -94,7 +105,7 @@
 "SETTINGS_UNLINK_ONEDRIVE" = "Verbindung von OneDrive trennen";
 "SETTINGS_FTP_TEXT_ENCODING" = "Textkodierung für FTP-Verbindungen";
 
-"SETTINGS_ARTWORK" = "Bebilderung";
-"SETTINGS_DOWNLOAD_ARTWORK" = "Bebilderung herunterladen";
+"SETTINGS_ARTWORK" = "Cover";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Cover herunterladen";
 
 "ABOUT_APP_TV" = "Über VLC für tvOS";
