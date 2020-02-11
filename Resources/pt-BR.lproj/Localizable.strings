@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "URL enviado com sucesso.";
 "WEBINTF_URL_EMPTY" = "A URL não pode estar vazia.";
 "WEBINTF_URL_INVALID" = "Não é um URL válido";
+"WEBINTF_AUTH_REQUIRED" = "Por favor digite a senha configurada no VLC para iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Senha incorreta. Resta(m)<br>tentativa(s): ";
+"WEBINTF_AUTH_BANNED" = "Senha digitada incorretamente muitas vezes.<br>Por favor, reinicie o VLC para iOS tente novamente.";
 
 
 
@@ -403,3 +406,7 @@
 "SMBV1_WARN_DESCRIPTION" = "Um protocolo antigo (SMBv1) foi detectado.\nTem certeza de que quer continuar com o SMBv1?\nAconselhamos atualizar ou alterar as configurações do seu servidor.";
 "SMBV1_CONTINUE" = "Continuar com SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "Codificando";
