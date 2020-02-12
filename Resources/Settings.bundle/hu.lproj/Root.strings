@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Kérdezzen";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Mindig";
 "SETTINGS_NETWORK_PLAY_ALL" = "Következő elem automatikus lejátszása";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Szöveggörgetés engedélyezése a médialistában";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Blokkbontó szűrő";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Nincs blokkbontás (leggyorsabb)";
