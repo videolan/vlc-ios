@@ -17,7 +17,6 @@
 "SETTINGS_PASSCODE_LOCK" = "Jelkódzár";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Touch ID engedélyezése a feloldáshoz";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Face ID engedélyezése a feloldáshoz";
-"SETTINGS_DECRAPIFY" = "Elemnevek kijelzőhöz igazítása";
 "SETTINGS_VIDEO_FULLSCREEN" = "Videó lejátszása teljes képernyőn";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Videólejátszás folytatása";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Hanglejátszás folytatása";
@@ -86,6 +85,18 @@
 "SETTINGS_FEEDBACK" = "Visszajelzés";
 "SETTINGS_SEND_FEEDBACK" = "Visszajelzés küldése";
 "SETTINGS_SEND_RATING" = "Értékelje a VLC for iOS-t";
+
+"SETTINGS_MEDIA_LIBRARY" = "Médiatár";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "A VLC kényszerítése, hogy újra átvizsgálja a médiatárat";
+"SETTINGS_DECRAPIFY" = "Elemnevek kijelzőhöz igazítása";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Videocsoportok észlelési hossza";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Rövid";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Alapértelmezett";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Hosszú";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra hosszú";
+"SETTINGS_SHOW_THUMBNAILS" = "Videó bélyegképek megjelenítése";
+"SETTINGS_SHOW_ARTWORKS" = "Hang grafikák megjelenítése";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "A médiatár belevétele az eszköz biztonsági mentésébe";
 
 "SETTINGS_FILE_SYNC" = "Fájlszinkronizáció";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 támogatás a WiFi megosztáshoz";

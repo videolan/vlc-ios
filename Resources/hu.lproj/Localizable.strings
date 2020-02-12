@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "URL sikeresen elküldve.";
 "WEBINTF_URL_EMPTY" = "Az URL nem lehet üres.";
 "WEBINTF_URL_INVALID" = "Nem érvényes URL";
+"WEBINTF_AUTH_REQUIRED" = "Adja meg a VLC-ben beállított jelkódot:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Hibás jelszó.<br>Hátralévő próbálkozások:";
+"WEBINTF_AUTH_BANNED" = "Túl sok hibás jelkódot adott meg.<br>Indítsa újra a VLC-t, és próbálja újra.";
 
 
 
@@ -403,3 +406,7 @@
 "SMBV1_WARN_DESCRIPTION" = "Egy régi protokollt (SMBv1) észleltünk.\nBiztos, hogy folytatja az SMBv1-el?\nA kiszolgáló frissítését vagy a beállítások módosítását javasoljuk.";
 "SMBV1_CONTINUE" = "Folytatás az SMBv1-el";
 "SMBV1_NEXT_PROTOCOL" = "SMBv2/v3 kipróbálása";
+
+/* Preview labels */
+
+"ENCODING" = "Kódolás";
