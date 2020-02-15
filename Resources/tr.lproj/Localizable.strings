@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "Akış adresi başarıyla gönderildi.";
 "WEBINTF_URL_EMPTY" = "Adres boş olamaz.";
 "WEBINTF_URL_INVALID" = "Akış adresi geçersiz.";
+"WEBINTF_AUTH_REQUIRED" = "iOS için VLC içinde ayarladığınız parolayı yazın:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Parola hatalı.<br>Kalan deneme sayısı:";
+"WEBINTF_AUTH_BANNED" = "Parolayı üst üste pek çok kez hatalı yazdınız.<br>Lütfen iOS için VLC uygulamasını yeniden başlatarak yeniden deneyin.";
 
 
 
@@ -403,3 +406,7 @@
 "SMBV1_WARN_DESCRIPTION" = "Eski bir iletişim kuralı kullanıldığı algılandı (SMBv1).\nSMBv1 iletişim kuralını kullanmak istediğinize emin misiniz?\nSunucu ayarlarını yükseltmeniz ya da değiştirmeniz önerilir.";
 "SMBV1_CONTINUE" = "SMBv1 kullanmayı sürdür";
 "SMBV1_NEXT_PROTOCOL" = "SMBv2/v3 iletişim kurallarını dene";
+
+/* Preview labels */
+
+"ENCODING" = "Kodlama";
