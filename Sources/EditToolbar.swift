@@ -51,7 +51,7 @@ class EditToolbar: UIView {
 
     private var renameButton: UIButton!
     private var deleteButton: UIButton!
-    private var shareButton: UIButton!
+    private(set) var shareButton: UIButton!
 
     @objc func addToPlaylist() {
         delegate?.editToolbarDidAddToPlaylist(self)

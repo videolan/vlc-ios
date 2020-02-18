@@ -458,8 +458,9 @@ extension MediaCategoryViewController {
 
 private extension MediaCategoryViewController {
     @available(iOS 13.0, *)
-    private func generateUIMenuForContent(at index: Int) -> UIMenu {
+    private func generateUIMenuForContent(at indexPath: IndexPath) -> UIMenu {
         let modelContentArray = isSearching ? searchDataSource.searchData : model.anyfiles
+        let index = indexPath.row
         let modelContent = modelContentArray.objectAtIndex(index: index)
 
         let actionList = EditButtonsFactory.buttonList(for: model.anyfiles.first)
@@ -496,7 +497,9 @@ private extension MediaCategoryViewController {
                     [weak self] _ in
                     if let modelContent = modelContent {
                         self?.editController.editActions.objects = self?.objects(from: modelContent) ?? []
-                        self?.editController.editActions.share()
+                        if let cell = self?.collectionView.cellForItem(at: indexPath) {
+                            self?.editController.editActions.share(origin: cell)
+                        }
                     }
                 })
             }
@@ -547,7 +550,7 @@ extension MediaCategoryViewController {
             return CollectionViewCellPreviewController(thumbnail: thumbnail, with: modelContent)
         }, actionProvider: {
             [weak self] action in
-            return self?.generateUIMenuForContent(at: indexPath.row)
+            return self?.generateUIMenuForContent(at: indexPath)
         })
         return configuration
     }

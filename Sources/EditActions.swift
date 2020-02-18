@@ -153,7 +153,7 @@ class EditActions {
                                                                 deleteButton])
     }
 
-    func share(_ completion: ((completionState) -> Void)? = nil) {
+    func share(origin: UIView, _ completion: ((completionState) -> Void)? = nil) {
         self.completion = completion
         UIApplication.shared.beginIgnoringInteractionEvents()
         
@@ -169,7 +169,9 @@ class EditActions {
             self.completion?(.fail)
             return
         }
-        controller.popoverPresentationController?.sourceView = rootViewController.view
+        controller.popoverPresentationController?.sourceView = origin
+        controller.popoverPresentationController?.permittedArrowDirections = .any
+        controller.popoverPresentationController?.sourceRect = origin.bounds
         rootViewController.present(controller, animated: true) {
             UIApplication.shared.endIgnoringInteractionEvents()
         }

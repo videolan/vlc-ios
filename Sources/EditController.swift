@@ -170,7 +170,7 @@ extension EditController: EditToolbarDelegate {
         }
         editActions.objects.removeAll()
         getSelectedObjects()
-        editActions.share({
+        editActions.share(origin: editToolbar.shareButton, {
             [weak self] state in
             if state == .success || state == .fail {
                 self?.resetSelections(resetUI: false)
