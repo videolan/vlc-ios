@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Lyd";
 
-"SETTINGS_THEME_SUBTITLE" = "Skift programfarver";
+"SETTINGS_THEME_BRIGHT" = "Lyst tema";
+"SETTINGS_THEME_DARK" = "Mørkt tema";
+"SETTINGS_THEME_SYSTEM" = "Automatisk";
 "SETTINGS_PRIVACY_SUBTITLE" = "Åbn i indstillinger";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Sikker adgang til dit indhold";
 
-"SETTINGS_DARKTHEME" = "Mørkt tema";
+"SETTINGS_DARKTHEME" = "Udseende";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tidsudstrækning af lyd";
 "SETTINGS_BACKGROUND_AUDIO" = "Lydafspilning i baggrund";
 "SETTINGS_GENERIC_TITLE" = "Generelt";
 "SETTINGS_PASSCODE_LOCK" = "Adgangskodelås";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Tillad Touch ID at låse op";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Tillad Face ID at låse op";
-"SETTINGS_DECRAPIFY" = "Optimér emnenavne til skærm";
 "SETTINGS_VIDEO_FULLSCREEN" = "Afspil video i fuldskærm";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Fortsæt videoafspilning";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Fortsæt lydafspilning";
@@ -84,6 +85,18 @@
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Send feedback";
 "SETTINGS_SEND_RATING" = "Bedøm venligst VLC til iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Mediebibliotek";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Tving VLC til at genskanne mediebiblioteket";
+"SETTINGS_DECRAPIFY" = "Optimér emnenavne til skærm";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Længde på registrering af videogrupper";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Kort";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Standard";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Lang";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Ekstra lang";
+"SETTINGS_SHOW_THUMBNAILS" = "Vis videominiaturer";
+"SETTINGS_SHOW_ARTWORKS" = "Vis lydbilleder";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Medtag mediebiblioteket i enhedssikkerhedskopiering";
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 understøttelse til WiFi deling";

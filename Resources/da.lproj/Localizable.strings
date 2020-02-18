@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "URL sendt";
 "WEBINTF_URL_EMPTY" = "URL må ikke være tom.";
 "WEBINTF_URL_INVALID" = "Ikke en gyldig URL.";
+"WEBINTF_AUTH_REQUIRED" = "Indtast venligst den adgangskode du indstillede i VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Forkert adgangskode.<br>Tilbageværende forsøg: ";
+"WEBINTF_AUTH_BANNED" = "Du har indtastet for mange forkerte adgangskoder.<br>Genstart venligst VLC iOS og prøv igen.";
 
 
 
@@ -403,3 +406,7 @@
 "SMBV1_WARN_DESCRIPTION" = "Vi registrerede en gammel protokol (SMBv1).\nEr du sikker på, at du vil fortsætte med SMBv1?\nVi anbefaler at du opgraderer eller ændrer dine serverindstillinger.";
 "SMBV1_CONTINUE" = "Fortsæt med SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Prøv SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "Kodning";
