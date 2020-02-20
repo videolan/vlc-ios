@@ -181,6 +181,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let manager = services.rendererDiscovererManager
+        manager.delegate = self
         if manager.discoverers.isEmpty {
             // Either didn't start or stopped before
             manager.start()
@@ -376,7 +377,9 @@ extension MediaCategoryViewController {
         if let model = model as? CollectionModel, !(model.mediaCollection is VLCMLPlaylist) {
             rightBarButtonItems.append(sortBarButton)
         }
-        rightBarButtonItems.append(rendererBarButton)
+        if !rendererButton.isHidden {
+            rightBarButtonItems.append(rendererBarButton)
+        }
         return rightBarButtonItems
     }
 
@@ -416,6 +419,24 @@ extension MediaCategoryViewController {
                                                                           action: #selector(handleEditing))]
             : rightBarButtonItems()
         navigationItem.setHidesBackButton(isEditing, animated: true)
+    }
+}
+
+// MARK: - VLCRendererDiscovererManagerDelegate
+
+extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
+    private func updateRightbarButtonItems() {
+        if !isEditing {
+            navigationItem.rightBarButtonItems = rightBarButtonItems()
+        }
+    }
+
+    @objc func addedRendererItem() {
+        updateRightbarButtonItems()
+    }
+
+    @objc func removedRendererItem() {
+        updateRightbarButtonItems()
     }
 }
 

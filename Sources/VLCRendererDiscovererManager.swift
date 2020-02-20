@@ -11,6 +11,8 @@
 
 @objc protocol VLCRendererDiscovererManagerDelegate {
     @objc optional func removedCurrentRendererItem(_ item: VLCRendererItem)
+    @objc optional func addedRendererItem()
+    @objc optional func removedRendererItem()
 }
 
 class VLCRendererDiscovererManager: NSObject {
@@ -159,6 +161,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
             actionSheet.collectionView.reloadData()
             actionSheet.updateViewConstraints()
         }
+        delegate?.addedRendererItem?()
     }
 
     func rendererDiscovererItemDeleted(_ rendererDiscoverer: VLCRendererDiscoverer, item: VLCRendererItem) {
@@ -185,6 +188,7 @@ extension VLCRendererDiscovererManager: VLCRendererDiscovererDelegate {
             }
             actionSheet.removeActionSheet()
         }
+        delegate?.removedRendererItem?()
     }
 
     fileprivate func updateCollectionViewCellApparence(cell: ActionSheetCell, highlighted: Bool) {
