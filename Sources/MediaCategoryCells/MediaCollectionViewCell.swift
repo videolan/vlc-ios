@@ -144,6 +144,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         descriptionLabel.text = movie.mediaDuration()
         thumbnailView.image = movie.thumbnailImage()
         newLabel.isHidden = !movie.isNew
+        sizeLabel.text = movie.formatSize()
+        separatorLabel.text = "·"
     }
 
     func update(playlist: VLCMLPlaylist) {
