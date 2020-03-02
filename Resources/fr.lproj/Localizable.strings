@@ -212,9 +212,9 @@
 
 "FIRST_STEPS_ITUNES" = "Synchronisation de fichiers avec iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Synchroniser avec votre ordinateur";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connecter votre appareil à iTunes et sélectionner-le. Choisir « Partage de fichier » dans le menu à gauche et chercher VLC pour transférer des fichiers.";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connectez votre appareil à iTunes et sélectionner-le. Choisir « Partage de fichier » dans le menu à gauche et cherchez VLC pour transférer des fichiers.";
 "FIRST_STEPS_WIFI_TITLE" = "Partager via Wi-Fi";
-"FIRST_STEPS_WIFI_DETAILS" = "Entrer l'URL générée dans votre navigateur préféré, qui doit être connecté au même réseau que votre téléphone";
+"FIRST_STEPS_WIFI_DETAILS" = "Entrez l'URL générée dans votre navigateur préféré, qui doit être connecté au même réseau que votre téléphone";
 "FIRST_STEPS_CLOUDS" = "Nuages";
 "FIRST_STEPS_CLOUD_TITLE" = "Nuage";
 "FIRST_STEPS_CLOUD_DETAILS" = "Téléverser votre média vers un service de nuage tel que Google Drive ou Dropbox pour les télécharger ou les diffuser à distance.";
@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "URL correctement transmise.";
 "WEBINTF_URL_EMPTY" = "Le champ URL ne peut pas être vide.";
 "WEBINTF_URL_INVALID" = "URL invalide.";
+"WEBINTF_AUTH_REQUIRED" = "Veuillez saisir le code d'accès que vous avez défini dans VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Code d'accès erroné.<br>Tentatives restantes : ";
+"WEBINTF_AUTH_BANNED" = "Vous avez saisi trop de codes d'accès erronés.<br>Veuillez redémarrer VLC iOS et réessayer.";
 
 
 
@@ -403,3 +406,7 @@
 "SMBV1_WARN_DESCRIPTION" = "Nous avons détecté un ancien protocole (SMBv1).\nÊtes-vous vraiment sûr de continuer avec SMBv1?\nNous vous conseillons de mettre à niveau ou de modifier les paramètres de votre serveur.";
 "SMBV1_CONTINUE" = "Continuer avec SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Essayer SMBv2 / v3";
+
+/* Preview labels */
+
+"ENCODING" = "Encodage";

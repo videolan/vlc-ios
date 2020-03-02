@@ -17,7 +17,6 @@
 "SETTINGS_PASSCODE_LOCK" = "Code de verrouillage";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Autoriser le déverrouillage par Touch ID";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Autoriser le déverrouillage par Face ID";
-"SETTINGS_DECRAPIFY" = "Optimiser les noms des éléments pour l'affichage";
 "SETTINGS_VIDEO_FULLSCREEN" = "Lire la vidéo en plein écran";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continuer la lecture vidéo";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continuer la lecture audio";
@@ -25,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Demander";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Toujours";
 "SETTINGS_NETWORK_PLAY_ALL" = "Jouer automatiquement l'élément suivant";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Activer le défilement du texte dans la liste des médias";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtre anti-blocs";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Sans anti-blocs (plus rapide)";
@@ -86,6 +86,18 @@
 "SETTINGS_FEEDBACK" = "Retour";
 "SETTINGS_SEND_FEEDBACK" = "Envoyer un retour";
 "SETTINGS_SEND_RATING" = "Merci de noter VLC pour iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Médiathèque";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forcer la réanalyse de la médiathèque";
+"SETTINGS_DECRAPIFY" = "Optimiser les noms des éléments pour l'affichage";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Longueur pour la détection des groupes vidéo";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Court";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Défaut";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Très long";
+"SETTINGS_SHOW_THUMBNAILS" = "Afficher les miniatures des fichiers vidéo";
+"SETTINGS_SHOW_ARTWORKS" = "Afficher les jaquettes des fichiers audio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inclure la médiathèque dans la sauvegarde de l'appareil";
 
 "SETTINGS_FILE_SYNC" = "Synchronisation de fichier";
 "SETTINGS_WIFISHARING_IPv6" = "Support IPV6 pour partage Wi-Fi";
