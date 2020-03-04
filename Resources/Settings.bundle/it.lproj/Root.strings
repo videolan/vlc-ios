@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Chiedi";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sempre";
 "SETTINGS_NETWORK_PLAY_ALL" = "Riproduci automaticamente il prossimo brano";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Abilita lo scorrimento del testo nell'elenco dei media";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtro di deblock";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Nessun deblock (più veloce)";
@@ -95,7 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Lunga";
 "SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Molto lunga";
 "SETTINGS_SHOW_THUMBNAILS" = "Mostra miniature dei video";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_SHOW_ARTWORKS" = "Mostra copertine audio";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Includi la raccolta multimediale nel backup del dispositivo";
 
 "SETTINGS_FILE_SYNC" = "Sincronizzazione file";
