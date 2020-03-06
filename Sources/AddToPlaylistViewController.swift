@@ -67,6 +67,10 @@ class AddToPlaylistViewController: UIViewController {
         return PresentationTheme.current.colors.statusBarStyle
     }
 
+    override func viewSafeAreaInsetsDidChange() {
+        playlistCollectionView.collectionViewLayout.invalidateLayout()
+    }
+
     @objc private func themeDidChange() {
         view.backgroundColor = PresentationTheme.current.colors.background
         playlistCollectionView.backgroundColor = PresentationTheme.current.colors.background
