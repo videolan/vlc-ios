@@ -44,6 +44,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
                 update(playlist: playlist)
             } else if let genre = media as? VLCMLGenre {
                 update(genre: genre)
+            } else if let mediaGroup = media as? VLCMLMediaGroup {
+                update(mediaGroup: mediaGroup)
             } else {
                 assertionFailure("MovieCollectionViewCell: media: Needs to be of a supported Type.")
             }
@@ -154,6 +156,14 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         accessibilityLabel = playlist.accessibilityText()
         descriptionLabel.text = playlist.numberOfTracksString()
         thumbnailView.image = playlist.thumbnail()
+    }
+
+    func update(mediaGroup: VLCMLMediaGroup) {
+        newLabel.isHidden = true
+        titleLabel.text = mediaGroup.title()
+        accessibilityLabel = mediaGroup.accessibilityText()
+        descriptionLabel.text = mediaGroup.numberOfTracksString()
+        thumbnailView.image = mediaGroup.thumbnail()
     }
 
     func update(genre: VLCMLGenre) {

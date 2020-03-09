@@ -1,7 +1,7 @@
 /*****************************************************************************
- * AddToPlaylistViewController.swift
+ * AddToCollectionViewController.swift
  *
- * Copyright © 2019 VLC authors and VideoLAN
+ * Copyright © 2020 VLC authors and VideoLAN
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *
@@ -10,21 +10,22 @@
 
 import Foundation
 
-protocol AddToPlaylistViewControllerDelegate: class {
-    func addToPlaylistViewController(_ addToPlaylistViewController: AddToPlaylistViewController,
-                                     didSelectPlaylist playlist: VLCMLPlaylist)
-    func addToPlaylistViewController(_ addToPlaylistViewController: AddToPlaylistViewController,
-                                     newPlaylistWithName name: String)
+protocol AddToCollectionViewControllerDelegate: class {
+    func addToCollectionViewController(_ addToCollectionViewController: AddToCollectionViewController,
+                                       didSelectCollection collection: MediaCollectionModel)
+    func addToCollectionViewController(_ addToPlaylistViewController: AddToCollectionViewController,
+                                       newCollectionName name: String,
+                                       from mlType: MediaCollectionModel.Type)
 }
 
-class AddToPlaylistViewController: UIViewController {
-    @IBOutlet private weak var newPlaylistButton: UIButton!
-    @IBOutlet private weak var playlistCollectionView: UICollectionView!
+class AddToCollectionViewController: UIViewController {
+    @IBOutlet private weak var newCollectionButton: UIButton!
+    @IBOutlet private weak var collectionView: UICollectionView!
 
     private let cellHeight: CGFloat = 56
     private let sidePadding: CGFloat = 20
 
-    var playlists: [VLCMLPlaylist]
+    var mlCollection = [MediaCollectionModel]()
 
     private lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -33,16 +34,7 @@ class AddToPlaylistViewController: UIViewController {
         return collectionViewLayout
     }()
 
-    weak var delegate: AddToPlaylistViewControllerDelegate?
-
-    init(playlists: [VLCMLPlaylist]) {
-        self.playlists = playlists
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    weak var delegate: AddToCollectionViewControllerDelegate?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -50,17 +42,23 @@ class AddToPlaylistViewController: UIViewController {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
         navigationController?.navigationBar.isTranslucent = false
-        playlistCollectionView.reloadData()
+        collectionView.reloadData()
+    }
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        initViews()
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initViews()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(themeDidChange),
                                                name: .VLCThemeDidChangeNotification,
                                                object: nil)
-        title = NSLocalizedString("ADD_TO_PLAYLIST", comment: "")
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -68,12 +66,12 @@ class AddToPlaylistViewController: UIViewController {
     }
 
     override func viewSafeAreaInsetsDidChange() {
-        playlistCollectionView.collectionViewLayout.invalidateLayout()
+        collectionView.collectionViewLayout.invalidateLayout()
     }
 
     @objc private func themeDidChange() {
         view.backgroundColor = PresentationTheme.current.colors.background
-        playlistCollectionView.backgroundColor = PresentationTheme.current.colors.background
+        collectionView.backgroundColor = PresentationTheme.current.colors.background
         setNeedsStatusBarAppearanceUpdate()
     }
 
@@ -81,14 +79,46 @@ class AddToPlaylistViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    @IBAction private func handleNewPlaylist(_ sender: UIButton) {
-        let alertController = UIAlertController(title: NSLocalizedString("PLAYLISTS", comment: ""),
-                                                message: NSLocalizedString("PLAYLIST_DESCRIPTION", comment: ""),
+    func updateInterface(for collectionModelType: MediaCollectionModel.Type) {
+        if collectionModelType is VLCMLPlaylist.Type {
+            title = NSLocalizedString("ADD_TO_PLAYLIST", comment: "")
+        } else {
+            title = NSLocalizedString("ADD_TO_MEDIA_GROUP", comment: "")
+        }
+        setupNewCollectionButton(for: collectionModelType)
+    }
+
+    // MARK: - Create new Actions
+
+    @IBAction private func handleNewCollection(_ sender: UIButton) {
+        guard let mlObject = mlCollection.first else {
+            assertionFailure("AddToCollectionViewController: handleNewCollection: Failed to retrieve type of mlModel")
+            return
+        }
+
+        let mlType = type(of: mlObject)
+
+        var title: String
+        var description: String
+        var placeholder: String
+
+        if mlType is VLCMLPlaylist.Type {
+            title = NSLocalizedString("PLAYLISTS", comment: "")
+            description = NSLocalizedString("PLAYLIST_DESCRIPTION", comment: "")
+            placeholder = NSLocalizedString("PLAYLIST_PLACEHOLDER", comment: "")
+        } else {
+            title = NSLocalizedString("MEDIA_GROUPS", comment: "")
+            description = NSLocalizedString("MEDIA_GROUPS_DESCRIPTION", comment: "")
+            placeholder = NSLocalizedString("MEDIA_GROUPS_PLACEHOLDER", comment: "")
+        }
+
+        let alertController = UIAlertController(title: title,
+                                                message: description,
                                                 preferredStyle: .alert)
 
         alertController.addTextField(configurationHandler: {
             textField in
-            textField.placeholder = NSLocalizedString("PLAYLIST_PLACEHOLDER", comment: "")
+            textField.placeholder = NSLocalizedString(placeholder, comment: "")
         })
 
         let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
@@ -108,7 +138,9 @@ class AddToPlaylistViewController: UIViewController {
                 }
                 return
             }
-            self.delegate?.addToPlaylistViewController(self, newPlaylistWithName: text)
+            self.delegate?.addToCollectionViewController(self,
+                                                         newCollectionName: text,
+                                                         from: mlType)
         }
         alertController.addAction(cancelButton)
         alertController.addAction(confirmAction)
@@ -118,13 +150,12 @@ class AddToPlaylistViewController: UIViewController {
 
 // MARK: - Private initializers
 
-private extension AddToPlaylistViewController {
+private extension AddToCollectionViewController {
     private func initViews() {
-        Bundle.main.loadNibNamed("AddToPlaylistView", owner: self, options: nil)
+        Bundle.main.loadNibNamed("AddToCollectionView", owner: self, options: nil)
         view.backgroundColor = PresentationTheme.current.colors.background
         setupNavigationBar()
-        setupNewPlaylistButton()
-        setupPlaylistCollectionView()
+        setupCollectionView()
     }
 
     private func setupNavigationBar() {
@@ -135,29 +166,41 @@ private extension AddToPlaylistViewController {
                                                            action: #selector(dismissView))
     }
 
-    private func setupNewPlaylistButton() {
-        newPlaylistButton.layer.masksToBounds = true
-        newPlaylistButton.layer.cornerRadius = 10
-        newPlaylistButton.backgroundColor = PresentationTheme.current.colors.orangeUI
-        newPlaylistButton.setTitle(NSLocalizedString("PLAYLIST_CREATION", comment: ""), for: .normal)
-        newPlaylistButton.accessibilityLabel = NSLocalizedString("PLAYLIST_CREATION", comment: "")
-        newPlaylistButton.accessibilityHint = NSLocalizedString("PLAYLIST_CREATION_HINT", comment: "")
+    private func setupNewCollectionButton(for type: MediaCollectionModel.Type) {
+        newCollectionButton.layer.masksToBounds = true
+        newCollectionButton.layer.cornerRadius = 10
+        newCollectionButton.backgroundColor = PresentationTheme.current.colors.orangeUI
+
+        var title: String
+        var hint: String
+
+        if type is VLCMLPlaylist.Type {
+            title = NSLocalizedString("PLAYLIST_CREATION", comment: "")
+            hint = NSLocalizedString("PLAYLIST_CREATION_HINT", comment: "")
+        } else {
+            title = NSLocalizedString("MEDIA_GROUP_CREATION", comment: "")
+            hint = NSLocalizedString("MEDIA_GROUP_CREATION_HINT", comment: "")
+        }
+
+        newCollectionButton.setTitle(title, for: .normal)
+        newCollectionButton.accessibilityLabel = title
+        newCollectionButton.accessibilityHint = hint
     }
 
-    private func setupPlaylistCollectionView() {
+    private func setupCollectionView() {
         let cellNib = UINib(nibName: MediaCollectionViewCell.nibName, bundle: nil)
-        playlistCollectionView.register(cellNib,
+        collectionView.register(cellNib,
                                         forCellWithReuseIdentifier: MediaCollectionViewCell.defaultReuseIdentifier)
-        playlistCollectionView.delegate = self
-        playlistCollectionView.dataSource = self
-        playlistCollectionView.collectionViewLayout = collectionViewLayout
-        playlistCollectionView.backgroundColor = PresentationTheme.current.colors.background
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.collectionViewLayout = collectionViewLayout
+        collectionView.backgroundColor = PresentationTheme.current.colors.background
     }
 }
 
 // MARK: - UICollectionViewFlowLayout
 
-extension AddToPlaylistViewController: UICollectionViewDelegateFlowLayout {
+extension AddToCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -173,22 +216,22 @@ extension AddToPlaylistViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - UICollectionViewDelegate
 
-extension AddToPlaylistViewController: UICollectionViewDelegate {
+extension AddToCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard indexPath.row <= playlists.count else {
+        guard indexPath.row <= mlCollection.count else {
             assertionFailure("AddToPlaylistViewController: didSelectItemAt: IndexPath out of range.")
             return
         }
-        delegate?.addToPlaylistViewController(self, didSelectPlaylist: playlists[indexPath.row])
+        delegate?.addToCollectionViewController(self, didSelectCollection: mlCollection[indexPath.row])
     }
 }
 
 // MARK: - UICollectionViewDataSource
 
-extension AddToPlaylistViewController: UICollectionViewDataSource {
+extension AddToCollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return playlists.count
+        return mlCollection.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -197,11 +240,11 @@ extension AddToPlaylistViewController: UICollectionViewDataSource {
                                                             for: indexPath) as? MediaCollectionViewCell else {
             return UICollectionViewCell()
         }
-        guard indexPath.row <= playlists.count else {
+        guard indexPath.row <= mlCollection.count else {
             assertionFailure("AddToPlaylistViewController: cellForItemAt: IndexPath out of range.")
             return UICollectionViewCell()
         }
-        cell.media = playlists[indexPath.row]
+        cell.media = mlCollection[indexPath.row] as? VLCMLObject
         return cell
     }
 }

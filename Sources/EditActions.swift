@@ -21,10 +21,10 @@ class EditActions {
     private var completion: ((completionState) -> Void)?
     var objects = [VLCMLObject]()
 
-    private lazy var addToPlaylistViewController: AddToPlaylistViewController = {
-        var addToPlaylistViewController = AddToPlaylistViewController(playlists: mediaLibraryService.playlists())
-        addToPlaylistViewController.delegate = self
-        return addToPlaylistViewController
+    private lazy var addToCollectionViewController: AddToCollectionViewController = {
+        var addToCollectionViewController = AddToCollectionViewController()
+        addToCollectionViewController.delegate = self
+        return addToCollectionViewController
     }()
 
     init(model: MediaLibraryBaseModel, mediaLibraryService: MediaLibraryService) {
@@ -37,12 +37,17 @@ class EditActions {
 // MARK: - Main edit actions
 
 extension EditActions {
+    private func addToCollection(_ collection: [MediaCollectionModel]) {
+        addToCollectionViewController.mlCollection = collection
+        addToCollectionViewController.updateInterface(for: type(of: collection[0]))
+        let navigationController = UINavigationController(rootViewController: addToCollectionViewController)
+        rootViewController.present(navigationController, animated: true, completion: nil)
+    }
+
     func addToPlaylist(_ completion: ((completionState) -> Void)? = nil) {
         self.completion = completion
         if !mediaLibraryService.playlists().isEmpty {
-            addToPlaylistViewController.playlists = mediaLibraryService.playlists()
-            let navigationController = UINavigationController(rootViewController: addToPlaylistViewController)
-            rootViewController.present(navigationController, animated: true, completion: nil)
+            addToCollection(mediaLibraryService.playlists())
         } else {
             addToNewPlaylist()
         }
@@ -257,24 +262,26 @@ private extension EditActions {
     }
 }
 
-// MARK: - AddToPlaylistViewControllerDelegate
+// MARK: - AddToCollectionViewControllerDelegate
 
-extension EditActions: AddToPlaylistViewControllerDelegate {
-    func addToPlaylistViewController(_ addToPlaylistViewController: AddToPlaylistViewController,
-                                     didSelectPlaylist playlist: VLCMLPlaylist) {
+extension EditActions: AddToCollectionViewControllerDelegate {
+    func addToCollectionViewController(_ addToCollectionViewController: AddToCollectionViewController,
+                                       didSelectCollection collection: MediaCollectionModel) {
         for media in objects {
-            if !playlist.appendMedia(withIdentifier: media.identifier()) {
+            if let playlist = collection as? VLCMLPlaylist,
+                !playlist.appendMedia(withIdentifier: media.identifier()) {
                 assertionFailure("EditActions: AddToPlaylistViewControllerDelegate: Failed to add item.")
                 completion?(.fail)
             }
         }
-        addToPlaylistViewController.dismiss(animated: true, completion: nil)
+        addToCollectionViewController.dismiss(animated: true, completion: nil)
         completion?(.success)
     }
 
-    func addToPlaylistViewController(_ addToPlaylistViewController: AddToPlaylistViewController,
-                                     newPlaylistWithName name: String) {
+    func addToCollectionViewController(_ addToCollectionViewController: AddToCollectionViewController,
+                                       newCollectionName name: String,
+                                       from mlType: MediaCollectionModel.Type) {
         createPlaylist(name)
-        addToPlaylistViewController.dismiss(animated: true, completion: nil)
+        addToCollectionViewController.dismiss(animated: true, completion: nil)
     }
 }
