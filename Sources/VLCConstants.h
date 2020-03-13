@@ -83,9 +83,6 @@
 
 #define kVLCForceSMBV1 @"smb-force-v1"
 
-#define kVLCSettingsMediaLibraryVideoGroupPrefixLength @"VideoGroupPrefixLength"
-#define kVLCSettingsMediaLibraryVideoGroupPrefixLengthDefaultValue @"6"
-
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
 #define kVLCRecentURLTitles @"recent-url-titles"

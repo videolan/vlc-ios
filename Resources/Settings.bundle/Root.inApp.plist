@@ -637,30 +637,6 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Title</key>
-			<string>SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH</string>
-			<key>Key</key>
-			<string>VideoGroupPrefixLength</string>
-			<key>DefaultValue</key>
-			<string>6</string>
-			<key>Titles</key>
-			<array>
-				<string>SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT</string>
-				<string>SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL</string>
-				<string>SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG</string>
-				<string>SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG</string>
-			</array>
-			<key>Values</key>
-			<array>
-				<string>3</string>
-				<string>6</string>
-				<string>9</string>
-				<string>12</string>
-			</array>
-		</dict>
-		<dict>
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
