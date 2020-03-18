@@ -222,11 +222,11 @@
 - (void)streamFile:(GTLRDrive_File *)file
 {
     NSString *token = [((GTMAppAuthFetcherAuthorization *)self.driveService.authorizer).authState.lastTokenResponse accessToken];
-    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media&access_token=%@",
-                     file.identifier, token];
+    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media", file.identifier];
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:urlString]];
+    [media addOptions:@{@"http-token" : token}];
     VLCMediaList *medialist = [[VLCMediaList alloc] init];
     [medialist addMedia:media];
     [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
