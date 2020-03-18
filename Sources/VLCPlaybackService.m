@@ -397,7 +397,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (BOOL)currentMediaHasTrackToChooseFrom
 {
-    return [[_mediaPlayer audioTrackIndexes] count] > 2 || [[_mediaPlayer videoSubTitlesIndexes] count] > 1;
+    /* allow track selection if there is more than 1 audio track or if there is video because even if
+     * there is only video, there will always be the option to download additional subtitles */
+    return [[_mediaPlayer audioTrackIndexes] count] > 2 || [[_mediaPlayer videoTrackIndexes] count] >= 1;
 }
 
 - (BOOL) isSeekable
@@ -546,7 +548,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (NSInteger)numberOfVideoSubtitlesIndexes
 {
-    return _mediaPlayer.videoSubTitlesIndexes.count;
+    return _mediaPlayer.videoSubTitlesIndexes.count + 1;
 }
 
 - (NSInteger)numberOfTitles
@@ -561,8 +563,12 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (NSString *)videoSubtitleNameAtIndex:(NSInteger)index
 {
-    if (index >= 0 && index < _mediaPlayer.videoSubTitlesNames.count)
+    NSInteger count = _mediaPlayer.videoSubTitlesNames.count;
+    if (index >= 0 && index < count) {
         return _mediaPlayer.videoSubTitlesNames[index];
+    } else if (index == count) {
+        return NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil);
+    }
     return nil;
 }
 

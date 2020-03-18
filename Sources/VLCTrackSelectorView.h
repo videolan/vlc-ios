@@ -15,7 +15,8 @@
 @interface VLCTrackSelectorView : VLCFrostedGlasView
 
 @property (nonatomic, assign) BOOL switchingTracksNotChapters;
-@property(nonatomic, copy) void (^completionHandler)(BOOL finished);
+@property (nonatomic, copy) void (^completionHandler)(BOOL finished);
+@property (nonatomic) UIViewController *parentViewController;
 
 - (void)updateView;
 @end

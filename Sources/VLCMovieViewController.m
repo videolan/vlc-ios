@@ -29,6 +29,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCStatusLabel.h"
 #import "VLCMovieViewControlPanelView.h"
+#import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
 #import "VLCSlider.h"
 #import <AVKit/AVKit.h>
 
@@ -220,6 +221,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self setupMovieView];
 
     _trackSelectorContainer = [[VLCTrackSelectorView alloc] initWithFrame:CGRectZero];
+    _trackSelectorContainer.parentViewController = self;
     _trackSelectorContainer.hidden = YES;
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
         for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers)
@@ -1453,6 +1455,14 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [self toggleMultiSelectionView:sender];
     #endif
     [self _resetIdleTimer];
+}
+
+- (void)downloadMoreSPU
+{
+    VLCPlaybackInfoSubtitlesFetcherViewController *targetViewController = [[VLCPlaybackInfoSubtitlesFetcherViewController alloc] initWithNibName:nil bundle:nil];
+    targetViewController.title = NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil);
+    UINavigationController *modalNavigationController = [[UINavigationController alloc] initWithRootViewController:targetViewController];
+    [self presentViewController:modalNavigationController animated:YES completion:nil];
 }
 
 #pragma mark - multi-select delegation

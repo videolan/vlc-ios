@@ -15,6 +15,7 @@
 #import "VLCPlaybackService.h"
 #import "VLCTrackSelectorHeaderView.h"
 #import "VLCTrackSelectorTableViewCell.h"
+#import "VLCMovieViewController.h"
 
 #import "UIDevice+VLC.h"
 
@@ -90,7 +91,7 @@
         if([playbackController numberOfAudioTracks] > 2)
             sections++;
 
-        if ([playbackController numberOfVideoSubtitlesIndexes] > 1)
+        if ([playbackController numberOfVideoSubtitlesIndexes] >= 1)
             sections++;
     } else {
         if ([playbackController numberOfTitles] > 1)
@@ -128,7 +129,7 @@
         if ([playbackController numberOfAudioTracks] > 2 && section == 0)
             return NSLocalizedString(@"CHOOSE_AUDIO_TRACK", nil);
 
-        if ([playbackController numberOfVideoSubtitlesIndexes] > 1)
+        if ([playbackController numberOfVideoSubtitlesIndexes] >= 1)
             return NSLocalizedString(@"CHOOSE_SUBTITLE_TRACK", nil);
     } else {
         if ([playbackController numberOfTitles] > 1 && section == 0)
@@ -220,9 +221,14 @@
     if (_switchingTracksNotChapters) {
         if ([playbackController numberOfAudioTracks] > 2 && indexPath.section == 0) {
             [playbackController selectAudioTrackAtIndex:index];
-
-        } else if (index <= [playbackController numberOfVideoSubtitlesIndexes]) {
+        } else if (index < ([playbackController numberOfVideoSubtitlesIndexes] - 1)) {
             [playbackController selectVideoSubtitleAtIndex:index];
+        } else {
+            if (self.parentViewController) {
+                if ([self.parentViewController respondsToSelector:@selector(downloadMoreSPU)]) {
+                    [self.parentViewController performSelector:@selector(downloadMoreSPU)];
+                }
+            }
         }
     } else {
         if ([playbackController numberOfTitles] > 1 && indexPath.section == 0)
@@ -239,4 +245,5 @@
     NSTimeInterval animationDuration = .3;
     [UIView animateWithDuration:animationDuration animations:animationBlock completion:_completionHandler];
 }
+
 @end

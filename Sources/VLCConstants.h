@@ -80,6 +80,7 @@
 #define kVLCSettingShowArtworksDefaultValue @YES
 #define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
+#define kVLCSettingLastUsedSubtitlesSearchLanguage @"kVLCSettingLastUsedSubtitlesSearchLanguage"
 
 #define kVLCForceSMBV1 @"smb-force-v1"
 

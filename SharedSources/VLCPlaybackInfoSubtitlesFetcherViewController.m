@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -13,6 +13,10 @@
 #import "MetadataFetcherKit.h"
 #import "NSString+Locale.h"
 #import "VLCMetadata.h"
+#import "VLCPlaybackService.h"
+#if !TARGET_OS_TV
+#import "VLC-Swift.h"
+#endif
 
 #define SPUDownloadReUseIdentifier @"SPUDownloadReUseIdentifier"
 #define SPUDownloadHeaderReUseIdentifier @"SPUDownloadHeaderReUseIdentifier"
@@ -30,11 +34,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+#if TARGET_OS_TV
     self.titleLabel.text = self.title;
     self.tableView.backgroundColor = [UIColor clearColor];
+#else
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+    doneButton.accessibilityIdentifier = VLCAccessibilityIdentifier.done;
+
+    self.navigationItem.rightBarButtonItem = doneButton;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+#endif
 
     self.osoFetcher = [[MDFOSOFetcher alloc] init];
-    self.osoFetcher.userAgentKey = @"VLSub 0.9";
+    self.osoFetcher.userAgentKey = @"VLSub 0.11.0";
     self.osoFetcher.dataRecipient = self;
     [self.osoFetcher prepareForFetching];
 
@@ -77,10 +89,41 @@
                                                                   multiplier:1.0
                                                                     constant:0.0];
     [self.view addConstraint:xConstraint];
+
+#if TARGET_OS_IOS
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
+#endif
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)dismiss
 {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#if TARGET_OS_IOS
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange:previousTraitCollection];
+
+    /* the event handler in TabBarCoordinator cannot listen to the system because the movie view controller blocks the event
+     * Therefore, we need to check the current theme ourselves */
+    if (@available(iOS 13.0, *)) {
+        if (previousTraitCollection.userInterfaceStyle == self.traitCollection.userInterfaceStyle) {
+            return;
+        }
+
+        if ([[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingAppTheme] == kVLCSettingAppThemeSystem) {
+            BOOL isSystemDarkTheme = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
+            PresentationTheme.current = isSystemDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme;
+        }
+        [self themeDidChange];
+    }
+}
+#endif
+
+- (void)themeDidChange
+{
+#if TARGET_OS_TV
     if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
         self.visualEffectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
         self.titleLabel.textColor = [UIColor VLCLightTextColor];
@@ -88,7 +131,17 @@
         self.visualEffectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
         self.titleLabel.textColor = [UIColor VLCDarkTextColor];
     }
+#else
+    ColorPalette *colors = PresentationTheme.current.colors;
+    [self.navigationItem.titleView setTintColor:colors.navigationbarTextColor];
+    self.view.backgroundColor = self.tableView.backgroundColor = colors.background;
+    [self.tableView reloadData];
+#endif
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self themeDidChange];
     [super viewWillAppear:animated];
 }
 
@@ -109,11 +162,13 @@
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.osoFetcher.subtitleLanguageId = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
+    APLog(@"%s: query: '%@' language: '%@'", __func__, self.osoFetcher.subtitleLanguageId, vpc.metadata.title);
     [self.osoFetcher searchForSubtitlesWithQuery:vpc.metadata.title];
 }
 
 - (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher didFindSubtitles:(NSArray<MDFSubtitleItem *> *)subtitles forSearchRequest:(NSString *)searchRequest
 {
+    APLog(@"%s: %li items found", __func__, subtitles.count);
     [self stopActivity];
     self.searchResults = subtitles;
     [self.tableView reloadData];
@@ -160,7 +215,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SPUDownloadReUseIdentifier];
 
     if (!cell) {
+#if TARGET_OS_TV
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SPUDownloadReUseIdentifier];
+#else
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:SPUDownloadReUseIdentifier];
+#endif
     }
     
     if (indexPath.section != 0) {
@@ -175,6 +234,12 @@
         cell.detailTextLabel.text = detail ? detail : selectedLocale;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+
+#if TARGET_OS_IOS
+    cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundA : PresentationTheme.current.colors.cellBackgroundB;
+    cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+    cell.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+#endif
 
     return cell;
 }
@@ -192,6 +257,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#if TARGET_OS_IOS
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+#endif
+
     if (indexPath.section == 0) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LANGUAGE", nil)
                                                                                  message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -234,13 +303,11 @@
 - (void)startActivity
 {
     [self.activityIndicatorView startAnimating];
-    self.tableView.userInteractionEnabled = NO;
 }
 
 - (void)stopActivity
 {
     [self.activityIndicatorView stopAnimating];
-    self.tableView.userInteractionEnabled = YES;
 }
 
 @end

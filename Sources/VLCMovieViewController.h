@@ -82,5 +82,6 @@ typedef NS_ENUM(NSInteger, VLCMovieJumpState) {
 - (void)toggleUILock;
 - (void)toggleChapterAndTitleSelector;
 - (void)hideMenu;
+- (void)downloadMoreSPU;
 
 @end
