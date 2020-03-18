@@ -49,6 +49,11 @@
     [self updatePasteboardTextInURLField];
 }
 
+- (BOOL)ubiquitousKeyStoreAvailable
+{
+    return [[NSFileManager defaultManager] ubiquityIdentityToken] != nil;
+}
+
 - (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification
 {
     /* TODO: don't blindly trust that the Cloud knows best */
@@ -71,24 +76,33 @@
                            selector:@selector(updateForTheme)
                                name:kVLCThemeDidChangeNotification
                              object:nil];
-    /* force store update */
-    NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousKeyValueStore synchronize];
 
-    /* fetch data from cloud */
-    _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
-    _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[[NSUbiquitousKeyValueStore defaultStore] dictionaryForKey:kVLCRecentURLTitles]];
+    if ([self ubiquitousKeyStoreAvailable]) {
+        APLog(@"%s: ubiquitous key store is available", __func__);
+        /* force store update */
+        NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+        [ubiquitousKeyValueStore synchronize];
 
-    /* merge data from local storage (aka legacy VLC versions) */
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *localRecentUrls = [defaults objectForKey:kVLCRecentURLs];
-    if (localRecentUrls != nil) {
-        if (localRecentUrls.count != 0) {
-            [_recentURLs addObjectsFromArray:localRecentUrls];
-            [defaults setObject:nil forKey:kVLCRecentURLs];
-            [ubiquitousKeyValueStore setArray:_recentURLs forKey:kVLCRecentURLs];
-            [ubiquitousKeyValueStore synchronize];
+        /* fetch data from cloud */
+        _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+        _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[[NSUbiquitousKeyValueStore defaultStore] dictionaryForKey:kVLCRecentURLTitles]];
+
+        /* merge data from local storage (aka legacy VLC versions) */
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *localRecentUrls = [defaults objectForKey:kVLCRecentURLs];
+        if (localRecentUrls != nil) {
+            if (localRecentUrls.count != 0) {
+                [_recentURLs addObjectsFromArray:localRecentUrls];
+                [defaults setObject:nil forKey:kVLCRecentURLs];
+                [ubiquitousKeyValueStore setArray:_recentURLs forKey:kVLCRecentURLs];
+                [ubiquitousKeyValueStore synchronize];
+            }
         }
+    } else {
+        APLog(@"%s: ubiquitous key store is not available", __func__);
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        _recentURLs = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCRecentURLs]];
+        _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:kVLCRecentURLTitles]];
     }
 
     /*
@@ -222,7 +236,11 @@
         if (_recentURLs.count >= 100)
             [_recentURLs removeLastObject];
         [_recentURLs addObject:urlString];
-        [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
+        if ([self ubiquitousKeyStoreAvailable]) {
+            [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setObject:_recentURLs forKey:kVLCRecentURLs];
+        }
 
         [self.historyTableView reloadData];
     }
@@ -267,10 +285,14 @@
 - (void)renameStreamWithTitle:(NSString *)title atIndex:(NSInteger)index
 {
     [_recentURLTitles setObject:title forKey:[@(index) stringValue]];
-    [[NSUbiquitousKeyValueStore defaultStore] setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }];
+    if ([self ubiquitousKeyStoreAvailable]) {
+        [[NSUbiquitousKeyValueStore defaultStore] setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:_recentURLTitles forKey:kVLCRecentURLTitles];
+    }
 }
 
 #pragma mark - table view data source
@@ -323,8 +345,16 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_recentURLs removeObjectAtIndex:indexPath.row];
         [_recentURLTitles removeObjectForKey:[@(indexPath.row) stringValue]];
-        [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
-        [[NSUbiquitousKeyValueStore defaultStore] setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
+        if ([self ubiquitousKeyStoreAvailable]) {
+            NSUbiquitousKeyValueStore *keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+            [keyValueStore setArray:_recentURLs forKey:kVLCRecentURLs];
+            [keyValueStore setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
+        } else {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:_recentURLs forKey:kVLCRecentURLs];
+            [userDefaults setObject:_recentURLTitles forKey:kVLCRecentURLTitles];
+        }
+
         [tableView reloadData];
     }
 }
