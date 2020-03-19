@@ -769,12 +769,12 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     return nextIndex;
 }
 
-- (void)next
+- (BOOL)next
 {
     if (_mediaList.count == 1) {
         NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackForwardSkipLength];
         [_mediaPlayer jumpForward:skipLength.intValue];
-        return;
+        return YES;
     }
 
     NSInteger nextIndex = [self nextMediaIndex];
@@ -785,14 +785,15 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
             [[NSNotificationCenter defaultCenter]
              postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
         }
-        return;
+        return NO;
     }
 
     [_listPlayer playItemAtNumber:@(nextIndex)];
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
+    return YES;
 }
 
-- (void)previous
+- (BOOL)previous
 {
     if (_mediaList.count > 1) {
         [_listPlayer previous];
@@ -802,6 +803,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackBackwardSkipLength];
         [_mediaPlayer jumpBackward:skipLength.intValue];
     }
+    return YES;
 }
 
 
@@ -1280,20 +1282,17 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (void)remoteControlServiceHitStop:(VLCRemoteControlService *)rcs
 {
-    //TODO handle stop playback entirely
-    [_listPlayer stop];
+    [self stopPlayback];
 }
 
 - (BOOL)remoteControlServiceHitPlayNextIfPossible:(VLCRemoteControlService *)rcs
 {
-    //TODO This doesn't handle shuffle or repeat yet
-    return [_listPlayer next];
+    return [self next];
 }
 
 - (BOOL)remoteControlServiceHitPlayPreviousIfPossible:(VLCRemoteControlService *)rcs
 {
-    //TODO This doesn't handle shuffle or repeat yet
-    return [_listPlayer previous];
+    return [self previous];
 }
 
 - (void)remoteControlService:(VLCRemoteControlService *)rcs jumpForwardInSeconds:(NSTimeInterval)seconds
