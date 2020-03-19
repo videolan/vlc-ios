@@ -1,5 +1,21 @@
 # Changelog
 
+## iOS [3.2.7]
+
+· Fix streaming content on Google Drive
+· Re-add more granular playback speed control
+· Port subtitles support from tvOS
+· Fix uploads of media larger than 10 GB via WiFi
+· Fix storage of recent network streams without iCloud
+· Fix random playback control through lock screen
+· Add passcode protection for WiFi Sharing
+
+## tvOS [3.0.7]
+
+· Update codecs and networking libraries
+· Fix audio playback delay with external accessories
+· Minor UI improvements by deploying the current SDK
+
 ## iOS [3.2.6]
 
 · Fix media title display
