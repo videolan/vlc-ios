@@ -3,12 +3,18 @@
 ## iOS [3.2.7]
 
 · Fix streaming content on Google Drive
+· Add passcode protection for WiFi Sharing
 · Re-add more granular playback speed control
 · Port subtitles support from tvOS
+· Display file size information in Edit mode
+· Fix repeating media when shuffle is disabled
 · Fix uploads of media larger than 10 GB via WiFi
 · Fix storage of recent network streams without iCloud
 · Fix random playback control through lock screen
-· Add passcode protection for WiFi Sharing
+· Fix progress display for downloads via FTP
+· Fix missing Share sheet on iPad
+· Fix Chromecast button not to show in some cases 
+· Minor UI improvements and fixes
 
 ## tvOS [3.0.7]
 
