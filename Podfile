@@ -22,7 +22,7 @@ target 'VLC-iOS' do
   pod 'InAppSettingsKit', :git => 'git://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
   pod 'PAPasscode', '~>1.0'
   pod 'GoogleAPIClientForREST/Drive'
-  pod 'MobileVLCKit', '3.3.9'
+  pod 'MobileVLCKit', '3.3.10'
   pod 'VLCMediaLibraryKit', '0.6.3'
   pod 'MediaLibraryKit-prod'
   pod 'GTMAppAuth', '0.7.1'
@@ -44,7 +44,7 @@ target 'VLC-tvOS' do
   pod 'MetaDataFetcherKit', '~>0.3.1'
   pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
   pod 'GRKArrayDiff', '~> 2.1'
-  pod 'TVVLCKit', '3.3.9'
+  pod 'TVVLCKit', '3.3.10'
 end
 
 post_install do |installer_representation|
