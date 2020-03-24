@@ -48,7 +48,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     BOOL _isInFillToScreen;
     NSUInteger _previousAspectRatio;
-    
 
     UIView *_videoOutputViewWrapper;
     UIView *_actualVideoOutputView;
@@ -328,7 +327,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 }
 
 #if TARGET_OS_IOS
-
 - (void)restoreAudioAndSubtitleTrack
 {
     VLCMLMedia *media = [_delegate mediaForPlayingMedia:_mediaPlayer.media];
@@ -402,7 +400,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     return [[_mediaPlayer audioTrackIndexes] count] > 2 || [[_mediaPlayer videoTrackIndexes] count] >= 1;
 }
 
-- (BOOL) isSeekable
+- (BOOL)isSeekable
 {
     return _mediaPlayer.isSeekable;
 }
@@ -1342,12 +1340,12 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 }
 
 #pragma mark - Renderer
+
 - (void)setRenderer:(VLCRendererItem * __nullable)renderer
 {
     _renderer = renderer;
     [_mediaPlayer setRendererItem:_renderer];
 }
-
 
 #pragma mark - PlayerDisplayController
 
