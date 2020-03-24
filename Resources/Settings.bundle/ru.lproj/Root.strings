@@ -4,13 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Видео";
 "SETTINGS_AUDIO_TITLE" = "Звук";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_BRIGHT" = "Темная тема";
+"SETTINGS_THEME_DARK" = "Тёмная тема";
+"SETTINGS_THEME_SYSTEM" = "Автоматически";
 "SETTINGS_PRIVACY_SUBTITLE" = "Открыть настройки";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Защита доступа к вашему содержимому";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Внешний вид";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Изменение скорости звука";
 "SETTINGS_BACKGROUND_AUDIO" = "Звук в фоновом режиме";
 "SETTINGS_GENERIC_TITLE" = "Общее";
@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Спрашивать";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Всегда";
 "SETTINGS_NETWORK_PLAY_ALL" = "Автоматически воспроизводить следующую позицию";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Включить прокрутку текста в списке медиаобъектов";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Устранение блочности";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Не устранять блочность (быстрее)";
@@ -86,17 +87,17 @@
 "SETTINGS_SEND_FEEDBACK" = "Отправить отзыв";
 "SETTINGS_SEND_RATING" = "Пожалуйста, оцените VLC для IOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Медиа библиотека";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Пересканировать медиабиблиотеку VLC принудительно";
 "SETTINGS_DECRAPIFY" = "Оптимизация имен";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra long";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Длина префикса для группирования видео";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Короткие";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "По умолчанию";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Длинные";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Очень длинные";
+"SETTINGS_SHOW_THUMBNAILS" = "Показать пиктограммы видео ";
+"SETTINGS_SHOW_ARTWORKS" = "Показывать обложки для аудио";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Включить медиа библиотеку в резервное копирование устройства";
 
 "SETTINGS_FILE_SYNC" = "Синхронизация файлов";
 "SETTINGS_WIFISHARING_IPv6" = "Поддержка IPv6 встроенным сервером (по WiFi)";

@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_SUBTITLE" = "Cambia colori dell'applicazione";
+"SETTINGS_THEME_BRIGHT" = "Tema chiaro";
+"SETTINGS_THEME_DARK" = "Tema scuro";
+"SETTINGS_THEME_SYSTEM" = "Automatico";
 "SETTINGS_PRIVACY_SUBTITLE" = "Apri in Impostazioni";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Rendi sicuro l'accesso ai tuoi contenuti";
 
-"SETTINGS_DARKTHEME" = "Tema scuro";
+"SETTINGS_DARKTHEME" = "Aspetto";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio dilatato temporalmente";
 "SETTINGS_BACKGROUND_AUDIO" = "Riproduzione audio in sottofondo";
 "SETTINGS_GENERIC_TITLE" = "Generico";
 "SETTINGS_PASSCODE_LOCK" = "Blocco con codice di sicurezza";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Consenti Touch ID per lo sblocco";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Consenti Face ID per lo sblocco";
-"SETTINGS_DECRAPIFY" = "Ottimizza i nome degli elementi per la visualizzazione";
 "SETTINGS_VIDEO_FULLSCREEN" = "Riproduci video a schermo intero";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continua la riproduzione del video";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continua la riproduzione dell'audio";
@@ -23,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Chiedi";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sempre";
 "SETTINGS_NETWORK_PLAY_ALL" = "Riproduci automaticamente il prossimo brano";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Abilita lo scorrimento del testo nell'elenco dei media";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtro di deblock";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Nessun deblock (più veloce)";
@@ -84,6 +86,18 @@
 "SETTINGS_FEEDBACK" = "Segnalazione";
 "SETTINGS_SEND_FEEDBACK" = "Invia segnalazione";
 "SETTINGS_SEND_RATING" = "Valuta VLC per iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Raccolta multimediale";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forza VLC a eseguire una nuova scansione della raccolta ";
+"SETTINGS_DECRAPIFY" = "Ottimizza i nome degli elementi per la visualizzazione";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Durata rilevamento dei gruppi di video";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Breve";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Predefinita";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Lunga";
+"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Molto lunga";
+"SETTINGS_SHOW_THUMBNAILS" = "Mostra miniature dei video";
+"SETTINGS_SHOW_ARTWORKS" = "Mostra copertine audio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Includi la raccolta multimediale nel backup del dispositivo";
 
 "SETTINGS_FILE_SYNC" = "Sincronizzazione file";
 "SETTINGS_WIFISHARING_IPv6" = "Supporto IPv6 per condivisione WiFi";

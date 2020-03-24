@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Питати";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Завжди";
 "SETTINGS_NETWORK_PLAY_ALL" = "Автоматично відтворювати наступний елемент";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Увімкнути прокручування тексту у списку медіа";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Фільтр деблокування";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Без деблокування (найшвидше)";

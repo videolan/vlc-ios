@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "שאל";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "תמיד";
 "SETTINGS_NETWORK_PLAY_ALL" = "לנגן אוטומטית את הפריט הבא";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "הפעלת גלילת טקסט ברשימת המדיה";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "דיבלוק (Deblocking) פילטר";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "ללא טשטוש גבולות ריבועים (הכי מהיר)";

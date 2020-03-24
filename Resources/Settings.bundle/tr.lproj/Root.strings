@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Sorulsun";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Her zaman";
 "SETTINGS_NETWORK_PLAY_ALL" = "Sonraki öge otomatik olarak oynatılsın";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Ortam listesinde metin kaydırılabilsin";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Engel kaldırma süzgeci";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Engel kaldırma yok (en hızlı)";

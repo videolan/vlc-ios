@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Vragen";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Altijd";
 "SETTINGS_NETWORK_PLAY_ALL" = "Volgend item automatisch afspelen";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Scrollen van tekst in medialijst inschakelen";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblocking-filter";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Geen deblocking (snelste)";

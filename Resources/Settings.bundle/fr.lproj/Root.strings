@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Demander";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Toujours";
 "SETTINGS_NETWORK_PLAY_ALL" = "Jouer automatiquement l'élément suivant";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Activer le défilement du texte dans la liste des médias";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtre anti-blocs";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Sans anti-blocs (plus rapide)";

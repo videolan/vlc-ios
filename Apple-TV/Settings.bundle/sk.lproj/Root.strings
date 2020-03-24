@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Opýtať sa";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Vždy";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automaticky prehrať ďalšiu položku";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Zapnúť rolovanie textu v zozname médií";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblokovací filter";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Žiadne deblokovanie (najrýchlejšie)";
