@@ -113,7 +113,12 @@
     UITabBarItem *tabBarItemApprearance = [UITabBarItem appearanceWhenContainedInInstancesOfClasses:@[[VLCPlaybackInfoTVTabBarController class]]];
     NSDictionary *attributesSelected = @{NSForegroundColorAttributeName : [UIColor colorWithWhite:0.75 alpha:1.0]};
     [tabBarItemApprearance setTitleTextAttributes:attributesSelected forState:UIControlStateSelected];
-    NSDictionary *attributesFocused = @{NSForegroundColorAttributeName : [UIColor blackColor]};
+    NSDictionary *attributesFocused;
+    if (@available(tvOS 13.0, *)) {
+        attributesFocused = @{NSForegroundColorAttributeName : [UIColor blackColor]};
+    } else {
+        attributesFocused = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    }
     [tabBarItemApprearance setTitleTextAttributes:attributesFocused forState:UIControlStateFocused];
 }
 
