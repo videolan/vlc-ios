@@ -98,7 +98,7 @@ DEPENDENCIES:
   - InAppSettingsKit (from `git://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
   - MediaLibraryKit-prod
-  - MetaDataFetcherKit (~> 0.3.1)
+  - MetaDataFetcherKit (~> 0.3.2)
   - MobileVLCKit (= 3.3.10)
   - ObjectiveDropboxOfficial (from `git://github.com/Mikanbu/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
@@ -204,6 +204,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 9d2a51ef174b62d56ac8f5317d6b8a38f9b732b5
+PODFILE CHECKSUM: 396d35a9ff18f9beabf82319fc024fd7be4e9cbc
 
 COCOAPODS: 1.8.4
