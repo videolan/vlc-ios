@@ -2,7 +2,7 @@
  * VLCTrackSelectorTableViewCell.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2014-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2014-2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -13,6 +13,15 @@
 #import "VLCTrackSelectorTableViewCell.h"
 
 @implementation VLCTrackSelectorTableViewCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self prepareForReuse];
+    }
+    return self;
+}
 
 - (void)setShowsCurrentTrack
 {
