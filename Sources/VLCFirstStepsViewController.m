@@ -70,8 +70,9 @@
 {
     self.view.backgroundColor = PresentationTheme.current.colors.background;
     if (@available(iOS 13.0, *)) {
-        self.navigationController.navigationBar.standardAppearance = [VLCAppearanceManager navigationbarAppearance];
-        self.navigationController.navigationBar.scrollEdgeAppearance = [VLCAppearanceManager navigationbarAppearance];
+        UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
+        self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
+        self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
     }
 }
 
