@@ -30,7 +30,7 @@ class AddToCollectionViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
 
     private let cellHeight: CGFloat = 56
-    private let sidePadding: CGFloat = 20
+    private let sidePadding: CGFloat = 10
     private var collectionModelType: MediaCollectionModel.Type?
 
     var mlCollection = [MediaCollectionModel]()
