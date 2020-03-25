@@ -40,6 +40,9 @@
 #import "VLCWiFiUploadTableViewCell.h"
 
 #import "VLCBoxController.h"
+#import <OneDriveSDK.h>
+#import "VLCOneDriveConstants.h"
+#import "VLCDropboxConstants.h"
 
 #import "VLC-Swift.h"
 
@@ -73,6 +76,7 @@
 - (void)loadView
 {
     [super loadView];
+    [self configureCloudControllers];
 
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -187,12 +191,6 @@
 
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
     _discoveryController.delegate = self;
-
-    VLCBoxController *boxController = [VLCBoxController sharedInstance];
-    // Start Box session on init to check whether it is logged in or not as soon as possible
-    [boxController startSession];
-    // Request directory listing to check authorization
-    [boxController requestDirectoryListingAtPath:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -242,6 +240,21 @@
 
     if (loginViewController.navigationItem.leftBarButtonItem == nil)
         loginViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIBarButtonItemStylePlain target:self action:@selector(_dismissLogin)];
+}
+
+- (void)configureCloudControllers
+{
+    VLCBoxController *boxController = [VLCBoxController sharedInstance];
+    // Start Box session on init to check whether it is logged in or not as soon as possible
+    [boxController startSession];
+    // Request directory listing to check authorization
+    [boxController requestDirectoryListingAtPath:nil];
+
+    // Configure Dropbox
+    [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
+
+    // Configure OneDrive
+    [ODClient setMicrosoftAccountAppId:kVLCOneDriveClientID scopes:@[@"onedrive.readwrite", @"offline_access"]];
 }
 
 - (void)boxSessionUpdated

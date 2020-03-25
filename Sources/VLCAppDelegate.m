@@ -30,8 +30,6 @@
 #import "VLCPlaybackNavigationController.h"
 #import "PAPasscodeViewController.h"
 #import "VLC-Swift.h"
-#import <OneDriveSDK.h>
-#import "VLCOneDriveConstants.h"
 
 #import <AppCenter/AppCenter.h>
 #import <AppCenterAnalytics/AppCenterAnalytics.h>
@@ -110,11 +108,6 @@
                                                                               [MSAnalytics class],
                                                                               [MSCrashes class]
                                                                               ]];
-    // Configure Dropbox
-    [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
-
-    // Configure OneDrive
-    [ODClient setMicrosoftAccountAppId:kVLCOneDriveClientID scopes:@[@"onedrive.readwrite", @"offline_access"]];
 
     self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
 
