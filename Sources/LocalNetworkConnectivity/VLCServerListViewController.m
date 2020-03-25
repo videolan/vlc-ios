@@ -2,7 +2,7 @@
  * VLCLocalServerListViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -64,7 +64,6 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-
     if (self) {
         [self setupUI];
     }
@@ -169,9 +168,10 @@
 {
     [super viewDidLoad];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boxSessionUpdated) name:VLCBoxControllerSessionUpdated object:nil];
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(boxSessionUpdated) name:VLCBoxControllerSessionUpdated object:nil];
     [self themeDidChange];
     NSArray *browserClasses = @[
                                 [VLCLocalNetworkServiceBrowserUPnP class],
@@ -188,10 +188,11 @@
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
     _discoveryController.delegate = self;
 
+    VLCBoxController *boxController = [VLCBoxController sharedInstance];
     // Start Box session on init to check whether it is logged in or not as soon as possible
-    [[VLCBoxController sharedInstance] startSession];
+    [boxController startSession];
     // Request directory listing to check authorization
-    [[VLCBoxController sharedInstance] requestDirectoryListingAtPath:nil];
+    [boxController requestDirectoryListingAtPath:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
