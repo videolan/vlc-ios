@@ -67,11 +67,6 @@
 
     if (self) {
         [self setupUI];
-
-        // Start Box session on init to check whether it is logged in or not as soon as possible
-        [[VLCBoxController sharedInstance] startSession];
-        // Request directory listing to check authorization
-        [[VLCBoxController sharedInstance] requestDirectoryListingAtPath:nil];
     }
     return self;
 }
@@ -192,6 +187,11 @@
 
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
     _discoveryController.delegate = self;
+
+    // Start Box session on init to check whether it is logged in or not as soon as possible
+    [[VLCBoxController sharedInstance] startSession];
+    // Request directory listing to check authorization
+    [[VLCBoxController sharedInstance] requestDirectoryListingAtPath:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
