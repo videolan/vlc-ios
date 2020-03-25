@@ -131,7 +131,7 @@ NSString *VLCAppCenterAppID = @"0114ca8e-2652-44ce-588d-2ebd035c3577";
     rootViewController = [UITabBarController new];
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
-    [VLCApperanceManager setupAppearanceWithTheme:PresentationTheme.current];
+    [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
     [self setupApplicationCoordinator];
 
     [self configureShortCutItemsWithApplication:application];

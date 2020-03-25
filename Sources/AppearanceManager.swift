@@ -11,7 +11,7 @@
  *****************************************************************************/
 import UIKit
 
-@objc(VLCApperanceManager)
+@objc(VLCAppearanceManager)
 class AppearanceManager: NSObject {
 
     @objc class func setupAppearance(theme: PresentationTheme = PresentationTheme.current) {

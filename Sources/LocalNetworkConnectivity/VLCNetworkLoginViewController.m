@@ -72,8 +72,8 @@
                                               style:UIBarButtonItemStyleDone target:self
                                               action:@selector(connectLoginDataSource)];
     if (@available(iOS 13.0, *)) {
-        self.navigationController.navigationBar.standardAppearance = [VLCApperanceManager navigationbarAppearance];
-        self.navigationController.navigationBar.scrollEdgeAppearance = [VLCApperanceManager navigationbarAppearance];
+        self.navigationController.navigationBar.standardAppearance = [VLCAppearanceManager navigationbarAppearance];
+        self.navigationController.navigationBar.scrollEdgeAppearance = [VLCAppearanceManager navigationbarAppearance];
     }
 }
 
