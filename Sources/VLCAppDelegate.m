@@ -18,22 +18,13 @@
  *****************************************************************************/
 
 #import "VLCAppDelegate.h"
-#import "VLCMediaFileDiscoverer.h"
-#import "NSString+SupportedMedia.h"
-#import "UIDevice+VLC.h"
-#import "VLCHTTPUploaderController.h"
-#import "VLCPlaybackService.h"
-#import "VLCPlaybackService+MediaLibrary.h"
-#import <MediaPlayer/MediaPlayer.h>
-#import "VLCActivityManager.h"
-#import "VLCDropboxConstants.h"
-#import "VLCPlaybackNavigationController.h"
-#import "PAPasscodeViewController.h"
 #import "VLC-Swift.h"
 
 #import <AppCenter/AppCenter.h>
 #import <AppCenterAnalytics/AppCenterAnalytics.h>
 #import <AppCenterCrashes/AppCenterCrashes.h>
+
+NSString *VLCAppCenterAppID = @"0114ca8e-2652-44ce-588d-2ebd035c3577";
 
 #define BETA_DISTRIBUTION 1
 
@@ -93,7 +84,7 @@
     [defaults registerDefaults:appDefaults];
 }
 
-- (void)setup
+- (void)setupApplicationCoordinator
 {
     void (^setupAppCoordinator)(void) = ^{
         self->appCoordinator = [[AppCoordinator alloc] initWithTabBarController:self->rootViewController];
@@ -102,22 +93,8 @@
     [self validatePasscodeIfNeededWithCompletion:setupAppCoordinator];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (void)configureShortCutItemsWithApplication:(UIApplication *)application
 {
-    [MSAppCenter start:@"0114ca8e-2652-44ce-588d-2ebd035c3577" withServices:@[
-                                                                              [MSAnalytics class],
-                                                                              [MSCrashes class]
-                                                                              ]];
-
-    self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
-
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    rootViewController = [UITabBarController new];
-    self.window.rootViewController = rootViewController;
-    [self.window makeKeyAndVisible];
-    [VLCApperanceManager setupAppearanceWithTheme:PresentationTheme.current];
-    [self setup];
-
     /* add our static shortcut items the dynamic way to ease l10n and dynamic elements to be introduced later */
     if (application.shortcutItems == nil || application.shortcutItems.count < 4) {
         UIApplicationShortcutItem *localVideoItem = [[UIApplicationShortcutItem alloc] initWithType:kVLCApplicationShortcutLocalVideo
@@ -142,6 +119,22 @@
                                                                                         userInfo:nil];
         application.shortcutItems = @[localVideoItem, localAudioItem, localplaylistItem, networkItem];
     }
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [MSAppCenter start:VLCAppCenterAppID withServices:@[[MSAnalytics class], [MSCrashes class]]];
+
+    self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    rootViewController = [UITabBarController new];
+    self.window.rootViewController = rootViewController;
+    [self.window makeKeyAndVisible];
+    [VLCApperanceManager setupAppearanceWithTheme:PresentationTheme.current];
+    [self setupApplicationCoordinator];
+
+    [self configureShortCutItemsWithApplication:application];
 
     return YES;
 }
