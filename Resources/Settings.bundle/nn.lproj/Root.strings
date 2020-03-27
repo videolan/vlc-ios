@@ -4,13 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Lyd";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_BRIGHT" = "Lyst tema";
+"SETTINGS_THEME_DARK" = "Mørkt tema";
+"SETTINGS_THEME_SYSTEM" = "Automatisk";
 "SETTINGS_PRIVACY_SUBTITLE" = "Opna i innstillingar";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Trygg tilgange til innhaldet ditt";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Utsjånad";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tidsutstrekt lyd";
 "SETTINGS_BACKGROUND_AUDIO" = "Lydavspeling i bakgrunnen";
 "SETTINGS_GENERIC_TITLE" = "Allmenn";
@@ -18,34 +18,35 @@
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Tillat «Touch ID» for opplåsing";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Tillat «Face ID» for opplåsing";
 "SETTINGS_VIDEO_FULLSCREEN" = "Spel av video i fullskjerm";
-"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Hald fram videoavspeling";
-"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Hald fram lydavspeling";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Fortset videoavspeling";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Fortset lydavspeling";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Aldri";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Spør";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Alltid";
-"SETTINGS_NETWORK_PLAY_ALL" = "Automatisk spel neste element";
+"SETTINGS_NETWORK_PLAY_ALL" = "Automatisk spel neste";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
-"SETTINGS_SKIP_LOOP_FILTER" = "Deblocking filter";
-"SETTINGS_SKIP_LOOP_FILTER_NONE" = "No deblocking (fastest)";
-"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Medium deblocking";
-"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Low deblocking";
+"SETTINGS_SKIP_LOOP_FILTER" = "Avblokkeringsfilter";
+"SETTINGS_SKIP_LOOP_FILTER_NONE" = "Inga avblokkering (raskast)";
+"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Middels avblokkering";
+"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Låg avblokkering";
 
-"SETTINGS_NETWORK_CACHING_TITLE" = "Network Caching Level";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lowest Latency";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Low Latency";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Snøgglagernivå for nettverk";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lågast ventetid";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Låg ventetid";
 "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High Latency";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Høg ventetid";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Høgast ventetid";
 
-"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Default playback speed";
+"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Standard avspelingsfart";
 
-"SETTINGS_GESTURES" = "Control playback with gestures";
-"SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
-"SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
-"SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
-"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
+"SETTINGS_GESTURES" = "Kontroller avspeling med tastaturgestar";
+"SETTINGS_GESTURES_VOLUME" = "Sveip opp/ned for lydstyrke";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Tofinger-trykk for spel/pause";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Sveip opp/ned for lysstyrke";
+"SETTINGS_GESTURES_SEEK" = "Sveip høgre/venstre for å søkja";
+"SETTINGS_GESTURES_CLOSE" = "Knip for å lukka";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Variabel hopplengde";
 
 "SETTINGS_SUBTITLES_TITLE" = "Undertekstar";
 "SETTINGS_SUBTITLES_FONT" = "Skrift";
@@ -67,8 +68,8 @@
 "SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Gul";
 "SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Grøn";
 "SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Marine";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Outline Thickness";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Ingen";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Linjetjukn";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Inga";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Tynn";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normal";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Tjukk";
@@ -86,17 +87,12 @@
 "SETTINGS_SEND_FEEDBACK" = "Send tilbakemelding";
 "SETTINGS_SEND_RATING" = "Vurder VLC for iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Mediebibliotek";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Tving VLC til å søkja gjennom mediebiblioteket på nytt.";
 "SETTINGS_DECRAPIFY" = "Optimer elementnamn for vising";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra long";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_SHOW_THUMBNAILS" = "Vis videominiatyrbilde";
+"SETTINGS_SHOW_ARTWORKS" = "Vis plateomslag";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inkluder mediebilioteket ved tryggingskopiering av eining";
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-støtte for WiFi-deling";
