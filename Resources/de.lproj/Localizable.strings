@@ -317,7 +317,7 @@
 "ARTISTS" = "Künstler";
 "EPISODES" = "Episoden";
 "GENRES" = "Genres";
-"MOVIES" = "Filme";
+"ALL_VIDEOS" = "Alle Videos";
 "SONGS" = "Lieder";
 "PLAYLISTS" = "Wiedergabelisten";
 "VIDEO_GROUPS" = "Videogruppen";
@@ -410,3 +410,25 @@
 /* Preview labels */
 
 "ENCODING" = "Codierung";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Zur Mediengruppe hinzufügen";
+"ADD_TO_MEDIA_GROUP_HINT" = "Menü zur Mediengruppe hinzufügen öffnen";
+
+"MEDIA_GROUPS" = "Mediengruppen";
+"MEDIA_GROUPS_DESCRIPTION" = "Wählen Sie einen Titel für die neue Mediengruppe";
+"MEDIA_GROUPS_PLACEHOLDER" = "Titel der Mediengruppe";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Aus Mediengruppe entfernen";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Auswahl aus der Mediengruppe entfernen";
+
+"MEDIA_GROUP_CREATION" = "Neue Mediengruppe";
+"MEDIA_GROUP_CREATION_HINT" = "Warnung anzeigen, um eine Wiedergabeliste zu erstellen";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Inhalt auf die oberste Ebene verschieben";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Verschiebt den Inhalt der Auswahl auf die oberste Ebene";
+
+"BUTTON_REGROUP" = "Umgruppieren";
+"BUTTON_REGROUP_TITLE" = "Auswahl umgruppieren";
+"BUTTON_REGROUP_HINT" = "Einzelne Medien werden automatisch versucht, neu gruppiert zu werden.";
+"BUTTON_REGROUP_DESCRIPTION" = "Sind Sie sicher, es zu versuchen, einzelne Medien automatisch neu zu gruppieren?\nDies kann einige Zeit dauern.";
