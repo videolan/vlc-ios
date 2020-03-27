@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Tanyakan";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Selalu";
 "SETTINGS_NETWORK_PLAY_ALL" = "Putar otomatis item selanjutnya";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filter Awablok";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Tidak ada awablok (tercepat)";
@@ -89,11 +90,6 @@
 "SETTINGS_MEDIA_LIBRARY" = "Media library";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "Optimalisasi nama item untuk tampilan";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra long";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
