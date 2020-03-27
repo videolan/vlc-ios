@@ -90,11 +90,6 @@
 "SETTINGS_MEDIA_LIBRARY" = "Медиа библиотека";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Пересканировать медиабиблиотеку VLC принудительно";
 "SETTINGS_DECRAPIFY" = "Оптимизация имен";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Длина префикса для группирования видео";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Короткие";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "По умолчанию";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Длинные";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Очень длинные";
 "SETTINGS_SHOW_THUMBNAILS" = "Показать пиктограммы видео ";
 "SETTINGS_SHOW_ARTWORKS" = "Показывать обложки для аудио";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Включить медиа библиотеку в резервное копирование устройства";
