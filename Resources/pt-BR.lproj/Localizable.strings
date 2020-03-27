@@ -317,7 +317,7 @@
 "ARTISTS" = "Artistas";
 "EPISODES" = "Episódios";
 "GENRES" = "Gêneros";
-"MOVIES" = "Filmes";
+"ALL_VIDEOS" = "Todos os vídeos";
 "SONGS" = "Músicas";
 "PLAYLISTS" = "Listas de Reprodução";
 "VIDEO_GROUPS" = "Grupos de vídeo";
@@ -410,3 +410,25 @@
 /* Preview labels */
 
 "ENCODING" = "Codificando";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Adicionar ao grupo de mídias";
+"ADD_TO_MEDIA_GROUP_HINT" = "Abrir o menu adicionar ao grupo de mídias";
+
+"MEDIA_GROUPS" = "Grupos de mídias";
+"MEDIA_GROUPS_DESCRIPTION" = "Escolha um título para o seu novo grupo de mídias";
+"MEDIA_GROUPS_PLACEHOLDER" = "Título do grupo de mídias";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Excluir do grupo de mídias";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Excluir seleção do grupo de mídias";
+
+"MEDIA_GROUP_CREATION" = "Novo grupo de mídias";
+"MEDIA_GROUP_CREATION_HINT" = "Exibir alerta para criar uma lista de reprodução";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Mover conteúdo para o nível mais alto";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Move o conteúdo da seleção para o nível mais alto";
+
+"BUTTON_REGROUP" = "Reagrupar";
+"BUTTON_REGROUP_TITLE" = "Reagrupar seleção";
+"BUTTON_REGROUP_HINT" = "Tenta reagrupar automaticamente uma mídia.";
+"BUTTON_REGROUP_DESCRIPTION" = "Tem certeza de que deseja reagrupar automaticamente mídias individuais?\nPode levar algum tempo.";
