@@ -22,12 +22,12 @@
 "ONE_AUDIO_TRACK" = "مسار واحد";
 "FORMAT_SPU_TRACKS" = "%i مسار للترجمة";
 "ONE_SPU_TRACK" = "مسار ترجمة واحد";
-"TRACKS" = "%i Tracks";
-"TRACK" = "%i Track";
+"TRACKS" = "%i مقاطع";
+"TRACK" = "%i مقطع";
 
 "PLAYING_EXTERNALLY_TITLE" = "التّلفاز متصل";
 "PLAYING_EXTERNALLY_DESC" = "شُغّلت هذه المرئية على التّلفاز";
-"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
+"PLAYING_EXTERNALLY_ADDITION" = "يشتغل الآن على:"; /* \n should stay in every translation */
 
 "VFILTER_HUE" = "الألوان";
 "VFILTER_CONTRAST" = "التّباين";
@@ -48,11 +48,11 @@
 "SPU_DELAY" = "تأخير الترجمات";
 "AUDIO_DELAY" = "تأخير الصوت";
 "BUTTON_SLEEP_TIMER" = "مؤقّت النّوم";
-"SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
+"SLEEP_TIMER_UPDATED" = "تم تحديث مؤقت النوم";
 "CONTINUE_PLAYBACK" = "مواصلة التشغيل؟";
 "CONTINUE_PLAYBACK_LONG" = "هل ترغب بمواصلة التشغيل \"%@\" من مكان التوقف السابق؟";
 
-"BUTTON_ABOUT" = "About";
+"BUTTON_ABOUT" = "حول";
 "BUTTON_BACK" = "الخلف";
 "BUTTON_DONE" = "تمّ";
 "BUTTON_CANCEL" = "ألغِ";
@@ -66,13 +66,13 @@
 "BUTTON_LEARN_MORE" = "لمزيدٍ من المعلومات";
 "BUTTON_LOGOUT" = "تسجيل الخروج";
 "BUTTON_CONTINUE" = "استمرار";
-"BUTTON_SET" = "Set";
-"BUTTON_RESET" = "Reset";
-"BUTTON_RESCAN" = "Rescan";
+"BUTTON_SET" = "ضبط";
+"BUTTON_RESET" = "أعد الضبط";
+"BUTTON_RESCAN" = "أعد البحث";
 "PRIVATE_PLAYBACK_TOGGLE" = "تشغيل خاص";
 "SCAN_SUBTITLE_TOGGLE" = "البحث عن ملفات ترجمة (خدمة http فقط)";
 
-"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER" = "إنشاء الأجهزة";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "تحديث قائمة الوسائط";
@@ -97,12 +97,12 @@
 "ERROR_NUMBER" = "حدث الخطأ %i";
 "DOWNLOAD_FAILED" = "فشل التّنزيل";
 "FILE_NOT_SUPPORTED" = "صيغة الملف غير مدعومة";
-"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"FILE_NOT_SUPPORTED_LONG" = "صيغة الملف %@ غير مدعمة في هذه الإصدارة من VLC لـ iOS.";
 "SCHEME_NOT_SUPPORTED" = "مسار العنوان غير مدعوم";
 "SCHEME_NOT_SUPPORTED_LONG" = "مسار العنوان (%@) غير مدعوم. رجاءً استخدم عنواناً يبدأ ب HTTP أو HTTPS أو FTP.";
 "RENAME_MEDIA_TO" = "أعد التسمية ل  %@";
 
-"FOLDER_EMPTY" = "Empty folder";
+"FOLDER_EMPTY" = "مجلد فارغ";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "اختر ملفا لفتحه";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "افتح في";
@@ -114,10 +114,10 @@
 "DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
-"NETWORK" = "Network";
+"NETWORK" = "شبكة";
 "LOCAL_NETWORK" = "الشّبكة المحلية";
 "CONNECT_TO_SERVER" = "اتّصل إلى الخادوم";
-"FILE_SERVER" = "File Servers";
+"FILE_SERVER" = "خوادم الملفات";
 "USER_LABEL" = "المُستخدم";
 "PASSWORD_LABEL" = "كلمة المرور";
 "DISABLE_LABEL" = "معطّل";
@@ -131,8 +131,8 @@
 "CLOUD_SERVICES" = "الخدمات السحابية";
 "LOGIN" = "تسجيل الدخول";
 "LOGGED_IN" = "متصل";
-"LOGGED_IN_SERVICES" = "%d logged in services";
-"LOGGED_IN_SERVICE" = "1 logged in service";
+"LOGGED_IN_SERVICES" = "%dدخل في الخدمة";
+"LOGGED_IN_SERVICE" = "1 دخل في الخدمة";
 
 "DROPBOX_DOWNLOAD" = "أأنزّل الملف؟";
 "DROPBOX_DL_LONG" = "هل ترغب بتنزيل \"%@\" إلى %@؟";
@@ -159,17 +159,17 @@
 //PAPasscode Strings that we need to localize for them
 "%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
 "1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "Change Passcode";
-"Enter Passcode" = "Enter Passcode";
-"Enter a passcode" = "Enter a passcode";
-"Enter your new passcode" = "Enter your new passcode";
-"Enter your old passcode" = "Enter your old passcode";
-"Enter your passcode" = "Enter your passcode";
-"Next" = "Next";
-"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
-"Re-enter your new passcode" = "Re-enter your new passcode";
-"Re-enter your passcode" = "Re-enter your passcode";
-"Set Passcode" = "Set Passcode";
+"Change Passcode" = "غير رمز المرور";
+"Enter Passcode" = "أدخل رمز المرور";
+"Enter a passcode" = "أدخل رمز المرور";
+"Enter your new passcode" = "أدخل رمز المرور الجديد";
+"Enter your old passcode" = "أدخل رمز المرور القديم";
+"Enter your passcode" = "أدخل رمزك المرور";
+"Next" = "التالي";
+"Passcodes did not match. Try again." = "رمز المرور غير متطابق. حاول مجددا.";
+"Re-enter your new passcode" = "أعِد إدخال رمز مرورك الجديد";
+"Re-enter your passcode" = "أعِد إدخال رمز مرورك ";
+"Set Passcode" = "اضبط رمز المرور";
 
 "Settings" = "الإعدادات"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "مفعل";
@@ -178,7 +178,7 @@
 "EMPTY_LIBRARY" = "أفرِغ مكتبة الوسائط";
 "EMPTY_LIBRARY_LONG" = "لغرض التشغيل، يمكنك بث المرئيات من خادم على شبكتك المحلية، إما بالتخزين السحابي أو بالمزامنة المرئية مع جهازك مستخدماً تطبيق iTunes أو عبر التحميل بالشبكة اللاسلكية أو عبر الخدمات السحابية.";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST" = "قائمة تشغيل فارِغة";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "مرر إصبعك للأسفل لتضبط نسبة التّنقية.";
@@ -194,8 +194,8 @@
 "BWD_BUTTON" = "اقفز إلى الخلف";
 "FWD_BUTTON" = "اقفز إلى الأمام";
 "PLAY_BUTTON" = "شغل";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
+"NEXT_BUTTON" = "التالي";
+"PREV_BUTTON" = "السابق";
 "PLAY_ALL_BUTTON" = "تشغيل الكل";
 
 "VERSION_FORMAT" = "الإصدار: %@";
@@ -211,7 +211,7 @@
 "VO_VIDEOPLAYER_DOUBLETAP" = "انقر مرّتين لإظهار أو إخفاء عناصر التّحكم بالتّشغيل";
 
 "FIRST_STEPS_ITUNES" = "تطبيق iTunes لمزامنة الملفات";
-"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_TITLE" = "مزامنة مع الحاسب";
 "FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
 "FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "ارسل الرابط بنجاح";
 "WEBINTF_URL_EMPTY" = "'الرابط لايمكن ان يكون فارغاً.";
 "WEBINTF_URL_INVALID" = "لايوجد رابط فعّال.";
+"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
+"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
 
 
 
@@ -302,36 +305,36 @@
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "الإعدادات";
 
-"ERROR" = "Error";
-"OK" = "Ok";
-"SORT" = "Sort";
-"SORT_BY" = "Sort by";
-"SEARCH" = "Search";
-"VIDEO" = "Video";
+"ERROR" = "خطأ";
+"OK" = "حسنا";
+"SORT" = "فرز";
+"SORT_BY" = "افرز حسب…";
+"SEARCH" = "ابحث";
+"VIDEO" = "فيديو";
 
 // MediaViewController Swipable Header
-"ALBUMS" = "Albums";
-"ARTISTS" = "Artists";
-"EPISODES" = "Episodes";
-"GENRES" = "Genres";
-"MOVIES" = "Movies";
-"SONGS" = "Songs";
-"PLAYLISTS" = "Playlists";
+"ALBUMS" = "الألبومات";
+"ARTISTS" = "الفنانون";
+"EPISODES" = "الحلقات";
+"GENRES" = "الصنف";
+"ALL_VIDEOS" = "All videos";
+"SONGS" = "الأغاني";
+"PLAYLISTS" = "قوائم التّشغيل";
 "VIDEO_GROUPS" = "Video groups";
 
 "MODIFIED_DATE" = "Modified date";
-"NAME" = "Name";
+"NAME" = "الاسم";
 
 //EDIT
 
-"BUTTON_EDIT" = "Edit";
-"BUTTON_EDIT_HINT" = "Edit mode";
+"BUTTON_EDIT" = "تحرير";
+"BUTTON_EDIT_HINT" = "نمط التحرير";
 
-"ADD_TO_PLAYLIST" = "Add to Playlist";
-"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
+"ADD_TO_PLAYLIST" = "أضِف إلى قائمة التشغيل";
+"ADD_TO_PLAYLIST_HINT" = "أضفه إلى قائمة التشغيل";
 
-"PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
+"PLAYLIST_PLACEHOLDER" = "قائمة التشغيل";
+"PLAYLIST_DESCRIPTION" = "أدخل عنوانا لقائمة التشغيل الجديدة";
 "PLAYLIST_CREATION" = "Create a new playlist";
 "PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
 "ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
@@ -403,3 +406,29 @@
 "SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
 "SMBV1_CONTINUE" = "Continue with SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "Encoding";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Add to media group";
+"ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
+
+"MEDIA_GROUPS" = "Media groups";
+"MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
+"MEDIA_GROUPS_PLACEHOLDER" = "Media group title";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Remove from media group";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Remove selection from the media group";
+
+"MEDIA_GROUP_CREATION" = "New media group";
+"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+
+"BUTTON_REGROUP" = "Regroup";
+"BUTTON_REGROUP_TITLE" = "Regroup selection";
+"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
+"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
