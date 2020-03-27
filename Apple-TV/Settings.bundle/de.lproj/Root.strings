@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Hardware-Dekodierung";
 "SETTINGS_HWDECODING_ON" = "Ein";
 "SETTINGS_HWDECODING_OFF" = "Aus";
+"SETTINGS_CASTING" = "Streaming";
+"SETTINGS_PTCASTING" = "Audio-Passthrough (Audioweiterleitung)";
+"SETTINGS_PTCASTINGLONG" = "Lassen Sie Ihren Fernseher die Audio-Umwandlung verwalten";
 
 "SETTINGS_FEEDBACK" = "Bewertung";
 "SETTINGS_SEND_FEEDBACK" = "Bewertung senden";
@@ -90,11 +93,6 @@
 "SETTINGS_MEDIA_LIBRARY" = "Medienbibliothek";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC veranlassen, die Medienbibliothek erneut zu durchsuchen";
 "SETTINGS_DECRAPIFY" = "Optimierte Elementnamen";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Erkennungslänge der Videogruppen";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Kurz";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Standard";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Lang";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra lang";
 "SETTINGS_SHOW_THUMBNAILS" = "Video-Vorschau anzeigen";
 "SETTINGS_SHOW_ARTWORKS" = "Musik-Cover anzeigen";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Medienbibliothek in Gerätesicherung mit einbeziehen";
