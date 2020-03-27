@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Tanya";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sentiasa";
 "SETTINGS_NETWORK_PLAY_ALL" = "Main item berikutnya secara automatik";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Nyasekat penapis";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Tiada menyahsekat (terpantas)";
@@ -89,14 +90,9 @@
 "SETTINGS_MEDIA_LIBRARY" = "Pustaka media";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Paksa VLC mengimbas semula pustaka media";
 "SETTINGS_DECRAPIFY" = "Optimumkan nama item untuk paparan";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Tempoh pengesanan kumpulan video";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra long";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_SHOW_THUMBNAILS" = "Tunjuk lakaran kenit video";
+"SETTINGS_SHOW_ARTWORKS" = "Tunjuk kerja seni audio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Sertakan pustaka media dalam sandar peranti";
 
 "SETTINGS_FILE_SYNC" = "Penyegerakan Fail";
 "SETTINGS_WIFISHARING_IPv6" = "Sokongan IPv6 untuk Perkongsian WiFi";
