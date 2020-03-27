@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Preguntar";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Siempre";
 "SETTINGS_NETWORK_PLAY_ALL" = "Reproducir automáticamente la siguiente vez";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtro de desbloqueo";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Sin desbloqueo (el más rápido)";
@@ -89,11 +90,6 @@
 "SETTINGS_MEDIA_LIBRARY" = "Biblioteca de medios";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forzar a VLC re-escaneo de bibloteca";
 "SETTINGS_DECRAPIFY" = "Optimizar nombres de artículos para pantalla";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Detección de duración para grupos de vídeos";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Corto";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Predeterminado";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Largo";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra largo";
 "SETTINGS_SHOW_THUMBNAILS" = "Mostrar vista previa de vídeos";
 "SETTINGS_SHOW_ARTWORKS" = "Mostrar portada de audio";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
