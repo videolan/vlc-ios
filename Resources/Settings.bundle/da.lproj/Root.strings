@@ -7,7 +7,7 @@
 "SETTINGS_THEME_BRIGHT" = "Lyst tema";
 "SETTINGS_THEME_DARK" = "Mørkt tema";
 "SETTINGS_THEME_SYSTEM" = "Automatisk";
-"SETTINGS_PRIVACY_SUBTITLE" = "Åbn i indstillinger";
+"SETTINGS_PRIVACY_SUBTITLE" = "Åbn i Indstillinger";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Sikker adgang til dit indhold";
 
 "SETTINGS_DARKTHEME" = "Udseende";
@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Spørg";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Altid";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automatisk afspilning af næste emne";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Blokdelingsfilter";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Ingen blokdeling (hurtigst)";
@@ -89,11 +90,6 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediebibliotek";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Tving VLC til at genskanne mediebiblioteket";
 "SETTINGS_DECRAPIFY" = "Optimér emnenavne til skærm";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Længde på registrering af videogrupper";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Kort";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Standard";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Lang";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Ekstra lang";
 "SETTINGS_SHOW_THUMBNAILS" = "Vis videominiaturer";
 "SETTINGS_SHOW_ARTWORKS" = "Vis lydbilleder";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Medtag mediebiblioteket i enhedssikkerhedskopiering";
