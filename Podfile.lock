@@ -82,7 +82,7 @@ PODS:
   - TVVLCKit (3.3.10)
   - upnpx (1.4.3)
   - VLC-WhiteRaccoon (1.0.0)
-  - VLCMediaLibraryKit (0.6.3):
+  - VLCMediaLibraryKit (0.7.2):
     - MobileVLCKit
   - XKKeychain (1.0.1)
   - xmlrpc (2.3.4):
@@ -110,7 +110,7 @@ DEPENDENCIES:
   - TVVLCKit (= 3.3.10)
   - upnpx (~> 1.4.3)
   - VLC-WhiteRaccoon
-  - VLCMediaLibraryKit (= 0.6.3)
+  - VLCMediaLibraryKit (= 0.7.2)
   - XKKeychain (~> 1.0)
 
 SPEC REPOS:
@@ -200,10 +200,10 @@ SPEC CHECKSUMS:
   TVVLCKit: f638dcaf37a6ba4027161cbc27be86f0cb02d2f7
   upnpx: ad8791295befdc0a0702089daf067d21c76194fc
   VLC-WhiteRaccoon: 1e7e59b0568959135a89d09c416d1e11a5d9a986
-  VLCMediaLibraryKit: 7811e1da3a30c357908e13e8861a03d8238e1c7c
+  VLCMediaLibraryKit: da85675d49cd8697337613c0d6028c5e3894c036
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 59a41603748d1069fbfd93c22cc2309f154fc792
+PODFILE CHECKSUM: 9d2a51ef174b62d56ac8f5317d6b8a38f9b732b5
 
 COCOAPODS: 1.8.4
