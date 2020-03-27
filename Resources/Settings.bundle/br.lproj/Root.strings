@@ -6,11 +6,11 @@
 
 "SETTINGS_THEME_BRIGHT" = "Bright theme";
 "SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_SYSTEM" = "Emgefre";
 "SETTINGS_PRIVACY_SUBTITLE" = "Digeriñ en arventennoù";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Moned suraet betek hoc'h endalc'had";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Neuz";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Dic'hourdañ-amzerel aodio";
 "SETTINGS_BACKGROUND_AUDIO" = "Lenn aodio en drek-leur";
 "SETTINGS_GENERIC_TITLE" = "Generek";
@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Goulenn";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Dalc'hmat";
 "SETTINGS_NETWORK_PLAY_ALL" = "Lenn an elfenn da-heul ent emgefreek";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Sil enep-bloc'hoù";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Tamm enep-bloc'hoù (ar buanañ)";
@@ -86,14 +87,9 @@
 "SETTINGS_SEND_FEEDBACK" = "Kas evezhiadennoù";
 "SETTINGS_SEND_RATING" = "Notennit VLC evit iOS mar plij";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY" = "Levraoueg mediaoù";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "Gwellekaat anvioù an elfennoù evit skrammañ";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra long";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
