@@ -4,13 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Myndmerki";
 "SETTINGS_AUDIO_TITLE" = "Hljóð";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_BRIGHT" = "Ljóst þema";
+"SETTINGS_THEME_DARK" = "Dökkt þema";
+"SETTINGS_THEME_SYSTEM" = "Sjálfvirkt";
 "SETTINGS_PRIVACY_SUBTITLE" = "Opna í stillingum";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Tryggðu öruggt aðgengi að efninu þínu";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Útlit";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tímaaðlögun hljóðs (time streching)";
 "SETTINGS_BACKGROUND_AUDIO" = "Hljóðspilun í bakgrunni";
 "SETTINGS_GENERIC_TITLE" = "Algengt";
@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Spyrja";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Alltaf";
 "SETTINGS_NETWORK_PLAY_ALL" = "Spila næsta atriði sjálfkrafa";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Afblokkunarsía";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Engin afblokkun (hraðast)";
@@ -86,17 +87,12 @@
 "SETTINGS_SEND_FEEDBACK" = "Senda umsögn";
 "SETTINGS_SEND_RATING" = "Gefðu VLC fyrir iOS einkunn";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Margmiðlunarsafn";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Þvinga VLC til að endurskanna margmiðlunarsafnið";
 "SETTINGS_DECRAPIFY" = "Besta heiti atriða fyrir birtingu";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra long";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_SHOW_THUMBNAILS" = "Sýna smámyndir myndskeiða";
+"SETTINGS_SHOW_ARTWORKS" = "Sækja myndefni fyrir tónlist";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Taka margmiðlunarsafnið með í öryggisafritun tækisins";
 
 "SETTINGS_FILE_SYNC" = "Samstilling skráa";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 stuðningur vegna WiFi-deilingar";
