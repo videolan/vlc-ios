@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Hardvérové dekódovanie";
 "SETTINGS_HWDECODING_ON" = "Zap.";
 "SETTINGS_HWDECODING_OFF" = "Vyp.";
+"SETTINGS_CASTING" = "Streamovanie (casting) ";
+"SETTINGS_PTCASTING" = "Prechod zvuku";
+"SETTINGS_PTCASTINGLONG" = "Prenechať správu vykresľovania zvuku na TV";
 
 "SETTINGS_FEEDBACK" = "Spätná odozva";
 "SETTINGS_SEND_FEEDBACK" = "Odoslať spätnú odozvu";
