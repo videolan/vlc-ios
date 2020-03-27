@@ -317,7 +317,7 @@
 "ARTISTS" = "Umelci";
 "EPISODES" = "Epizódy";
 "GENRES" = "Žánre";
-"MOVIES" = "Filmy";
+"ALL_VIDEOS" = "Všetky videá";
 "SONGS" = "Skladby";
 "PLAYLISTS" = "Playlisty";
 "VIDEO_GROUPS" = "Skupiny videí";
@@ -410,3 +410,25 @@
 /* Preview labels */
 
 "ENCODING" = "Kódovanie";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Pridať do skupiny médií";
+"ADD_TO_MEDIA_GROUP_HINT" = "Otvoriť menu na pridanie do skupiny médií";
+
+"MEDIA_GROUPS" = "skupiny médií";
+"MEDIA_GROUPS_DESCRIPTION" = "Vyberte názov pre vašu novú skupinu médií";
+"MEDIA_GROUPS_PLACEHOLDER" = "Názov skupiny médií";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Odstrániť zo skupiny médií";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Odstrániť vybrané zo skupiny médií";
+
+"MEDIA_GROUP_CREATION" = "Nová skupina médií";
+"MEDIA_GROUP_CREATION_HINT" = "Zobraziť upozornenie na vytvorenie playlistu";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Presunúť obsah na najvyššiu úroveň";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Presunúť obsah výberu na najvyššiu úroveň";
+
+"BUTTON_REGROUP" = "Preskupiť";
+"BUTTON_REGROUP_TITLE" = "Preskupiť výber";
+"BUTTON_REGROUP_HINT" = "Pokus o preskupenie jedného média automaticky";
+"BUTTON_REGROUP_DESCRIPTION" = "Naozaj sa chcete pokúsiť o automatické preskupenie jedného média?\nMôže to nejaký čas trvať.";
