@@ -1,5 +1,11 @@
 # Changelog
 
+## iOS [3.2.8]
+
+· Add manual media groups support
+· Fix potential Files app hidding issue
+· Improve application startup time
+
 ## iOS [3.2.7]
 
 This is a bug fix release, we are actively working on media groups.
