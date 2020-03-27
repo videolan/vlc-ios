@@ -317,7 +317,7 @@
 "ARTISTS" = "Wykonawcy";
 "EPISODES" = "Epizody";
 "GENRES" = "Gatunki";
-"MOVIES" = "Filmy";
+"ALL_VIDEOS" = "Wszystkie klipy wideo";
 "SONGS" = "Utwory";
 "PLAYLISTS" = "Listy odtwarzania";
 "VIDEO_GROUPS" = "Grupy wideo";
@@ -410,3 +410,25 @@
 /* Preview labels */
 
 "ENCODING" = "Kodowanie";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Dodaj do grupy mediów";
+"ADD_TO_MEDIA_GROUP_HINT" = "Otwórz menu Dodaj do grupy mediów";
+
+"MEDIA_GROUPS" = "Grupy mediów";
+"MEDIA_GROUPS_DESCRIPTION" = "Wybierz tytuł nowej grupy mediów";
+"MEDIA_GROUPS_PLACEHOLDER" = "Tytuł grupy mediów";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Usuń z grupy mediów";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Usuń wybór z grupy multimediów";
+
+"MEDIA_GROUP_CREATION" = "Nowa grupa mediów";
+"MEDIA_GROUP_CREATION_HINT" = "Pokaż alert, aby utworzyć listę odtwarzania";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Przenieś zawartość na najwyższy poziom";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Przenosi zawartość wyboru na najwyższy poziom";
+
+"BUTTON_REGROUP" = "Przegrupuj";
+"BUTTON_REGROUP_TITLE" = "Przegrupuj wybór";
+"BUTTON_REGROUP_HINT" = "Próba automatycznego przegrupowania pojedynczych mediów.";
+"BUTTON_REGROUP_DESCRIPTION" = "Czy na pewno spróbować automatycznie przegrupować pojedyncze media?\nTo może zająć trochę czasu.";

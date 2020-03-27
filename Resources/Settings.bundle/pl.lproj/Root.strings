@@ -90,11 +90,6 @@
 "SETTINGS_MEDIA_LIBRARY" = "Biblioteka mediów";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Zmuś VLC do ponownego skanowania biblioteki multimediów";
 "SETTINGS_DECRAPIFY" = "Optymalizuj nazwy elementów do wyświetlania";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Długość wykrywania grup wideo";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Krótka";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Domyślna";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Długa";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Bardzo długa";
 "SETTINGS_SHOW_THUMBNAILS" = "Pokaż miniaturki wideo";
 "SETTINGS_SHOW_ARTWORKS" = "Pokaż okładki muzyczne";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Dołącz bibliotekę multimediów do kopii zapasowej urządzenia";
