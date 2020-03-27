@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Perguntar";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sempre";
 "SETTINGS_NETWORK_PLAY_ALL" = "Reproduzir automaticamente item seguinte";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtro de deblocking";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Deblocking desativado (mais rápido)";
@@ -89,14 +90,9 @@
 "SETTINGS_MEDIA_LIBRARY" = "Biblioteca multimédia";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forçar o VLC a nova verificação da biblioteca de multimédia";
 "SETTINGS_DECRAPIFY" = "Otimizar nomes de item para exibir";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Duração da deteção de grupos de vídeo";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Curto";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Padrão";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Comprido";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra comprido";
 "SETTINGS_SHOW_THUMBNAILS" = "Exibir miniaturas de vídeos";
 "SETTINGS_SHOW_ARTWORKS" = "Exibir capas áudio";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Incluir a biblioteca de media na cópia de segurança do dispositivo";
 
 "SETTINGS_FILE_SYNC" = "Sincronização de Ficheiros";
 "SETTINGS_WIFISHARING_IPv6" = "Suporte de IPv6 para partilha por Wi-Fi";
