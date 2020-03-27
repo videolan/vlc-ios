@@ -24,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Vra";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Altyd";
 "SETTINGS_NETWORK_PLAY_ALL" = "Speel volgende item outomaties af";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Ontblokkingsfilter";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Geen ontblokking (vinnigste)";
@@ -89,11 +90,6 @@
 "SETTINGS_MEDIA_LIBRARY" = "Media library";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "Optimeer itemname vir vertoon";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Video groups detection length";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Short";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Default";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra long";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
