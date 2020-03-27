@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Dispositivo de Decodificação";
 "SETTINGS_HWDECODING_ON" = "Ligado";
 "SETTINGS_HWDECODING_OFF" = "Desligado";
+"SETTINGS_CASTING" = "Estrelando";
+"SETTINGS_PTCASTING" = "Passagem Direta de Áudio";
+"SETTINGS_PTCASTINGLONG" = "Deixar a sua TV gerenciar a geração de áudio";
 
 "SETTINGS_FEEDBACK" = "Avaliação";
 "SETTINGS_SEND_FEEDBACK" = "Enviar Avaliação";
