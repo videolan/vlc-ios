@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Hardveres dekódolás";
 "SETTINGS_HWDECODING_ON" = "Be";
 "SETTINGS_HWDECODING_OFF" = "Ki";
+"SETTINGS_CASTING" = "Vetítés";
+"SETTINGS_PTCASTING" = "Hangáteresztés";
+"SETTINGS_PTCASTINGLONG" = "A TV kezelje a hangrenderelést";
 
 "SETTINGS_FEEDBACK" = "Visszajelzés";
 "SETTINGS_SEND_FEEDBACK" = "Visszajelzés küldése";

@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Hardveres dekódolás";
 "SETTINGS_HWDECODING_ON" = "Be";
 "SETTINGS_HWDECODING_OFF" = "Ki";
+"SETTINGS_CASTING" = "Vetítés";
+"SETTINGS_PTCASTING" = "Hangáteresztés";
+"SETTINGS_PTCASTINGLONG" = "A TV kezelje a hangrenderelést";
 
 "SETTINGS_FEEDBACK" = "Visszajelzés";
 "SETTINGS_SEND_FEEDBACK" = "Visszajelzés küldése";
@@ -90,11 +93,6 @@
 "SETTINGS_MEDIA_LIBRARY" = "Médiatár";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "A VLC kényszerítése, hogy újra átvizsgálja a médiatárat";
 "SETTINGS_DECRAPIFY" = "Elemnevek kijelzőhöz igazítása";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Videocsoportok észlelési hossza";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Rövid";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Alapértelmezett";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Hosszú";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra hosszú";
 "SETTINGS_SHOW_THUMBNAILS" = "Videó bélyegképek megjelenítése";
 "SETTINGS_SHOW_ARTWORKS" = "Hang grafikák megjelenítése";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "A médiatár belevétele az eszköz biztonsági mentésébe";
