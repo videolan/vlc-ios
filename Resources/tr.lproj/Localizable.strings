@@ -317,7 +317,7 @@
 "ARTISTS" = "Sanatçılar";
 "EPISODES" = "Bölümler";
 "GENRES" = "Türler";
-"MOVIES" = "Filmler";
+"ALL_VIDEOS" = "Tüm görüntüler";
 "SONGS" = "Şarkılar";
 "PLAYLISTS" = "Oynatma Listeleri";
 "VIDEO_GROUPS" = "Görüntü grupları";
@@ -410,3 +410,25 @@
 /* Preview labels */
 
 "ENCODING" = "Kodlama";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Ortam grubuna ekle";
+"ADD_TO_MEDIA_GROUP_HINT" = "Ortam grubuna ekle menüsünü açar";
+
+"MEDIA_GROUPS" = "Ortam grupları";
+"MEDIA_GROUPS_DESCRIPTION" = "Yeni ortam grubunuzun adını yazın";
+"MEDIA_GROUPS_PLACEHOLDER" = "Ortam grubu başlığı";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Ortam grubundan kaldır";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Seçimi ortam grubundan kaldırır";
+
+"MEDIA_GROUP_CREATION" = "Ortam grubu ekle";
+"MEDIA_GROUP_CREATION_HINT" = "Bir oynatma listesi ekleme uyarısını görüntüler";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "İçeriği üst düzeye taşı";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Seçilmiş içeriği üst düzeye taşır";
+
+"BUTTON_REGROUP" = "Yeniden Grupla";
+"BUTTON_REGROUP_TITLE" = "Seçimi yeniden gruplar";
+"BUTTON_REGROUP_HINT" = "Tek ortamı otomatik olarak yeniden gruplamayı dener.";
+"BUTTON_REGROUP_DESCRIPTION" = "Tek ortamı otomatik olarak yeniden gruplamayı denemek istediğinize emin misiniz?\nBu işlem uzun sürebilir.";
