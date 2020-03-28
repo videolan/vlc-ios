@@ -100,6 +100,13 @@ class SettingsController: UITableViewController {
         aboutBarButton.tintColor = PresentationTheme.current.colors.orangeUI
         navigationItem.leftBarButtonItem = aboutBarButton
         self.navigationItem.leftBarButtonItem?.accessibilityIdentifier = VLCAccessibilityIdentifier.about
+
+        let tipJarBarButton = UIBarButtonItem(title: NSLocalizedString("GIVE_TIP", comment: ""),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(showTipJar))
+        aboutBarButton.tintColor = PresentationTheme.current.colors.orangeUI
+        navigationItem.rightBarButtonItem = tipJarBarButton
     }
 
     private func setNavBarAppearance() {
@@ -119,6 +126,15 @@ class SettingsController: UITableViewController {
         let aboutController = AboutController()
         let aboutNavigationController = AboutNavigationController(rootViewController: aboutController)
         present(aboutNavigationController, animated: true)
+    }
+
+    @objc private func showTipJar() {
+        if #available(iOS 10, *) {
+            ImpactFeedbackGenerator().selectionChanged()
+        }
+        let vc = VLCStoreViewController()
+        let storeVC = UINavigationController(rootViewController: vc)
+        present(storeVC, animated: true, completion: nil)
     }
 
     @objc private func themeDidChange() {
