@@ -317,7 +317,7 @@
 "ARTISTS" = "Artistes";
 "EPISODES" = "Épisodes";
 "GENRES" = "Genres";
-"MOVIES" = "Films";
+"ALL_VIDEOS" = "Toutes les vidéos";
 "SONGS" = "Musiques";
 "PLAYLISTS" = "Listes de lecture";
 "VIDEO_GROUPS" = "Groupes vidéo";
@@ -410,3 +410,25 @@
 /* Preview labels */
 
 "ENCODING" = "Encodage";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Ajouter aux groupes de média";
+"ADD_TO_MEDIA_GROUP_HINT" = "Ouvre le menu d'ajout aux groupes de média";
+
+"MEDIA_GROUPS" = "Groupes Média";
+"MEDIA_GROUPS_DESCRIPTION" = "Choisissez un titre pour votre nouveau groupe de média";
+"MEDIA_GROUPS_PLACEHOLDER" = "Titre du groupe de média";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Retirer du groupe de média";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Retirer la sélection du groupe de média";
+
+"MEDIA_GROUP_CREATION" = "Nouveau groupe de média";
+"MEDIA_GROUP_CREATION_HINT" = "Affiche une alerte pour créer une liste de lecture";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Déplacer le contenu au niveau supérieur";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Déplace le contenu de la sélection au niveau supérieur";
+
+"BUTTON_REGROUP" = "Regrouper";
+"BUTTON_REGROUP_TITLE" = "Regrouper la sélection";
+"BUTTON_REGROUP_HINT" = "Essayez de regrouper automatiquement les fichiers média seul.";
+"BUTTON_REGROUP_DESCRIPTION" = "Êtes-vous sûr de vouloir regrouper automatiquement les fichiers média seul ?\nCela peut prendre un certain temps.";
