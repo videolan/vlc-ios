@@ -317,7 +317,7 @@
 "ARTISTS" = "Виконавці";
 "EPISODES" = "Епізоди";
 "GENRES" = "Жанри";
-"MOVIES" = "Фільми";
+"ALL_VIDEOS" = "Усі відео";
 "SONGS" = "Пісні";
 "PLAYLISTS" = "Списки відтворення";
 "VIDEO_GROUPS" = "Групи відео";
@@ -410,3 +410,25 @@
 /* Preview labels */
 
 "ENCODING" = "Кодування";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Додати до групи медіа";
+"ADD_TO_MEDIA_GROUP_HINT" = "Відкрити пункт меню „Додати до групи медіа“";
+
+"MEDIA_GROUPS" = "Групи медіа";
+"MEDIA_GROUPS_DESCRIPTION" = "Виберіть заголовок для вашої нової групи медіа";
+"MEDIA_GROUPS_PLACEHOLDER" = "Назва групи медіа";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Вилучити з групи медіа";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Вилучити обране з групи медіа";
+
+"MEDIA_GROUP_CREATION" = "Нова група медіа";
+"MEDIA_GROUP_CREATION_HINT" = "Показувати попередження при створенні списку відтворення";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Перемістити матеріали на верхній рівень";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Переміщує матеріали з обраного на верхній рівень";
+
+"BUTTON_REGROUP" = "Перегрупувати";
+"BUTTON_REGROUP_TITLE" = "Перегрупувати обране";
+"BUTTON_REGROUP_HINT" = "Спроба автоматично перегрупувати одне медіа.";
+"BUTTON_REGROUP_DESCRIPTION" = "Ви справді хочете перегрупувати автоматично одне медіа?\nЦе може зайняти деякий час.";
