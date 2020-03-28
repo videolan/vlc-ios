@@ -3,8 +3,10 @@
 ## iOS [3.2.8]
 
 · Add manual media groups support
+· Add subtitle downloader
 · Fix potential Files app hidding issue
 · Improve application startup time
+· Minor UI improvements and fixes
 
 ## iOS [3.2.7]
 
