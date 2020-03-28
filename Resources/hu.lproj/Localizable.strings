@@ -416,19 +416,19 @@
 "ADD_TO_MEDIA_GROUP" = "Hozzáadása médiacsoporthoz";
 "ADD_TO_MEDIA_GROUP_HINT" = "A médiacsoporthoz hozzáadás menü megnyitása";
 
-"MEDIA_GROUPS" = "Media groups";
-"MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
-"MEDIA_GROUPS_PLACEHOLDER" = "Media group title";
+"MEDIA_GROUPS" = "Médiacsoportok";
+"MEDIA_GROUPS_DESCRIPTION" = "Válasszon egy címet az új médiacsoportjának";
+"MEDIA_GROUPS_PLACEHOLDER" = "Médiacsoport címe";
 
-"REMOVE_FROM_MEDIA_GROUP" = "Remove from media group";
-"REMOVE_FROM_MEDIA_GROUP_HINT" = "Remove selection from the media group";
+"REMOVE_FROM_MEDIA_GROUP" = "Eltávolítás a médiacsoporttól";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Kiválasztás eltávolítása a médiacsoportból";
 
-"MEDIA_GROUP_CREATION" = "New media group";
-"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
-"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
-"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+"MEDIA_GROUP_CREATION" = "Új médiacsoport";
+"MEDIA_GROUP_CREATION_HINT" = "Értesítés megjelenítése a lejátszólista létrehozásához";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "A tartalom a legfelső szintre helyezése";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Áthelyezi a kiválasztás tartalmát a legfelsőbb szintre";
 
-"BUTTON_REGROUP" = "Regroup";
-"BUTTON_REGROUP_TITLE" = "Regroup selection";
-"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
-"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+"BUTTON_REGROUP" = "Újracsoportosítás";
+"BUTTON_REGROUP_TITLE" = "Kiválasztás újracsoportosítása";
+"BUTTON_REGROUP_HINT" = "Egyedülálló médiák automatikus újracsoportosítási kísérlete.";
+"BUTTON_REGROUP_DESCRIPTION" = "Biztos, hogy megpróbálja automatikusan újracsoportosítani az egyedülálló médiákat?\nEz eltarthat egy ideig.";
