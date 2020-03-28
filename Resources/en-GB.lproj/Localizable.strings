@@ -240,6 +240,9 @@
 "WEBINTF_URL_SENT" = "URL sent successfully.";
 "WEBINTF_URL_EMPTY" = "URL cannot be empty.";
 "WEBINTF_URL_INVALID" = "Not a valid URL.";
+"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
+"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
 
 
 
@@ -314,7 +317,7 @@
 "ARTISTS" = "Artists";
 "EPISODES" = "Episodes";
 "GENRES" = "Genres";
-"MOVIES" = "Movies";
+"ALL_VIDEOS" = "All videos";
 "SONGS" = "Songs";
 "PLAYLISTS" = "Playlists";
 "VIDEO_GROUPS" = "Video groups";
@@ -403,3 +406,29 @@
 "SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
 "SMBV1_CONTINUE" = "Continue with SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "Encoding";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Add to media group";
+"ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
+
+"MEDIA_GROUPS" = "Media groups";
+"MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
+"MEDIA_GROUPS_PLACEHOLDER" = "Media group title";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Remove from media group";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Remove selection from the media group";
+
+"MEDIA_GROUP_CREATION" = "New media group";
+"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+
+"BUTTON_REGROUP" = "Regroup";
+"BUTTON_REGROUP_TITLE" = "Regroup selection";
+"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
+"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
