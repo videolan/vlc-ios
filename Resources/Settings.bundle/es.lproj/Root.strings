@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Decodificación por hardware";
 "SETTINGS_HWDECODING_ON" = "Activar";
 "SETTINGS_HWDECODING_OFF" = "Desactivar";
+"SETTINGS_CASTING" = "Reparto";
+"SETTINGS_PTCASTING" = "Paso del audio";
+"SETTINGS_PTCASTINGLONG" = "Dejar a su TV gestionar la presentación del audio";
 
 "SETTINGS_FEEDBACK" = "Reacción";
 "SETTINGS_SEND_FEEDBACK" = "Enviar reacción";

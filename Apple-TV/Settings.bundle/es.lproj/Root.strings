@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Decodificación por hardware";
 "SETTINGS_HWDECODING_ON" = "Activar";
 "SETTINGS_HWDECODING_OFF" = "Desactivar";
+"SETTINGS_CASTING" = "Reparto";
+"SETTINGS_PTCASTING" = "Paso del audio";
+"SETTINGS_PTCASTINGLONG" = "Dejar a su TV gestionar la presentación del audio";
 
 "SETTINGS_FEEDBACK" = "Reacción";
 "SETTINGS_SEND_FEEDBACK" = "Enviar reacción";
@@ -90,11 +93,6 @@
 "SETTINGS_MEDIA_LIBRARY" = "Librería de medios";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forzar a VLC a volver a buscar en la librería de medios";
 "SETTINGS_DECRAPIFY" = "Optimizar nombres de elementos para visualizar";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Detección de longitud de grupos de vídeo";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Corto";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Predeterminado";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Largo";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra largo";
 "SETTINGS_SHOW_THUMBNAILS" = "Mostrar previsualización de vídeos";
 "SETTINGS_SHOW_ARTWORKS" = "Mostrar material artístico de audio";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Incluir la biblioteca multimedia en la copia de seguridad del dispositivo";
