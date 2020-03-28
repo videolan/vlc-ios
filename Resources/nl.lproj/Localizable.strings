@@ -317,7 +317,7 @@
 "ARTISTS" = "Artiesten";
 "EPISODES" = "Afleveringen";
 "GENRES" = "Genres";
-"MOVIES" = "Films";
+"ALL_VIDEOS" = "Alle video's";
 "SONGS" = "Nummers";
 "PLAYLISTS" = "Afspeellijsten";
 "VIDEO_GROUPS" = "Videogroepen";
@@ -410,3 +410,25 @@
 /* Preview labels */
 
 "ENCODING" = "Coderen";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Toevoegen aan mediagroep";
+"ADD_TO_MEDIA_GROUP_HINT" = "Menu 'aan mediagroep toevoegen' openen";
+
+"MEDIA_GROUPS" = "Mediagroepen";
+"MEDIA_GROUPS_DESCRIPTION" = "Kies een titel voor uw nieuwe mediagroep";
+"MEDIA_GROUPS_PLACEHOLDER" = "Titel mediagroep";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Verwijderen uit mediagroep";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Selectie uit de mediagroep verwijderen";
+
+"MEDIA_GROUP_CREATION" = "Nieuwe mediagroep";
+"MEDIA_GROUP_CREATION_HINT" = "Waarschuwing weergeven om een afspeellijst te maken";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Inhoud naar bovenste niveau verplaatsen";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Verplaatst de inhoud van de selectie naar het bovenste niveau";
+
+"BUTTON_REGROUP" = "Hergroeperen";
+"BUTTON_REGROUP_TITLE" = "Selectie hergroeperen";
+"BUTTON_REGROUP_HINT" = "Proberen om enkelvoudige media automatisch te hergroeperen.";
+"BUTTON_REGROUP_DESCRIPTION" = "Weet u zeker dat u wilt proberen om enkelvoudige media automatisch te hergroeperen?\nDit kan even duren.";
