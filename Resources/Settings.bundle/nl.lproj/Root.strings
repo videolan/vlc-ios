@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Hardwaredecodering";
 "SETTINGS_HWDECODING_ON" = "Aan";
 "SETTINGS_HWDECODING_OFF" = "Uit";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audiodoorvoer";
+"SETTINGS_PTCASTINGLONG" = "Laat uw tv het renderen van audio beheren";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Feedback zenden";
