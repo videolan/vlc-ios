@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Апаратне декодування";
 "SETTINGS_HWDECODING_ON" = "Увімкн.";
 "SETTINGS_HWDECODING_OFF" = "Вимкн.";
+"SETTINGS_CASTING" = "Трансляція";
+"SETTINGS_PTCASTING" = "Аудіо роз'єм";
+"SETTINGS_PTCASTINGLONG" = "Нехай ваш телевізор управляє відтворенням аудіо";
 
 "SETTINGS_FEEDBACK" = "Відгук";
 "SETTINGS_SEND_FEEDBACK" = "Надіслати відгук";
