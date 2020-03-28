@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Decodìfica hardware";
 "SETTINGS_HWDECODING_ON" = "Alluta";
 "SETTINGS_HWDECODING_OFF" = "Istudada";
+"SETTINGS_CASTING" = "Trasmissione";
+"SETTINGS_PTCASTING" = "Coladòrgiu àudio";
+"SETTINGS_PTCASTINGLONG" = "Permiti a su televisore tuo de gestire sa renderizatzione àudio";
 
 "SETTINGS_FEEDBACK" = "Sinnalatzione";
 "SETTINGS_SEND_FEEDBACK" = "Imbia una sinnalatzione";
