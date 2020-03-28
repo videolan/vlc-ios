@@ -288,6 +288,11 @@
                                                             style:UIAlertActionStyleCancel
                                                           handler:nil]];
 
+        UIView *currentCell = [tableView cellForRowAtIndexPath:indexPath];
+
+        alertController.popoverPresentationController.sourceView = currentCell;
+        alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        alertController.popoverPresentationController.sourceRect = currentCell.bounds;
         [self presentViewController:alertController animated:YES completion:nil];
     } else {
         [self startActivity];
