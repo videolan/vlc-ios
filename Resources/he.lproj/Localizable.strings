@@ -317,7 +317,7 @@
 "ARTISTS" = "אמנים";
 "EPISODES" = "פרקים";
 "GENRES" = "סגנונות";
-"MOVIES" = "סרטים";
+"ALL_VIDEOS" = "כל הסרטונים";
 "SONGS" = "שירים";
 "PLAYLISTS" = "רשימות נגינה";
 "VIDEO_GROUPS" = "קבוצות וידאו";
@@ -410,3 +410,25 @@
 /* Preview labels */
 
 "ENCODING" = "קידוד";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "הוספה לקבוצת מדיה";
+"ADD_TO_MEDIA_GROUP_HINT" = "פתיחת תפריט ההוספה לקבוצת מדיה";
+
+"MEDIA_GROUPS" = "קבוצות מדיה";
+"MEDIA_GROUPS_DESCRIPTION" = "נא לבחור כותרת לקבוצת המדיה החדשה שלך";
+"MEDIA_GROUPS_PLACEHOLDER" = "כותרת קבוצת מדיה";
+
+"REMOVE_FROM_MEDIA_GROUP" = "הסרה מקבוצת מדיה";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "הסרת הבחירה מקבוצת המדיה";
+
+"MEDIA_GROUP_CREATION" = "קבוצת מדיה חדשה";
+"MEDIA_GROUP_CREATION_HINT" = "הצגת התראה ליצירת רשימת נגינה";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "העברת תוכן לרמה עליונה";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "העברת תוכן הבחירה לרמה העליונה";
+
+"BUTTON_REGROUP" = "קיבוץ מחדש";
+"BUTTON_REGROUP_TITLE" = "קיבוץ הבחירה מחדש";
+"BUTTON_REGROUP_HINT" = "לנסות לקבץ מדיה בודדת מחדש אוטומטית";
+"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
