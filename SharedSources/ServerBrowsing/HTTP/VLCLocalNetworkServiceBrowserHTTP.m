@@ -16,7 +16,7 @@
 #import "VLCNetworkServerBrowserSharedLibrary.h"
 
 @interface VLCLocalNetworkServiceBrowserHTTP()
-@property (nonatomic) VLCSharedLibraryParser *httpParser;
+@property (nonatomic, strong) VLCSharedLibraryParser *httpParser;
 @end
 @implementation VLCLocalNetworkServiceBrowserHTTP
 - (instancetype)init {
