@@ -24,7 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Spørg";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Altid";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automatisk afspilning af næste emne";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Aktivér tekstrulning i medieliste";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Blokdelingsfilter";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Ingen blokdeling (hurtigst)";
