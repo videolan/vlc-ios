@@ -165,6 +165,10 @@ static NSMutableDictionary *authentifiedHosts;
     int attempts = 1;
     int ret = kVLCWifiAuthentificationBanned;
 
+    if (host == nil) {
+        return kVLCWifiAuthentificationFailure;
+    }
+
     @synchronized (authentificationAttemptsHosts) {
         if ([authentificationAttemptsHosts objectForKey:host]) {
             attempts += [[authentificationAttemptsHosts objectForKey:host] intValue];
