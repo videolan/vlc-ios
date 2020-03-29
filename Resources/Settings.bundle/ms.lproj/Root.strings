@@ -24,7 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Tanya";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sentiasa";
 "SETTINGS_NETWORK_PLAY_ALL" = "Main item berikutnya secara automatik";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Benarkan penatalan teks dalam senarai media";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Nyasekat penapis";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Tiada menyahsekat (terpantas)";
