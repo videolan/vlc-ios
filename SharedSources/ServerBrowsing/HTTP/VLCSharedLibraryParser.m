@@ -93,8 +93,11 @@ NSString *const VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance = @"VLCS
         if ([attributeDict objectForKey:@"libraryTitle"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"libraryTitle"] forKey:@"libTitle"];
     } else if ([elementName isEqualToString:@"Media"]) {
-        if ([attributeDict objectForKey:@"title"])
-            [_dicoInfo setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
+        if ([attributeDict objectForKey:@"title"]) {
+            NSString *encodedTitle = [attributeDict objectForKey:@"title"];
+            NSString *title = [encodedTitle stringByRemovingPercentEncoding];
+            [_dicoInfo setObject:title forKey:@"title"];
+        }
         if ([attributeDict objectForKey:@"thumb"])
             [_dicoInfo setObject:[attributeDict objectForKey:@"thumb"] forKey:@"thumb"];
         if ([attributeDict objectForKey:@"duration"])
