@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCLocalServerListViewController.m
+ * VLCServerListViewController.m
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013-2020 VideoLAN. All rights reserved.
@@ -281,8 +281,9 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(VLCNetworkListCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.titleLabel.textColor = cell.folderTitleLabel.textColor = cell.thumbnailView.tintColor = PresentationTheme.current.colors.cellTextColor;
-    cell.subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    ColorPalette *themeColors = PresentationTheme.current.colors;
+    cell.titleLabel.textColor = cell.folderTitleLabel.textColor = cell.thumbnailView.tintColor = themeColors.cellTextColor;
+    cell.subtitleLabel.textColor = themeColors.cellDetailTextColor;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -354,7 +355,6 @@
                                                                     target:self
                                                                     action:@selector(_dismissLogin)];
         }
-
     } else {
         [self.navigationController pushViewController:loginViewController animated:YES];
     }
