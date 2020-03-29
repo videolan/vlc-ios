@@ -76,7 +76,7 @@ NSString *const VLCSharedLibraryParserDeterminedNetserviceAsVLCInstance = @"VLCS
     [xmlparser setDelegate:self];
 
     if (![xmlparser parse]) {
-        APLog(@"VLC Library Parser url Errors : %@", url);
+        APLog(@"VLC Library parsing failed for %@ with error %@", url, xmlparser.parserError);
         return [NSArray array];
     }
 
