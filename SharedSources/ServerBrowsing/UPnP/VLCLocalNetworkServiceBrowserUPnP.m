@@ -2,7 +2,7 @@
  * VLCLocalNetworkServiceBrowserUPnP.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -42,12 +42,16 @@
 
 #pragma mark - VLCLocalNetworkServiceBrowser Protocol
 - (NSUInteger)numberOfItems {
-    return _filteredUPNPDevices.count;
+    @synchronized (_filteredUPNPDevices) {
+        return _filteredUPNPDevices.count;
+    }
 }
 
 - (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
-    if (index < _filteredUPNPDevices.count)
-        return _filteredUPNPDevices[index];
+    @synchronized (_filteredUPNPDevices) {
+        if (index < _filteredUPNPDevices.count)
+            return _filteredUPNPDevices[index];
+    }
     return nil;
 }
 
@@ -128,7 +132,9 @@
             APLog(@"found device '%@' with unsupported urn '%@'", [device friendlyName], [device urn]);
     }
     [[[UPnPManager GetInstance] DB] unlock];
-    _filteredUPNPDevices = [mutArray copy];
+    @synchronized (_filteredUPNPDevices) {
+        _filteredUPNPDevices = [mutArray copy];
+    }
 
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.delegate localNetworkServiceBrowserDidUpdateServices:self];
