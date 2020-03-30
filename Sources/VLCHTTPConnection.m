@@ -729,6 +729,10 @@ static NSMutableDictionary *authentifiedHosts;
 #if TARGET_OS_TV
 - (void)startPlaybackOfPath:(NSString *)path
 {
+    if (!path) {
+        return;
+    }
+
     APLog(@"Starting playback of %@", path);
     if (_receivedFiles == nil)
         _receivedFiles = [[NSMutableArray alloc] init];
