@@ -44,7 +44,7 @@ extension URL {
             do {
                 try setResourceValues(resourceValue)
             } catch let error {
-                assertionFailure("URL+isExcludedFromBackup: \(error.localizedDescription)")
+                NSLog("URL+isExcludedFromBackup: \(error.localizedDescription)")
             }
         }
         if recursive {
@@ -62,7 +62,7 @@ extension URL {
                 && (error.underlying as? POSIXError)?.code == .ENOTDIR {
                 // If self is not a directory, do nothing
             } catch let error {
-                assertionFailure("URL+isExcludedFromBackup: \(error.localizedDescription)")
+                NSLog("URL+isExcludedFromBackup: \(error.localizedDescription)")
             }
         }
         completion?()
