@@ -64,6 +64,8 @@
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
 #define kVLCSettingDownloadArtwork @"download-artwork"
 #define kVLCSettingUseSPDIF @"kVLCSettingUseSPDIF"
+#define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"
+#define kVLCSettingBackupMediaLibraryDefaultValue @NO
 
 #define kVLCSettingLastUsedSubtitlesSearchLanguage @"kVLCSettingLastUsedSubtitlesSearchLanguage"
 #define kVLCSettingWiFiSharingIPv6 @"wifi-sharing-ipv6"
