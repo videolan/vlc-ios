@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -20,7 +20,6 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     VLCMDFBrowsingArtworkProvider *_artworkProvider;
 }
 @property (nonatomic) IBOutlet NSLayoutConstraint *aspectRationConstraint;
-@property (nonatomic) NSLayoutConstraint *titleThumbnailConstraint;
 
 @end
 
@@ -33,8 +32,6 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     [super awakeFromNib];
     _artworkProvider = [[VLCMDFBrowsingArtworkProvider alloc] init];
     _artworkProvider.artworkReceiver = self;
-    _titleThumbnailConstraint = [self.titleLabel.topAnchor constraintEqualToAnchor:self.thumbnailImageView.bottomAnchor constant:15];
-    [self.contentView addConstraint:_titleThumbnailConstraint];
 
     [self prepareForReuse];
 }
@@ -107,7 +104,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 - (void)didUpdateFocusInContext:(UIFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator
 {
     [coordinator addCoordinatedAnimations:^{
-        CGAffineTransform transform = context.nextFocusedView != self ? CGAffineTransformIdentity : CGAffineTransformMakeScale(1.1, 1.1);
+        CGAffineTransform transform = context.nextFocusedView != self ? CGAffineTransformIdentity : CGAffineTransformMakeScale(1.05, 1.05);
         self.titleLabel.transform = transform;
         self.subtitleLabel.transform = transform;
     } completion:nil];

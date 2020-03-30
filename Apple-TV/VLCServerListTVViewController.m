@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -61,7 +61,7 @@
     self.edgesForExtendedLayout = UIRectEdgeAll ^ UIRectEdgeTop;
 
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
-    flowLayout.itemSize = CGSizeMake(250.0, 300.0);
+    flowLayout.itemSize = CGSizeMake(250.0, 340.0);
     flowLayout.minimumInteritemSpacing = 48.0;
     flowLayout.minimumLineSpacing = 100.0;
 

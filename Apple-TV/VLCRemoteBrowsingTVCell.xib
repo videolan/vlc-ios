@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="15705" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -17,19 +19,20 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3U-B3-AOa">
                         <rect key="frame" x="8" y="206" width="292" height="30"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I51-60-pwl">
                         <rect key="frame" x="8" y="236" width="292" height="35"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="169" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tHQ-sR-zn4" customClass="VLCNetworkImageView">
-                        <rect key="frame" x="0.0" y="35" width="308" height="146"/>
+                        <rect key="frame" x="0.0" y="10" width="308" height="146"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="8jq-kh-9sp"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="180" id="CmY-bI-pPx"/>
                             <constraint firstAttribute="width" secondItem="tHQ-sR-zn4" secondAttribute="height" multiplier="19:9" id="TP3-nW-8dd"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="cOP-xr-iS1"/>
                         </constraints>
@@ -38,13 +41,12 @@
                         </connections>
                     </imageView>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="h3U-B3-AOa" secondAttribute="trailing" constant="8" id="Ge1-kn-QhB"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="leading" secondItem="Q7n-Zw-Frg" secondAttribute="leading" constant="8" id="H8p-nC-etm"/>
                 <constraint firstItem="h3U-B3-AOa" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="Ju6-jJ-msL"/>
-                <constraint firstItem="h3U-B3-AOa" firstAttribute="top" secondItem="tHQ-sR-zn4" secondAttribute="bottom" priority="750" constant="25" id="LuX-cK-Eln"/>
+                <constraint firstItem="h3U-B3-AOa" firstAttribute="top" secondItem="tHQ-sR-zn4" secondAttribute="bottom" priority="750" constant="50" id="LuX-cK-Eln"/>
                 <constraint firstItem="h3U-B3-AOa" firstAttribute="centerY" secondItem="Q7n-Zw-Frg" secondAttribute="centerY" priority="250" constant="67" id="MFX-5P-qst"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="Oor-FV-rN3"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="top" secondItem="h3U-B3-AOa" secondAttribute="bottom" priority="750" id="UJB-cg-tjo"/>
