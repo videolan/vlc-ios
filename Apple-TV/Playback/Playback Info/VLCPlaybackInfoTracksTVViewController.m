@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -16,7 +16,7 @@
 #import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
 
 #define CONTENT_INSET 20.
-
+#define MINIMAL_CONTENT_SIZE 420.
 
 @interface VLCPlaybackInfoTracksDataSourceAudio : VLCPlaybackInfoCollectionViewDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
 @end
@@ -68,8 +68,11 @@
 
 - (CGSize)preferredContentSize
 {
-    CGFloat prefferedHeight = MAX(self.audioTrackCollectionView.contentSize.height, self.subtitleTrackCollectionView.contentSize.height) + CONTENT_INSET;
-    return CGSizeMake(CGRectGetWidth(self.view.bounds), prefferedHeight);
+    CGFloat preferredHeight = MAX(self.audioTrackCollectionView.contentSize.height, self.subtitleTrackCollectionView.contentSize.height) + CONTENT_INSET;
+    if (preferredHeight < MINIMAL_CONTENT_SIZE) {
+        preferredHeight = MINIMAL_CONTENT_SIZE;
+    }
+    return CGSizeMake(CGRectGetWidth(self.view.bounds), preferredHeight);
 }
 
 - (void)mediaPlayerChanged

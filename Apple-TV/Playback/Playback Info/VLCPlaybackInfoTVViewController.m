@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -73,6 +73,11 @@
     swipeUpRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
     swipeUpRecognizer.delegate = self;
     [self.view addGestureRecognizer:swipeUpRecognizer];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaPlayerChanged)
+                                                 name:VLCPlaybackServicePlaybackMetadataDidChange
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -107,7 +112,6 @@
     self.containerHeightConstraint.constant = controllerHeight;
 }
 
-
 - (void)setupTabBarItemAppearance
 {
     UITabBarItem *tabBarItemApprearance = [UITabBarItem appearanceWhenContainedInInstancesOfClasses:@[[VLCPlaybackInfoTVTabBarController class]]];
@@ -127,6 +131,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - media player delegate
+- (void)mediaPlayerChanged
+{
+    [self updateViewConstraints];
+}
 
 #pragma mark - GestureRecognizerDelegate
 
