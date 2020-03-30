@@ -1,5 +1,11 @@
 # Changelog
 
+## tvOS [3.0.7]
+
+· Fix artwork display
+· Fix crashes when navigating network shares
+· Minor UI improvements and fixes
+
 ## iOS [3.2.8]
 
 · Add manual media groups support
