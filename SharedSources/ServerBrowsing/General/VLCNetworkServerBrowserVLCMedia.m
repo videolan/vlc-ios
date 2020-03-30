@@ -2,7 +2,7 @@
  * VLCNetworkServerBrowserVLCMedia.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -134,11 +134,15 @@
 - (void)mediaDidFinishParsing:(VLCMedia *)aMedia
 {
     if ([aMedia parsedStatus] != VLCMediaParsedStatusDone) {
-        [self.delegate networkServerBrowserShouldPopView:self];
+        if ([self.delegate respondsToSelector:@selector(networkServerBrowserShouldPopView:)]) {
+            [self.delegate networkServerBrowserShouldPopView:self];
+        }
     } else if (self.mediaList.count != 0) {
         [self.delegate networkServerBrowserDidUpdate:self];
     } else {
-        [self.delegate networkServerBrowserEndParsing:self];
+        if ([self.delegate respondsToSelector:@selector(networkServerBrowserEndParsing:)]) {
+            [self.delegate networkServerBrowserEndParsing:self];
+        }
     }
 }
 
