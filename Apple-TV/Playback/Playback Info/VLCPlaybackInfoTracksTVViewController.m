@@ -150,7 +150,7 @@
 @implementation VLCPlaybackInfoTracksDataSourceSubtitle
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [[VLCPlaybackService sharedInstance] numberOfVideoSubtitlesIndexes] + 1;
+    return [[VLCPlaybackService sharedInstance] numberOfVideoSubtitlesIndexes];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
@@ -174,11 +174,11 @@
     trackCell.titleLabel.text = trackName;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     NSInteger row = indexPath.row;
-    if (row >= [vpc numberOfVideoSubtitlesIndexes]) {
+    if (row == [vpc numberOfVideoSubtitlesIndexes] - 1) {
         if (self.parentViewController) {
             if ([self.parentViewController respondsToSelector:@selector(downloadMoreSPU)]) {
                 [self.parentViewController performSelector:@selector(downloadMoreSPU)];
