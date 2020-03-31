@@ -43,8 +43,12 @@ NSString *VLCAppCenterAppID = @"0114ca8e-2652-44ce-588d-2ebd035c3577";
 + (void)initialize
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUInteger appThemeIndex = kVLCSettingAppThemeBright;
+    if (@available(iOS 13.0, *)) {
+        appThemeIndex = kVLCSettingAppThemeSystem;
+    }
 
-    NSDictionary *appDefaults = @{kVLCSettingAppTheme : @(kVLCSettingAppThemeSystem),
+    NSDictionary *appDefaults = @{kVLCSettingAppTheme : @(appThemeIndex),
                                   kVLCSettingPasscodeAllowFaceID : @(1),
                                   kVLCSettingPasscodeAllowTouchID : @(1),
                                   kVLCSettingContinueAudioInBackgroundKey : @(YES),
