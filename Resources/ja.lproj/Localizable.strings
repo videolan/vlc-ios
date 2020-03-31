@@ -317,7 +317,7 @@
 "ARTISTS" = "アーティスト";
 "EPISODES" = "エピソード";
 "GENRES" = "ジャンル";
-"ALL_VIDEOS" = "All videos";
+"ALL_VIDEOS" = "すべてのビデオ";
 "SONGS" = "楽曲";
 "PLAYLISTS" = "プレイリスト";
 "VIDEO_GROUPS" = "ビデオグループ";
@@ -413,22 +413,22 @@
 
 /* Media groups */
 
-"ADD_TO_MEDIA_GROUP" = "Add to media group";
-"ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
+"ADD_TO_MEDIA_GROUP" = "メディアグループに追加";
+"ADD_TO_MEDIA_GROUP_HINT" = "メディアグループに追加メニューを表示";
 
-"MEDIA_GROUPS" = "Media groups";
-"MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
-"MEDIA_GROUPS_PLACEHOLDER" = "Media group title";
+"MEDIA_GROUPS" = "メディアグループ";
+"MEDIA_GROUPS_DESCRIPTION" = "新しいメディアグループのタイトルを選択してください";
+"MEDIA_GROUPS_PLACEHOLDER" = "メディアグループタイトル";
 
-"REMOVE_FROM_MEDIA_GROUP" = "Remove from media group";
-"REMOVE_FROM_MEDIA_GROUP_HINT" = "Remove selection from the media group";
+"REMOVE_FROM_MEDIA_GROUP" = "メディアグループから削除";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "選択したものをメディアグループから削除";
 
-"MEDIA_GROUP_CREATION" = "New media group";
-"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
-"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
-"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+"MEDIA_GROUP_CREATION" = "新しいメディアグループ";
+"MEDIA_GROUP_CREATION_HINT" = "プレイリストを作成するためのアラートを表示";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "コンテンツをトップレベルに移動";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "選択したコンテンツをトップレベルに移動";
 
-"BUTTON_REGROUP" = "Regroup";
-"BUTTON_REGROUP_TITLE" = "Regroup selection";
-"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
-"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+"BUTTON_REGROUP" = "再グループ";
+"BUTTON_REGROUP_TITLE" = "選択したものを再グループ";
+"BUTTON_REGROUP_HINT" = "単一メディアを自動的に再グループすることを試行";
+"BUTTON_REGROUP_DESCRIPTION" = "単一メディアを自動的に再グループすることを本当に試行しますか?\nこの操作には少し時間がかかります。";
