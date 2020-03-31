@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "ハードウェアデコード";
 "SETTINGS_HWDECODING_ON" = "オン";
 "SETTINGS_HWDECODING_OFF" = "オフ";
+"SETTINGS_CASTING" = "キャスティング";
+"SETTINGS_PTCASTING" = "オーディオパススルー";
+"SETTINGS_PTCASTINGLONG" = "オーディオレンダリングをTVに任せる";
 
 "SETTINGS_FEEDBACK" = "フェードバック";
 "SETTINGS_SEND_FEEDBACK" = "フィードバックを送信";
