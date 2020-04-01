@@ -431,4 +431,4 @@
 "BUTTON_REGROUP" = "קיבוץ מחדש";
 "BUTTON_REGROUP_TITLE" = "קיבוץ הבחירה מחדש";
 "BUTTON_REGROUP_HINT" = "לנסות לקבץ מדיה בודדת מחדש אוטומטית";
-"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+"BUTTON_REGROUP_DESCRIPTION" = "לנסות לקבץ מדיה בודדת מחדש אוטומטית?\nפעולה זו עלולה לארוך זמן מה";
