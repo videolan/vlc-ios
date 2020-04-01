@@ -647,11 +647,12 @@ $(function() {
     /**
      * Check if a given string is a URL
      * Regex from https://gist.github.com/searls/1033143
+     * It should accept http(s) , rtsp, etc.
      * @param {string} str
      * @returns {boolean}
      */
     function isURL(str) {
-        var p = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/i;
+        var p = /\b((?:(?:rtsp|https?):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/i;
         return p.test(str);
     }
     //Display message to the user
