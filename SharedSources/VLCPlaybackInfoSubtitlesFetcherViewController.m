@@ -119,6 +119,12 @@
         [self themeDidChange];
     }
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return PresentationTheme.current.colors.statusBarStyle;
+}
+
 #endif
 
 - (void)themeDidChange
