@@ -243,6 +243,7 @@
 
 #if TARGET_OS_IOS
     cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundA : PresentationTheme.current.colors.cellBackgroundB;
+    cell.selectedBackgroundView.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor;
     cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
     cell.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
 #endif
