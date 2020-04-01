@@ -4,7 +4,7 @@
 
 · Add support to create media groups manually
 · Port subtitles support from tvOS
-· Fix potential Files app hidding issue
+· Fix potential Files app hiding issue
 · Improve application startup time
 · Improve sharing of the library on the local network between multiple VLCs
 · Minor UI improvements and fixes
