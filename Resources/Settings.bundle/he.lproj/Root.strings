@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "פענוח חומרה";
 "SETTINGS_HWDECODING_ON" = "פעיל";
 "SETTINGS_HWDECODING_OFF" = "כבוי";
+"SETTINGS_CASTING" = "שידור";
+"SETTINGS_PTCASTING" = "מסירת שמע";
+"SETTINGS_PTCASTINGLONG" = "לאפשר לטלוויזיה שלך לנהל את עיבוד השמע";
 
 "SETTINGS_FEEDBACK" = "משוב";
 "SETTINGS_SEND_FEEDBACK" = "שלח משוב";
