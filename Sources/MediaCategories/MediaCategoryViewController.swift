@@ -242,10 +242,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         searchBarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
         if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
-            collectionView.contentInset = UIEdgeInsets(top: searchBarSize, left: 0, bottom: 0, right: 0)
+            collectionView.contentInset.top = searchBarSize
         }
         if scrollView.contentOffset.y >= 0 && scrollView.contentInset.top != 0 {
-            collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            collectionView.contentInset.top = 0
         }
     }
 
