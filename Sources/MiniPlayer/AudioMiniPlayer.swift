@@ -12,9 +12,10 @@
 
 @objc(VLCAudioMiniPlayer)
 class AudioMiniPlayer: UIView, MiniPlayer {
+    @objc static let height: Float = 72.0
     var visible: Bool = false
     var contentHeight: Float {
-        return 72.0
+        return AudioMiniPlayer.height
     }
 
     @IBOutlet private weak var audioMiniPlayer: UIView!
