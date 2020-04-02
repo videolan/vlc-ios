@@ -13,7 +13,7 @@
 "SETTINGS_DARKTHEME" = "Utseende";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tidsutsträckt ljud";
 "SETTINGS_BACKGROUND_AUDIO" = "Ljuduppspelning i bakgrunden";
-"SETTINGS_GENERIC_TITLE" = "Allmän";
+"SETTINGS_GENERIC_TITLE" = "Allmänt";
 "SETTINGS_PASSCODE_LOCK" = "Lösenkodslås";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Tillåt Touch ID att låsa upp";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Tillåt Face ID för att låsa upp";
@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Hårdvaruavkodning";
 "SETTINGS_HWDECODING_ON" = "På";
 "SETTINGS_HWDECODING_OFF" = "Av";
+"SETTINGS_CASTING" = "Casta";
+"SETTINGS_PTCASTING" = "Passthrough för ljud";
+"SETTINGS_PTCASTINGLONG" = "Låt din TV hantera ljudrendering";
 
 "SETTINGS_FEEDBACK" = "Återkoppling";
 "SETTINGS_SEND_FEEDBACK" = "Skicka återkoppling";
