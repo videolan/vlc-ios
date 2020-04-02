@@ -79,10 +79,25 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
     
     specifierManager = [[VLCSettingsSpecifierManager alloc] initWithSettingsReader:self.settingsReader settingsStore:self.settingsStore];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(themeDidChange)
-                                                 name:kVLCThemeDidChangeNotification
-                                               object:nil];
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self selector:@selector(themeDidChange)
+                               name:kVLCThemeDidChangeNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(miniPlayerIsShown)
+                               name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
+    [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden)
+                               name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
+
+}
+
+- (void)miniPlayerIsShown
+{
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0,
+                                                   VLCAudioMiniPlayer.height, 0);
+}
+
+- (void)miniPlayerIsHidden
+{
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (void)themeDidChange
@@ -94,6 +109,8 @@ NSString * const kVLCSectionTableHeaderViewIdentifier = @"VLCSectionTableHeaderV
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible
+    ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
     [self filterCellsWithAnimation:NO];
 }
 

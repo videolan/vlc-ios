@@ -13,6 +13,9 @@
 @class VLCPlaybackService;
 @class VLCServices;
 
+extern NSString *const VLCPlayerDisplayControllerDisplayMiniPlayer;
+extern NSString *const VLCPlayerDisplayControllerHideMiniPlayer;
+
 typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
     VLCPlayerDisplayControllerDisplayModeFullscreen,
     VLCPlayerDisplayControllerDisplayModeMiniplayer,
@@ -34,6 +37,7 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
 @property (nonatomic, weak) VLCPlaybackService *playbackController;
 @property (nonatomic, strong) NSLayoutYAxisAnchor *realBottomAnchor;
+@property (nonatomic, readonly) BOOL isMiniPlayerVisible;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil

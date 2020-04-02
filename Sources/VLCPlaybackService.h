@@ -113,6 +113,8 @@ NS_SWIFT_NAME(PlaybackService)
 
 @property (nonatomic, readonly) VLCAspectRatio currentAspectRatio;
 
+@property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;
+
 + (VLCPlaybackService *)sharedInstance;
 - (VLCTime *)playedTime;
 #pragma mark - playback

@@ -23,6 +23,9 @@
 
 static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDisplayControllerDisplayMode";
 
+NSString *const VLCPlayerDisplayControllerDisplayMiniPlayer = @"VLCPlayerDisplayControllerDisplayMiniPlayer";
+NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayControllerHideMiniPlayer";
+
 @interface VLCUntouchableView: UIView
 @end
 
@@ -249,6 +252,11 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 
 #pragma mark - miniplayer
 
+- (BOOL)isMiniPlayerVisible
+{
+    return _miniPlaybackView.visible;
+}
+
 - (void)_showHideMiniPlaybackView
 {
 #if TARGET_OS_TV
@@ -291,6 +299,8 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
             [self.view layoutIfNeeded];
         }
         miniPlaybackView.visible = YES;
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:VLCPlayerDisplayControllerDisplayMiniPlayer object:self];
     } else if (needsHide) {
         miniPlaybackView.visible = NO;
         completionBlock = ^(BOOL finished) {
@@ -298,6 +308,8 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
             if (miniPlaybackView.visible == NO) {
                 [miniPlaybackView removeFromSuperview];
                 self.miniPlaybackView = nil;
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:VLCPlayerDisplayControllerHideMiniPlayer object:self];
             }
         };
     }

@@ -176,6 +176,11 @@
     [notificationCenter addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(boxSessionUpdated) name:VLCBoxControllerSessionUpdated object:nil];
+    [notificationCenter addObserver:self selector:@selector(miniPlayerIsShown)
+                               name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
+    [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden)
+                               name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
+
     [self themeDidChange];
     NSArray *browserClasses = @[
                                 [VLCLocalNetworkServiceBrowserUPnP class],
@@ -208,7 +213,20 @@
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
     }
+    VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible
+    ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
     [_remoteNetworkTableView reloadData];
+}
+
+- (void)miniPlayerIsShown
+{
+    _localNetworkTableView.contentInset = UIEdgeInsetsMake(0, 0,
+                                                           VLCAudioMiniPlayer.height, 0);
+}
+
+- (void)miniPlayerIsHidden
+{
+    _localNetworkTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (BOOL)shouldAutorotate

@@ -118,6 +118,21 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         self.navigationItem.titleView = marqueeTitle
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
                                                name: .VLCThemeDidChangeNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(miniPlayerIsShown),
+                                               name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerDisplayMiniPlayer),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(miniPlayerIsHidden),
+                                               name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
+                                               object: nil)
+    }
+
+    @objc func miniPlayerIsShown() {
+        collectionView.contentInset.bottom = CGFloat(AudioMiniPlayer.height)
+    }
+
+    @objc func miniPlayerIsHidden() {
+        collectionView.contentInset.bottom = 0
     }
 
     private func setupSearchBar() {
@@ -198,7 +213,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             manager.start()
         }
 
-        PlaybackService.sharedInstance().setPlayerHidden(isEditing)
+        let playbackService = PlaybackService.sharedInstance()
+        playbackService.setPlayerHidden(isEditing)
+        playbackService.playerDisplayController.isMiniPlayerVisible
+            ? miniPlayerIsShown() : miniPlayerIsHidden()
 
         manager.presentingViewController = self
         cachedCellSize = .zero
