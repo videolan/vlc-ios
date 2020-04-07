@@ -120,6 +120,18 @@ class CollectionViewCellPreviewController: UIViewController {
 // MARK: - Private setup
 
 extension CollectionViewCellPreviewController {
+    private func infoForVideo(_ video: VLCMLMedia) -> [PreviewInformation] {
+        var infos: [PreviewInformation] = []
+
+        infos.append(PreviewInformation(value: video.mediaDuration(),
+                                        label: NSLocalizedString("DURATION", comment: "")))
+        infos.append(PreviewInformation(value: video.formatSize(),
+                                        label: NSLocalizedString("FILE_SIZE", comment: "")))
+        infos.append(PreviewInformation(value: video.codecs().joined(separator: " "),
+                                        label: NSLocalizedString("ENCODING", comment: "")))
+        return infos
+    }
+
     private func previewInformation(from modelContent: VLCMLObject?) -> [PreviewInformation] {
         var infos: [PreviewInformation] = []
 
@@ -146,21 +158,25 @@ extension CollectionViewCellPreviewController {
                     infos.append(PreviewInformation(value: codecs))
                 }
             } else {
-                infos.append(PreviewInformation(value: media.mediaDuration(),
-                                                label: NSLocalizedString("DURATION", comment: "")))
-                infos.append(PreviewInformation(value: media.formatSize(),
-                                                label: NSLocalizedString("FILE_SIZE", comment: "")))
-                infos.append(PreviewInformation(value: media.codecs().joined(separator: " "),
-                                                label: NSLocalizedString("ENCODING", comment: "")))
+                infos += infoForVideo(media)
             }
         } else if let collection = modelContent as? MediaCollectionModel {
             infos.append(PreviewInformation(value: collection.title(), type: .title))
-            var collectionDetails: [String] = [collection.numberOfTracksString()]
-            if let collection = collection as? VLCMLAlbum {
-                infos.append(PreviewInformation(value: collection.albumArtistName()))
-                collectionDetails.append(String(collection.releaseYear()))
+            // Handle single mediaGroups as media
+            if let mediaGroup = collection as? VLCMLMediaGroup,
+                !mediaGroup.userInteracted() && mediaGroup.nbMedia() == 1 {
+                if let medium = mediaGroup.media(of: .video)?.first {
+                    infos += infoForVideo(medium)
+                }
+                return infos
+            } else {
+                var collectionDetails: [String] = [collection.numberOfTracksString()]
+                if let collection = collection as? VLCMLAlbum {
+                    infos.append(PreviewInformation(value: collection.albumArtistName()))
+                    collectionDetails.append(String(collection.releaseYear()))
+                }
+                infos.append(PreviewInformation(value: collectionDetails.joined(separator: listSeparator)))
             }
-            infos.append(PreviewInformation(value: collectionDetails.joined(separator: listSeparator)))
         }
 
         return infos
