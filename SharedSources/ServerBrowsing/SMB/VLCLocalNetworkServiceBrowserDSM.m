@@ -88,7 +88,8 @@ static NSString *const VLCLocalNetworkServiceDSMWorkgroupIdentifier = @"VLCLocal
 {
     NSURLComponents *components = [[NSURLComponents alloc] init];
     components.scheme = @"smb";
-    components.host = login.address;
+    components.host = [login.address componentsSeparatedByString:@"/"] [0];
+    components.path = [NSString stringWithFormat:@"/%@", [login.address componentsSeparatedByString:@"/"] [1]];
     components.port = login.port;
     NSURL *url = components.URL;
 
