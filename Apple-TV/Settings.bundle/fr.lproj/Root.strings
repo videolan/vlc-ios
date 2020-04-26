@@ -7,7 +7,7 @@
 "SETTINGS_THEME_BRIGHT" = "Thème clair";
 "SETTINGS_THEME_DARK" = "Thème sombre";
 "SETTINGS_THEME_SYSTEM" = "Automatique";
-"SETTINGS_PRIVACY_SUBTITLE" = "Ouvrir dans les paramètres";
+"SETTINGS_PRIVACY_SUBTITLE" = "Ouvrir dans les Réglages";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accès sécurisé à votre contenu";
 
 "SETTINGS_DARKTHEME" = "Apparence";
@@ -17,13 +17,13 @@
 "SETTINGS_PASSCODE_LOCK" = "Code de verrouillage";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Autoriser le déverrouillage par Touch ID";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Autoriser le déverrouillage par Face ID";
-"SETTINGS_VIDEO_FULLSCREEN" = "Lire la vidéo en plein écran";
-"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continuer la lecture vidéo";
-"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continuer la lecture audio";
+"SETTINGS_VIDEO_FULLSCREEN" = "Lecture vidéo en plein écran";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Reprise de lecture vidéo";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Reprise de lecture audio";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Jamais";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Demander";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Toujours";
-"SETTINGS_NETWORK_PLAY_ALL" = "Jouer automatiquement l'élément suivant";
+"SETTINGS_NETWORK_PLAY_ALL" = "Lecture automatique du suivant";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Activer le défilement du texte dans la liste des médias";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtre anti-blocs";
@@ -40,13 +40,13 @@
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Vitesse de lecture par défaut";
 
-"SETTINGS_GESTURES" = "Contrôle de la lecture par gestes";
-"SETTINGS_GESTURES_VOLUME" = "Balayer vers le haut / le bas pour le volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Toucher à deux doigts pour lire / mettre en pause";
-"SETTINGS_GESTURES_BRIGHTNESS" = "Balayer vers le haut / le bas pour la luminosité";
-"SETTINGS_GESTURES_SEEK" = "Balayer vers la droite / la gauche pour déplacer";
-"SETTINGS_GESTURES_CLOSE" = "Pincer pour fermer";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Durée du saut variable";
+"SETTINGS_GESTURES" = "Contrôle gestuel de la lecture";
+"SETTINGS_GESTURES_VOLUME" = "Volume par balayage haut/bas";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Lecture/pause par toucher à 2 doigts";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Luminosité par balayage haut/bas";
+"SETTINGS_GESTURES_SEEK" = "Déplacement par balayage droite/gauche";
+"SETTINGS_GESTURES_CLOSE" = "Fermeture par pincement";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Durée de saut variable";
 
 "SETTINGS_SUBTITLES_TITLE" = "Sous-titres";
 "SETTINGS_SUBTITLES_FONT" = "Police";
@@ -57,7 +57,7 @@
 "SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "Normal";
 "SETTINGS_SUBTITLES_FONTSIZE_LARGE" = "Grand";
 "SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "Très grand";
-"SETTINGS_SUBTITLES_BOLDFONT" = "Écrire en gras";
+"SETTINGS_SUBTITLES_BOLDFONT" = "En gras";
 "SETTINGS_SUBTITLES_FONTCOLOR" = "Couleur de la police";
 "SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "Blanc";
 "SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "Noir";
@@ -74,39 +74,37 @@
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normale";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Épaisse";
 
-"SETTINGS_DEINTERLACE" = "Désentrelacer";
+"SETTINGS_DEINTERLACE" = "Désentrelacement";
 "SETTINGS_DEINTERLACE_ON" = "Oui";
 "SETTINGS_DEINTERLACE_OFF" = "Non";
 "SETTINGS_DEINTERLACE_AUTO" = "Automatique";
 
 "SETTINGS_HWDECODING" = "Décodage matériel";
-"SETTINGS_HWDECODING_ON" = "Activé";
-"SETTINGS_HWDECODING_OFF" = "Désactivé";
+"SETTINGS_HWDECODING_ON" = "Oui";
+"SETTINGS_HWDECODING_OFF" = "Non";
+"SETTINGS_CASTING" = "Diffusion";
+"SETTINGS_PTCASTING" = "Passerelle audio";
+"SETTINGS_PTCASTINGLONG" = "Laisser votre téléviseur gérer le rendu audio";
 
 "SETTINGS_FEEDBACK" = "Retour";
 "SETTINGS_SEND_FEEDBACK" = "Envoyer un retour";
-"SETTINGS_SEND_RATING" = "Merci de noter VLC pour iOS";
+"SETTINGS_SEND_RATING" = "Merci d'évaluer VLC pour iOS";
 
 "SETTINGS_MEDIA_LIBRARY" = "Médiathèque";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forcer la réanalyse de la médiathèque";
-"SETTINGS_DECRAPIFY" = "Optimiser les noms des éléments pour l'affichage";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Longueur pour la détection des groupes vidéo";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Court";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Défaut";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Long";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Très long";
-"SETTINGS_SHOW_THUMBNAILS" = "Afficher les miniatures des fichiers vidéo";
-"SETTINGS_SHOW_ARTWORKS" = "Afficher les jaquettes des fichiers audio";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inclure la médiathèque dans la sauvegarde de l'appareil";
+"SETTINGS_DECRAPIFY" = "Adaptation des noms à l'affichage";
+"SETTINGS_SHOW_THUMBNAILS" = "Miniatures des fichiers vidéo";
+"SETTINGS_SHOW_ARTWORKS" = "Illustrations des fichiers audio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Médiathèque incluse dans la sauvegarde de l'appareil";
 
 "SETTINGS_FILE_SYNC" = "Synchronisation de fichier";
-"SETTINGS_WIFISHARING_IPv6" = "Support IPV6 pour partage Wi-Fi";
+"SETTINGS_WIFISHARING_IPv6" = "Compatibilité IPV6 en partage Wi-Fi";
 "SETTINGS_UNLINK_DROPBOX" = "Dissocier de Dropbox";
 "SETTINGS_UNLINK_GOOGLEDRIVE" = "Dissocier de Google Drive";
 "SETTINGS_UNLINK_ONEDRIVE" = "Dissocier de OneDrive";
 "SETTINGS_FTP_TEXT_ENCODING" = "Encodage du texte pour les connexions FTP";
 
-"SETTINGS_ARTWORK" = "Jaquette";
-"SETTINGS_DOWNLOAD_ARTWORK" = "Télécharger la jaquette";
+"SETTINGS_ARTWORK" = "Illustration";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Télécharger l'illustration";
 
 "ABOUT_APP_TV" = "À propos de VLC pour tvOS";
