@@ -11,8 +11,9 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+@import WebKit;
 
-@interface VLCAboutViewController : UIViewController <UIWebViewDelegate>
+@interface VLCAboutViewController : UIViewController <WKNavigationDelegate>
 
 @end

@@ -17,7 +17,7 @@
 
 @interface VLCAboutViewController ()
 {
-    UIWebView *_webView;
+    WKWebView *_webView;
 }
 
 @end
@@ -30,9 +30,9 @@
     self.view.backgroundColor = PresentationTheme.current.colors.background;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
-    _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
+    _webView = [[WKWebView alloc] initWithFrame:self.view.frame];
     _webView.clipsToBounds = YES;
-    _webView.delegate = self;
+    _webView.navigationDelegate = self;
     _webView.backgroundColor = [UIColor clearColor];
     _webView.opaque = NO;
     _webView.scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
@@ -106,21 +106,6 @@
     return YES;
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    NSURL *requestURL = request.URL;
-    if (![requestURL.scheme isEqualToString:@""])
-        return ![[UIApplication sharedApplication] openURL:requestURL];
-    else
-        return YES;
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    _webView.backgroundColor = PresentationTheme.current.colors.background;
-    _webView.opaque = YES;
-}
-
 - (IBAction)openContributePage:(id)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.videolan.org/contribute.html"]];
@@ -129,6 +114,23 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return PresentationTheme.current.colors.statusBarStyle;
+}
+
+#pragma mark - WKNavigationDelegate
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURL *requestURL = navigationAction.request.URL;
+    if (![requestURL.scheme isEqualToString:@""] && [[UIApplication sharedApplication] openURL:requestURL]) {
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }
+    else {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    _webView.backgroundColor = PresentationTheme.current.colors.background;
+    _webView.opaque = YES;
 }
 
 @end
