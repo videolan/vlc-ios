@@ -22,6 +22,7 @@
 #import "Reachability.h"
 
 #import <ifaddrs.h>
+#import <net/if.h>
 #import <arpa/inet.h>
 
 #import "NSString+SupportedMedia.h"
@@ -143,32 +144,17 @@
 
         while (anInterface != NULL) {
             if (anInterface->ifa_addr->sa_family == AF_INET) {
-                APLog(@"Found interface %s, address %@", anInterface->ifa_name, @(inet_ntoa(((struct sockaddr_in *)anInterface->ifa_addr)->sin_addr)));
-
-                /* check for primary interface first */
-                if (strncmp (anInterface->ifa_name,"en0",strlen("en0")) == 0) {
-                    unsigned int flags = anInterface->ifa_flags;
-                    if( (flags & 0x1) && (flags & 0x40) && !(flags & 0x8) ) {
-                        _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
-                        break;
-                    }
+                APLog(@"Found an IPv4 interface %s, address %@", anInterface->ifa_name, @(inet_ntoa(((struct sockaddr_in *)anInterface->ifa_addr)->sin_addr)));
+                if ([self interfaceIsSuitableForUse:anInterface]) {
+                    _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
                 }
-
-                /* oh well, let's move on to the secondary interface */
-                if (strncmp (anInterface->ifa_name,"en1",strlen("en1")) == 0) {
-                    unsigned int flags = anInterface->ifa_flags;
-                    if( (flags & 0x1) && (flags & 0x40) && !(flags & 0x8) ) {
-                        _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
-                        break;
-                    }
-                }
-
-                if (strncmp (anInterface->ifa_name,"bridge100",strlen("bridge100")) == 0) {
-                    unsigned int flags = anInterface->ifa_flags;
-                    if( (flags & 0x1) && (flags & 0x40) && !(flags & 0x8) ) {
-                        _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
-                        break;
-                    }
+            } else if (anInterface->ifa_addr->sa_family == AF_INET6) {
+                char addr[INET6_ADDRSTRLEN];
+                struct sockaddr_in6 *in6 = (struct sockaddr_in6*)anInterface->ifa_addr;
+                inet_ntop(AF_INET6, &in6->sin6_addr, addr, sizeof(addr));
+                APLog(@"Found an IPv6 interface %s, address %@", anInterface->ifa_name, @(addr));
+                if ([self interfaceIsSuitableForUse:anInterface]) {
+                    _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
                 }
             }
             anInterface = anInterface->ifa_next;
@@ -184,6 +170,37 @@
     if (serverWasRunning) {
         [self changeHTTPServerState:YES];
     }
+}
+
+- (BOOL)necessaryFlagsSetOnInterface:(struct ifaddrs *)anInterface withName:(const char *)nameToCompare
+{
+    if (strncmp (anInterface->ifa_name, nameToCompare, strlen(nameToCompare)) == 0) {
+        unsigned int flags = anInterface->ifa_flags;
+        if( (flags & IFF_UP) && (flags & IFF_RUNNING) && !(flags & IFF_LOOPBACK) ) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL)interfaceIsSuitableForUse:(struct ifaddrs *)anInterface
+{
+    /* check for primary interface first */
+    if ([self necessaryFlagsSetOnInterface:anInterface withName:"en0"]) {
+        return YES;
+    }
+
+    /* oh well, let's move on to the secondary interface */
+    if ([self necessaryFlagsSetOnInterface:anInterface withName:"en1"]) {
+        return YES;
+    }
+
+    /* we can also run on the tethering interface */
+    if ([self necessaryFlagsSetOnInterface:anInterface withName:"bridge100"]) {
+        return YES;
+    }
+
+    return NO;
 }
 
 - (BOOL)changeHTTPServerState:(BOOL)state
@@ -254,27 +271,44 @@
 
 - (NSString *)currentIPAddress
 {
-    NSString *address = @"";
+    NSString *ipv4address = @"";
+    NSString *ipv6address = @"";
     struct ifaddrs *interfaces = NULL;
-    struct ifaddrs *temp_addr = NULL;
+    struct ifaddrs *interface = NULL;
     int success = getifaddrs(&interfaces);
 
     if (success != 0) {
         freeifaddrs(interfaces);
-        return address;
+        return ipv4address;
     }
 
-    temp_addr = interfaces;
-    while (temp_addr != NULL) {
-        if (temp_addr->ifa_addr->sa_family == AF_INET) {
-            if([@(temp_addr->ifa_name) isEqualToString:_nameOfUsedNetworkInterface])
-                address = @(inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr));
+    interface = interfaces;
+    while (interface != NULL) {
+        if (interface->ifa_addr->sa_family == AF_INET) {
+            if([@(interface->ifa_name) isEqualToString:_nameOfUsedNetworkInterface] && [self interfaceIsSuitableForUse:interface]) {
+                ipv4address = @(inet_ntoa(((struct sockaddr_in *)interface->ifa_addr)->sin_addr));
+            }
+        } else if (interface->ifa_addr->sa_family == AF_INET6) {
+            if([@(interface->ifa_name) isEqualToString:_nameOfUsedNetworkInterface] && [self interfaceIsSuitableForUse:interface]) {
+                char addr[INET6_ADDRSTRLEN];
+                struct sockaddr_in6 *in6 = (struct sockaddr_in6*)interface->ifa_addr;
+                inet_ntop(AF_INET6, &in6->sin6_addr, addr, sizeof(addr));
+                ipv6address = @(addr);
+            }
         }
-        temp_addr = temp_addr->ifa_next;
+        interface = interface->ifa_next;
     }
 
     freeifaddrs(interfaces);
-    return address;
+
+    /* return the IPv4 address in dual stack networks as it is more readable */
+    if (ipv4address.length > 0) {
+        /* ignore link-local addresses following RFC 3927 */
+        if (![ipv4address hasPrefix:@"169.254."]) {
+            return ipv4address;
+        }
+    }
+    return ipv6address;
 }
 
 - (NSString *)hostname
