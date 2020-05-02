@@ -17,6 +17,7 @@
 #import "VLCSiriRemoteGestureRecognizer.h"
 #import "VLCNetworkImageView.h"
 #import "VLCMetaData.h"
+#import "VLCActivityManager.h"
 
 typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 {
@@ -41,6 +42,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 @property (nonatomic, readonly, getter=isSeekable) BOOL seekable;
 
 @property (nonatomic) NSSet<UIGestureRecognizer *> *simultaneousGestureRecognizers;
+@property (nonatomic) BOOL disabledIdleTimer;
 
 @end
 
@@ -79,6 +81,8 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     self.bottomOverlayView.alpha = 0.0;
 
     self.bufferingLabel.text = NSLocalizedString(@"PLEASE_WAIT", nil);
+
+    _disabledIdleTimer = NO;
 
     NSMutableSet<UIGestureRecognizer *> *simultaneousGestureRecognizers = [NSMutableSet set];
 
@@ -180,6 +184,8 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:tempSubsDirPath])
         [fileManager removeItemAtPath:tempSubsDirPath error:nil];
+
+    [self enableIdleTimer];
 
     [super viewWillDisappear:animated];
 }
@@ -729,6 +735,25 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     }
 }
 
+- (void)disableIdleTimer {
+    if (self.disabledIdleTimer) return;
+
+    // we should not call disableIdleTimer multiple times and ensure
+    // disable/enable calls are synced.
+    VLCActivityManager *manager = [VLCActivityManager defaultManager];
+    [manager disableIdleTimer];
+    self.disabledIdleTimer = YES;
+}
+
+- (void)enableIdleTimer {
+    if (!self.disabledIdleTimer) return;
+
+    // we should not call activateidleTimer multiple times and ensure
+    VLCActivityManager *manager = [VLCActivityManager defaultManager];
+    [manager activateIdleTimer];
+    self.disabledIdleTimer = NO;
+}
+
 #pragma mark - PlaybackControls
 
 - (void)fireHidePlaybackControlsIfNotPlayingTimer:(NSTimer *)timer
@@ -829,6 +854,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                 self.bufferingLabel.hidden = YES;
             }];
         }
+
+        [self disableIdleTimer];
+    } else {
+        [self enableIdleTimer];
     }
 }
 
