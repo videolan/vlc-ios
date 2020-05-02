@@ -614,6 +614,24 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string>SETTINGS_CASTING</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>Key</key>
+			<string>sout-chromecast-audio-passthrough</string>
+			<key>Title</key>
+			<string>SETTINGS_PTCASTING</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>IASKSubtitle</key>
+			<string>SETTINGS_PTCASTINGLONG</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>SETTINGS_MEDIA_LIBRARY</string>
 		</dict>
 		<dict>

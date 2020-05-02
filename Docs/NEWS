@@ -1,5 +1,9 @@
 # Changelog
 
+## iOS [3.2.9]
+
+· Added option to enable Chromecast audio passthrough
+
 ## iOS [3.2.8]
 
 · Add support to create media groups manually
