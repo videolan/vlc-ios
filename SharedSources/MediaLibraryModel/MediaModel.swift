@@ -13,7 +13,7 @@ protocol MediaModel: MLBaseModel where MLType == VLCMLMedia { }
 
 extension MediaModel {
     func append(_ item: VLCMLMedia) {
-        if !files.contains { $0 == item } {
+        if !files.contains(where: { $0 == item }) {
             files.append(item)
         }
     }
