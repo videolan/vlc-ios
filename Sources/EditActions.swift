@@ -379,25 +379,27 @@ extension EditActions: AddToCollectionViewControllerDelegate {
     func addToCollectionViewController(_ addToCollectionViewController: AddToCollectionViewController,
                                        didSelectCollection collection: MediaCollectionModel) {
 
-        guard let mediaGroups = objects as? [VLCMLMediaGroup] else {
-            assertionFailure("EditActions: AddToCollectionViewControllerDelegate: Failed to retrieve media groups.")
+        var tmpMedia = [VLCMLMedia]()
+
+        if let mediaGroups = objects as? [VLCMLMediaGroup] {
+            mediaGroups.forEach() { tmpMedia += $0.media(of: .video) ?? [] }
+        } else if let media = objects as? [VLCMLMedia] {
+            tmpMedia = media
+        } else {
+            assertionFailure("EditActions: AddToCollectionViewControllerDelegate: Failed to retrieve type.")
             completion?(.fail)
             return
         }
 
-        var media = [VLCMLMedia]()
-        mediaGroups.forEach() { media += $0.media(of: .video) ?? [] }
-
-        if let mediaGroupModel = self.model as? MediaGroupViewModel,
-            let mediaGroup = collection as? VLCMLMediaGroup {
-            mediaGroupModel.append(media, to: mediaGroup)
-        }
-
-        for medium in media {
-            if let playlist = collection as? VLCMLPlaylist,
-                !playlist.appendMedia(withIdentifier: medium.identifier()) {
-                assertionFailure("EditActions: AddToPlaylistViewControllerDelegate: Failed to add item.")
-                completion?(.fail)
+        if let mediaGroup = collection as? VLCMLMediaGroup,
+            let mediaGroupModel = self.model as? MediaGroupViewModel {
+            mediaGroupModel.append(tmpMedia, to: mediaGroup)
+        } else if let playlist = collection as? VLCMLPlaylist {
+            for medium in tmpMedia {
+                if !playlist.appendMedia(withIdentifier: medium.identifier()) {
+                    assertionFailure("EditActions: AddToPlaylistViewControllerDelegate: Failed to add item.")
+                    completion?(.fail)
+                }
             }
         }
         addToCollectionViewController.dismiss(animated: true, completion: nil)
