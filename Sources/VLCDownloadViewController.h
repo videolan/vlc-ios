@@ -14,6 +14,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class VLCMedia;
 @interface VLCDownloadViewController : UIViewController
 
 + (instancetype)sharedInstance;
@@ -38,7 +39,8 @@
 - (IBAction)downloadAction:(id)sender;
 - (IBAction)cancelDownload:(id)sender;
 
-- (void)addURLToDownloadList:(NSURL *)aURL fileNameOfMedia:(NSString*) fileName;
+- (void)addURLToDownloadList:(NSURL *)aURL fileNameOfMedia:(NSString*)fileName;
+- (void)addVLCMediaToDownloadList:(VLCMedia *)media fileNameOfMedia:(NSString*)fileName expectedDownloadSize:(long long unsigned)expectedDownloadSize;
 
 @property (nonatomic, readonly, copy) NSString *detailText;
 @property (nonatomic, readonly) UIImage *cellImage;

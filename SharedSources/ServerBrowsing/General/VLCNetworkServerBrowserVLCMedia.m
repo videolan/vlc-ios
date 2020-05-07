@@ -171,13 +171,17 @@
         _name = title;
         _URL = media.url;
         _mediaOptions = [mediaOptions copy];
-        _downloadable = NO;
     }
     return self;
 }
 
 - (id<VLCNetworkServerBrowser>)containerBrowser {
     return [[VLCNetworkServerBrowserVLCMedia alloc] initWithMedia:self.media options:self.mediaOptions];
+}
+
+- (BOOL)isDownloadable
+{
+    return _media.mediaType == VLCMediaTypeFile;
 }
 
 @end

@@ -2,7 +2,7 @@
  * VLCDownloadViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -14,16 +14,17 @@
 
 #import "VLCDownloadViewController.h"
 #import "VLCHTTPFileDownloader.h"
+#import "VLCMediaFileDownloader.h"
 #import "VLCActivityManager.h"
 #import "WhiteRaccoon.h"
 #import "NSString+SupportedMedia.h"
-#import "VLCHTTPFileDownloader.h"
 #import "VLC-Swift.h"
 
 typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     VLCDownloadSchemeNone,
     VLCDownloadSchemeHTTP,
-    VLCDownloadSchemeFTP
+    VLCDownloadSchemeFTP,
+    VLCDownloadSchemeVLCMedia
 };
 
 @interface VLCDownloadViewController () <WRRequestDelegate, UITableViewDataSource, UITableViewDelegate, VLCHTTPFileDownloader, UITextFieldDelegate>
@@ -31,13 +32,15 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     NSMutableArray *_currentDownloads;
     VLCDownloadScheme _currentDownloadType;
     NSString *_humanReadableFilename;
-    NSMutableArray *_currentDownloadFilename;
+    NSMutableDictionary *_userDefinedFileNameForDownloadItem;
+    NSMutableDictionary *_expectedDownloadSizesForItem;
     NSTimeInterval _startDL;
     NSString *_currentDownloadIdentifier;
 
     NSLayoutConstraint *_contentViewHeight;
 
     VLCHTTPFileDownloader *_httpDownloader;
+    VLCMediaFileDownloader *_mediaDownloader;
 
     WRRequestDownload *_FTPDownloadRequest;
     NSTimeInterval _lastStatsUpdate;
@@ -70,7 +73,8 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     if (self){
         _lastSpeeds = [[NSMutableArray alloc] init];
         _currentDownloads = [[NSMutableArray alloc] init];
-        _currentDownloadFilename = [[NSMutableArray alloc] init];
+        _userDefinedFileNameForDownloadItem = [[NSMutableDictionary alloc] init];
+        _expectedDownloadSizesForItem = [[NSMutableDictionary alloc] init];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
         self.title = NSLocalizedString(@"DOWNLOAD_FROM_HTTP", comment:@"");
     }
@@ -174,7 +178,6 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         }
 
         [_currentDownloads addObject:URLtoSave];
-        [_currentDownloadFilename addObject:@""];
         self.urlField.text = @"";
         [self.downloadsTable reloadData];
         [self updateContentViewHeightConstraint];
@@ -206,6 +209,15 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     return _httpDownloader;
 }
 
+- (VLCMediaFileDownloader *)mediaDownloader
+{
+    if (!_mediaDownloader) {
+        _mediaDownloader = [[VLCMediaFileDownloader alloc] init];
+        _mediaDownloader.delegate = self;
+    }
+    return _mediaDownloader;
+}
+
 - (NSString *)detailText
 {
     return NSLocalizedString(@"DOWNLOADVC_DETAILTEXT", nil);
@@ -220,8 +232,6 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
 - (void)_startDownload
 {
-    [_currentDownloads removeObjectAtIndex:0];
-    [_currentDownloadFilename removeObjectAtIndex:0];
     [self _beginBackgroundDownload];
     [self _updateUI];
     _startDL = [NSDate timeIntervalSinceReferenceDate];
@@ -231,30 +241,56 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     _ftpLastReceivedDataSize = 0;
 }
 
-- (void)_downloadSchemeHttp
+- (void)_downloadSchemeHttpFromURL:(NSURL *)firstObjectURL
 {
     if (_currentDownloadIdentifier) {
         return;
     }
     _currentDownloadType = VLCDownloadSchemeHTTP;
-    if (![_currentDownloadFilename.firstObject isEqualToString:@""]) {
-        _humanReadableFilename = [[_currentDownloadFilename firstObject] stringByRemovingPercentEncoding];
-        _currentDownloadIdentifier = [self.httpDownloader downloadFileFromURL:_currentDownloads.firstObject withFileName:_humanReadableFilename];
+
+    _humanReadableFilename = [_userDefinedFileNameForDownloadItem objectForKey:firstObjectURL];
+    if (!_humanReadableFilename) {
+        _humanReadableFilename = [firstObjectURL lastPathComponent];
     } else {
-        _currentDownloadIdentifier = [self.httpDownloader downloadFileFromURL:_currentDownloads.firstObject];
-        _humanReadableFilename = [_currentDownloads.firstObject lastPathComponent];
+        _humanReadableFilename = [_humanReadableFilename stringByRemovingPercentEncoding];
     }
+
+    _currentDownloadIdentifier = [self.httpDownloader downloadFileFromURL:firstObjectURL withFileName:_humanReadableFilename];
+
     [self _startDownload];
 }
 
-- (void)_downloadSchemeFtp
+- (void)_downloadSchemeFtpFromURL:(NSURL *)firstObjectURL
 {
     if (_FTPDownloadRequest) {
         return;
     }
     _currentDownloadType = VLCDownloadSchemeFTP;
-    [self _downloadFTPFile:_currentDownloads.firstObject];
-    _humanReadableFilename = [_currentDownloads.firstObject lastPathComponent];
+    [self _downloadFTPFile:firstObjectURL];
+    _humanReadableFilename = [firstObjectURL lastPathComponent];
+    [self _startDownload];
+}
+
+- (void)_downloadVLCMediaItem:(VLCMedia *)media
+{
+    VLCMediaFileDownloader *fileDownloader = self.mediaDownloader;
+    if (fileDownloader.downloadInProgress) {
+        return;
+    }
+
+    NSURL *mediaURL = media.url;
+    _humanReadableFilename = [_userDefinedFileNameForDownloadItem objectForKey:mediaURL];
+    if (!_humanReadableFilename) {
+        _humanReadableFilename = [mediaURL lastPathComponent];
+    } else {
+        _humanReadableFilename = [_humanReadableFilename stringByRemovingPercentEncoding];
+    }
+
+    long long unsigned expectedDownloadSize = [[_expectedDownloadSizesForItem objectForKey:mediaURL] unsignedLongLongValue];
+
+    _currentDownloadType = VLCDownloadSchemeVLCMedia;
+    [fileDownloader downloadFileFromVLCMedia:media withName:_humanReadableFilename expectedDownloadSize:expectedDownloadSize];
+
     [self _startDownload];
 }
 
@@ -286,17 +322,25 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
         return;
     }
 
-    NSString *downloadScheme = [_currentDownloads.firstObject scheme];
+    id firstObject = _currentDownloads.firstObject;
 
-    if ([downloadScheme isEqualToString:@"http"] || [downloadScheme isEqualToString:@"https"]) {
-        [self _downloadSchemeHttp];
-    } else if ([downloadScheme isEqualToString:@"ftp"]) {
-        [self _downloadSchemeFtp];
-    } else {
-        APLog(@"Unknown download scheme '%@'", downloadScheme);
-        [_currentDownloads removeObjectAtIndex:0];
-        _currentDownloadType = VLCDownloadSchemeNone;
+    if ([firstObject isKindOfClass:[NSURL class]]) {
+        NSURL *firstObjectURL = (NSURL *)firstObject;
+        NSString *downloadScheme = [firstObjectURL scheme];
+
+        if ([downloadScheme isEqualToString:@"http"] || [downloadScheme isEqualToString:@"https"]) {
+            [self _downloadSchemeHttpFromURL:firstObjectURL];
+        } else if ([downloadScheme isEqualToString:@"ftp"]) {
+            [self _downloadSchemeFtpFromURL:firstObjectURL];
+        } else {
+            APLog(@"Unknown download scheme '%@'", downloadScheme);
+            _currentDownloadType = VLCDownloadSchemeNone;
+        }
+    } else if ([firstObject isKindOfClass:[VLCMedia class]]) {
+        [self _downloadVLCMediaItem:firstObject];
     }
+
+    [_currentDownloads removeObjectAtIndex:0];
 }
 
 - (IBAction)cancelDownload:(id)sender
@@ -310,6 +354,8 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 
         /* remove partially downloaded content */
         [[NSFileManager defaultManager] removeItemAtPath:target.path error:nil];
+    } else {
+        [self.mediaDownloader cancelDownload];
     }
 }
 
@@ -488,10 +534,17 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
     }
 
     NSInteger row = indexPath.row;
-    if ([_currentDownloadFilename[row] isEqualToString:@""])
-        cell.textLabel.text = [[_currentDownloads[row] lastPathComponent] stringByRemovingPercentEncoding];
-    else
-        cell.textLabel.text = [[_currentDownloadFilename[row] lastPathComponent] stringByRemovingPercentEncoding];
+    id iter = _currentDownloads[row];
+    NSString *customFilename = [_userDefinedFileNameForDownloadItem objectForKey:iter];
+    if (customFilename) {
+        cell.textLabel.text = [customFilename stringByRemovingPercentEncoding];
+    } else {
+        if ([iter isKindOfClass:[NSURL class]]) {
+            cell.textLabel.text = [[iter lastPathComponent] stringByRemovingPercentEncoding];
+        } else {
+            cell.textLabel.text = [[[iter url] lastPathComponent] stringByRemovingPercentEncoding];
+        }
+    }
 
     cell.detailTextLabel.text = [_currentDownloads[row] absoluteString];
     cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
@@ -520,20 +573,45 @@ typedef NS_ENUM(NSUInteger, VLCDownloadScheme) {
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        id iter = _currentDownloads[indexPath.row];
+        if ([iter isKindOfClass:[VLCMedia class]]) {
+            NSURL *mediaURL = [(VLCMedia *)iter url];
+            [_userDefinedFileNameForDownloadItem removeObjectForKey:mediaURL];
+            [_expectedDownloadSizesForItem removeObjectForKey:mediaURL];
+        }
         [_currentDownloads removeObjectAtIndex:indexPath.row];
-        [_currentDownloadFilename removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
         [self updateContentViewHeightConstraint];
     }
 }
 
 #pragma mark - communication with other VLC objects
-- (void)addURLToDownloadList:(NSURL *)aURL fileNameOfMedia:(NSString*) fileName
+- (void)addURLToDownloadList:(NSURL *)aURL fileNameOfMedia:(NSString*)fileName
 {
+    APLog(@"%s: %@", __func__, aURL);
     [_currentDownloads addObject:aURL];
-    if (!fileName)
-        fileName = @"";
-    [_currentDownloadFilename addObject:fileName];
+    if (fileName) {
+        [_userDefinedFileNameForDownloadItem setObject:fileName forKey:aURL];
+    }
+    [self _updateDownloadList];
+}
+
+- (void)addVLCMediaToDownloadList:(VLCMedia *)media fileNameOfMedia:(NSString*)fileName expectedDownloadSize:(long long unsigned)expectedDownloadSize
+{
+    APLog(@"%s: %@", __func__, media);
+    [_currentDownloads addObject:media];
+    NSURL *mediaURL = media.url;
+    if (fileName) {
+        [_userDefinedFileNameForDownloadItem setObject:fileName forKey:mediaURL];
+    }
+    if (expectedDownloadSize > 0) {
+        [_expectedDownloadSizesForItem setObject:@(expectedDownloadSize) forKey:mediaURL];
+    }
+    [self _updateDownloadList];
+}
+
+- (void)_updateDownloadList
+{
     [self.downloadsTable reloadData];
     [self updateContentViewHeightConstraint];
     if (_currentDownloadType == VLCDownloadSchemeNone)

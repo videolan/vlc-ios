@@ -1,0 +1,214 @@
+/*****************************************************************************
+ * VLCMediaFileDownloader.m
+ * VLC for iOS
+ *****************************************************************************
+ * Copyright (c) 2020 VideoLAN. All rights reserved.
+ * $Id$
+ *
+ * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *
+ * Refer to the COPYING file of the official project for license.
+ *****************************************************************************/
+
+#import "VLCMediaFileDownloader.h"
+#import "NSString+SupportedMedia.h"
+#import "VLCActivityManager.h"
+#import "UIDevice+VLC.h"
+#import "VLCMediaFileDiscoverer.h"
+#import "VLC-Swift.h"
+
+@interface VLCMediaFileDownloader () <VLCMediaPlayerDelegate>
+{
+    VLCMediaPlayer *_mediaPlayer;
+    NSString *_demuxDumpFilePath;
+    BOOL _downloadCancelled;
+    NSTimer *_timer;
+    NSFileManager *_fileManager;
+    unsigned long long _expectedDownloadSize;
+    unsigned long long _lastFileSize;
+}
+@end
+
+@implementation VLCMediaFileDownloader
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        _mediaPlayer = [[VLCMediaPlayer alloc] init];
+        _mediaPlayer.delegate = self;
+        _fileManager = [NSFileManager defaultManager];
+    }
+    return self;
+}
+
+- (NSString *)createPotentialNameFromName:(NSString *)name
+{
+    NSString *documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                          NSUserDomainMask,
+                                                                          YES).firstObject;
+
+    return [[self createPotentialPathFromPath:[documentDirectoryPath
+                                               stringByAppendingPathComponent:name]] lastPathComponent];
+}
+
+- (NSString *)createPotentialPathFromPath:(NSString *)path
+{
+    NSString *fileName = [path lastPathComponent];
+    NSString *finalFilePath = [path stringByDeletingLastPathComponent];
+
+    if ([_fileManager fileExistsAtPath:path]) {
+        NSString *potentialFilename;
+        NSString *fileExtension = [fileName pathExtension];
+        NSString *rawFileName = [fileName stringByDeletingPathExtension];
+        for (NSUInteger x = 1; x < 100; x++) {
+            potentialFilename = [NSString stringWithFormat:@"%@_%lu.%@",
+                                 rawFileName, (unsigned long)x, fileExtension];
+            if (![_fileManager fileExistsAtPath:[finalFilePath stringByAppendingPathComponent:potentialFilename]]) {
+                break;
+            }
+        }
+        return [finalFilePath stringByAppendingPathComponent:potentialFilename];
+    }
+    return path;
+}
+
+- (NSString *)downloadFileFromVLCMedia:(VLCMedia *)media withName:(NSString *)name expectedDownloadSize:(unsigned long long)expectedDownloadSize
+{
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *libraryPath = [searchPaths firstObject];
+
+    NSURL *mediaURL = media.url;
+    NSString *fileName = [name stringByRemovingPercentEncoding];
+    NSString *downloadFileName = [self createPotentialNameFromName:fileName];
+
+    if (downloadFileName.pathExtension.length == 0 || ![downloadFileName isSupportedFormat]) {
+        NSString *urlExtension = mediaURL.pathExtension;
+        NSString *extension = urlExtension.length != 0 ? urlExtension : @"vlc";
+        downloadFileName = [fileName stringByAppendingPathExtension:extension];
+    }
+
+    _demuxDumpFilePath = [libraryPath stringByAppendingPathComponent:downloadFileName];
+
+    [media addOptions:@{ @"demuxdump-file" : _demuxDumpFilePath,
+                         @"demux" : @"demuxdump" }];
+
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStarted];
+    [activityManager disableIdleTimer];
+
+    _expectedDownloadSize = expectedDownloadSize;
+
+    _downloadCancelled = NO;
+    _downloadInProgress = YES;
+
+    _mediaPlayer.media = media;
+    [_mediaPlayer play];
+
+    return [[NSUUID UUID] UUIDString];
+}
+
+- (void)cancelDownload
+{
+    _downloadCancelled = YES;
+    [_mediaPlayer stop];
+}
+
+- (void)_downloadFailed
+{
+    if ([self.delegate respondsToSelector:@selector(downloadFailedWithIdentifier:errorDescription:)]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate downloadFailedWithIdentifier:nil errorDescription:@"libvlc failure"];
+        });
+    }
+    [self _downloadEnded];
+}
+
+- (void)_downloadCancelled
+{
+    /* remove partially downloaded content */
+    [_fileManager removeItemAtURL:[NSURL fileURLWithPath:_demuxDumpFilePath] error:nil];
+
+    if ([self.delegate respondsToSelector:@selector(downloadFailedWithIdentifier:errorDescription:)]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate downloadFailedWithIdentifier:nil errorDescription:NSLocalizedString(@"HTTP_DOWNLOAD_CANCELLED",nil)];
+        });
+    }
+}
+
+- (void)_downloadEnded
+{
+    [_timer invalidate];
+
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStopped];
+    [activityManager activateIdleTimer];
+
+    [[VLCMediaFileDiscoverer sharedInstance] performSelectorOnMainThread:@selector(updateMediaList) withObject:nil waitUntilDone:NO];
+#if TARGET_OS_IOS
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // FIXME: Replace notifications by cleaner observers
+        [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
+                                                            object:self];
+    });
+#endif
+
+    _downloadInProgress = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate downloadEndedWithIdentifier:nil];
+    });
+}
+
+- (void)mediaPlayerStateChanged:(NSNotification *)aNotification
+{
+        VLCMediaPlayerState currentState = _mediaPlayer.state;
+
+        switch (currentState) {
+            case VLCMediaPlayerStatePlaying:
+                _timer = [NSTimer scheduledTimerWithTimeInterval:1. target:self selector:@selector(updatePosition) userInfo:nil repeats:YES];
+                APLog(@"%s: playing", __func__);
+                break;
+
+            case VLCMediaPlayerStateBuffering:
+                APLog(@"%s: buffering", __func__);
+                break;
+
+            case VLCMediaPlayerStateError:
+                APLog(@"%s: error", __func__);
+                [self _downloadFailed];
+                break;
+            case VLCMediaPlayerStateEnded:
+                APLog(@"%s: ended", __func__);
+                [self _downloadEnded];
+                break;
+            case VLCMediaPlayerStateStopped:
+                APLog(@"%s: stopped", __func__);
+                if (_downloadCancelled) {
+                    [self _downloadCancelled];
+                }
+                break;
+            default:
+                APLog(@"%s: state %li not handled", __func__, (long)currentState);
+                break;
+        }
+}
+
+- (void)updatePosition
+{
+    if ([_fileManager fileExistsAtPath:_demuxDumpFilePath]) {
+        NSDictionary *attributes = [_fileManager attributesOfItemAtPath:_demuxDumpFilePath error:nil];
+        unsigned long long fileSize = attributes.fileSize;
+
+        if ([self.delegate respondsToSelector:@selector(progressUpdatedTo:receivedDataSize:expectedDownloadSize:identifier:)]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate progressUpdatedTo:self->_expectedDownloadSize > 0 ? (float)fileSize / (float)self->_expectedDownloadSize : 0.
+                                receivedDataSize:fileSize - self->_lastFileSize
+                            expectedDownloadSize:self->_expectedDownloadSize
+                                      identifier:nil];
+                self->_lastFileSize = fileSize;
+            });
+        }
+    }
+
+}
+
+@end

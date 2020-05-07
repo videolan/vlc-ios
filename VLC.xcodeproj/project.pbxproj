@@ -130,6 +130,7 @@
 		7D30F3DF183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */; };
 		7D30F3EA183AB34200FFC021 /* VLCGoogleDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */; };
 		7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */; };
+		7D310885245F1EE100BC6D79 /* VLCMediaFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */; };
 		7D37848F183A98B6009EE944 /* VLCMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37848E183A98B6009EE944 /* VLCMovieViewController.m */; };
 		7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */; };
 		7D37849E183A98DD009EE944 /* VLCThumbnailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */; };
@@ -648,6 +649,8 @@
 		7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveController.m; path = Sources/VLCGoogleDriveController.m; sourceTree = SOURCE_ROOT; };
 		7D30F3E8183AB34200FFC021 /* VLCGoogleDriveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveTableViewController.h; path = Sources/VLCGoogleDriveTableViewController.h; sourceTree = SOURCE_ROOT; };
 		7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveTableViewController.m; path = Sources/VLCGoogleDriveTableViewController.m; sourceTree = SOURCE_ROOT; };
+		7D310883245F1EE100BC6D79 /* VLCMediaFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMediaFileDownloader.h; path = Sources/VLCMediaFileDownloader.h; sourceTree = SOURCE_ROOT; };
+		7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaFileDownloader.m; path = Sources/VLCMediaFileDownloader.m; sourceTree = SOURCE_ROOT; };
 		7D31719C19FEC91F0019357A /* VLC for iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "VLC for iOS.entitlements"; path = "../vlc-ios/VLC for iOS.entitlements"; sourceTree = "<group>"; };
 		7D3323FB18E61DD5000ABEA5 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D37848D183A98B6009EE944 /* VLCMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMovieViewController.h; path = Sources/VLCMovieViewController.h; sourceTree = SOURCE_ROOT; };
@@ -2123,6 +2126,8 @@
 		DD3EFEF71BDEBCE500B68579 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				7D310883245F1EE100BC6D79 /* VLCMediaFileDownloader.h */,
+				7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */,
 				DD3EFEF81BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.h */,
 				DD3EFEF91BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m */,
 				DD3EFEFA1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.h */,
@@ -3113,6 +3118,7 @@
 				8DE18890210B53E000A091D2 /* TrackModel.swift in Sources */,
 				E0BA21B922D7C8C700937CFD /* VideoPlayerMainControl.swift in Sources */,
 				8DE18898210F144B00A091D2 /* GenreModel.swift in Sources */,
+				7D310885245F1EE100BC6D79 /* VLCMediaFileDownloader.m in Sources */,
 				419A2C661F37A4B70069D224 /* VLCStringsForLocalization.m in Sources */,
 				D0AF091F220A741300076D07 /* VLCCloudSortingSpecifierManager.swift in Sources */,
 				DDA1B9091CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */,
