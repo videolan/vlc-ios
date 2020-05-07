@@ -72,8 +72,8 @@
 "PRIVATE_PLAYBACK_TOGGLE" = "Özel Oynatım";
 "SCAN_SUBTITLE_TOGGLE" = "Alt Yazı Araması (yalnız-http)";
 
-"BUTTON_RENDERER" = "Akış Oynatma Aygıtları";
-"BUTTON_RENDERER_HINT" = "Kullanılabilecek akış oynatma aygıtları menüsünü görüntüler";
+"BUTTON_RENDERER" = "Aktarım Aygıtları";
+"BUTTON_RENDERER_HINT" = "Kullanılabilecek aktarım aygıtları menüsünü görüntüler";
 
 "UPGRADING_LIBRARY" = "Ortam Kitaplığı Yükseltiliyor";
 "UNKNOWN" = "Bilinmeyen";
@@ -112,7 +112,7 @@
 
 "STREAMVC_DETAILTEXT" = "Akışlar indirilmeden doğrudan oynatılsın";
 "DOWNLOADVC_DETAILTEXT" = "Dosyalar doğrudan aygıtınıza indirilsin";
-"HEADER_TITLE_RENDERER" = " Bir akış oynatma aygıtı seçin";
+"HEADER_TITLE_RENDERER" = " Bir aktarım aygıtı seçin";
 
 "NETWORK" = "Ağ";
 "LOCAL_NETWORK" = "Yerel Ağ";

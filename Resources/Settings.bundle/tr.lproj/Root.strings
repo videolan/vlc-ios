@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Donanımsal Kod Çözme";
 "SETTINGS_HWDECODING_ON" = "Açık";
 "SETTINGS_HWDECODING_OFF" = "Kapalı";
+"SETTINGS_CASTING" = "Aktarım";
+"SETTINGS_PTCASTING" = "Doğrudan Ses Geçişi";
+"SETTINGS_PTCASTINGLONG" = "Ses TV tarafından oluşturulsun";
 
 "SETTINGS_FEEDBACK" = "Geri Bildirim";
 "SETTINGS_SEND_FEEDBACK" = "Geri Bildirim Gönderin";
