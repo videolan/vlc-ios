@@ -8,7 +8,7 @@
 "SETTINGS_THEME_DARK" = "Ciemny motyw";
 "SETTINGS_THEME_SYSTEM" = "Automatycznie";
 "SETTINGS_PRIVACY_SUBTITLE" = "Otwórz w ustawieniach";
-"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Bezpieczny dostęp do twoich treści";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Bezpieczny dostęp do Twoich treści";
 
 "SETTINGS_DARKTHEME" = "Wygląd";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Rozciąganie czasu dźwięku";
@@ -67,7 +67,7 @@
 "SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "Fuksja";
 "SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Żółty";
 "SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Zielony";
-"SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Niebieski-Navy";
+"SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Granatowy";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Grubość kontur";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Brak";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Cienka";
@@ -82,19 +82,17 @@
 "SETTINGS_HWDECODING" = "Sprzętowe dekodowanie";
 "SETTINGS_HWDECODING_ON" = "Włączone";
 "SETTINGS_HWDECODING_OFF" = "Wyłączone";
+"SETTINGS_CASTING" = "Transmisja";
+"SETTINGS_PTCASTING" = "Przekazywanie dźwięku";
+"SETTINGS_PTCASTINGLONG" = "Zezwól telewizorowi zarządzać renderowaniem dźwięku";
 
 "SETTINGS_FEEDBACK" = "Opinia";
 "SETTINGS_SEND_FEEDBACK" = "Wyślij opinię";
-"SETTINGS_SEND_RATING" = "Proszę oceń VLC dla iOS";
+"SETTINGS_SEND_RATING" = "Oceń VLC dla iOS";
 
 "SETTINGS_MEDIA_LIBRARY" = "Biblioteka mediów";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Zmuś VLC do ponownego skanowania biblioteki multimediów";
 "SETTINGS_DECRAPIFY" = "Optymalizuj nazwy elementów do wyświetlania";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Długość wykrywania grup wideo";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Krótka";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Domyślna";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Długa";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Bardzo długa";
 "SETTINGS_SHOW_THUMBNAILS" = "Pokaż miniaturki wideo";
 "SETTINGS_SHOW_ARTWORKS" = "Pokaż okładki muzyczne";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Dołącz bibliotekę multimediów do kopii zapasowej urządzenia";

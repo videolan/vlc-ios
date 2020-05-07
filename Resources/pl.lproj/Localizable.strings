@@ -232,11 +232,11 @@
 
 "WEBINTF_TITLE" = "Udostępnij przez WiFi";
 "WEBINTF_DROPFILES" = "Upuść pliki";
-"WEBINTF_DROPFILES_LONG" = "Upuść pliki w oknie, aby dodać je do twojego %@.<br>Albo kliknij na przycisk „+”, aby użyć okna dialogowego wyboru pliku.";
+"WEBINTF_DROPFILES_LONG" = "Upuść pliki w oknie, aby dodać je do Twojego %@.<br>Albo kliknij na przycisk „+”, aby użyć okna dialogowego wyboru pliku.";
 "WEBINTF_DOWNLOADFILES" = "Pobierz pliki";
 "WEBINTF_DOWNLOADFILES_LONG" = "Wystarczy kliknąć na plik, który chcesz pobrać ze swojego %@.";
 "WEBINTF_TITLE_ATV" = "Zdalne odtwarzanie";
-"WEBINTF_DROPFILES_LONG_ATV" = "Upuść pliki w oknie, aby odtworzyć je na twoim %@.<br>Albo kliknij na przycisk „+”, aby użyć okna dialogowego wyboru pliku.";
+"WEBINTF_DROPFILES_LONG_ATV" = "Upuść pliki w oknie, aby odtworzyć je na Twoim %@.<br>Albo kliknij na przycisk „+”, aby użyć okna dialogowego wyboru pliku.";
 "WEBINTF_URL_SENT" = "Adres URL został pomyślnie wysłany.";
 "WEBINTF_URL_EMPTY" = "Adres URL nie może być pusty.";
 "WEBINTF_URL_INVALID" = "Nieprawidłowy adres URL.";
@@ -258,12 +258,12 @@
 
 // ATV specific
 "AUDIO_INFO_VC_TITLE" = "Informacje dźwięku";
-"CLOUD_LOGIN_LONG" = "Aby uzyskać dostęp do usług chmury, zaloguj się do iCloud zarówno na tym Apple TV oraz urządzeniem z systemem iOS z tym samym identyfikatorem Apple ID i włącz udostępnianie pęku kluczy w ustawieniach systemowych.\nNastępnie zaloguj się do twojego wybranego dostawcy chmury za pomocą aplikacji VLC na urządzeniu z systemem iOS i wybierz go na ekranie.";
+"CLOUD_LOGIN_LONG" = "Aby uzyskać dostęp do usług chmury, zaloguj się do iCloud zarówno na tym Apple TV oraz urządzeniem z systemem iOS z tym samym identyfikatorem Apple ID i włącz udostępnianie pęku kluczy w ustawieniach systemowych.\nNastępnie zaloguj się do Twojego wybranego dostawcy chmury za pomocą aplikacji VLC na urządzeniu z systemem iOS i wybierz go na ekranie.";
 "ENTER_URL" = "Wprowadź adres URL do odtworzenia";
 "HTTP_SERVER_ON" = "Wyłącz zdalne odtwarzanie";
 "HTTP_SERVER_OFF" = "Włącz zdalne odtwarzanie";
 "CACHED_MEDIA" = "Buforowane multimedia";
-"CACHED_MEDIA_LONG" = "Te multimedia są przechowywane lokalnie na twoim Apple TV. Zauważ, że ta zawartość może w każdej chwili być usunięta przez system operacyjny bez uprzedniej informacji, gdy VLC nie jest uruchomiony w przypadku braku pamięci w urządzeniu .";
+"CACHED_MEDIA_LONG" = "Te multimedia są przechowywane lokalnie na Twoim Apple TV. Zauważ, że ta zawartość może w każdej chwili być usunięta przez system operacyjny bez uprzedniej informacji, gdy VLC nie jest uruchomiony w przypadku braku pamięci w urządzeniu.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Pobierz napisy z OpenSubtitles.org...";
 "FOUND_SUBS" = "Znaleziono napisy";
 "USE_SPDIF" = "Używaj przepuszczania (S/PDIF)";
