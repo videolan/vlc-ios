@@ -1,5 +1,9 @@
 # Changelog
 
+## tvOS [3.0.8]
+
+· Fix repeat button appearance on tvOS 13 and later
+
 ## iOS [3.2.9]
 
 · Added option to enable Chromecast audio passthrough
