@@ -28,7 +28,11 @@
 
 - (CGSize)preferredContentSize
 {
-    return CGSizeMake(CGRectGetWidth(self.view.bounds), 200);
+    if (@available(tvOS 13.0, *)) {
+        return CGSizeMake(CGRectGetWidth(self.view.bounds), 300);
+    } else {
+        return CGSizeMake(CGRectGetWidth(self.view.bounds), 200);
+    }
 }
 
 + (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackService *)vpc
