@@ -120,7 +120,6 @@
 		7D27EC2C19DF310300EF0370 /* VLCFirstStepsiTunesSyncViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2A19DF310300EF0370 /* VLCFirstStepsiTunesSyncViewController.xib */; };
 		7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7C21B67777D00FB78AB /* libc++.tbd */; };
 		7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
-		7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BF183AB24C00FFC021 /* VLCHTTPFileDownloader.m */; };
 		7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */; };
 		7D30F3C7183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C6183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m */; };
 		7D30F3CA183AB27A00FFC021 /* VLCDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C9183AB27A00FFC021 /* VLCDownloadViewController.m */; };
@@ -628,8 +627,6 @@
 		7D2DF7C21B67777D00FB78AB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		7D30F3BC183AB24C00FFC021 /* VLCHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPConnection.h; path = Sources/VLCHTTPConnection.h; sourceTree = SOURCE_ROOT; };
 		7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPConnection.m; path = Sources/VLCHTTPConnection.m; sourceTree = SOURCE_ROOT; };
-		7D30F3BE183AB24C00FFC021 /* VLCHTTPFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPFileDownloader.h; path = Sources/VLCHTTPFileDownloader.h; sourceTree = SOURCE_ROOT; };
-		7D30F3BF183AB24C00FFC021 /* VLCHTTPFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPFileDownloader.m; path = Sources/VLCHTTPFileDownloader.m; sourceTree = SOURCE_ROOT; };
 		7D30F3C0183AB24C00FFC021 /* VLCHTTPUploaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPUploaderController.h; path = Sources/VLCHTTPUploaderController.h; sourceTree = SOURCE_ROOT; };
 		7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPUploaderController.m; path = Sources/VLCHTTPUploaderController.m; sourceTree = SOURCE_ROOT; };
 		7D30F3C5183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenNetworkStreamViewController.h; path = Sources/VLCOpenNetworkStreamViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1467,8 +1464,6 @@
 			children = (
 				7D30F3BC183AB24C00FFC021 /* VLCHTTPConnection.h */,
 				7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */,
-				7D30F3BE183AB24C00FFC021 /* VLCHTTPFileDownloader.h */,
-				7D30F3BF183AB24C00FFC021 /* VLCHTTPFileDownloader.m */,
 				7D30F3C0183AB24C00FFC021 /* VLCHTTPUploaderController.h */,
 				7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */,
 				7DF383B71BF21E4400D71A5C /* VLCPlayerControlWebSocket.h */,
@@ -3083,7 +3078,6 @@
 				DD3EFF2D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserFTP.m in Sources */,
 				E021B63622FB80360041CB7A /* MediaMoreOptionsActionSheet.swift in Sources */,
 				6DBCE3CD2368811000BCA7D5 /* EditButtons.swift in Sources */,
-				7D30F3C3183AB24C00FFC021 /* VLCHTTPFileDownloader.m in Sources */,
 				41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */,
 				4144156A20ECD2620078EC37 /* VLCSectionTableHeaderView.swift in Sources */,
 				41EB6634216147DD00FDC38B /* PlaylistViewController.swift in Sources */,
