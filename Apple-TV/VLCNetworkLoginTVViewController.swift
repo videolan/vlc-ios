@@ -181,7 +181,7 @@ import UIKit
         let identifier = login.protocolIdentifier as NSString
 
         if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierFTP) {
-            serverBrowser = VLCNetworkServerBrowserFTP.init(login: login)
+            serverBrowser = VLCNetworkServerBrowserVLCMedia.ftpNetworkServerBrowser(withLogin: login)
         } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierPlex) {
             serverBrowser = VLCNetworkServerBrowserPlex.init(login: login)
         } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierSMB) {

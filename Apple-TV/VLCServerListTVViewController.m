@@ -15,7 +15,6 @@
 
 #import "VLCNetworkServerBrowserPlex.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
-#import "VLCNetworkServerBrowserFTP.h"
 
 #import "VLCLocalNetworkServiceBrowserManualConnect.h"
 #import "VLCLocalNetworkServiceBrowserPlex.h"
@@ -339,7 +338,7 @@
     NSString *identifier = login.protocolIdentifier;
 
     if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierFTP]) {
-        serverBrowser = [[VLCNetworkServerBrowserFTP alloc] initWithLogin:login];
+        serverBrowser = [VLCNetworkServerBrowserVLCMedia FTPNetworkServerBrowserWithLogin:login];
     } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierPlex]) {
         serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithLogin:login];
     } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSMB]) {
