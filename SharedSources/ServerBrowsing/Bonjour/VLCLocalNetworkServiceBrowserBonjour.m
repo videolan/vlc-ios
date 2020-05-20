@@ -20,9 +20,6 @@
 - (instancetype)init
 {
     NSString *name = NSLocalizedString(@"BONJOUR_FILE_SERVERS", nil);
-
-    self.mediaDiscoverer.libraryInstance.debugLogging = YES;
-
     return [super initWithName:name serviceServiceName:@"bonjour"];
 }
 

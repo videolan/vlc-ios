@@ -25,7 +25,6 @@
 
 #import "VLCNetworkServerLoginInformation+Keychain.h"
 
-#import "VLCNetworkServerBrowserFTP.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
 #import "VLCNetworkServerBrowserPlex.h"
 
@@ -35,6 +34,7 @@
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
 #import "VLCLocalNetworkServiceBrowserSAP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
+#import "VLCLocalNetworkServiceBrowserFTP.h"
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
 
 #import "VLCWiFiUploadTableViewCell.h"
@@ -352,6 +352,8 @@
     VLCNetworkServerLoginInformation *login;
     if ([service respondsToSelector:@selector(loginInformation)]) {
         login = [service loginInformation];
+    } else {
+        APLog(@"%s: no login information, class %@", __func__, NSStringFromClass([service class]));
     }
 
     [login loadLoginInformationFromKeychainWithError:nil];
@@ -442,7 +444,7 @@
     NSString *identifier = loginInformation.protocolIdentifier;
 
     if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierFTP]) {
-        serverBrowser = [[VLCNetworkServerBrowserFTP alloc] initWithLogin:loginInformation];
+        serverBrowser = [VLCNetworkServerBrowserVLCMedia FTPNetworkServerBrowserWithLogin:loginInformation];
     } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierPlex]) {
         serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithLogin:loginInformation];
     } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSMB]) {

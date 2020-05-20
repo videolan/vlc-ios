@@ -2,25 +2,35 @@
  * VLCLocalNetworkServiceBrowserFTP.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
-
-#import "VLCLocalNetworkServiceBrowserNetService.h"
-#import "VLCLocalNetworkServiceNetService.h"
+#import "VLCLocalNetworkServiceVLCMedia.h"
+#import "VLCNetworkServerBrowserVLCMedia.h"
+#import "VLCLocalNetworkServiceBrowserMediaDiscoverer.h"
+#import "VLCNetworkServerLoginInformation.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface VLCLocalNetworkServiceBrowserFTP : VLCLocalNetworkServiceBrowserNetService
-- (instancetype)initWithName:(NSString *)name serviceType:(NSString *)serviceType domain:(NSString *)domain NS_UNAVAILABLE;
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
+
+@interface VLCLocalNetworkServiceBrowserFTP : VLCLocalNetworkServiceBrowserMediaDiscoverer
+- (instancetype)init;
 @end
 
 extern NSString *const VLCNetworkServerProtocolIdentifierFTP;
-@interface VLCLocalNetworkServiceFTP : VLCLocalNetworkServiceNetService
+@interface VLCLocalNetworkServiceFTP: VLCLocalNetworkServiceVLCMedia
+
+@end
+
+@interface VLCNetworkServerBrowserVLCMedia (FTP)
++ (instancetype)FTPNetworkServerBrowserWithLogin:(VLCNetworkServerLoginInformation *)login;
++ (instancetype)FTPNetworkServerBrowserWithURL:(NSURL *)url
+									  username:(nullable NSString *)username
+									  password:(nullable NSString *)password;
 
 @end
 

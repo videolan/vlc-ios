@@ -11,6 +11,8 @@
  *****************************************************************************/
 
 #import "VLCLocalNetworkServiceVLCMedia.h"
+#import "VLCNetworkServerLoginInformation.h"
+#import "VLCLocalNetworkServiceBrowserFTP.h"
 
 @interface VLCLocalNetworkServiceVLCMedia()
 @property (nonatomic) VLCMedia *mediaItem;
@@ -33,4 +35,20 @@
 - (UIImage *)icon {
     return nil;
 }
+
+- (VLCNetworkServerLoginInformation *)loginInformation {
+    VLCMedia *media = self.mediaItem;
+    if (media.mediaType != VLCMediaTypeDirectory) {
+        return nil;
+    }
+
+    if ([_serviceName isEqualToString:VLCNetworkServerProtocolIdentifierFTP]) {
+        VLCNetworkServerLoginInformation *login = [VLCNetworkServerLoginInformation newLoginInformationForProtocol:VLCNetworkServerProtocolIdentifierFTP];
+        login.address = self.mediaItem.url.host;
+        return login;
+    }
+
+    return nil;
+}
+
 @end

@@ -71,8 +71,11 @@
 
 - (BOOL)shouldFilterMedia:(VLCMedia *)media
 {
+    if (media.mediaType == VLCMediaTypeDirectory) {
+        return NO;
+    }
     NSString *absoluteString = media.url.absoluteString;
-    return ![absoluteString isSupportedAudioMediaFormat] && ![absoluteString isSupportedMediaFormat] && ![absoluteString isSupportedPlaylistFormat] && media.mediaType != VLCMediaTypeDirectory;
+    return ![absoluteString isSupportedAudioMediaFormat] && ![absoluteString isSupportedMediaFormat] && ![absoluteString isSupportedPlaylistFormat];
 }
 
 - (void)_addMediaListRootItemsToList

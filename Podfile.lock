@@ -81,7 +81,6 @@ PODS:
   - SwiftLint (0.25.1)
   - TVVLCKit (3.3.10)
   - upnpx (1.4.3)
-  - VLC-WhiteRaccoon (1.0.0)
   - VLCMediaLibraryKit (0.7.3):
     - MobileVLCKit
   - XKKeychain (1.0.1)
@@ -109,7 +108,7 @@ DEPENDENCIES:
   - SwiftLint (~> 0.25.0)
   - TVVLCKit (= 3.3.10)
   - upnpx (~> 1.4.3)
-  - VLC-WhiteRaccoon
+  - VLCMediaLibraryKit (= 0.7.3)
   - VLCMediaLibraryKit (= 0.7.3)
   - XKKeychain (~> 1.0)
 
@@ -136,7 +135,6 @@ SPEC REPOS:
     - SwiftLint
     - TVVLCKit
     - upnpx
-    - VLC-WhiteRaccoon
     - VLCMediaLibraryKit
     - XKKeychain
     - xmlrpc
@@ -199,7 +197,6 @@ SPEC CHECKSUMS:
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   TVVLCKit: f638dcaf37a6ba4027161cbc27be86f0cb02d2f7
   upnpx: ad8791295befdc0a0702089daf067d21c76194fc
-  VLC-WhiteRaccoon: 1e7e59b0568959135a89d09c416d1e11a5d9a986
   VLCMediaLibraryKit: 96d888841da420b53ec1c4a1c5baeb373f4860c9
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
