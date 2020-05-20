@@ -19,7 +19,7 @@
 
 @optional
 - (void)downloadFailedWithIdentifier:(NSString *)identifier errorDescription:(NSString *)description;
-- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize identifier:(NSString *)identifier;
+- (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize;
 
 @end
 

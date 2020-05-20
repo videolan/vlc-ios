@@ -185,6 +185,7 @@
                 if (_downloadCancelled) {
                     [self _downloadCancelled];
                 }
+                [self _downloadEnded];
                 break;
             default:
                 APLog(@"%s: state %li not handled", __func__, (long)currentState);
@@ -198,17 +199,15 @@
         NSDictionary *attributes = [_fileManager attributesOfItemAtPath:_demuxDumpFilePath error:nil];
         unsigned long long fileSize = attributes.fileSize;
 
-        if ([self.delegate respondsToSelector:@selector(progressUpdatedTo:receivedDataSize:expectedDownloadSize:identifier:)]) {
+        if ([self.delegate respondsToSelector:@selector(progressUpdatedTo:receivedDataSize:expectedDownloadSize:)]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.delegate progressUpdatedTo:self->_expectedDownloadSize > 0 ? (float)fileSize / (float)self->_expectedDownloadSize : 0.
                                 receivedDataSize:fileSize - self->_lastFileSize
-                            expectedDownloadSize:self->_expectedDownloadSize
-                                      identifier:nil];
+                            expectedDownloadSize:self->_expectedDownloadSize];
                 self->_lastFileSize = fileSize;
             });
         }
     }
-
 }
 
 @end
