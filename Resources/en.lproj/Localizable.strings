@@ -284,6 +284,9 @@
 "FTP_LONG" = "File Transfer Protocol (FTP)";
 "FTP_SHORT" = "FTP";
 
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
+
 "BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
 "DSM_WORKGROUP" = "Workgroup";
 

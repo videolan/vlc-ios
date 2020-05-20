@@ -27,7 +27,7 @@
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCLocalNetworkServiceBrowserFTP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
-
+#import "VLCLocalNetworkServiceBrowserNFS.h"
 
 @interface VLCNetworkLoginViewController () <UITextFieldDelegate, VLCNetworkLoginDataSourceProtocolDelegate, VLCNetworkLoginDataSourceLoginDelegate, VLCNetworkLoginDataSourceSavedLoginsDelegate>
 
@@ -100,6 +100,8 @@
         protocol = VLCServerProtocolSMB;
     } else if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierPlex]) {
         protocol = VLCServerProtocolPLEX;
+    } else if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierNFS]) {
+        protocol = VLCServerProtocolNFS;
     }
     return protocol;
 }
@@ -121,6 +123,10 @@
         case VLCServerProtocolSMB:
         {
             protocolIdentifier = VLCNetworkServerProtocolIdentifierSMB;
+        }
+        case VLCServerProtocolNFS:
+        {
+            protocolIdentifier = VLCNetworkServerProtocolIdentifierNFS;
         }
         default:
             break;
