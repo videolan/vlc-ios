@@ -63,6 +63,7 @@ import UIKit
         segmentedControl.setTitle(NSLocalizedString("SMB_CIFS_FILE_SERVERS_SHORT", comment: ""), forSegmentAt: 0)
         segmentedControl.setTitle(NSLocalizedString("FTP_SHORT", comment: ""), forSegmentAt: 1)
         segmentedControl.setTitle(NSLocalizedString("PLEX_SHORT", comment: ""), forSegmentAt: 2)
+        segmentedControl.setTitle(NSLocalizedString("NFS_SHORT", comment: ""), forSegmentAt: 3)
     }
 
     func configureAppreance() {
@@ -134,6 +135,9 @@ import UIKit
         case 2:
             protocolIdentifier = VLCNetworkServerProtocolIdentifierPlex
             break
+        case 3:
+            protocolIdentifier = VLCNetworkServerProtocolIdentifierNFS
+            break
         default:
             break
         }
@@ -150,6 +154,9 @@ import UIKit
             break
         case VLCNetworkServerProtocolIdentifierPlex:
             segmentedControl.selectedSegmentIndex = 2
+            break
+        case VLCNetworkServerProtocolIdentifierNFS:
+            segmentedControl.selectedSegmentIndex = 3
             break
         default:
             break
@@ -186,6 +193,8 @@ import UIKit
             serverBrowser = VLCNetworkServerBrowserPlex.init(login: login)
         } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierSMB) {
             serverBrowser = VLCNetworkServerBrowserVLCMedia.smbNetworkServerBrowser(withLogin: login)
+        } else if identifier.isEqual(to: VLCNetworkServerProtocolIdentifierNFS) {
+            serverBrowser = VLCNetworkServerBrowserVLCMedia.nfsNetworkServerBrowser(withLogin: login)
         }
 
         if serverBrowser != nil {

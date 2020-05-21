@@ -10,6 +10,7 @@
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCLocalNetworkServiceBrowserFTP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
+#import "VLCLocalNetworkServiceBrowserNFS.h"
 
 #import "VLCServerListTVViewController.h"
 #import "VLCSearchableServerBrowsingTVViewController.h"
