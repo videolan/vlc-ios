@@ -1343,8 +1343,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
               kVLCSettingStretchAudio : [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
               kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding],
               kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter],
-              kVLCSettingHardwareDecoding : [defaults objectForKey:kVLCSettingHardwareDecoding],
-              kVLCForceSMBV1 : [NSNull null]
+              kVLCSettingHardwareDecoding : [defaults objectForKey:kVLCSettingHardwareDecoding]
     };
 }
 
