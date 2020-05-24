@@ -111,7 +111,8 @@ static NSString *const VLCLocalNetworkServiceDSMWorkgroupIdentifier = @"VLCLocal
 	VLCMedia *media = [VLCMedia mediaWithURL:url];
 	NSDictionary *mediaOptions = @{@"smb-user" : username ?: @"",
 								   @"smb-pwd" : password ?: @"",
-								   @"smb-domain" : workgroup?: @"WORKGROUP"};
+								   @"smb-domain" : workgroup?: @"WORKGROUP",
+                                   kVLCForceSMBV1 : [NSNull null]};
 	[media addOptions:mediaOptions];
 	return [[self alloc] initWithMedia:media options:mediaOptions];
 }

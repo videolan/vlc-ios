@@ -38,7 +38,6 @@
         _mediaList = [[VLCMediaList alloc] init];
         _rootMedia = media;
         _rootMedia.delegate = self;
-        [media addOption:kVLCForceSMBV1];
         // Set timeout to 0 in order to avoid getting interrupted in dialogs for timeout reasons
         [media parseWithOptions:VLCMediaParseNetwork|VLCMediaDoInteract timeout:0];
         _mediaListUnfiltered = [_rootMedia subitems];
