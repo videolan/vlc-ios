@@ -30,7 +30,6 @@
 
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCLocalNetworkServiceBrowserFTP.h"
-#import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
 #import "VLCLocalNetworkServiceBrowserSAP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
@@ -184,7 +183,6 @@
 
     [self themeDidChange];
     NSArray *browserClasses = @[
-                                [VLCLocalNetworkServiceBrowserUPnP class],
                                 [VLCLocalNetworkServiceBrowserPlex class],
                                 [VLCLocalNetworkServiceBrowserFTP class],
                                 [VLCLocalNetworkServiceBrowserHTTP class],

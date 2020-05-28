@@ -134,7 +134,6 @@ SPEC REPOS:
     - SimulatorStatusMagic
     - SwiftLint
     - TVVLCKit
-    - upnpx
     - VLCMediaLibraryKit
     - XKKeychain
     - xmlrpc
