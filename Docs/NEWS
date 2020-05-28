@@ -3,10 +3,22 @@
 ## tvOS [3.0.8]
 
 · Fix repeat button appearance on tvOS 13 and later
+· Fix Remote Playback on IPv6-only networks
+· Prevent screensaver from appearing during Remote Playback sessions
+· Greatly improve AV1 decoding performance by updating dav1d
+· Improve adaptive streaming behavior
+· Improve seeking accuracy for certain mp4 media
+· Fix silence after pausing video playback
 
 ## iOS [3.2.9]
 
-· Added option to enable Chromecast audio passthrough
+· Add option to enable Chromecast audio passthrough
+· Fix adding media to existing playlists
+· Fix WiFi sharing on IPv6-only networks
+· Greatly improve AV1 decoding performance by updating dav1d
+· Improve adaptive streaming behavior
+· Improve seeking accuracy for certain mp4 media
+· Fix silence after pausing video playback
 
 ## iOS [3.2.8]
 
