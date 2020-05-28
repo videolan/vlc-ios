@@ -28,6 +28,7 @@
 #import "VLCNetworkServerBrowserVLCMedia.h"
 #import "VLCNetworkServerBrowserPlex.h"
 
+#import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCLocalNetworkServiceBrowserFTP.h"
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
@@ -183,6 +184,7 @@
 
     [self themeDidChange];
     NSArray *browserClasses = @[
+                                [VLCLocalNetworkServiceBrowserUPnP class],
                                 [VLCLocalNetworkServiceBrowserPlex class],
                                 [VLCLocalNetworkServiceBrowserFTP class],
                                 [VLCLocalNetworkServiceBrowserHTTP class],
@@ -340,7 +342,6 @@
     if ([service respondsToSelector:@selector(directPlaybackURL)]) {
         NSURL *playbackURL = [service directPlaybackURL];
         if (playbackURL) {
-
             VLCMediaList *medialist = [[VLCMediaList alloc] init];
             [medialist addMedia:[VLCMedia mediaWithURL:playbackURL]];
             [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
@@ -353,6 +354,14 @@
         login = [service loginInformation];
     } else {
         APLog(@"%s: no login information, class %@", __func__, NSStringFromClass([service class]));
+    }
+
+    /* UPnP does not support authentication, so skip this step */
+    if ([login.protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
+        VLCNetworkServerBrowserVLCMedia *serverBrowser = [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithLogin:login];
+        VLCNetworkServerBrowserViewController *vc = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
     }
 
     [login loadLoginInformationFromKeychainWithError:nil];

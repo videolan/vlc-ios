@@ -2,10 +2,11 @@
  * VLCLocalNetworkServiceBrowserMediaDiscoverer.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -13,6 +14,7 @@
 
 #import "VLCLocalNetworkServiceBrowserMediaDiscoverer.h"
 #import "VLCLocalNetworkServiceVLCMedia.h"
+#import "VLCLocalNetworkServiceBrowserUPnP.h"
 
 @interface VLCLocalNetworkServiceBrowserMediaDiscoverer () <VLCMediaListDelegate>
 @property (nonatomic, readonly) NSString *serviceName;
@@ -50,11 +52,14 @@
      * self.mediaDiscoverer.libraryInstance.debugLoggingLevel = 4; */
     [discoverer startDiscoverer];
     discoverer.discoveredMedia.delegate = self;
-
 }
 
 - (void)stopDiscovery
 {
+    /* the UPnP module is special and may not be terminated */
+    if ([self.serviceName isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
+        return;
+    }
     VLCMediaDiscoverer *discoverer = self.mediaDiscoverer;
     discoverer.discoveredMedia.delegate = nil;
     [discoverer stopDiscoverer];
