@@ -12,7 +12,7 @@
 
 #import "VLCLocalNetworkServiceVLCMedia.h"
 #import "VLCNetworkServerLoginInformation.h"
-#import "VLCLocalNetworkServiceBrowserFTP.h"
+#import "VLCNetworkServerBrowserVLCMedia+FTP.h"
 
 @interface VLCLocalNetworkServiceVLCMedia()
 @property (nonatomic) VLCMedia *mediaItem;

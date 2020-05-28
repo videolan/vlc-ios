@@ -8,7 +8,7 @@
 #import "VLCNetworkServerBrowserPlex.h"
 #import "VLCNetworkServerBrowserVLCMedia.h"
 #import "VLCLocalNetworkServiceBrowserPlex.h"
-#import "VLCLocalNetworkServiceBrowserFTP.h"
+#import "VLCNetworkServerBrowserVLCMedia+FTP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 

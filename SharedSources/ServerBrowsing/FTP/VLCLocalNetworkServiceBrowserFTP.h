@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCLocalNetworkServiceBrowserFTP.h
+ * VLCNetworkServerBrowserVLCMedia+FTP.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
@@ -17,14 +17,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VLCLocalNetworkServiceBrowserFTP : VLCLocalNetworkServiceBrowserMediaDiscoverer
-- (instancetype)init;
-@end
-
 extern NSString *const VLCNetworkServerProtocolIdentifierFTP;
-@interface VLCLocalNetworkServiceFTP: VLCLocalNetworkServiceVLCMedia
-
-@end
 
 @interface VLCNetworkServerBrowserVLCMedia (FTP)
 + (instancetype)FTPNetworkServerBrowserWithLogin:(VLCNetworkServerLoginInformation *)login;

@@ -30,11 +30,10 @@
 
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCLocalNetworkServiceBrowserPlex.h"
-#import "VLCLocalNetworkServiceBrowserFTP.h"
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
 #import "VLCLocalNetworkServiceBrowserSAP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
-#import "VLCLocalNetworkServiceBrowserFTP.h"
+#import "VLCNetworkServerBrowserVLCMedia+FTP.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
 
@@ -186,7 +185,6 @@
     NSArray *browserClasses = @[
                                 [VLCLocalNetworkServiceBrowserUPnP class],
                                 [VLCLocalNetworkServiceBrowserPlex class],
-                                [VLCLocalNetworkServiceBrowserFTP class],
                                 [VLCLocalNetworkServiceBrowserHTTP class],
 #ifndef NDEBUG
                                 [VLCLocalNetworkServiceBrowserSAP class],

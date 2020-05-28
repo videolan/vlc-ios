@@ -22,10 +22,9 @@
 #import "VLCNetworkServerLoginInformation.h"
 #import "VLC-Swift.h"
 
-
 // for protocol identifier
 #import "VLCLocalNetworkServiceBrowserPlex.h"
-#import "VLCLocalNetworkServiceBrowserFTP.h"
+#import "VLCNetworkServerBrowserVLCMedia+FTP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 

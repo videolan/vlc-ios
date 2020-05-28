@@ -18,7 +18,6 @@
 
 #import "VLCLocalNetworkServiceBrowserManualConnect.h"
 #import "VLCLocalNetworkServiceBrowserPlex.h"
-#import "VLCLocalNetworkServiceBrowserFTP.h"
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 #ifndef NDEBUG
@@ -95,7 +94,6 @@
                          [VLCLocalNetworkServiceBrowserUPnP class],
                          [VLCLocalNetworkServiceBrowserDSM class],
                          [VLCLocalNetworkServiceBrowserPlex class],
-                         [VLCLocalNetworkServiceBrowserFTP class],
                          [VLCLocalNetworkServiceBrowserNFS class],
 #ifndef NDEBUG
                          [VLCLocalNetworkServiceBrowserSAP class],
