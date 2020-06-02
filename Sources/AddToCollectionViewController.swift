@@ -246,11 +246,20 @@ extension AddToCollectionViewController: UICollectionViewDelegate {
 
 extension AddToCollectionViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        // Do not add the moveToRoot action for playlists
+        if collectionModelType is VLCMLPlaylist.Type {
+            return 1
+        }
         return AddToCollectionSection.allCases.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
+        // No moveToRoot action for playlists
+        if collectionModelType is VLCMLPlaylist.Type {
+            return mlCollection.count
+        }
+
         if section == AddToCollectionSection.moveToRoot.rawValue {
             return 1
         } else {
@@ -264,7 +273,8 @@ extension AddToCollectionViewController: UICollectionViewDataSource {
                                                             for: indexPath) as? MediaCollectionViewCell else {
             return UICollectionViewCell()
         }
-        if indexPath.section == AddToCollectionSection.moveToRoot.rawValue {
+        if collectionModelType is VLCMLMediaGroup.Type
+            && indexPath.section == AddToCollectionSection.moveToRoot.rawValue {
             cell.thumbnailView.image = UIImage(named: "removeFromMediaGroup")
             cell.thumbnailView.contentMode = .center
             cell.titleLabel.text = NSLocalizedString("MEDIA_GROUP_MOVE_TO_ROOT", comment: "")
