@@ -1,5 +1,10 @@
 # Changelog
 
+## iOS [3.2.10]
+
+· Fix subtitle not showing issue
+· Minor UI fix
+
 ## tvOS [3.0.8]
 
 · Fix repeat button appearance on tvOS 13 and later
