@@ -44,7 +44,7 @@ target 'VLC-tvOS' do
   shared_pods
   pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
   pod 'GRKArrayDiff', '~> 2.1'
-  pod 'TVVLCKit', '3.3.12'
+  pod 'TVVLCKit', '3.3.10'
 end
 
 post_install do |installer_representation|
