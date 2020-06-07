@@ -1,11 +1,15 @@
 # Changelog
 
+## tvOS [3.0.10]
+
+· Fix subtitle display for tracks embedded in MKV files
+
 ## iOS [3.2.10]
 
-· Fix subtitle not showing issue
+· Fix subtitle display for tracks embedded in MKV files
 · Minor UI fix
 
-## tvOS [3.0.8]
+## tvOS [3.0.9]
 
 · Fix repeat button appearance on tvOS 13 and later
 · Fix Remote Playback on IPv6-only networks
