@@ -229,7 +229,8 @@ extension AddToCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 extension AddToCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == AddToCollectionSection.moveToRoot.rawValue {
+        if  collectionModelType is VLCMLMediaGroup.Type
+            && indexPath.section == AddToCollectionSection.moveToRoot.rawValue {
             delegate?.addToCollectionViewControllerMoveCollections(self)
             return
         }
