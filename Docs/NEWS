@@ -1,5 +1,10 @@
 # Changelog
 
+## iOS [3.2.11]
+
+· Fix adding new item to playlists
+· Update Dutch translation
+
 ## tvOS [3.0.10]
 
 · Fix subtitle display for tracks embedded in MKV files
