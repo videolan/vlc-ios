@@ -17,27 +17,27 @@
     private let JUMP_DURATION: Int32 = 10
     
     lazy var playPauseButton: UIButton = {
-        var playBtn = UIButton(type: .system)
-        playBtn.addTarget(self, action: #selector(togglePlayPause), for: .touchUpInside)
-        playBtn.setImage(UIImage(named: "iconPauseLarge"), for: .normal)
-        playBtn.tintColor = .white
-        return playBtn
+        var playPauseButton = UIButton(type: .system)
+        playPauseButton.addTarget(self, action: #selector(togglePlayPause), for: .touchUpInside)
+        playPauseButton.setImage(UIImage(named: "iconPauseLarge"), for: .normal)
+        playPauseButton.tintColor = .white
+        return playPauseButton
     }()
     
     lazy var skipForwardButton: UIButton = {
-        var fwdButton = UIButton(type: .system)
-        fwdButton.setImage(UIImage(named: "iconSkipForward"), for: .normal)
-        fwdButton.addTarget(self, action: #selector(skipForward), for: .touchUpInside)
-        fwdButton.tintColor = .white
-        return fwdButton
+        var skipForwardButton = UIButton(type: .system)
+        skipForwardButton.setImage(UIImage(named: "iconSkipForward"), for: .normal)
+        skipForwardButton.addTarget(self, action: #selector(skipForward), for: .touchUpInside)
+        skipForwardButton.tintColor = .white
+        return skipForwardButton
     }()
     
     lazy var skipBackwardButton: UIButton = {
-        var bwdButton = UIButton(type: .system)
-        bwdButton.setImage(UIImage(named: "iconSkipBack"), for: .normal)
-        bwdButton.addTarget(self, action: #selector(skipBackward), for: .touchUpInside)
-        bwdButton.tintColor = .white
-        return bwdButton
+        var skipBackwardButton = UIButton(type: .system)
+        skipBackwardButton.setImage(UIImage(named: "iconSkipBack"), for: .normal)
+        skipBackwardButton.addTarget(self, action: #selector(skipBackward), for: .touchUpInside)
+        skipBackwardButton.tintColor = .white
+        return skipBackwardButton
     }()
     
     lazy var skipToPreviousMediaButton: UIButton = {
