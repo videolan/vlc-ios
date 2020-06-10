@@ -12,7 +12,8 @@
 @objc (VLCVideoPlayerMainControl)
 @objcMembers class VideoPlayerMainControl: UIStackView {
     
-    // MARK: Instance Variables
+    // MARK: - Instance Variables
+
     private let playbackController = PlaybackService.sharedInstance()
     private let JUMP_DURATION: Int32 = 10
     
@@ -55,8 +56,9 @@
         nextMediaButton.tintColor = .white
         return nextMediaButton
     }()
-    
-    // MARK: Initializers
+
+    // MARK: - Initializers
+
     required init(coder: NSCoder) {
         fatalError("init(coder:) not implemented")
     }
@@ -103,8 +105,11 @@
         let image = isPlaying ? UIImage(named: "iconPauseLarge") : UIImage(named: "iconPlayLarge")
         playPauseButton.setImage(image, for: .normal)
     }
-    
-    // MARK: Button Action Methods
+}
+
+// MARK: - Button Action Methods
+
+extension VideoPlayerMainControl {
     func togglePlayPause() {
         playbackController.playPause()
     }
