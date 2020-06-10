@@ -69,7 +69,17 @@
         setupViews()
     }
 
-    // MARK: Methods
+    @objc private func handleNotification(_ notification: Notification) {
+        var isPlaying = notification.name.rawValue == VLCPlaybackServicePlaybackDidResume
+        isPlaying = isPlaying || notification.name.rawValue == VLCPlaybackServicePlaybackDidStart
+        let image = isPlaying ? UIImage(named: "iconPauseLarge") : UIImage(named: "iconPlayLarge")
+        playPauseButton.setImage(image, for: .normal)
+    }
+}
+
+// MARK: - Private setup methods
+
+private extension VideoPlayerMainControl {
     private func setupViews() {
         spacing = 20
         distribution = .equalCentering
@@ -97,13 +107,6 @@
                                                selector: #selector(handleNotification(_:)),
                                                name: playbackStartNotification,
                                                object: nil)
-    }
-
-    @objc private func handleNotification(_ notification: Notification) {
-        var isPlaying = notification.name.rawValue == VLCPlaybackServicePlaybackDidResume
-        isPlaying = isPlaying || notification.name.rawValue == VLCPlaybackServicePlaybackDidStart
-        let image = isPlaying ? UIImage(named: "iconPauseLarge") : UIImage(named: "iconPlayLarge")
-        playPauseButton.setImage(image, for: .normal)
     }
 }
 
