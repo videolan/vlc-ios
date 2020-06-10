@@ -25,23 +25,23 @@
         return playPauseButton
     }()
     
-    lazy var skipForwardButton: UIButton = {
-        var skipForwardButton = UIButton(type: .system)
-        skipForwardButton.setImage(UIImage(named: "iconSkipForward"), for: .normal)
-        skipForwardButton.addTarget(self, action: #selector(skipForward), for: .touchUpInside)
-        skipForwardButton.tintColor = .white
-        return skipForwardButton
+    lazy var forwardButton: UIButton = {
+        var forwardButton = UIButton(type: .system)
+        forwardButton.setImage(UIImage(named: "iconSkipForward"), for: .normal)
+        forwardButton.addTarget(self, action: #selector(skipForward), for: .touchUpInside)
+        forwardButton.tintColor = .white
+        return forwardButton
     }()
     
-    lazy var skipBackwardButton: UIButton = {
-        var skipBackwardButton = UIButton(type: .system)
-        skipBackwardButton.setImage(UIImage(named: "iconSkipBack"), for: .normal)
-        skipBackwardButton.addTarget(self, action: #selector(skipBackward), for: .touchUpInside)
-        skipBackwardButton.tintColor = .white
-        return skipBackwardButton
+    lazy var backwardButton: UIButton = {
+        var backwardButton = UIButton(type: .system)
+        backwardButton.setImage(UIImage(named: "iconSkipBack"), for: .normal)
+        backwardButton.addTarget(self, action: #selector(skipBackward), for: .touchUpInside)
+        backwardButton.tintColor = .white
+        return backwardButton
     }()
     
-    lazy var skipToPreviousMediaButton: UIButton = {
+    lazy var previousMediaButton: UIButton = {
         var previousMediaButton = UIButton(type: .system)
         previousMediaButton.setImage(UIImage(named: "iconPreviousVideo"), for: .normal)
         previousMediaButton.addTarget(self, action: #selector(skipToPreviousMedia), for: .touchUpInside)
@@ -49,7 +49,7 @@
         return previousMediaButton
     }()
     
-    lazy var skipToNextMediaButton: UIButton = {
+    lazy var nextMediaButton: UIButton = {
         var nextMediaButton = UIButton(type: .system)
         nextMediaButton.setImage(UIImage(named: "iconNextVideo"), for: .normal)
         nextMediaButton.addTarget(self, action: #selector(skipToNextMedia), for: .touchUpInside)
@@ -73,11 +73,11 @@
     private func setupViews() {
         spacing = 20
         distribution = .equalCentering
-        addArrangedSubview(skipBackwardButton)
-        addArrangedSubview(skipToPreviousMediaButton)
+        addArrangedSubview(backwardButton)
+        addArrangedSubview(previousMediaButton)
         addArrangedSubview(playPauseButton)
-        addArrangedSubview(skipToNextMediaButton)
-        addArrangedSubview(skipForwardButton)
+        addArrangedSubview(nextMediaButton)
+        addArrangedSubview(forwardButton)
         translatesAutoresizingMaskIntoConstraints = false
     }
 

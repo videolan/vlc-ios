@@ -797,10 +797,10 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                       _mediaNavigationBar.chromeCastButton,
                       airplayView,
                       _playbackControlToolbar.playPauseButton,
-                      _playbackControlToolbar.skipForwardButton,
-                      _playbackControlToolbar.skipBackwardButton,
-                      _playbackControlToolbar.skipToNextMediaButton,
-                      _playbackControlToolbar.skipToPreviousMediaButton]
+                      _playbackControlToolbar.forwardButton,
+                      _playbackControlToolbar.backwardButton,
+                      _playbackControlToolbar.nextMediaButton,
+                      _playbackControlToolbar.previousMediaButton]
                ];
     #endif
     return arr;
