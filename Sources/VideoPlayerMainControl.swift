@@ -117,6 +117,7 @@ private extension VideoPlayerMainControl {
 
     private func setupViews() {
         spacing = 20
+        alignment = .center
         distribution = .equalCentering
         addArrangedSubview(backwardButton)
         addArrangedSubview(previousMediaButton)
