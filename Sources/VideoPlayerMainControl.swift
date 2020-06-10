@@ -1,5 +1,5 @@
 /*****************************************************************************
- * MediaPlaybackControlToolbar.swift
+ * VideoPlayerMainControl.swift
  *
  * Copyright © 2019 VLC authors and VideoLAN
  *
@@ -9,8 +9,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-@objc (VLCMediaPlaybackControlToolbar)
-@objcMembers class MediaPlaybackControlToolbar: UIStackView {
+@objc (VLCVideoPlayerMainControl)
+@objcMembers class VideoPlayerMainControl: UIStackView {
     
     // MARK: Instance Variables
     private let playbackController = PlaybackService.sharedInstance()

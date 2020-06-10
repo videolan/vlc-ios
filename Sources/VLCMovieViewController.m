@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCVideoOptionsControlBar *_videoOptionsControlBar;
     VLCMediaMoreOptionsActionSheet *_moreOptionsActionSheet;
     VLCMediaNavigationBar *_mediaNavigationBar;
-    VLCMediaPlaybackControlToolbar *_playbackControlToolbar;
+    VLCVideoPlayerMainControl *_playbackControlToolbar;
 
     VLCPlaybackService *_vpc;
 
@@ -2124,7 +2124,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 #pragma mark - VLCMediaPlaybackControlToolbar
 - (void)setupPlaybackControlToolbar
 {
-    _playbackControlToolbar = [[VLCMediaPlaybackControlToolbar alloc] init];
+    _playbackControlToolbar = [[VLCVideoPlayerMainControl alloc] init];
     [self.view addSubview:_playbackControlToolbar];
 }
 
