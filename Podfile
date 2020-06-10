@@ -8,6 +8,7 @@ def shared_pods
   pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
   pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/Mikanbu/dropbox-sdk-obj-c.git' #update ios platform version
   pod 'MetaDataFetcherKit', '~>0.3.2'
+  pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
 
   pod 'AppCenter', '2.3.0'
   # debug
@@ -40,7 +41,6 @@ end
 target 'VLC-tvOS' do
   platform :tvos, '11.0'
   shared_pods
-  pod "OROpenSubtitleDownloader", :git => 'https://github.com/orta/OROpenSubtitleDownloader.git', :commit => '0509eac2'
   pod 'GRKArrayDiff', '~> 2.1'
   pod 'TVVLCKit', '3.3.10'
 end
