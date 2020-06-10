@@ -22,6 +22,7 @@
         playPauseButton.addTarget(self, action: #selector(togglePlayPause), for: .touchUpInside)
         playPauseButton.setImage(UIImage(named: "iconPauseLarge"), for: .normal)
         playPauseButton.tintColor = .white
+        playPauseButton.translatesAutoresizingMaskIntoConstraints = false
         return playPauseButton
     }()
     
@@ -30,6 +31,7 @@
         forwardButton.setImage(UIImage(named: "iconSkipForward"), for: .normal)
         forwardButton.addTarget(self, action: #selector(skipForward), for: .touchUpInside)
         forwardButton.tintColor = .white
+        forwardButton.translatesAutoresizingMaskIntoConstraints = false
         return forwardButton
     }()
     
@@ -38,6 +40,7 @@
         backwardButton.setImage(UIImage(named: "iconSkipBack"), for: .normal)
         backwardButton.addTarget(self, action: #selector(skipBackward), for: .touchUpInside)
         backwardButton.tintColor = .white
+        backwardButton.translatesAutoresizingMaskIntoConstraints = false
         return backwardButton
     }()
     
@@ -46,6 +49,7 @@
         previousMediaButton.setImage(UIImage(named: "iconPreviousVideo"), for: .normal)
         previousMediaButton.addTarget(self, action: #selector(skipToPreviousMedia), for: .touchUpInside)
         previousMediaButton.tintColor = .white
+        previousMediaButton.translatesAutoresizingMaskIntoConstraints = false
         return previousMediaButton
     }()
     
@@ -54,6 +58,7 @@
         nextMediaButton.setImage(UIImage(named: "iconNextVideo"), for: .normal)
         nextMediaButton.addTarget(self, action: #selector(skipToNextMedia), for: .touchUpInside)
         nextMediaButton.tintColor = .white
+        nextMediaButton.translatesAutoresizingMaskIntoConstraints = false
         return nextMediaButton
     }()
 
@@ -80,6 +85,36 @@
 // MARK: - Private setup methods
 
 private extension VideoPlayerMainControl {
+    private func setupPlayPauseButtonConstraints() {
+        NSLayoutConstraint.activate([
+            playPauseButton.widthAnchor.constraint(equalToConstant: 56),
+            playPauseButton.heightAnchor.constraint(equalTo: playPauseButton.widthAnchor)
+        ])
+    }
+
+    private func setupRewindButtonConstraints() {
+        NSLayoutConstraint.activate([
+            // Skip backward
+            backwardButton.widthAnchor.constraint(equalToConstant: 24),
+            backwardButton.heightAnchor.constraint(equalTo: backwardButton.widthAnchor),
+            // Skip forward
+            forwardButton.widthAnchor.constraint(equalToConstant: 24),
+            forwardButton.heightAnchor.constraint(equalTo: forwardButton.widthAnchor)
+        ])
+    }
+
+    private func setupNextPrevButtonConstraints() {
+        NSLayoutConstraint.activate([
+            // Next
+            nextMediaButton.widthAnchor.constraint(equalToConstant: 24),
+            nextMediaButton.heightAnchor.constraint(equalTo: nextMediaButton.widthAnchor),
+            // Previous
+            previousMediaButton.widthAnchor.constraint(equalToConstant: 24),
+            previousMediaButton.heightAnchor.constraint(equalTo: previousMediaButton.widthAnchor)
+        ])
+    }
+
+
     private func setupViews() {
         spacing = 20
         distribution = .equalCentering
@@ -89,6 +124,10 @@ private extension VideoPlayerMainControl {
         addArrangedSubview(nextMediaButton)
         addArrangedSubview(forwardButton)
         translatesAutoresizingMaskIntoConstraints = false
+
+        setupPlayPauseButtonConstraints()
+        setupRewindButtonConstraints()
+        setupNextPrevButtonConstraints()
     }
 
     private func addObsersers() {
