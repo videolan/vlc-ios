@@ -1,10 +1,10 @@
 /*****************************************************************************
  * VideoPlayerMainControl.swift
  *
- * Copyright © 2019 VLC authors and VideoLAN
+ * Copyright © 2019-2020 VLC authors and VideoLAN
  *
  * Authors: Robert Gordon <robwaynegordon@gmail.com>
- *
+ *          Soomin Lee <bubu@mikan.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
