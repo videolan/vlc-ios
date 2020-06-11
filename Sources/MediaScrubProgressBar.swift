@@ -17,7 +17,7 @@ protocol MediaScrubProgressBarDelegate {
 @objc (VLCMediaScrubProgressBar)
 class MediaScrubProgressBar: UIStackView {
     @objc weak var delegate: MediaScrubProgressBarDelegate?
-    private var playbackController = PlaybackService.sharedInstance()
+    private var playbackService = PlaybackService.sharedInstance()
     private var positionSet: Bool = true
     private var isScrubbing: Bool = false
     
@@ -78,11 +78,11 @@ class MediaScrubProgressBar: UIStackView {
         return label
     }()
 
-    private lazy var scrubLabelStackView: UIStackView = {
-        let scrubLabelStack = UIStackView(arrangedSubviews: [scrubbingIndicatorLabel, scrubbingHelpLabel])
-        scrubLabelStack.axis = .vertical
-        scrubLabelStack.isHidden = true
-        return scrubLabelStack
+    private lazy var scrubInfoStackView: UIStackView = {
+        let scrubInfoStackView = UIStackView(arrangedSubviews: [scrubbingIndicatorLabel, scrubbingHelpLabel])
+        scrubInfoStackView.axis = .vertical
+        scrubInfoStackView.isHidden = true
+        return scrubInfoStackView
     }()
     
     // MARK: Initializers
@@ -97,10 +97,10 @@ class MediaScrubProgressBar: UIStackView {
 
     @objc func updateUI() {
         if !isScrubbing {
-            progressSlider.value = playbackController.playbackPosition
+            progressSlider.value = playbackService.playbackPosition
         }
-        remainingTimeLabel.text = playbackController.remainingTime().stringValue
-        elapsedTimeLabel.text = playbackController.playedTime().stringValue
+        remainingTimeLabel.text = playbackService.remainingTime().stringValue
+        elapsedTimeLabel.text = playbackService.playedTime().stringValue
     }
 }
 
@@ -110,7 +110,7 @@ private extension MediaScrubProgressBar {
     private func setupViews() {
         let horizontalStack = UIStackView(arrangedSubviews: [elapsedTimeLabel, remainingTimeLabel])
         horizontalStack.distribution = .equalSpacing
-        addArrangedSubview(scrubLabelStackView)
+        addArrangedSubview(scrubInfoStackView)
         addArrangedSubview(horizontalStack)
         addArrangedSubview(progressSlider)
         spacing = 5
@@ -133,8 +133,8 @@ private extension MediaScrubProgressBar {
 
     @objc private func updatePlaybackPosition() {
         if !positionSet {
-            playbackController.playbackPosition = progressSlider.value
-            playbackController.setNeedsMetadataUpdate()
+            playbackService.playbackPosition = progressSlider.value
+            playbackService.setNeedsMetadataUpdate()
             positionSet = true
         }
     }
@@ -146,7 +146,7 @@ private extension MediaScrubProgressBar {
          * wouldn't see the I-frames when seeking on current mobile devices. This isn't a problem
          * within the Simulator, but especially on older ARMv7 devices, it's clearly noticeable. */
         perform(#selector(updatePlaybackPosition), with: nil, afterDelay: 0.3)
-        if playbackController.mediaDuration > 0 {
+        if playbackService.mediaDuration > 0 {
             updateUI()
         }
         positionSet = false
@@ -156,11 +156,11 @@ private extension MediaScrubProgressBar {
     @objc private func progressSliderTouchDown() {
         updateScrubLabel()
         isScrubbing = true
-        scrubLabelStackView.isHidden = !isScrubbing
+        scrubInfoStackView.isHidden = !isScrubbing
     }
 
     @objc private func progressSliderTouchUp() {
         isScrubbing = false
-        scrubLabelStackView.isHidden = !isScrubbing
+        scrubInfoStackView.isHidden = !isScrubbing
     }
 }
