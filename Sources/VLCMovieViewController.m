@@ -449,7 +449,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 - (NSArray *)getScrubProgressBarConstraints
 {
     float margin = 20.0f;
-    UILayoutGuide *guide = self.view.layoutMarginsGuide;;
+    UILayoutGuide *guide = self.view.layoutMarginsGuide;
     if (@available(iOS 11.0, *)) {
         guide = self.view.safeAreaLayoutGuide;
     }
@@ -460,7 +460,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
               constraintEqualToAnchor:guide.leadingAnchor constant:margin],
              [_scrubProgressBar.trailingAnchor
               constraintEqualToAnchor:guide.trailingAnchor constant:-margin]
-             ];
+    ];
 }
 
 - (UIButton *)doneButton
