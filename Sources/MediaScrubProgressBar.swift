@@ -16,8 +16,6 @@ protocol MediaScrubProgressBarDelegate {
 
 @objc (VLCMediaScrubProgressBar)
 class MediaScrubProgressBar: UIStackView {
-    
-    // MARK: Instance Variables
     @objc weak var delegate: MediaScrubProgressBarDelegate?
     private var playbackController = PlaybackService.sharedInstance()
     private var positionSet: Bool = true
@@ -96,8 +94,19 @@ class MediaScrubProgressBar: UIStackView {
         super.init(frame: frame)
         setupViews()
     }
-    
-    // MARK: Instance Methods
+
+    @objc func updateUI() {
+        if !isScrubbing {
+            progressSlider.value = playbackController.playbackPosition
+        }
+        remainingTimeLabel.text = playbackController.remainingTime().stringValue
+        elapsedTimeLabel.text = playbackController.playedTime().stringValue
+    }
+}
+
+// MARK: -
+
+private extension MediaScrubProgressBar {
     private func setupViews() {
         let horizontalStack = UIStackView(arrangedSubviews: [elapsedTimeLabel, remainingTimeLabel])
         horizontalStack.distribution = .equalSpacing
@@ -130,15 +139,8 @@ class MediaScrubProgressBar: UIStackView {
         }
     }
 
-    @objc func updateUI() {
-        if !isScrubbing {
-            progressSlider.value = playbackController.playbackPosition
-        }
-        remainingTimeLabel.text = playbackController.remainingTime().stringValue
-        elapsedTimeLabel.text = playbackController.playedTime().stringValue
-    }
-    
-    // MARK: Slider Methods
+    // MARK: - Slider Methods
+
     @objc private func moveSliderThumb() {
         /* we need to limit the number of events sent by the slider, since otherwise, the user
          * wouldn't see the I-frames when seeking on current mobile devices. This isn't a problem
