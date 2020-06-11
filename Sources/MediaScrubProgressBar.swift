@@ -140,6 +140,9 @@ class MediaScrubProgressBar: UIStackView {
     
     // MARK: Slider Methods
     @objc private func moveSliderThumb() {
+        /* we need to limit the number of events sent by the slider, since otherwise, the user
+         * wouldn't see the I-frames when seeking on current mobile devices. This isn't a problem
+         * within the Simulator, but especially on older ARMv7 devices, it's clearly noticeable. */
         perform(#selector(updatePlaybackPosition), with: nil, afterDelay: 0.3)
         if playbackController.mediaDuration > 0 {
             updateUI()
