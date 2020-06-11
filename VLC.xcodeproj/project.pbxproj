@@ -390,7 +390,7 @@
 		DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */; };
 		E021B63622FB80360041CB7A /* MediaMoreOptionsActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */; };
 		E03DECA622BEE27E00F44A05 /* MediaNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */; };
-		E0539E8C22E5E2EC009317CB /* VideoOptionsControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0539E8B22E5E2EC009317CB /* VideoOptionsControlBar.swift */; };
+		E0539E8C22E5E2EC009317CB /* VideoSubControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0539E8B22E5E2EC009317CB /* VideoSubControl.swift */; };
 		E08AD1712304DDE800E023B9 /* MediaPlayerActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08AD1702304DDE800E023B9 /* MediaPlayerActionSheet.swift */; };
 		E0BA21B922D7C8C700937CFD /* VideoPlayerMainControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BA21B822D7C8C700937CFD /* VideoPlayerMainControl.swift */; };
 		E0C04F951A25B4410080331A /* VLCDocumentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */; };
@@ -1035,7 +1035,7 @@
 		DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkLoginDataSourceProtocol.m; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginDataSourceProtocol.m; sourceTree = SOURCE_ROOT; };
 		E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMoreOptionsActionSheet.swift; sourceTree = "<group>"; };
 		E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaNavigationBar.swift; path = Sources/MediaNavigationBar.swift; sourceTree = "<group>"; };
-		E0539E8B22E5E2EC009317CB /* VideoOptionsControlBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoOptionsControlBar.swift; path = Sources/VideoOptionsControlBar.swift; sourceTree = "<group>"; };
+		E0539E8B22E5E2EC009317CB /* VideoSubControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoSubControl.swift; path = Sources/VideoSubControl.swift; sourceTree = "<group>"; };
 		E08AD1702304DDE800E023B9 /* MediaPlayerActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPlayerActionSheet.swift; sourceTree = "<group>"; };
 		E0BA21B822D7C8C700937CFD /* VideoPlayerMainControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoPlayerMainControl.swift; path = Sources/VideoPlayerMainControl.swift; sourceTree = "<group>"; };
 		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
@@ -1298,7 +1298,7 @@
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
-				E0539E8B22E5E2EC009317CB /* VideoOptionsControlBar.swift */,
+				E0539E8B22E5E2EC009317CB /* VideoSubControl.swift */,
 				41B93BFF1A53833B00102E8B /* VLCProgressView.h */,
 				41B93C001A53833B00102E8B /* VLCProgressView.m */,
 				7D3784B2183A9938009EE944 /* UIBarButtonItem+Theme.h */,
@@ -2953,7 +2953,7 @@
 				DD3EFF391BDEBCE500B68579 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				DD3EFF5D1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */,
 				6DDE230D239FE8C2003DE55A /* URL+isExcludedFromBackup.swift in Sources */,
-				E0539E8C22E5E2EC009317CB /* VideoOptionsControlBar.swift in Sources */,
+				E0539E8C22E5E2EC009317CB /* VideoSubControl.swift in Sources */,
 				D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */,
 				DD3EFEED1BDEBA3800B68579 /* VLCNetworkServerBrowserViewController.m in Sources */,
 				8D83219B234256A900B28912 /* MediaGroupViewModel.swift in Sources */,
