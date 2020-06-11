@@ -1271,7 +1271,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self updateTimeDisplayButton];
 
     #if NEW_UI
-        [_scrubProgressBar updateUI];
+        [_scrubProgressBar updateInterfacePosition];
     #endif
 }
 

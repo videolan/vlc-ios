@@ -29,7 +29,7 @@ class MediaScrubProgressBar: UIStackView {
         slider.maximumTrackTintColor = UIColor(white: 1, alpha: 0.2)
         slider.setThumbImage(UIImage(named: "sliderThumb"), for: .normal)
         slider.isContinuous = true
-        slider.addTarget(self, action: #selector(handleSlide), for: .valueChanged)
+        slider.addTarget(self, action: #selector(handleSlide(slider:)), for: .valueChanged)
         slider.addTarget(self, action: #selector(progressSliderTouchDown), for: .touchDown)
         slider.addTarget(self, action: #selector(progressSliderTouchUp), for: .touchUpInside)
         slider.addTarget(self, action: #selector(progressSliderTouchUp), for: .touchUpOutside)
@@ -48,13 +48,27 @@ class MediaScrubProgressBar: UIStackView {
         return label
     }()
     
-    private lazy var remainingTimeLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = .white
-        label.text = "--:--"
-        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        return label
+    private lazy var remainingTimeButton: UIButton = {
+        let remainingTimeButton = UIButton(type: .custom)
+        remainingTimeButton.addTarget(self,
+                                      action: #selector(handleTimeDisplay),
+                                      for: .touchUpInside)
+        remainingTimeButton.setTitle("--:--", for: .normal)
+        remainingTimeButton.setTitleColor(.white, for: .normal)
+
+        // Use a monospace variant for the digits so the width does not jitter as the numbers changes.
+        if let descriptor = remainingTimeButton.titleLabel?.font.fontDescriptor {
+            let featureSettings: Dictionary = [UIFontDescriptor.FeatureKey.featureIdentifier: kNumberSpacingType,
+                                               UIFontDescriptor.FeatureKey.typeIdentifier: kMonospacedNumbersSelector]
+            let fontAttributes: Dictionary = [UIFontDescriptor.AttributeName.featureSettings: [featureSettings]]
+            let monoSpaceFont = UIFont(descriptor: descriptor.addingAttributes(fontAttributes), size: 12)
+            remainingTimeButton.titleLabel?.font = monoSpaceFont
+        } else {
+            // Fallback to system font in the worst-case
+            remainingTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        }
+        remainingTimeButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        return remainingTimeButton
     }()
 
     private lazy var scrubbingIndicatorLabel: UILabel = {
@@ -95,12 +109,19 @@ class MediaScrubProgressBar: UIStackView {
         setupViews()
     }
 
-    @objc func updateUI() {
+    @objc func updateInterfacePosition() {
         if !isScrubbing {
             progressSlider.value = playbackService.playbackPosition
         }
-        remainingTimeLabel.text = playbackService.remainingTime().stringValue
         elapsedTimeLabel.text = playbackService.playedTime().stringValue
+
+        if UserDefaults.standard.bool(forKey: kVLCShowRemainingTime) {
+            remainingTimeButton.setTitle(playbackService.remainingTime().stringValue,
+                                         for: .normal)
+            remainingTimeButton.setNeedsLayout()
+        }
+
+        elapsedTimeLabel.setNeedsLayout()
     }
 }
 
@@ -108,7 +129,7 @@ class MediaScrubProgressBar: UIStackView {
 
 private extension MediaScrubProgressBar {
     private func setupViews() {
-        let horizontalStack = UIStackView(arrangedSubviews: [elapsedTimeLabel, remainingTimeLabel])
+        let horizontalStack = UIStackView(arrangedSubviews: [elapsedTimeLabel, remainingTimeButton])
         horizontalStack.distribution = .equalSpacing
         addArrangedSubview(scrubInfoStackView)
         addArrangedSubview(horizontalStack)
@@ -139,15 +160,51 @@ private extension MediaScrubProgressBar {
         }
     }
 
+    // MARK: -
+
+    @objc private func handleTimeDisplay() {
+        let userDefault = UserDefaults.standard
+        let currentSetting = userDefault.bool(forKey: kVLCShowRemainingTime)
+        userDefault.set(!currentSetting, forKey: kVLCShowRemainingTime)
+
+        let timeToDisplay = UserDefaults.standard.bool(forKey: kVLCShowRemainingTime)
+            ? playbackService.remainingTime().stringValue
+            : VLCTime(int: Int32(playbackService.mediaDuration)).stringValue
+
+        remainingTimeButton.setTitle(timeToDisplay, for: .normal)
+        remainingTimeButton.setNeedsLayout()
+
+        delegate?.mediaScrubProgressBarShouldResetIdleTimer()
+    }
+
     // MARK: - Slider Methods
 
-    @objc private func handleSlide() {
+    @objc private func handleSlide(slider: UISlider) {
         /* we need to limit the number of events sent by the slider, since otherwise, the user
          * wouldn't see the I-frames when seeking on current mobile devices. This isn't a problem
          * within the Simulator, but especially on older ARMv7 devices, it's clearly noticeable. */
         perform(#selector(updatePlaybackPosition), with: nil, afterDelay: 0.3)
         if playbackService.mediaDuration > 0 {
-            updateUI()
+            if !isScrubbing {
+                progressSlider.value = playbackService.playbackPosition
+            }
+
+            if let newPosition = VLCTime(int: Int32(slider.value * Float(playbackService.mediaDuration))) {
+                elapsedTimeLabel.text = newPosition.stringValue
+                elapsedTimeLabel.accessibilityLabel =
+                    String(format: "%@: %@",
+                           NSLocalizedString("PLAYBACK_POSITION", comment: ""),
+                           newPosition.stringValue)
+                // Update only remaining time and not media duration.
+                if UserDefaults.standard.bool(forKey: kVLCShowRemainingTime) {
+                    let newRemainingTime = Int(newPosition.intValue) - playbackService.mediaDuration
+                    remainingTimeButton.setTitle(VLCTime(int: Int32(newRemainingTime)).stringValue,
+                                                 for: .normal)
+                    remainingTimeButton.setNeedsLayout()
+                }
+
+                elapsedTimeLabel.setNeedsLayout()
+            }
         }
         positionSet = false
         delegate?.mediaScrubProgressBarShouldResetIdleTimer()
