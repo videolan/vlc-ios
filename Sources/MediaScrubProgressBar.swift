@@ -29,7 +29,7 @@ class MediaScrubProgressBar: UIStackView {
         slider.maximumTrackTintColor = UIColor(white: 1, alpha: 0.2)
         slider.setThumbImage(UIImage(named: "sliderThumb"), for: .normal)
         slider.isContinuous = true
-        slider.addTarget(self, action: #selector(moveSliderThumb), for: .valueChanged)
+        slider.addTarget(self, action: #selector(handleSlide), for: .valueChanged)
         slider.addTarget(self, action: #selector(progressSliderTouchDown), for: .touchDown)
         slider.addTarget(self, action: #selector(progressSliderTouchUp), for: .touchUpInside)
         slider.addTarget(self, action: #selector(progressSliderTouchUp), for: .touchUpOutside)
@@ -141,7 +141,7 @@ private extension MediaScrubProgressBar {
 
     // MARK: - Slider Methods
 
-    @objc private func moveSliderThumb() {
+    @objc private func handleSlide() {
         /* we need to limit the number of events sent by the slider, since otherwise, the user
          * wouldn't see the I-frames when seeking on current mobile devices. This isn't a problem
          * within the Simulator, but especially on older ARMv7 devices, it's clearly noticeable. */
