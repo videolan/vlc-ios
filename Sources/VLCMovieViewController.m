@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     VLCVideoOptionsControlBar *_videoOptionsControlBar;
     VLCMediaMoreOptionsActionSheet *_moreOptionsActionSheet;
     VLCMediaNavigationBar *_mediaNavigationBar;
-    VLCVideoPlayerMainControl *_playbackControlToolbar;
+    VLCVideoPlayerMainControl *_videoPlayerMainControl;
     VLCMediaScrubProgressBar *_scrubProgressBar;
 
     VLCPlaybackService *_vpc;
@@ -403,11 +403,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     if(@available(iOS 11.0, *)) {
         guide = self.view.safeAreaLayoutGuide;
     }
-    return @[[_playbackControlToolbar.bottomAnchor
+    return @[[_videoPlayerMainControl.bottomAnchor
               constraintEqualToAnchor:_videoOptionsControlBar.topAnchor constant:-margin],
-             [_playbackControlToolbar.leadingAnchor
+             [_videoPlayerMainControl.leadingAnchor
               constraintEqualToAnchor:guide.leadingAnchor constant:margin],
-             [_playbackControlToolbar.trailingAnchor
+             [_videoPlayerMainControl.trailingAnchor
               constraintEqualToAnchor:guide.trailingAnchor constant:-margin]
             ];
 }
@@ -816,11 +816,11 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
                       _mediaNavigationBar.minimizePlaybackButton,
                       _mediaNavigationBar.chromeCastButton,
                       airplayView,
-                      _playbackControlToolbar.playPauseButton,
-                      _playbackControlToolbar.forwardButton,
-                      _playbackControlToolbar.backwardButton,
-                      _playbackControlToolbar.nextMediaButton,
-                      _playbackControlToolbar.previousMediaButton,
+                      _videoPlayerMainControl.playPauseButton,
+                      _videoPlayerMainControl.forwardButton,
+                      _videoPlayerMainControl.backwardButton,
+                      _videoPlayerMainControl.nextMediaButton,
+                      _videoPlayerMainControl.previousMediaButton,
                       _scrubProgressBar.progressSlider]
                ];
     #endif
@@ -891,8 +891,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         _videoOptionsControlBar.hidden = YES;
         _mediaNavigationBar.alpha = 0.0f;
         _mediaNavigationBar.hidden = YES;
-        _playbackControlToolbar.alpha = 0.0f;
-        _playbackControlToolbar.hidden = YES;
+        _videoPlayerMainControl.alpha = 0.0f;
+        _videoPlayerMainControl.hidden = YES;
         _scrubProgressBar.alpha = 0.0f;
         _scrubProgressBar.hidden = YES;
     #endif
@@ -918,7 +918,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
        #else
             self->_videoOptionsControlBar.alpha = alpha;
             self->_mediaNavigationBar.alpha = alpha;
-            self->_playbackControlToolbar.alpha = alpha;
+            self->_videoPlayerMainControl.alpha = alpha;
             self->_scrubProgressBar.alpha = alpha;
        #endif
         
@@ -943,7 +943,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         #else
             self->_videoOptionsControlBar.hidden = NO;
             self->_mediaNavigationBar.hidden = self->_controlsHidden;
-            self->_playbackControlToolbar.hidden = NO;
+            self->_videoPlayerMainControl.hidden = NO;
             self->_scrubProgressBar.hidden = NO;
         #endif
 
@@ -2158,8 +2158,8 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 #pragma mark - VLCMediaPlaybackControlToolbar
 - (void)setupPlaybackControlToolbar
 {
-    _playbackControlToolbar = [[VLCVideoPlayerMainControl alloc] init];
-    [self.view addSubview:_playbackControlToolbar];
+    _videoPlayerMainControl = [[VLCVideoPlayerMainControl alloc] init];
+    [self.view addSubview:_videoPlayerMainControl];
 }
 
 #pragma mark - VLCMediaScrubProgressBarDelegate
