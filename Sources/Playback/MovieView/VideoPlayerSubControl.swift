@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VideoSubControl.swift
+ * VideoPlayerSubControl.swift
  *
  * Copyright © 2019 VLC authors and VideoLAN
  *
@@ -9,20 +9,20 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-@objc (VLCVideoSubControlDelegate)
-protocol VideoSubControlDelegate: class {
-    func didToggleFullScreen(_ optionsBar: VideoSubControl)
-    func didToggleRepeat(_ optionsBar: VideoSubControl)
-    func didSelectSubtitle(_ optionsBar: VideoSubControl)
-    func didSelectMoreOptions(_ optionsBar: VideoSubControl)
-    func didToggleInterfaceLock(_ optionsBar: VideoSubControl)
+@objc (VLCVideoPlayerSubControlDelegate)
+protocol VideoPlayerSubControlDelegate: class {
+    func didToggleFullScreen(_ optionsBar: VideoPlayerSubControl)
+    func didToggleRepeat(_ optionsBar: VideoPlayerSubControl)
+    func didSelectSubtitle(_ optionsBar: VideoPlayerSubControl)
+    func didSelectMoreOptions(_ optionsBar: VideoPlayerSubControl)
+    func didToggleInterfaceLock(_ optionsBar: VideoPlayerSubControl)
 }
 
-@objc (VLCVideoSubControl)
-@objcMembers class VideoSubControl: UIStackView {
+@objc (VLCVideoPlayerSubControl)
+@objcMembers class VideoPlayerSubControl: UIStackView {
     
     // MARK: Instance variables
-    weak var delegate: VideoSubControlDelegate?
+    weak var delegate: VideoPlayerSubControlDelegate?
     
     var isInFullScreen: Bool = false {
         didSet {

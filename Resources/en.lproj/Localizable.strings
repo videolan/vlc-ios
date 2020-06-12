@@ -394,7 +394,7 @@
 "VARIOUS_ARTIST" = "Various Artists";
 "UNKNOWN_ALBUM" = "Unknown Album";
 
-/* VideoSubControl */
+/* VideoPlayerSubControl */
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
 "MORE_OPTIONS_BUTTON" = "More";
