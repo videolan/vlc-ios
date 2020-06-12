@@ -10,6 +10,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+import CoreSpotlight
+
 @objc(VLCServices)
 class Services: NSObject {
     @objc let medialibraryService = MediaLibraryService()

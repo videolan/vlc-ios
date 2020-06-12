@@ -12,6 +12,7 @@
 
 import MobileCoreServices
 import UIKit
+import CoreData
 
 @available(iOS 11.0, *)
 struct DropError: Error {

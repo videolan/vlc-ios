@@ -9,6 +9,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+import CoreSpotlight
+
 protocol MediaModel: MLBaseModel where MLType == VLCMLMedia { }
 
 extension MediaModel {
