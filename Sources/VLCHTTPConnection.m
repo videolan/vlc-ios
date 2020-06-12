@@ -30,7 +30,6 @@
 
 #if TARGET_OS_IOS
 #import "VLC-Swift.h"
-#import "VLCThumbnailsCache.h"
 #endif
 #if TARGET_OS_TV
 #import "VLCPlayerControlWebSocket.h"

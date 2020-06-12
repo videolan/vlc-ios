@@ -15,7 +15,6 @@
 
 #if TARGET_OS_IOS
 #import "VLC-Swift.h"
-#import "VLCThumbnailsCache.h"
 #endif
 
 @implementation VLCMetaData
