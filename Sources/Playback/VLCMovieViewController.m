@@ -56,7 +56,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
   VLCPanTypeProjection
 };
 
-@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackServiceDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCVideoPlayerSubControlDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate, VLCMediaScrubProgressBarDelegate>
+@interface VLCMovieViewController () <UIGestureRecognizerDelegate, VLCMultiSelectionViewDelegate, VLCEqualizerViewUIDelegate, VLCPlaybackServiceDelegate, VLCDeviceMotionDelegate, VLCRendererDiscovererManagerDelegate, PlaybackSpeedViewDelegate, VLCMediaMoreOptionsActionSheetDelegate, VLCMediaNavigationBarDelegate, VLCMediaScrubProgressBarDelegate>
 {
     BOOL _controlsHidden;
     BOOL _videoFiltersHidden;
@@ -101,10 +101,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     UIStackView *_navigationBarStackView;
     VLCMultiSelectionMenuView *_multiSelectionView;
     
-    VLCVideoPlayerSubControl *_videoPlayerSubControl;
     VLCMediaMoreOptionsActionSheet *_moreOptionsActionSheet;
     VLCMediaNavigationBar *_mediaNavigationBar;
-    VLCVideoPlayerMainControl *_videoPlayerMainControl;
     VLCMediaScrubProgressBar *_scrubProgressBar;
 
     VLCPlaybackService *_vpc;
@@ -215,7 +213,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     self.artistNameLabel.text = self.albumNameLabel.text = @"";
 
     _movieView.userInteractionEnabled = NO;
-
     [self setupGestureRecognizers];
 
     _isTapSeeking = NO;
@@ -296,14 +293,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
     [self.view addSubview:_multiSelectionView];
 }
 
-- (void)setupVideoPlayerSubControl
-{
-    _videoPlayerSubControl = [[VLCVideoPlayerSubControl alloc] init];
-    _videoPlayerSubControl.delegate = self;
-    _videoPlayerSubControl.repeatMode = _vpc.repeatMode;
-    [self.view addSubview:_videoPlayerSubControl];
-}
-
 - (void)setupGestureRecognizers
 {
     _tapOnVideoRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleControlsVisible)];
@@ -320,7 +309,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(togglePlayPause)];
     [_tapRecognizer setNumberOfTouchesRequired:2];
-
     _currentPanType = VLCPanTypeNone;
     _panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panRecognized:)];
     [_panRecognizer setMinimumNumberOfTouches:1];
@@ -407,22 +395,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
       ];
 }
 
--(NSArray *)getPlaybackControlToolbarConstraints
-{
-    float margin = 40.0f;
-    UILayoutGuide *guide = self.view.layoutMarginsGuide;
-    if(@available(iOS 11.0, *)) {
-        guide = self.view.safeAreaLayoutGuide;
-    }
-    return @[[_videoPlayerMainControl.bottomAnchor
-              constraintEqualToAnchor:_videoPlayerSubControl.topAnchor constant:-margin],
-             [_videoPlayerMainControl.leadingAnchor
-              constraintEqualToAnchor:guide.leadingAnchor constant:margin],
-             [_videoPlayerMainControl.trailingAnchor
-              constraintEqualToAnchor:guide.trailingAnchor constant:-margin]
-    ];
-}
-
 - (void)setupConstraints
 {
     NSArray *controlPanelHorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[panel]|"
@@ -455,23 +427,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
         constraints = [constraints arrayByAddingObjectsFromArray:[self getScrubProgressBarConstraints]];
     #endif
     [NSLayoutConstraint activateConstraints: constraints];
-}
-
-- (NSArray *)getScrubProgressBarConstraints
-{
-    float margin = 20.0f;
-    UILayoutGuide *guide = self.view.layoutMarginsGuide;
-    if (@available(iOS 11.0, *)) {
-        guide = self.view.safeAreaLayoutGuide;
-    }
-
-    return @[[_scrubProgressBar.bottomAnchor
-              constraintEqualToAnchor: _videoPlayerSubControl.topAnchor constant:-margin],
-             [_scrubProgressBar.leadingAnchor
-              constraintEqualToAnchor:guide.leadingAnchor constant:margin],
-             [_scrubProgressBar.trailingAnchor
-              constraintEqualToAnchor:guide.trailingAnchor constant:-margin]
-    ];
 }
 
 - (UIButton *)doneButton
@@ -1388,7 +1343,6 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     [self minimizePlayback:nil];
     // reset toggleButton to default icon when movieviewcontroller is dismissed
-    _videoPlayerSubControl.isInFullScreen = NO;
 }
 
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
@@ -1438,7 +1392,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 - (void) playbackServiceDidSwitchAspectRatio:(VLCAspectRatio)aspectRatio
 {
-    _videoPlayerSubControl.isInFullScreen = aspectRatio == VLCAspectRatioFillToScreen;
+//    _videoPlayerSubControl.isInFullScreen = aspectRatio == VLCAspectRatioFillToScreen;
 
     if (@available(iOS 11, *)) {
         [self adaptMovieViewToNotch];
@@ -2099,14 +2053,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
         [self setControlsHidden:NO animated:YES];
 }
 
-- (NSArray *)getVideoPlayerSubControlConstraints
-{
-    return @[
-             [_videoPlayerSubControl.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-             [_videoPlayerSubControl.bottomAnchor constraintEqualToAnchor:_controllerPanel.topAnchor constant:-50],
-             ];
-}
-
 #pragma mark - External Display
 
 - (void)showOnDisplay:(UIView *)view
@@ -2193,27 +2139,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self showSleepTimer];
 }
 
-#pragma mark - VLCVideoPlayerSubControlDelegate
-
-- (void)didSelectMoreOptions:(VLCVideoPlayerSubControl * _Nonnull)optionsBar {
-    [self toggleMoreOptionsActionSheet];
-}
-
-- (void)didSelectSubtitle:(VLCVideoPlayerSubControl * _Nonnull)optionsBar {
-    NSAssert(0, @"didSelectSubtitle not implemented");
-}
-
-- (void)didToggleFullScreen:(VLCVideoPlayerSubControl * _Nonnull)optionsBar {
-    [_vpc switchAspectRatio:YES];
-}
-
-- (void)didToggleInterfaceLock:(VLCVideoPlayerSubControl * _Nonnull)optionsBar {
-    [self toggleUILock];
-}
-
-- (void)didToggleRepeat:(VLCVideoPlayerSubControl * _Nonnull)optionsBar {
-    [self toggleRepeatMode];
-}
 
 #pragma mark - VLCMediaMoreOptionsActionSheetDelegate
 
@@ -2244,13 +2169,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)mediaNavigationBarDidToggleChromeCast:(VLCMediaNavigationBar * _Nonnull)mediaNavigationBar {
     // TODO: Add current renderer functionality to chromeCast Button
     NSAssert(0, @"didToggleChromeCast not implemented");
-}
-
-#pragma mark - VLCMediaPlaybackControlToolbar
-- (void)setupPlaybackControlToolbar
-{
-    _videoPlayerMainControl = [[VLCVideoPlayerMainControl alloc] init];
-    [self.view addSubview:_videoPlayerMainControl];
 }
 
 #pragma mark - VLCMediaScrubProgressBarDelegate

@@ -20,6 +20,8 @@
 #import "VLCFullscreenMovieTVViewController.h"
 #endif
 
+#define SWIFT_VIDEO_PLAYER 1
+
 static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDisplayControllerDisplayMode";
 
 NSString *const VLCPlayerDisplayControllerDisplayMiniPlayer = @"VLCPlayerDisplayControllerDisplayMiniPlayer";
@@ -38,7 +40,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 @end
 
-@interface VLCPlayerDisplayController () <VLCMovieViewControllerDelegate>
+@interface VLCPlayerDisplayController () <VLCMovieViewControllerDelegate, VLCVideoPlayerViewControllerDelegate>
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *movieViewController;
 @property (nonatomic, strong) VLCQueueViewController *queueViewController;
 @property (nonatomic, strong) NSLayoutConstraint *bottomConstraint;
@@ -94,9 +96,23 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 - (UIViewController<VLCPlaybackServiceDelegate> *)movieViewController
 {
     if (!_movieViewController) {
+        if (!_queueViewController) {
+            [self initQueueViewController];
+        }
 #if TARGET_OS_IOS
+# if !SWIFT_VIDEO_PLAYER
         _movieViewController = [[VLCMovieViewController alloc] initWithServices:_services];
         ((VLCMovieViewController *)_movieViewController).delegate = self;
+        [(VLCMovieViewController *)_movieViewController setupQueueViewController:_queueViewController];
+# else
+
+        VLCPlayerController *pc = [[VLCPlayerController alloc] initWithServices:_services];
+        _movieViewController = [[VLCVideoPlayerViewController alloc]
+                                initWithServices:_services
+                                playerController:pc];
+        ((VLCVideoPlayerViewController *)_movieViewController).delegate = self;
+//        [((VLCVideoPlayerViewController *)_movieViewController) setupQueueViewController:_queueViewController];
+# endif
 #else
         _movieViewController = [[VLCFullscreenMovieTVViewController alloc] initWithNibName:nil bundle:nil];
 #endif
@@ -104,7 +120,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         if (!_queueViewController) {
             [self initQueueViewController];
         }
-        [(VLCMovieViewController *)_movieViewController setupQueueViewController:_queueViewController];
     }
     return _movieViewController;
 }
@@ -375,4 +390,17 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 {
     return self.displayMode == VLCPlayerDisplayControllerDisplayModeFullscreen;
 }
+
+#pragma mark - VideoPlayerViewControllerDelegate
+
+- (void)videoPlayerViewControllerDidMinimize:(VLCVideoPlayerViewController *)videoPlayerViewController
+{
+    [self closeFullscreenPlayback];
+}
+
+- (BOOL)videoPlayerViewControllerShouldBeDisplayed:(VLCVideoPlayerViewController *)videoPlayerViewController
+{
+    return self.displayMode == VLCPlayerDisplayControllerDisplayModeFullscreen;
+}
+
 @end

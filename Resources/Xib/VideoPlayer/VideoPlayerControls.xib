@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="VideoPlayerControls" id="Ve6-FF-JXf" userLabel="VideoPlayerControls" customClass="VideoPlayerControls" customModule="VLC" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Nux-PF-Uy2" userLabel="Controls">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4vJ-kK-AO4" userLabel="Left controls">
+                            <rect key="frame" x="0.0" y="0.0" width="96" height="44"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xy4-Ix-lOi" userLabel="Subtitle">
+                                    <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="Xy4-Ix-lOi" secondAttribute="height" multiplier="1:1" id="JuQ-bu-rcn"/>
+                                        <constraint firstAttribute="height" constant="44" id="X4b-qv-eIH"/>
+                                        <constraint firstAttribute="width" constant="44" id="vRz-U2-pbi"/>
+                                    </constraints>
+                                    <state key="normal" image="iconSubtitle"/>
+                                    <connections>
+                                        <action selector="handleSubtitleButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="tKF-0u-09D"/>
+                                    </connections>
+                                </button>
+                                <button hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hN-qU-px8" userLabel="DVD">
+                                    <rect key="frame" x="48" y="0.0" width="44" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="44" id="5iz-gb-AXG"/>
+                                        <constraint firstAttribute="height" constant="44" id="Dfr-es-duj"/>
+                                    </constraints>
+                                    <state key="normal" title="DVD"/>
+                                    <connections>
+                                        <action selector="handleDVDButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="amy-xB-CIJ"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBr-hb-t7N" userLabel="Rotation Lock">
+                                    <rect key="frame" x="52" y="0.0" width="44" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="Tsp-xL-SFW"/>
+                                        <constraint firstAttribute="width" constant="44" id="Ylc-eo-hSh"/>
+                                    </constraints>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" image="interfaceLock"/>
+                                    <connections>
+                                        <action selector="handleRotationLockButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="MYa-9f-xU4"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3gD-AA-rTK" userLabel="Center controls">
+                            <rect key="frame" x="232" y="0.0" width="136" height="44"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FbE-qn-gpX">
+                                    <rect key="frame" x="0.0" y="2" width="40" height="40"/>
+                                    <subviews>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJq-bj-ToS" userLabel="Backward">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="k4s-GE-lWG"/>
+                                                <constraint firstAttribute="height" constant="40" id="pms-5l-9LK"/>
+                                            </constraints>
+                                            <state key="normal" image="iconSkipBack"/>
+                                            <connections>
+                                                <action selector="handleBackwardButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="iGB-XW-LgV"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v82-nx-P0i" userLabel="Previous">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="KT9-XW-UMS"/>
+                                                <constraint firstAttribute="width" constant="40" id="srN-1u-1UN"/>
+                                            </constraints>
+                                            <state key="normal" image="previous-media"/>
+                                            <connections>
+                                                <action selector="handlePreviousButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="zP8-Xz-7Ok"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxt-AE-Ufy" userLabel="Play pause">
+                                    <rect key="frame" x="44" y="0.0" width="44" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="AQK-XE-oZD" userLabel="height = 44"/>
+                                        <constraint firstAttribute="width" constant="44" id="Xad-8I-KBX"/>
+                                    </constraints>
+                                    <state key="normal" image="play-circle">
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="handlePlayPauseButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="bIh-gJ-x68"/>
+                                    </connections>
+                                </button>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NO1-OE-x4I">
+                                    <rect key="frame" x="92" y="0.0" width="44" height="44"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brI-W2-OMr" userLabel="Next ">
+                                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="VN8-GM-fCH"/>
+                                                <constraint firstAttribute="height" constant="44" id="ZG8-Uf-g65"/>
+                                            </constraints>
+                                            <state key="normal" image="next-media"/>
+                                            <connections>
+                                                <action selector="handleNextButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="f5d-8p-rbk"/>
+                                            </connections>
+                                        </button>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrd-2e-VF4" userLabel="Forward">
+                                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="goJ-Fq-aPL"/>
+                                                <constraint firstAttribute="width" constant="44" id="mEI-wF-q4x"/>
+                                            </constraints>
+                                            <state key="normal" image="iconSkipForward"/>
+                                            <connections>
+                                                <action selector="handleForwardButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="h1g-ad-mnS"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="FbE-qn-gpX" secondAttribute="bottom" constant="2" id="eVq-yU-iQq"/>
+                                <constraint firstItem="FbE-qn-gpX" firstAttribute="top" secondItem="3gD-AA-rTK" secondAttribute="top" constant="2" id="of0-YQ-f1x"/>
+                            </constraints>
+                            <variation key="heightClass=regular-widthClass=compact" spacing="4"/>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GDb-m6-3gp" userLabel="Right controls">
+                            <rect key="frame" x="504" y="0.0" width="96" height="44"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VA6-oF-BG7" userLabel="Aspect Ratio">
+                                    <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="2Te-71-KKi"/>
+                                        <constraint firstAttribute="width" constant="44" id="NNU-Ft-jFI"/>
+                                    </constraints>
+                                    <state key="normal" image="iconExpand"/>
+                                    <connections>
+                                        <action selector="handleAspectRatioButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="lXA-kR-sWM"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BVD-eC-bAW" userLabel="More Actions">
+                                    <rect key="frame" x="52" y="0.0" width="44" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="44" id="HEo-oL-wKW"/>
+                                        <constraint firstAttribute="height" constant="44" id="Sct-kr-7ka"/>
+                                    </constraints>
+                                    <state key="normal" image="iconMoreOptions"/>
+                                    <connections>
+                                        <action selector="handleMoreActionsButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="6xi-eo-dRu"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="U9o-66-Knk"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="O2p-hh-bJO"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="QC6-Sp-DdX"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="Nux-PF-Uy2" firstAttribute="centerY" secondItem="QC6-Sp-DdX" secondAttribute="centerY" id="ITw-dp-ni3"/>
+                <constraint firstItem="Nux-PF-Uy2" firstAttribute="leading" secondItem="QC6-Sp-DdX" secondAttribute="leading" id="Ma4-mz-Dca"/>
+                <constraint firstItem="QC6-Sp-DdX" firstAttribute="trailing" secondItem="Nux-PF-Uy2" secondAttribute="trailing" id="t3d-5g-s4v"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="aspectRatioButton" destination="VA6-oF-BG7" id="y6e-y8-fWr"/>
+                <outlet property="backwardButton" destination="qJq-bj-ToS" id="AW8-l4-dYO"/>
+                <outlet property="dvdButton" destination="0hN-qU-px8" id="5h5-wR-Ohx"/>
+                <outlet property="forwardButton" destination="hrd-2e-VF4" id="S0F-Nl-Ztm"/>
+                <outlet property="moreActionsButton" destination="BVD-eC-bAW" id="LJ1-HL-etY"/>
+                <outlet property="nextMediaButton" destination="brI-W2-OMr" id="mTn-kk-TYj"/>
+                <outlet property="playPauseButton" destination="mxt-AE-Ufy" id="8S8-aA-xsj"/>
+                <outlet property="previousMediaButton" destination="v82-nx-P0i" id="F00-mY-wzw"/>
+                <outlet property="rotationLockButton" destination="PBr-hb-t7N" id="Rne-iz-jxA"/>
+                <outlet property="subtitleButton" destination="Xy4-Ix-lOi" id="9E2-pN-2Pk"/>
+            </connections>
+            <point key="canvasLocation" x="204.80000000000001" y="293.25337331334333"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="iconExpand" width="24" height="24"/>
+        <image name="iconMoreOptions" width="24" height="24"/>
+        <image name="iconSkipBack" width="24" height="24"/>
+        <image name="iconSkipForward" width="24" height="24"/>
+        <image name="iconSubtitle" width="24" height="24"/>
+        <image name="interfaceLock" width="24" height="24"/>
+        <image name="next-media" width="24" height="24"/>
+        <image name="play-circle" width="34" height="34"/>
+        <image name="previous-media" width="24" height="24"/>
+    </resources>
+</document>
