@@ -60,8 +60,6 @@
 #define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"
 #define kVLCSettingContinuePlayback @"ContinuePlayback"
 #define kVLCSettingContinueAudioPlayback @"ContinueAudioPlayback"
-#define kVLCSettingFTPTextEncoding @"ftp-text-encoding"
-#define kVLCSettingFTPTextEncodingDefaultValue @(5) // ISO Latin 1
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"
 #define kVLCSettingWiFiSharingIPv6 @"wifi-sharing-ipv6"
 #define kVLCSettingWiFiSharingIPv6DefaultValue @(NO)
