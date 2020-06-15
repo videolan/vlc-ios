@@ -127,7 +127,6 @@
 		7D310885245F1EE100BC6D79 /* VLCMediaFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */; };
 		7D37848F183A98B6009EE944 /* VLCMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37848E183A98B6009EE944 /* VLCMovieViewController.m */; };
 		7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */; };
-		7D37849E183A98DD009EE944 /* VLCThumbnailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */; };
 		7D3784A1183A98EB009EE944 /* VLCBugreporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784A0183A98EB009EE944 /* VLCBugreporter.m */; };
 		7D3784A6183A98F5009EE944 /* VLCAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784A3183A98F5009EE944 /* VLCAboutViewController.m */; };
 		7D3784A7183A98F5009EE944 /* VLCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784A5183A98F5009EE944 /* VLCSettingsController.m */; };
@@ -649,8 +648,6 @@
 		7D37848E183A98B6009EE944 /* VLCMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMovieViewController.m; path = Sources/Playback/VLCMovieViewController.m; sourceTree = SOURCE_ROOT; };
 		7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExternalDisplayController.h; path = Sources/Playback/VLCExternalDisplayController.h; sourceTree = SOURCE_ROOT; };
 		7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExternalDisplayController.m; path = Sources/Playback/VLCExternalDisplayController.m; sourceTree = SOURCE_ROOT; };
-		7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCThumbnailsCache.h; path = Sources/VLCThumbnailsCache.h; sourceTree = SOURCE_ROOT; };
-		7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCThumbnailsCache.m; path = Sources/VLCThumbnailsCache.m; sourceTree = SOURCE_ROOT; };
 		7D37849F183A98EB009EE944 /* VLCBugreporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBugreporter.h; path = Sources/VLCBugreporter.h; sourceTree = SOURCE_ROOT; };
 		7D3784A0183A98EB009EE944 /* VLCBugreporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBugreporter.m; path = Sources/VLCBugreporter.m; sourceTree = SOURCE_ROOT; };
 		7D3784A2183A98F5009EE944 /* VLCAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAboutViewController.h; path = Sources/VLCAboutViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1718,8 +1715,6 @@
 			isa = PBXGroup;
 			children = (
 				8DE1887221089AF200A091D2 /* MediaLibraryModel */,
-				7D37849C183A98DD009EE944 /* VLCThumbnailsCache.h */,
-				7D37849D183A98DD009EE944 /* VLCThumbnailsCache.m */,
 				8D66A47220AC61B900FA5B92 /* MediaLibraryService.swift */,
 				8D59BFFB230BEFB50078160A /* Observable.swift */,
 			);
@@ -3021,7 +3016,6 @@
 				41DFC6C62100BAAF00EEC9E3 /* VLCDocumentClass.swift in Sources */,
 				DD3EFF551BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
 				8DD651C4208F786F0052EE68 /* ActionSheetSectionHeader.swift in Sources */,
-				7D37849E183A98DD009EE944 /* VLCThumbnailsCache.m in Sources */,
 				DD3EFF411BDEBCE500B68579 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
 				418E88412110E51B00DDA6A7 /* URLHandler.swift in Sources */,
 				7D3784A1183A98EB009EE944 /* VLCBugreporter.m in Sources */,
