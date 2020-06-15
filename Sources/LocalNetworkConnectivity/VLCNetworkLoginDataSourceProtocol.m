@@ -88,6 +88,7 @@ static NSString *const VLCNetworkLoginDataSourceProtocolCellIdentifier = @"VLCNe
                                NSLocalizedString(@"FTP_SHORT", nil),
                                NSLocalizedString(@"PLEX_SHORT", nil),
                                NSLocalizedString(@"NFS_SHORT", nil),
+                               NSLocalizedString(@"SFTP_SHORT", nil)
                                ]];
         _segmentedControl.tintColor = PresentationTheme.current.colors.orangeUI;
 

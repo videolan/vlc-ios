@@ -34,6 +34,7 @@
 #import "VLCLocalNetworkServiceBrowserSAP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCNetworkServerBrowserVLCMedia+FTP.h"
+#import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
 
@@ -457,6 +458,8 @@
         serverBrowser = [VLCNetworkServerBrowserVLCMedia SMBNetworkServerBrowserWithLogin:loginInformation];
     } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierNFS]) {
         serverBrowser = [VLCNetworkServerBrowserVLCMedia NFSNetworkServerBrowserWithLogin:loginInformation];
+    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSFTP]) {
+        serverBrowser = [VLCNetworkServerBrowserVLCMedia SFTPNetworkServerBrowserWithLogin:loginInformation];
     } else {
         APLog(@"Unsupported URL Scheme requested %@", identifier);
     }

@@ -95,6 +95,7 @@
                          [VLCLocalNetworkServiceBrowserDSM class],
                          [VLCLocalNetworkServiceBrowserPlex class],
                          [VLCLocalNetworkServiceBrowserNFS class],
+                         [VLCLocalNetworkServiceBrowserBonjour class],
 #ifndef NDEBUG
                          [VLCLocalNetworkServiceBrowserSAP class],
 #endif
@@ -343,6 +344,8 @@
         serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithLogin:login];
     } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSMB]) {
         serverBrowser = [VLCNetworkServerBrowserVLCMedia SMBNetworkServerBrowserWithLogin:login];
+    } else if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierSFTP]) {
+        serverBrowser = [VLCNetworkServerBrowserVLCMedia SFTPNetworkServerBrowserWithLogin:login];
     }
 
     if (serverBrowser) {

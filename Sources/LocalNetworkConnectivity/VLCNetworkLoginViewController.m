@@ -25,6 +25,7 @@
 // for protocol identifier
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCNetworkServerBrowserVLCMedia+FTP.h"
+#import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 
@@ -101,6 +102,8 @@
         protocol = VLCServerProtocolPLEX;
     } else if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierNFS]) {
         protocol = VLCServerProtocolNFS;
+    } else if ([protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierSFTP]) {
+        protocol = VLCServerProtocolSFTP;
     }
     return protocol;
 }
@@ -126,6 +129,10 @@
         case VLCServerProtocolNFS:
         {
             protocolIdentifier = VLCNetworkServerProtocolIdentifierNFS;
+        }
+        case VLCServerProtocolSFTP:
+        {
+            protocolIdentifier = VLCNetworkServerProtocolIdentifierSFTP;
         }
         default:
             break;

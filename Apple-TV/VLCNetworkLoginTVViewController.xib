@@ -42,6 +42,7 @@
                                         <segment title="FTP"/>
                                         <segment title="PLEX"/>
                                         <segment title="NFS"/>
+                                        <segment title="SFTP"/>
                                     </segments>
                                 </segmentedControl>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Server" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TKy-NO-Xtu" userLabel="adress">

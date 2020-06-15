@@ -281,6 +281,7 @@
 "PLEX_SHORT" = "Plex";
 
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
 
 "NFS_LONG" = "Network File System (NFS)";
 "NFS_SHORT" = "NFS";

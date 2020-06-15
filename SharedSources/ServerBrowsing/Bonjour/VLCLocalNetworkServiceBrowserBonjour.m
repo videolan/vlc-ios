@@ -2,7 +2,7 @@
  * VLCLocalNetworkServiceBrowserBonjour.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -41,6 +41,17 @@ NSString *const VLCNetworkServerProtocolIdentifierBonjour = @"Bonjour";
 - (UIImage *)icon
 {
     return [UIImage imageNamed:@"serverIcon"];
+}
+
+- (VLCNetworkServerLoginInformation *)loginInformation {
+    VLCMedia *media = self.mediaItem;
+    if (media.mediaType != VLCMediaTypeDirectory) {
+        return nil;
+    }
+
+    VLCNetworkServerLoginInformation *login = [VLCNetworkServerLoginInformation newLoginInformationForProtocol:self.serviceName];
+    login.address = self.mediaItem.url.host;
+    return login;
 }
 
 @end
