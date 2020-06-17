@@ -50,7 +50,7 @@ PODS:
   - MetaDataFetcherKit (0.3.2):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
-  - MobileVLCKit (3.3.10)
+  - MobileVLCKit (3.3.13)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (1.1)
   - OBSlider (1.1.0)
@@ -79,7 +79,7 @@ PODS:
   - PAPasscode (1.0)
   - SimulatorStatusMagic (2.4.1)
   - SwiftLint (0.25.1)
-  - TVVLCKit (3.3.10)
+  - TVVLCKit (3.3.13)
   - VLCMediaLibraryKit (0.7.3):
     - MobileVLCKit
   - XKKeychain (1.0.1)
@@ -97,7 +97,7 @@ DEPENDENCIES:
   - MarqueeLabel (= 4.0.2)
   - MediaLibraryKit-prod
   - MetaDataFetcherKit (~> 0.3.2)
-  - MobileVLCKit (= 3.3.10)
+  - MobileVLCKit (= 3.3.13)
   - ObjectiveDropboxOfficial (from `git://github.com/Mikanbu/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OneDriveSDK
@@ -105,7 +105,7 @@ DEPENDENCIES:
   - PAPasscode (~> 1.0)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
-  - TVVLCKit (= 3.3.10)
+  - TVVLCKit (= 3.3.13)
   - VLCMediaLibraryKit (= 0.7.3)
   - XKKeychain (~> 1.0)
 
@@ -182,7 +182,7 @@ SPEC CHECKSUMS:
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MediaLibraryKit-prod: 718b52b55cb40b479eeae29fb5cc0cfbbbce0191
   MetaDataFetcherKit: 071c290d7b6b393e8d242c3a14594abfe8ae44c3
-  MobileVLCKit: 34a4d22c48ea48a36c2a6fdf290d4ea094869ac0
+  MobileVLCKit: 92e1ea43124259417f481c890821efb2399d25e3
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: b9e95d98e3ff2baa0cd86aea7c8322a712f356d6
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
@@ -191,11 +191,11 @@ SPEC CHECKSUMS:
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   SimulatorStatusMagic: 28d4a9d1a500ac7cea0b2b5a43c1c6ddb40ba56c
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
-  TVVLCKit: f638dcaf37a6ba4027161cbc27be86f0cb02d2f7
+  TVVLCKit: 33c0e6221b7ea312ae35703cd898b3b610aa4e0d
   VLCMediaLibraryKit: 96d888841da420b53ec1c4a1c5baeb373f4860c9
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: e147debbd288e7cbebde9004eeff1fd7366edafc
+PODFILE CHECKSUM: 8411e5a79614362d09e9fcc5bb030a2f62b620bc
 
 COCOAPODS: 1.8.4
