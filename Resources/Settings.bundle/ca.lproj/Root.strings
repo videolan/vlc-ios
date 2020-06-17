@@ -4,13 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Vídeo";
 "SETTINGS_AUDIO_TITLE" = "Àudio";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_BRIGHT" = "Tema clar";
+"SETTINGS_THEME_DARK" = "Tema fosc";
+"SETTINGS_THEME_SYSTEM" = "Automàtic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Obre a Configuració";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accedeix de forma segura al teu contingut";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Aparença";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Canvi de velocitat de l'àudio";
 "SETTINGS_BACKGROUND_AUDIO" = "Reproducció de so de fons";
 "SETTINGS_GENERIC_TITLE" = "Genèric";
@@ -24,7 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Always";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automàticament reprodueix el següent ítem";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Activa l'auto-desplaçament a la llista d'arxius multimèdia";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtre de desbloqueig";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Sense desbloqueig (el més ràpid)";
@@ -42,7 +42,7 @@
 
 "SETTINGS_GESTURES" = "Control de la reproducció amb moviments";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Toca amb dos dit per reproduir/pausar";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
 "SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
@@ -82,17 +82,20 @@
 "SETTINGS_HWDECODING" = "Descodificació per maquinari";
 "SETTINGS_HWDECODING_ON" = "Engegat";
 "SETTINGS_HWDECODING_OFF" = "Apagat";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Send Feedback";
 "SETTINGS_SEND_RATING" = "Please Rate VLC for iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Biblioteca d'arxius multimèdia";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Força el VLC a re-escannejar la biblioteca d'arxius multimèdia";
 "SETTINGS_DECRAPIFY" = "Optimitza els noms dels elements de la pantalla";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_SHOW_THUMBNAILS" = "Ensenya les miniatures dels vídeos";
+"SETTINGS_SHOW_ARTWORKS" = "Ensenya les creacions visuals dels àudios";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inclou la biblioteca d'arxius multimèdia a la còpia de seguretat del dispositiu";
 
 "SETTINGS_FILE_SYNC" = "Sincronització de fitxers";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for WiFi Sharing";
