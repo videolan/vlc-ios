@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Hardwaredecodering";
 "SETTINGS_HWDECODING_ON" = "Aan";
 "SETTINGS_HWDECODING_OFF" = "Uit";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audiodoorvoer";
+"SETTINGS_PTCASTINGLONG" = "Laat uw tv het renderen van audio beheren";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Feedback zenden";
@@ -90,11 +93,6 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediabibliotheek";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC dwingen om de mediabibliotheek opnieuw te scannen";
 "SETTINGS_DECRAPIFY" = "Namen van items optimaliseren voor scherm";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH" = "Detectielengte videogroepen";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_SHORT" = "Kort";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_NORMAL" = "Standaard";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_LONG" = "Lang";
-"SETTINGS_MEDIA_LIBRARY_VIDEO_GROUP_PREFIX_LENGTH_EXTRA_LONG" = "Extra lang";
 "SETTINGS_SHOW_THUMBNAILS" = "Video-miniaturen weergeven";
 "SETTINGS_SHOW_ARTWORKS" = "Albumhoezen weergeven";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "De mediabibliotheek opnemen in de back-up van het apparaat";

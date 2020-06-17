@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Een menu met beschikbare casting-apparaten weergeven";
 
 "UPGRADING_LIBRARY" = "Mediabiblitoheek bijwerken";
-"UNKNOWN" = "Onbekend";
 
 "OPEN_NETWORK" = "Netwerkstream openen";
 "NETWORK_TITLE" = "Netwerkstream";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex-mediaserver (via Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "File Transfer Protocol (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR bestandsserver";
 "DSM_WORKGROUP" = "Werkgroep";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Diverse artiesten";
 "UNKNOWN_ALBUM" = "Onbekend album";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Interface vergrendelen";
 "INTERFACE_LOCK_HINT" = "Interfacebedieningen uitschakelen";
 "MORE_OPTIONS_BUTTON" = "Meer";
