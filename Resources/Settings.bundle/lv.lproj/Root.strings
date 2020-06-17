@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Aparatūras atkodēšana";
 "SETTINGS_HWDECODING_ON" = "Ieslēgts";
 "SETTINGS_HWDECODING_OFF" = "Izslēgts";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Atsauksmes";
 "SETTINGS_SEND_FEEDBACK" = "Nosūtīt atsauksmi";
