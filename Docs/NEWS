@@ -1,5 +1,27 @@
 # Changelog
 
+## iOS [3.3.0]
+
+· Add support to browse NFS and SFTP shares
+· Replace previous UPnP integration with VLC's native support based on libupnp
+  · this improves compatibility with off-standard UPnP servers
+· Replace previous FTP integration with VLC's native support
+  · this improves compatibility with servers using non-western text encodings
+    and allows connections to servers with off-standard port configurations
+· Add downloads from SMB servers
+· Add support for http(s) downloads from servers requiring authentication
+· Fix storing user credentials for network shares
+
+## tvOS [3.1.0]
+
+· Add support to browse NFS and SFTP shares
+· Replace previous UPnP integration with VLC's native support based on libupnp
+  · this improves compatibility with off-standard UPnP servers
+· Replace previous FTP integration with VLC's native support
+  · this improves compatibility with servers using non-western text encodings
+    and allows connections to servers with off-standard port configurations
+· Fix storing user credentials for network shares
+
 ## iOS [3.2.11]
 
 · Fix adding new item to playlists
