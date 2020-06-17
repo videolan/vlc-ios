@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Mostrar um menu de dispositivos de conversão disponíveis";
 
 "UPGRADING_LIBRARY" = "Atualizando a Biblioteca de Mídias";
-"UNKNOWN" = "Desconhecido";
 
 "OPEN_NETWORK" = "Abrir Fluxo de Rede";
 "NETWORK_TITLE" = "Fluxo de Rede";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Servidor de Mídia Plex (via Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "Protocolo de Transferência de Arquivos (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Servidor de Arquivos BONJOUR";
 "DSM_WORKGROUP" = "Grupo de Trabalho";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Vários Artistas";
 "UNKNOWN_ALBUM" = "Álbum Desconhecido";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Prender interface";
 "INTERFACE_LOCK_HINT" = "Desabilitar controles da interface";
 "MORE_OPTIONS_BUTTON" = "Mais";
