@@ -30,7 +30,14 @@
     NSURLComponents *components = [[NSURLComponents alloc] init];
     components.scheme = self.protocolIdentifier;
     components.host = self.address;
-    components.port = self.port;
+    /* the login dialog may feed us with a port 0 instead of nil which will lead
+     * to different URL strings compared to what VLCKit delivers, so the saved and
+     * the requested password will never match */
+    if (self.port && self.port.intValue > 0) {
+        components.port = self.port;
+    } else {
+        components.port = nil;
+    }
     NSString *serviceIdentifier = components.URL.absoluteString;
     return serviceIdentifier;
 }
