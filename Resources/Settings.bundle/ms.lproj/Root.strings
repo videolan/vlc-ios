@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Penyahkodan Perkakasan";
 "SETTINGS_HWDECODING_ON" = "Hidup";
 "SETTINGS_HWDECODING_OFF" = "Mati";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Maklumbalas";
 "SETTINGS_SEND_FEEDBACK" = "Hantar Maklumbalas";

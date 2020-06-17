@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_SUBTITLE" = "Ubah warna apl";
+"SETTINGS_THEME_BRIGHT" = "Tema cerah";
+"SETTINGS_THEME_DARK" = "Tema gelap";
+"SETTINGS_THEME_SYSTEM" = "Automatik";
 "SETTINGS_PRIVACY_SUBTITLE" = "Buka dalam Tetapan";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Capaian selamat ke kandungan anda";
 
-"SETTINGS_DARKTHEME" = "Tema Gelap";
+"SETTINGS_DARKTHEME" = "Penampilan";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio diregang-masa";
 "SETTINGS_BACKGROUND_AUDIO" = "Main balik video dibalik tabir";
 "SETTINGS_GENERIC_TITLE" = "Generik";
 "SETTINGS_PASSCODE_LOCK" = "Kunci Kod Laluan";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Benarkan ID Sentuh untuk buka";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Benarkan ID Wajah untuk buka";
-"SETTINGS_DECRAPIFY" = "Optimumkan nama item untuk paparan";
 "SETTINGS_VIDEO_FULLSCREEN" = "Main video dalam skrin penuh";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Teruskan main balik video";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Teruskan main balik audio";
@@ -23,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Tanya";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sentiasa";
 "SETTINGS_NETWORK_PLAY_ALL" = "Main item berikutnya secara automatik";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Benarkan penatalan teks dalam senarai media";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Nyasekat penapis";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Tiada menyahsekat (terpantas)";
@@ -80,10 +82,20 @@
 "SETTINGS_HWDECODING" = "Penyahkodan Perkakasan";
 "SETTINGS_HWDECODING_ON" = "Hidup";
 "SETTINGS_HWDECODING_OFF" = "Mati";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Maklumbalas";
 "SETTINGS_SEND_FEEDBACK" = "Hantar Maklumbalas";
 "SETTINGS_SEND_RATING" = "Sila Beri Penarafan VLC untuk iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Pustaka media";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Paksa VLC mengimbas semula pustaka media";
+"SETTINGS_DECRAPIFY" = "Optimumkan nama item untuk paparan";
+"SETTINGS_SHOW_THUMBNAILS" = "Tunjuk lakaran kenit video";
+"SETTINGS_SHOW_ARTWORKS" = "Tunjuk kerja seni audio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Sertakan pustaka media dalam sandar peranti";
 
 "SETTINGS_FILE_SYNC" = "Penyegerakan Fail";
 "SETTINGS_WIFISHARING_IPv6" = "Sokongan IPv6 untuk Perkongsian WiFi";
