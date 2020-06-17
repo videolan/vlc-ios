@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Hardwareafkodning";
 "SETTINGS_HWDECODING_ON" = "Til";
 "SETTINGS_HWDECODING_OFF" = "Fra";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Send feedback";
