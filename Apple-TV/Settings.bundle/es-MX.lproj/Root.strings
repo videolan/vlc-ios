@@ -1,28 +1,30 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
-"SETTINGS_PRIVACY_TITLE" = "Privacy";
+"SETTINGS_PRIVACY_TITLE" = "Privacidad";
 "SETTINGS_VIDEO_TITLE" = "Vídeo";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_SUBTITLE" = "Change app colors";
-"SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
-"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_THEME_BRIGHT" = "Tema claro";
+"SETTINGS_THEME_DARK" = "Tema Oscuro";
+"SETTINGS_THEME_SYSTEM" = "Automático";
+"SETTINGS_PRIVACY_SUBTITLE" = "Abrir en Preferencias";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Acceso seguro a su contenido";
 
-"SETTINGS_DARKTHEME" = "Dark Theme";
-"SETTINGS_TIME_STRETCH_AUDIO" = "Cambiar la velocidad de la señal de audio";
+"SETTINGS_DARKTHEME" = "Apariencia";
+"SETTINGS_TIME_STRETCH_AUDIO" = "Cambiar la velocidad audio";
 "SETTINGS_BACKGROUND_AUDIO" = "Reproducir sonido de fondo";
 "SETTINGS_GENERIC_TITLE" = "Genérico";
 "SETTINGS_PASSCODE_LOCK" = "Contraseña de bloqueo";
-"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
-"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
-"SETTINGS_DECRAPIFY" = "Optimizar nombres de artículos para pantalla";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Permitir Touch ID para desbloquear";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permitir Face ID para desbloquear";
 "SETTINGS_VIDEO_FULLSCREEN" = "Reproducir video en pantalla completa";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continuar reproducción del video";
-"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue reproducción de audio";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Nunca";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Preguntar";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Siempre";
-"SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
+"SETTINGS_NETWORK_PLAY_ALL" = "Reproducir automáticamente la siguiente vez";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtro de desbloqueo";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Sin desbloqueo (el más rápido)";
@@ -40,7 +42,7 @@
 
 "SETTINGS_GESTURES" = "Control de reproducción con gestos";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tap to play/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Doble toque para reproducir y pausar";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
 "SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
@@ -77,13 +79,23 @@
 "SETTINGS_DEINTERLACE_OFF" = "Desactivado";
 "SETTINGS_DEINTERLACE_AUTO" = "Automático";
 
-"SETTINGS_HWDECODING" = "Hardware Decoding";
-"SETTINGS_HWDECODING_ON" = "On";
-"SETTINGS_HWDECODING_OFF" = "Off";
+"SETTINGS_HWDECODING" = "Decodificación por hardware";
+"SETTINGS_HWDECODING_ON" = "Activar";
+"SETTINGS_HWDECODING_OFF" = "Desactivar";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Comentario";
 "SETTINGS_SEND_FEEDBACK" = "Enviar Comentario";
 "SETTINGS_SEND_RATING" = "Porfavor califica VLC for iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Biblioteca de medios";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forzar a VLC re-escaneo de bibloteca";
+"SETTINGS_DECRAPIFY" = "Optimizar nombres de artículos para pantalla";
+"SETTINGS_SHOW_THUMBNAILS" = "Mostrar vista previa de vídeos";
+"SETTINGS_SHOW_ARTWORKS" = "Mostrar portada de audio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
 "SETTINGS_FILE_SYNC" = "Sincronización de archivos";
 "SETTINGS_WIFISHARING_IPv6" = "Soporte IPv6 para compartido por WiFi";
@@ -92,7 +104,7 @@
 "SETTINGS_UNLINK_ONEDRIVE" = "Desenlazar de OneDrive";
 "SETTINGS_FTP_TEXT_ENCODING" = "Codificado de texto para conexiones FTP";
 
-"SETTINGS_ARTWORK" = "Artwork";
-"SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
+"SETTINGS_ARTWORK" = "Portada";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Descargar portada";
 
 "ABOUT_APP_TV" = "About VLC for tvOS";
