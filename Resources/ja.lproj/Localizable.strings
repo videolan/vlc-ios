@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "利用可能なキャスティングデバイスのメニューを表示";
 
 "UPGRADING_LIBRARY" = "メディアライブラリのアップグレード中";
-"UNKNOWN" = "不明";
 
 "OPEN_NETWORK" = "ネットワークストリームを開く";
 "NETWORK_TITLE" = "ネットワークストリーム";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plexメディアサーバー (Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "ファイル転送プロトコル (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "ネットワークファイルシステム (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "BONJOURファイルサーバー";
 "DSM_WORKGROUP" = "ワークグループ";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "複数アーティスト";
 "UNKNOWN_ALBUM" = "未知のアルバム";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "インターフェースをロック";
 "INTERFACE_LOCK_HINT" = "インターフェース制御を無効化";
 "MORE_OPTIONS_BUTTON" = "もっと";
