@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Maskinvaredekoding";
 "SETTINGS_HWDECODING_ON" = "På";
 "SETTINGS_HWDECODING_OFF" = "Av";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Tilbakemelding";
 "SETTINGS_SEND_FEEDBACK" = "Send tilbakemelding";
