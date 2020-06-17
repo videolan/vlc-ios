@@ -4,13 +4,13 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Lyd";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_BRIGHT" = "Lyst tema";
+"SETTINGS_THEME_DARK" = "Mørkt tema";
+"SETTINGS_THEME_SYSTEM" = "Automatisk";
 "SETTINGS_PRIVACY_SUBTITLE" = "Åpne i Innstillinger";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Sikre tilgangen til ditt innhold";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Utseende";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Strekking av lyd";
 "SETTINGS_BACKGROUND_AUDIO" = "Lydavspilling i bakgrunnen";
 "SETTINGS_GENERIC_TITLE" = "Generelt";
@@ -24,7 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Spør";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Alltid";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automatisk spill av neste element";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Slå på rulling av tekst i medielista";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblock filter";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Ingen deblocking (raskest)";
@@ -42,7 +42,7 @@
 
 "SETTINGS_GESTURES" = "Kontroller avspilling med fakter";
 "SETTINGS_GESTURES_VOLUME" = "Sveip opp/ned for volum";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Trykk på to fingre for å spille av/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Tapp med to fingre for å spille av/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Sveip opp/ned for lysstyrke";
 "SETTINGS_GESTURES_SEEK" = "Sveip til høyre/venstre for å søke";
 "SETTINGS_GESTURES_CLOSE" = "Knip for å lukke";
@@ -82,17 +82,20 @@
 "SETTINGS_HWDECODING" = "Maskinvaredekoding";
 "SETTINGS_HWDECODING_ON" = "På";
 "SETTINGS_HWDECODING_OFF" = "Av";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Tilbakemelding";
 "SETTINGS_SEND_FEEDBACK" = "Send tilbakemelding";
 "SETTINGS_SEND_RATING" = "Gi en vurdering av VLC for iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Mediebibliotek";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Tving oppdatering av mediebiblioteket";
 "SETTINGS_DECRAPIFY" = "Optimer emnenavn for visning";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_SHOW_THUMBNAILS" = "Vis miniatyrbilder av videoer";
+"SETTINGS_SHOW_ARTWORKS" = "Vis omslagsbilder for lyd";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inkluder mediebiblioteket ved reservekopiering av enheten";
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-støtte for WiFi-deling";
