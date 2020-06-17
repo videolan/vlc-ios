@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Visa en meny med tillgängliga castenheter";
 
 "UPGRADING_LIBRARY" = "Uppgraderar mediabiblioteket";
-"UNKNOWN" = "Okänd";
 
 "OPEN_NETWORK" = "Öppna nätverksström";
 "NETWORK_TITLE" = "Nätverksström";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex Media Server (via Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "File Transfer Protocol (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR-filserver";
 "DSM_WORKGROUP" = "Arbetsgrupp";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Blandade artister";
 "UNKNOWN_ALBUM" = "Okänt album";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Lås gränssnitt";
 "INTERFACE_LOCK_HINT" = "Inaktivera gränssnittskontroller";
 "MORE_OPTIONS_BUTTON" = "Mer";
