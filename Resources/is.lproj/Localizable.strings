@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Birta valmynd yfir tiltæk útvarpandi tæki (casting)";
 
 "UPGRADING_LIBRARY" = "Uppfærsla á miðlasafni";
-"UNKNOWN" = "Óþekkt";
 
 "OPEN_NETWORK" = "Opna straum af neti";
 "NETWORK_TITLE" = "Netstreymi";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex margmiðlunarþjónn (um Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "File Transfer Protocol (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR skráaþjónn";
 "DSM_WORKGROUP" = "Vinnuhópur";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Ýmsir flytjendur";
 "UNKNOWN_ALBUM" = "Óþekkt hljómplata";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Læsa viðmóti";
 "INTERFACE_LOCK_HINT" = "Gera viðmótsstýringar óvirkar";
 "MORE_OPTIONS_BUTTON" = "Meira";

@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Myndmerki";
 "SETTINGS_AUDIO_TITLE" = "Hljóð";
 
-"SETTINGS_THEME_SUBTITLE" = "Breyta litum í forriti";
+"SETTINGS_THEME_BRIGHT" = "Ljóst þema";
+"SETTINGS_THEME_DARK" = "Dökkt þema";
+"SETTINGS_THEME_SYSTEM" = "Sjálfvirkt";
 "SETTINGS_PRIVACY_SUBTITLE" = "Opna í stillingum";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Tryggðu öruggt aðgengi að efninu þínu";
 
-"SETTINGS_DARKTHEME" = "Dökkt þema";
+"SETTINGS_DARKTHEME" = "Útlit";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tímaaðlögun hljóðs (time streching)";
 "SETTINGS_BACKGROUND_AUDIO" = "Hljóðspilun í bakgrunni";
 "SETTINGS_GENERIC_TITLE" = "Algengt";
 "SETTINGS_PASSCODE_LOCK" = "Læsing með lykilorði";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Leyfa Touch ID til að aflæsa";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Leyfa Face ID til að aflæsa";
-"SETTINGS_DECRAPIFY" = "Besta heiti atriða fyrir birtingu";
 "SETTINGS_VIDEO_FULLSCREEN" = "Spila í heilskjásham";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Halda myndspilun áfram";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Halda hljóðspilun áfram";
@@ -23,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Spyrja";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Alltaf";
 "SETTINGS_NETWORK_PLAY_ALL" = "Spila næsta atriði sjálfkrafa";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Afblokkunarsía";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Engin afblokkun (hraðast)";
@@ -80,10 +82,20 @@
 "SETTINGS_HWDECODING" = "Vélbúnaðarafkóðun";
 "SETTINGS_HWDECODING_ON" = "Kveikt";
 "SETTINGS_HWDECODING_OFF" = "Slökkt";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Umsagnir";
 "SETTINGS_SEND_FEEDBACK" = "Senda umsögn";
 "SETTINGS_SEND_RATING" = "Gefðu VLC fyrir iOS einkunn";
+
+"SETTINGS_MEDIA_LIBRARY" = "Margmiðlunarsafn";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Þvinga VLC til að endurskanna margmiðlunarsafnið";
+"SETTINGS_DECRAPIFY" = "Besta heiti atriða fyrir birtingu";
+"SETTINGS_SHOW_THUMBNAILS" = "Sýna smámyndir myndskeiða";
+"SETTINGS_SHOW_ARTWORKS" = "Sækja myndefni fyrir tónlist";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Taka margmiðlunarsafnið með í öryggisafritun tækisins";
 
 "SETTINGS_FILE_SYNC" = "Samstilling skráa";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 stuðningur vegna WiFi-deilingar";
