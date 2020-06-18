@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "הצגת תפריט עם התקני השידור הזמינים";
 
 "UPGRADING_LIBRARY" = "ספריית המדיה משתדרגת";
-"UNKNOWN" = "לא ידוע";
 
 "OPEN_NETWORK" = "פתיחת תזרים רשת";
 "NETWORK_TITLE" = "תזרים רשת";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "שרת המדיה Plex (דרך Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "פרוטוקול להעברת קבצים (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "מערכת קבצים רשתית (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "שרת קבצים BONJOUR";
 "DSM_WORKGROUP" = "קבוצת עבודה";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "מגוון אמנים";
 "UNKNOWN_ALBUM" = "אלבום לא ידוע";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "נעילת המנשק";
 "INTERFACE_LOCK_HINT" = "השבתת פקדי מנשק";
 "MORE_OPTIONS_BUTTON" = "עוד";
