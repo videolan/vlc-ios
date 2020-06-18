@@ -4,6 +4,7 @@
  * Copyright © 2020 VLC authors and VideoLAN
  *
  * Authors: Soomin Lee <bubu@mikan.io>
+ *      Andrew Breckenridge <asbreckenridge # me.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -129,7 +130,7 @@ class AddToCollectionViewController: UIViewController {
 
         alertController.addTextField(configurationHandler: {
             textField in
-            textField.placeholder = NSLocalizedString(placeholder, comment: "")
+            textField.placeholder = placeholder
         })
 
         let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
