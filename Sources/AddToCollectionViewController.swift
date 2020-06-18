@@ -129,7 +129,7 @@ class AddToCollectionViewController: UIViewController {
 
         alertController.addTextField(configurationHandler: {
             textField in
-            textField.placeholder = NSLocalizedString(placeholder, comment: "")
+            textField.placeholder = placeholder
         })
 
         let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
