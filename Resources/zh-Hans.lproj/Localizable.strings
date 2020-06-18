@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "显示可用投屏设备菜单";
 
 "UPGRADING_LIBRARY" = "正在升级媒体库";
-"UNKNOWN" = "未知";
 
 "OPEN_NETWORK" = "打开网络串流";
 "NETWORK_TITLE" = "网络串流";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex 媒体服务器 (通过 Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "文件传输协议 (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "网络文件系统 (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "bonjour 文件服务器";
 "DSM_WORKGROUP" = "工作组";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "群星";
 "UNKNOWN_ALBUM" = "未知专辑";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "锁定界面";
 "INTERFACE_LOCK_HINT" = "禁用界面控件";
 "MORE_OPTIONS_BUTTON" = "更多";
@@ -424,7 +426,7 @@
 "REMOVE_FROM_MEDIA_GROUP_HINT" = "从媒体分组中移除选中内容";
 
 "MEDIA_GROUP_CREATION" = "新建媒体分组";
-"MEDIA_GROUP_CREATION_HINT" = "显示创建播放列表的通知";
+"MEDIA_GROUP_CREATION_HINT" = "显示创建播放列表的提示";
 "MEDIA_GROUP_MOVE_TO_ROOT" = "将内容移动到顶层";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "将选中内容移动到顶层";
 
