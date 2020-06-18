@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Ammustra unu menù cun sos dispositivos de trasmissione disponìbiles";
 
 "UPGRADING_LIBRARY" = "Agiornende sa biblioteca multimediale";
-"UNKNOWN" = "Disconnotu";
 
 "OPEN_NETWORK" = "Aberi flussu de retza";
 "NETWORK_TITLE" = "Flussu de retza";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex Media Server (pro mèdiu de Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "Protocollu de tramudòngiu de documentos (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Sistema de documentos de retza (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Server de documentos BONJOUR";
 "DSM_WORKGROUP" = "Grupu de traballu";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Artistas vàrios";
 "UNKNOWN_ALBUM" = "Album disconnotu";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Bloca s'interfache";
 "INTERFACE_LOCK_HINT" = "Disabìlita sos controllos de interfache";
 "MORE_OPTIONS_BUTTON" = "Àteru";
