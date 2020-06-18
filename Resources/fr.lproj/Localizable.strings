@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Afficher un menu des périphériques de diffusion";
 
 "UPGRADING_LIBRARY" = "Mise à jour de la médiathèque";
-"UNKNOWN" = "Inconnu";
 
 "OPEN_NETWORK" = "Ouvrir un flux réseau";
 "NETWORK_TITLE" = "Flux réseau";
@@ -110,8 +109,8 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Aucune application n'a été trouvée pour ouvrir ce type de fichier";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Le fichier a été enregistré dans la photothèque avec succès";
 
-"STREAMVC_DETAILTEXT" = "Lire des flux directement sans téléchargement";
-"DOWNLOADVC_DETAILTEXT" = "Télécharger des fichiers directement sur votre appareil";
+"STREAMVC_DETAILTEXT" = "Lire des flux sans téléchargement";
+"DOWNLOADVC_DETAILTEXT" = "Télécharger des fichiers sur votre appareil";
 "HEADER_TITLE_RENDERER" = "Sélectionner un périphérique de diffusion";
 
 "NETWORK" = "Réseau";
@@ -217,7 +216,7 @@
 "FIRST_STEPS_WIFI_DETAILS" = "Entrer l'URL générée dans votre navigateur préféré, qui doit être connecté au même réseau que votre téléphone";
 "FIRST_STEPS_CLOUDS" = "Nuages";
 "FIRST_STEPS_CLOUD_TITLE" = "Nuage";
-"FIRST_STEPS_CLOUD_DETAILS" = "Téléverser votre média vers un service de nuage tel que Google Drive ou Dropbox pour les télécharger ou les diffuser à distance.";
+"FIRST_STEPS_CLOUD_DETAILS" = "Téléverser vos médias vers un service de nuage tel que Google Drive ou Dropbox pour les télécharger ou les diffuser à distance.";
 
 
 "PLEX_CHECK_ACCOUNT" = "Vérifier votre compte Plex dans les réglages";
@@ -264,7 +263,7 @@
 "HTTP_SERVER_OFF" = "Activer la lecture à distance";
 "CACHED_MEDIA" = "Média en cache";
 "CACHED_MEDIA_LONG" = "Les médias listés ici sont stockés localement sur votre Apple TV. Remarque : ces contenus peuvent être supprimés à tout moment par le système d'exploitation et sans avertissement quand VLC n'est pas actif et que l'espace de stockage devient insuffisant.";
-"DOWNLOAD_SUBS_FROM_OSO" = "Télécharger des sous-titres à partir de OpenSubtitles.org...";
+"DOWNLOAD_SUBS_FROM_OSO" = "Télécharger des sous-titres de OpenSubtitles.org...";
 "FOUND_SUBS" = "Sous-titres trouvés";
 "USE_SPDIF" = "Utiliser le « Path-through » (S/PDIF)";
 
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex Media Server (via Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "Protocole de transfert de fichiers (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Serveur de fichiers BONJOUR";
 "DSM_WORKGROUP" = "Groupe de travail";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Artistes divers";
 "UNKNOWN_ALBUM" = "Album inconnu";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Verrouiller l'interface";
 "INTERFACE_LOCK_HINT" = "Désactiver les contrôles d'interface";
 "MORE_OPTIONS_BUTTON" = "Plus";
@@ -398,7 +400,7 @@
 
 /* Settings - Force rescan alert */
 "FORCE_RESCAN_TITLE" = "Forcer la réanalyse de la médiathèque";
-"FORCE_RESCAN_MESSAGE" = "Voulez-vous forcer VLC à réanalyser la médiathèque ?\nCela pourrait prendre du temps.";
+"FORCE_RESCAN_MESSAGE" = "Voulez-vous forcer VLC à réanalyser la médiathèque ?\nCela pourrait prendre du temps.";
 
 // Local Network
 
@@ -413,22 +415,22 @@
 
 /* Media groups */
 
-"ADD_TO_MEDIA_GROUP" = "Ajouter au groupe multimédia";
-"ADD_TO_MEDIA_GROUP_HINT" = "Ouvre le menu d'ajout au groupe multimédia";
+"ADD_TO_MEDIA_GROUP" = "Ajouter au groupe de médias";
+"ADD_TO_MEDIA_GROUP_HINT" = "Ouvre le menu d'ajout au groupe de médias";
 
-"MEDIA_GROUPS" = "Groupes multimédias";
-"MEDIA_GROUPS_DESCRIPTION" = "Choisir un titre pour votre nouveau groupe multimédia";
-"MEDIA_GROUPS_PLACEHOLDER" = "Titre du groupe multimédia";
+"MEDIA_GROUPS" = "Groupes de médias";
+"MEDIA_GROUPS_DESCRIPTION" = "Choisir un titre pour votre nouveau groupe de médias";
+"MEDIA_GROUPS_PLACEHOLDER" = "Titre du groupe de médias";
 
-"REMOVE_FROM_MEDIA_GROUP" = "Retirer du groupe multimédia";
-"REMOVE_FROM_MEDIA_GROUP_HINT" = "Supprimer la sélection du groupe multimédia";
+"REMOVE_FROM_MEDIA_GROUP" = "Retirer du groupe de médias";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Supprimer la sélection du groupe de médias";
 
-"MEDIA_GROUP_CREATION" = "Nouveau groupe multimédia";
+"MEDIA_GROUP_CREATION" = "Nouveau groupe de médias";
 "MEDIA_GROUP_CREATION_HINT" = "Afficher une alerte pour créer une liste de lecture";
 "MEDIA_GROUP_MOVE_TO_ROOT" = "Déplacer le contenu au niveau racine";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Déplace le contenu de la sélection au niveau le plus haut";
 
 "BUTTON_REGROUP" = "Regrouper";
 "BUTTON_REGROUP_TITLE" = "Regrouper la sélection";
-"BUTTON_REGROUP_HINT" = "Essayer de regrouper automatiquement les fichiers multimédias isolés.";
-"BUTTON_REGROUP_DESCRIPTION" = "Êtes-vous sûr de vouloir regrouper automatiquement les fichiers multimédias isolés ?\nCela peut prendre du temps.";
+"BUTTON_REGROUP_HINT" = "Essayer de regrouper automatiquement les médias isolés.";
+"BUTTON_REGROUP_DESCRIPTION" = "Êtes-vous sûr de vouloir regrouper automatiquement les médias isolés ?\nCela peut prendre du temps.";

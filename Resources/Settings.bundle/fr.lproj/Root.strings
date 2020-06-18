@@ -24,7 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Demander";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Toujours";
 "SETTINGS_NETWORK_PLAY_ALL" = "Lecture automatique du suivant";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Activer le défilement du texte dans la liste des médias";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Défilement du texte de liste des médias";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtre anti-blocs";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Sans anti-blocs (plus rapide)";
@@ -102,7 +102,7 @@
 "SETTINGS_UNLINK_DROPBOX" = "Dissocier de Dropbox";
 "SETTINGS_UNLINK_GOOGLEDRIVE" = "Dissocier de Google Drive";
 "SETTINGS_UNLINK_ONEDRIVE" = "Dissocier de OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Encodage du texte pour les connexions FTP";
+"SETTINGS_FTP_TEXT_ENCODING" = "Encodage du texte des connexions FTP";
 
 "SETTINGS_ARTWORK" = "Illustration";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Télécharger l'illustration";
