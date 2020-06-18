@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Показати меню доступних пристроїв для трансляції";
 
 "UPGRADING_LIBRARY" = "Оновлюється медіабібліотека";
-"UNKNOWN" = "Невідомо";
 
 "OPEN_NETWORK" = "Відкрити мережевий потік";
 "NETWORK_TITLE" = "Мережевий потік";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Медіа сервер Plex (через Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "Протокол обміну файлів (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Мережева файлова система (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Сервер файлів BONJOUR";
 "DSM_WORKGROUP" = "Робоча група";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Різні виконавці";
 "UNKNOWN_ALBUM" = "Невідомий альбом";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Заблокувати інтерфейс";
 "INTERFACE_LOCK_HINT" = "Вимкнути управління інтерфейсом";
 "MORE_OPTIONS_BUTTON" = "Більше";
