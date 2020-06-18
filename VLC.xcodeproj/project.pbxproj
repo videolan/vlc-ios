@@ -2396,12 +2396,12 @@
 			buildConfigurationList = 7D94FD0A16DE7D1100F2623B /* Build configuration list for PBXNativeTarget "VLC-iOS" */;
 			buildPhases = (
 				23B425DEB65EA5C88D873ED2 /* [CP] Check Pods Manifest.lock */,
+				41F7087C1F37900A00953630 /* Generate Localized Strings */,
 				0A9D17D120C4A14700AA4A8C /* Run SwiftLint Script */,
 				7D94FCD716DE7D1000F2623B /* Sources */,
 				7D94FCD816DE7D1000F2623B /* Frameworks */,
 				7D94FCD916DE7D1000F2623B /* Resources */,
 				9706D52A0CDF446E336826A6 /* [CP] Copy Pods Resources */,
-				41F7087C1F37900A00953630 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2760,13 +2760,14 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		41F7087C1F37900A00953630 /* ShellScript */ = {
+		41F7087C1F37900A00953630 /* Generate Localized Strings */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Generate Localized Strings";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
