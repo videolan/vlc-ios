@@ -33,3 +33,7 @@
 #import "VLCMetadata.h"
 #import "VLCPlayerDisplayController.h"
 #import "NSString+SupportedMedia.h"
+
+#if DEBUG
+#import "VLCMovieViewControlPanelView.h"
+#endif
