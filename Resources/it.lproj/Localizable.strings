@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Mostra un menu dei dispositivi di trasmissione disponibili";
 
 "UPGRADING_LIBRARY" = "Aggiornamento raccolta multimediale";
-"UNKNOWN" = "Sconosciuto";
 
 "OPEN_NETWORK" = "Apri flusso di rete";
 "NETWORK_TITLE" = "Flusso di rete";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex Media Server (tramite Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "File Transfer Protocol (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "File server BONJOUR";
 "DSM_WORKGROUP" = "Gruppo di lavoro";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Artisti vari";
 "UNKNOWN_ALBUM" = "Album sconosciuto";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Blocca interfaccia";
 "INTERFACE_LOCK_HINT" = "Disabilita controlli interfaccia";
 "MORE_OPTIONS_BUTTON" = "Altro";
