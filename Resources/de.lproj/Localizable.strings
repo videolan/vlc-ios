@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Menü mit verfügbaren Casting-Geräten anzeigen";
 
 "UPGRADING_LIBRARY" = "Mediathek aktualisieren";
-"UNKNOWN" = "Unbekannt";
 
 "OPEN_NETWORK" = "Netzwerkstream öffnen";
 "NETWORK_TITLE" = "Netzwerk-Stream";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex Medienserver (über Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "File Transfer Protocol (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Netzwerk-Dateisytem (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR-Dateiserver";
 "DSM_WORKGROUP" = "Arbeitsgruppe";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Verschiedene Künstler";
 "UNKNOWN_ALBUM" = "Unbekanntes Album";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Schnittstelle sperren";
 "INTERFACE_LOCK_HINT" = "Schnittstellensteuerung deaktivieren";
 "MORE_OPTIONS_BUTTON" = "Mehr";
