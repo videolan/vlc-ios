@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Kullanılabilecek aktarım aygıtları menüsünü görüntüler";
 
 "UPGRADING_LIBRARY" = "Ortam Kitaplığı Yükseltiliyor";
-"UNKNOWN" = "Bilinmeyen";
 
 "OPEN_NETWORK" = "Ağ Akışı Aç";
 "NETWORK_TITLE" = "Ağ Akışı";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex Ortam Sunucusu (Bonjour aracılığıyla)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "Dosya Aktarım Protokolü (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Ağ Dosya Sistemi (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR Dosya Sunucusu";
 "DSM_WORKGROUP" = "Çalışma Grubu";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Çeşitli Sanatçılar";
 "UNKNOWN_ALBUM" = "Albüm Bilinmiyor";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Arayüzü kilitle";
 "INTERFACE_LOCK_HINT" = "Arayüz denetimlerini devre dışı bırak";
 "MORE_OPTIONS_BUTTON" = "Diğerleri";
