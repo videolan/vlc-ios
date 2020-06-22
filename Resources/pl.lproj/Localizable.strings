@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Pokaż menu dostępnych urządzeń do transmisji";
 
 "UPGRADING_LIBRARY" = "Aktualizacja Biblioteki multimedialnej";
-"UNKNOWN" = "Nieznany";
 
 "OPEN_NETWORK" = "Otwórz strumień sieciowy";
 "NETWORK_TITLE" = "Strumień sieciowy";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Serwer Plex Media (przez Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "Protokół transferu plików (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Serwer plików BONJOUR";
 "DSM_WORKGROUP" = "Grupa robocza";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Różni wykonawcy";
 "UNKNOWN_ALBUM" = "Nieznany album";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Zablokuj interfejs";
 "INTERFACE_LOCK_HINT" = "Wyłącz kontrolki interfejsu";
 "MORE_OPTIONS_BUTTON" = "Więcej";
