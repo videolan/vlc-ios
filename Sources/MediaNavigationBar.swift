@@ -36,8 +36,8 @@ protocol MediaNavigationBarDelegate {
         return minButton
     }()
 
-    lazy var mediaTitleTextLabel: UILabel = {
-        var label = UILabel()
+    lazy var mediaTitleTextLabel: VLCMarqueeLabel = {
+        var label = VLCMarqueeLabel()
         label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingMiddle
         label.textColor = .white
