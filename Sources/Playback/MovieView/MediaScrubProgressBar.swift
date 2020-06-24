@@ -40,7 +40,7 @@ class MediaScrubProgressBar: UIStackView {
     
     private lazy var elapsedTimeLabel: UILabel = {
         var label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = .orange
         label.text = "--:--"
         label.numberOfLines = 1
@@ -61,11 +61,11 @@ class MediaScrubProgressBar: UIStackView {
             let featureSettings: Dictionary = [UIFontDescriptor.FeatureKey.featureIdentifier: kNumberSpacingType,
                                                UIFontDescriptor.FeatureKey.typeIdentifier: kMonospacedNumbersSelector]
             let fontAttributes: Dictionary = [UIFontDescriptor.AttributeName.featureSettings: [featureSettings]]
-            let monoSpaceFont = UIFont(descriptor: descriptor.addingAttributes(fontAttributes), size: 12)
+            let monoSpaceFont = UIFont(descriptor: descriptor.addingAttributes(fontAttributes), size: 13)
             remainingTimeButton.titleLabel?.font = monoSpaceFont
         } else {
             // Fallback to system font in the worst-case
-            remainingTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+            remainingTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         }
         remainingTimeButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return remainingTimeButton
