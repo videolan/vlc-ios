@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Menü megjelenítése az elérhető vetítési eszközökkel";
 
 "UPGRADING_LIBRARY" = "Médiatár frissítése…";
-"UNKNOWN" = "Ismeretlen";
 
 "OPEN_NETWORK" = "Hálózati stream";
 "NETWORK_TITLE" = "Hálózati stream";
@@ -128,7 +127,7 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "Sikertelen csatlakozás";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Ellenőrizze a kiszolgáló címét, valamint felhasználónevét és jelszavát.";
 
-"CLOUD_SERVICES" = "Felhő Szolgáltatások";
+"CLOUD_SERVICES" = "Felhőszolgáltatások";
 "LOGIN" = "Bejelentkezés";
 "LOGGED_IN" = "Bejelentkezve";
 "LOGGED_IN_SERVICES" = "%d bejelentkezett szolgáltatás";
@@ -216,7 +215,7 @@
 "FIRST_STEPS_WIFI_TITLE" = "Megosztás Wifin keresztül";
 "FIRST_STEPS_WIFI_DETAILS" = "Írja be az előállított URL-t a kedvenc webböngészőjébe miközben ugyanahhoz a hálózathoz kapcsolódik, mint a telefonja";
 "FIRST_STEPS_CLOUDS" = "Felhő";
-"FIRST_STEPS_CLOUD_TITLE" = "Felh";
+"FIRST_STEPS_CLOUD_TITLE" = "Felhő";
 "FIRST_STEPS_CLOUD_DETAILS" = "Töltse fel a médiát egy felhőszolgáltatásba, mint a Google Drive vagy a Dropbox, hogy távolról letöltse vagy onnan közvetítse.";
 
 
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex médiakiszolgáló (Bonjouron keresztül)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "Fájl átviteli protokoll (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Hálózati fájlrendszer (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR fájlkiszolgáló";
 "DSM_WORKGROUP" = "Munkacsoport";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Különböző előadók";
 "UNKNOWN_ALBUM" = "Ismeretlen album";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Felület zárolása";
 "INTERFACE_LOCK_HINT" = "Felületi vezérlők letiltása";
 "MORE_OPTIONS_BUTTON" = "Több";
