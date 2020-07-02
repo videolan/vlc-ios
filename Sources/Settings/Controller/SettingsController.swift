@@ -219,18 +219,20 @@ extension SettingsController {
         case 1:
             return GenericOptions.allCases.count
         case 2:
-            return PlaybackControlOptions.allCases.count
+            return PrivacyOptions.allCases.count
         case 3:
-            return VideoOptions.allCases.count
+            return PlaybackControlOptions.allCases.count
         case 4:
-            return SubtitlesOptions.allCases.count
+            return VideoOptions.allCases.count
         case 5:
-            return AudioOptions.allCases.count
+            return SubtitlesOptions.allCases.count
         case 6:
-            return CastingOptions.allCases.count
+            return AudioOptions.allCases.count
         case 7:
-            return MediaLibraryOptions.allCases.count
+            return CastingOptions.allCases.count
         case 8:
+            return MediaLibraryOptions.allCases.count
+        case 9:
             return FileSyncOptions.allCases.count
         default:
             return 0
@@ -257,11 +259,14 @@ extension SettingsController {
             cell.sectionType = main
         case .generic:
             let generic = GenericOptions(rawValue: indexPath.row)
+            cell.sectionType = generic
+        case .privacy:
+            let privacy = PrivacyOptions(rawValue: indexPath.row)
             let isPasscodeOn = userDefaults.bool(forKey: kVLCSettingPasscodeOnKey)
             if !isPasscodeOn && indexPath.row == 1 {
                 cell.isHidden = true
             }
-            cell.sectionType = generic
+            cell.sectionType = privacy
             cell.passcodeSwitchDelegate = self
         case .gestureControl:
             let gestureControlOptions = PlaybackControlOptions(rawValue: indexPath.row)
@@ -312,6 +317,9 @@ extension SettingsController {
             let genericSection = GenericOptions(rawValue: indexPath.row)
             playHaptics(sectionType: genericSection)
             showActionSheet(for: genericSection)
+        case .privacy:
+            let privacySection = PrivacyOptions(rawValue: indexPath.row)
+            playHaptics(sectionType: privacySection)
         case .gestureControl:
             break
         case .video:
@@ -365,7 +373,7 @@ extension SettingsController {
         if isPasscodeOn {
             return automaticDimension
         } else {
-            return indexPath == [1, 1] ? 0 : automaticDimension //Hides Biometric Row if Passcode Lock is off
+            return indexPath == [SettingsSection.privacy.rawValue, PrivacyOptions.enableBiometrics.rawValue] ? 0 : automaticDimension //Hides Biometric Row if Passcode Lock is off
         }
     }
 }

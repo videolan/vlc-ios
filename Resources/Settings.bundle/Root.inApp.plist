@@ -47,38 +47,6 @@
 			<string>SETTINGS_GENERIC_TITLE</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<string>NO</string>
-			<key>Key</key>
-			<string>PasscodeProtection</string>
-			<key>Title</key>
-			<string>SETTINGS_PASSCODE_LOCK</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>IASKSubtitle</key>
-			<string>SETTINGS_PASSCODE_LOCK_SUBTITLE</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<string>YES</string>
-			<key>Key</key>
-			<string>AllowTouchID</string>
-			<key>Title</key>
-			<string>SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<string>YES</string>
-			<key>Key</key>
-			<string>AllowFaceID</string>
-			<key>Title</key>
-			<string>SETTINGS_PASSCODE_LOCK_ALLOWFACEID</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -207,6 +175,44 @@
 			<string>EnableMediaCellTextScrolling</string>
 			<key>Title</key>
 			<string>SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_PRIVACY_TITLE</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>Key</key>
+			<string>PasscodeProtection</string>
+			<key>Title</key>
+			<string>SETTINGS_PASSCODE_LOCK</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>IASKSubtitle</key>
+			<string>SETTINGS_PASSCODE_LOCK_SUBTITLE</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>YES</string>
+			<key>Key</key>
+			<string>AllowTouchID</string>
+			<key>Title</key>
+			<string>SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>YES</string>
+			<key>Key</key>
+			<string>AllowFaceID</string>
+			<key>Title</key>
+			<string>SETTINGS_PASSCODE_LOCK_ALLOWFACEID</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>

@@ -15,6 +15,7 @@ import LocalAuthentication
 enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
     case main
     case generic
+    case privacy
     case gestureControl
     case video
     case subtitles
@@ -29,6 +30,8 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
             return ""
         case .generic:
             return "SETTINGS_GENERIC_TITLE"
+        case .privacy:
+            return "SETTINGS_PRIVACY_TITLE"
         case .gestureControl:
             return "SETTINGS_GESTURES"
         case .video:
@@ -82,8 +85,6 @@ enum MainOptions: Int, CaseIterable, SectionType {
 }
 
 enum GenericOptions: Int, CaseIterable, SectionType {
-    case passcodeLock
-    case enableBiometrics
     case networkCachingLevel
     case defaultPlaybackSpeed
     case continueAudioPlayback
@@ -91,6 +92,87 @@ enum GenericOptions: Int, CaseIterable, SectionType {
     case continueVideoPlayback
     case automaticallyPlayNextItem
     case enableTextScrollingInMediaList
+
+    var description: String {
+        switch self {
+        case .networkCachingLevel:
+            return "SETTINGS_NETWORK_CACHING_TITLE"
+        case .defaultPlaybackSpeed:
+            return "SETTINGS_PLAYBACK_SPEED_DEFAULT"
+        case .continueAudioPlayback:
+            return "SETTINGS_CONTINUE_AUDIO_PLAYBACK"
+        case .playVideoInFullScreen:
+            return "SETTINGS_VIDEO_FULLSCREEN"
+        case .continueVideoPlayback:
+            return "SETTINGS_CONTINUE_VIDEO_PLAYBACK"
+        case .automaticallyPlayNextItem:
+            return "SETTINGS_NETWORK_PLAY_ALL"
+        case .enableTextScrollingInMediaList:
+            return "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING"
+        }
+    }
+
+    var containsSwitch: Bool {
+        switch self {
+        case .networkCachingLevel:
+            return false
+        case .defaultPlaybackSpeed:
+            return false
+        case .continueAudioPlayback:
+            return false
+        case .playVideoInFullScreen:
+            return true
+        case .continueVideoPlayback:
+            return false
+        case .automaticallyPlayNextItem:
+            return true
+        case .enableTextScrollingInMediaList:
+            return true
+        }
+    }
+
+    var subtitle: String? {
+        switch self {
+        case .networkCachingLevel:
+            return "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL"
+        case .defaultPlaybackSpeed:
+            return "1.00x"
+        case .continueAudioPlayback:
+            return "SETTINGS_CONTINUE_PLAYBACK_ALWAYS"
+        case .playVideoInFullScreen:
+            return nil
+        case .continueVideoPlayback:
+            return "SETTINGS_CONTINUE_PLAYBACK_ALWAYS"
+        case .automaticallyPlayNextItem:
+            return nil
+        case .enableTextScrollingInMediaList:
+            return nil
+        }
+    }
+
+    var preferenceKey: String? {
+        switch self {
+        case .networkCachingLevel:
+            return kVLCSettingNetworkCaching
+        case .defaultPlaybackSpeed:
+            return kVLCSettingPlaybackSpeedDefaultValue
+        case .continueAudioPlayback:
+            return kVLCSettingContinueAudioPlayback
+        case .playVideoInFullScreen:
+            return kVLCSettingVideoFullscreenPlayback
+        case .continueVideoPlayback:
+            return kVLCSettingContinuePlayback
+        case .automaticallyPlayNextItem:
+            return kVLCAutomaticallyPlayNextItem
+        case .enableTextScrollingInMediaList:
+            return kVLCSettingEnableMediaCellTextScrolling
+        }
+    }
+}
+
+enum PrivacyOptions: Int, CaseIterable, SectionType {
+    case passcodeLock
+    case enableBiometrics
 
     var description: String {
         switch self {
@@ -112,20 +194,6 @@ enum GenericOptions: Int, CaseIterable, SectionType {
                 }
             }
             return ""
-        case .networkCachingLevel:
-            return "SETTINGS_NETWORK_CACHING_TITLE"
-        case .defaultPlaybackSpeed:
-            return "SETTINGS_PLAYBACK_SPEED_DEFAULT"
-        case .continueAudioPlayback:
-            return "SETTINGS_CONTINUE_AUDIO_PLAYBACK"
-        case .playVideoInFullScreen:
-            return "SETTINGS_VIDEO_FULLSCREEN"
-        case .continueVideoPlayback:
-            return "SETTINGS_CONTINUE_VIDEO_PLAYBACK"
-        case .automaticallyPlayNextItem:
-            return "SETTINGS_NETWORK_PLAY_ALL"
-        case .enableTextScrollingInMediaList:
-            return "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING"
         }
     }
 
@@ -135,20 +203,6 @@ enum GenericOptions: Int, CaseIterable, SectionType {
             return true
         case .enableBiometrics:
             return true
-        case .networkCachingLevel:
-            return false
-        case .defaultPlaybackSpeed:
-            return false
-        case .continueAudioPlayback:
-            return false
-        case .playVideoInFullScreen:
-            return true
-        case .continueVideoPlayback:
-            return false
-        case .automaticallyPlayNextItem:
-            return true
-        case .enableTextScrollingInMediaList:
-            return true
         }
     }
 
@@ -157,20 +211,6 @@ enum GenericOptions: Int, CaseIterable, SectionType {
         case .passcodeLock:
             return "SETTINGS_PASSCODE_LOCK_SUBTITLE"
         case .enableBiometrics:
-            return nil
-        case .networkCachingLevel:
-            return "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL"
-        case .defaultPlaybackSpeed:
-            return "1.00x"
-        case .continueAudioPlayback:
-            return "SETTINGS_CONTINUE_PLAYBACK_ALWAYS"
-        case .playVideoInFullScreen:
-            return nil
-        case .continueVideoPlayback:
-            return "SETTINGS_CONTINUE_PLAYBACK_ALWAYS"
-        case .automaticallyPlayNextItem:
-            return nil
-        case .enableTextScrollingInMediaList:
             return nil
         }
     }
@@ -195,20 +235,6 @@ enum GenericOptions: Int, CaseIterable, SectionType {
                 }
             }
             return nil
-        case .networkCachingLevel:
-            return kVLCSettingNetworkCaching
-        case .defaultPlaybackSpeed:
-            return kVLCSettingPlaybackSpeedDefaultValue
-        case .continueAudioPlayback:
-            return kVLCSettingContinueAudioPlayback
-        case .playVideoInFullScreen:
-            return kVLCSettingVideoFullscreenPlayback
-        case .continueVideoPlayback:
-            return kVLCSettingContinuePlayback
-        case .automaticallyPlayNextItem:
-            return kVLCAutomaticallyPlayNextItem
-        case .enableTextScrollingInMediaList:
-            return kVLCSettingEnableMediaCellTextScrolling
         }
     }
 }
