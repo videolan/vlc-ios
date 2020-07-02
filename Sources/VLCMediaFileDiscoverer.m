@@ -161,6 +161,7 @@ const float MediaTimerInterval = 2.f;
         for (NSString *fileName in deletedFiles)
             [self notifyFileDeleted:fileName];
     } else if (_directoryFiles.count < foundFiles.count) { // File was added
+        [NSFileManager.defaultManager createFileAtPath:[NSString pathWithComponents:@[_directoryPath, NSLocalizedString(@"MEDIALIBRARY_ADDING_PLACEHOLDER", "")]] contents:nil attributes:nil];
         NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"not (self in %@)", _directoryFiles];
         NSMutableArray *addedFiles = [NSMutableArray arrayWithArray:[foundFiles filteredArrayUsingPredicate:filterPredicate]];
 
@@ -202,6 +203,14 @@ const float MediaTimerInterval = 2.f;
             BOOL backupMediaLibrary = [NSUserDefaults.standardUserDefaults boolForKey:kVLCSettingBackupMediaLibrary];
             NSURL *fileURL = [NSURL fileURLWithPath:filePath];
             [fileURL setExcludedFromBackup:!backupMediaLibrary recursive:NO onlyFirstLevel:NO :nil];
+
+            // Let time to user when he copies a file with Files.app to see that the file has successfully been copied
+            NSDictionary *info = [NSDictionary dictionaryWithObject:fileURL forKey:@"fileURL"];
+            [NSTimer scheduledTimerWithTimeInterval:5
+                                             target:self
+                                           selector:@selector(didAddMedia:)
+                                           userInfo:info
+                                            repeats:NO];
         }
 
         if (![_addMediaTimer isValid]) {
@@ -212,6 +221,11 @@ const float MediaTimerInterval = 2.f;
     }
 
     _directoryFiles = foundFiles;
+}
+
+- (void)didAddMedia:(NSTimer*)timer
+{
+    [NSFileManager.defaultManager removeItemAtPath:[NSString pathWithComponents:@[_directoryPath, NSLocalizedString(@"MEDIALIBRARY_ADDING_PLACEHOLDER", "")]] error:nil];
 }
 
 #pragma mark - media timer

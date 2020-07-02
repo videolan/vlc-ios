@@ -178,6 +178,9 @@ private extension MediaLibraryService {
             UserDefaults.standard.set(true, forKey: MediaLibraryService.didForceRescan)
         }
 
+        FileManager.default.createFile(atPath: "\(path)/\(NSLocalizedString("MEDIALIBRARY_FILES_PLACEHOLDER", comment: ""))", contents: nil, attributes: nil)
+        try? FileManager.default.removeItem(atPath: "\(path)/\(NSLocalizedString("MEDIALIBRARY_ADDING_PLACEHOLDER", comment: ""))")
+
         medialib.reload()
         medialib.discover(onEntryPoint: "file://" + path)
     }

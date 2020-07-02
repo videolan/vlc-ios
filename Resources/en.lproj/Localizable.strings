@@ -434,3 +434,7 @@
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
