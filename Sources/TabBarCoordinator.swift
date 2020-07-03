@@ -38,7 +38,7 @@ class TabBarCoordinator: NSObject {
         tabBarController.tabBar.barTintColor = PresentationTheme.current.colors.tabBarColor
         tabBarController.tabBar.itemPositioning = .fill
         tabBarController.viewControllers?.forEach {
-            if let navController = $0 as? UINavigationController, navController.topViewController is VLCSettingsController {
+            if let navController = $0 as? UINavigationController, navController.topViewController is SettingsController {
                 navController.navigationBar.isTranslucent = false
                 navController.navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
                 navController.navigationBar.tintColor = PresentationTheme.current.colors.orangeUI
@@ -61,7 +61,7 @@ class TabBarCoordinator: NSObject {
             AudioViewController(services: services),
             PlaylistViewController(services: services),
             VLCServerListViewController(nibName: nil, bundle: nil),
-            VLCSettingsController(mediaLibraryService: services.medialibraryService)
+            SettingsController(mediaLibraryService: services.medialibraryService)
         ]
 
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
