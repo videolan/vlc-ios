@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "비디오";
 "SETTINGS_AUDIO_TITLE" = "오디오";
 
-"SETTINGS_THEME_SUBTITLE" = "앱 색상 변경하기";
+"SETTINGS_THEME_BRIGHT" = "밝은 테마";
+"SETTINGS_THEME_DARK" = "어두운 테마";
+"SETTINGS_THEME_SYSTEM" = "자동";
 "SETTINGS_PRIVACY_SUBTITLE" = "설정에서 열기";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "안전하게 당신의 컨텐츠에 접근하기";
 
-"SETTINGS_DARKTHEME" = "어두운 테마";
+"SETTINGS_DARKTHEME" = "모양";
 "SETTINGS_TIME_STRETCH_AUDIO" = "음정 변화 없는 오디오";
 "SETTINGS_BACKGROUND_AUDIO" = "백그라운드로 오디오 재생";
 "SETTINGS_GENERIC_TITLE" = "일반";
 "SETTINGS_PASSCODE_LOCK" = "비밀번호 잠금";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "잠금해제용 페이스 ID 허용하기";
-"SETTINGS_DECRAPIFY" = "출력을 위해 항목 이름을 최적화하기";
 "SETTINGS_VIDEO_FULLSCREEN" = "동영상을 전체화면에서 재생하기";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "비디오를 이어서 재생";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "오디오를 이어서 재생";
@@ -23,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "물어보기";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "항상";
 "SETTINGS_NETWORK_PLAY_ALL" = "자동으로 다음 항목 재생하기";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "미디어 리스트에서 텍스트 스크롤 활성화하기";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblocking 필터";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Deblocking 없음 (가장 빠름)";
@@ -40,7 +42,7 @@
 
 "SETTINGS_GESTURES" = "제스쳐로 재생 제어하기";
 "SETTINGS_GESTURES_VOLUME" = "위/아래로 밀어서 볼륨조절";
-"SETTINGS_GESTURES_PLAYPAUSE" = "눌러서 재생/일시정지";
+"SETTINGS_GESTURES_PLAYPAUSE" = "두 손가락 터치로 재생/일시정지";
 "SETTINGS_GESTURES_BRIGHTNESS" = "위/아래로 밀어서 밝기조절";
 "SETTINGS_GESTURES_SEEK" = "좌/우로 밀어서 탐색";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
@@ -80,10 +82,20 @@
 "SETTINGS_HWDECODING" = "하드웨어 디코딩";
 "SETTINGS_HWDECODING_ON" = "켜기";
 "SETTINGS_HWDECODING_OFF" = "끄기";
+"SETTINGS_CASTING" = "캐스팅";
+"SETTINGS_PTCASTING" = "오디오 패스쓰루";
+"SETTINGS_PTCASTINGLONG" = "TV가 오디오 렌더링을 관리하도록 합니다";
 
 "SETTINGS_FEEDBACK" = "피드백";
 "SETTINGS_SEND_FEEDBACK" = "피드백 보내기";
 "SETTINGS_SEND_RATING" = "iOS용 VLC를 평가해주세요";
+
+"SETTINGS_MEDIA_LIBRARY" = "미디어 라이브러리";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "미디어 라이브러리 다시 스캔하기";
+"SETTINGS_DECRAPIFY" = "출력을 위해 항목 이름을 최적화하기";
+"SETTINGS_SHOW_THUMBNAILS" = "비디오 섬네일 표시하기";
+"SETTINGS_SHOW_ARTWORKS" = "오디오 아트워크 표시하기";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "디바이스 백업에 미디어 라이브러리 포함하기";
 
 "SETTINGS_FILE_SYNC" = "파일 동기화";
 "SETTINGS_WIFISHARING_IPv6" = "WiFi 공유에서 IPv6 지원";
