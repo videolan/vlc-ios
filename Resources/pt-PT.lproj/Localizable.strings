@@ -76,7 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Mostrar um menu de dispositivos de transmissão disponíveis";
 
 "UPGRADING_LIBRARY" = "Atualização da Mediateca";
-"UNKNOWN" = "Desconhecido";
 
 "OPEN_NETWORK" = "Abrir transmissão em rede";
 "NETWORK_TITLE" = "Transmissão em rede";
@@ -111,7 +110,7 @@
 "SHARING_SUCCESS_CAMERA_ROLL" = "O ficheiro foi guardado com sucesso no Rolo da câmara.";
 
 "STREAMVC_DETAILTEXT" = "Reproduzir diretamente transmissões sem transferir";
-"DOWNLOADVC_DETAILTEXT" = "Transferir diretamente ficheiros para o seu dispositivo";
+"DOWNLOADVC_DETAILTEXT" = "Transferir os ficheiros diretamente para o seu dispositivo";
 "HEADER_TITLE_RENDERER" = "Selecionar dispositivo de transmissão";
 
 "NETWORK" = "Rede";
@@ -134,7 +133,7 @@
 "LOGGED_IN_SERVICES" = "%d com sessão iniciada nos serviços";
 "LOGGED_IN_SERVICE" = "1 com sessão iniciada no serviço";
 
-"DROPBOX_DOWNLOAD" = "Transferir  o ficheiro?";
+"DROPBOX_DOWNLOAD" = "Transferir o ficheiro?";
 "DROPBOX_DL_LONG" = "Gostaria de transferir “%@” para o seu %@?";
 "DROPBOX_LOGIN" = "Iniciar sessão";
 
@@ -181,7 +180,7 @@
 "EMPTY_PLAYLIST" = "Lista de reprodução vazia";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Adicione média durante a edição nas respectivas categorias.";
 
-"PLAYBACK_SCRUB_HELP" = "Passe o dedo para baixo para ajustar a velocidade do avanço.";
+"PLAYBACK_SCRUB_HELP" = "Deslize o dedo para baixo para ajustar a velocidade do avanço.";
 "PLAYBACK_SCRUB_HIGH" = "Avanço rápido";
 "PLAYBACK_SCRUB_HALF" = "Avanço médio";
 "PLAYBACK_SCRUB_QUARTER" = "Avanço lento";
@@ -217,7 +216,7 @@
 "FIRST_STEPS_WIFI_DETAILS" = "Introduza o seu URL gerado no seu navegador de Internet favorito enquanto estiver ligado à mesma rede do seu telemóvel";
 "FIRST_STEPS_CLOUDS" = "Nuvens";
 "FIRST_STEPS_CLOUD_TITLE" = "Nuvem";
-"FIRST_STEPS_CLOUD_DETAILS" = "Envie os seus ficheiros multimédia para um serviço da nuvem, como o Google Drive ou o Dropbox para os descarregar ou transmitir remotamente.";
+"FIRST_STEPS_CLOUD_DETAILS" = "Envie a sua mediateca para um serviço da nuvem, tais como Dropbox ou Google Drive para a transferir ou transmitir remotamente.";
 
 
 "PLEX_CHECK_ACCOUNT" = "Verifique a sua conta Plex nas definições";
@@ -233,7 +232,7 @@
 "WEBINTF_TITLE" = "Partilha por Wi-Fi";
 "WEBINTF_DROPFILES" = "Solte os ficheiros";
 "WEBINTF_DROPFILES_LONG" = "Solte os ficheiros na janela para os adicionar ao seu %@.<br>Ou clique no botão \"+\" para utilizar o seletor de ficheiros.";
-"WEBINTF_DOWNLOADFILES" = "Transferir ficheiros";
+"WEBINTF_DOWNLOADFILES" = "Transferir Ficheiros";
 "WEBINTF_DOWNLOADFILES_LONG" = "Basta clicar no ficheiro que pretende transferir do seu %@.";
 "WEBINTF_TITLE_ATV" = "Reprodução remota";
 "WEBINTF_DROPFILES_LONG_ATV" = "Solte os ficheiros na janela para os reproduzir no seu %@.<br>Ou clique no botão “+” para utilizar o seletor de ficheiros.";
@@ -263,7 +262,7 @@
 "HTTP_SERVER_ON" = "Desativar reprodução remota";
 "HTTP_SERVER_OFF" = "Ativar reprodução remota";
 "CACHED_MEDIA" = "Multimédia em cache";
-"CACHED_MEDIA_LONG" = "Os ficheiros mostrados nesta página estão armazenados na sua Apple TV. Estes conteúdos poderão ser removidos pelo sistema operativo, sem aviso prévio e enquanto o VLC não estiver aberto, se ficar sem armazenamento disponível.";
+"CACHED_MEDIA_LONG" = "Os ficheiros mostrados nesta página são guardados localmente na sua Apple TV. Estes conteúdos podem ser removidos pelo sistema operativo, sem aviso prévio quanto o VLC não está aberto, no caso do seu dispositivo ficar sem espaço de armazenamento.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Transferir legendas de OpenSubtitles.org...";
 "FOUND_SUBS" = "Legendas encontradas";
 "USE_SPDIF" = "Usar passagem (S/PDIF)";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex Media Server (via Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "File Transfer Protocol (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Sistema de Ficheiros de Rede (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Servidor BONJOUR";
 "DSM_WORKGROUP" = "Grupo de trabalho";
@@ -317,7 +319,7 @@
 "ARTISTS" = "Artistas";
 "EPISODES" = "Episódios";
 "GENRES" = "Géneros";
-"ALL_VIDEOS" = "All videos";
+"ALL_VIDEOS" = "Todos os vídeos";
 "SONGS" = "Músicas";
 "PLAYLISTS" = "Listas de reprodução";
 "VIDEO_GROUPS" = "Grupos de vídeo";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Vários artistas";
 "UNKNOWN_ALBUM" = "Álbum desconhecido";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Bloquear interface";
 "INTERFACE_LOCK_HINT" = "Desativar controlos da interface";
 "MORE_OPTIONS_BUTTON" = "Mais";
@@ -428,7 +430,7 @@
 "MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
 
-"BUTTON_REGROUP" = "Regroup";
-"BUTTON_REGROUP_TITLE" = "Regroup selection";
+"BUTTON_REGROUP" = "Reagrupar";
+"BUTTON_REGROUP_TITLE" = "Reagrupar seleção";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";

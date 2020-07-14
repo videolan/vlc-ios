@@ -17,7 +17,6 @@
 "SETTINGS_PASSCODE_LOCK" = "Bloquear com Código";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Permitir Id. de Toque para desbloquear";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permitir Id. de Face para desbloquear";
-"SETTINGS_DECRAPIFY" = "Otimizar nomes de item para exibir";
 "SETTINGS_VIDEO_FULLSCREEN" = "Reproduzir vídeo em ecrã completo";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continuar reprodução do vídeo";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continuar reprodução do áudio";
@@ -25,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Perguntar";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sempre";
 "SETTINGS_NETWORK_PLAY_ALL" = "Reproduzir automaticamente item seguinte";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Ativar o deslizamento de texto na lista de média";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtro de deblocking";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Deblocking desativado (mais rápido)";
@@ -82,10 +82,20 @@
 "SETTINGS_HWDECODING" = "Descodificação por Hardware";
 "SETTINGS_HWDECODING_ON" = "Sim";
 "SETTINGS_HWDECODING_OFF" = "Não";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Comentários";
 "SETTINGS_SEND_FEEDBACK" = "Enviar Comentários";
 "SETTINGS_SEND_RATING" = "Por favor, classifique o VLC para iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Biblioteca multimédia";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forçar o VLC a nova verificação da biblioteca de multimédia";
+"SETTINGS_DECRAPIFY" = "Otimizar nomes de item para exibir";
+"SETTINGS_SHOW_THUMBNAILS" = "Exibir miniaturas de vídeos";
+"SETTINGS_SHOW_ARTWORKS" = "Exibir capas áudio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Incluir a biblioteca de media na cópia de segurança do dispositivo";
 
 "SETTINGS_FILE_SYNC" = "Sincronização de Ficheiros";
 "SETTINGS_WIFISHARING_IPv6" = "Suporte de IPv6 para partilha por Wi-Fi";

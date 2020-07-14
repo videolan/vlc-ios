@@ -24,7 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Perguntar";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sempre";
 "SETTINGS_NETWORK_PLAY_ALL" = "Reproduzir automaticamente item seguinte";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Ativar o deslizamento de texto na lista de média";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtro de deblocking";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Deblocking desativado (mais rápido)";
@@ -82,6 +82,9 @@
 "SETTINGS_HWDECODING" = "Descodificação por Hardware";
 "SETTINGS_HWDECODING_ON" = "Sim";
 "SETTINGS_HWDECODING_OFF" = "Não";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Comentários";
 "SETTINGS_SEND_FEEDBACK" = "Enviar Comentários";
