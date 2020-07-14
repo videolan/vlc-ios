@@ -4,18 +4,19 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_SUBTITLE" = "Cambià culori di l’app";
+"SETTINGS_THEME_BRIGHT" = "Tema luminosu";
+"SETTINGS_THEME_DARK" = "Tema scuru";
+"SETTINGS_THEME_SYSTEM" = "Autumaticu";
 "SETTINGS_PRIVACY_SUBTITLE" = "Apre in Preferenze";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accessu assicuratu à u vostru cuntenutu";
 
-"SETTINGS_DARKTHEME" = "Temu scuru";
+"SETTINGS_DARKTHEME" = "Aspettu";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Stinzata di tempu audio";
 "SETTINGS_BACKGROUND_AUDIO" = "Ripruduzzione audio in fondu";
 "SETTINGS_GENERIC_TITLE" = "Genericu";
 "SETTINGS_PASSCODE_LOCK" = "Codice di serratura";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Permette di sbluccà cù Touch ID";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permette Face ID per sbluccà";
-"SETTINGS_DECRAPIFY" = "Megliurà i nomi d’elementi per l’affissu";
 "SETTINGS_VIDEO_FULLSCREEN" = "Sunà a video di screnu sanu";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Cuntinuà a ripruduzzione video";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Cuntinuà a ripruduzzione audio";
@@ -23,6 +24,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Dumandà";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sempre";
 "SETTINGS_NETWORK_PLAY_ALL" = "Sunà autumaticamente l’elementu chì seguita";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Attivà a sfilarata di u testu in a lista di i media";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtru per sbluccà";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Senza filtru (u più rapidu)";
@@ -80,10 +82,20 @@
 "SETTINGS_HWDECODING" = "Discudificazione materiale";
 "SETTINGS_HWDECODING_ON" = "Iè";
 "SETTINGS_HWDECODING_OFF" = "Innò";
+"SETTINGS_CASTING" = "Diffusione";
+"SETTINGS_PTCASTING" = "Traversata audio";
+"SETTINGS_PTCASTINGLONG" = "Lascià a vostra TV urganizà a trasfurmazione audio";
 
 "SETTINGS_FEEDBACK" = "Ritornu d’avisu";
 "SETTINGS_SEND_FEEDBACK" = "Mandà u vostru avisu";
 "SETTINGS_SEND_RATING" = "Vi ringraziemu d’apprezzià VLC for iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Bibliuteca di media";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Sfurzà VLC à analisà torna a mediateca";
+"SETTINGS_DECRAPIFY" = "Megliurà i nomi d’elementi per l’affissu";
+"SETTINGS_SHOW_THUMBNAILS" = "Affissà e vignette di i filmetti";
+"SETTINGS_SHOW_ARTWORKS" = "Affissà l’illustrazioni di i schedarii audio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include a mediateca in a salvaguardia di l’apparechju";
 
 "SETTINGS_FILE_SYNC" = "Sincrunizazione di schedariu";
 "SETTINGS_WIFISHARING_IPv6" = "Supportu IPv6 per spartimentu WiFi";
