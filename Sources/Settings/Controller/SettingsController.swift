@@ -382,6 +382,15 @@ extension SettingsController: MediaLibraryDeviceBackupDelegate {
 extension SettingsController: PasscodeActivateDelegate {
 
     func passcodeLockSwitchOn(state: Bool) {
-        tableView.reloadData()
+        if state {
+            guard let passcodeLockController = PasscodeLockController(action: .set) else { return }
+            let passcodeNavigationController = UINavigationController(rootViewController: passcodeLockController)
+            passcodeNavigationController.modalPresentationStyle = .fullScreen
+            present(passcodeNavigationController, animated: true) {
+                self.tableView.reloadData() //To show/hide biometric row
+            }
+        } else {
+            tableView.reloadData()
+        }
     }
 }

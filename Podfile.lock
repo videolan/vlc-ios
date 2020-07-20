@@ -76,7 +76,6 @@ PODS:
   - OROpenSubtitleDownloader (1.2.0):
     - AFNetworking
     - xmlrpc
-  - PAPasscode (1.0)
   - SimulatorStatusMagic (2.4.1)
   - SwiftLint (0.25.1)
   - TVVLCKit (3.3.13)
@@ -102,7 +101,6 @@ DEPENDENCIES:
   - OBSlider (= 1.1.0)
   - OneDriveSDK
   - OROpenSubtitleDownloader (from `https://github.com/orta/OROpenSubtitleDownloader.git`, commit `0509eac2`)
-  - PAPasscode (~> 1.0)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
   - TVVLCKit (= 3.3.13)
@@ -127,7 +125,6 @@ SPEC REPOS:
     - "NSData+Base64"
     - OBSlider
     - OneDriveSDK
-    - PAPasscode
     - SimulatorStatusMagic
     - SwiftLint
     - TVVLCKit
@@ -188,7 +185,6 @@ SPEC CHECKSUMS:
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: 90ab8781f0992c37d96b68cc340585f5cf36701f
   OROpenSubtitleDownloader: 154b8c08acbf8836b77ac259018dc8b5baef907e
-  PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   SimulatorStatusMagic: 28d4a9d1a500ac7cea0b2b5a43c1c6ddb40ba56c
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   TVVLCKit: 33c0e6221b7ea312ae35703cd898b3b610aa4e0d
@@ -196,6 +192,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 8411e5a79614362d09e9fcc5bb030a2f62b620bc
+PODFILE CHECKSUM: a3a4a77d2a3371964c2346d9541c4a22df53acfc
 
 COCOAPODS: 1.8.4

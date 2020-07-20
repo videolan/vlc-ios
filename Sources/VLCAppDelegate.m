@@ -193,7 +193,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     //Touch ID is shown 
     if ([_window.rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]){
         UINavigationController *navCon = (UINavigationController *)_window.rootViewController.presentedViewController;
-        if ([navCon.topViewController isKindOfClass:[PAPasscodeViewController class]]){
+        if ([navCon.topViewController isKindOfClass:[PasscodeLockController class]]){
             return;
         }
     }

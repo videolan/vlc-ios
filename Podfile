@@ -20,7 +20,6 @@ target 'VLC-iOS' do
   shared_pods
   pod 'OBSlider', '1.1.0'
   pod 'InAppSettingsKit', :git => 'git://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
-  pod 'PAPasscode', '~>1.0'
   pod 'GoogleAPIClientForREST/Drive'
   pod 'MobileVLCKit', '3.3.13'
   pod 'VLCMediaLibraryKit', '0.7.3'

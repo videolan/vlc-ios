@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors:Carola Nitz <caro # videolan.org>
+ *          Swapnanil Dhol<swapnanildhol # gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -13,16 +14,8 @@
 import Foundation
 import LocalAuthentication
 
-// MARK: - PAPasscodeViewController UI
-
-extension PAPasscodeViewController {
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return PresentationTheme.current.colors.statusBarStyle
-    }
-}
-
 @objc(VLCKeychainCoordinator)
-class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
+class KeychainCoordinator: NSObject {
 
     @objc class var passcodeLockEnabled: Bool {
         return UserDefaults.standard.bool(forKey: kVLCSettingPasscodeOnKey)
@@ -57,15 +50,18 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
 
     private var avoidPromptingTouchOrFaceID = false
 
-    private lazy var passcodeLockController: PAPasscodeViewController = {
-        let passcodeController = PAPasscodeViewController(for: PasscodeActionEnter)
-        passcodeController!.delegate = self
+    private lazy var passcodeLockController: PasscodeLockController = {
+        let passcodeController = PasscodeLockController(action: .enter)
+        passcodeController?.delegate = self
         return passcodeController!
     }()
 
     override init() {
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(appInForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(appInForeground),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
     }
 
     @objc class func setPasscode(passcode: String?) throws {
@@ -117,7 +113,7 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
     }
 
     @objc private func appInForeground(notification: Notification) {
-        if let navigationController = UIApplication.shared.delegate?.window??.rootViewController?.presentedViewController as? UINavigationController, navigationController.topViewController is PAPasscodeViewController,
+        if let navigationController = UIApplication.shared.delegate?.window??.rootViewController?.presentedViewController as? UINavigationController, navigationController.topViewController is PasscodeLockController,
             touchIDEnabled || faceIDEnabled {
             touchOrFaceIDQuery()
         }
@@ -135,40 +131,41 @@ class KeychainCoordinator: NSObject, PAPasscodeViewControllerDelegate {
             laContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
                                      localizedReason: NSLocalizedString("BIOMETRIC_UNLOCK", comment: ""),
                                      reply: { [weak self] success, _ in
-                                         DispatchQueue.main.async {
-                                             if success {
-                                                 UIApplication.shared.delegate?.window??.rootViewController?.dismiss(animated: true, completion: {
-                                                     self?.completion?()
-                                                     self?.completion = nil
-                                                     self?.avoidPromptingTouchOrFaceID = false
-                                                 })
-                                             } else {
-                                                 // user hit cancel and wants to enter the passcode
-                                                 self?.avoidPromptingTouchOrFaceID = true
-                                             }
-                                         }
+                                        DispatchQueue.main.async {
+                                            if success {
+                                                UIApplication.shared.delegate?.window??.rootViewController?.dismiss(animated: true, completion: {
+                                                    self?.completion?()
+                                                    self?.completion = nil
+                                                    self?.avoidPromptingTouchOrFaceID = false
+                                                })
+                                            } else {
+                                                // user hit cancel and wants to enter the passcode
+                                                self?.avoidPromptingTouchOrFaceID = true
+                                                self?.passcodeLockController.passcodeTextField.becomeFirstResponder()
+                                            }
+                                        }
             })
         }
     }
 
     private func passcodeFromKeychain() -> String {
-      do {
-        let item = try XKKeychainGenericPasswordItem(forService: KeychainCoordinator.passcodeService, account: KeychainCoordinator.passcodeService)
-        return item.secret.stringValue
-      } catch let error {
-        assert(false, "Couldn't retrieve item from Keychain! If passcodeLockEnabled we should have an item and secret. Error was \(error)")
-        return ""
-      }
+        do {
+            let item = try XKKeychainGenericPasswordItem(forService: KeychainCoordinator.passcodeService, account: KeychainCoordinator.passcodeService)
+            return item.secret.stringValue
+        } catch let error {
+            assert(false, "Couldn't retrieve item from Keychain! If passcodeLockEnabled we should have an item and secret. Error was \(error)")
+            return ""
+        }
     }
+}
 
-    // MARK: PAPassCodeDelegate
-
-    func paPasscodeViewControllerDidEnterPasscode(_ controller: PAPasscodeViewController!) {
+extension KeychainCoordinator: PasscodeLockControllerDelegate {
+    func passcodeViewControllerDidEnterPassword(controller: PasscodeLockController) {
         avoidPromptingTouchOrFaceID = false
         if let navigationController = UIApplication.shared.delegate?.window??.rootViewController?.presentedViewController as? UINavigationController,
-            let passcodeController = navigationController.topViewController?.presentedViewController as? PAPasscodeViewController ??
-            navigationController.topViewController {
-            //either dismiss the papasscode presented from movieVC or as topViewController 
+            let passcodeController = navigationController.topViewController?.presentedViewController as? PasscodeLockController ??
+                navigationController.topViewController {
+            //either dismiss the passcode controller presented from movieVC or as topViewController
             passcodeController.dismiss(animated: true, completion: {
                 [weak self] in
                 self?.completion?()
