@@ -115,9 +115,9 @@ class SettingsController: UITableViewController {
         if #available(iOS 10, *) {
             ImpactFeedbackGenerator().selectionChanged()
         }
-        let vc = VLCAboutViewController()
-        let aboutVC = UINavigationController(rootViewController: vc)
-        present(aboutVC, animated: true, completion: nil)
+        let aboutController = AboutController()
+        let aboutNavigationController = AboutNavigationController(rootViewController: aboutController)
+        present(aboutNavigationController, animated: true)
     }
 
     @objc private func themeDidChange() {
