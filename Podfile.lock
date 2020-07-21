@@ -108,7 +108,7 @@ DEPENDENCIES:
   - XKKeychain (~> 1.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - ADAL
     - AFNetworking
     - AppAuth
@@ -192,6 +192,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: a3a4a77d2a3371964c2346d9541c4a22df53acfc
+PODFILE CHECKSUM: cc9af7a480a9ab398e8fe862adb46da80ed1f609
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.2
