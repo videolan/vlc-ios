@@ -175,6 +175,16 @@
         VLCNetworkServerLoginInformation *login = service.loginInformation;
         if (!login) return;
 
+        /* UPnP does not support authentication, so skip this step */
+        if ([login.protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
+            VLCNetworkServerBrowserVLCMedia *serverBrowser = [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithLogin:login];
+                        VLCServerBrowsingTVViewController *browsingViewController = [[VLCSearchableServerBrowsingTVViewController alloc] initWithServerBrowser:serverBrowser];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:browsingViewController]
+                               animated:YES
+                             completion:nil];
+            return;
+        }
+
         NSError *error = nil;
         if ([login loadLoginInformationFromKeychainWithError:&error])
         {
