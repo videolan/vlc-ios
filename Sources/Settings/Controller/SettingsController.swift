@@ -238,6 +238,13 @@ extension SettingsController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath == [1, 1] && !userDefaults.bool(forKey: kVLCSettingPasscodeOnKey) {
+            //If the passcode lock is on we return a default UITableViewCell else
+            //while hiding the biometric option row using a cell height of 0
+            //constraint warnings will be printed to the console since the cell height (0)
+            //collapses on given constraints (Top, leading, trailing, Bottom of StackView to Cell)
+            return UITableViewCell()
+        }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as? SettingsCell else {
             return UITableViewCell()
         }

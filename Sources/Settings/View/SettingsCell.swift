@@ -58,8 +58,7 @@ class SettingsCell: UITableViewCell {
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 5
-        stackView.alignment = .leading
+        stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -125,11 +124,10 @@ class SettingsCell: UITableViewCell {
         stackView.addArrangedSubview(mainLabel)
         stackView.addArrangedSubview(subtitleLabel)
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
-            stackView.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
+            stackView.leftAnchor.constraint(equalTo: guide.leftAnchor, constant: 20),
             stackView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -70),
-            stackView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -10)
+            stackView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -10),
+            stackView.rightAnchor.constraint(equalTo: guide.rightAnchor, constant: -70),
         ])
     }
 
