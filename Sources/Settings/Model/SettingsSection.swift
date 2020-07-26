@@ -463,35 +463,19 @@ enum MediaLibraryOptions: Int, CaseIterable, SectionType {
 
 enum FileSyncOptions: Int, CaseIterable, SectionType {
     case ipv6SupportForWiFiSharing
-    case textEncoding
 
     var description: String {
-        switch self {
-        case .ipv6SupportForWiFiSharing:
-            return "SETTINGS_WIFISHARING_IPv6"
-        case .textEncoding:
-            return "SETTINGS_FTP_TEXT_ENCODING"
-        }
+        return "SETTINGS_WIFISHARING_IPv6"
     }
 
     var containsSwitch: Bool {
-        switch self {
-        case .ipv6SupportForWiFiSharing:
-            return true
-        case .textEncoding:
-            return false
-        }
+        return true
     }
 
     var subtitle: String? { return nil }
 
     var preferenceKey: String? {
-        switch self {
-        case .ipv6SupportForWiFiSharing:
-            return kVLCSettingWiFiSharingIPv6
-        case .textEncoding:
-            return kVLCSettingTextEncoding
-        }
+        return kVLCSettingWiFiSharingIPv6
     }
 }
 
