@@ -128,6 +128,14 @@ protocol MediaLibraryMigrationDelegate: class {
     @objc func medialibraryDidCompleteExclusion()
 }
 
+// MARK: - Delegate for hiding Media Library
+
+@objc protocol MediaLibraryHidingDelegate: class {
+    @objc func medialibraryDidStartHiding()
+
+    @objc func medialibraryDidCompleteHiding()
+}
+
 // MARK: -
 
 class MediaLibraryService: NSObject {
@@ -144,8 +152,10 @@ class MediaLibraryService: NSObject {
 
     weak var migrationDelegate: MediaLibraryMigrationDelegate?
     @objc weak var deviceBackupDelegate: MediaLibraryDeviceBackupDelegate?
+    @objc weak var hidingDelegate: MediaLibraryHidingDelegate?
 
     @objc var isExcludingFromBackup: Bool = false
+    @objc var isHidingLibrary: Bool = false
 
     override init() {
         super.init()
@@ -171,7 +181,9 @@ private extension MediaLibraryService {
 
     private func startMediaLibrary(on path: String) {
         let excludeMediaLibrary = !UserDefaults.standard.bool(forKey: kVLCSettingBackupMediaLibrary)
+        let hideML = UserDefaults.standard.bool(forKey: kVLCSettingHideLibraryInFilesApp)
         excludeFromDeviceBackup(excludeMediaLibrary)
+        hideMediaLibrary(hideML)
 
         if UserDefaults.standard.bool(forKey: MediaLibraryService.didForceRescan) == false {
             medialib.forceRescan()
@@ -417,6 +429,20 @@ private extension MediaLibraryService {
             var mlURL = URL(fileURLWithPath: libraryPath).appendingPathComponent("MediaLibrary")
             DispatchQueue.global().async {
                 mlURL.setExcludedFromBackup(exclude, recursive: true, onlyFirstLevel: true)
+            }
+        }
+    }
+
+    @objc func hideMediaLibrary(_ hide: Bool) {
+        if let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+            var documentURL = URL(fileURLWithPath: documentPath)
+            isHidingLibrary = true
+            hidingDelegate?.medialibraryDidStartHiding()
+            DispatchQueue.global().async {
+                documentURL.setHidden(hide, recursive: true, onlyFirstLevel: false) {
+                    self.isHidingLibrary = false
+                    self.hidingDelegate?.medialibraryDidCompleteHiding()
+                }
             }
         }
     }

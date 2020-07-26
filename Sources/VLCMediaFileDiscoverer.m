@@ -225,6 +225,8 @@ const float MediaTimerInterval = 2.f;
 
 - (void)didAddMedia:(NSTimer*)timer
 {
+    BOOL hideMediaLibrary = [NSUserDefaults.standardUserDefaults boolForKey:kVLCSettingHideLibraryInFilesApp];
+    [(NSURL*)[timer.userInfo valueForKey:@"fileURL"] setHidden:hideMediaLibrary recursive:NO onlyFirstLevel:NO :nil];
     [NSFileManager.defaultManager removeItemAtPath:[NSString pathWithComponents:@[_directoryPath, NSLocalizedString(@"MEDIALIBRARY_ADDING_PLACEHOLDER", "")]] error:nil];
 }
 

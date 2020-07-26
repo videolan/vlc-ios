@@ -173,6 +173,7 @@ enum GenericOptions: Int, CaseIterable, SectionType {
 enum PrivacyOptions: Int, CaseIterable, SectionType {
     case passcodeLock
     case enableBiometrics
+    case hideLibraryInFilesApp
 
     var description: String {
         switch self {
@@ -194,6 +195,8 @@ enum PrivacyOptions: Int, CaseIterable, SectionType {
                 }
             }
             return ""
+        case .hideLibraryInFilesApp:
+            return "SETTINGS_HIDE_LIBRARY_IN_FILES_APP"
         }
     }
 
@@ -202,6 +205,8 @@ enum PrivacyOptions: Int, CaseIterable, SectionType {
         case .passcodeLock:
             return true
         case .enableBiometrics:
+            return true
+        case .hideLibraryInFilesApp:
             return true
         }
     }
@@ -212,6 +217,8 @@ enum PrivacyOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_PASSCODE_LOCK_SUBTITLE"
         case .enableBiometrics:
             return nil
+        case .hideLibraryInFilesApp:
+            return "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE"
         }
     }
 
@@ -235,6 +242,8 @@ enum PrivacyOptions: Int, CaseIterable, SectionType {
                 }
             }
             return nil
+        case .hideLibraryInFilesApp:
+            return kVLCSettingHideLibraryInFilesApp
         }
     }
 }

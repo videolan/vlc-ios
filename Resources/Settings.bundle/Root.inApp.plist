@@ -217,6 +217,18 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>Key</key>
+			<string>HideLibraryInFilesApp</string>
+			<key>Title</key>
+			<string>SETTINGS_HIDE_LIBRARY_IN_FILES_APP</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>IASKSubtitle</key>
+			<string>SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>

@@ -268,6 +268,7 @@ extension SettingsController {
             }
             cell.sectionType = privacy
             cell.passcodeSwitchDelegate = self
+            cell.medialibraryHidingSwitchDelegate = self
         case .gestureControl:
             let gestureControlOptions = PlaybackControlOptions(rawValue: indexPath.row)
             cell.sectionType = gestureControlOptions
@@ -393,6 +394,20 @@ extension SettingsController: MediaLibraryDeviceBackupDelegate {
     }
 }
 
+extension SettingsController: MediaLibraryHidingDelegate {
+    func medialibraryDidStartHiding() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+
+    func medialibraryDidCompleteHiding() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+}
+
 extension SettingsController: PasscodeActivateDelegate {
 
     func passcodeLockSwitchOn(state: Bool) {
@@ -406,5 +421,11 @@ extension SettingsController: PasscodeActivateDelegate {
         } else {
             tableView.reloadData()
         }
+    }
+}
+
+extension SettingsController: MedialibraryHidingActivateDelegate {
+    func medialibraryHidingLockSwitchOn(state: Bool) {
+        mediaLibraryService.hideMediaLibrary(state)
     }
 }

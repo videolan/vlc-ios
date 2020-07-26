@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Passcode Lock";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";

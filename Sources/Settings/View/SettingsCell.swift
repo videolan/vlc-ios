@@ -21,12 +21,17 @@ protocol PasscodeActivateDelegate: class {
     func passcodeLockSwitchOn(state: Bool)
 }
 
+protocol MedialibraryHidingActivateDelegate: class {
+    func medialibraryHidingLockSwitchOn(state: Bool)
+}
+
 class SettingsCell: UITableViewCell {
 
     private let userDefaults = UserDefaults.standard
     private let notificationCenter = NotificationCenter.default
     private var localeDictionary = NSDictionary()
     weak var passcodeSwitchDelegate: PasscodeActivateDelegate?
+    weak var medialibraryHidingSwitchDelegate: MedialibraryHidingActivateDelegate?
 
     lazy var switchControl: UISwitch = {
         let switchControl = UISwitch()
@@ -147,6 +152,8 @@ class SettingsCell: UITableViewCell {
         userDefaults.set(sender.isOn ? true : false, forKey: key)
         if sectionType?.preferenceKey == kVLCSettingPasscodeOnKey {
             passcodeSwitchDelegate?.passcodeLockSwitchOn(state: sender.isOn)
+        } else if sectionType?.preferenceKey == kVLCSettingHideLibraryInFilesApp {
+            medialibraryHidingSwitchDelegate?.medialibraryHidingLockSwitchOn(state: sender.isOn)
         }
     }
 
