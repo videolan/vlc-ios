@@ -87,10 +87,6 @@
 
 "SETTINGS_FILE_SYNC" = "File Synchronization";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for WiFi Sharing";
-"SETTINGS_UNLINK_DROPBOX" = "Unlink from Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Unlink from Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Unlink from OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Text Encoding for FTP connections";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
