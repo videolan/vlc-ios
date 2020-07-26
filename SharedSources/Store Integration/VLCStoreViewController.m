@@ -98,7 +98,15 @@ CGFloat VLCStoreViewCollectionViewInterimSpacing = 2.;
     self.view.backgroundColor = colors.background;
     self.collectionView.backgroundColor = colors.background;
     [self.performPurchaseButton setTitleColor:colors.orangeUI forState:UIControlStateNormal];
+    [self.performPurchaseButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
     [self.collectionView reloadData];
+}
+
+- (void)hidePurchaseUI
+{
+    self.collectionView.hidden = YES;
+    self.performPurchaseButton.hidden = YES;
+    self.emojiStackView.hidden = YES;
 }
 
 #pragma mark - store controller notifications
@@ -110,6 +118,7 @@ CGFloat VLCStoreViewCollectionViewInterimSpacing = 2.;
     if (!_storeController.canMakePayments) {
         [_activityIndicator stopAnimating];
         self.cannotMakePaymentsLabel.hidden = NO;
+        [self hidePurchaseUI];
         return;
     }
 
@@ -174,9 +183,7 @@ CGFloat VLCStoreViewCollectionViewInterimSpacing = 2.;
 {
     APLog(@"%s", __func__);
 
-    self.collectionView.hidden = YES;
-    self.performPurchaseButton.hidden = YES;
-    self.emojiStackView.hidden = YES;
+    [self hidePurchaseUI];
 
     self.title = @"Thank you!";
     self.tippingExplainedLabel.text = @"Thank you for blablablabla, short text to reassure the user on how his money will be used";
@@ -196,7 +203,6 @@ CGFloat VLCStoreViewCollectionViewInterimSpacing = 2.;
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [numberFormatter setLocale:product.priceLocale];
     [cell setPrice:[numberFormatter stringFromNumber:product.price]];
-    NSLog(@"rendering: %@ - %@", product.description, [numberFormatter stringFromNumber:product.price]);
 
     return cell;
 }

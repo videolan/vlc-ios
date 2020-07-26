@@ -32,7 +32,11 @@ NSString *VLCStoreControllerInteractionFailed = @"VLCStoreControllerInteractionF
 {
     self = [super init];
     if (self) {
-        _productIdentifiers = @[@"org.videolan.vlc.large_tip", @"org.videolan.vlc.medium_tip", @"org.videolan.vlc.small_tip", @"org.videolan.vlc.micro_tip"];
+        _productIdentifiers = @[@"org.videolan.vlc.huge_tip",
+                                @"org.videolan.vlc.large_tip",
+                                @"org.videolan.vlc.medium_tip",
+                                @"org.videolan.vlc.small_tip",
+                                @"org.videolan.vlc.micro_tip"];
         _paymentQueue = [SKPaymentQueue defaultQueue];
         [_paymentQueue addTransactionObserver:self];
     }

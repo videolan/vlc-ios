@@ -14,9 +14,9 @@
 #import "VLC-Swift.h"
 
 @interface VLCStoreCollectionViewCell()
-
-@property (readwrite, retain) UILabel *priceLabel;
-
+{
+    UILabel *_priceLabel;
+}
 @end
 
 @implementation VLCStoreCollectionViewCell
@@ -34,12 +34,25 @@
 {
     ColorPalette *colors = PresentationTheme.current.colors;
 
-    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 250., 50.)];
-    priceLabel.textColor = colors.orangeUI;
-    priceLabel.font = [UIFont boldSystemFontOfSize:17.];
-    self.priceLabel = priceLabel;
-    [self.contentView addSubview:priceLabel];
-    priceLabel.center = self.contentView.center;
+    _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _priceLabel.textColor = colors.orangeUI;
+    _priceLabel.font = [UIFont boldSystemFontOfSize:17.];
+    _priceLabel.textAlignment = NSTextAlignmentCenter;
+    _priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.contentView addSubview:_priceLabel];
+
+    NSDictionary *viewDict = @{ @"priceLabel" : _priceLabel };
+    NSArray *controlPanelHorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[priceLabel]|"
+                                                                                      options:0
+                                                                                      metrics:nil
+                                                                                        views:viewDict];
+
+    NSArray *controlPanelVerticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[priceLabel]|"
+                                                                                       options:0
+                                                                                       metrics:nil
+                                                                                         views:viewDict];
+    [self.contentView addConstraints:controlPanelHorizontalConstraints];
+    [self.contentView addConstraints:controlPanelVerticalConstraints];
 
     self.backgroundColor = [UIColor colorWithWhite:0.98 alpha:1.];
 }
@@ -54,10 +67,10 @@
     ColorPalette *colors = PresentationTheme.current.colors;
 
     if (selected) {
-        self.priceLabel.textColor = [UIColor whiteColor];
+        _priceLabel.textColor = [UIColor whiteColor];
         self.backgroundColor = colors.orangeUI;
     } else {
-        self.priceLabel.textColor = colors.orangeUI;
+        _priceLabel.textColor = colors.orangeUI;
         self.backgroundColor = [UIColor colorWithWhite:0.98 alpha:1.];
     }
 
@@ -66,7 +79,7 @@
 
 - (void)setPrice:(NSString *)price
 {
-    self.priceLabel.text = price;
+    _priceLabel.text = price;
 }
 
 @end
