@@ -364,8 +364,7 @@ extension SettingsController {
         let automaticDimension = UITableView.automaticDimension
         if isPasscodeOn {
             return automaticDimension
-        }
-        else {
+        } else {
             return indexPath == [1, 1] ? 0 : automaticDimension //Hides Biometric Row if Passcode Lock is off
         }
     }
