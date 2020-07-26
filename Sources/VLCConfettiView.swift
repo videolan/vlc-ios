@@ -36,7 +36,7 @@ public class VLCConfettiView: UIView {
         active = false
     }
 
-    public func startConfetti() {
+    @objc public func startConfetti() {
         emitter = CAEmitterLayer()
 
         emitter.emitterPosition = CGPoint(x: frame.size.width / 2.0, y: 0)
@@ -51,7 +51,7 @@ public class VLCConfettiView: UIView {
         active = true
     }
 
-    public func stopConfetti() {
+    @objc public func stopConfetti() {
         emitter?.birthRate = 0
         active = false
     }
@@ -73,7 +73,7 @@ public class VLCConfettiView: UIView {
         return confetti
     }
 
-    public func isActive() -> Bool {
+    @objc public func isActive() -> Bool {
         return self.active
     }
 }

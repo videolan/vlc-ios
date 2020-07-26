@@ -13,6 +13,8 @@
                 <outlet property="activityIndicator" destination="lC7-m4-eeg" id="ith-cQ-ar8"/>
                 <outlet property="cannotMakePaymentsLabel" destination="AoJ-Y2-znm" id="Y8c-cY-6RM"/>
                 <outlet property="collectionView" destination="9DX-zX-d9p" id="c8B-cr-g0m"/>
+                <outlet property="confettiView" destination="JnG-mH-F6h" id="gRh-Sg-B0C"/>
+                <outlet property="emojiStackView" destination="6L7-JQ-K9W" id="K4Z-Um-tC4"/>
                 <outlet property="performPurchaseButton" destination="BoV-QF-9a2" id="qaR-Z1-N2J"/>
                 <outlet property="tippingExplainedLabel" destination="rbV-ed-iN6" id="9os-6a-ACR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -23,6 +25,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JnG-mH-F6h" customClass="VLCConfettiView" customModule="VLC" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VLCCone512x512.png" translatesAutoresizingMaskIntoConstraints="NO" id="h9p-hj-L63">
                     <rect key="frame" x="143" y="70" width="128" height="128"/>
                     <constraints>
@@ -117,13 +123,17 @@
                 <constraint firstItem="h9p-hj-L63" firstAttribute="centerX" secondItem="Q5M-cg-NOt" secondAttribute="centerX" id="LQn-yR-uNb"/>
                 <constraint firstItem="lC7-m4-eeg" firstAttribute="centerY" secondItem="9DX-zX-d9p" secondAttribute="centerY" id="LUX-uj-3bB"/>
                 <constraint firstItem="9DX-zX-d9p" firstAttribute="top" secondItem="6L7-JQ-K9W" secondAttribute="bottom" id="QSZ-za-Pes"/>
+                <constraint firstItem="JnG-mH-F6h" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="Qll-tl-b4V"/>
                 <constraint firstItem="h9p-hj-L63" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="26" id="Qru-Sa-hjU"/>
                 <constraint firstItem="AoJ-Y2-znm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="T5o-rW-8bN"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="JnG-mH-F6h" secondAttribute="bottom" id="TRw-ln-KJi"/>
                 <constraint firstItem="BoV-QF-9a2" firstAttribute="top" secondItem="9DX-zX-d9p" secondAttribute="bottom" constant="10" id="VpX-Jf-3Sc"/>
                 <constraint firstItem="rbV-ed-iN6" firstAttribute="top" secondItem="h9p-hj-L63" secondAttribute="bottom" constant="26" id="WlJ-uh-FBU"/>
                 <constraint firstItem="9DX-zX-d9p" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="ZYb-h9-REd"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AoJ-Y2-znm" secondAttribute="trailing" constant="20" id="d5P-fd-djQ"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="leading" secondItem="JnG-mH-F6h" secondAttribute="leading" id="eKx-ck-tR7"/>
                 <constraint firstItem="lC7-m4-eeg" firstAttribute="centerX" secondItem="9DX-zX-d9p" secondAttribute="centerX" id="ewC-MU-sYG"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="JnG-mH-F6h" secondAttribute="trailing" id="gVk-wR-Rni"/>
                 <constraint firstItem="rbV-ed-iN6" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="hv7-OT-1vd"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="9DX-zX-d9p" secondAttribute="trailing" id="upD-MN-kX5"/>
             </constraints>

@@ -69,7 +69,7 @@ CGFloat VLCStoreViewCollectionViewInterimSpacing = 2.;
 - (void)initStrings
 {
     self.title = NSLocalizedString(@"GIVE_TIP", nil);
-    self.tippingExplainedLabel.text = NSLocalizedString(@"TIP_EXPLAINED", nil);
+    self.tippingExplainedLabel.text = @"Short text to explain how the donation will benefit to VLC and why it is important to support VideoLAN.org";
     self.cannotMakePaymentsLabel.text = NSLocalizedString(@"CANNOT_MAKE_PAYMENTS", nil);
     [self.performPurchaseButton setTitle:NSLocalizedString(@"SEND_GIFT", nil) forState:UIControlStateNormal];
 }
@@ -173,6 +173,14 @@ CGFloat VLCStoreViewCollectionViewInterimSpacing = 2.;
 - (void)purchaseSucceeded:(NSNotification *)aNotification
 {
     APLog(@"%s", __func__);
+
+    self.collectionView.hidden = YES;
+    self.performPurchaseButton.hidden = YES;
+    self.emojiStackView.hidden = YES;
+
+    self.title = @"Thank you!";
+    self.tippingExplainedLabel.text = @"Thank you for blablablabla, short text to reassure the user on how his money will be used";
+    [self.confettiView startConfetti];
 }
 
 #pragma mark - collection view data source
@@ -214,7 +222,6 @@ CGFloat VLCStoreViewCollectionViewInterimSpacing = 2.;
 - (void)performPurchase:(id)sender
 {
     NSInteger selectedIndex = self.collectionView.indexPathsForSelectedItems.firstObject.section;
-    NSLog(@"%s: %@", __func__, self.collectionView.indexPathsForSelectedItems.firstObject);
     SKProduct *selectedProduct = _availableProducts[selectedIndex];
     APLog(@"User wants to purchase product '%@'", [selectedProduct localizedTitle]);
     [_storeController purchaseProduct:selectedProduct];

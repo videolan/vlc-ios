@@ -14,13 +14,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class VLCConfettiView;
+
 @interface VLCStoreViewController : UIViewController
 
 @property (retain) IBOutlet UILabel *tippingExplainedLabel;
 @property (retain) IBOutlet UICollectionView *collectionView;
 @property (retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (retain) IBOutlet UILabel *cannotMakePaymentsLabel;
+@property (retain) IBOutlet UIStackView *emojiStackView;
 @property (retain) IBOutlet UIButton *performPurchaseButton;
+@property (retain) IBOutlet VLCConfettiView *confettiView;
 
 - (IBAction)performPurchase:(id)sender;
 
