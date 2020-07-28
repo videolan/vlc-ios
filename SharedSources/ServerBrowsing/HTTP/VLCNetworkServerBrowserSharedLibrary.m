@@ -86,7 +86,8 @@
     self = [super init];
     if (self) {
         _name = dictionary[@"title"];
-        _fileSizeBytes = dictionary[@"size"];
+        NSInteger fileSize = [dictionary[@"size"] intValue] * 1024 * 1024;
+        _fileSizeBytes = @(fileSize);
         _duration = dictionary[@"duration"];
         NSString *subtitleURLString = dictionary[@"pathSubtitle"];
         if ([subtitleURLString isEqualToString:@"(null)"])
@@ -98,7 +99,6 @@
 
         NSString *thumbURLString = dictionary[@"thumb"];
         _thumbnailURL = thumbURLString.length ? [NSURL URLWithString:thumbURLString] : nil;
-
     }
     return self;
 }
