@@ -16,6 +16,8 @@
 @interface VLCStoreCollectionViewCell()
 {
     UILabel *_priceLabel;
+    UIColor *_lightBackgroundColor;
+    UIColor *_darkBackgroundColor;
 }
 @end
 
@@ -54,7 +56,19 @@
     [self.contentView addConstraints:controlPanelHorizontalConstraints];
     [self.contentView addConstraints:controlPanelVerticalConstraints];
 
-    self.backgroundColor = [UIColor colorWithWhite:0.98 alpha:1.];
+    _lightBackgroundColor = [UIColor colorWithWhite:0.98 alpha:1.];
+    _darkBackgroundColor = [UIColor colorWithWhite:0.02 alpha:1.];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(themeDidChange)
+                                                 name:kVLCThemeDidChangeNotification
+                                               object:nil];
+    [self themeDidChange];
+}
+
+- (void)themeDidChange
+{
+    self.backgroundColor = PresentationTheme.current.colors.isDark ? _darkBackgroundColor : _lightBackgroundColor;
 }
 
 - (void)prepareForReuse
@@ -71,7 +85,7 @@
         self.backgroundColor = colors.orangeUI;
     } else {
         _priceLabel.textColor = colors.orangeUI;
-        self.backgroundColor = [UIColor colorWithWhite:0.98 alpha:1.];
+        [self themeDidChange];
     }
 
     [super setSelected:selected];
