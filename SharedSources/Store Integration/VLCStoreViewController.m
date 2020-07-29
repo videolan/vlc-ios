@@ -166,6 +166,11 @@ CGFloat VLCStoreViewCollectionViewInterimSpacing = 2.;
         return;
     }
 
+    if (error.code == 2) {
+        APLog(@"%s: user cancelled purchase", __PRETTY_FUNCTION__);
+        return;
+    }
+
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PURCHASE_FAILED", nil)
                                                                              message:error.localizedDescription
                                                                       preferredStyle:UIAlertControllerStyleAlert];
@@ -227,7 +232,7 @@ CGFloat VLCStoreViewCollectionViewInterimSpacing = 2.;
 
 - (void)performPurchase:(id)sender
 {
-    NSInteger selectedIndex = self.collectionView.indexPathsForSelectedItems.firstObject.section;
+    NSInteger selectedIndex = self.collectionView.indexPathsForSelectedItems.firstObject.row;
     SKProduct *selectedProduct = _availableProducts[selectedIndex];
     APLog(@"User wants to purchase product '%@'", [selectedProduct localizedTitle]);
     [_storeController purchaseProduct:selectedProduct];

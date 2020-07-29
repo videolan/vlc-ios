@@ -111,7 +111,7 @@ NSString *VLCStoreControllerInteractionFailed = @"VLCStoreControllerInteractionF
                 [_paymentQueue finishTransaction:transaction];
                 break;
             case SKPaymentTransactionStateFailed:
-                state = [NSString stringWithFormat:@"failed (%@)", transaction.error.localizedDescription];
+                state = [NSString stringWithFormat:@"failed (%@, %li)", transaction.error.localizedDescription, transaction.error.code];
                 [self storeInteractionFailedWithError:transaction.error];
                 [_paymentQueue finishTransaction:transaction];
                 break;
