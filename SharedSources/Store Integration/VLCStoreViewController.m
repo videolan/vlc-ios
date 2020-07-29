@@ -81,7 +81,7 @@ CGFloat VLCStoreViewCollectionViewInterimSpacing = 2.;
     }
     NSInteger count = _availableProducts.count;
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    flowLayout.itemSize = CGSizeMake((self.collectionView.frame.size.width - VLCStoreViewCollectionViewInterimSpacing * count) / count, 96.);
+    flowLayout.itemSize = CGSizeMake((self.collectionView.frame.size.width - VLCStoreViewCollectionViewInterimSpacing * count) / count, 84.);
     flowLayout.minimumInteritemSpacing = .2;
     flowLayout.minimumLineSpacing = .0;
 }
