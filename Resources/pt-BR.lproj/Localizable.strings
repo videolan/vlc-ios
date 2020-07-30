@@ -434,3 +434,7 @@
 "BUTTON_REGROUP_TITLE" = "Reagrupar seleção";
 "BUTTON_REGROUP_HINT" = "Tenta reagrupar automaticamente uma mídia.";
 "BUTTON_REGROUP_DESCRIPTION" = "Tem certeza de que deseja reagrupar automaticamente mídias individuais?\nPode levar algum tempo.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Coloque mídias aqui para adicioná-las";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adicionando...";
