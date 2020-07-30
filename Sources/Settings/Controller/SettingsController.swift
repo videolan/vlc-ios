@@ -240,7 +240,7 @@ extension SettingsController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath == [1, 1] && !userDefaults.bool(forKey: kVLCSettingPasscodeOnKey) {
+        if indexPath == [SettingsSection.privacy.rawValue, PrivacyOptions.enableBiometrics.rawValue] && !userDefaults.bool(forKey: kVLCSettingPasscodeOnKey) {
             //If the passcode lock is on we return a default UITableViewCell else
             //while hiding the biometric option row using a cell height of 0
             //constraint warnings will be printed to the console since the cell height (0)
