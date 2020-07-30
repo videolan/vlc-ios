@@ -263,8 +263,12 @@ extension SettingsController {
         case .privacy:
             let privacy = PrivacyOptions(rawValue: indexPath.row)
             let isPasscodeOn = userDefaults.bool(forKey: kVLCSettingPasscodeOnKey)
-            if !isPasscodeOn && indexPath.row == 1 {
-                cell.isHidden = true
+            if indexPath.row == 1 {
+                if !isPasscodeOn || privacy?.preferenceKey == nil {
+                    //If Passcode Lock Switch is off or Biometric Row Preference Key returns nil
+                    //We hide the cell
+                    cell.isHidden = true
+                }
             }
             cell.sectionType = privacy
             cell.passcodeSwitchDelegate = self
@@ -369,13 +373,19 @@ extension SettingsController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let isPasscodeOn = userDefaults.bool(forKey: kVLCSettingPasscodeOnKey)
         let automaticDimension = UITableView.automaticDimension
-        if isPasscodeOn {
-            return automaticDimension
-        } else {
-            return indexPath == [SettingsSection.privacy.rawValue, PrivacyOptions.enableBiometrics.rawValue] ? 0 : automaticDimension //Hides Biometric Row if Passcode Lock is off
+        if indexPath == [SettingsSection.privacy.rawValue, PrivacyOptions.enableBiometrics.rawValue] {
+            let isPasscodeOn = userDefaults.bool(forKey: kVLCSettingPasscodeOnKey)
+            let privacySection = PrivacyOptions(rawValue: indexPath.row)
+            if privacySection?.preferenceKey == nil {
+                //LAContext canEvaluatePolicy supports iOS 11.0.1 and above.
+                //If canEvaluatePolicy is not supported the preference key for the biometric row is nil.
+                //Therefore we never show the biometric options row in this case
+                return 0
+            }
+            return isPasscodeOn ? automaticDimension : 0 //If Passcode Lock is turned off we hide the biometric options row
         }
+        return automaticDimension
     }
 }
 
