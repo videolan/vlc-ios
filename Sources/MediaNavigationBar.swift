@@ -30,7 +30,7 @@ protocol MediaNavigationBarDelegate {
                                                             action: #selector(handleMinimizeLongPress))
         minButton.addGestureRecognizer(longPressGesture)
         minButton.addTarget(self, action: #selector(handleMinimizeTap), for: .touchUpInside)
-        minButton.setImage(UIImage(named: "iconChevron"), for: .normal)
+        minButton.setImage(UIImage(named: "back"), for: .normal)
         minButton.tintColor = .white
         minButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return minButton
