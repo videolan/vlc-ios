@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
-#import "MetadataFetcherKit.h"
+#import "MetaDataFetcherKit.h"
 #import "NSString+Locale.h"
 #import "VLCMetadata.h"
 #import "VLCPlaybackService.h"
