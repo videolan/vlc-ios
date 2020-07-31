@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatiskt";
 "SETTINGS_PRIVACY_SUBTITLE" = "Öppna i Inställningar";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Säker åtkomst till ditt innehåll";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Dina mediafiler kommer att döljas i appen Filer";
 
 "SETTINGS_DARKTHEME" = "Utseende";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tidsutsträckt ljud";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Lösenkodslås";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Tillåt Touch ID att låsa upp";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Tillåt Face ID för att låsa upp";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Dölj mediabiblioteket i Filer";
 "SETTINGS_VIDEO_FULLSCREEN" = "Spela upp video i helskärm";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Återuppta videouppspelning";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Återuppta ljuduppspelning";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-stöd för WiFi-delning";
-"SETTINGS_UNLINK_DROPBOX" = "Ta bort länk från Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Ta bort länk från Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Ta bort länk från OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Textkodning för FTP-anslutningar";
 
 "SETTINGS_ARTWORK" = "Omslag";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Ladda ned omslag";

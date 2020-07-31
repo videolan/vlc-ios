@@ -434,3 +434,7 @@
 "BUTTON_REGROUP_TITLE" = "Omgruppera markering";
 "BUTTON_REGROUP_HINT" = "Försök omgruppera enskild media automatiskt.";
 "BUTTON_REGROUP_DESCRIPTION" = "Är du säker på att du vill prova omgruppera enskild media automatiskt?\nDetta kan ta en stund.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Placera mediafiler här för att lägga till dem";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Lägger till...";
