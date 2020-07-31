@@ -434,3 +434,7 @@
 "BUTTON_REGROUP_TITLE" = "Raggruppa selezione";
 "BUTTON_REGROUP_HINT" = "Tentativo di raggruppare automaticamente i media singoli.";
 "BUTTON_REGROUP_DESCRIPTION" = "Sei sicuro di voler provare a raggruppare automaticamente i media singoli? Potrebbe richiedere del tempo.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Inserire qui i media per aggiungerli";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Aggiunta in corso...";
