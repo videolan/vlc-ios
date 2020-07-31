@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automaticky";
 "SETTINGS_PRIVACY_SUBTITLE" = "Otvoriť v nastaveniach";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Bezpečný prístup k vášmu obsahu";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Vaše médium bude skryté v aplikácii Súbory";
 
 "SETTINGS_DARKTHEME" = "Vzhľad";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časové roztiahnutie zvuku";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Uzamknutie pomocou hesla";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Povoliť Touch ID pre odomknutie";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Povoliť Face ID pre odomknutie";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Skryť knižnicu médií v aplikácii Súbory";
 "SETTINGS_VIDEO_FULLSCREEN" = "Prehrať video na celej obrazovke";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Pokračovať v prehrávaní videa";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Pokračovať v prehrávaní zvuku";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "Synchronizácia súboru";
 "SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pre zdieľanie cez WiFi";
-"SETTINGS_UNLINK_DROPBOX" = "Odpojiť od služby Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Odpojiť od služby Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Odpojiť od služby OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Kódovanie textu pre pripojenia FTP";
 
 "SETTINGS_ARTWORK" = "Dielo";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Stiahnuť dielo";

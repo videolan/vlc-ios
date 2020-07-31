@@ -434,3 +434,7 @@
 "BUTTON_REGROUP_TITLE" = "Preskupiť výber";
 "BUTTON_REGROUP_HINT" = "Pokus o preskupenie jedného média automaticky";
 "BUTTON_REGROUP_DESCRIPTION" = "Naozaj sa chcete pokúsiť o automatické preskupenie jedného média?\nMôže to nejaký čas trvať.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Ak chcete pridať médium, umiestnite ho sem";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Pridáva sa...";
