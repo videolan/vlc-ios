@@ -434,3 +434,7 @@
 "BUTTON_REGROUP_TITLE" = "Auswahl umgruppieren";
 "BUTTON_REGROUP_HINT" = "Einzelne Medien werden automatisch versucht, neu gruppiert zu werden.";
 "BUTTON_REGROUP_DESCRIPTION" = "Sind Sie sicher, es zu versuchen, einzelne Medien automatisch neu zu gruppieren?\nDies kann einige Zeit dauern.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Medien hier plazieren, um sie hinzuzufügen";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Füge hinzu....";
