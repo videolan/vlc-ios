@@ -434,3 +434,7 @@
 "BUTTON_REGROUP_TITLE" = "Regrouper la sélection";
 "BUTTON_REGROUP_HINT" = "Essayer de regrouper automatiquement les médias isolés.";
 "BUTTON_REGROUP_DESCRIPTION" = "Êtes-vous sûr de vouloir regrouper automatiquement les médias isolés ?\nCela peut prendre du temps.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Placer les médias ici pour les ajouter";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Ajout...";

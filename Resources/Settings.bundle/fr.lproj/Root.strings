@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatique";
 "SETTINGS_PRIVACY_SUBTITLE" = "Ouvrir dans les Réglages";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accès sécurisé à votre contenu";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Vos médias seront cachés dans l'application Fichiers";
 
 "SETTINGS_DARKTHEME" = "Apparence";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Étirement temporel audio";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Code de verrouillage";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Autoriser le déverrouillage par Touch ID";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Autoriser le déverrouillage par Face ID";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Cacher la médiathèque dans l'application Fichiers";
 "SETTINGS_VIDEO_FULLSCREEN" = "Lecture vidéo en plein écran";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Reprise de lecture vidéo";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Reprise de lecture audio";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "Synchronisation de fichier";
 "SETTINGS_WIFISHARING_IPv6" = "Compatibilité IPV6 en partage Wi-Fi";
-"SETTINGS_UNLINK_DROPBOX" = "Dissocier de Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Dissocier de Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Dissocier de OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Encodage du texte des connexions FTP";
 
 "SETTINGS_ARTWORK" = "Illustration";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Télécharger l'illustration";
