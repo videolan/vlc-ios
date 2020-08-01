@@ -434,3 +434,7 @@
 "BUTTON_REGROUP_TITLE" = "Przegrupuj wybór";
 "BUTTON_REGROUP_HINT" = "Próba automatycznego przegrupowania pojedynczych mediów.";
 "BUTTON_REGROUP_DESCRIPTION" = "Czy na pewno spróbować automatycznie przegrupować pojedyncze media?\nTo może zająć trochę czasu.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Umieść tutaj multimedia, aby je dodać";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Dodawanie...";
