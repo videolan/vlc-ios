@@ -126,6 +126,10 @@
 		7D27EC2C19DF310300EF0370 /* VLCFirstStepsiTunesSyncViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2A19DF310300EF0370 /* VLCFirstStepsiTunesSyncViewController.xib */; };
 		7D2DE69324D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */; };
 		7D2DE69424D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */; };
+		7D2DE69B24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */; };
+		7D2DE69C24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */; };
+		7D2DE69D24D5AC0E00E8D84D /* VLCSubtitleItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69A24D5AC0E00E8D84D /* VLCSubtitleItem.m */; };
+		7D2DE69E24D5AC0E00E8D84D /* VLCSubtitleItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69A24D5AC0E00E8D84D /* VLCSubtitleItem.m */; };
 		7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7C21B67777D00FB78AB /* libc++.tbd */; };
 		7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
 		7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */; };
@@ -636,6 +640,10 @@
 		7D2D7FD21BD2F109002D6B6D /* VLC-TV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "VLC-TV.entitlements"; sourceTree = "<group>"; };
 		7D2DE69124D5A9AA00E8D84D /* OROpenSubtitleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OROpenSubtitleDownloader.h; path = SharedSources/Imported/OROpenSubtitleDownloader.h; sourceTree = "<group>"; };
 		7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OROpenSubtitleDownloader.m; path = SharedSources/Imported/OROpenSubtitleDownloader.m; sourceTree = "<group>"; };
+		7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOSOFetcher.m; path = SharedSources/SubtitlesDownloads/VLCOSOFetcher.m; sourceTree = "<group>"; };
+		7D2DE69824D5AC0E00E8D84D /* VLCSubtitleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSubtitleItem.h; path = SharedSources/SubtitlesDownloads/VLCSubtitleItem.h; sourceTree = "<group>"; };
+		7D2DE69924D5AC0E00E8D84D /* VLCOSOFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOSOFetcher.h; path = SharedSources/SubtitlesDownloads/VLCOSOFetcher.h; sourceTree = "<group>"; };
+		7D2DE69A24D5AC0E00E8D84D /* VLCSubtitleItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSubtitleItem.m; path = SharedSources/SubtitlesDownloads/VLCSubtitleItem.m; sourceTree = "<group>"; };
 		7D2DF7C21B67777D00FB78AB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		7D30F3BC183AB24C00FFC021 /* VLCHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPConnection.h; path = Sources/VLCHTTPConnection.h; sourceTree = SOURCE_ROOT; };
 		7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPConnection.m; path = Sources/VLCHTTPConnection.m; sourceTree = SOURCE_ROOT; };
@@ -1336,6 +1344,18 @@
 				7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */,
 			);
 			name = OROpenSubtitleDownloader;
+			sourceTree = "<group>";
+		};
+		7D2DE69624D5ABC500E8D84D /* Subtitles Downloading */ = {
+			isa = PBXGroup;
+			children = (
+				7D2DE69924D5AC0E00E8D84D /* VLCOSOFetcher.h */,
+				7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */,
+				7D2DE69824D5AC0E00E8D84D /* VLCSubtitleItem.h */,
+				7D2DE69A24D5AC0E00E8D84D /* VLCSubtitleItem.m */,
+			);
+			name = "Subtitles Downloading";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		7D31002117B676D500E6516D /* Local Network Connectivity */ = {
@@ -2277,6 +2297,7 @@
 				7DEC8BE01BD686D3006E1093 /* Playback */,
 				7DEC8BE11BD686FA006E1093 /* Library */,
 				DD3EFEEF1BDEBCE500B68579 /* ServerBrowsing */,
+				7D2DE69624D5ABC500E8D84D /* Subtitles Downloading */,
 				7DADC5601704FACC001DAC63 /* Imported */,
 				DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.h */,
 				DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.m */,
@@ -2911,6 +2932,7 @@
 				7D0C34E71BD951080058CD19 /* NSString+SupportedMedia.m in Sources */,
 				DD8095F61BE624C00065D8E1 /* VLCPlaybackInfoTVAnimators.m in Sources */,
 				DDEAECBF1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m in Sources */,
+				7D2DE69C24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */,
 				DD3EFF381BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m in Sources */,
 				DD8095D61BE3C3BA0065D8E1 /* VLCTransportBar.m in Sources */,
 				41EB91DE1F7BFF8500821AA5 /* VLCMetadata.m in Sources */,
@@ -2959,6 +2981,7 @@
 				7D398DC21CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */,
 				DD3EAC051BE153B4003668DA /* VLCNetworkImageView.m in Sources */,
 				7DF383B91BF21E4400D71A5C /* VLCPlayerControlWebSocket.m in Sources */,
+				7D2DE69E24D5AC0E00E8D84D /* VLCSubtitleItem.m in Sources */,
 				7DB174B51CD20DC00085BCF0 /* VLCSearchController.m in Sources */,
 				DD13A37B1BEE2FAA00A35554 /* VLCMaskView.m in Sources */,
 				7DB0CB43247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */,
@@ -3032,6 +3055,7 @@
 				412086362231FE43006A6630 /* UIViewController+VLCAlert.m in Sources */,
 				44C8BBB024AF36F4003F8940 /* SettingsSpecifier.swift in Sources */,
 				DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */,
+				7D2DE69B24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */,
 				DD870E9A1CEF929A00BBD4FE /* VLCNetworkLoginViewFieldCell.m in Sources */,
 				4195747D206A92ED00393A42 /* RemoteNetworkDataSource.swift in Sources */,
 				44C8BBAE24AF36F4003F8940 /* SettingsController.swift in Sources */,
@@ -3099,6 +3123,7 @@
 				7DF9352F1958AB0600E60FD4 /* UIColor+Presets.m in Sources */,
 				7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */,
 				8DE1887421089B3A00A091D2 /* MediaLibraryBaseModel.swift in Sources */,
+				7D2DE69D24D5AC0E00E8D84D /* VLCSubtitleItem.m in Sources */,
 				418B145020179CB9000447AA /* LayoutAnchorContainer.swift in Sources */,
 				7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */,
 				41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */,

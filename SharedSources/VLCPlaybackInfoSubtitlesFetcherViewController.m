@@ -10,7 +10,8 @@
  *****************************************************************************/
 
 #import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
-#import "MetaDataFetcherKit.h"
+#import "VLCOSOFetcher.h"
+#import "VLCSubtitleItem.h"
 #import "NSString+Locale.h"
 #import "VLCMetadata.h"
 #import "VLCPlaybackService.h"
@@ -21,10 +22,10 @@
 #define SPUDownloadReUseIdentifier @"SPUDownloadReUseIdentifier"
 #define SPUDownloadHeaderReUseIdentifier @"SPUDownloadHeaderReUseIdentifier"
 
-@interface VLCPlaybackInfoSubtitlesFetcherViewController () <UITableViewDataSource, UITableViewDelegate, MDFOSOFetcherDataRecipient>
+@interface VLCPlaybackInfoSubtitlesFetcherViewController () <UITableViewDataSource, UITableViewDelegate, VLCOSOFetcherDataRecipient>
 
-@property (strong, nonatomic) MDFOSOFetcher *osoFetcher;
-@property (strong, nonatomic) NSArray<MDFSubtitleItem *>* searchResults;
+@property (strong, nonatomic) VLCOSOFetcher *osoFetcher;
+@property (strong, nonatomic) NSArray<VLCSubtitleItem *>* searchResults;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 
 @end
@@ -45,7 +46,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 #endif
 
-    self.osoFetcher = [[MDFOSOFetcher alloc] init];
+    self.osoFetcher = [[VLCOSOFetcher alloc] init];
     self.osoFetcher.userAgentKey = @"VLSub 0.11.0";
     self.osoFetcher.dataRecipient = self;
     [self.osoFetcher prepareForFetching];
@@ -153,7 +154,7 @@
 
 #pragma mark - OSO Fetcher delegation
 
-- (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher readyToSearch:(BOOL)bValue
+- (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher readyToSearch:(BOOL)bValue
 {
     if (!bValue) {
         return;
@@ -172,7 +173,7 @@
     [self.osoFetcher searchForSubtitlesWithQuery:vpc.metadata.title];
 }
 
-- (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher didFindSubtitles:(NSArray<MDFSubtitleItem *> *)subtitles forSearchRequest:(NSString *)searchRequest
+- (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher didFindSubtitles:(NSArray<VLCSubtitleItem *> *)subtitles forSearchRequest:(NSString *)searchRequest
 {
     APLog(@"%s: %li items found", __func__, subtitles.count);
     [self stopActivity];
@@ -180,14 +181,14 @@
     [self.tableView reloadData];
 }
 
-- (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher didFailToDownloadForItem:(MDFSubtitleItem *)subtitleItem
+- (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher didFailToDownloadForItem:(VLCSubtitleItem *)subtitleItem
 {
     [self stopActivity];
     // FIXME: missing error handling
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)MDFOSOFetcher:(MDFOSOFetcher *)aFetcher subtitleDownloadSucceededForItem:(MDFSubtitleItem *)subtitleItem atPath:(NSString *)pathToFile
+- (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher subtitleDownloadSucceededForItem:(VLCSubtitleItem *)subtitleItem atPath:(NSString *)pathToFile
 {
     [self stopActivity];
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
@@ -229,7 +230,7 @@
     }
     
     if (indexPath.section != 0) {
-        MDFSubtitleItem *item = self.searchResults[indexPath.row];
+        VLCSubtitleItem *item = self.searchResults[indexPath.row];
         cell.textLabel.text = item.name;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", item.rating, [item.format uppercaseStringWithLocale:[NSLocale currentLocale]]];
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -272,11 +273,11 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LANGUAGE", nil)
                                                                                  message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-        NSArray<MDFSubtitleLanguage *> *languages = self.osoFetcher.availableLanguages;
+        NSArray<VLCSubtitleLanguage *> *languages = self.osoFetcher.availableLanguages;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *currentCode = [defaults stringForKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
 
-        for (MDFSubtitleLanguage *item in languages) {
+        for (VLCSubtitleLanguage *item in languages) {
             NSString *itemID = item.ID;
             UIAlertAction *action = [UIAlertAction actionWithTitle:item.localizedName
                                                              style:UIAlertActionStyleDefault
@@ -303,7 +304,7 @@
         [self presentViewController:alertController animated:YES completion:nil];
     } else {
         [self startActivity];
-        MDFSubtitleItem *item = self.searchResults[indexPath.row];
+        VLCSubtitleItem *item = self.searchResults[indexPath.row];
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *folderPath = [searchPaths[0] stringByAppendingPathComponent:@"tempsubs"];
         [[NSFileManager defaultManager] createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
