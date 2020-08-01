@@ -9,7 +9,7 @@ def shared_pods
   pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/Mikanbu/dropbox-sdk-obj-c.git' #update ios platform version
   pod 'MetaDataFetcherKit', '~>0.3.2'
   pod 'xmlrpc', :git => 'git://github.com/fkuehne/xmlrpc.git', :commit => '3f8ce3a8' #fix case-sensitive FS
-  pod 'OROpenSubtitleDownloader', :git => 'https://code.videolan.org/fkuehne/OROpenSubtitleDownloader.git' #fix case-sensitive FS
+  pod 'AFNetworking', '~>3.1.0'
 
   pod 'AppCenter', '2.3.0'
   # debug

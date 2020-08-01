@@ -124,6 +124,8 @@
 		7D21407B2431F2DC0075E767 /* URL+isExcludedFromBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDE230C239FE8C2003DE55A /* URL+isExcludedFromBackup.swift */; };
 		7D21407F2431F3A50075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */; };
 		7D27EC2C19DF310300EF0370 /* VLCFirstStepsiTunesSyncViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D27EC2A19DF310300EF0370 /* VLCFirstStepsiTunesSyncViewController.xib */; };
+		7D2DE69324D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */; };
+		7D2DE69424D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */; };
 		7D2DF7C31B67777D00FB78AB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2DF7C21B67777D00FB78AB /* libc++.tbd */; };
 		7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */; };
 		7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */; };
@@ -632,6 +634,8 @@
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D2AEDE517FB785100B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D2D7FD21BD2F109002D6B6D /* VLC-TV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "VLC-TV.entitlements"; sourceTree = "<group>"; };
+		7D2DE69124D5A9AA00E8D84D /* OROpenSubtitleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OROpenSubtitleDownloader.h; path = SharedSources/Imported/OROpenSubtitleDownloader.h; sourceTree = "<group>"; };
+		7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OROpenSubtitleDownloader.m; path = SharedSources/Imported/OROpenSubtitleDownloader.m; sourceTree = "<group>"; };
 		7D2DF7C21B67777D00FB78AB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		7D30F3BC183AB24C00FFC021 /* VLCHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPConnection.h; path = Sources/VLCHTTPConnection.h; sourceTree = SOURCE_ROOT; };
 		7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPConnection.m; path = Sources/VLCHTTPConnection.m; sourceTree = SOURCE_ROOT; };
@@ -1325,6 +1329,15 @@
 			name = "OneDrive (Imported)";
 			sourceTree = "<group>";
 		};
+		7D2DE69524D5A9B100E8D84D /* OROpenSubtitleDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				7D2DE69124D5A9AA00E8D84D /* OROpenSubtitleDownloader.h */,
+				7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */,
+			);
+			name = OROpenSubtitleDownloader;
+			sourceTree = "<group>";
+		};
 		7D31002117B676D500E6516D /* Local Network Connectivity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1654,6 +1667,7 @@
 		7DADC5601704FACC001DAC63 /* Imported */ = {
 			isa = PBXGroup;
 			children = (
+				7D2DE69524D5A9B100E8D84D /* OROpenSubtitleDownloader */,
 				7DC72D6517B7ED36008A26D0 /* Reachability */,
 			);
 			name = Imported;
@@ -2703,12 +2717,10 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-tvOS/XKKeychain.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XKKeychain.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2810,6 +2822,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-resources.sh",
 				"${PODS_ROOT}/ADAL/ADALiOS/ADALiOS/ADAL_iPad_Storyboard.storyboard",
 				"${PODS_ROOT}/ADAL/ADALiOS/ADALiOS/ADAL_iPhone_Storyboard.storyboard",
+				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
 				"${PODS_ROOT}/MediaLibraryKit-prod/MappingModel_2_5_to_2_6.xcmappingmodel",
 				"${PODS_ROOT}/MediaLibraryKit-prod/MediaLibrary.xcdatamodeld",
 				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-iOS/XKKeychain.bundle",
@@ -2818,6 +2831,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ADAL_iPad_Storyboard.storyboardc",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ADAL_iPhone_Storyboard.storyboardc",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MappingModel_2_5_to_2_6.cdm",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MediaLibrary.momd",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XKKeychain.bundle",
@@ -2937,6 +2951,7 @@
 				DD3EFF4E1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				7DEBF37F1C076EE8007A4043 /* NSString+Locale.m in Sources */,
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
+				7D2DE69424D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */,
 				DD3EFF3E1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				7DC0B5701C0094370027BFAD /* VLCSettingsViewController.m in Sources */,
 				7DEC8BDA1BD67112006E1093 /* VLCFrostedGlasView.m in Sources */,
@@ -3036,6 +3051,7 @@
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
 				8D2AD4D822786F4000393833 /* AddToCollectionViewController.swift in Sources */,
 				6D63C06B23FEE93C00B9C05A /* VLCMarqueeLabel.swift in Sources */,
+				7D2DE69324D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */,
 				8D59BFFC230BEFB50078160A /* Observable.swift in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
 				DD3EFF331BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
