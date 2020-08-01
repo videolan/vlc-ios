@@ -434,3 +434,7 @@
 "BUTTON_REGROUP_TITLE" = "Torra a agrupare sa seletzione";
 "BUTTON_REGROUP_HINT" = "Proa a agrupare automaticamente cuntenutos multimediales sìngulos.";
 "BUTTON_REGROUP_DESCRIPTION" = "Ses seguru de chèrrere proare a agrupare automaticamente cuntenutos multimediales (mèdios) sìngulos?\nBi diat pòdere chèrrere unu pagu de tempus.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Pone sos mèdios inoghe pro los annànghere";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Annanghende...";

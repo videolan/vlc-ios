@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automàticu";
 "SETTINGS_PRIVACY_SUBTITLE" = "Aberi in sas impostatziones";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Atzessu seguru a sos cuntenutos tuos";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Sos cuntenutos multimediales tuos ant a èssere cuados in s'aplicatzione Documentos";
 
 "SETTINGS_DARKTHEME" = "Aparèntzia";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Illonghiamentu temporale àudio";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Blocu cun còdighe de seguresa";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Permiti su Touch ID pro s'isblocu";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permiti su Face ID pro s'isblocu";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Cua sa biblioteca multimediale in Documentos";
 "SETTINGS_VIDEO_FULLSCREEN" = "Riprodui su vìdeu a ischermu intreu";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Sighi cun sa riprodutzione de su vìdeu";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Sighi cun sa riprodutzione àudio";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "Sincronizatzione de documentos";
 "SETTINGS_WIFISHARING_IPv6" = "Suportu IPv6 pro sa cumpartzidura WiFi";
-"SETTINGS_UNLINK_DROPBOX" = "Disconnete·ti dae Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Disconnete·ti dae Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Disconnete·ti dae OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Codìfica de su testu pro sas connessiones FTP";
 
 "SETTINGS_ARTWORK" = "Gràfica artìstica";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Iscàrriga sa gràfica artìstica";
