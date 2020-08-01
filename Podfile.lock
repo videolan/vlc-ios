@@ -47,9 +47,8 @@ PODS:
   - MarqueeLabel (4.0.2)
   - MediaLibraryKit-prod (2.6.9):
     - MobileVLCKit (~> 3.3.0)
-  - MetaDataFetcherKit (0.3.2):
+  - MetaDataFetcherKit (0.4.0):
     - AFNetworking (= 3.1.0)
-    - OROpenSubtitleDownloader
   - MobileVLCKit (3.3.13)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (1.1)
@@ -73,9 +72,6 @@ PODS:
     - OneDriveSDK/Common
   - OneDriveSDK/OneDriveCoreSDK (1.3.0):
     - OneDriveSDK/Common
-  - OROpenSubtitleDownloader (1.2.1):
-    - AFNetworking
-    - xmlrpc
   - SimulatorStatusMagic (2.4.1)
   - SwiftLint (0.25.1)
   - TVVLCKit (3.3.13)
@@ -96,7 +92,7 @@ DEPENDENCIES:
   - InAppSettingsKit (from `git://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
   - MediaLibraryKit-prod
-  - MetaDataFetcherKit (~> 0.3.2)
+  - MetaDataFetcherKit (~> 0.4.0)
   - MobileVLCKit (= 3.3.13)
   - ObjectiveDropboxOfficial (from `git://github.com/Mikanbu/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
@@ -126,7 +122,6 @@ SPEC REPOS:
     - "NSData+Base64"
     - OBSlider
     - OneDriveSDK
-    - OROpenSubtitleDownloader
     - SimulatorStatusMagic
     - SwiftLint
     - TVVLCKit
@@ -179,13 +174,12 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MediaLibraryKit-prod: 718b52b55cb40b479eeae29fb5cc0cfbbbce0191
-  MetaDataFetcherKit: 071c290d7b6b393e8d242c3a14594abfe8ae44c3
+  MetaDataFetcherKit: fadbdbe90ddfc50370165bda69a46d430633e3ff
   MobileVLCKit: 92e1ea43124259417f481c890821efb2399d25e3
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: b9e95d98e3ff2baa0cd86aea7c8322a712f356d6
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: 90ab8781f0992c37d96b68cc340585f5cf36701f
-  OROpenSubtitleDownloader: eb1d6d5b30155a67747891a4ace4eb15657ed9a5
   SimulatorStatusMagic: 28d4a9d1a500ac7cea0b2b5a43c1c6ddb40ba56c
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   TVVLCKit: 33c0e6221b7ea312ae35703cd898b3b610aa4e0d
@@ -193,6 +187,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 866db607dfcb48a4c8083a1b4fc3c6b76021cac9
+PODFILE CHECKSUM: a9fc1c4f6834815686fc4f3c9eab63a0add70afa
 
 COCOAPODS: 1.9.3
