@@ -683,8 +683,8 @@
 		7D3784C5183A9972009EE944 /* NSString+SupportedMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SupportedMedia.m"; path = "Sources/Extensions/NSString+SupportedMedia.m"; sourceTree = SOURCE_ROOT; };
 		7D3784C6183A9972009EE944 /* UIDevice+VLC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIDevice+VLC.h"; path = "Sources/Extensions/UIDevice+VLC.h"; sourceTree = SOURCE_ROOT; };
 		7D3784C7183A9972009EE944 /* UIDevice+VLC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIDevice+VLC.m"; path = "Sources/Extensions/UIDevice+VLC.m"; sourceTree = SOURCE_ROOT; };
-		7D3784E5183A99E1009EE944 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Sources/Reachability.h; sourceTree = SOURCE_ROOT; };
-		7D3784E6183A99E1009EE944 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Sources/Reachability.m; sourceTree = SOURCE_ROOT; };
+		7D3784E5183A99E1009EE944 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = SharedSources/Imported/Reachability.h; sourceTree = SOURCE_ROOT; };
+		7D3784E6183A99E1009EE944 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = SharedSources/Imported/Reachability.m; sourceTree = SOURCE_ROOT; };
 		7D3784E8183A9A15009EE944 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Sources/main.m; sourceTree = SOURCE_ROOT; };
 		7D3784EA183A9A1E009EE944 /* VLC for iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "VLC for iOS-Info.plist"; path = "Sources/VLC for iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		7D3784EB183A9A1E009EE944 /* VLC for iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLC for iOS-Prefix.pch"; path = "Sources/VLC for iOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
@@ -1613,7 +1613,6 @@
 				7D31CF061746AEF2005997E0 /* UI Elements */,
 				44C8BBA124AF2B5C003F8940 /* Helper */,
 				A7C3025A175A538700AD4388 /* Extensions */,
-				7DADC5601704FACC001DAC63 /* Imported */,
 			);
 			name = "iOS specific classes";
 			sourceTree = "<group>";
@@ -1658,6 +1657,7 @@
 				7DC72D6517B7ED36008A26D0 /* Reachability */,
 			);
 			name = Imported;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		7DBB788E1B305D8300894467 /* Keychain & random singletons */ = {
@@ -2263,6 +2263,7 @@
 				7DEC8BE01BD686D3006E1093 /* Playback */,
 				7DEC8BE11BD686FA006E1093 /* Library */,
 				DD3EFEEF1BDEBCE500B68579 /* ServerBrowsing */,
+				7DADC5601704FACC001DAC63 /* Imported */,
 				DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.h */,
 				DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.m */,
 				DDBE44FD1BFB6A8B00E5D35E /* CAAnimation+VLCWiggle.h */,
@@ -2702,10 +2703,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-tvOS/XKKeychain.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XKKeychain.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2807,7 +2810,6 @@
 				"${PODS_ROOT}/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS-resources.sh",
 				"${PODS_ROOT}/ADAL/ADALiOS/ADALiOS/ADAL_iPad_Storyboard.storyboard",
 				"${PODS_ROOT}/ADAL/ADALiOS/ADALiOS/ADAL_iPhone_Storyboard.storyboard",
-				"${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.bundle",
 				"${PODS_ROOT}/MediaLibraryKit-prod/MappingModel_2_5_to_2_6.xcmappingmodel",
 				"${PODS_ROOT}/MediaLibraryKit-prod/MediaLibrary.xcdatamodeld",
 				"${PODS_CONFIGURATION_BUILD_DIR}/XKKeychain-iOS/XKKeychain.bundle",
@@ -2816,7 +2818,6 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ADAL_iPad_Storyboard.storyboardc",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ADAL_iPhone_Storyboard.storyboardc",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppSettingsKit.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MappingModel_2_5_to_2_6.cdm",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MediaLibrary.momd",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XKKeychain.bundle",
