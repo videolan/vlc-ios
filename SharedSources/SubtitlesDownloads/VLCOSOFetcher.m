@@ -14,6 +14,8 @@
 #import "VLCSubtitleItem.h"
 #import "OROpenSubtitleDownloader.h"
 
+NSString *VLCOSOFetcherUserAgentKey = @"VLSub 0.11.0";
+
 @interface VLCOSOFetcher () <OROpenSubtitleDownloaderDelegate>
 {
     NSMutableArray<NSURLSessionTask *> *_requests;
@@ -37,22 +39,13 @@
 
 - (void)prepareForFetching
 {
-    if (!_userAgentKey) {
-        if (self.dataRecipient) {
-            if ([self.dataRecipient respondsToSelector:@selector(VLCOSOFetcher:readyToSearch:)]) {
-                [self.dataRecipient VLCOSOFetcher:self readyToSearch:NO];
-            }
-        } else
-            NSLog(@"%s: no user agent set", __PRETTY_FUNCTION__);
-    }
-    _subtitleDownloader = [[OROpenSubtitleDownloader alloc] initWithUserAgent:_userAgentKey];
-
+    _subtitleDownloader = [[OROpenSubtitleDownloader alloc] initWithUserAgent:VLCOSOFetcherUserAgentKey];
     [self searchForAvailableLanguages];
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%s: user-agent '%@', language ID '%@'", __PRETTY_FUNCTION__, _userAgentKey, _subtitleLanguageId];
+    return [NSString stringWithFormat:@"%s: language ID '%@'", __PRETTY_FUNCTION__, _subtitleLanguageId];
 }
 
 - (void)searchForSubtitlesWithQuery:(NSString *)query

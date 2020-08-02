@@ -47,7 +47,6 @@
 #endif
 
     self.osoFetcher = [[VLCOSOFetcher alloc] init];
-    self.osoFetcher.userAgentKey = @"VLSub 0.11.0";
     self.osoFetcher.dataRecipient = self;
     [self.osoFetcher prepareForFetching];
 
