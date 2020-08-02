@@ -153,12 +153,8 @@
 
 #pragma mark - OSO Fetcher delegation
 
-- (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher readyToSearch:(BOOL)bValue
+- (void)VLCOSOFetcherReadyToSearch:(VLCOSOFetcher *)aFetcher
 {
-    if (!bValue) {
-        return;
-    }
-
     [self searchForMedia];
 }
 

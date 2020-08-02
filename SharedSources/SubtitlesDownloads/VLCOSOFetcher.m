@@ -20,7 +20,6 @@ NSString *VLCOSOFetcherUserAgentKey = @"VLSub 0.11.0";
 {
     NSMutableArray<NSURLSessionTask *> *_requests;
     OROpenSubtitleDownloader *_subtitleDownloader;
-    BOOL _readyForFetching;
 }
 @end
 
@@ -107,13 +106,12 @@ NSString *VLCOSOFetcherUserAgentKey = @"VLSub 0.11.0";
         [self openSubtitlerDidLogIn:nil];
     }];
 }
+
 - (void)openSubtitlerDidLogIn:(OROpenSubtitleDownloader *)downloader
 {
-    _readyForFetching = YES;
-
     if (self.dataRecipient) {
-        if ([self.dataRecipient respondsToSelector:@selector(VLCOSOFetcher:readyToSearch:)]) {
-            [self.dataRecipient VLCOSOFetcher:self readyToSearch:YES];
+        if ([self.dataRecipient respondsToSelector:@selector(VLCOSOFetcherReadyToSearch:)]) {
+            [self.dataRecipient VLCOSOFetcherReadyToSearch:self];
         }
     }
 }

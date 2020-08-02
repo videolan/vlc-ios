@@ -15,7 +15,7 @@
 
 @protocol VLCOSOFetcherDataRecipient <NSObject>
 
-- (void)VLCOSOFetcher:(VLCOSOFetcher * _Nonnull)aFetcher readyToSearch:(BOOL)bValue;
+- (void)VLCOSOFetcherReadyToSearch:(VLCOSOFetcher * _Nonnull)aFetcher;
 
 @optional
 - (void)VLCOSOFetcher:(VLCOSOFetcher * _Nonnull)aFetcher didFindSubtitles:(NSArray <VLCSubtitleItem *> * _Nonnull)subtitles forSearchRequest:(NSString * _Nonnull)searchRequest;
