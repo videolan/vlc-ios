@@ -58,7 +58,7 @@ NSString *VLCOSOFetcherUserAgentKey = @"VLSub 0.11.0";
                     [self.dataRecipient VLCOSOFetcher:self didFailToFindSubtitlesForSearchRequest:query];
                 }
             } else
-                NSLog(@"%s: %@", __PRETTY_FUNCTION__, error);
+                APLog(@"%s: %@", __PRETTY_FUNCTION__, error);
         }
 
         NSUInteger count = subtitles.count;
@@ -80,21 +80,21 @@ NSString *VLCOSOFetcherUserAgentKey = @"VLSub 0.11.0";
                 [self.dataRecipient VLCOSOFetcher:self didFindSubtitles:[subtitlesToReturn copy] forSearchRequest:query];
             }
         } else
-            NSLog(@"found %@", subtitlesToReturn);
+            APLog(@"found %@", subtitlesToReturn);
      }];
 }
 
 - (void)searchForAvailableLanguages
 {
-    [_subtitleDownloader supportedLanguagesList:^(NSArray *langauges, NSError *aError){
-        if (!langauges || aError) {
-            NSLog(@"%s: no languages found or error %@", __PRETTY_FUNCTION__, aError);
+    [_subtitleDownloader supportedLanguagesList:^(NSArray *languages, NSError *aError){
+        if (!languages || aError) {
+            APLog(@"%s: no languages found or error %@", __PRETTY_FUNCTION__, aError);
         }
 
-        NSUInteger count = langauges.count;
+        NSUInteger count = languages.count;
         NSMutableArray *languageItems = [NSMutableArray arrayWithCapacity:count];
         for (NSUInteger x = 0; x < count; x++) {
-            OpenSubtitleLanguageResult *result = langauges[x];
+            OpenSubtitleLanguageResult *result = languages[x];
             VLCSubtitleLanguage *item = [[VLCSubtitleLanguage alloc] init];
             item.ID = result.subLanguageID;
             item.iso639Language = result.iso639Language;
@@ -134,7 +134,7 @@ NSString *VLCOSOFetcherUserAgentKey = @"VLSub 0.11.0";
                 }
             }
         } else
-            NSLog(@"%s: path %@ error %@", __PRETTY_FUNCTION__, path, error);
+            APLog(@"%s: path %@ error %@", __PRETTY_FUNCTION__, path, error);
     }];
 }
 
