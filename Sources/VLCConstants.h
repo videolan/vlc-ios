@@ -125,6 +125,9 @@
 #define kVLCWifiAuthentificationFailure 1
 #define kVLCWifiAuthentificationBanned 2
 
+#define kVLCSortDefault @"SortDefault"
+#define kVLCSortDescendingDefault @"SortDescendingDefault"
+
 /* LEGACY KEYS, DO NOT USE IN NEW CODE */
 #define kVLCFTPServer @"ftp-server"
 #define kVLCFTPLogin @"ftp-login"

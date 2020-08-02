@@ -61,6 +61,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                 return
             }
             self?.model.sort(by: sortingCriteria, desc: header.actionSwitch.isOn)
+            if let model = self?.model {
+                UserDefaults.standard.set(sortingCriteria.rawValue, forKey: "\(kVLCSortDefault)\(model.name)")
+            }
             self?.sortActionSheet.removeActionSheet()
         }
         return actionSheet
@@ -222,6 +225,23 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
         reloadData()
+    }
+
+    func loadSort() {
+        let sortingCriteria: VLCMLSortingCriteria
+        if let sortingCriteriaDefault = UserDefaults.standard.value(forKey: "\(kVLCSortDefault)\(model.name)") as? UInt {
+            sortingCriteria = VLCMLSortingCriteria(rawValue: sortingCriteriaDefault) ?? model.sortModel.currentSort
+        } else {
+            sortingCriteria = model.sortModel.currentSort
+        }
+        let desc = UserDefaults.standard.bool(forKey: "\(kVLCSortDescendingDefault)\(model.name)")
+        self.model.sort(by: sortingCriteria, desc: desc)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        loadSort()
     }
 
     @objc func themeDidChange() {
@@ -787,6 +807,7 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
     func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader,
                                       onSwitchIsOnChange: Bool) {
         model.sort(by: model.sortModel.currentSort, desc: onSwitchIsOnChange)
+        UserDefaults.standard.set(onSwitchIsOnChange, forKey: "\(kVLCSortDescendingDefault)\(model.name)")
     }
 }
 
