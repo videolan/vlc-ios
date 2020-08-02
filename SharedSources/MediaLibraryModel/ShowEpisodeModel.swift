@@ -22,6 +22,8 @@ class ShowEpisodeModel: MediaModel {
 
     var medialibrary: MediaLibraryService
 
+    var name: String = "EPISODES"
+
     var indicatorName: String = NSLocalizedString("EPISODES", comment: "")
 
     required init(medialibrary: MediaLibraryService) {

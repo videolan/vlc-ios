@@ -22,6 +22,8 @@ class AlbumModel: AudioCollectionModel {
 
     var medialibrary: MediaLibraryService
 
+    var name: String = "ALBUMS"
+
     var indicatorName: String = NSLocalizedString("ALBUMS", comment: "")
 
     required init(medialibrary: MediaLibraryService) {

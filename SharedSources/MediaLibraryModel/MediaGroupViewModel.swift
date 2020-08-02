@@ -21,6 +21,8 @@ class MediaGroupViewModel: MLBaseModel {
 
     var medialibrary: MediaLibraryService
 
+    var name: String = "VIDEO_GROUPS"
+
     var indicatorName: String = NSLocalizedString("VIDEO_GROUPS", comment: "")
 
     required init(medialibrary: MediaLibraryService) {

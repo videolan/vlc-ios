@@ -22,6 +22,8 @@ class PlaylistModel: MLBaseModel {
 
     var medialibrary: MediaLibraryService
 
+    var name: String = "PLAYLISTS"
+
     var indicatorName: String = NSLocalizedString("PLAYLISTS", comment: "")
 
     required init(medialibrary: MediaLibraryService) {

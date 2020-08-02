@@ -30,6 +30,9 @@ protocol MediaLibraryBaseModel {
     func anyAppend(_ item: VLCMLObject)
     func anyDelete(_ items: [VLCMLObject])
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool)
+
+    // Give a name to a model to identify each model programmatically
+    var name: String { get }
 }
 
 protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {

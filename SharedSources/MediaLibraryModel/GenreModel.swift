@@ -22,6 +22,8 @@ class GenreModel: AudioCollectionModel {
 
     var medialibrary: MediaLibraryService
 
+    var name: String = "GENRES"
+
     var indicatorName: String = NSLocalizedString("GENRES", comment: "")
 
     required init(medialibrary: MediaLibraryService) {

@@ -25,6 +25,8 @@ class CollectionModel: MLBaseModel {
 
     var cellType: BaseCollectionViewCell.Type { return MediaCollectionViewCell.self }
 
+    var name: String = "Collections"
+
     // No indicator for this model so no localization needed.
     var indicatorName: String = "Collections"
 

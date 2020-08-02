@@ -22,6 +22,8 @@ class TrackModel: MediaModel {
 
     var medialibrary: MediaLibraryService
 
+    var name: String = "SONGS"
+
     var indicatorName: String = NSLocalizedString("SONGS", comment: "")
 
     required init(medialibrary: MediaLibraryService) {
