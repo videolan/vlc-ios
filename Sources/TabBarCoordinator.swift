@@ -25,6 +25,7 @@ class TabBarCoordinator: NSObject {
     }
 
     private func setup() {
+        tabBarController.delegate = self
         setupViewControllers()
         setupEditToolbar()
         updateTheme()
@@ -65,6 +66,7 @@ class TabBarCoordinator: NSObject {
         ]
 
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
+        tabBarController.selectedIndex = UserDefaults.standard.integer(forKey: kVLCTabBarIndex)
     }
 
     func handleShortcutItem(_ item: UIApplicationShortcutItem) {
@@ -112,6 +114,13 @@ private extension TabBarCoordinator {
             editToolbar.topAnchor.constraint(equalTo: guide.topAnchor),
             editToolbar.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
         ])
+    }
+}
+
+extension TabBarCoordinator: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let viewControllerIndex: Int = tabBarController.viewControllers?.firstIndex(of: viewController) ?? 0
+        UserDefaults.standard.set(viewControllerIndex, forKey: kVLCTabBarIndex)
     }
 }
 
