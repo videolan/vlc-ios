@@ -263,7 +263,7 @@ extension SettingsController {
         case .privacy:
             let privacy = PrivacyOptions(rawValue: indexPath.row)
             let isPasscodeOn = userDefaults.bool(forKey: kVLCSettingPasscodeOnKey)
-            if indexPath.row == 1 {
+            if indexPath.row == PrivacyOptions.enableBiometrics.rawValue {
                 if !isPasscodeOn || privacy?.preferenceKey == nil {
                     //If Passcode Lock Switch is off or Biometric Row Preference Key returns nil
                     //We hide the cell
