@@ -61,6 +61,7 @@ class SettingsController: UITableViewController {
                                        selectedImage: UIImage(named: "Settings"))
         self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
         tableView.separatorStyle = .none
+        tableView.cellLayoutMarginsFollowReadableWidth = false //Fix for iPad
         view.backgroundColor = PresentationTheme.current.colors.background
         actionSheet.modalPresentationStyle = .custom
         guard let localDict = getLocaleDictionary() else { return }
