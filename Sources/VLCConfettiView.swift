@@ -20,6 +20,7 @@ public class VLCConfettiView: UIView {
     var emitter: CAEmitterLayer!
     public var intensity: Float!
     private var active: Bool!
+    private var dots: [CGImage?]!
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -34,6 +35,7 @@ public class VLCConfettiView: UIView {
     func setup() {
         intensity = 0.5
         active = false
+        dots = [UIImage(named: "dot1")!.cgImage, UIImage(named: "dot2")!.cgImage, UIImage(named: "dot3")!.cgImage]
     }
 
     @objc public func startConfetti() {
@@ -69,7 +71,7 @@ public class VLCConfettiView: UIView {
         confetti.spinRange = CGFloat(4.0 * intensity)
         confetti.scaleRange = CGFloat(intensity)
         confetti.scaleSpeed = CGFloat(-0.1 * intensity)
-        confetti.contents = UIImage(named: "confettiCone")!.cgImage
+        confetti.contents = dots.randomElement()!
         return confetti
     }
 
