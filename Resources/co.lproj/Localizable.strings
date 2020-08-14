@@ -434,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "Raggruppà a selezzione";
 "BUTTON_REGROUP_HINT" = "Pruvà di raggruppà autumaticamente i schedarii multimedia isulati.";
 "BUTTON_REGROUP_DESCRIPTION" = "Site sicuru di vulè raggruppà autumaticamente i schedarii multimedia isulati ?\nForse piglierà un pocu di tempu.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
