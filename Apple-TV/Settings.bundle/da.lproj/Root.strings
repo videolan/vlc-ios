@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatisk";
 "SETTINGS_PRIVACY_SUBTITLE" = "Åbn i Indstillinger";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Sikker adgang til dit indhold";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Dit medie vil være skjult i programmet Filer";
 
 "SETTINGS_DARKTHEME" = "Udseende";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tidsudstrækning af lyd";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Adgangskodelås";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Tillad Touch ID at låse op";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Tillad Face ID at låse op";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Skjul mediebiblioteket i Filer";
 "SETTINGS_VIDEO_FULLSCREEN" = "Afspil video i fuldskærm";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Fortsæt videoafspilning";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Fortsæt lydafspilning";
@@ -82,9 +84,9 @@
 "SETTINGS_HWDECODING" = "Hardwareafkodning";
 "SETTINGS_HWDECODING_ON" = "Til";
 "SETTINGS_HWDECODING_OFF" = "Fra";
-"SETTINGS_CASTING" = "Casting";
-"SETTINGS_PTCASTING" = "Audio Passthrough";
-"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING" = "Udsendelse";
+"SETTINGS_PTCASTING" = "Lydgennemsendelse";
+"SETTINGS_PTCASTINGLONG" = "Lad dit tv håndtere lydgenerering";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Send feedback";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 understøttelse til WiFi deling";
-"SETTINGS_UNLINK_DROPBOX" = "Fjern forbindelse til Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Fjern forbindelse til Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Fjern forbindelse til OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Tekstkodning for FTP-forbindelser";
 
 "SETTINGS_ARTWORK" = "Billede";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download billede";

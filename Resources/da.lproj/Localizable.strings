@@ -104,7 +104,7 @@
 "FOLDER_EMPTY" = "Tom mappe";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Vælg en fil at åbne:";
-"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Åbn i...";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Åbn i ...";
 "SHARING_ERROR_NO_FILES" = "Kunne ikke finde nogen filer at dele";
 "SHARING_ERROR_NO_APPLICATIONS" = "Kunne ikke finde nogen apps, der kan åbne denne filtype";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Filen blev gemt i kamerarullen";
@@ -151,7 +151,7 @@
 "NUM_OF_FILES" = "%i filer";
 "ONE_FILE" = "1 fil";
 "NO_FILES" = "Ingen understøttede filer";
-"DOWNLOADING" = "Downloader...";
+"DOWNLOADING" = "Downloader ...";
 "REMAINING_TIME" = "Resterende tid: %@";
 "BIOMETRIC_UNLOCK" = "Lås mediebibliotek op\nAnnuller for at indtaste adgangskode";
 
@@ -263,7 +263,7 @@
 "HTTP_SERVER_OFF" = "Aktivér fjernafspilning";
 "CACHED_MEDIA" = "Cached medie";
 "CACHED_MEDIA_LONG" = "Medier der vises her er gemt lokalt på dit Apple TV. Bemærk at indhold når som helst kan blive fjernet af styresystemet uden forudgående besked, når VLC ikke kører, hvis din enhed løber tør for lagerplads.";
-"DOWNLOAD_SUBS_FROM_OSO" = "Downloader undertekster fra OpenSubtitles.org...";
+"DOWNLOAD_SUBS_FROM_OSO" = "Downloader undertekster fra OpenSubtitles.org ...";
 "FOUND_SUBS" = "Fundne undertekster";
 "USE_SPDIF" = "Brug gennemløb (S/PDIF)";
 
@@ -434,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "Omgruppér markering";
 "BUTTON_REGROUP_HINT" = "Forsøg automatisk at omgruppere enkelte medier.";
 "BUTTON_REGROUP_DESCRIPTION" = "Er du sikker på, at du vil forsøge at omgruppere enkelte medier automatisk?\nDet kan tage noget tid.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Placer medier her for at tilføje them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Tilføjer ...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
