@@ -72,11 +72,10 @@
 "PRIVATE_PLAYBACK_TOGGLE" = "Redare Privată";
 "SCAN_SUBTITLE_TOGGLE" = "Caută subtitrări (doar http)";
 
-"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER" = "Dispozitive proiecție";
 "BUTTON_RENDERER_HINT" = "Afișează un meniu din dispozitivele disponibile";
 
 "UPGRADING_LIBRARY" = "Actualizare mediatecă";
-"UNKNOWN" = "Necunoscut";
 
 "OPEN_NETWORK" = "Deschidere Flux Rețea";
 "NETWORK_TITLE" = "Flux de rețea";
@@ -112,7 +111,7 @@
 
 "STREAMVC_DETAILTEXT" = " Redare fluxuri direct, fără descărcare ";
 "DOWNLOADVC_DETAILTEXT" = "Descărcare fișiere direct în dispozitiv";
-"HEADER_TITLE_RENDERER" = "Select a casting device";
+"HEADER_TITLE_RENDERER" = "Alege dispozitiv proiecție";
 
 "NETWORK" = "Rețea";
 "LOCAL_NETWORK" = "Rețea Locală";
@@ -144,7 +143,7 @@
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "A apărut o eroare la descărcare";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "EROARE";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "Fișierul media ales nu are un URL valid";
 
 "DISK_FULL" = "Limita de stocare atinsa";
 "DISK_FULL_FORMAT" = "%@ nu poate fi stocat pe %@, deoarece nu există spațiu suficient.";
@@ -157,8 +156,8 @@
 "BIOMETRIC_UNLOCK" = "Deblocare bibliotecă Media \nAnulare pentru a introduce parola";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"%d Failed Passcode Attempts" = "%d (de) încercări eșuate de parolă";
+"1 Failed Passcode Attempt" = "O încercare eșuată de parolă";
 "Change Passcode" = "Modificare parolă";
 "Enter Passcode" = "Introduceți parola";
 "Enter a passcode" = "Introduceți o parolă";
@@ -178,8 +177,8 @@
 "EMPTY_LIBRARY" = "Golire mediatecă";
 "EMPTY_LIBRARY_LONG" = "Pentru redare, puteţi folosi fluxul media de pe un server, pe reţeaua dvs. locală,  din cloud sau vă puteţi sincroniza fişierele media pe dispozitivul dvs., folosind iTunes, Încărcare WiFi ori servicii de tip Cloud.";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
-"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+"EMPTY_PLAYLIST" = "Listă redare goală";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Adaugă fișiere media în timp ce modifici categoriile respective";
 
 "PLAYBACK_SCRUB_HELP" = "Glisaţi degetul în jos pentru ajustarea ratei de redare.";
 "PLAYBACK_SCRUB_HIGH" = "Rată Redare Viteză-Mare";
@@ -240,7 +239,7 @@
 "WEBINTF_URL_SENT" = "Adresa URL trimisă cu succes.";
 "WEBINTF_URL_EMPTY" = "Adresa URL nu poate fi goală.";
 "WEBINTF_URL_INVALID" = "Adresă URL nevalidă.";
-"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
+"WEBINTF_AUTH_REQUIRED" = "Introdu parola setată în VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
 "WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
 
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex Media Server (via Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "Protocol de transfer fișiere (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Servere de fișiere BONJOUR";
 "DSM_WORKGROUP" = "Rețea";
@@ -384,7 +386,7 @@
 "VARIOUS_ARTIST" = "Various Artists";
 "UNKNOWN_ALBUM" = "Unknown Album";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
 "MORE_OPTIONS_BUTTON" = "More";
@@ -432,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";

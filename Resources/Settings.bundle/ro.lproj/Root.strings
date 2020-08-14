@@ -4,27 +4,29 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_BRIGHT" = "Temă luminată";
+"SETTINGS_THEME_DARK" = "Temă întunecată";
+"SETTINGS_THEME_SYSTEM" = "Automat";
 "SETTINGS_PRIVACY_SUBTITLE" = "Deschide în Setări";
-"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Acces în siguranță la conținutul dvs.";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Acces în siguranță la conținutul tău";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Aspect";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio întindere-timp";
 "SETTINGS_BACKGROUND_AUDIO" = "Redare audio în fundal";
 "SETTINGS_GENERIC_TITLE" = "Generic";
 "SETTINGS_PASSCODE_LOCK" = "Cod pentru deblocare";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
-"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permiteți Face ID pentru deblocare";
-"SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
-"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
-"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
-"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Never";
-"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
-"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Always";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permite Face ID pentru deblocare";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_VIDEO_FULLSCREEN" = "Redă video pe tot ecranul";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continuă redarea video";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continuă redarea audio";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Niciodată";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Întreabă";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Întotdeauna";
 "SETTINGS_NETWORK_PLAY_ALL" = "Redă automat următoarea piesă";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Activați derularea textului în lista media";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtru de deblocare";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Fără deblocare (cel mai rapid)";
@@ -41,12 +43,12 @@
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Viteza prestabilita de redare";
 
 "SETTINGS_GESTURES" = "Control redare prin gesturi";
-"SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
-"SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
-"SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
-"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
+"SETTINGS_GESTURES_VOLUME" = "Glisează în sus/jos pentru volum";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Atinge cu două degete pentru play/pauză";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Glisează în sus/jos pentru luminozitate ";
+"SETTINGS_GESTURES_SEEK" = "Glisează la dreapta/stânga pentru a căuta";
+"SETTINGS_GESTURES_CLOSE" = "Ciupește pentru a închide";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Durată de salt variabilă";
 
 "SETTINGS_SUBTITLES_TITLE" = "Subtitrări";
 "SETTINGS_SUBTITLES_FONT" = "Font";
@@ -57,49 +59,48 @@
 "SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "Normală";
 "SETTINGS_SUBTITLES_FONTSIZE_LARGE" = "Mare";
 "SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "Cea mai mare";
-"SETTINGS_SUBTITLES_BOLDFONT" = "Folosire font Îngroşat";
+"SETTINGS_SUBTITLES_BOLDFONT" = "Folosire font îngroşat";
 "SETTINGS_SUBTITLES_FONTCOLOR" = "Culoarea fontului";
-"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "Albă";
-"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "Neagră";
+"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "Alb";
+"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "Negru";
 "SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "Gri";
-"SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "Argintie";
-"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "Roșie";
-"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "Fucsie";
-"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Galbenă";
+"SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "Argintiu";
+"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "Roșu";
+"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "Fucsiu";
+"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Galben";
 "SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Verde";
 "SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Bleumarin";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Densitate contur";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Grosime contur";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Niciuna";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Subţire";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normală";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Densă";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normal";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Gros";
 
 "SETTINGS_DEINTERLACE" = "Deîntrețesere";
 "SETTINGS_DEINTERLACE_ON" = "Pornit";
 "SETTINGS_DEINTERLACE_OFF" = "Oprit";
-"SETTINGS_DEINTERLACE_AUTO" = "Automatic";
+"SETTINGS_DEINTERLACE_AUTO" = "Automat";
 
 "SETTINGS_HWDECODING" = "Decodare hardware";
 "SETTINGS_HWDECODING_ON" = "Pornit";
 "SETTINGS_HWDECODING_OFF" = "Oprit";
+"SETTINGS_CASTING" = "Redare la distanță";
+"SETTINGS_PTCASTING" = "Redare audio la distanță";
+"SETTINGS_PTCASTINGLONG" = "Gestionează randarea audio pe televizor";
 
 "SETTINGS_FEEDBACK" = "Feedback";
-"SETTINGS_SEND_FEEDBACK" = "Send Feedback";
-"SETTINGS_SEND_RATING" = "Please Rate VLC for iOS";
+"SETTINGS_SEND_FEEDBACK" = "Trimite feedback";
+"SETTINGS_SEND_RATING" = "Lasă o recenzie pentru VLC pe iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
-"SETTINGS_DECRAPIFY" = "Optimizează pentru afişare numele obiectelor.";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_MEDIA_LIBRARY" = "Mediatecă";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forțează VLC să rescaneze mediateca";
+"SETTINGS_DECRAPIFY" = "Optimizează numele obiectelor pentru afişare";
+"SETTINGS_SHOW_THUMBNAILS" = "Arată miniaturi video";
+"SETTINGS_SHOW_ARTWORKS" = "Arată grafica de album";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include mediateca în copia de siguranță a dispozitivului";
 
-"SETTINGS_FILE_SYNC" = "Sincronizarea fișierului";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for WiFi Sharing";
-"SETTINGS_UNLINK_DROPBOX" = "Deconectare de pe Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Deconectare de pe Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Unlink from OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Criptarea textului pentru conexiunile de tip FTP";
+"SETTINGS_FILE_SYNC" = "Sincronizare fișier";
+"SETTINGS_WIFISHARING_IPv6" = "Suport IPv6 pentru partajare WiFi";
 
 "SETTINGS_ARTWORK" = "Grafică de album";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Descarcă grafică de album";
