@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automàtic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Obre a Configuració";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accedeix de forma segura al teu contingut";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Aparença";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Canvi de velocitat de l'àudio";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Bloqueig amb codi";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permet Face ID per desbloquejar";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
@@ -82,9 +84,9 @@
 "SETTINGS_HWDECODING" = "Descodificació per maquinari";
 "SETTINGS_HWDECODING_ON" = "Engegat";
 "SETTINGS_HWDECODING_OFF" = "Apagat";
-"SETTINGS_CASTING" = "Casting";
-"SETTINGS_PTCASTING" = "Audio Passthrough";
-"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING" = "Buidatge";
+"SETTINGS_PTCASTING" = "Convertidor d'àudio";
+"SETTINGS_PTCASTINGLONG" = "Deixa que el teu TV gestioni la reproducció d'àudio";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Send Feedback";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "Sincronització de fitxers";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for WiFi Sharing";
-"SETTINGS_UNLINK_DROPBOX" = "Desvincula del Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Desvincula del Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Unlink from OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Codificant el text per connexions FTP";
 
 "SETTINGS_ARTWORK" = "Il·lustracions";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Baixa il·lustracions";

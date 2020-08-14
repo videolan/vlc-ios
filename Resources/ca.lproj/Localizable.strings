@@ -1,33 +1,33 @@
-"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through WiFi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC per a iOS és el reproductor gratuït VLC media player per a iPad, iPhone i iPod touch.\nPot reproduir pel·lícules, programes i música en la majoria dels formats directament sense conversió.\nPermet la sincronització amb Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, directament i a través de compartir Wifi, així com streaming de SMB, FTP, UPnP/DLNA per servidors i web.\nVLC ofereix suport per a subtítols avançats, incloent compatibilitat amb SSA, àudio multipista i control de la velocitat de reproducció.\n\nVLC per a iOS és completament lliure i de codi obert.";
 
-"STORE_DESCRIPTION_TV" = "VLC media player is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows streaming from cloud services (Dropbox, OneDrive, Box), Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.\n\nMetadata and artwork are provided by TMDb and Hatchet, which are community maintained movie and music databases.";
+"STORE_DESCRIPTION_TV" = "VLC media player és un reproductor multimèdia i multiplataforma gratuït i de codi obert.\nPot reproduir pel·lícules, programes i música en la majoria dels formats sense conversió.\nPermet streaming des de serveis de núvol (Dropbox, OneDrive, Box), reproducció remota des del vostre Mac o PC via un Web UI o streaming des d'SMB, FTP, UPnP/DLNA de servidors i web.\nVLC ofereix suport per a subtítols avançats, incloent compatibilitat amb SSA, àudio multipista i control de la velocitat de reproducció.\n\nVLC per a iOS és completament lliure i  de codi obert.\n\nLa metadada i l'obra d'art són proporcionades per TMDb i Hatchet, que són bases de dades de pel·lícules i música mantingudes per la comunitat.";
 
 "CHOOSE_AUDIO_TRACK" = "Trieu la pista d'àudio";
 "CHOOSE_SUBTITLE_TRACK" = "Trieu la pista de subtítol";
-"OPEN_TRACK_PANEL" = "Open track selection";
+"OPEN_TRACK_PANEL" = "Obre Selecció de pista";
 "CHOOSE_TITLE" = "Trieu el títol";
 "CHOOSE_CHAPTER" = "Trieu el càpitol";
 "CHAPTER_SELECTION_TITLE" = "Capítols";
 "TITLE" = "Títol";
 "CHAPTER" = "Capítol";
-"MINIMIZE_PLAYBACK_VIEW" = "Minimize playback";
-"TRACK_SELECTION" = "Track Selection";
+"MINIMIZE_PLAYBACK_VIEW" = "Minimitza la reproducció";
+"TRACK_SELECTION" = "Selecció de pista";
 "AUDIO" = "Àudio";
 "SUBTITLES" = "Subtítols";
 "LANGUAGE" = "Llengua";
 "MEDIA_INFO" = "Informació multimèdia";
-"VIDEO_DIMENSIONS" = "Video dimensions";
+"VIDEO_DIMENSIONS" = "Dimensions del vídeo";
 "FORMAT_VIDEO_DIMENSIONS" = "%ix%i píxel";
-"FORMAT_AUDIO_TRACKS" = "%i audio tracks";
-"ONE_AUDIO_TRACK" = "One audio track";
-"FORMAT_SPU_TRACKS" = "%i subtitles tracks";
-"ONE_SPU_TRACK" = "One subtitles track";
+"FORMAT_AUDIO_TRACKS" = "%iPistes d'àudio";
+"ONE_AUDIO_TRACK" = "Una pista d'àudio";
+"FORMAT_SPU_TRACKS" = "%i Pistes de subtítols";
+"ONE_SPU_TRACK" = "Una pista de subtítols";
 "TRACKS" = "%i pistes";
 "TRACK" = "%i pista";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV connectada";
 "PLAYING_EXTERNALLY_DESC" = "Aquest vídeo s'està reproduint a la TV";
-"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
+"PLAYING_EXTERNALLY_ADDITION" = "\nReproduint:"; /* \n should stay in every translation */
 
 "VFILTER_HUE" = "To de color";
 "VFILTER_CONTRAST" = "Contrast";
@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Saturació";
 "VFILTER_GAMMA" = "Gamma";
 
-"PREAMP" = "Preamp";
+"PREAMP" = "Preamplifica";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Trieu un perfil d'equalizador";
 
@@ -45,12 +45,12 @@
 "DEFAULT" = "Per defecte";
 "FILL_TO_SCREEN" = "Escapça per ajustar a la pantalla";
 "PLAYBACK_SPEED" = "Velocitat de reproducció";
-"SPU_DELAY" = "Subtitles delay";
-"AUDIO_DELAY" = "Audio delay";
+"SPU_DELAY" = "Retard dels subtítols";
+"AUDIO_DELAY" = "Retard de l'àudio";
 "BUTTON_SLEEP_TIMER" = "Temporitzador";
-"SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
+"SLEEP_TIMER_UPDATED" = "Actualitzat el Temporitzador";
 "CONTINUE_PLAYBACK" = "Voleu continuar la reproducció?";
-"CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
+"CONTINUE_PLAYBACK_LONG" = "Vols continuar reproduint \"%@\" on ho vas deixar?";
 
 "BUTTON_ABOUT" = "Quant a";
 "BUTTON_BACK" = "Endarrere";
@@ -64,16 +64,16 @@
 "BUTTON_CONNECT" = "Connecta";
 "BUTTON_RENAME" = "Canvia el nom";
 "BUTTON_LEARN_MORE" = "Per saber més";
-"BUTTON_LOGOUT" = "Logout";
+"BUTTON_LOGOUT" = "Tancar la sessió";
 "BUTTON_CONTINUE" = "Continua";
-"BUTTON_SET" = "Set";
-"BUTTON_RESET" = "Reset";
-"BUTTON_RESCAN" = "Rescan";
+"BUTTON_SET" = "Configura";
+"BUTTON_RESET" = "Inicialitza";
+"BUTTON_RESCAN" = "Re-escanaig";
 "PRIVATE_PLAYBACK_TOGGLE" = "Reproducció privada";
-"SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
+"SCAN_SUBTITLE_TOGGLE" = "Escanejar Subtítols (només http)";
 
-"BUTTON_RENDERER" = "Casting devices";
-"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+"BUTTON_RENDERER" = "Dispositius de buidatge";
+"BUTTON_RENDERER_HINT" = "Mostra un menú de dispositius de buidatge";
 
 "UPGRADING_LIBRARY" = "Actualitza la biblioteca de medis";
 
@@ -83,7 +83,7 @@
 "HTTP_UPLOAD_SERVER_OFF" = "Servidor inactiu";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "Cap connexió WiFi activa";
 "OPEN_STREAM_OR_DOWNLOAD" = "Voleu baixar or reproduir aquesta URL?";
-"SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
+"SHARED_VLC_IOS_LIBRARY" = "VLC compartit per a la Biblioteca iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servidors de fitxers (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
@@ -96,22 +96,22 @@
 "ERROR_NUMBER" = "S'ha produït un error %i";
 "DOWNLOAD_FAILED" = "S'ha produït un error en la baixada";
 "FILE_NOT_SUPPORTED" = "Format de fitxer no suportat";
-"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"FILE_NOT_SUPPORTED_LONG" = "El format d'arxiu utilitzat per %@ no funciona per aquesta versió de VLC per a iOS";
 "SCHEME_NOT_SUPPORTED" = "El protocol de l'esquema no és vàlid";
 "SCHEME_NOT_SUPPORTED_LONG" = "El protocol de l'esquema (%@) no és vàlid. Utilitzeu una adreça basada en una capçalera HTTP, HTTPS o FTP.";
 "RENAME_MEDIA_TO" = "Entreu un nou nom per a %@";
 
-"FOLDER_EMPTY" = "Empty folder";
+"FOLDER_EMPTY" = "Carpeta buida";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Trieu un fitxer per obrir:";
-"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Open In...";
-"SHARING_ERROR_NO_FILES" = "Could not find any files to share";
-"SHARING_ERROR_NO_APPLICATIONS" = "Could not find any applications to open this type of file";
-"SHARING_SUCCESS_CAMERA_ROLL" = "File was successfully saved to the Camera Roll";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Obrir en...";
+"SHARING_ERROR_NO_FILES" = "Cap arxiu per a compartir";
+"SHARING_ERROR_NO_APPLICATIONS" = "Cap aplicació per a obrir aquest tipus d'arxiu";
+"SHARING_SUCCESS_CAMERA_ROLL" = "L'arxiu s'ha guardat amb èxit en el Rodet";
 
-"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
-"DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
-"HEADER_TITLE_RENDERER" = "Select a casting device";
+"STREAMVC_DETAILTEXT" = "Reproduir streams directament sense descarregar";
+"DOWNLOADVC_DETAILTEXT" = "Descarrega els arxius directament al teu dispositiu";
+"HEADER_TITLE_RENDERER" = "Selecciona un dispositiu de buidatge";
 
 "NETWORK" = "Xarxa";
 "LOCAL_NETWORK" = "Xarxa local";
@@ -120,7 +120,7 @@
 "USER_LABEL" = "Usuari";
 "PASSWORD_LABEL" = "Contrasenya";
 "DISABLE_LABEL" = "Inhabilita";
-"BUTTON_ANONYMOUS_LOGIN" = "Anonymous Login";
+"BUTTON_ANONYMOUS_LOGIN" = "Inici de sessió anònim";
 
 "LOCAL_SERVER_REFRESH" = "Actualitza";
 "LOCAL_SERVER_LAST_UPDATE" = "Darrera actualització de %@";
@@ -128,10 +128,10 @@
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Comprova la teua adreça i contrasenya del servidor";
 
 "CLOUD_SERVICES" = "Serveis al núvol";
-"LOGIN" = "Login";
-"LOGGED_IN" = "Logged in";
-"LOGGED_IN_SERVICES" = "%d logged in services";
-"LOGGED_IN_SERVICE" = "1 logged in service";
+"LOGIN" = "Inici de sessió";
+"LOGGED_IN" = "Va entrar en";
+"LOGGED_IN_SERVICES" = "%d serveis connectats";
+"LOGGED_IN_SERVICE" = "1 servei connectat";
 
 "DROPBOX_DOWNLOAD" = "Voleu baixar el fitxer?";
 "DROPBOX_DL_LONG" = "Voleu baixar «%@» al vostre %@?";
@@ -143,32 +143,32 @@
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "S'ha produït una errada mentre es baixava";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "ERROR";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "El Media seleccionat no té una url reproduïble";
 
-"DISK_FULL" = "Storage limit reached";
-"DISK_FULL_FORMAT" = "%@ cannot be stored on your %@, because you don't have enough free space left.";
+"DISK_FULL" = "Límit d'emmagatzematge assolit";
+"DISK_FULL_FORMAT" = "%@ no pot ser emmagatzemat en el vostre %@, perquè no té prou d'espai lliure.";
 
 "NUM_OF_FILES" = "%i fitxers";
 "ONE_FILE" = "1 fitxer";
 "NO_FILES" = "Cap fitxer compatible";
 "DOWNLOADING" = "S'està baixant...";
 "REMAINING_TIME" = "Temps restant: %@";
-"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
+"BIOMETRIC_UNLOCK" = "Desbloquejar la Mediateca \nCancel·lar per a introduir la clau d'accés";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "Change Passcode";
-"Enter Passcode" = "Enter Passcode";
-"Enter a passcode" = "Enter a passcode";
-"Enter your new passcode" = "Enter your new passcode";
-"Enter your old passcode" = "Enter your old passcode";
-"Enter your passcode" = "Enter your passcode";
+"%d Failed Passcode Attempts" = "%d Intents fallits de claus d'accés";
+"1 Failed Passcode Attempt" = "1 intent fallit de codi d'accés";
+"Change Passcode" = "Canviï el codi d'accés";
+"Enter Passcode" = "Introduïu la clau d'accés";
+"Enter a passcode" = "Entra una clau d'accés";
+"Enter your new passcode" = "Entra la nova clau d'accés";
+"Enter your old passcode" = "Entra l'antiga clau d'accés";
+"Enter your passcode" = "Entra la clau d'accés";
 "Next" = "Endavant";
-"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
-"Re-enter your new passcode" = "Re-enter your new passcode";
-"Re-enter your passcode" = "Re-enter your passcode";
-"Set Passcode" = "Set Passcode";
+"Passcodes did not match. Try again." = "Les claus d'accés no coincideixen. Intenta-ho de nou.";
+"Re-enter your new passcode" = "Repeteix la nova clau d'accés";
+"Re-enter your passcode" = "Repeteix la clau d'accés";
+"Set Passcode" = "Estableix la nova clau d'accés";
 
 "Settings" = "Paràmetres"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "On";
@@ -177,8 +177,8 @@
 "EMPTY_LIBRARY" = "Biblioteca multimèdia buida";
 "EMPTY_LIBRARY_LONG" = "Per a la reproducció, podeu utilitzar contingut des d'un servidor de la xarxa local, al núvol, o sincronitzar el contingut multimèdia mitjançant l'iTunes, una connexió sense fils, o serveis al núvol.";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
-"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+"EMPTY_PLAYLIST" = "Llista de reproducció buida";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Agregar arxius mentre s'editen en les respectives categories.";
 
 "PLAYBACK_SCRUB_HELP" = "Feu lliscar el dit avall per ajustar la taxa de depuració.";
 "PLAYBACK_SCRUB_HIGH" = "Depuració molt ràpida";
@@ -188,7 +188,7 @@
 "PLAYBACK_POSITION" = "Posició de reproducció";
 "VIDEO_FILTER" = "Filtres de vídeo";
 "VIDEO_FILTER_RESET_BUTTON" = "Reinicia els filtres de vídeo";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Intercanvia la relació d'aspecte del vídeo";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Intercanvia la ràtio del vídeo";
 "PLAY_PAUSE_BUTTON" = "Reprodueix o pausa la reproducció actual";
 "BWD_BUTTON" = "Salta cap enrere";
 "FWD_BUTTON" = "Salta cap endavant";
@@ -210,38 +210,38 @@
 "VO_VIDEOPLAYER_DOUBLETAP" = "Feu dos tocs per mostrar o amagar els controls de reproducció";
 
 "FIRST_STEPS_ITUNES" = "Sincronització de fitxers a l'iTunes";
-"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_ITUNES_TITLE" = "Sincronitzi amb el seu ordinador";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connecta el teu dispositiu a iTunes i selecciona'l. En el menú esquerre d'iTunes selecciona \"Compartir Arxiu\"  i busca VLC per transferir els arxius";
 "FIRST_STEPS_WIFI_TITLE" = "Comparteix via WiFi";
-"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
+"FIRST_STEPS_WIFI_DETAILS" = "Introdueix la URL generada en el teu navegador mentre està connectat a la mateixa xarxa que el teu telèfon";
 "FIRST_STEPS_CLOUDS" = "Núvols";
 "FIRST_STEPS_CLOUD_TITLE" = "Núvol";
-"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
+"FIRST_STEPS_CLOUD_DETAILS" = "Puja els teus arxius a un núvol com Google Drive o Dropbox per a descarregar-los o fer streaming de forma remota.";
 
 
-"PLEX_CHECK_ACCOUNT" = "Check your Plex account in settings";
-"PLEX_ERROR_ACCOUNT" = "Plex login Error";
+"PLEX_CHECK_ACCOUNT" = "Comprovi el seu compte Plex en Configuració";
+"PLEX_ERROR_ACCOUNT" = "Error d'inici de sessió en Plex";
 
-"UNAUTHORIZED" = "Unauthorized";
+"UNAUTHORIZED" = "no autoritzat";
 
 "SERVER" = "Servidor";
 "SERVER_PORT" = "Port";
 "NO_SERVER_FOUND" = "No s'ha trobat cap servidor";
-"NO_RECENT_STREAMS" = "No stream was played recently";
+"NO_RECENT_STREAMS" = "Recentment no s'ha reproduït cap stream";
 
-"WEBINTF_TITLE" = "Sharing via WiFi";
-"WEBINTF_DROPFILES" = "Drop Files";
-"WEBINTF_DROPFILES_LONG" = "Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
-"WEBINTF_DOWNLOADFILES" = "Download Files";
-"WEBINTF_DOWNLOADFILES_LONG" = "Just click the file you want to download from your %@.";
-"WEBINTF_TITLE_ATV" = "Remote Playback";
-"WEBINTF_DROPFILES_LONG_ATV" = "Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
-"WEBINTF_URL_SENT" = "URL sent successfully.";
-"WEBINTF_URL_EMPTY" = "URL cannot be empty.";
-"WEBINTF_URL_INVALID" = "Not a valid URL.";
-"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
-"WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
-"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
+"WEBINTF_TITLE" = "Compartir per Wifi";
+"WEBINTF_DROPFILES" = "Deixa anar els arxius";
+"WEBINTF_DROPFILES_LONG" = "Deixa anar els arxius en la finestra per afegir-los al teu%@.<br>O clic en el botó \"+\" per a seleccionar arxius.";
+"WEBINTF_DOWNLOADFILES" = "Arxius baixats";
+"WEBINTF_DOWNLOADFILES_LONG" = "Has de fer clic en l'arxiu que vols descarregar del teu %@.";
+"WEBINTF_TITLE_ATV" = "Reproducció remota";
+"WEBINTF_DROPFILES_LONG_ATV" = "Deixa anar els arxius en la finestra per afegir-los al teu %@.<br>O clic en el botó \"+\" per a seleccionar arxius.";
+"WEBINTF_URL_SENT" = "URL enviada amb èxit.";
+"WEBINTF_URL_EMPTY" = "La URL no pot estar buida.";
+"WEBINTF_URL_INVALID" = "No és una URL vàlida.";
+"WEBINTF_AUTH_REQUIRED" = "Per favor entra la teva contrasenya de VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Clau de pas incorrecta.<br>Intents restants: ";
+"WEBINTF_AUTH_BANNED" = "Massa codis d'accés incorrectes.<br>. Reinicia el VLC iOS i torna a provar";
 
 
 
@@ -253,28 +253,28 @@
 // accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Long-press to stop playback.";
+"LONGPRESS_TO_STOP" = "Pulsació llarga per a parar la reprodució.";
 
 // ATV specific
-"AUDIO_INFO_VC_TITLE" = "Audio Info";
-"CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
-"ENTER_URL" = "Enter URL to play";
-"HTTP_SERVER_ON" = "Disable Remote Playback";
-"HTTP_SERVER_OFF" = "Enable Remote Playback";
-"CACHED_MEDIA" = "Cached Media";
-"CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
-"DOWNLOAD_SUBS_FROM_OSO" = "Download subtitles from OpenSubtitles.org...";
-"FOUND_SUBS" = "Found subtitles";
-"USE_SPDIF" = "Use Pass-through (S/PDIF)";
+"AUDIO_INFO_VC_TITLE" = "Informació Àudio";
+"CLOUD_LOGIN_LONG" = "Per a accedir a un núvol, inicia sessió en iCloud en aquest Apple TV i en un dispositiu iOS amb la mateixa ID d'Apple i habilita l'opció de compartir el clauer en la configuració del sistema.\nDesprés, entra al teu proveïdor de núvol usant l'aplicació VLC del teu dispositiu iOS. Finalment, selecciona-ho en aquesta pantalla.";
+"ENTER_URL" = "Introdueix la URL a reproduir";
+"HTTP_SERVER_ON" = "Desactivar la Reproducció remota";
+"HTTP_SERVER_OFF" = "Activar la Reproducció remota";
+"CACHED_MEDIA" = "Arxius multimèdia amb cau";
+"CACHED_MEDIA_LONG" = "Els fitxers mostrats aquí s'emmagatzemen localment en el seu Apple TV. Compte, en cas que el seu dispositiu es quedi sense emmagatzematge el contingut pot ser eliminat pel sistema operatiu sense previ avís quan el VLC no estigui funcionant .";
+"DOWNLOAD_SUBS_FROM_OSO" = "Descàrrega de subtítols d'OpenSubtitles.org...";
+"FOUND_SUBS" = "Subtítols trobats";
+"USE_SPDIF" = "Utilitza el mòdul (S/PDIF)";
 
-"PLAYBACK" = "Playback";
-"REPEAT_MODE" = "Repeat";
-"REPEAT_DISABLED" = "Disabled";
-"REPEAT_SINGLE" = "Single";
+"PLAYBACK" = "Reproducció";
+"REPEAT_MODE" = "Repeteix";
+"REPEAT_DISABLED" = "Desactivat";
+"REPEAT_SINGLE" = "Sol";
 "REPEAT_FOLDER" = "Carpeta";
 
 // Local Network Service Names
-"UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
+"UPNP_LONG" = "Plug'n'Play Universal (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
 "PLEX_LONG" = "Plex Media Server (via Bonjour)";
@@ -292,19 +292,19 @@
 "URL_NOT_SUPPORTED" = "No es pot obrir l'URL";
 
 // Insert %@ where play-pause-glyph should be placed
-"DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
+"DELETE_ITEM_HINT" = "Prem %@ per Esborrar"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Confirm the deletion of the selection";
-"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
-"DELETE_TITLE" = "Delete Selection";
+"DELETE_MESSAGE" = "Confirmeu l'eliminació d'aquesta selecció?";
+"DELETE_MESSAGE_PLAYLIST" = "Estàs segur d'esborrar la llista de reproducció seleccionada?\nEls arxius associats no seran eliminats.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Està segur d'eliminar els arxius seleccionats de la llista de reproducció?\nNo s'esborraran del disc.";
+"DELETE_TITLE" = "Elimina la selecció";
 
 //Drag and Drop
 "THIS_FILE" = "Aquest fitxer";
-"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
-"FILE_EXISTS" = "%@ already exists";
+"NOT_SUPPORTED_FILETYPE" = "%@ és un tipus d'arxiu no suportat per VLC";
+"FILE_EXISTS" = "%@ ja existeix";
 
-"PROTOCOL_NOT_SELECTED" = "Protocol not selected";
+"PROTOCOL_NOT_SELECTED" = "Protocol no seleccionat";
 "Settings" = "Paràmetres";
 
 "ERROR" = "Error";
@@ -319,62 +319,62 @@
 "ARTISTS" = "Artistes";
 "EPISODES" = "Episodis";
 "GENRES" = "Gèneres";
-"ALL_VIDEOS" = "All videos";
+"ALL_VIDEOS" = "Tots els vídeos";
 "SONGS" = "Cançons";
 "PLAYLISTS" = "Llistes de reproducció";
-"VIDEO_GROUPS" = "Video groups";
+"VIDEO_GROUPS" = "Grups de vídeos";
 
-"MODIFIED_DATE" = "Modified date";
+"MODIFIED_DATE" = "Data modificada";
 "NAME" = "Nom";
 
 //EDIT
 
 "BUTTON_EDIT" = "Edita";
-"BUTTON_EDIT_HINT" = "Edit mode";
+"BUTTON_EDIT_HINT" = "Mode edició";
 
 "ADD_TO_PLAYLIST" = "Afegeix a la llista de reproducció";
-"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
+"ADD_TO_PLAYLIST_HINT" = "Obrir el menú \"Afegir a la llista de reproducció\".";
 
-"PLAYLIST_PLACEHOLDER" = "Playlist title";
+"PLAYLIST_PLACEHOLDER" = "Títol de la Llista de reproducció";
 "PLAYLIST_DESCRIPTION" = "Trieu un títol per a la llista de reproducció nova";
 "PLAYLIST_CREATION" = "Crea una llista de reproducció nova";
-"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
-"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
-"ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
+"PLAYLIST_CREATION_HINT" = "Mostrar una acció interactiva per a crear una Llista de reproducció";
+"ERROR_PLAYLIST_CREATION" = "No s'ha creat una Llista de reproducció";
+"ERROR_PLAYLIST_TRACKS" = "Ha fallat la recuperació de pistes";
 
-"ERROR_RENAME_FAILED" = "Renaming failed";
-"ERROR_EMPTY_NAME" = "The title can't be empty";
+"ERROR_RENAME_FAILED" = "El canvi de nom ha fallat";
+"ERROR_EMPTY_NAME" = "El títol no pot estar buit";
 
 "SHARE_LABEL" = "Comparteix";
-"SHARE_HINT" = "Share selected files";
-"RENAME_HINT" = "Rename selected files";
-"DELETE_HINT" = "Delete selected files";
+"SHARE_HINT" = "Compartir els arxius seleccionats";
+"RENAME_HINT" = "Canviar de nom els arxius seleccionats";
+"DELETE_HINT" = "Elimina els arxius seleccionats";
 
 // Sort
 
 "BUTTON_SORT" = "Ordena";
-"BUTTON_SORT_HINT" = "Display sort action sheet";
+"BUTTON_SORT_HINT" = "Mostrar fulla d'ordenació";
 "HEADER_TITLE_SORT" = "Ordena per";
 "DESCENDING_LABEL" = "Ordre descendent";
-"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
-"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"DESCENDING_SWITCH_LABEL" = "Ordre ascendent o descendent";
+"DESCENDING_SWITCH_HINT" = "Ordenar el context en ordre ascendent o descendent";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
-"ALPHA" = "Alphanumerically";
+"ALPHA" = "Alfanumèricament";
 "DURATION" = "Durada";
-"INSERTION_DATE" = "Insertion date";
-"LAST_MODIFICATION_DATE" = "Last modification date";
-"RELEASE_DATE" = "Release date";
+"INSERTION_DATE" = "Data d'inserció";
+"LAST_MODIFICATION_DATE" = "Data de l'última modificació";
+"RELEASE_DATE" = "Alliberar Data";
 "FILE_SIZE" = "Mida del fitxer";
 "ARTIST" = "Artista";
-"PLAY_COUNT" = "Play count";
+"PLAY_COUNT" = "Comptador";
 "ALBUM" = "Album";
 "FILENAME" = "Nom del fitxer";
 "TRACK_NUMBER" = "Número de pista";
-"NB_AUDIO" = "Number of audio";
-"NB_MEDIA" = "Number of media";
-"NB_VIDEO" = "Number of video";
+"NB_AUDIO" = "Nombre d'àudio";
+"NB_MEDIA" = "Nombre de multimèdia";
+"NB_VIDEO" = "Número de vídeo";
 
 // VLCNetworkLoginTVViewController
 
@@ -383,54 +383,64 @@
 // MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Artista desconegut";
-"VARIOUS_ARTIST" = "Various Artists";
+"VARIOUS_ARTIST" = "Diferents artistes";
 "UNKNOWN_ALBUM" = "Àlbum desconegut";
 
 /* VideoSubControl */
-"INTERFACE_LOCK_BUTTON" = "Lock interface";
-"INTERFACE_LOCK_HINT" = "Disable interface controls";
+"INTERFACE_LOCK_BUTTON" = "Bloqueja la interfície";
+"INTERFACE_LOCK_HINT" = "Desactiva controls d'interfície";
 "MORE_OPTIONS_BUTTON" = "Més";
-"MORE_OPTIONS_HINT" = "View more option controls";
-"REPEAT_MODE_HINT" = "Change repeat mode of current item";
-"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+"MORE_OPTIONS_HINT" = "Veure més controls d'opcions";
+"REPEAT_MODE_HINT" = "Canvia el mode de repetició l'element actual";
+"VIDEO_ASPECT_RATIO_HINT" = "Canviar la ràtio del vídeo actual";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equalitzador";
 "MORE_OPTIONS_HEADER_TITLE" = "Opcions de vídeo";
 
 /* Settings - Force rescan alert */
-"FORCE_RESCAN_TITLE" = "Force media library rescan";
-"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
+"FORCE_RESCAN_TITLE" = "Forçar el re-escaneig de, la Mediateca";
+"FORCE_RESCAN_MESSAGE" = "Vols forçar a VLC a re-escanejar la teva mediateca?\nPodria ser llarg.";
 
 // Local Network
 
-"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
-"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
-"SMBV1_CONTINUE" = "Continue with SMBv1";
-"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+"SMBV1_WARN_TITLE" = "Avís de connexió SMBv1";
+"SMBV1_WARN_DESCRIPTION" = "S'ha detectat un protocol SMBv1 antic.\nVols continuar amb SMBv1?\nEs recomana  actualitzar o canviar la configuració del seu servidor.";
+"SMBV1_CONTINUE" = "Continuar amb SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Prova amb SMBv2/v3";
 
 /* Preview labels */
 
-"ENCODING" = "Encoding";
+"ENCODING" = "Codificant";
 
 /* Media groups */
 
-"ADD_TO_MEDIA_GROUP" = "Add to media group";
-"ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
+"ADD_TO_MEDIA_GROUP" = "Afegir a un grup de vídeo";
+"ADD_TO_MEDIA_GROUP_HINT" = "Obrir el menú d'afegir al grup de vídeo";
 
-"MEDIA_GROUPS" = "Media groups";
-"MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
-"MEDIA_GROUPS_PLACEHOLDER" = "Media group title";
+"MEDIA_GROUPS" = "Grups de vídeo";
+"MEDIA_GROUPS_DESCRIPTION" = "Triar un títol pel nou grup de vídeo";
+"MEDIA_GROUPS_PLACEHOLDER" = "Títol grup de vídeo";
 
-"REMOVE_FROM_MEDIA_GROUP" = "Remove from media group";
-"REMOVE_FROM_MEDIA_GROUP_HINT" = "Remove selection from the media group";
+"REMOVE_FROM_MEDIA_GROUP" = "Treure del grup de vídeo";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Treure la selecció del grup Multimèdia";
 
-"MEDIA_GROUP_CREATION" = "New media group";
-"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
-"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
-"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+"MEDIA_GROUP_CREATION" = "Nou grup Multimèdia";
+"MEDIA_GROUP_CREATION_HINT" = "Mostrar avís per a crear una llista de reproducció";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Moure el contingut al nivell superior";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moure el contingut de la selecció al nivell superior";
 
-"BUTTON_REGROUP" = "Regroup";
-"BUTTON_REGROUP_TITLE" = "Regroup selection";
-"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
-"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+"BUTTON_REGROUP" = "Reagrupar";
+"BUTTON_REGROUP_TITLE" = "Reagrupa la selecció";
+"BUTTON_REGROUP_HINT" = "Intenta reagrupar automàticament els multimèdia individuals.";
+"BUTTON_REGROUP_DESCRIPTION" = "Vols reagrupar automàticament els multimèdia individuals?\nTrigarà una estona.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
