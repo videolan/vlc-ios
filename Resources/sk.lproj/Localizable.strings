@@ -438,3 +438,9 @@
 /* Files.app persistence file */
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Ak chcete pridať médium, umiestnite ho sem";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Pridáva sa...";
+
+/* tip jar */
+"GIVE_TIP" = "Prispieť";
+"CANNOT_MAKE_PAYMENTS" = "Nemáte oprávnenie na platenie na tomto zariadení.";
+"PURCHASE_FAILED" = "Objednanie bolo neúspešné";
+"SEND_GIFT" = "Pošlite svoj darček";
