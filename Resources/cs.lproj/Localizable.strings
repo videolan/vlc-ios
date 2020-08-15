@@ -1,122 +1,121 @@
-"STORE_DESCRIPTION" = "VLC pro iOS je portem svobodného VLC mediálního přehrávače pro iPad, iPhone a iPod touch.\nMůže přehrávat vaše filmy, seriály a hudbu ve většině formátu přímo bez konverze.\nUmožňuje synchronizaci souborů se službami Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, přímé stahování i skrze WiFi sdílení stejně tak jako streamování z SMB, FTP, UPnP/DLNA mediálních serverů a webu.\nVLC nabízí podporu pro pokročilé titulky včetně plné podpory SSA, více stopého zvuku a kontroly rychlosti přehrávání.\n\nVLC pro iOS je otevřená platforma a je kompletně zdarma.";
+"STORE_DESCRIPTION" = "VLC pro iOS je portem svobodného VLC mediálního přehrávače pro iPad, iPhone a iPod touch.\nMůže přehrávat Vaše filmy, seriály a hudbu ve většině formátu přímo bez konverze.\nUmožňuje synchronizaci souborů se službami Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, přímé stahování a sdílení přes Wi-Fi, taktéž streamování z mediálních serverů SMB, FTP, UPnP/DLNA a webových stránek.\nVLC nabízí podporu pro pokročilé titulky včetně plné podpory SSA, zvuku s více stopami a kontrolu rychlosti přehrávání.\n\nVLC pro iOS je otevřená platforma a je dostupná zdarma.";
 
-"STORE_DESCRIPTION_TV" = "VLC media player je svobodný otevřený mnoha platformový mediální přehrávač.\nMůže přehrávat vaše filmy, seriály a hudbu ve většině formátu přímo bez konverze.\nUmožňuje streamování z cloudových služeb (Dropbox, OneDrive, Box), Vzdálené Přehrávání z vašeho Macu nebo PC přes webové rozhraní stejně tak jako streamování z SMB, FTP, UPnP/DLNA mediálních serverů a webu.\nVLC nabízí podporu pro pokročilé titulky včetně plné podpory SSA, více stopého zvuku a kontroly rychlosti přehrávání.\n\nVLC pro iOS je otevřená platforma a je kompletně zdarma.\n\nMetadata a artwork jsou poskytovány TMDb a Hatchet, což jsou komunity spravující filmové a hudební databáze.";
+"STORE_DESCRIPTION_TV" = "VLC media player je svobodný, otevřený více platformový mediální přehrávač.\nMůže přehrávat Vaše filmy, seriály a hudbu ve většině formátu přímo bez konverze.\nUmožňuje streamování z cloudových služeb (Dropbox, OneDrive, Box), vzdálené přehrávání z Vašeho zařízení Mac nebo PC přes webové rozhraní, taktéž streamování z mediálních serverů SMB, FTP, UPnP/DLNA mediálních serverů a webových stránek.\nVLC nabízí podporu pro pokročilé titulky včetně plné podpory SSA, zvuku s více stopami a kontrolu rychlosti přehrávání.\n\nVLC pro iOS je otevřená platforma a je dostupná zdarma.\n\nMetadata a obaly jsou poskytovány z databáz TMDb a Hatchet, což jsou komunity spravující filmové a hudební databáze.";
 
-"CHOOSE_AUDIO_TRACK" = "Zvolte stopu zvuku";
-"CHOOSE_SUBTITLE_TRACK" = "Zvolte stopu videa";
-"OPEN_TRACK_PANEL" = "Otevřít volbu stopy";
+"CHOOSE_AUDIO_TRACK" = "Vybrat zvukovu stopu";
+"CHOOSE_SUBTITLE_TRACK" = "Vybrat stopu s titulky";
+"OPEN_TRACK_PANEL" = "Otevřít výběr stop";
 "CHOOSE_TITLE" = "Vybrat název";
 "CHOOSE_CHAPTER" = "Vybrat kapitolu";
 "CHAPTER_SELECTION_TITLE" = "Kapitoly";
 "TITLE" = "Název";
 "CHAPTER" = "Kapitola";
 "MINIMIZE_PLAYBACK_VIEW" = "Minimalizovat přehrávač";
-"TRACK_SELECTION" = "Volba stopy";
+"TRACK_SELECTION" = "Výběr stopy";
 "AUDIO" = "Zvuk";
 "SUBTITLES" = "Titulky";
 "LANGUAGE" = "Jazyk";
 "MEDIA_INFO" = "Informace o médiu";
-"VIDEO_DIMENSIONS" = "Rozměry videa";
-"FORMAT_VIDEO_DIMENSIONS" = "%ix%i pixelů";
+"VIDEO_DIMENSIONS" = "Rozlišení videa";
+"FORMAT_VIDEO_DIMENSIONS" = "%ix%i px";
 "FORMAT_AUDIO_TRACKS" = "%i zvukových stop";
-"ONE_AUDIO_TRACK" = "Jedna zvuková stopa";
+"ONE_AUDIO_TRACK" = "1 zvuková stopa";
 "FORMAT_SPU_TRACKS" = "%i stop s titulky";
-"ONE_SPU_TRACK" = "Jedna stopa s titulky";
-"TRACKS" = "%i Stopy";
-"TRACK" = "%i Stopa";
+"ONE_SPU_TRACK" = "1 stopa s titulky";
+"TRACKS" = "%i stopy";
+"TRACK" = "%i stopa";
 
-"PLAYING_EXTERNALLY_TITLE" = "Televize připojena";
-"PLAYING_EXTERNALLY_DESC" = "Video se přehrává na televizi";
-"PLAYING_EXTERNALLY_ADDITION" = "Nyní přehrávám na:"; /* \n should stay in every translation */
+"PLAYING_EXTERNALLY_TITLE" = "Připojená TV";
+"PLAYING_EXTERNALLY_DESC" = "Video je přehráváno v TV";
+"PLAYING_EXTERNALLY_ADDITION" = "Nyní hraje:"; /* \n should stay in every translation */
 
 "VFILTER_HUE" = "Odstín";
 "VFILTER_CONTRAST" = "Kontrast";
 "VFILTER_BRIGHTNESS" = "Jas";
-"VFILTER_SATURATION" = "Saturace";
+"VFILTER_SATURATION" = "Sytost";
 "VFILTER_GAMMA" = "Gama";
 
 "PREAMP" = "Předzesílení";
 "DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Vybrat profil ekvalizéru";
+"CHOOSE_EQUALIZER_PROFILES" = "Výběr předvoleb ekvalizéru";
 
-"PLAYBACK_FAILED" = "Přehrávání selhalo";
-"PLEASE_WAIT" = "Vyčkejte prosím";
+"PLAYBACK_FAILED" = "Chyba přehrávání";
+"PLEASE_WAIT" = "Čekejte...";
 "AR_CHANGED" = "Poměr stran: %@";
 "DEFAULT" = "Výchozí";
 "FILL_TO_SCREEN" = "Oříznout a vyplnit obrazovku";
 "PLAYBACK_SPEED" = "Rychlost přehrávání";
 "SPU_DELAY" = "Zpoždění titulků";
 "AUDIO_DELAY" = "Zpoždění zvuku";
-"BUTTON_SLEEP_TIMER" = "Uspání";
-"SLEEP_TIMER_UPDATED" = "Časovač spánku byl aktualizován";
+"BUTTON_SLEEP_TIMER" = "Časovač";
+"SLEEP_TIMER_UPDATED" = "Časovač aktualizován";
 "CONTINUE_PLAYBACK" = "Pokračovat v přehrávání?";
-"CONTINUE_PLAYBACK_LONG" = "Pokračovat v přehrávání \"%@\" od místa kde jste skončili?";
+"CONTINUE_PLAYBACK_LONG" = "Chcete pokračovat v přehrávání \"%@\" od místa kde jste skončili?";
 
 "BUTTON_ABOUT" = "O aplikaci";
 "BUTTON_BACK" = "Zpět";
-"BUTTON_DONE" = "Dokončeno";
+"BUTTON_DONE" = "Hotovo";
 "BUTTON_CANCEL" = "Zrušit";
 "BUTTON_SAVE" = "Uložit";
 "BUTTON_DOWNLOAD" = "Stáhnout";
 "BUTTON_DELETE" = "Smazat";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "Přispívejte";
+"BUTTON_CONTRIBUTE" = "Přispět";
 "BUTTON_CONNECT" = "Připojit";
 "BUTTON_RENAME" = "Přejmenovat";
-"BUTTON_LEARN_MORE" = "Zjistit více";
+"BUTTON_LEARN_MORE" = "Více informací";
 "BUTTON_LOGOUT" = "Odhlásit";
 "BUTTON_CONTINUE" = "Pokračovat";
 "BUTTON_SET" = "Nastavit";
 "BUTTON_RESET" = "Obnovit";
-"BUTTON_RESCAN" = "Rescan";
+"BUTTON_RESCAN" = "Znovu prohledat";
 "PRIVATE_PLAYBACK_TOGGLE" = "Privátní přehrávání";
-"SCAN_SUBTITLE_TOGGLE" = "Hledat titulky (pouze http)";
+"SCAN_SUBTITLE_TOGGLE" = "Vyhledat titulky (pouze přes http)";
 
-"BUTTON_RENDERER" = "Vysílací (casting) zařízení";
-"BUTTON_RENDERER_HINT" = "Zobrazit menu s dostupnými vysílacími (casting) zařízeními";
+"BUTTON_RENDERER" = "Zařízení pro streamování";
+"BUTTON_RENDERER_HINT" = "Zobrazit nabídku dostupných zařízení pro streamování";
 
-"UPGRADING_LIBRARY" = "Aktualizuji knihovnu médií";
-"UNKNOWN" = "Neznámý";
+"UPGRADING_LIBRARY" = "Aktualizace Knihovny médií...";
 
-"OPEN_NETWORK" = "Otevřít síťový proud";
-"NETWORK_TITLE" = "Síťový proud";
-"OPEN_NETWORK_HELP" = "Pro přímé přehrání proudu zadejte libovolnou adresu HTTP, RTSP, RTMP, MMS, FTP, nebo UDP/RTP.";
+"OPEN_NETWORK" = "Otevřít síťový stream";
+"NETWORK_TITLE" = "Síťový stream";
+"OPEN_NETWORK_HELP" = "Pro přímé přehrání streamu zadejte adresu [HTTP, RTSP, RTMP, MMS, FTP nebo UDP/RTP].";
 "HTTP_UPLOAD_SERVER_OFF" = "Neaktivní server";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Žádné aktivní spojení WiFi";
-"OPEN_STREAM_OR_DOWNLOAD" = "Přejete si stáhnout, nebo přehrát tuto URL?";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Žádné aktivní připojení Wi-Fi";
+"OPEN_STREAM_OR_DOWNLOAD" = "Chcete stáhnout nebo přehrát soubor z této URL adresy?";
 "SHARED_VLC_IOS_LIBRARY" = "Sdílená knihovna VLC pro iOS";
 "SMB_CIFS_FILE_SERVERS" = "Souborové servery (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_CANCELLED" = "Stahování bylo zrušeno užvatelem";
+"HTTP_DOWNLOAD_CANCELLED" = "Stahování bylo zrušeno uživatelem";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Zadejte adresu ke stažení souboru na váš %@.";
+"DOWNLOAD_FROM_HTTP_HELP" = "Zadejte URL adresu pro stažení souboru do Vašeho %@.";
 "DOWNLOAD_FROM_HTTP" = "Stahování";
-"ERROR_NUMBER" = "Nastala chyba %i";
-"DOWNLOAD_FAILED" = "Stahování selhalo";
+"ERROR_NUMBER" = "Vyskytla se chyba %i";
+"DOWNLOAD_FAILED" = "Chyba stahování";
 "FILE_NOT_SUPPORTED" = "Formát souboru není podporován";
 "FILE_NOT_SUPPORTED_LONG" = "Formát souboru použitý v %@ není podporován touto verzí VLC pro iOS.";
 "SCHEME_NOT_SUPPORTED" = "Formát adresy není podporován";
-"SCHEME_NOT_SUPPORTED_LONG" = "Formát adresy (%@) není podporován. Použijte prosím adresu začínající s HTTP, HTTPS, nebo FTP.";
+"SCHEME_NOT_SUPPORTED_LONG" = "Formát adresy (%@) není podporován. Použijte adresu začínající: HTTP, HTTPS nebo FTP.";
 "RENAME_MEDIA_TO" = "Zadejte nový název pro %@";
 
 "FOLDER_EMPTY" = "Prázdná složka";
 
-"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Zvolte soubor k otevření:";
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Vyberte soubor pro otevření:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Otevřít v...";
-"SHARING_ERROR_NO_FILES" = "Nenalezeny žádné soubory ke sdílení";
-"SHARING_ERROR_NO_APPLICATIONS" = "Nepodařilo se najít žádnou aplikaci schopnou otevřít tento typ souboru";
+"SHARING_ERROR_NO_FILES" = "Žádné soubory ke sdílení";
+"SHARING_ERROR_NO_APPLICATIONS" = "Nelze najít žádnou aplikaci pro otevření tohoto typu souboru";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Soubor byl úspěšně uložen do složky Camera Roll";
 
-"STREAMVC_DETAILTEXT" = "Přehrávat proudy přímo bez stahování";
-"DOWNLOADVC_DETAILTEXT" = "Stahovat soubory přímo do vašeho zařízení";
-"HEADER_TITLE_RENDERER" = "Vyberte vysílací zařízení";
+"STREAMVC_DETAILTEXT" = "Přehrávat streamy přímo bez stahování";
+"DOWNLOADVC_DETAILTEXT" = "Stahovat soubory přímo do Vašeho zařízení";
+"HEADER_TITLE_RENDERER" = "Vyberte zařízení pro streamovaní";
 
 "NETWORK" = "Síť";
 "LOCAL_NETWORK" = "Místní síť";
-"CONNECT_TO_SERVER" = "Připojit se k severu";
+"CONNECT_TO_SERVER" = "Připojit k severu";
 "FILE_SERVER" = "Souborové servery";
 "USER_LABEL" = "Uživatel";
 "PASSWORD_LABEL" = "Heslo";
@@ -125,74 +124,74 @@
 
 "LOCAL_SERVER_REFRESH" = "Obnovit";
 "LOCAL_SERVER_LAST_UPDATE" = "Poslední aktualizace proběhla %@";
-"LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "SPOJENÍ SE SERVEREM SELHALO";
-"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Zkontrolujte prosím svoji adresu serveru a přihlašovací údaje";
+"LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "CHYBA PŘIPOJENÍ K SERVERU";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Zkontrolujte adresu serveru a přihlašovací údaje";
 
 "CLOUD_SERVICES" = "Cloudové služby";
-"LOGIN" = "Přihlášení";
+"LOGIN" = "Přihlásit";
 "LOGGED_IN" = "Přihlášen";
 "LOGGED_IN_SERVICES" = "%d přihlášených ve službách";
 "LOGGED_IN_SERVICE" = "1 přihlášený ve službě";
 
 "DROPBOX_DOWNLOAD" = "Stáhnout soubor?";
-"DROPBOX_DL_LONG" = "Přejete si stáhnout \"%@\" do vašeho %@?";
+"DROPBOX_DL_LONG" = "Chcete stáhnout soubor \"%@\" do Vašeho %@?";
 "DROPBOX_LOGIN" = "Přihlášení";
 
 "GDRIVE_ERROR_FETCHING_FILES" = "Chyba při stahování souborů";
 "GDRIVE_DOWNLOAD_SUCCESSFUL" = "Soubor byl úspěšně stažen";
-"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "ÚSPĚCH";
-"GDRIVE_ERROR_DOWNLOADING_FILE" = "Během stahování nastala chyba";
+"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "ÚSPĚŠNÉ";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "Během stahování se vyskytla chyba";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "CHYBA";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "Vybraná média nemají přehratelnou url";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "Vybraná média nemají URL adresu pro přehrávání";
 
 "DISK_FULL" = "Dosažen limit kapacity úložiště";
-"DISK_FULL_FORMAT" = "%@ nelze uložit na vašem %@, protože neobsahuje dostatečené množství volného místa.";
+"DISK_FULL_FORMAT" = "%@ nelze uložit do Vašeho %@, z důvodu nedostatku volného místa.";
 
 "NUM_OF_FILES" = "%i souborů";
 "ONE_FILE" = "1 soubor";
 "NO_FILES" = "Žádné podporované soubory";
-"DOWNLOADING" = "Stahuji...";
+"DOWNLOADING" = "Stahování...";
 "REMAINING_TIME" = "Zbývající čas: %@";
-"BIOMETRIC_UNLOCK" = "Odemknout knihovnu médií\nZrušte pro zadání hesla";
+"BIOMETRIC_UNLOCK" = "Odemknout Knihovnu médií\nZrušte pro zadání hesla";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d chybných pokusů o přihlášení";
-"1 Failed Passcode Attempt" = "1 chybný pokus o přihlášení";
+"%d Failed Passcode Attempts" = "%d neplatných pokusů pro přihlášení";
+"1 Failed Passcode Attempt" = "1 neplatný pokus pro přihlášení";
 "Change Passcode" = "Změnit heslo";
-"Enter Passcode" = "Zadejte heslo";
+"Enter Passcode" = "Zadat heslo";
 "Enter a passcode" = "Zadejte heslo";
 "Enter your new passcode" = "Zadejte nové heslo";
 "Enter your old passcode" = "Zadejte staré heslo";
 "Enter your passcode" = "Zadejte heslo";
 "Next" = "Další";
 "Passcodes did not match. Try again." = "Hesla se neshodují. Zkuste to znovu.";
-"Re-enter your new passcode" = "Zadejte znovu nové heslo";
-"Re-enter your passcode" = "Zadejte znovu heslo";
+"Re-enter your new passcode" = "Zadejte nové heslo znovu";
+"Re-enter your passcode" = "Zadejte heslo znovu";
 "Set Passcode" = "Nastavit heslo";
 
 "Settings" = "Nastavení"; // plain text key to keep compatibility with InAppSettingsKit's upstream
-"ON" = "Zapnuto";
-"OFF" = "Vypnuto";
+"ON" = "ZAP";
+"OFF" = "VYP";
 
-"EMPTY_LIBRARY" = "Prázdná knihovna médií";
-"EMPTY_LIBRARY_LONG" = "Pro přehrávání, můžete streamovat media ze serveru na vaší lokální síti, z cloudu nebo synchronizovat media do vašeho zařízení přes iTunes, WiFi Upload nebo cloudové služby.";
+"EMPTY_LIBRARY" = "Prázdná Knihovna médií";
+"EMPTY_LIBRARY_LONG" = "Pro přehrávání můžete streamovat média ze serveru ve Vaší místní síti, z cloudu nebo můžete synchronizovat média do Vašeho zařízení přes iTunes, Wi-Fi Upload nebo cloudové služby.";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
-"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+"EMPTY_PLAYLIST" = "Žádné skladby";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Přidejte média během úprav příslušných kategorií.";
 
-"PLAYBACK_SCRUB_HELP" = "Sklouzněte prstem dolů pro upravení rychlosti posuvu.";
-"PLAYBACK_SCRUB_HIGH" = "Vysokorychlostní posuv";
-"PLAYBACK_SCRUB_HALF" = "Poloviční rychlost posuvu";
-"PLAYBACK_SCRUB_QUARTER" = "Čtvrtinová rychlost posuvu";
-"PLAYBACK_SCRUB_FINE" = "Přesné posouvání";
-"PLAYBACK_POSITION" = "Místo přehrávání";
+"PLAYBACK_SCRUB_HELP" = "Přejeďte dolů pro změnu rychlosti posunutí.";
+"PLAYBACK_SCRUB_HIGH" = "Vysoká rychlost posunutí";
+"PLAYBACK_SCRUB_HALF" = "Poloviční rychlost posunutí";
+"PLAYBACK_SCRUB_QUARTER" = "Čtvrtinová rychlost posunutí";
+"PLAYBACK_SCRUB_FINE" = "Přesné posunutí";
+"PLAYBACK_POSITION" = "Pozice přehrávání";
 "VIDEO_FILTER" = "Filtry videa";
 "VIDEO_FILTER_RESET_BUTTON" = "Obnovit nastavení filtrů videa";
 "VIDEO_ASPECT_RATIO_BUTTON" = "Přepnout poměr stran videa";
-"PLAY_PAUSE_BUTTON" = "Přehrávat či pozastavit současnou položku";
+"PLAY_PAUSE_BUTTON" = "Přehrávat nebo pozastavit aktuální přehrávání";
 "BWD_BUTTON" = "Zpět";
-"FWD_BUTTON" = "Další";
+"FWD_BUTTON" = "Vpřed";
 "PLAY_BUTTON" = "Přehrát";
 "NEXT_BUTTON" = "Následující";
 "PREV_BUTTON" = "Předchozí";
@@ -204,49 +203,49 @@
 "NEW" = "NOVÉ";
 
 "BUG_REPORT_TITLE" = "Nahlásit chybu";
-"BUG_REPORT_MESSAGE" = "Přejete si vytvořit chybové hlášení?";
+"BUG_REPORT_MESSAGE" = "Chcete vytvořit chybové hlášení?";
 "BUG_REPORT_BUTTON" = "Otevřít Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Přehrávač videa";
-"VO_VIDEOPLAYER_DOUBLETAP" = "Dvakrát klepněte pro zobrazení, nebo skrytí, prvků ovládání přehrávání";
+"VO_VIDEOPLAYER_DOUBLETAP" = "Dvakrát klikněte pro zobrazení nebo skrytí ovládacích prvků přehrávání";
 
 "FIRST_STEPS_ITUNES" = "Synchronizace souborů iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Synchronizace s počítačem";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "Sdílet přes WiFi";
-"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
-"FIRST_STEPS_CLOUDS" = "Internetová úložiště";
+"FIRST_STEPS_ITUNES_DETAILS" = "Připojte zařízení k iTunes a vyberte Vaše zařízení. V levé části nabídky iTunes vyberte \"Sdílení souborů\" a vyhledejte VLC pro přenos souborů.";
+"FIRST_STEPS_WIFI_TITLE" = "Sdílet přes Wi-Fi";
+"FIRST_STEPS_WIFI_DETAILS" = "Zadejte vygenerovanou URL adresu do Vašeho oblíbeného webového prohlížeče a připojte se ke stejné síti jako Váš telefon";
+"FIRST_STEPS_CLOUDS" = "Cloudové úložiště";
 "FIRST_STEPS_CLOUD_TITLE" = "Cloud";
-"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
+"FIRST_STEPS_CLOUD_DETAILS" = "Nahrajte Vaše média do cloudové služby jako je Disk Google nebo Dropbox pro jejich vzdálené stahování nebo streamování.";
 
 
-"PLEX_CHECK_ACCOUNT" = "Zkontrolujte váš účet Plex v nastavení";
-"PLEX_ERROR_ACCOUNT" = "Přihlášení do Plex selhalo";
+"PLEX_CHECK_ACCOUNT" = "Zkontrolujte v nastavení Váš účet Plex";
+"PLEX_ERROR_ACCOUNT" = "Chyba přihlášení k účtu Plex";
 
 "UNAUTHORIZED" = "Neoprávněný";
 
 "SERVER" = "Server";
 "SERVER_PORT" = "Port";
-"NO_SERVER_FOUND" = "Nenalezen žádný server";
-"NO_RECENT_STREAMS" = "Žádný stream nebyl v poslední době přehrán.";
+"NO_SERVER_FOUND" = "Nelze nalézt žádný server";
+"NO_RECENT_STREAMS" = "Žádný stream nebyl v poslední době přehráván.";
 
-"WEBINTF_TITLE" = "Sdílení skrze WiFi";
-"WEBINTF_DROPFILES" = "Přesuň soubory";
-"WEBINTF_DROPFILES_LONG" = "Pro přidání souborů do vašeho %@, je přetáhněte do okna. <br>Nebo použijte ikonu \"+\" pro dialog výběru souborů.";
+"WEBINTF_TITLE" = "Sdílení přes Wi-Fi";
+"WEBINTF_DROPFILES" = "Přesunout soubory";
+"WEBINTF_DROPFILES_LONG" = "Pro přidání souborů do Vašeho %@ je přetáhněte do okna. <br>Nebo použijte tlačítko \"+\" pro dialog výběru souborů.";
 "WEBINTF_DOWNLOADFILES" = "Stažené soubory";
 "WEBINTF_DOWNLOADFILES_LONG" = "Klikněte na soubor, který chcete stáhnout z %@.";
 "WEBINTF_TITLE_ATV" = "Vzdálené přehrávání";
-"WEBINTF_DROPFILES_LONG_ATV" = "Pro přehrání souborů na vašem  %@, je přetáhněte do okna. <br>Nebo použijte ikonu \"+\" pro dialog výběru souborů.";
-"WEBINTF_URL_SENT" = "URL úspěšně odesláno";
-"WEBINTF_URL_EMPTY" = "URL nesmí být prázdné";
-"WEBINTF_URL_INVALID" = "URL není validní";
-"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
-"WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
-"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
+"WEBINTF_DROPFILES_LONG_ATV" = "Pro přehrání souborů na Vašem  %@ je přetáhněte do okna. <br>Nebo použijte tlačítko \"+\" pro dialog výběru souborů.";
+"WEBINTF_URL_SENT" = "URL adresa úspěšně odeslána";
+"WEBINTF_URL_EMPTY" = "URL adresa nesmí být prázdná";
+"WEBINTF_URL_INVALID" = "URL adresa je neplatná";
+"WEBINTF_AUTH_REQUIRED" = "Zadejte přístupový kód nastavený ve VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Neplatný přístupový kód.<br>Zbývající pokusy: ";
+"WEBINTF_AUTH_BANNED" = "Zadali jste příliš mnoho neplatných přístupových kódů.<br>Restartujte VLC iOS a zkuste to znovu.";
 
 
 
-"DURATION" = "Trvání";
+"DURATION" = "Délka";
 "TITLE" = "Název";
 
 // strings from VLCKit
@@ -254,16 +253,16 @@
 // accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Pro zastavení přehávání použijte dlouhý stisk.";
+"LONGPRESS_TO_STOP" = "Pro zastavení přehávání dlouze stiskněte.";
 
 // ATV specific
 "AUDIO_INFO_VC_TITLE" = "Informace o zvuku";
-"CLOUD_LOGIN_LONG" = "Pro přístup k cloud službám, přihlaste se do iCloud na této Apple TV a iOS zařízení se stejným účtem a povolte Zdílení klíčenky v Nastavení systému.\nNásledně se přihlaste k cloud zprostředkovateli dle vašeho výběru pomocí VLC aplikace na vašem iOS zařízení. Na závěr, jej vyberte zde na obrazovce.";
-"ENTER_URL" = "Zadejte URL pro přehrání";
+"CLOUD_LOGIN_LONG" = "Pro přístup k cloudovým službám se přihlaste do iCloud v Apple TV a v zařízení iOS se stejným účtem (Apple ID) a povolte sdílení klíčového řetězce v nastavení systému.\nNásledně se přihlaste k poskytovateli cloudových služeb podle Vašeho výběru v aplikaci VLC na Vašem zařízení iOS. Nakonec proveďte výběr na obrazovce.";
+"ENTER_URL" = "Zadejte URL adresu pro přehrávání";
 "HTTP_SERVER_ON" = "Zakázat vzdálené přehrávání";
 "HTTP_SERVER_OFF" = "Povolit vzdálené přehrávání";
-"CACHED_MEDIA" = "Přednačtená média";
-"CACHED_MEDIA_LONG" = "Zde zobrazená média jsou uložena lokálně ve vaší Apple TV. Pozor na fakt, že obsah může být smazán operačním systémem bez předchozího upozornění kdykoli, kdy VLC není spuštěn v případě že ve vašem zařízení dochází volné místo.";
+"CACHED_MEDIA" = "Média ve vyrovnávací paměti";
+"CACHED_MEDIA_LONG" = "Zde zobrazená média jsou uložena lokálně ve Vaší Apple TV. Upozorňujeme na skutečnost, že obsah může být smazán operačním systémem bez předchozího oznámení kdykoliv, kdy není VLC spuštěno, a to v případě, že ve Vašem zařízení je nedostatek volného místa.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Stáhnout titulky z OpenSubtitles.org...";
 "FOUND_SUBS" = "Nalezené titulky";
 "USE_SPDIF" = "Použít průchod (S/PDIF)";
@@ -271,44 +270,47 @@
 "PLAYBACK" = "Přehrávání";
 "REPEAT_MODE" = "Opakovat";
 "REPEAT_DISABLED" = "Zakázáno";
-"REPEAT_SINGLE" = "Jedna";
+"REPEAT_SINGLE" = "Jedna položka";
 "REPEAT_FOLDER" = "Složka";
 
 // Local Network Service Names
-"UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
+"UPNP_LONG" = "Univerzální Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
-"PLEX_LONG" = "Plex Media Server (skrze Bonjour)";
+"PLEX_LONG" = "Plex Média Server (přes Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "File Transfer Protocol (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Systém síťových souborů (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Souborový server BONJOUR";
 "DSM_WORKGROUP" = "Pracovní skupina";
 
-"URL_NOT_SUPPORTED" = "URL nelze otevřít";
+"URL_NOT_SUPPORTED" = "URL adresu nelze otevřít";
 
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Pro smazání stiskněte %@"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Confirm the deletion of the selection";
-"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
-"DELETE_TITLE" = "Delete Selection";
+"DELETE_MESSAGE" = "Potvrďte smazání výběru\"";
+"DELETE_MESSAGE_PLAYLIST" = "Chcete smazat vybraný seznam skladeb?\nPřidružené mediální soubory nebudou odstraněny.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Chcete smazat vybraná média ze seznamu skladeb?\nMediální soubory nebudou odstraněny z disku.";
+"DELETE_TITLE" = "Smazat výběr";
 
 //Drag and Drop
 "THIS_FILE" = "Tento soubor";
-"NOT_SUPPORTED_FILETYPE" = "%@ není podle VLC podporovaný typ souboru";
+"NOT_SUPPORTED_FILETYPE" = "%@ není podporovaný typ souboru pro VLC";
 "FILE_EXISTS" = "%@ již existuje";
 
-"PROTOCOL_NOT_SELECTED" = "Protokol nebyl vybrán";
+"PROTOCOL_NOT_SELECTED" = "Žádný protokol nebyl vybrán";
 "Settings" = "Nastavení";
 
 "ERROR" = "Chyba";
-"OK" = "Ok";
-"SORT" = "Řadit";
-"SORT_BY" = "Řadit dle";
+"OK" = "OK";
+"SORT" = "Seřadit";
+"SORT_BY" = "Seřadit dle";
 "SEARCH" = "Hledat";
 "VIDEO" = "Video";
 
@@ -317,10 +319,10 @@
 "ARTISTS" = "Umělci";
 "EPISODES" = "Epizody";
 "GENRES" = "Žánry";
-"ALL_VIDEOS" = "All videos";
+"ALL_VIDEOS" = "Všechna videa";
 "SONGS" = "Skladby";
 "PLAYLISTS" = "Seznamy skladeb";
-"VIDEO_GROUPS" = "Video groups";
+"VIDEO_GROUPS" = "Skupiny videí";
 
 "MODIFIED_DATE" = "Datum změny";
 "NAME" = "Název";
@@ -328,20 +330,20 @@
 //EDIT
 
 "BUTTON_EDIT" = "Upravit";
-"BUTTON_EDIT_HINT" = "Edit mode";
+"BUTTON_EDIT_HINT" = "Režim editace";
 
 "ADD_TO_PLAYLIST" = "Přidat do seznamu skladeb";
-"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
+"ADD_TO_PLAYLIST_HINT" = "Otevřete nabídku Přidat do seznamu skladeb";
 
 "PLAYLIST_PLACEHOLDER" = "Název seznamu skladeb";
 "PLAYLIST_DESCRIPTION" = "Zadejte název pro nový seznam skladeb";
 "PLAYLIST_CREATION" = "Vytvořit nový seznam skladeb";
-"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
-"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
-"ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
+"PLAYLIST_CREATION_HINT" = "Pro vytvoření seznamu skladeb zobrazte interaktivní ikonu";
+"ERROR_PLAYLIST_CREATION" = "Nelze vytvořit seznam skladeb";
+"ERROR_PLAYLIST_TRACKS" = "Nelze načíst stopy";
 
-"ERROR_RENAME_FAILED" = "Chyba při přejmenovávání";
-"ERROR_EMPTY_NAME" = "The title can't be empty";
+"ERROR_RENAME_FAILED" = "Chyba při přejmenování";
+"ERROR_EMPTY_NAME" = "Název nemůže být prázdný";
 
 "SHARE_LABEL" = "Sdílet";
 "SHARE_HINT" = "Sdílet vybrané soubory";
@@ -350,33 +352,33 @@
 
 // Sort
 
-"BUTTON_SORT" = "Řadit";
-"BUTTON_SORT_HINT" = "Display sort action sheet";
-"HEADER_TITLE_SORT" = "Řadit dle";
-"DESCENDING_LABEL" = "Řadit sestupně";
-"DESCENDING_SWITCH_LABEL" = "Řadit vzestupně nebo sestupně";
-"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"BUTTON_SORT" = "Seřadit";
+"BUTTON_SORT_HINT" = "Zobrazit seznam akcí pro seřazení";
+"HEADER_TITLE_SORT" = "Seřadit podle";
+"DESCENDING_LABEL" = "Seřadit sestupně";
+"DESCENDING_SWITCH_LABEL" = "Seřadit vzestupně nebo sestupně";
+"DESCENDING_SWITCH_HINT" = "Seřadit kontext vzestupně nebo sestupně";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
-"ALPHA" = "Alfanumericky";
-"DURATION" = "Trvání";
+"ALPHA" = "Abecedně";
+"DURATION" = "Délka";
 "INSERTION_DATE" = "Datum vložení";
-"LAST_MODIFICATION_DATE" = "Datum poslední úpravy";
+"LAST_MODIFICATION_DATE" = "Datum změny";
 "RELEASE_DATE" = "Datum vydání";
-"FILE_SIZE" = "Velikost souboru";
+"FILE_SIZE" = "Velikost";
 "ARTIST" = "Umělec";
-"PLAY_COUNT" = "Play count";
+"PLAY_COUNT" = "Počet přehrávání";
 "ALBUM" = "Album";
-"FILENAME" = "Název souboru";
-"TRACK_NUMBER" = "Číslo stopy";
-"NB_AUDIO" = "Number of audio";
-"NB_MEDIA" = "Number of media";
-"NB_VIDEO" = "Number of video";
+"FILENAME" = "Název";
+"TRACK_NUMBER" = "Pořadí stopy";
+"NB_AUDIO" = "Pořadí zvuku";
+"NB_MEDIA" = "Pořadí média";
+"NB_VIDEO" = "Pořadí videa";
 
 // VLCNetworkLoginTVViewController
 
-"NO_SAVING_DATA" = "Nebylo nic nalezeno";
+"NO_SAVING_DATA" = "Nelze nalézt";
 
 // MediaCollectionViewCell
 
@@ -384,51 +386,61 @@
 "VARIOUS_ARTIST" = "Různí umělci";
 "UNKNOWN_ALBUM" = "Neznámé album";
 
-/* VideoOptionsControlBar */
-"INTERFACE_LOCK_BUTTON" = "Lock interface";
-"INTERFACE_LOCK_HINT" = "Disable interface controls";
-"MORE_OPTIONS_BUTTON" = "More";
-"MORE_OPTIONS_HINT" = "View more option controls";
-"REPEAT_MODE_HINT" = "Change repeat mode of current item";
-"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+/* VideoSubControl */
+"INTERFACE_LOCK_BUTTON" = "Uzamknout prostředí";
+"INTERFACE_LOCK_HINT" = "Zakázat ovládací prvky prostředí";
+"MORE_OPTIONS_BUTTON" = "Více";
+"MORE_OPTIONS_HINT" = "Zobrazit více možností pro ovládací prvky";
+"REPEAT_MODE_HINT" = "Změnit režim opakování aktuální položky";
+"VIDEO_ASPECT_RATIO_HINT" = "Změnit poměr stran aktuálního videa";
 
 /* MediaMoreOptionsActionSheet */
-"EQUALIZER_CELL_TITLE" = "Equalizer";
-"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+"EQUALIZER_CELL_TITLE" = "Ekvalizér";
+"MORE_OPTIONS_HEADER_TITLE" = "Možnosti videa";
 
 /* Settings - Force rescan alert */
-"FORCE_RESCAN_TITLE" = "Force media library rescan";
-"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
+"FORCE_RESCAN_TITLE" = "Vynutit nové prohledání Knihovny médií";
+"FORCE_RESCAN_MESSAGE" = "Chcete aby VLC znovu prohledalo Vaši Knihovnu médií?\nMůže to chvíli trvat.";
 
 // Local Network
 
-"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
-"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
-"SMBV1_CONTINUE" = "Continue with SMBv1";
-"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+"SMBV1_WARN_TITLE" = "Upozornění pro připojení SMBv1";
+"SMBV1_WARN_DESCRIPTION" = "Zjištěn starý protokol (SMBv1).\nChcete pokračovat s SMBv1?\nDoporučujeme aktualizovat nebo změnit nastavení serveru.";
+"SMBV1_CONTINUE" = "Pokračovat s SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Vyzkoušet SMBv2/v3";
 
 /* Preview labels */
 
-"ENCODING" = "Encoding";
+"ENCODING" = "Kódování";
 
 /* Media groups */
 
-"ADD_TO_MEDIA_GROUP" = "Add to media group";
-"ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
+"ADD_TO_MEDIA_GROUP" = "Přidat do skupiny médií";
+"ADD_TO_MEDIA_GROUP_HINT" = "Otevřete nabídku Přidat do skupiny médií";
 
-"MEDIA_GROUPS" = "Media groups";
-"MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
-"MEDIA_GROUPS_PLACEHOLDER" = "Media group title";
+"MEDIA_GROUPS" = "Skupiny médií";
+"MEDIA_GROUPS_DESCRIPTION" = "Vyberte název nové skupiny médií";
+"MEDIA_GROUPS_PLACEHOLDER" = "Název skupiny médií";
 
-"REMOVE_FROM_MEDIA_GROUP" = "Remove from media group";
-"REMOVE_FROM_MEDIA_GROUP_HINT" = "Remove selection from the media group";
+"REMOVE_FROM_MEDIA_GROUP" = "Smazat ze skupiny médií";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Smazat výběr ze skupiny médií";
 
-"MEDIA_GROUP_CREATION" = "New media group";
-"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
-"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
-"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+"MEDIA_GROUP_CREATION" = "Nová skupina médií";
+"MEDIA_GROUP_CREATION_HINT" = "Zobrazit upozornění pro vytvoření seznamu skladeb";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Přesunout obsah na nejvyšší úroveň";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Přesunout obsah výběru na nejvyšší úroveň";
 
-"BUTTON_REGROUP" = "Regroup";
-"BUTTON_REGROUP_TITLE" = "Regroup selection";
-"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
-"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+"BUTTON_REGROUP" = "Přeskupit";
+"BUTTON_REGROUP_TITLE" = "Přeskupit výběr";
+"BUTTON_REGROUP_HINT" = "Pokus o automatické přeskupení jednoho média.";
+"BUTTON_REGROUP_DESCRIPTION" = "Chcete automaticky přeskupit jedno médium?\nMůže to chvíli trvat.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Jestliže chcete přidat médium, umístěte jej zde";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Přidávání...";
+
+/* tip jar */
+"GIVE_TIP" = "Tip";
+"CANNOT_MAKE_PAYMENTS" = "Na tomto zařízení nemáte povoleno provádět platby.";
+"PURCHASE_FAILED" = "Nákup se nezdařil";
+"SEND_GIFT" = "Pošlete Váš dárek";

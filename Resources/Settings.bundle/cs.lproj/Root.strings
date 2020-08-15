@@ -2,21 +2,23 @@
 
 "SETTINGS_PRIVACY_TITLE" = "Soukromí";
 "SETTINGS_VIDEO_TITLE" = "Video";
-"SETTINGS_AUDIO_TITLE" = "Zvuk";
+"SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_BRIGHT" = "Světlé téma";
+"SETTINGS_THEME_DARK" = "Tmavé téma";
+"SETTINGS_THEME_SYSTEM" = "Automaticky";
 "SETTINGS_PRIVACY_SUBTITLE" = "Otevřít v nastavení";
-"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Bezpečný přístup k vašemu obsahu";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Bezpečný přístup k Vašemu obsahu";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Vaše média budou v aplikaci Soubory skrytá";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Vzhled prostředí";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časové roztažení zvuku";
 "SETTINGS_BACKGROUND_AUDIO" = "Přehrávání zvuku na pozadí";
 "SETTINGS_GENERIC_TITLE" = "Obecné";
 "SETTINGS_PASSCODE_LOCK" = "Uzamčení heslem";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Povolit dotykové ID pro odemčení";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Povolit Face ID pro odemčení";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Skrýt Knihovnu médií v aplikaci Soubory";
 "SETTINGS_VIDEO_FULLSCREEN" = "Přehrát video v režimu celé obrazovky";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Pokračovat v přehrávání videa";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Pokračovat v přehrávání zvuku";
@@ -24,17 +26,17 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Dotázat se";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Vždy";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automaticky přehrát další položku";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Povolit posouvání textu v seznamu médií";
 
-"SETTINGS_SKIP_LOOP_FILTER" = "Filtr odstranění kostek videa";
-"SETTINGS_SKIP_LOOP_FILTER_NONE" = "Žádné odstraňování kostek (nejrychlejší)";
-"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Střední odstraňování kostek";
-"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Nízké odstraňování kostek";
+"SETTINGS_SKIP_LOOP_FILTER" = "Filtr vyhlazení videa";
+"SETTINGS_SKIP_LOOP_FILTER_NONE" = "Žádné (nejrychlejší)";
+"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Střední";
+"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Nízké";
 
 "SETTINGS_NETWORK_CACHING_TITLE" = "Velikost vyrovnávací paměti sítě";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Nejnižší odezva";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Nízká odezva";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Běžná";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Běžná odezva";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Dlouhá odezva";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Nejdelší odezva";
 
@@ -42,11 +44,11 @@
 
 "SETTINGS_GESTURES" = "Ovládat přehrávání pomocí gest";
 "SETTINGS_GESTURES_VOLUME" = "Přejeďte nahoru/dolů pro nastavení hlasitosti";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
-"SETTINGS_GESTURES_BRIGHTNESS" = "Posuňte prstem nahoru/dolů pro jas";
-"SETTINGS_GESTURES_SEEK" = "Přejděte prstem doprava/doleva pro posun času";
-"SETTINGS_GESTURES_CLOSE" = "Štípnutím zavřete";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Proměnné trvání skoku";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Dvojité kliknutí pro spuštění/pozastavení ";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Přejeďte nahoru/dolů pro nastavení jasu";
+"SETTINGS_GESTURES_SEEK" = "Přejděte doprava/doleva pro posun času";
+"SETTINGS_GESTURES_CLOSE" = "Dlouhým stisknutím ukončit";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Proměnná délka přeskočení";
 
 "SETTINGS_SUBTITLES_TITLE" = "Titulky";
 "SETTINGS_SUBTITLES_FONT" = "Písmo";
@@ -64,15 +66,15 @@
 "SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "Šedá";
 "SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "Stříbrná";
 "SETTINGS_SUBTITLES_FONTCOLOR_RED" = "Červená";
-"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "Fuchsiová";
+"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "Růžová";
 "SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Žlutá";
 "SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Zelená";
 "SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Námořnická modř";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Šířka obrysu";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Žádný";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Tenký";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Tloušťka obrysu";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Žádná";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Tenká";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normální";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Silný";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Silná";
 
 "SETTINGS_DEINTERLACE" = "Odstranění prokládání";
 "SETTINGS_DEINTERLACE_ON" = "Zapnuto";
@@ -82,26 +84,25 @@
 "SETTINGS_HWDECODING" = "Hardwarové dekódování";
 "SETTINGS_HWDECODING_ON" = "Zapnuto";
 "SETTINGS_HWDECODING_OFF" = "Vypnuto";
+"SETTINGS_CASTING" = "Přenos ";
+"SETTINGS_PTCASTING" = "Průchod zvuku";
+"SETTINGS_PTCASTINGLONG" = "Spravovat vykreslení zvuku bude TV zařízení";
 
 "SETTINGS_FEEDBACK" = "Zpětná vazba";
 "SETTINGS_SEND_FEEDBACK" = "Odeslat zpětnou vazbu";
-"SETTINGS_SEND_RATING" = "Prosím ohodnoťte VLC pro iOS";
+"SETTINGS_SEND_RATING" = "Ohodnoťte VLC pro iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Knihovna médií ";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Vynutit nové prohledání Knihovny médií";
 "SETTINGS_DECRAPIFY" = "Přizpůsobit názvy položek pro zobrazení";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_SHOW_THUMBNAILS" = "Zobrazit náhledy videa";
+"SETTINGS_SHOW_ARTWORKS" = "Zobrazit obaly alb";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Přidat Knihovnu médií k záloze zařízení ";
 
 "SETTINGS_FILE_SYNC" = "Synchronizace souborů";
-"SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pro sdílení skrze WiFi";
-"SETTINGS_UNLINK_DROPBOX" = "Odpojit od služby Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Odpojit od služby Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Odpojit od služby OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Znaková sada textu pro spojení FTP";
+"SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pro sdílení přes Wi-Fi";
 
-"SETTINGS_ARTWORK" = "Artwork";
-"SETTINGS_DOWNLOAD_ARTWORK" = "Stáhnout artwork";
+"SETTINGS_ARTWORK" = "Obal alba";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Stáhnout obal";
 
 "ABOUT_APP_TV" = "O VLC pro tvOS";
