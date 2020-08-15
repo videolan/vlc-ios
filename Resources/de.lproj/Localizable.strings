@@ -438,3 +438,9 @@
 /* Files.app persistence file */
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Medien hier plazieren, um sie hinzuzufügen";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Füge hinzu....";
+
+/* tip jar */
+"GIVE_TIP" = "Trinkgeld geben";
+"CANNOT_MAKE_PAYMENTS" = "Sie dürfen auf diesem Gerät keine Zahlungen tätigen.";
+"PURCHASE_FAILED" = "Kauf gescheitert";
+"SEND_GIFT" = "Ihr Geschenk senden";
