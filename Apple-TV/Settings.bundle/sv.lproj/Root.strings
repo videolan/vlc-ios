@@ -43,9 +43,9 @@
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Standarduppspelningshastighet";
 
 "SETTINGS_GESTURES" = "Styr uppspelningen med gester";
-"SETTINGS_GESTURES_VOLUME" = "Svep upp/ned för volym";
+"SETTINGS_GESTURES_VOLUME" = "Svep upp/ned för att ändra volym";
 "SETTINGS_GESTURES_PLAYPAUSE" = "Tryck med två fingrar för att spela upp/pausa";
-"SETTINGS_GESTURES_BRIGHTNESS" = "Svep upp/ned för ljusstyrka";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Svep upp/ned för att ändra ljusstyrka";
 "SETTINGS_GESTURES_SEEK" = "Svep åt höger/vänster för att snabbspola";
 "SETTINGS_GESTURES_CLOSE" = "Nyp för att stänga";
 "SETTINGS_GESTURE_JUMP_DURATION" = "Föränderlig hopplängd";
@@ -76,7 +76,7 @@
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normal";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Tjock";
 
-"SETTINGS_DEINTERLACE" = "Avfläta";
+"SETTINGS_DEINTERLACE" = "Avflätning";
 "SETTINGS_DEINTERLACE_ON" = "På";
 "SETTINGS_DEINTERLACE_OFF" = "Av";
 "SETTINGS_DEINTERLACE_AUTO" = "Automatisk";
