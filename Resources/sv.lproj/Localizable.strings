@@ -438,3 +438,9 @@
 /* Files.app persistence file */
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Placera mediafiler här för att lägga till dem";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Lägger till...";
+
+/* tip jar */
+"GIVE_TIP" = "Ge dricks";
+"CANNOT_MAKE_PAYMENTS" = "Du har inte tillåtelse att genomföra köp på denna enhet.";
+"PURCHASE_FAILED" = "Köp misslyckades";
+"SEND_GIFT" = "Skicka din gåva";
