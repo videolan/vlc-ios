@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatisk";
 "SETTINGS_PRIVACY_SUBTITLE" = "Opna i innstillingar";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Trygg tilgange til innhaldet ditt";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Utsjånad";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tidsutstrekt lyd";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Passordlås";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Tillat «Touch ID» for opplåsing";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Tillat «Face ID» for opplåsing";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Spel av video i fullskjerm";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Fortset videoavspeling";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Fortset lydavspeling";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-støtte for WiFi-deling";
-"SETTINGS_UNLINK_DROPBOX" = "Kopla frå Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Kopla frå Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Kopla frå OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Tekstkoding for FTP-tilkoplingar";
 
 "SETTINGS_ARTWORK" = "Omslagsbilde";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Last ned omslagsbilde";

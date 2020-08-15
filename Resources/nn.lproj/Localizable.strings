@@ -372,9 +372,9 @@
 "ALBUM" = "Album";
 "FILENAME" = "Filenamn";
 "TRACK_NUMBER" = "Spornummer";
-"NB_AUDIO" = "Number of audio";
-"NB_MEDIA" = "Number of media";
-"NB_VIDEO" = "Number of video";
+"NB_AUDIO" = "Tal på lydspor";
+"NB_MEDIA" = "Tal på media";
+"NB_VIDEO" = "Tal på videospor";
 
 // VLCNetworkLoginTVViewController
 
@@ -387,7 +387,7 @@
 "UNKNOWN_ALBUM" = "Ukjend album";
 
 /* VideoSubControl */
-"INTERFACE_LOCK_BUTTON" = "Lock interface";
+"INTERFACE_LOCK_BUTTON" = "Lås grensesnittet";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
 "MORE_OPTIONS_BUTTON" = "Meir";
 "MORE_OPTIONS_HINT" = "View more option controls";
@@ -395,7 +395,7 @@
 "VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
 
 /* MediaMoreOptionsActionSheet */
-"EQUALIZER_CELL_TITLE" = "Equalizer";
+"EQUALIZER_CELL_TITLE" = "Tonekontroll";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoinnstillingar";
 
 /* Settings - Force rescan alert */
@@ -411,14 +411,14 @@
 
 /* Preview labels */
 
-"ENCODING" = "Encoding";
+"ENCODING" = "Koding";
 
 /* Media groups */
 
-"ADD_TO_MEDIA_GROUP" = "Add to media group";
+"ADD_TO_MEDIA_GROUP" = "Legg til i mediegruppe";
 "ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
 
-"MEDIA_GROUPS" = "Media groups";
+"MEDIA_GROUPS" = "Mediegrupper";
 "MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
 "MEDIA_GROUPS_PLACEHOLDER" = "Media group title";
 
@@ -434,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Legg til…";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
