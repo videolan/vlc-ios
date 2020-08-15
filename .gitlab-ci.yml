@@ -1,7 +1,3 @@
-cache:
-    paths:
-        - Pods/
-
 stages:
     - lint
     - build
