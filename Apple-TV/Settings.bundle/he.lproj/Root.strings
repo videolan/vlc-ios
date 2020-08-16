@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "אוטומטית";
 "SETTINGS_PRIVACY_SUBTITLE" = "פתיחה בהגדרות";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "גישה מאובטחת לתוכן שלך";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "המדיה שלך תוסתר ביישומון הקבצים";
 
 "SETTINGS_DARKTHEME" = "מראה";
 "SETTINGS_TIME_STRETCH_AUDIO" = "מתיחת זמן השמע";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "נעילה בצופן";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "אפשר Touch ID לפתיחת נעילה";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "לאפשר זיהוי פנים לשחרור";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "הסתרת ספריית המדיה בקבצים";
 "SETTINGS_VIDEO_FULLSCREEN" = "נגן סרט במסך מלא";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "המשך נגינת סרט";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "המשך נגינת שמע";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "סנכרון קבצים";
 "SETTINGS_WIFISHARING_IPv6" = "תמיכה ב IPv6 לשיתוף באמצעות WiFi";
-"SETTINGS_UNLINK_DROPBOX" = "ביטול הקישור לדרופבוקס";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "ניתוק מ־Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "נתק חיבור ל OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "קידוד טקסט לחיבורי FTP";
 
 "SETTINGS_ARTWORK" = "עטיפת אלבום";
 "SETTINGS_DOWNLOAD_ARTWORK" = "הורדת עטיפת האלבום";

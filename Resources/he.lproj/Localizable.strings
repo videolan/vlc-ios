@@ -434,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "קיבוץ הבחירה מחדש";
 "BUTTON_REGROUP_HINT" = "לנסות לקבץ מדיה בודדת מחדש אוטומטית";
 "BUTTON_REGROUP_DESCRIPTION" = "לנסות לקבץ מדיה בודדת מחדש אוטומטית?\nפעולה זו עלולה לארוך זמן מה";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "יש להציב כאן מדיה כדי להוסיף אותה";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "מתווספת…";
+
+/* tip jar */
+"GIVE_TIP" = "להעניק טיפ";
+"CANNOT_MAKE_PAYMENTS" = "אסור לך לשלם דרך המכשיר הזה.";
+"PURCHASE_FAILED" = "הרכישה נכשלה";
+"SEND_GIFT" = "שליחת המתנה שלך";
