@@ -116,8 +116,10 @@
                                name:UIApplicationDidBecomeActiveNotification
                              object:[UIApplication sharedApplication]];
 
+    self.whatToOpenHelpLabel.backgroundColor = [UIColor clearColor];
     [self.openButton setTitle:NSLocalizedString(@"OPEN_NETWORK", nil) forState:UIControlStateNormal];
     [self.openButton setAccessibilityIdentifier:@"Open Network Stream"];
+    self.openButton.layer.cornerRadius = 4.0;
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", nil)];
     UILabel *scanSubModelabel = self.ScanSubModeLabel;
     [scanSubModelabel setText:NSLocalizedString(@"SCAN_SUBTITLE_TOGGLE", nil)];
@@ -159,8 +161,9 @@
     self.view.backgroundColor = PresentationTheme.current.colors.background;
     NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: PresentationTheme.current.colors.lightTextColor}];
     self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
-    self.urlField.backgroundColor = PresentationTheme.current.colors.cellBackgroundB;
+    self.urlField.backgroundColor = PresentationTheme.current.colors.background;
     self.urlField.textColor = PresentationTheme.current.colors.cellTextColor;
+    self.urlBorder.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor;
     self.privateModeLabel.textColor = PresentationTheme.current.colors.lightTextColor;
     self.ScanSubModeLabel.textColor = PresentationTheme.current.colors.lightTextColor;
     self.whatToOpenHelpLabel.textColor = PresentationTheme.current.colors.lightTextColor;

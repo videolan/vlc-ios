@@ -14,6 +14,7 @@
 @interface VLCOpenNetworkStreamViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UITextField *urlField;
+@property (weak, nonatomic) IBOutlet UIView *urlBorder;
 @property (strong, nonatomic) IBOutlet UIButton *openButton;
 @property (strong, nonatomic) IBOutlet UISwitch *privateToggleSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *ScanSubToggleSwitch;
