@@ -18,7 +18,9 @@ class GenreModel: AudioCollectionModel {
 
     var files = [VLCMLGenre]()
 
-    var cellType: BaseCollectionViewCell.Type { return MediaCollectionViewCell.self }
+    var cellType: BaseCollectionViewCell.Type {
+        return UserDefaults.standard.bool(forKey: kVLCAudioLibraryGridLayout) ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
+    }
 
     var medialibrary: MediaLibraryService
 

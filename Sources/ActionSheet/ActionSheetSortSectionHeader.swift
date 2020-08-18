@@ -8,22 +8,45 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+enum ActionSheetSortHeaderOptions {
+    case descendingOrder
+    case layoutChange
+}
+
 protocol ActionSheetSortSectionHeaderDelegate: class {
     func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader,
-                                      onSwitchIsOnChange: Bool)
+                                      onSwitchIsOnChange: Bool,
+                                      type: ActionSheetSortHeaderOptions)
 }
 
 class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     override var cellHeight: CGFloat {
-        return 100
+        return 150
     }
 
     private let sortModel: SortModel
+    private let userDefaults = UserDefaults.standard
 
     private let descendingStackView: UIStackView = {
         let descendingStackView = UIStackView()
         descendingStackView.spacing = 0
         descendingStackView.alignment = .center
+        descendingStackView.translatesAutoresizingMaskIntoConstraints = false
+        return descendingStackView
+    }()
+
+    private let gridLayoutStackView: UIStackView = {
+        let descendingStackView = UIStackView()
+        descendingStackView.spacing = 0
+        descendingStackView.alignment = .center
+        descendingStackView.translatesAutoresizingMaskIntoConstraints = false
+        return descendingStackView
+    }()
+
+    private let mainStackView: UIStackView = {
+        let descendingStackView = UIStackView()
+        descendingStackView.spacing = 10
+        descendingStackView.axis = .vertical
         descendingStackView.translatesAutoresizingMaskIntoConstraints = false
         return descendingStackView
     }()
@@ -39,9 +62,30 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
 
     let actionSwitch: UISwitch = {
         let actionSwitch = UISwitch()
-        actionSwitch.addTarget(self, action: #selector(handleSwitch(_:)), for: .valueChanged)
+        actionSwitch.addTarget(self, action: #selector(handleDescendingSwitch(_:)), for: .valueChanged)
         actionSwitch.accessibilityLabel = NSLocalizedString("DESCENDING_SWITCH_LABEL", comment: "")
         actionSwitch.accessibilityHint = NSLocalizedString("DESCENDING_SWITCH_HINT", comment: "")
+        actionSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return actionSwitch
+    }()
+
+    private let gridLayoutLabel: UILabel = {
+        let descendingLabel = UILabel()
+        descendingLabel.text = NSLocalizedString("GRID_LAYOUT", comment: "")
+        descendingLabel.accessibilityLabel = NSLocalizedString("GRID_LAYOUT", comment: "")
+        descendingLabel.accessibilityHint = NSLocalizedString("GRID_LAYOUT", comment: "")
+        //TODO: Set appropriate accessibilityLabel and accessibilityHint
+        descendingLabel.font = .systemFont(ofSize: 15, weight: .medium)
+        descendingLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        descendingLabel.translatesAutoresizingMaskIntoConstraints = false
+        return descendingLabel
+    }()
+
+    let layoutChangeSwitch: UISwitch = {
+        let actionSwitch = UISwitch()
+        actionSwitch.addTarget(self,
+                               action: #selector(handleLayoutChangeSwitch(_:)),
+                               for: .valueChanged)
         actionSwitch.translatesAutoresizingMaskIntoConstraints = false
         return actionSwitch
     }()
@@ -52,6 +96,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         sortModel = model
         super.init(frame: .zero)
         actionSwitch.isOn = sortModel.desc
+        layoutChangeSwitch.isOn = userDefaults.bool(forKey: kVLCAudioLibraryGridLayout)
         translatesAutoresizingMaskIntoConstraints = false
         setupStackView()
         updateTheme()
@@ -65,6 +110,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         if newWindow != nil {
             // ActionSheetSortSectionHeader did appear.
             actionSwitch.isOn = sortModel.desc
+            layoutChangeSwitch.isOn = userDefaults.bool(forKey: kVLCAudioLibraryGridLayout)
         }
     }
     required init?(coder aDecoder: NSCoder) {
@@ -76,19 +122,31 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         descendingLabel.textColor = PresentationTheme.current.colors.cellTextColor
     }
 
-    @objc func handleSwitch(_ sender: UISwitch) {
-        delegate?.actionSheetSortSectionHeader(self, onSwitchIsOnChange: sender.isOn)
+    @objc func handleDescendingSwitch(_ sender: UISwitch) {
+        delegate?.actionSheetSortSectionHeader(self,
+                                               onSwitchIsOnChange: sender.isOn,
+                                               type: .descendingOrder)
     }
+
+    @objc func handleLayoutChangeSwitch(_ sender: UISwitch) {
+        delegate?.actionSheetSortSectionHeader(self,
+                                               onSwitchIsOnChange: sender.isOn,
+                                               type: .layoutChange)
+     }
 
     private func setupStackView() {
         descendingStackView.addArrangedSubview(descendingLabel)
         descendingStackView.addArrangedSubview(actionSwitch)
-        addSubview(descendingStackView)
+        gridLayoutStackView.addArrangedSubview(gridLayoutLabel)
+        gridLayoutStackView.addArrangedSubview(layoutChangeSwitch)
+        mainStackView.addArrangedSubview(descendingStackView)
+        mainStackView.addArrangedSubview(gridLayoutStackView)
+        addSubview(mainStackView)
 
         NSLayoutConstraint.activate([
-            descendingStackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
-            descendingStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            descendingStackView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 15),
-            ])
+            mainStackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
+            mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            mainStackView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 15),
+        ])
     }
 }

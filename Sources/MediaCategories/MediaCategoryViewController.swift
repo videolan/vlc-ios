@@ -27,6 +27,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     var searchBar = UISearchBar(frame: .zero)
     var isSearching: Bool = false
+    private let mediaGridCellNibIdentifier = "MediaGridCollectionCell"
     private var searchBarConstraint: NSLayoutConstraint?
     private let searchDataSource: LibrarySearchDataSource
     private let searchBarSize: CGFloat = 50.0
@@ -229,6 +230,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         manager.presentingViewController = self
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
+        setupCollectionView() //Fixes crash that is caused due to layout change
         reloadData()
         showGuideOnLaunch()
     }
@@ -670,6 +672,8 @@ extension MediaCategoryViewController {
             thumbnail = cell.thumbnailView.image
         } else if let cell = cell as? MediaCollectionViewCell {
             thumbnail = cell.thumbnailView.image
+        } else if let cell = cell as? MediaGridCollectionCell {
+            thumbnail = cell.thumbnailView.image
         }
         let configuration = UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: {
             guard let thumbnail = thumbnail else {
@@ -820,10 +824,17 @@ extension MediaCategoryViewController: ActionSheetDataSource {
 // MARK: - ActionSheetSortSectionHeaderDelegate
 
 extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
-    func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader,
-                                      onSwitchIsOnChange: Bool) {
-        model.sort(by: model.sortModel.currentSort, desc: onSwitchIsOnChange)
-        UserDefaults.standard.set(onSwitchIsOnChange, forKey: "\(kVLCSortDescendingDefault)\(model.name)")
+    func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader, onSwitchIsOnChange: Bool, type: ActionSheetSortHeaderOptions) {
+        if type == .descendingOrder {
+            model.sort(by: model.sortModel.currentSort, desc: onSwitchIsOnChange)
+            userDefaults.set(onSwitchIsOnChange, forKey: "\(kVLCSortDescendingDefault)\(model.name)")
+        } else {
+            userDefaults.set(onSwitchIsOnChange, forKey: kVLCAudioLibraryGridLayout)
+            setupCollectionView()
+            cachedCellSize = .zero
+            collectionView?.collectionViewLayout.invalidateLayout()
+            reloadData()
+        }
     }
 }
 
@@ -864,8 +875,16 @@ extension MediaCategoryViewController: EditControllerDelegate {
 
 private extension MediaCategoryViewController {
     func setupCollectionView() {
-        let cellNib = UINib(nibName: model.cellType.nibName, bundle: nil)
-        collectionView?.register(cellNib, forCellWithReuseIdentifier: model.cellType.defaultReuseIdentifier)
+        if model.cellType.nibName == mediaGridCellNibIdentifier {
+            //GridCells are made programmatically so we register the cell class directly.
+            collectionView?.register(MediaGridCollectionCell.self,
+                                     forCellWithReuseIdentifier: model.cellType.defaultReuseIdentifier)
+        } else {
+            //MediaCollectionCells are created via xibs so we register the cell via UINib.
+            let cellNib = UINib(nibName: model.cellType.nibName, bundle: nil)
+            collectionView?.register(cellNib,
+                                     forCellWithReuseIdentifier: model.cellType.defaultReuseIdentifier)
+        }
         collectionView.allowsMultipleSelection = true
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         collectionView?.alwaysBounceVertical = true
