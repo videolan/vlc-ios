@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Автоматично";
 "SETTINGS_PRIVACY_SUBTITLE" = "Відкрити у налаштуваннях";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Безпечний доступ до вашого вмісту";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Ваші медіа будуть сховані у програмі Файли";
 
 "SETTINGS_DARKTHEME" = "Зовнішній вигляд";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Часове розтягнення звуку";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Захист паролем";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Дозволити сенсорний ІД для розблокування";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Дозволити ІД обличчям для розблокування";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Приховати бібліотеку медіа у програмі Файли";
 "SETTINGS_VIDEO_FULLSCREEN" = "Відтворювати відео на увесь екран";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Продовжити відтворення відео";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Продовжити відтворення аудіо";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "Синхронізація файлу";
 "SETTINGS_WIFISHARING_IPv6" = "Підтримка IPv6 для поширення WiFi";
-"SETTINGS_UNLINK_DROPBOX" = "Відв'язати від Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Відв'язати від диску Google";
-"SETTINGS_UNLINK_ONEDRIVE" = "Відв'язати від OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Кодування тексту для з'єднань FTP";
 
 "SETTINGS_ARTWORK" = "Обкладинка";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Звантажити обкладинку";

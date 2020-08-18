@@ -434,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "Перегрупувати обране";
 "BUTTON_REGROUP_HINT" = "Спроба автоматично перегрупувати одне медіа.";
 "BUTTON_REGROUP_DESCRIPTION" = "Ви справді хочете перегрупувати автоматично одне медіа?\nЦе може зайняти деякий час.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Розмістіть медіа тут, щоб додати їх";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Додавання...";
+
+/* tip jar */
+"GIVE_TIP" = "Дати пораду";
+"CANNOT_MAKE_PAYMENTS" = "Вам не дозволено робити платежі на цьому пристрої.";
+"PURCHASE_FAILED" = "Купівля невдала";
+"SEND_GIFT" = "Надіслати ваш подарунок";
