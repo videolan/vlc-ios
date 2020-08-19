@@ -434,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "Seçimi yeniden gruplar";
 "BUTTON_REGROUP_HINT" = "Tek ortamı otomatik olarak yeniden gruplamayı dener.";
 "BUTTON_REGROUP_DESCRIPTION" = "Tek ortamı otomatik olarak yeniden gruplamayı denemek istediğinize emin misiniz?\nBu işlem uzun sürebilir.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Eklenecek ortamları buraya koyun";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Ekleniyor...";
+
+/* tip jar */
+"GIVE_TIP" = "İpucu Ver";
+"CANNOT_MAKE_PAYMENTS" = "Bu aygıt üzerinden ödeme yapmanıza izin verilmiyor.";
+"PURCHASE_FAILED" = "Satın Alınamadı";
+"SEND_GIFT" = "Hediye gönderin";

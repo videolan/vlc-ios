@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Otomatik";
 "SETTINGS_PRIVACY_SUBTITLE" = "Ayarlarda Aç";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "İçeriğinize güvenli erişim";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Çoklu ortamlarınız Dosyalar uygulamasında görüntülenmeyecek";
 
 "SETTINGS_DARKTHEME" = "Görünüm";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Zamana yaymalı ses";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Parola Kilidi";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Kilidi açmak için Touch ID kullanılsın";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Kilidi açmak için Face ID kullanılsın";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Ortam kitaplığı Dosyalarda görüntülenmesin";
 "SETTINGS_VIDEO_FULLSCREEN" = "Görüntü tam ekranda oynatılsın";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Görüntü oynatımını sürdür";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Ses oynatımını sürdür";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "Dosya Eşitleme";
 "SETTINGS_WIFISHARING_IPv6" = "WiFi Paylaşımı için IPv6 desteği";
-"SETTINGS_UNLINK_DROPBOX" = "Dropbox Bağlantısını Kes";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Google Drive Bağlantısını Kes";
-"SETTINGS_UNLINK_ONEDRIVE" = "OneDrive Bağlantısını Kes";
-"SETTINGS_FTP_TEXT_ENCODING" = "FTP bağlantılarının metin kodlaması";
 
 "SETTINGS_ARTWORK" = "Albüm Kapağı";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albüm Kapağını İndir";
