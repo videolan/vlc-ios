@@ -434,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "Selectie hergroeperen";
 "BUTTON_REGROUP_HINT" = "Proberen om enkelvoudige media automatisch te hergroeperen.";
 "BUTTON_REGROUP_DESCRIPTION" = "Weet u zeker dat u wilt proberen om enkelvoudige media automatisch te hergroeperen?\nDit kan even duren.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Media hier plaatsen om ze toe te voegen";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Toevoegen...";
+
+/* tip jar */
+"GIVE_TIP" = "Een fooi geven";
+"CANNOT_MAKE_PAYMENTS" = "U bent niet gemachtigd om betalingen uit te voeren op dit apparaat.";
+"PURCHASE_FAILED" = "Aankoop mislukt";
+"SEND_GIFT" = "Uw geschenk versturen";

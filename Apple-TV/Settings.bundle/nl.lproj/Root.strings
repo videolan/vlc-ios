@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatisch";
 "SETTINGS_PRIVACY_SUBTITLE" = "Openen in instellingen";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Toegang tot uw inhoud beveiligen";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Uw media zullen verborgen zijn in de \"Bestanden\"-app";
 
 "SETTINGS_DARKTHEME" = "Uiterlijk";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio tijdrekken";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Codeslot";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Touch ID voor ontgrendelen toestaan";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Face ID toestaan voor ontgrendelen";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "De mediabibliotheek verbergen in Bestanden";
 "SETTINGS_VIDEO_FULLSCREEN" = "Video afspelen in volledig scherm";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Afspelen van video hervatten";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Afspelen van audio hervatten";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "Bestandssynchronisatie";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-ondersteuning voor WiFi-delen";
-"SETTINGS_UNLINK_DROPBOX" = "Loskoppelen van Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Loskoppelen van Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Loskoppelen van OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Tekstcodering voor ftp-verbindingen";
 
 "SETTINGS_ARTWORK" = "Albumhoes";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albumhoes downloaden";
