@@ -25,13 +25,19 @@ protocol MedialibraryHidingActivateDelegate: class {
     func medialibraryHidingLockSwitchOn(state: Bool)
 }
 
+protocol MediaLibraryBackupActivateDelegate: class {
+    func mediaLibraryBackupActivateSwitchOn(state: Bool)
+}
+
 class SettingsCell: UITableViewCell {
 
     private let userDefaults = UserDefaults.standard
     private let notificationCenter = NotificationCenter.default
     private var localeDictionary = NSDictionary()
+    var showsActivityIndicator = false
     weak var passcodeSwitchDelegate: PasscodeActivateDelegate?
     weak var medialibraryHidingSwitchDelegate: MedialibraryHidingActivateDelegate?
+    weak var mediaLibraryBackupSwitchDelegate: MediaLibraryBackupActivateDelegate?
 
     lazy var switchControl: UISwitch = {
         let switchControl = UISwitch()
@@ -40,6 +46,12 @@ class SettingsCell: UITableViewCell {
                                 action: #selector(handleSwitchAction),
                                 for: .valueChanged)
         return switchControl
+    }()
+
+    let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
     }()
 
     let mainLabel: UILabel = {
@@ -89,8 +101,18 @@ class SettingsCell: UITableViewCell {
                 selectionStyle = .default
             }
             else {
-                accessoryView = switchControl
-                selectionStyle = .none
+                //When Media Library is adding or removing files to device backup
+                //We show a Activity Indicator instead of a switch while the process
+                //is going on. On completion, we show the switch again
+                if showsActivityIndicator && sectionType.preferenceKey == kVLCSettingBackupMediaLibrary {
+                    activityIndicator.isHidden = false
+                    accessoryView = .none
+                    selectionStyle = .none
+                } else {
+                    activityIndicator.isHidden = true
+                    accessoryView = switchControl
+                    selectionStyle = .none
+                }
             }
             updateSwitch()
             updateSubtitle()
@@ -109,6 +131,7 @@ class SettingsCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         backgroundColor = .clear //Required to prevent theme mismatch during themeDidChange Notification
+        activityIndicator.isHidden = true 
     }
 
     private func setup() {
@@ -126,6 +149,7 @@ class SettingsCell: UITableViewCell {
             guide = safeAreaLayoutGuide
         }
         addSubview(stackView)
+        addSubview(activityIndicator)
         stackView.addArrangedSubview(mainLabel)
         stackView.addArrangedSubview(subtitleLabel)
         NSLayoutConstraint.activate([
@@ -133,7 +157,10 @@ class SettingsCell: UITableViewCell {
             stackView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10),
             stackView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -10),
             stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -70),
+            activityIndicator.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -30),
+            activityIndicator.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)
         ])
+        activityIndicator.isHidden = true
     }
 
     private func setupObservers() {
@@ -154,6 +181,8 @@ class SettingsCell: UITableViewCell {
             passcodeSwitchDelegate?.passcodeLockSwitchOn(state: sender.isOn)
         } else if sectionType?.preferenceKey == kVLCSettingHideLibraryInFilesApp {
             medialibraryHidingSwitchDelegate?.medialibraryHidingLockSwitchOn(state: sender.isOn)
+        } else if sectionType?.preferenceKey == kVLCSettingBackupMediaLibrary {
+            mediaLibraryBackupSwitchDelegate?.mediaLibraryBackupActivateSwitchOn(state: sender.isOn)
         }
     }
 
@@ -162,6 +191,7 @@ class SettingsCell: UITableViewCell {
         selectedBackgroundView?.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor
         mainLabel.textColor = PresentationTheme.current.colors.cellTextColor
         subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
+        activityIndicator.color = PresentationTheme.current.colors.cellDetailTextColor
     }
 
     @objc private func updateValues() {

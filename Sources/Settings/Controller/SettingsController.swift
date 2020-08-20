@@ -23,6 +23,7 @@ class SettingsController: UITableViewController {
     private let specifierManager = ActionSheetSpecifier()
     private var mediaLibraryService = MediaLibraryService()
     private var localeDictionary = NSDictionary()
+    private var isBackingUp = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
@@ -307,6 +308,17 @@ extension SettingsController {
             cell.sectionType = castingOptions
         case .mediaLibrary:
             let mediaLibOptions = MediaLibraryOptions(rawValue: indexPath.row)
+            cell.mediaLibraryBackupSwitchDelegate = self
+            if indexPath.row == MediaLibraryOptions.includeMediaLibInDeviceBackup.rawValue {
+                if isBackingUp {
+                    cell.accessoryView = .none
+                    cell.accessoryType = .none 
+                    cell.activityIndicator.startAnimating()
+                } else {
+                    cell.activityIndicator.stopAnimating()
+                }
+                cell.showsActivityIndicator = isBackingUp
+            }
             cell.sectionType = mediaLibOptions
             if indexPath.row == 0 {
                 cell.accessoryView = .none
@@ -410,12 +422,14 @@ extension SettingsController: MediaLibraryDeviceBackupDelegate {
 
     func medialibraryDidStartExclusion() {
         DispatchQueue.main.async {
+            self.isBackingUp = true
             self.tableView.reloadData()
         }
     }
 
     func medialibraryDidCompleteExclusion() {
         DispatchQueue.main.async {
+            self.isBackingUp = false
             self.tableView.reloadData()
         }
     }
@@ -454,5 +468,11 @@ extension SettingsController: PasscodeActivateDelegate {
 extension SettingsController: MedialibraryHidingActivateDelegate {
     func medialibraryHidingLockSwitchOn(state: Bool) {
         mediaLibraryService.hideMediaLibrary(state)
+    }
+}
+
+extension SettingsController: MediaLibraryBackupActivateDelegate {
+    func mediaLibraryBackupActivateSwitchOn(state: Bool) {
+        mediaLibraryService.excludeFromDeviceBackup(state)
     }
 }
