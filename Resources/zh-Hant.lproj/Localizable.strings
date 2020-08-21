@@ -434,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "為選擇項目復原群組";
 "BUTTON_REGROUP_HINT" = "嘗試自動為單一媒體復原群組";
 "BUTTON_REGROUP_DESCRIPTION" = "您確定要嘗試自動為單一媒體復原群組嗎?\n此項操作可能會花一點時間。";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "將媒體放在此處以添加它們";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "新增中";
+
+/* tip jar */
+"GIVE_TIP" = "提供小費";
+"CANNOT_MAKE_PAYMENTS" = "你沒有權限在此設備上付款。";
+"PURCHASE_FAILED" = "購買失敗";
+"SEND_GIFT" = "送贈禮物";
