@@ -438,3 +438,9 @@
 /* Files.app persistence file */
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Pone sos mèdios inoghe pro los annànghere";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Annanghende...";
+
+/* tip jar */
+"GIVE_TIP" = "Lassa una bonamanu";
+"CANNOT_MAKE_PAYMENTS" = "Non ses autorizadu a fàghere gastos in custu dispositivu.";
+"PURCHASE_FAILED" = "Còmpora fallida";
+"SEND_GIFT" = "Imbia su donu tuo";
