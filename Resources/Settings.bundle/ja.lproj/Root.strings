@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "自動";
 "SETTINGS_PRIVACY_SUBTITLE" = "設定で開く";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "コンテンツへの安全なアクセス";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "ファイルアプリケーションでメディアが非表示になります";
 
 "SETTINGS_DARKTHEME" = "外観";
 "SETTINGS_TIME_STRETCH_AUDIO" = "タイムストレッチングオーディオ";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "パスコードロック";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Touch IDをロック解除に使用";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Face IDをロック解除に使用";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "ファイルのメディアライブラリを非表示にします";
 "SETTINGS_VIDEO_FULLSCREEN" = "全画面表示でビデオを再生";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "ビデオの再生を継続";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "オーディオの再生を継続";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "ファイル同期";
 "SETTINGS_WIFISHARING_IPv6" = "WiFi共有でのIPv6サポート";
-"SETTINGS_UNLINK_DROPBOX" = "Dropboxからアンリンク";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Googleドライブからアンリンク";
-"SETTINGS_UNLINK_ONEDRIVE" = "OneDriveからアンリンク";
-"SETTINGS_FTP_TEXT_ENCODING" = "FTP接続のためのテキストエンコーディング";
 
 "SETTINGS_ARTWORK" = "アートワーク";
 "SETTINGS_DOWNLOAD_ARTWORK" = "アートワークをダウンロード";

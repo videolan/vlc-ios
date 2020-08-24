@@ -434,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "選択したものを再グループ";
 "BUTTON_REGROUP_HINT" = "単一メディアを自動的に再グループすることを試行";
 "BUTTON_REGROUP_DESCRIPTION" = "単一メディアを自動的に再グループすることを本当に試行しますか?\nこの操作には少し時間がかかります。";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "ここでメディアを追加することができます";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "追加中...";
+
+/* tip jar */
+"GIVE_TIP" = "ティップスを提供";
+"CANNOT_MAKE_PAYMENTS" = "このデバイスで支払い許可がありません。";
+"PURCHASE_FAILED" = "購入手続きに失敗しました";
+"SEND_GIFT" = "ギフトを送る";
