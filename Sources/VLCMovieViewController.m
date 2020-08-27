@@ -712,12 +712,17 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     /* adapt the date picker style to suit our needs */
     [_sleepTimeDatePicker setValue:[UIColor whiteColor] forKeyPath:@"textColor"];
-    SEL selector = NSSelectorFromString(@"setHighlightsToday:");
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDatePicker instanceMethodSignatureForSelector:selector]];
-    BOOL no = NO;
-    [invocation setSelector:selector];
-    [invocation setArgument:&no atIndex:2];
-    [invocation invokeWithTarget:_sleepTimeDatePicker];
+
+    if (@available(iOS 14.0, *)) {
+
+    } else {
+        SEL selector = NSSelectorFromString(@"setHighlightsToday:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDatePicker instanceMethodSignatureForSelector:selector]];
+        BOOL no = NO;
+        [invocation setSelector:selector];
+        [invocation setArgument:&no atIndex:2];
+        [invocation invokeWithTarget:_sleepTimeDatePicker];
+    }
 
     if (_sleepTimerContainer.subviews.count > 0) {
         NSArray *subviewsOfSubview = [_sleepTimeDatePicker.subviews[0] subviews];
