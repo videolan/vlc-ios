@@ -59,9 +59,10 @@
             <constraints>
                 <constraint firstItem="Ozj-oC-7Dg" firstAttribute="top" secondItem="SK5-46-lSh" secondAttribute="top" constant="10" id="8fV-aV-Q9C"/>
                 <constraint firstItem="LvI-AK-2Br" firstAttribute="centerX" secondItem="Ozj-oC-7Dg" secondAttribute="centerX" id="H1O-dS-Z1s"/>
-                <constraint firstItem="LvI-AK-2Br" firstAttribute="bottom" secondItem="SK5-46-lSh" secondAttribute="bottom" id="Uxq-6O-bL3"/>
+                <constraint firstItem="LvI-AK-2Br" firstAttribute="bottom" secondItem="SK5-46-lSh" secondAttribute="bottom" priority="750" id="Uxq-6O-bL3"/>
                 <constraint firstItem="LvI-AK-2Br" firstAttribute="top" secondItem="Ozj-oC-7Dg" secondAttribute="bottom" constant="10" id="Yuf-oR-drD"/>
                 <constraint firstItem="Ozj-oC-7Dg" firstAttribute="leading" secondItem="SK5-46-lSh" secondAttribute="leading" id="dl6-v8-tY0"/>
+                <constraint firstItem="LvI-AK-2Br" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="GSO-Mh-jPo" secondAttribute="bottom" constant="-10" id="i1H-2X-P3P"/>
                 <constraint firstItem="Ozj-oC-7Dg" firstAttribute="trailing" secondItem="SK5-46-lSh" secondAttribute="trailing" id="mCs-Yn-ebq"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SK5-46-lSh"/>
