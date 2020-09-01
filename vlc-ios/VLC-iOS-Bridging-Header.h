@@ -30,3 +30,4 @@
 #import "VLCPlayerDisplayController.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCStoreViewController.h"
+#import "VLCFirstStepsViewController.h"

@@ -30,6 +30,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private var searchBarConstraint: NSLayoutConstraint?
     private let searchDataSource: LibrarySearchDataSource
     private let searchBarSize: CGFloat = 50.0
+    private let userDefaults = UserDefaults.standard
     private var rendererButton: UIButton
     private lazy var editController: EditController = {
         let editController = EditController(mediaLibraryService:services.medialibraryService,
@@ -48,6 +49,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 //    lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
 //        VLCDragAndDropManager<T>(subcategory: VLCMediaSubcategories<>)
 //    }()
+
+    private var hasLaunchedBefore: Bool {
+        return userDefaults.bool(forKey: kVLCHasLaunchedBefore)
+    }
 
     @objc private lazy var sortActionSheet: ActionSheet = {
         let header = ActionSheetSortSectionHeader(model: model.sortModel)
@@ -225,6 +230,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
         reloadData()
+        showGuideOnLaunch()
     }
 
     func loadSort() {
@@ -253,6 +259,16 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
         }
         setNeedsStatusBarAppearanceUpdate()
+    }
+
+    private func showGuideOnLaunch() {
+        if !hasLaunchedBefore {
+            let firstStepController = VLCFirstStepsViewController()
+            let navigationController = UINavigationController(rootViewController: firstStepController)
+            navigationController.modalPresentationStyle = .formSheet
+            self.present(navigationController, animated: true)
+            userDefaults.set(true, forKey: kVLCHasLaunchedBefore)
+        }
     }
 
     // MARK: - Renderer
