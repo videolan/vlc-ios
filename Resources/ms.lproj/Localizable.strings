@@ -283,7 +283,7 @@
 "FTP_SHORT" = "FTP";
 "SFTP_SHORT" = "SFTP";
 
-"NFS_LONG" = "Network File System (NFS)";
+"NFS_LONG" = "Sistem Fail Rangkaian (NFS)";
 "NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Pelayang Fail BONJOUR";
@@ -434,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "Kumpul semula pemilihan";
 "BUTTON_REGROUP_HINT" = "Cuba kumpul semula media tunggal secara automatik.";
 "BUTTON_REGROUP_DESCRIPTION" = "Anda pasti mahu cuba kumpul semula media tunggal secara automatik?\nTindakan ini mengambil sedikit masa.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Letak media di sini untuk menambahnya";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Menambah...";
+
+/* tip jar */
+"GIVE_TIP" = "Beri Tip";
+"CANNOT_MAKE_PAYMENTS" = "Anda tidak dibenarkan membuat apa-apa bayaran menerusi peranti ini.";
+"PURCHASE_FAILED" = "Pembayaran Gagal";
+"SEND_GIFT" = "Hantar hadiah anda";
