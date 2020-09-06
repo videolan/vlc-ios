@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "자동";
 "SETTINGS_PRIVACY_SUBTITLE" = "설정에서 열기";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "안전하게 당신의 컨텐츠에 접근하기";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "당신의 미디어가 파일 앱에서 숨겨질 것입니다.";
 
 "SETTINGS_DARKTHEME" = "모양";
 "SETTINGS_TIME_STRETCH_AUDIO" = "음정 변화 없는 오디오";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "비밀번호 잠금";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "잠금해제용 페이스 ID 허용하기";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "파일 앱에서 미디어 라이브러리 숨기기";
 "SETTINGS_VIDEO_FULLSCREEN" = "동영상을 전체화면에서 재생하기";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "비디오를 이어서 재생";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "오디오를 이어서 재생";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "파일 동기화";
 "SETTINGS_WIFISHARING_IPv6" = "WiFi 공유에서 IPv6 지원";
-"SETTINGS_UNLINK_DROPBOX" = "드랍박스 연결 끊기";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "구글 드라이브 연결 끊기";
-"SETTINGS_UNLINK_ONEDRIVE" = "원드라이브 연결 해제";
-"SETTINGS_FTP_TEXT_ENCODING" = "FTP 연결에서 사용할 텍스트 엔코딩";
 
 "SETTINGS_ARTWORK" = "아트워크";
 "SETTINGS_DOWNLOAD_ARTWORK" = "아트워크 다운로드";

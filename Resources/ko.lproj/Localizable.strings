@@ -434,3 +434,13 @@
 "BUTTON_REGROUP_TITLE" = "재그룹 선택";
 "BUTTON_REGROUP_HINT" = "하나의 미디어를 자동으로 재그룹하기";
 "BUTTON_REGROUP_DESCRIPTION" = "하나의 미디어를 자동으로 재그룹하시겠습니까? 시간이 조금 걸릴수도 있습니다.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "여기에 미디어를 가져와서 추가하세요";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "추가중...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "당신은 이 기기에서 결제하는 것이 허용되지 않았습니다.";
+"PURCHASE_FAILED" = "구매 실패함";
+"SEND_GIFT" = "Send your gift";
