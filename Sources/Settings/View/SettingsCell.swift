@@ -131,7 +131,7 @@ class SettingsCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         backgroundColor = .clear //Required to prevent theme mismatch during themeDidChange Notification
-        activityIndicator.isHidden = true 
+        activityIndicator.isHidden = true
 
         // Reset to default colors.
         themeDidChange()
