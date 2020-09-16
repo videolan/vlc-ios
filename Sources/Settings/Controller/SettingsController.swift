@@ -308,6 +308,9 @@ extension SettingsController {
             cell.sectionType = castingOptions
         case .mediaLibrary:
             let mediaLibOptions = MediaLibraryOptions(rawValue: indexPath.row)
+            if indexPath.row == MediaLibraryOptions.forceVLCToRescanTheMediaLibrary.rawValue {
+                cell.mainLabel.textColor = PresentationTheme.current.colors.orangeUI
+            }
             cell.mediaLibraryBackupSwitchDelegate = self
             if indexPath.row == MediaLibraryOptions.includeMediaLibInDeviceBackup.rawValue {
                 if isBackingUp {
