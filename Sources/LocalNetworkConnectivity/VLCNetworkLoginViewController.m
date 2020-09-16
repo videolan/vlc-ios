@@ -125,14 +125,17 @@
         case VLCServerProtocolSMB:
         {
             protocolIdentifier = VLCNetworkServerProtocolIdentifierSMB;
+            break;
         }
         case VLCServerProtocolNFS:
         {
             protocolIdentifier = VLCNetworkServerProtocolIdentifierNFS;
+            break;
         }
         case VLCServerProtocolSFTP:
         {
             protocolIdentifier = VLCNetworkServerProtocolIdentifierSFTP;
+            break;
         }
         default:
             break;
