@@ -145,6 +145,17 @@
 
 - (void)setLoginInformation:(VLCNetworkServerLoginInformation *)loginInformation
 {
+    if (loginInformation.protocolIdentifier == nil) {
+        loginInformation.protocolIdentifier = VLCNetworkServerProtocolIdentifierSMB;
+        VLCNetworkServerLoginInformationField *workgroupField = [[VLCNetworkServerLoginInformationField alloc]
+                                                                 initWithType:VLCNetworkServerLoginInformationFieldTypeText
+                                                                 identifier:@"VLCLocalNetworkServiceDSMWorkgroup"
+                                                                 label:NSLocalizedString(@"DSM_WORKGROUP", nil)
+                                                                 textValue:@"WORKGROUP"];
+
+
+        loginInformation.additionalFields = @[workgroupField];
+    }
     _loginInformation = loginInformation;
     self.protocolDataSource.protocol = [self protocolForProtocolIdentifier:loginInformation.protocolIdentifier];
     self.loginDataSource.loginInformation = loginInformation;
