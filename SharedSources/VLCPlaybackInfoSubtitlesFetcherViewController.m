@@ -299,11 +299,24 @@
         [self presentViewController:alertController animated:YES completion:nil];
     } else {
         [self startActivity];
+
         VLCSubtitleItem *item = self.searchResults[indexPath.row];
+        NSString *subStorageLocation;
+#if TARGET_OS_IOS
+        /* on iOS, we try to retain the subtitles if the played media is stored locally */
+        VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+        NSURL *mediaURL = vpc.currentlyPlayingMedia.url;
+        if (mediaURL.isFileURL) {
+            subStorageLocation = [[mediaURL.path stringByDeletingPathExtension] stringByAppendingPathExtension:item.format];
+        } else {
+#endif
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *folderPath = [searchPaths[0] stringByAppendingPathComponent:@"tempsubs"];
         [[NSFileManager defaultManager] createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
-        NSString *subStorageLocation = [folderPath stringByAppendingPathComponent:item.name];
+        subStorageLocation = [folderPath stringByAppendingPathComponent:item.name];
+#if TARGET_OS_IOS
+        }
+#endif
         [self.osoFetcher downloadSubtitleItem:item toPath:subStorageLocation];
     }
 }
