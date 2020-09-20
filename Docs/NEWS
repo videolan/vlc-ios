@@ -10,7 +10,11 @@
     and allows connections to servers with off-standard port configurations
 · Add downloads from SMB servers
 · Add support for http(s) downloads from servers requiring authentication
+· Add grid layout for Audio library
 · Fix storing user credentials for network shares
+· Retain downloaded subtitles for locally stored media
+· Automatic video deinterlacing (by default)
+· Retain last opened media category
 
 ## tvOS [3.1.0]
 
