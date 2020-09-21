@@ -144,7 +144,20 @@ extension EditActions {
             } else if let playlist = mlObject as? VLCMLPlaylist {
                 mlObjectName = playlist.name
             } else if let mediaGroup = mlObject as? VLCMLMediaGroup {
-                mlObjectName = mediaGroup.name()
+                if mediaGroup.nbMedia() == 1 && !mediaGroup.userInteracted() {
+                    guard let media = mediaGroup.media(of: .video)?.first else {
+                        assertionFailure("EditActions: rename: Failed to retrieve media.")
+                        VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
+                                                                errorMessage: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
+                                                                viewController: self.rootViewController)
+                        self.completion?(.fail)
+                        return
+                    }
+                    mlObjectName = media.title
+                }
+                else {
+                    mlObjectName = mediaGroup.name()
+                }
             } else {
                 assertionFailure("EditActions: Rename called with wrong model.")
             }
