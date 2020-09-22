@@ -174,6 +174,16 @@ extension MediaGroupViewModel: MediaLibraryObserver {
         }
     }
 
+    // MARK: - VLCMLMedia
+
+    func medialibrary(_ medialibrary: MediaLibraryService, didModifyVideos videos: [VLCMLMedia]) {
+        if !videos.isEmpty {
+            observable.observers.forEach() {
+                $0.value.observer?.mediaLibraryBaseModelReloadView()
+            }
+        }
+    }
+
     // MARK: - Thumbnail
 
     func medialibrary(_ medialibrary: MediaLibraryService,
