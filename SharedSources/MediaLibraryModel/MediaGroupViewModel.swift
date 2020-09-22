@@ -220,7 +220,15 @@ extension VLCMLMediaGroup: MediaCollectionModel {
     }
 
     func title() -> String {
-        return name()
+        if nbMedia() == 1 && !userInteracted() {
+            guard let media = media(of: .video)?.first else {
+                assertionFailure("MediaGroupViewController: Failed to retrieve media.")
+                return name()
+            }
+            return media.title
+        } else {
+            return name()
+        }
     }
 }
 
