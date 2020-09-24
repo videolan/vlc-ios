@@ -39,9 +39,17 @@ class ImpactFeedbackGenerator {
     }
 
     func selectionChanged() {
+        genericImpactFeedback(intensity: 0.5)
+    }
+
+    func limitOverstepped() {
+        genericImpactFeedback(intensity: 1.0)
+    }
+
+    private func genericImpactFeedback(intensity: CGFloat) {
         if #available(iOS 13, *) {
             guard let feedbackGenerator = feedbackGenerator as? UIImpactFeedbackGenerator else { return }
-            feedbackGenerator.impactOccurred(intensity: 0.5)
+            feedbackGenerator.impactOccurred(intensity: intensity)
         }
         else {
             guard let feedbackGenerator = feedbackGenerator as? UISelectionFeedbackGenerator else { return }
