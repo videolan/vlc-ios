@@ -157,7 +157,7 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
                                               {
                                                   NSString *suggestedPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[response suggestedFilename]];
 
-                                                  return requireUnzipping? [NSURL fileURLWithPath:suggestedPath] : path;
+                                                  return requireUnzipping? [NSURL fileURLWithPath:suggestedPath] : [NSURL fileURLWithPath:path];
                                               }
                                                             completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error)
                                               {
