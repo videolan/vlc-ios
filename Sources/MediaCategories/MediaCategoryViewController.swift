@@ -628,7 +628,12 @@ private extension MediaCategoryViewController {
                     [weak self] _ in
                     if let modelContent = modelContent {
                         self?.editController.editActions.objects = [modelContent]
-                        self?.editController.editActions.rename()
+                        self?.editController.editActions.rename() {
+                            [weak self] state in
+                            if state == .success {
+                                self?.reloadData()
+                            }
+                        }
                     }
                 })
             case .delete:
