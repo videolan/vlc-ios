@@ -69,15 +69,6 @@
     }
 }
 
-- (BOOL)shouldFilterMedia:(VLCMedia *)media
-{
-    if (media.mediaType == VLCMediaTypeDirectory) {
-        return NO;
-    }
-    NSString *absoluteString = media.url.absoluteString;
-    return ![absoluteString isSupportedAudioMediaFormat] && ![absoluteString isSupportedMediaFormat] && ![absoluteString isSupportedPlaylistFormat];
-}
-
 - (void)_addMediaListRootItemsToList
 {
     VLCMediaList *rootItems = _rootMedia.subitems;
@@ -85,11 +76,9 @@
     NSUInteger count = rootItems.count;
     for (NSUInteger i = 0; i < count; i++) {
         VLCMedia *media = [rootItems mediaAtIndex:i];
-        if (![self shouldFilterMedia:media]) {
-            NSInteger mediaIndex = self.mutableItems.count;
-            [self.mediaList insertMedia:media atIndex:mediaIndex];
-            [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
-        }
+        NSInteger mediaIndex = self.mutableItems.count;
+        [self.mediaList insertMedia:media atIndex:mediaIndex];
+        [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
     }
     [rootItems unlock];
 }
@@ -114,11 +103,9 @@
 - (void)mediaList:(VLCMediaList *)aMediaList mediaAdded:(VLCMedia *)media atIndex:(NSUInteger)index
 {
     [media addOptions:self.mediaOptions];
-    if (![self shouldFilterMedia:media]) {
-        NSInteger mediaIndex = self.mutableItems.count;
-        [self.mediaList insertMedia:media atIndex:mediaIndex];
-        [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
-    }
+    NSInteger mediaIndex = self.mutableItems.count;
+    [self.mediaList insertMedia:media atIndex:mediaIndex];
+    [self.mutableItems insertObject:[[VLCNetworkServerBrowserItemVLCMedia alloc] initWithMedia:media options:self.mediaOptions] atIndex:mediaIndex];
 
     [self.delegate networkServerBrowserDidUpdate:self];
 }
