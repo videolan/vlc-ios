@@ -330,7 +330,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if isEditing {
             tabBarController?.editToolBar()?.delegate = editController
             tabBarController?.displayEditToolbar(with: model)
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0) {
                 [weak self] in
                 self?.collectionView.contentInset = .zero
             }
