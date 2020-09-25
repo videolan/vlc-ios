@@ -41,5 +41,17 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Automatic</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_googlecast._tcp</string>
+		<string>_sftp-ssh._tcp.</string>
+		<string>_nfs._tcp.</string>
+		<string>_plexmediasvr._tcp.</string>
+		<string>_http._tcp.</string>
+		<string>_ftp._tcp.</string>
+		<string>_smb._tcp.</string>
+	</array>
+	<key>com.apple.developer.networking.multicast</key>
+	<true/>
 </dict>
 </plist>
