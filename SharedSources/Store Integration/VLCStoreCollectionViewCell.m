@@ -73,6 +73,7 @@
 
 - (void)prepareForReuse
 {
+    [super prepareForReuse];
     [self setSelected:NO];
 }
 
