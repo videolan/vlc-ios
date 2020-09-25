@@ -2,10 +2,11 @@
  * VLCNetworkServerBrowserVLCMedia.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -22,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithMedia:(VLCMedia *)media options:(NSDictionary *)mediaOptions;
 
 @property (nonatomic, getter=isDownloadable, readonly) BOOL downloadable;
+@property (nonatomic, readonly, nullable) NSURL *thumbnailURL;
 
 @end
 

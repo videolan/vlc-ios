@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -184,6 +185,15 @@
 - (BOOL)isDownloadable
 {
     return _media.mediaType == VLCMediaTypeFile;
+}
+
+- (NSURL *)thumbnailURL
+{
+    NSString *artworkUrlString = [_media metadataForKey:VLCMetaInformationArtworkURL];
+    if (artworkUrlString) {
+        return [NSURL URLWithString:artworkUrlString];
+    }
+    return nil;
 }
 
 @end
