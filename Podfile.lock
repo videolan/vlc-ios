@@ -29,9 +29,9 @@ PODS:
     - box-ios-sdk-v2/no-arc (= 1.2.3)
   - box-ios-sdk-v2/no-arc (1.2.3)
   - CocoaHTTPServer (2.3)
-  - GoogleAPIClientForREST/Core (1.4.2):
+  - GoogleAPIClientForREST/Core (1.4.3):
     - GTMSessionFetcher (>= 1.1.7)
-  - GoogleAPIClientForREST/Drive (1.4.2):
+  - GoogleAPIClientForREST/Drive (1.4.3):
     - GoogleAPIClientForREST/Core
     - GTMSessionFetcher (>= 1.1.7)
   - GRKArrayDiff (2.2.1)
@@ -84,7 +84,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
   - AppCenter (= 2.3.0)
-  - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`)
+  - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`, commit `fe0fbb20`)
   - CocoaHTTPServer (from `git://github.com/fkuehne/CocoaHTTPServer.git`)
   - GoogleAPIClientForREST/Drive
   - GRKArrayDiff (~> 2.1)
@@ -130,6 +130,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   box-ios-sdk-v2:
+    :commit: fe0fbb20
     :git: git://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
     :git: git://github.com/fkuehne/CocoaHTTPServer.git
@@ -144,7 +145,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   box-ios-sdk-v2:
-    :commit: 5dce9baa6b51cb280649fdd8bdf575e2c094a06f
+    :commit: fe0fbb20
     :git: git://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
     :commit: 97933152c16f93ab36dd28a9d33c64c5f2a085e5
@@ -167,7 +168,7 @@ SPEC CHECKSUMS:
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
-  GoogleAPIClientForREST: 9f49df9fac7867b459187e687fed3066b2be049a
+  GoogleAPIClientForREST: e2d95a611ac06a90d143c93bfd8597719f8b0938
   GRKArrayDiff: 7522e374edcc55c1731a219e428847164b04cfab
   GTMAppAuth: c5e41aaf039ac1ccc41543e6ea2ef7abd255ad41
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
@@ -187,6 +188,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: a9fc1c4f6834815686fc4f3c9eab63a0add70afa
+PODFILE CHECKSUM: 71cf771a11f6924d6bc79f03e2e6081714d1e702
 
 COCOAPODS: 1.9.3
