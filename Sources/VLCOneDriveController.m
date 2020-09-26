@@ -57,11 +57,10 @@ static void *ProgressObserverContext = &ProgressObserverContext;
 {
     self = [super init];
 
-    if (!self)
-        return self;
-//    [self restoreFromSharedCredentials];
-    _oneDriveClient = [ODClient loadCurrentClient];
-    [self setupSession];
+    if (self) {
+        _oneDriveClient = [ODClient loadCurrentClient];
+        [self setupSession];
+    }
     return self;
 }
 
@@ -130,7 +129,6 @@ static void *ProgressObserverContext = &ProgressObserverContext;
     [self setupSession];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCOneDriveControllerSessionUpdated object:self];
-//    [self shareCredentials];
 }
 
 - (void)authFailed:(NSError *)error
@@ -142,37 +140,6 @@ static void *ProgressObserverContext = &ProgressObserverContext;
             [self.delegate performSelector:@selector(sessionWasUpdated)];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCOneDriveControllerSessionUpdated object:self];
-}
-
-- (void)shareCredentials
-{
-    // FIXME: https://github.com/OneDrive/onedrive-sdk-ios/issues/187
-
-/* share our credentials */
-//    LiveAuthStorage *authStorage = [[LiveAuthStorage alloc] initWithClientId:kVLCOneDriveClientID];
-//    _oneDriveClient = [[ODClient alloc] ]
-//    _oneDriveClient.authProvider.accountSession.refreshToken;
-//NSString *credentials = [authStorage refreshToken];
-//  NSString *credentials = [_oneDriveClient token]
-//    if (credentials == nil)
-//        return;
-//
-//    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
-//    [ubiquitousStore setString:credentials forKey:kVLCStoreOneDriveCredentials];
-//    [ubiquitousStore synchronize];
-}
-
-- (BOOL)restoreFromSharedCredentials
-{
-//    LiveAuthStorage *authStorage = [[LiveAuthStorage alloc] initWithClientId:kVLCOneDriveClientID];
-//    NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
-//    [ubiquitousStore synchronize];
-//    NSString *credentials = [ubiquitousStore stringForKey:kVLCStoreOneDriveCredentials];
-//    if (!credentials)
-//        return NO;
-//
-//    [authStorage setRefreshToken:credentials];
-    return YES;
 }
 
 #pragma mark - listing
