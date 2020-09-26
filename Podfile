@@ -8,7 +8,7 @@ def shared_pods
   pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
   pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/Mikanbu/dropbox-sdk-obj-c.git' #update ios platform version
   pod 'xmlrpc', :git => 'git://github.com/fkuehne/xmlrpc.git', :commit => '3f8ce3a8' #fix case-sensitive FS
-  pod 'AFNetworking', '~>3.1.0'
+  pod 'AFNetworking', '~>4.0'
 
   pod 'AppCenter', '2.3.0'
   # debug
@@ -42,7 +42,7 @@ target 'VLC-tvOS' do
   shared_pods
   pod 'GRKArrayDiff', '~> 2.1'
   pod 'TVVLCKit', '3.3.13'
-  pod 'MetaDataFetcherKit', '~>0.4.0'
+  pod 'MetaDataFetcherKit', '~>0.5.0'
 end
 
 post_install do |installer_representation|

@@ -1,19 +1,19 @@
 PODS:
   - ADAL (1.2.10)
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
+  - AFNetworking (4.0.0):
+    - AFNetworking/NSURLSession (= 4.0.0)
+    - AFNetworking/Reachability (= 4.0.0)
+    - AFNetworking/Security (= 4.0.0)
+    - AFNetworking/Serialization (= 4.0.0)
+    - AFNetworking/UIKit (= 4.0.0)
+  - AFNetworking/NSURLSession (4.0.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
+  - AFNetworking/Reachability (4.0.0)
+  - AFNetworking/Security (4.0.0)
+  - AFNetworking/Serialization (4.0.0)
+  - AFNetworking/UIKit (4.0.0):
     - AFNetworking/NSURLSession
   - AppAuth (0.95.1)
   - AppCenter (2.3.0):
@@ -47,8 +47,8 @@ PODS:
   - MarqueeLabel (4.0.2)
   - MediaLibraryKit-prod (2.6.9):
     - MobileVLCKit (~> 3.3.0)
-  - MetaDataFetcherKit (0.4.0):
-    - AFNetworking (= 3.1.0)
+  - MetaDataFetcherKit (0.5.0):
+    - AFNetworking (= 4.0.0)
   - MobileVLCKit (3.3.13)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (1.1)
@@ -82,7 +82,7 @@ PODS:
     - "NSData+Base64"
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.1.0)
+  - AFNetworking (~> 4.0)
   - AppCenter (= 2.3.0)
   - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`, commit `fe0fbb20`)
   - CocoaHTTPServer (from `git://github.com/fkuehne/CocoaHTTPServer.git`)
@@ -92,7 +92,7 @@ DEPENDENCIES:
   - InAppSettingsKit (from `git://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
   - MediaLibraryKit-prod
-  - MetaDataFetcherKit (~> 0.4.0)
+  - MetaDataFetcherKit (~> 0.5.0)
   - MobileVLCKit (= 3.3.13)
   - ObjectiveDropboxOfficial (from `git://github.com/Mikanbu/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
@@ -162,7 +162,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AFNetworking: d9fdf484a3c723ec3c558a41cc5754c7e845ee77
   AppAuth: cd34aac431e5c77c46ec7f03935377faa8c5808b
   AppCenter: 9784d2fc998c9bd0b8fbaf4fb9ed69526d12ce1a
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
@@ -175,7 +175,7 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MediaLibraryKit-prod: 718b52b55cb40b479eeae29fb5cc0cfbbbce0191
-  MetaDataFetcherKit: fadbdbe90ddfc50370165bda69a46d430633e3ff
+  MetaDataFetcherKit: c77fa3d0791d406a8cfab43464ed728437bd241b
   MobileVLCKit: 92e1ea43124259417f481c890821efb2399d25e3
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: b9e95d98e3ff2baa0cd86aea7c8322a712f356d6
@@ -188,6 +188,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 71cf771a11f6924d6bc79f03e2e6081714d1e702
+PODFILE CHECKSUM: d454dbc74dff8ed37c21eaefc9699c3f01b53ac2
 
 COCOAPODS: 1.9.3
