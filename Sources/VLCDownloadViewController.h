@@ -16,8 +16,6 @@
 
 @interface VLCDownloadViewController : UIViewController
 
-+ (instancetype)sharedInstance;
-
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIView *downloadFieldContainer;
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;

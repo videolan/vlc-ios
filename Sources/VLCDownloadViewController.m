@@ -26,18 +26,6 @@
 
 @implementation VLCDownloadViewController
 
-+ (instancetype)sharedInstance
-{
-    static VLCDownloadViewController *sharedInstance = nil;
-    static dispatch_once_t pred;
-
-    dispatch_once(&pred, ^{
-        sharedInstance = [[VLCDownloadViewController alloc] initWithNibName:@"VLCDownloadViewController" bundle:nil];
-    });
-
-    return sharedInstance;
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
