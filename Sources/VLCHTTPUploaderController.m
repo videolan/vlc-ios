@@ -64,12 +64,15 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 {
     if (self = [super init]) {
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center addObserver:self selector:@selector(applicationDidBecomeActive:)
-            name:UIApplicationDidBecomeActiveNotification object:nil];
-        [center addObserver:self selector:@selector(applicationDidEnterBackground:)
-            name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [center addObserver:self selector:@selector(netReachabilityChanged) name:kReachabilityChangedNotification object:nil];
-        
+        [center addObserver:self
+                   selector:@selector(applicationDidBecomeActive:)
+                       name:UIApplicationDidBecomeActiveNotification
+                     object:nil];
+        [center addObserver:self
+                   selector:@selector(netReachabilityChanged)
+                       name:kReachabilityChangedNotification
+                     object:nil];
+
         BOOL isHTTPServerOn = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus];
         [self netReachabilityChanged];
         [self changeHTTPServerState:isHTTPServerOn];
@@ -79,29 +82,30 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     return self;
 }
 
-- (void)applicationDidBecomeActive: (NSNotification *)notification
+- (void)applicationDidBecomeActive:(NSNotification *)notification
 {
     if (!_httpServer.isRunning)
         [self changeHTTPServerState:[[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingSaveHTTPUploadServerStatus]];
+}
 
-    if (_backgroundTaskIdentifier && _backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
-        [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
-        _backgroundTaskIdentifier = 0;
+- (void)beginBackgroundTask
+{
+    if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        dispatch_block_t expirationHandler = ^{
+            [self changeHTTPServerState:NO];
+            [[UIApplication sharedApplication] endBackgroundTask:self->_backgroundTaskIdentifier];
+            self->_backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+        };
+        _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:VLCHTTPUploaderBackgroundTaskName
+                                                                                 expirationHandler:expirationHandler];
     }
 }
 
-- (void)applicationDidEnterBackground: (NSNotification *)notification
+- (void)endBackgroundTask
 {
-    if (_httpServer.isRunning) {
-        if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
-            dispatch_block_t expirationHandler = ^{
-                [self changeHTTPServerState:NO];
-                [[UIApplication sharedApplication] endBackgroundTask:self->_backgroundTaskIdentifier];
-                self->_backgroundTaskIdentifier = 0;
-            };
-            _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:VLCHTTPUploaderBackgroundTaskName
-                                                                                     expirationHandler:expirationHandler];
-        }
+    if (_backgroundTaskIdentifier && _backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+        [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
+        _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     }
 }
 
@@ -206,12 +210,14 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 {
     if (!state) {
         [_httpServer stop];
+        [self endBackgroundTask];
         return true;
     }
 
     if (_nameOfUsedNetworkInterface == nil) {
         APLog(@"No interface to listen on, server not started");
         _isReachable = NO;
+        [self endBackgroundTask];
         return NO;
     }
 
@@ -247,24 +253,31 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
         if (error.code == EACCES) {
             APLog(@"Port forbidden by OS, trying another one");
             [_httpServer setPort:8888];
-            if(![_httpServer start:&error])
+            if (![_httpServer start:&error]) {
+                [self beginBackgroundTask];
                 return true;
+            }
         }
 
         /* Address already in Use, take a random one */
         if (error.code == EADDRINUSE) {
             APLog(@"Port already in use, trying another one");
             [_httpServer setPort:0];
-            if(![_httpServer start:&error])
+            if (![_httpServer start:&error]) {
+                [self beginBackgroundTask];
                 return true;
+            }
         }
 
         if (error) {
             APLog(@"Error starting HTTP Server: %@", error.localizedDescription);
             [_httpServer stop];
         }
+        [self endBackgroundTask];
         return false;
     }
+
+    [self beginBackgroundTask];
     return true;
 }
 
