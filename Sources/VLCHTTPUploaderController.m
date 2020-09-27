@@ -2,7 +2,7 @@
  * VLCHTTPUploaderController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2020 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Jean-Baptiste Kempf <jb # videolan.org>
@@ -31,6 +31,8 @@
 #import "VLC-Swift.h"
 #import "VLCMediaFileDiscoverer.h"
 #endif
+
+NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskName";
 
 @interface VLCHTTPUploaderController()
 {
@@ -97,11 +99,8 @@
                 [[UIApplication sharedApplication] endBackgroundTask:self->_backgroundTaskIdentifier];
                 self->_backgroundTaskIdentifier = 0;
             };
-            if ([[UIApplication sharedApplication] respondsToSelector:@selector(beginBackgroundTaskWithName:expirationHandler:)]) {
-                _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"VLCUploader" expirationHandler:expirationHandler];
-            } else {
-                _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:expirationHandler];
-            }
+            _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:VLCHTTPUploaderBackgroundTaskName
+                                                                                     expirationHandler:expirationHandler];
         }
     }
 }
