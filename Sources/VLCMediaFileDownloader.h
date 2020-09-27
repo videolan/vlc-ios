@@ -14,11 +14,11 @@
 
 @protocol VLCMediaFileDownloader <NSObject>
 @required
-- (void)downloadStartedWithIdentifier:(NSString *)identifier;
-- (void)downloadEndedWithIdentifier:(NSString *)identifier;
+- (void)mediaFileDownloadStarted;
+- (void)mediaFileDownloadEnded;
 
 @optional
-- (void)downloadFailedWithIdentifier:(NSString *)identifier errorDescription:(NSString *)description;
+- (void)downloadFailedWithErrorDescription:(NSString *)description;
 - (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize;
 
 @end

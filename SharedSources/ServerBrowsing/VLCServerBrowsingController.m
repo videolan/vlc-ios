@@ -23,7 +23,7 @@
 #endif
 
 #if DOWNLOAD_SUPPORTED
-#import "VLCDownloadViewController.h"
+#import "VLCDownloadController.h"
 #endif
 
 @implementation VLCServerBrowsingController
@@ -275,12 +275,12 @@
 
     VLCMedia *media = item.media;
     if (media) {
-        [[VLCDownloadViewController sharedInstance] addVLCMediaToDownloadList:media
-                                                              fileNameOfMedia:filename
-                                                         expectedDownloadSize:item.fileSizeBytes.unsignedLongLongValue];
+        [[VLCDownloadController sharedInstance] addVLCMediaToDownloadList:media
+                                                          fileNameOfMedia:filename
+                                                     expectedDownloadSize:item.fileSizeBytes.unsignedLongLongValue];
     } else {
-        [[VLCDownloadViewController sharedInstance] addURLToDownloadList:item.URL
-                                                         fileNameOfMedia:filename];
+        [[VLCDownloadController sharedInstance] addURLToDownloadList:item.URL
+                                                     fileNameOfMedia:filename];
     }
     if ([item respondsToSelector:@selector(subtitleURL)]) {
         if ([item subtitleURL]) {

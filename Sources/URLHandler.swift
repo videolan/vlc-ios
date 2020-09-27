@@ -222,7 +222,7 @@ extension VLCURLHandler {
     }
 
     func downloadMovie(from url: URL, fileNameOfMedia fileName: String?) {
-        VLCDownloadViewController.sharedInstance().addURL(toDownloadList: url, fileNameOfMedia: fileName)
+        VLCDownloadController.sharedInstance().addURL(toDownloadList: url, fileNameOfMedia: fileName)
     }
 }
 

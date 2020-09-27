@@ -117,11 +117,16 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
     [_mediaPlayer stop];
 }
 
+- (void)_downloadStarted
+{
+    [self.delegate mediaFileDownloadStarted];
+}
+
 - (void)_downloadFailed
 {
     if ([self.delegate respondsToSelector:@selector(downloadFailedWithIdentifier:errorDescription:)]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate downloadFailedWithIdentifier:nil errorDescription:@"libvlc failure"];
+            [self.delegate downloadFailedWithErrorDescription:@"libvlc failure"];
         });
     }
     [self _downloadEnded];
@@ -134,7 +139,7 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 
     if ([self.delegate respondsToSelector:@selector(downloadFailedWithIdentifier:errorDescription:)]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate downloadFailedWithIdentifier:nil errorDescription:NSLocalizedString(@"HTTP_DOWNLOAD_CANCELLED",nil)];
+            [self.delegate downloadFailedWithErrorDescription:NSLocalizedString(@"HTTP_DOWNLOAD_CANCELLED",nil)];
         });
     }
 }
@@ -158,7 +163,7 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 
     _downloadInProgress = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.delegate downloadEndedWithIdentifier:nil];
+        [self.delegate mediaFileDownloadEnded];
     });
 
     [self terminateBackgroundTask];
@@ -172,6 +177,7 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
             case VLCMediaPlayerStatePlaying:
                 _timer = [NSTimer scheduledTimerWithTimeInterval:1. target:self selector:@selector(updatePosition) userInfo:nil repeats:YES];
                 APLog(@"%s: playing", __func__);
+                [self _downloadStarted];
                 break;
 
             case VLCMediaPlayerStateBuffering:

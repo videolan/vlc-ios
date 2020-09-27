@@ -9,6 +9,7 @@
 #import "VLCAppDelegate.h"
 #import "VLCCloudServicesTableViewController.h"
 #import "VLCConstants.h"
+#import "VLCDownloadController.h"
 #import "VLCDownloadViewController.h"
 #import "VLCEmptyLibraryView.h"
 #import "VLCOpenNetworkStreamViewController.h"
