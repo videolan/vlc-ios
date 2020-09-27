@@ -36,8 +36,6 @@
     NSMutableArray *_lastSpeeds;
     CGFloat _totalReceived;
     CGFloat _lastReceived;
-
-    UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
 }
 @end
 
@@ -217,7 +215,6 @@
 
 - (void)_startDownload
 {
-    [self _beginBackgroundDownload];
     [self _updateUI];
     _startDL = [NSDate timeIntervalSinceReferenceDate];
     [_lastSpeeds removeAllObjects];
@@ -251,31 +248,10 @@
     [self _startDownload];
 }
 
-- (void)_beginBackgroundDownload
-{
-    if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
-        dispatch_block_t expirationHandler = ^{
-            APLog(@"Downloads were interrupted after being in background too long, time remaining: %f", [[UIApplication sharedApplication] backgroundTimeRemaining]);
-            [[UIApplication sharedApplication] endBackgroundTask:self->_backgroundTaskIdentifier];
-            self->_backgroundTaskIdentifier = 0;
-        };
-
-        _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"VLCDownloader" expirationHandler:expirationHandler];
-        if (_backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
-            APLog(@"Unable to download");
-        }
-    }
-}
-
 - (void)_triggerNextDownload
 {
     if ([_currentDownloads count] == 0) {
         _downloadActive = NO;
-
-        if (_backgroundTaskIdentifier && _backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
-            [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
-            _backgroundTaskIdentifier = 0;
-        }
         return;
     }
 

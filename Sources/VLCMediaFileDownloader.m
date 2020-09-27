@@ -17,6 +17,8 @@
 #import "VLCMediaFileDiscoverer.h"
 #import "VLC-Swift.h"
 
+NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBackgroundTaskName";
+
 @interface VLCMediaFileDownloader () <VLCMediaPlayerDelegate>
 {
     VLCMediaPlayer *_mediaPlayer;
@@ -26,6 +28,7 @@
     NSFileManager *_fileManager;
     unsigned long long _expectedDownloadSize;
     unsigned long long _lastFileSize;
+    UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
 }
 @end
 
@@ -74,6 +77,7 @@
 
 - (NSString *)downloadFileFromVLCMedia:(VLCMedia *)media withName:(NSString *)name expectedDownloadSize:(unsigned long long)expectedDownloadSize
 {
+    [self beginBackgroundTask];
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *libraryPath = [searchPaths firstObject];
 
@@ -156,6 +160,8 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate downloadEndedWithIdentifier:nil];
     });
+
+    [self terminateBackgroundTask];
 }
 
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
@@ -207,6 +213,29 @@
                 self->_lastFileSize = fileSize;
             });
         }
+    }
+}
+
+#pragma mark - background task management
+- (void)beginBackgroundTask
+{
+    if (!_backgroundTaskIdentifier || _backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        dispatch_block_t expirationHandler = ^{
+            APLog(@"Cancelling active download because the expiration date was reached, time remaining: %f", [[UIApplication sharedApplication] backgroundTimeRemaining]);
+            [self cancelDownload];
+            [[UIApplication sharedApplication] endBackgroundTask:self->_backgroundTaskIdentifier];
+            self->_backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+        };
+        _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:VLCMediaFileDownloaderBackgroundTaskName
+                                                                                 expirationHandler:expirationHandler];
+    }
+}
+
+- (void)terminateBackgroundTask
+{
+    if (_backgroundTaskIdentifier && _backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+        [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
+        _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     }
 }
 
