@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Ordem Decrescente";
 "DESCENDING_SWITCH_LABEL" = "Ordem Crescente ou Decrescente";
 "DESCENDING_SWITCH_HINT" = "Ordena o contexto em ordem crescente ou decrescente";
+"GRID_LAYOUT" = "Leiaute da Grade";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
