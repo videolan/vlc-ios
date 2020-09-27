@@ -9,7 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automat";
 "SETTINGS_PRIVACY_SUBTITLE" = "Deschide în Setări";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Acces în siguranță la conținutul tău";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Fișierele tale media vor fi ascunse în aplicația de Fișiere";
 
 "SETTINGS_DARKTHEME" = "Aspect";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio întindere-timp";
@@ -18,7 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Cod pentru deblocare";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permite Face ID pentru deblocare";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Ascunde biblioteca media în aplicația de fișiere";
 "SETTINGS_VIDEO_FULLSCREEN" = "Redă video pe tot ecranul";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continuă redarea video";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continuă redarea audio";
