@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Absteigende Sortierung";
 "DESCENDING_SWITCH_LABEL" = "Aufsteigende oder Absteigende Sortierung";
 "DESCENDING_SWITCH_HINT" = "Inhalt aufsteigend oder absteigend sortieren";
+"GRID_LAYOUT" = "Gitterstruktur";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
