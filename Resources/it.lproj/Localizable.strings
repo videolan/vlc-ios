@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Ordine decrescente";
 "DESCENDING_SWITCH_LABEL" = "Ordine crescente o decrescente";
 "DESCENDING_SWITCH_HINT" = "Mostra il contesto in ordine crescente o decrescente";
+"GRID_LAYOUT" = "Struttura della griglia";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
