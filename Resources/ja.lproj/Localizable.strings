@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "逆順";
 "DESCENDING_SWITCH_LABEL" = "昇順/逆順";
 "DESCENDING_SWITCH_HINT" = "並び替えの順序";
+"GRID_LAYOUT" = "グリッドレイアウト";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
