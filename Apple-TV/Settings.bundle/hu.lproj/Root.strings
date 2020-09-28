@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatikus";
 "SETTINGS_PRIVACY_SUBTITLE" = "Megnyitás a Beállításokban";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Biztonságos hozzáférés a tartalmához";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "A médiái rejtve lesznek a Fájlok alkalmazásban";
 
 "SETTINGS_DARKTHEME" = "Megjelenés";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Időbeli hangnyújtás";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Jelkódzár";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Touch ID engedélyezése a feloldáshoz";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Face ID engedélyezése a feloldáshoz";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "A médiatár elrejtése a Fájlokban";
 "SETTINGS_VIDEO_FULLSCREEN" = "Videó lejátszása teljes képernyőn";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Videólejátszás folytatása";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Hanglejátszás folytatása";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "Fájlszinkronizáció";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 támogatás a WiFi megosztáshoz";
-"SETTINGS_UNLINK_DROPBOX" = "Dropbox leválasztása";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Google Drive leválasztása";
-"SETTINGS_UNLINK_ONEDRIVE" = "OneDrive leválasztása";
-"SETTINGS_FTP_TEXT_ENCODING" = "Szövegkódolás FTP kapcsolatoknál";
 
 "SETTINGS_ARTWORK" = "Grafika";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Grafika letöltése";

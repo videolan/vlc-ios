@@ -17,7 +17,7 @@
 "LANGUAGE" = "Nyelv";
 "MEDIA_INFO" = "Médiainformációk";
 "VIDEO_DIMENSIONS" = "Videó felbontása";
-"FORMAT_VIDEO_DIMENSIONS" = "%ix%i pixel";
+"FORMAT_VIDEO_DIMENSIONS" = "%i×%i képpont";
 "FORMAT_AUDIO_TRACKS" = "%i hangsáv";
 "ONE_AUDIO_TRACK" = "Egy hangsáv";
 "FORMAT_SPU_TRACKS" = "%i feliratsáv";
@@ -60,7 +60,7 @@
 "BUTTON_DOWNLOAD" = "Letöltés";
 "BUTTON_DELETE" = "Törlés";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "Közreműk.";
+"BUTTON_CONTRIBUTE" = "Közreműködés";
 "BUTTON_CONNECT" = "Csatlakozás";
 "BUTTON_RENAME" = "Átnevezés";
 "BUTTON_LEARN_MORE" = "További információ";
@@ -75,15 +75,15 @@
 "BUTTON_RENDERER" = "Vetítési eszközök";
 "BUTTON_RENDERER_HINT" = "Menü megjelenítése az elérhető vetítési eszközökkel";
 
-"UPGRADING_LIBRARY" = "Médiatár frissítése…";
+"UPGRADING_LIBRARY" = "Médiatár frissítése";
 
-"OPEN_NETWORK" = "Hálózati stream";
-"NETWORK_TITLE" = "Hálózati stream";
-"OPEN_NETWORK_HELP" = "Adjon meg egy HTTP, RTSP, RTMP, MMS, FTP vagy UDP/RTP címet a stream lejátszásához.";
-"HTTP_UPLOAD_SERVER_OFF" = "Kikapcsolva";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Nincs Wi-Fi kapcsolat";
-"OPEN_STREAM_OR_DOWNLOAD" = "URL letöltése vagy lejátszása?";
-"SHARED_VLC_IOS_LIBRARY" = "Megosztott VLC for iOS könyvtár";
+"OPEN_NETWORK" = "Hálózati közvetítés megnyitása";
+"NETWORK_TITLE" = "Hálózati közvetítés";
+"OPEN_NETWORK_HELP" = "Adjon meg egy HTTP, RTSP, RTMP, MMS, FTP vagy UDP/RTP címet a közvetítés lejátszásához.";
+"HTTP_UPLOAD_SERVER_OFF" = "Inaktív kiszolgál";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Nincs aktív Wi-Fi kapcsolat";
+"OPEN_STREAM_OR_DOWNLOAD" = "Letölti vagy lejátssza ezt az URL-t?";
+"SHARED_VLC_IOS_LIBRARY" = "Megosztott VLC for iOS médiatár";
 "SMB_CIFS_FILE_SERVERS" = "Fájlkiszolgálók (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
@@ -98,18 +98,18 @@
 "FILE_NOT_SUPPORTED" = "Nem támogatott formátum";
 "FILE_NOT_SUPPORTED_LONG" = "A(z) %@ által használt fájlformátumot nem támogatja a VLC for iOS ezen verziója.";
 "SCHEME_NOT_SUPPORTED" = "Nem támogatott protokoll";
-"SCHEME_NOT_SUPPORTED_LONG" = "A(z) \"%@\" protokoll nem támogatott. Adjon meg egy HTTP-vel, HTTPS-sel vagy FTP-vel kezdődő címet.";
-"RENAME_MEDIA_TO" = "Adja meg a(z) \"%@\" új nevét";
+"SCHEME_NOT_SUPPORTED_LONG" = "A(z) „%@” protokoll nem támogatott. Adjon meg egy HTTP-vel, HTTPS-sel vagy FTP-vel kezdődő címet.";
+"RENAME_MEDIA_TO" = "Adja meg a(z) „%@” új nevét";
 
 "FOLDER_EMPTY" = "Üres mappa";
 
-"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Válasszon a fájlok közül.";
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Válasszon egy megnyitandó fájlt:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Megnyitás ezzel...";
-"SHARING_ERROR_NO_FILES" = "Nincs megnyitható fájl.";
-"SHARING_ERROR_NO_APPLICATIONS" = "Nincs olyan alkalmazás amely meg tudná nyitni ezt a fájlt.";
+"SHARING_ERROR_NO_FILES" = "Nincs megosztható fájl";
+"SHARING_ERROR_NO_APPLICATIONS" = "Nincs olyan alkalmazás, amely meg tudná nyitni ezt a fájlt.";
 "SHARING_SUCCESS_CAMERA_ROLL" = "A médiafájl elmentve a Filmtekercsbe.";
 
-"STREAMVC_DETAILTEXT" = "Folyamok lejátszása közvetlenül, letöltés nélkül";
+"STREAMVC_DETAILTEXT" = "Közvetítések lejátszása közvetlenül, letöltés nélkül";
 "DOWNLOADVC_DETAILTEXT" = "Fájlok közvetlen letöltése az eszközére";
 "HEADER_TITLE_RENDERER" = "Válasszon vetítési eszközt";
 
@@ -134,13 +134,13 @@
 "LOGGED_IN_SERVICE" = "1 bejelentkezett szolgáltatás";
 
 "DROPBOX_DOWNLOAD" = "Letölti a fájlt?";
-"DROPBOX_DL_LONG" = "Le szeretné tölteni a(z) \"%@\" fájlt az %@ készülékére?";
+"DROPBOX_DL_LONG" = "Letölti a(z) „%@” fájlt az %@ eszközére?";
 "DROPBOX_LOGIN" = "Belépés";
 
-"GDRIVE_ERROR_FETCHING_FILES" = "Sikertelen betöltés";
-"GDRIVE_DOWNLOAD_SUCCESSFUL" = "A fájl sikeresen letöltve.";
+"GDRIVE_ERROR_FETCHING_FILES" = "Hiba a fájlok lekérésekor";
+"GDRIVE_DOWNLOAD_SUCCESSFUL" = "A fájl sikeresen letöltve";
 "GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "Sikeres letöltés";
-"GDRIVE_ERROR_DOWNLOADING_FILE" = "A letöltés közben hiba történt.";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "Hiba történt a letöltéskor";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "Sikertelen letöltés";
 
 "ONEDRIVE_MEDIA_WITHOUT_URL" = "A kiválasztott médiának nincs lejátszható URL-e";
@@ -175,23 +175,23 @@
 "OFF" = "Ki";
 
 "EMPTY_LIBRARY" = "A médiatár üres";
-"EMPTY_LIBRARY_LONG" = "Lejátszhat streameket egy helyi hálózaton található kiszolgálóról, a felhőből, vagy átvihet médiafájlokat az eszközére az iTunes, a Wi-Fi feltöltés és a felhőszolgáltatások segítségével.";
+"EMPTY_LIBRARY_LONG" = "Lejátszhat közvetítéseket egy helyi hálózaton található kiszolgálóról, a felhőből, vagy átvihet médiafájlokat az eszközére az iTunes, a Wi-Fi feltöltés és a felhőszolgáltatások segítségével.";
 
 "EMPTY_PLAYLIST" = "Üres lejátszólista";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Média hozzáadása a megfelelő kategóriák szerkesztésekor";
 
 "PLAYBACK_SCRUB_HELP" = "A tekerési sebesség állításához csúsztassa lefelé az ujját.";
-"PLAYBACK_SCRUB_HIGH" = "Nagysebességű tekerés";
-"PLAYBACK_SCRUB_HALF" = "Félsebességű tekerés";
-"PLAYBACK_SCRUB_QUARTER" = "Negyedsebességű tekerés";
+"PLAYBACK_SCRUB_HIGH" = "Nagy sebességű tekerés";
+"PLAYBACK_SCRUB_HALF" = "Fél sebességű tekerés";
+"PLAYBACK_SCRUB_QUARTER" = "Negyed sebességű tekerés";
 "PLAYBACK_SCRUB_FINE" = "Finom tekerés";
-"PLAYBACK_POSITION" = "A lejátszás pozíciója";
-"VIDEO_FILTER" = "Videófilterek";
-"VIDEO_FILTER_RESET_BUTTON" = "Videófilterek visszaállítása";
-"VIDEO_ASPECT_RATIO_BUTTON" = "A videó méretarányának változtatása";
-"PLAY_PAUSE_BUTTON" = "Lejátszás, szüneteltetés";
-"BWD_BUTTON" = "Előző szám";
-"FWD_BUTTON" = "Következő szám";
+"PLAYBACK_POSITION" = "Lejátszás pozíciója";
+"VIDEO_FILTER" = "Videószűrők";
+"VIDEO_FILTER_RESET_BUTTON" = "Videószűrőek visszaállítása";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Videó méretarányának átállítása";
+"PLAY_PAUSE_BUTTON" = "Jelenlegi média lejátszása vagy szüneteltetése";
+"BWD_BUTTON" = "Ugrás vissza";
+"FWD_BUTTON" = "Ugrás előre";
 "PLAY_BUTTON" = "Lejátszás";
 "NEXT_BUTTON" = "Következő";
 "PREV_BUTTON" = "Előző";
@@ -219,7 +219,7 @@
 "FIRST_STEPS_CLOUD_DETAILS" = "Töltse fel a médiát egy felhőszolgáltatásba, mint a Google Drive vagy a Dropbox, hogy távolról letöltse vagy onnan közvetítse.";
 
 
-"PLEX_CHECK_ACCOUNT" = "Ellenőrízze a PLEX fókját a beállításokban";
+"PLEX_CHECK_ACCOUNT" = "Ellenőrizze a PLEX-fiókját a beállításokban";
 "PLEX_ERROR_ACCOUNT" = "PLEX bejelentkezési hiba";
 
 "UNAUTHORIZED" = "Nem engedélyezett";
@@ -231,9 +231,9 @@
 
 "WEBINTF_TITLE" = "Wi-Fi megosztás";
 "WEBINTF_DROPFILES" = "Húzza ide a fájlokat";
-"WEBINTF_DROPFILES_LONG" = "Húzzon fájlokat az ablakba a %@ készülékére való másoláshoz,<br>vagy kattintson a \"+\" gombra a fájlok kiválasztásához.";
+"WEBINTF_DROPFILES_LONG" = "Húzzon fájlokat az ablakba a %@ eszközére való másoláshoz,<br>vagy kattintson a „+” gombra a fájlok kiválasztásához.";
 "WEBINTF_DOWNLOADFILES" = "Fájlok letöltése";
-"WEBINTF_DOWNLOADFILES_LONG" = "Kattintson arra a fájlra amelyiket le szeretné tölteni az %@ készülékéről.";
+"WEBINTF_DOWNLOADFILES_LONG" = "Kattintson arra a fájlra, amelyiket le szeretné tölteni az %@ eszközéről.";
 "WEBINTF_TITLE_ATV" = "Távoli lejátszás";
 "WEBINTF_DROPFILES_LONG_ATV" = "Húzza ebbe az ablakba a fájlokat hogy lejátssza őket a(z) %@ eszközén.<br>Vagy kattintson a „+” gombra a fájlválasztó párbeszédablak használatához.";
 "WEBINTF_URL_SENT" = "URL sikeresen elküldve.";
@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Csökkenő sorrend";
 "DESCENDING_SWITCH_LABEL" = "Növekvő vagy csökkenő sorrend";
 "DESCENDING_SWITCH_HINT" = "Helyi menü rendezése növekvő vagy csökkenő sorrendben";
+"GRID_LAYOUT" = "Rácselrendezés";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -415,7 +416,7 @@
 
 /* Media groups */
 
-"ADD_TO_MEDIA_GROUP" = "Hozzáadása médiacsoporthoz";
+"ADD_TO_MEDIA_GROUP" = "Hozzáadás médiacsoporthoz";
 "ADD_TO_MEDIA_GROUP_HINT" = "A médiacsoporthoz hozzáadás menü megnyitása";
 
 "MEDIA_GROUPS" = "Médiacsoportok";
@@ -434,3 +435,13 @@
 "BUTTON_REGROUP_TITLE" = "Kiválasztás újracsoportosítása";
 "BUTTON_REGROUP_HINT" = "Egyedülálló médiák automatikus újracsoportosítási kísérlete.";
 "BUTTON_REGROUP_DESCRIPTION" = "Biztos, hogy megpróbálja automatikusan újracsoportosítani az egyedülálló médiákat?\nEz eltarthat egy ideig.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "A hozzáadáshoz helyezze ide a médiákat";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Hozzáadás...";
+
+/* tip jar */
+"GIVE_TIP" = "Adjon borravalót";
+"CANNOT_MAKE_PAYMENTS" = "Nem fizethet ezen az eszközön.";
+"PURCHASE_FAILED" = "A vásárlás sikertelen";
+"SEND_GIFT" = "Küldje el az ajándékát";
