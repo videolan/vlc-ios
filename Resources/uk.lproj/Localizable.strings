@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Спадний порядок";
 "DESCENDING_SWITCH_LABEL" = "Зростальний чи спадний порядок";
 "DESCENDING_SWITCH_HINT" = "Упорядкувати вміст за порядком зростанням чи спадання";
+"GRID_LAYOUT" = "Макет сітки";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
