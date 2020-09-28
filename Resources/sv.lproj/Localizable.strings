@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Fallande ordning";
 "DESCENDING_SWITCH_LABEL" = "Stigande eller fallande ordning";
 "DESCENDING_SWITCH_HINT" = "Sortera alternativmenyn i stigande eller fallande ordning";
+"GRID_LAYOUT" = "Rutnätslayout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
