@@ -127,6 +127,36 @@ extension VLCURLHandler {
             }
         }
     }
+
+    func createAlert(url: URL) {
+        let alert = UIAlertController(title: NSLocalizedString("OPEN_STREAM_OR_DOWNLOAD",
+                                                                   comment: ""),
+                                      message: url.absoluteString,
+                                      preferredStyle: .alert)
+
+        let downloadAction = UIAlertAction(title: NSLocalizedString("BUTTON_DOWNLOAD",
+                                                                     comment: ""),
+                                            style: .default) { _ in
+            self.handleDownload()
+        }
+
+        let playAction = UIAlertAction(title: NSLocalizedString("PLAY_BUTTON",
+                                                                comment: ""),
+                                       style: .default) { _ in
+            self.handlePlay()
+        }
+
+        alert.addAction(downloadAction)
+        alert.addAction(playAction)
+
+        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+        if let tabBarController = UIApplication.shared.keyWindow?.rootViewController
+            as? UITabBarController {
+            rootViewController = tabBarController.selectedViewController
+        }
+
+        rootViewController?.present(alert, animated: true, completion: nil)
+    }
 }
 
 @objc class URLHandlers: NSObject {
@@ -277,8 +307,8 @@ class XCallbackURLHandler: NSObject, VLCURLHandler {
             handleDownload()
             return true
         default:
-            assertionFailure("VLCXCallbackURLHandler: Invalid action.")
-            return false
+            self.createAlert(url: url)
+            return true
         }
     }
 }
@@ -316,22 +346,7 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
 
         let scheme = transformedURL.scheme
         if scheme == "http" || scheme == "https" || scheme == "ftp" {
-            let alert = UIAlertController(title: NSLocalizedString("OPEN_STREAM_OR_DOWNLOAD", comment:""), message: url.absoluteString, preferredStyle: .alert)
-            let downloadAction = UIAlertAction(title: NSLocalizedString("BUTTON_DOWNLOAD", comment:""), style: .default) { _ in
-                self.handleDownload()
-            }
-            alert.addAction(downloadAction)
-            let playAction = UIAlertAction(title: NSLocalizedString("PLAY_BUTTON", comment:""), style: .default) { _ in
-                self.handlePlay()
-            }
-            alert.addAction(playAction)
-
-            var rootViewController = UIApplication.shared.keyWindow?.rootViewController
-            if let tabBarController = UIApplication.shared.keyWindow?.rootViewController
-                as? UITabBarController {
-                rootViewController = tabBarController.selectedViewController
-            }
-            rootViewController?.present(alert, animated: true, completion: nil)
+            self.createAlert(url: transformedURL)
         } else {
             handlePlay()
         }
