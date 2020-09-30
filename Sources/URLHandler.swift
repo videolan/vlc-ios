@@ -12,9 +12,121 @@
 
 import Foundation
 
+enum VLCXCallbackType {
+    case url
+    case sub
+    case filename
+    case xSuccess
+    case xError
+    case undefined
+}
+
 @objc public protocol VLCURLHandler {
+    var movieURL: URL? { get set }
+    var subURL: URL? { get set }
+    var successCallback: URL? { get set }
+    var errorCallback: URL? { get set }
+    var fileName: String? { get set }
+
     func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool
     func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool
+}
+
+extension VLCURLHandler {
+    func matchCallback(key: String) -> VLCXCallbackType {
+        switch key {
+        case "url":
+            return .url
+        case "sub":
+            return .sub
+        case "filename":
+            return .filename
+        case "x-success":
+            return .xSuccess
+        case "x-error":
+            return .xError
+        default:
+            return .undefined
+        }
+    }
+
+    func handlePlay() {
+        guard let safeMovieURL = self.movieURL else {
+            assertionFailure("VLCURLHandler: Fail to retrieve movieURL.")
+            return
+        }
+
+        play(url: safeMovieURL, sub: self.subURL) { success in
+            guard let callback = success ? self.successCallback : self.errorCallback else {
+                assertionFailure("VLCURLHandler: Invalid callback.")
+                return
+            }
+
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(callback,
+                                          options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]),
+                                          completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(callback)
+            }
+        }
+    }
+
+    func handleDownload() {
+        guard let safeMovieURL = self.movieURL else {
+            assertionFailure("VLCURLHandler: Fail to retrieve movieURL.")
+            return
+        }
+
+        downloadMovie(from: safeMovieURL, fileNameOfMedia: self.fileName)
+    }
+
+    func parseURL(url: URL) {
+        guard let query = url.query else {
+            assertionFailure("VLCURLHandler: Invalid query.")
+            return
+        }
+
+        for entry in query.components(separatedBy: "&") {
+            let components = entry.components(separatedBy: "=")
+            if components.count < 2 {
+                continue
+            }
+
+            guard let key = components.first else {
+                assertionFailure("VLCURLHandler: Fail to retrieve key.")
+                continue
+            }
+
+            let callback = matchCallback(key: key)
+
+            guard let value = components[1].removingPercentEncoding else {
+                assertionFailure("VLCURLHandler: RemovingPercentEnconding returns nil.")
+                continue
+            }
+
+            switch callback {
+            case .url:
+                movieURL = URL(string: value)
+                break
+            case .sub:
+                subURL = URL(string: value)
+                break
+            case .filename:
+                fileName = value
+                break
+            case .xSuccess:
+                successCallback = URL(string: value)
+                break
+            case .xError:
+                errorCallback = URL(string: value)
+                break
+            default:
+                assertionFailure("VLCURLHandler: Invalid match of callback.")
+                break
+            }
+        }
+    }
 }
 
 @objc class URLHandlers: NSObject {
@@ -32,6 +144,16 @@ import Foundation
 }
 
 class DropBoxURLHandler: NSObject, VLCURLHandler {
+    var movieURL: URL?
+
+    var subURL: URL?
+
+    var successCallback: URL?
+
+    var errorCallback: URL?
+
+    var fileName: String?
+
 
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
 
@@ -57,6 +179,16 @@ class DropBoxURLHandler: NSObject, VLCURLHandler {
 }
 
 class GoogleURLHandler: NSObject, VLCURLHandler {
+    var movieURL: URL?
+
+    var subURL: URL?
+
+    var successCallback: URL?
+
+    var errorCallback: URL?
+
+    var fileName: String?
+
 
     @objc var currentGoogleAuthorizationFlow: OIDExternalUserAgentSession?
 
@@ -74,6 +206,16 @@ class GoogleURLHandler: NSObject, VLCURLHandler {
 }
 
 class FileURLHandler: NSObject, VLCURLHandler {
+    var movieURL: URL?
+
+    var subURL: URL?
+
+    var successCallback: URL?
+
+    var errorCallback: URL?
+
+    var fileName: String?
+
 
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         return url.isFileURL
@@ -91,66 +233,66 @@ class FileURLHandler: NSObject, VLCURLHandler {
 }
 
 class XCallbackURLHandler: NSObject, VLCURLHandler {
+    var movieURL: URL?
+
+    var subURL: URL?
+
+    var successCallback: URL?
+
+    var errorCallback: URL?
+
+    var fileName: String?
+
+    enum VLCXCallbackActionType {
+        case stream
+        case download
+        case undefined
+    }
+
+    func matchAction(action: String) -> VLCXCallbackActionType {
+        switch action {
+        case "stream":
+            return .stream
+        case "download":
+            return .download
+        default:
+            return .undefined
+        }
+    }
 
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         return url.scheme == "vlc-x-callback" || url.scheme == "x-callback-url"
     }
 
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
-        let action = url.path.replacingOccurrences(of: "/", with: "")
-        var movieURL: URL?
-        var subURL: URL?
-        var successCallback: URL?
-        var errorCallback: URL?
-        var fileName: String?
-        guard let query = url.query else {
-            assertionFailure("no query")
+        let action = matchAction(action: url.path.replacingOccurrences(of: "/", with: ""))
+
+        parseURL(url: url)
+
+        switch action {
+        case .stream:
+            handlePlay()
+            return true
+        case .download:
+            handleDownload()
+            return true
+        default:
+            assertionFailure("VLCXCallbackURLHandler: Invalid action.")
             return false
         }
-        for entry in query.components(separatedBy: "&") {
-            let components = entry.components(separatedBy: "=")
-            if components.count < 2 {
-                continue
-            }
-
-            if let key = components.first, let value = components[1].removingPercentEncoding {
-                if key == "url"{
-                    movieURL = URL(string: value)
-                } else if key == "sub" {
-                    subURL = URL(string: value)
-                } else if key == "filename" {
-                    fileName = value
-                } else if key == "x-success" {
-                    successCallback = URL(string: value)
-                } else if key == "x-error" {
-                    errorCallback = URL(string: value)
-                }
-            } else {
-                assertionFailure("no key or app value")
-            }
-        }
-        if action == "stream", let movieURL = movieURL {
-            play(url: movieURL, sub: subURL) { success in
-                guard let callback = success ? successCallback : errorCallback else {
-                    assertionFailure("no CallbackURL")
-                    return
-                }
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(callback, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(callback)
-                }
-            }
-            return true
-        } else if action == "download", let movieURL = movieURL {
-            downloadMovie(from:movieURL, fileNameOfMedia:fileName)
-            return true
-        }
-        return false
     }
 }
 
 public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
+    public var movieURL: URL?
+
+    public var subURL: URL?
+
+    public var successCallback: URL?
+
+    public var errorCallback: URL?
+
+    public var fileName: String?
 
     @objc public func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         return url.scheme == "vlc"
@@ -168,17 +310,19 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
     }
 
     public func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
-
         let transformedURL = transformVLCURL(url)
+
+        parseURL(url: transformedURL)
+
         let scheme = transformedURL.scheme
         if scheme == "http" || scheme == "https" || scheme == "ftp" {
             let alert = UIAlertController(title: NSLocalizedString("OPEN_STREAM_OR_DOWNLOAD", comment:""), message: url.absoluteString, preferredStyle: .alert)
             let downloadAction = UIAlertAction(title: NSLocalizedString("BUTTON_DOWNLOAD", comment:""), style: .default) { _ in
-                self.downloadMovie(from:transformedURL, fileNameOfMedia:nil)
+                self.handleDownload()
             }
             alert.addAction(downloadAction)
             let playAction = UIAlertAction(title: NSLocalizedString("PLAY_BUTTON", comment:""), style: .default) { _ in
-                self.play(url: transformedURL, completion: nil)
+                self.handlePlay()
             }
             alert.addAction(playAction)
 
@@ -188,15 +332,24 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
                 rootViewController = tabBarController.selectedViewController
             }
             rootViewController?.present(alert, animated: true, completion: nil)
-
         } else {
-            self.play(url: transformedURL, completion: nil)
+            handlePlay()
         }
         return true
     }
 }
 
 class ElseCallbackURLHandler: NSObject, VLCURLHandler {
+    var movieURL: URL?
+
+    var subURL: URL?
+
+    var successCallback: URL?
+
+    var errorCallback: URL?
+
+    var fileName: String?
+
     @objc func canHandleOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         guard let scheme = url.scheme else {
             return false
