@@ -128,10 +128,15 @@ extension VLCURLHandler {
         }
     }
 
-    func createAlert(url: URL) {
+    func createAlert() {
+        guard let safeMovieURL = self.movieURL else {
+            assertionFailure("VLCURLHandler: Fail to retrieve movieURL.")
+            return
+        }
+
         let alert = UIAlertController(title: NSLocalizedString("OPEN_STREAM_OR_DOWNLOAD",
                                                                    comment: ""),
-                                      message: url.absoluteString,
+                                      message: safeMovieURL.absoluteString,
                                       preferredStyle: .alert)
 
         let downloadAction = UIAlertAction(title: NSLocalizedString("BUTTON_DOWNLOAD",
@@ -307,7 +312,7 @@ class XCallbackURLHandler: NSObject, VLCURLHandler {
             handleDownload()
             return true
         default:
-            self.createAlert(url: url)
+            self.createAlert()
             return true
         }
     }
@@ -346,7 +351,7 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
 
         let scheme = transformedURL.scheme
         if scheme == "http" || scheme == "https" || scheme == "ftp" {
-            self.createAlert(url: transformedURL)
+            self.createAlert()
         } else {
             handlePlay()
         }
