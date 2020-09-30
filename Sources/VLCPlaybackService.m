@@ -311,6 +311,22 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #endif
             [_mediaPlayer stop];
         }
+
+        if (_playbackCompletion) {
+            BOOL finishedPlaybackWithError = false;
+            if (_mediaPlayer.state == VLCMediaPlayerStateStopped && _mediaPlayer.media != nil) {
+                // Since VLCMediaPlayerStateError is sometimes not matched with a valid media.
+                // This checks for decoded Audio & Video blocks.
+                finishedPlaybackWithError = (_mediaPlayer.media.numberOfDecodedAudioBlocks == 0)
+                                             && (_mediaPlayer.media.numberOfDecodedVideoBlocks == 0);
+            } else {
+                finishedPlaybackWithError = _mediaPlayer.state == VLCMediaPlayerStateError;
+            }
+            finishedPlaybackWithError = finishedPlaybackWithError && !_sessionWillRestart;
+
+            _playbackCompletion(!finishedPlaybackWithError);
+        }
+
         _mediaPlayer = nil;
         _listPlayer = nil;
     }
@@ -319,11 +335,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     }
     _playerIsSetup = NO;
     [_shuffleStack removeAllObjects];
-
-    if (_playbackCompletion) {
-        BOOL finishedPlaybackWithError = _mediaPlayer.state == VLCMediaPlayerStateError &&  !_sessionWillRestart;
-        _playbackCompletion(!finishedPlaybackWithError);
-    }
 
     [[self remoteControlService] unsubscribeFromRemoteCommands];
 
