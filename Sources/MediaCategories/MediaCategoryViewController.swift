@@ -56,7 +56,14 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     @objc private lazy var sortActionSheet: ActionSheet = {
-        let header = ActionSheetSortSectionHeader(model: model.sortModel)
+        var header: ActionSheetSortSectionHeader
+
+        if model is MediaGroupViewModel {
+            header = ActionSheetSortSectionHeader(model: model.sortModel)
+        } else {
+            header = ActionSheetSortSectionHeader(model: model.sortModel, displayGridLayout: true)
+        }
+
         let actionSheet = ActionSheet(header: header)
         header.delegate = self
         actionSheet.delegate = self

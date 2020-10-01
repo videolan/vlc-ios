@@ -20,8 +20,10 @@ protocol ActionSheetSortSectionHeaderDelegate: class {
 }
 
 class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
+    private var displayGridLayoutOption = false
+
     override var cellHeight: CGFloat {
-        return 150
+        return displayGridLayoutOption ? 150 : 100
     }
 
     private let sortModel: SortModel
@@ -92,7 +94,8 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
 
     weak var delegate: ActionSheetSortSectionHeaderDelegate?
 
-    init(model: SortModel) {
+    init(model: SortModel, displayGridLayout: Bool = false) {
+        displayGridLayoutOption = displayGridLayout
         sortModel = model
         super.init(frame: .zero)
         actionSwitch.isOn = sortModel.desc
@@ -137,8 +140,12 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     private func setupStackView() {
         descendingStackView.addArrangedSubview(descendingLabel)
         descendingStackView.addArrangedSubview(actionSwitch)
-        gridLayoutStackView.addArrangedSubview(gridLayoutLabel)
-        gridLayoutStackView.addArrangedSubview(layoutChangeSwitch)
+
+        if displayGridLayoutOption {
+            gridLayoutStackView.addArrangedSubview(gridLayoutLabel)
+            gridLayoutStackView.addArrangedSubview(layoutChangeSwitch)
+        }
+
         mainStackView.addArrangedSubview(descendingStackView)
         mainStackView.addArrangedSubview(gridLayoutStackView)
         addSubview(mainStackView)
