@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Faldende rækkefølge";
 "DESCENDING_SWITCH_LABEL" = "Stigende eller faldende rækkefølge";
 "DESCENDING_SWITCH_HINT" = "Sortér indholdet i stigende eller faldende rækkefølge";
+"GRID_LAYOUT" = "Gitterlayout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -440,7 +441,7 @@
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Tilføjer ...";
 
 /* tip jar */
-"GIVE_TIP" = "Give a Tip";
-"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
-"PURCHASE_FAILED" = "Purchase Failed";
-"SEND_GIFT" = "Send your gift";
+"GIVE_TIP" = "Giv drikkepenge";
+"CANNOT_MAKE_PAYMENTS" = "Du har ikke tilladelse til at foretage betalinger på enheden.";
+"PURCHASE_FAILED" = "Køb mislykkedes";
+"SEND_GIFT" = "Send din gave";
