@@ -24,7 +24,11 @@ class CollectionModel: MLBaseModel {
     var files = [VLCMLMedia]()
 
     var cellType: BaseCollectionViewCell.Type {
-        return UserDefaults.standard.bool(forKey: kVLCAudioLibraryGridLayout) ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
+        if mediaCollection is VLCMLMediaGroup {
+            return MediaCollectionViewCell.self
+        } else {
+            return UserDefaults.standard.bool(forKey: kVLCAudioLibraryGridLayout) ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
+        }
     }
 
     var name: String = "Collections"
