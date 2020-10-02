@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Azalan Sıralama";
 "DESCENDING_SWITCH_LABEL" = "Artan ya da azalan sıralama";
 "DESCENDING_SWITCH_HINT" = "İçeriği artan ya da azalan şekilde sıralar";
+"GRID_LAYOUT" = "Izgara Görünümü";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
