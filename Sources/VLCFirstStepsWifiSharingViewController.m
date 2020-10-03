@@ -15,33 +15,41 @@
 
 @implementation VLCFirstStepsWifiSharingViewController
 
-- (void)viewDidLoad
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    [super viewDidLoad];
-
-    self.titleLabel.text = NSLocalizedString(@"FIRST_STEPS_WIFI_TITLE", nil);
-    self.descriptionLabel.text =NSLocalizedString(@"FIRST_STEPS_WIFI_DETAILS", nil);
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
-    [self updateTheme];
+    self = [super initWithNibName:NSStringFromClass([VLCFirstStepsBaseViewController class]) bundle:nibBundleOrNil];
+    return self;
 }
 
-- (void)updateTheme
++ (VLCFirstStepsPage)page
 {
-    self.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-    self.descriptionLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
-    self.backgroundView.backgroundColor = PresentationTheme.current.colors.background;
-    BOOL isDarkTheme = PresentationTheme.current == PresentationTheme.darkTheme;
-    self.phoneImage.image = isDarkTheme ? [UIImage imageNamed:@"blackiPhone"] : [UIImage imageNamed:@"whiteiPhone"];
+    return VLCFirstStepsPageWifiSharing;
 }
 
-- (NSString *)pageTitle
++ (NSString *)pageTitleText
 {
     return NSLocalizedString(@"WEBINTF_TITLE", nil);
 }
 
-- (NSUInteger)page
++ (NSString *)titleText
 {
-    return 1;
+    return NSLocalizedString(@"FIRST_STEPS_WIFI_TITLE", nil);
+}
+
++ (NSString *)descriptionText
+{
+    return NSLocalizedString(@"FIRST_STEPS_WIFI_DETAILS", nil);
+}
+
+- (void)configurePage
+{
+    [super configurePage];
+
+    BOOL isDarkTheme = PresentationTheme.current == PresentationTheme.darkTheme;
+    UIImage *img = isDarkTheme ? [UIImage imageNamed:@"blackiPhone"] : [UIImage imageNamed:@"whiteiPhone"];
+    for (UIImageView *imageView in self.images) {
+        imageView.image = img;
+    }
 }
 
 @end

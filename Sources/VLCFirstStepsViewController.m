@@ -35,19 +35,20 @@
 
     [[pageVC view] setFrame:[[self view] bounds]];
 
-    [pageVC setViewControllers:@[[[VLCFirstStepsiTunesSyncViewController alloc] initWithNibName:nil bundle:nil]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    VLCFirstStepsBaseViewController *firstVC = [[VLCFirstStepsiTunesSyncViewController alloc] initWithNibName:nil bundle:nil];
+    [pageVC setViewControllers:@[firstVC] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 
     UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStyleDone target:self action:@selector(dismissFirstSteps)];
 
     self.navigationItem.rightBarButtonItem = dismissButton;
     self.navigationController.navigationBar.translucent = NO;
-    self.title = NSLocalizedString(@"FIRST_STEPS_ITUNES", nil);
 
     [self addChildViewController:pageVC];
     [self.view addSubview:[pageVC view]];
     [pageVC didMoveToParentViewController:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
     [self updateTheme];
+    [self setupNavigationBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -83,53 +84,35 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    UIViewController *returnedVC;
-    NSUInteger currentPage = 0;
-
-    if ([viewController respondsToSelector:@selector(page)])
+    VLCFirstStepsPage currentPage = VLCFirstStepsPageFirst;
+    if ([viewController respondsToSelector:@selector(page)]) {
         currentPage = (NSUInteger)[viewController performSelector:@selector(page) withObject:nil];
-
-    switch (currentPage) {
-        case 0:
-            returnedVC = [[VLCFirstStepsWifiSharingViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-        case 1:
-            returnedVC = [[VLCFirstStepsCloudViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-
-        default:
-            nil;
     }
-
-    return returnedVC;
+    if (currentPage == VLCFirstStepsPageCount - 1) {
+        return nil;
+    }
+    NSArray <Class> *pageClasses = VLCFirstStepsBaseViewController.pageClasses;
+    NSUInteger afterIndex = (VLCFirstStepsPageCount + currentPage + 1) % VLCFirstStepsPageCount;
+    return [[pageClasses[afterIndex] alloc] initWithNibName:nil bundle:nil];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    UIViewController *returnedVC;
-    NSUInteger currentPage = 0;
-
-    if ([viewController respondsToSelector:@selector(page)])
+    VLCFirstStepsPage currentPage = VLCFirstStepsPageFirst;
+    if ([viewController respondsToSelector:@selector(page)]) {
         currentPage = (NSUInteger)[viewController performSelector:@selector(page) withObject:nil];
-
-    switch (currentPage) {
-        case 1:
-            returnedVC = [[VLCFirstStepsiTunesSyncViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-        case 2:
-            returnedVC = [[VLCFirstStepsWifiSharingViewController alloc] initWithNibName:nil bundle:nil];
-            break;
-
-        default:
-            nil;
     }
-
-    return returnedVC;
+    if (currentPage == VLCFirstStepsPageFirst) {
+        return nil;
+    }
+    NSArray <Class> *pageClasses = VLCFirstStepsBaseViewController.pageClasses;
+    NSUInteger beforeIndex = (VLCFirstStepsPageCount + currentPage - 1) % VLCFirstStepsPageCount;
+    return [[pageClasses[beforeIndex] alloc] initWithNibName:nil bundle:nil];
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
 {
-    return 3;
+    return VLCFirstStepsPageCount;
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
@@ -142,9 +125,11 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+- (void)setupNavigationBar
 {
-    self.title = [[pageViewController viewControllers][0] pageTitle];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
+    }
 }
 
 @end
