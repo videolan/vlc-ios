@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Tertib Menurun";
 "DESCENDING_SWITCH_LABEL" = "Tertib menaik atau menurun";
 "DESCENDING_SWITCH_HINT" = "Isih konteks dalam tertib menaik atau menurun";
+"GRID_LAYOUT" = "Bentangan Grid";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
