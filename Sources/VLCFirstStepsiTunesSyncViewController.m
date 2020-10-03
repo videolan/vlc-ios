@@ -2,10 +2,11 @@
  * VLCFirstStepsiTunesSyncViewController
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2014 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Pavel Akhrameev <p.akhrameev@gmail.com>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -15,33 +16,41 @@
 
 @implementation VLCFirstStepsiTunesSyncViewController
 
-- (void)viewDidLoad
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    [super viewDidLoad];
-
-    self.descriptionLabel.text = NSLocalizedString(@"FIRST_STEPS_ITUNES_DETAILS", nil);
-    self.titleLabel.text = NSLocalizedString(@"FIRST_STEPS_ITUNES_TITLE", nil);
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
-    [self updateTheme];
+    self = [super initWithNibName:NSStringFromClass([VLCFirstStepsBaseViewController class]) bundle:nibBundleOrNil];
+    return self;
 }
 
-- (void)updateTheme
++ (VLCFirstStepsPage)page
 {
-    self.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-    self.descriptionLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
-    self.backgroundView.backgroundColor = PresentationTheme.current.colors.background;
-    self.view.backgroundColor = PresentationTheme.current.colors.background;
+    return VLCFirstStepsPageiTunesSync;
 }
 
-- (NSString *)pageTitle
++ (NSString *)pageTitleText
 {
     return NSLocalizedString(@"FIRST_STEPS_ITUNES", nil);
 }
 
-- (NSUInteger)page
++ (NSString *)titleText
 {
-    return 0;
+    return NSLocalizedString(@"FIRST_STEPS_ITUNES_TITLE", nil);
+}
+
++ (NSString *)descriptionText
+{
+    return NSLocalizedString(@"FIRST_STEPS_ITUNES_DETAILS", nil);
+}
+
+- (NSArray <NSLayoutConstraint *> *)imageViewConstraints:(UIImageView *)imageView
+{
+    UIImage *img = imageView.image;
+    return @[
+        [imageView.widthAnchor constraintEqualToAnchor:imageView.heightAnchor multiplier:img.size.width / img.size.height],
+        [imageView.leadingAnchor constraintEqualToAnchor:self.centralView.leadingAnchor],
+        [imageView.topAnchor constraintEqualToAnchor:self.centralView.topAnchor],
+        [imageView.bottomAnchor constraintLessThanOrEqualToAnchor:self.centralView.bottomAnchor],
+    ];
 }
 
 @end
