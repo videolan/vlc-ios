@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Orden descendente";
 "DESCENDING_SWITCH_LABEL" = "Orden ascendente o descendente";
 "DESCENDING_SWITCH_HINT" = "Ordenar contexto ascendentemente o descendentemente";
+"GRID_LAYOUT" = "Disposición rejilla";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -434,3 +435,13 @@
 "BUTTON_REGROUP_TITLE" = "Reagrupar selección";
 "BUTTON_REGROUP_HINT" = "Intentar reagrupar automáticamente medios individuales.";
 "BUTTON_REGROUP_DESCRIPTION" = "¿Desea intentar reagrupar automáticamente medios individuales?\nEsto puede llevar algo de tiempo";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Coloque el medio aquí para añadirlo";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Añadiendo...";
+
+/* tip jar */
+"GIVE_TIP" = "Hacer una donación";
+"CANNOT_MAKE_PAYMENTS" = "No está autorizado a realizar pagos en este dispositivo.";
+"PURCHASE_FAILED" = "Compra fallida";
+"SEND_GIFT" = "Enviar su donación";
