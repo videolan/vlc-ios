@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "降序";
 "DESCENDING_SWITCH_LABEL" = "升序或降序";
 "DESCENDING_SWITCH_HINT" = "以升序或降序排列上下文";
+"GRID_LAYOUT" = "网格布局";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -434,3 +435,13 @@
 "BUTTON_REGROUP_TITLE" = "重新分组选中内容";
 "BUTTON_REGROUP_HINT" = "尝试对单个媒体自动重新分组。";
 "BUTTON_REGROUP_DESCRIPTION" = "是否确定要尝试对单个媒体自动重新分组?\n可能需要耗费一些时间。";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "把媒体文件放在这里来添加它们";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "添加中...";
+
+/* tip jar */
+"GIVE_TIP" = "给小费";
+"CANNOT_MAKE_PAYMENTS" = "您不被允许在此设备上付款。";
+"PURCHASE_FAILED" = "购买失败";
+"SEND_GIFT" = "发送你的礼物";
