@@ -9,7 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automàtic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Obre a Configuració";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accedeix de forma segura al teu contingut";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Els teus fitxers multimèdia s'ocultaran a l'aplicació Fitxers";
 
 "SETTINGS_DARKTHEME" = "Aparença";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Canvi de velocitat de l'àudio";
@@ -18,7 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Bloqueig amb codi";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permet Face ID per desbloquejar";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Amaga la biblioteca multimèdia a Fitxers";
 "SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
