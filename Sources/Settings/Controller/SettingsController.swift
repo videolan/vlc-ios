@@ -47,24 +47,22 @@ class SettingsController: UITableViewController {
 
     private func setup() {
         setupUI()
-        setNavBarAppearance()
         registerTableViewClasses()
-        setupBarButton()
         addObservers()
     }
 
 // MARK: - Setup Functions
 
     private func setupUI() {
-        self.title = NSLocalizedString("Settings", comment: "")
-        self.tabBarItem = UITabBarItem(title: NSLocalizedString("Settings", comment: ""),
-                                       image: UIImage(named: "Settings"),
-                                       selectedImage: UIImage(named: "Settings"))
-        self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
+        title = NSLocalizedString("Settings", comment: "")
+        tabBarItem = UITabBarItem(title: NSLocalizedString("Settings", comment: ""),
+                                  image: UIImage(named: "Settings"),
+                                  selectedImage: UIImage(named: "Settings"))
+        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
         tableView.separatorStyle = .none
         tableView.cellLayoutMarginsFollowReadableWidth = false //Fix for iPad
-        view.backgroundColor = PresentationTheme.current.colors.background
         actionSheet.modalPresentationStyle = .custom
+        themeDidChange()
         guard let localDict = getLocaleDictionary() else { return }
         localeDictionary = localDict
     }
@@ -100,7 +98,7 @@ class SettingsController: UITableViewController {
                                              action: #selector(showAbout))
         aboutBarButton.tintColor = PresentationTheme.current.colors.orangeUI
         navigationItem.leftBarButtonItem = aboutBarButton
-        self.navigationItem.leftBarButtonItem?.accessibilityIdentifier = VLCAccessibilityIdentifier.about
+        navigationItem.leftBarButtonItem?.accessibilityIdentifier = VLCAccessibilityIdentifier.about
 
         let tipJarBarButton = UIBarButtonItem(title: NSLocalizedString("GIVE_TIP", comment: ""),
                                              style: .plain,
@@ -108,14 +106,6 @@ class SettingsController: UITableViewController {
                                              action: #selector(showTipJar))
         aboutBarButton.tintColor = PresentationTheme.current.colors.orangeUI
         navigationItem.rightBarButtonItem = tipJarBarButton
-    }
-
-    private func setNavBarAppearance() {
-        if #available(iOS 13.0, *) {
-            let navigationBarAppearance = AppearanceManager.navigationbarAppearance
-            self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance()
-            self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance()
-        }
     }
 
 // MARK: - Observer & BarButton Actions
@@ -139,9 +129,9 @@ class SettingsController: UITableViewController {
     }
 
     @objc private func themeDidChange() {
-        self.view.backgroundColor = PresentationTheme.current.colors.background
-        setNavBarAppearance()
-        self.setNeedsStatusBarAppearanceUpdate()
+        setupBarButton()
+        view.backgroundColor = PresentationTheme.current.colors.background
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     @objc private func miniPlayerIsShown() {

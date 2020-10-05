@@ -401,11 +401,6 @@
     _localNetworkTableView.separatorColor = PresentationTheme.current.colors.background;
     _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
     self.navigationController.view.backgroundColor = PresentationTheme.current.colors.background;
-    if (@available(iOS 13.0, *)) {
-        UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
-        self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
-        self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
-    }
     [self setNeedsStatusBarAppearanceUpdate];
 }
 

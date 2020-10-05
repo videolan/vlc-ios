@@ -30,66 +30,66 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     private let userDefaults = UserDefaults.standard
 
     private let descendingStackView: UIStackView = {
-        let descendingStackView = UIStackView()
-        descendingStackView.spacing = 0
-        descendingStackView.alignment = .center
-        descendingStackView.translatesAutoresizingMaskIntoConstraints = false
-        return descendingStackView
+        let stackView = UIStackView()
+        stackView.spacing = 0
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
 
     private let gridLayoutStackView: UIStackView = {
-        let descendingStackView = UIStackView()
-        descendingStackView.spacing = 0
-        descendingStackView.alignment = .center
-        descendingStackView.translatesAutoresizingMaskIntoConstraints = false
-        return descendingStackView
+        let stackView = UIStackView()
+        stackView.spacing = 0
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
 
     private let mainStackView: UIStackView = {
-        let descendingStackView = UIStackView()
-        descendingStackView.spacing = 10
-        descendingStackView.axis = .vertical
-        descendingStackView.translatesAutoresizingMaskIntoConstraints = false
-        return descendingStackView
+        let stackView = UIStackView()
+        stackView.spacing = 10
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
 
     private let descendingLabel: UILabel = {
-        let descendingLabel = UILabel()
-        descendingLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        descendingLabel.text = NSLocalizedString("DESCENDING_LABEL", comment: "")
-        descendingLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        descendingLabel.translatesAutoresizingMaskIntoConstraints = false
-        return descendingLabel
+        let label = UILabel()
+        label.textColor = PresentationTheme.current.colors.cellTextColor
+        label.text = NSLocalizedString("DESCENDING_LABEL", comment: "")
+        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     let actionSwitch: UISwitch = {
-        let actionSwitch = UISwitch()
-        actionSwitch.addTarget(self, action: #selector(handleDescendingSwitch(_:)), for: .valueChanged)
-        actionSwitch.accessibilityLabel = NSLocalizedString("DESCENDING_SWITCH_LABEL", comment: "")
-        actionSwitch.accessibilityHint = NSLocalizedString("DESCENDING_SWITCH_HINT", comment: "")
-        actionSwitch.translatesAutoresizingMaskIntoConstraints = false
-        return actionSwitch
+        let aSwitch = UISwitch()
+        aSwitch.addTarget(self, action: #selector(handleDescendingSwitch(_:)), for: .valueChanged)
+        aSwitch.accessibilityLabel = NSLocalizedString("DESCENDING_SWITCH_LABEL", comment: "")
+        aSwitch.accessibilityHint = NSLocalizedString("DESCENDING_SWITCH_HINT", comment: "")
+        aSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return aSwitch
     }()
 
     private let gridLayoutLabel: UILabel = {
-        let descendingLabel = UILabel()
-        descendingLabel.text = NSLocalizedString("GRID_LAYOUT", comment: "")
-        descendingLabel.accessibilityLabel = NSLocalizedString("GRID_LAYOUT", comment: "")
-        descendingLabel.accessibilityHint = NSLocalizedString("GRID_LAYOUT", comment: "")
+        let label = UILabel()
+        label.text = NSLocalizedString("GRID_LAYOUT", comment: "")
+        label.accessibilityLabel = NSLocalizedString("GRID_LAYOUT", comment: "")
+        label.accessibilityHint = NSLocalizedString("GRID_LAYOUT", comment: "")
         //TODO: Set appropriate accessibilityLabel and accessibilityHint
-        descendingLabel.font = .systemFont(ofSize: 15, weight: .medium)
-        descendingLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        descendingLabel.translatesAutoresizingMaskIntoConstraints = false
-        return descendingLabel
+        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.textColor = PresentationTheme.current.colors.cellTextColor
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     let layoutChangeSwitch: UISwitch = {
-        let actionSwitch = UISwitch()
-        actionSwitch.addTarget(self,
+        let aSwitch = UISwitch()
+        aSwitch.addTarget(self,
                                action: #selector(handleLayoutChangeSwitch(_:)),
                                for: .valueChanged)
-        actionSwitch.translatesAutoresizingMaskIntoConstraints = false
-        return actionSwitch
+        aSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return aSwitch
     }()
 
     weak var delegate: ActionSheetSortSectionHeaderDelegate?
@@ -123,6 +123,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     @objc private func updateTheme() {
         backgroundColor = PresentationTheme.current.colors.background
         descendingLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        gridLayoutLabel.textColor = PresentationTheme.current.colors.cellTextColor
     }
 
     @objc func handleDescendingSwitch(_ sender: UISwitch) {

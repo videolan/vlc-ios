@@ -1980,7 +1980,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 {
     BOOL orientationIslocked = _interfaceIsLocked || [_vpc currentMediaIs360Video];
     UIInterfaceOrientationMask maskFromOrientation = 1 << _lockedOrientation;
-    return orientationIslocked ? maskFromOrientation :  UIInterfaceOrientationMaskAll;
+    return orientationIslocked ? maskFromOrientation : UIInterfaceOrientationMaskAll;
 }
 
 - (BOOL)shouldAutorotate

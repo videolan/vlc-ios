@@ -81,4 +81,23 @@ extension UINavigationController {
     override open var childForStatusBarStyle: UIViewController? {
         return self.topViewController
     }
+
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
+        updateTheme()
+    }
+
+    @objc func updateTheme() {
+        if #available(iOS 11.0, *) {
+            navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: PresentationTheme.current.colors.navigationbarTextColor
+            ]
+        }
+        if #available(iOS 13.0, *) {
+            let navigationBarAppearance = AppearanceManager.navigationbarAppearance()
+            navigationBar.standardAppearance = navigationBarAppearance
+            navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        }
+    }
 }
