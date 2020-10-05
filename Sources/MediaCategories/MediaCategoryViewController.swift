@@ -57,12 +57,22 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     @objc private lazy var sortActionSheet: ActionSheet = {
         var header: ActionSheetSortSectionHeader
+        var displayGridLayout: Bool = true
+        var collectionModelName: String = ""
 
         if model is MediaGroupViewModel {
-            header = ActionSheetSortSectionHeader(model: model.sortModel)
-        } else {
-            header = ActionSheetSortSectionHeader(model: model.sortModel, displayGridLayout: true)
+            displayGridLayout = false
+        } else if let model = model as? CollectionModel {
+            if model.mediaCollection is VLCMLMediaGroup {
+                displayGridLayout = false
+            } else {
+                collectionModelName = String(describing: type(of: model.mediaCollection))
+            }
         }
+
+        header = ActionSheetSortSectionHeader(model: model.sortModel,
+                                              displayGridLayout: displayGridLayout,
+                                              currentModelType: collectionModelName + model.name)
 
         let actionSheet = ActionSheet(header: header)
         header.delegate = self
@@ -865,12 +875,23 @@ extension MediaCategoryViewController: ActionSheetDataSource {
 // MARK: - ActionSheetSortSectionHeaderDelegate
 
 extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
+    private func getTypeName(of mediaCollection: MediaCollectionModel) -> String {
+        return String(describing: type(of: mediaCollection))
+    }
+
     func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader, onSwitchIsOnChange: Bool, type: ActionSheetSortHeaderOptions) {
         if type == .descendingOrder {
             model.sort(by: model.sortModel.currentSort, desc: onSwitchIsOnChange)
             userDefaults.set(onSwitchIsOnChange, forKey: "\(kVLCSortDescendingDefault)\(model.name)")
         } else {
-            userDefaults.set(onSwitchIsOnChange, forKey: kVLCAudioLibraryGridLayout)
+            var collectionModelName: String = ""
+            if let model = model as? CollectionModel {
+                collectionModelName = getTypeName(of: model.mediaCollection)
+            }
+
+            userDefaults.set(onSwitchIsOnChange,
+                             forKey: "\(kVLCAudioLibraryGridLayout)\(collectionModelName + model.name)")
+
             setupCollectionView()
             cachedCellSize = .zero
             collectionView?.collectionViewLayout.invalidateLayout()

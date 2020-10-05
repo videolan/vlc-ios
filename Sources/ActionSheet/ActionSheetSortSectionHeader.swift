@@ -21,6 +21,7 @@ protocol ActionSheetSortSectionHeaderDelegate: class {
 
 class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     private var displayGridLayoutOption = false
+    private var modelType: String
 
     override var cellHeight: CGFloat {
         return displayGridLayoutOption ? 150 : 100
@@ -94,12 +95,15 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
 
     weak var delegate: ActionSheetSortSectionHeaderDelegate?
 
-    init(model: SortModel, displayGridLayout: Bool = false) {
+    init(model: SortModel, displayGridLayout: Bool = false, currentModelType: String) {
         displayGridLayoutOption = displayGridLayout
+        modelType = currentModelType
         sortModel = model
         super.init(frame: .zero)
         actionSwitch.isOn = sortModel.desc
-        layoutChangeSwitch.isOn = userDefaults.bool(forKey: kVLCAudioLibraryGridLayout)
+
+        layoutChangeSwitch.isOn = userDefaults.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(modelType)")
+
         translatesAutoresizingMaskIntoConstraints = false
         setupStackView()
         updateTheme()
@@ -113,7 +117,8 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         if newWindow != nil {
             // ActionSheetSortSectionHeader did appear.
             actionSwitch.isOn = sortModel.desc
-            layoutChangeSwitch.isOn = userDefaults.bool(forKey: kVLCAudioLibraryGridLayout)
+
+            layoutChangeSwitch.isOn = userDefaults.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(modelType)")
         }
     }
     required init?(coder aDecoder: NSCoder) {

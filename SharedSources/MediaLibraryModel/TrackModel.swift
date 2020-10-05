@@ -19,7 +19,7 @@ class TrackModel: MediaModel {
     var files = [VLCMLMedia]()
 
     var cellType: BaseCollectionViewCell.Type {
-        return UserDefaults.standard.bool(forKey: kVLCAudioLibraryGridLayout) ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
+        return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(name)") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
     }
 
     var medialibrary: MediaLibraryService
