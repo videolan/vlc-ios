@@ -1,5 +1,13 @@
 # Changelog
 
+## iOS [3.2.12]
+
+· Fix playback of 10bit and 12bit content encoded in HEVC or AVC on iOS 14 and later
+
+## tvOS [3.0.11]
+
+· Fix playback of 10bit and 12bit content encoded in HEVC or AVC on tvOS 14 and later
+
 ## iOS [3.2.11]
 
 · Fix adding new item to playlists
