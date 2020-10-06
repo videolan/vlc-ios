@@ -48,23 +48,24 @@
     [pageVC didMoveToParentViewController:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
     [self updateTheme];
+    [self updateTitle];
     [self setupNavigationBar];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
-    [super viewWillAppear:animated];
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        [AppUtility lockOrientation:UIInterfaceOrientationMaskPortrait];
-    }
+    [super traitCollectionDidChange:previousTraitCollection];
+    __weak typeof(self) weakSelf = self;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf updateTitle];
+    });
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)updateTitle
 {
-    [super viewWillDisappear:animated];
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        [AppUtility lockOrientation: UIInterfaceOrientationMaskLandscape | UIInterfaceOrientationMaskPortrait];
-    }
+    self.title = pageVC.viewControllers.firstObject.title;
 }
 
 - (void)updateTheme
@@ -123,6 +124,14 @@
 - (void)dismissFirstSteps
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController
+        didFinishAnimating:(BOOL)finished
+   previousViewControllers:(NSArray *)previousViewControllers
+       transitionCompleted:(BOOL)completed
+{
+    [self updateTitle];
 }
 
 - (void)setupNavigationBar

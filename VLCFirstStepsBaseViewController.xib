@@ -15,6 +15,7 @@
                 <outlet property="centralView" destination="RWz-Kr-wDr" id="VIP-8x-qFm"/>
                 <outlet property="descriptionLabel" destination="1tJ-p7-1u3" id="Jug-LH-uE6"/>
                 <outlet property="descriptionLabelHeightConstraint" destination="WXc-CJ-zhN" id="TCm-d8-QLE"/>
+                <outlet property="pageTitleContainer" destination="LJX-im-o5c" id="qOi-0E-3kO"/>
                 <outlet property="pageTitleLabel" destination="K1O-0P-H5y" id="nny-hT-LCJ"/>
                 <outlet property="pageTitleLabelHeightConstraint" destination="p25-Na-NMh" id="jPk-OF-3Nl"/>
                 <outlet property="titleLabel" destination="91B-JS-Z5D" id="Lmv-25-7l3"/>
@@ -25,6 +26,9 @@
                 <outletCollection property="centralParts" destination="lry-4M-DKD" id="xVm-ev-ycq"/>
                 <outletCollection property="centralParts" destination="CEJ-v4-pmu" id="lZ5-mS-aCb"/>
                 <outletCollection property="centralParts" destination="FS3-Ul-viJ" id="48E-aR-j6S"/>
+                <outletCollection property="labelHeightConstraints" destination="p25-Na-NMh" id="sCt-7T-TmI"/>
+                <outletCollection property="labelHeightConstraints" destination="ZnE-BZ-WVr" id="6V8-bl-dt8"/>
+                <outletCollection property="labelHeightConstraints" destination="WXc-CJ-zhN" id="hsR-qD-Xch"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -99,7 +103,6 @@
                 <constraint firstItem="RWz-Kr-wDr" firstAttribute="top" secondItem="LJX-im-o5c" secondAttribute="bottom" id="GQc-Me-3wW"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="qqi-wm-FNW" secondAttribute="bottom" id="Gws-a1-h9D"/>
                 <constraint firstItem="RWz-Kr-wDr" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="HIR-Dc-HUH"/>
-                <constraint firstItem="qqi-wm-FNW" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="R7N-ea-sQq"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RWz-Kr-wDr" secondAttribute="trailing" id="UNp-P9-JaK"/>
                 <constraint firstItem="qqi-wm-FNW" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Vn3-fJ-uhb"/>
                 <constraint firstItem="LJX-im-o5c" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="W99-ya-ssf"/>
@@ -109,7 +112,7 @@
             </constraints>
             <point key="canvasLocation" x="83" y="13"/>
         </view>
-        <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" id="lry-4M-DKD" userLabel="central_iTunes">
+        <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" id="lry-4M-DKD" userLabel="central_iTunes">
             <rect key="frame" x="0.0" y="0.0" width="373.5" height="383"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>

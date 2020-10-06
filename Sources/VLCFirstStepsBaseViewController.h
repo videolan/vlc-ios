@@ -28,10 +28,12 @@ typedef NS_ENUM(NSUInteger, VLCFirstStepsPage) {
 @property (weak, nonatomic) IBOutlet UIView *centralView;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *centralParts;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *images;
+@property (weak, nonatomic) IBOutlet UIView *pageTitleContainer;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pageTitleLabelHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionLabelHeightConstraint;
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *labelHeightConstraints;
 
 - (void)configurePage;
 - (NSArray <NSLayoutConstraint *> *)imageViewConstraints:(UIImageView *)imageView;

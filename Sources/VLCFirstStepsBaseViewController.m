@@ -36,14 +36,26 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:kVLCThemeDidChangeNotification object:nil];
     [self setupPage];
+    [self updatePageTitle];
     [self updateTheme];
 }
 
-- (void)viewDidLayoutSubviews
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLayoutSubviews];
+    [super viewWillAppear:animated];
     [self setupPage];
     [self updateTheme];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self setupPage];
+}
+
+- (BOOL)isCompactHeight
+{
+    return (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact);
 }
 
 - (void)updateTheme
@@ -59,6 +71,52 @@
 }
 
 - (void)setupPage
+{
+    [self configurePage];
+    self.pageTitleContainer.hidden = self.isCompactHeight;
+
+    UIView *central = self.centralView;
+    [central removeFromSuperview];
+    [self.view addSubview:central];
+    UIView *bottom = self.bottomView;
+    [bottom removeFromSuperview];
+    [self.view addSubview:bottom];
+
+    id<VLCLayoutAnchorContainer> guide = self.view;
+    if (@available(iOS 11.0, *)) {
+        guide = self.view.safeAreaLayoutGuide;
+    }
+
+    [NSLayoutConstraint deactivateConstraints: self.labelHeightConstraints];
+    [NSLayoutConstraint activateConstraints: self.isCompactHeight ? @[
+        [bottom.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor],
+        [bottom.bottomAnchor constraintGreaterThanOrEqualToAnchor:guide.bottomAnchor],
+        [bottom.widthAnchor constraintEqualToAnchor:guide.heightAnchor],
+        [bottom.topAnchor constraintEqualToAnchor:guide.topAnchor],
+        [central.leadingAnchor constraintEqualToAnchor:bottom.trailingAnchor],
+        [central.bottomAnchor constraintEqualToAnchor:bottom.bottomAnchor],
+        [central.topAnchor constraintEqualToAnchor:guide.topAnchor],
+        [central.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor]
+    ] : @[
+        [bottom.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor],
+        [bottom.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor],
+        [bottom.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor],
+        [central.leadingAnchor constraintEqualToAnchor:bottom.leadingAnchor],
+        [central.bottomAnchor constraintEqualToAnchor:bottom.topAnchor],
+        [central.trailingAnchor constraintEqualToAnchor:bottom.trailingAnchor],
+        [central.topAnchor constraintEqualToAnchor:self.pageTitleContainer.bottomAnchor],
+    ]];
+
+    if (!self.isCompactHeight) {
+        [self.view setNeedsLayout];
+        [self.view layoutIfNeeded];
+        [self updateHeightConstraints];
+        [NSLayoutConstraint activateConstraints: self.labelHeightConstraints];
+    }
+    [self configureCentral];
+}
+
+- (void)configureCentral
 {
     [self.centralParts enumerateObjectsUsingBlock:^(UIView *part, NSUInteger idx, BOOL * _Nonnull stop) {
         part.hidden = idx != self.page;
@@ -83,7 +141,12 @@
     self.pageTitleLabel.text = [self.class pageTitleText];
     self.titleLabel.text = [self.class titleText];
     self.descriptionLabel.text = [self.class descriptionText];
-    [self updateHeightConstraints];
+    [self updatePageTitle];
+}
+
+- (void)updatePageTitle
+{
+    self.title = self.isCompactHeight ? [self.class pageTitleText] : @"";
 }
 
 - (void)updateHeightConstraints
