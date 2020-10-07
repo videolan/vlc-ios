@@ -201,10 +201,10 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         descriptionStackView.addArrangedSubview(subDescriptionStack)
         contentStackView.addArrangedSubview(descriptionStackView)
 
-        let thumbnailHeight = frame.height * 0.7
 
         NSLayoutConstraint.activate([
-            thumbnailView.heightAnchor.constraint(equalToConstant: thumbnailHeight),
+            thumbnailView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
+            thumbnailView.heightAnchor.constraint(equalTo: thumbnailView.widthAnchor),
             checkboxImageView.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: -5),
             checkboxImageView.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: -5),
             contentStackView.topAnchor.constraint(equalTo: guide.topAnchor),
@@ -334,7 +334,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
     override class func cellSizeForWidth(_ width: CGFloat) -> CGSize {
         let numberOfCells: CGFloat = numberOfColumns(for: width)
-        let aspectRatio: CGFloat = 18.0 / 16.0
+        let aspectRatio: CGFloat = 1.0
         let overallWidth = width - (2 * edgePadding)
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
