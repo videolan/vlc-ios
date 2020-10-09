@@ -1,5 +1,13 @@
 # Changelog
 
+## iOS [3.2.13]
+
+· Fix authentication regression with SMBv2 servers
+
+## tvOS [3.0.12]
+
+· Fix authentication regression with SMBv2 servers
+
 ## iOS [3.2.12]
 
 · Fix playback of 10bit and 12bit content encoded in HEVC or AVC on iOS 14 and later
