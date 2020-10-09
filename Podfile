@@ -4,7 +4,7 @@ inhibit_all_warnings!
 
 def shared_pods
   pod 'XKKeychain', '~>1.0'
-  pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git' #has a logout function added
+  pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '5dce9baa' #has a logout function added
   pod 'upnpx', '~>1.4.3'
   pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
   pod 'VLC-WhiteRaccoon'

@@ -90,7 +90,7 @@ PODS:
 
 DEPENDENCIES:
   - AppCenter (= 2.3.0)
-  - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`)
+  - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`, commit `5dce9baa`)
   - CocoaHTTPServer (from `git://github.com/fkuehne/CocoaHTTPServer.git`)
   - GoogleAPIClientForREST/Drive
   - GRKArrayDiff (~> 2.1)
@@ -143,6 +143,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   box-ios-sdk-v2:
+    :commit: 5dce9baa
     :git: git://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
     :git: git://github.com/fkuehne/CocoaHTTPServer.git
@@ -157,7 +158,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   box-ios-sdk-v2:
-    :commit: fe0fbb200116627330968431f339d0ee582eb355
+    :commit: 5dce9baa
     :git: git://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
     :commit: 97933152c16f93ab36dd28a9d33c64c5f2a085e5
@@ -204,6 +205,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: 5523d13a978c6b1f66b98668a3f9ae6222b5c330
+PODFILE CHECKSUM: d1aa9cd0e191b805b09933fb4a8cbfae12531e79
 
 COCOAPODS: 1.10.0.rc.1
