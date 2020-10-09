@@ -2,10 +2,13 @@
 
 ## iOS [3.2.13]
 
+· Add support for SMBv3
 · Fix authentication regression with SMBv2 servers
+· Fix login to Box.com
 
 ## tvOS [3.0.12]
 
+· Add support for SMBv3
 · Fix authentication regression with SMBv2 servers
 
 ## iOS [3.2.12]
