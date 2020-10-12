@@ -38,7 +38,7 @@ It's currently written in Objective-C / Swift and uses [VLCKit](https://code.vid
 3. Open `VLC.xcworkspace`.
 4. Hit "Build and Run".
 
-### Custom VLCkit
+### Custom VLCKit
 
 Mostly for debugging or advanced users, you might want to have a custom local VLCKit build.
 
@@ -57,7 +57,7 @@ Mostly for debugging or advanced users, you might want to have a custom local VL
 
     Add `-n` if you want to use you own VLC repository for VLCKit (See [VLCKit README.md](https://code.videolan.org/videolan/VLCKit/blob/master/README.md)).
 
-3. Replace the MobileVLCKit.framework with the one you just build.
+3. Replace the MobileVLCKit.framework with the one you just built.
 
     Inside your vlc-ios folder, after a `pod update`, do:
 
@@ -105,7 +105,7 @@ For example:
 
 ### Gitlab issues
 
-You can look through issues we currently have on the [VideoLAN Gitlab](https://code.videolan.org/videolan/vlc-ios/issues).
+You can look through issues we currently have on the [VideoLAN GitLab](https://code.videolan.org/videolan/vlc-ios/issues).
 
 A [beginner friendly](https://code.videolan.org/videolan/vlc-ios/issues?label_name%5B%5D=Beginner+friendly) tag is available if you don't know where to start.
 
@@ -119,7 +119,7 @@ If you have any question or if you're not sure it's actually an issue, please vi
 
 You have encountered an issue and wish to report it to the VLC dev team?
 
-You can create one on our [Gitlab](https://code.videolan.org/videolan/vlc-ios/issues) or on our [bug tracker](https://trac.videolan.org/vlc/).
+You can create one on our [GitLab](https://code.videolan.org/videolan/vlc-ios/issues) or on our [bug tracker](https://trac.videolan.org/vlc/).
 
 Before creating an issue or ticket, please double check for duplicates!
 
