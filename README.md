@@ -25,7 +25,7 @@ It's currently written in Objective-C / Swift and uses [VLCKit](https://code.vid
 - [More](#more)
 
 ## Requirements
-* Xcode 9.0+
+* Xcode 11.0+
 * macOS 10.12+
 * Cocoapods 1.4+
 
