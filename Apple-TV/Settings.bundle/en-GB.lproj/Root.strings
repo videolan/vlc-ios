@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "Control playback with gestures";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
 "SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
@@ -87,10 +87,6 @@
 
 "SETTINGS_FILE_SYNC" = "File Synchronisation";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for WiFi Sharing";
-"SETTINGS_UNLINK_DROPBOX" = "Unlink from Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Unlink from Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Unlink from OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Text Encoding for FTP connections";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
