@@ -301,11 +301,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     @objc func themeDidChange() {
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         searchBar.backgroundColor = PresentationTheme.current.colors.background
-
-        if #available(iOS 13.0, *) {
-            navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
-            navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
-        }
         setNeedsStatusBarAppearanceUpdate()
     }
 

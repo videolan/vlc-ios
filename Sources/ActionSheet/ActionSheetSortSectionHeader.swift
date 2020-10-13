@@ -128,6 +128,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     @objc private func updateTheme() {
         backgroundColor = PresentationTheme.current.colors.background
         descendingLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        gridLayoutLabel.textColor = PresentationTheme.current.colors.cellTextColor
     }
 
     @objc func handleDescendingSwitch(_ sender: UISwitch) {

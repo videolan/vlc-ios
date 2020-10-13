@@ -71,11 +71,6 @@
                                               initWithTitle:NSLocalizedString(@"BUTTON_CONNECT", nil)
                                               style:UIBarButtonItemStyleDone target:self
                                               action:@selector(connectLoginDataSource)];
-    if (@available(iOS 13.0, *)) {
-        UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
-        self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
-        self.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
-    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

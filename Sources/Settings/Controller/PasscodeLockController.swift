@@ -156,20 +156,14 @@ class PasscodeLockController: UIViewController {
                                     for: .editingChanged)
     }
 
-    private func setNavBarAppearance() {
-        if #available(iOS 13.0, *) {
-            let navigationBarAppearance = AppearanceManager.navigationbarAppearance
-            self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance()
-            self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance()
-        }
-    }
-
 // MARK: - Observer & Bar Button Actions
     @objc private func setupTheme() {
         view.backgroundColor = PresentationTheme.current.colors.background
         messageLabel.textColor = PresentationTheme.current.colors.cellTextColor
         passcodeTextField.textColor = PresentationTheme.current.colors.cellTextColor
-        setNavBarAppearance()
+        if action == .set {
+            setupBarButton()
+        }
     }
 
     @objc private func dismissView() {

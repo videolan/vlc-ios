@@ -72,7 +72,6 @@ class AboutController: UIViewController {
 
     private func setupNavigationBar() {
         self.navigationItem.titleView = UIImageView(image: UIImage(named: "AboutTitle"))
-        self.navigationItem.titleView?.tintColor = PresentationTheme.current.colors.navigationbarTextColor
         self.navigationController?.navigationBar.isOpaque = true
         setupBarButtons()
     }
