@@ -142,6 +142,7 @@
     [self.navigationItem.titleView setTintColor:colors.navigationbarTextColor];
     self.view.backgroundColor = self.tableView.backgroundColor = colors.background;
     [self.tableView reloadData];
+    [self setNeedsStatusBarAppearanceUpdate];
 #endif
 }
 

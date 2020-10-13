@@ -54,11 +54,11 @@ class SettingsController: UITableViewController {
 // MARK: - Setup Functions
 
     private func setupUI() {
-        self.title = NSLocalizedString("Settings", comment: "")
-        self.tabBarItem = UITabBarItem(title: NSLocalizedString("Settings", comment: ""),
-                                       image: UIImage(named: "Settings"),
-                                       selectedImage: UIImage(named: "Settings"))
-        self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
+        title = NSLocalizedString("Settings", comment: "")
+        tabBarItem = UITabBarItem(title: NSLocalizedString("Settings", comment: ""),
+                                  image: UIImage(named: "Settings"),
+                                  selectedImage: UIImage(named: "Settings"))
+        tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.settings
         tableView.separatorStyle = .none
         tableView.cellLayoutMarginsFollowReadableWidth = false //Fix for iPad
         actionSheet.modalPresentationStyle = .custom
@@ -98,7 +98,7 @@ class SettingsController: UITableViewController {
                                              action: #selector(showAbout))
         aboutBarButton.tintColor = PresentationTheme.current.colors.orangeUI
         navigationItem.leftBarButtonItem = aboutBarButton
-        self.navigationItem.leftBarButtonItem?.accessibilityIdentifier = VLCAccessibilityIdentifier.about
+        navigationItem.leftBarButtonItem?.accessibilityIdentifier = VLCAccessibilityIdentifier.about
 
         let tipJarBarButton = UIBarButtonItem(title: NSLocalizedString("GIVE_TIP", comment: ""),
                                              style: .plain,
@@ -129,9 +129,9 @@ class SettingsController: UITableViewController {
     }
 
     @objc private func themeDidChange() {
-        self.view.backgroundColor = PresentationTheme.current.colors.background
+        view.backgroundColor = PresentationTheme.current.colors.background
         setupBarButton()
-        self.setNeedsStatusBarAppearanceUpdate()
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     @objc private func miniPlayerIsShown() {

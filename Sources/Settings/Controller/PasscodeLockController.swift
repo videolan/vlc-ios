@@ -164,6 +164,7 @@ class PasscodeLockController: UIViewController {
         if action == .set {
             setupBarButton()
         }
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     @objc private func dismissView() {

@@ -161,6 +161,7 @@
     self.view.backgroundColor = PresentationTheme.current.colors.background;
     self.tableView.backgroundColor = PresentationTheme.current.colors.background;
     self.tableView.separatorColor = PresentationTheme.current.colors.background;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 #pragma mark - VLCNetworkLoginDataSourceProtocolDelegate

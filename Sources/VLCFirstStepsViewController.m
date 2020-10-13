@@ -69,6 +69,7 @@
 - (void)updateTheme
 {
     self.view.backgroundColor = PresentationTheme.current.colors.background;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

@@ -38,6 +38,7 @@ class TabBarCoordinator: NSObject {
         tabBarController.tabBar.backgroundColor = PresentationTheme.current.colors.tabBarColor
         tabBarController.tabBar.barTintColor = PresentationTheme.current.colors.tabBarColor
         tabBarController.tabBar.itemPositioning = .fill
+        tabBarController.setNeedsStatusBarAppearanceUpdate()
     }
 
     private func setupViewControllers() {
