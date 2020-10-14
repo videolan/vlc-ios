@@ -114,10 +114,6 @@
     self.controller = _boxController;
     self.controller.delegate = self;
 
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-    }
-
     [self updateViewAfterSessionChange];
 }
 
@@ -289,6 +285,7 @@
 - (BOOL)authorizationViewController:(BoxAuthorizationViewController *)authorizationViewController shouldLoadReceivedOAuth2RedirectRequest:(NSURLRequest *)request
 {
     [[BoxSDK sharedSDK].OAuth2Session performAuthorizationCodeGrantWithReceivedURL:request.URL];
+    [self willGoBack];
     [self.navigationController popViewControllerAnimated:YES];
     return NO;
 }
@@ -320,6 +317,7 @@
 
 - (void)authorizationViewControllerDidCancel:(BoxAuthorizationViewController *)authorizationViewController
 {
+    [self willGoBack];
     [self.navigationController popViewControllerAnimated:YES];
 }
 #endif
