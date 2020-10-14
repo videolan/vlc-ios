@@ -4,18 +4,21 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_SUBTITLE" = "Change app colours";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
-"SETTINGS_DARKTHEME" = "Dark Theme";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio playback in background";
 "SETTINGS_GENERIC_TITLE" = "Generic";
 "SETTINGS_PASSCODE_LOCK" = "Passcode Lock";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
-"SETTINGS_DECRAPIFY" = "Optimise item names for display";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
@@ -23,6 +26,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Always";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblocking filter";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "No deblocking (fastest)";
@@ -80,17 +84,23 @@
 "SETTINGS_HWDECODING" = "Hardware Decoding";
 "SETTINGS_HWDECODING_ON" = "On";
 "SETTINGS_HWDECODING_OFF" = "Off";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Send Feedback";
 "SETTINGS_SEND_RATING" = "Please Rate VLC for iOS";
 
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Optimise item names for display";
+"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+
 "SETTINGS_FILE_SYNC" = "File Synchronisation";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for WiFi Sharing";
-"SETTINGS_UNLINK_DROPBOX" = "Unlink from Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Unlink from Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Unlink from OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Text Encoding for FTP connections";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
