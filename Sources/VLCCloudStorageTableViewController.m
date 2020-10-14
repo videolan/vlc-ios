@@ -58,7 +58,7 @@
 
     self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
 
-    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
+    _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     _sortBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: [NSString stringWithFormat:NSLocalizedString(@"SORT", nil), 0]
                                                           style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonClicked:)];
     _sortBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
@@ -86,6 +86,7 @@
     [sheet.collectionView registerClass:[VLCActionSheetCell class] forCellWithReuseIdentifier:VLCActionSheetCell.identifier];
 
     [self _showProgressInToolbar:NO];
+    [self mediaListReset];
     [self updateForTheme];
 }
 
@@ -155,6 +156,10 @@
         self.numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), count];
     else
         self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
+
+- (void)mediaListReset
+{
+    self.numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0];
 }
 
 - (NSArray*)_generateToolbarItemsWithSortButton : (BOOL)withsb

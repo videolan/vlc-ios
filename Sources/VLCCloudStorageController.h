@@ -17,6 +17,7 @@ typedef NS_ENUM (NSInteger, VLCCloudSortingCriteria) {
 
 @required
 - (void)mediaListUpdated;
+- (void)mediaListReset;
 
 @optional
 - (void)operationWithProgressInformationStarted;

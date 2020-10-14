@@ -19,7 +19,7 @@
 }
 - (void)logout
 {
-    // nop
+    _currentListFiles = @[];
 }
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
