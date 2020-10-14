@@ -23,7 +23,7 @@
 @property(readwrite) NSNumber *playbackRate;
 
 #if TARGET_OS_IOS
-- (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer;
+- (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer *)mediaPlayer;
 #else
 - (void)updateMetadataFromMediaPlayer:(VLCMediaPlayer *)mediaPlayer;
 #endif

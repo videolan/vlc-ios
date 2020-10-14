@@ -26,7 +26,7 @@
 
 + (VLCOneDriveController *)sharedInstance;
 
-- (void)loginWithViewController:(UIViewController*)presentingViewController;
+- (void)loginWithViewController:(UIViewController *)presentingViewController;
 
 - (void)startDownloadingODItem:(ODItem *)item;
 

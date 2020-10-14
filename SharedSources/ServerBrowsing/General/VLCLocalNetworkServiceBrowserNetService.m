@@ -13,15 +13,17 @@
 #import "VLCLocalNetworkServiceBrowserNetService.h"
 
 @interface NSMutableArray(VLCLocalNetworkServiceNetService)
--(NSUInteger)vlc_indexOfServiceWithNetService:(NSNetService*)netService;
--(void)vlc_removeServiceWithNetService:(NSNetService*)netService;
+-(NSUInteger)vlc_indexOfServiceWithNetService:(NSNetService *)netService;
+-(void)vlc_removeServiceWithNetService:(NSNetService *)netService;
 
 @end
 @implementation NSMutableArray (VLCLocalNetworkServiceNetService)
 
 - (NSUInteger)vlc_indexOfServiceWithNetService:(NSNetService *)netService {
     NSUInteger index = [self indexOfObjectPassingTest:^BOOL(VLCLocalNetworkServiceNetService *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (![obj respondsToSelector:@selector(netService)]) return false;
+        if (![obj respondsToSelector:@selector(netService)]) {
+            return false;
+        }
         BOOL equal = [obj.netService isEqual:netService];
         if (equal) {
             *stop = YES;

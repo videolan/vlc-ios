@@ -42,10 +42,11 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (_currentFolder != nil)
+    if (_currentFolder != nil) {
         self.title = _currentFolder.name;
-    else
+    } else {
         self.title = @"OneDrive";
+    }
 
     [self updateViewAfterSessionChange];
     self.authorizationInProgress = NO;
@@ -64,8 +65,9 @@
 {
     VLCRemoteBrowsingTVCell *cell = (VLCRemoteBrowsingTVCell *)[collectionView dequeueReusableCellWithReuseIdentifier:VLCRemoteBrowsingTVCellIdentifier forIndexPath:indexPath];
 
-    if (_currentFolder == nil)
+    if (_currentFolder == nil) {
         _currentFolder = _oneDriveController.rootFolder;
+    }
 
     if (_currentFolder) {
         NSArray *items = _currentFolder.items;
@@ -80,13 +82,15 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_currentFolder == nil)
+    if (_currentFolder == nil) {
         return;
+    }
 
     NSArray *folderItems = _currentFolder.items;
     NSInteger row = indexPath.row;
-    if (row >= folderItems.count)
+    if (row >= folderItems.count) {
         return;
+    }
 
     VLCOneDriveObject *selectedObject = folderItems[row];
     if (selectedObject.isFolder) {

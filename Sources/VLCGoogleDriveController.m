@@ -80,8 +80,9 @@
     [ubiquitousStore setString:nil forKey:kVLCStoreGDriveCredentials];
     [ubiquitousStore synchronize];
     [self stopSession];
-    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)]) {
         [self.delegate mediaListUpdated];
+    }
     if ([self.delegate respondsToSelector:@selector(mediaListReset)]) {
         [self.delegate mediaListReset];
     }
@@ -106,8 +107,9 @@
     /* share our credentials */
     XKKeychainGenericPasswordItem *item = [XKKeychainGenericPasswordItem itemForService:kKeychainItemName account:@"OAuth" error:nil]; // kGTMOAuth2AccountName
     NSString *credentials = item.secret.stringValue;
-    if (credentials == nil)
+    if (credentials == nil) {
         return;
+    }
 
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousStore setString:credentials forKey:kVLCStoreGDriveCredentials];
@@ -119,8 +121,9 @@
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousStore synchronize];
     NSString *credentials = [ubiquitousStore stringForKey:kVLCStoreGDriveCredentials];
-    if (!credentials)
+    if (!credentials) {
         return NO;
+    }
 
     XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
     keychainItem.service = kKeychainItemName;
@@ -154,8 +157,9 @@
 {
     if (self.isAuthorized) {
         //we entered a different folder so discard all current files
-        if (![path isEqualToString:_folderId])
+        if (![path isEqualToString:_folderId]) {
             _currentFileList = nil;
+        }
         [self listFilesWithID:path];
     }
 }
@@ -167,18 +171,23 @@
 
 - (void)downloadFileToDocumentFolder:(GTLRDrive_File *)file
 {
-    if (file == nil)
+    if (file == nil) {
         return;
+    }
 
-    if ([file.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) return;
+    if ([file.mimeType isEqualToString:@"application/vnd.google-apps.folder"]) {
+        return;
+    }
 
-    if (!_listOfGoogleDriveFilesToDownload)
+    if (!_listOfGoogleDriveFilesToDownload) {
         _listOfGoogleDriveFilesToDownload = [[NSMutableArray alloc] init];
+    }
 
     [_listOfGoogleDriveFilesToDownload addObject:file];
 
-    if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
+    if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)]) {
         [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
+    }
 
     [self _triggerNextDownload];
 }
@@ -197,10 +206,11 @@
     query.fields = @"files(*)";
     
     //Set orderBy parameter based on sortBy
-    if (self.sortBy == VLCCloudSortingCriteriaName)
+    if (self.sortBy == VLCCloudSortingCriteriaName) {
         query.orderBy = @"folder,name,modifiedTime desc";
-    else
+    } else {
         query.orderBy = @"modifiedTime desc,folder,name";
+    }
 
     if (![_folderId isEqualToString:@""]) {
         parentName = [_folderId lastPathComponent];
@@ -241,8 +251,9 @@
         [self _reallyDownloadFileToDocumentFolder:_listOfGoogleDriveFilesToDownload[0]];
         [_listOfGoogleDriveFilesToDownload removeObjectAtIndex:0];
 
-        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
+        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)]) {
             [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
+        }
     }
 }
 
@@ -253,16 +264,18 @@
 
     [self loadFile:file intoPath:filePath];
 
-    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)]) {
         [self.delegate operationWithProgressInformationStarted];
+    }
 
     _downloadInProgress = YES;
 }
 
 - (BOOL)_supportedFileExtension:(NSString *)filename
 {
-    if ([filename isSupportedMediaFormat] || [filename isSupportedAudioMediaFormat] || [filename isSupportedSubtitleFormat])
+    if ([filename isSupportedMediaFormat] || [filename isSupportedAudioMediaFormat] || [filename isSupportedSubtitleFormat]) {
         return YES;
+    }
 
     return NO;
 }
@@ -279,8 +292,9 @@
         BOOL isDirectory = [iter.mimeType isEqualToString:@"application/vnd.google-apps.folder"];
         BOOL supportedFile = [self _supportedFileExtension:iter.name];
 
-        if (isDirectory || supportedFile)
+        if (isDirectory || supportedFile) {
             [listOfGoodFilesAndFolders addObject:iter];
+        }
     }
     _currentFileList = [NSArray arrayWithArray:listOfGoodFilesAndFolders];
 
@@ -291,11 +305,12 @@
 
     APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
 
-    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)]) {
         [self.delegate mediaListUpdated];
+    }
 }
 
-- (void)loadFile:(GTLRDrive_File*)file intoPath:(NSString*)destinationPath
+- (void)loadFile:(GTLRDrive_File *)file intoPath:(NSString *)destinationPath
 {
     NSString *exportURLStr =  [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media",
                            file.identifier];
@@ -318,8 +333,9 @@
             }
 
             CGFloat progress = (CGFloat)totalBytesWritten / (CGFloat)[file.size unsignedLongValue];
-            if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
+            if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)]) {
                 [self.delegate currentProgressInformation:progress];
+            }
         };
 
         [fetcher beginFetchWithCompletionHandler:^(NSData *data, NSError *error) {
@@ -349,8 +365,9 @@
     [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 
     NSString  *remainingTime = [formatter stringFromDate:date];
-    if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
+    if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)]) {
         [self.delegate updateRemainingTime:remainingTime];
+    }
 }
 
 - (void)downloadSuccessful
@@ -364,18 +381,20 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotification.VLCNewFileAddedNotification
                                                         object:self];
 #endif
-    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)]) {
         [self.delegate operationWithProgressInformationStopped];
+    }
     _downloadInProgress = NO;
 
     [self _triggerNextDownload];
 }
 
-- (void)downloadFailedWithError:(NSError*)error
+- (void)downloadFailedWithError:(NSError *)error
 {
     APLog(@"DriveFile download failed with error %li", (long)error.code);
-    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)]) {
         [self.delegate operationWithProgressInformationStopped];
+    }
     _downloadInProgress = NO;
 
     [self _triggerNextDownload];
@@ -390,9 +409,9 @@
 
 - (NSInteger)numberOfFilesWaitingToBeDownloaded
 {
-    if (_listOfGoogleDriveFilesToDownload)
+    if (_listOfGoogleDriveFilesToDownload) {
         return _listOfGoogleDriveFilesToDownload.count;
-
+    }
     return 0;
 }
 

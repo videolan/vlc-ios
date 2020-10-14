@@ -26,7 +26,7 @@
     return backButton;
 }
 
-+ (UIBarButtonItem *)themedDarkToolbarButtonWithTitle:(NSString*)title target:(id)target andSelector:(SEL)selector
++ (UIBarButtonItem *)themedDarkToolbarButtonWithTitle:(NSString *)title target:(id)target andSelector:(SEL)selector
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:target action:selector];
     button.tintColor = [UIColor whiteColor];

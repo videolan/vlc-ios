@@ -142,8 +142,9 @@ static void *ProgressObserverContext = &ProgressObserverContext;
     APLog(@"VLCOneDriveController: Authentication failure.");
 
     if (self.delegate) {
-        if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)])
+        if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)]) {
             [self.delegate performSelector:@selector(sessionWasUpdated)];
+        }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCOneDriveControllerSessionUpdated object:self];
 }
@@ -335,13 +336,16 @@ static void *ProgressObserverContext = &ProgressObserverContext;
 
 - (void)startDownloadingODItem:(ODItem *)item
 {
-    if (item == nil)
+    if (item == nil) {
         return;
-    if (item.folder)
+    }
+    if (item.folder) {
         return;
+    }
 
-    if (!_pendingDownloads)
+    if (!_pendingDownloads) {
         _pendingDownloads = [[NSMutableArray alloc] init];
+    }
     [_pendingDownloads addObject:item];
 
     [self _triggerNextDownload];
@@ -383,24 +387,27 @@ static void *ProgressObserverContext = &ProgressObserverContext;
         [self downloadODItem:_pendingDownloads.firstObject];
         [_pendingDownloads removeObjectAtIndex:0];
 
-        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
+        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)]) {
             [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
+        }
     }
 }
 
 - (void)downloadStarted
 {
     _startDL = [NSDate timeIntervalSinceReferenceDate];
-    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)]) {
         [self.delegate operationWithProgressInformationStarted];
+    }
 }
 
 - (void)downloadEnded
 {
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"GDRIVE_DOWNLOAD_SUCCESSFUL", nil));
 
-    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+    if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)]) {
         [self.delegate operationWithProgressInformationStopped];
+    }
 
 #if TARGET_OS_IOS
     // FIXME: Replace notifications by cleaner observers
@@ -439,8 +446,9 @@ static void *ProgressObserverContext = &ProgressObserverContext;
 
 - (void)progressUpdated:(CGFloat)progress
 {
-    if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
+    if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)]) {
         [self.delegate currentProgressInformation:progress];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -469,8 +477,9 @@ static void *ProgressObserverContext = &ProgressObserverContext;
     [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 
     NSString  *remaingTime = [formatter stringFromDate:date];
-    if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
+    if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)]) {
         [self.delegate updateRemainingTime:remaingTime];
+    }
 }
 
 @end

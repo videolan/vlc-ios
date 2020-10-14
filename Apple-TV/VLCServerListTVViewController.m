@@ -173,7 +173,9 @@
 
     if ([service respondsToSelector:@selector(loginInformation)]) {
         VLCNetworkServerLoginInformation *login = service.loginInformation;
-        if (!login) return;
+        if (!login) {
+            return;
+        }
 
         /* UPnP does not support authentication, so skip this step */
         if ([login.protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
@@ -203,7 +205,9 @@
     if ([service respondsToSelector:@selector(directPlaybackURL)]) {
 
         NSURL *url = service.directPlaybackURL;
-        if (!url) return;
+        if (!url) {
+            return;
+        }
 
         VLCMediaList *medialist = [[VLCMediaList alloc] init];
         [medialist addMedia:[VLCMedia mediaWithURL:url]];

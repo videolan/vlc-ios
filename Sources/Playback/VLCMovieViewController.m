@@ -367,8 +367,8 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 
     // HACK: get the slider from volume view
     UISlider *volumeSlider = nil;
-    for (id aView in _controllerPanel.volumeView.subviews){
-        if ([aView isKindOfClass:[UISlider class]]){
+    for (id aView in _controllerPanel.volumeView.subviews) {
+        if ([aView isKindOfClass:[UISlider class]]) {
             volumeSlider = (UISlider *)aView;
             break;
         }
@@ -400,7 +400,7 @@ typedef NS_ENUM(NSInteger, VLCPanType) {
 {
     float margin = 40.0f;
     UILayoutGuide *guide = self.view.layoutMarginsGuide;
-    if(@available(iOS 11.0, *)) {
+    if (@available(iOS 11.0, *)) {
         guide = self.view.safeAreaLayoutGuide;
     }
     return @[[_videoPlayerMainControl.bottomAnchor
@@ -1546,7 +1546,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             } else {
                 control.enabled = !_interfaceIsLocked;
             }
-        } else if ([item isKindOfClass:[UIGestureRecognizer class]]){
+        } else if ([item isKindOfClass:[UIGestureRecognizer class]]) {
             UIGestureRecognizer *gestureRecognizer = (UIGestureRecognizer *)item;
             gestureRecognizer.enabled = !_interfaceIsLocked;
         } else if ([item isKindOfClass:[VLCVolumeView class]]) {
@@ -1554,7 +1554,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             VLCVolumeView *view = (VLCVolumeView *)item;
             view.userInteractionEnabled = !_interfaceIsLocked;
             view.alpha = _interfaceIsLocked ? 0.5 : 1;
-        } else if(@available(iOS 11.0, *)){
+        } else if (@available(iOS 11.0, *)) {
             if ([item isKindOfClass:[AVRoutePickerView class]]) {
                 AVRoutePickerView *airplayView = (AVRoutePickerView *)item;
                 airplayView.userInteractionEnabled = !_interfaceIsLocked;
@@ -1675,7 +1675,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     return YES;
 }
 
-- (VLCPanType)detectPanTypeForPan:(UIPanGestureRecognizer*)panRecognizer
+- (VLCPanType)detectPanTypeForPan:(UIPanGestureRecognizer *)panRecognizer
 {
     NSString *deviceType = [[UIDevice currentDevice] model];
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
@@ -1698,7 +1698,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     return panType;
 }
 
-- (void)panRecognized:(UIPanGestureRecognizer*)panRecognizer
+- (void)panRecognized:(UIPanGestureRecognizer *)panRecognizer
 {
     CGFloat panDirectionX = [panRecognizer velocityInView:self.view].x;
     CGFloat panDirectionY = [panRecognizer velocityInView:self.view].y;
@@ -1792,7 +1792,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self applyYaw:diffYaw pitch:diffPitch];
 }
 
-- (void)swipeRecognized:(UISwipeGestureRecognizer*)swipeRecognizer
+- (void)swipeRecognized:(UISwipeGestureRecognizer *)swipeRecognizer
 {
     if (!_swipeSeekGestureEnabled)
         return;
@@ -1886,7 +1886,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     //Handling seek reset if tap orientation changes.
     if (tapPosition.x < backwardBoundary) {
         _numberOfTapSeek = _previousJumpState == VLCMovieJumpStateForward ? -1 : _numberOfTapSeek - 1;
-    } else if (tapPosition.x > forwardBoundary){
+    } else if (tapPosition.x > forwardBoundary) {
         _numberOfTapSeek = _previousJumpState == VLCMovieJumpStateBackward ? 1 : _numberOfTapSeek + 1;
     } else {
         [_vpc switchAspectRatio:YES];

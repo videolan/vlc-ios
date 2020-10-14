@@ -40,7 +40,7 @@
 #endif
 
 #if TARGET_OS_IOS
-- (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer
+- (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer *)mediaPlayer
 {
     if (media) {
         self.title = media.title;
@@ -72,7 +72,9 @@
     [self updatePlaybackRate:mediaPlayer];
 
     //Down here because we still need to populate the miniplayer
-    if ([VLCKeychainCoordinator passcodeLockEnabled]) return;
+    if ([VLCKeychainCoordinator passcodeLockEnabled]) {
+        return;
+    }
 
     [self populateInfoCenterFromMetadata];
 }

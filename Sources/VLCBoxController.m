@@ -102,8 +102,9 @@
     [ubiquitousStore setString:nil forKey:kVLCStoreBoxCredentials];
     [ubiquitousStore synchronize];
     [self stopSession];
-    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)]) {
         [self.delegate mediaListUpdated];
+    }
     if ([self.delegate respondsToSelector:@selector(mediaListReset)]) {
         [self.delegate mediaListReset];
     }
@@ -137,8 +138,9 @@
 - (void)requestDirectoryListingAtPath:(NSString *)path
 {
     //we entered a different folder so discard all current files
-    if (![path isEqualToString:_folderId])
+    if (![path isEqualToString:_folderId]) {
         _currentFileList = nil;
+    }
     [self listFilesWithID:path];
 }
 
@@ -175,16 +177,20 @@
 - (void)downloadFileToDocumentFolder:(BoxItem *)file
 {
     if (file != nil) {
-        if ([file.type isEqualToString:BoxAPIItemTypeFolder]) return;
+        if ([file.type isEqualToString:BoxAPIItemTypeFolder]) {
+            return;
+        }
 
-        if (!_listOfBoxFilesToDownload)
+        if (!_listOfBoxFilesToDownload) {
             _listOfBoxFilesToDownload = [NSMutableArray new];
+        }
 
         [_listOfBoxFilesToDownload addObject:file];
     }
 
-    if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
+    if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)]) {
         [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
+    }
 
     [self _triggerNextDownload];
 }
@@ -195,8 +201,9 @@
         [self _reallyDownloadFileToDocumentFolder:_listOfBoxFilesToDownload[0]];
         [_listOfBoxFilesToDownload removeObjectAtIndex:0];
 
-        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)])
+        if ([self.delegate respondsToSelector:@selector(numberOfFilesWaitingToBeDownloadedChanged)]) {
             [self.delegate numberOfFilesWaitingToBeDownloadedChanged];
+        }
     }
 }
 
@@ -208,8 +215,9 @@
     [self loadFile:file intoPath:[self createPotentialPathFrom:filePath]];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)])
+        if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStarted)]) {
             [self.delegate operationWithProgressInformationStarted];
+        }
     });
     _downloadInProgress = YES;
 }
@@ -235,8 +243,9 @@
             supportedFile = [[NSString stringWithFormat:@".%@",file.name.lastPathComponent] isSupportedFormat];
         }
 
-       if (isDirectory || supportedFile)
+        if (isDirectory || supportedFile) {
             [listOfGoodFilesAndFolders addObject:boxFile];
+        }
     }
     _currentFileList = [_currentFileList count] ? [_currentFileList arrayByAddingObjectsFromArray:listOfGoodFilesAndFolders] : [NSArray arrayWithArray:listOfGoodFilesAndFolders];
 
@@ -247,12 +256,13 @@
 
     APLog(@"found filtered metadata for %lu files", (unsigned long)_currentFileList.count);
 
-    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)]) {
         [self.delegate mediaListUpdated];
+    }
 }
 
 #if TARGET_OS_IOS
-- (void)loadFile:(BoxFile *)file intoPath:(NSString*)destinationPath
+- (void)loadFile:(BoxFile *)file intoPath:(NSString *)destinationPath
 {
     NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:destinationPath append:NO];
     _startDL = [NSDate timeIntervalSinceReferenceDate];
@@ -277,8 +287,9 @@
         CGFloat progress = (CGFloat)bytesReceived / (CGFloat)expectedTotalBytes;
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)])
+            if ([self.delegate respondsToSelector:@selector(currentProgressInformation:)]) {
                 [self.delegate currentProgressInformation:progress];
+            }
         });
     };
 
@@ -309,8 +320,9 @@
     NSString *remainingTime = [formatter stringFromDate:date];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
+        if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)]) {
             [self.delegate updateRemainingTime:remainingTime];
+        }
     });
 }
 
@@ -326,20 +338,22 @@
                                                         object:self];
 #endif
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+        if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)]) {
             [self.delegate operationWithProgressInformationStopped];
+        }
     });
     _downloadInProgress = NO;
 
     [self _triggerNextDownload];
 }
 
-- (void)downloadFailedWithError:(NSError*)error
+- (void)downloadFailedWithError:(NSError *)error
 {
     APLog(@"BoxFile download failed with error %li", (long)error.code);
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)])
+        if ([self.delegate respondsToSelector:@selector(operationWithProgressInformationStopped)]) {
             [self.delegate operationWithProgressInformationStopped];
+        }
     });
     _downloadInProgress = NO;
 
@@ -356,9 +370,9 @@
 
 - (NSInteger)numberOfFilesWaitingToBeDownloaded
 {
-    if (_listOfBoxFilesToDownload)
+    if (_listOfBoxFilesToDownload) {
         return _listOfBoxFilesToDownload.count;
-
+    }
     return 0;
 }
 

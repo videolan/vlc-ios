@@ -123,9 +123,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _selectedFile = _mediaList[indexPath.row];
-    if (![_selectedFile isKindOfClass:[DBFILESFolderMetadata class]])
+    if (![_selectedFile isKindOfClass:[DBFILESFolderMetadata class]]) {
         [_dropboxController streamFile:_selectedFile currentNavigationController:self.navigationController];
-    else {
+    } else {
         /* dive into subdirectory */
         NSString *futurePath = [self.currentPath stringByAppendingFormat:@"/%@", _selectedFile.name];
         self.currentPath = futurePath;
@@ -148,8 +148,9 @@
                                           openURL:^(NSURL *url) {
                                               [[UIApplication sharedApplication] openURL:url];
                                           }];
-    } else
+    } else {
         [_dropboxController logout];
+    }
 }
 
 - (void)sessionWasUpdated:(NSNotification *)aNotification

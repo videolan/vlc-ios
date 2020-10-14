@@ -147,8 +147,9 @@
     static NSString *CellIdentifier = @"BoxCell";
 
     VLCCloudStorageTableViewCell *cell = (VLCCloudStorageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
+    if (cell == nil) {
         cell = [VLCCloudStorageTableViewCell cellWithReuseIdentifier:CellIdentifier];
+    }
 
     NSUInteger index = indexPath.row;
     if (_listOfFiles) {
@@ -172,13 +173,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-    if (indexPath.row >= _listOfFiles.count)
+    if (indexPath.row >= _listOfFiles.count) {
         return;
+    }
 
     _selectedFile = _listOfFiles[indexPath.row];
-    if (![_selectedFile.type isEqualToString:@"folder"])
+    if (![_selectedFile.type isEqualToString:@"folder"]) {
         [self streamFile:(BoxFile *)_selectedFile];
-    else {
+    } else {
         /* dive into subdirectory */
         NSString *path = self.currentPath;
         if (![path isEqualToString:@""])

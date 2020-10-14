@@ -1142,7 +1142,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     [self setNeedsMetadataUpdate];
 }
 
-- (void)mediaMetaDataDidChange:(VLCMedia*)aMedia
+- (void)mediaMetaDataDidChange:(VLCMedia *)aMedia
 {
     [self setNeedsMetadataUpdate];
 }
@@ -1168,7 +1168,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 - (void)_recoverLastPlaybackState
 {
     VLCMLMedia *media = [_delegate mediaForPlayingMedia:_mediaPlayer.media];
-    if (!media) return;
+    if (!media) {
+        return;
+    }
 
     CGFloat lastPosition = media.progress;
     // .95 prevents the controller from opening and closing immediatly when restoring state

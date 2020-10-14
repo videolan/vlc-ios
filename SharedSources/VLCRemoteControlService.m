@@ -86,7 +86,9 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
 
 - (MPRemoteCommandHandlerStatus )remoteCommandEvent:(MPRemoteCommandEvent *)event
 {
-    if (!_remoteControlServiceDelegate) return MPRemoteCommandHandlerStatusCommandFailed;
+    if (!_remoteControlServiceDelegate) {
+        return MPRemoteCommandHandlerStatusCommandFailed;
+    }
 
     MPRemoteCommandCenter *cc = [MPRemoteCommandCenter sharedCommandCenter];
 

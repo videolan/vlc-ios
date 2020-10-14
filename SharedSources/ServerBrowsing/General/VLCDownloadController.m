@@ -64,7 +64,7 @@
 }
 
 #pragma mark - API to other VLC objects
-- (void)addURLToDownloadList:(NSURL *)aURL fileNameOfMedia:(NSString*)fileName
+- (void)addURLToDownloadList:(NSURL *)aURL fileNameOfMedia:(NSString *)fileName
 {
     VLCMedia *media = [VLCMedia mediaWithURL:aURL];
     @synchronized (_currentDownloads) {
@@ -73,7 +73,7 @@
     [self _updateDownloadList];
 }
 
-- (void)addVLCMediaToDownloadList:(VLCMedia *)media fileNameOfMedia:(NSString*)fileName expectedDownloadSize:(long long unsigned)expectedDownloadSize
+- (void)addVLCMediaToDownloadList:(VLCMedia *)media fileNameOfMedia:(NSString *)fileName expectedDownloadSize:(long long unsigned)expectedDownloadSize
 {
     @synchronized (_currentDownloads) {
         [_currentDownloads addObject:media];

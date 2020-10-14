@@ -248,9 +248,11 @@ static NSMutableDictionary *authentifiedHosts;
     return [[HTTPDataResponse alloc] initWithData:[@"\"OK\"" dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (BOOL)fileIsInDocumentFolder:(NSString*)filepath
+- (BOOL)fileIsInDocumentFolder:(NSString *)filepath
 {
-    if (!filepath) return NO;
+    if (!filepath) {
+        return NO;
+    }
 
     NSError *error;
 
@@ -284,14 +286,20 @@ static NSMutableDictionary *authentifiedHosts;
 {
     NSString *filePath = [[path stringByReplacingOccurrencesOfString:@"/Thumbnail/" withString:@""] stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
 
-    if ([filePath isEqualToString:@"/"]) return [[HTTPErrorResponse alloc] initWithErrorCode:404];
+    if ([filePath isEqualToString:@"/"]) {
+        return [[HTTPErrorResponse alloc] initWithErrorCode:404];
+    }
 
     UIImage *thumbnail = [UIImage imageWithContentsOfFile:filePath];
-    if (!thumbnail) return [[HTTPErrorResponse alloc] initWithErrorCode:404];
+    if (!thumbnail) {
+        return [[HTTPErrorResponse alloc] initWithErrorCode:404];
+    }
 
     NSData *theData = UIImageJPEGRepresentation(thumbnail, .9);
 
-    if (!theData) return [[HTTPErrorResponse alloc] initWithErrorCode:404];
+    if (!theData) {
+        return [[HTTPErrorResponse alloc] initWithErrorCode:404];
+    }
 
     HTTPDataResponse *dataResponse = [[HTTPDataResponse alloc] initWithData:theData];
     dataResponse.contentType = @"image/jpg";
@@ -768,7 +776,7 @@ static NSMutableDictionary *authentifiedHosts;
 #pragma mark multipart form data parser delegate
 
 
-- (void)processStartOfPartWithHeader:(MultipartMessageHeader*) header
+- (void)processStartOfPartWithHeader:(MultipartMessageHeader *) header
 {
     /* in this sample, we are not interested in parts, other then file parts.
      * check content disposition to find out filename */
@@ -841,7 +849,7 @@ static NSMutableDictionary *authentifiedHosts;
 #endif
 }
 
-- (void)processContent:(NSData*)data WithHeader:(MultipartMessageHeader*) header
+- (void)processContent:(NSData *)data WithHeader:(MultipartMessageHeader *) header
 {
     // here we just write the output from parser to the file.
     if (_storeFile) {
@@ -862,7 +870,7 @@ static NSMutableDictionary *authentifiedHosts;
 
 }
 
-- (void)processEndOfPartWithHeader:(MultipartMessageHeader*)header
+- (void)processEndOfPartWithHeader:(MultipartMessageHeader *)header
 {
     // as the file part is over, we close the file.
     APLog(@"closing file");

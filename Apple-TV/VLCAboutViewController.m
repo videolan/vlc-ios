@@ -110,7 +110,7 @@
     [displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
-- (void)displayLinkTriggered:(CADisplayLink*)link
+- (void)displayLinkTriggered:(CADisplayLink *)link
 {
     UIScrollView *scrollView = self.blablaTextView;
     CGFloat viewHeight = CGRectGetHeight(scrollView.frame);

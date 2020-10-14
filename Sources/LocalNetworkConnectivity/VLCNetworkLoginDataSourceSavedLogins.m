@@ -102,7 +102,7 @@ static NSString *const VLCNetworkLoginSavedLoginCellIdentifier = @"VLCNetworkLog
 {
     NSError *innerError = nil;
     BOOL success = [login saveLoginInformationToKeychainWithError:&innerError];
-    if(!success) {
+    if (!success) {
         NSLog(@"Failed to save login with error: %@",innerError);
         if (error) {
             *error = innerError;

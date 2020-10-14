@@ -154,7 +154,9 @@ continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *))restorationHandler
 {
     VLCMLMedia *media = [appCoordinator mediaForUserActivity:userActivity];
-    if (!media) return NO;
+    if (!media) {
+        return NO;
+    }
 
     [self validatePasscodeIfNeededWithCompletion:^{
         [[VLCPlaybackService sharedInstance] playMedia:media];
@@ -166,7 +168,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 didFailToContinueUserActivityWithType:(NSString *)userActivityType
               error:(NSError *)error
 {
-    if (error.code != NSUserCancelledError){
+    if (error.code != NSUserCancelledError) {
         //TODO: present alert
     }
 }
@@ -191,15 +193,15 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     //Touch ID is shown 
-    if ([_window.rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]){
+    if ([_window.rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navCon = (UINavigationController *)_window.rootViewController.presentedViewController;
-        if ([navCon.topViewController isKindOfClass:[PasscodeLockController class]]){
+        if ([navCon.topViewController isKindOfClass:[PasscodeLockController class]]) {
             return;
         }
     }
     [self validatePasscodeIfNeededWithCompletion:^{
         //TODO: handle updating the videoview and
-        if ([VLCPlaybackService sharedInstance].isPlaying){
+        if ([VLCPlaybackService sharedInstance].isPlaying) {
             //TODO: push playback
         }
     }];
@@ -212,7 +214,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
         [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
       //  [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
         [[VLCPlaybackService sharedInstance] recoverDisplayedMetadata];
-    } else if(_isComingFromHandoff) {
+    } else if (_isComingFromHandoff) {
         _isComingFromHandoff = NO;
     }
 }

@@ -42,7 +42,9 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
 - (OROpenSubtitleDownloader *)initWithUserAgent:(NSString *)userAgent delegate:(id<OROpenSubtitleDownloaderDelegate>) delegate
 {
     self = [super init];
-    if (!self) return nil;
+    if (!self) {
+        return nil;
+    }
 
     _delegate = delegate;
     _userAgent = userAgent;

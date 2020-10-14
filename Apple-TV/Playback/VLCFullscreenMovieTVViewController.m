@@ -987,7 +987,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
-- (void)displayLinkTriggered:(CADisplayLink*)link
+- (void)displayLinkTriggered:(CADisplayLink *)link
 {
     UIScrollView *scrollView = self.audioDescriptionTextView;
     CGFloat viewHeight = CGRectGetHeight(scrollView.frame);

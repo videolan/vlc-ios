@@ -208,7 +208,7 @@
 {
     [super tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 
-    if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row)
+    if ([indexPath row] == ((NSIndexPath *)[[tableView indexPathsForVisibleRows] lastObject]).row)
         [[VLCActivityManager defaultManager] networkActivityStopped];
 
     cell.titleLabel.textColor = cell.folderTitleLabel.textColor = cell.subtitleLabel.textColor = cell.thumbnailView.tintColor = PresentationTheme.current.colors.cellTextColor;

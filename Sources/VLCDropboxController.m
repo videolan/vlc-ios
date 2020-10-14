@@ -59,8 +59,9 @@
 {
     /* share our credentials */
     NSArray *credentials = [DBSDKKeychain retrieveAllTokenIds];
-    if (credentials == nil)
+    if (credentials == nil) {
         return;
+    }
 
     NSUbiquitousKeyValueStore *ubiquitousStore = [NSUbiquitousKeyValueStore defaultStore];
     [ubiquitousStore setArray:credentials forKey:kVLCStoreDropboxCredentials];
@@ -90,8 +91,9 @@
 {
     [DBClientsManager unlinkAndResetClients];
     [self reset];
-    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
+    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)]) {
         [self.delegate mediaListUpdated];
+    }
     if ([self.delegate respondsToSelector:@selector(mediaListReset)]) {
         [self.delegate mediaListReset];
     }
@@ -193,8 +195,8 @@
     [[[self client].filesRoutes listFolder:path] setResponseBlock:^(DBFILESListFolderResult * _Nullable result, DBFILESListFolderError * _Nullable routeError, DBRequestError * _Nullable networkError) {
         if (result) {
             self.currentFileList = [result.entries sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                NSString *first = [(DBFILESMetadata*)a name];
-                NSString *second = [(DBFILESMetadata*)b name];
+                NSString *first = [(DBFILESMetadata *)a name];
+                NSString *second = [(DBFILESMetadata *)b name];
                 return [first caseInsensitiveCompare:second];
             }];
             APLog(@"found filtered metadata for %lu files", (unsigned long)self.currentFileList.count);

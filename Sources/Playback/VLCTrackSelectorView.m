@@ -88,7 +88,7 @@
     VLCPlaybackService *playbackController = [VLCPlaybackService sharedInstance];
 
     if (_switchingTracksNotChapters) {
-        if([playbackController numberOfAudioTracks] > 2)
+        if ([playbackController numberOfAudioTracks] > 2)
             sections++;
 
         if ([playbackController numberOfVideoSubtitlesIndexes] >= 1)
@@ -175,7 +175,7 @@
         if ([playbackController numberOfTitles] > 1 && section == 0) {
 
             NSDictionary *description = [playbackController titleDescriptionsDictAtIndex:row];
-            if(description != nil) {
+            if (description != nil) {
                 cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", description[VLCTitleDescriptionName], [[VLCTime timeWithNumber:description[VLCTitleDescriptionDuration]] stringValue]];
             }
 

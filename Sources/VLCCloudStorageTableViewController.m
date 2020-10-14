@@ -150,19 +150,21 @@
     [self.tableView reloadData];
 
     NSUInteger count = self.controller.currentListFiles.count;
-    if (count == 0)
+    if (count == 0) {
         self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"NO_FILES", nil);
-    else if (count != 1)
+    } else if (count != 1) {
         self.numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), count];
-    else
+    } else {
         self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"ONE_FILE", nil);
+    }
+}
 
 - (void)mediaListReset
 {
     self.numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0];
 }
 
-- (NSArray*)_generateToolbarItemsWithSortButton : (BOOL)withsb
+- (NSArray *)_generateToolbarItemsWithSortButton : (BOOL)withsb
 {
     NSMutableArray* result = [NSMutableArray array];
     if (withsb)
@@ -178,8 +180,7 @@
     if (!value) {
         [self setToolbarItems:[self _generateToolbarItemsWithSortButton:[self.controller supportSorting]] animated:YES];
         
-    }
-    else {
+    } else {
         _progressView.progressBar.progress = 0.;
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
     }
@@ -224,11 +225,12 @@
 
 - (void)goBack
 {
-    if (((![self.currentPath isEqualToString:@""] && ![self.currentPath isEqualToString:@"/"]) && [self.currentPath length] > 0) && [self.controller isAuthorized]){
+    if (((![self.currentPath isEqualToString:@""] && ![self.currentPath isEqualToString:@"/"]) && [self.currentPath length] > 0) && [self.controller isAuthorized]) {
         self.currentPath = [self.currentPath stringByDeletingLastPathComponent];
         [self requestInformationForCurrentPath];
-    } else
+    } else {
         [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)showLoginPanel
@@ -250,7 +252,6 @@
         //Only show sorting button and number of files button when there is no progress bar in the toolbar
         //Only show sorting button when controller support sorting and is authorized
         [self setToolbarItems:[self _generateToolbarItemsWithSortButton:self.controller.isAuthorized && [self.controller supportSorting]] animated:YES];
-       
     }
     if (self.controller.canPlayAll) {
         self.navigationItem.rightBarButtonItems = @[_logoutButton, [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
@@ -274,8 +275,9 @@
     if (self.currentPath == nil) {
         self.currentPath = @"";
     }
-    if ([self.controller.currentListFiles count] == 0)
+    if ([self.controller.currentListFiles count] == 0) {
         [self requestInformationForCurrentPath];
+    }
 }
 
 - (void)logout
@@ -285,7 +287,7 @@
     [self updateViewAfterSessionChange];
 }
 
-- (void)sortButtonClicked:(UIBarButtonItem*)sender
+- (void)sortButtonClicked:(UIBarButtonItem *)sender
 {
     [self presentViewController:self->sheet animated:YES completion:^{
         [self->sheet.collectionView selectItemAtIndexPath:self->manager.selectedIndex animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
