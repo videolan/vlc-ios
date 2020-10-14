@@ -122,24 +122,33 @@ static void *ProgressObserverContext = &ProgressObserverContext;
     return _oneDriveClient != nil;
 }
 
+- (void)sessionWasUpdated
+{
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)])
+            [self.delegate performSelector:@selector(sessionWasUpdated)];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCOneDriveControllerSessionUpdated object:self];
+}
+
 - (void)authSuccess
 {
     APLog(@"VLCOneDriveController: Authentication complete.");
 
     [self setupSession];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCOneDriveControllerSessionUpdated object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self sessionWasUpdated];
+    });
 }
 
 - (void)authFailed:(NSError *)error
 {
     APLog(@"VLCOneDriveController: Authentication failure.");
 
-    if (self.delegate) {
-        if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)])
-            [self.delegate performSelector:@selector(sessionWasUpdated)];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCOneDriveControllerSessionUpdated object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self sessionWasUpdated];
+    });
 }
 
 #pragma mark - listing

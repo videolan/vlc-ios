@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCDropboxConstants.h
+ * VLCOneDriveConstants.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2019 VideoLAN. All rights reserved.
