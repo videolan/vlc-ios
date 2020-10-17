@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Fallande rekkjefølgje";
 "DESCENDING_SWITCH_LABEL" = "Stigande eller fallande rekkjefølgje";
 "DESCENDING_SWITCH_HINT" = "Sorter kontekst i stigande eller fallande rekkjefølgje";
+"GRID_LAYOUT" = "Grid Layout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -430,7 +431,7 @@
 "MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
 
-"BUTTON_REGROUP" = "Regroup";
+"BUTTON_REGROUP" = "Omgrupper";
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
