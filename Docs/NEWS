@@ -4,12 +4,14 @@
 
 · Add support for SMBv3
 · Fix authentication regression with SMBv2 servers
+· Fix DNS lookup regression with SMBv2 servers on IPv6-capable networks
 · Fix login to Box.com
 
 ## tvOS [3.0.12]
 
 · Add support for SMBv3
 · Fix authentication regression with SMBv2 servers
+· Fix DNS lookup regression with SMBv2 servers on IPv6-capable networks
 
 ## iOS [3.2.12]
 
