@@ -50,7 +50,7 @@ PODS:
   - MetaDataFetcherKit (0.3.2):
     - AFNetworking (= 3.1.0)
     - OROpenSubtitleDownloader
-  - MobileVLCKit (3.3.14)
+  - MobileVLCKit (3.3.15)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (1.1)
   - OBSlider (1.1.0)
@@ -79,7 +79,7 @@ PODS:
   - PAPasscode (1.0)
   - SimulatorStatusMagic (2.4.1)
   - SwiftLint (0.25.1)
-  - TVVLCKit (3.3.14)
+  - TVVLCKit (3.3.15)
   - upnpx (1.4.3)
   - VLC-WhiteRaccoon (1.0.0)
   - VLCMediaLibraryKit (0.7.3):
@@ -99,7 +99,7 @@ DEPENDENCIES:
   - MarqueeLabel (= 4.0.2)
   - MediaLibraryKit-prod
   - MetaDataFetcherKit (~> 0.3.2)
-  - MobileVLCKit (= 3.3.14)
+  - MobileVLCKit (= 3.3.15)
   - ObjectiveDropboxOfficial (from `git://github.com/Mikanbu/dropbox-sdk-obj-c.git`)
   - OBSlider (= 1.1.0)
   - OneDriveSDK
@@ -107,7 +107,7 @@ DEPENDENCIES:
   - PAPasscode (~> 1.0)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
-  - TVVLCKit (= 3.3.14)
+  - TVVLCKit (= 3.3.15)
   - upnpx (~> 1.4.3)
   - VLC-WhiteRaccoon
   - VLCMediaLibraryKit (= 0.7.3)
@@ -189,7 +189,7 @@ SPEC CHECKSUMS:
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MediaLibraryKit-prod: 718b52b55cb40b479eeae29fb5cc0cfbbbce0191
   MetaDataFetcherKit: 071c290d7b6b393e8d242c3a14594abfe8ae44c3
-  MobileVLCKit: 7f5065858eb9c29a91743c3554654d2e81b85db2
+  MobileVLCKit: 9a04c9fa19e35c376ddf59425dd82e397d5899ad
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: b9e95d98e3ff2baa0cd86aea7c8322a712f356d6
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
@@ -198,13 +198,13 @@ SPEC CHECKSUMS:
   PAPasscode: b408fb87c530cad58a554e26482e87dbb14b7bc2
   SimulatorStatusMagic: 28d4a9d1a500ac7cea0b2b5a43c1c6ddb40ba56c
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
-  TVVLCKit: aa7c0f34d6ae19e33838c3dcad594578364fd513
+  TVVLCKit: c0d238a966ead6bfcc452d5c42c1d273b1003ba7
   upnpx: ad8791295befdc0a0702089daf067d21c76194fc
   VLC-WhiteRaccoon: 1e7e59b0568959135a89d09c416d1e11a5d9a986
   VLCMediaLibraryKit: 96d888841da420b53ec1c4a1c5baeb373f4860c9
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 109bb21d15ed6d108b2c1ac5973a6a223a50f5f4
 
-PODFILE CHECKSUM: d1aa9cd0e191b805b09933fb4a8cbfae12531e79
+PODFILE CHECKSUM: f7888e4da49f20a63b455e8c894763a26fc45aac
 
 COCOAPODS: 1.10.0.rc.1
