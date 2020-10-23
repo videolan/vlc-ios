@@ -12,21 +12,40 @@
 
 import Foundation
 
-class MediaCollectionViewCell: BaseCollectionViewCell {
+// MARK: - Delegate
+protocol MediaCollectionViewCellDelegate: class {
+    func mediaCollectionViewCellHandleDelete(of cell: MediaCollectionViewCell)
+    func mediaCollectionViewCellMediaTapped(in cell: MediaCollectionViewCell)
+    func mediaCollectionViewCellSetScrolledCellIndex(of cell: MediaCollectionViewCell?)
+    func mediaCollectionViewCellGetScrolledCell() -> MediaCollectionViewCell?
+}
+
+// MARK: -
+class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     @IBOutlet weak var thumbnailView: UIImageView!
     @IBOutlet private(set) weak var titleLabel: VLCMarqueeLabel!
     @IBOutlet private(set) weak var descriptionLabel: VLCMarqueeLabel!
     @IBOutlet private(set) weak var newLabel: UILabel!
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet private(set) weak var thumbnailWidth: NSLayoutConstraint!
     @IBOutlet private(set) weak var sizeLabel: UILabel!
     @IBOutlet weak var descriptionStackView: UIStackView!
 
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollContentView: UIView!
     @IBOutlet weak var checkboxImageView: UIImageView!
     @IBOutlet weak var selectionOverlay: UIView!
     @IBOutlet weak var dragIndicatorImageView: UIImageView!
 
     private var separatorLabel: UILabel = UILabel()
+
+    private var maxXOffset: CGFloat = 0.0
+    private var vibrationTriggered: Bool = false
+    private var isDeleteDisplayed: Bool = false
+    private var hasXGoneNegative: Bool = false
+
+    weak var delegate: MediaCollectionViewCellDelegate?
 
     override var media: VLCMLObject? {
         didSet {
@@ -79,6 +98,120 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         return !UserDefaults.standard.bool(forKey: kVLCSettingEnableMediaCellTextScrolling)
     }
 
+
+    private func setupScrollView() {
+        scrollView.delegate = self
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isUserInteractionEnabled = true
+    }
+
+    private func setupGestureRecognizer() {
+        let mediaTapGesture = UITapGestureRecognizer(target: self, action: #selector(mediaTapped))
+
+        scrollContentView.addGestureRecognizer(mediaTapGesture)
+    }
+
+
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        delegate?.mediaCollectionViewCellHandleDelete(of: self)
+        resetScrollView()
+    }
+
+    @objc private func mediaTapped() {
+        delegate?.mediaCollectionViewCellMediaTapped(in: self)
+    }
+
+    func resetScrollView() {
+        let offset: CGPoint = CGPoint(x: 0, y: scrollView.contentOffset.y)
+        scrollView.setContentOffset(offset, animated: true)
+        isDeleteDisplayed = false
+    }
+
+    func disableScrollView() {
+        if isDeleteDisplayed {
+            resetScrollView()
+        }
+        scrollView.isScrollEnabled = false
+        scrollView.isUserInteractionEnabled = false
+    }
+
+    func enableScrollView() {
+        scrollView.isScrollEnabled = true
+        scrollView.isUserInteractionEnabled = true
+    }
+
+    private func checkScrollView() {
+        if let cell = delegate?.mediaCollectionViewCellGetScrolledCell() {
+            if cell != self && cell.isDeleteDisplayed {
+                cell.resetScrollView()
+                delegate?.mediaCollectionViewCellSetScrolledCellIndex(of: cell)
+            }
+        }
+    }
+
+    func applyScrolling(x: CGFloat, y: CGFloat) {
+        let offset = CGPoint(x: x, y: y)
+        scrollView.setContentOffset(offset, animated: true)
+    }
+
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        var x: CGFloat = 0
+
+        if hasXGoneNegative {
+            // Disable the scroll view from bouncing to the right
+            hasXGoneNegative = false
+        } else if isDeleteDisplayed &&
+                    (scrollView.contentOffset.x < maxXOffset || maxXOffset == 0) {
+            // The user wants to hide the delet button or the delete button
+            // is displayed and the user tapped outside of the button
+            isDeleteDisplayed = false
+        } else if !vibrationTriggered {
+            // The user wants to display the delete button
+            x = deleteButton.frame.width
+            isDeleteDisplayed = true
+            delegate?.mediaCollectionViewCellSetScrolledCellIndex(of: self)
+        } else {
+            // The user scrolled until the vibration
+            vibrationTriggered = false
+            scrollContentView.isHidden = false
+            isDeleteDisplayed = false
+            delegate?.mediaCollectionViewCellHandleDelete(of: self)
+        }
+
+        applyScrolling(x: x, y: scrollView.contentOffset.y)
+    }
+
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        maxXOffset = 0.0
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x < 0 {
+            scrollView.contentOffset.x = 0
+            hasXGoneNegative = true
+        }
+
+        if maxXOffset < scrollView.contentOffset.x {
+            checkScrollView()
+            maxXOffset = scrollView.contentOffset.x
+        }
+
+        if scrollView.contentOffset.x >= 100 {
+            if #available(iOS 10.0, *), !vibrationTriggered {
+                let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+                impactFeedbackGenerator.prepare()
+                impactFeedbackGenerator.impactOccurred()
+            }
+
+            vibrationTriggered = true
+            scrollContentView.isHidden = true
+        } else {
+            vibrationTriggered = false
+            scrollContentView.isHidden = false
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         if #available(iOS 11.0, *) {
@@ -94,10 +227,16 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
         thumbnailWidth.constant = isIpad ? 72 : 56
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
+        setupScrollView()
+        setupGestureRecognizer()
+        deleteButton.setTitle(NSLocalizedString("BUTTON_DELETE", comment: ""), for: .normal)
+        deleteButton.accessibilityLabel = NSLocalizedString("BUTTON_DELETE", comment: "")
+        deleteButton.accessibilityHint = NSLocalizedString("DELETE_HINT", comment: "")
         themeDidChange()
     }
 
     @objc fileprivate func themeDidChange() {
+        scrollContentView.backgroundColor = PresentationTheme.current.colors.background
         backgroundColor = PresentationTheme.current.colors.background
         titleLabel?.textColor = PresentationTheme.current.colors.cellTextColor
         descriptionLabel?.textColor = PresentationTheme.current.colors.cellDetailTextColor
@@ -120,6 +259,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         separatorLabel.text = "·"
         separatorLabel.isHidden = true
         descriptionStackView.insertArrangedSubview(separatorLabel, at: 1)
+        scrollView.isScrollEnabled = false
     }
 
     func update(album: VLCMLAlbum) {
@@ -128,6 +268,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         accessibilityLabel = album.accessibilityText(editing: false)
         descriptionLabel.text = album.albumArtistName()
         thumbnailView.image = album.thumbnail()
+        scrollView.isScrollEnabled = false
     }
 
     func update(artist: VLCMLArtist) {
@@ -138,16 +279,19 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         accessibilityLabel = artist.accessibilityText()
         descriptionLabel.text = artist.numberOfTracksString()
         thumbnailView.image = artist.thumbnail()
+        scrollView.isScrollEnabled = false
     }
 
     func update(movie: VLCMLMedia) {
         titleLabel.text = movie.title()
         accessibilityLabel = movie.accessibilityText(editing: false)
-        descriptionLabel.text = movie.mediaDuration()
         thumbnailView.image = movie.thumbnailImage()
         newLabel.isHidden = !movie.isNew
-        sizeLabel.text = movie.formatSize()
+        sizeLabel.text = movie.mediaDuration()
+        descriptionLabel.text = movie.formatSize()
+        sizeLabel.isHidden = false
         separatorLabel.text = "·"
+        scrollView.isScrollEnabled = true
     }
 
     func update(playlist: VLCMLPlaylist) {
@@ -156,14 +300,32 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         accessibilityLabel = playlist.accessibilityText()
         descriptionLabel.text = playlist.numberOfTracksString()
         thumbnailView.image = playlist.thumbnail()
+        scrollView.isScrollEnabled = false
     }
 
     func update(mediaGroup: VLCMLMediaGroup) {
-        newLabel.isHidden = true
+        if mediaGroup.nbMedia() == 1 && !mediaGroup.userInteracted() {
+            guard let media = mediaGroup.media(of: .video)?.first else {
+                assertionFailure("EditActions: rename: Failed to retrieve media.")
+                return
+            }
+
+            update(movie: media)
+            return
+        }
+
+        descriptionLabel.text = mediaGroup.numberOfTracksString()
         titleLabel.text = mediaGroup.title()
         accessibilityLabel = mediaGroup.accessibilityText()
-        descriptionLabel.text = mediaGroup.numberOfTracksString()
+        sizeLabel.text = String(mediaGroup.duration())
+        accessibilityLabel = mediaGroup.accessibilityText()
+
         thumbnailView.image = mediaGroup.thumbnail()
+        dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
+
+        newLabel.isHidden = true
+        dragIndicatorImageView.isHidden = false
+        scrollView.isScrollEnabled = true
     }
 
     func update(genre: VLCMLGenre) {
@@ -173,6 +335,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
 
         thumbnailView.image = genre.thumbnail()
         descriptionLabel.text = genre.numberOfTracksString()
+        scrollView.isScrollEnabled = false
     }
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
@@ -193,7 +356,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         // edgePadding-interItemPadding-[Cell]-interItemPadding-[Cell]-interItemPadding-edgePadding
         //
 
-        let overallWidth = width - (2 * edgePadding)
+        let overallWidth = (numberOfCells == 1) ? width - edgePadding : width - (2 * edgePadding)
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
 
@@ -214,8 +377,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell {
         newLabel.isHidden = true
         checkboxImageView.isHidden = true
         selectionOverlay.isHidden = true
+        dragIndicatorImageView.image = UIImage(named: "list")
         dragIndicatorImageView.isHidden = true
         sizeLabel.isHidden = true
         separatorLabel.isHidden = true
+        enableScrollView()
     }
 }

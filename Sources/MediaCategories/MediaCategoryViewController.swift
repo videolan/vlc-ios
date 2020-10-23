@@ -116,6 +116,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return PresentationTheme.current.colors.statusBarStyle
     }
 
+    private var scrolledCellIndex: IndexPath = IndexPath()
+
     // MARK: - Initializers
 
     @available(*, unavailable)
@@ -323,6 +325,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     // MARK: - Edit
+
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        resetScrollView()
+    }
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // This ensures that the search bar is always visible like a sticky while searching
@@ -780,6 +786,11 @@ extension MediaCategoryViewController {
 
         mediaCell.media = mediaObject
         mediaCell.isAccessibilityElement = true
+
+        if let mediaCell = mediaCell as? MediaCollectionViewCell {
+            mediaCell.delegate = self
+        }
+
         return mediaCell
     }
 }
@@ -1025,5 +1036,58 @@ extension MediaCategoryViewController {
             tracks = (isSearching ? searchDataSource.searchData : model.anyfiles) as? [VLCMLMedia] ?? []
         }
         playbackController.playMedia(at: index, fromCollection: tracks)
+    }
+}
+
+// MARK: - MediaCollectionViewCellDelegate
+
+extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
+
+    func mediaCollectionViewCellHandleDelete(of cell: MediaCollectionViewCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {
+            return
+        }
+
+        let modelContentArray = isSearching ? searchDataSource.searchData : model.anyfiles
+        let modelContent = modelContentArray.objectAtIndex(index: indexPath.row)
+        editController.editActions.objects = [modelContent!]
+        editController.editActions.delete()
+    }
+
+    func mediaCollectionViewCellMediaTapped(in cell: MediaCollectionViewCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {
+            return
+        }
+
+        selectedItem(at: indexPath)
+    }
+
+    func mediaCollectionViewCellSetScrolledCellIndex(of cell: MediaCollectionViewCell?) {
+        if let cell = cell {
+            guard let indexPath = collectionView.indexPath(for: cell) else {
+                return
+            }
+
+            scrolledCellIndex = indexPath
+        }
+    }
+
+    func mediaCollectionViewCellGetScrolledCell() -> MediaCollectionViewCell? {
+        if scrolledCellIndex.isEmpty {
+            return nil
+        }
+
+        let cell = collectionView.cellForItem(at: scrolledCellIndex)
+        if let cell = cell as? MediaCollectionViewCell {
+            return cell
+        }
+
+        return nil
+    }
+
+    private func resetScrollView() {
+        if let mediaCell = mediaCollectionViewCellGetScrolledCell() {
+            mediaCell.resetScrollView()
+        }
     }
 }
