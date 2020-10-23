@@ -60,14 +60,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         var displayGridLayout: Bool = true
         var collectionModelName: String = ""
 
-        if model is MediaGroupViewModel {
-            displayGridLayout = false
-        } else if let model = model as? CollectionModel {
-            if model.mediaCollection is VLCMLMediaGroup {
-                displayGridLayout = false
-            } else {
-                collectionModelName = String(describing: type(of: model.mediaCollection))
-            }
+        if let model = model as? CollectionModel {
+            collectionModelName = String(describing: type(of: model.mediaCollection))
         }
 
         header = ActionSheetSortSectionHeader(model: model.sortModel,
