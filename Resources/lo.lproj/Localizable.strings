@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC ສຳລັບໄອໂອເອສ ເປັນໂປຣແກຣມຫລີ້ນໄຟລເພງ ແລະ ວິດີໂອຕ່າງ ສຳລັບໄອແພດ, ໄອໂຟນ ແລະ ໄອພອດທັສ \nສາມາດຫລີ້ນໄຟລໄດ້ຫລາຍຟໍແມັດໂດຍບໍ່ຕ້ອງຄອນເວີດກ່ອນ\nສາມາດເຊື່ອມຕໍ່ກັບຖານເກັບຂໍ້ມູນອອນລາຍເຊັ່ນ: ດ໋ອບບ໋ອກ, ວັນໄດຣ, ໄອຄຣາວ, ໄອຈູນ, ສາມາດດາວໂຫລດໂດຍກົງຜ່ານໄວຟາຍ ຫລື ຫລີ້ນໂດຍຕົງຈາກເຊີບເວີ SMB, FTP, UPnP/DLNA  ຫລື ເວັບໄຊ.\nVLC ສາມາດສະແດງຕົວຫນັງສືຊັບໄຕເຕີ້ນຂອງວີດີໂອ, ຮອງຮັບ SSA, ສຽງແບບຫລາຍຊ່ອງທາງ ແລະ ສາມາດຄວບຄຸມຄວາມໄວຂອງການຫລີ້ນໄດ້.\nVLC ສຳລັບໄອໂອເອັສ ແມ່ນໃຊ້ຟຣີ ແລະ ເປັນໂກຣມແບບເປີດທີ່ທຸກຄົນສາມາດປຸງໄດ້";
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "ໂປແກຣມຫລີ້ນໄຟລມີເດຍ  VLC  ເປັນໂປແກຣມຟຣີ ແລະ ສາມາດເຂົ້າໄດ້ກັບອຸປະກອນເຄື່ອງຫລີ້ນມັລຕີມີເດຍເກືອບທຸກປະເພດ\nມັນສາມາດຫລີ້ນໄຟລໄດ້ຫລາຍຟໍແມັດໂດຍບໍ່ຕ້ອງຄອນເວີດກ່ອນ\nສາມາດເຊື່ອມຕໍ່ກັບຖານເກັບຂໍ້ມູນອອນລາຍເຊັ່ນ: (ດ໋ອບບ໋ອກ, ວັນໄດຣ, ໄອຄຣາວ, ໄອຈູນ) ສາມາດດາວໂຫລດໂດຍກົງຜ່ານໄວຟາຍ ຫລື ຫລີ້ນໂດຍຕົງຈາກເຊີບເວີ SMB, FTP, UPnP/DLNA  ຫລື ເວັບໄຊ.\nVLC ສາມາດສະແດງຕົວຫນັງສືຊັບໄຕເຕີ້ນຂອງວີດີໂອ, ຮອງຮັບ SSA, ສຽງແບບຫລາຍຊ່ອງທາງ ແລະ ສາມາດຄວບຄຸມຄວາມໄວຂອງການຫລີ້ນໄດ້.\nVLC ສຳລັບໄອໂອເອັສ ແມ່ນໃຊ້ຟຣີ ແລະ ເປັນໂກຣມແບບເປີດທີ່ທຸກຄົນສາມາດປຸງໄດ້\nຖານຂໍ້ມູນໃຫຍ່ຂອງໂປຣແກມ ແລະ ງານສິລະປະຕ່າງ ແມ່ນສະຫນັບສະຫນູນໂດຍ TMDb and Hatchet, ທີ່ເປັນຊຸມຊົນປັບປຸງຫນັງ ແລະ ຖານຂໍ້ມູນເພງ.";
 
@@ -76,13 +76,12 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "ປັບປຸງຖານຂໍ້ມູນເພງ, ວິດີໂອ";
-"UNKNOWN" = "ບໍ່ລະບຸ";
 
 "OPEN_NETWORK" = "ເປີດຫລີ້ນຈາກເຄືອຂ່າຍ";
 "NETWORK_TITLE" = "ກະແສເຄືອຂ່າຍ";
 "OPEN_NETWORK_HELP" = "ກະລຸນາໃສ່ທີ່ຢູ່ຂອງ HTTP, RTSP, RTMP, MMS, FTP ຫຼື UDP / RTP ທີ່ຈະເປີດຫລີ້ນເພງໄດ້ໂດຍກົງ.";
 "HTTP_UPLOAD_SERVER_OFF" = "Server ບໍ່ໄດ້ເຮັດວຽກ";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "ບໍ່ມີ WiFi ທີ່ໃຊ້ໄດ້";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "ທ່ານຕ້ອງການທີ່ຈະດາວໂຫລດ ຫລື ຫລິ້ນ URL ນີ້?";
 "SHARED_VLC_IOS_LIBRARY" = "ການແບ່ງປັນ VLC ສໍາລັບ iOS Library";
 "SMB_CIFS_FILE_SERVERS" = "ຖານຂໍ້ມຸນໄຟລ (SMB)";
@@ -176,7 +175,7 @@
 "OFF" = "ປິດ";
 
 "EMPTY_LIBRARY" = "ສື່ຫ້ອງສະໜຸດເປົ່າຫວ່າງ";
-"EMPTY_LIBRARY_LONG" = "ສໍາລັບການຫຼິ້ນ, ທ່ານສາມາດນຳໃຊ້ສື່ Media ຈາກເຄື່ອງເຊີເວີໃນເຄືອຂ່າຍທ້ອງຖິ່ນຂອງທ່ານ, ຈາກການຟັງ ຫຼືການປັບສື່ Media ກັບອຸປະກອນຂອງທ່ານໂດຍນໍາໃຊ້ iTunes, WiFi Upload ຫຼື ການບໍລິການ Cloud.";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
 "EMPTY_PLAYLIST" = "Empty playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
@@ -213,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "iTunes ຊິງຄ໌ຟຼາຍ";
 "FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
 "FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "ກໍ່ໃກ້ເກີດມີບັນຫາ";
 "FIRST_STEPS_CLOUD_TITLE" = "Cloud";
@@ -230,7 +229,7 @@
 "NO_SERVER_FOUND" = "ບໍ່ພົບເຊີບເວີ";
 "NO_RECENT_STREAMS" = "ບໍ່ມີ stream ທີ່ຖືກຫຼີ້ນຫລ້າສຸດ";
 
-"WEBINTF_TITLE" = "ແບ່ງປັນກັນຜ່ານລະບົບ WiFi";
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
 "WEBINTF_DROPFILES" = "ລຶບຟຼາຍ";
 "WEBINTF_DROPFILES_LONG" = "ວາງຟຼາຍໃນ window ເພື່ອເພີ່ມທີມຂອງທ່ານ %@.<br> ຫຼື ຄຼິກທີ່ \"+\" ປຸ້ມເພື່ອໃຊ້ໃນການເລືອກຟຼາຍ.";
 "WEBINTF_DOWNLOADFILES" = "ຟຼາຍດາວໂຫຼດ";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "ເຂົ້າຫາເຊີບເວີຂອງມີເດຍ(ຜ່ານ Bonjour)";
 "PLEX_SHORT" = "ເຂົ້າຫາ";
 
-"FTP_LONG" = "ລະບົບສົ່ງໄຟລ (FTP)";
 "FTP_SHORT" = "ລະບົບສົ່ງໄຟລ FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
 "DSM_WORKGROUP" = "Workgroup";
@@ -356,6 +358,7 @@
 "DESCENDING_LABEL" = "Descending Order";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"GRID_LAYOUT" = "Grid Layout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -384,7 +387,7 @@
 "VARIOUS_ARTIST" = "Various Artists";
 "UNKNOWN_ALBUM" = "Unknown Album";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
 "MORE_OPTIONS_BUTTON" = "More";
@@ -432,3 +435,13 @@
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
