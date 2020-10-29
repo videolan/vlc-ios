@@ -100,7 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Medtag mediebiblioteket i enhedssikkerhedskopiering";
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 understøttelse til WiFi deling";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Billede";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download billede";
