@@ -4,18 +4,21 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Zvuk";
 
-"SETTINGS_THEME_SUBTITLE" = "Change app colors";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
-"SETTINGS_DARKTHEME" = "Dark Theme";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Vremensko-proširavanje zvuka";
 "SETTINGS_BACKGROUND_AUDIO" = "Reprodukcija zvuka u pozadini";
 "SETTINGS_GENERIC_TITLE" = "Generičan";
 "SETTINGS_PASSCODE_LOCK" = "Ključanje Šifrom";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Omoguć Touch ID za otključavanje";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
-"SETTINGS_DECRAPIFY" = "Optimiziraj nazive stavku za prikaz";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Reproduciraj video u cijelom ekranu";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Nastavi reprodukciju videa";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Nastavi reprodukciju zvuka";
@@ -23,6 +26,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Pitaj";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Uvijek";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filter deblokiranja";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Bez deblokiranja (najbrže)";
@@ -40,7 +44,7 @@
 
 "SETTINGS_GESTURES" = "Upravljaj reprodukcijom sa gesturama";
 "SETTINGS_GESTURES_VOLUME" = "Povucite gore/dole za glasnoću";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Pritisni za produciranje/pauziranje";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Povucite gore/dole za svjetlost";
 "SETTINGS_GESTURES_SEEK" = "Povucite desno/lijevo za traženje";
 "SETTINGS_GESTURES_CLOSE" = "Štipnite za zatvaranje";
@@ -80,17 +84,23 @@
 "SETTINGS_HWDECODING" = "Hardware Decoding";
 "SETTINGS_HWDECODING_ON" = "On";
 "SETTINGS_HWDECODING_OFF" = "Off";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Povratne informacije";
 "SETTINGS_SEND_FEEDBACK" = "Pošalji Povratne informacije";
 "SETTINGS_SEND_RATING" = "Molimo Ocijenite VLC za iOS";
 
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Optimiziraj nazive stavku za prikaz";
+"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+
 "SETTINGS_FILE_SYNC" = "Sinkronizcija Datoteke";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 podrška za WiFi Dijeljenje";
-"SETTINGS_UNLINK_DROPBOX" = "Otkači sa Dropbox-a";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Otkači sa Google Drive-a";
-"SETTINGS_UNLINK_ONEDRIVE" = "Otkači sa OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Kodiranje Teksta za FTP veze";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
