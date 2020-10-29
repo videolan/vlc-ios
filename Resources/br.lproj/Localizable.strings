@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC evit iOS a zo ur porzh eus al lenner media VLC digoust evit iPad, hag iPod touch.\nGellout a ra lenn ho holl filmoù, abadennoù ha sonerezh en holl furmadoù war-eeun hep emdreiñ ebet.\nReiñ a ra an aotre da sinkronelaat ar restroù gant Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, pellgargadoù war-eeun ha dre ar rannañ Wifi evel da skouer ar skignañ dre froud eus SMB, FTP, UPnP/DLNA servijer media ha kenrouedad.\nVLC a ginnig kemer e karg an istitloù araokaet, en ur gemer e kont ar re SSA en un doare klok, an aodio liesroudenn ha koñtrol an tizh.\n\nVLC evit iOS a zo digoust net hag en open source.";
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "VLC media player a zo ul lenner liesvedia dreuz-platfurm digoust ha digor e darzh.\nGellout a ra lenn ho holl filmoù, abadennoù ha sonerezh en holl furmadoù war-eeun hep emdreiñ ebet.\nReiñ a ra da skignañ dre froud diouzh servijoù koumoul (Dropbox, OneDrive, Box), Pell-lenn adalek ho Mak pe PC dre un UI Web evel ur skignañ dre froud adalek ar servijerioù liesvedia SMB, FTP, UPnP / DLNA hag ar Web.\nVLC a ginnig kemer e karg an istitloù araokaet, en ur gemer e kont ar re SSA en un doare klok, an aodio liesroudenn ha koñtrol an tizh-lenn.\n\nVLC evit iOS a zo digoust net hag en open source.\n\nAr metaroadennoù hag ar skeudennoù a zo pourvezet gant TMDb hag Hatchet, hag a zo diazoù-roadennoù film ha sonerezh ratreet gant ar gumuniezh.";
 
@@ -76,13 +76,12 @@
 "BUTTON_RENDERER_HINT" = "Diskouez ul lañser trobarzhelloù skignañ";
 
 "UPGRADING_LIBRARY" = "Oc'h hizivaat al Levraoueg Media";
-"UNKNOWN" = "Dianav";
 
 "OPEN_NETWORK" = "Digeriñ ar skignañ dre froud kenrouedadel";
 "NETWORK_TITLE" = "Froud ar genrouedad";
 "OPEN_NETWORK_HELP" = "Ebarzhit kement chomlec'h HTTP, RTSP, RTMP, MMS, FTP pe UDP/RTP evit digeriñ ar skign dre froud war-eeun.";
 "HTTP_UPLOAD_SERVER_OFF" = "Servijer dioberiant";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Kevreadenn WIFI oberiant ebet";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "Ha c'hoant ho pefe pellgargañ pe lenn an URL-mañ?";
 "SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
 "SMB_CIFS_FILE_SERVERS" = "Servijerioù Restroù (SMB)";
@@ -176,7 +175,7 @@
 "OFF" = "Lazhet";
 
 "EMPTY_LIBRARY" = "Levraoueg Media Goullo";
-"EMPTY_LIBRARY_LONG" = "Evit lenn, gellout a rit skignañ ar mediaoù diwar ur servijer war ho rouedad lec'hel, diwar ar goumoulenn pe sinkronelait ar mediaoù d'ho trevnad en ur implijout iTunes, WiFi Upload pe ar servijoù Koumoulenn.";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
 "EMPTY_PLAYLIST" = "Empty playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
@@ -213,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "iTunes File Sync";
 "FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
 "FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Koumoul";
 "FIRST_STEPS_CLOUD_TITLE" = "Cloud";
@@ -230,7 +229,7 @@
 "NO_SERVER_FOUND" = "Servijet ebet kavet";
 "NO_RECENT_STREAMS" = "Froud lennet ebet nevez 'zo";
 
-"WEBINTF_TITLE" = "Rannañ dre WIFI";
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
 "WEBINTF_DROPFILES" = "Teurel ar restroù";
 "WEBINTF_DROPFILES_LONG" = "Taolit restroù er prenestr amañ evit o ouzhpennañ e-barzh hoc'h %@.<br>Pe klikit war ar bouton \"+\" evit implijout ar voest divizoù diuziñ restroù.";
 "WEBINTF_DOWNLOADFILES" = "Pellgargañ Restroù";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex Media Server (via Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "File Transfer Protocol (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Restr ar servijer BONJOUR";
 "DSM_WORKGROUP" = "Labour-stroll";
@@ -356,6 +358,7 @@
 "DESCENDING_LABEL" = "Descending Order";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"GRID_LAYOUT" = "Grid Layout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -384,7 +387,7 @@
 "VARIOUS_ARTIST" = "Arzourien a bep seurt";
 "UNKNOWN_ALBUM" = "Albom dianv";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
 "MORE_OPTIONS_BUTTON" = "More";
@@ -432,3 +435,13 @@
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";

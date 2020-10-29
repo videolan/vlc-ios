@@ -4,18 +4,21 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Aodio";
 
-"SETTINGS_THEME_SUBTITLE" = "Cheñch livioù an arload";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Emgefre";
 "SETTINGS_PRIVACY_SUBTITLE" = "Digeriñ en arventennoù";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Moned suraet betek hoc'h endalc'had";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
-"SETTINGS_DARKTHEME" = "Tem teñval";
+"SETTINGS_DARKTHEME" = "Neuz";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Dic'hourdañ-amzerel aodio";
 "SETTINGS_BACKGROUND_AUDIO" = "Lenn aodio en drek-leur";
 "SETTINGS_GENERIC_TITLE" = "Generek";
 "SETTINGS_PASSCODE_LOCK" = "Kod-tremen alc'hwezet";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Aotren an divorailhañ dre Touch ID";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Aotren an divorailhañ dre Face ID";
-"SETTINGS_DECRAPIFY" = "Gwellekaat anvioù an elfennoù evit skrammañ";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Lenn ar video er skramm-leun";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Kenderc'hel da lenn ar video";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Kenderc'hel da lenn an aodio";
@@ -23,6 +26,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Goulenn";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Dalc'hmat";
 "SETTINGS_NETWORK_PLAY_ALL" = "Lenn an elfenn da-heul ent emgefreek";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Sil enep-bloc'hoù";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Tamm enep-bloc'hoù (ar buanañ)";
@@ -40,7 +44,7 @@
 
 "SETTINGS_GESTURES" = "Koñtrol al lenn gant jestroù";
 "SETTINGS_GESTURES_VOLUME" = "Skubat betek ar c'hrec'h/an traoñ evit al live-son";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Pouezañ evit lenn/paouez";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Skubat betek ar c'hrec'h/an traoñ evit ar sked";
 "SETTINGS_GESTURES_SEEK" = "Skubat dehou/kleiz evit klask";
 "SETTINGS_GESTURES_CLOSE" = "Piñsat evit serriñ";
@@ -80,17 +84,23 @@
 "SETTINGS_HWDECODING" = "Digodur ar periant";
 "SETTINGS_HWDECODING_ON" = "Enaout";
 "SETTINGS_HWDECODING_OFF" = "Lazhet";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Evezhiadennoù";
 "SETTINGS_SEND_FEEDBACK" = "Kas evezhiadennoù";
 "SETTINGS_SEND_RATING" = "Notennit VLC evit iOS mar plij";
 
+"SETTINGS_MEDIA_LIBRARY" = "Levraoueg mediaoù";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Gwellekaat anvioù an elfennoù evit skrammañ";
+"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+
 "SETTINGS_FILE_SYNC" = "Sinkroneladur ar restr";
-"SETTINGS_WIFISHARING_IPv6" = "Skor IPv6 evit rannañ WiFi";
-"SETTINGS_UNLINK_DROPBOX" = "Distagañ diouzh Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Distagañ diouzh Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Distagañ diouzh OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Enkodañ an destenn evit ar c'hevreadurioù FTP";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Jaketenn";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Pellgargañ ar jaketenn";

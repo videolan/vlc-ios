@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Emgefre";
 "SETTINGS_PRIVACY_SUBTITLE" = "Digeriñ en arventennoù";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Moned suraet betek hoc'h endalc'had";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Neuz";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Dic'hourdañ-amzerel aodio";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Kod-tremen alc'hwezet";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Aotren an divorailhañ dre Touch ID";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Aotren an divorailhañ dre Face ID";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Lenn ar video er skramm-leun";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Kenderc'hel da lenn ar video";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Kenderc'hel da lenn an aodio";
@@ -82,6 +84,9 @@
 "SETTINGS_HWDECODING" = "Digodur ar periant";
 "SETTINGS_HWDECODING_ON" = "Enaout";
 "SETTINGS_HWDECODING_OFF" = "Lazhet";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Evezhiadennoù";
 "SETTINGS_SEND_FEEDBACK" = "Kas evezhiadennoù";
@@ -95,11 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
 "SETTINGS_FILE_SYNC" = "Sinkroneladur ar restr";
-"SETTINGS_WIFISHARING_IPv6" = "Skor IPv6 evit rannañ WiFi";
-"SETTINGS_UNLINK_DROPBOX" = "Distagañ diouzh Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Distagañ diouzh Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Distagañ diouzh OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Enkodañ an destenn evit ar c'hevreadurioù FTP";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Jaketenn";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Pellgargañ ar jaketenn";
