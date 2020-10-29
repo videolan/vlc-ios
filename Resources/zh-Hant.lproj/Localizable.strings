@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC for iOS是免費的VLC media player對iPad、iPhone與iPod touch的端口。\n它可直接播放您所有的電影、節目與音樂，大多格式都不需轉檔。\n它可同步檔案至Dropbox、GDrive、OneDrive、Box、iCloud Drive、iTunes，可透過WiFi分享直接下載，也可以自SMB、FTP、UPnP/DLNA媒體伺服器及網站串流。\nVLC提供先進的字幕支援，包含完整相容SSA、多軌音訊及播放速度控制。\n\nVLC for iOS完全免費且為開放源碼。";
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "VLC媒體撥放器是免費的開源跨平台多媒體撥放器。\n它可以直接播放所有您的電影、節目與音樂，大多格式都不需轉檔。\n它允許經由雲端服務串流(Dropbox、OneDrive、Box)，經由Mac或PC網頁介面遠端播放，也可以自SMB、FTP、UPnP/DLNA媒體伺服器及網站串流。\nVLC提供先進的字幕支援，包含完整相容SSA、多軌音訊及播放速度控制。\n\nVLC for iOS是完全免費且為開放源碼。\n\n中繼資料和圖稿是由TMDb及Hatchet所提供，這是由社群所維護的電影及音樂資料庫。";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "網路串流";
 "OPEN_NETWORK_HELP" = "請輸入任何 HTTP, RTSP, RTMP, MMS, FTP 或是 UDP/RTP 地址以直接開啟串流。";
 "HTTP_UPLOAD_SERVER_OFF" = "無效的伺服器";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "沒有啟用的 WiFi 連接";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "您想要下載或播放這個 URL?";
 "SHARED_VLC_IOS_LIBRARY" = "分享 VLC for iOS 媒體庫";
 "SMB_CIFS_FILE_SERVERS" = "檔案伺服器 (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "關閉";
 
 "EMPTY_LIBRARY" = "空媒體櫃";
-"EMPTY_LIBRARY_LONG" = "為了播放，您可以從您區域網路中的一台伺服器串流媒體，透過 iTunes 從雲端或是同步媒體到您的設備上，WiFi 上傳或是雲端服務。";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
 "EMPTY_PLAYLIST" = "空白播放清單";
 "EMPTY_PLAYLIST_DESCRIPTION" = "在相對類別中編輯時新增媒體";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "iTunes 檔案同步";
 "FIRST_STEPS_ITUNES_TITLE" = "與電腦同步";
 "FIRST_STEPS_ITUNES_DETAILS" = "將您的裝置連接到 iTunes 並選擇您的裝置。選擇 iTunes 左側選單中的「檔案分享」並尋找 VLC 來傳輸檔案";
-"FIRST_STEPS_WIFI_TITLE" = "透過 WiFi 分享";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "連接到與手機相同的網路，並在您喜歡的網路瀏覽器中輸入產生的網址";
 "FIRST_STEPS_CLOUDS" = "雲端";
 "FIRST_STEPS_CLOUD_TITLE" = "雲端";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "找不到服務器";
 "NO_RECENT_STREAMS" = "最近沒有已播放的串流";
 
-"WEBINTF_TITLE" = "透過WiFi分享";
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
 "WEBINTF_DROPFILES" = "拖放檔案";
 "WEBINTF_DROPFILES_LONG" = "將檔案丟入視窗以加入您的 %@.<br>或點擊 \"+\" 按鈕來將檔案選入對話框中。";
 "WEBINTF_DOWNLOADFILES" = "下載的檔案";
