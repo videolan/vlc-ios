@@ -97,7 +97,7 @@
 "SETTINGS_DECRAPIFY" = "Optimera objektnamn för visning";
 "SETTINGS_SHOW_THUMBNAILS" = "Visa videominiatyrer";
 "SETTINGS_SHOW_ARTWORKS" = "Visa ljudomslag";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inkludera mediabibliotek från enhetens säkerhetskopia";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inkludera mediabiblioteket i enhetens säkerhetskopia";
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-stöd för att dela via Wi-Fi";
