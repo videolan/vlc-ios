@@ -4,18 +4,21 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Oudio";
 
-"SETTINGS_THEME_SUBTITLE" = "Verander toepkleure";
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Instellings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Veilige toegang tot u inhoud";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
-"SETTINGS_DARKTHEME" = "Donkertema";
+"SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tydstrekkende oudio";
 "SETTINGS_BACKGROUND_AUDIO" = "Oudio-afspeel in agtergrond";
 "SETTINGS_GENERIC_TITLE" = "Generies";
 "SETTINGS_PASSCODE_LOCK" = "Wagkodeslot";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Staan Touch ID toe vir ontgrendeling";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Staan Face ID toe vir ontgrendeling";
-"SETTINGS_DECRAPIFY" = "Optimeer itemname vir vertoon";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Speel video af in volskerm";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Sit video-afspeel voort";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Sit oudio-afspeel voort";
@@ -23,6 +26,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Vra";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Altyd";
 "SETTINGS_NETWORK_PLAY_ALL" = "Speel volgende item outomaties af";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Ontblokkingsfilter";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Geen ontblokking (vinnigste)";
@@ -40,7 +44,7 @@
 
 "SETTINGS_GESTURES" = "Beheer afspeel met gebare";
 "SETTINGS_GESTURES_VOLUME" = "Vee op/af vir volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Tik om te speel/wag";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Vee op/af vir helderheid";
 "SETTINGS_GESTURES_SEEK" = "Vee regs/links om te soek";
 "SETTINGS_GESTURES_CLOSE" = "Knyp om toe te maak";
@@ -80,17 +84,23 @@
 "SETTINGS_HWDECODING" = "Apparatuurdekodering";
 "SETTINGS_HWDECODING_ON" = "Aan";
 "SETTINGS_HWDECODING_OFF" = "Af";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Terugvoer";
 "SETTINGS_SEND_FEEDBACK" = "Stuur Terugvoer";
 "SETTINGS_SEND_RATING" = "Gradeer asb. VLC vir iOS";
 
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Optimeer itemname vir vertoon";
+"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+
 "SETTINGS_FILE_SYNC" = "Lêersinchronisering";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6-ondersteuning vir WiFi-deling";
-"SETTINGS_UNLINK_DROPBOX" = "Koppel los van Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Koppel los van Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Koppel los van OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Teksenkodering vir FTP-verbindings";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Kunswerk";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Laai Kunswerk Af";

@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC vir iOS is ’n poort van die gratis VLC mediaspeler na iPad, iPhone en iPod touch.\nDit kan sonder omskakeling al u rolprente, reekse en musiek in die meeste formate afspeel.\nDit staan lêersinchronisering met Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direkte aflaai en deur WiFi-deling toe, asook stroming van SMB, FTP, UPnP/DLNA mediabedieners en die web.\nVLC bied ondersteuning vir gevorderde onderskrifte insluitend volledige SSA-verenigbaarheid, multisnitoudio, en afspeelspoedbeheer.\n\nVLC vir iOS is heeltemal gratis en oopbron.";
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "VLC mediaspeler is ’n gratis, oopbron kruisplatform multimediaspeler.\nDit kan sonder omskakeling al u rolprente, reekse en musiek in die meeste formate afspeel.\nDit staan stroming van wolkdienste (Dropbox, OneDrive, Box), Afstandsafspeel van u Mac of PR via ’n Web-GK toe, asook stroming van SMB, FTP, UPnP/DLNA mediabedieners en die web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC vir iOS is heeltemal gratis en oopbron.\n\nMetadata en kunswerk word deur TMDb en Hatchet, databasisse wat deur gemeenskappe in stand gehou word, verskaf.";
 
@@ -76,13 +76,12 @@
 "BUTTON_RENDERER_HINT" = "Toon ’n kieslys van beskikbare sendtoestelle";
 
 "UPGRADING_LIBRARY" = "Mediabiblioteek word opgegradeer";
-"UNKNOWN" = "Onbekend";
 
 "OPEN_NETWORK" = "Open Netwerkstroom";
 "NETWORK_TITLE" = "Netwerkstroom";
 "OPEN_NETWORK_HELP" = "Voer enige HTTP, RTSP, RTMP, MMS, FTP of UDP/RTP-adres in om direk te stroom.";
 "HTTP_UPLOAD_SERVER_OFF" = "Onaktiewe Bediener";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Geen aktiewe WiFi-verbinding";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "Wil u hierdie bronadres aflaai of afspeel?";
 "SHARED_VLC_IOS_LIBRARY" = "Gedeelde VLC vir iOS-biblioteek";
 "SMB_CIFS_FILE_SERVERS" = "Lêerbedieners (SMB)";
@@ -176,7 +175,7 @@
 "OFF" = "Af";
 
 "EMPTY_LIBRARY" = "Leë Mediabiblioteek";
-"EMPTY_LIBRARY_LONG" = "Om af te speel kan u media vanaf ’n bediener op u lokale netwerk of van die wolk stroom of dit net u toestel sinchroniseer deur iTunes, WiFi-oplaai of Wolkdienste.";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
 "EMPTY_PLAYLIST" = "Empty playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
@@ -213,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "iTunes-lêersinchronisering";
 "FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
 "FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Wolke";
 "FIRST_STEPS_CLOUD_TITLE" = "Cloud";
@@ -230,7 +229,7 @@
 "NO_SERVER_FOUND" = "Geen bediener gevind nie";
 "NO_RECENT_STREAMS" = "Geen stroom is onlangs gespeel nie";
 
-"WEBINTF_TITLE" = "Deel via WiFi";
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
 "WEBINTF_DROPFILES" = "Laat Los Lêers";
 "WEBINTF_DROPFILES_LONG" = "Laat los lêers in die venster om dit tot u %@ toe te voeg.<br>Of klik op die “+”-knop om die lêerkieserdialoog te gebruik.";
 "WEBINTF_DOWNLOADFILES" = "Laai lêers af";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex Mediabediener (via Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "Lêeroordragsprotokol (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR-lêerbediener";
 "DSM_WORKGROUP" = "Werkgroep";
@@ -356,6 +358,7 @@
 "DESCENDING_LABEL" = "Descending Order";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"GRID_LAYOUT" = "Grid Layout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -384,7 +387,7 @@
 "VARIOUS_ARTIST" = "Various Artists";
 "UNKNOWN_ALBUM" = "Unknown Album";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
 "MORE_OPTIONS_BUTTON" = "More";
@@ -432,3 +435,13 @@
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
