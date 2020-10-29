@@ -100,7 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Долучити бібліотеку медіа у резервну копію пристрою";
 
 "SETTINGS_FILE_SYNC" = "Синхронізація файлу";
-"SETTINGS_WIFISHARING_IPv6" = "Підтримка IPv6 для поширення WiFi";
+"SETTINGS_WIFISHARING_IPv6" = "Підтримка IPv6 для поширення через Wi-Fi";
 
 "SETTINGS_ARTWORK" = "Обкладинка";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Звантажити обкладинку";
