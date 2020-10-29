@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Masa-renggang Audio";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Kunci Kode Sandi";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Izinkan penggunaan Touch ID untuk membuka";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Izinkan penggunaan Face ID untuk membuka";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Putar video dalam layar penuh";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
@@ -82,6 +84,9 @@
 "SETTINGS_HWDECODING" = "Hardware Decoding";
 "SETTINGS_HWDECODING_ON" = "On";
 "SETTINGS_HWDECODING_OFF" = "Off";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Umpan Balik";
 "SETTINGS_SEND_FEEDBACK" = "Kirim Umpan Balik";
@@ -95,11 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
 "SETTINGS_FILE_SYNC" = "Penyelarasan Berkas";
-"SETTINGS_WIFISHARING_IPv6" = "Dukungan IPv6 untuk WiFi Berbagi";
-"SETTINGS_UNLINK_DROPBOX" = "Putuskan tautan dari Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Putuskan tautan dari Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Putuskan tautan dari OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Pengkodean Teks untuk sambungan FTP";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
