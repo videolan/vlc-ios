@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through WiFi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "VLC media player is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows streaming from cloud services (Dropbox, OneDrive, Box), Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.\n\nMetadata and artwork are provided by TMDb and Hatchet, which are community maintained movie and music databases.";
 
@@ -76,13 +76,12 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "பல்லூடக நூலகத்தைப் புதுப்பிக்கிறது";
-"UNKNOWN" = "அறியாத";
 
 "OPEN_NETWORK" = "பிணைய ஓடையை திற";
 "NETWORK_TITLE" = "பிணைய ஓடம்";
 "OPEN_NETWORK_HELP" = "ஓடைய நேரடியாகத் திறக்க பின்வரும் ஒரு முகவரியை HTTP, RTSP, RTMP, MMS, FTP அல்லது UDP/RTP உள்ளிடு.";
 "HTTP_UPLOAD_SERVER_OFF" = "செயலிலந்த சேவகன்";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "செயலிலுள்ள வை-பை பிணையம் ஏதுமில்லை";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "இந்த URL ஐ இயக்க அல்லது பதிவிறக்க விருப்பமா?";
 "SHARED_VLC_IOS_LIBRARY" = "VLC பகிரப்பட்ட IOS தொகுப்பு";
 "SMB_CIFS_FILE_SERVERS" = "கோப்பு சேவகன்கள் (SMB)";
@@ -176,7 +175,7 @@
 "OFF" = "அணை";
 
 "EMPTY_LIBRARY" = "காலியான ஊடக நூலகம்";
-"EMPTY_LIBRARY_LONG" = "பின்னணி இயக்கத்திற்கு, உங்கள் உள்ளூர் பிணையத்தில் உள்ள சேவகனிலிருந்து காணொளியை ஓடையிடலாம், கிளவுட்ல இருந்தோ அல்லது சாதனத்திலிருந்தோ ஐடியூனைப் பயன்படுத்தி ஒத்திசைக்கலாம், வை-பை மூலம் பதிவேற்றலாம் அல்லது கிளவுட் சேவைகள் மூலமும் முடியும்.";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
 "EMPTY_PLAYLIST" = "Empty playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
@@ -213,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "ஐடியூன்ஸ் கோப்பு ஒத்திசைவு";
 "FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
 "FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "கிளவுட்ஸ்";
 "FIRST_STEPS_CLOUD_TITLE" = "Cloud";
@@ -230,7 +229,7 @@
 "NO_SERVER_FOUND" = "சேவகன் கிடைக்கவில்லை";
 "NO_RECENT_STREAMS" = "கடைசியாக இயங்கிய ஓடம் ஏதுமில்லை";
 
-"WEBINTF_TITLE" = "வை-பை வாயிலாக பகிரப்படுகிறது";
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
 "WEBINTF_DROPFILES" = "கோப்புகளை விடு";
 "WEBINTF_DROPFILES_LONG" = "உங்கள் %@ இல் கோப்புகளைச் சேர்க்க அவைகளை சாளரத்தினுள் விடு.<br> அல்லது \"+\" குறியைச் சொடுக்கி கோப்பு தேர்வியைப பயன்படுத்தவும்.";
 "WEBINTF_DOWNLOADFILES" = "கோப்புகளை பதிவிறக்கவும்";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Plex Media Server (via Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "File Transfer Protocol (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
 "DSM_WORKGROUP" = "Workgroup";
@@ -356,6 +358,7 @@
 "DESCENDING_LABEL" = "Descending Order";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"GRID_LAYOUT" = "Grid Layout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -384,7 +387,7 @@
 "VARIOUS_ARTIST" = "Various Artists";
 "UNKNOWN_ALBUM" = "Unknown Album";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
 "MORE_OPTIONS_BUTTON" = "More";
@@ -432,3 +435,13 @@
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
