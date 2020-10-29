@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC pentru iOS este un port al playerului VLC gratuit pentru iPad, iPhone și iPod touch.\nAcesta poate reda toate filmele, emisiunile și muzica în majoritatea formatelor direct fără conversie.\nAcesta permite sincronizarea fișierelor cu Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, descărcări directe și prin partajarea WiFi, precum și streaming de pe servere media SMB, FTP, UPnP / DLNA și web.\nVLC oferă suport pentru subtitrări avansate, inclusiv compatibilitate completă SSA, audio multi-track și controlul vitezei de redare.\n\nVLC pentru iOS este complet gratuit și open source.";
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "Playerul multimedia VLC este un player multimedia multimedia gratuit și open source.\nAcesta poate reda toate filmele, emisiunile și muzica în majoritatea formatelor direct fără conversie.\nPermite streaming din serviciile cloud (Dropbox, OneDrive, Box), redarea la distanță de pe Mac sau PC prin intermediul unui UI Web, precum și streaming de pe servere media SMB, FTP, UPnP / DLNA și de pe web.\nVLC oferă suport pentru subtitrări avansate, inclusiv compatibilitate completă SSA, audio multi-track și control al vitezei de redare.\n\nVLC pentru iOS este complet gratuit și open source.\n\nMetadatele și lucrările de artă sunt furnizate de TMDb și Hatchet, care sunt baze de date pentru filme și muzică întreținute de comunitate.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Flux de rețea";
 "OPEN_NETWORK_HELP" = "Introduceţi orice adresă HTTP, RTSP, RTMP, MMS, FTP ori UDP/RTP pentru a deschide fluxul în mod direct.";
 "HTTP_UPLOAD_SERVER_OFF" = "Server Inactiv";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Nici-o conexiune WiFi activă";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "Dorești să descarci sau să redai acest URL?";
 "SHARED_VLC_IOS_LIBRARY" = "VLC comun pentru biblioteca iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servere de fișiere (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "Închis";
 
 "EMPTY_LIBRARY" = "Golire mediatecă";
-"EMPTY_LIBRARY_LONG" = "Pentru redare, puteţi folosi fluxul media de pe un server, pe reţeaua dvs. locală,  din cloud sau vă puteţi sincroniza fişierele media pe dispozitivul dvs., folosind iTunes, Încărcare WiFi ori servicii de tip Cloud.";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
 "EMPTY_PLAYLIST" = "Listă redare goală";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Adaugă fișiere media în timp ce modifici categoriile respective";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "Sincronizare de fișiere iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Sincronizare cu computerul dumneavoastră";
 "FIRST_STEPS_ITUNES_DETAILS" = "Conectași dispozitivul dumneavoastră la iTunes și selectați dispozitivul. Selectați \"Partajare fișiere\" în meniul din partea stângă iTunes și căutați VLC pentru a transfera fișierele";
-"FIRST_STEPS_WIFI_TITLE" = "Partajare prin Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Introduceți adresa URL generată în programul de navigare  preferat în timpul conectării la aceeași rețea cu a telefonului dumneavoastră";
 "FIRST_STEPS_CLOUDS" = "Clouds";
 "FIRST_STEPS_CLOUD_TITLE" = "Cloud";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Nu am găsit niciun server";
 "NO_RECENT_STREAMS" = "Nicio piesă nu a fost redată recent";
 
-"WEBINTF_TITLE" = "Partajare prin WiFi";
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
 "WEBINTF_DROPFILES" = "Trageți fișierele";
 "WEBINTF_DROPFILES_LONG" = "Trageți fișierele în fereastra pentru a le adăuga la %@ dvs.Sau click pe butonul \"+\" pentru a folosi fereastra de dialog pentru selectarea fișierelor.";
 "WEBINTF_DOWNLOADFILES" = "Descarcă fișierele";
