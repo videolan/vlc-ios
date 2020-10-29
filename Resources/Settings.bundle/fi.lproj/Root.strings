@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Äänen tasaus";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Lukitus pääsykoodilla";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Salli Touch ID avataksesi lukituksen";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Toista video koko näytöllä";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Jatka videon toistoa";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Jatka äänen toistoa";
@@ -82,6 +84,9 @@
 "SETTINGS_HWDECODING" = "Hardware Decoding";
 "SETTINGS_HWDECODING_ON" = "On";
 "SETTINGS_HWDECODING_OFF" = "Off";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Palaute";
 "SETTINGS_SEND_FEEDBACK" = "Lähetä palautetta";
@@ -95,11 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
 "SETTINGS_FILE_SYNC" = "Tiedostojen synkronointi";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6-tuki Wi-Fi-jaolle";
-"SETTINGS_UNLINK_DROPBOX" = "Poista Dropbox-linkitys";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Poista Google Drive -linkitys";
-"SETTINGS_UNLINK_ONEDRIVE" = "Poista OneDrive-linkitys";
-"SETTINGS_FTP_TEXT_ENCODING" = "Tekstin koodaus FTP-yhteyksissä";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
