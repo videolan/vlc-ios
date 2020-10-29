@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "To VLC για το iOS είναι μια μετατροπή του δωρεάν  παίκτη μέσων VLC για τα iPad, iPhone και iPod touch.\nΜπορεί να παίξει όλες σας τις ταινίες, τις σειρές και την μουσική σας, στα περισσότερα φορμάτ και χωρίς μετατροπή.\nΕπιτρέπει το συγχρονισμό με τα Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, απευθείας κατεβάσματα και μοίρασμα μέσω WiFi αλλά και ροές από διακομιστές μέσων SMB, FTP, UPnP/DLNA και το διαδίκτυο.\nΤο VLC υποστηρίζει προχωρημένους υπότιτλους με πλήρη SSA συμβατότητα, πολυκάναλο ήχο, και έλεγχο της ταχύτητας αναπαραγωγής.\n\nΤο VLC για iOS είναι δωρεάν και έχει ανοικτό κώδικα.";
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "Ο παίκτης μέσων VLC είναι ένας δωρεάν και ανοικτού κώδικα και πολλαπλών πλατφόρμων παίκτης πολυμέσων.\nΜπορεί να παίξει όλες σας τις ταινίες, τις σειρές και την μουσική σας, στα περισσότερα φορμάτ και χωρίς μετατροπή.\nΕπιτρέπει το συγχρονισμό με τις υπηρεσίες νέφους (Dropbox, OneDrive, Box), απομακρυσμένη αναπαραγωγή από τον Mac ή το PC σας μέσω ενός Web UI αλλά και ροές από διακομιστές μέσων SMB, FTP, UPnP/DLNA και το διαδίκτυο.\nΤο VLC υποστηρίζει προχωρημένους υπότιτλους με πλήρη SSA συμβατότητα, πολυκάναλο ήχο, και έλεγχο της ταχύτητας αναπαραγωγής.\n\nΤο VLC για iOS είναι δωρεάν και έχει ανοικτό κώδικα.\n\nΜεταδεδομένα και τέχνη προσφέρονται από τις TMDb και Hatchet, οι οποίες είναι υποστηριζόμενες από την κοινότητα βάσεις δεδομένων ταινιών και μουσικής.";
 
@@ -76,13 +76,12 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 "UPGRADING_LIBRARY" = "Αναβάθμιση Βιβλιοθήκης Μέσων";
-"UNKNOWN" = "Άγνωστο";
 
 "OPEN_NETWORK" = "Άνοιγμα Ροής Δικτύου";
 "NETWORK_TITLE" = "Δικτυακή Ροής";
 "OPEN_NETWORK_HELP" = "Εισαγάγετε μία από τις HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP διευθύνσεις για να ανοίξετε τη ροή απευθείας.";
 "HTTP_UPLOAD_SERVER_OFF" = "Ανενεργός Διακομιστής";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Καμία ενεργή σύνδεση WiFi";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "Θα θέλατε να κατεβάσετε ή να παίξετε αυτό το URL;";
 "SHARED_VLC_IOS_LIBRARY" = "Κοινόχρηστη Βιβλιοθήκη του VLC για iOS ";
 "SMB_CIFS_FILE_SERVERS" = "Διακομιστές αρχείων (SMB)";
@@ -176,7 +175,7 @@
 "OFF" = "Ανενεργό";
 
 "EMPTY_LIBRARY" = "Άδεια Βιβλιοθήκη Μέσων";
-"EMPTY_LIBRARY_LONG" = "Για αναπαραγωγή, μπορείτε να κάνετε ροή πολυμέσων από ένα διακομιστή στο τοπικό σας δίκτυο, από τα νέφη ή να συγχρονίσετε τα μέσα ενημέρωσης στη συσκευή σας μέσω του iTunes, WiFi Upload ή τις υπηρεσίες νεφών/cloud.";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
 "EMPTY_PLAYLIST" = "Empty playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
@@ -213,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "Συγχρονισμός αρχείων iTunes ";
 "FIRST_STEPS_ITUNES_TITLE" = "Συγχρονισμός Με Τον Υπολογιστή Σας";
 "FIRST_STEPS_ITUNES_DETAILS" = "Συνδέστε τη συσκευή σας στο iTunes και επιλέξτε τη συσκευή σας. Επιλέξτε \"Κοινή χρήση αρχείων\" στο αριστερό μενού του iTunes και αναζητήστε το VLC για να μεταφέρετε αρχεία";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Νέφη";
 "FIRST_STEPS_CLOUD_TITLE" = "Σύννεφο";
@@ -230,7 +229,7 @@
 "NO_SERVER_FOUND" = "Δεν βρέθηκε διακομιστής";
 "NO_RECENT_STREAMS" = "Καμία ροή δεν παίχθηκε πρόσφατα";
 
-"WEBINTF_TITLE" = "Κοινή χρήση μέσω WiFi";
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
 "WEBINTF_DROPFILES" = "Ρίψη αρχείων";
 "WEBINTF_DROPFILES_LONG" = "Ρίξτε τα αρχεία στο παράθυρο για να τα προσθέσετε στο %@.<br> Ή κάντε κλικ στο κουμπί \"+\" για να χρησιμοποιήσετε το παράθυρο διαλόγου επιλογέα αρχείου.";
 "WEBINTF_DOWNLOADFILES" = "Λήψη Αρχείων";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "Διακομιστής Μέσων Plex (μέσω Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "Πρωτόκολλο Μεταφοράς Αρχείων (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "BONJOUR Διακομιστής Αρχείου";
 "DSM_WORKGROUP" = "Workgroup";
@@ -356,6 +358,7 @@
 "DESCENDING_LABEL" = "Descending Order";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"GRID_LAYOUT" = "Grid Layout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -384,7 +387,7 @@
 "VARIOUS_ARTIST" = "Various Artists";
 "UNKNOWN_ALBUM" = "Άγνωστο Άλμπουμ";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Διεπαφή Κλειδώματος";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
 "MORE_OPTIONS_BUTTON" = "Περισσότερα";
@@ -432,3 +435,13 @@
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";

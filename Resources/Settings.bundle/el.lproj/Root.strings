@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Χρονική διαστολή ήχου";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Κλείδωμα με κωδικό";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Επιτρέψτε το Touch ID για ξεκλείδωμα";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Αναπαραγωγή βίντεο σε πλήρη οθόνη";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Συνέχιση της αναπαραγωγής βίντεο";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Συνέχιση της αναπαραγωγής ήχου";
@@ -82,6 +84,9 @@
 "SETTINGS_HWDECODING" = "Hardware Decoding";
 "SETTINGS_HWDECODING_ON" = "On";
 "SETTINGS_HWDECODING_OFF" = "Off";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Σχόλια";
 "SETTINGS_SEND_FEEDBACK" = "Αποστολή σχολίων";
@@ -95,11 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
 "SETTINGS_FILE_SYNC" = "Συγχρονισμός Αρχείου";
-"SETTINGS_WIFISHARING_IPv6" = "Υποστήριξη του IPv6 για κοινή χρήση μέσω WiFi";
-"SETTINGS_UNLINK_DROPBOX" = "Αποσύνδεση από το Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Αποσύνδεση από το Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Αποσύνδεση από το OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Κωδικοποίηση κειμένου για συνδέσεις FTP";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
