@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "تلقائي";
 "SETTINGS_PRIVACY_SUBTITLE" = "افتح في الإعدادات";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "وصول آمن إلى المحتوى الخاص بك";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "سيتم إخفاء الوسائط الخاصة بك في تطبيق الملفات";
 
 "SETTINGS_DARKTHEME" = "مظهر";
 "SETTINGS_TIME_STRETCH_AUDIO" = "الوقت المُمتد للصّوت";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "قفل برمز مرور";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "السماح لمعرف اللمس لفتح القفل";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "السماح لمعرف الوجه لفتح القفل";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "إخفاء مكتبة الوسائط في الملفات";
 "SETTINGS_VIDEO_FULLSCREEN" = "التشغيل في وضع ملئ الشاشة";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
@@ -82,9 +84,9 @@
 "SETTINGS_HWDECODING" = "فك الترميز بالعتاد";
 "SETTINGS_HWDECODING_ON" = "مفعل";
 "SETTINGS_HWDECODING_OFF" = "معطل";
-"SETTINGS_CASTING" = "Casting";
-"SETTINGS_PTCASTING" = "Audio Passthrough";
-"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING" = "بث Casting";
+"SETTINGS_PTCASTING" = "ممر عبور الصوت";
+"SETTINGS_PTCASTINGLONG" = "اعتمد على التلفاز في إدارة بث الصوت";
 
 "SETTINGS_FEEDBACK" = "النتائج";
 "SETTINGS_SEND_FEEDBACK" = "ارسال النتائج";
@@ -99,10 +101,6 @@
 
 "SETTINGS_FILE_SYNC" = "مزامنة الملفات";
 "SETTINGS_WIFISHARING_IPv6" = "دعم IPv6 لمشاركة الواي فاي";
-"SETTINGS_UNLINK_DROPBOX" = "ألغِ الرّبط مع Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "ألغِ الرّبط مع قرص Google";
-"SETTINGS_UNLINK_ONEDRIVE" = "ألغِ الرّبط مع OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "ترميز النص من أجل الاتصالات ب FTP";
 
 "SETTINGS_ARTWORK" = "العمل الفني";
 "SETTINGS_DOWNLOAD_ARTWORK" = "تنزيل العمل الفني";

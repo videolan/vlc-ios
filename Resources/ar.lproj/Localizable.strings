@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "مشغل الوسائط VLC هو مشغل مجاني على الايفون والايباد والايبود.\nقادر على تشغيل كل الأفلام, المسلسلات والصوتيات في أغلب صيغها مباشرةً دون الحاجة لتحويلها.\nيمكنك من التزامن مع كل من Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, والتحميل المباشر ومن خلال المشاركة على الشبكة اللاسلكية كما يمكنك من البث من SMB, FTP, UPnP/DLNA وخوادم الوسائط والموقع.\nتطبيق VLC يدعم الترجمات المتقدمة شاملةً التوافقية الكاملة لملفات الـ SSA, والمسارات المتعددة للصوت, والتحكم بسرعات التشغيل.\n\nتطبيق VLC للـ iOS مجاني ومفتوح المصدر.";
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "مشغل الوسائط VLC هو مشغل مجاني مفتوح المصدر على كل الانظمة.\nقادر على تشغيل كل الأفلام, المسلسلات والصوتيات في أغلب صيغها مباشرة دون الحاجة لتحويلها.\nيسمح لك ببث كل الوسائط من الخدمات السحابية (Dropbox, OneDrive, Box), التشغيل عن بعد من الماك او الكمبيوتر الشخصي من خلال واجهة الموقع كما يمكنه البث من SMB, FTP, UPnP/DLNA خوادم الوسائط والموقع.\nتطبيق VLC يدعم الترجمات المتقدمة شاملةً التوافقية الكاملة لملفات الـ SSA, والمسارات المتعددة للصوت, والتحكم بسرعات التشغيل.\n\nتطبيق VLC للـ iOS مجاني ومفتوح المصدر.\n\nالبيانات الوصفية والخلفيات مزودة من موقع TMDb و Hatchet, اللذان يعتبران مرجع لقواعد البيانات للافلام والصوتيات.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "بث شبكي";
 "OPEN_NETWORK_HELP" = "أدخل عنوان أحد البروتوكولات HTTP ، RTSP ، MMS ، FTP ، UDP/RTP لتفتح بثّه مُباشرةً.";
 "HTTP_UPLOAD_SERVER_OFF" = "خادومٌ غيرُ نشط";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "لا يتوفر اتّصالُ شبكةٍ لاسلكيةٍ نشط";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "هل تودّ تحميل أو تشغيل هذا الرابط؟";
 "SHARED_VLC_IOS_LIBRARY" = "مشترك VLC لـمكتبة نظام التشغيل iOS";
 "SMB_CIFS_FILE_SERVERS" = "خوادم الملفات (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "معطل";
 
 "EMPTY_LIBRARY" = "أفرِغ مكتبة الوسائط";
-"EMPTY_LIBRARY_LONG" = "لغرض التشغيل، يمكنك بث المرئيات من خادم على شبكتك المحلية، إما بالتخزين السحابي أو بالمزامنة المرئية مع جهازك مستخدماً تطبيق iTunes أو عبر التحميل بالشبكة اللاسلكية أو عبر الخدمات السحابية.";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
 "EMPTY_PLAYLIST" = "قائمة تشغيل فارِغة";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "تطبيق iTunes لمزامنة الملفات";
 "FIRST_STEPS_ITUNES_TITLE" = "مزامنة مع الحاسب";
 "FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "التخزين السحابي";
 "FIRST_STEPS_CLOUD_TITLE" = "Cloud";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "لا يوجد سيرفر";
 "NO_RECENT_STREAMS" = "لم يتم تشغيل بث مؤخراً";
 
-"WEBINTF_TITLE" = "المشاركة عبر WiFi";
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
 "WEBINTF_DROPFILES" = "أَلقِ الملفات";
 "WEBINTF_DROPFILES_LONG" = "ألقِ الملفات على النافذة لإضافتها إلى %@.<br>أو اضغط على زر \"+\" لاستخدام علبة التقاط الملفات.";
 "WEBINTF_DOWNLOADFILES" = "الملفات المحمّلة";
@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Descending Order";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"GRID_LAYOUT" = "Grid Layout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -434,3 +435,13 @@
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
