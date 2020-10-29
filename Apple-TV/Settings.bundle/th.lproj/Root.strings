@@ -1,21 +1,24 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
-"SETTINGS_PRIVACY_TITLE" = "Privacy";
+"SETTINGS_PRIVACY_TITLE" = "ความเป็นส่วนตัว";
 "SETTINGS_VIDEO_TITLE" = "วิดีโอ";
 "SETTINGS_AUDIO_TITLE" = "เสียง";
 
-"SETTINGS_THEME_SUBTITLE" = "Change app colors";
-"SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
-"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_THEME_BRIGHT" = "ธีมสว่าง";
+"SETTINGS_THEME_DARK" = "ธีมมืด";
+"SETTINGS_THEME_SYSTEM" = "อัตโนมัติ";
+"SETTINGS_PRIVACY_SUBTITLE" = "เปิดในการตั้งค่า";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "เข้าถึงเนื้อหาของคุณอย่างปลอดภัย";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "สื่อของคุณจะถูกซ่อนในแอปไฟล์";
 
-"SETTINGS_DARKTHEME" = "Dark Theme";
+"SETTINGS_DARKTHEME" = "ลักษณะที่ปรากฏ";
 "SETTINGS_TIME_STRETCH_AUDIO" = "เปิดใช้งานการยืดเสียง";
 "SETTINGS_BACKGROUND_AUDIO" = "เล่นเสียงแม้ทำงานในแบบเบื้องหลัง";
 "SETTINGS_GENERIC_TITLE" = "ทั่วไป";
 "SETTINGS_PASSCODE_LOCK" = "ล็อกด้วยรหัสผ่าน";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "อนุญาตให้ใช้ Touch ID ปลดล็อกได้";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "อนุญาตให้ใช้ Face ID ปลดล็อกได้";
-"SETTINGS_DECRAPIFY" = "ปรับปรุงการแสดงชื่อให้เหมาะสม";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "ซ่อนไลบรารีสื่อใน \"ไฟล์\"";
 "SETTINGS_VIDEO_FULLSCREEN" = "เล่นวิดีโอแบบเต็มจอ";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "เล่นวิดีโอต่อจากตำแหน่งเดิม";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "เล่นเสียงต่อจากตำแหน่งเดิม";
@@ -23,6 +26,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "ถาม";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "เสมอ";
 "SETTINGS_NETWORK_PLAY_ALL" = "เล่นรายการถัดไปโดยอัตโนมัติ";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "เปิดใช้งานการเลื่อนข้อความในรายการสื่อ";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "ตัวกรองการดีบล็อก";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "ไม่มีการดีบล็อก (เร็วที่สุด)";
@@ -40,7 +44,7 @@
 
 "SETTINGS_GESTURES" = "ควบคุมการเล่นด้วยนิ้วมือแบบต่างๆ";
 "SETTINGS_GESTURES_VOLUME" = "ปัดขึ้น/ลงเพื่อปรับระดับเสียง";
-"SETTINGS_GESTURES_PLAYPAUSE" = "แตะเพื่อเล่น/พัก";
+"SETTINGS_GESTURES_PLAYPAUSE" = "แตะสองนิ้วเพื่อเล่น/หยุดชั่วคราว";
 "SETTINGS_GESTURES_BRIGHTNESS" = "ปัดขึ้น/ลงเพื่อปรับความสว่าง";
 "SETTINGS_GESTURES_SEEK" = "ปัดซ้าย/ขวาเพื่อเลื่อนตำแหน่งการเล่น";
 "SETTINGS_GESTURES_CLOSE" = "จีบนิ้วพื่อปิด";
@@ -80,17 +84,23 @@
 "SETTINGS_HWDECODING" = "การอ่านรหัสด้วยฮาร์ดแวร์";
 "SETTINGS_HWDECODING_ON" = "เปิด";
 "SETTINGS_HWDECODING_OFF" = "ปิด";
+"SETTINGS_CASTING" = "การแคสต์";
+"SETTINGS_PTCASTING" = "การส่งผ่านเสีย";
+"SETTINGS_PTCASTINGLONG" = "ให้ทีวีของคุณจัดการการเรนเดอร์เสียง";
 
 "SETTINGS_FEEDBACK" = "คำติชม";
 "SETTINGS_SEND_FEEDBACK" = "ส่งคำติชม";
 "SETTINGS_SEND_RATING" = "กรุณาให้คะแนนความพึงพอใจ VLC สำหรับ iOS";
 
+"SETTINGS_MEDIA_LIBRARY" = "ไลบรารีสื่อ";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "บังคับให้ VLC สแกนไลบรารีสื่อใหม่";
+"SETTINGS_DECRAPIFY" = "ปรับปรุงการแสดงชื่อให้เหมาะสม";
+"SETTINGS_SHOW_THUMBNAILS" = "แสดงรูปขนาดย่อของวิดีโอ";
+"SETTINGS_SHOW_ARTWORKS" = "แสดงงานศิลปะของเสียง";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "รวมไลบรารีสื่อในการสำรองข้อมูลอุปกรณ์";
+
 "SETTINGS_FILE_SYNC" = "เชื่อมโยงไฟล์";
-"SETTINGS_WIFISHARING_IPv6" = "การรองรับ IPv6 สำหรับการแชร์ด้วย WiFi";
-"SETTINGS_UNLINK_DROPBOX" = "เลิกการลิงก์กับ Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "เลิกลิงก์กับ Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "เลิกการลิงก์กับ OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "การเข้ารหัสอักษรสำหรับการเชื่อมต่อผ่าน FTP";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "งานศิลปะ";
 "SETTINGS_DOWNLOAD_ARTWORK" = "ดาวน์โหลดงานศิลปะ";

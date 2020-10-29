@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC สำหรับ iOS คือช่องทางฟรีของโปรแกรมเล่นสื่อ VLC บน iPad, iPhone และ iPod touch\nคุณสามารถเล่นภาพยนตร์ รายการ และเพลงทั้งหมดของคุณในรูปแบบต่าง ๆ ได้โดยตรงโดยไม่ต้องแปลงไฟล์\nคุณสามารถซิงค์ไฟล์กับ Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, การดาวน์โหลดโดยตรงและผ่านทางการแชร์บน WiFi และการสตรีมจาก SMB, FTP, เซิร์ฟเวอร์สื่อ UPnP/DLNA และเว็บ\nVLC รองรับกับคำบรรยายขั้นสูง รวมทั้งเข้ากันได้กับ SSA แบบเต็ม, ระบบเสียงมัลติแทร็ก และการควบคุมความเร็วการเล่น\n\nVLC สำหรับ iOS นั้นฟรีอย่างสมบูรณ์และเป็นโอเพนซอร์ส";
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "โปรแกรมเล่นสื่อ VLC ฟรีและเป็นโปรแกรมเล่นมัลติมีเดียโอเพนซอร์สข้ามแพลตฟอร์ม\nคุณสามารถเล่นภาพยนตร์ รายการ และเพลงทั้งหมดของคุณในรูปแบบส่วนใหญ่ได้โดยตรงโดยไม่ต้องแปลงไฟล์\nคุณยังสามารถสตรีมจากบริการคลาวด์ (Dropbox, OneDrive, Box) การเล่นระยะไกลจาก Mac หรือพีซีของคุณผ่านทาง UI เว็บ และการสตรีมผ่าน SMB, FTP, เซิร์ฟเวอร์สื่อ UPnP/DLNA และเว็บ\nVLC ยังรองรับคำบรรยายขั้นสูง รวมถึงเข้ากันได้กับ SSA แบบเต็ม, เสียงแบบมัลติแทรค, และการควบคุมความเร็วการเล่น\n\nVLC สำหรับ iOS นั้นฟรีอย่างสมบูรณ์และเป็นโอเพนซอร์ส\n\nข้อมูลเมตาและปกอัลบั้มอยู่ภายใต้เงื่อนไขโดย TMDb และ Hatchet ซึ่งรักษาไว้โดยชุมชนภาพยนตร์และฐานข้อมูลเพลง";
 
@@ -76,13 +76,12 @@
 "BUTTON_RENDERER_HINT" = "แสดงเมนูอุปกรณ์การแคสต์ที่ใช้ได้";
 
 "UPGRADING_LIBRARY" = "อัพเกรดคลังสื่อ";
-"UNKNOWN" = "ไม่ทราบ";
 
 "OPEN_NETWORK" = "เปิดสตรีมผ่านเครือข่าย";
 "NETWORK_TITLE" = "สตรีมเครือข่าย";
 "OPEN_NETWORK_HELP" = "ใส่ที่อยู่ HTTP, RTSP, RTMP, MMS, FTP หรือ UDP/RTP เพื่อเปิดการสตรีมโดยตรง";
 "HTTP_UPLOAD_SERVER_OFF" = "เซิร์ฟเวอร์ไม่ตอบสนอง";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "ไม่มี WiFi ที่เชื่อมต่อได้";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "คุณต้องการดาวน์โหลดหรือเล่น URL นี้หรือไม่?";
 "SHARED_VLC_IOS_LIBRARY" = "คลังสื่อ VLC สำหรับ iOS ที่มีการแชร์";
 "SMB_CIFS_FILE_SERVERS" = "เซิร์ฟเวอร์ไฟล์ (SMB)";
@@ -131,8 +130,8 @@
 "CLOUD_SERVICES" = "บริการคลาวด์";
 "LOGIN" = "เข้าใช้งาน";
 "LOGGED_IN" = "เข้าระบบเรียบร้อย";
-"LOGGED_IN_SERVICES" = "%d logged in services";
-"LOGGED_IN_SERVICE" = "1 logged in service";
+"LOGGED_IN_SERVICES" = "บริการที่เข้าสู่ระบบ %d อย่าง";
+"LOGGED_IN_SERVICE" = "บริการที่เข้าสู่ระบบ 1 อย่าง";
 
 "DROPBOX_DOWNLOAD" = "ดาวน์โหลดไฟล์หรือไม่?";
 "DROPBOX_DL_LONG" = "คุณต้องการดาวน์โหลด \"%@\" มายัง %@ หรือไม่?";
@@ -159,26 +158,26 @@
 //PAPasscode Strings that we need to localize for them
 "%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
 "1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "Change Passcode";
-"Enter Passcode" = "Enter Passcode";
-"Enter a passcode" = "Enter a passcode";
-"Enter your new passcode" = "Enter your new passcode";
-"Enter your old passcode" = "Enter your old passcode";
-"Enter your passcode" = "Enter your passcode";
+"Change Passcode" = "เปลี่ยนรหัสผ่าน";
+"Enter Passcode" = "ป้อนรหัสผ่าน";
+"Enter a passcode" = "ป้อนรหัสผ่าน";
+"Enter your new passcode" = "ป้อนรหัสผ่านใหม่ของคุณ";
+"Enter your old passcode" = "ป้อนรหัสผ่านเก่าของคุณ";
+"Enter your passcode" = "ป้อนรหัสผ่านของคุณ";
 "Next" = "ถัดไป";
-"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
-"Re-enter your new passcode" = "Re-enter your new passcode";
-"Re-enter your passcode" = "Re-enter your passcode";
-"Set Passcode" = "Set Passcode";
+"Passcodes did not match. Try again." = "รหัสผ่านไม่ตรงกัน กรุณาลองอีกครั้ง";
+"Re-enter your new passcode" = "ป้อนรหัสผ่านใหม่ของคุณอีกครั้ง";
+"Re-enter your passcode" = "ป้อนรหัสผ่านของคุณอีกครั้ง";
+"Set Passcode" = "กำหนดรหัสผ่าน";
 
 "Settings" = "การตั้งค่า"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "เปิด";
 "OFF" = "ปิด";
 
 "EMPTY_LIBRARY" = "ไม่มีสื่อในคลัง";
-"EMPTY_LIBRARY_LONG" = "สำหรับการเปิดเล่น คุณสามารถสตรีมสื่อจากเซิร์ฟเวอร์บทเครือข่ายท้องถิ่นของคุณ, จากคลาวด์หรือซิงค์สื่อไปยังอุปกรณ์ของคุณผ่าน iTunes, อัปโหลดผ่าน WiFi หรือบริการคลาวด์";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST" = "เพลย์ลิสต์เปล่า";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "ไถลนิ้วของคุณลงเพื่อปรับอัตราการสครับบิง";
@@ -213,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "ซิงค์ไฟล์จาก iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "ซิงค์กับคอมพิวเตอร์ของคุณ";
 "FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "แชร์ผ่าน Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "คลาวด์";
 "FIRST_STEPS_CLOUD_TITLE" = "คลาวด์";
@@ -230,7 +229,7 @@
 "NO_SERVER_FOUND" = "ไม่พบเซิร์ฟเวอร์";
 "NO_RECENT_STREAMS" = "ไม่มีการสตรีมถูกเล่นเมื่อเร็ว ๆ นี้";
 
-"WEBINTF_TITLE" = "แชร์ผ่าน WiFi";
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
 "WEBINTF_DROPFILES" = "วางไฟล์";
 "WEBINTF_DROPFILES_LONG" = "วางไฟล์ในหน้าต่างเพื่อเพิ่มมันลงไปใน %@ ของคุณ<br>หรือคลิกที่ปุ่ม \"+\" เพื่อใช้กล่องโต้ตอบไฟล์";
 "WEBINTF_DOWNLOADFILES" = "ดาวน์โหลดไฟล์";
@@ -281,8 +280,11 @@
 "PLEX_LONG" = "บริการสื่อ Plex (ผ่านทาง Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "โปรโตคอลการถ่ายโอนไฟล์ (FTP)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "ไฟล์เซิร์ฟเวอร์ BONJOUR";
 "DSM_WORKGROUP" = "เวิร์กกรุ๊ป";
@@ -356,6 +358,7 @@
 "DESCENDING_LABEL" = "Descending Order";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"GRID_LAYOUT" = "Grid Layout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -384,7 +387,7 @@
 "VARIOUS_ARTIST" = "หลายศิลปิน";
 "UNKNOWN_ALBUM" = "ไม่ทราบอัลบั้ม";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
 "MORE_OPTIONS_BUTTON" = "More";
@@ -432,3 +435,13 @@
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
