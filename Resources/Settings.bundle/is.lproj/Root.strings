@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Sjálfvirkt";
 "SETTINGS_PRIVACY_SUBTITLE" = "Opna í stillingum";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Tryggðu öruggt aðgengi að efninu þínu";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Útlit";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tímaaðlögun hljóðs (time streching)";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Læsing með lykilorði";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Leyfa Touch ID til að aflæsa";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Leyfa Face ID til að aflæsa";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Spila í heilskjásham";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Halda myndspilun áfram";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Halda hljóðspilun áfram";
@@ -98,11 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Taka margmiðlunarsafnið með í öryggisafritun tækisins";
 
 "SETTINGS_FILE_SYNC" = "Samstilling skráa";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 stuðningur vegna WiFi-deilingar";
-"SETTINGS_UNLINK_DROPBOX" = "Aftengja frá Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Aftengja frá Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Aftengja frá OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Stafatafla texta í FTP-tengingum";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Myndefni";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Sækja myndefni";
