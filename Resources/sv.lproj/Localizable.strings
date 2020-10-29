@@ -175,7 +175,7 @@
 "OFF" = "Av";
 
 "EMPTY_LIBRARY" = "Tomt mediabibliotek";
-"EMPTY_LIBRARY_LONG" = "För uppspelning kan du strömma media från en server på ditt lokala nätverk, från molnet eller synkronisera media till din enhet via iTunes, WiFi eller molntjänster.";
+"EMPTY_LIBRARY_LONG" = "För att spela upp media kan du strömma från en server på ditt lokala nätverk, från molnet eller synkronisera media till din enhet via iTunes, WiFi eller molntjänster.";
 
 "EMPTY_PLAYLIST" = "Tom spellista";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Lägg till media medan du redigerar de respektive kategorierna.";
@@ -209,7 +209,7 @@
 "VO_VIDEOPLAYER_TITLE" = "Videospelare";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dubbelknacka för att visa eller dölja uppspelningskontroller";
 
-"FIRST_STEPS_ITUNES" = "iTunes Filsynkronisering";
+"FIRST_STEPS_ITUNES" = "iTunes-filsynkning";
 "FIRST_STEPS_ITUNES_TITLE" = "Synkronisera med din dator";
 "FIRST_STEPS_ITUNES_DETAILS" = "Anslut din enhet till iTunes och välj din enhet. Välj \"Fildelning\" i sidomenyn till vänster i iTunes och leta efter VLC för att överföra filer";
 "FIRST_STEPS_WIFI_TITLE" = "Dela via WiFi";
