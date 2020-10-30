@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC for iOS 是自由软件 VLC media player 的 iPad、iPhone 及 iPod touch 移植版本。\n它能够直接播放绝大多数* 格式的影片、节目及音乐，无需转换。\n它支持通过 Dropbox、GDrive、OneDrive、Box、iCloud Drive、iTunes、直接下载链接、WiFi 共享 同步文件，还可以直接播放 SMB、FTP、UPnP/DLNA 媒体服务器以及网络上的流媒体。\nVLC 还支持高级字幕格式（包括对 SSA 的完全兼容）、多轨道音频以及回放速度控制。\n\nVLC for iOS 完全免费及开源。\n\n* 译者注：由于杜比实验室不同意其专利格式被开源软件实现，VLC for iOS 自 2.4.1 版本起，不再支持下述音频格式：Dolby Digital (AC-3)、Dolby Digital Plus (E-AC-3)、Dolby TrueHD (MLP)。敬请谅解，并耐心等待专利过期。";
+"STORE_DESCRIPTION" = "VLC for iOS是自由软件VLC 媒体播放器面向iPad, iPhone和iPod touch设备的移植版本。它无需转换就可播放多数格式的电影，节目和音乐。它允许通过Dropbox、GDrive、OneDrive、Box、iCloud Drive、iTunes、直接下载和Wi-Fi共享进行文件同步，还可以从SMB、FTP、UPnP/DLNA媒体服务器和网络播放文件。VLC提供了对高级字幕的支持，包括完全的SSA兼容性，多轨音频，和回放速度控制。VLC for iOS 完全免费和开源。";
 
 "STORE_DESCRIPTION_TV" = "VLC media player 是一款免费、自由且开源的跨平台多媒体播放器。\n它可以直接播放大多数格式的影片、节目及音乐，无需转换。\n它允许从云服务 (Dropbox、OneDrive、Box) 串流播放，可以通过 Web 界面从 Mac 或 PC 远程回放，以及直接播放 SMB、FTP、UPnP/DLNA 媒体服务器及网络上的流媒体。\nVLC 支持高级字幕格式（包括对 SSA 的完全兼容），多轨道音频以及回放速度控制。\n\nVLC for iOS 完全免费及开源。\n\n元数据及专辑封面由 TMDb 与 Hatchet 提供，它们均为社区维护的影片及音乐数据库。";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "网络串流";
 "OPEN_NETWORK_HELP" = "请输入任意 HTTP、RTSP、RTMP、MMS、FTP 或 UDP/RTP 地址，以便直接打开串流。";
 "HTTP_UPLOAD_SERVER_OFF" = "非活动服务器";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "无活动的 WiFi 连接";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "无活跃Wi-Fi连接";
 "OPEN_STREAM_OR_DOWNLOAD" = "您是否希望下载或打开该 URL?";
 "SHARED_VLC_IOS_LIBRARY" = "共享 VLC for iOS 库";
 "SMB_CIFS_FILE_SERVERS" = "文件服务器 (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "关";
 
 "EMPTY_LIBRARY" = "媒体库为空";
-"EMPTY_LIBRARY_LONG" = "要开始使用回放功能，您可以在线播放云端媒体，或本地网络中服务器上的媒体文件，或通过 iTunes、WiFi 上传或云存储服务将媒体文件同步到您的设备中。";
+"EMPTY_LIBRARY_LONG" = "要播放，你可以从本地网络服务器或云端引流文件，或者用iTunes, Wi-Fi上传或云服务将媒体文件同步到你的设备。";
 
 "EMPTY_PLAYLIST" = "清空播放列表";
 "EMPTY_PLAYLIST_DESCRIPTION" = "在编辑相应类别时添加媒体。";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "iTunes 文件同步";
 "FIRST_STEPS_ITUNES_TITLE" = "与计算机同步";
 "FIRST_STEPS_ITUNES_DETAILS" = "将设备连接到 iTunes 并选择该设备。在 iTunes 左侧菜单中选择「文件共享」，找到「VLC」，即可开始传输文件";
-"FIRST_STEPS_WIFI_TITLE" = "通过 wifi 共享";
+"FIRST_STEPS_WIFI_TITLE" = "通过Wi-Fi分享";
 "FIRST_STEPS_WIFI_DETAILS" = "连接到手机所处的网络，并在您偏好的 web 浏览器中输入生成的 URL";
 "FIRST_STEPS_CLOUDS" = "云存储";
 "FIRST_STEPS_CLOUD_TITLE" = "云";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "未找到服务器";
 "NO_RECENT_STREAMS" = "最近没有播放流";
 
-"WEBINTF_TITLE" = "通过 WiFi 分享";
+"WEBINTF_TITLE" = "正在通过Wi-Fi分享";
 "WEBINTF_DROPFILES" = "拖放文件";
 "WEBINTF_DROPFILES_LONG" = "请将打算添加到 %@ 的文件拖入本窗口。<br>也可以点击“+”按钮，打开文件选择对话框。";
 "WEBINTF_DOWNLOADFILES" = "下载文件";
