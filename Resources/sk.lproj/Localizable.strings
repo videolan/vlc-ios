@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC for iOS je portom voľne dostupného programu VLC media player pre zariadenia iPad, iPhone a iPod touch.\nDokáže prehrávať všetky vaše filmy, show a hudbu vo väčšine formátov - a to priamo a bez konvertovania. \nUmožňuje synchronizáciu súborov so službami Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, priame stiahnutie a zdieľanie cez sieť WiFi, ako aj streamovanie z mediálnych serverov SMB, FTP, UPnP/DLNA a webu.\nVLC ponúka aj podporu pokročilých titulkov, vrátane úplne kompatibility s SSA, zvukom s viacerými stopami a ovládaním rýchlosti prehrávania.\n\nVLC for iOS je dostupný zadarmo a má otvorený zdrojový kód.";
+"STORE_DESCRIPTION" = "VLC for iOS je portom voľne dostupného programu VLC media player na iPad, iPhone a iPod touch.\nDokáže prehrávať všetky vaše filmy, show a hudbu vo väčšine formátov - a to priamo, bez konverzie. \nUmožňuje synchronizáciu súborov so službami Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, priame stiahnutie a zdieľanie cez sieť WiFi, ako aj streamovanie z mediálnych serverov SMB, FTP, UPnP/DLNA a webu.\nVLC ponúka aj podporu pokročilých titulkov, vrátane úplnej kompatibility s SSA, zvukom s viacerými stopami a ovládaním rýchlosti prehrávania.\n\nVLC for iOS je úplne zadarmo a má otvorený zdrojový kód.";
 
 "STORE_DESCRIPTION_TV" = "VLC media player je voľne dostupný, multiplatformový prehrávač médií, s otvoreným zdrojovým kódom.\nDokáže prehrať všetky vaše filmy, show a hudbu vo väčšine formátov - priamo a bez konvertovania.\nUmožňuje streamovanie z cloudových služieb (Dropbox, OneDrive, Box), Remote Playback z vášho zariadenia Mac alebo PC cez Web UI, ako aj streamovanie z mediálnych serverov SMB, FTP, UPnP/DLNA a z webu.\nVLC ponúka podporu pre pokročilé titulky, vrátane úplnej kompatibility s SSA, zvukom s viacerými stopami a s ovládaním rýchlosti prehrávania.\n\nVLC for iOS je úplne zadarmo a má otvorený zdrojový kód.\n\nMeta-dáta a obaly sú preberané z databáz TMDb a Hatchet, čo je komunita udržiavajúca databázy filmov a hudby.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Sieťový stream";
 "OPEN_NETWORK_HELP" = "Pre priame otvorenie streamu zadajte HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP adresu.";
 "HTTP_UPLOAD_SERVER_OFF" = "Neaktívny server";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Žiadne aktívne pripojenie WiFi";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Žiadne aktívne Wi-Fi pripojenie";
 "OPEN_STREAM_OR_DOWNLOAD" = "Chcete súbor z tejto adresy URL stiahnuť alebo prehrať?";
 "SHARED_VLC_IOS_LIBRARY" = "Zdieľaná knižnica VLC for iOS";
 "SMB_CIFS_FILE_SERVERS" = "Súborové servery (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "Vyp.";
 
 "EMPTY_LIBRARY" = "Prázdna knižnica médií";
-"EMPTY_LIBRARY_LONG" = "Na prehratie môžete streamovať médium zo servera vo vašej lokálnej sieti, z cloud-úložiska alebo môžete synchronizovať médium so svojím zariadením, s použitím služieb iTunes, WiFi Upload alebo Cloud.";
+"EMPTY_LIBRARY_LONG" = "Pre prehrávanie môžete streamovať médium zo servera na vašej lokálnej sieti, z cloudu alebo synchronizovať médium do vášho zariadenia pomocou iTunes, odoslania cez Wi-fi alebo cloudových služieb.";
 
 "EMPTY_PLAYLIST" = "Vyprázdniť playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Pridať médium počas úpravy v príslušných kategóriách.";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "Synchronizácia súboru iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Synchronizácia s vaším počítačom";
 "FIRST_STEPS_ITUNES_DETAILS" = "Pripojte Vaše zariadenie k iTunes a vyberte ho. Vyberte \"Zdieľanie súboru\" menu na ľavej strane iTunes a vyhľadajte VLC na prenesenie súborov";
-"FIRST_STEPS_WIFI_TITLE" = "Zdieľať cez Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Zdieľať cez Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Zadajte vygenerovanú adresu URL vo vašom obľúbenom webovom prehliadači, počas pripojenia do rovnakej siete ako je Váš telefón";
 "FIRST_STEPS_CLOUDS" = "Služby typu Cloud";
 "FIRST_STEPS_CLOUD_TITLE" = "Cloud";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Nenašiel sa žiadny server";
 "NO_RECENT_STREAMS" = "Naposledy nebol prehrávaný žiadny stream";
 
-"WEBINTF_TITLE" = "Zdieľanie cez WiFi";
+"WEBINTF_TITLE" = "Zdieľanie cez Wi-Fi";
 "WEBINTF_DROPFILES" = "Pustiť súbory";
 "WEBINTF_DROPFILES_LONG" = "Ak chcete pridať súbory do vášho %@, preneste ich do tohto okna.<br>Alebo kliknite na tlačidlo \"+\" a použite dialógové okno na pridávanie súborov.";
 "WEBINTF_DOWNLOADFILES" = "Stiahnuť súbory";
