@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "A VLC for iOS a szabad VLC médialejátszó portja iPadre, iPhone-ra és iPod touchra.\nBármilyen filmet, műsort, és zenét le tud játszani a legtöbb formátumban, átalakítás nélkül.\nLehetővé teszi a fájlszinkronizációt Dropboxszal, GDrive-val, Boxszal, iCloud Drive-val, iTunes-szal; a közvetlen és a WiFi megosztáson keresztüli letöltéseket, valamint az élőközvetítést SMB, FTP és UPnP/DLNA médiakiszolgálókról és a webről.\nA VLC támogatja a fejlett feliratokat, köztük a teljes SSA kompatibilitást, a többsávos hangot, és a lejátszási sebesség vezérlését.\n\nVLC for iOS teljesen ingyenes, és nyílt forráskódú.";
+"STORE_DESCRIPTION" = "A VLC for iOS a szabad VLC médialejátszó portja iPadre, iPhone-ra és iPod touchra.\nBármilyen filmet, műsort, és zenét le tud játszani a legtöbb formátumban, átalakítás nélkül.\nLehetővé teszi a fájlszinkronizációt Dropboxszal, GDrive-val, Boxszal, iCloud Drive-val, iTunes-szal; a közvetlen és a Wi-Fi megosztáson keresztüli letöltéseket, valamint az élőközvetítést SMB, FTP és UPnP/DLNA médiakiszolgálókról és a webről.\nA VLC támogatja a fejlett feliratokat, köztük a teljes SSA kompatibilitást, a többsávos hangot, és a lejátszási sebesség vezérlését.\n\nVLC for iOS teljesen ingyenes, és nyílt forráskódú.";
 
 "STORE_DESCRIPTION_TV" = "A VLC médialejátszó egy szabad, nyílt forráskódú, keresztplatformos multimédia lejátszó. Bármilyen filmet, műsort, és zenét le tud játszani a legtöbb formátumban, átalakítás nélkül.\nLehetővé teszi a felhőszolgáltatásokból való streamelést (Dropbox, OneDrive, Box), távoli visszajátszást Mac-ről, vagy PC-ről webes felületen keresztül, továbbá az SMB, az FTP, az UPnP/DLNA médiakiszolgálóról, valamint a webről történő lejátszást.\nA VLC támogatja a fejlett feliratokat, köztük a teljes SSA kompatibilitást, a többsávos hangot, és a lejátszási sebesség vezérlését.\n\nA VLC for iOS teljesen ingyenes, és nyílt forráskódú.\n\nA metaadatokat és borítók a TMDb és a Hatchet szolgáltatásokból származnak, melyek közösség által karbantartott film, és zene adatbázisok.";
 
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "iTunes fájlátvitel";
 "FIRST_STEPS_ITUNES_TITLE" = "Szinkronizálás a számítógépével";
 "FIRST_STEPS_ITUNES_DETAILS" = "Kapcsolódjon az eszközével az iTuneshoz és válassza ki az eszközét. Válassza a „Fájlmegosztást” az iTunes bal oldali menüjében, és keresse ki a VLC-t a fájlok átküldéséhez";
-"FIRST_STEPS_WIFI_TITLE" = "Megosztás Wifin keresztül";
+"FIRST_STEPS_WIFI_TITLE" = "Megosztás Wi-Fin keresztül";
 "FIRST_STEPS_WIFI_DETAILS" = "Írja be az előállított URL-t a kedvenc webböngészőjébe miközben ugyanahhoz a hálózathoz kapcsolódik, mint a telefonja";
 "FIRST_STEPS_CLOUDS" = "Felhő";
 "FIRST_STEPS_CLOUD_TITLE" = "Felhő";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Kiszolgáló nem található";
 "NO_RECENT_STREAMS" = "Nem volt a közelmúlt játszott adatfolyam";
 
-"WEBINTF_TITLE" = "Wi-Fi megosztás";
+"WEBINTF_TITLE" = "Megosztva Wi-Fin keresztül";
 "WEBINTF_DROPFILES" = "Húzza ide a fájlokat";
 "WEBINTF_DROPFILES_LONG" = "Húzzon fájlokat az ablakba a %@ eszközére való másoláshoz,<br>vagy kattintson a „+” gombra a fájlok kiválasztásához.";
 "WEBINTF_DOWNLOADFILES" = "Fájlok letöltése";
