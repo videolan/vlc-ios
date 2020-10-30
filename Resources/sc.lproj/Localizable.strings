@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC pro iOS est una versione de su leghidore gratùitu VLC pro iPad, iPhone e iPod touch.\nPodet riproduire totu sos films, sos ispetàculos e sa mùsica tuos in sa majoria de sos formatos diretamente, chene conversione.\nPermitit sa sincronizazione de documentos cun Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, iscarrigamentos diretos, pro mèdiu de cumpartzidura WiFi, flussos dae servers multimediales SMB, FTP, UPnP/DLNA e dae ìnternet.\nVLC oferit suportu pro sos sutatìtulos avantzados, incluende sa compatibilidade SSA prena, s'àudio muti-rasta e su controllu de sa lestresa de sa riprodutzione.\n\nVLC pro iOS est interamente gratùitu e a mitza aberta.";
+"STORE_DESCRIPTION" = "VLC pro iOS est una versione de su leghidore gratùitu VLC pro iPad, iPhone e iPod touch.\nPodet riproduire totu sos films, sos ispetàculos e sa mùsica tuos in sa majoria de sos formatos diretamente, chene conversione.\nPermitit sa sincronizazione de documentos cun Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, iscarrigamentos diretos, pro mèdiu de cumpartzidura Wi-Fi, flussos dae servers multimediales SMB, FTP, UPnP/DLNA e dae ìnternet.\nVLC oferit suportu pro sos sutatìtulos avantzados, incluende sa compatibilidade SSA prena, s'àudio muti-rasta e su controllu de sa lestresa de sa riprodutzione.\n\nVLC pro iOS est interamente gratùitu e a mitza aberta.";
 
 "STORE_DESCRIPTION_TV" = "Su leghidore multimediale VLC est unu leghidore multimediale gratùitu e a mitza abertpro medas prataformas.\nPodet riproduire totu sos films, sos ispetàculos e sa mùsica tuos in sa majoria de sos formatos diretamente, chene conversione.\nPermitit de lèghere flussos dae servìtzios in sa \"nue\", in lìnia (Dropbox, OneDrive, Box) e de impreare sa riprodutzione remota dae su Mac o su PC tuo pro mèdiu de un'interfache web e sa trasmissione pro mèdiu de flussos dae servers multimediales SMB, FTP, UPnP/DLNA e dae ìnternet.\nVLC oferit suportu pro sos sutatìtulos avantzados, incluende sa compatibilidade SSA prena, s'àudio muti-rasta e su controllu de sa lestresa de sa riprodutzione.\n\nVLC pro iOS est interamente gratùitu e a mitza aberta.\n\nSos metadatos e sa gràficas artìsticas sunt frunidos dae TMDb e Hatchet, chi sunt bases de datos de films e mùsica gestidas dae sa comunidade.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Flussu de retza";
 "OPEN_NETWORK_HELP" = "Inserta un'indiritzu HTTP, RTSP, RTMP, MMS, FTP o UDP/RTP pro abèrrere diretamente su flussu.";
 "HTTP_UPLOAD_SERVER_OFF" = "Server non ativu";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Peruna connessione WiFi ativa";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Peruna connessione Wi-Fi ativa";
 "OPEN_STREAM_OR_DOWNLOAD" = "Cheres iscarrigare o riproduire custu URL?";
 "SHARED_VLC_IOS_LIBRARY" = "Biblioteca cumpartzida de VLC pro iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servers pro sos documentos (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "Istudadu";
 
 "EMPTY_LIBRARY" = "Biblioteca multimediale bòida";
-"EMPTY_LIBRARY_LONG" = "Pro sa riprodutziones podes trasmìtere documentos multimediales dae unu server in sa retza locale tua, dae sa Nue o sincronizare sos documentos in su dispositivu tuo impreende using iTunes, WiFi Upload àteros servìtzios de Nue.";
+"EMPTY_LIBRARY_LONG" = "Pro sa riprodutziones podes trasmìtere documentos multimediales dae unu server in sa retza locale tua, dae sa Nue o sincronizare sos documentos in su dispositivu tuo impreende using iTunes, Wi-Fi Upload àteros servìtzios de Nue.";
 
 "EMPTY_PLAYLIST" = "Iscalita bòida";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Annaghe documentos multimediales cando ses faghende modìficas in sas categorias chi lis pertocant.";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Perunu server agatadu";
 "NO_RECENT_STREAMS" = "Perunu flussu est istadu riproduidu de reghente";
 
-"WEBINTF_TITLE" = "Cumpartzidura impreende su WiFi";
+"WEBINTF_TITLE" = "Cumpartzende cun su WiFi";
 "WEBINTF_DROPFILES" = "Traga documentos";
 "WEBINTF_DROPFILES_LONG" = "Traga sos documentos in sa ventana pro los annànghere a su %@ tuo.<br>O incarca in su butone \"+\" pro impreare su seletzionadore de documentos.";
 "WEBINTF_DOWNLOADFILES" = "Iscàrriga documentos";
