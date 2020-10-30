@@ -100,7 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "De mediabibliotheek opnemen in de back-up van het apparaat";
 
 "SETTINGS_FILE_SYNC" = "Bestandssynchronisatie";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6-ondersteuning voor WiFi-delen";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6-ondersteuning voor wifi-delen";
 
 "SETTINGS_ARTWORK" = "Albumhoes";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albumhoes downloaden";

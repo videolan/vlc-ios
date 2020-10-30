@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC voor iOS is een port van de gratis VLC media player naar iPad, iPhone en iPod touch.\nHet kan al uw films, series en muziek in de meeste formaten direct afspelen, zonder conversie.\nHet laat bestandssynchronisatie toe met Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, directe downloads, via WiFi-delen en ook streamen vanaf SMB, FTP, UPnP /DLNA mediaservers en het web. VLC biedt ondersteuning voor geavanceerde ondertitels inclusief volledige SSA-compatibiliteit, multi-track audio en regeling van afspeelsnelheid.\n\nVLC voor iOS is helemaal gratis en opensource.";
+"STORE_DESCRIPTION" = "VLC voor iOS is een port van de gratis VLC media player naar iPad, iPhone en iPod touch.\nHet kan al uw films, series en muziek in de meeste formaten direct afspelen, zonder conversie.\nHet laat bestandssynchronisatie toe met Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, directe downloads, via wifi-delen en ook streamen vanaf SMB, FTP, UPnP /DLNA mediaservers en het web. VLC biedt ondersteuning voor geavanceerde ondertitels inclusief volledige SSA-compatibiliteit, multi-track audio en regeling van afspeelsnelheid.\n\nVLC voor iOS is helemaal gratis en opensource.";
 
 "STORE_DESCRIPTION_TV" = "VLC media player is een gratis en opensource platform-overschrijdende multimediaspeler.\nHet kan al uw films, series en muziek in de meeste formaten direct afspelen zonder conversie.\nHet laat streaming toe van cloud-diensten (Dropbox, OneDrive, Box), Remote Playback vanaf uw Mac of pc via een web-UI en ook streamen van SMB, FTP, UPnP/DLNA mediaservers en het web.\nVLC biedt ondersteuning voor geavanceerde ondertitels inclusief volledige SSA-compatibiliteit, multi-track audio, en regeling van afspeelsnelheid.\n\nVLC voor iOS is volledig vrij en opensource.\n\nMetadata en albumhoezen worden voorzien door TMDb en Hatchet, die film- en muziekdatabases zijn die door de gemeenschap beheerd worden.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Netwerkstream";
 "OPEN_NETWORK_HELP" = "Geef een HTTP, RTSP, RTMP, MMS, FTP of UDP/RTP adres op om de stream direct te openen.";
 "HTTP_UPLOAD_SERVER_OFF" = "Inactieve server";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Geen actieve WiFi-verbinding";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Geen actieve wifiverbinding";
 "OPEN_STREAM_OR_DOWNLOAD" = "Wilt u deze url downloaden of afspelen?";
 "SHARED_VLC_IOS_LIBRARY" = "Gedeelde bibliotheek van VLC for iOS";
 "SMB_CIFS_FILE_SERVERS" = "Bestandsservers (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "Uit";
 
 "EMPTY_LIBRARY" = "Mediabibliotheek leeg";
-"EMPTY_LIBRARY_LONG" = "Voor het afspelen kunt u media streamen vanaf een server op uw lokale netwerk of van de cloud, of u kunt media met uw apparaat synchroniseren met behulp van iTunes, Wifi-upload of clouddiensten.";
+"EMPTY_LIBRARY_LONG" = "Voor het afspelen kunt u media streamen vanaf een server op uw lokale netwerk of van de cloud, of u kunt media met uw apparaat synchroniseren met behulp van iTunes, wifi-upload of clouddiensten.";
 
 "EMPTY_PLAYLIST" = "Afspeellijst leegmaken";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Media toevoegen tijdens het bewerken in de respectievelijke categorieën";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Geen server gevonden";
 "NO_RECENT_STREAMS" = "Er is recent geen stream afgespeeld";
 
-"WEBINTF_TITLE" = "Delen via WiFi";
+"WEBINTF_TITLE" = "Delen via wifi";
 "WEBINTF_DROPFILES" = "Bestanden neerzetten";
 "WEBINTF_DROPFILES_LONG" = "Zet bestanden in het venster om ze toe te voegen aan uw %@.<br>Of klik op de \"+\"-knop om het bestandskeuzevenster te gebruiken.";
 "WEBINTF_DOWNLOADFILES" = "Bestanden downloaden";
