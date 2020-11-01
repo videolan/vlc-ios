@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "iOS için VLC, özgür VLC ortam oynatıcısının iPad, iPhone ve iPod touch üzerinde kullanılmak üzere derlenmiş sürümüdür.\nÇeşitli biçimlerdeki tüm film, dizi ve müziklerinizi herhangi bir dönüştürme işlemine gerek duymadan doğrudan oynatabilir.\nDropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes gibi bulut hizmetleri ile dosya eşitleme, doğrudan dosya indirme ve WiFi paylaşımı aracılığıyla SMB, FTP, UPnP/DLNA gibi ortam sunucularından ve web üzerinden akış yapma olanaklarını sağlar.\nTam SSA uyumluluğu ile gelişmiş alt yazılar, çok kayıtlı sesler ve oynatma hızı denetimini VLC tarafından desteklenen özelliklerden bazılarıdır.\n\niOS için VLC tamamen özgür ve açık kaynaklıdır.";
+"STORE_DESCRIPTION" = "iOS için VLC, özgür VLC ortam oynatıcısının iPad, iPhone ve iPod touch üzerinde kullanılmak üzere derlenmiş sürümüdür.\nÇeşitli biçimlerdeki tüm film, dizi ve müziklerinizi herhangi bir dönüştürme işlemine gerek duymadan doğrudan oynatabilir.\nDropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes gibi bulut hizmetleri ile dosya eşitleme, doğrudan dosya indirme ve Wi-Fi paylaşımı aracılığıyla SMB, FTP, UPnP/DLNA gibi ortam sunucularından ve web üzerinden akış yapma olanaklarını sağlar.\nTam SSA uyumluluğu ile gelişmiş alt yazılar, çok kayıtlı sesler ve oynatma hızı denetimini VLC tarafından desteklenen özelliklerden bazılarıdır.\n\niOS için VLC tamamen özgür ve açık kaynaklıdır.";
 
 "STORE_DESCRIPTION_TV" = "VLC ortam oynatıcısı platformlar arasında kullanılabilen özgür ve açık kaynaklı bir çoklu ortam oynatma çözümüdür.\nÇeşitli biçimlerdeki tüm film, dizi ve müziklerinizi herhangi bir dönüştürme işlemine gerek duymadan doğrudan oynatabilir.\nBulut hizmetleri (Dropbox, OneDrive, Box), ortam sunucuları (SMB, FTP, UPnP/DLNA) ve web üzerinden ortam akışı ile Mac ya da Windows bilgisayarınızdan bir Web Arayüzü aracılığıyla Uzaktan Oynatım olanaklarını sağlar.\nTam SSA uyumluluğu ile gelişmiş alt yazılar, çok kayıtlı sesler ve oynatma hızı denetimi VLC tarafından desteklenen özelliklerden bazılarıdır.\n\niOS için VLC tamamen özgür ve açık kaynaklıdır.\n\nÜst veri ve kapak görselleri TMDb ve Hatchet toplulukları tarafından güncellenen film ve müzik veritabanları üzerinden sağlanmaktadır.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Ağ Akışı";
 "OPEN_NETWORK_HELP" = "Doğrudan akış açmak için bir HTTP, RTSP, RTMP, MMS, FTP ya da UDP/RTP adresi yazın.";
 "HTTP_UPLOAD_SERVER_OFF" = "Sunucu Etkin Değil";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "WiFi bağlantısı etkin değil";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Wi-Fi bağlantısı etkin değil";
 "OPEN_STREAM_OR_DOWNLOAD" = "Bu İnternet adresinin içeriği indirilsin mi oynatılsın mı?";
 "SHARED_VLC_IOS_LIBRARY" = "iOS Kitaplığı için Paylaşılan VLC";
 "SMB_CIFS_FILE_SERVERS" = "Dosya Sunucuları (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "Kapalı";
 
 "EMPTY_LIBRARY" = "Ortam Kitaplığı Boş";
-"EMPTY_LIBRARY_LONG" = "Oynatılacak ortam akışı yerel ağınızdaki bir sunucudan ya da buluttan alınabilir. Ortamlar iTunes, WiFi Yükleme ya da Bulut hizmetleri ile eşitlenebilir.";
+"EMPTY_LIBRARY_LONG" = "Oynatılacak ortam akışı yerel ağınızdaki bir sunucudan ya da buluttan alınabilir. Ortamlar iTunes, Wi-Fi Yükleme ya da Bulut hizmetleri ile eşitlenebilir.";
 
 "EMPTY_PLAYLIST" = "Boş oynatma listesi";
 "EMPTY_PLAYLIST_DESCRIPTION" = "İlgili kategorilerde düzenleme yaparken ortam ekle.";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Sunucu bulunamadı";
 "NO_RECENT_STREAMS" = "Önceden oynatılmış bir akış bulunamadı";
 
-"WEBINTF_TITLE" = "WiFi üzerinden paylaş";
+"WEBINTF_TITLE" = "Wi-Fi ile paylaşılıyor";
 "WEBINTF_DROPFILES" = "Dosyaları Sürükleyin";
 "WEBINTF_DROPFILES_LONG" = "Dosyaları %@ üzerine eklemek için pencereye bırakın.<br>Ya da dosya seçim penceresini görüntülemek için \"+\" düğmesine dokunun.";
 "WEBINTF_DOWNLOADFILES" = "Dosyaları İndir";

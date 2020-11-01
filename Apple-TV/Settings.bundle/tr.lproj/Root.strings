@@ -100,7 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Aygıt yedeğine ortam kitaplığı katılsın";
 
 "SETTINGS_FILE_SYNC" = "Dosya Eşitleme";
-"SETTINGS_WIFISHARING_IPv6" = "WiFi Paylaşımı için IPv6 desteği";
+"SETTINGS_WIFISHARING_IPv6" = "Wi-Fi Paylaşımı için IPv6 desteği";
 
 "SETTINGS_ARTWORK" = "Albüm Kapağı";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albüm Kapağını İndir";
