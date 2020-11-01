@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "サーバーが見つかりません";
 "NO_RECENT_STREAMS" = "ストリームの再生履歴がありません";
 
-"WEBINTF_TITLE" = "WiFi経由で共有";
+"WEBINTF_TITLE" = "WiFiで共有";
 "WEBINTF_DROPFILES" = "ファイルをドロップ";
 "WEBINTF_DROPFILES_LONG" = "あなたの%@に追加したいファイルをウィンドウにドロップするか<br>\"+\"ボタンをクリックしてファイルピッカーダイアログを使用してください。";
 "WEBINTF_DOWNLOADFILES" = "ファイルをダウンロード";
