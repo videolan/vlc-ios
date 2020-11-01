@@ -105,9 +105,6 @@
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)]) {
         [self.delegate mediaListUpdated];
     }
-    if ([self.delegate respondsToSelector:@selector(mediaListReset)]) {
-        [self.delegate mediaListReset];
-    }
 }
 
 - (void)boxApiTokenDidRefresh

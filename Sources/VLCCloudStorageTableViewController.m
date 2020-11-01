@@ -17,6 +17,13 @@
 #import "VLCProgressView.h"
 #import "VLC-Swift.h"
 
+typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
+    VLCToolbarStyleNone,
+    VLCToolbarStyleProgress,
+    VLCToolbarStyleSortAndNumOfFiles,
+    VLCToolbarStyleNumOfFiles
+};
+
 @interface VLCCloudStorageTableViewController()
 {
     VLCProgressView *_progressView;
@@ -85,8 +92,7 @@
     sheet.modalPresentationStyle = UIModalPresentationCustom;
     [sheet.collectionView registerClass:[VLCActionSheetCell class] forCellWithReuseIdentifier:VLCActionSheetCell.identifier];
 
-    [self _showProgressInToolbar:NO];
-    [self mediaListReset];
+    [self updateToolbarWithProgress:nil];
     [self updateForTheme];
 }
 
@@ -149,6 +155,7 @@
 
     [self.tableView reloadData];
 
+    [self updateToolbarWithProgress:nil];
     NSUInteger count = self.controller.currentListFiles.count;
     if (count == 0) {
         self.numberOfFilesBarButtonItem.title = NSLocalizedString(@"NO_FILES", nil);
@@ -159,31 +166,35 @@
     }
 }
 
-- (void)mediaListReset
-{
-    self.numberOfFilesBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0];
-}
-
-- (NSArray *)_generateToolbarItemsWithSortButton : (BOOL)withsb
-{
-    NSMutableArray* result = [NSMutableArray array];
-    if (withsb)
-    {
-        [result addObjectsFromArray:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _sortBarButtonItem]];
-    }
-    [result addObjectsFromArray:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
-    return result;
-}
-
-- (void)_showProgressInToolbar:(BOOL)value
-{
-    if (!value) {
-        [self setToolbarItems:[self _generateToolbarItemsWithSortButton:[self.controller supportSorting]] animated:YES];
-        
+- (void)updateToolbarWithProgress:(NSNumber *)progress {
+    if (progress != nil) {
+        _progressView.progressBar.progress = progress.floatValue;
+        [self updateToolbarWithStyle:VLCToolbarStyleProgress];
+    } else if (!self.controller.isAuthorized) {
+        [self updateToolbarWithStyle:VLCToolbarStyleNone];
+    } else if ([self.controller supportSorting]) {
+        [self updateToolbarWithStyle:VLCToolbarStyleSortAndNumOfFiles];
     } else {
-        _progressView.progressBar.progress = 0.;
-        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]] animated:YES];
+        [self updateToolbarWithStyle:VLCToolbarStyleNumOfFiles];
     }
+}
+
+- (void)updateToolbarWithStyle:(VLCToolbarStyle)style {
+    NSMutableArray *items = [NSMutableArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+    switch(style) {
+        case VLCToolbarStyleNone:
+            break;
+        case VLCToolbarStyleProgress:
+            [items addObjectsFromArray:@[_progressBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+            break;
+        case VLCToolbarStyleSortAndNumOfFiles:
+            [items addObjectsFromArray:@[_sortBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+            // no break to continue to VLCToolbarStyleNumOfFiles
+        case VLCToolbarStyleNumOfFiles:
+            [items addObjectsFromArray:@[_numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+            break;
+    }
+    [self setToolbarItems:items animated:YES];
 }
 
 - (void)updateRemainingTime:(NSString *)time
@@ -198,12 +209,12 @@
 
 - (void)operationWithProgressInformationStarted
 {
-    [self _showProgressInToolbar:YES];
+    [self updateToolbarWithProgress:@(0)];
 }
 
 - (void)operationWithProgressInformationStopped
 {
-    [self _showProgressInToolbar:NO];
+    [self updateToolbarWithProgress:nil];
 }
 #pragma mark - UITableViewDataSources
 
@@ -249,9 +260,7 @@
         }
     }
     if (!hasProgressbar) {
-        //Only show sorting button and number of files button when there is no progress bar in the toolbar
-        //Only show sorting button when controller support sorting and is authorized
-        [self setToolbarItems:[self _generateToolbarItemsWithSortButton:self.controller.isAuthorized && [self.controller supportSorting]] animated:YES];
+        [self updateToolbarWithProgress:nil];
     }
     if (self.controller.canPlayAll) {
         self.navigationItem.rightBarButtonItems = @[_logoutButton, [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];

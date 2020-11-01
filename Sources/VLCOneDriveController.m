@@ -108,9 +108,6 @@ static void *ProgressObserverContext = &ProgressObserverContext;
             if ([self.delegate respondsToSelector:@selector(mediaListUpdated)]) {
                 [self.delegate mediaListUpdated];
             }
-            if ([self.delegate respondsToSelector:@selector(mediaListReset)]) {
-                [self.delegate mediaListReset];
-            }
             if (self->_presentingViewController) {
                 [self->_presentingViewController.navigationController popViewControllerAnimated:YES];
             }
