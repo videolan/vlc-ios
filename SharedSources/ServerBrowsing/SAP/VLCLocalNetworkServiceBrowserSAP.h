@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init;
 @end
 
-@interface VLCLocalNetworkServiceSAP: VLCLocalNetworkServiceVLCMedia
+@interface VLCLocalNetworkServiceSAP : VLCLocalNetworkServiceVLCMedia
 
 @end
 

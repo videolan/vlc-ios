@@ -19,7 +19,7 @@ typedef NS_ENUM (NSUInteger, VLCEmptyLibraryViewContentType)
     VLCEmptyLibraryViewContentTypePlaylist
 };
 
-@interface VLCEmptyLibraryView: UIView
+@interface VLCEmptyLibraryView : UIView
 
 @property (nonatomic, strong) IBOutlet UILabel *emptyLibraryLabel;
 @property (nonatomic, strong) IBOutlet UILabel *emptyLibraryLongDescriptionLabel;

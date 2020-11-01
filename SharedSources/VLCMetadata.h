@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 @class VLCMLMedia;
-@interface VLCMetaData: NSObject
+@interface VLCMetaData : NSObject
 
 @property(readwrite, copy) NSString *title;
 @property(readwrite) UIImage *artworkImage;

@@ -776,7 +776,7 @@ static NSMutableDictionary *authentifiedHosts;
 #pragma mark multipart form data parser delegate
 
 
-- (void)processStartOfPartWithHeader:(MultipartMessageHeader *) header
+- (void)processStartOfPartWithHeader:(MultipartMessageHeader *)header
 {
     /* in this sample, we are not interested in parts, other then file parts.
      * check content disposition to find out filename */
@@ -849,7 +849,7 @@ static NSMutableDictionary *authentifiedHosts;
 #endif
 }
 
-- (void)processContent:(NSData *)data WithHeader:(MultipartMessageHeader *) header
+- (void)processContent:(NSData *)data WithHeader:(MultipartMessageHeader *)header
 {
     // here we just write the output from parser to the file.
     if (_storeFile) {

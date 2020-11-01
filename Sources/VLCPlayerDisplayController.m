@@ -26,7 +26,7 @@ static NSString *const VLCPlayerDisplayControllerDisplayModeKey = @"VLCPlayerDis
 NSString *const VLCPlayerDisplayControllerDisplayMiniPlayer = @"VLCPlayerDisplayControllerDisplayMiniPlayer";
 NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayControllerHideMiniPlayer";
 
-@interface VLCUntouchableView: UIView
+@interface VLCUntouchableView : UIView
 @end
 
 @implementation VLCUntouchableView

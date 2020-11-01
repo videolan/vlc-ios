@@ -15,7 +15,7 @@
 
 static NSString *const VLCNetworkLoginDataSourceProtocolCellIdentifier = @"VLCNetworkLoginDataSourceProtocolCell";
 
-@interface  VLCNetworkLoginDataSourceProtocolCell : UITableViewCell
+@interface  VLCNetworkLoginDataSourceProtocolCell: UITableViewCell
 @property (nonatomic) UISegmentedControl *segmentedControl;
 @end
 

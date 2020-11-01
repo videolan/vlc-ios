@@ -222,7 +222,7 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
 #pragma mark -
 #pragma mark XMLRPC delegate methods
 
-- (void)request: (XMLRPCRequest *)request didReceiveResponse:(XMLRPCResponse *)response {
+- (void)request:(XMLRPCRequest *)request didReceiveResponse:(XMLRPCResponse *)response {
     // Nothing will work without a valid user agent.
     NSString *status = response.object[@"status"];
     if ([status isEqualToString:@"414 Unknown User Agent"]) {
@@ -288,7 +288,7 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
     }
 }
 
-- (void)request: (XMLRPCRequest *)request didFailWithError: (NSError *)error {
+- (void)request:(XMLRPCRequest *)request didFailWithError:(NSError *)error {
     NSLog(@"%@ - %@", NSStringFromSelector(_cmd), error.localizedDescription);
 
     // Languages search
@@ -316,15 +316,15 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
     }
 }
 
-- (BOOL)request: (XMLRPCRequest *)request canAuthenticateAgainstProtectionSpace: (NSURLProtectionSpace *)protectionSpace {
+- (BOOL)request:(XMLRPCRequest *)request canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
     return YES;
 }
 
-- (void)request: (XMLRPCRequest *)request didReceiveAuthenticationChallenge: (NSURLAuthenticationChallenge *)challenge {
+- (void)request:(XMLRPCRequest *)request didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
     NSLog(@"%@ - %@", NSStringFromSelector(_cmd), challenge);
 }
 
-- (void)request: (XMLRPCRequest *)request didCancelAuthenticationChallenge: (NSURLAuthenticationChallenge *)challenge {
+- (void)request:(XMLRPCRequest *)request didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
     NSLog(@"%@ - %@", NSStringFromSelector(_cmd), challenge);
 }
 

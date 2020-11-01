@@ -92,7 +92,7 @@
 
     VLCPlaybackInfoTVViewController *infoVC = nil;
     if ([target isKindOfClass:[VLCPlaybackInfoTVViewController class]]) {
-        infoVC = (VLCPlaybackInfoTVViewController*) target;
+        infoVC = (VLCPlaybackInfoTVViewController *) target;
         infoVC.dimmingView.alpha = 0.0;
         targetAlpha = 1.0;
         toFrame = smallFrame;
@@ -100,7 +100,7 @@
         [container addSubview:target.view];
         [target.view layoutIfNeeded];
     } else if ([source isKindOfClass:[VLCPlaybackInfoTVViewController class]]) {
-        infoVC = (VLCPlaybackInfoTVViewController*) source;
+        infoVC = (VLCPlaybackInfoTVViewController *) source;
         infoVC.dimmingView.alpha = 1.0;
         targetAlpha = 0.0;
         toFrame = largeFrame;

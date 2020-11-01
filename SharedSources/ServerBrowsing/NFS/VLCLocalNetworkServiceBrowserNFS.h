@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 extern NSString *const VLCNetworkServerProtocolIdentifierNFS;
-@interface VLCLocalNetworkServiceNFS: VLCLocalNetworkServiceVLCMedia
+@interface VLCLocalNetworkServiceNFS : VLCLocalNetworkServiceVLCMedia
 
 @end
 

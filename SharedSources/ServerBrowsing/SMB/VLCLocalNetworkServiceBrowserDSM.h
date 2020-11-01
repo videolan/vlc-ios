@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 extern NSString *const VLCNetworkServerProtocolIdentifierSMB;
-@interface VLCLocalNetworkServiceDSM: VLCLocalNetworkServiceVLCMedia
+@interface VLCLocalNetworkServiceDSM : VLCLocalNetworkServiceVLCMedia
 
 @end
 
