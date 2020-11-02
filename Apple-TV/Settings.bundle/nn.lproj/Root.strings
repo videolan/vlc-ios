@@ -100,7 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inkluder mediebilioteket ved tryggingskopiering av eining";
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6-støtte for WiFi-deling";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6-støtte for Wi-Fi-deling";
 
 "SETTINGS_ARTWORK" = "Omslagsbilde";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Last ned omslagsbilde";

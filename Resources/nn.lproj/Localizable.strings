@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC for iOS er ei overføring av  den frie VLC-mediaspelaren til iPad, iPhone og iPod touch.\nHan kan spela av alle filmane dine, show og musikk i dei fleste format direkte og utan konvertering.\nHan tillèt filsynkronisering med Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direkte nedlastingar, og gjennom WiFi deling, så vel som strøyming frå SMB, FTP, UPnP/DLNA media-tenarar og nettet.\nVLC tilbyr støtte for avanserte undertekstar, inkludert full SSA-kompatiblitet, fleirspors-lyd, og kontroll av avspelingsfart.\n\nVLC for iOS er heilt gratis og open kjeldekode.";
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "VLC mediaspelar er er ei fri, multiplattform multimediaspelar med open kjeldekode.\nHan kan spela alle filmane dine, show og musikk i dei fleste format utan konverteringar.\nHan strøymer òg frå skytenester (Dropbox, OneDrive, Box), Fjernavspeling (Remote Playback) frå Mac eller PC via eit nettgrensesnitt, i tillegg til strøyming frå SMB, FTP, UPnP/DLNA-mediatenarar og frå nettet.\nVLC tilbyd støtte for avanserte undertekstar, inkludert full SSA- kompatiblitet, multisporslyd, og fartskontroll for avspeling.\n\nVLC for iOS er fullstendig fri og med open kjeldekode.\n\nMetadata og omslag er leverte av TMDb og Hatchet, som er fellsskapsdrivne film- og musikkdatabasar.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Nettverksstraum";
 "OPEN_NETWORK_HELP" = "Skriv inn ei HTTP-, RTSP-, RTMP-, MMS-, FTP- eller UDP/RTP-adresse for å opna straumen direkte.";
 "HTTP_UPLOAD_SERVER_OFF" = "Uverksam tenar";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Ingen verksame WiFi-tikoplingar";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "Vil du lasta ned eller spela av denne URL-en?";
 "SHARED_VLC_IOS_LIBRARY" = "Delt VLC for iOS-bibliotek";
 "SMB_CIFS_FILE_SERVERS" = "Filtenarar (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "Av";
 
 "EMPTY_LIBRARY" = "Tomt mediabibliotek";
-"EMPTY_LIBRARY_LONG" = "For avspeling kan du strøyma media frå ein tenar på det lokale nettverket ditt, frå skya, eller synkronisera media til eininga di med iTunes, WiFi-opplasting eller skytenester.";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
 "EMPTY_PLAYLIST" = "Tom speleliste";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "iTunes filsynkronisering";
 "FIRST_STEPS_ITUNES_TITLE" = "Synkroniser med datamaskina di";
 "FIRST_STEPS_ITUNES_DETAILS" = "Kopla eininga di til iTunes og vel eininga di. Vel ‹‹Fildeling›› på venstre side av menyen i iTunes og sjå etter VLC for å overføra filer";
-"FIRST_STEPS_WIFI_TITLE" = "Del via Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Del via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Skriv inn den genererte URL-en i favorittnettlesaren din medan du er kopla til det same nettverket som telefonen din";
 "FIRST_STEPS_CLOUDS" = "Skyer";
 "FIRST_STEPS_CLOUD_TITLE" = "Sky";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Fann ingen tenar";
 "NO_RECENT_STREAMS" = "Ingen nyleg avspelte straumar";
 
-"WEBINTF_TITLE" = "Deling via WiFi";
+"WEBINTF_TITLE" = "Deler via Wi-Fi";
 "WEBINTF_DROPFILES" = "Slepp filer";
 "WEBINTF_DROPFILES_LONG" = "Slepp filer i vindauget for å leggja dei til på %@.<br>Eller trykk på \"+\"-knappen for å velja filveljardialogen.";
 "WEBINTF_DOWNLOADFILES" = "Last ned filer";
@@ -426,7 +426,7 @@
 "REMOVE_FROM_MEDIA_GROUP" = "Remove from media group";
 "REMOVE_FROM_MEDIA_GROUP_HINT" = "Remove selection from the media group";
 
-"MEDIA_GROUP_CREATION" = "New media group";
+"MEDIA_GROUP_CREATION" = "Ny mediegruppe";
 "MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
 "MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
@@ -444,4 +444,4 @@
 "GIVE_TIP" = "Give a Tip";
 "CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
 "PURCHASE_FAILED" = "Purchase Failed";
-"SEND_GIFT" = "Send your gift";
+"SEND_GIFT" = "Send gåva di";
