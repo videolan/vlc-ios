@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC para iOS es un «port» libre del Reproductor multimedia VLC para iPad, iPhone e iPod táctil.\nPuede reproducir todas tus películas, programas y música en la mayoría de formatos sin conversión.\nPermite sincronización con Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, descargas directas y a través de WiFi compartida así como flujos de servidores de medios UPnP y la web.\nVLC ofrece soporte para subtítulos avanzados incluyendo compatibilidad completa SSA, audio multipista y control de velocidad de reproducción.\n\nVLC para iOS es completamente gratis y de código abierto.";
+"STORE_DESCRIPTION" = "VLC para iOS es un «port» libre del Reproductor multimedia VLC para iPad, iPhone e iPod táctil.\nPuede reproducir todas tus películas, programas y música en la mayoría de formatos sin conversión.\nPermite sincronización con Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, descargas directas y a través de WiFi compartida así como flujos de servidores de medios SMB, FTP, UPnP/DLNA y la web.\nVLC ofrece soporte para subtítulos avanzados incluyendo compatibilidad completa SSA, audio multipista y control de velocidad de reproducción.\n\nVLC para iOS es completamente gratis y de código abierto.";
 
 "STORE_DESCRIPTION_TV" = "El reproductor multimedia VLC es un reproductor libre y de código abierto multiplataforma.\nPuede reproducir todas tus películas, programas y música en la mayoría de formatos directamente sin conversión.\nPermite reproducir flujos de servicios en la nube (Dropbox, OneDrive, Box), reproducción remota desde tu MAC o PC via Web UI así como flujos desde servidores SMB, FTP, UPnP/DLNA y la web.\nVLC ofrece soporte para subtítulos avanzados incluyendo compatibilidad completa SSA, audio multipista y control de velocidad de reproducción.\n\nVLC para iOS es completamente gratis y de código abierto.\n\nLos metadatos y material artístico son proporcionadas por TMDb y Hatchet que son bases de datos de películas y música mantenidas por la comunidad.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Emisión de red";
 "OPEN_NETWORK_HELP" = "Introduzca una dirección HTTP, RTSP, RTMP, MMS, FTP o UDP/RTP para abrir el flujo directamente.";
 "HTTP_UPLOAD_SERVER_OFF" = "Servidor inactivo";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Ninguna conexión WiFi activa";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Ninguna conexión WiFI activa";
 "OPEN_STREAM_OR_DOWNLOAD" = "¿Quiere descargar o reproducir esta URL?";
 "SHARED_VLC_IOS_LIBRARY" = "VLC compartido para librería iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servidores de archivos (SMB)";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Servidor no encontrado";
 "NO_RECENT_STREAMS" = "No hay flujos reproducidos recientemente";
 
-"WEBINTF_TITLE" = "Compartir mediante WiFi";
+"WEBINTF_TITLE" = "Compartiendo mediante WiFi";
 "WEBINTF_DROPFILES" = "Dejar caer archivos";
 "WEBINTF_DROPFILES_LONG" = "Deje caer archivos en la ventana para añadirlos a su dispositivo %@.<br>O haga clic en el botón «+» para usar el diálogo de selección de archivos.";
 "WEBINTF_DOWNLOADFILES" = "Descargar archivos";
