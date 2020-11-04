@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC per a iOS és la versió per a iPad, iPhone i iPod touch del reproductor gratuït VLC media player.\nPot reproduir pel·lícules, programes i música en la majoria dels formats directament sense conversió.\nPermet la sincronització amb Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, les descàrregues directes i l'emissió per Wifi, així com streaming mitjançant servidors SMB, FTP, UPnP/DLNA i web.\nVLC ofereix suport per a subtítols avançats, incloent compatibilitat amb SSA, àudio multipista i control de la velocitat de reproducció.\n\nVLC per a iOS és completament gratuït i de codi obert.";
+"STORE_DESCRIPTION" = "El VLC per a iOS és un port del reproductor multimèdia VLC gratuït per a iPad, iPhone i iPod touch.\nPot reproduir les vostres pel·lícules, programes i música en la majoria de formats directament sense conversió.\nPermet la sincronització de fitxers amb Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, descàrregues directes i compartició per Wi-Fi, així com transmissions des de servidors multimèdia SMB, FTP, UPnP / DLNA i el web.\nVLC ofereix suport per a subtítols avançats que inclouen compatibilitat SSA completa, àudio de diverses pistes i control de velocitat de reproducció.\n\nVLC per a iOS és completament gratuït i de codi obert.";
 
 "STORE_DESCRIPTION_TV" = "VLC media player és un reproductor multimèdia i multiplataforma gratuït i de codi obert.\nPot reproduir pel·lícules, programes i música en la majoria dels formats sense conversió.\nPermet streaming des de serveis de núvol (Dropbox, OneDrive, Box), reproducció remota des del vostre Mac o PC via un Web UI o streaming mitjançant servidors SMB, FTP, UPnP/DLNA i web.\nVLC ofereix suport per a subtítols avançats, fins i tot compatibilitat total amb SSA, àudio multipista i control de la velocitat de reproducció.\n\nVLC per a iOS és completament gratuït i  de codi obert.\n\nLes metadades i les imatges les proporcionen TMDb i Hatchet, que són bases de dades de pel·lícules i música mantingudes per la comunitat.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Flux de xarxa";
 "OPEN_NETWORK_HELP" = "Introduïu una adreça http, rtsp, rtmp, mms, ftp o udp/rtp per obrir directament el flux.";
 "HTTP_UPLOAD_SERVER_OFF" = "Servidor inactiu";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Cap connexió WiFi activa";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Xarxa sense fils no activada";
 "OPEN_STREAM_OR_DOWNLOAD" = "Voleu baixar or reproduir aquesta URL?";
 "SHARED_VLC_IOS_LIBRARY" = "VLC compartit per a la Biblioteca iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servidors de fitxers (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "Off";
 
 "EMPTY_LIBRARY" = "Biblioteca multimèdia buida";
-"EMPTY_LIBRARY_LONG" = "Per a la reproducció, podeu utilitzar contingut des d'un servidor de la xarxa local, al núvol, o sincronitzar el contingut multimèdia mitjançant l'iTunes, una connexió sense fils, o serveis al núvol.";
+"EMPTY_LIBRARY_LONG" = "Per a la reproducció, podeu transmetre contingut multimèdia des d’un servidor de la vostra xarxa local, des del núvol o sincronitzar contingut multimèdia amb el vostre dispositiu mitjançant iTunes, pujades des de-de la xarxa sense fils o serveis en el núvol.";
 
 "EMPTY_PLAYLIST" = "Llista de reproducció buida";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Agregar arxius mentre s'editen en les respectives categories.";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "Sincronització de fitxers a l'iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Sincronitzi amb el seu ordinador";
 "FIRST_STEPS_ITUNES_DETAILS" = "Connecta el teu dispositiu a iTunes i selecciona'l. En el menú esquerre d'iTunes selecciona \"Compartir Arxiu\"  i busca VLC per transferir els arxius";
-"FIRST_STEPS_WIFI_TITLE" = "Comparteix via WiFi";
+"FIRST_STEPS_WIFI_TITLE" = "Compartiu mitjançant la xarxa sense fils";
 "FIRST_STEPS_WIFI_DETAILS" = "Introdueix la URL generada en el teu navegador mentre està connectat a la mateixa xarxa que el teu telèfon";
 "FIRST_STEPS_CLOUDS" = "Núvols";
 "FIRST_STEPS_CLOUD_TITLE" = "Núvol";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "No s'ha trobat cap servidor";
 "NO_RECENT_STREAMS" = "Recentment no s'ha reproduït cap stream";
 
-"WEBINTF_TITLE" = "Compartir per Wifi";
+"WEBINTF_TITLE" = "Compartint mitjançant la xarxa sense fils";
 "WEBINTF_DROPFILES" = "Deixa anar els arxius";
 "WEBINTF_DROPFILES_LONG" = "Deixa anar els arxius en la finestra per afegir-los al teu%@.<br>O clic en el botó \"+\" per a seleccionar arxius.";
 "WEBINTF_DOWNLOADFILES" = "Arxius baixats";
