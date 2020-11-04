@@ -100,7 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Přidat Knihovnu médií k záloze zařízení ";
 
 "SETTINGS_FILE_SYNC" = "Synchronizace souborů";
-"SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pro sdílení přes Wi-Fi";
+"SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pro Wi-Fi sdílení";
 
 "SETTINGS_ARTWORK" = "Obal alba";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Stáhnout obal";
