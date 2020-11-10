@@ -20,12 +20,24 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var newLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var collectionOverlay: UIView!
-    @IBOutlet weak var numberOfTracks: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var descriptionStackView: UIStackView!
 
     @IBOutlet weak var selectionOverlay: UIView!
+
+    @IBOutlet weak var mediaView: UIView!
+    @IBOutlet weak var groupView: UIView!
+    @IBOutlet weak var thumbnailsBackground: UIView!
+    @IBOutlet weak var firstThumbnail: UIImageView!
+    @IBOutlet weak var secondThumbnail: UIImageView!
+    @IBOutlet weak var thirdThumbnail: UIImageView!
+    @IBOutlet weak var fourthThumbnail: UIImageView!
+    @IBOutlet weak var groupTitleLabel: UILabel!
+    @IBOutlet weak var additionalMediaOverlay: UIView!
+    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var groupSizeLabel: UILabel!
+
+    private var thumbnailsArray: [UIImageView] = []
 
     override class var edgePadding: CGFloat {
         return 12.5
@@ -79,7 +91,26 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
+        selectionOverlay.layer.cornerRadius = 6
+        thumbnailsArray = [firstThumbnail, secondThumbnail, thirdThumbnail, fourthThumbnail]
         themeDidChange()
+    }
+
+    private func setupGroupView() {
+        thumbnailsBackground.layer.cornerRadius = 6
+
+        var color: UIColor = UIColor.gray.withAlphaComponent(0.08)
+        if PresentationTheme.current.colors.isDark {
+            color = UIColor.black.withAlphaComponent(0.25)
+        }
+
+        thumbnailsBackground.backgroundColor = color
+
+        firstThumbnail.layer.cornerRadius = 3
+        secondThumbnail.layer.cornerRadius = 3
+        thirdThumbnail.layer.cornerRadius = 3
+        fourthThumbnail.layer.cornerRadius = 3
+        additionalMediaOverlay.layer.cornerRadius = 3
     }
 
     @objc fileprivate func themeDidChange() {
@@ -87,6 +118,22 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         titleLabel?.textColor = PresentationTheme.current.colors.cellTextColor
         descriptionLabel?.textColor = PresentationTheme.current.colors.cellDetailTextColor
         sizeLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
+        groupTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        groupSizeLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
+    }
+
+    private func setThumbnails(medias: [VLCMLMedia]?) {
+        for index in 0...3 {
+            if let media = medias?.objectAtIndex(index: index) {
+                thumbnailsArray[index].image = media.thumbnailImage()
+            }
+        }
+
+        let mediasCount = medias?.count ?? 0
+        if mediasCount > 4 {
+            numberLabel.text = String(mediasCount - 4)
+            additionalMediaOverlay.isHidden = false
+        }
     }
 
     func update(movie: VLCMLMedia) {
@@ -99,17 +146,39 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         progressView.progress = progress
         newLabel.isHidden = !movie.isNew
         sizeLabel.text = movie.formatSize()
+        thumbnailView.layer.cornerRadius = 6
+
+        progressView.progressViewStyle = .bar
+
+        if !progressView.isHidden {
+            if #available(iOS 11.0, *) {
+                progressView.layer.cornerRadius = 7
+                progressView.clipsToBounds = true
+                progressView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            } else {
+                let path = UIBezierPath(roundedRect: progressView.bounds,
+                                        byRoundingCorners: [.bottomLeft, .bottomRight],
+                                        cornerRadii: CGSize(width: 7, height: 7))
+                let maskLayer = CAShapeLayer()
+                maskLayer.path = path.cgPath
+                progressView.layer.mask = maskLayer
+            }
+        }
     }
 
     func update(playlist: VLCMLPlaylist) {
-        collectionOverlay.isHidden = false
-        numberOfTracks.text = String(playlist.media?.count ?? 0)
-        titleLabel.text = playlist.name
-        accessibilityLabel = playlist.accessibilityText()
-        descriptionLabel.text = playlist.numberOfTracksString()
-        thumbnailView.image = playlist.thumbnail()
+        mediaView.isHidden = true
         progressView.isHidden = true
-        newLabel.isHidden = true
+
+        setupGroupView()
+
+        setThumbnails(medias: playlist.media)
+
+        groupTitleLabel.text = playlist.title()
+        groupSizeLabel.text = playlist.numberOfTracksString()
+
+        thumbnailsBackground.isHidden = false
+        groupView.isHidden = false
     }
 
     func update(mediaGroup: VLCMLMediaGroup) {
@@ -124,14 +193,18 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
             return
         }
 
-        collectionOverlay.isHidden = false
-        numberOfTracks.text = String(mediaGroup.nbVideo())
-        titleLabel.text = mediaGroup.name()
-        accessibilityLabel = mediaGroup.accessibilityText()
-        descriptionLabel.text = mediaGroup.numberOfTracksString()
-        thumbnailView.image = mediaGroup.thumbnail()
+        mediaView.isHidden = true
         progressView.isHidden = true
-        newLabel.isHidden = true
+
+        setupGroupView()
+
+        setThumbnails(medias: mediaGroup.media(of: .video))
+
+        groupTitleLabel.text = mediaGroup.name()
+        groupSizeLabel.text = mediaGroup.numberOfTracksString()
+
+        thumbnailsBackground.isHidden = false
+        groupView.isHidden = false
     }
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
@@ -170,10 +243,20 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         thumbnailView.image = nil
         progressView.isHidden = true
         newLabel.isHidden = true
-        collectionOverlay.isHidden = true
-        numberOfTracks.text = ""
         checkboxImageView.isHidden = true
         selectionOverlay.isHidden = true
         sizeLabel.isHidden = true
+
+        mediaView.isHidden = false
+        thumbnailsBackground.isHidden = true
+        firstThumbnail.image = nil
+        secondThumbnail.image = nil
+        thirdThumbnail.image = nil
+        fourthThumbnail.image = nil
+        additionalMediaOverlay.isHidden = true
+        groupTitleLabel.text = ""
+        numberLabel.text = ""
+        groupSizeLabel.text = ""
+        groupView.isHidden = true
     }
 }
