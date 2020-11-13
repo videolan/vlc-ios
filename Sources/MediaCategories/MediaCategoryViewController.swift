@@ -220,7 +220,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     @objc func reloadData() {
-        let timeInterval: Double = 0.3
+        // Timer set to 0.0 instead of 0.3 seconds because it causes a bug related to the swipe to delete.
+        // The timer was created two times due to several calls to reloadData().
+        // Meanwhile the user could try so swipe to delete and when the timer finally fired, the cell scrolled would be updated.
+        // Leading to another cell being scrolled instead of the first one.
+        let timeInterval: Double = 0.0
 
         if reloadTimer == nil {
             DispatchQueue.main.async {

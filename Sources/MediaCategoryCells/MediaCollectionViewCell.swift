@@ -197,7 +197,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             maxXOffset = scrollView.contentOffset.x
         }
 
-        if scrollView.contentOffset.x >= 100 {
+        if scrollView.contentOffset.x >= deleteButton.frame.size.width + 30 {
             if #available(iOS 10.0, *), !vibrationTriggered {
                 let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
                 impactFeedbackGenerator.prepare()
@@ -259,7 +259,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         separatorLabel.text = "·"
         separatorLabel.isHidden = true
         descriptionStackView.insertArrangedSubview(separatorLabel, at: 1)
-        scrollView.isScrollEnabled = false
+        scrollView.isScrollEnabled = true
     }
 
     func update(album: VLCMLAlbum) {
@@ -285,6 +285,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     func update(movie: VLCMLMedia) {
         titleLabel.text = movie.title()
         accessibilityLabel = movie.accessibilityText(editing: false)
+        thumbnailView.layer.cornerRadius = 3
         thumbnailView.image = movie.thumbnailImage()
         newLabel.isHidden = !movie.isNew
         sizeLabel.text = movie.mediaDuration()
@@ -299,8 +300,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.text = playlist.name
         accessibilityLabel = playlist.accessibilityText()
         descriptionLabel.text = playlist.numberOfTracksString()
+        thumbnailView.layer.cornerRadius = 3
         thumbnailView.image = playlist.thumbnail()
         dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
+        dragIndicatorImageView.tintColor = PresentationTheme.current.colors.orangeUI
         dragIndicatorImageView.isHidden = false
         scrollView.isScrollEnabled = true
     }
@@ -322,8 +325,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeLabel.text = String(mediaGroup.duration())
         accessibilityLabel = mediaGroup.accessibilityText()
 
+        thumbnailView.layer.cornerRadius = 3
         thumbnailView.image = mediaGroup.thumbnail()
         dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
+        dragIndicatorImageView.tintColor = PresentationTheme.current.colors.orangeUI
 
         newLabel.isHidden = true
         dragIndicatorImageView.isHidden = false
