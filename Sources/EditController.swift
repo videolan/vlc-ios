@@ -281,7 +281,7 @@ extension EditController: UICollectionViewDataSource {
                 cell.disableScrollView()
                 if let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist {
                     cell.dragIndicatorImageView.isHidden = false
-                } else if cell.media is VLCMLMediaGroup {
+                } else if cell.media is VLCMLMediaGroup || cell.media is VLCMLPlaylist {
                     cell.dragIndicatorImageView.isHidden = true
                 }
             }

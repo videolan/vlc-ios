@@ -300,7 +300,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         accessibilityLabel = playlist.accessibilityText()
         descriptionLabel.text = playlist.numberOfTracksString()
         thumbnailView.image = playlist.thumbnail()
-        scrollView.isScrollEnabled = false
+        dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
+        dragIndicatorImageView.isHidden = false
+        scrollView.isScrollEnabled = true
     }
 
     func update(mediaGroup: VLCMLMediaGroup) {
