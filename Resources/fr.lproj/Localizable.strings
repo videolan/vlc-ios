@@ -49,7 +49,7 @@
 "AUDIO_DELAY" = "Retard de l'audio";
 "BUTTON_SLEEP_TIMER" = "Minuterie de veille";
 "SLEEP_TIMER_UPDATED" = "Minuterie de veille mise à jour";
-"CONTINUE_PLAYBACK" = "Reprendre la lecture ?";
+"CONTINUE_PLAYBACK" = "Continuer la lecture ?";
 "CONTINUE_PLAYBACK_LONG" = "Voulez-vous reprendre la lecture de « %@ » là où vous l'aviez arrêtée ?";
 
 "BUTTON_ABOUT" = "À propos";
@@ -175,7 +175,7 @@
 "OFF" = "Non";
 
 "EMPTY_LIBRARY" = "Médiathèque vide";
-"EMPTY_LIBRARY_LONG" = "Pour la lecture, vous pouvez diffuser depuis un serveur de votre réseau local ou du nuage, ou alors synchroniser des médias avec votre appareil en utilisant iTunes, le téléversement Wi-Fi ou des services de nuage.";
+"EMPTY_LIBRARY_LONG" = "Pour la lecture, vous pouvez diffuser des médias en continu à partir d'un serveur sur votre réseau local, depuis le cloud ou synchroniser les médias sur votre appareil en utilisant les services iTunes, Wi-Fi ou services de nuage.";
 
 "EMPTY_PLAYLIST" = "Liste de lecture vide";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Ajouter un média en modifiant les catégories respectives.";
