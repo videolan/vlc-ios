@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC untuk iOS merupakan port pemain media VLC percuma untuk iPad, iPhone dan iPod touch.\nIa dapat memainkan semua cereka, rancangan tv dan muzik anda dalam kebanyakan format secara terus tanpa penukaran.\nIa membenarkan penyegerakan fail dengan Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, muat turun terus dan juga menerusi perkongsian WiFi serta penstriman dari pelayan media UPnP, SMB, FTP dan sesawang.\n\nVLC untuk iOS sepenuhnya percuma dan bersumber terbuka.";
+"STORE_DESCRIPTION" = "VLC untuk iOS adalah port pemain media VLC percuma untuk iPad, iPhone dan iPad touch.\nIa boleh memainkan semua jenis wayang, rancangan dan muzik dalam pelbagai format secara terus tanpa membuat penukaran format.\nIa membenarkan penyegerakkan fail dengan Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, muat turun terus melalui perkongsian Wi-Fi selain penstriman daripada SMB, FTP, UPnP/DLNA pelayan media dan sesawang. \nVLC menawarkan sokongan untuk sari kata maju termasuk SSA serasi, audio pelbagai trek, dan kawalan kelajuan main balik.\nVLC untuk iOS adalah percuma sepenuhnya dan bersumber terbuka.";
 
 "STORE_DESCRIPTION_TV" = "Pemain media VLC adalah pemain multimedia platform-silang bersumber terbuka dan percuma.\nIa dapat memainkan semua cereka, rancangan tv dan muzik anda dalam kebanyakan format secara terus tanpa penukaran.\nIa membenarkan penstriman dari perkhidmatan awan (Dropbox, OneDrive, Box), Main Balik Jauh dari Mac atau PC anda melalui Web UI dan juga penstriman dari pelayan media UPnP, SMB, FTP dan sesawang.\n\nVLC untuk iOS sepenuhnya percuma dan bersumber terbuka.\n\nData meta dan kerja seni disediakan oleh TMDb dan Hatchet, yang menyelenggara pangkalan data cereka dan muzik oleh komuniti.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Strim Rangkaian";
 "OPEN_NETWORK_HELP" = "Masukkan mana-mana alamat HTTP, RTSP, RTMP, MMS, FTP atau UDP/RTP untuk membuka strim secara langsung.";
 "HTTP_UPLOAD_SERVER_OFF" = "Pelayan Tidak Aktif";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Tiada sambungan WiFi aktif";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Tiada sambungan Wi-Fi aktif";
 "OPEN_STREAM_OR_DOWNLOAD" = "Adakah anda ingin memuat turun atau memainkan URL ini?";
 "SHARED_VLC_IOS_LIBRARY" = "VLC Terkongsi untuk Pustaka iOS";
 "SMB_CIFS_FILE_SERVERS" = "Pelayan Fail (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "Mati";
 
 "EMPTY_LIBRARY" = "Pustaka Media Kosong";
-"EMPTY_LIBRARY_LONG" = "Untuk main balik, anda boleh strimkan media dari pelayan pada rangkaian setempat anda, dari awan atau segerakkan media ke peranti anda menggunakan iTunes, Muat Naik WiFi atau perkhidmatan Awam.";
+"EMPTY_LIBRARY_LONG" = "Untuk main balik, anda boleh menstrim media melalui pelayan pada rangkaian tempatan anda, daripada cloud atau menyegerakkan media ke peranti anda menggunakan iTunes,  Wi-Fi Upload atau servis Cloud.";
 
 "EMPTY_PLAYLIST" = "Senarai main kosong";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Tambah media ketika menyunting dalam kategori masing-masing.";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "Segerak Fail iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Segerak Dengan Komputer Anda";
 "FIRST_STEPS_ITUNES_DETAILS" = "Sambung peranti anda ke iTunes dan pilih peranti anda. Pilih \"Perkongsian Fail\", di sebelah kiri menu iTunes kemudian cari VLC untuk memindahkan fail anda.";
-"FIRST_STEPS_WIFI_TITLE" = "Kongsi melalui Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Kongsi melalui Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Masukkan URL terjana dalam pelayar sesawang kegemaran anda ketika bersambung dengan rangkaian yang sama sebagai telefon anda.";
 "FIRST_STEPS_CLOUDS" = "Awan";
 "FIRST_STEPS_CLOUD_TITLE" = "Awan";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Tiada pelayan ditemui";
 "NO_RECENT_STREAMS" = "Tiada strim telah dimainkan baru-baru ini";
 
-"WEBINTF_TITLE" = "Perkongsian melalui WiFi";
+"WEBINTF_TITLE" = "Berkongsi melalui Wi-Fi";
 "WEBINTF_DROPFILES" = "Lepas Fail";
 "WEBINTF_DROPFILES_LONG" = "Lepas fail ke tetingkap untuk menambahnya ke dalam %@ anda.<br>Atau klik pada butang \"+\" untuk guna dialog pengambil fail.";
 "WEBINTF_DOWNLOADFILES" = "Muat Turun Fail";
