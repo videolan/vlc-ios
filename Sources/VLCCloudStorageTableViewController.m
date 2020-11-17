@@ -61,8 +61,6 @@
     _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
     _sortBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: [NSString stringWithFormat:NSLocalizedString(@"SORT", nil), 0]
                                                           style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonClicked:)];
-    _sortBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
-    _numberOfFilesBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
 
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _activityIndicator.hidesWhenStopped = YES;
@@ -75,8 +73,6 @@
 
     _progressView = [VLCProgressView new];
     _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
-    _progressView.tintColor = PresentationTheme.current.colors.orangeUI;
-    _progressView.progressLabel.textColor = PresentationTheme.current.colors.cellTextColor;
     
     sheet = [[VLCActionSheet alloc] init];
     manager = [[VLCCloudSortingSpecifierManager alloc] initWithController: self];
@@ -91,6 +87,8 @@
 
 - (void)updateForTheme
 {
+    _sortBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
+    _numberOfFilesBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
     self.tableView.separatorColor = PresentationTheme.current.colors.background;
     self.tableView.backgroundColor = PresentationTheme.current.colors.background;
     self.view.backgroundColor = PresentationTheme.current.colors.background;
@@ -98,7 +96,9 @@
     _activityIndicator.activityIndicatorViewStyle = PresentationTheme.current == PresentationTheme.brightTheme ? UIActivityIndicatorViewStyleGray : UIActivityIndicatorViewStyleWhiteLarge;
     self.loginToCloudStorageView.backgroundColor = PresentationTheme.current.colors.background;
     self.navigationController.toolbar.barStyle = PresentationTheme.current.colors.toolBarStyle;
+    _progressView.tintColor = PresentationTheme.current.colors.orangeUI;
     _progressView.progressLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+    [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated

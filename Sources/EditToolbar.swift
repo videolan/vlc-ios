@@ -32,9 +32,9 @@ class EditToolbar: UIView {
     }()
 
     private var rightStackView: UIStackView = {
-        let rightStackView = UIStackView()
-        rightStackView.translatesAutoresizingMaskIntoConstraints = false
-        return rightStackView
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
 
     private var addToPlaylistButton: UIButton = {

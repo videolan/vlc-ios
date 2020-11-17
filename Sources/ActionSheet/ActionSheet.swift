@@ -80,12 +80,12 @@ class ActionSheet: UIViewController {
     }()
 
     private lazy var mainStackView: UIStackView = {
-        let mainStackView = UIStackView()
-        mainStackView.spacing = 0
-        mainStackView.axis = .vertical
-        mainStackView.alignment = .center
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        return mainStackView
+        let stackView = UIStackView()
+        stackView.spacing = 0
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
 
     private lazy var maxCollectionViewHeightConstraint: NSLayoutConstraint = {
