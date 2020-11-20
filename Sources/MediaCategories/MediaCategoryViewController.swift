@@ -23,13 +23,14 @@ import Foundation
 class MediaCategoryViewController: UICollectionViewController, UISearchBarDelegate, IndicatorInfoProvider {
     // MARK: - Properties
     var model: MediaLibraryBaseModel
+    private var secondModel: MediaLibraryBaseModel
     private var services: Services
 
     var searchBar = UISearchBar(frame: .zero)
     var isSearching: Bool = false
     private let mediaGridCellNibIdentifier = "MediaGridCollectionCell"
     private var searchBarConstraint: NSLayoutConstraint?
-    private let searchDataSource: LibrarySearchDataSource
+    private var searchDataSource: LibrarySearchDataSource
     private let searchBarSize: CGFloat = 50.0
     private let userDefaults = UserDefaults.standard
     private var rendererButton: UIButton
@@ -57,16 +58,27 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     @objc private lazy var sortActionSheet: ActionSheet = {
         var header: ActionSheetSortSectionHeader
-        var displayGridLayout: Bool = true
+        var displayGroupLayout: Bool = false
         var collectionModelName: String = ""
+        var secondSortModel: SortModel? = nil
 
         if let model = model as? CollectionModel {
-            collectionModelName = String(describing: type(of: model.mediaCollection))
+            collectionModelName = String(describing: type(of: model.mediaCollection)) + model.name
+        } else if let model = model as? MediaGroupViewModel {
+            displayGroupLayout = true
+            collectionModelName = model.name
+        } else if let model = model as? VideoModel {
+            displayGroupLayout = true
+            collectionModelName = secondModel.name
+            secondSortModel = model.sortModel
+        } else {
+            collectionModelName = model.name
         }
 
         header = ActionSheetSortSectionHeader(model: model.sortModel,
-                                              displayGridLayout: displayGridLayout,
-                                              currentModelType: collectionModelName + model.name)
+                                              secondModel: secondSortModel,
+                                              displayGroupsLayout: displayGroupLayout,
+                                              currentModelType: collectionModelName)
 
         let actionSheet = ActionSheet(header: header)
         header.delegate = self
@@ -82,6 +94,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                 UserDefaults.standard.set(sortingCriteria.rawValue, forKey: "\(kVLCSortDefault)\(model.name)")
             }
             self?.sortActionSheet.removeActionSheet()
+            self?.reloadData()
         }
         return actionSheet
     }()
@@ -127,7 +140,18 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     init(services: Services, model: MediaLibraryBaseModel) {
         self.services = services
-        self.model = model
+
+        let videoModel = VideoModel(medialibrary: services.medialibraryService)
+        videoModel.secondName = model.name
+
+        if model is MediaGroupViewModel {
+            self.model = userDefaults.bool(forKey: "\(kVLCGroupLayout)\(model.name)") ? videoModel : model
+            self.secondModel = userDefaults.bool(forKey: "\(kVLCGroupLayout)\(model.name)") ? model : videoModel
+        } else {
+            self.model = model
+            self.secondModel = videoModel
+        }
+
         self.rendererButton = services.rendererDiscovererManager.setupRendererButton()
         self.searchDataSource = LibrarySearchDataSource(model: model)
 
@@ -889,23 +913,39 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
     }
 
     func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader, onSwitchIsOnChange: Bool, type: ActionSheetSortHeaderOptions) {
+        var prefix: String = ""
+        var suffix: String = ""
         if type == .descendingOrder {
             model.sort(by: model.sortModel.currentSort, desc: onSwitchIsOnChange)
-            userDefaults.set(onSwitchIsOnChange, forKey: "\(kVLCSortDescendingDefault)\(model.name)")
-        } else {
+            prefix = kVLCSortDescendingDefault
+            suffix = model is VideoModel ? secondModel.name : model.name
+        } else if type == .layoutChange {
             var collectionModelName: String = ""
             if let model = model as? CollectionModel {
                 collectionModelName = getTypeName(of: model.mediaCollection)
             }
 
-            userDefaults.set(onSwitchIsOnChange,
-                             forKey: "\(kVLCAudioLibraryGridLayout)\(collectionModelName + model.name)")
+            prefix = kVLCAudioLibraryGridLayout
+            suffix = model is VideoModel ? secondModel.name : collectionModelName + model.name
+        } else {
+            let previousModel = model
+            model = secondModel
+            secondModel = previousModel
+            self.searchDataSource = LibrarySearchDataSource(model: model)
+            editController = EditController(mediaLibraryService: services.medialibraryService, model: model, presentingView: collectionView)
+            editController.delegate = self
+            model.sort(by: secondModel.sortModel.currentSort, desc: secondModel.sortModel.desc)
 
-            setupCollectionView()
-            cachedCellSize = .zero
-            collectionView?.collectionViewLayout.invalidateLayout()
-            reloadData()
+            prefix = kVLCGroupLayout
+            suffix = model is VideoModel ? secondModel.name : model.name
+            sortActionSheet.removeActionSheet()
         }
+
+        userDefaults.set(onSwitchIsOnChange, forKey: "\(prefix)\(suffix)")
+        setupCollectionView()
+        cachedCellSize = .zero
+        collectionView?.collectionViewLayout.invalidateLayout()
+        reloadData()
     }
 }
 

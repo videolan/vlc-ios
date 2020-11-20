@@ -18,11 +18,15 @@ class VideoModel: MediaModel {
 
     var files = [VLCMLMedia]()
 
-    var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }
+    var cellType: BaseCollectionViewCell.Type {
+        return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(secondName)") ? MovieCollectionViewCell.self : MediaCollectionViewCell.self
+    }
 
     var medialibrary: MediaLibraryService
 
     var name: String = "ALL_VIDEOS"
+
+    var secondName: String = ""
 
     var indicatorName: String = NSLocalizedString("ALL_VIDEOS", comment: "")
 

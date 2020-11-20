@@ -11,6 +11,7 @@
 enum ActionSheetSortHeaderOptions {
     case descendingOrder
     case layoutChange
+    case groupChange
 }
 
 protocol ActionSheetSortSectionHeaderDelegate: class {
@@ -20,14 +21,15 @@ protocol ActionSheetSortSectionHeaderDelegate: class {
 }
 
 class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
-    private var displayGridLayoutOption = false
+    private var displayGroupsLayoutOption = false
     private var modelType: String
 
     override var cellHeight: CGFloat {
-        return displayGridLayoutOption ? 150 : 100
+        return displayGroupsLayoutOption ? 225 : 185
     }
 
-    private let sortModel: SortModel
+    private var sortModel: SortModel
+    private var secondSortModel: SortModel?
     private let userDefaults = UserDefaults.standard
 
     private let descendingStackView: UIStackView = {
@@ -46,12 +48,28 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return descendingStackView
     }()
 
+    private let disableGroupsStackView: UIStackView = {
+        let disableGroupsStackView = UIStackView()
+        disableGroupsStackView.spacing = 0
+        disableGroupsStackView.alignment = .center
+        disableGroupsStackView.translatesAutoresizingMaskIntoConstraints = false
+        return disableGroupsStackView
+    }()
+
     private let mainStackView: UIStackView = {
         let descendingStackView = UIStackView()
         descendingStackView.spacing = 10
         descendingStackView.axis = .vertical
         descendingStackView.translatesAutoresizingMaskIntoConstraints = false
         return descendingStackView
+    }()
+
+    private let secondaryStackView: UIStackView = {
+        let secondaryStackView = UIStackView()
+        secondaryStackView.spacing = 10
+        secondaryStackView.axis = .vertical
+        secondaryStackView.translatesAutoresizingMaskIntoConstraints = false
+        return secondaryStackView
     }()
 
     private let descendingLabel: UILabel = {
@@ -84,6 +102,28 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return descendingLabel
     }()
 
+    private let disableGroupsLabel: UILabel = {
+        let disableGroupsLabel = UILabel()
+        disableGroupsLabel.text = NSLocalizedString("DISABLE_GROUPS", comment: "")
+        disableGroupsLabel.accessibilityLabel = NSLocalizedString("DISABLE_GROUPS", comment: "")
+        disableGroupsLabel.accessibilityHint = NSLocalizedString("DISABLE_GROUPS", comment: "")
+        disableGroupsLabel.font = .systemFont(ofSize: 15, weight: .medium)
+        disableGroupsLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        disableGroupsLabel.translatesAutoresizingMaskIntoConstraints = false
+        return disableGroupsLabel
+    }()
+
+    private let displayByLabel: UILabel = {
+        let displayByLabel = UILabel()
+        displayByLabel.text = NSLocalizedString("DISPLAY_AS", comment: "")
+        displayByLabel.accessibilityLabel = NSLocalizedString("DISPLAY_AS", comment: "")
+        displayByLabel.accessibilityHint = NSLocalizedString("DISPLAY_AS", comment: "")
+        displayByLabel.font = .boldSystemFont(ofSize: 17)
+        displayByLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        displayByLabel.translatesAutoresizingMaskIntoConstraints = false
+        return displayByLabel
+    }()
+
     let layoutChangeSwitch: UISwitch = {
         let actionSwitch = UISwitch()
         actionSwitch.addTarget(self,
@@ -93,16 +133,29 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return actionSwitch
     }()
 
+    let disableGroupsSwitch: UISwitch = {
+        let disableGroupsSwitch = UISwitch()
+        disableGroupsSwitch.addTarget(self,
+                                      action: #selector(handleDisableGroupChangeSwitch(_:)),
+                                      for: .valueChanged)
+        disableGroupsSwitch.accessibilityHint = NSLocalizedString("DISABLE_GROUPS_SWITCH_HINT", comment: "")
+        disableGroupsSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return disableGroupsSwitch
+    }()
+
     weak var delegate: ActionSheetSortSectionHeaderDelegate?
 
-    init(model: SortModel, displayGridLayout: Bool = false, currentModelType: String) {
-        displayGridLayoutOption = displayGridLayout
+    init(model: SortModel, secondModel: SortModel?, displayGroupsLayout: Bool = false, currentModelType: String) {
+        displayGroupsLayoutOption = displayGroupsLayout
         modelType = currentModelType
         sortModel = model
+        secondSortModel = secondModel
         super.init(frame: .zero)
         actionSwitch.isOn = sortModel.desc
 
         layoutChangeSwitch.isOn = userDefaults.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(modelType)")
+
+        disableGroupsSwitch.isOn = userDefaults.bool(forKey: "\(kVLCGroupLayout)\(modelType)")
 
         translatesAutoresizingMaskIntoConstraints = false
         setupStackView()
@@ -119,6 +172,8 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
             actionSwitch.isOn = sortModel.desc
 
             layoutChangeSwitch.isOn = userDefaults.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(modelType)")
+
+            disableGroupsSwitch.isOn = userDefaults.bool(forKey: "\(kVLCGroupLayout)\(modelType)")
         }
     }
     required init?(coder aDecoder: NSCoder) {
@@ -143,20 +198,51 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
                                                type: .layoutChange)
      }
 
+    @objc func handleDisableGroupChangeSwitch(_ sender: UISwitch) {
+        delegate?.actionSheetSortSectionHeader(self, onSwitchIsOnChange: sender.isOn, type: .groupChange)
+
+        layoutChangeSwitch.isOn = userDefaults.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(modelType)")
+        actionSwitch.isOn = sortModel.desc
+        if let model = secondSortModel {
+            let previousSortModel = sortModel
+            sortModel = model
+            secondSortModel = previousSortModel
+            willMove(toWindow: nil)
+        }
+    }
+
     private func setupStackView() {
         descendingStackView.addArrangedSubview(descendingLabel)
         descendingStackView.addArrangedSubview(actionSwitch)
 
-        if displayGridLayoutOption {
-            gridLayoutStackView.addArrangedSubview(gridLayoutLabel)
-            gridLayoutStackView.addArrangedSubview(layoutChangeSwitch)
+        mainStackView.addArrangedSubview(descendingStackView)
+
+        gridLayoutStackView.addArrangedSubview(gridLayoutLabel)
+        gridLayoutStackView.addArrangedSubview(layoutChangeSwitch)
+
+        secondaryStackView.addArrangedSubview(gridLayoutStackView)
+
+        if displayGroupsLayoutOption {
+            disableGroupsStackView.addArrangedSubview(disableGroupsLabel)
+            disableGroupsStackView.addArrangedSubview(disableGroupsSwitch)
+            secondaryStackView.addArrangedSubview(disableGroupsStackView)
         }
 
-        mainStackView.addArrangedSubview(descendingStackView)
-        mainStackView.addArrangedSubview(gridLayoutStackView)
         addSubview(mainStackView)
+        addSubview(secondaryStackView)
+        addSubview(displayByLabel)
 
         NSLayoutConstraint.activate([
+            displayByLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
+            displayByLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            displayByLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+
+            secondaryStackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
+            secondaryStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            secondaryStackView.topAnchor.constraint(equalTo: displayByLabel.bottomAnchor, constant: 15),
+
+            title.topAnchor.constraint(equalTo: secondaryStackView.bottomAnchor, constant: 15),
+
             mainStackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             mainStackView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 15),

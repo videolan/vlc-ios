@@ -67,7 +67,6 @@ class ActionSheetSectionHeader: UIView {
         addSubview(title)
         NSLayoutConstraint.activate([
             title.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 20)
         ])
     }
 }

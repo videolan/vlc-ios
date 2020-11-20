@@ -359,6 +359,9 @@
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 "GRID_LAYOUT" = "Grid Layout";
+"DISPLAY_AS" = "Display as";
+"DISABLE_GROUPS" = "Disable Groups";
+"DISABLE_GROUPS_SWITCH_HINT" = "Displays all the videos with or without groups";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
