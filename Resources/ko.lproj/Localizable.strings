@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "iOS용 VLC는 iPad와 iPhone, iPod 전용으로 나온 무료/자유 VLC 미디어 플레이어입니다. \n저희는 대부분의 동영상, 방송과 음악 형식을 변환 과정 없이 바로 재생할 수 있습니다.\nDropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, 직접 다운로드와 Wifi 공유를 통한 파일 동기화를 할 수 있고 SMB, FTP, UPnP/DLNA 미디어 서버와 웹으로부터 스트리밍할 수도 있습니다.\nVLC는 SSA 적합성을 만족하고 다중 트랙 오디오, 재생 속도 조절과 같은 고급 자막 기술을 지원합니다.\n\niOS용 VLC은 완전한 오픈소스-자유 소프트웨어입니다.";
+"STORE_DESCRIPTION" = "iOS용 VLC는 무료 VLC 미디어 플레이어를 iPad, iPhone 및 iPod touch에 이식 한 버전입니다.\n별도의 변환 없이 대부분의 확장자로 모든 영화, 쇼 및 음악을 재생할 수 있습니다.\nDropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, 직접 다운로드 및 Wi-Fi 공유를 통한 파일 동기화는 물론 SMB, FTP, UPnP / DLNA 미디어 서버 및 웹을 스트리밍 할 수 있습니다.\nVLC는 완전한 SSA 호환성, 다중 오디오 및 재생 속도 제어를 포함한 고급 자막을 지원합니다.\n\niOS 용 VLC는 완전 무료이며 오픈 소스입니다.";
 
 "STORE_DESCRIPTION_TV" = "VLC 미디어 플레이어는 오픈소스-자유 소프트웨어인 멀티미디어 재생 프로그램입니다.\n저희는 대부분의 동영상, 방송과 음악 형식을 변환 과정 없이 바로 재생할 수 있습니다.\n클라우드 서비스(Dropbox, OneDrive, Box)를 통한 스트리밍 할 수 있고, 맥이나 PC에서 Web UI를 통해 원격으로 재생할 수 있을 뿐만 아니라 SMB, FTP, UPnP/DLNA 미디어 서버와 웹으로부터 스트리밍도 할 수 있습니다.\nVLC는 SSA 적합성을 만족하고 다중 트랙 오디오, 재생 속도 조절과 같은 고급 자막 기술을 지원합니다.\n\niOS용 VLC은 완전한 오픈소스-자유 소프트웨어입니다.\n\n메타데이터와 이미지는 영화 및 음악 데이터베이스 커뮤니티 TMDb와 Hatchet에서 제공되었습니다.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "네트워크 스트림";
 "OPEN_NETWORK_HELP" = "스트림을 직접 열려면 HTTP, RTSP, RTMP, MMS, FTP 나 UDP/RTP 주소를 입력하세요.";
 "HTTP_UPLOAD_SERVER_OFF" = "미활성 서버";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "유효한 WiFi 접속 없음";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "활성화된 Wi-FI 연결 없음";
 "OPEN_STREAM_OR_DOWNLOAD" = "이 주소를 다운로드하거나 재생할까요?";
 "SHARED_VLC_IOS_LIBRARY" = "공유된 iOS용 VLC 라이브러리";
 "SMB_CIFS_FILE_SERVERS" = "파일 서버(SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "끄기";
 
 "EMPTY_LIBRARY" = "미디어 라이브러리 비우기";
-"EMPTY_LIBRARY_LONG" = "재생하려면 당신의 로컬 네트워크/클라우드에서 미디어를 스트림할 수 있고, 아이튠즈/와이파이 업로드/클라우드 서비스를 이용해 당신의 기기에 미디어를 동기화할 수 있습니다.";
+"EMPTY_LIBRARY_LONG" = "재생을 위해 로컬 네트워크의 서버, 클라우드에서 미디어를 스트리밍하거나 iTunes, Wi-Fi 업로드 또는 클라우드 서비스를 사용하여 미디어를 장치와 동기화 할 수 있습니다.";
 
 "EMPTY_PLAYLIST" = "재생목록 비었음";
 "EMPTY_PLAYLIST_DESCRIPTION" = "편집하면서 미디어를 각각 다른 카테고리에서 추가하기";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "iTunes 파일 동기화하기";
 "FIRST_STEPS_ITUNES_TITLE" = "컴퓨터와 싱크하기";
 "FIRST_STEPS_ITUNES_DETAILS" = "iTunes에 기기를 연결하세요. 파일을 전송하기를 위하여 메뉴 왼편에 \"File Sharing\"을 선택하시고 VLC 항목을 찾아보세요.";
-"FIRST_STEPS_WIFI_TITLE" = "와이파이를 통한 공유";
+"FIRST_STEPS_WIFI_TITLE" = "Wi-Fi로 공유하기";
 "FIRST_STEPS_WIFI_DETAILS" = "폰이 연결된 네트워크를 사용하며 발생된 URL을 가장 좋은 웹 브라우저에 넣기";
 "FIRST_STEPS_CLOUDS" = "클라우드";
 "FIRST_STEPS_CLOUD_TITLE" = "클라우드";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "서버를 찾지 못했습니다";
 "NO_RECENT_STREAMS" = "최근에 재생한 스트림이 없습니다";
 
-"WEBINTF_TITLE" = "WiFi를 통해 공유";
+"WEBINTF_TITLE" = "Wi-Fi로 공유";
 "WEBINTF_DROPFILES" = "파일 놓기";
 "WEBINTF_DROPFILES_LONG" = " \"+\" 버튼을 클릭하여 %@에 추가하기 위한 파일을 선택합니다.<br>또는 창에 직접 파일을 끌어 놓으세요.";
 "WEBINTF_DOWNLOADFILES" = "파일 다운로드";
@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "내림차순";
 "DESCENDING_SWITCH_LABEL" = "오름차순 또는 내림차순";
 "DESCENDING_SWITCH_HINT" = "내용을 오름차순 또는 내림차순으로 정렬하기";
+"GRID_LAYOUT" = "그리드 레이아웃";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -440,7 +441,7 @@
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "추가중...";
 
 /* tip jar */
-"GIVE_TIP" = "Give a Tip";
+"GIVE_TIP" = "기부하기";
 "CANNOT_MAKE_PAYMENTS" = "당신은 이 기기에서 결제하는 것이 허용되지 않았습니다.";
 "PURCHASE_FAILED" = "구매 실패함";
-"SEND_GIFT" = "Send your gift";
+"SEND_GIFT" = "선물하기";

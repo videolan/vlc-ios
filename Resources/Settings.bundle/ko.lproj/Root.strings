@@ -100,7 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "디바이스 백업에 미디어 라이브러리 포함하기";
 
 "SETTINGS_FILE_SYNC" = "파일 동기화";
-"SETTINGS_WIFISHARING_IPv6" = "WiFi 공유에서 IPv6 지원";
+"SETTINGS_WIFISHARING_IPv6" = "Wi-Fi Sharing을 위한 IPv6 지원";
 
 "SETTINGS_ARTWORK" = "아트워크";
 "SETTINGS_DOWNLOAD_ARTWORK" = "아트워크 다운로드";
