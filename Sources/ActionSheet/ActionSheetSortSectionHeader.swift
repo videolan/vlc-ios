@@ -41,11 +41,11 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     }()
 
     private let gridLayoutStackView: UIStackView = {
-        let descendingStackView = UIStackView()
-        descendingStackView.spacing = 0
-        descendingStackView.alignment = .center
-        descendingStackView.translatesAutoresizingMaskIntoConstraints = false
-        return descendingStackView
+        let gridLayoutStackView = UIStackView()
+        gridLayoutStackView.spacing = 0
+        gridLayoutStackView.alignment = .center
+        gridLayoutStackView.translatesAutoresizingMaskIntoConstraints = false
+        return gridLayoutStackView
     }()
 
     private let disableGroupsStackView: UIStackView = {
@@ -57,11 +57,11 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     }()
 
     private let mainStackView: UIStackView = {
-        let descendingStackView = UIStackView()
-        descendingStackView.spacing = 10
-        descendingStackView.axis = .vertical
-        descendingStackView.translatesAutoresizingMaskIntoConstraints = false
-        return descendingStackView
+        let mainStackView = UIStackView()
+        mainStackView.spacing = 10
+        mainStackView.axis = .vertical
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        return mainStackView
     }()
 
     private let secondaryStackView: UIStackView = {
@@ -76,6 +76,8 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         let descendingLabel = UILabel()
         descendingLabel.textColor = PresentationTheme.current.colors.cellTextColor
         descendingLabel.text = NSLocalizedString("DESCENDING_LABEL", comment: "")
+        descendingLabel.accessibilityLabel = NSLocalizedString("DESCENDING_LABEL", comment: "")
+        descendingLabel.accessibilityHint = NSLocalizedString("DESCENDING_LABEL", comment: "")
         descendingLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         descendingLabel.translatesAutoresizingMaskIntoConstraints = false
         return descendingLabel
@@ -91,15 +93,15 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     }()
 
     private let gridLayoutLabel: UILabel = {
-        let descendingLabel = UILabel()
-        descendingLabel.text = NSLocalizedString("GRID_LAYOUT", comment: "")
-        descendingLabel.accessibilityLabel = NSLocalizedString("GRID_LAYOUT", comment: "")
-        descendingLabel.accessibilityHint = NSLocalizedString("GRID_LAYOUT", comment: "")
+        let gridLayoutLabel = UILabel()
+        gridLayoutLabel.text = NSLocalizedString("GRID_LAYOUT", comment: "")
+        gridLayoutLabel.accessibilityLabel = NSLocalizedString("GRID_LAYOUT", comment: "")
+        gridLayoutLabel.accessibilityHint = NSLocalizedString("GRID_LAYOUT", comment: "")
         //TODO: Set appropriate accessibilityLabel and accessibilityHint
-        descendingLabel.font = .systemFont(ofSize: 15, weight: .medium)
-        descendingLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        descendingLabel.translatesAutoresizingMaskIntoConstraints = false
-        return descendingLabel
+        gridLayoutLabel.font = .systemFont(ofSize: 15, weight: .medium)
+        gridLayoutLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        gridLayoutLabel.translatesAutoresizingMaskIntoConstraints = false
+        return gridLayoutLabel
     }()
 
     private let disableGroupsLabel: UILabel = {
@@ -125,12 +127,14 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     }()
 
     let layoutChangeSwitch: UISwitch = {
-        let actionSwitch = UISwitch()
-        actionSwitch.addTarget(self,
+        let layoutChangeSwitch = UISwitch()
+        layoutChangeSwitch.addTarget(self,
                                action: #selector(handleLayoutChangeSwitch(_:)),
                                for: .valueChanged)
-        actionSwitch.translatesAutoresizingMaskIntoConstraints = false
-        return actionSwitch
+        layoutChangeSwitch.accessibilityLabel = NSLocalizedString("GRID_LAYOUT", comment: "")
+        layoutChangeSwitch.accessibilityHint = NSLocalizedString("GRID_LAYOUT", comment: "")
+        layoutChangeSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return layoutChangeSwitch
     }()
 
     let disableGroupsSwitch: UISwitch = {
