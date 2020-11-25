@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC dla iOS to port darmowego odtwarzacza multimedialnego VLC na iPada, iPhone'a i iPoda touch.\nMoże odtwarzać wszystkie filmy, seriale i muzykę w większości formatów bezpośrednio bez konwersji.\nUmożliwia synchronizację plików z Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, bezpośrednim pobieraniem i udostępnieniem przez WiFi, a także przesyłanie strumieniowe z serwerów SMB, FTP, UPnP/DLNA i internetu.\nVLC oferuje wsparcie dla zaawansowanych napisów, w tym pełną kompatybilność z SSA, wybór rożnych ścieżek dźwiękowych i zmianę prędkości odtwarzania.\n\nVLC na iOS jest całkowicie darmowym i otwartym oprogramowaniem.";
+"STORE_DESCRIPTION" = "VLC dla iOS to port darmowego odtwarzacza multimedialnego VLC na iPada, iPhone'a i iPoda touch.\nMoże odtwarzać wszystkie filmy, seriale i muzykę w większości formatów bezpośrednio bez konwersji.\nUmożliwia synchronizację plików z Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, bezpośrednim pobieraniem i udostępnieniem przez Wi-Fi, a także przesyłanie strumieniowe z serwerów SMB, FTP, UPnP/DLNA i internetu.\nVLC oferuje wsparcie dla zaawansowanych napisów, w tym pełną kompatybilność z SSA, wybór rożnych ścieżek dźwiękowych i zmianę prędkości odtwarzania.\n\nVLC na iOS jest całkowicie darmowym i otwartym oprogramowaniem.";
 
 "STORE_DESCRIPTION_TV" = "VLC media player to darmowy i wieloplatformowy odtwarzacz multimedialny o otwartym kodzie źródłowym.\nMoże odtwarzać wszystkie filmy, seriale i muzykę w większości formatów bezpośrednio bez konwersji.\nUmożliwia przesyłanie strumieniowe z usług w chmurze (Dropbox, OneDrive, Box), zdalne odtwarzanie z komputera Mac lub PC za pośrednictwem interfejsu sieciowego, a także przesyłanie strumieniowe z serwerów SMB, FTP, UPnP/DLNA i internetu.\nVLC oferuje wsparcie dla zaawansowanych napisów, w tym pełną kompatybilność z SSA, wybór rożnych ścieżek dźwiękowych i zmianę prędkości odtwarzania.\n\nVLC na iOS jest całkowicie darmowym i otwartym oprogramowaniem.\n\nMetadane i okładki są dostarczane przez bazy filmowe i muzyczne TMDb i Hatchet, które są utrzymywane przez społeczność.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Strumień sieciowy";
 "OPEN_NETWORK_HELP" = "Wpisz dowolny adres HTTP, RTSP, RTMP, MMS, FTP lub UDP/RTP, aby otworzyć strumień bezpośrednio.";
 "HTTP_UPLOAD_SERVER_OFF" = "Nieaktywny serwer";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Brak aktywnego połączenia WiFi";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Brak aktywnego połączenia Wi-Fi";
 "OPEN_STREAM_OR_DOWNLOAD" = "Czy chcesz pobrać lub odtworzyć ten adres URL?";
 "SHARED_VLC_IOS_LIBRARY" = "Wspólny VLC dla Biblioteki iOS";
 "SMB_CIFS_FILE_SERVERS" = "Serwery plików (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "Wyłączone";
 
 "EMPTY_LIBRARY" = "Pusta Biblioteka mediów";
-"EMPTY_LIBRARY_LONG" = "Dla odtwarzania, możesz przesyłać strumień z serwera lub z chmury do sieci lokalnej albo synchronizować pliki do Twojego urządzenia za pomocą programu iTunes, połączenia WiFi lub usług w chmurze.";
+"EMPTY_LIBRARY_LONG" = "Dla odtwarzania, możesz przesyłać strumień z serwera lub z chmury do sieci lokalnej albo synchronizować pliki do Twojego urządzenia za pomocą programu iTunes, połączenia Wi-Fi lub usług w chmurze.";
 
 "EMPTY_PLAYLIST" = "Pusta lista odtwarzania";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Dodaj multimedia podczas edycji w odpowiednich kategoriach.";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "Synchronizacja plików iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Synchronizuj z komputerem";
 "FIRST_STEPS_ITUNES_DETAILS" = "Podłącz swoje urządzenie do iTunes i wybierz je. Wybierz \"Udostępnianie plików\" w menu po lewej stronie iTunes i poszukaj VLC, aby przesłać pliki";
-"FIRST_STEPS_WIFI_TITLE" = "Udostępnij przez Wifi";
+"FIRST_STEPS_WIFI_TITLE" = "Udostępnij przez Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Wpisz wygenerowany adres URL w swojej ulubionej przeglądarce internetowej, podczas gdy jesteś podłączony do tej samej sieci, co telefon.";
 "FIRST_STEPS_CLOUDS" = "Chmury";
 "FIRST_STEPS_CLOUD_TITLE" = "Chmura";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Nie znaleziono serwera";
 "NO_RECENT_STREAMS" = "Nie odtwarzano ostatnio żadnego strumienia";
 
-"WEBINTF_TITLE" = "Udostępnij przez WiFi";
+"WEBINTF_TITLE" = "Udostępnij przez Wi-Fi";
 "WEBINTF_DROPFILES" = "Upuść pliki";
 "WEBINTF_DROPFILES_LONG" = "Upuść pliki w oknie, aby dodać je do Twojego %@.<br>Albo kliknij na przycisk „+”, aby użyć okna dialogowego wyboru pliku.";
 "WEBINTF_DOWNLOADFILES" = "Pobierz pliki";
