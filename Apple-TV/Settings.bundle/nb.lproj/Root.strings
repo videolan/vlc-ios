@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatisk";
 "SETTINGS_PRIVACY_SUBTITLE" = "Åpne i Innstillinger";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Sikre tilgangen til ditt innhold";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Utseende";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Strekking av lyd";
@@ -17,13 +18,14 @@
 "SETTINGS_PASSCODE_LOCK" = "Passordlås";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Tillat Touch ID for opplåsing";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Tillat Face ID for opplåsing";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Skjul mediebiblioteket i filer";
 "SETTINGS_VIDEO_FULLSCREEN" = "Spill video i fullskjerm";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Fortsett videoavspilling";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Fortsett lydavspilling";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Aldri";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Spør";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Alltid";
-"SETTINGS_NETWORK_PLAY_ALL" = "Automatisk spill av neste element";
+"SETTINGS_NETWORK_PLAY_ALL" = "Spill av neste element automatisk";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Slå på rulling av tekst i medielista";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblock filter";
@@ -98,11 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inkluder mediebiblioteket ved reservekopiering av enheten";
 
 "SETTINGS_FILE_SYNC" = "Filsynkronisering";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6-støtte for WiFi-deling";
-"SETTINGS_UNLINK_DROPBOX" = "Koble fra Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Koble fra Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Fjern kobling mot OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Tekstkoding for FTP-tilkoblinger";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6-støtte for Wi-Fi-deling";
 
 "SETTINGS_ARTWORK" = "Omslagsbilde";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Last ned omslagsbilde";

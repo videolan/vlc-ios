@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC for iOS er en port av den frie VLC-mediaspilleren for iPad, iPhone og iPod touch.\nDen kan spille alt av filmer, serier og musikk i de fleste formater direkte uten konvertering.\nDen tillater sykronisering med Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direkte nedlastning og gjennom WiFi-deling samt strømming fra SMB, FTP, UPnP/DLNA-mediaservere og fra nettet.\nVLC tilbyr støtte for avanserte undertekster inkludert full SSA-støtte, flersporslyd, og avspillingsfartsstyring.\n\nVLC for iOS er helt fri og har åpen kildekode.";
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "VLC mediaspiller en fri multimediespiller med åpen kildekode for flere platformer.\nDen kan spille alle filmer, serier og musikk i de fleste formater direkte uten konvertering.\nDen tilltater strømming fra skytjenester (Dropbox, OneDrive, Box), fjernavspilling fra Mac eller PC via nettgrensesnittet samt strømming fra SMB, FTP, UPnP/DLNA-mediaservere og nettet.\nVLC tilbyr støtte for avanserte undertekster inkludert full støtte for SSA, flersporslyd, og avspillingsfartsstyring.\n\nVLC for iOS er helt fritt og har åpen kildekode.\n\nMultimedia og grafikk er tilgjengelig fra TMDb og Hachet, som er film- og musikk-databaser drevet av entusiaster.";
 
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Nettverkstrøm";
 "OPEN_NETWORK_HELP" = "Skriv inn en HTTP, RTSP, RTMP, MMS, FTP eller UDP / RTP -adressen for å åpne strømmen direkte.";
 "HTTP_UPLOAD_SERVER_OFF" = "Inaktiv Server";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Ingen aktiv WiFi tilkobling";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
 "OPEN_STREAM_OR_DOWNLOAD" = "Vil du laste ned eller spille av denne URL?";
 "SHARED_VLC_IOS_LIBRARY" = "Delt VLC for iOS bibliotek";
 "SMB_CIFS_FILE_SERVERS" = "Filservere (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "Av";
 
 "EMPTY_LIBRARY" = "Tomt Mediabibliotek";
-"EMPTY_LIBRARY_LONG" = "For avspilling kan du Strømme media fra en server på det lokale nettverket, fra skyen eller synkronisere medier til enheten ved hjelp av iTunes, WiFi Opplastning eller Sky tjenester.";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
 "EMPTY_PLAYLIST" = "Tøm spilleliste";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Legg til media ved redigering av de respektive kategoriene.";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "iTunes filsynkronisering";
 "FIRST_STEPS_ITUNES_TITLE" = "Synkroniser med datamaskinen din";
 "FIRST_STEPS_ITUNES_DETAILS" = "Koble enheten din til iTunes og velg den der. Velg «Fildeling» i menyen til venstre i iTunes og se etter VLC for å overføre filer";
-"FIRST_STEPS_WIFI_TITLE" = "Del via Wi-Fi";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Skyer";
 "FIRST_STEPS_CLOUD_TITLE" = "Sky";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Finner ingen server";
 "NO_RECENT_STREAMS" = "Ingen strøm ble spilt nylig";
 
-"WEBINTF_TITLE" = "Del via WiFi";
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
 "WEBINTF_DROPFILES" = "Slipp filer";
 "WEBINTF_DROPFILES_LONG" = "Slipp filer i vinduet for å legge dem til %@.<br>Eller klikk på \"+\" knappen for å bruke fildialog-velgeren.";
 "WEBINTF_DOWNLOADFILES" = "Last ned filer";
@@ -283,7 +283,7 @@
 "FTP_SHORT" = "FTP";
 "SFTP_SHORT" = "SFTP";
 
-"NFS_LONG" = "Network File System (NFS)";
+"NFS_LONG" = "Nettverk-filsystem (NFS)";
 "NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Bonjour-filtjener";
@@ -330,7 +330,7 @@
 //EDIT
 
 "BUTTON_EDIT" = "Rediger";
-"BUTTON_EDIT_HINT" = "Edit mode";
+"BUTTON_EDIT_HINT" = "Redigeringsmodus";
 
 "ADD_TO_PLAYLIST" = "Legg til i spilleliste";
 "ADD_TO_PLAYLIST_HINT" = "Åpne menyen «Legg til i spilleliste»";
@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Synkende";
 "DESCENDING_SWITCH_LABEL" = "Stigende eller synkende";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"GRID_LAYOUT" = "Grid Layout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -396,7 +397,7 @@
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equalizer";
-"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+"MORE_OPTIONS_HEADER_TITLE" = "Videoalternativer";
 
 /* Settings - Force rescan alert */
 "FORCE_RESCAN_TITLE" = "Force media library rescan";
@@ -426,11 +427,21 @@
 "REMOVE_FROM_MEDIA_GROUP_HINT" = "Fjern utvalget fra mediegruppa";
 
 "MEDIA_GROUP_CREATION" = "Ny mediegruppe";
-"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
-"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
-"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+"MEDIA_GROUP_CREATION_HINT" = "Vis varsel for å opprette en spilleliste";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Flytt innhold til øverste nivå";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Flytter innholdet i utvalget til øverste nivå";
 
 "BUTTON_REGROUP" = "Omgrupper";
 "BUTTON_REGROUP_TITLE" = "Omgrupper utvalg";
 "BUTTON_REGROUP_HINT" = "Forsøk automatisk omgruppering av frittstående medier.";
 "BUTTON_REGROUP_DESCRIPTION" = "Er du sikker på at frittstående medier automatisk skal forsøkes omgruppert?\nDette kan ta noe tid.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Plasser media her for å legge de til";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Legger til...";
+
+/* tip jar */
+"GIVE_TIP" = "Gi et tips";
+"CANNOT_MAKE_PAYMENTS" = "Du har ikke tillatelse til å foreta betalinger på denne enheten.";
+"PURCHASE_FAILED" = "Kjøp feilet";
+"SEND_GIFT" = "Sendte deg en gave";
