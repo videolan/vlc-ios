@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automático";
 "SETTINGS_PRIVACY_SUBTITLE" = "Abrir nas Definições";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Acesso seguro ao seu conteúdo";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Aparência";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Áudio em câmara lenta";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Bloquear com Código";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Permitir Id. de Toque para desbloquear";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permitir Id. de Face para desbloquear";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Reproduzir vídeo em ecrã completo";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continuar reprodução do vídeo";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continuar reprodução do áudio";
@@ -98,11 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Incluir a biblioteca de media na cópia de segurança do dispositivo";
 
 "SETTINGS_FILE_SYNC" = "Sincronização de Ficheiros";
-"SETTINGS_WIFISHARING_IPv6" = "Suporte de IPv6 para partilha por Wi-Fi";
-"SETTINGS_UNLINK_DROPBOX" = "Desassociar do Dropbox";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Desassociar do Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Desassociar do OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Codificação de Texto para ligações por FTP";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Grafismo";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Transferir Capas";
