@@ -9,7 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Autumaticu";
 "SETTINGS_PRIVACY_SUBTITLE" = "Apre in Preferenze";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accessu assicuratu à u vostru cuntenutu";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "U vostru media serà piattatu in l’appiecazione Schedarii";
 
 "SETTINGS_DARKTHEME" = "Aspettu";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Stinzata di tempu audio";
@@ -18,7 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Codice di serratura";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Permette di sbluccà cù Touch ID";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permette Face ID per sbluccà";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Piattà a bibliuteca di media in Schedarii";
 "SETTINGS_VIDEO_FULLSCREEN" = "Sunà a video di screnu sanu";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Cuntinuà a ripruduzzione video";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Cuntinuà a ripruduzzione audio";
@@ -100,7 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include a mediateca in a salvaguardia di l’apparechju";
 
 "SETTINGS_FILE_SYNC" = "Sincrunizazione di schedariu";
-"SETTINGS_WIFISHARING_IPv6" = "Supportu IPv6 per spartimentu WiFi";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 accettatu per u spartimentu Wi-Fi";
 
 "SETTINGS_ARTWORK" = "Illustrazione";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Scaricà l’illustrazione";

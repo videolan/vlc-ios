@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC per iOS hè una purtera di u lettore media liberu VLC nant’à iPad, iPhone è iPod touch.\nPò sunà tutti i vostri video, spettaculi è musica in a maiò parte di i furmati direttamente, senza cunversione.\nPermette a sincrunizazione di i schedarii cù Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, offre i scaricamenti diretti, u spartimentu WiFi, ma dinù a lettura di cuntinuu à partesi di servitori media SMB, FTP, UPnP/DLNA è da u web.\nVLC permette l’impiegu di sottutituli avanzati includendu a cumpatibilità sana SSA, l’audio multi-traccia, è u cuntrollu di a vitezza di ripruduzzione.\n\nVLC per iOS hè liberu è sanu di rigalu.";
+"STORE_DESCRIPTION" = "VLC per iOS hè una purtera di u lettore media VLC liberu nant’à iPad, iPhone è iPod touch.\nPò leghje tutti i vostri video, spettaculi è musica in a maiò parte di i furmati direttamente è senza cunversione.\nPermette a sincrunizazione di schedariu cù Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, offre i scaricamenti diretti, u spartimentu Wi-Fi, ma dinù a lettura di cuntinuu di i servitori media SMB, FTP, UPnP/DLNA è da u web.\nVLC permette l’impiegu di sottutituli avanzati inchjudendu a cumpatibilità sana SSA, l’audio multi-traccia, è u cuntrollu di a vitezza di ripruduzzione.\n\nVLC per iOS hè liberu sanu è di fonte aperta.";
 
 "STORE_DESCRIPTION_TV" = "VLC media player hè un lettore di media liberu è di rigalu per tutti i sistemi.\nPò sunà tutti i vostri video, spettaculi è musica in a maiò parte di i furmati direttamente, senza cunversione.\nPermette a lettura di cuntinuu à partesi di servizii Nivulu (Dropbox, OneDrive, Box), a Ripruduzzione Alluntanata da u vostru Mac o PC grazia à un’interfaccia web, ma dinù a lettura di cuntinuu à partesi di servitori media SMB, FTP, UPnP/DLNA è da u web.\nVLC permette l’impiegu di sottutituli avanzati includendu a cumpatibilità sana SSA, l’audio multi-traccia, è u cuntrollu di a vitezza di ripruduzzione.\n\nVLC per iOS hè liberu è sanu di rigalu.\n\nI metadati è l’illustrazioni sò pruvisti da TMDb è Hatchet, chì sò banche di dati di filmi è musica mentenute da a cumunità.";
 
@@ -62,7 +62,7 @@
 "BUTTON_OK" = "Vai";
 "BUTTON_CONTRIBUTE" = "Cuntribuì";
 "BUTTON_CONNECT" = "Cunnettà";
-"BUTTON_RENAME" = "Rinumà";
+"BUTTON_RENAME" = "Rinuminà";
 "BUTTON_LEARN_MORE" = "Per sapene di più";
 "BUTTON_LOGOUT" = "Esce";
 "BUTTON_CONTINUE" = "Cuntinuà";
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Flussu di reta";
 "OPEN_NETWORK_HELP" = "Scrive un indirizzu HTTP, RTSP, RTMP, MMS, FTP o UDP/RTP per apre direttamente u flussu.";
 "HTTP_UPLOAD_SERVER_OFF" = "Servitore inattivu";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "Alcuna cunnessione WiFi attiva";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Alcuna cunnessione Wi-Fi attiva";
 "OPEN_STREAM_OR_DOWNLOAD" = "Vulete scaricà o sunà ist’URL ?";
 "SHARED_VLC_IOS_LIBRARY" = "Bibliuteca sparta di VLC per iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servitori di schedariu (SMB)";
@@ -175,7 +175,7 @@
 "OFF" = "Innò";
 
 "EMPTY_LIBRARY" = "Bibliuteca di media viota";
-"EMPTY_LIBRARY_LONG" = "Per a ripruduzzione, pudete diffonde un media à partesi di un servitore di a vostra reta lucale, da u cloud o sincrunizà u media cù u vostru apparechju impieghendu iTunes, WiFi Upload o i servizii di Nivulu.";
+"EMPTY_LIBRARY_LONG" = "Per a ripruduzzione, pudete diffonde un media da un servitore di a vostra reta lucale, da u nivulu o sincrunizà u media cù u vostru apparechju impieghendu iTunes, Wi-Fi Upload o i servizii di Nivulu.";
 
 "EMPTY_PLAYLIST" = "Lista di lettura viota";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Aghjunghje un media mudifichendu e categurie rispettive.";
@@ -212,7 +212,7 @@
 "FIRST_STEPS_ITUNES" = "Sincrunizazione di schedariu cù iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Sincrunizà cù u vostru urdinatore";
 "FIRST_STEPS_ITUNES_DETAILS" = "Cunnettà u vostru apparechju à iTunes è selezziunà u vostru apparechju. Selezziunà \"Spartimentu di schedariu\" nant’à u listinu à manu manca d’iTunes è circà VLC per trasferà i schedarii";
-"FIRST_STEPS_WIFI_TITLE" = "Sparte via WiFi";
+"FIRST_STEPS_WIFI_TITLE" = "Sparte via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Scrite l’indirizzu generata in u vostru navigatore favuritu quandu site cunnettu à a listessa reta chì u vostru telefonu";
 "FIRST_STEPS_CLOUDS" = "Nivuli";
 "FIRST_STEPS_CLOUD_TITLE" = "Nivulu";
@@ -229,7 +229,7 @@
 "NO_SERVER_FOUND" = "Alcunu servitore trouvu";
 "NO_RECENT_STREAMS" = "Alcunu flussu ùn hè statu sunatu pocu fà";
 
-"WEBINTF_TITLE" = "Spartimentu via WiFi";
+"WEBINTF_TITLE" = "Spartimentu via Wi-Fi";
 "WEBINTF_DROPFILES" = "Depone i schedarii";
 "WEBINTF_DROPFILES_LONG" = "Depone i schedarii in a finestra per aghjunghjelli à u vostru %@.<br>O cliccà nant’à u buttone \"+\" per impiegà u dialogu di u selettore di schedariu.";
 "WEBINTF_DOWNLOADFILES" = "Scaricà i schedarii";
@@ -347,7 +347,7 @@
 
 "SHARE_LABEL" = "Sparte";
 "SHARE_HINT" = "Sparte i schedarii selezziunati";
-"RENAME_HINT" = "Rinumà i schedarii selezziunati";
+"RENAME_HINT" = "Rinuminà i schedarii selezziunati";
 "DELETE_HINT" = "Squassà i schedarii selezziunati";
 
 // Sort
@@ -358,6 +358,7 @@
 "DESCENDING_LABEL" = "Ordine discendente";
 "DESCENDING_SWITCH_LABEL" = "Ordine crescente o discendente";
 "DESCENDING_SWITCH_HINT" = "Classificà u cuntestu da l’ordine crescente o discendente";
+"GRID_LAYOUT" = "Accunciamentu in quadrittera";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -436,11 +437,11 @@
 "BUTTON_REGROUP_DESCRIPTION" = "Site sicuru di vulè raggruppà autumaticamente i schedarii multimedia isulati ?\nForse piglierà un pocu di tempu.";
 
 /* Files.app persistence file */
-"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
-"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Piazzà i media quì per aghjunghjeli";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Aghjuntu…";
 
 /* tip jar */
-"GIVE_TIP" = "Give a Tip";
-"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
-"PURCHASE_FAILED" = "Purchase Failed";
-"SEND_GIFT" = "Send your gift";
+"GIVE_TIP" = "Dà un bonamanu";
+"CANNOT_MAKE_PAYMENTS" = "Ùn avete micca u permessu d’effettuà pagamenti nant’à st’apparechju.";
+"PURCHASE_FAILED" = "Fiascu di a comprera";
+"SEND_GIFT" = "Mandà u vostru rigalu";
