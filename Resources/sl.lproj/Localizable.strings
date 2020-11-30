@@ -1,9 +1,9 @@
-"STORE_DESCRIPTION" = "Program VLC za iOS je predelava brezplačnega predvajalnika VLC za iPad, iPhone in iPod touch.\nOmogoča predvajanje različnih vrst posnetkov, filmov, oddaj in glasbe.\nPodpira tudi usklajevanje datotek prek storitev Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, neposredni prejem prek Wi-Fi ter pretakanje s predstavnih strežnikov SMB, FTP, UPnP/DLNA in spleta.\nProgram podpira različne vrste podnapisov, kot so zapisi SSA, več-zvokovne sledi in sprotno prilagajanje glasnosti in hitrosti predvajanja.\n\nProgram VLC za iOS razvija odprtokodna skupnost in je popolnoma brezplačen.";
+"STORE_DESCRIPTION" = "VLC za iOS je predelava brezplačnega VLC predvajalnika za iPad, iPhone in iPad touch.\nNeposredno zna brez pretvorbe  predvajati vse vaše filme, serije in glasbo v večini formatov.\nOmogoča sinhronizacijo datotek s storitvami Dropbox, GDrive, OneDrive, Box, iCloud Drive in iTunes, neposredne prenose preko souporabe v brezžičnem omrežju, kot tudi pretakanje preko SMB, FTP ali UPnP/DLNA strežnikov vsebin in preko spleta.\nVLC podpira napredne podnapise, vključno s polno SSA združljivostjo, večstezni zvok in nadzor nad hitrostjo predvajanja.";
 
 "STORE_DESCRIPTION_TV" = "Predvajalnik VLC je brezplačen in odprtokoden predvajalnik predstavnosti za več okolij.\nNeposredno lahko predvaja vsa vaše filme, predstave in glasbo v večini oblikah brez pretvarjanja.\nOmogoča usklajevanje storitvami Dropbox, OneDrive, Box, oddaljeno predvajanje iz vašega Maca ali računalnika preko spletnega uporabniškega vmesnika kot tudi pretakanje iz strežnikov predstavnosti SMB, FTP, UPnP/DLNA in spleta.\nVLC ponuja podporo za napredne podnapise s polno podporo za obliko SSA, več sledi zvoka in nadzor hitrosti predvajanja.\n\nVLC za iOS je popolnoma brezplačen in odprtokoden.\n\nMetapodatke in grafične podobe dobavljata podatkovni zbirki glasbe in filmov TMDb in Hatchet, ki ju vzdržuje skupnost.";
 
-"CHOOSE_AUDIO_TRACK" = "Izbor zvočnega posnetka";
-"CHOOSE_SUBTITLE_TRACK" = "Izbor podnapisa";
+"CHOOSE_AUDIO_TRACK" = "Izberi zvočno stezo";
+"CHOOSE_SUBTITLE_TRACK" = "Izberi stezo s podnapisi";
 "OPEN_TRACK_PANEL" = "Odpri izbor sledi";
 "CHOOSE_TITLE" = "Izbor naslova";
 "CHOOSE_CHAPTER" = "Izbor poglavja";
@@ -15,7 +15,7 @@
 "AUDIO" = "Zvok";
 "SUBTITLES" = "Podnapisi";
 "LANGUAGE" = "Jezik";
-"MEDIA_INFO" = "Podrobnosti predstavne datoteke";
+"MEDIA_INFO" = "Podatki o predstavni vsebini";
 "VIDEO_DIMENSIONS" = "Mere slike";
 "FORMAT_VIDEO_DIMENSIONS" = "%ix%i slikovnih točk";
 "FORMAT_AUDIO_TRACKS" = "%i zvočnih sledi";
@@ -46,7 +46,7 @@
 "FILL_TO_SCREEN" = "Obreži, da napolni zaslon";
 "PLAYBACK_SPEED" = "Hitrost predvajanja";
 "SPU_DELAY" = "Zamik podnapisov";
-"AUDIO_DELAY" = "Zvokovni zamik";
+"AUDIO_DELAY" = "Zamik zvoka";
 "BUTTON_SLEEP_TIMER" = "Časovnik mirovanja";
 "SLEEP_TIMER_UPDATED" = "Časovnik mirovanja posodobljen";
 "CONTINUE_PLAYBACK" = "Nej se predvajanje nadaljuje?";
@@ -75,8 +75,7 @@
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
-"UPGRADING_LIBRARY" = "Nadgrajevanje predstavne knjižnice";
-"UNKNOWN" = "Neznano";
+"UPGRADING_LIBRARY" = "Nadgrajevanje knjižnice predstavnih vsebin";
 
 "OPEN_NETWORK" = "Odprti omrežni pretok";
 "NETWORK_TITLE" = "Omrežni pretok";
@@ -144,7 +143,7 @@
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "Pri prejemu je prišlo do napake";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "NAPAKA";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "Izbrana vsebina nima url naslova primernega za predvajanje";
 
 "DISK_FULL" = "Dosežena je omejitev prostora";
 "DISK_FULL_FORMAT" = "%@ ni mogoče shraniti na %@, ker zmanjkuje prostora.";
@@ -154,7 +153,7 @@
 "NO_FILES" = "Ni podprtih datotek";
 "DOWNLOADING" = "Poteka prejemanje ...";
 "REMAINING_TIME" = "Preostali čas: %@";
-"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
+"BIOMETRIC_UNLOCK" = "Odkleni knižnjico predstavnih vsebin\nPrekini za vnos gesla";
 
 //PAPasscode Strings that we need to localize for them
 "%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
@@ -175,11 +174,11 @@
 "ON" = "Vklopljeno";
 "OFF" = "Izklopljeno";
 
-"EMPTY_LIBRARY" = "Zbirka predstavnih datotek je prazna";
-"EMPTY_LIBRARY_LONG" = "Za predvajanje lahko predstavne vsebine pretakate s strežnika na krajevnem omrežju, z oblaka ali uskladite predstavne vsebine s svojo napravo prek iTunes, prenosa WiFi ali oblačnih storitev.";
+"EMPTY_LIBRARY" = "Knjižnica predstavnih vsebin je prazna";
+"EMPTY_LIBRARY_LONG" = "Predstavne vsebine je za predvajanje mogoče pretakati s strežnika v lokalnem omrežju, z oblaka ali jih sinhronizirati na vašo napravo s pomočjo ITunes, brezžičnega prenosa ali oblačnih storitev.";
 
 "EMPTY_PLAYLIST" = "Empty playlist";
-"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Dodaj vsebino med urejanjem v ustrezne kategorije.";
 
 "PLAYBACK_SCRUB_HELP" = "Potegnite s prstom nižje za dostop do različnih hitrosti iskanja po posnetku.";
 "PLAYBACK_SCRUB_HIGH" = "Iskanje z visoko hitrostjo";
@@ -208,16 +207,16 @@
 "BUG_REPORT_BUTTON" = "Odpri Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Video predvajalnik";
-"VO_VIDEOPLAYER_DOUBLETAP" = "Z dvojnim udarjanjem se prikažejo oziroma skrijejo gumbi predvajanja";
+"VO_VIDEOPLAYER_DOUBLETAP" = "Z dvojnim tapkanjem se prikaže sli skrije upravljanje predvajanja";
 
 "FIRST_STEPS_ITUNES" = "Usklajevanje datotek iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wifi";
+"FIRST_STEPS_ITUNES_DETAILS" = "Povežite napravo z iTunes in jo izberite. Izberite \"File Sharing\" iz menija na levi strani v iTunesih in poiščite VLC za prenos.";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Oblaki";
 "FIRST_STEPS_CLOUD_TITLE" = "Cloud";
-"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
+"FIRST_STEPS_CLOUD_DETAILS" = "Naložite svoje predstavne vsebine na oblačno storitev, kot sta Google Drive ali Dropbox, za oddaljeno pretakanje ali prenos.";
 
 
 "PLEX_CHECK_ACCOUNT" = "V nastavitvah preverite račun Plex";
@@ -230,7 +229,7 @@
 "NO_SERVER_FOUND" = "Strežnika ni mogoče najti";
 "NO_RECENT_STREAMS" = "Ni nobenega nedavno predvajanega pretoka";
 
-"WEBINTF_TITLE" = "Skupna raba prek WiFi";
+"WEBINTF_TITLE" = "Souporaba preko brezžičnega omrežja";
 "WEBINTF_DROPFILES" = "Spusti datoteke";
 "WEBINTF_DROPFILES_LONG" = "Spustite datoteke v okno, da jih dodate na napravo %@.<br>Lahko tudi kliknete gumb \"+\", da uporabite izbirnik datotek.";
 "WEBINTF_DOWNLOADFILES" = "Prejmi datoteke";
@@ -262,8 +261,8 @@
 "ENTER_URL" = "Vnesite naslov URL za predvajanje";
 "HTTP_SERVER_ON" = "Onemogoči oddaljeno predvajanje";
 "HTTP_SERVER_OFF" = "Omogoči oddaljeno predvajanje";
-"CACHED_MEDIA" = "Predpomnjene vsebine";
-"CACHED_MEDIA_LONG" = "Tukaj prikazani mediji so hranjeni krajevno na vašem Apple TV. Upoštevajte, da se vsebine lahko kadar koli odstranijo s strani operacijskega sistema brez vnaprejšnjega opozorila, ko VLC ni zagnan, v kolikor vaši napravi zmanjka prostora za hrambo.";
+"CACHED_MEDIA" = "Predpomnjena vsebina";
+"CACHED_MEDIA_LONG" = "Tukaj prikazane vsebine so shranjene lokalno na vašem Apple TV. Upoštevajte, da lahko operacijski sistem, kadar VLC ni zagnan, odstrani vsebine brez vnaprejšnjega opozorila, ko napravi zmanjka prostora za shranjevanje.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Prejmi podnapise z OpenSubtitles.org ...";
 "FOUND_SUBS" = "Najdeni podnapisi";
 "USE_SPDIF" = "Uporabi prehod (S/PDIF)";
@@ -278,11 +277,14 @@
 "UPNP_LONG" = "Splošni Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
-"PLEX_LONG" = "Strežnik Plex Media (prek Bonjour)";
+"PLEX_LONG" = "Plex Media strežnik (prek Bonjour)";
 "PLEX_SHORT" = "Plex";
 
-"FTP_LONG" = "FTP (File Transfer Protocol)";
 "FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Datotečni strežnik BONJOUR";
 "DSM_WORKGROUP" = "Delovna skupina";
@@ -292,10 +294,10 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Pritisnite %@ za brisanje"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Confirm the deletion of the selection";
-"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
-"DELETE_TITLE" = "Delete Selection";
+"DELETE_MESSAGE" = "Potrdite brisanje izbora";
+"DELETE_MESSAGE_PLAYLIST" = "Ali ste prepričani, da želite izbrisati izbrani seznam predvajanja?\nPovezane predstavne datoteke ne bodo izbrisane.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Ali ste prepričani, da želite izbrisati izbrano vsebino s seznama predvajanja?\nPovezane predstavne datoteke ne bodo izbrisane.";
+"DELETE_TITLE" = "Izbriši izbor";
 
 //Drag and Drop
 "THIS_FILE" = "This file";
@@ -356,6 +358,7 @@
 "DESCENDING_LABEL" = "Descending Order";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"GRID_LAYOUT" = "Grid Layout";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
@@ -371,7 +374,7 @@
 "FILENAME" = "Filename";
 "TRACK_NUMBER" = "Track number";
 "NB_AUDIO" = "Number of audio";
-"NB_MEDIA" = "Number of media";
+"NB_MEDIA" = "Število vsebin";
 "NB_VIDEO" = "Number of video";
 
 // VLCNetworkLoginTVViewController
@@ -384,7 +387,7 @@
 "VARIOUS_ARTIST" = "Various Artists";
 "UNKNOWN_ALBUM" = "Unknown Album";
 
-/* VideoOptionsControlBar */
+/* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
 "MORE_OPTIONS_BUTTON" = "More";
@@ -397,8 +400,8 @@
 "MORE_OPTIONS_HEADER_TITLE" = "Video Options";
 
 /* Settings - Force rescan alert */
-"FORCE_RESCAN_TITLE" = "Force media library rescan";
-"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
+"FORCE_RESCAN_TITLE" = "Prisili ponoven pregled knjižnice predstavnih vsebin";
+"FORCE_RESCAN_MESSAGE" = "Ali želite prisiliti VLC, da ponovno pregleda vašo knjižnico predstavnih vsebin?\nTo lahko traja nekaj časa.";
 
 // Local Network
 
@@ -413,22 +416,32 @@
 
 /* Media groups */
 
-"ADD_TO_MEDIA_GROUP" = "Add to media group";
-"ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
+"ADD_TO_MEDIA_GROUP" = "Dodaj v skupino vsebin";
+"ADD_TO_MEDIA_GROUP_HINT" = "Odprite meni dodaj v skupino predstavnih vsebin";
 
-"MEDIA_GROUPS" = "Media groups";
-"MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
-"MEDIA_GROUPS_PLACEHOLDER" = "Media group title";
+"MEDIA_GROUPS" = "Skupine predstavnih vsebin";
+"MEDIA_GROUPS_DESCRIPTION" = "Izberite ime za svojo novo skupino predstavnih vsebin";
+"MEDIA_GROUPS_PLACEHOLDER" = "Ime skupine vsebin";
 
-"REMOVE_FROM_MEDIA_GROUP" = "Remove from media group";
-"REMOVE_FROM_MEDIA_GROUP_HINT" = "Remove selection from the media group";
+"REMOVE_FROM_MEDIA_GROUP" = "Odstrani iz skupine predstavnih vsebin";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Odstrani izbor iz skupine predstavnih vsebin";
 
-"MEDIA_GROUP_CREATION" = "New media group";
+"MEDIA_GROUP_CREATION" = "Nova skupina predstavnih vsebin";
 "MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
 "MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
 
 "BUTTON_REGROUP" = "Regroup";
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
-"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
-"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+"BUTTON_REGROUP_HINT" = "Poskus ponovne uvrstitve v skupino za posamezno vsebino.";
+"BUTTON_REGROUP_DESCRIPTION" = "Ali ste prepričani, da želite poskusiti samodejno ponovno uvrstiti posamezne vsebine v skupino?\nTo lahko traja precej časa.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Postavite vsebino sem, da jo dodate";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";

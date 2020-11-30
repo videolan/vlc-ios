@@ -9,6 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatic";
 "SETTINGS_PRIVACY_SUBTITLE" = "Odpri v nastavitvah";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Varen dostop do vaše vsebine";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Vaša vsebina bo skrita v datotečnem programu";
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časovno raztegovanje zvoka";
@@ -17,6 +18,7 @@
 "SETTINGS_PASSCODE_LOCK" = "Zaklep z geslom";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Za odklepanje dovoli Touch ID";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Dovoli Face ID za odklepanje";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Skrij knjižnico predstavnih vsebin v aplikaciji Datoteke";
 "SETTINGS_VIDEO_FULLSCREEN" = "Predvajaj video v celozaslonskem načinu";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Nadaljuj s predvajanjem videa";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Nadaljuj s predvajanjem zvoka";
@@ -24,7 +26,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Vprašaj";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Vedno";
 "SETTINGS_NETWORK_PLAY_ALL" = "Samodejno predvajaj naslednji predmet";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Vključi drsenje besedila za seznam predstavnih vsebin";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filter odstranjevanja kock";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Brez odstranjevanja kock (najhitrejše)";
@@ -82,24 +84,23 @@
 "SETTINGS_HWDECODING" = "Strojno dekodiranje";
 "SETTINGS_HWDECODING_ON" = "Vključeno";
 "SETTINGS_HWDECODING_OFF" = "Izključeno";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 
 "SETTINGS_FEEDBACK" = "Odziv";
 "SETTINGS_SEND_FEEDBACK" = "Pošlji odziv";
 "SETTINGS_SEND_RATING" = "Ocenite VLC za iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Knjižnica predstavnih vsebin";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Prisili VLC, da ponovno pregleda knjižnico predstavnih vsebin";
 "SETTINGS_DECRAPIFY" = "Optimiziraj imena elementov za prikaz";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "V varnostno kopijo vključi knjižnico predstavnih vsebin";
 
 "SETTINGS_FILE_SYNC" = "Usklajevanje datotek";
-"SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 za deljenje WiFi";
-"SETTINGS_UNLINK_DROPBOX" = "Razveži z Dropboxom";
-"SETTINGS_UNLINK_GOOGLEDRIVE" = "Razveži z Google Drive";
-"SETTINGS_UNLINK_ONEDRIVE" = "Razveži z OneDrive";
-"SETTINGS_FTP_TEXT_ENCODING" = "Kodiranje besedila za povezave FTP";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Grafična podoba";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Prenesi grafično podobo";
