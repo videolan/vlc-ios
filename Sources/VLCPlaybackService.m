@@ -1100,6 +1100,16 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     return [_mediaPlayer preAmplification];
 }
 
+- (unsigned int)numberOfBands
+{
+    return [_mediaPlayer numberOfBands];
+}
+
+- (CGFloat)frequencyOfBandAtIndex:(unsigned int)index
+{
+    return [_mediaPlayer frequencyOfBandAtIndex:index];
+}
+
 #pragma mark - AVAudioSession Notification Observers
 
 - (void)handleInterruption:(NSNotification *)notification

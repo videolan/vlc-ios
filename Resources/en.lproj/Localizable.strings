@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Saturation";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESETS" = "Presets";
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Choose Equalizer Profile";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Playback failed";
 "PLEASE_WAIT" = "Please wait";
