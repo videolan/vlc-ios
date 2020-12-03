@@ -51,16 +51,18 @@ class MediaPlayerActionSheet: ActionSheet {
     @objc weak var mediaPlayerActionSheetDelegate: MediaPlayerActionSheetDelegate?
     @objc weak var mediaPlayerActionSheetDataSource: MediaPlayerActionSheetDataSource?
     
-    var offScreenFrame: CGRect {
-        let y = collectionView.frame.origin.y + headerView.cellHeight
-        let w = collectionView.frame.size.width
-        let h = collectionView.frame.size.height
-        return CGRect(x: w, y: y, width: w, height: h)
-    }
-    
     private var leftToRightGesture: UIPanGestureRecognizer {
         let leftToRight = UIPanGestureRecognizer(target: self, action: #selector(draggedRight(panGesture:)))
         return leftToRight
+    }
+
+    private func getTitle(of childView: UIView) -> String {
+        if let view = childView as? NewPlaybackSpeedView {
+            view.resetSlidersIfNeeded()
+            return MediaPlayerActionSheetCellIdentifier.playback.description
+        }
+
+        return ""
     }
 
     // MARK: Private Methods
@@ -72,6 +74,7 @@ class MediaPlayerActionSheet: ActionSheet {
             (completed) in
             child.addGestureRecognizer(self.leftToRightGesture)
             self.currentChildView = child
+            self.headerView.title.text = self.getTitle(of: child)
         }
     }
 
@@ -82,6 +85,7 @@ class MediaPlayerActionSheet: ActionSheet {
             child.removeFromSuperview()
             child.removeGestureRecognizer(self.leftToRightGesture)
         }
+        headerView.title.text = NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
     }
 
     @objc func removeCurrentChild() {

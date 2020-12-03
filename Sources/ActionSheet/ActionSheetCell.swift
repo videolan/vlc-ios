@@ -249,5 +249,6 @@ class ActionSheetCell: UICollectionViewCell {
     @objc private func updateTheme() {
         backgroundColor = PresentationTheme.current.colors.background
         name.textColor = PresentationTheme.current.colors.cellTextColor
+        viewToPresent?.backgroundColor = PresentationTheme.current.colors.background
     }
 }

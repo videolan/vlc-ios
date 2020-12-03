@@ -105,6 +105,13 @@ class ActionSheet: UIViewController {
         return collectionViewHeightConstraint
     }()
 
+    var offScreenFrame: CGRect {
+        let y = headerView.cellHeight
+        let w = collectionView.frame.size.width
+        let h = collectionView.frame.size.height
+        return CGRect(x: w, y: y, width: w, height: h)
+    }
+
     override func updateViewConstraints() {
         super.updateViewConstraints()
 
@@ -262,6 +269,7 @@ extension ActionSheet {
     @objc func setAction(closure action: @escaping (_ item: Any) -> Void) {
         self.action = action
     }
+
 
     @objc func removeActionSheet() {
         let realMainStackView = mainStackView.frame

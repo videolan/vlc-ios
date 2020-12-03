@@ -52,8 +52,32 @@ protocol MediaMoreOptionsActionSheetDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        removeCurrentChild()
+        removeActionSheet()
+    }
+
+// MARK: - Playback Speed View
+    private lazy var playbackView: NewPlaybackSpeedView = {
+        let playbackSpeedView = Bundle.main.loadNibNamed("NewPlaybackSpeedView",
+                                                         owner: nil,
+                                                         options: nil)?.first as! NewPlaybackSpeedView
+
+        playbackSpeedView.frame = offScreenFrame
+        playbackSpeedView.backgroundColor = PresentationTheme.current.colors.background
+        playbackSpeedView.delegate = self
+        return playbackSpeedView
+    }()
 }
 
+extension MediaMoreOptionsActionSheet: NewPlaybackSpeedViewDelegate {
+    func newPlaybackSpeedViewHandleOptionChange(title: String) {
+        self.headerView.title.text = title
+    }
+}
+
+// MARK: - MediaPlayerActionSheetDelegate
 extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDelegate {
     func mediaPlayerActionSheetHeaderTitle() -> String? {
         return NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
@@ -70,7 +94,17 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDelegate {
     }
 }
 
+// MARK: - MediaPlayerActionSheetDataSource
 extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
+
+    private func selectViewToPresent(for cell: MediaPlayerActionSheetCellIdentifier) -> UIView {
+        switch cell {
+        case .playback:
+            return playbackView
+        default:
+            return mockView
+        }
+    }
 
     var configurableCellModels: [ActionSheetCellModel] {
         var models: [ActionSheetCellModel] = []
@@ -78,7 +112,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
             let cellModel = ActionSheetCellModel(
                 title: String(describing: $0),
                 imageIdentifier: $0.rawValue,
-                viewToPresent: mockView,
+                viewToPresent: selectViewToPresent(for: $0),
                 cellIdentifier: $0
             )
             if $0 == .interfaceLock {
