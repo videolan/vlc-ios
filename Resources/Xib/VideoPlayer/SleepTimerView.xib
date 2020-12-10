@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="SleepTimerView" id="7Au-zH-5I2" userLabel="SleepTimerView" customClass="SleepTimerView" customModule="VLC" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="275"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <datePicker contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7J1-zD-eoL">
+                    <rect key="frame" x="20" y="20" width="560" height="165"/>
+                    <connections>
+                        <action selector="valueDidChange:" destination="7Au-zH-5I2" eventType="valueChanged" id="yVW-58-3Wo"/>
+                    </connections>
+                </datePicker>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbm-fO-zWx" userLabel="Reset Button">
+                    <rect key="frame" x="200" y="195" width="60" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="Dip-wJ-37d"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="ocx-EZ-ljy"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                    <state key="normal" title="Reset"/>
+                    <connections>
+                        <action selector="handleReset:" destination="7Au-zH-5I2" eventType="touchUpInside" id="tIL-cZ-utZ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDF-du-NQE" userLabel="Set Button">
+                    <rect key="frame" x="340" y="195" width="60" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="M0g-ts-kka"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="sS2-NE-GgT"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                    <state key="normal" title="Set"/>
+                    <connections>
+                        <action selector="handleSet:" destination="7Au-zH-5I2" eventType="touchUpInside" id="SKi-Dv-hhz"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Thd-jN-ogA"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="FDF-du-NQE" firstAttribute="centerX" secondItem="Thd-jN-ogA" secondAttribute="centerX" constant="70" id="EzX-XZ-PIg"/>
+                <constraint firstItem="qbm-fO-zWx" firstAttribute="top" secondItem="7J1-zD-eoL" secondAttribute="bottom" constant="10" id="L9M-9o-Kao"/>
+                <constraint firstItem="qbm-fO-zWx" firstAttribute="centerX" secondItem="Thd-jN-ogA" secondAttribute="centerX" constant="-70" id="LYB-SK-Ogz"/>
+                <constraint firstItem="Thd-jN-ogA" firstAttribute="bottom" secondItem="qbm-fO-zWx" secondAttribute="bottom" constant="30" id="PHG-zx-aGL"/>
+                <constraint firstItem="7J1-zD-eoL" firstAttribute="top" secondItem="Thd-jN-ogA" secondAttribute="top" constant="20" id="SDN-cs-lGj"/>
+                <constraint firstItem="Thd-jN-ogA" firstAttribute="bottom" secondItem="FDF-du-NQE" secondAttribute="bottom" constant="30" id="TJ2-7x-DSE"/>
+                <constraint firstItem="7J1-zD-eoL" firstAttribute="trailing" secondItem="Thd-jN-ogA" secondAttribute="trailing" constant="-20" id="d3h-wJ-d32"/>
+                <constraint firstItem="7J1-zD-eoL" firstAttribute="leading" secondItem="Thd-jN-ogA" secondAttribute="leading" constant="20" id="lax-m2-awU"/>
+                <constraint firstItem="FDF-du-NQE" firstAttribute="top" secondItem="7J1-zD-eoL" secondAttribute="bottom" constant="10" id="opj-vy-d9e"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="resetButton" destination="qbm-fO-zWx" id="0zj-eb-rJb"/>
+                <outlet property="setButton" destination="FDF-du-NQE" id="UNR-7Q-eHb"/>
+                <outlet property="timePicker" destination="7J1-zD-eoL" id="Joc-Xd-NOS"/>
+            </connections>
+            <point key="canvasLocation" x="204.80000000000001" y="293.25337331334333"/>
+        </view>
+    </objects>
+</document>

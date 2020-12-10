@@ -60,9 +60,11 @@ class MediaPlayerActionSheet: ActionSheet {
         if let view = childView as? NewPlaybackSpeedView {
             view.resetSlidersIfNeeded()
             return MediaPlayerActionSheetCellIdentifier.playback.description
+        } else if childView is SleepTimerView {
+            return MediaPlayerActionSheetCellIdentifier.sleepTimer.description
+        } else {
+            return NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
         }
-
-        return ""
     }
 
     // MARK: Private Methods

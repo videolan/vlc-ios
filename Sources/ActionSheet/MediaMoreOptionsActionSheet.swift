@@ -69,11 +69,42 @@ protocol MediaMoreOptionsActionSheetDelegate {
         playbackSpeedView.delegate = self
         return playbackSpeedView
     }()
+
+// MARK: - Sleep Timer
+    private lazy var sleepTimerView: SleepTimerView = {
+        let sleepTimerView = Bundle.main.loadNibNamed("SleepTimerView",
+                                                      owner: nil,
+                                                      options: nil)?.first as! SleepTimerView
+        sleepTimerView.frame = offScreenFrame
+        sleepTimerView.backgroundColor = PresentationTheme.current.colors.background
+        sleepTimerView.delegate = self
+        return sleepTimerView
+    }()
 }
 
 extension MediaMoreOptionsActionSheet: NewPlaybackSpeedViewDelegate {
     func newPlaybackSpeedViewHandleOptionChange(title: String) {
         self.headerView.title.text = title
+    }
+}
+
+extension MediaMoreOptionsActionSheet: SleepTimerViewDelegate {
+    func sleepTimerViewCloseActionSheet() {
+        removeActionSheet()
+    }
+
+    func sleepTimerViewShowAlert(message: String, seconds: Double) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.view.backgroundColor = PresentationTheme.current.colors.background
+        alert.view.layer.cornerRadius = 15
+
+        self.present(alert, animated: true)
+
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alert.dismiss(animated: true, completion: {
+                self.sleepTimerViewCloseActionSheet()
+            })
+        }
     }
 }
 
@@ -101,6 +132,8 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
         switch cell {
         case .playback:
             return playbackView
+        case .sleepTimer:
+            return sleepTimerView
         default:
             return mockView
         }

@@ -15,6 +15,8 @@
 		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
+		407EB587257A418900686B1F /* SleepTimerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 407EB586257A418900686B1F /* SleepTimerView.xib */; };
+		407EB58E257A41B200686B1F /* SleepTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407EB58D257A41B200686B1F /* SleepTimerView.swift */; };
 		40C95A00256E9272002DD208 /* NewPlaybackSpeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40C959FF256E9272002DD208 /* NewPlaybackSpeedView.xib */; };
 		40C95A07256E929D002DD208 /* NewPlaybackSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C95A06256E929D002DD208 /* NewPlaybackSpeedView.swift */; };
 		411453B9219C48DA002D94E1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 411453B8219C48DA002D94E1 /* Launch Screen.storyboard */; };
@@ -457,6 +459,8 @@
 		2B1BC34A3BC4BCE7588BD68A /* Pods-VLC-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		3B75A76DF6589FE678357D42 /* Pods-VLC-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		3E95DC30A81B2AF9F7442E00 /* Pods-VLC-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOSTests/Pods-VLC-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		407EB586257A418900686B1F /* SleepTimerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SleepTimerView.xib; sourceTree = "<group>"; };
+		407EB58D257A41B200686B1F /* SleepTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimerView.swift; sourceTree = "<group>"; };
 		40C959FF256E9272002DD208 /* NewPlaybackSpeedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewPlaybackSpeedView.xib; sourceTree = "<group>"; };
 		40C95A06256E929D002DD208 /* NewPlaybackSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlaybackSpeedView.swift; sourceTree = "<group>"; };
 		411453B8219C48DA002D94E1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -2097,6 +2101,7 @@
 			children = (
 				8DB0D71B24CED2BE00915506 /* VideoPlayerControls.xib */,
 				40C959FF256E9272002DD208 /* NewPlaybackSpeedView.xib */,
+				407EB586257A418900686B1F /* SleepTimerView.xib */,
 			);
 			name = VideoPlayer;
 			path = Resources/Xib/VideoPlayer;
@@ -2112,6 +2117,7 @@
 				8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */,
 				E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */,
 				40C95A06256E929D002DD208 /* NewPlaybackSpeedView.swift */,
+				407EB58D257A41B200686B1F /* SleepTimerView.swift */,
 			);
 			name = ActionSheet;
 			path = Sources/ActionSheet;
@@ -2804,6 +2810,7 @@
 				7DB078B9242F6970002A776F /* VLCStoreViewController.xib in Resources */,
 				7D5B26641D6350BF00FE7B4D /* gradient-cell.png in Resources */,
 				8D2AD4DA227AEE8E00393833 /* AddToCollectionView.xib in Resources */,
+				407EB587257A418900686B1F /* SleepTimerView.xib in Resources */,
 				26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */,
 				7DBBF1A6183AB4300009A339 /* VLCMovieViewController.xib in Resources */,
 				7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */,
@@ -3265,6 +3272,7 @@
 				6DBCE3CD2368811000BCA7D5 /* EditButtons.swift in Sources */,
 				7DEE16CE242B53E50004E88F /* VLCStoreController.m in Sources */,
 				41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */,
+				407EB58E257A41B200686B1F /* SleepTimerView.swift in Sources */,
 				4144156A20ECD2620078EC37 /* VLCSectionTableHeaderView.swift in Sources */,
 				41EB6634216147DD00FDC38B /* PlaylistViewController.swift in Sources */,
 				7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */,
