@@ -12,6 +12,7 @@
 class ActionSheetSectionHeader: UIView {
 
     static let identifier = "VLCActionSheetSectionHeader"
+    var titleConstraint: NSLayoutConstraint?
 
     var cellHeight: CGFloat {
         return 50

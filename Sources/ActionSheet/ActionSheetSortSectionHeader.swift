@@ -236,6 +236,8 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         addSubview(secondaryStackView)
         addSubview(displayByLabel)
 
+        titleConstraint = title.topAnchor.constraint(equalTo: secondaryStackView.bottomAnchor, constant: 15)
+
         NSLayoutConstraint.activate([
             displayByLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
             displayByLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
@@ -244,8 +246,6 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
             secondaryStackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
             secondaryStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             secondaryStackView.topAnchor.constraint(equalTo: displayByLabel.bottomAnchor, constant: 15),
-
-            title.topAnchor.constraint(equalTo: secondaryStackView.bottomAnchor, constant: 15),
 
             mainStackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
