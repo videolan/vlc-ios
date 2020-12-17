@@ -90,6 +90,13 @@ static void *ProgressObserverContext = &ProgressObserverContext;
         }
         self->_oneDriveClient = client;
         [self authSuccess];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.delegate) {
+                if ([self.delegate respondsToSelector:@selector(sessionWasUpdated)])
+                    [self.delegate performSelector:@selector(sessionWasUpdated)];
+            }
+        });
     }];
 }
 

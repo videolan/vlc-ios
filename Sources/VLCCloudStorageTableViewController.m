@@ -269,8 +269,10 @@
     if (self.currentPath == nil) {
         self.currentPath = @"";
     }
-    if ([self.controller.currentListFiles count] == 0)
+
+    if ([self.controller.currentListFiles count] == 0) {
         [self requestInformationForCurrentPath];
+    }
 }
 
 - (void)logout
