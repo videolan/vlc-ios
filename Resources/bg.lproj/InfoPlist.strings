@@ -1,0 +1,3 @@
+"NSPhotoLibraryUsageDescription" = "За да бъде запазено видеото, трябва да позволите достъпа до галерията";
+"NSPhotoLibraryAddUsageDescription" = "За да бъде запазено видеото, трябва да позволите достъпа до галерията";
+"NSFaceIDUsageDescription" = "Enable access to Face ID to unlock VLC";
