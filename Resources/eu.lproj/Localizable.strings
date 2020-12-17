@@ -1,0 +1,460 @@
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+
+"STORE_DESCRIPTION_TV" = "VLC media player is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows streaming from cloud services (Dropbox, OneDrive, Box), Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.\n\nMetadata and artwork are provided by TMDb and Hatchet, which are community maintained movie and music databases.";
+
+"CHOOSE_AUDIO_TRACK" = "Hautatu audio pista";
+"CHOOSE_SUBTITLE_TRACK" = "Hautatu azpitituluen pista";
+"OPEN_TRACK_PANEL" = "Ireki pistaren aukeraketa";
+"CHOOSE_TITLE" = "Hautatu titulua";
+"CHOOSE_CHAPTER" = "Hautatu kapitulua";
+"CHAPTER_SELECTION_TITLE" = "Kapituluak";
+"TITLE" = "Titulua";
+"CHAPTER" = "Kapitulua";
+"MINIMIZE_PLAYBACK_VIEW" = "Ikonotu erreprodukzioa";
+"TRACK_SELECTION" = "Pistaren aukeraketa";
+"AUDIO" = "Audioa";
+"SUBTITLES" = "Azpitituluak";
+"LANGUAGE" = "Hizkuntza";
+"MEDIA_INFO" = "Multimedia-informazioa";
+"VIDEO_DIMENSIONS" = "Bideoaren neurriak";
+"FORMAT_VIDEO_DIMENSIONS" = "%ix%i pixel";
+"FORMAT_AUDIO_TRACKS" = "%i audio-pista";
+"ONE_AUDIO_TRACK" = "Audio-pista bat";
+"FORMAT_SPU_TRACKS" = "%i azpititulu-pista";
+"ONE_SPU_TRACK" = "Azpititulu-pista bat";
+"TRACKS" = "%i pista";
+"TRACK" = "Pista %i";
+
+"PLAYING_EXTERNALLY_TITLE" = "TB konektaturik";
+"PLAYING_EXTERNALLY_DESC" = "Bideo hau telebistan erreproduzitzen ari da";
+"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
+
+"VFILTER_HUE" = "Ñabardura";
+"VFILTER_CONTRAST" = "Kontrastea";
+"VFILTER_BRIGHTNESS" = "Distira";
+"VFILTER_SATURATION" = "Saturazioa";
+"VFILTER_GAMMA" = "Gamma";
+
+"PREAMP" = "Aurreanp";
+"DB_FORMAT" = "%i dB";
+"CHOOSE_EQUALIZER_PROFILES" = "Aukeratu ekulizadorearen profila";
+
+"PLAYBACK_FAILED" = "Erreprodukzioak huts egin du";
+"PLEASE_WAIT" = "Itxaron mesedez";
+"AR_CHANGED" = "Aspektu-erlazioa: %@";
+"DEFAULT" = "Lehenetsita";
+"FILL_TO_SCREEN" = "Moztu pantaila betetzeko";
+"PLAYBACK_SPEED" = "Erreprodukzioaren lastertasuna";
+"SPU_DELAY" = "Azpitituluen atzerapena";
+"AUDIO_DELAY" = "Audio-atzerapena";
+"BUTTON_SLEEP_TIMER" = "Sleep Timer";
+"SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
+"CONTINUE_PLAYBACK" = "Continue playback?";
+"CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
+
+"BUTTON_ABOUT" = "Honi buruz";
+"BUTTON_BACK" = "Atzera";
+"BUTTON_DONE" = "Egina";
+"BUTTON_CANCEL" = "Ezeztatu";
+"BUTTON_SAVE" = "Gorde";
+"BUTTON_DOWNLOAD" = "Deskargatu";
+"BUTTON_DELETE" = "Ezabatu";
+"BUTTON_OK" = "Ados";
+"BUTTON_CONTRIBUTE" = "Lagundu";
+"BUTTON_CONNECT" = "Konektatu";
+"BUTTON_RENAME" = "Rename";
+"BUTTON_LEARN_MORE" = "Ikasi gehiago";
+"BUTTON_LOGOUT" = "Amaitu saioa";
+"BUTTON_CONTINUE" = "Jarraitu";
+"BUTTON_SET" = "Ezarri";
+"BUTTON_RESET" = "Berrezarri";
+"BUTTON_RESCAN" = "Rescan";
+"PRIVATE_PLAYBACK_TOGGLE" = "Erreprodukzio pribatua";
+"SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
+
+"BUTTON_RENDERER" = "Igortze gailuak";
+"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
+"UPGRADING_LIBRARY" = "Upgrading Media Library";
+
+"OPEN_NETWORK" = "Open Network Stream";
+"NETWORK_TITLE" = "Network Stream";
+"OPEN_NETWORK_HELP" = "Enter any HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP address to open the stream directly.";
+"HTTP_UPLOAD_SERVER_OFF" = "Zerbitzari inaktiboa";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
+"OPEN_STREAM_OR_DOWNLOAD" = "Would you like to download or play this URL?";
+"SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
+"SMB_CIFS_FILE_SERVERS" = "File Servers (SMB)";
+
+"SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
+
+
+"HTTP_DOWNLOAD_CANCELLED" = "Download canceled by user";
+
+"DOWNLOAD_FROM_HTTP_HELP" = "Enter an address to download the file to your %@.";
+"DOWNLOAD_FROM_HTTP" = "Deskargak";
+"ERROR_NUMBER" = " %i errorea gertatu da";
+"DOWNLOAD_FAILED" = "Deskargak huts egin du";
+"FILE_NOT_SUPPORTED" = "Fitxategi formatu ez onartua";
+"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"SCHEME_NOT_SUPPORTED" = "Address scheme not supported";
+"SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
+"RENAME_MEDIA_TO" = "Enter new name for %@";
+
+"FOLDER_EMPTY" = "Empty folder";
+
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Hautatu fitxategia irekitzeko:";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Ireki hemen...";
+"SHARING_ERROR_NO_FILES" = "Ezin izan da fitxategirik aurkitu partekatzeko";
+"SHARING_ERROR_NO_APPLICATIONS" = "Ezin izan da aplikaziorik aurkitu fitxategi mota hau irekitzeko";
+"SHARING_SUCCESS_CAMERA_ROLL" = "File was successfully saved to the Camera Roll";
+
+"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
+"DOWNLOADVC_DETAILTEXT" = "Deskargatu fitxategiak zuzenean zure gailura";
+"HEADER_TITLE_RENDERER" = "Hautatu igortze gailua";
+
+"NETWORK" = "Sarea";
+"LOCAL_NETWORK" = "Sare lokala";
+"CONNECT_TO_SERVER" = "Konektatu zerbitzarira";
+"FILE_SERVER" = "Fitxategi-zerbitzariak";
+"USER_LABEL" = "Erabiltzailea";
+"PASSWORD_LABEL" = "Pasahitza";
+"DISABLE_LABEL" = "Desgaitu";
+"BUTTON_ANONYMOUS_LOGIN" = "Saio hasiera anonimoa";
+
+"LOCAL_SERVER_REFRESH" = "Freskatu";
+"LOCAL_SERVER_LAST_UPDATE" = "Azken aldaketa: %@";
+"LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "ZERBITZARI-KONEXIOAK HUTS EGIN DU";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Please check your server address and credentials";
+
+"CLOUD_SERVICES" = "Hodei zerbitzuak";
+"LOGIN" = "Hasi saioa";
+"LOGGED_IN" = "Saioa hasita";
+"LOGGED_IN_SERVICES" = "%d zerbitzuetan saioa hasita";
+"LOGGED_IN_SERVICE" = "Zerbitzu batean saioa hasita";
+
+"DROPBOX_DOWNLOAD" = "Deskargatu fitxategia?";
+"DROPBOX_DL_LONG" = "Would you like to download \"%@\" to your %@?";
+"DROPBOX_LOGIN" = "Hasi saioa";
+
+"GDRIVE_ERROR_FETCHING_FILES" = "Errorea fitxategiak eskuratzean";
+"GDRIVE_DOWNLOAD_SUCCESSFUL" = "Zure fitxategia ongi deskargatu da";
+"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "ARRAKASTA";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "Errorea gertatu da deskargatzean";
+"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "ERROREA";
+
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "Hautatutako multimediak ez dauka erreproduzitu daitekeen URLrik";
+
+"DISK_FULL" = "Storage limit reached";
+"DISK_FULL_FORMAT" = "%@ cannot be stored on your %@, because you don't have enough free space left.";
+
+"NUM_OF_FILES" = "%i fitxategi";
+"ONE_FILE" = "Fitxategi 1";
+"NO_FILES" = "Onartutako fitxategirik ez";
+"DOWNLOADING" = "Deskargatzen...";
+"REMAINING_TIME" = "Geratzen den denbora: %@";
+"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
+
+//PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Aldatu pasakodea";
+"Enter Passcode" = "Sartu pasakodea";
+"Enter a passcode" = "Sartu pasakodea";
+"Enter your new passcode" = "Sartu zure pasakode berria";
+"Enter your old passcode" = "Sartu zure pasakode zaharra";
+"Enter your passcode" = "Sartu zure pasakodea";
+"Next" = "Hurrengoa";
+"Passcodes did not match. Try again." = "Pasakodeak ez datoz bat. Saiatu berriro.";
+"Re-enter your new passcode" = "Sartu berriro zure pasakode berria";
+"Re-enter your passcode" = "Sartu berriro zure pasakodea";
+"Set Passcode" = "Ezarri pasakodea";
+
+"Settings" = "Ezarpenak"; // plain text key to keep compatibility with InAppSettingsKit's upstream
+"ON" = "On";
+"OFF" = "Off";
+
+"EMPTY_LIBRARY" = "Hustu multimedia-liburutegia";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
+
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+
+"PLAYBACK_SCRUB_HELP" = "Slide your finger down to adjust the scrubbing rate.";
+"PLAYBACK_SCRUB_HIGH" = "High-Speed Scrubbing";
+"PLAYBACK_SCRUB_HALF" = "Half-Speed Scrubbing";
+"PLAYBACK_SCRUB_QUARTER" = "Quarter-Speed Scrubbing";
+"PLAYBACK_SCRUB_FINE" = "Fine Scrubbing";
+"PLAYBACK_POSITION" = "Erreprodukzioaren posizioa";
+"VIDEO_FILTER" = "Bideo-iragazkiak";
+"VIDEO_FILTER_RESET_BUTTON" = "Reset Video Filters";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Switch Video Aspect Ratio";
+"PLAY_PAUSE_BUTTON" = "Play or Pause current playback";
+"BWD_BUTTON" = "Jauzi atzera";
+"FWD_BUTTON" = "Jauzi aurrera";
+"PLAY_BUTTON" = "Erreproduzitu";
+"NEXT_BUTTON" = "Hurrengoa";
+"PREV_BUTTON" = "Aurrekoa";
+"PLAY_ALL_BUTTON" = "Erreproduzitu denak";
+
+"VERSION_FORMAT" = "Bertsioa: %@";
+"BASED_ON_FORMAT" = "Oinarria:<br />%@";
+
+"NEW" = "BERRIA";
+
+"BUG_REPORT_TITLE" = "Eman akats baten berri";
+"BUG_REPORT_MESSAGE" = "Akats txosten bat sortu nahi duzu?";
+"BUG_REPORT_BUTTON" = "Ireki Safari";
+
+"VO_VIDEOPLAYER_TITLE" = "Bideo-erreproduzigailua";
+"VO_VIDEOPLAYER_DOUBLETAP" = "Double tap to show or hide playback controls";
+
+"FIRST_STEPS_ITUNES" = "iTunes fitxategi-sinkonizazioa";
+"FIRST_STEPS_ITUNES_TITLE" = "Sinkronizatu zure ordenagailuarekin";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
+"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
+"FIRST_STEPS_CLOUDS" = "Hodeiak";
+"FIRST_STEPS_CLOUD_TITLE" = "Hodeia";
+"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
+
+
+"PLEX_CHECK_ACCOUNT" = "Check your Plex account in settings";
+"PLEX_ERROR_ACCOUNT" = "Plex login Error";
+
+"UNAUTHORIZED" = "Unauthorized";
+
+"SERVER" = "Zerbitzaria";
+"SERVER_PORT" = "Ataka";
+"NO_SERVER_FOUND" = "Ez da zerbitzaririk aurkitu";
+"NO_RECENT_STREAMS" = "No stream was played recently";
+
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
+"WEBINTF_DROPFILES" = "Jaregin fitxategiak";
+"WEBINTF_DROPFILES_LONG" = "Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"WEBINTF_DOWNLOADFILES" = "Deskargatu fitxategiak";
+"WEBINTF_DOWNLOADFILES_LONG" = "Just click the file you want to download from your %@.";
+"WEBINTF_TITLE_ATV" = "Urruneko erreprodukzioa";
+"WEBINTF_DROPFILES_LONG_ATV" = "Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"WEBINTF_URL_SENT" = "URLa ongi bidali da.";
+"WEBINTF_URL_EMPTY" = "URLa ezin da hutsik egon.";
+"WEBINTF_URL_INVALID" = "Ez da baliozko URLa.";
+"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Pasakode okerra. <br> Geratzen diren saiakerak:";
+"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
+
+
+
+"DURATION" = "Iraupena";
+"TITLE" = "Titulua";
+
+// strings from VLCKit
+
+// accessibility labels for the playlist
+
+
+"LONGPRESS_TO_STOP" = "Sakatu luze erreprodukzioa gelditzeko.";
+
+// ATV specific
+"AUDIO_INFO_VC_TITLE" = "Audioaren informazioa";
+"CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
+"ENTER_URL" = "Sartu erreproduzitzeko URLa";
+"HTTP_SERVER_ON" = "Desgaitu urruneko erreprodukzioa";
+"HTTP_SERVER_OFF" = "Gaitu urruneko erreprodukzioa";
+"CACHED_MEDIA" = "Cached Media";
+"CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
+"DOWNLOAD_SUBS_FROM_OSO" = "Deskargatu azpitituluak OpenSubtitles.org gunetik...";
+"FOUND_SUBS" = "Aurkitutako azpitituluak";
+"USE_SPDIF" = "Use Pass-through (S/PDIF)";
+
+"PLAYBACK" = "Erreprodukzioa";
+"REPEAT_MODE" = "Errepikatu";
+"REPEAT_DISABLED" = "Desgaituta";
+"REPEAT_SINGLE" = "Bakarra";
+"REPEAT_FOLDER" = "Karpeta";
+
+// Local Network Service Names
+"UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
+"UPNP_SHORT" = "UPnP";
+
+"PLEX_LONG" = "Plex multimedia-zerbitzaria (Bonjour bidez)";
+"PLEX_SHORT" = "Plex";
+
+"FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
+
+"BONJOUR_FILE_SERVERS" = "BONJOUR fitxategi-zerbitzaria";
+"DSM_WORKGROUP" = "Lantaldea";
+
+"URL_NOT_SUPPORTED" = "Ezin da URLa ireki";
+
+// Insert %@ where play-pause-glyph should be placed
+"DELETE_ITEM_HINT" = "Sakatu %@ ezabatzeko"; /* Insert %@ where play-pause-glyph should be placed */
+
+"DELETE_MESSAGE" = "Baieztatu hautapenaren ezabaketa";
+"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
+"DELETE_TITLE" = "Ezabatu hautaketa";
+
+//Drag and Drop
+"THIS_FILE" = "Fitxategi hau";
+"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
+"FILE_EXISTS" = "%@ badago aurretik";
+
+"PROTOCOL_NOT_SELECTED" = "Protokoloa hautatu gabe";
+"Settings" = "Ezarpenak";
+
+"ERROR" = "Errorea";
+"OK" = "Ados";
+"SORT" = "Ordenatu";
+"SORT_BY" = "Ordenatu honen arabera";
+"SEARCH" = "Bilatu";
+"VIDEO" = "Bideoa";
+
+// MediaViewController Swipable Header
+"ALBUMS" = "Albumak";
+"ARTISTS" = "Artistak";
+"EPISODES" = "Kapituluak";
+"GENRES" = "Generoak";
+"ALL_VIDEOS" = "Bideo guztiak";
+"SONGS" = "Abestiak";
+"PLAYLISTS" = "Erreprodukzio-zerrendak";
+"VIDEO_GROUPS" = "Bideo taldeak";
+
+"MODIFIED_DATE" = "Aldaketa data";
+"NAME" = "Izena";
+
+//EDIT
+
+"BUTTON_EDIT" = "Editatu";
+"BUTTON_EDIT_HINT" = "Edit mode";
+
+"ADD_TO_PLAYLIST" = "Gehitu erreprodukzio-zerrendara";
+"ADD_TO_PLAYLIST_HINT" = "Ireki 'gehitu erreprodukzio-zerrendara' menua";
+
+"PLAYLIST_PLACEHOLDER" = "Erreprodukzio-zerrendaren izenburua";
+"PLAYLIST_DESCRIPTION" = "Aukeratu zure erreprodukzio-zerrendaren izenburua";
+"PLAYLIST_CREATION" = "Sortu erreprodukzio-zerrenda berria";
+"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
+"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
+"ERROR_PLAYLIST_TRACKS" = "Ezin izan dira pistak eskuratu";
+
+"ERROR_RENAME_FAILED" = "Renaming failed";
+"ERROR_EMPTY_NAME" = "Izenburua ezin da hutsik egon";
+
+"SHARE_LABEL" = "Partekatu";
+"SHARE_HINT" = "Partekatu hautatutako fitxategiak";
+"RENAME_HINT" = "Aldatu izena hautatutako fitxategiei";
+"DELETE_HINT" = "Ezabatu hautatutako fitxategiak";
+
+// Sort
+
+"BUTTON_SORT" = "Ordenatu";
+"BUTTON_SORT_HINT" = "Bistaratu ordenatze ekintzaren orria";
+"HEADER_TITLE_SORT" = "Ordenatu honen arabera";
+"DESCENDING_LABEL" = "Beherako ordena";
+"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
+"DESCENDING_SWITCH_HINT" = "Ordenatu testuingurua gorantz edo beherantz";
+"GRID_LAYOUT" = "Grid Layout";
+
+// VLCMediaLibraryKit - Sorting Criteria
+
+"ALPHA" = "Alfanumerikoki";
+"DURATION" = "Iraupena";
+"INSERTION_DATE" = "Txertatze data";
+"LAST_MODIFICATION_DATE" = "Azken aldaketaren data";
+"RELEASE_DATE" = "Argitaratze data";
+"FILE_SIZE" = "Fitxategi-tamaina";
+"ARTIST" = "Artista";
+"PLAY_COUNT" = "Erreprodukzio kopurua";
+"ALBUM" = "Albuma";
+"FILENAME" = "Fitxategi-izena";
+"TRACK_NUMBER" = "Pista zenbakia";
+"NB_AUDIO" = "Audio kopurua";
+"NB_MEDIA" = "Multimedia kopurua";
+"NB_VIDEO" = "Bideo kopurua";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Ez da ezer aurkitu";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Artista ezezaguna";
+"VARIOUS_ARTIST" = "Hainbat artista";
+"UNKNOWN_ALBUM" = "Album ezezaguna";
+
+/* VideoSubControl */
+"INTERFACE_LOCK_BUTTON" = "Blokeatu interfazea";
+"INTERFACE_LOCK_HINT" = "Desgaitu interfazeko kontrolak";
+"MORE_OPTIONS_BUTTON" = "Gehiago";
+"MORE_OPTIONS_HINT" = "Ikusi aukera gehiagoren kontrolak";
+"REPEAT_MODE_HINT" = "Aldatu uneko elementuaren errepikatze modua";
+"VIDEO_ASPECT_RATIO_HINT" = "Aldatu uneko bideoaren aspektu-erlazioa";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Ekualizadorea";
+"MORE_OPTIONS_HEADER_TITLE" = "Bideo-aukerak";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Behartu multimedia-liburutegia bireskaneatzea";
+"FORCE_RESCAN_MESSAGE" = "VLC zure multimedia-liburutegia berriro eskaneatzera behartu nahi duzu?\nHonek luze hartu dezake.";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "SMBv1 konexio abisua";
+"SMBV1_WARN_DESCRIPTION" = "Protokolo zahar bat antzeman dugu (SMBv1).\nZiur SMBv1 erabiltzen jarraitu nahi duzula?\nEguneratzea edo zerbitzariaren konfigurazioa aldatzea aholkatzen dugu.";
+"SMBV1_CONTINUE" = "Jarraitu SMBv1 erabiliz";
+"SMBV1_NEXT_PROTOCOL" = "Saiatu SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "Kodetzea";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Gehitu multimedia taldera";
+"ADD_TO_MEDIA_GROUP_HINT" = "Ireki 'Gehitu multimedia taldera' menua";
+
+"MEDIA_GROUPS" = "Multimedia taldeak";
+"MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
+"MEDIA_GROUPS_PLACEHOLDER" = "Multimedia taldearen izenburua";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Kendu multimedia taldetik";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Kendu hautaketa multimedia taldetik";
+
+"MEDIA_GROUP_CREATION" = "Multimedia talde berria";
+"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+
+"BUTTON_REGROUP" = "Regroup";
+"BUTTON_REGROUP_TITLE" = "Regroup selection";
+"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
+"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Play";
+"PLAY_LABEL" = "Play";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Append to queue";
+"APPEND_TO_QUEUE_LABEL" = "Append to queue";

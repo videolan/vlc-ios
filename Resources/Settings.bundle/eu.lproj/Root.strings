@@ -1,0 +1,108 @@
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+
+"SETTINGS_PRIVACY_TITLE" = "Pribatutasuna";
+"SETTINGS_VIDEO_TITLE" = "Bideoa";
+"SETTINGS_AUDIO_TITLE" = "Audioa";
+
+"SETTINGS_THEME_BRIGHT" = "Itxura argia";
+"SETTINGS_THEME_DARK" = "Itxura iluna";
+"SETTINGS_THEME_SYSTEM" = "Automatikoa";
+"SETTINGS_PRIVACY_SUBTITLE" = "Ireki ezarpenetan";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Babestu zure edukietarako sarbidea";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+
+"SETTINGS_DARKTHEME" = "Itxura";
+"SETTINGS_TIME_STRETCH_AUDIO" = "Audioaren denbora-luzatzea";
+"SETTINGS_BACKGROUND_AUDIO" = "Audio erreprodukzioa atzeko planoan";
+"SETTINGS_GENERIC_TITLE" = "Generikoa";
+"SETTINGS_PASSCODE_LOCK" = "Pasakode bidezko blokeoa";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Baimendu Touch ID desblokeatzeko";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Baimendu Face ID desblokeatzeko";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_VIDEO_FULLSCREEN" = "Erreproduzitu bideoa pantaila osoan";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Jarraitu bideoaren erreprodukzioarekin";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Jarraitu audioaren erreprodukzioarekin";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Inoiz ez";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Galdetu";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Beti";
+"SETTINGS_NETWORK_PLAY_ALL" = "Automatikoki erreproduzitu hurrengo elementua";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Gaitu testu-korritzea multimedia-zerrendan";
+
+"SETTINGS_SKIP_LOOP_FILTER" = "Desblokeatze iragazkia";
+"SETTINGS_SKIP_LOOP_FILTER_NONE" = "Desblokeatze gabe (azkarrena)";
+"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Desblokeatze ertaina";
+"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Desblokeatze apala";
+
+"SETTINGS_NETWORK_CACHING_TITLE" = "Network Caching Level";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latentzia txikiena";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latentzia txikia";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normala";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latentzia handia";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latentzia handiena";
+
+"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Lehenetsitako erreprodukzio-abiadura";
+
+"SETTINGS_GESTURES" = "Kontrolatu erreprodukzioa keinuen bidez";
+"SETTINGS_GESTURES_VOLUME" = "Pasatu hatza gora/behera bolumenarentzat";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Sakatu bi atzamarrekin jo edo pausatzeko ";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Pasatu hatza gora/behera distirarentzat";
+"SETTINGS_GESTURES_SEEK" = "Pasatu hatza eskuin/ezkerrera bilatzeko";
+"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
+
+"SETTINGS_SUBTITLES_TITLE" = "Azpitituluak";
+"SETTINGS_SUBTITLES_FONT" = "Letra-tipoa";
+"SETTINGS_SUBTITLES_TEXT_ENCODING" = "Testu-kodeketa";
+"SETTINGS_SUBTITLES_FONTSIZE" = "Letra-tamaina erlatiboa";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "Txikiena";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALL" = "Txikia";
+"SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "Normala";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGE" = "Handia";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "Handiena";
+"SETTINGS_SUBTITLES_BOLDFONT" = "Erabili letra-tipo lodia";
+"SETTINGS_SUBTITLES_FONTCOLOR" = "Letra-tipoaren kolorea";
+"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "Zuria";
+"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "Beltza";
+"SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "Grisa";
+"SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "Zilar kolorea";
+"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "Gorria";
+"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "Fuksia";
+"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Horia";
+"SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Berdea";
+"SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Urdin iluna";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Ingeradaren loditasuna";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Bat ere ez";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Mehea";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normala";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Lodia";
+
+"SETTINGS_DEINTERLACE" = "Bereizi gurutzelarkatuak";
+"SETTINGS_DEINTERLACE_ON" = "On";
+"SETTINGS_DEINTERLACE_OFF" = "Off";
+"SETTINGS_DEINTERLACE_AUTO" = "Automatikoa";
+
+"SETTINGS_HWDECODING" = "Hardwarearen deskodeketa";
+"SETTINGS_HWDECODING_ON" = "On";
+"SETTINGS_HWDECODING_OFF" = "Off";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+
+"SETTINGS_FEEDBACK" = "Iruzkinak";
+"SETTINGS_SEND_FEEDBACK" = "Bidali iruzkinak";
+"SETTINGS_SEND_RATING" = "Baloratu iOS sistemarako VLC";
+
+"SETTINGS_MEDIA_LIBRARY" = "Multimedia-liburutegia";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Behartu VLC multimedia-liburutegia bireskaneatzera";
+"SETTINGS_DECRAPIFY" = "Optimizatu elementuen izenak bistaratzeko";
+"SETTINGS_SHOW_THUMBNAILS" = "Erakutsi bideo-iruditxoak";
+"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+
+"SETTINGS_FILE_SYNC" = "Fitxategien sinkronizazioa";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+
+"SETTINGS_ARTWORK" = "Artwork";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
+
+"ABOUT_APP_TV" = "iOS sistemarako VLC honi buruz";
