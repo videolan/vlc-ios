@@ -1,32 +1,32 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
-"SETTINGS_PRIVACY_TITLE" = "Privacy";
+"SETTINGS_PRIVACY_TITLE" = "Tabaḍnit";
 "SETTINGS_VIDEO_TITLE" = "Abidyu";
 "SETTINGS_AUDIO_TITLE" = "Imesli";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
-"SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
-"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+"SETTINGS_THEME_BRIGHT" = "Asentel afaw";
+"SETTINGS_THEME_DARK" = "Asentel aberkan";
+"SETTINGS_THEME_SYSTEM" = "Awurman";
+"SETTINGS_PRIVACY_SUBTITLE" = "Ldi deg yiɣewwaren";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Adduf aɣelsan ɣer ugbur-inek m";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Amidya-inek m ad yettwaffer deg usnas n yifuyla";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Timeẓri";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Étirement temporel audio";
 "SETTINGS_BACKGROUND_AUDIO" = "Taɣuri n imesli deg weɣawas n deffir";
 "SETTINGS_GENERIC_TITLE" = "Imcettel";
 "SETTINGS_PASSCODE_LOCK" = "Tangalt n usergel";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
-"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Sireg tukksa n usekkeṛ s Face ID";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Ffer tamkarḍit n yimidyaten di Ifuyla";
 "SETTINGS_VIDEO_FULLSCREEN" = "Urar abidyu deg wegdil ačuran";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Never";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Always";
-"SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_NETWORK_PLAY_ALL" = "Ɣer aferdis uḍfir s wudem awurman";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Sermed adrurem n uḍris di tebdart n yimidyaten";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtre anti-blocs";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Sans anti-blocs (plus rapide)";
@@ -44,7 +44,7 @@
 
 "SETTINGS_GESTURES" = "Contrôle de la lecture par gestes";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Ɣer/bedd s tnalit n sin iḍudan";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
 "SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
@@ -81,26 +81,26 @@
 "SETTINGS_DEINTERLACE_OFF" = "Ala";
 "SETTINGS_DEINTERLACE_AUTO" = "Awurman";
 
-"SETTINGS_HWDECODING" = "Hardware Decoding";
-"SETTINGS_HWDECODING_ON" = "On";
-"SETTINGS_HWDECODING_OFF" = "Off";
+"SETTINGS_HWDECODING" = "Tukksan n tengalt n warrum";
+"SETTINGS_HWDECODING_ON" = "Ih";
+"SETTINGS_HWDECODING_OFF" = "Ala";
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
-"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_PTCASTINGLONG" = "Eǧǧ tiliẓri-inek m ad isefrek tiririt n umeslaw";
 
 "SETTINGS_FEEDBACK" = "Tuɣalin";
 "SETTINGS_SEND_FEEDBACK" = "Azen tiririt";
 "SETTINGS_SEND_RATING" = "Merci de noter VLC pour iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Tamkarḍit n yimidyaten";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Ḥettem tulsa n usleḍ n temkarḍit n yimidyaten";
 "SETTINGS_DECRAPIFY" = "Sekkey ismawen n iferdisen i webeqeḍ";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_SHOW_THUMBNAILS" = "Beqqeḍ tinfulin n tvidyutin";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Seddu tamkarḍit n yimidyaten deg uḥraz n yibenk";
 
 "SETTINGS_FILE_SYNC" = "Amtawi n ifuyla";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_WIFISHARING_IPv6" = "Tadhelt n IPv6 i beḍḍu n Wi-Fi";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";

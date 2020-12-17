@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
 "UPGRADING_LIBRARY" = "Aleqqem n temkarḍit";
 
 "OPEN_NETWORK" = "Ldi asuddem n uẓeṭṭa";
@@ -193,9 +197,9 @@
 "BWD_BUTTON" = "Uɣal ɣer deffir";
 "FWD_BUTTON" = "Aẓ ɣer sdat";
 "PLAY_BUTTON" = "Taɣuri";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
-"PLAY_ALL_BUTTON" = "Play all";
+"NEXT_BUTTON" = "Uḍfir";
+"PREV_BUTTON" = "Uzwir";
+"PLAY_ALL_BUTTON" = "Ɣer akk";
 
 "VERSION_FORMAT" = "Lqem: %@";
 "BASED_ON_FORMAT" = "Yebna ɣef:<br />%@";
@@ -210,9 +214,9 @@
 "VO_VIDEOPLAYER_DOUBLETAP" = "Ssed snat n tikkal iwakken  ad tbeqqeḍeḍ neɣ ad tefreḍ isenqaden";
 
 "FIRST_STEPS_ITUNES" = "Semtawi ifuyla aked iTunes";
-"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_TITLE" = "Semtawi akked uselkim-inek m";
 "FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
+"FIRST_STEPS_WIFI_TITLE" = "Bḍu s Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Clouds";
 "FIRST_STEPS_CLOUD_TITLE" = "Cloud";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
 "PURCHASE_FAILED" = "Purchase Failed";
 "SEND_GIFT" = "Send your gift";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Play";
+"PLAY_LABEL" = "Play";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Append to queue";
+"APPEND_TO_QUEUE_LABEL" = "Append to queue";
