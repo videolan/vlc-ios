@@ -1,14 +1,14 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
-"SETTINGS_PRIVACY_TITLE" = "Privacy";
+"SETTINGS_PRIVACY_TITLE" = "ឯកជនភាព";
 "SETTINGS_VIDEO_TITLE" = "វីដេអូ";
 "SETTINGS_AUDIO_TITLE" = "អូឌីយ៉ូ";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
-"SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
-"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_THEME_BRIGHT" = "ស្បែកភ្លឺចាំង";
+"SETTINGS_THEME_DARK" = "ស្បែកងងឹត";
+"SETTINGS_THEME_SYSTEM" = "ស្វ័យប្រវត្តិ";
+"SETTINGS_PRIVACY_SUBTITLE" = "បើកក្នុងការ​កំណត់";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "ចូលទៅដំណើការមាតិការរបស់អ្នកដោយសុវត្ថិភាព";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Appearance";
