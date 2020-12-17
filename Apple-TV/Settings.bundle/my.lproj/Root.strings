@@ -1,0 +1,108 @@
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+
+"SETTINGS_PRIVACY_TITLE" = "တကိုယ်ရည် လုံခြုံရေး";
+"SETTINGS_VIDEO_TITLE" = "ဗီဒီယို";
+"SETTINGS_AUDIO_TITLE" = "အသံ";
+
+"SETTINGS_THEME_BRIGHT" = "လင်းသော အပြင်အဆင်";
+"SETTINGS_THEME_DARK" = "မှောင်သော အပြင်အဆင်";
+"SETTINGS_THEME_SYSTEM" = "အလိုလျှောက်";
+"SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+
+"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
+"SETTINGS_BACKGROUND_AUDIO" = "Audio playback in background";
+"SETTINGS_GENERIC_TITLE" = "ယေဘူယျ";
+"SETTINGS_PASSCODE_LOCK" = "ဝင်ခွင့်ကုဒ် သော့";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "သော့ဖွင့်ရန် Touch ID ကို ခွင့်ပြု ပါ";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "သော့ဖွင့်ရန် Face ID ကို ခွင့်ပြု ပါ";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_VIDEO_FULLSCREEN" = "မြင်ကွင်းပြည့် တွင် ဗီဒီယို ကို ပြသ ပါ";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "ဗီဒီယို ပြသခြင်း ဆက်လုပ်ရန်";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "အသံ ဖွင့် ခြင်း ဆက်လုပ်ဆောင်ရန်";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "ဘယ်တော့မှ";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "မေးပါ";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "အမြဲတမ်း";
+"SETTINGS_NETWORK_PLAY_ALL" = "နောက်ထပ် အရာကို အလိုလျှောက် ပြသ ရန်";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+
+"SETTINGS_SKIP_LOOP_FILTER" = "Deblocking filter";
+"SETTINGS_SKIP_LOOP_FILTER_NONE" = "No deblocking (fastest)";
+"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Medium deblocking";
+"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Low deblocking";
+
+"SETTINGS_NETWORK_CACHING_TITLE" = "ကွန်ယက်မှ ယာယီဖိုင်သိမ်းခြင်း အဆင့်";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lowest Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Low Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "ပုံမှန်";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest Latency";
+
+"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "မူလ ပြသ နှုန်း";
+
+"SETTINGS_GESTURES" = "Control playback with gestures";
+"SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
+"SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
+"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
+
+"SETTINGS_SUBTITLES_TITLE" = "စာတမ်းထိုးများ";
+"SETTINGS_SUBTITLES_FONT" = "စာလုံး ပုံစံ";
+"SETTINGS_SUBTITLES_TEXT_ENCODING" = "စာ ကုဒ်ပြောင်းခြင်း";
+"SETTINGS_SUBTITLES_FONTSIZE" = "ဆပ်စပ် စာလုံး ပုံစံ အရွယ်အစား";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "အသေးဆုံး";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALL" = "အသေး";
+"SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "ပုံမှန်";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGE" = "အကြီး";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "အကြီးဆုံး";
+"SETTINGS_SUBTITLES_BOLDFONT" = "စာလုံး ပုံစံ အထူ ကို သုံးပါ";
+"SETTINGS_SUBTITLES_FONTCOLOR" = "စာလုံး ပုံစံ အရောင်";
+"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "အဖြူ";
+"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "အမဲ";
+"SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "မီးခိုး";
+"SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "ငွေရောင်";
+"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "အနီ";
+"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "ပန်းခရမ်း";
+"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "အဝါ";
+"SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "အစိမ်း";
+"SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "နေဗီ ပြာ";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "ကောက်ကြောင်း ဒုအထူ";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "မပါ";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "အပါး";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "ပုံမှန်";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "အထူ";
+
+"SETTINGS_DEINTERLACE" = "Deinterlace";
+"SETTINGS_DEINTERLACE_ON" = "ဖွင့်";
+"SETTINGS_DEINTERLACE_OFF" = "ပိတ်";
+"SETTINGS_DEINTERLACE_AUTO" = "အလိုလျှောက်";
+
+"SETTINGS_HWDECODING" = "ဟာ့ဒ်ဝဲ ကုဒ်ဖြေခြင်း";
+"SETTINGS_HWDECODING_ON" = "ဖွင့်";
+"SETTINGS_HWDECODING_OFF" = "ပိတ်";
+"SETTINGS_CASTING" = "ဖမ်းယူပြသခြင်း";
+"SETTINGS_PTCASTING" = "အသံ ဖြတ်သန်းဝင်ရောက်မှု";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+
+"SETTINGS_FEEDBACK" = "အကြုံပြု တုံ့ပြန်ချက်";
+"SETTINGS_SEND_FEEDBACK" = "အကြုံပြု တုံ့ပြန်ချက် ပေးပို့ရန်";
+"SETTINGS_SEND_RATING" = "ကျေးဇူးပြု၍ iOS အတွက် VLC ကို အဆင့်ပေးပါ";
+
+"SETTINGS_MEDIA_LIBRARY" = "မီဒီယာတိုက်";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Optimize item names for display";
+"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+
+"SETTINGS_FILE_SYNC" = "ဖိုင် ချိန်ကိုက်ညှိနှိုင်းခြင်း";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+
+"SETTINGS_ARTWORK" = "သရုပ်ဖော်ပုံ";
+"SETTINGS_DOWNLOAD_ARTWORK" = "သရုပ်ဖော်ပုံ ဒေါင်းလုပ် လုပ်ရန်";
+
+"ABOUT_APP_TV" = "tvOS အတွက် VLC အကြောင်း";
