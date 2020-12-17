@@ -112,6 +112,9 @@ static void *ProgressObserverContext = &ProgressObserverContext;
         self->_rootItemID = nil;
         self->_parentItem = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.delegate) {
+                [self.delegate performSelector:@selector(mediaListUpdated)];
+            }
             if (self->_presentingViewController) {
                 [self->_presentingViewController.navigationController popViewControllerAnimated:YES];
             }
