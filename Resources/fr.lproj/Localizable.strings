@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Périphériques de diffusion";
 "BUTTON_RENDERER_HINT" = "Afficher un menu des périphériques de diffusion";
 
+
+"BUTTON_PLAY_QUEUE" = "Liste de lecture";
+"BUTTON_PLAY_QUEUE_HINT" = "Afficher la vue de la liste de lecture";
+
 "UPGRADING_LIBRARY" = "Mise à jour de la médiathèque";
 
 "OPEN_NETWORK" = "Ouvrir un flux réseau";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Vous n'êtes pas autorisé à effectuer des paiements sur cet appareil.";
 "PURCHASE_FAILED" = "Échec de l'achat";
 "SEND_GIFT" = "Envoyez votre cadeau";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Lire";
+"PLAY_LABEL" = "Lire";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Jouer la suivante de la liste de lecture";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Jouer la suivante de la liste de lecture";
+"APPEND_TO_QUEUE_HINT" = "Ajouter à la liste de lecture";
+"APPEND_TO_QUEUE_LABEL" = "Ajouter à la liste de lecture";
