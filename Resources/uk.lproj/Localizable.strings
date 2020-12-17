@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Пристрої для трансляції";
 "BUTTON_RENDERER_HINT" = "Показати меню доступних пристроїв для трансляції";
 
+
+"BUTTON_PLAY_QUEUE" = "Відтворити чергу";
+"BUTTON_PLAY_QUEUE_HINT" = "Показати перегляд черги відтворення";
+
 "UPGRADING_LIBRARY" = "Оновлюється медіабібліотека";
 
 "OPEN_NETWORK" = "Відкрити мережевий потік";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Вам не дозволено робити платежі на цьому пристрої.";
 "PURCHASE_FAILED" = "Купівля невдала";
 "SEND_GIFT" = "Надіслати ваш подарунок";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Відтворити";
+"PLAY_LABEL" = "Відтворити";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Відтворити наступне у черзі";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Відтворити наступне у черзі";
+"APPEND_TO_QUEUE_HINT" = "Додати до черги";
+"APPEND_TO_QUEUE_LABEL" = "Додати до черги";
