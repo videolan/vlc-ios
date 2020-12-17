@@ -1,0 +1,460 @@
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+
+"STORE_DESCRIPTION_TV" = "VLC മീഡിയ പ്ലെയർ ഒരു സൗജന്യ ഓപ്പൺ സോഴ്‌സ് ക്രോസ്-പ്ലാറ്റ്ഫോം മൾട്ടിമീഡിയ പ്ലെയറാണ്.\nഫോർമാറ്റുകൾ ഇല്ലാതെ ഇതിന് നിങ്ങളുടെ എല്ലാ സിനിമകളും ഷോകളും സംഗീതവും നേരിട്ട് പ്ലേ ചെയ്യാൻ കഴിയും.\nക്ലൗഡ് സേവനങ്ങളിൽ നിന്ന് (Dropbox, OneDrive, Box) സ്ട്രീമിംഗ്, വെബ് യുഐ വഴി നിങ്ങളുടെ മാക്കിൽ നിന്നോ പിസിയിൽ നിന്നോ വിദൂര പ്ലേബാക്ക്, ഒപ്പം SMB, FTP, UPnP / DLNA മീഡിയ സെർവറുകളിൽ നിന്നും വെബിൽ നിന്നും സ്ട്രീമിംഗ് അനുവദിക്കും.\nപ്ലേബാക്ക് വേഗത നിയന്ത്രണം എന്നിവയുൾപ്പെടെ വിപുലമായ സബ്ടൈറ്റിലുകൾക്ക് VLC പിന്തുണ നൽകുന്നു.\n\niOS- നായുള്ള VLC പൂർണ്ണമായും സൗജന്യവും ഓപ്പൺ സോഴ്‌സുമാണ്.\n\nകമ്മ്യൂണിറ്റി പരിപാലിക്കുന്ന മൂവി, മ്യൂസിക് ഡാറ്റാബേസുകളായ TMDB-യും Hatchet-റ്റും മെറ്റാഡാറ്റയും കലാസൃഷ്ടികളും നൽകുന്നു.";
+
+"CHOOSE_AUDIO_TRACK" = "ഓഡിയോ ട്രാക്ക് തെരെഞ്ഞെടുക്കുക";
+"CHOOSE_SUBTITLE_TRACK" = "ഉപശീര്‍ഷകങ്ങള്‍ തെരെഞ്ഞെടുക്കുക";
+"OPEN_TRACK_PANEL" = "ട്രാക്ക് തിരഞ്ഞെടുക്കൽ തുറക്കുക";
+"CHOOSE_TITLE" = "തലകെട്ട് സെലെക്ട്ട് ചെയ്യുക";
+"CHOOSE_CHAPTER" = "ചാപ്ട്ടെർ സെലെക്ട്ട് ചെയ്യുക";
+"CHAPTER_SELECTION_TITLE" = "അധ്യായങ്ങൾ";
+"TITLE" = "തലക്കെട്ട്";
+"CHAPTER" = "അധ്യായം";
+"MINIMIZE_PLAYBACK_VIEW" = "പ്ലേബാക്ക് ചെറുതാക്കുക";
+"TRACK_SELECTION" = "ട്രാക്ക്‌ സെലെക്ട്ട് ചെയ്യുക";
+"AUDIO" = "ശബ്ദം";
+"SUBTITLES" = "ഉപശീര്‍ഷകങ്ങള്‍";
+"LANGUAGE" = "ഭാഷ";
+"MEDIA_INFO" = "മീഡിയ വിവരങ്ങൾ";
+"VIDEO_DIMENSIONS" = "വീഡിയോ അളവുകൾ";
+"FORMAT_VIDEO_DIMENSIONS" = "%ix%i പിക്സൽ";
+"FORMAT_AUDIO_TRACKS" = "%i ഓഡിയോ ട്രാക്ക്";
+"ONE_AUDIO_TRACK" = "ഒരു ഓഡിയോ ട്രാക്ക്";
+"FORMAT_SPU_TRACKS" = "%i സബ്റ്റൈറ്റൽ ട്രാക്കുകൾ";
+"ONE_SPU_TRACK" = "ഒരു സബ്ടൈറ്റിൽ ട്രാക്ക്";
+"TRACKS" = "%i ട്രാക്കുകൾ";
+"TRACK" = "%i ട്രാക്ക്";
+
+"PLAYING_EXTERNALLY_TITLE" = "ടി.വി ബന്ധപ്പെടുത്തി";
+"PLAYING_EXTERNALLY_DESC" = "ഈ വീ‍‍ഡിയോ ടി.വിയില്‍ കാണിക്കുന്നു";
+"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
+
+"VFILTER_HUE" = "ഹ്യു";
+"VFILTER_CONTRAST" = "വ്യതിരിക്തത";
+"VFILTER_BRIGHTNESS" = "തെളിച്ചം";
+"VFILTER_SATURATION" = "പൂര്‍ണത";
+"VFILTER_GAMMA" = "ഗാമ്മ";
+
+"PREAMP" = "പ്രീആംപ്";
+"DB_FORMAT" = "%i dB";
+"CHOOSE_EQUALIZER_PROFILES" = "ഈക്വാളിസിർ പ്രൊഫൈൽ തിരഞ്ഞെടുക്കുക";
+
+"PLAYBACK_FAILED" = "പ്ലേബാക്ക് പരാജയപ്പെട്ടു";
+"PLEASE_WAIT" = "ദയവായി കാത്തിരിക്കുക";
+"AR_CHANGED" = "ആകാരഅനുപാതം:%@";
+"DEFAULT" = "സ്വതം";
+"FILL_TO_SCREEN" = "പൂര്‍ണ സ്ക്രീനിനായി മുറിക്കുക";
+"PLAYBACK_SPEED" = "പ്ലേബാക്ക് വേഗത";
+"SPU_DELAY" = "Subtitles delay";
+"AUDIO_DELAY" = "Audio delay";
+"BUTTON_SLEEP_TIMER" = "Sleep Timer";
+"SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
+"CONTINUE_PLAYBACK" = "പ്ലേബാക്ക് തുടരുക?";
+"CONTINUE_PLAYBACK_LONG" = "നിങ്ങൾ നിർത്തിയിടത്ത് \"%@\" പ്ലേബാക്ക് തുടരാൻ ആഗ്രഹിക്കുന്നുണ്ടോ?";
+
+"BUTTON_ABOUT" = "കുറിച്ച്";
+"BUTTON_BACK" = "പിറകോട്ട്";
+"BUTTON_DONE" = "പൂര്‍ണം";
+"BUTTON_CANCEL" = "ഒഴിവാക്കുക";
+"BUTTON_SAVE" = "സൂക്ഷിക്കുക";
+"BUTTON_DOWNLOAD" = "ഡൌണ്‍ലോ‍ഡ്";
+"BUTTON_DELETE" = "കളയുക";
+"BUTTON_OK" = "ശരി";
+"BUTTON_CONTRIBUTE" = "സംഭാവന ചെയ്യുക";
+"BUTTON_CONNECT" = "ബന്ധപ്പെടുത്തുക";
+"BUTTON_RENAME" = "പുനര്‍നാമകരണം";
+"BUTTON_LEARN_MORE" = "കൂടുതല്‍ മനസ്സിലാക്കൂ";
+"BUTTON_LOGOUT" = "പുറത്തെക്ക്";
+"BUTTON_CONTINUE" = "തുടരുക";
+"BUTTON_SET" = "Set";
+"BUTTON_RESET" = "Reset";
+"BUTTON_RESCAN" = "വീണ്ടും സ്കാൻ ചെയ്യുക";
+"PRIVATE_PLAYBACK_TOGGLE" = "സ്വകാര്യ പ്ലേബാക്ക്";
+"SCAN_SUBTITLE_TOGGLE" = "ശീര്‍ഷകങ്ങള്‍ക്കായി പരതുക (എച്ച് ടി ടി പി -മാത്രം)";
+
+"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER_HINT" = "ലഭ്യമായ കാസ്റ്റിംഗ് ഉപകരണങ്ങളുടെ മെനു കാണിക്കുക";
+
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
+"UPGRADING_LIBRARY" = "മീഡിയ ലൈബ്രറി പുതുക്കുന്നു";
+
+"OPEN_NETWORK" = "നെറ്റ്‍വര്‍ക്ക് അരുവി തുറക്കുക";
+"NETWORK_TITLE" = "നെറ്റ്‍വര്‍ക്ക് അരുവികള്‍";
+"OPEN_NETWORK_HELP" = "ഒഴുക്ക് നേരിട്ട് തുറക്കാന്‍ ഏതെങ്കിലും എ.ച്.ടി.ടി.പി, ആര്‍.ടി.എസ്.പി, ആര്‍.ടി.എം.പി, എം.എം.എസ്, എഫ്.ടി.പി അല്ലെങ്കില്‍ യു.ഡി.പി/ആര്‍.ടി.പി വിലാസം നല്‍കുക";
+"HTTP_UPLOAD_SERVER_OFF" = "പ്രവര്‍ത്തന സജ്ജമല്ലാത്ത സര്‍വര്‍";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
+"OPEN_STREAM_OR_DOWNLOAD" = "ഈ യു ര്‍ ല്‍ ഡൌണ്‍ലോഡ് ചെയ്യന്നോ പ്ലേ ചെയ്യന്നോ ആഗ്രഹികുന്നോ?";
+"SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
+"SMB_CIFS_FILE_SERVERS" = "ഫയൽ സെർവറുകൾ (SMB)";
+
+"SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
+
+
+"HTTP_DOWNLOAD_CANCELLED" = "ഉപയോക്താവ് ഡൌണ്‍ലോഡിംഗ് ഒഴിവാക്കി";
+
+"DOWNLOAD_FROM_HTTP_HELP" = "ഫയല്‍ നിങ്ങളുടെ %@ ലേക്ക് ഡൌണ്‍ലോ‍ഡ് ചെയ്യാന്‍ ഒരു വിലാസം നല്‍കുക";
+"DOWNLOAD_FROM_HTTP" = "ഡൌണ്‍ലോ‍ഡുകള്‍";
+"ERROR_NUMBER" = "%iാം പ്രശ്നം സംഭവിച്ചു";
+"DOWNLOAD_FAILED" = "ഡൌണ്‍ലോ‍ഡ് പരാജയപ്പെട്ടു";
+"FILE_NOT_SUPPORTED" = "ഫയല്‍ ഫോര്‍മാറ്റ് പിന്തുണക്കുന്നതല്ല";
+"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"SCHEME_NOT_SUPPORTED" = "വിലാസ രീതി പിന്തുണക്കുന്നതല്ല";
+"SCHEME_NOT_SUPPORTED_LONG" = "ഈ അഡ്രസ്‌ (%@)പിന്തുണക്കുനില്ല. ദയവായി എച് ടി ടി പി, എച് ടി ടി പി എസ് അല്ലെങ്കില്‍ എഫ്‌ ടി പി ഉപയോഗിക്കുക ";
+"RENAME_MEDIA_TO" = "%@ വേണ്ടി പുതിയ പേരു ചേര്‍ക്കുക ";
+
+"FOLDER_EMPTY" = "ശൂന്യമായ ഫോൾഡർ";
+
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "ഒന്നോ അതിലധികമോ ഫയല്‍ തുറക്കുക";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "ഫയല്‍ തുറക്കുക";
+"SHARING_ERROR_NO_FILES" = "പങ്കിടാന്‍ ഫയലുകള്‍ ഒന്നും കിട്ടുന്നില്ല ";
+"SHARING_ERROR_NO_APPLICATIONS" = "ഇത്തരത്തിലുള്ള ഫയൽ തുറക്കുന്നതിന് അപ്ലിക്കേഷനുകളൊന്നും കണ്ടെത്താൻ കഴിഞ്ഞില്ല";
+"SHARING_SUCCESS_CAMERA_ROLL" = "File was successfully saved to the Camera Roll";
+
+"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
+"DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
+"HEADER_TITLE_RENDERER" = "Select a casting device";
+
+"NETWORK" = "നെറ്റ്‌വർക്ക്";
+"LOCAL_NETWORK" = "പ്രാദേശിക നെറ്റ്‍വര്‍ക്ക്";
+"CONNECT_TO_SERVER" = "സര്‍വറുമായി ബന്ധപ്പെടുക";
+"FILE_SERVER" = "ഫയൽ സെർവറുകൾ";
+"USER_LABEL" = "ഉപയോക്താവ്";
+"PASSWORD_LABEL" = "അടയാള വാക്യം";
+"DISABLE_LABEL" = "നിര്‍ജ്ജീവമാക്കുക";
+"BUTTON_ANONYMOUS_LOGIN" = "അജ്ഞാത ലോഗിൻ";
+
+"LOCAL_SERVER_REFRESH" = "പുതുക്കുക";
+"LOCAL_SERVER_LAST_UPDATE" = "അവസാനമായി പുതുക്കിയത് %@";
+"LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "സര്‍വര്‍ ബന്ധം പരാജയപ്പെട്ടു";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "സര്‍വര്‍ വിലാസവും മറ്റു വിവരങ്ങളും പരിശോധിക്കുക";
+
+"CLOUD_SERVICES" = "ക്ലൗഡ് സേവനങ്ങൾ";
+"LOGIN" = "പ്രവേശിക്കുക";
+"LOGGED_IN" = "ലോഗ്ഗിങ്ങ്";
+"LOGGED_IN_SERVICES" = "%d logged in services";
+"LOGGED_IN_SERVICE" = "1 logged in service";
+
+"DROPBOX_DOWNLOAD" = "ഡൌണ്‍ലോ‍ഡ് ചെയ്യണോ?";
+"DROPBOX_DL_LONG" = "നിങ്ങള്‍ \"%@\" നിങ്ങളുടെ %@ ലേക്ക് ഡൌണ്‍ലോഡ് ചെയ്യാന്‍ ആഗ്രഹിക്കുന്നുവോ?";
+"DROPBOX_LOGIN" = "പ്രവേശിക്കുക";
+
+"GDRIVE_ERROR_FETCHING_FILES" = "ഫയലുകള്‍ എടുക്കുന്നതിനിടെ പരാജയം";
+"GDRIVE_DOWNLOAD_SUCCESSFUL" = "നിങ്ങളുടെ ഫയല്‍ വിജയകരമായി ഡൌണ്‍ലോഡ് ചെയ്തിരിക്കുന്നു";
+"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "വിജയകരം";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "ഡൌണ്‍ലോഡ് ചെയ്യുന്നതിനിടെ ഒരു പ്രശ്നം സംഭവിച്ചു";
+"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "പ്രശ്നം";
+
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+
+"DISK_FULL" = "സംഭരണ പരിധി ആയി";
+"DISK_FULL_FORMAT" = "%@ cannot be stored on your %@, because you don't have enough free space left.";
+
+"NUM_OF_FILES" = "%i ഫയലുകള്‍";
+"ONE_FILE" = "ഒരു ഫയല്‍";
+"NO_FILES" = "പിന്തുണക്കുന്ന ഫയലുകള്‍ ഇല്ല";
+"DOWNLOADING" = "ഡൌണ്‍ലോ‍ഡ് ചെയ്യുന്നു....";
+"REMAINING_TIME" = "ബാക്കിയുള്ള സമയം :%@";
+"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
+
+//PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "പാസ്‌കോഡ് മാറ്റുക";
+"Enter Passcode" = "പാസ്‌കോഡ് നൽകുക";
+"Enter a passcode" = "ഒരു പാസ്‌കോഡ് നൽകുക";
+"Enter your new passcode" = "നിങ്ങളുടെ പുതിയ പാസ്‌കോഡ് നൽകുക";
+"Enter your old passcode" = "നിങ്ങളുടെ പഴയ പാസ്‌കോഡ് നൽകുക";
+"Enter your passcode" = "നിങ്ങളുടെ പാസ്‌കോഡ് നൽകുക";
+"Next" = "അടുത്തത്";
+"Passcodes did not match. Try again." = "പാസ്‌കോഡുകൾ പൊരുത്തപ്പെടുന്നില്ല. വീണ്ടും ശ്രമിക്കുക.";
+"Re-enter your new passcode" = "നിങ്ങളുടെ പുതിയ പാസ്‌കോഡ് വീണ്ടും നൽകുക";
+"Re-enter your passcode" = "നിങ്ങളുടെ പാസ്‌കോഡ് വീണ്ടും നൽകുക";
+"Set Passcode" = "പാസ്‌കോഡ് സൃഷ്‌ടിക്കുക";
+
+"Settings" = "ക്രമീകരണങ്ങള്‍"; // plain text key to keep compatibility with InAppSettingsKit's upstream
+"ON" = "ഓണ്‍";
+"OFF" = "ഓഫ്";
+
+"EMPTY_LIBRARY" = "മീഡിയ ലൈബ്രറി കാലിയാണ്";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
+
+"EMPTY_PLAYLIST" = "ശൂന്യമായ പ്ലേലിസ്റ്റ്";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+
+"PLAYBACK_SCRUB_HELP" = "സ്ക്രബ്ബിംഗ് റേറ്റ് ക്രമീകരിക്കാന്‍ നിങ്ങളുടെ വിരലുകള്‍ താഴേക്ക് നീക്കുക";
+"PLAYBACK_SCRUB_HIGH" = "വേഗതയേറിയ സ്ക്രബ്ബിഗ്";
+"PLAYBACK_SCRUB_HALF" = "അര്‍ദ്ധവേഗതാ സ്ക്രബ്ബിംഗ്";
+"PLAYBACK_SCRUB_QUARTER" = "പാദവേഗതാ സ്ക്രബ്ബിംഗ്";
+"PLAYBACK_SCRUB_FINE" = "ശരിയായ സ്ക്രബ്ബിംഗ്";
+"PLAYBACK_POSITION" = "പ്ലേബാക്ക് സ്ഥാനം";
+"VIDEO_FILTER" = "വീഡിയോ ഫില്‍ട്ടറുകള്‍";
+"VIDEO_FILTER_RESET_BUTTON" = "വീഡിയോ ഫില്‍റ്ററുകള്‍ പുനക്രമീകരിക്കുക";
+"VIDEO_ASPECT_RATIO_BUTTON" = "വീഡിയോ അസ്പെക്റ്റ് അനുപാതം മാറ്റുക";
+"PLAY_PAUSE_BUTTON" = "ഇപ്പോഴത്തെ ഫയല്‍ നിര്‍ത്തുകയോ പ്ലേ ചെയ്യുകയോ ചെയ്യുക";
+"BWD_BUTTON" = "പിന്നിലേക്ക്‌ ചാടുക";
+"FWD_BUTTON" = "മുന്നിലേക്ക്‌ ചാടുക";
+"PLAY_BUTTON" = "പ്ലേ";
+"NEXT_BUTTON" = "അടുത്തത്";
+"PREV_BUTTON" = "മുമ്പത്തെ";
+"PLAY_ALL_BUTTON" = "എല്ലാം പ്ലേ ചെയ്യുക";
+
+"VERSION_FORMAT" = "വെര്‍ഷന്‍: %@";
+"BASED_ON_FORMAT" = "അടിസ്ഥാനം:<br />%@";
+
+"NEW" = "പുതിയത്";
+
+"BUG_REPORT_TITLE" = "ഒരു പ്രശ്നം ശ്രദ്ധയില്‍ പെടുത്തൂ";
+"BUG_REPORT_MESSAGE" = "നിങ്ങള്‍ ഒരു പ്രശ്നം ശ്രദ്ധയില്‍ പെടുത്താന്‍ ആഗ്രഹിക്കുന്നുവോ?";
+"BUG_REPORT_BUTTON" = "സഫാരി തുറക്കുക";
+
+"VO_VIDEOPLAYER_TITLE" = "വീഡിയോ പ്ലെയര്‍";
+"VO_VIDEOPLAYER_DOUBLETAP" = "പ്ലേബാക്ക് നിയന്ത്രകങ്ങള്‍ ഒളിപ്പിക്കാനും കാണിക്കാനും ഇരട്ട ടാപിംഗ് ചെയ്യുക";
+
+"FIRST_STEPS_ITUNES" = "ഐ ട്യുന്‍സുമായി മാധ്യമം സിങ്ക് ചെയ്യുക";
+"FIRST_STEPS_ITUNES_TITLE" = "നിങ്ങളുടെ കമ്പ്യൂട്ടറുമായി സമന്വയിപ്പിക്കുക";
+"FIRST_STEPS_ITUNES_DETAILS" = "നിങ്ങളുടെ ഉപകരണം ഐട്യൂൺസിലേക്ക് കണക്റ്റുചെയ്‌ത് നിങ്ങളുടെ ഉപകരണം തിരഞ്ഞെടുക്കുക. ഐട്യൂൺസിന്റെ ഇടതുവശത്തുള്ള മെനുവിൽ \"ഫയൽ പങ്കിടൽ\" തിരഞ്ഞെടുത്ത് ഫയൽ കൈമാറാൻ വി‌എൽ‌സി തിരയുക";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
+"FIRST_STEPS_WIFI_DETAILS" = "നിങ്ങളുടെ ഫോണിന്റെ അതേ നെറ്റ്‌വർക്കിലേക്ക് കണക്റ്റുചെയ്‌തിരിക്കുമ്പോൾ ജനറേറ്റുചെയ്‌ത URL നിങ്ങളുടെ പ്രിയപ്പെട്ട വെബ് ബ്രൗസറിൽ നൽകുക";
+"FIRST_STEPS_CLOUDS" = "മേഘങ്ങള്‍";
+"FIRST_STEPS_CLOUD_TITLE" = "ക്ലൗഡ്";
+"FIRST_STEPS_CLOUD_DETAILS" = "വിദൂരമായി ഡൗൻലോഡ് ചെയ്യുന്നതിനോ സ്ട്രീം ചെയ്യുന്നതിനോ നിങ്ങളുടെ മീഡിയ ഗൂഗിൾ ഡ്രൈവ് അല്ലെങ്കിൽ ഡ്രോപ്പ്ബോക്സ് പോലുള്ള ഒരു  ക്ലൗഡ് സേവനത്തിലേക്ക് അപ്‌ലോഡ് ചെയ്യുക.";
+
+
+"PLEX_CHECK_ACCOUNT" = "Check your Plex account in settings";
+"PLEX_ERROR_ACCOUNT" = "Plex login Error";
+
+"UNAUTHORIZED" = "അനധികൃത";
+
+"SERVER" = "സര്‍വ്വര്‍";
+"SERVER_PORT" = "പോര്‍ട്ട്";
+"NO_SERVER_FOUND" = "സര്‍വ്വര്‍ ഒന്നും കണ്ടെത്തിയിട്ടില്ല";
+"NO_RECENT_STREAMS" = "അടുത്തിടെ ഒരു സ്ട്രീമും പ്ലേ ചെയ്‌തില്ല";
+
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
+"WEBINTF_DROPFILES" = "ഫയലുകള്‍ വലിച്ചിടുക ";
+"WEBINTF_DROPFILES_LONG" = "Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"WEBINTF_DOWNLOADFILES" = "ഡൌണ്‍ലോ‍ഡ്  ചെയ്ത ഫയലുകള്‍ ";
+"WEBINTF_DOWNLOADFILES_LONG" = "നിങ്ങളുടെ %@-നിന്ന് ഡൌൺലോഡ് ചെയ്യാൻ ആഗ്രഹിക്കുന്ന ഫയലിൽ ക്ലിക്കുചെയ്യുക.";
+"WEBINTF_TITLE_ATV" = "വിധൂര പ്ലേബാക്ക്";
+"WEBINTF_DROPFILES_LONG_ATV" = "Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"WEBINTF_URL_SENT" = "URL അയച്ചു.";
+"WEBINTF_URL_EMPTY" = "URL ശൂന്യമായിരിക്കരുത്.";
+"WEBINTF_URL_INVALID" = "സാധുവായ ഒരു URL അല്ല.";
+"WEBINTF_AUTH_REQUIRED" = "VLC iOS-ൽ നിങ്ങൾ സജ്ജമാക്കിയ പാസ്‌കോഡ് നൽകുക:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "തെറ്റായ പാസ്‌കോഡ്.<br>അവശേഷിക്കുന്ന ശ്രമങ്ങൾ:";
+"WEBINTF_AUTH_BANNED" = "നിങ്ങൾ വളരെയധികം തെറ്റായ പാസ്‌കോഡുകൾ നൽകി.<br>ദയവായി VLC iOS പുനരാരംഭിച്ച് വീണ്ടും ശ്രമിക്കുക.";
+
+
+
+"DURATION" = "കാലയളവ്";
+"TITLE" = "തലക്കെട്ട്";
+
+// strings from VLCKit
+
+// accessibility labels for the playlist
+
+
+"LONGPRESS_TO_STOP" = "പ്ലേബാക്ക് നിർത്താൻ ദീർഘനേരം അമർത്തുക.";
+
+// ATV specific
+"AUDIO_INFO_VC_TITLE" = "ഓഡിയോ വിവരം";
+"CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
+"ENTER_URL" = "പ്ലേ ചെയ്യാൻ URL നൽകുക";
+"HTTP_SERVER_ON" = "വിദൂര പ്ലേബാക്ക് അപ്രാപ്‌തമാക്കുക";
+"HTTP_SERVER_OFF" = "വിദൂര പ്ലേബാക്ക് പ്രവർത്തനക്ഷമമാക്കുക";
+"CACHED_MEDIA" = "കാഷെ ചെയ്‌ത മീഡിയ";
+"CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
+"DOWNLOAD_SUBS_FROM_OSO" = "OpenSubtitles.org ൽ നിന്ന് സബ്ടൈറ്റിലുകൾ ഡൺലോഡ് ചെയ്യുക ...";
+"FOUND_SUBS" = "ഉപശീര്‍ഷകങ്ങള്‍ കണ്ടെത്തി";
+"USE_SPDIF" = "പാസ്-ത്രൂ (S/PDIF) ഉപയോഗിക്കുക";
+
+"PLAYBACK" = "പ്ലേബാക്ക്";
+"REPEAT_MODE" = "ആവർത്തിക്കുക";
+"REPEAT_DISABLED" = "അപ്രാപ്‌തമാക്കി";
+"REPEAT_SINGLE" = "Single";
+"REPEAT_FOLDER" = "ഫോൾഡർ";
+
+// Local Network Service Names
+"UPNP_LONG" = "യൂണിവേഴ്സൽ പ്ലഗ് 'എൻ' പ്ലേ (UPnP)";
+"UPNP_SHORT" = "UPnP";
+
+"PLEX_LONG" = "പ്ലെക്സ് മീഡിയ സെർവർ (ബോൺജോർ വഴി)";
+"PLEX_SHORT" = "പ്ലെക്സ്";
+
+"FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "നെറ്റ്‌വർക്ക് ഫയൽ സിസ്റ്റം (NFS)";
+"NFS_SHORT" = "NFS";
+
+"BONJOUR_FILE_SERVERS" = "ബോഞ്ചൂർ ഫയൽ സെർവർ";
+"DSM_WORKGROUP" = "വർക്ക് ഗ്രൂപ്പ്";
+
+"URL_NOT_SUPPORTED" = "URL തുറക്കാൻ കഴിയില്ല";
+
+// Insert %@ where play-pause-glyph should be placed
+"DELETE_ITEM_HINT" = "ഇല്ലാതാക്കാൻ %@ അമർത്തുക"; /* Insert %@ where play-pause-glyph should be placed */
+
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "തിരഞ്ഞെടുത്ത പ്ലേലിസ്റ്റ് ഇല്ലാതാക്കുമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ?\nബന്ധപ്പെട്ട മീഡിയ ഫയലുകൾ ഇല്ലാതാക്കില്ല.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "തിരഞ്ഞെടുത്ത മീഡിയ പ്ലേലിസ്റ്റിൽ നിന്ന് നീക്കംചെയ്യുമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ?\nഅവ ഡിസ്കിൽ നിന്ന് ഇല്ലാതാക്കില്ല.";
+"DELETE_TITLE" = "തിരഞ്ഞെടുക്കൽ ഇല്ലാതാക്കുക";
+
+//Drag and Drop
+"THIS_FILE" = "ഈ ഫയൽ";
+"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
+"FILE_EXISTS" = "%@ ഇതിനകം ലഭ്യമാണ്";
+
+"PROTOCOL_NOT_SELECTED" = "പ്രോട്ടോക്കോൾ തിരഞ്ഞെടുത്തിട്ടില്ല";
+"Settings" = "ക്രമീകരണങ്ങള്‍";
+
+"ERROR" = "പിശക്";
+"OK" = "ശരി";
+"SORT" = "അടുക്കുക";
+"SORT_BY" = "അടുക്കുക";
+"SEARCH" = "തിരയുക";
+"VIDEO" = "വീഡിയോ";
+
+// MediaViewController Swipable Header
+"ALBUMS" = "ആൽബങ്ങൾ";
+"ARTISTS" = "കലാകാരന്മാർ";
+"EPISODES" = "എപ്പിസോഡുകൾ";
+"GENRES" = "തരങ്ങൾ";
+"ALL_VIDEOS" = "എല്ലാ വീഡിയോകളും";
+"SONGS" = "ഗാനങ്ങൾ";
+"PLAYLISTS" = "പ്ലേലിസ്റ്റുകൾ";
+"VIDEO_GROUPS" = "വീഡിയോ ഗ്രൂപ്പുകൾ";
+
+"MODIFIED_DATE" = "പരിഷ്‌ക്കരിച്ച തീയതി";
+"NAME" = "പേര്";
+
+//EDIT
+
+"BUTTON_EDIT" = "എഡിറ്റുചെയ്യുക";
+"BUTTON_EDIT_HINT" = "എഡിറ്റ് മോഡ്";
+
+"ADD_TO_PLAYLIST" = "പ്ലേലിസ്റ്റിൽ ആഡ് ചെയ്യുക";
+"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
+
+"PLAYLIST_PLACEHOLDER" = "പ്ലേലിസ്റ്റ് ശീർഷകം";
+"PLAYLIST_DESCRIPTION" = "നിങ്ങളുടെ പുതിയ പ്ലേലിസ്റ്റിനായി ഒരു ശീർഷകം തിരഞ്ഞെടുക്കുക";
+"PLAYLIST_CREATION" = "ഒരു പുതിയ പ്ലേലിസ്റ്റ് സൃഷ്ടിക്കുക";
+"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
+"ERROR_PLAYLIST_CREATION" = "ഒരു പ്ലേലിസ്റ്റ് സൃഷ്‌ടിക്കുന്നതിൽ പരാജയപ്പെട്ടു";
+"ERROR_PLAYLIST_TRACKS" = "ട്രാക്കുകൾ വീണ്ടെടുക്കുന്നതിൽ പരാജയപ്പെട്ടു";
+
+"ERROR_RENAME_FAILED" = "പേരുമാറ്റുന്നത് പരാജയപ്പെട്ടു";
+"ERROR_EMPTY_NAME" = "ശീർഷകം ശൂന്യമായിരിക്കരുത്";
+
+"SHARE_LABEL" = "പങ്കിടുക";
+"SHARE_HINT" = "തിരഞ്ഞെടുത്ത ഫയലുകൾ പങ്കിടുക";
+"RENAME_HINT" = "തിരഞ്ഞെടുത്ത ഫയലുകളുടെ പേരുമാറ്റുക";
+"DELETE_HINT" = "തിരഞ്ഞെടുത്ത ഫയലുകൾ ഇല്ലാതാക്കുക";
+
+// Sort
+
+"BUTTON_SORT" = "അടുക്കുക";
+"BUTTON_SORT_HINT" = "സോർട്ട് ആക്ഷൻ ഷീറ്റ് പ്രദർശിപ്പിക്കുക";
+"HEADER_TITLE_SORT" = "അടുക്കുന്ന രീതി";
+"DESCENDING_LABEL" = "അവരോഹണ ക്രമം";
+"DESCENDING_SWITCH_LABEL" = "ആരോഹണം അല്ലെങ്കിൽ അവരോഹണ ക്രമം";
+"DESCENDING_SWITCH_HINT" = "ആരോഹണക്രമത്തിലോ അവരോഹണ ക്രമത്തിലോ സന്ദർഭം അടുക്കുക";
+"GRID_LAYOUT" = "Grid Layout";
+
+// VLCMediaLibraryKit - Sorting Criteria
+
+"ALPHA" = "Alphanumerically";
+"DURATION" = "കാലയളവ്";
+"INSERTION_DATE" = "ഉൾപ്പെടുത്തൽ തീയതി";
+"LAST_MODIFICATION_DATE" = "അവസാന പരിഷ്‌ക്കരണ തീയതി";
+"RELEASE_DATE" = "റിലീസ് തീയതി";
+"FILE_SIZE" = "ഫയൽ വലുപ്പം";
+"ARTIST" = "ആർട്ടിസ്റ്റ്";
+"PLAY_COUNT" = "പ്ലേ എണ്ണം";
+"ALBUM" = "ആൽബം";
+"FILENAME" = "ഫയലിന്റെ പേര്";
+"TRACK_NUMBER" = "ട്രാക്ക് നമ്പർ";
+"NB_AUDIO" = "ഓഡിയോയുടെ എണ്ണം";
+"NB_MEDIA" = "മീഡിയയുടെ എണ്ണം";
+"NB_VIDEO" = "വീഡിയോയുടെ എണ്ണം";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "ഒന്നും കണ്ടെത്തിയില്ല";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "അജ്ഞാത ആർട്ടിസ്റ്റ്";
+"VARIOUS_ARTIST" = "വിവിധ കലാകാരന്മാർ";
+"UNKNOWN_ALBUM" = "അജ്ഞാത ആൽബം";
+
+/* VideoSubControl */
+"INTERFACE_LOCK_BUTTON" = "ഇന്റർഫേസ് ലോക്ക് ചെയ്യുക";
+"INTERFACE_LOCK_HINT" = "ഇന്റർഫേസ് നിയന്ത്രണങ്ങൾ പ്രവർത്തനരഹിതമാക്കുക";
+"MORE_OPTIONS_BUTTON" = "കൂടുതൽ";
+"MORE_OPTIONS_HINT" = "കൂടുതൽ ഓപ്ഷൻ നിയന്ത്രണങ്ങൾ കാണുക";
+"REPEAT_MODE_HINT" = "നിലവിലെ ഇനത്തിന്റെ ആവർത്തന മോഡ് മാറ്റുക";
+"VIDEO_ASPECT_RATIO_HINT" = "നിലവിലെ വീഡിയോയുടെ വീക്ഷണാനുപാതം മാറ്റുക";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "ഈക്വലൈസർ";
+"MORE_OPTIONS_HEADER_TITLE" = "വീഡിയോ ഓപ്ഷനുകൾ";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "മീഡിയ ലൈബ്രറി വീണ്ടും സ്കാൻ ചെയ്യാൻ നിർബന്ധിക്കുക";
+"FORCE_RESCAN_MESSAGE" = "നിങ്ങളുടെ മീഡിയ ലൈബ്രറി വീണ്ടെടുക്കാൻ VLC-യെ നിർബന്ധിക്കാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?\nഇതിന് കുറച്ച് സമയമെടുക്കും.";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "SMBv1 കണക്ഷൻ മുന്നറിയിപ്പ്";
+"SMBV1_WARN_DESCRIPTION" = "ഞങ്ങൾ ഒരു പഴയ പ്രോട്ടോക്കോൾ (SMBv1) കണ്ടെത്തി.\nSMBv1- ൽ തുടരുമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ?\nനിങ്ങളുടെ സെർവർ ക്രമീകരണങ്ങൾ നവീകരിക്കാനോ മാറ്റാനോ ഞങ്ങൾ ഉപദേശിക്കുന്നു.";
+"SMBV1_CONTINUE" = "SMBv1 ഉപയോഗിച്ച് തുടരുക";
+"SMBV1_NEXT_PROTOCOL" = "SMBv2/v3 പരീക്ഷിക്കുക";
+
+/* Preview labels */
+
+"ENCODING" = "എൻകോഡിംഗ്";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "മീഡിയ ഗ്രൂപ്പിലേക്ക് ചേർക്കുക";
+"ADD_TO_MEDIA_GROUP_HINT" = "മീഡിയ ഗ്രൂപ്പ് മെനുവിലേക്ക് ചേർക്കുക തുറക്കുക";
+
+"MEDIA_GROUPS" = "മീഡിയ ഗ്രൂപ്പുകൾ";
+"MEDIA_GROUPS_DESCRIPTION" = "നിങ്ങളുടെ പുതിയ മീഡിയ ഗ്രൂപ്പിനായി ഒരു ശീർഷകം തിരഞ്ഞെടുക്കുക";
+"MEDIA_GROUPS_PLACEHOLDER" = "മീഡിയ ഗ്രൂപ്പ് ശീർഷകം";
+
+"REMOVE_FROM_MEDIA_GROUP" = "മീഡിയ ഗ്രൂപ്പിൽ നിന്ന് നീക്കംചെയ്യുക";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "മീഡിയ ഗ്രൂപ്പിൽ നിന്ന് തിരഞ്ഞെടുക്കൽ നീക്കംചെയ്യുക";
+
+"MEDIA_GROUP_CREATION" = "പുതിയ മീഡിയ ഗ്രൂപ്പ്";
+"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+
+"BUTTON_REGROUP" = "വീണ്ടും ഗ്രൂപ്പുചെയ്യുക";
+"BUTTON_REGROUP_TITLE" = "തിരഞ്ഞെടുത്തവ വീണ്ടും സംഘടിപ്പിക്കുക";
+"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
+"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "മീഡിയ ചേർക്കാൻ അവ ഇവിടെ വയ്ക്കുക";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "ചേർക്കുന്നു...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Play";
+"PLAY_LABEL" = "Play";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Append to queue";
+"APPEND_TO_QUEUE_LABEL" = "Append to queue";

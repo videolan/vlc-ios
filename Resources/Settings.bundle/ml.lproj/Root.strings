@@ -1,0 +1,108 @@
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+
+"SETTINGS_PRIVACY_TITLE" = "സ്വകാര്യത";
+"SETTINGS_VIDEO_TITLE" = "വീഡിയോ";
+"SETTINGS_AUDIO_TITLE" = "ഓഡിയോ";
+
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "ഓട്ടോമാറ്റിക്";
+"SETTINGS_PRIVACY_SUBTITLE" = "ക്രമീകരണങ്ങളിൽ തുറക്കുക";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+
+"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
+"SETTINGS_BACKGROUND_AUDIO" = "Audio playback in background";
+"SETTINGS_GENERIC_TITLE" = "Generic";
+"SETTINGS_PASSCODE_LOCK" = "പാസ്‌കോഡ് ലോക്ക്";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "അൺലോക്കുചെയ്യാൻ Touch ID അനുവദിക്കുക";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "അൺലോക്കുചെയ്യാൻ Face ID അനുവദിക്കുക";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_VIDEO_FULLSCREEN" = "പൂർണ്ണസ്‌ക്രീനിൽ വീഡിയോ പ്ലേ ചെയ്യുക";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "വീഡിയോ പ്ലേബാക്ക് തുടരുക";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "ഓഡിയോ പ്ലേബാക്ക് തുടരുക";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Never";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "ചോദിക്കുക";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "എല്ലായ്പ്പോഴും";
+"SETTINGS_NETWORK_PLAY_ALL" = "അടുത്ത ഇനം യാന്ത്രികമായി പ്ലേ ചെയ്യുക";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+
+"SETTINGS_SKIP_LOOP_FILTER" = "ഡീബ്ലോക്കിങ് ഫിൽറ്റർ";
+"SETTINGS_SKIP_LOOP_FILTER_NONE" = "ഡീബ്ലോക്കിങ് ഇല്ല (വേഗതയേറിയത്)";
+"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "മീഡിയം ഡീബ്ലോക്കിംഗ്";
+"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "കുറഞ്ഞ ഡീബ്ലോക്കിംഗ്";
+
+"SETTINGS_NETWORK_CACHING_TITLE" = "നെറ്റ്‌വർക്ക് കാഷിംഗ് ലെവൽ";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "ഏറ്റവും കുറഞ്ഞ ലേറ്റൻസി";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "കുറഞ്ഞ ലേറ്റൻസി";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "സാധാരണ";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "ഉയർന്ന ലേറ്റൻസി";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "ഏറ്റവും ഉയർന്ന ലേറ്റൻസി";
+
+"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "സ്ഥിരസ്ഥിതി പ്ലേബാക്ക് വേഗത";
+
+"SETTINGS_GESTURES" = "ആംഗ്യങ്ങൾ ഉപയോഗിച്ച് പ്ലേബാക്ക് നിയന്ത്രിക്കുക";
+"SETTINGS_GESTURES_VOLUME" = "വോളിയത്തിനായി മുകളിലേക്കോ താഴേക്കോ സ്വൈപ്പുചെയ്യുക";
+"SETTINGS_GESTURES_PLAYPAUSE" = "പ്ലേ / താൽക്കാലികമായി നിർത്താൻ രണ്ട് ഫിംഗർ ടാപ്പ്";
+"SETTINGS_GESTURES_BRIGHTNESS" = "തെളിച്ചത്തിനായി മുകളിലേക്കോ താഴേക്കോ സ്വൈപ്പുചെയ്യുക";
+"SETTINGS_GESTURES_SEEK" = "സീക് ചെയ്യാൻ വലത്തേക്ക് / ഇടത്തേക്ക് സ്വൈപ്പുചെയ്യുക";
+"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
+
+"SETTINGS_SUBTITLES_TITLE" = "സബ്‌ടൈറ്റിലുകൾ";
+"SETTINGS_SUBTITLES_FONT" = "ഫോണ്ട്";
+"SETTINGS_SUBTITLES_TEXT_ENCODING" = "ടെക്സ്റ്റ് എൻ‌കോഡിംഗ്";
+"SETTINGS_SUBTITLES_FONTSIZE" = "Relative font size";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "ഏറ്റവും ചെറുത്";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALL" = "ചെറുത്";
+"SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "സാധാരണ";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGE" = "വലുത്";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "ഏറ്റവും വലുത്";
+"SETTINGS_SUBTITLES_BOLDFONT" = "Use Bold font";
+"SETTINGS_SUBTITLES_FONTCOLOR" = "അക്ഷരത്തിന്റെ നിറം";
+"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "വെള്ള";
+"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "കറുപ്പ്";
+"SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "ചാരനിറം";
+"SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "വെള്ളി";
+"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "ചുവപ്പ്";
+"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "ഫ്യൂഷിയ";
+"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "മഞ്ഞ";
+"SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "പച്ച";
+"SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "നേവി";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "രൂപരേഖ കനം";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "ഒന്നുമില്ല";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "നേർത്ത";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "സാധാരണ";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "കട്ടിയുള്ളത്";
+
+"SETTINGS_DEINTERLACE" = "ഡിഇന്റെർലസ്";
+"SETTINGS_DEINTERLACE_ON" = "ഓണ്";
+"SETTINGS_DEINTERLACE_OFF" = "ഓഫ്";
+"SETTINGS_DEINTERLACE_AUTO" = "ഓട്ടോമാറ്റിക്";
+
+"SETTINGS_HWDECODING" = "ഹാർഡ്‌വെയർ ഡീകോഡിംഗ്";
+"SETTINGS_HWDECODING_ON" = "ഓൺ";
+"SETTINGS_HWDECODING_OFF" = "ഓഫ്";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+
+"SETTINGS_FEEDBACK" = "ഫീഡ്‌ബാക്ക്";
+"SETTINGS_SEND_FEEDBACK" = "ഫീഡ്‌ബാക്ക് അയയ്‌ക്കുക";
+"SETTINGS_SEND_RATING" = "IOS-നായുള്ള VLC റേറ്റുചെയ്യുക";
+
+"SETTINGS_MEDIA_LIBRARY" = "മീഡിയ ലൈബ്രറി";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "മീഡിയ ലൈബ്രറി വീണ്ടെടുക്കാൻ VLCയെ നിർബന്ധിക്കുക";
+"SETTINGS_DECRAPIFY" = "Optimize item names for display";
+"SETTINGS_SHOW_THUMBNAILS" = "വീഡിയോ ലഘുചിത്രങ്ങൾ കാണിക്കുക";
+"SETTINGS_SHOW_ARTWORKS" = "ഓഡിയോ കലാസൃഷ്‌ടികൾ കാണിക്കുക";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "ഉപകരണ ബാക്കപ്പിൽ മീഡിയ ലൈബ്രറി ഉൾപ്പെടുത്തുക";
+
+"SETTINGS_FILE_SYNC" = "ഫയൽ സമന്വയം";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+
+"SETTINGS_ARTWORK" = "കലാസൃഷ്‌ടി";
+"SETTINGS_DOWNLOAD_ARTWORK" = "കലാസൃഷ്‌ടി ഡൗൺലോഡുചെയ്യുക";
+
+"ABOUT_APP_TV" = "tvOS-നായുള്ള VLC-യെക്കുറിച്ച്";
