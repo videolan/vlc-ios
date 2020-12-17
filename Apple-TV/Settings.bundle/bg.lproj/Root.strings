@@ -1,8 +1,8 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
 "SETTINGS_PRIVACY_TITLE" = "Privacy";
-"SETTINGS_VIDEO_TITLE" = "Video";
-"SETTINGS_AUDIO_TITLE" = "Audio";
+"SETTINGS_VIDEO_TITLE" = "Видео";
+"SETTINGS_AUDIO_TITLE" = "Аудио";
 
 "SETTINGS_THEME_BRIGHT" = "Bright theme";
 "SETTINGS_THEME_DARK" = "Dark theme";
@@ -22,9 +22,9 @@
 "SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
-"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Never";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Никога";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
-"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Always";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Винаги";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
