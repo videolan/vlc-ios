@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Urządzenia do transmisji";
 "BUTTON_RENDERER_HINT" = "Pokaż menu dostępnych urządzeń do transmisji";
 
+
+"BUTTON_PLAY_QUEUE" = "Kolejka odtwarzania";
+"BUTTON_PLAY_QUEUE_HINT" = "Pokaż widok kolejki odtwarzania";
+
 "UPGRADING_LIBRARY" = "Aktualizacja Biblioteki multimedialnej";
 
 "OPEN_NETWORK" = "Otwórz strumień sieciowy";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Nie możesz dokonywać płatności na tym urządzeniu.";
 "PURCHASE_FAILED" = "Zakup nie powiódł się";
 "SEND_GIFT" = "Wyślij prezent";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Odtwórz";
+"PLAY_LABEL" = "Odtwórz";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Odtwórz następną pozycję w kolejce";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Odtwórz następną pozycję w kolejce";
+"APPEND_TO_QUEUE_HINT" = "Dołącz do kolejki";
+"APPEND_TO_QUEUE_LABEL" = "Dołącz do kolejki";
