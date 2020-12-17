@@ -1,0 +1,108 @@
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+
+"SETTINGS_PRIVACY_TITLE" = "Privacy";
+"SETTINGS_VIDEO_TITLE" = "ቪዲዮ";
+"SETTINGS_AUDIO_TITLE" = "ድምፅ";
+
+"SETTINGS_THEME_BRIGHT" = "Bright theme";
+"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+
+"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
+"SETTINGS_BACKGROUND_AUDIO" = "Audio playback in background";
+"SETTINGS_GENERIC_TITLE" = "Generic";
+"SETTINGS_PASSCODE_LOCK" = "Passcode Lock";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "በፍጹም";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "ጠይቀኝ";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "ሁልጊዜ ";
+"SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+
+"SETTINGS_SKIP_LOOP_FILTER" = "Deblocking filter";
+"SETTINGS_SKIP_LOOP_FILTER_NONE" = "No deblocking (fastest)";
+"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Medium deblocking";
+"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Low deblocking";
+
+"SETTINGS_NETWORK_CACHING_TITLE" = "Network Caching Level";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lowest Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Low Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "መደበኛ";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest Latency";
+
+"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Default playback speed";
+
+"SETTINGS_GESTURES" = "Control playback with gestures";
+"SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
+"SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
+"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
+
+"SETTINGS_SUBTITLES_TITLE" = "ንዑስ እርእስቶች";
+"SETTINGS_SUBTITLES_FONT" = "ፋደል";
+"SETTINGS_SUBTITLES_TEXT_ENCODING" = "Text Encoding";
+"SETTINGS_SUBTITLES_FONTSIZE" = "Relative font size";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "Smallest";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALL" = "ትንሽ";
+"SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "መደበኛ";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGE" = "ትልቅ";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "Largest";
+"SETTINGS_SUBTITLES_BOLDFONT" = "Use Bold font";
+"SETTINGS_SUBTITLES_FONTCOLOR" = "የ ፊደል ቀለም";
+"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "ነጭ";
+"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "ጥቁር";
+"SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "ግራጫ";
+"SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "ብር";
+"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "ቀይ";
+"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "Fuchsia";
+"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "ቢጫ";
+"SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "አረንጓዴ";
+"SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "ሰማያዊ";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Outline Thickness";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "ምንም";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "ቀጭን";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "መደበኛ";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "ወፍራም";
+
+"SETTINGS_DEINTERLACE" = "Deinterlace";
+"SETTINGS_DEINTERLACE_ON" = "ማብሪያ";
+"SETTINGS_DEINTERLACE_OFF" = "ማጥፊያ";
+"SETTINGS_DEINTERLACE_AUTO" = "ራሱ በራሱ";
+
+"SETTINGS_HWDECODING" = "Hardware Decoding";
+"SETTINGS_HWDECODING_ON" = "ማብሪያ";
+"SETTINGS_HWDECODING_OFF" = "ማጥፊያ";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+
+"SETTINGS_FEEDBACK" = "Feedback";
+"SETTINGS_SEND_FEEDBACK" = "Send Feedback";
+"SETTINGS_SEND_RATING" = "Please Rate VLC for iOS";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Optimize item names for display";
+"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+
+"SETTINGS_FILE_SYNC" = "File Synchronization";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+
+"SETTINGS_ARTWORK" = "የ ኪነት ስራ";
+"SETTINGS_DOWNLOAD_ARTWORK" = "የ ኪነት ስራ ያውርዱ";
+
+"ABOUT_APP_TV" = "About VLC for tvOS";
