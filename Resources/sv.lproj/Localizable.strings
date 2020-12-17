@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Castenheter";
 "BUTTON_RENDERER_HINT" = "Visa en meny med tillgängliga castenheter";
 
+
+"BUTTON_PLAY_QUEUE" = "Uppspelningskö";
+"BUTTON_PLAY_QUEUE_HINT" = "Visa vyn för uppspelningskön";
+
 "UPGRADING_LIBRARY" = "Uppgraderar mediabiblioteket";
 
 "OPEN_NETWORK" = "Öppna nätverksström";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Du har inte tillåtelse att genomföra köp på denna enhet.";
 "PURCHASE_FAILED" = "Köp misslyckades";
 "SEND_GIFT" = "Skicka din gåva";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Spela upp";
+"PLAY_LABEL" = "Spela upp";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Spela upp nästa i kön";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Spela upp nästa i kön";
+"APPEND_TO_QUEUE_HINT" = "Lägg till i slutet på kön";
+"APPEND_TO_QUEUE_LABEL" = "Lägg till i kön";
