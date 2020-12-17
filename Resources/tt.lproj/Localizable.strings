@@ -1,0 +1,460 @@
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+
+"STORE_DESCRIPTION_TV" = "VLC медиа уйнаткычы — бушлай һәм ирекле, кросс-платформалы мультимедиа уйнаткычы.\nУл сезнең бөтен аудио- һәм видеоязмаларыгызны конвертламыйча төрле форматларда укый ала.\nУл болытлы хезмәтләрдән (Dropbox, OneDrive, Box) укый ала, читтәге Mac яки PC җайланмаларыннан веб-интерфейс аша уйната ала, шулай ук SMB, FTP, UPnP/DLNA медиа серверларын һәм интернет тапшыруларын уйната ала.\nVLC алдынгы субтитрлар форматларын, шул исәптән SSA, күп юллы аудио һәм уйнату тизлеген үзгәртү мөмкинлекләрен тәэмин итә.\n\niOS өчен VLC — ачык чыганак кодлы тулысынча бушлай һәм ирекле программа.\n\nМета-мәгълүматлар һәм тышлыклар, фильмнар һәм музыка мәгълүматлары базасы буенча берләшмә белән хупланган, TMDb һәм Hatchet белән тәкъдим ителде.";
+
+"CHOOSE_AUDIO_TRACK" = "Аудиоязманы сайлагыз";
+"CHOOSE_SUBTITLE_TRACK" = "Субтитрларны сайлагыз";
+"OPEN_TRACK_PANEL" = "Язманы сайлау";
+"CHOOSE_TITLE" = "Исемне сайлагыз";
+"CHOOSE_CHAPTER" = "Бүлекне сайлагыз";
+"CHAPTER_SELECTION_TITLE" = "Бүлекләр";
+"TITLE" = "Исем";
+"CHAPTER" = "Бүлек";
+"MINIMIZE_PLAYBACK_VIEW" = "Видеоны кечерәйтергә";
+"TRACK_SELECTION" = "Язманы сайлау";
+"AUDIO" = "Аудио";
+"SUBTITLES" = "Субтитрлар";
+"LANGUAGE" = "Тел";
+"MEDIA_INFO" = "Медиафайл турында Мәгълүмат";
+"VIDEO_DIMENSIONS" = "Видео үлчәмнәре";
+"FORMAT_VIDEO_DIMENSIONS" = "%ix%i пиксел";
+"FORMAT_AUDIO_TRACKS" = "%i аудиоязма";
+"ONE_AUDIO_TRACK" = "Бер аудиоязма";
+"FORMAT_SPU_TRACKS" = "%i субтитрлар юлы";
+"ONE_SPU_TRACK" = "Бер субтитрлар юлы";
+"TRACKS" = "%i Tracks";
+"TRACK" = "%i Track";
+
+"PLAYING_EXTERNALLY_TITLE" = "ТВ ялганган";
+"PLAYING_EXTERNALLY_DESC" = "Бу видео телевизорда уйнатыла";
+"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
+
+"VFILTER_HUE" = "Тон";
+"VFILTER_CONTRAST" = "Контрастлык";
+"VFILTER_BRIGHTNESS" = "Яктылык";
+"VFILTER_SATURATION" = "Куелык";
+"VFILTER_GAMMA" = "Гамма";
+
+"PREAMP" = "Башлангыч көчәйткеч";
+"DB_FORMAT" = "%i дБ";
+"CHOOSE_EQUALIZER_PROFILES" = "Эквалайзер профилен сайлагыз";
+
+"PLAYBACK_FAILED" = "Уйнатуда хата";
+"PLEASE_WAIT" = "Зинһар, көтегез...";
+"AR_CHANGED" = "Яклар нисбәте: %@";
+"DEFAULT" = "Гадәттәгечә";
+"FILL_TO_SCREEN" = "Тулы экранга кадәр кисәргә";
+"PLAYBACK_SPEED" = "Уйнату тизлеге";
+"SPU_DELAY" = "Субтитрлар соңаруы";
+"AUDIO_DELAY" = "Аудио соңаруы";
+"BUTTON_SLEEP_TIMER" = "Йокы таймеры";
+"SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
+"CONTINUE_PLAYBACK" = "Уйнатуны дәвам итәргәме?";
+"CONTINUE_PLAYBACK_LONG" = "\"%@\" уйнатуны туктаган җиреннән дәвам итәргәме?";
+
+"BUTTON_ABOUT" = "About";
+"BUTTON_BACK" = "Артка";
+"BUTTON_DONE" = "Әзер";
+"BUTTON_CANCEL" = "Баш тарту";
+"BUTTON_SAVE" = "Сакларга";
+"BUTTON_DOWNLOAD" = "Йөкләргә";
+"BUTTON_DELETE" = "Бетерергә";
+"BUTTON_OK" = "Ярар";
+"BUTTON_CONTRIBUTE" = "Катнашырга";
+"BUTTON_CONNECT" = "Тоташырга";
+"BUTTON_RENAME" = "Исемен үзгәртергә";
+"BUTTON_LEARN_MORE" = "Күбрәк белергә";
+"BUTTON_LOGOUT" = "Чыгарга";
+"BUTTON_CONTINUE" = "Дәвам итәргә";
+"BUTTON_SET" = "Set";
+"BUTTON_RESET" = "Reset";
+"BUTTON_RESCAN" = "Rescan";
+"PRIVATE_PLAYBACK_TOGGLE" = "Хосусый Уйнату";
+"SCAN_SUBTITLE_TOGGLE" = "Субтитрлар эзләргә (http өчен генә)";
+
+"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
+"UPGRADING_LIBRARY" = "Медиаханәне яңарту";
+
+"OPEN_NETWORK" = "Челтәр агымын ачарга";
+"NETWORK_TITLE" = "Челтәр агымы";
+"OPEN_NETWORK_HELP" = "Агымны ачу өчен, теләсә нинди HTTP, RTSP, RTMP, MMS, FTP яки UDP/RTP адресларын кертегез.";
+"HTTP_UPLOAD_SERVER_OFF" = "Актив булмаган Сервер";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
+"OPEN_STREAM_OR_DOWNLOAD" = "Бу URL буенча файлны йөкләргәме, әллә уйнатыргамы?";
+"SHARED_VLC_IOS_LIBRARY" = "iOS өчен VLC бүленгән китапханәсе";
+"SMB_CIFS_FILE_SERVERS" = "Файл серверлары (SMB)";
+
+"SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
+
+
+"HTTP_DOWNLOAD_CANCELLED" = "Йөкләү туктатылды";
+
+"DOWNLOAD_FROM_HTTP_HELP" = "Файлны %@ йөкләү өчен адрес кертегез.";
+"DOWNLOAD_FROM_HTTP" = "Йөкләүләр";
+"ERROR_NUMBER" = "%i хатасы чыкты";
+"DOWNLOAD_FAILED" = "Йөкләүдә хата";
+"FILE_NOT_SUPPORTED" = "Файл форматы тәэмин ителми";
+"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"SCHEME_NOT_SUPPORTED" = "Адрес схемасы тәэмин ителми";
+"SCHEME_NOT_SUPPORTED_LONG" = "Адрес схемасы (%@) тәэмин ителми. HTTP, HTTPS яки FTP протоколларыннан башланган адресны кулланыгыз.";
+"RENAME_MEDIA_TO" = "%@ өчен яңа исем кертегез";
+
+"FOLDER_EMPTY" = "Empty folder";
+
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Файл сайлагыз:";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Ачарга монда...";
+"SHARING_ERROR_NO_FILES" = "Берләштерү өчен файллар табып булмады";
+"SHARING_ERROR_NO_APPLICATIONS" = "Бу файл төрен ачу өчен кушымталар табып булмады";
+"SHARING_SUCCESS_CAMERA_ROLL" = "Файл Camera Roll -га уңышлы сайланды";
+
+"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
+"DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
+"HEADER_TITLE_RENDERER" = "Select a casting device";
+
+"NETWORK" = "Network";
+"LOCAL_NETWORK" = "Локаль челтәр";
+"CONNECT_TO_SERVER" = "Серверга тоташырга";
+"FILE_SERVER" = "File Servers";
+"USER_LABEL" = "Кулланучы";
+"PASSWORD_LABEL" = "Серсүз";
+"DISABLE_LABEL" = "Сүндерергә";
+"BUTTON_ANONYMOUS_LOGIN" = "Аноним рәвештә керергә";
+
+"LOCAL_SERVER_REFRESH" = "Яңартырга";
+"LOCAL_SERVER_LAST_UPDATE" = "Соңгы тапкыр %@ яңартылган";
+"LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "СЕРВЕРГА ТОТАШУДА ХАТА";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Сервер адресын һәм керү мәгълүматын тикшерегез";
+
+"CLOUD_SERVICES" = "Болытлы хезмәтләр";
+"LOGIN" = "Керергә";
+"LOGGED_IN" = "Ялганган";
+"LOGGED_IN_SERVICES" = "%d logged in services";
+"LOGGED_IN_SERVICE" = "1 logged in service";
+
+"DROPBOX_DOWNLOAD" = "Файлны йөкләргәме?";
+"DROPBOX_DL_LONG" = "Чыннан да \"%@\" файлын %@ йөкләргәме?";
+"DROPBOX_LOGIN" = "Керергә";
+
+"GDRIVE_ERROR_FETCHING_FILES" = "Файллар исемлеген алып булмады";
+"GDRIVE_DOWNLOAD_SUCCESSFUL" = "Файл уңышлы йөкләнде";
+"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "ТӘМАМЛАНДЫ";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "Йөкләү вакытында хата чыкты";
+"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "ХАТА";
+
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+
+"DISK_FULL" = "Саклагыч тулды";
+"DISK_FULL_FORMAT" = "%@ файлын %@ саклагычында саклап булмый, чөнки анда җитәрлек буш урын юк.";
+
+"NUM_OF_FILES" = "%i файл";
+"ONE_FILE" = "1 файл";
+"NO_FILES" = "Тәэмин ителгән файллар юк";
+"DOWNLOADING" = "Йөкләнү...";
+"REMAINING_TIME" = "Калды: %@";
+"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
+
+//PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Change Passcode";
+"Enter Passcode" = "Enter Passcode";
+"Enter a passcode" = "Enter a passcode";
+"Enter your new passcode" = "Enter your new passcode";
+"Enter your old passcode" = "Enter your old passcode";
+"Enter your passcode" = "Enter your passcode";
+"Next" = "Next";
+"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
+"Re-enter your new passcode" = "Re-enter your new passcode";
+"Re-enter your passcode" = "Re-enter your passcode";
+"Set Passcode" = "Set Passcode";
+
+"Settings" = "Көйләүләр"; // plain text key to keep compatibility with InAppSettingsKit's upstream
+"ON" = "Кабызылган";
+"OFF" = "Сүндерелгән";
+
+"EMPTY_LIBRARY" = "Медиаханә буш";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
+
+"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+
+"PLAYBACK_SCRUB_HELP" = "Бармак ядәмендә чорнау тизлеген көйләгез.";
+"PLAYBACK_SCRUB_HIGH" = "Тиз тизлектә чорнау";
+"PLAYBACK_SCRUB_HALF" = "Ярты тизлек белән чорнау";
+"PLAYBACK_SCRUB_QUARTER" = "Чирек тизлек белән чорнау";
+"PLAYBACK_SCRUB_FINE" = "Төгәл чорнау";
+"PLAYBACK_POSITION" = "Уйнату урыны";
+"VIDEO_FILTER" = "Видеофильтрлар";
+"VIDEO_FILTER_RESET_BUTTON" = "Видеофильтрларны ташлатырга";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Яклар нисбәтен үзгәртергә";
+"PLAY_PAUSE_BUTTON" = "Уйнатуны Башларга/Туктатып торырга";
+"BWD_BUTTON" = "Артка чорнарга";
+"FWD_BUTTON" = "Алга чорнарга";
+"PLAY_BUTTON" = "Уйнатырга";
+"NEXT_BUTTON" = "Next";
+"PREV_BUTTON" = "Previous";
+"PLAY_ALL_BUTTON" = "Бөтенесен уйнатырга";
+
+"VERSION_FORMAT" = "Версия: %@";
+"BASED_ON_FORMAT" = "Кулланыла:<br />%@";
+
+"NEW" = "Яңа";
+
+"BUG_REPORT_TITLE" = "Хата турында хәбәр итәргә";
+"BUG_REPORT_MESSAGE" = "Хата турында мәгълүматлар җибәрергәме?";
+"BUG_REPORT_BUTTON" = "Safari-ны ачарга";
+
+"VO_VIDEOPLAYER_TITLE" = "Видео Уйнаткыч";
+"VO_VIDEOPLAYER_DOUBLETAP" = "Ике тапкыр тию уйнаткыч белән идарәне күрсәтә яки яшерә";
+
+"FIRST_STEPS_ITUNES" = "iTunes аша синхронлаштыру";
+"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
+"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
+"FIRST_STEPS_CLOUDS" = "Болытлар";
+"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
+"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
+
+
+"PLEX_CHECK_ACCOUNT" = "Plex аккаунтын көйләүләрдә тикшерегез";
+"PLEX_ERROR_ACCOUNT" = "Plex-ка керүдә Хата";
+
+"UNAUTHORIZED" = "Авторизацияләнмәгән";
+
+"SERVER" = "Сервер";
+"SERVER_PORT" = "Порт";
+"NO_SERVER_FOUND" = "Сервер табылмады";
+"NO_RECENT_STREAMS" = "Алдан уйнатылган агымнар юк";
+
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
+"WEBINTF_DROPFILES" = "Файллар өстәү";
+"WEBINTF_DROPFILES_LONG" = "%@ җайланмасына өстәү өчен файлларны тәрәзәгә күчерегез.<br>Яки «+» төймәсенә басып файлларны сайлый аласыз.";
+"WEBINTF_DOWNLOADFILES" = "Файлларны йөкләү";
+"WEBINTF_DOWNLOADFILES_LONG" = "%@ җайланмасыннан йөкләргә теләгән файлыгызга чиртегез.";
+"WEBINTF_TITLE_ATV" = "Читтән уйнату";
+"WEBINTF_DROPFILES_LONG_ATV" = "%@ җайланмасына өстәү өчен файлларны тәрәзәгә күчерегез.<br>Яки «+» төймәсенә басып файлларны сайлый аласыз.";
+"WEBINTF_URL_SENT" = "URL уңышлы җибәрелде.";
+"WEBINTF_URL_EMPTY" = "URL буш була алмый.";
+"WEBINTF_URL_INVALID" = "URL дөрес түгел.";
+"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
+"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
+
+
+
+"DURATION" = "Озынлык";
+"TITLE" = "Исем";
+
+// strings from VLCKit
+
+// accessibility labels for the playlist
+
+
+"LONGPRESS_TO_STOP" = "Уйнатуны туктату өчен, озак басып торыгыз.";
+
+// ATV specific
+"AUDIO_INFO_VC_TITLE" = "Audio Info";
+"CLOUD_LOGIN_LONG" = "Болытлы хезмәтләргә керү өчен, бу Apple TV -да һәм Apple ID бертөрле булган iOS җайланмасында iCloud-ка керегез һәм Система Көйләүләрендә Keychain Sharing -ны (Ачкычларның гомуми чылбыры) кабызыгыз.\nШуннан соң, үзегез сайлаган болыт хезмәтен күрсәтүчегә, iOS \nҗайланмасындагы VLC-ны кулланып, тоташыгыз. Соңыннан, аны бу тәрәзәдә сайлагыз.";
+"ENTER_URL" = "Уйнату өчен URL кертегез";
+"HTTP_SERVER_ON" = "Читтән уйнатуны сүндерергә";
+"HTTP_SERVER_OFF" = "Читтән уйнатуны кабызырга";
+"CACHED_MEDIA" = "Кэштагы медиа";
+"CACHED_MEDIA_LONG" = "Монда күрсәтелгән медиа локаль рәвештә сезнең Apple TV -да сакланды. Бу контент VLC җибәрелмәгән вакытта операцион системагыз белән урын җитмәү сәбәпле бетерелә алуын күздә тотыгыз.";
+"DOWNLOAD_SUBS_FROM_OSO" = "Субтитрларны OpenSubtitles.org-тан йөкләргә...";
+"FOUND_SUBS" = "Субтитрлар табылды";
+"USE_SPDIF" = "Үтәли чыгаруны кулланырга (S/PDIF)";
+
+"PLAYBACK" = "Уйнату";
+"REPEAT_MODE" = "Кабатлау";
+"REPEAT_DISABLED" = "Cүндерелгән";
+"REPEAT_SINGLE" = "Бер тапкыр";
+"REPEAT_FOLDER" = "Папка";
+
+// Local Network Service Names
+"UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
+"UPNP_SHORT" = "UPnP";
+
+"PLEX_LONG" = "Plex Медиа Серверы (Bonjour аркылы)";
+"PLEX_SHORT" = "Plex";
+
+"FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
+
+"BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
+"DSM_WORKGROUP" = "Workgroup";
+
+"URL_NOT_SUPPORTED" = "The URL can't be opened";
+
+// Insert %@ where play-pause-glyph should be placed
+"DELETE_ITEM_HINT" = "Бетерү өчен %@ басыгыз"; /* Insert %@ where play-pause-glyph should be placed */
+
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
+"DELETE_TITLE" = "Delete Selection";
+
+//Drag and Drop
+"THIS_FILE" = "This file";
+"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
+"FILE_EXISTS" = "%@ already exists";
+
+"PROTOCOL_NOT_SELECTED" = "Protocol not selected";
+"Settings" = "Көйләүләр";
+
+"ERROR" = "Error";
+"OK" = "Ok";
+"SORT" = "Sort";
+"SORT_BY" = "Sort by";
+"SEARCH" = "Search";
+"VIDEO" = "Video";
+
+// MediaViewController Swipable Header
+"ALBUMS" = "Albums";
+"ARTISTS" = "Artists";
+"EPISODES" = "Episodes";
+"GENRES" = "Genres";
+"ALL_VIDEOS" = "All videos";
+"SONGS" = "Songs";
+"PLAYLISTS" = "Playlists";
+"VIDEO_GROUPS" = "Video groups";
+
+"MODIFIED_DATE" = "Modified date";
+"NAME" = "Name";
+
+//EDIT
+
+"BUTTON_EDIT" = "Edit";
+"BUTTON_EDIT_HINT" = "Edit mode";
+
+"ADD_TO_PLAYLIST" = "Add to Playlist";
+"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
+
+"PLAYLIST_PLACEHOLDER" = "Playlist title";
+"PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
+"PLAYLIST_CREATION" = "Create a new playlist";
+"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
+"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
+"ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
+
+"ERROR_RENAME_FAILED" = "Renaming failed";
+"ERROR_EMPTY_NAME" = "The title can't be empty";
+
+"SHARE_LABEL" = "Share";
+"SHARE_HINT" = "Share selected files";
+"RENAME_HINT" = "Rename selected files";
+"DELETE_HINT" = "Delete selected files";
+
+// Sort
+
+"BUTTON_SORT" = "Sort";
+"BUTTON_SORT_HINT" = "Display sort action sheet";
+"HEADER_TITLE_SORT" = "Sort by";
+"DESCENDING_LABEL" = "Descending Order";
+"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
+"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"GRID_LAYOUT" = "Grid Layout";
+
+// VLCMediaLibraryKit - Sorting Criteria
+
+"ALPHA" = "Alphanumerically";
+"DURATION" = "Озынлык";
+"INSERTION_DATE" = "Insertion date";
+"LAST_MODIFICATION_DATE" = "Last modification date";
+"RELEASE_DATE" = "Release date";
+"FILE_SIZE" = "File size";
+"ARTIST" = "Artist";
+"PLAY_COUNT" = "Play count";
+"ALBUM" = "Album";
+"FILENAME" = "Filename";
+"TRACK_NUMBER" = "Track number";
+"NB_AUDIO" = "Number of audio";
+"NB_MEDIA" = "Number of media";
+"NB_VIDEO" = "Number of video";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nothing found";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Unknown Artist";
+"VARIOUS_ARTIST" = "Various Artists";
+"UNKNOWN_ALBUM" = "Unknown Album";
+
+/* VideoSubControl */
+"INTERFACE_LOCK_BUTTON" = "Lock interface";
+"INTERFACE_LOCK_HINT" = "Disable interface controls";
+"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_HINT" = "View more option controls";
+"REPEAT_MODE_HINT" = "Change repeat mode of current item";
+"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Equalizer";
+"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Force media library rescan";
+"FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
+"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
+"SMBV1_CONTINUE" = "Continue with SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "Encoding";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Add to media group";
+"ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
+
+"MEDIA_GROUPS" = "Media groups";
+"MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
+"MEDIA_GROUPS_PLACEHOLDER" = "Media group title";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Remove from media group";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Remove selection from the media group";
+
+"MEDIA_GROUP_CREATION" = "New media group";
+"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+
+"BUTTON_REGROUP" = "Regroup";
+"BUTTON_REGROUP_TITLE" = "Regroup selection";
+"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
+"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Play";
+"PLAY_LABEL" = "Play";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Append to queue";
+"APPEND_TO_QUEUE_LABEL" = "Append to queue";
