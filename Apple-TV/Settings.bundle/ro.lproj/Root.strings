@@ -100,7 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include mediateca în copia de siguranță a dispozitivului";
 
 "SETTINGS_FILE_SYNC" = "Sincronizare fișier";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_WIFISHARING_IPv6" = "Suport IPv6 pentru partajare Wi-Fi";
 
 "SETTINGS_ARTWORK" = "Grafică de album";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Descarcă grafică de album";
