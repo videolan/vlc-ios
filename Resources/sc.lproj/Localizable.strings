@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Dispositivos de trasmissione";
 "BUTTON_RENDERER_HINT" = "Ammustra unu menù cun sos dispositivos de trasmissione disponìbiles";
 
+
+"BUTTON_PLAY_QUEUE" = "Riprodui sa lista de riprodutzione";
+"BUTTON_PLAY_QUEUE_HINT" = "Ammustra sa vista de sa lista de riprodutzione";
+
 "UPGRADING_LIBRARY" = "Agiornende sa biblioteca multimediale";
 
 "OPEN_NETWORK" = "Aberi flussu de retza";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Non ses autorizadu a fàghere gastos in custu dispositivu.";
 "PURCHASE_FAILED" = "Còmpora fallida";
 "SEND_GIFT" = "Imbia su donu tuo";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Riprodui";
+"PLAY_LABEL" = "Riprodui";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Riprodui su chi sighit in sa lista de riprodutzione";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Riprodui su chi sighit in sa lista de riprodutzione";
+"APPEND_TO_QUEUE_HINT" = "Annanghe a sa lista de riprodutzione";
+"APPEND_TO_QUEUE_LABEL" = "Annanghe a sa lista de riprodutzione";
