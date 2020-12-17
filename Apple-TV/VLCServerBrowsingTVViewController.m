@@ -20,6 +20,7 @@
 @interface VLCServerBrowsingTVViewController ()
 {
     UILabel *_nothingFoundLabel;
+    UIActivityIndicatorView *_activityIndicator;
 }
 @property (nonatomic) VLCServerBrowsingController *browsingController;
 @property (nonatomic) NSArray<id <VLCNetworkServerBrowserItem>> *items;
@@ -71,6 +72,20 @@
                                                                   multiplier:1.0
                                                                     constant:0.0];
     [self.view addConstraint:xConstraint];
+
+    if (@available(tvOS 13.0, *)) {
+         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+     } else {
+         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+     }
+    _activityIndicator.center = self.view.center;
+    _activityIndicator.color = [UIColor VLCOrangeTintColor];
+    _activityIndicator.color = [UIColor orangeColor];
+    _activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+    _activityIndicator.hidesWhenStopped = YES;
+    [_activityIndicator startAnimating];
+    [self.view addSubview:_activityIndicator];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -172,6 +187,10 @@
             [self.browsingController configureCell:(id<VLCRemoteBrowsingCell>)cell withItem:item];
         }
     }
+
+    if (row == collectionView.indexPathsForVisibleItems.lastObject.row) {
+        [_activityIndicator stopAnimating];
+	}
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
