@@ -1,0 +1,108 @@
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+
+"SETTINGS_PRIVACY_TITLE" = "Privatumas";
+"SETTINGS_VIDEO_TITLE" = "Vaizdo įrašai";
+"SETTINGS_AUDIO_TITLE" = "Garsas";
+
+"SETTINGS_THEME_BRIGHT" = "Šviesus apipavidalinimas";
+"SETTINGS_THEME_DARK" = "Tamsus apipavidalinimas";
+"SETTINGS_THEME_SYSTEM" = "Automatinis";
+"SETTINGS_PRIVACY_SUBTITLE" = "Atverti nuostatas";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Saugi prieiga prie jūsų turinio";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+
+"SETTINGS_DARKTHEME" = "Išvaizda";
+"SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
+"SETTINGS_BACKGROUND_AUDIO" = "Garso grojimas fone";
+"SETTINGS_GENERIC_TITLE" = "Bendros";
+"SETTINGS_PASSCODE_LOCK" = "Passcode Lock";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Tęsti vaizdo įrašų grojimą";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Tęsti garso grojimą";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Niekada";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Klausti";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Visada";
+"SETTINGS_NETWORK_PLAY_ALL" = "Automatiškai groti tolesnį kūrinį";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+
+"SETTINGS_SKIP_LOOP_FILTER" = "Deblocking filter";
+"SETTINGS_SKIP_LOOP_FILTER_NONE" = "No deblocking (fastest)";
+"SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Medium deblocking";
+"SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Low deblocking";
+
+"SETTINGS_NETWORK_CACHING_TITLE" = "Network Caching Level";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lowest Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Low Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest Latency";
+
+"SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Default playback speed";
+
+"SETTINGS_GESTURES" = "Control playback with gestures";
+"SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
+"SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
+"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Kintama peršokimo trukmė";
+
+"SETTINGS_SUBTITLES_TITLE" = "Titrai";
+"SETTINGS_SUBTITLES_FONT" = "Šriftas";
+"SETTINGS_SUBTITLES_TEXT_ENCODING" = "Teksto koduotė";
+"SETTINGS_SUBTITLES_FONTSIZE" = "Santykinis šrifto dydis";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "mažiausias";
+"SETTINGS_SUBTITLES_FONTSIZE_SMALL" = "mažas";
+"SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "įprastas";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGE" = "didelis";
+"SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "didžiausias";
+"SETTINGS_SUBTITLES_BOLDFONT" = "Naudoti pusjuodį šriftą";
+"SETTINGS_SUBTITLES_FONTCOLOR" = "Šrifto spalva";
+"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "balta";
+"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "juoda";
+"SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "pilka";
+"SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "sidabrinė";
+"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "raudona";
+"SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "purpurinė";
+"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "geltona";
+"SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "žalia";
+"SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "tamsiai mėlyna";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Apvado storis";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "joks";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "siauras";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "įprastas";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "stambus";
+
+"SETTINGS_DEINTERLACE" = "Vaizdo perėjimo šalinimas";
+"SETTINGS_DEINTERLACE_ON" = "įjungtas";
+"SETTINGS_DEINTERLACE_OFF" = "išjungtas";
+"SETTINGS_DEINTERLACE_AUTO" = "automatinis";
+
+"SETTINGS_HWDECODING" = "Aparatinis iškodavimas";
+"SETTINGS_HWDECODING_ON" = "įjungtas";
+"SETTINGS_HWDECODING_OFF" = "išjungtas";
+"SETTINGS_CASTING" = "Casting";
+"SETTINGS_PTCASTING" = "Audio Passthrough";
+"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+
+"SETTINGS_FEEDBACK" = "Grįžtamasis ryšys";
+"SETTINGS_SEND_FEEDBACK" = "Siųsti atsiliepimą";
+"SETTINGS_SEND_RATING" = "Prašome įvertinti iOS sistemai skirtą VLC";
+
+"SETTINGS_MEDIA_LIBRARY" = "Media library";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_DECRAPIFY" = "Optimize item names for display";
+"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
+"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+
+"SETTINGS_FILE_SYNC" = "File Synchronization";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+
+"SETTINGS_ARTWORK" = "Artwork";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
+
+"ABOUT_APP_TV" = "About VLC for tvOS";

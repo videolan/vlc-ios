@@ -1,0 +1,460 @@
+"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+
+"STORE_DESCRIPTION_TV" = "VLC media player is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows streaming from cloud services (Dropbox, OneDrive, Box), Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.\n\nMetadata and artwork are provided by TMDb and Hatchet, which are community maintained movie and music databases.";
+
+"CHOOSE_AUDIO_TRACK" = "Pasirinkite garso takelį";
+"CHOOSE_SUBTITLE_TRACK" = "Pasirinkite subtitrų takelį";
+"OPEN_TRACK_PANEL" = "Atidaryti takelių pasirinkimą";
+"CHOOSE_TITLE" = "Pasirinkite pavadinimą";
+"CHOOSE_CHAPTER" = "Pasirinkite skyrių";
+"CHAPTER_SELECTION_TITLE" = "Skyriai";
+"TITLE" = "Pavadinimas";
+"CHAPTER" = "Skyrius";
+"MINIMIZE_PLAYBACK_VIEW" = "Minimize playback";
+"TRACK_SELECTION" = "Takelio pasirinkimas";
+"AUDIO" = "Garsas";
+"SUBTITLES" = "Subtitrai";
+"LANGUAGE" = "Kalba";
+"MEDIA_INFO" = "Kūrinio informacija";
+"VIDEO_DIMENSIONS" = "Vaizdo įrašo dydis";
+"FORMAT_VIDEO_DIMENSIONS" = "%ix%i taškų";
+"FORMAT_AUDIO_TRACKS" = "%i garso takeliai(-ių)";
+"ONE_AUDIO_TRACK" = "Vienas garso takelis";
+"FORMAT_SPU_TRACKS" = "%i titrų takeliai";
+"ONE_SPU_TRACK" = "Vienas titrų takelis";
+"TRACKS" = "%i takeliai";
+"TRACK" = "%i takelis";
+
+"PLAYING_EXTERNALLY_TITLE" = "TV prijungtas";
+"PLAYING_EXTERNALLY_DESC" = "Vaizdas rodomas TV ekrane";
+"PLAYING_EXTERNALLY_ADDITION" = "\n Dabar grojama:"; /* \n should stay in every translation */
+
+"VFILTER_HUE" = "Atspalvis";
+"VFILTER_CONTRAST" = "Kontrastas";
+"VFILTER_BRIGHTNESS" = "Ryškumas";
+"VFILTER_SATURATION" = "Sodrumas";
+"VFILTER_GAMMA" = "Šviesumas";
+
+"PREAMP" = "Preamp";
+"DB_FORMAT" = "%i dB";
+"CHOOSE_EQUALIZER_PROFILES" = "Glodintuvo derinio pasirinkimas";
+
+"PLAYBACK_FAILED" = "Nepavyksta groti";
+"PLEASE_WAIT" = "Prašome palaukti";
+"AR_CHANGED" = "Vaizdo santykis: %@";
+"DEFAULT" = "Numatytasis";
+"FILL_TO_SCREEN" = "Apkirpti, kad užpildytų ekraną";
+"PLAYBACK_SPEED" = "Grojimo greitis";
+"SPU_DELAY" = "Subtitrų vėlinimas";
+"AUDIO_DELAY" = "Garso vėlinimas";
+"BUTTON_SLEEP_TIMER" = "Užmigimo laikmatis";
+"SLEEP_TIMER_UPDATED" = "Užmigimo laikmatis atnaujintas";
+"CONTINUE_PLAYBACK" = "Tęsti grojimą?";
+"CONTINUE_PLAYBACK_LONG" = "Ar norėtumėte tęsti „%@“ grojimą, kur baigėte?";
+
+"BUTTON_ABOUT" = "Apie";
+"BUTTON_BACK" = "Atgal";
+"BUTTON_DONE" = "Atlikta";
+"BUTTON_CANCEL" = "Atšaukti";
+"BUTTON_SAVE" = "Įrašyti";
+"BUTTON_DOWNLOAD" = "Parsisiųsti";
+"BUTTON_DELETE" = "Šalinti";
+"BUTTON_OK" = "Gerai";
+"BUTTON_CONTRIBUTE" = "Prisidėkite";
+"BUTTON_CONNECT" = "Prisijungti";
+"BUTTON_RENAME" = "Pervadinti";
+"BUTTON_LEARN_MORE" = "Sužinokite daugiau";
+"BUTTON_LOGOUT" = "Atsijungti";
+"BUTTON_CONTINUE" = "Tęsti";
+"BUTTON_SET" = "Nustatyti";
+"BUTTON_RESET" = "Atstatyti";
+"BUTTON_RESCAN" = "Žvalgyti iš naujo";
+"PRIVATE_PLAYBACK_TOGGLE" = "Privatus Grojimas";
+"SCAN_SUBTITLE_TOGGLE" = "Ieškoti Titrų (tik http)";
+
+"BUTTON_RENDERER" = "Casting devices";
+"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
+"UPGRADING_LIBRARY" = "Atnaujinama fonoteka";
+
+"OPEN_NETWORK" = "Atverti tinklo srautą";
+"NETWORK_TITLE" = "Tinklo srautas";
+"OPEN_NETWORK_HELP" = "Jei norite atidaryti srautą tiesiogiai, Įrašykite bet kokį HTTP, RTSP, RTMP, MMS, FTP ar UDP/RTP adresą.";
+"HTTP_UPLOAD_SERVER_OFF" = "Serveris neveikia";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
+"OPEN_STREAM_OR_DOWNLOAD" = "Norite atsisiųsti ar groti šią nuorodą?";
+"SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
+"SMB_CIFS_FILE_SERVERS" = "Failų Serveriai (SMB)";
+
+"SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
+
+
+"HTTP_DOWNLOAD_CANCELLED" = "Vartotojas nutraukė atsisiuntimą";
+
+"DOWNLOAD_FROM_HTTP_HELP" = "Įveskite adresą iš kurio norite atsisiųsti failą į savo %@.";
+"DOWNLOAD_FROM_HTTP" = "Siuntiniai";
+"ERROR_NUMBER" = "Įvyko klaida %i";
+"DOWNLOAD_FAILED" = "Parsisiųsti nepavyko";
+"FILE_NOT_SUPPORTED" = "Failo formatas nepalaikomas";
+"FILE_NOT_SUPPORTED_LONG" = "Ši iOS sistemai skirta VLC versija nepalaiko formato, kurį naudoja %@.";
+"SCHEME_NOT_SUPPORTED" = "Nepalaikoma adreso schema";
+"SCHEME_NOT_SUPPORTED_LONG" = "Nepalaikoma adreso schema (%@). Prašome nurodyti adresą prasidedantį HTTP, HTTPS arba FTP.";
+"RENAME_MEDIA_TO" = "Naujas „%@“ pavadinimas";
+
+"FOLDER_EMPTY" = "Aplankas tuščias";
+
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Pasirinkite norimą atverti failą";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Atverti ...";
+"SHARING_ERROR_NO_FILES" = "Nerasta failų kuriuos būtų galima bendrinti";
+"SHARING_ERROR_NO_APPLICATIONS" = "Nerasta programų, kurios galėtų atidaryti tokios rūšies failus";
+"SHARING_SUCCESS_CAMERA_ROLL" = "Failas sėkmingai išsaugotas „Camera Roll";
+
+"STREAMVC_DETAILTEXT" = "Srautus groti tiesiogiai, jų neparsiunčiant";
+"DOWNLOADVC_DETAILTEXT" = "Parsiųsti rinkmenas tiesiai į jūsų įrenginį";
+"HEADER_TITLE_RENDERER" = "Select a casting device";
+
+"NETWORK" = "Tinklas";
+"LOCAL_NETWORK" = "Vietinis tinklas";
+"CONNECT_TO_SERVER" = "Prisijungti prie serverio";
+"FILE_SERVER" = "Rinkmenų serveriai";
+"USER_LABEL" = "Naudotojas";
+"PASSWORD_LABEL" = "Slaptažodis";
+"DISABLE_LABEL" = "Išjungti";
+"BUTTON_ANONYMOUS_LOGIN" = "Anoniminis Prisijungimas";
+
+"LOCAL_SERVER_REFRESH" = "Atnaujinti";
+"LOCAL_SERVER_LAST_UPDATE" = "Paskutinį kartą atnaujinta: %@";
+"LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "NEPAVYKO SUSIJUNGTI SU SERVERIU";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Patikrinkite serverio adresą ir prisijungimo duomenis";
+
+"CLOUD_SERVICES" = "Debesų Paslaugos";
+"LOGIN" = "Prisijungti";
+"LOGGED_IN" = "Prisijungta";
+"LOGGED_IN_SERVICES" = "%d logged in services";
+"LOGGED_IN_SERVICE" = "1 logged in service";
+
+"DROPBOX_DOWNLOAD" = "Parsisiųsti failą?";
+"DROPBOX_DL_LONG" = "Norėtumėte parsisiųsti „%@“ į savo %@?";
+"DROPBOX_LOGIN" = "Prisijungti";
+
+"GDRIVE_ERROR_FETCHING_FILES" = "Pristatant failus įvyko klaida";
+"GDRIVE_DOWNLOAD_SUCCESSFUL" = "Failas sėkmingai parsiųstas";
+"GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "PAVYKO";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "Klaida parsiunčiant";
+"GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "KLAIDA";
+
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "Pasirinktas kūrinys neturi grojamo URL";
+
+"DISK_FULL" = "Pasiektas talpyklos limitas";
+"DISK_FULL_FORMAT" = "%@ negali būti patalpintas į jūsų %@, nes nebėra pakankamai vietos.";
+
+"NUM_OF_FILES" = "failų: %i";
+"ONE_FILE" = "1 failas";
+"NO_FILES" = "Nėra palaikomų failų";
+"DOWNLOADING" = "Atsiunčiama ...";
+"REMAINING_TIME" = "Likęs laikas: %@";
+"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
+
+//PAPasscode Strings that we need to localize for them
+"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
+"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"Change Passcode" = "Change Passcode";
+"Enter Passcode" = "Enter Passcode";
+"Enter a passcode" = "Enter a passcode";
+"Enter your new passcode" = "Enter your new passcode";
+"Enter your old passcode" = "Enter your old passcode";
+"Enter your passcode" = "Enter your passcode";
+"Next" = "Toliau";
+"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
+"Re-enter your new passcode" = "Re-enter your new passcode";
+"Re-enter your passcode" = "Re-enter your passcode";
+"Set Passcode" = "Set Passcode";
+
+"Settings" = "Nuostatos"; // plain text key to keep compatibility with InAppSettingsKit's upstream
+"ON" = "Įjungta";
+"OFF" = "Išjungta";
+
+"EMPTY_LIBRARY" = "Išvalyti fonoteką";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
+
+"EMPTY_PLAYLIST" = "Grojaraštis tuščias";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+
+"PLAYBACK_SCRUB_HELP" = "Slide your finger down to adjust the scrubbing rate.";
+"PLAYBACK_SCRUB_HIGH" = "High-Speed Scrubbing";
+"PLAYBACK_SCRUB_HALF" = "Half-Speed Scrubbing";
+"PLAYBACK_SCRUB_QUARTER" = "Quarter-Speed Scrubbing";
+"PLAYBACK_SCRUB_FINE" = "Fine Scrubbing";
+"PLAYBACK_POSITION" = "Grojimo Pozicija";
+"VIDEO_FILTER" = "Vaizdo Filtrai";
+"VIDEO_FILTER_RESET_BUTTON" = "Atkurti vaizdo filtrus";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Switch Video Aspect Ratio";
+"PLAY_PAUSE_BUTTON" = "Pristabdyti arba tęsti dabartinį grojimą";
+"BWD_BUTTON" = "Šokti atgal";
+"FWD_BUTTON" = "Šokti priekin";
+"PLAY_BUTTON" = "Groti";
+"NEXT_BUTTON" = "Tolesnis";
+"PREV_BUTTON" = "Ankstesnis";
+"PLAY_ALL_BUTTON" = "Groti visus";
+
+"VERSION_FORMAT" = "Versija: %@";
+"BASED_ON_FORMAT" = "Paremta:<br />%@";
+
+"NEW" = "NAUJA";
+
+"BUG_REPORT_TITLE" = "Pranešti apie klaidą";
+"BUG_REPORT_MESSAGE" = "Ar norėtumėte sukurti pranešimą apie klaidą?";
+"BUG_REPORT_BUTTON" = "Atverti „Safari“";
+
+"VO_VIDEOPLAYER_TITLE" = "Vaizdo klipų leistuvė";
+"VO_VIDEOPLAYER_DOUBLETAP" = "Double tap to show or hide playback controls";
+
+"FIRST_STEPS_ITUNES" = "iTunes File Sync";
+"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
+"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
+"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
+"FIRST_STEPS_CLOUDS" = "Debesys";
+"FIRST_STEPS_CLOUD_TITLE" = "Debesis";
+"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
+
+
+"PLEX_CHECK_ACCOUNT" = "Patikrinkite savo Plex paskyrą nustatymuose";
+"PLEX_ERROR_ACCOUNT" = "Plex prisijungimo Klaida";
+
+"UNAUTHORIZED" = "Neautorizuota";
+
+"SERVER" = "Serveris";
+"SERVER_PORT" = "Priedas";
+"NO_SERVER_FOUND" = "Nerastas joks serveris";
+"NO_RECENT_STREAMS" = "Pastaruoju metu srautų negrojote";
+
+"WEBINTF_TITLE" = "Sharing via Wi-Fi";
+"WEBINTF_DROPFILES" = "Atitempti kūrinius";
+"WEBINTF_DROPFILES_LONG" = "Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"WEBINTF_DOWNLOADFILES" = "Atsisiųsti rinkmenas";
+"WEBINTF_DOWNLOADFILES_LONG" = "Tiesiog paspauskite ant failo, kurį norite persisiųsti iš savo %@.";
+"WEBINTF_TITLE_ATV" = "Nuotolinis grojimas";
+"WEBINTF_DROPFILES_LONG_ATV" = "Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"WEBINTF_URL_SENT" = "URL nusiųstas sėkmingai.";
+"WEBINTF_URL_EMPTY" = "URL negali būti tuščias.";
+"WEBINTF_URL_INVALID" = "Negalimas URL.";
+"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
+"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
+
+
+
+"DURATION" = "Trukmė";
+"TITLE" = "Pavadinimas";
+
+// strings from VLCKit
+
+// accessibility labels for the playlist
+
+
+"LONGPRESS_TO_STOP" = "Ilgai palaikykite, kad sustabdytumėte grojimą.";
+
+// ATV specific
+"AUDIO_INFO_VC_TITLE" = "Garso informacija";
+"CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
+"ENTER_URL" = "Įveskite URL, kad grotumėte";
+"HTTP_SERVER_ON" = "Išjungti nuotolinį grojimą";
+"HTTP_SERVER_OFF" = "Įjungti nuotolinį grojimą";
+"CACHED_MEDIA" = "Kūrinys podėlyje";
+"CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
+"DOWNLOAD_SUBS_FROM_OSO" = "Atsisiųsti titrus iš OpenSubtitles.org...";
+"FOUND_SUBS" = "Rasti titrai";
+"USE_SPDIF" = "Use Pass-through (S/PDIF)";
+
+"PLAYBACK" = "Grojimas";
+"REPEAT_MODE" = "Kartoti";
+"REPEAT_DISABLED" = "Išjungta";
+"REPEAT_SINGLE" = "Singlas";
+"REPEAT_FOLDER" = "Aplankas";
+
+// Local Network Service Names
+"UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
+"UPNP_SHORT" = "UPnP";
+
+"PLEX_LONG" = "Plex Media Server (via Bonjour)";
+"PLEX_SHORT" = "Plex";
+
+"FTP_SHORT" = "FTP";
+"SFTP_SHORT" = "SFTP";
+
+"NFS_LONG" = "Network File System (NFS)";
+"NFS_SHORT" = "NFS";
+
+"BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
+"DSM_WORKGROUP" = "Workgroup";
+
+"URL_NOT_SUPPORTED" = "The URL can't be opened";
+
+// Insert %@ where play-pause-glyph should be placed
+"DELETE_ITEM_HINT" = "Paspauskite %@, kad Ištrintumėte"; /* Insert %@ where play-pause-glyph should be placed */
+
+"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
+"DELETE_TITLE" = "Delete Selection";
+
+//Drag and Drop
+"THIS_FILE" = "Ši rinkmena";
+"NOT_SUPPORTED_FILETYPE" = "VLC nepalaiko %@ rinkmenos tipo";
+"FILE_EXISTS" = "%@ jau yra";
+
+"PROTOCOL_NOT_SELECTED" = "Nepasirinktas protokolas";
+"Settings" = "Nuostatos";
+
+"ERROR" = "Klaida";
+"OK" = "Gerai";
+"SORT" = "Rikiuoti";
+"SORT_BY" = "Rikiuoti pagal";
+"SEARCH" = "Ieškoti";
+"VIDEO" = "Vaizdo įrašai";
+
+// MediaViewController Swipable Header
+"ALBUMS" = "Albumai";
+"ARTISTS" = "Atlikėjai";
+"EPISODES" = "Epizodai";
+"GENRES" = "Stiliai";
+"ALL_VIDEOS" = "All videos";
+"SONGS" = "Dainos";
+"PLAYLISTS" = "Grojaraščiai";
+"VIDEO_GROUPS" = "Video groups";
+
+"MODIFIED_DATE" = "Keitimo data";
+"NAME" = "Pavadinimas";
+
+//EDIT
+
+"BUTTON_EDIT" = "Keisti";
+"BUTTON_EDIT_HINT" = "Keitimo veiksena";
+
+"ADD_TO_PLAYLIST" = "Įtraukti į grojaraštį";
+"ADD_TO_PLAYLIST_HINT" = "Atverti grojaraščio papildymo meniu";
+
+"PLAYLIST_PLACEHOLDER" = "Grojaraščio pavadinimas";
+"PLAYLIST_DESCRIPTION" = "Nurodykite naujo grojaraščio pavadinimą";
+"PLAYLIST_CREATION" = "Sukurti naują grojaraštį";
+"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
+"ERROR_PLAYLIST_CREATION" = "Grojaraščio sukurti nepavyko";
+"ERROR_PLAYLIST_TRACKS" = "Nepavyko gauti takelių";
+
+"ERROR_RENAME_FAILED" = "Pervadinti nepavyko";
+"ERROR_EMPTY_NAME" = "Pavadinimas negali būti tuščias";
+
+"SHARE_LABEL" = "Dalintis";
+"SHARE_HINT" = "Dalintis pasirinktomis rinkmenomis";
+"RENAME_HINT" = "Pervadinti pasirinktas rinkmenas";
+"DELETE_HINT" = "Pašalinti pasirinktas rinkmenas";
+
+// Sort
+
+"BUTTON_SORT" = "Rikiuoti";
+"BUTTON_SORT_HINT" = "Display sort action sheet";
+"HEADER_TITLE_SORT" = "Rikiuoti pagal";
+"DESCENDING_LABEL" = "Mažėjančiai";
+"DESCENDING_SWITCH_LABEL" = "Didėjančiai ar mažėjančiai";
+"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
+"GRID_LAYOUT" = "Grid Layout";
+
+// VLCMediaLibraryKit - Sorting Criteria
+
+"ALPHA" = "Alphanumerically";
+"DURATION" = "Trukmė";
+"INSERTION_DATE" = "Įterpimo data";
+"LAST_MODIFICATION_DATE" = "Paskutinio keitimo data";
+"RELEASE_DATE" = "Išleidimo data";
+"FILE_SIZE" = "Rinkmenos dydis";
+"ARTIST" = "Atlikėjas";
+"PLAY_COUNT" = "Grojimų skaičius";
+"ALBUM" = "Albumas";
+"FILENAME" = "Rinkmenos vardas";
+"TRACK_NUMBER" = "Takelio numeris";
+"NB_AUDIO" = "Number of audio";
+"NB_MEDIA" = "Number of media";
+"NB_VIDEO" = "Number of video";
+
+// VLCNetworkLoginTVViewController
+
+"NO_SAVING_DATA" = "Nieko nerasta";
+
+// MediaCollectionViewCell
+
+"UNKNOWN_ARTIST" = "Nežinomas atlikėjas";
+"VARIOUS_ARTIST" = "Įvairūs atlikėjai";
+"UNKNOWN_ALBUM" = "Nežinomas albumas";
+
+/* VideoSubControl */
+"INTERFACE_LOCK_BUTTON" = "Užrakinti sąsają";
+"INTERFACE_LOCK_HINT" = "Disable interface controls";
+"MORE_OPTIONS_BUTTON" = "Daugiau";
+"MORE_OPTIONS_HINT" = "Rodyti daugiau parinkčių valdiklių";
+"REPEAT_MODE_HINT" = "Change repeat mode of current item";
+"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+
+/* MediaMoreOptionsActionSheet */
+"EQUALIZER_CELL_TITLE" = "Glodintuvas";
+"MORE_OPTIONS_HEADER_TITLE" = "Vaizdo parinktys";
+
+/* Settings - Force rescan alert */
+"FORCE_RESCAN_TITLE" = "Priverstinai iš naujo peržvalgyti kūrinius";
+"FORCE_RESCAN_MESSAGE" = "Tikrai norite, kad VLC iš naujo peržvalgytų jūsų turimus kūrinus?\nTai gali užtrukti.";
+
+// Local Network
+
+"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
+"SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
+"SMBV1_CONTINUE" = "Continue with SMBv1";
+"SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
+
+/* Preview labels */
+
+"ENCODING" = "Encoding";
+
+/* Media groups */
+
+"ADD_TO_MEDIA_GROUP" = "Add to media group";
+"ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
+
+"MEDIA_GROUPS" = "Media groups";
+"MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
+"MEDIA_GROUPS_PLACEHOLDER" = "Media group title";
+
+"REMOVE_FROM_MEDIA_GROUP" = "Remove from media group";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Remove selection from the media group";
+
+"MEDIA_GROUP_CREATION" = "New media group";
+"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+
+"BUTTON_REGROUP" = "Regroup";
+"BUTTON_REGROUP_TITLE" = "Regroup selection";
+"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
+"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+
+/* Files.app persistence file */
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+
+/* tip jar */
+"GIVE_TIP" = "Give a Tip";
+"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
+"PURCHASE_FAILED" = "Purchase Failed";
+"SEND_GIFT" = "Send your gift";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Play";
+"PLAY_LABEL" = "Play";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Append to queue";
+"APPEND_TO_QUEUE_LABEL" = "Append to queue";
