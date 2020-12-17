@@ -66,14 +66,18 @@
 "BUTTON_LEARN_MORE" = "Več podrobnosti";
 "BUTTON_LOGOUT" = "Odjavi";
 "BUTTON_CONTINUE" = "Nadaljuj";
-"BUTTON_SET" = "Set";
+"BUTTON_SET" = "Določi";
 "BUTTON_RESET" = "Ponastavi";
-"BUTTON_RESCAN" = "Rescan";
+"BUTTON_RESCAN" = "Ponovno preglej";
 "PRIVATE_PLAYBACK_TOGGLE" = "Zasebno predvajanje";
 "SCAN_SUBTITLE_TOGGLE" = "Preišči za podnapise (le prek http)";
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
 
 "UPGRADING_LIBRARY" = "Nadgrajevanje knjižnice predstavnih vsebin";
 
@@ -96,7 +100,7 @@
 "ERROR_NUMBER" = "Prišlo je do napake %i";
 "DOWNLOAD_FAILED" = "Prejem je spodletel";
 "FILE_NOT_SUPPORTED" = "Zapis datoteke ni podprt";
-"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"FILE_NOT_SUPPORTED_LONG" = "Format datoteke, ki ga uporablja %@ ni podprt za to različico VLC za iOS.";
 "SCHEME_NOT_SUPPORTED" = "Naslovni prostor ni podprt";
 "SCHEME_NOT_SUPPORTED_LONG" = "Naslovni prostor (%@) ni podprt. Uporabite naslov, ki se začne s HTTP, HTTPS ali FTP.";
 "RENAME_MEDIA_TO" = "Vnesite novo ime za %@";
@@ -109,7 +113,7 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Programa, ki bi odprl to vrsto datoteke, ni mogoče najti";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Datoteka je bila uspešno shranjena v Camera Roll";
 
-"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
+"STREAMVC_DETAILTEXT" = "Predvajaj pretoke neposredno brez prenosa";
 "DOWNLOADVC_DETAILTEXT" = "Prenesite datoteke v vašo napravo";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
@@ -130,8 +134,8 @@
 "CLOUD_SERVICES" = "Storitve v oblaku";
 "LOGIN" = "Prijava";
 "LOGGED_IN" = "Prijavljeni";
-"LOGGED_IN_SERVICES" = "%d logged in services";
-"LOGGED_IN_SERVICE" = "1 logged in service";
+"LOGGED_IN_SERVICES" = "Prijavljen v %d storitev";
+"LOGGED_IN_SERVICE" = "Prijavljen v eno storitev";
 
 "DROPBOX_DOWNLOAD" = "Ali želite prejeti datoteko?";
 "DROPBOX_DL_LONG" = "Ali želite prejeti \"%@\" na %@?";
@@ -156,19 +160,19 @@
 "BIOMETRIC_UNLOCK" = "Odkleni knižnjico predstavnih vsebin\nPrekini za vnos gesla";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "Change Passcode";
-"Enter Passcode" = "Enter Passcode";
-"Enter a passcode" = "Enter a passcode";
-"Enter your new passcode" = "Enter your new passcode";
-"Enter your old passcode" = "Enter your old passcode";
-"Enter your passcode" = "Enter your passcode";
-"Next" = "Next";
-"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
-"Re-enter your new passcode" = "Re-enter your new passcode";
-"Re-enter your passcode" = "Re-enter your passcode";
-"Set Passcode" = "Set Passcode";
+"%d Failed Passcode Attempts" = "%d neuspelih poskusov vnosa gesla";
+"1 Failed Passcode Attempt" = "En neuspel poskus vnosa gesla";
+"Change Passcode" = "Sprememba gesla";
+"Enter Passcode" = "Vnesite geslo";
+"Enter a passcode" = "Vnos gesla";
+"Enter your new passcode" = "Vnesite novo geslo";
+"Enter your old passcode" = "Vnesite staro geslo";
+"Enter your passcode" = "Vnesite geslo";
+"Next" = "Naprej";
+"Passcodes did not match. Try again." = "Gesli se ne ujemata. Poskusite znova.";
+"Re-enter your new passcode" = "Ponovno vnesite novo geslo";
+"Re-enter your passcode" = "Ponovni vnos gesla";
+"Set Passcode" = "Določite geslo";
 
 "Settings" = "Nastavitve"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Vklopljeno";
@@ -177,7 +181,7 @@
 "EMPTY_LIBRARY" = "Knjižnica predstavnih vsebin je prazna";
 "EMPTY_LIBRARY_LONG" = "Predstavne vsebine je za predvajanje mogoče pretakati s strežnika v lokalnem omrežju, z oblaka ali jih sinhronizirati na vašo napravo s pomočjo ITunes, brezžičnega prenosa ali oblačnih storitev.";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_PLAYLIST" = "Prazen seznam predvajanja";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Dodaj vsebino med urejanjem v ustrezne kategorije.";
 
 "PLAYBACK_SCRUB_HELP" = "Potegnite s prstom nižje za dostop do različnih hitrosti iskanja po posnetku.";
@@ -193,8 +197,8 @@
 "BWD_BUTTON" = "Skoči nazaj";
 "FWD_BUTTON" = "Skoči naprej";
 "PLAY_BUTTON" = "Predvajaj";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
+"NEXT_BUTTON" = "Naprej";
+"PREV_BUTTON" = "Nazaj";
 "PLAY_ALL_BUTTON" = "Predvajaj vse";
 
 "VERSION_FORMAT" = "Različica: %@";
@@ -210,12 +214,12 @@
 "VO_VIDEOPLAYER_DOUBLETAP" = "Z dvojnim tapkanjem se prikaže sli skrije upravljanje predvajanja";
 
 "FIRST_STEPS_ITUNES" = "Usklajevanje datotek iTunes";
-"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
+"FIRST_STEPS_ITUNES_TITLE" = "Sinhronizacija z računalnikom";
 "FIRST_STEPS_ITUNES_DETAILS" = "Povežite napravo z iTunes in jo izberite. Izberite \"File Sharing\" iz menija na levi strani v iTunesih in poiščite VLC za prenos.";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
+"FIRST_STEPS_WIFI_TITLE" = "Deli preko WiFI omrežja";
 "FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
 "FIRST_STEPS_CLOUDS" = "Oblaki";
-"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
+"FIRST_STEPS_CLOUD_TITLE" = "Oblak";
 "FIRST_STEPS_CLOUD_DETAILS" = "Naložite svoje predstavne vsebine na oblačno storitev, kot sta Google Drive ali Dropbox, za oddaljeno pretakanje ali prenos.";
 
 
@@ -289,7 +293,7 @@
 "BONJOUR_FILE_SERVERS" = "Datotečni strežnik BONJOUR";
 "DSM_WORKGROUP" = "Delovna skupina";
 
-"URL_NOT_SUPPORTED" = "The URL can't be opened";
+"URL_NOT_SUPPORTED" = "URl naslova ni mogoče odpreti";
 
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Pritisnite %@ za brisanje"; /* Insert %@ where play-pause-glyph should be placed */
@@ -300,8 +304,8 @@
 "DELETE_TITLE" = "Izbriši izbor";
 
 //Drag and Drop
-"THIS_FILE" = "This file";
-"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
+"THIS_FILE" = "Ta datoteka";
+"NOT_SUPPORTED_FILETYPE" = "%@ ni podprta vrsta datoteke za VLC";
 "FILE_EXISTS" = "%@ že obstaja";
 
 "PROTOCOL_NOT_SELECTED" = "Protokol ni izbran";
@@ -311,7 +315,7 @@
 "OK" = "V redu";
 "SORT" = "Razvrsti";
 "SORT_BY" = "Razvrsti po";
-"SEARCH" = "Search";
+"SEARCH" = "Iskanje";
 "VIDEO" = "Video";
 
 // MediaViewController Swipable Header
@@ -319,85 +323,85 @@
 "ARTISTS" = "Izvajalci";
 "EPISODES" = "Epizode";
 "GENRES" = "Žanri";
-"ALL_VIDEOS" = "All videos";
+"ALL_VIDEOS" = "Vsi videi";
 "SONGS" = "Pesmi";
-"PLAYLISTS" = "Playlists";
-"VIDEO_GROUPS" = "Video groups";
+"PLAYLISTS" = "Seznami predvajanja";
+"VIDEO_GROUPS" = "Video skupine";
 
-"MODIFIED_DATE" = "Modified date";
+"MODIFIED_DATE" = "Spremenjen datum";
 "NAME" = "Ime";
 
 //EDIT
 
 "BUTTON_EDIT" = "Uredi";
-"BUTTON_EDIT_HINT" = "Edit mode";
+"BUTTON_EDIT_HINT" = "Način urejanja";
 
-"ADD_TO_PLAYLIST" = "Add to Playlist";
-"ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
+"ADD_TO_PLAYLIST" = "Dodaj v seznam predvajanja";
+"ADD_TO_PLAYLIST_HINT" = "Odpri meni za dodajanje na seznam predvajanja";
 
-"PLAYLIST_PLACEHOLDER" = "Playlist title";
-"PLAYLIST_DESCRIPTION" = "Choose a title for your new playlist";
+"PLAYLIST_PLACEHOLDER" = "Naslov seznama predvajanja";
+"PLAYLIST_DESCRIPTION" = "Izberite naslov za nov seznam predvajanja";
 "PLAYLIST_CREATION" = "Ustvari nov seznam predvajanja";
-"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
-"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
-"ERROR_PLAYLIST_TRACKS" = "Failed to retrieve tracks";
+"PLAYLIST_CREATION_HINT" = "Prikaži interaktivno dejanje za ustvarjanje seznama predvajanja";
+"ERROR_PLAYLIST_CREATION" = "Seznama predvajanja ni bilo mogoče ustvariti";
+"ERROR_PLAYLIST_TRACKS" = "Vsebin ni bilo mogoče najti";
 
-"ERROR_RENAME_FAILED" = "Renaming failed";
-"ERROR_EMPTY_NAME" = "The title can't be empty";
+"ERROR_RENAME_FAILED" = "Preimenovanje ni uspelo";
+"ERROR_EMPTY_NAME" = "Naslov ne more biti prazen";
 
-"SHARE_LABEL" = "Share";
-"SHARE_HINT" = "Share selected files";
-"RENAME_HINT" = "Rename selected files";
-"DELETE_HINT" = "Delete selected files";
+"SHARE_LABEL" = "Deli";
+"SHARE_HINT" = "Deli izbrane datoteke";
+"RENAME_HINT" = "Preimenuj izbrane datoteke";
+"DELETE_HINT" = "Izbriši izbrane datoteke";
 
 // Sort
 
-"BUTTON_SORT" = "Sort";
+"BUTTON_SORT" = "Sortiranje";
 "BUTTON_SORT_HINT" = "Display sort action sheet";
-"HEADER_TITLE_SORT" = "Sort by";
-"DESCENDING_LABEL" = "Descending Order";
-"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
-"DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
-"GRID_LAYOUT" = "Grid Layout";
+"HEADER_TITLE_SORT" = "Uredi";
+"DESCENDING_LABEL" = "padajoče";
+"DESCENDING_SWITCH_LABEL" = "naraščajoče ali padajoče";
+"DESCENDING_SWITCH_HINT" = "Sortiraj kontekst naraščajoče ali padajoče";
+"GRID_LAYOUT" = "Postavitev mreže";
 
 // VLCMediaLibraryKit - Sorting Criteria
 
-"ALPHA" = "Alphanumerically";
+"ALPHA" = "Alfanumerično";
 "DURATION" = "Trajanje";
-"INSERTION_DATE" = "Insertion date";
-"LAST_MODIFICATION_DATE" = "Last modification date";
-"RELEASE_DATE" = "Release date";
-"FILE_SIZE" = "File size";
-"ARTIST" = "Artist";
-"PLAY_COUNT" = "Play count";
+"INSERTION_DATE" = "Datum vstavitve";
+"LAST_MODIFICATION_DATE" = "Datum zadnje spremembe";
+"RELEASE_DATE" = "Datum izdaje";
+"FILE_SIZE" = "Velikost datoteke";
+"ARTIST" = "Izvajalec";
+"PLAY_COUNT" = "Število predvajanj";
 "ALBUM" = "Album";
-"FILENAME" = "Filename";
-"TRACK_NUMBER" = "Track number";
-"NB_AUDIO" = "Number of audio";
+"FILENAME" = "Ime datoteke";
+"TRACK_NUMBER" = "Število vsebin";
+"NB_AUDIO" = "Število skladb";
 "NB_MEDIA" = "Število vsebin";
-"NB_VIDEO" = "Number of video";
+"NB_VIDEO" = "Število videov";
 
 // VLCNetworkLoginTVViewController
 
-"NO_SAVING_DATA" = "Nothing found";
+"NO_SAVING_DATA" = "Ni najdenih";
 
 // MediaCollectionViewCell
 
-"UNKNOWN_ARTIST" = "Unknown Artist";
-"VARIOUS_ARTIST" = "Various Artists";
-"UNKNOWN_ALBUM" = "Unknown Album";
+"UNKNOWN_ARTIST" = "Neznan izvajalec";
+"VARIOUS_ARTIST" = "Različni izvajalci";
+"UNKNOWN_ALBUM" = "Neznan album";
 
 /* VideoSubControl */
-"INTERFACE_LOCK_BUTTON" = "Lock interface";
+"INTERFACE_LOCK_BUTTON" = "Zakleni vmesnik";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
-"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_BUTTON" = "Več";
 "MORE_OPTIONS_HINT" = "View more option controls";
-"REPEAT_MODE_HINT" = "Change repeat mode of current item";
-"VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
+"REPEAT_MODE_HINT" = "Spremeni način ponavljanja trenutne vsebine";
+"VIDEO_ASPECT_RATIO_HINT" = "Spremeni razmerje slike trenutnega videa";
 
 /* MediaMoreOptionsActionSheet */
-"EQUALIZER_CELL_TITLE" = "Equalizer";
-"MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+"EQUALIZER_CELL_TITLE" = "Izravnalnik";
+"MORE_OPTIONS_HEADER_TITLE" = "Možnosti videa";
 
 /* Settings - Force rescan alert */
 "FORCE_RESCAN_TITLE" = "Prisili ponoven pregled knjižnice predstavnih vsebin";
@@ -405,14 +409,14 @@
 
 // Local Network
 
-"SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
+"SMBV1_WARN_TITLE" = "Opozorilo za SMBv1 povezavo";
 "SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
 "SMBV1_CONTINUE" = "Continue with SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
 
 /* Preview labels */
 
-"ENCODING" = "Encoding";
+"ENCODING" = "Kodiranje";
 
 /* Media groups */
 
@@ -427,21 +431,30 @@
 "REMOVE_FROM_MEDIA_GROUP_HINT" = "Odstrani izbor iz skupine predstavnih vsebin";
 
 "MEDIA_GROUP_CREATION" = "Nova skupina predstavnih vsebin";
-"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
-"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
-"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+"MEDIA_GROUP_CREATION_HINT" = "Prikaži opozorilo ob ustvarjanju seznama predvajanja";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Premakni vsebino na zgornji nivo";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Premakne izbrano vsebino na zgornji nivo";
 
-"BUTTON_REGROUP" = "Regroup";
-"BUTTON_REGROUP_TITLE" = "Regroup selection";
+"BUTTON_REGROUP" = "Ponovno združi";
+"BUTTON_REGROUP_TITLE" = "Ponovno združi izbor";
 "BUTTON_REGROUP_HINT" = "Poskus ponovne uvrstitve v skupino za posamezno vsebino.";
 "BUTTON_REGROUP_DESCRIPTION" = "Ali ste prepričani, da želite poskusiti samodejno ponovno uvrstiti posamezne vsebine v skupino?\nTo lahko traja precej časa.";
 
 /* Files.app persistence file */
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Postavite vsebino sem, da jo dodate";
-"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Dodajanje...";
 
 /* tip jar */
-"GIVE_TIP" = "Give a Tip";
-"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
-"PURCHASE_FAILED" = "Purchase Failed";
-"SEND_GIFT" = "Send your gift";
+"GIVE_TIP" = "Podaj namig";
+"CANNOT_MAKE_PAYMENTS" = "Nimate dovoljenja za plačevanja preko te naprave";
+"PURCHASE_FAILED" = "Nakup ni uspel";
+"SEND_GIFT" = "Pošlji darilo";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Play";
+"PLAY_LABEL" = "Play";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Append to queue";
+"APPEND_TO_QUEUE_LABEL" = "Append to queue";
