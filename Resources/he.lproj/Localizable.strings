@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "התקני שידור";
 "BUTTON_RENDERER_HINT" = "הצגת תפריט עם התקני השידור הזמינים";
 
+
+"BUTTON_PLAY_QUEUE" = "לנגן את התור";
+"BUTTON_PLAY_QUEUE_HINT" = "להציג את תצוגת ניגון התור";
+
 "UPGRADING_LIBRARY" = "ספריית המדיה משתדרגת";
 
 "OPEN_NETWORK" = "פתיחת תזרים רשת";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "אסור לך לשלם דרך המכשיר הזה.";
 "PURCHASE_FAILED" = "הרכישה נכשלה";
 "SEND_GIFT" = "שליחת המתנה שלך";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "לנגן";
+"PLAY_LABEL" = "לנגן";
+"PLAY_NEXT_IN_QUEUE_HINT" = "לנגן את הבא בתור";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "לנגן את הבא בתור";
+"APPEND_TO_QUEUE_HINT" = "להוסיף לסוף התור";
+"APPEND_TO_QUEUE_LABEL" = "להוסיף לסוף התור";
