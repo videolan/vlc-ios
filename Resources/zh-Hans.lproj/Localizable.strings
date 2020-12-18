@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "投屏设备";
 "BUTTON_RENDERER_HINT" = "显示可用投屏设备菜单";
 
+
+"BUTTON_PLAY_QUEUE" = "播放队列";
+"BUTTON_PLAY_QUEUE_HINT" = "显示播放队列视图";
+
 "UPGRADING_LIBRARY" = "正在升级媒体库";
 
 "OPEN_NETWORK" = "打开网络串流";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "您不被允许在此设备上付款。";
 "PURCHASE_FAILED" = "购买失败";
 "SEND_GIFT" = "发送你的礼物";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "播放";
+"PLAY_LABEL" = "播放";
+"PLAY_NEXT_IN_QUEUE_HINT" = "播放队列中的下一曲目";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "播放队列中的下一曲目";
+"APPEND_TO_QUEUE_HINT" = "添加到队列";
+"APPEND_TO_QUEUE_LABEL" = "添加到队列";
