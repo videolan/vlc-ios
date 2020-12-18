@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Zariadenia na streamovanie (casting)";
 "BUTTON_RENDERER_HINT" = "Zobraziť menu pre dostupné zariadeni na streamovanie (casting)";
 
+
+"BUTTON_PLAY_QUEUE" = "Prehrať položky vo fronte";
+"BUTTON_PLAY_QUEUE_HINT" = "Zobraziť náhľad na front prehrávania";
+
 "UPGRADING_LIBRARY" = "Aktualizovanie knižnice médii";
 
 "OPEN_NETWORK" = "Otvoriť sieťový stream";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Nemáte oprávnenie na platenie na tomto zariadení.";
 "PURCHASE_FAILED" = "Objednanie bolo neúspešné";
 "SEND_GIFT" = "Pošlite svoj darček";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Prehrať";
+"PLAY_LABEL" = "Prehrať";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Prehrať ďalšie vo fronte";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Prehrať ďalšie vo fronte";
+"APPEND_TO_QUEUE_HINT" = "Pripojiť do frontu";
+"APPEND_TO_QUEUE_LABEL" = "Pripojiť do frontu";
