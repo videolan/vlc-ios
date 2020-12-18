@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Casting-Geräte";
 "BUTTON_RENDERER_HINT" = "Menü mit verfügbaren Casting-Geräten anzeigen";
 
+
+"BUTTON_PLAY_QUEUE" = "Warteschlange wiedergeben";
+"BUTTON_PLAY_QUEUE_HINT" = "Wiedergabewarteschlange anzeigen";
+
 "UPGRADING_LIBRARY" = "Mediathek aktualisieren";
 
 "OPEN_NETWORK" = "Netzwerkstream öffnen";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Sie dürfen auf diesem Gerät keine Zahlungen tätigen.";
 "PURCHASE_FAILED" = "Kauf gescheitert";
 "SEND_GIFT" = "Ihr Geschenk senden";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Wiedergabe";
+"PLAY_LABEL" = "Wiedergabe";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Nächstes aus der Wiedergabewarteschlange wiedergeben";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Nächstes aus der Wiedergabewarteschlange wiedergeben";
+"APPEND_TO_QUEUE_HINT" = "An Wiedergabewarteschlange anhängen";
+"APPEND_TO_QUEUE_LABEL" = "An Wiedergabewarteschlange anhängen";
