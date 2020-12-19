@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "キャスティングデバイス";
 "BUTTON_RENDERER_HINT" = "利用可能なキャスティングデバイスのメニューを表示";
 
+
+"BUTTON_PLAY_QUEUE" = "キューを再生";
+"BUTTON_PLAY_QUEUE_HINT" = "再生キューを表示";
+
 "UPGRADING_LIBRARY" = "メディアライブラリのアップグレード中";
 
 "OPEN_NETWORK" = "ネットワークストリームを開く";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "このデバイスで支払い許可がありません。";
 "PURCHASE_FAILED" = "購入手続きに失敗しました";
 "SEND_GIFT" = "ギフトを送る";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "再生";
+"PLAY_LABEL" = "再生";
+"PLAY_NEXT_IN_QUEUE_HINT" = "キューの次の項目を再生";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "キューの次の項目を再生";
+"APPEND_TO_QUEUE_HINT" = "キューに追加";
+"APPEND_TO_QUEUE_LABEL" = "キューに追加";
