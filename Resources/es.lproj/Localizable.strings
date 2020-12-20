@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Dispositivos de emisión";
 "BUTTON_RENDERER_HINT" = "Mostrar un menú de los dispositivos disponibles de emisión";
 
+
+"BUTTON_PLAY_QUEUE" = "Reproducir cola";
+"BUTTON_PLAY_QUEUE_HINT" = "Mostrar la vista de la cola de reproducción ";
+
 "UPGRADING_LIBRARY" = "Actualizando biblioteca multimedia";
 
 "OPEN_NETWORK" = "Abrir ubicación de red";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "No está autorizado a realizar pagos en este dispositivo.";
 "PURCHASE_FAILED" = "Compra fallida";
 "SEND_GIFT" = "Enviar su donación";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Reproducir";
+"PLAY_LABEL" = "Reproducir";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Reproducir el siguiente de la cola";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Reproducir el siguiente de la cola";
+"APPEND_TO_QUEUE_HINT" = "Añadir a la cola";
+"APPEND_TO_QUEUE_LABEL" = "Añadir a la cola";
