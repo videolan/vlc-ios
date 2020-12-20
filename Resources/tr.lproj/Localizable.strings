@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Aktarım Aygıtları";
 "BUTTON_RENDERER_HINT" = "Kullanılabilecek aktarım aygıtları menüsünü görüntüler";
 
+
+"BUTTON_PLAY_QUEUE" = "Kuyruğu oynat";
+"BUTTON_PLAY_QUEUE_HINT" = "Oynatma kuyruğu görünümü";
+
 "UPGRADING_LIBRARY" = "Ortam Kitaplığı Yükseltiliyor";
 
 "OPEN_NETWORK" = "Ağ Akışı Aç";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Bu aygıt üzerinden ödeme yapmanıza izin verilmiyor.";
 "PURCHASE_FAILED" = "Satın Alınamadı";
 "SEND_GIFT" = "Hediye gönderin";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Oynat";
+"PLAY_LABEL" = "Oynat";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Kuyruktaki sonrakini oynat";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Kuyrukta sonrakini oynat";
+"APPEND_TO_QUEUE_HINT" = "Kuyruğa ekle";
+"APPEND_TO_QUEUE_LABEL" = "Kuyruğa ekle";
