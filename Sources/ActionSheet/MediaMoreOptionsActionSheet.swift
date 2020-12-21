@@ -12,6 +12,7 @@
 @objc (VLCMediaMoreOptionsActionSheetDelegate)
 protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool)
+    func mediaMoreOptionsActionSheetDidAppeared()
 }
 
 @objc (VLCMediaMoreOptionsActionSheet)
@@ -56,7 +57,22 @@ protocol MediaMoreOptionsActionSheetDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         removeCurrentChild()
         removeActionSheet()
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetDidAppeared()
     }
+
+    func hidePlayer() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetDidAppeared()
+    }
+
+// MARK: - Video Filters
+    private lazy var videoFiltersView: VideoFiltersView = {
+        let videoFiltersView = Bundle.main.loadNibNamed("VideoFiltersView",
+                                                        owner: nil,
+                                                        options: nil)?.first as! VideoFiltersView
+        videoFiltersView.frame = offScreenFrame
+        videoFiltersView.backgroundColor = PresentationTheme.current.colors.background
+        return videoFiltersView
+    }()
 
 // MARK: - Playback Speed View
     private lazy var playbackView: NewPlaybackSpeedView = {
@@ -130,6 +146,8 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
 
     private func selectViewToPresent(for cell: MediaPlayerActionSheetCellIdentifier) -> UIView {
         switch cell {
+        case .filter:
+            return videoFiltersView
         case .playback:
             return playbackView
         case .sleepTimer:

@@ -54,8 +54,8 @@ extension VideoPlayerViewController: VideoPlayerControlsDelgate {
         present(moreOptionsActionSheet, animated: false) {
             [unowned self] in
             self.moreOptionsActionSheet.interfaceDisabled = self.playerController.isInterfaceLocked
+            self.moreOptionsActionSheet.hidePlayer()
         }
-
     }
 
 

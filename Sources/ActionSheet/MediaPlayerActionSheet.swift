@@ -56,8 +56,12 @@ class MediaPlayerActionSheet: ActionSheet {
         return leftToRight
     }
 
+    // MARK: Private Methods
     private func getTitle(of childView: UIView) -> String {
-        if let view = childView as? NewPlaybackSpeedView {
+        if let view = childView as? VideoFiltersView {
+            view.resetSlidersIfNeeded()
+            return MediaPlayerActionSheetCellIdentifier.filter.description
+        } else if let view = childView as? NewPlaybackSpeedView {
             view.resetSlidersIfNeeded()
             return MediaPlayerActionSheetCellIdentifier.playback.description
         } else if childView is SleepTimerView {
@@ -67,7 +71,12 @@ class MediaPlayerActionSheet: ActionSheet {
         }
     }
 
-    // MARK: Private Methods
+    private func changeBackground(alpha: CGFloat) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.backgroundView.backgroundColor = UIColor.black.withAlphaComponent(alpha)
+        })
+    }
+
     private func add(childView child: UIView) {
         UIView.animate(withDuration: 0.3, animations: {
             child.frame = self.collectionView.frame
@@ -77,6 +86,10 @@ class MediaPlayerActionSheet: ActionSheet {
             child.addGestureRecognizer(self.leftToRightGesture)
             self.currentChildView = child
             self.headerView.title.text = self.getTitle(of: child)
+
+            if child is VideoFiltersView {
+                self.changeBackground(alpha: 0)
+            }
         }
     }
 
@@ -86,8 +99,13 @@ class MediaPlayerActionSheet: ActionSheet {
         }) { (completed) in
             child.removeFromSuperview()
             child.removeGestureRecognizer(self.leftToRightGesture)
+
+            if child is VideoFiltersView {
+                self.changeBackground(alpha: 0.6)
+            }
+
+            self.headerView.title.text = NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
         }
-        headerView.title.text = NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
     }
 
     @objc func removeCurrentChild() {

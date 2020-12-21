@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="VideoFiltersView" id="7Au-zH-5I2" userLabel="VideoFiltersView" customClass="VideoFiltersView" customModule="VLC" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="275"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="JgL-uy-MoL">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="232"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Brightness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRa-cF-1mW" userLabel="Brightness Label">
+                            <rect key="frame" x="20" y="10" width="560" height="21.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <slider opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="hYm-Dd-jpM" userLabel="Brightness Slider">
+                            <rect key="frame" x="18" y="31.5" width="564" height="23"/>
+                            <connections>
+                                <action selector="handleSliderChange:" destination="7Au-zH-5I2" eventType="valueChanged" id="6ov-z9-fy9"/>
+                            </connections>
+                        </slider>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Contrast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOh-Jq-PJY" userLabel="Contrast Label">
+                            <rect key="frame" x="20" y="53.5" width="560" height="21.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <slider opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="xFd-Xw-e9h" userLabel="Contrast Slider">
+                            <rect key="frame" x="18" y="75" width="564" height="23"/>
+                            <connections>
+                                <action selector="handleSliderChange:" destination="7Au-zH-5I2" eventType="valueChanged" id="eqS-Ps-pRI"/>
+                            </connections>
+                        </slider>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Hue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzq-ik-qxl" userLabel="Hue Label">
+                            <rect key="frame" x="20" y="97" width="560" height="21.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <slider opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="5yd-lQ-XXH" userLabel="Hue Slider">
+                            <rect key="frame" x="18" y="118.5" width="564" height="22.5"/>
+                            <connections>
+                                <action selector="handleSliderChange:" destination="7Au-zH-5I2" eventType="valueChanged" id="SkV-Ii-VR6"/>
+                            </connections>
+                        </slider>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Saturation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyn-OM-095" userLabel="Saturation Label">
+                            <rect key="frame" x="20" y="140" width="560" height="22"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <slider opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="z22-MG-Bth" userLabel="Saturation Slider">
+                            <rect key="frame" x="18" y="162" width="564" height="22.5"/>
+                            <connections>
+                                <action selector="handleSliderChange:" destination="7Au-zH-5I2" eventType="valueChanged" id="h7I-GF-QDx"/>
+                            </connections>
+                        </slider>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Gamma" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrP-Fk-4nd" userLabel="Gamma Label">
+                            <rect key="frame" x="20" y="183.5" width="560" height="22"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <slider opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OlW-gf-zdM" userLabel="Gamma Slider">
+                            <rect key="frame" x="18" y="205.5" width="564" height="22.5"/>
+                            <connections>
+                                <action selector="handleSliderChange:" destination="7Au-zH-5I2" eventType="valueChanged" id="T0D-sJ-V7d"/>
+                            </connections>
+                        </slider>
+                    </subviews>
+                    <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="20" bottom="5" trailing="20"/>
+                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrV-s0-DnW" userLabel="Reset Button">
+                    <rect key="frame" x="534" y="232" width="46" height="33"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <state key="normal" title="Reset">
+                        <color key="titleColor" systemColor="labelColor"/>
+                    </state>
+                    <connections>
+                        <action selector="handleResetButton:" destination="7Au-zH-5I2" eventType="touchUpInside" id="DCp-8U-syu"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Thd-jN-ogA"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="Thd-jN-ogA" firstAttribute="trailing" secondItem="JgL-uy-MoL" secondAttribute="trailing" id="7P4-am-6Tk"/>
+                <constraint firstItem="JgL-uy-MoL" firstAttribute="top" secondItem="Thd-jN-ogA" secondAttribute="top" id="Nhg-qr-8UF"/>
+                <constraint firstItem="wrV-s0-DnW" firstAttribute="top" secondItem="JgL-uy-MoL" secondAttribute="bottom" id="TdD-60-YaV"/>
+                <constraint firstItem="Thd-jN-ogA" firstAttribute="bottom" secondItem="wrV-s0-DnW" secondAttribute="bottom" constant="10" id="UmU-2M-kS0"/>
+                <constraint firstItem="JgL-uy-MoL" firstAttribute="leading" secondItem="Thd-jN-ogA" secondAttribute="leading" id="V4s-Ag-nYq"/>
+                <constraint firstItem="wrV-s0-DnW" firstAttribute="trailing" secondItem="OlW-gf-zdM" secondAttribute="trailing" id="c6U-lw-Lye"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="brightnessLabel" destination="WRa-cF-1mW" id="Lc0-pl-3kO"/>
+                <outlet property="brightnessSlider" destination="hYm-Dd-jpM" id="Zdb-8t-AJj"/>
+                <outlet property="contrastLabel" destination="UOh-Jq-PJY" id="HSK-MM-VFH"/>
+                <outlet property="contrastSlider" destination="xFd-Xw-e9h" id="psH-cg-rYh"/>
+                <outlet property="gammaLabel" destination="yrP-Fk-4nd" id="s8B-mh-sTV"/>
+                <outlet property="gammaSlider" destination="OlW-gf-zdM" id="Sp4-T2-oQ7"/>
+                <outlet property="hueLabel" destination="Jzq-ik-qxl" id="PaY-FX-TvA"/>
+                <outlet property="hueSlider" destination="5yd-lQ-XXH" id="MLP-6q-mbv"/>
+                <outlet property="resetButton" destination="wrV-s0-DnW" id="xOc-Mv-aB4"/>
+                <outlet property="saturationLabel" destination="lyn-OM-095" id="QTo-GU-QV2"/>
+                <outlet property="saturationSlider" destination="z22-MG-Bth" id="eBN-bO-er6"/>
+            </connections>
+            <point key="canvasLocation" x="204.80000000000001" y="292.80359820089956"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

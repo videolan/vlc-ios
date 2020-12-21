@@ -751,4 +751,8 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
         //
     }
+
+    func mediaMoreOptionsActionSheetDidAppeared() {
+        handleTapOnVideo()
+    }
 }

@@ -39,7 +39,7 @@ class ActionSheet: UIViewController {
 
     var action: ((_ item: Any) -> Void)?
 
-    private lazy var backgroundView: UIView = {
+    lazy var backgroundView: UIView = {
         let backgroundView = UIView()
         backgroundView.alpha = 0
         backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
