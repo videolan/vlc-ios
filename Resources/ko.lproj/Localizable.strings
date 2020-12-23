@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "캐스트 기기";
 "BUTTON_RENDERER_HINT" = "이용 가능 캐스트 기기를 표합니다";
 
+
+"BUTTON_PLAY_QUEUE" = "재생 대기열";
+"BUTTON_PLAY_QUEUE_HINT" = "재생 대기열 보기";
+
 "UPGRADING_LIBRARY" = "미디어 라이브러리 업그레이드 중";
 
 "OPEN_NETWORK" = "네트워크 스트림 열기";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "당신은 이 기기에서 결제하는 것이 허용되지 않았습니다.";
 "PURCHASE_FAILED" = "구매 실패함";
 "SEND_GIFT" = "선물하기";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "재생";
+"PLAY_LABEL" = "재생";
+"PLAY_NEXT_IN_QUEUE_HINT" = "대기열의 다음 목록 재생";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "대기열의 다음 목록 재생";
+"APPEND_TO_QUEUE_HINT" = "대기열에 추가하기";
+"APPEND_TO_QUEUE_LABEL" = "대기열에 추가하기";
