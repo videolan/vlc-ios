@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Передающие устройства";
 "BUTTON_RENDERER_HINT" = "Показать меню доступных передающих устройств";
 
+
+"BUTTON_PLAY_QUEUE" = "Воспроизвести следующим в очереди";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
 "UPGRADING_LIBRARY" = "Обновление медиатеки";
 
 "OPEN_NETWORK" = "Открыть сетевой ресурс";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Вам не разрешено совершать покупки на этом устройстве.";
 "PURCHASE_FAILED" = "Произвести оплату не удалось";
 "SEND_GIFT" = "Отправить подарок";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Воспроизвести";
+"PLAY_LABEL" = "Воспроизвести";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Воспроизвести поочерёдно";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Добавить в очередь";
+"APPEND_TO_QUEUE_LABEL" = "Добавить в очередь";
