@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "อุปกรณ์การแคสต์";
 "BUTTON_RENDERER_HINT" = "แสดงเมนูอุปกรณ์การแคสต์ที่ใช้ได้";
 
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
 "UPGRADING_LIBRARY" = "อัพเกรดคลังสื่อ";
 
 "OPEN_NETWORK" = "เปิดสตรีมผ่านเครือข่าย";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
 "PURCHASE_FAILED" = "Purchase Failed";
 "SEND_GIFT" = "Send your gift";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Play";
+"PLAY_LABEL" = "Play";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Append to queue";
+"APPEND_TO_QUEUE_LABEL" = "Append to queue";

@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Vetítési eszközök";
 "BUTTON_RENDERER_HINT" = "Menü megjelenítése az elérhető vetítési eszközökkel";
 
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
 "UPGRADING_LIBRARY" = "Médiatár frissítése";
 
 "OPEN_NETWORK" = "Hálózati közvetítés megnyitása";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Nem fizethet ezen az eszközön.";
 "PURCHASE_FAILED" = "A vásárlás sikertelen";
 "SEND_GIFT" = "Küldje el az ajándékát";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Play";
+"PLAY_LABEL" = "Play";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Append to queue";
+"APPEND_TO_QUEUE_LABEL" = "Append to queue";

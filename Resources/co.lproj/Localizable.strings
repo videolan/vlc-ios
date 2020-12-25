@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Apparechji di diffusione";
 "BUTTON_RENDERER_HINT" = "Affissà un listinu di l’apparechji di diffusione dispunibule";
 
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
 "UPGRADING_LIBRARY" = "Rinnovà a bibliuteca media";
 
 "OPEN_NETWORK" = "Apre un flussu di reta";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Ùn avete micca u permessu d’effettuà pagamenti nant’à st’apparechju.";
 "PURCHASE_FAILED" = "Fiascu di a comprera";
 "SEND_GIFT" = "Mandà u vostru rigalu";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Play";
+"PLAY_LABEL" = "Play";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Append to queue";
+"APPEND_TO_QUEUE_LABEL" = "Append to queue";

@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Dispositius de buidatge";
 "BUTTON_RENDERER_HINT" = "Mostra un menú de dispositius de buidatge";
 
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
 "UPGRADING_LIBRARY" = "Actualitza la biblioteca de medis";
 
 "OPEN_NETWORK" = "Obre un flux de xarxa";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "No podeu fer pagaments amb aquest dispositiu";
 "PURCHASE_FAILED" = "La compra ha fallat";
 "SEND_GIFT" = "Enviar un regal";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Play";
+"PLAY_LABEL" = "Play";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Append to queue";
+"APPEND_TO_QUEUE_LABEL" = "Append to queue";

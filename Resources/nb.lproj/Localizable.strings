@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Kringkastingsenheter";
 "BUTTON_RENDERER_HINT" = "Vis en meny med tilgjengelige kringkastingsenheter";
 
+
+"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+
 "UPGRADING_LIBRARY" = "Oppdater mediebibliotek";
 
 "OPEN_NETWORK" = "Åpne Nettverkstrøm";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "Du har ikke tillatelse til å foreta betalinger på denne enheten.";
 "PURCHASE_FAILED" = "Kjøp feilet";
 "SEND_GIFT" = "Sendte deg en gave";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Play";
+"PLAY_LABEL" = "Play";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"APPEND_TO_QUEUE_HINT" = "Append to queue";
+"APPEND_TO_QUEUE_LABEL" = "Append to queue";
