@@ -75,6 +75,10 @@
 "BUTTON_RENDERER" = "Casting-apparaten";
 "BUTTON_RENDERER_HINT" = "Een menu met beschikbare casting-apparaten weergeven";
 
+
+"BUTTON_PLAY_QUEUE" = "Afspeelwachtrij";
+"BUTTON_PLAY_QUEUE_HINT" = "Afspeelwachtrij weergeven";
+
 "UPGRADING_LIBRARY" = "Mediabiblitoheek bijwerken";
 
 "OPEN_NETWORK" = "Netwerkstream openen";
@@ -445,3 +449,12 @@
 "CANNOT_MAKE_PAYMENTS" = "U bent niet gemachtigd om betalingen uit te voeren op dit apparaat.";
 "PURCHASE_FAILED" = "Aankoop mislukt";
 "SEND_GIFT" = "Uw geschenk versturen";
+
+// MARK: - QueueViewController
+
+"PLAY_HINT" = "Afspelen";
+"PLAY_LABEL" = "Afspelen";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Volgende in wachtrij afspelen";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Volgende in wachtrij afspelen";
+"APPEND_TO_QUEUE_HINT" = "Toevoegen aan wachtrij";
+"APPEND_TO_QUEUE_LABEL" = "Toevoegen aan wachtrij";
