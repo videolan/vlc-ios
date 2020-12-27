@@ -92,7 +92,7 @@
 "SETTINGS_SEND_FEEDBACK" = "Отправить отзыв";
 "SETTINGS_SEND_RATING" = "Пожалуйста, оцените VLC для IOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Медиа библиотека";
+"SETTINGS_MEDIA_LIBRARY" = "Медиатека";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Пересканировать медиабиблиотеку VLC принудительно";
 "SETTINGS_DECRAPIFY" = "Оптимизация имен";
 "SETTINGS_SHOW_THUMBNAILS" = "Показать пиктограммы видео ";
