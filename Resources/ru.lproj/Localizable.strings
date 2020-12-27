@@ -77,7 +77,7 @@
 
 
 "BUTTON_PLAY_QUEUE" = "Воспроизвести следующим в очереди";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+"BUTTON_PLAY_QUEUE_HINT" = "Показать очередь воспроизведения";
 
 "UPGRADING_LIBRARY" = "Обновление медиатеки";
 
@@ -455,6 +455,6 @@
 "PLAY_HINT" = "Воспроизвести";
 "PLAY_LABEL" = "Воспроизвести";
 "PLAY_NEXT_IN_QUEUE_HINT" = "Воспроизвести поочерёдно";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Воспроизвести следующее в очереди";
 "APPEND_TO_QUEUE_HINT" = "Добавить в очередь";
 "APPEND_TO_QUEUE_LABEL" = "Добавить в очередь";
