@@ -33,17 +33,23 @@
 
     UITapGestureRecognizer *cancelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditMode)];
     cancelRecognizer.allowedPressTypes = @[@(UIPressTypeSelect),@(UIPressTypeMenu)];
+    cancelRecognizer.enabled = self.editing;
     self.cancelRecognizer = cancelRecognizer;
     [self.view addGestureRecognizer:cancelRecognizer];
 
     UITapGestureRecognizer *playPauseRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlePlayPausePress)];
     playPauseRecognizer.allowedPressTypes = @[@(UIPressTypePlayPause)];
+    playPauseRecognizer.enabled = self.editing;
     self.playPausePressRecognizer = playPauseRecognizer;
     [self.view addGestureRecognizer:playPauseRecognizer];
 }
 
 - (void)handlePlayPausePress
 {
+    if (!self.editing) {
+        return;
+    }
+
     NSString *fileToDelete = self.itemToDelete;
     if (fileToDelete == nil)
         return;
