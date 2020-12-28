@@ -1,32 +1,32 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
-"SETTINGS_PRIVACY_TITLE" = "Privacy";
+"SETTINGS_PRIVACY_TITLE" = "Tietoturva";
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Ääni";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
-"SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
-"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+"SETTINGS_THEME_BRIGHT" = "Kirkas teema";
+"SETTINGS_THEME_DARK" = "Tumma teema";
+"SETTINGS_THEME_SYSTEM" = "Automaattinen";
+"SETTINGS_PRIVACY_SUBTITLE" = "Avaa asetuksissa";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Suojattu pääsy sisältöösi";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Mediasi piilotetaan Tiedostot sovellukseen";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Ulkonäkö";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Äänen tasaus";
 "SETTINGS_BACKGROUND_AUDIO" = "Äänen toistaminen taustalla";
 "SETTINGS_GENERIC_TITLE" = "Yleinen";
 "SETTINGS_PASSCODE_LOCK" = "Lukitus pääsykoodilla";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Salli Touch ID avataksesi lukituksen";
-"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Salli Face ID oikeudet avata lukituksen";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Piilota mediakirjasto Tiedostoissa";
 "SETTINGS_VIDEO_FULLSCREEN" = "Toista video koko näytöllä";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Jatka videon toistoa";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Jatka äänen toistoa";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Ei koskaan";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Kysy";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Aina";
-"SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_NETWORK_PLAY_ALL" = "Toista seuraava kohde automaattisesti";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Ota tekstin vieritys käyttöön median luettelossa";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Purkusuodatin";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Ei purun suodatinta (nopein)";
@@ -44,7 +44,7 @@
 
 "SETTINGS_GESTURES" = "Hallitse toistoa eleillä";
 "SETTINGS_GESTURES_VOLUME" = "Säädä äänenvoimakkuutta pyyhkäisemällä ylös ja alas";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Kahden sormen toisto/tauko napautus";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Säädä kirkkautta pyyhkäisemällä ylös ja alas";
 "SETTINGS_GESTURES_SEEK" = "Kelaa pyyhkäisemällä vasemmalle tai oikealle";
 "SETTINGS_GESTURES_CLOSE" = "Sulje nipistämällä";
@@ -81,28 +81,28 @@
 "SETTINGS_DEINTERLACE_OFF" = "Pois";
 "SETTINGS_DEINTERLACE_AUTO" = "Automaattinen";
 
-"SETTINGS_HWDECODING" = "Hardware Decoding";
-"SETTINGS_HWDECODING_ON" = "On";
-"SETTINGS_HWDECODING_OFF" = "Off";
-"SETTINGS_CASTING" = "Casting";
-"SETTINGS_PTCASTING" = "Audio Passthrough";
-"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_HWDECODING" = "Laitteiston purkukoodaus";
+"SETTINGS_HWDECODING_ON" = "Päällä";
+"SETTINGS_HWDECODING_OFF" = "Pois";
+"SETTINGS_CASTING" = "Suoratoisto";
+"SETTINGS_PTCASTING" = "Ääni läpivienti";
+"SETTINGS_PTCASTINGLONG" = "Anna television hallita äänentoistoa";
 
 "SETTINGS_FEEDBACK" = "Palaute";
 "SETTINGS_SEND_FEEDBACK" = "Lähetä palautetta";
 "SETTINGS_SEND_RATING" = "Arvostele VLC:n iOS-sovellus";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Mediakirjasto";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Pakota VLC tarkistamaan mediakirjasto uudelleen";
 "SETTINGS_DECRAPIFY" = "Optimoi kohteiden nimet näytölle";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_SHOW_THUMBNAILS" = "Näytä videon pikkukuvat";
+"SETTINGS_SHOW_ARTWORKS" = "Näytä äänilevyn kansikuvat";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Sisällytä mediakirjasto laitteen varmuuskopioon";
 
 "SETTINGS_FILE_SYNC" = "Tiedostojen synkronointi";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_WIFISHARING_IPv6" = "Wi-Fi jakamisen IPv6-tuki";
 
-"SETTINGS_ARTWORK" = "Artwork";
-"SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
+"SETTINGS_ARTWORK" = "Kansikuvat";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Lataa kansikuvat";
 
 "ABOUT_APP_TV" = "Tietoja ohjelmasta";
