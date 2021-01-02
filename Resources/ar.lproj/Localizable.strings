@@ -76,8 +76,8 @@
 "BUTTON_RENDERER_HINT" = "اعرض قائمة بأجهزة العرض المتاحة";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+"BUTTON_PLAY_QUEUE" = "شغّل قائمة الانتظار";
+"BUTTON_PLAY_QUEUE_HINT" = "إظهار المعاينة في قائمة انتظار التشغيل";
 
 "UPGRADING_LIBRARY" = "تحديث قائمة الوسائط";
 
@@ -452,9 +452,9 @@
 
 // MARK: - QueueViewController
 
-"PLAY_HINT" = "Play";
-"PLAY_LABEL" = "Play";
-"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
-"APPEND_TO_QUEUE_HINT" = "Append to queue";
-"APPEND_TO_QUEUE_LABEL" = "Append to queue";
+"PLAY_HINT" = "شغّل";
+"PLAY_LABEL" = "شغّل";
+"PLAY_NEXT_IN_QUEUE_HINT" = "شغّل التالي في قائمة الانتظار";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "شغّل التالي في قائمة الانتظار";
+"APPEND_TO_QUEUE_HINT" = "ألحق إلى قائمة الانتظار";
+"APPEND_TO_QUEUE_LABEL" = "ألحق إلى قائمة الانتظار";
