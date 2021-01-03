@@ -76,8 +76,8 @@
 "BUTTON_RENDERER_HINT" = "Mostra un menu dei dispositivi di trasmissione disponibili";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+"BUTTON_PLAY_QUEUE" = "Riproduci coda";
+"BUTTON_PLAY_QUEUE_HINT" = "Mostra la vista della coda di riproduzione";
 
 "UPGRADING_LIBRARY" = "Aggiornamento raccolta multimediale";
 
@@ -452,9 +452,9 @@
 
 // MARK: - QueueViewController
 
-"PLAY_HINT" = "Play";
-"PLAY_LABEL" = "Play";
-"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
-"APPEND_TO_QUEUE_HINT" = "Append to queue";
-"APPEND_TO_QUEUE_LABEL" = "Append to queue";
+"PLAY_HINT" = "Riproduci";
+"PLAY_LABEL" = "Riproduci";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Riproduci prossimo in coda";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Riproduci prossimo in coda";
+"APPEND_TO_QUEUE_HINT" = "Aggiungi alla coda";
+"APPEND_TO_QUEUE_LABEL" = "Aggiungi alla coda";
