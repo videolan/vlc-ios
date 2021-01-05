@@ -729,6 +729,7 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
 
     func mediaNavigationBarDidLongPressMinimize(_ mediaNavigationBar: MediaNavigationBar) {
     // [self closePlayback:mediaNavigationBar.minimizePlaybackButton];
+        delegate?.videoPlayerViewControllerDidMinimize(self)
     }
 
     func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar) {
