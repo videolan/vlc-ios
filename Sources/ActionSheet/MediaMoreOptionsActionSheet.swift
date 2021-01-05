@@ -137,6 +137,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDelegate {
 
         if let id = cell.identifier, id == .interfaceLock {
             moreOptionsDelegate.mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: state)
+            interfaceDisabled = state
         }
     }
 }

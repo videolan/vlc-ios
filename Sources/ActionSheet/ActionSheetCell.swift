@@ -210,6 +210,10 @@ class ActionSheetCell: UICollectionViewCell {
         identifier = model.cellIdentifier
         // disclosure chevron is set as the default accessoryView if a viewController is present
         accessoryType = model.viewToPresent != nil ? .disclosureChevron : model.accessoryType
+
+        if accessoryType == .disclosureChevron {
+            accessoryTypeImageView.tintColor = PresentationTheme.current.colors.orangeUI
+        }
     }
 
     func setToggleSwitch(state: Bool) {

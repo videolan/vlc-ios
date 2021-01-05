@@ -749,7 +749,33 @@ extension VideoPlayerViewController: MediaScrubProgressBarDelegate {
 
 extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
-        //
+        mediaNavigationBar.chromeCastButton.isEnabled = !state
+        mediaNavigationBar.minimizePlaybackButton.isEnabled = !state
+        if #available(iOS 11.0, *) {
+            mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = !state
+            mediaNavigationBar.airplayRoutePickerView.alpha = state ? 0.5 : 1
+        } else {
+            mediaNavigationBar.airplayVolumeView.isUserInteractionEnabled = !state
+            mediaNavigationBar.airplayVolumeView.alpha = state ? 0.5 : 1
+        }
+
+        scrubProgressBar.progressSlider.isEnabled = !state
+
+        videoPlayerControls.subtitleButton.isEnabled = !state
+        videoPlayerControls.dvdButton.isEnabled = !state
+        videoPlayerControls.rotationLockButton.isEnabled = !state
+        videoPlayerControls.backwardButton.isEnabled = !state
+        videoPlayerControls.previousMediaButton.isEnabled = !state
+        videoPlayerControls.playPauseButton.isEnabled = !state
+        videoPlayerControls.nextMediaButton.isEnabled = !state
+        videoPlayerControls.forwardButton.isEnabled = !state
+        videoPlayerControls.aspectRatioButton.isEnabled = !state
+
+        playPauseRecognizer.isEnabled = !state
+        doubleTapRecognizer.isEnabled = !state
+        pinchRecognizer.isEnabled = !state
+
+        playerController.isInterfaceLocked = state
     }
 
     func mediaMoreOptionsActionSheetDidAppeared() {
