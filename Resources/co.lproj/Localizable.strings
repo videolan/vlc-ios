@@ -76,8 +76,8 @@
 "BUTTON_RENDERER_HINT" = "Affissà un listinu di l’apparechji di diffusione dispunibule";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+"BUTTON_PLAY_QUEUE" = "Leghje a lista di lettura";
+"BUTTON_PLAY_QUEUE_HINT" = "Affissà a vista di a lista di lettura";
 
 "UPGRADING_LIBRARY" = "Rinnovà a bibliuteca media";
 
@@ -346,7 +346,7 @@
 "ERROR_PLAYLIST_CREATION" = "Fiascu per creà una lista di lettura";
 "ERROR_PLAYLIST_TRACKS" = "Fiascu per ritruvà e traccie";
 
-"ERROR_RENAME_FAILED" = "Fiascu di rinumà";
+"ERROR_RENAME_FAILED" = "Rinuminazione fiasca";
 "ERROR_EMPTY_NAME" = "U titulu ùn pò micca esse viotu";
 
 "SHARE_LABEL" = "Sparte";
@@ -452,9 +452,9 @@
 
 // MARK: - QueueViewController
 
-"PLAY_HINT" = "Play";
-"PLAY_LABEL" = "Play";
-"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
-"APPEND_TO_QUEUE_HINT" = "Append to queue";
-"APPEND_TO_QUEUE_LABEL" = "Append to queue";
+"PLAY_HINT" = "Leghje";
+"PLAY_LABEL" = "Leghje";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Leghje a seguente di a lista";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Leghje a seguente di a lista";
+"APPEND_TO_QUEUE_HINT" = "Aghjunghje à a lista di lettura";
+"APPEND_TO_QUEUE_LABEL" = "Aghjunghje à a lista di lettura";
