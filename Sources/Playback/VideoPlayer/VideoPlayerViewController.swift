@@ -59,6 +59,13 @@ class VideoPlayerViewController: UIViewController {
         return deviceMotion
     }()
 
+    private var orientations = UIInterfaceOrientationMask.allButUpsideDown
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get { return self.orientations }
+        set { self.orientations = newValue }
+    }
+
     // MARK: - Seek
 
     private var numberOfTapSeek: Int = 0
@@ -127,6 +134,14 @@ class VideoPlayerViewController: UIViewController {
         videoPlayerControls.translatesAutoresizingMaskIntoConstraints = false
         videoPlayerControls.setupAccessibility()
         videoPlayerControls.delegate = self
+        let isIPad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+        if isIPad {
+            videoPlayerControls.rotationLockButton.isHidden = true
+        } else {
+            let image = UIImage(named: "interfaceLock")?.withRenderingMode(.alwaysTemplate)
+            videoPlayerControls.rotationLockButton.setImage(image, for: .normal)
+            videoPlayerControls.rotationLockButton.tintColor = .white
+        }
         return videoPlayerControls
     }()
 

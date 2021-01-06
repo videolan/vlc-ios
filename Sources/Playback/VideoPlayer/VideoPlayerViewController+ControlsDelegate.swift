@@ -21,8 +21,30 @@ extension VideoPlayerViewController: VideoPlayerControlsDelgate {
         // Not DVD support yet.
     }
 
+    private func getInterfaceOrientationMask(orientation: UIDeviceOrientation) -> UIInterfaceOrientationMask {
+        if orientation.isValidInterfaceOrientation {
+            if orientation == .portrait {
+                return .portrait
+            } else if orientation == .landscapeLeft || orientation == .landscapeRight || orientation == .portraitUpsideDown {
+                return .landscape
+            } else {
+                return .allButUpsideDown
+            }
+        } else {
+            return .allButUpsideDown
+        }
+    }
+
     func videoPlayerControlsDelgateDidTapRotationLock(_ videoPlayerControls: VideoPlayerControls) {
-        // FIXME
+        let mask = getInterfaceOrientationMask(orientation: UIDevice.current.orientation)
+
+        if supportedInterfaceOrientations == .allButUpsideDown && mask != .allButUpsideDown {
+            supportedInterfaceOrientations = mask
+            videoPlayerControls.rotationLockButton.tintColor = PresentationTheme.current.colors.orangeUI
+        } else {
+            supportedInterfaceOrientations = .allButUpsideDown
+            videoPlayerControls.rotationLockButton.tintColor = .white
+        }
     }
 
     func videoPlayerControlsDelgateDidTapBackward(_ videoPlayerControls: VideoPlayerControls) {
