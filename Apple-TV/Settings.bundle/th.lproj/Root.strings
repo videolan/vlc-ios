@@ -100,7 +100,7 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "รวมไลบรารีสื่อในการสำรองข้อมูลอุปกรณ์";
 
 "SETTINGS_FILE_SYNC" = "เชื่อมโยงไฟล์";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_WIFISHARING_IPv6" = "การรองรับ IPv6 สำหรับการแชร์ด้วย Wi-Fi";
 
 "SETTINGS_ARTWORK" = "งานศิลปะ";
 "SETTINGS_DOWNLOAD_ARTWORK" = "ดาวน์โหลดงานศิลปะ";
