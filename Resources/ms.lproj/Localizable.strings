@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC untuk iOS adalah port pemain media VLC percuma untuk iPad, iPhone dan iPad touch.\nIa boleh memainkan semua jenis wayang, rancangan dan muzik dalam pelbagai format secara terus tanpa membuat penukaran format.\nIa membenarkan penyegerakkan fail dengan Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, muat turun terus melalui perkongsian Wi-Fi selain penstriman daripada SMB, FTP, UPnP/DLNA pelayan media dan sesawang. \nVLC menawarkan sokongan untuk sari kata maju termasuk SSA serasi, audio pelbagai trek, dan kawalan kelajuan main balik.\nVLC untuk iOS adalah percuma sepenuhnya dan bersumber terbuka.";
+"STORE_DESCRIPTION" = "VLC untuk iOS adalah port pemain media VLC percuma untuk iPad, iPhone dan iPad touch.\nIa boleh memainkan semua jenis cereka, rancangan dan muzik dalam pelbagai format secara terus tanpa membuat penukaran format.\nIa membenarkan penyegerakkan fail dengan Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, muat turun terus melalui perkongsian Wi-Fi selain penstriman daripada SMB, FTP, UPnP/DLNA pelayan media dan sesawang. \nVLC menawarkan sokongan untuk sari kata maju termasuk SSA serasi, audio pelbagai trek, dan kawalan kelajuan main balik.\nVLC untuk iOS adalah percuma sepenuhnya dan bersumber terbuka.";
 
 "STORE_DESCRIPTION_TV" = "Pemain media VLC adalah pemain multimedia platform-silang bersumber terbuka dan percuma.\nIa dapat memainkan semua cereka, rancangan tv dan muzik anda dalam kebanyakan format secara terus tanpa penukaran.\nIa membenarkan penstriman dari perkhidmatan awan (Dropbox, OneDrive, Box), Main Balik Jauh dari Mac atau PC anda melalui Web UI dan juga penstriman dari pelayan media UPnP, SMB, FTP dan sesawang.\n\nVLC untuk iOS sepenuhnya percuma dan bersumber terbuka.\n\nData meta dan kerja seni disediakan oleh TMDb dan Hatchet, yang menyelenggara pangkalan data cereka dan muzik oleh komuniti.";
 
@@ -76,8 +76,8 @@
 "BUTTON_RENDERER_HINT" = "Tunjuk menu peranti casting yang tersedia";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+"BUTTON_PLAY_QUEUE" = "Main baris gilir";
+"BUTTON_PLAY_QUEUE_HINT" = "Tunjuk pandangan baris gilir main";
 
 "UPGRADING_LIBRARY" = "Menatar Pustaka Media";
 
@@ -164,11 +164,11 @@
 "1 Failed Passcode Attempt" = "1 Percubaan Kod Laluan Gagal";
 "Change Passcode" = "Ubah Kod Laluan";
 "Enter Passcode" = "Masukkan Kod Laluan";
-"Enter a passcode" = "Masukkan Kod Laluan";
+"Enter a passcode" = "Masukkan satu kod laluan";
 "Enter your new passcode" = "Masukkan kod laluan baharu anda";
 "Enter your old passcode" = "Masukkan kod laluan lama anda";
 "Enter your passcode" = "Masukkan kod laluan baharu anda";
-"Next" = "Maju";
+"Next" = "Berikutnya";
 "Passcodes did not match. Try again." = "Kod laluan tidak sepadan. Cuba lagi.";
 "Re-enter your new passcode" = "Masukkan semula kod laluan baharu anda";
 "Re-enter your passcode" = "Masukkan semula kod laluan anda";
@@ -179,7 +179,7 @@
 "OFF" = "Mati";
 
 "EMPTY_LIBRARY" = "Pustaka Media Kosong";
-"EMPTY_LIBRARY_LONG" = "Untuk main balik, anda boleh menstrim media melalui pelayan pada rangkaian tempatan anda, daripada cloud atau menyegerakkan media ke peranti anda menggunakan iTunes,  Wi-Fi Upload atau servis Cloud.";
+"EMPTY_LIBRARY_LONG" = "Untuk main balik, anda boleh strimkan media melalui pelayan pada rangkaian tempatan anda, darip awan atau menyegerak media ke peranti anda menggunakan perkhidmatan iTunes,  Muat Naik Wi-Fi atau Awan.";
 
 "EMPTY_PLAYLIST" = "Senarai main kosong";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Tambah media ketika menyunting dalam kategori masing-masing.";
@@ -392,8 +392,8 @@
 "UNKNOWN_ALBUM" = "Album Tidak Diketahui";
 
 /* VideoSubControl */
-"INTERFACE_LOCK_BUTTON" = "Kunci antaramuka";
-"INTERFACE_LOCK_HINT" = "Lumpuhkan kawalan antaramuka";
+"INTERFACE_LOCK_BUTTON" = "Kunci antara muka";
+"INTERFACE_LOCK_HINT" = "Lumpuhkan kawalan antara muka";
 "MORE_OPTIONS_BUTTON" = "Lagi";
 "MORE_OPTIONS_HINT" = "Lihat lebih banyak kawalan pilihan";
 "REPEAT_MODE_HINT" = "Ubah mod ulang bagi item semasa";
@@ -445,16 +445,16 @@
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Menambah...";
 
 /* tip jar */
-"GIVE_TIP" = "Beri Tip";
+"GIVE_TIP" = "Berilah Tip";
 "CANNOT_MAKE_PAYMENTS" = "Anda tidak dibenarkan membuat apa-apa bayaran menerusi peranti ini.";
 "PURCHASE_FAILED" = "Pembayaran Gagal";
 "SEND_GIFT" = "Hantar hadiah anda";
 
 // MARK: - QueueViewController
 
-"PLAY_HINT" = "Play";
-"PLAY_LABEL" = "Play";
-"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
-"APPEND_TO_QUEUE_HINT" = "Append to queue";
-"APPEND_TO_QUEUE_LABEL" = "Append to queue";
+"PLAY_HINT" = "Main";
+"PLAY_LABEL" = "Main";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Main berikutnya dalam baris gilir";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Main berikutnya dalam baris gilir";
+"APPEND_TO_QUEUE_HINT" = "Tambah ke baris gilir";
+"APPEND_TO_QUEUE_LABEL" = "Tambah ke baris gilir";
