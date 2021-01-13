@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC til iOS er en portering af den frie medieafspiller VLC til iPad, iPhone og iPod touch.\nDen kan afspille alle dine film, shows og musik i de fleste formater direkte uden konvertering.\nDen tilbyder filsynkronisering med Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direkte downloads og deling via Wi-Fi, såvel som streaming fra SMB, FTP, UPnP/DLNA-medieservere og fra nettet.\n\nVLC har understøttelse af advancerede undertekster, herunder fuld SSA-kompatiblitet, multi-spor lyd, og justerbar afspilningshastighed.\n\nVLC til iOS er fuldstændig fri og open source.";
 
 "STORE_DESCRIPTION_TV" = "VLC media player er en fri og open source medieafspiller som virker på flere platforme.\nDen kan afspille alle dine film, shows og musik i de fleste formater direkte uden konvertering.\nDen tilbyder streaming fra cloud-tjenester (Dropbox, OneDrive, Box), fjern-afspilning fra din Mac eller PC via en web-brugerflade, såvel som streaming fra SMB, FTP, UPnP/DLNA-medieservere og fra nettet.\n\nVLC har understøttelse af advancerede undertekster, herunder fuld SSA-kompatiblitet, multi-spor lyd, og justerbar afspilningshastighed.\n\nVLC til iOS er fuldstændig fri og open source.\n\nMetadata og billeder leveres af TMDb og Hatchet, som er film- og musikdatabaser vedligeholdt af et fællesskab.";
 
@@ -76,8 +76,8 @@
 "BUTTON_RENDERER_HINT" = "Vis en menu over tilgængelige transmitteringsenheder";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+"BUTTON_PLAY_QUEUE" = "Afspilningskø";
+"BUTTON_PLAY_QUEUE_HINT" = "Vis afspilningskøvisningen";
 
 "UPGRADING_LIBRARY" = "Opgraderer mediebibliotek";
 
@@ -85,7 +85,7 @@
 "NETWORK_TITLE" = "Netværksstream";
 "OPEN_NETWORK_HELP" = "Indtast en HTTP-, RTSP-, RTMP-, MMS-, FTP- eller UDP/RTP-adresse for at åbne en stream direkte.";
 "HTTP_UPLOAD_SERVER_OFF" = "Inaktiv server";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Ingen aktiv Wi-Fi-forbindelse";
 "OPEN_STREAM_OR_DOWNLOAD" = "Vil du downloade eller afspille denne URL?";
 "SHARED_VLC_IOS_LIBRARY" = "Delt VLC til iOS-bibliotek";
 "SMB_CIFS_FILE_SERVERS" = "Filservere (SMB)";
@@ -179,7 +179,7 @@
 "OFF" = "Fra";
 
 "EMPTY_LIBRARY" = "Tomt mediebibliotek";
-"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
+"EMPTY_LIBRARY_LONG" = "Du kan afspille medier ved at streame dem fra en server på dit lokale netværk eller fra skyen, eller ved at synkronisere medier til din enhed vha. iTunes, Wi-Fi-overførsel eller sky-tjenester.";
 
 "EMPTY_PLAYLIST" = "Tom afspilningsliste";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Tilføj medier når de respektive kategorier redigeres.";
@@ -216,7 +216,7 @@
 "FIRST_STEPS_ITUNES" = "Synkronisering af iTunes-filer";
 "FIRST_STEPS_ITUNES_TITLE" = "Synkroniser med din computer";
 "FIRST_STEPS_ITUNES_DETAILS" = "Tilslut din enhed til iTunes og vælg din enhed. Vælg \"Arkivdeling\" i menuen til venstre i iTunes og kig efter VLC for at overføre filer";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
+"FIRST_STEPS_WIFI_TITLE" = "Del via Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Indtast den genererede URL i din favorit webbrowser mens der er forbindelse til det samme netværk som din telefon";
 "FIRST_STEPS_CLOUDS" = "Skyer";
 "FIRST_STEPS_CLOUD_TITLE" = "Sky";
@@ -233,7 +233,7 @@
 "NO_SERVER_FOUND" = "Ingen server fundet";
 "NO_RECENT_STREAMS" = "Der er ikke afspillet noget stream for nylig";
 
-"WEBINTF_TITLE" = "Sharing via Wi-Fi";
+"WEBINTF_TITLE" = "Deling via Wi-Fi";
 "WEBINTF_DROPFILES" = "Slip filer";
 "WEBINTF_DROPFILES_LONG" = "Slip filer i vinduet for at tilføje dem til din %@.<br>Eller klik på \"+\"-knappen for at bruge filvælgeren.";
 "WEBINTF_DOWNLOADFILES" = "Download filer";
@@ -452,9 +452,9 @@
 
 // MARK: - QueueViewController
 
-"PLAY_HINT" = "Play";
-"PLAY_LABEL" = "Play";
-"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
-"APPEND_TO_QUEUE_HINT" = "Append to queue";
-"APPEND_TO_QUEUE_LABEL" = "Append to queue";
+"PLAY_HINT" = "Afspil";
+"PLAY_LABEL" = "Afspil";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Afspil næste i kø";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Afspil næste i kø";
+"APPEND_TO_QUEUE_HINT" = "Tilføj til kø";
+"APPEND_TO_QUEUE_LABEL" = "Tilføj til kø";
