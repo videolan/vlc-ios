@@ -13,6 +13,9 @@
 protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool)
     func mediaMoreOptionsActionSheetDidAppeared()
+    func mediaMoreOptionsActionSheetShowIcon(for option: OptionsNavigationBarIdentifier)
+    func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier)
+    func mediaMoreOptionsActionSheetHideAlertIfNecessary()
 }
 
 @objc (VLCMediaMoreOptionsActionSheet)
@@ -71,6 +74,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
                                                         options: nil)?.first as! VideoFiltersView
         videoFiltersView.frame = offScreenFrame
         videoFiltersView.backgroundColor = PresentationTheme.current.colors.background
+        videoFiltersView.delegate = self
         return videoFiltersView
     }()
 
@@ -96,11 +100,56 @@ protocol MediaMoreOptionsActionSheetDelegate {
         sleepTimerView.delegate = self
         return sleepTimerView
     }()
+
+    // MARK: - Instance Methods
+    func resetVideoFilters() {
+        videoFiltersView.reset()
+    }
+
+    func resetPlaybackSpeed() {
+        playbackView.reset()
+    }
+
+    func resetEqualizer() {
+        // FIXME: Call the reset of the equalizer
+    }
+
+    func resetSleepTimer() {
+        sleepTimerView.reset()
+    }
+
+    func getRemainingTime() -> String {
+        return sleepTimerView.remainingTime()
+    }
+
+    func resetOptionsIfNecessary() {
+        // FIXME: Reset Equalizer if needed
+        videoFiltersView.resetSlidersIfNeeded()
+        playbackView.resetSlidersIfNeeded()
+    }
+}
+
+extension MediaMoreOptionsActionSheet: VideoFiltersViewDelegate {
+    func videoFiltersViewShowIcon() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetShowIcon(for: .videoFilters)
+    }
+
+    func videoFiltersViewHideIcon() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .videoFilters)
+    }
 }
 
 extension MediaMoreOptionsActionSheet: NewPlaybackSpeedViewDelegate {
     func newPlaybackSpeedViewHandleOptionChange(title: String) {
         self.headerView.title.text = title
+    }
+
+    func newPlaybackSpeedViewShowIcon() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetShowIcon(for: .playbackSpeed)
+    }
+
+    func newPlaybackSpeedViewHideIcon() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .playbackSpeed)
     }
 }
 
@@ -121,6 +170,18 @@ extension MediaMoreOptionsActionSheet: SleepTimerViewDelegate {
                 self.sleepTimerViewCloseActionSheet()
             })
         }
+    }
+
+    func sleepTimerViewHideAlertIfNecessary() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetHideAlertIfNecessary()
+    }
+
+    func sleepTimerViewShowIcon() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetShowIcon(for: .sleepTimer)
+    }
+
+    func sleepTimerViewHideIcon() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .sleepTimer)
     }
 }
 

@@ -203,6 +203,11 @@
 "PREV_BUTTON" = "Previous";
 "PLAY_ALL_BUTTON" = "Play all";
 
+"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
+"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
+"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+
 "VERSION_FORMAT" = "Version: %@";
 "BASED_ON_FORMAT" = "Based on:<br />%@";
 

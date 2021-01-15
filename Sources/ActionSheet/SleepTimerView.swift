@@ -14,6 +14,9 @@ import UIKit
 protocol SleepTimerViewDelegate: class {
     func sleepTimerViewCloseActionSheet()
     func sleepTimerViewShowAlert(message: String, seconds: Double)
+    func sleepTimerViewHideAlertIfNecessary()
+    func sleepTimerViewShowIcon()
+    func sleepTimerViewHideIcon()
 }
 
 class SleepTimerView: UIView {
@@ -81,12 +84,21 @@ class SleepTimerView: UIView {
                        },
                        completion: { _ in
                         self.delegate?.sleepTimerViewShowAlert(message: NSLocalizedString("SLEEP_TIMER_UPDATED", comment: ""), seconds: 0.5)
+                        self.delegate?.sleepTimerViewHideIcon()
                        })
+    }
+
+    func reset() {
+        sleepCountDownTimer?.invalidate()
+        sleepCountDownTimer = nil
+        resetButton.isHidden = true
     }
 
 
     @objc func timerFiring() {
+        delegate?.sleepTimerViewHideAlertIfNecessary()
         delegate?.sleepTimerViewCloseActionSheet()
+        delegate?.sleepTimerViewHideIcon()
         resetButton.isHidden = true
         sleepCountDownTimer = nil
         vpc.stopPlayback()
@@ -129,5 +141,7 @@ class SleepTimerView: UIView {
         let timeInSeconds = timePicker.countDownDuration
 
         updateTimer(interval: timeInSeconds)
+
+        delegate?.sleepTimerViewShowIcon()
     }
 }

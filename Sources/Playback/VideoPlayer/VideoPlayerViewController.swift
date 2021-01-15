@@ -127,6 +127,12 @@ class VideoPlayerViewController: UIViewController {
         return mediaNavigationBar
     }()
 
+    private lazy var optionsNavigationBar: OptionsNavigationBar = {
+        var optionsNavigationBar = OptionsNavigationBar()
+        optionsNavigationBar.delegate = self
+        return optionsNavigationBar
+    }()
+
     private lazy var videoPlayerControls: VideoPlayerControls = {
         let videoPlayerControls = Bundle.main.loadNibNamed("VideoPlayerControls",
                                                            owner: nil,
@@ -158,6 +164,9 @@ class VideoPlayerViewController: UIViewController {
     }()
 
     private var queueViewController: QueueViewController?
+    private var alertController: UIAlertController?
+
+    private var isFirstCall: Bool = true
 
     // MARK: - VideoOutput
 
@@ -301,6 +310,14 @@ class VideoPlayerViewController: UIViewController {
 
         // Media is loaded in the media player, checking the projection type and configuring accordingly.
         setupForMediaProjection()
+
+        // Checking if this is the first time that the controller appears.
+        // Reseting the options if necessary the first time unables the user to modify the video filters.
+        if isFirstCall {
+            isFirstCall = false
+        } else {
+            moreOptionsActionSheet.resetOptionsIfNecessary()
+        }
     }
 
    // override func viewDidLayoutSubviews() {
@@ -475,11 +492,16 @@ extension VideoPlayerViewController {
 
     private func setControlsHidden(_ hidden: Bool, animated: Bool) {
         playerController.isControlsHidden = hidden
+        if let alert = alertController, hidden {
+            alert.dismiss(animated: true, completion: nil)
+            alertController = nil
+        }
         let alpha: CGFloat = hidden ? 0 : 1
 
         UIView.animate(withDuration: animated ? 0.2 : 0) {
             // FIXME: retain cycle?
             self.mediaNavigationBar.alpha = alpha
+            self.optionsNavigationBar.alpha = alpha
             self.videoPlayerControls.alpha = alpha
             self.scrubProgressBar.alpha = alpha
             self.backgroundGradientView.alpha = hidden ? 0 : 1
@@ -538,6 +560,7 @@ extension VideoPlayerViewController {
 private extension VideoPlayerViewController {
     private func setupViews() {
         view.addSubview(mediaNavigationBar)
+        view.addSubview(optionsNavigationBar)
         view.addSubview(videoPlayerControls)
         view.addSubview(scrubProgressBar)
 
@@ -584,7 +607,9 @@ private extension VideoPlayerViewController {
             mediaNavigationBar.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
                                                          constant: -padding),
             mediaNavigationBar.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
-                                                    constant: padding)
+                                                    constant: padding),
+            optionsNavigationBar.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -padding),
+            optionsNavigationBar.topAnchor.constraint(equalTo: mediaNavigationBar.bottomAnchor, constant: padding)
         ])
     }
 
@@ -777,6 +802,11 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
 
         scrubProgressBar.progressSlider.isEnabled = !state
 
+        optionsNavigationBar.videoFiltersButton.isEnabled = !state
+        optionsNavigationBar.playbackSpeedButton.isEnabled = !state
+        optionsNavigationBar.equalizerButton.isEnabled = !state
+        optionsNavigationBar.sleepTimerButton.isEnabled = !state
+
         videoPlayerControls.subtitleButton.isEnabled = !state
         videoPlayerControls.dvdButton.isEnabled = !state
         videoPlayerControls.rotationLockButton.isEnabled = !state
@@ -796,5 +826,126 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
 
     func mediaMoreOptionsActionSheetDidAppeared() {
         handleTapOnVideo()
+    }
+
+    func mediaMoreOptionsActionSheetShowIcon(for option: OptionsNavigationBarIdentifier) {
+        switch option {
+        case .videoFilters:
+            showIcon(button: optionsNavigationBar.videoFiltersButton)
+            return
+        case .playbackSpeed:
+            showIcon(button: optionsNavigationBar.playbackSpeedButton)
+            return
+        case .equalizer:
+            showIcon(button: optionsNavigationBar.equalizerButton)
+            return
+        case .sleepTimer:
+            showIcon(button: optionsNavigationBar.sleepTimerButton)
+            return
+        default:
+            assertionFailure("VideoPlayerViewController: Option not valid.")
+        }
+    }
+
+    func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier) {
+        switch option {
+        case .videoFilters:
+            hideIcon(button: optionsNavigationBar.videoFiltersButton)
+            return
+        case .playbackSpeed:
+            hideIcon(button: optionsNavigationBar.playbackSpeedButton)
+            return
+        case .equalizer:
+            hideIcon(button: optionsNavigationBar.equalizerButton)
+            return
+        case .sleepTimer:
+            hideIcon(button: optionsNavigationBar.sleepTimerButton)
+            return
+        default:
+            assertionFailure("VideoPlayerViewController: Option not valid.")
+        }
+    }
+
+    func mediaMoreOptionsActionSheetHideAlertIfNecessary() {
+        if let alert = alertController {
+            alert.dismiss(animated: true, completion: nil)
+            alertController = nil
+        }
+    }
+}
+
+// MARK: - OptionsNavigationBarDelegate
+
+extension VideoPlayerViewController: OptionsNavigationBarDelegate {
+    private func resetVideoFilters() {
+        hideIcon(button: optionsNavigationBar.videoFiltersButton)
+        moreOptionsActionSheet.resetVideoFilters()
+    }
+
+    private func resetPlaybackSpeed() {
+        hideIcon(button: optionsNavigationBar.playbackSpeedButton)
+        moreOptionsActionSheet.resetPlaybackSpeed()
+    }
+
+    private func resetEqualizer() {
+        hideIcon(button: optionsNavigationBar.equalizerButton)
+        // FIXME: Reset Equalizer
+    }
+
+    private func resetSleepTimer() {
+        hideIcon(button: optionsNavigationBar.sleepTimerButton)
+        moreOptionsActionSheet.resetSleepTimer()
+    }
+
+    private func showIcon(button: UIButton) {
+        UIView.animate(withDuration: 0.5, animations: {
+            button.isHidden = false
+        }, completion: nil)
+    }
+
+    private func hideIcon(button: UIButton) {
+        UIView.animate(withDuration: 0.5, animations: {
+            button.isHidden = true
+        }, completion: nil)
+    }
+
+    private func handleReset(button: UIButton) {
+        switch button {
+        case optionsNavigationBar.videoFiltersButton:
+            resetVideoFilters()
+            return
+        case optionsNavigationBar.playbackSpeedButton:
+            resetPlaybackSpeed()
+            return
+        case optionsNavigationBar.equalizerButton:
+            resetEqualizer()
+            return
+        case optionsNavigationBar.sleepTimerButton:
+            resetSleepTimer()
+            return
+        default:
+            assertionFailure("VideoPlayerViewController: Unvalid button.")
+        }
+    }
+
+    func optionsNavigationBarDisplayAlert(title: String, message: String, button: UIButton) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
+
+        let resetButton = UIAlertAction(title: "Reset", style: .destructive) { _ in
+            self.handleReset(button: button)
+        }
+
+        alertController.addAction(cancelButton)
+        alertController.addAction(resetButton)
+
+        self.present(alertController, animated: true, completion: nil)
+        self.alertController = alertController
+    }
+
+    func optionsNavigationBarGetRemainingTime() -> String {
+        let remainingTime = moreOptionsActionSheet.getRemainingTime()
+        return remainingTime
     }
 }

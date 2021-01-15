@@ -58,11 +58,11 @@ class MediaPlayerActionSheet: ActionSheet {
 
     // MARK: Private Methods
     private func getTitle(of childView: UIView) -> String {
+        // FIXME: Add the case where childView is the EqualizerView
         if let view = childView as? VideoFiltersView {
             view.resetSlidersIfNeeded()
             return MediaPlayerActionSheetCellIdentifier.filter.description
-        } else if let view = childView as? NewPlaybackSpeedView {
-            view.resetSlidersIfNeeded()
+        } else if childView is NewPlaybackSpeedView {
             return MediaPlayerActionSheetCellIdentifier.playback.description
         } else if childView is SleepTimerView {
             return MediaPlayerActionSheetCellIdentifier.sleepTimer.description

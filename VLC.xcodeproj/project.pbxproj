@@ -19,6 +19,7 @@
 		4072A77E25879577006EA498 /* VideoFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4072A77D25879577006EA498 /* VideoFiltersView.swift */; };
 		407EB587257A418900686B1F /* SleepTimerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 407EB586257A418900686B1F /* SleepTimerView.xib */; };
 		407EB58E257A41B200686B1F /* SleepTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407EB58D257A41B200686B1F /* SleepTimerView.swift */; };
+		4090705925A60341004667E7 /* OptionsNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4090705825A60341004667E7 /* OptionsNavigationBar.swift */; };
 		40C95A00256E9272002DD208 /* NewPlaybackSpeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40C959FF256E9272002DD208 /* NewPlaybackSpeedView.xib */; };
 		40C95A07256E929D002DD208 /* NewPlaybackSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C95A06256E929D002DD208 /* NewPlaybackSpeedView.swift */; };
 		411453B9219C48DA002D94E1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 411453B8219C48DA002D94E1 /* Launch Screen.storyboard */; };
@@ -465,6 +466,7 @@
 		4072A77D25879577006EA498 /* VideoFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFiltersView.swift; sourceTree = "<group>"; };
 		407EB586257A418900686B1F /* SleepTimerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SleepTimerView.xib; sourceTree = "<group>"; };
 		407EB58D257A41B200686B1F /* SleepTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimerView.swift; sourceTree = "<group>"; };
+		4090705825A60341004667E7 /* OptionsNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsNavigationBar.swift; path = Sources/OptionsNavigationBar.swift; sourceTree = SOURCE_ROOT; };
 		40C959FF256E9272002DD208 /* NewPlaybackSpeedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewPlaybackSpeedView.xib; sourceTree = "<group>"; };
 		40C95A06256E929D002DD208 /* NewPlaybackSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlaybackSpeedView.swift; sourceTree = "<group>"; };
 		411453B8219C48DA002D94E1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -1455,6 +1457,7 @@
 				6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */,
 				6D63C06A23FEE93C00B9C05A /* VLCMarqueeLabel.swift */,
 				7D87D1CD24CDD4A800A0DF14 /* VLCConfettiView.swift */,
+				4090705825A60341004667E7 /* OptionsNavigationBar.swift */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -3136,6 +3139,7 @@
 				41251ED01FD0CF7900099110 /* AppCoordinator.swift in Sources */,
 				4184AA151A5492070063DF5A /* VLCCloudStorageController.m in Sources */,
 				9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */,
+				4090705925A60341004667E7 /* OptionsNavigationBar.swift in Sources */,
 				444E5C0024C719480003B69C /* AboutController.swift in Sources */,
 				41D7DD2720C3060300AD94F6 /* PagerStripViewController.swift in Sources */,
 				413EC98B201B4F2C00BF412F /* PresentationTheme.swift in Sources */,

@@ -13,6 +13,8 @@ import UIKit
 
 protocol NewPlaybackSpeedViewDelegate: class {
     func newPlaybackSpeedViewHandleOptionChange(title: String)
+    func newPlaybackSpeedViewShowIcon()
+    func newPlaybackSpeedViewHideIcon()
 }
 
 class NewPlaybackSpeedView: UIView {
@@ -120,6 +122,7 @@ class NewPlaybackSpeedView: UIView {
         let selectedIndex = optionsSegmentedControl.selectedSegmentIndex
         var currentValue: Float = speedSlider.value
         var currentButtonText: String = ""
+        var showIcon: Bool = true
 
         if selectedIndex == 0 {
             currentSpeed = sender.value
@@ -127,22 +130,38 @@ class NewPlaybackSpeedView: UIView {
             currentButtonText = String(format: "%.2fx", currentValue)
             //vpc.playbackRate = exp2(currentValue)
             vpc.playbackRate = currentValue
+
+            if currentValue == defaultSpeed {
+                showIcon = false
+            }
         } else if selectedIndex == 1 {
             currentSubtitlesDelay = sender.value
             currentValue = currentSubtitlesDelay
             currentButtonText = String(format: "%.0f ms", currentValue)
             //vpc.subtitleDelay = round(currentValue / 50) * 50
             vpc.subtitleDelay = currentValue
+
+            if currentValue == defaultDelay {
+                showIcon = false
+            }
         } else {
             currentAudioDelay = sender.value
             currentValue = currentAudioDelay
             currentButtonText = String(format: "%.0f ms", currentValue)
             //vpc.audioDelay = round(currentValue / 50) * 50
             vpc.audioDelay = currentValue
+
+            if currentValue == defaultDelay {
+                showIcon = false
+            }
         }
 
         currentButton.setTitle(currentButtonText, for: .normal)
         speedSlider.setValue(currentValue, animated: true)
+
+        if showIcon {
+            delegate?.newPlaybackSpeedViewShowIcon()
+        }
     }
 
     func resetSlidersIfNeeded() {
@@ -155,6 +174,8 @@ class NewPlaybackSpeedView: UIView {
             currentSubtitlesDelay = defaultDelay
             currentAudioDelay = defaultDelay
             setupSlider()
+
+            delegate?.newPlaybackSpeedViewHideIcon()
         }
     }
 
@@ -176,6 +197,23 @@ class NewPlaybackSpeedView: UIView {
             currentButton.setTitle(String(format: "%.0f ms", currentAudioDelay), for: .normal)
             speedSlider.setValue(currentAudioDelay, animated: true)
         }
+
+        if currentSpeed == defaultSpeed && currentSubtitlesDelay == defaultDelay && currentAudioDelay == defaultDelay {
+            delegate?.newPlaybackSpeedViewHideIcon()
+        }
+    }
+
+    func reset() {
+        currentSpeed = defaultSpeed
+        vpc.playbackRate = currentSpeed
+
+        currentSubtitlesDelay = defaultDelay
+        vpc.subtitleDelay = currentSubtitlesDelay
+
+        currentAudioDelay = defaultDelay
+        vpc.audioDelay = currentAudioDelay
+
+        setupSlider()
     }
 
 
@@ -197,12 +235,18 @@ class NewPlaybackSpeedView: UIView {
         let speedOffset: Float = sender.tag == 1 ? increaseSpeed : decreaseSpeed
         let delayOffset: Float = sender.tag == 1 ? increaseDelay : decreaseDelay
 
+        var showIcon: Bool = true
+
         if selectedIndex == 0 {
             currentSpeed = computeValue(currentValue: currentValue, offset: speedOffset, lowerBound: minSpeed, upperBound: maxSpeed)
             currentValue = currentSpeed
             currentButtonText = String(format: "%.2fx", currentValue)
             //vpc.playbackRate = exp2(currentValue)
             vpc.playbackRate = currentValue
+
+            if currentValue == defaultSpeed {
+                showIcon = false
+            }
         } else {
             let finalValue = computeValue(currentValue: currentValue, offset: delayOffset, lowerBound: minDelay, upperBound: maxDelay)
 
@@ -219,9 +263,21 @@ class NewPlaybackSpeedView: UIView {
             }
 
             currentButtonText = String(format: "%.0f ms", currentValue)
+
+            if currentValue == defaultDelay {
+                showIcon = false
+            }
         }
 
         currentButton.setTitle(currentButtonText, for: .normal)
         speedSlider.setValue(currentValue, animated: true)
+
+        if showIcon {
+            delegate?.newPlaybackSpeedViewShowIcon()
+        }
+
+        if currentSpeed == defaultSpeed && currentSubtitlesDelay == defaultDelay && currentAudioDelay == defaultDelay {
+            delegate?.newPlaybackSpeedViewHideIcon()
+        }
     }
 }

@@ -11,6 +11,11 @@
 
 import UIKit
 
+protocol VideoFiltersViewDelegate: class {
+    func videoFiltersViewShowIcon()
+    func videoFiltersViewHideIcon()
+}
+
 class VideoFiltersView: UIView {
 
     @IBOutlet weak var brightnessLabel: UILabel!
@@ -44,6 +49,8 @@ class VideoFiltersView: UIView {
     private var currentHue: Float = 0.0
     private var currentSaturation: Float = 1.0
     private var currentGamma: Float = 1.0
+
+    weak var delegate: VideoFiltersViewDelegate?
 
     let vpc = PlaybackService.sharedInstance()
 
@@ -118,6 +125,8 @@ class VideoFiltersView: UIView {
             currentGamma = defaultGamma
 
             setupSliders()
+
+            delegate?.videoFiltersViewHideIcon()
         }
     }
 
@@ -143,9 +152,11 @@ class VideoFiltersView: UIView {
             gammaSlider.setValue(currentGamma, animated: true)
             vpc.gamma = currentGamma
         }
+
+        delegate?.videoFiltersViewShowIcon()
     }
 
-    @IBAction func handleResetButton(_ sender: UIButton) {
+    func reset() {
         currentBrightness = defaultBrightness
         brightnessSlider.setValue(currentBrightness, animated: true)
         vpc.brightness = currentBrightness
@@ -165,5 +176,11 @@ class VideoFiltersView: UIView {
         currentGamma = defaultGamma
         gammaSlider.setValue(currentGamma, animated: true)
         vpc.gamma = currentGamma
+    }
+
+    @IBAction func handleResetButton(_ sender: UIButton) {
+        reset()
+
+        delegate?.videoFiltersViewHideIcon()
     }
 }
