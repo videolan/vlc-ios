@@ -4,8 +4,8 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Aodio";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
+"SETTINGS_THEME_BRIGHT" = "Tem sklaer";
+"SETTINGS_THEME_DARK" = "Tem teñval";
 "SETTINGS_THEME_SYSTEM" = "Emgefre";
 "SETTINGS_PRIVACY_SUBTITLE" = "Digeriñ en arventennoù";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Moned suraet betek hoc'h endalc'had";
@@ -84,9 +84,9 @@
 "SETTINGS_HWDECODING" = "Digodur ar periant";
 "SETTINGS_HWDECODING_ON" = "Enaout";
 "SETTINGS_HWDECODING_OFF" = "Lazhet";
-"SETTINGS_CASTING" = "Casting";
+"SETTINGS_CASTING" = "O skignañ";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
-"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_PTCASTINGLONG" = "Lezit ho TV merañ ar rentañ aodio";
 
 "SETTINGS_FEEDBACK" = "Evezhiadennoù";
 "SETTINGS_SEND_FEEDBACK" = "Kas evezhiadennoù";

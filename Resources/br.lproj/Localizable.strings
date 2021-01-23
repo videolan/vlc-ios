@@ -323,7 +323,7 @@
 "ARTISTS" = "Arzourien";
 "EPISODES" = "Rannoù";
 "GENRES" = "Doareoù";
-"ALL_VIDEOS" = "All videos";
+"ALL_VIDEOS" = "An holl videoioù";
 "SONGS" = "Kanaouennoù";
 "PLAYLISTS" = "Rolloù-lenn";
 "VIDEO_GROUPS" = "Strolladoù video";
@@ -394,7 +394,7 @@
 /* VideoSubControl */
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 "INTERFACE_LOCK_HINT" = "Disable interface controls";
-"MORE_OPTIONS_BUTTON" = "More";
+"MORE_OPTIONS_BUTTON" = "Muioc'h";
 "MORE_OPTIONS_HINT" = "View more option controls";
 "REPEAT_MODE_HINT" = "Change repeat mode of current item";
 "VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
@@ -452,8 +452,8 @@
 
 // MARK: - QueueViewController
 
-"PLAY_HINT" = "Play";
-"PLAY_LABEL" = "Play";
+"PLAY_HINT" = "Lenn";
+"PLAY_LABEL" = "Lenn";
 "PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
 "APPEND_TO_QUEUE_HINT" = "Append to queue";
