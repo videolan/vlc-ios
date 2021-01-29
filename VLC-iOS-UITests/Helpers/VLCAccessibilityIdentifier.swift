@@ -18,6 +18,7 @@ import Foundation
     @objc static let localNetwork = "localNetwork"
     static let playlist = "playlist"
     @objc static let settings = "settings"
+    static let local = "local"
     static let cloud = "cloud"
     static let stream = "stream"
     static let downloads = "downloads"

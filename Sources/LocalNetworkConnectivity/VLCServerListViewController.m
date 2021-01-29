@@ -47,7 +47,7 @@
 
 #import "VLC-Swift.h"
 
-@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate, VLCFileServerViewDelegate>
+@interface VLCServerListViewController () <UITableViewDataSource, UITableViewDelegate, UIDocumentPickerDelegate, VLCLocalServerDiscoveryControllerDelegate, VLCNetworkLoginViewControllerDelegate, VLCRemoteNetworkDataSourceDelegate, VLCFileServerViewDelegate>
 {
     VLCLocalServerDiscoveryController *_discoveryController;
 
@@ -122,6 +122,7 @@
 
     [_remoteNetworkTableView registerClass:[VLCWiFiUploadTableViewCell class] forCellReuseIdentifier:[VLCWiFiUploadTableViewCell cellIdentifier]];
     [_remoteNetworkTableView registerClass:[VLCRemoteNetworkCell class] forCellReuseIdentifier:VLCRemoteNetworkCell.cellIdentifier];
+    [_remoteNetworkTableView registerClass:[VLCExternalMediaProviderCell class] forCellReuseIdentifier:VLCExternalMediaProviderCell.cellIdentifier];
 
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
@@ -392,6 +393,12 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
+- (void)showDocumentPickerViewController:(UIDocumentPickerViewController *)viewControllerToPresent
+{
+    viewControllerToPresent.delegate = self;
+    [self presentViewController:viewControllerToPresent animated:YES completion:nil];
+}
+
 #pragma mark -
 - (void)themeDidChange
 {
@@ -475,6 +482,18 @@
     [_localNetworkTableView reloadData];
     [_localNetworkTableView layoutIfNeeded];
     _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
+}
+
+#pragma mark - UIDocumentPickerDelegate
+
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url
+{
+    if (url && [url startAccessingSecurityScopedResource]) {
+        VLCMediaList *medialist = [[VLCMediaList alloc] init];
+        [medialist addMedia:[VLCMedia mediaWithURL:url]];
+        [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+        [[VLCPlaybackService sharedInstance].openedLocalURLs addObject:url];
+    }
 }
 
 @end

@@ -66,6 +66,8 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     VLCDialogProvider *_dialogProvider;
     VLCCustomDialogRendererHandler *_customDialogHandler;
     VLCPlayerDisplayController *_playerDisplayController;
+
+    NSMutableArray *_openedLocalURLs;
 }
 
 @end
@@ -130,6 +132,8 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         _backgroundDummyPlayer.media = [[VLCMedia alloc] initWithPath:@"/dev/zero"];
 
         _mediaList = [[VLCMediaList alloc] init];
+
+        _openedLocalURLs = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -333,6 +337,14 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         _mediaPlayer = nil;
         _listPlayer = nil;
     }
+
+    for (NSURL *url in _openedLocalURLs) {
+        [url stopAccessingSecurityScopedResource];
+        NSLog(@"%@", url);
+    }
+    _openedLocalURLs = nil;
+    _openedLocalURLs = [[NSMutableArray alloc] init];
+
     if (!_sessionWillRestart) {
         _mediaList = nil;
         _mediaList = [[VLCMediaList alloc] init];

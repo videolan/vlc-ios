@@ -117,6 +117,8 @@ NS_SWIFT_NAME(PlaybackService)
 
 @property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;
 
+@property (nonatomic) NSMutableArray *openedLocalURLs;
+
 + (VLCPlaybackService *)sharedInstance;
 - (VLCTime *)playedTime;
 #pragma mark - playback
