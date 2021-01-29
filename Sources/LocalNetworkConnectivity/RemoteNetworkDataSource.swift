@@ -49,7 +49,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         }
         switch cellType {
         case .cloud:
-            if let networkCell = tableView.dequeueReusableCell(withIdentifier: VLCRemoteNetworkCell.cellIdentifier) {
+            if let networkCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
                 networkCell.textLabel?.text = cloudVC.title
                 networkCell.detailTextLabel?.text = cloudVC.detailText
                 networkCell.imageView?.image = cloudVC.cellImage
@@ -57,7 +57,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 return networkCell
             }
         case .streaming:
-            if let networkCell = tableView.dequeueReusableCell(withIdentifier: VLCRemoteNetworkCell.cellIdentifier) {
+            if let networkCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
                 networkCell.textLabel?.text = streamingVC.title
                 networkCell.detailTextLabel?.text = streamingVC.detailText
                 networkCell.imageView?.image = streamingVC.cellImage
@@ -65,7 +65,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 return networkCell
             }
         case .download:
-            if let networkCell = tableView.dequeueReusableCell(withIdentifier: VLCRemoteNetworkCell.cellIdentifier) {
+            if let networkCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
                 networkCell.textLabel?.text = downloadVC.title
                 networkCell.detailTextLabel?.text = downloadVC.detailText
                 networkCell.imageView?.image = downloadVC.cellImage
