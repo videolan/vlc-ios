@@ -81,6 +81,7 @@ class MediaPlayerActionSheet: ActionSheet {
         UIView.animate(withDuration: 0.3, animations: {
             child.frame = self.collectionView.frame
             self.addChildToStackView(child)
+            self.headerView.previousButton.isHidden = false
         }) {
             (completed) in
             child.addGestureRecognizer(self.leftToRightGesture)
@@ -90,12 +91,15 @@ class MediaPlayerActionSheet: ActionSheet {
             if child is VideoFiltersView {
                 self.changeBackground(alpha: 0)
             }
+
+            self.headerView.previousButton.addTarget(self, action: #selector(self.removeCurrentChild), for: .touchUpInside)
         }
     }
 
     private func remove(childView child: UIView) {
         UIView.animate(withDuration: 0.3, animations: {
             child.frame = self.offScreenFrame
+            self.headerView.previousButton.isHidden = true
         }) { (completed) in
             child.removeFromSuperview()
             child.removeGestureRecognizer(self.leftToRightGesture)
