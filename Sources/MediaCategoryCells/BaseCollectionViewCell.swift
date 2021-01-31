@@ -48,6 +48,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
 
 enum DeviceWidth: CGFloat {
     case iPhonePortrait = 414
-    case iPhoneLandscape = 896
+    case iPhone12ProMaxPortrait = 428
+    case iPhoneLandscape = 926
     case iPadLandscape = 1024
 }
