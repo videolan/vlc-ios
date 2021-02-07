@@ -49,6 +49,18 @@ lint:
 #     BUILD_SCHEME: "VLC-iOS"
 #     BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone 5,OS=9.0"
 
+iOS 12.x:
+    extends:
+        - .job-base
+        - .build-base
+    tags:
+        - catalina
+        - amd64
+    stage: build
+    variables:
+        BUILD_SCHEME: "VLC-iOS"
+        BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone X,OS=12.4"
+
 iOS 14.x:
     extends:
         - .job-base
