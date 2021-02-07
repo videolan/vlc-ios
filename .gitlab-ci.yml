@@ -86,7 +86,7 @@ iOS 14.x:
 #     BUILD_SCHEME: "VLC-tvOS"
 #     BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=11.0"
 
-tvOS 12.0:
+tvOS 14.x:
     extends:
         - .job-base
         - .build-base
