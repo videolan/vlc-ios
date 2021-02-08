@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "서버 접속 실패";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "서버 주소와 자격 인증서를 확인해 주세요";
 
+"FILES_APP_CELL_TITLE" = "Local files";
+"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+
 "CLOUD_SERVICES" = "클라우드 서비스";
 "LOGIN" = "로그인";
 "LOGGED_IN" = "로그인 됨";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "대기열의 다음 목록 재생";
 "APPEND_TO_QUEUE_HINT" = "대기열에 추가하기";
 "APPEND_TO_QUEUE_LABEL" = "대기열에 추가하기";
+
+"DISABLE_GROUPS" = "Disable groups";
+"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
+"DISPLAY_AS" = "Display as";
