@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "FALHA AO CONECTAR AO SERVIDOR";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Por favor, verifique o endereço do servidor e suas credenciais";
 
+"FILES_APP_CELL_TITLE" = "Arquivos locais";
+"FILES_APP_CELL_SUBTITLE" = "Abre um arquivo sem copiá-lo para o VLC";
+
 "CLOUD_SERVICES" = "Serviços da Nuvem";
 "LOGIN" = "Ingressar";
 "LOGGED_IN" = "Ingressado";
@@ -337,7 +340,7 @@
 "BUTTON_EDIT_HINT" = "Modo de edição";
 
 "ADD_TO_PLAYLIST" = "Adicionar à Lista de Reprodução";
-"ADD_TO_PLAYLIST_HINT" = "Abrir o menu para inserir na lista de reprodução";
+"ADD_TO_PLAYLIST_HINT" = "Abrir o menu para adicionar à lista de reprodução";
 
 "PLAYLIST_PLACEHOLDER" = "Título da lista de Reprodução";
 "PLAYLIST_DESCRIPTION" = "Digite um título para a sua nova lista de reprodução";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Reproduzir o proximo da fila";
 "APPEND_TO_QUEUE_HINT" = "Anexar à fila";
 "APPEND_TO_QUEUE_LABEL" = "Anexar à fila";
+
+"DISABLE_GROUPS" = "Desabilitar grupos";
+"DISABLE_GROUPS_SWITCH_HINT" = "Desabilitar leiaute de grupos";
+"DISPLAY_AS" = "Exibir como";
