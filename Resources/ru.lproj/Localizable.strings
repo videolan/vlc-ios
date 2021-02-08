@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "Ошибка подключения к серверу";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Проверьте адрес сервера и данные авторизации";
 
+"FILES_APP_CELL_TITLE" = "Локальные файлы";
+"FILES_APP_CELL_SUBTITLE" = "Открыть файл без копирования в VLC";
+
 "CLOUD_SERVICES" = "Облачные службы";
 "LOGIN" = "Войти";
 "LOGGED_IN" = "Подключено";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Воспроизвести следующее в очереди";
 "APPEND_TO_QUEUE_HINT" = "Добавить в очередь";
 "APPEND_TO_QUEUE_LABEL" = "Добавить в очередь";
+
+"DISABLE_GROUPS" = "Отключить группы";
+"DISABLE_GROUPS_SWITCH_HINT" = "Оключить схему групп";
+"DISPLAY_AS" = "Отображать как";
