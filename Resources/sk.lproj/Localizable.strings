@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "NEPODARILO SA PRIPOJIŤ K SERVERU";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Prosím skontrolujte adresu servera a poverenia";
 
+"FILES_APP_CELL_TITLE" = "Local files";
+"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+
 "CLOUD_SERVICES" = "Cloudové služby";
 "LOGIN" = "Prihlásiť";
 "LOGGED_IN" = "Prihlásený";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Prehrať ďalšie vo fronte";
 "APPEND_TO_QUEUE_HINT" = "Pripojiť do frontu";
 "APPEND_TO_QUEUE_LABEL" = "Pripojiť do frontu";
+
+"DISABLE_GROUPS" = "Disable groups";
+"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
+"DISPLAY_AS" = "Display as";
