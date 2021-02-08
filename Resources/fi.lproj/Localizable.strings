@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "PALVELIMEEN YHDISTÄMINEN EPÄONNISTUI";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Tarkista palvelimen osoite ja kirjautumistiedot";
 
+"FILES_APP_CELL_TITLE" = "Local files";
+"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+
 "CLOUD_SERVICES" = "Pilvipalvelut";
 "LOGIN" = "Kirjaudu";
 "LOGGED_IN" = "Kirjautunut";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Toista seuraava jonosta";
 "APPEND_TO_QUEUE_HINT" = "Liitä jonoon";
 "APPEND_TO_QUEUE_LABEL" = "Liitä jonoon";
+
+"DISABLE_GROUPS" = "Disable groups";
+"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
+"DISPLAY_AS" = "Display as";
