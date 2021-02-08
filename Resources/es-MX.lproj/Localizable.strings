@@ -76,8 +76,8 @@
 "BUTTON_RENDERER_HINT" = "Mostrar un menú de dispositivos de emisión disponibles ";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+"BUTTON_PLAY_QUEUE" = "Cola de reproducción";
+"BUTTON_PLAY_QUEUE_HINT" = "Mostrar la vista de la cola de reproducción";
 
 "UPGRADING_LIBRARY" = "Actualizando biblioteca multimedia";
 
@@ -85,7 +85,7 @@
 "NETWORK_TITLE" = "Emisión de Red";
 "OPEN_NETWORK_HELP" = "Introduzca cualquier dirección HTTP, RTSP, RTMP, MMS, FTP o UDP/RTP para abrir la emisión directamente.";
 "HTTP_UPLOAD_SERVER_OFF" = "Servidor inactivo";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Sin conexión Wi-Fi activa";
 "OPEN_STREAM_OR_DOWNLOAD" = "¿Gustas descargar o reproducir esta URL?";
 "SHARED_VLC_IOS_LIBRARY" = "Compartir VLc para Biblioteca iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servidor de Archivos (SMB)";
@@ -130,6 +130,9 @@
 "LOCAL_SERVER_LAST_UPDATE" = "Ultima Actualización %@";
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "FALLÓ LA CONEXIÓN CON SERVIDOR";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Por favor revisa tu dirección de servidor y credenciales.";
+
+"FILES_APP_CELL_TITLE" = "Local files";
+"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
 
 "CLOUD_SERVICES" = "Servicios en la nube";
 "LOGIN" = "Iniciar sesión";
@@ -216,7 +219,7 @@
 "FIRST_STEPS_ITUNES" = "Sincronización de archivos iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Sincronizar con su computadora";
 "FIRST_STEPS_ITUNES_DETAILS" = "Conecte su dispositivo a iTunes y seleccione su dispositvo. Seleccione 'archivos compartidos' en el menú lateral izquierdo de iTunes y vea archivos para transferir a VLC";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
+"FIRST_STEPS_WIFI_TITLE" = "Compartir vía Wi-Fi";
 "FIRST_STEPS_WIFI_DETAILS" = "Ingrese URL generada en su navegador web favorito mientras está conectado a la misma red de su teléfono";
 "FIRST_STEPS_CLOUDS" = "Nubes";
 "FIRST_STEPS_CLOUD_TITLE" = "Nube";
@@ -233,7 +236,7 @@
 "NO_SERVER_FOUND" = "No se encontró servidor";
 "NO_RECENT_STREAMS" = "No se ha reproducido recientemente";
 
-"WEBINTF_TITLE" = "Sharing via Wi-Fi";
+"WEBINTF_TITLE" = "Compartiendo vía WiFi";
 "WEBINTF_DROPFILES" = "Soltar Archivos";
 "WEBINTF_DROPFILES_LONG" = "Soltar archivos en la ventana para agregarlos a tu %@. <br> o clíc en botón '+' para usar la ventana de diálogo";
 "WEBINTF_DOWNLOADFILES" = "Descargar Archivos";
@@ -287,8 +290,8 @@
 "FTP_SHORT" = "FTP";
 "SFTP_SHORT" = "SFTP";
 
-"NFS_LONG" = "Network File System (NFS)";
-"NFS_SHORT" = "NFS";
+"NFS_LONG" = "Sistema de archivos de red (SAR)";
+"NFS_SHORT" = "SAR";
 
 "BONJOUR_FILE_SERVERS" = "Servidor de archivos BONJOUR";
 "DSM_WORKGROUP" = "Grupo de trabajo";
@@ -323,7 +326,7 @@
 "ARTISTS" = "Artistas";
 "EPISODES" = "Episodios";
 "GENRES" = "Géneros";
-"ALL_VIDEOS" = "All videos";
+"ALL_VIDEOS" = "Todos los videos";
 "SONGS" = "Canciones";
 "PLAYLISTS" = "Listas de reproducción";
 "VIDEO_GROUPS" = "Vídeos en grupos";
@@ -442,19 +445,23 @@
 
 /* Files.app persistence file */
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
-"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Añadiendo...";
 
 /* tip jar */
-"GIVE_TIP" = "Give a Tip";
-"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
-"PURCHASE_FAILED" = "Purchase Failed";
+"GIVE_TIP" = "Dar una propina";
+"CANNOT_MAKE_PAYMENTS" = "No tiene permisos para realizar pagos en este dispositivo.";
+"PURCHASE_FAILED" = "Compra fallida";
 "SEND_GIFT" = "Send your gift";
 
 // MARK: - QueueViewController
 
-"PLAY_HINT" = "Play";
-"PLAY_LABEL" = "Play";
-"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
-"APPEND_TO_QUEUE_HINT" = "Append to queue";
-"APPEND_TO_QUEUE_LABEL" = "Append to queue";
+"PLAY_HINT" = "Reproducir";
+"PLAY_LABEL" = "Reproducir";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Reproducir a continuación en la cola";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Reproducir a continuación en la cola";
+"APPEND_TO_QUEUE_HINT" = "Agregar a la cola";
+"APPEND_TO_QUEUE_LABEL" = "Agregar a la cola";
+
+"DISABLE_GROUPS" = "Disable groups";
+"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
+"DISPLAY_AS" = "Display as";
