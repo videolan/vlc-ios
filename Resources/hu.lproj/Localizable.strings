@@ -76,8 +76,8 @@
 "BUTTON_RENDERER_HINT" = "Menü megjelenítése az elérhető vetítési eszközökkel";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+"BUTTON_PLAY_QUEUE" = "Lejátszási lista";
+"BUTTON_PLAY_QUEUE_HINT" = "Lejátszási lista megjelenítése";
 
 "UPGRADING_LIBRARY" = "Médiatár frissítése";
 
@@ -130,6 +130,9 @@
 "LOCAL_SERVER_LAST_UPDATE" = "Utolsó frissítés: %@";
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "Sikertelen csatlakozás";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Ellenőrizze a kiszolgáló címét, valamint felhasználónevét és jelszavát.";
+
+"FILES_APP_CELL_TITLE" = "Helyi fájl";
+"FILES_APP_CELL_SUBTITLE" = "Fájl megnyitása a VLC-be másolás nélkül";
 
 "CLOUD_SERVICES" = "Felhőszolgáltatások";
 "LOGIN" = "Bejelentkezés";
@@ -452,9 +455,13 @@
 
 // MARK: - QueueViewController
 
-"PLAY_HINT" = "Play";
-"PLAY_LABEL" = "Play";
-"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
-"APPEND_TO_QUEUE_HINT" = "Append to queue";
-"APPEND_TO_QUEUE_LABEL" = "Append to queue";
+"PLAY_HINT" = "Lejátszás";
+"PLAY_LABEL" = "Lejátszás";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Következő lejátszása";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Következő lejátszása";
+"APPEND_TO_QUEUE_HINT" = "Felvétel a lejátszási listára";
+"APPEND_TO_QUEUE_LABEL" = "Felvétel a lejátszási listára";
+
+"DISABLE_GROUPS" = "Csoportok letiltása";
+"DISABLE_GROUPS_SWITCH_HINT" = "Csoportos elrendezés letiltása";
+"DISPLAY_AS" = "Megjelenítés mint…";
