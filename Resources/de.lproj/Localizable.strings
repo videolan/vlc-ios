@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "SERVERVERBINDUNG FEHLGESCHLAGEN";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Bitte überprüfen Sie Ihre Servereinstellungen und Voraussetzungen";
 
+"FILES_APP_CELL_TITLE" = "Lokale Dateien";
+"FILES_APP_CELL_SUBTITLE" = "Datei öffnen, ohne diese zu VLC zu kopieren ";
+
 "CLOUD_SERVICES" = "Cloud-Dienste";
 "LOGIN" = "Anmelden";
 "LOGGED_IN" = "Angemeldet";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Nächstes aus der Wiedergabewarteschlange wiedergeben";
 "APPEND_TO_QUEUE_HINT" = "An Wiedergabewarteschlange anhängen";
 "APPEND_TO_QUEUE_LABEL" = "An Wiedergabewarteschlange anhängen";
+
+"DISABLE_GROUPS" = "Gruppierung deaktivieren";
+"DISABLE_GROUPS_SWITCH_HINT" = "Deaktivierung des Gruppenlayouts";
+"DISPLAY_AS" = "Anzeigen als";
