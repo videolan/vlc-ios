@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "ЗБІЙ З'ЄДНАННЯ З СЕРВЕРОМ";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Перевірте адресу сервера та ваші облікові дані";
 
+"FILES_APP_CELL_TITLE" = "Локальні файли";
+"FILES_APP_CELL_SUBTITLE" = "Відкрити файл без копіювання його на VLC";
+
 "CLOUD_SERVICES" = "Хмарні служби";
 "LOGIN" = "Вхід";
 "LOGGED_IN" = "Увійшов (ла)";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Відтворити наступне у черзі";
 "APPEND_TO_QUEUE_HINT" = "Додати до черги";
 "APPEND_TO_QUEUE_LABEL" = "Додати до черги";
+
+"DISABLE_GROUPS" = "Вимкнути групи";
+"DISABLE_GROUPS_SWITCH_HINT" = "Вимкнути макет груп";
+"DISPLAY_AS" = "Показувати як";
