@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "CONNESSIONE A SU SERVER FALLIDA";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Controlla s'indiritzu de su server e sas credentziales";
 
+"FILES_APP_CELL_TITLE" = "Documentos locales";
+"FILES_APP_CELL_SUBTITLE" = "Aberi unu documentu chene lu copiare in VLC";
+
 "CLOUD_SERVICES" = "Servitzios de Nues";
 "LOGIN" = "Intra";
 "LOGGED_IN" = "Intrada fata";
@@ -160,19 +163,19 @@
 "BIOMETRIC_UNLOCK" = "Isblocu biblioteca multimediale\nAnnulla pro insertare su còdighe de seguresa";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d tentativos de insertada de su còdighe crae fallidos";
-"1 Failed Passcode Attempt" = "1 tentativu de insertada de su còdighe crae fallidu";
-"Change Passcode" = "Càmbia su còdighe crae";
-"Enter Passcode" = "Inserta su còdighe crae";
-"Enter a passcode" = "Inserta unu còdighe crae";
-"Enter your new passcode" = "Inserta su còdighe crae nou tuo";
-"Enter your old passcode" = "Inserta su còdighe crae betzu tuo";
-"Enter your passcode" = "Inserta su còdighe crae tuo";
+"%d Failed Passcode Attempts" = "%d tentativos de insertada de su còdighe de seguresa fallidos";
+"1 Failed Passcode Attempt" = "1 tentativu de insertada de su còdighe de seguresa fallidu";
+"Change Passcode" = "Càmbia su còdighe de seguresa";
+"Enter Passcode" = "Inserta su còdighe de seguresa";
+"Enter a passcode" = "Inserta unu còdighe de seguresa";
+"Enter your new passcode" = "Inserta su còdighe de seguresa nou tuo";
+"Enter your old passcode" = "Inserta su còdighe de seguresa betzu tuo";
+"Enter your passcode" = "Inserta su còdighe de seguresa tuo";
 "Next" = "Imbeniente";
-"Passcodes did not match. Try again." = "Sos còdighes crae non sunt sos matessi. Torra a proare.";
-"Re-enter your new passcode" = "Torra a insertare su còdighe crae nou tuo";
-"Re-enter your passcode" = "Torra a insertare su còdighe crae tuo";
-"Set Passcode" = "Imposta su còdighe crae";
+"Passcodes did not match. Try again." = "Sos còdighes de seguresa non sunt sos matessi. Torra a proare.";
+"Re-enter your new passcode" = "Torra a insertare su còdighe de seguresa nou tuo";
+"Re-enter your passcode" = "Torra a insertare su còdighe de seguresa tuo";
+"Set Passcode" = "Imposta su còdighe de seguresa";
 
 "Settings" = "Impostatziones"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Allutu";
@@ -243,9 +246,9 @@
 "WEBINTF_URL_SENT" = "URL imbiadu cun sutzessu.";
 "WEBINTF_URL_EMPTY" = "S'URL non podet èssere bòidu.";
 "WEBINTF_URL_INVALID" = "No est un'URL vàlidu.";
-"WEBINTF_AUTH_REQUIRED" = "Inserta sa crae de intrada chi as impostadu in VLC pro iOS:";
-"WEBINTF_AUTH_WRONG_PASSCODE" = "Crae isballiada. <br> tentativu/os rimanentes:";
-"WEBINTF_AUTH_BANNED" = "As insertadu tropu craes. <br>Pro praghere torra a allùghere VLC pro iOS e a proare.";
+"WEBINTF_AUTH_REQUIRED" = "Inserta su còdighe de seguresa chi as impostadu in VLC pro iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Còdighe de seguresa isballiadu. <br> Tentativu/os galu a disponimentu:";
+"WEBINTF_AUTH_BANNED" = "As insertadu tropu còdighes de seguresa isballiados. <br>Pro praghere torra a allùghere VLC pro iOS e a proare.";
 
 
 
@@ -437,7 +440,7 @@
 
 "BUTTON_REGROUP" = "Torra a agrupare";
 "BUTTON_REGROUP_TITLE" = "Torra a agrupare sa seletzione";
-"BUTTON_REGROUP_HINT" = "Proa a agrupare automaticamente cuntenutos multimediales sìngulos.";
+"BUTTON_REGROUP_HINT" = "Proa a agrupare automaticamente sos cuntenutos multimediales sìngulos.";
 "BUTTON_REGROUP_DESCRIPTION" = "Ses seguru de chèrrere proare a agrupare automaticamente cuntenutos multimediales (mèdios) sìngulos?\nBi diat pòdere chèrrere unu pagu de tempus.";
 
 /* Files.app persistence file */
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Riprodui su chi sighit in sa lista de riprodutzione";
 "APPEND_TO_QUEUE_HINT" = "Annanghe a sa lista de riprodutzione";
 "APPEND_TO_QUEUE_LABEL" = "Annanghe a sa lista de riprodutzione";
+
+"DISABLE_GROUPS" = "Disabìlita sos grupos";
+"DISABLE_GROUPS_SWITCH_HINT" = "Disabìlita sa dispositzione de sos grupos";
+"DISPLAY_AS" = "Ammustra comente";
