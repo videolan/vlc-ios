@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "SERVER CONNECTION FAILED";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "कृपया आफ्नो सर्भर ठेगाना र प्रमाणहरू जाँच गर्नुहोस् ।";
 
+"FILES_APP_CELL_TITLE" = "Local files";
+"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+
 "CLOUD_SERVICES" = "Cloud Services";
 "LOGIN" = "लग इन";
 "LOGGED_IN" = "लग इन";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
 "APPEND_TO_QUEUE_HINT" = "Append to queue";
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
+
+"DISABLE_GROUPS" = "Disable groups";
+"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
+"DISPLAY_AS" = "Display as";
