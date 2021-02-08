@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "បាន​បរាជ័យ​ក្នុង​ការ​តភ្ជាប់​ម៉ាស៊ីន​មេ";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "សូម​ពិនិត្យមើល​អាសយដ្ឋាន​ម៉ាស៊ីន​មេ​ និង​ព័ត៌មាន​សម្ងាត់​របស់​អ្នក";
 
+"FILES_APP_CELL_TITLE" = "Local files";
+"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+
 "CLOUD_SERVICES" = "សេវា​ពពក​ (Cloud)";
 "LOGIN" = "ចុះឈ្មោះ";
 "LOGGED_IN" = "បាន​ចុះ​ឈ្មោះ";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
 "APPEND_TO_QUEUE_HINT" = "Append to queue";
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
+
+"DISABLE_GROUPS" = "Disable groups";
+"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
+"DISPLAY_AS" = "Display as";
