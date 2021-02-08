@@ -1,9 +1,9 @@
-"STORE_DESCRIPTION" = "VLC untuk iOS adalah port pemain media VLC percuma untuk iPad, iPhone dan iPad touch.\nIa boleh memainkan semua jenis cereka, rancangan dan muzik dalam pelbagai format secara terus tanpa membuat penukaran format.\nIa membenarkan penyegerakkan fail dengan Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, muat turun terus melalui perkongsian Wi-Fi selain penstriman daripada SMB, FTP, UPnP/DLNA pelayan media dan sesawang. \nVLC menawarkan sokongan untuk sari kata maju termasuk SSA serasi, audio pelbagai trek, dan kawalan kelajuan main balik.\nVLC untuk iOS adalah percuma sepenuhnya dan bersumber terbuka.";
+"STORE_DESCRIPTION" = "VLC untuk iOS adalah port pemain media VLC percuma untuk iPad, iPhone dan iPad touch.\nIa boleh memainkan semua jenis filem, rancangan dan muzik dalam pelbagai format secara terus tanpa membuat penukaran format.\nIa membenarkan penyegerakkan fail dengan Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, muat turun terus melalui perkongsian Wi-Fi selain penstriman daripada SMB, FTP, UPnP/DLNA pelayan media dan sesawang. \nVLC menawarkan sokongan untuk sari kata lanjutan termasuk SSA serasi, audio pelbagai trek, dan kawalan kelajuan main balik.\nVLC untuk iOS adalah percuma sepenuhnya dan bersumber terbuka.";
 
-"STORE_DESCRIPTION_TV" = "Pemain media VLC adalah pemain multimedia platform-silang bersumber terbuka dan percuma.\nIa dapat memainkan semua cereka, rancangan tv dan muzik anda dalam kebanyakan format secara terus tanpa penukaran.\nIa membenarkan penstriman dari perkhidmatan awan (Dropbox, OneDrive, Box), Main Balik Jauh dari Mac atau PC anda melalui Web UI dan juga penstriman dari pelayan media UPnP, SMB, FTP dan sesawang.\n\nVLC untuk iOS sepenuhnya percuma dan bersumber terbuka.\n\nData meta dan kerja seni disediakan oleh TMDb dan Hatchet, yang menyelenggara pangkalan data cereka dan muzik oleh komuniti.";
+"STORE_DESCRIPTION_TV" = "Pemain media VLC adalah pemain multimedia platform-silang bersumber terbuka dan percuma.\nIa dapat memainkan semua filem, rancangan tv dan muzik anda dalam kebanyakan format secara terus tanpa penukaran format.\nIa membolehkan penstriman dari perkhidmatan awan (Dropbox, OneDrive, Box), Main Balik Jauh dari Mac atau PC anda melalui UI Sesawang dan juga penstriman dari pelayan media UPnP, SMB, FTP dan sesawang.\n\nVLC untuk iOS sepenuhnya percuma dan bersumber terbuka.\n\nMetadata dan kerja seni disediakan oleh TMDb dan Hatchet, yang menyelenggara pangkalan data filem dan muzik oleh komuniti.";
 
 "CHOOSE_AUDIO_TRACK" = "Pilih Trek Audio";
-"CHOOSE_SUBTITLE_TRACK" = "Pilih Trek Sarikata";
+"CHOOSE_SUBTITLE_TRACK" = "Pilih Trek Sari Kata";
 "OPEN_TRACK_PANEL" = "Buka pemilihan trek";
 "CHOOSE_TITLE" = "Pilih Tajuk";
 "CHOOSE_CHAPTER" = "Pilih Bab";
@@ -13,15 +13,15 @@
 "MINIMIZE_PLAYBACK_VIEW" = "Minimumkan main balik";
 "TRACK_SELECTION" = "Pemilihan Trek";
 "AUDIO" = "Audio";
-"SUBTITLES" = "Sarikata";
+"SUBTITLES" = "Sari kata";
 "LANGUAGE" = "Bahasa";
 "MEDIA_INFO" = "Maklumat Media";
 "VIDEO_DIMENSIONS" = "Dimensi video";
 "FORMAT_VIDEO_DIMENSIONS" = "%ix%i piksel";
 "FORMAT_AUDIO_TRACKS" = "%i trek audio";
 "ONE_AUDIO_TRACK" = "Satu trek audio";
-"FORMAT_SPU_TRACKS" = "%i trek sarikata";
-"ONE_SPU_TRACK" = "Satu trek sarikata";
+"FORMAT_SPU_TRACKS" = "%i trek sari kata";
+"ONE_SPU_TRACK" = "Satu trek sari kata";
 "TRACKS" = "%i Trek";
 "TRACK" = "%i Trek";
 
@@ -48,7 +48,7 @@
 "SPU_DELAY" = "Lengah sarikata";
 "AUDIO_DELAY" = "Lengah audio";
 "BUTTON_SLEEP_TIMER" = "Pemasa Tidur";
-"SLEEP_TIMER_UPDATED" = "Pemasa Tidur Dikemaskini";
+"SLEEP_TIMER_UPDATED" = "Pemasa Tidur Dikemas Kini";
 "CONTINUE_PLAYBACK" = "Teruskan main balik?";
 "CONTINUE_PLAYBACK_LONG" = "Anda mahu teruskan main balik \"%@\" pada lokasi terakhir anda tinggalkan?";
 
@@ -70,7 +70,7 @@
 "BUTTON_RESET" = "Tetap Semula";
 "BUTTON_RESCAN" = "Imbas Semula";
 "PRIVATE_PLAYBACK_TOGGLE" = "Main Balik Persendirian";
-"SCAN_SUBTITLE_TOGGLE" = "Imbas untuk Sarikata (http-sahaja)";
+"SCAN_SUBTITLE_TOGGLE" = "Imbas untuk Sari Kata (http-sahaja)";
 
 "BUTTON_RENDERER" = "Peranti casting";
 "BUTTON_RENDERER_HINT" = "Tunjuk menu peranti casting yang tersedia";
@@ -127,9 +127,12 @@
 "BUTTON_ANONYMOUS_LOGIN" = "Daftar Masuk Awanama";
 
 "LOCAL_SERVER_REFRESH" = "Segar Semula";
-"LOCAL_SERVER_LAST_UPDATE" = "Terakhir Dikemaskini pada %@";
+"LOCAL_SERVER_LAST_UPDATE" = "Terakhir Dikemas kini pada %@";
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "SAMBUNGAN PELAYAN GAGAL";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Sila semak alamat pelayan dan kelayakan anda";
+
+"FILES_APP_CELL_TITLE" = "Local files";
+"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
 
 "CLOUD_SERVICES" = "Perkhidmatan Awan";
 "LOGIN" = "Daftar Masuk";
@@ -267,8 +270,8 @@
 "HTTP_SERVER_OFF" = "Benarkan Main Balik Jauh";
 "CACHED_MEDIA" = "Media Bercache";
 "CACHED_MEDIA_LONG" = "Media yang ditunjukkan di sini tersimpan secara setempat dalam TV Apple anda. Perhatian kandungan boleh dibuang oleh sistem pengoperasian tanpa makluman bila VLC tidak berjalan jika peranti anda kekurangan storan.";
-"DOWNLOAD_SUBS_FROM_OSO" = "Muat turun sarikata dari OpenSubtitles.org...";
-"FOUND_SUBS" = "Temui sarikata";
+"DOWNLOAD_SUBS_FROM_OSO" = "Muat turun sari kata dari OpenSubtitles.org...";
+"FOUND_SUBS" = "Temui sari kata";
 "USE_SPDIF" = "Guna Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Main Balik";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Main berikutnya dalam baris gilir";
 "APPEND_TO_QUEUE_HINT" = "Tambah ke baris gilir";
 "APPEND_TO_QUEUE_LABEL" = "Tambah ke baris gilir";
+
+"DISABLE_GROUPS" = "Disable groups";
+"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
+"DISPLAY_AS" = "Display as";
