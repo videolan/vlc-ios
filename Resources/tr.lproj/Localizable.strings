@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "SUNUCUYA BAĞLANILAMADI";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Lütfen sunucu adresi ve kimlik bilgilerinizi denetleyin";
 
+"FILES_APP_CELL_TITLE" = "Yerel dosyalar";
+"FILES_APP_CELL_SUBTITLE" = "Bir dosyayı VLC üzerine kopyalamadan aç";
+
 "CLOUD_SERVICES" = "Bulut Hizmetleri";
 "LOGIN" = "Oturum Aç";
 "LOGGED_IN" = "Oturum açıldı";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Kuyrukta sonrakini oynat";
 "APPEND_TO_QUEUE_HINT" = "Kuyruğa ekle";
 "APPEND_TO_QUEUE_LABEL" = "Kuyruğa ekle";
+
+"DISABLE_GROUPS" = "Grupları devre dışı bırak";
+"DISABLE_GROUPS_SWITCH_HINT" = "Gruplar görünümünü devre dışı bırakır";
+"DISPLAY_AS" = "Farklı görüntüle";
