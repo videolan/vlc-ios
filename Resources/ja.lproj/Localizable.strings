@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "サーバーへの接続に失敗しました";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "サーバーのアドレスとクレデンシャルを確認してください";
 
+"FILES_APP_CELL_TITLE" = "ローカルファイル";
+"FILES_APP_CELL_SUBTITLE" = "ファイルをVLCにコピーすることなく開く";
+
 "CLOUD_SERVICES" = "クラウドサービス";
 "LOGIN" = "ログイン";
 "LOGGED_IN" = "ログイン済み";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "キューの次の項目を再生";
 "APPEND_TO_QUEUE_HINT" = "キューに追加";
 "APPEND_TO_QUEUE_LABEL" = "キューに追加";
+
+"DISABLE_GROUPS" = "グループを無効化";
+"DISABLE_GROUPS_SWITCH_HINT" = "グループレイアウトを無効化";
+"DISPLAY_AS" = "表示";
