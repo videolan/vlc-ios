@@ -42,6 +42,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 @interface VLCPlayerDisplayController () <VLCMovieViewControllerDelegate, VLCVideoPlayerViewControllerDelegate>
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *movieViewController;
+@property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *oldVideoPlayerViewController;
+@property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *videoPlayerViewController;
 @property (nonatomic, strong) VLCQueueViewController *queueViewController;
 @property (nonatomic, strong) NSLayoutConstraint *bottomConstraint;
 @property (nonatomic, strong) VLCServices *services;
@@ -72,6 +74,13 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     [[VLCPlaybackService sharedInstance] setPlayerDisplayController:self];
+
+    VLCPlayerController *pc = [[VLCPlayerController alloc] initWithServices:_services];
+    _videoPlayerViewController = [[VLCVideoPlayerViewController alloc]
+                                  initWithServices:_services
+                                  playerController:pc];
+
+    _oldVideoPlayerViewController = [[VLCMovieViewController alloc] initWithServices:_services];
 }
 
 #pragma mark - properties
@@ -100,19 +109,17 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             [self initQueueViewController];
         }
 #if TARGET_OS_IOS
-# if !SWIFT_VIDEO_PLAYER
-        _movieViewController = [[VLCMovieViewController alloc] initWithServices:_services];
-        ((VLCMovieViewController *)_movieViewController).delegate = self;
-        [(VLCMovieViewController *)_movieViewController setupQueueViewController:_queueViewController];
-# else
+        BOOL newPlayerEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingLabNewPlayer];
 
-        VLCPlayerController *pc = [[VLCPlayerController alloc] initWithServices:_services];
-        _movieViewController = [[VLCVideoPlayerViewController alloc]
-                                initWithServices:_services
-                                playerController:pc];
-        ((VLCVideoPlayerViewController *)_movieViewController).delegate = self;
-//        [((VLCVideoPlayerViewController *)_movieViewController) setupQueueViewController:_queueViewController];
-# endif
+        if (!newPlayerEnabled) {
+            _movieViewController = _oldVideoPlayerViewController;
+            ((VLCMovieViewController *)_movieViewController).delegate = self;
+            [(VLCMovieViewController *)_movieViewController setupQueueViewController:_queueViewController];
+        } else {
+            _movieViewController = _videoPlayerViewController;
+            ((VLCVideoPlayerViewController *)_movieViewController).delegate = self;
+            // TODO: - [((VLCVideoPlayerViewController *)_movieViewController) setupQueueViewController:_queueViewController];
+        }
 #else
         _movieViewController = [[VLCFullscreenMovieTVViewController alloc] initWithNibName:nil bundle:nil];
 #endif
@@ -120,6 +127,11 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
         if (!_queueViewController) {
             [self initQueueViewController];
         }
+    } else {
+#if TARGET_OS_IOS
+        BOOL newPlayerEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingLabNewPlayer];
+        _movieViewController = newPlayerEnabled ? _videoPlayerViewController : _oldVideoPlayerViewController;
+#endif
     }
     return _movieViewController;
 }

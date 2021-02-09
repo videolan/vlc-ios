@@ -718,6 +718,22 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_LAB</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>newPlayer</string>
+			<key>Title</key>
+			<string>SETTINGS_NEW_PLAYER</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>

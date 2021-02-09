@@ -82,7 +82,8 @@ NSString *VLCAppCenterAppID = @"0114ca8e-2652-44ce-588d-2ebd035c3577";
                                   kVLCSettingShowThumbnails : kVLCSettingShowThumbnailsDefaultValue,
                                   kVLCSettingShowArtworks : kVLCSettingShowArtworksDefaultValue,
                                   kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue,
-                                  kVLCSettingCastingAudioPassthrough : @(NO)
+                                  kVLCSettingCastingAudioPassthrough : @(NO),
+                                  kVLCSettingLabNewPlayer : kVLCSettingLabNewPlayerDefaultValue
     };
     [defaults registerDefaults:appDefaults];
 }

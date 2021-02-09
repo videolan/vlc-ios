@@ -252,6 +252,8 @@ extension SettingsController {
             return MediaLibraryOptions.allCases.count
         case 9:
             return FileSyncOptions.allCases.count
+        case 10:
+            return Lab.allCases.count
         default:
             return 0
         }
@@ -330,6 +332,9 @@ extension SettingsController {
         case .fileSync:
             let fileSyncOptions = FileSyncOptions(rawValue: indexPath.row)
             cell.sectionType = fileSyncOptions
+        case .lab:
+            let lab = Lab(rawValue: indexPath.row)
+            cell.sectionType = lab
         }
         return cell
     }
@@ -377,6 +382,8 @@ extension SettingsController {
             let fileSection = FileSyncOptions(rawValue: indexPath.row)
             playHaptics(sectionType: fileSection)
             showActionSheet(for: fileSection)
+        case .lab:
+            break
         }
     }
 

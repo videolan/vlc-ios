@@ -23,6 +23,7 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
     case casting
     case mediaLibrary
     case fileSync
+    case lab
 
     var description: String {
         switch self {
@@ -46,6 +47,8 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
             return "SETTINGS_MEDIA_LIBRARY"
         case .fileSync:
             return "SETTINGS_FILE_SYNC"
+        case .lab:
+            return "SETTINGS_LAB"
         }
     }
 }
@@ -511,6 +514,30 @@ enum FileSyncOptions: Int, CaseIterable, SectionType {
 
     var preferenceKey: String? {
         return kVLCSettingWiFiSharingIPv6
+    }
+}
+
+enum Lab: Int, CaseIterable, SectionType {
+    case newPlayer
+
+    var description: String {
+        switch self {
+        case .newPlayer:
+            return "SETTINGS_NEW_PLAYER"
+        }
+    }
+
+    var containsSwitch: Bool {
+        return true
+    }
+
+    var subtitle: String? { return nil }
+
+    var preferenceKey: String? {
+        switch self {
+        case .newPlayer:
+            return kVLCSettingLabNewPlayer
+        }
     }
 }
 
