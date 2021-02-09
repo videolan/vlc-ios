@@ -186,6 +186,8 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
 
     @objc private func updateTheme() {
         backgroundColor = PresentationTheme.current.colors.background
+        displayByLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        disableGroupsLabel.textColor = PresentationTheme.current.colors.cellTextColor
         descendingLabel.textColor = PresentationTheme.current.colors.cellTextColor
         gridLayoutLabel.textColor = PresentationTheme.current.colors.cellTextColor
     }
