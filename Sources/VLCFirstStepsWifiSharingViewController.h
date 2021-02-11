@@ -11,16 +11,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "VLCFirstStepsBaseViewController.h"
 
-@interface VLCFirstStepsWifiSharingViewController : UIViewController
-
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *phoneImage;
-@property (weak, nonatomic) IBOutlet UIView *backgroundView;
-
-@property (readonly) NSString *pageTitle;
-@property (readonly) NSUInteger page;
+@interface VLCFirstStepsWifiSharingViewController : VLCFirstStepsBaseViewController
 
 @end

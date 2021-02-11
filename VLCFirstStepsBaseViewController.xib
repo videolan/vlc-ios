@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCFirstStepsBaseViewController">
+            <connections>
+                <outlet property="bottomView" destination="qqi-wm-FNW" id="rvU-qx-2sh"/>
+                <outlet property="centralView" destination="RWz-Kr-wDr" id="VIP-8x-qFm"/>
+                <outlet property="descriptionLabel" destination="1tJ-p7-1u3" id="Jug-LH-uE6"/>
+                <outlet property="descriptionLabelHeightConstraint" destination="WXc-CJ-zhN" id="TCm-d8-QLE"/>
+                <outlet property="pageTitleContainer" destination="LJX-im-o5c" id="qOi-0E-3kO"/>
+                <outlet property="pageTitleLabel" destination="K1O-0P-H5y" id="nny-hT-LCJ"/>
+                <outlet property="pageTitleLabelHeightConstraint" destination="p25-Na-NMh" id="jPk-OF-3Nl"/>
+                <outlet property="titleLabel" destination="91B-JS-Z5D" id="Lmv-25-7l3"/>
+                <outlet property="titleLabelHeightConstraint" destination="ZnE-BZ-WVr" id="xii-u7-Mkl"/>
+                <outlet property="view" destination="iN0-l3-epB" id="btM-3L-X04"/>
+                <outletCollection property="images" destination="Jxb-R3-e1c" id="FCe-c8-6kr"/>
+                <outletCollection property="images" destination="Xe8-tw-eMr" id="Hz4-5l-qbO"/>
+                <outletCollection property="centralParts" destination="lry-4M-DKD" id="xVm-ev-ycq"/>
+                <outletCollection property="centralParts" destination="CEJ-v4-pmu" id="lZ5-mS-aCb"/>
+                <outletCollection property="centralParts" destination="FS3-Ul-viJ" id="48E-aR-j6S"/>
+                <outletCollection property="labelHeightConstraints" destination="p25-Na-NMh" id="sCt-7T-TmI"/>
+                <outletCollection property="labelHeightConstraints" destination="ZnE-BZ-WVr" id="6V8-bl-dt8"/>
+                <outletCollection property="labelHeightConstraints" destination="WXc-CJ-zhN" id="hsR-qD-Xch"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RWz-Kr-wDr" userLabel="central">
+                    <rect key="frame" x="0.0" y="93" width="414" height="609"/>
+                    <color key="backgroundColor" red="0.96078431369999995" green="0.73725490199999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LJX-im-o5c" userLabel="pageTitleContainer">
+                    <rect key="frame" x="0.0" y="44" width="414" height="49"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clouds" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1O-0P-H5y" userLabel="pageTitleLabel">
+                            <rect key="frame" x="20" y="4" width="374" height="41"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="41" id="p25-Na-NMh"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="K1O-0P-H5y" secondAttribute="trailing" constant="20" id="6sE-pQ-2f8"/>
+                        <constraint firstAttribute="bottom" secondItem="K1O-0P-H5y" secondAttribute="bottom" constant="4" id="8D1-jO-rYW"/>
+                        <constraint firstItem="K1O-0P-H5y" firstAttribute="top" secondItem="LJX-im-o5c" secondAttribute="top" constant="4" id="C5z-Yn-szb"/>
+                        <constraint firstItem="K1O-0P-H5y" firstAttribute="leading" secondItem="LJX-im-o5c" secondAttribute="leading" constant="20" id="R1c-z9-0qT"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qqi-wm-FNW" userLabel="bottomView">
+                    <rect key="frame" x="0.0" y="702" width="414" height="160"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cloud" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91B-JS-Z5D" userLabel="Title">
+                            <rect key="frame" x="20" y="15" width="374" height="29"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="29" id="ZnE-BZ-WVr"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" text="Connect Your Device to iTunes and select" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1tJ-p7-1u3" userLabel="Desription">
+                            <rect key="frame" x="20" y="54" width="374" height="86"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="86" id="WXc-CJ-zhN"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <color key="textColor" red="0.72000002860000001" green="0.72000002860000001" blue="0.72000002860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="1tJ-p7-1u3" firstAttribute="leading" secondItem="qqi-wm-FNW" secondAttribute="leading" constant="20" id="6Wq-Oy-UBe"/>
+                        <constraint firstAttribute="trailing" secondItem="91B-JS-Z5D" secondAttribute="trailing" constant="20" id="7d3-6G-NEj"/>
+                        <constraint firstAttribute="trailing" secondItem="1tJ-p7-1u3" secondAttribute="trailing" constant="20" id="DGa-Xm-VZ2"/>
+                        <constraint firstItem="1tJ-p7-1u3" firstAttribute="top" secondItem="91B-JS-Z5D" secondAttribute="bottom" constant="10" id="Z0G-mV-sOU"/>
+                        <constraint firstAttribute="bottom" secondItem="1tJ-p7-1u3" secondAttribute="bottom" constant="20" symbolic="YES" id="gq6-Ge-Deb"/>
+                        <constraint firstItem="91B-JS-Z5D" firstAttribute="leading" secondItem="qqi-wm-FNW" secondAttribute="leading" constant="20" id="hG1-Zz-hog"/>
+                        <constraint firstItem="91B-JS-Z5D" firstAttribute="top" secondItem="qqi-wm-FNW" secondAttribute="top" constant="15.000000000000002" id="z3I-oX-Shd"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="qqi-wm-FNW" firstAttribute="top" secondItem="RWz-Kr-wDr" secondAttribute="bottom" id="9O5-1s-F2p"/>
+                <constraint firstItem="RWz-Kr-wDr" firstAttribute="top" secondItem="LJX-im-o5c" secondAttribute="bottom" id="GQc-Me-3wW"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="qqi-wm-FNW" secondAttribute="bottom" id="Gws-a1-h9D"/>
+                <constraint firstItem="RWz-Kr-wDr" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="HIR-Dc-HUH"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RWz-Kr-wDr" secondAttribute="trailing" id="UNp-P9-JaK"/>
+                <constraint firstItem="qqi-wm-FNW" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Vn3-fJ-uhb"/>
+                <constraint firstItem="LJX-im-o5c" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="W99-ya-ssf"/>
+                <constraint firstItem="LJX-im-o5c" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="dK2-9z-R9V"/>
+                <constraint firstItem="qqi-wm-FNW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="vAy-Bp-8VZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="LJX-im-o5c" secondAttribute="trailing" id="zlQ-Rm-qa1"/>
+            </constraints>
+            <point key="canvasLocation" x="83" y="13"/>
+        </view>
+        <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" id="lry-4M-DKD" userLabel="central_iTunes">
+            <rect key="frame" x="0.0" y="0.0" width="373.5" height="383"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="laptop" translatesAutoresizingMaskIntoConstraints="NO" id="DnR-pT-7GV">
+                    <rect key="frame" x="0.0" y="-20" width="225" height="323"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="323" id="MCZ-Jv-axj"/>
+                        <constraint firstAttribute="width" constant="225" id="oOa-e2-Hw8"/>
+                    </constraints>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cable" translatesAutoresizingMaskIntoConstraints="NO" id="VEX-jS-6ai">
+                    <rect key="frame" x="179" y="62" width="168" height="341"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="341" id="coL-Ww-raE"/>
+                        <constraint firstAttribute="width" constant="168" id="tCq-dQ-G9E"/>
+                    </constraints>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone" translatesAutoresizingMaskIntoConstraints="NO" id="tma-Zh-2bB">
+                    <rect key="frame" x="265" y="132" width="109" height="211"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="109" id="A1f-jJ-KG2"/>
+                        <constraint firstAttribute="height" constant="211" id="GIs-NJ-fwf"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="OZs-xI-4Xb"/>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.73725490199999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <constraints>
+                <constraint firstItem="tma-Zh-2bB" firstAttribute="leading" secondItem="VEX-jS-6ai" secondAttribute="trailing" constant="-82" id="5bt-7s-H1g"/>
+                <constraint firstAttribute="trailing" secondItem="tma-Zh-2bB" secondAttribute="trailing" constant="20" id="Am8-VB-zzT"/>
+                <constraint firstAttribute="bottom" secondItem="VEX-jS-6ai" secondAttribute="bottom" constant="-20" id="CUs-74-DHF"/>
+                <constraint firstItem="DnR-pT-7GV" firstAttribute="leading" secondItem="lry-4M-DKD" secondAttribute="leading" id="H9g-Hs-1a3"/>
+                <constraint firstItem="tma-Zh-2bB" firstAttribute="bottom" secondItem="VEX-jS-6ai" secondAttribute="bottom" constant="-60" id="RJQ-Wk-UJf"/>
+                <constraint firstItem="DnR-pT-7GV" firstAttribute="top" secondItem="lry-4M-DKD" secondAttribute="top" constant="-20" id="Teq-FD-WZR"/>
+                <constraint firstItem="DnR-pT-7GV" firstAttribute="bottom" secondItem="VEX-jS-6ai" secondAttribute="bottom" constant="-100" id="YcF-Da-Vmw"/>
+                <constraint firstItem="VEX-jS-6ai" firstAttribute="leading" secondItem="DnR-pT-7GV" secondAttribute="trailing" constant="-46" id="jNJ-5w-RdL"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-1283" y="-581"/>
+        </view>
+        <view hidden="YES" contentMode="scaleToFill" id="CEJ-v4-pmu" userLabel="central_wifi">
+            <rect key="frame" x="0.0" y="0.0" width="340" height="340"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteiPhone" translatesAutoresizingMaskIntoConstraints="NO" id="Jxb-R3-e1c">
+                    <rect key="frame" x="0.0" y="0.0" width="340" height="340"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="340" id="VFh-kf-Apn"/>
+                        <constraint firstAttribute="height" constant="340" id="YcU-lr-e4V"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Nr9-kc-n05"/>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.73725490199999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Jxb-R3-e1c" secondAttribute="trailing" id="L1y-5K-xZI"/>
+                <constraint firstAttribute="bottom" secondItem="Jxb-R3-e1c" secondAttribute="bottom" id="MDO-dE-FAW"/>
+                <constraint firstItem="Jxb-R3-e1c" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CEJ-v4-pmu" secondAttribute="leading" id="O5y-aN-R2R"/>
+                <constraint firstItem="Jxb-R3-e1c" firstAttribute="centerX" secondItem="CEJ-v4-pmu" secondAttribute="centerX" id="ad5-25-o0S"/>
+                <constraint firstItem="Jxb-R3-e1c" firstAttribute="top" secondItem="CEJ-v4-pmu" secondAttribute="top" id="rJa-TL-Ri5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-629" y="-596"/>
+        </view>
+        <view hidden="YES" contentMode="scaleToFill" id="FS3-Ul-viJ" userLabel="central_Clouds">
+            <rect key="frame" x="0.0" y="0.0" width="380" height="460"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloudDownload" translatesAutoresizingMaskIntoConstraints="NO" id="BA8-z3-VAE">
+                    <rect key="frame" x="158" y="84" width="64" height="64"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropBox" translatesAutoresizingMaskIntoConstraints="NO" id="1cr-eo-iga">
+                    <rect key="frame" x="10" y="84" width="64" height="64"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="My0-Ou-v88">
+                    <rect key="frame" x="306" y="84" width="64" height="64"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="googleDrive" translatesAutoresizingMaskIntoConstraints="NO" id="TjA-N4-Pd2">
+                    <rect key="frame" x="84" y="10" width="64" height="64"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oneDrive" translatesAutoresizingMaskIntoConstraints="NO" id="Wmf-tD-sge">
+                    <rect key="frame" x="212" y="10" width="64" height="64"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteCloudiPhone" translatesAutoresizingMaskIntoConstraints="NO" id="Xe8-tw-eMr">
+                    <rect key="frame" x="20" y="155" width="340" height="340"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="340" id="QIV-qb-xYv"/>
+                        <constraint firstAttribute="width" constant="340" id="wGr-d9-fyl"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="A3h-ky-z64"/>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.73725490199999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <constraints>
+                <constraint firstItem="Xe8-tw-eMr" firstAttribute="centerX" secondItem="FS3-Ul-viJ" secondAttribute="centerX" id="1T4-GI-DeH"/>
+                <constraint firstAttribute="trailing" secondItem="My0-Ou-v88" secondAttribute="trailing" constant="10" id="95W-n5-Nk0"/>
+                <constraint firstItem="Xe8-tw-eMr" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BA8-z3-VAE" secondAttribute="bottom" constant="5" id="9Jf-dn-MEc"/>
+                <constraint firstItem="BA8-z3-VAE" firstAttribute="centerX" secondItem="FS3-Ul-viJ" secondAttribute="centerX" id="CMe-QI-G13"/>
+                <constraint firstItem="BA8-z3-VAE" firstAttribute="top" secondItem="TjA-N4-Pd2" secondAttribute="bottom" constant="10" id="HnR-TH-V0d"/>
+                <constraint firstItem="1cr-eo-iga" firstAttribute="centerY" secondItem="BA8-z3-VAE" secondAttribute="centerY" id="JqP-JG-cv7"/>
+                <constraint firstItem="My0-Ou-v88" firstAttribute="centerY" secondItem="BA8-z3-VAE" secondAttribute="centerY" id="RFd-gW-qQA"/>
+                <constraint firstItem="TjA-N4-Pd2" firstAttribute="top" secondItem="FS3-Ul-viJ" secondAttribute="top" constant="10" id="S7e-Jd-AJE"/>
+                <constraint firstItem="1cr-eo-iga" firstAttribute="leading" secondItem="FS3-Ul-viJ" secondAttribute="leading" constant="10" id="T2M-e3-b6q"/>
+                <constraint firstItem="BA8-z3-VAE" firstAttribute="leading" secondItem="TjA-N4-Pd2" secondAttribute="trailing" constant="10" id="mWG-xn-c4Y"/>
+                <constraint firstItem="BA8-z3-VAE" firstAttribute="trailing" secondItem="Wmf-tD-sge" secondAttribute="leading" constant="10" id="mjY-z6-fsI"/>
+                <constraint firstItem="Wmf-tD-sge" firstAttribute="centerY" secondItem="TjA-N4-Pd2" secondAttribute="centerY" id="oeG-69-f7W"/>
+                <constraint firstAttribute="bottom" secondItem="Xe8-tw-eMr" secondAttribute="bottom" constant="-35" id="xqN-AE-dWS"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="59" y="-556"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="box" width="64" height="64"/>
+        <image name="cable" width="310" height="669"/>
+        <image name="cloudDownload" width="64" height="64"/>
+        <image name="dropBox" width="64" height="64"/>
+        <image name="googleDrive" width="64" height="64"/>
+        <image name="laptop" width="344.5" height="480.5"/>
+        <image name="oneDrive" width="64" height="64"/>
+        <image name="phone" width="218" height="423"/>
+        <image name="whiteCloudiPhone" width="649" height="703"/>
+        <image name="whiteiPhone" width="649" height="658"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
