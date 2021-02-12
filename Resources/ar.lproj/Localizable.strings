@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "فشل فى الاتصال مع الخادم";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "رجاءً تحقق من عنوان وهوية الخادم";
 
+"FILES_APP_CELL_TITLE" = "الملفات المحلية";
+"FILES_APP_CELL_SUBTITLE" = "افتح ملفًا بدون نسخه إلى VLC";
+
 "CLOUD_SERVICES" = "الخدمات السحابية";
 "LOGIN" = "تسجيل الدخول";
 "LOGGED_IN" = "متصل";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "شغّل التالي في قائمة الانتظار";
 "APPEND_TO_QUEUE_HINT" = "ألحق إلى قائمة الانتظار";
 "APPEND_TO_QUEUE_LABEL" = "ألحق إلى قائمة الانتظار";
+
+"DISABLE_GROUPS" = "تعطيل المجموعات";
+"DISABLE_GROUPS_SWITCH_HINT" = "تعطيل تخطيط المجموعات";
+"DISPLAY_AS" = "عرض بتنسيق";

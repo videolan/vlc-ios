@@ -1,8 +1,8 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
 "SETTINGS_PRIVACY_TITLE" = "الخصوصية";
-"SETTINGS_VIDEO_TITLE" = "مرئي";
-"SETTINGS_AUDIO_TITLE" = "صوتي";
+"SETTINGS_VIDEO_TITLE" = "فيديو";
+"SETTINGS_AUDIO_TITLE" = "الصوت";
 
 "SETTINGS_THEME_BRIGHT" = "الوضع الفاتح";
 "SETTINGS_THEME_DARK" = "الوضع الداكن";
@@ -11,21 +11,21 @@
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "وصول آمن إلى المحتوى الخاص بك";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "سيتم إخفاء الوسائط الخاصة بك في تطبيق الملفات";
 
-"SETTINGS_DARKTHEME" = "مظهر";
+"SETTINGS_DARKTHEME" = "المظهر";
 "SETTINGS_TIME_STRETCH_AUDIO" = "الوقت المُمتد للصّوت";
-"SETTINGS_BACKGROUND_AUDIO" = "تشغيل الصّوت بالخلفية";
+"SETTINGS_BACKGROUND_AUDIO" = "تشغيل الصّوت في الخلفية";
 "SETTINGS_GENERIC_TITLE" = "عام";
 "SETTINGS_PASSCODE_LOCK" = "قفل برمز مرور";
-"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "السماح لمعرف اللمس لفتح القفل";
-"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "السماح لمعرف الوجه لفتح القفل";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "السماح لتعريف اللمس بفتح القفل";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "السماح لتعريف الوجه بفتح القفل";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "إخفاء مكتبة الوسائط في الملفات";
-"SETTINGS_VIDEO_FULLSCREEN" = "التشغيل في وضع ملئ الشاشة";
-"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
-"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
-"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Never";
+"SETTINGS_VIDEO_FULLSCREEN" = "تشغيل الفيديو في وضع ملئ الشاشة";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "مواصلة تشغيل الفيديو";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "مواصلة تشغيل الصوت";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "أبدا ";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "اسأل";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "دائماً";
-"SETTINGS_NETWORK_PLAY_ALL" = "تلقائياً قم بتشغيل العنصر التالي";
+"SETTINGS_NETWORK_PLAY_ALL" = "تشغيل العنصر التالي تلقائياً";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "تمكين التمرير النصي في قائمة الوسائط";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "مُرشّح فك ضغط المرئيات";
@@ -43,17 +43,17 @@
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "سرعة التّشغيل الافتراضية";
 
 "SETTINGS_GESTURES" = "التحكم بالتشغيل بواسطة الايمائات ";
-"SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
+"SETTINGS_GESTURES_VOLUME" = "سحب لاعلى/لأسفل لتغيير الصوت";
 "SETTINGS_GESTURES_PLAYPAUSE" = "اضغط بإصبعين للتشغيل / الإيقاف المؤقت";
-"SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
-"SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
-"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
+"SETTINGS_GESTURES_BRIGHTNESS" = "سحب لاعلى/لأسفل لتغيير الاضاءة";
+"SETTINGS_GESTURES_SEEK" = "سحب لليمين/لليسار للبحث";
+"SETTINGS_GESTURES_CLOSE" = "قرص للإغلاق";
+"SETTINGS_GESTURE_JUMP_DURATION" = "مدة تنقل متغيرة";
 
 "SETTINGS_SUBTITLES_TITLE" = "التّرجمات";
 "SETTINGS_SUBTITLES_FONT" = "الخط";
 "SETTINGS_SUBTITLES_TEXT_ENCODING" = "ترميز النّص";
-"SETTINGS_SUBTITLES_FONTSIZE" = "حجم الخط الممُعلّق";
+"SETTINGS_SUBTITLES_FONTSIZE" = "حجم الخط النسبي";
 "SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "أصغر";
 "SETTINGS_SUBTITLES_FONTSIZE_SMALL" = "صغير";
 "SETTINGS_SUBTITLES_FONTSIZE_NORMAL" = "عادي";
@@ -84,25 +84,25 @@
 "SETTINGS_HWDECODING" = "فك الترميز بالعتاد";
 "SETTINGS_HWDECODING_ON" = "مفعل";
 "SETTINGS_HWDECODING_OFF" = "معطل";
-"SETTINGS_CASTING" = "بث Casting";
+"SETTINGS_CASTING" = "بث";
 "SETTINGS_PTCASTING" = "ممر عبور الصوت";
-"SETTINGS_PTCASTINGLONG" = "اعتمد على التلفاز في إدارة بث الصوت";
+"SETTINGS_PTCASTINGLONG" = "اسمح للتلفاز بإدارة تقديم الصوت";
 
-"SETTINGS_FEEDBACK" = "النتائج";
-"SETTINGS_SEND_FEEDBACK" = "ارسال النتائج";
+"SETTINGS_FEEDBACK" = "ردود الفعل";
+"SETTINGS_SEND_FEEDBACK" = "ارسال ردود الفعل";
 "SETTINGS_SEND_RATING" = "رجاء قيم VLC للـiOS";
 
 "SETTINGS_MEDIA_LIBRARY" = "مكتبة الوسائط";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "إجبار VLC على إعادة فحص مكتبة الوسائط";
 "SETTINGS_DECRAPIFY" = "تحسين أسماء العناصر للعرض";
-"SETTINGS_SHOW_THUMBNAILS" = "إظهار الصور المصغرة للفيديو";
+"SETTINGS_SHOW_THUMBNAILS" = "إظهار الصور الفيديو المصغرة ";
 "SETTINGS_SHOW_ARTWORKS" = "إظهار الأعمال الفنية الصوتية";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "قم بتضمين مكتبة الوسائط في النسخ الاحتياطي للجهاز";
 
 "SETTINGS_FILE_SYNC" = "مزامنة الملفات";
 "SETTINGS_WIFISHARING_IPv6" = "دعم IPv6 لمشاركة الواي فاي";
 
-"SETTINGS_ARTWORK" = "العمل الفني";
-"SETTINGS_DOWNLOAD_ARTWORK" = "تنزيل العمل الفني";
+"SETTINGS_ARTWORK" = "الغلاف";
+"SETTINGS_DOWNLOAD_ARTWORK" = "تنزيل الغلاف";
 
 "ABOUT_APP_TV" = "حول VLC لـ tvOS";
