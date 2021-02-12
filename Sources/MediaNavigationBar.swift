@@ -13,8 +13,8 @@ import AVKit
 
 @objc (VLCMediaNavigationBarDelegate)
 protocol MediaNavigationBarDelegate {
+    func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidTapMinimize(_ mediaNavigationBar: MediaNavigationBar)
-    func mediaNavigationBarDidLongPressMinimize(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar)
 }
 
@@ -26,14 +26,20 @@ protocol MediaNavigationBarDelegate {
 
     lazy var minimizePlaybackButton: UIButton = {
         var minButton = UIButton(type: .system)
-        let longPressGesture = UILongPressGestureRecognizer(target: self,
-                                                            action: #selector(handleMinimizeLongPress))
-        minButton.addGestureRecognizer(longPressGesture)
         minButton.addTarget(self, action: #selector(handleMinimizeTap), for: .touchUpInside)
-        minButton.setImage(UIImage(named: "back"), for: .normal)
+        minButton.setImage(UIImage(named: "minimize"), for: .normal)
         minButton.tintColor = .white
         minButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return minButton
+    }()
+
+    lazy var closePlaybackButton: UIButton = {
+        var closeButton = UIButton(type: .system)
+        closeButton.addTarget(self, action: #selector(handleCloseTap), for: .touchUpInside)
+        closeButton.setImage(UIImage(named: "close"), for: .normal)
+        closeButton.tintColor = .white
+        closeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        return closeButton
     }()
 
     lazy var mediaTitleTextLabel: VLCMarqueeLabel = {
@@ -92,6 +98,7 @@ protocol MediaNavigationBarDelegate {
         spacing = 20.0
         distribution = .fill
         translatesAutoresizingMaskIntoConstraints = false
+        addArrangedSubview(closePlaybackButton)
         addArrangedSubview(minimizePlaybackButton)
         addArrangedSubview(mediaTitleTextLabel)
         addArrangedSubview(chromeCastButton)
@@ -103,14 +110,15 @@ protocol MediaNavigationBarDelegate {
     }
 
     // MARK: Button Actions
+
+    func handleCloseTap() {
+        assert(delegate != nil, "Delegate not set for MediaNavigationBar")
+        delegate?.mediaNavigationBarDidTapClose(self)
+    }
+
     func handleMinimizeTap() {
         assert(delegate != nil, "Delegate not set for MediaNavigationBar")
         delegate?.mediaNavigationBarDidTapMinimize(self)
-    }
-
-    func handleMinimizeLongPress() {
-        assert(delegate != nil, "Delegate not set for MediaNavigationBar")
-        delegate?.mediaNavigationBarDidLongPressMinimize(self)
     }
 
     func toggleChromeCast() {

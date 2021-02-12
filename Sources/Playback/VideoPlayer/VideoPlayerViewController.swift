@@ -763,12 +763,11 @@ extension VideoPlayerViewController: PlayerControllerDelegate {
 // MARK: - MediaNavigationBarDelegate
 
 extension VideoPlayerViewController: MediaNavigationBarDelegate {
-    func mediaNavigationBarDidTapMinimize(_ mediaNavigationBar: MediaNavigationBar) {
-        delegate?.videoPlayerViewControllerDidMinimize(self)
+    func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar) {
+        playbackService.stopPlayback()
     }
 
-    func mediaNavigationBarDidLongPressMinimize(_ mediaNavigationBar: MediaNavigationBar) {
-    // [self closePlayback:mediaNavigationBar.minimizePlaybackButton];
+    func mediaNavigationBarDidTapMinimize(_ mediaNavigationBar: MediaNavigationBar) {
         delegate?.videoPlayerViewControllerDidMinimize(self)
     }
 
