@@ -131,6 +131,9 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "La conexión con el servidor falló";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Compruebe su dirección del servidor y las credenciales";
 
+"FILES_APP_CELL_TITLE" = "Archivos locales";
+"FILES_APP_CELL_SUBTITLE" = "Abrir un archivo sin copiarlo a VLC";
+
 "CLOUD_SERVICES" = "Servicios en la nube";
 "LOGIN" = "Iniciar sesión";
 "LOGGED_IN" = "Sesión iniciada";
@@ -458,3 +461,7 @@
 "PLAY_NEXT_IN_QUEUE_LABEL" = "Reproducir el siguiente de la cola";
 "APPEND_TO_QUEUE_HINT" = "Añadir a la cola";
 "APPEND_TO_QUEUE_LABEL" = "Añadir a la cola";
+
+"DISABLE_GROUPS" = "Deshabilitar grupos";
+"DISABLE_GROUPS_SWITCH_HINT" = "Deshabilitar disposición de grupos";
+"DISPLAY_AS" = "Visualizar como";
