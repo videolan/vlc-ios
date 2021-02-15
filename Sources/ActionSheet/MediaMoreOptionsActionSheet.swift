@@ -122,6 +122,14 @@ protocol MediaMoreOptionsActionSheetDelegate {
         return sleepTimerView.remainingTime()
     }
 
+// MARK: - Equalizer
+
+    private lazy var equalizerView: EqualizerView = {
+        let equalizerView = EqualizerView(frame: offScreenFrame)
+        equalizerView.delegate = PlaybackService.sharedInstance()
+        return equalizerView
+    }()
+
     func resetOptionsIfNecessary() {
         // FIXME: Reset Equalizer if needed
         videoFiltersView.resetSlidersIfNeeded()
@@ -214,6 +222,8 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
             return playbackView
         case .sleepTimer:
             return sleepTimerView
+        case .equalizer:
+            return equalizerView
         default:
             return mockView
         }

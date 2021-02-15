@@ -57,8 +57,10 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 
 @end
 
+@protocol EqualizerViewDelegate;
+
 NS_SWIFT_NAME(PlaybackService)
-@interface VLCPlaybackService : NSObject <VLCEqualizerViewDelegate>
+@interface VLCPlaybackService : NSObject <EqualizerViewDelegate>
 
 @property (nonatomic, strong, nullable) UIView *videoOutputView;
 

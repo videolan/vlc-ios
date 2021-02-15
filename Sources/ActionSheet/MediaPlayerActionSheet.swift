@@ -66,6 +66,8 @@ class MediaPlayerActionSheet: ActionSheet {
             return MediaPlayerActionSheetCellIdentifier.playback.description
         } else if childView is SleepTimerView {
             return MediaPlayerActionSheetCellIdentifier.sleepTimer.description
+        } else if childView is EqualizerView {
+            return MediaPlayerActionSheetCellIdentifier.equalizer.description
         } else {
             return NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
         }
