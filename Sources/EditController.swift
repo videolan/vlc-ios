@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-protocol EditControllerDelegate: class {
+protocol EditControllerDelegate: AnyObject {
     func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> BaseCollectionViewCell?
     func editController(editController: EditController, present viewController: UIViewController)
     func editControllerDidSelectMultipleItem(editContrller: EditController)

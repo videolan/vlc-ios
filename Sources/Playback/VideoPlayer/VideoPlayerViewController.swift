@@ -11,7 +11,7 @@
 *****************************************************************************/
 
 @objc(VLCVideoPlayerViewControllerDelegate)
-protocol VideoPlayerViewControllerDelegate: class {
+protocol VideoPlayerViewControllerDelegate: AnyObject {
     func videoPlayerViewControllerDidMinimize(_ videoPlayerViewController: VideoPlayerViewController)
     func videoPlayerViewControllerShouldBeDisplayed(_ videoPlayerViewController: VideoPlayerViewController) -> Bool
 }

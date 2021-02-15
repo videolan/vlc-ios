@@ -17,15 +17,15 @@ protocol SectionType: CustomStringConvertible {
     var preferenceKey: String? { get }
 }
 
-protocol PasscodeActivateDelegate: class {
+protocol PasscodeActivateDelegate: AnyObject {
     func passcodeLockSwitchOn(state: Bool)
 }
 
-protocol MedialibraryHidingActivateDelegate: class {
+protocol MedialibraryHidingActivateDelegate: AnyObject {
     func medialibraryHidingLockSwitchOn(state: Bool)
 }
 
-protocol MediaLibraryBackupActivateDelegate: class {
+protocol MediaLibraryBackupActivateDelegate: AnyObject {
     func mediaLibraryBackupActivateSwitchOn(state: Bool)
 }
 

@@ -11,7 +11,7 @@
 
 import UIKit
 
-protocol SleepTimerViewDelegate: class {
+protocol SleepTimerViewDelegate: AnyObject {
     func sleepTimerViewCloseActionSheet()
     func sleepTimerViewShowAlert(message: String, seconds: Double)
     func sleepTimerViewHideAlertIfNecessary()

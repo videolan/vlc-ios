@@ -25,7 +25,7 @@ extension NSNotification {
 
 // MARK: -
 
-@objc protocol MediaLibraryObserver: class {
+@objc protocol MediaLibraryObserver: AnyObject {
     // Video
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didAddVideos videos: [VLCMLMedia])
@@ -112,7 +112,7 @@ extension NSNotification {
 
 // MARK: -
 
-protocol MediaLibraryMigrationDelegate: class {
+protocol MediaLibraryMigrationDelegate: AnyObject {
     func medialibraryDidStartMigration(_ medialibrary: MediaLibraryService)
 
     func medialibraryDidFinishMigration(_ medialibrary: MediaLibraryService)
@@ -122,7 +122,7 @@ protocol MediaLibraryMigrationDelegate: class {
 
 // MARK: - Delegate for "Backup Media Library" setting
 
-@objc protocol MediaLibraryDeviceBackupDelegate: class {
+@objc protocol MediaLibraryDeviceBackupDelegate: AnyObject {
     @objc func medialibraryDidStartExclusion()
 
     @objc func medialibraryDidCompleteExclusion()
@@ -130,7 +130,7 @@ protocol MediaLibraryMigrationDelegate: class {
 
 // MARK: - Delegate for hiding Media Library
 
-@objc protocol MediaLibraryHidingDelegate: class {
+@objc protocol MediaLibraryHidingDelegate: AnyObject {
     @objc func medialibraryDidStartHiding()
 
     @objc func medialibraryDidCompleteHiding()

@@ -11,7 +11,7 @@
 *****************************************************************************/
 
 @objc (VLCVideoPlayerControlsDelgate)
-protocol VideoPlayerControlsDelgate: class {
+protocol VideoPlayerControlsDelgate: AnyObject {
     // MARK: - Left Controls
 
     func videoPlayerControlsDelgateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls)

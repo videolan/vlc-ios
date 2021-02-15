@@ -11,7 +11,7 @@
 
 import UIKit
 
-protocol VideoFiltersViewDelegate: class {
+protocol VideoFiltersViewDelegate: AnyObject {
     func videoFiltersViewShowIcon()
     func videoFiltersViewHideIcon()
 }

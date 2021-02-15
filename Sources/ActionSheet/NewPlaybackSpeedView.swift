@@ -11,7 +11,7 @@
 
 import UIKit
 
-protocol NewPlaybackSpeedViewDelegate: class {
+protocol NewPlaybackSpeedViewDelegate: AnyObject {
     func newPlaybackSpeedViewHandleOptionChange(title: String)
     func newPlaybackSpeedViewShowIcon()
     func newPlaybackSpeedViewHideIcon()

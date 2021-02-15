@@ -14,7 +14,7 @@ enum ActionSheetSortHeaderOptions {
     case groupChange
 }
 
-protocol ActionSheetSortSectionHeaderDelegate: class {
+protocol ActionSheetSortSectionHeaderDelegate: AnyObject {
     func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader,
                                       onSwitchIsOnChange: Bool,
                                       type: ActionSheetSortHeaderOptions)

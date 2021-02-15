@@ -13,7 +13,7 @@
 import Foundation
 
 // MARK: - Delegate
-protocol MediaCollectionViewCellDelegate: class {
+protocol MediaCollectionViewCellDelegate: AnyObject {
     func mediaCollectionViewCellHandleDelete(of cell: MediaCollectionViewCell)
     func mediaCollectionViewCellMediaTapped(in cell: MediaCollectionViewCell)
     func mediaCollectionViewCellSetScrolledCellIndex(of cell: MediaCollectionViewCell?)

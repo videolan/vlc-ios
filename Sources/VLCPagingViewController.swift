@@ -282,12 +282,12 @@ protocol IndicatorInfoProvider {
 
 }
 
-protocol PagerTabStripIsProgressiveDelegate: class {
+protocol PagerTabStripIsProgressiveDelegate: AnyObject {
 
     func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool)
 }
 
-protocol PagerTabStripDataSource: class {
+protocol PagerTabStripDataSource: AnyObject {
 
     func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController]
 }

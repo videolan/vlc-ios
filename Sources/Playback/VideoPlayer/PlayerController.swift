@@ -16,7 +16,7 @@ struct MediaProjection {
     }
 }
 
-protocol PlayerControllerDelegate: class {
+protocol PlayerControllerDelegate: AnyObject {
     func playerControllerExternalScreenDidConnect(_ playerController: PlayerController)
     func playerControllerExternalScreenDidDisconnect(_ playerController: PlayerController)
     func playerControllerApplicationBecameActive(_ playerController: PlayerController)

@@ -19,7 +19,7 @@ enum PasscodeAction {
     case enter
 }
 
-protocol PasscodeLockControllerDelegate: class {
+protocol PasscodeLockControllerDelegate: AnyObject {
     func passcodeViewControllerDidEnterPassword(controller: PasscodeLockController)
 }
 

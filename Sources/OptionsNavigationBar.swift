@@ -18,7 +18,7 @@ import AVKit
     case sleepTimer
 }
 
-protocol OptionsNavigationBarDelegate: class {
+protocol OptionsNavigationBarDelegate: AnyObject {
     func optionsNavigationBarDisplayAlert(title: String, message: String, button: UIButton)
     func optionsNavigationBarGetRemainingTime() -> String
 }

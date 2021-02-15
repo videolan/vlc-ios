@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-protocol EditToolbarDelegate: class {
+protocol EditToolbarDelegate: AnyObject {
     func editToolbarDidDelete(_ editToolbar: EditToolbar)
     func editToolbarDidAddToPlaylist(_ editToolbar: EditToolbar)
     func editToolbarDidAddToMediaGroup(_ editToolbar: EditToolbar)

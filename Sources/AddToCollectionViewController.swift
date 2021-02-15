@@ -11,7 +11,7 @@
 
 import Foundation
 
-protocol AddToCollectionViewControllerDelegate: class {
+protocol AddToCollectionViewControllerDelegate: AnyObject {
     func addToCollectionViewController(_ addToCollectionViewController: AddToCollectionViewController,
                                        didSelectCollection collection: MediaCollectionModel)
     func addToCollectionViewController(_ addToPlaylistViewController: AddToCollectionViewController,
