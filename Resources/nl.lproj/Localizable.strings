@@ -131,8 +131,8 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "VERBINDING MET SERVER MISLUKT";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Controleer uw server-adres en inloggegevens";
 
-"FILES_APP_CELL_TITLE" = "Local files";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+"FILES_APP_CELL_TITLE" = "Lokale bestanden";
+"FILES_APP_CELL_SUBTITLE" = "Een bestand openen zonder het te kopiëren naar VLC";
 
 "CLOUD_SERVICES" = "Cloud-diensten";
 "LOGIN" = "Aanmelden";
@@ -462,6 +462,6 @@
 "APPEND_TO_QUEUE_HINT" = "Toevoegen aan wachtrij";
 "APPEND_TO_QUEUE_LABEL" = "Toevoegen aan wachtrij";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
-"DISPLAY_AS" = "Display as";
+"DISABLE_GROUPS" = "Groepen uitschakelen";
+"DISABLE_GROUPS_SWITCH_HINT" = "Groep-layout uitschakelen";
+"DISPLAY_AS" = "Weergeven als";
