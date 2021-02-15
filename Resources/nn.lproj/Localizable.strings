@@ -85,7 +85,7 @@
 "NETWORK_TITLE" = "Nettverksstraum";
 "OPEN_NETWORK_HELP" = "Skriv inn ei HTTP-, RTSP-, RTMP-, MMS-, FTP- eller UDP/RTP-adresse for å opna straumen direkte.";
 "HTTP_UPLOAD_SERVER_OFF" = "Uverksam tenar";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Ingen verksame Wi-Fi-tilkoplingar";
 "OPEN_STREAM_OR_DOWNLOAD" = "Vil du lasta ned eller spela av denne URL-en?";
 "SHARED_VLC_IOS_LIBRARY" = "Delt VLC for iOS-bibliotek";
 "SMB_CIFS_FILE_SERVERS" = "Filtenarar (SMB)";
@@ -131,8 +131,8 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "TENARSAMBANDET FEILA";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Ver snill og kontroller tenaradresse og fullmakter";
 
-"FILES_APP_CELL_TITLE" = "Local files";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+"FILES_APP_CELL_TITLE" = "Lokale filer";
+"FILES_APP_CELL_SUBTITLE" = "Opna ei fil utan å kopiera henne til VLC";
 
 "CLOUD_SERVICES" = "Skytenester";
 "LOGIN" = "Innlogging";
@@ -182,10 +182,10 @@
 "OFF" = "Av";
 
 "EMPTY_LIBRARY" = "Tomt mediabibliotek";
-"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
+"EMPTY_LIBRARY_LONG" = "For avspeling kan du strøyma media frå ein tenar på det lokale nettverket ditt, frå skya, eller synkronisera media til eininga di med iTunes, WiFi-opplasting eller skytenester.";
 
 "EMPTY_PLAYLIST" = "Tom speleliste";
-"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Legg til media medan du redigerer dei ulike kategoriane.";
 
 "PLAYBACK_SCRUB_HELP" = "Sveip fingeren ned for å justera skrubbingsgraden";
 "PLAYBACK_SCRUB_HIGH" = "Høgfartskrubbing";
@@ -247,8 +247,8 @@
 "WEBINTF_URL_EMPTY" = "URL kan ikkje vera tom.";
 "WEBINTF_URL_INVALID" = "Ikkje ei gyldig adresse.";
 "WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
-"WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
-"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Feil kode.<br>Attståande forsøk: ";
+"WEBINTF_AUTH_BANNED" = "Du skreiv inn for mange kodar som var feil.<br>Start VLC iOS på nytt og prøv igjen.";
 
 
 
@@ -301,7 +301,7 @@
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Trykk %@ for å sletta"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Confirm the deletion of the selection";
+"DELETE_MESSAGE" = "Stadfest sletting av utvalet";
 "DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_TITLE" = "Slett val";
