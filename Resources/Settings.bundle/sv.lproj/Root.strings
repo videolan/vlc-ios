@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Omslag";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Ladda ned omslag";
 
+"SETTINGS_LAB" = "Labb";
+"SETTINGS_NEW_PLAYER" = "Ny spelare";
+
 "ABOUT_APP_TV" = "Om VLC för tvOS";
