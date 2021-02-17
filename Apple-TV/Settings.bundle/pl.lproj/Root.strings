@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Okładka";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Pobierz okładkę";
 
+"SETTINGS_LAB" = "Laboratorium";
+"SETTINGS_NEW_PLAYER" = "Nowy odtwarzacz";
+
 "ABOUT_APP_TV" = "O VLC dla tvOS";

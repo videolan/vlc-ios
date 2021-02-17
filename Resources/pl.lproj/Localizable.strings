@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "Pozycja odtwarzania";
 "VIDEO_FILTER" = "Filtry wideo";
 "VIDEO_FILTER_RESET_BUTTON" = "Zresetuj filtry wideo";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Zmień proporcje obrazu widea";
-"PLAY_PAUSE_BUTTON" = "Odtwórz lub wstrzymaj bieżące odtwarzanie";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Proporcje obrazu widea";
 "BWD_BUTTON" = "Skok do tyłu";
 "FWD_BUTTON" = "Skok do przodu";
 "PLAY_BUTTON" = "Odtwarzaj";
 "NEXT_BUTTON" = "Następny";
 "PREV_BUTTON" = "Poprzedni";
 "PLAY_ALL_BUTTON" = "Odtwórz wszystko";
+
+"RESET_VIDEO_FILTERS" = "Czy chcesz zresetować filtry wideo?";
+"RESET_PLAYBACK_SPEED" = "Czy chcesz zresetować prędkość odtwarzania?";
+"RESET_EQUALIZER" = "Czy chcesz zresetować ustawienia korektora?";
+"RESET_SLEEP_TIMER" = "Czy chcesz zresetować wyłącznik czasowy?";
 
 "VERSION_FORMAT" = "Wersja: %@";
 "BASED_ON_FORMAT" = "Na podstawie:<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "Różni wykonawcy";
 "UNKNOWN_ALBUM" = "Nieznany album";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Napisy i ścieżki dźwiękowe";
+"SUBTITLE_AND_TRACK_HINT" = "Wybierz napisy lub ścieżki dźwiękowe";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "Interfejs DVD";
+
+"ROTATION_LOCK_BUTTON" = "Blokada obrotu";
+"ROTATION_LOCK_HINT" = "Zablokuj wideo w bieżącej orientacji";
+
+"BACKWARD_BUTTON" = "Wstecz";
+"BACKWARD_HINT" = "Skok wstecz";
+
+"PREVIOUS_BUTTON" = "Poprzedni";
+"PREVIOUS_HINT" = "Poprzednie media";
+
+"PLAY_PAUSE_BUTTON" = "Odtwórz lub wstrzymaj";
+"PLAY_PAUSE_HINT" = "Odtwórz lub wstrzymaj bieżące odtwarzanie";
+
+"NEXT_HINT" = "Następne media";
+
+"FORWARD_BUTTON" = "Dalej";
+"FORWARD_HINT" = "Skok do przodu";
+
 "INTERFACE_LOCK_BUTTON" = "Zablokuj interfejs";
-"INTERFACE_LOCK_HINT" = "Wyłącz kontrolki interfejsu";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Proporcje obrazu widea";
+"VIDEO_ASPECT_RATIO_HINT" = "Zmień współczynnik proporcji bieżącego wideo";
+
 "MORE_OPTIONS_BUTTON" = "Więcej";
 "MORE_OPTIONS_HINT" = "Zobacz więcej opcji sterowania";
-"REPEAT_MODE_HINT" = "Zmień tryb powtarzania bieżącego elementu";
-"VIDEO_ASPECT_RATIO_HINT" = "Zmień współczynnik proporcji bieżącego wideo";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Korektor graficzny";
