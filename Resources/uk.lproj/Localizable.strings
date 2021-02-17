@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "Позиція відтворення";
 "VIDEO_FILTER" = "Відеофільтри";
 "VIDEO_FILTER_RESET_BUTTON" = "Очистити відеофільтри";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Перемкнути співвідношення сторін відео";
-"PLAY_PAUSE_BUTTON" = "Грати або зупинити поточне відтворення";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Співвідношення сторін відео";
 "BWD_BUTTON" = "Стрибок назад";
 "FWD_BUTTON" = "Стрибок вперед";
 "PLAY_BUTTON" = "Відтворити";
 "NEXT_BUTTON" = "Наступний";
 "PREV_BUTTON" = "Попередній";
 "PLAY_ALL_BUTTON" = "Відтворити все";
+
+"RESET_VIDEO_FILTERS" = "Ви хочете очистити фільтри відео?";
+"RESET_PLAYBACK_SPEED" = "Ви хочете вернути швидкість відтворення?";
+"RESET_EQUALIZER" = "Ви хочете очистити налаштування еквалайзера?";
+"RESET_SLEEP_TIMER" = "Ви хочете очистити параметри таймера сну?";
 
 "VERSION_FORMAT" = "Версія: %@";
 "BASED_ON_FORMAT" = "На основі:<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "Різні виконавці";
 "UNKNOWN_ALBUM" = "Невідомий альбом";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Субтитри та доріжки аудіо";
+"SUBTITLE_AND_TRACK_HINT" = "Виберіть субтитри або доріжку аудіо";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "Інтерфейс DVD";
+
+"ROTATION_LOCK_BUTTON" = "Блокування повороту";
+"ROTATION_LOCK_HINT" = "Блокувати поточну орієнтацію на відео";
+
+"BACKWARD_BUTTON" = "Назад";
+"BACKWARD_HINT" = "Стрибок назад";
+
+"PREVIOUS_BUTTON" = "Попередній";
+"PREVIOUS_HINT" = "Наступне медіа";
+
+"PLAY_PAUSE_BUTTON" = "Відтворити або призупинити";
+"PLAY_PAUSE_HINT" = "Відтворити або зупинити поточне відтворення";
+
+"NEXT_HINT" = "Наступне медіа";
+
+"FORWARD_BUTTON" = "Вперед";
+"FORWARD_HINT" = "Стрибок вперед";
+
 "INTERFACE_LOCK_BUTTON" = "Заблокувати інтерфейс";
-"INTERFACE_LOCK_HINT" = "Вимкнути управління інтерфейсом";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Співвідношення сторін відео";
+"VIDEO_ASPECT_RATIO_HINT" = "Змінити співвідношення сторін поточного відео";
+
 "MORE_OPTIONS_BUTTON" = "Більше";
 "MORE_OPTIONS_HINT" = "Переглянути більше параметрів управління";
-"REPEAT_MODE_HINT" = "Змінити режим повторення поточного елемента";
-"VIDEO_ASPECT_RATIO_HINT" = "Змінити співвідношення сторін поточного відео";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Еквалайзер";

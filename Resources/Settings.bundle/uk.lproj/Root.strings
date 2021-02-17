@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Обкладинка";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Звантажити обкладинку";
 
+"SETTINGS_LAB" = "Лабораторія";
+"SETTINGS_NEW_PLAYER" = "Новий програвач";
+
 "ABOUT_APP_TV" = "Про VLC для tvOS";
