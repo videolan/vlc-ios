@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "Afspeelpositie";
 "VIDEO_FILTER" = "Videofilters";
 "VIDEO_FILTER_RESET_BUTTON" = "Videofilters herstellen";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Beeldverhouding wisselen";
-"PLAY_PAUSE_BUTTON" = "Afspelen starten of pauzeren";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Beeldverhouding video";
 "BWD_BUTTON" = "Achteruit springen";
 "FWD_BUTTON" = "Vooruit springen";
 "PLAY_BUTTON" = "Afspelen";
 "NEXT_BUTTON" = "Volgende";
 "PREV_BUTTON" = "Vorige";
 "PLAY_ALL_BUTTON" = "Alles afspelen";
+
+"RESET_VIDEO_FILTERS" = "Wilt u de videofilters herstellen?";
+"RESET_PLAYBACK_SPEED" = "Wilt u de afspeelsnelheid herstellen?";
+"RESET_EQUALIZER" = "Wilt u de equalizer-instellingen herstellen?";
+"RESET_SLEEP_TIMER" = "Wilt u de slaap-timer herstellen?";
 
 "VERSION_FORMAT" = "Versie: %@";
 "BASED_ON_FORMAT" = "Gebaseerd op:<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "Diverse artiesten";
 "UNKNOWN_ALBUM" = "Onbekend album";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Ondertitel- en audiosporen";
+"SUBTITLE_AND_TRACK_HINT" = "Ondertitel- of audiosporen kiezen";
+
+"DVD_BUTTON" = "Dvd";
+"DVD_HINT" = "Dvd-interface";
+
+"ROTATION_LOCK_BUTTON" = "Draaivergrendeling";
+"ROTATION_LOCK_HINT" = "Video in huidige oriëntatie vergrendelen";
+
+"BACKWARD_BUTTON" = "Achteruit";
+"BACKWARD_HINT" = "Achteruit springen";
+
+"PREVIOUS_BUTTON" = "Vorige";
+"PREVIOUS_HINT" = "Vorig medium";
+
+"PLAY_PAUSE_BUTTON" = "Afspelen of pauzeren";
+"PLAY_PAUSE_HINT" = "Afspelen starten of pauzeren";
+
+"NEXT_HINT" = "Volgend medium";
+
+"FORWARD_BUTTON" = "Vooruit";
+"FORWARD_HINT" = "Vooruit springen";
+
 "INTERFACE_LOCK_BUTTON" = "Interface vergrendelen";
-"INTERFACE_LOCK_HINT" = "Interfacebedieningen uitschakelen";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Beeldverhouding video";
+"VIDEO_ASPECT_RATIO_HINT" = "Beelverhouding van de huidige video veranderen";
+
 "MORE_OPTIONS_BUTTON" = "Meer";
 "MORE_OPTIONS_HINT" = "Meer optiebedieningen weergeven";
-"REPEAT_MODE_HINT" = "Herhaalmodus van huidig item veranderen";
-"VIDEO_ASPECT_RATIO_HINT" = "Beelverhouding van de huidige video veranderen";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equalizer";

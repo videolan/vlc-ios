@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Albumhoes";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albumhoes downloaden";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "Nieuwe speler";
+
 "ABOUT_APP_TV" = "Over VLC voor tvOS";
