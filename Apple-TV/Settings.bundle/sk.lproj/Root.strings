@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Dielo";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Stiahnuť dielo";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "Nový prehrávač";
+
 "ABOUT_APP_TV" = "O aplikácii VLC pre tvOS";
