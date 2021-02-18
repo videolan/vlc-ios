@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "Position de lecture";
 "VIDEO_FILTER" = "Filtres vidéo";
 "VIDEO_FILTER_RESET_BUTTON" = "Réinitialiser les filtres vidéo";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Changer le format d'écran";
-"PLAY_PAUSE_BUTTON" = "Lancer ou mettre en pause la lecture";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Proportions de la vidéo";
 "BWD_BUTTON" = "Saut arrière";
 "FWD_BUTTON" = "Saut avant";
 "PLAY_BUTTON" = "Lire";
 "NEXT_BUTTON" = "Suivant";
 "PREV_BUTTON" = "Précédent";
 "PLAY_ALL_BUTTON" = "Tout lire";
+
+"RESET_VIDEO_FILTERS" = "Voulez-vous réinitialiser les filtres vidéo ?";
+"RESET_PLAYBACK_SPEED" = "Voulez-vous réinitialiser la vitesse de lecture ?";
+"RESET_EQUALIZER" = "Voulez-vous réinitialiser les paramètres de l'égaliseur ?";
+"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
 "VERSION_FORMAT" = "Version : %@";
 "BASED_ON_FORMAT" = "Basé sur :<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "Artistes divers";
 "UNKNOWN_ALBUM" = "Album inconnu";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Sous-titres et pistes audio";
+"SUBTITLE_AND_TRACK_HINT" = "Choisissez des sous-titres ou des pistes audio";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "Interface DVD";
+
+"ROTATION_LOCK_BUTTON" = "Verrouillage de la rotation";
+"ROTATION_LOCK_HINT" = "Verrouiller la vidéo sur l'orientation actuelle";
+
+"BACKWARD_BUTTON" = "Reculer";
+"BACKWARD_HINT" = "Saut arrière";
+
+"PREVIOUS_BUTTON" = "Précédent";
+"PREVIOUS_HINT" = "Média précédent";
+
+"PLAY_PAUSE_BUTTON" = "Lecture ou pause";
+"PLAY_PAUSE_HINT" = "Lecture ou pause de la lecture en court";
+
+"NEXT_HINT" = "Média suivant";
+
+"FORWARD_BUTTON" = "Avancer";
+"FORWARD_HINT" = "Saut avant";
+
 "INTERFACE_LOCK_BUTTON" = "Verrouiller l'interface";
-"INTERFACE_LOCK_HINT" = "Désactiver les contrôles d'interface";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Proportions de la vidéo";
+"VIDEO_ASPECT_RATIO_HINT" = "Modifier le format de la vidéo en cours";
+
 "MORE_OPTIONS_BUTTON" = "Plus";
 "MORE_OPTIONS_HINT" = "Voir plus de contrôles d'option";
-"REPEAT_MODE_HINT" = "Changer le mode de répétition de l'élément en cours";
-"VIDEO_ASPECT_RATIO_HINT" = "Modifier le format de la vidéo en cours";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Égaliseur";
