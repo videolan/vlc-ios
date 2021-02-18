@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Grafica";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Scarica grafica";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "Nuovo lettore";
+
 "ABOUT_APP_TV" = "Informazioni su VLC per tvOS";
