@@ -14,7 +14,16 @@
 
 extension VideoPlayerViewController: VideoPlayerControlsDelgate {
     func videoPlayerControlsDelgateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls) {
-        // FIXME
+        if self.trackSelector.isHidden == true
+            || trackSelector.switchingTracksNotChapters == false {
+            trackSelector.switchingTracksNotChapters = true
+            trackSelector.isHidden = false
+            trackSelector.alpha = 1
+            trackSelector.update()
+        } else {
+            trackSelector.isHidden = true
+            trackSelector.switchingTracksNotChapters = false
+        }
     }
 
     func videoPlayerControlsDelgateDidTapDVD(_ videoPlayerControls: VideoPlayerControls) {

@@ -168,6 +168,19 @@ class VideoPlayerViewController: UIViewController {
 
     private var isFirstCall: Bool = true
 
+    private(set) lazy var trackSelector: VLCTrackSelectorView = {
+        var trackSelector = VLCTrackSelectorView(frame: .zero)
+        trackSelector.parentViewController = self
+        trackSelector.isHidden = true
+        trackSelector.translatesAutoresizingMaskIntoConstraints = false
+        trackSelector.completionHandler = ({
+            finished in
+            trackSelector.isHidden = true
+        })
+        view.addSubview(trackSelector)
+        return trackSelector
+    }()
+
     // MARK: - VideoOutput
 
     private lazy var backgroundGradientLayer: CAGradientLayer = {
@@ -473,6 +486,17 @@ private extension VideoPlayerViewController {
             previousSeekState = .backward
         }
     }
+
+    @objc private func downloadMoreSPU() {
+        let targetViewController: VLCPlaybackInfoSubtitlesFetcherViewController =
+            VLCPlaybackInfoSubtitlesFetcherViewController(nibName: nil,
+                                                          bundle: nil)
+        targetViewController.title = NSLocalizedString("DOWNLOAD_SUBS_FROM_OSO",
+                                                       comment: "")
+
+        let modalNavigationController = UINavigationController(rootViewController: targetViewController)
+        present(modalNavigationController, animated: true, completion: nil)
+    }
 }
 
 // MARK: - Gesture handlers
@@ -492,6 +516,7 @@ extension VideoPlayerViewController {
 
     private func setControlsHidden(_ hidden: Bool, animated: Bool) {
         playerController.isControlsHidden = hidden
+        trackSelector.isHidden = true
         if let alert = alertController, hidden {
             alert.dismiss(animated: true, completion: nil)
             alertController = nil
@@ -583,6 +608,7 @@ private extension VideoPlayerViewController {
         setupMediaNavigationBarConstraints()
         setupVideoPlayerControlsConstraints()
         setupScrubProgressBarConstraints()
+        setupTrackSelectorContraints()
     }
 
     private func setupVideoOutputConstraints() {
@@ -632,6 +658,24 @@ private extension VideoPlayerViewController {
             scrubProgressBar.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
                                                        constant: -margin),
             scrubProgressBar.bottomAnchor.constraint(equalTo: videoPlayerControls.topAnchor, constant: -margin)
+        ])
+    }
+
+    private func setupTrackSelectorContraints() {
+        let widthContraint = trackSelector.widthAnchor.constraint(equalTo: view.widthAnchor,
+                                                                   multiplier: 2.0/3.0)
+        widthContraint.priority = .required - 1
+
+        NSLayoutConstraint.activate([
+            trackSelector.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            trackSelector.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            trackSelector.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor,
+                                                 multiplier: 1,
+                                                 constant: 420.0),
+            widthContraint,
+            trackSelector.heightAnchor.constraint(lessThanOrEqualTo: view.heightAnchor,
+                                                  multiplier: 2.0/3.0,
+                                                  constant: 0)
         ])
     }
 

@@ -32,3 +32,5 @@
 #import "NSString+SupportedMedia.h"
 #import "VLCStoreViewController.h"
 #import "VLCFirstStepsViewController.h"
+#import "VLCTrackSelectorView.h"
+#import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
