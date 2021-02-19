@@ -144,7 +144,13 @@ class VideoPlayerViewController: UIViewController {
         if isIPad {
             videoPlayerControls.rotationLockButton.isHidden = true
         } else {
-            let image = UIImage(named: "interfaceLock")?.withRenderingMode(.alwaysTemplate)
+            var image: UIImage?
+            if #available(iOS 13.0, *) {
+                let largeConfig = UIImage.SymbolConfiguration(scale: .large)
+                image = UIImage(systemName: "lock.rotation")?.withConfiguration(largeConfig)
+            } else {
+                image = UIImage(named: "interfacelock")?.withRenderingMode(.alwaysTemplate)
+            }
             videoPlayerControls.rotationLockButton.setImage(image, for: .normal)
             videoPlayerControls.rotationLockButton.tintColor = .white
         }
