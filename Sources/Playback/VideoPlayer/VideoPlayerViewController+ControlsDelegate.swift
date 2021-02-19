@@ -30,24 +30,22 @@ extension VideoPlayerViewController: VideoPlayerControlsDelgate {
         // Not DVD support yet.
     }
 
-    private func getInterfaceOrientationMask(orientation: UIDeviceOrientation) -> UIInterfaceOrientationMask {
-        if orientation.isValidInterfaceOrientation {
-            if orientation == .portrait {
-                return .portrait
-            } else if orientation == .landscapeLeft || orientation == .landscapeRight || orientation == .portraitUpsideDown {
-                return .landscape
-            } else {
-                return .allButUpsideDown
-            }
+    private func getInterfaceOrientationMask(orientation: UIInterfaceOrientation) -> UIInterfaceOrientationMask {
+        if orientation == .portrait {
+            return .portrait
+        } else if orientation == .landscapeLeft
+                    || orientation == .landscapeRight
+                    || orientation == .portraitUpsideDown {
+            return .landscape
         } else {
             return .allButUpsideDown
         }
     }
 
     func videoPlayerControlsDelgateDidTapRotationLock(_ videoPlayerControls: VideoPlayerControls) {
-        let mask = getInterfaceOrientationMask(orientation: UIDevice.current.orientation)
+        let mask = getInterfaceOrientationMask(orientation: UIApplication.shared.statusBarOrientation)
 
-        if supportedInterfaceOrientations == .allButUpsideDown && mask != .allButUpsideDown {
+        if supportedInterfaceOrientations == .allButUpsideDown {
             supportedInterfaceOrientations = mask
             videoPlayerControls.rotationLockButton.tintColor = PresentationTheme.current.colors.orangeUI
         } else {
