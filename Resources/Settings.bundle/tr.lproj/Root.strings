@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Albüm Kapağı";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albüm Kapağını İndir";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "Yeni oynatıcı";
+
 "ABOUT_APP_TV" = "tvOS için VLC Hakkında";

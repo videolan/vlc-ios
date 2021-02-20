@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "Oynatma Konumu";
 "VIDEO_FILTER" = "Görüntü Süzgeçleri";
 "VIDEO_FILTER_RESET_BUTTON" = "Görüntü Süzgeçlerini Sıfırla";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Görüntü En Boy Oranını Değiştir";
-"PLAY_PAUSE_BUTTON" = "Geçerli oynatımı Oynat ya da Duraklat";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Görüntü en boy oranı";
 "BWD_BUTTON" = "Geriye Atla";
 "FWD_BUTTON" = "İleriye Atla";
 "PLAY_BUTTON" = "Oynat";
 "NEXT_BUTTON" = "Sonraki";
 "PREV_BUTTON" = "Önceki";
 "PLAY_ALL_BUTTON" = "Tümünü oynat";
+
+"RESET_VIDEO_FILTERS" = "Görüntü etkilerini sıfırlamak ister misiniz?";
+"RESET_PLAYBACK_SPEED" = "Oynatma hızını sıfırlamak ister misiniz?";
+"RESET_EQUALIZER" = "Ses dengeleyici ayarlarını sıfırlamak ister misiniz?";
+"RESET_SLEEP_TIMER" = "Uyku sayacını sıfırlamak ister misiniz?";
 
 "VERSION_FORMAT" = "Sürüm: %@";
 "BASED_ON_FORMAT" = "Temel:<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "Çeşitli Sanatçılar";
 "UNKNOWN_ALBUM" = "Albüm Bilinmiyor";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Alt yazılar ve ses izleri";
+"SUBTITLE_AND_TRACK_HINT" = "Alt yazı ya da ses izini seçin";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "DVD arayüzü";
+
+"ROTATION_LOCK_BUTTON" = "Döndürme kilidi";
+"ROTATION_LOCK_HINT" = "Görüntüyü geçerli doğrultuda kilitle";
+
+"BACKWARD_BUTTON" = "Geri";
+"BACKWARD_HINT" = "Geriye atlar";
+
+"PREVIOUS_BUTTON" = "Önceki";
+"PREVIOUS_HINT" = "Önceki ortam";
+
+"PLAY_PAUSE_BUTTON" = "Oynat ya da duraklat";
+"PLAY_PAUSE_HINT" = "Geçerli oynatımı Oynatır ya da Duraklatır";
+
+"NEXT_HINT" = "Sonraki ortam";
+
+"FORWARD_BUTTON" = "İleri";
+"FORWARD_HINT" = "İleriye atlar";
+
 "INTERFACE_LOCK_BUTTON" = "Arayüzü kilitle";
-"INTERFACE_LOCK_HINT" = "Arayüz denetimlerini devre dışı bırak";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Görüntü en boy oranı";
+"VIDEO_ASPECT_RATIO_HINT" = "Geçerli görüntünün en boy oranını değiştir";
+
 "MORE_OPTIONS_BUTTON" = "Diğerleri";
 "MORE_OPTIONS_HINT" = "Diğer seçenek denetimlerini görüntüle";
-"REPEAT_MODE_HINT" = "Geçerli ögenin yinelenme kipini değiştir";
-"VIDEO_ASPECT_RATIO_HINT" = "Geçerli görüntünün en boy oranını değiştir";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Dengeleyici";
