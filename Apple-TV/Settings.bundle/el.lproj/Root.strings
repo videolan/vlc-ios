@@ -46,7 +46,7 @@
 "SETTINGS_GESTURES_VOLUME" = "Σαρώστε πάνω/κάτω για την ένταση  ";
 "SETTINGS_GESTURES_PLAYPAUSE" = "Πάτημα 2 δακτύλων για παύση/αναπαραγωγή";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Σαρώστε πάνω/κάτω για τη φωτεινότητα";
-"SETTINGS_GESTURES_SEEK" = "Σαρώστε δεξιά/αριστερά για χρονική μετατόπιση";
+"SETTINGS_GESTURES_SEEK" = "Σαρώστε δεξιά/αριστερά για ανίχνευση";
 "SETTINGS_GESTURES_CLOSE" = "Τσιμπήστε για κλείσιμο";
 "SETTINGS_GESTURE_JUMP_DURATION" = "Μεταβλητή διάρκεια άλματος";
 
@@ -104,5 +104,8 @@
 
 "SETTINGS_ARTWORK" = "Εικονογράφηση";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Λήψη εικονογράφησης";
+
+"SETTINGS_LAB" = "Εργαστήριο";
+"SETTINGS_NEW_PLAYER" = "Νέος αναπαραγωγός";
 
 "ABOUT_APP_TV" = "Σχετικά με το VLC για tvOS";
