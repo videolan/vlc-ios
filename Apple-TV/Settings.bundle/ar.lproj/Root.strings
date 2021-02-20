@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "الغلاف";
 "SETTINGS_DOWNLOAD_ARTWORK" = "تنزيل الغلاف";
 
+"SETTINGS_LAB" = "مختبر";
+"SETTINGS_NEW_PLAYER" = "مشغّل جديد";
+
 "ABOUT_APP_TV" = "حول VLC لـ tvOS";

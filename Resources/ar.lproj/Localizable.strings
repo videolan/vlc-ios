@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "موضع التّشغيل";
 "VIDEO_FILTER" = "المُرشّحات المرئية";
 "VIDEO_FILTER_RESET_BUTTON" = "أعِد ضبط المُرشّحات المرئية";
-"VIDEO_ASPECT_RATIO_BUTTON" = "بدّل بين النّسب المرئية";
-"PLAY_PAUSE_BUTTON" = "شغّل أو ألبِث التّشغيل الحالي";
+"VIDEO_ASPECT_RATIO_BUTTON" = "نسبة أبعاد الفيديو";
 "BWD_BUTTON" = "اقفز إلى الخلف";
 "FWD_BUTTON" = "اقفز إلى الأمام";
 "PLAY_BUTTON" = "شغل";
 "NEXT_BUTTON" = "التالي";
 "PREV_BUTTON" = "السابق";
 "PLAY_ALL_BUTTON" = "تشغيل الكل";
+
+"RESET_VIDEO_FILTERS" = "هل تريد إعادة تعيين مرشحات الفيديو؟";
+"RESET_PLAYBACK_SPEED" = "هل تريد إعادة تعيين سرعة التشغيل؟";
+"RESET_EQUALIZER" = "هل تريد إعادة تعيين إعدادات موازنات الصوت؟";
+"RESET_SLEEP_TIMER" = "هل ترغب في اعادة ضبط مؤقت النوم ؟";
 
 "VERSION_FORMAT" = "الإصدار: %@";
 "BASED_ON_FORMAT" = "مؤسّس على:<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "عدّة فنانين";
 "UNKNOWN_ALBUM" = "ألبوم غير معروف";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "الترجمة والمسارات الصوتية";
+"SUBTITLE_AND_TRACK_HINT" = "اختر الترجمة أو المسارات الصوتية";
+
+"DVD_BUTTON" = "قرص رقميّ موسّع \"DVD\"";
+"DVD_HINT" = "واجهة القرص الرقمي الموسع \"DVD\"";
+
+"ROTATION_LOCK_BUTTON" = "قفل دوران";
+"ROTATION_LOCK_HINT" = "اقفل الفيديو على الاتجاه الحالي";
+
+"BACKWARD_BUTTON" = "إلى الخلف";
+"BACKWARD_HINT" = "اقفز إلى الخلف";
+
+"PREVIOUS_BUTTON" = "السابق";
+"PREVIOUS_HINT" = "الوسائط السابقة";
+
+"PLAY_PAUSE_BUTTON" = "شغّلْ أو أوقفْ مؤقتا";
+"PLAY_PAUSE_HINT" = "شغّلْ أو أوقفْ مؤقتا التشغيل الحالي";
+
+"NEXT_HINT" = "الوسائط التالية";
+
+"FORWARD_BUTTON" = "إلى الأمام";
+"FORWARD_HINT" = "اقفز إلى الأمام";
+
 "INTERFACE_LOCK_BUTTON" = "قفل الواجهة";
-"INTERFACE_LOCK_HINT" = "تعطيل عناصر التحكم في الواجهة";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "نسبة أبعاد الفيديو";
+"VIDEO_ASPECT_RATIO_HINT" = "قم بتغيير نسبة العرض إلى الارتفاع للفيديو الحالي";
+
 "MORE_OPTIONS_BUTTON" = "المزيد";
 "MORE_OPTIONS_HINT" = "عرض المزيد من خيارات التحكم";
-"REPEAT_MODE_HINT" = "تغيير وضع التكرار للعنصر الحالي";
-"VIDEO_ASPECT_RATIO_HINT" = "قم بتغيير نسبة العرض إلى الارتفاع للفيديو الحالي";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "المُعادِل";
