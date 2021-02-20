@@ -631,13 +631,14 @@ private extension VideoPlayerViewController {
 
     private func setupMediaNavigationBarConstraints() {
         let padding: CGFloat = 20
+        let margin: CGFloat = 8
 
         NSLayoutConstraint.activate([
             mediaNavigationBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mediaNavigationBar.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
-                                                        constant: padding),
+                                                        constant: margin),
             mediaNavigationBar.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
-                                                         constant: -padding),
+                                                         constant: -margin),
             mediaNavigationBar.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
                                                     constant: padding),
             optionsNavigationBar.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -padding),
