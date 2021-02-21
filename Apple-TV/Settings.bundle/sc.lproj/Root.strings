@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Gràfica artìstica";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Iscàrriga sa gràfica artìstica";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "Leghidore nou";
+
 "ABOUT_APP_TV" = "Informatziones a pitzu de VLC pro tvOS";

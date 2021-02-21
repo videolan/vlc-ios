@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "Positzione de sa riprodutzione";
 "VIDEO_FILTER" = "Filtros vìdeos";
 "VIDEO_FILTER_RESET_BUTTON" = "Riprìstina sos filtros de sos vìdeos";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Muda sa proportzione de su vìdeu";
-"PLAY_PAUSE_BUTTON" = "Allughe o pone in pàusa sa riprodutzione currente";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Proportziones de su vìdeu";
 "BWD_BUTTON" = "Brinca in segus";
 "FWD_BUTTON" = "Brinca in antis";
 "PLAY_BUTTON" = "Riprodui";
 "NEXT_BUTTON" = "Imbeniente";
 "PREV_BUTTON" = "Antepostu";
 "PLAY_ALL_BUTTON" = "Riprodui totu";
+
+"RESET_VIDEO_FILTERS" = "Cheres resetare sos filtros de su vìdeu?";
+"RESET_PLAYBACK_SPEED" = "Cheres resetare sa lestresa de riprodutzione?";
+"RESET_EQUALIZER" = "Cheres resetare sas impostatziones de s'ecualizadore?";
+"RESET_SLEEP_TIMER" = "Cheres resetare su tempus de suspensione?";
 
 "VERSION_FORMAT" = "Versione: %@";
 "BASED_ON_FORMAT" = "Basadu subra a: <br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "Artistas vàrios";
 "UNKNOWN_ALBUM" = "Album disconnotu";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Sutatìtulos e rastas àudio";
+"SUBTITLE_AND_TRACK_HINT" = "Issèbera sos sutatìtulos o sas rastas àudio";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "Interfache DVD";
+
+"ROTATION_LOCK_BUTTON" = "Bloca sa rotatzione";
+"ROTATION_LOCK_HINT" = "Bloca su vìdeu cun s'orientamentu atuale";
+
+"BACKWARD_BUTTON" = "In segus";
+"BACKWARD_HINT" = "Brinca in segus";
+
+"PREVIOUS_BUTTON" = "Antepostu";
+"PREVIOUS_HINT" = "Mèdiu antepostu";
+
+"PLAY_PAUSE_BUTTON" = "Riprodutzione o pàusa";
+"PLAY_PAUSE_HINT" = "Allughe o pone in pàusa sa riprodutzione atuale";
+
+"NEXT_HINT" = "Mèdiu imbeniente";
+
+"FORWARD_BUTTON" = "A in antis";
+"FORWARD_HINT" = "Brinca a in antis";
+
 "INTERFACE_LOCK_BUTTON" = "Bloca s'interfache";
-"INTERFACE_LOCK_HINT" = "Disabìlita sos controllos de interfache";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Proportziones de su vìdeu";
+"VIDEO_ASPECT_RATIO_HINT" = "Muda sas proportziones de su vìdeu atuale";
+
 "MORE_OPTIONS_BUTTON" = "Àteru";
 "MORE_OPTIONS_HINT" = "Pòmpia àteros controllos optzionales";
-"REPEAT_MODE_HINT" = "Muda sa modalidade de ripetitzione de s'elementu atuale";
-"VIDEO_ASPECT_RATIO_HINT" = "Muda sas proportziones de su vìdeu atuale";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Ecualizadore";
