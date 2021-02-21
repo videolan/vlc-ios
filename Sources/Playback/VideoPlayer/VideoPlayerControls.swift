@@ -125,7 +125,7 @@ class VideoPlayerControls: UIView {
 
     func updatePlayPauseButton(toState isPlaying: Bool) {
         let imageName = isPlaying ? "pause-circle" : "play-circle"
-        playPauseButton.imageView?.image = UIImage(named: imageName)
+        playPauseButton.setImage(UIImage(named: imageName), for: .normal)
     }
 }
 
