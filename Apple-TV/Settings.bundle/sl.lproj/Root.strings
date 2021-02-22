@@ -4,14 +4,14 @@
 "SETTINGS_VIDEO_TITLE" = "Slika";
 "SETTINGS_AUDIO_TITLE" = "Zvok";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_BRIGHT" = "Svetla tema";
+"SETTINGS_THEME_DARK" = "Temna tema";
+"SETTINGS_THEME_SYSTEM" = "Samodejno";
 "SETTINGS_PRIVACY_SUBTITLE" = "Odpri v nastavitvah";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Varen dostop do vaše vsebine";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Vaša vsebina bo skrita v datotečnem programu";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Videz";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časovno raztegovanje zvoka";
 "SETTINGS_BACKGROUND_AUDIO" = "Predvajanje zvoka v ozadju";
 "SETTINGS_GENERIC_TITLE" = "Izvorno";
@@ -44,7 +44,7 @@
 
 "SETTINGS_GESTURES" = "Nadziraj predvajanje z gestami";
 "SETTINGS_GESTURES_VOLUME" = "Za glasnost povlecite dol/gor";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Tapkanje z dvema prstoma za predvajanje/premor";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Za svetlost povlecite dol/gor";
 "SETTINGS_GESTURES_SEEK" = "Ta iskanje povlecite desno/levo";
 "SETTINGS_GESTURES_CLOSE" = "Učšipnite za zapiranje";
@@ -84,9 +84,9 @@
 "SETTINGS_HWDECODING" = "Strojno dekodiranje";
 "SETTINGS_HWDECODING_ON" = "Vključeno";
 "SETTINGS_HWDECODING_OFF" = "Izključeno";
-"SETTINGS_CASTING" = "Casting";
-"SETTINGS_PTCASTING" = "Audio Passthrough";
-"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING" = "Predvajanje";
+"SETTINGS_PTCASTING" = "Prehod zvoka";
+"SETTINGS_PTCASTINGLONG" = "Naj televizor obdela zvok";
 
 "SETTINGS_FEEDBACK" = "Odziv";
 "SETTINGS_SEND_FEEDBACK" = "Pošlji odziv";
@@ -95,14 +95,17 @@
 "SETTINGS_MEDIA_LIBRARY" = "Knjižnica predstavnih vsebin";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Prisili VLC, da ponovno pregleda knjižnico predstavnih vsebin";
 "SETTINGS_DECRAPIFY" = "Optimiziraj imena elementov za prikaz";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
+"SETTINGS_SHOW_THUMBNAILS" = "Prikaži predogledne sličice";
+"SETTINGS_SHOW_ARTWORKS" = "Prikaži naslovnice";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "V varnostno kopijo vključi knjižnico predstavnih vsebin";
 
 "SETTINGS_FILE_SYNC" = "Usklajevanje datotek";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 podpora za skupno rabo vsebin v brezžičnem omrežju";
 
 "SETTINGS_ARTWORK" = "Grafična podoba";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Prenesi grafično podobo";
+
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "Nov predvajalnik";
 
 "ABOUT_APP_TV" = "O VLC-ju za tvOS";
