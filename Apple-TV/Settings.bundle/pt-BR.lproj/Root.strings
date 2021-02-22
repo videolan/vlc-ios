@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Capa";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Baixar Capa";
 
+"SETTINGS_LAB" = "Laboratório";
+"SETTINGS_NEW_PLAYER" = "Novo reprodutor";
+
 "ABOUT_APP_TV" = "Acerca do VLC para tvOS";

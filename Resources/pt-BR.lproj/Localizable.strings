@@ -47,8 +47,8 @@
 "PLAYBACK_SPEED" = "Velocidade de reprodução";
 "SPU_DELAY" = "Atraso da legenda";
 "AUDIO_DELAY" = "Atraso de áudio";
-"BUTTON_SLEEP_TIMER" = "Despertador";
-"SLEEP_TIMER_UPDATED" = "Despertador Atualizado";
+"BUTTON_SLEEP_TIMER" = "Temporizador de Suspensão";
+"SLEEP_TIMER_UPDATED" = "Temporizador de Suspensão Atualizado";
 "CONTINUE_PLAYBACK" = "Continuar a reprodução?";
 "CONTINUE_PLAYBACK_LONG" = "Deseja retomar a reprodução de \"%@\" de onde parou?";
 
@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "Posição da Reprodução";
 "VIDEO_FILTER" = "Filtros de Vídeo";
 "VIDEO_FILTER_RESET_BUTTON" = "Restaurar Filtros de Vídeo";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Alternar Proporções de Vídeo";
-"PLAY_PAUSE_BUTTON" = "Reproduzir ou Pausar a Mídia";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Proporção do vídeo";
 "BWD_BUTTON" = "Retroceder a um Ponto";
 "FWD_BUTTON" = "Avançar a um Ponto";
 "PLAY_BUTTON" = "Reproduzir";
 "NEXT_BUTTON" = "Próximo";
 "PREV_BUTTON" = "Anterior";
 "PLAY_ALL_BUTTON" = "Reproduzir tudo";
+
+"RESET_VIDEO_FILTERS" = "Deseja restaurar os filtros de vídeo?";
+"RESET_PLAYBACK_SPEED" = "Deseja restaurar a velocidade de reprodução?";
+"RESET_EQUALIZER" = "Deseja restaurar as configurações de equalização?";
+"RESET_SLEEP_TIMER" = "Deseja restaurar o temporizador de suspensão?";
 
 "VERSION_FORMAT" = "Versão: %@";
 "BASED_ON_FORMAT" = "Baseado em:<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "Vários Artistas";
 "UNKNOWN_ALBUM" = "Álbum Desconhecido";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Legendas e trilhas de áudio";
+"SUBTITLE_AND_TRACK_HINT" = "Escolha legendas ou trilhas de áudio";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "Interface do DVD";
+
+"ROTATION_LOCK_BUTTON" = "Trava de rotação";
+"ROTATION_LOCK_HINT" = "Travar vídeo na orientação atual";
+
+"BACKWARD_BUTTON" = "Retroceder";
+"BACKWARD_HINT" = "Retroceder a um Ponto";
+
+"PREVIOUS_BUTTON" = "Anterior";
+"PREVIOUS_HINT" = "Mídia anterior";
+
+"PLAY_PAUSE_BUTTON" = "Reproduzir ou pausar";
+"PLAY_PAUSE_HINT" = "Reproduz ou Pausa a reprodução atual";
+
+"NEXT_HINT" = "Próxima mídia";
+
+"FORWARD_BUTTON" = "Avançar";
+"FORWARD_HINT" = "Avançar a um ponto";
+
 "INTERFACE_LOCK_BUTTON" = "Prender interface";
-"INTERFACE_LOCK_HINT" = "Desabilitar controles da interface";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Proporção do vídeo";
+"VIDEO_ASPECT_RATIO_HINT" = "Modificar a proporção de altura e laegura do vídeo atual";
+
 "MORE_OPTIONS_BUTTON" = "Mais";
 "MORE_OPTIONS_HINT" = "Exibe mais controles de opções";
-"REPEAT_MODE_HINT" = "Modificar o modo de repetição do item atual";
-"VIDEO_ASPECT_RATIO_HINT" = "Modificar a proporção de altura e laegura do vídeo atual";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equalizador";
