@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+"STORE_DESCRIPTION" = "iOS നായുള്ള VLC iPad, iPhone, iPod ടച്ച് എന്നിവയിലേക്കുള്ള സൗജന്യം VLC മീഡിയ പ്ലെയറിന്റെ ഒരു പോർട്ടാണ്.\nനിങ്ങളുടെ എല്ലാ സിനിമകളും ഷോകളും സംഗീതവും മിക്ക ഫോർമാറ്റുകളിലും പരിവർത്തനം ചെയ്യാതെ നേരിട്ട് പ്ലേ ചെയ്യാൻ ഇതിന് കഴിയും.\nDropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, നേരിട്ടുള്ള ഡൗൺലോഡ്, WiFi പങ്കിടൽ എന്നിവയിലൂടെയും SMB, FTP, UPnP / DLNA മീഡിയ സെർവറുകളിൽ നിന്നും വെബിൽ നിന്നും സ്ട്രീമിംഗ് ചെയ്യുന്നതിനും ഇത് ഫയൽ സമന്വയം അനുവദിക്കുന്നു.\nഫുൽ SSA അനുയോജ്യത, മൾട്ടി-ട്രാക്ക് ഓഡിയോ, പ്ലേബാക്ക് വേഗത നിയന്ത്രണം എന്നിവയുൾപ്പെടെ വിപുലമായ സബ്ടൈറ്റിലുകൾക്ക് VLC പിന്തുണ നൽകുന്നു.\n\niOS- നായുള്ള VLC പൂർണ്ണമായും സൗജന്യവും ഓപ്പൺ സോഴ്‌സുമാണ്.";
 
 "STORE_DESCRIPTION_TV" = "VLC മീഡിയ പ്ലെയർ ഒരു സൗജന്യ ഓപ്പൺ സോഴ്‌സ് ക്രോസ്-പ്ലാറ്റ്ഫോം മൾട്ടിമീഡിയ പ്ലെയറാണ്.\nഫോർമാറ്റുകൾ ഇല്ലാതെ ഇതിന് നിങ്ങളുടെ എല്ലാ സിനിമകളും ഷോകളും സംഗീതവും നേരിട്ട് പ്ലേ ചെയ്യാൻ കഴിയും.\nക്ലൗഡ് സേവനങ്ങളിൽ നിന്ന് (Dropbox, OneDrive, Box) സ്ട്രീമിംഗ്, വെബ് യുഐ വഴി നിങ്ങളുടെ മാക്കിൽ നിന്നോ പിസിയിൽ നിന്നോ വിദൂര പ്ലേബാക്ക്, ഒപ്പം SMB, FTP, UPnP / DLNA മീഡിയ സെർവറുകളിൽ നിന്നും വെബിൽ നിന്നും സ്ട്രീമിംഗ് അനുവദിക്കും.\nപ്ലേബാക്ക് വേഗത നിയന്ത്രണം എന്നിവയുൾപ്പെടെ വിപുലമായ സബ്ടൈറ്റിലുകൾക്ക് VLC പിന്തുണ നൽകുന്നു.\n\niOS- നായുള്ള VLC പൂർണ്ണമായും സൗജന്യവും ഓപ്പൺ സോഴ്‌സുമാണ്.\n\nകമ്മ്യൂണിറ്റി പരിപാലിക്കുന്ന മൂവി, മ്യൂസിക് ഡാറ്റാബേസുകളായ TMDB-യും Hatchet-റ്റും മെറ്റാഡാറ്റയും കലാസൃഷ്ടികളും നൽകുന്നു.";
 
@@ -45,8 +45,8 @@
 "DEFAULT" = "സ്വതം";
 "FILL_TO_SCREEN" = "പൂര്‍ണ സ്ക്രീനിനായി മുറിക്കുക";
 "PLAYBACK_SPEED" = "പ്ലേബാക്ക് വേഗത";
-"SPU_DELAY" = "Subtitles delay";
-"AUDIO_DELAY" = "Audio delay";
+"SPU_DELAY" = "സബ്ടൈറ്റിലിന്റെ കാലതാമസം ";
+"AUDIO_DELAY" = "ശബ്ദത്തിന്റെ കാലതാമസം ";
 "BUTTON_SLEEP_TIMER" = "Sleep Timer";
 "SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
 "CONTINUE_PLAYBACK" = "പ്ലേബാക്ക് തുടരുക?";
@@ -114,8 +114,8 @@
 "SHARING_SUCCESS_CAMERA_ROLL" = "File was successfully saved to the Camera Roll";
 
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
-"DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
-"HEADER_TITLE_RENDERER" = "Select a casting device";
+"DOWNLOADVC_DETAILTEXT" = "നിങ്ങളുടെ ഉപകരണത്തിലേക്ക് നേരിട്ട് ഫയലുകൾ ഡൗൺലോഡുചെയ്യുക";
+"HEADER_TITLE_RENDERER" = "ഒരു കാസ്റ്റിംഗ് ഉപകരണം തിരഞ്ഞെടുക്കുക";
 
 "NETWORK" = "നെറ്റ്‌വർക്ക്";
 "LOCAL_NETWORK" = "പ്രാദേശിക നെറ്റ്‍വര്‍ക്ക്";
@@ -132,7 +132,7 @@
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "സര്‍വര്‍ വിലാസവും മറ്റു വിവരങ്ങളും പരിശോധിക്കുക";
 
 "FILES_APP_CELL_TITLE" = "Local files";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+"FILES_APP_CELL_SUBTITLE" = "VLC-ലേക്ക് പകർത്താതെ ഒരു ഫയൽ തുറക്കുക";
 
 "CLOUD_SERVICES" = "ക്ലൗഡ് സേവനങ്ങൾ";
 "LOGIN" = "പ്രവേശിക്കുക";
@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "പ്ലേബാക്ക് സ്ഥാനം";
 "VIDEO_FILTER" = "വീഡിയോ ഫില്‍ട്ടറുകള്‍";
 "VIDEO_FILTER_RESET_BUTTON" = "വീഡിയോ ഫില്‍റ്ററുകള്‍ പുനക്രമീകരിക്കുക";
-"VIDEO_ASPECT_RATIO_BUTTON" = "വീഡിയോ അസ്പെക്റ്റ് അനുപാതം മാറ്റുക";
-"PLAY_PAUSE_BUTTON" = "ഇപ്പോഴത്തെ ഫയല്‍ നിര്‍ത്തുകയോ പ്ലേ ചെയ്യുകയോ ചെയ്യുക";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "BWD_BUTTON" = "പിന്നിലേക്ക്‌ ചാടുക";
 "FWD_BUTTON" = "മുന്നിലേക്ക്‌ ചാടുക";
 "PLAY_BUTTON" = "പ്ലേ";
 "NEXT_BUTTON" = "അടുത്തത്";
 "PREV_BUTTON" = "മുമ്പത്തെ";
 "PLAY_ALL_BUTTON" = "എല്ലാം പ്ലേ ചെയ്യുക";
+
+"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
+"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
+"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
 "VERSION_FORMAT" = "വെര്‍ഷന്‍: %@";
 "BASED_ON_FORMAT" = "അടിസ്ഥാനം:<br />%@";
@@ -219,7 +223,7 @@
 "FIRST_STEPS_ITUNES" = "ഐ ട്യുന്‍സുമായി മാധ്യമം സിങ്ക് ചെയ്യുക";
 "FIRST_STEPS_ITUNES_TITLE" = "നിങ്ങളുടെ കമ്പ്യൂട്ടറുമായി സമന്വയിപ്പിക്കുക";
 "FIRST_STEPS_ITUNES_DETAILS" = "നിങ്ങളുടെ ഉപകരണം ഐട്യൂൺസിലേക്ക് കണക്റ്റുചെയ്‌ത് നിങ്ങളുടെ ഉപകരണം തിരഞ്ഞെടുക്കുക. ഐട്യൂൺസിന്റെ ഇടതുവശത്തുള്ള മെനുവിൽ \"ഫയൽ പങ്കിടൽ\" തിരഞ്ഞെടുത്ത് ഫയൽ കൈമാറാൻ വി‌എൽ‌സി തിരയുക";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
+"FIRST_STEPS_WIFI_TITLE" = "Wi-Fi വഴി പങ്കിടുക";
 "FIRST_STEPS_WIFI_DETAILS" = "നിങ്ങളുടെ ഫോണിന്റെ അതേ നെറ്റ്‌വർക്കിലേക്ക് കണക്റ്റുചെയ്‌തിരിക്കുമ്പോൾ ജനറേറ്റുചെയ്‌ത URL നിങ്ങളുടെ പ്രിയപ്പെട്ട വെബ് ബ്രൗസറിൽ നൽകുക";
 "FIRST_STEPS_CLOUDS" = "മേഘങ്ങള്‍";
 "FIRST_STEPS_CLOUD_TITLE" = "ക്ലൗഡ്";
@@ -236,7 +240,7 @@
 "NO_SERVER_FOUND" = "സര്‍വ്വര്‍ ഒന്നും കണ്ടെത്തിയിട്ടില്ല";
 "NO_RECENT_STREAMS" = "അടുത്തിടെ ഒരു സ്ട്രീമും പ്ലേ ചെയ്‌തില്ല";
 
-"WEBINTF_TITLE" = "Sharing via Wi-Fi";
+"WEBINTF_TITLE" = "Wi-Fi വഴി പങ്കിടുന്നു";
 "WEBINTF_DROPFILES" = "ഫയലുകള്‍ വലിച്ചിടുക ";
 "WEBINTF_DROPFILES_LONG" = "Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
 "WEBINTF_DOWNLOADFILES" = "ഡൌണ്‍ലോ‍ഡ്  ചെയ്ത ഫയലുകള്‍ ";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "വിവിധ കലാകാരന്മാർ";
 "UNKNOWN_ALBUM" = "അജ്ഞാത ആൽബം";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
+"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "DVD ഇന്‍ര്‍ഫേസ്";
+
+"ROTATION_LOCK_BUTTON" = "Rotation lock";
+"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+
+"BACKWARD_BUTTON" = "Backward";
+"BACKWARD_HINT" = "Jump Backwards";
+
+"PREVIOUS_BUTTON" = "Previous";
+"PREVIOUS_HINT" = "Previous media";
+
+"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+
+"NEXT_HINT" = "Next media";
+
+"FORWARD_BUTTON" = "Forward";
+"FORWARD_HINT" = "Jump forwards";
+
 "INTERFACE_LOCK_BUTTON" = "ഇന്റർഫേസ് ലോക്ക് ചെയ്യുക";
-"INTERFACE_LOCK_HINT" = "ഇന്റർഫേസ് നിയന്ത്രണങ്ങൾ പ്രവർത്തനരഹിതമാക്കുക";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_HINT" = "നിലവിലെ വീഡിയോയുടെ വീക്ഷണാനുപാതം മാറ്റുക";
+
 "MORE_OPTIONS_BUTTON" = "കൂടുതൽ";
 "MORE_OPTIONS_HINT" = "കൂടുതൽ ഓപ്ഷൻ നിയന്ത്രണങ്ങൾ കാണുക";
-"REPEAT_MODE_HINT" = "നിലവിലെ ഇനത്തിന്റെ ആവർത്തന മോഡ് മാറ്റുക";
-"VIDEO_ASPECT_RATIO_HINT" = "നിലവിലെ വീഡിയോയുടെ വീക്ഷണാനുപാതം മാറ്റുക";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "ഈക്വലൈസർ";
