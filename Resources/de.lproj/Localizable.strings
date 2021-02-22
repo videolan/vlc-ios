@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "Wiedergabeposition";
 "VIDEO_FILTER" = "Videofilter";
 "VIDEO_FILTER_RESET_BUTTON" = "Videofilter zurück setzen";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video-Seitenverhältnis ändern";
-"PLAY_PAUSE_BUTTON" = "Aktuelle Wiedergabe pausieren oder fortsetzen";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video-Seitenverhältnis";
 "BWD_BUTTON" = "Sprung zurück";
 "FWD_BUTTON" = "Sprung vorwärts";
 "PLAY_BUTTON" = "Wiedergabe";
 "NEXT_BUTTON" = "Nächster";
 "PREV_BUTTON" = "Vorheriger";
 "PLAY_ALL_BUTTON" = "Alle wiedergeben";
+
+"RESET_VIDEO_FILTERS" = "Möchten Sie die Videofilter zurücksetzen?";
+"RESET_PLAYBACK_SPEED" = "Möchten Sie die Wiedergabegeschwindigkeit zurücksetzen?";
+"RESET_EQUALIZER" = "Möchten Sie die Equalizer-Einstellungen zurücksetzen?";
+"RESET_SLEEP_TIMER" = "Möchten Sie die Schlummerfunktion zurücksetzen?";
 
 "VERSION_FORMAT" = "Version: %@";
 "BASED_ON_FORMAT" = "Basiert auf:<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "Verschiedene Künstler";
 "UNKNOWN_ALBUM" = "Unbekanntes Album";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Untertitel und Audiospuren";
+"SUBTITLE_AND_TRACK_HINT" = "Wählen Sie Untertitel oder Audiospuren aus";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "DVD-Schnittstelle";
+
+"ROTATION_LOCK_BUTTON" = "Drehsperre";
+"ROTATION_LOCK_HINT" = "Video auf aktuelle Ausrichtung sperren";
+
+"BACKWARD_BUTTON" = "Rückwärts";
+"BACKWARD_HINT" = "Sprung zurück";
+
+"PREVIOUS_BUTTON" = "Vorheriger";
+"PREVIOUS_HINT" = "Vorheriger Titel";
+
+"PLAY_PAUSE_BUTTON" = "Wiedergabe oder Pause";
+"PLAY_PAUSE_HINT" = "Aktuelle Wiedergabe pausieren oder fortsetzen";
+
+"NEXT_HINT" = "Nächster Titel";
+
+"FORWARD_BUTTON" = "Vorwärts";
+"FORWARD_HINT" = "Sprung vorwärts";
+
 "INTERFACE_LOCK_BUTTON" = "Schnittstelle sperren";
-"INTERFACE_LOCK_HINT" = "Schnittstellensteuerung deaktivieren";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video-Seitenverhältnis";
+"VIDEO_ASPECT_RATIO_HINT" = "Seitenverhältnis des aktuellen Videos ändern";
+
 "MORE_OPTIONS_BUTTON" = "Mehr";
 "MORE_OPTIONS_HINT" = "Weitere Optionen der Steuerelemente anzeigen";
-"REPEAT_MODE_HINT" = "Wiederholungsmodus des aktuellen Elements ändern";
-"VIDEO_ASPECT_RATIO_HINT" = "Seitenverhältnis des aktuellen Videos ändern";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Equalizer";

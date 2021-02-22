@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Cover";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Cover herunterladen";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "Neuer Player";
+
 "ABOUT_APP_TV" = "Über VLC für tvOS";
