@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "आर्टवर्क";
 "SETTINGS_DOWNLOAD_ARTWORK" = "आर्टवर्क डाउनलोड गर्नुहोस्";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "New player";
+
 "ABOUT_APP_TV" = "VLC for tvOS को बारेमा";
