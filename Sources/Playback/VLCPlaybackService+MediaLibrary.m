@@ -101,8 +101,7 @@
     VLCMediaList *list = [[VLCMediaList alloc] init];
     VLCMedia *media;
     for (VLCMLMedia *file in mlMedia) {
-        NSURL *mediaURL = [NSURL URLWithString: [file.mainFile.mrl.absoluteString stringByRemovingPercentEncoding]];
-        media = [VLCMedia mediaWithURL: mediaURL];
+        media = [VLCMedia mediaWithURL: file.mainFile.mrl];
         [media addOptions:self.mediaOptionsDictionary];
         [list addMedia:media];
     }
