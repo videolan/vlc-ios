@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Portada";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Descargar portada";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "New player";
+
 "ABOUT_APP_TV" = "About VLC for tvOS";

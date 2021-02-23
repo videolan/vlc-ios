@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Kunswerk";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Laai Kunswerk Af";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "New player";
+
 "ABOUT_APP_TV" = "Oor VLC vir tvOS";

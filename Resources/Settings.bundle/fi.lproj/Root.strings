@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Kansikuvat";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Lataa kansikuvat";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "Uusi soitin";
+
 "ABOUT_APP_TV" = "Tietoja ohjelmasta";

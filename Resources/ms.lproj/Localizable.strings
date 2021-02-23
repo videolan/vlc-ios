@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "Kedudukan Main Balik";
 "VIDEO_FILTER" = "Penapis Video";
 "VIDEO_FILTER_RESET_BUTTON" = "Tetap Semula Penapis Video";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Tukar Nisbah Bidang Video";
-"PLAY_PAUSE_BUTTON" = "Main atau Jeda main balik semasa";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "BWD_BUTTON" = "Lompat Mengundur";
 "FWD_BUTTON" = "Lompat Ke Hadapan";
 "PLAY_BUTTON" = "Main";
 "NEXT_BUTTON" = "Berikutnya";
 "PREV_BUTTON" = "Terdahulu";
 "PLAY_ALL_BUTTON" = "Main semua";
+
+"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
+"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
+"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
 "VERSION_FORMAT" = "Versi: %@";
 "BASED_ON_FORMAT" = "Berdasarkan pada:<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "Pelbagai Artis";
 "UNKNOWN_ALBUM" = "Album Tidak Diketahui";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
+"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "DVD interface";
+
+"ROTATION_LOCK_BUTTON" = "Rotation lock";
+"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+
+"BACKWARD_BUTTON" = "Backward";
+"BACKWARD_HINT" = "Jump Backwards";
+
+"PREVIOUS_BUTTON" = "Previous";
+"PREVIOUS_HINT" = "Previous media";
+
+"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+
+"NEXT_HINT" = "Next media";
+
+"FORWARD_BUTTON" = "Forward";
+"FORWARD_HINT" = "Jump forwards";
+
 "INTERFACE_LOCK_BUTTON" = "Kunci antara muka";
-"INTERFACE_LOCK_HINT" = "Lumpuhkan kawalan antara muka";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_HINT" = "Ubah nisbah bidang video semasa";
+
 "MORE_OPTIONS_BUTTON" = "Lagi";
 "MORE_OPTIONS_HINT" = "Lihat lebih banyak kawalan pilihan";
-"REPEAT_MODE_HINT" = "Ubah mod ulang bagi item semasa";
-"VIDEO_ASPECT_RATIO_HINT" = "Ubah nisbah bidang video semasa";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Penyama";

@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Grafika";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Grafika letöltése";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "New player";
+
 "ABOUT_APP_TV" = "A VLC for tvOS névjegye";

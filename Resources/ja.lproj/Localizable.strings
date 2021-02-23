@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "再生位置";
 "VIDEO_FILTER" = "ビデオフィルター";
 "VIDEO_FILTER_RESET_BUTTON" = "ビデオフィルターをリセット";
-"VIDEO_ASPECT_RATIO_BUTTON" = "ビデオのアスペクト比を切り替え";
-"PLAY_PAUSE_BUTTON" = "現在の再生・一時停止の切り替え";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "BWD_BUTTON" = "ジャンプして戻る";
 "FWD_BUTTON" = "ジャンプして進む";
 "PLAY_BUTTON" = "再生";
 "NEXT_BUTTON" = "次";
 "PREV_BUTTON" = "前";
 "PLAY_ALL_BUTTON" = "すべて再生";
+
+"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
+"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
+"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
 "VERSION_FORMAT" = "バージョン: %@";
 "BASED_ON_FORMAT" = "Based on:<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "複数アーティスト";
 "UNKNOWN_ALBUM" = "未知のアルバム";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
+"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "DVD interface";
+
+"ROTATION_LOCK_BUTTON" = "Rotation lock";
+"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+
+"BACKWARD_BUTTON" = "Backward";
+"BACKWARD_HINT" = "Jump Backwards";
+
+"PREVIOUS_BUTTON" = "Previous";
+"PREVIOUS_HINT" = "Previous media";
+
+"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+
+"NEXT_HINT" = "Next media";
+
+"FORWARD_BUTTON" = "Forward";
+"FORWARD_HINT" = "Jump forwards";
+
 "INTERFACE_LOCK_BUTTON" = "インターフェースをロック";
-"INTERFACE_LOCK_HINT" = "インターフェース制御を無効化";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_HINT" = "現在のビデオのアスペクト比を変更";
+
 "MORE_OPTIONS_BUTTON" = "もっと";
 "MORE_OPTIONS_HINT" = "より多くの制御オプションを表示";
-"REPEAT_MODE_HINT" = "現在の項目の再生モードを変更";
-"VIDEO_ASPECT_RATIO_HINT" = "現在のビデオのアスペクト比を変更";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "イコライザー";

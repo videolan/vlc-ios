@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "Myndefni";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Sækja myndefni";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "New player";
+
 "ABOUT_APP_TV" = "Um VLC fyrir tvOS";

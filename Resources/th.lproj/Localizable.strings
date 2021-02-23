@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "ตำแหน่งการเล่น";
 "VIDEO_FILTER" = "ตัวกรองวิดีโอ";
 "VIDEO_FILTER_RESET_BUTTON" = "รีเซ็ตตัวกรองวีดีโอ";
-"VIDEO_ASPECT_RATIO_BUTTON" = "เปลี่ยนอัตราส่วนภาพวิดีโอ";
-"PLAY_PAUSE_BUTTON" = "เล่นหรือพักสื่อที่กำลังเล่นอยู่";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "BWD_BUTTON" = "ช่วงก่อนหน้า";
 "FWD_BUTTON" = "ช่วงถัดไป";
 "PLAY_BUTTON" = "เล่น";
 "NEXT_BUTTON" = "ถัดไป";
 "PREV_BUTTON" = "ก่อนหน้า";
 "PLAY_ALL_BUTTON" = "เล่นทั้งหมด";
+
+"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
+"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
+"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
 "VERSION_FORMAT" = "เวอร์ชั่น: %@";
 "BASED_ON_FORMAT" = "อิงจาก:<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "หลายศิลปิน";
 "UNKNOWN_ALBUM" = "ไม่ทราบอัลบั้ม";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
+"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "DVD interface";
+
+"ROTATION_LOCK_BUTTON" = "Rotation lock";
+"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+
+"BACKWARD_BUTTON" = "Backward";
+"BACKWARD_HINT" = "Jump Backwards";
+
+"PREVIOUS_BUTTON" = "Previous";
+"PREVIOUS_HINT" = "Previous media";
+
+"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+
+"NEXT_HINT" = "Next media";
+
+"FORWARD_BUTTON" = "Forward";
+"FORWARD_HINT" = "Jump forwards";
+
 "INTERFACE_LOCK_BUTTON" = "ล็อกอินเทอร์เฟซ";
-"INTERFACE_LOCK_HINT" = "ิปิดใช้งานการควบคุมอินเทอร์เฟซ";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_HINT" = "เปลี่ยนอัตราส่วนภาพของวิดีโอปัจจุบั";
+
 "MORE_OPTIONS_BUTTON" = "เพิ่มเติม";
 "MORE_OPTIONS_HINT" = "ดูการควบคุมตัวเลือกเพิ่มเติม";
-"REPEAT_MODE_HINT" = "เปลี่ยนโหมดเล่นซ้ำของรายการปัจจุบัน";
-"VIDEO_ASPECT_RATIO_HINT" = "เปลี่ยนอัตราส่วนภาพของวิดีโอปัจจุบั";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "อีควอไลเซอร์";

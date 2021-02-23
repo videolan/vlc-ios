@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "播放位置";
 "VIDEO_FILTER" = "影片濾鏡";
 "VIDEO_FILTER_RESET_BUTTON" = "重設影片濾鏡";
-"VIDEO_ASPECT_RATIO_BUTTON" = "切換影片寬高比。";
-"PLAY_PAUSE_BUTTON" = "播放或暫停目前播放內容";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "BWD_BUTTON" = "向後";
 "FWD_BUTTON" = "向前";
 "PLAY_BUTTON" = "播放";
 "NEXT_BUTTON" = "下一個";
 "PREV_BUTTON" = "上一個";
 "PLAY_ALL_BUTTON" = "全部播放";
+
+"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
+"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
+"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
 "VERSION_FORMAT" = "版本: %@";
 "BASED_ON_FORMAT" = "基於 :<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "多個藝人";
 "UNKNOWN_ALBUM" = "未知專輯";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
+"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "DVD interface";
+
+"ROTATION_LOCK_BUTTON" = "Rotation lock";
+"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+
+"BACKWARD_BUTTON" = "Backward";
+"BACKWARD_HINT" = "Jump Backwards";
+
+"PREVIOUS_BUTTON" = "Previous";
+"PREVIOUS_HINT" = "Previous media";
+
+"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+
+"NEXT_HINT" = "Next media";
+
+"FORWARD_BUTTON" = "Forward";
+"FORWARD_HINT" = "Jump forwards";
+
 "INTERFACE_LOCK_BUTTON" = "鎖定介面";
-"INTERFACE_LOCK_HINT" = "停用介面控制";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_HINT" = "變更目前影片的長寬比例";
+
 "MORE_OPTIONS_BUTTON" = "更多";
 "MORE_OPTIONS_HINT" = "檢視更多選項控制";
-"REPEAT_MODE_HINT" = "變更目前項目的重複模式";
-"VIDEO_ASPECT_RATIO_HINT" = "變更目前影片的長寬比例";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "等化器";

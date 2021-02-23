@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "Lec'hiadur al lenn";
 "VIDEO_FILTER" = "Siloù Video";
 "VIDEO_FILTER_RESET_BUTTON" = "Adderaouiñ ar Siloù Video";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Cheñch feur neuz ar video";
-"PLAY_PAUSE_BUTTON" = "Lenn pe ehanañ al lenn war ober";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "BWD_BUTTON" = "Mont war-gil";
 "FWD_BUTTON" = "Mont war-raok";
 "PLAY_BUTTON" = "Lenn";
 "NEXT_BUTTON" = "War-lerc'h";
 "PREV_BUTTON" = "Kent";
 "PLAY_ALL_BUTTON" = "Lenn an holl";
+
+"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
+"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
+"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
 "VERSION_FORMAT" = "Stumm: %@";
 "BASED_ON_FORMAT" = "Diazezet eo war:<br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "Arzourien a bep seurt";
 "UNKNOWN_ALBUM" = "Albom dianav";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
+"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "DVD interface";
+
+"ROTATION_LOCK_BUTTON" = "Rotation lock";
+"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+
+"BACKWARD_BUTTON" = "Backward";
+"BACKWARD_HINT" = "Jump Backwards";
+
+"PREVIOUS_BUTTON" = "Previous";
+"PREVIOUS_HINT" = "Previous media";
+
+"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+
+"NEXT_HINT" = "Next media";
+
+"FORWARD_BUTTON" = "Forward";
+"FORWARD_HINT" = "Jump forwards";
+
 "INTERFACE_LOCK_BUTTON" = "Morailhañ an etrefas";
-"INTERFACE_LOCK_HINT" = "Lazhañ ar c'hontrollioù etrefas";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_HINT" = "Cheñch feur neuz ar video red";
+
 "MORE_OPTIONS_BUTTON" = "Muioc'h";
 "MORE_OPTIONS_HINT" = "Gwelet muioc'h a arventennoù kontrolliñ";
-"REPEAT_MODE_HINT" = "Cheñch mod adlenn an elfenn red";
-"VIDEO_ASPECT_RATIO_HINT" = "Cheñch feur neuz ar video red";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "Kevataler";

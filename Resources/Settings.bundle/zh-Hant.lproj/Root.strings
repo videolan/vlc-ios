@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "美工";
 "SETTINGS_DOWNLOAD_ARTWORK" = "下載美工";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "New player";
+
 "ABOUT_APP_TV" = "關於 VLC for tvOS";

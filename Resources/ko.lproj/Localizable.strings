@@ -195,14 +195,18 @@
 "PLAYBACK_POSITION" = "재생 위치";
 "VIDEO_FILTER" = "비디오 필터";
 "VIDEO_FILTER_RESET_BUTTON" = "비디오 필터 초기화";
-"VIDEO_ASPECT_RATIO_BUTTON" = "비디오 화면 비율 전환하기";
-"PLAY_PAUSE_BUTTON" = "재생 / 일시 중지";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "BWD_BUTTON" = "뒤로 이동하기";
 "FWD_BUTTON" = "앞으로 이동하기";
 "PLAY_BUTTON" = "재생하기";
 "NEXT_BUTTON" = "다음";
 "PREV_BUTTON" = "이전";
 "PLAY_ALL_BUTTON" = "모두 재생하기";
+
+"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
+"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
+"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
 "VERSION_FORMAT" = "버전: %@";
 "BASED_ON_FORMAT" = "사용: <br />%@";
@@ -394,13 +398,38 @@
 "VARIOUS_ARTIST" = "여러 아티스트";
 "UNKNOWN_ALBUM" = "알 수 없는 음반";
 
-/* VideoSubControl */
+/* VideoPlayerControls */
+
+"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
+"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+
+"DVD_BUTTON" = "DVD";
+"DVD_HINT" = "DVD interface";
+
+"ROTATION_LOCK_BUTTON" = "Rotation lock";
+"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+
+"BACKWARD_BUTTON" = "Backward";
+"BACKWARD_HINT" = "Jump Backwards";
+
+"PREVIOUS_BUTTON" = "Previous";
+"PREVIOUS_HINT" = "Previous media";
+
+"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+
+"NEXT_HINT" = "Next media";
+
+"FORWARD_BUTTON" = "Forward";
+"FORWARD_HINT" = "Jump forwards";
+
 "INTERFACE_LOCK_BUTTON" = "인터페이스 잠그기";
-"INTERFACE_LOCK_HINT" = "인터페이스 컨트롤 비활성화";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_HINT" = "현재 비디오의 화면 비율을 변경";
+
 "MORE_OPTIONS_BUTTON" = "더";
 "MORE_OPTIONS_HINT" = "옵션 컨트롤 더 보기";
-"REPEAT_MODE_HINT" = "현재 항목의 반복 방식 변경";
-"VIDEO_ASPECT_RATIO_HINT" = "현재 비디오의 화면 비율을 변경";
 
 /* MediaMoreOptionsActionSheet */
 "EQUALIZER_CELL_TITLE" = "이퀄라이저";

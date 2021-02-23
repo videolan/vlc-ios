@@ -105,4 +105,7 @@
 "SETTINGS_ARTWORK" = "งานศิลปะ";
 "SETTINGS_DOWNLOAD_ARTWORK" = "ดาวน์โหลดงานศิลปะ";
 
+"SETTINGS_LAB" = "Lab";
+"SETTINGS_NEW_PLAYER" = "New player";
+
 "ABOUT_APP_TV" = "เกี่ยวกับ VLC สำหรับ tvOS";
