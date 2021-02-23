@@ -179,6 +179,7 @@ class VideoPlayerViewController: UIViewController {
 
     private var queueViewController: QueueViewController?
     private var alertController: UIAlertController?
+    private var rendererButton: UIButton?
 
     private var isFirstCall: Bool = true
 
@@ -236,17 +237,12 @@ class VideoPlayerViewController: UIViewController {
         return videoOutputView
     }()
 
-    // FIXME: - Crash(inf loop) on init
-    private lazy var externalVideoOutput: PlayingExternallyView = PlayingExternallyView()
-     // = {
-     //  guard let externalVideoOutput = PlayingExternallyView() else {
-     //  guard let nib = Bundle.main.loadNibNamed("PlayingExternallyView",
-     //                                           owner: self,
-     //                                           options: nil)?.first as? PlayingExternallyView else {
-     //                                              preconditionFailure("VideoPlayerViewController: Failed to load PlayingExternallyView.")
-     //  }
-     //  return  nib
-     // }()
+    private lazy var externalVideoOutputView: VideoPlayerInfoView = {
+        let externalVideoOutputView = VideoPlayerInfoView()
+        externalVideoOutputView.isHidden = true
+        externalVideoOutputView.translatesAutoresizingMaskIntoConstraints = false
+        return externalVideoOutputView
+    }()
 
     // MARK: - Gestures
 
@@ -311,6 +307,25 @@ class VideoPlayerViewController: UIViewController {
         adaptVideoOutputToNotch()
     }
 
+    private func setupRendererDiscoverer() {
+        rendererButton = services.rendererDiscovererManager.setupRendererButton()
+        rendererButton?.tintColor = .white
+        if playbackService.renderer != nil {
+            rendererButton?.isSelected = true
+        }
+        if let rendererButton = rendererButton {
+            mediaNavigationBar.updateChromecastButton(with: rendererButton)
+        }
+        services.rendererDiscovererManager.addSelectionHandler {
+            rendererItem in
+            if rendererItem != nil {
+                self.changeVideoOutput(to: self.externalVideoOutputView.displayView)
+            } else if let currentRenderer = self.playbackService.renderer {
+                self.removedCurrentRendererItem(currentRenderer)
+            }
+        }
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         playbackService.delegate = self
@@ -323,9 +338,13 @@ class VideoPlayerViewController: UIViewController {
         // FIXME: Test userdefault
         // FIXME: Renderer discoverer
 
+        let rendererDiscoverer = services.rendererDiscovererManager
+        rendererDiscoverer.presentingViewController = self
+        rendererDiscoverer.delegate = self
+
         if playbackService.isPlayingOnExternalScreen() {
             // FIXME: Handle error case
-            changeVideoOuput(to: externalVideoOutput.displayView ?? videoOutputView)
+            changeVideoOutput(to: externalVideoOutputView.displayView)
         }
 
         if #available(iOS 11.0, *) {
@@ -396,6 +415,7 @@ class VideoPlayerViewController: UIViewController {
         setupViews()
         setupGestures()
         setupConstraints()
+        setupRendererDiscoverer()
     }
 
     @objc func setupQueueViewController(qvc: QueueViewController) {
@@ -437,15 +457,23 @@ private extension VideoPlayerViewController {
         videoOutputView.layoutIfNeeded()
     }
 
-    func changeVideoOuput(to view: UIView) {
-        let shouldDisplayExternally = view != videoOutputView
+    func changeVideoOutput(to output: UIView?) {
+        // If we don't have a renderer we're mirroring and don't want to show the dialog
 
-        externalVideoOutput.shouldDisplay(shouldDisplayExternally, movieView: videoOutputView)
+        var displayExternally: Bool
+        if output == nil {
+            displayExternally = true
+        } else {
+            displayExternally = output != videoOutputView
+        }
 
-        let displayView = externalVideoOutput.displayView
+        externalVideoOutputView.shouldDisplay(displayExternally,
+                                              movieView: videoOutputView)
+
+        let displayView = externalVideoOutputView.displayView
 
         if let displayView = displayView,
-            shouldDisplayExternally &&  videoOutputView.superview == displayView {
+            displayExternally &&  videoOutputView.superview == displayView {
             // Adjust constraints for external display
             NSLayoutConstraint.activate([
                 videoOutputView.leadingAnchor.constraint(equalTo: displayView.leadingAnchor),
@@ -455,7 +483,7 @@ private extension VideoPlayerViewController {
             ])
         }
 
-        if !shouldDisplayExternally && videoOutputView.superview != view {
+        if !displayExternally && videoOutputView.superview != view {
             view.addSubview(videoOutputView)
             view.sendSubviewToBack(videoOutputView)
             videoOutputView.frame = view.frame
@@ -726,6 +754,8 @@ private extension VideoPlayerViewController {
         view.addSubview(scrubProgressBar)
 
         view.addSubview(videoOutputView)
+        view.addSubview(externalVideoOutputView)
+
         view.sendSubviewToBack(videoOutputView)
         view.insertSubview(backgroundGradientView, aboveSubview: videoOutputView)
     }
@@ -742,6 +772,7 @@ private extension VideoPlayerViewController {
 
     private func setupConstraints() {
         setupVideoOutputConstraints()
+        setupExternalVideoOutputConstraints()
         setupMediaNavigationBarConstraints()
         setupVideoPlayerControlsConstraints()
         setupScrubProgressBarConstraints()
@@ -757,6 +788,15 @@ private extension VideoPlayerViewController {
             videoOutputViewTrailingConstraint,
             videoOutputView.topAnchor.constraint(equalTo: view.topAnchor),
             videoOutputView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+
+    private func setupExternalVideoOutputConstraints() {
+        NSLayoutConstraint.activate([
+            externalVideoOutputView.heightAnchor.constraint(equalToConstant: 320),
+            externalVideoOutputView.widthAnchor.constraint(equalToConstant: 320),
+            externalVideoOutputView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            externalVideoOutputView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
 
@@ -832,6 +872,14 @@ private extension VideoPlayerViewController {
 
 // MARK: - Delegation
 
+// MARK: - VLCRendererDiscovererManagerDelegate
+
+extension VideoPlayerViewController: VLCRendererDiscovererManagerDelegate {
+    func removedCurrentRendererItem(_ item: VLCRendererItem) {
+        changeVideoOutput(to: videoOutputView)
+    }
+}
+
 // MARK: - DeviceMotionDelegate
 
 extension VideoPlayerViewController: DeviceMotionDelegate {
@@ -900,7 +948,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         mediaNavigationBar.setMediaTitleLabelText(metadata.title)
 
         if playbackService.isPlayingOnExternalScreen() {
-            externalVideoOutput.updateUI(rendererItem: playbackService.renderer, title: metadata.title)
+            externalVideoOutputView.updateUI(rendererItem: playbackService.renderer, title: metadata.title)
         }
         // subControls.toggleFullscreen().hidden = _audioOnly
     }
@@ -910,11 +958,11 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
 
 extension VideoPlayerViewController: PlayerControllerDelegate {
     func playerControllerExternalScreenDidConnect(_ playerController: PlayerController) {
-        // [self showOnDisplay:_playingExternalView.displayView];
+        changeVideoOutput(to: externalVideoOutputView.displayView)
     }
 
     func playerControllerExternalScreenDidDisconnect(_ playerController: PlayerController) {
-        // [self showOnDisplay:_movieView];
+        changeVideoOutput(to: videoOutputView)
     }
 
     func playerControllerApplicationBecameActive(_ playerController: PlayerController) {

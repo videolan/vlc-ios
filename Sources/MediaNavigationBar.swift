@@ -57,8 +57,6 @@ protocol MediaNavigationBarDelegate {
         chromeButton.addTarget(self, action: #selector(toggleChromeCast), for: .touchUpInside)
         chromeButton.setImage(UIImage(named: "renderer"), for: .normal)
         chromeButton.tintColor = .white
-        // disable until a chromecast device is found
-        chromeButton.isHidden = true
         chromeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return chromeButton
     }()
@@ -101,12 +99,18 @@ protocol MediaNavigationBarDelegate {
         addArrangedSubview(closePlaybackButton)
         addArrangedSubview(minimizePlaybackButton)
         addArrangedSubview(mediaTitleTextLabel)
-        addArrangedSubview(chromeCastButton)
         if #available(iOS 11.0, *) {
             addArrangedSubview(airplayRoutePickerView)
         } else {
             addArrangedSubview(airplayVolumeView)
         }
+    }
+
+    func updateChromecastButton(with button: UIButton) {
+        removeArrangedSubview(chromeCastButton)
+        chromeCastButton = button
+        addArrangedSubview(chromeCastButton)
+        chromeCastButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
 
     // MARK: Button Actions
