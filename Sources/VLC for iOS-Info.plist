@@ -38,6 +38,7 @@
 				<string>org.videolan.webm</string>
 				<string>org.videolan.mxf</string>
 				<string>org.matroska.mkv</string>
+				<string>org.videolan.mts</string>
 				<string>com.divx.divx</string>
 				<string>org.xiph.ogv</string>
 			</array>
@@ -729,6 +730,20 @@
 				<key>public.mime-type</key>
 				<string>application/octet-stream</string>
 			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.movie</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>mts</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.mts</string>
+			<key>UTTypeTagSpecification</key>
+			<dict/>
 		</dict>
 	</array>
 	<key>com.apple.developer.networking.multicast</key>
