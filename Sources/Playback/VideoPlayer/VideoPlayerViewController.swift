@@ -22,6 +22,14 @@ enum VideoPlayerSeekState {
     case backward
 }
 
+enum VideoPlayerPanType {
+    case none
+    case brightness
+    case seek
+    case volume
+    case projection
+}
+
 struct VideoPlayerSeek {
     static let shortSeek: Int = 10
 
@@ -187,6 +195,10 @@ class VideoPlayerViewController: UIViewController {
         return trackSelector
     }()
 
+    private var currentPanType: VideoPlayerPanType = .none
+
+    private var projectionLocation: CGPoint = .zero
+
     // MARK: - VideoOutput
 
     private lazy var backgroundGradientLayer: CAGradientLayer = {
@@ -263,6 +275,13 @@ class VideoPlayerViewController: UIViewController {
         doubleTapRecognizer.numberOfTapsRequired = 2
         tapOnVideoRecognizer.require(toFail: doubleTapRecognizer)
         return doubleTapRecognizer
+    }()
+
+    private lazy var panRecognizer: UIPanGestureRecognizer = {
+        let panRecognizer = UIPanGestureRecognizer(target: self,
+                                                   action: #selector(handlePanGesture(recognizer:)))
+        panRecognizer.maximumNumberOfTouches = 1
+        return panRecognizer
     }()
 
     // MARK: -
@@ -584,6 +603,117 @@ extension VideoPlayerViewController {
         //_isTapSeeking = YES;
         executeSeekFromTap()
     }
+
+    private func detectPanType(_ recognizer: UIPanGestureRecognizer) -> VideoPlayerPanType {
+        let deviceType: String = UIDevice.current.model
+        let window: UIWindow = UIApplication.shared.keyWindow!
+        let windowWidth: CGFloat = window.bounds.width
+        let location: CGPoint = recognizer.location(in: window)
+
+        // Default or right side of the screen
+        var panType: VideoPlayerPanType = .volume
+
+        if location.x < windowWidth / 2 {
+            panType = .brightness
+        }
+
+        if deviceType == "iPad" && location.y < 110 {
+            panType = .seek
+        }
+
+        if playbackService.currentMediaIs360Video {
+            panType = .projection
+        }
+        return panType
+    }
+
+    private func applyYaw(yaw: CGFloat, pitch: CGFloat) {
+        //Add and limit new pitch and yaw
+        deviceMotion.yaw += yaw
+        deviceMotion.pitch += pitch
+
+        playbackService.updateViewpoint(deviceMotion.yaw,
+                                        pitch: deviceMotion.pitch,
+                                        roll: 0,
+                                        fov: fov, absolute: true)
+    }
+
+    private func updateProjection(with recognizer: UIPanGestureRecognizer) {
+        let newLocationInView: CGPoint = recognizer.location(in: view)
+
+        let diffX = newLocationInView.x - projectionLocation.x
+        let diffY = newLocationInView.y - projectionLocation.y
+        projectionLocation = newLocationInView
+
+        // ScreenSizePixel width is used twice to get a constant speed on the movement.
+        let diffYaw = fov * -diffX / screenPixelSize.width
+        let diffPitch = fov * -diffY / screenPixelSize.width
+
+        applyYaw(yaw: diffYaw, pitch: diffPitch)
+    }
+
+    @objc private func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+        let panDirectionX = recognizer.velocity(in: view).x
+        let panDirectionY = recognizer.velocity(in: view).y
+
+        if recognizer.state == .began {
+            currentPanType = detectPanType(recognizer)
+            if playbackService.currentMediaIs360Video {
+                projectionLocation = recognizer.location(in: view)
+                deviceMotion.stopDeviceMotion()
+            }
+        }
+
+        switch currentPanType {
+        case .seek:
+            guard playerController.isSwipeSeekGestureEnabled else {
+                break
+            }
+
+            let timeRemainingDouble: Double = (-(Double(playbackService.remainingTime().intValue)*0.001))
+            let timeRemaining: Int = Int(timeRemainingDouble)
+
+            if panDirectionX > 0 {
+                if timeRemaining > 2 {
+                    playbackService.jumpForward(1)
+                }
+            } else {
+                playbackService.jumpBackward(1)
+            }
+        case .volume:
+            guard playerController.isVolumeGestureEnabled else {
+                break
+            }
+        // FIXME: Volume gesture
+        break
+        case .brightness:
+            guard playerController.isBrightnessGestureEnabled else {
+                break
+            }
+
+            var brightness: CGFloat = UIScreen.main.brightness
+
+            brightness = panDirectionY > 0 ? brightness - 0.01 : brightness + 0.01
+            if brightness > 1.0 {
+                brightness = 1.0
+            } else if brightness < 0.0 {
+                brightness = 0.0
+            }
+
+            UIScreen.main.brightness = brightness
+        case .projection:
+            updateProjection(with: recognizer)
+        case .none:
+            break
+        }
+
+        if recognizer.state == .ended {
+            currentPanType = .none
+            if playbackService.currentMediaIs360Video {
+                deviceMotion.startDeviceMotion()
+            }
+        }
+    }
 }
 
 // MARK: - Private setups
@@ -605,6 +735,7 @@ private extension VideoPlayerViewController {
         view.addGestureRecognizer(pinchRecognizer)
         view.addGestureRecognizer(doubleTapRecognizer)
         view.addGestureRecognizer(playPauseRecognizer)
+        view.addGestureRecognizer(panRecognizer)
     }
 
     // MARK: - Constraints
@@ -705,9 +836,10 @@ private extension VideoPlayerViewController {
 
 extension VideoPlayerViewController: DeviceMotionDelegate {
     func deviceMotionHasAttitude(deviceMotion: DeviceMotion, pitch: Double, yaw: Double) {
-    // if (_panRecognizer.state != UIGestureRecognizerStateChanged || UIGestureRecognizerStateBegan) {
-    //     [self applyYaw:yaw pitch:pitch];
-    // }
+        if panRecognizer.state != .changed
+            || panRecognizer.state != .began {
+            applyYaw(yaw: CGFloat(yaw), pitch: CGFloat(pitch))
+        }
     }
 }
 
