@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Nasycenie";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESETS" = "Domyślne";
 "PREAMP" = "Przedwzm.";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Wybierz profil korektora";
+"SNAP_BANDS" = "Pociągnij pasma";
 
 "PLAYBACK_FAILED" = "Odtwarzanie nie powiodło się";
 "PLEASE_WAIT" = "Proszę czekać";
