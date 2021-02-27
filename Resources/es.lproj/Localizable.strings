@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Saturación";
 "VFILTER_GAMMA" = "Gama";
 
+"PRESETS" = "Presets";
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Seleccione perfil de ecualizador";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Reproducción fallida";
 "PLEASE_WAIT" = "Espere";
@@ -416,7 +418,7 @@
 "PREVIOUS_HINT" = "Previous media";
 
 "PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PLAY_PAUSE_HINT" = "Comience o detenga la reproducción actual";
 
 "NEXT_HINT" = "Next media";
 
