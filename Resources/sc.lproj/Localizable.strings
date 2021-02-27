@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Saturatzione";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESETS" = "Preseletziones";
 "PREAMP" = "Preamplificatzione";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Issèbera su profilu de equalizazione";
+"SNAP_BANDS" = "Fàscias elàsticas";
 
 "PLAYBACK_FAILED" = "Riprodutzione fallida";
 "PLEASE_WAIT" = "Iseta";
