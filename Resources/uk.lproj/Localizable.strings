@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Насиченість";
 "VFILTER_GAMMA" = "Гама";
 
+"PRESETS" = "Переднабори";
 "PREAMP" = "Попередній підсилювач";
 "DB_FORMAT" = "%i дБ";
 "CHOOSE_EQUALIZER_PROFILES" = "Вибрати профіль еквалайзера";
+"SNAP_BANDS" = "Вхопити смуги";
 
 "PLAYBACK_FAILED" = "Відтворення провалилося";
 "PLEASE_WAIT" = "Будь ласка, зачекайте";
