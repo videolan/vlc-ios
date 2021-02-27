@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Telítettség";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESETS" = "Presets";
 "PREAMP" = "Előerősítés";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Hangszín profil választása";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "A lejátszás nem sikerült";
 "PLEASE_WAIT" = "Kérem várjon";
@@ -195,7 +197,7 @@
 "PLAYBACK_POSITION" = "Lejátszás pozíciója";
 "VIDEO_FILTER" = "Videószűrők";
 "VIDEO_FILTER_RESET_BUTTON" = "Videószűrőek visszaállítása";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Videó méretarány";
 "BWD_BUTTON" = "Ugrás vissza";
 "FWD_BUTTON" = "Ugrás előre";
 "PLAY_BUTTON" = "Lejátszás";
@@ -203,10 +205,10 @@
 "PREV_BUTTON" = "Előző";
 "PLAY_ALL_BUTTON" = "Összes lejátszása";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_VIDEO_FILTERS" = "Vissza akarja állítani a videószűrőket?";
+"RESET_PLAYBACK_SPEED" = "Vissza akarja állítani a lejátszási sebességet?";
+"RESET_EQUALIZER" = "Vissza akarja állítani a hangszínszabályzó beállításait?";
+"RESET_SLEEP_TIMER" = "Vissza akarja állítani az elalvásidőzítőt?";
 
 "VERSION_FORMAT" = "Verzió: %@";
 "BASED_ON_FORMAT" = "A %@<br />alapján";
@@ -400,32 +402,32 @@
 
 /* VideoPlayerControls */
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "Feliratok és hangsávok";
+"SUBTITLE_AND_TRACK_HINT" = "Válasszon feliratot vagy hangsávot";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "DVD kezelőfelület";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "Elfordítás tiltása";
+"ROTATION_LOCK_HINT" = "A videó rögzítése az aktuális tájoláshoz";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"BACKWARD_BUTTON" = "Hátra";
+"BACKWARD_HINT" = "Ugrás hátrafelé";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"PREVIOUS_BUTTON" = "Előző";
+"PREVIOUS_HINT" = "Előző média";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PLAY_PAUSE_BUTTON" = "Lejátszás / szünet";
+"PLAY_PAUSE_HINT" = "Az aktuális felvétel elindítása vagy szüneteltetése";
 
-"NEXT_HINT" = "Next media";
+"NEXT_HINT" = "Következő média";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"FORWARD_BUTTON" = "Előre";
+"FORWARD_HINT" = "Ugrás előrefelé";
 
 "INTERFACE_LOCK_BUTTON" = "Felület zárolása";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Videó méretarány";
 "VIDEO_ASPECT_RATIO_HINT" = "A jelenlegi videó képarányának módosítása";
 
 "MORE_OPTIONS_BUTTON" = "Több";
