@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Verzadiging";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESETS" = "Presets";
 "PREAMP" = "Voorversterking";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Equalizer-profiel kiezen";
+"SNAP_BANDS" = "Banden uitlijnen";
 
 "PLAYBACK_FAILED" = "Afspelen mislukt";
 "PLEASE_WAIT" = "Even geduld";
