@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "परिपूर्णता";
 "VFILTER_GAMMA" = "गामा";
 
+"PRESETS" = "Presets";
 "PREAMP" = "पूर्व-प्रवर्धक";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "इक्वालाइजर प्रोफाइल छान्नुहोस्";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "बजाउन असफल";
 "PLEASE_WAIT" = "कृपया प्रतीक्षा गर्नुहोस्";
@@ -77,18 +79,18 @@
 
 
 "BUTTON_PLAY_QUEUE" = "प्ले लाइन";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+"BUTTON_PLAY_QUEUE_HINT" = "प्ले लाइन दृष्य देखाउनुहोस्";
 
-"UPGRADING_LIBRARY" = "Upgrading Media Library";
+"UPGRADING_LIBRARY" = "मिडिया लाइब्रेरी अपग्रेड गर्दै";
 
-"OPEN_NETWORK" = "Open Network Stream";
-"NETWORK_TITLE" = "Network Stream";
-"OPEN_NETWORK_HELP" = "Enter any HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP address to open the stream directly.";
-"HTTP_UPLOAD_SERVER_OFF" = "Inactive Server";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
-"OPEN_STREAM_OR_DOWNLOAD" = "Would you like to download or play this URL?";
-"SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
-"SMB_CIFS_FILE_SERVERS" = "File Servers (SMB)";
+"OPEN_NETWORK" = "सञ्जाल स्ट्रिम खोल्नुहोस्";
+"NETWORK_TITLE" = "सञ्जाल स्ट्रिम";
+"OPEN_NETWORK_HELP" = "सिधै स्ट्रिम खोल्न कुनै पनि HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP ठेगाना प्रविष्ट गर्नुहोस्";
+"HTTP_UPLOAD_SERVER_OFF" = "निष्क्रिय सर्भर";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "कुनै सक्रिय Wi-Fi जडान छैन";
+"OPEN_STREAM_OR_DOWNLOAD" = "के तपाईँ यस URL डाउनलोड वा प्ले गर्न चाहनुहुन्छ?";
+"SHARED_VLC_IOS_LIBRARY" = "iOS लाइब्रेरीको लागि साझा गरिएको VLC";
+"SMB_CIFS_FILE_SERVERS" = "फाइल सर्भरहरू (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -103,9 +105,9 @@
 "FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
 "SCHEME_NOT_SUPPORTED" = "Address scheme not supported";
 "SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
-"RENAME_MEDIA_TO" = "Enter new name for %@";
+"RENAME_MEDIA_TO" = "%@को लागि नयाँ नाम प्रविष्ट गर्नुहोस्";
 
-"FOLDER_EMPTY" = "Empty folder";
+"FOLDER_EMPTY" = "खाली फोल्डर";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "खोल्नका लागि फाइल चयन गर्नुहोस् ।";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Open In...";
@@ -231,28 +233,28 @@
 
 
 "PLEX_CHECK_ACCOUNT" = "Check your Plex account in settings";
-"PLEX_ERROR_ACCOUNT" = "Plex login Error";
+"PLEX_ERROR_ACCOUNT" = "प्लेक्स लगइन त्रुटि";
 
-"UNAUTHORIZED" = "Unauthorized";
+"UNAUTHORIZED" = "अनाधिकृत";
 
 "SERVER" = "सर्भर";
 "SERVER_PORT" = "पोर्ट";
-"NO_SERVER_FOUND" = "No server found";
-"NO_RECENT_STREAMS" = "No stream was played recently";
+"NO_SERVER_FOUND" = "कुनै सर्भर भेटिएन";
+"NO_RECENT_STREAMS" = "हालै कुनै स्ट्रिम प्ले गरिएको छैन";
 
-"WEBINTF_TITLE" = "Sharing via Wi-Fi";
-"WEBINTF_DROPFILES" = "फाइलहरु छोड्नुहोस्";
-"WEBINTF_DROPFILES_LONG" = "Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
-"WEBINTF_DOWNLOADFILES" = "Download Files";
-"WEBINTF_DOWNLOADFILES_LONG" = "Just click the file you want to download from your %@.";
-"WEBINTF_TITLE_ATV" = "Remote Playback";
-"WEBINTF_DROPFILES_LONG_ATV" = "Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
-"WEBINTF_URL_SENT" = "URL sent successfully.";
-"WEBINTF_URL_EMPTY" = "URL cannot be empty.";
-"WEBINTF_URL_INVALID" = "Not a valid URL.";
-"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
-"WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
-"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
+"WEBINTF_TITLE" = "Wi-Fi मार्फत् साझा गर्ने";
+"WEBINTF_DROPFILES" = "फाइलहरू छोड्नुहोस्";
+"WEBINTF_DROPFILES_LONG" = "तपाईँको %@ मा तिनलाई थप्न सन्झ्यालमा फाइलहरू छोड्नुहोस्।<br>वा फाइल पिकर डायलग प्रयोग गर्न \"+\" बटनमा क्लिक गर्नुहोस्।";
+"WEBINTF_DOWNLOADFILES" = "फाइलहरू डाउनलोड गर्नुहोस्";
+"WEBINTF_DOWNLOADFILES_LONG" = "तपाईंले आफ्नो %@ बाट डाउनलोड गर्न चाहनुभएको केवल फाइलमा क्लिक गर्नुहोस्।";
+"WEBINTF_TITLE_ATV" = "रिमोट प्लेब्याक";
+"WEBINTF_DROPFILES_LONG_ATV" = "तपाईँको %@ मा तिनलाई प्ले गर्न सन्झ्यालमा फाइलहरू छोड्नुहोस्।<br> वा फाइल पिकर डायलग प्रयोग गर्न \"+\" बटनमा क्लिक गर्नुहोस्।";
+"WEBINTF_URL_SENT" = "URL सफलापूर्वक पठाइयो।";
+"WEBINTF_URL_EMPTY" = "URL खाली हुन सक्दैन।";
+"WEBINTF_URL_INVALID" = "मान्य URL होइन।";
+"WEBINTF_AUTH_REQUIRED" = "कृपया तपाईँले VLC iOS मा सेट गर्नुभएको पासकोड प्रविष्ट गर्नुहोस्:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "गलत पासकोड।<br> बाँकी प्रयासहरू:";
+"WEBINTF_AUTH_BANNED" = "तपाईँले अति धेरै गलत पासकोडहरू प्रविष्ट गर्नुभयो।<br>कृपया VLC iOS फेरि सुरु गर्नुहोस् र फेरि प्रयास गर्नुहोस्।";
 
 
 
@@ -264,12 +266,12 @@
 // accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Long-press to stop playback.";
+"LONGPRESS_TO_STOP" = "प्लेब्याक रोक्न थिचिराख्नुहोस्।";
 
 // ATV specific
-"AUDIO_INFO_VC_TITLE" = "Audio Info";
-"CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
-"ENTER_URL" = "Enter URL to play";
+"AUDIO_INFO_VC_TITLE" = "अडियो जानकारी";
+"CLOUD_LOGIN_LONG" = "Cloud Services मा पहुँच गर्न प्रणाली सेटिङमा उही Apple ID र Keychain Sharing को साथ यस Apple TV र iOS यन्त्र दुबैमा iCloud मा साइन-इन गर्नुहोस्।\nत्यसपछि, तपाईँको iOS यन्त्रमा VLC एप प्रयोग गरेर तपाईँको छनौटको cloud प्रदायकमा लगइन गर्नुहोस्। आखिरमा, यसलाई यो स्क्रिनमा चयन गर्नुहोस्।";
+"ENTER_URL" = "प्ले गर्न URL प्रविष्ट गर्नुहोस्";
 "HTTP_SERVER_ON" = "Disable Remote Playback";
 "HTTP_SERVER_OFF" = "Enable Remote Playback";
 "CACHED_MEDIA" = "Cached Media";
