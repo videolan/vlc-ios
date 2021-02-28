@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "饱和度";
 "VFILTER_GAMMA" = "伽玛";
 
+"PRESETS" = "预设";
 "PREAMP" = "放大器";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "选择均衡器配置文件";
+"SNAP_BANDS" = "沿着频段拉";
 
 "PLAYBACK_FAILED" = "回放失败";
 "PLEASE_WAIT" = "请稍候";
