@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Saturation";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESETS" = "Présélections";
 "PREAMP" = "Préampli";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Choisissez le profil d’égaliseur";
+"SNAP_BANDS" = "Bandes élastiques";
 
 "PLAYBACK_FAILED" = "La lecture a échoué";
 "PLEASE_WAIT" = "Veuillez patienter";
@@ -206,7 +208,7 @@
 "RESET_VIDEO_FILTERS" = "Voulez-vous réinitialiser les filtres vidéo ?";
 "RESET_PLAYBACK_SPEED" = "Voulez-vous réinitialiser la vitesse de lecture ?";
 "RESET_EQUALIZER" = "Voulez-vous réinitialiser les paramètres de l'égaliseur ?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_SLEEP_TIMER" = "Voulez-vous réinitialiser la minuterie de sommeil ?";
 
 "VERSION_FORMAT" = "Version : %@";
 "BASED_ON_FORMAT" = "Basé sur :<br />%@";
