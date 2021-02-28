@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Sýtosť";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESETS" = "Prednastavenia";
 "PREAMP" = "Predzosilnenie";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Výber profilu ekvalizéra";
+"SNAP_BANDS" = "Prichytiť pásma";
 
 "PLAYBACK_FAILED" = "Prehrávanie zlyhalo";
 "PLEASE_WAIT" = "Prosím čakajte";
