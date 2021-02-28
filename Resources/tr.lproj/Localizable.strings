@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Doygunluk";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESETS" = "Ön ayarlar";
 "PREAMP" = "Ön güçlendirme";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Dengeleyici Profili Seç";
+"SNAP_BANDS" = "Snap bantları";
 
 "PLAYBACK_FAILED" = "Oynatılamadı";
 "PLEASE_WAIT" = "Lütfen bekleyin";
