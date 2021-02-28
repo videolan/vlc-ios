@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Saturação";
 "VFILTER_GAMMA" = "Gama";
 
+"PRESETS" = "Padrões";
 "PREAMP" = "Pré amplificador";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Escolha o Perfil do Equalizador";
+"SNAP_BANDS" = "Braceletes";
 
 "PLAYBACK_FAILED" = "Falha na reprodução";
 "PLEASE_WAIT" = "Por favor, aguarde";
