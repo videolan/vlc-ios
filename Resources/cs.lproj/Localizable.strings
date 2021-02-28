@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Sytost";
 "VFILTER_GAMMA" = "Gama";
 
+"PRESETS" = "Předvolby";
 "PREAMP" = "Předzesílení";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Výběr předvoleb ekvalizéru";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Chyba přehrávání";
 "PLEASE_WAIT" = "Čekejte...";
@@ -195,7 +197,7 @@
 "PLAYBACK_POSITION" = "Pozice přehrávání";
 "VIDEO_FILTER" = "Filtry videa";
 "VIDEO_FILTER_RESET_BUTTON" = "Obnovit nastavení filtrů videa";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Poměr stran videa";
 "BWD_BUTTON" = "Zpět";
 "FWD_BUTTON" = "Vpřed";
 "PLAY_BUTTON" = "Přehrát";
@@ -203,10 +205,10 @@
 "PREV_BUTTON" = "Předchozí";
 "PLAY_ALL_BUTTON" = "Přehrát vše";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_VIDEO_FILTERS" = "Chcete vrátit nastavení filtrů videa?";
+"RESET_PLAYBACK_SPEED" = "Chcete vyresetovat rychlost přehrávání?";
+"RESET_EQUALIZER" = "Chcete vrátit nastavení ekvalizéru?";
+"RESET_SLEEP_TIMER" = "Chcete vyresetovat časovač?";
 
 "VERSION_FORMAT" = "Verze: %@";
 "BASED_ON_FORMAT" = "Založeno na:<br />%@";
@@ -400,32 +402,32 @@
 
 /* VideoPlayerControls */
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "Titulky a zvukové stopy";
+"SUBTITLE_AND_TRACK_HINT" = "Vybrat titulky nebo zvukové stopy";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "Rozhraní DVD";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "Zámek otočení";
+"ROTATION_LOCK_HINT" = "Zamknout otočení videa na aktuální";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"BACKWARD_BUTTON" = "Zpět";
+"BACKWARD_HINT" = "Skočit zpět";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"PREVIOUS_BUTTON" = "Předchozí";
+"PREVIOUS_HINT" = "Předchozí média";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PLAY_PAUSE_BUTTON" = "Přehrát či pozastavit";
+"PLAY_PAUSE_HINT" = "Přehrát či pozastavit současné přehrávání";
 
-"NEXT_HINT" = "Next media";
+"NEXT_HINT" = "Následující média";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"FORWARD_BUTTON" = "Vpřed";
+"FORWARD_HINT" = "Skočit vpřed";
 
 "INTERFACE_LOCK_BUTTON" = "Uzamknout prostředí";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Poměr stran videa";
 "VIDEO_ASPECT_RATIO_HINT" = "Změnit poměr stran aktuálního videa";
 
 "MORE_OPTIONS_BUTTON" = "Více";
