@@ -139,6 +139,29 @@ private extension MediaScrubProgressBar {
         spacing = 5
         axis = .vertical
         translatesAutoresizingMaskIntoConstraints = false
+
+        setVerticalHuggingAndCompressionResistance(to: .required, for: [
+            scrubbingHelpLabel,
+            scrubbingIndicatorLabel,
+            elapsedTimeLabel,
+            remainingTimeButton,
+            scrubInfoStackView,
+            horizontalStack,
+            progressSlider
+        ])
+
+        elapsedTimeLabel.setContentHuggingPriority(.required, for: .vertical)
+        remainingTimeButton.setContentHuggingPriority(.required, for: .vertical)
+        scrubInfoStackView.setContentHuggingPriority(.required, for: .vertical)
+        horizontalStack.setContentHuggingPriority(.required, for: .vertical)
+        progressSlider.setContentHuggingPriority(.required, for: .vertical)
+    }
+
+    private func setVerticalHuggingAndCompressionResistance(to priority: UILayoutPriority, for views: [UIView]) {
+        for view in views {
+            view.setContentHuggingPriority(priority, for: .vertical)
+            view.setContentCompressionResistancePriority(priority, for: .vertical)
+        }
     }
 
     @objc private func updateScrubLabel() {
