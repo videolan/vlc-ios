@@ -35,11 +35,11 @@
 "VFILTER_SATURATION" = "Telítettség";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESETS" = "Presets";
+"PRESETS" = "Előbeállítások";
 "PREAMP" = "Előerősítés";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Hangszín profil választása";
-"SNAP_BANDS" = "Snap bands";
+"SNAP_BANDS" = "Sávok egymáshoz tapasztása";
 
 "PLAYBACK_FAILED" = "A lejátszás nem sikerült";
 "PLEASE_WAIT" = "Kérem várjon";
