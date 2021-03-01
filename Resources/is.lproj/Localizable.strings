@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Mettun";
 "VFILTER_GAMMA" = "Litróf (gamma)";
 
+"PRESETS" = "Forstillingar";
 "PREAMP" = "Formögnun";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Veldu snið fyrir hljóðjöfnun";
+"SNAP_BANDS" = "Hengja við næstu tíðnisvið";
 
 "PLAYBACK_FAILED" = "Villa við afspilun";
 "PLEASE_WAIT" = "Bíddu aðeins";
@@ -85,7 +87,7 @@
 "NETWORK_TITLE" = "Netstreymi";
 "OPEN_NETWORK_HELP" = "Settu inn eitthvað HTTP, RTSP, RTMP, MMS, FTP eða UDP/RTP vistfang til að opna streymið beint.";
 "HTTP_UPLOAD_SERVER_OFF" = "Óvirkur þjónn";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Engin virk WiFi-tenging";
 "OPEN_STREAM_OR_DOWNLOAD" = "Viltu hlaða niður eða spila þessa vefslóð?";
 "SHARED_VLC_IOS_LIBRARY" = "Samnýtt VLC fyrir iOS safn";
 "SMB_CIFS_FILE_SERVERS" = "Skráaþjónar (SMB)";
@@ -131,7 +133,7 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "EKKI TÓKST AÐ TENGJAST ÞJÓNI";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Athugaðu vistfang þjónsins og auðkenninguna inn á hann";
 
-"FILES_APP_CELL_TITLE" = "Local files";
+"FILES_APP_CELL_TITLE" = "Staðværar skrár";
 "FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
 
 "CLOUD_SERVICES" = "Skýaþjónustur";
@@ -182,7 +184,7 @@
 "OFF" = "Slökkt";
 
 "EMPTY_LIBRARY" = "Tómt miðlasafn";
-"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
+"EMPTY_LIBRARY_LONG" = "Til afspilunar geturðu streymt frá netþjóni á staðarnetinu þínu, af tölvuskýjum, eða samstillt margmiðlunargögn yfir á tækið þitt með iTunes, hleðslu í gegnum þráðlaust net eða úr skýjaþjónustum.";
 
 "EMPTY_PLAYLIST" = "Tómur spilunarlisti";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Bæta við gögnum á meðan verið er að breyta í tilheyrandi flokkum.";
@@ -195,7 +197,7 @@
 "PLAYBACK_POSITION" = "Staða afspilunar";
 "VIDEO_FILTER" = "Myndmerkissíur";
 "VIDEO_FILTER_RESET_BUTTON" = "Frumstilla myndmerkissíur";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Stærðarhlutföll myndskeiða";
 "BWD_BUTTON" = "Skrefa afturábak";
 "FWD_BUTTON" = "Skrefa áfram";
 "PLAY_BUTTON" = "Spila";
@@ -223,7 +225,7 @@
 "FIRST_STEPS_ITUNES" = "iTunes skráasamstilling";
 "FIRST_STEPS_ITUNES_TITLE" = "Samstilla við tölvuna þína";
 "FIRST_STEPS_ITUNES_DETAILS" = "Tengdu tækið við iTunes og veldu tækið þitt. Veldu \"Skráadeiling/File Sharing\" á valmyndinni til vinstri í iTunes og leitaðu að VLC til að yfirfæra skrár";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
+"FIRST_STEPS_WIFI_TITLE" = "Deila með þráðlausu Wi-Fi neti";
 "FIRST_STEPS_WIFI_DETAILS" = "Settu þessa sérútbúnu slóð inn í vafrann þinn á meðan þú tengist við sama netkerfi og síminn þinn";
 "FIRST_STEPS_CLOUDS" = "Tölvuský";
 "FIRST_STEPS_CLOUD_TITLE" = "Tölvuský";
@@ -240,7 +242,7 @@
 "NO_SERVER_FOUND" = "Enginn þjónn fannst";
 "NO_RECENT_STREAMS" = "Ekkert streymi hefur verið spilað nýlega";
 
-"WEBINTF_TITLE" = "Sharing via Wi-Fi";
+"WEBINTF_TITLE" = "Deiling með þráðlausu Wi-Fi neti";
 "WEBINTF_DROPFILES" = "Sleppa skrám";
 "WEBINTF_DROPFILES_LONG" = "Slepptu skrám á gluggann til að bæta þeim inn á %@. <br>Eða smelltu á \"+\" hnappinn til að nota skráaveljarann.";
 "WEBINTF_DOWNLOADFILES" = "Sækja skrár";
@@ -330,7 +332,7 @@
 "ARTISTS" = "Flytjendur";
 "EPISODES" = "Þættir";
 "GENRES" = "Stíltegundir";
-"ALL_VIDEOS" = "All videos";
+"ALL_VIDEOS" = "Öll myndskeið";
 "SONGS" = "Lög";
 "PLAYLISTS" = "Spilunarlistar";
 "VIDEO_GROUPS" = "Hópar myndskeiða";
@@ -400,32 +402,32 @@
 
 /* VideoPlayerControls */
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "Skjátextar og hljóðspor";
+"SUBTITLE_AND_TRACK_HINT" = "Veldu skjátexta eða hljóðspor";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "DVD-viðmót";
 
 "ROTATION_LOCK_BUTTON" = "Rotation lock";
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"BACKWARD_BUTTON" = "Afturábak";
+"BACKWARD_HINT" = "Hoppa afturábak";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"PREVIOUS_BUTTON" = "Fyrra";
+"PREVIOUS_HINT" = "Fyrri gagnamiðill";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PLAY_PAUSE_BUTTON" = "Spila eða setja í bið";
+"PLAY_PAUSE_HINT" = "Spila eða gera hlé á spilun";
 
-"NEXT_HINT" = "Next media";
+"NEXT_HINT" = "Næsti gagnamiðill";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"FORWARD_BUTTON" = "Áfram";
+"FORWARD_HINT" = "Hoppa áfram";
 
 "INTERFACE_LOCK_BUTTON" = "Læsa viðmóti";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Stærðarhlutföll myndskeiða";
 "VIDEO_ASPECT_RATIO_HINT" = "Breyta stærðarhlutföllum núverandi myndskeiðs";
 
 "MORE_OPTIONS_BUTTON" = "Meira";
@@ -448,7 +450,7 @@
 
 /* Preview labels */
 
-"ENCODING" = "Encoding";
+"ENCODING" = "Kóðun";
 
 /* Media groups */
 
@@ -467,7 +469,7 @@
 "MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
 
-"BUTTON_REGROUP" = "Regroup";
+"BUTTON_REGROUP" = "Endurhópa";
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
