@@ -185,8 +185,8 @@ class VideoPlayerViewController: UIViewController {
 
     private(set) lazy var aspectRatioStatusLabel: UILabel = {
         var aspectRatioStatusLabel = UILabel()
-        aspectRatioStatusLabel.textColor = .black
-        aspectRatioStatusLabel.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.8)
+        aspectRatioStatusLabel.textColor = .white
+        aspectRatioStatusLabel.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         aspectRatioStatusLabel.layer.zPosition = 1
         aspectRatioStatusLabel.isHidden = true
         aspectRatioStatusLabel.translatesAutoresizingMaskIntoConstraints = false
