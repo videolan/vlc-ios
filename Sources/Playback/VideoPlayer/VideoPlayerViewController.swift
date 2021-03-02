@@ -183,6 +183,17 @@ class VideoPlayerViewController: UIViewController {
 
     private var isFirstCall: Bool = true
 
+    private(set) lazy var aspectRatioStatusLabel: UILabel = {
+        var aspectRatio = UILabel()
+        aspectRatio.textColor = .black
+        aspectRatio.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.8)
+        aspectRatio.layer.zPosition = 1
+        aspectRatio.isHidden = true
+        aspectRatio.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(aspectRatio)
+        return aspectRatio
+    }()
+
     private(set) lazy var trackSelector: VLCTrackSelectorView = {
         var trackSelector = VLCTrackSelectorView(frame: .zero)
         trackSelector.parentViewController = self
@@ -777,6 +788,7 @@ private extension VideoPlayerViewController {
         setupVideoPlayerControlsConstraints()
         setupScrubProgressBarConstraints()
         setupTrackSelectorContraints()
+        setupAspectRatioContraints()
     }
 
     private func setupVideoOutputConstraints() {
@@ -836,6 +848,12 @@ private extension VideoPlayerViewController {
             scrubProgressBar.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
                                                        constant: -margin),
             scrubProgressBar.bottomAnchor.constraint(equalTo: videoPlayerControls.topAnchor, constant: -margin)
+        ])
+    }
+    private func setupAspectRatioContraints() {
+        NSLayoutConstraint.activate([
+            aspectRatioStatusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            aspectRatioStatusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 

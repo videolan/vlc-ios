@@ -151,6 +151,7 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)selectChapterAtIndex:(NSInteger)index;
 - (void)setAudioPassthrough:(BOOL)shouldPass;
 - (void)switchAspectRatio:(BOOL)toggleFullScreen;
+- (NSString *)stringForAspectRatio:(VLCAspectRatio)ratio;
 
 - (void)playItemAtIndex:(NSUInteger)index;
 
