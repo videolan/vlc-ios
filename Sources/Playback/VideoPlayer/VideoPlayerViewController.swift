@@ -184,14 +184,14 @@ class VideoPlayerViewController: UIViewController {
     private var isFirstCall: Bool = true
 
     private(set) lazy var aspectRatioStatusLabel: UILabel = {
-        var aspectRatio = UILabel()
-        aspectRatio.textColor = .black
-        aspectRatio.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.8)
-        aspectRatio.layer.zPosition = 1
-        aspectRatio.isHidden = true
-        aspectRatio.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(aspectRatio)
-        return aspectRatio
+        var aspectRatioStatusLabel = UILabel()
+        aspectRatioStatusLabel.textColor = .black
+        aspectRatioStatusLabel.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.8)
+        aspectRatioStatusLabel.layer.zPosition = 1
+        aspectRatioStatusLabel.isHidden = true
+        aspectRatioStatusLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(aspectRatioStatusLabel)
+        return aspectRatioStatusLabel
     }()
 
     private(set) lazy var trackSelector: VLCTrackSelectorView = {
