@@ -154,7 +154,7 @@ class ActionSheet: UIViewController {
 
         setupMainStackViewConstraints()
         setupCollectionViewConstraints()
-        setuplHeaderViewConstraints()
+        setupHeaderViewConstraints()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -218,7 +218,7 @@ class ActionSheet: UIViewController {
 // MARK: Private setup methods
 
 private extension ActionSheet {
-    private func setuplHeaderViewConstraints() {
+    private func setupHeaderViewConstraints() {
         NSLayoutConstraint.activate([
             headerView.heightAnchor.constraint(equalToConstant: headerView.cellHeight),
             headerView.widthAnchor.constraint(equalTo: view.widthAnchor),
