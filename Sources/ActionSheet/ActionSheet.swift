@@ -219,16 +219,10 @@ class ActionSheet: UIViewController {
 
 private extension ActionSheet {
     private func setuplHeaderViewConstraints() {
-        if headerView.titleConstraint == nil {
-            headerView.titleConstraint = headerView.title.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
-        }
-        if let titleConstraint = headerView.titleConstraint {
-            NSLayoutConstraint.activate([
-                headerView.heightAnchor.constraint(equalToConstant: headerView.cellHeight),
-                headerView.widthAnchor.constraint(equalTo: view.widthAnchor),
-                titleConstraint
+        NSLayoutConstraint.activate([
+            headerView.heightAnchor.constraint(equalToConstant: headerView.cellHeight),
+            headerView.widthAnchor.constraint(equalTo: view.widthAnchor),
             ])
-        }
     }
 
     private func setupCollectionViewConstraints() {
