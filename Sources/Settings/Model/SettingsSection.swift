@@ -453,6 +453,7 @@ enum AudioOptions: Int, CaseIterable, SectionType {
 enum MediaLibraryOptions: Int, CaseIterable, SectionType {
     case forceVLCToRescanTheMediaLibrary
     case optimiseItemNamesForDisplay
+    case disableGrouping
     case showVideoThumbnails
     case showAudioArtworks
     case includeMediaLibInDeviceBackup
@@ -463,6 +464,8 @@ enum MediaLibraryOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_MEDIA_LIBRARY_RESCAN"
         case .optimiseItemNamesForDisplay:
             return "SETTINGS_DECRAPIFY"
+        case .disableGrouping:
+            return "SETTINGS_DISABLE_GROUPING"
         case .showVideoThumbnails:
             return "SETTINGS_SHOW_THUMBNAILS"
         case .showAudioArtworks:
@@ -489,6 +492,8 @@ enum MediaLibraryOptions: Int, CaseIterable, SectionType {
             return nil
         case .optimiseItemNamesForDisplay:
             return kVLCSettingsDecrapifyTitles
+        case .disableGrouping:
+            return kVLCSettingsDisableGrouping
         case .showVideoThumbnails:
             return kVLCSettingShowThumbnails
         case .showAudioArtworks:

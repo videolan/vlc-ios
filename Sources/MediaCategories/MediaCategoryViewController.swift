@@ -145,8 +145,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         videoModel.secondName = model.name
 
         if model is MediaGroupViewModel {
-            self.model = userDefaults.bool(forKey: "\(kVLCGroupLayout)\(model.name)") ? videoModel : model
-            self.secondModel = userDefaults.bool(forKey: "\(kVLCGroupLayout)\(model.name)") ? model : videoModel
+            self.model = userDefaults.bool(forKey: kVLCSettingsDisableGrouping) ? videoModel : model
+            self.secondModel = userDefaults.bool(forKey: kVLCSettingsDisableGrouping) ? model : videoModel
         } else {
             self.model = model
             self.secondModel = videoModel
@@ -171,6 +171,26 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         NotificationCenter.default.addObserver(self, selector: #selector(miniPlayerIsHidden),
                                                name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
                                                object: nil)
+
+        if model is MediaGroupViewModel || model is VideoModel {
+            NotificationCenter.default.addObserver(self, selector: #selector(handleDisableGrouping),
+                                                   name: .VLCDisableGroupingDidChangeNotification,
+                                                   object: nil)
+        }
+    }
+
+    @objc private func handleDisableGrouping() {
+        let previousModel = model
+        model = secondModel
+        secondModel = previousModel
+        self.searchDataSource = LibrarySearchDataSource(model: model)
+        editController = EditController(mediaLibraryService: services.medialibraryService, model: model, presentingView: collectionView)
+        editController.delegate = self
+        model.sort(by: secondModel.sortModel.currentSort, desc: secondModel.sortModel.desc)
+        setupCollectionView()
+        cachedCellSize = .zero
+        collectionView?.collectionViewLayout.invalidateLayout()
+        reloadData()
     }
 
     @objc func miniPlayerIsShown() {
@@ -980,18 +1000,6 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
 
             prefix = kVLCAudioLibraryGridLayout
             suffix = model is VideoModel ? secondModel.name : collectionModelName + model.name
-        } else {
-            let previousModel = model
-            model = secondModel
-            secondModel = previousModel
-            self.searchDataSource = LibrarySearchDataSource(model: model)
-            editController = EditController(mediaLibraryService: services.medialibraryService, model: model, presentingView: collectionView)
-            editController.delegate = self
-            model.sort(by: secondModel.sortModel.currentSort, desc: secondModel.sortModel.desc)
-
-            prefix = kVLCGroupLayout
-            suffix = model is VideoModel ? secondModel.name : model.name
-            sortActionSheet.removeActionSheet()
         }
 
         userDefaults.set(onSwitchIsOnChange, forKey: "\(prefix)\(suffix)")

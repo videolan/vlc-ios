@@ -77,6 +77,8 @@
 #define kVLCSettingShowThumbnailsDefaultValue @YES
 #define kVLCSettingShowArtworks @"ShowArtworks"
 #define kVLCSettingShowArtworksDefaultValue @YES
+#define kVLCSettingsDisableGrouping @"MLDisableGrouping"
+#define kVLCkVLCSettingsDisableGroupingDefaultValue @NO
 #define kVLCSettingCastingAudioPassthrough @"sout-chromecast-audio-passthrough"
 #define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO

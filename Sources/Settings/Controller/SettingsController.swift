@@ -12,6 +12,10 @@
 import UIKit
 import LocalAuthentication
 
+extension Notification.Name {
+    static let VLCDisableGroupingDidChangeNotification = Notification.Name("disableGroupingDidChangeNotfication")
+}
+
 class SettingsController: UITableViewController {
 
     private let cellReuseIdentifier = "settingsCell"
@@ -314,6 +318,7 @@ extension SettingsController {
                 cell.mainLabel.textColor = PresentationTheme.current.colors.orangeUI
             }
             cell.mediaLibraryBackupSwitchDelegate = self
+            cell.medialibraryDisableGroupingSwitchDelegate = self
             if indexPath.row == MediaLibraryOptions.includeMediaLibInDeviceBackup.rawValue {
                 if isBackingUp {
                     cell.accessoryView = .none
@@ -484,5 +489,11 @@ extension SettingsController: MedialibraryHidingActivateDelegate {
 extension SettingsController: MediaLibraryBackupActivateDelegate {
     func mediaLibraryBackupActivateSwitchOn(state: Bool) {
         mediaLibraryService.excludeFromDeviceBackup(state)
+    }
+}
+
+extension SettingsController: MediaLibraryDisableGroupingDelegate {
+    func medialibraryDisableGroupingSwitchOn(state: Bool) {
+        notificationCenter.post(name: .VLCDisableGroupingDidChangeNotification, object: self)
     }
 }

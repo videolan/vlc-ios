@@ -29,6 +29,10 @@ protocol MediaLibraryBackupActivateDelegate: AnyObject {
     func mediaLibraryBackupActivateSwitchOn(state: Bool)
 }
 
+protocol MediaLibraryDisableGroupingDelegate: AnyObject {
+    func medialibraryDisableGroupingSwitchOn(state: Bool)
+}
+
 class SettingsCell: UITableViewCell {
 
     private let userDefaults = UserDefaults.standard
@@ -38,6 +42,7 @@ class SettingsCell: UITableViewCell {
     weak var passcodeSwitchDelegate: PasscodeActivateDelegate?
     weak var medialibraryHidingSwitchDelegate: MedialibraryHidingActivateDelegate?
     weak var mediaLibraryBackupSwitchDelegate: MediaLibraryBackupActivateDelegate?
+    weak var medialibraryDisableGroupingSwitchDelegate: MediaLibraryDisableGroupingDelegate?
 
     lazy var switchControl: UISwitch = {
         let switchControl = UISwitch()
@@ -186,6 +191,8 @@ class SettingsCell: UITableViewCell {
             medialibraryHidingSwitchDelegate?.medialibraryHidingLockSwitchOn(state: sender.isOn)
         } else if sectionType?.preferenceKey == kVLCSettingBackupMediaLibrary {
             mediaLibraryBackupSwitchDelegate?.mediaLibraryBackupActivateSwitchOn(state: sender.isOn)
+        } else if sectionType?.preferenceKey == kVLCSettingsDisableGrouping {
+            medialibraryDisableGroupingSwitchDelegate?.medialibraryDisableGroupingSwitchOn(state: sender.isOn)
         }
     }
 
