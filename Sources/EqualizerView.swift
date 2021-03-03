@@ -55,12 +55,14 @@ import UIKit
             currentValueLabel.text = "0dB"
             currentValueLabel.textAlignment = .center
             currentValueLabel.font = .systemFont(ofSize: 11, weight: .bold)
+            currentValueLabel.setContentHuggingPriority(.required, for: .vertical)
         }
 
         private func setupFrequencyLabel(name: String) {
             frequencyLabel.text = name
             frequencyLabel.textAlignment = .center
             frequencyLabel.font = .systemFont(ofSize: 11)
+            frequencyLabel.setContentHuggingPriority(.required, for: .vertical)
         }
 
         private func setupStackConstraints() {
@@ -73,30 +75,23 @@ import UIKit
         }
     }
 
+    // MARK: - Properties
+
     @objc var delegate: EqualizerViewDelegate? {
         didSet {
             createFrequencyStacks()
+            if var profiles = delegate?.equalizerProfiles() as? [NSString] {
+                profiles.insert(NSString(string: NSLocalizedString("OFF", comment: "")), at: 0)
+                presetSelectorView = EqualizerPresetSelector(profiles: profiles)
+            }
             setupViews()
         }
     }
     @objc var UIDelegate: EqualizerViewUIDelegate?
 
-    override var isHidden: Bool {
-        didSet {
-            frequenciesScrollView.contentSize = frequenciesStackView.frame.size
-            if isHidden == false {
-                valuesOnShow.removeAll()
-                for eqFrequency in eqFrequencies {
-                    valuesOnShow.append(eqFrequency.slider.value)
-                }
-            }
-        }
-    }
-
     // Container views
     private let stackView = UIStackView()
-    private let presetsStackView = UIStackView()
-    private let preampStackView = UIStackView()
+    private var presetSelectorView: EqualizerPresetSelector?
     private let labelsAndFrequenciesStackView = UIStackView()
     private let labelsStackView = UIStackView()
     private let frequenciesScrollView = UIScrollView()
@@ -104,21 +99,26 @@ import UIKit
     private let snapBandsStackView = UIStackView()
     private let buttonsStackView = UIStackView()
 
-    private let presetsLabel = UILabel()
-    private let presetsPicker = UIPickerView()
-    private let preampLabel = UILabel()
-    private let preampSlider = VLCSlider()
     private let plus20Label = UILabel()
     private let zeroLabel = UILabel()
     private let minus20Label = UILabel()
-    private let snapBandLabel = UILabel()
-    private let snapBandSwitch = UISwitch()
+    private let snapBandsLabel = UILabel()
+    private let snapBandsSwitch = UISwitch()
     private let cancelButton = UIButton()
     private let resetButton = UIButton()
 
     private var eqFrequencies: [EqualizerFrequency] = []
     private var valuesOnShow: [Float] = []
     private var oldValues: [Float] = []
+
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        if let superview = superview {
+            presetSelectorView?.setHeightConstraint(equalTo: superview.heightAnchor, multiplier: 0.75)
+        }
+    }
+
+    // MARK: - Init
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -128,6 +128,10 @@ import UIKit
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupNotifications()
+    }
+
+    func willShow() {
+        resetValuesOnShow()
     }
 
     // MARK: - Setup
@@ -148,20 +152,24 @@ import UIKit
     }
 
     private func setupViews() {
+        translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         stackView.axis = .vertical
         stackView.alignment = .top
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 10
+        stackView.distribution = .fill
+        stackView.spacing = 20
 
         let contentStackViews: [UIStackView] = [
-            presetsStackView,
-            preampStackView,
             labelsAndFrequenciesStackView,
             snapBandsStackView,
             buttonsStackView
         ]
+
+        if let presetSelectorView = presetSelectorView {
+            stackView.addArrangedSubview(presetSelectorView)
+            presetSelectorView.translatesAutoresizingMaskIntoConstraints = false
+        }
 
         for contentStackView in contentStackViews {
             contentStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -178,26 +186,8 @@ import UIKit
         buttonsStackView.distribution = .fillEqually
 
         //Init presets views
-        presetsLabel.text = NSLocalizedString("PRESETS", comment: "")
-        presetsLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-        presetsLabel.setContentHuggingPriority(.required, for: .horizontal)
-        presetsPicker.delegate = self
-        presetsPicker.dataSource = self
-        presetsPicker.setContentHuggingPriority(.required, for: .vertical)
-        presetsStackView.addArrangedSubview(presetsLabel)
-        presetsStackView.addArrangedSubview(presetsPicker)
-
-        //Init preamp views
-        preampLabel.text = NSLocalizedString("PREAMP", comment: "")
-        preampLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-        preampLabel.setContentHuggingPriority(.required, for: .horizontal)
-        preampSlider.maximumValue = 20.0
-        preampSlider.value = 0.0
-        preampSlider.minimumValue = -20.0
-        preampSlider.setContentHuggingPriority(.required, for: .vertical)
-        preampSlider.addTarget(self, action: #selector(preampSliderDidChangeValue), for: .valueChanged)
-        preampStackView.addArrangedSubview(preampLabel)
-        preampStackView.addArrangedSubview(preampSlider)
+        presetSelectorView?.delegate = self
+        presetSelectorView?.parent = self
 
         //Init frequencies zone
         labelsStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -205,31 +195,44 @@ import UIKit
         labelsStackView.alignment = .fill
         labelsStackView.distribution = .equalSpacing
         labelsStackView.spacing = 10
-        plus20Label.text = "\n+20dB"
-        plus20Label.numberOfLines = 2
+        labelsStackView.isLayoutMarginsRelativeArrangement = true
+        labelsStackView.layoutMargins.top = 25
+        labelsStackView.layoutMargins.bottom = 35
+        plus20Label.text = "+20dB"
         plus20Label.font = .systemFont(ofSize: 11)
+        plus20Label.textAlignment = .right
+        plus20Label.setContentHuggingPriority(.required, for: .vertical)
+        plus20Label.setContentHuggingPriority(.required, for: .horizontal)
+        plus20Label.setContentCompressionResistancePriority(.required, for: .horizontal)
         zeroLabel.text = "+0dB"
         zeroLabel.font = .systemFont(ofSize: 11)
-        minus20Label.text = "-20dB\n"
-        minus20Label.numberOfLines = 2
+        zeroLabel.textAlignment = .right
+        minus20Label.text = "-20dB"
         minus20Label.font = .systemFont(ofSize: 11)
+        minus20Label.textAlignment = .right
+        minus20Label.setContentHuggingPriority(.required, for: .vertical)
         labelsStackView.addArrangedSubview(plus20Label)
         labelsStackView.addArrangedSubview(zeroLabel)
         labelsStackView.addArrangedSubview(minus20Label)
 
         //Init snapBand views
-        snapBandLabel.text = NSLocalizedString("SNAP_BANDS", comment: "")
-        snapBandLabel.textAlignment = .right
-        snapBandSwitch.isOn = UserDefaults.standard.bool(forKey: kVLCEqualizerSnapBands)
-        snapBandSwitch.addTarget(self, action: #selector(snapBandsSwitchDidChangeValue), for: .valueChanged)
-        snapBandsStackView.addArrangedSubview(snapBandLabel)
-        snapBandsStackView.addArrangedSubview(snapBandSwitch)
+        snapBandsLabel.text = NSLocalizedString("SNAP_BANDS", comment: "")
+        snapBandsLabel.textAlignment = .right
+        snapBandsLabel.setContentHuggingPriority(.required, for: .vertical)
+        snapBandsSwitch.isOn = UserDefaults.standard.bool(forKey: kVLCEqualizerSnapBands)
+        snapBandsSwitch.addTarget(self, action: #selector(snapBandsSwitchDidChangeValue), for: .valueChanged)
+        snapBandsSwitch.setContentHuggingPriority(.required, for: .vertical)
+        snapBandsStackView.addArrangedSubview(snapBandsLabel)
+        snapBandsStackView.addArrangedSubview(snapBandsSwitch)
+        snapBandsStackView.alignment = .center
 
         //Init buttons views
         cancelButton.setTitle(NSLocalizedString("BUTTON_CANCEL", comment: ""), for: .normal)
         resetButton.setTitle(NSLocalizedString("BUTTON_RESET", comment: ""), for: .normal)
         cancelButton.addTarget(self, action: #selector(cancelEqualizer), for: .touchUpInside)
         resetButton.addTarget(self, action: #selector(resetEqualizer), for: .touchUpInside)
+        cancelButton.setContentHuggingPriority(.required, for: .vertical)
+        resetButton.setContentHuggingPriority(.required, for: .vertical)
         buttonsStackView.addArrangedSubview(cancelButton)
         buttonsStackView.addArrangedSubview(resetButton)
 
@@ -248,8 +251,6 @@ import UIKit
         newConstraints.append(stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8))
 
         let contentStackViews: [UIStackView] = [
-            presetsStackView,
-            preampStackView,
             labelsAndFrequenciesStackView,
             snapBandsStackView,
             buttonsStackView
@@ -261,43 +262,70 @@ import UIKit
         }
 
         //Presets constraints
-        newConstraints.append(presetsPicker.heightAnchor.constraint(equalToConstant: 100))
-        newConstraints.append(presetsLabel.centerYAnchor.constraint(equalTo: presetsPicker.centerYAnchor))
-
-        //Preamp constraints
-        newConstraints.append(preampLabel.centerYAnchor.constraint(equalTo: preampSlider.centerYAnchor))
+        if let presetSelectorView = presetSelectorView {
+            newConstraints.append(presetSelectorView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor))
+            newConstraints.append(presetSelectorView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor))
+        }
 
         //Frequencies constraints
         newConstraints.append(labelsAndFrequenciesStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100))
+
+        newConstraints.append(labelsStackView.topAnchor.constraint(equalTo: labelsAndFrequenciesStackView.topAnchor))
+        newConstraints.append(labelsStackView.bottomAnchor.constraint(equalTo: labelsAndFrequenciesStackView.bottomAnchor))
         newConstraints.append(labelsStackView.heightAnchor.constraint(equalTo: labelsAndFrequenciesStackView.heightAnchor))
+
+        newConstraints.append(frequenciesScrollView.topAnchor.constraint(equalTo: labelsAndFrequenciesStackView.topAnchor))
+        newConstraints.append(frequenciesScrollView.bottomAnchor.constraint(equalTo: labelsAndFrequenciesStackView.bottomAnchor))
         newConstraints.append(frequenciesScrollView.heightAnchor.constraint(equalTo: labelsAndFrequenciesStackView.heightAnchor))
-        newConstraints.append(frequenciesStackView.heightAnchor.constraint(equalTo: frequenciesScrollView.heightAnchor))
-        newConstraints.append(frequenciesStackView.centerYAnchor.constraint(equalTo: frequenciesScrollView.centerYAnchor))
+
+        newConstraints.append(frequenciesStackView.topAnchor.constraint(equalTo: frequenciesScrollView.topAnchor))
+        newConstraints.append(frequenciesStackView.bottomAnchor.constraint(equalTo: frequenciesScrollView.bottomAnchor, constant: -10))
+        newConstraints.append(frequenciesStackView.heightAnchor.constraint(equalTo: frequenciesScrollView.heightAnchor, constant: -10))
         newConstraints.append(frequenciesStackView.leadingAnchor.constraint(equalTo: frequenciesScrollView.leadingAnchor))
+        newConstraints.append(frequenciesStackView.trailingAnchor.constraint(equalTo: frequenciesScrollView.trailingAnchor))
+
         for eqFrequency in eqFrequencies {
+            newConstraints.append(eqFrequency.stack.topAnchor.constraint(equalTo: frequenciesStackView.topAnchor))
+            newConstraints.append(eqFrequency.stack.bottomAnchor.constraint(equalTo: frequenciesStackView.bottomAnchor))
             newConstraints.append(eqFrequency.stack.heightAnchor.constraint(equalTo: frequenciesStackView.heightAnchor))
-            newConstraints.append(eqFrequency.stack.widthAnchor.constraint(greaterThanOrEqualToConstant: 40))
+
+            let minWidthConstraint = eqFrequency.stack.widthAnchor.constraint(greaterThanOrEqualToConstant: 40)
+            let widthConstraint = eqFrequency.stack.widthAnchor.constraint(equalTo: frequenciesScrollView.widthAnchor,
+                                                                           multiplier: 1.0 / CGFloat(eqFrequencies.count))
+            minWidthConstraint.priority = .required
+            widthConstraint.priority = .defaultHigh
+            newConstraints.append(minWidthConstraint)
+            newConstraints.append(widthConstraint)
         }
 
         //SnapBands constraints
-        newConstraints.append(snapBandLabel.centerYAnchor.constraint(equalTo: snapBandSwitch.centerYAnchor))
+        newConstraints.append(snapBandsStackView.heightAnchor.constraint(equalTo: snapBandsSwitch.heightAnchor))
 
         NSLayoutConstraint.activate(newConstraints)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        frequenciesScrollView.contentSize = frequenciesStackView.frame.size
+        frequenciesScrollView.flashScrollIndicatorsIfNeeded()
+    }
+
+    private func resetValuesOnShow() {
+        valuesOnShow.removeAll()
+        for eqFrequency in eqFrequencies {
+            valuesOnShow.append(eqFrequency.slider.value)
+        }
     }
 
     private func setupFrequenciesStackView() {
-
+        labelsAndFrequenciesStackView.alignment = .fill
+        labelsAndFrequenciesStackView.distribution = .fill
+        labelsAndFrequenciesStackView.spacing = 5
         labelsAndFrequenciesStackView.addArrangedSubview(labelsStackView)
         frequenciesStackView.translatesAutoresizingMaskIntoConstraints = false
         frequenciesStackView.axis = .horizontal
         frequenciesStackView.alignment = .leading
         frequenciesStackView.distribution = .fill
-        frequenciesStackView.spacing = 5
+        frequenciesStackView.spacing = 0
 
         for eqFrequency in eqFrequencies {
             eqFrequency.slider.addTarget(self, action: #selector(sliderDidChangeValue), for: .valueChanged)
@@ -313,14 +341,12 @@ import UIKit
 
     @objc func themeDidChange() {
         backgroundColor = PresentationTheme.current.colors.background
-        presetsLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        presetsPicker.tintColor = PresentationTheme.current.colors.cellTextColor
-        preampLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        preampSlider.tintColor = PresentationTheme.current.colors.orangeUI
         plus20Label.textColor = PresentationTheme.current.colors.cellTextColor
         zeroLabel.textColor = PresentationTheme.current.colors.cellTextColor
         minus20Label.textColor = PresentationTheme.current.colors.cellTextColor
-        snapBandLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        snapBandsLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        cancelButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
+        resetButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
 
         for eqFrequency in eqFrequencies {
             eqFrequency.currentValueLabel.textColor = PresentationTheme.current.colors.cellTextColor
@@ -331,7 +357,7 @@ import UIKit
 
     @objc func reloadData() {
         if let delegate = delegate {
-            preampSlider.value = Float(delegate.preAmplification)
+            presetSelectorView?.setPreampSliderValue(Float(delegate.preAmplification))
 
             for (i, eqFrequency) in eqFrequencies.enumerated() {
                 eqFrequency.slider.value = Float(delegate.amplification(ofBand: UInt32(i)))
@@ -344,11 +370,6 @@ import UIKit
 // MARK: - Slider events
 
 extension EqualizerView {
-    @objc func preampSliderDidChangeValue(sender: UISlider) {
-        delegate?.preAmplification = CGFloat(sender.value)
-        UIDelegate?.equalizerViewReceivedUserInput()
-    }
-
     @objc func sliderWillChangeValue(sender: UISlider) {
         oldValues.removeAll()
         for eqFrequency in eqFrequencies {
@@ -364,7 +385,7 @@ extension EqualizerView {
     @objc func sliderDidDrag(sender: UISlider) {
         let index = sender.tag
 
-        if snapBandSwitch.isOn {
+        if snapBandsSwitch.isOn {
             let delta = sender.value - oldValues[index]
 
             for i in 0..<eqFrequencies.count {
@@ -378,7 +399,7 @@ extension EqualizerView {
             }
         }
 
-        if snapBandSwitch.isOn {
+        if snapBandsSwitch.isOn {
             for eqFrequency in eqFrequencies {
                 eqFrequency.currentValueLabel.text = "\(Double(Int(eqFrequency.slider.value * 100)) / 100)"
             }
@@ -419,42 +440,16 @@ extension EqualizerView {
     }
 }
 
-// MARK: - UIPickerView
+// MARK: - EqualizerPresetSelectorDelegate
 
-extension EqualizerView: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+extension EqualizerView: EqualizerPresetSelectorDelegate {
+    func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSetPreamp preamp: Float) {
+        delegate?.preAmplification = CGFloat(preamp)
+        UIDelegate?.equalizerViewReceivedUserInput()
     }
 
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if let count = delegate?.equalizerProfiles().count {
-            return count + 1
-        } else {
-            return 0
-        }
-    }
-
-    private func stringForRow(_ row: Int) -> String {
-        if row == 0 {
-            return NSLocalizedString("OFF", comment: "")
-        } else if let equalizerProfiles = delegate?.equalizerProfiles() as? [NSString] {
-            return String(equalizerProfiles.objectAtIndex(index: row - 1) ?? "")
-        } else {
-            return ""
-        }
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return stringForRow(row)
-    }
-
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        return NSAttributedString(string: stringForRow(row),
-                                  attributes: [NSAttributedString.Key.foregroundColor: PresentationTheme.current.colors.cellTextColor])
-    }
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        delegate?.resetEqualizer(fromProfile: UInt32(row))
+    func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSelectPreset preset: Int) {
+        delegate?.resetEqualizer(fromProfile: UInt32(preset))
         reloadData()
     }
 }

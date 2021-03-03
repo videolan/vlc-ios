@@ -291,6 +291,15 @@ class VideoPlayerViewController: UIViewController {
         return panRecognizer
     }()
 
+    // MARK: - Popup Views
+
+    private var equalizerPopupShown: Bool = false
+    private lazy var equalizerPopupView: ActionSheetPopupView = {
+        let equalizerPopupView = ActionSheetPopupView()
+        equalizerPopupView.delegate = self
+        return equalizerPopupView
+    }()
+
     // MARK: -
 
     @objc init(services: Services, playerController: PlayerController) {
@@ -574,6 +583,9 @@ extension VideoPlayerViewController {
     }
 
     private func setControlsHidden(_ hidden: Bool, animated: Bool) {
+        if equalizerPopupShown && hidden {
+            return
+        }
         playerController.isControlsHidden = hidden
         trackSelector.isHidden = true
         if let alert = alertController, hidden {
@@ -773,6 +785,14 @@ private extension VideoPlayerViewController {
         view.addGestureRecognizer(doubleTapRecognizer)
         view.addGestureRecognizer(playPauseRecognizer)
         view.addGestureRecognizer(panRecognizer)
+    }
+
+    private func disableGestures() {
+        view.removeGestureRecognizer(tapOnVideoRecognizer)
+        view.removeGestureRecognizer(pinchRecognizer)
+        view.removeGestureRecognizer(doubleTapRecognizer)
+        view.removeGestureRecognizer(playPauseRecognizer)
+        view.removeGestureRecognizer(panRecognizer)
     }
 
     // MARK: - Constraints
@@ -1116,6 +1136,32 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
             alertController = nil
         }
     }
+
+    func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView) {
+        guard !equalizerPopupShown else {
+            return
+        }
+
+        disableGestures()
+        videoPlayerControls.moreActionsButton.isEnabled = false
+        equalizerPopupShown = true
+
+        equalizerPopupView.addContentView(child, constraintWidth: true)
+        view.addSubview(equalizerPopupView)
+        let guide: UILayoutGuide
+        if #available(iOS 11.0, *) {
+            guide = view.safeAreaLayoutGuide
+        } else {
+            guide = view.layoutMarginsGuide
+        }
+        let newConstraints = [
+            equalizerPopupView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10),
+            equalizerPopupView.bottomAnchor.constraint(equalTo: scrubProgressBar.topAnchor, constant: -10),
+            equalizerPopupView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
+            equalizerPopupView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -10)
+        ]
+        NSLayoutConstraint.activate(newConstraints)
+    }
 }
 
 // MARK: - OptionsNavigationBarDelegate
@@ -1191,5 +1237,16 @@ extension VideoPlayerViewController: OptionsNavigationBarDelegate {
     func optionsNavigationBarGetRemainingTime() -> String {
         let remainingTime = moreOptionsActionSheet.getRemainingTime()
         return remainingTime
+    }
+}
+
+// MARK: - ActionSheetPopupViewDelegate
+
+extension VideoPlayerViewController: ActionSheetPopupViewDelegate {
+    func actionSheetPopupViewDidClose(_ actionSheetPopupView: ActionSheetPopupView) {
+        equalizerPopupShown = false
+        resetIdleTimer()
+        setupGestures()
+        videoPlayerControls.moreActionsButton.isEnabled = true
     }
 }

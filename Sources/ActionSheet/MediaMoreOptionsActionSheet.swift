@@ -16,6 +16,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetShowIcon(for option: OptionsNavigationBarIdentifier)
     func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier)
     func mediaMoreOptionsActionSheetHideAlertIfNecessary()
+    func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView)
 }
 
 @objc (VLCMediaMoreOptionsActionSheet)
@@ -125,7 +126,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
 // MARK: - Equalizer
 
     private lazy var equalizerView: EqualizerView = {
-        let equalizerView = EqualizerView(frame: offScreenFrame)
+        let equalizerView = EqualizerView()
         equalizerView.delegate = PlaybackService.sharedInstance()
         return equalizerView
     }()
@@ -241,6 +242,8 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
             if $0 == .interfaceLock {
                 cellModel.accessoryType = .toggleSwitch
                 cellModel.viewToPresent = nil
+            } else if $0 == .equalizer {
+                cellModel.accessoryType = .popup
             }
             models.append(cellModel)
         }

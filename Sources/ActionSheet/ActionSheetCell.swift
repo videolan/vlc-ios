@@ -13,6 +13,7 @@ enum ActionSheetCellAccessoryType {
     case toggleSwitch
     case checkmark
     case disclosureChevron
+    case popup
 }
 
 class ActionSheetCellImageView: UIImageView {
@@ -131,6 +132,9 @@ class ActionSheetCell: UICollectionViewCell {
                 add(view: accessoryTypeImageView, to: accessoryView)
             case .toggleSwitch:
                 add(view: toggleSwitch, to: accessoryView)
+            case .popup:
+                accessoryTypeImageView.image = UIImage(named: "iconMoreOptions")?.withRenderingMode(.alwaysTemplate)
+                add(view: accessoryTypeImageView, to: accessoryView)
             }
             if accessoryType == .checkmark {
                 accessoryView.isHidden = !isSelected
@@ -209,9 +213,9 @@ class ActionSheetCell: UICollectionViewCell {
         viewToPresent = model.viewToPresent
         identifier = model.cellIdentifier
         // disclosure chevron is set as the default accessoryView if a viewController is present
-        accessoryType = model.viewToPresent != nil ? .disclosureChevron : model.accessoryType
+        accessoryType = model.viewToPresent != nil && model.accessoryType != .popup ? .disclosureChevron : model.accessoryType
 
-        if accessoryType == .disclosureChevron {
+        if accessoryType == .disclosureChevron || accessoryType == .popup {
             accessoryTypeImageView.tintColor = PresentationTheme.current.colors.orangeUI
         }
     }

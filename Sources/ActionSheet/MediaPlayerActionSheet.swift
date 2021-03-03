@@ -195,7 +195,15 @@ class MediaPlayerActionSheet: ActionSheet {
         modalPresentationStyle = .custom
         setAction { (item) in
             if let item = item as? UIView {
-                self.add(childView: item)
+                if let equalizerView = item as? EqualizerView {
+                    if let actionSheet = self as? MediaMoreOptionsActionSheet {
+                        equalizerView.willShow()
+                        actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentPopupView(withChild: equalizerView)
+                        self.removeActionSheet()
+                    }
+                } else {
+                    self.add(childView: item)
+                }
             } else {
                 preconditionFailure("MediaMoreOptionsActionSheet: Action:: Item's could not be cased as UIView")
             }
