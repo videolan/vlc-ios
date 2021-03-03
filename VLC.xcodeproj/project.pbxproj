@@ -317,6 +317,7 @@
 		8DF966EF211C643D00D0FCD6 /* PlaylistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF966EE211C643D00D0FCD6 /* PlaylistModel.swift */; };
 		8F91EC79195CEC7900F5BCBA /* VLCOpenInActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */; };
 		8F91EC7F195E1DAB00F5BCBA /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F91EC7E195E1DAB00F5BCBA /* AssetsLibrary.framework */; };
+		91C1BB8025EFD7A40096F97E /* ColorThemeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */; };
 		91D33C7325E6B6E700CC49BE /* VideoPlayerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D33C7225E6B6E700CC49BE /* VideoPlayerInfoView.swift */; };
 		9B088308183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */; };
 		9B9231C4185A703700F89498 /* VLCNetworkLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */; };
@@ -938,6 +939,7 @@
 		8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenInActivity.h; path = Sources/VLCOpenInActivity.h; sourceTree = SOURCE_ROOT; };
 		8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpenInActivity.m; path = Sources/VLCOpenInActivity.m; sourceTree = SOURCE_ROOT; };
 		8F91EC7E195E1DAB00F5BCBA /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeExtension.swift; sourceTree = "<group>"; };
 		91CCB170FBC97B6B93B99E0A /* libPods-VLC-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91D33C7225E6B6E700CC49BE /* VideoPlayerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerInfoView.swift; sourceTree = "<group>"; };
 		9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageTableViewController.h; path = Sources/VLCCloudStorageTableViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1280,6 +1282,7 @@
 			isa = PBXGroup;
 			children = (
 				44C8BBA224AF2B5C003F8940 /* FeedbackGenerators.swift */,
+				91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */,
 			);
 			name = Helper;
 			path = Sources/Helper;
@@ -3263,6 +3266,7 @@
 				DD3EFF4F1BDEBCE500B68579 /* VLCPlexParser.m in Sources */,
 				8D15A1ED22A9603300CFA758 /* ActionSheetSortSectionHeader.swift in Sources */,
 				41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */,
+				91C1BB8025EFD7A40096F97E /* ColorThemeExtension.swift in Sources */,
 				7D3784C2183A9938009EE944 /* VLCSlider.m in Sources */,
 				7D3784C3183A9938009EE944 /* VLCStatusLabel.m in Sources */,
 				4144156C20ECE6330078EC37 /* FileServerView.swift in Sources */,

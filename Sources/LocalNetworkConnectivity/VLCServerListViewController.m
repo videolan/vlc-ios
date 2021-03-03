@@ -65,6 +65,28 @@
 
 @implementation VLCServerListViewController
 
+#if TARGET_OS_IOS
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange:previousTraitCollection];
+
+    /* the event handler in TabBarCoordinator cannot listen to the system because the movie view controller blocks the event
+     * Therefore, we need to check the current theme ourselves */
+    if (@available(iOS 13.0, *)) {
+        if (previousTraitCollection.userInterfaceStyle == self.traitCollection.userInterfaceStyle) {
+            return;
+        }
+
+        if ([[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingAppTheme] == kVLCSettingAppThemeSystem) {
+            BOOL isSystemDarkTheme = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
+            PresentationTheme.current = isSystemDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme;
+        }
+        [self themeDidChange];
+    }
+}
+
+#endif
+
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
