@@ -814,14 +814,13 @@ private extension VideoPlayerViewController {
 
     private func setupMediaNavigationBarConstraints() {
         let padding: CGFloat = 20
-        let margin: CGFloat = 8
 
         NSLayoutConstraint.activate([
             mediaNavigationBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mediaNavigationBar.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
-                                                        constant: margin),
+                                                        constant: padding),
             mediaNavigationBar.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
-                                                         constant: -margin),
+                                                         constant: -padding),
             mediaNavigationBar.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
                                                     constant: padding),
             optionsNavigationBar.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -padding),
@@ -830,23 +829,28 @@ private extension VideoPlayerViewController {
     }
 
     private func setupVideoPlayerControlsConstraints() {
+        let padding: CGFloat = 20
+
         NSLayoutConstraint.activate([
             videoPlayerControls.heightAnchor.constraint(equalToConstant: 44),
-            videoPlayerControls.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
-            videoPlayerControls.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
+            videoPlayerControls.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
+                                                         constant: padding),
+            videoPlayerControls.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
+                                                          constant: -padding),
             videoPlayerControls.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor,
                                              constant: -5)
         ])
     }
 
     private func setupScrubProgressBarConstraints() {
-        let margin: CGFloat = 8
+        let margin: CGFloat = 12
+        let padding: CGFloat = 20
 
         NSLayoutConstraint.activate([
             scrubProgressBar.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
-                                                      constant: margin),
+                                                      constant: padding),
             scrubProgressBar.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
-                                                       constant: -margin),
+                                                       constant: -padding),
             scrubProgressBar.bottomAnchor.constraint(equalTo: videoPlayerControls.topAnchor, constant: -margin)
         ])
     }
