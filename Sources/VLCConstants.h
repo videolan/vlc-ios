@@ -11,8 +11,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#define kVLCVersionCodename @"All Along the Watchtower"
-
 #define kVLCSettingPasscodeOnKey @"PasscodeProtection"
 #define kVLCSettingPasscodeAllowTouchID @"AllowTouchID"
 #define kVLCSettingPasscodeAllowFaceID @"AllowFaceID"

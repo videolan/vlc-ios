@@ -25,7 +25,7 @@
 
     NSBundle *mainBundle = [NSBundle mainBundle];
     self.versionLabel.text = [[NSString stringWithFormat:NSLocalizedString(@"VERSION_FORMAT", nil), [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] stringByAppendingFormat:@" (%@)", [mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"]];
-    self.basedOnLabel.text = [[NSString stringWithFormat:NSLocalizedString(@"BASED_ON_FORMAT", nil),[[VLCLibrary sharedLibrary] version]] stringByReplacingOccurrencesOfString:@"<br />" withString:@" "];
+    self.basedOnLabel.text = [[NSString stringWithFormat:NSLocalizedString(@"BASED_ON_FORMAT", nil),[[VLCLibrary sharedLibrary] changeset]] stringByReplacingOccurrencesOfString:@"<br />" withString:@" "];
     self.titleLabel.text = self.title;
     self.titleLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1.];
 

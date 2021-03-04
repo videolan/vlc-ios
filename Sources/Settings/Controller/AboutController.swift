@@ -104,10 +104,9 @@ class AboutController: UIViewController {
         }
         let version = String(format: NSLocalizedString("VERSION_FORMAT", comment: ""),
                              bundleShortVersionString)
-        let versionBuildNumberAndCodeName = version.appendingFormat(" (%@)<br /><i>%@</i>",
-                                                                    bundleVersion, kVLCVersionCodename)
+        let versionBuildNumberAndCodeName = version.appendingFormat(" (%@)", bundleVersion)
         let vlcLibraryVersion = String(format: NSLocalizedString("BASED_ON_FORMAT", comment: ""),
-                                       VLCLibrary.shared().version as CVarArg)
+                                       VLCLibrary.shared().changeset as CVarArg)
         guard let staticHTMLPath = Bundle.main.path(forResource: "About Contents", ofType: "html") else { return }
         do {
             var htmlString = try String(contentsOfFile: staticHTMLPath) as NSString

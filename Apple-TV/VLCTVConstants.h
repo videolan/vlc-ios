@@ -11,8 +11,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#define kVLCVersionCodename @"All Along the Watchtower"
-
 #define kVLCRecentURLs @"recent-urls"
 #define kVLCRecentURLTitles @"recent-url-titles"
 #define kVLCStoreDropboxCredentials @"kVLCStoreDropboxCredentials"
