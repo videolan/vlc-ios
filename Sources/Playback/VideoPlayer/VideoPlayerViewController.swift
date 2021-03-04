@@ -470,13 +470,7 @@ private extension VideoPlayerViewController {
 
     func changeVideoOutput(to output: UIView?) {
         // If we don't have a renderer we're mirroring and don't want to show the dialog
-
-        var displayExternally: Bool
-        if output == nil {
-            displayExternally = true
-        } else {
-            displayExternally = output != videoOutputView
-        }
+        let displayExternally = output == nil ? true : output != videoOutputView
 
         externalVideoOutputView.shouldDisplay(displayExternally,
                                               movieView: videoOutputView)
