@@ -22,7 +22,7 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
     case audio
     case casting
     case mediaLibrary
-    case fileSync
+    case network
     case lab
 
     var description: String {
@@ -45,8 +45,8 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
             return "SETTINGS_CASTING"
         case .mediaLibrary:
             return "SETTINGS_MEDIA_LIBRARY"
-        case .fileSync:
-            return "SETTINGS_FILE_SYNC"
+        case .network:
+            return "SETTINGS_NETWORK"
         case .lab:
             return "SETTINGS_LAB"
         }
@@ -88,7 +88,6 @@ enum MainOptions: Int, CaseIterable, SectionType {
 }
 
 enum GenericOptions: Int, CaseIterable, SectionType {
-    case networkCachingLevel
     case defaultPlaybackSpeed
     case continueAudioPlayback
     case playVideoInFullScreen
@@ -98,8 +97,6 @@ enum GenericOptions: Int, CaseIterable, SectionType {
 
     var description: String {
         switch self {
-        case .networkCachingLevel:
-            return "SETTINGS_NETWORK_CACHING_TITLE"
         case .defaultPlaybackSpeed:
             return "SETTINGS_PLAYBACK_SPEED_DEFAULT"
         case .continueAudioPlayback:
@@ -117,8 +114,6 @@ enum GenericOptions: Int, CaseIterable, SectionType {
 
     var containsSwitch: Bool {
         switch self {
-        case .networkCachingLevel:
-            return false
         case .defaultPlaybackSpeed:
             return false
         case .continueAudioPlayback:
@@ -136,8 +131,6 @@ enum GenericOptions: Int, CaseIterable, SectionType {
 
     var subtitle: String? {
         switch self {
-        case .networkCachingLevel:
-            return "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL"
         case .defaultPlaybackSpeed:
             return "1.00x"
         case .continueAudioPlayback:
@@ -155,8 +148,6 @@ enum GenericOptions: Int, CaseIterable, SectionType {
 
     var preferenceKey: String? {
         switch self {
-        case .networkCachingLevel:
-            return kVLCSettingNetworkCaching
         case .defaultPlaybackSpeed:
             return kVLCSettingPlaybackSpeedDefaultValue
         case .continueAudioPlayback:
@@ -504,21 +495,44 @@ enum MediaLibraryOptions: Int, CaseIterable, SectionType {
     }
 }
 
-enum FileSyncOptions: Int, CaseIterable, SectionType {
+enum NetworkOptions: Int, CaseIterable, SectionType {
+    case networkCachingLevel
     case ipv6SupportForWiFiSharing
 
     var description: String {
-        return "SETTINGS_WIFISHARING_IPv6"
+        switch self {
+        case .networkCachingLevel:
+            return "SETTINGS_NETWORK_CACHING_TITLE"
+        case .ipv6SupportForWiFiSharing:
+            return "SETTINGS_WIFISHARING_IPv6"
+        }
     }
 
     var containsSwitch: Bool {
-        return true
+        switch self {
+        case .networkCachingLevel:
+            return false
+        case .ipv6SupportForWiFiSharing:
+            return true
+        }
     }
 
-    var subtitle: String? { return nil }
+    var subtitle: String? {
+        switch self {
+        case .networkCachingLevel:
+            return "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL"
+        case .ipv6SupportForWiFiSharing:
+            return nil
+        }
+    }
 
     var preferenceKey: String? {
-        return kVLCSettingWiFiSharingIPv6
+        switch self {
+        case .networkCachingLevel:
+            return kVLCSettingNetworkCaching
+        case .ipv6SupportForWiFiSharing:
+            return kVLCSettingWiFiSharingIPv6
+        }
     }
 }
 

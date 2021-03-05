@@ -33,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Medium deblocking";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Low deblocking";
 
-"SETTINGS_NETWORK_CACHING_TITLE" = "Network Caching Level";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lowest Latency";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Low Latency";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High Latency";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest Latency";
-
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Default playback speed";
 
 "SETTINGS_GESTURES" = "Control playback with gestures";
@@ -100,7 +93,13 @@
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
-"SETTINGS_FILE_SYNC" = "File Synchronization";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Network Caching Level";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lowest Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Low Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest Latency";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 
 "SETTINGS_ARTWORK" = "Artwork";
