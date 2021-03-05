@@ -498,6 +498,7 @@ enum MediaLibraryOptions: Int, CaseIterable, SectionType {
 enum NetworkOptions: Int, CaseIterable, SectionType {
     case networkCachingLevel
     case ipv6SupportForWiFiSharing
+    case forceSMBv1
 
     var description: String {
         switch self {
@@ -505,6 +506,8 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_NETWORK_CACHING_TITLE"
         case .ipv6SupportForWiFiSharing:
             return "SETTINGS_WIFISHARING_IPv6"
+        case .forceSMBv1:
+            return "SETTINGS_FORCE_SMBV1"
         }
     }
 
@@ -513,6 +516,8 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
         case .networkCachingLevel:
             return false
         case .ipv6SupportForWiFiSharing:
+            return true
+        case .forceSMBv1:
             return true
         }
     }
@@ -523,6 +528,8 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL"
         case .ipv6SupportForWiFiSharing:
             return nil
+        case .forceSMBv1:
+            return "SETTINGS_FORCE_SMBV1_LONG"
         }
     }
 
@@ -532,6 +539,8 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
             return kVLCSettingNetworkCaching
         case .ipv6SupportForWiFiSharing:
             return kVLCSettingWiFiSharingIPv6
+        case .forceSMBv1:
+            return kVLCForceSMBV1
         }
     }
 }

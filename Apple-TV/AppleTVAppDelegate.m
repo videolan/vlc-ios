@@ -58,6 +58,7 @@
                                   kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue,
                                   kVLCAutomaticallyPlayNextItem : @(YES),
                                   kVLCSettingDownloadArtwork : @(YES),
+                                  kVLCForceSMBV1 : @(YES),
                                   kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue};
     [defaults registerDefaults:appDefaults];
 }
