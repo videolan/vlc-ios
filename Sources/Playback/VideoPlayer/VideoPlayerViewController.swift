@@ -753,6 +753,7 @@ extension VideoPlayerViewController {
 
 private extension VideoPlayerViewController {
     private func setupViews() {
+        view.backgroundColor = .black
         view.addSubview(mediaNavigationBar)
         view.addSubview(optionsNavigationBar)
         view.addSubview(videoPlayerControls)
