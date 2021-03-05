@@ -15,9 +15,10 @@ class VideoPlayerInfoView: UIView {
     var externalWindow: UIWindow?
 
     private lazy var contentImageView: UIImageView = {
-        let contentImageView = UIImageView(image: UIImage(named: "PlayingExternally"))
+        let contentImageView = UIImageView(image: UIImage(named: "ExternallyPlaying"))
         contentImageView.translatesAutoresizingMaskIntoConstraints = false
         contentImageView.contentMode = .scaleAspectFit
+        contentImageView.tintColor = .white
         return contentImageView
     }()
 
