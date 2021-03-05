@@ -297,6 +297,7 @@ class VideoPlayerViewController: UIViewController {
         self.services = services
         self.playerController = playerController
         super.init(nibName: nil, bundle: nil)
+        self.playerController.delegate = self
     }
 
     required init?(coder: NSCoder) {
