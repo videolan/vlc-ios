@@ -127,7 +127,9 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
         playbackService.delegate = self
         playbackService.recoverDisplayedMetadata()
         // For now, AudioMiniPlayer will be used for all media
-        playbackService.videoOutputView = artworkImageView
+        if !playbackService.isPlayingOnExternalScreen() {
+            playbackService.videoOutputView = artworkImageView
+        }
     }
 
     func mediaPlayerStateChanged(_ currentState: VLCMediaPlayerState,
