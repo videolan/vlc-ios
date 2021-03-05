@@ -984,11 +984,7 @@ extension VideoPlayerViewController: PlayerControllerDelegate {
     }
 
     func playerControllerApplicationBecameActive(_ playerController: PlayerController) {
-        guard let delegate = delegate else {
-            preconditionFailure("VideoPlayerViewController: Delegate not assigned.")
-        }
-
-        if delegate.videoPlayerViewControllerShouldBeDisplayed(self) {
+        if (delegate?.videoPlayerViewControllerShouldBeDisplayed(self)) != nil {
             playbackService.recoverDisplayedMetadata()
             if playbackService.videoOutputView != videoOutputView {
                 playbackService.videoOutputView = videoOutputView
