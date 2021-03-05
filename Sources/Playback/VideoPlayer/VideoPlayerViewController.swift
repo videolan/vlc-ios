@@ -614,7 +614,7 @@ extension VideoPlayerViewController {
                 fov = max(min(fov + zoom, MediaProjection.FOV.max), MediaProjection.FOV.min)
             }
         } else if recognizer.velocity < 0
-            && UserDefaults.standard.bool(forKey: kVLCSettingCloseGesture) {
+                    && playerController.isCloseGestureEnabled {
             delegate?.videoPlayerViewControllerDidMinimize(self)
         }
     }
