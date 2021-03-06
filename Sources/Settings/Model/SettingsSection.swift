@@ -429,7 +429,14 @@ enum AudioOptions: Int, CaseIterable, SectionType {
     }
 
     var containsSwitch: Bool { return true }
-    var subtitle: String? { return nil }
+    var subtitle: String? {
+        switch self {
+        case .timeStretchingAudio:
+            return "SETTINGS_TIME_STRETCH_AUDIO_LONG"
+        case .audioPlaybackInBackground:
+            return nil
+        }
+    }
 
     var preferenceKey: String? {
         switch self {
