@@ -116,6 +116,7 @@
 		6DBCE3CD2368811000BCA7D5 /* EditButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */; };
 		6DDE230D239FE8C2003DE55A /* URL+isExcludedFromBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDE230C239FE8C2003DE55A /* URL+isExcludedFromBackup.swift */; };
 		6DE0114323DF31C600D704E5 /* public in Resources */ = {isa = PBXBuildFile; fileRef = 6D3C676B23CDF1FC0039ACFD /* public */; };
+		6DE9183D25F65C390039AFA7 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9183C25F65C390039AFA7 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */; };
 		7AC8629D1765DC560011611A /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629B1765DC560011611A /* style.css */; };
 		7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8629F1765E90C0011611A /* jquery.fileupload.js */; };
 		7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A01765E90C0011611A /* jquery.iframe-transport.js */; };
@@ -632,6 +633,7 @@
 		6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCellPreviewController.swift; path = Sources/CollectionViewCellPreviewController.swift; sourceTree = "<group>"; };
 		6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditButtons.swift; path = Sources/EditButtons.swift; sourceTree = "<group>"; };
 		6DDE230C239FE8C2003DE55A /* URL+isExcludedFromBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "URL+isExcludedFromBackup.swift"; path = "Sources/Extensions/URL+isExcludedFromBackup.swift"; sourceTree = "<group>"; };
+		6DE9183C25F65C390039AFA7 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIScrollView+flashScrollIndicatorsIfNeeded.swift"; path = "Sources/Extensions/UIScrollView+flashScrollIndicatorsIfNeeded.swift"; sourceTree = "<group>"; };
 		703A80CCC005093CCDFBECBF /* Pods-VLC-iOS-Screenshots.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-Screenshots.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-Screenshots/Pods-VLC-iOS-Screenshots.distribution.xcconfig"; sourceTree = "<group>"; };
 		7AC8629B1765DC560011611A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		7AC8629F1765E90C0011611A /* jquery.fileupload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.fileupload.js; sourceTree = "<group>"; };
@@ -2254,6 +2256,7 @@
 				8D95896523A7BCA400290362 /* Array+Safety.swift */,
 				6DDE230C239FE8C2003DE55A /* URL+isExcludedFromBackup.swift */,
 				6D0C20D3249EEDA300620DA1 /* URL+isHidden.swift */,
+				6DE9183C25F65C390039AFA7 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -3293,6 +3296,7 @@
 				7D4625881A5614A1001A80B4 /* VLCEqualizerView.m in Sources */,
 				44C8BBB524AF51FE003F8940 /* NSObject+SettingsReader.swift in Sources */,
 				7DF9352F1958AB0600E60FD4 /* UIColor+Presets.m in Sources */,
+				6DE9183D25F65C390039AFA7 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift in Sources */,
 				7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */,
 				8DE1887421089B3A00A091D2 /* MediaLibraryBaseModel.swift in Sources */,
 				7D2DE69D24D5AC0E00E8D84D /* VLCSubtitleItem.m in Sources */,
