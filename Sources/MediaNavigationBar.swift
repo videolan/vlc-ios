@@ -22,7 +22,6 @@ protocol MediaNavigationBarDelegate {
 @objcMembers class MediaNavigationBar: UIStackView {
     // MARK: Instance Variables
     weak var delegate: MediaNavigationBarDelegate?
-    private var buttonSize: CGFloat = 24
 
     lazy var minimizePlaybackButton: UIButton = {
         var minButton = UIButton(type: .system)
