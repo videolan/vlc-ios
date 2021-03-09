@@ -380,7 +380,9 @@ extension SettingsController {
         case .audio:
             break
         case .casting:
-            break
+            let castingSection = CastingOptions(rawValue: indexPath.row)
+            playHaptics(sectionType: castingSection)
+            showActionSheet(for: castingSection)
         case .mediaLibrary:
             break
         case .network:

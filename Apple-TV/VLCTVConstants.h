@@ -74,5 +74,6 @@
 #define kVLCHTTPUploadDirectory @"Upload"
 
 #define kVLCSettingCastingAudioPassthrough @"sout-chromecast-audio-passthrough"
+#define kVLCSettingCastingConversionQuality @"sout-chromecast-conversion-quality"
 
 #define kVLCForceSMBV1 @"smb-force-v1"

@@ -400,18 +400,42 @@ enum SubtitlesOptions: Int, CaseIterable, SectionType {
 
 enum CastingOptions: Int, CaseIterable, SectionType {
     case audioPassThrough
+    case conversionQuality
 
     var description: String {
-        return "SETTINGS_PTCASTING"
+        switch self {
+        case .audioPassThrough:
+            return "SETTINGS_PTCASTING"
+        case .conversionQuality:
+            return "SETTINGS_CASTING_CONVERSION_QUALITY"
+        }
     }
+
     var containsSwitch: Bool {
-        return true
+        switch self {
+        case .audioPassThrough:
+            return true
+        case .conversionQuality:
+            return false
+        }
     }
+
     var preferenceKey: String? {
-        return kVLCSettingCastingAudioPassthrough
+        switch self {
+        case .audioPassThrough:
+            return kVLCSettingCastingAudioPassthrough
+        case .conversionQuality:
+            return kVLCSettingCastingConversionQuality
+        }
     }
+
     var subtitle: String? {
-        return "SETTINGS_PTCASTINGLONG"
+        switch self {
+        case .audioPassThrough:
+            return "SETTINGS_PTCASTINGLONG"
+        case .conversionQuality:
+            return "SETTINGS_MEDIUM"
+        }
     }
 }
 

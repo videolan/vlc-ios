@@ -622,6 +622,30 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_CASTING_CONVERSION_QUALITY</string>
+			<key>Key</key>
+			<string>sout-chromecast-conversion-quality</string>
+			<key>DefaultValue</key>
+			<integer>2</integer>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_HIGH</string>
+				<string>SETTINGS_MEDIUM</string>
+				<string>SETTINGS_LOW</string>
+				<string>SETTINGS_LOWEST</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_MEDIA_LIBRARY</string>

@@ -203,12 +203,21 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     _actualVideoOutputView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _actualVideoOutputView.autoresizesSubviews = YES;
 
-    /* the chromecast-passthrough option cannot be set per media, so we need to set it per
+    /* the chromecast options cannot be set per media, so we need to set it per
      * media player instance however, potentially initialising an additional library instance
      * for this is costly, so this should be done only if needed */
-    BOOL chromecastPassthrough = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingCastingAudioPassthrough] boolValue];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL chromecastPassthrough = [[userDefaults objectForKey:kVLCSettingCastingAudioPassthrough] boolValue];
+    int chromecastQuality = [[userDefaults objectForKey:kVLCSettingCastingConversionQuality] intValue];
+    NSMutableArray *libVLCOptions = [NSMutableArray array];
     if (chromecastPassthrough) {
-        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:@[[@"--" stringByAppendingString:kVLCSettingCastingAudioPassthrough]]
+        [libVLCOptions addObject:[@"--" stringByAppendingString:kVLCSettingCastingAudioPassthrough]];
+    }
+    if (chromecastQuality != 2) {
+        [libVLCOptions addObject:[NSString stringWithFormat:@"--%@=%i", kVLCSettingCastingConversionQuality, chromecastQuality]];
+    }
+    if (libVLCOptions.count > 0) {
+        _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:libVLCOptions
                                                       andDrawable:_actualVideoOutputView];
     } else {
         _listPlayer = [[VLCMediaListPlayer alloc] initWithDrawable:_actualVideoOutputView];
