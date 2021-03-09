@@ -181,13 +181,6 @@ class MediaPlayerActionSheet: ActionSheet {
             }
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Remove the themeDidChangeNotification set in the superclass
-        // MovieViewController Video Options should be dark at all times
-        NotificationCenter.default.removeObserver(self, name: .VLCThemeDidChangeNotification, object: nil)
-    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
