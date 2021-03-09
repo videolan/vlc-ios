@@ -84,6 +84,7 @@ protocol MediaNavigationBarDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        setupContraints()
     }
 
     // MARK: Instance Methods
@@ -91,8 +92,15 @@ protocol MediaNavigationBarDelegate {
         mediaTitleTextLabel.text = titleText
     }
 
+    private func setupContraints() {
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: 44),
+            closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
+            minimizePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor)
+        ])
+    }
+
     private func setupViews() {
-        spacing = 20.0
         distribution = .fill
         translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(closePlaybackButton)
