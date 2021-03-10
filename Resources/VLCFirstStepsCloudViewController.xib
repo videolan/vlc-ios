@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -59,51 +57,21 @@
                         <constraint firstItem="FPx-2d-mtp" firstAttribute="top" secondItem="RRm-Lp-XQj" secondAttribute="top" constant="15.000000000000002" id="tfH-Wx-xQ8"/>
                     </constraints>
                 </view>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropBox" translatesAutoresizingMaskIntoConstraints="NO" id="Wym-9L-KjA">
-                    <rect key="frame" x="17.5" y="127.5" width="64" height="64"/>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="googleDrive" translatesAutoresizingMaskIntoConstraints="NO" id="KbM-D3-Kvn">
-                    <rect key="frame" x="101.5" y="53.5" width="64" height="64"/>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="L3m-Hq-7k3">
-                    <rect key="frame" x="293.5" y="127.5" width="64" height="64"/>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloudDownload" translatesAutoresizingMaskIntoConstraints="NO" id="orS-eh-0vN">
-                    <rect key="frame" x="155.5" y="127.5" width="64" height="64"/>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oneDrive" translatesAutoresizingMaskIntoConstraints="NO" id="hcf-Ib-8tk">
-                    <rect key="frame" x="209.5" y="53.5" width="64" height="64"/>
-                </imageView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="ase-JJ-cW5"/>
             <color key="backgroundColor" red="0.96078431369999995" green="0.73725490199999999" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
-                <constraint firstItem="orS-eh-0vN" firstAttribute="top" secondItem="KbM-D3-Kvn" secondAttribute="bottom" constant="10" id="12S-fo-SPC"/>
                 <constraint firstAttribute="bottom" secondItem="RRm-Lp-XQj" secondAttribute="bottom" id="95H-4e-62V"/>
-                <constraint firstItem="L3m-Hq-7k3" firstAttribute="leading" secondItem="hcf-Ib-8tk" secondAttribute="trailing" constant="20" id="9kX-R7-3UI"/>
-                <constraint firstItem="L3m-Hq-7k3" firstAttribute="centerY" secondItem="orS-eh-0vN" secondAttribute="centerY" id="A1Y-sY-b7Q"/>
-                <constraint firstItem="hcf-Ib-8tk" firstAttribute="centerY" secondItem="KbM-D3-Kvn" secondAttribute="centerY" id="BQY-P4-MTJ"/>
                 <constraint firstItem="RRm-Lp-XQj" firstAttribute="trailing" secondItem="ase-JJ-cW5" secondAttribute="trailing" id="BXL-WS-PVG"/>
                 <constraint firstItem="h3l-yk-dhd" firstAttribute="bottom" secondItem="RRm-Lp-XQj" secondAttribute="top" constant="35" id="Jb2-cg-jmT"/>
                 <constraint firstItem="Qh1-Fe-IdM" firstAttribute="bottom" secondItem="ase-JJ-cW5" secondAttribute="bottom" constant="-20" id="LSj-y0-XHH"/>
-                <constraint firstItem="h3l-yk-dhd" firstAttribute="top" secondItem="orS-eh-0vN" secondAttribute="bottom" constant="5" id="Z9q-VW-WgZ"/>
-                <constraint firstItem="orS-eh-0vN" firstAttribute="centerX" secondItem="ase-JJ-cW5" secondAttribute="centerX" id="cBm-zH-znG"/>
-                <constraint firstItem="Wym-9L-KjA" firstAttribute="leading" secondItem="h3l-yk-dhd" secondAttribute="leading" id="hNc-PY-kcU"/>
-                <constraint firstItem="L3m-Hq-7k3" firstAttribute="trailing" secondItem="h3l-yk-dhd" secondAttribute="trailing" id="kI4-Uh-brW"/>
                 <constraint firstItem="h3l-yk-dhd" firstAttribute="centerX" secondItem="ase-JJ-cW5" secondAttribute="centerX" id="kft-re-Pjk"/>
-                <constraint firstItem="Wym-9L-KjA" firstAttribute="centerY" secondItem="orS-eh-0vN" secondAttribute="centerY" id="mP1-Vg-nri"/>
-                <constraint firstItem="KbM-D3-Kvn" firstAttribute="leading" secondItem="Wym-9L-KjA" secondAttribute="trailing" constant="20" id="qPk-LD-N2X"/>
                 <constraint firstItem="RRm-Lp-XQj" firstAttribute="leading" secondItem="ase-JJ-cW5" secondAttribute="leading" id="wwD-AC-A0W"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ase-JJ-cW5"/>
             <point key="canvasLocation" x="46.875" y="34.859154929577464"/>
         </view>
     </objects>
     <resources>
-        <image name="box" width="64" height="64"/>
-        <image name="cloudDownload" width="64" height="64"/>
-        <image name="dropBox" width="64" height="64"/>
-        <image name="googleDrive" width="64" height="64"/>
-        <image name="oneDrive" width="64" height="64"/>
         <image name="whiteCloudiPhone" width="649" height="703"/>
     </resources>
 </document>
