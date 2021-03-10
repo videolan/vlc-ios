@@ -28,6 +28,7 @@ class MediaScrubProgressBar: UIStackView {
         slider.minimumTrackTintColor = .orange
         slider.maximumTrackTintColor = UIColor(white: 1, alpha: 0.2)
         slider.setThumbImage(UIImage(named: "sliderThumb"), for: .normal)
+        slider.setThumbImage(UIImage(named: "sliderThumbBig"), for: .highlighted)
         slider.isContinuous = true
         slider.addTarget(self, action: #selector(handleSlide(slider:)), for: .valueChanged)
         slider.addTarget(self, action: #selector(progressSliderTouchDown), for: .touchDown)
