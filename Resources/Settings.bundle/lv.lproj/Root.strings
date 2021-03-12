@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Tumšā tēma";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Laika stiepšana audio";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio atskaņošanu fonā";
 "SETTINGS_GENERIC_TITLE" = "Vispārējs";
 "SETTINGS_PASSCODE_LOCK" = "Patentatslēgas Bloķēšana";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Nav atbloķēšanas (ātrākais)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Vidēja atbloķēšana";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Zema atbloķēšana";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Tīkla Kešdarbes Līmenis";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Zemākais Latentums";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Zems Latentums";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normāls";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Augsts Latentums";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Augstākais Latentums";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Noklusētais atskaņošanas ātrums";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Atsauksmes";
 "SETTINGS_SEND_FEEDBACK" = "Nosūtīt atsauksmi";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Media library";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "Optimizēt preces nosaukumus priekš displeja";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
-"SETTINGS_FILE_SYNC" = "Faila sinhronizācija";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Tīkla Kešdarbes Līmenis";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Zemākais Latentums";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Zems Latentums";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normāls";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Augsts Latentums";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Augstākais Latentums";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Mākslas darbs";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Lejupielādēt mākslas darbu";
