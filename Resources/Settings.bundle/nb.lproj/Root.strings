@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Utseende";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Strekking av lyd";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Lydavspilling i bakgrunnen";
 "SETTINGS_GENERIC_TITLE" = "Generelt";
 "SETTINGS_PASSCODE_LOCK" = "Passordlås";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Ingen deblocking (raskest)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Middels deblocking";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Lav deblocking";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Nettverksbuffernivå";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lavest ventetid";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Lav ventetid";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Høy ventetid";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Høyest ventetid";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Avspillingsfart";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Tilbakemelding";
 "SETTINGS_SEND_FEEDBACK" = "Send tilbakemelding";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediebibliotek";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Tving oppdatering av mediebiblioteket";
 "SETTINGS_DECRAPIFY" = "Optimer emnenavn for visning";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Vis miniatyrbilder av videoer";
 "SETTINGS_SHOW_ARTWORKS" = "Vis omslagsbilder for lyd";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inkluder mediebiblioteket ved reservekopiering av enheten";
 
-"SETTINGS_FILE_SYNC" = "Filsynkronisering";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Nettverksbuffernivå";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lavest ventetid";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Lav ventetid";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Høy ventetid";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Høyest ventetid";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-støtte for Wi-Fi-deling";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Omslagsbilde";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Last ned omslagsbilde";
