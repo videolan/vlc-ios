@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Зовнішній вигляд";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Часове розтягнення звуку";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Відтворення звуку у фоні";
 "SETTINGS_GENERIC_TITLE" = "Базовий";
 "SETTINGS_PASSCODE_LOCK" = "Захист паролем";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Без деблокування (найшвидше)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Середнє деблокування";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Низьке деблокування";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Розмір мережевого кешування";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Найнижча затримка";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Низька затримка";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Звичайний";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Висока затримка";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Найвища затримка";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Типова швидкість відтворення";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Трансляція";
 "SETTINGS_PTCASTING" = "Аудіо роз'єм";
 "SETTINGS_PTCASTINGLONG" = "Нехай ваш телевізор управляє відтворенням аудіо";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Відгук";
 "SETTINGS_SEND_FEEDBACK" = "Надіслати відгук";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Медіа бібліотека";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Примусити VLC пересканувати бібліотеку медіа";
 "SETTINGS_DECRAPIFY" = "Оптимізувати назви пунктів для відображення";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Показувати ескізи відео";
 "SETTINGS_SHOW_ARTWORKS" = "Показувати аудіо обкладинки";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Долучити бібліотеку медіа у резервну копію пристрою";
 
-"SETTINGS_FILE_SYNC" = "Синхронізація файлу";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Розмір мережевого кешування";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Найнижча затримка";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Низька затримка";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Звичайний";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Висока затримка";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Найвища затримка";
 "SETTINGS_WIFISHARING_IPv6" = "Підтримка IPv6 для поширення через Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Обкладинка";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Звантажити обкладинку";

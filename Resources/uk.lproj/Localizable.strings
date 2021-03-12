@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Насиченість";
 "VFILTER_GAMMA" = "Гама";
 
-"PRESETS" = "Переднабори";
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Попередній підсилювач";
 "DB_FORMAT" = "%i дБ";
 "CHOOSE_EQUALIZER_PROFILES" = "Вибрати профіль еквалайзера";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Додати до черги";
 "APPEND_TO_QUEUE_LABEL" = "Додати до черги";
 
-"DISABLE_GROUPS" = "Вимкнути групи";
-"DISABLE_GROUPS_SWITCH_HINT" = "Вимкнути макет груп";
 "DISPLAY_AS" = "Показувати як";
