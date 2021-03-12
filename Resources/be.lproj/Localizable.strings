@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Насычанасць";
 "VFILTER_GAMMA" = "Гама-карэкцыя";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Choose Equalizer Profile";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Памылка прайгравання";
 "PLEASE_WAIT" = "Please wait";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Append to queue";
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
 "DISPLAY_AS" = "Display as";
