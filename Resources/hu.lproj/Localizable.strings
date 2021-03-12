@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Telítettség";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESETS" = "Előbeállítások";
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Előerősítés";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Hangszín profil választása";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Felvétel a lejátszási listára";
 "APPEND_TO_QUEUE_LABEL" = "Felvétel a lejátszási listára";
 
-"DISABLE_GROUPS" = "Csoportok letiltása";
-"DISABLE_GROUPS_SWITCH_HINT" = "Csoportos elrendezés letiltása";
 "DISPLAY_AS" = "Megjelenítés mint…";
