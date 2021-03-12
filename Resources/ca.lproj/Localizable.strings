@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Saturació";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamplifica";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Trieu un perfil d'equalizador";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "S'ha produït un error en la reproducció";
 "PLEASE_WAIT" = "Espereu";
@@ -150,7 +152,7 @@
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "S'ha produït una errada mentre es baixava";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "ERROR";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "El Media seleccionat no té una url reproduïble";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "El mitjà seleccionat no té un url reproduïble";
 
 "DISK_FULL" = "Límit d'emmagatzematge assolit";
 "DISK_FULL_FORMAT" = "%@ no pot ser emmagatzemat en el vostre %@, perquè no té prou d'espai lliure.";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Append to queue";
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
 "DISPLAY_AS" = "Display as";
