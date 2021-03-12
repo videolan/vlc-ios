@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "彩度";
 "VFILTER_GAMMA" = "ガンマ";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "プリアンプ";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "イコライザープロファイルの選択";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "再生に失敗しました";
 "PLEASE_WAIT" = "しばらくお待ちください";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "キューに追加";
 "APPEND_TO_QUEUE_LABEL" = "キューに追加";
 
-"DISABLE_GROUPS" = "グループを無効化";
-"DISABLE_GROUPS_SWITCH_HINT" = "グループレイアウトを無効化";
 "DISPLAY_AS" = "表示";

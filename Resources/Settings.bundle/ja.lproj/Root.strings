@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "外観";
 "SETTINGS_TIME_STRETCH_AUDIO" = "タイムストレッチングオーディオ";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "バックグラウンドオーディオ再生";
 "SETTINGS_GENERIC_TITLE" = "全般設定";
 "SETTINGS_PASSCODE_LOCK" = "パスコードロック";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "ブロック化抑止なし (高速)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "ブロック化抑止中間";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "ブロック化抑止最小";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "ネットワークのキャッシュレベル";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "最小の遅延";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "低遅延";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "通常";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "高遅延";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "最大の遅延";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "デフォルトの再生速度";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "キャスティング";
 "SETTINGS_PTCASTING" = "オーディオパススルー";
 "SETTINGS_PTCASTINGLONG" = "オーディオレンダリングをTVに任せる";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "フェードバック";
 "SETTINGS_SEND_FEEDBACK" = "フィードバックを送信";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "メディアライブラリ";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "メディアライブラリを強制的に再スキャン";
 "SETTINGS_DECRAPIFY" = "表示用に項目名を最適化";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "ビデオのサムネイルを表示";
 "SETTINGS_SHOW_ARTWORKS" = "オーディオのアートワークを表示";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "バックアップデバイスのメディアライブラリを含む";
 
-"SETTINGS_FILE_SYNC" = "ファイル同期";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "ネットワークのキャッシュレベル";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "最小の遅延";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "低遅延";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "通常";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "高遅延";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "最大の遅延";
 "SETTINGS_WIFISHARING_IPv6" = "WiFi共有でのIPv6サポート";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "アートワーク";
 "SETTINGS_DOWNLOAD_ARTWORK" = "アートワークをダウンロード";
