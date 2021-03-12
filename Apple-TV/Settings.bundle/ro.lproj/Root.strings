@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Aspect";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio întindere-timp";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Redare audio în fundal";
 "SETTINGS_GENERIC_TITLE" = "Generic";
 "SETTINGS_PASSCODE_LOCK" = "Cod pentru deblocare";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Fără deblocare (cel mai rapid)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Deblocare medie";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Deblocare scăzută";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Nivel Caching Reţea";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latenţă Minimă";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latenţă Scăzută";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latenţă Ridicată";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latenţă Maximă";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Viteza prestabilita de redare";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Redare la distanță";
 "SETTINGS_PTCASTING" = "Redare audio la distanță";
 "SETTINGS_PTCASTINGLONG" = "Gestionează randarea audio pe televizor";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Trimite feedback";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediatecă";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forțează VLC să rescaneze mediateca";
 "SETTINGS_DECRAPIFY" = "Optimizează numele obiectelor pentru afişare";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Arată miniaturi video";
 "SETTINGS_SHOW_ARTWORKS" = "Arată grafica de album";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include mediateca în copia de siguranță a dispozitivului";
 
-"SETTINGS_FILE_SYNC" = "Sincronizare fișier";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Nivel Caching Reţea";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latenţă Minimă";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latenţă Scăzută";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latenţă Ridicată";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latenţă Maximă";
 "SETTINGS_WIFISHARING_IPv6" = "Suport IPv6 pentru partajare Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Grafică de album";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Descarcă grafică de album";
