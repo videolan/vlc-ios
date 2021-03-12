@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Utseende";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tidsutsträckt ljud";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Ljuduppspelning i bakgrunden";
 "SETTINGS_GENERIC_TITLE" = "Allmänt";
 "SETTINGS_PASSCODE_LOCK" = "Lösenkodslås";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Ingen avblockering (snabbast)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Medelhög avblockering";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Låg avblockering";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Cachenivå för nätverk";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lägst latens";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Låg latens";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Hög latens";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Högst latens";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Standarduppspelningshastighet";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casta";
 "SETTINGS_PTCASTING" = "Passthrough för ljud";
 "SETTINGS_PTCASTINGLONG" = "Låt din TV hantera ljudrendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Återkoppling";
 "SETTINGS_SEND_FEEDBACK" = "Skicka återkoppling";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediabibliotek";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Tvinga VLC att söka igenom mediabiblioteket";
 "SETTINGS_DECRAPIFY" = "Optimera objektnamn för visning";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Visa videominiatyrer";
 "SETTINGS_SHOW_ARTWORKS" = "Visa ljudomslag";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inkludera mediabiblioteket i enhetens säkerhetskopia";
 
-"SETTINGS_FILE_SYNC" = "Filsynkronisering";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Cachenivå för nätverk";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lägst latens";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Låg latens";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Hög latens";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Högst latens";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-stöd för att dela via Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Omslag";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Ladda ned omslag";

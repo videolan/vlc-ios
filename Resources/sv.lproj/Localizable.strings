@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Färgmättnad";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESETS" = "Förinställningar";
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Försteg";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Välj equalizerprofil";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Lägg till i slutet på kön";
 "APPEND_TO_QUEUE_LABEL" = "Lägg till i kön";
 
-"DISABLE_GROUPS" = "Inaktivera grupper";
-"DISABLE_GROUPS_SWITCH_HINT" = "Inaktivera grupplayout";
 "DISPLAY_AS" = "Visa som";
