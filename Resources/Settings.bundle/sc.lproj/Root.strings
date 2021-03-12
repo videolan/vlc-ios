@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Aparèntzia";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Illonghiamentu temporale àudio";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Riprodutzione àudio in s'isfundu";
 "SETTINGS_GENERIC_TITLE" = "Genèricu";
 "SETTINGS_PASSCODE_LOCK" = "Blocu cun còdighe de seguresa";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Perunu deblocu (prus lestru)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Deblocu mèdiu";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Deblocu mìnimu";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Livellu de sa cache de retza";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latèntzia mìnima";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latèntzia bassa";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normale";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latèntzia arta";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latèntzia màssima";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Lestresa de riprodutzione predefinida";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Trasmissione";
 "SETTINGS_PTCASTING" = "Coladòrgiu àudio";
 "SETTINGS_PTCASTINGLONG" = "Permiti a su televisore tuo de gestire sa renderizatzione àudio";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Sinnalatzione";
 "SETTINGS_SEND_FEEDBACK" = "Imbia una sinnalatzione";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Biblioteca multimediale";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Fortza un'iscansidura noa de sa biblioteca multimediale";
 "SETTINGS_DECRAPIFY" = "Otimiza sos nùmenes de sos elementos pro sa visualizatzione";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Ammustra sas miniaturas de sos vìdeos";
 "SETTINGS_SHOW_ARTWORKS" = "Ammustra sas coberteddas de sas rastas àudio";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inclue sa biblioteca multimediale in sa còpia de seguresa de su dispositivu";
 
-"SETTINGS_FILE_SYNC" = "Sincronizatzione de documentos";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Livellu de sa cache de retza";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latèntzia mìnima";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latèntzia bassa";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normale";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latèntzia arta";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latèntzia màssima";
 "SETTINGS_WIFISHARING_IPv6" = "Suportu IPv6 pro sa cumpartzidura Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Gràfica artìstica";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Iscàrriga sa gràfica artìstica";

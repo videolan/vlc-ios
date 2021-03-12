@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Saturatzione";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESETS" = "Preseletziones";
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamplificatzione";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Issèbera su profilu de equalizazione";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Annanghe a sa lista de riprodutzione";
 "APPEND_TO_QUEUE_LABEL" = "Annanghe a sa lista de riprodutzione";
 
-"DISABLE_GROUPS" = "Disabìlita sos grupos";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disabìlita sa dispositzione de sos grupos";
 "DISPLAY_AS" = "Ammustra comente";
