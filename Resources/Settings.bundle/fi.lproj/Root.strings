@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Ulkonäkö";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Äänen tasaus";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Äänen toistaminen taustalla";
 "SETTINGS_GENERIC_TITLE" = "Yleinen";
 "SETTINGS_PASSCODE_LOCK" = "Lukitus pääsykoodilla";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Ei purun suodatinta (nopein)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Keskitasoinen purun suodatus";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Matala purun suodatus";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Välimuistin taso";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Alin viive";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Alhainen viive";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normaali";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Korkea viive";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Korkein viive";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Toiston oletusnopeus";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Suoratoisto";
 "SETTINGS_PTCASTING" = "Ääni läpivienti";
 "SETTINGS_PTCASTINGLONG" = "Anna television hallita äänentoistoa";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Palaute";
 "SETTINGS_SEND_FEEDBACK" = "Lähetä palautetta";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediakirjasto";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Pakota VLC tarkistamaan mediakirjasto uudelleen";
 "SETTINGS_DECRAPIFY" = "Optimoi kohteiden nimet näytölle";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Näytä videon pikkukuvat";
 "SETTINGS_SHOW_ARTWORKS" = "Näytä äänilevyn kansikuvat";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Sisällytä mediakirjasto laitteen varmuuskopioon";
 
-"SETTINGS_FILE_SYNC" = "Tiedostojen synkronointi";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Välimuistin taso";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Alin viive";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Alhainen viive";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normaali";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Korkea viive";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Korkein viive";
 "SETTINGS_WIFISHARING_IPv6" = "Wi-Fi jakamisen IPv6-tuki";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Kansikuvat";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Lataa kansikuvat";
