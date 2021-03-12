@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "ពេលវេលា​ពន្យឺត​អូឌីយ៉ូ";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "ការ​ចាក់​​អូឌីយ៉ូ​នៅ​ផ្ទៃ​ខាងក្រោយ";
 "SETTINGS_GENERIC_TITLE" = "ទូទៅ";
 "SETTINGS_PASSCODE_LOCK" = "ចាក់​សោ​កូដ​សម្ងាត់";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "គ្មាន​តម្រង​វីដេអូ (លឿន​បំផុត)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "តម្រង​វីដេអូ​មធ្យម";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "តម្រង​វីដេអូ​ទាប";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "កម្រិត​ការ​កំណត់​ឃ្លាំង​សម្ងាត់​បណ្ដាញ";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "ការ​ពន្យារពេល​ទាប​បំផុត";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "ការ​ពន្យារពេល​ទាប";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "ធម្មតា";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "ការ​ពន្យារពេល​ខ្ពស់";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "ការ​ពន្យារពេល​ខ្ពស់​បំផុត";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "ល្បឿន​ការ​ចាក់​លំនាំដើម";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "ផ្ដល​យោបល់";
 "SETTINGS_SEND_FEEDBACK" = "បញ្ជូនការ​ផ្តល់​យោបល់";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Media library";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "បង្កើន​ប្រសិទ្ធភាព​ឈ្មោះ​ធាតុ​សម្រាប់​ការ​បង្ហាញ";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
-"SETTINGS_FILE_SYNC" = "ការ​ធ្វើ​សមកាលកម្ម​ឯកសារ";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "កម្រិត​ការ​កំណត់​ឃ្លាំង​សម្ងាត់​បណ្ដាញ";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "ការ​ពន្យារពេល​ទាប​បំផុត";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "ការ​ពន្យារពេល​ទាប";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "ធម្មតា";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "ការ​ពន្យារពេល​ខ្ពស់";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "ការ​ពន្យារពេល​ខ្ពស់​បំផុត";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
