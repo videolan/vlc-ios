@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "모양";
 "SETTINGS_TIME_STRETCH_AUDIO" = "음정 변화 없는 오디오";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "백그라운드로 오디오 재생";
 "SETTINGS_GENERIC_TITLE" = "일반";
 "SETTINGS_PASSCODE_LOCK" = "비밀번호 잠금";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Deblocking 없음 (가장 빠름)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Deblocking 중간";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Deblocking 낮게";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "네트워크 캐쉬 단계";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "가장 낮은 대기시간";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "낮은 대기시간";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "보통";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "높은 대기시간";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "더 높은 대기시간";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "기본 재생 속도";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "캐스팅";
 "SETTINGS_PTCASTING" = "오디오 패스쓰루";
 "SETTINGS_PTCASTINGLONG" = "TV가 오디오 렌더링을 관리하도록 합니다";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "피드백";
 "SETTINGS_SEND_FEEDBACK" = "피드백 보내기";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "미디어 라이브러리";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "미디어 라이브러리 다시 스캔하기";
 "SETTINGS_DECRAPIFY" = "출력을 위해 항목 이름을 최적화하기";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "비디오 섬네일 표시하기";
 "SETTINGS_SHOW_ARTWORKS" = "오디오 아트워크 표시하기";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "디바이스 백업에 미디어 라이브러리 포함하기";
 
-"SETTINGS_FILE_SYNC" = "파일 동기화";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "네트워크 캐쉬 단계";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "가장 낮은 대기시간";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "낮은 대기시간";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "보통";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "높은 대기시간";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "더 높은 대기시간";
 "SETTINGS_WIFISHARING_IPv6" = "Wi-Fi Sharing을 위한 IPv6 지원";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "아트워크";
 "SETTINGS_DOWNLOAD_ARTWORK" = "아트워크 다운로드";

@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "채도";
 "VFILTER_GAMMA" = "감마";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "프리앰프";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "이퀄라이저 프로파일 선택하기";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "재생 실패";
 "PLEASE_WAIT" = "기다려주세요";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "대기열에 추가하기";
 "APPEND_TO_QUEUE_LABEL" = "대기열에 추가하기";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
 "DISPLAY_AS" = "Display as";
