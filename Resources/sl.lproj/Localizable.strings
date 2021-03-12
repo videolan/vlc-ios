@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Nasičenost";
 "VFILTER_GAMMA" = "Gama";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Predojačevalec";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Izbira profila izravnalnika";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Predvajanje je spodletelo";
 "PLEASE_WAIT" = "Počakajte ...";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Dodaj k čakalni vrsti";
 "APPEND_TO_QUEUE_LABEL" = "Dodaj k čakalni vrsti";
 
-"DISABLE_GROUPS" = "Onemogoči skupine";
-"DISABLE_GROUPS_SWITCH_HINT" = "Onemogoči skupinski razpored";
 "DISPLAY_AS" = "Prikaži kot";

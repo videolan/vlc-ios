@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Videz";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časovno raztegovanje zvoka";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Predvajanje zvoka v ozadju";
 "SETTINGS_GENERIC_TITLE" = "Izvorno";
 "SETTINGS_PASSCODE_LOCK" = "Zaklep z geslom";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Brez odstranjevanja kock (najhitrejše)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Srednje odstranjevanje kock";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Nizko odstranjevanje kock";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Raven omrežnega predpomnjenja";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Najnižja zamuda";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Nizka zamuda";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Navadno";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Višja zamuda";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Najvišja zamuda";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Privzeta hitrost predvajanja";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Predvajanje";
 "SETTINGS_PTCASTING" = "Prehod zvoka";
 "SETTINGS_PTCASTINGLONG" = "Naj televizor obdela zvok";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Odziv";
 "SETTINGS_SEND_FEEDBACK" = "Pošlji odziv";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Knjižnica predstavnih vsebin";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Prisili VLC, da ponovno pregleda knjižnico predstavnih vsebin";
 "SETTINGS_DECRAPIFY" = "Optimiziraj imena elementov za prikaz";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Prikaži predogledne sličice";
 "SETTINGS_SHOW_ARTWORKS" = "Prikaži naslovnice";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "V varnostno kopijo vključi knjižnico predstavnih vsebin";
 
-"SETTINGS_FILE_SYNC" = "Usklajevanje datotek";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Raven omrežnega predpomnjenja";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Najnižja zamuda";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Nizka zamuda";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Navadno";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Višja zamuda";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Najvišja zamuda";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 podpora za skupno rabo vsebin v brezžičnem omrežju";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Grafična podoba";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Prenesi grafično podobo";
