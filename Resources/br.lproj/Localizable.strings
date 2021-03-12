@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Peurvec'hiañ";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Ragamplaer";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Dibab ar profil ar c'hevataler";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "C'hwitet ez eus bet war al lenn";
 "PLEASE_WAIT" = "Gortozit mar plij";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Ouzhpennañ d'ar roll-lenn";
 "APPEND_TO_QUEUE_LABEL" = "Ouzhpennañ d'ar roll-lenn";
 
-"DISABLE_GROUPS" = "Lazhañ ar strolladoù";
-"DISABLE_GROUPS_SWITCH_HINT" = "Lazhañ an diskouez strolladoù";
 "DISPLAY_AS" = "Diskouez evel";

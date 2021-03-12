@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Neuz";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Dic'hourdañ-amzerel aodio";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Lenn aodio en drekleur";
 "SETTINGS_GENERIC_TITLE" = "Generek";
 "SETTINGS_PASSCODE_LOCK" = "Morailh kod-tremen";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Tamm enep-bloc'hadoù (ar buanañ)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Enep-bloc'hoù etre";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Enep-bloc'hadoù krenn";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Live krubuilh ar genrouedad";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Gortozadenn izelañ";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Gortozadenn izel";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Gortozadenn uhel";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Gortozadenn uhelañ";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Tizh lenn dre ziouer";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "O skignañ";
 "SETTINGS_PTCASTING" = "Treuzell aodio";
 "SETTINGS_PTCASTINGLONG" = "Lezit ho TV merañ ar rentañ aodio";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Evezhiadennoù";
 "SETTINGS_SEND_FEEDBACK" = "Kas evezhiadennoù";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Levraoueg mediaoù";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Rediañ VLC da skanañ en-dro ar vediaoueg";
 "SETTINGS_DECRAPIFY" = "Optimizañ anvioù an elfennoù da ziskouez";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Diskouez miniadurennoù ar videoioù";
 "SETTINGS_SHOW_ARTWORKS" = "Diskouez jaketennoù ar restroù aodio";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Enklozañ ar vediaoueg e-barzh enrolladennoù an trevnad";
 
-"SETTINGS_FILE_SYNC" = "Sinkroneladur ar restr";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Live krubuilh ar genrouedad";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Gortozadenn izelañ";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Gortozadenn izel";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Gortozadenn uhel";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Gortozadenn uhelañ";
 "SETTINGS_WIFISHARING_IPv6" = "Skoazell IPV6 evit ar rannañ Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Jaketenn";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Pellgargañ ar jaketenn";
