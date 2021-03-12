@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "நேரம் நீட்டித்த ஒலி";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "பின்புலத்தில் ஒலி இயக்கம்";
 "SETTINGS_GENERIC_TITLE" = "பொதுவான";
 "SETTINGS_PASSCODE_LOCK" = "கடவுகுறியீடு பூட்டு ";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "பிரித்தெடுத்தல் இல்லை (வேகமானது)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "பாதி பிரித்தெடுத்தல்";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "குறைவான பரித்தெடுத்தல்";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "பிணைய பற்றல்(Caching) மட்டம்";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "ஆகக்குறைந்த செயலற்ற நிலை";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "குறைந்த செயலற்ற நிலை";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "வழக்கமான";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "உயர் செயலற்ற நிலை";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "உயர்ந்த செயலற்ற நிலை";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "முன்னிருப்பு இயக்கி வேகம்";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "கருத்து";
 "SETTINGS_SEND_FEEDBACK" = "கருத்தை அனுப்பு";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Media library";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "உருப்படி பெயர்களை காட்ட உகந்ததாக்கவும்";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
-"SETTINGS_FILE_SYNC" = "கோப்பு ஒத்திசைவு";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "பிணைய பற்றல்(Caching) மட்டம்";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "ஆகக்குறைந்த செயலற்ற நிலை";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "குறைந்த செயலற்ற நிலை";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "வழக்கமான";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "உயர் செயலற்ற நிலை";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "உயர்ந்த செயலற்ற நிலை";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
