@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Saturação";
 "VFILTER_GAMMA" = "Gama";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Amplificador";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Escolha um perfil de equalizador";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Não foi possível reproduzir";
 "PLEASE_WAIT" = "Por favor, aguarde";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Append to queue";
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
 "DISPLAY_AS" = "Display as";
