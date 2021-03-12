@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC fyrir iOS er útgáfa af frjálsa VLC-margmiðlunarspilaranum fyrir iPad, iPhone og iPod touch.\nHann getur spilað allar kvikmyndir, þætti og tónlist á flestum sniðum án umbreytingar.\nHann styður samstillingu skráa við Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, bein niðurhöl og í gegnum þráðlausa WiFi-deilingu auk streymis frá SMB, FTP, UPnP/DLNA margmiðlunarþjónum og af vefnum.\nVLC styður þróaða skjátexta (þýðingar) með fullri SSA-samhæfni, margrása hljóði og hraðastýringu fyrir afspilun.\n\nVLC fyrir iOS er algerlega frjáls og ókeypis, og er með opinn aðgengilegan grunnkóða.";
 
 "STORE_DESCRIPTION_TV" = "VLC-spilarinn er frjáls og opinn margkerfa margmiðlunarspilari.\nHann getur spilað allar kvikmyndir, þætti og tónlist á flestum sniðum án umbreytingar.\nHann styður streymi frá skýjaþjónustum (Dropbox, OneDrive, Box), fjarstýrða afspilun frá Mac eða PC tölvum í gegnum vefviðmót, auk þess að styðja streymi frá SMB, FTP, UPnP/DLNA margmiðlunarþjónum og af vefnum.\nVLC styður þróaða skjátexta (þýðingar) með fullri SSA-samhæfni, margrása hljóði og hraðastýringu fyrir afspilun.\n\nVLC fyrir iOS er algerlega frjálst og ókeypis, og er með opinn aðgengilegan grunnkóða.\n\nMyndskreytingar og lýsigögn koma frá TMDb og Hatchet, sem eru kvikmynda- og tónlistargagnagrunnar á vegum hóps þátttakenda í verkefninu.";
 
@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Mettun";
 "VFILTER_GAMMA" = "Litróf (gamma)";
 
-"PRESETS" = "Forstillingar";
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Formögnun";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Veldu snið fyrir hljóðjöfnun";
@@ -78,7 +78,7 @@
 "BUTTON_RENDERER_HINT" = "Birta valmynd yfir tiltæk útvarpandi tæki (casting)";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE" = "Spila biðröð";
 "BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
 
 "UPGRADING_LIBRARY" = "Uppfærsla á miðlasafni";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Append to queue";
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
 "DISPLAY_AS" = "Display as";

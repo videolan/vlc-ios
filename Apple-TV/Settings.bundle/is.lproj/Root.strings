@@ -9,16 +9,17 @@
 "SETTINGS_THEME_SYSTEM" = "Sjálfvirkt";
 "SETTINGS_PRIVACY_SUBTITLE" = "Opna í stillingum";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Tryggðu öruggt aðgengi að efninu þínu";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Margmiðlunargögnin þín verða falin í Files-forritinu";
 
 "SETTINGS_DARKTHEME" = "Útlit";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tímaaðlögun hljóðs (time streching)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Hljóðspilun í bakgrunni";
 "SETTINGS_GENERIC_TITLE" = "Algengt";
 "SETTINGS_PASSCODE_LOCK" = "Læsing með lykilorði";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Leyfa Touch ID til að aflæsa";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Leyfa Face ID til að aflæsa";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Fela margmiðlunarsafnið í Files-forritinu";
 "SETTINGS_VIDEO_FULLSCREEN" = "Spila í heilskjásham";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Halda myndspilun áfram";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Halda hljóðspilun áfram";
@@ -26,19 +27,12 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Spyrja";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Alltaf";
 "SETTINGS_NETWORK_PLAY_ALL" = "Spila næsta atriði sjálfkrafa";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Leyfa textaskrun í efnislista";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Afblokkunarsía";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Engin afblokkun (hraðast)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Miðlungs afblokkun";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Lítil afblokkun";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Stig skyndiminnis fyrir netkerfi";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Minnsti biðtími";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Lítill biðtími";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Venjulegt";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Mikill biðtími";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Mesti biðtími";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Sjálfgefinn afspilunarhraði";
 
@@ -84,9 +78,14 @@
 "SETTINGS_HWDECODING" = "Vélbúnaðarafkóðun";
 "SETTINGS_HWDECODING_ON" = "Kveikt";
 "SETTINGS_HWDECODING_OFF" = "Slökkt";
-"SETTINGS_CASTING" = "Casting";
-"SETTINGS_PTCASTING" = "Audio Passthrough";
-"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING" = "Útvörpun (casting)";
+"SETTINGS_PTCASTING" = "Gegnumstreymi hljóðs";
+"SETTINGS_PTCASTINGLONG" = "Láttu sjónvarpið sjá um hljóðmeðhöndlun";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Umsagnir";
 "SETTINGS_SEND_FEEDBACK" = "Senda umsögn";
@@ -95,17 +94,26 @@
 "SETTINGS_MEDIA_LIBRARY" = "Margmiðlunarsafn";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Þvinga VLC til að endurskanna margmiðlunarsafnið";
 "SETTINGS_DECRAPIFY" = "Besta heiti atriða fyrir birtingu";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Sýna smámyndir myndskeiða";
 "SETTINGS_SHOW_ARTWORKS" = "Sækja myndefni fyrir tónlist";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Taka margmiðlunarsafnið með í öryggisafritun tækisins";
 
-"SETTINGS_FILE_SYNC" = "Samstilling skráa";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Stig skyndiminnis fyrir netkerfi";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Minnsti biðtími";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Lítill biðtími";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Venjulegt";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Mikill biðtími";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Mesti biðtími";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 stuðningur vegna WiFi-deilingar";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Myndefni";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Sækja myndefni";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_NEW_PLAYER" = "Nýr spilari";
 
 "ABOUT_APP_TV" = "Um VLC fyrir tvOS";
