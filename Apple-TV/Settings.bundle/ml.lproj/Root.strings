@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio playback in background";
 "SETTINGS_GENERIC_TITLE" = "Generic";
 "SETTINGS_PASSCODE_LOCK" = "പാസ്‌കോഡ് ലോക്ക്";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "ഡീബ്ലോക്കിങ് ഇല്ല (വേഗതയേറിയത്)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "മീഡിയം ഡീബ്ലോക്കിംഗ്";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "കുറഞ്ഞ ഡീബ്ലോക്കിംഗ്";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "നെറ്റ്‌വർക്ക് കാഷിംഗ് ലെവൽ";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "ഏറ്റവും കുറഞ്ഞ ലേറ്റൻസി";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "കുറഞ്ഞ ലേറ്റൻസി";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "സാധാരണ";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "ഉയർന്ന ലേറ്റൻസി";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "ഏറ്റവും ഉയർന്ന ലേറ്റൻസി";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "സ്ഥിരസ്ഥിതി പ്ലേബാക്ക് വേഗത";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "ഫീഡ്‌ബാക്ക്";
 "SETTINGS_SEND_FEEDBACK" = "ഫീഡ്‌ബാക്ക് അയയ്‌ക്കുക";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "മീഡിയ ലൈബ്രറി";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "മീഡിയ ലൈബ്രറി വീണ്ടെടുക്കാൻ VLCയെ നിർബന്ധിക്കുക";
 "SETTINGS_DECRAPIFY" = "Optimize item names for display";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "വീഡിയോ ലഘുചിത്രങ്ങൾ കാണിക്കുക";
 "SETTINGS_SHOW_ARTWORKS" = "ഓഡിയോ കലാസൃഷ്‌ടികൾ കാണിക്കുക";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "ഉപകരണ ബാക്കപ്പിൽ മീഡിയ ലൈബ്രറി ഉൾപ്പെടുത്തുക";
 
-"SETTINGS_FILE_SYNC" = "ഫയൽ സമന്വയം";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "നെറ്റ്‌വർക്ക് കാഷിംഗ് ലെവൽ";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "ഏറ്റവും കുറഞ്ഞ ലേറ്റൻസി";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "കുറഞ്ഞ ലേറ്റൻസി";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "സാധാരണ";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "ഉയർന്ന ലേറ്റൻസി";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "ഏറ്റവും ഉയർന്ന ലേറ്റൻസി";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "കലാസൃഷ്‌ടി";
 "SETTINGS_DOWNLOAD_ARTWORK" = "കലാസൃഷ്‌ടി ഡൗൺലോഡുചെയ്യുക";
