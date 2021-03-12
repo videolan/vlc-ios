@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Ketepuan";
 "VFILTER_GAMMA" = "Gama";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Praamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Pilih Profil Penyama";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Main balik gagal";
 "PLEASE_WAIT" = "Tunggu sebentar";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Tambah ke baris gilir";
 "APPEND_TO_QUEUE_LABEL" = "Tambah ke baris gilir";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
 "DISPLAY_AS" = "Display as";
