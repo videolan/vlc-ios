@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "කාල-දිගැදීම් ශ්‍රව්‍ය";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "පසුබිමෙහි ශ්‍රව්‍ය පිළිවැයිම";
 "SETTINGS_GENERIC_TITLE" = "ගණීය";
 "SETTINGS_PASSCODE_LOCK" = "පසුකේත අගුළුලෑම";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "ප්‍රතිවාරක නැත (වේගවත්)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "මධ්‍යස්ත ප්‍රති අවහිර කිරීම";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "අඩු ප්‍රති අවහිර කිරීම";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "ජාල කෑෂිත මට්ටම";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "අඩුතම නොපෙනී පැවතීම";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "අවම නොපෙනී පැවතීම";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "සාමාන්‍ය";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "ඉහළ නොපෙනී පැවතීම";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "ඉහළතම නොපෙනී පැවතීම";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "පෙරනිමි පිළිවැයීම් වේගය";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Send Feedback";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Media library";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "ප්‍රදර්ශනය සඳහා අයිතමයන්ගේ නම් යහපත් කරන්න";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
-"SETTINGS_FILE_SYNC" = "ගොනු සමමුහුර්ථකරණය";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "ජාල කෑෂිත මට්ටම";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "අඩුතම නොපෙනී පැවතීම";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "අවම නොපෙනී පැවතීම";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "සාමාන්‍ය";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "ඉහළ නොපෙනී පැවතීම";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "ඉහළතම නොපෙනී පැවතීම";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
