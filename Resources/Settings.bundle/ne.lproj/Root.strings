@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "देखावट";
 "SETTINGS_TIME_STRETCH_AUDIO" = "समय-लम्बिने अडियो";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "पृष्ठभूमिमा अडियो प्लेब्याक";
 "SETTINGS_GENERIC_TITLE" = "सामान्य";
 "SETTINGS_PASSCODE_LOCK" = "पासकोड लक";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "डिब्लकिङ छैन (सबैभन्दा छिटो)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "मध्यम डिब्लकिङ";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "न्यून डिब्लकिङ";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "सञ्जाल क्यासिङ स्तर";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "न्यूनतम ल्याटेन्सी";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "न्यून ल्याटेन्सी";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "सामान्य";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "उच्च ल्याटेन्सी";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "उच्चतम ल्याटेन्सी";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "पूर्वनिर्धारित प्लेब्याक गति";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "कास्टिङ";
 "SETTINGS_PTCASTING" = "अडियो पासथ्रु";
 "SETTINGS_PTCASTINGLONG" = "तपाईँको टिभीलाई अडियो रेन्डरिङ व्यवस्थित गर्न दिनुहोस्";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "प्रतिक्रिया";
 "SETTINGS_SEND_FEEDBACK" = "प्रतिक्रिया पठाउनुहोस्";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "मिडिया पुस्तकालय";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC लाई मिडिया पुस्तकालय पुनः स्क्यान गर्न फोर्स गर्नुहोस्";
 "SETTINGS_DECRAPIFY" = "प्रदर्शनका लागि वस्तुका नामहरू अनुकूलन गर्नुहोस्";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "भिडियो थम्बनेलहरू देखाउनुहोस्";
 "SETTINGS_SHOW_ARTWORKS" = "अडियो आर्टवर्कहरू देखाउनुहोस्";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "यन्त्र ब्याकअपमा मिडिया पुस्तकालय समावेश गर्नुहोस्";
 
-"SETTINGS_FILE_SYNC" = "फाइल समक्रमण";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "सञ्जाल क्यासिङ स्तर";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "न्यूनतम ल्याटेन्सी";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "न्यून ल्याटेन्सी";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "सामान्य";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "उच्च ल्याटेन्सी";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "उच्चतम ल्याटेन्सी";
 "SETTINGS_WIFISHARING_IPv6" = "Wi-Fi साझेदारीका लागि IPv6 समर्थन";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "आर्टवर्क";
 "SETTINGS_DOWNLOAD_ARTWORK" = "आर्टवर्क डाउनलोड गर्नुहोस्";
