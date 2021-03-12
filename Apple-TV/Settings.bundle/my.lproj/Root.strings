@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio playback in background";
 "SETTINGS_GENERIC_TITLE" = "ယေဘူယျ";
 "SETTINGS_PASSCODE_LOCK" = "ဝင်ခွင့်ကုဒ် သော့";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "No deblocking (fastest)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Medium deblocking";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Low deblocking";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "ကွန်ယက်မှ ယာယီဖိုင်သိမ်းခြင်း အဆင့်";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lowest Latency";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Low Latency";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "ပုံမှန်";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High Latency";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest Latency";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "မူလ ပြသ နှုန်း";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "ဖမ်းယူပြသခြင်း";
 "SETTINGS_PTCASTING" = "အသံ ဖြတ်သန်းဝင်ရောက်မှု";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "အကြုံပြု တုံ့ပြန်ချက်";
 "SETTINGS_SEND_FEEDBACK" = "အကြုံပြု တုံ့ပြန်ချက် ပေးပို့ရန်";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "မီဒီယာတိုက်";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "Optimize item names for display";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
-"SETTINGS_FILE_SYNC" = "ဖိုင် ချိန်ကိုက်ညှိနှိုင်းခြင်း";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "ကွန်ယက်မှ ယာယီဖိုင်သိမ်းခြင်း အဆင့်";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lowest Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Low Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "ပုံမှန်";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest Latency";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "သရုပ်ဖော်ပုံ";
 "SETTINGS_DOWNLOAD_ARTWORK" = "သရုပ်ဖော်ပုံ ဒေါင်းလုပ် လုပ်ရန်";

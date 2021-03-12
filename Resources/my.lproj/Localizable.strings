@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Saturation";
 "VFILTER_GAMMA" = "ဂမ္မာ";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "ကြိုတင်ချဲ့";
 "DB_FORMAT" = "%idB";
 "CHOOSE_EQUALIZER_PROFILES" = "ချိန်ညှိ ကောက်ကြောင်း ကိုရွေးချယ်ပါ";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "ပြသခြင်း မအောင်မြင်";
 "PLEASE_WAIT" = "ကျေးဇူးပြုပြီး ခဏစောင့်ပါ";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Append to queue";
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
 "DISPLAY_AS" = "Display as";
