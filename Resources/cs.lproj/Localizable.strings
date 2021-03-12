@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Sytost";
 "VFILTER_GAMMA" = "Gama";
 
-"PRESETS" = "Předvolby";
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Předzesílení";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Výběr předvoleb ekvalizéru";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Přidat do fronty";
 "APPEND_TO_QUEUE_LABEL" = "Přidat do fronty";
 
-"DISABLE_GROUPS" = "Vypnout skupiny";
-"DISABLE_GROUPS_SWITCH_HINT" = "Vypnout skupinové rozložení";
 "DISPLAY_AS" = "Zobrazit jako";
