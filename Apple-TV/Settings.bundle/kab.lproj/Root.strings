@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Timeẓri";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Étirement temporel audio";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Taɣuri n imesli deg weɣawas n deffir";
 "SETTINGS_GENERIC_TITLE" = "Imcettel";
 "SETTINGS_PASSCODE_LOCK" = "Tangalt n usergel";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Sans anti-blocs (plus rapide)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Anti-blocs intermédiaire";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Anti-blocs faible";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Niveau de cache réseau";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latence la plus faible";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Akud n ugani amectuḥ";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Amagnu";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Akud n ugani ameqran";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latence la plus forte";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Arured n tɣuri n lexṣas";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Eǧǧ tiliẓri-inek m ad isefrek tiririt n umeslaw";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Tuɣalin";
 "SETTINGS_SEND_FEEDBACK" = "Azen tiririt";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Tamkarḍit n yimidyaten";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Ḥettem tulsa n usleḍ n temkarḍit n yimidyaten";
 "SETTINGS_DECRAPIFY" = "Sekkey ismawen n iferdisen i webeqeḍ";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Beqqeḍ tinfulin n tvidyutin";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Seddu tamkarḍit n yimidyaten deg uḥraz n yibenk";
 
-"SETTINGS_FILE_SYNC" = "Amtawi n ifuyla";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Niveau de cache réseau";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latence la plus faible";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Akud n ugani amectuḥ";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Amagnu";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Akud n ugani ameqran";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latence la plus forte";
 "SETTINGS_WIFISHARING_IPv6" = "Tadhelt n IPv6 i beḍḍu n Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
