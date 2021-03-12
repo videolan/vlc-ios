@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "רוויה";
 "VFILTER_GAMMA" = "גאמה";
 
-"PRESETS" = "ערכות מוגדרות";
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "בחר פרופיל איקולייזר";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "להוסיף לסוף התור";
 "APPEND_TO_QUEUE_LABEL" = "להוסיף לסוף התור";
 
-"DISABLE_GROUPS" = "השבתת קבוצות";
-"DISABLE_GROUPS_SWITCH_HINT" = "השבתת פריסת קבוצות";
 "DISPLAY_AS" = "להציג בתור";

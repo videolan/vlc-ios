@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "מראה";
 "SETTINGS_TIME_STRETCH_AUDIO" = "מתיחת זמן השמע";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "נגינת שמע ברקע";
 "SETTINGS_GENERIC_TITLE" = "כללי";
 "SETTINGS_PASSCODE_LOCK" = "נעילה בצופן";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "ללא טשטוש גבולות ריבועים (הכי מהיר)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "טשטוש גבולות ריבועים בינוני";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "טשטוש גבולות ריבועים קל";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "רמת מטמון הרשת";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "ההשהיה הנמוכה ביותר";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "השהיה נמוכה";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "רגיל";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "השהיה גבוהה";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "ההשהיה הגבוהה ביותר";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "מהירות הנגינה כבררת המחדל";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "שידור";
 "SETTINGS_PTCASTING" = "מסירת שמע";
 "SETTINGS_PTCASTINGLONG" = "לאפשר לטלוויזיה שלך לנהל את עיבוד השמע";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "משוב";
 "SETTINGS_SEND_FEEDBACK" = "שלח משוב";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "ספריית מדיה";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "אילוץ סריקת ספריית המדיה מחדש על ידי VLC";
 "SETTINGS_DECRAPIFY" = "התאמת השמות לתצוגה";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "הצגת תמונות ממוזערות של סרטונים";
 "SETTINGS_SHOW_ARTWORKS" = "הצגת מיצג אומנותי של מקטע שמע";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "לכלול את תיקיות המדיה בגיבוי המכשיר";
 
-"SETTINGS_FILE_SYNC" = "סנכרון קבצים";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "רמת מטמון הרשת";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "ההשהיה הנמוכה ביותר";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "השהיה נמוכה";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "רגיל";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "השהיה גבוהה";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "ההשהיה הגבוהה ביותר";
 "SETTINGS_WIFISHARING_IPv6" = "תמיכה ב־IPv6 לשיתוף באמצעות Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "עטיפת אלבום";
 "SETTINGS_DOWNLOAD_ARTWORK" = "הורדת עטיפת האלבום";
