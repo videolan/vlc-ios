@@ -6,13 +6,14 @@
 
 "SETTINGS_THEME_BRIGHT" = "Bright theme";
 "SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_SYSTEM" = "Автоматично";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Time-stretching audio";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio playback in background";
 "SETTINGS_GENERIC_TITLE" = "Generic";
 "SETTINGS_PASSCODE_LOCK" = "Passcode Lock";
@@ -23,7 +24,7 @@
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Никога";
-"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Питай";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Винаги";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "No deblocking (fastest)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Medium deblocking";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Low deblocking";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Network Caching Level";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lowest Latency";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Low Latency";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High Latency";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest Latency";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Default playback speed";
 
@@ -50,7 +44,7 @@
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
 "SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
 
-"SETTINGS_SUBTITLES_TITLE" = "Subtitles";
+"SETTINGS_SUBTITLES_TITLE" = "Субтитри";
 "SETTINGS_SUBTITLES_FONT" = "Font";
 "SETTINGS_SUBTITLES_TEXT_ENCODING" = "Text Encoding";
 "SETTINGS_SUBTITLES_FONTSIZE" = "Relative font size";
@@ -61,14 +55,14 @@
 "SETTINGS_SUBTITLES_FONTSIZE_LARGEST" = "Largest";
 "SETTINGS_SUBTITLES_BOLDFONT" = "Use Bold font";
 "SETTINGS_SUBTITLES_FONTCOLOR" = "Font color";
-"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "White";
-"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "Black";
-"SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "Gray";
+"SETTINGS_SUBTITLES_FONTCOLOR_WHITE" = "Бяло";
+"SETTINGS_SUBTITLES_FONTCOLOR_BLACK" = "Черно";
+"SETTINGS_SUBTITLES_FONTCOLOR_GRAY" = "Сиво";
 "SETTINGS_SUBTITLES_FONTCOLOR_SILVER" = "Silver";
-"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "Red";
+"SETTINGS_SUBTITLES_FONTCOLOR_RED" = "Червено";
 "SETTINGS_SUBTITLES_FONTCOLOR_FUCHSIA" = "Fuchsia";
-"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Yellow";
-"SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Green";
+"SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Жълто";
+"SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Зелено";
 "SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Navy";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Outline Thickness";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "None";
@@ -79,7 +73,7 @@
 "SETTINGS_DEINTERLACE" = "Deinterlace";
 "SETTINGS_DEINTERLACE_ON" = "On";
 "SETTINGS_DEINTERLACE_OFF" = "Off";
-"SETTINGS_DEINTERLACE_AUTO" = "Automatic";
+"SETTINGS_DEINTERLACE_AUTO" = "Автоматично";
 
 "SETTINGS_HWDECODING" = "Hardware Decoding";
 "SETTINGS_HWDECODING_ON" = "On";
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Send Feedback";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Media library";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "Optimize item names for display";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
-"SETTINGS_FILE_SYNC" = "File Synchronization";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Network Caching Level";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lowest Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Low Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High Latency";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest Latency";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
@@ -108,4 +116,4 @@
 "SETTINGS_LAB" = "Lab";
 "SETTINGS_NEW_PLAYER" = "New player";
 
-"ABOUT_APP_TV" = "About VLC for tvOS";
+"ABOUT_APP_TV" = "Относно VLC за tvOS";
