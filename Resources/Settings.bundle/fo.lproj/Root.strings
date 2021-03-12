@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Ljóð í tíðarrøð";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Ljóð, sum spælir í bakgrundini";
 "SETTINGS_GENERIC_TITLE" = "Vanligt";
 "SETTINGS_PASSCODE_LOCK" = "Stongt við loyniorði";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Einki loysingarfiltur (skjótast)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Miðal loysing";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Lága loysing";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Netgoymsla í stigi";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lægsta seinkan";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Lág seinkan";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Vanligt";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Høg seinkan";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Hægsta seinkan";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Vanlig avsplælingarferð";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Send Feedback";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Media library";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "Albøt lutir, sum skulu vísast";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
-"SETTINGS_FILE_SYNC" = "Samtilla fílur";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Netgoymsla í stigi";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lægsta seinkan";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Lág seinkan";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Vanligt";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Høg seinkan";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Hægsta seinkan";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
