@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Aussehen";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio-Tonzeitstreckung";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Beschleunigt und verlangsamt Audio ohne dabei die Tonhöhe zu verändern (erfordert ein schnelles Gerät)";
 "SETTINGS_BACKGROUND_AUDIO" = "Hintergrundaudiowiedergabe";
 "SETTINGS_GENERIC_TITLE" = "Allgemein";
 "SETTINGS_PASSCODE_LOCK" = "Codesperre";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Keine Deblockierung (schnellstes)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Mittlere Deblockierung";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Niedrige Deblockierung";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Netzwerk-Cache Niveau";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Niedrigste Latenz";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Niedrige Latenz";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Hohe Latenz";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Höchste Latenz";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Standard-Wiedergabegeschwindigkeit";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Streaming";
 "SETTINGS_PTCASTING" = "Audio-Passthrough (Audioweiterleitung)";
 "SETTINGS_PTCASTINGLONG" = "Lassen Sie Ihren Fernseher die Audio-Umwandlung verwalten";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Konvertierungsqualität";
+"SETTINGS_HIGH" = "Hoch";
+"SETTINGS_MEDIUM" = "Mittel";
+"SETTINGS_LOW" = "Niedrig";
+"SETTINGS_LOWEST" = "Niedrigste";
 
 "SETTINGS_FEEDBACK" = "Bewertung";
 "SETTINGS_SEND_FEEDBACK" = "Bewertung senden";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Medienbibliothek";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC veranlassen, die Medienbibliothek erneut zu durchsuchen";
 "SETTINGS_DECRAPIFY" = "Optimierte Elementnamen";
+"SETTINGS_DISABLE_GROUPING" = "Automatische Mediengruppierung deaktivieren";
 "SETTINGS_SHOW_THUMBNAILS" = "Video-Vorschau anzeigen";
 "SETTINGS_SHOW_ARTWORKS" = "Musik-Cover anzeigen";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Medienbibliothek in Gerätesicherung mit einbeziehen";
 
-"SETTINGS_FILE_SYNC" = "Dateiaustausch";
+"SETTINGS_NETWORK" = "Netzwerk";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Netzwerk-Cache Niveau";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Niedrigste Latenz";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Niedrige Latenz";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Hohe Latenz";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Höchste Latenz";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-Unterstützung für WLAN-Freigabe";
+"SETTINGS_FORCE_SMBV1" = "SMB 1 bevorzugen";
+"SETTINGS_FORCE_SMBV1_LONG" = "Deaktivieren Sie diese Einstellung, wenn Sie Probleme beim Durchsuchen Ihres SMB-Servers haben";
 
 "SETTINGS_ARTWORK" = "Cover";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Cover herunterladen";

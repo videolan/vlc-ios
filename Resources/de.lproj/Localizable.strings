@@ -35,8 +35,8 @@
 "VFILTER_SATURATION" = "Sättigung";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESETS" = "Voreinstellung";
-"PREAMP" = "Preamp";
+"PRESET_PREAMP_SETTING" = "Einstellungen für Voreingestellt / Vorverstärker";
+"PREAMP" = "Vorverstärker";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Equalizer-Profil wählen";
 "SNAP_BANDS" = "Bänder mitziehen";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "An Wiedergabewarteschlange anhängen";
 "APPEND_TO_QUEUE_LABEL" = "An Wiedergabewarteschlange anhängen";
 
-"DISABLE_GROUPS" = "Gruppierung deaktivieren";
-"DISABLE_GROUPS_SWITCH_HINT" = "Deaktivierung des Gruppenlayouts";
 "DISPLAY_AS" = "Anzeigen als";
