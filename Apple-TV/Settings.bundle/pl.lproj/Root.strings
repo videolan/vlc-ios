@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Wygląd";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Rozciąganie czasu dźwięku";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Przyspieszenie i spowolnienie dźwięku bez zmiany tonacji (wymaga szybkiego urządzenia)";
 "SETTINGS_BACKGROUND_AUDIO" = "Odtwarzanie dźwięku w tle";
 "SETTINGS_GENERIC_TITLE" = "Ogólny";
 "SETTINGS_PASSCODE_LOCK" = "Kod blokady";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Usuwanie efektu blokowego wyłączone (najszybciej)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Średni filtr usuwania efektu blokowego";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Niski filtr usuwania efektu blokowego";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Poziom buforowania sieci";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Najniższa częstotliwość";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Niska częstotliwość";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Standardowa";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Wysoka częstotliwość";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Najwyższa częstotliwość";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Domyślna prędkość odtwarzania";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Transmisja";
 "SETTINGS_PTCASTING" = "Przekazywanie dźwięku";
 "SETTINGS_PTCASTINGLONG" = "Zezwól telewizorowi zarządzać renderowaniem dźwięku";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Jakość konwersji";
+"SETTINGS_HIGH" = "Wysoka";
+"SETTINGS_MEDIUM" = "Średnia";
+"SETTINGS_LOW" = "Niska";
+"SETTINGS_LOWEST" = "Najniższa";
 
 "SETTINGS_FEEDBACK" = "Opinia";
 "SETTINGS_SEND_FEEDBACK" = "Wyślij opinię";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Biblioteka mediów";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Zmuś VLC do ponownego skanowania biblioteki multimediów";
 "SETTINGS_DECRAPIFY" = "Optymalizuj nazwy elementów do wyświetlania";
+"SETTINGS_DISABLE_GROUPING" = "Wyłącz automatyczne grupowanie mediów";
 "SETTINGS_SHOW_THUMBNAILS" = "Pokaż miniaturki wideo";
 "SETTINGS_SHOW_ARTWORKS" = "Pokaż okładki muzyczne";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Dołącz bibliotekę multimediów do kopii zapasowej urządzenia";
 
-"SETTINGS_FILE_SYNC" = "Synchronizacja plików";
+"SETTINGS_NETWORK" = "Sieć";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Poziom buforowania sieci";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Najniższa częstotliwość";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Niska częstotliwość";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Standardowa";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Wysoka częstotliwość";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Najwyższa częstotliwość";
 "SETTINGS_WIFISHARING_IPv6" = "Obsługa protokołu IPv6 dla udostępnienia Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Preferuj SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Wyłącz to ustawienie, jeśli masz problemy z przeglądaniem serwera SMB";
 
 "SETTINGS_ARTWORK" = "Okładka";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Pobierz okładkę";

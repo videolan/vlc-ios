@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Nasycenie";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESETS" = "Domyślne";
+"PRESET_PREAMP_SETTING" = "Ustawienia wstępne / przedwzmacniacza";
 "PREAMP" = "Przedwzm.";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Wybierz profil korektora";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Dołącz do kolejki";
 "APPEND_TO_QUEUE_LABEL" = "Dołącz do kolejki";
 
-"DISABLE_GROUPS" = "Wyłącz grupy";
-"DISABLE_GROUPS_SWITCH_HINT" = "Wyłącz układ grup";
 "DISPLAY_AS" = "Wyświetl jako";
