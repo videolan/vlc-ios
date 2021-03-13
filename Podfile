@@ -21,7 +21,7 @@ target 'VLC-iOS' do
   pod 'OBSlider', '1.1.0'
   pod 'InAppSettingsKit', :git => 'git://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
   pod 'GoogleAPIClientForREST/Drive'
-  pod 'MobileVLCKit', '3.3.16.2'
+  pod 'MobileVLCKit', '3.3.16.3'
   pod 'VLCMediaLibraryKit', '0.7.3'
   pod 'MediaLibraryKit-prod'
   pod 'GTMAppAuth', '0.7.1'
