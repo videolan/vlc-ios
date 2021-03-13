@@ -35,14 +35,16 @@
 "VFILTER_SATURATION" = "Saturation";
 "VFILTER_GAMMA" = "ጋማ";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "የ ማስተካከያ ገጽታ ይምረጡ";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "በድጋሚ ማጫወት አልተቻለም";
 "PLEASE_WAIT" = "እባክዎን ይቆዩ";
 "AR_CHANGED" = " የ ማነፃፀሪያ መጠን: %@";
-"DEFAULT" = "ነባር";
+"DEFAULT" = "መደበኛ";
 "FILL_TO_SCREEN" = "በሙሉ መመልከቻው ልክ";
 "PLAYBACK_SPEED" = "በድጋሚ የማጫወት ፍጥነት";
 "SPU_DELAY" = "ንዑስ አርእስት ማዘግያ";
@@ -175,7 +177,7 @@
 "Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
 "Re-enter your new passcode" = "Re-enter your new passcode";
 "Re-enter your passcode" = "Re-enter your passcode";
-"Set Passcode" = "Set Passcode";
+"Set Passcode" = "የይለፍ ቃል መዝግብ";
 
 "Settings" = "ማሰናጃዎች"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "ማብሪያ";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Append to queue";
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
 "DISPLAY_AS" = "Display as";
