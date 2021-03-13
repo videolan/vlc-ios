@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "饱和度";
 "VFILTER_GAMMA" = "伽玛";
 
-"PRESETS" = "预设";
+"PRESET_PREAMP_SETTING" = "预设 / 前置放大设置";
 "PREAMP" = "放大器";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "选择均衡器配置文件";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "添加到队列";
 "APPEND_TO_QUEUE_LABEL" = "添加到队列";
 
-"DISABLE_GROUPS" = "禁用群组";
-"DISABLE_GROUPS_SWITCH_HINT" = "禁用群组布局";
 "DISPLAY_AS" = "展示为";
