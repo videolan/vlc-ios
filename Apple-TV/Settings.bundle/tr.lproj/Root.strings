@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Görünüm";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Zamana yaymalı ses";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Tonu değiştirmeden sesi hızlandırır ya da yavaşlatır (hızlı bir aygıt gerekir)";
 "SETTINGS_BACKGROUND_AUDIO" = "Ses arka planda oynatılsın";
 "SETTINGS_GENERIC_TITLE" = "Soysal";
 "SETTINGS_PASSCODE_LOCK" = "Parola Kilidi";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Engel kaldırma yok (en hızlı)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Orta engel kaldırma";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Düşük engel kaldırma";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Ağ Ön Bellekleme Düzeyi";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "En Düşük Gecikme";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Düşük Gecikme";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Yüksek Gecikme";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "En Yüksek Gecikme";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Varsayılan oynatma hızı";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Aktarım";
 "SETTINGS_PTCASTING" = "Doğrudan Ses Geçişi";
 "SETTINGS_PTCASTINGLONG" = "Ses TV tarafından oluşturulsun";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Dönüştürme kalitesi";
+"SETTINGS_HIGH" = "Yüksek";
+"SETTINGS_MEDIUM" = "Orta";
+"SETTINGS_LOW" = "Düşük";
+"SETTINGS_LOWEST" = "En düşük";
 
 "SETTINGS_FEEDBACK" = "Geri Bildirim";
 "SETTINGS_SEND_FEEDBACK" = "Geri Bildirim Gönderin";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Ortam kitaplığı";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC ortam kitaplığını yeniden taramaya zorlansın";
 "SETTINGS_DECRAPIFY" = "Öge adları uygun şekilde görüntülensin";
+"SETTINGS_DISABLE_GROUPING" = "Ortamlar otomatik gruplanmasın";
 "SETTINGS_SHOW_THUMBNAILS" = "Görüntü küçük görselleri görüntülensin";
 "SETTINGS_SHOW_ARTWORKS" = "Ses kapak görselleri görüntülensin";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Aygıt yedeğine ortam kitaplığı katılsın";
 
-"SETTINGS_FILE_SYNC" = "Dosya Eşitleme";
+"SETTINGS_NETWORK" = "Ağ";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Ağ Ön Bellekleme Düzeyi";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "En Düşük Gecikme";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Düşük Gecikme";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Yüksek Gecikme";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "En Yüksek Gecikme";
 "SETTINGS_WIFISHARING_IPv6" = "Wi-Fi Paylaşımı için IPv6 desteği";
+"SETTINGS_FORCE_SMBV1" = "SMB 1 yeğlensin";
+"SETTINGS_FORCE_SMBV1_LONG" = "SMB sunucunuza erişmekte sorun yaşıyorsanız bu seçeneği devre dışı bırakın";
 
 "SETTINGS_ARTWORK" = "Albüm Kapağı";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albüm Kapağını İndir";

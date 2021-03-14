@@ -35,11 +35,11 @@
 "VFILTER_SATURATION" = "Doygunluk";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESETS" = "Ön ayarlar";
+"PRESET_PREAMP_SETTING" = "Hazır ayar / ön güçlendirme ayarları";
 "PREAMP" = "Ön güçlendirme";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Dengeleyici Profili Seç";
-"SNAP_BANDS" = "Snap bantları";
+"SNAP_BANDS" = "Bantlar ayrılsın";
 
 "PLAYBACK_FAILED" = "Oynatılamadı";
 "PLEASE_WAIT" = "Lütfen bekleyin";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Kuyruğa ekle";
 "APPEND_TO_QUEUE_LABEL" = "Kuyruğa ekle";
 
-"DISABLE_GROUPS" = "Grupları devre dışı bırak";
-"DISABLE_GROUPS_SWITCH_HINT" = "Gruplar görünümünü devre dışı bırakır";
 "DISPLAY_AS" = "Farklı görüntüle";
