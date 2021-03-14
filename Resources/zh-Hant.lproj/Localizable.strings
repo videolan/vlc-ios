@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "飽和度";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "搶佔";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "選擇等化器設定";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "播放失敗";
 "PLEASE_WAIT" = "請稍候…";
@@ -131,8 +133,8 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "伺服器連線失敗";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "請選擇您的伺服器地址與驗證 ";
 
-"FILES_APP_CELL_TITLE" = "Local files";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+"FILES_APP_CELL_TITLE" = "本機檔案";
+"FILES_APP_CELL_SUBTITLE" = "開啟檔案而不複製到 VLC";
 
 "CLOUD_SERVICES" = "雲端設備";
 "LOGIN" = "登入";
@@ -195,7 +197,7 @@
 "PLAYBACK_POSITION" = "播放位置";
 "VIDEO_FILTER" = "影片濾鏡";
 "VIDEO_FILTER_RESET_BUTTON" = "重設影片濾鏡";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "視訊長寬比例";
 "BWD_BUTTON" = "向後";
 "FWD_BUTTON" = "向前";
 "PLAY_BUTTON" = "播放";
@@ -400,11 +402,11 @@
 
 /* VideoPlayerControls */
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "字幕與音訊軌道";
+"SUBTITLE_AND_TRACK_HINT" = "選擇字幕與音訊軌道";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "DVD 介面";
 
 "ROTATION_LOCK_BUTTON" = "Rotation lock";
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
@@ -425,7 +427,7 @@
 
 "INTERFACE_LOCK_BUTTON" = "鎖定介面";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "視訊長寬比例";
 "VIDEO_ASPECT_RATIO_HINT" = "變更目前影片的長寬比例";
 
 "MORE_OPTIONS_BUTTON" = "更多";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "插入佇列最後一項";
 "APPEND_TO_QUEUE_LABEL" = "插入佇列最後一項";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
 "DISPLAY_AS" = "Display as";
