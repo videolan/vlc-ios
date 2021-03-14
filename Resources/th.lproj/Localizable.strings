@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "ความอิ่มสี";
 "VFILTER_GAMMA" = "แกมมา";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "เลือกโปรไฟล์ของอีควอไลเซอร์";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "การเล่นล้มเหลว";
 "PLEASE_WAIT" = "รอสักครู่";
@@ -131,8 +133,8 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "การเชื่อมต่อไปยังเซิร์ฟเวอร์ล้มเหลว";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "กรุณาตรวจสอบ Address และ Credential ของเซิร์ฟเวอร์";
 
-"FILES_APP_CELL_TITLE" = "Local files";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+"FILES_APP_CELL_TITLE" = "ไฟล์ภายในเครื่อง";
+"FILES_APP_CELL_SUBTITLE" = "เปิดไฟล์โดยไม่ต้องคัดลอกไปยัง VLC";
 
 "CLOUD_SERVICES" = "บริการคลาวด์";
 "LOGIN" = "เข้าใช้งาน";
@@ -195,7 +197,7 @@
 "PLAYBACK_POSITION" = "ตำแหน่งการเล่น";
 "VIDEO_FILTER" = "ตัวกรองวิดีโอ";
 "VIDEO_FILTER_RESET_BUTTON" = "รีเซ็ตตัวกรองวีดีโอ";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "อัตราส่วนภาพของวิดีโอ";
 "BWD_BUTTON" = "ช่วงก่อนหน้า";
 "FWD_BUTTON" = "ช่วงถัดไป";
 "PLAY_BUTTON" = "เล่น";
@@ -203,10 +205,10 @@
 "PREV_BUTTON" = "ก่อนหน้า";
 "PLAY_ALL_BUTTON" = "เล่นทั้งหมด";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_VIDEO_FILTERS" = "คุณต้องการตั้งค่าตัวกรองวิดีโอใหม่หรือไม่";
+"RESET_PLAYBACK_SPEED" = "คุณต้องการตั้งค่าความเร็วในการเล่นใหม่หรือไม่";
+"RESET_EQUALIZER" = "คุณต้องการตั้งค่าอีควอไลเซอร์ใหม่หรือไม่";
+"RESET_SLEEP_TIMER" = "คุณต้องการตั้งค่าตัวตั้งเวลาสลีปใหม่หรือไม่";
 
 "VERSION_FORMAT" = "เวอร์ชั่น: %@";
 "BASED_ON_FORMAT" = "อิงจาก:<br />%@";
@@ -400,32 +402,32 @@
 
 /* VideoPlayerControls */
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "คำบรรยายและแทร็กเสียง";
+"SUBTITLE_AND_TRACK_HINT" = "เลือกคำบรรยายหรือแทร็กเสียง";
 
-"DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_BUTTON" = "ดีวีดี";
+"DVD_HINT" = "ส่วนติดต่อดีวีดี";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "ล็อกไม่ให้หมุน";
+"ROTATION_LOCK_HINT" = "ล็อกวิดีโอให้อยู่ในแนวปัจจุบัน";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"BACKWARD_BUTTON" = "ก่อนหน้า";
+"BACKWARD_HINT" = "ช่วงก่อนหน้า";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"PREVIOUS_BUTTON" = "ก่อนหน้า";
+"PREVIOUS_HINT" = "สื่อก่อนหน้า";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PLAY_PAUSE_BUTTON" = "เล่นหรือพัก";
+"PLAY_PAUSE_HINT" = "เล่นหรือพักสื่อที่กำลังเล่นอยู่";
 
-"NEXT_HINT" = "Next media";
+"NEXT_HINT" = "สื่อถัดไป";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"FORWARD_BUTTON" = "ถัดไป";
+"FORWARD_HINT" = "ช่วงถัดไป";
 
 "INTERFACE_LOCK_BUTTON" = "ล็อกอินเทอร์เฟซ";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "อัตราส่วนภาพของวิดีโอ";
 "VIDEO_ASPECT_RATIO_HINT" = "เปลี่ยนอัตราส่วนภาพของวิดีโอปัจจุบั";
 
 "MORE_OPTIONS_BUTTON" = "เพิ่มเติม";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "ผนวกไปยังคิว";
 "APPEND_TO_QUEUE_LABEL" = "ผนวกไปยังคิว";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
-"DISPLAY_AS" = "Display as";
+"DISPLAY_AS" = "แสดงเป็น";

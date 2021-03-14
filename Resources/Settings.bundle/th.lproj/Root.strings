@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "ลักษณะที่ปรากฏ";
 "SETTINGS_TIME_STRETCH_AUDIO" = "เปิดใช้งานการยืดเสียง";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "เล่นเสียงแม้ทำงานในแบบเบื้องหลัง";
 "SETTINGS_GENERIC_TITLE" = "ทั่วไป";
 "SETTINGS_PASSCODE_LOCK" = "ล็อกด้วยรหัสผ่าน";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "ไม่มีการดีบล็อก (เร็วที่สุด)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "การดีบล็อกปานกลาง";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "การดีบล็อกต่ำ";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "ระดับการทำแคชของเครือข่าย";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "ความหน่วงต่ำสุด";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "ความหน่วงต่ำ";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "ปกติ";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "ความหน่วงสูง";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "ความหน่วงสูงสุด";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "ความเร็วการเล่นเริ่มต้น";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "การแคสต์";
 "SETTINGS_PTCASTING" = "การส่งผ่านเสีย";
 "SETTINGS_PTCASTINGLONG" = "ให้ทีวีของคุณจัดการการเรนเดอร์เสียง";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "คำติชม";
 "SETTINGS_SEND_FEEDBACK" = "ส่งคำติชม";
@@ -95,17 +94,26 @@
 "SETTINGS_MEDIA_LIBRARY" = "ไลบรารีสื่อ";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "บังคับให้ VLC สแกนไลบรารีสื่อใหม่";
 "SETTINGS_DECRAPIFY" = "ปรับปรุงการแสดงชื่อให้เหมาะสม";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "แสดงรูปขนาดย่อของวิดีโอ";
 "SETTINGS_SHOW_ARTWORKS" = "แสดงงานศิลปะของเสียง";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "รวมไลบรารีสื่อในการสำรองข้อมูลอุปกรณ์";
 
-"SETTINGS_FILE_SYNC" = "เชื่อมโยงไฟล์";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "ระดับการทำแคชของเครือข่าย";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "ความหน่วงต่ำสุด";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "ความหน่วงต่ำ";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "ปกติ";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "ความหน่วงสูง";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "ความหน่วงสูงสุด";
 "SETTINGS_WIFISHARING_IPv6" = "การรองรับ IPv6 สำหรับการแชร์ด้วย Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "งานศิลปะ";
 "SETTINGS_DOWNLOAD_ARTWORK" = "ดาวน์โหลดงานศิลปะ";
 
-"SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_LAB" = "ห้องทดลอง";
+"SETTINGS_NEW_PLAYER" = "ตัวเล่นแบบใหม่";
 
 "ABOUT_APP_TV" = "เกี่ยวกับ VLC สำหรับ tvOS";
