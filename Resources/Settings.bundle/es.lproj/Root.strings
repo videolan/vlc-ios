@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Apariencia";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio «time-stretching»";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Reproducir audio de fondo";
 "SETTINGS_GENERIC_TITLE" = "Genérico";
 "SETTINGS_PASSCODE_LOCK" = "Contraseña de bloqueo";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Sin desbloqueo (el más rápido)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Desbloqueo medio";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Desbloqueo bajo";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Nivel de caché de red";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latencia más baja";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latencia baja";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latencia alta";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latencia más alta";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Velocidad de reproducción por defecto";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Reparto";
 "SETTINGS_PTCASTING" = "Paso del audio";
 "SETTINGS_PTCASTINGLONG" = "Dejar a su TV gestionar la presentación del audio";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Reacción";
 "SETTINGS_SEND_FEEDBACK" = "Enviar reacción";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Librería de medios";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forzar a VLC a volver a buscar en la librería de medios";
 "SETTINGS_DECRAPIFY" = "Optimizar nombres de elementos para visualizar";
+"SETTINGS_DISABLE_GROUPING" = "Deshabilitar agrupación automática de elementos multimedia";
 "SETTINGS_SHOW_THUMBNAILS" = "Mostrar previsualización de vídeos";
 "SETTINGS_SHOW_ARTWORKS" = "Mostrar material artístico de audio";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Incluir la biblioteca multimedia en la copia de seguridad del dispositivo";
 
-"SETTINGS_FILE_SYNC" = "Sincronización de archivos";
+"SETTINGS_NETWORK" = "Red";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Nivel de caché de red";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latencia más baja";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latencia baja";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latencia alta";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latencia más alta";
 "SETTINGS_WIFISHARING_IPv6" = "Soporte IPv6 para compartición WiFi";
+"SETTINGS_FORCE_SMBV1" = "Preferir SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Desactiva esta opción si tienes problemas al explorar un servidor SMB";
 
 "SETTINGS_ARTWORK" = "Material artístico";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Descargar material artístico";

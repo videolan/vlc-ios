@@ -35,11 +35,11 @@
 "VFILTER_SATURATION" = "Saturación";
 "VFILTER_GAMMA" = "Gama";
 
-"PRESETS" = "Presets";
+"PRESET_PREAMP_SETTING" = "Preferencias de preamplificador/valores predefinidos";
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Seleccione perfil de ecualizador";
-"SNAP_BANDS" = "Snap bands";
+"SNAP_BANDS" = "Bandas «snap»";
 
 "PLAYBACK_FAILED" = "Reproducción fallida";
 "PLEASE_WAIT" = "Espere";
@@ -197,7 +197,7 @@
 "PLAYBACK_POSITION" = "Posición de reproducción";
 "VIDEO_FILTER" = "Filtros de vídeo";
 "VIDEO_FILTER_RESET_BUTTON" = "Restablecer filtros de vídeo";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Proporción de vídeo";
 "BWD_BUTTON" = "Retroceder";
 "FWD_BUTTON" = "Avanzar";
 "PLAY_BUTTON" = "Reproducir";
@@ -205,10 +205,10 @@
 "PREV_BUTTON" = "Anterior";
 "PLAY_ALL_BUTTON" = "Reproducir todo";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_VIDEO_FILTERS" = "¿Desea reinicializar los filtros de vídeo?";
+"RESET_PLAYBACK_SPEED" = "¿Desea reinicializar lla velocidad de reproducción?";
+"RESET_EQUALIZER" = "¿Desea reinicializar las preferencias del ecualizador?";
+"RESET_SLEEP_TIMER" = "¿Desea reinicializar el temporizador de apagado?";
 
 "VERSION_FORMAT" = "Versión: %@";
 "BASED_ON_FORMAT" = "Basado en:<br />%@";
@@ -402,32 +402,32 @@
 
 /* VideoPlayerControls */
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "Pistas de subtítulos y audio";
+"SUBTITLE_AND_TRACK_HINT" = "Seleccione pistas de subtítulos y audio";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "Interfaz DVD";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "Bloqueo de rotación";
+"ROTATION_LOCK_HINT" = "Bloquear vídeo a la orientación actual";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"BACKWARD_BUTTON" = "Retroceder";
+"BACKWARD_HINT" = "Retroceder";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"PREVIOUS_BUTTON" = "Anterior";
+"PREVIOUS_HINT" = "Medio anterior";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_BUTTON" = "Reproducir o pausar";
 "PLAY_PAUSE_HINT" = "Comience o detenga la reproducción actual";
 
-"NEXT_HINT" = "Next media";
+"NEXT_HINT" = "Siguiente medio";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"FORWARD_BUTTON" = "Avanzar";
+"FORWARD_HINT" = "Avanzar";
 
 "INTERFACE_LOCK_BUTTON" = "Bloquear interfaz";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Proporción de vídeo";
 "VIDEO_ASPECT_RATIO_HINT" = "Cambiar la proporción del vídeo actual";
 
 "MORE_OPTIONS_BUTTON" = "Más";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Añadir a la cola";
 "APPEND_TO_QUEUE_LABEL" = "Añadir a la cola";
 
-"DISABLE_GROUPS" = "Deshabilitar grupos";
-"DISABLE_GROUPS_SWITCH_HINT" = "Deshabilitar disposición de grupos";
 "DISPLAY_AS" = "Visualizar como";
