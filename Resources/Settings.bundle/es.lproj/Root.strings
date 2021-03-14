@@ -13,7 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Apariencia";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio «time-stretching»";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Acelerar y ralentizar el audio sin cambiar el tono (se necesita un dispositivo rápido)";
 "SETTINGS_BACKGROUND_AUDIO" = "Reproducir audio de fondo";
 "SETTINGS_GENERIC_TITLE" = "Genérico";
 "SETTINGS_PASSCODE_LOCK" = "Contraseña de bloqueo";
@@ -81,11 +81,11 @@
 "SETTINGS_CASTING" = "Reparto";
 "SETTINGS_PTCASTING" = "Paso del audio";
 "SETTINGS_PTCASTINGLONG" = "Dejar a su TV gestionar la presentación del audio";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Calidad de conversión";
+"SETTINGS_HIGH" = "Alta";
+"SETTINGS_MEDIUM" = "Media";
+"SETTINGS_LOW" = "Baja";
+"SETTINGS_LOWEST" = "Mínima";
 
 "SETTINGS_FEEDBACK" = "Reacción";
 "SETTINGS_SEND_FEEDBACK" = "Enviar reacción";
