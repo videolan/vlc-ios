@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "الإشباع";
 "VFILTER_GAMMA" = "غاما";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i ديسيمل";
 "CHOOSE_EQUALIZER_PROFILES" = "اختر ملف المعادِل";
+"SNAP_BANDS" = "أشرطة المفاجئة";
 
 "PLAYBACK_FAILED" = "فشل التّشغيل";
 "PLEASE_WAIT" = "فضلاً انتظر";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "ألحق إلى قائمة الانتظار";
 "APPEND_TO_QUEUE_LABEL" = "ألحق إلى قائمة الانتظار";
 
-"DISABLE_GROUPS" = "تعطيل المجموعات";
-"DISABLE_GROUPS_SWITCH_HINT" = "تعطيل تخطيط المجموعات";
 "DISPLAY_AS" = "عرض بتنسيق";

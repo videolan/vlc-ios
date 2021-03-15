@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "المظهر";
 "SETTINGS_TIME_STRETCH_AUDIO" = "الوقت المُمتد للصّوت";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "تشغيل الصّوت في الخلفية";
 "SETTINGS_GENERIC_TITLE" = "عام";
 "SETTINGS_PASSCODE_LOCK" = "قفل برمز مرور";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "بدون فك ضغط مرئي (الأسرع)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "فك ضغط مرئي متوسط";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "فك ضغط مرئي ضعيف";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "مستوى مخبئيات الشّبكة";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "إنتظار أقل";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "إنتظار قليل";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "عادي";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "إنتظار طويل";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "إنتظار أطول";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "سرعة التّشغيل الافتراضية";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "بث";
 "SETTINGS_PTCASTING" = "ممر عبور الصوت";
 "SETTINGS_PTCASTINGLONG" = "اسمح للتلفاز بإدارة تقديم الصوت";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "ردود الفعل";
 "SETTINGS_SEND_FEEDBACK" = "ارسال ردود الفعل";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "مكتبة الوسائط";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "إجبار VLC على إعادة فحص مكتبة الوسائط";
 "SETTINGS_DECRAPIFY" = "تحسين أسماء العناصر للعرض";
+"SETTINGS_DISABLE_GROUPING" = "تعطيل التجميع التلقائي للوسائط";
 "SETTINGS_SHOW_THUMBNAILS" = "إظهار الصور الفيديو المصغرة ";
 "SETTINGS_SHOW_ARTWORKS" = "إظهار الأعمال الفنية الصوتية";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "قم بتضمين مكتبة الوسائط في النسخ الاحتياطي للجهاز";
 
-"SETTINGS_FILE_SYNC" = "مزامنة الملفات";
+"SETTINGS_NETWORK" = "الشّبكة";
+"SETTINGS_NETWORK_CACHING_TITLE" = "مستوى مخبئيات الشّبكة";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "إنتظار أقل";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "إنتظار قليل";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "عادي";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "إنتظار طويل";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "إنتظار أطول";
 "SETTINGS_WIFISHARING_IPv6" = "دعم IPv6 لمشاركة الواي فاي";
+"SETTINGS_FORCE_SMBV1" = "تفضل SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "قم بإلغاء تحديد هذا الإعداد إذا واجهت بعض الصعوبات في تصفح خادم SMB الخاص بك";
 
 "SETTINGS_ARTWORK" = "الغلاف";
 "SETTINGS_DOWNLOAD_ARTWORK" = "تنزيل الغلاف";
