@@ -12,6 +12,7 @@ import UIKit
 
 class SpoilerButton: UIView {
     // MARK: - Properties
+    private let buttonStackView = UIStackView()
     private let openButton = UIButton()
     private let chevronImage = UIImageView(image: UIImage(named: "iconChevron")?.withRenderingMode(.alwaysTemplate))
     private var hiddenView: UIView? {
@@ -42,6 +43,11 @@ class SpoilerButton: UIView {
         openButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
         chevronImage.translatesAutoresizingMaskIntoConstraints = false
         chevronImage.tintColor = PresentationTheme.current.colors.orangeUI
+
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.alignment = .fill
+        buttonStackView.addArrangedSubview(openButton)
+        buttonStackView.addArrangedSubview(chevronImage)
     }
 
     private func setupViews() {
@@ -53,28 +59,24 @@ class SpoilerButton: UIView {
             translatesAutoresizingMaskIntoConstraints = false
             setContentHuggingPriority(.required, for: .vertical)
 
-            addSubview(openButton)
-            addSubview(chevronImage)
+            addSubview(buttonStackView)
             addSubview(hiddenView)
 
             let newConstraints = [
-                openButton.topAnchor.constraint(equalTo: topAnchor),
-                openButton.leadingAnchor.constraint(equalTo: leadingAnchor),
-                openButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+                buttonStackView.topAnchor.constraint(equalTo: topAnchor),
+                buttonStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-                chevronImage.topAnchor.constraint(equalTo: openButton.topAnchor),
-                chevronImage.trailingAnchor.constraint(equalTo: openButton.trailingAnchor),
-                chevronImage.bottomAnchor.constraint(equalTo: openButton.bottomAnchor),
+                chevronImage.heightAnchor.constraint(equalTo: openButton.heightAnchor),
                 chevronImage.widthAnchor.constraint(equalTo: chevronImage.heightAnchor),
 
-                hiddenView.topAnchor.constraint(equalTo: openButton.bottomAnchor, constant: 10),
+                hiddenView.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 10),
                 hiddenView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 hiddenView.trailingAnchor.constraint(equalTo: trailingAnchor),
                 hiddenView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ]
             NSLayoutConstraint.activate(newConstraints)
 
-            hiddenHeightConstraint = heightAnchor.constraint(equalTo: openButton.heightAnchor)
+            hiddenHeightConstraint = heightAnchor.constraint(equalTo: buttonStackView.heightAnchor)
             hiddenHeightConstraint?.isActive = true
 
             hiddenView.isHidden = true
