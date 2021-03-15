@@ -12,8 +12,8 @@
 enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
     case filter
     case playback
-    case equalizer
     case sleepTimer
+    case equalizer
     case interfaceLock
 
     var description: String {
