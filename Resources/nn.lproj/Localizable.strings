@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Fargemetting";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Forforsterkar";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Vel tonekontrollprofil";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Mislukka avspeling";
 "PLEASE_WAIT" = "Ver snill og vent";
@@ -404,24 +406,24 @@
 "SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "DVD-grensesnitt";
 
 "ROTATION_LOCK_BUTTON" = "Rotation lock";
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"BACKWARD_BUTTON" = "Bakover";
+"BACKWARD_HINT" = "Hopp bakover";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"PREVIOUS_BUTTON" = "Førre";
+"PREVIOUS_HINT" = "Førre media";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_BUTTON" = "Spel eller pauae";
 "PLAY_PAUSE_HINT" = "Play or Pause current playback";
 
-"NEXT_HINT" = "Next media";
+"NEXT_HINT" = "Neste media";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"FORWARD_BUTTON" = "Framover";
+"FORWARD_HINT" = "Hopp framover";
 
 "INTERFACE_LOCK_BUTTON" = "Lås grensesnittet";
 
@@ -484,13 +486,11 @@
 
 // MARK: - QueueViewController
 
-"PLAY_HINT" = "Play";
-"PLAY_LABEL" = "Play";
-"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
-"APPEND_TO_QUEUE_HINT" = "Append to queue";
-"APPEND_TO_QUEUE_LABEL" = "Append to queue";
+"PLAY_HINT" = "Spel av";
+"PLAY_LABEL" = "Spel av";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Spel neste i køen";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Spel neste i køen";
+"APPEND_TO_QUEUE_HINT" = "Legg til i køen";
+"APPEND_TO_QUEUE_LABEL" = "Legg til i køen";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
-"DISPLAY_AS" = "Display as";
+"DISPLAY_AS" = "Vis som";
