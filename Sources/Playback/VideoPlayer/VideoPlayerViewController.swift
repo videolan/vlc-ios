@@ -1138,29 +1138,34 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
     }
 
     func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView) {
-        guard !equalizerPopupShown else {
-            return
-        }
+        if let equalizerView = child as? EqualizerView {
+            guard !equalizerPopupShown else {
+                return
+            }
 
-        disableGestures()
-        videoPlayerControls.moreActionsButton.isEnabled = false
-        equalizerPopupShown = true
+            disableGestures()
+            videoPlayerControls.moreActionsButton.isEnabled = false
+            equalizerPopupShown = true
 
-        equalizerPopupView.addContentView(child, constraintWidth: true)
-        view.addSubview(equalizerPopupView)
-        let guide: UILayoutGuide
-        if #available(iOS 11.0, *) {
-            guide = view.safeAreaLayoutGuide
-        } else {
-            guide = view.layoutMarginsGuide
+            equalizerPopupView.addContentView(equalizerView, constraintWidth: true)
+            equalizerPopupView.accessoryViewsDelegate = equalizerView
+
+            view.addSubview(equalizerPopupView)
+            let guide: UILayoutGuide
+            if #available(iOS 11.0, *) {
+                guide = view.safeAreaLayoutGuide
+            } else {
+                guide = view.layoutMarginsGuide
+            }
+
+            let newConstraints = [
+                equalizerPopupView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10),
+                equalizerPopupView.bottomAnchor.constraint(equalTo: scrubProgressBar.topAnchor, constant: -10),
+                equalizerPopupView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
+                equalizerPopupView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -10)
+            ]
+            NSLayoutConstraint.activate(newConstraints)
         }
-        let newConstraints = [
-            equalizerPopupView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10),
-            equalizerPopupView.bottomAnchor.constraint(equalTo: scrubProgressBar.topAnchor, constant: -10),
-            equalizerPopupView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
-            equalizerPopupView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -10)
-        ]
-        NSLayoutConstraint.activate(newConstraints)
     }
 }
 

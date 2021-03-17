@@ -97,7 +97,6 @@ import UIKit
     private let frequenciesScrollView = UIScrollView()
     private let frequenciesStackView = UIStackView()
     private let snapBandsStackView = UIStackView()
-    private let buttonsStackView = UIStackView()
 
     private let plus20Label = UILabel()
     private let zeroLabel = UILabel()
@@ -110,6 +109,9 @@ import UIKit
     private var eqFrequencies: [EqualizerFrequency] = []
     private var valuesOnShow: [Float] = []
     private var oldValues: [Float] = []
+
+    private var parentPopup: ActionSheetPopupView?
+    private var showCancel = false
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -131,6 +133,8 @@ import UIKit
     }
 
     func willShow() {
+        showCancel = false
+        parentPopup?.updateAccessoryViews()
         resetValuesOnShow()
     }
 
@@ -162,8 +166,7 @@ import UIKit
 
         let contentStackViews: [UIStackView] = [
             labelsAndFrequenciesStackView,
-            snapBandsStackView,
-            buttonsStackView
+            snapBandsStackView
         ]
 
         if let presetSelectorView = presetSelectorView {
@@ -182,8 +185,6 @@ import UIKit
 
         frequenciesStackView.distribution = .fillEqually
         snapBandsStackView.alignment = .trailing
-        buttonsStackView.alignment = .fill
-        buttonsStackView.distribution = .fillEqually
 
         //Init presets views
         presetSelectorView?.delegate = self
@@ -227,14 +228,13 @@ import UIKit
         snapBandsStackView.alignment = .center
 
         //Init buttons views
-        cancelButton.setTitle(NSLocalizedString("BUTTON_CANCEL", comment: ""), for: .normal)
-        resetButton.setTitle(NSLocalizedString("BUTTON_RESET", comment: ""), for: .normal)
+        cancelButton.setImage(UIImage(named: "iconUndo"), for: .normal)
         cancelButton.addTarget(self, action: #selector(cancelEqualizer), for: .touchUpInside)
+        cancelButton.setContentHuggingPriority(.required, for: .horizontal)
+        resetButton.setTitle(NSLocalizedString("BUTTON_RESET", comment: ""), for: .normal)
         resetButton.addTarget(self, action: #selector(resetEqualizer), for: .touchUpInside)
-        cancelButton.setContentHuggingPriority(.required, for: .vertical)
         resetButton.setContentHuggingPriority(.required, for: .vertical)
-        buttonsStackView.addArrangedSubview(cancelButton)
-        buttonsStackView.addArrangedSubview(resetButton)
+        resetButton.setContentHuggingPriority(.required, for: .horizontal)
 
         addSubview(stackView)
         setupFrequenciesStackView()
@@ -252,8 +252,7 @@ import UIKit
 
         let contentStackViews: [UIStackView] = [
             labelsAndFrequenciesStackView,
-            snapBandsStackView,
-            buttonsStackView
+            snapBandsStackView
         ]
 
         for contentStackView in contentStackViews {
@@ -345,7 +344,7 @@ import UIKit
         zeroLabel.textColor = PresentationTheme.current.colors.cellTextColor
         minus20Label.textColor = PresentationTheme.current.colors.cellTextColor
         snapBandsLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        cancelButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
+        cancelButton.tintColor = PresentationTheme.current.colors.orangeUI
         resetButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
 
         for eqFrequency in eqFrequencies {
@@ -380,6 +379,8 @@ extension EqualizerView {
     @objc func sliderDidChangeValue(sender: UISlider) {
         delegate?.setAmplification(CGFloat(sender.value), forBand: UInt32(sender.tag))
         UIDelegate?.equalizerViewReceivedUserInput()
+        showCancel = true
+        parentPopup?.updateAccessoryViews()
     }
 
     @objc func sliderDidDrag(sender: UISlider) {
@@ -429,6 +430,8 @@ extension EqualizerView {
             sliderDidChangeValue(sender: eqFrequency.slider.slider)
             eqFrequency.currentValueLabel.text = "\(Double(Int(value * 100)) / 100)"
         }
+        showCancel = false
+        parentPopup?.updateAccessoryViews()
     }
 
     @objc func resetEqualizer() {
@@ -451,6 +454,21 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
     func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSelectPreset preset: Int) {
         delegate?.resetEqualizer(fromProfile: UInt32(preset))
         reloadData()
+    }
+}
+
+// MARK: - ActionSheetPopupViewAccessoryViewDelegate
+
+extension EqualizerView: ActionSheetPopupViewAccessoryViewsDelegate {
+    func actionSheetPopupViewAccessoryView(_ actionSheetPopupView: ActionSheetPopupView) -> [UIView] {
+        if parentPopup == nil {
+            parentPopup = actionSheetPopupView
+        }
+        if showCancel {
+            return [cancelButton, resetButton]
+        } else {
+            return [resetButton]
+        }
     }
 }
 
