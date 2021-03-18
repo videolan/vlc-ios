@@ -13,10 +13,17 @@ import UIKit
 // MARK: - Class
 
 class ActionSheetPopupView: UIView {
+    private let titleStackView = UIStackView()
     private let closeButton = UIButton()
+    let titleLabel = UILabel()
     private let scrollView = UIScrollView()
 
     public var delegate: ActionSheetPopupViewDelegate?
+    public var accessoryViewsDelegate: ActionSheetPopupViewAccessoryViewsDelegate? {
+        didSet {
+            addAccessoryViews()
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,8 +48,9 @@ class ActionSheetPopupView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 20
 
+        setupTitleStackView()
         setupScrollView()
-        setupCloseButton()
+        setupConstraints()
 
         themeDidChange()
         NotificationCenter.default.addObserver(self,
@@ -50,28 +58,50 @@ class ActionSheetPopupView: UIView {
                                                name: .VLCThemeDidChangeNotification, object: nil)
     }
 
-    private func setupCloseButton() {
+    private func setupTitleStackView() {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.setImage(UIImage(named: "close"), for: .normal)
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
-        addSubview(closeButton)
         closeButton.layer.cornerRadius = 12
+        closeButton.setContentHuggingPriority(.required, for: .vertical)
+        closeButton.setContentHuggingPriority(.required, for: .horizontal)
 
-        let newConstraints = [
-            closeButton.widthAnchor.constraint(equalToConstant: 24),
-            closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor),
-            closeButton.topAnchor.constraint(equalTo: topAnchor, constant: 24),
-            closeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
-        ]
-        NSLayoutConstraint.activate(newConstraints)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textAlignment = .center
+        titleLabel.font = .boldSystemFont(ofSize: titleLabel.font.pointSize)
+        titleLabel.setContentHuggingPriority(.required, for: .vertical)
+
+        titleStackView.translatesAutoresizingMaskIntoConstraints = false
+        titleStackView.distribution = .fill
+        titleStackView.spacing = 20
+        titleStackView.addArrangedSubview(closeButton)
+        titleStackView.addArrangedSubview(titleLabel)
+        addSubview(titleStackView)
+    }
+
+    private func addAccessoryViews() {
+        if let accessoryViews = accessoryViewsDelegate?.actionSheetPopupViewAccessoryView(self) {
+            for accessoryView in accessoryViews {
+                titleStackView.addArrangedSubview(accessoryView)
+            }
+        }
     }
 
     private func setupScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(scrollView)
+    }
 
+    private func setupConstraints() {
         let newConstraints = [
-            scrollView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            closeButton.widthAnchor.constraint(equalToConstant: 24),
+            closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor),
+
+            titleStackView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            titleStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            titleStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+
+            scrollView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 10),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
@@ -85,6 +115,7 @@ class ActionSheetPopupView: UIView {
         backgroundColor = PresentationTheme.current.colors.background
         closeButton.tintColor = PresentationTheme.current.colors.cellTextColor
         closeButton.backgroundColor = PresentationTheme.current.colors.background
+        titleLabel.textColor = PresentationTheme.current.colors.cellTextColor
     }
 
     @objc private func close() {
@@ -118,10 +149,25 @@ extension ActionSheetPopupView {
         ])
         NSLayoutConstraint.activate(newConstraints)
     }
+
+    func updateAccessoryViews() {
+        while titleStackView.arrangedSubviews.count > 2 {
+            if let subview = titleStackView.arrangedSubviews.last {
+                titleStackView.removeArrangedSubview(subview)
+                subview.removeFromSuperview()
+            }
+        }
+        addAccessoryViews()
+        titleStackView.layoutSubviews()
+    }
 }
 
 // MARK: - ActionSheetPopupViewDelegate
 
 protocol ActionSheetPopupViewDelegate {
     func actionSheetPopupViewDidClose(_ actionSheetPopupView: ActionSheetPopupView)
+}
+
+protocol ActionSheetPopupViewAccessoryViewsDelegate {
+    func actionSheetPopupViewAccessoryView(_ actionSheetPopupView: ActionSheetPopupView) -> [UIView]
 }
