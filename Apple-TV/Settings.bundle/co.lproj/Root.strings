@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Aspettu";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Stinzata di tempu audio";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Ripruduzzione audio in fondu";
 "SETTINGS_GENERIC_TITLE" = "Genericu";
 "SETTINGS_PASSCODE_LOCK" = "Codice di serratura";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Senza filtru (u più rapidu)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Sblucchime medianu";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Sblucchime legeru";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Livellu d’Impiatta di Reta";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Cumportu d’Attesa u Più Bassu";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Cumportu d’Attesa Bassu";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Nurmale";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Cumportu d’Attesa Altu";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Cumportu d’Attesa u Più Altu";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Vitezza preferita di ripruduzzione";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Diffusione";
 "SETTINGS_PTCASTING" = "Traversata audio";
 "SETTINGS_PTCASTINGLONG" = "Lascià a vostra TV urganizà a trasfurmazione audio";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Ritornu d’avisu";
 "SETTINGS_SEND_FEEDBACK" = "Mandà u vostru avisu";
@@ -95,17 +94,26 @@
 "SETTINGS_MEDIA_LIBRARY" = "Bibliuteca di media";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Sfurzà VLC à analisà torna a mediateca";
 "SETTINGS_DECRAPIFY" = "Megliurà i nomi d’elementi per l’affissu";
+"SETTINGS_DISABLE_GROUPING" = "Disattivà l’aggruppamentu autumaticu di i media";
 "SETTINGS_SHOW_THUMBNAILS" = "Affissà e vignette di e video";
 "SETTINGS_SHOW_ARTWORKS" = "Affissà l’illustrazioni di i schedarii audio";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include a mediateca in a salvaguardia di l’apparechju";
 
-"SETTINGS_FILE_SYNC" = "Sincrunizazione di schedariu";
+"SETTINGS_NETWORK" = "Reta";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Livellu d’Impiatta di Reta";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Cumportu d’Attesa u Più Bassu";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Cumportu d’Attesa Bassu";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Nurmale";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Cumportu d’Attesa Altu";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Cumportu d’Attesa u Più Altu";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 accettatu per u spartimentu Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Preferisce SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Disattivà st’ozzione s’è vò avete qualchì difficultà à navigà nant’à u vostru servitore SMB";
 
 "SETTINGS_ARTWORK" = "Illustrazione";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Scaricà l’illustrazione";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_NEW_PLAYER" = "Novu lettore";
 
 "ABOUT_APP_TV" = "Apprupositu di VLC for tvOS";

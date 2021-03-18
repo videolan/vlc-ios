@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Saturazione";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESET_PREAMP_SETTING" = "Preferenze di prerigatura è preamplificazione";
 "PREAMP" = "Preamplificazione";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Sceglie u prufilu d’ugualizatore";
+"SNAP_BANDS" = "Striscie elastiche";
 
 "PLAYBACK_FAILED" = "Fiascu di a ripruduzzione";
 "PLEASE_WAIT" = "Aspittate per piacè";
@@ -195,7 +197,7 @@
 "PLAYBACK_POSITION" = "Pusizione di ripruduzzione";
 "VIDEO_FILTER" = "Filtri video";
 "VIDEO_FILTER_RESET_BUTTON" = "Rimette à zeru i filtri video";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Prupurzioni di a video";
 "BWD_BUTTON" = "Saltà nanzu";
 "FWD_BUTTON" = "Saltà dopu";
 "PLAY_BUTTON" = "Sunà";
@@ -203,10 +205,10 @@
 "PREV_BUTTON" = "Precedente";
 "PLAY_ALL_BUTTON" = "Sunà tutti";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_VIDEO_FILTERS" = "Vulete reinizià i filtri video ?";
+"RESET_PLAYBACK_SPEED" = "Vulete reinizià a vitezza di lettura ?";
+"RESET_EQUALIZER" = "Vulete reinizià e preferenze di l’ugualizatore ?";
+"RESET_SLEEP_TIMER" = "Vulete reinizià a minuteria di veghja ?";
 
 "VERSION_FORMAT" = "Versione : %@";
 "BASED_ON_FORMAT" = "Appughjatu nant’à :<br />%@";
@@ -400,32 +402,32 @@
 
 /* VideoPlayerControls */
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "Sottutituli è traccie audio";
+"SUBTITLE_AND_TRACK_HINT" = "Sciglite sottutituli o traccie audio";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "Interfaccia DVD";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "Sblucchime di a rutazione";
+"ROTATION_LOCK_HINT" = "Ammarchjunà a video cù l’orientazione attuale";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"BACKWARD_BUTTON" = "In daretu";
+"BACKWARD_HINT" = "Saltà in daretu";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"PREVIOUS_BUTTON" = "Precedente";
+"PREVIOUS_HINT" = "Media precedente";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PLAY_PAUSE_BUTTON" = "Lettura o pausa";
+"PLAY_PAUSE_HINT" = "Lettura o pausa di a ripruduzzione attuale";
 
-"NEXT_HINT" = "Next media";
+"NEXT_HINT" = "Media seguente";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"FORWARD_BUTTON" = "In avanti";
+"FORWARD_HINT" = "Saltà in avanti";
 
 "INTERFACE_LOCK_BUTTON" = "Ammarchjunà l’interfaccia";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Prupurzioni di a video";
 "VIDEO_ASPECT_RATIO_HINT" = "Cambià u furmatu di a video currente";
 
 "MORE_OPTIONS_BUTTON" = "Più";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Aghjunghje à a lista di lettura";
 "APPEND_TO_QUEUE_LABEL" = "Aghjunghje à a lista di lettura";
 
-"DISABLE_GROUPS" = "Disattivà i gruppi";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disattivà l’accunciamentu di gruppi";
 "DISPLAY_AS" = "Affissà cum’è";
