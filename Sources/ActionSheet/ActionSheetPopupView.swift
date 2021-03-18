@@ -18,6 +18,18 @@ class ActionSheetPopupView: UIView {
     let titleLabel = UILabel()
     private let scrollView = UIScrollView()
 
+    private lazy var titleStackViewTopConstraint: NSLayoutConstraint = {
+        return titleStackView.topAnchor.constraint(equalTo: topAnchor, constant: 20)
+    }()
+
+    private lazy var scrollViewTopConstraint: NSLayoutConstraint = {
+        scrollView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 10)
+    }()
+
+    private lazy var scrollViewBottomConstraint: NSLayoutConstraint = {
+        scrollView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+    }()
+
     public var delegate: ActionSheetPopupViewDelegate?
     public var accessoryViewsDelegate: ActionSheetPopupViewAccessoryViewsDelegate? {
         didSet {
@@ -40,6 +52,19 @@ class ActionSheetPopupView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         scrollView.flashScrollIndicatorsIfNeeded()
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if traitCollection.verticalSizeClass == .compact {
+            titleStackViewTopConstraint.constant = 15
+            scrollViewTopConstraint.constant = 5
+            scrollViewBottomConstraint.constant = -5
+        } else {
+            titleStackViewTopConstraint.constant = 20
+            scrollViewTopConstraint.constant = 10
+            scrollViewBottomConstraint.constant = -10
+        }
+        layoutSubviews()
     }
 
     // MARK: - Setup
@@ -97,12 +122,12 @@ class ActionSheetPopupView: UIView {
             closeButton.widthAnchor.constraint(equalToConstant: 24),
             closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor),
 
-            titleStackView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            titleStackViewTopConstraint,
             titleStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             titleStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
 
-            scrollView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 10),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            scrollViewTopConstraint,
+            scrollViewBottomConstraint,
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ]

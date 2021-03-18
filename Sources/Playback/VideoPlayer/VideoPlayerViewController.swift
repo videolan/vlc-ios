@@ -300,6 +300,29 @@ class VideoPlayerViewController: UIViewController {
         return equalizerPopupView
     }()
 
+    // MARK: - Constraints
+
+    private lazy var mainLayoutGuide: UILayoutGuide = {
+        let guide: UILayoutGuide
+        if #available(iOS 11.0, *) {
+            return view.safeAreaLayoutGuide
+        } else {
+            return view.layoutMarginsGuide
+        }
+    }()
+
+    private lazy var videoPlayerControlsHeightConstraint: NSLayoutConstraint = {
+        videoPlayerControls.heightAnchor.constraint(equalToConstant: 44)
+    }()
+
+    private lazy var equalizerPopupTopConstraint: NSLayoutConstraint = {
+        equalizerPopupView.topAnchor.constraint(equalTo: mainLayoutGuide.topAnchor, constant: 10)
+    }()
+
+    private lazy var equalizerPopupBottomConstraint: NSLayoutConstraint = {
+        equalizerPopupView.bottomAnchor.constraint(equalTo: scrubProgressBar.topAnchor, constant: -10)
+    }()
+
     // MARK: -
 
     @objc init(services: Services, playerController: PlayerController) {
@@ -580,6 +603,27 @@ extension VideoPlayerViewController {
         if playbackService.isPlaying && playerController.isControlsHidden {
             setControlsHidden(false, animated: true)
         }
+
+        let equalizerPopupMargin: CGFloat
+        let videoPlayerControlsHeight: CGFloat
+        let scrubProgressBarSpacing: CGFloat
+
+        if traitCollection.verticalSizeClass == .compact {
+            equalizerPopupMargin = 0
+            videoPlayerControlsHeight = 22
+            scrubProgressBarSpacing = 0
+        } else {
+            equalizerPopupMargin = 10
+            videoPlayerControlsHeight = 44
+            scrubProgressBarSpacing = 5
+        }
+        equalizerPopupTopConstraint.constant = equalizerPopupMargin
+        equalizerPopupBottomConstraint.constant = -equalizerPopupMargin
+        if equalizerPopupShown {
+            videoPlayerControlsHeightConstraint.constant = videoPlayerControlsHeight
+            scrubProgressBar.spacing = scrubProgressBarSpacing
+            view.layoutSubviews()
+        }
     }
 
     private func setControlsHidden(_ hidden: Bool, animated: Bool) {
@@ -848,13 +892,13 @@ private extension VideoPlayerViewController {
         let padding: CGFloat = 20
 
         NSLayoutConstraint.activate([
-            videoPlayerControls.heightAnchor.constraint(equalToConstant: 44),
+            videoPlayerControlsHeightConstraint,
             videoPlayerControls.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
-                                                         constant: padding),
+                                                            constant: padding),
             videoPlayerControls.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
-                                                          constant: -padding),
+                                                            constant: -padding),
             videoPlayerControls.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor,
-                                             constant: -5)
+                                                constant: -5)
         ])
     }
 
@@ -1151,18 +1195,12 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
             equalizerPopupView.accessoryViewsDelegate = equalizerView
 
             view.addSubview(equalizerPopupView)
-            let guide: UILayoutGuide
-            if #available(iOS 11.0, *) {
-                guide = view.safeAreaLayoutGuide
-            } else {
-                guide = view.layoutMarginsGuide
-            }
 
             let newConstraints = [
-                equalizerPopupView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10),
-                equalizerPopupView.bottomAnchor.constraint(equalTo: scrubProgressBar.topAnchor, constant: -10),
-                equalizerPopupView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 10),
-                equalizerPopupView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -10)
+                equalizerPopupTopConstraint,
+                equalizerPopupBottomConstraint,
+                equalizerPopupView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor, constant: 10),
+                equalizerPopupView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor, constant: -10)
             ]
             NSLayoutConstraint.activate(newConstraints)
         }
@@ -1253,5 +1291,7 @@ extension VideoPlayerViewController: ActionSheetPopupViewDelegate {
         resetIdleTimer()
         setupGestures()
         videoPlayerControls.moreActionsButton.isEnabled = true
+        videoPlayerControlsHeightConstraint.constant = 44
+        scrubProgressBar.spacing = 5
     }
 }
