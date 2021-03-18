@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Внешний вид";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Изменение скорости звука";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Звук в фоновом режиме";
 "SETTINGS_GENERIC_TITLE" = "Общее";
 "SETTINGS_PASSCODE_LOCK" = "Защита паролем";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Не устранять блочность (быстрее)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Средний уровень";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Низкий уровень";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Уровень кэширования";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Минимальный";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Низкий";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Обычный";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Высокий";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Максимальный";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Скорость воспроизведения";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Трансляция";
 "SETTINGS_PTCASTING" = "Сквозной вывод аудио";
 "SETTINGS_PTCASTINGLONG" = "Выполнять декодирование звука на телевизоре";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Отзыв";
 "SETTINGS_SEND_FEEDBACK" = "Отправить отзыв";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Медиатека";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Пересканировать медиабиблиотеку VLC принудительно";
 "SETTINGS_DECRAPIFY" = "Оптимизация имен";
+"SETTINGS_DISABLE_GROUPING" = "Отключить автоматическую группировку мультимедиа";
 "SETTINGS_SHOW_THUMBNAILS" = "Показать пиктограммы видео ";
 "SETTINGS_SHOW_ARTWORKS" = "Показывать обложки для аудио";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Включить медиа библиотеку в резервное копирование устройства";
 
-"SETTINGS_FILE_SYNC" = "Синхронизация файлов";
+"SETTINGS_NETWORK" = "Сеть";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Уровень кэширования";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Минимальный";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Низкий";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Обычный";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Высокий";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Максимальный";
 "SETTINGS_WIFISHARING_IPv6" = "Поддержка IPv6 встроенным сервером (по Wi-Fi)";
+"SETTINGS_FORCE_SMBV1" = "Предпочитать SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Снимите этот флажок, если вы испытываете трудности при обращении к серверу SMB";
 
 "SETTINGS_ARTWORK" = "Обложка";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Загрузить обложку";

@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Насыщенность";
 "VFILTER_GAMMA" = "Гамма";
 
+"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Предусилитель";
 "DB_FORMAT" = "%i дБ";
 "CHOOSE_EQUALIZER_PROFILES" = "Выберите профиль эквалайзера";
+"SNAP_BANDS" = "Перемещать с соседними";
 
 "PLAYBACK_FAILED" = "Ошибка воспроизведения";
 "PLEASE_WAIT" = "Пожалуйста, подождите…";
@@ -195,7 +197,7 @@
 "PLAYBACK_POSITION" = "Позиция воспроизведения";
 "VIDEO_FILTER" = "Видеофильтры";
 "VIDEO_FILTER_RESET_BUTTON" = "Сбросить видеофильтры";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Соотношение сторон видео";
 "BWD_BUTTON" = "Перемотать назад";
 "FWD_BUTTON" = "Перемотать вперёд";
 "PLAY_BUTTON" = "Воспроизвести";
@@ -206,7 +208,7 @@
 "RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
 "RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
 "RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_SLEEP_TIMER" = "Вы хотите сбросить таймер сна?";
 
 "VERSION_FORMAT" = "Версия: %@";
 "BASED_ON_FORMAT" = "Используется:<br />%@";
@@ -404,28 +406,28 @@
 "SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "DVD интерфейс";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
+"ROTATION_LOCK_BUTTON" = "Блокировка вращения";
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"BACKWARD_BUTTON" = "Назад";
+"BACKWARD_HINT" = "Перемотать назад";
 
-"PREVIOUS_BUTTON" = "Previous";
+"PREVIOUS_BUTTON" = "Предыдущий";
 "PREVIOUS_HINT" = "Previous media";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PLAY_PAUSE_BUTTON" = "Воспроизвести или приостановить";
+"PLAY_PAUSE_HINT" = "Воспроизвести или приостановить текущее воспроизведение ";
 
 "NEXT_HINT" = "Next media";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"FORWARD_BUTTON" = "Вперёд";
+"FORWARD_HINT" = "Перемотать вперёд";
 
 "INTERFACE_LOCK_BUTTON" = "Заблокировать интерфейс";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Соотношение сторон видео";
 "VIDEO_ASPECT_RATIO_HINT" = "Изменить соотношение сторон текущего видео";
 
 "MORE_OPTIONS_BUTTON" = "Ещё";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Добавить в очередь";
 "APPEND_TO_QUEUE_LABEL" = "Добавить в очередь";
 
-"DISABLE_GROUPS" = "Отключить группы";
-"DISABLE_GROUPS_SWITCH_HINT" = "Оключить схему групп";
 "DISPLAY_AS" = "Отображать как";
