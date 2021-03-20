@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Aspetto";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio dilatato temporalmente";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Riproduzione audio in sottofondo";
 "SETTINGS_GENERIC_TITLE" = "Generico";
 "SETTINGS_PASSCODE_LOCK" = "Blocco con codice di sicurezza";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Nessun deblock (più veloce)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Deblock medio";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Deblock basso";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Livello cache di rete";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latenza minima";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Bassa latenza";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normale";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Alta latenza";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latenza massima";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Velocità di riproduzione predefinita";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Trasmissione";
 "SETTINGS_PTCASTING" = "Passthrough audio";
 "SETTINGS_PTCASTINGLONG" = "Permetti alla tua TV di gestire il rendering audio";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Segnalazione";
 "SETTINGS_SEND_FEEDBACK" = "Invia segnalazione";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Raccolta multimediale";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Forza VLC a eseguire una nuova scansione della raccolta ";
 "SETTINGS_DECRAPIFY" = "Ottimizza i nome degli elementi per la visualizzazione";
+"SETTINGS_DISABLE_GROUPING" = "Disabilita raggruppamento automatico dei media";
 "SETTINGS_SHOW_THUMBNAILS" = "Mostra miniature dei video";
 "SETTINGS_SHOW_ARTWORKS" = "Mostra copertine audio";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Includi la raccolta multimediale nel backup del dispositivo";
 
-"SETTINGS_FILE_SYNC" = "Sincronizzazione file";
+"SETTINGS_NETWORK" = "Rete";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Livello cache di rete";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latenza minima";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Bassa latenza";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normale";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Alta latenza";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latenza massima";
 "SETTINGS_WIFISHARING_IPv6" = "Supporto IPv6 per condivisione Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Preferisci SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Togli la spunta da questa impostazione se hai difficoltà a sfogliare il tuo server SMB";
 
 "SETTINGS_ARTWORK" = "Grafica";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Scarica grafica";
