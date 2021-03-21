@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,27 +29,24 @@
                     <rect key="frame" x="20" y="137" width="560" height="108"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="UoZ-U2-eTU" userLabel="Slider Stack View">
-                            <rect key="frame" x="0.0" y="10" width="486" height="88"/>
+                            <rect key="frame" x="0.0" y="10" width="410" height="88"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Pp9-DV-Iks" userLabel="Labels Stack View">
-                                    <rect key="frame" x="0.0" y="0.0" width="486" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="410" height="44"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDJ-fm-gvA" userLabel="Min Label">
-                                            <rect key="frame" x="0.0" y="0.0" width="162" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="136.5" height="44"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhS-0y-emM" userLabel="Current Button">
-                                            <rect key="frame" x="162" y="0.0" width="162" height="44"/>
+                                            <rect key="frame" x="136.5" y="0.0" width="137" height="44"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <state key="normal" title="Current"/>
-                                            <connections>
-                                                <action selector="handleResetTap:" destination="7Au-zH-5I2" eventType="touchUpInside" id="msL-YV-AZt"/>
-                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gl7-9W-mBY" userLabel="Max Label">
-                                            <rect key="frame" x="324" y="0.0" width="162" height="44"/>
+                                            <rect key="frame" x="273.5" y="0.0" width="136.5" height="44"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -57,7 +54,7 @@
                                     </subviews>
                                 </stackView>
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Nn3-WS-Gwk">
-                                    <rect key="frame" x="-2" y="44" width="490" height="45"/>
+                                    <rect key="frame" x="-2" y="44" width="414" height="45"/>
                                     <connections>
                                         <action selector="handleSliderMovement:" destination="7Au-zH-5I2" eventType="valueChanged" id="ycb-13-cKQ"/>
                                     </connections>
@@ -68,7 +65,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ejv-jd-TGU" userLabel="Buttons Stack View">
-                            <rect key="frame" x="516" y="10" width="44" height="88"/>
+                            <rect key="frame" x="440" y="10" width="44" height="88"/>
                             <subviews>
                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mIi-jd-EmC">
                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -97,6 +94,19 @@
                                 <constraint firstAttribute="width" constant="44" id="E9O-Uh-pab"/>
                             </constraints>
                         </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKR-VI-BPk" userLabel="Reset Button">
+                            <rect key="frame" x="514" y="10" width="46" height="88"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="46" id="cmM-wk-gKJ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <state key="normal" title="Reset">
+                                <color key="titleColor" red="0.93995356559999999" green="0.50701248850000002" blue="0.33265229330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="handleResetTap:" destination="7Au-zH-5I2" eventType="touchUpInside" id="EZc-1R-Ohe"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="0.0" bottom="10" trailing="0.0"/>
                 </stackView>
