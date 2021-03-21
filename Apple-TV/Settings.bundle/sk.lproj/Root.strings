@@ -13,7 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Vzhľad";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časové roztiahnutie zvuku";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Zrýchliť a spomaliť zvuk bez zmeny výšky tónu (vyžaduje rýchle zariadenie)";
 "SETTINGS_BACKGROUND_AUDIO" = "Prehrávanie zvuku na pozadí";
 "SETTINGS_GENERIC_TITLE" = "Všeobecné";
 "SETTINGS_PASSCODE_LOCK" = "Uzamknutie pomocou hesla";
@@ -81,11 +81,11 @@
 "SETTINGS_CASTING" = "Streamovanie (casting) ";
 "SETTINGS_PTCASTING" = "Prechod zvuku";
 "SETTINGS_PTCASTINGLONG" = "Prenechať správu vykresľovania zvuku na TV";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Kvalita konverzie";
+"SETTINGS_HIGH" = "Vysoká";
+"SETTINGS_MEDIUM" = "Stredná";
+"SETTINGS_LOW" = "Nízka";
+"SETTINGS_LOWEST" = "Najnižšia";
 
 "SETTINGS_FEEDBACK" = "Spätná odozva";
 "SETTINGS_SEND_FEEDBACK" = "Odoslať spätnú odozvu";
