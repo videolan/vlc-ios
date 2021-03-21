@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Κορεσμός";
 "VFILTER_GAMMA" = "Γάμμα";
 
-"PRESETS" = "Προεπιλογές";
+"PRESET_PREAMP_SETTING" = "Ρυθμίσεις προρύθμισης / προενίσχυσης";
 "PREAMP" = "Προενίσχυση";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Επιλογή προφίλ ισοσταθμιστή";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Προσθήκη στην ουρά";
 "APPEND_TO_QUEUE_LABEL" = "Προσθήκη στην ουρά";
 
-"DISABLE_GROUPS" = "Απενεργοποίηση ομάδων";
-"DISABLE_GROUPS_SWITCH_HINT" = "Απενεργοποίηση διάταξης ομάδων";
 "DISPLAY_AS" = "Προβολή ως";

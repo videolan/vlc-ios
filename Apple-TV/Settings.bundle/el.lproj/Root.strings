@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Εμφάνιση";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Χρονική διαστολή ήχου";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Επιτάχυνση ή επιβράδυνση του ήχου, χωρίς την αλλαγή του τόνου φωνής (απαιτείται γρήγορη συσκευή)";
 "SETTINGS_BACKGROUND_AUDIO" = "Αναπαραγωγή ήχου στο υπόβαθρο";
 "SETTINGS_GENERIC_TITLE" = "Γενικό";
 "SETTINGS_PASSCODE_LOCK" = "Κλείδωμα με κωδικό";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Χωρίς απεμπλοκή (τάχιστο)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Μέτρια απεμπλοκή";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Χαμηλή απεμπλοκή";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Επίπεδο αποθήκευσης σε προσωρινή μνήμη";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Ελάχιστη καθυστέρηση";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Χαμηλή καθυστέρηση";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Κανονικό";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Μεγάλη καθυστέρηση";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Μέγιστη καθυστέρηση";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Προεπιλεγμένη ταχύτητα αναπαραγωγής";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Αναμετάδοση";
 "SETTINGS_PTCASTING" = "Ήχος σε Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Επιτρέψτε στην τηλεόραση να διαχειρίζεται την έξοδο ήχου";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Ποιότητα μετατροπής";
+"SETTINGS_HIGH" = "Υψηλή";
+"SETTINGS_MEDIUM" = "Μέτρια";
+"SETTINGS_LOW" = "Χαμηλή";
+"SETTINGS_LOWEST" = "Κατώτερη";
 
 "SETTINGS_FEEDBACK" = "Σχόλια";
 "SETTINGS_SEND_FEEDBACK" = "Αποστολή σχολίων";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Βιβλιοθήκη πολυμέσων";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Επιβολή στο VLC να ξανασαρώσει τη βιβλιοθήκη πολυμέσων";
 "SETTINGS_DECRAPIFY" = "Βελτιστοποίηση ονομάτων των στοιχείων για οθόνη";
+"SETTINGS_DISABLE_GROUPING" = "Απενεργοποίηση αυτόματης ομαδοποίησης αρχείων πολυμέσων";
 "SETTINGS_SHOW_THUMBNAILS" = "Εμφάνιση μικρογραφιών αρχείων βίντεο";
 "SETTINGS_SHOW_ARTWORKS" = "Εμφάνιση εικονογράφησης αρχείων ήχου";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Συμπερίληψη της βιβλιοθήκης πολυμέσων στα αντίγραφα της συσκευής";
 
-"SETTINGS_FILE_SYNC" = "Συγχρονισμός αρχείων";
+"SETTINGS_NETWORK" = "Δίκτυο";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Επίπεδο αποθήκευσης σε προσωρινή μνήμη";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Ελάχιστη καθυστέρηση";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Χαμηλή καθυστέρηση";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Κανονικό";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Μεγάλη καθυστέρηση";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Μέγιστη καθυστέρηση";
 "SETTINGS_WIFISHARING_IPv6" = "Υποστήριξη IPv6 για διαμοιρασμό μέσω Wi-Fi";
+"SETTINGS_FORCE_SMBV1" = "Προτίμηση SMBv1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Αποεπιλέξτε αυτή τη ρύθμιση εάν αντιμετωπίζετε δυσκολίες κατά την περιήγηση του διακομιστή SMB σας.";
 
 "SETTINGS_ARTWORK" = "Εικονογράφηση";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Λήψη εικονογράφησης";
