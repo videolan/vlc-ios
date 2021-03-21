@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Sýtosť";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESETS" = "Prednastavenia";
+"PRESET_PREAMP_SETTING" = "Prednastavenia/nastavenia predzosilnenia";
 "PREAMP" = "Predzosilnenie";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Výber profilu ekvalizéra";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Pripojiť do frontu";
 "APPEND_TO_QUEUE_LABEL" = "Pripojiť do frontu";
 
-"DISABLE_GROUPS" = "Zablokovať skupiny";
-"DISABLE_GROUPS_SWITCH_HINT" = "Zablokovať rozloženie pre skupiny";
 "DISPLAY_AS" = "Zobraziť ako";

@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Vzhľad";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časové roztiahnutie zvuku";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Prehrávanie zvuku na pozadí";
 "SETTINGS_GENERIC_TITLE" = "Všeobecné";
 "SETTINGS_PASSCODE_LOCK" = "Uzamknutie pomocou hesla";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Žiadne deblokovanie (najrýchlejšie)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Stredné deblokovanie";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Nízka miera deblokovania";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Hodnota ukladania do vyrovnávacej pamäte zo siete";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Najnižšia latencia";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Nízka latencia";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normálne";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Vysoká latencia";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Najvyššia latencia";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Predvolená rýchlosť prehrávania";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Streamovanie (casting) ";
 "SETTINGS_PTCASTING" = "Prechod zvuku";
 "SETTINGS_PTCASTINGLONG" = "Prenechať správu vykresľovania zvuku na TV";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Spätná odozva";
 "SETTINGS_SEND_FEEDBACK" = "Odoslať spätnú odozvu";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Knižnica médií";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Vynútiť si preskenovanie knižnice médií aplikáciou VLC";
 "SETTINGS_DECRAPIFY" = "Optimalizovať názvy položiek pre displej";
+"SETTINGS_DISABLE_GROUPING" = "Vypnúť automatické zoskupovanie médií";
 "SETTINGS_SHOW_THUMBNAILS" = "Zobraziť náhľady videa";
 "SETTINGS_SHOW_ARTWORKS" = "Zobraziť vyobrazenia obalov";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Zahrnúť knižnicu médií do zálohovania zariadenia";
 
-"SETTINGS_FILE_SYNC" = "Synchronizácia súboru";
+"SETTINGS_NETWORK" = "Sieť";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Hodnota ukladania do vyrovnávacej pamäte zo siete";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Najnižšia latencia";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Nízka latencia";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normálne";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Vysoká latencia";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Najvyššia latencia";
 "SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pre Wi-Fi zdieľanie";
+"SETTINGS_FORCE_SMBV1" = "Uprednostniť SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Ak máte problém s prehliadaním na SMB server, odznačte toto nastavenie";
 
 "SETTINGS_ARTWORK" = "Dielo";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Stiahnuť dielo";
