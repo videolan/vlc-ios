@@ -63,7 +63,7 @@ class EqualizerPresetSelector: SpoilerButton {
     var delegate: EqualizerPresetSelectorDelegate?
 
     // MARK: - Init
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         self.profiles = []
         super.init(coder: coder)
     }
