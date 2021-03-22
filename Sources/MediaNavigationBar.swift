@@ -98,6 +98,11 @@ protocol MediaNavigationBarDelegate {
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
             minimizePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor)
         ])
+        if #available(iOS 11.0, *) {
+            airplayRoutePickerView.widthAnchor.constraint(equalTo: heightAnchor).isActive = true
+        } else {
+            airplayVolumeView.widthAnchor.constraint(equalTo: heightAnchor).isActive = true
+        }
     }
 
     private func setupViews() {
