@@ -44,6 +44,9 @@
                                             <rect key="frame" x="136.5" y="0.0" width="137" height="44"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <state key="normal" title="Current"/>
+                                            <connections>
+                                                <action selector="handleResetTap:" destination="7Au-zH-5I2" eventType="touchUpInside" id="2Bc-GL-SQb"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gl7-9W-mBY" userLabel="Max Label">
                                             <rect key="frame" x="273.5" y="0.0" width="136.5" height="44"/>
