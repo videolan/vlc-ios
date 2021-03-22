@@ -15,6 +15,7 @@ import AVKit
 protocol MediaNavigationBarDelegate {
     func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidTapMinimize(_ mediaNavigationBar: MediaNavigationBar)
+    func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar)
 }
 
@@ -49,6 +50,15 @@ protocol MediaNavigationBarDelegate {
         label.font = UIFont(name: "SFProDisplay-Medium", size: 17)
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return label
+    }()
+
+    lazy var queueButton: UIButton = {
+        var queueButton = UIButton(type: .system)
+        queueButton.addTarget(self, action: #selector(toggleQueueView), for: .touchUpInside)
+        queueButton.setImage(UIImage(named: "play-queue"), for: .normal)
+        queueButton.tintColor = .white
+        queueButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        return queueButton
     }()
 
     lazy var chromeCastButton: UIButton = {
@@ -96,7 +106,8 @@ protocol MediaNavigationBarDelegate {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
-            minimizePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor)
+            minimizePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
+            queueButton.widthAnchor.constraint(equalTo: heightAnchor)
         ])
         if #available(iOS 11.0, *) {
             airplayRoutePickerView.widthAnchor.constraint(equalTo: heightAnchor).isActive = true
@@ -111,6 +122,7 @@ protocol MediaNavigationBarDelegate {
         addArrangedSubview(closePlaybackButton)
         addArrangedSubview(minimizePlaybackButton)
         addArrangedSubview(mediaTitleTextLabel)
+        addArrangedSubview(queueButton)
         if #available(iOS 11.0, *) {
             addArrangedSubview(airplayRoutePickerView)
         } else {
@@ -135,6 +147,11 @@ protocol MediaNavigationBarDelegate {
     func handleMinimizeTap() {
         assert(delegate != nil, "Delegate not set for MediaNavigationBar")
         delegate?.mediaNavigationBarDidTapMinimize(self)
+    }
+
+    func toggleQueueView() {
+        assert(delegate != nil, "Delegate not set for MediaNavigationBar")
+        delegate?.mediaNavigationBarDidToggleQueueView(self)
     }
 
     func toggleChromeCast() {

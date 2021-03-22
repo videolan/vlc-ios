@@ -230,6 +230,8 @@ class QueueViewController: UIViewController {
         sender.setTranslation(CGPoint.zero, in: parent?.view)
         if let parent = parent as? VLCMovieViewController {
             darkOverlayView.alpha = max(0.0, darkOverlayAlpha - view.frame.minY / parent.view.frame.maxY)
+        } else if let parent = parent as? VideoPlayerViewController {
+            darkOverlayView.alpha = max(0.0, darkOverlayAlpha - view.frame.minY / parent.view.frame.maxY)
         }
     }
 

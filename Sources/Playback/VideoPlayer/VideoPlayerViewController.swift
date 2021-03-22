@@ -476,8 +476,7 @@ class VideoPlayerViewController: UIViewController {
 
     @objc func setupQueueViewController(qvc: QueueViewController) {
         queueViewController = qvc
-        // FIXME: Attach QueueViewController
-        // queueViewController?.delegate = self
+        queueViewController?.delegate = self
     }
 }
 
@@ -1096,6 +1095,17 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
         delegate?.videoPlayerViewControllerDidMinimize(self)
     }
 
+    func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar) {
+        if let qvc = queueViewController {
+            qvc.removeFromParent()
+            qvc.show()
+            qvc.topView.isHidden = false
+            addChild(qvc)
+            qvc.didMove(toParent: self)
+            setControlsHidden(true, animated: true)
+        }
+    }
+
     func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar) {
         // TODO: Add current renderer functionality to chromeCast Button
     // NSAssert(0, @"didToggleChromeCast not implemented");
@@ -1316,5 +1326,14 @@ extension VideoPlayerViewController: ActionSheetPopupViewDelegate {
         videoPlayerControls.moreActionsButton.isEnabled = true
         videoPlayerControlsHeightConstraint.constant = 44
         scrubProgressBar.spacing = 5
+    }
+}
+
+// MARK: - QueueViewControllerDelegate
+
+extension VideoPlayerViewController: QueueViewControllerDelegate {
+    func queueViewControllerDidDisappear(_ queueViewController: QueueViewController?) {
+        setControlsHidden(false, animated: true)
+        queueViewController?.hide()
     }
 }
