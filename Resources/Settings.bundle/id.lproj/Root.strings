@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Appearance";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Masa-renggang Audio";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Pemutaran audio di latar belakang";
 "SETTINGS_GENERIC_TITLE" = "Umum";
 "SETTINGS_PASSCODE_LOCK" = "Kunci Kode Sandi";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Tidak ada awablok (tercepat)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Awablok medium";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Awablok rendah";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Aras Tembolok Jaringan";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latensi Terendah";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latensi Rendah";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latensi Tinggi";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latensi Tertinggi";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Kecepatan pemutaran baku";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HIGH" = "High";
+"SETTINGS_MEDIUM" = "Medium";
+"SETTINGS_LOW" = "Low";
+"SETTINGS_LOWEST" = "Lowest";
 
 "SETTINGS_FEEDBACK" = "Umpan Balik";
 "SETTINGS_SEND_FEEDBACK" = "Kirim Umpan Balik";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Media library";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
 "SETTINGS_DECRAPIFY" = "Optimalisasi nama item untuk tampilan";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
-"SETTINGS_FILE_SYNC" = "Penyelarasan Berkas";
+"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Aras Tembolok Jaringan";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latensi Terendah";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latensi Rendah";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latensi Tinggi";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latensi Tertinggi";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";

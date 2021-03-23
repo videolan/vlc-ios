@@ -1,17 +1,17 @@
-"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC untuk IOS merupakan bagian dari pemutar media VLC untuk Ipad, Iphone dan IPod Sentuh\nVLC mampu memainkan semua film, pertunjukan dan musik anda secara langsung dalam sebagian besar format secara langsung tanpa konversi.\nVLC memungkinkan sinkronisasi file dengan Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, unduhan langsung dan melalui berbagi Wi-Fi serta streaming dari peladen media SMB, FTP, UPnP / DLNA, dan situs\nVLC menawarkan dukungan untuk Teks film lanjutan termasuk kompatibilitas SSA penuh, audio multi-track, dan kontrol kecepatan pemutaran.\n\nVLC untuk iOS sepenuhnya gratis dan open source.";
 
-"STORE_DESCRIPTION_TV" = "VLC media player is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows streaming from cloud services (Dropbox, OneDrive, Box), Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.\n\nMetadata and artwork are provided by TMDb and Hatchet, which are community maintained movie and music databases.";
+"STORE_DESCRIPTION_TV" = "Pemutar media VLC adalah pemutar multimedia lintas platform gratis dan open source. \nDapat memutar semua film, pertunjukan, dan musik anda dalam sebagian besar format secara langsung tanpa konversi.\nVLC memungkinkan streaming dari layanan cloud (Dropbox, OneDrive, Box), Pemutaran Jarak Jauh dari Mac atau PC melalui perantara situs serta streaming dari peladen/server media SMB, FTP, UPnP / DLNA, dan situs. VLC menawarkan dukungan untuk teks film lanjutan termasuk kompatibilitas SSA penuh, audio multi-track, dan kontrol kecepatan pemutaran. VLC untuk iOS sepenuhnya gratis dan open source. Metadata dan karya seni disediakan oleh TMDb dan Hatchet, yang merupakan database film dan musik yang dikelola oleh komunitas.";
 
 "CHOOSE_AUDIO_TRACK" = "Pilih Trek Audio";
 "CHOOSE_SUBTITLE_TRACK" = "Pilih Trek Terjemahan";
 "OPEN_TRACK_PANEL" = "Buka pemilihan trek";
 "CHOOSE_TITLE" = "Pilih Judul";
 "CHOOSE_CHAPTER" = "Pilih Babak";
-"CHAPTER_SELECTION_TITLE" = "Chapters";
+"CHAPTER_SELECTION_TITLE" = "Bagian";
 "TITLE" = "Judul";
-"CHAPTER" = "Chapter";
-"MINIMIZE_PLAYBACK_VIEW" = "Minimize playback";
-"TRACK_SELECTION" = "Track Selection";
+"CHAPTER" = "Bagian";
+"MINIMIZE_PLAYBACK_VIEW" = "Perkecil pemutar ulang";
+"TRACK_SELECTION" = "Pilihan Trek";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Terjemahan";
 "LANGUAGE" = "Bahasa";
@@ -27,7 +27,7 @@
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Tersambung";
 "PLAYING_EXTERNALLY_DESC" = "Video ini sedang diputar di TV";
-"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
+"PLAYING_EXTERNALLY_ADDITION" = "\nSedang diputar saat ini:"; /* \n should stay in every translation */
 
 "VFILTER_HUE" = "Rona";
 "VFILTER_CONTRAST" = "Kontras";
@@ -35,9 +35,11 @@
 "VFILTER_SATURATION" = "Saturasi";
 "VFILTER_GAMMA" = "Gamma";
 
+"PRESET_PREAMP_SETTING" = "pengaturan setelan awal/penguat awal";
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Pilih Profil Ekualiser";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Pemutaran gagal";
 "PLEASE_WAIT" = "Mohon tunggu";
@@ -491,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Append to queue";
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
 
-"DISABLE_GROUPS" = "Disable groups";
-"DISABLE_GROUPS_SWITCH_HINT" = "Disable groups layout";
 "DISPLAY_AS" = "Display as";
