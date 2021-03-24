@@ -36,20 +36,6 @@
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CWf-cj-njw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B60-wi-0eH" userLabel="grabberView">
-                                <rect key="frame" x="187" y="15" width="40" height="5"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="6yN-zY-TPZ"/>
-                                    <constraint firstAttribute="height" constant="5" id="Z01-QJ-Aa8"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="B60-wi-0eH" firstAttribute="centerX" secondItem="CWf-cj-njw" secondAttribute="centerX" id="M4j-Vr-wSw"/>
-                            <constraint firstItem="B60-wi-0eH" firstAttribute="top" secondItem="CWf-cj-njw" secondAttribute="top" constant="15" id="uf3-Qn-Ldb"/>
-                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="04s-nY-hCo"/>
@@ -59,9 +45,19 @@
                         <outletCollection property="gestureRecognizers" destination="fvk-8E-LA6" appends="YES" id="gnt-Lb-BQd"/>
                     </connections>
                 </visualEffectView>
+                <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B60-wi-0eH" userLabel="grabberView">
+                    <rect key="frame" x="187" y="65.5" width="40" height="5"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="6yN-zY-TPZ"/>
+                        <constraint firstAttribute="height" constant="5" id="Z01-QJ-Aa8"/>
+                    </constraints>
+                </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="4zA-fg-WmJ"/>
+                <constraint firstItem="B60-wi-0eH" firstAttribute="centerY" secondItem="dEz-fQ-e4l" secondAttribute="centerY" id="Ao7-Jj-077"/>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Bsu-Td-VNA"/>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="SAr-aD-8eP"/>
                 <constraint firstItem="dEz-fQ-e4l" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="VPm-6i-9Xy"/>
@@ -70,8 +66,8 @@
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="top" secondItem="dEz-fQ-e4l" secondAttribute="top" id="ea5-aa-dfU"/>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="lYc-Of-c2m"/>
                 <constraint firstItem="dEz-fQ-e4l" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="p1m-RR-OpP"/>
+                <constraint firstItem="B60-wi-0eH" firstAttribute="centerX" secondItem="vtO-U6-cBN" secondAttribute="centerX" id="zgk-vl-6yg"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="140.57971014492756" y="150"/>
         </view>
         <panGestureRecognizer minimumNumberOfTouches="1" id="fvk-8E-LA6">

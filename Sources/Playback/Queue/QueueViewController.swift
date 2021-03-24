@@ -48,17 +48,34 @@ class QueueViewController: UIViewController {
 
     private var originY: CGFloat = 0
 
-    private var playbackService: PlaybackService
+    private var playbackService: PlaybackService {
+        get {
+            PlaybackService.sharedInstance()
+        }
+    }
+    private var mediaList: VLCMediaList {
+        get {
+            PlaybackService.sharedInstance().mediaList
+        }
+    }
 
     private let medialibraryService: MediaLibraryService
 
-    private lazy var mediaList: VLCMediaList = playbackService.mediaList
-
     private lazy var collectionViewLayout = QueueViewFlowLayout()
     private var constraints: [NSLayoutConstraint] = []
+    private var topConstraint: NSLayoutConstraint?
+    private var topConstraintConstant: CGFloat {
+        if parent is VideoPlayerViewController || parent is VLCMovieViewController {
+            return 50
+        } else {
+            return 0
+        }
+    }
 
     private var darkOverlayView: UIView = UIView()
     private var darkOverlayViewConstraints: [NSLayoutConstraint] = []
+
+    private let animationDuration = 0.2
 
     private lazy var longPressGesture: UILongPressGestureRecognizer = {
         let longPressGesture = UILongPressGestureRecognizer(target: self,
@@ -98,7 +115,6 @@ class QueueViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initDelegate()
     }
 
     override func didMove(toParent parent: UIViewController?) {
@@ -118,7 +134,6 @@ class QueueViewController: UIViewController {
                 darkOverlayView.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
             ]
 
-            let topConstraint: NSLayoutConstraint
             let heightConstraint: NSLayoutConstraint?
             let bottomConstraint: NSLayoutConstraint?
             if let parent = parent as? VLCPlayerDisplayController, let miniPlaybackView = parent.miniPlaybackView as? AudioMiniPlayer {
@@ -129,21 +144,22 @@ class QueueViewController: UIViewController {
                                                                 constant: -(miniPlaybackView.frame.height + topInset))
                 bottomConstraint = nil
             } else {
-                let topAnchorConstant: CGFloat = 50
                 if #available(iOS 11.0, *) {
-                    topConstraint = view.topAnchor.constraint(equalTo: parent.view.safeAreaLayoutGuide.topAnchor, constant: topAnchorConstant)
+                    topConstraint = view.topAnchor.constraint(equalTo: parent.view.safeAreaLayoutGuide.topAnchor, constant: topConstraintConstant)
                 } else {
-                    topConstraint = view.topAnchor.constraint(equalTo: parent.view.topAnchor, constant: topAnchorConstant)
+                    topConstraint = view.topAnchor.constraint(equalTo: parent.view.topAnchor, constant: topConstraintConstant)
                 }
                 heightConstraint = nil
                 bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
             }
             parent.view.addSubview(view)
             constraints = [
-                topConstraint,
                 view.leadingAnchor.constraint(equalTo: parent.view.leadingAnchor),
                 view.trailingAnchor.constraint(equalTo: parent.view.trailingAnchor)
             ]
+            if let topConstraint = topConstraint {
+                constraints.append(topConstraint)
+            }
 
             if let heightConstraint = heightConstraint {
                 constraints.append(heightConstraint)
@@ -151,56 +167,39 @@ class QueueViewController: UIViewController {
             if let bottomConstraint = bottomConstraint {
                 constraints.append(bottomConstraint)
             }
-        }
 
-        NSLayoutConstraint.activate(darkOverlayViewConstraints)
-        NSLayoutConstraint.activate(constraints)
-        queueCollectionView.reloadData()
+            NSLayoutConstraint.activate(darkOverlayViewConstraints)
+            NSLayoutConstraint.activate(constraints)
+            view.layoutIfNeeded()
+            reload()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        queueCollectionView.setNeedsLayout()
-        queueCollectionView.layoutIfNeeded()
-        queueCollectionView.collectionViewLayout.invalidateLayout()
+
+        topConstraint?.constant = topConstraintConstant
+        reload()
     }
 
-    @objc func initDelegate() {
-        mediaList = playbackService.mediaList
-        queueCollectionView.reloadData()
-    }
-
-    @objc init(medialibraryService: MediaLibraryService, playbackService: PlaybackService) {
+    @objc init(medialibraryService: MediaLibraryService) {
         self.medialibraryService = medialibraryService
-        self.playbackService = playbackService
         super.init(nibName: nil, bundle: nil)
         view.alpha = 0.0
     }
 
     @objc func show() {
-        if #available(iOS 10.0, *) {
-            let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
-            animator.addAnimations {
-                self.view.alpha = 1.0
-            }
-            animator.startAnimation()
-        } else {
-            view.alpha = 1.0
-        }
-        darkOverlayView.isHidden = false
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.view.alpha = 1.0
+            self.darkOverlayView.isHidden = false
+        })
     }
 
     @objc func hide() {
-        if #available(iOS 10.0, *) {
-            let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
-            animator.addAnimations {
-                self.view.alpha = 0.0
-            }
-            animator.startAnimation()
-        } else {
-            view.alpha = 0.0
-        }
-        darkOverlayView.isHidden = true
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.view.alpha = 0.0
+            self.darkOverlayView.isHidden = true
+        })
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -226,7 +225,9 @@ class QueueViewController: UIViewController {
 
     func dragStateDidChange(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: parent?.view)
-        view.center = CGPoint(x: view.center.x, y: view.center.y + translation.y)
+        if let topConstraint = topConstraint {
+            topConstraint.constant = max(0.0, topConstraint.constant + translation.y)
+        }
         sender.setTranslation(CGPoint.zero, in: parent?.view)
         if let parent = parent as? VLCMovieViewController {
             darkOverlayView.alpha = max(0.0, darkOverlayAlpha - view.frame.minY / parent.view.frame.maxY)
@@ -245,35 +246,22 @@ class QueueViewController: UIViewController {
         }
     }
 
-    func showPlayqueue() {
-        if #available(iOS 10.0, *) {
-            let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
-            animator.addAnimations {
-                self.view.frame.origin.y = self.originY
-            }
-            animator.startAnimation()
-        } else {
-            self.view.frame.origin.y = self.originY
-        }
+    private func showPlayqueue() {
+        topConstraint?.constant = topConstraintConstant
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
 
-    func dismissPlayqueue() {
+    private func dismissPlayqueue() {
         if let parent = parent {
             let newY: CGFloat = parent.view.frame.maxY
-            if #available(iOS 10.0, *) {
-                let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
-                animator.addCompletion({
-                    _ in
-                    self.dismissPlayqueueCompletion(in: parent)
-                })
-                animator.addAnimations {
-                    self.view.frame.origin.y = newY
-                }
-                animator.startAnimation()
-            } else {
-                view.frame.origin.y = newY
-                dismissPlayqueueCompletion(in: parent)
-            }
+            topConstraint?.constant = newY - originY
+            UIView.animate(withDuration: animationDuration, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: { _ in
+                self.dismissPlayqueueCompletion(in: parent)
+            })
         }
     }
 
@@ -288,6 +276,11 @@ class QueueViewController: UIViewController {
     @objc func deviceOrientationDidChange(_ notification: Notification) {
         queueCollectionView.collectionViewLayout.invalidateLayout()
     }
+
+    private func reload() {
+        queueCollectionView.reloadData()
+        queueCollectionView.collectionViewLayout.invalidateLayout()
+    }
 }
 
 // MARK: - Private initializers
@@ -299,6 +292,7 @@ private extension QueueViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         initDarkOverlayView()
         initQueueCollectionView()
+        topView.alpha = 0.1
         themeDidChange()
         grabberView.layer.cornerRadius = 2.5
     }
@@ -405,13 +399,25 @@ extension QueueViewController: UICollectionViewDelegate {
             return
         }
         updateCollectionViewCellApparence(cell, isSelected: true)
-        queueCollectionView.reloadData()
+        reload()
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath,
                         toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
         return proposedIndexPath
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension QueueViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y <= 5.0 {
+            topView.alpha = max(0.1, scrollView.contentOffset.y / 5)
+        } else {
+            topView.alpha = 1.0
+        }
     }
 }
 
@@ -487,10 +493,10 @@ extension QueueViewController: UICollectionViewDataSource {
 
 extension QueueViewController: VLCMediaListDelegate {
     func mediaList(_ aMediaList: VLCMediaList!, mediaAdded media: VLCMedia!, at index: UInt) {
-        queueCollectionView.reloadData()
+        reload()
     }
 
     func mediaList(_ aMediaList: VLCMediaList!, mediaRemovedAt index: UInt) {
-        queueCollectionView.reloadData()
+        reload()
     }
 }

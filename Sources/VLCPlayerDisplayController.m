@@ -385,7 +385,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)initQueueViewController
 {
-    _queueViewController = [[VLCQueueViewController alloc] initWithMedialibraryService:_services.medialibraryService playbackService:_playbackController];
+    _queueViewController = [[VLCQueueViewController alloc] initWithMedialibraryService:_services.medialibraryService];
 }
 
 #endif

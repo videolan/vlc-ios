@@ -227,7 +227,6 @@ extension AudioMiniPlayer {
         switch panDirection {
             case .vertical:
                 queueViewController?.show()
-                queueViewController?.initDelegate()
             case .horizontal:
                 break
         }
