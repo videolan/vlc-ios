@@ -1,6 +1,6 @@
-"STORE_DESCRIPTION" = "O VLC para iOS é uma versão do reprodutor de mídias VLC para iPad, iPhone e iPod touch. Ele pode reproduzir seus filmes, espetáculos e músicas em muitos formatos diretamente, sem conversão. Ele permite a sincronização com Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, ou baixar diretamente e através de compartilhamentos Wi-Fi, bem como fluxos de rede de servidores SMB, FTP, UPnP/DLNA e servidores de mídia da Web. O VLC oferece suporte legendas avançadas, incluindo compatibilidade total com SSA, áudio de múltiplas faixas e controle de velocidade de reprodução.\n\nO VLC para iOS é completamente livre e de código aberto.";
+"STORE_DESCRIPTION" = "O VLC para iOS é uma versão do reprodutor de mídias VLC para iPad, iPhone e iPod touch. Ele pode reproduzir seus filmes, espetáculos e músicas em muitos formatos diretamente, sem conversão. Ele permite a sincronização com Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, ou baixar diretamente e através de compartilhamentos Wi-Fi, bem como transmissões de rede de servidores SMB, FTP, UPnP/DLNA e servidores de mídia da Web. O VLC oferece suporte legendas avançadas, incluindo compatibilidade total com SSA, áudio de múltiplas faixas e controle de velocidade de reprodução.\n\nO VLC para iOS é completamente livre e de código aberto.";
 
-"STORE_DESCRIPTION_TV" = "O Reprodutor de Mídias VLC é um reprodutor de mídias livre e para múltiplas plataformas.\nEle pode reproduzir seus filmes, espetáculos e músicas em muitos formatos diretamente, sem conversão.\nEle permite fluxos de rede de serviços na nuvem (Dropbox, OneDrive, Box), Reprodução Remota do seu Mac ou PC via uma interface Web, bem como fluxos de servidores de mídia SMB, FTP, UPnP/DLNA e a Web.\nO VLC oferece suporte a legendas avançadas, incluindo compatibilidade total com SSA, áudio de múltiplas faixas e controle de velocidade de reprodução. O VLC para iOS é completamente livre e de código aberto.\n\nO VLC para iOS é completamente livre e de código aberto.\n\nOs metadados e as capas são providos pela TMDb e pelo Hatchet, que são bancos de dados de filmes e músicas mantidas por comunidades.";
+"STORE_DESCRIPTION_TV" = "O Reprodutor de Mídias VLC é um reprodutor de mídias livre e para múltiplas plataformas.\nEle pode reproduzir seus filmes, espetáculos e músicas em muitos formatos diretamente, sem conversão.\nEle permite transmissões de rede de serviços na nuvem (Dropbox, OneDrive, Box), Reprodução Remota do seu Mac ou PC via uma interface Web, bem como transmissões de servidores de mídia SMB, FTP, UPnP/DLNA e a Web.\nO VLC oferece suporte a legendas avançadas, incluindo compatibilidade total com SSA, áudio de múltiplas faixas e controle de velocidade de reprodução. O VLC para iOS é completamente livre e de código aberto.\n\nO VLC para iOS é completamente livre e de código aberto.\n\nOs metadados e as capas são providos pela TMDb e pelo Hatchet, que são bancos de dados de filmes e músicas mantidas por comunidades.";
 
 "CHOOSE_AUDIO_TRACK" = "Escolha uma Trilha de Áudio";
 "CHOOSE_SUBTITLE_TRACK" = "Escolha uma Legenda";
@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Saturação";
 "VFILTER_GAMMA" = "Gama";
 
-"PRESETS" = "Padrões";
+"PRESET_PREAMP_SETTING" = "Configurações de ajuste/pré amplificação";
 "PREAMP" = "Pré amplificador";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Escolha o Perfil do Equalizador";
@@ -83,9 +83,9 @@
 
 "UPGRADING_LIBRARY" = "Atualizando a Biblioteca de Mídias";
 
-"OPEN_NETWORK" = "Abrir Fluxo de Rede";
-"NETWORK_TITLE" = "Fluxo de Rede";
-"OPEN_NETWORK_HELP" = "Digite um endereço HTTP, RTSP, RTMP, MMS, FTP ou UDP/RTP para abrir o fluxo diretamente.";
+"OPEN_NETWORK" = "Abrir Transmissão de Rede";
+"NETWORK_TITLE" = "Transmissão de Rede";
+"OPEN_NETWORK_HELP" = "Digite um endereço HTTP, RTSP, RTMP, MMS, FTP ou UDP/RTP para abrir a transmissão diretamente.";
 "HTTP_UPLOAD_SERVER_OFF" = "Servidor inativo";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "Não há conexão Wi-Fi ativa";
 "OPEN_STREAM_OR_DOWNLOAD" = "Gostaria de baixar ou reproduzir esta URL?";
@@ -115,7 +115,7 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Não foi possível encontrar aplicativos para abrir este tipo de arquivo";
 "SHARING_SUCCESS_CAMERA_ROLL" = "O arquivo foi salvo com sucesso no Rolo da Câmera";
 
-"STREAMVC_DETAILTEXT" = "Reproduz fluxos diretamente, sem baixar";
+"STREAMVC_DETAILTEXT" = "Reproduz transmissões diretamente, sem baixar";
 "DOWNLOADVC_DETAILTEXT" = "Arquivos baixados diretamente para o seu dispositivo";
 "HEADER_TITLE_RENDERER" = "Selecione um dispositivo de conversão";
 
@@ -184,7 +184,7 @@
 "OFF" = "Desligado";
 
 "EMPTY_LIBRARY" = "Biblioteca de Mídias Vazia";
-"EMPTY_LIBRARY_LONG" = "Para reprodução, você pode iniciar um fluxo de mídia de uma servidor da sua rede local, da nuvem, ou sincronizar mídias para o seu dispositivo usando o iTunes, Wi-Fi Upload ou os serviços Cloud.";
+"EMPTY_LIBRARY_LONG" = "Para reprodução, você pode iniciar uma transmissão de mídia de uma servidor da sua rede local, da nuvem, ou sincronizar mídias para o seu dispositivo usando o iTunes, Wi-Fi Upload ou os serviços Cloud.";
 
 "EMPTY_PLAYLIST" = "Lista de reprodução vazia";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Adiciona mídias enquanto estiver editando as respectivas categorias";
@@ -229,7 +229,7 @@
 "FIRST_STEPS_WIFI_DETAILS" = "Digite a URL gerada em seu navegador preferido enquanto estiver conectado à mesma rede que seu telefone";
 "FIRST_STEPS_CLOUDS" = "Nuvem";
 "FIRST_STEPS_CLOUD_TITLE" = "Nuvem";
-"FIRST_STEPS_CLOUD_DETAILS" = "Envie sua mídia para um serviço de nuvem como o Google Drive ou Dropbox para baixar remotamente ou para criar fluxos.";
+"FIRST_STEPS_CLOUD_DETAILS" = "Envie sua mídia para um serviço de nuvem como o Google Drive ou Dropbox para baixar remotamente ou para criar transmissões.";
 
 
 "PLEX_CHECK_ACCOUNT" = "Verifique a sua conta Plex em configuração";
@@ -240,7 +240,7 @@
 "SERVER" = "Servidor";
 "SERVER_PORT" = "Porta";
 "NO_SERVER_FOUND" = "Nenhum servidor encontrado";
-"NO_RECENT_STREAMS" = "Nenhum fluxo foi reproduzido recentemente";
+"NO_RECENT_STREAMS" = "Nenhum transmissão foi reproduzido recentemente";
 
 "WEBINTF_TITLE" = "Compartilhando via Wi-Fi";
 "WEBINTF_DROPFILES" = "Soltar Arquivos";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Anexar à fila";
 "APPEND_TO_QUEUE_LABEL" = "Anexar à fila";
 
-"DISABLE_GROUPS" = "Desabilitar grupos";
-"DISABLE_GROUPS_SWITCH_HINT" = "Desabilitar leiaute de grupos";
 "DISPLAY_AS" = "Exibir como";
