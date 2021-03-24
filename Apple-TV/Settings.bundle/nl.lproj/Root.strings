@@ -13,6 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Uiterlijk";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio tijdrekken";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Audio versnellen en vertragen zonder de toonhoogte te veranderen (vereist een snel apparaat)";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio afspelen op achtergrond";
 "SETTINGS_GENERIC_TITLE" = "Algemeen";
 "SETTINGS_PASSCODE_LOCK" = "Codeslot";
@@ -32,13 +33,6 @@
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Geen deblocking (snelste)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Medium deblocking";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Lage deblocking";
-
-"SETTINGS_NETWORK_CACHING_TITLE" = "Netwerkbuffergrootte";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Laagste latentietijd";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Lage latentietijd";
-"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normaal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Hoge latentietijd";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Hoogste latentietijd";
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Standaard afspeelsnelheid";
 
@@ -87,6 +81,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audiodoorvoer";
 "SETTINGS_PTCASTINGLONG" = "Laat uw tv het renderen van audio beheren";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversiekwaliteit";
+"SETTINGS_HIGH" = "Hoog";
+"SETTINGS_MEDIUM" = "Gemiddeld";
+"SETTINGS_LOW" = "Laag";
+"SETTINGS_LOWEST" = "Laagste";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Feedback zenden";
@@ -95,12 +94,21 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediabibliotheek";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC dwingen om de mediabibliotheek opnieuw te scannen";
 "SETTINGS_DECRAPIFY" = "Namen van items optimaliseren voor scherm";
+"SETTINGS_DISABLE_GROUPING" = "Automatisch groeperen van media uitschakelen";
 "SETTINGS_SHOW_THUMBNAILS" = "Video-miniaturen weergeven";
 "SETTINGS_SHOW_ARTWORKS" = "Albumhoezen weergeven";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "De mediabibliotheek opnemen in de back-up van het apparaat";
 
-"SETTINGS_FILE_SYNC" = "Bestandssynchronisatie";
+"SETTINGS_NETWORK" = "Netwerk";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Netwerkbuffergrootte";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Laagste latentietijd";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Lage latentietijd";
+"SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normaal";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Hoge latentietijd";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Hoogste latentietijd";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-ondersteuning voor wifi-delen";
+"SETTINGS_FORCE_SMBV1" = "Voorkeur voor SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Vink deze instelling uit als u problemen ondervindt bij het bladeren op uw SMB-server.";
 
 "SETTINGS_ARTWORK" = "Albumhoes";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albumhoes downloaden";

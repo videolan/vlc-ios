@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Verzadiging";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESETS" = "Presets";
+"PRESET_PREAMP_SETTING" = "Instellingen preset/preamp";
 "PREAMP" = "Voorversterking";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Equalizer-profiel kiezen";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Toevoegen aan wachtrij";
 "APPEND_TO_QUEUE_LABEL" = "Toevoegen aan wachtrij";
 
-"DISABLE_GROUPS" = "Groepen uitschakelen";
-"DISABLE_GROUPS_SWITCH_HINT" = "Groep-layout uitschakelen";
 "DISPLAY_AS" = "Weergeven als";
