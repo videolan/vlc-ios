@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Saturation";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESETS" = "Présélections";
+"PRESET_PREAMP_SETTING" = "Réglages des présélections / préamplis";
 "PREAMP" = "Préampli";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Choisissez le profil d’égaliseur";
@@ -493,6 +493,4 @@
 "APPEND_TO_QUEUE_HINT" = "Ajouter à la liste de lecture";
 "APPEND_TO_QUEUE_LABEL" = "Ajouter à la liste de lecture";
 
-"DISABLE_GROUPS" = "Désactiver les groupes";
-"DISABLE_GROUPS_SWITCH_HINT" = "Désactiver la présentation groupée";
 "DISPLAY_AS" = "Afficher comme";
