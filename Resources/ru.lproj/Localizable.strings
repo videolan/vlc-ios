@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Насыщенность";
 "VFILTER_GAMMA" = "Гамма";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "Настройки пресетов/предусилителя";
 "PREAMP" = "Предусилитель";
 "DB_FORMAT" = "%i дБ";
 "CHOOSE_EQUALIZER_PROFILES" = "Выберите профиль эквалайзера";
@@ -205,9 +205,9 @@
 "PREV_BUTTON" = "Назад";
 "PLAY_ALL_BUTTON" = "Воспроизвести всё";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_VIDEO_FILTERS" = "Вы хотите сбросить видеофильтры?";
+"RESET_PLAYBACK_SPEED" = "Вы хотите сбросить скорость воспроизведения?";
+"RESET_EQUALIZER" = "Вы хотите сбросить настройки эквалайзера?";
 "RESET_SLEEP_TIMER" = "Вы хотите сбросить таймер сна?";
 
 "VERSION_FORMAT" = "Версия: %@";
@@ -402,25 +402,25 @@
 
 /* VideoPlayerControls */
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "Субтитры и аудиопотоки";
+"SUBTITLE_AND_TRACK_HINT" = "Выберите субтитры или аудиопотоки";
 
 "DVD_BUTTON" = "DVD";
 "DVD_HINT" = "DVD интерфейс";
 
 "ROTATION_LOCK_BUTTON" = "Блокировка вращения";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_HINT" = "Заблокировать ориентацию видео";
 
 "BACKWARD_BUTTON" = "Назад";
 "BACKWARD_HINT" = "Перемотать назад";
 
 "PREVIOUS_BUTTON" = "Предыдущий";
-"PREVIOUS_HINT" = "Previous media";
+"PREVIOUS_HINT" = "Предыдущее медиа";
 
 "PLAY_PAUSE_BUTTON" = "Воспроизвести или приостановить";
 "PLAY_PAUSE_HINT" = "Воспроизвести или приостановить текущее воспроизведение ";
 
-"NEXT_HINT" = "Next media";
+"NEXT_HINT" = "Следующее медиа";
 
 "FORWARD_BUTTON" = "Вперёд";
 "FORWARD_HINT" = "Перемотать вперёд";

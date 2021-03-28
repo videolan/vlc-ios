@@ -13,7 +13,7 @@
 
 "SETTINGS_DARKTHEME" = "Внешний вид";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Изменение скорости звука";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Ускорение/замедление звука без изменения его высоты (требуется мощное устройство)";
 "SETTINGS_BACKGROUND_AUDIO" = "Звук в фоновом режиме";
 "SETTINGS_GENERIC_TITLE" = "Общее";
 "SETTINGS_PASSCODE_LOCK" = "Защита паролем";
@@ -81,11 +81,11 @@
 "SETTINGS_CASTING" = "Трансляция";
 "SETTINGS_PTCASTING" = "Сквозной вывод аудио";
 "SETTINGS_PTCASTINGLONG" = "Выполнять декодирование звука на телевизоре";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Качество преобразования";
+"SETTINGS_HIGH" = "Высокое";
+"SETTINGS_MEDIUM" = "Среднее";
+"SETTINGS_LOW" = "Низкое";
+"SETTINGS_LOWEST" = "Самое низкое";
 
 "SETTINGS_FEEDBACK" = "Отзыв";
 "SETTINGS_SEND_FEEDBACK" = "Отправить отзыв";
@@ -113,7 +113,7 @@
 "SETTINGS_ARTWORK" = "Обложка";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Загрузить обложку";
 
-"SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_LAB" = "Лаборатория";
+"SETTINGS_NEW_PLAYER" = "Новый проигрыватель";
 
 "ABOUT_APP_TV" = "О программе VLC для tvOS";
