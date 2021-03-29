@@ -290,6 +290,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         newLabel.isHidden = !movie.isNew
         sizeLabel.text = movie.mediaDuration()
         descriptionLabel.text = movie.formatSize()
+        if (superview as? UICollectionView)?.dataSource is QueueViewController {
+            descriptionLabel.isHidden = true
+        }
         sizeLabel.isHidden = false
         separatorLabel.text = "·"
         scrollView.isScrollEnabled = true
