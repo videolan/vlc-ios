@@ -82,10 +82,10 @@
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 "SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_HIGH" = "Handia";
+"SETTINGS_MEDIUM" = "Ertaina";
+"SETTINGS_LOW" = "Txikia";
+"SETTINGS_LOWEST" = "Txikiena";
 
 "SETTINGS_FEEDBACK" = "Iruzkinak";
 "SETTINGS_SEND_FEEDBACK" = "Bidali iruzkinak";
@@ -99,7 +99,7 @@
 "SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
 
-"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK" = "Sarea";
 "SETTINGS_NETWORK_CACHING_TITLE" = "Network Caching Level";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latentzia txikiena";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latentzia txikia";

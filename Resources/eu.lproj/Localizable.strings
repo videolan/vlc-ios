@@ -64,7 +64,7 @@
 "BUTTON_OK" = "Ados";
 "BUTTON_CONTRIBUTE" = "Lagundu";
 "BUTTON_CONNECT" = "Konektatu";
-"BUTTON_RENAME" = "Rename";
+"BUTTON_RENAME" = "Berrekin";
 "BUTTON_LEARN_MORE" = "Ikasi gehiago";
 "BUTTON_LOGOUT" = "Amaitu saioa";
 "BUTTON_CONTINUE" = "Jarraitu";
@@ -78,7 +78,7 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE" = "Erreproduzitu ilara";
 "BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
 
 "UPGRADING_LIBRARY" = "Upgrading Media Library";
@@ -107,7 +107,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
 "RENAME_MEDIA_TO" = "Enter new name for %@";
 
-"FOLDER_EMPTY" = "Empty folder";
+"FOLDER_EMPTY" = "Karpeta hutsa";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Hautatu fitxategia irekitzeko:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Ireki hemen...";
@@ -133,7 +133,7 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "ZERBITZARI-KONEXIOAK HUTS EGIN DU";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Please check your server address and credentials";
 
-"FILES_APP_CELL_TITLE" = "Local files";
+"FILES_APP_CELL_TITLE" = "Fitxategi lokalak";
 "FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
 
 "CLOUD_SERVICES" = "Hodei zerbitzuak";
@@ -235,7 +235,7 @@
 "PLEX_CHECK_ACCOUNT" = "Check your Plex account in settings";
 "PLEX_ERROR_ACCOUNT" = "Plex login Error";
 
-"UNAUTHORIZED" = "Unauthorized";
+"UNAUTHORIZED" = "Baimenik ez";
 
 "SERVER" = "Zerbitzaria";
 "SERVER_PORT" = "Ataka";
@@ -343,7 +343,7 @@
 //EDIT
 
 "BUTTON_EDIT" = "Editatu";
-"BUTTON_EDIT_HINT" = "Edit mode";
+"BUTTON_EDIT_HINT" = "Edizio modua";
 
 "ADD_TO_PLAYLIST" = "Gehitu erreprodukzio-zerrendara";
 "ADD_TO_PLAYLIST_HINT" = "Ireki 'gehitu erreprodukzio-zerrendara' menua";
@@ -406,24 +406,24 @@
 "SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "DVD interfazea";
 
 "ROTATION_LOCK_BUTTON" = "Rotation lock";
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"BACKWARD_BUTTON" = "Atzera";
+"BACKWARD_HINT" = "Jauzi egin atzera";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"PREVIOUS_BUTTON" = "Aurrekoa";
+"PREVIOUS_HINT" = "Aurreko multimedia";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PLAY_PAUSE_BUTTON" = " Erreproduzitu edo pausarazi";
+"PLAY_PAUSE_HINT" = " Erreproduzitu edo pausarazi oraingo erreprodukzioa";
 
-"NEXT_HINT" = "Next media";
+"NEXT_HINT" = "Hurrengo multimedia";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"FORWARD_BUTTON" = "Aurrera";
+"FORWARD_HINT" = "Jauzi egin aurrera";
 
 "INTERFACE_LOCK_BUTTON" = "Blokeatu interfazea";
 
@@ -466,8 +466,8 @@
 
 "MEDIA_GROUP_CREATION" = "Multimedia talde berria";
 "MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
-"MEDIA_GROUP_MOVE_TO_ROOT" = "Move content to top level";
-"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Moves the content of the selection to the top level";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Mugitu edukia goiko mailara";
+"MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Mugitu hautatutako edukia goiko mailara";
 
 "BUTTON_REGROUP" = "Regroup";
 "BUTTON_REGROUP_TITLE" = "Regroup selection";
@@ -476,21 +476,21 @@
 
 /* Files.app persistence file */
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
-"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Gehitzen...";
 
 /* tip jar */
 "GIVE_TIP" = "Give a Tip";
-"CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
-"PURCHASE_FAILED" = "Purchase Failed";
-"SEND_GIFT" = "Send your gift";
+"CANNOT_MAKE_PAYMENTS" = "Ezin duzu gailu honetan ordainketarik egin.";
+"PURCHASE_FAILED" = "Erosketak huts egin du";
+"SEND_GIFT" = "Bidali zure oparia";
 
 // MARK: - QueueViewController
 
-"PLAY_HINT" = "Play";
-"PLAY_LABEL" = "Play";
-"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
-"APPEND_TO_QUEUE_HINT" = "Append to queue";
-"APPEND_TO_QUEUE_LABEL" = "Append to queue";
+"PLAY_HINT" = "Erreproduzitu";
+"PLAY_LABEL" = "Erreproduzitu";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Erreproduzitu hurrengo ilaran";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Erreproduzitu hurrengo ilaran";
+"APPEND_TO_QUEUE_HINT" = "Gehitu ilarari";
+"APPEND_TO_QUEUE_LABEL" = "Gehitu ilarari";
 
 "DISPLAY_AS" = "Display as";
