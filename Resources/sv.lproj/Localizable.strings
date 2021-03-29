@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "Färgmättnad";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "Inställningar för förinställning/försteg";
 "PREAMP" = "Försteg";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Välj equalizerprofil";
