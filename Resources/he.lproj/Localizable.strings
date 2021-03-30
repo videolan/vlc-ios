@@ -35,7 +35,7 @@
 "VFILTER_SATURATION" = "רוויה";
 "VFILTER_GAMMA" = "גאמה";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "הגדרות ערכה מוגדרת / הגברה טרומית";
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "בחר פרופיל איקולייזר";
