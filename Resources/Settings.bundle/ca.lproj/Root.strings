@@ -13,19 +13,19 @@
 
 "SETTINGS_DARKTHEME" = "Aparença";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Canvi de velocitat de l'àudio";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Incrementa i redueix la velocitat de l'àudio sense canviar el to (requereix un dispositiu ràpid)";
 "SETTINGS_BACKGROUND_AUDIO" = "Reproducció de so de fons";
 "SETTINGS_GENERIC_TITLE" = "Genèric";
 "SETTINGS_PASSCODE_LOCK" = "Bloqueig amb codi";
-"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Permet Touch ID per desbloquejar";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Permet Face ID per desbloquejar";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Amaga la biblioteca multimèdia a Fitxers";
-"SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
-"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
-"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
-"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Never";
-"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
-"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Always";
+"SETTINGS_VIDEO_FULLSCREEN" = "Reprodueix el vídeo a pantalla completa";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continua la reproducció del vídeo";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continua la reproducció de l'àudio";
+"SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Mai";
+"SETTINGS_CONTINUE_PLAYBACK_ASK" = "Pregunta";
+"SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sempre";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automàticament reprodueix el següent ítem";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Activa l'auto-desplaçament a la llista d'arxius multimèdia";
 
@@ -37,12 +37,12 @@
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Velocitat de reproducció per defecte";
 
 "SETTINGS_GESTURES" = "Control de la reproducció amb moviments";
-"SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
+"SETTINGS_GESTURES_VOLUME" = "Llisca amunt/avall pel volum";
 "SETTINGS_GESTURES_PLAYPAUSE" = "Toca amb dos dit per reproduir/pausar";
-"SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
-"SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
-"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Llisca amunt/avall per la brillantor";
+"SETTINGS_GESTURES_SEEK" = "Llisca dreta/esquerra per cercar";
+"SETTINGS_GESTURES_CLOSE" = "Pinça per tancar";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Duració de salt variable";
 
 "SETTINGS_SUBTITLES_TITLE" = "Subtítols";
 "SETTINGS_SUBTITLES_FONT" = "Lletra";
@@ -81,25 +81,25 @@
 "SETTINGS_CASTING" = "Buidatge";
 "SETTINGS_PTCASTING" = "Convertidor d'àudio";
 "SETTINGS_PTCASTINGLONG" = "Deixa que el teu TV gestioni la reproducció d'àudio";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Qualitat de la conversió";
+"SETTINGS_HIGH" = "Alta";
+"SETTINGS_MEDIUM" = "Mitjana";
+"SETTINGS_LOW" = "Baixa";
+"SETTINGS_LOWEST" = "La més baixa";
 
 "SETTINGS_FEEDBACK" = "Feedback";
-"SETTINGS_SEND_FEEDBACK" = "Send Feedback";
-"SETTINGS_SEND_RATING" = "Please Rate VLC for iOS";
+"SETTINGS_SEND_FEEDBACK" = "Envia Feedback";
+"SETTINGS_SEND_RATING" = "Sisplau valora VLC per a l'iOS";
 
 "SETTINGS_MEDIA_LIBRARY" = "Biblioteca d'arxius multimèdia";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Força el VLC a re-escannejar la biblioteca d'arxius multimèdia";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Força el VLC a re-escanejar la biblioteca d'arxius multimèdia";
 "SETTINGS_DECRAPIFY" = "Optimitza els noms dels elements de la pantalla";
-"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
+"SETTINGS_DISABLE_GROUPING" = "Inhabilita l'agrupament automàtic multimèdia";
 "SETTINGS_SHOW_THUMBNAILS" = "Ensenya les miniatures dels vídeos";
 "SETTINGS_SHOW_ARTWORKS" = "Ensenya les creacions visuals dels àudios";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inclou la biblioteca d'arxius multimèdia a la còpia de seguretat del dispositiu";
 
-"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK" = "Xarxa";
 "SETTINGS_NETWORK_CACHING_TITLE" = "Nivell de memòria cau de la xarxa";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "La latència més baixa";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latència baixa";
@@ -107,13 +107,13 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latència alta";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "La latència més alta";
 "SETTINGS_WIFISHARING_IPv6" = "Suport IPv6 per compartir Wi-Fi";
-"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
-"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_FORCE_SMBV1" = "Preferit SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Desmarqueu aquesta opció si teniu problemes en accedir al servidor SMB";
 
 "SETTINGS_ARTWORK" = "Il·lustracions";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Baixa il·lustracions";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_NEW_PLAYER" = "Nou reproductor";
 
-"ABOUT_APP_TV" = "About VLC for tvOS";
+"ABOUT_APP_TV" = "Quant al VLC per a tvOS";
