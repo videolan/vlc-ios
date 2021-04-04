@@ -17,6 +17,10 @@ protocol SectionType: CustomStringConvertible {
     var preferenceKey: String? { get }
 }
 
+protocol BlackThemeActivateDelegate: AnyObject {
+    func blackThemeSwitchOn(state: Bool)
+}
+
 protocol PasscodeActivateDelegate: AnyObject {
     func passcodeLockSwitchOn(state: Bool)
 }
@@ -39,6 +43,7 @@ class SettingsCell: UITableViewCell {
     private let notificationCenter = NotificationCenter.default
     private var localeDictionary = NSDictionary()
     var showsActivityIndicator = false
+    weak var blackThemeSwitchDelegate: BlackThemeActivateDelegate?
     weak var passcodeSwitchDelegate: PasscodeActivateDelegate?
     weak var medialibraryHidingSwitchDelegate: MedialibraryHidingActivateDelegate?
     weak var mediaLibraryBackupSwitchDelegate: MediaLibraryBackupActivateDelegate?
@@ -185,7 +190,9 @@ class SettingsCell: UITableViewCell {
     @objc func handleSwitchAction(sender: UISwitch) {
         guard let key = sectionType?.preferenceKey else { return }
         userDefaults.set(sender.isOn ? true : false, forKey: key)
-        if sectionType?.preferenceKey == kVLCSettingPasscodeOnKey {
+        if sectionType?.preferenceKey == kVLCSettingAppThemeBlack {
+            blackThemeSwitchDelegate?.blackThemeSwitchOn(state: sender.isOn)
+        } else if sectionType?.preferenceKey == kVLCSettingPasscodeOnKey {
             passcodeSwitchDelegate?.passcodeLockSwitchOn(state: sender.isOn)
         } else if sectionType?.preferenceKey == kVLCSettingHideLibraryInFilesApp {
             medialibraryHidingSwitchDelegate?.medialibraryHidingLockSwitchOn(state: sender.isOn)

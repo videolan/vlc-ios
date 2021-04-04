@@ -97,6 +97,11 @@ enum PresentationThemeType: Int {
 
     static let brightTheme = PresentationTheme(colors: brightPalette)
     static let darkTheme = PresentationTheme(colors: darkPalette)
+    static let blackTheme = PresentationTheme(colors: blackPalette)
+
+    var isDark: Bool {
+        return self == PresentationTheme(colors: darkPalette) || self == PresentationTheme(colors: blackPalette)
+    }
 
     static var current: PresentationTheme = {
         let themeSettings = UserDefaults.standard.integer(forKey: kVLCSettingAppTheme)
@@ -108,30 +113,41 @@ enum PresentationThemeType: Int {
         }
     }
 
+    static var currentExcludingBlack: PresentationTheme = {
+        let themeSettings = UserDefaults.standard.integer(forKey: kVLCSettingAppTheme)
+        return PresentationTheme.respectiveTheme(for: PresentationThemeType(rawValue: themeSettings), excludingBlackTheme: true)
+    }()
+
     init(colors: ColorPalette) {
         self.colors = colors
         super.init()
     }
 
-    static func themeDidUpdate() {
+    @objc static func themeDidUpdate() {
         let themeSettings = UserDefaults.standard.integer(forKey: kVLCSettingAppTheme)
         PresentationTheme.current = PresentationTheme.respectiveTheme(for:
             PresentationThemeType(rawValue: themeSettings))
     }
 
-    static func respectiveTheme(for theme: PresentationThemeType?) -> PresentationTheme {
+    static func respectiveTheme(for theme: PresentationThemeType?, excludingBlackTheme: Bool = false) -> PresentationTheme {
         guard let theme = theme else {
             return PresentationTheme.brightTheme
         }
 
         var presentationTheme = PresentationTheme.brightTheme
+        var darkTheme: PresentationTheme
+        if !excludingBlackTheme && UserDefaults.standard.bool(forKey: kVLCSettingAppThemeBlack) {
+            darkTheme = PresentationTheme(colors: blackPalette)
+        } else {
+            darkTheme = PresentationTheme(colors: darkPalette)
+        }
 
         if theme == .dark {
-            presentationTheme = PresentationTheme.darkTheme
+            presentationTheme = darkTheme
         } else if theme == .auto {
             if #available(iOS 13.0, *) {
                 let isSystemDarkTheme = UIScreen.main.traitCollection.userInterfaceStyle == .dark
-                presentationTheme = isSystemDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
+                presentationTheme = isSystemDarkTheme ? darkTheme : PresentationTheme.brightTheme
             }
         }
         return presentationTheme
@@ -213,6 +229,25 @@ let darkPalette = ColorPalette(isDark: true,
                                orangeUI: UIColor(0xFF8800),
                                toolBarStyle: UIBarStyle.black,
                                blurStyle: .dark)
+
+let blackPalette = ColorPalette(isDark: true,
+                                name: "Dark",
+                                statusBarStyle: .lightContent,
+                                navigationbarColor: UIColor(0x000000),
+                                navigationbarTextColor: UIColor(0xFFFFFF),
+                                background: UIColor(0x000000),
+                                cellBackgroundA: UIColor(0x000000),
+                                cellBackgroundB: UIColor(0x494B4D),
+                                cellDetailTextColor: UIColor(0x84929C),
+                                cellTextColor: UIColor(0xFFFFFF),
+                                lightTextColor: UIColor(0xB8B8B8),
+                                sectionHeaderTextColor: UIColor(0x828282),
+                                separatorColor: UIColor(0x25292C),
+                                mediaCategorySeparatorColor: UIColor(0x25292C),
+                                tabBarColor: UIColor(0x25292C),
+                                orangeUI: UIColor(0xFF8800),
+                                toolBarStyle: UIBarStyle.black,
+                                blurStyle: .dark)
 
 let defaultFont = Typography(tableHeaderFont: UIFont.systemFont(ofSize: 24, weight: .semibold))
 

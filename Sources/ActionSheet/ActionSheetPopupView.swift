@@ -137,10 +137,10 @@ class ActionSheetPopupView: UIView {
     // MARK: - Event handlers
 
     @objc private func themeDidChange() {
-        backgroundColor = PresentationTheme.current.colors.background
-        closeButton.tintColor = PresentationTheme.current.colors.cellTextColor
-        closeButton.backgroundColor = PresentationTheme.current.colors.background
-        titleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
+        closeButton.tintColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
+        closeButton.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
+        titleLabel.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
     }
 
     @objc private func close() {

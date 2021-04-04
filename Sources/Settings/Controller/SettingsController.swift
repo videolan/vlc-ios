@@ -146,6 +146,7 @@ class SettingsController: UITableViewController {
         self.view.backgroundColor = PresentationTheme.current.colors.background
         setNavBarAppearance()
         self.setNeedsStatusBarAppearanceUpdate()
+        self.tableView.reloadData() // When theme changes hide the black theme section if needed
     }
 
     @objc private func miniPlayerIsShown() {
@@ -280,7 +281,15 @@ extension SettingsController {
         switch section {
         case .main:
             let main = MainOptions(rawValue: indexPath.row)
+            let brightThemeForced = userDefaults.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeBright
+            if indexPath.row == MainOptions.blackTheme.rawValue {
+                if brightThemeForced {
+                    //If the user wants the bright theme, we hide black theme settings
+                    cell.isHidden = true
+                }
+            }
             cell.sectionType = main
+            cell.blackThemeSwitchDelegate = self
         case .generic:
             let generic = GenericOptions(rawValue: indexPath.row)
             cell.sectionType = generic
@@ -420,6 +429,10 @@ extension SettingsController {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let automaticDimension = UITableView.automaticDimension
+        if indexPath == [SettingsSection.main.rawValue, MainOptions.blackTheme.rawValue] {
+            let brightThemeForced = userDefaults.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeBright
+            return brightThemeForced ? 0 : automaticDimension //If the user wants the bright theme, we hide black theme settings
+        }
         if indexPath == [SettingsSection.privacy.rawValue, PrivacyOptions.enableBiometrics.rawValue] {
             let isPasscodeOn = userDefaults.bool(forKey: kVLCSettingPasscodeOnKey)
             let privacySection = PrivacyOptions(rawValue: indexPath.row)
@@ -463,6 +476,14 @@ extension SettingsController: MediaLibraryHidingDelegate {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+}
+
+// MARK: - SwitchOn Delegates
+
+extension SettingsController: BlackThemeActivateDelegate {
+    func blackThemeSwitchOn(state: Bool) {
+        PresentationTheme.themeDidUpdate()
     }
 }
 

@@ -62,7 +62,7 @@ class ActionSheet: UIViewController {
                                               collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = PresentationTheme.current.colors.background
+        collectionView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(ActionSheetCell.self,
@@ -73,15 +73,15 @@ class ActionSheet: UIViewController {
 
     lazy var collectionWrapperView: UIView = {
         let collectionWrapperView: UIView = UIView(frame: UIScreen.main.bounds)
-        collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
+        collectionWrapperView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
         return collectionWrapperView
     }()
 
     private(set) lazy var headerView: ActionSheetSectionHeader = {
         let headerView = ActionSheetSectionHeader()
         headerView.title.text = delegate?.headerViewTitle?() ?? "Default header title"
-        headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
-        headerView.backgroundColor = PresentationTheme.current.colors.background
+        headerView.title.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
+        headerView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
         headerView.translatesAutoresizingMaskIntoConstraints = false
         return headerView
     }()
@@ -211,10 +211,10 @@ class ActionSheet: UIViewController {
     }
 
     @objc private func updateTheme() {
-        collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
-        collectionView.backgroundColor = PresentationTheme.current.colors.background
-        headerView.backgroundColor = PresentationTheme.current.colors.background
-        headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
+        collectionWrapperView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
+        collectionView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
+        headerView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
+        headerView.title.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
         collectionView.layoutIfNeeded()
     }
     

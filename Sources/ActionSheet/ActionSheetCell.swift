@@ -98,7 +98,7 @@ class ActionSheetCell: UICollectionViewCell {
 
     let name: UILabel = {
         let name = UILabel()
-        name.textColor = PresentationTheme.current.colors.cellTextColor
+        name.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
         name.font = UIFont.systemFont(ofSize: 15)
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
@@ -171,7 +171,7 @@ class ActionSheetCell: UICollectionViewCell {
 
     private func updateColors() {
         let shouldUpdateColors = delegate?.actionSheetCellShouldUpdateColors() ?? true
-        let colors = PresentationTheme.current.colors
+        let colors = PresentationTheme.currentExcludingBlack.colors
         if shouldUpdateColors {
             name.textColor = isSelected ? colors.orangeUI : colors.cellTextColor
             tintColor = isSelected ? colors.orangeUI : colors.cellDetailTextColor
@@ -216,7 +216,7 @@ class ActionSheetCell: UICollectionViewCell {
         accessoryType = model.viewToPresent != nil && model.accessoryType != .popup ? .disclosureChevron : model.accessoryType
 
         if accessoryType == .disclosureChevron || accessoryType == .popup {
-            accessoryTypeImageView.tintColor = PresentationTheme.current.colors.orangeUI
+            accessoryTypeImageView.tintColor = PresentationTheme.currentExcludingBlack.colors.orangeUI
         }
     }
 
@@ -255,8 +255,8 @@ class ActionSheetCell: UICollectionViewCell {
     }
 
     @objc private func updateTheme() {
-        backgroundColor = PresentationTheme.current.colors.background
-        name.textColor = PresentationTheme.current.colors.cellTextColor
-        viewToPresent?.backgroundColor = PresentationTheme.current.colors.background
+        backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
+        name.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
+        viewToPresent?.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
     }
 }

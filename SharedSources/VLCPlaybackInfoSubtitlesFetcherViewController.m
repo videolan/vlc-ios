@@ -113,8 +113,7 @@
         }
 
         if ([[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingAppTheme] == kVLCSettingAppThemeSystem) {
-            BOOL isSystemDarkTheme = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
-            PresentationTheme.current = isSystemDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme;
+            [PresentationTheme themeDidUpdate];
         }
         [self themeDidChange];
     }

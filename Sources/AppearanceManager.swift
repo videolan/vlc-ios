@@ -19,11 +19,11 @@ class AppearanceManager: NSObject {
             if UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeSystem {
                 UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = .unspecified
             } else {
-                UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = theme == PresentationTheme.darkTheme ? .dark : .light
+                UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
             }
         }
         // Change the keyboard for UISearchBar
-        UITextField.appearance().keyboardAppearance = theme == PresentationTheme.darkTheme ? .dark : .light
+        UITextField.appearance().keyboardAppearance = theme.isDark ? .dark : .light
         // For the cursor
         UITextField.appearance().tintColor = theme.colors.orangeUI
 

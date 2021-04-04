@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Bright theme";
 "SETTINGS_THEME_DARK" = "Dark theme";
 "SETTINGS_THEME_SYSTEM" = "Automatic";
+"SETTINGS_THEME_BLACK" = "Use black background";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";

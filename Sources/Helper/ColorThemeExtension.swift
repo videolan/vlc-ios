@@ -23,9 +23,7 @@ extension UICollectionViewController {
                 return
             }
 
-            let isSystemDarkTheme = traitCollection.userInterfaceStyle == .dark
-            PresentationTheme.current = isSystemDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
-
+            PresentationTheme.themeDidUpdate()
         }
     }
 }
@@ -44,9 +42,7 @@ extension UITableViewController {
                 return
             }
 
-            let isSystemDarkTheme = traitCollection.userInterfaceStyle == .dark
-            PresentationTheme.current = isSystemDarkTheme ? PresentationTheme.darkTheme : PresentationTheme.brightTheme
-
+            PresentationTheme.themeDidUpdate()
         }
     }
 }

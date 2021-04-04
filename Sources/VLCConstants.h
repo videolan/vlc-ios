@@ -20,6 +20,7 @@
 #define kVLCSettingAppThemeBright 0
 #define kVLCSettingAppThemeDark 1
 #define kVLCSettingAppThemeSystem 2
+#define kVLCSettingAppThemeBlack @"blackTheme"
 #define kVLCOptimizeItemNamesForDisplay @"MLDecrapifyTitles"
 #define kVLCSettingAbout @"about"
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
