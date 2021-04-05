@@ -157,7 +157,7 @@ class VideoPlayerViewController: UIViewController {
                 let largeConfig = UIImage.SymbolConfiguration(scale: .large)
                 image = UIImage(systemName: "lock.rotation")?.withConfiguration(largeConfig)
             } else {
-                image = UIImage(named: "interfacelock")?.withRenderingMode(.alwaysTemplate)
+                image = UIImage(named: "lock.rotation")?.withRenderingMode(.alwaysTemplate)
             }
             videoPlayerControls.rotationLockButton.setImage(image, for: .normal)
             videoPlayerControls.rotationLockButton.tintColor = .white
