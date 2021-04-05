@@ -19,8 +19,8 @@
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Nux-PF-Uy2" userLabel="Controls">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4vJ-kK-AO4" userLabel="Left controls">
-                            <rect key="frame" x="0.0" y="0.0" width="96" height="44"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="4vJ-kK-AO4" userLabel="Left controls">
+                            <rect key="frame" x="0.0" y="0.0" width="88" height="44"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xy4-Ix-lOi" userLabel="Subtitle">
                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -35,7 +35,7 @@
                                     </connections>
                                 </button>
                                 <button hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hN-qU-px8" userLabel="DVD">
-                                    <rect key="frame" x="48" y="0.0" width="44" height="44"/>
+                                    <rect key="frame" x="44" y="0.0" width="44" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="5iz-gb-AXG"/>
                                         <constraint firstAttribute="height" constant="44" id="Dfr-es-duj"/>
@@ -46,7 +46,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBr-hb-t7N" userLabel="Rotation Lock">
-                                    <rect key="frame" x="52" y="0.0" width="44" height="44"/>
+                                    <rect key="frame" x="44" y="0.0" width="44" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="Tsp-xL-SFW"/>
                                         <constraint firstAttribute="width" constant="44" id="Ylc-eo-hSh"/>
@@ -63,10 +63,10 @@
                                 </button>
                             </subviews>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3gD-AA-rTK" userLabel="Center controls">
+                        <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3gD-AA-rTK" userLabel="Center controls">
                             <rect key="frame" x="232" y="0.0" width="136" height="44"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FbE-qn-gpX">
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="FbE-qn-gpX">
                                     <rect key="frame" x="0.0" y="2" width="40" height="40"/>
                                     <subviews>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJq-bj-ToS" userLabel="Backward">
@@ -106,7 +106,7 @@
                                         <action selector="handlePlayPauseButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="bIh-gJ-x68"/>
                                     </connections>
                                 </button>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NO1-OE-x4I">
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="NO1-OE-x4I">
                                     <rect key="frame" x="92" y="0.0" width="44" height="44"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brI-W2-OMr" userLabel="Next ">
@@ -140,8 +140,8 @@
                             </constraints>
                             <variation key="heightClass=regular-widthClass=compact" spacing="4"/>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GDb-m6-3gp" userLabel="Right controls">
-                            <rect key="frame" x="504" y="0.0" width="96" height="44"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="GDb-m6-3gp" userLabel="Right controls">
+                            <rect key="frame" x="512" y="0.0" width="88" height="44"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VA6-oF-BG7" userLabel="Aspect Ratio">
                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -155,7 +155,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BVD-eC-bAW" userLabel="More Actions">
-                                    <rect key="frame" x="52" y="0.0" width="44" height="44"/>
+                                    <rect key="frame" x="44" y="0.0" width="44" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="HEo-oL-wKW"/>
                                         <constraint firstAttribute="height" constant="44" id="Sct-kr-7ka"/>
