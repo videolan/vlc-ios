@@ -1198,11 +1198,18 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
 
             view.addSubview(equalizerPopupView)
 
+            let iPhone5width: CGFloat = 320
+            let leadingConstraint = equalizerPopupView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor, constant: 10)
+            let trailingConstraint = equalizerPopupView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor, constant: -10)
+            leadingConstraint.priority = .defaultHigh
+            trailingConstraint.priority = .defaultHigh
             let newConstraints = [
                 equalizerPopupTopConstraint,
                 equalizerPopupBottomConstraint,
-                equalizerPopupView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor, constant: 10),
-                equalizerPopupView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor, constant: -10)
+                leadingConstraint,
+                trailingConstraint,
+                equalizerPopupView.centerXAnchor.constraint(equalTo: mainLayoutGuide.centerXAnchor),
+                equalizerPopupView.widthAnchor.constraint(greaterThanOrEqualToConstant: iPhone5width)
             ]
             NSLayoutConstraint.activate(newConstraints)
         }
