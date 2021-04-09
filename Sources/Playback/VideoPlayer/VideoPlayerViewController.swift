@@ -231,6 +231,14 @@ class VideoPlayerViewController: UIViewController {
         return backgroundGradientView
     }()
 
+    private var artWorkImageView: UIImageView = {
+        let artWorkImageView = UIImageView()
+        artWorkImageView.frame.size.width = UIScreen.main.bounds.width * 0.6
+        artWorkImageView.frame.size.height = UIScreen.main.bounds.width * 0.6
+        artWorkImageView.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]
+        return artWorkImageView
+    }()
+
     private var videoOutputView: UIView = {
         var videoOutputView = UIView()
         videoOutputView.backgroundColor = .black
@@ -821,6 +829,7 @@ private extension VideoPlayerViewController {
 
         view.sendSubviewToBack(videoOutputView)
         view.insertSubview(backgroundGradientView, aboveSubview: videoOutputView)
+        videoOutputView.addSubview(artWorkImageView)
     }
 
     private func setupGestures() {
@@ -980,6 +989,10 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
     func prepare(forMediaPlayback playbackService: PlaybackService) {
         mediaNavigationBar.setMediaTitleLabelText("")
         videoPlayerControls.updatePlayPauseButton(toState: playbackService.isPlaying)
+        
+        DispatchQueue.main.async {
+            self.artWorkImageView.image = playbackService.metadata.artworkImage
+        }
         // FIXME: -
         resetIdleTimer()
     }
@@ -1033,6 +1046,8 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         if playbackService.isPlayingOnExternalScreen() {
             externalVideoOutputView.updateUI(rendererItem: playbackService.renderer, title: metadata.title)
         }
+
+        artWorkImageView.isHidden = !metadata.isAudioOnly
         // subControls.toggleFullscreen().hidden = _audioOnly
     }
 }
