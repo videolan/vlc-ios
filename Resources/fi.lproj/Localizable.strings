@@ -207,7 +207,7 @@
 
 "RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
 "RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_EQUALIZER" = "Haluatko nollata ekvalisaattorin asetukset?";
 "RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
 "VERSION_FORMAT" = "Versio: %@";
@@ -402,7 +402,7 @@
 
 /* VideoPlayerControls */
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "Tekstitykset ja ääniraidat";
 "SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
 
 "DVD_BUTTON" = "DVD";
@@ -412,18 +412,18 @@
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
 "BACKWARD_BUTTON" = "Taaksepäin";
-"BACKWARD_HINT" = "Jump Backwards";
+"BACKWARD_HINT" = "Hyppää taaksepäin";
 
 "PREVIOUS_BUTTON" = "Edellinen";
 "PREVIOUS_HINT" = "Aiemmin toistettu media";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_BUTTON" = "Toista tai keskeytä";
 "PLAY_PAUSE_HINT" = "Play or Pause current playback";
 
 "NEXT_HINT" = "Next media";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"FORWARD_BUTTON" = "Eteenpäin";
+"FORWARD_HINT" = "Hyppää eteenpäin";
 
 "INTERFACE_LOCK_BUTTON" = "Lukittu käyttöliittymä";
 
