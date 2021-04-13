@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_volume_high.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

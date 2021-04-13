@@ -181,9 +181,11 @@ class VideoPlayerViewController: UIViewController {
         return moreOptionsActionSheet
     }()
 
+    private var volumeView = MPVolumeView(frame: .zero)
     private var queueViewController: QueueViewController?
     private var alertController: UIAlertController?
     private var rendererButton: UIButton?
+    let notificationCenter = NotificationCenter.default
 
     private var isFirstCall: Bool = true
 
@@ -217,6 +219,20 @@ class VideoPlayerViewController: UIViewController {
                            UIColor.black.withAlphaComponent(0), UIColor.black.cgColor]
         gradient.locations = [0, 0.3, 0.7, 1]
         return gradient
+    }()
+
+    private var volumeControlView: VolumeControlView = {
+        let vc = VolumeControlView()
+        vc.updateVolumeLevel(level: AVAudioSession.sharedInstance().outputVolume)
+        vc.translatesAutoresizingMaskIntoConstraints = false
+        return vc
+    }()
+
+    private var brightnessControlView: BrightnessControlView = {
+        let vc = BrightnessControlView()
+        vc.updateVolumeLevel(level: Float(UIScreen.main.brightness))
+        vc.translatesAutoresizingMaskIntoConstraints = false
+        return vc
     }()
 
     private lazy var backgroundGradientView: UIView = {
@@ -261,6 +277,20 @@ class VideoPlayerViewController: UIViewController {
     }()
 
     // MARK: - Gestures
+
+    private lazy var panSlideVolumeLevelRecognizer: UIPanGestureRecognizer = {
+        let panRecognizer = UIPanGestureRecognizer(target: self,
+                                                   action: #selector(handleSlideVolumePanGesture(gesture:)))
+        panRecognizer.maximumNumberOfTouches = 1
+        return panRecognizer
+    }()
+
+    private lazy var panSlideLevelRecognizer: UIPanGestureRecognizer = {
+        let panRecognizer = UIPanGestureRecognizer(target: self,
+                                                   action: #selector(handleSlidePanGesture(gesture:)))
+        panRecognizer.maximumNumberOfTouches = 1
+        return panRecognizer
+    }()
 
     private lazy var tapOnVideoRecognizer: UITapGestureRecognizer = {
         let tapOnVideoRecognizer = UITapGestureRecognizer(target: self,
@@ -462,6 +492,10 @@ class VideoPlayerViewController: UIViewController {
             idleTimer?.invalidate()
             idleTimer = nil
         }
+
+        volumeControlView.alpha = 0
+        brightnessControlView.alpha = 0
+
         numberOfTapSeek = 0
         previousSeekState = .default
     }
@@ -474,6 +508,7 @@ class VideoPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
+        setupObservers()
         setupViews()
         setupGestures()
         setupConstraints()
@@ -597,8 +632,36 @@ private extension VideoPlayerViewController {
 }
 
 // MARK: - Gesture handlers
+extension MPVolumeView {
+  static func setVolume(_ volume: Float) {
+    let volumeView = MPVolumeView()
+    let slider = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider
+
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+      slider?.value = volume
+    }
+  }
+}
 
 extension VideoPlayerViewController {
+
+    @objc func handleSlideVolumePanGesture(gesture: UIPanGestureRecognizer) {
+         let currentPoint = gesture.location(in: volumeControlView)
+         let percentage = currentPoint.x/volumeControlView.bounds.size.width
+        let delta = Float(percentage) *  (volumeControlView.levelSlider.maximumValue - volumeControlView.levelSlider.minimumValue)
+        let value = volumeControlView.levelSlider.minimumValue + delta
+        MPVolumeView.setVolume(value)
+    }
+
+    @objc func handleSlidePanGesture(gesture: UIPanGestureRecognizer) {
+         let currentPoint = gesture.location(in: brightnessControlView)
+         let percentage = currentPoint.x/brightnessControlView.bounds.size.width
+        let delta = Float(percentage) *  (brightnessControlView.levelSlider.maximumValue - brightnessControlView.levelSlider.minimumValue)
+        let value = brightnessControlView.levelSlider.minimumValue + delta
+        brightnessControlView.onLuminosityChange()
+        brightnessControlView.updateVolumeLevel(level: value)
+    }
+
     @objc func handleTapOnVideo() {
         // FIXME: -
         numberOfTapSeek = 0
@@ -651,6 +714,9 @@ extension VideoPlayerViewController {
             self.optionsNavigationBar.alpha = alpha
             self.videoPlayerControls.alpha = alpha
             self.scrubProgressBar.alpha = alpha
+
+            self.volumeControlView.alpha = hidden ? 0 : 1
+            self.brightnessControlView.alpha = hidden ? 0 : 1
             self.backgroundGradientView.alpha = hidden ? 0 : 1
         }
     }
@@ -816,14 +882,25 @@ extension VideoPlayerViewController {
 // MARK: - Private setups
 
 private extension VideoPlayerViewController {
+
+    private func setupObservers() {
+
+        let audioSession = AVAudioSession()
+                try? audioSession.setActive(true)
+                audioSession.addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
+    }
+
     private func setupViews() {
         view.backgroundColor = .black
         view.addSubview(mediaNavigationBar)
+        hideSystemVolumeInfo()
+
         view.addSubview(optionsNavigationBar)
         view.addSubview(videoPlayerControls)
         view.addSubview(scrubProgressBar)
-
         view.addSubview(videoOutputView)
+        view.addSubview(volumeControlView)
+        view.addSubview(brightnessControlView)
         view.addSubview(externalVideoOutputView)
 
         view.sendSubviewToBack(videoOutputView)
@@ -831,7 +908,15 @@ private extension VideoPlayerViewController {
         videoOutputView.addSubview(artWorkImageView)
     }
 
+    private func hideSystemVolumeInfo() {
+        self.volumeView.alpha = 0.00001
+        view.addSubview(self.volumeView)
+        NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(_:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+    }
+
     private func setupGestures() {
+        self.volumeControlView.addGestureRecognizer(panSlideVolumeLevelRecognizer)
+        self.brightnessControlView.addGestureRecognizer(panSlideLevelRecognizer)
         view.addGestureRecognizer(tapOnVideoRecognizer)
         view.addGestureRecognizer(pinchRecognizer)
         view.addGestureRecognizer(doubleTapRecognizer)
@@ -850,12 +935,32 @@ private extension VideoPlayerViewController {
     // MARK: - Constraints
 
     private func setupConstraints() {
+        setupBrightnessControlConstraints()
+        setupVolumeControlConstraints()
         setupVideoOutputConstraints()
         setupExternalVideoOutputConstraints()
         setupVideoPlayerControlsConstraints()
         setupMediaNavigationBarConstraints()
         setupScrubProgressBarConstraints()
         setupAspectRatioContraints()
+    }
+
+    private func setupBrightnessControlConstraints() {
+        NSLayoutConstraint.activate([
+            brightnessControlView.heightAnchor.constraint(equalToConstant: 20),
+            brightnessControlView.widthAnchor.constraint(equalToConstant: 170),
+            brightnessControlView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant:-10),
+            brightnessControlView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor, constant: -70)
+        ])
+    }
+
+    private func setupVolumeControlConstraints() {
+        NSLayoutConstraint.activate([
+            volumeControlView.heightAnchor.constraint(equalToConstant: 20),
+            volumeControlView.widthAnchor.constraint(equalToConstant: 170),
+            volumeControlView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant:-10),
+            volumeControlView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor, constant: 70)
+        ])
     }
 
     private func setupVideoOutputConstraints() {
@@ -922,11 +1027,27 @@ private extension VideoPlayerViewController {
             scrubProgressBar.bottomAnchor.constraint(equalTo: videoPlayerControls.topAnchor, constant: -margin)
         ])
     }
+
     private func setupAspectRatioContraints() {
         NSLayoutConstraint.activate([
             aspectRatioStatusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             aspectRatioStatusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+
+    // MARK: - Observers
+    @objc func volumeChanged(_ notification: NSNotification) {
+        if let volume = notification.userInfo!["AVSystemController_AudioVolumeNotificationParameter"] as? Float {
+            if brightnessControlView.alpha == 1 {
+                self.volumeControlView.alpha = 1
+            } else {
+                self.volumeControlView.alpha = 1
+                UIView.animate(withDuration: 4, animations: { () -> Void in
+                    self.volumeControlView.alpha = 0
+                })
+            }
+            self.volumeControlView.updateVolumeLevel(level: volume)
+        }
     }
 
     // MARK: - Others

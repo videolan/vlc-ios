@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_brightness_medium.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
