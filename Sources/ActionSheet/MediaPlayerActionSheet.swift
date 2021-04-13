@@ -80,9 +80,11 @@ class MediaPlayerActionSheet: ActionSheet {
     }
 
     private func add(childView child: UIView) {
+        child.frame = self.offScreenFrame
+        self.addChildToStackView(child)
+        child.layoutIfNeeded()
         UIView.animate(withDuration: 0.3, animations: {
             child.frame = self.collectionView.frame
-            self.addChildToStackView(child)
             self.headerView.previousButton.isHidden = false
         }) {
             (completed) in
