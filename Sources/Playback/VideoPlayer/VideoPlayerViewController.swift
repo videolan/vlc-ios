@@ -325,12 +325,11 @@ class VideoPlayerViewController: UIViewController {
 
     // MARK: -
 
-    @objc init(services: Services, playerController: PlayerController, delegate:VideoPlayerViewControllerDelegate) {
+    @objc init(services: Services, playerController: PlayerController) {
         self.services = services
         self.playerController = playerController
         super.init(nibName: nil, bundle: nil)
         self.playerController.delegate = self
-        self.delegate = delegate
     }
 
     required init?(coder: NSCoder) {
