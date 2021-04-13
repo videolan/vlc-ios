@@ -1058,11 +1058,7 @@ extension VideoPlayerViewController: PlayerControllerDelegate {
     }
 
     func playerControllerPlaybackDidStop(_ playerController: PlayerController) {
-        guard let delegate = delegate else {
-            preconditionFailure("VideoPlayerViewController: Delegate not assigned.")
-        }
-
-        delegate.videoPlayerViewControllerDidMinimize(self)
+        delegate?.videoPlayerViewControllerDidMinimize(self)
         // Reset interface to default icon when dismissed
 //        subControls.isInFullScreen = false
     }
