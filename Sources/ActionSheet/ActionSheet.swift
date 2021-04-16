@@ -70,6 +70,12 @@ class ActionSheet: UIViewController {
         return collectionView
     }()
 
+    private lazy var collectionWrapperView: UIView = {
+        let collectionWrapperView: UIView = UIView(frame: UIScreen.main.bounds)
+        collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
+        return collectionWrapperView
+    }()
+
     private(set) lazy var headerView: ActionSheetSectionHeader = {
         let headerView = ActionSheetSectionHeader()
         headerView.title.text = delegate?.headerViewTitle?() ?? "Default header title"
@@ -148,10 +154,11 @@ class ActionSheet: UIViewController {
         view.addSubview(mainStackView)
 
         mainStackView.addArrangedSubview(headerView)
-        mainStackView.addArrangedSubview(collectionView)
+        mainStackView.addArrangedSubview(collectionWrapperView)
 
         backgroundView.frame = UIScreen.main.bounds
 
+        setupCollectionWrapperView()
         setupMainStackViewConstraints()
         setupCollectionViewConstraints()
         setupHeaderViewConstraints()
@@ -204,6 +211,7 @@ class ActionSheet: UIViewController {
     }
 
     @objc private func updateTheme() {
+        collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
         collectionView.backgroundColor = PresentationTheme.current.colors.background
         headerView.backgroundColor = PresentationTheme.current.colors.background
         headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
@@ -218,6 +226,22 @@ class ActionSheet: UIViewController {
 // MARK: Private setup methods
 
 private extension ActionSheet {
+    private func setupCollectionWrapperView() {
+        collectionWrapperView.addSubview(collectionView)
+        let bottomConstraint: NSLayoutConstraint
+        if #available(iOS 11, *) {
+            bottomConstraint = collectionView.bottomAnchor.constraint(equalTo: collectionWrapperView.safeAreaLayoutGuide.bottomAnchor)
+        } else {
+            bottomConstraint = collectionView.bottomAnchor.constraint(equalTo: collectionWrapperView.bottomAnchor)
+        }
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: collectionWrapperView.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: collectionWrapperView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: collectionWrapperView.trailingAnchor),
+            bottomConstraint
+        ])
+    }
+
     private func setupHeaderViewConstraints() {
         NSLayoutConstraint.activate([
             headerView.heightAnchor.constraint(equalToConstant: headerView.cellHeight),
@@ -294,6 +318,10 @@ extension ActionSheet: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: cellHeight)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
     }
 }
 
