@@ -300,7 +300,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         super.viewDidLoad()
         setupCollectionView()
         setupSearchBar()
-        _ = (MLMediaLibrary.sharedMediaLibrary() as! MLMediaLibrary).libraryDidAppear()
+        (MLMediaLibrary.sharedMediaLibrary() as! MLMediaLibrary).libraryDidAppear()
     }
 
     override func viewWillAppear(_ animated: Bool) {
