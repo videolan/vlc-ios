@@ -906,7 +906,9 @@ extension MediaCategoryViewController: UICollectionViewDelegateFlowLayout {
             //we don't have yet the updated safeare layout frame. This is addressed by relayouting from viewSafeAreaInsetsDidChange
             var toWidth = toSize.width != 0 ? toSize.width : collectionView.frame.size.width
             if #available(iOS 11.0, *) {
-                toWidth = collectionView.safeAreaLayoutGuide.layoutFrame.width
+                // In case of nested views, the safe area may not be updated.
+                // Getting its parent's safe area gives us the true updated safe area.
+                toWidth = parent?.view.safeAreaLayoutGuide.layoutFrame.width ?? collectionView.safeAreaLayoutGuide.layoutFrame.width
             }
             cachedCellSize = model.cellType.cellSizeForWidth(toWidth)
         }
