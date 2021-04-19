@@ -27,12 +27,14 @@ NSString * const kVLCNetworkLoginViewButtonCellIdentifier = @"VLCNetworkLoginVie
         self.textLabel.backgroundColor = UIColor.clearColor;
         self.textLabel.textColor = UIColor.whiteColor;
         self.textLabel.textAlignment = NSTextAlignmentCenter;
+        self.textLabel.font = [UIFont boldSystemFontOfSize:15];
         self.accessibilityTraits = UIAccessibilityTraitButton;
 
         UIView *blackView = [[UIView alloc] init];
         [self insertSubview:blackView atIndex:0];
         blackView.backgroundColor = PresentationTheme.current.colors.orangeUI;
         self.blackView = blackView;
+        self.blackView.layer.cornerRadius = 4.0;
     }
     return self;
 }

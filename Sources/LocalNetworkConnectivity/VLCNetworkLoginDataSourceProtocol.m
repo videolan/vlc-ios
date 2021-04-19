@@ -112,7 +112,7 @@ static NSString *const VLCNetworkLoginDataSourceProtocolCellIdentifier = @"VLCNe
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.segmentedControl.frame = CGRectInset(self.contentView.bounds, 20, 5);
+    self.segmentedControl.frame = CGRectInset(self.contentView.bounds, 0, 5);
 }
 
 - (void)themeDidChange

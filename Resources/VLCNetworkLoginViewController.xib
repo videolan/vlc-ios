@@ -24,7 +24,7 @@
             </userGuides>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="105">
-                    <rect key="frame" x="0.0" y="44" width="320" height="478"/>
+                    <rect key="frame" x="20" y="44" width="280" height="478"/>
                     <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </tableView>
             </subviews>
@@ -32,12 +32,9 @@
             <color key="backgroundColor" red="0.11759927868843079" green="0.11759573966264725" blue="0.11759774386882782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Dac-5A-OX0" firstAttribute="bottom" secondItem="105" secondAttribute="bottom" id="8a7-I6-Jyi"/>
-                <constraint firstItem="Dac-5A-OX0" firstAttribute="bottom" secondItem="105" secondAttribute="bottom" id="BTW-QM-u2i"/>
-                <constraint firstItem="105" firstAttribute="leading" secondItem="Dac-5A-OX0" secondAttribute="leading" id="HxN-BZ-SIS"/>
-                <constraint firstItem="Dac-5A-OX0" firstAttribute="trailing" secondItem="105" secondAttribute="trailing" id="Vvv-1Z-ZMc"/>
+                <constraint firstItem="105" firstAttribute="leading" secondItem="Dac-5A-OX0" secondAttribute="leading" constant="20" id="HxN-BZ-SIS"/>
                 <constraint firstItem="105" firstAttribute="top" secondItem="Dac-5A-OX0" secondAttribute="top" id="Xpn-Bx-WkR"/>
-                <constraint firstItem="105" firstAttribute="leading" secondItem="Dac-5A-OX0" secondAttribute="leading" id="aIE-Wg-5Y7"/>
-                <constraint firstItem="Dac-5A-OX0" firstAttribute="trailing" secondItem="105" secondAttribute="trailing" id="eHn-Wc-T7J"/>
+                <constraint firstItem="Dac-5A-OX0" firstAttribute="trailing" secondItem="105" secondAttribute="trailing" constant="20" id="eHn-Wc-T7J"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
