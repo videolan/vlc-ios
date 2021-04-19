@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18092"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -147,26 +147,27 @@
                     </connections>
                 </tableView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="GpN-qZ-TmN"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="19" secondAttribute="trailing" id="5U7-LM-ATZ"/>
-                <constraint firstItem="vcr-nA-XZ6" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="A4u-Eh-wRg"/>
-                <constraint firstAttribute="trailing" secondItem="10" secondAttribute="trailing" id="HV2-DQ-qh1"/>
-                <constraint firstAttribute="trailing" secondItem="Cuf-mI-ZuN" secondAttribute="trailing" id="KFa-mj-ThO"/>
+                <constraint firstItem="GpN-qZ-TmN" firstAttribute="trailing" secondItem="19" secondAttribute="trailing" id="5U7-LM-ATZ"/>
+                <constraint firstItem="vcr-nA-XZ6" firstAttribute="leading" secondItem="GpN-qZ-TmN" secondAttribute="leading" id="A4u-Eh-wRg"/>
+                <constraint firstItem="GpN-qZ-TmN" firstAttribute="trailing" secondItem="10" secondAttribute="trailing" id="HV2-DQ-qh1"/>
+                <constraint firstItem="GpN-qZ-TmN" firstAttribute="trailing" secondItem="Cuf-mI-ZuN" secondAttribute="trailing" id="KFa-mj-ThO"/>
                 <constraint firstItem="19" firstAttribute="top" secondItem="vcr-nA-XZ6" secondAttribute="bottom" id="L9x-Fc-bnj"/>
-                <constraint firstItem="vcr-nA-XZ6" firstAttribute="top" secondItem="1" secondAttribute="top" id="RUP-2X-uA8"/>
+                <constraint firstItem="vcr-nA-XZ6" firstAttribute="top" secondItem="GpN-qZ-TmN" secondAttribute="top" id="RUP-2X-uA8"/>
                 <constraint firstItem="19" firstAttribute="top" secondItem="vcr-nA-XZ6" secondAttribute="bottom" id="U7B-ad-evF"/>
                 <constraint firstItem="Cuf-mI-ZuN" firstAttribute="top" secondItem="19" secondAttribute="bottom" id="Ulq-Bz-F1Q"/>
-                <constraint firstItem="19" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="UsO-RE-lJB"/>
-                <constraint firstAttribute="trailing" secondItem="vcr-nA-XZ6" secondAttribute="trailing" id="WGw-Nr-jQN"/>
-                <constraint firstItem="Cuf-mI-ZuN" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="Yhj-YG-88C"/>
-                <constraint firstItem="10" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="Ytj-N4-ovJ"/>
+                <constraint firstItem="19" firstAttribute="leading" secondItem="GpN-qZ-TmN" secondAttribute="leading" id="UsO-RE-lJB"/>
+                <constraint firstItem="GpN-qZ-TmN" firstAttribute="trailing" secondItem="vcr-nA-XZ6" secondAttribute="trailing" id="WGw-Nr-jQN"/>
+                <constraint firstItem="Cuf-mI-ZuN" firstAttribute="leading" secondItem="GpN-qZ-TmN" secondAttribute="leading" id="Yhj-YG-88C"/>
+                <constraint firstItem="10" firstAttribute="leading" secondItem="GpN-qZ-TmN" secondAttribute="leading" id="Ytj-N4-ovJ"/>
                 <constraint firstItem="10" firstAttribute="top" secondItem="Cuf-mI-ZuN" secondAttribute="bottom" constant="2" id="aa9-gV-1hG"/>
-                <constraint firstAttribute="bottom" secondItem="10" secondAttribute="bottom" id="i2B-Gs-T3n"/>
+                <constraint firstItem="GpN-qZ-TmN" firstAttribute="bottom" secondItem="10" secondAttribute="bottom" id="i2B-Gs-T3n"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="818.84057971014499" y="251.11607142857142"/>
+            <point key="canvasLocation" x="1186.7254778407898" y="168.15808354591834"/>
         </view>
     </objects>
     <resources>
