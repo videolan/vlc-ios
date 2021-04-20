@@ -291,6 +291,7 @@ extension AddToCollectionViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.media = mlCollection[indexPath.row] as? VLCMLObject
+        cell.disableScrollView()
         return cell
     }
 }
