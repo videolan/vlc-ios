@@ -84,7 +84,7 @@ class MediaPlayerActionSheet: ActionSheet {
         self.addChildToStackView(child)
         child.layoutIfNeeded()
         UIView.animate(withDuration: 0.3, animations: {
-            child.frame = self.collectionView.frame
+            child.frame = self.collectionWrapperView.frame
             self.headerView.previousButton.isHidden = false
         }) {
             (completed) in
