@@ -15,7 +15,13 @@ extension NSObject {
 
     func getLocaleDictionary() -> NSDictionary? {
         guard let currentLocale = Locale.current.languageCode else { return nil }
-        let subDirPath = "Settings.bundle/\(currentLocale).lproj"
+
+        var currentLanguage = currentLocale
+        if currentLocale == "zh" {
+            currentLanguage = Locale.current.description.contains("Hans") ? "zh-Hans" : "zh-Hant"
+        }
+
+        let subDirPath = "Settings.bundle/\(currentLanguage).lproj"
         guard let url = Bundle.main.url(forResource: "Root",
                                         withExtension: "strings",
                                         subdirectory: subDirPath)
