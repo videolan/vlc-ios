@@ -124,12 +124,10 @@ import UIKit
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupNotifications()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupNotifications()
     }
 
     func willShow() {
@@ -139,12 +137,6 @@ import UIKit
     }
 
     // MARK: - Setup
-    private func setupNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(themeDidChange),
-                                               name: .VLCThemeDidChangeNotification, object: nil)
-    }
-
     private func createFrequencyStacks() {
         if let numberOfBands = delegate?.numberOfBands() {
             for i in 0..<numberOfBands {
@@ -239,7 +231,7 @@ import UIKit
         addSubview(stackView)
         setupFrequenciesStackView()
         setupConstraints()
-        themeDidChange()
+        setupTheme()
     }
 
     private func setupConstraints() {
@@ -338,19 +330,19 @@ import UIKit
         labelsAndFrequenciesStackView.addArrangedSubview(frequenciesScrollView)
     }
 
-    @objc func themeDidChange() {
-        backgroundColor = PresentationTheme.current.colors.background
-        plus20Label.textColor = PresentationTheme.current.colors.cellTextColor
-        zeroLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        minus20Label.textColor = PresentationTheme.current.colors.cellTextColor
-        snapBandsLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        cancelButton.tintColor = PresentationTheme.current.colors.orangeUI
-        resetButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
+    @objc func setupTheme() {
+        backgroundColor = PresentationTheme.darkTheme.colors.background
+        plus20Label.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        zeroLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        minus20Label.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        snapBandsLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        cancelButton.tintColor = PresentationTheme.darkTheme.colors.orangeUI
+        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
 
         for eqFrequency in eqFrequencies {
-            eqFrequency.currentValueLabel.textColor = PresentationTheme.current.colors.cellTextColor
-            eqFrequency.slider.tintColor = PresentationTheme.current.colors.orangeUI
-            eqFrequency.frequencyLabel.textColor = PresentationTheme.current.colors.cellTextColor
+            eqFrequency.currentValueLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+            eqFrequency.slider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
+            eqFrequency.frequencyLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
         }
     }
 

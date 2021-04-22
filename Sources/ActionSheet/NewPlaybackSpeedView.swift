@@ -51,19 +51,19 @@ class NewPlaybackSpeedView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        themeDidChange()
+        setupTheme()
         setupSegmentedControl()
     }
 
 
-    private func themeDidChange() {
-        minLabel.tintColor = PresentationTheme.current.colors.cellTextColor
-        currentButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
-        maxLabel.tintColor = PresentationTheme.current.colors.cellTextColor
-        speedSlider.tintColor = PresentationTheme.current.colors.orangeUI
-        increaseSpeedButton.tintColor = PresentationTheme.current.colors.orangeUI
-        decreaseSpeedButton.tintColor = PresentationTheme.current.colors.orangeUI
-        self.backgroundColor = PresentationTheme.current.colors.background
+    private func setupTheme() {
+        minLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
+        currentButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
+        maxLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
+        speedSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
+        increaseSpeedButton.tintColor = PresentationTheme.darkTheme.colors.orangeUI
+        decreaseSpeedButton.tintColor = PresentationTheme.darkTheme.colors.orangeUI
+        self.backgroundColor = PresentationTheme.darkTheme.colors.background
     }
 
 

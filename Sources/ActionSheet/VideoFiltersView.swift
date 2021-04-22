@@ -59,16 +59,16 @@ class VideoFiltersView: UIView {
         setupLabels()
         setupResetButton()
         setupSliders()
-        themeDidChange()
+        setupTheme()
     }
 
-    private func themeDidChange() {
-        brightnessLabel.tintColor = PresentationTheme.current.colors.cellTextColor
-        contrastLabel.tintColor = PresentationTheme.current.colors.cellTextColor
-        hueLabel.tintColor = PresentationTheme.current.colors.cellTextColor
-        saturationLabel.tintColor = PresentationTheme.current.colors.cellTextColor
-        gammaLabel.tintColor = PresentationTheme.current.colors.cellTextColor
-        resetButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
+    private func setupTheme() {
+        brightnessLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
+        contrastLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
+        hueLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
+        saturationLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
+        gammaLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
+        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
     }
 
     private func setupLabels() {
@@ -82,33 +82,33 @@ class VideoFiltersView: UIView {
     private func setupResetButton() {
         resetButton.setTitle(NSLocalizedString("BUTTON_RESET", comment: ""), for: .normal)
         resetButton.accessibilityLabel = NSLocalizedString("VIDEO_FILTER_RESET_BUTTON", comment: "")
-        resetButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
+        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
     }
 
     private func setupSliders() {
         brightnessSlider.minimumValue = minValue
         brightnessSlider.maximumValue = maxBrightness
-        brightnessSlider.tintColor = PresentationTheme.current.colors.orangeUI
+        brightnessSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         brightnessSlider.setValue(currentBrightness, animated: true)
 
         contrastSlider.minimumValue = minValue
         contrastSlider.maximumValue = maxContrast
-        contrastSlider.tintColor = PresentationTheme.current.colors.orangeUI
+        contrastSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         contrastSlider.setValue(currentContrast, animated: true)
 
         hueSlider.minimumValue = minHue
         hueSlider.maximumValue = maxHue
-        hueSlider.tintColor = PresentationTheme.current.colors.orangeUI
+        hueSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         hueSlider.setValue(currentHue, animated: true)
 
         saturationSlider.minimumValue = minValue
         saturationSlider.maximumValue = maxSaturation
-        saturationSlider.tintColor = PresentationTheme.current.colors.orangeUI
+        saturationSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         saturationSlider.setValue(currentSaturation, animated: true)
 
         gammaSlider.minimumValue = minValue
         gammaSlider.maximumValue = maxGamma
-        gammaSlider.tintColor = PresentationTheme.current.colors.orangeUI
+        gammaSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         gammaSlider.setValue(currentGamma, animated: true)
     }
 

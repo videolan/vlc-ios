@@ -123,7 +123,11 @@ class MediaPlayerActionSheet: ActionSheet {
     }
 
     func setTheme() {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .dark
+        }
         let darkColors = PresentationTheme.darkTheme.colors
+        collectionWrapperView.backgroundColor = darkColors.background
         collectionView.backgroundColor = darkColors.background
         headerView.backgroundColor = darkColors.background
         headerView.title.textColor = darkColors.cellTextColor

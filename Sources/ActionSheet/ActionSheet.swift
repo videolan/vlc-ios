@@ -70,7 +70,7 @@ class ActionSheet: UIViewController {
         return collectionView
     }()
 
-    private lazy var collectionWrapperView: UIView = {
+    lazy var collectionWrapperView: UIView = {
         let collectionWrapperView: UIView = UIView(frame: UIScreen.main.bounds)
         collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
         return collectionWrapperView

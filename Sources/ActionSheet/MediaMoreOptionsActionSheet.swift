@@ -74,7 +74,10 @@ protocol MediaMoreOptionsActionSheetDelegate {
                                                         owner: nil,
                                                         options: nil)?.first as! VideoFiltersView
         videoFiltersView.frame = offScreenFrame
-        videoFiltersView.backgroundColor = PresentationTheme.current.colors.background
+        if #available(iOS 13.0, *) {
+            videoFiltersView.overrideUserInterfaceStyle = .dark
+        }
+        videoFiltersView.backgroundColor = PresentationTheme.darkTheme.colors.background
         videoFiltersView.delegate = self
         return videoFiltersView
     }()
@@ -86,7 +89,10 @@ protocol MediaMoreOptionsActionSheetDelegate {
                                                          options: nil)?.first as! NewPlaybackSpeedView
 
         playbackSpeedView.frame = offScreenFrame
-        playbackSpeedView.backgroundColor = PresentationTheme.current.colors.background
+        if #available(iOS 13.0, *) {
+            playbackSpeedView.overrideUserInterfaceStyle = .dark
+        }
+        playbackSpeedView.backgroundColor = PresentationTheme.darkTheme.colors.background
         playbackSpeedView.delegate = self
         return playbackSpeedView
     }()
@@ -97,7 +103,10 @@ protocol MediaMoreOptionsActionSheetDelegate {
                                                       owner: nil,
                                                       options: nil)?.first as! SleepTimerView
         sleepTimerView.frame = offScreenFrame
-        sleepTimerView.backgroundColor = PresentationTheme.current.colors.background
+        if #available(iOS 13.0, *) {
+            sleepTimerView.overrideUserInterfaceStyle = .dark
+        }
+        sleepTimerView.backgroundColor = PresentationTheme.darkTheme.colors.background
         sleepTimerView.delegate = self
         return sleepTimerView
     }()
@@ -127,6 +136,9 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     private lazy var equalizerView: EqualizerView = {
         let equalizerView = EqualizerView()
+        if #available(iOS 13.0, *) {
+            sleepTimerView.overrideUserInterfaceStyle = .dark
+        }
         equalizerView.delegate = PlaybackService.sharedInstance()
         return equalizerView
     }()
@@ -169,7 +181,10 @@ extension MediaMoreOptionsActionSheet: SleepTimerViewDelegate {
 
     func sleepTimerViewShowAlert(message: String, seconds: Double) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.view.backgroundColor = PresentationTheme.current.colors.background
+        if #available(iOS 13.0, *) {
+            alert.view.overrideUserInterfaceStyle = .dark
+        }
+        alert.view.backgroundColor = PresentationTheme.darkTheme.colors.background
         alert.view.layer.cornerRadius = 15
 
         self.present(alert, animated: true)

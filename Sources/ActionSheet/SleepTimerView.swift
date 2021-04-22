@@ -34,13 +34,13 @@ class SleepTimerView: UIView {
 
     override func awakeFromNib() {
         setupButtons()
-        themeDidChange()
+        setupTheme()
     }
 
-    private func themeDidChange() {
-        backgroundColor = PresentationTheme.current.colors.background
-        resetButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
-        setButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
+    private func setupTheme() {
+        backgroundColor = PresentationTheme.darkTheme.colors.background
+        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
+        setButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
     }
 
     private func setupButtons() {
