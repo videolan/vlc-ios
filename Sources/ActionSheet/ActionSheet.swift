@@ -44,6 +44,7 @@ class ActionSheet: UIViewController {
         backgroundView.alpha = 0
         backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        backgroundView.isAccessibilityElement = true
         backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                                    action: #selector(self.removeActionSheet)))
         return backgroundView
@@ -156,8 +157,6 @@ class ActionSheet: UIViewController {
         mainStackView.addArrangedSubview(headerView)
         mainStackView.addArrangedSubview(collectionWrapperView)
 
-        backgroundView.frame = UIScreen.main.bounds
-
         setupCollectionWrapperView()
         setupMainStackViewConstraints()
         setupCollectionViewConstraints()
@@ -179,7 +178,6 @@ class ActionSheet: UIViewController {
 
         // This is to avoid a horrible visual glitch!
         mainStackView.isHidden = false
-
         let realMainStackView = mainStackView.frame
 
         mainStackView.frame.origin.y += mainStackView.frame.origin.y
@@ -193,6 +191,8 @@ class ActionSheet: UIViewController {
                         mainStackView.frame = realMainStackView
                         backgroundView.alpha = 1
         })
+        backgroundView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: mainStackView.frame.origin.y)
+        backgroundView.setNeedsUpdateConstraints()
     }
 
     override func viewWillTransition(to size: CGSize,
