@@ -110,7 +110,7 @@ import UIKit
     private var valuesOnShow: [Float] = []
     private var oldValues: [Float] = []
 
-    private var parentPopup: ActionSheetPopupView?
+    private var parentPopup: PopupView?
     private var showCancel = false
 
     override func didMoveToSuperview() {
@@ -449,12 +449,12 @@ extension EqualizerView: EqualizerPresetSelectorDelegate {
     }
 }
 
-// MARK: - ActionSheetPopupViewAccessoryViewDelegate
+// MARK: - PopupViewAccessoryViewDelegate
 
-extension EqualizerView: ActionSheetPopupViewAccessoryViewsDelegate {
-    func actionSheetPopupViewAccessoryView(_ actionSheetPopupView: ActionSheetPopupView) -> [UIView] {
+extension EqualizerView: PopupViewAccessoryViewsDelegate {
+    func popupViewAccessoryView(_ popupView: PopupView) -> [UIView] {
         if parentPopup == nil {
-            parentPopup = actionSheetPopupView
+            parentPopup = popupView
         }
         if showCancel {
             return [cancelButton, resetButton]

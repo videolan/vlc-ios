@@ -306,8 +306,8 @@ class VideoPlayerViewController: UIViewController {
     // MARK: - Popup Views
 
     private var equalizerPopupShown: Bool = false
-    private lazy var equalizerPopupView: ActionSheetPopupView = {
-        let equalizerPopupView = ActionSheetPopupView()
+    private lazy var equalizerPopupView: PopupView = {
+        let equalizerPopupView = PopupView()
         equalizerPopupView.delegate = self
         return equalizerPopupView
     }()
@@ -1316,10 +1316,10 @@ extension VideoPlayerViewController: OptionsNavigationBarDelegate {
     }
 }
 
-// MARK: - ActionSheetPopupViewDelegate
+// MARK: - PopupViewDelegate
 
-extension VideoPlayerViewController: ActionSheetPopupViewDelegate {
-    func actionSheetPopupViewDidClose(_ actionSheetPopupView: ActionSheetPopupView) {
+extension VideoPlayerViewController: PopupViewDelegate {
+    func popupViewDidClose(_ popupView: PopupView) {
         equalizerPopupShown = false
         resetIdleTimer()
         setupGestures()

@@ -1,5 +1,5 @@
 /*****************************************************************************
-* ActionSheetPopupView.swift
+* PopupView.swift
 *
 * Copyright © 2021 VLC authors and VideoLAN
 *
@@ -12,7 +12,7 @@ import UIKit
 
 // MARK: - Class
 
-class ActionSheetPopupView: UIView {
+class PopupView: UIView {
     private let titleStackView = UIStackView()
     private let closeButton = UIButton()
     let titleLabel = UILabel()
@@ -30,8 +30,8 @@ class ActionSheetPopupView: UIView {
         scrollView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
     }()
 
-    public var delegate: ActionSheetPopupViewDelegate?
-    public var accessoryViewsDelegate: ActionSheetPopupViewAccessoryViewsDelegate? {
+    public var delegate: PopupViewDelegate?
+    public var accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? {
         didSet {
             addAccessoryViews()
         }
@@ -105,7 +105,7 @@ class ActionSheetPopupView: UIView {
     }
 
     private func addAccessoryViews() {
-        if let accessoryViews = accessoryViewsDelegate?.actionSheetPopupViewAccessoryView(self) {
+        if let accessoryViews = accessoryViewsDelegate?.popupViewAccessoryView(self) {
             for accessoryView in accessoryViews {
                 titleStackView.addArrangedSubview(accessoryView)
             }
@@ -145,13 +145,13 @@ class ActionSheetPopupView: UIView {
 
     @objc private func close() {
         removeFromSuperview()
-        delegate?.actionSheetPopupViewDidClose(self)
+        delegate?.popupViewDidClose(self)
     }
 }
 
 // MARK: - Public methods
 
-extension ActionSheetPopupView {
+extension PopupView {
     func addContentView(_ contentView: UIView, constraintWidth: Bool = false, constraintHeight: Bool = false) {
         scrollView.addSubview(contentView)
 
@@ -187,12 +187,12 @@ extension ActionSheetPopupView {
     }
 }
 
-// MARK: - ActionSheetPopupViewDelegate
+// MARK: - PopupViewDelegate
 
-protocol ActionSheetPopupViewDelegate {
-    func actionSheetPopupViewDidClose(_ actionSheetPopupView: ActionSheetPopupView)
+protocol PopupViewDelegate {
+    func popupViewDidClose(_ popupView: PopupView)
 }
 
-protocol ActionSheetPopupViewAccessoryViewsDelegate {
-    func actionSheetPopupViewAccessoryView(_ actionSheetPopupView: ActionSheetPopupView) -> [UIView]
+protocol PopupViewAccessoryViewsDelegate {
+    func popupViewAccessoryView(_ popupView: PopupView) -> [UIView]
 }
