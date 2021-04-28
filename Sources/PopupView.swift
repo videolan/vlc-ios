@@ -13,6 +13,7 @@ import UIKit
 // MARK: - Class
 
 class PopupView: UIView {
+    var isShown: Bool = false
     private let titleStackView = UIStackView()
     private let closeButton = UIButton()
     let titleLabel = UILabel()
@@ -143,7 +144,7 @@ class PopupView: UIView {
         titleLabel.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
     }
 
-    @objc private func close() {
+    @objc func close() {
         removeFromSuperview()
         delegate?.popupViewDidClose(self)
     }

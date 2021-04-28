@@ -14,15 +14,10 @@
 
 extension VideoPlayerViewController: VideoPlayerControlsDelgate {
     func videoPlayerControlsDelgateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls) {
-        if self.trackSelector.isHidden == true
-            || trackSelector.switchingTracksNotChapters == false {
-            trackSelector.switchingTracksNotChapters = true
-            trackSelector.isHidden = false
-            trackSelector.alpha = 1
-            trackSelector.update()
+        if !trackSelectorPopupView.isShown {
+            showTrackSelectorPopup()
         } else {
-            trackSelector.isHidden = true
-            trackSelector.switchingTracksNotChapters = false
+            hideTrackSelectorPopup()
         }
     }
 

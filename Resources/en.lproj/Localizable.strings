@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Choose Audio Track";
 "CHOOSE_SUBTITLE_TRACK" = "Choose Subtitle Track";
+"UNKNOWN_TRACK_TYPE" = "Unknown track type";
 "OPEN_TRACK_PANEL" = "Open track selection";
 "CHOOSE_TITLE" = "Choose Title";
 "CHOOSE_CHAPTER" = "Choose Chapter";

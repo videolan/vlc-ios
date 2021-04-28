@@ -117,6 +117,7 @@
 		6D8EC09225F8010E00FDDE17 /* EqualizerPresetSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8EC09125F8010E00FDDE17 /* EqualizerPresetSelector.swift */; };
 		6DBCE3CB23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */; };
 		6DBCE3CD2368811000BCA7D5 /* EditButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */; };
+		6DD5973F2639598900CD7C2E /* TrackSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD5973E2639598900CD7C2E /* TrackSelectorView.swift */; };
 		6DDE230D239FE8C2003DE55A /* URL+isExcludedFromBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDE230C239FE8C2003DE55A /* URL+isExcludedFromBackup.swift */; };
 		6DE0114323DF31C600D704E5 /* public in Resources */ = {isa = PBXBuildFile; fileRef = 6D3C676B23CDF1FC0039ACFD /* public */; };
 		6DE9183D25F65C390039AFA7 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9183C25F65C390039AFA7 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */; };
@@ -638,6 +639,7 @@
 		6D8EC09125F8010E00FDDE17 /* EqualizerPresetSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EqualizerPresetSelector.swift; path = Sources/EqualizerPresetSelector.swift; sourceTree = "<group>"; };
 		6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCellPreviewController.swift; path = Sources/CollectionViewCellPreviewController.swift; sourceTree = "<group>"; };
 		6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditButtons.swift; path = Sources/EditButtons.swift; sourceTree = "<group>"; };
+		6DD5973E2639598900CD7C2E /* TrackSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSelectorView.swift; sourceTree = "<group>"; };
 		6DDE230C239FE8C2003DE55A /* URL+isExcludedFromBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "URL+isExcludedFromBackup.swift"; path = "Sources/Extensions/URL+isExcludedFromBackup.swift"; sourceTree = "<group>"; };
 		6DE9183C25F65C390039AFA7 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIScrollView+flashScrollIndicatorsIfNeeded.swift"; path = "Sources/Extensions/UIScrollView+flashScrollIndicatorsIfNeeded.swift"; sourceTree = "<group>"; };
 		703A80CCC005093CCDFBECBF /* Pods-VLC-iOS-Screenshots.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-Screenshots.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-VLC-iOS-Screenshots/Pods-VLC-iOS-Screenshots.distribution.xcconfig"; sourceTree = "<group>"; };
@@ -2122,6 +2124,7 @@
 				8D9F1F9E24938B680074BDBB /* VideoPlayerViewController.swift */,
 				8D0E75CA24D1D870000D5267 /* VideoPlayerViewController+ControlsDelegate.swift */,
 				91D33C7225E6B6E700CC49BE /* VideoPlayerInfoView.swift */,
+				6DD5973E2639598900CD7C2E /* TrackSelectorView.swift */,
 			);
 			path = VideoPlayer;
 			sourceTree = "<group>";
@@ -3375,6 +3378,7 @@
 				4170AF9722848DCB008881BA /* LibrarySearchDataSource.swift in Sources */,
 				7D9CB9DC1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m in Sources */,
 				E0F8980422D399E10061DB2F /* MediaScrubProgressBar.swift in Sources */,
+				6DD5973F2639598900CD7C2E /* TrackSelectorView.swift in Sources */,
 				7D30F3D0183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m in Sources */,
 				8DE1879A21060DBE00A091D2 /* MediaCategory.swift in Sources */,
 				7D18F0A21B34522000651A30 /* VLCActivityManager.m in Sources */,

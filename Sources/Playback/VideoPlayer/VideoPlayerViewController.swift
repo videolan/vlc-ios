@@ -198,16 +198,9 @@ class VideoPlayerViewController: UIViewController {
         return aspectRatioStatusLabel
     }()
 
-    private(set) lazy var trackSelector: VLCTrackSelectorView = {
-        var trackSelector = VLCTrackSelectorView(frame: .zero)
+    private(set) lazy var trackSelector: TrackSelectorView = {
+        var trackSelector = TrackSelectorView(frame: .zero)
         trackSelector.parentViewController = self
-        trackSelector.isHidden = true
-        trackSelector.translatesAutoresizingMaskIntoConstraints = false
-        trackSelector.completionHandler = ({
-            finished in
-            trackSelector.isHidden = true
-        })
-        view.addSubview(trackSelector)
         return trackSelector
     }()
 
@@ -305,11 +298,16 @@ class VideoPlayerViewController: UIViewController {
 
     // MARK: - Popup Views
 
-    private var equalizerPopupShown: Bool = false
     private lazy var equalizerPopupView: PopupView = {
         let equalizerPopupView = PopupView()
         equalizerPopupView.delegate = self
         return equalizerPopupView
+    }()
+
+    lazy var trackSelectorPopupView: PopupView = {
+        let trackSelectorPopupView = PopupView()
+        trackSelectorPopupView.delegate = self
+        return trackSelectorPopupView
     }()
 
     // MARK: - Constraints
@@ -333,6 +331,14 @@ class VideoPlayerViewController: UIViewController {
 
     private lazy var equalizerPopupBottomConstraint: NSLayoutConstraint = {
         equalizerPopupView.bottomAnchor.constraint(equalTo: scrubProgressBar.topAnchor, constant: -10)
+    }()
+
+    private lazy var trackSelectorPopupTopConstraint: NSLayoutConstraint = {
+        trackSelectorPopupView.topAnchor.constraint(equalTo: mainLayoutGuide.topAnchor, constant: 10)
+    }()
+
+    private lazy var trackSelectorPopupBottomConstraint: NSLayoutConstraint = {
+        trackSelectorPopupView.bottomAnchor.constraint(equalTo: scrubProgressBar.topAnchor, constant: -10)
     }()
 
     // MARK: -
@@ -588,17 +594,6 @@ private extension VideoPlayerViewController {
             previousSeekState = .backward
         }
     }
-
-    @objc private func downloadMoreSPU() {
-        let targetViewController: VLCPlaybackInfoSubtitlesFetcherViewController =
-            VLCPlaybackInfoSubtitlesFetcherViewController(nibName: nil,
-                                                          bundle: nil)
-        targetViewController.title = NSLocalizedString("DOWNLOAD_SUBS_FROM_OSO",
-                                                       comment: "")
-
-        let modalNavigationController = UINavigationController(rootViewController: targetViewController)
-        present(modalNavigationController, animated: true, completion: nil)
-    }
 }
 
 // MARK: - Gesture handlers
@@ -615,22 +610,24 @@ extension VideoPlayerViewController {
             setControlsHidden(false, animated: true)
         }
 
-        let equalizerPopupMargin: CGFloat
+        let popupMargin: CGFloat
         let videoPlayerControlsHeight: CGFloat
         let scrubProgressBarSpacing: CGFloat
 
         if traitCollection.verticalSizeClass == .compact {
-            equalizerPopupMargin = 0
+            popupMargin = 0
             videoPlayerControlsHeight = 22
             scrubProgressBarSpacing = 0
         } else {
-            equalizerPopupMargin = 10
+            popupMargin = 10
             videoPlayerControlsHeight = 44
             scrubProgressBarSpacing = 5
         }
-        equalizerPopupTopConstraint.constant = equalizerPopupMargin
-        equalizerPopupBottomConstraint.constant = -equalizerPopupMargin
-        if equalizerPopupShown {
+        equalizerPopupTopConstraint.constant = popupMargin
+        trackSelectorPopupTopConstraint.constant = popupMargin
+        equalizerPopupBottomConstraint.constant = -popupMargin
+        trackSelectorPopupBottomConstraint.constant = -popupMargin
+        if equalizerPopupView.isShown || trackSelectorPopupView.isShown {
             videoPlayerControlsHeightConstraint.constant = videoPlayerControlsHeight
             scrubProgressBar.spacing = scrubProgressBarSpacing
             view.layoutSubviews()
@@ -638,11 +635,10 @@ extension VideoPlayerViewController {
     }
 
     private func setControlsHidden(_ hidden: Bool, animated: Bool) {
-        if equalizerPopupShown && hidden {
+        if (equalizerPopupView.isShown || trackSelectorPopupView.isShown) && hidden {
             return
         }
         playerController.isControlsHidden = hidden
-        trackSelector.isHidden = true
         if let alert = alertController, hidden {
             alert.dismiss(animated: true, completion: nil)
             alertController = nil
@@ -859,7 +855,6 @@ private extension VideoPlayerViewController {
         setupVideoPlayerControlsConstraints()
         setupMediaNavigationBarConstraints()
         setupScrubProgressBarConstraints()
-        setupTrackSelectorContraints()
         setupAspectRatioContraints()
     }
 
@@ -934,24 +929,6 @@ private extension VideoPlayerViewController {
         ])
     }
 
-    private func setupTrackSelectorContraints() {
-        let widthContraint = trackSelector.widthAnchor.constraint(equalTo: view.widthAnchor,
-                                                                   multiplier: 2.0/3.0)
-        widthContraint.priority = .required - 1
-
-        NSLayoutConstraint.activate([
-            trackSelector.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            trackSelector.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            trackSelector.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor,
-                                                 multiplier: 1,
-                                                 constant: 420.0),
-            widthContraint,
-            trackSelector.heightAnchor.constraint(lessThanOrEqualTo: view.heightAnchor,
-                                                  multiplier: 2.0/3.0,
-                                                  constant: 0)
-        ])
-    }
-
     // MARK: - Others
 
     private func setupForMediaProjection() {
@@ -1014,6 +991,9 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
 
         } else if currentState == .error {
 
+        }
+        if trackSelectorPopupView.isShown {
+            trackSelector.update()
         }
     }
 
@@ -1209,33 +1189,11 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
 
     func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView) {
         if let equalizerView = child as? EqualizerView {
-            guard !equalizerPopupShown else {
+            guard !equalizerPopupView.isShown else {
                 return
             }
 
-            disableGestures()
-            videoPlayerControls.moreActionsButton.isEnabled = false
-            equalizerPopupShown = true
-
-            equalizerPopupView.addContentView(equalizerView, constraintWidth: true)
-            equalizerPopupView.accessoryViewsDelegate = equalizerView
-
-            view.addSubview(equalizerPopupView)
-
-            let iPhone5width: CGFloat = 320
-            let leadingConstraint = equalizerPopupView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor, constant: 10)
-            let trailingConstraint = equalizerPopupView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor, constant: -10)
-            leadingConstraint.priority = .defaultHigh
-            trailingConstraint.priority = .defaultHigh
-            let newConstraints = [
-                equalizerPopupTopConstraint,
-                equalizerPopupBottomConstraint,
-                leadingConstraint,
-                trailingConstraint,
-                equalizerPopupView.centerXAnchor.constraint(equalTo: mainLayoutGuide.centerXAnchor),
-                equalizerPopupView.widthAnchor.constraint(greaterThanOrEqualToConstant: iPhone5width)
-            ]
-            NSLayoutConstraint.activate(newConstraints)
+            showPopup(equalizerPopupView, with: equalizerView, accessoryViewsDelegate: equalizerView)
         }
     }
 }
@@ -1316,16 +1274,82 @@ extension VideoPlayerViewController: OptionsNavigationBarDelegate {
     }
 }
 
+// MARK: - Download More SPU
+
+extension VideoPlayerViewController {
+    @objc func downloadMoreSPU() {
+        let targetViewController: VLCPlaybackInfoSubtitlesFetcherViewController =
+            VLCPlaybackInfoSubtitlesFetcherViewController(nibName: nil,
+                                                          bundle: nil)
+        targetViewController.title = NSLocalizedString("DOWNLOAD_SUBS_FROM_OSO",
+                                                       comment: "")
+
+        let modalNavigationController = UINavigationController(rootViewController: targetViewController)
+        present(modalNavigationController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Popup methods
+
+extension VideoPlayerViewController {
+    func showPopup(_ popupView: PopupView, with contentView: UIView, accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? = nil) {
+        disableGestures()
+        videoPlayerControls.moreActionsButton.isEnabled = false
+        popupView.isShown = true
+
+        popupView.addContentView(contentView, constraintWidth: true)
+        if let accessoryViewsDelegate = accessoryViewsDelegate {
+            popupView.accessoryViewsDelegate = accessoryViewsDelegate
+        }
+
+        view.addSubview(popupView)
+
+        let iPhone5width: CGFloat = 320
+        let leadingConstraint = popupView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor, constant: 10)
+        let trailingConstraint = popupView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor, constant: -10)
+        leadingConstraint.priority = .defaultHigh
+        trailingConstraint.priority = .defaultHigh
+
+        let popupViewTopConstraint: NSLayoutConstraint
+        let popupViewBottomConstraint: NSLayoutConstraint
+        if popupView == equalizerPopupView {
+            popupViewTopConstraint = equalizerPopupTopConstraint
+            popupViewBottomConstraint = equalizerPopupBottomConstraint
+        } else {
+            popupViewTopConstraint = trackSelectorPopupTopConstraint
+            popupViewBottomConstraint = trackSelectorPopupBottomConstraint
+        }
+        let newConstraints = [
+            popupViewTopConstraint,
+            popupViewBottomConstraint,
+            leadingConstraint,
+            trailingConstraint,
+            popupView.centerXAnchor.constraint(equalTo: mainLayoutGuide.centerXAnchor),
+            popupView.widthAnchor.constraint(greaterThanOrEqualToConstant: iPhone5width)
+        ]
+        NSLayoutConstraint.activate(newConstraints)
+    }
+
+    func showTrackSelectorPopup() {
+        showPopup(trackSelectorPopupView, with: trackSelector, accessoryViewsDelegate: trackSelector)
+    }
+
+    func hideTrackSelectorPopup() {
+        trackSelectorPopupView.close()
+    }
+}
+
 // MARK: - PopupViewDelegate
 
 extension VideoPlayerViewController: PopupViewDelegate {
     func popupViewDidClose(_ popupView: PopupView) {
-        equalizerPopupShown = false
-        resetIdleTimer()
-        setupGestures()
+        popupView.isShown = false
         videoPlayerControls.moreActionsButton.isEnabled = true
         videoPlayerControlsHeightConstraint.constant = 44
         scrubProgressBar.spacing = 5
+
+        setupGestures()
+        resetIdleTimer()
     }
 }
 
