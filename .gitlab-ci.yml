@@ -96,4 +96,4 @@ tvOS 14.x:
     stage: build
     variables:
         BUILD_SCHEME: "VLC-tvOS"
-        BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=14.2"
+        BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=14.3"
