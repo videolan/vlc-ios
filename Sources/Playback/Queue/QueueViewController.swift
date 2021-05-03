@@ -38,6 +38,8 @@ class QueueViewController: UIViewController {
     @IBOutlet weak var topView: UIVisualEffectView!
     @IBOutlet weak var grabberView: UIView!
 
+    private var scrolledCellIndex: IndexPath = IndexPath()
+
     private let cellHeight: CGFloat = 56
 
     private let sidePadding: CGFloat = 10
@@ -385,10 +387,10 @@ extension QueueViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate / MediaCollectionViewCellDelegate
 
-extension QueueViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCellDelegate {
+    private func selectedItem(in collectionView: UICollectionView, at indexPath: IndexPath) {
         guard indexPath.row <= mediaList.count else {
             assertionFailure("QueueViewController: didSelectItemAt: IndexPath out of range.")
             return
@@ -402,10 +404,54 @@ extension QueueViewController: UICollectionViewDelegate {
         reload()
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedItem(in: collectionView, at: indexPath)
+    }
+
     func collectionView(_ collectionView: UICollectionView,
                         targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath,
                         toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
         return proposedIndexPath
+    }
+
+    func mediaCollectionViewCellHandleDelete(of cell: MediaCollectionViewCell) {
+        guard let indexPath = queueCollectionView.indexPath(for: cell) else {
+            return
+        }
+        resetScrollView({ _ in
+            self.mediaList.removeMedia(at: UInt(indexPath.row))
+            self.reload()
+        })
+    }
+
+    func mediaCollectionViewCellMediaTapped(in cell: MediaCollectionViewCell) {
+        guard let indexPath = queueCollectionView.indexPath(for: cell) else {
+            return
+        }
+        selectedItem(in: queueCollectionView, at: indexPath)
+    }
+
+    func mediaCollectionViewCellSetScrolledCellIndex(of cell: MediaCollectionViewCell?) {
+        if let cell = cell {
+            guard let indexPath = queueCollectionView.indexPath(for: cell) else {
+                return
+            }
+
+            scrolledCellIndex = indexPath
+        }
+    }
+
+    func mediaCollectionViewCellGetScrolledCell() -> MediaCollectionViewCell? {
+        if scrolledCellIndex.isEmpty {
+            return nil
+        }
+
+        let cell = queueCollectionView.cellForItem(at: scrolledCellIndex)
+        if let cell = cell as? MediaCollectionViewCell {
+            return cell
+        }
+
+        return nil
     }
 }
 
@@ -418,6 +464,16 @@ extension QueueViewController: UIScrollViewDelegate {
         } else {
             topView.alpha = 1.0
         }
+    }
+
+    private func resetScrollView(_ completion: ((Bool) -> Void)? = nil) {
+        if let mediaCell = mediaCollectionViewCellGetScrolledCell() {
+            mediaCell.resetScrollView(completion)
+        }
+    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        resetScrollView()
     }
 }
 
@@ -466,6 +522,8 @@ extension QueueViewController: UICollectionViewDataSource {
             assertionFailure("QueueViewController: cellForItemAt: IndexPath out of range.")
             return UICollectionViewCell()
         }
+
+        cell.delegate = self
 
         var media: VLCMedia?
 
