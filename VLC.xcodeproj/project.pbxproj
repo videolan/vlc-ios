@@ -4183,7 +4183,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.0;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
+				OTHER_LDFLAGS = "$(inherited)";
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = (
 					"-read_only_relocs",
 					suppress,
 					"$(inherited)",
@@ -4229,7 +4230,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.0;
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = (
+				OTHER_LDFLAGS = "$(inherited)";
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = (
 					"-read_only_relocs",
 					suppress,
 					"$(inherited)",
@@ -4325,7 +4327,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.0;
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = (
+				OTHER_LDFLAGS = "$(inherited)";
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = (
 					"-read_only_relocs",
 					suppress,
 					"$(inherited)",
