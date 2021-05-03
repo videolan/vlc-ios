@@ -71,7 +71,7 @@ iOS 14.x:
     stage: build
     variables:
         BUILD_SCHEME: "VLC-iOS"
-        BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone 11,OS=14.2"
+        BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone 11,OS=14.4"
 
 ### tvOS Builds
 
