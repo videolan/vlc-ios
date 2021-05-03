@@ -495,3 +495,11 @@
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
 
 "DISPLAY_AS" = "Display as";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Vertical brightness control";
+"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
+
+/* New strings */
+"VOLUME_HINT" = "Vertical volume control";
+"VOLUME_SLIDER" = "Slide vertically to change the volume level";

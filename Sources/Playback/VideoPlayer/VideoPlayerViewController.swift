@@ -181,7 +181,6 @@ class VideoPlayerViewController: UIViewController {
         return moreOptionsActionSheet
     }()
 
-    private var volumeView = MPVolumeView(frame: .zero)
     private var queueViewController: QueueViewController?
     private var alertController: UIAlertController?
     private var rendererButton: UIButton?
@@ -221,16 +220,15 @@ class VideoPlayerViewController: UIViewController {
         return gradient
     }()
 
-    private var volumeControlView: VolumeControlView = {
-        let vc = VolumeControlView()
-        vc.updateVolumeLevel(level: AVAudioSession.sharedInstance().outputVolume)
+    private var brightnessControlView: BrightnessControlView = {
+        let vc = BrightnessControlView()
         vc.translatesAutoresizingMaskIntoConstraints = false
         return vc
     }()
 
-    private var brightnessControlView: BrightnessControlView = {
-        let vc = BrightnessControlView()
-        vc.updateVolumeLevel(level: Float(UIScreen.main.brightness))
+    private var volumeControlView: VolumeControlView = {
+        let vc = VolumeControlView()
+        vc.updateVolumeLevel(level: AVAudioSession.sharedInstance().outputVolume)
         vc.translatesAutoresizingMaskIntoConstraints = false
         return vc
     }()
@@ -425,7 +423,8 @@ class VideoPlayerViewController: UIViewController {
 
         playerController.lockedOrientation = .portrait
         navigationController?.navigationBar.isHidden = true
-        setControlsHidden(true, animated: false)
+
+        setControlsHidden(!UIAccessibility.isVoiceOverRunning, animated: false)
 
         // FIXME: Test userdefault
         // FIXME: Renderer discoverer
@@ -595,7 +594,7 @@ private extension VideoPlayerViewController {
 
         idleTimer = nil
         numberOfTapSeek = 0
-        if !playerController.isControlsHidden {
+        if !playerController.isControlsHidden && !UIAccessibility.isVoiceOverRunning{
             setControlsHidden(!playerController.isControlsHidden, animated: true)
         }
         // FIXME:- other states to reset
@@ -632,16 +631,6 @@ private extension VideoPlayerViewController {
 }
 
 // MARK: - Gesture handlers
-extension MPVolumeView {
-  static func setVolume(_ volume: Float) {
-    let volumeView = MPVolumeView()
-    let slider = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider
-
-    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
-      slider?.value = volume
-    }
-  }
-}
 
 extension VideoPlayerViewController {
 
@@ -665,7 +654,9 @@ extension VideoPlayerViewController {
     @objc func handleTapOnVideo() {
         // FIXME: -
         numberOfTapSeek = 0
-        setControlsHidden(!playerController.isControlsHidden, animated: true)
+        if !UIAccessibility.isVoiceOverRunning {
+            setControlsHidden(!playerController.isControlsHidden, animated: true)
+        }
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -899,8 +890,8 @@ private extension VideoPlayerViewController {
         view.addSubview(videoPlayerControls)
         view.addSubview(scrubProgressBar)
         view.addSubview(videoOutputView)
-        view.addSubview(volumeControlView)
         view.addSubview(brightnessControlView)
+        view.addSubview(volumeControlView)
         view.addSubview(externalVideoOutputView)
 
         view.sendSubviewToBack(videoOutputView)
@@ -909,14 +900,16 @@ private extension VideoPlayerViewController {
     }
 
     private func hideSystemVolumeInfo() {
-        self.volumeView.alpha = 0.00001
-        view.addSubview(self.volumeView)
-        NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(_:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+        let volumeView = MPVolumeView(frame: .zero)
+        volumeView.alpha = 0.00001
+        view.addSubview(volumeView)
     }
 
     private func setupGestures() {
-        self.volumeControlView.addGestureRecognizer(panSlideVolumeLevelRecognizer)
-        self.brightnessControlView.addGestureRecognizer(panSlideLevelRecognizer)
+        if !UIAccessibility.isVoiceOverRunning {
+            self.brightnessControlView.addGestureRecognizer(panSlideLevelRecognizer)
+            self.volumeControlView.addGestureRecognizer(panSlideVolumeLevelRecognizer)
+        }
         view.addGestureRecognizer(tapOnVideoRecognizer)
         view.addGestureRecognizer(pinchRecognizer)
         view.addGestureRecognizer(doubleTapRecognizer)
@@ -947,7 +940,7 @@ private extension VideoPlayerViewController {
 
     private func setupBrightnessControlConstraints() {
         NSLayoutConstraint.activate([
-            brightnessControlView.heightAnchor.constraint(equalToConstant: 20),
+            brightnessControlView.heightAnchor.constraint(equalToConstant: 50),
             brightnessControlView.widthAnchor.constraint(equalToConstant: 170),
             brightnessControlView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant:-10),
             brightnessControlView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor, constant: -70)
@@ -956,7 +949,7 @@ private extension VideoPlayerViewController {
 
     private func setupVolumeControlConstraints() {
         NSLayoutConstraint.activate([
-            volumeControlView.heightAnchor.constraint(equalToConstant: 20),
+            volumeControlView.heightAnchor.constraint(equalToConstant:50),
             volumeControlView.widthAnchor.constraint(equalToConstant: 170),
             volumeControlView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant:-10),
             volumeControlView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor, constant: 70)
@@ -1036,8 +1029,20 @@ private extension VideoPlayerViewController {
     }
 
     // MARK: - Observers
-    @objc func volumeChanged(_ notification: NSNotification) {
-        if let volume = notification.userInfo!["AVSystemController_AudioVolumeNotificationParameter"] as? Float {
+    @objc func systemVolumeDidChange(notification: NSNotification) {
+        let volumelevel = notification.userInfo?["AVSystemController_AudioVolumeNotificationParameter"]
+        UIView.transition(with: volumeControlView, duration: 0.4,
+                          options: .transitionCrossDissolve,
+                          animations : {
+                            self.volumeControlView.updateVolumeLevel(level: volumelevel as! Float)
+
+                      })
+        }
+
+    internal override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "outputVolume" {
+            // keep from reaching max or min volume so button keeps working
+
             if brightnessControlView.alpha == 1 {
                 self.volumeControlView.alpha = 1
             } else {
@@ -1046,7 +1051,13 @@ private extension VideoPlayerViewController {
                     self.volumeControlView.alpha = 0
                 })
             }
-            self.volumeControlView.updateVolumeLevel(level: volume)
+
+            self.volumeControlView.updateVolumeLevel(level: AVAudioSession.sharedInstance().outputVolume)
+        }
+    }
+
+    @objc func volumeChanged(_ notification: NSNotification) {
+        if let volume = notification.userInfo!["AVSystemController_AudioVolumeNotificationParameter"] as? Float {
         }
     }
 

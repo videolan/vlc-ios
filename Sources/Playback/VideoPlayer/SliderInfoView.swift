@@ -11,23 +11,30 @@
  *****************************************************************************/
 
 import UIKit
+import MediaPlayer
 
-class CustomSlider: UISlider {
+extension MPVolumeView {
+  static func setVolume(_ volume: Float) {
+    let volumeView = MPVolumeView()
+    let slider = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider
 
-     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        var bounds: CGRect = self.bounds
-        bounds = bounds.insetBy(dx: -30, dy: 30)
-        return bounds.contains(point)
-     }
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+      slider?.value = volume
+    }
+  }
 }
 
 class SliderInfoView: UIView {
 
     var iconNames: [String] = []
 
-    let levelSlider: CustomSlider = {
-        let levelSlider = CustomSlider()
+    let levelSlider: UISlider = {
+        let levelSlider = UISlider()
         levelSlider.tintColor = .white
+        levelSlider.minimumValue = 0
+        levelSlider.maximumValue = 1
+        levelSlider.isContinuous = true
+        levelSlider.tintColor = UIColor.white
         levelSlider.translatesAutoresizingMaskIntoConstraints = false
         return levelSlider
     }()
@@ -60,7 +67,8 @@ class SliderInfoView: UIView {
         rotateSliderView()
         addSubview(levelImageView)
         addSubview(levelSlider)
-
+        bringSubviewToFront(levelSlider)
+        self.isUserInteractionEnabled = true
         NSLayoutConstraint.activate([
             levelImageView.heightAnchor.constraint(equalToConstant: 25),
             levelImageView.widthAnchor.constraint(equalToConstant: 25),
@@ -69,12 +77,10 @@ class SliderInfoView: UIView {
         ])
 
         NSLayoutConstraint.activate([
-            levelSlider.heightAnchor.constraint(equalToConstant: 5),
-            levelSlider.widthAnchor.constraint(equalToConstant: bounds.width),
+            levelSlider.heightAnchor.constraint(equalToConstant: 30),
+            levelSlider.widthAnchor.constraint(equalToConstant: 170),
             levelSlider.centerYAnchor.constraint(equalTo: centerYAnchor),
             levelSlider.centerXAnchor.constraint(equalTo: centerXAnchor),
-            levelSlider.rightAnchor.constraint(equalTo: rightAnchor, constant: 1),
-            levelSlider.leftAnchor.constraint(equalTo: levelImageView.rightAnchor, constant: 0)
         ])
     }
 
@@ -84,35 +90,59 @@ class SliderInfoView: UIView {
     }
 }
 
+class BrightnessControlView: SliderInfoView {
+
+    init() {
+        super.init(frame: .zero)
+        if  !UIAccessibility.isVoiceOverRunning {
+            levelSlider.setThumbImage(UIImage(), for: .normal)
+        }
+        self.iconNames = ["brightnessLow", "brightnessLow", "brightnessMedium", "brightnessHigh"]
+        levelSlider.addTarget(self, action: #selector(self.onLuminosityChange), for: .valueChanged)
+        levelSlider.accessibilityLabel = NSLocalizedString("BRIGHTNESS_SLIDER", comment: "")
+        levelSlider.accessibilityHint = NSLocalizedString("BRIGHTNESS_HINT", comment: "")
+        levelSlider.accessibilityTraits = .adjustable
+
+        updateVolumeLevel(level: Float(UIScreen.main.brightness))
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc func onLuminosityChange() {
+        UIScreen.main.brightness = CGFloat(self.levelSlider.value)
+        updateVolumeLevel(level: Float(CGFloat(self.levelSlider.value)))
+    }
+
+    private func rotateSliderView() {
+        self.transform = CGAffineTransform(rotationAngle: .pi * -0.5)
+    }
+}
+
 class VolumeControlView: SliderInfoView {
 
     init() {
         super.init(frame: .zero)
         self.levelSlider.value = AVAudioSession.sharedInstance().outputVolume
-        levelSlider.setThumbImage(UIImage(), for: .normal)
+        if  !UIAccessibility.isVoiceOverRunning {
+            levelSlider.setThumbImage(UIImage(), for: .normal)
+        }
+
+        levelSlider.addTarget(self, action: #selector(self.onVolumeChange), for: .valueChanged)
         self.iconNames = ["noSound", "lowSound", "mediumSound", "hightSound"]
+
+        levelSlider.accessibilityLabel = NSLocalizedString("VOLUME_SLIDER", comment: "")
+        levelSlider.accessibilityHint = NSLocalizedString("VOLUME_HINT", comment: "")
+        levelSlider.accessibilityTraits = .adjustable
+    }
+
+    @objc func onVolumeChange() {
+        MPVolumeView.setVolume(Float(self.levelSlider.value))
+        updateVolumeLevel(level: Float(self.levelSlider.value))
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-}
-
-class BrightnessControlView: SliderInfoView {
-
-    init() {
-        super.init(frame: .zero)
-        levelSlider.setThumbImage(UIImage(), for: .normal)
-        self.levelSlider.addTarget(self, action: #selector(BrightnessControlView.onLuminosityChange), for: UIControl.Event.valueChanged)
-        self.levelSlider.value = Float(UIScreen.main.brightness)
-        self.iconNames = ["brightnessLow", "brightnessLow", "brightnessMedium", "brightnessHigh"]
-    }
-
-    @objc func onLuminosityChange() {
-        UIScreen.main.brightness = CGFloat(self.levelSlider.value)
-        self.updateVolumeLevel(level: self.levelSlider.value)
-    }
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
 }
