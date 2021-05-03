@@ -65,9 +65,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [MSAppCenter start:@"f8697706-993b-44bb-a1c0-3cb7016cc325" withServices:@[
-                                                                              [MSAnalytics class],
-                                                                              [MSCrashes class]
+    [MSACAppCenter start:@"f8697706-993b-44bb-a1c0-3cb7016cc325" withServices:@[
+        [MSACAnalytics class],
+        [MSACCrashes class]
                                                                               ]];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

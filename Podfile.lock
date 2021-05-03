@@ -16,22 +16,22 @@ PODS:
   - AFNetworking/UIKit (4.0.0):
     - AFNetworking/NSURLSession
   - AppAuth (0.95.1)
-  - AppCenter (2.3.0):
-    - AppCenter/Analytics (= 2.3.0)
-    - AppCenter/Crashes (= 2.3.0)
-  - AppCenter/Analytics (2.3.0):
+  - AppCenter (4.1.1):
+    - AppCenter/Analytics (= 4.1.1)
+    - AppCenter/Crashes (= 4.1.1)
+  - AppCenter/Analytics (4.1.1):
     - AppCenter/Core
-  - AppCenter/Core (2.3.0)
-  - AppCenter/Crashes (2.3.0):
+  - AppCenter/Core (4.1.1)
+  - AppCenter/Crashes (4.1.1):
     - AppCenter/Core
   - Base32 (1.1.2)
   - box-ios-sdk-v2 (1.2.3):
     - box-ios-sdk-v2/no-arc (= 1.2.3)
   - box-ios-sdk-v2/no-arc (1.2.3)
   - CocoaHTTPServer (2.3)
-  - GoogleAPIClientForREST/Core (1.5.1):
+  - GoogleAPIClientForREST/Core (1.5.2):
     - GTMSessionFetcher (>= 1.1.7)
-  - GoogleAPIClientForREST/Drive (1.5.1):
+  - GoogleAPIClientForREST/Drive (1.5.2):
     - GoogleAPIClientForREST/Core
     - GTMSessionFetcher (>= 1.1.7)
   - GRKArrayDiff (2.2.2)
@@ -72,7 +72,7 @@ PODS:
     - OneDriveSDK/Common
   - OneDriveSDK/OneDriveCoreSDK (1.3.0):
     - OneDriveSDK/Common
-  - SimulatorStatusMagic (2.4.1)
+  - SimulatorStatusMagic (2.5)
   - SwiftLint (0.25.1)
   - TVVLCKit (3.3.16)
   - VLCMediaLibraryKit (0.7.3):
@@ -84,7 +84,7 @@ PODS:
 DEPENDENCIES:
   - ADAL (from `https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git`, commit `348e94df`)
   - AFNetworking (~> 4.0)
-  - AppCenter (= 2.3.0)
+  - AppCenter (~> 4.1)
   - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`, commit `fe0fbb20`)
   - CocoaHTTPServer (from `git://github.com/fkuehne/CocoaHTTPServer.git`)
   - GoogleAPIClientForREST/Drive
@@ -175,11 +175,11 @@ SPEC CHECKSUMS:
   ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
   AFNetworking: d9fdf484a3c723ec3c558a41cc5754c7e845ee77
   AppAuth: cd34aac431e5c77c46ec7f03935377faa8c5808b
-  AppCenter: 9784d2fc998c9bd0b8fbaf4fb9ed69526d12ce1a
+  AppCenter: cd53e3ed3563cc720bcb806c9731a12389b40d44
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
-  GoogleAPIClientForREST: 4bb409633efcc2e1b3f945afe7e35039b5a61db2
+  GoogleAPIClientForREST: 538a8ad0014fd88b78894e77100775a6b0a4f7ed
   GRKArrayDiff: 13738c0300068a28cf17614a72e0398ee13bb6b3
   GTMAppAuth: c5e41aaf039ac1ccc41543e6ea2ef7abd255ad41
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
@@ -192,13 +192,13 @@ SPEC CHECKSUMS:
   ObjectiveDropboxOfficial: b9e95d98e3ff2baa0cd86aea7c8322a712f356d6
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
-  SimulatorStatusMagic: 28d4a9d1a500ac7cea0b2b5a43c1c6ddb40ba56c
+  SimulatorStatusMagic: 71cfcea1df017e8f0fa8e48bc182d86976376f84
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   TVVLCKit: a006a10734558712e8b4c20ef2c8b472d95ba990
   VLCMediaLibraryKit: 96d888841da420b53ec1c4a1c5baeb373f4860c9
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: e8b751496dc43f3e9466280baa6e494bf8c3fec0
+PODFILE CHECKSUM: 4249165147a896c80f620c8c4af78c7ca0a732b8
 
 COCOAPODS: 1.10.1

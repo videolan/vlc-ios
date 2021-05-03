@@ -129,7 +129,7 @@ NSString *VLCAppCenterAppID = @"0114ca8e-2652-44ce-588d-2ebd035c3577";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [MSAppCenter start:VLCAppCenterAppID withServices:@[[MSAnalytics class], [MSCrashes class]]];
+    [MSACAppCenter start:VLCAppCenterAppID withServices:@[[MSACAnalytics class], [MSACCrashes class]]];
 
     self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
 
