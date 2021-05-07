@@ -122,9 +122,11 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         delegate?.mediaCollectionViewCellMediaTapped(in: self)
     }
 
-    func resetScrollView() {
+    func resetScrollView(_ completion: ((Bool) -> Void)? = nil) {
         let offset: CGPoint = CGPoint(x: 0, y: scrollView.contentOffset.y)
-        scrollView.setContentOffset(offset, animated: true)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.scrollView.setContentOffset(offset, animated: false)
+        }, completion: completion)
         isDeleteDisplayed = false
     }
 
