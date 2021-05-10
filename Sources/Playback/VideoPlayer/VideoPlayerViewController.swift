@@ -74,6 +74,10 @@ class VideoPlayerViewController: UIViewController {
         set { self.orientations = newValue }
     }
 
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
+
     // MARK: - Seek
 
     private var numberOfTapSeek: Int = 0
