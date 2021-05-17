@@ -75,7 +75,7 @@ PODS:
   - SimulatorStatusMagic (2.5)
   - SwiftLint (0.25.1)
   - TVVLCKit (3.3.16)
-  - VLCMediaLibraryKit (0.7.3):
+  - VLCMediaLibraryKit (0.8.0):
     - MobileVLCKit
   - XKKeychain (1.0.1)
   - xmlrpc (2.3.4):
@@ -101,7 +101,7 @@ DEPENDENCIES:
   - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
   - TVVLCKit (= 3.3.16)
-  - VLCMediaLibraryKit (= 0.7.3)
+  - VLCMediaLibraryKit (= 0.8.0)
   - XKKeychain (~> 1.0)
   - xmlrpc (from `git://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
 
@@ -195,10 +195,10 @@ SPEC CHECKSUMS:
   SimulatorStatusMagic: 71cfcea1df017e8f0fa8e48bc182d86976376f84
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   TVVLCKit: a006a10734558712e8b4c20ef2c8b472d95ba990
-  VLCMediaLibraryKit: 96d888841da420b53ec1c4a1c5baeb373f4860c9
+  VLCMediaLibraryKit: a3fb59945fed35a975feb3a00b09ac1c960c083f
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 4249165147a896c80f620c8c4af78c7ca0a732b8
+PODFILE CHECKSUM: 92132cc27e1522f1923fe2062fcd4a8fcb9e7d2b
 
 COCOAPODS: 1.10.1
