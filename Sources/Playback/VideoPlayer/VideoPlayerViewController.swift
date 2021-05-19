@@ -285,7 +285,7 @@ class VideoPlayerViewController: UIViewController {
 
     private lazy var panSlideLevelRecognizer: UIPanGestureRecognizer = {
         let panRecognizer = UIPanGestureRecognizer(target: self,
-                                                   action: #selector(handleSlidePanGesture(gesture:)))
+                                                   action: #selector(handleSlideBrightnessPanGesture(gesture:)))
         panRecognizer.maximumNumberOfTouches = 1
         return panRecognizer
     }()
@@ -642,7 +642,7 @@ extension VideoPlayerViewController {
         MPVolumeView.setVolume(value)
     }
 
-    @objc func handleSlidePanGesture(gesture: UIPanGestureRecognizer) {
+    @objc func handleSlideBrightnessPanGesture(gesture: UIPanGestureRecognizer) {
          let currentPoint = gesture.location(in: brightnessControlView)
          let percentage = currentPoint.x/brightnessControlView.bounds.size.width
         let delta = Float(percentage) *  (brightnessControlView.levelSlider.maximumValue - brightnessControlView.levelSlider.minimumValue)
@@ -855,6 +855,8 @@ extension VideoPlayerViewController {
             }
 
             UIScreen.main.brightness = brightness
+            brightnessControlView.onLuminosityChange()
+            brightnessControlView.updateVolumeLevel(level: Float(brightness))
         case .projection:
             updateProjection(with: recognizer)
         case .none:
@@ -1053,11 +1055,6 @@ private extension VideoPlayerViewController {
             }
 
             self.volumeControlView.updateVolumeLevel(level: AVAudioSession.sharedInstance().outputVolume)
-        }
-    }
-
-    @objc func volumeChanged(_ notification: NSNotification) {
-        if let volume = notification.userInfo!["AVSystemController_AudioVolumeNotificationParameter"] as? Float {
         }
     }
 
