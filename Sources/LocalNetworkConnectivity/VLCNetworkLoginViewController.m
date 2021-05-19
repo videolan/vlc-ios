@@ -217,11 +217,11 @@
     VLCNetworkServerLoginInformation *loginInformation = dataSource.loginInformation;
     self.loginInformation = loginInformation;
 
-    [self.delegate loginWithLoginViewController:self loginInfo:dataSource.loginInformation];
-
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.delegate loginWithLoginViewController:self loginInfo:dataSource.loginInformation];
+    }];
 }
 
 - (void)connectLoginDataSource
