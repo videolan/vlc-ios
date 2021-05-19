@@ -2,13 +2,13 @@
  * VideoPlayerViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2020 VideoLAN. All rights reserved.
- * Copyright © 2020 Videolabs
+ * Copyright © 2020-2021 VideoLAN. All rights reserved.
+ * Copyright © 2020-2021 Videolabs
  *
  * Authors: Soomin Lee <bubu # mikan.io>
  *
  * Refer to the COPYING file of the official project for license.
-*****************************************************************************/
+ *****************************************************************************/
 
 @objc(VLCVideoPlayerViewControllerDelegate)
 protocol VideoPlayerViewControllerDelegate: AnyObject {
@@ -263,7 +263,7 @@ class VideoPlayerViewController: UIViewController {
         videoOutputView.accessibilityLabel = NSLocalizedString("VO_VIDEOPLAYER_TITLE",
                                                                comment: "")
         videoOutputView.accessibilityHint = NSLocalizedString("VO_VIDEOPLAYER_DOUBLETAP",
-                                                               comment: "")
+                                                              comment: "")
         return videoOutputView
     }()
 
@@ -298,7 +298,7 @@ class VideoPlayerViewController: UIViewController {
 
     private lazy var playPauseRecognizer: UITapGestureRecognizer = {
         let playPauseRecognizer = UITapGestureRecognizer(target: self,
-                                                          action: #selector(handlePlayPauseGesture))
+                                                         action: #selector(handlePlayPauseGesture))
         playPauseRecognizer.numberOfTouchesRequired = 2
         return playPauseRecognizer
     }()
@@ -468,10 +468,10 @@ class VideoPlayerViewController: UIViewController {
         }
     }
 
-   // override func viewDidLayoutSubviews() {
-        // FIXME: - equalizer
-        // self.scrubViewTopConstraint.constant = CGRectGetMaxY(self.navigationController.navigationBar.frame);
-   // }
+//    override func viewDidLayoutSubviews() {
+//        FIXME: - equalizer
+//        self.scrubViewTopConstraint.constant = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+//    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -562,7 +562,7 @@ private extension VideoPlayerViewController {
         let displayView = externalVideoOutputView.displayView
 
         if let displayView = displayView,
-            displayExternally &&  videoOutputView.superview == displayView {
+           displayExternally &&  videoOutputView.superview == displayView {
             // Adjust constraints for external display
             NSLayoutConstraint.activate([
                 videoOutputView.leadingAnchor.constraint(equalTo: displayView.leadingAnchor),
@@ -594,7 +594,7 @@ private extension VideoPlayerViewController {
 
         idleTimer = nil
         numberOfTapSeek = 0
-        if !playerController.isControlsHidden && !UIAccessibility.isVoiceOverRunning{
+        if !playerController.isControlsHidden && !UIAccessibility.isVoiceOverRunning {
             setControlsHidden(!playerController.isControlsHidden, animated: true)
         }
         // FIXME:- other states to reset
@@ -635,16 +635,16 @@ private extension VideoPlayerViewController {
 extension VideoPlayerViewController {
 
     @objc func handleSlideVolumePanGesture(gesture: UIPanGestureRecognizer) {
-         let currentPoint = gesture.location(in: volumeControlView)
-         let percentage = currentPoint.x/volumeControlView.bounds.size.width
+        let currentPoint = gesture.location(in: volumeControlView)
+        let percentage = currentPoint.x/volumeControlView.bounds.size.width
         let delta = Float(percentage) *  (volumeControlView.levelSlider.maximumValue - volumeControlView.levelSlider.minimumValue)
         let value = volumeControlView.levelSlider.minimumValue + delta
         MPVolumeView.setVolume(value)
     }
 
     @objc func handleSlideBrightnessPanGesture(gesture: UIPanGestureRecognizer) {
-         let currentPoint = gesture.location(in: brightnessControlView)
-         let percentage = currentPoint.x/brightnessControlView.bounds.size.width
+        let currentPoint = gesture.location(in: brightnessControlView)
+        let percentage = currentPoint.x/brightnessControlView.bounds.size.width
         let delta = Float(percentage) *  (brightnessControlView.levelSlider.maximumValue - brightnessControlView.levelSlider.minimumValue)
         let value = brightnessControlView.levelSlider.minimumValue + delta
         brightnessControlView.onLuminosityChange()
@@ -838,8 +838,8 @@ extension VideoPlayerViewController {
             guard playerController.isVolumeGestureEnabled else {
                 break
             }
-        // FIXME: Volume gesture
-        break
+            // FIXME: Volume gesture
+            break
         case .brightness:
             guard playerController.isBrightnessGestureEnabled else {
                 break
@@ -879,8 +879,8 @@ private extension VideoPlayerViewController {
     private func setupObservers() {
 
         let audioSession = AVAudioSession()
-                try? audioSession.setActive(true)
-                audioSession.addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
+        try? audioSession.setActive(true)
+        audioSession.addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
     }
 
     private func setupViews() {
@@ -1009,7 +1009,7 @@ private extension VideoPlayerViewController {
             videoPlayerControls.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor,
                                                        constant: -2 * minPadding),
             videoPlayerControls.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor,
-                                                constant: -5)
+                                                        constant: -5)
         ])
     }
 
@@ -1038,8 +1038,8 @@ private extension VideoPlayerViewController {
                           animations : {
                             self.volumeControlView.updateVolumeLevel(level: volumelevel as! Float)
 
-                      })
-        }
+                          })
+    }
 
     internal override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "outputVolume" {
@@ -1139,7 +1139,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
     }
 
     func playbackServiceDidSwitch(_ aspectRatio: VLCAspectRatio) {
-    // subControls.isInFullScreen = aspectRatio == .fillToScreen
+        // subControls.isInFullScreen = aspectRatio == .fillToScreen
 
         if #available(iOS 11.0, *) {
             adaptVideoOutputToNotch()
@@ -1217,7 +1217,7 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
 
     func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar) {
         // TODO: Add current renderer functionality to chromeCast Button
-    // NSAssert(0, @"didToggleChromeCast not implemented");
+        // NSAssert(0, @"didToggleChromeCast not implemented");
     }
 }
 
