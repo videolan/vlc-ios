@@ -397,13 +397,17 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
             assertionFailure("QueueViewController: didSelectItemAt: IndexPath out of range.")
             return
         }
-        playbackService.playItem(at: UInt(indexPath.row))
-        guard let cell = collectionView.cellForItem(at: indexPath) as? MediaCollectionViewCell else {
-            assertionFailure("QueueViewController: didSelectItemAt: Cell not a MediaCollectionViewCell")
-            return
+        let media = mediaList.media(at: UInt(indexPath.row))
+        let isPlaying = playbackService.currentlyPlayingMedia == media
+        if !isPlaying {
+            playbackService.playItem(at: UInt(indexPath.row))
+            guard let cell = collectionView.cellForItem(at: indexPath) as? MediaCollectionViewCell else {
+                assertionFailure("QueueViewController: didSelectItemAt: Cell not a MediaCollectionViewCell")
+                return
+            }
+            updateCollectionViewCellApparence(cell, isSelected: true)
+            reload()
         }
-        updateCollectionViewCellApparence(cell, isSelected: true)
-        reload()
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -530,7 +534,7 @@ extension QueueViewController: UICollectionViewDataSource {
         var media: VLCMedia?
 
         cell.newLabel.isHidden = true
-        cell.dragIndicatorImageView.isHidden = false
+        cell.dragIndicatorImageView.isHidden = collectionView.numberOfItems(inSection: 0) <= 1
         media = mediaList.media(at: UInt(indexPath.row))
 
         let isSelected = playbackService.currentlyPlayingMedia == media
