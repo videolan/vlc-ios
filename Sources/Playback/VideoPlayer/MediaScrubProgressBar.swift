@@ -25,7 +25,7 @@ class MediaScrubProgressBar: UIStackView {
         var slider = VLCOBSlider()
         slider.minimumValue = 0
         slider.maximumValue = 1
-        slider.minimumTrackTintColor = .orange
+        slider.minimumTrackTintColor = PresentationTheme.current.colors.orangeUI
         slider.maximumTrackTintColor = UIColor(white: 1, alpha: 0.2)
         slider.setThumbImage(UIImage(named: "sliderThumb"), for: .normal)
         slider.setThumbImage(UIImage(named: "sliderThumbBig"), for: .highlighted)
@@ -42,7 +42,7 @@ class MediaScrubProgressBar: UIStackView {
     private lazy var elapsedTimeLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 13)
-        label.textColor = .orange
+        label.textColor = PresentationTheme.current.colors.orangeUI
         label.text = "--:--"
         label.numberOfLines = 1
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
