@@ -44,6 +44,9 @@
 
     self.navigationItem.rightBarButtonItem = doneButton;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
+    }
 #endif
 
     self.osoFetcher = [[VLCOSOFetcher alloc] init];
