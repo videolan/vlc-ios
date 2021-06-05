@@ -200,6 +200,12 @@ class QueueViewController: UIViewController {
     }
 
     @objc func hide() {
+        if let parent = parent as? VLCPlayerDisplayController,
+           let miniPlaybackView = parent.miniPlaybackView as? AudioMiniPlayer {
+            guard !miniPlaybackView.hintingPlayqueue else {
+                return
+            }
+        }
         UIView.animate(withDuration: animationDuration, animations: {
             self.view.alpha = 0.0
             self.darkOverlayView.isHidden = true

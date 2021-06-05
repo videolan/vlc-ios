@@ -388,6 +388,13 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     _queueViewController = [[VLCQueueViewController alloc] initWithMedialibraryService:_services.medialibraryService];
 }
 
+- (void)hintPlayqueueWithDelay:(NSTimeInterval)delay
+{
+    if (_miniPlaybackView) {
+        [(VLCAudioMiniPlayer*)_miniPlaybackView hintPlayqueueWithDelay:delay];
+    }
+}
+
 #endif
 
 #pragma mark - MovieViewControllerDelegate

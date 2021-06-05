@@ -57,4 +57,6 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 - (void)pushPlaybackView;
 - (void)dismissPlaybackView;
 
+- (void)hintPlayqueueWithDelay:(NSTimeInterval)delay;
+
 @end

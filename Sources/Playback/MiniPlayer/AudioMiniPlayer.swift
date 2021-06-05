@@ -59,6 +59,7 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     var originY: CGFloat = 0.0
     var tapticPosition = MiniPlayerPosition(vertical: .bottom, horizontal: .center)
     var panDirection: PanDirection = .vertical
+    var hintingPlayqueue: Bool = false
 
     @objc init(service: MediaLibraryService) {
         self.mediaService = service
@@ -371,6 +372,32 @@ extension AudioMiniPlayer {
                 }
         }
         return hapticFeedbackNeeded
+    }
+
+// MARK: Hint playqueue
+
+    @objc func hintPlayqueue(delay: TimeInterval = 0) {
+        guard !hintingPlayqueue else {
+            return
+        }
+        if let queueView = queueViewController?.view {
+            hintingPlayqueue = true
+            UIView.animate(withDuration: 0.3, delay: delay, animations: {
+                self.frame.origin.y -= 50
+                queueView.frame.origin.y -= 50
+                queueView.alpha = 1.0
+            }, completion: {
+                _ in
+                UIView.animate(withDuration: 0.7, animations: {
+                    self.frame.origin.y += 50
+                    queueView.frame.origin.y += 50
+                    queueView.alpha = 0.0
+                }, completion: {
+                    _ in
+                    self.hintingPlayqueue = false
+                })
+            })
+        }
     }
 
 // MARK: Show hide playqueue
