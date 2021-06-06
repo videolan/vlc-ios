@@ -274,7 +274,7 @@ extension AudioMiniPlayer {
                                 showPlayqueue(in: superview)
                             }
                         case .bottom:
-                            if self.frame.minY > originY {
+                            if self.frame.minY > originY + 10 {
                                 hideMiniPlayer(from: superview)
                             } else if self.frame.minY > limit {
                                 dismissPlayqueue()
@@ -328,10 +328,12 @@ extension AudioMiniPlayer {
             tapticPosition.vertical = .bottom
         }
         if position.vertical == .bottom {
-            if frame.minY > originY {
+            if frame.minY > originY + 10 {
                 previousNextImage.image = UIImage(named: "stopIcon")
                 previousNextOverlay.alpha = 0.8
                 previousNextOverlay.isHidden = false
+            } else if frame.minY > originY {
+                queueViewController?.hide()
             } else {
                 hidePreviousNextOverlay()
             }
