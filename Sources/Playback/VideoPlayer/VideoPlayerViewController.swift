@@ -1206,6 +1206,7 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
 
     func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar) {
         if let qvc = queueViewController {
+            disableGestures()
             qvc.removeFromParent()
             qvc.show()
             qvc.topView.isHidden = false
@@ -1489,5 +1490,6 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
     func queueViewControllerDidDisappear(_ queueViewController: QueueViewController?) {
         setControlsHidden(false, animated: true)
         queueViewController?.hide()
+        setupGestures()
     }
 }
