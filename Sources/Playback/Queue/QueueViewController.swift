@@ -68,11 +68,12 @@ class QueueViewController: UIViewController {
     private var topConstraint: NSLayoutConstraint?
     private var topConstraintConstant: CGFloat {
         if parent is VideoPlayerViewController || parent is VLCMovieViewController {
-            return 50
+            return 200
         } else {
             return 0
         }
     }
+    var bottomConstraint: NSLayoutConstraint?
 
     private var darkOverlayView: UIView = UIView()
     private var darkOverlayViewConstraints: [NSLayoutConstraint] = []
@@ -137,7 +138,6 @@ class QueueViewController: UIViewController {
             ]
 
             let heightConstraint: NSLayoutConstraint?
-            let bottomConstraint: NSLayoutConstraint?
             if let parent = parent as? VLCPlayerDisplayController, let miniPlaybackView = parent.miniPlaybackView as? AudioMiniPlayer {
                 grabberView.isHidden = true
                 parent.view.bringSubviewToFront(miniPlaybackView)
@@ -148,23 +148,27 @@ class QueueViewController: UIViewController {
                 bottomConstraint = nil
             } else {
                 grabberView.isHidden = false
-                if #available(iOS 11.0, *) {
-                    topConstraint = view.topAnchor.constraint(equalTo: parent.view.safeAreaLayoutGuide.topAnchor, constant: topConstraintConstant)
+                if let parent = parent as? VideoPlayerViewController {
+                    topConstraint = nil
+                    heightConstraint = view.heightAnchor.constraint(equalTo: parent.view.heightAnchor,
+                                                                    constant: -(topConstraintConstant + parent.videoPlayerControls.frame.height))
+                    bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor,
+                                                                    constant: self.view.frame.height)
                 } else {
-                    topConstraint = view.topAnchor.constraint(equalTo: parent.view.topAnchor, constant: topConstraintConstant)
+                    topConstraint = view.topAnchor.constraint(equalTo: parent.view.bottomAnchor)
+                    heightConstraint = nil
+                    bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
                 }
-                heightConstraint = nil
-                bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
             }
             parent.view.addSubview(view)
             constraints = [
                 view.leadingAnchor.constraint(equalTo: parent.view.leadingAnchor),
                 view.trailingAnchor.constraint(equalTo: parent.view.trailingAnchor)
             ]
+
             if let topConstraint = topConstraint {
                 constraints.append(topConstraint)
             }
-
             if let heightConstraint = heightConstraint {
                 constraints.append(heightConstraint)
             }
@@ -235,8 +239,8 @@ class QueueViewController: UIViewController {
 
     func dragStateDidChange(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: parent?.view)
-        if let topConstraint = topConstraint {
-            topConstraint.constant = max(0.0, topConstraint.constant + translation.y)
+        if let bottomConstraint = bottomConstraint {
+            bottomConstraint.constant = max(0.0, bottomConstraint.constant + translation.y)
         }
         sender.setTranslation(CGPoint.zero, in: parent?.view)
         if let parent = parent as? VLCMovieViewController {

@@ -145,7 +145,7 @@ class VideoPlayerViewController: UIViewController {
         return optionsNavigationBar
     }()
 
-    private lazy var videoPlayerControls: VideoPlayerControls = {
+    lazy var videoPlayerControls: VideoPlayerControls = {
         let videoPlayerControls = Bundle.main.loadNibNamed("VideoPlayerControls",
                                                            owner: nil,
                                                            options: nil)?.first as! VideoPlayerControls
@@ -351,6 +351,11 @@ class VideoPlayerViewController: UIViewController {
 
     private lazy var videoPlayerControlsHeightConstraint: NSLayoutConstraint = {
         videoPlayerControls.heightAnchor.constraint(equalToConstant: 44)
+    }()
+
+    private lazy var videoPlayerControlsBottomConstraint: NSLayoutConstraint = {
+        videoPlayerControls.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor,
+                                            constant: -5)
     }()
 
     private lazy var equalizerPopupTopConstraint: NSLayoutConstraint = {
@@ -699,16 +704,23 @@ extension VideoPlayerViewController {
         }
         let alpha: CGFloat = hidden ? 0 : 1
 
+        var qvcHidden = true
+        if let qvc = queueViewController {
+            qvcHidden = qvc.view.alpha == 0.0
+        }
         UIView.animate(withDuration: animated ? 0.2 : 0) {
             // FIXME: retain cycle?
             self.mediaNavigationBar.alpha = alpha
             self.optionsNavigationBar.alpha = alpha
-            self.videoPlayerControls.alpha = alpha
-            self.scrubProgressBar.alpha = alpha
 
             self.volumeControlView.alpha = hidden ? 0 : 1
             self.brightnessControlView.alpha = hidden ? 0 : 1
-            self.backgroundGradientView.alpha = hidden ? 0 : 1
+
+            if !hidden || qvcHidden {
+                self.videoPlayerControls.alpha = alpha
+                self.scrubProgressBar.alpha = alpha
+            }
+            self.backgroundGradientView.alpha = hidden && qvcHidden ? 0 : 1
         }
     }
 
@@ -1008,8 +1020,7 @@ private extension VideoPlayerViewController {
                                                           constant: -padding),
             videoPlayerControls.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor,
                                                        constant: -2 * minPadding),
-            videoPlayerControls.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor,
-                                                        constant: -5)
+            videoPlayerControlsBottomConstraint
         ])
     }
 
@@ -1212,7 +1223,21 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
             qvc.topView.isHidden = false
             addChild(qvc)
             qvc.didMove(toParent: self)
+            view.layoutIfNeeded()
+            videoPlayerControlsBottomConstraint.isActive = false
+            videoPlayerControls.bottomAnchor.constraint(equalTo: qvc.view.topAnchor,
+                                                        constant: -5).isActive = true
+            videoPlayerControls.subtitleButton.isEnabled = false
+            videoPlayerControls.rotationLockButton.isEnabled = false
+            videoPlayerControls.aspectRatioButton.isEnabled = false
+            videoPlayerControls.moreActionsButton.isEnabled = false
+            view.bringSubviewToFront(scrubProgressBar)
+            view.bringSubviewToFront(videoPlayerControls)
             setControlsHidden(true, animated: true)
+            qvc.bottomConstraint?.constant = 0
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            })
         }
     }
 
@@ -1491,5 +1516,10 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
         setControlsHidden(false, animated: true)
         queueViewController?.hide()
         setupGestures()
+        videoPlayerControlsBottomConstraint.isActive = true
+        videoPlayerControls.subtitleButton.isEnabled = true
+        videoPlayerControls.rotationLockButton.isEnabled = true
+        videoPlayerControls.aspectRatioButton.isEnabled = true
+        videoPlayerControls.moreActionsButton.isEnabled = true
     }
 }
