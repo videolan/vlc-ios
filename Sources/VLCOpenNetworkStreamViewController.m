@@ -159,11 +159,11 @@
 {
     self.historyTableView.backgroundColor = PresentationTheme.current.colors.background;
     self.view.backgroundColor = PresentationTheme.current.colors.background;
-    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: PresentationTheme.current.colors.lightTextColor}];
+    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: PresentationTheme.current.colors.textfieldPlaceholderColor}];
     self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
-    self.urlField.backgroundColor = PresentationTheme.current.colors.background;
+    self.urlField.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor;
     self.urlField.textColor = PresentationTheme.current.colors.cellTextColor;
-    self.urlBorder.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor;
+    self.urlBorder.backgroundColor = PresentationTheme.current.colors.textfieldBorderColor;
     self.privateModeLabel.textColor = PresentationTheme.current.colors.lightTextColor;
     self.ScanSubModeLabel.textColor = PresentationTheme.current.colors.lightTextColor;
     self.whatToOpenHelpLabel.textColor = PresentationTheme.current.colors.lightTextColor;

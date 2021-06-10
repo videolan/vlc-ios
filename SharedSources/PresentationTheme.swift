@@ -36,6 +36,8 @@ extension Notification.Name {
     let orangeUI: UIColor
     let toolBarStyle: UIBarStyle
     let blurStyle: UIBlurEffect.Style
+    let textfieldBorderColor: UIColor
+    let textfieldPlaceholderColor: UIColor
 
     init(isDark: Bool,
                 name: String,
@@ -54,7 +56,9 @@ extension Notification.Name {
                 tabBarColor: UIColor,
                 orangeUI: UIColor,
                 toolBarStyle: UIBarStyle,
-                blurStyle: UIBlurEffect.Style) {
+                blurStyle: UIBlurEffect.Style,
+                textfieldBorderColor: UIColor,
+                textfieldPlaceholderColor: UIColor) {
         self.isDark = isDark
         self.name = name
         self.statusBarStyle = statusBarStyle
@@ -73,6 +77,8 @@ extension Notification.Name {
         self.orangeUI = orangeUI
         self.toolBarStyle = toolBarStyle
         self.blurStyle = blurStyle
+        self.textfieldBorderColor = textfieldBorderColor
+        self.textfieldPlaceholderColor = textfieldPlaceholderColor
     }
 }
 
@@ -209,7 +215,9 @@ let brightPalette = ColorPalette(isDark: false,
                                  tabBarColor: UIColor(0xFFFFFF),
                                  orangeUI: UIColor(0xFF8800),
                                  toolBarStyle: UIBarStyle.default,
-                                 blurStyle: .extraLight)
+                                 blurStyle: .extraLight,
+                                 textfieldBorderColor: UIColor(0x84929C),
+                                 textfieldPlaceholderColor: UIColor(0xB3B3B3))
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",
@@ -228,7 +236,9 @@ let darkPalette = ColorPalette(isDark: true,
                                tabBarColor: UIColor(0x25292C),
                                orangeUI: UIColor(0xFF8800),
                                toolBarStyle: UIBarStyle.black,
-                               blurStyle: .dark)
+                               blurStyle: .dark,
+                               textfieldBorderColor: UIColor(0x84929C),
+                               textfieldPlaceholderColor: UIColor(0x737373))
 
 let blackPalette = ColorPalette(isDark: true,
                                 name: "Dark",
@@ -247,7 +257,9 @@ let blackPalette = ColorPalette(isDark: true,
                                 tabBarColor: UIColor(0x25292C),
                                 orangeUI: UIColor(0xFF8800),
                                 toolBarStyle: UIBarStyle.black,
-                                blurStyle: .dark)
+                                blurStyle: .dark,
+                                textfieldBorderColor: UIColor(0x84929C),
+                                textfieldPlaceholderColor: UIColor(0x737373))
 
 let defaultFont = Typography(tableHeaderFont: UIFont.systemFont(ofSize: 24, weight: .semibold))
 
