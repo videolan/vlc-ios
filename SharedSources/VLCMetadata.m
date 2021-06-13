@@ -119,9 +119,12 @@
 - (void)populateInfoCenterFromMetadata
 {
     NSMutableDictionary *currentlyPlayingTrackInfo = [NSMutableDictionary dictionary];
-    currentlyPlayingTrackInfo[MPMediaItemPropertyPlaybackDuration] = self.playbackDuration;
+    NSNumber *duration = self.playbackDuration;
+    currentlyPlayingTrackInfo[MPMediaItemPropertyPlaybackDuration] = duration;
+    currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyIsLiveStream] = @(duration.intValue <= 0);
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.elapsedPlaybackTime;
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackRate] = self.playbackRate;
+    currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyMediaType] = _isAudioOnly ? @(MPNowPlayingInfoMediaTypeAudio) : @(MPNowPlayingInfoMediaTypeVideo);
 
     currentlyPlayingTrackInfo[MPMediaItemPropertyTitle] = self.title;
     currentlyPlayingTrackInfo[MPMediaItemPropertyArtist] = self.artist;
