@@ -1234,6 +1234,7 @@ extension VideoPlayerViewController: MediaScrubProgressBarDelegate {
 extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
         mediaNavigationBar.chromeCastButton.isEnabled = !state
+        mediaNavigationBar.queueButton.isEnabled = !state
         mediaNavigationBar.minimizePlaybackButton.isEnabled = !state
         if #available(iOS 11.0, *) {
             mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = !state
