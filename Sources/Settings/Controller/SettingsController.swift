@@ -25,7 +25,7 @@ class SettingsController: UITableViewController {
     private let notificationCenter = NotificationCenter.default
     private let actionSheet = ActionSheet()
     private let specifierManager = ActionSheetSpecifier()
-    private var mediaLibraryService = MediaLibraryService()
+    private var mediaLibraryService: MediaLibraryService
     private var localeDictionary = NSDictionary()
     private var isBackingUp = false
 
@@ -34,8 +34,8 @@ class SettingsController: UITableViewController {
     }
 
     init(mediaLibraryService: MediaLibraryService) {
-        super.init(style: .grouped)
         self.mediaLibraryService = mediaLibraryService
+        super.init(style: .grouped)
         self.mediaLibraryService.deviceBackupDelegate = self
         setup()
     }
