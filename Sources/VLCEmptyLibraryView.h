@@ -16,7 +16,8 @@ typedef NS_ENUM (NSUInteger, VLCEmptyLibraryViewContentType)
 {
     VLCEmptyLibraryViewContentTypeVideo,
     VLCEmptyLibraryViewContentTypeAudio,
-    VLCEmptyLibraryViewContentTypePlaylist
+    VLCEmptyLibraryViewContentTypePlaylist,
+    VLCEmptyLibraryViewContentTypeNoPlaylists,
 };
 
 @interface VLCEmptyLibraryView: UIView

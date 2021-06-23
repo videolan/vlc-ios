@@ -116,6 +116,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
         guard let emptyView = nib?.first as? VLCEmptyLibraryView else { fatalError("Can't find nib for \(name)") }
 
+        // Check if no playlists
+        if model is PlaylistModel {
+            emptyView.contentType = .noPlaylists
+        }
+
         // Check if it is inside a playlist
         if let collectionModel = model as? CollectionModel,
             collectionModel.mediaCollection is VLCMLPlaylist {
