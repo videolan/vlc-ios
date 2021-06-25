@@ -228,7 +228,7 @@ class VideoPlayerViewController: UIViewController {
 
     private var volumeControlView: VolumeControlView = {
         let vc = VolumeControlView()
-        vc.updateVolumeLevel(level: AVAudioSession.sharedInstance().outputVolume)
+        vc.updateIcon(level: AVAudioSession.sharedInstance().outputVolume)
         vc.translatesAutoresizingMaskIntoConstraints = false
         return vc
     }()
@@ -648,7 +648,7 @@ extension VideoPlayerViewController {
         let delta = Float(percentage) *  (brightnessControlView.levelSlider.maximumValue - brightnessControlView.levelSlider.minimumValue)
         let value = brightnessControlView.levelSlider.minimumValue + delta
         brightnessControlView.onLuminosityChange()
-        brightnessControlView.updateVolumeLevel(level: value)
+        brightnessControlView.updateIcon(level: value)
     }
 
     @objc func handleTapOnVideo() {
@@ -856,7 +856,7 @@ extension VideoPlayerViewController {
 
             UIScreen.main.brightness = brightness
             brightnessControlView.onLuminosityChange()
-            brightnessControlView.updateVolumeLevel(level: Float(brightness))
+            brightnessControlView.updateIcon(level: Float(brightness))
         case .projection:
             updateProjection(with: recognizer)
         case .none:
@@ -1036,7 +1036,7 @@ private extension VideoPlayerViewController {
         UIView.transition(with: volumeControlView, duration: 0.4,
                           options: .transitionCrossDissolve,
                           animations : {
-                            self.volumeControlView.updateVolumeLevel(level: volumelevel as! Float)
+                            self.volumeControlView.updateIcon(level: volumelevel as! Float)
 
                           })
     }
@@ -1054,7 +1054,7 @@ private extension VideoPlayerViewController {
                 })
             }
 
-            self.volumeControlView.updateVolumeLevel(level: AVAudioSession.sharedInstance().outputVolume)
+            self.volumeControlView.updateIcon(level: AVAudioSession.sharedInstance().outputVolume)
         }
     }
 

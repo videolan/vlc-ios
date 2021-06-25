@@ -45,7 +45,7 @@ class SliderInfoView: UIView {
         return soundLevelImageView
     }()
 
-    func updateVolumeLevel(level: Float) {
+    func updateIcon(level: Float) {
         guard iconNames.count == 4 else {
             assertionFailure("SliderInfo: icons names not set")
             return
@@ -103,7 +103,7 @@ class BrightnessControlView: SliderInfoView {
         levelSlider.accessibilityHint = NSLocalizedString("BRIGHTNESS_HINT", comment: "")
         levelSlider.accessibilityTraits = .adjustable
 
-        updateVolumeLevel(level: Float(UIScreen.main.brightness))
+        updateIcon(level: Float(UIScreen.main.brightness))
     }
 
     required init?(coder: NSCoder) {
@@ -112,7 +112,7 @@ class BrightnessControlView: SliderInfoView {
 
     @objc func onLuminosityChange() {
         UIScreen.main.brightness = CGFloat(self.levelSlider.value)
-        updateVolumeLevel(level: Float(CGFloat(self.levelSlider.value)))
+        updateIcon(level: Float(CGFloat(self.levelSlider.value)))
     }
 
     private func rotateSliderView() {
@@ -139,7 +139,7 @@ class VolumeControlView: SliderInfoView {
 
     @objc func onVolumeChange() {
         MPVolumeView.setVolume(Float(self.levelSlider.value))
-        updateVolumeLevel(level: Float(self.levelSlider.value))
+        updateIcon(level: Float(self.levelSlider.value))
     }
 
     required init?(coder: NSCoder) {
