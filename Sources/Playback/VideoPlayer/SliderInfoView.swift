@@ -34,7 +34,6 @@ class SliderInfoView: UIView {
         levelSlider.minimumValue = 0
         levelSlider.maximumValue = 1
         levelSlider.isContinuous = true
-        levelSlider.tintColor = UIColor.white
         levelSlider.translatesAutoresizingMaskIntoConstraints = false
         return levelSlider
     }()
