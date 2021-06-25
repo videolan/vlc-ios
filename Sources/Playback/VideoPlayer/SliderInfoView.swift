@@ -40,6 +40,7 @@ class SliderInfoView: UIView {
 
     var levelImageView: UIImageView = {
         let levelImageView = UIImageView()
+        levelImageView.tintColor = .white
         levelImageView.translatesAutoresizingMaskIntoConstraints = false
         return levelImageView
     }()
