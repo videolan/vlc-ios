@@ -40,9 +40,9 @@ class SliderInfoView: UIView {
     }()
 
     var levelImageView: UIImageView = {
-        let soundLevelImageView = UIImageView()
-        soundLevelImageView.translatesAutoresizingMaskIntoConstraints = false
-        return soundLevelImageView
+        let levelImageView = UIImageView()
+        levelImageView.translatesAutoresizingMaskIntoConstraints = false
+        return levelImageView
     }()
 
     func updateIcon(level: Float) {
