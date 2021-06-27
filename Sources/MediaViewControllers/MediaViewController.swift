@@ -94,7 +94,12 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
+        if #available(iOS 13.0, *) {
+            navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
+            navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
+        }
         navigationController?.navigationBar.isTranslucent = false
+        setNeedsStatusBarAppearanceUpdate()
         updateButtonsFor(viewControllers[currentIndex])
     }
 

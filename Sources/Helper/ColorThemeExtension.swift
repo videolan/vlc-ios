@@ -54,3 +54,26 @@ extension VLCDownloadViewController {
         PresentationTheme.traitCollectionDidChange(from: previousTraitCollection, to: traitCollection)
     }
 }
+
+extension VLCNetworkLoginViewController {
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        PresentationTheme.traitCollectionDidChange(from: previousTraitCollection, to: traitCollection)
+    }
+}
+
+extension UINavigationController {
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
+                                               name: .VLCThemeDidChangeNotification, object: nil)
+    }
+
+    @objc func themeDidChange() {
+        if #available(iOS 13.0, *) {
+            navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
+            navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
+        }
+        navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
+    }
+}

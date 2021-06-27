@@ -328,6 +328,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         setupCollectionView() //Fixes crash that is caused due to layout change
         reloadData()
         showGuideOnLaunch()
+        setNavbarAppearance()
     }
 
     func loadSort() {
@@ -347,15 +348,18 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         loadSort()
     }
 
-    @objc func themeDidChange() {
-        collectionView?.backgroundColor = PresentationTheme.current.colors.background
-        searchBar.backgroundColor = PresentationTheme.current.colors.background
-
+    private func setNavbarAppearance() {
         if #available(iOS 13.0, *) {
             navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
             navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
         }
+        navigationController?.navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
         setNeedsStatusBarAppearanceUpdate()
+    }
+
+    @objc func themeDidChange() {
+        collectionView?.backgroundColor = PresentationTheme.current.colors.background
+        searchBar.backgroundColor = PresentationTheme.current.colors.background
     }
 
     private func showGuideOnLaunch() {
