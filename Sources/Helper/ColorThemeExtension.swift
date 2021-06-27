@@ -9,9 +9,8 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-extension UICollectionViewController {
-    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+extension PresentationTheme {
+    static func traitCollectionDidChange(from previousTraitCollection: UITraitCollection?, to traitCollection: UITraitCollection) {
         if #available(iOS 13.0, *) {
             guard previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle else {
                 // Since traitCollectionDidChange is called in, for example rotations, we make sure that
@@ -28,21 +27,30 @@ extension UICollectionViewController {
     }
 }
 
+extension UICollectionViewController {
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        PresentationTheme.traitCollectionDidChange(from: previousTraitCollection, to: traitCollection)
+    }
+}
+
 extension UITableViewController {
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        if #available(iOS 13.0, *) {
-            guard previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle else {
-                // Since traitCollectionDidChange is called in, for example rotations, we make sure that
-                // there was a userInterfaceStyle change.
-                return
-            }
-            guard UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeSystem else {
-                // Theme is specificly set, do not follow systeme theme.
-                return
-            }
+        PresentationTheme.traitCollectionDidChange(from: previousTraitCollection, to: traitCollection)
+    }
+}
 
-            PresentationTheme.themeDidUpdate()
-        }
+extension VLCOpenNetworkStreamViewController {
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        PresentationTheme.traitCollectionDidChange(from: previousTraitCollection, to: traitCollection)
+    }
+}
+
+extension VLCDownloadViewController {
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        PresentationTheme.traitCollectionDidChange(from: previousTraitCollection, to: traitCollection)
     }
 }
