@@ -422,6 +422,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         // Most of the edit logic is handled inside editController
         collectionView?.dataSource = editing ? editController : self
         collectionView?.delegate = editing ? editController : self
+        if #available(iOS 14.0, *) {
+            collectionView?.allowsSelectionDuringEditing = true
+            collectionView?.allowsMultipleSelectionDuringEditing = true
+        }
 
         editController.resetSelections(resetUI: true)
         displayEditToolbar()
