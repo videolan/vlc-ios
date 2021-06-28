@@ -166,6 +166,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             title = collection.mediaCollection.title()
         }
         marqueeTitle.text = title
+        marqueeTitle.textColor = PresentationTheme.current.colors.navigationbarTextColor
         self.navigationItem.titleView = marqueeTitle
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
                                                name: .VLCThemeDidChangeNotification, object: nil)
@@ -360,6 +361,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     @objc func themeDidChange() {
         collectionView?.backgroundColor = PresentationTheme.current.colors.background
         searchBar.backgroundColor = PresentationTheme.current.colors.background
+        if let marqueeLabel = navigationItem.titleView as? VLCMarqueeLabel {
+            marqueeLabel.textColor = PresentationTheme.current.colors.navigationbarTextColor
+        }
     }
 
     private func showGuideOnLaunch() {
