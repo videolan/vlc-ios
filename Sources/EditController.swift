@@ -131,7 +131,6 @@ extension EditController: EditToolbarDelegate {
 
     func editToolbarDidAddToPlaylist(_ editToolbar: EditToolbar) {
         guard !selectedCellIndexPaths.isEmpty else {
-            assertionFailure("EditController: Add to playlist called without selection")
             return
         }
         editActions.objects.removeAll()
@@ -147,7 +146,6 @@ extension EditController: EditToolbarDelegate {
 
     func editToolbarDidAddToMediaGroup(_ editToolbar: EditToolbar) {
         guard !selectedCellIndexPaths.isEmpty else {
-            assertionFailure("EditController: Add to mediagroup called without selection")
             return
         }
         editActions.objects.removeAll()
@@ -167,7 +165,6 @@ extension EditController: EditToolbarDelegate {
 
     func editToolbarDidRemoveFromMediaGroup(_ editToolbar: EditToolbar) {
         guard !selectedCellIndexPaths.isEmpty else {
-            assertionFailure("EditController: Remove from mediagroup called without selection")
             return
         }
 
@@ -185,7 +182,6 @@ extension EditController: EditToolbarDelegate {
 
     func editToolbarDidDelete(_ editToolbar: EditToolbar) {
         guard !selectedCellIndexPaths.isEmpty else {
-            assertionFailure("EditController: Delete called without selection")
             return
         }
         editActions.objects.removeAll()
@@ -204,7 +200,6 @@ extension EditController: EditToolbarDelegate {
 
     func editToolbarDidShare(_ editToolbar: EditToolbar) {
         guard !selectedCellIndexPaths.isEmpty else {
-            assertionFailure("EditController: Share called without selection")
             return
         }
         editActions.objects.removeAll()
@@ -220,7 +215,6 @@ extension EditController: EditToolbarDelegate {
 
     func editToolbarDidRename(_ editToolbar: EditToolbar) {
         guard !selectedCellIndexPaths.isEmpty else {
-            assertionFailure("EditController: Rename called without selection")
             return
         }
         editActions.objects.removeAll()
