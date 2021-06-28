@@ -1,10 +1,11 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *        Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -29,9 +30,9 @@
 - (CGSize)preferredContentSize
 {
     if (@available(tvOS 13.0, *)) {
-        return CGSizeMake(CGRectGetWidth(self.view.bounds), 300);
+        return CGSizeMake(CGRectGetWidth(self.view.bounds), 380);
     } else {
-        return CGSizeMake(CGRectGetWidth(self.view.bounds), 200);
+        return CGSizeMake(CGRectGetWidth(self.view.bounds), 280);
     }
 }
 
@@ -77,8 +78,15 @@
                                   atIndex:1 animated:NO];
     [repeatControl insertSegmentWithTitle:NSLocalizedString(@"REPEAT_FOLDER", nil)
                                   atIndex:2 animated:NO];
-
     self.repeatLabel.text = NSLocalizedString(@"REPEAT_MODE", nil);
+
+    UISegmentedControl *shuffleControl = self.shuffleControl;
+    [shuffleControl removeAllSegments];
+    [shuffleControl insertSegmentWithTitle:NSLocalizedString(@"OFF", nil)
+                                  atIndex:0 animated:NO];
+    [shuffleControl insertSegmentWithTitle:NSLocalizedString(@"ON", nil)
+                                  atIndex:1 animated:NO];
+    self.shuffleLabel.text = NSLocalizedString(@"SHUFFLE", nil);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -86,6 +94,7 @@
     [super viewWillAppear:animated];
     [self updateRateControl];
     [self updateRepeatControl];
+    [self updateShuffleControl];
 }
 
 - (void)updateRateControl
@@ -127,7 +136,7 @@
     self.repeatControl.selectedSegmentIndex = selectedIndex;
 }
 
--(IBAction)repeatControlChanged:(UISegmentedControl *)sender
+- (IBAction)repeatControlChanged:(UISegmentedControl *)sender
 {
     VLCRepeatMode repeatMode;
     switch (sender.selectedSegmentIndex) {
@@ -144,6 +153,16 @@
     }
 
     [VLCPlaybackService sharedInstance].repeatMode = repeatMode;
+}
+
+- (void)updateShuffleControl
+{
+    self.shuffleControl.selectedSegmentIndex = [VLCPlaybackService sharedInstance].shuffleMode;
+}
+
+- (IBAction)shuffleControlChanged:(UISegmentedControl *)sender
+{
+    [VLCPlaybackService sharedInstance].shuffleMode = sender.selectedSegmentIndex == 1;
 }
 
 @end

@@ -290,6 +290,7 @@
 "REPEAT_DISABLED" = "Disabled";
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Folder";
+"SHUFFLE" = "Shuffle";
 
 // Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
