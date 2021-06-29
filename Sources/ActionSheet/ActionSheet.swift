@@ -92,6 +92,7 @@ class ActionSheet: UIViewController {
         mainStackView.axis = .vertical
         mainStackView.alignment = .center
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        mainStackView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         return mainStackView
     }()
 
