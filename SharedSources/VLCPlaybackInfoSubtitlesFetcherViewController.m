@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSArray<VLCSubtitleItem *>* searchResults;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) UILabel *nothingFoundLabel;
+@property (nonatomic) BOOL activityCancelled;
 
 @end
 
@@ -241,6 +242,9 @@
 
 - (void)VLCOSOFetcher:(VLCOSOFetcher * _Nonnull)aFetcher didFailToFindSubtitlesForSearchRequest:(NSString * _Nonnull)searchRequest
 {
+    if (!self.activityCancelled) {
+        return;
+    }
     APLog(@"%s: failed to find subtitles for request %@", __func__, searchRequest);
     [self stopActivity];
     self.searchResults = @[];
@@ -248,6 +252,7 @@
 
     self.nothingFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NO_SUB_FOUND_OSO", nil), [VLCPlaybackService sharedInstance].metadata.title];
     self.nothingFoundLabel.hidden = NO;
+    self.activityCancelled = NO;
 }
 
 - (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher didFailToDownloadForItem:(VLCSubtitleItem *)subtitleItem
@@ -399,11 +404,19 @@
 - (void)startActivity
 {
     [self.activityIndicatorView startAnimating];
+    self.activityCancelled = NO;
+    [self performSelector:@selector(cancelActivity) withObject:nil afterDelay:5.];
 }
 
 - (void)stopActivity
 {
     [self.activityIndicatorView stopAnimating];
+}
+
+- (void)cancelActivity
+{
+    self.activityCancelled = YES;
+    [self VLCOSOFetcher:self.osoFetcher didFailToFindSubtitlesForSearchRequest:@"cancellation request"];
 }
 
 @end
