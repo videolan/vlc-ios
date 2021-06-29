@@ -312,10 +312,11 @@
     }
 
 #if TARGET_OS_IOS
-    cell.backgroundColor = (indexPath.row % 2 == 0)? PresentationTheme.current.colors.cellBackgroundA : PresentationTheme.current.colors.cellBackgroundB;
-    cell.selectedBackgroundView.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor;
-    cell.textLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-    cell.detailTextLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    ColorPalette *colors = PresentationTheme.current.colors;
+    cell.backgroundColor = (indexPath.row % 2 == 0)? colors.cellBackgroundA : colors.cellBackgroundB;
+    cell.selectedBackgroundView.backgroundColor = colors.mediaCategorySeparatorColor;
+    cell.textLabel.textColor = colors.cellTextColor;
+    cell.detailTextLabel.textColor = colors.cellDetailTextColor;
 #endif
 
     return cell;
