@@ -26,6 +26,7 @@
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"
 #define kVLCSettingNetworkCaching @"network-caching"
 #define kVLCSettingNetworkCachingDefaultValue @(999)
+#define kVLCSettingNetworkRTSPTCP @"rtsp-tcp"
 #define kVLCSettingSkipLoopFilter @"avcodec-skiploopfilter"
 #define kVLCSettingSkipLoopFilterNone @(0)
 #define kVLCSettingSkipLoopFilterNonRef @(1)

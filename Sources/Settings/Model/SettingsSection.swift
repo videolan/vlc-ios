@@ -546,6 +546,7 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
     case networkCachingLevel
     case ipv6SupportForWiFiSharing
     case forceSMBv1
+    case rtspctp
 
     var description: String {
         switch self {
@@ -555,6 +556,8 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_WIFISHARING_IPv6"
         case .forceSMBv1:
             return "SETTINGS_FORCE_SMBV1"
+        case .rtspctp:
+            return "SETTINGS_RTSP_TCP"
         }
     }
 
@@ -565,6 +568,8 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
         case .ipv6SupportForWiFiSharing:
             return true
         case .forceSMBv1:
+            return true
+        case .rtspctp:
             return true
         }
     }
@@ -577,6 +582,8 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
             return nil
         case .forceSMBv1:
             return "SETTINGS_FORCE_SMBV1_LONG"
+        case .rtspctp:
+            return nil
         }
     }
 
@@ -588,6 +595,8 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
             return kVLCSettingWiFiSharingIPv6
         case .forceSMBv1:
             return kVLCForceSMBV1
+        case .rtspctp:
+            return kVLCSettingNetworkRTSPTCP
         }
     }
 }

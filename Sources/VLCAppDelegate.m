@@ -72,6 +72,7 @@ NSString *VLCAppCenterAppID = @"0114ca8e-2652-44ce-588d-2ebd035c3577";
                                   kVLCSettingContinuePlayback : @(1),
                                   kVLCSettingContinueAudioPlayback : @(1),
                                   kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue,
+                                  kVLCSettingNetworkRTSPTCP : @(NO),
                                   kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue,
                                   kVLCSettingEqualizerProfileDisabled : @(YES),
                                   kVLCSettingPlaybackForwardSkipLength : kVLCSettingPlaybackForwardSkipLengthDefaultValue,
