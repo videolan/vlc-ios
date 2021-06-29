@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020-2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -27,6 +27,7 @@
 @property (strong, nonatomic) VLCOSOFetcher *osoFetcher;
 @property (strong, nonatomic) NSArray<VLCSubtitleItem *>* searchResults;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
+@property (strong, nonatomic) UILabel *nothingFoundLabel;
 
 @end
 
@@ -46,6 +47,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = NO;
+        self.navigationItem.largeTitleDisplayMode = NO;
     }
 #endif
 
@@ -93,6 +95,54 @@
                                                                     constant:0.0];
     [self.view addConstraint:xConstraint];
 
+    self.nothingFoundLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+#if TARGET_OS_TV
+    self.nothingFoundLabel.font = [UIFont italicSystemFontOfSize:32];
+#else
+    self.nothingFoundLabel.font = [UIFont italicSystemFontOfSize:16];
+#endif
+    self.nothingFoundLabel.hidden = YES;
+    self.nothingFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NO_SUB_FOUND_OSO", nil), [VLCPlaybackService sharedInstance].metadata.title];
+    self.nothingFoundLabel.numberOfLines = 0;
+    self.nothingFoundLabel.textAlignment = NSTextAlignmentCenter;
+    [self.nothingFoundLabel sizeToFit];
+    [self.nothingFoundLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    self.nothingFoundLabel.textColor = [UIColor blackColor];
+    [self.view addSubview:self.nothingFoundLabel];
+
+    yConstraint = [NSLayoutConstraint constraintWithItem:self.nothingFoundLabel
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+    [self.view addConstraint:yConstraint];
+    xConstraint = [NSLayoutConstraint constraintWithItem:self.nothingFoundLabel
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+    [self.view addConstraint:xConstraint];
+    NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.nothingFoundLabel
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                   relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                  multiplier:1.0
+                                                                    constant:20.0];
+    [self.view addConstraint:leftConstraint];
+    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:self.nothingFoundLabel
+                                                                   attribute:NSLayoutAttributeTrailing
+                                                                   relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeTrailing
+                                                                  multiplier:1.0
+                                                                    constant:20.0];
+    [self.view addConstraint:rightConstraint];
+
 #if TARGET_OS_IOS
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
 #endif
@@ -135,14 +185,17 @@
     if ([UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
         self.visualEffectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
         self.titleLabel.textColor = [UIColor VLCLightTextColor];
+        self.nothingFoundLabel.textColor = [UIColor VLCLightTextColor];
     } else {
         self.visualEffectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
         self.titleLabel.textColor = [UIColor VLCDarkTextColor];
+        self.nothingFoundLabel.textColor = [UIColor VLCDarkTextColor];
     }
 #else
     ColorPalette *colors = PresentationTheme.current.colors;
     [self.navigationItem.titleView setTintColor:colors.navigationbarTextColor];
-    self.view.backgroundColor = self.tableView.backgroundColor = colors.background;
+    self.nothingFoundLabel.backgroundColor = self.view.backgroundColor = self.tableView.backgroundColor = colors.background;
+    self.nothingFoundLabel.textColor = colors.cellTextColor;
     [self.tableView reloadData];
 #endif
 }
@@ -172,10 +225,29 @@
 
 - (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher didFindSubtitles:(NSArray<VLCSubtitleItem *> *)subtitles forSearchRequest:(NSString *)searchRequest
 {
-    APLog(@"%s: %li items found", __func__, subtitles.count);
+    NSUInteger count = subtitles.count;
+    APLog(@"%s: %li items found", __func__, count);
     [self stopActivity];
     self.searchResults = subtitles;
     [self.tableView reloadData];
+
+    if (count == 0) {
+        self.nothingFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NO_SUB_FOUND_OSO", nil), [VLCPlaybackService sharedInstance].metadata.title];
+        self.nothingFoundLabel.hidden = NO;
+    } else {
+        self.nothingFoundLabel.hidden = YES;
+    }
+}
+
+- (void)VLCOSOFetcher:(VLCOSOFetcher * _Nonnull)aFetcher didFailToFindSubtitlesForSearchRequest:(NSString * _Nonnull)searchRequest
+{
+    APLog(@"%s: failed to find subtitles for request %@", __func__, searchRequest);
+    [self stopActivity];
+    self.searchResults = @[];
+    [self.tableView reloadData];
+
+    self.nothingFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"NO_SUB_FOUND_OSO", nil), [VLCPlaybackService sharedInstance].metadata.title];
+    self.nothingFoundLabel.hidden = NO;
 }
 
 - (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher didFailToDownloadForItem:(VLCSubtitleItem *)subtitleItem
