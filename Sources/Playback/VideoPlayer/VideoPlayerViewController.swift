@@ -91,9 +91,13 @@ class VideoPlayerViewController: UIViewController {
 
     private var idleTimer: Timer?
 
-    // FIXME: -
     override var prefersStatusBarHidden: Bool {
-//        return _viewAppeared ? _controlsHidden : NO;
+        if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad && !playerController.isControlsHidden {
+            return false
+        }
+        if UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.portrait && !playerController.isControlsHidden {
+            return false
+        }
         return true
     }
 
@@ -722,6 +726,7 @@ extension VideoPlayerViewController {
             }
             self.backgroundGradientView.alpha = hidden && qvcHidden ? 0 : 1
         }
+        self.setNeedsStatusBarAppearanceUpdate()
     }
 
     @objc func handlePlayPauseGesture() {
