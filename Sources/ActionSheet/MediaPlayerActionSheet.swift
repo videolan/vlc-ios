@@ -166,7 +166,7 @@ class MediaPlayerActionSheet: ActionSheet {
                     removeCurrentChild()
                 } else {
                     UIView.animate(withDuration: 0.3) {
-                        current.frame = self.collectionView.frame
+                        current.frame = self.collectionWrapperView.frame
                     }
                 }
             }
