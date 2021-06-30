@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,19 +18,23 @@
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Nux-PF-Uy2" userLabel="Controls">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="4vJ-kK-AO4" userLabel="Left controls">
-                            <rect key="frame" x="0.0" y="0.0" width="88" height="44"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PII-h1-l4a" userLabel="Left controls">
+                            <rect key="frame" x="0.0" y="0.0" width="132" height="44"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xy4-Ix-lOi" userLabel="Subtitle">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBr-hb-t7N" userLabel="Rotation Lock">
                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" secondItem="Xy4-Ix-lOi" secondAttribute="height" multiplier="1:1" id="JuQ-bu-rcn"/>
-                                        <constraint firstAttribute="height" constant="44" id="X4b-qv-eIH"/>
-                                        <constraint firstAttribute="width" constant="44" id="vRz-U2-pbi"/>
+                                        <constraint firstAttribute="height" constant="44" id="Tsp-xL-SFW"/>
+                                        <constraint firstAttribute="width" constant="44" id="Ylc-eo-hSh"/>
                                     </constraints>
-                                    <state key="normal" image="iconSubtitle"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal">
+                                        <imageReference key="image" image="lock.rotation" catalog="system" symbolScale="large" renderingMode="template"/>
+                                    </state>
                                     <connections>
-                                        <action selector="handleSubtitleButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="tKF-0u-09D"/>
+                                        <action selector="handleRotationLockButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="MYa-9f-xU4"/>
                                     </connections>
                                 </button>
                                 <button hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hN-qU-px8" userLabel="DVD">
@@ -45,20 +48,28 @@
                                         <action selector="handleDVDButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="amy-xB-CIJ"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBr-hb-t7N" userLabel="Rotation Lock">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xy4-Ix-lOi" userLabel="Subtitle">
                                     <rect key="frame" x="44" y="0.0" width="44" height="44"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="44" id="Tsp-xL-SFW"/>
-                                        <constraint firstAttribute="width" constant="44" id="Ylc-eo-hSh"/>
+                                        <constraint firstAttribute="width" secondItem="Xy4-Ix-lOi" secondAttribute="height" multiplier="1:1" id="JuQ-bu-rcn"/>
+                                        <constraint firstAttribute="height" constant="44" id="X4b-qv-eIH"/>
+                                        <constraint firstAttribute="width" constant="44" id="vRz-U2-pbi"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                    <color key="tintColor" systemColor="systemBackgroundColor"/>
-                                    <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal">
-                                        <imageReference key="image" image="lock.rotation" catalog="system" symbolScale="large" renderingMode="template"/>
-                                    </state>
+                                    <state key="normal" image="iconSubtitle"/>
                                     <connections>
-                                        <action selector="handleRotationLockButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="MYa-9f-xU4"/>
+                                        <action selector="handleSubtitleButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="tKF-0u-09D"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elQ-lM-1p8">
+                                    <rect key="frame" x="88" y="0.0" width="44" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="hUr-J0-6Qa"/>
+                                        <constraint firstAttribute="width" constant="44" id="ylU-Br-Rxu"/>
+                                    </constraints>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" image="iconRepeat"/>
+                                    <connections>
+                                        <action selector="handleRepeatButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="y5y-GT-lIy"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -140,11 +151,23 @@
                             </constraints>
                             <variation key="heightClass=regular-widthClass=compact" spacing="4"/>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="GDb-m6-3gp" userLabel="Right controls">
-                            <rect key="frame" x="512" y="0.0" width="88" height="44"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="GDb-m6-3gp" userLabel="Right controls">
+                            <rect key="frame" x="468" y="0.0" width="132" height="44"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VA6-oF-BG7" userLabel="Aspect Ratio">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8sd-5U-NYw">
                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="fpI-WP-D9A"/>
+                                        <constraint firstAttribute="width" constant="44" id="svJ-No-ohW"/>
+                                    </constraints>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" image="shuffle"/>
+                                    <connections>
+                                        <action selector="handleShuffleButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="riQ-CG-JdU"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VA6-oF-BG7" userLabel="Aspect Ratio">
+                                    <rect key="frame" x="44" y="0.0" width="44" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="2Te-71-KKi"/>
                                         <constraint firstAttribute="width" constant="44" id="NNU-Ft-jFI"/>
@@ -155,7 +178,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BVD-eC-bAW" userLabel="More Actions">
-                                    <rect key="frame" x="44" y="0.0" width="44" height="44"/>
+                                    <rect key="frame" x="88" y="0.0" width="44" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="HEo-oL-wKW"/>
                                         <constraint firstAttribute="height" constant="44" id="Sct-kr-7ka"/>
@@ -194,15 +217,24 @@
                 <outlet property="nextMediaButton" destination="brI-W2-OMr" id="mTn-kk-TYj"/>
                 <outlet property="playPauseButton" destination="mxt-AE-Ufy" id="8S8-aA-xsj"/>
                 <outlet property="previousMediaButton" destination="v82-nx-P0i" id="F00-mY-wzw"/>
+                <outlet property="repeatButton" destination="elQ-lM-1p8" id="qyI-dl-pOq"/>
                 <outlet property="rotationLockButton" destination="PBr-hb-t7N" id="Rne-iz-jxA"/>
+                <outlet property="shuffleButton" destination="8sd-5U-NYw" id="6qf-ul-ZhE"/>
                 <outlet property="subtitleButton" destination="Xy4-Ix-lOi" id="9E2-pN-2Pk"/>
             </connections>
-            <point key="canvasLocation" x="204.80000000000001" y="293.25337331334333"/>
+            <point key="canvasLocation" x="-258" y="-33"/>
         </view>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Hy5-sg-xqu">
+            <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <state key="normal" title="Button"/>
+            <point key="canvasLocation" x="-58" y="-141"/>
+        </button>
     </objects>
     <resources>
         <image name="iconExpand" width="24" height="24"/>
         <image name="iconMoreOptions" width="24" height="24"/>
+        <image name="iconRepeat" width="24" height="24"/>
         <image name="iconSkipBack" width="24" height="24"/>
         <image name="iconSkipForward" width="24" height="24"/>
         <image name="iconSubtitle" width="24" height="24"/>
@@ -210,8 +242,6 @@
         <image name="next-media" width="24" height="24"/>
         <image name="play-circle" width="34" height="34"/>
         <image name="previous-media" width="24" height="24"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="shuffle" width="18" height="18"/>
     </resources>
 </document>

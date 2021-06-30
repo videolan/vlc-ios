@@ -682,6 +682,8 @@ extension VideoPlayerViewController {
             setControlsHidden(false, animated: true)
         }
 
+        videoPlayerButtons()
+
         let popupMargin: CGFloat
         let videoPlayerControlsHeight: CGFloat
         let scrubProgressBarSpacing: CGFloat
@@ -953,6 +955,22 @@ private extension VideoPlayerViewController {
         view.removeGestureRecognizer(panRecognizer)
     }
 
+    private func videoPlayerButtons() {
+        let audioMedia: Bool = playbackService.metadata.isAudioOnly
+        if UIDevice.current.orientation.isLandscape || view.frame.width >= DeviceWidth.iPhone12ProMaxPortrait.rawValue {
+            videoPlayerControls.repeatButton.isHidden = false
+            videoPlayerControls.shuffleButton.isHidden = false
+
+            videoPlayerControls.subtitleButton.isHidden = false
+            videoPlayerControls.aspectRatioButton.isHidden = false
+        } else {
+            videoPlayerControls.repeatButton.isHidden = !audioMedia
+            videoPlayerControls.shuffleButton.isHidden = !audioMedia
+
+            videoPlayerControls.subtitleButton.isHidden = audioMedia
+            videoPlayerControls.aspectRatioButton.isHidden = audioMedia
+        }
+    }
     // MARK: - Constraints
 
     private func setupConstraints() {
@@ -1202,7 +1220,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         }
 
         artWorkImageView.isHidden = !metadata.isAudioOnly
-        // subControls.toggleFullscreen().hidden = _audioOnly
+        videoPlayerButtons()
     }
 }
 
@@ -1309,6 +1327,8 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
         optionsNavigationBar.sleepTimerButton.isEnabled = !state
 
         videoPlayerControls.subtitleButton.isEnabled = !state
+        videoPlayerControls.shuffleButton.isEnabled = !state
+        videoPlayerControls.repeatButton.isEnabled = !state
         videoPlayerControls.dvdButton.isEnabled = !state
         videoPlayerControls.rotationLockButton.isEnabled = !state
         videoPlayerControls.backwardButton.isEnabled = !state

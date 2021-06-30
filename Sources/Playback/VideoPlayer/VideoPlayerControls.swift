@@ -30,6 +30,8 @@ protocol VideoPlayerControlsDelegate: AnyObject {
 
     func videoPlayerControlsDelegateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidMoreActions(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateShuffle(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls)
 }
 
 
@@ -45,6 +47,7 @@ class VideoPlayerControls: UIView {
 
     @IBOutlet weak var rotationLockButton: UIButton!
 
+    @IBOutlet weak var repeatButton: UIButton!
     // MARK: - Main Controls
 
     @IBOutlet weak var backwardButton: UIButton!
@@ -63,6 +66,7 @@ class VideoPlayerControls: UIView {
 
     @IBOutlet weak var moreActionsButton: UIButton!
 
+    @IBOutlet weak var shuffleButton: UIButton!
     // MARK: -
 
     weak var delegate: VideoPlayerControlsDelegate?
@@ -86,6 +90,11 @@ class VideoPlayerControls: UIView {
                                                                   comment: "")
         rotationLockButton.accessibilityHint = NSLocalizedString("ROTATION_LOCK_HINT",
                                                                  comment: "")
+        
+        repeatButton.accessibilityLabel = NSLocalizedString("REPEAT_MODE",
+                                                            comment: "")
+        repeatButton.accessibilityHint = NSLocalizedString("REPEAT_HINT",
+                                                           comment: "")
 
         backwardButton.accessibilityLabel = NSLocalizedString("BACKWARD_BUTTON",
                                                               comment: "")
@@ -112,6 +121,11 @@ class VideoPlayerControls: UIView {
         forwardButton.accessibilityHint = NSLocalizedString("FORWARD_HINT",
                                                             comment: "")
 
+        shuffleButton.accessibilityLabel = NSLocalizedString("SHUFFLE",
+                                                             comment: "")
+        shuffleButton.accessibilityHint = NSLocalizedString("SHUFFLE_HINT",
+                                                            comment: "")
+        
         aspectRatioButton.accessibilityLabel = NSLocalizedString("VIDEO_ASPECT_RATIO_BUTTON",
                                                                  comment: "")
         aspectRatioButton.accessibilityHint = NSLocalizedString("VIDEO_ASPECT_RATIO_HINT",
@@ -144,6 +158,10 @@ extension VideoPlayerControls {
 
     @IBAction func handleRotationLockButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapRotationLock(self)
+    }
+    
+    @IBAction func handleRepeatButton(_ sender: Any) {
+        delegate?.videoPlayerControlsDelegateRepeat(self)
     }
 }
 
@@ -181,4 +199,9 @@ extension VideoPlayerControls {
     @IBAction func handleMoreActionsButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidMoreActions(self)
     }
+    
+    @IBAction func handleShuffleButton(_ sender: Any) {
+        delegate?.videoPlayerControlsDelegateShuffle(self)
+    }
+    
 }

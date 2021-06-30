@@ -417,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Rotation lock";
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
+"REPEAT_HINT" = "Repeat same media";
+
 "BACKWARD_BUTTON" = "Backward";
 "BACKWARD_HINT" = "Jump Backwards";
 
@@ -432,6 +434,8 @@
 "FORWARD_HINT" = "Jump forwards";
 
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
+
+"SHUFFLE_HINT" = "Shuffle media list";
 
 "VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";

@@ -18,6 +18,19 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
         trackSelector.update()
         shouldShowTrackSelectorPopup(!trackSelectorPopupView.isShown)
     }
+    
+    func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls) {
+        playbackService.toggleRepeatMode()
+
+        switch playbackService.repeatMode {
+            case VLCRepeatMode.doNotRepeat:
+                videoPlayerControls.repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
+            case VLCRepeatMode.repeatCurrentItem:
+                videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeatOne"), for: .normal)
+            default:
+                videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
+        }
+    }
 
     func videoPlayerControlsDelegateDidTapDVD(_ videoPlayerControls: VideoPlayerControls) {
         // Not DVD support yet.
@@ -81,6 +94,16 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
         }
     }
 
+    func videoPlayerControlsDelegateShuffle(_ videoPlayerControls: VideoPlayerControls) {
+        if playbackService.isShuffleMode {
+            playbackService.isShuffleMode = false
+            videoPlayerControls.shuffleButton.tintColor = .white
+        } else {
+            playbackService.isShuffleMode = true
+            videoPlayerControls.shuffleButton.tintColor = PresentationTheme.current.colors.orangeUI
+        }
+    }
+
     func videoPlayerControlsDelegateDidMoreActions(_ videoPlayerControls: VideoPlayerControls) {
         present(moreOptionsActionSheet, animated: false) {
             [unowned self] in
@@ -88,6 +111,4 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
             self.moreOptionsActionSheet.hidePlayer()
         }
     }
-
-
 }
