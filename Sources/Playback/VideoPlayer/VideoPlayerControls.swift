@@ -10,26 +10,26 @@
  * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
 
-@objc (VLCVideoPlayerControlsDelgate)
-protocol VideoPlayerControlsDelgate: AnyObject {
+@objc (VLCVideoPlayerControlsDelegate)
+protocol VideoPlayerControlsDelegate: AnyObject {
     // MARK: - Left Controls
 
-    func videoPlayerControlsDelgateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls)
-    func videoPlayerControlsDelgateDidTapDVD(_ videoPlayerControls: VideoPlayerControls)
-    func videoPlayerControlsDelgateDidTapRotationLock(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidTapDVD(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidTapRotationLock(_ videoPlayerControls: VideoPlayerControls)
 
     // MARK: - Main Controls
 
-    func videoPlayerControlsDelgateDidTapBackward(_ videoPlayerControls: VideoPlayerControls)
-    func videoPlayerControlsDelgateDidTapPreviousMedia(_ videoPlayerControls: VideoPlayerControls)
-    func videoPlayerControlsDelgateDidTapPlayPause(_ videoPlayerControls: VideoPlayerControls)
-    func videoPlayerControlsDelgateDidTapNextMedia(_ videoPlayerControls: VideoPlayerControls)
-    func videoPlayerControlsDelgateDidTapForeward(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidTapBackward(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidTapPreviousMedia(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidTapPlayPause(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidTapNextMedia(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidTapForeward(_ videoPlayerControls: VideoPlayerControls)
 
     // MARK: - Right Controls
 
-    func videoPlayerControlsDelgateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls)
-    func videoPlayerControlsDelgateDidMoreActions(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidMoreActions(_ videoPlayerControls: VideoPlayerControls)
 }
 
 
@@ -65,7 +65,7 @@ class VideoPlayerControls: UIView {
 
     // MARK: -
 
-    weak var delegate: VideoPlayerControlsDelgate?
+    weak var delegate: VideoPlayerControlsDelegate?
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -135,15 +135,15 @@ class VideoPlayerControls: UIView {
 
 extension VideoPlayerControls {
     @IBAction func handleSubtitleButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelgateDidTapSubtitle(self)
+        delegate?.videoPlayerControlsDelegateDidTapSubtitle(self)
     }
 
     @IBAction func handleDVDButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelgateDidTapDVD(self)
+        delegate?.videoPlayerControlsDelegateDidTapDVD(self)
     }
 
     @IBAction func handleRotationLockButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelgateDidTapRotationLock(self)
+        delegate?.videoPlayerControlsDelegateDidTapRotationLock(self)
     }
 }
 
@@ -151,23 +151,23 @@ extension VideoPlayerControls {
 
 extension VideoPlayerControls {
     @IBAction func handleBackwardButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelgateDidTapBackward(self)
+        delegate?.videoPlayerControlsDelegateDidTapBackward(self)
     }
 
     @IBAction func handlePreviousButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelgateDidTapPreviousMedia(self)
+        delegate?.videoPlayerControlsDelegateDidTapPreviousMedia(self)
     }
 
     @IBAction func handlePlayPauseButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelgateDidTapPlayPause(self)
+        delegate?.videoPlayerControlsDelegateDidTapPlayPause(self)
     }
 
     @IBAction func handleNextButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelgateDidTapNextMedia(self)
+        delegate?.videoPlayerControlsDelegateDidTapNextMedia(self)
     }
 
     @IBAction func handleForwardButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelgateDidTapForeward(self)
+        delegate?.videoPlayerControlsDelegateDidTapForeward(self)
     }
 }
 
@@ -175,10 +175,10 @@ extension VideoPlayerControls {
 
 extension VideoPlayerControls {
     @IBAction func handleAspectRatioButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelgateDidTapAspectRatio(self)
+        delegate?.videoPlayerControlsDelegateDidTapAspectRatio(self)
     }
 
     @IBAction func handleMoreActionsButton(_ sender: Any) {
-        delegate?.videoPlayerControlsDelgateDidMoreActions(self)
+        delegate?.videoPlayerControlsDelegateDidMoreActions(self)
     }
 }

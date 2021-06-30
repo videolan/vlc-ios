@@ -12,8 +12,8 @@
 
 // MARK: VideoPlayerControlsDelegate
 
-extension VideoPlayerViewController: VideoPlayerControlsDelgate {
-    func videoPlayerControlsDelgateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls) {
+extension VideoPlayerViewController: VideoPlayerControlsDelegate {
+    func videoPlayerControlsDelegateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls) {
         if !trackSelectorPopupView.isShown {
             showTrackSelectorPopup()
         } else {
@@ -21,7 +21,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelgate {
         }
     }
 
-    func videoPlayerControlsDelgateDidTapDVD(_ videoPlayerControls: VideoPlayerControls) {
+    func videoPlayerControlsDelegateDidTapDVD(_ videoPlayerControls: VideoPlayerControls) {
         // Not DVD support yet.
     }
 
@@ -37,7 +37,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelgate {
         }
     }
 
-    func videoPlayerControlsDelgateDidTapRotationLock(_ videoPlayerControls: VideoPlayerControls) {
+    func videoPlayerControlsDelegateDidTapRotationLock(_ videoPlayerControls: VideoPlayerControls) {
         let mask = getInterfaceOrientationMask(orientation: UIApplication.shared.statusBarOrientation)
 
         if supportedInterfaceOrientations == .allButUpsideDown {
@@ -49,28 +49,28 @@ extension VideoPlayerViewController: VideoPlayerControlsDelgate {
         }
     }
 
-    func videoPlayerControlsDelgateDidTapBackward(_ videoPlayerControls: VideoPlayerControls) {
+    func videoPlayerControlsDelegateDidTapBackward(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.jumpBackward(10)
     }
 
-    func videoPlayerControlsDelgateDidTapPreviousMedia(_ videoPlayerControls: VideoPlayerControls) {
+    func videoPlayerControlsDelegateDidTapPreviousMedia(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.previous()
     }
 
-    func videoPlayerControlsDelgateDidTapPlayPause(_ videoPlayerControls: VideoPlayerControls) {
+    func videoPlayerControlsDelegateDidTapPlayPause(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.playPause()
         videoPlayerControls.updatePlayPauseButton(toState: playbackService.isPlaying)
     }
 
-    func videoPlayerControlsDelgateDidTapNextMedia(_ videoPlayerControls: VideoPlayerControls) {
+    func videoPlayerControlsDelegateDidTapNextMedia(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.next()
     }
 
-    func videoPlayerControlsDelgateDidTapForeward(_ videoPlayerControls: VideoPlayerControls) {
+    func videoPlayerControlsDelegateDidTapForeward(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.jumpForward(10)
     }
 
-    func videoPlayerControlsDelgateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls) {
+    func videoPlayerControlsDelegateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.switchAspectRatio(false)
         
         aspectRatioStatusLabel.text = playbackService.string(for: playbackService.currentAspectRatio)
@@ -83,7 +83,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelgate {
         }
     }
 
-    func videoPlayerControlsDelgateDidMoreActions(_ videoPlayerControls: VideoPlayerControls) {
+    func videoPlayerControlsDelegateDidMoreActions(_ videoPlayerControls: VideoPlayerControls) {
         present(moreOptionsActionSheet, animated: false) {
             [unowned self] in
             self.moreOptionsActionSheet.interfaceDisabled = self.playerController.isInterfaceLocked
