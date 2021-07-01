@@ -1140,6 +1140,9 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         if trackSelectorPopupView.isShown {
             trackSelector.update()
         }
+        if let queueCollectionView = queueViewController?.queueCollectionView {
+            queueCollectionView.reloadData()
+        }
     }
 
     func savePlaybackState(_ playbackService: PlaybackService) {
