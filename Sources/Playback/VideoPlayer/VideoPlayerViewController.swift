@@ -1176,6 +1176,8 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
 
         if playbackService.isPlayingOnExternalScreen() {
             externalVideoOutputView.updateUI(rendererItem: playbackService.renderer, title: metadata.title)
+        } else {
+            self.externalVideoOutputView.isHidden = true
         }
 
         artWorkImageView.isHidden = !metadata.isAudioOnly
