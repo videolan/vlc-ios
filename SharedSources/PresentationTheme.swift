@@ -106,7 +106,7 @@ enum PresentationThemeType: Int {
     static let blackTheme = PresentationTheme(colors: blackPalette)
 
     var isDark: Bool {
-        return self == PresentationTheme(colors: darkPalette) || self == PresentationTheme(colors: blackPalette)
+        return colors.isDark
     }
 
     static var current: PresentationTheme = {
