@@ -17,6 +17,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier)
     func mediaMoreOptionsActionSheetHideAlertIfNecessary()
     func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView)
+    func mediaMoreOptionsActionSheetDidSelectChapters()
 }
 
 @objc (VLCMediaMoreOptionsActionSheet)
@@ -24,6 +25,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     // MARK: Instance variables
     weak var moreOptionsDelegate: MediaMoreOptionsActionSheetDelegate?
+    var currentMediaHasChapters: Bool = false
 
     // To be removed when Designs are done for the Filters, Equalizer etc views are added to Figma
     lazy private var mockView: UIView = {
@@ -240,6 +242,8 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
             return sleepTimerView
         case .equalizer:
             return equalizerView
+        case .chapters:
+            return ChapterDummyView()
         default:
             return mockView
         }
@@ -248,6 +252,11 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
     var configurableCellModels: [ActionSheetCellModel] {
         var models: [ActionSheetCellModel] = []
         MediaPlayerActionSheetCellIdentifier.allCases.forEach {
+            if $0 == .chapters && currentMediaHasChapters == false {
+                // Do not show the chapters category when there are no chapters.
+                return
+            }
+
             let cellModel = ActionSheetCellModel(
                 title: String(describing: $0),
                 imageIdentifier: $0.rawValue,
@@ -258,6 +267,8 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
                 cellModel.accessoryType = .toggleSwitch
                 cellModel.viewToPresent = nil
             } else if $0 == .equalizer {
+                cellModel.accessoryType = .popup
+            } else if $0 == .chapters {
                 cellModel.accessoryType = .popup
             }
             models.append(cellModel)

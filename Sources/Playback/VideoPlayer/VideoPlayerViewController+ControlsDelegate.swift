@@ -14,6 +14,8 @@
 
 extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     func videoPlayerControlsDelegateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls) {
+        trackSelector.trackChapters = false
+        trackSelector.update()
         shouldShowTrackSelectorPopup(!trackSelectorPopupView.isShown)
     }
 

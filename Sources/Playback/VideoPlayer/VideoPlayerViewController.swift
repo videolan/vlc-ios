@@ -1143,6 +1143,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         if let queueCollectionView = queueViewController?.queueCollectionView {
             queueCollectionView.reloadData()
         }
+        moreOptionsActionSheet.currentMediaHasChapters = currentMediaHasChapters
     }
 
     func savePlaybackState(_ playbackService: PlaybackService) {
@@ -1361,6 +1362,12 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
 
             showPopup(equalizerPopupView, with: equalizerView, accessoryViewsDelegate: equalizerView)
         }
+    }
+
+    func mediaMoreOptionsActionSheetDidSelectChapters() {
+        trackSelector.trackChapters = true
+        trackSelector.update()
+        shouldShowTrackSelectorPopup(!trackSelectorPopupView.isShown)
     }
 }
 

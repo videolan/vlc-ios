@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "iconChapters.pdf",
+      "filename" : "ic_chapter.pdf",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -17,5 +17,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }

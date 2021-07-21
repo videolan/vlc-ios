@@ -9,12 +9,15 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+class ChapterDummyView: UIView { }
+
 enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
     case filter
     case playback
     case sleepTimer
     case equalizer
     case interfaceLock
+    case chapters
 
     var description: String {
         switch self {
@@ -28,6 +31,8 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
             return NSLocalizedString("BUTTON_SLEEP_TIMER", comment: "")
         case .interfaceLock:
             return NSLocalizedString("INTERFACE_LOCK_BUTTON", comment: "")
+        case .chapters:
+            return NSLocalizedString("CHAPTER_SELECTION_TITLE", comment: "")
         }
     }
 }
@@ -201,7 +206,12 @@ class MediaPlayerActionSheet: ActionSheet {
         modalPresentationStyle = .custom
         setAction { (item) in
             if let item = item as? UIView {
-                if let equalizerView = item as? EqualizerView {
+                if item is ChapterDummyView {
+                    if let actionSheet = self as? MediaMoreOptionsActionSheet {
+                        actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetDidSelectChapters()
+                        self.removeActionSheet()
+                    }
+                } else if let equalizerView = item as? EqualizerView {
                     if let actionSheet = self as? MediaMoreOptionsActionSheet {
                         equalizerView.willShow()
                         actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentPopupView(withChild: equalizerView)
