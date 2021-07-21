@@ -130,7 +130,7 @@ class VolumeControlView: SliderInfoView {
         }
 
         levelSlider.addTarget(self, action: #selector(self.onVolumeChange), for: .valueChanged)
-        self.iconNames = ["noSound", "lowSound", "mediumSound", "hightSound"]
+        self.iconNames = ["noSound", "lowSound", "mediumSound", "highSound"]
 
         levelSlider.accessibilityLabel = NSLocalizedString("VOLUME_SLIDER", comment: "")
         levelSlider.accessibilityHint = NSLocalizedString("VOLUME_HINT", comment: "")
