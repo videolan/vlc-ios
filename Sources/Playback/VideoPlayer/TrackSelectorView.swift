@@ -10,35 +10,13 @@
  * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
 
-enum TrackSelectorSwitchingMode {
-    case tracks
-    case chapters
-}
-
 class TrackSelectorView: UIView {
     private lazy var playbackService = PlaybackService.sharedInstance()
 
     private let tableView: UITableView = UITableView()
 
-    var switching: TrackSelectorSwitchingMode = .tracks {
-        didSet {
-            segmentedControl.selectedSegmentIndex = switching == .tracks ? 0 : 1
-        }
-    }
-
-    private lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: [
-            UIImage(named: "iconSubtitle") ?? NSLocalizedString("AUDIO", comment: ""),
-            UIImage(named: "iconChapters") ?? NSLocalizedString("VIDEO", comment: "")
-        ])
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(segmentedControlValueDidChange), for: .valueChanged)
-        segmentedControl.setContentHuggingPriority(.required, for: .horizontal)
-        segmentedControl.setContentCompressionResistancePriority(.required, for: .vertical)
-        return segmentedControl
-    }()
     var parentViewController: UIViewController?
+    var trackChapters: Bool = false
 
     private lazy var isRightToLeft: Bool = {
         UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
@@ -78,27 +56,10 @@ class TrackSelectorView: UIView {
     private func setupTheme() {
         backgroundColor = PresentationTheme.darkTheme.colors.background
         tableView.backgroundColor = PresentationTheme.darkTheme.colors.background
-        if #available(iOS 13.0, *) {
-            segmentedControl.selectedSegmentTintColor = PresentationTheme.darkTheme.colors.orangeUI
-        } else {
-            segmentedControl.tintColor = PresentationTheme.darkTheme.colors.orangeUI
-        }
     }
 
     // MARK: - Public methods
     func update() {
-        switch switching {
-        case .tracks:
-            if !hasMultipleAudioTracks() && !hasVideoSubtitles() {
-                switching = .chapters
-            }
-        case .chapters:
-            if !hasMultitpleTitles() && !hasMultipleChapters() {
-                switching = .tracks
-            }
-        }
-        segmentedControl.setEnabled(hasMultipleAudioTracks() || hasVideoSubtitles(), forSegmentAt: 0)
-        segmentedControl.setEnabled(hasMultitpleTitles() || hasMultipleChapters(), forSegmentAt: 1)
         tableView.reloadData()
         setNeedsLayout()
         layoutIfNeeded()
@@ -120,26 +81,13 @@ class TrackSelectorView: UIView {
     private func hasMultipleChapters() -> Bool {
         return playbackService.numberOfChaptersForCurrentTitle > 1
     }
-
-    // MARK: - Event handlers
-    @objc private func segmentedControlValueDidChange(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            switching = .tracks
-        case 1:
-            switching = .chapters
-        default:
-            break
-        }
-        update()
-    }
 }
 
 // MARK: - PopupViewAccessoryViewDelegate
 
 extension TrackSelectorView: PopupViewAccessoryViewsDelegate {
     func popupViewAccessoryView(_ popupView: PopupView) -> [UIView] {
-        return [segmentedControl]
+        return []
     }
 }
 
@@ -149,15 +97,14 @@ extension TrackSelectorView: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         var sections = 0
 
-        switch switching {
-        case .tracks:
+        if !trackChapters {
             if hasMultipleAudioTracks() {
                 sections += 1
             }
             if hasVideoSubtitles() {
                 sections += 1
             }
-        case .chapters:
+        } else {
             if hasMultitpleTitles() {
                 sections += 1
             }
@@ -165,18 +112,16 @@ extension TrackSelectorView: UITableViewDelegate, UITableViewDataSource {
                 sections += 1
             }
         }
-
         return sections
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch switching {
-        case .tracks:
+        if !trackChapters {
             if hasMultipleAudioTracks() && section == 0 {
                 return playbackService.numberOfAudioTracks
             }
             return playbackService.numberOfVideoSubtitlesIndexes
-        case .chapters:
+        } else {
             if hasMultitpleTitles() && section == 0 {
                 return playbackService.numberOfTitles
             }
@@ -185,15 +130,14 @@ extension TrackSelectorView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch switching {
-        case .tracks:
+        if !trackChapters {
             if hasMultipleAudioTracks() && section == 0 {
                 return NSLocalizedString("CHOOSE_AUDIO_TRACK", comment: "")
             }
             if hasVideoSubtitles() {
                 return NSLocalizedString("CHOOSE_SUBTITLE_TRACK", comment: "")
             }
-        case .chapters:
+        } else {
             if hasMultitpleTitles() && section == 0 {
                 return NSLocalizedString("CHOOSE_TITLE", comment: "")
             }
@@ -214,8 +158,7 @@ extension TrackSelectorView: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = PresentationTheme.darkTheme.colors.cellBackgroundA
         cell.textLabel?.textColor = PresentationTheme.darkTheme.colors.cellTextColor
 
-        switch switching {
-        case .tracks:
+        if !trackChapters {
             var trackName: String
             if hasMultipleAudioTracks() && section == 0 {
                 if playbackService.indexOfCurrentAudioTrack == row {
@@ -233,7 +176,7 @@ extension TrackSelectorView: UITableViewDelegate, UITableViewDataSource {
             } else {
                 cell.textLabel?.text = trackName
             }
-        case .chapters:
+        } else {
             if hasMultitpleTitles() && section == 0 {
                 let description = playbackService.titleDescriptionsDict(at: row)
                 if let name = description[VLCTitleDescriptionName],
@@ -264,8 +207,7 @@ extension TrackSelectorView: UITableViewDelegate, UITableViewDataSource {
         let section = indexPath.section
         let row = indexPath.row
 
-        switch switching {
-        case .tracks:
+        if !trackChapters {
             if hasMultipleAudioTracks() && section == 0 {
                 playbackService.selectAudioTrack(at: row)
             } else if row < playbackService.numberOfVideoSubtitlesIndexes - 1 {
@@ -275,7 +217,7 @@ extension TrackSelectorView: UITableViewDelegate, UITableViewDataSource {
                     parentViewController.downloadMoreSPU()
                 }
             }
-        case .chapters:
+        } else {
             if hasMultitpleTitles() && section == 0 {
                 playbackService.selectTitle(at: row)
             } else {
