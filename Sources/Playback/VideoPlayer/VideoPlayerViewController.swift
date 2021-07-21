@@ -1496,12 +1496,12 @@ extension VideoPlayerViewController {
         NSLayoutConstraint.activate(newConstraints)
     }
 
-    func showTrackSelectorPopup() {
-        showPopup(trackSelectorPopupView, with: trackSelector, accessoryViewsDelegate: trackSelector)
-    }
-
-    func hideTrackSelectorPopup() {
-        trackSelectorPopupView.close()
+    func shouldShowTrackSelectorPopup(_ show: Bool) {
+        if show {
+            showPopup(trackSelectorPopupView, with: trackSelector, accessoryViewsDelegate: trackSelector)
+        } else {
+            trackSelectorPopupView.close()
+        }
     }
 }
 

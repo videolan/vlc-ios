@@ -14,11 +14,7 @@
 
 extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     func videoPlayerControlsDelegateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls) {
-        if !trackSelectorPopupView.isShown {
-            showTrackSelectorPopup()
-        } else {
-            hideTrackSelectorPopup()
-        }
+        shouldShowTrackSelectorPopup(!trackSelectorPopupView.isShown)
     }
 
     func videoPlayerControlsDelegateDidTapDVD(_ videoPlayerControls: VideoPlayerControls) {
