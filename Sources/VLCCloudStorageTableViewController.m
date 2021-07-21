@@ -113,6 +113,9 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     //Workaround since in viewWillDisappear self.navigationController can be nil which will lead to a lingering toolbar
     tempNav = self.navigationController;
     tempNav.toolbarHidden = NO;
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
+    }
     [super viewWillAppear:animated];
 }
 
@@ -240,6 +243,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
         self.currentPath = [self.currentPath stringByDeletingLastPathComponent];
         [self requestInformationForCurrentPath];
     } else
+        [self willGoBack];
         [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -309,6 +313,15 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 
 - (IBAction)playAllAction:(id)sender
 {
+}
+
+#pragma mark - VLCBackPreparationProtocol
+
+- (void)willGoBack
+{
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
+    }
 }
 
 @end

@@ -123,6 +123,7 @@ static void *ProgressObserverContext = &ProgressObserverContext;
                 [self.delegate performSelector:@selector(mediaListUpdated)];
             }
             if (self->_presentingViewController) {
+                [self willGoBack];
                 [self->_presentingViewController.navigationController popViewControllerAnimated:YES];
             }
         });
@@ -228,6 +229,7 @@ static void *ProgressObserverContext = &ProgressObserverContext;
                                                        style:UIAlertActionStyleCancel
                                                      handler:^(UIAlertAction *alertAction) {
                                                          if (weakSelf.presentingViewController && [itemID isEqualToString:@"root"]) {
+                                                             [weakSelf willGoBack];
                                                              [weakSelf.presentingViewController.navigationController popViewControllerAnimated:YES];
                                                          }
                                                      }];
@@ -491,6 +493,16 @@ static void *ProgressObserverContext = &ProgressObserverContext;
     NSString  *remaingTime = [formatter stringFromDate:date];
     if ([self.delegate respondsToSelector:@selector(updateRemainingTime:)])
         [self.delegate updateRemainingTime:remaingTime];
+}
+
+#pragma mark - VLCBackPreparationProtocol
+
+- (void)willGoBack
+{
+    if ([_presentingViewController conformsToProtocol:@protocol(VLCBackPreparationProtocol)]) {
+        id<VLCBackPreparationProtocol> backPreparation = (id<VLCBackPreparationProtocol>)_presentingViewController;
+        [backPreparation willGoBack];
+    }
 }
 
 @end

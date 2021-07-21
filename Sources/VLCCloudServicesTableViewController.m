@@ -71,10 +71,6 @@
 {
     [self.tableView reloadData];
     [super viewWillAppear:animated];
-
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
-    }
 }
 
 - (void)authenticationSessionsChanged:(NSNotification *)notification

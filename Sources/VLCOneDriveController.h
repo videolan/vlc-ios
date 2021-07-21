@@ -16,7 +16,7 @@
 
 @class ODItem;
 
-@interface VLCOneDriveController : VLCCloudStorageController
+@interface VLCOneDriveController : VLCCloudStorageController <VLCBackPreparationProtocol>
 
 @property (readonly) BOOL activeSession;
 @property (nonatomic, readwrite) ODItem *currentItem;
