@@ -58,17 +58,9 @@ class MediaScrubProgressBar: UIStackView {
         remainingTimeButton.setTitleColor(.white, for: .normal)
 
         // Use a monospace variant for the digits so the width does not jitter as the numbers changes.
-        if let descriptor = remainingTimeButton.titleLabel?.font.fontDescriptor {
-            let featureSettings: Dictionary = [UIFontDescriptor.FeatureKey.type: kNumberSpacingType,
-                                               UIFontDescriptor.FeatureKey.selector: kMonospacedNumbersSelector]
-            let fontAttributes: Dictionary = [UIFontDescriptor.AttributeName.featureSettings: [featureSettings],
-                                              UIFontDescriptor.AttributeName.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.semibold]] as [UIFontDescriptor.AttributeName: Any]
-            let monoSpaceFont = UIFont(descriptor: descriptor.addingAttributes(fontAttributes), size: 13)
-            remainingTimeButton.titleLabel?.font = monoSpaceFont
-        } else {
-            // Fallback to system font in the worst-case
-            remainingTimeButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
-        }
+        remainingTimeButton.titleLabel?.font = UIFont.monospacedDigitSystemFont(ofSize: 13,
+                                                                                weight: .semibold)
+
         remainingTimeButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return remainingTimeButton
     }()
