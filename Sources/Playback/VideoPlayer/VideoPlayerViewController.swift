@@ -957,21 +957,35 @@ private extension VideoPlayerViewController {
         setupAspectRatioContraints()
     }
 
-    private func setupBrightnessControlConstraints() {
+    private func setupCommonSliderConstraints(for slider: UIView) {
+        let heightConstraint = slider.heightAnchor.constraint(lessThanOrEqualToConstant: 170)
+        let topConstraint = slider.topAnchor.constraint(equalTo: mediaNavigationBar.bottomAnchor)
+        let bottomConstraint = slider.bottomAnchor.constraint(equalTo: scrubProgressBar.topAnchor, constant: -10)
+        let yConstraint = slider.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        heightConstraint.priority = .required
+        topConstraint.priority = .defaultHigh
+        bottomConstraint.priority = .defaultHigh
+        yConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
-            brightnessControlView.heightAnchor.constraint(equalToConstant: 50),
-            brightnessControlView.widthAnchor.constraint(equalToConstant: 170),
-            brightnessControlView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant:-10),
-            brightnessControlView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor, constant: -70)
+            heightConstraint,
+            topConstraint,
+            bottomConstraint,
+            slider.widthAnchor.constraint(equalToConstant: 50),
+            yConstraint,
+        ])
+    }
+
+    private func setupBrightnessControlConstraints() {
+        setupCommonSliderConstraints(for: brightnessControlView)
+        NSLayoutConstraint.activate([
+            brightnessControlView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor)
         ])
     }
 
     private func setupVolumeControlConstraints() {
+        setupCommonSliderConstraints(for: volumeControlView)
         NSLayoutConstraint.activate([
-            volumeControlView.heightAnchor.constraint(equalToConstant:50),
-            volumeControlView.widthAnchor.constraint(equalToConstant: 170),
-            volumeControlView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant:-10),
-            volumeControlView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor, constant: 70)
+            volumeControlView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor)
         ])
     }
 

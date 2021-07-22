@@ -28,8 +28,8 @@ class SliderInfoView: UIView {
 
     var iconNames: [String] = []
 
-    let levelSlider: UISlider = {
-        let levelSlider = UISlider()
+    let levelSlider: VerticalSlider = {
+        let levelSlider = VerticalSlider()
         levelSlider.tintColor = .white
         levelSlider.minimumValue = 0
         levelSlider.maximumValue = 1
@@ -64,29 +64,24 @@ class SliderInfoView: UIView {
     }
 
     override func layoutSubviews() {
-        rotateSliderView()
         addSubview(levelImageView)
         addSubview(levelSlider)
         bringSubviewToFront(levelSlider)
-        self.isUserInteractionEnabled = true
+        isUserInteractionEnabled = true
+        translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            levelImageView.topAnchor.constraint(equalTo: topAnchor),
             levelImageView.heightAnchor.constraint(equalToConstant: 25),
             levelImageView.widthAnchor.constraint(equalToConstant: 25),
-            levelImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            levelImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: 40)
+            levelImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
 
         NSLayoutConstraint.activate([
-            levelSlider.heightAnchor.constraint(equalToConstant: 30),
-            levelSlider.widthAnchor.constraint(equalToConstant: 170),
-            levelSlider.centerYAnchor.constraint(equalTo: centerYAnchor),
+            levelSlider.topAnchor.constraint(equalTo: levelImageView.bottomAnchor, constant: 10),
+            levelSlider.bottomAnchor.constraint(equalTo: bottomAnchor),
+            levelSlider.widthAnchor.constraint(equalToConstant: 30),
             levelSlider.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
-    }
-
-    private func rotateSliderView() {
-        self.transform = CGAffineTransform(rotationAngle: .pi * -0.5)
-        self.levelImageView.transform = CGAffineTransform(rotationAngle: .pi/2)
     }
 }
 
@@ -95,7 +90,7 @@ class BrightnessControlView: SliderInfoView {
     init() {
         super.init(frame: .zero)
         if  !UIAccessibility.isVoiceOverRunning {
-            levelSlider.setThumbImage(UIImage(), for: .normal)
+            levelSlider.setThumbImage(image: UIImage(), for: .normal)
         }
         self.iconNames = ["brightnessLow", "brightnessLow", "brightnessMedium", "brightnessHigh"]
         levelSlider.addTarget(self, action: #selector(self.onLuminosityChange), for: .valueChanged)
@@ -111,12 +106,8 @@ class BrightnessControlView: SliderInfoView {
     }
 
     @objc func onLuminosityChange() {
-        UIScreen.main.brightness = CGFloat(self.levelSlider.value)
-        updateIcon(level: Float(CGFloat(self.levelSlider.value)))
-    }
-
-    private func rotateSliderView() {
-        self.transform = CGAffineTransform(rotationAngle: .pi * -0.5)
+        UIScreen.main.brightness = CGFloat(levelSlider.value)
+        updateIcon(level: levelSlider.value)
     }
 }
 
@@ -126,7 +117,7 @@ class VolumeControlView: SliderInfoView {
         super.init(frame: .zero)
         self.levelSlider.value = AVAudioSession.sharedInstance().outputVolume
         if  !UIAccessibility.isVoiceOverRunning {
-            levelSlider.setThumbImage(UIImage(), for: .normal)
+            levelSlider.setThumbImage(image: UIImage(), for: .normal)
         }
 
         levelSlider.addTarget(self, action: #selector(self.onVolumeChange), for: .valueChanged)
@@ -138,8 +129,8 @@ class VolumeControlView: SliderInfoView {
     }
 
     @objc func onVolumeChange() {
-        MPVolumeView.setVolume(Float(self.levelSlider.value))
-        updateIcon(level: Float(self.levelSlider.value))
+        MPVolumeView.setVolume(levelSlider.value)
+        updateIcon(level: levelSlider.value)
     }
 
     required init?(coder: NSCoder) {
