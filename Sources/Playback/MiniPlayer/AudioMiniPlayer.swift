@@ -41,6 +41,7 @@ class AudioMiniPlayer: UIView, MiniPlayer {
 
     @IBOutlet private weak var audioMiniPlayer: UIView!
     @IBOutlet private weak var artworkImageView: UIImageView!
+    @IBOutlet private weak var artworkBlurImageView: UIImageView!
     @IBOutlet private weak var titleLabel: VLCMarqueeLabel!
     @IBOutlet private weak var artistLabel: VLCMarqueeLabel!
     @IBOutlet private weak var progressBarView: UIProgressView!
@@ -87,12 +88,14 @@ private extension AudioMiniPlayer {
 
         audioMiniPlayer.clipsToBounds = true
         audioMiniPlayer.layer.cornerRadius = 4
+        audioMiniPlayer.layer.borderWidth = 0.5
+        audioMiniPlayer.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
 
         progressBarView.clipsToBounds = true
-        progressBarView.layer.cornerRadius = 1
 
         if #available(iOS 11.0, *) {
             artworkImageView.accessibilityIgnoresInvertColors = true
+            artworkBlurImageView.accessibilityIgnoresInvertColors = true
         }
         artworkImageView.clipsToBounds = true
         artworkImageView.layer.cornerRadius = 2
@@ -521,6 +524,9 @@ private extension AudioMiniPlayer {
         artistLabel.text = metadata.artist
         if metadata.isAudioOnly {
             artworkImageView.image = metadata.artworkImage ?? UIImage(named: "no-artwork")
+            artworkBlurImageView.image = metadata.artworkImage
+        } else {
+            artworkBlurImageView.image = nil
         }
     }
 }

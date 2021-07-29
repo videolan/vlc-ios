@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AudioMiniPlayer" customModule="VLC">
             <connections>
                 <outlet property="artistLabel" destination="cVn-oI-gin" id="i0Q-YH-XOJ"/>
+                <outlet property="artworkBlurImageView" destination="sE6-yx-yZZ" id="HJA-IE-LJQ"/>
                 <outlet property="artworkImageView" destination="kd1-oF-bvh" id="2vA-3k-DNW"/>
                 <outlet property="audioMiniPlayer" destination="uF1-VS-Gss" id="KY2-QZ-jcK"/>
                 <outlet property="nextButton" destination="eyt-Pj-hU6" id="bWI-0V-wbd"/>
@@ -29,51 +30,60 @@
             <rect key="frame" x="0.0" y="0.0" width="360" height="56"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ciB-dn-lxu" userLabel="Mini Player Content Stack View">
-                    <rect key="frame" x="8" y="8" width="344" height="40"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sE6-yx-yZZ">
+                    <rect key="frame" x="0.0" y="0.0" width="360" height="56"/>
+                </imageView>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uX3-fg-RRU">
+                    <rect key="frame" x="0.0" y="0.0" width="360" height="56"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="92Z-QE-4me">
+                        <rect key="frame" x="0.0" y="0.0" width="360" height="56"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="dark"/>
+                </visualEffectView>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ciB-dn-lxu" userLabel="Mini Player Content Stack View">
+                    <rect key="frame" x="0.0" y="0.0" width="356" height="56"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="KRl-hk-ICS" userLabel="Info Stack View">
-                            <rect key="frame" x="0.0" y="0.0" width="209" height="40"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="KRl-hk-ICS" userLabel="Info Stack View">
+                            <rect key="frame" x="0.0" y="0.0" width="226" height="56"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no-artwork" translatesAutoresizingMaskIntoConstraints="NO" id="kd1-oF-bvh" userLabel="Art">
-                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="08A-CV-78c"/>
-                                        <constraint firstAttribute="width" constant="40" id="TC8-7g-6yK"/>
+                                        <constraint firstAttribute="height" constant="56" id="08A-CV-78c"/>
+                                        <constraint firstAttribute="width" constant="56" id="TC8-7g-6yK"/>
                                         <constraint firstAttribute="width" secondItem="kd1-oF-bvh" secondAttribute="height" multiplier="1:1" id="nan-PR-L4K"/>
                                     </constraints>
                                 </imageView>
                                 <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="800" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="oUj-fd-nuu" userLabel="InfoStackView">
-                                    <rect key="frame" x="52" y="0.0" width="157" height="40"/>
+                                    <rect key="frame" x="68" y="8" width="158" height="40"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rRG-rj-ixk">
-                                            <rect key="frame" x="0.0" y="0.0" width="157" height="33.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="158" height="39"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAs-Lc-dt8" userLabel="Title" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="157" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="158" height="24.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cVn-oI-gin" userLabel="Artist" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="19" width="157" height="14.5"/>
+                                                    <rect key="frame" x="0.0" y="24.5" width="158" height="14.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                                    <color key="textColor" systemColor="lightTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <progressView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="IcU-Lc-kf0">
-                                            <rect key="frame" x="0.0" y="37.5" width="157" height="2.5"/>
-                                            <color key="backgroundColor" red="0.1461089551448822" green="0.16114577651023865" blue="0.17342603206634521" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="progressTintColor" red="1" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </progressView>
                                     </subviews>
-                                    <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="1" right="0.0"/>
                                     <viewLayoutGuide key="safeArea" id="qEk-QE-Gm4"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="pdF-50-m2S"/>
+                                    </constraints>
+                                    <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="1" right="0.0"/>
                                 </stackView>
                             </subviews>
                             <connections>
@@ -81,11 +91,11 @@
                                 <outletCollection property="gestureRecognizers" destination="bXF-pN-btw" appends="YES" id="8cq-zK-HSD"/>
                             </connections>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Lh6-Gu-frg" userLabel="Control Stack View">
-                            <rect key="frame" x="214" y="0.0" width="130" height="40"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Lh6-Gu-frg" userLabel="Control Stack View">
+                            <rect key="frame" x="226" y="0.0" width="130" height="56"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hmp-0g-6lI" userLabel="Previous">
-                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                    <rect key="frame" x="0.0" y="8" width="40" height="40"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="Seu-Pw-atZ"/>
@@ -98,7 +108,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Kp-xd-t2N" userLabel="Play">
-                                    <rect key="frame" x="45" y="0.0" width="40" height="40"/>
+                                    <rect key="frame" x="45" y="8" width="40" height="40"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" image="MiniPause"/>
                                     <connections>
@@ -107,7 +117,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyt-Pj-hU6" userLabel="Next">
-                                    <rect key="frame" x="90" y="0.0" width="40" height="40"/>
+                                    <rect key="frame" x="90" y="8" width="40" height="40"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" image="MiniNext"/>
                                     <connections>
@@ -124,9 +134,17 @@
                         </stackView>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="uhh-wt-a89"/>
+                        <constraint firstAttribute="height" constant="56" id="uhh-wt-a89"/>
                     </constraints>
                 </stackView>
+                <progressView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="IcU-Lc-kf0">
+                    <rect key="frame" x="56" y="53.5" width="304" height="3.5"/>
+                    <color key="backgroundColor" red="0.1461089551448822" green="0.16114577651023865" blue="0.17342603206634521" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2.5" id="Xd5-Lk-cF4"/>
+                    </constraints>
+                    <color key="progressTintColor" red="1" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </progressView>
                 <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P5g-cO-YBI">
                     <rect key="frame" x="0.0" y="0.0" width="360" height="56"/>
                     <subviews>
@@ -145,20 +163,31 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="3Tx-iI-Z1w"/>
             <color key="backgroundColor" red="0.13333333333333333" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
             <gestureRecognizers/>
             <constraints>
+                <constraint firstItem="sE6-yx-yZZ" firstAttribute="height" secondItem="uF1-VS-Gss" secondAttribute="height" id="0F3-vh-glN"/>
+                <constraint firstItem="uX3-fg-RRU" firstAttribute="trailing" secondItem="sE6-yx-yZZ" secondAttribute="trailing" id="1Ra-Fh-mqE"/>
+                <constraint firstItem="sE6-yx-yZZ" firstAttribute="width" secondItem="uF1-VS-Gss" secondAttribute="width" id="4ZO-87-oqG"/>
+                <constraint firstItem="sE6-yx-yZZ" firstAttribute="centerY" secondItem="3Tx-iI-Z1w" secondAttribute="centerY" id="75J-De-uyy"/>
                 <constraint firstItem="3Tx-iI-Z1w" firstAttribute="trailing" secondItem="P5g-cO-YBI" secondAttribute="trailing" id="9er-FE-CPV"/>
+                <constraint firstItem="uX3-fg-RRU" firstAttribute="top" secondItem="sE6-yx-yZZ" secondAttribute="top" id="DUP-uY-O22"/>
+                <constraint firstItem="IcU-Lc-kf0" firstAttribute="leading" secondItem="kd1-oF-bvh" secondAttribute="trailing" id="IXl-a5-eqj"/>
                 <constraint firstItem="P5g-cO-YBI" firstAttribute="leading" secondItem="3Tx-iI-Z1w" secondAttribute="leading" id="JAk-V8-NVr"/>
+                <constraint firstItem="P5g-cO-YBI" firstAttribute="bottom" secondItem="IcU-Lc-kf0" secondAttribute="bottom" id="Knx-eL-0cn"/>
+                <constraint firstItem="sE6-yx-yZZ" firstAttribute="centerX" secondItem="3Tx-iI-Z1w" secondAttribute="centerX" id="LXZ-8I-79p"/>
                 <constraint firstItem="P5g-cO-YBI" firstAttribute="top" secondItem="3Tx-iI-Z1w" secondAttribute="top" id="T41-RG-Shv"/>
-                <constraint firstItem="ciB-dn-lxu" firstAttribute="leading" secondItem="3Tx-iI-Z1w" secondAttribute="leading" constant="8" id="Wlf-Uy-z8K"/>
+                <constraint firstItem="IcU-Lc-kf0" firstAttribute="trailing" secondItem="P5g-cO-YBI" secondAttribute="trailing" id="THi-nN-qmS"/>
+                <constraint firstItem="ciB-dn-lxu" firstAttribute="leading" secondItem="3Tx-iI-Z1w" secondAttribute="leading" id="Wlf-Uy-z8K"/>
                 <constraint firstItem="3Tx-iI-Z1w" firstAttribute="bottom" secondItem="P5g-cO-YBI" secondAttribute="bottom" id="e9g-Mm-OV3"/>
-                <constraint firstItem="3Tx-iI-Z1w" firstAttribute="bottom" secondItem="ciB-dn-lxu" secondAttribute="bottom" constant="8" id="fLR-CQ-9Es"/>
-                <constraint firstItem="3Tx-iI-Z1w" firstAttribute="trailing" secondItem="ciB-dn-lxu" secondAttribute="trailing" constant="8" id="gWp-eU-MSF"/>
-                <constraint firstItem="ciB-dn-lxu" firstAttribute="top" secondItem="3Tx-iI-Z1w" secondAttribute="top" constant="8" id="rGr-wd-DPi"/>
+                <constraint firstItem="3Tx-iI-Z1w" firstAttribute="bottom" secondItem="ciB-dn-lxu" secondAttribute="bottom" id="fLR-CQ-9Es"/>
+                <constraint firstItem="3Tx-iI-Z1w" firstAttribute="trailing" secondItem="ciB-dn-lxu" secondAttribute="trailing" constant="4" id="gWp-eU-MSF"/>
+                <constraint firstItem="uX3-fg-RRU" firstAttribute="bottom" secondItem="sE6-yx-yZZ" secondAttribute="bottom" id="ggS-x6-dLv"/>
+                <constraint firstItem="ciB-dn-lxu" firstAttribute="top" secondItem="3Tx-iI-Z1w" secondAttribute="top" id="rGr-wd-DPi"/>
+                <constraint firstItem="uX3-fg-RRU" firstAttribute="leading" secondItem="sE6-yx-yZZ" secondAttribute="leading" id="rOy-jQ-JWW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="3Tx-iI-Z1w"/>
             <point key="canvasLocation" x="49.600000000000001" y="75.562218890554732"/>
         </view>
         <panGestureRecognizer minimumNumberOfTouches="1" id="bXF-pN-btw">
@@ -177,10 +206,21 @@
             </connections>
         </tapGestureRecognizer>
     </objects>
+    <designables>
+        <designable name="aAs-Lc-dt8">
+            <size key="intrinsicContentSize" width="35.5" height="17"/>
+        </designable>
+        <designable name="cVn-oI-gin">
+            <size key="intrinsicContentSize" width="31" height="14.5"/>
+        </designable>
+    </designables>
     <resources>
         <image name="MiniNext" width="24" height="24"/>
         <image name="MiniPause" width="24" height="24"/>
         <image name="MiniPrev" width="24" height="24"/>
         <image name="no-artwork" width="300" height="300"/>
+        <systemColor name="lightTextColor">
+            <color white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
