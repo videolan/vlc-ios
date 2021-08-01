@@ -645,16 +645,16 @@ extension VideoPlayerViewController {
 
     @objc func handleSlideVolumePanGesture(gesture: UIPanGestureRecognizer) {
         let currentPoint = gesture.location(in: volumeControlView)
-        let percentage = currentPoint.x/volumeControlView.bounds.size.width
-        let delta = Float(percentage) *  (volumeControlView.levelSlider.maximumValue - volumeControlView.levelSlider.minimumValue)
+        let percentage = 1.0 - currentPoint.y / volumeControlView.bounds.size.height
+        let delta = Float(percentage) * (volumeControlView.levelSlider.maximumValue - volumeControlView.levelSlider.minimumValue)
         let value = volumeControlView.levelSlider.minimumValue + delta
         MPVolumeView.setVolume(value)
     }
 
     @objc func handleSlideBrightnessPanGesture(gesture: UIPanGestureRecognizer) {
         let currentPoint = gesture.location(in: brightnessControlView)
-        let percentage = currentPoint.x/brightnessControlView.bounds.size.width
-        let delta = Float(percentage) *  (brightnessControlView.levelSlider.maximumValue - brightnessControlView.levelSlider.minimumValue)
+        let percentage = 1.0 - currentPoint.y / brightnessControlView.bounds.size.height
+        let delta = Float(percentage) * (brightnessControlView.levelSlider.maximumValue - brightnessControlView.levelSlider.minimumValue)
         let value = brightnessControlView.levelSlider.minimumValue + delta
         brightnessControlView.onLuminosityChange()
         brightnessControlView.updateIcon(level: value)
