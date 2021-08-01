@@ -215,13 +215,20 @@ class VideoPlayerViewController: UIViewController {
 
     // MARK: - VideoOutput
 
-    private lazy var backgroundGradientLayer: CAGradientLayer = {
-        let gradient = CAGradientLayer()
-        gradient.frame = UIScreen.main.bounds
-        gradient.colors = [UIColor.black.cgColor, UIColor.black.withAlphaComponent(0),
+    private lazy var backgroundGradientLayers: [CAGradientLayer] = {
+        let verticalGradient = CAGradientLayer()
+        let horizontalGradient = CAGradientLayer()
+
+        verticalGradient.frame = UIScreen.main.bounds
+        horizontalGradient.frame = UIScreen.main.bounds
+        verticalGradient.colors = [UIColor.black.cgColor, UIColor.black.withAlphaComponent(0),
                            UIColor.black.withAlphaComponent(0), UIColor.black.cgColor]
-        gradient.locations = [0, 0.3, 0.7, 1]
-        return gradient
+        horizontalGradient.colors = [UIColor.black.cgColor, UIColor.black.withAlphaComponent(0),
+                           UIColor.black.withAlphaComponent(0), UIColor.black.cgColor]
+        verticalGradient.locations = [0, 0.3, 0.7, 1]
+        horizontalGradient.locations = [0, 0.2, 0.8, 1]
+        horizontalGradient.transform = CATransform3DMakeRotation(CGFloat.pi / 2, 0, 0, 1)
+        return [verticalGradient, horizontalGradient]
     }()
 
     private var brightnessControlView: BrightnessControlView = {
@@ -242,7 +249,9 @@ class VideoPlayerViewController: UIViewController {
         backgroundGradientView.frame = UIScreen.main.bounds
         backgroundGradientView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 
-        backgroundGradientView.layer.addSublayer(backgroundGradientLayer)
+        for backgroundGradientLayer in backgroundGradientLayers {
+            backgroundGradientView.layer.addSublayer(backgroundGradientLayer)
+        }
         return backgroundGradientView
     }()
 
@@ -484,7 +493,7 @@ class VideoPlayerViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        backgroundGradientLayer.frame = UIScreen.main.bounds
+        backgroundGradientLayers.forEach { $0.frame = UIScreen.main.bounds }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
