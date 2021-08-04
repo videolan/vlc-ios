@@ -48,6 +48,8 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     @IBOutlet private weak var playPauseButton: UIButton!
     @IBOutlet private weak var previousButton: UIButton!
     @IBOutlet private weak var nextButton: UIButton!
+    @IBOutlet private weak var repeatButton: UIButton!
+    @IBOutlet private weak var shuffleButton: UIButton!
     @IBOutlet private weak var previousNextOverlay: UIView!
     @IBOutlet private weak var previousNextImage: UIImageView!
 
@@ -76,6 +78,27 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     func updatePlayPauseButton() {
         let imageName = playbackController.isPlaying ? "MiniPause" : "MiniPlay"
         playPauseButton.imageView?.image = UIImage(named: imageName)
+    }
+
+    func updateRepeatButton() {
+        switch playbackController.repeatMode {
+        case .doNotRepeat:
+            repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
+            repeatButton.tintColor = .white
+        case .repeatCurrentItem:
+            repeatButton.setImage(UIImage(named: "iconRepeatOne"), for: .normal)
+            repeatButton.tintColor = PresentationTheme.current.colors.orangeUI
+        case .repeatAllItems:
+            repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
+            repeatButton.tintColor = PresentationTheme.current.colors.orangeUI
+        @unknown default:
+            assertionFailure("videoPlayerControlsDelegateRepeat: unhandled case.")
+        }
+    }
+
+    func updateShuffleButton() {
+        shuffleButton.tintColor =
+            playbackController.isShuffleMode ? PresentationTheme.current.colors.orangeUI : .white
     }
 }
 
@@ -128,6 +151,8 @@ private extension AudioMiniPlayer {
 extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
     func prepare(forMediaPlayback playbackService: PlaybackService) {
         updatePlayPauseButton()
+        updateRepeatButton()
+        updateShuffleButton()
         playbackService.delegate = self
         playbackService.recoverDisplayedMetadata()
         // For now, AudioMiniPlayer will be used for all media
@@ -142,6 +167,8 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
                                  currentMediaHasChapters: Bool,
                                  for playbackService: PlaybackService) {
         updatePlayPauseButton()
+        updateRepeatButton()
+        updateShuffleButton()
         if let queueCollectionView = queueViewController?.queueCollectionView {
             queueCollectionView.reloadData()
         }
@@ -181,6 +208,16 @@ private extension AudioMiniPlayer {
 
     @IBAction private func handleNext(_ sender: UIButton) {
         playbackController.next()
+    }
+
+    @IBAction private func handelRepeat(_ sender: UIButton) {
+        playbackController.toggleRepeatMode()
+        updateRepeatButton()
+    }
+
+    @IBAction private func handleShuffle(_ sender: UIButton) {
+        playbackController.isShuffleMode = !playbackController.isShuffleMode
+        updateShuffleButton()
     }
 
     @IBAction private func handleFullScreen(_ sender: Any) {

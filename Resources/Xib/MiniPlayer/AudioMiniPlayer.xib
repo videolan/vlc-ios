@@ -18,10 +18,12 @@
                 <outlet property="audioMiniPlayer" destination="uF1-VS-Gss" id="KY2-QZ-jcK"/>
                 <outlet property="nextButton" destination="eyt-Pj-hU6" id="bWI-0V-wbd"/>
                 <outlet property="playPauseButton" destination="2Kp-xd-t2N" id="gXw-IZ-eUx"/>
-                <outlet property="previousButton" destination="Hmp-0g-6lI" id="mbs-Td-8nH"/>
+                <outlet property="previousButton" destination="vGQ-hi-1Xa" id="Bgj-PO-d94"/>
                 <outlet property="previousNextImage" destination="hlW-Fp-grY" id="G9v-xz-1Aw"/>
                 <outlet property="previousNextOverlay" destination="P5g-cO-YBI" id="nOU-Pe-PCd"/>
                 <outlet property="progressBarView" destination="IcU-Lc-kf0" id="2nw-wK-b2u"/>
+                <outlet property="repeatButton" destination="Hmp-0g-6lI" id="Vka-8W-o60"/>
+                <outlet property="shuffleButton" destination="iPM-8E-rgI" id="5GS-gv-Ccw"/>
                 <outlet property="titleLabel" destination="aAs-Lc-dt8" id="Ze5-Us-djK"/>
             </connections>
         </placeholder>
@@ -94,22 +96,40 @@
                         <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Lh6-Gu-frg" userLabel="Control Stack View">
                             <rect key="frame" x="226" y="0.0" width="130" height="56"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hmp-0g-6lI" userLabel="Previous">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hmp-0g-6lI" userLabel="Repeat">
+                                    <rect key="frame" x="-40" y="8" width="40" height="40"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="Hmp-0g-6lI" secondAttribute="height" multiplier="1:1" id="FdF-Vs-ZOu"/>
+                                    </constraints>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal">
+                                        <imageReference key="image" image="iconRepeat"/>
+                                    </state>
+                                    <variation key="widthClass=compact" hidden="YES"/>
+                                    <connections>
+                                        <action selector="handelRepeat:" destination="-1" eventType="touchUpInside" id="DLU-Cd-VP0"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGQ-hi-1Xa" userLabel="Previous">
                                     <rect key="frame" x="0.0" y="8" width="40" height="40"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="40" id="Seu-Pw-atZ"/>
-                                        <constraint firstAttribute="height" constant="40" id="upi-oq-Tgr"/>
-                                        <constraint firstAttribute="width" secondItem="Hmp-0g-6lI" secondAttribute="height" multiplier="1:1" id="zAa-Io-XGm"/>
+                                        <constraint firstAttribute="height" constant="40" id="1nj-tb-zw2"/>
+                                        <constraint firstAttribute="width" secondItem="vGQ-hi-1Xa" secondAttribute="height" multiplier="1:1" id="UFf-Q8-QJR"/>
+                                        <constraint firstAttribute="width" constant="40" id="XBx-QD-IdO"/>
                                     </constraints>
                                     <state key="normal" image="MiniPrev"/>
                                     <connections>
-                                        <action selector="handlePrevious:" destination="-1" eventType="touchUpInside" id="3MB-Hc-E2Q"/>
+                                        <action selector="handlePrevious:" destination="-1" eventType="touchUpInside" id="g1I-LG-TvN"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Kp-xd-t2N" userLabel="Play">
                                     <rect key="frame" x="45" y="8" width="40" height="40"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="2Kp-xd-t2N" secondAttribute="height" multiplier="1:1" id="cZc-MR-b2z"/>
+                                    </constraints>
                                     <state key="normal" image="MiniPause"/>
                                     <connections>
                                         <action selector="handlePlayPause:" destination="-1" eventType="touchUpInside" id="nOQ-xZ-48F"/>
@@ -119,17 +139,39 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyt-Pj-hU6" userLabel="Next">
                                     <rect key="frame" x="90" y="8" width="40" height="40"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="eyt-Pj-hU6" secondAttribute="height" multiplier="1:1" id="Cw0-TK-S43"/>
+                                    </constraints>
                                     <state key="normal" image="MiniNext"/>
                                     <connections>
                                         <action selector="handleNext:" destination="-1" eventType="touchUpInside" id="FDe-aX-DFt"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPM-8E-rgI" userLabel="Shuffle">
+                                    <rect key="frame" x="130" y="8" width="40" height="40"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="iPM-8E-rgI" secondAttribute="height" multiplier="1:1" id="pKN-jG-nEV"/>
+                                    </constraints>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal">
+                                        <imageReference key="image" image="shuffle"/>
+                                    </state>
+                                    <variation key="widthClass=compact" hidden="YES"/>
+                                    <connections>
+                                        <action selector="handleShuffle:" destination="-1" eventType="touchUpInside" id="geW-Pb-Qo3"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="eyt-Pj-hU6" firstAttribute="height" secondItem="Hmp-0g-6lI" secondAttribute="height" id="4jQ-mM-QRc"/>
-                                <constraint firstItem="2Kp-xd-t2N" firstAttribute="height" secondItem="Hmp-0g-6lI" secondAttribute="height" id="Gc1-PX-mRK"/>
-                                <constraint firstItem="eyt-Pj-hU6" firstAttribute="width" secondItem="Hmp-0g-6lI" secondAttribute="width" id="p1p-oG-OhJ"/>
-                                <constraint firstItem="2Kp-xd-t2N" firstAttribute="width" secondItem="Hmp-0g-6lI" secondAttribute="width" id="wqC-bA-N0c"/>
+                                <constraint firstItem="iPM-8E-rgI" firstAttribute="width" secondItem="vGQ-hi-1Xa" secondAttribute="width" id="1Ww-NJ-dqs"/>
+                                <constraint firstItem="eyt-Pj-hU6" firstAttribute="height" secondItem="vGQ-hi-1Xa" secondAttribute="height" id="4jQ-mM-QRc"/>
+                                <constraint firstItem="2Kp-xd-t2N" firstAttribute="height" secondItem="vGQ-hi-1Xa" secondAttribute="height" id="Gc1-PX-mRK"/>
+                                <constraint firstItem="Hmp-0g-6lI" firstAttribute="height" secondItem="vGQ-hi-1Xa" secondAttribute="height" id="SVl-7e-pe8"/>
+                                <constraint firstItem="iPM-8E-rgI" firstAttribute="height" secondItem="vGQ-hi-1Xa" secondAttribute="height" id="o1o-zj-Jus"/>
+                                <constraint firstItem="eyt-Pj-hU6" firstAttribute="width" secondItem="vGQ-hi-1Xa" secondAttribute="width" id="p1p-oG-OhJ"/>
+                                <constraint firstItem="Hmp-0g-6lI" firstAttribute="width" secondItem="vGQ-hi-1Xa" secondAttribute="width" id="w15-yk-BpA"/>
+                                <constraint firstItem="2Kp-xd-t2N" firstAttribute="width" secondItem="vGQ-hi-1Xa" secondAttribute="width" id="wqC-bA-N0c"/>
                             </constraints>
                         </stackView>
                     </subviews>
@@ -182,7 +224,9 @@
                 <constraint firstItem="ciB-dn-lxu" firstAttribute="leading" secondItem="3Tx-iI-Z1w" secondAttribute="leading" id="Wlf-Uy-z8K"/>
                 <constraint firstItem="3Tx-iI-Z1w" firstAttribute="bottom" secondItem="P5g-cO-YBI" secondAttribute="bottom" id="e9g-Mm-OV3"/>
                 <constraint firstItem="3Tx-iI-Z1w" firstAttribute="bottom" secondItem="ciB-dn-lxu" secondAttribute="bottom" id="fLR-CQ-9Es"/>
-                <constraint firstItem="3Tx-iI-Z1w" firstAttribute="trailing" secondItem="ciB-dn-lxu" secondAttribute="trailing" constant="4" id="gWp-eU-MSF"/>
+                <constraint firstItem="3Tx-iI-Z1w" firstAttribute="trailing" secondItem="ciB-dn-lxu" secondAttribute="trailing" constant="4" id="gWp-eU-MSF">
+                    <variation key="widthClass=regular" constant="10"/>
+                </constraint>
                 <constraint firstItem="uX3-fg-RRU" firstAttribute="bottom" secondItem="sE6-yx-yZZ" secondAttribute="bottom" id="ggS-x6-dLv"/>
                 <constraint firstItem="ciB-dn-lxu" firstAttribute="top" secondItem="3Tx-iI-Z1w" secondAttribute="top" id="rGr-wd-DPi"/>
                 <constraint firstItem="uX3-fg-RRU" firstAttribute="leading" secondItem="sE6-yx-yZZ" secondAttribute="leading" id="rOy-jQ-JWW"/>
@@ -218,7 +262,9 @@
         <image name="MiniNext" width="24" height="24"/>
         <image name="MiniPause" width="24" height="24"/>
         <image name="MiniPrev" width="24" height="24"/>
+        <image name="iconRepeat" width="24" height="24"/>
         <image name="no-artwork" width="300" height="300"/>
+        <image name="shuffle" width="24" height="24"/>
         <systemColor name="lightTextColor">
             <color white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
