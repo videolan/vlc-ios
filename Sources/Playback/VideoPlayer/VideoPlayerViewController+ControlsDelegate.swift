@@ -21,14 +21,15 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     
     func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.toggleRepeatMode()
-
         switch playbackService.repeatMode {
-            case VLCRepeatMode.doNotRepeat:
-                videoPlayerControls.repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
-            case VLCRepeatMode.repeatCurrentItem:
-                videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeatOne"), for: .normal)
-            default:
-                videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
+        case .doNotRepeat:
+            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
+        case .repeatCurrentItem:
+            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeatOne"), for: .normal)
+        case .repeatAllItems:
+            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
+        @unknown default:
+            assertionFailure("videoPlayerControlsDelegateRepeat: unhandled case.")
         }
     }
 
