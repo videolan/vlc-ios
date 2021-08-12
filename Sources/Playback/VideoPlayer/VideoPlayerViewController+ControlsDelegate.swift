@@ -21,19 +21,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     
     func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.toggleRepeatMode()
-        switch playbackService.repeatMode {
-        case .doNotRepeat:
-            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
-            videoPlayerControls.repeatButton.tintColor = .white
-        case .repeatCurrentItem:
-            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeatOne"), for: .normal)
-            videoPlayerControls.repeatButton.tintColor = .orange
-        case .repeatAllItems:
-            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
-            videoPlayerControls.repeatButton.tintColor = .orange
-        @unknown default:
-            assertionFailure("videoPlayerControlsDelegateRepeat: unhandled case.")
-        }
+        self.setRepeatMode()
     }
 
     func videoPlayerControlsDelegateDidTapDVD(_ videoPlayerControls: VideoPlayerControls) {

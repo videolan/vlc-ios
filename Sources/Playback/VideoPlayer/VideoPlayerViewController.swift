@@ -472,7 +472,8 @@ class VideoPlayerViewController: UIViewController {
         if playbackService.videoOutputView != videoOutputView {
             playbackService.videoOutputView = videoOutputView
         }
-        // subControls.repeatMode = playbackService.repeatMode
+
+        setRepeatMode()
 
         // Media is loaded in the media player, checking the projection type and configuring accordingly.
         setupForMediaProjection()
@@ -483,6 +484,22 @@ class VideoPlayerViewController: UIViewController {
             isFirstCall = false
         } else {
             moreOptionsActionSheet.resetOptionsIfNecessary()
+        }
+    }
+
+    func setRepeatMode() {
+        switch playbackService.repeatMode {
+        case .doNotRepeat:
+            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
+            videoPlayerControls.repeatButton.tintColor = .white
+        case .repeatCurrentItem:
+            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeatOne"), for: .normal)
+            videoPlayerControls.repeatButton.tintColor = .orange
+        case .repeatAllItems:
+            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
+            videoPlayerControls.repeatButton.tintColor = .orange
+        @unknown default:
+            assertionFailure("videoPlayerControlsDelegateRepeat: unhandled case.")
         }
     }
 
