@@ -446,8 +446,6 @@ class VideoPlayerViewController: UIViewController {
 
         artWorkImageView.image = nil
         // FIXME: Test userdefault
-        // FIXME: Renderer discoverer
-
         let rendererDiscoverer = services.rendererDiscovererManager
         rendererDiscoverer.presentingViewController = self
         rendererDiscoverer.delegate = self
@@ -1170,7 +1168,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
     func prepare(forMediaPlayback playbackService: PlaybackService) {
         mediaNavigationBar.setMediaTitleLabelText("")
         videoPlayerControls.updatePlayPauseButton(toState: playbackService.isPlaying)
-        
+
         DispatchQueue.main.async {
             self.artWorkImageView.image = playbackService.metadata.artworkImage
         }
@@ -1229,6 +1227,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         if !isViewLoaded {
             return
         }
+
         mediaNavigationBar.setMediaTitleLabelText(metadata.title)
 
         if playbackService.isPlayingOnExternalScreen() {
