@@ -444,6 +444,7 @@ class VideoPlayerViewController: UIViewController {
 
         setControlsHidden(!UIAccessibility.isVoiceOverRunning, animated: false)
 
+        artWorkImageView.image = nil
         // FIXME: Test userdefault
         // FIXME: Renderer discoverer
 
