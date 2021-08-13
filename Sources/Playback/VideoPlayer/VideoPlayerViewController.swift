@@ -1237,6 +1237,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         }
 
         artWorkImageView.isHidden = !metadata.isAudioOnly
+        artWorkImageView.image = metadata.artworkImage
         videoPlayerButtons()
     }
 }
