@@ -67,6 +67,7 @@
                                         <constraint firstAttribute="width" constant="44" id="ylU-Br-Rxu"/>
                                     </constraints>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" image="iconRepeat"/>
                                     <connections>
                                         <action selector="handleRepeatButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="y5y-GT-lIy"/>
@@ -242,6 +243,6 @@
         <image name="next-media" width="24" height="24"/>
         <image name="play-circle" width="34" height="34"/>
         <image name="previous-media" width="24" height="24"/>
-        <image name="shuffle" width="18" height="18"/>
+        <image name="shuffle" width="24" height="24"/>
     </resources>
 </document>
