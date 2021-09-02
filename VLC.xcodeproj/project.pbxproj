@@ -78,7 +78,6 @@
 		41D7DD2720C3060300AD94F6 /* PagerStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D7DD2620C3060300AD94F6 /* PagerStripViewController.swift */; };
 		41DFC6C62100BAAF00EEC9E3 /* VLCDocumentClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DFC6C52100BAAF00EEC9E3 /* VLCDocumentClass.swift */; };
 		41E6BECD207E64E900E158BA /* RemoteNetworkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6BECC207E64E900E158BA /* RemoteNetworkCell.swift */; };
-		41EA74C120C02DFC001E5D57 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AA183A9906009EE944 /* VLCDropboxController.m */; };
 		41EA74C320C02F8E001E5D57 /* VLCBoxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CD69591A29D72600E60BCE /* VLCBoxController.m */; };
 		41EB6634216147DD00FDC38B /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EB6633216147DD00FDC38B /* PlaylistViewController.swift */; };
 		41EB91D71F7BE6F500821AA5 /* VLCRemoteControlService.m in Sources */ = {isa = PBXBuildFile; fileRef = 417D7F5F1F7BA26200DDF36A /* VLCRemoteControlService.m */; };
@@ -276,7 +275,6 @@
 		7DF383AE1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */; };
 		7DF383B91BF21E4400D71A5C /* VLCPlayerControlWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */; };
 		7DF383C11BF231BC00D71A5C /* VLCCloudStorageTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383C01BF231BC00D71A5C /* VLCCloudStorageTVViewController.m */; };
-		7DF383C41BF2329500D71A5C /* VLCDropboxCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383C31BF2329500D71A5C /* VLCDropboxCollectionViewController.m */; };
 		7DF383D01BF24BB100D71A5C /* VLCBoxCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF383CF1BF24BB100D71A5C /* VLCBoxCollectionViewController.m */; };
 		7DF7CA0717650C2A00C61739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7CA0617650C2A00C61739 /* AVFoundation.framework */; };
 		7DF7E791175F47DC0018858D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF7E790175F47DC0018858D /* MediaPlayer.framework */; };
@@ -897,8 +895,6 @@
 		7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayerControlWebSocket.m; path = SharedSources/VLCPlayerControlWebSocket.m; sourceTree = SOURCE_ROOT; };
 		7DF383BF1BF231BC00D71A5C /* VLCCloudStorageTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCloudStorageTVViewController.h; sourceTree = "<group>"; };
 		7DF383C01BF231BC00D71A5C /* VLCCloudStorageTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCloudStorageTVViewController.m; sourceTree = "<group>"; };
-		7DF383C21BF2329500D71A5C /* VLCDropboxCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDropboxCollectionViewController.h; path = SharedSources/Clouds/VLCDropboxCollectionViewController.h; sourceTree = SOURCE_ROOT; };
-		7DF383C31BF2329500D71A5C /* VLCDropboxCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDropboxCollectionViewController.m; path = SharedSources/Clouds/VLCDropboxCollectionViewController.m; sourceTree = SOURCE_ROOT; };
 		7DF383C91BF2498800D71A5C /* VLCOneDriveCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveCollectionViewController.h; path = SharedSources/Clouds/VLCOneDriveCollectionViewController.h; sourceTree = SOURCE_ROOT; };
 		7DF383CA1BF2498800D71A5C /* VLCOneDriveCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveCollectionViewController.m; path = SharedSources/Clouds/VLCOneDriveCollectionViewController.m; sourceTree = SOURCE_ROOT; };
 		7DF383CE1BF24BB100D71A5C /* VLCBoxCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxCollectionViewController.h; path = SharedSources/Clouds/VLCBoxCollectionViewController.h; sourceTree = SOURCE_ROOT; };
@@ -2034,8 +2030,6 @@
 				7D3784AA183A9906009EE944 /* VLCDropboxController.m */,
 				7D3784AB183A9906009EE944 /* VLCDropboxTableViewController.h */,
 				7D3784AC183A9906009EE944 /* VLCDropboxTableViewController.m */,
-				7DF383C21BF2329500D71A5C /* VLCDropboxCollectionViewController.h */,
-				7DF383C31BF2329500D71A5C /* VLCDropboxCollectionViewController.m */,
 			);
 			name = Dropbox;
 			sourceTree = "<group>";
@@ -3109,7 +3103,6 @@
 				7DEC8C1F1BD6A113006E1093 /* UIDevice+VLC.m in Sources */,
 				2663ACB222497D21000FBB95 /* VLCNetworkLoginTVViewController.swift in Sources */,
 				DDEAECFE1BDFFAEE00756C83 /* Reachability.m in Sources */,
-				7DF383C41BF2329500D71A5C /* VLCDropboxCollectionViewController.m in Sources */,
 				DD3EFF561BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */,
 				DDA1B90A1CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */,
 				7DDE418F1BE9225A0065C53A /* VLCAboutViewController.m in Sources */,
@@ -3132,7 +3125,6 @@
 				7D7EF3DA1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m in Sources */,
 				7DB174B41CD20DC00085BCF0 /* VLCNetworkServerSearchBrowser.m in Sources */,
 				DD3EFF521BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
-				41EA74C120C02DFC001E5D57 /* VLCDropboxController.m in Sources */,
 				7DF383C11BF231BC00D71A5C /* VLCCloudStorageTVViewController.m in Sources */,
 				DDA1B8EE1CD4DC2A0076BC45 /* GRKArrayDiff+UICollectionView.m in Sources */,
 				DD8095F91BE6268A0065D8E1 /* VLCPlaybackInfoPanelTVViewController.m in Sources */,

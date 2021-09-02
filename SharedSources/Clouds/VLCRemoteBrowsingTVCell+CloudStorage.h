@@ -13,12 +13,10 @@
 
 #import "VLCRemoteBrowsingTVCell.h"
 
-#import "VLCDropboxController.h"
 #import <BoxSDK/BoxSDK.h>
 
 @interface VLCRemoteBrowsingTVCell (CloudStorage)
 
-- (void)setDropboxFile:(DBFILESMetadata *)dropboxFile;
 - (void)setBoxFile:(BoxItem *)boxFile;
 //- (void)setOneDriveFile:(VLCOneDriveObject *)oneDriveFile;
 

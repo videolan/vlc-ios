@@ -10,8 +10,6 @@
  *****************************************************************************/
 
 #import "VLCCloudServicesTVViewController.h"
-#import "VLCDropboxController.h"
-#import "VLCDropboxCollectionViewController.h"
 #import "VLCPlayerDisplayController.h"
 //#import "VLCOneDriveController.h"
 //#import "VLCOneDriveCollectionViewController.h"
@@ -48,27 +46,13 @@
     _boxController = [VLCBoxController sharedInstance];
     [_boxController startSession];
 
-    self.dropboxButton.enabled = self.gDriveButton.enabled = NO;
 //    [self oneDriveSessionUpdated:nil];
     [self boxSessionUpdated:nil];
-
-    [self performSelector:@selector(updateDropbox) withObject:nil afterDelay:0.1];
 }
 
 - (NSString *)title
 {
     return NSLocalizedString(@"CLOUD_SERVICES", nil);
-}
-
-- (IBAction)dropbox:(id)sender
-{
-    VLCDropboxCollectionViewController *targetViewController = [[VLCDropboxCollectionViewController alloc] initWithNibName:@"VLCRemoteBrowsingCollectionViewController" bundle:nil];
-    [self.navigationController pushViewController:targetViewController animated:YES];
-}
-
-- (void)updateDropbox
-{
-    self.dropboxButton.enabled = [[VLCDropboxController sharedInstance] restoreFromSharedCredentials];
 }
 
 //- (void)oneDriveSessionUpdated:(NSNotification *)aNotification

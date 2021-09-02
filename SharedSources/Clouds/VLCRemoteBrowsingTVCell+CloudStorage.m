@@ -15,12 +15,6 @@
 
 @implementation VLCRemoteBrowsingTVCell (CloudStorage)
 
-- (void)setDropboxFile:(DBFILESMetadata *)dropboxFile
-{
-    [self performSelectorOnMainThread:@selector(_updateDropboxRepresentation:)
-                           withObject:dropboxFile waitUntilDone:NO];
-}
-
 - (void)setBoxFile:(BoxItem *)boxFile
 {
     [self performSelectorOnMainThread:@selector(_updateBoxRepresentation:)
@@ -32,23 +26,6 @@
 //    [self performSelectorOnMainThread:@selector(_updateOneDriveRepresentation:)
 //                           withObject:oneDriveFile waitUntilDone:NO];
 //}
-
-- (void)_updateDropboxRepresentation:(DBFILESMetadata *)dropboxFile
-{
-    if (dropboxFile != nil) {
-        if ([dropboxFile isKindOfClass: [DBFILESFolderMetadata class]]) {
-            self.isDirectory = YES;
-            self.thumbnailImage = [UIImage imageNamed:@"folder"];
-        } else {
-            DBFILESFileMetadata *file = (DBFILESFileMetadata *)dropboxFile;
-
-            self.isDirectory = NO;
-            self.subtitle = (file.size.integerValue > 0) ? [NSByteCountFormatter stringFromByteCount:file.size.longLongValue countStyle:NSByteCountFormatterCountStyleFile] : @"";
-            self.thumbnailImage = [UIImage imageNamed:@"folder"];
-        }
-        self.title = dropboxFile.name;
-    }
-}
 
 - (void)_updateBoxRepresentation:(BoxItem *)boxFile
 {

@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="18122" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCCloudServicesTVViewController">
             <connections>
                 <outlet property="boxButton" destination="HPy-k8-PTt" id="FcV-v2-CVw"/>
-                <outlet property="dropboxButton" destination="hdP-Dp-Mn0" id="K7o-9U-5hB"/>
                 <outlet property="helpLabel" destination="pdj-Fb-JlC" id="MhC-1o-W69"/>
                 <outlet property="oneDriveButton" destination="gFm-4V-QFs" id="eWx-9Y-RDg"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
@@ -20,22 +21,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFj-fJ-LG2">
-                    <rect key="frame" x="742" y="328" width="436" height="424"/>
+                    <rect key="frame" x="743" y="328" width="434" height="424"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HPy-k8-PTt">
-                            <rect key="frame" x="176" y="158" width="240" height="108"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HPy-k8-PTt">
+                            <rect key="frame" x="176" y="158" width="238" height="108"/>
                             <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                             <state key="normal" title="Box"/>
                             <connections>
                                 <action selector="box:" destination="-1" eventType="primaryActionTriggered" id="Eww-7q-bAn"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdP-Dp-Mn0">
-                            <rect key="frame" x="176" y="20" width="240" height="108"/>
-                            <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                            <state key="normal" title="Dropbox"/>
-                            <connections>
-                                <action selector="dropbox:" destination="-1" eventType="primaryActionTriggered" id="CbH-po-vKw"/>
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OneDrive" translatesAutoresizingMaskIntoConstraints="NO" id="deI-eP-VtJ">
@@ -44,20 +37,14 @@
                                 <constraint firstAttribute="width" secondItem="deI-eP-VtJ" secondAttribute="height" multiplier="1:1" id="eFs-6Q-Mfy"/>
                             </constraints>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFm-4V-QFs">
-                            <rect key="frame" x="176" y="296" width="240" height="108"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFm-4V-QFs">
+                            <rect key="frame" x="176" y="296" width="238" height="108"/>
                             <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                             <state key="normal" title="OneDrive"/>
                             <connections>
                                 <action selector="onedrive:" destination="-1" eventType="primaryActionTriggered" id="FXo-bT-UMk"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dropbox" translatesAutoresizingMaskIntoConstraints="NO" id="hoQ-Y2-KLg">
-                            <rect key="frame" x="20" y="20" width="108" height="108"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="hoQ-Y2-KLg" secondAttribute="height" multiplier="1:1" id="GnZ-rf-APd"/>
-                            </constraints>
-                        </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Box" translatesAutoresizingMaskIntoConstraints="NO" id="0k9-eU-vFY">
                             <rect key="frame" x="20" y="158" width="108" height="108"/>
                             <constraints>
@@ -67,26 +54,18 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="gFm-4V-QFs" firstAttribute="top" secondItem="HPy-k8-PTt" secondAttribute="bottom" constant="30" id="0nW-eT-UJV"/>
-                        <constraint firstItem="hoQ-Y2-KLg" firstAttribute="top" secondItem="hdP-Dp-Mn0" secondAttribute="top" id="FR2-YW-gEw"/>
-                        <constraint firstItem="hdP-Dp-Mn0" firstAttribute="height" secondItem="hoQ-Y2-KLg" secondAttribute="height" id="Flu-MC-68F"/>
-                        <constraint firstItem="0k9-eU-vFY" firstAttribute="leading" secondItem="hoQ-Y2-KLg" secondAttribute="leading" id="Hcz-P7-AgL"/>
+                        <constraint firstItem="HPy-k8-PTt" firstAttribute="centerY" secondItem="YFj-fJ-LG2" secondAttribute="centerY" id="Erz-iJ-yVc"/>
+                        <constraint firstAttribute="trailing" secondItem="HPy-k8-PTt" secondAttribute="trailing" constant="20" id="Fi4-p7-jUk"/>
                         <constraint firstItem="0k9-eU-vFY" firstAttribute="top" secondItem="HPy-k8-PTt" secondAttribute="top" id="KA1-d9-AyA"/>
+                        <constraint firstItem="HPy-k8-PTt" firstAttribute="leading" secondItem="0k9-eU-vFY" secondAttribute="trailing" constant="48" id="LbC-BP-Two"/>
                         <constraint firstItem="HPy-k8-PTt" firstAttribute="width" secondItem="gFm-4V-QFs" secondAttribute="width" id="MU2-Ww-wXs"/>
                         <constraint firstAttribute="height" constant="424" id="VLe-w5-DPf"/>
                         <constraint firstItem="HPy-k8-PTt" firstAttribute="height" secondItem="0k9-eU-vFY" secondAttribute="height" id="cTl-9e-muj"/>
-                        <constraint firstItem="hdP-Dp-Mn0" firstAttribute="width" secondItem="HPy-k8-PTt" secondAttribute="width" id="cut-6M-Xvv"/>
                         <constraint firstItem="0k9-eU-vFY" firstAttribute="leading" secondItem="deI-eP-VtJ" secondAttribute="leading" id="eB8-yR-KQG"/>
                         <constraint firstItem="HPy-k8-PTt" firstAttribute="height" secondItem="gFm-4V-QFs" secondAttribute="height" id="eXZ-1s-nM4"/>
-                        <constraint firstItem="hdP-Dp-Mn0" firstAttribute="top" secondItem="YFj-fJ-LG2" secondAttribute="top" constant="20" id="er6-Ji-aMh"/>
-                        <constraint firstItem="HPy-k8-PTt" firstAttribute="top" secondItem="hdP-Dp-Mn0" secondAttribute="bottom" constant="30" id="hle-Ra-UvU"/>
                         <constraint firstItem="gFm-4V-QFs" firstAttribute="height" secondItem="deI-eP-VtJ" secondAttribute="height" id="j79-nW-FR9"/>
                         <constraint firstItem="deI-eP-VtJ" firstAttribute="top" secondItem="gFm-4V-QFs" secondAttribute="top" id="kB3-Rg-vvk"/>
                         <constraint firstItem="gFm-4V-QFs" firstAttribute="trailing" secondItem="HPy-k8-PTt" secondAttribute="trailing" id="mDa-lN-CcG"/>
-                        <constraint firstItem="HPy-k8-PTt" firstAttribute="height" secondItem="hdP-Dp-Mn0" secondAttribute="height" id="nbX-IS-KQ9"/>
-                        <constraint firstAttribute="trailing" secondItem="hdP-Dp-Mn0" secondAttribute="trailing" constant="20" id="rVD-qJ-VI7"/>
-                        <constraint firstItem="hdP-Dp-Mn0" firstAttribute="trailing" secondItem="HPy-k8-PTt" secondAttribute="trailing" id="sAs-Qw-3eU"/>
-                        <constraint firstItem="hdP-Dp-Mn0" firstAttribute="leading" secondItem="hoQ-Y2-KLg" secondAttribute="trailing" constant="48" id="yhB-es-TTm"/>
-                        <constraint firstItem="hoQ-Y2-KLg" firstAttribute="leading" secondItem="YFj-fJ-LG2" secondAttribute="leading" constant="20" id="yz7-cd-g4F"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdj-Fb-JlC">
@@ -94,7 +73,7 @@
                     <string key="text">To access Cloud Services, login to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.
 Afterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.</string>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -102,15 +81,17 @@ Afterwards, login to the cloud provider of your choice using the VLC app on your
                 <constraint firstItem="pdj-Fb-JlC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="246" id="Dgd-na-5Zj"/>
                 <constraint firstAttribute="bottom" secondItem="pdj-Fb-JlC" secondAttribute="bottom" constant="113" id="UFC-1Z-Rtb"/>
                 <constraint firstAttribute="trailing" secondItem="pdj-Fb-JlC" secondAttribute="trailing" constant="246" id="XDT-AL-j2a"/>
+                <constraint firstItem="pdj-Fb-JlC" firstAttribute="top" secondItem="YFj-fJ-LG2" secondAttribute="bottom" constant="72" id="XIz-ZH-Fsx"/>
                 <constraint firstItem="YFj-fJ-LG2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="d2B-YQ-Nqd"/>
                 <constraint firstItem="YFj-fJ-LG2" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="dma-aP-bnd"/>
                 <constraint firstItem="pdj-Fb-JlC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nSz-oS-JWs"/>
+                <constraint firstItem="YFj-fJ-LG2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="743" id="zqq-Kl-JpT"/>
             </constraints>
+            <point key="canvasLocation" x="-50" y="-46"/>
         </view>
     </objects>
     <resources>
         <image name="Box" width="108" height="60"/>
-        <image name="Dropbox" width="108" height="108"/>
         <image name="OneDrive" width="108" height="66"/>
     </resources>
 </document>
