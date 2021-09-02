@@ -199,7 +199,7 @@ class DropBoxURLHandler: NSObject, VLCURLHandler {
             return false
         }
 
-        return url.scheme == "db-a60fc6qj9zdg7bw"
+        return url.scheme == "db-\(kVLCDropboxAppKey)"
     }
 
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
