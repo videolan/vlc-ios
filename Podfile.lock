@@ -29,11 +29,11 @@ PODS:
     - box-ios-sdk-v2/no-arc (= 1.2.3)
   - box-ios-sdk-v2/no-arc (1.2.3)
   - CocoaHTTPServer (2.3)
-  - GoogleAPIClientForREST/Core (1.6.0):
-    - GTMSessionFetcher (>= 1.6.1)
-  - GoogleAPIClientForREST/Drive (1.6.0):
+  - GoogleAPIClientForREST/Core (1.5.2):
+    - GTMSessionFetcher (>= 1.1.7)
+  - GoogleAPIClientForREST/Drive (1.5.2):
     - GoogleAPIClientForREST/Core
-    - GTMSessionFetcher (>= 1.6.1)
+    - GTMSessionFetcher (>= 1.1.7)
   - GRKArrayDiff (2.2.2)
   - GTMAppAuth (0.7.1):
     - AppAuth (~> 0.95)
@@ -51,7 +51,7 @@ PODS:
     - AFNetworking (= 4.0.0)
   - MobileVLCKit (3.3.17)
   - "NSData+Base64 (1.0.0)"
-  - ObjectiveDropboxOfficial (1.1)
+  - ObjectiveDropboxOfficial (6.0.1)
   - OBSlider (1.1.0)
   - OneDriveSDK (1.3.0):
     - OneDriveSDK/Auth (= 1.3.0)
@@ -95,7 +95,7 @@ DEPENDENCIES:
   - MediaLibraryKit-prod
   - MetaDataFetcherKit (~> 0.5.0)
   - MobileVLCKit (= 3.3.17)
-  - ObjectiveDropboxOfficial (from `git://github.com/Mikanbu/dropbox-sdk-obj-c.git`)
+  - ObjectiveDropboxOfficial
   - OBSlider (= 1.1.0)
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
   - SimulatorStatusMagic
@@ -120,6 +120,7 @@ SPEC REPOS:
     - MetaDataFetcherKit
     - MobileVLCKit
     - "NSData+Base64"
+    - ObjectiveDropboxOfficial
     - OBSlider
     - SimulatorStatusMagic
     - SwiftLint
@@ -139,8 +140,6 @@ EXTERNAL SOURCES:
   InAppSettingsKit:
     :commit: a429840
     :git: git://github.com/Mikanbu/InAppSettingsKit.git
-  ObjectiveDropboxOfficial:
-    :git: git://github.com/Mikanbu/dropbox-sdk-obj-c.git
   OneDriveSDK:
     :commit: 810f82da
     :git: https://code.videolan.org/fkuehne/onedrive-sdk-ios.git
@@ -161,9 +160,6 @@ CHECKOUT OPTIONS:
   InAppSettingsKit:
     :commit: a429840
     :git: git://github.com/Mikanbu/InAppSettingsKit.git
-  ObjectiveDropboxOfficial:
-    :commit: e07b5aa5bc41879ac664b73e03a2d2c162d89b5b
-    :git: git://github.com/Mikanbu/dropbox-sdk-obj-c.git
   OneDriveSDK:
     :commit: 810f82da
     :git: https://code.videolan.org/fkuehne/onedrive-sdk-ios.git
@@ -179,7 +175,7 @@ SPEC CHECKSUMS:
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
-  GoogleAPIClientForREST: 5183df28e7bcb7b7b41ebd558e16083cfed60d99
+  GoogleAPIClientForREST: 538a8ad0014fd88b78894e77100775a6b0a4f7ed
   GRKArrayDiff: 13738c0300068a28cf17614a72e0398ee13bb6b3
   GTMAppAuth: c5e41aaf039ac1ccc41543e6ea2ef7abd255ad41
   GTMSessionFetcher: 36689134877faeb055b27dfa4ccc9ceaa42e029e
@@ -189,7 +185,7 @@ SPEC CHECKSUMS:
   MetaDataFetcherKit: c77fa3d0791d406a8cfab43464ed728437bd241b
   MobileVLCKit: c5dd1b0ae933dc9c2348099840e753496dcdd908
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
-  ObjectiveDropboxOfficial: b9e95d98e3ff2baa0cd86aea7c8322a712f356d6
+  ObjectiveDropboxOfficial: f6357b632e763f3f6bec2df41d9e66372f5fa401
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   SimulatorStatusMagic: 9f5294c12ca99c6cadb243a60362a66000df540c
@@ -199,6 +195,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 6494e727828f1c3b18233d08c0f4fb5f63293085
+PODFILE CHECKSUM: 87fa80186ee6d1ea8870f7db4ef2c5a01d39dd72
 
 COCOAPODS: 1.10.1

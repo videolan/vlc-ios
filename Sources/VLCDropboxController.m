@@ -76,7 +76,8 @@
         return NO;
     }
     for (NSString *tmp in credentials) {
-        [DBSDKKeychain storeValueWithKey:kVLCStoreDropboxCredentials value:tmp];
+        DBAccessToken *accessToken = [DBAccessToken createWithLongLivedAccessToken:tmp uid:kVLCStoreDropboxCredentials];
+        [DBSDKKeychain storeAccessToken:accessToken];
     }
     return YES;
 }

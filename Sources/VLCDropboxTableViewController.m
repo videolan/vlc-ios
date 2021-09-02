@@ -143,11 +143,12 @@
     if (!_dropboxController.isAuthorized) {
         self.authorizationInProgress = YES;
 
-        [DBClientsManager authorizeFromController:[UIApplication sharedApplication]
-                                       controller:self
-                                          openURL:^(NSURL *url) {
-                                              [[UIApplication sharedApplication] openURL:url];
-                                          }];
+        [DBClientsManager authorizeFromControllerV2:[UIApplication sharedApplication]
+                                         controller:self
+                              loadingStatusDelegate:nil
+                                            openURL:^(NSURL * _Nonnull url)  {
+            [[UIApplication sharedApplication] openURL:url];
+        } scopeRequest:nil];
     } else
         [_dropboxController logout];
 }

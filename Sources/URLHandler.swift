@@ -203,9 +203,14 @@ class DropBoxURLHandler: NSObject, VLCURLHandler {
     }
 
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
-        let authResult = DBClientsManager.handleRedirectURL(url)
+        let authResult = DBClientsManager.handleRedirectURL(url) {
+            dbAuthResult in
+            if dbAuthResult?.tag == .DBAuthSuccess {
+                // TODO: refresh viewcontroller
+            }
+        }
 
-        if  let authResult = authResult, authResult.isSuccess() == true {
+        if authResult == true {
             //TODO:update Dropboxcontrollers
             return true
         }

@@ -27,7 +27,7 @@ target 'VLC-iOS' do
   pod 'ADAL', :git => 'https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git', :commit => '348e94df'
   pod 'OneDriveSDK', :git => 'https://code.videolan.org/fkuehne/onedrive-sdk-ios.git', :commit => '810f82da'
   pod 'MarqueeLabel', '4.0.2'
-  pod 'ObjectiveDropboxOfficial', :git => 'git://github.com/Mikanbu/dropbox-sdk-obj-c.git' #update ios platform version
+  pod 'ObjectiveDropboxOfficial'
 
   target 'VLC-iOS-Screenshots' do
     inherit! :search_paths
