@@ -26,6 +26,10 @@ class SpoilerButton: UIStackView {
     private var needsUpdateHiddenView = true
     var parent: UIView?
 
+    private lazy var isRightToLeft: Bool = {
+        UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
+    }()
+
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,6 +47,9 @@ class SpoilerButton: UIStackView {
         openButton.setContentHuggingPriority(.required, for: .horizontal)
         openButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
         openButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        openButton.titleLabel?.lineBreakMode = .byWordWrapping
+        openButton.titleLabel?.textAlignment = isRightToLeft ? .left : .right
+        openButton.titleLabel?.numberOfLines = 0
         chevronImage.addTarget(self, action: #selector(openButtonPressed), for: .touchUpInside)
         chevronImage.translatesAutoresizingMaskIntoConstraints = false
         chevronImage.setContentHuggingPriority(.required, for: .vertical)
@@ -73,8 +80,11 @@ class SpoilerButton: UIStackView {
 
             NSLayoutConstraint.activate([
                 chevronImage.heightAnchor.constraint(equalTo: openButton.heightAnchor),
-                chevronImage.widthAnchor.constraint(equalTo: chevronImage.heightAnchor)
+                chevronImage.widthAnchor.constraint(equalTo: chevronImage.heightAnchor),
+                openButton.heightAnchor.constraint(equalToConstant: 50)
             ])
+
+            openButton.titleLabel?.trailingAnchor.constraint(equalTo: openButton.trailingAnchor).isActive = true
 
             hiddenHeightConstraint = heightAnchor.constraint(equalTo: buttonStackView.heightAnchor)
             hiddenHeightConstraint?.isActive = true

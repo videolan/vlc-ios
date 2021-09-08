@@ -1538,8 +1538,8 @@ extension VideoPlayerViewController {
         let iPhone5width: CGFloat = 320
         let leadingConstraint = popupView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor, constant: 10)
         let trailingConstraint = popupView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor, constant: -10)
-        leadingConstraint.priority = .defaultHigh
-        trailingConstraint.priority = .defaultHigh
+        leadingConstraint.priority = .required
+        trailingConstraint.priority = .required
 
         let popupViewTopConstraint: NSLayoutConstraint
         let popupViewBottomConstraint: NSLayoutConstraint
