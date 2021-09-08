@@ -114,6 +114,7 @@ class PopupView: UIView {
     }
 
     private func setupScrollView() {
+        scrollView.indicatorStyle = .white
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(scrollView)
     }

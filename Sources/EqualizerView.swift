@@ -325,6 +325,7 @@ import UIKit
             frequenciesStackView.addArrangedSubview(eqFrequency.stack)
         }
 
+        frequenciesScrollView.indicatorStyle = .white
         frequenciesScrollView.addSubview(frequenciesStackView)
 
         labelsAndFrequenciesStackView.addArrangedSubview(frequenciesScrollView)

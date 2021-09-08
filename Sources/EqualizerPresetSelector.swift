@@ -90,6 +90,7 @@ class EqualizerPresetSelector: SpoilerButton {
         preampLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         preampLabel.setContentHuggingPriority(.required, for: .horizontal)
         preampLabel.translatesAutoresizingMaskIntoConstraints = false
+        preampLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
 
         preampSlider.maximumValue = 20.0
         preampSlider.value = 0.0
@@ -105,6 +106,7 @@ class EqualizerPresetSelector: SpoilerButton {
         preampValueLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         preampValueLabel.setContentHuggingPriority(.required, for: .horizontal)
         preampValueLabel.translatesAutoresizingMaskIntoConstraints = false
+        preampValueLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
     }
 
     private func setupStackView() {
@@ -124,6 +126,7 @@ class EqualizerPresetSelector: SpoilerButton {
 
     private func setupScrollView() {
         presetsScrollView.translatesAutoresizingMaskIntoConstraints = false
+        presetsScrollView.indicatorStyle = .white
         presetsScrollView.addSubview(presetsStackView)
 
         let newConstraints = [
