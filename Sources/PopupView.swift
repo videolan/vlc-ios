@@ -139,9 +139,9 @@ class PopupView: UIView {
 
     @objc private func themeDidChange() {
         backgroundColor = PresentationTheme.darkTheme.colors.background
-        closeButton.tintColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
-        closeButton.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
-        titleLabel.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
+        closeButton.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
+        closeButton.backgroundColor = PresentationTheme.darkTheme.colors.background
+        titleLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
     }
 
     @objc func close() {
