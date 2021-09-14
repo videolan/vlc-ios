@@ -41,6 +41,7 @@
 				<string>org.videolan.mts</string>
 				<string>com.divx.divx</string>
 				<string>org.xiph.ogv</string>
+				<string>org.videolan.hevc</string>
 			</array>
 		</dict>
 		<dict>
@@ -742,6 +743,20 @@
 			<array/>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.mts</string>
+			<key>UTTypeTagSpecification</key>
+			<dict/>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.movie</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>hevc</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.hevc</string>
 			<key>UTTypeTagSpecification</key>
 			<dict/>
 		</dict>
