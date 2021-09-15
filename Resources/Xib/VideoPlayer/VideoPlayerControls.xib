@@ -107,6 +107,7 @@
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxt-AE-Ufy" userLabel="Play pause">
                                     <rect key="frame" x="44" y="0.0" width="44" height="44"/>
+                                    <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="AQK-XE-oZD" userLabel="height = 44"/>
                                         <constraint firstAttribute="width" constant="44" id="Xad-8I-KBX"/>
@@ -115,7 +116,7 @@
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
                                     </state>
                                     <connections>
-                                        <action selector="handlePlayPauseButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="bIh-gJ-x68"/>
+                                        <outletCollection property="gestureRecognizers" destination="cbo-F2-Mgg" appends="YES" id="EEV-CH-c8R"/>
                                     </connections>
                                 </button>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="NO1-OE-x4I">
@@ -231,6 +232,11 @@
             <state key="normal" title="Button"/>
             <point key="canvasLocation" x="-58" y="-141"/>
         </button>
+        <tapGestureRecognizer id="cbo-F2-Mgg">
+            <connections>
+                <action selector="handlePlayPauseButton:" destination="Ve6-FF-JXf" id="ZfB-nF-nnj"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="iconExpand" width="24" height="24"/>
