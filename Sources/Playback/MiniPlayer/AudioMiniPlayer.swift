@@ -127,6 +127,10 @@ private extension AudioMiniPlayer {
         nextButton.accessibilityLabel = NSLocalizedString("NEXT_BUTTON", comment: "")
         previousButton.accessibilityLabel = NSLocalizedString("PREV_BUTTON", comment: "")
         isUserInteractionEnabled = true
+
+        if #available(iOS 13.0, *) {
+            addContextMenu()
+        }
     }
 
     private func setupConstraint() {
@@ -215,7 +219,7 @@ private extension AudioMiniPlayer {
         updateRepeatButton()
     }
 
-    @IBAction private func handleShuffle(_ sender: UIButton) {
+    @IBAction private func handleShuffle(_ sender: UIButton? = nil) {
         playbackController.isShuffleMode = !playbackController.isShuffleMode
         updateShuffleButton()
     }
@@ -565,5 +569,87 @@ private extension AudioMiniPlayer {
         } else {
             artworkBlurImageView.image = nil
         }
+    }
+}
+
+// MARK: - UIContextMenuInteractionDelegate
+
+@available(iOS 13.0, *)
+extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
+                                configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil,
+                                          previewProvider: nil,
+                                          actionProvider: generateContextMenu)
+    }
+
+    private func generateContextMenu(_ suggestedActions: [UIMenuElement]) -> UIMenu? {
+        var actions: [UIMenuElement] = []
+
+        if shuffleButton.isHidden {
+            let shuffleState: UIMenuElement.State = playbackController.isShuffleMode ? .on : .off
+            let shuffleIconTint = shuffleButton.tintColor
+            let shuffleIcon = shuffleButton.image(for: .normal)?.withTintColor(shuffleIconTint ?? .white, renderingMode: .alwaysOriginal)
+            actions.append(
+                UIAction(title: shuffleButton.currentTitle ?? NSLocalizedString("SHUFFLE", comment: ""),
+                         image: shuffleIcon, state: shuffleState) {
+                    action in
+                    self.handleShuffle()
+                }
+            )
+        }
+
+        if repeatButton.isHidden {
+            let repeatMode = playbackController.repeatMode
+            var repeatActions: [UIMenuElement] = []
+
+            let noRepeatState: UIMenuElement.State = repeatMode == .doNotRepeat ? .on : .off
+            let noRepeatIconTint = repeatMode == .doNotRepeat ? PresentationTheme.current.colors.orangeUI : .white
+            let noRepeatIcon = UIImage(named: "iconNoRepeat")?.withTintColor(noRepeatIconTint, renderingMode: .alwaysOriginal)
+            repeatActions.append(
+                UIAction(title: NSLocalizedString("MENU_REPEAT_DISABLED", comment: ""), image: noRepeatIcon, state: noRepeatState) {
+                    action in
+                    self.playbackController.repeatMode = .doNotRepeat
+                    self.updateRepeatButton()
+                }
+            )
+
+            let repeatOneState: UIMenuElement.State = repeatMode == .repeatCurrentItem ? .on : .off
+            let repeatOneIconTint = repeatMode == .repeatCurrentItem ? PresentationTheme.current.colors.orangeUI : .white
+            let repeatOneIcon = UIImage(named: "iconRepeatOne")?.withTintColor(repeatOneIconTint, renderingMode: .alwaysOriginal)
+            repeatActions.append(
+                UIAction(title: NSLocalizedString("MENU_REPEAT_SINGLE", comment: ""), image: repeatOneIcon, state: repeatOneState) {
+                    action in
+                    self.playbackController.repeatMode = .repeatCurrentItem
+                    self.updateRepeatButton()
+                }
+            )
+
+            let repeatAllState: UIMenuElement.State = repeatMode == .repeatAllItems ? .on : .off
+            let repeatAllIconTint = repeatMode == .repeatAllItems ? PresentationTheme.current.colors.orangeUI : .white
+            let repeatAllIcon = UIImage(named: "iconRepeat")?.withTintColor(repeatAllIconTint, renderingMode: .alwaysOriginal)
+            repeatActions.append(
+                UIAction(title: NSLocalizedString("MENU_REPEAT_ALL", comment: ""), image: repeatAllIcon, state: repeatAllState) {
+                    action in
+                    self.playbackController.repeatMode = .repeatAllItems
+                    self.updateRepeatButton()
+                }
+            )
+
+            actions.append(UIMenu(title: "", options: .displayInline, children: repeatActions))
+        }
+
+        actions.append(
+            UIAction(title: NSLocalizedString("STOP_BUTTON", comment: ""), image: UIImage(named: "stopIcon")) {
+                action in
+                self.playbackController.stopPlayback()
+            }
+        )
+
+        return UIMenu(title: NSLocalizedString("MENU_PLAYBACK_CONTROLS", comment: ""), children: actions)
+    }
+
+    private func addContextMenu() {
+        audioMiniPlayer.addInteraction(UIContextMenuInteraction(delegate: self))
     }
 }
