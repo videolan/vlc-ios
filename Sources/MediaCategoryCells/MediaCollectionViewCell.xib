@@ -120,7 +120,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemRedColor"/>
                         <constraints>
                             <constraint firstItem="w5P-i7-T78" firstAttribute="centerY" secondItem="D61-Eo-fsB" secondAttribute="centerY" id="3zf-lc-Lqt"/>
                             <constraint firstItem="w5P-i7-T78" firstAttribute="leading" secondItem="D61-Eo-fsB" secondAttribute="leading" id="9jC-bc-vij"/>
@@ -131,9 +130,8 @@
                         </constraints>
                     </scrollView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ey-dT-h2f">
-                        <rect key="frame" x="480" y="0.0" width="80" height="80"/>
+                        <rect key="frame" x="480" y="12" width="80" height="56"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="6Ey-dT-h2f" secondAttribute="height" multiplier="1:1" id="98g-uT-s02"/>
                             <constraint firstAttribute="width" constant="80" id="Olv-rl-Aap"/>
                         </constraints>
                         <state key="normal" title="Button">
@@ -149,8 +147,10 @@
             <constraints>
                 <constraint firstItem="D61-Eo-fsB" firstAttribute="top" secondItem="OaX-w0-CLr" secondAttribute="top" id="8uG-vX-2jB"/>
                 <constraint firstAttribute="bottom" secondItem="D61-Eo-fsB" secondAttribute="bottom" id="CNc-hg-HNZ"/>
+                <constraint firstItem="6Ey-dT-h2f" firstAttribute="height" secondItem="DpW-xo-rll" secondAttribute="height" id="Fmh-ER-PiI"/>
                 <constraint firstItem="6Ey-dT-h2f" firstAttribute="leading" secondItem="bhw-Aa-3Q7" secondAttribute="trailing" id="HJo-9A-Lc0"/>
                 <constraint firstItem="D61-Eo-fsB" firstAttribute="centerY" secondItem="L0K-f1-QjV" secondAttribute="centerY" id="Ne1-Ew-CLm"/>
+                <constraint firstItem="6Ey-dT-h2f" firstAttribute="centerY" secondItem="D61-Eo-fsB" secondAttribute="centerY" id="OtS-pq-ndi"/>
                 <constraint firstItem="D61-Eo-fsB" firstAttribute="centerX" secondItem="L0K-f1-QjV" secondAttribute="centerX" id="V8I-1j-l2Z"/>
                 <constraint firstItem="6Ey-dT-h2f" firstAttribute="centerY" secondItem="bhw-Aa-3Q7" secondAttribute="centerY" id="Xwf-o3-Qba"/>
                 <constraint firstAttribute="trailing" secondItem="D61-Eo-fsB" secondAttribute="trailing" id="jAK-vE-fcN"/>
@@ -188,9 +188,6 @@
         <image name="list" width="24" height="24"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

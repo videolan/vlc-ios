@@ -543,6 +543,8 @@ extension QueueViewController: UICollectionViewDataSource {
 
         var media: VLCMedia?
 
+        cell.thumbnailWidth.constant = cell.frame.height
+
         cell.newLabel.isHidden = true
         cell.dragIndicatorImageView.isHidden = collectionView.numberOfItems(inSection: 0) <= 1
         media = mediaList.media(at: UInt(indexPath.row))

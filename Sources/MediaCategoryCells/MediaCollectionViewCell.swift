@@ -45,6 +45,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     private var isDeleteDisplayed: Bool = false
     private var hasXGoneNegative: Bool = false
 
+    private let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+
     weak var delegate: MediaCollectionViewCellDelegate?
 
     override var media: VLCMLObject? {
@@ -226,7 +228,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         separatorLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         separatorLabel.setContentHuggingPriority(.required, for: .horizontal)
         separatorLabel.font = sizeLabel.font
-        let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
         thumbnailWidth.constant = isIpad ? 72 : 56
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         setupScrollView()
@@ -234,6 +235,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         deleteButton.setTitle(NSLocalizedString("BUTTON_DELETE", comment: ""), for: .normal)
         deleteButton.accessibilityLabel = NSLocalizedString("BUTTON_DELETE", comment: "")
         deleteButton.accessibilityHint = NSLocalizedString("DELETE_HINT", comment: "")
+        deleteButton.layer.cornerRadius = 5.0
+        deleteButton.backgroundColor = .systemRed
         themeDidChange()
     }
 
@@ -385,6 +388,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         descriptionLabel.labelize = enableMarquee
         thumbnailView.image = nil
         thumbnailView.contentMode = .scaleAspectFill
+        thumbnailWidth.constant = isIpad ? 72 : 56
         descriptionLabel.isHidden = false
         newLabel.isHidden = true
         checkboxImageView.isHidden = true
