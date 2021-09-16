@@ -95,7 +95,7 @@ class AudioMiniPlayer: UIView, MiniPlayer {
             repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
             repeatButton.tintColor = PresentationTheme.current.colors.orangeUI
         @unknown default:
-            assertionFailure("videoPlayerControlsDelegateRepeat: unhandled case.")
+            assertionFailure("AudioMiniPlayer.updateRepeatButton: unhandled case.")
         }
     }
 
