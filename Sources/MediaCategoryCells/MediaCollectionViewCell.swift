@@ -47,6 +47,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     private let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
 
+    var ignoreThemeDidChange: Bool = false
+
     weak var delegate: MediaCollectionViewCellDelegate?
 
     override var media: VLCMLObject? {
@@ -240,14 +242,20 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         themeDidChange()
     }
 
+    func setTheme(to presentationTheme: PresentationTheme) {
+        scrollContentView.backgroundColor = presentationTheme.colors.background
+        backgroundColor = presentationTheme.colors.background
+        titleLabel?.textColor = presentationTheme.colors.cellTextColor
+        descriptionLabel?.textColor = presentationTheme.colors.cellDetailTextColor
+        sizeLabel.textColor = presentationTheme.colors.cellDetailTextColor
+        separatorLabel.textColor = presentationTheme.colors.cellDetailTextColor
+        dragIndicatorImageView.tintColor = presentationTheme.colors.cellDetailTextColor
+    }
+
     @objc fileprivate func themeDidChange() {
-        scrollContentView.backgroundColor = PresentationTheme.current.colors.background
-        backgroundColor = PresentationTheme.current.colors.background
-        titleLabel?.textColor = PresentationTheme.current.colors.cellTextColor
-        descriptionLabel?.textColor = PresentationTheme.current.colors.cellDetailTextColor
-        sizeLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
-        separatorLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
-        dragIndicatorImageView.tintColor = PresentationTheme.current.colors.cellDetailTextColor
+        guard !ignoreThemeDidChange else { return }
+
+        setTheme(to: PresentationTheme.current)
     }
 
     func update(audiotrack: VLCMLMedia) {
@@ -381,6 +389,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        ignoreThemeDidChange = false
         titleLabel.text = ""
         accessibilityLabel = ""
         descriptionLabel.text = ""

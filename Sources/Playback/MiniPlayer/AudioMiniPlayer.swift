@@ -543,8 +543,10 @@ private extension AudioMiniPlayer {
         if metadata.isAudioOnly {
             artworkImageView.image = metadata.artworkImage ?? UIImage(named: "no-artwork")
             artworkBlurImageView.image = metadata.artworkImage
+            queueViewController?.reloadBackground(with: metadata.artworkImage)
         } else {
             artworkBlurImageView.image = nil
+            queueViewController?.reloadBackground(with: nil)
         }
     }
 }

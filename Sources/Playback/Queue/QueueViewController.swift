@@ -37,6 +37,7 @@ class QueueViewController: UIViewController {
     @IBOutlet weak var queueCollectionView: UICollectionView!
     @IBOutlet weak var topView: UIVisualEffectView!
     @IBOutlet weak var grabberView: UIView!
+    @IBOutlet weak var artworkImageBackgroundView: UIImageView!
 
     private var scrolledCellIndex: IndexPath = IndexPath()
 
@@ -295,6 +296,10 @@ class QueueViewController: UIViewController {
         queueCollectionView.reloadData()
         queueCollectionView.collectionViewLayout.invalidateLayout()
     }
+
+    func reloadBackground(with image: UIImage?) {
+        artworkImageBackgroundView.image = image
+    }
 }
 
 // MARK: - Private initializers
@@ -302,7 +307,7 @@ class QueueViewController: UIViewController {
 private extension QueueViewController {
     private func initViews() {
         Bundle.main.loadNibNamed("QueueView", owner: self, options: nil)
-        view.backgroundColor = PresentationTheme.current.colors.background
+        view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         initDarkOverlayView()
         initQueueCollectionView()
@@ -329,7 +334,7 @@ private extension QueueViewController {
         queueCollectionView.dataSource = self
         queueCollectionView.addGestureRecognizer(longPressGesture)
         queueCollectionView.collectionViewLayout = collectionViewLayout
-        queueCollectionView.backgroundColor = PresentationTheme.current.colors.background
+        queueCollectionView.backgroundColor = .clear
     }
 }
 
@@ -337,14 +342,12 @@ private extension QueueViewController {
 
 private extension QueueViewController {
     @objc private func themeDidChange() {
-        view.backgroundColor = PresentationTheme.current.colors.background
-        queueCollectionView.backgroundColor = PresentationTheme.current.colors.background
         setNeedsStatusBarAppearanceUpdate()
     }
 
     private func updateCollectionViewCellApparence(_ cell: MediaCollectionViewCell, isSelected: Bool) {
-        var textColor = PresentationTheme.current.colors.cellTextColor
-        var tintColor = PresentationTheme.current.colors.cellDetailTextColor
+        var textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        var tintColor = PresentationTheme.darkTheme.colors.cellDetailTextColor
 
         if isSelected {
             textColor = PresentationTheme.current.colors.orangeUI
@@ -544,6 +547,11 @@ extension QueueViewController: UICollectionViewDataSource {
         var media: VLCMedia?
 
         cell.thumbnailWidth.constant = cell.frame.height
+
+        cell.ignoreThemeDidChange = true
+        cell.setTheme(to: PresentationTheme.darkTheme)
+        cell.backgroundColor = .clear
+        cell.scrollContentView.backgroundColor = .clear
 
         cell.newLabel.isHidden = true
         cell.dragIndicatorImageView.isHidden = collectionView.numberOfItems(inSection: 0) <= 1
