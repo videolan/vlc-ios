@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QueueViewController" customModule="VLC" customModuleProvider="target">
             <connections>
+                <outlet property="artworkBlurView" destination="gpr-5h-rmL" id="uL9-cL-Tk8"/>
                 <outlet property="artworkImageBackgroundView" destination="Afy-hu-gWu" id="iEv-RU-qGY"/>
                 <outlet property="grabberView" destination="B60-wi-0eH" id="MBL-j4-Lxg"/>
                 <outlet property="queueCollectionView" destination="vtO-U6-cBN" id="dM4-7a-iVJ"/>

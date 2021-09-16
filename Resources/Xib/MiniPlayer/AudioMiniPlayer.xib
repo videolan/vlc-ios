@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="artistLabel" destination="cVn-oI-gin" id="i0Q-YH-XOJ"/>
                 <outlet property="artworkBlurImageView" destination="sE6-yx-yZZ" id="HJA-IE-LJQ"/>
+                <outlet property="artworkBlurView" destination="uX3-fg-RRU" id="SQX-RZ-tzG"/>
                 <outlet property="artworkImageView" destination="kd1-oF-bvh" id="2vA-3k-DNW"/>
                 <outlet property="audioMiniPlayer" destination="uF1-VS-Gss" id="KY2-QZ-jcK"/>
                 <outlet property="nextButton" destination="eyt-Pj-hU6" id="bWI-0V-wbd"/>

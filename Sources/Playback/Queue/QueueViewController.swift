@@ -38,6 +38,7 @@ class QueueViewController: UIViewController {
     @IBOutlet weak var topView: UIVisualEffectView!
     @IBOutlet weak var grabberView: UIView!
     @IBOutlet weak var artworkImageBackgroundView: UIImageView!
+    @IBOutlet weak var artworkBlurView: UIVisualEffectView!
 
     private var scrolledCellIndex: IndexPath = IndexPath()
 
@@ -298,7 +299,15 @@ class QueueViewController: UIViewController {
     }
 
     func reloadBackground(with image: UIImage?) {
-        artworkImageBackgroundView.image = image
+        if !UIAccessibility.isReduceTransparencyEnabled {
+            queueCollectionView.backgroundColor = image == nil ? PresentationTheme.darkTheme.colors.background : .clear
+            artworkImageBackgroundView.image = image
+            artworkBlurView.isHidden = false
+        } else {
+            queueCollectionView.backgroundColor = PresentationTheme.darkTheme.colors.background
+            artworkImageBackgroundView.image = nil
+            artworkBlurView.isHidden = true
+        }
     }
 }
 

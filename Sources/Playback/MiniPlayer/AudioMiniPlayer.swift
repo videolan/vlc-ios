@@ -44,6 +44,7 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     @IBOutlet private weak var audioMiniPlayer: UIView!
     @IBOutlet private weak var artworkImageView: UIImageView!
     @IBOutlet private weak var artworkBlurImageView: UIImageView!
+    @IBOutlet weak var artworkBlurView: UIVisualEffectView!
     @IBOutlet private weak var titleLabel: VLCMarqueeLabel!
     @IBOutlet private weak var artistLabel: VLCMarqueeLabel!
     @IBOutlet private weak var progressBarView: UIProgressView!
@@ -540,13 +541,15 @@ private extension AudioMiniPlayer {
     private func setMediaInfo(_ metadata: VLCMetaData) {
         titleLabel.text = metadata.title
         artistLabel.text = metadata.artist
-        if metadata.isAudioOnly {
+        if !UIAccessibility.isReduceTransparencyEnabled && metadata.isAudioOnly {
             artworkImageView.image = metadata.artworkImage ?? UIImage(named: "no-artwork")
             artworkBlurImageView.image = metadata.artworkImage
             queueViewController?.reloadBackground(with: metadata.artworkImage)
+            artworkBlurView.isHidden = false
         } else {
             artworkBlurImageView.image = nil
             queueViewController?.reloadBackground(with: nil)
+            artworkBlurView.isHidden = true
         }
     }
 }
