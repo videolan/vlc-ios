@@ -79,11 +79,13 @@ class EditToolbar: UIView {
         delegate?.editToolbarDidShare(self)
     }
 
-    func enableMediaGroupButton(_ enable: Bool) {
-        guard let mediaGroupButton = addToMediaGroupButton else {
-            return
-        }
-        mediaGroupButton.isEnabled = enable
+    func enableEditActions(_ enable: Bool) {
+        addToPlaylistButton.isEnabled = enable
+        addToMediaGroupButton.isEnabled = enable
+        removeFromMediaGroupButton.isEnabled = enable
+        renameButton.isEnabled = enable
+        deleteButton.isEnabled = enable
+        shareButton.isEnabled = enable
     }
 
     func updateEditToolbar(for model: MediaLibraryBaseModel) {
@@ -101,6 +103,8 @@ class EditToolbar: UIView {
         renameButton.isHidden = true
         deleteButton.isHidden = true
         shareButton.isHidden = true
+
+        enableEditActions(false)
 
         for buttonType in buttonTypeList {
             switch buttonType {

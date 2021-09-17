@@ -1044,13 +1044,13 @@ extension MediaCategoryViewController: EditControllerDelegate {
 
     func editControllerDidSelectMultipleItem(editContrller: EditController) {
         if let editToolbar = tabBarController?.editToolBar() {
-            editToolbar.enableMediaGroupButton(true)
+            editToolbar.enableEditActions(true)
         }
     }
 
     func editControllerDidDeSelectMultipleItem(editContrller: EditController) {
         if let editToolbar = tabBarController?.editToolBar() {
-            editToolbar.enableMediaGroupButton(false)
+            editToolbar.enableEditActions(false)
         }
     }
 

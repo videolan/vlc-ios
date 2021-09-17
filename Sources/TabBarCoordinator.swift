@@ -151,11 +151,4 @@ extension UITabBarController {
         }
         editToolbar.isHidden = true
     }
-
-    func enableMediaGroup(_ enable: Bool) {
-        guard let editToolbar = editToolBar() else {
-            return
-        }
-        editToolbar.enableMediaGroupButton(enable)
-    }
 }
