@@ -520,3 +520,8 @@
 "MENU_REPEAT_DISABLED" = "Do not repeat";
 "MENU_REPEAT_SINGLE" = "Repeat one";
 "MENU_REPEAT_ALL" = "Repeat all";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.git add";
