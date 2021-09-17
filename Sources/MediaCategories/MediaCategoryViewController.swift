@@ -297,6 +297,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
     }
 
+    func isEmptyCollectionView() -> Bool {
+        return collectionView?.numberOfItems(inSection: 0) == 0
+    }
+
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder: ) has not been implemented")
@@ -469,10 +473,6 @@ private extension MediaCategoryViewController {
         }
     }
 
-    private func isEmptyCollectionView() -> Bool {
-        return collectionView?.numberOfItems(inSection: 0) == 0
-    }
-
     private func updateUIForContent() {
         if isSearching {
             return
@@ -484,6 +484,7 @@ private extension MediaCategoryViewController {
         }
         searchBar.isHidden = isEmpty || isEditing
         collectionView?.backgroundView = isEmpty ? emptyView : nil
+        updateRightbarButtonItems()
     }
 
     private func objects(from modelContent: VLCMLObject) -> [VLCMLObject] {
@@ -623,6 +624,10 @@ extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
     private func updateRightbarButtonItems() {
         if !isEditing {
             navigationItem.rightBarButtonItems = rightBarButtonItems()
+        }
+
+        if isEmptyCollectionView() {
+            navigationItem.rightBarButtonItem = nil
         }
     }
 

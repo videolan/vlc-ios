@@ -114,6 +114,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         if let mediaCategoryViewController = viewController as? MediaCategoryViewController,
             !mediaCategoryViewController.isSearching {
             showButtons = true
+            showButtons = mediaCategoryViewController.isEmptyCollectionView() ? false : true
         }
         navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : nil
         navigationItem.leftBarButtonItem = showButtons ? leftBarButton : nil
