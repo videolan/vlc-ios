@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Veldu hljóðrás";
 "CHOOSE_SUBTITLE_TRACK" = "Veldu textarás";
+"UNKNOWN_TRACK_TYPE" = "Unknown track type";
 "OPEN_TRACK_PANEL" = "Opna val á sporum";
 "CHOOSE_TITLE" = "Veldu titil";
 "CHOOSE_CHAPTER" = "Veldu kafla";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Tómt miðlasafn";
 "EMPTY_LIBRARY_LONG" = "Til afspilunar geturðu streymt frá netþjóni á staðarnetinu þínu, af tölvuskýjum, eða samstillt margmiðlunargögn yfir á tækið þitt með iTunes, hleðslu í gegnum þráðlaust net eða úr skýjaþjónustum.";
 
+"EMPTY_NO_PLAYLISTS" = "Playlists";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
+
 "EMPTY_PLAYLIST" = "Tómur spilunarlisti";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Bæta við gögnum á meðan verið er að breyta í tilheyrandi flokkum.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "Lengd";
 "TITLE" = "Titill";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Ýttu lengi til að stöðva afspilun.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Upplýsingar um hljóð";
 "CLOUD_LOGIN_LONG" = "Til að komast í Cloud Services skýjaþjónusturnar, skráðu þig inn í iCloud á bæði þessu Apple TV og á iOS-tæki með sama Apple ID auðkenninu og virkjaðu Keychain Sharing í kerfisstillingunum (System Settings).\nAð því loknu skaltu skrá þig inn í skýjaþjónustu (cloud provider) að eigin vali með VLC-forritinu á iOS-tækinu þínu. Að lokum skaltu velja það á þessum skjá.";
 "ENTER_URL" = "Settu inn slóðina sem á að spila";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Efni sem er sýnt hérna er geymt staðvært á Apple TV tækinu þínu. Athugaðu að efni getur verið fjarlægt án viðvörunar af stýrikerfinu þegar VLC er ekki keyrandi, fari svo að tækið þitt verði uppiskroppa með geymslupláss.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Ná í skjátexta frá OpenSubtitles.org...";
 "FOUND_SUBS" = "Fann skjátexta";
+"NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
 "USE_SPDIF" = "Nota gegnumstreymi (S/PDIF)";
 
 "PLAYBACK" = "Afspilun";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Óvirkt";
 "REPEAT_SINGLE" = "Einfalt";
 "REPEAT_FOLDER" = "Mappa";
+"SHUFFLE" = "Shuffle";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Almennt Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Ertu viss um að þú viljir eyða völdum gögnum af spilunarlistanum?\nGögnunum verður ekki eytt af diski/gagnageymslu.";
 "DELETE_TITLE" = "Eyða völdu";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Þessi skrá";
 "NOT_SUPPORTED_FILETYPE" = "%@ er ekki skrátegund sem VLC styður";
 "FILE_EXISTS" = "%@ er þegar til";
@@ -327,7 +333,7 @@
 "SEARCH" = "Leita";
 "VIDEO" = "Myndskeið";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Albúm";
 "ARTISTS" = "Flytjendur";
 "EPISODES" = "Þættir";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Dagsetning þegar breytt";
 "NAME" = "Nafn";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Breyta";
 "BUTTON_EDIT_HINT" = "Breytingahamur";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Endurnefna valdar skrár";
 "DELETE_HINT" = "Eyða völdum skrám";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Raða";
 "BUTTON_SORT_HINT" = "Birta glugga með röðunaraðgerðum";
@@ -371,9 +377,9 @@
 "DESCENDING_LABEL" = "Lækkandi röð";
 "DESCENDING_SWITCH_LABEL" = "Hækkandi eða lækkandi röð";
 "DESCENDING_SWITCH_HINT" = "Raða efni í hækkandi eða lækkandi röð";
-"GRID_LAYOUT" = "Grid Layout";
+"GRID_LAYOUT" = "Framsetning í reitum";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Stafrófsröð";
 "DURATION" = "Lengd";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Fjöldi gagnamiðla";
 "NB_VIDEO" = "Fjöldi myndskeiða";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Ekkert fannst";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Óþekktur flytjandi";
 "VARIOUS_ARTIST" = "Ýmsir flytjendur";
 "UNKNOWN_ALBUM" = "Óþekkt hljómplata";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Skjátextar og hljóðspor";
 "SUBTITLE_AND_TRACK_HINT" = "Veldu skjátexta eða hljóðspor";
@@ -408,8 +414,10 @@
 "DVD_BUTTON" = "DVD";
 "DVD_HINT" = "DVD-viðmót";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "Snúningslás";
+"ROTATION_LOCK_HINT" = "Læsa núverandi stefnu myndmerkis";
+
+"REPEAT_HINT" = "Repeat same media";
 
 "BACKWARD_BUTTON" = "Afturábak";
 "BACKWARD_HINT" = "Hoppa afturábak";
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Spila eða setja í bið";
 "PLAY_PAUSE_HINT" = "Spila eða gera hlé á spilun";
 
+"STOP_BUTTON" = "Stop";
+
 "NEXT_HINT" = "Næsti gagnamiðill";
 
 "FORWARD_BUTTON" = "Áfram";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Læsa viðmóti";
 
+"SHUFFLE_HINT" = "Shuffle media list";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Stærðarhlutföll myndskeiða";
 "VIDEO_ASPECT_RATIO_HINT" = "Breyta stærðarhlutföllum núverandi myndskeiðs";
 
 "MORE_OPTIONS_BUTTON" = "Meira";
 "MORE_OPTIONS_HINT" = "Sýna fleiri valstýringar";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Tónjafnari";
 "MORE_OPTIONS_HEADER_TITLE" = "Valkostir myndskeiða";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Þvinga endurskönnun margmiðlunarsafns";
 "FORCE_RESCAN_MESSAGE" = "Viltu þvinga VLC til að endurskanna margmiðlunarsafnið þitt?\nÞað gæti tekið nokkurn tíma að gera það.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Aðvörun vegna SMBv1-tengingar";
 "SMBV1_WARN_DESCRIPTION" = "Við skynjuðum gamlan samskiptamáta (SMBv1).\nErtu viss um að þú viljir halda áfram að nota SMBv1?\nVið mælum með því að þu uppfærir eða breytir stillingum þjónsins þíns.";
 "SMBV1_CONTINUE" = "Halda áfram með SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Prófa SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Kóðun";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Add to media group";
 "ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
@@ -474,23 +486,42 @@
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
-"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "Bæti við...";
 
-/* tip jar */
-"GIVE_TIP" = "Give a Tip";
+// MARK: - tip jar
+"GIVE_TIP" = "Gefðu þjórfé";
 "CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
-"PURCHASE_FAILED" = "Purchase Failed";
-"SEND_GIFT" = "Send your gift";
+"PURCHASE_FAILED" = "Kaupin mistókust";
+"SEND_GIFT" = "Senda gjöfina þína";
 
 // MARK: - QueueViewController
 
-"PLAY_HINT" = "Play";
-"PLAY_LABEL" = "Play";
-"PLAY_NEXT_IN_QUEUE_HINT" = "Play next in queue";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Play next in queue";
-"APPEND_TO_QUEUE_HINT" = "Append to queue";
-"APPEND_TO_QUEUE_LABEL" = "Append to queue";
+"PLAY_HINT" = "Spila";
+"PLAY_LABEL" = "Spila";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Spila næsta í biðröð";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Spila næsta í biðröð";
+"APPEND_TO_QUEUE_HINT" = "Bæta í biðröð";
+"APPEND_TO_QUEUE_LABEL" = "Bæta í biðröð";
 
-"DISPLAY_AS" = "Display as";
+"DISPLAY_AS" = "Birta sem";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Vertical brightness control";
+"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
+
+/* New strings */
+"VOLUME_HINT" = "Vertical volume control";
+"VOLUME_SLIDER" = "Slide vertically to change the volume level";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Playback controls";
+"MENU_REPEAT_DISABLED" = "Do not repeat";
+"MENU_REPEAT_SINGLE" = "Repeat one";
+"MENU_REPEAT_ALL" = "Repeat all";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";

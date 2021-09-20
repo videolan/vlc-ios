@@ -7,13 +7,15 @@
 "SETTINGS_THEME_BRIGHT" = "Ljóst þema";
 "SETTINGS_THEME_DARK" = "Dökkt þema";
 "SETTINGS_THEME_SYSTEM" = "Sjálfvirkt";
+"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
 "SETTINGS_PRIVACY_SUBTITLE" = "Opna í stillingum";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Tryggðu öruggt aðgengi að efninu þínu";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Margmiðlunargögnin þín verða falin í Files-forritinu";
 
 "SETTINGS_DARKTHEME" = "Útlit";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tímaaðlögun hljóðs (time streching)";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Hraða og hægja hljóð án þess að breyta tónhæð (krefst hraðvirks tækis)";
 "SETTINGS_BACKGROUND_AUDIO" = "Hljóðspilun í bakgrunni";
 "SETTINGS_GENERIC_TITLE" = "Algengt";
 "SETTINGS_PASSCODE_LOCK" = "Læsing með lykilorði";
@@ -81,11 +83,11 @@
 "SETTINGS_CASTING" = "Útvörpun (casting)";
 "SETTINGS_PTCASTING" = "Gegnumstreymi hljóðs";
 "SETTINGS_PTCASTINGLONG" = "Láttu sjónvarpið sjá um hljóðmeðhöndlun";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Gæði umbreytinga";
+"SETTINGS_HIGH" = "Mikil";
+"SETTINGS_MEDIUM" = "Miðlungs";
+"SETTINGS_LOW" = "Lítil";
+"SETTINGS_LOWEST" = "Lægstu";
 
 "SETTINGS_FEEDBACK" = "Umsagnir";
 "SETTINGS_SEND_FEEDBACK" = "Senda umsögn";
@@ -94,12 +96,12 @@
 "SETTINGS_MEDIA_LIBRARY" = "Margmiðlunarsafn";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Þvinga VLC til að endurskanna margmiðlunarsafnið";
 "SETTINGS_DECRAPIFY" = "Besta heiti atriða fyrir birtingu";
-"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
+"SETTINGS_DISABLE_GROUPING" = "Gera sjálfvirka hópun gagnamiðla óvirka";
 "SETTINGS_SHOW_THUMBNAILS" = "Sýna smámyndir myndskeiða";
 "SETTINGS_SHOW_ARTWORKS" = "Sækja myndefni fyrir tónlist";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Taka margmiðlunarsafnið með í öryggisafritun tækisins";
 
-"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK" = "Netkerfi";
 "SETTINGS_NETWORK_CACHING_TITLE" = "Stig skyndiminnis fyrir netkerfi";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Minnsti biðtími";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Lítill biðtími";
@@ -107,8 +109,9 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Mikill biðtími";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Mesti biðtími";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 stuðningur vegna WiFi-deilingar";
-"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
-"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_FORCE_SMBV1" = "Kjósa frekar SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Taktu merkið úr þessari stillingu ef þú átt í vandræðum með SMB-þjóninn þinn";
+"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Myndefni";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Sækja myndefni";
