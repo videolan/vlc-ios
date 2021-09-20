@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "בחירת רצועת שמע";
 "CHOOSE_SUBTITLE_TRACK" = "בחירת רצועת כתוביות";
+"UNKNOWN_TRACK_TYPE" = "סוג רצועה בלתי ידוע";
 "OPEN_TRACK_PANEL" = "פתח בחירת ערוצים";
 "CHOOSE_TITLE" = "בחר כותר";
 "CHOOSE_CHAPTER" = "בחר פרקים";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "ספריית המדיה ריקה";
 "EMPTY_LIBRARY_LONG" = "לצורך נגינה, ניתן להזרים מדיה משרת ברשת המקומית שלך, מהענן או לסנכרן מדיה מההתקן שלך באמצעות iTunes, להעלות ב־Wi-Fi או משירותי ענן.";
 
+"EMPTY_NO_PLAYLISTS" = "רשימות נגינה";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "כדי ליצור רשימות נגינה, יש להיכנס למצב עריכה בלשוניות תוכן הווידאו או השמע ולבחור את המדיה המועדפת עליך.\nניתן גם לסנכרן רשימות נגינה קיימות ממכשירים אחרים שלך או מהאינטרנט.";
+
 "EMPTY_PLAYLIST" = "רשימת נגינה ריקה";
 "EMPTY_PLAYLIST_DESCRIPTION" = "הוספת מדיה בעת עריכת הקטגוריות בהתאמה.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "משך";
 "TITLE" = "כותר";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "לחיצה ארוכה להפסקת נגינה.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "פרטי השמע";
 "CLOUD_LOGIN_LONG" = "כדי לגשת לשירותי ענן יש להיכנס ל־iCloud גם ב־Apple TV וגם בהתקן ה־iOS עם אותו ה־Apple ID ולהפעיל שיתוף מפתחות (Keychain Sharing) בהגדרות המערכת.\nלאחר מכן, עליך להיכנס לספק הענן לבחירתך באמצעות היישומון של VLC שבהתקן ה־iOS שלך. לבסוף, יש לבחור אותו על המסך.";
 "ENTER_URL" = "הכנס כתובת URL לנגינה";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "מדיה המוצגת כאן נשמרת מקומית על האפל טיוי שלך. שים/י לב  כי מדיה זו יכולה להימחק על ידי מערכת ההפעלה ללא כל התראה בכל פעם ש VLC לא רץ במקרה ולמכשיר נגמר המקום לאחסון מידע.";
 "DOWNLOAD_SUBS_FROM_OSO" = "הורד כתוביות מ OpenSubtitles.org...";
 "FOUND_SUBS" = "נמצאו כתוביות";
+"NO_SUB_FOUND_OSO" = "לא נמצאו כתוביות בפריט המדיה שלך „%@”.";
 "USE_SPDIF" = "שימוש בהעברה ישירה (S/PDIF)";
 
 "PLAYBACK" = "נגינה";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "מנוטרל";
 "REPEAT_SINGLE" = "בודד";
 "REPEAT_FOLDER" = "תיקייה";
+"SHUFFLE" = "ערבוב";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Plug'n'Play אוניברסלי (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "להסיר את המדיה הנבחרת מהרשימה?\nקובץ המדיה לא יימחק מהכונן.";
 "DELETE_TITLE" = "מחיקת הבחירה";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "הקובץ הזה";
 "NOT_SUPPORTED_FILETYPE" = "%@ אינו סוג קובץ שנתמך על ידי VLC";
 "FILE_EXISTS" = "%@ כבר קיים";
@@ -327,7 +333,7 @@
 "SEARCH" = "חיפוש";
 "VIDEO" = "וידאו";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "אלבומים";
 "ARTISTS" = "אמנים";
 "EPISODES" = "פרקים";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "מועד שינוי אחרון";
 "NAME" = "שם";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "עריכה";
 "BUTTON_EDIT_HINT" = "מצב עריכה";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "שינוי שמם של הקבצים הנבחרים";
 "DELETE_HINT" = "מחיקת הקבצים הנבחרים";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "מיון";
 "BUTTON_SORT_HINT" = "הצגת גיליון פעולת מיון";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "מיון הקשר בסדר עולה או יורד";
 "GRID_LAYOUT" = "פריסת רשת";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "אלפבית";
 "DURATION" = "משך";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "מספר מדיה";
 "NB_VIDEO" = "מספר וידאו";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "שום דבר לא נמצא";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "אמן לא ידוע";
 "VARIOUS_ARTIST" = "מגוון אמנים";
 "UNKNOWN_ALBUM" = "אלבום לא ידוע";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "כתוביות ורצועות שמע";
 "SUBTITLE_AND_TRACK_HINT" = "בחירת כתוביות או רצועות שמע";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "נעילת הטיה";
 "ROTATION_LOCK_HINT" = "נעילת הווידאו להטיה הנוכחית";
 
+"REPEAT_HINT" = "לחזור על חלק מהמדיה";
+
 "BACKWARD_BUTTON" = "אחורה";
 "BACKWARD_HINT" = "לקפוץ אחורה";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "לנגן או להשהות";
 "PLAY_PAUSE_HINT" = "לנגן או להשהות את הנגינה הנוכחית";
 
+"STOP_BUTTON" = "עצירה";
+
 "NEXT_HINT" = "המדיה הבאה";
 
 "FORWARD_BUTTON" = "קדימה";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "נעילת המנשק";
 
+"SHUFFLE_HINT" = "ערבוב רשימת המדיה";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "יחס התצוגה של הווידאו";
 "VIDEO_ASPECT_RATIO_HINT" = "להחליף את יחס התצוגה של הסרטון הנוכחי";
 
 "MORE_OPTIONS_BUTTON" = "עוד";
 "MORE_OPTIONS_HINT" = "הצגת פקדים לאפשרויות נוספות";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "אקולייזר";
 "MORE_OPTIONS_HEADER_TITLE" = "אפשרויות וידאו";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "אילוץ סריקת ספריית המדיה מחדש";
 "FORCE_RESCAN_MESSAGE" = "לאלץ את VLC לסרוק את תיקיית המדיה שלך מחדש?\nפעולה זו עשויה לארוך זמן מה.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "אזהרת חיבור SMBv1";
 "SMBV1_WARN_DESCRIPTION" = "זיהינו פרוטוקול ישן (SMBv1).\nלהמשיך עם SMBv1?\nאנו ממליצים לשדרג או לערוך את הגדרות השרת שלך.";
 "SMBV1_CONTINUE" = "להמשיך עם SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "לנסות SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "קידוד";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "הוספה לקבוצת מדיה";
 "ADD_TO_MEDIA_GROUP_HINT" = "פתיחת תפריט ההוספה לקבוצת מדיה";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "לנסות לקבץ מדיה בודדת מחדש אוטומטית";
 "BUTTON_REGROUP_DESCRIPTION" = "לנסות לקבץ מדיה בודדת מחדש אוטומטית?\nפעולה זו עלולה לארוך זמן מה";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "יש להציב כאן מדיה כדי להוסיף אותה";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "מתווספת…";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "להעניק טיפ";
 "CANNOT_MAKE_PAYMENTS" = "אסור לך לשלם דרך המכשיר הזה.";
 "PURCHASE_FAILED" = "הרכישה נכשלה";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "להוסיף לסוף התור";
 
 "DISPLAY_AS" = "להציג בתור";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "בקרת בהירות אנכית";
+"BRIGHTNESS_SLIDER" = "יש להחליק אנכית כדי לשנות את רמת הבהירות";
+
+/* New strings */
+"VOLUME_HINT" = "בקרת בהירות אנכית";
+"VOLUME_SLIDER" = "יש להחליק אנכית כדי לשנות את עצמת השמע";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "פקדי נגינה";
+"MENU_REPEAT_DISABLED" = "ללא חזרה";
+"MENU_REPEAT_SINGLE" = "חזרה על אחד";
+"MENU_REPEAT_ALL" = "חזרה על הכול";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "רקע גיליון הפעולות";
+"ACTIONSHEET_BACKGROUND_HINT" = "נגיעה תסיר את גיליון הפעולות.";

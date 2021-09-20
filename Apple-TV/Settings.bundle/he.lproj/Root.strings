@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "ערכת עיצוב בהירה";
 "SETTINGS_THEME_DARK" = "ערכת עיצוב כהה";
 "SETTINGS_THEME_SYSTEM" = "אוטומטית";
+"SETTINGS_THEME_BLACK" = "להשתמש ברקע שחור במצב כהה";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "משפר את חיי הסוללה במכשירים עם מסכי OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "פתיחה בהגדרות";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "גישה מאובטחת לתוכן שלך";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "המדיה שלך תוסתר ביישומון הקבצים";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "תמיכה ב־IPv6 לשיתוף באמצעות Wi-Fi";
 "SETTINGS_FORCE_SMBV1" = "להעדיף SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "יש לבטל את סימון ההגדרה הזאת אם נתקלת בבעיות גישה לשרת ה־SMB שלך";
+"SETTINGS_RTSP_TCP" = "להשתמש ב־RTP על גבי RTSP‏ (TCP)";
 
 "SETTINGS_ARTWORK" = "עטיפת אלבום";
 "SETTINGS_DOWNLOAD_ARTWORK" = "הורדת עטיפת האלבום";
