@@ -7,13 +7,15 @@
 "SETTINGS_THEME_BRIGHT" = "Tema luminosu";
 "SETTINGS_THEME_DARK" = "Tema scuru";
 "SETTINGS_THEME_SYSTEM" = "Autumaticu";
+"SETTINGS_THEME_BLACK" = "Impiegà un fondu neru cù u modu scuru";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Ecunumizeghja a batteria nant’à l’apparechji cù un screnu OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "Apre in Preferenze";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accessu assicuratu à u vostru cuntenutu";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "U vostru media serà piattatu in l’appiecazione Schedarii";
 
 "SETTINGS_DARKTHEME" = "Aspettu";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Stinzata di tempu audio";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Accelera è frena l’audio senza cambià a tunalità (richiede un apparechju rapidu)";
 "SETTINGS_BACKGROUND_AUDIO" = "Ripruduzzione audio in fondu";
 "SETTINGS_GENERIC_TITLE" = "Genericu";
 "SETTINGS_PASSCODE_LOCK" = "Codice di serratura";
@@ -81,11 +83,11 @@
 "SETTINGS_CASTING" = "Diffusione";
 "SETTINGS_PTCASTING" = "Traversata audio";
 "SETTINGS_PTCASTINGLONG" = "Lascià a vostra TV urganizà a trasfurmazione audio";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Qualità di a cunversione";
+"SETTINGS_HIGH" = "Alta";
+"SETTINGS_MEDIUM" = "Mediana";
+"SETTINGS_LOW" = "Bassa";
+"SETTINGS_LOWEST" = "A più bassa";
 
 "SETTINGS_FEEDBACK" = "Ritornu d’avisu";
 "SETTINGS_SEND_FEEDBACK" = "Mandà u vostru avisu";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 accettatu per u spartimentu Wi-Fi";
 "SETTINGS_FORCE_SMBV1" = "Preferisce SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Disattivà st’ozzione s’è vò avete qualchì difficultà à navigà nant’à u vostru servitore SMB";
+"SETTINGS_RTSP_TCP" = "Impiegà RTP cù RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Illustrazione";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Scaricà l’illustrazione";
