@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "انتخاب قطعه صوتی";
 "CHOOSE_SUBTITLE_TRACK" = "انتخاب قطعه زیرنویس";
+"UNKNOWN_TRACK_TYPE" = "Unknown track type";
 "OPEN_TRACK_PANEL" = "گشودن قطعه انتخابی";
 "CHOOSE_TITLE" = "انتخاب عنوان";
 "CHOOSE_CHAPTER" = "انتخاب فصل";
@@ -69,7 +70,7 @@
 "BUTTON_LOGOUT" = "خارج شدن";
 "BUTTON_CONTINUE" = "ادامه";
 "BUTTON_SET" = "Set";
-"BUTTON_RESET" = "Reset";
+"BUTTON_RESET" = "بازنشانی";
 "BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "پخش خصوصی";
 "SCAN_SUBTITLE_TOGGLE" = "بررسی سریع زیرنویس ها";
@@ -78,7 +79,7 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
+"BUTTON_PLAY_QUEUE" = "پخش صف";
 "BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
 
 "UPGRADING_LIBRARY" = "ارتقای کتابخانه رسانه ای";
@@ -87,7 +88,7 @@
 "NETWORK_TITLE" = "جریان شبکه";
 "OPEN_NETWORK_HELP" = "برای باز کردن مستقیم استریم، یکی از آدرس های FTP, MMS, RTMP, RTSP, HTTP را وارد کنید.";
 "HTTP_UPLOAD_SERVER_OFF" = "سرور غیرفعال";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "اتصال وای‌فای فعال پیدا نشد.";
 "OPEN_STREAM_OR_DOWNLOAD" = "آیا مایل به دانلودید یا می خواهید URLپخش شود؟";
 "SHARED_VLC_IOS_LIBRARY" = "VLC را برای کتابخانه iOS اشتراک بگذارید";
 "SMB_CIFS_FILE_SERVERS" = "فایل سرور ها (SMB)";
@@ -107,7 +108,7 @@
 "SCHEME_NOT_SUPPORTED_LONG" = "طرح آدرس (%@) پشتیبانی نمیشود. لطفا از آدرس هایی که با HTTP, HTTPS or FTP شروع میشود، استفاده کنید. ";
 "RENAME_MEDIA_TO" = "نام جدید وارد کنید برای %@";
 
-"FOLDER_EMPTY" = "Empty folder";
+"FOLDER_EMPTY" = "پوشه خالی";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "انتخاب فایل برای گشودن:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "باز کن در...";
@@ -116,13 +117,13 @@
 "SHARING_SUCCESS_CAMERA_ROLL" = "فایل با موفقیت در عکس های دوربین ذخیره شد";
 
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
-"DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
+"DOWNLOADVC_DETAILTEXT" = "دانلود فایل‌ها به صورت مستقیم روی دستگاه شما";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
 
-"NETWORK" = "Network";
+"NETWORK" = "شبکه";
 "LOCAL_NETWORK" = "شبکه‌ی محلی";
 "CONNECT_TO_SERVER" = "اتصال به سرور";
-"FILE_SERVER" = "File Servers";
+"FILE_SERVER" = "فایل‌سرورها";
 "USER_LABEL" = "کاربر";
 "PASSWORD_LABEL" = "گذرواژه";
 "DISABLE_LABEL" = "غیر‌فعال";
@@ -133,14 +134,14 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "اتصال به سرور ناموفق";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "لطفا آدرس سرور و مشخصات کاربری خود را چک کنید.";
 
-"FILES_APP_CELL_TITLE" = "Local files";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+"FILES_APP_CELL_TITLE" = "فایل‌های محلی";
+"FILES_APP_CELL_SUBTITLE" = "باز کردن یک فایل بدون کپی کردن به VLC";
 
 "CLOUD_SERVICES" = "سرویس های ابری";
 "LOGIN" = "ورود";
 "LOGGED_IN" = "وارد شده";
-"LOGGED_IN_SERVICES" = "%d logged in services";
-"LOGGED_IN_SERVICE" = "1 logged in service";
+"LOGGED_IN_SERVICES" = "%d سرویس لاگین‌شده";
+"LOGGED_IN_SERVICE" = "1 سرویس لاگین‌شده";
 
 "DROPBOX_DOWNLOAD" = "دانلود فایل؟";
 "DROPBOX_DL_LONG" = "آیا مایلید \"%@\" را در %@ خود دانلود کنید؟";
@@ -152,7 +153,7 @@
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "هنگام دانلود کردن با خطایی رخ داد";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "خطا";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "مدیای انتخاب‌شده فاقد آدرس قابل‌پخش است";
 
 "DISK_FULL" = "به حد ذخیره سازی رسیده است";
 "DISK_FULL_FORMAT" = "%@ نمیتواند درون %@ ذخیره سازی کند، زیرا شما فضای آزاد کافی در اختیار ندارید.";
@@ -167,17 +168,17 @@
 //PAPasscode Strings that we need to localize for them
 "%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
 "1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "Change Passcode";
-"Enter Passcode" = "Enter Passcode";
-"Enter a passcode" = "Enter a passcode";
-"Enter your new passcode" = "Enter your new passcode";
-"Enter your old passcode" = "Enter your old passcode";
-"Enter your passcode" = "Enter your passcode";
-"Next" = "Next";
-"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
-"Re-enter your new passcode" = "Re-enter your new passcode";
-"Re-enter your passcode" = "Re-enter your passcode";
-"Set Passcode" = "Set Passcode";
+"Change Passcode" = "تغییر رمز";
+"Enter Passcode" = "رمز را وارد کنید";
+"Enter a passcode" = "رمز را وارد کنید";
+"Enter your new passcode" = "رمز جدید خود را وارد کنید";
+"Enter your old passcode" = "رمز قبلی خود را وارد کنید";
+"Enter your passcode" = "رمزتان را وارد کنید";
+"Next" = "بعدی";
+"Passcodes did not match. Try again." = "رمزها یکی نبود. دوباره تلاش کنید.";
+"Re-enter your new passcode" = "رمز جدید خود را دوباره وارد کنید";
+"Re-enter your passcode" = "رمز را دوباره وارد کنید";
+"Set Passcode" = "تنظیم رمز";
 
 "Settings" = "تنظیمات"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "روشن";
@@ -186,7 +187,10 @@
 "EMPTY_LIBRARY" = "خالی کردن کتابخانه رسانه ای";
 "EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
+"EMPTY_NO_PLAYLISTS" = "Playlists";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
+
+"EMPTY_PLAYLIST" = "لیست پخش خالی";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
 "PLAYBACK_SCRUB_HELP" = "برای تنظیم میزان تغییر کشش، انگشت خود را به پایین بکشید.";
@@ -197,12 +201,12 @@
 "PLAYBACK_POSITION" = "موقعیت پخش";
 "VIDEO_FILTER" = "صافی‌های ویدئو";
 "VIDEO_FILTER_RESET_BUTTON" = "تنظیم مجدد فیلترهای ویدیو";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "نسبت ابعاد ویدیو";
 "BWD_BUTTON" = "پرش به عقب";
 "FWD_BUTTON" = "پرش به جلو";
 "PLAY_BUTTON" = "پخش";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
+"NEXT_BUTTON" = "بعدی";
+"PREV_BUTTON" = "قبلی";
 "PLAY_ALL_BUTTON" = "پخش همه";
 
 "RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
@@ -261,14 +265,14 @@
 "DURATION" = "مدت پخش";
 "TITLE" = "عنوان";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "برای توقف پخش فشار طولانی دهید";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audio Info";
 "CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
 "ENTER_URL" = "برای پخش آدرس را وارد کنید";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
 "DOWNLOAD_SUBS_FROM_OSO" = "دانلود زیرنویس ها از OpenSubtitles.org...";
 "FOUND_SUBS" = "زیرنویس های یافت شده";
+"NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
 "USE_SPDIF" = "استفاده از عبور - از طریق (S/PDIF)";
 
 "PLAYBACK" = "بازپخش";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "غیرفعال";
 "REPEAT_SINGLE" = "تکی";
 "REPEAT_FOLDER" = "پوشه";
+"SHUFFLE" = "Shuffle";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "پلاگین پخش جهانی (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_TITLE" = "Delete Selection";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "این فایل";
 "NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
 "FILE_EXISTS" = "%@ درحال حاضر وجود دارد";
@@ -327,7 +333,7 @@
 "SEARCH" = "جستجو";
 "VIDEO" = "ویدیو";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "آلبوم‌ها";
 "ARTISTS" = "هنرمندان";
 "EPISODES" = "قسمت‌ها";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Modified date";
 "NAME" = "Name";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Edit";
 "BUTTON_EDIT_HINT" = "Edit mode";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Rename selected files";
 "DELETE_HINT" = "Delete selected files";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Sort";
 "BUTTON_SORT_HINT" = "Display sort action sheet";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 "GRID_LAYOUT" = "Grid Layout";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alphanumerically";
 "DURATION" = "مدت پخش";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Number of media";
 "NB_VIDEO" = "Number of video";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Nothing found";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Unknown Artist";
 "VARIOUS_ARTIST" = "Various Artists";
 "UNKNOWN_ALBUM" = "Unknown Album";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
 "SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Rotation lock";
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
+"REPEAT_HINT" = "Repeat same media";
+
 "BACKWARD_BUTTON" = "Backward";
 "BACKWARD_HINT" = "Jump Backwards";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Play or pause";
 "PLAY_PAUSE_HINT" = "Play or Pause current playback";
 
+"STOP_BUTTON" = "Stop";
+
 "NEXT_HINT" = "Next media";
 
 "FORWARD_BUTTON" = "Forward";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"SHUFFLE_HINT" = "Shuffle media list";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "نسبت ابعاد ویدیو";
 "VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
 
 "MORE_OPTIONS_BUTTON" = "More";
 "MORE_OPTIONS_HINT" = "View more option controls";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video Options";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Force media library rescan";
 "FORCE_RESCAN_MESSAGE" = "Do you want to force VLC to rescan your media library?\nIt could take some time.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
 "SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
 "SMBV1_CONTINUE" = "Continue with SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Encoding";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Add to media group";
 "ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Give a Tip";
 "CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
 "PURCHASE_FAILED" = "Purchase Failed";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
 
 "DISPLAY_AS" = "Display as";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Vertical brightness control";
+"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
+
+/* New strings */
+"VOLUME_HINT" = "Vertical volume control";
+"VOLUME_SLIDER" = "Slide vertically to change the volume level";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Playback controls";
+"MENU_REPEAT_DISABLED" = "Do not repeat";
+"MENU_REPEAT_SINGLE" = "Repeat one";
+"MENU_REPEAT_ALL" = "Repeat all";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
