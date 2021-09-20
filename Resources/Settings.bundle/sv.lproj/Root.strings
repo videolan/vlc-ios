@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Ljust tema";
 "SETTINGS_THEME_DARK" = "Mörkt tema";
 "SETTINGS_THEME_SYSTEM" = "Automatiskt";
+"SETTINGS_THEME_BLACK" = "Använd svart bakgrund i mörkt läge";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Förbättrar batteritiden på enheter med en OLED-skärm";
 "SETTINGS_PRIVACY_SUBTITLE" = "Öppna i Inställningar";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Säker åtkomst till ditt innehåll";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Dina mediafiler kommer att döljas i appen Filer";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-stöd för att dela via Wi-Fi";
 "SETTINGS_FORCE_SMBV1" = "Föredra SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Avmarkera denna inställning om du har problem med att bläddra i din SMB-server";
+"SETTINGS_RTSP_TCP" = "Använd RTP över RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Omslag";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Ladda ned omslag";
