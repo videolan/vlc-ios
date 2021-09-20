@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Светлая тема";
 "SETTINGS_THEME_DARK" = "Тёмная тема";
 "SETTINGS_THEME_SYSTEM" = "Автоматически";
+"SETTINGS_THEME_BLACK" = "Установить чёрный фон в тёмной режиме";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Экономит энергию батареи на устройствах с OLED-экраном";
 "SETTINGS_PRIVACY_SUBTITLE" = "Открыть настройки";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Защита доступа к вашему содержимому";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Ваши медиафайлы будут скрыты в приложении Files";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "Поддержка IPv6 встроенным сервером (по Wi-Fi)";
 "SETTINGS_FORCE_SMBV1" = "Предпочитать SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Снимите этот флажок, если вы испытываете трудности при обращении к серверу SMB";
+"SETTINGS_RTSP_TCP" = "Использовать RTP поверх RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Обложка";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Загрузить обложку";

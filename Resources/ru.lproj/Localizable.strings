@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Выберите аудиопоток";
 "CHOOSE_SUBTITLE_TRACK" = "Выберите субтитры";
+"UNKNOWN_TRACK_TYPE" = "Неизвестный тип дорожки";
 "OPEN_TRACK_PANEL" = "Выбор дорожки";
 "CHOOSE_TITLE" = "Выберите произведение";
 "CHOOSE_CHAPTER" = "Выберите главу";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Медиатека пуста";
 "EMPTY_LIBRARY_LONG" = "Вы можете воспроизвести медиаданные с вашего сервера в локальной сети, используя облачные хранилища или загрузив на ваше устройство через iTunes, подключение по Wi-Fi.";
 
+"EMPTY_NO_PLAYLISTS" = "Плейлисты";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Чтобы создать список воспроизведения, перейдите в режим Изменения на вкладке Видео или Аудио и отметьте избранные медиаобъекты.\nВы также можете синхронизировать существующие плейлисты с другими устройствами или с сетевыми ресурсами.";
+
 "EMPTY_PLAYLIST" = "Пустой плейлист";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Добавить медиа во время редактирования в соответствующих категориях.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "Длительность";
 "TITLE" = "Название";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Нажмите и удерживайте, чтобы остановить воспроизведение.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Аудио";
 "CLOUD_LOGIN_LONG" = "Для доступа к облачным сервисам войдите в iCloud на этом Apple TV и на iOS-устройстве с одинаковым Apple ID и включите Keychain Sharing (Общая цепочка ключей) в System Settings (Параметры системы).\nПосле этого подключитесь к выбранному Вами облачному провайдеру, используя приложение VLC на iOS-устройстве. Наконец, выберите это на данном экране.";
 "ENTER_URL" = "Введите URL для воспроизведения";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Медиаобьекты, показанные здесь, сохранены локально на Вашем Apple TV. Имейте в виду, что этот контент может быть удален операционной системой, когда VLC не запущен, в случае нехватки дискового пространства на Вашем устройстве.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Скачать субтитры с OpenSubtitles.org...";
 "FOUND_SUBS" = "Субтитры найдены";
+"NO_SUB_FOUND_OSO" = "Для медиаобъекта \"%@\" не были найдены субтитры.";
 "USE_SPDIF" = "Использовать сквозной вывод (S/PDIF)";
 
 "PLAYBACK" = "Воспроизведение";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Отключено";
 "REPEAT_SINGLE" = "Один раз";
 "REPEAT_FOLDER" = "Папка";
+"SHUFFLE" = "Перемешивать";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Вы уверены что хотите удалить выбранные медиа из списка воспроизведения?\nОни не будут удалены с диска.";
 "DELETE_TITLE" = "Удалить выбранное";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Этот файл";
 "NOT_SUPPORTED_FILETYPE" = "%@ имеет тип, который не поддерживается VLC";
 "FILE_EXISTS" = "%@ уже существует";
@@ -327,7 +333,7 @@
 "SEARCH" = "Поиск";
 "VIDEO" = "Видео";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Альбомы";
 "ARTISTS" = "Исполнители";
 "EPISODES" = "Эпизоды";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "по дате изменения";
 "NAME" = "по имени";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Изменить";
 "BUTTON_EDIT_HINT" = "Режим изменения";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Переименовать выбранные файлы";
 "DELETE_HINT" = "Удалить выбранные файлы";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Сортировать";
 "BUTTON_SORT_HINT" = "Отобразить варианты сортировки";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Отсортировать контекст по возрастанию или по убыванию";
 "GRID_LAYOUT" = "В виде сетки";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "По алфавиту";
 "DURATION" = "Длительность";
@@ -390,42 +396,48 @@
 "NB_MEDIA" = "Количество медиа";
 "NB_VIDEO" = "Количество видео";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Ничего не найдено";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Неизвестный исполнитель";
 "VARIOUS_ARTIST" = "Разные исполнители";
 "UNKNOWN_ALBUM" = "Неизвестный альбом";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Субтитры и аудиопотоки";
-"SUBTITLE_AND_TRACK_HINT" = "Выберите субтитры или аудиопотоки";
+"SUBTITLE_AND_TRACK_BUTTON" = "Субтитры и звуковые дорожки";
+"SUBTITLE_AND_TRACK_HINT" = "Выбор субтитров или звуковых дорожек";
 
 "DVD_BUTTON" = "DVD";
 "DVD_HINT" = "DVD интерфейс";
 
 "ROTATION_LOCK_BUTTON" = "Блокировка вращения";
-"ROTATION_LOCK_HINT" = "Заблокировать ориентацию видео";
+"ROTATION_LOCK_HINT" = "Зафиксировать ориентацию видео";
+
+"REPEAT_HINT" = "Повторять воспроизведение одного медиаобъекта";
 
 "BACKWARD_BUTTON" = "Назад";
 "BACKWARD_HINT" = "Перемотать назад";
 
 "PREVIOUS_BUTTON" = "Предыдущий";
-"PREVIOUS_HINT" = "Предыдущее медиа";
+"PREVIOUS_HINT" = "Предыдущее";
 
 "PLAY_PAUSE_BUTTON" = "Воспроизвести или приостановить";
 "PLAY_PAUSE_HINT" = "Воспроизвести или приостановить текущее воспроизведение ";
 
-"NEXT_HINT" = "Следующее медиа";
+"STOP_BUTTON" = "Stop";
+
+"NEXT_HINT" = "Следующее";
 
 "FORWARD_BUTTON" = "Вперёд";
 "FORWARD_HINT" = "Перемотать вперёд";
 
 "INTERFACE_LOCK_BUTTON" = "Заблокировать интерфейс";
+
+"SHUFFLE_HINT" = "Перемешивать пункты списка воспроизведения";
 
 "VIDEO_ASPECT_RATIO_BUTTON" = "Соотношение сторон видео";
 "VIDEO_ASPECT_RATIO_HINT" = "Изменить соотношение сторон текущего видео";
@@ -433,26 +445,26 @@
 "MORE_OPTIONS_BUTTON" = "Ещё";
 "MORE_OPTIONS_HINT" = "Показать больше элементов управления";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Эквалайзер";
 "MORE_OPTIONS_HEADER_TITLE" = "Параметры видео";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Пересканировать медиатеку";
 "FORCE_RESCAN_MESSAGE" = "Вы действительно хотите чтобы VLC пересканировал вашу медиатеку?\nЭто может занять некоторое время.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Предупреждение подключения SMBv1";
 "SMBV1_WARN_DESCRIPTION" = "Выявлено использование старого протокола (SMBv1).\nВы действительно хотите продолжить с использованием SMBv1?\nМы рекомендуем обновить или изменить настройки вашего сервера.";
 "SMBV1_CONTINUE" = "Продолжить с SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Попробовать SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Кодирование";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Добавить в медиагруппу";
 "ADD_TO_MEDIA_GROUP_HINT" = "Открыть меню добавления в медиагруппу";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Пытаться автоматически перегруппировать одиночные медиаобъекты.";
 "BUTTON_REGROUP_DESCRIPTION" = "Вы действительно хотите перегруппировать автоматически одиночные объекты?\nЭто может занять некоторое время.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Поместите сюда медиаобъекты, чтобы добавить их";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Добавление...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Выразить благодарность";
 "CANNOT_MAKE_PAYMENTS" = "Вам не разрешено совершать покупки на этом устройстве.";
 "PURCHASE_FAILED" = "Произвести оплату не удалось";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Добавить в очередь";
 
 "DISPLAY_AS" = "Отображать как";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Вертикальный регулятор яркости";
+"BRIGHTNESS_SLIDER" = "Проведите вертикально для изменения уровня яркости";
+
+/* New strings */
+"VOLUME_HINT" = "Вертикальный регулятор громкости";
+"VOLUME_SLIDER" = "Проведите вертикально для изменения уровня громкости";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Playback controls";
+"MENU_REPEAT_DISABLED" = "Do not repeat";
+"MENU_REPEAT_SINGLE" = "Repeat one";
+"MENU_REPEAT_ALL" = "Repeat all";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
