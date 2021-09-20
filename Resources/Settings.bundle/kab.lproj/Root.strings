@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Asentel afaw";
 "SETTINGS_THEME_DARK" = "Asentel aberkan";
 "SETTINGS_THEME_SYSTEM" = "Awurman";
+"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
 "SETTINGS_PRIVACY_SUBTITLE" = "Ldi deg yiɣewwaren";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Adduf aɣelsan ɣer ugbur-inek m";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Amidya-inek m ad yettwaffer deg usnas n yifuyla";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "Tadhelt n IPv6 i beḍḍu n Wi-Fi";
 "SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
