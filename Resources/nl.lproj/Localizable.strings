@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Audiospoor kiezen";
 "CHOOSE_SUBTITLE_TRACK" = "Ondertitelspoor kiezen";
+"UNKNOWN_TRACK_TYPE" = "Onbekend tracktype";
 "OPEN_TRACK_PANEL" = "Spoorselectie openen";
 "CHOOSE_TITLE" = "Titel kiezen";
 "CHOOSE_CHAPTER" = "Hoofdstuk kiezen";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Mediabibliotheek leeg";
 "EMPTY_LIBRARY_LONG" = "Voor het afspelen kunt u media streamen vanaf een server op uw lokale netwerk of van de cloud, of u kunt media met uw apparaat synchroniseren met behulp van iTunes, wifi-upload of clouddiensten.";
 
+"EMPTY_NO_PLAYLISTS" = "Afspeellijsten";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Om afspeellijsten te maken, gaat u in de tabbladen Video of Audio naar de bewerkingsmodus en selecteert u uw favoriete media.\nU kunt ook bestaande afspeellijsten synchroniseren vanaf uw andere toestellen of het internet.";
+
 "EMPTY_PLAYLIST" = "Afspeellijst leegmaken";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Media toevoegen tijdens het bewerken in de respectievelijke categorieën";
 
@@ -261,14 +265,14 @@
 "DURATION" = "Duur";
 "TITLE" = "Titel";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Lang drukken om afspelen te stoppen.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audio-info";
 "CLOUD_LOGIN_LONG" = "Om toegang te krijgen tot Cloud Services, meldt u zich aan op iCloud op deze Apple TV en een iOS-apparaat met dezelfde Apple ID en schakelt u Keychain Sharing in bij Systeeminstellingen.\nMeld u daarna aan bij de cloud provider die u wenst met de VLC app op uw iOS-apparaat. Als laatste, selecteer het op dit scherm.";
 "ENTER_URL" = "URL opgeven om af te spelen";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "De hier weergegeven media is lokaal opgeslagen op uw Apple TV. Merk op dat inhoud op elk moment verwijderd kan worden door het besturingssysteem zonder voorafgaande melding wanneer VLC niet draait en als uw toestel te weinig opslagruimte heeft.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Ondertitels downloaden van OpenSubttles.org...";
 "FOUND_SUBS" = "Ondertitels teruggevonden";
+"NO_SUB_FOUND_OSO" = "Er zijn geen ondertitels gevonden voor uw media-item \"%@\".";
 "USE_SPDIF" = "Pass-through (S/PDIF) gebruiken";
 
 "PLAYBACK" = "Afspelen";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Uitgeschakeld";
 "REPEAT_SINGLE" = "Een herhalen";
 "REPEAT_FOLDER" = "Map";
+"SHUFFLE" = "Willekeurige volgorde";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universele Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Weet u zeker dat u de geselecteerde media uit de afspeellijst verwijdert?\nZe worden niet van de schijf verwijderd.";
 "DELETE_TITLE" = "Selectie verwijderen";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Dit bestand";
 "NOT_SUPPORTED_FILETYPE" = "%@ is geen door VLC ondersteund bestandsformaat";
 "FILE_EXISTS" = "%@ bestaat al";
@@ -327,7 +333,7 @@
 "SEARCH" = "Zoeken";
 "VIDEO" = "Video";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Albums";
 "ARTISTS" = "Artiesten";
 "EPISODES" = "Afleveringen";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Datum gewijzigd";
 "NAME" = "Naam";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Bewerken";
 "BUTTON_EDIT_HINT" = "Bewerkingsmodus";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Naam van geselecteerde bestanden wijzigen";
 "DELETE_HINT" = "Geselecteerde bestanden verwijderen";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Sorteren";
 "BUTTON_SORT_HINT" = "Sorteerhandeling-blad weergeven";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Context sorteren in oplopende of aflopende volgorde";
 "GRID_LAYOUT" = "Raster-layout";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alfanumeriek";
 "DURATION" = "Duur";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Media-aantal";
 "NB_VIDEO" = "Video-aantal";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Niets teruggevonden";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Onbekende artiest";
 "VARIOUS_ARTIST" = "Diverse artiesten";
 "UNKNOWN_ALBUM" = "Onbekend album";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Ondertitel- en audiosporen";
 "SUBTITLE_AND_TRACK_HINT" = "Ondertitel- of audiosporen kiezen";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Draaivergrendeling";
 "ROTATION_LOCK_HINT" = "Video in huidige oriëntatie vergrendelen";
 
+"REPEAT_HINT" = "Zelfde media herhalen";
+
 "BACKWARD_BUTTON" = "Achteruit";
 "BACKWARD_HINT" = "Achteruit springen";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Afspelen of pauzeren";
 "PLAY_PAUSE_HINT" = "Afspelen starten of pauzeren";
 
+"STOP_BUTTON" = "Stoppen";
+
 "NEXT_HINT" = "Volgend medium";
 
 "FORWARD_BUTTON" = "Vooruit";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Interface vergrendelen";
 
+"SHUFFLE_HINT" = "Medialijst in willekeurige volgorde";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Beeldverhouding video";
 "VIDEO_ASPECT_RATIO_HINT" = "Beelverhouding van de huidige video veranderen";
 
 "MORE_OPTIONS_BUTTON" = "Meer";
 "MORE_OPTIONS_HINT" = "Meer optiebedieningen weergeven";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video-opties";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Opnieuw scannen van mediabibliotheek forceren";
 "FORCE_RESCAN_MESSAGE" = "Wilt u VLC dwingen om uw mediabibliotheek opnieuw te scannen?\nHet kan enige tijd duren.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1-verbindingswaarschuwing";
 "SMBV1_WARN_DESCRIPTION" = "We hebben een oud protocol (SMBv1) ontdekt.\nWeet u echt zeker dat u doorgaat met SMBv1?\nWij adviseren u om uw serverinstellingen te upgraden of te wijzigen.";
 "SMBV1_CONTINUE" = "Doorgaan met SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "SMBv2/v3 proberen";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Coderen";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Toevoegen aan mediagroep";
 "ADD_TO_MEDIA_GROUP_HINT" = "Menu 'aan mediagroep toevoegen' openen";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Proberen om enkelvoudige media automatisch te hergroeperen.";
 "BUTTON_REGROUP_DESCRIPTION" = "Weet u zeker dat u wilt proberen om enkelvoudige media automatisch te hergroeperen?\nDit kan even duren.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Media hier plaatsen om ze toe te voegen";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Toevoegen...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Een fooi geven";
 "CANNOT_MAKE_PAYMENTS" = "U bent niet gemachtigd om betalingen uit te voeren op dit apparaat.";
 "PURCHASE_FAILED" = "Aankoop mislukt";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Toevoegen aan wachtrij";
 
 "DISPLAY_AS" = "Weergeven als";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Verticale helderheidsbediening";
+"BRIGHTNESS_SLIDER" = "Verticaal schuiven om het helderheidsniveau te wijzigen";
+
+/* New strings */
+"VOLUME_HINT" = "Verticale volumebediening";
+"VOLUME_SLIDER" = "Verticaal schuiven om het volumeniveau te wijzigen";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Afspeelbesturing";
+"MENU_REPEAT_DISABLED" = "Niet herhalen";
+"MENU_REPEAT_SINGLE" = "Eén herhalen";
+"MENU_REPEAT_ALL" = "Alles herhalen";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";

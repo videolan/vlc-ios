@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Helder thema";
 "SETTINGS_THEME_DARK" = "Donker thema";
 "SETTINGS_THEME_SYSTEM" = "Automatisch";
+"SETTINGS_THEME_BLACK" = "Zwarte achtergrond gebruiken bij donkere modus";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Verbetert de levensduur van de batterij op toestellen met een OLED-scherm";
 "SETTINGS_PRIVACY_SUBTITLE" = "Openen in instellingen";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Toegang tot uw inhoud beveiligen";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Uw media zullen verborgen zijn in de \"Bestanden\"-app";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-ondersteuning voor wifi-delen";
 "SETTINGS_FORCE_SMBV1" = "Voorkeur voor SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Vink deze instelling uit als u problemen ondervindt bij het bladeren op uw SMB-server.";
+"SETTINGS_RTSP_TCP" = "RTP via RTSP (TCP) gebruiken";
 
 "SETTINGS_ARTWORK" = "Albumhoes";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albumhoes downloaden";
