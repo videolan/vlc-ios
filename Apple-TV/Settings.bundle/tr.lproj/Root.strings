@@ -7,7 +7,9 @@
 "SETTINGS_THEME_BRIGHT" = "Açık tema";
 "SETTINGS_THEME_DARK" = "Koyu tema";
 "SETTINGS_THEME_SYSTEM" = "Otomatik";
-"SETTINGS_PRIVACY_SUBTITLE" = "Ayarlarda Aç";
+"SETTINGS_THEME_BLACK" = "Koyu kipte siyah arka plan kullanılsın";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "OLED ekranı olan aygıtların pil ömrünü uzatır";
+"SETTINGS_PRIVACY_SUBTITLE" = "Ayarlarda aç";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "İçeriğinize güvenli erişim";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Çoklu ortamlarınız Dosyalar uygulamasında görüntülenmeyecek";
 
@@ -16,7 +18,7 @@
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Tonu değiştirmeden sesi hızlandırır ya da yavaşlatır (hızlı bir aygıt gerekir)";
 "SETTINGS_BACKGROUND_AUDIO" = "Ses arka planda oynatılsın";
 "SETTINGS_GENERIC_TITLE" = "Soysal";
-"SETTINGS_PASSCODE_LOCK" = "Parola Kilidi";
+"SETTINGS_PASSCODE_LOCK" = "Parola kilidi";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Kilidi açmak için Touch ID kullanılsın";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Kilidi açmak için Face ID kullanılsın";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Ortam kitaplığı Dosyalarda görüntülenmesin";
@@ -44,9 +46,9 @@
 "SETTINGS_GESTURES_CLOSE" = "Kapatmak için kıstırın";
 "SETTINGS_GESTURE_JUMP_DURATION" = "Değişken atlama süresi";
 
-"SETTINGS_SUBTITLES_TITLE" = "Alt Yazılar";
-"SETTINGS_SUBTITLES_FONT" = "Yazı Türü";
-"SETTINGS_SUBTITLES_TEXT_ENCODING" = "Metin Kodlaması";
+"SETTINGS_SUBTITLES_TITLE" = "Alt yazılar";
+"SETTINGS_SUBTITLES_FONT" = "Yazı türü";
+"SETTINGS_SUBTITLES_TEXT_ENCODING" = "Metin kodlaması";
 "SETTINGS_SUBTITLES_FONTSIZE" = "Bağıl yazı tipi boyutu";
 "SETTINGS_SUBTITLES_FONTSIZE_SMALLEST" = "En küçük";
 "SETTINGS_SUBTITLES_FONTSIZE_SMALL" = "Küçük";
@@ -64,7 +66,7 @@
 "SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Sarı";
 "SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Yeşil";
 "SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Lacivert";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Çerçeve Kalınlığı";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Çerçeve kalınlığı";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Yok";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "İnce";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normal";
@@ -75,11 +77,11 @@
 "SETTINGS_DEINTERLACE_OFF" = "Kapalı";
 "SETTINGS_DEINTERLACE_AUTO" = "Otomatik";
 
-"SETTINGS_HWDECODING" = "Donanımsal Kod Çözme";
+"SETTINGS_HWDECODING" = "Donanımsal kod çözme";
 "SETTINGS_HWDECODING_ON" = "Açık";
 "SETTINGS_HWDECODING_OFF" = "Kapalı";
 "SETTINGS_CASTING" = "Aktarım";
-"SETTINGS_PTCASTING" = "Doğrudan Ses Geçişi";
+"SETTINGS_PTCASTING" = "Doğrudan ses geçişi";
 "SETTINGS_PTCASTINGLONG" = "Ses TV tarafından oluşturulsun";
 "SETTINGS_CASTING_CONVERSION_QUALITY" = "Dönüştürme kalitesi";
 "SETTINGS_HIGH" = "Yüksek";
@@ -87,9 +89,9 @@
 "SETTINGS_LOW" = "Düşük";
 "SETTINGS_LOWEST" = "En düşük";
 
-"SETTINGS_FEEDBACK" = "Geri Bildirim";
-"SETTINGS_SEND_FEEDBACK" = "Geri Bildirim Gönderin";
-"SETTINGS_SEND_RATING" = "iOS için VLC Uygulamasını Değerlendirin";
+"SETTINGS_FEEDBACK" = "Geri bildirim";
+"SETTINGS_SEND_FEEDBACK" = "Geri bildirim gönderin";
+"SETTINGS_SEND_RATING" = "iOS için VLC uygulamasını değerlendirin";
 
 "SETTINGS_MEDIA_LIBRARY" = "Ortam kitaplığı";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC ortam kitaplığını yeniden taramaya zorlansın";
@@ -100,20 +102,21 @@
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Aygıt yedeğine ortam kitaplığı katılsın";
 
 "SETTINGS_NETWORK" = "Ağ";
-"SETTINGS_NETWORK_CACHING_TITLE" = "Ağ Ön Bellekleme Düzeyi";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "En Düşük Gecikme";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Düşük Gecikme";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Ağ ön bellekleme düzeyi";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "En düşük gecikme";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Düşük gecikme";
 "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Yüksek Gecikme";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "En Yüksek Gecikme";
-"SETTINGS_WIFISHARING_IPv6" = "Wi-Fi Paylaşımı için IPv6 desteği";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Yüksek gecikme";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "En yüksek gecikme";
+"SETTINGS_WIFISHARING_IPv6" = "Wi-Fi paylaşımı için IPv6 desteği";
 "SETTINGS_FORCE_SMBV1" = "SMB 1 yeğlensin";
 "SETTINGS_FORCE_SMBV1_LONG" = "SMB sunucunuza erişmekte sorun yaşıyorsanız bu seçeneği devre dışı bırakın";
+"SETTINGS_RTSP_TCP" = "RTSP (TCP) üzerinden RTP kullanılsın";
 
-"SETTINGS_ARTWORK" = "Albüm Kapağı";
-"SETTINGS_DOWNLOAD_ARTWORK" = "Albüm Kapağını İndir";
+"SETTINGS_ARTWORK" = "Albüm kapağı";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Albüm kapağını indir";
 
 "SETTINGS_LAB" = "Lab";
 "SETTINGS_NEW_PLAYER" = "Yeni oynatıcı";
 
-"ABOUT_APP_TV" = "tvOS için VLC Hakkında";
+"ABOUT_APP_TV" = "tvOS için VLC hakkında";

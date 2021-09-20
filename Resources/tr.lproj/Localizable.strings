@@ -2,20 +2,21 @@
 
 "STORE_DESCRIPTION_TV" = "VLC ortam oynatıcısı platformlar arasında kullanılabilen özgür ve açık kaynaklı bir çoklu ortam oynatma çözümüdür.\nÇeşitli biçimlerdeki tüm film, dizi ve müziklerinizi herhangi bir dönüştürme işlemine gerek duymadan doğrudan oynatabilir.\nBulut hizmetleri (Dropbox, OneDrive, Box), ortam sunucuları (SMB, FTP, UPnP/DLNA) ve web üzerinden ortam akışı ile Mac ya da Windows bilgisayarınızdan bir Web Arayüzü aracılığıyla Uzaktan Oynatım olanaklarını sağlar.\nTam SSA uyumluluğu ile gelişmiş alt yazılar, çok kayıtlı sesler ve oynatma hızı denetimi VLC tarafından desteklenen özelliklerden bazılarıdır.\n\niOS için VLC tamamen özgür ve açık kaynaklıdır.\n\nÜst veri ve kapak görselleri TMDb ve Hatchet toplulukları tarafından güncellenen film ve müzik veritabanları üzerinden sağlanmaktadır.";
 
-"CHOOSE_AUDIO_TRACK" = "Ses Kaydı Seçin";
-"CHOOSE_SUBTITLE_TRACK" = "Alt Yazı Kaydı Seçin";
+"CHOOSE_AUDIO_TRACK" = "Ses kaydı seçin";
+"CHOOSE_SUBTITLE_TRACK" = "Alt yazı kaydı seçin";
+"UNKNOWN_TRACK_TYPE" = "Kayıt türü bilinmiyor";
 "OPEN_TRACK_PANEL" = "Kayıt seçimini aç";
-"CHOOSE_TITLE" = "Başlık Seç";
-"CHOOSE_CHAPTER" = "Bölüm Seç";
+"CHOOSE_TITLE" = "Başlık seç";
+"CHOOSE_CHAPTER" = "Bölüm seç";
 "CHAPTER_SELECTION_TITLE" = "Bölümler";
 "TITLE" = "Başlık";
 "CHAPTER" = "Bölüm";
 "MINIMIZE_PLAYBACK_VIEW" = "Oynatımı küçült";
-"TRACK_SELECTION" = "Kayıt Seçimi";
+"TRACK_SELECTION" = "Kayıt seçimi";
 "AUDIO" = "Ses";
 "SUBTITLES" = "Alt yazılar";
 "LANGUAGE" = "Dil";
-"MEDIA_INFO" = "Ortam Bilgileri";
+"MEDIA_INFO" = "Ortam bilgileri";
 "VIDEO_DIMENSIONS" = "Görüntü boyutu";
 "FORMAT_VIDEO_DIMENSIONS" = "%ix%i piksel";
 "FORMAT_AUDIO_TRACKS" = "%i ses kaydı";
@@ -25,7 +26,7 @@
 "TRACKS" = "%i Kayıt";
 "TRACK" = "%i Kayıt";
 
-"PLAYING_EXTERNALLY_TITLE" = "TV Bağlandı";
+"PLAYING_EXTERNALLY_TITLE" = "TV bağlandı";
 "PLAYING_EXTERNALLY_DESC" = "Bu görüntü TV üzerinde oynatılıyor";
 "PLAYING_EXTERNALLY_ADDITION" = "\n Şimdi oynatılan:"; /* \n should stay in every translation */
 
@@ -38,19 +39,19 @@
 "PRESET_PREAMP_SETTING" = "Hazır ayar / ön güçlendirme ayarları";
 "PREAMP" = "Ön güçlendirme";
 "DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Dengeleyici Profili Seç";
+"CHOOSE_EQUALIZER_PROFILES" = "Dengeleyici profili seç";
 "SNAP_BANDS" = "Bantlar ayrılsın";
 
 "PLAYBACK_FAILED" = "Oynatılamadı";
 "PLEASE_WAIT" = "Lütfen bekleyin";
-"AR_CHANGED" = "En Boy Oranı: %@";
+"AR_CHANGED" = "En boy oranı: %@";
 "DEFAULT" = "Varsayılan";
 "FILL_TO_SCREEN" = "Ekranı dolduracak şekilde kırp";
 "PLAYBACK_SPEED" = "Oynatma hızı";
 "SPU_DELAY" = "Alt yazı gecikmesi";
 "AUDIO_DELAY" = "Ses gecikmesi";
-"BUTTON_SLEEP_TIMER" = "Uyku Zamanlayıcı";
-"SLEEP_TIMER_UPDATED" = "Uyku Zamanlayıcı Güncellendi";
+"BUTTON_SLEEP_TIMER" = "Uyku zamanlayıcı";
+"SLEEP_TIMER_UPDATED" = "Uyku zamanlayıcı güncellendi";
 "CONTINUE_PLAYBACK" = "Oynatma sürdürülsün mü?";
 "CONTINUE_PLAYBACK_LONG" = "\"%@\" oynatımı kaldığınız yerden sürdürülsün mü?";
 
@@ -62,35 +63,35 @@
 "BUTTON_DOWNLOAD" = "İndir";
 "BUTTON_DELETE" = "Sil";
 "BUTTON_OK" = "Tamam";
-"BUTTON_CONTRIBUTE" = "Katkıda Bulun";
+"BUTTON_CONTRIBUTE" = "Katkıda bulun";
 "BUTTON_CONNECT" = "Bağlan";
-"BUTTON_RENAME" = "Yeniden Adlandır";
-"BUTTON_LEARN_MORE" = "Ayrıntılı Bilgi";
-"BUTTON_LOGOUT" = "Oturumu Kapat";
+"BUTTON_RENAME" = "Yeniden adlandır";
+"BUTTON_LEARN_MORE" = "Ayrıntılı bilgi";
+"BUTTON_LOGOUT" = "Oturumu kapat";
 "BUTTON_CONTINUE" = "Sürdür";
 "BUTTON_SET" = "Ayarla";
 "BUTTON_RESET" = "Sıfırla";
 "BUTTON_RESCAN" = "Yeniden tara";
-"PRIVATE_PLAYBACK_TOGGLE" = "Özel Oynatım";
-"SCAN_SUBTITLE_TOGGLE" = "Alt Yazı Araması (yalnız-http)";
+"PRIVATE_PLAYBACK_TOGGLE" = "Özel oynatım";
+"SCAN_SUBTITLE_TOGGLE" = "Alt yazı araması (yalnız-http)";
 
-"BUTTON_RENDERER" = "Aktarım Aygıtları";
+"BUTTON_RENDERER" = "Aktarım aygıtları";
 "BUTTON_RENDERER_HINT" = "Kullanılabilecek aktarım aygıtları menüsünü görüntüler";
 
 
 "BUTTON_PLAY_QUEUE" = "Kuyruğu oynat";
 "BUTTON_PLAY_QUEUE_HINT" = "Oynatma kuyruğu görünümü";
 
-"UPGRADING_LIBRARY" = "Ortam Kitaplığı Yükseltiliyor";
+"UPGRADING_LIBRARY" = "Ortam kitaplığı yükseltiliyor";
 
-"OPEN_NETWORK" = "Ağ Akışı Aç";
-"NETWORK_TITLE" = "Ağ Akışı";
+"OPEN_NETWORK" = "Ağ akışı aç";
+"NETWORK_TITLE" = "Ağ akışı";
 "OPEN_NETWORK_HELP" = "Doğrudan akış açmak için bir HTTP, RTSP, RTMP, MMS, FTP ya da UDP/RTP adresi yazın.";
-"HTTP_UPLOAD_SERVER_OFF" = "Sunucu Etkin Değil";
+"HTTP_UPLOAD_SERVER_OFF" = "Sunucu etkin değil";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "Wi-Fi bağlantısı etkin değil";
-"OPEN_STREAM_OR_DOWNLOAD" = "Bu İnternet adresinin içeriği indirilsin mi oynatılsın mı?";
-"SHARED_VLC_IOS_LIBRARY" = "iOS Kitaplığı için Paylaşılan VLC";
-"SMB_CIFS_FILE_SERVERS" = "Dosya Sunucuları (SMB)";
+"OPEN_STREAM_OR_DOWNLOAD" = "Bu adresin içeriği indirilsin mi oynatılsın mı?";
+"SHARED_VLC_IOS_LIBRARY" = "iOS kitaplığı için paylaşılan VLC";
+"SMB_CIFS_FILE_SERVERS" = "Dosya sunucuları (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -110,7 +111,7 @@
 "FOLDER_EMPTY" = "Klasör boş";
 
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Açılacak bir dosya seçin:";
-"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Şununla Aç...";
+"SHARING_ACTIVITY_OPEN_IN_TITLE" = "Şununla aç...";
 "SHARING_ERROR_NO_FILES" = "Paylaşılacak bir dosya bulunamadı";
 "SHARING_ERROR_NO_APPLICATIONS" = "Bu dosya türünü açacak bir uygulama bulunamadı";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Dosya Film Rulosuna kaydedildi";
@@ -120,31 +121,31 @@
 "HEADER_TITLE_RENDERER" = " Bir aktarım aygıtı seçin";
 
 "NETWORK" = "Ağ";
-"LOCAL_NETWORK" = "Yerel Ağ";
-"CONNECT_TO_SERVER" = "Sunucuya Bağlan";
-"FILE_SERVER" = "Dosya Sunucuları";
+"LOCAL_NETWORK" = "Yerel ağ";
+"CONNECT_TO_SERVER" = "Sunucuya bağlan";
+"FILE_SERVER" = "Dosya sunucuları";
 "USER_LABEL" = "Kullanıcı";
 "PASSWORD_LABEL" = "Parola";
 "DISABLE_LABEL" = "Devre dışı bırak";
-"BUTTON_ANONYMOUS_LOGIN" = "Gizli Oturum Açma";
+"BUTTON_ANONYMOUS_LOGIN" = "Anonim oturum açma";
 
 "LOCAL_SERVER_REFRESH" = "Yenile";
-"LOCAL_SERVER_LAST_UPDATE" = "Son Güncelleme %@";
-"LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "SUNUCUYA BAĞLANILAMADI";
-"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Lütfen sunucu adresi ve kimlik bilgilerinizi denetleyin";
+"LOCAL_SERVER_LAST_UPDATE" = "Son güncelleme %@";
+"LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "SUNUCU İLE BAĞLANTI KURULAMADI";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Lütfen sunucu adresini ve kimlik doğrulama bilgilerinizi denetleyin";
 
 "FILES_APP_CELL_TITLE" = "Yerel dosyalar";
 "FILES_APP_CELL_SUBTITLE" = "Bir dosyayı VLC üzerine kopyalamadan aç";
 
-"CLOUD_SERVICES" = "Bulut Hizmetleri";
-"LOGIN" = "Oturum Aç";
+"CLOUD_SERVICES" = "Bulut hizmetleri";
+"LOGIN" = "Oturum aç";
 "LOGGED_IN" = "Oturum açıldı";
 "LOGGED_IN_SERVICES" = "%d hizmete oturum açılmış";
 "LOGGED_IN_SERVICE" = "1 hizmete oturum açılmış";
 
 "DROPBOX_DOWNLOAD" = "Dosya indirilsin mi?";
 "DROPBOX_DL_LONG" = "\"%@\" %@ aygıtınıza indirilsin mi?";
-"DROPBOX_LOGIN" = "Oturum Aç";
+"DROPBOX_LOGIN" = "Oturum aç";
 
 "GDRIVE_ERROR_FETCHING_FILES" = "Dosyalar alınırken bir sorun çıktı";
 "GDRIVE_DOWNLOAD_SUCCESSFUL" = "Dosyanız indirildi";
@@ -165,10 +166,10 @@
 "BIOMETRIC_UNLOCK" = "Ortam Kitaplığının Kilidini Aç\nParola yazmayı iptal et";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Başarısız Parola Denemesi";
-"1 Failed Passcode Attempt" = "1 Başarısız Parola Denemesi";
-"Change Passcode" = "Parolayı Değiştir";
-"Enter Passcode" = "Parolayı Yazın";
+"%d Failed Passcode Attempts" = "%d başarısız parola denemesi";
+"1 Failed Passcode Attempt" = "1 başarısız parola denemesi";
+"Change Passcode" = "Parolayı değiştir";
+"Enter Passcode" = "Parolayı yazın";
 "Enter a passcode" = "Bir parola yazın";
 "Enter your new passcode" = "Yeni parolanızı yazın";
 "Enter your old passcode" = "Eski parolanızı yazın";
@@ -177,29 +178,32 @@
 "Passcodes did not match. Try again." = "Parola ile onayı aynı değil. Yeniden deneyin.";
 "Re-enter your new passcode" = "Yeni parolanızı onaylayın";
 "Re-enter your passcode" = "Parolanızı onaylayın";
-"Set Passcode" = "Parola Koruması";
+"Set Passcode" = "Parola koruması";
 
 "Settings" = "Ayarlar"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Açık";
 "OFF" = "Kapalı";
 
-"EMPTY_LIBRARY" = "Ortam Kitaplığı Boş";
+"EMPTY_LIBRARY" = "Ortam kitaplığı boş";
 "EMPTY_LIBRARY_LONG" = "Oynatılacak ortam akışı yerel ağınızdaki bir sunucudan ya da buluttan alınabilir. Ortamlar iTunes, Wi-Fi Yükleme ya da Bulut hizmetleri ile eşitlenebilir.";
+
+"EMPTY_NO_PLAYLISTS" = "Oynatma listeleri";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Oynatma listeleri oluşturmak için, Görüntü ya da Ses içerik sekmelerinden düzenleme kipine geçin ve beğendiğiniz ortamları seçin.\nAyrıca var olan oynatma listelerini diğer aygıtlarınız ya da İnternet ile eşitleyebilirsiniz.";
 
 "EMPTY_PLAYLIST" = "Boş oynatma listesi";
 "EMPTY_PLAYLIST_DESCRIPTION" = "İlgili kategorilerde düzenleme yaparken ortam ekle.";
 
 "PLAYBACK_SCRUB_HELP" = "Sürtme hızını ayarlamak için parmağınızı aşağı kaydırın.";
-"PLAYBACK_SCRUB_HIGH" = "Yüksek Hızlı Sürtme";
-"PLAYBACK_SCRUB_HALF" = "Yarım Hızlı Sürtme";
-"PLAYBACK_SCRUB_QUARTER" = "Çeyrek Hızlı Sürtme";
-"PLAYBACK_SCRUB_FINE" = "Hafif Sürtme";
-"PLAYBACK_POSITION" = "Oynatma Konumu";
-"VIDEO_FILTER" = "Görüntü Süzgeçleri";
-"VIDEO_FILTER_RESET_BUTTON" = "Görüntü Süzgeçlerini Sıfırla";
+"PLAYBACK_SCRUB_HIGH" = "Yüksek hızlı sürtme";
+"PLAYBACK_SCRUB_HALF" = "Yarım hızlı sürtme";
+"PLAYBACK_SCRUB_QUARTER" = "Çeyrek hızlı sürtme";
+"PLAYBACK_SCRUB_FINE" = "Hafif sürtme";
+"PLAYBACK_POSITION" = "Oynatma konumu";
+"VIDEO_FILTER" = "Görüntü süzgeçleri";
+"VIDEO_FILTER_RESET_BUTTON" = "Görüntü süzgeçlerini sıfırla";
 "VIDEO_ASPECT_RATIO_BUTTON" = "Görüntü en boy oranı";
-"BWD_BUTTON" = "Geriye Atla";
-"FWD_BUTTON" = "İleriye Atla";
+"BWD_BUTTON" = "Geriye atla";
+"FWD_BUTTON" = "İleriye atla";
 "PLAY_BUTTON" = "Oynat";
 "NEXT_BUTTON" = "Sonraki";
 "PREV_BUTTON" = "Önceki";
@@ -217,15 +221,15 @@
 
 "BUG_REPORT_TITLE" = "Sorun bildir";
 "BUG_REPORT_MESSAGE" = "Sorun bildirmek ister misiniz?";
-"BUG_REPORT_BUTTON" = "Safari Tarayıcısını Aç";
+"BUG_REPORT_BUTTON" = "Safari tarayıcısını aç";
 
-"VO_VIDEOPLAYER_TITLE" = "Görüntü Oynatıcı";
+"VO_VIDEOPLAYER_TITLE" = "Görüntü oynatıcı";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Oynatma denetimlerini görüntülemek ya da gizlemek için çift dokunun";
 
-"FIRST_STEPS_ITUNES" = "iTunes Dosya Eşitlemesi";
-"FIRST_STEPS_ITUNES_TITLE" = "Bilgisayarınızla Eşitleyin";
+"FIRST_STEPS_ITUNES" = "iTunes dosya eşitlemesi";
+"FIRST_STEPS_ITUNES_TITLE" = "Bilgisayarınızla eşitleyin";
 "FIRST_STEPS_ITUNES_DETAILS" = "Aygıtınızı iTunes uygulamasına bağlayıp seçin. Sol taraftaki iTunes menüsünden \"Dosya Paylaşımı\" seçin ve VLC tarafından dosyaların aktarılmasını bekleyin";
-"FIRST_STEPS_WIFI_TITLE" = "Wi-Fi ile Paylaş";
+"FIRST_STEPS_WIFI_TITLE" = "Wi-Fi ile paylaş";
 "FIRST_STEPS_WIFI_DETAILS" = "Telefonunuz ile aynı ağa bağlıyken üretilen adresi web tarayıcınıza yazın ";
 "FIRST_STEPS_CLOUDS" = "Bulut";
 "FIRST_STEPS_CLOUD_TITLE" = "Bulut";
@@ -233,7 +237,7 @@
 
 
 "PLEX_CHECK_ACCOUNT" = "Plex hesap ayarlarını denetleyin";
-"PLEX_ERROR_ACCOUNT" = "Plex Oturum Açma Hatası";
+"PLEX_ERROR_ACCOUNT" = "Plex oturum açma hatası";
 
 "UNAUTHORIZED" = "Yetkisiz";
 
@@ -243,11 +247,11 @@
 "NO_RECENT_STREAMS" = "Önceden oynatılmış bir akış bulunamadı";
 
 "WEBINTF_TITLE" = "Wi-Fi ile paylaşılıyor";
-"WEBINTF_DROPFILES" = "Dosyaları Sürükleyin";
+"WEBINTF_DROPFILES" = "Dosyaları sürükleyin";
 "WEBINTF_DROPFILES_LONG" = "Dosyaları %@ üzerine eklemek için pencereye bırakın.<br>Ya da dosya seçim penceresini görüntülemek için \"+\" düğmesine dokunun.";
-"WEBINTF_DOWNLOADFILES" = "Dosyaları İndir";
+"WEBINTF_DOWNLOADFILES" = "Dosyaları indir";
 "WEBINTF_DOWNLOADFILES_LONG" = "%@ üzerinden indirmek istediğiniz dosyaya tıklayın.";
-"WEBINTF_TITLE_ATV" = "Uzaktan Oynatım";
+"WEBINTF_TITLE_ATV" = "Uzaktan oynatım";
 "WEBINTF_DROPFILES_LONG_ATV" = "Dosyaları %@ üzerinde oynatmak için pencereye bırakın.<br>Ya da dosya seçim penceresini görüntülemek için \"+\" düğmesine dokunun.";
 "WEBINTF_URL_SENT" = "Akış adresi başarıyla gönderildi.";
 "WEBINTF_URL_EMPTY" = "Adres boş olamaz.";
@@ -261,58 +265,60 @@
 "DURATION" = "Süre";
 "TITLE" = "Başlık";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Oynatmayı durdurmak için uzun basın.";
 
-// ATV specific
-"AUDIO_INFO_VC_TITLE" = "Ses Bilgileri";
+// MARK: - ATV specific
+"AUDIO_INFO_VC_TITLE" = "Ses bilgileri";
 "CLOUD_LOGIN_LONG" = "Bulut Hizmetlerine erişimek için, bu Apple TV aygıtı ve başka bir iOS aygıtı üzerinde Apple Kimliği ile iCloud oturumu açarak, Sistem Ayarları bölümünden Anahtar Zinciri Paylaşımı özelliğini etkinleştirin.\nDaha sonra, iOS aygıtınız üzerinden VLC uygulaması ile kullanmak üzere seçtiğiniz bulut hizmeti sağlayıcısında oturum açın. Son olarak, bu ekranda seçtiğiniz bulut hizmeti sağlayıcısına dokunun.";
 "ENTER_URL" = "Oynatılacak İnternet adresini yazın";
-"HTTP_SERVER_ON" = "Uzaktan Oynatımı Devre Dışı Bırak";
-"HTTP_SERVER_OFF" = "Uzaktan Oynatımı Etkinleştir";
-"CACHED_MEDIA" = "Ön Bellekteki Ortamlar";
+"HTTP_SERVER_ON" = "Uzaktan oynatımı devre dışı bırak";
+"HTTP_SERVER_OFF" = "Uzaktan oynatımı etkinleştir";
+"CACHED_MEDIA" = "Ön bellekteki ortamlar";
 "CACHED_MEDIA_LONG" = "Burada görüntülenen ortamlar yerel olarak Apple TV aygıtınızda depolanır. VLC çalışmıyorken aygıtınızın depolama alanı dolarsa bu içeriklerin işletim sistemi tarafından herhangi bir uyarı verilmeden silinebileceğini unutmayın.";
 "DOWNLOAD_SUBS_FROM_OSO" = "OpenSubtitles.org sitesinden alt yazı indir...";
 "FOUND_SUBS" = "Bulunan alt yazılar";
-"USE_SPDIF" = "Düz Geçiş Kullanılsın (S/PDIF)";
+"NO_SUB_FOUND_OSO" = "\"%@\" ortamınız için bir alt yazı bulunamadı.";
+"USE_SPDIF" = "Düz geçiş kullanılsın (S/PDIF)";
 
 "PLAYBACK" = "Oynat";
 "REPEAT_MODE" = "Yinele";
-"REPEAT_DISABLED" = "Devre Dışı";
+"REPEAT_DISABLED" = "Devre dışı";
 "REPEAT_SINGLE" = "Tek";
 "REPEAT_FOLDER" = "Klasör";
+"SHUFFLE" = "Karışık";
 
-// Local Network Service Names
-"UPNP_LONG" = "Evrensel Tak ve Oynat (UPnP)";
+// MARK: - Local Network Service Names
+"UPNP_LONG" = "Evrensel tak ve oynat (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
-"PLEX_LONG" = "Plex Ortam Sunucusu (Bonjour aracılığıyla)";
+"PLEX_LONG" = "Plex ortam sunucusu (Bonjour aracılığıyla)";
 "PLEX_SHORT" = "Plex";
 
 "FTP_SHORT" = "FTP";
 "SFTP_SHORT" = "SFTP";
 
-"NFS_LONG" = "Ağ Dosya Sistemi (NFS)";
+"NFS_LONG" = "Ağ dosya sistemi (NFS)";
 "NFS_SHORT" = "NFS";
 
-"BONJOUR_FILE_SERVERS" = "BONJOUR Dosya Sunucusu";
-"DSM_WORKGROUP" = "Çalışma Grubu";
+"BONJOUR_FILE_SERVERS" = "BONJOUR dosya sunucusu";
+"DSM_WORKGROUP" = "Çalışma grubu";
 
 "URL_NOT_SUPPORTED" = "Adres açılamadı";
 
 // Insert %@ where play-pause-glyph should be placed
-"DELETE_ITEM_HINT" = "Silmek için %@ Üzerine Dokunun"; /* Insert %@ where play-pause-glyph should be placed */
+"DELETE_ITEM_HINT" = "Silmek için %@ üzerine dokunun"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Seçimi silmek istiyor musunuz?";
 "DELETE_MESSAGE_PLAYLIST" = "Seçilmiş oynatma listesini silmek istediğinize emin misiniz?\nİlgili ortam dosyaları silinmeyecek.";
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Seçilmiş ortamları oynatma listesinden silmek istediğinize emin misiniz?\nBu ortamlar diskten silinmeyecek.";
-"DELETE_TITLE" = "Seçimi Sil";
+"DELETE_TITLE" = "Seçimi sil";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Bu dosya";
 "NOT_SUPPORTED_FILETYPE" = "%@ dosya türü VLC tarafından desteklenmiyor";
 "FILE_EXISTS" = "%@ zaten var";
@@ -327,25 +333,25 @@
 "SEARCH" = "Arama";
 "VIDEO" = "Görüntü";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Albümler";
 "ARTISTS" = "Sanatçılar";
 "EPISODES" = "Bölümler";
 "GENRES" = "Türler";
 "ALL_VIDEOS" = "Tüm görüntüler";
 "SONGS" = "Şarkılar";
-"PLAYLISTS" = "Oynatma Listeleri";
+"PLAYLISTS" = "Oynatma listeleri";
 "VIDEO_GROUPS" = "Görüntü grupları";
 
 "MODIFIED_DATE" = "Son değişiklik";
 "NAME" = "Ad";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Düzenle";
 "BUTTON_EDIT_HINT" = "Düzenleme kipi";
 
-"ADD_TO_PLAYLIST" = "Oynatma Listesine Ekle";
+"ADD_TO_PLAYLIST" = "Oynatma listesine ekle";
 "ADD_TO_PLAYLIST_HINT" = "Oynatma listesine ekle menüsünü aç";
 
 "PLAYLIST_PLACEHOLDER" = "Oynatma listesi adı";
@@ -363,17 +369,17 @@
 "RENAME_HINT" = "Seçilmiş dosyaları yeniden adlandır";
 "DELETE_HINT" = "Seçilmiş dosyaları sil";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Sıralama";
 "BUTTON_SORT_HINT" = "Sıralama işlemi sayfasını görüntüle";
 "HEADER_TITLE_SORT" = "Sıralama";
-"DESCENDING_LABEL" = "Azalan Sıralama";
+"DESCENDING_LABEL" = "Azalan sıralama";
 "DESCENDING_SWITCH_LABEL" = "Artan ya da azalan sıralama";
 "DESCENDING_SWITCH_HINT" = "İçeriği artan ya da azalan şekilde sıralar";
-"GRID_LAYOUT" = "Izgara Görünümü";
+"GRID_LAYOUT" = "Izgara görünümü";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alfasayısal";
 "DURATION" = "Süre";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Ortam sayısı";
 "NB_VIDEO" = "Görüntü kaydı sayısı";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Herhangi bir şey bulunamadı";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
-"UNKNOWN_ARTIST" = "Sanatçı Bilinmiyor";
-"VARIOUS_ARTIST" = "Çeşitli Sanatçılar";
-"UNKNOWN_ALBUM" = "Albüm Bilinmiyor";
+"UNKNOWN_ARTIST" = "Sanatçı bilinmiyor";
+"VARIOUS_ARTIST" = "Çeşitli sanatçılar";
+"UNKNOWN_ALBUM" = "Albüm bilinmiyor";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Alt yazılar ve ses izleri";
 "SUBTITLE_AND_TRACK_HINT" = "Alt yazı ya da ses izini seçin";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Döndürme kilidi";
 "ROTATION_LOCK_HINT" = "Görüntüyü geçerli doğrultuda kilitle";
 
+"REPEAT_HINT" = "Aynı ortamı yinele";
+
 "BACKWARD_BUTTON" = "Geri";
 "BACKWARD_HINT" = "Geriye atlar";
 
@@ -418,7 +426,9 @@
 "PREVIOUS_HINT" = "Önceki ortam";
 
 "PLAY_PAUSE_BUTTON" = "Oynat ya da duraklat";
-"PLAY_PAUSE_HINT" = "Geçerli oynatımı Oynatır ya da Duraklatır";
+"PLAY_PAUSE_HINT" = "Geçerli oynatımı oynatır ya da duraklatır";
+
+"STOP_BUTTON" = "Durdur";
 
 "NEXT_HINT" = "Sonraki ortam";
 
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Arayüzü kilitle";
 
+"SHUFFLE_HINT" = "Ortam listesini karıştır";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Görüntü en boy oranı";
 "VIDEO_ASPECT_RATIO_HINT" = "Geçerli görüntünün en boy oranını değiştir";
 
 "MORE_OPTIONS_BUTTON" = "Diğerleri";
 "MORE_OPTIONS_HINT" = "Diğer seçenek denetimlerini görüntüle";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Dengeleyici";
-"MORE_OPTIONS_HEADER_TITLE" = "Görüntü Ayarları";
+"MORE_OPTIONS_HEADER_TITLE" = "Görüntü ayarları";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Ortam kitaplığı yeniden taranmaya zorlansın";
 "FORCE_RESCAN_MESSAGE" = "VLC uygulamasını ortam kitaplığını taramaya zorlamak istiyor musunuz?\nBu işlem uzun sürebilir.";
 
-// Local Network
+// MARK: - Local Network
 
-"SMBV1_WARN_TITLE" = "SMBv1 Bağlantı Uyarısı";
+"SMBV1_WARN_TITLE" = "SMBv1 bağlantı uyarısı";
 "SMBV1_WARN_DESCRIPTION" = "Eski bir iletişim kuralı kullanıldığı algılandı (SMBv1).\nSMBv1 iletişim kuralını kullanmak istediğinize emin misiniz?\nSunucu ayarlarını yükseltmeniz ya da değiştirmeniz önerilir.";
 "SMBV1_CONTINUE" = "SMBv1 kullanmayı sürdür";
 "SMBV1_NEXT_PROTOCOL" = "SMBv2/v3 iletişim kurallarını dene";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Kodlama";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Ortam grubuna ekle";
 "ADD_TO_MEDIA_GROUP_HINT" = "Ortam grubuna ekle menüsünü açar";
@@ -469,19 +481,19 @@
 "MEDIA_GROUP_MOVE_TO_ROOT" = "İçeriği üst düzeye taşı";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Seçilmiş içeriği üst düzeye taşır";
 
-"BUTTON_REGROUP" = "Yeniden Grupla";
+"BUTTON_REGROUP" = "Yeniden grupla";
 "BUTTON_REGROUP_TITLE" = "Seçimi yeniden gruplar";
 "BUTTON_REGROUP_HINT" = "Tek ortamı otomatik olarak yeniden gruplamayı dener.";
 "BUTTON_REGROUP_DESCRIPTION" = "Tek ortamı otomatik olarak yeniden gruplamayı denemek istediğinize emin misiniz?\nBu işlem uzun sürebilir.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Eklenecek ortamları buraya koyun";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Ekleniyor...";
 
-/* tip jar */
-"GIVE_TIP" = "İpucu Ver";
+// MARK: - tip jar
+"GIVE_TIP" = "İpucu ver";
 "CANNOT_MAKE_PAYMENTS" = "Bu aygıt üzerinden ödeme yapmanıza izin verilmiyor.";
-"PURCHASE_FAILED" = "Satın Alınamadı";
+"PURCHASE_FAILED" = "Satın alınamadı";
 "SEND_GIFT" = "Hediye gönderin";
 
 // MARK: - QueueViewController
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Kuyruğa ekle";
 
 "DISPLAY_AS" = "Farklı görüntüle";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Dikey parlaklık denetimi";
+"BRIGHTNESS_SLIDER" = "Parlaklık düzeyini değiştirmek için dikey olarak kaydırın";
+
+/* New strings */
+"VOLUME_HINT" = "Dikey ses denetimi";
+"VOLUME_SLIDER" = "Ses düzeyini değiştirmek için dikey olarak kaydırın";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Oynatma denetimleri";
+"MENU_REPEAT_DISABLED" = "Yineleme kapalı";
+"MENU_REPEAT_SINGLE" = "Biri yinelensin";
+"MENU_REPEAT_ALL" = "Tümü yinelensin";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "İşlem sayfası arka planı";
+"ACTIONSHEET_BACKGROUND_HINT" = "İşlem sayfasını kaldırmak için dokunun.";
