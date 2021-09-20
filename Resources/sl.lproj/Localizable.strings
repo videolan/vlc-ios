@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Izberi zvočno stezo";
 "CHOOSE_SUBTITLE_TRACK" = "Izberi stezo s podnapisi";
+"UNKNOWN_TRACK_TYPE" = "Neznana vrsta vsebine";
 "OPEN_TRACK_PANEL" = "Odpri izbor steze";
 "CHOOSE_TITLE" = "Izbor naslova";
 "CHOOSE_CHAPTER" = "Izbor poglavja";
@@ -35,11 +36,11 @@
 "VFILTER_SATURATION" = "Nasičenost";
 "VFILTER_GAMMA" = "Gama";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "Nastavitve predlog / predojačevalca";
 "PREAMP" = "Predojačevalec";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Izbira profila izravnalnika";
-"SNAP_BANDS" = "Snap bands";
+"SNAP_BANDS" = "Poveži zasedbe";
 
 "PLAYBACK_FAILED" = "Predvajanje je spodletelo";
 "PLEASE_WAIT" = "Počakajte ...";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Knjižnica predstavnih vsebin je prazna";
 "EMPTY_LIBRARY_LONG" = "Predstavne vsebine je za predvajanje mogoče pretakati s strežnika v lokalnem omrežju, z oblaka ali jih sinhronizirati na vašo napravo s pomočjo ITunes, brezžičnega prenosa ali oblačnih storitev.";
 
+"EMPTY_NO_PLAYLISTS" = "Seznami predvajanja";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Za ustvarjanje seznamov predvajanja pojdite v način urejanja na zavihkih z video in zvočno vsebino ter izberite svoje najljubše vsebine.\nLahko tudi sinhronizirate obstoječe sezname predvajanja iz drugih naprav ali s spleta.";
+
 "EMPTY_PLAYLIST" = "Prazen seznam predvajanja";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Dodaj vsebino med urejanjem v ustrezne kategorije.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "Trajanje";
 "TITLE" = "Naslov";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Dolg pritisk za ustavitev predvajanja.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Informacije o zvoku";
 "CLOUD_LOGIN_LONG" = "Za dostop do storitev v oblaku se vpišite v iCloud z istim ID-jem Apple tako na Apple TV-ju kot na napravi iOS in v sistemskih nastavitvah omogočite deljenje verige ključev.\nPotem se vpišite v ponudnika oblaka po svojem izboru s programom VLC na napravi iOS. Nato jo izberite na tem zaslonu.";
 "ENTER_URL" = "Vnesite naslov URL za predvajanje";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Tukaj prikazane vsebine so shranjene lokalno na vašem Apple TV. Upoštevajte, da lahko operacijski sistem, kadar VLC ni zagnan, odstrani vsebine brez vnaprejšnjega opozorila, ko napravi zmanjka prostora za shranjevanje.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Prejmi podnapise z OpenSubtitles.org ...";
 "FOUND_SUBS" = "Najdeni podnapisi";
+"NO_SUB_FOUND_OSO" = "Za vsebino \"%@\" ni bilo najdenih posnapisov.";
 "USE_SPDIF" = "Uporabi prehod (S/PDIF)";
 
 "PLAYBACK" = "Predvajanje";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Onemogočeno";
 "REPEAT_SINGLE" = "Enkrat";
 "REPEAT_FOLDER" = "Mapa";
+"SHUFFLE" = "Premešaj";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Splošni Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Ali ste prepričani, da želite izbrisati izbrano vsebino s seznama predvajanja?\nPovezane predstavne datoteke ne bodo izbrisane.";
 "DELETE_TITLE" = "Izbriši izbor";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Ta datoteka";
 "NOT_SUPPORTED_FILETYPE" = "%@ ni podprta vrsta datoteke za VLC";
 "FILE_EXISTS" = "%@ že obstaja";
@@ -327,7 +333,7 @@
 "SEARCH" = "Iskanje";
 "VIDEO" = "Video";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Albumi";
 "ARTISTS" = "Izvajalci";
 "EPISODES" = "Epizode";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Spremenjen datum";
 "NAME" = "Ime";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Uredi";
 "BUTTON_EDIT_HINT" = "Način urejanja";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Preimenuj izbrane datoteke";
 "DELETE_HINT" = "Izbriši izbrane datoteke";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Sortiranje";
 "BUTTON_SORT_HINT" = "Prikaži formular za sortiranje";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Sortiraj kontekst naraščajoče ali padajoče";
 "GRID_LAYOUT" = "Postavitev mreže";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alfanumerično";
 "DURATION" = "Trajanje";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Število vsebin";
 "NB_VIDEO" = "Število videov";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Ni najdenih";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Neznan izvajalec";
 "VARIOUS_ARTIST" = "Različni izvajalci";
 "UNKNOWN_ALBUM" = "Neznan album";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Podnapisi in zvočni posnetki";
 "SUBTITLE_AND_TRACK_HINT" = "Izberite podnapise ali zvok";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Zaklep obračanja";
 "ROTATION_LOCK_HINT" = "Zakleni video glede na trenutno orientacijo";
 
+"REPEAT_HINT" = "Ponovi isto vsebino";
+
 "BACKWARD_BUTTON" = "Nazaj";
 "BACKWARD_HINT" = "Skoči nazaj";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Predvajanje ali premor";
 "PLAY_PAUSE_HINT" = "Predvajaj ali zaustavi";
 
+"STOP_BUTTON" = "Zaustavi";
+
 "NEXT_HINT" = "Naslednja vsebina";
 
 "FORWARD_BUTTON" = "Naprej";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Zakleni vmesnik";
 
+"SHUFFLE_HINT" = "Premešaj seznam vsebin";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Razmerje slike videa";
 "VIDEO_ASPECT_RATIO_HINT" = "Spremeni razmerje slike trenutnega videa";
 
 "MORE_OPTIONS_BUTTON" = "Več";
 "MORE_OPTIONS_HINT" = "Prikaži več izbirnih kontrol";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Izravnalnik";
 "MORE_OPTIONS_HEADER_TITLE" = "Možnosti videa";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Prisili ponoven pregled knjižnice predstavnih vsebin";
 "FORCE_RESCAN_MESSAGE" = "Ali želite prisiliti VLC, da ponovno pregleda vašo knjižnico predstavnih vsebin?\nTo lahko traja nekaj časa.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Opozorilo za SMBv1 povezavo";
 "SMBV1_WARN_DESCRIPTION" = "Zaznan je bil star (SMBv1) protokol.\nŽelite res uporabiti SMBv1?\nPredlagamo nadgradnjo ali spremembo v nastavitvah strežnika.";
 "SMBV1_CONTINUE" = "Nadaljuj s SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Poskusi SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Kodiranje";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Dodaj v skupino vsebin";
 "ADD_TO_MEDIA_GROUP_HINT" = "Odprite meni dodaj v skupino predstavnih vsebin";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Poskus ponovne uvrstitve v skupino za posamezno vsebino.";
 "BUTTON_REGROUP_DESCRIPTION" = "Ali ste prepričani, da želite poskusiti samodejno ponovno uvrstiti posamezne vsebine v skupino?\nTo lahko traja precej časa.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Postavite vsebino sem, da jo dodate";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Dodajanje...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Podaj namig";
 "CANNOT_MAKE_PAYMENTS" = "Nimate dovoljenja za plačevanja preko te naprave";
 "PURCHASE_FAILED" = "Nakup ni uspel";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Dodaj k čakalni vrsti";
 
 "DISPLAY_AS" = "Prikaži kot";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Napvični nadzor nad svetlostjo";
+"BRIGHTNESS_SLIDER" = "Vlecite navpično za spreminjanje svetlosti";
+
+/* New strings */
+"VOLUME_HINT" = "navpični nadzor nad glasnostjo";
+"VOLUME_SLIDER" = "Vlecite navpično za spreminjanje glasnosti";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Nadzor predvajanja";
+"MENU_REPEAT_DISABLED" = "Ne ponavljaj";
+"MENU_REPEAT_SINGLE" = "Ponovi eno";
+"MENU_REPEAT_ALL" = "Ponovi vse";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
