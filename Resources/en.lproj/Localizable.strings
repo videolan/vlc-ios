@@ -524,4 +524,4 @@
 // MARK: - ActionSheet
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
-"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.git add";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
