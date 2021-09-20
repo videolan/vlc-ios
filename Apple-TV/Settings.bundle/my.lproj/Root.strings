@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "လင်းသော အပြင်အဆင်";
 "SETTINGS_THEME_DARK" = "မှောင်သော အပြင်အဆင်";
 "SETTINGS_THEME_SYSTEM" = "အလိုလျှောက်";
+"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
 "SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 "SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "သရုပ်ဖော်ပုံ";
 "SETTINGS_DOWNLOAD_ARTWORK" = "သရုပ်ဖော်ပုံ ဒေါင်းလုပ် လုပ်ရန်";
