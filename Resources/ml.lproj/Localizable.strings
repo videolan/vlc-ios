@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "ഓഡിയോ ട്രാക്ക് തെരെഞ്ഞെടുക്കുക";
 "CHOOSE_SUBTITLE_TRACK" = "ഉപശീര്‍ഷകങ്ങള്‍ തെരെഞ്ഞെടുക്കുക";
+"UNKNOWN_TRACK_TYPE" = "Unknown track type";
 "OPEN_TRACK_PANEL" = "ട്രാക്ക് തിരഞ്ഞെടുക്കൽ തുറക്കുക";
 "CHOOSE_TITLE" = "തലകെട്ട് സെലെക്ട്ട് ചെയ്യുക";
 "CHOOSE_CHAPTER" = "ചാപ്ട്ടെർ സെലെക്ട്ട് ചെയ്യുക";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "മീഡിയ ലൈബ്രറി കാലിയാണ്";
 "EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
+"EMPTY_NO_PLAYLISTS" = "Playlists";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
+
 "EMPTY_PLAYLIST" = "ശൂന്യമായ പ്ലേലിസ്റ്റ്";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "കാലയളവ്";
 "TITLE" = "തലക്കെട്ട്";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "പ്ലേബാക്ക് നിർത്താൻ ദീർഘനേരം അമർത്തുക.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "ഓഡിയോ വിവരം";
 "CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
 "ENTER_URL" = "പ്ലേ ചെയ്യാൻ URL നൽകുക";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
 "DOWNLOAD_SUBS_FROM_OSO" = "OpenSubtitles.org ൽ നിന്ന് സബ്ടൈറ്റിലുകൾ ഡൺലോഡ് ചെയ്യുക ...";
 "FOUND_SUBS" = "ഉപശീര്‍ഷകങ്ങള്‍ കണ്ടെത്തി";
+"NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
 "USE_SPDIF" = "പാസ്-ത്രൂ (S/PDIF) ഉപയോഗിക്കുക";
 
 "PLAYBACK" = "പ്ലേബാക്ക്";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "അപ്രാപ്‌തമാക്കി";
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "ഫോൾഡർ";
+"SHUFFLE" = "Shuffle";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "യൂണിവേഴ്സൽ പ്ലഗ് 'എൻ' പ്ലേ (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "തിരഞ്ഞെടുത്ത മീഡിയ പ്ലേലിസ്റ്റിൽ നിന്ന് നീക്കംചെയ്യുമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ?\nഅവ ഡിസ്കിൽ നിന്ന് ഇല്ലാതാക്കില്ല.";
 "DELETE_TITLE" = "തിരഞ്ഞെടുക്കൽ ഇല്ലാതാക്കുക";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "ഈ ഫയൽ";
 "NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
 "FILE_EXISTS" = "%@ ഇതിനകം ലഭ്യമാണ്";
@@ -327,7 +333,7 @@
 "SEARCH" = "തിരയുക";
 "VIDEO" = "വീഡിയോ";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "ആൽബങ്ങൾ";
 "ARTISTS" = "കലാകാരന്മാർ";
 "EPISODES" = "എപ്പിസോഡുകൾ";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "പരിഷ്‌ക്കരിച്ച തീയതി";
 "NAME" = "പേര്";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "എഡിറ്റുചെയ്യുക";
 "BUTTON_EDIT_HINT" = "എഡിറ്റ് മോഡ്";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "തിരഞ്ഞെടുത്ത ഫയലുകളുടെ പേരുമാറ്റുക";
 "DELETE_HINT" = "തിരഞ്ഞെടുത്ത ഫയലുകൾ ഇല്ലാതാക്കുക";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "അടുക്കുക";
 "BUTTON_SORT_HINT" = "സോർട്ട് ആക്ഷൻ ഷീറ്റ് പ്രദർശിപ്പിക്കുക";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "ആരോഹണക്രമത്തിലോ അവരോഹണ ക്രമത്തിലോ സന്ദർഭം അടുക്കുക";
 "GRID_LAYOUT" = "Grid Layout";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alphanumerically";
 "DURATION" = "കാലയളവ്";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "മീഡിയയുടെ എണ്ണം";
 "NB_VIDEO" = "വീഡിയോയുടെ എണ്ണം";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "ഒന്നും കണ്ടെത്തിയില്ല";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "അജ്ഞാത ആർട്ടിസ്റ്റ്";
 "VARIOUS_ARTIST" = "വിവിധ കലാകാരന്മാർ";
 "UNKNOWN_ALBUM" = "അജ്ഞാത ആൽബം";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
 "SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Rotation lock";
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
+"REPEAT_HINT" = "Repeat same media";
+
 "BACKWARD_BUTTON" = "Backward";
 "BACKWARD_HINT" = "Jump Backwards";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Play or pause";
 "PLAY_PAUSE_HINT" = "Play or Pause current playback";
 
+"STOP_BUTTON" = "Stop";
+
 "NEXT_HINT" = "Next media";
 
 "FORWARD_BUTTON" = "Forward";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "ഇന്റർഫേസ് ലോക്ക് ചെയ്യുക";
 
+"SHUFFLE_HINT" = "Shuffle media list";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "VIDEO_ASPECT_RATIO_HINT" = "നിലവിലെ വീഡിയോയുടെ വീക്ഷണാനുപാതം മാറ്റുക";
 
 "MORE_OPTIONS_BUTTON" = "കൂടുതൽ";
 "MORE_OPTIONS_HINT" = "കൂടുതൽ ഓപ്ഷൻ നിയന്ത്രണങ്ങൾ കാണുക";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "ഈക്വലൈസർ";
 "MORE_OPTIONS_HEADER_TITLE" = "വീഡിയോ ഓപ്ഷനുകൾ";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "മീഡിയ ലൈബ്രറി വീണ്ടും സ്കാൻ ചെയ്യാൻ നിർബന്ധിക്കുക";
 "FORCE_RESCAN_MESSAGE" = "നിങ്ങളുടെ മീഡിയ ലൈബ്രറി വീണ്ടെടുക്കാൻ VLC-യെ നിർബന്ധിക്കാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?\nഇതിന് കുറച്ച് സമയമെടുക്കും.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1 കണക്ഷൻ മുന്നറിയിപ്പ്";
 "SMBV1_WARN_DESCRIPTION" = "ഞങ്ങൾ ഒരു പഴയ പ്രോട്ടോക്കോൾ (SMBv1) കണ്ടെത്തി.\nSMBv1- ൽ തുടരുമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ?\nനിങ്ങളുടെ സെർവർ ക്രമീകരണങ്ങൾ നവീകരിക്കാനോ മാറ്റാനോ ഞങ്ങൾ ഉപദേശിക്കുന്നു.";
 "SMBV1_CONTINUE" = "SMBv1 ഉപയോഗിച്ച് തുടരുക";
 "SMBV1_NEXT_PROTOCOL" = "SMBv2/v3 പരീക്ഷിക്കുക";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "എൻകോഡിംഗ്";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "മീഡിയ ഗ്രൂപ്പിലേക്ക് ചേർക്കുക";
 "ADD_TO_MEDIA_GROUP_HINT" = "മീഡിയ ഗ്രൂപ്പ് മെനുവിലേക്ക് ചേർക്കുക തുറക്കുക";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "മീഡിയ ചേർക്കാൻ അവ ഇവിടെ വയ്ക്കുക";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "ചേർക്കുന്നു...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Give a Tip";
 "CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
 "PURCHASE_FAILED" = "Purchase Failed";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
 
 "DISPLAY_AS" = "Display as";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Vertical brightness control";
+"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
+
+/* New strings */
+"VOLUME_HINT" = "Vertical volume control";
+"VOLUME_SLIDER" = "Slide vertically to change the volume level";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Playback controls";
+"MENU_REPEAT_DISABLED" = "Do not repeat";
+"MENU_REPEAT_SINGLE" = "Repeat one";
+"MENU_REPEAT_ALL" = "Repeat all";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
