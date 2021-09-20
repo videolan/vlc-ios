@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Svetlá téma";
 "SETTINGS_THEME_DARK" = "Tmavá téma";
 "SETTINGS_THEME_SYSTEM" = "Automaticky";
+"SETTINGS_THEME_BLACK" = "Použiť čierne pozadie pri tmavom režime";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Zlepšuje životnosť batérie na zariadeniach s OLED displejom";
 "SETTINGS_PRIVACY_SUBTITLE" = "Otvoriť v nastaveniach";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Bezpečný prístup k vášmu obsahu";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Vaše médium bude skryté v aplikácii Súbory";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pre Wi-Fi zdieľanie";
 "SETTINGS_FORCE_SMBV1" = "Uprednostniť SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Ak máte problém s prehliadaním na SMB server, odznačte toto nastavenie";
+"SETTINGS_RTSP_TCP" = "Používať RTP cez RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Dielo";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Stiahnuť dielo";
