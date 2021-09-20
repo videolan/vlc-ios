@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Pasirinkite garso takelį";
 "CHOOSE_SUBTITLE_TRACK" = "Pasirinkite subtitrų takelį";
+"UNKNOWN_TRACK_TYPE" = "Unknown track type";
 "OPEN_TRACK_PANEL" = "Atidaryti takelių pasirinkimą";
 "CHOOSE_TITLE" = "Pasirinkite pavadinimą";
 "CHOOSE_CHAPTER" = "Pasirinkite skyrių";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Išvalyti fonoteką";
 "EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
+"EMPTY_NO_PLAYLISTS" = "Playlists";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
+
 "EMPTY_PLAYLIST" = "Grojaraštis tuščias";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "Trukmė";
 "TITLE" = "Pavadinimas";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Ilgai palaikykite, kad sustabdytumėte grojimą.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Garso informacija";
 "CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
 "ENTER_URL" = "Įveskite URL, kad grotumėte";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Atsisiųsti titrus iš OpenSubtitles.org...";
 "FOUND_SUBS" = "Rasti titrai";
+"NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
 "USE_SPDIF" = "Use Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Grojimas";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Išjungta";
 "REPEAT_SINGLE" = "Singlas";
 "REPEAT_FOLDER" = "Aplankas";
+"SHUFFLE" = "Shuffle";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_TITLE" = "Delete Selection";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Ši rinkmena";
 "NOT_SUPPORTED_FILETYPE" = "VLC nepalaiko %@ rinkmenos tipo";
 "FILE_EXISTS" = "%@ jau yra";
@@ -327,7 +333,7 @@
 "SEARCH" = "Ieškoti";
 "VIDEO" = "Vaizdo įrašai";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Albumai";
 "ARTISTS" = "Atlikėjai";
 "EPISODES" = "Epizodai";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Keitimo data";
 "NAME" = "Pavadinimas";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Keisti";
 "BUTTON_EDIT_HINT" = "Keitimo veiksena";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Pervadinti pasirinktas rinkmenas";
 "DELETE_HINT" = "Pašalinti pasirinktas rinkmenas";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Rikiuoti";
 "BUTTON_SORT_HINT" = "Display sort action sheet";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 "GRID_LAYOUT" = "Grid Layout";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alphanumerically";
 "DURATION" = "Trukmė";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Number of media";
 "NB_VIDEO" = "Number of video";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Nieko nerasta";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Nežinomas atlikėjas";
 "VARIOUS_ARTIST" = "Įvairūs atlikėjai";
 "UNKNOWN_ALBUM" = "Nežinomas albumas";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
 "SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Rotation lock";
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
+"REPEAT_HINT" = "Repeat same media";
+
 "BACKWARD_BUTTON" = "Backward";
 "BACKWARD_HINT" = "Jump Backwards";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Play or pause";
 "PLAY_PAUSE_HINT" = "Play or Pause current playback";
 
+"STOP_BUTTON" = "Stop";
+
 "NEXT_HINT" = "Next media";
 
 "FORWARD_BUTTON" = "Forward";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Užrakinti sąsają";
 
+"SHUFFLE_HINT" = "Shuffle media list";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
 
 "MORE_OPTIONS_BUTTON" = "Daugiau";
 "MORE_OPTIONS_HINT" = "Rodyti daugiau parinkčių valdiklių";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Glodintuvas";
 "MORE_OPTIONS_HEADER_TITLE" = "Vaizdo parinktys";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Priverstinai iš naujo peržvalgyti kūrinius";
 "FORCE_RESCAN_MESSAGE" = "Tikrai norite, kad VLC iš naujo peržvalgytų jūsų turimus kūrinus?\nTai gali užtrukti.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
 "SMBV1_WARN_DESCRIPTION" = "We detected an old protocol (SMBv1).\nAre you really sure to continue with SMBv1?\nWe advise upgrading or changing your server settings.";
 "SMBV1_CONTINUE" = "Continue with SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Try SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Encoding";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Add to media group";
 "ADD_TO_MEDIA_GROUP_HINT" = "Open the add to media group menu";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Give a Tip";
 "CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
 "PURCHASE_FAILED" = "Purchase Failed";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Append to queue";
 
 "DISPLAY_AS" = "Display as";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Vertical brightness control";
+"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
+
+/* New strings */
+"VOLUME_HINT" = "Vertical volume control";
+"VOLUME_SLIDER" = "Slide vertically to change the volume level";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Playback controls";
+"MENU_REPEAT_DISABLED" = "Do not repeat";
+"MENU_REPEAT_SINGLE" = "Repeat one";
+"MENU_REPEAT_ALL" = "Repeat all";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
