@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Вибрати звукову доріжку";
 "CHOOSE_SUBTITLE_TRACK" = "Вибрати доріжку субтитрів";
+"UNKNOWN_TRACK_TYPE" = "Невідомий тип доріжки";
 "OPEN_TRACK_PANEL" = "Відкрити вибір доріжки";
 "CHOOSE_TITLE" = "Вибрати заголовок";
 "CHOOSE_CHAPTER" = "Вибрати главу";
@@ -35,7 +36,7 @@
 "VFILTER_SATURATION" = "Насиченість";
 "VFILTER_GAMMA" = "Гама";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "Налаштування установок та підсилювачів";
 "PREAMP" = "Попередній підсилювач";
 "DB_FORMAT" = "%i дБ";
 "CHOOSE_EQUALIZER_PROFILES" = "Вибрати профіль еквалайзера";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Порожня бібліотека медіа";
 "EMPTY_LIBRARY_LONG" = "Для відтворення ви можете пустити медіапотік від сервера на вашу локальну мережу, від хмари або синхронізувати медіафайли з вашим пристроєм через iTunes, вивантаження Wi-Fi  або хмарні служби.";
 
+"EMPTY_NO_PLAYLISTS" = "Списки відтворення";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Для створення списків відтворення увійдіть у режим редагування на вкладках Відео або Аудіо та оберіть ваші улюблені медіафайли.\nВи можете також синхронізувати наявні списки відтворення з ваших інших пристроїв або через інтернет.";
+
 "EMPTY_PLAYLIST" = "Порожній список відтворення";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Додати медіа під час редагування у відповідні категорії.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "Тривалість";
 "TITLE" = "Назва";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Довгий натиск для зупинки відтворення.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Інформація про аудіо";
 "CLOUD_LOGIN_LONG" = "Для доступу до хмарних послуг увійдіть до iCloud як на Apple TV, так і на пристрої iOS з тим самим ідентифікатором Apple та увімкніть Keychain Sharing у системних налаштуваннях.\nПісля цього увійдіть до вашого постачальника хмарних послуг  за допомогою програми VLC на вашому пристрої iOS. Насамкінець, виберіть його на вашому екрані.";
 "ENTER_URL" = "Введіть URL для відтворення";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Показане тут медіа зберігається локально на вашому Apple TV. Зверніть увагу, що вміст може бути вилучений операційною системою без попереднього повідомлення в будь-який час, коли VLC не працює, у випадку нестачі пам'яті на вашому пристрої.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Звантажити субтитри із OpenSubtitles.org...";
 "FOUND_SUBS" = "Знайдені субтитри";
+"NO_SUB_FOUND_OSO" = "Не знайдено субтитрів для вашого медіаресурсу \"%@\".";
 "USE_SPDIF" = "Використовувати наскрізь (S/PDIF)";
 
 "PLAYBACK" = "Відтворення";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Вимкнено";
 "REPEAT_SINGLE" = "Одноразово";
 "REPEAT_FOLDER" = "Тека";
+"SHUFFLE" = "Перемішати";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Універсальний Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Ви справді хочете вилучити обрані  медіафайли зі списку відтворення?\nВони не будуть вилучені з диска.";
 "DELETE_TITLE" = "Вилучити обране";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Цей файл";
 "NOT_SUPPORTED_FILETYPE" = "%@ непідтримуваний тип файлу у VLC";
 "FILE_EXISTS" = "%@ вже існує";
@@ -327,7 +333,7 @@
 "SEARCH" = "Пошук";
 "VIDEO" = "Відео";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Альбоми";
 "ARTISTS" = "Виконавці";
 "EPISODES" = "Епізоди";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Дата зміни";
 "NAME" = "Назва";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Редагувати";
 "BUTTON_EDIT_HINT" = "Режим редагування";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Перейменувати обрані файли";
 "DELETE_HINT" = "Вилучити обрані файли";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Сортувати";
 "BUTTON_SORT_HINT" = "Показати аркуш дій сортування";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Упорядкувати вміст за порядком зростанням чи спадання";
 "GRID_LAYOUT" = "Макет сітки";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Алфавітно-числовий";
 "DURATION" = "Тривалість";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Кількість медіа";
 "NB_VIDEO" = "Кількість відео";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Нічого не знайдено";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Невідомий виконавець";
 "VARIOUS_ARTIST" = "Різні виконавці";
 "UNKNOWN_ALBUM" = "Невідомий альбом";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Субтитри та доріжки аудіо";
 "SUBTITLE_AND_TRACK_HINT" = "Виберіть субтитри або доріжку аудіо";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Блокування повороту";
 "ROTATION_LOCK_HINT" = "Блокувати поточну орієнтацію на відео";
 
+"REPEAT_HINT" = "Повторювати те саме медіа";
+
 "BACKWARD_BUTTON" = "Назад";
 "BACKWARD_HINT" = "Стрибок назад";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Відтворити або призупинити";
 "PLAY_PAUSE_HINT" = "Відтворити або зупинити поточне відтворення";
 
+"STOP_BUTTON" = "Зупинити";
+
 "NEXT_HINT" = "Наступне медіа";
 
 "FORWARD_BUTTON" = "Вперед";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Заблокувати інтерфейс";
 
+"SHUFFLE_HINT" = "Перемішати список медіа";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Співвідношення сторін відео";
 "VIDEO_ASPECT_RATIO_HINT" = "Змінити співвідношення сторін поточного відео";
 
 "MORE_OPTIONS_BUTTON" = "Більше";
 "MORE_OPTIONS_HINT" = "Переглянути більше параметрів управління";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Еквалайзер";
 "MORE_OPTIONS_HEADER_TITLE" = "Параметри відео";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Примусово пересканувати медіабібліотеку";
 "FORCE_RESCAN_MESSAGE" = "Ви хочете примусити VLC пересканувати вашу медіабібліотеку?\nЦе займе певний час.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Попередження про з'єднання SMBv1";
 "SMBV1_WARN_DESCRIPTION" = "Ми виявили старий протокол (SMBv1).\nВи переконані, що хочете продовжити з SMBv1?\nМи рекомендуємо оновлення або зміну ваших налаштувань сервера.";
 "SMBV1_CONTINUE" = "Продовжити з SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Спробувати SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Кодування";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Додати до групи медіа";
 "ADD_TO_MEDIA_GROUP_HINT" = "Відкрити пункт меню „Додати до групи медіа“";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Спроба автоматично перегрупувати одне медіа.";
 "BUTTON_REGROUP_DESCRIPTION" = "Ви справді хочете перегрупувати автоматично одне медіа?\nЦе може зайняти деякий час.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Розмістіть медіа тут, щоб додати їх";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Додавання...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Дати пораду";
 "CANNOT_MAKE_PAYMENTS" = "Вам не дозволено робити платежі на цьому пристрої.";
 "PURCHASE_FAILED" = "Купівля невдала";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Додати до черги";
 
 "DISPLAY_AS" = "Показувати як";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Вертикальне управління яскравістю";
+"BRIGHTNESS_SLIDER" = "Проведіть вертикально для зміни рівня яскравості";
+
+/* New strings */
+"VOLUME_HINT" = "Вертикальне управління гучністю";
+"VOLUME_SLIDER" = "Проведіть вертикально для зміни рівня гучності";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Керування відтворенням";
+"MENU_REPEAT_DISABLED" = "Не повторювати";
+"MENU_REPEAT_SINGLE" = "Повторити  один файл";
+"MENU_REPEAT_ALL" = "Повторити усе";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Тло аркуша дій";
+"ACTIONSHEET_BACKGROUND_HINT" = "Торкніться, щоб вилучити аркуш дій.";

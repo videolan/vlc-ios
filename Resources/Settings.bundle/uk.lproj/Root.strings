@@ -7,13 +7,15 @@
 "SETTINGS_THEME_BRIGHT" = "Яскрава тема";
 "SETTINGS_THEME_DARK" = "Темна тема";
 "SETTINGS_THEME_SYSTEM" = "Автоматично";
+"SETTINGS_THEME_BLACK" = "Використовувати чорне тло у темному режимі";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Покращує тривалість роботи акумулятор на пристроях з екраном OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "Відкрити у налаштуваннях";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Безпечний доступ до вашого вмісту";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Ваші медіа будуть сховані у програмі Файли";
 
 "SETTINGS_DARKTHEME" = "Зовнішній вигляд";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Часове розтягнення звуку";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Прискорення та уповільнення звуку без зміни висоти тону (потрібен швидкий пристрій)";
 "SETTINGS_BACKGROUND_AUDIO" = "Відтворення звуку у фоні";
 "SETTINGS_GENERIC_TITLE" = "Базовий";
 "SETTINGS_PASSCODE_LOCK" = "Захист паролем";
@@ -81,11 +83,11 @@
 "SETTINGS_CASTING" = "Трансляція";
 "SETTINGS_PTCASTING" = "Аудіо роз'єм";
 "SETTINGS_PTCASTINGLONG" = "Нехай ваш телевізор управляє відтворенням аудіо";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Якість перетворення";
+"SETTINGS_HIGH" = "Висока";
+"SETTINGS_MEDIUM" = "Середня";
+"SETTINGS_LOW" = "Низька";
+"SETTINGS_LOWEST" = "Найнижча";
 
 "SETTINGS_FEEDBACK" = "Відгук";
 "SETTINGS_SEND_FEEDBACK" = "Надіслати відгук";
@@ -94,12 +96,12 @@
 "SETTINGS_MEDIA_LIBRARY" = "Медіа бібліотека";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Примусити VLC пересканувати бібліотеку медіа";
 "SETTINGS_DECRAPIFY" = "Оптимізувати назви пунктів для відображення";
-"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
+"SETTINGS_DISABLE_GROUPING" = "Вимкнути автоматичне групування медіа";
 "SETTINGS_SHOW_THUMBNAILS" = "Показувати ескізи відео";
 "SETTINGS_SHOW_ARTWORKS" = "Показувати аудіо обкладинки";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Долучити бібліотеку медіа у резервну копію пристрою";
 
-"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK" = "Мережа";
 "SETTINGS_NETWORK_CACHING_TITLE" = "Розмір мережевого кешування";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Найнижча затримка";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Низька затримка";
@@ -107,8 +109,9 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Висока затримка";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Найвища затримка";
 "SETTINGS_WIFISHARING_IPv6" = "Підтримка IPv6 для поширення через Wi-Fi";
-"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
-"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_FORCE_SMBV1" = "Віддавати перевагу SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Зніміть цей параметр, якщо у вас наявні деякі складнощі при перегляді вашим сервером SMB";
+"SETTINGS_RTSP_TCP" = "Використовувати RTP над RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Обкладинка";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Звантажити обкладинку";
