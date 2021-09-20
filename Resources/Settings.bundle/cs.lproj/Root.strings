@@ -7,18 +7,20 @@
 "SETTINGS_THEME_BRIGHT" = "Světlé téma";
 "SETTINGS_THEME_DARK" = "Tmavé téma";
 "SETTINGS_THEME_SYSTEM" = "Automaticky";
+"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Zlepšuje výdrž baterie na zařízeních s OLED obrazovkou.";
 "SETTINGS_PRIVACY_SUBTITLE" = "Otevřít v nastavení";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Bezpečný přístup k Vašemu obsahu";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Vaše média budou v aplikaci Soubory skrytá";
 
 "SETTINGS_DARKTHEME" = "Vzhled prostředí";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časové roztažení zvuku";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Povolit zrychlení nebo zpomalení zvuku bez změny výšky tónu (vyžaduje výkonné zařízení).";
 "SETTINGS_BACKGROUND_AUDIO" = "Přehrávání zvuku na pozadí";
 "SETTINGS_GENERIC_TITLE" = "Obecné";
-"SETTINGS_PASSCODE_LOCK" = "Uzamčení heslem";
-"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Povolit dotykové ID pro odemčení";
-"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Povolit Face ID pro odemčení";
+"SETTINGS_PASSCODE_LOCK" = "Uzamknutí heslem";
+"SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Povolit dotykové ID pro odemknutí";
+"SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Povolit Face ID pro odemknutí";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Skrýt Knihovnu médií v aplikaci Soubory";
 "SETTINGS_VIDEO_FULLSCREEN" = "Přehrát video v režimu celé obrazovky";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Pokračovat v přehrávání videa";
@@ -81,11 +83,11 @@
 "SETTINGS_CASTING" = "Přenos ";
 "SETTINGS_PTCASTING" = "Průchod zvuku";
 "SETTINGS_PTCASTINGLONG" = "Spravovat vykreslení zvuku bude TV zařízení";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Kvalita převodu ";
+"SETTINGS_HIGH" = "Vysoká";
+"SETTINGS_MEDIUM" = "Střední";
+"SETTINGS_LOW" = "Nízká";
+"SETTINGS_LOWEST" = "Nejnižší";
 
 "SETTINGS_FEEDBACK" = "Zpětná vazba";
 "SETTINGS_SEND_FEEDBACK" = "Odeslat zpětnou vazbu";
@@ -94,12 +96,12 @@
 "SETTINGS_MEDIA_LIBRARY" = "Knihovna médií ";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Vynutit nové prohledání Knihovny médií";
 "SETTINGS_DECRAPIFY" = "Přizpůsobit názvy položek pro zobrazení";
-"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
+"SETTINGS_DISABLE_GROUPING" = "Zakázat automatické seskupování médií ";
 "SETTINGS_SHOW_THUMBNAILS" = "Zobrazit náhledy videa";
 "SETTINGS_SHOW_ARTWORKS" = "Zobrazit obaly alb";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Přidat Knihovnu médií k záloze zařízení ";
 
-"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK" = "Síť";
 "SETTINGS_NETWORK_CACHING_TITLE" = "Velikost vyrovnávací paměti sítě";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Nejnižší odezva";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Nízká odezva";
@@ -107,8 +109,9 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Dlouhá odezva";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Nejdelší odezva";
 "SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pro Wi-Fi sdílení";
-"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
-"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_FORCE_SMBV1" = "Povolit SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Zakázat, pokud jsou potíže s procházením serveru SMB.";
+"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Obal alba";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Stáhnout obal";
