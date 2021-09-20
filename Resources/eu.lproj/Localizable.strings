@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Hautatu audio pista";
 "CHOOSE_SUBTITLE_TRACK" = "Hautatu azpitituluen pista";
+"UNKNOWN_TRACK_TYPE" = "Unknown track type";
 "OPEN_TRACK_PANEL" = "Ireki pistaren aukeraketa";
 "CHOOSE_TITLE" = "Hautatu titulua";
 "CHOOSE_CHAPTER" = "Hautatu kapitulua";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Hustu multimedia-liburutegia";
 "EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
+"EMPTY_NO_PLAYLISTS" = "Playlists";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
+
 "EMPTY_PLAYLIST" = "Empty playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "Iraupena";
 "TITLE" = "Titulua";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Sakatu luze erreprodukzioa gelditzeko.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audioaren informazioa";
 "CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
 "ENTER_URL" = "Sartu erreproduzitzeko URLa";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Deskargatu azpitituluak OpenSubtitles.org gunetik...";
 "FOUND_SUBS" = "Aurkitutako azpitituluak";
+"NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
 "USE_SPDIF" = "Use Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Erreprodukzioa";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Desgaituta";
 "REPEAT_SINGLE" = "Bakarra";
 "REPEAT_FOLDER" = "Karpeta";
+"SHUFFLE" = "Shuffle";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
 "DELETE_TITLE" = "Ezabatu hautaketa";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Fitxategi hau";
 "NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
 "FILE_EXISTS" = "%@ badago aurretik";
@@ -327,7 +333,7 @@
 "SEARCH" = "Bilatu";
 "VIDEO" = "Bideoa";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Albumak";
 "ARTISTS" = "Artistak";
 "EPISODES" = "Kapituluak";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Aldaketa data";
 "NAME" = "Izena";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Editatu";
 "BUTTON_EDIT_HINT" = "Edizio modua";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Aldatu izena hautatutako fitxategiei";
 "DELETE_HINT" = "Ezabatu hautatutako fitxategiak";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Ordenatu";
 "BUTTON_SORT_HINT" = "Bistaratu ordenatze ekintzaren orria";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Ordenatu testuingurua gorantz edo beherantz";
 "GRID_LAYOUT" = "Grid Layout";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alfanumerikoki";
 "DURATION" = "Iraupena";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Multimedia kopurua";
 "NB_VIDEO" = "Bideo kopurua";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Ez da ezer aurkitu";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Artista ezezaguna";
 "VARIOUS_ARTIST" = "Hainbat artista";
 "UNKNOWN_ALBUM" = "Album ezezaguna";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
 "SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Rotation lock";
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
+"REPEAT_HINT" = "Repeat same media";
+
 "BACKWARD_BUTTON" = "Atzera";
 "BACKWARD_HINT" = "Jauzi egin atzera";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = " Erreproduzitu edo pausarazi";
 "PLAY_PAUSE_HINT" = " Erreproduzitu edo pausarazi oraingo erreprodukzioa";
 
+"STOP_BUTTON" = "Stop";
+
 "NEXT_HINT" = "Hurrengo multimedia";
 
 "FORWARD_BUTTON" = "Aurrera";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Blokeatu interfazea";
 
+"SHUFFLE_HINT" = "Shuffle media list";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "VIDEO_ASPECT_RATIO_HINT" = "Aldatu uneko bideoaren aspektu-erlazioa";
 
 "MORE_OPTIONS_BUTTON" = "Gehiago";
 "MORE_OPTIONS_HINT" = "Ikusi aukera gehiagoren kontrolak";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ekualizadorea";
 "MORE_OPTIONS_HEADER_TITLE" = "Bideo-aukerak";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Behartu multimedia-liburutegia bireskaneatzea";
 "FORCE_RESCAN_MESSAGE" = "VLC zure multimedia-liburutegia berriro eskaneatzera behartu nahi duzu?\nHonek luze hartu dezake.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1 konexio abisua";
 "SMBV1_WARN_DESCRIPTION" = "Protokolo zahar bat antzeman dugu (SMBv1).\nZiur SMBv1 erabiltzen jarraitu nahi duzula?\nEguneratzea edo zerbitzariaren konfigurazioa aldatzea aholkatzen dugu.";
 "SMBV1_CONTINUE" = "Jarraitu SMBv1 erabiliz";
 "SMBV1_NEXT_PROTOCOL" = "Saiatu SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Kodetzea";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Gehitu multimedia taldera";
 "ADD_TO_MEDIA_GROUP_HINT" = "Ireki 'Gehitu multimedia taldera' menua";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
 "BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Gehitzen...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Give a Tip";
 "CANNOT_MAKE_PAYMENTS" = "Ezin duzu gailu honetan ordainketarik egin.";
 "PURCHASE_FAILED" = "Erosketak huts egin du";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Gehitu ilarari";
 
 "DISPLAY_AS" = "Display as";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Vertical brightness control";
+"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
+
+/* New strings */
+"VOLUME_HINT" = "Vertical volume control";
+"VOLUME_SLIDER" = "Slide vertically to change the volume level";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Playback controls";
+"MENU_REPEAT_DISABLED" = "Do not repeat";
+"MENU_REPEAT_SINGLE" = "Repeat one";
+"MENU_REPEAT_ALL" = "Repeat all";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
