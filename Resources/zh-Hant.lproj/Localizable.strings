@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "選擇音軌";
 "CHOOSE_SUBTITLE_TRACK" = "選擇字幕軌";
+"UNKNOWN_TRACK_TYPE" = "未知曲目類型";
 "OPEN_TRACK_PANEL" = "開啟單元選單";
 "CHOOSE_TITLE" = "選擇標題";
 "CHOOSE_CHAPTER" = "選擇章節";
@@ -35,7 +36,7 @@
 "VFILTER_SATURATION" = "飽和度";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "預設 / 前置放大設置";
 "PREAMP" = "搶佔";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "選擇等化器設定";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "空媒體櫃";
 "EMPTY_LIBRARY_LONG" = "為了播放，您可以從您區域網路中的一台伺服器串流媒體，透過 iTunes 從雲端或是同步媒體到您的設備上，WiFi 上傳或是雲端服務。";
 
+"EMPTY_NO_PLAYLISTS" = "播放列表";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
+
 "EMPTY_PLAYLIST" = "空白播放清單";
 "EMPTY_PLAYLIST_DESCRIPTION" = "在相對類別中編輯時新增媒體";
 
@@ -261,14 +265,14 @@
 "DURATION" = "時間";
 "TITLE" = "標題";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "長按已結束播放";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "音訊資訊";
 "CLOUD_LOGIN_LONG" = "要存取雲端服務，同時登錄到iCloud中的Apple TV和相同的Apple ID的iOS設備上，啟用主鑰共享系統設置。\n然後，使用您iOS設備上的VLC app登錄到您所選擇的雲服務提供商。最後，在此螢幕上選​​擇它。";
 "ENTER_URL" = "輸入網址以播放";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "這裡顯示的媒體存儲在Apple TV本體。需要注意的是在裝置容量不足且VLC未執行時，內容可能在未事前通知及被操作系統刪除。";
 "DOWNLOAD_SUBS_FROM_OSO" = "從OpenSubtitles.org下載字幕中...";
 "FOUND_SUBS" = "找到字幕";
+"NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
 "USE_SPDIF" = "選用直通（S / PDIF）";
 
 "PLAYBACK" = "播放";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "已停用";
 "REPEAT_SINGLE" = "單曲";
 "REPEAT_FOLDER" = "資料夾";
+"SHUFFLE" = "Shuffle";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "通用隨插即用服務 (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "您確定要從播放清單中移除選取的媒體嗎？\n它們不會從磁碟中被刪除。";
 "DELETE_TITLE" = "刪除選取的項目";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "此檔案";
 "NOT_SUPPORTED_FILETYPE" = "%@ 不是 VLC 支援的檔案格式";
 "FILE_EXISTS" = "%@ 已有";
@@ -327,7 +333,7 @@
 "SEARCH" = "搜尋";
 "VIDEO" = "視訊";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "專輯";
 "ARTISTS" = "藝人";
 "EPISODES" = "插曲";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "修改日期";
 "NAME" = "名稱";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "編輯";
 "BUTTON_EDIT_HINT" = "編輯模式";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "重新命名選取的檔案";
 "DELETE_HINT" = "刪除選取的檔案";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "排序";
 "BUTTON_SORT_HINT" = "顯示排序動作表";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "以遞增或遞減順序排序內容";
 "GRID_LAYOUT" = "格線配置";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "字母數字";
 "DURATION" = "時間";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "媒體數量";
 "NB_VIDEO" = "影片數量";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "什麼都沒找到";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "未知藝人";
 "VARIOUS_ARTIST" = "多個藝人";
 "UNKNOWN_ALBUM" = "未知專輯";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "字幕與音訊軌道";
 "SUBTITLE_AND_TRACK_HINT" = "選擇字幕與音訊軌道";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Rotation lock";
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
+"REPEAT_HINT" = "Repeat same media";
+
 "BACKWARD_BUTTON" = "Backward";
 "BACKWARD_HINT" = "Jump Backwards";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Play or pause";
 "PLAY_PAUSE_HINT" = "Play or Pause current playback";
 
+"STOP_BUTTON" = "Stop";
+
 "NEXT_HINT" = "Next media";
 
 "FORWARD_BUTTON" = "Forward";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "鎖定介面";
 
+"SHUFFLE_HINT" = "Shuffle media list";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "視訊長寬比例";
 "VIDEO_ASPECT_RATIO_HINT" = "變更目前影片的長寬比例";
 
 "MORE_OPTIONS_BUTTON" = "更多";
 "MORE_OPTIONS_HINT" = "檢視更多選項控制";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "等化器";
 "MORE_OPTIONS_HEADER_TITLE" = "視訊選項";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "強制重新掃描媒體櫃";
 "FORCE_RESCAN_MESSAGE" = "您要強制 VLC 重新掃描媒體櫃嗎？這可能需要一些時間。";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1 連線警告";
 "SMBV1_WARN_DESCRIPTION" = "我們偵測到舊版通訊協定 (SMBv1)。\n您確定要繼續使用 SMBv1 嗎?\n我們建議升級或變更您的伺服器設定。";
 "SMBV1_CONTINUE" = "用 SMBv1 繼續";
 "SMBV1_NEXT_PROTOCOL" = "試用 SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "編碼";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "加入至媒體群組";
 "ADD_TO_MEDIA_GROUP_HINT" = "開啟加入至媒體群組選單";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "嘗試自動為單一媒體復原群組";
 "BUTTON_REGROUP_DESCRIPTION" = "您確定要嘗試自動為單一媒體復原群組嗎?\n此項操作可能會花一點時間。";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "將媒體放在此處以添加它們";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "新增中";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "提供小費";
 "CANNOT_MAKE_PAYMENTS" = "你沒有權限在此設備上付款。";
 "PURCHASE_FAILED" = "購買失敗";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "插入佇列最後一項";
 
 "DISPLAY_AS" = "Display as";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Vertical brightness control";
+"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
+
+/* New strings */
+"VOLUME_HINT" = "Vertical volume control";
+"VOLUME_SLIDER" = "Slide vertically to change the volume level";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Playback controls";
+"MENU_REPEAT_DISABLED" = "Do not repeat";
+"MENU_REPEAT_SINGLE" = "Repeat one";
+"MENU_REPEAT_ALL" = "Repeat all";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";

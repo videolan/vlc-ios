@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "亮色主題";
 "SETTINGS_THEME_DARK" = "暗色主題";
 "SETTINGS_THEME_SYSTEM" = "自動";
+"SETTINGS_THEME_BLACK" = "在深色模式使用黑色背景";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
 "SETTINGS_PRIVACY_SUBTITLE" = "在設定中開啟";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "安全的存取您的內容";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "您的媒體將會隱藏在文件應用程式中";
@@ -81,11 +83,11 @@
 "SETTINGS_CASTING" = "投放";
 "SETTINGS_PTCASTING" = "音訊傳遞";
 "SETTINGS_PTCASTINGLONG" = "讓您的電視管理音訊繪製";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "轉換質量";
+"SETTINGS_HIGH" = "高";
+"SETTINGS_MEDIUM" = "中";
+"SETTINGS_LOW" = "低";
+"SETTINGS_LOWEST" = "最低";
 
 "SETTINGS_FEEDBACK" = "回饋";
 "SETTINGS_SEND_FEEDBACK" = "寄出回饋";
@@ -99,7 +101,7 @@
 "SETTINGS_SHOW_ARTWORKS" = "顯示音訊美工";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "在裝置備份中加入媒體櫃";
 
-"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK" = "網絡";
 "SETTINGS_NETWORK_CACHING_TITLE" = "網路快取值";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "最低延遲";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "低延遲";
@@ -109,11 +111,12 @@
 "SETTINGS_WIFISHARING_IPv6" = "Wi-Fi 分享的 IPv6 支援";
 "SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "美工";
 "SETTINGS_DOWNLOAD_ARTWORK" = "下載美工";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_NEW_PLAYER" = "新播放器";
 
 "ABOUT_APP_TV" = "關於 VLC for tvOS";
