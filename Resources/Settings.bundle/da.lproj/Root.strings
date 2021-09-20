@@ -7,13 +7,15 @@
 "SETTINGS_THEME_BRIGHT" = "Lyst tema";
 "SETTINGS_THEME_DARK" = "Mørkt tema";
 "SETTINGS_THEME_SYSTEM" = "Automatisk";
+"SETTINGS_THEME_BLACK" = "Anvend sort baggrund ved mørk tilstand";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Forbedrer batteritid på enheder med en OLED-skærm";
 "SETTINGS_PRIVACY_SUBTITLE" = "Åbn i Indstillinger";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Sikker adgang til dit indhold";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Dit medie vil være skjult i programmet Filer";
 
 "SETTINGS_DARKTHEME" = "Udseende";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tidsudstrækning af lyd";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Øger og sænker lydhastighed uden at ændre tonehøjden (kræver en hurtig enhed)";
 "SETTINGS_BACKGROUND_AUDIO" = "Lydafspilning i baggrund";
 "SETTINGS_GENERIC_TITLE" = "Generelt";
 "SETTINGS_PASSCODE_LOCK" = "Adgangskodelås";
@@ -80,12 +82,12 @@
 "SETTINGS_HWDECODING_OFF" = "Fra";
 "SETTINGS_CASTING" = "Udsendelse";
 "SETTINGS_PTCASTING" = "Lydgennemsendelse";
-"SETTINGS_PTCASTINGLONG" = "Lad dit tv håndtere lydgenerering";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
+"SETTINGS_PTCASTINGLONG" = "Lad dit tv håndtere lydrendering";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Konverteringskvalitet";
+"SETTINGS_HIGH" = "Høj";
 "SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_LOW" = "Lav";
+"SETTINGS_LOWEST" = "Lavest";
 
 "SETTINGS_FEEDBACK" = "Feedback";
 "SETTINGS_SEND_FEEDBACK" = "Send feedback";
@@ -94,26 +96,27 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediebibliotek";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Tving VLC til at genskanne mediebiblioteket";
 "SETTINGS_DECRAPIFY" = "Optimér emnenavne til skærm";
-"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
+"SETTINGS_DISABLE_GROUPING" = "Slå automatisk mediegruppering fra";
 "SETTINGS_SHOW_THUMBNAILS" = "Vis videominiaturer";
 "SETTINGS_SHOW_ARTWORKS" = "Vis lydbilleder";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Medtag mediebiblioteket i enhedssikkerhedskopiering";
 
-"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK" = "Netværk";
 "SETTINGS_NETWORK_CACHING_TITLE" = "Netværks-cachingsniveau";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Korteste ventetid";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Kort ventetid";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Korteste forsinkelse";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Kort forsinkelse";
 "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Høj ventetid";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Højeste ventetid";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Høj forsinkelse";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Højeste forsinkelse";
 "SETTINGS_WIFISHARING_IPv6" = "Understøttelse af IPv6 til Wi-Fi-deling";
-"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
-"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_FORCE_SMBV1" = "Foretræk SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Slå denne indstilling fra hvis du har besvær med at browse din SMB-server";
+"SETTINGS_RTSP_TCP" = "Anvend RTP fremfor RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Billede";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download billede";
 
-"SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_LAB" = "Laboratorium";
+"SETTINGS_NEW_PLAYER" = "Ny afspiller";
 
 "ABOUT_APP_TV" = "Om VLC til tvOS";

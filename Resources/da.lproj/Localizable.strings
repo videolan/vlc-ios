@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Vælg lydspor";
 "CHOOSE_SUBTITLE_TRACK" = "Vælg undertekstspor";
+"UNKNOWN_TRACK_TYPE" = "Ukendt type spor";
 "OPEN_TRACK_PANEL" = "Åbn sporvalg";
 "CHOOSE_TITLE" = "Vælg titel";
 "CHOOSE_CHAPTER" = "Vælg kapitel";
@@ -35,15 +36,15 @@
 "VFILTER_SATURATION" = "Mætning";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "Forvalgte / satte indstillinger";
 "PREAMP" = "Forforstærker";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Vælg equalizerprofil";
-"SNAP_BANDS" = "Snap bands";
+"SNAP_BANDS" = "Fastgørelsesbånd";
 
 "PLAYBACK_FAILED" = "Afspilning mislykkedes";
 "PLEASE_WAIT" = "Vent venligst";
-"AR_CHANGED" = "Højde-bredde-forhold: %@";
+"AR_CHANGED" = "Billedformat: %@";
 "DEFAULT" = "Standard";
 "FILL_TO_SCREEN" = "Beskær til at udfylde skærmen";
 "PLAYBACK_SPEED" = "Afspilningshastighed";
@@ -133,8 +134,8 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "FEJL MED SERVER-FORBINDELSE";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Tjek venligst din serveradresse og loginoplysninger";
 
-"FILES_APP_CELL_TITLE" = "Local files";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+"FILES_APP_CELL_TITLE" = "Lokale filer";
+"FILES_APP_CELL_SUBTITLE" = "Åbn en fil uden at kopiere den til VLC";
 
 "CLOUD_SERVICES" = "Cloud-tjenester";
 "LOGIN" = "Log ind";
@@ -186,7 +187,10 @@
 "EMPTY_LIBRARY" = "Tomt mediebibliotek";
 "EMPTY_LIBRARY_LONG" = "Du kan afspille medier ved at streame dem fra en server på dit lokale netværk eller fra skyen, eller ved at synkronisere medier til din enhed vha. iTunes, Wi-Fi-overførsel eller sky-tjenester.";
 
-"EMPTY_PLAYLIST" = "Tom afspilningsliste";
+"EMPTY_NO_PLAYLISTS" = "Spillelister";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Opret spillelister via redigeringstilstand i video- eller lydindhold tabulator og vælg dit favoritmedie.\nDu kan også synkronisere eksisterende spillelister fra dine andre enheder eller fra internettet.";
+
+"EMPTY_PLAYLIST" = "Tom spilleliste";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Tilføj medier når de respektive kategorier redigeres.";
 
 "PLAYBACK_SCRUB_HELP" = "Stryg din finger nedad for at justere spolinghastigheden.";
@@ -197,7 +201,7 @@
 "PLAYBACK_POSITION" = "Afspilningsposition";
 "VIDEO_FILTER" = "Videofiltre";
 "VIDEO_FILTER_RESET_BUTTON" = "Nulstil videofiltre";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video billedformat";
 "BWD_BUTTON" = "Hop tilbage";
 "FWD_BUTTON" = "Hop fremad";
 "PLAY_BUTTON" = "Afspil";
@@ -205,10 +209,10 @@
 "PREV_BUTTON" = "Forrige";
 "PLAY_ALL_BUTTON" = "Afspil alle";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_VIDEO_FILTERS" = "Vil du nulstille videofiltrene?";
+"RESET_PLAYBACK_SPEED" = "Vil du nulstille afspilningshastigheden?";
+"RESET_EQUALIZER" = "Vil du nulstille equalizer-indstillingerne?";
+"RESET_SLEEP_TIMER" = "Vil du nulstille vækkeuret?";
 
 "VERSION_FORMAT" = "Version: %@";
 "BASED_ON_FORMAT" = "Baseret på:<br />%@";
@@ -261,16 +265,16 @@
 "DURATION" = "Varighed";
 "TITLE" = "Titel";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Tryk og hold for at stoppe afspilning.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Lydinfo";
-"CLOUD_LOGIN_LONG" = "Log ind på iCloud, for at få adgang til cloud-tjenester på både dette Apple TV og en iOS-enhed med det samme Apple-id og aktivér Keychain Sharing i systemindstillinger.\nLog efterfølgende ind på den ønskede cloud-udbyder med VLC-appen på din iOS-enhed. Vælg det her på skærmen til sidst.";
+"CLOUD_LOGIN_LONG" = "Log ind på iCloud, for at få adgang til cloud-tjenester på både dette Apple TV og en iOS-enhed med det samme Apple-id og aktivér nøglekædedeling i systemindstillinger.\nLog efterfølgende ind på den ønskede cloud-udbyder med VLC-appen på din iOS-enhed. Vælg det her på skærmen til sidst.";
 "ENTER_URL" = "Indtast URL som skal afspilles";
 "HTTP_SERVER_ON" = "Deaktivér fjernafspilning";
 "HTTP_SERVER_OFF" = "Aktivér fjernafspilning";
@@ -278,15 +282,17 @@
 "CACHED_MEDIA_LONG" = "Medier der vises her er gemt lokalt på dit Apple TV. Bemærk at indhold når som helst kan blive fjernet af styresystemet uden forudgående besked, når VLC ikke kører, hvis din enhed løber tør for lagerplads.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Downloader undertekster fra OpenSubtitles.org ...";
 "FOUND_SUBS" = "Fundne undertekster";
-"USE_SPDIF" = "Brug gennemløb (S/PDIF)";
+"NO_SUB_FOUND_OSO" = "Ingen undertekster fundet for dit medie \"%@\".";
+"USE_SPDIF" = "Brug gennemsendelse (S/PDIF)";
 
 "PLAYBACK" = "Afspilning";
 "REPEAT_MODE" = "Gentag";
 "REPEAT_DISABLED" = "Deaktiveret";
 "REPEAT_SINGLE" = "En";
 "REPEAT_FOLDER" = "Mappe";
+"SHUFFLE" = "Bland";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -308,11 +314,11 @@
 "DELETE_ITEM_HINT" = "Tryk på %@ for at slette"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Bekræft sletningen af markeringen?";
-"DELETE_MESSAGE_PLAYLIST" = "Er du sikker på, at du vil slette den valgte afspilningsliste?\nTilknyttede mediefiler slettes ikke.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Er du sikker på, at du vil fjerne de valgte medier fra afspilningslisten?\nDe slettes ikke fra disken.";
+"DELETE_MESSAGE_PLAYLIST" = "Er du sikker på, at du vil slette den valgte spilleliste?\nTilknyttede mediefiler slettes ikke.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Er du sikker på, at du vil fjerne de valgte medier fra spillelisten?\nDe slettes ikke fra disken.";
 "DELETE_TITLE" = "Slet markering";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Denne fil";
 "NOT_SUPPORTED_FILETYPE" = "%@ er ikke er understøttet filtype i VLC";
 "FILE_EXISTS" = "%@ findes allerede";
@@ -327,32 +333,32 @@
 "SEARCH" = "Søgning";
 "VIDEO" = "Video";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Album";
 "ARTISTS" = "Kunstnere";
 "EPISODES" = "Episoder";
 "GENRES" = "Genre";
 "ALL_VIDEOS" = "Alle videoer";
 "SONGS" = "Sange";
-"PLAYLISTS" = "Afspilningsliste";
+"PLAYLISTS" = "Spillelister";
 "VIDEO_GROUPS" = "Videogrupper";
 
 "MODIFIED_DATE" = "Ændringsdato";
 "NAME" = "Navn";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Rediger";
 "BUTTON_EDIT_HINT" = "Redigeringstilstand";
 
-"ADD_TO_PLAYLIST" = "Tilføj til afspilningsliste";
-"ADD_TO_PLAYLIST_HINT" = "Åbn tilføj til afspilningsliste-menuen";
+"ADD_TO_PLAYLIST" = "Tilføj til spilleliste";
+"ADD_TO_PLAYLIST_HINT" = "Åbn menuen tilføj til spilleliste";
 
-"PLAYLIST_PLACEHOLDER" = "Titel for afspilningsliste";
-"PLAYLIST_DESCRIPTION" = "Vælg en titel til din nye afspilningsliste";
-"PLAYLIST_CREATION" = "Opret en ny afspilningsliste";
-"PLAYLIST_CREATION_HINT" = "Vis en interaktiv handling til at oprette en afspilningsliste";
-"ERROR_PLAYLIST_CREATION" = "Kunne ikke oprette en afspilningsliste";
+"PLAYLIST_PLACEHOLDER" = "Spillelistetitel";
+"PLAYLIST_DESCRIPTION" = "Vælg en titel til din nye spilleliste";
+"PLAYLIST_CREATION" = "Opret en ny spilleliste";
+"PLAYLIST_CREATION_HINT" = "Vis en interaktiv handling til at oprette en spilleliste";
+"ERROR_PLAYLIST_CREATION" = "Kunne ikke oprette en spilleliste";
 "ERROR_PLAYLIST_TRACKS" = "Kunne ikke hente spor";
 
 "ERROR_RENAME_FAILED" = "Omdøbning mislykkedes";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Omdøb de valgte filer";
 "DELETE_HINT" = "Slet de valgte filer";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Sortér";
 "BUTTON_SORT_HINT" = "Vis sorteringshandlingsark";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Sortér indholdet i stigende eller faldende rækkefølge";
 "GRID_LAYOUT" = "Gitterlayout";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alfanumerisk";
 "DURATION" = "Varighed";
@@ -390,69 +396,75 @@
 "NB_MEDIA" = "Antal medier";
 "NB_VIDEO" = "Antal video";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Intet fundet";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Ukendt kunstner";
 "VARIOUS_ARTIST" = "Diverse kunstnere";
 "UNKNOWN_ALBUM" = "Ukendt album";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "Undertekster og lydspor";
+"SUBTITLE_AND_TRACK_HINT" = "Vælg undertekst eller lydspor";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "DVD-grænseflade";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "Roteringslås";
+"ROTATION_LOCK_HINT" = "Lås video til nuværende orientering";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"REPEAT_HINT" = "Gentag samme medie";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"BACKWARD_BUTTON" = "Tilbage";
+"BACKWARD_HINT" = "Hop tilbage";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PREVIOUS_BUTTON" = "Forrige";
+"PREVIOUS_HINT" = "Forrige medie";
 
-"NEXT_HINT" = "Next media";
+"PLAY_PAUSE_BUTTON" = "Afspil eller pause";
+"PLAY_PAUSE_HINT" = "Afspil eller sæt nuværende afspilning på pause";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"STOP_BUTTON" = "Stop";
 
-"INTERFACE_LOCK_BUTTON" = "Lås brugerflade";
+"NEXT_HINT" = "Næste medie";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
-"VIDEO_ASPECT_RATIO_HINT" = "Skift højde-bredde-forholdet for den nuværende video";
+"FORWARD_BUTTON" = "Frem";
+"FORWARD_HINT" = "Hop frem";
+
+"INTERFACE_LOCK_BUTTON" = "Lås grænseflade";
+
+"SHUFFLE_HINT" = "Bland medieliste";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Video billedformat";
+"VIDEO_ASPECT_RATIO_HINT" = "Skift billedformatet for den nuværende video";
 
 "MORE_OPTIONS_BUTTON" = "Mere";
 "MORE_OPTIONS_HINT" = "Vis flere indstillingsstyringer";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoindstillinger";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Tving genskanning af mediebibliotek";
 "FORCE_RESCAN_MESSAGE" = "Vil du tvinge VLC til at genskanne dit mediebiblitek?\nDet kan tage en del tid.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Advarsel om SMBv1-forbindelse";
 "SMBV1_WARN_DESCRIPTION" = "Vi registrerede en gammel protokol (SMBv1).\nEr du sikker på, at du vil fortsætte med SMBv1?\nVi anbefaler at du opgraderer eller ændrer dine serverindstillinger.";
 "SMBV1_CONTINUE" = "Fortsæt med SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Prøv SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Kodning";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Føj til mediegruppe";
 "ADD_TO_MEDIA_GROUP_HINT" = "Åbn tilføj til mediegruppe-menuen";
@@ -465,7 +477,7 @@
 "REMOVE_FROM_MEDIA_GROUP_HINT" = "Fjern markering fra mediegruppe";
 
 "MEDIA_GROUP_CREATION" = "Ny mediegruppe";
-"MEDIA_GROUP_CREATION_HINT" = "Vis besked til oprettelse af afspilningsliste";
+"MEDIA_GROUP_CREATION_HINT" = "Vis besked til oprettelse af spilleliste";
 "MEDIA_GROUP_MOVE_TO_ROOT" = "Flyt indholdet til øverste niveau";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Flytter markeringens indhold til det øverste niveau";
 
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Forsøg automatisk at omgruppere enkelte medier.";
 "BUTTON_REGROUP_DESCRIPTION" = "Er du sikker på, at du vil forsøge at omgruppere enkelte medier automatisk?\nDet kan tage noget tid.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Placer medier her for at tilføje them";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Tilføjer ...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Giv drikkepenge";
 "CANNOT_MAKE_PAYMENTS" = "Du har ikke tilladelse til at foretage betalinger på enheden.";
 "PURCHASE_FAILED" = "Køb mislykkedes";
@@ -493,4 +505,23 @@
 "APPEND_TO_QUEUE_HINT" = "Tilføj til kø";
 "APPEND_TO_QUEUE_LABEL" = "Tilføj til kø";
 
-"DISPLAY_AS" = "Display as";
+"DISPLAY_AS" = "Vis som";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Vertikal lysstyrkekontrol";
+"BRIGHTNESS_SLIDER" = "Glid vertikalt for at ændre lysstyrken";
+
+/* New strings */
+"VOLUME_HINT" = "Vertikal volumenkontrol";
+"VOLUME_SLIDER" = "Glid vertikalt for at ændre volumen";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Afspilningsstyring";
+"MENU_REPEAT_DISABLED" = "Gentag ikke";
+"MENU_REPEAT_SINGLE" = "Gentag en";
+"MENU_REPEAT_ALL" = "Gentag alle";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Handlingsarksbaggrund";
+"ACTIONSHEET_BACKGROUND_HINT" = "Klik for at fjerne handlingsarket";
