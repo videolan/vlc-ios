@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "ธีมสว่าง";
 "SETTINGS_THEME_DARK" = "ธีมมืด";
 "SETTINGS_THEME_SYSTEM" = "อัตโนมัติ";
+"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
 "SETTINGS_PRIVACY_SUBTITLE" = "เปิดในการตั้งค่า";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "เข้าถึงเนื้อหาของคุณอย่างปลอดภัย";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "สื่อของคุณจะถูกซ่อนในแอปไฟล์";
@@ -109,9 +111,10 @@
 "SETTINGS_WIFISHARING_IPv6" = "การรองรับ IPv6 สำหรับการแชร์ด้วย Wi-Fi";
 "SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
 
-"SETTINGS_ARTWORK" = "งานศิลปะ";
-"SETTINGS_DOWNLOAD_ARTWORK" = "ดาวน์โหลดงานศิลปะ";
+"SETTINGS_ARTWORK" = "หน้าปก";
+"SETTINGS_DOWNLOAD_ARTWORK" = "ดาวน์โหลดหน้าปก";
 
 "SETTINGS_LAB" = "ห้องทดลอง";
 "SETTINGS_NEW_PLAYER" = "ตัวเล่นแบบใหม่";
