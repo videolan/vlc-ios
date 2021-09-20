@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Helles Design";
 "SETTINGS_THEME_DARK" = "Dunkles Design";
 "SETTINGS_THEME_SYSTEM" = "Automatisch";
+"SETTINGS_THEME_BLACK" = "Schwarzen Hintergrund beim dunklen Modus verwenden";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Verbessert die Akkulaufzeit von Geräten mit OLED-Bildschirm";
 "SETTINGS_PRIVACY_SUBTITLE" = "In den Einstellungen öffnen";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Zugriff auf Ihre Inhalte sichern";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Ihre Medien werden in der Dateien-App ausgeblendet";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-Unterstützung für WLAN-Freigabe";
 "SETTINGS_FORCE_SMBV1" = "SMB 1 bevorzugen";
 "SETTINGS_FORCE_SMBV1_LONG" = "Deaktivieren Sie diese Einstellung, wenn Sie Probleme beim Durchsuchen Ihres SMB-Servers haben";
+"SETTINGS_RTSP_TCP" = "RTP über RTSP (TCP) benutzen";
 
 "SETTINGS_ARTWORK" = "Cover";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Cover herunterladen";

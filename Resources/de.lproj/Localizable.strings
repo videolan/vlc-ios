@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Audiospur wählen";
 "CHOOSE_SUBTITLE_TRACK" = "Untertitelspur wählen";
+"UNKNOWN_TRACK_TYPE" = "Unbekannter Titel-Typ";
 "OPEN_TRACK_PANEL" = "Titelauswahl öffnen";
 "CHOOSE_TITLE" = "Titel wählen";
 "CHOOSE_CHAPTER" = "Kapitel wählen";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Leere Mediathek";
 "EMPTY_LIBRARY_LONG" = "Zur Wiedergabe können Sie Medien von einem Server innerhalb des lokalen Netzwerks streamen, Daten aus dem Netzspeicher abrufen oder Medien über iTunes, WLAN oder des Netzspeichers auf Ihr Gerät synchronisieren.";
 
+"EMPTY_NO_PLAYLISTS" = "Wiedergabelisten";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Um Wiedergabelisten zu erstellen, den Bearbeitungsmodus auf den Registerkarten Video- oder Audioinhalt aufrufen und die bevorzugten Medien auswählen. Sie können auch vorhandene Wiedergabelisten von Ihren anderen Geräten oder aus dem Internet synchronisieren. ";
+
 "EMPTY_PLAYLIST" = "Leere Wiedergabeliste";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Medien während der Bearbeitung in den jeweiligen Kategorien hinzufügen.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "Laufzeit";
 "TITLE" = "Titel";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Zum Stoppen der Wiedergabe lange drücken.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audio-Information";
 "CLOUD_LOGIN_LONG" = "Um auf Cloud-Dienste zuzugreifen, wählen Sie sich bei iCloud sowohl auf diesem Apple TV als auch einem iOS Gerät mit der gleichen Apple ID an und aktivieren Sie die Schlüsselbundfreigabe in den Systemeinstellungen.\nAnschließend melden Sie sich beim Cloud-Dienstleister Ihrer Wahl innerhalb der VLC-App auf Ihrem iOS Gerät an und wählen ihn anschließend in diesem Bildschirm aus.   ";
 "ENTER_URL" = "Adresse zur Wiedergabe eingeben";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Hier gezeigte Medien sind lokal auf Ihrem Apple TV gespeichert. Beachten Sie, dass Inhalte jederzeit vom Betriebssystem ohne vorherige Warnung gelöscht werden können, wenn VLC nicht aktiv ist und der Speicher des Geräts knapp wird.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Untertitel von OpenSubtitles.org herunterladen …";
 "FOUND_SUBS" = "Gefundene Untertitel";
+"NO_SUB_FOUND_OSO" = "Für Ihr Medienelement \"%@\" wurden keine Untertitel gefunden.";
 "USE_SPDIF" = "Pass-through (S/PDIF) nutzen";
 
 "PLAYBACK" = "Wiedergabe";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Deaktiviert";
 "REPEAT_SINGLE" = "Aktuelles Medium";
 "REPEAT_FOLDER" = "Aktuellen Ordner";
+"SHUFFLE" = "Zufällig";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug and Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Sind Sie sicher, dass Sie die ausgewählten Medien aus der Wiedergabeliste löschen möchten?\nDie Dateien werden nicht gelöscht.";
 "DELETE_TITLE" = "Auswahl löschen";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Diese Datei";
 "NOT_SUPPORTED_FILETYPE" = "%@ ist kein unterstützter Dateityp von VLC";
 "FILE_EXISTS" = "%@ existiert bereits";
@@ -327,7 +333,7 @@
 "SEARCH" = "Suchen";
 "VIDEO" = "Video";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Alben";
 "ARTISTS" = "Künstler";
 "EPISODES" = "Episoden";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Änderungsdatum";
 "NAME" = "Name";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Bearbeiten";
 "BUTTON_EDIT_HINT" = "Bearbeitungsmodus";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Ausgewählte Dateien umbenennen";
 "DELETE_HINT" = "Ausgewählte Dateien löschen";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Sortieren";
 "BUTTON_SORT_HINT" = "Aktionsmenü zur Sortierung anzeigen";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Inhalt aufsteigend oder absteigend sortieren";
 "GRID_LAYOUT" = "Gitterstruktur";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alphanumerisch";
 "DURATION" = "Laufzeit";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Anzahl von Mediendateien";
 "NB_VIDEO" = "Anzahl von Videodateien";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Nichts gefunden";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Unbekannter Künstler";
 "VARIOUS_ARTIST" = "Verschiedene Künstler";
 "UNKNOWN_ALBUM" = "Unbekanntes Album";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Untertitel und Audiospuren";
 "SUBTITLE_AND_TRACK_HINT" = "Wählen Sie Untertitel oder Audiospuren aus";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Drehsperre";
 "ROTATION_LOCK_HINT" = "Video auf aktuelle Ausrichtung sperren";
 
+"REPEAT_HINT" = "Gleiches Medium wiederholen";
+
 "BACKWARD_BUTTON" = "Rückwärts";
 "BACKWARD_HINT" = "Sprung zurück";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Wiedergabe oder Pause";
 "PLAY_PAUSE_HINT" = "Aktuelle Wiedergabe pausieren oder fortsetzen";
 
+"STOP_BUTTON" = "Stopp";
+
 "NEXT_HINT" = "Nächster Titel";
 
 "FORWARD_BUTTON" = "Vorwärts";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Oberfläche sperren";
 
+"SHUFFLE_HINT" = "Medienliste mischen";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Video-Seitenverhältnis";
 "VIDEO_ASPECT_RATIO_HINT" = "Seitenverhältnis des aktuellen Videos ändern";
 
 "MORE_OPTIONS_BUTTON" = "Mehr";
 "MORE_OPTIONS_HINT" = "Weitere Optionen der Steuerelemente anzeigen";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoeinstellungen";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Medienbibliothek erneut durchsuchen";
 "FORCE_RESCAN_MESSAGE" = "Möchten Sie VLC veranlassen, Ihre Medienbibliothek erneut zu durchsuchen?\nDies könnte einige Zeit dauern.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1 Verbindungswarnung";
 "SMBV1_WARN_DESCRIPTION" = "Wir haben ein altes Protokoll (SMBv1) festgestellt.\nSind Sie wirklich sicher, dass Sie mit SMBv1 fortfahren möchten?\nWir empfehlen eine Aktualisierung Ihres Servers oder Änderung der Serverkonfiguration.";
 "SMBV1_CONTINUE" = "Fortfahren mit SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "SMBv2/v3 probieren";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Codierung";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Zur Mediengruppe hinzufügen";
 "ADD_TO_MEDIA_GROUP_HINT" = "Menü zur Mediengruppe hinzufügen öffnen";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Einzelne Medien werden automatisch versucht, neu gruppiert zu werden.";
 "BUTTON_REGROUP_DESCRIPTION" = "Sind Sie sicher, es zu versuchen, einzelne Medien automatisch neu zu gruppieren?\nDies kann einige Zeit dauern.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Medien hier plazieren, um sie hinzuzufügen";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Füge hinzu....";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Trinkgeld geben";
 "CANNOT_MAKE_PAYMENTS" = "Sie dürfen auf diesem Gerät keine Zahlungen tätigen.";
 "PURCHASE_FAILED" = "Kauf gescheitert";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "An Wiedergabewarteschlange anhängen";
 
 "DISPLAY_AS" = "Anzeigen als";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Vertikale Helligkeitskontrolle";
+"BRIGHTNESS_SLIDER" = "Vertikal schieben, um die Helligkeitsstufe zu ändern";
+
+/* New strings */
+"VOLUME_HINT" = "Vertikale Lautstärke-Einstellung";
+"VOLUME_SLIDER" = "Vertikal schieben, um die Lautstärke zu ändern";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Wiedergabesteuerungen";
+"MENU_REPEAT_DISABLED" = "Nicht wiederholen";
+"MENU_REPEAT_SINGLE" = "Eines wiederholen";
+"MENU_REPEAT_ALL" = "Alle wiederholen";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Hintergrund des Aktionsblatts";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tippen, um das Aktionsblatt zu entfernen.";
