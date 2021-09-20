@@ -7,13 +7,15 @@
 "SETTINGS_THEME_BRIGHT" = "الوضع الفاتح";
 "SETTINGS_THEME_DARK" = "الوضع الداكن";
 "SETTINGS_THEME_SYSTEM" = "تلقائي";
+"SETTINGS_THEME_BLACK" = "استخدم خلفية سوداء في الوضع المظلم";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "يعمل على تحسين عمر البطارية على الأجهزة المزودة بشاشة OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "افتح في الإعدادات";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "وصول آمن إلى المحتوى الخاص بك";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "سيتم إخفاء الوسائط الخاصة بك في تطبيق الملفات";
 
 "SETTINGS_DARKTHEME" = "المظهر";
 "SETTINGS_TIME_STRETCH_AUDIO" = "الوقت المُمتد للصّوت";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "تسريع و إبطاء الصوت بدون تغيير الحدة (يتطلب جهاز سريع)";
 "SETTINGS_BACKGROUND_AUDIO" = "تشغيل الصّوت في الخلفية";
 "SETTINGS_GENERIC_TITLE" = "عام";
 "SETTINGS_PASSCODE_LOCK" = "قفل برمز مرور";
@@ -81,11 +83,11 @@
 "SETTINGS_CASTING" = "بث";
 "SETTINGS_PTCASTING" = "ممر عبور الصوت";
 "SETTINGS_PTCASTINGLONG" = "اسمح للتلفاز بإدارة تقديم الصوت";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "جودة المحادثة";
+"SETTINGS_HIGH" = "مرتفع";
+"SETTINGS_MEDIUM" = "متوسط";
+"SETTINGS_LOW" = "منخفض";
+"SETTINGS_LOWEST" = "الاكثر انخفاضاً";
 
 "SETTINGS_FEEDBACK" = "ردود الفعل";
 "SETTINGS_SEND_FEEDBACK" = "ارسال ردود الفعل";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "دعم IPv6 لمشاركة الواي فاي";
 "SETTINGS_FORCE_SMBV1" = "تفضل SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "قم بإلغاء تحديد هذا الإعداد إذا واجهت بعض الصعوبات في تصفح خادم SMB الخاص بك";
+"SETTINGS_RTSP_TCP" = "استخدم RTP عبر RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "الغلاف";
 "SETTINGS_DOWNLOAD_ARTWORK" = "تنزيل الغلاف";

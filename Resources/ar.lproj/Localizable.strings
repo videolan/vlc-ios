@@ -1,9 +1,10 @@
-"STORE_DESCRIPTION" = "مشغّل الوسائط VLC هو مشغل مجاني على الايفون والايباد والايبود.\nقادر على تشغيل كل الأفلام, المسلسلات والصوتيات في أغلب صيغها مباشرةً دون الحاجة لتحويلها.\nيمكنك من التزامن مع كل من Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, والتحميل المباشر ومن خلال المشاركة على الشبكة اللاسلكية كما يمكنك من البث من SMB, FTP, UPnP/DLNA وخوادم الوسائط والموقع.\nتطبيق VLC يدعم الترجمات المتقدمة شاملةً التوافقية الكاملة لملفات الـ SSA, والمسارات المتعددة للصوت, والتحكم بسرعات التشغيل.\n\nتطبيق VLC للـ iOS مجاني ومفتوح المصدر.";
+"STORE_DESCRIPTION" = "VLC لنظام iOS هو مشغّل الوسائط VLC المجاني لأجهزة iPad و iPhone و iPod touch.\nيمكنه تشغيل جميع أفلامك وعروضك وموسيقاك بمعظم التنسيقات مباشرة دون تحويل.\nيسمح بمزامنة الملفات مع Dropbox و GDrive و OneDrive و Box و iCloud Drive و iTunes والتنزيلات المباشرة ومن خلال مشاركة Wi-Fi بالإضافة إلى التدفق من خوادم الوسائط SMB و FTP و UPnP / DLNA والويب.\nيقدم VLC دعمًا لترجمات متقدمة بما في ذلك توافق SSA الكامل والصوت متعدد المسارات والتحكم في سرعة التشغيل.\n\nVLC لنظام iOS مجاني تمامًا ومفتوح المصدر.";
 
 "STORE_DESCRIPTION_TV" = "مشغل الوسائط VLC هو مشغل مجاني مفتوح المصدر على كل الانظمة.\nقادر على تشغيل كل الأفلام, المسلسلات والصوتيات في أغلب صيغها مباشرة دون الحاجة لتحويلها.\nيسمح لك ببث كل الوسائط من الخدمات السحابية (Dropbox, OneDrive, Box), التشغيل عن بعد من الماك او الكمبيوتر الشخصي من خلال واجهة الموقع كما يمكنه البث من SMB, FTP, UPnP/DLNA خوادم الوسائط والموقع.\nتطبيق VLC يدعم الترجمات المتقدمة شاملةً التوافقية الكاملة لملفات الـ SSA, والمسارات المتعددة للصوت, والتحكم بسرعات التشغيل.\n\nتطبيق VLC للـ iOS مجاني ومفتوح المصدر.\n\nالبيانات الوصفية والخلفيات مزودة من موقع TMDb و Hatchet, اللذان يعتبران مرجع لقواعد البيانات للافلام والصوتيات.";
 
 "CHOOSE_AUDIO_TRACK" = "اختر مقطعًا صوتيًا";
 "CHOOSE_SUBTITLE_TRACK" = "اختر مقطعَ ترجمة";
+"UNKNOWN_TRACK_TYPE" = "نوع المسار غير معروف";
 "OPEN_TRACK_PANEL" = "اختيار المسار";
 "CHOOSE_TITLE" = "اختر العنوان";
 "CHOOSE_CHAPTER" = "اختر الفصل";
@@ -35,7 +36,7 @@
 "VFILTER_SATURATION" = "الإشباع";
 "VFILTER_GAMMA" = "غاما";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "إعدادات الضبط المسبق / preamp";
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i ديسيمل";
 "CHOOSE_EQUALIZER_PROFILES" = "اختر ملف المعادِل";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "أفرِغ مكتبة الوسائط";
 "EMPTY_LIBRARY_LONG" = "لغرض التشغيل، يمكنك دفق المرئيات من خادم على شبكتك المحلية، إما بالتخزين السحابي أو بالمزامنة المرئية مع جهازك مستخدماً تطبيق iTunes أو عبر التحميل بالشبكة اللاسلكية أو عبر الخدمات السحابية.";
 
+"EMPTY_NO_PLAYLISTS" = "قوائم التّشغيل";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "لإنشاء قوائم تشغيل ، أدخل وضع التحرير في علامات تبويب محتوى الفيديو أو الصوت وحدد الوسائط المفضلة لديك.\nيمكنك أيضًا مزامنة قوائم التشغيل الموجودة من أجهزتك الأخرى أو الإنترنت.";
+
 "EMPTY_PLAYLIST" = "قائمة تشغيل فارِغة";
 "EMPTY_PLAYLIST_DESCRIPTION" = "أضف الوسائط أثناء التحرير في الفئات المعنية.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "المدة";
 "TITLE" = "العنوان";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "ضغطه طويلة لإيقاف المشغل";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "معلومات الصوت";
 "CLOUD_LOGIN_LONG" = "للوصول الى خدمة الاي كلاود, سجل دخولك الى الايكلاود في كل من الابل تي في وجهاز الـ iOS بنفس الحساب وفعل مشاركة سلسة المفاتيح من إعدادات النظام.\nبعد ذلك, سجل دخولك للخدمة السحابية حسب اختيارك لاستخدام الـ VLC على جهاز الـ iOS. وبالنهاية, اختارها من هذه القائمة.";
 "ENTER_URL" = "ضع الرابط للتشغيل";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "الوسائط الظاهرة هنا مخزنة محلياً في جهاز الأبل تي في. مع ملاحظة أن المحتوى قد يحذف من نظام التشغيل بدون إشعارك في أي وقت عندما لايكون هناك مساحة في الـ VLC.";
 "DOWNLOAD_SUBS_FROM_OSO" = "حمل ملف الترجمة من OpenSubtitles.org...";
 "FOUND_SUBS" = "تم العثور على الترجمات";
+"NO_SUB_FOUND_OSO" = "لم يتم العثور على ترجمات لعنصر الوسائط الخاص بك \"%@\".";
 "USE_SPDIF" = "استخدام ممرر (S/PDIF)";
 
 "PLAYBACK" = "التشغيل في الخلفية";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "معطل";
 "REPEAT_SINGLE" = "مفرد";
 "REPEAT_FOLDER" = "مجلد";
+"SHUFFLE" = "عشوائي";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "هل أنت متأكد من إزالة الوسائط المحددة من قائمة التشغيل؟\nلن يتم حذفها من القرص.";
 "DELETE_TITLE" = "احذف المحدد";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "هذا الملف";
 "NOT_SUPPORTED_FILETYPE" = "%@ ليس نوع ملف مدعومًا بواسطة VLC";
 "FILE_EXISTS" = "%@ موجود بالفعل";
@@ -327,7 +333,7 @@
 "SEARCH" = "ابحث";
 "VIDEO" = "فيديو";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "الألبومات";
 "ARTISTS" = "الفنانون";
 "EPISODES" = "الحلقات";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "تاريخ التعديل";
 "NAME" = "الاسم";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "تحرير";
 "BUTTON_EDIT_HINT" = "نمط التحرير";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "إعادة تسمية الملفات المحددة";
 "DELETE_HINT" = "احذف الملفات المحددة";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "فرز";
 "BUTTON_SORT_HINT" = "عرض على شكل ورقة عمل";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "افرز السياق بترتيب تصاعدي أو تنازلي";
 "GRID_LAYOUT" = "تخطيط الشبكة";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "أبجديًا";
 "DURATION" = "المدة";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "عدد الوسائط";
 "NB_VIDEO" = "عدد مقاطع الفيديو";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "لم يتم العثور على شيء";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "فنّان غير معروف";
 "VARIOUS_ARTIST" = "عدّة فنانين";
 "UNKNOWN_ALBUM" = "ألبوم غير معروف";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "الترجمة والمسارات الصوتية";
 "SUBTITLE_AND_TRACK_HINT" = "اختر الترجمة أو المسارات الصوتية";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "قفل دوران";
 "ROTATION_LOCK_HINT" = "اقفل الفيديو على الاتجاه الحالي";
 
+"REPEAT_HINT" = "Repeat same media";
+
 "BACKWARD_BUTTON" = "إلى الخلف";
 "BACKWARD_HINT" = "اقفز إلى الخلف";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "شغّلْ أو أوقفْ مؤقتا";
 "PLAY_PAUSE_HINT" = "شغّلْ أو أوقفْ مؤقتا التشغيل الحالي";
 
+"STOP_BUTTON" = "Stop";
+
 "NEXT_HINT" = "الوسائط التالية";
 
 "FORWARD_BUTTON" = "إلى الأمام";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "قفل الواجهة";
 
+"SHUFFLE_HINT" = "Shuffle media list";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "نسبة أبعاد الفيديو";
 "VIDEO_ASPECT_RATIO_HINT" = "قم بتغيير نسبة العرض إلى الارتفاع للفيديو الحالي";
 
 "MORE_OPTIONS_BUTTON" = "المزيد";
 "MORE_OPTIONS_HINT" = "عرض المزيد من خيارات التحكم";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "المُعادِل";
 "MORE_OPTIONS_HEADER_TITLE" = "خيارات الفيديو";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "فرض إعادة فحص مكتبة الوسائط";
 "FORCE_RESCAN_MESSAGE" = "هل تريد إجبار VLC على إعادة فحص مكتبة الوسائط الخاصة بك؟\nقد يستغرق بعض الوقت.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "تحذير اتصال SMBv1";
 "SMBV1_WARN_DESCRIPTION" = "اكتشفنا بروتوكولًا قديمًا (SMBv1).\nهل أنت متأكد حقًا من الاستمرار في SMBv1؟\nننصح بترقية أو تغيير إعدادات الخادم الخاص بك.";
 "SMBV1_CONTINUE" = "استمر مع SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "جرب SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "ترميز";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "أضف إلى مجموعة الوسائط";
 "ADD_TO_MEDIA_GROUP_HINT" = "افتح الإضافة إلى قائمة مجموعة الوسائط";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "محاولة إعادة تجميع الوسائط الفردية تلقائيًا.";
 "BUTTON_REGROUP_DESCRIPTION" = "هل أنت متأكد من محاولة إعادة تجميع الوسائط الفردية تلقائيًا؟\nهذا يمكن أن يستغرق بعض الوقت.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "ضع الوسائط هنا لإضافتها";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "جارٍ الإضافة ...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "قدم نصيحة";
 "CANNOT_MAKE_PAYMENTS" = "لا يُسمح لك بإجراء مدفوعات على هذا الجهاز.";
 "PURCHASE_FAILED" = "فشل الشراء";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "ألحق إلى قائمة الانتظار";
 
 "DISPLAY_AS" = "عرض بتنسيق";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "التحكم في السطوع العمودي";
+"BRIGHTNESS_SLIDER" = "قم بالتمرير عموديًا لتغيير مستوى السطوع";
+
+/* New strings */
+"VOLUME_HINT" = "التحكم في مستوى الصوت العمودي";
+"VOLUME_SLIDER" = "قم بالتمرير عموديًا لتغيير مستوى الصوت";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Playback controls";
+"MENU_REPEAT_DISABLED" = "Do not repeat";
+"MENU_REPEAT_SINGLE" = "Repeat one";
+"MENU_REPEAT_ALL" = "Repeat all";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
