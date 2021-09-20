@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Jasny motyw";
 "SETTINGS_THEME_DARK" = "Ciemny motyw";
 "SETTINGS_THEME_SYSTEM" = "Automatycznie";
+"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
 "SETTINGS_PRIVACY_SUBTITLE" = "Otwórz w ustawieniach";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Bezpieczny dostęp do Twoich treści";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Twoje multimedia zostaną ukryte w aplikacji Pliki";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "Obsługa protokołu IPv6 dla udostępnienia Wi-Fi";
 "SETTINGS_FORCE_SMBV1" = "Preferuj SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Wyłącz to ustawienie, jeśli masz problemy z przeglądaniem serwera SMB";
+"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Okładka";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Pobierz okładkę";
