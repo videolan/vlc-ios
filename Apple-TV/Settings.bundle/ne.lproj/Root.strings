@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "चम्किलो विषयवस्तु";
 "SETTINGS_THEME_DARK" = "अँध्यारो विषयवस्तु";
 "SETTINGS_THEME_SYSTEM" = "स्वचालित";
+"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
 "SETTINGS_PRIVACY_SUBTITLE" = "सेटिङहरूमा खोल्नुहोस्";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "तपाईँको सामग्रीमा सुरक्षित पहुँच";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "तपाईँको मिडिया फाइलहरू एपमा लुक्नेछ";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "Wi-Fi साझेदारीका लागि IPv6 समर्थन";
 "SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "आर्टवर्क";
 "SETTINGS_DOWNLOAD_ARTWORK" = "आर्टवर्क डाउनलोड गर्नुहोस्";
