@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Scegli la traccia audio";
 "CHOOSE_SUBTITLE_TRACK" = "Scegli la traccia dei sottotitoli";
+"UNKNOWN_TRACK_TYPE" = "Tipo di traccia sconosciuto";
 "OPEN_TRACK_PANEL" = "Apri selezione delle tracce";
 "CHOOSE_TITLE" = "Scegli titolo";
 "CHOOSE_CHAPTER" = "Scegli capitolo";
@@ -35,7 +36,7 @@
 "VFILTER_SATURATION" = "Saturazione";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESET_PREAMP_SETTING" = "Impostazioni preset / preamp";
+"PRESET_PREAMP_SETTING" = "Impostazioni preimpostazione / preamp";
 "PREAMP" = "Preamplificazione";
 "DB_FORMAT" = " %i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Scegli profilo di equalizzazione";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Raccolta multimediale vuota";
 "EMPTY_LIBRARY_LONG" = "Per la riproduzione puoi trasmettere contenuti da un server sulla tua rete locale, dal cloud o sincronizzare contenuti sul tuo dispositivo utilizzando iTunes, Wi-Fi Upload o altri servizi Cloud.";
 
+"EMPTY_NO_PLAYLISTS" = "Scalette";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Per creare scalette, accedi alla modalità Modifica nelle schede Contenuto video o audio e seleziona i tuoi media preferiti. Puoi anche sincronizzare le scalette esistenti da altri tuoi dispositivi o da Internet.";
+
 "EMPTY_PLAYLIST" = "Scaletta vuota";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Aggiungi media durante la modifica nelle categorie rispettive.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "Durata";
 "TITLE" = "Titolo";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Pressione lunga per fermare la riproduzione";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Informazioni audio";
 "CLOUD_LOGIN_LONG" = "Per accedere ai servizi cloud, accedi a iCloud sia su questa Apple TV che sul dispositivo iOS con lo stesso Apple ID e abilita Condivisione portachiavi nelle impostazioni di sistema.\nSuccessivamente, accedi al fornitore cloud di tua scelta utilizzando l'applicazione VLC sul tuo dispositivo iOS. Infine, selezionalo su questa schermata.";
 "ENTER_URL" = "Digita URL da riprodurre";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "I media mostrati qui sono memorizzati localmente sulla tua Apple TV. Nota che i contenuti possono essere rimossi in ogni momento dal sistema operativo, senza alcun preavviso quando VLC non è in esecuzione, nel caso il dispositivo esaurisca lo spazio di archiviazione.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Scarica i sottotitoli da OpenSubtitles.org...";
 "FOUND_SUBS" = "Sottotitoli trovati";
+"NO_SUB_FOUND_OSO" = "Non sono stati trovati sottotitoli per il tuo elemento multimediale \"%@\". ";
 "USE_SPDIF" = "Usa Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Riproduzione";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Disabilita";
 "REPEAT_SINGLE" = "Singolo";
 "REPEAT_FOLDER" = "Cartella";
+"SHUFFLE" = "Mescola";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Sei sicuro di voler rimuovere i media selezionati dalla scaletta?\nEssi non saranno eliminati dal disco.";
 "DELETE_TITLE" = "Elimina selezione";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Questo file";
 "NOT_SUPPORTED_FILETYPE" = "%@ non è un tipo di file supportato da VLC";
 "FILE_EXISTS" = "%@ esiste già";
@@ -327,7 +333,7 @@
 "SEARCH" = "Cerca";
 "VIDEO" = "Video";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Album";
 "ARTISTS" = "Artisti";
 "EPISODES" = "Episodi";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Data di modifica";
 "NAME" = "Nome";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Modifica";
 "BUTTON_EDIT_HINT" = "Modalità modifica";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Rinomina file selezionati";
 "DELETE_HINT" = "Elimina file selezionati";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Ordina";
 "BUTTON_SORT_HINT" = "Visualizza foglio delle azioni di ordinamento";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Mostra il contesto in ordine crescente o decrescente";
 "GRID_LAYOUT" = "Struttura della griglia";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alfanumericamente";
 "DURATION" = "Durata";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Numero di media";
 "NB_VIDEO" = "Numero di video";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Non abbiamo trovato niente";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Artista sconosciuto";
 "VARIOUS_ARTIST" = "Artisti vari";
 "UNKNOWN_ALBUM" = "Album sconosciuto";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Sottotitoli e tracce audio";
 "SUBTITLE_AND_TRACK_HINT" = "Scegli sottotitoli o tracce audio";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Blocca rotazione";
 "ROTATION_LOCK_HINT" = "Blocca video con l'orientamento attuale";
 
+"REPEAT_HINT" = "Ripeti lo stesso media";
+
 "BACKWARD_BUTTON" = "Indietro";
 "BACKWARD_HINT" = "Salta indietro";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Riproduzione o pausa";
 "PLAY_PAUSE_HINT" = "Riprendi o sospendi la riproduzione attuale";
 
+"STOP_BUTTON" = "Ferma";
+
 "NEXT_HINT" = "Media successivo";
 
 "FORWARD_BUTTON" = "Avanti";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Blocca interfaccia";
 
+"SHUFFLE_HINT" = "Mescola l'elenco dei media";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Proporzioni video";
 "VIDEO_ASPECT_RATIO_HINT" = "Cambia le  proporzioni del video attuale";
 
 "MORE_OPTIONS_BUTTON" = "Altro";
 "MORE_OPTIONS_HINT" = "Visualizza altri controlli opzionali";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizzatore";
 "MORE_OPTIONS_HEADER_TITLE" = "Opzioni video";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Forza nuova scansione della raccolta multimediale";
 "FORCE_RESCAN_MESSAGE" = "Vuoi forzare VLC eseguire una nuova scansione della raccolta multimediale?\nPotrebbe richiedere del tempo.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Avviso di connessione SMBv1";
 "SMBV1_WARN_DESCRIPTION" = "Abbiamo rilevato un protocollo obsoleto (SMBv1).\nSei sicuro di voler continuare con SMBv1?\nTi consigliamo di aggiornare o modificare le impostazioni del tuo server.";
 "SMBV1_CONTINUE" = "Continua con SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Prova SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Codifica";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Aggiungi a gruppo di media";
 "ADD_TO_MEDIA_GROUP_HINT" = "Apri il nenu aggiungi a gruppo di media";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Tentativo di raggruppare automaticamente i media singoli.";
 "BUTTON_REGROUP_DESCRIPTION" = "Sei sicuro di voler provare a raggruppare automaticamente i media singoli? Potrebbe richiedere del tempo.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Inserire qui i media per aggiungerli";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Aggiunta in corso...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Lascia la mancia";
 "CANNOT_MAKE_PAYMENTS" = "Non sei autorizzato a effettuare pagamenti su questo dispositivo.";
 "PURCHASE_FAILED" = "Acquisto non riuscito";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Aggiungi alla coda";
 
 "DISPLAY_AS" = "Visualizza come";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Controllo di luminosità verticale";
+"BRIGHTNESS_SLIDER" = "Scorri verticalmente per cambiare il livello di luminosità";
+
+/* New strings */
+"VOLUME_HINT" = "Controllo del volume verticale";
+"VOLUME_SLIDER" = "Scorri verticalmente per cambiare il livello del volume";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Controlli di riproduzione";
+"MENU_REPEAT_DISABLED" = "Non ripetere";
+"MENU_REPEAT_SINGLE" = "Ripeti un elemento";
+"MENU_REPEAT_ALL" = "Ripeti tutto";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Sfondo del foglio delle azioni";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tocca per rimuovere il foglio delle azioni.";
