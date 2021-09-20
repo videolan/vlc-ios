@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "オーディオトラックを選択してください";
 "CHOOSE_SUBTITLE_TRACK" = "字幕トラックを選択してください";
+"UNKNOWN_TRACK_TYPE" = "未知のトラックタイプ";
 "OPEN_TRACK_PANEL" = "トラックの選択を開く";
 "CHOOSE_TITLE" = "タイトルを選択する";
 "CHOOSE_CHAPTER" = "チャプターを選択する";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "メディアライブラリが空です";
 "EMPTY_LIBRARY_LONG" = "再生用にローカルネットワーク上のサーバー、クラウドまたは、同期メディアからのメディアをiTunes、WiFiアップロードまたは、クラウドサービスを使ってデバイス上にストリーミングすることができます。";
 
+"EMPTY_NO_PLAYLISTS" = "プレイリスト";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "プレイリストを作成するにはビデオかオーディオコンテンツタブの編集モードに入り、お気に入りのメディアを選択します。\nその他のデバイスやインターネットの既存のプレイリストと同期することもできます。";
+
 "EMPTY_PLAYLIST" = "プレイリストを空に";
 "EMPTY_PLAYLIST_DESCRIPTION" = "カテゴリを編集中にメディアを追加する";
 
@@ -261,14 +265,14 @@
 "DURATION" = "長さ";
 "TITLE" = "タイトル";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "長押しで再生を停止します。";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "オーディオ情報";
 "CLOUD_LOGIN_LONG" = "クラウドサービスにアクセスするためには、Apple TVとiOSデバイスのそれぞれで同じApple IDを使ってiCloudにサインインして、キーチェーンの共有を有効にする必要があります。\nその後、iOSデバイス上のVLCアプリケーションで使用することを選択したクラウドのプロバイダーにログインし、この画面でそれを選択してください。";
 "ENTER_URL" = "再生するURLを入力してください";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "ここで表示されるメディアはあなたのApple TVのローカルに保存されています。メモ: それらのコンテンツはあなたのデバイスのストレージが枯渇し、VLCが実行できない場合にOSから削除することができます。";
 "DOWNLOAD_SUBS_FROM_OSO" = "OpenSubtitles.orgから字幕をダウンロード...";
 "FOUND_SUBS" = "見つかった字幕";
+"NO_SUB_FOUND_OSO" = "メディア \"%@\" の字幕が見つかりませんでした。";
 "USE_SPDIF" = "パススルー(S/PDIF)を使用";
 
 "PLAYBACK" = "再生";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "無効";
 "REPEAT_SINGLE" = "シングル";
 "REPEAT_FOLDER" = "フォルダー";
+"SHUFFLE" = "シャッフル";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "ユニバーサルプラグ & プレイ (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "選択されたメディアをプレイリストから削除しますか?\nそれらのファイルはディスク上からは削除されません。";
 "DELETE_TITLE" = "選択したものを削除";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "このファイル";
 "NOT_SUPPORTED_FILETYPE" = "%@ はVLCではサポートされていないファイルタイプです";
 "FILE_EXISTS" = "%@は既に存在しています";
@@ -327,7 +333,7 @@
 "SEARCH" = "検索";
 "VIDEO" = "ビデオ";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "アルバム";
 "ARTISTS" = "アーティスト";
 "EPISODES" = "エピソード";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "更新日付";
 "NAME" = "名前";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "編集";
 "BUTTON_EDIT_HINT" = "編集モード";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "選択されたファイルを変名";
 "DELETE_HINT" = "選択されたファイルを削除";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "並べ替え";
 "BUTTON_SORT_HINT" = "並び替えアクションシートを表示";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "並び替えの順序";
 "GRID_LAYOUT" = "グリッドレイアウト";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "英数字順";
 "DURATION" = "長さ";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "メディア数";
 "NB_VIDEO" = "ビデオ数";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "見つかりませんでした";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "未知のアーティスト";
 "VARIOUS_ARTIST" = "複数アーティスト";
 "UNKNOWN_ALBUM" = "未知のアルバム";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "字幕とオーディオトラック";
 "SUBTITLE_AND_TRACK_HINT" = "字幕トラックかオーディオトラックを選択してください";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "回転を固定";
 "ROTATION_LOCK_HINT" = "ビデオを現在の向きに固定する";
 
+"REPEAT_HINT" = "同じメディアを繰り返す";
+
 "BACKWARD_BUTTON" = "戻る";
 "BACKWARD_HINT" = "ジャンプして戻る";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "再生か一時停止";
 "PLAY_PAUSE_HINT" = "現在の再生・一時停止の切り替え";
 
+"STOP_BUTTON" = "停止";
+
 "NEXT_HINT" = "次のメディア";
 
 "FORWARD_BUTTON" = "進む";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "インターフェースをロック";
 
+"SHUFFLE_HINT" = "メディアリストをシャッフル";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "ビデオのアスペクト比";
 "VIDEO_ASPECT_RATIO_HINT" = "現在のビデオのアスペクト比を変更";
 
 "MORE_OPTIONS_BUTTON" = "もっと";
 "MORE_OPTIONS_HINT" = "より多くの制御オプションを表示";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "イコライザー";
 "MORE_OPTIONS_HEADER_TITLE" = "ビデオオプション";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "メディアライブラリを強制的に再スキャン";
 "FORCE_RESCAN_MESSAGE" = "メディアライブラリをVLCに強制的に再スキャンさせますか?\n実行には時間がかかります。";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1コネクション警告";
 "SMBV1_WARN_DESCRIPTION" = "古いプロトコル(SMBv1)が見つかりました。\n本当に古いプロトコルを使用しますか?\nサーバーの設定をアップグレード、変更することを推奨いたします。";
 "SMBV1_CONTINUE" = "SMBv1で継続";
 "SMBV1_NEXT_PROTOCOL" = "SMBv2/v3を試す";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "エンコーディング";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "メディアグループに追加";
 "ADD_TO_MEDIA_GROUP_HINT" = "メディアグループに追加メニューを表示";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "単一メディアを自動的に再グループすることを試行";
 "BUTTON_REGROUP_DESCRIPTION" = "単一メディアを自動的に再グループすることを本当に試行しますか?\nこの操作には少し時間がかかります。";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "ここでメディアを追加することができます";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "追加中...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "ティップスを提供";
 "CANNOT_MAKE_PAYMENTS" = "このデバイスで支払い許可がありません。";
 "PURCHASE_FAILED" = "購入手続きに失敗しました";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "キューに追加";
 
 "DISPLAY_AS" = "表示";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "垂直方向操作で輝度調整";
+"BRIGHTNESS_SLIDER" = "垂直方向にスライドすることで輝度を調整";
+
+/* New strings */
+"VOLUME_HINT" = "垂直方向操作で音量調整";
+"VOLUME_SLIDER" = "垂直方向にスライドすることで音量を調整";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "再生制御";
+"MENU_REPEAT_DISABLED" = "リピートしない";
+"MENU_REPEAT_SINGLE" = "1項目をリピート";
+"MENU_REPEAT_ALL" = "すべてをリピート";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "アクションシートをバックグラウンドに";
+"ACTIONSHEET_BACKGROUND_HINT" = "タップしてアクションシートを削除";

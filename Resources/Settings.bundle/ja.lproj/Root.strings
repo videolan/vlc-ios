@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "明るいテーマ";
 "SETTINGS_THEME_DARK" = "暗いテーマ";
 "SETTINGS_THEME_SYSTEM" = "自動";
+"SETTINGS_THEME_BLACK" = "ダークモードの時、黒い背景を使用";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "OLEDディスプレイを持つデバイスのバッテリーライフを向上";
 "SETTINGS_PRIVACY_SUBTITLE" = "設定で開く";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "コンテンツへの安全なアクセス";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "ファイルアプリケーションでメディアが非表示になります";
@@ -87,7 +89,7 @@
 "SETTINGS_LOW" = "低";
 "SETTINGS_LOWEST" = "最低";
 
-"SETTINGS_FEEDBACK" = "フェードバック";
+"SETTINGS_FEEDBACK" = "フィードバック";
 "SETTINGS_SEND_FEEDBACK" = "フィードバックを送信";
 "SETTINGS_SEND_RATING" = "VLC for iOSを評価してください";
 
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "WiFi共有でのIPv6サポート";
 "SETTINGS_FORCE_SMBV1" = "SMB1を採用";
 "SETTINGS_FORCE_SMBV1_LONG" = "SMBサーバーのブラウジングに何らかの問題がある場合は、チェックを外してください";
+"SETTINGS_RTSP_TCP" = "RTPオーバーRTSP (TCP)の使用";
 
 "SETTINGS_ARTWORK" = "アートワーク";
 "SETTINGS_DOWNLOAD_ARTWORK" = "アートワークをダウンロード";
