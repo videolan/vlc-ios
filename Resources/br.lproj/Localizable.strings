@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Dibab ar roudenn aodio";
 "CHOOSE_SUBTITLE_TRACK" = "Dibab roudenn an istitl";
+"UNKNOWN_TRACK_TYPE" = "Doare roudenn dianavezet";
 "OPEN_TRACK_PANEL" = "Digeriñ ar roudoù diuzet";
 "CHOOSE_TITLE" = "Dibab an Titl";
 "CHOOSE_CHAPTER" = "Dibabit ar Chabistr";
@@ -39,7 +40,7 @@
 "PREAMP" = "Ragamplaer";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Dibab ar profil ar c'hevataler";
-"SNAP_BANDS" = "Snap bands";
+"SNAP_BANDS" = "Bandennoù stirennek";
 
 "PLAYBACK_FAILED" = "C'hwitet ez eus bet war al lenn";
 "PLEASE_WAIT" = "Gortozit mar plij";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Levraoueg Media Goullo";
 "EMPTY_LIBRARY_LONG" = "Evit lenn, gellout a rit skignañ ar mediaoù diwar ur servijer war ho kenrouedad lec'hel, diwar ar goumoulenn pe sinkronelait ar mediaoù d'hoc'h aparailh en ur implijout iTunes, WiFi Upload pe ar servijoù Koumoulenn.";
 
+"EMPTY_NO_PLAYLISTS" = "Rolloù-lenn";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
+
 "EMPTY_PLAYLIST" = "Roll-lenn goullo";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Ouzhpennañ ur media en ur gemmañ ar rummadoù a-zere.";
 
@@ -197,7 +201,7 @@
 "PLAYBACK_POSITION" = "Lec'hiadur al lenn";
 "VIDEO_FILTER" = "Siloù Video";
 "VIDEO_FILTER_RESET_BUTTON" = "Adderaouiñ ar Siloù Video";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Kenfeur neuz ar video";
 "BWD_BUTTON" = "Mont war-gil";
 "FWD_BUTTON" = "Mont war-raok";
 "PLAY_BUTTON" = "Lenn";
@@ -205,10 +209,10 @@
 "PREV_BUTTON" = "Kent";
 "PLAY_ALL_BUTTON" = "Lenn an holl";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_VIDEO_FILTERS" = "Ha c'hoant ho peus da adderaouiñ siloù ar video?";
+"RESET_PLAYBACK_SPEED" = "Ha c'hoant ho peus da adderaouiñ tizh al lenn?";
+"RESET_EQUALIZER" = "Ha c'hoant ho peus da adderaouiñ arventennoù ar c'hevataler?";
+"RESET_SLEEP_TIMER" = "Ha c'hoant ho peus da adderaouiñ munuterezh ar c'housked?";
 
 "VERSION_FORMAT" = "Stumm: %@";
 "BASED_ON_FORMAT" = "Diazezet eo war:<br />%@";
@@ -261,14 +265,14 @@
 "DURATION" = "Padelezh";
 "TITLE" = "Titl";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Pouezañ e-pad pell evit paouez gant al lenn.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Titouroù aodio";
 "CLOUD_LOGIN_LONG" = "Evit tizhout ar servijoù koumoul, eo ret deoc'h lakaat hoc'h anv e-barzh iCloud war an daou aparailh Apple TV hag un iOs gant ar memes ID Apple hag enaouit ar rannañ Keychain e-barzh arventennoù ar sistem.\nDa-heul kement-se, kevreit ouzh ar pourvezer koumoul eus ho choaz en ur implijout an arload VLC war ho trevnad iOS. A-benn ar fin, diuzit anezhañ e-barzh ar skramm-mañ.";
 "ENTER_URL" = "Skrivit un URL da lenn";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Ar mediaoù diskouezet amañ a zo stoket en un doare lec'hel en ho TV Apple. Da notenniñ, eta, e c'hall bezañ dilamet an endalc'hadoù gant ar reizhiad oberiata hep raktermen ebet forzh peur pa ne 'z a ket en-dro VLC en degouezh ma vank plas e-barzh hoc'h aparailh.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Pellgargañ istitloù diwar OpenSubstitles.org...";
 "FOUND_SUBS" = "Istitloù Kavet";
+"NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
 "USE_SPDIF" = "Ober gant ar \"Path-through\" (S/PDIF)";
 
 "PLAYBACK" = "Lenn";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Lazhet";
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Teuliad";
+"SHUFFLE" = "Dre zegouezh";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Ha sur oc'h da gaout c'hoant da zilemel ar media diuzet diwar ar roll-lenn?\nNe vo ket dilamet diwar an disk, avat.";
 "DELETE_TITLE" = "Dilemel an diuzadenn";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Ar restr-mañ";
 "NOT_SUPPORTED_FILETYPE" = "%@ n'eo ket ur furmad degemeret gant VLC";
 "FILE_EXISTS" = "%@ a zo anezhañ endeo";
@@ -327,7 +333,7 @@
 "SEARCH" = "Klask";
 "VIDEO" = "Video";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Albomoù";
 "ARTISTS" = "Arzourien";
 "EPISODES" = "Rannoù";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Deiziad kemmañ";
 "NAME" = "Anv";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Aozañ";
 "BUTTON_EDIT_HINT" = "Mod aozañ";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Adenvel ar restroù diuzet";
 "DELETE_HINT" = "Dilemel ar restroù diuzet";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Rummañ";
 "BUTTON_SORT_HINT" = "Diskouez taolenn an oberioù rummañ";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Rummañ urzh ar c'hoñtekst war-gresk pe war-zigresk";
 "GRID_LAYOUT" = "Diskouez e keal";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alfaniverekel";
 "DURATION" = "Padelezh";
@@ -390,69 +396,75 @@
 "NB_MEDIA" = "Niver a roudennoù liesvedia";
 "NB_VIDEO" = "Niver a roudennoù video";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "N'eus bet kavet netra";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Arzour dianav";
 "VARIOUS_ARTIST" = "Arzourien a bep seurt";
 "UNKNOWN_ALBUM" = "Albom dianav";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "Istitloù ha roudoù aodio";
+"SUBTITLE_AND_TRACK_HINT" = "Dibabit istitloù pe roudoù aodio";
 
-"DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_BUTTON" = "DVB";
+"DVD_HINT" = "Etrefes DVD";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "Morailhañ an tuadur";
+"ROTATION_LOCK_HINT" = "Morailhañ ar video war an tu a-vremañ";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"REPEAT_HINT" = "Repeat same media";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"BACKWARD_BUTTON" = "War-gil";
+"BACKWARD_HINT" = "Mont war-gil";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PREVIOUS_BUTTON" = "Kent";
+"PREVIOUS_HINT" = "Media kent";
 
-"NEXT_HINT" = "Next media";
+"PLAY_PAUSE_BUTTON" = "Lenn ha paouez";
+"PLAY_PAUSE_HINT" = "Lenn pe ehanañ al lenn war ober";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"STOP_BUTTON" = "Stop";
+
+"NEXT_HINT" = "Media da-heul";
+
+"FORWARD_BUTTON" = "War-raok";
+"FORWARD_HINT" = "Mont war-raok";
 
 "INTERFACE_LOCK_BUTTON" = "Morailhañ an etrefas";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"SHUFFLE_HINT" = "Shuffle media list";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Kenfeur neuz ar video";
 "VIDEO_ASPECT_RATIO_HINT" = "Cheñch feur neuz ar video red";
 
 "MORE_OPTIONS_BUTTON" = "Muioc'h";
 "MORE_OPTIONS_HINT" = "Gwelet muioc'h a arventennoù kontrolliñ";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Kevataler";
 "MORE_OPTIONS_HEADER_TITLE" = "Dibarzhioù video";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Rediañ adskanañ ar vediaoueg";
 "FORCE_RESCAN_MESSAGE" = "Ha c'hoant ho peus da rediañ VLC da adskanañ ar vediaoueg?\nGellout a rafe bezañ hir a-walc'h.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Kemenn e-keñver ar c'hevreañ SMBv1";
 "SMBV1_WARN_DESCRIPTION" = "Diguzhet hon eus ur protokol kozh (SMBv1).\nHa sur oc'h da gaout c'hoant da genderc'hel gant SMBv1?\nAliañ a reomp ac'hanoc'h da hizivaat pe da cheñch arventennoù ho servijer.";
 "SMBV1_CONTINUE" = "Kenderc'hel gant SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Klask SMBv2/V3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Enkodañ";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Ouzhpennañ d'ar strollad mediaoù";
 "ADD_TO_MEDIA_GROUP_HINT" = "Digeriñ al lañser ouzhpennañ d'ar strollad mediaoù";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Klask adstrollañ ent emgefreek ar mediaoù en o unan.";
 "BUTTON_REGROUP_DESCRIPTION" = "Ha sur oc'h da gaout c'hoant da glask adstrollañ ent emgefreek ar mediaoù en o unan?\nAn dra-mañ a c'hall kemer amzer.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Plasañ ar mediaoù amañ evit o ouzhpennañ";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Oc'h ouzhpennañ...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Reiñ ur gwerzh-butun";
 "CANNOT_MAKE_PAYMENTS" = "N'hoc'h ket aotreet da baeañ war an trevnad-mañ.";
 "PURCHASE_FAILED" = "C'hwitet ez eus bet war ar brenadenn";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Ouzhpennañ d'ar roll-lenn";
 
 "DISPLAY_AS" = "Diskouez evel";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Kontrol a-blaen ar sked";
+"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
+
+/* New strings */
+"VOLUME_HINT" = "Vertical volume control";
+"VOLUME_SLIDER" = "Rinklit a-blaen evit cheñch al live-son";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Playback controls";
+"MENU_REPEAT_DISABLED" = "Do not repeat";
+"MENU_REPEAT_SINGLE" = "Repeat one";
+"MENU_REPEAT_ALL" = "Repeat all";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
