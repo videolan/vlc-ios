@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Világos téma";
 "SETTINGS_THEME_DARK" = "Sötét téma";
 "SETTINGS_THEME_SYSTEM" = "Automatikus";
+"SETTINGS_THEME_BLACK" = "Fekete háttér használata sötét módban";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Növeli az akkumulátor élettartamát az OLED-képernyős készülékeken";
 "SETTINGS_PRIVACY_SUBTITLE" = "Megnyitás a Beállításokban";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Biztonságos hozzáférés a tartalmához";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "A médiái rejtve lesznek a Fájlok alkalmazásban";
@@ -106,9 +108,10 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normál";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Magas késleltetés";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Legmagasabb késleltetés";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 támogatás a Wi-Fi megosztáshoz";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6-támogatás a Wi-Fi megosztáshoz";
 "SETTINGS_FORCE_SMBV1" = " SMB 1 előnyben részesítése";
-"SETTINGS_FORCE_SMBV1_LONG" = "Törölje a bejelölést, ha nehézségei vannak az SMB szerver böngészésével";
+"SETTINGS_FORCE_SMBV1_LONG" = "Kapcsolja ki a beállítást, ha nehézségei vannak az SMB-kiszolgáló tallózásával";
+"SETTINGS_RTSP_TCP" = "RTSP feletti RTP használata (TCP)";
 
 "SETTINGS_ARTWORK" = "Grafika";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Grafika letöltése";
