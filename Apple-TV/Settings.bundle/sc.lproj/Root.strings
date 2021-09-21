@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Tema craru";
 "SETTINGS_THEME_DARK" = "Tema iscuru";
 "SETTINGS_THEME_SYSTEM" = "Automàticu";
+"SETTINGS_THEME_BLACK" = "Imprea s'isfundu nieddu in sa modalidade iscura";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Megiorat sa vida de sa bateria in sos dispositivos cun un'ischermu OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "Aberi in sas impostatziones";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Atzessu seguru a sos cuntenutos tuos";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Sos cuntenutos multimediales tuos ant a èssere cuados in s'aplicatzione Documentos";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "Suportu IPv6 pro sa cumpartzidura Wi-Fi";
 "SETTINGS_FORCE_SMBV1" = "Preferi SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Boga s'ischerta a custa impostatzione si tenes dificultades cun sa navigatzione in su serbidore SMB tuo";
+"SETTINGS_RTSP_TCP" = "Imprea RTP in RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Gràfica artìstica";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Iscàrriga sa gràfica artìstica";

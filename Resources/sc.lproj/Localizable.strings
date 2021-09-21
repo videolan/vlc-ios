@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Issèbera sa rasta àudio";
 "CHOOSE_SUBTITLE_TRACK" = "Issèbera sa rasta de sos sutatìtulos";
+"UNKNOWN_TRACK_TYPE" = "Casta de rasta disconnota";
 "OPEN_TRACK_PANEL" = "Aberi sa seletzione de sas rastas";
 "CHOOSE_TITLE" = "Issèbera unu tìtulu";
 "CHOOSE_CHAPTER" = "Issèbera unu capìtulu";
@@ -39,7 +40,7 @@
 "PREAMP" = "Preamplificatzione";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Issèbera su profilu de equalizazione";
-"SNAP_BANDS" = "Fàscias elàsticas";
+"SNAP_BANDS" = "Bandas elàsticas";
 
 "PLAYBACK_FAILED" = "Riprodutzione fallida";
 "PLEASE_WAIT" = "Iseta";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Biblioteca multimediale bòida";
 "EMPTY_LIBRARY_LONG" = "Pro sa riprodutziones podes trasmìtere documentos multimediales dae unu server in sa retza locale tua, dae sa Nue o sincronizare sos documentos in su dispositivu tuo impreende using iTunes, Wi-Fi Upload àteros servìtzios de Nue.";
 
+"EMPTY_NO_PLAYLISTS" = "Iscalitas";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Pro creare iscalitas intra in sa modalidade de modìfica dae sas ischedas Vìdeos o Àudio e ischerta sos elementos multimediales preferidos tuos.\nPodes fintzas sincronizare iscalitas chi esistint giai dae sos àteros dispositivos tuos o dae ìnternet.";
+
 "EMPTY_PLAYLIST" = "Iscalita bòida";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Annaghe documentos multimediales cando ses faghende modìficas in sas categorias chi lis pertocant.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "Longària";
 "TITLE" = "Tìtulos";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Incarca a longu pro firmare sa riprodutzione";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Informatziones àudio";
 "CLOUD_LOGIN_LONG" = "Pro atzèdere a sos servìtzios Nue, atzedi a iCloud siat in custa Apple TV siat in unu dispositivu iOS cun su matessi Apple ID e abìlita sa Cumpartzidura bati-craes in sas impostatziones de sistema. A pustis, atzedi a su frunidore de Nue tuo impreende s'aplicatzione de VLC in su dispositivu iOS tuo. In fines, seletziona·lu in custa ischermada.";
 "ENTER_URL" = "Inserta un'URL de riproduire";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Sos documentos multimediales ammustrados inoghe sunt sarvados localmente in sa Apple TV tua. Ammenta·ti chi sos cuntenutos podent èssere bogados dae su sistema operativos chene t'avisare in cale si siat momentu cando VLC no est in esecutzione, s'in casu su dispositivu tuo diat abarrare chene prus ispàtziu lìberu.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Iscàrriga sos sutatìtulos dae OpenSubtitles.org...";
 "FOUND_SUBS" = "Sutatìtulos agatados";
+"NO_SUB_FOUND_OSO" = "Perunu sutatìtulu agatadu pro s'elementu multimediale tuo \"%@\".";
 "USE_SPDIF" = "Imprea unu coladòrgiu (S/PDIF)";
 
 "PLAYBACK" = "Riprodutzione";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Disabilitadu";
 "REPEAT_SINGLE" = "Sìngulu";
 "REPEAT_FOLDER" = "Cartella";
+"SHUFFLE" = "Ammistura";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Ses seguru de chèrrere bogare sos elementos ischertados dae s'iscalita?\nNo ant a èssere iscantzellados dae su discu.";
 "DELETE_TITLE" = "Iscantzella sa seletzione";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Custu documentu";
 "NOT_SUPPORTED_FILETYPE" = "%@ no est una casta de documentu suportada dae VLC";
 "FILE_EXISTS" = "%@ esistit giai";
@@ -327,7 +333,7 @@
 "SEARCH" = "Chirca";
 "VIDEO" = "Vìdeu";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Albums";
 "ARTISTS" = "Artistas";
 "EPISODES" = "Episòdios";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Data modificada";
 "NAME" = "Nùmene";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Modìfica";
 "BUTTON_EDIT_HINT" = "Modalidade de modìfica";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Càmbia su nùmene a sos documentos isseberados";
 "DELETE_HINT" = "Iscantzella sos documentos isseberados";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Òrdina";
 "BUTTON_SORT_HINT" = "Ammustra su fògiu de sas atziones de ordinamentu";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Òrdina su cuntestu in manera artiante o minimante";
 "GRID_LAYOUT" = "Istrutura de sa grìllia";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alfanumericamente";
 "DURATION" = "Longària";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Nùmeru de documentos multimediales";
 "NB_VIDEO" = "Nùmeru de vìdeos";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Nudda de agatadu";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Artista disconnotu";
 "VARIOUS_ARTIST" = "Artistas vàrios";
 "UNKNOWN_ALBUM" = "Album disconnotu";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Sutatìtulos e rastas àudio";
 "SUBTITLE_AND_TRACK_HINT" = "Issèbera sos sutatìtulos o sas rastas àudio";
@@ -411,14 +417,18 @@
 "ROTATION_LOCK_BUTTON" = "Bloca sa rotatzione";
 "ROTATION_LOCK_HINT" = "Bloca su vìdeu cun s'orientamentu atuale";
 
+"REPEAT_HINT" = "Repite su matessi mèdiu";
+
 "BACKWARD_BUTTON" = "In segus";
-"BACKWARD_HINT" = "Brinca in segus";
+"BACKWARD_HINT" = "Brinca a segus";
 
 "PREVIOUS_BUTTON" = "Antepostu";
 "PREVIOUS_HINT" = "Mèdiu antepostu";
 
 "PLAY_PAUSE_BUTTON" = "Riprodutzione o pàusa";
 "PLAY_PAUSE_HINT" = "Allughe o pone in pàusa sa riprodutzione atuale";
+
+"STOP_BUTTON" = "Firma";
 
 "NEXT_HINT" = "Mèdiu imbeniente";
 
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Bloca s'interfache";
 
+"SHUFFLE_HINT" = "Iscupa sa lista de mèdios";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Proportziones de su vìdeu";
 "VIDEO_ASPECT_RATIO_HINT" = "Muda sas proportziones de su vìdeu atuale";
 
 "MORE_OPTIONS_BUTTON" = "Àteru";
 "MORE_OPTIONS_HINT" = "Pòmpia àteros controllos optzionales";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ecualizadore";
 "MORE_OPTIONS_HEADER_TITLE" = "Optziones vìdeu";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Fortza un'iscansidura noa de sa biblioteca multimediale";
 "FORCE_RESCAN_MESSAGE" = "Cheres fortzare VLC a iscansire torra sa biblioteca multimediale tua?\nBi diat pòdere chèrrere unu pagu de tempus.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Avisu de connessione SMBv1";
 "SMBV1_WARN_DESCRIPTION" = "Amos rilevadu unu protocollu betzu (SMBv1).\nSes seguru de chèrrere sighire cun su SMBv1?\nTi cunsigiamus de agiornare o mudare sas impostatziones de su servidore tuas.";
 "SMBV1_CONTINUE" = "Sighi cun su SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Proa su SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Codìfica";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Annanghe a su grupu de mèdios";
 "ADD_TO_MEDIA_GROUP_HINT" = "Aberi su menù pro annànghere a su grupu de mèdios";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Proa a agrupare automaticamente sos cuntenutos multimediales sìngulos.";
 "BUTTON_REGROUP_DESCRIPTION" = "Ses seguru de chèrrere proare a agrupare automaticamente cuntenutos multimediales (mèdios) sìngulos?\nBi diat pòdere chèrrere unu pagu de tempus.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Pone sos mèdios inoghe pro los annànghere";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Annanghende...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Lassa una bonamanu";
 "CANNOT_MAKE_PAYMENTS" = "Non ses autorizadu a fàghere gastos in custu dispositivu.";
 "PURCHASE_FAILED" = "Còmpora fallida";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Annanghe a sa lista de riprodutzione";
 
 "DISPLAY_AS" = "Ammustra comente";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Controllu de sa luminosidade verticale";
+"BRIGHTNESS_SLIDER" = "Iscurre in verticale pro mudare su livellu de luminosidade";
+
+/* New strings */
+"VOLUME_HINT" = "Controllu de su volume verticale";
+"VOLUME_SLIDER" = "Iscurre in verticale pro mudare su volume";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Controllos de riprodutzione";
+"MENU_REPEAT_DISABLED" = "Non repitas";
+"MENU_REPEAT_SINGLE" = "Repite un'elementu";
+"MENU_REPEAT_ALL" = "Repite totu";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Isfundu de su fògiu de sas atziones";
+"ACTIONSHEET_BACKGROUND_HINT" = "Toca pro bogare su fògiu de sas atziones.";
