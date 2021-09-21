@@ -321,7 +321,9 @@ extension AudioMiniPlayer {
                                 showPlayqueue(in: superview)
                             }
                         case .bottom:
-                            if self.frame.minY > limit {
+                            if self.frame.minY > originY + 10 {
+                                hideMiniPlayer(from: superview)
+                            } else if self.frame.minY > limit {
                                 dismissPlayqueue()
                             } else {
                                 showPlayqueue(in: superview)
@@ -373,7 +375,11 @@ extension AudioMiniPlayer {
             tapticPosition.vertical = .bottom
         }
         if position.vertical == .bottom {
-            if frame.minY > originY {
+            if frame.minY > originY + 10 {
+                previousNextImage.image = UIImage(named: "stopIcon")
+                previousNextOverlay.alpha = 0.8
+                previousNextOverlay.isHidden = false
+            } else if frame.minY > originY {
                 queueViewController?.hide()
             } else {
                 hidePreviousNextOverlay()
@@ -501,6 +507,25 @@ extension AudioMiniPlayer {
 
     func dismissPlayqueueCompletion() {
         queueViewController?.hide()
+    }
+
+    func hideMiniPlayer(from superview: UIView) {
+        if #available(iOS 10.0, *) {
+            let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
+            animator.addCompletion({
+                _ in
+                self.playbackController.stopPlayback()
+                self.queueViewController?.hide()
+            })
+            animator.addAnimations {
+                self.frame.origin.y = superview.frame.maxY
+            }
+            animator.startAnimation()
+        } else {
+            frame.origin.y = superview.frame.maxY
+            playbackController.stopPlayback()
+            queueViewController?.hide()
+        }
     }
 
     func repositionMiniPlayer(in superview: UIView) {
