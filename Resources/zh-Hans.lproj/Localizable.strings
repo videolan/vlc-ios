@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "选择音频轨道";
 "CHOOSE_SUBTITLE_TRACK" = "选择字幕轨道";
+"UNKNOWN_TRACK_TYPE" = "未知曲目类型";
 "OPEN_TRACK_PANEL" = "打开轨道选择面板";
 "CHOOSE_TITLE" = "选择标题";
 "CHOOSE_CHAPTER" = "选择章节";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "媒体库为空";
 "EMPTY_LIBRARY_LONG" = "要播放，你可以从本地网络服务器或云端引流文件，或者用iTunes, Wi-Fi上传或云服务将媒体文件同步到你的设备。";
 
+"EMPTY_NO_PLAYLISTS" = "播放列表";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "要创建播放列表，请在视频或音频内容选项卡中进入编辑模式并选择您喜欢的媒体文件。\n你也可以从其他设备或互联网同步现有的播放列表。";
+
 "EMPTY_PLAYLIST" = "清空播放列表";
 "EMPTY_PLAYLIST_DESCRIPTION" = "在编辑相应类别时添加媒体。";
 
@@ -261,14 +265,14 @@
 "DURATION" = "时长";
 "TITLE" = "标题";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "长按可停止回放。";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "音频信息";
 "CLOUD_LOGIN_LONG" = "要访问云服务，请使用相同的 Apple ID 在本 Apple TV 与一款 iOS 设备上登录 iCloud，并在系统设置中启用钥匙环共享。\n使用 iOS 设备上的 VLC，登录任意云服务商。最后在本屏幕上选择该服务商。";
 "ENTER_URL" = "输入要播放的 URL";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "这里显示的是您 Apple TV 本地存储的媒体。请注意，当 VLC 没有运行时，操作系统可能会为了腾出更多存储空间，而将这些内容移除，并且不会事先通知。";
 "DOWNLOAD_SUBS_FROM_OSO" = "正在从 OpenSubtitles.org 下载字幕...";
 "FOUND_SUBS" = "已找到字幕";
+"NO_SUB_FOUND_OSO" = "没有找到你的媒体项目 \"%@\" 的字幕。";
 "USE_SPDIF" = "使用呈递 (S/PDIF)";
 
 "PLAYBACK" = "回放";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "已禁用";
 "REPEAT_SINGLE" = "单曲";
 "REPEAT_FOLDER" = "文件夹";
+"SHUFFLE" = "随机 ";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "通用即插即用 (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "是否确定要从播放列表中移除选中媒体?\n不会从磁盘中删除它们。";
 "DELETE_TITLE" = "删除选中内容";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "此文件";
 "NOT_SUPPORTED_FILETYPE" = "VLC 不支持 %@ 文件类型";
 "FILE_EXISTS" = "%@ 已存在";
@@ -327,7 +333,7 @@
 "SEARCH" = "搜索";
 "VIDEO" = "视频";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "专辑";
 "ARTISTS" = "艺术家";
 "EPISODES" = "剧集";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "修改日期";
 "NAME" = "名称";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "编辑";
 "BUTTON_EDIT_HINT" = "编辑模式";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "重命名选中文件";
 "DELETE_HINT" = "删除选中文件";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "排序";
 "BUTTON_SORT_HINT" = "显示排序方式菜单";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "以升序或降序排列上下文";
 "GRID_LAYOUT" = "网格布局";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "字母顺序";
 "DURATION" = "时长";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "媒体数量";
 "NB_VIDEO" = "视频数量";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "未发现任何内容";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "未知艺术家";
 "VARIOUS_ARTIST" = "群星";
 "UNKNOWN_ALBUM" = "未知专辑";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "字幕和音轨";
 "SUBTITLE_AND_TRACK_HINT" = "选择字幕或音轨";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "旋转锁";
 "ROTATION_LOCK_HINT" = "锁定视频到当前方向";
 
+"REPEAT_HINT" = "重复相同媒体";
+
 "BACKWARD_BUTTON" = "后退";
 "BACKWARD_HINT" = "快退";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "播放或暂停";
 "PLAY_PAUSE_HINT" = "播放或暂停当前文件";
 
+"STOP_BUTTON" = "停止";
+
 "NEXT_HINT" = "下一个媒体文件";
 
 "FORWARD_BUTTON" = "前进";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "锁定界面";
 
+"SHUFFLE_HINT" = "打乱媒体列表";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "视频宽高比";
 "VIDEO_ASPECT_RATIO_HINT" = "更改当前视频的宽高比";
 
 "MORE_OPTIONS_BUTTON" = "更多";
 "MORE_OPTIONS_HINT" = "查看更多选项控件";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "均衡器";
 "MORE_OPTIONS_HEADER_TITLE" = "视频选项";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "强制媒体库重新扫描";
 "FORCE_RESCAN_MESSAGE" = "是否希望强制 VLC 重新扫描媒体库?\n可能需要耗费一些时间。";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1 连接警告";
 "SMBV1_WARN_DESCRIPTION" = "侦测到旧版协议 (SMBv1)。\n是否确定要继续使用 SMBv1?\n我们建议您升级或更改服务器设置。";
 "SMBV1_CONTINUE" = "继续使用 SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "尝试 SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "编码";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "添加到媒体分组";
 "ADD_TO_MEDIA_GROUP_HINT" = "打开「添加到媒体分组」菜单";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "尝试对单个媒体自动重新分组。";
 "BUTTON_REGROUP_DESCRIPTION" = "是否确定要尝试对单个媒体自动重新分组?\n可能需要耗费一些时间。";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "把媒体文件放在这里来添加它们";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "添加中...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "给小费";
 "CANNOT_MAKE_PAYMENTS" = "您不被允许在此设备上付款。";
 "PURCHASE_FAILED" = "购买失败";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "添加到队列";
 
 "DISPLAY_AS" = "展示为";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "垂直亮度控制";
+"BRIGHTNESS_SLIDER" = "垂直滑动更改亮度";
+
+/* New strings */
+"VOLUME_HINT" = "垂直音量控制";
+"VOLUME_SLIDER" = "垂直滑动更改音量";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "播放控制";
+"MENU_REPEAT_DISABLED" = "不重复";
+"MENU_REPEAT_SINGLE" = "重复一首";
+"MENU_REPEAT_ALL" = "全部重复";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "操作列表背景";
+"ACTIONSHEET_BACKGROUND_HINT" = "轻按删除操作列表";
