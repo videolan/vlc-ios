@@ -1111,7 +1111,22 @@ private extension VideoPlayerViewController {
                           })
     }
 
-    internal override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+    // MARK: - Others
+
+    private func setupForMediaProjection() {
+        let mediaHasProjection = playbackService.currentMediaIs360Video
+
+        fov = mediaHasProjection ? MediaProjection.FOV.default : 0
+        // Disable swipe gestures.
+        if mediaHasProjection {
+            deviceMotion.startDeviceMotion()
+        }
+    }
+}
+
+internal extension VideoPlayerViewController {
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "outputVolume" {
             // keep from reaching max or min volume so button keeps working
 
@@ -1125,18 +1140,6 @@ private extension VideoPlayerViewController {
             }
 
             self.volumeControlView.updateIcon(level: AVAudioSession.sharedInstance().outputVolume)
-        }
-    }
-
-    // MARK: - Others
-
-    private func setupForMediaProjection() {
-        let mediaHasProjection = playbackService.currentMediaIs360Video
-
-        fov = mediaHasProjection ? MediaProjection.FOV.default : 0
-        // Disable swipe gestures.
-        if mediaHasProjection {
-            deviceMotion.startDeviceMotion()
         }
     }
 }
