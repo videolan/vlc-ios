@@ -67,6 +67,14 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     var panDirection: PanDirection = .vertical
     var hintingPlayqueue: Bool = false
 
+    var stopGestureEnabled: Bool {
+        if #available(iOS 13.0, *) {
+            return false
+        } else {
+            return true
+        }
+    }
+
     @objc init(service: MediaLibraryService) {
         self.mediaService = service
         super.init(frame: .zero)
@@ -321,7 +329,7 @@ extension AudioMiniPlayer {
                                 showPlayqueue(in: superview)
                             }
                         case .bottom:
-                            if self.frame.minY > originY + 10 {
+                            if stopGestureEnabled && self.frame.minY > originY + 10 {
                                 hideMiniPlayer(from: superview)
                             } else if self.frame.minY > limit {
                                 dismissPlayqueue()
@@ -375,7 +383,7 @@ extension AudioMiniPlayer {
             tapticPosition.vertical = .bottom
         }
         if position.vertical == .bottom {
-            if frame.minY > originY + 10 {
+            if stopGestureEnabled && frame.minY > originY + 10 {
                 previousNextImage.image = UIImage(named: "stopIcon")
                 previousNextOverlay.alpha = 0.8
                 previousNextOverlay.isHidden = false
