@@ -442,7 +442,7 @@ class VideoPlayerViewController: UIViewController {
         playerController.lockedOrientation = .portrait
         navigationController?.navigationBar.isHidden = true
 
-        setControlsHidden(!UIAccessibility.isVoiceOverRunning, animated: false)
+        setControlsHidden(false, animated: false)
 
         artWorkImageView.image = nil
         // FIXME: Test userdefault
@@ -463,8 +463,6 @@ class VideoPlayerViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // _viewAppeared = YES;
-        // _playbackWillClose = NO;
-        // setControlsHidden(true, animated: false)
 
         playbackService.recoverDisplayedMetadata()
         // [self resetVideoFiltersSliders];
@@ -628,7 +626,7 @@ private extension VideoPlayerViewController {
 
         idleTimer = nil
         numberOfTapSeek = 0
-        if !playerController.isControlsHidden && !UIAccessibility.isVoiceOverRunning {
+        if !playerController.isControlsHidden {
             setControlsHidden(!playerController.isControlsHidden, animated: true)
         }
         // FIXME:- other states to reset
@@ -688,9 +686,7 @@ extension VideoPlayerViewController {
     @objc func handleTapOnVideo() {
         // FIXME: -
         numberOfTapSeek = 0
-        if !UIAccessibility.isVoiceOverRunning {
-            setControlsHidden(!playerController.isControlsHidden, animated: true)
-        }
+        setControlsHidden(!playerController.isControlsHidden, animated: true)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -725,6 +721,8 @@ extension VideoPlayerViewController {
     }
 
     private func setControlsHidden(_ hidden: Bool, animated: Bool) {
+        guard !UIAccessibility.isVoiceOverRunning || !hidden else { return }
+
         if (equalizerPopupView.isShown || trackSelectorPopupView.isShown) && hidden {
             return
         }
