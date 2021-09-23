@@ -466,9 +466,7 @@ class VideoPlayerViewController: UIViewController {
 
         playbackService.recoverDisplayedMetadata()
         // [self resetVideoFiltersSliders];
-        if playbackService.videoOutputView != videoOutputView {
-            playbackService.videoOutputView = videoOutputView
-        }
+        playbackService.videoOutputView = videoOutputView
 
         setRepeatMode()
 
