@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Trieu la pista d'àudio";
 "CHOOSE_SUBTITLE_TRACK" = "Trieu la pista de subtítol";
+"UNKNOWN_TRACK_TYPE" = "Tipus de pista desconegut";
 "OPEN_TRACK_PANEL" = "Obre Selecció de pista";
 "CHOOSE_TITLE" = "Trieu el títol";
 "CHOOSE_CHAPTER" = "Trieu el càpitol";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Biblioteca multimèdia buida";
 "EMPTY_LIBRARY_LONG" = "Per a la reproducció, podeu transmetre contingut multimèdia des d’un servidor de la vostra xarxa local, des del núvol o sincronitzar contingut multimèdia amb el vostre dispositiu mitjançant iTunes, pujades des de-de la xarxa sense fils o serveis en el núvol.";
 
+"EMPTY_NO_PLAYLISTS" = "Llistes de reproducció";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Per crear llistes de reproducció entreu amb mode Edició a les pestanyes de contingut de Vídeo o Àudio, i seleccioneu el vostres elements preferits.\nTambé podeu sincronitzar llistes existents d'altres dispositius vostres o d'internet.";
+
 "EMPTY_PLAYLIST" = "Llista de reproducció buida";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Agregar arxius mentre s'editen en les respectives categories.";
 
@@ -261,23 +265,24 @@
 "DURATION" = "Durada";
 "TITLE" = "Títol";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Pulsació llarga per a parar la reprodució.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Informació Àudio";
 "CLOUD_LOGIN_LONG" = "Per a accedir a un núvol, inicia sessió en iCloud en aquest Apple TV i en un dispositiu iOS amb la mateixa ID d'Apple i habilita l'opció de compartir el clauer en la configuració del sistema.\nDesprés, entra al teu proveïdor de núvol usant l'aplicació VLC del teu dispositiu iOS. Finalment, selecciona-ho en aquesta pantalla.";
 "ENTER_URL" = "Introdueix la URL a reproduir";
 "HTTP_SERVER_ON" = "Desactivar la Reproducció remota";
 "HTTP_SERVER_OFF" = "Activar la Reproducció remota";
 "CACHED_MEDIA" = "Arxius multimèdia amb cau";
-"CACHED_MEDIA_LONG" = "Els fitxers mostrats aquí s'emmagatzemen localment en el seu Apple TV. Compte, en cas que el seu dispositiu es quedi sense emmagatzematge el contingut pot ser eliminat pel sistema operatiu sense previ avís quan el VLC no estigui funcionant .";
+"CACHED_MEDIA_LONG" = "Els fitxers mostrats aquí s'emmagatzemen localment en el vostre Apple TV. Compte, en cas que el seu dispositiu es quedi sense emmagatzematge el contingut pot ser eliminat pel sistema operatiu sense previ avís quan el VLC no estigui funcionant .";
 "DOWNLOAD_SUBS_FROM_OSO" = "Descàrrega de subtítols d'OpenSubtitles.org...";
 "FOUND_SUBS" = "Subtítols trobats";
+"NO_SUB_FOUND_OSO" = "No s'han trobat subtítols per al vostre element multimèdia \"%@\".";
 "USE_SPDIF" = "Utilitza el mòdul (S/PDIF)";
 
 "PLAYBACK" = "Reproducció";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Desactivat";
 "REPEAT_SINGLE" = "Sol";
 "REPEAT_FOLDER" = "Carpeta";
+"SHUFFLE" = "Aleatori";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Plug'n'Play Universal (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -309,10 +315,10 @@
 
 "DELETE_MESSAGE" = "Confirmeu l'eliminació d'aquesta selecció?";
 "DELETE_MESSAGE_PLAYLIST" = "Estàs segur d'esborrar la llista de reproducció seleccionada?\nEls arxius associats no seran eliminats.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Està segur d'eliminar els arxius seleccionats de la llista de reproducció?\nNo s'esborraran del disc.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Esteu segur d'eliminar els arxius seleccionats de la llista de reproducció?\nNo s'esborraran del disc.";
 "DELETE_TITLE" = "Elimina la selecció";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Aquest fitxer";
 "NOT_SUPPORTED_FILETYPE" = "%@ és un tipus d'arxiu no suportat per VLC";
 "FILE_EXISTS" = "%@ ja existeix";
@@ -327,7 +333,7 @@
 "SEARCH" = "Cerca";
 "VIDEO" = "Vídeo";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Àlbums";
 "ARTISTS" = "Artistes";
 "EPISODES" = "Episodis";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Data modificada";
 "NAME" = "Nom";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Edita";
 "BUTTON_EDIT_HINT" = "Mode edició";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Canviar de nom els arxius seleccionats";
 "DELETE_HINT" = "Elimina els arxius seleccionats";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Ordena";
 "BUTTON_SORT_HINT" = "Mostrar fulla d'ordenació";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Ordenar el context en ordre ascendent o descendent";
 "GRID_LAYOUT" = "Disposició de la graella";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alfanumèricament";
 "DURATION" = "Durada";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Nombre de multimèdia";
 "NB_VIDEO" = "Número de vídeo";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "No s'ha trobat res";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Artista desconegut";
 "VARIOUS_ARTIST" = "Diferents artistes";
 "UNKNOWN_ALBUM" = "Àlbum desconegut";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Pistes de subtítols i àudio";
 "SUBTITLE_AND_TRACK_HINT" = "Trieu les pistes de subtítol o àudio";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Bloqueig de la rotació";
 "ROTATION_LOCK_HINT" = "Bloqueja el vídeo a l'orientació actual";
 
+"REPEAT_HINT" = "Repeteix el mateix multimèdia";
+
 "BACKWARD_BUTTON" = "Enrere";
 "BACKWARD_HINT" = "Salta cap enrere";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Reprodueix o posa en pausa";
 "PLAY_PAUSE_HINT" = "Reprodueix o posa en pausa la reproducció actual";
 
+"STOP_BUTTON" = "Atura";
+
 "NEXT_HINT" = "Mèdia següent";
 
 "FORWARD_BUTTON" = "Endavant";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Bloqueja la interfície";
 
+"SHUFFLE_HINT" = "Llista aleatòria de multimèdia";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Relació d'aspecte de vídeo";
 "VIDEO_ASPECT_RATIO_HINT" = "Canviar la ràtio del vídeo actual";
 
 "MORE_OPTIONS_BUTTON" = "Més";
 "MORE_OPTIONS_HINT" = "Veure més controls d'opcions";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalitzador";
 "MORE_OPTIONS_HEADER_TITLE" = "Opcions de vídeo";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Forçar el re-escaneig de, la Mediateca";
 "FORCE_RESCAN_MESSAGE" = "Vols forçar a VLC a re-escanejar la teva mediateca?\nPodria ser llarg.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Avís de connexió SMBv1";
 "SMBV1_WARN_DESCRIPTION" = "S'ha detectat un protocol SMBv1 antic.\nVols continuar amb SMBv1?\nEs recomana  actualitzar o canviar la configuració del seu servidor.";
 "SMBV1_CONTINUE" = "Continuar amb SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Prova amb SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Codificant";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Afegir a un grup de vídeo";
 "ADD_TO_MEDIA_GROUP_HINT" = "Obrir el menú d'afegir al grup de vídeo";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Intenta reagrupar automàticament els multimèdia individuals.";
 "BUTTON_REGROUP_DESCRIPTION" = "Vols reagrupar automàticament els multimèdia individuals?\nTrigarà una estona.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Porta aquí els mitjans per afegir-los";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Afegint...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Fer una donació";
 "CANNOT_MAKE_PAYMENTS" = "No podeu fer pagaments amb aquest dispositiu";
 "PURCHASE_FAILED" = "La compra ha fallat";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Afegeix a la cua";
 
 "DISPLAY_AS" = "Mostra com a";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Control de la brillantor vertical";
+"BRIGHTNESS_SLIDER" = "Llisca verticalment per modificar el nivell de brillantor";
+
+/* New strings */
+"VOLUME_HINT" = "Control del volum vertical";
+"VOLUME_SLIDER" = "Llisca verticalment per modificar el nivell de volum";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Controls de la reproducció";
+"MENU_REPEAT_DISABLED" = "No repeteixis";
+"MENU_REPEAT_SINGLE" = "Repeteix un";
+"MENU_REPEAT_ALL" = "Repeteix-ho tot";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Fons del full d'acció";
+"ACTIONSHEET_BACKGROUND_HINT" = "Feu un toc per eliminar el full d'acció.";

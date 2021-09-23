@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Tema clar";
 "SETTINGS_THEME_DARK" = "Tema fosc";
 "SETTINGS_THEME_SYSTEM" = "Automàtic";
+"SETTINGS_THEME_BLACK" = "Utilitza el fons negre en el mode fosc";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Millora la vida de la bateria pels dispositius amb pantalla OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "Obre a Configuració";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accedeix de forma segura al teu contingut";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Els teus fitxers multimèdia s'ocultaran a l'aplicació Fitxers";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "Suport IPv6 per compartir Wi-Fi";
 "SETTINGS_FORCE_SMBV1" = "Preferit SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Desmarqueu aquesta opció si teniu problemes en accedir al servidor SMB";
+"SETTINGS_RTSP_TCP" = "Empra RTP sobre RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Il·lustracions";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Baixa il·lustracions";
