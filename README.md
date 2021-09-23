@@ -34,7 +34,7 @@ It's currently written in Objective-C / Swift and uses [VLCKit](https://code.vid
 ### VLC-iOS
 
 1. Run `[sudo] gem install cocoapods`.
-2. Run `pod install`.
+2. Run `pod install` (or `arch -x86_64 pod install` on Apple Silicon devices).
 3. Open `VLC.xcworkspace`.
 4. Hit "Build and Run".
 
