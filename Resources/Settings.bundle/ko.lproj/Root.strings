@@ -7,22 +7,24 @@
 "SETTINGS_THEME_BRIGHT" = "밝은 테마";
 "SETTINGS_THEME_DARK" = "어두운 테마";
 "SETTINGS_THEME_SYSTEM" = "자동";
+"SETTINGS_THEME_BLACK" = "어두운 모드에서 검은색 배경 사용";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "OLED 화면이 있는 장치의 배터리 수명 향상";
 "SETTINGS_PRIVACY_SUBTITLE" = "설정에서 열기";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "안전하게 당신의 컨텐츠에 접근하기";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "당신의 미디어가 파일 앱에서 숨겨질 것입니다.";
 
 "SETTINGS_DARKTHEME" = "모양";
 "SETTINGS_TIME_STRETCH_AUDIO" = "음정 변화 없는 오디오";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "음조 변경 없이 오디오의 속도 높임 및  늦춤  (빠른 장치 필요)";
 "SETTINGS_BACKGROUND_AUDIO" = "백그라운드로 오디오 재생";
 "SETTINGS_GENERIC_TITLE" = "일반";
 "SETTINGS_PASSCODE_LOCK" = "비밀번호 잠금";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "잠금해제용 페이스 ID 허용하기";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "파일 앱에서 미디어 라이브러리 숨기기";
-"SETTINGS_VIDEO_FULLSCREEN" = "동영상을 전체화면에서 재생하기";
-"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "비디오를 이어서 재생";
-"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "오디오를 이어서 재생";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "파일 앱에서 미디어 라이브러리 숨김";
+"SETTINGS_VIDEO_FULLSCREEN" = "비디오을 전체화면에서 재생하기";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "비디오 이어서 재생하기";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "오디오 이어서 재생하기";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "없음";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "물어보기";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "항상";
@@ -81,11 +83,11 @@
 "SETTINGS_CASTING" = "캐스팅";
 "SETTINGS_PTCASTING" = "오디오 패스쓰루";
 "SETTINGS_PTCASTINGLONG" = "TV가 오디오 렌더링을 관리하도록 합니다";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "변환 품질";
+"SETTINGS_HIGH" = "높음";
+"SETTINGS_MEDIUM" = "중간";
+"SETTINGS_LOW" = "낮음";
+"SETTINGS_LOWEST" = "가장 낮음";
 
 "SETTINGS_FEEDBACK" = "피드백";
 "SETTINGS_SEND_FEEDBACK" = "피드백 보내기";
@@ -94,12 +96,12 @@
 "SETTINGS_MEDIA_LIBRARY" = "미디어 라이브러리";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "미디어 라이브러리 다시 스캔하기";
 "SETTINGS_DECRAPIFY" = "출력을 위해 항목 이름을 최적화하기";
-"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
+"SETTINGS_DISABLE_GROUPING" = "자동 미디어 그룹화 비활성화";
 "SETTINGS_SHOW_THUMBNAILS" = "비디오 섬네일 표시하기";
 "SETTINGS_SHOW_ARTWORKS" = "오디오 아트워크 표시하기";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "디바이스 백업에 미디어 라이브러리 포함하기";
 
-"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK" = "네트워크";
 "SETTINGS_NETWORK_CACHING_TITLE" = "네트워크 캐쉬 단계";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "가장 낮은 대기시간";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "낮은 대기시간";
@@ -107,13 +109,14 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "높은 대기시간";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "더 높은 대기시간";
 "SETTINGS_WIFISHARING_IPv6" = "Wi-Fi Sharing을 위한 IPv6 지원";
-"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
-"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_FORCE_SMBV1" = "SMB 1 선호";
+"SETTINGS_FORCE_SMBV1_LONG" = "SMB 서버 탐색에 어려움이 있는 경우 이 설정을 선택 취소합니다";
+"SETTINGS_RTSP_TCP" = "RTSP(TCP)를 통한 RTP 사용";
 
 "SETTINGS_ARTWORK" = "아트워크";
 "SETTINGS_DOWNLOAD_ARTWORK" = "아트워크 다운로드";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_NEW_PLAYER" = "새 재생기";
 
 "ABOUT_APP_TV" = "About VLC for tvOS";

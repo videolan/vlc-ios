@@ -1,9 +1,10 @@
-"STORE_DESCRIPTION" = "iOS용 VLC는 무료 VLC 미디어 플레이어를 iPad, iPhone 및 iPod touch에 이식 한 버전입니다.\n별도의 변환 없이 대부분의 확장자로 모든 영화, 쇼 및 음악을 재생할 수 있습니다.\nDropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, 직접 다운로드 및 Wi-Fi 공유를 통한 파일 동기화는 물론 SMB, FTP, UPnP / DLNA 미디어 서버 및 웹을 스트리밍 할 수 있습니다.\nVLC는 완전한 SSA 호환성, 다중 오디오 및 재생 속도 제어를 포함한 고급 자막을 지원합니다.\n\niOS 용 VLC는 완전 무료이며 오픈 소스입니다.";
+"STORE_DESCRIPTION" = "iOS용 VLC는 무료 VLC 미디어 재생기를 iPad, iPhone 및 iPod touch에 이식 한 버전입니다.\n별도의 변환 없이 대부분의 확장자로 모든 영상, 방송 및 음악을 재생할 수 있습니다.\nDropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, 직접 다운로드 및 Wi-Fi 공유를 통한 파일 동기화는 물론 SMB, FTP, UPnP / DLNA 미디어 서버 및 웹을 스트리밍 할 수 있습니다.\nVLC는 완전한 SSA 호환성, 다중 오디오 및 재생 속도 제어를 포함한 고급 자막을 지원합니다.\n\niOS 용 VLC는 완전 무료이며 오픈 소스입니다.";
 
-"STORE_DESCRIPTION_TV" = "VLC 미디어 플레이어는 오픈소스-자유 소프트웨어인 멀티미디어 재생 프로그램입니다.\n저희는 대부분의 동영상, 방송과 음악 형식을 변환 과정 없이 바로 재생할 수 있습니다.\n클라우드 서비스(Dropbox, OneDrive, Box)를 통한 스트리밍 할 수 있고, 맥이나 PC에서 Web UI를 통해 원격으로 재생할 수 있을 뿐만 아니라 SMB, FTP, UPnP/DLNA 미디어 서버와 웹으로부터 스트리밍도 할 수 있습니다.\nVLC는 SSA 적합성을 만족하고 다중 트랙 오디오, 재생 속도 조절과 같은 고급 자막 기술을 지원합니다.\n\niOS용 VLC은 완전한 오픈소스-자유 소프트웨어입니다.\n\n메타데이터와 이미지는 영화 및 음악 데이터베이스 커뮤니티 TMDb와 Hatchet에서 제공되었습니다.";
+"STORE_DESCRIPTION_TV" = "VLC 미디어 재생기는 오픈소스-자유 소프트웨어인 멀티미디어 재생 프로그램입니다.\n저희는 대부분의 동영상, 방송과 음악 형식을 변환 과정 없이 바로 재생할 수 있습니다.\n클라우드 서비스(Dropbox, OneDrive, Box)를 통한 스트리밍 할 수 있고, 맥이나 PC에서 Web UI를 통해 원격으로 재생할 수 있을 뿐만 아니라 SMB, FTP, UPnP/DLNA 미디어 서버와 웹으로부터 스트리밍도 할 수 있습니다.\nVLC는 SSA 적합성을 만족하고 다중 트랙 오디오, 재생 속도 조절과 같은 고급 자막 기술을 지원합니다.\n\niOS용 VLC은 완전한 오픈소스-자유 소프트웨어입니다.\n\n메타데이터와 이미지는 영상 및 음악 데이터베이스 커뮤니티 TMDb와 Hatchet에서 제공되었습니다.";
 
 "CHOOSE_AUDIO_TRACK" = "음성 트랙 선택하기";
 "CHOOSE_SUBTITLE_TRACK" = "자막 트랙 선택하기";
+"UNKNOWN_TRACK_TYPE" = "알 수 없는 트랙 유형";
 "OPEN_TRACK_PANEL" = "트랙 선택 열기";
 "CHOOSE_TITLE" = "타이틀 선택하기";
 "CHOOSE_CHAPTER" = "챕터 선택하기";
@@ -11,7 +12,7 @@
 "TITLE" = "제목";
 "CHAPTER" = "챕터";
 "MINIMIZE_PLAYBACK_VIEW" = "재생 최소화";
-"TRACK_SELECTION" = "트랙 선택하기";
+"TRACK_SELECTION" = "트랙 선택";
 "AUDIO" = "소리";
 "SUBTITLES" = "자막";
 "LANGUAGE" = "언어";
@@ -35,23 +36,23 @@
 "VFILTER_SATURATION" = "채도";
 "VFILTER_GAMMA" = "감마";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "프리셋 / 프리앰프 설정";
 "PREAMP" = "프리앰프";
 "DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "이퀄라이저 프로파일 선택하기";
-"SNAP_BANDS" = "Snap bands";
+"CHOOSE_EQUALIZER_PROFILES" = "이퀄라이저 프로필 선택하기";
+"SNAP_BANDS" = "Snap 밴드";
 
 "PLAYBACK_FAILED" = "재생 실패";
 "PLEASE_WAIT" = "기다려주세요";
 "AR_CHANGED" = "화면 비율: %@";
 "DEFAULT" = "기본";
-"FILL_TO_SCREEN" = "화면에 채워 잘라내기";
+"FILL_TO_SCREEN" = "화면 크기에 맞게 자르기";
 "PLAYBACK_SPEED" = "재생 속도";
 "SPU_DELAY" = "자막 지연";
 "AUDIO_DELAY" = "음성 지연";
 "BUTTON_SLEEP_TIMER" = "취침 타이머";
 "SLEEP_TIMER_UPDATED" = "수면 타이머 업데이트됨";
-"CONTINUE_PLAYBACK" = "이어서 보시겠습니까?";
+"CONTINUE_PLAYBACK" = "이어서 재생하시겠습니까?";
 "CONTINUE_PLAYBACK_LONG" = "마지막으로 보신 \"%@\"부터 이어서 보시겠습니까?";
 
 "BUTTON_ABOUT" = "정보";
@@ -60,11 +61,11 @@
 "BUTTON_CANCEL" = "취소";
 "BUTTON_SAVE" = "저장";
 "BUTTON_DOWNLOAD" = "다운로드";
-"BUTTON_DELETE" = "삭제";
+"BUTTON_DELETE" = "삭제하기";
 "BUTTON_OK" = "확인";
 "BUTTON_CONTRIBUTE" = "기부하기";
 "BUTTON_CONNECT" = "연결하기";
-"BUTTON_RENAME" = "이름변경";
+"BUTTON_RENAME" = "이름 바꾸기";
 "BUTTON_LEARN_MORE" = "더 보기";
 "BUTTON_LOGOUT" = "로그아웃";
 "BUTTON_CONTINUE" = "이어보기";
@@ -79,7 +80,7 @@
 
 
 "BUTTON_PLAY_QUEUE" = "재생 대기열";
-"BUTTON_PLAY_QUEUE_HINT" = "재생 대기열 보기";
+"BUTTON_PLAY_QUEUE_HINT" = "재생 대기열 표시";
 
 "UPGRADING_LIBRARY" = "미디어 라이브러리 업그레이드 중";
 
@@ -133,8 +134,8 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "서버 접속 실패";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "서버 주소와 자격 인증서를 확인해 주세요";
 
-"FILES_APP_CELL_TITLE" = "Local files";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+"FILES_APP_CELL_TITLE" = "로컬 파일";
+"FILES_APP_CELL_SUBTITLE" = "파일을 VLC에 복사하지 않고 열기";
 
 "CLOUD_SERVICES" = "클라우드 서비스";
 "LOGIN" = "로그인";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "미디어 라이브러리 비우기";
 "EMPTY_LIBRARY_LONG" = "재생을 위해 로컬 네트워크의 서버, 클라우드에서 미디어를 스트리밍하거나 iTunes, Wi-Fi 업로드 또는 클라우드 서비스를 사용하여 미디어를 장치와 동기화 할 수 있습니다.";
 
+"EMPTY_NO_PLAYLISTS" = "재생목록";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "재생 목록을 만들려면 비디오 또는 오디오 컨텐츠 탭에서 편집 모드를 입력하고 좋아하는 미디어를 선택합니다.\n다른 장치나 인터넷에서 기존 재생 목록을 동기화할 수도 있습니다.";
+
 "EMPTY_PLAYLIST" = "재생목록 비었음";
 "EMPTY_PLAYLIST_DESCRIPTION" = "편집하면서 미디어를 각각 다른 카테고리에서 추가하기";
 
@@ -197,7 +201,7 @@
 "PLAYBACK_POSITION" = "재생 위치";
 "VIDEO_FILTER" = "비디오 필터";
 "VIDEO_FILTER_RESET_BUTTON" = "비디오 필터 초기화";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "비디오 화면 비율";
 "BWD_BUTTON" = "뒤로 이동하기";
 "FWD_BUTTON" = "앞으로 이동하기";
 "PLAY_BUTTON" = "재생하기";
@@ -205,10 +209,10 @@
 "PREV_BUTTON" = "이전";
 "PLAY_ALL_BUTTON" = "모두 재생하기";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_VIDEO_FILTERS" = "비디오 필터를 재설정하시겠습니까?";
+"RESET_PLAYBACK_SPEED" = "재생 속도를 재설정 하시겠습니까?";
+"RESET_EQUALIZER" = "이퀄라이저의 설정을 재설정하시겠습니까?";
+"RESET_SLEEP_TIMER" = "절전 타이머를 재설정하시겠습니까";
 
 "VERSION_FORMAT" = "버전: %@";
 "BASED_ON_FORMAT" = "사용: <br />%@";
@@ -261,14 +265,14 @@
 "DURATION" = "재생시간";
 "TITLE" = "제목";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "재생을 정지하려면 길게 누르세요";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "오디오 정보";
 "CLOUD_LOGIN_LONG" = "클라우드 서비스를 이용하기 위해서는, 이 Apple TV와 다른 한 iOS 기기를 같은 Apple ID를 사용해 iCloud에 로그인 한 뒤, 시스템 설정에서 키체인 공유 설정을 활성화해야 합니다.";
 "ENTER_URL" = "재생하기 위해서는 URL을 입력하세요";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "이곳에 보여지는 미디어는 당신의 Apple TV에 저장되어 있습니다. VLC가 실행되지 않는 때에도 기기 용량이 부족할 경우 운영체제가 사용자의 동의 없이 콘텐츠를 지울 수 있습니다.";
 "DOWNLOAD_SUBS_FROM_OSO" = "OpenSubtitles.org에서 자막을 다운받으세요...";
 "FOUND_SUBS" = "자막을 찾았습니다";
+"NO_SUB_FOUND_OSO" = "미디어 항목 \"%@\"에 대한 자막을 찾을 수 없습니다.";
 "USE_SPDIF" = "(S/PDIF)를 통하여 사용";
 
 "PLAYBACK" = "재생";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "사용하지 않음";
 "REPEAT_SINGLE" = "하나";
 "REPEAT_FOLDER" = "폴더";
+"SHUFFLE" = "순서섞기";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "유니버셜 플러그 앤 플래이(UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -310,9 +316,9 @@
 "DELETE_MESSAGE" = "해당 선택 항목을 삭제하시겠습니까?";
 "DELETE_MESSAGE_PLAYLIST" = "선택한 재생목록을 삭제하시겠습니까?\n연결된 미디어 파일들은 삭제되지 않습니다.";
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "선택한 미디어를 재생목록에서 삭제하시겠습니까?\n디스크에 있는 원본파일은 삭제되지 않습니다.";
-"DELETE_TITLE" = "선택 항목 삭제";
+"DELETE_TITLE" = "선택 항목 삭제하기";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "이 파일";
 "NOT_SUPPORTED_FILETYPE" = "%@은 VLC에서 지원하는 파일유형이 아닙니다.";
 "FILE_EXISTS" = "%@이 이미 존재합니다";
@@ -327,7 +333,7 @@
 "SEARCH" = "검색";
 "VIDEO" = "비디오";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "음반";
 "ARTISTS" = "예술가";
 "EPISODES" = "에피소드";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "마지막 변경 날짜";
 "NAME" = "이름";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "편집";
 "BUTTON_EDIT_HINT" = "편집 모드";
@@ -360,10 +366,10 @@
 
 "SHARE_LABEL" = "공유";
 "SHARE_HINT" = "선택된 파일 공유";
-"RENAME_HINT" = "선택된 파일의 이름 변경";
-"DELETE_HINT" = "선택된 파일 삭제";
+"RENAME_HINT" = "선택된 파일 이름 바꾸기";
+"DELETE_HINT" = "선택된 파일 삭제하기";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "정렬";
 "BUTTON_SORT_HINT" = "정렬 액션 시트 표시";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "내용을 오름차순 또는 내림차순으로 정렬하기";
 "GRID_LAYOUT" = "그리드 레이아웃";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "알파벳숫자순으로";
 "DURATION" = "재생시간";
@@ -390,69 +396,75 @@
 "NB_MEDIA" = "미디어 수";
 "NB_VIDEO" = "비디오 수";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "아무거 찾지 못하였습니다";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "알 수 없는 아티스트";
 "VARIOUS_ARTIST" = "여러 아티스트";
 "UNKNOWN_ALBUM" = "알 수 없는 음반";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "자막 및 오디오 트랙";
+"SUBTITLE_AND_TRACK_HINT" = "자막 또는 오디오 트랙 선택";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "DVD 인터페이스";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "회전 잠금";
+"ROTATION_LOCK_HINT" = "비디오를 현재 방향으로 잠금";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"REPEAT_HINT" = "동일한 미디어 반복";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"BACKWARD_BUTTON" = "뒤로";
+"BACKWARD_HINT" = "뒤로 이동하기";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PREVIOUS_BUTTON" = "이전";
+"PREVIOUS_HINT" = "이전 미디어";
 
-"NEXT_HINT" = "Next media";
+"PLAY_PAUSE_BUTTON" = "재생 또는 일시중지";
+"PLAY_PAUSE_HINT" = "현재 재생된 내용 재생하기 또는 일시중지";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"STOP_BUTTON" = "정지";
+
+"NEXT_HINT" = "다음 미디어";
+
+"FORWARD_BUTTON" = "앞으로";
+"FORWARD_HINT" = "앞으로 이동하기";
 
 "INTERFACE_LOCK_BUTTON" = "인터페이스 잠그기";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"SHUFFLE_HINT" = "미디어 목록 순서섞기";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "비디오 화면 비율";
 "VIDEO_ASPECT_RATIO_HINT" = "현재 비디오의 화면 비율을 변경";
 
 "MORE_OPTIONS_BUTTON" = "더";
 "MORE_OPTIONS_HINT" = "옵션 컨트롤 더 보기";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "이퀄라이저";
 "MORE_OPTIONS_HEADER_TITLE" = "비디오 옵션";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "미디어 라이브러리 다시 스캔하기";
 "FORCE_RESCAN_MESSAGE" = "미디어 라이브러리를 다시 스캔하시겠습니까? 시간이 조금 걸릴 수 있습니다.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1 연결 경고";
 "SMBV1_WARN_DESCRIPTION" = "이전 버전의 프로토콜은 감지하였습니다(SMBv1).\n진짜 SMBv1로 진행하시겠습니까?\n서버 환경 설정을 업그레이드 또는 변경하는것을 권장합니다.";
 "SMBV1_CONTINUE" = "SMBv1로 진행";
 "SMBV1_NEXT_PROTOCOL" = "SMBv2/v3 시도하기";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "인코딩";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "미디어 그룹에 추가";
 "ADD_TO_MEDIA_GROUP_HINT" = "\"미디어 그룹에 추가\" 열기";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "하나의 미디어를 자동으로 재그룹하기";
 "BUTTON_REGROUP_DESCRIPTION" = "하나의 미디어를 자동으로 재그룹하시겠습니까? 시간이 조금 걸릴수도 있습니다.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "여기에 미디어를 가져와서 추가하세요";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "추가중...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "기부하기";
 "CANNOT_MAKE_PAYMENTS" = "당신은 이 기기에서 결제하는 것이 허용되지 않았습니다.";
 "PURCHASE_FAILED" = "구매 실패함";
@@ -493,4 +505,23 @@
 "APPEND_TO_QUEUE_HINT" = "대기열에 추가하기";
 "APPEND_TO_QUEUE_LABEL" = "대기열에 추가하기";
 
-"DISPLAY_AS" = "Display as";
+"DISPLAY_AS" = "디스플레이로";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "수직 밝기 조절";
+"BRIGHTNESS_SLIDER" = "밝기 수준을 변경하려면 수직으로 슬라이드";
+
+/* New strings */
+"VOLUME_HINT" = "수직 볼륨 조절";
+"VOLUME_SLIDER" = "볼륨 레벨을 변경하려면 수직으로 슬라이드";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "재생 컨트롤";
+"MENU_REPEAT_DISABLED" = "반복하지 않음";
+"MENU_REPEAT_SINGLE" = "한 번 반복";
+"MENU_REPEAT_ALL" = "모두 반복";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "작업 시트 배경";
+"ACTIONSHEET_BACKGROUND_HINT" = "탭하여 작업 시트를 제거합니다.";
