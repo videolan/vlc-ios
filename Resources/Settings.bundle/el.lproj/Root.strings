@@ -1,12 +1,14 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
-"SETTINGS_PRIVACY_TITLE" = "Απόρρητο";
+"SETTINGS_PRIVACY_TITLE" = "Ιδιωτικότητα";
 "SETTINGS_VIDEO_TITLE" = "Βίντεο";
 "SETTINGS_AUDIO_TITLE" = "Ήχος";
 
 "SETTINGS_THEME_BRIGHT" = "Ανοιχτόχρωμο θέμα";
 "SETTINGS_THEME_DARK" = "Σκουρόχρωμο θέμα";
 "SETTINGS_THEME_SYSTEM" = "Αυτόματα";
+"SETTINGS_THEME_BLACK" = "Χρήση μαύρου φόντου σε σκοτεινή λειτουργία";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Βελτιώνει τη διάρκεια της μπαταρίας σε συσκευές με οθόνη OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "Άνοιγμα ρυθμίσεων";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Εξασφάλιση πρόσβασης στο περιεχόμενό σας";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Τα αρχεία σας θα αποκρύπτονται από την εφαρμογή Αρχεία";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "Υποστήριξη IPv6 για διαμοιρασμό μέσω Wi-Fi";
 "SETTINGS_FORCE_SMBV1" = "Προτίμηση SMBv1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Αποεπιλέξτε αυτή τη ρύθμιση εάν αντιμετωπίζετε δυσκολίες κατά την περιήγηση του διακομιστή SMB σας.";
+"SETTINGS_RTSP_TCP" = "Χρήση RTP μέσω RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Εικονογράφηση";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Λήψη εικονογράφησης";
