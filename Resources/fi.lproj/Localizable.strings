@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Valitse ääniraita";
 "CHOOSE_SUBTITLE_TRACK" = "Valitse tekstitysraita";
+"UNKNOWN_TRACK_TYPE" = "Tuntematon raidan tyyppi";
 "OPEN_TRACK_PANEL" = "Avaa raitavalinta";
 "CHOOSE_TITLE" = "Valitse nimike";
 "CHOOSE_CHAPTER" = "Valitse luku";
@@ -35,11 +36,11 @@
 "VFILTER_SATURATION" = "Värikylläisyys";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "Esiasetettu / esivahvistimen asetukset";
 "PREAMP" = "Esivahvistus";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Valitse taajuuskorjaimen profiili";
-"SNAP_BANDS" = "Snap bands";
+"SNAP_BANDS" = "Kohdista kanavat";
 
 "PLAYBACK_FAILED" = "Toisto epäonnistui";
 "PLEASE_WAIT" = "Odota";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Mediakirjasto on tyhjä";
 "EMPTY_LIBRARY_LONG" = "Voit suoratoistaa mediaa lähiverkon palvelimelta, pilvestä tai synkronoida mediatiedostoja laitteeseesi iTunesin, Wi-Fi Upload- tai Cloud-palveluiden avulla.";
 
+"EMPTY_NO_PLAYLISTS" = "Soittolistat";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Jos haluat luoda soittolistoja, siirry video tai ääni välilehteen ja valitse suosikkisi.\nVoit myös synkronoida valmiit soittolistat muista laitteistasi tai internetistä.";
+
 "EMPTY_PLAYLIST" = "Tyhjä soittolista";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Lisää media muokkaamalla vastaavia luokia.";
 
@@ -205,10 +209,10 @@
 "PREV_BUTTON" = "Edellinen";
 "PLAY_ALL_BUTTON" = "Toista kaikki";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
+"RESET_VIDEO_FILTERS" = "Haluatko nollata videon suodattimet?";
+"RESET_PLAYBACK_SPEED" = "Haluatko nollata toiston nopeuden?";
 "RESET_EQUALIZER" = "Haluatko nollata ekvalisaattorin asetukset?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_SLEEP_TIMER" = "Haluatko nollata uniajastimen?";
 
 "VERSION_FORMAT" = "Versio: %@";
 "BASED_ON_FORMAT" = "Pohjautuu:<br />%@";
@@ -261,14 +265,14 @@
 "DURATION" = "Kesto";
 "TITLE" = "Nimi";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Pysäytä toisto painamalla pitkään.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Äänitiedot";
 "CLOUD_LOGIN_LONG" = "Jos haluat käyttää pilvipalveluita, kirjaudu iCloudiin samalla Apple ID:llä sekä tällä Apple TV:llä että iOS-laitteella ja ota Avainnipun jakaminen käyttöön järjestelmäasetuksissa.\nTämän jälkeen kirjaudu haluamaasi pilvipalveluun VLC-ohjelmassa iOS-laitteellasi. Sitten valitse palvelu tässä ruudussa.";
 "ENTER_URL" = "Syötä toistettava osoite";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Tässä näytetään mediat, jotka on tallennettu Apple TV:n muistiin. Huomaa, että käyttöjärjestelmä voi poistaa medioita ennakkoon ilmoittamatta silloin kun VLC ei ole käytössä, jos laitteen tila loppuu kesken.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Lataa tekstitykset OpenSubtitles.orgista...";
 "FOUND_SUBS" = "Tekstityksiä löytyi";
+"NO_SUB_FOUND_OSO" = "Medialle \"%@\" ei löytynyt tekstitystä.";
 "USE_SPDIF" = "Käytä läpivientiä (S/PDIF)";
 
 "PLAYBACK" = "Toisto";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Pois käytöstä";
 "REPEAT_SINGLE" = "Yksittäinen";
 "REPEAT_FOLDER" = "Kansio";
+"SHUFFLE" = "Sekoita";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Haluatko varmasti poistaa valitun median soittolistalta?\nNiitä ei poisteta levyltä.";
 "DELETE_TITLE" = "Poista valinta";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Tämä tiedosto";
 "NOT_SUPPORTED_FILETYPE" = "%@ ei ole VLC:n tukema tiedostotyyppi";
 "FILE_EXISTS" = "%@on jo olemassa";
@@ -327,7 +333,7 @@
 "SEARCH" = "Haku";
 "VIDEO" = "Video";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Albumit";
 "ARTISTS" = "Artistit";
 "EPISODES" = "Jaksot";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Muokkauspäivä";
 "NAME" = "Nimi";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Muokkaa";
 "BUTTON_EDIT_HINT" = "Muokkaustila";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Nimeä valitut tiedostot uudelleen";
 "DELETE_HINT" = "Poista valitut tiedostot";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Järjestä";
 "BUTTON_SORT_HINT" = "Näytä lajittelut";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Lajittele sisältö nousevaan tai laskevaan järjestykseen";
 "GRID_LAYOUT" = "Ruudukon asettelu";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Aakkosnumerointi";
 "DURATION" = "Kesto";
@@ -390,26 +396,28 @@
 "NB_MEDIA" = "Kappaleen nro";
 "NB_VIDEO" = "Videon nro";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Mitään ei löytynyt";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Tuntematon artisti";
 "VARIOUS_ARTIST" = "Useat artistit";
 "UNKNOWN_ALBUM" = "Tuntematon albumi";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Tekstitykset ja ääniraidat";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_HINT" = "Valitse tekstitys tai ääniraidat";
 
 "DVD_BUTTON" = "DVD";
 "DVD_HINT" = "DVD:n käyttöliittymä";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "Kiertolukko";
+"ROTATION_LOCK_HINT" = "Lukitse video nykyiseen asentoon";
+
+"REPEAT_HINT" = "Toista samaa mediaa";
 
 "BACKWARD_BUTTON" = "Taaksepäin";
 "BACKWARD_HINT" = "Hyppää taaksepäin";
@@ -418,14 +426,18 @@
 "PREVIOUS_HINT" = "Aiemmin toistettu media";
 
 "PLAY_PAUSE_BUTTON" = "Toista tai keskeytä";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PLAY_PAUSE_HINT" = "Toista tai keskeytä nykyinen toisto";
 
-"NEXT_HINT" = "Next media";
+"STOP_BUTTON" = "Pysäytä";
+
+"NEXT_HINT" = "Seuraava media";
 
 "FORWARD_BUTTON" = "Eteenpäin";
 "FORWARD_HINT" = "Hyppää eteenpäin";
 
 "INTERFACE_LOCK_BUTTON" = "Lukittu käyttöliittymä";
+
+"SHUFFLE_HINT" = "Sekoita lista";
 
 "VIDEO_ASPECT_RATIO_BUTTON" = "Videon kuvasuhde";
 "VIDEO_ASPECT_RATIO_HINT" = "Muuta videon kuvasuhdetta";
@@ -433,26 +445,26 @@
 "MORE_OPTIONS_BUTTON" = "Lisää";
 "MORE_OPTIONS_HINT" = "Näytä lisää säätimiä";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Taajuuskorjain";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoasetukset";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Pakota mediakirjaston tarkistus uudelleen";
 "FORCE_RESCAN_MESSAGE" = "Haluatko pakottaa VLC:n tarkistamaan mediakirjastosi uudelleen?\nSe voi viedä aikaa.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1-yhteyden varoitus";
 "SMBV1_WARN_DESCRIPTION" = "Havaitsimme vanhentuneen protokollan (SMBv1).\nHaluatko varmasti jatkaa SMBv1:n käyttöä?\nSuosittelemme päivittämään tai muuttamaan palvelimen asetuksia.";
 "SMBV1_CONTINUE" = "Jatka SMBv1:llä";
 "SMBV1_NEXT_PROTOCOL" = "Kokeile SMBv2/v3:a";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Purkukoodaus";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Lisää mediaryhmään";
 "ADD_TO_MEDIA_GROUP_HINT" = "Avaa valikko Lisää mediaryhmään";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Yritä ryhmitellä automaattisesti media uudelleen.";
 "BUTTON_REGROUP_DESCRIPTION" = "Haluatko varmasti ryhmitellä uudelleen yksittäisen median automaattisesti?\nTämä voi viedä aikaa.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Lisää media tähän";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Lisätään...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Anna tippiä";
 "CANNOT_MAKE_PAYMENTS" = "Et voi suorittaa maksuja tällä laitteella.";
 "PURCHASE_FAILED" = "Osto epäonnistui";
@@ -493,4 +505,23 @@
 "APPEND_TO_QUEUE_HINT" = "Lisää jonoon";
 "APPEND_TO_QUEUE_LABEL" = "Liitä jonoon";
 
-"DISPLAY_AS" = "Display as";
+"DISPLAY_AS" = "Näytä muodossa";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Pystysuuntainen kirkkauden säätö";
+"BRIGHTNESS_SLIDER" = "Muuta kirkkaustasoa pyyhkäisemällä pystysuunnassa";
+
+/* New strings */
+"VOLUME_HINT" = "Pystysuuntainen voimakkuuden säätö";
+"VOLUME_SLIDER" = "Muuta voimakkuutta pyyhkäisemällä pystysuunnassa";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Toiston säätimet";
+"MENU_REPEAT_DISABLED" = "Älä toista";
+"MENU_REPEAT_SINGLE" = "Uudestaan kerran";
+"MENU_REPEAT_ALL" = "Uudestaan kaikki";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Arkin tausta";
+"ACTIONSHEET_BACKGROUND_HINT" = "Poista arkki napauttamalla.";

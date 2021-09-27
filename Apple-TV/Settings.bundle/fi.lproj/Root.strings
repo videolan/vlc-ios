@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Kirkas teema";
 "SETTINGS_THEME_DARK" = "Tumma teema";
 "SETTINGS_THEME_SYSTEM" = "Automaattinen";
+"SETTINGS_THEME_BLACK" = "Käytä mustaa taustaa tummassa tilassa";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Parantaa akun käyttöikää laitteissa, joissa on OLED-näyttö";
 "SETTINGS_PRIVACY_SUBTITLE" = "Avaa asetuksissa";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Suojattu pääsy sisältöösi";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Mediasi piilotetaan Tiedostot sovellukseen";
@@ -94,7 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediakirjasto";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Pakota VLC tarkistamaan mediakirjasto uudelleen";
 "SETTINGS_DECRAPIFY" = "Optimoi kohteiden nimet näytölle";
-"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
+"SETTINGS_DISABLE_GROUPING" = "Poista automaattinen median ryhmittely käytöstä";
 "SETTINGS_SHOW_THUMBNAILS" = "Näytä videon pikkukuvat";
 "SETTINGS_SHOW_ARTWORKS" = "Näytä äänilevyn kansikuvat";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Sisällytä mediakirjasto laitteen varmuuskopioon";
@@ -107,8 +109,9 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Korkea viive";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Korkein viive";
 "SETTINGS_WIFISHARING_IPv6" = "Wi-Fi jakamisen IPv6-tuki";
-"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
-"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_FORCE_SMBV1" = "Suosi SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Poista asetuksen valinta, jos ongelmia on SMB-palvelimen selaamisessa";
+"SETTINGS_RTSP_TCP" = "Käytä RTP yli RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Kansikuvat";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Lataa kansikuvat";
