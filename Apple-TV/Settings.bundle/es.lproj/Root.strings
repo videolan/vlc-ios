@@ -7,6 +7,8 @@
 "SETTINGS_THEME_BRIGHT" = "Tema claro";
 "SETTINGS_THEME_DARK" = "Tema oscuro";
 "SETTINGS_THEME_SYSTEM" = "Automático";
+"SETTINGS_THEME_BLACK" = "Usar fondo negro en modo oscuro";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Mejora la duración de la batería en dispositivos con una pantalla OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "Abrir en preferencias";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Acceso seguro a su contenido";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Su medio estará oculto en la app Files";
@@ -109,6 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "Soporte IPv6 para compartición WiFi";
 "SETTINGS_FORCE_SMBV1" = "Preferir SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Desactiva esta opción si tienes problemas al explorar un servidor SMB";
+"SETTINGS_RTSP_TCP" = "Usar RTP sobre RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Material artístico";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Descargar material artístico";

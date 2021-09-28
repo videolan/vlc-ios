@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Elegir pista de audio";
 "CHOOSE_SUBTITLE_TRACK" = "Elegir pista de subtítulos";
+"UNKNOWN_TRACK_TYPE" = "Tipo de pista desconocida";
 "OPEN_TRACK_PANEL" = "Abrir selección de pista";
 "CHOOSE_TITLE" = "Seleccionar título";
 "CHOOSE_CHAPTER" = "Seleccionar capítulo";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Biblioteca multimedia vacía";
 "EMPTY_LIBRARY_LONG" = "Para reproducir, puede emitir medios desde un servidor de su red local, desde la nube o sincronizar medios a su dispositivo usando iTunes, WiFi o servicios en la nube.";
 
+"EMPTY_NO_PLAYLISTS" = "Listas de reproducción";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Para crear listas de reproducción, activa el modo de edición en las pestañas de contenido de Vídeo o Audio y, a continuación, selecciona un archivo multimedia.\nTambién puedes sincronizar listas de reproducción de otros dispositivos o de Internet.";
+
 "EMPTY_PLAYLIST" = "Lista de reproducción vacía";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Añadir medios mientras se edita en la respectiva categoría.";
 
@@ -261,14 +265,14 @@
 "DURATION" = "Duración";
 "TITLE" = "Título";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Pulsación larga para detener reproducción.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Información de audio";
 "CLOUD_LOGIN_LONG" = "Para acceder a Cloud Services, inicie sesión de iCloud en este Apple TV y un dispositivo iOS con el mismo Apple ID y habilite Keychain Sharing en las preferencias del sistema. \nDespués, inicide sesión en el proveedor de la nube de su elección usando la app VLC en su dispositivo iOS. Finalmente, selecciónelo en esta pantalla.";
 "ENTER_URL" = "Introduce la URL a reproducir";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Los medios mostrados aquí están almacenados localmente en su Apple TV. Note que los contenidos pueden ser eliminados en cualquier momento por el sistema operativo sin aviso previo cuando VLC no se está ejecutando en caso de que su dispositivo se esté quedando sin almacenamiento.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Descargar subtítulos desde OpenSubtitles.org...";
 "FOUND_SUBS" = "Subtítulos encontrados";
+"NO_SUB_FOUND_OSO" = "No se han encontrado subtítulos para el medio «%@».";
 "USE_SPDIF" = "Usar «pass-through» (S/PDIF)";
 
 "PLAYBACK" = "Reproducción";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Deshabilitado";
 "REPEAT_SINGLE" = "Uno solo";
 "REPEAT_FOLDER" = "Carpeta";
+"SHUFFLE" = "Desordenar";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "¿Desea eliminar el medio seleccionado de la lista de reproducción?\nNo serán eliminados del disco.";
 "DELETE_TITLE" = "Eliimnar selección";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Este archivo";
 "NOT_SUPPORTED_FILETYPE" = "%@no es un tipo de archivo soportado por VLC";
 "FILE_EXISTS" = "%@ ya existe";
@@ -327,7 +333,7 @@
 "SEARCH" = "Buscar";
 "VIDEO" = "Vídeo";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Álbumes";
 "ARTISTS" = "Artistas";
 "EPISODES" = "Episodios";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Fecha modificada";
 "NAME" = "Nombre";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Editar";
 "BUTTON_EDIT_HINT" = "Modo edición";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Renombrar archivos seleccionados";
 "DELETE_HINT" = "Eliminar archivos seleccionados";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Ordenar";
 "BUTTON_SORT_HINT" = "Mostrar información de acción de ordenación";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Ordenar contexto ascendentemente o descendentemente";
 "GRID_LAYOUT" = "Disposición rejilla";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "Alfanumericamente";
 "DURATION" = "Duración";
@@ -390,17 +396,17 @@
 "NB_MEDIA" = "Número de medio";
 "NB_VIDEO" = "Número de vídeo";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "No se ha encontrado nada";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Artista desconocido";
 "VARIOUS_ARTIST" = "Varios artistas";
 "UNKNOWN_ALBUM" = "Álbum desconocido";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "Pistas de subtítulos y audio";
 "SUBTITLE_AND_TRACK_HINT" = "Seleccione pistas de subtítulos y audio";
@@ -411,6 +417,8 @@
 "ROTATION_LOCK_BUTTON" = "Bloqueo de rotación";
 "ROTATION_LOCK_HINT" = "Bloquear vídeo a la orientación actual";
 
+"REPEAT_HINT" = "Repetir mismo medio";
+
 "BACKWARD_BUTTON" = "Retroceder";
 "BACKWARD_HINT" = "Retroceder";
 
@@ -420,6 +428,8 @@
 "PLAY_PAUSE_BUTTON" = "Reproducir o pausar";
 "PLAY_PAUSE_HINT" = "Comience o detenga la reproducción actual";
 
+"STOP_BUTTON" = "Detener";
+
 "NEXT_HINT" = "Siguiente medio";
 
 "FORWARD_BUTTON" = "Avanzar";
@@ -427,32 +437,34 @@
 
 "INTERFACE_LOCK_BUTTON" = "Bloquear interfaz";
 
+"SHUFFLE_HINT" = "Desordenar lista de medio";
+
 "VIDEO_ASPECT_RATIO_BUTTON" = "Proporción de vídeo";
 "VIDEO_ASPECT_RATIO_HINT" = "Cambiar la proporción del vídeo actual";
 
 "MORE_OPTIONS_BUTTON" = "Más";
 "MORE_OPTIONS_HINT" = "Ver más controles de opción";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ecualizador";
 "MORE_OPTIONS_HEADER_TITLE" = "Opciones de vídeo";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Forzar búsqueda en la librería de medios";
 "FORCE_RESCAN_MESSAGE" = "¿Desea forzar que VLC vuelva a buscar en su librería de medios?\nPuede tomar algo de tiempo.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Advertencia de conexión SMBv1";
 "SMBV1_WARN_DESCRIPTION" = "Hemos detectado un protocolo antiguo (SMBv1).\n¿Desea continuar con SMBv1?\nAconsejamos actualizar o cambiar sus preferencias de servidor.";
 "SMBV1_CONTINUE" = "Continuar con SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Intentar con SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Codificación";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Añadir a grupo de medios";
 "ADD_TO_MEDIA_GROUP_HINT" = "Abrir el menú de añadir a grupo de medios";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Intentar reagrupar automáticamente medios individuales.";
 "BUTTON_REGROUP_DESCRIPTION" = "¿Desea intentar reagrupar automáticamente medios individuales?\nEsto puede llevar algo de tiempo";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Coloque el medio aquí para añadirlo";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Añadiendo...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Hacer una donación";
 "CANNOT_MAKE_PAYMENTS" = "No está autorizado a realizar pagos en este dispositivo.";
 "PURCHASE_FAILED" = "Compra fallida";
@@ -494,3 +506,22 @@
 "APPEND_TO_QUEUE_LABEL" = "Añadir a la cola";
 
 "DISPLAY_AS" = "Visualizar como";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Control de brillo vertical";
+"BRIGHTNESS_SLIDER" = "Arrastrar verticalmente para cambiar el nivel de brillo";
+
+/* New strings */
+"VOLUME_HINT" = "Control de volumen vertical";
+"VOLUME_SLIDER" = "Arrastrar verticalmente para cambiar el nivel de volumen";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Controles de reproducción";
+"MENU_REPEAT_DISABLED" = "No repetir";
+"MENU_REPEAT_SINGLE" = "Repetir uno";
+"MENU_REPEAT_ALL" = "Repetir todo";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Fondo de hoja de acción";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tocar para eliminar la de hoja de acción.";
