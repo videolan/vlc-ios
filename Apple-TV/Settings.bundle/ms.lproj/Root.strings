@@ -7,13 +7,15 @@
 "SETTINGS_THEME_BRIGHT" = "Tema cerah";
 "SETTINGS_THEME_DARK" = "Tema gelap";
 "SETTINGS_THEME_SYSTEM" = "Automatik";
+"SETTINGS_THEME_BLACK" = "Guna latar belakang hitam semasa mod gelap";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Tambah baik hayat bateri bagi peranti berskrin OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "Buka dalam Tetapan";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Capaian selamat ke kandungan anda";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Media anda akan disembunyikan dalam apl Files";
 
 "SETTINGS_DARKTHEME" = "Penampilan";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio diregang-masa";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Laju atau perlahankan audio tanpa mengubah pic (perlukan peranti pantas)";
 "SETTINGS_BACKGROUND_AUDIO" = "Main balik video dibalik tabir";
 "SETTINGS_GENERIC_TITLE" = "Generik";
 "SETTINGS_PASSCODE_LOCK" = "Kunci Kod Laluan";
@@ -81,11 +83,11 @@
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Passthrough Audio";
 "SETTINGS_PTCASTINGLONG" = "Biarkan TV anda mengurus pengemasgabungan audio";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Kualiti penukaran";
+"SETTINGS_HIGH" = "Tinggi";
+"SETTINGS_MEDIUM" = "Sederhana";
+"SETTINGS_LOW" = "Rendah";
+"SETTINGS_LOWEST" = "Paling rendah";
 
 "SETTINGS_FEEDBACK" = "Maklumbalas";
 "SETTINGS_SEND_FEEDBACK" = "Hantar Maklumbalas";
@@ -94,12 +96,12 @@
 "SETTINGS_MEDIA_LIBRARY" = "Pustaka media";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Paksa VLC mengimbas semula pustaka media";
 "SETTINGS_DECRAPIFY" = "Optimumkan nama item untuk paparan";
-"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
+"SETTINGS_DISABLE_GROUPING" = "Lumpuhkan pengumpulan media automatik";
 "SETTINGS_SHOW_THUMBNAILS" = "Tunjuk lakaran kenit video";
 "SETTINGS_SHOW_ARTWORKS" = "Tunjuk kerja seni audio";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Sertakan pustaka media dalam sandar peranti";
 
-"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK" = "Rangkaian";
 "SETTINGS_NETWORK_CACHING_TITLE" = "Aras Caching Rangkaian";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Kependaman Terendah";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Kependaman Rendah";
@@ -107,13 +109,14 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Kependaman Tinggi";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Kependaman Tertinggi";
 "SETTINGS_WIFISHARING_IPv6" = "Sokongan IPv6 untuk Perkongsian Wi-Fi";
-"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
-"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_FORCE_SMBV1" = "Utamakan SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Nyahtanda tetapan ini jika anda menghadapi kesukaran ketika melayari pelayan SMB anda";
+"SETTINGS_RTSP_TCP" = "Guna RTP melalui RTSP (TCP)";
 
 "SETTINGS_ARTWORK" = "Kerja Seni";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Muat Turun Kerja Seni";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_NEW_PLAYER" = "Pemain baharu";
 
 "ABOUT_APP_TV" = "Perihal VLC untuk tvOS";

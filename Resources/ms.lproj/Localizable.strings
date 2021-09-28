@@ -4,6 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Pilih Trek Audio";
 "CHOOSE_SUBTITLE_TRACK" = "Pilih Trek Sari Kata";
+"UNKNOWN_TRACK_TYPE" = "Jenis trek tidak diketahui";
 "OPEN_TRACK_PANEL" = "Buka pemilihan trek";
 "CHOOSE_TITLE" = "Pilih Tajuk";
 "CHOOSE_CHAPTER" = "Pilih Bab";
@@ -35,11 +36,11 @@
 "VFILTER_SATURATION" = "Ketepuan";
 "VFILTER_GAMMA" = "Gama";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "Tetapan praset / praamp";
 "PREAMP" = "Praamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Pilih Profil Penyama";
-"SNAP_BANDS" = "Snap bands";
+"SNAP_BANDS" = "Lekap jalur";
 
 "PLAYBACK_FAILED" = "Main balik gagal";
 "PLEASE_WAIT" = "Tunggu sebentar";
@@ -133,8 +134,8 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "SAMBUNGAN PELAYAN GAGAL";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Sila semak alamat pelayan dan kelayakan anda";
 
-"FILES_APP_CELL_TITLE" = "Local files";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+"FILES_APP_CELL_TITLE" = "Fail setempat";
+"FILES_APP_CELL_SUBTITLE" = "Buka satu fail tanpa menyalinnya ke dalam VLC";
 
 "CLOUD_SERVICES" = "Perkhidmatan Awan";
 "LOGIN" = "Daftar Masuk";
@@ -186,6 +187,9 @@
 "EMPTY_LIBRARY" = "Pustaka Media Kosong";
 "EMPTY_LIBRARY_LONG" = "Untuk main balik, anda boleh strimkan media melalui pelayan pada rangkaian tempatan anda, darip awan atau menyegerak media ke peranti anda menggunakan perkhidmatan iTunes,  Muat Naik Wi-Fi atau Awan.";
 
+"EMPTY_NO_PLAYLISTS" = "Senarai Main";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Untuk mencipta senarai main, masuk mod Sunting dalam tab kandungan Video atau Audio dan kemudian pilih media kegemaran anda.\nAnda juga boleh menyegerak senarai main sedia ada melalui peranti lain anda tau internet.";
+
 "EMPTY_PLAYLIST" = "Senarai main kosong";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Tambah media ketika menyunting dalam kategori masing-masing.";
 
@@ -197,7 +201,7 @@
 "PLAYBACK_POSITION" = "Kedudukan Main Balik";
 "VIDEO_FILTER" = "Penapis Video";
 "VIDEO_FILTER_RESET_BUTTON" = "Tetap Semula Penapis Video";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Nisbah bidang video";
 "BWD_BUTTON" = "Lompat Mengundur";
 "FWD_BUTTON" = "Lompat Ke Hadapan";
 "PLAY_BUTTON" = "Main";
@@ -205,10 +209,10 @@
 "PREV_BUTTON" = "Terdahulu";
 "PLAY_ALL_BUTTON" = "Main semua";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_VIDEO_FILTERS" = "Anda pasti mahu menetap semula penapis video?";
+"RESET_PLAYBACK_SPEED" = "Anda pasti mahu menetap semula kelajuan main balik?";
+"RESET_EQUALIZER" = "Anda pasti mahu menetap semula tetapan penyama?";
+"RESET_SLEEP_TIMER" = "Anda pasti mahu menetap semula pemasa tidur?";
 
 "VERSION_FORMAT" = "Versi: %@";
 "BASED_ON_FORMAT" = "Berdasarkan pada:<br />%@";
@@ -261,14 +265,14 @@
 "DURATION" = "Tempoh";
 "TITLE" = "Tajuk";
 
-// strings from VLCKit
+// MARK: - strings from VLCKit
 
-// accessibility labels for the playlist
+// MARK: - accessibility labels for the playlist
 
 
 "LONGPRESS_TO_STOP" = "Tahan untuk hentikan main balik.";
 
-// ATV specific
+// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Maklumat Audio";
 "CLOUD_LOGIN_LONG" = "Untuk mencapai Perkhidmatan Awan, daftar masuk ke iCloud bagi kedua-dua peranti iOS dan Apple TV dengan ID Apple yang sama dan benarkan Sharing Keychain dalam Tetapan Sistem.\nSelepas itu, daftar masuk ke penyedia awan pilihan anda menggunakan apl VLC pada peranti iOS anda. Akhir sekali, pilih ia pada skrin ini.";
 "ENTER_URL" = "Masukkan URL untuk main";
@@ -278,6 +282,7 @@
 "CACHED_MEDIA_LONG" = "Media yang ditunjukkan di sini tersimpan secara setempat dalam TV Apple anda. Perhatian kandungan boleh dibuang oleh sistem pengoperasian tanpa makluman bila VLC tidak berjalan jika peranti anda kekurangan storan.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Muat turun sari kata dari OpenSubtitles.org...";
 "FOUND_SUBS" = "Temui sari kata";
+"NO_SUB_FOUND_OSO" = "Tiada sari kata ditemui untuk item media \"%@\" anda.";
 "USE_SPDIF" = "Guna Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Main Balik";
@@ -285,8 +290,9 @@
 "REPEAT_DISABLED" = "Dilumpuhkan";
 "REPEAT_SINGLE" = "Tunggal";
 "REPEAT_FOLDER" = "Folder";
+"SHUFFLE" = "Kocok";
 
-// Local Network Service Names
+// MARK: - Local Network Service Names
 "UPNP_LONG" = "Plug'n'Play Universal (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
@@ -312,7 +318,7 @@
 "DELETE_MESSAGE_PLAYLIST_CONTENT" = "Anda pasti mahu membuang media dari senarai main?\nIa tidak dipadamkan daripada cakera.";
 "DELETE_TITLE" = "Padam Pemilihan";
 
-//Drag and Drop
+// MARK: - Drag and Drop
 "THIS_FILE" = "Fail ini";
 "NOT_SUPPORTED_FILETYPE" = "%@ ialah jenis fail yang tidak disokong oleh VLC";
 "FILE_EXISTS" = "%@ sudah wujud";
@@ -327,7 +333,7 @@
 "SEARCH" = "Gelintar";
 "VIDEO" = "Video";
 
-// MediaViewController Swipable Header
+// MARK: - MediaViewController Swipable Header
 "ALBUMS" = "Album";
 "ARTISTS" = "Artis";
 "EPISODES" = "Episod";
@@ -340,7 +346,7 @@
 "MODIFIED_DATE" = "Tarikh ubah suai";
 "NAME" = "Nama";
 
-//EDIT
+// MARK: - EDIT
 
 "BUTTON_EDIT" = "Sunting";
 "BUTTON_EDIT_HINT" = "Mod sunting";
@@ -363,7 +369,7 @@
 "RENAME_HINT" = "Namakan semula fail terpilih";
 "DELETE_HINT" = "Padam fail terpilih";
 
-// Sort
+// MARK: - Sort
 
 "BUTTON_SORT" = "Isih";
 "BUTTON_SORT_HINT" = "Papar lembar tindakan isih";
@@ -373,7 +379,7 @@
 "DESCENDING_SWITCH_HINT" = "Isih konteks dalam tertib menaik atau menurun";
 "GRID_LAYOUT" = "Bentangan Grid";
 
-// VLCMediaLibraryKit - Sorting Criteria
+// MARK: - VLCMediaLibraryKit - Sorting Criteria
 
 "ALPHA" = "secara Abjad Angka";
 "DURATION" = "Tempoh";
@@ -390,69 +396,75 @@
 "NB_MEDIA" = "Bilangan media";
 "NB_VIDEO" = "Bilangan video";
 
-// VLCNetworkLoginTVViewController
+// MARK: - VLCNetworkLoginTVViewController
 
 "NO_SAVING_DATA" = "Tiada apa-apa ditemui";
 
-// MediaCollectionViewCell
+// MARK: - MediaCollectionViewCell
 
 "UNKNOWN_ARTIST" = "Artis Tidak Diketahui";
 "VARIOUS_ARTIST" = "Pelbagai Artis";
 "UNKNOWN_ALBUM" = "Album Tidak Diketahui";
 
-/* VideoPlayerControls */
+// MARK: - VideoPlayerControls
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "Trek sarikata dan audio";
+"SUBTITLE_AND_TRACK_HINT" = "Pilih trek sarikata atau audio";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD interface";
+"DVD_HINT" = "Antara muka DVD";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "Kunci putaran";
+"ROTATION_LOCK_HINT" = "Kunci video kekal mengikut orientasi semasa";
 
-"BACKWARD_BUTTON" = "Backward";
-"BACKWARD_HINT" = "Jump Backwards";
+"REPEAT_HINT" = "Ulang media yang sama";
 
-"PREVIOUS_BUTTON" = "Previous";
-"PREVIOUS_HINT" = "Previous media";
+"BACKWARD_BUTTON" = "Undur";
+"BACKWARD_HINT" = "Lompat Mengundur";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
-"PLAY_PAUSE_HINT" = "Play or Pause current playback";
+"PREVIOUS_BUTTON" = "Terdahulu";
+"PREVIOUS_HINT" = "Media terdahulu";
 
-"NEXT_HINT" = "Next media";
+"PLAY_PAUSE_BUTTON" = "Main atau jeda";
+"PLAY_PAUSE_HINT" = "Main atau jeda main balik semasa";
 
-"FORWARD_BUTTON" = "Forward";
-"FORWARD_HINT" = "Jump forwards";
+"STOP_BUTTON" = "Henti";
+
+"NEXT_HINT" = "Media berikutnya";
+
+"FORWARD_BUTTON" = "Maju";
+"FORWARD_HINT" = "Lompat Maju";
 
 "INTERFACE_LOCK_BUTTON" = "Kunci antara muka";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"SHUFFLE_HINT" = "Kocok senarai media";
+
+"VIDEO_ASPECT_RATIO_BUTTON" = "Nisbah bidang video";
 "VIDEO_ASPECT_RATIO_HINT" = "Ubah nisbah bidang video semasa";
 
 "MORE_OPTIONS_BUTTON" = "Lagi";
 "MORE_OPTIONS_HINT" = "Lihat lebih banyak kawalan pilihan";
 
-/* MediaMoreOptionsActionSheet */
+// MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Penyama";
 "MORE_OPTIONS_HEADER_TITLE" = "Pilihan Video";
 
-/* Settings - Force rescan alert */
+// MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Paksa imbas semula pustaka media";
 "FORCE_RESCAN_MESSAGE" = "Anda mahu paksa VLC mengimbas semula pustaka media anda?\nIa mengambil masa.";
 
-// Local Network
+// MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Amaran Sambungan SMBv1";
 "SMBV1_WARN_DESCRIPTION" = "Kami telah mengesan satu protokol lama (SMBv1).\nAnda pasti mahu teruskan penggunaan SMBv1?\nKami  sarankan menatar atau mengubah tetapan pelayan anda.";
 "SMBV1_CONTINUE" = "Teruskan dengan SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Cuba SMBv2/v3";
 
-/* Preview labels */
+// MARK: - Preview labels
 
 "ENCODING" = "Pengekodan";
 
-/* Media groups */
+// MARK: - Media groups
 
 "ADD_TO_MEDIA_GROUP" = "Tambah ke kumpulan media";
 "ADD_TO_MEDIA_GROUP_HINT" = "Buka untuk tambah ke dalam menu kumpulan media";
@@ -474,11 +486,11 @@
 "BUTTON_REGROUP_HINT" = "Cuba kumpul semula media tunggal secara automatik.";
 "BUTTON_REGROUP_DESCRIPTION" = "Anda pasti mahu cuba kumpul semula media tunggal secara automatik?\nTindakan ini mengambil sedikit masa.";
 
-/* Files.app persistence file */
+// MARK: - Files.app persistence file
 "MEDIALIBRARY_FILES_PLACEHOLDER" = "Letak media di sini untuk menambahnya";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Menambah...";
 
-/* tip jar */
+// MARK: - tip jar
 "GIVE_TIP" = "Berilah Tip";
 "CANNOT_MAKE_PAYMENTS" = "Anda tidak dibenarkan membuat apa-apa bayaran menerusi peranti ini.";
 "PURCHASE_FAILED" = "Pembayaran Gagal";
@@ -493,4 +505,23 @@
 "APPEND_TO_QUEUE_HINT" = "Tambah ke baris gilir";
 "APPEND_TO_QUEUE_LABEL" = "Tambah ke baris gilir";
 
-"DISPLAY_AS" = "Display as";
+"DISPLAY_AS" = "Papar sebagai";
+
+/* New strings */
+"BRIGHTNESS_HINT" = "Kawalan kecerahan menegak";
+"BRIGHTNESS_SLIDER" = "Leret secara menegak untuk mengubah tahap kecerahan";
+
+/* New strings */
+"VOLUME_HINT" = "Kawalan volum menegak";
+"VOLUME_SLIDER" = "Leret secara menegak untuk mengubah tahap volum";
+
+// MARK: - AudioMiniPlayer playback controls menu
+"MENU_PLAYBACK_CONTROLS" = "Kawalan main balik";
+"MENU_REPEAT_DISABLED" = "Jangan ulang";
+"MENU_REPEAT_SINGLE" = "Ulang sekali";
+"MENU_REPEAT_ALL" = "Ulang semua";
+
+// MARK: - ActionSheet
+
+"ACTIONSHEET_BACKGROUND_LABEL" = "Latar belakang lembar tindakan";
+"ACTIONSHEET_BACKGROUND_HINT" = "Ketik untuk buang lembar tindakan";
