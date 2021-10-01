@@ -35,7 +35,7 @@
                     <blurEffect style="dark"/>
                 </visualEffectView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vtO-U6-cBN" userLabel="QueueCollectionView">
-                    <rect key="frame" x="0.0" y="44" width="414" height="896"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="P1Y-I1-lyI">
                         <size key="itemSize" width="50" height="50"/>
@@ -74,7 +74,6 @@
                 <constraint firstItem="B60-wi-0eH" firstAttribute="centerY" secondItem="dEz-fQ-e4l" secondAttribute="centerY" id="Ao7-Jj-077"/>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Bsu-Td-VNA"/>
                 <constraint firstItem="gpr-5h-rmL" firstAttribute="bottom" secondItem="Afy-hu-gWu" secondAttribute="bottom" id="OMQ-OY-25t"/>
-                <constraint firstItem="vtO-U6-cBN" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="SAr-aD-8eP"/>
                 <constraint firstItem="gpr-5h-rmL" firstAttribute="top" secondItem="Afy-hu-gWu" secondAttribute="top" id="TE4-gZ-vUr"/>
                 <constraint firstItem="dEz-fQ-e4l" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="VPm-6i-9Xy"/>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="width" secondItem="vUN-kp-3ea" secondAttribute="width" id="VcE-aW-NrS"/>
@@ -83,6 +82,7 @@
                 <constraint firstItem="Afy-hu-gWu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aRd-w1-sQZ"/>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="top" secondItem="dEz-fQ-e4l" secondAttribute="top" id="ea5-aa-dfU"/>
                 <constraint firstItem="Afy-hu-gWu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hNg-nl-cdA"/>
+                <constraint firstItem="vtO-U6-cBN" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="iPE-8x-drm"/>
                 <constraint firstItem="gpr-5h-rmL" firstAttribute="leading" secondItem="Afy-hu-gWu" secondAttribute="leading" id="kKE-HX-QWg"/>
                 <constraint firstAttribute="trailing" secondItem="Afy-hu-gWu" secondAttribute="trailing" id="kum-S4-cqd"/>
                 <constraint firstItem="vtO-U6-cBN" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="lYc-Of-c2m"/>

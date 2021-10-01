@@ -300,11 +300,9 @@ class QueueViewController: UIViewController {
 
     func reloadBackground(with image: UIImage?) {
         if !UIAccessibility.isReduceTransparencyEnabled {
-            queueCollectionView.backgroundColor = image == nil ? PresentationTheme.darkTheme.colors.background : .clear
             artworkImageBackgroundView.image = image
             artworkBlurView.isHidden = false
         } else {
-            queueCollectionView.backgroundColor = PresentationTheme.darkTheme.colors.background
             artworkImageBackgroundView.image = nil
             artworkBlurView.isHidden = true
         }
@@ -323,6 +321,7 @@ private extension QueueViewController {
         topView.alpha = 0.1
         themeDidChange()
         grabberView.layer.cornerRadius = 2.5
+        view.backgroundColor = PresentationTheme.darkTheme.colors.background
     }
 
     private func initDarkOverlayView() {
