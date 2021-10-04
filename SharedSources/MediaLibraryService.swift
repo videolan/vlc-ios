@@ -159,8 +159,8 @@ class MediaLibraryService: NSObject {
 
     override init() {
         super.init()
-        medialib.delegate = self
         setupMediaLibrary()
+        medialib.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(reload),
                                                name: .VLCNewFileAddedNotification, object: nil)
 
