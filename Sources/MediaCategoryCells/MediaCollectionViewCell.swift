@@ -325,7 +325,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     }
 
     func update(mediaGroup: VLCMLMediaGroup) {
-        if mediaGroup.nbMedia() == 1 && !mediaGroup.userInteracted() {
+        if mediaGroup.nbTotalMedia() == 1 && !mediaGroup.userInteracted() {
             guard let media = mediaGroup.media(of: .video)?.first else {
                 assertionFailure("EditActions: rename: Failed to retrieve media.")
                 return

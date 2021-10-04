@@ -245,7 +245,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         // If we are a MediaGroupViewModel, check if there are no empty groups from ungrouping.
         if let mediaGroupModel = model as? MediaGroupViewModel {
             mediaGroupModel.files = mediaGroupModel.files.filter() {
-                return $0.nbMedia() != 0
+                return $0.nbTotalMedia() != 0
             }
         }
 
@@ -807,7 +807,7 @@ extension MediaCategoryViewController {
         let modelContent = mediaObjectArray.objectAtIndex(index: indexPath.row)
 
         if let mediaGroup = modelContent as? VLCMLMediaGroup,
-            mediaGroup.nbMedia() == 1 && !mediaGroup.userInteracted() {
+            mediaGroup.nbTotalMedia() == 1 && !mediaGroup.userInteracted() {
             // We handle only mediagroups of video
             guard let media = mediaGroup.media(of: .video)?.first else {
                 assertionFailure("MediaCategoryViewController: Failed to fetch mediagroup video.")
@@ -1149,7 +1149,7 @@ extension MediaCategoryViewController {
             var singleGroup = [VLCMLMediaGroup]()
             // Filter single groups
             singleGroup = mediaGroupModel.files.filter() {
-                return $0.nbMedia() == 1 && !$0.userInteracted()
+                return $0.nbTotalMedia() == 1 && !$0.userInteracted()
             }
             singleGroup.forEach() {
                 guard let media = $0.media(of: .video)?.first else {

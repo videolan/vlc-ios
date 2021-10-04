@@ -63,7 +63,7 @@ class MediaGroupViewModel: MLBaseModel {
     }
 
     func rename(_ mediaGroup: VLCMLMediaGroup, to name: String) {
-        if mediaGroup.nbMedia() == 1 && !mediaGroup.userInteracted() {
+        if mediaGroup.nbTotalMedia() == 1 && !mediaGroup.userInteracted() {
             guard let media = mediaGroup.media(of: .video)?.first else {
                 assertionFailure("MediaGroupViewController: rename: Failed to retrieve media.")
                 return
@@ -110,7 +110,7 @@ class MediaGroupViewModel: MLBaseModel {
             }
             newGroup.add(medium)
         }
-        if originMediaGroup.nbMedia() == 0 {
+        if originMediaGroup.nbTotalMedia() == 0 {
             filterFilesFromDeletion(of: [originMediaGroup])
             medialibrary.medialib.deleteMediaGroup(withIdentifier: originMediaGroup.identifier())
         }
@@ -222,7 +222,7 @@ extension VLCMLMediaGroup: MediaCollectionModel {
     }
 
     func title() -> String {
-        if nbMedia() == 1 && !userInteracted() {
+        if nbTotalMedia() == 1 && !userInteracted() {
             guard let media = media(of: .video)?.first else {
                 assertionFailure("MediaGroupViewController: Failed to retrieve media.")
                 return name()

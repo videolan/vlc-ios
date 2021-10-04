@@ -164,7 +164,7 @@ extension CollectionViewCellPreviewController {
             infos.append(PreviewInformation(value: collection.title(), type: .title))
             // Handle single mediaGroups as media
             if let mediaGroup = collection as? VLCMLMediaGroup,
-                !mediaGroup.userInteracted() && mediaGroup.nbMedia() == 1 {
+                !mediaGroup.userInteracted() && mediaGroup.nbTotalMedia() == 1 {
                 if let medium = mediaGroup.media(of: .video)?.first {
                     infos += infoForVideo(medium)
                 }

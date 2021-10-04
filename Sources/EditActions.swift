@@ -91,7 +91,7 @@ extension EditActions {
             if mediaGroupIds.contains($0.identifier()) {
                 // Do not include the current selection
                 return false
-            } else if $0.nbMedia() == 1 && !$0.userInteracted() {
+            } else if $0.nbTotalMedia() == 1 && !$0.userInteracted() {
                 // Do not include elements shown as a media
                 return false
             }
@@ -120,7 +120,7 @@ extension EditActions {
         }
 
         if let mediaGroup = collectionModel.mediaCollection as? VLCMLMediaGroup,
-            mediaGroup.nbMedia() == media.count {
+            mediaGroup.nbTotalMedia() == media.count {
             guard mediaGroup.destroy() else {
                 assertionFailure("EditActions: removeFromMediaGroup: Failed to destroy mediaGroup.")
                 completion?(.fail)
@@ -144,7 +144,7 @@ extension EditActions {
             } else if let playlist = mlObject as? VLCMLPlaylist {
                 mlObjectName = playlist.name
             } else if let mediaGroup = mlObject as? VLCMLMediaGroup {
-                if mediaGroup.nbMedia() == 1 && !mediaGroup.userInteracted() {
+                if mediaGroup.nbTotalMedia() == 1 && !mediaGroup.userInteracted() {
                     guard let media = mediaGroup.media(of: .video)?.first else {
                         assertionFailure("EditActions: rename: Failed to retrieve media.")
                         VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
@@ -448,7 +448,7 @@ extension EditActions: AddToCollectionViewControllerDelegate {
 
         mediaGroups.forEach() {
             // Skip mediaGroups that are shown as media
-            if $0.userInteracted() || $0.nbMedia() > 1 {
+            if $0.userInteracted() || $0.nbTotalMedia() > 1 {
                 mediaGroupsIds.append($0.identifier())
                 $0.destroy()
             }

@@ -182,7 +182,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     }
 
     func update(mediaGroup: VLCMLMediaGroup) {
-        let isSingleMediaGroup = mediaGroup.nbMedia() == 1
+        let isSingleMediaGroup = mediaGroup.nbTotalMedia() == 1
 
         if isSingleMediaGroup && !mediaGroup.userInteracted() {
             guard let media = mediaGroup.media(of: .video)?.first else {
