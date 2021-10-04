@@ -293,7 +293,7 @@ class QueueViewController: UIViewController {
         queueCollectionView.collectionViewLayout.invalidateLayout()
     }
 
-    private func reload() {
+    func reload() {
         queueCollectionView.reloadData()
         queueCollectionView.collectionViewLayout.invalidateLayout()
     }

@@ -438,6 +438,7 @@ extension AudioMiniPlayer {
             return
         }
         if let queueView = queueViewController?.view {
+            queueViewController?.reload()
             hintingPlayqueue = true
             UIView.animate(withDuration: 0.3, delay: delay, animations: {
                 self.frame.origin.y -= 50
