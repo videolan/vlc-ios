@@ -765,6 +765,14 @@ extension VideoPlayerViewController {
         }
     }
 
+    func jumpBackwards() {
+        playbackService.jumpBackward(10)
+    }
+
+    func jumpForwards() {
+        playbackService.jumpForward(10)
+    }
+
     @objc func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
         if playbackService.currentMediaIs360Video {
             let zoom: CGFloat = MediaProjection.FOV.default * -(ZOOM_SENSITIVITY * recognizer.velocity / screenPixelSize.width)
@@ -1604,5 +1612,68 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
         videoPlayerControls.rotationLockButton.isEnabled = true
         videoPlayerControls.aspectRatioButton.isEnabled = true
         videoPlayerControls.moreActionsButton.isEnabled = true
+    }
+}
+
+// MARK: - Keyboard Controls
+
+extension VideoPlayerViewController {
+    @objc func keyLeftArrow() {
+        jumpBackwards()
+    }
+
+    @objc func keyRightArrow() {
+        jumpForwards()
+    }
+
+    @objc func keyRightBracket() {
+        playbackService.playbackRate *= 1.5
+    }
+
+    @objc func keyLeftBracket() {
+        playbackService.playbackRate *= 0.75
+    }
+
+    @objc func keyEqual() {
+        playbackService.playbackRate = 1.0
+    }
+
+    override var keyCommands: [UIKeyCommand]? {
+        var commands: [UIKeyCommand] = [
+            UIKeyCommand(input: " ",
+                         modifierFlags: [],
+                         action: #selector(handlePlayPauseGesture),
+                         discoverabilityTitle: NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")),
+            UIKeyCommand(input: "\r",
+                         modifierFlags: [],
+                         action: #selector(handlePlayPauseGesture),
+                         discoverabilityTitle: NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")),
+            UIKeyCommand(input: UIKeyCommand.inputLeftArrow,
+                         modifierFlags: [],
+                         action: #selector(keyLeftArrow),
+                         discoverabilityTitle: NSLocalizedString("KEY_JUMP_BACKWARDS", comment: "")),
+            UIKeyCommand(input: UIKeyCommand.inputRightArrow,
+                         modifierFlags: [],
+                         action: #selector(keyRightArrow),
+                         discoverabilityTitle: NSLocalizedString("KEY_JUMP_FORWARDS", comment: "")),
+            UIKeyCommand(input: "[",
+                         modifierFlags: [],
+                         action: #selector(keyRightBracket),
+                         discoverabilityTitle: NSLocalizedString("KEY_INCREASE_PLAYBACK_SPEED", comment: "")),
+            UIKeyCommand(input: "]",
+                         modifierFlags: [],
+                         action: #selector(keyLeftBracket),
+                         discoverabilityTitle: NSLocalizedString("KEY_DECREASE_PLAYBACK_SPEED", comment: ""))
+        ]
+
+        if abs(playbackService.playbackRate - 1.0) > .ulpOfOne {
+            commands.append(UIKeyCommand(input: "=",
+                                         modifierFlags: [],
+                                         action: #selector(keyEqual),
+                                         discoverabilityTitle: NSLocalizedString("KEY_RESET_PLAYBACK_SPEED",
+                                                                                 comment: "")))
+        }
+
+        return commands
     }
 }

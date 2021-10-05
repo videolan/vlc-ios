@@ -53,7 +53,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     }
 
     func videoPlayerControlsDelegateDidTapBackward(_ videoPlayerControls: VideoPlayerControls) {
-        playbackService.jumpBackward(10)
+        jumpBackwards()
     }
 
     func videoPlayerControlsDelegateDidTapPreviousMedia(_ videoPlayerControls: VideoPlayerControls) {
@@ -70,7 +70,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     }
 
     func videoPlayerControlsDelegateDidTapForeward(_ videoPlayerControls: VideoPlayerControls) {
-        playbackService.jumpForward(10)
+        jumpForwards()
     }
 
     func videoPlayerControlsDelegateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls) {
