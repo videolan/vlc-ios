@@ -16,8 +16,10 @@
 @class VLCServices;
 @class VLCQueueViewController;
 
-extern NSString *const VLCPlayerDisplayControllerDisplayMiniPlayer;
-extern NSString *const VLCPlayerDisplayControllerHideMiniPlayer;
+NS_ASSUME_NONNULL_BEGIN
+
+extern NSString * const VLCPlayerDisplayControllerDisplayMiniPlayer;
+extern NSString * const VLCPlayerDisplayControllerHideMiniPlayer;
 
 typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
     VLCPlayerDisplayControllerDisplayModeFullscreen,
@@ -51,10 +53,10 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 @property (nonatomic, strong, nullable) UIView *miniPlaybackView;
 @property (nonatomic, strong, readonly, nullable) VLCQueueViewController *queueViewController;
 
-- (nonnull instancetype)init NS_UNAVAILABLE;
-- (nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil
                                  bundle:(nullable NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
-- (nullable instancetype)initWithCoder:(nonnull NSCoder *)aDecoder NS_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 
 - (nullable instancetype)initWithServices:(nullable id)services NS_DESIGNATED_INITIALIZER;
 
@@ -67,3 +69,5 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 - (void)hintPlayqueueWithDelay:(NSTimeInterval)delay;
 
 @end
+
+NS_ASSUME_NONNULL_END
