@@ -141,7 +141,11 @@ protocol MediaMoreOptionsActionSheetDelegate {
         if #available(iOS 13.0, *) {
             sleepTimerView.overrideUserInterfaceStyle = .dark
         }
-        equalizerView.delegate = PlaybackService.sharedInstance()
+
+        guard let playbackService = PlaybackService.sharedInstance() as? EqualizerViewDelegate else {
+            preconditionFailure("PlaybackService should be EqualizerViewDelegate.")
+        }
+        equalizerView.delegate = playbackService
         return equalizerView
     }()
 
