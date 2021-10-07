@@ -812,6 +812,7 @@ extension VideoPlayerViewController {
             numberOfTapSeek = previousSeekState == .backward ? 1 : numberOfTapSeek + 1
         } else {
             playbackService.switchAspectRatio(true)
+            return
         }
         //_isTapSeeking = YES;
         executeSeekFromTap()
