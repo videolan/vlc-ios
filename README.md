@@ -33,10 +33,17 @@ It's currently written in Objective-C / Swift and uses [VLCKit](https://code.vid
 
 ### VLC-iOS
 
-1. Run `[sudo] gem install cocoapods`.
-2. Run `pod install` (or `arch -x86_64 pod install` on Apple Silicon devices).
-3. Open `VLC.xcworkspace`.
-4. Hit "Build and Run".
+1. Clone VLC-iOS:
+
+    `git clone https://code.videolan.org/videolan/vlc-ios.git`
+
+2. Run the command `[sudo] gem install cocoapods` (and then `[sudo] arch -x86_64 gem install ffi` on Apple Silicon devices).    
+3. Run `pod install` (or `arch -x86_64 pod install` on Apple Silicon devices).
+4. Open `VLC.xcworkspace`.
+5. Hit "Build and Run".
+
+
+
 
 ### Custom VLCKit
 
