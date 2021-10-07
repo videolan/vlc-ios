@@ -230,6 +230,10 @@ static NSMutableDictionary *authentifiedHosts;
             message = NSLocalizedString(@"WEBINTF_AUTH_BANNED", nil);
             remainingAttempts = @"";
             break;
+        default:
+            result = @"ko";
+            message = @"";
+            remainingAttempts = @"";
     }
     NSDictionary *returnData = @{
         @"result": result,
