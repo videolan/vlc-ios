@@ -612,21 +612,21 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     } else if (index == count) {
         return NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil);
     }
-    return nil;
+    return @"";
 }
 
 - (NSString *)audioTrackNameAtIndex:(NSInteger)index
 {
     if (index >= 0 && index < _mediaPlayer.audioTrackNames.count)
         return _mediaPlayer.audioTrackNames[index];
-    return nil;
+    return @"";
 }
 
 - (NSDictionary *)titleDescriptionsDictAtIndex:(NSInteger)index
 {
     if (index >= 0 && index < _mediaPlayer.titleDescriptions.count)
         return _mediaPlayer.titleDescriptions[index];
-    return nil;
+    return [NSDictionary dictionary];
 }
 
 - (NSDictionary *)chapterDescriptionsDictAtIndex:(NSInteger)index
@@ -634,7 +634,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     NSArray *chapterDescriptions = [_mediaPlayer chapterDescriptionsOfTitle:_mediaPlayer.currentTitleIndex];
     if (index >= 0 && index < chapterDescriptions.count)
         return chapterDescriptions[index];
-    return nil;
+    return [NSDictionary dictionary];
 }
 
 - (void)selectAudioTrackAtIndex:(NSInteger)index
