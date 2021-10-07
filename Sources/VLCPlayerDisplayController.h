@@ -14,6 +14,7 @@
 
 @class VLCPlaybackService;
 @class VLCServices;
+@class VLCQueueViewController;
 
 extern NSString *const VLCPlayerDisplayControllerDisplayMiniPlayer;
 extern NSString *const VLCPlayerDisplayControllerHideMiniPlayer;
@@ -41,8 +42,14 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 @property (nonatomic, assign) VLCPlayerDisplayControllerDisplayMode displayMode;
 @property (nonatomic, weak, nullable) VLCPlaybackService *playbackController;
 @property (nonatomic, strong, nullable) NSLayoutYAxisAnchor *realBottomAnchor;
+@property (nonatomic, strong, nullable) NSLayoutConstraint *leadingConstraint;
+@property (nonatomic, strong, nullable) NSLayoutConstraint *trailingConstraint;
+@property (nonatomic, strong, nullable) NSLayoutConstraint *bottomConstraint;
+@property (nonatomic, strong, nullable) NSLayoutConstraint *playqueueBottomConstraint;
 @property (nonatomic, readonly) BOOL isMiniPlayerVisible;
+@property (nonatomic, readonly) BOOL hintingPlayqueue;
 @property (nonatomic, strong, nullable) UIView *miniPlaybackView;
+@property (nonatomic, strong, readonly, nullable) VLCQueueViewController *queueViewController;
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
 - (nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil

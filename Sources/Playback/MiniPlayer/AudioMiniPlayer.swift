@@ -28,7 +28,7 @@ struct MiniPlayerPosition {
     var horizontal: MiniPlayerHorizontalPosition
 }
 
-enum PanDirection {
+@objc enum PanDirection: Int {
     case vertical
     case horizontal
 }
@@ -56,6 +56,10 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     @IBOutlet private weak var previousNextOverlay: UIView!
     @IBOutlet private weak var previousNextImage: UIImageView!
 
+    private let draggingDelegate: MiniPlayerDraggingDelegate
+
+    private let animationDuration = 0.2
+
     private var mediaService: MediaLibraryService
     private lazy var playbackController = PlaybackService.sharedInstance()
 
@@ -65,7 +69,6 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     var originY: CGFloat = 0.0
     var tapticPosition = MiniPlayerPosition(vertical: .bottom, horizontal: .center)
     var panDirection: PanDirection = .vertical
-    var hintingPlayqueue: Bool = false
 
     var stopGestureEnabled: Bool {
         if #available(iOS 13.0, *) {
@@ -75,8 +78,9 @@ class AudioMiniPlayer: UIView, MiniPlayer {
         }
     }
 
-    @objc init(service: MediaLibraryService) {
+    @objc init(service: MediaLibraryService, draggingDelegate: MiniPlayerDraggingDelegate) {
         self.mediaService = service
+        self.draggingDelegate = draggingDelegate
         super.init(frame: .zero)
         initView()
         setupConstraint()
@@ -290,16 +294,7 @@ extension AudioMiniPlayer {
     }
 
     func dragStateDidChange(_ sender: UIPanGestureRecognizer) {
-        let translation = sender.translation(in: UIApplication.shared.keyWindow?.rootViewController?.view)
-        switch panDirection {
-            case .vertical:
-                center = CGPoint(x: center.x, y: center.y + translation.y)
-                if let queueView = queueViewController?.view {
-                    queueView.center = CGPoint(x: queueView.center.x, y: queueView.center.y + translation.y)
-                }
-            case .horizontal:
-                center = CGPoint(x: center.x + translation.x, y: center.y)
-        }
+        draggingDelegate.miniPlayerDragStateDidChange(self, sender: sender, panDirection: panDirection)
         sender.setTranslation(CGPoint.zero, in: UIApplication.shared.keyWindow?.rootViewController?.view)
 
         var hapticFeedbackNeeded = false
@@ -314,6 +309,7 @@ extension AudioMiniPlayer {
         if hapticFeedbackNeeded, #available(iOS 10.0, *) {
             ImpactFeedbackGenerator().limitOverstepped()
         }
+        draggingDelegate.miniPlayerNeedsLayout(self)
     }
 
     func dragDidEnd(_ sender: UIPanGestureRecognizer) {
@@ -330,7 +326,7 @@ extension AudioMiniPlayer {
                             }
                         case .bottom:
                             if stopGestureEnabled && self.frame.minY > originY + 10 {
-                                hideMiniPlayer(from: superview)
+                                playbackController.stopPlayback()
                             } else if self.frame.minY > limit {
                                 dismissPlayqueue()
                             } else {
@@ -346,10 +342,14 @@ extension AudioMiniPlayer {
                         case .center:
                             break
                     }
-                    repositionMiniPlayer(in: superview)
+                    draggingDelegate.miniPlayerCenterHorizontaly(self)
                     position.horizontal = .center
             }
             hidePreviousNextOverlay()
+            draggingDelegate.miniPlayerDragDidEnd(self, sender: sender, panDirection: panDirection)
+            UIView.animate(withDuration: animationDuration, animations: {
+                self.draggingDelegate.miniPlayerNeedsLayout(self)
+            })
         }
     }
 
@@ -376,10 +376,11 @@ extension AudioMiniPlayer {
         if frame.minY < limit && tapticPosition.vertical == .bottom {
             hapticFeedbackNeeded = true
             queueViewController?.show()
+            queueViewController?.view.alpha = 1.0
             tapticPosition.vertical = .top
         } else if frame.minY > limit && tapticPosition.vertical == .top {
             hapticFeedbackNeeded = true
-            queueViewController?.hide()
+            queueViewController?.view.alpha = 0.5
             tapticPosition.vertical = .bottom
         }
         if position.vertical == .bottom {
@@ -431,141 +432,28 @@ extension AudioMiniPlayer {
         return hapticFeedbackNeeded
     }
 
-// MARK: Hint playqueue
-
-    @objc func hintPlayqueue(delay: TimeInterval = 0) {
-        guard !hintingPlayqueue else {
-            return
-        }
-        if let queueView = queueViewController?.view {
-            queueViewController?.reload()
-            hintingPlayqueue = true
-            UIView.animate(withDuration: 0.3, delay: delay, animations: {
-                self.frame.origin.y -= 50
-                queueView.frame.origin.y -= 50
-                queueView.alpha = 1.0
-            }, completion: {
-                _ in
-                UIView.animate(withDuration: 0.7, animations: {
-                    self.frame.origin.y += 50
-                    queueView.frame.origin.y += 50
-                    queueView.alpha = 0.0
-                }, completion: {
-                    _ in
-                    self.hintingPlayqueue = false
-                })
-            })
-        }
-    }
-
 // MARK: Show hide playqueue
 
     func showPlayqueue(in superview: UIView) {
         if let queueView = queueViewController?.view {
             position.vertical = .top
             tapticPosition.vertical = .top
-            let newY: CGFloat = miniPlayerTopPosition(in: superview)
             queueView.setNeedsUpdateConstraints()
-            if #available(iOS 10.0, *) {
-                let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
-                animator.addAnimations {
-                    self.frame.origin.y = newY
-                    queueView.frame.origin.y = newY + self.frame.height
-                }
-                animator.startAnimation()
-            } else {
-                frame.origin.y = newY
-                queueView.frame.origin.y = newY + frame.height
-            }
+            draggingDelegate.miniPlayerPositionToTop(self)
         }
-    }
-
-    func miniPlayerTopPosition(in superview: UIView) -> CGFloat {
-        var topPosition: CGFloat
-        if #available(iOS 11.0, *) {
-            topPosition = UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0
-        } else {
-            topPosition = superview.frame.origin.y + 25
-        }
-        if UIApplication.shared.statusBarFrame.height == 0 {
-            topPosition += 20
-        }
-        return topPosition
     }
 
     func dismissPlayqueue() {
         position.vertical = .bottom
         tapticPosition.vertical = .bottom
-        if #available(iOS 10.0, *) {
-            let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
-            animator.addCompletion({
-                _ in
-                self.dismissPlayqueueCompletion()
-            })
-            animator.addAnimations {
-                self.superview?.setNeedsLayout()
-                self.superview?.layoutIfNeeded()
-            }
-            animator.startAnimation()
-        } else {
-            superview?.setNeedsLayout()
-            superview?.layoutIfNeeded()
-            dismissPlayqueueCompletion()
-        }
-    }
-
-    func dismissPlayqueueCompletion() {
-        queueViewController?.hide()
-    }
-
-    func hideMiniPlayer(from superview: UIView) {
-        if #available(iOS 10.0, *) {
-            let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
-            animator.addCompletion({
-                _ in
-                self.playbackController.stopPlayback()
-                self.queueViewController?.hide()
-            })
-            animator.addAnimations {
-                self.frame.origin.y = superview.frame.maxY
-            }
-            animator.startAnimation()
-        } else {
-            frame.origin.y = superview.frame.maxY
-            playbackController.stopPlayback()
-            queueViewController?.hide()
-        }
-    }
-
-    func repositionMiniPlayer(in superview: UIView) {
-        if #available(iOS 10.0, *) {
-            let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
-            animator.addAnimations {
-                self.center.x = superview.center.x
-            }
-            animator.startAnimation()
-        } else {
-            center.x = superview.center.x
-        }
+        draggingDelegate.miniPlayerPositionToBottom(self)
     }
 
     func hidePreviousNextOverlay() {
-        if #available(iOS 10.0, *) {
-            let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
-            animator.addAnimations {
-                self.previousNextOverlay.alpha = 0.0
-                self.previousNextOverlay.isHidden = true
-            }
-            animator.startAnimation()
-        } else {
-            previousNextOverlay.alpha = 0.0
-            previousNextOverlay.isHidden = true
-        }
-    }
-
-    internal override func layoutSubviews() {
-        super.layoutSubviews()
-        dismissPlayqueue()
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.previousNextOverlay.alpha = 0.0
+            self.previousNextOverlay.isHidden = true
+        })
     }
 }
 
@@ -668,4 +556,13 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
     private func addContextMenu() {
         audioMiniPlayer.addInteraction(UIContextMenuInteraction(delegate: self))
     }
+}
+
+@objc protocol MiniPlayerDraggingDelegate {
+    func miniPlayerDragStateDidChange(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection)
+    func miniPlayerDragDidEnd(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection)
+    func miniPlayerPositionToTop(_ miniPlayer: AudioMiniPlayer)
+    func miniPlayerPositionToBottom(_ miniPlayer: AudioMiniPlayer)
+    func miniPlayerCenterHorizontaly(_ miniPlayer: AudioMiniPlayer)
+    func miniPlayerNeedsLayout(_ miniPlayer: AudioMiniPlayer)
 }

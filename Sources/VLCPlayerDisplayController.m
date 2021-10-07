@@ -44,8 +44,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *movieViewController;
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *oldVideoPlayerViewController;
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *videoPlayerViewController;
-@property (nonatomic, strong) VLCQueueViewController *queueViewController;
-@property (nonatomic, strong) NSLayoutConstraint *bottomConstraint;
 @property (nonatomic, strong) VLCServices *services;
 @end
 
@@ -316,8 +314,10 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     void (^completionBlock)(BOOL) = nil;
     if (needsShow) {
         if (!miniPlaybackView) {
+            UIViewController *rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
+
             // Until VideoMiniPlayer is integrated, only AudioMiniPlayer is used.
-            self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithService:_services.medialibraryService];
+            self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithService:_services.medialibraryService draggingDelegate:self];
             if (!_queueViewController) {
                 [self initQueueViewController];
             }
@@ -326,24 +326,22 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             [self.view addSubview:miniPlaybackView];
             _bottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.bottomAnchor];
 
-            NSLayoutConstraint *leadingConstraint;
-            NSLayoutConstraint *trailingConstraint;
-
-            UIViewController *rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
-
             if (@available(iOS 11.0, *)) {
-                leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.leadingAnchor];
-                trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.trailingAnchor];
+                _playqueueBottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.topAnchor
+                                                                                        constant: 25.0];
+                _leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.leadingAnchor];
+                _trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.trailingAnchor];
             } else {
-                leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor];
-                trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
+                _playqueueBottomConstraint = [miniPlaybackView.topAnchor constraintEqualToAnchor:self.view.topAnchor constant: 25.0];
+                _leadingConstraint = [miniPlaybackView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor];
+                _trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
             }
 
             [NSLayoutConstraint activateConstraints:
              @[_bottomConstraint,
                [miniPlaybackView.heightAnchor constraintEqualToConstant:((UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer>*)self.miniPlaybackView).contentHeight],
-               leadingConstraint,
-               trailingConstraint,
+               _leadingConstraint,
+               _trailingConstraint,
                ]];
             ((VLCAudioMiniPlayer*)_miniPlaybackView).queueViewController = _queueViewController;
             [self.view layoutIfNeeded];
@@ -362,6 +360,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:VLCPlayerDisplayControllerHideMiniPlayer object:self];
             }
+            [self->_queueViewController hide];
             [self->_queueViewController removeFromParentViewController];
         };
     }
@@ -406,8 +405,22 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)hintPlayqueueWithDelay:(NSTimeInterval)delay
 {
-    if (_miniPlaybackView) {
-        [(VLCAudioMiniPlayer*)_miniPlaybackView hintPlayqueueWithDelay:delay];
+    if (_miniPlaybackView && _queueViewController && !_hintingPlayqueue) {
+        [_queueViewController reload];
+        _hintingPlayqueue = YES;
+        _bottomConstraint.constant -= 50.0;
+        [UIView animateWithDuration:0.3 delay:delay options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            [self.view layoutIfNeeded];
+            self->_queueViewController.view.alpha = 1.0;
+        } completion: ^(BOOL finished){
+            self->_bottomConstraint.constant += 50.0;
+            [UIView animateWithDuration:0.7 animations:^{
+                [self.view layoutIfNeeded];
+                self->_queueViewController.view.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                self->_hintingPlayqueue = NO;
+            }];
+        }];
     }
 }
 

@@ -144,10 +144,8 @@ class QueueViewController: UIViewController {
                 grabberView.isHidden = true
                 parent.view.bringSubviewToFront(miniPlaybackView)
                 topConstraint = view.topAnchor.constraint(equalTo: miniPlaybackView.bottomAnchor)
-                let topInset: CGFloat = miniPlaybackView.miniPlayerTopPosition(in: parent.view)
-                heightConstraint = view.heightAnchor.constraint(equalTo: parent.view.heightAnchor,
-                                                                constant: -(miniPlaybackView.frame.height + topInset))
-                bottomConstraint = nil
+                heightConstraint = nil
+                bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
             } else {
                 grabberView.isHidden = false
                 if let parent = parent as? VideoPlayerViewController {
@@ -206,9 +204,8 @@ class QueueViewController: UIViewController {
     }
 
     @objc func hide() {
-        if let parent = parent as? VLCPlayerDisplayController,
-           let miniPlaybackView = parent.miniPlaybackView as? AudioMiniPlayer {
-            guard !miniPlaybackView.hintingPlayqueue else {
+        if let parent = parent as? VLCPlayerDisplayController {
+            guard !parent.hintingPlayqueue else {
                 return
             }
         }
@@ -293,7 +290,7 @@ class QueueViewController: UIViewController {
         queueCollectionView.collectionViewLayout.invalidateLayout()
     }
 
-    func reload() {
+    @objc func reload() {
         queueCollectionView.reloadData()
         queueCollectionView.collectionViewLayout.invalidateLayout()
     }
