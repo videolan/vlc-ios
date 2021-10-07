@@ -81,6 +81,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                                   playerController:pc];
 
     _oldVideoPlayerViewController = [[VLCMovieViewController alloc] initWithServices:_services];
+
+    [super viewDidLoad];
 }
 
 #pragma mark - properties
