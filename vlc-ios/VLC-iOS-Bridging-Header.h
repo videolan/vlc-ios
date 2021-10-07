@@ -36,3 +36,4 @@
 #import "VLCTrackSelectorView.h"
 #import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
 #import "VLCDropboxConstants.h"
+#import "VLCStatusLabel.h"

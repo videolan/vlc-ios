@@ -194,17 +194,6 @@ class VideoPlayerViewController: UIViewController {
 
     private var isFirstCall: Bool = true
 
-    private(set) lazy var aspectRatioStatusLabel: UILabel = {
-        var aspectRatioStatusLabel = UILabel()
-        aspectRatioStatusLabel.textColor = .white
-        aspectRatioStatusLabel.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        aspectRatioStatusLabel.layer.zPosition = 1
-        aspectRatioStatusLabel.isHidden = true
-        aspectRatioStatusLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(aspectRatioStatusLabel)
-        return aspectRatioStatusLabel
-    }()
-
     private(set) lazy var trackSelector: TrackSelectorView = {
         var trackSelector = TrackSelectorView(frame: .zero)
         trackSelector.parentViewController = self
@@ -216,6 +205,13 @@ class VideoPlayerViewController: UIViewController {
     private var projectionLocation: CGPoint = .zero
 
     // MARK: - VideoOutput
+
+    private lazy var statusLabel: VLCStatusLabel = {
+        var statusLabel = VLCStatusLabel()
+        statusLabel.textColor = .white
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        return statusLabel
+    }()
 
     private lazy var backgroundGradientLayers: [CAGradientLayer] = {
         let verticalGradient = CAGradientLayer()
@@ -945,7 +941,9 @@ private extension VideoPlayerViewController {
         view.addSubview(brightnessControlView)
         view.addSubview(volumeControlView)
         view.addSubview(externalVideoOutputView)
+        view.addSubview(statusLabel)
 
+        view.bringSubviewToFront(statusLabel)
         view.sendSubviewToBack(videoOutputView)
         view.insertSubview(backgroundGradientView, aboveSubview: videoOutputView)
         videoOutputView.addSubview(artWorkImageView)
@@ -1003,7 +1001,7 @@ private extension VideoPlayerViewController {
         setupVideoPlayerControlsConstraints()
         setupMediaNavigationBarConstraints()
         setupScrubProgressBarConstraints()
-        setupAspectRatioContraints()
+        setupStatusLabelConstraints()
     }
 
     private func setupCommonSliderConstraints(for slider: UIView) {
@@ -1099,10 +1097,10 @@ private extension VideoPlayerViewController {
         ])
     }
 
-    private func setupAspectRatioContraints() {
+    private func setupStatusLabelConstraints() {
         NSLayoutConstraint.activate([
-            aspectRatioStatusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            aspectRatioStatusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            statusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 
@@ -1220,7 +1218,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
     }
 
     func showStatusMessage(_ statusMessage: String) {
-        // FIXME
+        statusLabel.showStatusMessage(statusMessage)
     }
 
     func playbackServiceDidSwitch(_ aspectRatio: VLCAspectRatio) {

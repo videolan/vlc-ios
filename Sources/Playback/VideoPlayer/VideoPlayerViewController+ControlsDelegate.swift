@@ -75,15 +75,6 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
 
     func videoPlayerControlsDelegateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.switchAspectRatio(false)
-        
-        aspectRatioStatusLabel.text = playbackService.string(for: playbackService.currentAspectRatio)
-        aspectRatioStatusLabel.isHidden = false
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            UIView.animate(withDuration: 1.0) {
-                self.aspectRatioStatusLabel.isHidden = true
-            }
-        }
     }
 
     func videoPlayerControlsDelegateShuffle(_ videoPlayerControls: VideoPlayerControls) {
