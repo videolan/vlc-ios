@@ -1208,11 +1208,10 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
                                  currentMediaHasTrackToChooseFrom: Bool, currentMediaHasChapters: Bool,
                                  for playbackService: PlaybackService) {
         videoPlayerControls.updatePlayPauseButton(toState: isPlaying)
-        // FIXME -
-        if currentState == .buffering {
 
-        } else if currentState == .error {
-
+        if currentState == .error {
+            statusLabel.showStatusMessage(NSLocalizedString("PLAYBACK_FAILED",
+                                                            comment: ""))
         }
         if trackSelectorPopupView.isShown {
             trackSelector.update()
