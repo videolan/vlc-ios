@@ -85,7 +85,7 @@ DEPENDENCIES:
   - ADAL (from `https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git`, commit `348e94df`)
   - AFNetworking (~> 4.0)
   - AppCenter (~> 4.1)
-  - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`, commit `fe0fbb20`)
+  - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`, commit `08161e74`)
   - CocoaHTTPServer (from `git://github.com/fkuehne/CocoaHTTPServer.git`)
   - GoogleAPIClientForREST/Drive
   - GRKArrayDiff (~> 2.1)
@@ -133,7 +133,7 @@ EXTERNAL SOURCES:
     :commit: 348e94df
     :git: https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git
   box-ios-sdk-v2:
-    :commit: fe0fbb20
+    :commit: '08161e74'
     :git: git://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
     :git: git://github.com/fkuehne/CocoaHTTPServer.git
@@ -152,7 +152,7 @@ CHECKOUT OPTIONS:
     :commit: 348e94df
     :git: https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git
   box-ios-sdk-v2:
-    :commit: fe0fbb20
+    :commit: '08161e74'
     :git: git://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
     :commit: 97933152c16f93ab36dd28a9d33c64c5f2a085e5
@@ -195,6 +195,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: f4cab41fb38e3eddb62923dd6779f90168cef725
+PODFILE CHECKSUM: 6e4626d410f61e92da2c42ae9c1c8f82981585df
 
 COCOAPODS: 1.10.1
