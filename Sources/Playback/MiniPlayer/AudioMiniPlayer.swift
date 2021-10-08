@@ -313,13 +313,14 @@ extension AudioMiniPlayer {
     }
 
     func dragDidEnd(_ sender: UIPanGestureRecognizer) {
+        let velocity = sender.velocity(in: UIApplication.shared.keyWindow?.rootViewController?.view)
         if let superview = superview {
             switch panDirection {
                 case .vertical:
                     let limit = topBottomLimit(for: superview, with: position.vertical)
                     switch position.vertical {
                         case .top:
-                            if self.frame.minY > limit {
+                            if self.frame.minY > limit || velocity.y > 1000.0 {
                                 dismissPlayqueue()
                             } else {
                                 showPlayqueue(in: superview)
@@ -327,7 +328,7 @@ extension AudioMiniPlayer {
                         case .bottom:
                             if stopGestureEnabled && self.frame.minY > originY + 10 {
                                 playbackController.stopPlayback()
-                            } else if self.frame.minY > limit {
+                            } else if self.frame.minY > limit && velocity.y > -1000.0 {
                                 dismissPlayqueue()
                             } else {
                                 showPlayqueue(in: superview)
