@@ -282,7 +282,7 @@ extension AudioMiniPlayer {
         }
     }
 
-    func dragDidBegin(_ sender: UIPanGestureRecognizer) {
+    private func dragDidBegin(_ sender: UIPanGestureRecognizer) {
         getPanDirection(sender)
         switch panDirection {
             case .vertical:
@@ -293,26 +293,14 @@ extension AudioMiniPlayer {
         originY = frame.minY
     }
 
-    func dragStateDidChange(_ sender: UIPanGestureRecognizer) {
+    private func dragStateDidChange(_ sender: UIPanGestureRecognizer) {
         draggingDelegate.miniPlayerDragStateDidChange(self, sender: sender, panDirection: panDirection)
         sender.setTranslation(CGPoint.zero, in: UIApplication.shared.keyWindow?.rootViewController?.view)
-
-        var hapticFeedbackNeeded = false
-        if let superview = superview {
-            switch panDirection {
-                case .vertical:
-                    hapticFeedbackNeeded = verticalTranslation(in: superview)
-                case .horizontal:
-                    hapticFeedbackNeeded = horizontalTranslation(in: superview)
-            }
-        }
-        if hapticFeedbackNeeded, #available(iOS 10.0, *) {
-            ImpactFeedbackGenerator().limitOverstepped()
-        }
+        handleHapticFeedback()
         draggingDelegate.miniPlayerNeedsLayout(self)
     }
 
-    func dragDidEnd(_ sender: UIPanGestureRecognizer) {
+    private func dragDidEnd(_ sender: UIPanGestureRecognizer) {
         let velocity = sender.velocity(in: UIApplication.shared.keyWindow?.rootViewController?.view)
         if let superview = superview {
             switch panDirection {
@@ -356,7 +344,7 @@ extension AudioMiniPlayer {
 
 // MARK: Drag helpers
 
-    func topBottomLimit(for superview: UIView, with position: MiniPlayerVerticalPosition) -> CGFloat {
+    private func topBottomLimit(for superview: UIView, with position: MiniPlayerVerticalPosition) -> CGFloat {
         switch position {
             case .top:
                 return superview.frame.maxY / 3
@@ -365,13 +353,13 @@ extension AudioMiniPlayer {
         }
     }
 
-    func getPanDirection(_ sender: UIPanGestureRecognizer) {
+    private func getPanDirection(_ sender: UIPanGestureRecognizer) {
         let velocity = sender.velocity(in: UIApplication.shared.keyWindow?.rootViewController?.view)
         panDirection = abs(velocity.x) > abs(velocity.y) ? .horizontal : .vertical
     }
 
 
-    func verticalTranslation(in superview: UIView) -> Bool {
+    private func verticalTranslation(in superview: UIView) -> Bool {
         var hapticFeedbackNeeded = false
         let limit = topBottomLimit(for: superview, with: position.vertical)
         if frame.minY < limit && tapticPosition.vertical == .bottom {
@@ -398,7 +386,7 @@ extension AudioMiniPlayer {
         return hapticFeedbackNeeded
     }
 
-    func horizontalTranslation(in superview: UIView) -> Bool {
+    private func horizontalTranslation(in superview: UIView) -> Bool {
         var hapticFeedbackNeeded = false
         switch position.horizontal {
             case .center:
@@ -431,6 +419,21 @@ extension AudioMiniPlayer {
                 }
         }
         return hapticFeedbackNeeded
+    }
+
+    private func handleHapticFeedback() {
+        var hapticFeedbackNeeded = false
+        if let superview = superview {
+            switch panDirection {
+                case .vertical:
+                    hapticFeedbackNeeded = verticalTranslation(in: superview)
+                case .horizontal:
+                    hapticFeedbackNeeded = horizontalTranslation(in: superview)
+            }
+        }
+        if hapticFeedbackNeeded, #available(iOS 10.0, *) {
+            ImpactFeedbackGenerator().limitOverstepped()
+        }
     }
 
 // MARK: Show hide playqueue
