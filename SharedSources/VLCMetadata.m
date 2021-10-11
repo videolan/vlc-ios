@@ -121,10 +121,12 @@
     NSMutableDictionary *currentlyPlayingTrackInfo = [NSMutableDictionary dictionary];
     NSNumber *duration = self.playbackDuration;
     currentlyPlayingTrackInfo[MPMediaItemPropertyPlaybackDuration] = duration;
-    currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyIsLiveStream] = @(duration.intValue <= 0);
+    if (@available(iOS 10.0, *)) {
+        currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyIsLiveStream] = @(duration.intValue <= 0);
+        currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyMediaType] = _isAudioOnly ? @(MPNowPlayingInfoMediaTypeAudio) : @(MPNowPlayingInfoMediaTypeVideo);
+    }
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.elapsedPlaybackTime;
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackRate] = self.playbackRate;
-    currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyMediaType] = _isAudioOnly ? @(MPNowPlayingInfoMediaTypeAudio) : @(MPNowPlayingInfoMediaTypeVideo);
 
     currentlyPlayingTrackInfo[MPMediaItemPropertyTitle] = self.title;
     currentlyPlayingTrackInfo[MPMediaItemPropertyArtist] = self.artist;
