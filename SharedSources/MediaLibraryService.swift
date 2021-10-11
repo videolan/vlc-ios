@@ -471,7 +471,7 @@ private extension MediaLibraryService {
 
 @objc extension MediaLibraryService {
     func artists(sortingCriteria sort: VLCMLSortingCriteria = .alpha,
-                 desc: Bool = false, listAll all: Bool = false) -> [VLCMLArtist] {
+                 desc: Bool = false, listAll all: Bool = true) -> [VLCMLArtist] {
         return medialib.artists(with: sort, desc: desc, all: all) ?? []
     }
 
