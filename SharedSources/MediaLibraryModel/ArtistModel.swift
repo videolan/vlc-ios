@@ -56,7 +56,7 @@ class ArtistModel: AudioCollectionModel {
     }
 
     private func filterGeneratedArtists() {
-        for (index, artist) in files.enumerated() {
+        for (index, artist) in files.enumerated().reversed() {
             if artist.identifier() == UnknownArtistID || artist.identifier() == VariousArtistID {
                 if artist.tracksCount() == 0 {
                     files.remove(at: index)
