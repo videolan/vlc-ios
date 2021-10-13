@@ -805,6 +805,11 @@ extension VideoPlayerViewController {
 
         let tapPosition = recognizer.location(in: view)
 
+        // Limit y position in order to avoid conflicts with the bottom controls
+        if tapPosition.y > scrubProgressBar.frame.origin.y {
+            return
+        }
+
         // Reset number(set to -1/1) of seek when orientation has been changed.
         if tapPosition.x < backwardBoundary {
             numberOfTapSeek = previousSeekState == .forward ? -1 : numberOfTapSeek - 1
