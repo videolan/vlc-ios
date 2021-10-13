@@ -861,10 +861,18 @@ extension VideoPlayerViewController {
         let panDirectionX = recognizer.velocity(in: view).x
         let panDirectionY = recognizer.velocity(in: view).y
 
+        let currentPos = recognizer.location(in: view)
+
+        // Limit the gesture to avoid conflicts with top and bottom player controls
+        if currentPos.y > scrubProgressBar.frame.origin.y
+            || currentPos.y < mediaNavigationBar.frame.origin.y {
+            return
+        }
+
         if recognizer.state == .began {
             currentPanType = detectPanType(recognizer)
             if playbackService.currentMediaIs360Video {
-                projectionLocation = recognizer.location(in: view)
+                projectionLocation = currentPos
                 deviceMotion.stopDeviceMotion()
             }
         }
