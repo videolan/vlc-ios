@@ -287,20 +287,6 @@ class VideoPlayerViewController: UIViewController {
 
     // MARK: - Gestures
 
-    private lazy var panSlideVolumeLevelRecognizer: UIPanGestureRecognizer = {
-        let panRecognizer = UIPanGestureRecognizer(target: self,
-                                                   action: #selector(handleSlideVolumePanGesture(gesture:)))
-        panRecognizer.maximumNumberOfTouches = 1
-        return panRecognizer
-    }()
-
-    private lazy var panSlideLevelRecognizer: UIPanGestureRecognizer = {
-        let panRecognizer = UIPanGestureRecognizer(target: self,
-                                                   action: #selector(handleSlideBrightnessPanGesture(gesture:)))
-        panRecognizer.maximumNumberOfTouches = 1
-        return panRecognizer
-    }()
-
     private lazy var tapOnVideoRecognizer: UITapGestureRecognizer = {
         let tapOnVideoRecognizer = UITapGestureRecognizer(target: self,
                                                           action: #selector(handleTapOnVideo))
@@ -975,10 +961,6 @@ private extension VideoPlayerViewController {
     }
 
     private func setupGestures() {
-        if !UIAccessibility.isVoiceOverRunning {
-            self.brightnessControlView.addGestureRecognizer(panSlideLevelRecognizer)
-            self.volumeControlView.addGestureRecognizer(panSlideVolumeLevelRecognizer)
-        }
         view.addGestureRecognizer(tapOnVideoRecognizer)
         view.addGestureRecognizer(pinchRecognizer)
         view.addGestureRecognizer(doubleTapRecognizer)
