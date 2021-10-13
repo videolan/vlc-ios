@@ -914,7 +914,6 @@ extension VideoPlayerViewController {
             }
 
             UIScreen.main.brightness = brightness
-            brightnessControlView.onLuminosityChange()
             brightnessControlView.updateIcon(level: Float(brightness))
         case .projection:
             updateProjection(with: recognizer)
