@@ -897,7 +897,12 @@ extension VideoPlayerViewController {
             guard playerController.isVolumeGestureEnabled else {
                 break
             }
-            // FIXME: Volume gesture
+
+            var volume: Float = AVAudioSession.sharedInstance().outputVolume
+
+            volume = panDirectionY > 0 ? volume - 0.01 : volume + 0.01
+            MPVolumeView.setVolume(volume)
+            volumeControlView.updateIcon(level: volume)
             break
         case .brightness:
             guard playerController.isBrightnessGestureEnabled else {
