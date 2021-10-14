@@ -21,6 +21,11 @@
     [super awakeFromNib];
 }
 
+- (CGRect)thumbRectForBounds:(CGRect)bounds trackRect:(CGRect)rect value:(float)value
+{
+    return CGRectInset([super thumbRectForBounds:bounds trackRect:rect value:value], -5 , -5);
+}
+
 @end
 
 
