@@ -91,7 +91,6 @@
                             </subviews>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="brR-fc-lZO" appends="YES" id="Nb4-rh-jQL"/>
-                                <outletCollection property="gestureRecognizers" destination="bXF-pN-btw" appends="YES" id="8cq-zK-HSD"/>
                             </connections>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Lh6-Gu-frg" userLabel="Control Stack View">
@@ -233,6 +232,9 @@
                 <constraint firstItem="uX3-fg-RRU" firstAttribute="leading" secondItem="sE6-yx-yZZ" secondAttribute="leading" id="rOy-jQ-JWW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="bXF-pN-btw" appends="YES" id="Z5f-6D-vp5"/>
+            </connections>
             <point key="canvasLocation" x="49.600000000000001" y="75.562218890554732"/>
         </view>
         <panGestureRecognizer minimumNumberOfTouches="1" id="bXF-pN-btw">
