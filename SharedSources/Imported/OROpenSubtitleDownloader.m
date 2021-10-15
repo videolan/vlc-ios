@@ -186,6 +186,11 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
     gzFile gZipFileRef = gzopen([fromPath UTF8String], "rb");
     FILE *fileRef = fopen([toPath UTF8String], "w");
 
+    if (fileRef == NULL
+        || gZipFileRef == NULL) {
+        return;
+    }
+
     unsigned char buffer[ZIP_CHUNK];
     int uncompressedLength;
     while ((uncompressedLength = gzread(gZipFileRef, buffer, ZIP_CHUNK))) {
