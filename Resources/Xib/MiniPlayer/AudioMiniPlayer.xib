@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -130,7 +129,8 @@
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="2Kp-xd-t2N" secondAttribute="height" multiplier="1:1" id="cZc-MR-b2z"/>
                                     </constraints>
-                                    <state key="normal" image="MiniPause"/>
+                                    <state key="normal" image="MiniPlay"/>
+                                    <state key="selected" image="MiniPause"/>
                                     <connections>
                                         <action selector="handlePlayPause:" destination="-1" eventType="touchUpInside" id="nOQ-xZ-48F"/>
                                         <outletCollection property="gestureRecognizers" destination="RZE-7i-aax" appends="YES" id="rU5-pl-eJw"/>
@@ -264,6 +264,7 @@
     <resources>
         <image name="MiniNext" width="24" height="24"/>
         <image name="MiniPause" width="24" height="24"/>
+        <image name="MiniPlay" width="24" height="24"/>
         <image name="MiniPrev" width="24" height="24"/>
         <image name="iconRepeat" width="24" height="24"/>
         <image name="no-artwork" width="300" height="300"/>

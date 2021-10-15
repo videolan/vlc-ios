@@ -91,8 +91,7 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     }
 
     func updatePlayPauseButton() {
-        let imageName = playbackController.isPlaying ? "MiniPause" : "MiniPlay"
-        playPauseButton.imageView?.image = UIImage(named: imageName)
+        playPauseButton.isSelected = playbackController.isPlaying
     }
 
     func updateRepeatButton() {
@@ -223,6 +222,7 @@ private extension AudioMiniPlayer {
 
     @IBAction private func handlePlayPause(_ sender: UIButton) {
         playbackController.playPause()
+        updatePlayPauseButton()
     }
 
     @IBAction private func handleNext(_ sender: UIButton) {
