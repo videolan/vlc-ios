@@ -1260,6 +1260,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         if metadata.isAudioOnly {
             let artworkImage = metadata.artworkImage
             artWorkImageView.image = artworkImage
+            artWorkImageView.isHidden = false
             queueViewController?.reloadBackground(with: artworkImage)
         } else {
             artWorkImageView.isHidden = true
