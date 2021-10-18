@@ -82,6 +82,7 @@ class VideoPlayerViewController: UIViewController {
 
     // MARK: - Seek
 
+    private var mediaDuration: Int = 0
     private var numberOfTapSeek: Int = 0
     private var previousSeekState: VideoPlayerSeekState = .default
 
@@ -319,6 +320,36 @@ class VideoPlayerViewController: UIViewController {
                                                    action: #selector(handlePanGesture(recognizer:)))
         panRecognizer.maximumNumberOfTouches = 1
         return panRecognizer
+    }()
+
+    private lazy var leftSwipeRecognizer: UISwipeGestureRecognizer = {
+        var leftSwipeRecognizer = UISwipeGestureRecognizer(target: self,
+                                                           action: #selector(handleSwipeGestures(recognizer:)))
+        leftSwipeRecognizer.direction = .left
+        return leftSwipeRecognizer
+    }()
+
+    private lazy var rightSwipeRecognizer: UISwipeGestureRecognizer = {
+        var rightSwipeRecognizer = UISwipeGestureRecognizer(target: self,
+                                                            action: #selector(handleSwipeGestures(recognizer:)))
+        rightSwipeRecognizer.direction = .right
+        return rightSwipeRecognizer
+    }()
+
+    private lazy var upSwipeRecognizer: UISwipeGestureRecognizer = {
+        var upSwipeRecognizer = UISwipeGestureRecognizer(target: self,
+                                                         action: #selector(handleSwipeGestures(recognizer:)))
+        upSwipeRecognizer.direction = .up
+        upSwipeRecognizer.numberOfTouchesRequired = 2
+        return upSwipeRecognizer
+    }()
+
+    private lazy var downSwipeRecognizer: UISwipeGestureRecognizer = {
+        var downSwipeRecognizer = UISwipeGestureRecognizer(target: self,
+                                                           action: #selector(handleSwipeGestures(recognizer:)))
+        downSwipeRecognizer.direction = .down
+        downSwipeRecognizer.numberOfTouchesRequired = 2
+        return downSwipeRecognizer
     }()
 
     // MARK: - Popup Views
@@ -761,12 +792,12 @@ extension VideoPlayerViewController {
         }
     }
 
-    func jumpBackwards() {
-        playbackService.jumpBackward(10)
+    func jumpBackwards(_ interval: Int = 10) {
+        playbackService.jumpBackward(Int32(interval))
     }
 
-    func jumpForwards() {
-        playbackService.jumpForward(10)
+    func jumpForwards(_ interval: Int = 10) {
+        playbackService.jumpForward(Int32(interval))
     }
 
     @objc func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
@@ -932,6 +963,51 @@ extension VideoPlayerViewController {
             }
         }
     }
+
+    @objc private func handleSwipeGestures(recognizer: UISwipeGestureRecognizer) {
+        guard playerController.isSwipeSeekGestureEnabled else {
+            return
+        }
+
+        var hudString = ""
+        let tmp: Int = Int(Double(mediaDuration) * 0.001 * 0.05)
+
+        var swipeForwardDuration = playerController.isVariableJumpDurationEnabled ?
+        tmp : VideoPlayerSeek.Swipe.forward
+        let swipeBackwardDuration = playerController.isVariableJumpDurationEnabled ?
+        tmp : VideoPlayerSeek.Swipe.backward
+
+        switch recognizer.direction {
+        case .right:
+            let timeRemaining = -Int(Double(playbackService.remainingTime().intValue) * 0.001)
+
+            if swipeForwardDuration < timeRemaining {
+                if swipeForwardDuration < 1 {
+                    swipeForwardDuration = 1
+                }
+                jumpForwards(swipeForwardDuration)
+                hudString = String(format: "⇒ %is", swipeForwardDuration)
+            } else {
+                jumpForwards(timeRemaining - 5)
+                hudString = String(format: "⇒ %is", (timeRemaining - 5))
+            }
+        case .left:
+            jumpBackwards(swipeBackwardDuration)
+            hudString = String(format: "⇐ %is", swipeBackwardDuration)
+        case .up:
+            playbackService.previous()
+            hudString = NSLocalizedString("BWD_BUTTON", comment: "")
+        case .down:
+            playbackService.next()
+            hudString = NSLocalizedString("FWD_BUTTON", comment: "")
+        default:
+            break
+        }
+
+        if recognizer.state == .ended {
+            statusLabel.showStatusMessage(hudString)
+        }
+    }
 }
 
 // MARK: - Private setups
@@ -977,6 +1053,15 @@ private extension VideoPlayerViewController {
         view.addGestureRecognizer(doubleTapRecognizer)
         view.addGestureRecognizer(playPauseRecognizer)
         view.addGestureRecognizer(panRecognizer)
+        view.addGestureRecognizer(leftSwipeRecognizer)
+        view.addGestureRecognizer(rightSwipeRecognizer)
+        view.addGestureRecognizer(upSwipeRecognizer)
+        view.addGestureRecognizer(downSwipeRecognizer)
+
+        panRecognizer.require(toFail: leftSwipeRecognizer)
+        panRecognizer.require(toFail: rightSwipeRecognizer)
+        panRecognizer.require(toFail: upSwipeRecognizer)
+        panRecognizer.require(toFail: downSwipeRecognizer)
     }
 
     private func disableGestures() {
@@ -985,6 +1070,10 @@ private extension VideoPlayerViewController {
         view.removeGestureRecognizer(doubleTapRecognizer)
         view.removeGestureRecognizer(playPauseRecognizer)
         view.removeGestureRecognizer(panRecognizer)
+        view.removeGestureRecognizer(leftSwipeRecognizer)
+        view.removeGestureRecognizer(rightSwipeRecognizer)
+        view.removeGestureRecognizer(upSwipeRecognizer)
+        view.removeGestureRecognizer(downSwipeRecognizer)
     }
 
     private func videoPlayerButtons() {
@@ -1133,7 +1222,13 @@ private extension VideoPlayerViewController {
         let mediaHasProjection = playbackService.currentMediaIs360Video
 
         fov = mediaHasProjection ? MediaProjection.FOV.default : 0
-        // Disable swipe gestures.
+
+        // Disable swipe gestures for 360
+        leftSwipeRecognizer.isEnabled = !mediaHasProjection
+        rightSwipeRecognizer.isEnabled = !mediaHasProjection
+        upSwipeRecognizer.isEnabled = !mediaHasProjection
+        downSwipeRecognizer.isEnabled = !mediaHasProjection
+
         if mediaHasProjection {
             deviceMotion.startDeviceMotion()
         }
@@ -1211,6 +1306,11 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
             statusLabel.showStatusMessage(NSLocalizedString("PLAYBACK_FAILED",
                                                             comment: ""))
         }
+
+        if currentState == .buffering {
+            mediaDuration = playbackService.mediaDuration
+        }
+
         if trackSelectorPopupView.isShown {
             trackSelector.update()
         }
