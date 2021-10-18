@@ -679,7 +679,6 @@ extension VideoPlayerViewController {
     }
 
     @objc func handleTapOnVideo() {
-        // FIXME: -
         numberOfTapSeek = 0
         setControlsHidden(!playerController.isControlsHidden, animated: true)
     }
