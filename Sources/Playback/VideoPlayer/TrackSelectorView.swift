@@ -149,6 +149,12 @@ extension TrackSelectorView: UITableViewDelegate, UITableViewDataSource {
         return NSLocalizedString("UNKNOWN_TRACK_TYPE", comment: "")
     }
 
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.textLabel?.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        }
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
 
