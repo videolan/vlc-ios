@@ -11,7 +11,7 @@
 
 #import "VLCPlexWebAPI.h"
 #import "VLCPlexParser.h"
-#import "UIDevice+VLC.h"
+#import "VLC-Swift.h"
 #import "sysexits.h"
 
 #define kPlexMediaServerSignIn @"https://plex.tv/users/sign_in.xml"

@@ -13,7 +13,7 @@
 
 #import "VLCServerBrowsingController.h"
 #import "NSString+SupportedMedia.h"
-#import "UIDevice+VLC.h"
+#import "VLC-Swift.h"
 
 #import "VLCPlaybackService.h"
 

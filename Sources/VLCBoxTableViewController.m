@@ -14,7 +14,6 @@
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCBoxController.h"
 #import <XKKeychain/XKKeychainGenericPasswordItem.h>
-#import "UIDevice+VLC.h"
 #import "VLCPlaybackService.h"
 #import "VLC-Swift.h"
 

@@ -17,8 +17,6 @@
 #import "VLCTrackSelectorTableViewCell.h"
 #import "VLCMovieViewController.h"
 
-#import "UIDevice+VLC.h"
-
 #define TRACK_SELECTOR_TABLEVIEW_CELL @"track selector table view cell"
 #define TRACK_SELECTOR_TABLEVIEW_SECTIONHEADER @"track selector table view section header"
 

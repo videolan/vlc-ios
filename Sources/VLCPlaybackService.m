@@ -17,7 +17,6 @@
  *****************************************************************************/
 
 #import "VLCPlaybackService.h"
-#import "UIDevice+VLC.h"
 #import <AVFoundation/AVFoundation.h>
 #import "VLCRemoteControlService.h"
 #import "VLCMetadata.h"

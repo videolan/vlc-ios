@@ -17,7 +17,6 @@
 #import "VLCDropboxTableViewController.h"
 #import "VLCDropboxController.h"
 #import "VLCCloudStorageTableViewCell.h"
-#import "UIDevice+VLC.h"
 #import "VLCAppDelegate.h"
 #import "VLC-Swift.h"
 

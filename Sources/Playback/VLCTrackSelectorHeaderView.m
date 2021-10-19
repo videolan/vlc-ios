@@ -11,7 +11,6 @@
  *****************************************************************************/
 
 #import "VLCTrackSelectorHeaderView.h"
-#import "UIDevice+VLC.h"
 
 @implementation VLCTrackSelectorHeaderView
 

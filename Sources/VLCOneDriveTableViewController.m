@@ -16,7 +16,6 @@
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCPlaybackService.h"
 #import "VLCProgressView.h"
-#import "UIDevice+VLC.h"
 #import "NSString+SupportedMedia.h"
 #import "VLC-Swift.h"
 

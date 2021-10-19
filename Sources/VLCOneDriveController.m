@@ -12,7 +12,6 @@
 
 #import "VLCOneDriveController.h"
 #import "VLCOneDriveConstants.h"
-#import "UIDevice+VLC.h"
 #import "NSString+SupportedMedia.h"
 #import <OneDriveSDK.h>
 

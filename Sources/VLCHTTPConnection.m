@@ -23,14 +23,11 @@
 #import "HTTPDynamicFileResponse.h"
 #import "HTTPErrorResponse.h"
 #import "NSString+SupportedMedia.h"
-#import "UIDevice+VLC.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCMetaData.h"
 #import "GCDAsyncSocket.h"
-
-#if TARGET_OS_IOS
 #import "VLC-Swift.h"
-#endif
+
 #if TARGET_OS_TV
 #import "VLCPlayerControlWebSocket.h"
 #endif

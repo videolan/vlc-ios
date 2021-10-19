@@ -35,7 +35,6 @@
 
 #import "VLCTrackSelectorView.h"
 #import "VLCMetadata.h"
-#import "UIDevice+VLC.h"
 #import "VLC-Swift.h"
 
 #define FORWARD_SWIPE_DURATION 30

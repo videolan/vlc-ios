@@ -13,7 +13,6 @@
 #import "VLCMediaFileDownloader.h"
 #import "NSString+SupportedMedia.h"
 #import "VLCActivityManager.h"
-#import "UIDevice+VLC.h"
 #import "VLCMediaFileDiscoverer.h"
 #import "VLC-Swift.h"
 

@@ -15,7 +15,6 @@
 #import "VLCGoogleDriveTableViewController.h"
 #import "VLCAppDelegate.h"
 #import "VLCGoogleDriveController.h"
-#import "UIDevice+VLC.h"
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLC-Swift.h"
 
