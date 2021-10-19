@@ -334,6 +334,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         reloadData()
         showGuideOnLaunch()
         setNavbarAppearance()
+        loadSort()
     }
 
     func loadSort() {
@@ -345,12 +346,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
         let desc = UserDefaults.standard.bool(forKey: "\(kVLCSortDescendingDefault)\(model.name)")
         self.model.sort(by: sortingCriteria, desc: desc)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        loadSort()
     }
 
     private func setNavbarAppearance() {
