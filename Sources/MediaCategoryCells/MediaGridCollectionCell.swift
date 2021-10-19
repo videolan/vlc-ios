@@ -321,9 +321,9 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
-        if width <= DeviceWidth.iPhonePortrait.rawValue {
+        if width <= DeviceWidth.iPhone12ProMaxPortrait.rawValue {
             return 2
-        } else if width <= DeviceWidth.iPhoneLandscape.rawValue {
+        } else if width <= DeviceWidth.iPhoneLandscape.rawValue && !UIDevice.hasNotch {
             return 3
         } else if width <= DeviceWidth.iPadLandscape.rawValue {
             return 4

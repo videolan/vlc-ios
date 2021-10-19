@@ -11,6 +11,7 @@
 *****************************************************************************/
 
 import Foundation
+import UIKit
 
 class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var checkboxImageView: UIImageView!
@@ -208,7 +209,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     }
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
-        if width <= DeviceWidth.iPhonePortrait.rawValue {
+        if width <= DeviceWidth.iPhone12ProMaxPortrait.rawValue {
             return 2
         } else if width <= DeviceWidth.iPhoneLandscape.rawValue {
             return 3
