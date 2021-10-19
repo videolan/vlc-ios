@@ -109,11 +109,7 @@ class MediaScrubProgressBar: UIStackView {
         }
         elapsedTimeLabel.text = playbackService.playedTime().stringValue
 
-        if UserDefaults.standard.bool(forKey: kVLCShowRemainingTime) {
-            remainingTimeButton.setTitle(playbackService.remainingTime().stringValue,
-                                         for: .normal)
-            remainingTimeButton.setNeedsLayout()
-        }
+        updateCurrentTime()
 
         elapsedTimeLabel.setNeedsLayout()
     }
