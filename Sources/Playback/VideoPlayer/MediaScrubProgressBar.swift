@@ -117,6 +117,15 @@ class MediaScrubProgressBar: UIStackView {
 
         elapsedTimeLabel.setNeedsLayout()
     }
+
+    func updateCurrentTime() {
+        let timeToDisplay = UserDefaults.standard.bool(forKey: kVLCShowRemainingTime)
+            ? playbackService.remainingTime().stringValue
+            : VLCTime(int: Int32(playbackService.mediaDuration)).stringValue
+
+        remainingTimeButton.setTitle(timeToDisplay, for: .normal)
+        remainingTimeButton.setNeedsLayout()
+    }
 }
 
 // MARK: -
@@ -184,13 +193,7 @@ private extension MediaScrubProgressBar {
         let currentSetting = userDefault.bool(forKey: kVLCShowRemainingTime)
         userDefault.set(!currentSetting, forKey: kVLCShowRemainingTime)
 
-        let timeToDisplay = UserDefaults.standard.bool(forKey: kVLCShowRemainingTime)
-            ? playbackService.remainingTime().stringValue
-            : VLCTime(int: Int32(playbackService.mediaDuration)).stringValue
-
-        remainingTimeButton.setTitle(timeToDisplay, for: .normal)
-        remainingTimeButton.setNeedsLayout()
-
+        updateCurrentTime()
         delegate?.mediaScrubProgressBarShouldResetIdleTimer()
     }
 
