@@ -1284,9 +1284,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         videoPlayerControls.updatePlayPauseButton(toState: playbackService.isPlaying)
 
         DispatchQueue.main.async {
-            let artworkImage = playbackService.metadata.artworkImage
-            self.artWorkImageView.image = artworkImage
-            self.queueViewController?.reloadBackground(with: artworkImage)
+            self.updateQueueBackground(with: playbackService.metadata)
         }
         // FIXME: -
         resetIdleTimer()
@@ -1356,6 +1354,12 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
             self.externalVideoOutputView.isHidden = true
         }
 
+        updateQueueBackground(with: metadata)
+
+        videoPlayerButtons()
+    }
+
+    private func updateQueueBackground(with metadata: VLCMetaData) {
         if metadata.isAudioOnly {
             let artworkImage = metadata.artworkImage
             artWorkImageView.image = artworkImage
@@ -1365,8 +1369,6 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
             artWorkImageView.isHidden = true
             queueViewController?.reloadBackground(with: nil)
         }
-
-        videoPlayerButtons()
     }
 }
 
