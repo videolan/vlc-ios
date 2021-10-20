@@ -98,6 +98,10 @@ class KeychainCoordinator: NSObject {
         // If playing a video, show the passcode view above the player.
         if let playerViewController = rootViewController.presentedViewController {
             presentingViewController = playerViewController
+            // Check if the player is showing any modals.
+            if let modal = playerViewController.presentedViewController {
+                presentingViewController = modal
+            }
         }
 
         let navigationController = UINavigationController(rootViewController: passcodeLockController)
