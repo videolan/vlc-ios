@@ -33,6 +33,13 @@ class PasscodeLockController: UIViewController {
     weak var delegate: PasscodeLockControllerDelegate?
     var passcode = ""
 
+    private lazy var tapGestureRecognizer: UITapGestureRecognizer = {
+        var tapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                          action: #selector(handleTap))
+
+        return tapGestureRecognizer
+    }()
+
     private let messageLabel: UILabel = {
         let label = UILabel()
         label.text = NSLocalizedString("Enter a passcode", comment: "")
@@ -104,9 +111,16 @@ class PasscodeLockController: UIViewController {
     }
 
     private func setup() {
+        contentStackView.addGestureRecognizer(tapGestureRecognizer)
         setupView()
         setupTheme()
         setupObservers()
+    }
+
+    @objc private func handleTap() {
+        if !passcodeTextField.isFirstResponder {
+            passcodeTextField.becomeFirstResponder()
+        }
     }
 
 // MARK: - Setup
