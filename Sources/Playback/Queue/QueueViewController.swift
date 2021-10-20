@@ -70,7 +70,7 @@ class QueueViewController: UIViewController {
     private var topConstraint: NSLayoutConstraint?
     private var topConstraintConstant: CGFloat {
         if parent is VideoPlayerViewController || parent is VLCMovieViewController {
-            return 200
+            return UIDevice.hasNotch ? 75 : 50
         } else {
             return 0
         }
@@ -149,7 +149,7 @@ class QueueViewController: UIViewController {
                 if let parent = parent as? VideoPlayerViewController {
                     topConstraint = nil
                     heightConstraint = view.heightAnchor.constraint(equalTo: parent.view.heightAnchor,
-                                                                    constant: -(topConstraintConstant + parent.videoPlayerControls.frame.height))
+                                                                    constant: -(topConstraintConstant + parent.videoPlayerControls.frame.height + parent.scrubProgressBar.frame.height))
                     bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor,
                                                                     constant: self.view.frame.height)
                 } else {

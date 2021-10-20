@@ -152,7 +152,7 @@ class VideoPlayerViewController: UIViewController {
         return optionsNavigationBar
     }()
 
-    lazy var videoPlayerControls: VideoPlayerControls = {
+    private(set) lazy var videoPlayerControls: VideoPlayerControls = {
         let videoPlayerControls = Bundle.main.loadNibNamed("VideoPlayerControls",
                                                            owner: nil,
                                                            options: nil)?.first as! VideoPlayerControls
@@ -176,7 +176,7 @@ class VideoPlayerViewController: UIViewController {
         return videoPlayerControls
     }()
 
-    private lazy var scrubProgressBar: MediaScrubProgressBar = {
+    private(set) lazy var scrubProgressBar: MediaScrubProgressBar = {
         var scrubProgressBar = MediaScrubProgressBar()
         scrubProgressBar.delegate = self
         return scrubProgressBar
