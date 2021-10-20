@@ -95,9 +95,9 @@ class KeychainCoordinator: NSObject {
 
         //if we have no video displayed we should use the current rootViewController
         var presentingViewController = rootViewController
-        if let presentedViewController = rootViewController.presentedViewController {
-            //but if a video is playing we have the MovieViewController presented and want to show it above
-            presentingViewController = presentedViewController
+        // If playing a video, show the passcode view above the player.
+        if let playerViewController = rootViewController.presentedViewController {
+            presentingViewController = playerViewController
         }
 
         let navigationController = UINavigationController(rootViewController: passcodeLockController)
