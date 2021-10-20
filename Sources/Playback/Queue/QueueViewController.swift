@@ -123,8 +123,6 @@ class QueueViewController: UIViewController {
     }
 
     override func didMove(toParent parent: UIViewController?) {
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
         NSLayoutConstraint.deactivate(darkOverlayViewConstraints)
         NSLayoutConstraint.deactivate(constraints)
         darkOverlayViewConstraints.removeAll()
