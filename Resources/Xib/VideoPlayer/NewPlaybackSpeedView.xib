@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,9 +15,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vzh-jn-Qnx">
-                    <rect key="frame" x="20" y="20" width="560" height="64"/>
+                    <rect key="frame" x="20" y="20" width="560" height="31"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="63" id="ZBe-I0-qgI"/>
+                        <constraint firstAttribute="height" constant="30" id="ZBe-I0-qgI"/>
                     </constraints>
                     <segments>
                         <segment title="Vitesse de lecture"/>
@@ -25,82 +25,89 @@
                         <segment title="Retard de l'audio"/>
                     </segments>
                 </segmentedControl>
-                <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="900" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="nwn-Xw-n6u">
-                    <rect key="frame" x="20" y="137" width="560" height="108"/>
+                <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="900" axis="vertical" distribution="fillProportionally" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="nwn-Xw-n6u">
+                    <rect key="frame" x="20" y="60" width="560" height="182"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="UoZ-U2-eTU" userLabel="Slider Stack View">
-                            <rect key="frame" x="0.0" y="10" width="410" height="88"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="7oq-T9-9Zm">
+                            <rect key="frame" x="0.0" y="10" width="560" height="88"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Pp9-DV-Iks" userLabel="Labels Stack View">
-                                    <rect key="frame" x="0.0" y="0.0" width="410" height="44"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="UoZ-U2-eTU" userLabel="Slider Stack View">
+                                    <rect key="frame" x="0.0" y="0.0" width="486" height="88"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDJ-fm-gvA" userLabel="Min Label">
-                                            <rect key="frame" x="0.0" y="0.0" width="136.5" height="44"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhS-0y-emM" userLabel="Current Button">
-                                            <rect key="frame" x="136.5" y="0.0" width="137" height="44"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                            <state key="normal" title="Current"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Pp9-DV-Iks" userLabel="Labels Stack View">
+                                            <rect key="frame" x="0.0" y="0.0" width="486" height="29"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDJ-fm-gvA" userLabel="Min Label">
+                                                    <rect key="frame" x="0.0" y="5.5" width="29" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhS-0y-emM" userLabel="Current Button">
+                                                    <rect key="frame" x="209.5" y="0.0" width="67" height="29"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <state key="normal" title="Current"/>
+                                                    <connections>
+                                                        <action selector="handleResetTap:" destination="7Au-zH-5I2" eventType="touchUpInside" id="2Bc-GL-SQb"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gl7-9W-mBY" userLabel="Max Label">
+                                                    <rect key="frame" x="457" y="5.5" width="29" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Nn3-WS-Gwk">
+                                            <rect key="frame" x="-2" y="59" width="490" height="30"/>
                                             <connections>
-                                                <action selector="handleResetTap:" destination="7Au-zH-5I2" eventType="touchUpInside" id="2Bc-GL-SQb"/>
+                                                <action selector="handleSliderMovement:" destination="7Au-zH-5I2" eventType="valueChanged" id="ycb-13-cKQ"/>
+                                            </connections>
+                                        </slider>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="xhS-0y-emM" firstAttribute="centerX" secondItem="Nn3-WS-Gwk" secondAttribute="centerX" id="ben-P0-bDW"/>
+                                    </constraints>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ae5-g0-FZV">
+                                    <rect key="frame" x="516" y="0.0" width="44" height="88"/>
+                                    <subviews>
+                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mIi-jd-EmC">
+                                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="8s6-FZ-3fU"/>
+                                                <constraint firstAttribute="width" secondItem="mIi-jd-EmC" secondAttribute="height" multiplier="1:1" id="b27-GG-Moi"/>
+                                            </constraints>
+                                            <state key="normal" image="iconChevron"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.transform.rotation.z">
+                                                    <real key="value" value="3.1400000000000001"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="handleIncreaseDecreaseButton:" destination="7Au-zH-5I2" eventType="touchUpInside" id="u5a-JX-NPm"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gl7-9W-mBY" userLabel="Max Label">
-                                            <rect key="frame" x="273.5" y="0.0" width="136.5" height="44"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hT-vc-4wj">
+                                            <rect key="frame" x="0.0" y="44" width="44" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="T9q-xW-GZr"/>
+                                                <constraint firstAttribute="width" secondItem="7hT-vc-4wj" secondAttribute="height" multiplier="1:1" id="z3X-1T-4Pu"/>
+                                            </constraints>
+                                            <state key="normal" image="iconChevron"/>
+                                            <connections>
+                                                <action selector="handleIncreaseDecreaseButton:" destination="7Au-zH-5I2" eventType="touchUpInside" id="TYn-cO-LGD"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </stackView>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Nn3-WS-Gwk">
-                                    <rect key="frame" x="-2" y="44" width="414" height="45"/>
-                                    <connections>
-                                        <action selector="handleSliderMovement:" destination="7Au-zH-5I2" eventType="valueChanged" id="ycb-13-cKQ"/>
-                                    </connections>
-                                </slider>
                             </subviews>
-                            <constraints>
-                                <constraint firstItem="xhS-0y-emM" firstAttribute="centerX" secondItem="Nn3-WS-Gwk" secondAttribute="centerX" id="ben-P0-bDW"/>
-                            </constraints>
-                        </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ejv-jd-TGU" userLabel="Buttons Stack View">
-                            <rect key="frame" x="440" y="10" width="44" height="88"/>
-                            <subviews>
-                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mIi-jd-EmC">
-                                    <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="44" id="8s6-FZ-3fU"/>
-                                        <constraint firstAttribute="width" secondItem="mIi-jd-EmC" secondAttribute="height" multiplier="1:1" id="b27-GG-Moi"/>
-                                    </constraints>
-                                    <state key="normal" image="chevron.up" catalog="system"/>
-                                    <connections>
-                                        <action selector="handleIncreaseDecreaseButton:" destination="7Au-zH-5I2" eventType="touchUpInside" id="u5a-JX-NPm"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hT-vc-4wj">
-                                    <rect key="frame" x="0.0" y="44" width="44" height="44"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="44" id="T9q-xW-GZr"/>
-                                        <constraint firstAttribute="width" secondItem="7hT-vc-4wj" secondAttribute="height" multiplier="1:1" id="z3X-1T-4Pu"/>
-                                    </constraints>
-                                    <state key="normal" image="chevron.down" catalog="system"/>
-                                    <connections>
-                                        <action selector="handleIncreaseDecreaseButton:" destination="7Au-zH-5I2" eventType="touchUpInside" id="TYn-cO-LGD"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="44" id="E9O-Uh-pab"/>
-                            </constraints>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKR-VI-BPk" userLabel="Reset Button">
-                            <rect key="frame" x="514" y="10" width="46" height="88"/>
+                            <rect key="frame" x="0.0" y="128" width="560" height="44"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="46" id="cmM-wk-gKJ"/>
+                                <constraint firstAttribute="height" constant="44" id="de1-rd-ugx"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <state key="normal" title="Reset">
@@ -117,13 +124,12 @@
             <viewLayoutGuide key="safeArea" id="Thd-jN-ogA"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="nwn-Xw-n6u" firstAttribute="trailing" secondItem="Thd-jN-ogA" secondAttribute="trailing" constant="-20" id="4IZ-MO-Bsx"/>
+                <constraint firstItem="Thd-jN-ogA" firstAttribute="trailing" secondItem="nwn-Xw-n6u" secondAttribute="trailing" constant="20" id="8AW-PX-fGb"/>
+                <constraint firstItem="nwn-Xw-n6u" firstAttribute="top" secondItem="vzh-jn-Qnx" secondAttribute="bottom" constant="10" id="F47-j4-9ko"/>
                 <constraint firstItem="Thd-jN-ogA" firstAttribute="trailing" secondItem="vzh-jn-Qnx" secondAttribute="trailing" constant="20" id="SGR-EV-BIl"/>
                 <constraint firstItem="vzh-jn-Qnx" firstAttribute="top" secondItem="Thd-jN-ogA" secondAttribute="top" constant="20" id="Z6G-eC-5Ox"/>
                 <constraint firstItem="vzh-jn-Qnx" firstAttribute="leading" secondItem="Thd-jN-ogA" secondAttribute="leading" constant="20" id="nNa-l7-9eL"/>
-                <constraint firstItem="nwn-Xw-n6u" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vzh-jn-Qnx" secondAttribute="bottom" constant="10" id="qCa-X3-bXg"/>
-                <constraint firstItem="nwn-Xw-n6u" firstAttribute="leading" secondItem="Thd-jN-ogA" secondAttribute="leading" constant="20" id="s88-em-Z3q"/>
-                <constraint firstItem="Thd-jN-ogA" firstAttribute="bottom" secondItem="nwn-Xw-n6u" secondAttribute="bottom" constant="30" id="zxR-34-Kz8"/>
+                <constraint firstItem="nwn-Xw-n6u" firstAttribute="leading" secondItem="Thd-jN-ogA" secondAttribute="leading" constant="20" id="tT4-Aq-KaH"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
@@ -141,7 +147,6 @@
         </view>
     </objects>
     <resources>
-        <image name="chevron.down" catalog="system" width="128" height="72"/>
-        <image name="chevron.up" catalog="system" width="128" height="72"/>
+        <image name="iconChevron" width="24" height="24"/>
     </resources>
 </document>
