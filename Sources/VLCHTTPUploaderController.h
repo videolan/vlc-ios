@@ -19,19 +19,19 @@
 
 @interface VLCHTTPUploaderController : NSObject
 
-+ (instancetype)sharedInstance;
++ (nonnull instancetype)sharedInstance;
 
 @property (nonatomic, readonly) BOOL isReachable;
-@property (nonatomic, readwrite) MediaLibraryService *medialibrary;
+@property (nonatomic, readwrite, nullable) MediaLibraryService *medialibrary;
 
 - (BOOL)changeHTTPServerState:(BOOL)state;
-- (NSString *)httpStatus;
+- (nonnull NSString *)httpStatus;
 - (nonnull NSString *)addressToCopy;
 - (BOOL)isServerRunning;
-- (NSString *)hostname;
-- (NSString *)hostnamePort;
+- (nonnull NSString *)hostname;
+- (nonnull NSString *)hostnamePort;
 
-- (void)moveFileFrom:(NSString *)filepath;
+- (void)moveFileFrom:(nonnull NSString *)filepath;
 - (void)cleanCache;
 #if TARGET_OS_IOS
 - (void)resetIdleTimer;
