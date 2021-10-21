@@ -26,6 +26,7 @@
 
 - (BOOL)changeHTTPServerState:(BOOL)state;
 - (NSString *)httpStatus;
+- (nonnull NSString *)addressToCopy;
 - (BOOL)isServerRunning;
 - (NSString *)hostname;
 - (NSString *)hostnamePort;

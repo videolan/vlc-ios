@@ -128,6 +128,19 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     }
 }
 
+- (NSString *)addressToCopy
+{
+    if (_httpServer.isRunning) {
+        if (_httpServer.listeningPort != 80) {
+            return [NSString stringWithFormat:@"http://%@:%i", [self currentIPAddress], _httpServer.listeningPort];
+        } else {
+            return [NSString stringWithFormat:@"http://%@", [self currentIPAddress]];
+        }
+    } else {
+        return NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
+    }
+}
+
 - (BOOL)isServerRunning
 {
     return _httpServer.isRunning;

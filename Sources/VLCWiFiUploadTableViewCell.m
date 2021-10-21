@@ -55,8 +55,6 @@
 
 - (void)setupCell
 {
-    self.selectionStyle =  UITableViewCellSelectionStyleNone;
-
     self.textLabel.text = NSLocalizedString(@"WEBINTF_TITLE", nil);
     self.detailTextLabel.text = NSLocalizedString(@"HTTP_UPLOAD_SERVER_OFF", nil);
     self.detailTextLabel.numberOfLines = 0;
@@ -91,6 +89,7 @@
     NSString *uploadText = connectedViaWifi ? [[VLCHTTPUploaderController sharedInstance] httpStatus] : NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
     self.detailTextLabel.text = uploadText;
     self.serverToggle.on = connectedViaWifi && [VLCHTTPUploaderController sharedInstance].isServerRunning;
+    self.selectionStyle = self.serverToggle.isOn ? UITableViewCellSelectionStyleDefault : UITableViewCellSelectionStyleNone;
 }
 
 - (void)toggleHTTPServer

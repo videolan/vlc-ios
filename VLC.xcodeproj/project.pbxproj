@@ -104,6 +104,7 @@
 		6B4E33D21BF2A39400A35255 /* playerControl.js in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33D01BF2A39400A35255 /* playerControl.js */; };
 		6D0B038825E7CBF90013DEF4 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0B038725E7CBF90013DEF4 /* PopupView.swift */; };
 		6D0C20D4249EEDA300620DA1 /* URL+isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0C20D3249EEDA300620DA1 /* URL+isHidden.swift */; };
+		6D0F71D92721B678002E0FAE /* UIAlertController+autoDismissable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0F71D82721B678002E0FAE /* UIAlertController+autoDismissable.swift */; };
 		6D220D0D234B8E3700BD694F /* FileManager+DeleteMediaFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D220D0C234B8E3700BD694F /* FileManager+DeleteMediaFolder.swift */; };
 		6D3C676C23CDF1FC0039ACFD /* public in Resources */ = {isa = PBXBuildFile; fileRef = 6D3C676B23CDF1FC0039ACFD /* public */; };
 		6D4756B123607D4A005F670E /* EditActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4756B023607D49005F670E /* EditActions.swift */; };
@@ -629,6 +630,7 @@
 		6B4E33D01BF2A39400A35255 /* playerControl.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = playerControl.js; path = Resources/web/playerControl.js; sourceTree = SOURCE_ROOT; };
 		6D0B038725E7CBF90013DEF4 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopupView.swift; path = Sources/PopupView.swift; sourceTree = "<group>"; };
 		6D0C20D3249EEDA300620DA1 /* URL+isHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "URL+isHidden.swift"; path = "Sources/Extensions/URL+isHidden.swift"; sourceTree = "<group>"; };
+		6D0F71D82721B678002E0FAE /* UIAlertController+autoDismissable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+autoDismissable.swift"; sourceTree = "<group>"; };
 		6D220D0C234B8E3700BD694F /* FileManager+DeleteMediaFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FileManager+DeleteMediaFolder.swift"; path = "Sources/Extensions/FileManager+DeleteMediaFolder.swift"; sourceTree = "<group>"; };
 		6D3C676B23CDF1FC0039ACFD /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 		6D4756B023607D49005F670E /* EditActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditActions.swift; path = Sources/EditActions.swift; sourceTree = "<group>"; };
@@ -2269,6 +2271,7 @@
 				6DDE230C239FE8C2003DE55A /* URL+isExcludedFromBackup.swift */,
 				6D0C20D3249EEDA300620DA1 /* URL+isHidden.swift */,
 				6DE9183C25F65C390039AFA7 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */,
+				6D0F71D82721B678002E0FAE /* UIAlertController+autoDismissable.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -3367,6 +3370,7 @@
 				7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */,
 				7D30F3C7183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m in Sources */,
 				7DB66CF02520E3B90077481C /* VLCDownloadController.m in Sources */,
+				6D0F71D92721B678002E0FAE /* UIAlertController+autoDismissable.swift in Sources */,
 				41E6BECD207E64E900E158BA /* RemoteNetworkCell.swift in Sources */,
 				DD1CB05A1BBAC549006EDDE6 /* VLCVolumeView.m in Sources */,
 				7D5CAA8C1A4AD8E5003F2CBC /* VLCTrackSelectorHeaderView.m in Sources */,
