@@ -63,11 +63,11 @@ class VideoFiltersView: UIView {
     }
 
     private func setupTheme() {
-        brightnessLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
-        contrastLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
-        hueLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
-        saturationLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
-        gammaLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
+        brightnessLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        contrastLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        hueLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        saturationLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        gammaLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
         resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
     }
 

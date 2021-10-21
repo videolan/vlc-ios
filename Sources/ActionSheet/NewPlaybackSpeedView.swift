@@ -57,9 +57,9 @@ class NewPlaybackSpeedView: UIView {
 
 
     private func setupTheme() {
-        minLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
+        minLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
         currentButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
-        maxLabel.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
+        maxLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
         speedSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         increaseSpeedButton.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         decreaseSpeedButton.tintColor = PresentationTheme.darkTheme.colors.orangeUI
