@@ -147,8 +147,17 @@
             [self.browsingController streamFileForItem:item];
         } else {
             VLCMediaList *mediaList = self.serverBrowser.mediaList;
-            [self.browsingController configureSubtitlesInMediaList:mediaList];
-            [self.browsingController streamMediaList:mediaList startingAtIndex:index];
+            VLCMediaList *mediaListToPlay = [[VLCMediaList alloc] init];
+            for (NSInteger i = 0; i < [mediaList count]; ++i) {
+                VLCMedia *media = [mediaList mediaAtIndex:i];
+                if (media.mediaType != VLCMediaTypeDirectory) {
+                    [mediaListToPlay addMedia:media];
+                }
+            }
+            [self.browsingController configureSubtitlesInMediaList:mediaListToPlay];
+
+            NSUInteger indexToPlay = [mediaListToPlay indexOfMedia:[mediaList mediaAtIndex:index]];
+            [self.browsingController streamMediaList:mediaListToPlay startingAtIndex:indexToPlay];
         }
     }
 }
