@@ -7,21 +7,21 @@
 "SETTINGS_THEME_BRIGHT" = "Itxura argia";
 "SETTINGS_THEME_DARK" = "Itxura iluna";
 "SETTINGS_THEME_SYSTEM" = "Automatikoa";
-"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
-"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
+"SETTINGS_THEME_BLACK" = "Erabili atzeko plano beltza modu ilunean";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "OLED pantaila duten gailuen bateriaren bizitza hobetzen du";
 "SETTINGS_PRIVACY_SUBTITLE" = "Ireki ezarpenetan";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Babestu zure edukietarako sarbidea";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Zure euskarriak Fitxategi aplikazioan ezkutatutak egongo dira";
 
 "SETTINGS_DARKTHEME" = "Itxura";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audioaren denbora-luzatzea";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Azkartu eta mantsotu audioa tonua aldatu gabe (gailu azkarra behar da)";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio erreprodukzioa atzeko planoan";
 "SETTINGS_GENERIC_TITLE" = "Generikoa";
 "SETTINGS_PASSCODE_LOCK" = "Pasakode bidezko blokeoa";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Baimendu Touch ID desblokeatzeko";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Baimendu Face ID desblokeatzeko";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Ezkutatu euskarri liburutegia Fitxategiak atalean";
 "SETTINGS_VIDEO_FULLSCREEN" = "Erreproduzitu bideoa pantaila osoan";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Jarraitu bideoaren erreprodukzioarekin";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Jarraitu audioaren erreprodukzioarekin";
@@ -43,8 +43,8 @@
 "SETTINGS_GESTURES_PLAYPAUSE" = "Sakatu bi atzamarrekin jo edo pausatzeko ";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Pasatu hatza gora/behera distirarentzat";
 "SETTINGS_GESTURES_SEEK" = "Pasatu hatza eskuin/ezkerrera bilatzeko";
-"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
+"SETTINGS_GESTURES_CLOSE" = "Atximurkatu ixteko";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Jauzi aldakorraren iraupena";
 
 "SETTINGS_SUBTITLES_TITLE" = "Azpitituluak";
 "SETTINGS_SUBTITLES_FONT" = "Letra-tipoa";
@@ -73,17 +73,17 @@
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Lodia";
 
 "SETTINGS_DEINTERLACE" = "Bereizi gurutzelarkatuak";
-"SETTINGS_DEINTERLACE_ON" = "On";
-"SETTINGS_DEINTERLACE_OFF" = "Off";
+"SETTINGS_DEINTERLACE_ON" = "Aktibatuta";
+"SETTINGS_DEINTERLACE_OFF" = "Desaktibatuta";
 "SETTINGS_DEINTERLACE_AUTO" = "Automatikoa";
 
 "SETTINGS_HWDECODING" = "Hardwarearen deskodeketa";
-"SETTINGS_HWDECODING_ON" = "On";
-"SETTINGS_HWDECODING_OFF" = "Off";
-"SETTINGS_CASTING" = "Casting";
-"SETTINGS_PTCASTING" = "Audio Passthrough";
-"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
+"SETTINGS_HWDECODING_ON" = "Aktibatu";
+"SETTINGS_HWDECODING_OFF" = "Desaktibatu";
+"SETTINGS_CASTING" = "Galdaketa";
+"SETTINGS_PTCASTING" = "Audio Pasabidea";
+"SETTINGS_PTCASTINGLONG" = "Utzi telebistari audioaren errendimendua kudeatzen";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Bihurtzeko kalitatea";
 "SETTINGS_HIGH" = "Handia";
 "SETTINGS_MEDIUM" = "Ertaina";
 "SETTINGS_LOW" = "Txikia";
@@ -96,27 +96,27 @@
 "SETTINGS_MEDIA_LIBRARY" = "Multimedia-liburutegia";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Behartu VLC multimedia-liburutegia bireskaneatzera";
 "SETTINGS_DECRAPIFY" = "Optimizatu elementuen izenak bistaratzeko";
-"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
+"SETTINGS_DISABLE_GROUPING" = "Desgaitu euskarri taldekatze automatikoa";
 "SETTINGS_SHOW_THUMBNAILS" = "Erakutsi bideo-iruditxoak";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_SHOW_ARTWORKS" = "Erakutsi audio artelanak";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Sartu euskarri liburutegia gailuaren babeskopian";
 
 "SETTINGS_NETWORK" = "Sarea";
-"SETTINGS_NETWORK_CACHING_TITLE" = "Network Caching Level";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Sareko Cache Maila";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latentzia txikiena";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latentzia txikia";
 "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normala";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latentzia handia";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latentzia handiena";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
-"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
-"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
-"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
+"SETTINGS_WIFISHARING_IPv6" = "IPv6 laguntza Wi-Fi partekatzeko";
+"SETTINGS_FORCE_SMBV1" = "Nahiagotu SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Desmarkatu ezarpen hau zure SMB zerbitzarian arakatzeko zailtasunak badituzu";
+"SETTINGS_RTSP_TCP" = "RTP erabili RTSP (TCP)-ren gainetik";
 
-"SETTINGS_ARTWORK" = "Artwork";
-"SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
+"SETTINGS_ARTWORK" = "Artelanak";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Deskargatu Artelana";
 
-"SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_LAB" = "Laborategia";
+"SETTINGS_NEW_PLAYER" = "Erreproduzigailua berria";
 
 "ABOUT_APP_TV" = "iOS sistemarako VLC honi buruz";

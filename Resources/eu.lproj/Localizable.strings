@@ -1,10 +1,10 @@
-"STORE_DESCRIPTION" = "VLC for iOS is a port of the free VLC media player to iPad, iPhone and iPod touch.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.";
+"STORE_DESCRIPTION" = "iOS VLC doako VLC euskarri erreproduzitzailearen iPad, iPhone eta iPod touch-ren ataka da.\nZure film, ikuskizun eta musika formatu gehienetan erreproduzitu ahal izango ditu zuzenean bihurketarik egin gabe.\nFitxategiak sinkronizatzea ahalbidetzen du Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, zuzeneko deskargekin eta Wi-Fi partekatze bidez eta baita SMB, FTP, UPnP/DLNA multimedia zerbitzarietatik eta webetik igortzeko ere.\nVLC-k laguntza eskaintzen du azpititulu aurreratuetarako, SSA bateragarritasun osoa, pista anitzeko audioa eta erreprodukzio abiadura kontrolatzea barne.\n\niOSrako VLC doakoa eta kode irekikoa da.";
 
-"STORE_DESCRIPTION_TV" = "VLC media player is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows streaming from cloud services (Dropbox, OneDrive, Box), Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC for iOS is completely free and open source.\n\nMetadata and artwork are provided by TMDb and Hatchet, which are community maintained movie and music databases.";
+"STORE_DESCRIPTION_TV" = "VLC media player plataforma askeko multimedia erreproduzitzaile doakoa eta irekia da.\nZure film, ikuskizun eta musika formatu gehienetan erreproduzitu ahal izango ditu zuzenean bihurketarik egin gabe.\nHodei zerbitzuetatik (Dropbox, OneDrive, Box), urruneko erreprodukzioa zure Mac edo ordenagailutik Web UI baten bidez erreproduzitzea ahalbidetzen du eta baita SMB, FTP, UPnP/DLNA euskarri zerbitzarietatik eta webetik igortzea ere.\nVLC-k laguntza eskaintzen du azpititulu aurreratuetarako, SSA bateragarritasun osoa, pista anitzeko audioa eta erreprodukzio abiadura kontrolatzea barne.\n\nIOSrako VLC doakoa eta kode irekikoa da.\n\nMetadatuak eta artelanak TMDb-k eta Hatchet-ek eskaintzen dituzte, komunitateak mantentzen dituen filmen eta musikaren datu baseak dira.";
 
 "CHOOSE_AUDIO_TRACK" = "Hautatu audio pista";
 "CHOOSE_SUBTITLE_TRACK" = "Hautatu azpitituluen pista";
-"UNKNOWN_TRACK_TYPE" = "Unknown track type";
+"UNKNOWN_TRACK_TYPE" = "Pista mota ezezaguna";
 "OPEN_TRACK_PANEL" = "Ireki pistaren aukeraketa";
 "CHOOSE_TITLE" = "Hautatu titulua";
 "CHOOSE_CHAPTER" = "Hautatu kapitulua";
@@ -28,7 +28,7 @@
 
 "PLAYING_EXTERNALLY_TITLE" = "TB konektaturik";
 "PLAYING_EXTERNALLY_DESC" = "Bideo hau telebistan erreproduzitzen ari da";
-"PLAYING_EXTERNALLY_ADDITION" = "\n Now playing on:"; /* \n should stay in every translation */
+"PLAYING_EXTERNALLY_ADDITION" = "\nOrain erreproduzitzen:"; /* \n should stay in every translation */
 
 "VFILTER_HUE" = "Ñabardura";
 "VFILTER_CONTRAST" = "Kontrastea";
@@ -36,11 +36,11 @@
 "VFILTER_SATURATION" = "Saturazioa";
 "VFILTER_GAMMA" = "Gamma";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "Aurrezarpen / preamplifikazio ezarpenak";
 "PREAMP" = "Aurreanp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Aukeratu ekulizadorearen profila";
-"SNAP_BANDS" = "Snap bands";
+"SNAP_BANDS" = "Klaskatu bandak";
 
 "PLAYBACK_FAILED" = "Erreprodukzioak huts egin du";
 "PLEASE_WAIT" = "Itxaron mesedez";
@@ -50,10 +50,10 @@
 "PLAYBACK_SPEED" = "Erreprodukzioaren lastertasuna";
 "SPU_DELAY" = "Azpitituluen atzerapena";
 "AUDIO_DELAY" = "Audio-atzerapena";
-"BUTTON_SLEEP_TIMER" = "Sleep Timer";
-"SLEEP_TIMER_UPDATED" = "Sleep Timer Updated";
-"CONTINUE_PLAYBACK" = "Continue playback?";
-"CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
+"BUTTON_SLEEP_TIMER" = "Lo Tenporizadorea";
+"SLEEP_TIMER_UPDATED" = "Lo Tenporizadorea Eguneratua";
+"CONTINUE_PLAYBACK" = "Erreproduzitzen jarraitu nahi duzu?";
+"CONTINUE_PLAYBACK_LONG" = "\"%@\" erreproduzitzen utzi zenuen lekuan jarraitu nahi al zenuke?";
 
 "BUTTON_ABOUT" = "Honi buruz";
 "BUTTON_BACK" = "Atzera";
@@ -71,42 +71,42 @@
 "BUTTON_CONTINUE" = "Jarraitu";
 "BUTTON_SET" = "Ezarri";
 "BUTTON_RESET" = "Berrezarri";
-"BUTTON_RESCAN" = "Rescan";
+"BUTTON_RESCAN" = "Berreskaneatu";
 "PRIVATE_PLAYBACK_TOGGLE" = "Erreprodukzio pribatua";
-"SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
+"SCAN_SUBTITLE_TOGGLE" = "Bilatu azpitituluak (http soilik)";
 
 "BUTTON_RENDERER" = "Igortze gailuak";
-"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+"BUTTON_RENDERER_HINT" = "Erakutsi erabilgarri dauden igortze gailuen menua";
 
 
 "BUTTON_PLAY_QUEUE" = "Erreproduzitu ilara";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+"BUTTON_PLAY_QUEUE_HINT" = "Erakutsi erreprodukzio ilararen ikuspegia";
 
-"UPGRADING_LIBRARY" = "Upgrading Media Library";
+"UPGRADING_LIBRARY" = "Euskarri liburutegia berritzen";
 
-"OPEN_NETWORK" = "Open Network Stream";
-"NETWORK_TITLE" = "Network Stream";
-"OPEN_NETWORK_HELP" = "Enter any HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP address to open the stream directly.";
+"OPEN_NETWORK" = "Ireki sare korrontea";
+"NETWORK_TITLE" = "Sare korrontea";
+"OPEN_NETWORK_HELP" = "Sartu edozein HTTP, RTSP, RTMP, MMS, FTP edo UDP/RTP helbide zuzenean korrontea irekitzeko.";
 "HTTP_UPLOAD_SERVER_OFF" = "Zerbitzari inaktiboa";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
-"OPEN_STREAM_OR_DOWNLOAD" = "Would you like to download or play this URL?";
-"SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
-"SMB_CIFS_FILE_SERVERS" = "File Servers (SMB)";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Ez dago Wi-Fi konexio aktiborik";
+"OPEN_STREAM_OR_DOWNLOAD" = "URL hau deskargatu edo erreproduzitu nahi duzu?";
+"SHARED_VLC_IOS_LIBRARY" = "Partekatutako VLC iOS liburutegirako";
+"SMB_CIFS_FILE_SERVERS" = "Fitxategi zerbitzariak (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_CANCELLED" = "Download canceled by user";
+"HTTP_DOWNLOAD_CANCELLED" = "Erabiltzaileak bertan behera utzi du deskarga";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Enter an address to download the file to your %@.";
+"DOWNLOAD_FROM_HTTP_HELP" = "Idatzi helbide bat fitxategia %@-ra deskargatzeko.";
 "DOWNLOAD_FROM_HTTP" = "Deskargak";
 "ERROR_NUMBER" = " %i errorea gertatu da";
 "DOWNLOAD_FAILED" = "Deskargak huts egin du";
 "FILE_NOT_SUPPORTED" = "Fitxategi formatu ez onartua";
-"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
-"SCHEME_NOT_SUPPORTED" = "Address scheme not supported";
-"SCHEME_NOT_SUPPORTED_LONG" = "The address scheme (%@) is not supported. Please use an address starting with HTTP, HTTPS or FTP.";
-"RENAME_MEDIA_TO" = "Enter new name for %@";
+"FILE_NOT_SUPPORTED_LONG" = "%@-k erabilitako fitxategi formatua ez da onartzen VLC bertsio honek iOS-erako.";
+"SCHEME_NOT_SUPPORTED" = "Helbide eskema ez da onartzen";
+"SCHEME_NOT_SUPPORTED_LONG" = "Helbide eskema (%@) ez da onartzen. Erabili HTTP, HTTPS edo FTP-rekin hasten den helbidea.";
+"RENAME_MEDIA_TO" = "Idatzi izen berria %@rentzat";
 
 "FOLDER_EMPTY" = "Karpeta hutsa";
 
@@ -114,9 +114,9 @@
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Ireki hemen...";
 "SHARING_ERROR_NO_FILES" = "Ezin izan da fitxategirik aurkitu partekatzeko";
 "SHARING_ERROR_NO_APPLICATIONS" = "Ezin izan da aplikaziorik aurkitu fitxategi mota hau irekitzeko";
-"SHARING_SUCCESS_CAMERA_ROLL" = "File was successfully saved to the Camera Roll";
+"SHARING_SUCCESS_CAMERA_ROLL" = "Fitxategia behar bezala gorde da Kamera Biribilkian";
 
-"STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
+"STREAMVC_DETAILTEXT" = "Erreproduzitu zuzenean korronteak deskargatu gabe";
 "DOWNLOADVC_DETAILTEXT" = "Deskargatu fitxategiak zuzenean zure gailura";
 "HEADER_TITLE_RENDERER" = "Hautatu igortze gailua";
 
@@ -132,10 +132,10 @@
 "LOCAL_SERVER_REFRESH" = "Freskatu";
 "LOCAL_SERVER_LAST_UPDATE" = "Azken aldaketa: %@";
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "ZERBITZARI-KONEXIOAK HUTS EGIN DU";
-"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Please check your server address and credentials";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Mesedez, egiaztatu zure zerbitzariaren helbidea eta egiaztagiriak";
 
 "FILES_APP_CELL_TITLE" = "Fitxategi lokalak";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+"FILES_APP_CELL_SUBTITLE" = "Ireki fitxategi bat VLC-ra kopiatu gabe";
 
 "CLOUD_SERVICES" = "Hodei zerbitzuak";
 "LOGIN" = "Hasi saioa";
@@ -144,7 +144,7 @@
 "LOGGED_IN_SERVICE" = "Zerbitzu batean saioa hasita";
 
 "DROPBOX_DOWNLOAD" = "Deskargatu fitxategia?";
-"DROPBOX_DL_LONG" = "Would you like to download \"%@\" to your %@?";
+"DROPBOX_DL_LONG" = "\"%@\" zure %@ra deskargatu nahi duzu?";
 "DROPBOX_LOGIN" = "Hasi saioa";
 
 "GDRIVE_ERROR_FETCHING_FILES" = "Errorea fitxategiak eskuratzean";
@@ -155,19 +155,19 @@
 
 "ONEDRIVE_MEDIA_WITHOUT_URL" = "Hautatutako multimediak ez dauka erreproduzitu daitekeen URLrik";
 
-"DISK_FULL" = "Storage limit reached";
-"DISK_FULL_FORMAT" = "%@ cannot be stored on your %@, because you don't have enough free space left.";
+"DISK_FULL" = "Biltegiratze mugara iritsi da";
+"DISK_FULL_FORMAT" = "%@ ezin da zure %@n gorde, ez baituzu nahikoa leku libre geratzen.";
 
 "NUM_OF_FILES" = "%i fitxategi";
 "ONE_FILE" = "Fitxategi 1";
 "NO_FILES" = "Onartutako fitxategirik ez";
 "DOWNLOADING" = "Deskargatzen...";
 "REMAINING_TIME" = "Geratzen den denbora: %@";
-"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
+"BIOMETRIC_UNLOCK" = "Desblokeatu euskarri liburutegia\nUtzi pasahitza sartzeko";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"%d Failed Passcode Attempts" = "%d pasahitz saiakera hutsegituta";
+"1 Failed Passcode Attempt" = "Huts egite 1 pasahitzaren saiakeran";
 "Change Passcode" = "Aldatu pasakodea";
 "Enter Passcode" = "Sartu pasakodea";
 "Enter a passcode" = "Sartu pasakodea";
@@ -181,27 +181,27 @@
 "Set Passcode" = "Ezarri pasakodea";
 
 "Settings" = "Ezarpenak"; // plain text key to keep compatibility with InAppSettingsKit's upstream
-"ON" = "On";
-"OFF" = "Off";
+"ON" = "Aktibatu";
+"OFF" = "Desaktibatu";
 
 "EMPTY_LIBRARY" = "Hustu multimedia-liburutegia";
-"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
+"EMPTY_LIBRARY_LONG" = "Erreproduzitzeko, euskarria sare lokaleko zerbitzaritik, hodeitik edo multimedia gailuarekin sinkroniza dezakezu iTunes, Wi-Fi kargatzea edo Cloud zerbitzuak erabiliz.";
 
-"EMPTY_NO_PLAYLISTS" = "Playlists";
-"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
+"EMPTY_NO_PLAYLISTS" = "Erreprodukzio-zerrendak";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Erreprodukzio zerrendak sortzeko, sartu edizio moduan bideo edo audio edukiaren fitxetan eta hautatu zure gogoko euskarria.\nLehendik dauden erreprodukzio zerrendak zure beste gailuetatik edo internetetik ere sinkroniza ditzakezu.";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
-"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+"EMPTY_PLAYLIST" = "Erreprodukzio zerrenda hutsa";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Gehitu euskarria dagokien kategorietan editatzen ari zaren bitartean.";
 
-"PLAYBACK_SCRUB_HELP" = "Slide your finger down to adjust the scrubbing rate.";
-"PLAYBACK_SCRUB_HIGH" = "High-Speed Scrubbing";
-"PLAYBACK_SCRUB_HALF" = "Half-Speed Scrubbing";
-"PLAYBACK_SCRUB_QUARTER" = "Quarter-Speed Scrubbing";
-"PLAYBACK_SCRUB_FINE" = "Fine Scrubbing";
+"PLAYBACK_SCRUB_HELP" = "Irristatu hatza behera garbiketa-emaria doitzeko.";
+"PLAYBACK_SCRUB_HIGH" = "Abiadura Handiko Garbiketa";
+"PLAYBACK_SCRUB_HALF" = "Abiadura Erdiko Garbiketa";
+"PLAYBACK_SCRUB_QUARTER" = "Abiadura Laurdeneko Garbiketa";
+"PLAYBACK_SCRUB_FINE" = "Garbiketa Bikaina";
 "PLAYBACK_POSITION" = "Erreprodukzioaren posizioa";
 "VIDEO_FILTER" = "Bideo-iragazkiak";
-"VIDEO_FILTER_RESET_BUTTON" = "Reset Video Filters";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_FILTER_RESET_BUTTON" = "Berrezarri Bideo Iragazkiak";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Bideoaren itxura erlazioa";
 "BWD_BUTTON" = "Jauzi atzera";
 "FWD_BUTTON" = "Jauzi aurrera";
 "PLAY_BUTTON" = "Erreproduzitu";
@@ -209,10 +209,10 @@
 "PREV_BUTTON" = "Aurrekoa";
 "PLAY_ALL_BUTTON" = "Erreproduzitu denak";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_VIDEO_FILTERS" = "Bideo iragazkiak berrezarri nahi dituzu?";
+"RESET_PLAYBACK_SPEED" = "Erreprodukzio abiadura berrezarri nahi duzu?";
+"RESET_EQUALIZER" = "Ekualizadorearen ezarpenak berrezarri nahi dituzu?";
+"RESET_SLEEP_TIMER" = "Lo tenporizadorea berrezarri nahi al duzu?";
 
 "VERSION_FORMAT" = "Bertsioa: %@";
 "BASED_ON_FORMAT" = "Oinarria:<br />%@";
@@ -224,41 +224,42 @@
 "BUG_REPORT_BUTTON" = "Ireki Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Bideo-erreproduzigailua";
-"VO_VIDEOPLAYER_DOUBLETAP" = "Double tap to show or hide playback controls";
+"VO_VIDEOPLAYER_DOUBLETAP" = "Birritan sakatu erreprodukzio kontrolak erakusteko edo ezkutatzeko";
 
 "FIRST_STEPS_ITUNES" = "iTunes fitxategi-sinkonizazioa";
 "FIRST_STEPS_ITUNES_TITLE" = "Sinkronizatu zure ordenagailuarekin";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
-"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
+"FIRST_STEPS_ITUNES_DETAILS" = "Konektatu gailua iTunes-era eta hautatu zure gailua. Aukeratu \"Fitxategiak partekatzea\" iTunes-en ezkerreko menuan eta bilatu VLC-a fitxategiak transferitzeko";
+"FIRST_STEPS_WIFI_TITLE" = "Partekatu Wi-Fi bidez";
+"FIRST_STEPS_WIFI_DETAILS" = "Idatzi sortutako URLa zure gogoko web arakatzailean telefonoaren sare berera konektatuta zauden bitartean";
 "FIRST_STEPS_CLOUDS" = "Hodeiak";
 "FIRST_STEPS_CLOUD_TITLE" = "Hodeia";
-"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
+"FIRST_STEPS_CLOUD_DETAILS" = "Kargatu zure euskarria Google Drive edo Dropbox bezalako hodei zerbitzu batera, urrunetik deskargatzeko edo korrontea egiteko.";
 
 
-"PLEX_CHECK_ACCOUNT" = "Check your Plex account in settings";
-"PLEX_ERROR_ACCOUNT" = "Plex login Error";
+"PLEX_CHECK_ACCOUNT" = "Egiaztatu zure Plex kontua ezarpenetan";
+"PLEX_ERROR_ACCOUNT" = "Plex saioa hasteko errorea";
 
 "UNAUTHORIZED" = "Baimenik ez";
 
 "SERVER" = "Zerbitzaria";
 "SERVER_PORT" = "Ataka";
 "NO_SERVER_FOUND" = "Ez da zerbitzaririk aurkitu";
-"NO_RECENT_STREAMS" = "No stream was played recently";
+"NO_RECENT_STREAMS" = "Azkenaldian ez da korronterik erreproduzitu";
 
-"WEBINTF_TITLE" = "Sharing via Wi-Fi";
+"WEBINTF_TITLE" = "Wi-Fi bidez partekatzen";
 "WEBINTF_DROPFILES" = "Jaregin fitxategiak";
-"WEBINTF_DROPFILES_LONG" = "Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"WEBINTF_DROPFILES_LONG" = "Jaregin fitxategiak leihotik zure %@ra gehitzeko.<br>Edo egin klik \"+\" botoian fitxategia fitxategi-hautatzailea elkarrizketa erabiltzeko.";
 "WEBINTF_DOWNLOADFILES" = "Deskargatu fitxategiak";
-"WEBINTF_DOWNLOADFILES_LONG" = "Just click the file you want to download from your %@.";
+"WEBINTF_DOWNLOADFILES_LONG" = "Egin klik zure %@-tik deskargatu nahi duzun fitxategian.";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "Urruneko erreprodukzioa";
-"WEBINTF_DROPFILES_LONG_ATV" = "Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
+"WEBINTF_DROPFILES_LONG_ATV" = "Jaregin fitxategiak leihotik zure %@-n erreproduzitzeko.<br>Edo egin klik \"+\" botoian fitxategia hautatzeko elkarrizketa-koadroa erabiltzeko.";
 "WEBINTF_URL_SENT" = "URLa ongi bidali da.";
 "WEBINTF_URL_EMPTY" = "URLa ezin da hutsik egon.";
 "WEBINTF_URL_INVALID" = "Ez da baliozko URLa.";
-"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
+"WEBINTF_AUTH_REQUIRED" = "Mesedez, sartu VLC iOS-en ezarri duzun pasahitza:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Pasakode okerra. <br> Geratzen diren saiakerak:";
-"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
+"WEBINTF_AUTH_BANNED" = "Pasahitz oker gehiegi sartu dituzu.<br>VLC iOS berrabiarazi eta saiatu berriro.";
 
 
 
@@ -274,23 +275,23 @@
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audioaren informazioa";
-"CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
+"CLOUD_LOGIN_LONG" = "Cloud Zerbitzuetara sartzeko, hasi saioa iCloud-n bai Apple TV honetan, bai Apple ID bera duen iOS gailu batean eta gaitu giltzatako partekatzea sistemaren ezarpenetan.\nOndoren, hasi saioa nahi duzun hodei hornitzailean zure iOS gailuko VLC aplikazioa erabiliz. Azkenean, hautatu pantaila honetan.";
 "ENTER_URL" = "Sartu erreproduzitzeko URLa";
 "HTTP_SERVER_ON" = "Desgaitu urruneko erreprodukzioa";
 "HTTP_SERVER_OFF" = "Gaitu urruneko erreprodukzioa";
-"CACHED_MEDIA" = "Cached Media";
-"CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
+"CACHED_MEDIA" = "Cachean gordetako euskarriak";
+"CACHED_MEDIA_LONG" = "Hemen agertzen diren euskarriak Apple TV-n gordetzen dira lokalean. Kontuan izan sistema eragileak edukia ezabatu dezakeela aldez aurretik abisatu gabe VLC exekutatzen ez denean, zure gailuak biltegiratze agortua badu.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Deskargatu azpitituluak OpenSubtitles.org gunetik...";
 "FOUND_SUBS" = "Aurkitutako azpitituluak";
-"NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
-"USE_SPDIF" = "Use Pass-through (S/PDIF)";
+"NO_SUB_FOUND_OSO" = "Ez da azpititulurik aurkitu \"%@\" euskarri elementurako.";
+"USE_SPDIF" = "Erabili Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Erreprodukzioa";
 "REPEAT_MODE" = "Errepikatu";
 "REPEAT_DISABLED" = "Desgaituta";
 "REPEAT_SINGLE" = "Bakarra";
 "REPEAT_FOLDER" = "Karpeta";
-"SHUFFLE" = "Shuffle";
+"SHUFFLE" = "Nahastu";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
@@ -314,13 +315,13 @@
 "DELETE_ITEM_HINT" = "Sakatu %@ ezabatzeko"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Baieztatu hautapenaren ezabaketa";
-"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
+"DELETE_MESSAGE_PLAYLIST" = "Ziur zaude hautatutako erreprodukzio zerrenda ezabatu nahi duzula?\nLotutako euskarri fitxategiak ez dira ezabatuko.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Ziur zaude hautatutako euskarria erreprodukzio zerrendatik kendu nahi duzula?\nEz dira diskotik ezabatuko.";
 "DELETE_TITLE" = "Ezabatu hautaketa";
 
 // MARK: - Drag and Drop
 "THIS_FILE" = "Fitxategi hau";
-"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
+"NOT_SUPPORTED_FILETYPE" = "%@ ez da VLC-k onartzen duen fitxategi mota";
 "FILE_EXISTS" = "%@ badago aurretik";
 
 "PROTOCOL_NOT_SELECTED" = "Protokoloa hautatu gabe";
@@ -357,11 +358,11 @@
 "PLAYLIST_PLACEHOLDER" = "Erreprodukzio-zerrendaren izenburua";
 "PLAYLIST_DESCRIPTION" = "Aukeratu zure erreprodukzio-zerrendaren izenburua";
 "PLAYLIST_CREATION" = "Sortu erreprodukzio-zerrenda berria";
-"PLAYLIST_CREATION_HINT" = "Show an interactive action to create a playlist";
-"ERROR_PLAYLIST_CREATION" = "Failed to create a playlist";
+"PLAYLIST_CREATION_HINT" = "Erakutsi ekintza interaktibo bat erreprodukzio zerrenda sortzeko";
+"ERROR_PLAYLIST_CREATION" = "Ezin izan da erreprodukzio zerrenda sortu";
 "ERROR_PLAYLIST_TRACKS" = "Ezin izan dira pistak eskuratu";
 
-"ERROR_RENAME_FAILED" = "Renaming failed";
+"ERROR_RENAME_FAILED" = "Izena aldatzea huts egin du";
 "ERROR_EMPTY_NAME" = "Izenburua ezin da hutsik egon";
 
 "SHARE_LABEL" = "Partekatu";
@@ -375,9 +376,9 @@
 "BUTTON_SORT_HINT" = "Bistaratu ordenatze ekintzaren orria";
 "HEADER_TITLE_SORT" = "Ordenatu honen arabera";
 "DESCENDING_LABEL" = "Beherako ordena";
-"DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
+"DESCENDING_SWITCH_LABEL" = "Goranzko edo beheranzko ordena";
 "DESCENDING_SWITCH_HINT" = "Ordenatu testuingurua gorantz edo beherantz";
-"GRID_LAYOUT" = "Grid Layout";
+"GRID_LAYOUT" = "Sareta-diseinua";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -408,16 +409,16 @@
 
 // MARK: - VideoPlayerControls
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Subtitles and audio tracks";
-"SUBTITLE_AND_TRACK_HINT" = "Choose subtitle or audio tracks";
+"SUBTITLE_AND_TRACK_BUTTON" = "Azpitituluak eta audio pistak";
+"SUBTITLE_AND_TRACK_HINT" = "Aukeratu azpitituluak edo audio pistak";
 
 "DVD_BUTTON" = "DVD";
 "DVD_HINT" = "DVD interfazea";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "Biraketa blokeoa";
+"ROTATION_LOCK_HINT" = "Blokeatu bideoa uneko orientaziora";
 
-"REPEAT_HINT" = "Repeat same media";
+"REPEAT_HINT" = "Errepikatu euskarri bera";
 
 "BACKWARD_BUTTON" = "Atzera";
 "BACKWARD_HINT" = "Jauzi egin atzera";
@@ -428,7 +429,7 @@
 "PLAY_PAUSE_BUTTON" = " Erreproduzitu edo pausarazi";
 "PLAY_PAUSE_HINT" = " Erreproduzitu edo pausarazi oraingo erreprodukzioa";
 
-"STOP_BUTTON" = "Stop";
+"STOP_BUTTON" = "Gelditu";
 
 "NEXT_HINT" = "Hurrengo multimedia";
 
@@ -437,9 +438,9 @@
 
 "INTERFACE_LOCK_BUTTON" = "Blokeatu interfazea";
 
-"SHUFFLE_HINT" = "Shuffle media list";
+"SHUFFLE_HINT" = "Nahastu multimedia zerrenda";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Bideoaren itxura erlazioa";
 "VIDEO_ASPECT_RATIO_HINT" = "Aldatu uneko bideoaren aspektu-erlazioa";
 
 "MORE_OPTIONS_BUTTON" = "Gehiago";
@@ -470,28 +471,28 @@
 "ADD_TO_MEDIA_GROUP_HINT" = "Ireki 'Gehitu multimedia taldera' menua";
 
 "MEDIA_GROUPS" = "Multimedia taldeak";
-"MEDIA_GROUPS_DESCRIPTION" = "Choose a title for your new media group";
+"MEDIA_GROUPS_DESCRIPTION" = "Aukeratu euskarri talde berriaren izenburua";
 "MEDIA_GROUPS_PLACEHOLDER" = "Multimedia taldearen izenburua";
 
 "REMOVE_FROM_MEDIA_GROUP" = "Kendu multimedia taldetik";
 "REMOVE_FROM_MEDIA_GROUP_HINT" = "Kendu hautaketa multimedia taldetik";
 
 "MEDIA_GROUP_CREATION" = "Multimedia talde berria";
-"MEDIA_GROUP_CREATION_HINT" = "Show alert to create a playlist";
+"MEDIA_GROUP_CREATION_HINT" = "Erakutsi alerta erreprodukzio zerrenda sortzeko";
 "MEDIA_GROUP_MOVE_TO_ROOT" = "Mugitu edukia goiko mailara";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Mugitu hautatutako edukia goiko mailara";
 
-"BUTTON_REGROUP" = "Regroup";
-"BUTTON_REGROUP_TITLE" = "Regroup selection";
-"BUTTON_REGROUP_HINT" = "Attempt to regroup automatically single media.";
-"BUTTON_REGROUP_DESCRIPTION" = "Are you sure to attempt to regroup automatically single media?\nThis can take some time.";
+"BUTTON_REGROUP" = "Elkartu berriro";
+"BUTTON_REGROUP_TITLE" = "Elkartu berriro hautaketa";
+"BUTTON_REGROUP_HINT" = "Multimedia bakarra automatikoki biltzen saiatu.";
+"BUTTON_REGROUP_DESCRIPTION" = "Ziur zaude euskarri bakarra automatikoki biltzen saiatzen?\nDenbora pixka bat har dezake.";
 
 // MARK: - Files.app persistence file
-"MEDIALIBRARY_FILES_PLACEHOLDER" = "Place media here to add them";
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Jarri euskarriak hemen gehitzeko";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Gehitzen...";
 
 // MARK: - tip jar
-"GIVE_TIP" = "Give a Tip";
+"GIVE_TIP" = "Eman aholkua";
 "CANNOT_MAKE_PAYMENTS" = "Ezin duzu gailu honetan ordainketarik egin.";
 "PURCHASE_FAILED" = "Erosketak huts egin du";
 "SEND_GIFT" = "Bidali zure oparia";
@@ -505,23 +506,31 @@
 "APPEND_TO_QUEUE_HINT" = "Gehitu ilarari";
 "APPEND_TO_QUEUE_LABEL" = "Gehitu ilarari";
 
-"DISPLAY_AS" = "Display as";
+"DISPLAY_AS" = "Bistaratu honela";
 
 /* New strings */
-"BRIGHTNESS_HINT" = "Vertical brightness control";
-"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
+"BRIGHTNESS_HINT" = "Distira kontrol bertikala";
+"BRIGHTNESS_SLIDER" = "Irristatu bertikalki distira maila aldatzeko";
 
 /* New strings */
-"VOLUME_HINT" = "Vertical volume control";
-"VOLUME_SLIDER" = "Slide vertically to change the volume level";
+"VOLUME_HINT" = "Bolumen kontrol bertikala";
+"VOLUME_SLIDER" = "Irristatu bertikalki bolumen maila aldatzeko";
 
 // MARK: - AudioMiniPlayer playback controls menu
-"MENU_PLAYBACK_CONTROLS" = "Playback controls";
-"MENU_REPEAT_DISABLED" = "Do not repeat";
-"MENU_REPEAT_SINGLE" = "Repeat one";
-"MENU_REPEAT_ALL" = "Repeat all";
+"MENU_PLAYBACK_CONTROLS" = "Erreprodukzio kontrolak";
+"MENU_REPEAT_DISABLED" = "Ez errepikatu";
+"MENU_REPEAT_SINGLE" = "Errepikatu bat";
+"MENU_REPEAT_ALL" = "Errepikatu guztiak";
 
 // MARK: - ActionSheet
 
-"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
-"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
+"ACTIONSHEET_BACKGROUND_LABEL" = "Ekintza orriaren atzeko planoa";
+"ACTIONSHEET_BACKGROUND_HINT" = "Ukitu ekintza orria kentzeko.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Atzera salto";
+"KEY_JUMP_FORWARDS" = "Aurrera salto";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Erreprodukzio abiadura handitu";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Erreprodukzio abiadura murriztu";
+"KEY_RESET_PLAYBACK_SPEED" = "Erreprodukzio abiadura berrezarri ";
