@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Lisää tiedostoja laitteeseen %@ vetämällä ja pudottamalla ne tähän ikkunaan. <br>Voit myös napsauttaa \"+\"-painiketta tiedostojen lisäämiseksi.";
 "WEBINTF_DOWNLOADFILES" = "Lataa tiedostoja";
 "WEBINTF_DOWNLOADFILES_LONG" = "Napsauta tiedostoa, jonka haluat ladata laitteelta %@.";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "Etätoisto";
 "WEBINTF_DROPFILES_LONG_ATV" = "Pudota tiedostoja ikkunaan, jotta voit toistaa niitä laitteella %@.<br>Voit myös napsauttaa painiketta \"+\" valitaksesi tiedostot ikkunan avulla.";
 "WEBINTF_URL_SENT" = "Osoite lähetetty onnistuneesti.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Arkin tausta";
 "ACTIONSHEET_BACKGROUND_HINT" = "Poista arkki napauttamalla.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Hyppää taaksepäin";
+"KEY_JUMP_FORWARDS" = "Hyppää eteenpäin";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Kasvata äänentoiston nopeutta";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Vähennä äänentoiston nopeutta";
+"KEY_RESET_PLAYBACK_SPEED" = "Nollaa äänentoiston nopeus";
