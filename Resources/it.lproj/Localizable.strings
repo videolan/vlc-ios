@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Rilascia i file nella finestra per aggiungerli al tuo %@.<br>Oppure fai clic sul pulsante \"+\" per usare il selettore dei file.";
 "WEBINTF_DOWNLOADFILES" = "Scarica file";
 "WEBINTF_DOWNLOADFILES_LONG" = "Ti basta fare clic sul file che vuoi scaricare dal tuo %@.";
+"WEBINTF_ADDRESS_COPIED" = "Indirizzo copiato negli appunti";
 "WEBINTF_TITLE_ATV" = "Riproduzione remota";
 "WEBINTF_DROPFILES_LONG_ATV" = "Rilascia i file nella finestra per riprodurli sul tuo %@.<br>Oppure fai clic sul pulsante \"+\" per usare il selettore dei file.";
 "WEBINTF_URL_SENT" = "URL inviato correttamente.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Sfondo del foglio delle azioni";
 "ACTIONSHEET_BACKGROUND_HINT" = "Tocca per rimuovere il foglio delle azioni.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Salta indietro";
+"KEY_JUMP_FORWARDS" = "Salta in avanti";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Aumenta velocità di riproduzione";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Riduci velocità di riproduzione";
+"KEY_RESET_PLAYBACK_SPEED" = "Ripristina velocità di riproduzione";
