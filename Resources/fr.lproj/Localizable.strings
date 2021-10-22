@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Déposer des fichiers dans la fenêtre pour les ajouter à votre %@.<br>Ou cliquer sur le bouton « + » pour utiliser le sélecteur de fichiers.";
 "WEBINTF_DOWNLOADFILES" = "Télécharger des fichiers";
 "WEBINTF_DOWNLOADFILES_LONG" = "Cliquer simplement sur le fichier que vous voulez télécharger de votre %@.";
+"WEBINTF_ADDRESS_COPIED" = "Adresse copiée dans le presse-papiers";
 "WEBINTF_TITLE_ATV" = "Lecture à distance";
 "WEBINTF_DROPFILES_LONG_ATV" = "Déposer des fichiers dans la fenêtre pour les lire sur votre %@.<br>Ou cliquer sur le bouton « + » pour utiliser le sélecteur de fichiers.";
 "WEBINTF_URL_SENT" = "URL correctement envoyée.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Fond de la feuille d'actions";
 "ACTIONSHEET_BACKGROUND_HINT" = "Appuyez sur pour supprimer la feuille d'actions.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Saut arrière";
+"KEY_JUMP_FORWARDS" = "Saut avant";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Augmenter la vitesse de lecture";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Ralentir la vitesse de lecture";
+"KEY_RESET_PLAYBACK_SPEED" = "Réinitialiser la vitesse de lecture";
