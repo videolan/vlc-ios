@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "तपाईँको %@ मा तिनलाई थप्न सन्झ्यालमा फाइलहरू छोड्नुहोस्।<br>वा फाइल पिकर डायलग प्रयोग गर्न \"+\" बटनमा क्लिक गर्नुहोस्।";
 "WEBINTF_DOWNLOADFILES" = "फाइलहरू डाउनलोड गर्नुहोस्";
 "WEBINTF_DOWNLOADFILES_LONG" = "तपाईंले आफ्नो %@ बाट डाउनलोड गर्न चाहनुभएको केवल फाइलमा क्लिक गर्नुहोस्।";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "रिमोट प्लेब्याक";
 "WEBINTF_DROPFILES_LONG_ATV" = "तपाईँको %@ मा तिनलाई प्ले गर्न सन्झ्यालमा फाइलहरू छोड्नुहोस्।<br> वा फाइल पिकर डायलग प्रयोग गर्न \"+\" बटनमा क्लिक गर्नुहोस्।";
 "WEBINTF_URL_SENT" = "URL सफलापूर्वक पठाइयो।";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
 "ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Jump backwards";
+"KEY_JUMP_FORWARDS" = "Jump forwards";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Increase playback speed";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Decrease playback speed";
+"KEY_RESET_PLAYBACK_SPEED" = "Reset playback speed";
