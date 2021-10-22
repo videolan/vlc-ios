@@ -333,7 +333,7 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
             return ipv4address;
         }
     }
-    return ipv6address;
+    return [NSString stringWithFormat:@"[%@]", ipv6address];
 }
 
 - (NSString *)hostname
