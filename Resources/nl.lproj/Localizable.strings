@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Zet bestanden in het venster om ze toe te voegen aan uw %@.<br>Of klik op de \"+\"-knop om het bestandskeuzevenster te gebruiken.";
 "WEBINTF_DOWNLOADFILES" = "Bestanden downloaden";
 "WEBINTF_DOWNLOADFILES_LONG" = "Klik op het bestand dat u wil downloaden van uw %@.";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "Remote Playback";
 "WEBINTF_DROPFILES_LONG_ATV" = "Zet bestanden in het venster om ze af te spelen op uw %@.<br>Of klik op de \"+\"-knop om het bestandskeuzevenster te gebruiken.";
 "WEBINTF_URL_SENT" = "URL succesvol verzonden.";
@@ -523,5 +524,13 @@
 
 // MARK: - ActionSheet
 
-"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
-"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
+"ACTIONSHEET_BACKGROUND_LABEL" = "Achtergrond actieblad";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tikken om het actieblad te verwijderen.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Achteruit springen";
+"KEY_JUMP_FORWARDS" = "Vooruit springen";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Afspeelsnelheid verhogen";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Afspeelsnelheid verlagen";
+"KEY_RESET_PLAYBACK_SPEED" = "Afspeelsnelheid herstellen";
