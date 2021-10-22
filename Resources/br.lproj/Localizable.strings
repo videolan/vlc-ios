@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Taolit restroù er prenestr amañ evit o ouzhpennañ e-barzh hoc'h %@.<br>Pe klikit war ar bouton \"+\" evit implijout ar voest divizoù diuziñ restroù.";
 "WEBINTF_DOWNLOADFILES" = "Pellgargañ Restroù";
 "WEBINTF_DOWNLOADFILES_LONG" = "Klikit just war ar restr a fell deoc’h pellgargañ diouzh ho %@.";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "Pell-lenn";
 "WEBINTF_DROPFILES_LONG_ATV" = "Taolit restroù er prenestr amañ evit o c'hoari e-barzh hoc'h %@.<br>Pe klikit war ar bouton \"+\" evit implijout ar voest divizoù diuziñ restroù.";
 "WEBINTF_URL_SENT" = "URL kaset gant berzh.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
 "ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Jump backwards";
+"KEY_JUMP_FORWARDS" = "Jump forwards";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Increase playback speed";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Decrease playback speed";
+"KEY_RESET_PLAYBACK_SPEED" = "Reset playback speed";
