@@ -19,15 +19,15 @@ protocol VideoFiltersViewDelegate: AnyObject {
 class VideoFiltersView: UIView {
 
     @IBOutlet weak var brightnessLabel: UILabel!
-    @IBOutlet weak var brightnessSlider: UISlider!
+    @IBOutlet weak var brightnessSlider: VLCSlider!
     @IBOutlet weak var contrastLabel: UILabel!
-    @IBOutlet weak var contrastSlider: UISlider!
+    @IBOutlet weak var contrastSlider: VLCSlider!
     @IBOutlet weak var hueLabel: UILabel!
-    @IBOutlet weak var hueSlider: UISlider!
+    @IBOutlet weak var hueSlider: VLCSlider!
     @IBOutlet weak var saturationLabel: UILabel!
-    @IBOutlet weak var saturationSlider: UISlider!
+    @IBOutlet weak var saturationSlider: VLCSlider!
     @IBOutlet weak var gammaLabel: UILabel!
-    @IBOutlet weak var gammaSlider: UISlider!
+    @IBOutlet weak var gammaSlider: VLCSlider!
     @IBOutlet weak var resetButton: UIButton!
 
     private let defaultBrightness: Float = 1.0
@@ -130,7 +130,7 @@ class VideoFiltersView: UIView {
         }
     }
 
-    @IBAction func handleSliderChange(_ sender: UISlider) {
+    @IBAction func handleSliderChange(_ sender: VLCSlider) {
         if sender.tag == 1 {
             currentBrightness = sender.value
             brightnessSlider.setValue(currentBrightness, animated: true)

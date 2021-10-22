@@ -22,7 +22,7 @@ class NewPlaybackSpeedView: UIView {
     @IBOutlet weak var minLabel: UILabel!
     @IBOutlet weak var currentButton: UIButton!
     @IBOutlet weak var maxLabel: UILabel!
-    @IBOutlet weak var speedSlider: UISlider!
+    @IBOutlet weak var speedSlider: VLCSlider!
     @IBOutlet weak var increaseSpeedButton: UIButton!
     @IBOutlet weak var decreaseSpeedButton: UIButton!
     @IBOutlet weak var optionsSegmentedControl: UISegmentedControl!
@@ -118,7 +118,7 @@ class NewPlaybackSpeedView: UIView {
     }
 
 
-    @IBAction func handleSliderMovement(_ sender: UISlider) {
+    @IBAction func handleSliderMovement(_ sender: VLCSlider) {
         let selectedIndex = optionsSegmentedControl.selectedSegmentIndex
         var currentValue: Float = speedSlider.value
         var currentButtonText: String = ""
@@ -156,8 +156,11 @@ class NewPlaybackSpeedView: UIView {
             }
         }
 
-        currentButton.setTitle(currentButtonText, for: .normal)
-        speedSlider.setValue(currentValue, animated: true)
+        UIView.performWithoutAnimation {
+            currentButton.setTitle(currentButtonText, for: .normal)
+            speedSlider.setValue(currentValue, animated: true)
+            layoutIfNeeded()
+        }
 
         if showIcon {
             delegate?.newPlaybackSpeedViewShowIcon()
@@ -269,8 +272,11 @@ class NewPlaybackSpeedView: UIView {
             }
         }
 
-        currentButton.setTitle(currentButtonText, for: .normal)
-        speedSlider.setValue(currentValue, animated: true)
+        UIView.performWithoutAnimation {
+            currentButton.setTitle(currentButtonText, for: .normal)
+            speedSlider.setValue(currentValue, animated: true)
+            layoutIfNeeded()
+        }
 
         if showIcon {
             delegate?.newPlaybackSpeedViewShowIcon()
