@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Εναποθέστε αρχεία στο παράθυρο για να τα προσθέσετε στο %@.<br> Ή κάντε κλικ στο κουμπί \"+\" για να χρησιμοποιήσετε το παράθυρο διαλόγου επιλογής αρχείων.";
 "WEBINTF_DOWNLOADFILES" = "Λήψη αρχείων";
 "WEBINTF_DOWNLOADFILES_LONG" = "Απλά κάντε κλικ στο αρχείο που θέλετε να λάβετε από το %@.";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "Απομακρυσμένη αναπαραγωγή";
 "WEBINTF_DROPFILES_LONG_ATV" = "Εναποθέστε αρχεία στο παράθυρο για αναπαραγωγή στο %@.<br> Ή κάντε κλικ στο κουμπί \"+\" για να χρησιμοποιήσετε το παράθυρο διαλόγου επιλογής αρχείων.";
 "WEBINTF_URL_SENT" = "Επιτυχής αποστολή URL.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Δελτίο οδηγιών στο παρασκήνιο";
 "ACTIONSHEET_BACKGROUND_HINT" = "Αγγίξτε για να μετακινήσετε το δελτίο οδηγιών";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Μεταπήδηση προς τα πίσω";
+"KEY_JUMP_FORWARDS" = "Μεταπήδηση προς τα μπρος";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Αυξήστε την ταχύτητα αναπαραγωγής";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Μειώστε την ταχύτητα αναπαραγωγής";
+"KEY_RESET_PLAYBACK_SPEED" = "Επαναφορά ταχύτητας αναπαραγωγής";
