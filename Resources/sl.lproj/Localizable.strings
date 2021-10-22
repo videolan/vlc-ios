@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Spustite datoteke v okno, da jih dodate na napravo %@.<br>Lahko tudi kliknete gumb \"+\", da uporabite izbirnik datotek.";
 "WEBINTF_DOWNLOADFILES" = "Prejmi datoteke";
 "WEBINTF_DOWNLOADFILES_LONG" = "Samo kliknite datoteko, ki jo želite prenesti z naprave %@.";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "Oddaljeno predvajanje";
 "WEBINTF_DROPFILES_LONG_ATV" = "Spustite datoteke v okno, da jih predvajate na napravi %@.<br>Lahko tudi kliknete gumb \"+\", da uporabite izbirnik datotek.";
 "WEBINTF_URL_SENT" = "Naslov URL je uspešno poslan.";
@@ -372,7 +373,7 @@
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sortiranje";
-"BUTTON_SORT_HINT" = "Prikaži formular za sortiranje";
+"BUTTON_SORT_HINT" = "Prikaži akcijski obrazec za sortiranje";
 "HEADER_TITLE_SORT" = "Uredi";
 "DESCENDING_LABEL" = "padajoče";
 "DESCENDING_SWITCH_LABEL" = "naraščajoče ali padajoče";
@@ -523,5 +524,13 @@
 
 // MARK: - ActionSheet
 
-"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
-"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
+"ACTIONSHEET_BACKGROUND_LABEL" = "Ozadje akcijskega obrazca";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tapni za odstranitev akcijskega obrazca";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Skoči nazaj";
+"KEY_JUMP_FORWARDS" = "Skoči naprej";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Povečaj hitrost predvajanja";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Zmanjšaj hitrost predvajanja";
+"KEY_RESET_PLAYBACK_SPEED" = "Ponastavi hitrost predvajanja";
