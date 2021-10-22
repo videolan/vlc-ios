@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Traga sos documentos in sa ventana pro los annànghere a su %@ tuo.<br>O incarca in su butone \"+\" pro impreare su seletzionadore de documentos.";
 "WEBINTF_DOWNLOADFILES" = "Iscàrriga documentos";
 "WEBINTF_DOWNLOADFILES_LONG" = "Depes petzi incarcare su documentu chi cheres iscarrigare dae su %@ tuo.";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "Riprodutzione remota";
 "WEBINTF_DROPFILES_LONG_ATV" = "Traga sos documentos in sa ventana pro los riproduire in su %@ tuo.<br>O incarca in su butone \"+\" pro impreare su seletzionadore de documentos.";
 "WEBINTF_URL_SENT" = "URL imbiadu cun sutzessu.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Isfundu de su fògiu de sas atziones";
 "ACTIONSHEET_BACKGROUND_HINT" = "Toca pro bogare su fògiu de sas atziones.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Brinca a segus";
+"KEY_JUMP_FORWARDS" = "Brinca a in antis";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Aumenta sa lestresa de riprodutzione";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Mìnima sa lestresa de riprodutzione";
+"KEY_RESET_PLAYBACK_SPEED" = "Reseta sa lestresa de riprodutzione";
