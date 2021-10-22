@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "ניתן להשליך קבצים לכאן כדי להוסיף אותם ל%@ שלך.<br>או ללחוץ על לחצן ה־„+“ כדי להשתמש בחלונית בחירת הקבצים.";
 "WEBINTF_DOWNLOADFILES" = "הורדת קבצים";
 "WEBINTF_DOWNLOADFILES_LONG" = "עליך פשוט ללחוץ על מה שברצונך להוריד מה%@ שלך.";
+"WEBINTF_ADDRESS_COPIED" = "הכתובת הועתקה ללוח הגזירים";
 "WEBINTF_TITLE_ATV" = "נגינה מרוחקת";
 "WEBINTF_DROPFILES_LONG_ATV" = "גרור לחלון קבצים שאת/ה רוצה לנגן ב %@.<br>או לחץ/י על כפתור ה \"+\| להשתמש בממשק הוספת הקבצים.";
 "WEBINTF_URL_SENT" = "כתובת URL נשלחה בהצלחה.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "רקע גיליון הפעולות";
 "ACTIONSHEET_BACKGROUND_HINT" = "נגיעה תסיר את גיליון הפעולות.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "לקפוץ אחורה";
+"KEY_JUMP_FORWARDS" = "לקפוץ קדימה";
+"KEY_INCREASE_PLAYBACK_SPEED" = "הגברת מהירות הנגינה";
+"KEY_DECREASE_PLAYBACK_SPEED" = "האטת מהירות הנגינה";
+"KEY_RESET_PLAYBACK_SPEED" = "איפוס מהירות הנגינה";
