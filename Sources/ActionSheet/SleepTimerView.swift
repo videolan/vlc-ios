@@ -38,6 +38,7 @@ class SleepTimerView: UIView {
     }
 
     private func setupTheme() {
+        timePicker.setValue(UIColor.white, forKey: "textColor")
         backgroundColor = PresentationTheme.darkTheme.colors.background
         resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
         setButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
