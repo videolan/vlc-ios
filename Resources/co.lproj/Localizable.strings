@@ -82,14 +82,14 @@
 "BUTTON_PLAY_QUEUE" = "Leghje a lista di lettura";
 "BUTTON_PLAY_QUEUE_HINT" = "Affissà a vista di a lista di lettura";
 
-"UPGRADING_LIBRARY" = "Rinnovà a bibliuteca media";
+"UPGRADING_LIBRARY" = "Rinnovà a mediateca";
 
 "OPEN_NETWORK" = "Apre un flussu di reta";
 "NETWORK_TITLE" = "Flussu di reta";
 "OPEN_NETWORK_HELP" = "Scrive un indirizzu HTTP, RTSP, RTMP, MMS, FTP o UDP/RTP per apre direttamente u flussu.";
 "HTTP_UPLOAD_SERVER_OFF" = "Servitore inattivu";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "Alcuna cunnessione Wi-Fi attiva";
-"OPEN_STREAM_OR_DOWNLOAD" = "Vulete scaricà o sunà ist’URL ?";
+"OPEN_STREAM_OR_DOWNLOAD" = "Vulete scaricà o leghje st’indirizzu ?";
 "SHARED_VLC_IOS_LIBRARY" = "Bibliuteca sparta di VLC per iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servitori di schedariu (SMB)";
 
@@ -125,7 +125,7 @@
 "CONNECT_TO_SERVER" = "Cunnettà à u servitore";
 "FILE_SERVER" = "Servitori di schedariu";
 "USER_LABEL" = "Utilizatore";
-"PASSWORD_LABEL" = "Parolla d’entrata";
+"PASSWORD_LABEL" = "Parolla d’intesa";
 "DISABLE_LABEL" = "Disattivà";
 "BUTTON_ANONYMOUS_LOGIN" = "Cunnessione anonima";
 
@@ -163,32 +163,32 @@
 "NO_FILES" = "Alcunu schedariu accettatu";
 "DOWNLOADING" = "Scaricamentu…";
 "REMAINING_TIME" = "Tempu rimanentu : %@";
-"BIOMETRIC_UNLOCK" = "Sbluccà a bibliuteca di media\nAbbandunà a scrittura di u codice d’accessu";
+"BIOMETRIC_UNLOCK" = "Sbluccà a mediateca\nAbbandunà a scrittura di u codice d’intesa";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d tentativi fiaschi di codice d’accessu";
-"1 Failed Passcode Attempt" = "1 tentativu fiascu di codice d’accessu";
-"Change Passcode" = "Cambià u codice d’accessu";
-"Enter Passcode" = "Scrivite u codice d’accessu";
-"Enter a passcode" = "Scrive un codice d’accessu";
-"Enter your new passcode" = "Scrive u vostru novu codice d’accessu";
-"Enter your old passcode" = "Scrive u vostru vechju codice d’accessu";
-"Enter your passcode" = "Scrive u vostru codice d’accessu";
+"%d Failed Passcode Attempts" = "%d tentativi fiaschi di codice d’intesa";
+"1 Failed Passcode Attempt" = "1 tentativu fiascu di codice d’intesa";
+"Change Passcode" = "Cambià u codice d’intesa";
+"Enter Passcode" = "Scrivite u codice d’intesa";
+"Enter a passcode" = "Scrive un codice d’intesa";
+"Enter your new passcode" = "Scrive u vostru novu codice d’intesa";
+"Enter your old passcode" = "Scrive u vostru vechju codice d’intesa";
+"Enter your passcode" = "Scrive u vostru codice d’intesa";
 "Next" = "Seguente";
-"Passcodes did not match. Try again." = "I codici d’accessu ùn currispundenu micca. Pruvate torna.";
-"Re-enter your new passcode" = "Scrive torna u vostru novu codice d’accessu";
-"Re-enter your passcode" = "Scrive torna u vostru codice d’accessu";
-"Set Passcode" = "Definisce un codice d’accessu";
+"Passcodes did not match. Try again." = "I codici d’intesa ùn currispundenu micca. Pruvate torna.";
+"Re-enter your new passcode" = "Scrive torna u vostru novu codice d’intesa";
+"Re-enter your passcode" = "Scrive torna u vostru codice d’intesa";
+"Set Passcode" = "Definisce un codice d’intesa";
 
 "Settings" = "Preferenze"; // plain text key to keep compatibility with InAppSettingsKit's upstream
 "ON" = "Iè";
 "OFF" = "Innò";
 
-"EMPTY_LIBRARY" = "Bibliuteca di media viota";
+"EMPTY_LIBRARY" = "Mediateca viota";
 "EMPTY_LIBRARY_LONG" = "Per a ripruduzzione, pudete diffonde un media da un servitore di a vostra reta lucale, da u nivulu o sincrunizà u media cù u vostru apparechju impieghendu iTunes, Wi-Fi Upload o i servizii di Nivulu.";
 
 "EMPTY_NO_PLAYLISTS" = "Liste di lettura";
-"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Per creà e liste di lettura, aprite u modu di mudificazione nant’à l’unghjette di cuntenutu audio o video è selezziunate u vostru media favuritu.\nPudete dinù sincrunizà e liste di lettura esistente da i vostri altri apparechji o da Internet.";
 
 "EMPTY_PLAYLIST" = "Lista di lettura viota";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Aghjunghje un media mudifichendu e categurie rispettive.";
@@ -251,14 +251,15 @@
 "WEBINTF_DROPFILES_LONG" = "Depone i schedarii in a finestra per aghjunghjelli à u vostru %@.<br>O cliccà nant’à u buttone \"+\" per impiegà u dialogu di u selettore di schedariu.";
 "WEBINTF_DOWNLOADFILES" = "Scaricà i schedarii";
 "WEBINTF_DOWNLOADFILES_LONG" = "Basta à cliccà nant’à u schedariu chì voi vulete scaricà da u vostru %@.";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "Ripruduzzione alluntanata";
 "WEBINTF_DROPFILES_LONG_ATV" = "Depone i schedarii in a finestra per sunalli nant’à u vostru %@.<br>O cliccà nant’à u buttone \"+\" per impiegà u dialogu di u selettore di schedariu.";
-"WEBINTF_URL_SENT" = "URL mandatu bè.";
-"WEBINTF_URL_EMPTY" = "Un URL ùn pò micca esse viotu.";
-"WEBINTF_URL_INVALID" = "Ùn hè micca un URL accettevule.";
-"WEBINTF_AUTH_REQUIRED" = "Ci vole à scrive u codice d’accessu chì vo avete definitu in VLC iOS :";
-"WEBINTF_AUTH_WRONG_PASSCODE" = "U codice d’accessu hè falsu.<br>Tentativi rimanente :";
-"WEBINTF_AUTH_BANNED" = "Avete scrittu troppu di codici d’accessu falsi.<br>Ci vole à rilancià VLC iOS è pruvà torna.";
+"WEBINTF_URL_SENT" = "Indirizzu mandatu bè.";
+"WEBINTF_URL_EMPTY" = "Un indirizzu ùn pò micca esse viotu.";
+"WEBINTF_URL_INVALID" = "Ùn hè micca un indirizzu accettevule.";
+"WEBINTF_AUTH_REQUIRED" = "Ci vole à scrive u codice d’intesa chì vo avete definitu in VLC per iOS :";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "U codice d’intesa hè falsu.<br>Tentativi rimanente :";
+"WEBINTF_AUTH_BANNED" = "Avete scrittu troppu di codici d’intesa falsi.<br>Ci vole à rilancià VLC per iOS è pruvà torna.";
 
 
 
@@ -275,14 +276,14 @@
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Infurmazione Audio";
 "CLOUD_LOGIN_LONG" = "Per accede à i servizii di nivulu, autenticassi à iCloud cù u listessu contu Apple ID à partesi di quessa Apple TV è di u vostru apparechju iOS dinù è attivà u spartimentu di portachjavi in e preferenze di sistema.\nDopu, autenticassi à u furnidore di nivulu di a vostra scelta à partesi di l’appiecazione VLC nant’à u vostru apparechju iOS. Infine, selezziunallu nant’à stu screnu.";
-"ENTER_URL" = "Scrivite l’URL à sunà";
+"ENTER_URL" = "Scrivite l’indirizzu à leghje";
 "HTTP_SERVER_ON" = "Disattivà a ripruduzzione alluntanata";
 "HTTP_SERVER_OFF" = "Attivà a ripruduzzione alluntanata";
 "CACHED_MEDIA" = "Media in impiatta";
 "CACHED_MEDIA_LONG" = "I media affissati quì sò allucati lucalmente nant’à a vostra Apple TV. Nota : stu cuntenutu pò esse cacciatu à ogni mumentu senza avertimentu da u sistema quandu VLC ùn funzioneghja micca s’è u vostru apparechju si trova troppu pienu.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Scaricà sottutituli à partesi di OpenSubtitles.org…";
 "FOUND_SUBS" = "Sottutituli trovi";
-"NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
+"NO_SUB_FOUND_OSO" = "Ùn si pò truvà alcunu sottutitulu per u vostru elementu media « %@».";
 "USE_SPDIF" = "Impiegà Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Ripruduzzione";
@@ -308,7 +309,7 @@
 "BONJOUR_FILE_SERVERS" = "Servitore di schedariu BONJOUR";
 "DSM_WORKGROUP" = "Gruppu di travagliu";
 
-"URL_NOT_SUPPORTED" = "L’URL ùn pò micca esse aperta";
+"URL_NOT_SUPPORTED" = "L’indirizzu ùn pò micca esse aperta";
 
 // Insert %@ where play-pause-glyph should be placed
 "DELETE_ITEM_HINT" = "Appughjà %@ per squassà"; /* Insert %@ where play-pause-glyph should be placed */
@@ -417,7 +418,7 @@
 "ROTATION_LOCK_BUTTON" = "Sblucchime di a rutazione";
 "ROTATION_LOCK_HINT" = "Ammarchjunà a video cù l’orientazione attuale";
 
-"REPEAT_HINT" = "Repeat same media";
+"REPEAT_HINT" = "Ripete u listessu media";
 
 "BACKWARD_BUTTON" = "In daretu";
 "BACKWARD_HINT" = "Saltà in daretu";
@@ -428,7 +429,7 @@
 "PLAY_PAUSE_BUTTON" = "Lettura o pausa";
 "PLAY_PAUSE_HINT" = "Lettura o pausa di a ripruduzzione attuale";
 
-"STOP_BUTTON" = "Stop";
+"STOP_BUTTON" = "Piantà";
 
 "NEXT_HINT" = "Media seguente";
 
@@ -437,7 +438,7 @@
 
 "INTERFACE_LOCK_BUTTON" = "Ammarchjunà l’interfaccia";
 
-"SHUFFLE_HINT" = "Shuffle media list";
+"SHUFFLE_HINT" = "Lettura à l’azardu di a lista di i media";
 
 "VIDEO_ASPECT_RATIO_BUTTON" = "Prupurzioni di a video";
 "VIDEO_ASPECT_RATIO_HINT" = "Cambià u furmatu di a video currente";
@@ -509,19 +510,27 @@
 
 /* New strings */
 "BRIGHTNESS_HINT" = "Cuntrollu verticale di lucidezza";
-"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
+"BRIGHTNESS_SLIDER" = "Fate sguillà verticalmente per cambià u livellu di lucidezza";
 
 /* New strings */
 "VOLUME_HINT" = "Cuntrollu verticale di vulume";
-"VOLUME_SLIDER" = "Slide vertically to change the volume level";
+"VOLUME_SLIDER" = "Fate sguillà verticalmente per cambià u livellu di vulume";
 
 // MARK: - AudioMiniPlayer playback controls menu
-"MENU_PLAYBACK_CONTROLS" = "Playback controls";
-"MENU_REPEAT_DISABLED" = "Do not repeat";
-"MENU_REPEAT_SINGLE" = "Repeat one";
-"MENU_REPEAT_ALL" = "Repeat all";
+"MENU_PLAYBACK_CONTROLS" = "Cuntrolli di ripruduzzione";
+"MENU_REPEAT_DISABLED" = "Ùn micca ripete";
+"MENU_REPEAT_SINGLE" = "Ripete u media";
+"MENU_REPEAT_ALL" = "Tuttu ripete";
 
 // MARK: - ActionSheet
 
-"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
-"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
+"ACTIONSHEET_BACKGROUND_LABEL" = "Sfondu di u fogliu d’azzioni";
+"ACTIONSHEET_BACKGROUND_HINT" = "Picchichjà per caccià u fogliu d’azzioni.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Saltà in daretu";
+"KEY_JUMP_FORWARDS" = "Saltà in avanti";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Aummentà a vitezza di lettura";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Diminuisce a vitezza di lettura";
+"KEY_RESET_PLAYBACK_SPEED" = "Reinizià a vitezza di lettura";
