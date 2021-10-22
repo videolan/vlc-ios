@@ -4,7 +4,7 @@
 
 "CHOOSE_AUDIO_TRACK" = "Pilih Trek Audio";
 "CHOOSE_SUBTITLE_TRACK" = "Pilih Trek Terjemahan";
-"UNKNOWN_TRACK_TYPE" = "Unknown track type";
+"UNKNOWN_TRACK_TYPE" = "Tipe trek tidak diketahui";
 "OPEN_TRACK_PANEL" = "Buka pemilihan trek";
 "CHOOSE_TITLE" = "Pilih Judul";
 "CHOOSE_CHAPTER" = "Pilih Babak";
@@ -23,8 +23,8 @@
 "ONE_AUDIO_TRACK" = "Satu trek audio";
 "FORMAT_SPU_TRACKS" = "%i trek terjemahan";
 "ONE_SPU_TRACK" = "Satu trek terjemahan";
-"TRACKS" = "%i Tracks";
-"TRACK" = "%i Track";
+"TRACKS" = "%i Trek";
+"TRACK" = "%i Trek";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Tersambung";
 "PLAYING_EXTERNALLY_DESC" = "Video ini sedang diputar di TV";
@@ -40,7 +40,7 @@
 "PREAMP" = "Preamp";
 "DB_FORMAT" = "%i dB";
 "CHOOSE_EQUALIZER_PROFILES" = "Pilih Profil Ekualiser";
-"SNAP_BANDS" = "Snap bands";
+"SNAP_BANDS" = "Snap band";
 
 "PLAYBACK_FAILED" = "Pemutaran gagal";
 "PLEASE_WAIT" = "Mohon tunggu";
@@ -53,9 +53,9 @@
 "BUTTON_SLEEP_TIMER" = "Pengatur waktu tidur";
 "SLEEP_TIMER_UPDATED" = "Penghitung mundur mode tidur di update";
 "CONTINUE_PLAYBACK" = "Lanjutkan putar lagu?";
-"CONTINUE_PLAYBACK_LONG" = "Would you like to continue playback of \"%@\" where you left off?";
+"CONTINUE_PLAYBACK_LONG" = "Apakah Anda ingin melanjutkan pemutaran dari \"%@\" yang di mana Anda tinggalkan?";
 
-"BUTTON_ABOUT" = "About";
+"BUTTON_ABOUT" = "Tentang";
 "BUTTON_BACK" = "Kembali";
 "BUTTON_DONE" = "Selesai";
 "BUTTON_CANCEL" = "Batal";
@@ -68,19 +68,19 @@
 "BUTTON_RENAME" = "Namai Ulang";
 "BUTTON_LEARN_MORE" = "Pelajari Lebih Lanjut";
 "BUTTON_LOGOUT" = "Keluar";
-"BUTTON_CONTINUE" = "Continue";
+"BUTTON_CONTINUE" = "Lanjutkan";
 "BUTTON_SET" = "Set";
-"BUTTON_RESET" = "Reset";
-"BUTTON_RESCAN" = "Rescan";
+"BUTTON_RESET" = "Setel ulang";
+"BUTTON_RESCAN" = "Scan ulang";
 "PRIVATE_PLAYBACK_TOGGLE" = "Pemutaran Privat";
 "SCAN_SUBTITLE_TOGGLE" = "Pindai Terjemahan (hanya http)";
 
 "BUTTON_RENDERER" = "Perangkat Casting";
-"BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
+"BUTTON_RENDERER_HINT" = "Perlihatkan menu dari perangkat yang tersedia";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
+"BUTTON_PLAY_QUEUE" = "Putar antriant";
+"BUTTON_PLAY_QUEUE_HINT" = "Perlihatkan pandangan putar antrian";
 
 "UPGRADING_LIBRARY" = "Pembaruan Pustaka Media";
 
@@ -103,7 +103,7 @@
 "ERROR_NUMBER" = "Terjadi kesalahan %i";
 "DOWNLOAD_FAILED" = "Pengunduhan gagal";
 "FILE_NOT_SUPPORTED" = "Format berkas tidak didukung";
-"FILE_NOT_SUPPORTED_LONG" = "The file format used by %@ is not supported by this version of VLC for iOS.";
+"FILE_NOT_SUPPORTED_LONG" = "Format file yang digunakan oleh %@ tidak didukung oleh versi ini dari VLC untuk IOS.";
 "SCHEME_NOT_SUPPORTED" = "Skema alamat tidak didukung";
 "SCHEME_NOT_SUPPORTED_LONG" = "Skema alamat (%@) tidak didukung. Mohon gunakan alamat yang dimulai oleh HTTP, HTTPS atau FTP.";
 "RENAME_MEDIA_TO" = "Masukkan nama baru untuk %@";
@@ -118,7 +118,7 @@
 
 "STREAMVC_DETAILTEXT" = "Putar strim langsung tanpa diunduh";
 "DOWNLOADVC_DETAILTEXT" = "Unduh berkas langsung ke perangkat anda";
-"HEADER_TITLE_RENDERER" = "Select a casting device";
+"HEADER_TITLE_RENDERER" = "Pilih perangkat casting";
 
 "NETWORK" = "Jaringan";
 "LOCAL_NETWORK" = "Jaringan Lokal";
@@ -126,8 +126,8 @@
 "FILE_SERVER" = "Peladen Berkas";
 "USER_LABEL" = "Pengguna";
 "PASSWORD_LABEL" = "Kata Sandi";
-"DISABLE_LABEL" = "Disable";
-"BUTTON_ANONYMOUS_LOGIN" = "Anonymous Login";
+"DISABLE_LABEL" = "Nonaktif";
+"BUTTON_ANONYMOUS_LOGIN" = "Masuk secara anonim";
 
 "LOCAL_SERVER_REFRESH" = "Segarkan";
 "LOCAL_SERVER_LAST_UPDATE" = "Terakhir diperbarui pada %@";
@@ -140,8 +140,8 @@
 "CLOUD_SERVICES" = "Layanan Awan";
 "LOGIN" = "Masuk";
 "LOGGED_IN" = "Berhasil masuk";
-"LOGGED_IN_SERVICES" = "%d logged in services";
-"LOGGED_IN_SERVICE" = "1 logged in service";
+"LOGGED_IN_SERVICES" = "%d masuk dalam layanan";
+"LOGGED_IN_SERVICE" = "1 masuk dalam layanan";
 
 "DROPBOX_DOWNLOAD" = "Unduh berkas?";
 "DROPBOX_DL_LONG" = "Apakah anda ingin mengunduh \"%@\" ke %@ anda?";
@@ -153,7 +153,7 @@
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "Terjadi kesalahan ketika mengunduh";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "KESALAHAN";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "The selected Media doesn't have a playable url";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "Media yang telah dipilih tidak memiliki url yang bisa diputar";
 
 "DISK_FULL" = "Batas penyimpanan dicapai";
 "DISK_FULL_FORMAT" = "%@ tidak dapat disimpan di %@ Anda, karena Anda tidak memiliki cukup ruang kosong tersisa.";
@@ -163,35 +163,35 @@
 "NO_FILES" = "Tidak ada berkas yang didukung";
 "DOWNLOADING" = "Mengunduh...";
 "REMAINING_TIME" = "Waktu tersisa: %@";
-"BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
+"BIOMETRIC_UNLOCK" = "Buka Library Media\nBatalkan untuk memasukkan Kode sandi";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
+"%d Failed Passcode Attempts" = "%d Percobaan Kata sandi gagal";
+"1 Failed Passcode Attempt" = "1 Percobaan Kata sandi gagal";
 "Change Passcode" = "Masukan kode pass";
-"Enter Passcode" = "Enter Passcode";
-"Enter a passcode" = "Enter a passcode";
-"Enter your new passcode" = "Enter your new passcode";
-"Enter your old passcode" = "Enter your old passcode";
-"Enter your passcode" = "Enter your passcode";
-"Next" = "Next";
-"Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
-"Re-enter your new passcode" = "Re-enter your new passcode";
-"Re-enter your passcode" = "Re-enter your passcode";
-"Set Passcode" = "Set Passcode";
+"Enter Passcode" = "Masukkan Kata sandi";
+"Enter a passcode" = "Masukkan Kata sandi";
+"Enter your new passcode" = "Masukkan Kata sandi Anda yang baru";
+"Enter your old passcode" = "Masukkan Kata sandi Anda yang dulu";
+"Enter your passcode" = "Masukkan Kata sandi Anda";
+"Next" = "Selanjutnya";
+"Passcodes did not match. Try again." = "Kata sandi tidak cocok. Coba lagi.";
+"Re-enter your new passcode" = "Masukkan ulang Kata sandi baru Anda";
+"Re-enter your passcode" = "Masukkan ulang Kata sandi Anda";
+"Set Passcode" = "Pasang Kata sandi";
 
 "Settings" = "Pengaturan"; // plain text key to keep compatibility with InAppSettingsKit's upstream
-"ON" = "On";
-"OFF" = "Off";
+"ON" = "Nyala";
+"OFF" = "Mati";
 
 "EMPTY_LIBRARY" = "Pustaka Media Kosong";
-"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
+"EMPTY_LIBRARY_LONG" = "Untuk pemutaran, Anda bisa menstream media dari server pada jaringan lokal Anda, dari penyimpanan awan atau menyinkronisasi media ke perangkat Anda menggunakan ITunes, Wi-Fi Upload atau layanan penyimpanan awan. ";
 
-"EMPTY_NO_PLAYLISTS" = "Playlists";
-"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
+"EMPTY_NO_PLAYLISTS" = "Daftar putar";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Untuk membuat daftar putar, masuk ke mode Sunting pada tab Konten Video dan Audio dan pilih media favorit Anda.\nAnda juga bisa mensinkronisasi daftar putar yang sudah ada dari perangkat Anda yang lain atau dari internet. ";
 
-"EMPTY_PLAYLIST" = "Empty playlist";
-"EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
+"EMPTY_PLAYLIST" = "Daftar putar kosong";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Tambahkan media saat menyunting masing-masing kategori.";
 
 "PLAYBACK_SCRUB_HELP" = "Geser jari anda ke bawah untuk menyesuaikan laju penyusuran.";
 "PLAYBACK_SCRUB_HIGH" = "Penyusuran Sangat Cepat";
@@ -201,18 +201,18 @@
 "PLAYBACK_POSITION" = "Posisi Pemutaran";
 "VIDEO_FILTER" = "FIlter Video";
 "VIDEO_FILTER_RESET_BUTTON" = "Set Ulang Filter Video";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Aspek rasio video";
 "BWD_BUTTON" = "Lompat Mundur";
 "FWD_BUTTON" = "Lompat Maju";
 "PLAY_BUTTON" = "Putar";
-"NEXT_BUTTON" = "Next";
-"PREV_BUTTON" = "Previous";
-"PLAY_ALL_BUTTON" = "Play all";
+"NEXT_BUTTON" = "Selanjutnya";
+"PREV_BUTTON" = "Sebelumnya";
+"PLAY_ALL_BUTTON" = "Putar semua";
 
-"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
-"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
-"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
+"RESET_VIDEO_FILTERS" = "Apakah Anda ingin menyetel ulang filter video?";
+"RESET_PLAYBACK_SPEED" = "Apakah Anda ingin menyetel ulang kecepatan pemutaran?";
+"RESET_EQUALIZER" = "Apakah Anda ingin menyetel ulang pengaturan equalizer?";
+"RESET_SLEEP_TIMER" = "Apakah Anda ingin menyetel ulang pengatur waktu tidur?";
 
 "VERSION_FORMAT" = "Versi: %@";
 "BASED_ON_FORMAT" = "Berdasarkan:<br />%@";
@@ -227,13 +227,13 @@
 "VO_VIDEOPLAYER_DOUBLETAP" = "Tepuk dengan jari dua kali untuk menampilkan atau menyembunyikan pengendali pemutaran";
 
 "FIRST_STEPS_ITUNES" = "Selaras Berkas iTunes";
-"FIRST_STEPS_ITUNES_TITLE" = "Sync With Your Computer";
-"FIRST_STEPS_ITUNES_DETAILS" = "Connect your device to iTunes and select your device. Select \"File Sharing\" on the left side menu of iTunes and look for VLC to transfer files";
-"FIRST_STEPS_WIFI_TITLE" = "Share via Wi-Fi";
-"FIRST_STEPS_WIFI_DETAILS" = "Enter the generated URL in your favorite web browser while connected to the same network as your phone";
+"FIRST_STEPS_ITUNES_TITLE" = "Sinkronisasi dengan komputer Anda";
+"FIRST_STEPS_ITUNES_DETAILS" = "Sambungkan perangkat Anda ke iTunes dan pilih perangkat Anda. Pilih \"Pembagian File\" pada sisi kiri menu iTunes dan cari VLC untuk mentransfer file";
+"FIRST_STEPS_WIFI_TITLE" = "Bagi lewat Wi-Fi";
+"FIRST_STEPS_WIFI_DETAILS" = "Masukkan URL yang telah dihasilkan pada peramban web Anda selagi tersambung pada jaringan yang sama dengan ponsel Anda";
 "FIRST_STEPS_CLOUDS" = "Awan";
-"FIRST_STEPS_CLOUD_TITLE" = "Cloud";
-"FIRST_STEPS_CLOUD_DETAILS" = "Upload your media to a cloud service like Google Drive or Dropbox to remotely download or stream them.";
+"FIRST_STEPS_CLOUD_TITLE" = "Penyimpanan Awan";
+"FIRST_STEPS_CLOUD_DETAILS" = "Unggah media Anda ke layanan penyimpanan awan seperti Google Drive atau Dropbox untuk mengunduh atau menstream media Anda.";
 
 
 "PLEX_CHECK_ACCOUNT" = "Periksa akun Plex anda di pengaturan";
@@ -243,17 +243,18 @@
 
 "SERVER" = "Server";
 "SERVER_PORT" = "Port";
-"NO_SERVER_FOUND" = "No server found";
-"NO_RECENT_STREAMS" = "No stream was played recently";
+"NO_SERVER_FOUND" = "Tidak ada server yang ditemukan";
+"NO_RECENT_STREAMS" = "Tidak ada stream yang diputar baru-baru ini";
 
-"WEBINTF_TITLE" = "Sharing via Wi-Fi";
+"WEBINTF_TITLE" = "Berbagi lewat Wi-Fi";
 "WEBINTF_DROPFILES" = "Berkas Jatuhan";
 "WEBINTF_DROPFILES_LONG" = "Jatuhkan berkas di jendela untuk menambahkannya ke %@ anda.<br>Atau klik tombol \"+\" untuk menggunakan penyomot berkas.";
 "WEBINTF_DOWNLOADFILES" = "Berkas Unduhan";
 "WEBINTF_DOWNLOADFILES_LONG" = "Klik saja berkas yang ingin anda unduh dari %@ anda.";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "Remote Playback";
-"WEBINTF_DROPFILES_LONG_ATV" = "Drop files in the window to play them on your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
-"WEBINTF_URL_SENT" = "URL sent successfully.";
+"WEBINTF_DROPFILES_LONG_ATV" = "Jatuhkan file pada jendela untuk memutarnya pada %@ Anda. <br> Atau klik pada tombol \"+\" untuk menggunakan dialog pemilih file.";
+"WEBINTF_URL_SENT" = "URL berhasil dikirim.";
 "WEBINTF_URL_EMPTY" = "URL tidak boleh kosong.";
 "WEBINTF_URL_INVALID" = "Bukan URL yang valid.";
 "WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
@@ -439,7 +440,7 @@
 
 "SHUFFLE_HINT" = "Shuffle media list";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Aspek rasio video";
 "VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
 
 "MORE_OPTIONS_BUTTON" = "More";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
 "ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Jump backwards";
+"KEY_JUMP_FORWARDS" = "Jump forwards";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Increase playback speed";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Decrease playback speed";
+"KEY_RESET_PLAYBACK_SPEED" = "Reset playback speed";
