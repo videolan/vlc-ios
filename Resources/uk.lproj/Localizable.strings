@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Вкиньте файли у вікно для додавання їх до свого пристрою %@.<br> Або клацніть на кнопці \"+\" для використання діалогу вибору.";
 "WEBINTF_DOWNLOADFILES" = "Завантажити файли";
 "WEBINTF_DOWNLOADFILES_LONG" = "Просто клацніть на файлі, який ви хочете завантажити із свого пристрою %@.";
+"WEBINTF_ADDRESS_COPIED" = "Адреса скопійована у буфер обміну";
 "WEBINTF_TITLE_ATV" = "Віддалене відтворення";
 "WEBINTF_DROPFILES_LONG_ATV" = "Вкиньте файли у вікно для їхнього відтворення на вашому %@.<br>Або натисніть кнопку \"+\" для використання вікна вибору файлів.";
 "WEBINTF_URL_SENT" = "URL успішно надіслано.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Тло аркуша дій";
 "ACTIONSHEET_BACKGROUND_HINT" = "Торкніться, щоб вилучити аркуш дій.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Стрибок назад";
+"KEY_JUMP_FORWARDS" = "Стрибок вперед";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Збільшити швидкість відтворення";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Зменшити швидкість відтворення";
+"KEY_RESET_PLAYBACK_SPEED" = "Очистити швидкість відтворення";
