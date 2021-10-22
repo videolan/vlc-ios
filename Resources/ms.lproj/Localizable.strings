@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Lepas fail ke tetingkap untuk menambahnya ke dalam %@ anda.<br>Atau klik pada butang \"+\" untuk guna dialog pengambil fail.";
 "WEBINTF_DOWNLOADFILES" = "Muat Turun Fail";
 "WEBINTF_DOWNLOADFILES_LONG" = "Hanya klik fail yang anda mahu muat turun dari %@ anda.";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "Main Balik Jauh";
 "WEBINTF_DROPFILES_LONG_ATV" = "Lepas fail dalam tetingkap untuk menambah %@ anda.<br>Atau klik pada butang \"+\" untuk guna dialog pengambil fail.";
 "WEBINTF_URL_SENT" = "Penghantaran URL berjaya.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Latar belakang lembar tindakan";
 "ACTIONSHEET_BACKGROUND_HINT" = "Ketik untuk buang lembar tindakan";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Jump backwards";
+"KEY_JUMP_FORWARDS" = "Jump forwards";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Increase playback speed";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Decrease playback speed";
+"KEY_RESET_PLAYBACK_SPEED" = "Reset playback speed";
