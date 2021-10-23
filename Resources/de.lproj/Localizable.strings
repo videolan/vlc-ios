@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Zum Hinzufügen zu Ihrem %@ bitte die Dateien in das Fenster fallen lassen.<br>Oder zur Nutzung des Dateiauswahldialogs auf den Knopf »+« klicken.";
 "WEBINTF_DOWNLOADFILES" = "Dateien herunterladen";
 "WEBINTF_DOWNLOADFILES_LONG" = "Klicken Sie einfach auf die Datei, die Sie von Ihrem %@ herunterladen möchten.";
+"WEBINTF_ADDRESS_COPIED" = "Adresse in die Zwischenablage kopiert";
 "WEBINTF_TITLE_ATV" = "Entfernte Wiedergabe";
 "WEBINTF_DROPFILES_LONG_ATV" = "Zur Wiedergabe auf Ihrem %@ bitte die Dateien in das Fenster fallen lassen.<br>Oder zur Nutzung des Dateiauswahldialogs auf den Knopf »+« klicken.";
 "WEBINTF_URL_SENT" = "Adresse erfolgreich gesendet.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Hintergrund des Aktionsblatts";
 "ACTIONSHEET_BACKGROUND_HINT" = "Tippen, um das Aktionsblatt zu entfernen.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Sprung zurück";
+"KEY_JUMP_FORWARDS" = "Sprung vorwärts";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Wiedergabegeschwindigkeit erhöhen";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Wiedergabegeschwindigkeit verringern";
+"KEY_RESET_PLAYBACK_SPEED" = "Wiedergabegeschwindigkeit zurücksetzen";
