@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Ak chcete pridať súbory do vášho %@, preneste ich do tohto okna.<br>Alebo kliknite na tlačidlo \"+\" a použite dialógové okno na pridávanie súborov.";
 "WEBINTF_DOWNLOADFILES" = "Stiahnuť súbory";
 "WEBINTF_DOWNLOADFILES_LONG" = "Kliknite na súbor, ktorý chcete stiahnuť z %@.";
+"WEBINTF_ADDRESS_COPIED" = "Adresa bola skopírovaná do schránky";
 "WEBINTF_TITLE_ATV" = "Vzdialené prehrávanie";
 "WEBINTF_DROPFILES_LONG_ATV" = "Presuňte súbory v okne na ich prehratie v %@.<br>Alebo kliknite na tlačidlo \"+\" na použitie dialógu pre výber súborov.";
 "WEBINTF_URL_SENT" = "Adresa URL bola úspešne odoslaná.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Pozadie listu pre akciu";
 "ACTIONSHEET_BACKGROUND_HINT" = "List pre akciu odstránite dotykom.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Preskočiť dozadu";
+"KEY_JUMP_FORWARDS" = "Preskočiť dopredu";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Zvýšiť rýchlosť prehrávania";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Znížiť rýchlosť prehrávania";
+"KEY_RESET_PLAYBACK_SPEED" = "Reset rýchlosti prehrávania";
