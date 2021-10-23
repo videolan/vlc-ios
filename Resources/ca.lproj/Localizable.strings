@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Deixa anar els arxius en la finestra per afegir-los al teu%@.<br>O clic en el botó \"+\" per a seleccionar arxius.";
 "WEBINTF_DOWNLOADFILES" = "Arxius baixats";
 "WEBINTF_DOWNLOADFILES_LONG" = "Has de fer clic en l'arxiu que vols descarregar del teu %@.";
+"WEBINTF_ADDRESS_COPIED" = "L'adreça s'ha copiat al porta-retalls";
 "WEBINTF_TITLE_ATV" = "Reproducció remota";
 "WEBINTF_DROPFILES_LONG_ATV" = "Deixa anar els arxius en la finestra per afegir-los al teu %@.<br>O clic en el botó \"+\" per a seleccionar arxius.";
 "WEBINTF_URL_SENT" = "URL enviada amb èxit.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Fons del full d'acció";
 "ACTIONSHEET_BACKGROUND_HINT" = "Feu un toc per eliminar el full d'acció.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Salta cap enrere";
+"KEY_JUMP_FORWARDS" = "Salta cap endavant";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Augmenta la velocitat de reproducció";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Disminueix la velocitat de reproducció";
+"KEY_RESET_PLAYBACK_SPEED" = "Restaura la velocitat de reproducció";
