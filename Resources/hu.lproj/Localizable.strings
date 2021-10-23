@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Húzzon fájlokat az ablakba a %@ eszközére való másoláshoz,<br>vagy kattintson a „+” gombra a fájlok kiválasztásához.";
 "WEBINTF_DOWNLOADFILES" = "Fájlok letöltése";
 "WEBINTF_DOWNLOADFILES_LONG" = "Kattintson arra a fájlra, amelyiket le szeretné tölteni az %@ eszközéről.";
+"WEBINTF_ADDRESS_COPIED" = "Cím a vágólapra másolva";
 "WEBINTF_TITLE_ATV" = "Távoli lejátszás";
 "WEBINTF_DROPFILES_LONG_ATV" = "Húzza ebbe az ablakba a fájlokat hogy lejátssza őket a(z) %@ eszközén.<br>Vagy kattintson a „+” gombra a fájlválasztó párbeszédablak használatához.";
 "WEBINTF_URL_SENT" = "URL sikeresen elküldve.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Műveletlap háttere";
 "ACTIONSHEET_BACKGROUND_HINT" = "Koppintson a műveletlap eltávolításához.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Ugrás hátrafelé";
+"KEY_JUMP_FORWARDS" = "Ugrás előrefelé";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Lejátszási sebesség növelése";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Lejátszási sebesség csökkentése";
+"KEY_RESET_PLAYBACK_SPEED" = "Lejátszási sebesség visszaállítása";
