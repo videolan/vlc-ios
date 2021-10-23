@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "请将打算添加到 %@ 的文件拖入本窗口。<br>也可以点击“+”按钮，打开文件选择对话框。";
 "WEBINTF_DOWNLOADFILES" = "下载文件";
 "WEBINTF_DOWNLOADFILES_LONG" = "点击希望从 %@ 下载的文件。";
+"WEBINTF_ADDRESS_COPIED" = "地址已复制到剪贴板";
 "WEBINTF_TITLE_ATV" = "远程回放";
 "WEBINTF_DROPFILES_LONG_ATV" = "请将文件拖放到本窗口，以在您的 %@ 上播放。<br>或者点击“+”按钮打开文件选择对话框。";
 "WEBINTF_URL_SENT" = "URL 已成功发送。";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "操作列表背景";
 "ACTIONSHEET_BACKGROUND_HINT" = "轻按删除操作列表";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "快退";
+"KEY_JUMP_FORWARDS" = "快进";
+"KEY_INCREASE_PLAYBACK_SPEED" = "提高播放速度";
+"KEY_DECREASE_PLAYBACK_SPEED" = "降低播放速度";
+"KEY_RESET_PLAYBACK_SPEED" = "重置播放速度";
