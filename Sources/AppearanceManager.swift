@@ -52,6 +52,9 @@ class AppearanceManager: NSObject {
         UISwitch.appearance().onTintColor = theme.colors.orangeUI
         UISearchBar.appearance().barTintColor = .white
 
+        UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).numberOfLines = 0
+        UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).lineBreakMode = .byWordWrapping
+
         UITabBar.appearance().tintColor = theme.colors.orangeUI
         if #available(iOS 10.0, *) {
             UITabBar.appearance().unselectedItemTintColor = theme.colors.cellDetailTextColor

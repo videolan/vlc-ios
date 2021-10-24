@@ -26,6 +26,7 @@ class NewPlaybackSpeedView: UIView {
     @IBOutlet weak var increaseSpeedButton: UIButton!
     @IBOutlet weak var decreaseSpeedButton: UIButton!
     @IBOutlet weak var optionsSegmentedControl: UISegmentedControl!
+    private let resetButton = UIButton()
 
     weak var delegate: NewPlaybackSpeedViewDelegate?
 
@@ -52,11 +53,14 @@ class NewPlaybackSpeedView: UIView {
         super.awakeFromNib()
 
         setupTheme()
+        setupResetButton()
         setupSegmentedControl()
     }
 
 
     private func setupTheme() {
+        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
+        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI.withAlphaComponent(0.5), for: .highlighted)
         minLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
         currentButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
         maxLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
@@ -66,6 +70,14 @@ class NewPlaybackSpeedView: UIView {
         self.backgroundColor = PresentationTheme.darkTheme.colors.background
     }
 
+    private func setupResetButton() {
+        resetButton.setTitle(NSLocalizedString("BUTTON_RESET", comment: ""), for: .normal)
+        //resetButton.accessibilityLabel = NSLocalizedString("VIDEO_FILTER_RESET_BUTTON", comment: "")
+        resetButton.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .semibold)
+        resetButton.addTarget(self, action: #selector(self.handleResetTap(_:)), for: .touchUpInside)
+        resetButton.setContentHuggingPriority(.required, for: .horizontal)
+        resetButton.setContentHuggingPriority(.required, for: .vertical)
+    }
 
     private func setupSegmentedControl() {
         optionsSegmentedControl.setTitle(NSLocalizedString("PLAYBACK_SPEED", comment: ""), forSegmentAt: 0)
@@ -285,5 +297,11 @@ class NewPlaybackSpeedView: UIView {
         if currentSpeed == defaultSpeed && currentSubtitlesDelay == defaultDelay && currentAudioDelay == defaultDelay {
             delegate?.newPlaybackSpeedViewHideIcon()
         }
+    }
+}
+
+extension NewPlaybackSpeedView: ActionSheetAccessoryViewsDelegate {
+    func actionSheetAccessoryViews(_ actionSheet: ActionSheetSectionHeader) -> [UIView] {
+        return [resetButton]
     }
 }

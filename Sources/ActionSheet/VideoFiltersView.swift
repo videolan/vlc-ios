@@ -28,7 +28,7 @@ class VideoFiltersView: UIView {
     @IBOutlet weak var saturationSlider: VLCSlider!
     @IBOutlet weak var gammaLabel: UILabel!
     @IBOutlet weak var gammaSlider: VLCSlider!
-    @IBOutlet weak var resetButton: UIButton!
+    private let resetButton = UIButton()
 
     private let defaultBrightness: Float = 1.0
     private let defaultContrast: Float = 1.0
@@ -69,6 +69,7 @@ class VideoFiltersView: UIView {
         saturationLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
         gammaLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
         resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
+        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI.withAlphaComponent(0.5), for: .highlighted)
     }
 
     private func setupLabels() {
@@ -82,7 +83,10 @@ class VideoFiltersView: UIView {
     private func setupResetButton() {
         resetButton.setTitle(NSLocalizedString("BUTTON_RESET", comment: ""), for: .normal)
         resetButton.accessibilityLabel = NSLocalizedString("VIDEO_FILTER_RESET_BUTTON", comment: "")
-        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
+        resetButton.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .semibold)
+        resetButton.addTarget(self, action: #selector(self.handleResetButton(_:)), for: .touchUpInside)
+        resetButton.setContentHuggingPriority(.required, for: .horizontal)
+        resetButton.setContentHuggingPriority(.required, for: .vertical)
     }
 
     private func setupSliders() {
@@ -178,9 +182,15 @@ class VideoFiltersView: UIView {
         vpc.gamma = currentGamma
     }
 
-    @IBAction func handleResetButton(_ sender: UIButton) {
+    @objc func handleResetButton(_ sender: UIButton) {
         reset()
 
         delegate?.videoFiltersViewHideIcon()
+    }
+}
+
+extension VideoFiltersView: ActionSheetAccessoryViewsDelegate {
+    func actionSheetAccessoryViews(_ actionSheet: ActionSheetSectionHeader) -> [UIView] {
+        return [resetButton]
     }
 }
