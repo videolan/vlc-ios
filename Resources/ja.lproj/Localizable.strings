@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "あなたの%@に追加したいファイルをウィンドウにドロップするか<br>\"+\"ボタンをクリックしてファイルピッカーダイアログを使用してください。";
 "WEBINTF_DOWNLOADFILES" = "ファイルをダウンロード";
 "WEBINTF_DOWNLOADFILES_LONG" = "あなたの%@からダウンロードしたいファイルをクリックするだけ。";
+"WEBINTF_ADDRESS_COPIED" = "クリップボードにアドレスがコピーされました";
 "WEBINTF_TITLE_ATV" = "リモート再生";
 "WEBINTF_DROPFILES_LONG_ATV" = "あなたの%@に再生したいファイルをウィンドウにドロップするか<br>\"+\"ボタンをクリックしてファイルピッカーダイアログを使用してください。";
 "WEBINTF_URL_SENT" = "URLは正しく送信されました。";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "アクションシートをバックグラウンドに";
 "ACTIONSHEET_BACKGROUND_HINT" = "タップしてアクションシートを削除";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "ジャンプして戻る";
+"KEY_JUMP_FORWARDS" = "ジャンプして進む";
+"KEY_INCREASE_PLAYBACK_SPEED" = "再生速度を上げる";
+"KEY_DECREASE_PLAYBACK_SPEED" = "再生速度を下げる";
+"KEY_RESET_PLAYBACK_SPEED" = "再生速度をリセットする";
