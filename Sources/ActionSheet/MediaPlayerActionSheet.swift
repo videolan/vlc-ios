@@ -93,6 +93,9 @@ class MediaPlayerActionSheet: ActionSheet {
             child.frame = self.collectionWrapperView.frame
             self.headerView.previousButton.isHidden = false
             self.headerView.title.text = self.getTitle(of: child)
+            if let child = child as? ActionSheetAccessoryViewsDelegate {
+                self.headerView.accessoryViewsDelegate = child
+            }
         }) {
             (completed) in
             child.addGestureRecognizer(self.leftToRightGesture)
@@ -108,6 +111,8 @@ class MediaPlayerActionSheet: ActionSheet {
     private func remove(childView child: UIView) {
         UIView.animate(withDuration: 0.3, animations: {
             child.frame = self.offScreenFrame
+            self.headerView.accessoryViewsDelegate = nil
+            self.headerView.updateAccessoryViews()
             self.headerView.previousButton.isHidden = true
             self.headerView.title.text = NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
         }) { (completed) in

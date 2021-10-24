@@ -13,6 +13,12 @@ class ActionSheetSectionHeader: UIView {
 
     static let identifier = "VLCActionSheetSectionHeader"
 
+    public var accessoryViewsDelegate: ActionSheetAccessoryViewsDelegate? {
+        didSet {
+            addAccessoryViews()
+        }
+    }
+
     var cellHeight: CGFloat {
         return 50
     }
@@ -30,6 +36,7 @@ class ActionSheetSectionHeader: UIView {
         let title = UILabel()
         title.font = UIFont.boldSystemFont(ofSize: 17)
         title.textColor = PresentationTheme.current.colors.cellTextColor
+        title.setContentHuggingPriority(.required, for: .vertical)
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -46,6 +53,8 @@ class ActionSheetSectionHeader: UIView {
         previousButton.setImage(UIImage(named: "disclosureChevron")?.withRenderingMode(.alwaysTemplate), for: .normal)
         previousButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         previousButton.tintColor = PresentationTheme.current.colors.orangeUI
+        previousButton.setContentHuggingPriority(.required, for: .horizontal)
+        previousButton.setContentHuggingPriority(.required, for: .vertical)
         previousButton.translatesAutoresizingMaskIntoConstraints = false
         previousButton.isHidden = true
         return previousButton
@@ -75,12 +84,33 @@ class ActionSheetSectionHeader: UIView {
     fileprivate func setupStackView() {
         stackView.addArrangedSubview(previousButton)
         stackView.addArrangedSubview(title)
+        addAccessoryViews()
 
         addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 20)
         ])
+    }
+
+    fileprivate func addAccessoryViews() {
+        if let accessoryViews = accessoryViewsDelegate?.actionSheetAccessoryViews(self) {
+            for accessoryView in accessoryViews {
+                stackView.addArrangedSubview(accessoryView)
+            }
+        }
+    }
+
+    func updateAccessoryViews() {
+        while stackView.arrangedSubviews.count > 2 {
+            if let subview = stackView.arrangedSubviews.last {
+                stackView.removeArrangedSubview(subview)
+                subview.removeFromSuperview()
+            }
+        }
+        addAccessoryViews()
+        stackView.layoutSubviews()
     }
 
     fileprivate func setupSeparator() {
@@ -99,4 +129,8 @@ class ActionSheetSectionHeader: UIView {
             title.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
         ])
     }
+}
+
+protocol ActionSheetAccessoryViewsDelegate {
+    func actionSheetAccessoryViews(_ actionSheet: ActionSheetSectionHeader) -> [UIView]
 }
