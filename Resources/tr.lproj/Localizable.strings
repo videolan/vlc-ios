@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Dosyaları %@ üzerine eklemek için pencereye bırakın.<br>Ya da dosya seçim penceresini görüntülemek için \"+\" düğmesine dokunun.";
 "WEBINTF_DOWNLOADFILES" = "Dosyaları indir";
 "WEBINTF_DOWNLOADFILES_LONG" = "%@ üzerinden indirmek istediğiniz dosyaya tıklayın.";
+"WEBINTF_ADDRESS_COPIED" = "Adres panoya kopyalandı";
 "WEBINTF_TITLE_ATV" = "Uzaktan oynatım";
 "WEBINTF_DROPFILES_LONG_ATV" = "Dosyaları %@ üzerinde oynatmak için pencereye bırakın.<br>Ya da dosya seçim penceresini görüntülemek için \"+\" düğmesine dokunun.";
 "WEBINTF_URL_SENT" = "Akış adresi başarıyla gönderildi.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "İşlem sayfası arka planı";
 "ACTIONSHEET_BACKGROUND_HINT" = "İşlem sayfasını kaldırmak için dokunun.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Geriye atla";
+"KEY_JUMP_FORWARDS" = "İleriye atla";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Oynatma hızını artır";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Oynatma hızını azalt";
+"KEY_RESET_PLAYBACK_SPEED" = "Oynatma hızını sıfırla";
