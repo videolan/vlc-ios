@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = " \"+\" 버튼을 클릭하여 %@에 추가하기 위한 파일을 선택합니다.<br>또는 창에 직접 파일을 끌어 놓으세요.";
 "WEBINTF_DOWNLOADFILES" = "파일 다운로드";
 "WEBINTF_DOWNLOADFILES_LONG" = "%@에서 다운로드할 파일을 클릭하세요.";
+"WEBINTF_ADDRESS_COPIED" = "주소가 클립보드에 복사됨";
 "WEBINTF_TITLE_ATV" = "원격 재생";
 "WEBINTF_DROPFILES_LONG_ATV" = "%@에서 재생하기 위해서는 창에 파일을 드래그하세요.<br>아니면 \"+\" 버튼을 눌러 파일 선택기를 이용하세요.";
 "WEBINTF_URL_SENT" = "URL 보내기 완료";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "작업 시트 배경";
 "ACTIONSHEET_BACKGROUND_HINT" = "탭하여 작업 시트를 제거합니다.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "뒤로 이동하기";
+"KEY_JUMP_FORWARDS" = "앞으로 이동하기";
+"KEY_INCREASE_PLAYBACK_SPEED" = "재생 속도 증가";
+"KEY_DECREASE_PLAYBACK_SPEED" = "재생 속도 감소";
+"KEY_RESET_PLAYBACK_SPEED" = "재생 속도 재설정";
