@@ -91,12 +91,11 @@ class MediaPlayerActionSheet: ActionSheet {
         UIView.animate(withDuration: 0.3, animations: {
             child.frame = self.collectionWrapperView.frame
             self.headerView.previousButton.isHidden = false
+            self.headerView.title.text = self.getTitle(of: child)
         }) {
             (completed) in
             child.addGestureRecognizer(self.leftToRightGesture)
             self.currentChildView = child
-            self.headerView.title.text = self.getTitle(of: child)
-
             if child is VideoFiltersView {
                 self.changeBackground(alpha: 0)
             }
@@ -109,6 +108,7 @@ class MediaPlayerActionSheet: ActionSheet {
         UIView.animate(withDuration: 0.3, animations: {
             child.frame = self.offScreenFrame
             self.headerView.previousButton.isHidden = true
+            self.headerView.title.text = NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
         }) { (completed) in
             child.removeFromSuperview()
             child.removeGestureRecognizer(self.leftToRightGesture)
@@ -116,8 +116,6 @@ class MediaPlayerActionSheet: ActionSheet {
             if child is VideoFiltersView {
                 self.changeBackground(alpha: 0.6)
             }
-
-            self.headerView.title.text = NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
         }
     }
 
