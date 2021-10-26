@@ -122,12 +122,14 @@ class QueueViewController: UIViewController {
         super.viewWillAppear(animated)
     }
 
-    override func didMove(toParent parent: UIViewController?) {
+    override func willMove(toParent parent: UIViewController?) {
         NSLayoutConstraint.deactivate(darkOverlayViewConstraints)
         NSLayoutConstraint.deactivate(constraints)
         darkOverlayViewConstraints.removeAll()
         constraints.removeAll()
+    }
 
+    override func didMove(toParent parent: UIViewController?) {
         if let parent = parent {
             parent.view.addSubview(darkOverlayView)
             darkOverlayViewConstraints = [
