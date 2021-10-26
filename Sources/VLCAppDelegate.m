@@ -89,7 +89,8 @@ NSString *VLCAppCenterAppID = @"0114ca8e-2652-44ce-588d-2ebd035c3577";
                                   kVLCSettingLabNewPlayer : kVLCSettingLabNewPlayerDefaultValue,
                                   @"kVLCAudioLibraryGridLayoutALBUMS" : @(YES),
                                   @"kVLCAudioLibraryGridLayoutARTISTS" : @(YES),
-                                  @"kVLCAudioLibraryGridLayoutGENRES" : @(YES)
+                                  @"kVLCAudioLibraryGridLayoutGENRES" : @(YES),
+                                  kVLCVideoLibraryGridLayout : @(YES)
     };
     [defaults registerDefaults:appDefaults];
 }
