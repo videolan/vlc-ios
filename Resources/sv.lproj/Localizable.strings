@@ -98,7 +98,7 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Nedladdning avbruten av användare";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Ange en adress för att ladda ned filen till din %@";
+"DOWNLOAD_FROM_HTTP_HELP" = "Ange en adress för att hämta filen till din %@";
 "DOWNLOAD_FROM_HTTP" = "Nedladdningar";
 "ERROR_NUMBER" = "Felet %i uppstod";
 "DOWNLOAD_FAILED" = "Nedladdning misslyckades";
@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Släpp filer i fönstret för att lägga till dem i din %@.<br>Eller klicka på knappen \"+\" för att använda filväljaren.";
 "WEBINTF_DOWNLOADFILES" = "Ladda ned filer";
 "WEBINTF_DOWNLOADFILES_LONG" = "Klicka bara på filen du vill ladda ned från din %@.";
+"WEBINTF_ADDRESS_COPIED" = "Adressen kopierades till urklipp";
 "WEBINTF_TITLE_ATV" = "Fjärruppspelning";
 "WEBINTF_DROPFILES_LONG_ATV" = "Släpp filerna i fönstret för att spela upp dem på din %@.<br>Eller klicka på plusknappen för att använda filväljaren.";
 "WEBINTF_URL_SENT" = "Webbadressen skickades.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Dialogbakgrund";
 "ACTIONSHEET_BACKGROUND_HINT" = "Tryck för att ta bort dialogen.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Hoppa bakåt";
+"KEY_JUMP_FORWARDS" = "Hoppa framåt";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Öka uppspelningshastighet";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Minska uppspelningshastighet";
+"KEY_RESET_PLAYBACK_SPEED" = "Återställ uppspelningshastighet";
