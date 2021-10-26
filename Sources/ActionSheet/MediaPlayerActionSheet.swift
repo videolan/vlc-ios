@@ -87,6 +87,7 @@ class MediaPlayerActionSheet: ActionSheet {
     private func add(childView child: UIView) {
         child.frame = self.offScreenFrame
         self.addChildToStackView(child)
+        child.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         child.layoutIfNeeded()
         UIView.animate(withDuration: 0.3, animations: {
             child.frame = self.collectionWrapperView.frame
