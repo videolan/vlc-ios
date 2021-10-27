@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Slip filer i vinduet for at tilføje dem til din %@.<br>Eller klik på \"+\"-knappen for at bruge filvælgeren.";
 "WEBINTF_DOWNLOADFILES" = "Download filer";
 "WEBINTF_DOWNLOADFILES_LONG" = "Klik blot på den fil du vil downloade fra din %@.";
+"WEBINTF_ADDRESS_COPIED" = "Adresse kopieret til udklipsholder";
 "WEBINTF_TITLE_ATV" = "Fjernafspilning";
 "WEBINTF_DROPFILES_LONG_ATV" = "Slip filer i vinduet for at afspille dem på din %@.<br>Eller klik på \"+\"-knappen for at bruge filvælgeren.";
 "WEBINTF_URL_SENT" = "URL sendt";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Handlingsarksbaggrund";
 "ACTIONSHEET_BACKGROUND_HINT" = "Klik for at fjerne handlingsarket";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Hop tilbage";
+"KEY_JUMP_FORWARDS" = "Hop frem";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Hurtigere afspilning";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Lavere afspilningshastighed";
+"KEY_RESET_PLAYBACK_SPEED" = "Nulstil afspilningshastighed";
