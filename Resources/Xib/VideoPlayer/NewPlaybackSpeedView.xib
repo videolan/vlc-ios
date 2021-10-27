@@ -19,11 +19,14 @@
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yaH-mw-hPl" userLabel="padding view">
                             <rect key="frame" x="0.0" y="10" width="560" height="24.5"/>
+                            <variation key="heightClass=compact" hidden="YES"/>
                         </view>
                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vzh-jn-Qnx">
                             <rect key="frame" x="0.0" y="54.5" width="560" height="61"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="60" id="UGP-1H-Jie"/>
+                                <constraint firstAttribute="height" constant="60" id="UGP-1H-Jie">
+                                    <variation key="widthClass=regular" constant="50"/>
+                                </constraint>
                             </constraints>
                             <segments>
                                 <segment title="Vitesse de lecture"/>
@@ -106,12 +109,14 @@
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E3o-sm-5YH" userLabel="padding view">
                             <rect key="frame" x="0.0" y="220.5" width="560" height="24.5"/>
+                            <variation key="heightClass=compact" hidden="YES"/>
                         </view>
                     </subviews>
                     <constraints>
                         <constraint firstItem="E3o-sm-5YH" firstAttribute="height" secondItem="yaH-mw-hPl" secondAttribute="height" id="76D-8J-H2h"/>
                     </constraints>
                     <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="0.0" bottom="10" trailing="0.0"/>
+                    <variation key="heightClass=compact"/>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Thd-jN-ogA"/>
@@ -119,7 +124,9 @@
             <constraints>
                 <constraint firstItem="Thd-jN-ogA" firstAttribute="trailing" secondItem="nwn-Xw-n6u" secondAttribute="trailing" constant="20" id="8AW-PX-fGb"/>
                 <constraint firstItem="nwn-Xw-n6u" firstAttribute="top" secondItem="Thd-jN-ogA" secondAttribute="top" id="eNn-tL-U4N"/>
-                <constraint firstItem="Thd-jN-ogA" firstAttribute="bottom" secondItem="nwn-Xw-n6u" secondAttribute="bottom" constant="20" id="m7c-Ok-FSu"/>
+                <constraint firstItem="Thd-jN-ogA" firstAttribute="bottom" secondItem="nwn-Xw-n6u" secondAttribute="bottom" constant="20" id="m7c-Ok-FSu">
+                    <variation key="heightClass=compact" constant="0.0"/>
+                </constraint>
                 <constraint firstItem="nwn-Xw-n6u" firstAttribute="leading" secondItem="Thd-jN-ogA" secondAttribute="leading" constant="20" id="tT4-Aq-KaH"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>

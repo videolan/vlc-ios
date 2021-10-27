@@ -77,6 +77,7 @@ class NewPlaybackSpeedView: UIView {
         resetButton.addTarget(self, action: #selector(self.handleResetTap(_:)), for: .touchUpInside)
         resetButton.setContentHuggingPriority(.required, for: .horizontal)
         resetButton.setContentHuggingPriority(.required, for: .vertical)
+        resetButton.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
     private func setupSegmentedControl() {

@@ -55,6 +55,7 @@ class ActionSheetSectionHeader: UIView {
         previousButton.tintColor = PresentationTheme.current.colors.orangeUI
         previousButton.setContentHuggingPriority(.required, for: .horizontal)
         previousButton.setContentHuggingPriority(.required, for: .vertical)
+        previousButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         previousButton.translatesAutoresizingMaskIntoConstraints = false
         previousButton.isHidden = true
         return previousButton
