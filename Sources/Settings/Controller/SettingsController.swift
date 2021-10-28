@@ -137,7 +137,7 @@ class SettingsController: UITableViewController {
         if #available(iOS 10, *) {
             ImpactFeedbackGenerator().selectionChanged()
         }
-        let vc = VLCStoreViewController()
+        let vc = StoreViewController(nibName: "VLCStoreViewController", bundle: nil)
         let storeVC = UINavigationController(rootViewController: vc)
         present(storeVC, animated: true, completion: nil)
     }

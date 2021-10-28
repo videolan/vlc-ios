@@ -496,9 +496,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Give a Tip";
+"MAKE_DONATION_TITLE" = "Make a donation";
+"DONATION_DESCRIPTION" = "Your sponsorship will allow us to improve the VLC-iOS app and support the VideoLAN association.";
 "CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
-"PURCHASE_FAILED" = "Purchase Failed";
-"SEND_GIFT" = "Send your gift";
+"PURCHASE_FAILED" = "Purchase Failed.";
+"SEND_DONATION" = "Send your donation";
+"PURCHASE_SUCESS_TITLE" = "Donation sent";
+"PURCHASE_SUCESS_DESCRIPTION" = "Thank you for your donation!";
 
 // MARK: - QueueViewController
 
