@@ -251,6 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Trageți fișierele în fereastra pentru a le adăuga la %@ dvs.Sau apăsați pe butonul \"+\" pentru a utiliza fereastra de selectare a fișierelor.";
 "WEBINTF_DOWNLOADFILES" = "Descarcă fișierele";
 "WEBINTF_DOWNLOADFILES_LONG" = "Click pe fișierul pe care doriți să îl descărcați de pe %@.";
+"WEBINTF_ADDRESS_COPIED" = "Adresă copiată în clipboard";
 "WEBINTF_TITLE_ATV" = "Redare la distanță";
 "WEBINTF_DROPFILES_LONG_ATV" = "Trageți fișierele în fereastră pentru a le reda cu %@.<br>Sau click pe butonul \"+\" pentru a folosi fereastra de dialog.";
 "WEBINTF_URL_SENT" = "Adresa URL trimisă cu succes.";
@@ -525,3 +526,11 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Fondul fișei de acțiune";
 "ACTIONSHEET_BACKGROUND_HINT" = "Atingeți ușor pentru a elimina fișa de acțiune.";
+
+// MARK: - Playback keyboard shortcuts
+
+"KEY_JUMP_BACKWARDS" = "Salt înapoi";
+"KEY_JUMP_FORWARDS" = "Salt înainte";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Creșterea vitezei de redare";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Reduceți viteza de redare";
+"KEY_RESET_PLAYBACK_SPEED" = "Resetare viteză de redare";
