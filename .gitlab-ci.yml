@@ -5,6 +5,9 @@ stages:
 default:
     before_script:
         - pod update
+    tags:
+        - catalina
+        - amd64
 
 variables:
     LANG: "en_US.UTF-8"
@@ -27,9 +30,6 @@ variables:
 
 lint:
     extends: .job-base
-    tags:
-        - catalina
-        - amd64
     stage: lint
     script:
         - ./Pods/SwiftLint/swiftlint
@@ -53,9 +53,6 @@ iOS 12.x:
     extends:
         - .job-base
         - .build-base
-    tags:
-        - catalina
-        - amd64
     stage: build
     variables:
         BUILD_SCHEME: "VLC-iOS"
@@ -65,9 +62,6 @@ iOS 14.x:
     extends:
         - .job-base
         - .build-base
-    tags:
-        - catalina
-        - amd64
     stage: build
     variables:
         BUILD_SCHEME: "VLC-iOS"
