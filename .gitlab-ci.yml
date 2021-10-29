@@ -8,6 +8,7 @@ default:
     tags:
         - catalina
         - amd64
+    interruptible: true
 
 variables:
     LANG: "en_US.UTF-8"
