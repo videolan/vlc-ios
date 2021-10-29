@@ -35,6 +35,7 @@
         return UIScreen.screens.count > 1
     }
 
+    @objc(VLCDeviceHasSafeArea)
     static var hasSafeArea: Bool {
         if #available(iOS 11.0, *) {
             let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first

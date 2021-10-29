@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "VLCSlider.h"
+#import "VLC-Swift.h"
 
 @implementation VLCOBSlider
 
@@ -23,7 +24,21 @@
 
 - (CGRect)thumbRectForBounds:(CGRect)bounds trackRect:(CGRect)rect value:(float)value
 {
-    return CGRectInset([super thumbRectForBounds:bounds trackRect:rect value:value], -5 , -5);
+    // By default do not set padding for small devices such as ipod.
+    CGFloat padding = 0;
+
+    // Add padding to safe area devices.
+    if ([UIDevice VLCDeviceHasSafeArea]) {
+        padding = -5;
+    }
+
+    // Add even more padding to ipads.
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        padding = -10;
+    }
+
+    return CGRectInset([super thumbRectForBounds:bounds trackRect:rect value:value],
+                       padding , padding);
 }
 
 @end
