@@ -412,16 +412,15 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 
 - (void)moveFileFrom:(NSString *)filepath
 {
+    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
+    [activityManager networkActivityStopped];
+    [activityManager activateIdleTimer];
+
     // Check if downloaded file is a playlist in order to parse at the end of the download.
     if ([[filepath lastPathComponent] isSupportedPlaylistFormat]) {
         [_playlistUploadPaths addObject:filepath];
         return;
     }
-
-    /* update media library when file upload was completed */
-    VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
-    [activityManager networkActivityStopped];
-    [activityManager activateIdleTimer];
 
     /* on tvOS, the media remains in the cache folder and will disappear from there
      * while on iOS we have persistent storage, so move it there */
