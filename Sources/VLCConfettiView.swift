@@ -13,8 +13,6 @@
 
 import QuartzCore
 
-@IBDesignable
-
 public class VLCConfettiView: UIView {
 
     var emitter: CAEmitterLayer!
