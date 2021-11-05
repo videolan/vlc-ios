@@ -949,6 +949,11 @@ extension VideoPlayerViewController {
             return
         }
 
+        // Make sure that we are currently not scrubbing in order to avoid conflicts.
+        guard scrubProgressBar.isScrubbing == false else {
+            return
+        }
+
         var hudString = ""
         let tmp: Int = Int(Double(mediaDuration) * 0.001 * 0.05)
 

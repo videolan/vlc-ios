@@ -19,7 +19,7 @@ class MediaScrubProgressBar: UIStackView {
     @objc weak var delegate: MediaScrubProgressBarDelegate?
     private var playbackService = PlaybackService.sharedInstance()
     private var positionSet: Bool = true
-    private var isScrubbing: Bool = false
+    private(set) var isScrubbing: Bool = false
     
     @objc lazy private(set) var progressSlider: VLCOBSlider = {
         var slider = VLCOBSlider()
