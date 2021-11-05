@@ -161,6 +161,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         self.searchDataSource = LibrarySearchDataSource(model: model)
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
+
+        if PlaybackService.sharedInstance().renderer != nil {
+            rendererButton.isSelected = true
+        }
+
         let marqueeTitle = VLCMarqueeLabel()
         if let collection = model as? CollectionModel {
             title = collection.mediaCollection.title()
