@@ -27,7 +27,6 @@ enum VideoPlayerSeekState {
 enum VideoPlayerPanType {
     case none
     case brightness
-    case seek
     case volume
     case projection
 }
@@ -852,10 +851,6 @@ extension VideoPlayerViewController {
             panType = .brightness
         }
 
-        if deviceType == "iPad" && location.y < 110 {
-            panType = .seek
-        }
-
         if playbackService.currentMediaIs360Video {
             panType = .projection
         }
@@ -908,21 +903,6 @@ extension VideoPlayerViewController {
         }
 
         switch currentPanType {
-        case .seek:
-            guard playerController.isSwipeSeekGestureEnabled else {
-                break
-            }
-
-            let timeRemainingDouble: Double = (-(Double(playbackService.remainingTime().intValue)*0.001))
-            let timeRemaining: Int = Int(timeRemainingDouble)
-
-            if panDirectionX > 0 {
-                if timeRemaining > 2 {
-                    playbackService.jumpForward(1)
-                }
-            } else {
-                playbackService.jumpBackward(1)
-            }
         case .volume:
             guard playerController.isVolumeGestureEnabled else {
                 break
