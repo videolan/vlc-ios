@@ -446,6 +446,9 @@
 "MORE_OPTIONS_BUTTON" = "More";
 "MORE_OPTIONS_HINT" = "View more option controls";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Subtitles unsupported";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Subtitles are not yet supported while casting.";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video Options";

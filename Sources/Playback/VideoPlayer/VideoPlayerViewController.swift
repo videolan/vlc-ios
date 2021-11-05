@@ -1693,6 +1693,22 @@ extension VideoPlayerViewController {
 
     func shouldShowTrackSelectorPopup(_ show: Bool) {
         if show {
+            // Check if the service is connected to a casting device.
+            guard playbackService.renderer == nil else {
+                let subtitleCastWarningAlert = UIAlertController(title: NSLocalizedString("PLAYER_WARNING_SUBTITLE_CAST_TITLE", comment: ""),
+                                                                 message: NSLocalizedString("PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION", comment: ""),
+                                                                 preferredStyle: .alert)
+                let doneButton = UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment: ""),
+                                               style: .default) {
+                    [weak self, trackSelectorPopupView, trackSelector] _ in
+                    self?.showPopup(trackSelectorPopupView,
+                                    with: trackSelector,
+                                    accessoryViewsDelegate: trackSelector)
+                }
+                subtitleCastWarningAlert.addAction(doneButton)
+                present(subtitleCastWarningAlert, animated: true)
+                return
+            }
             showPopup(trackSelectorPopupView, with: trackSelector, accessoryViewsDelegate: trackSelector)
         } else {
             trackSelectorPopupView.close()
