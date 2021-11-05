@@ -1363,7 +1363,8 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         if metadata.isAudioOnly {
             let artworkImage = metadata.artworkImage
             artWorkImageView.image = artworkImage
-            artWorkImageView.isHidden = false
+            // Only show the artwork when not casting to a device.
+            artWorkImageView.isHidden = playbackService.renderer != nil ? true : false
             queueViewController?.reloadBackground(with: artworkImage)
         } else {
             artWorkImageView.isHidden = true
