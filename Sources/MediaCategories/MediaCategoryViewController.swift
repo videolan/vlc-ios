@@ -58,17 +58,20 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     @objc private lazy var sortActionSheet: ActionSheet = {
         var header: ActionSheetSortSectionHeader
-        var displayGroupLayout: Bool = false
+        var isVideoModel: Bool = false
         var collectionModelName: String = ""
         var secondSortModel: SortModel? = nil
 
         if let model = model as? CollectionModel {
+            if model.mediaCollection is VLCMLMediaGroup || model.mediaCollection is VideoModel {
+                isVideoModel = true
+            }
             collectionModelName = String(describing: type(of: model.mediaCollection)) + model.name
         } else if let model = model as? MediaGroupViewModel {
-            displayGroupLayout = true
+            isVideoModel = true
             collectionModelName = model.name
         } else if let model = model as? VideoModel {
-            displayGroupLayout = true
+            isVideoModel = true
             collectionModelName = secondModel.name
             secondSortModel = model.sortModel
         } else {
@@ -77,7 +80,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         header = ActionSheetSortSectionHeader(model: model.sortModel,
                                               secondModel: secondSortModel,
-                                              displayGroupsLayout: displayGroupLayout,
+                                              isVideoModel: isVideoModel,
                                               currentModelType: collectionModelName)
 
         let actionSheet = ActionSheet(header: header)
@@ -1018,12 +1021,18 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
             suffix = model is VideoModel ? secondModel.name : model.name
         } else if type == .layoutChange {
             var collectionModelName: String = ""
+            var isVideoModel = false
             if let model = model as? CollectionModel {
+                if model.mediaCollection is VLCMLMediaGroup || model.mediaCollection is VideoModel {
+                    isVideoModel = true
+                }
                 collectionModelName = getTypeName(of: model.mediaCollection)
+            } else if model is VideoModel || model is MediaGroupViewModel {
+                isVideoModel = true
             }
 
-            prefix = kVLCAudioLibraryGridLayout
-            suffix = model is VideoModel ? secondModel.name : collectionModelName + model.name
+            prefix = isVideoModel ? kVLCVideoLibraryGridLayout : kVLCAudioLibraryGridLayout
+            suffix = collectionModelName + model.name
         }
 
         userDefaults.set(onSwitchIsOnChange, forKey: "\(prefix)\(suffix)")

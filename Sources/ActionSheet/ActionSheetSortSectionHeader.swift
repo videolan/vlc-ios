@@ -118,15 +118,18 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
 
     weak var delegate: ActionSheetSortSectionHeaderDelegate?
 
-    init(model: SortModel, secondModel: SortModel?, displayGroupsLayout: Bool = false, currentModelType: String) {
+    private var isVideoModel: Bool
+
+    init(model: SortModel, secondModel: SortModel?,
+         isVideoModel: Bool, currentModelType: String) {
         modelType = currentModelType
         sortModel = model
         secondSortModel = secondModel
+        self.isVideoModel = isVideoModel
         super.init(frame: .zero)
         actionSwitch.isOn = sortModel.desc
 
-        layoutChangeSwitch.isOn = userDefaults.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(modelType)")
-
+        setSwitchIsOnFromUserDefaults()
         translatesAutoresizingMaskIntoConstraints = false
         setupStackView()
         updateTheme()
@@ -140,8 +143,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         if newWindow != nil {
             // ActionSheetSortSectionHeader did appear.
             actionSwitch.isOn = sortModel.desc
-
-            layoutChangeSwitch.isOn = userDefaults.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(modelType)")
+            setSwitchIsOnFromUserDefaults()
         }
     }
     required init?(coder aDecoder: NSCoder) {
@@ -167,6 +169,11 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
                                                onSwitchIsOnChange: sender.isOn,
                                                type: .layoutChange)
      }
+
+    private func setSwitchIsOnFromUserDefaults() {
+        let key = isVideoModel ? kVLCVideoLibraryGridLayout : kVLCAudioLibraryGridLayout
+        layoutChangeSwitch.isOn = UserDefaults.standard.bool(forKey: key + modelType)
+    }
 
     private func setupStackView() {
         descendingStackView.addArrangedSubview(descendingLabel)

@@ -19,7 +19,7 @@ class VideoModel: MediaModel {
     var files = [VLCMLMedia]()
 
     var cellType: BaseCollectionViewCell.Type {
-        return UserDefaults.standard.bool(forKey: "\(kVLCVideoLibraryGridLayout)") ? MovieCollectionViewCell.self : MediaCollectionViewCell.self
+        return UserDefaults.standard.bool(forKey: "\(kVLCVideoLibraryGridLayout)\(name)") ? MovieCollectionViewCell.self : MediaCollectionViewCell.self
     }
 
     var medialibrary: MediaLibraryService
