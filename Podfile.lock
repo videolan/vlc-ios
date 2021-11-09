@@ -49,7 +49,7 @@ PODS:
     - MobileVLCKit (~> 3.3.0)
   - MetaDataFetcherKit (0.5.0):
     - AFNetworking (= 4.0.0)
-  - MobileVLCKit (3.3.18b3)
+  - MobileVLCKit (3.3.18b4)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (6.2.0)
   - OBSlider (1.1.0)
@@ -74,7 +74,7 @@ PODS:
     - OneDriveSDK/Common
   - SimulatorStatusMagic (2.6)
   - SwiftLint (0.25.1)
-  - TVVLCKit (3.3.18b3)
+  - TVVLCKit (3.3.18b4)
   - VLCMediaLibraryKit (0.8.1b6):
     - MobileVLCKit
   - XKKeychain (1.0.1)
@@ -94,13 +94,13 @@ DEPENDENCIES:
   - MarqueeLabel (= 4.0.2)
   - MediaLibraryKit-prod
   - MetaDataFetcherKit (~> 0.5.0)
-  - MobileVLCKit (= 3.3.18b3)
+  - MobileVLCKit (= 3.3.18b4)
   - ObjectiveDropboxOfficial
   - OBSlider (= 1.1.0)
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
-  - TVVLCKit (= 3.3.18b3)
+  - TVVLCKit (= 3.3.18b4)
   - VLCMediaLibraryKit (= 0.8.1b6)
   - XKKeychain (~> 1.0)
   - xmlrpc (from `git://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
@@ -183,18 +183,18 @@ SPEC CHECKSUMS:
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MediaLibraryKit-prod: 718b52b55cb40b479eeae29fb5cc0cfbbbce0191
   MetaDataFetcherKit: c77fa3d0791d406a8cfab43464ed728437bd241b
-  MobileVLCKit: b6d7410d6c95ded88b2ba7eaa1e41a93dc2426b2
+  MobileVLCKit: 26e674b6be6851f8da508f09c4454b1267848589
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: 2115db7fc21d267c6f0606557a6ea0b69aa37d30
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   SimulatorStatusMagic: 9f5294c12ca99c6cadb243a60362a66000df540c
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
-  TVVLCKit: 0330c7ea3d992e2707349922dd020d38353d1e0f
+  TVVLCKit: 0d4fff86af8e7b07f186e07931401b0238deefe4
   VLCMediaLibraryKit: 80fc7c787ace7531ee4cbed2d836e755e13eaa19
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 90069f9342ac0777065a128ba1882a3a2f8746cf
+PODFILE CHECKSUM: fee82da0b38b90e42c58a6d4aa7f85eafd1d12b9
 
 COCOAPODS: 1.10.1
