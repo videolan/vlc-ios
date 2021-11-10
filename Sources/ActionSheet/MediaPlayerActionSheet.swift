@@ -140,20 +140,6 @@ class MediaPlayerActionSheet: ActionSheet {
         collectionView.backgroundColor = darkColors.background
         headerView.backgroundColor = darkColors.background
         headerView.title.textColor = darkColors.cellTextColor
-        for cell in collectionView.visibleCells {
-            if let cell = cell as? ActionSheetCell {
-                cell.backgroundColor = darkColors.background
-                cell.name.textColor = darkColors.cellTextColor
-                cell.icon.tintColor = .orange
-                // toggleSwitch's tintColor should not be changed
-                if cell.accessoryType == .disclosureChevron {
-                    cell.accessoryView.tintColor = darkColors.cellDetailTextColor
-                } else if cell.accessoryType == .checkmark {
-                    cell.accessoryView.tintColor = .orange
-                }
-            }
-        }
-        collectionView.layoutIfNeeded()
     }
 
     /// Animates the removal of the `currentChildViewController` when it is dragged from its left edge to the right
@@ -255,6 +241,16 @@ extension MediaPlayerActionSheet: ActionSheetDataSource {
             for: indexPath) as? ActionSheetCell {
             sheetCell = cell
             sheetCell.configure(withModel: cellModel)
+            let darkColors = PresentationTheme.darkTheme.colors
+            sheetCell.backgroundColor = darkColors.background
+            sheetCell.name.textColor = darkColors.cellTextColor
+            sheetCell.icon.tintColor = darkColors.orangeUI
+
+            if sheetCell.accessoryType == .disclosureChevron {
+                cell.accessoryView.tintColor = darkColors.cellDetailTextColor
+            } else {
+                sheetCell.accessoryView.tintColor = darkColors.orangeUI
+            }
         } else {
             assertionFailure("MediaMoreOptionsActionSheet: Could not dequeue reusable cell")
             sheetCell = ActionSheetCell(withCellModel: cellModel)
