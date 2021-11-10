@@ -29,10 +29,6 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
 
 @implementation VLCNetworkListViewController
 
-- (void)dealloc
-{
-}
-
 - (void)loadView
 {
     _tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
@@ -110,11 +106,6 @@ NSString *VLCNetworkListCellIdentifier = @"VLCNetworkListCellIdentifier";
         CGPoint contentOffset = CGPointMake(0, _tableView.tableHeaderView.bounds.size.height);
         [self.tableView setContentOffset:contentOffset animated:NO];
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
