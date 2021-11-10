@@ -45,6 +45,13 @@ class StoreViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if #available(iOS 11, *) {}
+        else {
+            // For iOS 10 and below, remove edge value to avoid the system
+            // displaying the content underneath the navigation bar.
+            self.edgesForExtendedLayout = []
+        }
+        themeDidChange()
         storeController.validateAvailableProducts()
     }
 
@@ -233,6 +240,8 @@ extension StoreViewController {
 
         navigationItem.titleView?.tintColor = currentColors.navigationbarTextColor
         view.backgroundColor = currentColors.background
+        confettiView.backgroundColor = currentColors.background
+        priceCollectionView.backgroundColor = currentColors.background
         tippingExplainedLabel.textColor = currentColors.cellTextColor
         cannotMakePaymentsLabel.textColor =
         currentColors.cellTextColor
