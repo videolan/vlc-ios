@@ -62,7 +62,7 @@ class VideoPlayerInfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc func updateUI(rendererItem: VLCRendererItem?, title: String) {
+    @objc func updateUI(rendererItem: VLCRendererItem?, title: String?) {
         if let rendererItem = rendererItem {
             titleLabel.text = NSLocalizedString("PLAYING_EXTERNALLY_ADDITION", comment:"")
             descriptionLabel.text = rendererItem.name

@@ -98,7 +98,7 @@ protocol MediaNavigationBarDelegate {
     }
 
     // MARK: Instance Methods
-    func setMediaTitleLabelText(_ titleText: String) {
+    func setMediaTitleLabelText(_ titleText: String?) {
         mediaTitleTextLabel.text = titleText
     }
 
