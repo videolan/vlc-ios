@@ -104,6 +104,7 @@
                          ];
     self.discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:classes];
     self.discoveryController.delegate = self;
+    [self discoveryFoundSomethingNew];
 }
 
 - (NSString *)title {
