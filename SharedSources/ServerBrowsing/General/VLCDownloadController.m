@@ -69,6 +69,10 @@
     VLCMedia *media = [VLCMedia mediaWithURL:aURL];
     @synchronized (_currentDownloads) {
         [_currentDownloads addObject:media];
+
+        if (fileName) {
+            [_userDefinedFileNameForDownloadItem setObject:fileName forKey:aURL];
+        }
     }
     [self _updateDownloadList];
 }
