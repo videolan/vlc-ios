@@ -348,7 +348,7 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
     public func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         let transformedURL = transformVLCURL(url)
 
-        parseURL(url: transformedURL)
+        movieURL = transformedURL
 
         let scheme = transformedURL.scheme
         if scheme == "http" || scheme == "https" || scheme == "ftp" {
