@@ -100,10 +100,7 @@ extension VLCURLHandler {
 
             let callback = matchCallback(key: key)
 
-            guard let value = components[1].removingPercentEncoding else {
-                assertionFailure("VLCURLHandler: RemovingPercentEnconding returns nil.")
-                continue
-            }
+            let value = components[1]
 
             switch callback {
             case .url:
@@ -113,7 +110,7 @@ extension VLCURLHandler {
                 subURL = URL(string: value)
                 break
             case .filename:
-                fileName = value
+                fileName = value.removingPercentEncoding
                 break
             case .xSuccess:
                 successCallback = URL(string: value)
