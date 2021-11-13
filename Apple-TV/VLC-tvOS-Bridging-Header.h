@@ -13,6 +13,8 @@
 #import "VLCLocalNetworkServiceBrowserNFS.h"
 #import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
 
+#import "VLCPlaybackService+MediaLibrary.h"
+
 #import "VLCServerListTVViewController.h"
 #import "VLCSearchableServerBrowsingTVViewController.h"
 

@@ -53,5 +53,28 @@
 	<string>Automatic</string>
 	<key>com.apple.developer.networking.multicast</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>VLC</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>vlc</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>x-callback-url</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>vlc-x-callback</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

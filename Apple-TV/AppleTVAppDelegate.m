@@ -1,13 +1,15 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
+
+#import "VLC-Swift.h"
 
 #import "AppleTVAppDelegate.h"
 #import "VLCServerListTVViewController.h"
@@ -92,6 +94,18 @@
 
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+    for (id<VLCURLHandler> handler in URLHandlers.handlers) {
+        if ([handler canHandleOpenWithUrl:url options:options]) {
+            if ([handler performOpenWithUrl:url options:options]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
 }
 
 @end

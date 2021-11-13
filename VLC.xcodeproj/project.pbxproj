@@ -211,6 +211,7 @@
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
 		7D71F17E273FECD300F957D4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
+		7D71F17F2740041D00F957D4 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418E88402110E51B00DDA6A7 /* URLHandler.swift */; };
 		7D7EF3DA1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */; };
 		7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */; };
 		7D7EF3DD1BD5779F00CD4CEE /* VLCPlaybackService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE56C191AD93F9100E8CA00 /* VLCPlaybackService.m */; };
@@ -3133,6 +3134,7 @@
 				DD4089F51BF6556F0022745E /* VLCFullWidthCollectionViewFlowLayout.m in Sources */,
 				DD3EFF3A1BDEBCE500B68579 /* VLCLocalNetworkServiceVLCMedia.m in Sources */,
 				7D7EF3DA1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m in Sources */,
+				7D71F17F2740041D00F957D4 /* URLHandler.swift in Sources */,
 				7DB174B41CD20DC00085BCF0 /* VLCNetworkServerSearchBrowser.m in Sources */,
 				DD3EFF521BDEBCE500B68579 /* VLCPlexWebAPI.m in Sources */,
 				7DF383C11BF231BC00D71A5C /* VLCCloudStorageTVViewController.m in Sources */,

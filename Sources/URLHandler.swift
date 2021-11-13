@@ -2,10 +2,11 @@
  * URLHandler.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018, 2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
+ *        Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -161,6 +162,7 @@ extension VLCURLHandler {
 }
 
 @objc class URLHandlers: NSObject {
+    #if os(iOS)
     @objc static let googleURLHandler = GoogleURLHandler()
 
     @objc static let handlers =
@@ -172,8 +174,17 @@ extension VLCURLHandler {
             VLCCallbackURLHandler(),
             ElseCallbackURLHandler()
         ]
+    #else
+        @objc static let handlers =
+            [
+                XCallbackURLHandler(),
+                VLCCallbackURLHandler(),
+                ElseCallbackURLHandler()
+            ]
+    #endif
 }
 
+#if os(iOS)
 class DropBoxURLHandler: NSObject, VLCURLHandler {
     var movieURL: URL?
 
@@ -267,6 +278,7 @@ class FileURLHandler: NSObject, VLCURLHandler {
         return true
     }
 }
+#endif
 
 class XCallbackURLHandler: NSObject, VLCURLHandler {
     var movieURL: URL?
@@ -350,12 +362,17 @@ public class VLCCallbackURLHandler: NSObject, VLCURLHandler {
 
         movieURL = transformedURL
 
+#if os(iOS)
         let scheme = transformedURL.scheme
         if scheme == "http" || scheme == "https" || scheme == "ftp" {
             self.createAlert()
         } else {
             handlePlay()
         }
+#else
+        handlePlay()
+#endif
+
         return true
     }
 }
@@ -395,9 +412,15 @@ extension VLCURLHandler {
         }
     }
 
+#if os(iOS)
     func downloadMovie(from url: URL, fileNameOfMedia fileName: String?) {
         VLCDownloadController.sharedInstance().addURL(toDownloadList: url, fileNameOfMedia: fileName)
     }
+#else
+    func downloadMovie(from url: URL, fileNameOfMedia fileName: String?) {
+        APLog("content download via x-callback-url not supported on this OS")
+    }
+#endif
 }
 
 // Helper function inserted by Swift 4.2 migrator.

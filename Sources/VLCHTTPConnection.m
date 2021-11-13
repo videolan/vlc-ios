@@ -754,14 +754,6 @@ static NSMutableDictionary *authentifiedHosts;
     if (!vpc.mediaList) {
         [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
     }
-
-    VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
-
-    if (![movieVC isBeingPresented]) {
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:movieVC
-                                                                                     animated:YES
-                                                                                   completion:nil];
-    }
 }
 #endif
 

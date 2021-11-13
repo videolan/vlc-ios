@@ -170,6 +170,16 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     _sessionWillRestart = _playerIsSetup;
     _playerIsSetup ? [self stopPlayback] : [self startPlayback];
+
+#if TARGET_OS_TV
+    VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
+
+    if (![movieVC isBeingPresented]) {
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:movieVC
+                                                                                     animated:YES
+                                                                                   completion:nil];
+    }
+#endif
 }
 
 - (VLCTime *)playedTime
