@@ -21,6 +21,9 @@
 @property (readwrite, nonatomic, weak) IBOutlet UIView *nothingFoundView;
 @property (readwrite, nonatomic, weak) IBOutlet UIImageView *nothingFoundConeImageView;
 
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *emptyListButton;
+
 - (IBAction)URLEnteredInField:(id)sender;
+- (IBAction)emptyListAction:(id)sender;
 
 @end

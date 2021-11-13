@@ -46,6 +46,7 @@
                              object:[NSUbiquitousKeyValueStore defaultStore]];
 
     self.playURLField.placeholder = NSLocalizedString(@"ENTER_URL", nil);
+    self.emptyListButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
 
     self.previouslyPlayedStreamsTableView.backgroundColor = [UIColor clearColor];
     self.previouslyPlayedStreamsTableView.rowHeight = UITableViewAutomaticDimension;
@@ -158,6 +159,36 @@
     [self presentViewController:[VLCFullscreenMovieTVViewController fullscreenMovieTVViewController]
                        animated:YES
                      completion:nil];
+}
+
+- (void)emptyListAction:(id)sender
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"RESET_NETWORK_STREAM_LIST_TITLE", nil)
+                                                                             message:NSLocalizedString(@"RESET_NETWORK_STREAM_LIST_TEXT", nil)
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_RESET", nil)
+                                                     style:UIAlertActionStyleDestructive
+                                                   handler:^(UIAlertAction *action){
+        @synchronized(self->_recentURLs) {
+            NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+            [ubiquitousKeyValueStore setArray:@[] forKey:kVLCRecentURLs];
+            [ubiquitousKeyValueStore setDictionary:@{} forKey:kVLCRecentURLTitles];
+            [[NSUbiquitousKeyValueStore defaultStore] synchronize];
+            self->_recentURLs = [NSMutableArray array];
+            self->_recentURLTitles = [NSMutableDictionary dictionary];
+            [self.previouslyPlayedStreamsTableView reloadData];
+        }
+    }];
+    [alertController addAction:deleteAction];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:nil];
+    [alertController addAction:cancelAction];
+    if ([alertController respondsToSelector:@selector(setPreferredAction:)]) {
+        [alertController setPreferredAction:deleteAction];
+    }
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - editing

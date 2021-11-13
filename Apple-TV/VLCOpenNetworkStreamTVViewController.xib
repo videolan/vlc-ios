@@ -1,12 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="19162" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCOpenNetworkStreamTVViewController">
             <connections>
                 <outlet property="deleteHintView" destination="Wa3-IS-ztU" id="ipW-Hx-fMJ"/>
+                <outlet property="emptyListButton" destination="OXZ-Zx-045" id="kJS-RB-MGp"/>
                 <outlet property="nothingFoundConeImageView" destination="aAb-aY-bkT" id="Abp-Yt-oQb"/>
                 <outlet property="nothingFoundLabel" destination="sdc-e1-PSc" id="dvi-jc-vaR"/>
                 <outlet property="nothingFoundView" destination="dvt-CP-ALF" id="lg3-aJ-oHg"/>
@@ -22,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter URL to play" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dWa-3n-YCa">
-                    <rect key="frame" x="648" y="193" width="625" height="82"/>
+                    <rect key="frame" x="647.5" y="193" width="625" height="82"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="625" id="3fz-h4-cGU"/>
                         <constraint firstAttribute="height" constant="82" id="hDw-hW-ont"/>
@@ -34,8 +38,8 @@
                     </connections>
                 </textField>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="40" sectionFooterHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="v0o-s0-Xaz">
-                    <rect key="frame" x="183" y="345" width="1555" height="665"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="182.5" y="345" width="1555" height="665"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="1555" id="ELC-Ea-jpC"/>
                     </constraints>
@@ -45,19 +49,19 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvt-CP-ALF">
-                    <rect key="frame" x="961" y="541" width="0.0" height="274"/>
+                    <rect key="frame" x="961" y="540.5" width="0.0" height="274"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cone" translatesAutoresizingMaskIntoConstraints="NO" id="aAb-aY-bkT">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="cone" translatesAutoresizingMaskIntoConstraints="NO" id="aAb-aY-bkT">
                             <rect key="frame" x="-72" y="25" width="143" height="158"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nuting found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdc-e1-PSc">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="nuting found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdc-e1-PSc">
                             <rect key="frame" x="-109" y="213" width="217" height="46"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.66666668653488159" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="aAb-aY-bkT" firstAttribute="centerX" secondItem="dvt-CP-ALF" secondAttribute="centerX" id="T2B-Dd-kNQ"/>
                         <constraint firstAttribute="bottom" secondItem="sdc-e1-PSc" secondAttribute="bottom" constant="15" id="WnV-66-ihQ"/>
@@ -69,11 +73,23 @@
                 <view hidden="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="550" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="Wa3-IS-ztU" customClass="VLCDeleteHintTVView">
                     <rect key="frame" x="685" y="930" width="550" height="100"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OXZ-Zx-045">
+                    <rect key="frame" x="1633.5" y="202" width="104" height="64"/>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="delete"/>
+                    <buttonConfiguration key="configuration" style="gray" image="delete"/>
+                    <connections>
+                        <action selector="emptyListAction:" destination="-1" eventType="primaryActionTriggered" id="Pp6-st-y2N"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="Wa3-IS-ztU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0ms-Lt-g1Q"/>
                 <constraint firstItem="dWa-3n-YCa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="193" id="6FP-0U-Znd"/>
                 <constraint firstItem="dvt-CP-ALF" firstAttribute="centerY" secondItem="v0o-s0-Xaz" secondAttribute="centerY" id="GIx-LR-UOF"/>
+                <constraint firstItem="OXZ-Zx-045" firstAttribute="trailing" secondItem="v0o-s0-Xaz" secondAttribute="trailing" id="HGJ-W8-lfl"/>
+                <constraint firstItem="OXZ-Zx-045" firstAttribute="centerY" secondItem="dWa-3n-YCa" secondAttribute="centerY" id="O9J-Zz-Pur"/>
                 <constraint firstAttribute="bottom" secondItem="Wa3-IS-ztU" secondAttribute="bottom" constant="50" id="ZDa-1f-46j"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="elq-bO-Tb3"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="top" secondItem="dWa-3n-YCa" secondAttribute="bottom" constant="70" id="jCe-Gz-82c"/>
@@ -81,9 +97,11 @@
                 <constraint firstItem="dvt-CP-ALF" firstAttribute="centerX" secondItem="v0o-s0-Xaz" secondAttribute="centerX" id="uSF-XP-xr0"/>
                 <constraint firstAttribute="bottom" secondItem="v0o-s0-Xaz" secondAttribute="bottom" constant="70" id="ydf-eT-5UK"/>
             </constraints>
+            <point key="canvasLocation" x="185" y="34"/>
         </view>
     </objects>
     <resources>
         <image name="cone" width="143" height="158"/>
+        <image name="delete" width="24" height="24"/>
     </resources>
 </document>

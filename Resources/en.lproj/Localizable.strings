@@ -293,6 +293,9 @@
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Shuffle";
 
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";

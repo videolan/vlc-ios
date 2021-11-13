@@ -210,6 +210,7 @@
 		7D63C19018774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m */; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
+		7D71F17E273FECD300F957D4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7D7EF3DA1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */; };
 		7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */; };
 		7D7EF3DD1BD5779F00CD4CEE /* VLCPlaybackService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE56C191AD93F9100E8CA00 /* VLCPlaybackService.m */; };
@@ -2796,6 +2797,7 @@
 				7DDE41931BE925820065C53A /* Assets.xcassets in Resources */,
 				DD29A3E91BF223D000A27A91 /* Localizable.strings in Resources */,
 				DD8095EC1BE4F04E0065D8E1 /* VLCPlaybackInfoPlaybackTVViewController.xib in Resources */,
+				7D71F17E273FECD300F957D4 /* Images.xcassets in Resources */,
 				7DEC8BE91BD68BC9006E1093 /* Settings.bundle in Resources */,
 				DD9D8F681C01FAB500B4060F /* VLCPlaybackInfoChaptersTVViewController.xib in Resources */,
 				6B4E33D21BF2A39400A35255 /* playerControl.js in Resources */,
