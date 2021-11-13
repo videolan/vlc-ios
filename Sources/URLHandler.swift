@@ -58,7 +58,6 @@ extension VLCURLHandler {
 
         play(url: safeMovieURL, sub: self.subURL) { success in
             guard let callback = success ? self.successCallback : self.errorCallback else {
-                assertionFailure("VLCURLHandler: Invalid callback.")
                 return
             }
 
