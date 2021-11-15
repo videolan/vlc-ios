@@ -293,6 +293,9 @@
 "REPEAT_FOLDER" = "폴더";
 "SHUFFLE" = "순서섞기";
 
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "유니버셜 플러그 앤 플래이(UPnP)";
 "UPNP_SHORT" = "UPnP";
@@ -446,6 +449,9 @@
 "MORE_OPTIONS_BUTTON" = "더";
 "MORE_OPTIONS_HINT" = "옵션 컨트롤 더 보기";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "자막 미지원";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "아직 캐스팅 도중에는 자막을 지원하지 않습니다.";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "이퀄라이저";
 "MORE_OPTIONS_HEADER_TITLE" = "비디오 옵션";
@@ -493,9 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "기부하기";
+"MAKE_DONATION_TITLE" = "후원하기";
+"DONATION_DESCRIPTION" = "당신의 후원이 iOS용 VLC 앱을 개선하고 VideoLAN 협회를 유지할 수 있도록 합니다.";
 "CANNOT_MAKE_PAYMENTS" = "당신은 이 기기에서 결제하는 것이 허용되지 않았습니다.";
-"PURCHASE_FAILED" = "구매 실패함";
-"SEND_GIFT" = "선물하기";
+"PURCHASE_FAILED" = "구매를 실패하였습니다.";
+"SEND_DONATION" = "후원 보내기";
+"PURCHASE_SUCESS_TITLE" = "후원 완료";
+"PURCHASE_SUCESS_DESCRIPTION" = "후원해주셔서 감사드립니다!";
 
 // MARK: - QueueViewController
 
