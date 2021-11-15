@@ -98,7 +98,7 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Nedladdning avbruten av användare";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Ange en adress för att hämta filen till din %@";
+"DOWNLOAD_FROM_HTTP_HELP" = "Ange en adress för att ladda ned filen till din %@";
 "DOWNLOAD_FROM_HTTP" = "Nedladdningar";
 "ERROR_NUMBER" = "Felet %i uppstod";
 "DOWNLOAD_FAILED" = "Nedladdning misslyckades";
@@ -293,6 +293,9 @@
 "REPEAT_FOLDER" = "Mapp";
 "SHUFFLE" = "Blanda";
 
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Återställ lista";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Återställ listan över senast uppspelade nätverksströmmar permanent.";
+
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
@@ -446,6 +449,9 @@
 "MORE_OPTIONS_BUTTON" = "Mer";
 "MORE_OPTIONS_HINT" = "Visa fler kontrollalternativ";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Stöd för undertexter saknas";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Det finns ännu inget stöd för undertexter vid casting.";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoalternativ";
@@ -493,9 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Ge dricks";
+"MAKE_DONATION_TITLE" = "Donera";
+"DONATION_DESCRIPTION" = "Din sponsring låter oss förbättra VLC-appen för iOS och stödja VideoLAN-associationen.";
 "CANNOT_MAKE_PAYMENTS" = "Du har inte tillåtelse att genomföra köp på denna enhet.";
-"PURCHASE_FAILED" = "Köp misslyckades";
-"SEND_GIFT" = "Skicka din gåva";
+"PURCHASE_FAILED" = "Köp misslyckades.";
+"SEND_DONATION" = "Skicka din donation";
+"PURCHASE_SUCESS_TITLE" = "Donation skickades";
+"PURCHASE_SUCESS_DESCRIPTION" = "Tack för din donation!";
 
 // MARK: - QueueViewController
 
