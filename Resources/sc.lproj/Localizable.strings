@@ -251,7 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Traga sos documentos in sa ventana pro los annànghere a su %@ tuo.<br>O incarca in su butone \"+\" pro impreare su seletzionadore de documentos.";
 "WEBINTF_DOWNLOADFILES" = "Iscàrriga documentos";
 "WEBINTF_DOWNLOADFILES_LONG" = "Depes petzi incarcare su documentu chi cheres iscarrigare dae su %@ tuo.";
-"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
+"WEBINTF_ADDRESS_COPIED" = "Indiritzu copiadu in punta de billete";
 "WEBINTF_TITLE_ATV" = "Riprodutzione remota";
 "WEBINTF_DROPFILES_LONG_ATV" = "Traga sos documentos in sa ventana pro los riproduire in su %@ tuo.<br>O incarca in su butone \"+\" pro impreare su seletzionadore de documentos.";
 "WEBINTF_URL_SENT" = "URL imbiadu cun sutzessu.";
@@ -292,6 +292,9 @@
 "REPEAT_SINGLE" = "Sìngulu";
 "REPEAT_FOLDER" = "Cartella";
 "SHUFFLE" = "Ammistura";
+
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
@@ -446,6 +449,9 @@
 "MORE_OPTIONS_BUTTON" = "Àteru";
 "MORE_OPTIONS_HINT" = "Pòmpia àteros controllos optzionales";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Sutatìtulos non suportados";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Sos sutatìtulos non sunt galu suportados durante sa trasmissione";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ecualizadore";
 "MORE_OPTIONS_HEADER_TITLE" = "Optziones vìdeu";
@@ -493,9 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Lassa una bonamanu";
+"MAKE_DONATION_TITLE" = "Faghe una donatzione";
+"DONATION_DESCRIPTION" = "S'isponsorizatzione nos at a permìtere de megiorare s'aplicatzione de VLC pro iOS e de suportare s'Assòtziu VideoLAN.";
 "CANNOT_MAKE_PAYMENTS" = "Non ses autorizadu a fàghere gastos in custu dispositivu.";
-"PURCHASE_FAILED" = "Còmpora fallida";
-"SEND_GIFT" = "Imbia su donu tuo";
+"PURCHASE_FAILED" = "Còmpora fallida.";
+"SEND_DONATION" = "Imbia sa donatzione tua";
+"PURCHASE_SUCESS_TITLE" = "Donatzione imbiada";
+"PURCHASE_SUCESS_DESCRIPTION" = "Gràtzias pro sa donatzione tua!";
 
 // MARK: - QueueViewController
 
