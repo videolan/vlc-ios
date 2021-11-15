@@ -29,13 +29,14 @@ target 'VLC-iOS' do
   pod 'MarqueeLabel', '4.0.2'
   pod 'ObjectiveDropboxOfficial'
 
-  target 'VLC-iOS-Screenshots' do
-    inherit! :search_paths
-    pod 'SimulatorStatusMagic'
-  end
   target 'VLC-iOSTests' do
       inherit! :search_paths
   end
+end
+
+target 'VLC-iOS-Screenshots' do
+  inherit! :search_paths
+  pod 'SimulatorStatusMagic'
 end
 
 target 'VLC-tvOS' do
