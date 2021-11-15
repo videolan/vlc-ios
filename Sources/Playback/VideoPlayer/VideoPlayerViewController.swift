@@ -524,7 +524,7 @@ class VideoPlayerViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if playbackService.videoOutputView == videoOutputView {
+        if playbackService.videoOutputView == videoOutputView && !playbackService.isPlayingOnExternalScreen() {
             playbackService.videoOutputView = nil
         }
         // FIXME: -
