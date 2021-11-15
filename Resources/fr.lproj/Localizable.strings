@@ -293,6 +293,9 @@
 "REPEAT_FOLDER" = "Dossier";
 "SHUFFLE" = "Shuffle";
 
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Réinitialiser la liste";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Réinitialiser définitivement la liste des flux réseau récemment lus.";
+
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Plug 'n' Play Universel (UPnP)";
 "UPNP_SHORT" = "UPnP";
@@ -446,6 +449,9 @@
 "MORE_OPTIONS_BUTTON" = "Plus";
 "MORE_OPTIONS_HINT" = "Voir plus de contrôles d'option";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Sous-titres non pris en charge";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Les sous-titres ne sont pas encore pris en charge pendant le streaming.";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Égaliseur";
 "MORE_OPTIONS_HEADER_TITLE" = "Options vidéo";
@@ -493,9 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Donner un pourboire";
+"MAKE_DONATION_TITLE" = "Faire un don";
+"DONATION_DESCRIPTION" = "Votre parrainage nous permettra d'améliorer l'application VLC-iOS et de soutenir l'association VideoLAN";
 "CANNOT_MAKE_PAYMENTS" = "Vous n'êtes pas autorisé à effectuer des paiements sur cet appareil.";
-"PURCHASE_FAILED" = "Échec de l'achat";
-"SEND_GIFT" = "Envoyez votre cadeau";
+"PURCHASE_FAILED" = "Échec de l'achat.";
+"SEND_DONATION" = "Envoyez votre don";
+"PURCHASE_SUCESS_TITLE" = "Donation envoyée";
+"PURCHASE_SUCESS_DESCRIPTION" = "Nous vous remercions pour votre don !";
 
 // MARK: - QueueViewController
 
