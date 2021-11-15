@@ -293,6 +293,9 @@
 "REPEAT_FOLDER" = "Priečinok";
 "SHUFFLE" = "Náhodne";
 
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset zoznamu";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Natrvalo resetovať zoznam naposledy prehraných sieťových streamov.";
+
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
@@ -446,6 +449,9 @@
 "MORE_OPTIONS_BUTTON" = "Viac";
 "MORE_OPTIONS_HINT" = "Zobraziť viac možností ovládania";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Titulky nie sú podporované";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Titulky ešte nie sú podporované počas streamovania (castingu).";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ekvalizér";
 "MORE_OPTIONS_HEADER_TITLE" = "Možnosti videa";
@@ -493,9 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Prispieť";
+"MAKE_DONATION_TITLE" = "Podporiť";
+"DONATION_DESCRIPTION" = "Vaše sponzorovanie nám umožní vylepšiť aplikáciu VLC-iOS a podporiť asociáciu VideoLAN.";
 "CANNOT_MAKE_PAYMENTS" = "Nemáte oprávnenie na platenie na tomto zariadení.";
-"PURCHASE_FAILED" = "Objednanie bolo neúspešné";
-"SEND_GIFT" = "Pošlite svoj darček";
+"PURCHASE_FAILED" = "Objednanie bolo neúspešné.";
+"SEND_DONATION" = "Pošlite svoj príspevok";
+"PURCHASE_SUCESS_TITLE" = "Príspevok bol odoslaný";
+"PURCHASE_SUCESS_DESCRIPTION" = "Ďakujeme Vám za Váš príspevok!";
 
 // MARK: - QueueViewController
 
