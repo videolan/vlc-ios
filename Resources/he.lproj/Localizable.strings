@@ -293,6 +293,9 @@
 "REPEAT_FOLDER" = "תיקייה";
 "SHUFFLE" = "ערבוב";
 
+"RESET_NETWORK_STREAM_LIST_TITLE" = "איפוס הרשימה";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "איפוס הרשימה של תזרימי הרשת שנוגנו לאחרונה לצמיתות.";
+
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Plug'n'Play אוניברסלי (UPnP)";
 "UPNP_SHORT" = "UPnP";
@@ -446,6 +449,9 @@
 "MORE_OPTIONS_BUTTON" = "עוד";
 "MORE_OPTIONS_HINT" = "הצגת פקדים לאפשרויות נוספות";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "אין תמיכה בכתוביות";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "עדיין אין תמיכה בכתוביות בזמן שידור.";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "אקולייזר";
 "MORE_OPTIONS_HEADER_TITLE" = "אפשרויות וידאו";
@@ -493,9 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "להעניק טיפ";
+"MAKE_DONATION_TITLE" = "לתרום";
+"DONATION_DESCRIPTION" = "המימון שלך יאפשר לשפר את היישומון VLC-iOS ולתמוך באיגוד VideoLAN.";
 "CANNOT_MAKE_PAYMENTS" = "אסור לך לשלם דרך המכשיר הזה.";
-"PURCHASE_FAILED" = "הרכישה נכשלה";
-"SEND_GIFT" = "שליחת המתנה שלך";
+"PURCHASE_FAILED" = "הרכישה נכשלה.";
+"SEND_DONATION" = "שליחת התרומה שלך";
+"PURCHASE_SUCESS_TITLE" = "התרומה נשלחה";
+"PURCHASE_SUCESS_DESCRIPTION" = "תודה רבה על התרומה שלך!";
 
 // MARK: - QueueViewController
 
