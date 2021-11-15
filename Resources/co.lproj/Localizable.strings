@@ -293,6 +293,9 @@
 "REPEAT_FOLDER" = "Cartulare";
 "SHUFFLE" = "Aleatoriu";
 
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Plug’n’Play (UPnP) Universale";
 "UPNP_SHORT" = "UPnP";
@@ -446,6 +449,9 @@
 "MORE_OPTIONS_BUTTON" = "Più";
 "MORE_OPTIONS_HINT" = "Fighjà più di cuntrolli d’ozzione";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Subtitles unsupported";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Subtitles are not yet supported while casting.";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ugualizatore";
 "MORE_OPTIONS_HEADER_TITLE" = "Ozzioni video";
@@ -493,9 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Dà un bonamanu";
+"MAKE_DONATION_TITLE" = "Make a donation";
+"DONATION_DESCRIPTION" = "Your sponsorship will allow us to improve the VLC-iOS app and support the VideoLAN association.";
 "CANNOT_MAKE_PAYMENTS" = "Ùn avete micca u permessu d’effettuà pagamenti nant’à st’apparechju.";
-"PURCHASE_FAILED" = "Fiascu di a comprera";
-"SEND_GIFT" = "Mandà u vostru rigalu";
+"PURCHASE_FAILED" = "Purchase Failed.";
+"SEND_DONATION" = "Send your donation";
+"PURCHASE_SUCESS_TITLE" = "Donation sent";
+"PURCHASE_SUCESS_DESCRIPTION" = "Thank you for your donation!";
 
 // MARK: - QueueViewController
 
