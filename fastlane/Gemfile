@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'cocoapods', '~> 1.8.4'
-gem 'fastlane', '~> 2.137.0'
-gem 'rubocop', '~> 0.74.0'
-gem 'xcode-install', '~> 2.6.1'
-gem 'xcodeproj', '~> 1.12.0'
+gem 'cocoapods', '~> 1.11.2'
+gem 'fastlane', '~> 2.197.0'
+gem 'rubocop', '~> 1.22.3'
+gem 'xcode-install', '~> 2.8.0'
+gem 'xcodeproj', '~> 1.21.0'
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
 eval_gemfile(plugins_path) if File.exist?(plugins_path)
