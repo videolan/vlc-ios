@@ -251,7 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Εναποθέστε αρχεία στο παράθυρο για να τα προσθέσετε στο %@.<br> Ή κάντε κλικ στο κουμπί \"+\" για να χρησιμοποιήσετε το παράθυρο διαλόγου επιλογής αρχείων.";
 "WEBINTF_DOWNLOADFILES" = "Λήψη αρχείων";
 "WEBINTF_DOWNLOADFILES_LONG" = "Απλά κάντε κλικ στο αρχείο που θέλετε να λάβετε από το %@.";
-"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
+"WEBINTF_ADDRESS_COPIED" = "Η διεύθυνση αντιγράφηκε στο πρόχειρο";
 "WEBINTF_TITLE_ATV" = "Απομακρυσμένη αναπαραγωγή";
 "WEBINTF_DROPFILES_LONG_ATV" = "Εναποθέστε αρχεία στο παράθυρο για αναπαραγωγή στο %@.<br> Ή κάντε κλικ στο κουμπί \"+\" για να χρησιμοποιήσετε το παράθυρο διαλόγου επιλογής αρχείων.";
 "WEBINTF_URL_SENT" = "Επιτυχής αποστολή URL.";
@@ -292,6 +292,9 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Φάκελος";
 "SHUFFLE" = "Ανακάτεμα";
+
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Οικουμενική σύνδεση και χρήση (UPnP)";
@@ -446,6 +449,9 @@
 "MORE_OPTIONS_BUTTON" = "Περισσότερα";
 "MORE_OPTIONS_HINT" = "Εμφάνιση περισσότερων επιλογών χειρισμού";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Οι υπότιτλοι δεν υποστηρίζονται";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Δεν υπάρχει υποστήριξη υποτίτλων ακόμη κατά τη μετάδοση";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ισοσταθμιστής";
 "MORE_OPTIONS_HEADER_TITLE" = "Επιλογές βίντεο";
@@ -493,9 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Δώστε ένα φιλοδώρημα";
+"MAKE_DONATION_TITLE" = "Κάντε μια δωρεά";
+"DONATION_DESCRIPTION" = "Η χορηγία σας θα μας επιτρέψει να βελτιώσουμε την εφαρμογή VLC-iOS και να υποστηρίξουμε την οργάνωση VideoLAN.";
 "CANNOT_MAKE_PAYMENTS" = "Δεν μπορείτε να εκτελέσετε πληρωμές από αυτή τη συσκευή.";
-"PURCHASE_FAILED" = "Αποτυχία αγοράς";
-"SEND_GIFT" = "Αποστολή δώρου";
+"PURCHASE_FAILED" = "Η αγορά απέτυχε.";
+"SEND_DONATION" = "Στείλτε τη δωρεά σας";
+"PURCHASE_SUCESS_TITLE" = "Η δωρεά στάλθηκε";
+"PURCHASE_SUCESS_DESCRIPTION" = "Σας ευχαριστούμε για τη δωρεά σας!";
 
 // MARK: - QueueViewController
 
@@ -531,6 +541,6 @@
 
 "KEY_JUMP_BACKWARDS" = "Μεταπήδηση προς τα πίσω";
 "KEY_JUMP_FORWARDS" = "Μεταπήδηση προς τα μπρος";
-"KEY_INCREASE_PLAYBACK_SPEED" = "Αυξήστε την ταχύτητα αναπαραγωγής";
-"KEY_DECREASE_PLAYBACK_SPEED" = "Μειώστε την ταχύτητα αναπαραγωγής";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Αύξηση ταχύτητας αναπαραγωγής";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Μείωση ταχύτητας αναπαραγωγής";
 "KEY_RESET_PLAYBACK_SPEED" = "Επαναφορά ταχύτητας αναπαραγωγής";
