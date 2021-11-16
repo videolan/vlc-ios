@@ -293,6 +293,9 @@
 "REPEAT_FOLDER" = "文件夹";
 "SHUFFLE" = "随机 ";
 
+"RESET_NETWORK_STREAM_LIST_TITLE" = "重置列表";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "永久重置最近播放的网络流列表。";
+
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "通用即插即用 (UPnP)";
 "UPNP_SHORT" = "UPnP";
@@ -446,6 +449,9 @@
 "MORE_OPTIONS_BUTTON" = "更多";
 "MORE_OPTIONS_HINT" = "查看更多选项控件";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "不支持字幕";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "尚不支持投屏播放时显示字幕";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "均衡器";
 "MORE_OPTIONS_HEADER_TITLE" = "视频选项";
@@ -493,9 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "给小费";
+"MAKE_DONATION_TITLE" = "捐赠";
+"DONATION_DESCRIPTION" = "您的赞助将允许我们改进 VLC-iOS 应用程序，并支持 VideoLAN 协会。";
 "CANNOT_MAKE_PAYMENTS" = "您不被允许在此设备上付款。";
 "PURCHASE_FAILED" = "购买失败";
-"SEND_GIFT" = "发送你的礼物";
+"SEND_DONATION" = "发送捐款";
+"PURCHASE_SUCESS_TITLE" = "捐赠已发送";
+"PURCHASE_SUCESS_DESCRIPTION" = "感谢您的捐赠";
 
 // MARK: - QueueViewController
 
