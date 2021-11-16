@@ -293,6 +293,9 @@
 "REPEAT_FOLDER" = "Mappa";
 "SHUFFLE" = "Keverés";
 
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Lista visszaállítása";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "A legutóbb lejátszott hálózati közvetítések listájának végleges visszaállítása.";
+
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Univerzális Plug'n'Play (UPnP)";
 "UPNP_SHORT" = "UPnP";
@@ -446,6 +449,9 @@
 "MORE_OPTIONS_BUTTON" = "Több";
 "MORE_OPTIONS_HINT" = "További beállításvezérlők megjelenítése";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "A feliratok nem támogatottak";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "A feliratok megjelenítése vetítés közben még nem támogatott.";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Hangszínszabályzó";
 "MORE_OPTIONS_HEADER_TITLE" = "Videobeállítások";
@@ -493,9 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Adjon borravalót";
+"MAKE_DONATION_TITLE" = "Támogatás";
+"DONATION_DESCRIPTION" = "A felajánlása lehetővé teszi a VLC-iOS alkalmazás fejlesztését és VideoLAN szervezet támogatását.";
 "CANNOT_MAKE_PAYMENTS" = "Nem fizethet ezen az eszközön.";
-"PURCHASE_FAILED" = "A vásárlás sikertelen";
-"SEND_GIFT" = "Küldje el az ajándékát";
+"PURCHASE_FAILED" = "A vásárlás sikertelen.";
+"SEND_DONATION" = "Felajánlás küldése";
+"PURCHASE_SUCESS_TITLE" = "Adomány elküldve";
+"PURCHASE_SUCESS_DESCRIPTION" = "Köszönjük az adományát!";
 
 // MARK: - QueueViewController
 
