@@ -74,11 +74,11 @@
                     <rect key="frame" x="685" y="930" width="550" height="100"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OXZ-Zx-045">
-                    <rect key="frame" x="1633.5" y="202" width="104" height="64"/>
+                    <rect key="frame" x="1609.5" y="190" width="128" height="88"/>
                     <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" image="delete"/>
-                    <buttonConfiguration key="configuration" style="gray" image="delete"/>
+                    <buttonConfiguration key="configuration" style="gray" image="deleteImage"/>
                     <connections>
                         <action selector="emptyListAction:" destination="-1" eventType="primaryActionTriggered" id="Pp6-st-y2N"/>
                     </connections>
@@ -103,5 +103,6 @@
     <resources>
         <image name="cone" width="143" height="158"/>
         <image name="delete" width="24" height="24"/>
+        <image name="deleteImage" width="48" height="48"/>
     </resources>
 </document>
