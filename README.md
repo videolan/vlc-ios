@@ -99,7 +99,7 @@ Additionally, commit messages should have all the information needed to understa
 
     Description in detail if needed.
 
-    (ticket related action)
+    ticket related action
 ```
 
 For example:
@@ -107,7 +107,7 @@ For example:
 ```
     UPnP: Remove iOS 7 compatiblity code
 
-    (closes #166)
+    Closes #166
 ```
 
 ### Gitlab issues
