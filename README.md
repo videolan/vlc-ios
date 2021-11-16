@@ -46,8 +46,6 @@ It's currently written in Objective-C / Swift and uses [VLCKit](https://code.vid
 5. Hit "Build and Run".
 
 
-
-
 ### Custom VLCKit
 
 Mostly for debugging or advanced users, you might want to have a custom local VLCKit build.
