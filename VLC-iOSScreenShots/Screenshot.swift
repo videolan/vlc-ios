@@ -14,14 +14,16 @@ import Foundation
 import XCTest
 
 class Screenshot: XCTestCase {
+    // Path to the xcappdata we need to fill the application for the screenshots
+    let dataPath: String = ""
     let app = XCUIApplication()
     var helper: TestHelper!
 
     override func setUp() {
         super.setUp()
         app.launchEnvironment = [
-            "HOME" : "/Users/caro/Documents/Projects/vlc-ios/AppStoreData28June.xcappdata/AppData",
-            "CFFIXED_USER_HOME" : "/Users/caro/Documents/Projects/vlc-ios/AppStoreData28June.xcappdata/AppData"]
+            "HOME" : dataPath,
+            "CFFIXED_USER_HOME" : dataPath]
         XCUIDevice.shared.orientation = .portrait
         SDStatusBarManager.sharedInstance().enableOverrides()
         setupSnapshot(app)
