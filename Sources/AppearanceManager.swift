@@ -60,7 +60,6 @@ class AppearanceManager: NSObject {
             UITabBar.appearance().unselectedItemTintColor = theme.colors.cellDetailTextColor
         }
 
-        UIPageControl.appearance().backgroundColor = theme.colors.background
         UIPageControl.appearance().pageIndicatorTintColor = .lightGray
         UIPageControl.appearance().currentPageIndicatorTintColor = theme.colors.orangeUI
     }

@@ -56,7 +56,7 @@ extension VLCMLMedia {
         if image == nil
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && subtype() != .albumTrack)
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && subtype() == .albumTrack) {
-            let isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme
+            let isDarktheme = PresentationTheme.current.isDark
             if subtype() == .albumTrack {
                 image = isDarktheme ? UIImage(named: "song-placeholder-dark") : UIImage(named: "song-placeholder-white")
             } else {

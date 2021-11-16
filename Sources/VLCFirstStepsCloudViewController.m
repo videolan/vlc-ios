@@ -30,7 +30,7 @@
     self.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
     self.descriptionLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
     self.backgroundView.backgroundColor = PresentationTheme.current.colors.background;
-    BOOL isDarkTheme = PresentationTheme.current == PresentationTheme.darkTheme;
+    BOOL isDarkTheme = PresentationTheme.current.isDark;
     self.phoneImage.image = isDarkTheme ? [UIImage imageNamed:@"blackCloudiPhone"] : [UIImage imageNamed:@"whiteCloudiPhone"];
 }
 

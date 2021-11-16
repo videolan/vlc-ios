@@ -50,7 +50,7 @@
         self.artworkImage = [media thumbnailImage];
         self.isAudioOnly = [media subtype] == VLCMLMediaSubtypeAlbumTrack;
     } else { // We're streaming something
-        BOOL isDarktheme = PresentationTheme.current == PresentationTheme.darkTheme;
+        BOOL isDarktheme = PresentationTheme.current.isDark;
         self.artworkImage = isDarktheme ? [UIImage imageNamed:@"song-placeholder-dark"]
                                         : [UIImage imageNamed:@"song-placeholder-white"];
         [self fillFromMetaDict:mediaPlayer];
