@@ -251,7 +251,7 @@
 "WEBINTF_DROPFILES_LONG" = "Zet bestanden in het venster om ze toe te voegen aan uw %@.<br>Of klik op de \"+\"-knop om het bestandskeuzevenster te gebruiken.";
 "WEBINTF_DOWNLOADFILES" = "Bestanden downloaden";
 "WEBINTF_DOWNLOADFILES_LONG" = "Klik op het bestand dat u wil downloaden van uw %@.";
-"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
+"WEBINTF_ADDRESS_COPIED" = "Adres naar klembord gekopieerd";
 "WEBINTF_TITLE_ATV" = "Remote Playback";
 "WEBINTF_DROPFILES_LONG_ATV" = "Zet bestanden in het venster om ze af te spelen op uw %@.<br>Of klik op de \"+\"-knop om het bestandskeuzevenster te gebruiken.";
 "WEBINTF_URL_SENT" = "URL succesvol verzonden.";
@@ -292,6 +292,9 @@
 "REPEAT_SINGLE" = "Een herhalen";
 "REPEAT_FOLDER" = "Map";
 "SHUFFLE" = "Willekeurige volgorde";
+
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Lijst herstellen";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "De lijst van recent afgespeelde netwerkstreams permanent herstellen.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Universele Plug'n'Play (UPnP)";
@@ -446,6 +449,9 @@
 "MORE_OPTIONS_BUTTON" = "Meer";
 "MORE_OPTIONS_HINT" = "Meer optiebedieningen weergeven";
 
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Ondertitels niet ondersteund";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Ondertitels worden nog niet ondersteund tijdens het casten.";
+
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video-opties";
@@ -493,9 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Een fooi geven";
+"MAKE_DONATION_TITLE" = "Doneren";
+"DONATION_DESCRIPTION" = "Uw sponsoring zal ons toelaten om de VLC-app voor iOS te verbeteren en de VideoLAN-associatie te ondersteunen.";
 "CANNOT_MAKE_PAYMENTS" = "U bent niet gemachtigd om betalingen uit te voeren op dit apparaat.";
-"PURCHASE_FAILED" = "Aankoop mislukt";
-"SEND_GIFT" = "Uw geschenk versturen";
+"PURCHASE_FAILED" = "Aankoop mislukt.";
+"SEND_DONATION" = "Uw donatie versturen";
+"PURCHASE_SUCESS_TITLE" = "Donatie verstuurd";
+"PURCHASE_SUCESS_DESCRIPTION" = "Bedankt voor uw donatie!";
 
 // MARK: - QueueViewController
 
