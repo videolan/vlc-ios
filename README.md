@@ -93,7 +93,7 @@ Pull request are more than welcome! If you do submit one, please make sure to us
 
 We try to follow a simple set of rules, outlined by this [guide](https://chris.beams.io/posts/git-commit/).
 
-Additionally, commit messages should have all the information needed to understand the commit easily as the follwing:
+Additionally, commit messages should have all the information needed to understand the commit easily as the following:
 
 ```
     Subject: Brief description
@@ -106,7 +106,7 @@ Additionally, commit messages should have all the information needed to understa
 For example:
 
 ```
-    UPnP: Remove iOS 7 compatiblity code
+    UPnP: Remove iOS 7 compatibility code
 
     Closes #166
 ```
