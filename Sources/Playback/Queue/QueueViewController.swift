@@ -39,6 +39,7 @@ class QueueViewController: UIViewController {
     @IBOutlet weak var grabberView: UIView!
     @IBOutlet weak var artworkImageBackgroundView: UIImageView!
     @IBOutlet weak var artworkBlurView: UIVisualEffectView!
+    @IBOutlet weak var closeButton: UIButton!
 
     private var scrolledCellIndex: IndexPath = IndexPath()
 
@@ -266,7 +267,7 @@ class QueueViewController: UIViewController {
         })
     }
 
-    private func dismissPlayqueue() {
+    @objc private func dismissPlayqueue() {
         if let parent = parent {
             var newY: CGFloat = view.frame.height
             if #available(iOS 11.0, *) {
@@ -322,6 +323,11 @@ private extension QueueViewController {
         themeDidChange()
         grabberView.layer.cornerRadius = 2.5
         view.backgroundColor = PresentationTheme.darkTheme.colors.background
+
+        closeButton.setTitle("", for: .normal)
+        closeButton.tintColor = .white
+        closeButton.addTarget(self, action: #selector(dismissPlayqueue), for: .touchUpInside)
+        closeButton.layer.cornerRadius = 12
     }
 
     private func initDarkOverlayView() {
