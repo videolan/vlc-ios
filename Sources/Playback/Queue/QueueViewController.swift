@@ -260,18 +260,21 @@ class QueueViewController: UIViewController {
     }
 
     private func showPlayqueue() {
-        topConstraint?.constant = topConstraintConstant
+        bottomConstraint?.constant = 0
         UIView.animate(withDuration: animationDuration, animations: {
-            self.view.layoutIfNeeded()
+            self.parent?.view.layoutIfNeeded()
         })
     }
 
     private func dismissPlayqueue() {
         if let parent = parent {
-            let newY: CGFloat = parent.view.frame.maxY
-            topConstraint?.constant = newY - originY
+            var newY: CGFloat = view.frame.height
+            if #available(iOS 11.0, *) {
+                newY -= view.safeAreaInsets.bottom
+            }
+            bottomConstraint?.constant = newY
             UIView.animate(withDuration: animationDuration, animations: {
-                self.view.layoutIfNeeded()
+                parent.view.layoutIfNeeded()
             }, completion: { _ in
                 self.dismissPlayqueueCompletion(in: parent)
             })
