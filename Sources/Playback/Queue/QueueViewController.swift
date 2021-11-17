@@ -360,6 +360,9 @@ private extension QueueViewController {
         if isSelected {
             textColor = PresentationTheme.current.colors.orangeUI
             tintColor = PresentationTheme.current.colors.orangeUI
+            cell.disableScrollView()
+        } else {
+            cell.enableScrollView()
         }
 
         cell.tintColor = tintColor
