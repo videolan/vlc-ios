@@ -66,7 +66,6 @@ end
 desc 'Take screenshots'
 lane :screenshots do
   capture_screenshots(stop_after_first_error: true)
-  frameit(white: true, path: './fastlane/screenshots')
 end
 
 #### Tests ####
