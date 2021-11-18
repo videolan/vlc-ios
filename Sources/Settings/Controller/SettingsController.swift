@@ -28,6 +28,7 @@ class SettingsController: UITableViewController {
     private var mediaLibraryService: MediaLibraryService
     private var localeDictionary = NSDictionary()
     private var isBackingUp = false
+    private let isLabActivated: Bool = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
@@ -232,7 +233,12 @@ class SettingsController: UITableViewController {
 extension SettingsController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return SettingsSection.allCases.count
+        var numberOfSections = SettingsSection.allCases.count
+        // Remove the last section if the lab is deactivated
+        if isLabActivated == false {
+            numberOfSections = numberOfSections - 1
+        }
+        return numberOfSections
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
