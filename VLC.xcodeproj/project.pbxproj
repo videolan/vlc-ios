@@ -102,6 +102,7 @@
 		597B403F2625E85000C0D81E /* SliderInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597B403E2625E85000C0D81E /* SliderInfoView.swift */; };
 		6B4E33D11BF2A39400A35255 /* playerControl.css in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33CF1BF2A39400A35255 /* playerControl.css */; };
 		6B4E33D21BF2A39400A35255 /* playerControl.js in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E33D01BF2A39400A35255 /* playerControl.js */; };
+		6CF49BBB2746998900AB1EF4 /* UISegmentedControl+CustomLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF49BBA2746998900AB1EF4 /* UISegmentedControl+CustomLabels.swift */; };
 		6D0B038825E7CBF90013DEF4 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0B038725E7CBF90013DEF4 /* PopupView.swift */; };
 		6D0C20D4249EEDA300620DA1 /* URL+isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0C20D3249EEDA300620DA1 /* URL+isHidden.swift */; };
 		6D0F71D92721B678002E0FAE /* UIAlertController+autoDismissable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0F71D82721B678002E0FAE /* UIAlertController+autoDismissable.swift */; };
@@ -630,6 +631,7 @@
 		65EC8984D840047F50AA00A1 /* libPods-VLC-iOSUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOSUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B4E33CF1BF2A39400A35255 /* playerControl.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = playerControl.css; path = Resources/web/playerControl.css; sourceTree = SOURCE_ROOT; };
 		6B4E33D01BF2A39400A35255 /* playerControl.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = playerControl.js; path = Resources/web/playerControl.js; sourceTree = SOURCE_ROOT; };
+		6CF49BBA2746998900AB1EF4 /* UISegmentedControl+CustomLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+CustomLabels.swift"; sourceTree = "<group>"; };
 		6D0B038725E7CBF90013DEF4 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopupView.swift; path = Sources/PopupView.swift; sourceTree = "<group>"; };
 		6D0C20D3249EEDA300620DA1 /* URL+isHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "URL+isHidden.swift"; path = "Sources/Extensions/URL+isHidden.swift"; sourceTree = "<group>"; };
 		6D0F71D82721B678002E0FAE /* UIAlertController+autoDismissable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIAlertController+autoDismissable.swift"; path = "Sources/Extensions/UIAlertController+autoDismissable.swift"; sourceTree = "<group>"; };
@@ -2272,6 +2274,7 @@
 				6D0C20D3249EEDA300620DA1 /* URL+isHidden.swift */,
 				6DE9183C25F65C390039AFA7 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */,
 				6D0F71D82721B678002E0FAE /* UIAlertController+autoDismissable.swift */,
+				6CF49BBA2746998900AB1EF4 /* UISegmentedControl+CustomLabels.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -3237,6 +3240,7 @@
 				DD3EFF451BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserManualConnect.m in Sources */,
 				8DF966B121188BDB00D0FCD6 /* EditController.swift in Sources */,
 				8D144D6322298E8E00984C46 /* AudioMiniPlayer.swift in Sources */,
+				6CF49BBB2746998900AB1EF4 /* UISegmentedControl+CustomLabels.swift in Sources */,
 				8D4F9B472141630000E478BE /* MediaModel.swift in Sources */,
 				8DF966EF211C643D00D0FCD6 /* PlaylistModel.swift in Sources */,
 				6D8E642A234CBF2200EBC8FC /* AudioCollectionModel.swift in Sources */,

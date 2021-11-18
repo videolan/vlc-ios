@@ -85,6 +85,8 @@ class NewPlaybackSpeedView: UIView {
         optionsSegmentedControl.setTitle(NSLocalizedString("SPU_DELAY", comment: ""), forSegmentAt: 1)
         optionsSegmentedControl.setTitle(NSLocalizedString("AUDIO_DELAY", comment: ""), forSegmentAt: 2)
 
+        optionsSegmentedControl.extendAndHyphenateLabels()
+
 //        optionsSegmentedControl.accessibilityLabel =
 //        optionsSegmentedControl.accessibilityHint =
         optionsSegmentedControl.selectedSegmentIndex = 0
