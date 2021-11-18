@@ -2,6 +2,7 @@
 
 ## iOS [3.3.0]
 
+· Add new video player interface
 · Add support to browse NFS and SFTP shares
 · Replace previous UPnP integration with VLC's native support based on libupnp
   · this improves compatibility with off-standard UPnP servers
