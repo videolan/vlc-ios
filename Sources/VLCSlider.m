@@ -27,14 +27,17 @@
     // By default do not set padding for small devices such as ipod.
     CGFloat padding = 0;
 
-    // Add padding to safe area devices.
-    if ([UIDevice VLCDeviceHasSafeArea]) {
-        padding = -5;
-    }
+    // Add paddingg only to recent OS, older versions has a visual glitch on the thumb
+    if (@available(iOS 13, *)) {
+        // Add padding to safe area devices.
+        if ([UIDevice VLCDeviceHasSafeArea]) {
+            padding = -5;
+        }
 
-    // Add even more padding to ipads.
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        padding = -10;
+        // Add even more padding to ipads.
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            padding = -10;
+        }
     }
 
     return CGRectInset([super thumbRectForBounds:bounds trackRect:rect value:value],
