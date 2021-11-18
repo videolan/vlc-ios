@@ -839,7 +839,6 @@ extension VideoPlayerViewController {
     }
 
     private func detectPanType(_ recognizer: UIPanGestureRecognizer) -> VideoPlayerPanType {
-        let deviceType: String = UIDevice.current.model
         let window: UIWindow = UIApplication.shared.keyWindow!
         let windowWidth: CGFloat = window.bounds.width
         let location: CGPoint = recognizer.location(in: window)
@@ -883,7 +882,6 @@ extension VideoPlayerViewController {
     }
 
     @objc private func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        let panDirectionX = recognizer.velocity(in: view).x
         let panDirectionY = recognizer.velocity(in: view).y
 
         let currentPos = recognizer.location(in: view)
