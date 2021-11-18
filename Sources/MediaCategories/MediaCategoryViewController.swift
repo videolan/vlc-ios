@@ -458,7 +458,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        let uiTestAccessibilityIdentifier = model is TrackModel ? VLCAccessibilityIdentifier.songs : nil
+        var uiTestAccessibilityIdentifier = model is TrackModel ? VLCAccessibilityIdentifier.songs : nil
+        if model is ArtistModel {
+            uiTestAccessibilityIdentifier = VLCAccessibilityIdentifier.artists
+        }
         return IndicatorInfo(title: model.indicatorName, accessibilityIdentifier: uiTestAccessibilityIdentifier)
     }
 }

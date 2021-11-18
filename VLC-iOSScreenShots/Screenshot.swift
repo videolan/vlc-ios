@@ -36,20 +36,26 @@ class Screenshot: XCTestCase {
         SDStatusBarManager.sharedInstance().disableOverrides()
     }
 
-    func testCaptureVideoPlayback() {
-        helper.tapTabBarItem(VLCAccessibilityIdentifier.video)
-        app.collectionViews.cells.element(boundBy: 3).tap()
-        snapshot("playback")
-    }
-
-    func testCaptureAudioTab() {
+    func testCaptureAudioTabTracks() {
         helper.tapTabBarItem(VLCAccessibilityIdentifier.audio)
         app.cells[VLCAccessibilityIdentifier.songs].tap()
-        snapshot("audio_tab")
+        snapshot("audio_tab_tracks")
+    }
+
+    func testCaptureAudioTabArtists() {
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.audio)
+        app.cells[VLCAccessibilityIdentifier.artists].tap()
+        snapshot("audio_tab_artists")
     }
 
     func testCaptureVideoTab() {
         helper.tapTabBarItem(VLCAccessibilityIdentifier.video)
         snapshot("video_tab")
+    }
+
+    func testCaptureVideoPlayback() {
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.video)
+        app.collectionViews.cells.element(boundBy: 1).tap()
+        snapshot("video_tab_playback")
     }
 }
