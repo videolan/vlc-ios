@@ -25,7 +25,7 @@
 @interface VLCRemotePlaybackViewController () <UICollectionViewDataSource, UICollectionViewDelegate, VLCMediaFileDiscovererDelegate>
 
 @property (strong, nonatomic) Reachability *reachability;
-@property (strong, nonatomic) NSMutableArray<NSString *> *discoveredFiles;
+@property (strong, nonatomic) SortedMediaFiles *discoveredFiles;
 
 @property (strong, nonatomic) VLCMediaThumbnailerCache *thumbnailerCache;
 
@@ -68,7 +68,7 @@
     VLCMediaFileDiscoverer *discoverer = [VLCMediaFileDiscoverer sharedInstance];
     discoverer.filterResultsForPlayability = NO;
 
-    self.discoveredFiles = [NSMutableArray array];
+    self.discoveredFiles = [[SortedMediaFiles alloc] init];
 
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     discoverer.directoryPath = [[searchPaths firstObject] stringByAppendingPathComponent:kVLCHTTPUploadDirectory];
@@ -186,9 +186,10 @@
 
     @synchronized(self.discoveredFiles) {
         if (self.discoveredFiles.count > row) {
-            cellTitle = [self.discoveredFiles[row] lastPathComponent];
+            NSString * file = self.discoveredFiles[row];
+            cellTitle = [file lastPathComponent];
             if (cellTitle.isSupportedMediaFormat) {
-                thumbnailURL = [self.thumbnailerCache getThumbnailURL:self.discoveredFiles[row]];
+                thumbnailURL = [self.thumbnailerCache getThumbnailURL:file];
             }
         }
     }
@@ -283,7 +284,7 @@
     [self.cachedMediaCollectionView performBatchUpdates:^{
         @synchronized(self.discoveredFiles) {
             fileToDelete = self.discoveredFiles[indexPathToDelete.item];
-            [self.discoveredFiles removeObject:fileToDelete];
+            [self.discoveredFiles remove:fileToDelete];
         }
         [self.cachedMediaCollectionView deleteItemsAtIndexPaths:@[indexPathToDelete]];
     } completion:^(BOOL finished) {
@@ -314,11 +315,12 @@
 - (void)mediaFilesFoundRequiringAdditionToStorageBackend:(NSArray<NSString *> *)foundFiles
 {
     @synchronized(self.discoveredFiles) {
-        self.discoveredFiles = [NSMutableArray arrayWithArray:foundFiles];
+        self.discoveredFiles = [SortedMediaFiles fromArray:foundFiles];
             for (int cnt = 0; cnt < [self.discoveredFiles count]; cnt++) {
-				if (self.discoveredFiles[cnt].isSupportedMediaFormat) {
-                	[self.thumbnailerCache getVideoThumbnail:self.discoveredFiles[cnt]];
-				}
+                NSString *path = self.discoveredFiles[cnt];
+                if (path.isSupportedMediaFormat) {
+                    [self.thumbnailerCache getVideoThumbnail:path];
+                }
             }
     }
     [self.cachedMediaCollectionView reloadData];
@@ -327,9 +329,7 @@
 - (void)mediaFileAdded:(NSString *)filePath loading:(BOOL)isLoading
 {
     @synchronized(self.discoveredFiles) {
-        if (![self.discoveredFiles containsObject:filePath]) {
-            [self.discoveredFiles addObject:filePath];
-        }
+        [self.discoveredFiles add:filePath];
     }
     [self.cachedMediaCollectionView reloadData];
 }
@@ -337,7 +337,7 @@
 - (void)mediaFileDeleted:(NSString *)filePath
 {
     @synchronized(self.discoveredFiles) {
-        [self.discoveredFiles removeObject:filePath];
+        [self.discoveredFiles remove:filePath];
         [self.thumbnailerCache removeThumbnail:filePath];
     }
     [self.cachedMediaCollectionView reloadData];
