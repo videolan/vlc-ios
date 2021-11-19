@@ -601,14 +601,10 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
     }
 }
 
-enum Lab: Int, CaseIterable, SectionType {
-    case newPlayer
+enum Lab: CaseIterable, SectionType {
 
     var description: String {
-        switch self {
-        case .newPlayer:
-            return "SETTINGS_NEW_PLAYER"
-        }
+        switch self { }
     }
 
     var containsSwitch: Bool {
@@ -618,10 +614,7 @@ enum Lab: Int, CaseIterable, SectionType {
     var subtitle: String? { return nil }
 
     var preferenceKey: String? {
-        switch self {
-        case .newPlayer:
-            return kVLCSettingLabNewPlayer
-        }
+        switch self { }
     }
 }
 

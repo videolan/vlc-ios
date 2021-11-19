@@ -86,7 +86,6 @@ NSString *VLCAppCenterAppID = @"0114ca8e-2652-44ce-588d-2ebd035c3577";
                                   kVLCSettingCastingAudioPassthrough : @(NO),
                                   kVLCSettingCastingConversionQuality : @(2),
                                   kVLCForceSMBV1 : @(YES),
-                                  kVLCSettingLabNewPlayer : kVLCSettingLabNewPlayerDefaultValue,
                                   @"kVLCAudioLibraryGridLayoutALBUMS" : @(YES),
                                   @"kVLCAudioLibraryGridLayoutARTISTS" : @(YES),
                                   @"kVLCAudioLibraryGridLayoutGENRES" : @(YES),

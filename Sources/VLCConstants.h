@@ -85,9 +85,6 @@
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
 #define kVLCSettingLastUsedSubtitlesSearchLanguage @"kVLCSettingLastUsedSubtitlesSearchLanguage"
 
-#define kVLCSettingLabNewPlayer @"newPlayer"
-#define kVLCSettingLabNewPlayerDefaultValue @YES
-
 #define kVLCForceSMBV1 @"smb-force-v1"
 
 #define kVLCShowRemainingTime @"show-remaining-time"

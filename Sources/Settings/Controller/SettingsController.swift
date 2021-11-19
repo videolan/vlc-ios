@@ -353,8 +353,7 @@ extension SettingsController {
             let networkOptions = NetworkOptions(rawValue: indexPath.row)
             cell.sectionType = networkOptions
         case .lab:
-            let lab = Lab(rawValue: indexPath.row)
-            cell.sectionType = lab
+            break
         }
         return cell
     }
