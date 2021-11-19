@@ -26,4 +26,5 @@ DerivedData
 External
 ImportedSources
 !Makefile
-
+.idea/
+.*.sw[nop]
