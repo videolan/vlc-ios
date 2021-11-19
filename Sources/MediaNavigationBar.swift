@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 import AVKit
+import MediaPlayer
 
 @objc (VLCMediaNavigationBarDelegate)
 protocol MediaNavigationBarDelegate {

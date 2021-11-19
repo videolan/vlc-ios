@@ -70,7 +70,7 @@ class QueueViewController: UIViewController {
     private var constraints: [NSLayoutConstraint] = []
     private var topConstraint: NSLayoutConstraint?
     private var topConstraintConstant: CGFloat {
-        if parent is VideoPlayerViewController || parent is VLCMovieViewController {
+        if parent is VideoPlayerViewController {
             return UIDevice.hasNotch ? 75 : 50
         } else {
             return 0
@@ -236,9 +236,7 @@ class QueueViewController: UIViewController {
             bottomConstraint.constant = max(0.0, bottomConstraint.constant + translation.y)
         }
         sender.setTranslation(CGPoint.zero, in: parent?.view)
-        if let parent = parent as? VLCMovieViewController {
-            darkOverlayView.alpha = max(0.0, darkOverlayAlpha - view.frame.minY / parent.view.frame.maxY)
-        } else if let parent = parent as? VideoPlayerViewController {
+        if let parent = parent as? VideoPlayerViewController {
             darkOverlayView.alpha = max(0.0, darkOverlayAlpha - view.frame.minY / parent.view.frame.maxY)
         }
     }

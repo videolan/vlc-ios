@@ -11,8 +11,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "VLCEqualizerView.h"
-
 typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
     VLCAspectRatioDefault = 0,
     VLCAspectRatioFillToScreen,

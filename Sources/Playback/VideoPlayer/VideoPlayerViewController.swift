@@ -11,6 +11,8 @@
  *****************************************************************************/
 
 import UIKit
+import AVFoundation
+import MediaPlayer
 
 @objc(VLCVideoPlayerViewControllerDelegate)
 protocol VideoPlayerViewControllerDelegate: AnyObject {
