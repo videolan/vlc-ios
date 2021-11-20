@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "ഓഡിയോ ട്രാക്ക് തെരെഞ്ഞെടുക്കുക";
 "CHOOSE_SUBTITLE_TRACK" = "ഉപശീര്‍ഷകങ്ങള്‍ തെരെഞ്ഞെടുക്കുക";
 "UNKNOWN_TRACK_TYPE" = "Unknown track type";
-"OPEN_TRACK_PANEL" = "ട്രാക്ക് തിരഞ്ഞെടുക്കൽ തുറക്കുക";
 "CHOOSE_TITLE" = "തലകെട്ട് സെലെക്ട്ട് ചെയ്യുക";
 "CHOOSE_CHAPTER" = "ചാപ്ട്ടെർ സെലെക്ട്ട് ചെയ്യുക";
 "CHAPTER_SELECTION_TITLE" = "അധ്യായങ്ങൾ";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "പ്രീആംപ്";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "ഈക്വാളിസിർ പ്രൊഫൈൽ തിരഞ്ഞെടുക്കുക";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "പ്ലേബാക്ക് പരാജയപ്പെട്ടു";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "ലഭ്യമായ കാസ്റ്റിംഗ് ഉപകരണങ്ങളുടെ മെനു കാണിക്കുക";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
 
 "UPGRADING_LIBRARY" = "മീഡിയ ലൈബ്രറി പുതുക്കുന്നു";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "പ്ലേബാക്ക് നിർത്താൻ ദീർഘനേരം അമർത്തുക.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "ഓഡിയോ വിവരം";
