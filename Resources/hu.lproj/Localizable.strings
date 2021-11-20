@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Hangsáv választása";
 "CHOOSE_SUBTITLE_TRACK" = "Felirat választása";
 "UNKNOWN_TRACK_TYPE" = "Ismeretlen zeneszám típus";
-"OPEN_TRACK_PANEL" = "Sáv választó megnyitása";
 "CHOOSE_TITLE" = "Cím választása";
 "CHOOSE_CHAPTER" = "Fejezet választása";
 "CHAPTER_SELECTION_TITLE" = "Fejezetek";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Előbeállítások / előerősítő beállításai";
 "PREAMP" = "Előerősítés";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Hangszín profil választása";
 "SNAP_BANDS" = "Sávok egymáshoz tapasztása";
 
 "PLAYBACK_FAILED" = "A lejátszás nem sikerült";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Menü megjelenítése az elérhető vetítési eszközökkel";
 
 
-"BUTTON_PLAY_QUEUE" = "Lejátszási lista";
-"BUTTON_PLAY_QUEUE_HINT" = "Lejátszási lista megjelenítése";
 
 "UPGRADING_LIBRARY" = "Médiatár frissítése";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Hosszú érintés a lejátszás leállításához.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Hanginformációk";

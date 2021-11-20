@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = " SMB 1 előnyben részesítése";
 "SETTINGS_FORCE_SMBV1_LONG" = "Kapcsolja ki a beállítást, ha nehézségei vannak az SMB-kiszolgáló tallózásával";
 "SETTINGS_RTSP_TCP" = "RTSP feletti RTP használata (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Grafika";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Grafika letöltése";
