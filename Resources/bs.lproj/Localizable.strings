@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Odaberi Trag Zvuka";
 "CHOOSE_SUBTITLE_TRACK" = "Odaberi Trag Podtitla";
 "UNKNOWN_TRACK_TYPE" = "Unknown track type";
-"OPEN_TRACK_PANEL" = "Otvori izbor tragova";
 "CHOOSE_TITLE" = "Izaberi Naslov";
 "CHOOSE_CHAPTER" = "Izaberi Poglavlje";
 "CHAPTER_SELECTION_TITLE" = "Poglavlja";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Pojačivač";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Izaberi Profil Ekvalajzera";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Reprodukcija neuspješna";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
 
 "UPGRADING_LIBRARY" = "Nadograđivanje Medijske Bibiloteke";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Pritisnite duže za zaustavljanje reprodukcije.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audio Info";
