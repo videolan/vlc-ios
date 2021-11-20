@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Préfère SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Décochez ce paramètre si vous avez des difficultés à naviguer sur votre serveur SMB";
 "SETTINGS_RTSP_TCP" = "Utiliser RTP sur RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Personaliser SAT>Liste URL des canux IP";
 
 "SETTINGS_ARTWORK" = "Illustration";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Télécharger l'illustration";
