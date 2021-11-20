@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Vybrat zvukovu stopu";
 "CHOOSE_SUBTITLE_TRACK" = "Vybrat stopu s titulky";
 "UNKNOWN_TRACK_TYPE" = "Neznámý typ stopy";
-"OPEN_TRACK_PANEL" = "Otevřít výběr stop";
 "CHOOSE_TITLE" = "Vybrat název";
 "CHOOSE_CHAPTER" = "Vybrat kapitolu";
 "CHAPTER_SELECTION_TITLE" = "Kapitoly";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Nastavení předvolby / předzesílení";
 "PREAMP" = "Předzesílení";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Výběr předvoleb ekvalizéru";
 "SNAP_BANDS" = "Spřáhnout pásma";
 
 "PLAYBACK_FAILED" = "Chyba přehrávání";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Zobrazit nabídku dostupných zařízení pro streamování";
 
 
-"BUTTON_PLAY_QUEUE" = "Přehrát frontu";
-"BUTTON_PLAY_QUEUE_HINT" = "Zobrazit frontu přehrávání";
 
 "UPGRADING_LIBRARY" = "Aktualizace Knihovny médií...";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Pro zastavení přehávání dlouze stiskněte.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Informace o zvuku";

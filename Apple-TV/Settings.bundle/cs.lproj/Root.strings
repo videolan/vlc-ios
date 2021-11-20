@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Povolit SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Zakázat, pokud jsou potíže s procházením serveru SMB.";
 "SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Obal alba";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Stáhnout obal";
