@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Alege piesa audio";
 "CHOOSE_SUBTITLE_TRACK" = "Alege pistă subtitrare";
 "UNKNOWN_TRACK_TYPE" = "Tip de piesă necunoscut";
-"OPEN_TRACK_PANEL" = "Deschide selecția pieselor";
 "CHOOSE_TITLE" = "Alege titlul";
 "CHOOSE_CHAPTER" = "Alege capitolul";
 "CHAPTER_SELECTION_TITLE" = "Capitole";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Configurări de presetare / preamplificare";
 "PREAMP" = "Preamplificator";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Alege profilul pentru egalizator";
 "SNAP_BANDS" = "Benzile de fixare";
 
 "PLAYBACK_FAILED" = "Redare eşuată";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Afișați un meniu cu dispozitivele de distribuție disponibile";
 
 
-"BUTTON_PLAY_QUEUE" = "Redă șirul";
-"BUTTON_PLAY_QUEUE_HINT" = "Afișați vizualizarea listei de redare";
 
 "UPGRADING_LIBRARY" = "Actualizare mediatecă";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Apasă lung pentru a opri redarea.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Informații audio";
