@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Priorizar SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Desmarque esta configuração se tiver alguma dificuldade em navegar em seu servidor SMB";
 "SETTINGS_RTSP_TCP" = "Usar RTP sobre RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "SAT Personalizado>Lista de URL de canais IP";
 
 "SETTINGS_ARTWORK" = "Capa";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Baixar Capa";
