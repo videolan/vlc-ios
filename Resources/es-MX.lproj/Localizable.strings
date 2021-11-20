@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Elegir pista de audio";
 "CHOOSE_SUBTITLE_TRACK" = "Elegir pista de subtítulos";
 "UNKNOWN_TRACK_TYPE" = "Unknown track type";
-"OPEN_TRACK_PANEL" = "Abrir selección de pista";
 "CHOOSE_TITLE" = "Seleccionar Título";
 "CHOOSE_CHAPTER" = "Seleccionar Capítulo";
 "CHAPTER_SELECTION_TITLE" = "Capítulos";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamplificar";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Seleccione perfil del ecualizador";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Reproducción fallida";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Mostrar un menú de dispositivos de emisión disponibles ";
 
 
-"BUTTON_PLAY_QUEUE" = "Cola de reproducción";
-"BUTTON_PLAY_QUEUE_HINT" = "Mostrar la vista de la cola de reproducción";
 
 "UPGRADING_LIBRARY" = "Actualizando biblioteca multimedia";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Mantén presionado para detener la reproducción.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Info. de audio";
