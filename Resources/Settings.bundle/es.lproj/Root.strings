@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Preferir SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Desactiva esta opción si tienes problemas al explorar un servidor SMB";
 "SETTINGS_RTSP_TCP" = "Usar RTP sobre RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Material artístico";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Descargar material artístico";
