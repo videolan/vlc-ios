@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Dibab ar roudenn aodio";
 "CHOOSE_SUBTITLE_TRACK" = "Dibab roudenn an istitl";
 "UNKNOWN_TRACK_TYPE" = "Doare roudenn dianavezet";
-"OPEN_TRACK_PANEL" = "Digeriñ ar roudoù diuzet";
 "CHOOSE_TITLE" = "Dibab an Titl";
 "CHOOSE_CHAPTER" = "Dibabit ar Chabistr";
 "CHAPTER_SELECTION_TITLE" = "Chabistroù";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Ragamplaer";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Dibab ar profil ar c'hevataler";
 "SNAP_BANDS" = "Bandennoù stirennek";
 
 "PLAYBACK_FAILED" = "C'hwitet ez eus bet war al lenn";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Diskouez ul lañser trobarzhelloù skignañ";
 
 
-"BUTTON_PLAY_QUEUE" = "Roll-lenn";
-"BUTTON_PLAY_QUEUE_HINT" = "Diskouez ar mod-gwelet roll-lenn";
 
 "UPGRADING_LIBRARY" = "Oc'h hizivaat al Levraoueg Media";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Pouezañ e-pad pell evit paouez gant al lenn.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Titouroù aodio";
