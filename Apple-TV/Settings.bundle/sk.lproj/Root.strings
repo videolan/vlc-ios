@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Uprednostniť SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Ak máte problém s prehliadaním na SMB server, odznačte toto nastavenie";
 "SETTINGS_RTSP_TCP" = "Používať RTP cez RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "URL adresa pre používateľský zoznam kanálov SAT>IP";
 
 "SETTINGS_ARTWORK" = "Dielo";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Stiahnuť dielo";
