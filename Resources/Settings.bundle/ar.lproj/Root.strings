@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "تفضل SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "قم بإلغاء تحديد هذا الإعداد إذا واجهت بعض الصعوبات في تصفح خادم SMB الخاص بك";
 "SETTINGS_RTSP_TCP" = "استخدم RTP عبر RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "الغلاف";
 "SETTINGS_DOWNLOAD_ARTWORK" = "تنزيل الغلاف";

@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "اختر مقطعًا صوتيًا";
 "CHOOSE_SUBTITLE_TRACK" = "اختر مقطعَ ترجمة";
 "UNKNOWN_TRACK_TYPE" = "نوع المسار غير معروف";
-"OPEN_TRACK_PANEL" = "اختيار المسار";
 "CHOOSE_TITLE" = "اختر العنوان";
 "CHOOSE_CHAPTER" = "اختر الفصل";
 "CHAPTER_SELECTION_TITLE" = "فصول";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "إعدادات الضبط المسبق / preamp";
 "PREAMP" = "Preamp";
-"DB_FORMAT" = "%i ديسيمل";
-"CHOOSE_EQUALIZER_PROFILES" = "اختر ملف المعادِل";
 "SNAP_BANDS" = "أشرطة المفاجئة";
 
 "PLAYBACK_FAILED" = "فشل التّشغيل";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "اعرض قائمة بأجهزة العرض المتاحة";
 
 
-"BUTTON_PLAY_QUEUE" = "شغّل قائمة الانتظار";
-"BUTTON_PLAY_QUEUE_HINT" = "إظهار المعاينة في قائمة انتظار التشغيل";
 
 "UPGRADING_LIBRARY" = "تحديث قائمة الوسائط";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "ضغطه طويلة لإيقاف المشغل";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "معلومات الصوت";
