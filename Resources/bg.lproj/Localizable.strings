@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Изберете аудио файл";
 "CHOOSE_SUBTITLE_TRACK" = "Изберете субтитри";
 "UNKNOWN_TRACK_TYPE" = "Unknown track type";
-"OPEN_TRACK_PANEL" = "Отвори избор на пътечки";
 "CHOOSE_TITLE" = "Изберете заглавие";
 "CHOOSE_CHAPTER" = "Изберете глава";
 "CHAPTER_SELECTION_TITLE" = "Глави";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamp";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Изберете профил на еквалайзър";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Грешка при възпроизвеждането";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
 
 "UPGRADING_LIBRARY" = "Upgrading Media Library";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Long-press to stop playback.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audio Info";
