@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Prednost za SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Izklopite to možnost, če imate težave z brskanjem po SMB strežniku";
 "SETTINGS_RTSP_TCP" = "Uporabi RTP pred RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Grafična podoba";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Prenesi grafično podobo";

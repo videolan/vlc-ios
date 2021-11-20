@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Izberi zvočno stezo";
 "CHOOSE_SUBTITLE_TRACK" = "Izberi stezo s podnapisi";
 "UNKNOWN_TRACK_TYPE" = "Neznana vrsta vsebine";
-"OPEN_TRACK_PANEL" = "Odpri izbor steze";
 "CHOOSE_TITLE" = "Izbor naslova";
 "CHOOSE_CHAPTER" = "Izbor poglavja";
 "CHAPTER_SELECTION_TITLE" = "Poglavja";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Nastavitve predlog / predojačevalca";
 "PREAMP" = "Predojačevalec";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Izbira profila izravnalnika";
 "SNAP_BANDS" = "Poveži zasedbe";
 
 "PLAYBACK_FAILED" = "Predvajanje je spodletelo";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Prikaži meni z predvajalnimi napravami, ki so na voljo";
 
 
-"BUTTON_PLAY_QUEUE" = "Predvajaj čakalno vrsto";
-"BUTTON_PLAY_QUEUE_HINT" = "Prikaži čakalno vrsto";
 
 "UPGRADING_LIBRARY" = "Nadgrajevanje knjižnice predstavnih vsebin";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Dolg pritisk za ustavitev predvajanja.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Informacije o zvoku";
