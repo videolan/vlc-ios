@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Pilih Trek Audio";
 "CHOOSE_SUBTITLE_TRACK" = "Pilih Trek Sari Kata";
 "UNKNOWN_TRACK_TYPE" = "Jenis trek tidak diketahui";
-"OPEN_TRACK_PANEL" = "Buka pemilihan trek";
 "CHOOSE_TITLE" = "Pilih Tajuk";
 "CHOOSE_CHAPTER" = "Pilih Bab";
 "CHAPTER_SELECTION_TITLE" = "Bab";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Tetapan praset / praamp";
 "PREAMP" = "Praamp";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Pilih Profil Penyama";
 "SNAP_BANDS" = "Lekap jalur";
 
 "PLAYBACK_FAILED" = "Main balik gagal";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Tunjuk menu peranti casting yang tersedia";
 
 
-"BUTTON_PLAY_QUEUE" = "Main baris gilir";
-"BUTTON_PLAY_QUEUE_HINT" = "Tunjuk pandangan baris gilir main";
 
 "UPGRADING_LIBRARY" = "Menatar Pustaka Media";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Tahan untuk hentikan main balik.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Maklumat Audio";

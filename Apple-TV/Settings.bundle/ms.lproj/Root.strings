@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Utamakan SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Nyahtanda tetapan ini jika anda menghadapi kesukaran ketika melayari pelayan SMB anda";
 "SETTINGS_RTSP_TCP" = "Guna RTP melalui RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Kerja Seni";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Muat Turun Kerja Seni";
