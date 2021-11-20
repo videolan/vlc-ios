@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Trieu la pista d'àudio";
 "CHOOSE_SUBTITLE_TRACK" = "Trieu la pista de subtítol";
 "UNKNOWN_TRACK_TYPE" = "Tipus de pista desconegut";
-"OPEN_TRACK_PANEL" = "Obre Selecció de pista";
 "CHOOSE_TITLE" = "Trieu el títol";
 "CHOOSE_CHAPTER" = "Trieu el càpitol";
 "CHAPTER_SELECTION_TITLE" = "Capítols";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Paràmetres predefinició / preamplificació";
 "PREAMP" = "Preamplifica";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Trieu un perfil d'equalizador";
 "SNAP_BANDS" = "Captura les bandes";
 
 "PLAYBACK_FAILED" = "S'ha produït un error en la reproducció";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Mostra un menú de dispositius de buidatge";
 
 
-"BUTTON_PLAY_QUEUE" = "Cua de reproducció";
-"BUTTON_PLAY_QUEUE_HINT" = "Mostra la vista amb la cua de reproducció";
 
 "UPGRADING_LIBRARY" = "Actualitza la biblioteca de medis";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Pulsació llarga per a parar la reprodució.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Informació Àudio";
