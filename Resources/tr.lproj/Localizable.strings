@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Ses kaydı seçin";
 "CHOOSE_SUBTITLE_TRACK" = "Alt yazı kaydı seçin";
 "UNKNOWN_TRACK_TYPE" = "Kayıt türü bilinmiyor";
-"OPEN_TRACK_PANEL" = "Kayıt seçimini aç";
 "CHOOSE_TITLE" = "Başlık seç";
 "CHOOSE_CHAPTER" = "Bölüm seç";
 "CHAPTER_SELECTION_TITLE" = "Bölümler";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Hazır ayar / ön güçlendirme ayarları";
 "PREAMP" = "Ön güçlendirme";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Dengeleyici profili seç";
 "SNAP_BANDS" = "Bantlar ayrılsın";
 
 "PLAYBACK_FAILED" = "Oynatılamadı";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Kullanılabilecek aktarım aygıtları menüsünü görüntüler";
 
 
-"BUTTON_PLAY_QUEUE" = "Kuyruğu oynat";
-"BUTTON_PLAY_QUEUE_HINT" = "Oynatma kuyruğu görünümü";
 
 "UPGRADING_LIBRARY" = "Ortam kitaplığı yükseltiliyor";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Oynatmayı durdurmak için uzun basın.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Ses bilgileri";
@@ -293,8 +287,8 @@
 "REPEAT_FOLDER" = "Klasör";
 "SHUFFLE" = "Karışık";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Listeyi temizle";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Son oynatılan ağ akışları listesini temizler.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Evrensel tak ve oynat (UPnP)";

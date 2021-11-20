@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "SMB 1 yeğlensin";
 "SETTINGS_FORCE_SMBV1_LONG" = "SMB sunucunuza erişmekte sorun yaşıyorsanız bu seçeneği devre dışı bırakın";
 "SETTINGS_RTSP_TCP" = "RTSP (TCP) üzerinden RTP kullanılsın";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Albüm kapağı";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albüm kapağını indir";
