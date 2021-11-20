@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Vel lydspor";
 "CHOOSE_SUBTITLE_TRACK" = "Vel undertekstspor";
 "UNKNOWN_TRACK_TYPE" = "Ukjend sportype";
-"OPEN_TRACK_PANEL" = "Opna lydsporval";
 "CHOOSE_TITLE" = "Vel tittel";
 "CHOOSE_CHAPTER" = "Vel kapittel";
 "CHAPTER_SELECTION_TITLE" = "Kapittel";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Førehandsinnstillingar / forforsterkar-innstillingar";
 "PREAMP" = "Forforsterkar";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Vel tonekontrollprofil";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Mislukka avspeling";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Vis ein meny med tilgjengelege casting-einingar";
 
 
-"BUTTON_PLAY_QUEUE" = "Spelekø";
-"BUTTON_PLAY_QUEUE_HINT" = "Vis spelekøvising";
 
 "UPGRADING_LIBRARY" = "Oppgraderer mediabiblioteket";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Langtrykk for å stoppa avspeling.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Lydinfo";
