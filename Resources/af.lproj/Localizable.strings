@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Kies Klanksnit";
 "CHOOSE_SUBTITLE_TRACK" = "Kies Onderskrifsnit";
 "UNKNOWN_TRACK_TYPE" = "Unknown track type";
-"OPEN_TRACK_PANEL" = "Open snitseleksie";
 "CHOOSE_TITLE" = "Kies Titel";
 "CHOOSE_CHAPTER" = "Kies Hoofstuk";
 "CHAPTER_SELECTION_TITLE" = "Hoofstukke";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Voorafversterking";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Kies Gelykmakerprofiel";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "Kon nie terugspeel nie";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Toon ’n kieslys van beskikbare sendtoestelle";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
 
 "UPGRADING_LIBRARY" = "Mediabiblioteek word opgegradeer";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Langdruk om afspeel te stop.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Oudio-inligting";
