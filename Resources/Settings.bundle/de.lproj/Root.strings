@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "SMB 1 bevorzugen";
 "SETTINGS_FORCE_SMBV1_LONG" = "Deaktivieren Sie diese Einstellung, wenn Sie Probleme beim Durchsuchen Ihres SMB-Servers haben";
 "SETTINGS_RTSP_TCP" = "RTP über RTSP (TCP) benutzen";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Cover";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Cover herunterladen";

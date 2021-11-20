@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Audiospur wählen";
 "CHOOSE_SUBTITLE_TRACK" = "Untertitelspur wählen";
 "UNKNOWN_TRACK_TYPE" = "Unbekannter Titel-Typ";
-"OPEN_TRACK_PANEL" = "Titelauswahl öffnen";
 "CHOOSE_TITLE" = "Titel wählen";
 "CHOOSE_CHAPTER" = "Kapitel wählen";
 "CHAPTER_SELECTION_TITLE" = "Kapitel";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Einstellungen für Voreingestellt / Vorverstärker";
 "PREAMP" = "Vorverstärker";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Equalizer-Profil wählen";
 "SNAP_BANDS" = "Bänder mitziehen";
 
 "PLAYBACK_FAILED" = "Wiedergabe fehlgeschlagen";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Menü mit verfügbaren Casting-Geräten anzeigen";
 
 
-"BUTTON_PLAY_QUEUE" = "Warteschlange wiedergeben";
-"BUTTON_PLAY_QUEUE_HINT" = "Wiedergabewarteschlange anzeigen";
 
 "UPGRADING_LIBRARY" = "Mediathek aktualisieren";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Zum Stoppen der Wiedergabe lange drücken.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audio-Information";
@@ -293,8 +287,8 @@
 "REPEAT_FOLDER" = "Aktuellen Ordner";
 "SHUFFLE" = "Zufällig";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Liste zurücksetzen";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Liste der zuletzt wiedergegebenen Netzwerkstreams dauerhaft zurücksetzen.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug and Play (UPnP)";
