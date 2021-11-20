@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "选择音频轨道";
 "CHOOSE_SUBTITLE_TRACK" = "选择字幕轨道";
 "UNKNOWN_TRACK_TYPE" = "未知曲目类型";
-"OPEN_TRACK_PANEL" = "打开轨道选择面板";
 "CHOOSE_TITLE" = "选择标题";
 "CHOOSE_CHAPTER" = "选择章节";
 "CHAPTER_SELECTION_TITLE" = "章节";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "预设 / 前置放大设置";
 "PREAMP" = "放大器";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "选择均衡器配置文件";
 "SNAP_BANDS" = "沿着频段拉";
 
 "PLAYBACK_FAILED" = "回放失败";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "显示可用投屏设备菜单";
 
 
-"BUTTON_PLAY_QUEUE" = "播放队列";
-"BUTTON_PLAY_QUEUE_HINT" = "显示播放队列视图";
 
 "UPGRADING_LIBRARY" = "正在升级媒体库";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "长按可停止回放。";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "音频信息";
