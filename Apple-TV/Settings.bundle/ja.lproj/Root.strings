@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "SMB1を採用";
 "SETTINGS_FORCE_SMBV1_LONG" = "SMBサーバーのブラウジングに何らかの問題がある場合は、チェックを外してください";
 "SETTINGS_RTSP_TCP" = "RTPオーバーRTSP (TCP)の使用";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "アートワーク";
 "SETTINGS_DOWNLOAD_ARTWORK" = "アートワークをダウンロード";

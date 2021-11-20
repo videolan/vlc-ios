@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "オーディオトラックを選択してください";
 "CHOOSE_SUBTITLE_TRACK" = "字幕トラックを選択してください";
 "UNKNOWN_TRACK_TYPE" = "未知のトラックタイプ";
-"OPEN_TRACK_PANEL" = "トラックの選択を開く";
 "CHOOSE_TITLE" = "タイトルを選択する";
 "CHOOSE_CHAPTER" = "チャプターを選択する";
 "CHAPTER_SELECTION_TITLE" = "チャプター";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "プリセット/プリアンプ設定";
 "PREAMP" = "プリアンプ";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "イコライザープロファイルの選択";
 "SNAP_BANDS" = "スナップバンド";
 
 "PLAYBACK_FAILED" = "再生に失敗しました";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "利用可能なキャスティングデバイスのメニューを表示";
 
 
-"BUTTON_PLAY_QUEUE" = "キューを再生";
-"BUTTON_PLAY_QUEUE_HINT" = "再生キューを表示";
 
 "UPGRADING_LIBRARY" = "メディアライブラリのアップグレード中";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "長押しで再生を停止します。";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "オーディオ情報";
