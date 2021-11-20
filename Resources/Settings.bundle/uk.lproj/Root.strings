@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Віддавати перевагу SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Зніміть цей параметр, якщо у вас наявні деякі складнощі при перегляді вашим сервером SMB";
 "SETTINGS_RTSP_TCP" = "Використовувати RTP над RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Власний список URL каналів SAT>IP";
 
 "SETTINGS_ARTWORK" = "Обкладинка";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Звантажити обкладинку";
