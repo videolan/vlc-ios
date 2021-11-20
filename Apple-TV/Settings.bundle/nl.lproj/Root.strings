@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Voorkeur voor SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Vink deze instelling uit als u problemen ondervindt bij het bladeren op uw SMB-server.";
 "SETTINGS_RTSP_TCP" = "RTP via RTSP (TCP) gebruiken";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Albumhoes";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albumhoes downloaden";

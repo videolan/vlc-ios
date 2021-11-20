@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Audiospoor kiezen";
 "CHOOSE_SUBTITLE_TRACK" = "Ondertitelspoor kiezen";
 "UNKNOWN_TRACK_TYPE" = "Onbekend tracktype";
-"OPEN_TRACK_PANEL" = "Spoorselectie openen";
 "CHOOSE_TITLE" = "Titel kiezen";
 "CHOOSE_CHAPTER" = "Hoofdstuk kiezen";
 "CHAPTER_SELECTION_TITLE" = "Hoofdstukken";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Instellingen preset/preamp";
 "PREAMP" = "Voorversterking";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Equalizer-profiel kiezen";
 "SNAP_BANDS" = "Banden uitlijnen";
 
 "PLAYBACK_FAILED" = "Afspelen mislukt";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Een menu met beschikbare casting-apparaten weergeven";
 
 
-"BUTTON_PLAY_QUEUE" = "Afspeelwachtrij";
-"BUTTON_PLAY_QUEUE_HINT" = "Afspeelwachtrij weergeven";
 
 "UPGRADING_LIBRARY" = "Mediabiblitoheek bijwerken";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Lang drukken om afspelen te stoppen.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audio-info";
