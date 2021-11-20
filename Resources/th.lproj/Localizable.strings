@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "เลือกแทร็กเสียง";
 "CHOOSE_SUBTITLE_TRACK" = "เลือกแทร็กคำบรรยาย";
 "UNKNOWN_TRACK_TYPE" = "Unknown track type";
-"OPEN_TRACK_PANEL" = "เปิดแทร็กที่เลือก";
 "CHOOSE_TITLE" = "เลือกชื่อเรื่อง";
 "CHOOSE_CHAPTER" = "เลือกตอน";
 "CHAPTER_SELECTION_TITLE" = "ตอน";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamp";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "เลือกโปรไฟล์ของอีควอไลเซอร์";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "การเล่นล้มเหลว";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "แสดงเมนูอุปกรณ์การแคสต์ที่ใช้ได้";
 
 
-"BUTTON_PLAY_QUEUE" = "คิวเล่น";
-"BUTTON_PLAY_QUEUE_HINT" = "แสดงมุมมองคิวเล่น";
 
 "UPGRADING_LIBRARY" = "อัพเกรดคลังสื่อ";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "กดยาวเพื่อหยุดการเล่น";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "ข้อมูลเสียง";
