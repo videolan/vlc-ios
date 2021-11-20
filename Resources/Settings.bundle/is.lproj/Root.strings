@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Kjósa frekar SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Taktu merkið úr þessari stillingu ef þú átt í vandræðum með SMB-þjóninn þinn";
 "SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Myndefni";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Sækja myndefni";
