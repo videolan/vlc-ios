@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "انتخاب قطعه صوتی";
 "CHOOSE_SUBTITLE_TRACK" = "انتخاب قطعه زیرنویس";
 "UNKNOWN_TRACK_TYPE" = "Unknown track type";
-"OPEN_TRACK_PANEL" = "گشودن قطعه انتخابی";
 "CHOOSE_TITLE" = "انتخاب عنوان";
 "CHOOSE_CHAPTER" = "انتخاب فصل";
 "CHAPTER_SELECTION_TITLE" = "فصل ها";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamp";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "انتخاب پروفایل اکولایزر";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "پخش ناموفق بود";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 
-"BUTTON_PLAY_QUEUE" = "پخش صف";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
 
 "UPGRADING_LIBRARY" = "ارتقای کتابخانه رسانه ای";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "برای توقف پخش فشار طولانی دهید";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audio Info";
