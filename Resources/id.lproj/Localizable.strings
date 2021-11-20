@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Pilih Trek Audio";
 "CHOOSE_SUBTITLE_TRACK" = "Pilih Trek Terjemahan";
 "UNKNOWN_TRACK_TYPE" = "Tipe trek tidak diketahui";
-"OPEN_TRACK_PANEL" = "Buka pemilihan trek";
 "CHOOSE_TITLE" = "Pilih Judul";
 "CHOOSE_CHAPTER" = "Pilih Babak";
 "CHAPTER_SELECTION_TITLE" = "Bagian";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "pengaturan setelan awal/penguat awal";
 "PREAMP" = "Preamp";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Pilih Profil Ekualiser";
 "SNAP_BANDS" = "Snap band";
 
 "PLAYBACK_FAILED" = "Pemutaran gagal";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Perlihatkan menu dari perangkat yang tersedia";
 
 
-"BUTTON_PLAY_QUEUE" = "Putar antriant";
-"BUTTON_PLAY_QUEUE_HINT" = "Perlihatkan pandangan putar antrian";
 
 "UPGRADING_LIBRARY" = "Pembaruan Pustaka Media";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Tekan lama untuk menghentikan pemutaran.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Info Audio";
