@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Välj ljudspår";
 "CHOOSE_SUBTITLE_TRACK" = "Välj undertextspår";
 "UNKNOWN_TRACK_TYPE" = "Okänd spårtyp";
-"OPEN_TRACK_PANEL" = "Öppna spårval";
 "CHOOSE_TITLE" = "Välj titel";
 "CHOOSE_CHAPTER" = "Välj kapitel";
 "CHAPTER_SELECTION_TITLE" = "Kapitel";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Inställningar för förinställning/försteg";
 "PREAMP" = "Försteg";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Välj equalizerprofil";
 "SNAP_BANDS" = "Fäst band";
 
 "PLAYBACK_FAILED" = "Uppspelning misslyckades";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Visa en meny med tillgängliga castenheter";
 
 
-"BUTTON_PLAY_QUEUE" = "Uppspelningskö";
-"BUTTON_PLAY_QUEUE_HINT" = "Visa vyn för uppspelningskön";
 
 "UPGRADING_LIBRARY" = "Uppgraderar mediabiblioteket";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Håll ned för att stoppa uppspelningen.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Ljudinformation";
