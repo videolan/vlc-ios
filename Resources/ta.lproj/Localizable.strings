@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "ஒலித் தடத்தை தேர்வுச்செய்";
 "CHOOSE_SUBTITLE_TRACK" = "துணைத்தலைப்பு தடத்தைத் தேர்வுச்செய்";
 "UNKNOWN_TRACK_TYPE" = "Unknown track type";
-"OPEN_TRACK_PANEL" = "தடம் தெரிவைத் திற";
 "CHOOSE_TITLE" = "தலைப்பு தேர்வுசெய்";
 "CHOOSE_CHAPTER" = "அத்தியாயம் தேர்வுசெய்";
 "CHAPTER_SELECTION_TITLE" = "அத்தியாயங்கள்";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamp";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "சமநிலைக்கு முகக்குறிப்பு தேர்வுசெய்";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "பின்னணி இயக்கம் தோல்வியுற்றது";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
 
 "UPGRADING_LIBRARY" = "பல்லூடக நூலகத்தைப் புதுப்பிக்கிறது";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "நீண்ட நேரம் அழுத்தவும் பின்னணி நிறுத்த.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "பாடல் விவரம்";
