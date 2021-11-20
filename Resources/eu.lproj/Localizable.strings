@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Hautatu audio pista";
 "CHOOSE_SUBTITLE_TRACK" = "Hautatu azpitituluen pista";
 "UNKNOWN_TRACK_TYPE" = "Pista mota ezezaguna";
-"OPEN_TRACK_PANEL" = "Ireki pistaren aukeraketa";
 "CHOOSE_TITLE" = "Hautatu titulua";
 "CHOOSE_CHAPTER" = "Hautatu kapitulua";
 "CHAPTER_SELECTION_TITLE" = "Kapituluak";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Aurrezarpen / preamplifikazio ezarpenak";
 "PREAMP" = "Aurreanp";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Aukeratu ekulizadorearen profila";
 "SNAP_BANDS" = "Klaskatu bandak";
 
 "PLAYBACK_FAILED" = "Erreprodukzioak huts egin du";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Erakutsi erabilgarri dauden igortze gailuen menua";
 
 
-"BUTTON_PLAY_QUEUE" = "Erreproduzitu ilara";
-"BUTTON_PLAY_QUEUE_HINT" = "Erakutsi erreprodukzio ilararen ikuspegia";
 
 "UPGRADING_LIBRARY" = "Euskarri liburutegia berritzen";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Sakatu luze erreprodukzioa gelditzeko.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audioaren informazioa";

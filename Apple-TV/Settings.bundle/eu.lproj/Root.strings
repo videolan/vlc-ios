@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Nahiagotu SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Desmarkatu ezarpen hau zure SMB zerbitzarian arakatzeko zailtasunak badituzu";
 "SETTINGS_RTSP_TCP" = "RTP erabili RTSP (TCP)-ren gainetik";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Artelanak";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Deskargatu Artelana";
