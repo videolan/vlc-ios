@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Sceglie a traccia audio";
 "CHOOSE_SUBTITLE_TRACK" = "Sceglie a traccia di sottutitulu";
 "UNKNOWN_TRACK_TYPE" = "Tipu di traccia scunnisciutu";
-"OPEN_TRACK_PANEL" = "Apre a selezzione di traccia";
 "CHOOSE_TITLE" = "Sceglie u titulu";
 "CHOOSE_CHAPTER" = "Sceglie u capitulu";
 "CHAPTER_SELECTION_TITLE" = "Capituli";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preferenze di prerigatura è preamplificazione";
 "PREAMP" = "Preamplificazione";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Sceglie u prufilu d’ugualizatore";
 "SNAP_BANDS" = "Striscie elastiche";
 
 "PLAYBACK_FAILED" = "Fiascu di a ripruduzzione";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Affissà un listinu di l’apparechji di diffusione dispunibule";
 
 
-"BUTTON_PLAY_QUEUE" = "Leghje a lista di lettura";
-"BUTTON_PLAY_QUEUE_HINT" = "Affissà a vista di a lista di lettura";
 
 "UPGRADING_LIBRARY" = "Rinnovà a mediateca";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Longa incalcata per piantà a ripruduzzione.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Infurmazione Audio";
