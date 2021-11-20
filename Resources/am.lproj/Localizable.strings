@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "የ ድምጽ ተረኛ ይምረጡ ";
 "CHOOSE_SUBTITLE_TRACK" = "ለ ተረኛው ንዑስ አርእስት ይምረጡ";
 "UNKNOWN_TRACK_TYPE" = "Unknown track type";
-"OPEN_TRACK_PANEL" = "የተመረጠውን ተረኛ መክፈቻ";
 "CHOOSE_TITLE" = "አርእስት ይምረጡ";
 "CHOOSE_CHAPTER" = "ምእራፍ ይምረጡ";
 "CHAPTER_SELECTION_TITLE" = "ምእራፎች";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "Preamp";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "የ ማስተካከያ ገጽታ ይምረጡ";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "በድጋሚ ማጫወት አልተቻለም";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
 
 
-"BUTTON_PLAY_QUEUE" = "Play queue";
-"BUTTON_PLAY_QUEUE_HINT" = "Show the play queue view";
 
 "UPGRADING_LIBRARY" = "የ መገናኛ መጻህፍት ቤት በማሻሻል ላይ";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Long-press to stop playback.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "የ ድምፅ መረጃ";
