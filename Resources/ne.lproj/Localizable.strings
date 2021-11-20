@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "अडियो ट्रयाक  छान्नुहोस्।";
 "CHOOSE_SUBTITLE_TRACK" = "उपशीर्षक ट्रयाक छान्नुहोस्।";
 "UNKNOWN_TRACK_TYPE" = "Unknown track type";
-"OPEN_TRACK_PANEL" = "ट्रयाक छनौट खोल्नुहोस्।";
 "CHOOSE_TITLE" = "शीर्षक छान्नुहोस्";
 "CHOOSE_CHAPTER" = "अध्याय छान्नुहोस्";
 "CHAPTER_SELECTION_TITLE" = "अध्यायहरू";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Preset / preamp settings";
 "PREAMP" = "पूर्व-प्रवर्धक";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "इक्वालाइजर प्रोफाइल छान्नुहोस्";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "बजाउन असफल";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "उपलब्ध कास्टिङ यन्त्रको मेनु देखाउनुहोस्";
 
 
-"BUTTON_PLAY_QUEUE" = "प्ले लाइन";
-"BUTTON_PLAY_QUEUE_HINT" = "प्ले लाइन दृष्य देखाउनुहोस्";
 
 "UPGRADING_LIBRARY" = "मिडिया लाइब्रेरी अपग्रेड गर्दै";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "प्लेब्याक रोक्न थिचिराख्नुहोस्।";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "अडियो जानकारी";
