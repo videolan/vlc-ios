@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "選擇音軌";
 "CHOOSE_SUBTITLE_TRACK" = "選擇字幕軌";
 "UNKNOWN_TRACK_TYPE" = "未知曲目類型";
-"OPEN_TRACK_PANEL" = "開啟單元選單";
 "CHOOSE_TITLE" = "選擇標題";
 "CHOOSE_CHAPTER" = "選擇章節";
 "CHAPTER_SELECTION_TITLE" = "章節";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "預設 / 前置放大設置";
 "PREAMP" = "搶佔";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "選擇等化器設定";
 "SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "播放失敗";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "顯示可用的投放裝置選單";
 
 
-"BUTTON_PLAY_QUEUE" = "播放佇列";
-"BUTTON_PLAY_QUEUE_HINT" = "顯示播放佇列檢視";
 
 "UPGRADING_LIBRARY" = "升級媒體櫃中";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "長按已結束播放";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "音訊資訊";
