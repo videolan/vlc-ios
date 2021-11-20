@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "בחירת רצועת שמע";
 "CHOOSE_SUBTITLE_TRACK" = "בחירת רצועת כתוביות";
 "UNKNOWN_TRACK_TYPE" = "סוג רצועה בלתי ידוע";
-"OPEN_TRACK_PANEL" = "פתח בחירת ערוצים";
 "CHOOSE_TITLE" = "בחר כותר";
 "CHOOSE_CHAPTER" = "בחר פרקים";
 "CHAPTER_SELECTION_TITLE" = "פרקים";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "הגדרות ערכה מוגדרת / הגברה טרומית";
 "PREAMP" = "Preamp";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "בחר פרופיל איקולייזר";
 "SNAP_BANDS" = "הצמדת ערוצים";
 
 "PLAYBACK_FAILED" = "הנגינה נכשלה";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "הצגת תפריט עם התקני השידור הזמינים";
 
 
-"BUTTON_PLAY_QUEUE" = "לנגן את התור";
-"BUTTON_PLAY_QUEUE_HINT" = "להציג את תצוגת ניגון התור";
 
 "UPGRADING_LIBRARY" = "ספריית המדיה משתדרגת";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "לחיצה ארוכה להפסקת נגינה.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "פרטי השמע";

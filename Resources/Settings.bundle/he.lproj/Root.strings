@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "להעדיף SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "יש לבטל את סימון ההגדרה הזאת אם נתקלת בבעיות גישה לשרת ה־SMB שלך";
 "SETTINGS_RTSP_TCP" = "להשתמש ב־RTP על גבי RTSP‏ (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "כתובת רשימת ערוצי לוויין>IP משלך";
 
 "SETTINGS_ARTWORK" = "עטיפת אלבום";
 "SETTINGS_DOWNLOAD_ARTWORK" = "הורדת עטיפת האלבום";
