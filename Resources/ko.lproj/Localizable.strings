@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "음성 트랙 선택하기";
 "CHOOSE_SUBTITLE_TRACK" = "자막 트랙 선택하기";
 "UNKNOWN_TRACK_TYPE" = "알 수 없는 트랙 유형";
-"OPEN_TRACK_PANEL" = "트랙 선택 열기";
 "CHOOSE_TITLE" = "타이틀 선택하기";
 "CHOOSE_CHAPTER" = "챕터 선택하기";
 "CHAPTER_SELECTION_TITLE" = "챕터";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "프리셋 / 프리앰프 설정";
 "PREAMP" = "프리앰프";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "이퀄라이저 프로필 선택하기";
 "SNAP_BANDS" = "Snap 밴드";
 
 "PLAYBACK_FAILED" = "재생 실패";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "이용 가능 캐스트 기기를 표합니다";
 
 
-"BUTTON_PLAY_QUEUE" = "재생 대기열";
-"BUTTON_PLAY_QUEUE_HINT" = "재생 대기열 표시";
 
 "UPGRADING_LIBRARY" = "미디어 라이브러리 업그레이드 중";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "재생을 정지하려면 길게 누르세요";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "오디오 정보";
