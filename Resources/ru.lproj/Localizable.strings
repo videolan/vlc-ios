@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Выберите аудиопоток";
 "CHOOSE_SUBTITLE_TRACK" = "Выберите субтитры";
 "UNKNOWN_TRACK_TYPE" = "Неизвестный тип дорожки";
-"OPEN_TRACK_PANEL" = "Выбор дорожки";
 "CHOOSE_TITLE" = "Выберите произведение";
 "CHOOSE_CHAPTER" = "Выберите главу";
 "CHAPTER_SELECTION_TITLE" = "Главы";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Настройки пресетов/предусилителя";
 "PREAMP" = "Предусилитель";
-"DB_FORMAT" = "%i дБ";
-"CHOOSE_EQUALIZER_PROFILES" = "Выберите профиль эквалайзера";
 "SNAP_BANDS" = "Перемещать с соседними";
 
 "PLAYBACK_FAILED" = "Ошибка воспроизведения";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Показать меню доступных передающих устройств";
 
 
-"BUTTON_PLAY_QUEUE" = "Воспроизвести следующим в очереди";
-"BUTTON_PLAY_QUEUE_HINT" = "Показать очередь воспроизведения";
 
 "UPGRADING_LIBRARY" = "Обновление медиатеки";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Нажмите и удерживайте, чтобы остановить воспроизведение.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Аудио";

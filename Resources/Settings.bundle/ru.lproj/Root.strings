@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Предпочитать SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Снимите этот флажок, если вы испытываете трудности при обращении к серверу SMB";
 "SETTINGS_RTSP_TCP" = "Использовать RTP поверх RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Обложка";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Загрузить обложку";
