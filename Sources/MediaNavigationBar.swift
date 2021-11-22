@@ -27,7 +27,7 @@ protocol MediaNavigationBarDelegate {
 
     lazy var minimizePlaybackButton: UIButton = {
         var minButton = UIButton(type: .system)
-        minButton.addTarget(self, action: #selector(handleMinimizeTap), for: .touchUpInside)
+        minButton.addTarget(self, action: #selector(handleMinimizeTap), for: .touchDown)
         minButton.setImage(UIImage(named: "minimize"), for: .normal)
         minButton.tintColor = .white
         minButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -36,7 +36,7 @@ protocol MediaNavigationBarDelegate {
 
     lazy var closePlaybackButton: UIButton = {
         var closeButton = UIButton(type: .system)
-        closeButton.addTarget(self, action: #selector(handleCloseTap), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(handleCloseTap), for: .touchDown)
         closeButton.setImage(UIImage(named: "close"), for: .normal)
         closeButton.tintColor = .white
         closeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -55,7 +55,7 @@ protocol MediaNavigationBarDelegate {
 
     lazy var queueButton: UIButton = {
         var queueButton = UIButton(type: .system)
-        queueButton.addTarget(self, action: #selector(toggleQueueView), for: .touchUpInside)
+        queueButton.addTarget(self, action: #selector(toggleQueueView), for: .touchDown)
         queueButton.setImage(UIImage(named: "play-queue"), for: .normal)
         queueButton.tintColor = .white
         queueButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -64,7 +64,7 @@ protocol MediaNavigationBarDelegate {
 
     lazy var chromeCastButton: UIButton = {
         var chromeButton = UIButton(type: .system)
-        chromeButton.addTarget(self, action: #selector(toggleChromeCast), for: .touchUpInside)
+        chromeButton.addTarget(self, action: #selector(toggleChromeCast), for: .touchDown)
         chromeButton.setImage(UIImage(named: "renderer"), for: .normal)
         chromeButton.tintColor = .white
         chromeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
