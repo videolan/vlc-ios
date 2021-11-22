@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Επιλέξτε κομμάτι ήχου";
 "CHOOSE_SUBTITLE_TRACK" = "Επιλέξτε κομμάτι υπότιτλων";
 "UNKNOWN_TRACK_TYPE" = "Άγνωστος τύπος κομματιού";
-"OPEN_TRACK_PANEL" = "Άνοιγμα επιλογής καναλιού";
 "CHOOSE_TITLE" = "Επιλογή τίτλου";
 "CHOOSE_CHAPTER" = "Επιλογή κεφαλαίου";
 "CHAPTER_SELECTION_TITLE" = "Κεφάλαια";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Ρυθμίσεις προρύθμισης / προενίσχυσης";
 "PREAMP" = "Προενίσχυση";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Επιλογή προφίλ ισοσταθμιστή";
 "SNAP_BANDS" = "Ελαστικές ζώνες";
 
 "PLAYBACK_FAILED" = "Αποτυχία αναπαραγωγής";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Εμφάνιση μενού διαθέσιμων συσκευών μετάδοσης";
 
 
-"BUTTON_PLAY_QUEUE" = "Ουρά αναπαραγωγής";
-"BUTTON_PLAY_QUEUE_HINT" = "Εμφάνιση προβολής ουράς αναπαραγωγής";
 
 "UPGRADING_LIBRARY" = "Αναβάθμιση βιβλιοθήκης πολυμέσων";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Πατήστε παρατεταμένα για να σταματήσετε την αναπαραγωγή.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Πληροφορίες ήχου";
@@ -293,8 +287,8 @@
 "REPEAT_FOLDER" = "Φάκελος";
 "SHUFFLE" = "Ανακάτεμα";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Επαναφορά λίστας";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Επαναφέρετε μόνιμα τη λίστα των ροών δικτύου που παίχτηκαν πρόσφατα.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Οικουμενική σύνδεση και χρήση (UPnP)";

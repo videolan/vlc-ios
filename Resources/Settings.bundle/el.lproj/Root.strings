@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Προτίμηση SMBv1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Αποεπιλέξτε αυτή τη ρύθμιση εάν αντιμετωπίζετε δυσκολίες κατά την περιήγηση του διακομιστή SMB σας.";
 "SETTINGS_RTSP_TCP" = "Χρήση RTP μέσω RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Εικονογράφηση";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Λήψη εικονογράφησης";
