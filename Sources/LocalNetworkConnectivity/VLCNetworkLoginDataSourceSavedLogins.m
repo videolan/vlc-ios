@@ -90,6 +90,11 @@ static NSString *const VLCNetworkLoginSavedLoginCellIdentifier = @"VLCNetworkLog
 
 - (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification
 {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(ubiquitousKeyValueStoreDidChange:) withObject:notification waitUntilDone:NO];
+        return;
+    }
+
     /* TODO: don't blindly trust that the Cloud knows best */
     _serverList = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCStoredServerList]];
     // TODO: Vincent: array diff with insert and delete

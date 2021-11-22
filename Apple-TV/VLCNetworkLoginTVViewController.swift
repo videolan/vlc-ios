@@ -85,6 +85,10 @@ import UIKit
     }
 
     @objc func ubiquitousKeyValueStoreDidChange(notification: NSNotification) {
+        if !Thread.isMainThread {
+            self.performSelector(onMainThread: #selector(ubiquitousKeyValueStoreDidChange), with: notification, waitUntilDone: false)
+            return
+        }
         serverList?.setArray(NSUbiquitousKeyValueStore.default.array(forKey: kVLCStoredServerList)!)
         tableView.reloadData()
     }

@@ -55,6 +55,11 @@
 
 - (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification
 {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(ubiquitousKeyValueStoreDidChange:) withObject:notification waitUntilDone:NO];
+        return;
+    }
+
     /* TODO: don't blindly trust that the Cloud knows best */
     _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
     _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[[NSUbiquitousKeyValueStore defaultStore] dictionaryForKey:kVLCRecentURLTitles]];
