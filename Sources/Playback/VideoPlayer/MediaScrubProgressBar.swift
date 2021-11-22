@@ -117,7 +117,7 @@ class MediaScrubProgressBar: UIStackView {
     func updateCurrentTime() {
         let timeToDisplay = UserDefaults.standard.bool(forKey: kVLCShowRemainingTime)
             ? playbackService.remainingTime().stringValue
-            : VLCTime(int: Int32(playbackService.mediaDuration)).stringValue
+            : VLCTime(number: NSNumber.init(value:playbackService.mediaDuration)).stringValue
 
         remainingTimeButton.setTitle(timeToDisplay, for: .normal)
         remainingTimeButton.setNeedsLayout()
@@ -205,7 +205,7 @@ private extension MediaScrubProgressBar {
                 progressSlider.value = playbackService.playbackPosition
             }
 
-            if let newPosition = VLCTime(int: Int32(slider.value * Float(playbackService.mediaDuration))) {
+            if let newPosition = VLCTime(number: NSNumber.init(value: slider.value * Float(playbackService.mediaDuration))) {
                 elapsedTimeLabel.text = newPosition.stringValue
                 elapsedTimeLabel.accessibilityLabel =
                     String(format: "%@: %@",
@@ -214,7 +214,7 @@ private extension MediaScrubProgressBar {
                 // Update only remaining time and not media duration.
                 if UserDefaults.standard.bool(forKey: kVLCShowRemainingTime) {
                     let newRemainingTime = Int(newPosition.intValue) - playbackService.mediaDuration
-                    remainingTimeButton.setTitle(VLCTime(int: Int32(newRemainingTime)).stringValue,
+                    remainingTimeButton.setTitle(VLCTime(number: NSNumber.init(value:newRemainingTime)).stringValue,
                                                  for: .normal)
                     remainingTimeButton.setNeedsLayout()
                 }

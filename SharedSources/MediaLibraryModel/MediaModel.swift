@@ -43,7 +43,7 @@ extension VLCMLMedia {
     }
 
     @objc func mediaDuration() -> String {
-        return String(format: "%@", VLCTime(int: Int32(duration())))
+        return String(format: "%@", VLCTime(number: NSNumber.init(value: duration())))
     }
 
     @objc func formatSize() -> String {
