@@ -28,7 +28,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Aldrig";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Spørg";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Altid";
-"SETTINGS_NETWORK_PLAY_ALL" = "Automatisk afspilning af næste emne";
+"SETTINGS_NETWORK_PLAY_ALL" = "Afspil automatisk næste emne";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Aktivér tekstrulning i medieliste";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Blokdelingsfilter";
@@ -77,7 +77,7 @@
 "SETTINGS_DEINTERLACE_OFF" = "Fra";
 "SETTINGS_DEINTERLACE_AUTO" = "Automatisk";
 
-"SETTINGS_HWDECODING" = "Hardwareafkodning";
+"SETTINGS_HWDECODING" = "Hardwaredekodning";
 "SETTINGS_HWDECODING_ON" = "Til";
 "SETTINGS_HWDECODING_OFF" = "Fra";
 "SETTINGS_CASTING" = "Udsendelse";
@@ -112,6 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Foretræk SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Slå denne indstilling fra hvis du har besvær med at browse din SMB-server";
 "SETTINGS_RTSP_TCP" = "Anvend RTP fremfor RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "Billede";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download billede";
