@@ -136,12 +136,14 @@ class QueueViewController: UIViewController {
             let heightConstraint: NSLayoutConstraint?
             if let parent = parent as? VLCPlayerDisplayController, let miniPlaybackView = parent.miniPlaybackView as? AudioMiniPlayer {
                 grabberView.isHidden = true
+                closeButton.isHidden = true
                 parent.view.bringSubviewToFront(miniPlaybackView)
                 topConstraint = view.topAnchor.constraint(equalTo: miniPlaybackView.bottomAnchor)
                 heightConstraint = nil
                 bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
             } else {
                 grabberView.isHidden = false
+                closeButton.isHidden = false
                 if let parent = parent as? VideoPlayerViewController {
                     topConstraint = nil
                     heightConstraint = view.heightAnchor.constraint(equalTo: parent.view.heightAnchor,
