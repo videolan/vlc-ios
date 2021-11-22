@@ -186,7 +186,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         let isSingleMediaGroup = mediaGroup.nbTotalMedia() == 1
 
         if isSingleMediaGroup && !mediaGroup.userInteracted() {
-            guard let media = mediaGroup.media(of: .video)?.first else {
+            guard let media = mediaGroup.media(of: .unknown)?.first else {
                 assertionFailure("MovieCollectionViewCell: Failed to fetch media.")
                 return
             }
@@ -199,7 +199,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
         setupGroupView()
 
-        setThumbnails(medias: mediaGroup.media(of: .video))
+        setThumbnails(medias: mediaGroup.media(of: .unknown))
 
         groupTitleLabel.text = mediaGroup.name()
         groupSizeLabel.text = mediaGroup.numberOfTracksString()

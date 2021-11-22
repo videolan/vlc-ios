@@ -815,7 +815,7 @@ extension MediaCategoryViewController {
         if let mediaGroup = modelContent as? VLCMLMediaGroup,
             mediaGroup.nbTotalMedia() == 1 && !mediaGroup.userInteracted() {
             // We handle only mediagroups of video
-            guard let media = mediaGroup.media(of: .video)?.first else {
+            guard let media = mediaGroup.media(of: .unknown)?.first else {
                 assertionFailure("MediaCategoryViewController: Failed to fetch mediagroup video.")
                 return
             }
@@ -901,13 +901,13 @@ extension MediaCategoryViewController {
         }
 
         if let mediaGroup = mediaObject as? VLCMLMediaGroup {
-            guard let media = mediaGroup.media(of: .video)?.first else {
+            guard let media = mediaGroup.media(of: .unknown)?.first else {
                 assertionFailure("MediaCategoryViewController: Failed to retrieve media")
                 return mediaCell
             }
             services.medialibraryService.requestThumbnail(for: media)
         } else if let media = mediaObject as? VLCMLMedia {
-            if media.type() == .video {
+            if media.type() == .unknown || media.type() == .video {
                 services.medialibraryService.requestThumbnail(for: media)
                 assert(media.mainFile() != nil, "The mainfile is nil")
             }
@@ -1164,7 +1164,7 @@ extension MediaCategoryViewController {
                 return $0.nbTotalMedia() == 1 && !$0.userInteracted()
             }
             singleGroup.forEach() {
-                guard let media = $0.media(of: .video)?.first else {
+                guard let media = $0.media(of: .unknown)?.first else {
                     assertionFailure("MediaCategoryViewController: play: Failed to fetch media.")
                     return
                 }
