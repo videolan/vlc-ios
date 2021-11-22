@@ -34,7 +34,7 @@
                                         <imageReference key="image" image="lock.rotation" catalog="system" symbolScale="large" renderingMode="template"/>
                                     </state>
                                     <connections>
-                                        <action selector="handleRotationLockButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="MYa-9f-xU4"/>
+                                        <outletCollection property="gestureRecognizers" destination="lbY-n6-jYe" appends="YES" id="5Yc-Q8-5aD"/>
                                     </connections>
                                 </button>
                                 <button hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hN-qU-px8" userLabel="DVD">
@@ -45,7 +45,7 @@
                                     </constraints>
                                     <state key="normal" title="DVD"/>
                                     <connections>
-                                        <action selector="handleDVDButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="amy-xB-CIJ"/>
+                                        <outletCollection property="gestureRecognizers" destination="ftr-HO-OcS" appends="YES" id="99s-5S-pnx"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xy4-Ix-lOi" userLabel="Subtitle">
@@ -57,7 +57,7 @@
                                     </constraints>
                                     <state key="normal" image="iconSubtitle"/>
                                     <connections>
-                                        <action selector="handleSubtitleButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="tKF-0u-09D"/>
+                                        <outletCollection property="gestureRecognizers" destination="1vV-VP-Ju1" appends="YES" id="6Ek-T0-UjA"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elQ-lM-1p8">
@@ -70,7 +70,7 @@
                                     <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" image="iconRepeat"/>
                                     <connections>
-                                        <action selector="handleRepeatButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="y5y-GT-lIy"/>
+                                        <outletCollection property="gestureRecognizers" destination="2on-ia-S0z" appends="YES" id="80j-mU-eBU"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -89,7 +89,7 @@
                                             </constraints>
                                             <state key="normal" image="iconSkipBack"/>
                                             <connections>
-                                                <action selector="handleBackwardButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="iGB-XW-LgV"/>
+                                                <outletCollection property="gestureRecognizers" destination="ZV7-U0-e6V" appends="YES" id="Iql-3I-mHe"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v82-nx-P0i" userLabel="Previous">
@@ -100,7 +100,7 @@
                                             </constraints>
                                             <state key="normal" image="previous-media"/>
                                             <connections>
-                                                <action selector="handlePreviousButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="zP8-Xz-7Ok"/>
+                                                <outletCollection property="gestureRecognizers" destination="fVP-3f-NHf" appends="YES" id="GPO-S4-e4Z"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -130,7 +130,7 @@
                                             </constraints>
                                             <state key="normal" image="next-media"/>
                                             <connections>
-                                                <action selector="handleNextButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="f5d-8p-rbk"/>
+                                                <outletCollection property="gestureRecognizers" destination="NOV-wr-M0T" appends="YES" id="ZTD-ey-0CD"/>
                                             </connections>
                                         </button>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrd-2e-VF4" userLabel="Forward">
@@ -141,7 +141,7 @@
                                             </constraints>
                                             <state key="normal" image="iconSkipForward"/>
                                             <connections>
-                                                <action selector="handleForwardButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="h1g-ad-mnS"/>
+                                                <outletCollection property="gestureRecognizers" destination="8RZ-Jf-Dss" appends="YES" id="2FQ-gV-VJX"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -165,7 +165,7 @@
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" image="shuffle"/>
                                     <connections>
-                                        <action selector="handleShuffleButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="riQ-CG-JdU"/>
+                                        <outletCollection property="gestureRecognizers" destination="NwA-wR-aDL" appends="YES" id="hyz-i5-8yj"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VA6-oF-BG7" userLabel="Aspect Ratio">
@@ -176,7 +176,7 @@
                                     </constraints>
                                     <state key="normal" image="iconExpand"/>
                                     <connections>
-                                        <action selector="handleAspectRatioButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="lXA-kR-sWM"/>
+                                        <outletCollection property="gestureRecognizers" destination="gqh-jJ-N5W" appends="YES" id="5LA-Zy-PZS"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BVD-eC-bAW" userLabel="More Actions">
@@ -187,7 +187,7 @@
                                     </constraints>
                                     <state key="normal" image="iconMoreOptions"/>
                                     <connections>
-                                        <action selector="handleMoreActionsButton:" destination="Ve6-FF-JXf" eventType="touchUpInside" id="6xi-eo-dRu"/>
+                                        <outletCollection property="gestureRecognizers" destination="Eou-7x-zw2" appends="YES" id="jQP-af-Wwk"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -226,9 +226,64 @@
             </connections>
             <point key="canvasLocation" x="-258" y="-33"/>
         </view>
-        <tapGestureRecognizer id="cbo-F2-Mgg">
+        <tapGestureRecognizer id="lbY-n6-jYe" userLabel="RotationLockTapGesture">
+            <connections>
+                <action selector="handleRotationLockButton:" destination="Ve6-FF-JXf" id="4M7-O4-irf"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="ftr-HO-OcS" userLabel="DVDTapGesture">
+            <connections>
+                <action selector="handleDVDButton:" destination="Ve6-FF-JXf" id="6EF-b3-pP1"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="1vV-VP-Ju1" userLabel="SubtitleTapGesture">
+            <connections>
+                <action selector="handleSubtitleButton:" destination="Ve6-FF-JXf" id="8co-zZ-AN4"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="2on-ia-S0z" userLabel="RepeatTapGesture">
+            <connections>
+                <action selector="handleRepeatButton:" destination="Ve6-FF-JXf" id="8Wa-2y-BkR"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="ZV7-U0-e6V" userLabel="BackwardTapGesture">
+            <connections>
+                <action selector="handleBackwardButton:" destination="Ve6-FF-JXf" id="YKc-YG-zaZ"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="fVP-3f-NHf" userLabel="PreviousTapGesture">
+            <connections>
+                <action selector="handlePreviousButton:" destination="Ve6-FF-JXf" id="jnD-Ym-uq3"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="cbo-F2-Mgg" userLabel="PlayPauseTapGesture">
             <connections>
                 <action selector="handlePlayPauseButton:" destination="Ve6-FF-JXf" id="ZfB-nF-nnj"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="NOV-wr-M0T" userLabel="NextTapGesture">
+            <connections>
+                <action selector="handleNextButton:" destination="Ve6-FF-JXf" id="LQt-lG-hS0"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="8RZ-Jf-Dss" userLabel="ForwardTapGesture">
+            <connections>
+                <action selector="handleForwardButton:" destination="Ve6-FF-JXf" id="arQ-o8-oAX"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="NwA-wR-aDL" userLabel="ShuffleTapGesture">
+            <connections>
+                <action selector="handleShuffleButton:" destination="Ve6-FF-JXf" id="OBQ-Hx-d1r"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="gqh-jJ-N5W" userLabel="AspectRatioTapGesture">
+            <connections>
+                <action selector="handleAspectRatioButton:" destination="Ve6-FF-JXf" id="nfq-6g-BJi"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="Eou-7x-zw2" userLabel="MoreActionsTapGesture">
+            <connections>
+                <action selector="handleMoreActionsButton:" destination="Ve6-FF-JXf" id="fRG-NT-YZp"/>
             </connections>
         </tapGestureRecognizer>
     </objects>
