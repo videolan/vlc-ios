@@ -159,7 +159,6 @@ extension VideoPlayerControls {
     @IBAction func handleRotationLockButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapRotationLock(self)
     }
-    
     @IBAction func handleRepeatButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateRepeat(self)
     }
@@ -199,9 +198,8 @@ extension VideoPlayerControls {
     @IBAction func handleMoreActionsButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidMoreActions(self)
     }
-    
+
     @IBAction func handleShuffleButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateShuffle(self)
     }
-    
 }
