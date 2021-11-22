@@ -327,6 +327,8 @@ private extension QueueViewController {
         darkOverlayView.backgroundColor = .black
         darkOverlayView.alpha = darkOverlayAlpha
         darkOverlayView.isHidden = true
+        darkOverlayView.isUserInteractionEnabled = true
+        darkOverlayView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissPlayqueue)))
         darkOverlayView.translatesAutoresizingMaskIntoConstraints = false
     }
 
