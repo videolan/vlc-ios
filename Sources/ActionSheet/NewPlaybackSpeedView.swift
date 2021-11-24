@@ -33,7 +33,7 @@ class NewPlaybackSpeedView: UIView {
     private let minDelay: Float = -5000.0
     private let maxDelay: Float = 5000.0
     private let minSpeed: Float = 0.25
-    private let maxSpeed: Float = 4.00
+    private let maxSpeed: Float = 8.00
 
     private let increaseDelay: Float = 50.0
     private let decreaseDelay: Float = -50.0
