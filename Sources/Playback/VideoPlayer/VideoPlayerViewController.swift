@@ -1356,6 +1356,10 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
             queueViewController?.reloadBackground(with: nil)
         }
     }
+
+    func playbackService(_ playbackService: PlaybackService, nextMedia media: VLCMedia) {
+        savePlaybackState(playbackService)
+    }
 }
 
 // MARK: - PlayerControllerDelegate
