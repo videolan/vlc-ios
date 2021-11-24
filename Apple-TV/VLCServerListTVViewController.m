@@ -22,9 +22,6 @@
 #import "VLCLocalNetworkServiceBrowserPlex.h"
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 #import "VLCLocalNetworkServiceBrowserNFS.h"
-#ifndef NDEBUG
-#import "VLCLocalNetworkServiceBrowserSAP.h"
-#endif
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "VLCLocalNetworkServiceBrowserBonjour.h"
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
@@ -98,9 +95,6 @@
                          [VLCLocalNetworkServiceBrowserPlex class],
                          [VLCLocalNetworkServiceBrowserNFS class],
                          [VLCLocalNetworkServiceBrowserBonjour class],
-#ifndef NDEBUG
-                         [VLCLocalNetworkServiceBrowserSAP class],
-#endif
                          ];
     self.discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:classes];
     self.discoveryController.delegate = self;
