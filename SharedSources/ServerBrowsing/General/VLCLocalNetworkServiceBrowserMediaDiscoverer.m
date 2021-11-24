@@ -2,7 +2,7 @@
  * VLCLocalNetworkServiceBrowserMediaDiscoverer.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020-2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -17,6 +17,10 @@
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
 
 @interface VLCLocalNetworkServiceBrowserMediaDiscoverer () <VLCMediaListDelegate>
+{
+    VLCLibrary *_internalLibraryInstance;
+    BOOL _isUPnPdiscoverer;
+}
 @property (nonatomic, readonly) NSString *serviceName;
 @property (nonatomic, readwrite) VLCMediaDiscoverer* mediaDiscoverer;
 
@@ -31,6 +35,20 @@
     if (self) {
         _name = name;
         _serviceName = serviceName;
+
+        /* special case for UPnP to allow custom SAT>IP channel lists
+         * launching an extra libvlc instance just for this is expensive,
+         * so it should be only if explicitly demanded by the user */
+        _isUPnPdiscoverer = [serviceName isEqualToString:@"upnp"];
+        if (_isUPnPdiscoverer) {
+            NSUserDefaults *defaults;
+            NSString *satipURLstring = [defaults stringForKey:kVLCSettingNetworkSatIPChannelListUrl];
+            if (satipURLstring.length > 0) {
+                NSArray *libVLCOptions = @[[NSString stringWithFormat:@"--%@=%@", kVLCSettingNetworkSatIPChannelListUrl, satipURLstring],
+                                           [NSString stringWithFormat:@"--%@=%@", kVLCSettingNetworkSatIPChannelList, kVLCSettingNetworkSatIPChannelListCustom]];
+                _internalLibraryInstance = [[VLCLibrary alloc] initWithOptions:libVLCOptions];
+            }
+        }
     }
     return self;
 }
@@ -44,7 +62,15 @@
     if (self.mediaDiscoverer) {
         return;
     }
-    VLCMediaDiscoverer *discoverer = [[VLCMediaDiscoverer alloc] initWithName:self.serviceName];
+    VLCMediaDiscoverer *discoverer;
+
+    /* special case for UPnP to allow custom SAT>IP channel lists */
+    if (_internalLibraryInstance && _isUPnPdiscoverer) {
+        discoverer = [[VLCMediaDiscoverer alloc] initWithName:self.serviceName libraryInstance:_internalLibraryInstance];
+    } else {
+        discoverer = [[VLCMediaDiscoverer alloc] initWithName:self.serviceName];
+    }
+
     self.mediaDiscoverer = discoverer;
     /* enable this boolean to debug the discovery session
      * note that this will not necessarily enable debug for playback

@@ -80,6 +80,14 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST</string>
+			<key>Key</key>
+			<string>satip-channellist-url</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_VIDEO_TITLE</string>

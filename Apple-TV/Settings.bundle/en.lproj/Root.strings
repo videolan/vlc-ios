@@ -36,6 +36,8 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "High Latency";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Highest Latency";
 
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list";
+
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Default playback speed";
 
 "SETTINGS_GESTURES" = "Control playback with gestures";
