@@ -460,6 +460,9 @@ class VideoPlayerViewController: UIViewController {
 
         setControlsHidden(false, animated: false)
 
+        // Make sure interface is enabled on
+        setPlayerInterfaceEnabled(true)
+
         artWorkImageView.image = nil
         // FIXME: Test userdefault
         let rendererDiscoverer = services.rendererDiscovererManager
@@ -537,6 +540,9 @@ class VideoPlayerViewController: UIViewController {
             idleTimer?.invalidate()
             idleTimer = nil
         }
+
+        // Reset lock interface on end of playback.
+        playerController.isInterfaceLocked = false
 
         volumeControlView.alpha = 0
         brightnessControlView.alpha = 0
