@@ -63,6 +63,10 @@ class SliderInfoView: UIView {
         }
     }
 
+    func isEnabled(_ enabled: Bool) {
+        levelSlider.isEnabled = enabled
+    }
+
     override func layoutSubviews() {
         addSubview(levelImageView)
         addSubview(levelSlider)

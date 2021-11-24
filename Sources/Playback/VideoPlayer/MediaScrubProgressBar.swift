@@ -49,7 +49,7 @@ class MediaScrubProgressBar: UIStackView {
         return label
     }()
     
-    private lazy var remainingTimeButton: UIButton = {
+    private(set) lazy var remainingTimeButton: UIButton = {
         let remainingTimeButton = UIButton(type: .custom)
         remainingTimeButton.addTarget(self,
                                       action: #selector(handleTimeDisplay),

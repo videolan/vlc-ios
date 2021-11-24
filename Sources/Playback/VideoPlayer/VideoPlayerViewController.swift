@@ -1446,6 +1446,7 @@ extension VideoPlayerViewController: MediaScrubProgressBarDelegate {
 
 extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
+        mediaNavigationBar.closePlaybackButton.isEnabled = !state
         mediaNavigationBar.chromeCastButton.isEnabled = !state
         mediaNavigationBar.queueButton.isEnabled = !state
         mediaNavigationBar.minimizePlaybackButton.isEnabled = !state
@@ -1458,6 +1459,7 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
         }
 
         scrubProgressBar.progressSlider.isEnabled = !state
+        scrubProgressBar.remainingTimeButton.isEnabled = !state
 
         optionsNavigationBar.videoFiltersButton.isEnabled = !state
         optionsNavigationBar.playbackSpeedButton.isEnabled = !state
@@ -1479,6 +1481,14 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
         playPauseRecognizer.isEnabled = !state
         doubleTapRecognizer.isEnabled = !state
         pinchRecognizer.isEnabled = !state
+        rightSwipeRecognizer.isEnabled = !state
+        leftSwipeRecognizer.isEnabled = !state
+        upSwipeRecognizer.isEnabled = !state
+        downSwipeRecognizer.isEnabled = !state
+        panRecognizer.isEnabled = !state
+
+        brightnessControlView.isEnabled(!state)
+        volumeControlView.isEnabled(!state)
 
         playerController.isInterfaceLocked = state
     }
