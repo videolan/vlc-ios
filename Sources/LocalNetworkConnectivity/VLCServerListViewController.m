@@ -210,6 +210,7 @@
                                 [VLCLocalNetworkServiceBrowserHTTP class],
                                 [VLCLocalNetworkServiceBrowserDSM class],
                                 [VLCLocalNetworkServiceBrowserBonjour class],
+                                [VLCLocalNetworkServiceBrowserNFS class],
                                 ];
 
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
