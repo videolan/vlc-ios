@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -85,6 +85,9 @@
     } else if ([specifierType isEqualToString:kIASKPSToggleSwitchSpecifier]) {
         cell.detailTextLabel.text = [self.userDefaults boolForKey:[specifier key]] ? NSLocalizedString(@"ON", nil) : NSLocalizedString(@"OFF", nil);
         cell.accessoryType = UITableViewCellAccessoryNone;
+    } else if ([specifierType isEqualToString:@"PSTextFieldSpecifier"]) {
+        cell.detailTextLabel.text = [self.userDefaults stringForKey:[specifier key]];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else {
         cell.detailTextLabel.text = @"";
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -134,6 +137,40 @@
         NSString *specifierKey = [specifier key];
         [self.userDefaults setBool:![self.userDefaults boolForKey:specifierKey] forKey:specifierKey];
         [self.tableView reloadData];
+    } else if ([specifierType isEqualToString:@"PSTextFieldSpecifier"]) {
+        NSString *saveString = NSLocalizedString(@"BUTTON_SAVE", nil);
+        NSString *cancelString = NSLocalizedString(@"BUTTON_CANCEL", nil);
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:specifier.title
+                                                                                 message:nil
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelString
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
+        UIAlertAction *saveAction = [UIAlertAction actionWithTitle:saveString
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+            NSString *enteredText = alertController.textFields.firstObject.text;
+            [self.userDefaults setObject:enteredText forKey:specifier.key];
+            [self.tableView reloadData];
+        }];
+
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.text = [self.userDefaults stringForKey:specifier.key];
+
+            [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
+                                                              object:textField
+                                                               queue:[NSOperationQueue mainQueue]
+                                                          usingBlock:^(NSNotification * _Nonnull note) {
+                saveAction.enabled = (textField.text.length != 0);
+            }];
+        }];
+
+        [alertController addAction:cancelAction];
+        [alertController addAction:saveAction];
+
+        [self presentViewController:alertController animated:YES completion:nil];
     } else {
         VLCAboutViewController *targetViewController = [[VLCAboutViewController alloc] initWithNibName:nil bundle:nil];
         targetViewController.title = specifier.title;
