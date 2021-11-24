@@ -261,25 +261,28 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     if (!hasProgressbar) {
         [self updateToolbarWithProgress:nil];
     }
-    if (self.controller.canPlayAll) {
-        self.navigationItem.rightBarButtonItems = @[_logoutButton, [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]];
-    } else {
-        self.navigationItem.rightBarButtonItem = _logoutButton;
-    }
-
     if (_authorizationInProgress || [self.controller isAuthorized]) {
         if (self.loginToCloudStorageView.superview) {
             [self.loginToCloudStorageView removeFromSuperview];
         }
     }
-
     if (![self.controller isAuthorized]) {
         [_activityIndicator stopAnimating];
         [self showLoginPanel];
         return;
     }
 
-    //reload if we didn't come back from streaming
+    //  Set right bar buttons after cloud access is authorized
+    if (self.controller.canPlayAll) {
+        self.navigationItem.rightBarButtonItems = @[
+            _logoutButton,
+            [UIBarButtonItem themedPlayAllButtonWithTarget:self andSelector:@selector(playAllAction:)]
+        ];
+    } else {
+        self.navigationItem.rightBarButtonItem = _logoutButton;
+    }
+
+    // Reload if we didn't come back from streaming
     if (self.currentPath == nil) {
         self.currentPath = @"";
     }
