@@ -1240,6 +1240,58 @@ internal extension VideoPlayerViewController {
     }
 }
 
+// MARK: - Private helpers
+
+private extension VideoPlayerViewController {
+    private func setPlayerInterfaceEnabled(_ enabled: Bool) {
+        mediaNavigationBar.closePlaybackButton.isEnabled = enabled
+        mediaNavigationBar.chromeCastButton.isEnabled = enabled
+        mediaNavigationBar.queueButton.isEnabled = enabled
+        mediaNavigationBar.minimizePlaybackButton.isEnabled = enabled
+        if #available(iOS 11.0, *) {
+            mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = enabled
+            mediaNavigationBar.airplayRoutePickerView.alpha = !enabled ? 0.5 : 1
+        } else {
+            mediaNavigationBar.airplayVolumeView.isUserInteractionEnabled = enabled
+            mediaNavigationBar.airplayVolumeView.alpha = !enabled ? 0.5 : 1
+        }
+
+        scrubProgressBar.progressSlider.isEnabled = enabled
+        scrubProgressBar.remainingTimeButton.isEnabled = enabled
+
+        optionsNavigationBar.videoFiltersButton.isEnabled = enabled
+        optionsNavigationBar.playbackSpeedButton.isEnabled = enabled
+        optionsNavigationBar.equalizerButton.isEnabled = enabled
+        optionsNavigationBar.sleepTimerButton.isEnabled = enabled
+
+        videoPlayerControls.subtitleButton.isEnabled = enabled
+        videoPlayerControls.shuffleButton.isEnabled = enabled
+        videoPlayerControls.repeatButton.isEnabled = enabled
+        videoPlayerControls.dvdButton.isEnabled = enabled
+        videoPlayerControls.rotationLockButton.isEnabled = enabled
+        videoPlayerControls.backwardButton.isEnabled = enabled
+        videoPlayerControls.previousMediaButton.isEnabled = enabled
+        videoPlayerControls.playPauseButton.isEnabled = enabled
+        videoPlayerControls.nextMediaButton.isEnabled = enabled
+        videoPlayerControls.forwardButton.isEnabled = enabled
+        videoPlayerControls.aspectRatioButton.isEnabled = enabled
+
+        playPauseRecognizer.isEnabled = enabled
+        doubleTapRecognizer.isEnabled = enabled
+        pinchRecognizer.isEnabled = enabled
+        rightSwipeRecognizer.isEnabled = enabled
+        leftSwipeRecognizer.isEnabled = enabled
+        upSwipeRecognizer.isEnabled = enabled
+        downSwipeRecognizer.isEnabled = enabled
+        panRecognizer.isEnabled = enabled
+
+        brightnessControlView.isEnabled(enabled)
+        volumeControlView.isEnabled(enabled)
+
+        playerController.isInterfaceLocked = !enabled
+    }
+}
+
 // MARK: - Delegation
 
 // MARK: - VLCRendererDiscovererManagerDelegate
@@ -1446,51 +1498,7 @@ extension VideoPlayerViewController: MediaScrubProgressBarDelegate {
 
 extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
-        mediaNavigationBar.closePlaybackButton.isEnabled = !state
-        mediaNavigationBar.chromeCastButton.isEnabled = !state
-        mediaNavigationBar.queueButton.isEnabled = !state
-        mediaNavigationBar.minimizePlaybackButton.isEnabled = !state
-        if #available(iOS 11.0, *) {
-            mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = !state
-            mediaNavigationBar.airplayRoutePickerView.alpha = state ? 0.5 : 1
-        } else {
-            mediaNavigationBar.airplayVolumeView.isUserInteractionEnabled = !state
-            mediaNavigationBar.airplayVolumeView.alpha = state ? 0.5 : 1
-        }
-
-        scrubProgressBar.progressSlider.isEnabled = !state
-        scrubProgressBar.remainingTimeButton.isEnabled = !state
-
-        optionsNavigationBar.videoFiltersButton.isEnabled = !state
-        optionsNavigationBar.playbackSpeedButton.isEnabled = !state
-        optionsNavigationBar.equalizerButton.isEnabled = !state
-        optionsNavigationBar.sleepTimerButton.isEnabled = !state
-
-        videoPlayerControls.subtitleButton.isEnabled = !state
-        videoPlayerControls.shuffleButton.isEnabled = !state
-        videoPlayerControls.repeatButton.isEnabled = !state
-        videoPlayerControls.dvdButton.isEnabled = !state
-        videoPlayerControls.rotationLockButton.isEnabled = !state
-        videoPlayerControls.backwardButton.isEnabled = !state
-        videoPlayerControls.previousMediaButton.isEnabled = !state
-        videoPlayerControls.playPauseButton.isEnabled = !state
-        videoPlayerControls.nextMediaButton.isEnabled = !state
-        videoPlayerControls.forwardButton.isEnabled = !state
-        videoPlayerControls.aspectRatioButton.isEnabled = !state
-
-        playPauseRecognizer.isEnabled = !state
-        doubleTapRecognizer.isEnabled = !state
-        pinchRecognizer.isEnabled = !state
-        rightSwipeRecognizer.isEnabled = !state
-        leftSwipeRecognizer.isEnabled = !state
-        upSwipeRecognizer.isEnabled = !state
-        downSwipeRecognizer.isEnabled = !state
-        panRecognizer.isEnabled = !state
-
-        brightnessControlView.isEnabled(!state)
-        volumeControlView.isEnabled(!state)
-
-        playerController.isInterfaceLocked = state
+        setPlayerInterfaceEnabled(!state)
     }
 
     func mediaMoreOptionsActionSheetDidAppeared() {
