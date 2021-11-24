@@ -28,7 +28,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
         // Not DVD support yet.
     }
 
-    private func getInterfaceOrientationMask(orientation: UIInterfaceOrientation) -> UIInterfaceOrientationMask {
+    func getInterfaceOrientationMask(orientation: UIInterfaceOrientation) -> UIInterfaceOrientationMask {
         if orientation == .portrait {
             return .portrait
         } else if orientation == .landscapeLeft

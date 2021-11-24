@@ -1504,6 +1504,10 @@ extension VideoPlayerViewController: MediaScrubProgressBarDelegate {
 
 extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool) {
+        let mask = getInterfaceOrientationMask(orientation: UIApplication.shared.statusBarOrientation)
+
+        supportedInterfaceOrientations = supportedInterfaceOrientations == .allButUpsideDown ? mask : .allButUpsideDown
+
         setPlayerInterfaceEnabled(!state)
     }
 
