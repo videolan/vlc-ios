@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015-2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2018, 2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 #import "VLCServerBrowsingController.h"
+#import "VLCNetworkServerBrowserVLCMedia.h"
 #import "NSString+SupportedMedia.h"
 #import "VLC-Swift.h"
 
@@ -164,6 +165,10 @@
 
 - (void)configureSubtitlesInMediaList:(VLCMediaList *)mediaList
 {
+    if ([self.serverBrowser isKindOfClass:[VLCNetworkServerBrowserVLCMedia class]]) {
+        return;
+    }
+
     NSArray *items = self.serverBrowser.items;
     id<VLCNetworkServerBrowserItem> loopItem;
     [mediaList lock];
