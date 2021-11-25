@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 import UIKit
+import Foundation
 
 class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
@@ -54,6 +55,29 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         return selectAll
     }()
 
+    // MARK: UIMenu & UIActions
+
+    @available(iOS 14.0, *)
+    private lazy var rightMenuItems: [UIMenuElement] = []
+
+    @available(iOS 14.0, *)
+    private lazy var menuButton: UIBarButtonItem = {
+        return UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
+                               menu: generateMenu())
+    }()
+
+    @available(iOS 14.0, *)
+    private lazy var selectAction: UIAction = {
+        let selectAction = UIAction(title: NSLocalizedString("BUTTON_EDIT", comment: ""),
+                                    image: UIImage(systemName: "checkmark.circle"),
+                                    handler: {
+            [unowned self] _ in
+            customSetEditing()
+        })
+        selectAction.accessibilityLabel = NSLocalizedString("BUTTON_EDIT", comment: "")
+        selectAction.accessibilityHint = NSLocalizedString("BUTTON_EDIT_HINT", comment: "")
+        return selectAction
+    }()
 
     private lazy var doneButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(customSetEditing))
@@ -66,19 +90,23 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         self.services = services
         rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(nibName: nil, bundle: nil)
-        rightBarButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
-        leftBarButtons = [sortButton]
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
     }
 
     override func viewDidLoad() {
-
         changeCurrentIndexProgressive = { (oldCell: VLCLabelCell?, newCell: VLCLabelCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) in
             guard changeCurrentIndex == true else { return }
             oldCell?.iconLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
             newCell?.iconLabel.textColor = PresentationTheme.current.colors.orangeUI
         }
         super.viewDidLoad()
+        if #available(iOS 14.0, *) {
+            rightBarButtons = [menuButton, UIBarButtonItem(customView: rendererButton)]
+        } else {
+            rightBarButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
+            leftBarButtons = [sortButton]
+        }
+
         viewControllers.forEach {
             ($0 as? MediaCategoryViewController)?.delegate = self
         }
@@ -128,6 +156,11 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             showButtons = mediaCategoryViewController.isEmptyCollectionView() ? false : true
         }
 
+        if #available(iOS 14.0, *) {
+            // Update menu for new ViewController
+            menuButton.menu = generateMenu()
+        }
+
         if navigationController?.viewControllers.last is ArtistViewController {
             showButtons = true
             leftBarButtons = isEditing ? [selectAllButton] : nil
@@ -148,6 +181,9 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
         if !rendererButton.isHidden {
             rightBarButtonItems.append(UIBarButtonItem(customView: rendererButton))
+        }
+        if #available(iOS 14.0, *) {
+            rightBarButtonItems = [menuButton, UIBarButtonItem(customView: rendererButton)]
         }
         return rightBarButtonItems
     }
@@ -174,6 +210,11 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 // MARK: - MediaCatgoryViewControllerDelegate
 
 extension MediaViewController: MediaCategoryViewControllerDelegate {
+    @available(iOS 14.0, *)
+    func generateMenu(for viewController: MediaCategoryViewController) -> UIMenu {
+        return generateMenu()
+    }
+
     func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController) {
         if viewController == viewControllers[currentIndex] {
             updateButtonsFor(viewController)
@@ -204,17 +245,25 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
 extension MediaViewController {
     @objc private func customSetEditing() {
         isEditing = !isEditing
-        rightBarButtons = isEditing ? [doneButton] : [editButton, UIBarButtonItem(customView: rendererButton)]
-
         if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController,
             mediaCategoryViewController.model is MediaGroupViewModel {
             leftBarButtons = isEditing ? [regroupButton, selectAllButton] : [sortButton]
         } else if navigationController?.viewControllers.last is ArtistViewController {
             leftBarButtons = viewControllers[currentIndex].isEditing ? [selectAllButton] : nil
-            rightBarButtons = viewControllers[currentIndex].isEditing ? [doneButton] : [editButton, sortButton, UIBarButtonItem(customView: rendererButton)]
         } else {
             leftBarButtons = isEditing ? [selectAllButton] : [sortButton]
         }
+
+        var rightButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
+
+        if #available(iOS 14.0, *) {
+            rightButtons = [menuButton, UIBarButtonItem(customView: rendererButton)]
+            // No left buttons with UIMenu
+            if isEditing == false {
+                leftBarButtons = nil
+            }
+        }
+        rightBarButtons = isEditing ? [doneButton] : rightButtons
         navigationItem.rightBarButtonItems = rightBarButtons
         navigationItem.leftBarButtonItems = leftBarButtons
 
@@ -262,5 +311,93 @@ extension MediaViewController {
         if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
             mediaCategoryViewController.handleSortLongPress(sender: sender)
         }
+    }
+}
+
+// MARK: - UIMenu
+
+extension MediaViewController {
+    @available(iOS 14.0, *)
+    func generateLayoutMenu(with mediaCategoryViewController: MediaCategoryViewController) -> UIMenu {
+        let isGridLayout: Bool = mediaCategoryViewController.model.cellType == MovieCollectionViewCell.self
+        || mediaCategoryViewController.model.cellType == MediaGridCollectionCell.self
+
+        let gridAction = UIAction(title: NSLocalizedString("GRID_LAYOUT", comment: ""),
+                                  image: UIImage(systemName: "square.grid.2x2"),
+                                  state: isGridLayout ? .on : .off,
+                                  handler: {
+            [unowned self] _ in
+            mediaCategoryViewController.handleLayoutChange(gridLayout: true)
+            menuButton.menu = generateMenu()
+        })
+
+        let listAction = UIAction(title: NSLocalizedString("LIST_LAYOUT", comment: ""),
+                                  image: UIImage(systemName: "list.bullet"),
+                                  state: isGridLayout ? .off : .on,
+                                  handler: {
+            [unowned self] _ in
+            mediaCategoryViewController.handleLayoutChange(gridLayout: false)
+            menuButton.menu = generateMenu()
+        })
+
+        return UIMenu(options: .displayInline,
+                      children: [gridAction, listAction])
+    }
+
+    @available(iOS 14.0, *)
+    func generateSortMenu(with mediaCategoryViewController: MediaCategoryViewController) -> UIMenu {
+        let sortModel = mediaCategoryViewController.model.sortModel
+        var sortActions: [UIMenuElement] = []
+
+        var currentSortIndex: Int = 0
+        for (index, criterion) in
+                sortModel.sortingCriteria.enumerated()
+        where criterion == sortModel.currentSort {
+            currentSortIndex = index
+            break
+        }
+
+        for (index, criterion) in sortModel.sortingCriteria.enumerated() {
+            let currentSort: Bool = index == currentSortIndex
+            let chevronImageName: String = sortModel.desc ? "chevron.down" : "chevron.up"
+            let actionImage: UIImage? = currentSort ?
+            UIImage(systemName: chevronImageName) : nil
+
+            let action = UIAction(title: String(describing: criterion),
+                                  image: actionImage,
+                                  state: currentSort ? .on : .off,
+                                  handler: {
+                [unowned self] _ in
+                mediaCategoryViewController.executeSortAction(with: criterion,
+                                                              desc: !sortModel.desc)
+                menuButton.menu = generateMenu()
+            })
+            sortActions.append(action)
+        }
+        return UIMenu(options: .displayInline, children: sortActions)
+    }
+
+    @available(iOS 14.0, *)
+    func generateMenu() -> UIMenu {
+        guard let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController else {
+            preconditionFailure("MediaViewControllers: viewControllers wrong class.")
+        }
+        let layoutSubMenu = generateLayoutMenu(with: mediaCategoryViewController)
+        let sortSubMenu = generateSortMenu(with: mediaCategoryViewController)
+
+        rightMenuItems = [selectAction, layoutSubMenu, sortSubMenu]
+
+        if mediaCategoryViewController.model is ArtistModel {
+            let isIncludeAllArtistActive = UserDefaults.standard.bool(forKey: kVLCAudioLibraryHideFeatArtists)
+            let includeAllArtist = UIAction(title: NSLocalizedString("HIDE_FEAT_ARTISTS", comment: ""),
+                                            image: UIImage(systemName: "person.3"),
+                                            state: isIncludeAllArtistActive ? .on : .off,
+                                            handler: { _ in
+                mediaCategoryViewController.actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: !isIncludeAllArtistActive)
+            })
+            rightMenuItems.append(includeAllArtist)
+        }
+
+        return UIMenu(options: .displayInline, children: rightMenuItems)
     }
 }

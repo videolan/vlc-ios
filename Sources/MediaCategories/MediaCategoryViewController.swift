@@ -20,6 +20,8 @@ import UIKit
                                  enable: Bool)
     func setEditingStateChanged(for viewController: MediaCategoryViewController, editing: Bool)
     func updateNavigationBarButtons(isEditing: Bool)
+    @available(iOS 14.0, *)
+    func generateMenu(for viewController: MediaCategoryViewController) -> UIMenu
 }
 
 class MediaCategoryViewController: UICollectionViewController, UISearchBarDelegate, IndicatorInfoProvider {
@@ -98,12 +100,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             guard let sortingCriteria = item as? VLCMLSortingCriteria else {
                 return
             }
-            self?.model.sort(by: sortingCriteria, desc: header.actionSwitch.isOn)
-            if let model = self?.model {
-                UserDefaults.standard.set(sortingCriteria.rawValue, forKey: "\(kVLCSortDefault)\(model.name)")
-            }
-            self?.sortActionSheet.removeActionSheet()
-            self?.reloadData()
+            self?.executeSortAction(with: sortingCriteria,
+                                    desc: header.actionSwitch.isOn)
         }
         return actionSheet
     }()
@@ -597,10 +595,17 @@ extension MediaCategoryViewController {
     private func rightBarButtonItems() -> [UIBarButtonItem] {
         var rightBarButtonItems = [UIBarButtonItem]()
 
-        rightBarButtonItems.append(editBarButton)
-        // Sort is not available for Playlists
-        if let model = model as? CollectionModel, !(model.mediaCollection is VLCMLPlaylist) {
-            rightBarButtonItems.append(sortBarButton)
+        if #available(iOS 14.0, *) {
+            let menu = delegate?.generateMenu(for: self)
+            rightBarButtonItems.append(UIBarButtonItem(image:
+                                                        UIImage(systemName: "ellipsis.circle"),
+                                                       menu: menu))
+        } else {
+            rightBarButtonItems.append(editBarButton)
+            // Sort is not available for Playlists
+            if let model = model as? CollectionModel, !(model.mediaCollection is VLCMLPlaylist) {
+                rightBarButtonItems.append(sortBarButton)
+            }
         }
         if !rendererButton.isHidden {
             rightBarButtonItems.append(rendererBarButton)
@@ -631,6 +636,16 @@ extension MediaCategoryViewController {
                                                 viewController: self,
                                                 buttonsAction: [cancelButton,
                                                                 regroupButton])
+    }
+
+    @objc func executeSortAction(with sortingCriteria: VLCMLSortingCriteria, desc: Bool) {
+        model.sort(by: sortingCriteria, desc: desc)
+        userDefaults.set(desc,
+                         forKey: "\(kVLCSortDescendingDefault)\(model.name)")
+        userDefaults.set(sortingCriteria.rawValue,
+                         forKey: "\(kVLCSortDefault)\(model.name)")
+        sortActionSheet.removeActionSheet()
+        reloadData()
     }
 
     @objc func handleSort() {
@@ -895,6 +910,7 @@ extension MediaCategoryViewController {
             let collectionViewController = CollectionCategoryViewController(services,
                                                                             mediaCollection: mediaCollection)
 
+            collectionViewController.delegate = delegate
             collectionViewController.navigationItem.rightBarButtonItems = collectionViewController.rightBarButtonItems()
 
             navigationController?.pushViewController(collectionViewController, animated: true)
@@ -1086,30 +1102,24 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
         return String(describing: type(of: mediaCollection))
     }
 
-    func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader, onSwitchIsOnChange: Bool, type: ActionSheetSortHeaderOptions) {
+    func handleLayoutChange(gridLayout: Bool) {
         var prefix: String = ""
         var suffix: String = ""
-        if type == .descendingOrder {
-            model.sort(by: model.sortModel.currentSort, desc: onSwitchIsOnChange)
-            prefix = kVLCSortDescendingDefault
-            suffix = model is VideoModel ? secondModel.name : model.name
-        } else if type == .layoutChange {
-            var collectionModelName: String = ""
-            var isVideoModel = false
-            if let model = model as? CollectionModel {
-                if model.mediaCollection is VLCMLMediaGroup || model.mediaCollection is VideoModel {
-                    isVideoModel = true
-                }
-                collectionModelName = getTypeName(of: model.mediaCollection)
-            } else if model is VideoModel || model is MediaGroupViewModel {
+
+        var collectionModelName: String = ""
+        var isVideoModel = false
+        if let model = model as? CollectionModel {
+            if model.mediaCollection is VLCMLMediaGroup || model.mediaCollection is VideoModel {
                 isVideoModel = true
             }
-
-            prefix = isVideoModel ? kVLCVideoLibraryGridLayout : kVLCAudioLibraryGridLayout
-            suffix = collectionModelName + model.name
+            collectionModelName = getTypeName(of: model.mediaCollection)
+        } else if model is VideoModel || model is MediaGroupViewModel {
+            isVideoModel = true
         }
 
-        userDefaults.set(onSwitchIsOnChange, forKey: "\(prefix)\(suffix)")
+        prefix = isVideoModel ? kVLCVideoLibraryGridLayout : kVLCAudioLibraryGridLayout
+        suffix = collectionModelName + model.name
+        userDefaults.set(gridLayout, forKey: "\(prefix)\(suffix)")
         setupCollectionView()
         cachedCellSize = .zero
         collectionView?.collectionViewLayout.invalidateLayout()
@@ -1122,6 +1132,23 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
         cachedCellSize = .zero
         model.sort(by: model.sortModel.currentSort, desc: model.sortModel.desc)
         reloadData()
+    }
+
+    func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader, onSwitchIsOnChange: Bool, type: ActionSheetSortHeaderOptions) {
+        var prefix: String = ""
+        var suffix: String = ""
+        if type == .descendingOrder {
+            model.sort(by: model.sortModel.currentSort, desc: onSwitchIsOnChange)
+            prefix = kVLCSortDescendingDefault
+            suffix = model is VideoModel ? secondModel.name : model.name
+            userDefaults.set(onSwitchIsOnChange, forKey: "\(prefix)\(suffix)")
+            setupCollectionView()
+            cachedCellSize = .zero
+            collectionView?.collectionViewLayout.invalidateLayout()
+            reloadData()
+        } else if type == .layoutChange {
+            handleLayoutChange(gridLayout: onSwitchIsOnChange)
+        }
     }
 }
 
