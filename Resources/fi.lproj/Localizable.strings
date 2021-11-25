@@ -5,7 +5,6 @@
 "CHOOSE_AUDIO_TRACK" = "Valitse ääniraita";
 "CHOOSE_SUBTITLE_TRACK" = "Valitse tekstitysraita";
 "UNKNOWN_TRACK_TYPE" = "Tuntematon raidan tyyppi";
-"OPEN_TRACK_PANEL" = "Avaa raitavalinta";
 "CHOOSE_TITLE" = "Valitse nimike";
 "CHOOSE_CHAPTER" = "Valitse luku";
 "CHAPTER_SELECTION_TITLE" = "Kohtaukset";
@@ -38,8 +37,6 @@
 
 "PRESET_PREAMP_SETTING" = "Esiasetettu / esivahvistimen asetukset";
 "PREAMP" = "Esivahvistus";
-"DB_FORMAT" = "%i dB";
-"CHOOSE_EQUALIZER_PROFILES" = "Valitse taajuuskorjaimen profiili";
 "SNAP_BANDS" = "Kohdista kanavat";
 
 "PLAYBACK_FAILED" = "Toisto epäonnistui";
@@ -79,8 +76,6 @@
 "BUTTON_RENDERER_HINT" = "Näytä valikko saatavilla olevista suoratoistolaitteista";
 
 
-"BUTTON_PLAY_QUEUE" = "Toista jono";
-"BUTTON_PLAY_QUEUE_HINT" = "Näytä toiston jonon näkymä";
 
 "UPGRADING_LIBRARY" = "Päivitetään mediakirjastoa";
 
@@ -271,7 +266,6 @@
 // MARK: - accessibility labels for the playlist
 
 
-"LONGPRESS_TO_STOP" = "Pysäytä toisto painamalla pitkään.";
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Äänitiedot";
@@ -293,8 +287,8 @@
 "REPEAT_FOLDER" = "Kansio";
 "SHUFFLE" = "Sekoita";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Nollaa lista";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Nollaa äskettäin verkosta toistetut luettelo pysyvästi.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
