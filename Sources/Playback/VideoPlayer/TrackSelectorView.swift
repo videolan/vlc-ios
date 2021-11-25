@@ -163,6 +163,7 @@ extension TrackSelectorView: UITableViewDelegate, UITableViewDataSource {
 
         cell.backgroundColor = PresentationTheme.darkTheme.colors.cellBackgroundA
         cell.textLabel?.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        cell.selectionStyle = .none
 
         if !trackChapters {
             var trackName: String

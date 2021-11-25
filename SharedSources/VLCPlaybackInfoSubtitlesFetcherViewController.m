@@ -72,8 +72,13 @@
         [defaults setObject:selectedLocale forKey:kVLCSettingLastUsedSubtitlesSearchLanguage];
     }
     self.osoFetcher.subtitleLanguageId = selectedLocale;
-
-    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] init];
+    if (@available(iOS 13.0, *)) {
+        self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
+    } else {
+        self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    }
+    self.activityIndicatorView.color = [UIColor lightGrayColor];
     [self.activityIndicatorView sizeToFit];
     [self.activityIndicatorView setTranslatesAutoresizingMaskIntoConstraints:NO];
     self.activityIndicatorView.hidesWhenStopped = YES;
@@ -333,7 +338,9 @@
         return @"";
     }
 
-    return NSLocalizedString(@"FOUND_SUBS", nil);
+    return section == 1 && self.searchResults.count > 0
+    ? NSLocalizedString(@"FOUND_SUBS", nil)
+    : @"";
 }
 
 #pragma mark - table view delegate
