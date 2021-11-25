@@ -284,8 +284,6 @@
     VLCBoxController *boxController = [VLCBoxController sharedInstance];
     // Start Box session on init to check whether it is logged in or not as soon as possible
     [boxController startSession];
-    // Request directory listing to check authorization
-    [boxController requestDirectoryListingAtPath:nil];
 
     // Configure Dropbox
     [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
