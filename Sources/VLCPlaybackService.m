@@ -237,10 +237,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     }
     _listPlayer.delegate = self;
 
-    /* to enable debug logging for the playback library instance, switch the boolean below
-     * note that the library instance used for playback may not necessarily match the instance
-     * used for media discovery or thumbnailing */
-    _listPlayer.mediaPlayer.libraryInstance.debugLogging = NO;
+#if MEDIA_PLAYBACK_DEBUG
+    _listPlayer.mediaPlayer.libraryInstance.debugLogging = YES;
+    _listPlayer.mediaPlayer.libraryInstance.debugLoggingLevel = 4;
+#endif
 
     _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];

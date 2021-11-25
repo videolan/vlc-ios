@@ -31,4 +31,8 @@
 #define APLog(format, ...)
 #endif
 
+#define MEDIA_PLAYBACK_DEBUG 0
+#define MEDIA_DISCOVERY_DEBUG 0
+#define WIFI_SHARING_DEBUG 0
+
 #endif /* PrefixHeader_pch */

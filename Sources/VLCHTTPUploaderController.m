@@ -160,7 +160,9 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 
         while (anInterface != NULL) {
             if (anInterface->ifa_addr->sa_family == AF_INET) {
+#if WIFI_SHARING_DEBUG
                 APLog(@"Found an IPv4 interface %s, address %@", anInterface->ifa_name, @(inet_ntoa(((struct sockaddr_in *)anInterface->ifa_addr)->sin_addr)));
+#endif
                 if ([self interfaceIsSuitableForUse:anInterface]) {
                     _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
                 }
@@ -168,7 +170,9 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
                 char addr[INET6_ADDRSTRLEN];
                 struct sockaddr_in6 *in6 = (struct sockaddr_in6*)anInterface->ifa_addr;
                 inet_ntop(AF_INET6, &in6->sin6_addr, addr, sizeof(addr));
+#if WIFI_SHARING_DEBUG
                 APLog(@"Found an IPv6 interface %s, address %@", anInterface->ifa_name, @(addr));
+#endif
                 if ([self interfaceIsSuitableForUse:anInterface]) {
                     _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
                 }
