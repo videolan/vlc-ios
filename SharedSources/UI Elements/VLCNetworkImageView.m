@@ -41,6 +41,9 @@ static NSCache *sharedImageCache = nil;
 }
 
 - (void)setImageWithURL:(NSURL *)url {
+    if (url == nil) {
+        return;;
+    }
 
     [self cancelLoading];
     UIImage *cachedImage = [self cacheImageForURL:url];
