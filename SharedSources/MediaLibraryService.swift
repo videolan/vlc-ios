@@ -110,16 +110,6 @@ extension NSNotification {
     @objc optional func medialibraryDidStartRescan()
 }
 
-// MARK: -
-
-protocol MediaLibraryMigrationDelegate: AnyObject {
-    func medialibraryDidStartMigration(_ medialibrary: MediaLibraryService)
-
-    func medialibraryDidFinishMigration(_ medialibrary: MediaLibraryService)
-
-    func medialibraryDidStopMigration(_ medialibrary: MediaLibraryService)
-}
-
 // MARK: - Delegate for "Backup Media Library" setting
 
 @objc protocol MediaLibraryDeviceBackupDelegate: AnyObject {
@@ -140,17 +130,14 @@ protocol MediaLibraryMigrationDelegate: AnyObject {
 
 class MediaLibraryService: NSObject {
     private static let databaseName: String = "medialibrary.db"
-    private static let migrationKey: String = "MigratedToVLCMediaLibraryKit"
     private static let didForceRescan: String = "MediaLibraryDidForceRescan"
 
-    private var didMigrate = UserDefaults.standard.bool(forKey: MediaLibraryService.migrationKey)
     private var didFinishDiscovery = false
 
     private(set) var observable = Observable<MediaLibraryObserver>()
 
     private(set) lazy var medialib = VLCMediaLibrary()
 
-    weak var migrationDelegate: MediaLibraryMigrationDelegate?
     @objc weak var deviceBackupDelegate: MediaLibraryDeviceBackupDelegate?
     @objc weak var hidingDelegate: MediaLibraryHidingDelegate?
 
@@ -233,120 +220,6 @@ private extension MediaLibraryService {
             startMediaLibrary(on: documentPath)
         @unknown default:
             assertionFailure("MediaLibraryService: unhandled case")
-        }
-    }
-}
-
-// MARK: - Migration
-
-private extension MediaLibraryService {
-    func startMigrationIfNeeded() {
-        guard !didMigrate else {
-            return
-        }
-        migrationDelegate?.medialibraryDidStartMigration(self)
-
-        migrateToNewMediaLibrary() {
-            [unowned self] success in
-            if success {
-                self.migrationDelegate?.medialibraryDidFinishMigration(self)
-            } else {
-                self.migrationDelegate?.medialibraryDidStopMigration(self)
-            }
-        }
-    }
-
-    func migrateMedia(_ oldMedialibrary: MLMediaLibrary,
-                      completionHandler: @escaping (Bool) -> Void) {
-        guard let allFiles = MLFile.allFiles() as? [MLFile] else {
-            assertionFailure("MediaLibraryService: Migration: Unable to retrieve all files")
-            completionHandler(false)
-            return
-        }
-
-        for media in allFiles {
-            if let newMedia = fetchMedia(with: media.url) {
-                newMedia.updateTitle(media.title)
-                newMedia.setPlayCount(media.playCount.uint32Value)
-                newMedia.setMetadataOf(.progress, intValue: media.lastPosition.int64Value)
-                newMedia.setMetadataOf(.seen, intValue: media.unread.int64Value)
-                // Only delete files that are not in playlist
-                if media.labels.isEmpty {
-                    oldMedialibrary.remove(media)
-                }
-            }
-        }
-
-        oldMedialibrary.save {
-            success in
-            completionHandler(success)
-        }
-    }
-
-    // This private method migrates old playlist and removes file and playlist
-    // from the old medialibrary.
-    // Note: This removes **only** files that are in a playlist
-    func migratePlaylists(_ oldMedialibrary: MLMediaLibrary,
-                          completionHandler: @escaping (Bool) -> Void) {
-        guard let allLabels = MLLabel.allLabels() as? [MLLabel] else {
-            assertionFailure("MediaLibraryService: Migration: Unable to retrieve all labels")
-            completionHandler(false)
-            return
-        }
-
-        for label in allLabels {
-            guard let newPlaylist = createPlaylist(with: label.name) else {
-                assertionFailure("MediaLibraryService: Migration: Unable to create playlist.")
-                continue
-            }
-
-            guard let files = label.files as? Set<MLFile> else {
-                assertionFailure("MediaLibraryService: Migration: Unable to retrieve files from label")
-                oldMedialibrary.remove(label)
-                continue
-            }
-
-            for file in files {
-                if let newMedia = fetchMedia(with: file.url) {
-                    if newPlaylist.appendMedia(withIdentifier: newMedia.identifier()) {
-                        oldMedialibrary.remove(file)
-                    }
-                }
-            }
-            oldMedialibrary.remove(label)
-        }
-        oldMedialibrary.save() {
-            success in
-            completionHandler(success)
-        }
-    }
-
-    func migrateToNewMediaLibrary(completionHandler: @escaping (Bool) -> Void) {
-        guard let oldMedialibrary = MLMediaLibrary.sharedMediaLibrary() as? MLMediaLibrary else {
-            assertionFailure("MediaLibraryService: Migration: Unable to retrieve old medialibrary")
-            completionHandler(false)
-            return
-        }
-
-        migrateMedia(oldMedialibrary) {
-            [unowned self] success in
-
-            guard success else {
-                assertionFailure("MediaLibraryService: Failed to migrate Media.")
-                completionHandler(false)
-                return
-            }
-
-            self.migratePlaylists(oldMedialibrary) {
-                [unowned self] success in
-                if success {
-                    UserDefaults.standard.set(true, forKey: MediaLibraryService.migrationKey)
-                    self.didMigrate = true
-                } else {
-                    assertionFailure("MediaLibraryService: Failed to migrate Playlist.")
-                }
-                completionHandler(success)
-            }
         }
     }
 }
@@ -742,9 +615,6 @@ extension MediaLibraryService {
     }
 
     func medialibrary(_ medialibrary: VLCMediaLibrary, didUpdateParsingStatsWithPercent percent: UInt32) {
-        if didFinishDiscovery && percent == 100 {
-             startMigrationIfNeeded()
-        }
     }
 }
 

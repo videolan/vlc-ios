@@ -42,7 +42,6 @@ class Services: NSObject {
         // FIXME: VLCHTTPUploaderController should perhaps be a service?
         VLCHTTPUploaderController.sharedInstance().cleanCache()
         VLCHTTPUploaderController.sharedInstance().medialibrary = services.medialibraryService
-        services.medialibraryService.migrationDelegate = self
     }
 
     private func setupChildViewControllers() {
@@ -79,29 +78,4 @@ class Services: NSObject {
         return services.medialibraryService.media(for: mediaIdentifier)
     }
 
-}
-
-extension AppCoordinator: MediaLibraryMigrationDelegate {
-    func medialibraryDidStartMigration(_ medialibrary: MediaLibraryService) {
-        DispatchQueue.main.async {
-            [tabBarController, migrationViewController] in
-            tabBarController.present(migrationViewController, animated: true, completion: nil)
-        }
-    }
-
-    func medialibraryDidFinishMigration(_ medialibrary: MediaLibraryService) {
-        DispatchQueue.main.async {
-            [migrationViewController] in
-            migrationViewController.dismiss(animated: true, completion: nil)
-        }
-    }
-
-    func medialibraryDidStopMigration(_ medialibrary: MediaLibraryService) {
-        if tabBarController.presentedViewController === migrationViewController {
-            DispatchQueue.main.async {
-                [tabBarController] in
-                tabBarController.dismiss(animated: true, completion: nil)
-            }
-        }
-    }
 }
