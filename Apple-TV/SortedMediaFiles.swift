@@ -54,9 +54,9 @@ class SortedMediaFiles: NSObject {
     // maintain sorted order.
     private func index(of path: NSString) -> Int {
         files.index(of: path,
-                inSortedRange: NSRange(location: 0, length: files.count),
-                options: [NSBinarySearchingOptions.insertionIndex, NSBinarySearchingOptions.firstEqual],
-                usingComparator: SortedMediaFiles.comparePaths)
+                    inSortedRange: NSRange(location: 0, length: files.count),
+                    options: [NSBinarySearchingOptions.insertionIndex, NSBinarySearchingOptions.firstEqual],
+                    usingComparator: SortedMediaFiles.comparePaths)
     }
 
     private static func comparePaths(lhs: Any, rhs: Any) -> ComparisonResult {
