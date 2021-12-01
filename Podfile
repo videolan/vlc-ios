@@ -22,7 +22,6 @@ target 'VLC-iOS' do
   pod 'GoogleAPIClientForREST/Drive'
   pod 'MobileVLCKit', '3.3.18b6'
   pod 'VLCMediaLibraryKit', '0.10.0'
-  pod 'MediaLibraryKit-prod'
   pod 'GTMAppAuth', '0.7.1'
   pod 'ADAL', :git => 'https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git', :commit => '348e94df'
   pod 'OneDriveSDK', :git => 'https://code.videolan.org/fkuehne/onedrive-sdk-ios.git', :commit => '810f82da'

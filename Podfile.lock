@@ -45,8 +45,6 @@ PODS:
     - GTMSessionFetcher/Core (= 1.7.0)
   - InAppSettingsKit (2.14)
   - MarqueeLabel (4.0.2)
-  - MediaLibraryKit-prod (2.6.9):
-    - MobileVLCKit (~> 3.3.0)
   - MetaDataFetcherKit (0.5.0):
     - AFNetworking (= 4.0.0)
   - MobileVLCKit (3.3.18b6)
@@ -92,7 +90,6 @@ DEPENDENCIES:
   - GTMAppAuth (= 0.7.1)
   - InAppSettingsKit (from `git://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
-  - MediaLibraryKit-prod
   - MetaDataFetcherKit (~> 0.5.0)
   - MobileVLCKit (= 3.3.18b6)
   - ObjectiveDropboxOfficial
@@ -116,7 +113,6 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - MarqueeLabel
-    - MediaLibraryKit-prod
     - MetaDataFetcherKit
     - MobileVLCKit
     - "NSData+Base64"
@@ -181,7 +177,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
-  MediaLibraryKit-prod: 718b52b55cb40b479eeae29fb5cc0cfbbbce0191
   MetaDataFetcherKit: c77fa3d0791d406a8cfab43464ed728437bd241b
   MobileVLCKit: 632ceea18b4f978e4b0869beebb441ee5502746c
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
@@ -195,6 +190,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: d16c679efe8b6a322ead3d922408b64ad7a1615f
+PODFILE CHECKSUM: 527de2850303436a6b0dcd5e2aa670314a056fc4
 
 COCOAPODS: 1.11.2

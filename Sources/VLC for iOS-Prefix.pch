@@ -18,7 +18,6 @@
 #endif
 
 #import <MobileVLCKit/MobileVLCKit.h>
-#import <MediaLibraryKit/MediaLibraryKit.h>
 
 #import "VLCConstants.h"
 #import "UIColor+Presets.h"

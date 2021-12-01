@@ -192,11 +192,6 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
     return NO;
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    [[MLMediaLibrary sharedMediaLibrary] applicationWillStart];
-}
-
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     //Touch ID is shown 
@@ -212,13 +207,11 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
             //TODO: push playback
         }
     }];
-    [[MLMediaLibrary sharedMediaLibrary] applicationWillExit];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     if (!_isComingFromHandoff) {
-        [[MLMediaLibrary sharedMediaLibrary] updateMediaDatabase];
       //  [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
         [[VLCPlaybackService sharedInstance] recoverDisplayedMetadata];
     } else if(_isComingFromHandoff) {
