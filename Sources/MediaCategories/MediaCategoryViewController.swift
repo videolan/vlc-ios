@@ -551,7 +551,7 @@ extension MediaCategoryViewController {
     private func setupEditBarButton() -> UIBarButtonItem {
         let editButton = UIBarButtonItem(image: UIImage(named: "edit"),
                                          style: .plain, target: self,
-                                         action: #selector(handleEditing))
+                                         action: #selector(handleEditingInsideCollection))
         editButton.tintColor = PresentationTheme.current.colors.orangeUI
         editButton.accessibilityLabel = NSLocalizedString("BUTTON_EDIT", comment: "")
         editButton.accessibilityHint = NSLocalizedString("BUTTON_EDIT_HINT", comment: "")
@@ -684,11 +684,11 @@ extension MediaCategoryViewController {
         model.sort(by: model.sortModel.currentSort, desc: !model.sortModel.desc)
     }
 
-    @objc func handleEditing() {
+    @objc func handleEditingInsideCollection() {
         isEditing = !isEditing
         navigationItem.rightBarButtonItems = isEditing ? [UIBarButtonItem(barButtonSystemItem: .done,
                                                                           target: self,
-                                                                          action: #selector(handleEditing))]
+                                                                          action: #selector(handleEditingInsideCollection))]
             : rightBarButtonItems()
         navigationItem.leftBarButtonItems = leftBarButtonItem()
         if navigationController?.viewControllers.last is ArtistViewController {
@@ -1180,7 +1180,7 @@ extension MediaCategoryViewController: EditControllerDelegate {
     func editControllerDidFinishEditing(editController: EditController?) {
         // NavigationItems for Collections are create from the parent, there is no need to propagate the information.
         if self is CollectionCategoryViewController {
-            handleEditing()
+            handleEditingInsideCollection()
         } else {
             delegate?.setEditingStateChanged(for: self, editing: false)
         }
