@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2020 - 2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
@@ -344,6 +344,10 @@
 {
     id<VLCNetworkServerBrowser> serverBrowser = nil;
     NSString *identifier = login.protocolIdentifier;
+
+    if (!login.address || login.address.length == 0) {
+        return;
+    }
 
     if ([identifier isEqualToString:VLCNetworkServerProtocolIdentifierFTP]) {
         serverBrowser = [VLCNetworkServerBrowserVLCMedia FTPNetworkServerBrowserWithLogin:login];

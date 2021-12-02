@@ -1,10 +1,11 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2016 VideoLAN. All rights reserved.
+ * Copyright (c) 2016, 2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Vincent L. Cone <vincent.l.cone # tuta.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -25,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol VLCNetworkLoginDataSourceLoginDelegate <NSObject>
 - (void)saveLoginDataSource:(VLCNetworkLoginDataSourceLogin *)dataSource;
 - (void)connectLoginDataSource:(VLCNetworkLoginDataSourceLogin *)dataSource;
+- (void)canConnect:(BOOL)boolValue;
 @end
 
 NS_ASSUME_NONNULL_END

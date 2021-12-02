@@ -2,17 +2,18 @@
  * VLCNetworkLoginTVViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2019 VideoLAN. All rights reserved.
+ * Copyright (c) 2019, 2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Pierre Sagaspe <pierre.sagaspe # me.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
 import UIKit
 
-@objc class VLCNetworkLoginTVViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
+@objc class VLCNetworkLoginTVViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var serverField: UITextField!
@@ -71,6 +72,7 @@ import UIKit
         setSegControlProtocolIdentifier(VLCNetworkServerProtocolIdentifierFTP)
 
         serverField.placeholder = NSLocalizedString("SERVER", comment: "")
+        serverField.delegate = self
         portField.placeholder = NSLocalizedString("SERVER_PORT", comment: "")
         portField.keyboardType = UIKeyboardType.numberPad
         usernameField.placeholder = NSLocalizedString("USER_LABEL", comment: "")
@@ -80,6 +82,7 @@ import UIKit
 
         buttonSave.setTitle(NSLocalizedString("BUTTON_SAVE", comment: ""), for: .normal)
         buttonConnect.setTitle(NSLocalizedString("BUTTON_CONNECT", comment: ""), for: .normal)
+        buttonConnect.isEnabled = false
 
         nothingFoundLabel.text = NSLocalizedString("NO_SAVING_DATA", comment: "")
     }
@@ -317,4 +320,9 @@ import UIKit
         }
     }
 
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == self.serverField {
+            self.buttonConnect.isEnabled = !(textField.text?.isEmpty)!
+        }
+    }
 }

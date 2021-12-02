@@ -1,10 +1,11 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2016 VideoLAN. All rights reserved.
+ * Copyright (c) 2016, 2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Vincent L. Cone <vincent.l.cone # tuta.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -70,6 +71,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
             keyboardType = UIKeyboardTypeURL;
             labelString = NSLocalizedString(@"SERVER", nil);
             valueString = self.loginInformation.address;
+            [self.delegate canConnect:valueString && valueString.length > 0];
             break;
         case VLCNetworkServerLoginIndexPort:
             keyboardType = UIKeyboardTypeNumberPad;
@@ -119,6 +121,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
     switch (row) {
         case VLCNetworkServerLoginIndexServer:
             self.loginInformation.address = string;
+            [self.delegate canConnect:string && string.length > 0];
             break;
         case VLCNetworkServerLoginIndexPort:
             self.loginInformation.port = string.length > 0 ? @(string.integerValue) : nil;

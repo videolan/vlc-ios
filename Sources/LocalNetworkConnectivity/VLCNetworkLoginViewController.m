@@ -2,7 +2,7 @@
  * VLCNetworkLoginViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2015, 2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -71,6 +71,7 @@
                                               initWithTitle:NSLocalizedString(@"BUTTON_CONNECT", nil)
                                               style:UIBarButtonItemStyleDone target:self
                                               action:@selector(connectLoginDataSource)];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     if (@available(iOS 13.0, *)) {
         UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
         self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
@@ -217,6 +218,9 @@
     VLCNetworkServerLoginInformation *loginInformation = dataSource.loginInformation;
     self.loginInformation = loginInformation;
 
+    if (!self.loginInformation.address || self.loginInformation.address.length == 0)
+        return;
+
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 
     [self dismissViewControllerAnimated:YES completion:^{
@@ -227,6 +231,11 @@
 - (void)connectLoginDataSource
 {
     [self connectLoginDataSource:self.loginDataSource];
+}
+
+- (void)canConnect:(BOOL)boolValue
+{
+    self.navigationItem.rightBarButtonItem.enabled = boolValue;
 }
 
 - (BOOL)protocolSelected
