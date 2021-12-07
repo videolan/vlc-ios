@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -42,13 +43,13 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4O-OM-rZw">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="169"/>
                                     <subviews>
-                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter any HTTP address to download the file to your $DEVICE." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="95">
+                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter any HTTP address to download the file to your $DEVICE." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="95">
                                             <rect key="frame" x="20" y="10" width="280" height="38"/>
                                             <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="vRA-2f-jer"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.74659199620000005" green="0.74659199620000005" blue="0.74659199620000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -59,7 +60,7 @@
                                                 <constraint firstAttribute="height" constant="31" id="BrP-Ow-0Rv"/>
                                             </constraints>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardAppearance="alert"/>
                                         </textField>
                                         <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPu-Ev-iiG">
@@ -68,7 +69,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="paf-BZ-9vp"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <state key="normal" title="Télécharger"/>
                                             <connections>
                                                 <action selector="downloadAction:" destination="-1" eventType="touchUpInside" id="I6C-sq-fVW"/>
@@ -76,7 +77,7 @@
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkP-zm-exa">
                                             <rect key="frame" x="20" y="87" width="280" height="2"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="2" id="zM2-0u-L6u"/>
                                             </constraints>
@@ -102,14 +103,14 @@
                                     <rect key="frame" x="0.0" y="169" width="320" height="80"/>
                                     <subviews>
                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Current Download.mpg" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84">
-                                            <rect key="frame" x="11" y="11" width="150" height="17"/>
+                                            <rect key="frame" x="11" y="11" width="131" height="14.5"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" red="0.72000002861022949" green="0.72000002861022949" blue="0.72000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <progressView contentMode="scaleToFill" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="85">
-                                            <rect key="frame" x="11" y="65" width="298" height="2"/>
+                                            <rect key="frame" x="11" y="61.5" width="298" height="4"/>
                                             <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </progressView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="86">
@@ -131,28 +132,28 @@
                                             </connections>
                                         </button>
                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0 Kb/s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97">
-                                            <rect key="frame" x="11" y="40" width="42" height="17"/>
+                                            <rect key="frame" x="11" y="40" width="34" height="13.5"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.79277843236923218" green="0.79277843236923218" blue="0.79277843236923218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98">
-                                            <rect key="frame" x="248.5" y="40" width="60.5" height="17"/>
+                                            <rect key="frame" x="260" y="40" width="49" height="13.5"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.79277843236923218" green="0.79277843236923218" blue="0.79277843236923218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                                            <rect key="frame" x="150" y="40" width="20" height="17"/>
+                                            <rect key="frame" x="151.5" y="40" width="17.5" height="13.5"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.79277843236923218" green="0.79277843236923218" blue="0.79277843236923218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="sXN-Fm-2dn">
-                                            <rect key="frame" x="150" y="38.5" width="20" height="20"/>
+                                            <rect key="frame" x="150" y="37" width="20" height="20"/>
                                         </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -162,9 +163,12 @@
                                         <constraint firstItem="sXN-Fm-2dn" firstAttribute="centerY" secondItem="99" secondAttribute="centerY" id="O8t-ev-Vj4"/>
                                         <constraint firstAttribute="trailing" secondItem="85" secondAttribute="trailing" constant="11" id="Sfe-E3-mzB"/>
                                         <constraint firstItem="85" firstAttribute="top" secondItem="97" secondAttribute="bottom" constant="8" id="TBq-8t-Hfi"/>
+                                        <constraint firstItem="86" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="84" secondAttribute="trailing" constant="10" id="TM9-Il-pL4"/>
                                         <constraint firstItem="86" firstAttribute="top" secondItem="79" secondAttribute="top" constant="8" id="UV9-gt-jFK"/>
                                         <constraint firstItem="sXN-Fm-2dn" firstAttribute="centerX" secondItem="99" secondAttribute="centerX" id="Ug1-zF-6zw"/>
                                         <constraint firstItem="85" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="8" id="Wer-cE-ybK"/>
+                                        <constraint firstItem="sXN-Fm-2dn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="97" secondAttribute="trailing" constant="10" id="cHu-x4-SJw"/>
+                                        <constraint firstItem="98" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sXN-Fm-2dn" secondAttribute="trailing" constant="10" id="eM4-x1-ap9"/>
                                         <constraint firstItem="85" firstAttribute="leading" secondItem="79" secondAttribute="leading" constant="11" id="iI8-x5-MJB"/>
                                         <constraint firstItem="84" firstAttribute="top" secondItem="79" secondAttribute="top" constant="11" id="lbf-s9-EBt"/>
                                         <constraint firstItem="99" firstAttribute="centerX" secondItem="79" secondAttribute="centerX" id="nUA-bQ-j3U"/>
@@ -212,6 +216,7 @@
                     </constraints>
                 </scrollView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="7OQ-CM-xOg"/>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="7OQ-CM-xOg" firstAttribute="bottom" secondItem="UdO-9t-oLy" secondAttribute="bottom" id="D0G-tH-995"/>
@@ -221,11 +226,13 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="7OQ-CM-xOg"/>
             <point key="canvasLocation" x="523.20000000000005" y="199.25037481259372"/>
         </view>
     </objects>
     <resources>
         <image name="flatDeleteButton" width="22" height="22"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
