@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18092"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,42 +29,42 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vcr-nA-XZ6" userLabel="ViewFields">
-                    <rect key="frame" x="0.0" y="0.0" width="282" height="181.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="282" height="177.5"/>
                     <subviews>
-                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter any HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP address to open the stream directly." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="UuA-Mv-6GU">
-                            <rect key="frame" x="20" y="10" width="242" height="50.5"/>
+                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter any HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP address to open the stream directly." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UuA-Mv-6GU">
+                            <rect key="frame" x="20" y="10" width="242" height="46.5"/>
                             <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="K89-Wc-B5b"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <color key="textColor" red="0.74659199620000005" green="0.74659199620000005" blue="0.74659199620000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xNl-Fz-GRI">
-                            <rect key="frame" x="20" y="70.5" width="242" height="31"/>
+                        <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xNl-Fz-GRI">
+                            <rect key="frame" x="20" y="66.5" width="242" height="31"/>
                             <color key="backgroundColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="31" id="9lr-Wz-fpq"/>
                             </constraints>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardAppearance="alert"/>
                         </textField>
                         <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vqa-Bu-grz">
-                            <rect key="frame" x="20" y="121.5" width="242" height="40"/>
+                            <rect key="frame" x="20" y="117.5" width="242" height="40"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="Gqw-ew-Rm4"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                             <state key="normal" title="Télécharger"/>
                             <connections>
                                 <action selector="openButtonAction:" destination="-1" eventType="touchUpInside" id="v0Y-Hr-WQP"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sfM-cx-KT8">
-                            <rect key="frame" x="20" y="99.5" width="242" height="2"/>
+                            <rect key="frame" x="20" y="95.5" width="242" height="2"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="2" id="hs8-4x-SQu"/>
@@ -88,16 +88,16 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19" userLabel="ViewPrivatePlayback">
-                    <rect key="frame" x="0.0" y="181.5" width="282" height="51"/>
+                    <rect key="frame" x="0.0" y="177.5" width="282" height="51"/>
                     <subviews>
                         <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8">
                             <rect key="frame" x="20" y="10" width="51" height="31"/>
                             <color key="onTintColor" red="0.98948383331298828" green="0.43470591306686401" blue="0.032047603279352188" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </switch>
-                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Private Playback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9">
-                            <rect key="frame" x="77" y="15.5" width="126" height="20.5"/>
+                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Private Playback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9">
+                            <rect key="frame" x="77" y="14" width="139.5" height="23"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                             <color key="textColor" red="0.74659199620000005" green="0.74659199620000005" blue="0.74659199620000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -110,16 +110,17 @@
                         <constraint firstItem="8" firstAttribute="leading" secondItem="19" secondAttribute="leading" constant="20" id="Jme-d2-HWW"/>
                         <constraint firstAttribute="bottom" secondItem="8" secondAttribute="bottom" constant="10" id="MsU-n2-xpL"/>
                         <constraint firstItem="9" firstAttribute="leading" secondItem="8" secondAttribute="trailing" constant="8" id="SQF-h6-Y1B"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9" secondAttribute="trailing" constant="20" id="Wsj-5g-ujO"/>
                         <constraint firstItem="9" firstAttribute="centerY" secondItem="19" secondAttribute="centerY" id="rA9-Dw-xhF"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cuf-mI-ZuN" userLabel="ViewScanSubtitles">
-                    <rect key="frame" x="0.0" y="232.5" width="282" height="51"/>
+                    <rect key="frame" x="0.0" y="228.5" width="282" height="51"/>
                     <subviews>
-                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Scan Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ewx-Hn-7Lc" userLabel="Label - Scan Subtitle">
-                            <rect key="frame" x="77" y="15.5" width="101" height="20.5"/>
+                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="Scan Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ewx-Hn-7Lc" userLabel="Label - Scan Subtitle">
+                            <rect key="frame" x="77" y="14" width="112" height="23"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                             <color key="textColor" red="0.74659199620000005" green="0.74659199620000005" blue="0.74659199620000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -130,15 +131,18 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ewx-Hn-7Lc" secondAttribute="trailing" constant="20" id="3SQ-7T-tl9"/>
                         <constraint firstItem="Ewx-Hn-7Lc" firstAttribute="centerY" secondItem="Cuf-mI-ZuN" secondAttribute="centerY" id="438-cI-fcY"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ewx-Hn-7Lc" secondAttribute="bottom" constant="2" id="46y-nY-GsN"/>
                         <constraint firstAttribute="height" constant="51" id="4q4-k4-3aL"/>
-                        <constraint firstItem="Ewx-Hn-7Lc" firstAttribute="leading" secondItem="vn6-u6-LYP" secondAttribute="trailing" constant="8" id="L6A-tZ-nca"/>
+                        <constraint firstItem="Ewx-Hn-7Lc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vn6-u6-LYP" secondAttribute="trailing" constant="8" id="L6A-tZ-nca"/>
                         <constraint firstItem="vn6-u6-LYP" firstAttribute="centerY" secondItem="Cuf-mI-ZuN" secondAttribute="centerY" id="O8L-vt-dqs"/>
                         <constraint firstItem="vn6-u6-LYP" firstAttribute="leading" secondItem="Cuf-mI-ZuN" secondAttribute="leading" constant="20" id="gRE-Bg-7Hj"/>
+                        <constraint firstItem="Ewx-Hn-7Lc" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Cuf-mI-ZuN" secondAttribute="top" constant="2" id="nkt-EX-htk"/>
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="10">
-                    <rect key="frame" x="0.0" y="285.5" width="282" height="96.5"/>
+                    <rect key="frame" x="0.0" y="281.5" width="282" height="100.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="0.60999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
