@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Prenesi grafično podobo";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "Nov predvajalnik";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "O VLC-ju za tvOS";

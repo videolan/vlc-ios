@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "アートワークをダウンロード";
 
 "SETTINGS_LAB" = "ラボ";
-"SETTINGS_NEW_PLAYER" = "新しいプレイヤー";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "VLC for tvOSについて";

@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Ladda ned omslag";
 
 "SETTINGS_LAB" = "Labb";
-"SETTINGS_NEW_PLAYER" = "Ny spelare";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "Om VLC för tvOS";

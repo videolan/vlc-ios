@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Descarcă grafică de album";
 
 "SETTINGS_LAB" = "Laborator";
-"SETTINGS_NEW_PLAYER" = "Jucător nou";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "About VLC for tvOS";

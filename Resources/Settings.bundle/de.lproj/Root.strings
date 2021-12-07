@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Cover herunterladen";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "Neuer Player";
+"SETTINGS_DEBUG_LOG" = "Debug Logs auf Gerät speichern";
+"SETTINGS_EXPORT_LIBRARY" = "Media Library abwerfen";
 
 "ABOUT_APP_TV" = "Über VLC für tvOS";

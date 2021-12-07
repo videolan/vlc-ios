@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "下载封面";
 
 "SETTINGS_LAB" = "实验室";
-"SETTINGS_NEW_PLAYER" = "新播放器";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "关于 VLC for tvOS";

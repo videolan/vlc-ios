@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Baixar Capa";
 
 "SETTINGS_LAB" = "Laboratório";
-"SETTINGS_NEW_PLAYER" = "Novo reprodutor";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "Acerca do VLC para tvOS";

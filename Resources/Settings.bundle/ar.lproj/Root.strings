@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "تنزيل الغلاف";
 
 "SETTINGS_LAB" = "مختبر";
-"SETTINGS_NEW_PLAYER" = "مشغّل جديد";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "حول VLC لـ tvOS";

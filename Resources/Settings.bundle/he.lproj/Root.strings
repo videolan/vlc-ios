@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "הורדת עטיפת האלבום";
 
 "SETTINGS_LAB" = "מעבדה";
-"SETTINGS_NEW_PLAYER" = "נגן חדש";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "אודות VLC ל tvOS";

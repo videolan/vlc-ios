@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download billede";
 
 "SETTINGS_LAB" = "Laboratorium";
-"SETTINGS_NEW_PLAYER" = "Ny afspiller";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "Om VLC til tvOS";
