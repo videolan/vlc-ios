@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -41,15 +38,15 @@
                 <constraint firstAttribute="trailing" secondItem="29" secondAttribute="trailing" id="upi-35-a7a"/>
             </constraints>
             <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
-            <point key="canvasLocation" x="13" y="-85"/>
+            <point key="canvasLocation" x="18.840579710144929" y="-56.919642857142854"/>
         </view>
         <view contentMode="scaleToFill" id="8">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="20" customClass="VLCMenuButton">
-                    <rect key="frame" x="167" y="385" width="41" height="30"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <rect key="frame" x="157.5" y="379" width="60" height="42"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                     <state key="normal" title="Login">
                         <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -73,7 +70,7 @@
                 <constraint firstItem="9" firstAttribute="centerY" secondItem="8" secondAttribute="centerY" multiplier="0.6" id="Xlv-wc-yx9"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
-            <point key="canvasLocation" x="13" y="-688"/>
+            <point key="canvasLocation" x="18.840579710144929" y="-460.71428571428567"/>
         </view>
     </objects>
     <resources>

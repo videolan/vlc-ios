@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,18 +12,18 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jmV-7P-Ob0" id="P7G-Z3-wQa">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="65.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6V-Qc-Q8x" userLabel="ServiceName">
-                        <rect key="frame" x="61" y="11" width="42" height="24"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="61" y="11" width="41.5" height="24"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEp-19-omb" userLabel="ServiceInformation">
-                        <rect key="frame" x="61" y="38" width="33.5" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <rect key="frame" x="61" y="38" width="31" height="17"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -42,8 +40,8 @@
                         </variation>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJ0-bA-ThN" userLabel="lonesome ServiceName">
-                        <rect key="frame" x="61" y="22" width="44" height="21.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <rect key="frame" x="61" y="26" width="31" height="14"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -53,15 +51,22 @@
                     <constraint firstItem="gJ0-bA-ThN" firstAttribute="trailing" secondItem="O6V-Qc-Q8x" secondAttribute="trailing" id="6kW-bx-7Rl"/>
                     <constraint firstAttribute="bottomMargin" secondItem="k9V-qn-xQh" secondAttribute="bottom" constant="5" id="9mT-Ig-oz7"/>
                     <constraint firstAttribute="centerY" secondItem="gJ0-bA-ThN" secondAttribute="centerY" id="Bjq-5d-DS8"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NEp-19-omb" secondAttribute="trailing" constant="10" id="CGA-Nd-jAz"/>
                     <constraint firstAttribute="trailingMargin" secondItem="O6V-Qc-Q8x" secondAttribute="trailing" id="DGs-Ef-HwX"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="NEp-19-omb" secondAttribute="bottom" constant="2" id="Hq8-C1-mYL"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="O6V-Qc-Q8x" secondAttribute="trailing" constant="10" id="NQo-Fa-uDr"/>
                     <constraint firstItem="O6V-Qc-Q8x" firstAttribute="top" secondItem="P7G-Z3-wQa" secondAttribute="topMargin" id="P7b-lX-3qH"/>
-                    <constraint firstItem="NEp-19-omb" firstAttribute="top" secondItem="O6V-Qc-Q8x" secondAttribute="bottom" constant="3" id="QLZ-Uu-mpI"/>
                     <constraint firstItem="O6V-Qc-Q8x" firstAttribute="leading" secondItem="k9V-qn-xQh" secondAttribute="trailing" constant="16" id="Sxk-GS-CZS"/>
+                    <constraint firstItem="O6V-Qc-Q8x" firstAttribute="top" relation="greaterThanOrEqual" secondItem="P7G-Z3-wQa" secondAttribute="top" constant="2" id="Vup-a5-W7X"/>
                     <constraint firstAttribute="centerY" secondItem="O6V-Qc-Q8x" secondAttribute="bottom" constant="-2" id="Y5N-96-eRk"/>
+                    <constraint firstItem="gJ0-bA-ThN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="P7G-Z3-wQa" secondAttribute="top" constant="2" id="aQA-9e-cAm"/>
                     <constraint firstItem="k9V-qn-xQh" firstAttribute="leading" secondItem="P7G-Z3-wQa" secondAttribute="leadingMargin" constant="5" id="bjd-BQ-kB6"/>
                     <constraint firstItem="k9V-qn-xQh" firstAttribute="top" secondItem="P7G-Z3-wQa" secondAttribute="topMargin" constant="5" id="eeS-aO-JcR"/>
                     <constraint firstItem="NEp-19-omb" firstAttribute="leading" secondItem="O6V-Qc-Q8x" secondAttribute="leading" id="fL2-8r-L4U"/>
+                    <constraint firstItem="NEp-19-omb" firstAttribute="top" secondItem="O6V-Qc-Q8x" secondAttribute="bottom" constant="3" id="kID-6b-qv9"/>
                     <constraint firstAttribute="trailingMargin" secondItem="NEp-19-omb" secondAttribute="trailing" id="p2Z-h2-q2X"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gJ0-bA-ThN" secondAttribute="trailing" constant="10" id="r5g-3K-Ov4"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gJ0-bA-ThN" secondAttribute="bottom" constant="2" id="tf4-M3-YiF"/>
                     <constraint firstAttribute="bottomMargin" secondItem="NEp-19-omb" secondAttribute="bottom" id="xAM-tl-LLT"/>
                 </constraints>
                 <variation key="default">

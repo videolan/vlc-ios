@@ -53,6 +53,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     _logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_LOGOUT", "") style:UIBarButtonItemStylePlain target:self action:@selector(logout)];
 
     [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
+    [self.loginButton setTitleColor:PresentationTheme.current.colors.orangeUI forState:UIControlStateNormal];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
 
