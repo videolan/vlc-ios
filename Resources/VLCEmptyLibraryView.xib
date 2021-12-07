@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14819.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,10 +15,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="141-gp-zTI" userLabel="Empty View">
-                    <rect key="frame" x="16" y="95.5" width="288.5" height="289"/>
+                    <rect key="frame" x="15.5" y="90" width="289.5" height="300"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="VLCCone512x512.png" translatesAutoresizingMaskIntoConstraints="NO" id="115">
-                            <rect key="frame" x="81.5" y="0.0" width="125" height="125"/>
+                            <rect key="frame" x="82" y="0.0" width="125" height="125"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="115" secondAttribute="height" multiplier="1:1" id="CBD-GI-kch"/>
                                 <constraint firstAttribute="width" constant="125" id="SfO-5p-AOs"/>
@@ -26,24 +26,24 @@
                             </constraints>
                         </imageView>
                         <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hAg-Nw-10g" userLabel="Descriptions">
-                            <rect key="frame" x="0.0" y="145" width="288.5" height="144"/>
+                            <rect key="frame" x="0.0" y="145" width="289.5" height="155"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Empty Media Library" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="114">
-                                    <rect key="frame" x="54" y="0.0" width="180" height="23"/>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
+                                    <rect key="frame" x="34" y="0.0" width="221" height="30"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="vqV-xO-9Ez">
-                                    <rect key="frame" x="0.0" y="33" width="288.5" height="67"/>
+                                    <rect key="frame" x="0.0" y="40" width="289.5" height="70"/>
                                     <string key="text">For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, WiFi Upload or Cloud services.</string>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                     <color key="textColor" red="0.72000002861022949" green="0.72000002861022949" blue="0.72000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A78-83-MhQ">
-                                    <rect key="frame" x="97" y="110" width="94" height="34"/>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                    <rect key="frame" x="96.5" y="120" width="96" height="35"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                     <state key="normal" title="Learn More">
                                         <color key="titleColor" red="1" green="0.60783044529999997" blue="0.1420323705" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -59,11 +59,11 @@
                     <variation key="heightClass=compact" axis="horizontal"/>
                 </stackView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="1mU-bI-aIo"/>
             <constraints>
                 <constraint firstItem="141-gp-zTI" firstAttribute="centerY" secondItem="1mU-bI-aIo" secondAttribute="centerY" id="CpN-VR-Hat"/>
                 <constraint firstItem="141-gp-zTI" firstAttribute="centerX" secondItem="1mU-bI-aIo" secondAttribute="centerX" id="bBv-fo-6gn"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="1mU-bI-aIo"/>
             <connections>
                 <outlet property="emptyLibraryLabel" destination="114" id="119"/>
                 <outlet property="emptyLibraryLongDescriptionLabel" destination="vqV-xO-9Ez" id="Grj-83-sAj"/>
