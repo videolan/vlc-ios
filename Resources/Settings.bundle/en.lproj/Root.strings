@@ -119,5 +119,6 @@
 
 "SETTINGS_LAB" = "Lab";
 "SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "About VLC for tvOS";

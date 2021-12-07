@@ -319,6 +319,26 @@ private extension MediaLibraryService {
             }
         }
     }
+
+    @objc func exportMediaLibrary() {
+        guard let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first,
+            let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first else {
+                preconditionFailure("MediaLibraryService: Unable to find medialibrary.")
+        }
+
+        let databasePath = libraryPath + "/MediaLibrary/" + MediaLibraryService.databaseName
+        let targetPath = documentPath + "/Logs/" + MediaLibraryService.databaseName
+
+        do {
+            try FileManager.default.createDirectory(atPath: targetPath,
+                                                    withIntermediateDirectories: true)
+        } catch let error as NSError {
+            assertionFailure("Failed to create directory: \(error.localizedDescription)")
+        }
+
+        _ = try? FileManager.default.removeItem(atPath: targetPath)
+        _ = try? FileManager.default.copyItem(atPath: databasePath, toPath: targetPath)
+    }
 }
 
 // MARK: - Application notifications

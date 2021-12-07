@@ -603,16 +603,24 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
 
 enum Lab: Int, CaseIterable, SectionType {
     case debugLogging
+    case exportLibrary
 
     var description: String {
         switch self {
         case .debugLogging:
             return "SETTINGS_DEBUG_LOG"
+        case .exportLibrary:
+            return "SETTINGS_EXPORT_LIBRARY"
         }
     }
 
     var containsSwitch: Bool {
-        return true
+        switch self {
+        case .exportLibrary:
+            return false
+        default:
+            return true
+        }
     }
 
     var subtitle: String? { return nil }
@@ -621,6 +629,8 @@ enum Lab: Int, CaseIterable, SectionType {
         switch self {
         case .debugLogging:
             return kVLCSaveDebugLogs
+        case .exportLibrary:
+            return nil
         }
     }
 }

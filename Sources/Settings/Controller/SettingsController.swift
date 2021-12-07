@@ -228,6 +228,10 @@ class SettingsController: UITableViewController {
             ImpactFeedbackGenerator().selectionChanged()
         }
     }
+
+    private func exportMediaLibrary() {
+        self.mediaLibraryService.exportMediaLibrary()
+    }
 }
 
 extension SettingsController {
@@ -355,6 +359,10 @@ extension SettingsController {
         case .lab:
             let lab = Lab(rawValue: indexPath.row)
             cell.sectionType = lab
+            if indexPath.row == 1 {
+                cell.accessoryView = .none
+                cell.accessoryType = .none
+            }
         }
         return cell
     }
@@ -368,6 +376,10 @@ extension SettingsController {
         }
         if section == .mediaLibrary && indexPath.row == 0 {
             forceRescanAlert()
+            return
+        }
+        if section == .lab && indexPath.row == 1 {
+            exportMediaLibrary()
             return
         }
         switch section {
