@@ -25,7 +25,7 @@ class FileServerView: UIView {
     lazy var connectButton: UIButton = {
         let connectButton = UIButton(type: .system)
         connectButton.setTitle(NSLocalizedString("BUTTON_CONNECT", comment: ""), for: .normal)
-        connectButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        connectButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)
         connectButton.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
         connectButton.translatesAutoresizingMaskIntoConstraints = false
         connectButton.addTarget(self, action: #selector(connectButtonDidPress), for: .touchUpInside)
