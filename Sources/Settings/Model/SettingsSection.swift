@@ -601,10 +601,14 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
     }
 }
 
-enum Lab: CaseIterable, SectionType {
+enum Lab: Int, CaseIterable, SectionType {
+    case debugLogging
 
     var description: String {
-        switch self { }
+        switch self {
+        case .debugLogging:
+            return "SETTINGS_DEBUG_LOG"
+        }
     }
 
     var containsSwitch: Bool {
@@ -614,7 +618,9 @@ enum Lab: CaseIterable, SectionType {
     var subtitle: String? { return nil }
 
     var preferenceKey: String? {
-        switch self { }
+        switch self {
+        case .debugLogging:
+            return kVLCSaveDebugLogs
+        }
     }
 }
-

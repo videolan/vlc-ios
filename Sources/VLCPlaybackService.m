@@ -241,6 +241,23 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     _listPlayer.mediaPlayer.libraryInstance.debugLogging = YES;
     _listPlayer.mediaPlayer.libraryInstance.debugLoggingLevel = 4;
 #endif
+    BOOL saveDebugLogs = [userDefaults boolForKey:kVLCSaveDebugLogs];
+    if (saveDebugLogs) {
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString* logFilePath = [searchPaths[0] stringByAppendingPathComponent:@"Logs"];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        ret = [fileManager fileExistsAtPath:logFilePath];
+        if (!ret) {
+            [fileManager createDirectoryAtPath:logFilePath withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        NSDate *date = [NSDate date];
+        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd--HH-mm-ss"];
+        logFilePath = [logFilePath stringByAppendingPathComponent:[NSString stringWithFormat: @"vlcdebug-%@.log", [dateFormatter stringFromDate:date]]];
+        APLog(@"logging at '%@'", logFilePath);
+        [_listPlayer.mediaPlayer.libraryInstance setDebugLoggingToFile:logFilePath];
+    }
 
     _mediaPlayer = _listPlayer.mediaPlayer;
     [_mediaPlayer setDelegate:self];

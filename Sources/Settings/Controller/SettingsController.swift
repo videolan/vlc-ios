@@ -28,7 +28,7 @@ class SettingsController: UITableViewController {
     private var mediaLibraryService: MediaLibraryService
     private var localeDictionary = NSDictionary()
     private var isBackingUp = false
-    private let isLabActivated: Bool = false
+    private let isLabActivated: Bool = true
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
@@ -353,7 +353,8 @@ extension SettingsController {
             let networkOptions = NetworkOptions(rawValue: indexPath.row)
             cell.sectionType = networkOptions
         case .lab:
-            break
+            let lab = Lab(rawValue: indexPath.row)
+            cell.sectionType = lab
         }
         return cell
     }

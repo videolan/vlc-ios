@@ -29,6 +29,7 @@
 #define kVLCSettingNetworkCaching @"network-caching"
 #define kVLCSettingNetworkCachingDefaultValue @(999)
 #define kVLCSettingNetworkRTSPTCP @"rtsp-tcp"
+#define kVLCSaveDebugLogs @"kVLCSaveDebugLogs"
 #define kVLCSettingNetworkSatIPChannelList @"satip-channelist"
 #define kVLCSettingNetworkSatIPChannelListCustom @"CustomList"
 #define kVLCSettingNetworkSatIPChannelListUrl @"satip-channellist-url"
