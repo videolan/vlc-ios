@@ -11,12 +11,13 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import "VLCNetworkListCell.h"
 
 @protocol VLCStreamingHistoryCellMenuItemProtocol
 - (void)renameStreamFromCell:(UITableViewCell *)cell;
 @end
 
-@interface VLCStreamingHistoryCell : UITableViewCell
+@interface VLCStreamingHistoryCell : VLCNetworkListCell
 
 @property (weak, nonatomic) id<VLCStreamingHistoryCellMenuItemProtocol> delegate;
 

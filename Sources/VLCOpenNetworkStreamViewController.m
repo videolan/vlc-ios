@@ -147,6 +147,8 @@
     [sharedMenuController setMenuItems:@[renameItem]];
     [sharedMenuController update];
     [self updateForTheme];
+
+    self.historyTableView.rowHeight = [VLCStreamingHistoryCell heightOfCell];
 }
 
 - (NSString *)detailText
@@ -318,17 +320,15 @@
     static NSString *CellIdentifier = @"StreamingHistoryCell";
 
     VLCStreamingHistoryCell *cell = (VLCStreamingHistoryCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[VLCStreamingHistoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.delegate = self;
-        [cell customizeAppearance];
-    }
+    if (cell == nil)
+        cell = (VLCStreamingHistoryCell *)[VLCStreamingHistoryCell cellWithReuseIdentifier:CellIdentifier];
 
     NSString *content = [_recentURLs[indexPath.row] stringByRemovingPercentEncoding];
     NSString *possibleTitle = _recentURLTitles[[@(indexPath.row) stringValue]];
 
-    cell.detailTextLabel.text = content;
-    cell.textLabel.text = possibleTitle ?: [content lastPathComponent];
+    cell.subtitle = content;
+    cell.title = possibleTitle ?: [content lastPathComponent];
+    cell.thumbnailImage = [UIImage imageNamed:@"serverIcon"];
 
     return cell;
 }
