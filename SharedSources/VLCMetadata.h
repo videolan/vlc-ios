@@ -23,12 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readwrite, nullable) NSNumber *playbackDuration;
 @property(readwrite, nullable) NSNumber *elapsedPlaybackTime;
 @property(readwrite, nullable) NSNumber *playbackRate;
+@property(readwrite, nullable) NSNumber *position;
 
 #if TARGET_OS_IOS
 - (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer;
 #else
 - (void)updateMetadataFromMediaPlayer:(VLCMediaPlayer *)mediaPlayer;
 #endif
+
+- (void)updateExposedTimingFromMediaPlayer:(VLCMediaPlayer*)mediaPlayer;
 
 NS_ASSUME_NONNULL_END
 

@@ -58,6 +58,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     BOOL _needsMetadataUpdate;
     BOOL _mediaWasJustStarted;
+    int _majorPositionChangeInProgress;
     BOOL _recheckForExistingThumbnail;
     BOOL _externalAudioPlaybackDeviceConnected;
 
@@ -434,6 +435,17 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     if ([self.delegate respondsToSelector:@selector(playbackPositionUpdated:)])
         [self.delegate playbackPositionUpdated:self];
 
+    if (_majorPositionChangeInProgress >= 1) {
+        [self.metadata updateExposedTimingFromMediaPlayer:_listPlayer.mediaPlayer];
+        _majorPositionChangeInProgress++;
+
+        /* we wait up to 10 time change intervals for the major position change
+         * to take effect, afterwards we give up, safe battery and let the OS calculate the position */
+        if (_majorPositionChangeInProgress == 10) {
+            _majorPositionChangeInProgress = 0;
+        }
+    }
+
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackPositionUpdated
                                                         object:self];
 }
@@ -514,6 +526,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 - (void)setPlaybackPosition:(float)position
 {
     _mediaPlayer.position = position;
+    _majorPositionChangeInProgress = 1;
 }
 
 - (void)setSubtitleDelay:(float)subtitleDeleay
@@ -1417,6 +1430,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 {
     float positionDiff = playbackTime - [self.metadata.elapsedPlaybackTime floatValue];
     [_mediaPlayer jumpForward:positionDiff];
+    _majorPositionChangeInProgress = 1;
 }
 
 #pragma mark - helpers

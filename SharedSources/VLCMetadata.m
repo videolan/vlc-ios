@@ -91,11 +91,23 @@
     [self populateInfoCenterFromMetadata];
 }
 #endif
+
+- (void)updateExposedTimingFromMediaPlayer:(VLCMediaPlayer*)mediaPlayer
+{
+    /* just update the timing data and used the cached rest for the update
+     * regrettably, in contrast to macOS, we always need to deliver the full dictionary */
+    self.elapsedPlaybackTime = @(mediaPlayer.time.value.floatValue / 1000.);
+    self.position = @(mediaPlayer.position);
+
+    [self populateInfoCenterFromMetadata];
+}
+
 - (void)updatePlaybackRate:(VLCMediaPlayer *)mediaPlayer
 {
     self.playbackDuration = @(mediaPlayer.media.length.intValue / 1000.);
     self.playbackRate = @(mediaPlayer.rate);
     self.elapsedPlaybackTime = @(mediaPlayer.time.value.floatValue / 1000.);
+    self.position = @(mediaPlayer.position);
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
 }
 
@@ -124,6 +136,7 @@
     if (@available(iOS 10.0, *)) {
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyIsLiveStream] = @(duration.intValue <= 0);
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyMediaType] = _isAudioOnly ? @(MPNowPlayingInfoMediaTypeAudio) : @(MPNowPlayingInfoMediaTypeVideo);
+        currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackProgress] = self.position;
     }
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.elapsedPlaybackTime;
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackRate] = self.playbackRate;
