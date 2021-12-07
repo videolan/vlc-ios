@@ -214,9 +214,6 @@
 
 "NEW" = "NEW";
 
-"BUG_REPORT_TITLE" = "Report a bug";
-"BUG_REPORT_MESSAGE" = "Would you like to create a bug report?";
-"BUG_REPORT_BUTTON" = "Open Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Video Player";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Double tap to show or hide playback controls";

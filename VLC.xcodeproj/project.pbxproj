@@ -162,7 +162,6 @@
 		7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */; };
 		7D310885245F1EE100BC6D79 /* VLCMediaFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */; };
 		7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */; };
-		7D3784A1183A98EB009EE944 /* VLCBugreporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784A0183A98EB009EE944 /* VLCBugreporter.m */; };
 		7D3784AD183A9906009EE944 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AA183A9906009EE944 /* VLCDropboxController.m */; };
 		7D3784AE183A9906009EE944 /* VLCDropboxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AC183A9906009EE944 /* VLCDropboxTableViewController.m */; };
 		7D3784BE183A9938009EE944 /* UIBarButtonItem+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B3183A9938009EE944 /* UIBarButtonItem+Theme.m */; };
@@ -713,8 +712,6 @@
 		7D3323FB18E61DD5000ABEA5 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExternalDisplayController.h; path = Sources/Playback/VLCExternalDisplayController.h; sourceTree = SOURCE_ROOT; };
 		7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExternalDisplayController.m; path = Sources/Playback/VLCExternalDisplayController.m; sourceTree = SOURCE_ROOT; };
-		7D37849F183A98EB009EE944 /* VLCBugreporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBugreporter.h; path = Sources/VLCBugreporter.h; sourceTree = SOURCE_ROOT; };
-		7D3784A0183A98EB009EE944 /* VLCBugreporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBugreporter.m; path = Sources/VLCBugreporter.m; sourceTree = SOURCE_ROOT; };
 		7D3784A8183A9906009EE944 /* VLCDropboxConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDropboxConstants.h; path = Sources/VLCDropboxConstants.h; sourceTree = SOURCE_ROOT; };
 		7D3784A9183A9906009EE944 /* VLCDropboxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDropboxController.h; path = Sources/VLCDropboxController.h; sourceTree = SOURCE_ROOT; };
 		7D3784AA183A9906009EE944 /* VLCDropboxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDropboxController.m; path = Sources/VLCDropboxController.m; sourceTree = SOURCE_ROOT; };
@@ -1539,8 +1536,6 @@
 			isa = PBXGroup;
 			children = (
 				44C8BBA424AF36F4003F8940 /* Settings */,
-				7D37849F183A98EB009EE944 /* VLCBugreporter.h */,
-				7D3784A0183A98EB009EE944 /* VLCBugreporter.m */,
 				7DC19AEB1868C91400810BF7 /* First Steps */,
 			);
 			name = "Accessory dialogs";
@@ -3239,7 +3234,6 @@
 				DD3EFF411BDEBCE500B68579 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
 				8D15A1F022B0FB9300CFA758 /* QueueViewController.swift in Sources */,
 				418E88412110E51B00DDA6A7 /* URLHandler.swift in Sources */,
-				7D3784A1183A98EB009EE944 /* VLCBugreporter.m in Sources */,
 				8DE187812105DAB100A091D2 /* VideoViewController.swift in Sources */,
 				6D0B038825E7CBF90013DEF4 /* PopupView.swift in Sources */,
 				41FCD2F820B565B600660AAB /* VLCAlertViewController.swift in Sources */,
