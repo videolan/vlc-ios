@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Vetítési eszközök";
 "BUTTON_RENDERER_HINT" = "Menü megjelenítése az elérhető vetítési eszközökkel";
-
-
+"BUTTON_AIRPLAY" = "AirPlay vagy Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Menü megjelenítése az elérhető AirPlay-es vagy bluetoothos eszközökkel";
 
 "UPGRADING_LIBRARY" = "Médiatár frissítése";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "ÚJ";
 
-"BUG_REPORT_TITLE" = "Hibajelentés";
-"BUG_REPORT_MESSAGE" = "Szeretné jelenteni a hibát a VLC weboldalán?";
-"BUG_REPORT_BUTTON" = "Jelentés";
 
 "VO_VIDEOPLAYER_TITLE" = "Lejátszó";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Koppintson duplán a vezérlők megjelenítéséhez és elrejtéséhez";

@@ -112,12 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = " SMB 1 előnyben részesítése";
 "SETTINGS_FORCE_SMBV1_LONG" = "Kapcsolja ki a beállítást, ha nehézségei vannak az SMB-kiszolgáló tallózásával";
 "SETTINGS_RTSP_TCP" = "RTSP feletti RTP használata (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Egyéni SAT>IP csatornalista URL";
 
 "SETTINGS_ARTWORK" = "Grafika";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Grafika letöltése";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "Új lejátszó";
+"SETTINGS_DEBUG_LOG" = "Hibakeresési naplók mentése az eszközre";
+"SETTINGS_EXPORT_LIBRARY" = "Médiatár kiírása";
 
 "ABOUT_APP_TV" = "A VLC for tvOS névjegye";
