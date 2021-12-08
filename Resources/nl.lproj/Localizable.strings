@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting-apparaten";
 "BUTTON_RENDERER_HINT" = "Een menu met beschikbare casting-apparaten weergeven";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Mediabiblitoheek bijwerken";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NIEUW";
 
-"BUG_REPORT_TITLE" = "Een bug rapporteren";
-"BUG_REPORT_MESSAGE" = "Wilt u een bugrapport aanmaken?";
-"BUG_REPORT_BUTTON" = "Safari openen";
 
 "VO_VIDEOPLAYER_TITLE" = "Videospeler";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dubbel tikken om afspeelbediening weer te geven of te verbergen";
