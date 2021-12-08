@@ -39,6 +39,7 @@ NSString * const kVLCNetworkLoginViewFieldCellIdentifier = @"VLCNetworkLoginView
     self.textField.translatesAutoresizingMaskIntoConstraints = NO;
     self.textField.delegate = self;
     self.textField.textColor = PresentationTheme.current.colors.cellTextColor;
+    self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     [self addSubview:_textField];
     
     id<VLCLayoutAnchorContainer> guide = self;

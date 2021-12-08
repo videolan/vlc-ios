@@ -27,7 +27,7 @@ NSString * const kVLCNetworkLoginViewButtonCellIdentifier = @"VLCNetworkLoginVie
         self.textLabel.backgroundColor = UIColor.clearColor;
         self.textLabel.textColor = UIColor.whiteColor;
         self.textLabel.textAlignment = NSTextAlignmentCenter;
-        self.textLabel.font = [UIFont boldSystemFontOfSize:15];
+        self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
         self.accessibilityTraits = UIAccessibilityTraitButton;
 
         UIView *blackView = [[UIView alloc] init];
