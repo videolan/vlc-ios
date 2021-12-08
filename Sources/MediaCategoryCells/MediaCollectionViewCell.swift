@@ -225,8 +225,11 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         }
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
+        newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
         titleLabel.labelize = enableMarquee
         descriptionLabel.labelize = enableMarquee
+        descriptionLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
+        sizeLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
         separatorLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         separatorLabel.setContentHuggingPriority(.required, for: .horizontal)
         separatorLabel.font = sizeLabel.font

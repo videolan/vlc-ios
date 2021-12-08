@@ -91,6 +91,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
+        newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
+        groupTitleLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         selectionOverlay.layer.cornerRadius = 6
         thumbnailsArray = [firstThumbnail, secondThumbnail, thirdThumbnail, fourthThumbnail]

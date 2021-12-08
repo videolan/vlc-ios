@@ -45,14 +45,14 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         let label = UILabel()
         label.textColor = PresentationTheme.current.colors.orangeUI
         label.text = NSLocalizedString("NEW", comment: "")
-        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let titleLabel: VLCMarqueeLabel = {
         let label = VLCMarqueeLabel()
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = UIFont.preferredCustomFont(forTextStyle: .headline).semibolded
         label.textColor = PresentationTheme.current.colors.cellTextColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -60,7 +60,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
     private let descriptionLabel: VLCMarqueeLabel = {
         let label = VLCMarqueeLabel()
-        label.font = .systemFont(ofSize: 12, weight: .medium)
+        label.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
         label.textColor = PresentationTheme.current.colors.cellDetailTextColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -68,7 +68,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
     private let sizeLabel: VLCMarqueeLabel = {
         let label = VLCMarqueeLabel()
-        label.font = .systemFont(ofSize: 12, weight: .medium)
+        label.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
         label.textColor = PresentationTheme.current.colors.cellDetailTextColor
         label.minimumScaleFactor = 0.2
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -174,6 +174,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         layer.cornerRadius = 2
         titleLabel.labelize = enableMarquee
         descriptionLabel.labelize = enableMarquee
+        descriptionLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
         separatorLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         separatorLabel.setContentHuggingPriority(.required, for: .horizontal)
         sizeLabel.setContentHuggingPriority(.required, for: .horizontal)

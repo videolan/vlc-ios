@@ -122,6 +122,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
         cell.iconLabel.text = indicatorInfo.title
+        cell.iconLabel.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
         cell.accessibilityIdentifier = indicatorInfo.accessibilityIdentifier
     }
 
