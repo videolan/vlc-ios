@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Transmitteringsenheder";
 "BUTTON_RENDERER_HINT" = "Vis en menu over tilgængelige transmitteringsenheder";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Opgraderer mediebibliotek";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NY";
 
-"BUG_REPORT_TITLE" = "Rapportér en fejl";
-"BUG_REPORT_MESSAGE" = "Vil du oprette en fejlrapport?";
-"BUG_REPORT_BUTTON" = "Åbn Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Videoafspiller";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dobbelttryk for at vise eller skjule betjeningspanel";
