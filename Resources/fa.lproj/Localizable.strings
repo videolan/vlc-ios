@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "ارتقای کتابخانه رسانه ای";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "تازه";
 
-"BUG_REPORT_TITLE" = "گزارش اشکال";
-"BUG_REPORT_MESSAGE" = "آیا مایل هستید تا یک گزارش اشکال بنویسید؟";
-"BUG_REPORT_BUTTON" = "بازکردن Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "ویدیو پلیر";
 "VO_VIDEOPLAYER_DOUBLETAP" = "دوبار ضربه برای آشکار یا پنهان کردن کنترل های پخش";
