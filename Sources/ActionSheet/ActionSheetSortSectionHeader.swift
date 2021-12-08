@@ -68,7 +68,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         descendingLabel.text = NSLocalizedString("DESCENDING_LABEL", comment: "")
         descendingLabel.accessibilityLabel = NSLocalizedString("DESCENDING_LABEL", comment: "")
         descendingLabel.accessibilityHint = NSLocalizedString("DESCENDING_LABEL", comment: "")
-        descendingLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        descendingLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
         descendingLabel.translatesAutoresizingMaskIntoConstraints = false
         return descendingLabel
     }()
@@ -88,7 +88,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         gridLayoutLabel.accessibilityLabel = NSLocalizedString("GRID_LAYOUT", comment: "")
         gridLayoutLabel.accessibilityHint = NSLocalizedString("GRID_LAYOUT", comment: "")
         //TODO: Set appropriate accessibilityLabel and accessibilityHint
-        gridLayoutLabel.font = .systemFont(ofSize: 15, weight: .medium)
+        gridLayoutLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
         gridLayoutLabel.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
         gridLayoutLabel.translatesAutoresizingMaskIntoConstraints = false
         return gridLayoutLabel
@@ -99,7 +99,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         displayByLabel.text = NSLocalizedString("DISPLAY_AS", comment: "")
         displayByLabel.accessibilityLabel = NSLocalizedString("DISPLAY_AS", comment: "")
         displayByLabel.accessibilityHint = NSLocalizedString("DISPLAY_AS", comment: "")
-        displayByLabel.font = .boldSystemFont(ofSize: 17)
+        displayByLabel.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
         displayByLabel.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
         displayByLabel.translatesAutoresizingMaskIntoConstraints = false
         return displayByLabel

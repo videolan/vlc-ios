@@ -99,7 +99,7 @@ class ActionSheetCell: UICollectionViewCell {
     let name: UILabel = {
         let name = UILabel()
         name.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
-        name.font = UIFont.systemFont(ofSize: 15)
+        name.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
     }()

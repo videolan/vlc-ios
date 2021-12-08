@@ -34,7 +34,7 @@ class ActionSheetSectionHeader: UIView {
 
     let title: UILabel = {
         let title = UILabel()
-        title.font = UIFont.boldSystemFont(ofSize: 17)
+        title.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
         title.textColor = PresentationTheme.current.colors.cellTextColor
         title.setContentHuggingPriority(.required, for: .vertical)
         title.translatesAutoresizingMaskIntoConstraints = false
