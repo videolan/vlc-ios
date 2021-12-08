@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Apparechji di diffusione";
 "BUTTON_RENDERER_HINT" = "Affissà un listinu di l’apparechji di diffusione dispunibule";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Rinnovà a mediateca";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NOVU";
 
-"BUG_REPORT_TITLE" = "Riferisce un penseru";
-"BUG_REPORT_MESSAGE" = "Vulete creà un raportu di penseru ?";
-"BUG_REPORT_BUTTON" = "Apre Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Lettore video";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Picchichjà duie volte per affissà o piattà i cuntrolli di ripruduzzione";
