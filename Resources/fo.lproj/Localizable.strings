@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Dagfør miðlasavnið";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NÝTT";
 
-"BUG_REPORT_TITLE" = "Melda eina villu";
-"BUG_REPORT_MESSAGE" = "Vilt tú boða frá einum trupulleika?";
-"BUG_REPORT_BUTTON" = "Lat Safari upp";
 
 "VO_VIDEOPLAYER_TITLE" = "Videospælari";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Tøppa tvær ferðir fyri at vísa ella fjala avspælingarknapparnar";
