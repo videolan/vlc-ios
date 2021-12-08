@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "ലഭ്യമായ കാസ്റ്റിംഗ് ഉപകരണങ്ങളുടെ മെനു കാണിക്കുക";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "മീഡിയ ലൈബ്രറി പുതുക്കുന്നു";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "പുതിയത്";
 
-"BUG_REPORT_TITLE" = "ഒരു പ്രശ്നം ശ്രദ്ധയില്‍ പെടുത്തൂ";
-"BUG_REPORT_MESSAGE" = "നിങ്ങള്‍ ഒരു പ്രശ്നം ശ്രദ്ധയില്‍ പെടുത്താന്‍ ആഗ്രഹിക്കുന്നുവോ?";
-"BUG_REPORT_BUTTON" = "സഫാരി തുറക്കുക";
 
 "VO_VIDEOPLAYER_TITLE" = "വീഡിയോ പ്ലെയര്‍";
 "VO_VIDEOPLAYER_DOUBLETAP" = "പ്ലേബാക്ക് നിയന്ത്രകങ്ങള്‍ ഒളിപ്പിക്കാനും കാണിക്കാനും ഇരട്ട ടാപിംഗ് ചെയ്യുക";

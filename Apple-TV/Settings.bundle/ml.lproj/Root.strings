@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "കലാസൃഷ്‌ടി ഡൗൺലോഡുചെയ്യുക";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "tvOS-നായുള്ള VLC-യെക്കുറിച്ച്";
