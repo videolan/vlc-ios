@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Stáhnout obal";
 
 "SETTINGS_LAB" = "Laboratoř";
-"SETTINGS_NEW_PLAYER" = "Nový přehrávač";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "O VLC pro tvOS";
