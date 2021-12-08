@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Naprave za predvajanje";
 "BUTTON_RENDERER_HINT" = "Prikaži meni z predvajalnimi napravami, ki so na voljo";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Nadgrajevanje knjižnice predstavnih vsebin";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NOVO";
 
-"BUG_REPORT_TITLE" = "Pošlji poročilo o hrošču";
-"BUG_REPORT_MESSAGE" = "Ali želite sestaviti poročilo o hrošču?";
-"BUG_REPORT_BUTTON" = "Odpri Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Video predvajalnik";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Z dvojnim tapkanjem se prikaže sli skrije upravljanje predvajanja";
