@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "อุปกรณ์การแคสต์";
 "BUTTON_RENDERER_HINT" = "แสดงเมนูอุปกรณ์การแคสต์ที่ใช้ได้";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "อัพเกรดคลังสื่อ";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "ใหม่";
 
-"BUG_REPORT_TITLE" = "รายงานบั๊ก";
-"BUG_REPORT_MESSAGE" = "คุณต้องการสร้างรายงานข้อผิดพลาดหรือไม่?";
-"BUG_REPORT_BUTTON" = "เปิด Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "ตัวเล่นวีดีโอ";
 "VO_VIDEOPLAYER_DOUBLETAP" = "แตะสองครั้งเพื่อแสดงหรือซ่อนตัวควบคุมการเล่น";

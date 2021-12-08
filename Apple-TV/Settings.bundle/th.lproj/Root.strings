@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "ดาวน์โหลดหน้าปก";
 
 "SETTINGS_LAB" = "ห้องทดลอง";
-"SETTINGS_NEW_PLAYER" = "ตัวเล่นแบบใหม่";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "เกี่ยวกับ VLC สำหรับ tvOS";
