@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Nadograđivanje Medijske Bibiloteke";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NOVO";
 
-"BUG_REPORT_TITLE" = "Prijavi grešku";
-"BUG_REPORT_MESSAGE" = "Želite li kreirati izvještaj grešaka?";
-"BUG_REPORT_BUTTON" = "Otvori Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Video Izvođač";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dvostruko dotaknite za prikaz ili sakrivanje kontrola reporoduciranja";
