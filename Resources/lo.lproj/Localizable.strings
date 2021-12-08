@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "ປັບປຸງຖານຂໍ້ມູນເພງ, ວິດີໂອ";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "ໃໝ່";
 
-"BUG_REPORT_TITLE" = "ລາຍງານຂໍ້ຜິດພາດ";
-"BUG_REPORT_MESSAGE" = "ທ່ານຕ້ອງການທີ່ຈະສ້າງລາຍງານຂໍ້ຜິດພາດຫຼືບໍ່?";
-"BUG_REPORT_BUTTON" = "ເປີດ Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "ເຄື່ອງຫຼິ້ນວິດີໂອ";
 "VO_VIDEOPLAYER_DOUBLETAP" = "ແຕະສອງເທື່ອເພື່ອສະແດງ ຫຼື ຊ້ອນໂຕຄວບຄຸມການຫຼິ້ນ";
