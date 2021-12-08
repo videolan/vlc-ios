@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Sendtoestel";
 "BUTTON_RENDERER_HINT" = "Toon ’n kieslys van beskikbare sendtoestelle";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Mediabiblioteek word opgegradeer";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NUUT";
 
-"BUG_REPORT_TITLE" = "Rapporteer ’n fout";
-"BUG_REPORT_MESSAGE" = "Wil u ’n foutrapport skep?";
-"BUG_REPORT_BUTTON" = "Open Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Videospeler";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dubbeltik om afspeelbeheer te vertoon of te versteek";
