@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Urządzenia do transmisji";
 "BUTTON_RENDERER_HINT" = "Pokaż menu dostępnych urządzeń do transmisji";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Aktualizacja Biblioteki multimedialnej";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NOWOŚĆ";
 
-"BUG_REPORT_TITLE" = "Zgłoś błąd";
-"BUG_REPORT_MESSAGE" = "Czy chcesz utworzyć raport błędu?";
-"BUG_REPORT_BUTTON" = "Otwórz Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Odtwarzacz wideo";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Kliknij dwukrotnie, aby ukryć lub wyświetlić elementy sterowania odtwarzaniem";
