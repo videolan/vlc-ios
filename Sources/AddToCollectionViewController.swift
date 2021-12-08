@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 import Foundation
+import UIKit
 
 protocol AddToCollectionViewControllerDelegate: AnyObject {
     func addToCollectionViewController(_ addToCollectionViewController: AddToCollectionViewController,
@@ -195,6 +196,7 @@ private extension AddToCollectionViewController {
         }
 
         newCollectionButton.setTitle(title, for: .normal)
+        newCollectionButton.titleLabel?.font = UIFont.preferredCustomFont(forTextStyle: .headline)
         newCollectionButton.accessibilityLabel = title
         newCollectionButton.accessibilityHint = hint
     }
