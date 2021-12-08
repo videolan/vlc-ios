@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Castenheter";
 "BUTTON_RENDERER_HINT" = "Visa en meny med tillgängliga castenheter";
-
-
+"BUTTON_AIRPLAY" = "AirPlay eller Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Visa en meny över tillgängliga AirPlay- eller Bluetooth-enheter";
 
 "UPGRADING_LIBRARY" = "Uppgraderar mediabiblioteket";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NYTT";
 
-"BUG_REPORT_TITLE" = "Rapportera en bugg";
-"BUG_REPORT_MESSAGE" = "Vill du skapa en buggrapport?";
-"BUG_REPORT_BUTTON" = "Öppna Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Videospelare";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dubbelknacka för att visa eller dölja uppspelningskontroller";
