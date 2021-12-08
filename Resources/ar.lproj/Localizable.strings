@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "إنشاء الأجهزة";
 "BUTTON_RENDERER_HINT" = "اعرض قائمة بأجهزة العرض المتاحة";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "تحديث قائمة الوسائط";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "جديد";
 
-"BUG_REPORT_TITLE" = "أبلغ عن علّة";
-"BUG_REPORT_MESSAGE" = "هل ترغب بإنشاء تقرير علّة؟";
-"BUG_REPORT_BUTTON" = "افتح سفاري";
 
 "VO_VIDEOPLAYER_TITLE" = "مُشغّل المرئيات";
 "VO_VIDEOPLAYER_DOUBLETAP" = "انقر مرّتين لإظهار أو إخفاء عناصر التّحكم بالتّشغيل";
