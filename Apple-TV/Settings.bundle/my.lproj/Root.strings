@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "သရုပ်ဖော်ပုံ ဒေါင်းလုပ် လုပ်ရန်";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "New player";
+"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "tvOS အတွက် VLC အကြောင်း";
