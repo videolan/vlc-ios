@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Strøyme-einingar";
 "BUTTON_RENDERER_HINT" = "Vis ein meny med tilgjengelege casting-einingar";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Oppgraderer mediabiblioteket";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NY";
 
-"BUG_REPORT_TITLE" = "Rapporter feil";
-"BUG_REPORT_MESSAGE" = "Vil du skriva ein feilrapport?";
-"BUG_REPORT_BUTTON" = "Opna Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Videospelar";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dobbeltrykk for å visa eller gøyma avspelingskontrollane";
