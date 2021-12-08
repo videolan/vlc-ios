@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "कास्टिङ यन्त्र";
 "BUTTON_RENDERER_HINT" = "उपलब्ध कास्टिङ यन्त्रको मेनु देखाउनुहोस्";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "मिडिया लाइब्रेरी अपग्रेड गर्दै";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "नयाँ";
 
-"BUG_REPORT_TITLE" = "बग उजुर गर्नुहोस्";
-"BUG_REPORT_MESSAGE" = "Would you like to create a bug report?";
-"BUG_REPORT_BUTTON" = "Open Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "भिडियो प्लेयर";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Double tap to show or hide playback controls";
