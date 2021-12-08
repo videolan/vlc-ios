@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Modernizēt Mēdiju Bibliotēku";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "JAUNS";
 
-"BUG_REPORT_TITLE" = "Paziņo par kļūdu";
-"BUG_REPORT_MESSAGE" = "Vai jūs vēlētos izveidot kļūdas ziņojumu?";
-"BUG_REPORT_BUTTON" = "Atvert Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Video Lasītājs";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Divreiz pieskarieties, lai parādītu vai paslēptu atskaņošanas kontroli";
