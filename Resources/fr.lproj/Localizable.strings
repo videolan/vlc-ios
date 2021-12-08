@@ -41,7 +41,7 @@
 
 "PLAYBACK_FAILED" = "La lecture a échoué";
 "PLEASE_WAIT" = "Veuillez patienter";
-"AR_CHANGED" = "Format de l'affichage : %@";
+"AR_CHANGED" = "Rapport de cadre : %@";
 "DEFAULT" = "Par défaut";
 "FILL_TO_SCREEN" = "Rogner l'image pour remplir l'écran";
 "PLAYBACK_SPEED" = "Vitesse de lecture";
@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Périphériques de diffusion";
 "BUTTON_RENDERER_HINT" = "Afficher un menu des périphériques de diffusion";
-
-
+"BUTTON_AIRPLAY" = "AirPlay ou Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Afficher un menu des périphériques disponibles AirPlay ou Bluetooth";
 
 "UPGRADING_LIBRARY" = "Mise à jour de la médiathèque";
 
@@ -196,7 +196,7 @@
 "PLAYBACK_POSITION" = "Position de lecture";
 "VIDEO_FILTER" = "Filtres vidéo";
 "VIDEO_FILTER_RESET_BUTTON" = "Réinitialiser les filtres vidéo";
-"VIDEO_ASPECT_RATIO_BUTTON" = "Proportions de la vidéo";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Rapport de cadre vidéo";
 "BWD_BUTTON" = "Saut arrière";
 "FWD_BUTTON" = "Saut avant";
 "PLAY_BUTTON" = "Lire";
@@ -214,9 +214,6 @@
 
 "NEW" = "NOUVEAU";
 
-"BUG_REPORT_TITLE" = "Signaler un bug";
-"BUG_REPORT_MESSAGE" = "Souhaitez-vous créer un rapport de bug ?";
-"BUG_REPORT_BUTTON" = "Ouvrir Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Lecteur vidéo";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Toucher deux fois pour voir ou cacher les contrôles";
@@ -347,7 +344,7 @@
 // MARK: - EDIT
 
 "BUTTON_EDIT" = "Modifier";
-"BUTTON_EDIT_HINT" = "Mode modification";
+"BUTTON_EDIT_HINT" = "Mode selection";
 
 "ADD_TO_PLAYLIST" = "Ajouter à la liste de lecture";
 "ADD_TO_PLAYLIST_HINT" = "Ouvrir le menu Ajouter à la liste de lecture";
@@ -437,8 +434,8 @@
 
 "SHUFFLE_HINT" = "Lecture aléatoire de la liste des médias";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "Proportions de la vidéo";
-"VIDEO_ASPECT_RATIO_HINT" = "Modifier le format de la vidéo en cours";
+"VIDEO_ASPECT_RATIO_BUTTON" = "Rapport de cadre vidéo";
+"VIDEO_ASPECT_RATIO_HINT" = "Modifier le rapport de cadre de la vidéo en cours";
 
 "MORE_OPTIONS_BUTTON" = "Plus";
 "MORE_OPTIONS_HINT" = "Voir plus de contrôles d'option";
@@ -457,7 +454,7 @@
 // MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Avertissement de connexion SMBv1";
-"SMBV1_WARN_DESCRIPTION" = "Nous avons détecté un ancien protocole (SMBv1).\nÊtes-vous vraiment sûr de continuer avec SMBv1?\nNous vous conseillons de mettre à niveau ou de reparamétrer votre serveur.";
+"SMBV1_WARN_DESCRIPTION" = "Nous avons détecté un ancien protocole (SMBv1).\nÊtes-vous vraiment sûr de continuer avec SMBv1 ?\nNous vous conseillons de mettre à niveau ou de reparamétrer votre serveur.";
 "SMBV1_CONTINUE" = "Continuer avec SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Essayer SMBv2/v3";
 
@@ -518,7 +515,7 @@
 
 /* New strings */
 "VOLUME_HINT" = "Contrôle vertical du volume";
-"VOLUME_SLIDER" = "Faites glisser verticalement pour modifier le niveau du volume";
+"VOLUME_SLIDER" = "Glissement vertical pour modifier le niveau du volume";
 
 // MARK: - AudioMiniPlayer playback controls menu
 "MENU_PLAYBACK_CONTROLS" = "Contrôles de lecture";

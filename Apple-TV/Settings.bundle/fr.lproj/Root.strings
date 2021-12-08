@@ -9,7 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "Automatique";
 "SETTINGS_THEME_BLACK" = "Utiliser un fond noir en mode sombre";
 "SETTINGS_THEME_BLACK_SUBTITLE" = "Améliore l'autonomie de la batterie sur les appareils dotés d'un écran OLED";
-"SETTINGS_PRIVACY_SUBTITLE" = "Ouvrir dans les Réglages";
+"SETTINGS_PRIVACY_SUBTITLE" = "Ouvrir dans les réglages";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accès sécurisé à votre contenu";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Vos médias seront cachés dans l'application Fichiers";
 
@@ -108,7 +108,7 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latence forte";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latence la plus forte";
-"SETTINGS_WIFISHARING_IPv6" = "Support IPV6 pour partage Wi-Fi";
+"SETTINGS_WIFISHARING_IPv6" = "Compatibilité IPv6 pour le partage Wi-Fi";
 "SETTINGS_FORCE_SMBV1" = "Préfère SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Décochez ce paramètre si vous avez des difficultés à naviguer sur votre serveur SMB";
 "SETTINGS_RTSP_TCP" = "Utiliser RTP sur RTSP (TCP)";
@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Télécharger l'illustration";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "Nouveau lecteur";
+"SETTINGS_DEBUG_LOG" = "Enregistrer les journaux de débogage sur un périphérique";
+"SETTINGS_EXPORT_LIBRARY" = "Exporter la médiathèque";
 
 "ABOUT_APP_TV" = "À propos de VLC pour tvOS";
