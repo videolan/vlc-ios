@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Пристрої для трансляції";
 "BUTTON_RENDERER_HINT" = "Показати меню доступних пристроїв для трансляції";
-
-
+"BUTTON_AIRPLAY" = "AirPlay чи Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Показати меню доступних пристроїв AirPlay чи Bluetooth";
 
 "UPGRADING_LIBRARY" = "Оновлюється медіабібліотека";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "НОВИЙ";
 
-"BUG_REPORT_TITLE" = "Повідомити про помилку";
-"BUG_REPORT_MESSAGE" = "Ви б хотіли створити звіт про помилку?";
-"BUG_REPORT_BUTTON" = "Відкрити Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Відеопрогравач";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Подвійний натиск, щоб сховати або показати управління відтворенням";

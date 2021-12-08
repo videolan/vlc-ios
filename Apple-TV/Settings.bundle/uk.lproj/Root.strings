@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Звантажити обкладинку";
 
 "SETTINGS_LAB" = "Лабораторія";
-"SETTINGS_NEW_PLAYER" = "Новий програвач";
+"SETTINGS_DEBUG_LOG" = "Зберегти журнали зневаджень на пристрої";
+"SETTINGS_EXPORT_LIBRARY" = "Знімок бібліотеки медіа";
 
 "ABOUT_APP_TV" = "Про VLC для tvOS";

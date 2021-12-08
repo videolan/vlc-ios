@@ -118,7 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Звантажити обкладинку";
 
 "SETTINGS_LAB" = "Лабораторія";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Зберегти журнали зневаджень на пристрої";
+"SETTINGS_EXPORT_LIBRARY" = "Знімок бібліотеки медіа";
 
 "ABOUT_APP_TV" = "Про VLC для tvOS";
