@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Kringkastingsenheter";
 "BUTTON_RENDERER_HINT" = "Vis en meny med tilgjengelige kringkastingsenheter";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Oppdater mediebibliotek";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NY";
 
-"BUG_REPORT_TITLE" = "Rapporter en feil";
-"BUG_REPORT_MESSAGE" = "Vil du opprette en feilrapport?";
-"BUG_REPORT_BUTTON" = "Åpne Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Filmavspiller";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dobbelttrykk for å vise eller skjule avspillingskontroller";
