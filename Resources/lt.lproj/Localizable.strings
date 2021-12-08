@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Atnaujinama fonoteka";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NAUJA";
 
-"BUG_REPORT_TITLE" = "Pranešti apie klaidą";
-"BUG_REPORT_MESSAGE" = "Ar norėtumėte sukurti pranešimą apie klaidą?";
-"BUG_REPORT_BUTTON" = "Atverti „Safari“";
 
 "VO_VIDEOPLAYER_TITLE" = "Vaizdo klipų leistuvė";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Double tap to show or hide playback controls";
