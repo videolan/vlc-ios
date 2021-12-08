@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Perangkat Casting";
 "BUTTON_RENDERER_HINT" = "Perlihatkan menu dari perangkat yang tersedia";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Pembaruan Pustaka Media";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "BARU";
 
-"BUG_REPORT_TITLE" = "Laporkan kutu";
-"BUG_REPORT_MESSAGE" = "Apakah anda ingin membuat laporan kutu";
-"BUG_REPORT_BUTTON" = "Buka Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Pemutar Video";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Tepuk dengan jari dua kali untuk menampilkan atau menyembunyikan pengendali pemutaran";
