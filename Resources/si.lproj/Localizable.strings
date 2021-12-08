@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "මාධ්‍ය පුස්තකාලය උසස් කරමින්";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "නව";
 
-"BUG_REPORT_TITLE" = "දෝෂයක් වාර්තා කරන්න";
-"BUG_REPORT_MESSAGE" = "දෝෂ වාර්තාවක් තැනීමට ඔබ කැමතිද?";
-"BUG_REPORT_BUTTON" = "සෆාරි විවෘත කරන්න";
 
 "VO_VIDEOPLAYER_TITLE" = "විදෘශ්‍ය වාදකය";
 "VO_VIDEOPLAYER_DOUBLETAP" = "පිළිවැයීම් පාලක පෙන්වීමට හෝ සැඟවීමට දෙවරක් තට්ටු කරන්න";
