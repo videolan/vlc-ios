@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Dispositius de buidatge";
 "BUTTON_RENDERER_HINT" = "Mostra un menú de dispositius de buidatge";
-
-
+"BUTTON_AIRPLAY" = "AirPlay o Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Mostra un menú dels dispositius AirPlay o Bluetooth disponibles ";
 
 "UPGRADING_LIBRARY" = "Actualitza la biblioteca de medis";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NOU";
 
-"BUG_REPORT_TITLE" = "Informeu d'un error";
-"BUG_REPORT_MESSAGE" = "Voleu crear un informe d'error?";
-"BUG_REPORT_BUTTON" = "Obre el Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Reproductor de vídeo";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Feu dos tocs per mostrar o amagar els controls de reproducció";

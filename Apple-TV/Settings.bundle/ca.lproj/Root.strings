@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Baixa il·lustracions";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "Nou reproductor";
+"SETTINGS_DEBUG_LOG" = "Desa els registres de depuració sobre el dispositiu";
+"SETTINGS_EXPORT_LIBRARY" = "Bolca la biblioteca multimèdia";
 
 "ABOUT_APP_TV" = "Quant al VLC per a tvOS";
