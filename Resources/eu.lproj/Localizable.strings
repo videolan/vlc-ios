@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Igortze gailuak";
 "BUTTON_RENDERER_HINT" = "Erakutsi erabilgarri dauden igortze gailuen menua";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Euskarri liburutegia berritzen";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "BERRIA";
 
-"BUG_REPORT_TITLE" = "Eman akats baten berri";
-"BUG_REPORT_MESSAGE" = "Akats txosten bat sortu nahi duzu?";
-"BUG_REPORT_BUTTON" = "Ireki Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Bideo-erreproduzigailua";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Birritan sakatu erreprodukzio kontrolak erakusteko edo ezkutatzeko";
