@@ -33,11 +33,11 @@
 "VFILTER_CONTRAST" = "對比";
 "VFILTER_BRIGHTNESS" = "亮度";
 "VFILTER_SATURATION" = "飽和度";
-"VFILTER_GAMMA" = "伽瑪";
+"VFILTER_GAMMA" = "Gamma";
 
 "PRESET_PREAMP_SETTING" = "預設 / 前置放大設置";
 "PREAMP" = "搶佔";
-"SNAP_BANDS" = "線性濾波";
+"SNAP_BANDS" = "Snap bands";
 
 "PLAYBACK_FAILED" = "播放失敗";
 "PLEASE_WAIT" = "請稍候…";
@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "投放裝置";
 "BUTTON_RENDERER_HINT" = "顯示可用的投放裝置選單";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "升級媒體櫃中";
 
@@ -183,7 +183,7 @@
 "EMPTY_LIBRARY_LONG" = "為了播放，您可以從您區域網路中的一台伺服器串流媒體，透過 iTunes 從雲端或是同步媒體到您的設備上，WiFi 上傳或是雲端服務。";
 
 "EMPTY_NO_PLAYLISTS" = "播放列表";
-"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "要建立播放列表，請在視頻或音訊內容選項卡中進入編輯模式並選擇您喜歡的媒體檔案。\n你也可以從其他設備或網際網路同步現有的播放列表。";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
 
 "EMPTY_PLAYLIST" = "空白播放清單";
 "EMPTY_PLAYLIST_DESCRIPTION" = "在相對類別中編輯時新增媒體";
@@ -204,19 +204,16 @@
 "PREV_BUTTON" = "上一個";
 "PLAY_ALL_BUTTON" = "全部播放";
 
-"RESET_VIDEO_FILTERS" = "你想重設影片濾鏡嗎？";
-"RESET_PLAYBACK_SPEED" = "你想重設播放速度嗎？";
-"RESET_EQUALIZER" = "你想重設等化器設定嗎？";
-"RESET_SLEEP_TIMER" = "你想重設睡眠計時器嗎？";
+"RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
+"RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
+"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
 "VERSION_FORMAT" = "版本: %@";
 "BASED_ON_FORMAT" = "基於 :<br />%@";
 
 "NEW" = "新的";
 
-"BUG_REPORT_TITLE" = "回報臭蟲";
-"BUG_REPORT_MESSAGE" = "您想要新增一份臭蟲報告嗎？";
-"BUG_REPORT_BUTTON" = "開啟 Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "影片播放棄";
 "VO_VIDEOPLAYER_DOUBLETAP" = "雙擊以顯示或是隱藏播放控制";
@@ -246,7 +243,7 @@
 "WEBINTF_DROPFILES_LONG" = "將檔案丟入視窗以加入您的 %@.<br>或點擊 \"+\" 按鈕來將檔案選入對話框中。";
 "WEBINTF_DOWNLOADFILES" = "下載的檔案";
 "WEBINTF_DOWNLOADFILES_LONG" = "只要點擊您欲從 %@ 下載的檔案。";
-"WEBINTF_ADDRESS_COPIED" = "地址已經拷貝到剪貼簿";
+"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
 "WEBINTF_TITLE_ATV" = "遠端播放";
 "WEBINTF_DROPFILES_LONG_ATV" = "將檔案拖到視窗來播放你的 %@.<br> 或是點擊\"+\"按鈕來開啟檔案選擇對話框";
 "WEBINTF_URL_SENT" = "網址要求成功";
@@ -277,7 +274,7 @@
 "CACHED_MEDIA_LONG" = "這裡顯示的媒體存儲在Apple TV本體。需要注意的是在裝置容量不足且VLC未執行時，內容可能在未事前通知及被操作系統刪除。";
 "DOWNLOAD_SUBS_FROM_OSO" = "從OpenSubtitles.org下載字幕中...";
 "FOUND_SUBS" = "找到字幕";
-"NO_SUB_FOUND_OSO" = "沒有找到你的媒體項目 \"%@\" 的字幕。";
+"NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
 "USE_SPDIF" = "選用直通（S / PDIF）";
 
 "PLAYBACK" = "播放";
@@ -285,10 +282,10 @@
 "REPEAT_DISABLED" = "已停用";
 "REPEAT_SINGLE" = "單曲";
 "REPEAT_FOLDER" = "資料夾";
-"SHUFFLE" = "隨機";
+"SHUFFLE" = "Shuffle";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "重設列表";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "永久重設近期串流播放列表。";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "通用隨插即用服務 (UPnP)";
@@ -412,30 +409,30 @@
 "DVD_BUTTON" = "DVD";
 "DVD_HINT" = "DVD 介面";
 
-"ROTATION_LOCK_BUTTON" = "旋轉鎖";
-"ROTATION_LOCK_HINT" = "鎖定視頻到當前方位";
+"ROTATION_LOCK_BUTTON" = "Rotation lock";
+"ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
-"REPEAT_HINT" = "重複相同媒體";
+"REPEAT_HINT" = "Repeat same media";
 
-"BACKWARD_BUTTON" = "向後";
-"BACKWARD_HINT" = "快速向後";
+"BACKWARD_BUTTON" = "Backward";
+"BACKWARD_HINT" = "Jump Backwards";
 
-"PREVIOUS_BUTTON" = "上一個";
-"PREVIOUS_HINT" = "上一個媒體";
+"PREVIOUS_BUTTON" = "Previous";
+"PREVIOUS_HINT" = "Previous media";
 
-"PLAY_PAUSE_BUTTON" = "播放或暫停";
-"PLAY_PAUSE_HINT" = "播放或暫停當前檔案";
+"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_HINT" = "Play or Pause current playback";
 
-"STOP_BUTTON" = "中止";
+"STOP_BUTTON" = "Stop";
 
-"NEXT_HINT" = "下一個媒體";
+"NEXT_HINT" = "Next media";
 
-"FORWARD_BUTTON" = "向前";
-"FORWARD_HINT" = "快速向前";
+"FORWARD_BUTTON" = "Forward";
+"FORWARD_HINT" = "Jump forwards";
 
 "INTERFACE_LOCK_BUTTON" = "鎖定介面";
 
-"SHUFFLE_HINT" = "打亂媒體列表";
+"SHUFFLE_HINT" = "Shuffle media list";
 
 "VIDEO_ASPECT_RATIO_BUTTON" = "視訊長寬比例";
 "VIDEO_ASPECT_RATIO_HINT" = "變更目前影片的長寬比例";
@@ -443,8 +440,8 @@
 "MORE_OPTIONS_BUTTON" = "更多";
 "MORE_OPTIONS_HINT" = "檢視更多選項控制";
 
-"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "不支援字幕";
-"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "不支援投放時顯示字幕 。";
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Subtitles unsupported";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Subtitles are not yet supported while casting.";
 
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "等化器";
@@ -493,13 +490,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "提供小費";
-"MAKE_DONATION_TITLE" = "捐贈";
-"DONATION_DESCRIPTION" = "您的讚助將使我們可以改進 VLC-iOS 應用程式，並支持 VideoLAN 協會。";
+"MAKE_DONATION_TITLE" = "Make a donation";
+"DONATION_DESCRIPTION" = "Your sponsorship will allow us to improve the VLC-iOS app and support the VideoLAN association.";
 "CANNOT_MAKE_PAYMENTS" = "你沒有權限在此設備上付款。";
-"PURCHASE_FAILED" = "購買失敗。";
-"SEND_DONATION" = "送出捐款";
-"PURCHASE_SUCESS_TITLE" = "捐贈已送出";
-"PURCHASE_SUCESS_DESCRIPTION" = "感謝您的捐贈！";
+"PURCHASE_FAILED" = "Purchase Failed.";
+"SEND_DONATION" = "Send your donation";
+"PURCHASE_SUCESS_TITLE" = "Donation sent";
+"PURCHASE_SUCESS_DESCRIPTION" = "Thank you for your donation!";
 
 // MARK: - QueueViewController
 
@@ -510,31 +507,31 @@
 "APPEND_TO_QUEUE_HINT" = "插入佇列最後一項";
 "APPEND_TO_QUEUE_LABEL" = "插入佇列最後一項";
 
-"DISPLAY_AS" = "展示為";
+"DISPLAY_AS" = "Display as";
 
 /* New strings */
-"BRIGHTNESS_HINT" = "垂直亮度調控";
-"BRIGHTNESS_SLIDER" = "垂直滑動調整亮度";
+"BRIGHTNESS_HINT" = "Vertical brightness control";
+"BRIGHTNESS_SLIDER" = "Slide vertically to change the brightness level";
 
 /* New strings */
-"VOLUME_HINT" = "垂直音量調控";
-"VOLUME_SLIDER" = "垂直滑動調整音量";
+"VOLUME_HINT" = "Vertical volume control";
+"VOLUME_SLIDER" = "Slide vertically to change the volume level";
 
 // MARK: - AudioMiniPlayer playback controls menu
-"MENU_PLAYBACK_CONTROLS" = "播放調控";
-"MENU_REPEAT_DISABLED" = "不重複";
-"MENU_REPEAT_SINGLE" = "重複單曲";
-"MENU_REPEAT_ALL" = "全部重複";
+"MENU_PLAYBACK_CONTROLS" = "Playback controls";
+"MENU_REPEAT_DISABLED" = "Do not repeat";
+"MENU_REPEAT_SINGLE" = "Repeat one";
+"MENU_REPEAT_ALL" = "Repeat all";
 
 // MARK: - ActionSheet
 
-"ACTIONSHEET_BACKGROUND_LABEL" = "行动表背景";
-"ACTIONSHEET_BACKGROUND_HINT" = "輕按刪除行動表。";
+"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
+"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
 
 // MARK: - Playback keyboard shortcuts
 
-"KEY_JUMP_BACKWARDS" = "快速向後";
-"KEY_JUMP_FORWARDS" = "快速向前";
-"KEY_INCREASE_PLAYBACK_SPEED" = "提升播放速度";
-"KEY_DECREASE_PLAYBACK_SPEED" = "降低播放速度";
-"KEY_RESET_PLAYBACK_SPEED" = "重設播放速度";
+"KEY_JUMP_BACKWARDS" = "Jump backwards";
+"KEY_JUMP_FORWARDS" = "Jump forwards";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Increase playback speed";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Decrease playback speed";
+"KEY_RESET_PLAYBACK_SPEED" = "Reset playback speed";

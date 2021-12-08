@@ -8,14 +8,14 @@
 "SETTINGS_THEME_DARK" = "暗色主題";
 "SETTINGS_THEME_SYSTEM" = "自動";
 "SETTINGS_THEME_BLACK" = "在深色模式使用黑色背景";
-"SETTINGS_THEME_BLACK_SUBTITLE" = "改進 OLED 顯示屏裝置電池壽命";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
 "SETTINGS_PRIVACY_SUBTITLE" = "在設定中開啟";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "安全的存取您的內容";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "您的媒體將會隱藏在文件應用程式中";
 
 "SETTINGS_DARKTHEME" = "外觀";
 "SETTINGS_TIME_STRETCH_AUDIO" = "音訊時域伸縮";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "在不影響音高下調整音訊速度（需要較好的硬體）";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "背景播放音訊";
 "SETTINGS_GENERIC_TITLE" = "一般";
 "SETTINGS_PASSCODE_LOCK" = "通關密碼鎖";
@@ -96,7 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY" = "媒體櫃";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "強制 VLC 重新掃描媒體櫃";
 "SETTINGS_DECRAPIFY" = "顯示時優化項目名稱";
-"SETTINGS_DISABLE_GROUPING" = "關閉自動媒體分組";
+"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
 "SETTINGS_SHOW_THUMBNAILS" = "顯示影片縮圖";
 "SETTINGS_SHOW_ARTWORKS" = "顯示音訊美工";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "在裝置備份中加入媒體櫃";
@@ -109,15 +109,15 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "高延遲";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "最高延遲";
 "SETTINGS_WIFISHARING_IPv6" = "Wi-Fi 分享的 IPv6 支援";
-"SETTINGS_FORCE_SMBV1" = "優先選擇 SMB 1";
-"SETTINGS_FORCE_SMBV1_LONG" = "若在瀏覽 SMB 伺服器時遇到問題，請取消選取此項";
-"SETTINGS_RTSP_TCP" = "使用 RTP over RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "客制化 SAT>IP 頻道列表 URL";
+"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
+"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "美工";
 "SETTINGS_DOWNLOAD_ARTWORK" = "下載美工";
 
-"SETTINGS_LAB" = "實驗室";
+"SETTINGS_LAB" = "Lab";
 "SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
 "SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
