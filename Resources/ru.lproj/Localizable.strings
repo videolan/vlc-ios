@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Передающие устройства";
 "BUTTON_RENDERER_HINT" = "Показать меню доступных передающих устройств";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Обновление медиатеки";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "Новое";
 
-"BUG_REPORT_TITLE" = "Сообщить об ошибке";
-"BUG_REPORT_MESSAGE" = "Хотите отправить отчет об ошибке?";
-"BUG_REPORT_BUTTON" = "Открыть Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Медиапроигрыватель";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Двойное касание покажет или спрячет управление проигрыванием";
