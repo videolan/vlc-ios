@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Útvörpunartæki";
 "BUTTON_RENDERER_HINT" = "Birta valmynd yfir tiltæk útvarpandi tæki (casting)";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Uppfærsla á miðlasafni";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NÝTT";
 
-"BUG_REPORT_TITLE" = "Tilkynna um villu";
-"BUG_REPORT_MESSAGE" = "Viltu búa til villuskýrslu?";
-"BUG_REPORT_BUTTON" = "Opna Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Myndskeiðaspilari";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Tvíbankaðu til að birta eða fela stýringar fyrir afspilun";
