@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Aleqqem n temkarḍit";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "AMAYNUT";
 
-"BUG_REPORT_TITLE" = "Mel anezri";
-"BUG_REPORT_MESSAGE" = "Tebɣiḍ ad d-tesnulfuḍ aneqqis n unezri ?";
-"BUG_REPORT_BUTTON" = "Ldi Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Ameɣri n ubidyu";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Ssed snat n tikkal iwakken  ad tbeqqeḍeḍ neɣ ad tefreḍ isenqaden";
