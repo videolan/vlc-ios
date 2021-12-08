@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Actualización da biblioteca de medios";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NOVO";
 
-"BUG_REPORT_TITLE" = "Informar dun erro";
-"BUG_REPORT_MESSAGE" = "Gustaríalle crear un informe de erro?";
-"BUG_REPORT_BUTTON" = "Abrir o Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Reprodutor de vídeo";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Dea dous toques para mostrar ou ocultar os controis de reprodución";
