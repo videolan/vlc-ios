@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "ធ្វើ​បច្ចុប្បន្នភាព​បណ្ណាល័យ​មេឌៀ";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "ថ្មី";
 
-"BUG_REPORT_TITLE" = "រាយការណ៍​កំហុស";
-"BUG_REPORT_MESSAGE" = "តើ​អ្នក​ចង់​បង្កើត​របាយការណ៍​កំហុស​ឬ?";
-"BUG_REPORT_BUTTON" = "បើក Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "កម្មវិធី​ចាក់​វីដេអូ";
 "VO_VIDEOPLAYER_DOUBLETAP" = "ប៉ះ​ទ្វេដង​ដើម្បី​បង្ហាញ ឬ​លាក់​ឧបករណ៍​បញ្ជា​ការ​ចាក់";
