@@ -41,7 +41,7 @@ class MediaScrubProgressBar: UIStackView {
     
     private lazy var elapsedTimeLabel: UILabel = {
         var label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
         label.textColor = PresentationTheme.current.colors.orangeUI
         label.text = "--:--"
         label.numberOfLines = 1
@@ -58,8 +58,7 @@ class MediaScrubProgressBar: UIStackView {
         remainingTimeButton.setTitleColor(.white, for: .normal)
 
         // Use a monospace variant for the digits so the width does not jitter as the numbers changes.
-        remainingTimeButton.titleLabel?.font = UIFont.monospacedDigitSystemFont(ofSize: 13,
-                                                                                weight: .semibold)
+        remainingTimeButton.titleLabel?.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
 
         remainingTimeButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return remainingTimeButton

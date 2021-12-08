@@ -48,7 +48,7 @@ protocol MediaNavigationBarDelegate {
         label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingMiddle
         label.textColor = .white
-        label.font = UIFont(name: "SFProDisplay-Medium", size: 17)
+        label.font = UIFont.preferredCustomFont(forTextStyle: .headline)
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return label
     }()
