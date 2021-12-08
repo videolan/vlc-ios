@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Медиаханәне яңарту";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "Яңа";
 
-"BUG_REPORT_TITLE" = "Хата турында хәбәр итәргә";
-"BUG_REPORT_MESSAGE" = "Хата турында мәгълүматлар җибәрергәме?";
-"BUG_REPORT_BUTTON" = "Safari-ны ачарга";
 
 "VO_VIDEOPLAYER_TITLE" = "Видео Уйнаткыч";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Ике тапкыр тию уйнаткыч белән идарәне күрсәтә яки яшерә";
