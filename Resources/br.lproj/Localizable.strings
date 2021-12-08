@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Trobarzhelloù skignañ";
 "BUTTON_RENDERER_HINT" = "Diskouez ul lañser trobarzhelloù skignañ";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Oc'h hizivaat al Levraoueg Media";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NEVEZ";
 
-"BUG_REPORT_TITLE" = "Danevelliñ ur veugenn";
-"BUG_REPORT_MESSAGE" = "Ha c'hoant ho pefe sevel un danevell beugenn?";
-"BUG_REPORT_BUTTON" = "Digeriñ Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Lenner Video";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Stokit div wech evit diskouez pe kuzhat kontrolloù al lenn";
