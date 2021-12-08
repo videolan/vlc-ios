@@ -448,6 +448,24 @@ class VideoPlayerViewController: UIViewController {
                 self.removedCurrentRendererItem(currentRenderer)
             }
         }
+
+        if #available(iOS 11.0, *) {
+            let airPlaySubviews = mediaNavigationBar.airplayRoutePickerView.subviews
+            for subview in airPlaySubviews {
+                if subview is UIButton {
+                    subview.accessibilityLabel = NSLocalizedString("BUTTON_AIRPLAY", comment: "")
+                    subview.accessibilityHint = NSLocalizedString("BUTTON_AIRPLAY_HINT", comment: "")
+                }
+            }
+        } else {
+            let airPlaySubviews = mediaNavigationBar.airplayVolumeView.subviews
+            for subview in airPlaySubviews {
+                if subview is UIButton {
+                    subview.accessibilityLabel = NSLocalizedString("BUTTON_AIRPLAY", comment: "")
+                    subview.accessibilityHint = NSLocalizedString("BUTTON_AIRPLAY_HINT", comment: "")
+                }
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
