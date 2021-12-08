@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Абнаўленне медыятэкі";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "НОВЫ";
 
-"BUG_REPORT_TITLE" = "Паведаміць пра хібу";
-"BUG_REPORT_MESSAGE" = "Жадаеце заявіць пра хібу?";
-"BUG_REPORT_BUTTON" = "Адкрыць Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Відэаплэер";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Падвойны шчаўчок, каб паказаць/схаваць кіраванне прайграваннем";
