@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting devices";
 "BUTTON_RENDERER_HINT" = "Show a menu of available casting devices";
-
-
+"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "የ መገናኛ መጻህፍት ቤት በማሻሻል ላይ";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "አዲስ";
 
-"BUG_REPORT_TITLE" = "ችግሩን ያሳውቁን";
-"BUG_REPORT_MESSAGE" = "ስለ ችግሩ መግለጫ መፍጠር ይፈልጋሉ?";
-"BUG_REPORT_BUTTON" = "ሳፋሪ መክፈቻ";
 
 "VO_VIDEOPLAYER_TITLE" = "ቪዲዮ ማጫወቻ";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Double tap to show or hide playback controls";
