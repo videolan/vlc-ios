@@ -46,6 +46,54 @@ struct VideoPlayerSeek {
 class VideoPlayerViewController: UIViewController {
     @objc weak var delegate: VideoPlayerViewControllerDelegate?
 
+    /* This struct is a small data container used for brightness and volume
+     * gesture value persistance
+     * It helps to keep their values around when they can't be get from/set to APIs
+     * unavailable on simulator
+     * This is a quick workaround and this should be refactored at some point
+     */
+    struct SliderGestureControl {
+        private var simValue: Float = 0.5
+        private var deviceSetter: (Float) -> Void
+        private let deviceGetter: () -> Float
+        var value: Float {
+            get {
+                #if targetEnvironment(simulator)
+                return simValue
+                #else
+                return deviceGetter()
+                #endif
+            }
+            set {
+                #if targetEnvironment(simulator)
+                simValue = newValue
+                #else
+                deviceSetter(newValue)
+                #endif
+            }
+        }
+        let speed: Float = 1.0 / 5000
+        init(deviceSetter: @escaping (Float) -> Void, deviceGetter: @escaping () -> Float) {
+            self.deviceGetter = deviceGetter
+            self.deviceSetter = deviceSetter
+        }
+    }
+
+    private lazy var brightnessControl: SliderGestureControl = {
+        return SliderGestureControl { value in
+            UIScreen.main.brightness = CGFloat(value)
+        } deviceGetter: {
+            return Float(UIScreen.main.brightness)
+        }
+    }()
+    private lazy var volumeControl: SliderGestureControl = {
+        return SliderGestureControl { value in
+            MPVolumeView.setVolume(value)
+        } deviceGetter: {
+            return AVAudioSession.sharedInstance().outputVolume
+        }
+    }()
+
     private var services: Services
 
     private(set) var playerController: PlayerController
@@ -231,15 +279,16 @@ class VideoPlayerViewController: UIViewController {
         return [verticalGradient, horizontalGradient]
     }()
 
-    private var brightnessControlView: BrightnessControlView = {
+    private lazy var brightnessControlView: BrightnessControlView = {
         let vc = BrightnessControlView()
+        vc.updateIcon(level: brightnessControl.value)
         vc.translatesAutoresizingMaskIntoConstraints = false
         return vc
     }()
 
-    private var volumeControlView: VolumeControlView = {
+    private lazy var volumeControlView: VolumeControlView = {
         let vc = VolumeControlView()
-        vc.updateIcon(level: AVAudioSession.sharedInstance().outputVolume)
+        vc.updateIcon(level: volumeControl.value)
         vc.translatesAutoresizingMaskIntoConstraints = false
         return vc
     }()
@@ -908,7 +957,7 @@ extension VideoPlayerViewController {
     }
 
     @objc private func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        let panDirectionY = recognizer.velocity(in: view).y
+        let verticalPanVelocity: Float = Float(recognizer.velocity(in: view).y)
 
         let currentPos = recognizer.location(in: view)
 
@@ -932,28 +981,21 @@ extension VideoPlayerViewController {
                 break
             }
 
-            var volume: Float = AVAudioSession.sharedInstance().outputVolume
-
-            volume = panDirectionY > 0 ? volume - 0.01 : volume + 0.01
-            MPVolumeView.setVolume(volume)
-            volumeControlView.updateIcon(level: volume)
+            if recognizer.state == .changed || recognizer.state == .ended {
+                let newValue = volumeControl.value - (verticalPanVelocity * volumeControl.speed)
+                volumeControl.value = min(max(newValue, 0), 1)
+                volumeControlView.updateIcon(level: volumeControl.value)
+            }
             break
         case .brightness:
             guard playerController.isBrightnessGestureEnabled else {
                 break
             }
-
-            var brightness: CGFloat = UIScreen.main.brightness
-
-            brightness = panDirectionY > 0 ? brightness - 0.01 : brightness + 0.01
-            if brightness > 1.0 {
-                brightness = 1.0
-            } else if brightness < 0.0 {
-                brightness = 0.0
+            if recognizer.state == .changed || recognizer.state == .ended {
+                let newValue = brightnessControl.value - (verticalPanVelocity * brightnessControl.speed)
+                brightnessControl.value = min(max(newValue, 0), 1)
+                brightnessControlView.updateIcon(level: brightnessControl.value)
             }
-
-            UIScreen.main.brightness = brightness
-            brightnessControlView.updateIcon(level: Float(brightness))
         case .projection:
             updateProjection(with: recognizer)
         case .none:
@@ -1069,8 +1111,6 @@ private extension VideoPlayerViewController {
 
         panRecognizer.require(toFail: leftSwipeRecognizer)
         panRecognizer.require(toFail: rightSwipeRecognizer)
-        panRecognizer.require(toFail: upSwipeRecognizer)
-        panRecognizer.require(toFail: downSwipeRecognizer)
     }
 
     private func disableGestures() {
