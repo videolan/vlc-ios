@@ -1049,10 +1049,8 @@ extension VideoPlayerViewController {
 private extension VideoPlayerViewController {
 
     private func setupObservers() {
-
-        let audioSession = AVAudioSession()
-        try? audioSession.setActive(true)
-        audioSession.addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
+        try? AVAudioSession.sharedInstance().setActive(true)
+        AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
     }
 
     private func setupViews() {
