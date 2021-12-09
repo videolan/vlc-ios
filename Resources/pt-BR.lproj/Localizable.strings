@@ -73,9 +73,9 @@
 "SCAN_SUBTITLE_TOGGLE" = "Procurar Legenda (somente http)";
 
 "BUTTON_RENDERER" = "Dispositivos de conversão";
-"BUTTON_RENDERER_HINT" = "Mostrar um menu de dispositivos de conversão disponíveis";
-
-
+"BUTTON_RENDERER_HINT" = "Exibir um menu de dispositivos de conversão disponíveis";
+"BUTTON_AIRPLAY" = "AirPlay ou Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Exibir um menu de dispositivos AirPlay ou Bluetooth disponíveis";
 
 "UPGRADING_LIBRARY" = "Atualizando a Biblioteca de Mídias";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NOVO";
 
-"BUG_REPORT_TITLE" = "Reportar um problema";
-"BUG_REPORT_MESSAGE" = "Gostaria de criar um relatório de defeito?";
-"BUG_REPORT_BUTTON" = "Open Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Reprodutor de Vídeos";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Duplo-toque para exibir ou ocultar os controles de reprodução";

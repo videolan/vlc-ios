@@ -118,7 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Baixar Capa";
 
 "SETTINGS_LAB" = "Laboratório";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Salva registros de depuração no dispositivo";
+"SETTINGS_EXPORT_LIBRARY" = "Descarregar biblioteca de mídias";
 
 "ABOUT_APP_TV" = "Acerca do VLC para tvOS";
