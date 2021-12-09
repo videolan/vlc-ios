@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting-Geräte";
 "BUTTON_RENDERER_HINT" = "Menü mit verfügbaren Casting-Geräten anzeigen";
-
-
+"BUTTON_AIRPLAY" = "AirPlay oder Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Menü mit verfügbaren AirPlay oder Bluetooth Geräten anzeigen";
 
 "UPGRADING_LIBRARY" = "Mediathek aktualisieren";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NEU";
 
-"BUG_REPORT_TITLE" = "Einen Fehler melden";
-"BUG_REPORT_MESSAGE" = "Möchten Sie einen Fehlerbericht erstellen?";
-"BUG_REPORT_BUTTON" = "Safari öffnen";
 
 "VO_VIDEOPLAYER_TITLE" = "Video-Player";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Tippen Sie zweimal zum Ein- oder Ausblenden der Steuerelemente für die Wiedergabe";

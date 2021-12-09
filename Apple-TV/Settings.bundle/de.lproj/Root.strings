@@ -112,12 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = "SMB 1 bevorzugen";
 "SETTINGS_FORCE_SMBV1_LONG" = "Deaktivieren Sie diese Einstellung, wenn Sie Probleme beim Durchsuchen Ihres SMB-Servers haben";
 "SETTINGS_RTSP_TCP" = "RTP über RTSP (TCP) benutzen";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Benutzerdefinierte SAT>IP Senderlisten-URL";
 
 "SETTINGS_ARTWORK" = "Cover";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Cover herunterladen";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "Neuer Player";
+"SETTINGS_DEBUG_LOG" = "Fehlerprotokolle auf dem Gerät speichern";
+"SETTINGS_EXPORT_LIBRARY" = "Speicherabzug der Medienbibliothek";
 
 "ABOUT_APP_TV" = "Über VLC für tvOS";
