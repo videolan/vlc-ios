@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Aktarım aygıtları";
 "BUTTON_RENDERER_HINT" = "Kullanılabilecek aktarım aygıtları menüsünü görüntüler";
-
-
+"BUTTON_AIRPLAY" = "AirPlay ya da Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Kullanılabilecek AirPlay ya da Bluetooth aygıtlarının menüsünü görüntüler";
 
 "UPGRADING_LIBRARY" = "Ortam kitaplığı yükseltiliyor";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "YENİ";
 
-"BUG_REPORT_TITLE" = "Sorun bildir";
-"BUG_REPORT_MESSAGE" = "Sorun bildirmek ister misiniz?";
-"BUG_REPORT_BUTTON" = "Safari tarayıcısını aç";
 
 "VO_VIDEOPLAYER_TITLE" = "Görüntü oynatıcı";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Oynatma denetimlerini görüntülemek ya da gizlemek için çift dokunun";

@@ -112,13 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = "SMB 1 yeğlensin";
 "SETTINGS_FORCE_SMBV1_LONG" = "SMB sunucunuza erişmekte sorun yaşıyorsanız bu seçeneği devre dışı bırakın";
 "SETTINGS_RTSP_TCP" = "RTSP (TCP) üzerinden RTP kullanılsın";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Özel Uydu>IP kanal listesi adresi";
 
 "SETTINGS_ARTWORK" = "Albüm kapağı";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Albüm kapağını indir";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Hata ayıklama günlükleri aygıt üzerine kaydedilsin";
+"SETTINGS_EXPORT_LIBRARY" = "Ortam kitaplığı dökümü";
 
 "ABOUT_APP_TV" = "tvOS için VLC hakkında";
