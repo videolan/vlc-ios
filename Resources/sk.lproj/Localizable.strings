@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Zariadenia na streamovanie (casting)";
 "BUTTON_RENDERER_HINT" = "Zobraziť menu pre dostupné zariadeni na streamovanie (casting)";
-
-
+"BUTTON_AIRPLAY" = "AirPlay alebo Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Zobraziť menu dostupných zariadení AirPlay alebo Bluetooth";
 
 "UPGRADING_LIBRARY" = "Aktualizovanie knižnice médii";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NOVINKA";
 
-"BUG_REPORT_TITLE" = "Nahlásenie chyby";
-"BUG_REPORT_MESSAGE" = "Chcete vytvoriť záznam o chybe?";
-"BUG_REPORT_BUTTON" = "Otvoriť Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Prehrávač videa";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Zobrazenie alebo skrytie ovládacích prvkov prehrávania vykonáte dvojitým dotykom";

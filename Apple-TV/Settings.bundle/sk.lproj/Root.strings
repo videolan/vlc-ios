@@ -118,6 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Stiahnuť dielo";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "Nový prehrávač";
+"SETTINGS_DEBUG_LOG" = "Ukladať záznamy pre ladenie na zariadení";
+"SETTINGS_EXPORT_LIBRARY" = "Výpis z pamäte knižnice médií";
 
 "ABOUT_APP_TV" = "O aplikácii VLC pre tvOS";
