@@ -280,9 +280,11 @@
 
     VLCMedia *media = item.media;
     if (media) {
+        NSNumber *fileSizeBytes = item.fileSizeBytes;
+        long long unsigned expectedDownloadSize = fileSizeBytes ? fileSizeBytes.unsignedLongLongValue : 0;
         [[VLCDownloadController sharedInstance] addVLCMediaToDownloadList:media
                                                           fileNameOfMedia:filename
-                                                     expectedDownloadSize:item.fileSizeBytes.unsignedLongLongValue];
+                                                     expectedDownloadSize:expectedDownloadSize];
     } else {
         [[VLCDownloadController sharedInstance] addURLToDownloadList:item.URL
                                                      fileNameOfMedia:filename];
