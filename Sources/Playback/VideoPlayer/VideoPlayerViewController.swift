@@ -1003,6 +1003,11 @@ extension VideoPlayerViewController {
             return
         }
 
+        // Limit y position in order to avoid conflicts with the scrub position controls
+        guard recognizer.location(in: view).y < scrubProgressBar.frame.origin.y else {
+            return
+        }
+
         var hudString = ""
         let tmp: Int = Int(Double(mediaDuration) * 0.001 * 0.05)
 
