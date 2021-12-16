@@ -53,29 +53,31 @@ class VideoPlayerViewController: UIViewController {
      * This is a quick workaround and this should be refactored at some point
      */
     struct SliderGestureControl {
-        private var simValue: Float = 0.5
         private var deviceSetter: (Float) -> Void
         private let deviceGetter: () -> Float
-        var value: Float {
-            get {
-                #if targetEnvironment(simulator)
-                return simValue
-                #else
-                return deviceGetter()
-                #endif
-            }
-            set {
-                #if targetEnvironment(simulator)
-                simValue = newValue
-                #else
-                deviceSetter(newValue)
-                #endif
-            }
-        }
+        var value: Float = 0.5
         let speed: Float = 1.0 / 5000
         init(deviceSetter: @escaping (Float) -> Void, deviceGetter: @escaping () -> Float) {
             self.deviceGetter = deviceGetter
             self.deviceSetter = deviceSetter
+            self.fetchDeviceValue()
+        }
+
+        mutating func fetchDeviceValue() -> Void {
+#if !targetEnvironment(simulator)
+            self.value = deviceGetter()
+#endif
+        }
+
+        mutating func fetchAndGetDeviceValue() -> Float {
+            self.fetchDeviceValue()
+            return self.value
+        }
+
+        mutating func applyValueToDevice() -> Void {
+#if !targetEnvironment(simulator)
+            deviceSetter(self.value)
+#endif
         }
     }
 
@@ -283,14 +285,14 @@ class VideoPlayerViewController: UIViewController {
 
     private lazy var brightnessControlView: BrightnessControlView = {
         let vc = BrightnessControlView()
-        vc.updateIcon(level: brightnessControl.value)
+        vc.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
         vc.translatesAutoresizingMaskIntoConstraints = false
         return vc
     }()
 
     private lazy var volumeControlView: VolumeControlView = {
         let vc = VolumeControlView(volumeView: self.volumeView)
-        vc.updateIcon(level: volumeControl.value)
+        vc.updateIcon(level: volumeControl.fetchAndGetDeviceValue())
         vc.translatesAutoresizingMaskIntoConstraints = false
         return vc
     }()
@@ -954,6 +956,14 @@ extension VideoPlayerViewController {
 
         if recognizer.state == .began {
             currentPanType = detectPanType(recognizer)
+            switch currentPanType {
+            case .brightness:
+                brightnessControl.fetchDeviceValue()
+            case .volume:
+                volumeControl.fetchDeviceValue()
+            default:
+                break
+            }
             if playbackService.currentMediaIs360Video {
                 projectionLocation = currentPos
                 deviceMotion.stopDeviceMotion()
@@ -969,6 +979,7 @@ extension VideoPlayerViewController {
             if recognizer.state == .changed || recognizer.state == .ended {
                 let newValue = volumeControl.value - (verticalPanVelocity * volumeControl.speed)
                 volumeControl.value = min(max(newValue, 0), 1)
+                volumeControl.applyValueToDevice()
                 volumeControlView.updateIcon(level: volumeControl.value)
             }
             break
@@ -979,6 +990,7 @@ extension VideoPlayerViewController {
             if recognizer.state == .changed || recognizer.state == .ended {
                 let newValue = brightnessControl.value - (verticalPanVelocity * brightnessControl.speed)
                 brightnessControl.value = min(max(newValue, 0), 1)
+                brightnessControl.applyValueToDevice()
                 brightnessControlView.updateIcon(level: brightnessControl.value)
             }
         case .projection:
