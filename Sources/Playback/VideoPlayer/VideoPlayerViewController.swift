@@ -87,12 +87,14 @@ class VideoPlayerViewController: UIViewController {
         }
     }()
     private lazy var volumeControl: SliderGestureControl = {
-        return SliderGestureControl { value in
-            MPVolumeView.setVolume(value)
+        return SliderGestureControl { [weak self] value in
+            self?.volumeView.setVolume(value)
         } deviceGetter: {
             return AVAudioSession.sharedInstance().outputVolume
         }
     }()
+
+    let volumeView = MPVolumeView(frame: .zero)
 
     private var services: Services
 
@@ -287,7 +289,7 @@ class VideoPlayerViewController: UIViewController {
     }()
 
     private lazy var volumeControlView: VolumeControlView = {
-        let vc = VolumeControlView()
+        let vc = VolumeControlView(volumeView: self.volumeView)
         vc.updateIcon(level: volumeControl.value)
         vc.translatesAutoresizingMaskIntoConstraints = false
         return vc
@@ -1079,7 +1081,6 @@ private extension VideoPlayerViewController {
     }
 
     private func hideSystemVolumeInfo() {
-        let volumeView = MPVolumeView(frame: .zero)
         volumeView.alpha = 0.00001
         view.addSubview(volumeView)
     }

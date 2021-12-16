@@ -14,9 +14,9 @@ import UIKit
 import MediaPlayer
 
 extension MPVolumeView {
-    static func setVolume(_ volume: Float) {
-        let volumeView = MPVolumeView()
-        let slider = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider
+
+    func setVolume(_ volume: Float) {
+        let slider = self.subviews.first(where: { $0 is UISlider }) as? UISlider
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
             slider?.value = volume
@@ -116,9 +116,11 @@ class BrightnessControlView: SliderInfoView {
 }
 
 class VolumeControlView: SliderInfoView {
-
-    init() {
+    private let volumeView: MPVolumeView?
+    init(volumeView: MPVolumeView?) {
+        self.volumeView = volumeView
         super.init(frame: .zero)
+
         self.levelSlider.value = AVAudioSession.sharedInstance().outputVolume
         if  !UIAccessibility.isVoiceOverRunning {
             levelSlider.setThumbImage(image: UIImage(), for: .normal)
@@ -133,7 +135,7 @@ class VolumeControlView: SliderInfoView {
     }
 
     @objc func onVolumeChange() {
-        MPVolumeView.setVolume(levelSlider.value)
+        volumeView?.setVolume(levelSlider.value)
         updateIcon(level: levelSlider.value)
     }
 
