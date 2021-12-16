@@ -29,7 +29,6 @@
 #import "VLCNetworkServerLoginInformation+Keychain.h"
 
 #import "VLCRemoteBrowsingTVCell.h"
-#import "GRKArrayDiff+UICollectionView.h"
 
 #import "VLC-Swift.h"
 
@@ -370,12 +369,7 @@
 #pragma mark - VLCLocalServerDiscoveryController
 - (void)discoveryFoundSomethingNew
 {
-    NSString * (^mapServiceName)(id<VLCLocalNetworkService>) = ^NSString *(id<VLCLocalNetworkService> service) {
-        return [NSString stringWithFormat:@"%@: %@", service.serviceName, service.title];
-    };
-
     NSMutableArray<id<VLCLocalNetworkService>> *newNetworkServices = [NSMutableArray array];
-    NSMutableSet<NSString *> *addedNetworkServices = [[NSMutableSet alloc] init];
     VLCLocalServerDiscoveryController *discoveryController = self.discoveryController;
     NSUInteger sectionCount = [discoveryController numberOfSections];
     for (NSUInteger section = 0; section < sectionCount; ++section) {
@@ -384,26 +378,13 @@
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:section];
             id<VLCLocalNetworkService> service = [discoveryController networkServiceForIndexPath:indexPath];
             if (service != nil) {
-                NSString *mappedName = mapServiceName(service);
-                if(![addedNetworkServices containsObject:mappedName]) {
-                    [addedNetworkServices addObject:mappedName];
-                    [newNetworkServices addObject:service];
-                }
+                [newNetworkServices addObject:service];
             }
         }
     }
 
-    NSArray *oldNetworkServices = self.networkServices;
-    GRKArrayDiff *diff = [[GRKArrayDiff alloc] initWithPreviousArray:oldNetworkServices
-                                                        currentArray:newNetworkServices
-                                                       identityBlock:mapServiceName
-                                                       modifiedBlock:nil];
-
-    [diff performBatchUpdatesWithCollectionView:self.collectionView
-                                        section:0
-                               dataSourceUpdate:^{
-                                   self.networkServices = newNetworkServices;
-                               } completion:nil];
+    self.networkServices = newNetworkServices;
+    [self.collectionView reloadData];
 
     _nothingFoundLabel.hidden = self.discoveryController.foundAnythingAtAll;
 }
