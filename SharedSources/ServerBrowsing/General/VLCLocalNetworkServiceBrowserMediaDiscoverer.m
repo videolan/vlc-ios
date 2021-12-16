@@ -41,7 +41,7 @@
          * so it should be only if explicitly demanded by the user */
         _isUPnPdiscoverer = [serviceName isEqualToString:@"upnp"];
         if (_isUPnPdiscoverer) {
-            NSUserDefaults *defaults;
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             NSString *satipURLstring = [defaults stringForKey:kVLCSettingNetworkSatIPChannelListUrl];
             if (satipURLstring.length > 0) {
                 NSArray *libVLCOptions = @[[NSString stringWithFormat:@"--%@=%@", kVLCSettingNetworkSatIPChannelListUrl, satipURLstring],
