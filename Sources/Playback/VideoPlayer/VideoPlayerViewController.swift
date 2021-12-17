@@ -251,6 +251,7 @@ class VideoPlayerViewController: UIViewController {
     private(set) lazy var trackSelector: TrackSelectorView = {
         var trackSelector = TrackSelectorView(frame: .zero)
         trackSelector.parentViewController = self
+        trackSelector.delegate = self
         return trackSelector
     }()
 
@@ -1880,5 +1881,13 @@ extension VideoPlayerViewController {
         }
 
         return commands
+    }
+}
+
+// MARK: - TrackSelectorViewDelegate
+
+extension VideoPlayerViewController: TrackSelectorViewDelegate {
+    func trackSelectorViewDelegateDidSelectTrack(_ trackSelectorView: TrackSelectorView) {
+        shouldShowTrackSelectorPopup(false)
     }
 }

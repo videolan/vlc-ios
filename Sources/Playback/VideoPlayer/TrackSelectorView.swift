@@ -10,10 +10,16 @@
  * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
 
+protocol TrackSelectorViewDelegate: AnyObject {
+    func trackSelectorViewDelegateDidSelectTrack(_ trackSelectorView: TrackSelectorView)
+}
+
 class TrackSelectorView: UIView {
     private lazy var playbackService = PlaybackService.sharedInstance()
 
     private let tableView: UITableView = UITableView()
+
+    weak var delegate: TrackSelectorViewDelegate?
 
     var parentViewController: UIViewController?
     var trackChapters: Bool = false
@@ -217,8 +223,10 @@ extension TrackSelectorView: UITableViewDelegate, UITableViewDataSource {
         if !trackChapters {
             if hasMultipleAudioTracks() && section == 0 {
                 playbackService.selectAudioTrack(at: row)
+                delegate?.trackSelectorViewDelegateDidSelectTrack(self)
             } else if row < playbackService.numberOfVideoSubtitlesIndexes - 1 {
                 playbackService.selectVideoSubtitle(at: row)
+                delegate?.trackSelectorViewDelegateDidSelectTrack(self)
             } else {
                 if let parentViewController = parentViewController as? VideoPlayerViewController {
                     parentViewController.downloadMoreSPU()
@@ -230,6 +238,7 @@ extension TrackSelectorView: UITableViewDelegate, UITableViewDataSource {
             } else {
                 playbackService.selectChapter(at: row)
             }
+            delegate?.trackSelectorViewDelegateDidSelectTrack(self)
         }
         tableView.reloadData()
     }
