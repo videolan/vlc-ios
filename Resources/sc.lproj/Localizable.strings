@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Dispositivos de trasmissione";
 "BUTTON_RENDERER_HINT" = "Ammustra unu menù cun sos dispositivos de trasmissione disponìbiles";
-
-
+"BUTTON_AIRPLAY" = "AirPlay o Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Ammustra unu menù de sos dispositivos AirPlay o Bluetooth a disponimentu";
 
 "UPGRADING_LIBRARY" = "Agiornende sa biblioteca multimediale";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NOU";
 
-"BUG_REPORT_TITLE" = "Sinnala un'errore";
-"BUG_REPORT_MESSAGE" = "Cheres sinnalare un'errore?";
-"BUG_REPORT_BUTTON" = "Aberi Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Leghidore de vìdeos";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Toca duas bortas pro ammustrare o istichire sos controllos de riprodutzione";
@@ -287,8 +284,8 @@
 "REPEAT_FOLDER" = "Cartella";
 "SHUFFLE" = "Ammistura";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Reseta sa lista";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Reseta in manera permanente sa lista de sos flussos de retza riproduidos dae pagu";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";

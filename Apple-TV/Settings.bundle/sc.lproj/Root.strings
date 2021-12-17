@@ -112,12 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = "Preferi SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Boga s'ischerta a custa impostatzione si tenes dificultades cun sa navigatzione in su serbidore SMB tuo";
 "SETTINGS_RTSP_TCP" = "Imprea RTP in RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "URL personalizadu de lista de canales SAT>IP";
 
 "SETTINGS_ARTWORK" = "Gràfica artìstica";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Iscàrriga sa gràfica artìstica";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "Leghidore nou";
+"SETTINGS_DEBUG_LOG" = "Sarva sos registros de depuratzione de còdighe in su dispositivu";
+"SETTINGS_EXPORT_LIBRARY" = "Estrai sa biblioteca multimediale";
 
 "ABOUT_APP_TV" = "Informatziones a pitzu de VLC pro tvOS";
