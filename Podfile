@@ -9,7 +9,6 @@ def shared_pods
   pod 'xmlrpc', :git => 'git://github.com/fkuehne/xmlrpc.git', :commit => '3f8ce3a8' #fix case-sensitive FS
   pod 'AFNetworking', '~>4.0'
 
-  pod 'AppCenter', '~>4.1'
   # debug
   pod 'SwiftLint', '~> 0.25.0', :configurations => ['Debug']
 end

@@ -2,7 +2,7 @@
  * VLCAppDelegate.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2019 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2021 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -19,14 +19,6 @@
 
 #import "VLCAppDelegate.h"
 #import "VLC-Swift.h"
-
-#import <AppCenter/AppCenter.h>
-#import <AppCenterAnalytics/AppCenterAnalytics.h>
-#import <AppCenterCrashes/AppCenterCrashes.h>
-
-NSString *VLCAppCenterAppID = @"0114ca8e-2652-44ce-588d-2ebd035c3577";
-
-#define BETA_DISTRIBUTION 1
 
 @interface VLCAppDelegate ()
 {
@@ -135,8 +127,6 @@ NSString *VLCAppCenterAppID = @"0114ca8e-2652-44ce-588d-2ebd035c3577";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [MSACAppCenter start:VLCAppCenterAppID withServices:@[[MSACAnalytics class], [MSACCrashes class]]];
-
     self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

@@ -19,10 +19,6 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCRemotePlaybackViewController.h"
 
-#import <AppCenter/AppCenter.h>
-#import <AppCenterAnalytics/AppCenterAnalytics.h>
-#import <AppCenterCrashes/AppCenterCrashes.h>
-
 @interface AppleTVAppDelegate ()
 {
     UITabBarController *_mainViewController;
@@ -69,11 +65,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [MSACAppCenter start:@"f8697706-993b-44bb-a1c0-3cb7016cc325" withServices:@[
-        [MSACAnalytics class],
-        [MSACCrashes class]
-                                                                              ]];
-
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _localNetworkVC = [[VLCServerListTVViewController alloc] initWithNibName:nil bundle:nil];
     _remotePlaybackVC = [[VLCRemotePlaybackViewController alloc] initWithNibName:nil bundle:nil];
