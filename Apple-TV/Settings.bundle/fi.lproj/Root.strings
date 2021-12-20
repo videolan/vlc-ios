@@ -112,12 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = "Suosi SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Poista asetuksen valinta, jos ongelmia on SMB-palvelimen selaamisessa";
 "SETTINGS_RTSP_TCP" = "Käytä RTP yli RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "SAT>IP-kanavalistan mukautettu URL-osoite";
 
 "SETTINGS_ARTWORK" = "Kansikuvat";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Lataa kansikuvat";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "Uusi soitin";
+"SETTINGS_DEBUG_LOG" = "Tallenna virhelokit laitteelle";
+"SETTINGS_EXPORT_LIBRARY" = "Hylkää mediakirjasto";
 
 "ABOUT_APP_TV" = "Tietoja ohjelmasta";

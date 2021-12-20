@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Suoratoistolaitteet";
 "BUTTON_RENDERER_HINT" = "Näytä valikko saatavilla olevista suoratoistolaitteista";
-
-
+"BUTTON_AIRPLAY" = "AirPlay tai Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Näytä valikossa saatavilla olevat AirPlay- tai Bluetooth-laitteet";
 
 "UPGRADING_LIBRARY" = "Päivitetään mediakirjastoa";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "UUSI";
 
-"BUG_REPORT_TITLE" = "Ilmoita ohjelmavirheestä";
-"BUG_REPORT_MESSAGE" = "Haluaisitko tehdä ilmoituksen ohjelmavirheestä?";
-"BUG_REPORT_BUTTON" = "Avaa Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Videosoitin";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Näytä tai piilota toistotyökalut napauttamalla kahdesti";
