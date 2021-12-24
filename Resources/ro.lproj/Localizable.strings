@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Dispozitive proiecție";
 "BUTTON_RENDERER_HINT" = "Afișați un meniu cu dispozitivele de distribuție disponibile";
-
-
+"BUTTON_AIRPLAY" = "AirPlay sau Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Afișați un meniu cu dispozitivele AirPlay sau Bluetooth disponibile";
 
 "UPGRADING_LIBRARY" = "Actualizare mediatecă";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NOU";
 
-"BUG_REPORT_TITLE" = "Raportaţi o eroare";
-"BUG_REPORT_MESSAGE" = "Doriţi să creaţi un raport de eroare?";
-"BUG_REPORT_BUTTON" = "Deschidere Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Player Video";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Atingere dublă pentru afişarea sau ascuderea contoalelor de redare";
@@ -287,8 +284,8 @@
 "REPEAT_FOLDER" = "Dosar";
 "SHUFFLE" = "Amestecă";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Resetați lista";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Resetarea permanentă a listei cu fluxurile de rețea redate recent.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Plug'n'Play Universal (UPnP)";

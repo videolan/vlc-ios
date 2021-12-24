@@ -112,13 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = "Preferați SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Debifați această setare dacă întâmpinați dificultăți în navigarea pe serverul SMB";
 "SETTINGS_RTSP_TCP" = "Utilizați RTP peste RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "URL personalizat SAT>Lista canalelor IP";
 
 "SETTINGS_ARTWORK" = "Grafică de album";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Descarcă grafică de album";
 
 "SETTINGS_LAB" = "Laborator";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Salvați jurnalele de depanare pe dispozitiv";
+"SETTINGS_EXPORT_LIBRARY" = "Aruncați biblioteca media";
 
 "ABOUT_APP_TV" = "About VLC for tvOS";
