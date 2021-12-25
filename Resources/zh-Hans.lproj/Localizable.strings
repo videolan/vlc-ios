@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC for iOS是自由软件VLC 媒体播放器面向iPad, iPhone和iPod touch设备的移植版本。它无需转换就可播放多数格式的电影，节目和音乐。它允许通过Dropbox、GDrive、OneDrive、Box、iCloud Drive、iTunes、直接下载和Wi-Fi共享进行文件同步，还可以从SMB、FTP、UPnP/DLNA媒体服务器和网络播放文件。VLC提供了对高级字幕的支持，包括完全的SSA兼容性，多轨音频，和回放速度控制。VLC for iOS 完全免费和开源。";
+"STORE_DESCRIPTION" = "VLC for iOS 是自由软件 VLC 媒体播放器面向 iPad, iPhone 和 iPod touch 设备的移植版本。它无需转换就可播放多数格式的电影，节目和音乐。它允许通过 Dropbox、GDrive、OneDrive、Box、iCloud Drive、iTunes、直接下载和 Wi-Fi 共享进行文件同步，还可以从 SMB、FTP、UPnP/DLNA 媒体服务器和网络播放文件。VLC 提供了对高级字幕的支持，包括完全的 SSA 兼容性，多轨音频，和回放速度控制。VLC for iOS 完全免费和开源。";
 
 "STORE_DESCRIPTION_TV" = "VLC media player 是一款免费、自由且开源的跨平台多媒体播放器。\n它可以直接播放大多数格式的影片、节目及音乐，无需转换。\n它允许从云服务 (Dropbox、OneDrive、Box) 串流播放，可以通过 Web 界面从 Mac 或 PC 远程回放，以及直接播放 SMB、FTP、UPnP/DLNA 媒体服务器及网络上的流媒体。\nVLC 支持高级字幕格式（包括对 SSA 的完全兼容），多轨道音频以及回放速度控制。\n\nVLC for iOS 完全免费及开源。\n\n元数据及专辑封面由 TMDb 与 Hatchet 提供，它们均为社区维护的影片及音乐数据库。";
 
@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "投屏设备";
 "BUTTON_RENDERER_HINT" = "显示可用投屏设备菜单";
-
-
+"BUTTON_AIRPLAY" = "AirPlay 或蓝牙";
+"BUTTON_AIRPLAY_HINT" = "显示可用 AirPlay 或蓝牙设备的菜单";
 
 "UPGRADING_LIBRARY" = "正在升级媒体库";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "NEW";
 
-"BUG_REPORT_TITLE" = "报告 bug";
-"BUG_REPORT_MESSAGE" = "是否希望创建错误报告?";
-"BUG_REPORT_BUTTON" = "打开 Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "视频播放器";
 "VO_VIDEOPLAYER_DOUBLETAP" = "轻按两次可显示或隐藏回放控件";
