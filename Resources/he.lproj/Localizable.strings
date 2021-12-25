@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "התקני שידור";
 "BUTTON_RENDERER_HINT" = "הצגת תפריט עם התקני השידור הזמינים";
-
-
+"BUTTON_AIRPLAY" = "AirPlay או Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "הצגת תפריט של התקני AirPlay או Bluetooth זמינים";
 
 "UPGRADING_LIBRARY" = "ספריית המדיה משתדרגת";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "חדש";
 
-"BUG_REPORT_TITLE" = "דיווח על תקלה";
-"BUG_REPORT_MESSAGE" = "האם ליצור דיווח על תקלה?";
-"BUG_REPORT_BUTTON" = "הפעלת ספארי";
 
 "VO_VIDEOPLAYER_TITLE" = "נגן וידאו";
 "VO_VIDEOPLAYER_DOUBLETAP" = "יש לגעת פעמיים כדי להציג או להסתיר את פקדי הנגינה";
