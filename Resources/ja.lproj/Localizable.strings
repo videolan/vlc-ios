@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "キャスティングデバイス";
 "BUTTON_RENDERER_HINT" = "利用可能なキャスティングデバイスのメニューを表示";
-
-
+"BUTTON_AIRPLAY" = "AirPlayまたはBluetooth";
+"BUTTON_AIRPLAY_HINT" = "利用可能なAirPlayまたはBluetoothデバイスのメニューを表示";
 
 "UPGRADING_LIBRARY" = "メディアライブラリのアップグレード中";
 
@@ -214,9 +214,6 @@
 
 "NEW" = "新規";
 
-"BUG_REPORT_TITLE" = "バグの報告";
-"BUG_REPORT_MESSAGE" = "バグレポートを生成しますか?";
-"BUG_REPORT_BUTTON" = "Safariを開く";
 
 "VO_VIDEOPLAYER_TITLE" = "ビデオプレイヤー";
 "VO_VIDEOPLAYER_DOUBLETAP" = "ダブルタップで再生コントロールを表示/非表示";
@@ -287,8 +284,8 @@
 "REPEAT_FOLDER" = "フォルダー";
 "SHUFFLE" = "シャッフル";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "リストをリセット";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "最近再生したネットワークストリームのリストを恒久的にリセットします。";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "ユニバーサルプラグ & プレイ (UPnP)";
