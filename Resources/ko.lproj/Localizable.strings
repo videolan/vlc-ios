@@ -60,7 +60,7 @@
 "BUTTON_DOWNLOAD" = "다운로드";
 "BUTTON_DELETE" = "삭제하기";
 "BUTTON_OK" = "확인";
-"BUTTON_CONTRIBUTE" = "기부하기";
+"BUTTON_CONTRIBUTE" = "기여하기";
 "BUTTON_CONNECT" = "연결하기";
 "BUTTON_RENAME" = "이름 바꾸기";
 "BUTTON_LEARN_MORE" = "더 보기";
@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "캐스트 기기";
 "BUTTON_RENDERER_HINT" = "이용 가능 캐스트 기기를 표합니다";
-
-
+"BUTTON_AIRPLAY" = "AirPlay 또는 블루투스";
+"BUTTON_AIRPLAY_HINT" = "사용 가능한 AirPlay 또는 블루투스 장치 메뉴 표시";
 
 "UPGRADING_LIBRARY" = "미디어 라이브러리 업그레이드 중";
 
@@ -108,7 +108,7 @@
 "SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "열 파일 선택:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "열기...";
 "SHARING_ERROR_NO_FILES" = "공유할 파일을 찾을 수 없음";
-"SHARING_ERROR_NO_APPLICATIONS" = "이 종류의 파일을 열 어플리케이션을 찾을 수 없음";
+"SHARING_ERROR_NO_APPLICATIONS" = "이 파일 형식을 열 응용 프로그램을 찾을 수 없습니다";
 "SHARING_SUCCESS_CAMERA_ROLL" = "파일이 카메라롤에 성공적으로 저장되었습니다";
 
 "STREAMVC_DETAILTEXT" = "다운로드 하지 않고 스트림을 재생하기";
@@ -192,7 +192,7 @@
 "PLAYBACK_SCRUB_HIGH" = "빠른 속도로 문지르기";
 "PLAYBACK_SCRUB_HALF" = "중간 속도로 문지르기";
 "PLAYBACK_SCRUB_QUARTER" = "1/4 속도로 문지르기";
-"PLAYBACK_SCRUB_FINE" = "미세하기 문지르기";
+"PLAYBACK_SCRUB_FINE" = "미세하게 문지르기";
 "PLAYBACK_POSITION" = "재생 위치";
 "VIDEO_FILTER" = "비디오 필터";
 "VIDEO_FILTER_RESET_BUTTON" = "비디오 필터 초기화";
@@ -214,9 +214,6 @@
 
 "NEW" = "새로운 기능";
 
-"BUG_REPORT_TITLE" = "버그를 신고합니다";
-"BUG_REPORT_MESSAGE" = "버그 리포트를 생성할까요?";
-"BUG_REPORT_BUTTON" = "사파리 열기";
 
 "VO_VIDEOPLAYER_TITLE" = "비디오 재생기";
 "VO_VIDEOPLAYER_DOUBLETAP" = "재생 컨트롤을 보거나 감추려면 두 번 클릭하세요.";
@@ -287,8 +284,8 @@
 "REPEAT_FOLDER" = "폴더";
 "SHUFFLE" = "순서섞기";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "목록 재설정";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "최근에 재생한 네트워크 스트림 목록을 영구적으로 재설정합니다.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "유니버셜 플러그 앤 플래이(UPnP)";
@@ -426,7 +423,7 @@
 "PLAY_PAUSE_BUTTON" = "재생 또는 일시중지";
 "PLAY_PAUSE_HINT" = "현재 재생된 내용 재생하기 또는 일시중지";
 
-"STOP_BUTTON" = "정지";
+"STOP_BUTTON" = "중지";
 
 "NEXT_HINT" = "다음 미디어";
 

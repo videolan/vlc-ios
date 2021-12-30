@@ -112,12 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = "SMB 1 선호";
 "SETTINGS_FORCE_SMBV1_LONG" = "SMB 서버 탐색에 어려움이 있는 경우 이 설정을 선택 취소합니다";
 "SETTINGS_RTSP_TCP" = "RTSP(TCP)를 통한 RTP 사용";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "사용자 지정 SAT>IP 채널 목록 URL";
 
 "SETTINGS_ARTWORK" = "아트워크";
 "SETTINGS_DOWNLOAD_ARTWORK" = "아트워크 다운로드";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_NEW_PLAYER" = "새 재생기";
+"SETTINGS_DEBUG_LOG" = "장치에 디버그 로그 저장";
+"SETTINGS_EXPORT_LIBRARY" = "덤프 미디어 라이브러리";
 
 "ABOUT_APP_TV" = "About VLC for tvOS";
