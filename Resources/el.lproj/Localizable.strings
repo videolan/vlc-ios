@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Συσκευές μετάδοσης";
 "BUTTON_RENDERER_HINT" = "Εμφάνιση μενού διαθέσιμων συσκευών μετάδοσης";
-
-
+"BUTTON_AIRPLAY" = "AirPlay ή Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Εμφάνιση μενού διαθέσιμων συσκευών AirPlay ή Bluetooth";
 
 "UPGRADING_LIBRARY" = "Αναβάθμιση βιβλιοθήκης πολυμέσων";
 
@@ -214,12 +214,9 @@
 
 "NEW" = "ΝΕΟ";
 
-"BUG_REPORT_TITLE" = "Αναφορά σφάλματος";
-"BUG_REPORT_MESSAGE" = "Θέλετε να υποβάλετε μια αναφορά σφάλματος;";
-"BUG_REPORT_BUTTON" = "Άνοιγμα του Safari";
 
 "VO_VIDEOPLAYER_TITLE" = "Πρόγραμμα αναπαραγωγής βίντεο";
-"VO_VIDEOPLAYER_DOUBLETAP" = "Διπλό άγγιγμα για να εμφανίσετε ή να αποκρύψετε τα στοιχεία ελέγχου αναπαραγωγής";
+"VO_VIDEOPLAYER_DOUBLETAP" = "Διπλό πάτημα για να εμφανίσετε ή να αποκρύψετε τα στοιχεία ελέγχου αναπαραγωγής";
 
 "FIRST_STEPS_ITUNES" = "Συγχρονισμός αρχείων iTunes ";
 "FIRST_STEPS_ITUNES_TITLE" = "Συγχρονισμός με τον υπολογιστή σας";
@@ -288,7 +285,7 @@
 "SHUFFLE" = "Ανακάτεμα";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Επαναφορά λίστας";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Επαναφέρετε μόνιμα τη λίστα των ροών δικτύου που παίχτηκαν πρόσφατα.";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Επαναφέρετε μόνιμα τη λίστα των μεταδόσεων δικτύου που αναπαράχθηκαν πρόσφατα.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Οικουμενική σύνδεση και χρήση (UPnP)";
@@ -529,7 +526,7 @@
 // MARK: - ActionSheet
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Δελτίο οδηγιών στο παρασκήνιο";
-"ACTIONSHEET_BACKGROUND_HINT" = "Αγγίξτε για να μετακινήσετε το δελτίο οδηγιών";
+"ACTIONSHEET_BACKGROUND_HINT" = "Πατήστε για να αφαιρέσετε τη σελίδα ενεργειών";
 
 // MARK: - Playback keyboard shortcuts
 

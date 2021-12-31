@@ -112,12 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = "Προτίμηση SMBv1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Αποεπιλέξτε αυτή τη ρύθμιση εάν αντιμετωπίζετε δυσκολίες κατά την περιήγηση του διακομιστή SMB σας.";
 "SETTINGS_RTSP_TCP" = "Χρήση RTP μέσω RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "URL εξατομικευμένης λίστας καναλιών SAT>IP";
 
 "SETTINGS_ARTWORK" = "Εικονογράφηση";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Λήψη εικονογράφησης";
 
 "SETTINGS_LAB" = "Εργαστήριο";
-"SETTINGS_NEW_PLAYER" = "Νέος αναπαραγωγός";
+"SETTINGS_DEBUG_LOG" = "Αποθήκευση αρχείων καταγραφής συμβάντων αποσφαλμάτωσης σε συσκευή";
+"SETTINGS_EXPORT_LIBRARY" = "Μεταποθήκευση βιβλιοθήκης πολυμέσων";
 
 "ABOUT_APP_TV" = "Σχετικά με το VLC για tvOS";
