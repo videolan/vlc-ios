@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSNumber *port;
 @property (nonatomic, copy) NSString *protocolIdentifier;
 @property (nonatomic, copy) NSArray<VLCNetworkServerLoginInformationField *> *additionalFields;
+@property (nonatomic, copy) NSDictionary *options;
 
 + (instancetype)newLoginInformationForProtocol:(NSString *)protocolIdentifier;
 + (void)registerTemplateLoginInformation:(VLCNetworkServerLoginInformation *)loginInformation;
