@@ -70,6 +70,25 @@ NSString *const VLCNetworkServerProtocolIdentifierUPnP = @"upnp";
 
     VLCNetworkServerLoginInformation *login = [VLCNetworkServerLoginInformation newLoginInformationForProtocol:VLCNetworkServerProtocolIdentifierUPnP];
     login.address = self.mediaItem.url.absoluteString;
+
+    /* SAT>IP needs the host address of the UPnP server set as an option as
+     * when using a generic playlist, the host address will be 'sat.ip' and
+     * playback will fail.
+     * According to section 3.4.1 of the SAT>IP specification, it is
+     * required to provide an icon for a SAT>IP server via UPnP, so it is
+     * safe to query for the actual host address as the media's URL will
+     * point to the generic playlist. */
+    NSString *artworkString = [media metadataForKey:VLCMetaInformationArtworkURL];
+    if (artworkString) {
+        NSURL *url = [NSURL URLWithString:artworkString];
+        NSString *host = url.host;
+
+        if (host) {
+            NSDictionary *dict = @{ @"satip-host" : host };
+            login.options = dict;
+        }
+    }
+
     return login;
 }
 
@@ -81,13 +100,16 @@ NSString *const VLCNetworkServerProtocolIdentifierUPnP = @"upnp";
 + (instancetype)UPnPNetworkServerBrowserWithLogin:(VLCNetworkServerLoginInformation *)login
 {
     NSURL *url = [NSURL URLWithString:login.address];
-    return [self UPnPNetworkServerBrowserWithURL:url];
+    NSDictionary *options = login.options;
+    if (!options) {
+        options = @{};
+    }
+    return [self UPnPNetworkServerBrowserWithURL:url options:options];
 }
 
-+ (instancetype)UPnPNetworkServerBrowserWithURL:(NSURL *)url
++ (instancetype)UPnPNetworkServerBrowserWithURL:(NSURL *)url options:(NSDictionary *)mediaOptions
 {
 	VLCMedia *media = [VLCMedia mediaWithURL:url];
-	NSDictionary *mediaOptions = @{};
 	return [[self alloc] initWithMedia:media options:mediaOptions];
 }
 @end

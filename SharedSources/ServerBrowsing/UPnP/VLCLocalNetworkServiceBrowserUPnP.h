@@ -29,7 +29,7 @@ extern NSString *const VLCNetworkServerProtocolIdentifierUPnP;
 
 @interface VLCNetworkServerBrowserVLCMedia (UPnP)
 + (instancetype)UPnPNetworkServerBrowserWithLogin:(VLCNetworkServerLoginInformation *)login;
-+ (instancetype)UPnPNetworkServerBrowserWithURL:(NSURL *)url;
++ (instancetype)UPnPNetworkServerBrowserWithURL:(NSURL *)url options:(NSDictionary *)mediaOptions;
 
 @end
 
