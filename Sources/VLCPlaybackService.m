@@ -2,7 +2,7 @@
  * VLCPlaybackService.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -897,16 +897,19 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 - (BOOL)previous
 {
     if (_mediaList.count > 1) {
-        [_listPlayer previous];
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
-    }
-    else {
+        VLCTime *playedTime = self.playedTime;
+        if (playedTime.value.longLongValue / 2000 >= 1) {
+            self.playbackPosition = .0;
+        } else {
+            [_listPlayer previous];
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
+        }
+    } else {
         NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackBackwardSkipLength];
         [_mediaPlayer jumpBackward:skipLength.intValue];
     }
     return YES;
 }
-
 
 - (void)jumpForward:(int)interval
 {
