@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Casting-apparaten";
 "BUTTON_RENDERER_HINT" = "Een menu met beschikbare casting-apparaten weergeven";
-"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
-"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
+"BUTTON_AIRPLAY" = "AirPlay of bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Een menu met beschikbare AirPlay- of bluetooth-apparaten weergeven";
 
 "UPGRADING_LIBRARY" = "Mediabiblitoheek bijwerken";
 
