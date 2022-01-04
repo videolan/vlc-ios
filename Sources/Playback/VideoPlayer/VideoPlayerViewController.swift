@@ -1127,7 +1127,7 @@ private extension VideoPlayerViewController {
 
     private func videoPlayerButtons() {
         let audioMedia: Bool = playbackService.metadata.isAudioOnly
-        if UIDevice.current.orientation.isLandscape || view.frame.width >= DeviceWidth.iPhone12ProMaxPortrait.rawValue {
+        if UIDevice.current.orientation.isLandscape {
             videoPlayerControls.repeatButton.isHidden = false
             videoPlayerControls.shuffleButton.isHidden = false
 
