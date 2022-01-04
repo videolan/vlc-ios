@@ -16,8 +16,19 @@
 · Retain downloaded subtitles for locally stored media
 · Automatic video deinterlacing (by default)
 · Retain last opened media category
+· Add support for Files.app as a source to open media without importing to VLC
+  · This allows playback from external devices, too!
+· Add a queue view controller to switch between scheduled media items and for TV channel listings
+· Add a full black theme for OLED devices
+· Subtitle download improvements
+· Add rtsp-tcp option
+· Add support for spatial audio with AirPods Pro and Max
+· library: allow sorting tracks and albums by insertion date
+· playback: allow up to 8x playback speed
+· video: modify white point adaptation mode on modern iOS devices
+· Add support for SAT>IP including custom channel lists
 
-## tvOS [3.1.0]
+## tvOS [3.3.0]
 
 · Add support to browse NFS and SFTP shares
 · Replace previous UPnP integration with VLC's native support based on libupnp
@@ -26,6 +37,12 @@
   · this improves compatibility with servers using non-western text encodings
     and allows connections to servers with off-standard port configurations
 · Fix storing user credentials for network shares
+· Retain downloaded subtitles for locally stored media
+· Automatic video deinterlacing (by default)
+· Subtitle download improvements
+· Add rtsp-tcp option
+· Add support for spatial audio with AirPods Pro and Max
+· Add support for SAT>IP including custom channel lists
 
 ## iOS [3.2.13]
 
