@@ -91,7 +91,9 @@ class ActionSheetSectionHeader: UIView {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 20)
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 

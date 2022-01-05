@@ -81,9 +81,10 @@ class VideoFiltersView: UIView {
     }
 
     private func setupResetButton() {
-        resetButton.setTitle(NSLocalizedString("BUTTON_RESET", comment: ""), for: .normal)
+        resetButton.setImage(UIImage(named: "reset"), for: .normal)
+        resetButton.imageView?.contentMode = .scaleAspectFit
+        resetButton.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         resetButton.accessibilityLabel = NSLocalizedString("VIDEO_FILTER_RESET_BUTTON", comment: "")
-        resetButton.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .semibold)
         resetButton.addTarget(self, action: #selector(self.handleResetButton(_:)), for: .touchUpInside)
         resetButton.setContentHuggingPriority(.required, for: .horizontal)
         resetButton.setContentHuggingPriority(.required, for: .vertical)
