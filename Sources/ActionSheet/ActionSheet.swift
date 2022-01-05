@@ -63,7 +63,9 @@ class ActionSheet: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
         collectionView.alwaysBounceVertical = true
-        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = true
+        collectionView.showsHorizontalScrollIndicator = false
+
         collectionView.register(ActionSheetCell.self,
                                 forCellWithReuseIdentifier: ActionSheetCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -97,20 +99,32 @@ class ActionSheet: UIViewController {
 
     private lazy var maxCollectionViewHeightConstraint: NSLayoutConstraint = {
         let maxCollectionViewHeightConstraint = collectionView.heightAnchor.constraint(
-            lessThanOrEqualToConstant: (view.bounds.height / 2) - cellHeight)
+            lessThanOrEqualToConstant: maxCollectionViewHeight)
+        maxCollectionViewHeightConstraint.priority = .defaultHigh
         return maxCollectionViewHeightConstraint
     }()
 
     private lazy var collectionViewHeightConstraint: NSLayoutConstraint = {
-        guard let dataSource = dataSource else {
-            preconditionFailure("VLCActionSheet: Data source not set correctly!")
-        }
-
         let collectionViewHeightConstraint = collectionView.heightAnchor.constraint(
-            equalToConstant: CGFloat(dataSource.numberOfRows()) * cellHeight)
-        collectionViewHeightConstraint.priority = .required - 1
+            equalToConstant: collectionViewHeight)
+        collectionViewHeightConstraint.priority = .defaultLow
         return collectionViewHeightConstraint
     }()
+
+    let collectionViewEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+
+    var collectionViewHeight: CGFloat {
+        let rowsCount: CGFloat = CGFloat(dataSource?.numberOfRows() ?? 0)
+        let collectionViewHeight = rowsCount * (cellHeight + collectionViewEdgeInsets.top)
+        return collectionViewHeight
+    }
+
+    var maxCollectionViewHeight: CGFloat {
+        let maxMargin: CGFloat = 75
+        let minCollectionViewHeight: CGFloat = cellHeight * 1.5 + collectionViewEdgeInsets.top * 2
+        let maxCollectionViewHeight = max(view.bounds.height - headerView.bounds.height - maxMargin, minCollectionViewHeight)
+        return maxCollectionViewHeight
+    }
 
     var offScreenFrame: CGRect {
         let y = headerView.cellHeight
@@ -121,12 +135,22 @@ class ActionSheet: UIViewController {
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
+        updateCollectionViewContraints()
+    }
 
-        if let presentingViewController = presentingViewController, let dataSource = dataSource {
-            collectionViewHeightConstraint.constant = CGFloat(dataSource.numberOfRows()) * cellHeight + cellHeight / 2
-            maxCollectionViewHeightConstraint.constant = presentingViewController.view.frame.size.height / 2
-            collectionView.setNeedsLayout()
-            collectionView.layoutIfNeeded()
+    private func updateCollectionViewContraints() {
+        collectionViewHeightConstraint.constant = collectionViewHeight
+        maxCollectionViewHeightConstraint.constant = maxCollectionViewHeight
+        collectionView.setNeedsLayout()
+        collectionView.layoutIfNeeded()
+    }
+
+    private func updateCollectionViewScrollIndicatorVisibility() {
+        if maxCollectionViewHeight > collectionViewHeight {
+            collectionView.showsVerticalScrollIndicator = false
+        } else {
+            collectionView.showsVerticalScrollIndicator = true
+            collectionView.flashScrollIndicatorsIfNeeded()
         }
     }
 
@@ -189,6 +213,9 @@ class ActionSheet: UIViewController {
         // This is to avoid a horrible visual glitch!
         mainStackView.isHidden = false
 
+        updateCollectionViewContraints()
+        updateCollectionViewScrollIndicatorVisibility()
+
         let realMainStackView = mainStackView.frame
 
         mainStackView.frame.origin.y += mainStackView.frame.origin.y
@@ -208,10 +235,11 @@ class ActionSheet: UIViewController {
                                      with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { [weak self] _ in
-            self?.maxCollectionViewHeightConstraint.constant = size.height / 2
-            self?.collectionView.layoutIfNeeded()
+            self?.updateCollectionViewContraints()
             self?.setHeaderRoundedCorners()
-        })
+        }) { [weak self] _ in
+            self?.updateCollectionViewScrollIndicatorVisibility()
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -269,7 +297,7 @@ private extension ActionSheet {
     private func setupMainStackViewConstraints() {
         NSLayoutConstraint.activate([
             // Extra padding for spring animation
-            mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 10),
+            mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -330,7 +358,7 @@ extension ActionSheet: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        return collectionViewEdgeInsets
     }
 }
 
