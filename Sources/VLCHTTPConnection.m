@@ -254,18 +254,13 @@ static NSMutableDictionary *authentifiedHosts;
     if (!filepath) return NO;
 
     NSError *error;
+    NSURLRelationship relationship;
 
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *directoryPath = [searchPaths firstObject];
 
-    NSArray *array = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:&error];
-
-    if (error != nil) {
-        APLog(@"checking filerelationship failed %@", error);
-        return NO;
-    }
-
-    return [array containsObject:filepath.lastPathComponent];
+    [[NSFileManager defaultManager] getRelationship:&relationship ofDirectoryAtURL:[NSURL fileURLWithPath:directoryPath] toItemAtURL:[NSURL fileURLWithPath:filepath] error:&error];
+    return relationship == NSURLRelationshipContains;
 }
 
 #if TARGET_OS_IOS
