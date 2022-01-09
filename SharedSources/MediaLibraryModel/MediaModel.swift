@@ -52,7 +52,7 @@ extension VLCMLMedia {
     }
 
     @objc func thumbnailImage() -> UIImage? {
-        var image = UIImage(contentsOfFile: thumbnail()?.path ?? "")
+        var image = VLCThumbnailsCache.thumbnail(for: thumbnail())
         if image == nil
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && subtype() != .albumTrack)
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && subtype() == .albumTrack) {

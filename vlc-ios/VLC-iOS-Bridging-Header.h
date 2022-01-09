@@ -34,3 +34,4 @@
 #import "VLCDropboxConstants.h"
 #import "VLCStatusLabel.h"
 #import "VLCStoreController.h"
+#import "VLCThumbnailsCache.h"

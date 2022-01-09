@@ -215,6 +215,7 @@
 		7D8968711BD3058800F4EAAD /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8968701BD3058800F4EAAD /* LocalAuthentication.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D89786F185DED88009BAB5D /* VLCDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */; };
 		7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */; };
+		7D8986D6278B0C25005396AA /* VLCThumbnailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */; };
 		7D9289751877459B009108FD /* VLCFirstStepsWifiSharingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289731877459B009108FD /* VLCFirstStepsWifiSharingViewController.m */; };
 		7D9289761877459B009108FD /* VLCFirstStepsWifiSharingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9289741877459B009108FD /* VLCFirstStepsWifiSharingViewController.xib */; };
 		7D92897A1877467E009108FD /* VLCFirstStepsCloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289781877467E009108FD /* VLCFirstStepsCloudViewController.m */; };
@@ -794,6 +795,8 @@
 		7D8968701BD3058800F4EAAD /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDownloadViewController.xib; path = Resources/VLCDownloadViewController.xib; sourceTree = SOURCE_ROOT; };
 		7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCOpenNetworkStreamViewController.xib; path = Resources/VLCOpenNetworkStreamViewController.xib; sourceTree = SOURCE_ROOT; };
+		7D8986D4278B0C25005396AA /* VLCThumbnailsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCThumbnailsCache.h; sourceTree = "<group>"; };
+		7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCThumbnailsCache.m; sourceTree = "<group>"; };
 		7D9289721877459B009108FD /* VLCFirstStepsWifiSharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsWifiSharingViewController.h; path = Sources/VLCFirstStepsWifiSharingViewController.h; sourceTree = SOURCE_ROOT; };
 		7D9289731877459B009108FD /* VLCFirstStepsWifiSharingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsWifiSharingViewController.m; path = Sources/VLCFirstStepsWifiSharingViewController.m; sourceTree = SOURCE_ROOT; };
 		7D9289741877459B009108FD /* VLCFirstStepsWifiSharingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFirstStepsWifiSharingViewController.xib; path = Resources/VLCFirstStepsWifiSharingViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -1609,6 +1612,15 @@
 			name = "Download & Network";
 			sourceTree = "<group>";
 		};
+		7D8986D7278B0C30005396AA /* Thumbnail Cache */ = {
+			isa = PBXGroup;
+			children = (
+				7D8986D4278B0C25005396AA /* VLCThumbnailsCache.h */,
+				7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */,
+			);
+			path = "Thumbnail Cache";
+			sourceTree = "<group>";
+		};
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
@@ -2373,6 +2385,7 @@
 		DD7110ED1AF38AFD00854776 /* SharedSources */ = {
 			isa = PBXGroup;
 			children = (
+				7D8986D7278B0C30005396AA /* Thumbnail Cache */,
 				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
 				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
 				7D4DFEA81BDF982400979881 /* Cloud Integration */,
@@ -3209,6 +3222,7 @@
 				418B145920179E50000447AA /* VLCDragAndDropManager.swift in Sources */,
 				7DD9CD612422512F00D0324F /* NSString+Locale.m in Sources */,
 				7D168F7418D4A33F003FAF59 /* UIImage+Blur.m in Sources */,
+				7D8986D6278B0C25005396AA /* VLCThumbnailsCache.m in Sources */,
 				8D2AD4D822786F4000393833 /* AddToCollectionViewController.swift in Sources */,
 				6D63C06B23FEE93C00B9C05A /* VLCMarqueeLabel.swift in Sources */,
 				7D2DE69324D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */,
