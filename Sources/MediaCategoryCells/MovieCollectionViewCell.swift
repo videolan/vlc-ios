@@ -134,7 +134,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
         let mediasCount = medias?.count ?? 0
         if mediasCount > 4 {
-            numberLabel.text = String(mediasCount - 4)
+            numberLabel.text = String(format:"+  %i", mediasCount - 4)
             additionalMediaOverlay.isHidden = false
         }
     }
