@@ -25,11 +25,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     @IBOutlet weak var thumbnailView: UIImageView!
     @IBOutlet private(set) weak var titleLabel: VLCMarqueeLabel!
-    @IBOutlet private(set) weak var descriptionLabel: VLCMarqueeLabel!
+    @IBOutlet private(set) weak var sizeDescriptionLabel: VLCMarqueeLabel!
     @IBOutlet private(set) weak var newLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet private(set) weak var thumbnailWidth: NSLayoutConstraint!
-    @IBOutlet private(set) weak var sizeLabel: UILabel!
     @IBOutlet weak var descriptionStackView: UIStackView!
 
     @IBOutlet weak var scrollView: UIScrollView!
@@ -88,7 +87,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     }
 
     override var secondDescriptionLabelView: UILabel? {
-        return sizeLabel
+        return sizeDescriptionLabel
     }
 
     override var isSelected: Bool {
@@ -227,12 +226,11 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
         newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
         titleLabel.labelize = enableMarquee
-        descriptionLabel.labelize = enableMarquee
-        descriptionLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
-        sizeLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
+        sizeDescriptionLabel.labelize = enableMarquee
+        sizeDescriptionLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
         separatorLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         separatorLabel.setContentHuggingPriority(.required, for: .horizontal)
-        separatorLabel.font = sizeLabel.font
+        separatorLabel.font = sizeDescriptionLabel.font
         thumbnailWidth.constant = isIpad ? 72 : 56
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         setupScrollView()
@@ -249,8 +247,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         scrollContentView.backgroundColor = presentationTheme.colors.background
         backgroundColor = presentationTheme.colors.background
         titleLabel?.textColor = presentationTheme.colors.cellTextColor
-        descriptionLabel?.textColor = presentationTheme.colors.cellDetailTextColor
-        sizeLabel.textColor = presentationTheme.colors.cellDetailTextColor
+        sizeDescriptionLabel?.textColor = presentationTheme.colors.cellDetailTextColor
         separatorLabel.textColor = presentationTheme.colors.cellDetailTextColor
         dragIndicatorImageView.tintColor = presentationTheme.colors.cellDetailTextColor
     }
@@ -268,10 +265,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         if let albumTitle = audiotrack.albumTrack?.album?.title, !albumTitle.isEmpty {
             descriptionText += " - " + albumTitle
         }
-        descriptionLabel.text = descriptionText
+        sizeDescriptionLabel.text = String(format: "%@   ", descriptionText, audiotrack.formatSize())
         newLabel.isHidden = !audiotrack.isNew
         thumbnailView.image = audiotrack.thumbnailImage()
-        sizeLabel.text = audiotrack.formatSize()
         separatorLabel.text = "·"
         separatorLabel.isHidden = true
         descriptionStackView.insertArrangedSubview(separatorLabel, at: 1)
@@ -282,7 +278,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         newLabel.isHidden = true
         titleLabel.text = album.albumName()
         accessibilityLabel = album.accessibilityText(editing: false)
-        descriptionLabel.text = album.albumArtistName()
+        sizeDescriptionLabel.text = album.albumArtistName()
         thumbnailView.image = album.thumbnail()
         scrollView.isScrollEnabled = false
     }
@@ -293,7 +289,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         thumbnailView.layer.cornerRadius = thumbnailView.frame.size.width / 2.0
         titleLabel.text = artist.artistName()
         accessibilityLabel = artist.accessibilityText()
-        descriptionLabel.text = artist.numberOfTracksString()
+        sizeDescriptionLabel.text = artist.numberOfTracksString()
         thumbnailView.image = artist.thumbnail()
         scrollView.isScrollEnabled = false
     }
@@ -304,12 +300,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         thumbnailView.layer.cornerRadius = 3
         thumbnailView.image = movie.thumbnailImage()
         newLabel.isHidden = !movie.isNew
-        sizeLabel.text = movie.mediaDuration()
-        descriptionLabel.text = movie.formatSize()
-        if (superview as? UICollectionView)?.dataSource is QueueViewController {
-            descriptionLabel.isHidden = true
-        }
-        sizeLabel.isHidden = false
+        sizeDescriptionLabel.text = String(format: "%@ — %@", movie.mediaDuration(), movie.formatSize())
         separatorLabel.text = "·"
         scrollView.isScrollEnabled = true
     }
@@ -318,7 +309,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         newLabel.isHidden = true
         titleLabel.text = playlist.name
         accessibilityLabel = playlist.accessibilityText()
-        descriptionLabel.text = playlist.numberOfTracksString()
+        sizeDescriptionLabel.text = playlist.numberOfTracksString()
         thumbnailView.layer.cornerRadius = 3
         thumbnailView.image = playlist.thumbnail()
         dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
@@ -338,10 +329,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             return
         }
 
-        descriptionLabel.text = mediaGroup.numberOfTracksString()
+        sizeDescriptionLabel.text = String(format: "%@ — %@", mediaGroup.numberOfTracksString(), String(mediaGroup.duration()))
         titleLabel.text = mediaGroup.title()
-        accessibilityLabel = mediaGroup.accessibilityText()
-        sizeLabel.text = String(mediaGroup.duration())
         accessibilityLabel = mediaGroup.accessibilityText()
 
         thumbnailView.layer.cornerRadius = 3
@@ -360,7 +349,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         accessibilityLabel = genre.accessibilityText()
 
         thumbnailView.image = genre.thumbnail()
-        descriptionLabel.text = genre.numberOfTracksString()
+        sizeDescriptionLabel.text = genre.numberOfTracksString()
         scrollView.isScrollEnabled = false
     }
 
@@ -394,20 +383,18 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         super.prepareForReuse()
         ignoreThemeDidChange = false
         titleLabel.text = ""
-        accessibilityLabel = ""
-        descriptionLabel.text = ""
         titleLabel.labelize = enableMarquee
-        descriptionLabel.labelize = enableMarquee
+        accessibilityLabel = ""
+        sizeDescriptionLabel.text = ""
+        sizeDescriptionLabel.labelize = enableMarquee
         thumbnailView.image = nil
         thumbnailView.contentMode = .scaleAspectFill
         thumbnailWidth.constant = isIpad ? 72 : 56
-        descriptionLabel.isHidden = false
         newLabel.isHidden = true
         checkboxImageView.isHidden = true
         selectionOverlay.isHidden = true
         dragIndicatorImageView.image = UIImage(named: "list")
         dragIndicatorImageView.isHidden = true
-        sizeLabel.isHidden = true
         separatorLabel.isHidden = true
         enableScrollView()
     }

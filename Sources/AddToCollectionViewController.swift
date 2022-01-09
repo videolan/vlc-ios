@@ -284,7 +284,6 @@ extension AddToCollectionViewController: UICollectionViewDataSource {
             cell.titleLabel.text = NSLocalizedString("MEDIA_GROUP_MOVE_TO_ROOT", comment: "")
             cell.accessibilityLabel = NSLocalizedString("MEDIA_GROUP_MOVE_TO_ROOT_HINT", comment: "")
             cell.newLabel.isHidden = true
-            cell.descriptionLabel.isHidden = true
             return cell
         }
 
