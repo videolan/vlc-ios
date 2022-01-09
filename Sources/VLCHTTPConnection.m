@@ -712,8 +712,12 @@ static NSMutableDictionary *authentifiedHosts;
 
     _receivedContent += postDataChunk.length;
 
+#if WIFI_SHARING_DEBUG || TARGET_OS_TV
     long long percentage = ((_receivedContent * 100) / _contentLength);
+#if WIFI_SHARING_DEBUG
     APLog(@"received %lli kB (%lli %%)", _receivedContent / 1024, percentage);
+#endif
+#endif
 #if TARGET_OS_TV
         if (percentage >= 10) {
             [self performSelectorOnMainThread:@selector(startPlaybackOfPath:) withObject:_filepath waitUntilDone:NO];
