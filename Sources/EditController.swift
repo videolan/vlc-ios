@@ -279,7 +279,7 @@ extension EditController: UICollectionViewDataSource {
                     cell.dragIndicatorImageView.isHidden = true
                 }
             }
-            if cell.media is VLCMLMedia {
+            if cell.media is VLCMLMedia || cell.media is VLCMLMediaGroup {
                 cell.secondDescriptionLabelView?.isHidden = false
                 cell.descriptionSeparatorLabel?.isHidden = false
             }
