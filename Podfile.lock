@@ -74,12 +74,12 @@ PODS:
 DEPENDENCIES:
   - ADAL (from `https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git`, commit `348e94df`)
   - AFNetworking (~> 4.0)
-  - box-ios-sdk-v2 (from `git://github.com/fkuehne/box-ios-sdk-v2.git`, commit `08161e74`)
-  - CocoaHTTPServer (from `git://github.com/fkuehne/CocoaHTTPServer.git`)
+  - box-ios-sdk-v2 (from `https://github.com/fkuehne/box-ios-sdk-v2.git`, commit `08161e74`)
+  - CocoaHTTPServer (from `https://github.com/fkuehne/CocoaHTTPServer.git`)
   - GoogleAPIClientForREST/Drive
   - GRKArrayDiff (~> 2.1)
   - GTMAppAuth (= 0.7.1)
-  - InAppSettingsKit (from `git://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
+  - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
   - MetaDataFetcherKit (~> 0.5.0)
   - MobileVLCKit (= 3.3.18b8)
@@ -91,7 +91,7 @@ DEPENDENCIES:
   - TVVLCKit (= 3.3.18b8)
   - VLCMediaLibraryKit (= 0.10.1b3)
   - XKKeychain (~> 1.0)
-  - xmlrpc (from `git://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
+  - xmlrpc (from `https://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
 
 SPEC REPOS:
   trunk:
@@ -120,18 +120,18 @@ EXTERNAL SOURCES:
     :git: https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git
   box-ios-sdk-v2:
     :commit: '08161e74'
-    :git: git://github.com/fkuehne/box-ios-sdk-v2.git
+    :git: https://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
-    :git: git://github.com/fkuehne/CocoaHTTPServer.git
+    :git: https://github.com/fkuehne/CocoaHTTPServer.git
   InAppSettingsKit:
     :commit: a429840
-    :git: git://github.com/Mikanbu/InAppSettingsKit.git
+    :git: https://github.com/Mikanbu/InAppSettingsKit.git
   OneDriveSDK:
     :commit: 810f82da
     :git: https://code.videolan.org/fkuehne/onedrive-sdk-ios.git
   xmlrpc:
     :commit: 3f8ce3a8
-    :git: git://github.com/fkuehne/xmlrpc.git
+    :git: https://github.com/fkuehne/xmlrpc.git
 
 CHECKOUT OPTIONS:
   ADAL:
@@ -139,19 +139,19 @@ CHECKOUT OPTIONS:
     :git: https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git
   box-ios-sdk-v2:
     :commit: '08161e74'
-    :git: git://github.com/fkuehne/box-ios-sdk-v2.git
+    :git: https://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
     :commit: 97933152c16f93ab36dd28a9d33c64c5f2a085e5
-    :git: git://github.com/fkuehne/CocoaHTTPServer.git
+    :git: https://github.com/fkuehne/CocoaHTTPServer.git
   InAppSettingsKit:
     :commit: a429840
-    :git: git://github.com/Mikanbu/InAppSettingsKit.git
+    :git: https://github.com/Mikanbu/InAppSettingsKit.git
   OneDriveSDK:
     :commit: 810f82da
     :git: https://code.videolan.org/fkuehne/onedrive-sdk-ios.git
   xmlrpc:
     :commit: 3f8ce3a8
-    :git: git://github.com/fkuehne/xmlrpc.git
+    :git: https://github.com/fkuehne/xmlrpc.git
 
 SPEC CHECKSUMS:
   ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
@@ -179,6 +179,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 23fbb2c344b20e2058ecb44212e98bd09b62feae
+PODFILE CHECKSUM: c702ace0af4025897914a118250c335090128c26
 
 COCOAPODS: 1.11.2

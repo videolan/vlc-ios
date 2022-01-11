@@ -4,9 +4,9 @@ inhibit_all_warnings!
 
 def shared_pods
   pod 'XKKeychain', '~>1.0'
-  pod 'box-ios-sdk-v2', :git => 'git://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '08161e74' #has a our fixes
-  pod 'CocoaHTTPServer', :git => 'git://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
-  pod 'xmlrpc', :git => 'git://github.com/fkuehne/xmlrpc.git', :commit => '3f8ce3a8' #fix case-sensitive FS
+  pod 'box-ios-sdk-v2', :git => 'https://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '08161e74' #has a our fixes
+  pod 'CocoaHTTPServer', :git => 'https://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
+  pod 'xmlrpc', :git => 'https://github.com/fkuehne/xmlrpc.git', :commit => '3f8ce3a8' #fix case-sensitive FS
   pod 'AFNetworking', '~>4.0'
 
   # debug
@@ -17,7 +17,7 @@ target 'VLC-iOS' do
   platform :ios, '9.0'
   shared_pods
   pod 'OBSlider', '1.1.0'
-  pod 'InAppSettingsKit', :git => 'git://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
+  pod 'InAppSettingsKit', :git => 'https://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
   pod 'GoogleAPIClientForREST/Drive'
   pod 'MobileVLCKit', '3.3.18b8'
   pod 'VLCMediaLibraryKit', '0.10.1b3'
