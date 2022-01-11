@@ -117,6 +117,7 @@ class BrightnessControlView: SliderInfoView {
 
 class VolumeControlView: SliderInfoView {
     private let volumeView: MPVolumeView?
+    private(set) var isBeingTouched: Bool = false
     init(volumeView: MPVolumeView?) {
         self.volumeView = volumeView
         super.init(frame: .zero)
@@ -127,6 +128,8 @@ class VolumeControlView: SliderInfoView {
         }
 
         levelSlider.addTarget(self, action: #selector(self.onVolumeChange), for: .valueChanged)
+        levelSlider.addTarget(self, action: #selector(self.onTouchStarted), for: .touchDown)
+        levelSlider.addTarget(self, action: #selector(self.onTouchEnded), for: [.touchUpInside, .touchUpOutside, .touchCancel])
         self.iconNames = ["noSound", "lowSound", "mediumSound", "highSound"]
 
         levelSlider.accessibilityLabel = NSLocalizedString("VOLUME_SLIDER", comment: "")
@@ -139,6 +142,13 @@ class VolumeControlView: SliderInfoView {
         updateIcon(level: levelSlider.value)
     }
 
+    @objc func onTouchStarted() {
+        isBeingTouched = true
+    }
+
+    @objc func onTouchEnded() {
+        isBeingTouched = false
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

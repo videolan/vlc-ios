@@ -818,26 +818,28 @@ extension VideoPlayerViewController {
             alert.dismiss(animated: true, completion: nil)
             alertController = nil
         }
-        let alpha: CGFloat = hidden ? 0 : 1
+        let uiComponentOpacity: CGFloat = hidden ? 0 : 1
 
         var qvcHidden = true
         if let qvc = queueViewController {
             qvcHidden = qvc.view.alpha == 0.0
         }
-        UIView.animate(withDuration: animated ? 0.2 : 0) {
-            // FIXME: retain cycle?
-            self.mediaNavigationBar.alpha = alpha
-            self.optionsNavigationBar.alpha = alpha
 
-            self.volumeControlView.alpha = hidden ? 0 : 1
-            self.brightnessControlView.alpha = hidden ? 0 : 1
-
+        let animations = { [weak self, playerController] in
+            self?.mediaNavigationBar.alpha = uiComponentOpacity
+            self?.optionsNavigationBar.alpha = uiComponentOpacity
+            self?.volumeControlView.alpha = playerController.isVolumeGestureEnabled ? 0 : uiComponentOpacity
+            self?.brightnessControlView.alpha = playerController.isBrightnessGestureEnabled ? 0 : uiComponentOpacity
             if !hidden || qvcHidden {
-                self.videoPlayerControls.alpha = alpha
-                self.scrubProgressBar.alpha = alpha
+                self?.videoPlayerControls.alpha = uiComponentOpacity
+                self?.scrubProgressBar.alpha = uiComponentOpacity
             }
-            self.backgroundGradientView.alpha = hidden && qvcHidden ? 0 : 1
+            self?.backgroundGradientView.alpha = hidden && qvcHidden ? 0 : 1
         }
+        let duration = animated ? 0.2 : 0
+        UIView.animate(withDuration: duration, delay: 0,
+                       options: .beginFromCurrentState, animations: animations,
+                       completion: nil)
         self.setNeedsStatusBarAppearanceUpdate()
     }
 
@@ -954,16 +956,36 @@ extension VideoPlayerViewController {
             || currentPos.y < mediaNavigationBar.frame.origin.y {
             return
         }
+        let panType = detectPanType(recognizer)
+
+        guard panType == .projection
+                || playerController.isVolumeGestureEnabled
+                || playerController.isBrightnessGestureEnabled
+        else {
+            return
+        }
 
         if recognizer.state == .began {
-            currentPanType = detectPanType(recognizer)
+            var animations : (() -> Void)?
+            currentPanType = panType
             switch currentPanType {
             case .brightness:
                 brightnessControl.fetchDeviceValue()
+                animations = { [brightnessControlView] in
+                    brightnessControlView.alpha = 1
+                }
             case .volume:
                 volumeControl.fetchDeviceValue()
+                animations = { [volumeControlView] in
+                    volumeControlView.alpha = 1
+                }
             default:
                 break
+            }
+            if let animations = animations {
+                UIView.animate(withDuration: 0.2, delay: 0,
+                               options: .beginFromCurrentState, animations: animations,
+                               completion: nil)
             }
             if playbackService.currentMediaIs360Video {
                 projectionLocation = currentPos
@@ -973,9 +995,6 @@ extension VideoPlayerViewController {
 
         switch currentPanType {
         case .volume:
-            guard playerController.isVolumeGestureEnabled else {
-                break
-            }
 
             if recognizer.state == .changed || recognizer.state == .ended {
                 let newValue = volumeControl.value - (verticalPanVelocity * volumeControl.speed)
@@ -985,9 +1004,6 @@ extension VideoPlayerViewController {
             }
             break
         case .brightness:
-            guard playerController.isBrightnessGestureEnabled else {
-                break
-            }
             if recognizer.state == .changed || recognizer.state == .ended {
                 let newValue = brightnessControl.value - (verticalPanVelocity * brightnessControl.speed)
                 brightnessControl.value = min(max(newValue, 0), 1)
@@ -1001,6 +1017,25 @@ extension VideoPlayerViewController {
         }
 
         if recognizer.state == .ended {
+            var animations : (() -> Void)?
+            switch currentPanType {
+            case .brightness:
+                animations = { [brightnessControlView] in
+                    brightnessControlView.alpha = 0
+                }
+            case .volume:
+                animations = { [volumeControlView] in
+                    volumeControlView.alpha = 0
+                }
+            default:
+                break
+            }
+            if let animations = animations {
+                UIView.animate(withDuration: 0.2, delay: 1.0,
+                               options: .beginFromCurrentState, animations: animations,
+                               completion: nil)
+            }
+
             currentPanType = .none
             if playbackService.currentMediaIs360Video {
                 deviceMotion.startDeviceMotion()
@@ -1287,18 +1322,23 @@ private extension VideoPlayerViewController {
 internal extension VideoPlayerViewController {
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "outputVolume" {
-            // keep from reaching max or min volume so button keeps working
-
-            if brightnessControlView.alpha == 1 {
-                self.volumeControlView.alpha = 1
-            } else {
-                self.volumeControlView.alpha = 1
-                UIView.animate(withDuration: 4, animations: { () -> Void in
-                    self.volumeControlView.alpha = 0
-                })
-            }
-
+        // We're observing outputVolume to handle volume changes from physical volume buttons
+        // To processd properly we have to check we're not interacting with UI controls or gesture
+        if keyPath == "outputVolume" &&
+            !volumeControlView.isBeingTouched && // Check we're not interacting with volume slider
+            currentPanType != .volume { // Check we're not doing pan gestures for volume
+            let appearAnimations = { [volumeControlView] in
+                volumeControlView.alpha = 1
+                }
+            let disappearAnimations = { [volumeControlView] in
+                volumeControlView.alpha = 0
+                }
+            UIView.animate(withDuration:0.2, delay: 0,
+                           options: .beginFromCurrentState,
+                           animations:appearAnimations, completion:nil)
+            UIView.animate(withDuration: 0.2, delay: 1,
+                           options: [],
+                           animations:disappearAnimations, completion:nil)
             self.volumeControlView.updateIcon(level: AVAudioSession.sharedInstance().outputVolume)
         }
     }
