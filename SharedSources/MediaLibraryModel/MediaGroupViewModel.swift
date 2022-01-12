@@ -118,6 +118,12 @@ class MediaGroupViewModel: MLBaseModel {
     }
 }
 
+extension VLCMLMediaGroup {
+    @objc func mediaDuration() -> String {
+        return VLCTime(number: NSNumber(value: duration())).stringValue
+    }
+}
+
 // MARK: - Private helpers
 
 private extension MediaGroupViewModel {

@@ -330,7 +330,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             return
         }
 
-        sizeDescriptionLabel.text = String(format: "%@ — %@", mediaGroup.numberOfTracksString(), String(mediaGroup.duration()))
+        sizeDescriptionLabel.text = String(format: "%@ — %@", mediaGroup.numberOfTracksString(), mediaGroup.mediaDuration())
         titleLabel.text = mediaGroup.title()
         accessibilityLabel = mediaGroup.accessibilityText()
 
