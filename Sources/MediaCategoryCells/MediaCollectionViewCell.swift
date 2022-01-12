@@ -267,7 +267,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         if let albumTitle = audiotrack.albumTrack?.album?.title, !albumTitle.isEmpty {
             descriptionText += " - " + albumTitle
         }
-        sizeDescriptionLabel.text = String(format: "%@   ", descriptionText, audiotrack.formatSize())
+        sizeDescriptionLabel.text = String(format: "%@ - %@", descriptionText, audiotrack.formatSize())
         newLabel.isHidden = !audiotrack.isNew
         thumbnailView.image = audiotrack.thumbnailImage()
         separatorLabel.text = "·"
