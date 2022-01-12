@@ -110,7 +110,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     }
 
     private func setupGestureRecognizer() {
-        let mediaTapGesture = UITapGestureRecognizer(target: self, action: #selector(mediaTapped))
+        let mediaTapGesture = UITapGestureRecognizer(target: self, action: #selector(mediaTapped(_:)))
 
         scrollContentView.addGestureRecognizer(mediaTapGesture)
     }
@@ -121,8 +121,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         resetScrollView()
     }
 
-    @objc private func mediaTapped() {
-        delegate?.mediaCollectionViewCellMediaTapped(in: self)
+    @objc private func mediaTapped(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            delegate?.mediaCollectionViewCellMediaTapped(in: self)
+        }
     }
 
     func resetScrollView(_ completion: ((Bool) -> Void)? = nil) {
