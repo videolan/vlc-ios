@@ -272,7 +272,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         thumbnailView.image = audiotrack.thumbnailImage()
         separatorLabel.text = "·"
         separatorLabel.isHidden = true
-        descriptionStackView.insertArrangedSubview(separatorLabel, at: 1)
         scrollView.isScrollEnabled = true
     }
 
