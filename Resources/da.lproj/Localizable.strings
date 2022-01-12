@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Transmitteringsenheder";
 "BUTTON_RENDERER_HINT" = "Vis en menu over tilgængelige transmitteringsenheder";
-"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
-"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
+"BUTTON_AIRPLAY" = "AirPlay eller Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Vis tilgængelige AirPlay og Bluetooth enheder";
 
 "UPGRADING_LIBRARY" = "Opgraderer mediebibliotek";
 
