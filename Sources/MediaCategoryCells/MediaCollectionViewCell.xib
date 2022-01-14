@@ -28,7 +28,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="480" height="80"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="249" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DpW-xo-rll" userLabel="Thumbnail">
-                                                <rect key="frame" x="12" y="12" width="56" height="56"/>
+                                                <rect key="frame" x="4" y="12" width="56" height="56"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="56" id="2pZ-Hq-ltD"/>
@@ -36,29 +36,29 @@
                                                 </constraints>
                                             </imageView>
                                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="249" verticalHuggingPriority="251" image="checkboxEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="Uhx-qs-Aow">
-                                                <rect key="frame" x="42" y="42" width="24" height="24"/>
+                                                <rect key="frame" x="34" y="42" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Uhx-qs-Aow" secondAttribute="height" multiplier="1:1" id="Ns5-lv-6OG"/>
                                                     <constraint firstAttribute="width" constant="24" id="kJQ-N4-JsW"/>
                                                 </constraints>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="HHK-jR-WLx">
-                                                <rect key="frame" x="80" y="0.0" width="383" height="80"/>
+                                                <rect key="frame" x="69" y="12" width="394" height="56.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="251" text="new" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klo-Bq-5nI" userLabel="NewLabel">
-                                                        <rect key="frame" x="0.0" y="0.0" width="383" height="37"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="new" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klo-Bq-5nI" userLabel="NewLabel">
+                                                        <rect key="frame" x="0.0" y="0.0" width="394" height="13.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zkn-vN-SN4" userLabel="Titlelabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="41" width="383" height="20.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zkn-vN-SN4" userLabel="Titlelabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="17.5" width="394" height="20.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="600" horizontalCompressionResistancePriority="1000" layoutMarginsFollowReadableWidth="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKd-DQ-8Uh" userLabel="sizeDescriptionLabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="65.5" width="383" height="14.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" layoutMarginsFollowReadableWidth="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKd-DQ-8Uh" userLabel="sizeDescriptionLabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="42" width="394" height="14.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -81,8 +81,8 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="vQV-tE-gv0" firstAttribute="leading" secondItem="bhw-Aa-3Q7" secondAttribute="leading" id="9z4-Kl-vIs"/>
-                                            <constraint firstItem="DpW-xo-rll" firstAttribute="leading" secondItem="bhw-Aa-3Q7" secondAttribute="leading" constant="12" id="AN6-Aj-EqE"/>
-                                            <constraint firstItem="HHK-jR-WLx" firstAttribute="top" secondItem="bhw-Aa-3Q7" secondAttribute="top" id="C3K-a5-s9A"/>
+                                            <constraint firstItem="DpW-xo-rll" firstAttribute="leading" secondItem="bhw-Aa-3Q7" secondAttribute="leading" constant="4" id="AN6-Aj-EqE"/>
+                                            <constraint firstItem="HHK-jR-WLx" firstAttribute="centerY" secondItem="bhw-Aa-3Q7" secondAttribute="centerY" id="Bmn-hY-0c3"/>
                                             <constraint firstAttribute="bottom" secondItem="vQV-tE-gv0" secondAttribute="bottom" id="Cfo-FE-w7I"/>
                                             <constraint firstItem="Uhx-qs-Aow" firstAttribute="bottom" secondItem="DpW-xo-rll" secondAttribute="bottom" constant="-2" id="I7O-wk-0es"/>
                                             <constraint firstAttribute="trailing" secondItem="vQV-tE-gv0" secondAttribute="trailing" id="IO3-Hl-Rue"/>
@@ -91,9 +91,8 @@
                                             <constraint firstItem="Uhx-qs-Aow" firstAttribute="trailing" secondItem="DpW-xo-rll" secondAttribute="trailing" constant="-2" id="e0X-1X-PuG"/>
                                             <constraint firstAttribute="trailing" secondItem="f9J-sb-sdM" secondAttribute="trailing" constant="-19" id="hia-uB-izg"/>
                                             <constraint firstItem="f9J-sb-sdM" firstAttribute="leading" secondItem="HHK-jR-WLx" secondAttribute="trailing" constant="12" id="tFx-Fj-xge"/>
-                                            <constraint firstAttribute="bottom" secondItem="HHK-jR-WLx" secondAttribute="bottom" id="wTJ-gl-eTJ"/>
                                             <constraint firstItem="DpW-xo-rll" firstAttribute="centerY" secondItem="bhw-Aa-3Q7" secondAttribute="centerY" id="wgE-6k-ZhQ"/>
-                                            <constraint firstItem="HHK-jR-WLx" firstAttribute="leading" secondItem="DpW-xo-rll" secondAttribute="trailing" constant="12" id="xzo-dy-CiU"/>
+                                            <constraint firstItem="HHK-jR-WLx" firstAttribute="leading" secondItem="DpW-xo-rll" secondAttribute="trailing" constant="9" id="xzo-dy-CiU"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -117,8 +116,9 @@
                         </constraints>
                     </scrollView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ey-dT-h2f">
-                        <rect key="frame" x="480" y="25" width="80" height="30"/>
+                        <rect key="frame" x="480" y="12" width="80" height="56"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="56" id="336-fj-EUN"/>
                             <constraint firstAttribute="width" constant="80" id="Olv-rl-Aap"/>
                         </constraints>
                         <state key="normal" title="Button">
@@ -146,6 +146,7 @@
             <connections>
                 <outlet property="checkboxImageView" destination="Uhx-qs-Aow" id="VCh-49-ONi"/>
                 <outlet property="deleteButton" destination="6Ey-dT-h2f" id="NOC-o2-rvy"/>
+                <outlet property="deleteButtonHeight" destination="336-fj-EUN" id="PEB-jP-nqV"/>
                 <outlet property="descriptionStackView" destination="HHK-jR-WLx" id="27s-ST-uYb"/>
                 <outlet property="dragIndicatorImageView" destination="f9J-sb-sdM" id="t3G-VX-68j"/>
                 <outlet property="newLabel" destination="Klo-Bq-5nI" id="8jr-y0-SoR"/>
@@ -154,7 +155,7 @@
                 <outlet property="selectionOverlay" destination="vQV-tE-gv0" id="xIe-R7-AjG"/>
                 <outlet property="sizeDescriptionLabel" destination="WKd-DQ-8Uh" id="A2N-xd-f1o"/>
                 <outlet property="thumbnailView" destination="DpW-xo-rll" id="U2i-pe-qCM"/>
-                <outlet property="thumbnailWidth" destination="2pZ-Hq-ltD" id="MrC-ZE-i4o"/>
+                <outlet property="thumbnailWidth" destination="2pZ-Hq-ltD" id="oMn-5s-92i"/>
                 <outlet property="titleLabel" destination="Zkn-vN-SN4" id="H77-N8-sRM"/>
             </connections>
             <point key="canvasLocation" x="110" y="-53.5"/>

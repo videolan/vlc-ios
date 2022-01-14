@@ -28,6 +28,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     @IBOutlet private(set) weak var sizeDescriptionLabel: VLCMarqueeLabel!
     @IBOutlet private(set) weak var newLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet private(set) weak var deleteButtonHeight: NSLayoutConstraint!
     @IBOutlet private(set) weak var thumbnailWidth: NSLayoutConstraint!
     @IBOutlet weak var descriptionStackView: UIStackView!
 
@@ -234,6 +235,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         separatorLabel.setContentHuggingPriority(.required, for: .horizontal)
         separatorLabel.font = sizeDescriptionLabel.font
         thumbnailWidth.constant = isIpad ? 72 : 56
+        deleteButtonHeight.constant = isIpad ? 72 : 56
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         setupScrollView()
         setupGestureRecognizer()
