@@ -15,8 +15,31 @@
 extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     func videoPlayerControlsDelegateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls) {
         trackSelector.trackChapters = false
-        trackSelector.update()
-        shouldShowTrackSelectorPopup(!trackSelectorPopupView.isShown)
+
+        let orientation = getInterfaceOrientationMask(orientation: UIApplication.shared.statusBarOrientation)
+
+        titleSelectionView.mainStackView.axis = orientation == .landscape ? .horizontal : .vertical
+        titleSelectionView.mainStackView.distribution = orientation == .landscape ? .fillEqually : .fill
+
+        titleSelectionView.updateHeightConstraints()
+        titleSelectionView.reload()
+
+        view.bringSubviewToFront(titleSelectionView)
+        // Show warning for subtitles when connected to a renderer.
+        guard playbackService.renderer == nil else {
+            let subtitleCastWarningAlert = UIAlertController(title: NSLocalizedString("PLAYER_WARNING_SUBTITLE_CAST_TITLE", comment: ""),
+                                                             message: NSLocalizedString("PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION", comment: ""),
+                                                             preferredStyle: .alert)
+            let doneButton = UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment: ""),
+                                           style: .default) {
+                [titleSelectionView] _ in
+                titleSelectionView.isHidden = !titleSelectionView.isHidden
+            }
+            subtitleCastWarningAlert.addAction(doneButton)
+            present(subtitleCastWarningAlert, animated: true)
+            return
+        }
+        titleSelectionView.isHidden = !titleSelectionView.isHidden
     }
     
     func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls) {

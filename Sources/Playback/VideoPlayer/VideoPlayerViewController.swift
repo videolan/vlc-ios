@@ -255,6 +255,15 @@ class VideoPlayerViewController: UIViewController {
         return trackSelector
     }()
 
+    private(set) lazy var titleSelectionView: TitleSelectionView = {
+        let isLandscape = UIDevice.current.orientation.isLandscape
+        let titleSelectionView = TitleSelectionView(frame: .zero,
+                                                    orientation: isLandscape ? .horizontal : .vertical)
+        titleSelectionView.delegate = self
+        titleSelectionView.isHidden = true
+        return titleSelectionView
+    }()
+
     private var currentPanType: VideoPlayerPanType = .none
 
     private var projectionLocation: CGPoint = .zero
@@ -654,6 +663,7 @@ class VideoPlayerViewController: UIViewController {
 
         numberOfTapSeek = 0
         previousSeekState = .default
+        titleSelectionView.isHidden = true
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -674,6 +684,14 @@ class VideoPlayerViewController: UIViewController {
     @objc func setupQueueViewController(qvc: QueueViewController) {
         queueViewController = qvc
         queueViewController?.delegate = self
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let isLandscape: Bool = size.width >= view.frame.size.width
+
+        titleSelectionView.mainStackView.axis = isLandscape ? .horizontal : .vertical
+        titleSelectionView.mainStackView.distribution = isLandscape ? .fillEqually : .fill
     }
 }
 
@@ -1166,6 +1184,7 @@ private extension VideoPlayerViewController {
         view.addSubview(volumeControlView)
         view.addSubview(externalVideoOutputView)
         view.addSubview(statusLabel)
+        view.addSubview(titleSelectionView)
 
         view.bringSubviewToFront(statusLabel)
         view.sendSubviewToBack(videoOutputView)
@@ -1233,6 +1252,16 @@ private extension VideoPlayerViewController {
         setupMediaNavigationBarConstraints()
         setupScrubProgressBarConstraints()
         setupStatusLabelConstraints()
+        setupTitleSelectionConstraints()
+    }
+
+    private func setupTitleSelectionConstraints() {
+        NSLayoutConstraint.activate([
+            titleSelectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            titleSelectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            titleSelectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            titleSelectionView.topAnchor.constraint(equalTo: view.topAnchor)
+        ])
     }
 
     private func setupCommonSliderConstraints(for slider: UIView) {
@@ -1499,6 +1528,12 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         if trackSelectorPopupView.isShown {
             trackSelector.update()
         }
+
+        if titleSelectionView.isHidden == false {
+            titleSelectionView.updateHeightConstraints()
+            titleSelectionView.reload()
+        }
+
         if let queueCollectionView = queueViewController?.queueCollectionView {
             queueCollectionView.reloadData()
         }
@@ -1851,22 +1886,6 @@ extension VideoPlayerViewController {
 
     func shouldShowTrackSelectorPopup(_ show: Bool) {
         if show {
-            // Check if the service is connected to a casting device.
-            guard playbackService.renderer == nil else {
-                let subtitleCastWarningAlert = UIAlertController(title: NSLocalizedString("PLAYER_WARNING_SUBTITLE_CAST_TITLE", comment: ""),
-                                                                 message: NSLocalizedString("PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION", comment: ""),
-                                                                 preferredStyle: .alert)
-                let doneButton = UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment: ""),
-                                               style: .default) {
-                    [weak self, trackSelectorPopupView, trackSelector] _ in
-                    self?.showPopup(trackSelectorPopupView,
-                                    with: trackSelector,
-                                    accessoryViewsDelegate: trackSelector)
-                }
-                subtitleCastWarningAlert.addAction(doneButton)
-                present(subtitleCastWarningAlert, animated: true)
-                return
-            }
             showPopup(trackSelectorPopupView, with: trackSelector, accessoryViewsDelegate: trackSelector)
         } else {
             trackSelectorPopupView.close()
@@ -1987,5 +2006,21 @@ extension VideoPlayerViewController {
 extension VideoPlayerViewController: TrackSelectorViewDelegate {
     func trackSelectorViewDelegateDidSelectTrack(_ trackSelectorView: TrackSelectorView) {
         shouldShowTrackSelectorPopup(false)
+    }
+}
+
+// MARK: - TitleSelectionViewDelegate
+
+extension VideoPlayerViewController: TitleSelectionViewDelegate {
+    func titleSelectionViewDelegateDidSelectTrack(_ titleSelectionView: TitleSelectionView) {
+        titleSelectionView.isHidden = true
+    }
+
+    func titleSelectionViewDelegateDidSelectDownloadSPU(_ titleSelectionView: TitleSelectionView) {
+        downloadMoreSPU()
+    }
+
+    func shouldHideTitleSelectionView(_ titleSelectionView: TitleSelectionView) {
+        self.titleSelectionView.isHidden = true
     }
 }
