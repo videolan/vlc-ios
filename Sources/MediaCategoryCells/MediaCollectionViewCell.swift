@@ -48,6 +48,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     private let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
 
     var ignoreThemeDidChange: Bool = false
+    var isEditing: Bool = false
 
     weak var delegate: MediaCollectionViewCellDelegate?
 
@@ -268,9 +269,13 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         accessibilityLabel = audiotrack.accessibilityText(editing: false)
         var descriptionText = audiotrack.albumTrackArtistName()
         if let albumTitle = audiotrack.albumTrack?.album?.title, !albumTitle.isEmpty {
-            descriptionText += " - " + albumTitle
+            descriptionText += " · " + albumTitle
         }
-        sizeDescriptionLabel.text = String(format: "%@ - %@", descriptionText, audiotrack.formatSize())
+        if isEditing {
+            sizeDescriptionLabel.text = String(format: "%@ · %@", descriptionText, audiotrack.formatSize())
+        } else {
+            sizeDescriptionLabel.text = descriptionText
+        }
         newLabel.isHidden = !audiotrack.isNew
         thumbnailView.image = audiotrack.thumbnailImage()
         separatorLabel.text = "·"
@@ -304,7 +309,11 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         thumbnailView.layer.cornerRadius = 3
         thumbnailView.image = movie.thumbnailImage()
         newLabel.isHidden = !movie.isNew
-        sizeDescriptionLabel.text = String(format: "%@ — %@", movie.mediaDuration(), movie.formatSize())
+        if isEditing {
+            sizeDescriptionLabel.text = String(format: "%@ · %@", movie.mediaDuration(), movie.formatSize())
+        } else {
+            sizeDescriptionLabel.text = movie.mediaDuration()
+        }
         separatorLabel.text = "·"
         scrollView.isScrollEnabled = true
     }

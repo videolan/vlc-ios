@@ -918,6 +918,7 @@ extension MediaCategoryViewController {
 
         if let mediaCell = mediaCell as? MediaCollectionViewCell {
             mediaCell.delegate = self
+            mediaCell.isEditing = false
         }
 
         return mediaCell

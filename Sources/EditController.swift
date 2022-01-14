@@ -278,6 +278,7 @@ extension EditController: UICollectionViewDataSource {
                 } else if cell.media is VLCMLMediaGroup || cell.media is VLCMLPlaylist {
                     cell.dragIndicatorImageView.isHidden = true
                 }
+                cell.isEditing = true
             }
             if cell.media is VLCMLMedia || cell.media is VLCMLMediaGroup {
                 cell.secondDescriptionLabelView?.isHidden = false

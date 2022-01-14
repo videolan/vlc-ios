@@ -566,6 +566,7 @@ extension QueueViewController: UICollectionViewDataSource {
         cell.scrollContentView.backgroundColor = .clear
 
         cell.newLabel.isHidden = true
+        cell.isEditing = false
         cell.dragIndicatorImageView.isHidden = collectionView.numberOfItems(inSection: 0) <= 1
         media = mediaList.media(at: UInt(indexPath.row))
 
