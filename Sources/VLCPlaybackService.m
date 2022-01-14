@@ -629,7 +629,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (NSInteger)numberOfAudioTracks
 {
-    return _mediaPlayer.audioTrackIndexes.count;
+    return [_mediaPlayer numberOfAudioTracks];
 }
 
 - (NSInteger)numberOfVideoSubtitlesIndexes
