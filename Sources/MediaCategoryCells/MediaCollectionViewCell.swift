@@ -38,8 +38,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     @IBOutlet weak var selectionOverlay: UIView!
     @IBOutlet weak var dragIndicatorImageView: UIImageView!
 
-    private var separatorLabel: UILabel = UILabel()
-
     private var maxXOffset: CGFloat = 0.0
     private var vibrationTriggered: Bool = false
     private var isDeleteDisplayed: Bool = false
@@ -82,10 +80,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     override var selectionViewOverlay: UIView? {
         return selectionOverlay
-    }
-
-    override var descriptionSeparatorLabel: UILabel? {
-        return separatorLabel
     }
 
     override var secondDescriptionLabelView: UILabel? {
@@ -232,9 +226,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.labelize = enableMarquee
         sizeDescriptionLabel.labelize = enableMarquee
         sizeDescriptionLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
-        separatorLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-        separatorLabel.setContentHuggingPriority(.required, for: .horizontal)
-        separatorLabel.font = sizeDescriptionLabel.font
         thumbnailWidth.constant = isIpad ? 72 : 56
         thumbnailView.contentMode = .scaleAspectFill
         deleteButtonHeight.constant = isIpad ? 72 : 56
@@ -254,7 +245,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         backgroundColor = presentationTheme.colors.background
         titleLabel?.textColor = presentationTheme.colors.cellTextColor
         sizeDescriptionLabel?.textColor = presentationTheme.colors.cellDetailTextColor
-        separatorLabel.textColor = presentationTheme.colors.cellDetailTextColor
         dragIndicatorImageView.tintColor = presentationTheme.colors.cellDetailTextColor
     }
 
@@ -278,8 +268,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         }
         newLabel.isHidden = !audiotrack.isNew
         thumbnailView.image = audiotrack.thumbnailImage()
-        separatorLabel.text = "·"
-        separatorLabel.isHidden = true
         scrollView.isScrollEnabled = true
     }
 
@@ -314,7 +302,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         } else {
             sizeDescriptionLabel.text = movie.mediaDuration()
         }
-        separatorLabel.text = "·"
         scrollView.isScrollEnabled = true
     }
 
@@ -405,7 +392,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         selectionOverlay.isHidden = true
         dragIndicatorImageView.image = UIImage(named: "list")
         dragIndicatorImageView.isHidden = true
-        separatorLabel.isHidden = true
         enableScrollView()
     }
 }
