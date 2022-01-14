@@ -376,7 +376,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
 
         let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
-        return CGSize(width: cellWidth, height: isIpad ? 94 : 60)
+        return CGSize(width: cellWidth, height: isIpad ? 94 : 67)
     }
 
     override func prepareForReuse() {
