@@ -235,6 +235,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         separatorLabel.setContentHuggingPriority(.required, for: .horizontal)
         separatorLabel.font = sizeDescriptionLabel.font
         thumbnailWidth.constant = isIpad ? 72 : 56
+        thumbnailView.contentMode = .scaleAspectFill
         deleteButtonHeight.constant = isIpad ? 72 : 56
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         setupScrollView()
@@ -391,9 +392,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel.text = ""
         sizeDescriptionLabel.labelize = enableMarquee
         thumbnailView.image = nil
-        thumbnailView.contentMode = .scaleAspectFill
-        thumbnailWidth.constant = isIpad ? 72 : 56
-        newLabel.isHidden = true
         checkboxImageView.isHidden = true
         selectionOverlay.isHidden = true
         dragIndicatorImageView.image = UIImage(named: "list")
