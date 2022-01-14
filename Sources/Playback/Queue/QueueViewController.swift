@@ -565,7 +565,6 @@ extension QueueViewController: UICollectionViewDataSource {
         cell.backgroundColor = .clear
         cell.scrollContentView.backgroundColor = .clear
 
-        cell.newLabel.isHidden = true
         cell.isEditing = false
         cell.dragIndicatorImageView.isHidden = collectionView.numberOfItems(inSection: 0) <= 1
         media = mediaList.media(at: UInt(indexPath.row))
@@ -582,6 +581,7 @@ extension QueueViewController: UICollectionViewDataSource {
         } else if let media = medialibraryService.medialib.addExternalMedia(withMrl: safeMedia.url) {
             cell.media = media
         }
+        cell.newLabel.isHidden = true
         return cell
     }
 }
