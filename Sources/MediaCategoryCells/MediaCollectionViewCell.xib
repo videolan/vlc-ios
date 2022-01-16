@@ -42,29 +42,24 @@
                                                     <constraint firstAttribute="width" constant="24" id="kJQ-N4-JsW"/>
                                                 </constraints>
                                             </imageView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="HHK-jR-WLx">
-                                                <rect key="frame" x="69" y="12" width="394" height="56.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="new" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klo-Bq-5nI" userLabel="NewLabel">
-                                                        <rect key="frame" x="0.0" y="0.0" width="394" height="13.5"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zkn-vN-SN4" userLabel="Titlelabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="17.5" width="394" height="20.5"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" layoutMarginsFollowReadableWidth="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKd-DQ-8Uh" userLabel="sizeDescriptionLabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="42" width="394" height="14.5"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="new" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klo-Bq-5nI" userLabel="NewLabel">
+                                                <rect key="frame" x="454.5" y="33.5" width="21.5" height="13.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zkn-vN-SN4" userLabel="Titlelabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
+                                                <rect key="frame" x="69" y="16" width="41.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKd-DQ-8Uh" userLabel="sizeDescriptionLabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
+                                                <rect key="frame" x="69" y="49.5" width="31" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="list" translatesAutoresizingMaskIntoConstraints="NO" id="f9J-sb-sdM">
                                                 <rect key="frame" x="475" y="28" width="24" height="24"/>
                                                 <color key="tintColor" systemColor="secondaryLabelColor"/>
@@ -80,19 +75,25 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="WKd-DQ-8Uh" firstAttribute="leading" secondItem="Zkn-vN-SN4" secondAttribute="leading" id="71Q-RU-S97"/>
                                             <constraint firstItem="vQV-tE-gv0" firstAttribute="leading" secondItem="bhw-Aa-3Q7" secondAttribute="leading" id="9z4-Kl-vIs"/>
                                             <constraint firstItem="DpW-xo-rll" firstAttribute="leading" secondItem="bhw-Aa-3Q7" secondAttribute="leading" constant="4" id="AN6-Aj-EqE"/>
-                                            <constraint firstItem="HHK-jR-WLx" firstAttribute="centerY" secondItem="bhw-Aa-3Q7" secondAttribute="centerY" id="Bmn-hY-0c3"/>
                                             <constraint firstAttribute="bottom" secondItem="vQV-tE-gv0" secondAttribute="bottom" id="Cfo-FE-w7I"/>
                                             <constraint firstItem="Uhx-qs-Aow" firstAttribute="bottom" secondItem="DpW-xo-rll" secondAttribute="bottom" constant="-2" id="I7O-wk-0es"/>
                                             <constraint firstAttribute="trailing" secondItem="vQV-tE-gv0" secondAttribute="trailing" id="IO3-Hl-Rue"/>
+                                            <constraint firstItem="Klo-Bq-5nI" firstAttribute="centerY" secondItem="DpW-xo-rll" secondAttribute="centerY" id="JOf-4Y-xNS"/>
+                                            <constraint firstItem="WKd-DQ-8Uh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Zkn-vN-SN4" secondAttribute="bottom" constant="2" id="Lfb-xu-26n"/>
                                             <constraint firstItem="f9J-sb-sdM" firstAttribute="centerY" secondItem="bhw-Aa-3Q7" secondAttribute="centerY" id="aFy-x2-MKo"/>
+                                            <constraint firstItem="Klo-Bq-5nI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WKd-DQ-8Uh" secondAttribute="trailing" constant="4" id="aXV-CP-2TE"/>
                                             <constraint firstItem="vQV-tE-gv0" firstAttribute="top" secondItem="bhw-Aa-3Q7" secondAttribute="top" id="att-jq-AVp"/>
+                                            <constraint firstItem="Klo-Bq-5nI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Zkn-vN-SN4" secondAttribute="trailing" constant="4" id="cTp-gR-ZAc"/>
+                                            <constraint firstItem="WKd-DQ-8Uh" firstAttribute="bottom" secondItem="DpW-xo-rll" secondAttribute="bottom" constant="-4" id="dA8-K0-chz"/>
                                             <constraint firstItem="Uhx-qs-Aow" firstAttribute="trailing" secondItem="DpW-xo-rll" secondAttribute="trailing" constant="-2" id="e0X-1X-PuG"/>
                                             <constraint firstAttribute="trailing" secondItem="f9J-sb-sdM" secondAttribute="trailing" constant="-19" id="hia-uB-izg"/>
-                                            <constraint firstItem="f9J-sb-sdM" firstAttribute="leading" secondItem="HHK-jR-WLx" secondAttribute="trailing" constant="12" id="tFx-Fj-xge"/>
+                                            <constraint firstItem="Zkn-vN-SN4" firstAttribute="top" secondItem="DpW-xo-rll" secondAttribute="top" constant="4" id="nGF-dD-IYt"/>
+                                            <constraint firstItem="Zkn-vN-SN4" firstAttribute="leading" secondItem="DpW-xo-rll" secondAttribute="trailing" constant="9" id="pWL-zt-V7Y"/>
+                                            <constraint firstAttribute="trailing" secondItem="Klo-Bq-5nI" secondAttribute="trailing" constant="4" id="rIG-y3-Cfy"/>
                                             <constraint firstItem="DpW-xo-rll" firstAttribute="centerY" secondItem="bhw-Aa-3Q7" secondAttribute="centerY" id="wgE-6k-ZhQ"/>
-                                            <constraint firstItem="HHK-jR-WLx" firstAttribute="leading" secondItem="DpW-xo-rll" secondAttribute="trailing" constant="9" id="xzo-dy-CiU"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -147,7 +148,6 @@
                 <outlet property="checkboxImageView" destination="Uhx-qs-Aow" id="VCh-49-ONi"/>
                 <outlet property="deleteButton" destination="6Ey-dT-h2f" id="NOC-o2-rvy"/>
                 <outlet property="deleteButtonHeight" destination="336-fj-EUN" id="PEB-jP-nqV"/>
-                <outlet property="descriptionStackView" destination="HHK-jR-WLx" id="27s-ST-uYb"/>
                 <outlet property="dragIndicatorImageView" destination="f9J-sb-sdM" id="t3G-VX-68j"/>
                 <outlet property="newLabel" destination="Klo-Bq-5nI" id="8jr-y0-SoR"/>
                 <outlet property="scrollContentView" destination="bhw-Aa-3Q7" id="7zP-ye-wWO"/>

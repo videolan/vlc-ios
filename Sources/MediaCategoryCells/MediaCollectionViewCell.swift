@@ -30,7 +30,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet private(set) weak var deleteButtonHeight: NSLayoutConstraint!
     @IBOutlet private(set) weak var thumbnailWidth: NSLayoutConstraint!
-    @IBOutlet weak var descriptionStackView: UIStackView!
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollContentView: UIView!
