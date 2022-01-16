@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 import Foundation
+import UIKit
 
 extension Notification.Name {
     static let VLCThemeDidChangeNotification = Notification.Name("themeDidChangeNotfication")
@@ -38,6 +39,7 @@ extension Notification.Name {
     let blurStyle: UIBlurEffect.Style
     let textfieldBorderColor: UIColor
     let textfieldPlaceholderColor: UIColor
+    let thumbnailBackgroundColor: UIColor
 
     init(isDark: Bool,
                 name: String,
@@ -58,7 +60,8 @@ extension Notification.Name {
                 toolBarStyle: UIBarStyle,
                 blurStyle: UIBlurEffect.Style,
                 textfieldBorderColor: UIColor,
-                textfieldPlaceholderColor: UIColor) {
+                textfieldPlaceholderColor: UIColor,
+                thumbnailBackgroundColor: UIColor) {
         self.isDark = isDark
         self.name = name
         self.statusBarStyle = statusBarStyle
@@ -79,6 +82,7 @@ extension Notification.Name {
         self.blurStyle = blurStyle
         self.textfieldBorderColor = textfieldBorderColor
         self.textfieldPlaceholderColor = textfieldPlaceholderColor
+        self.thumbnailBackgroundColor = thumbnailBackgroundColor
     }
 }
 
@@ -217,7 +221,8 @@ let brightPalette = ColorPalette(isDark: false,
                                  toolBarStyle: UIBarStyle.default,
                                  blurStyle: .extraLight,
                                  textfieldBorderColor: UIColor(0x84929C),
-                                 textfieldPlaceholderColor: UIColor(0xB3B3B3))
+                                 textfieldPlaceholderColor: UIColor(0xB3B3B3),
+                                 thumbnailBackgroundColor: UIColor(0xE6E6E6))
 
 let darkPalette = ColorPalette(isDark: true,
                                name: "Dark",
@@ -238,7 +243,8 @@ let darkPalette = ColorPalette(isDark: true,
                                toolBarStyle: UIBarStyle.black,
                                blurStyle: .dark,
                                textfieldBorderColor: UIColor(0x84929C),
-                               textfieldPlaceholderColor: UIColor(0x737373))
+                               textfieldPlaceholderColor: UIColor(0x737373),
+                               thumbnailBackgroundColor: UIColor(0x26282B))
 
 let blackPalette = ColorPalette(isDark: true,
                                 name: "Dark",
@@ -259,7 +265,8 @@ let blackPalette = ColorPalette(isDark: true,
                                 toolBarStyle: UIBarStyle.black,
                                 blurStyle: .dark,
                                 textfieldBorderColor: UIColor(0x84929C),
-                                textfieldPlaceholderColor: UIColor(0x737373))
+                                textfieldPlaceholderColor: UIColor(0x737373),
+                                thumbnailBackgroundColor: UIColor(0x1C1E21))
 
 let defaultFont = Typography(tableHeaderFont: UIFont.systemFont(ofSize: 24, weight: .semibold))
 

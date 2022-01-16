@@ -101,13 +101,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
     private func setupGroupView() {
         thumbnailsBackground.layer.cornerRadius = 6
-
-        var color: UIColor = UIColor.gray.withAlphaComponent(0.08)
-        if PresentationTheme.current.colors.isDark {
-            color = UIColor.black.withAlphaComponent(0.25)
-        }
-
-        thumbnailsBackground.backgroundColor = color
+        thumbnailsBackground.backgroundColor = PresentationTheme.current.colors.thumbnailBackgroundColor
 
         firstThumbnail.layer.cornerRadius = 3
         secondThumbnail.layer.cornerRadius = 3
