@@ -60,7 +60,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
     private let descriptionLabel: VLCMarqueeLabel = {
         let label = VLCMarqueeLabel()
-        label.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = PresentationTheme.current.colors.cellDetailTextColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -68,7 +68,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
 
     private let sizeLabel: VLCMarqueeLabel = {
         let label = VLCMarqueeLabel()
-        label.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = PresentationTheme.current.colors.cellDetailTextColor
         label.minimumScaleFactor = 0.2
         label.translatesAutoresizingMaskIntoConstraints = false
