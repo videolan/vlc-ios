@@ -225,7 +225,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
         titleLabel.labelize = enableMarquee
         sizeDescriptionLabel.labelize = enableMarquee
-        sizeDescriptionLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
+        sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         thumbnailWidth.constant = isIpad ? 72 : 56
         thumbnailView.contentMode = .scaleAspectFill
         deleteButtonHeight.constant = isIpad ? 72 : 56
@@ -241,11 +241,12 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     }
 
     func setTheme(to presentationTheme: PresentationTheme) {
-        scrollContentView.backgroundColor = presentationTheme.colors.background
-        backgroundColor = presentationTheme.colors.background
-        titleLabel?.textColor = presentationTheme.colors.cellTextColor
-        sizeDescriptionLabel?.textColor = presentationTheme.colors.cellDetailTextColor
-        dragIndicatorImageView.tintColor = presentationTheme.colors.cellDetailTextColor
+        let colors = presentationTheme.colors
+        scrollContentView.backgroundColor = colors.background
+        backgroundColor = colors.background
+        titleLabel?.textColor = colors.cellTextColor
+        sizeDescriptionLabel?.textColor = colors.cellDetailTextColor
+        dragIndicatorImageView.tintColor = colors.cellDetailTextColor
     }
 
     @objc fileprivate func themeDidChange() {
