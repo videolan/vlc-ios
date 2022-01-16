@@ -1,3 +1,4 @@
+import UIKit
 /*****************************************************************************
  * TabBarCoordinator.swift
  * VLC for iOS
@@ -32,21 +33,32 @@ class TabBarCoordinator: NSObject {
     }
 
     @objc func updateTheme() {
-        editToolbar.backgroundColor = PresentationTheme.current.colors.tabBarColor
+        let colors = PresentationTheme.current.colors
+        let tabBar = tabBarController.tabBar
+        let tabBarLayer = tabBar.layer
+
+        editToolbar.backgroundColor = colors.tabBarColor
+
         //Setting this in appearanceManager doesn't update tabbar and UINavigationbar of the settingsViewController on change hence we do it here
-        tabBarController.tabBar.isTranslucent = false
-        tabBarController.tabBar.backgroundColor = PresentationTheme.current.colors.tabBarColor
-        tabBarController.tabBar.barTintColor = PresentationTheme.current.colors.tabBarColor
-        tabBarController.tabBar.itemPositioning = .fill
+        tabBar.isTranslucent = true
+        tabBar.backgroundColor = colors.tabBarColor
+        tabBar.barTintColor = colors.tabBarColor
+        tabBar.itemPositioning = .fill
+
+        tabBarLayer.shadowOffset = CGSize(width: 0, height: 0)
+        tabBarLayer.shadowRadius = 4.0
+        tabBarLayer.shadowColor = colors.cellDetailTextColor.cgColor
+        tabBarLayer.shadowOpacity = 0.6
+
         tabBarController.viewControllers?.forEach {
             if let navController = $0 as? UINavigationController, navController.topViewController is SettingsController {
                 navController.navigationBar.isTranslucent = false
-                navController.navigationBar.barTintColor = PresentationTheme.current.colors.navigationbarColor
-                navController.navigationBar.tintColor = PresentationTheme.current.colors.orangeUI
-                navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:  PresentationTheme.current.colors.navigationbarTextColor]
+                navController.navigationBar.barTintColor = colors.navigationbarColor
+                navController.navigationBar.tintColor = colors.orangeUI
+                navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:  colors.navigationbarTextColor]
 
                 if #available(iOS 11.0, *) {
-                    navController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:  PresentationTheme.current.colors.navigationbarTextColor]
+                    navController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:  colors.navigationbarTextColor]
                 }
                 if #available(iOS 13.0, *) {
                     navController.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
