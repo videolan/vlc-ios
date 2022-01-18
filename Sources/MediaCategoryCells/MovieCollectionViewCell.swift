@@ -22,7 +22,6 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var sizeLabel: UILabel!
-    @IBOutlet weak var descriptionStackView: UIStackView!
 
     @IBOutlet weak var selectionOverlay: UIView!
 
@@ -92,7 +91,6 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
         newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
-        groupTitleLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         selectionOverlay.layer.cornerRadius = 6
         thumbnailsArray = [firstThumbnail, secondThumbnail, thirdThumbnail, fourthThumbnail]
