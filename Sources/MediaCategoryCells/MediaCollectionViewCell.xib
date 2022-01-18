@@ -61,11 +61,11 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="list" translatesAutoresizingMaskIntoConstraints="NO" id="f9J-sb-sdM">
-                                                <rect key="frame" x="475" y="28" width="24" height="24"/>
+                                                <rect key="frame" x="452" y="28" width="24" height="24"/>
                                                 <color key="tintColor" systemColor="secondaryLabelColor"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="CKC-dW-QST"/>
                                                     <constraint firstAttribute="width" constant="24" id="Fr7-nA-Ngl"/>
-                                                    <constraint firstAttribute="width" secondItem="f9J-sb-sdM" secondAttribute="height" multiplier="1:1" id="bXl-Ph-qni"/>
                                                 </constraints>
                                             </imageView>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vQV-tE-gv0">
@@ -89,7 +89,7 @@
                                             <constraint firstItem="Klo-Bq-5nI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Zkn-vN-SN4" secondAttribute="trailing" constant="4" id="cTp-gR-ZAc"/>
                                             <constraint firstItem="WKd-DQ-8Uh" firstAttribute="bottom" secondItem="DpW-xo-rll" secondAttribute="bottom" constant="-4" id="dA8-K0-chz"/>
                                             <constraint firstItem="Uhx-qs-Aow" firstAttribute="trailing" secondItem="DpW-xo-rll" secondAttribute="trailing" constant="-2" id="e0X-1X-PuG"/>
-                                            <constraint firstAttribute="trailing" secondItem="f9J-sb-sdM" secondAttribute="trailing" constant="-19" id="hia-uB-izg"/>
+                                            <constraint firstAttribute="trailing" secondItem="f9J-sb-sdM" secondAttribute="trailing" constant="4" id="hia-uB-izg"/>
                                             <constraint firstItem="Zkn-vN-SN4" firstAttribute="top" secondItem="DpW-xo-rll" secondAttribute="top" constant="4" id="nGF-dD-IYt"/>
                                             <constraint firstItem="Zkn-vN-SN4" firstAttribute="leading" secondItem="DpW-xo-rll" secondAttribute="trailing" constant="9" id="pWL-zt-V7Y"/>
                                             <constraint firstAttribute="trailing" secondItem="Klo-Bq-5nI" secondAttribute="trailing" constant="4" id="rIG-y3-Cfy"/>
