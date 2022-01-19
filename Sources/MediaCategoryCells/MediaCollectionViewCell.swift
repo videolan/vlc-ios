@@ -381,6 +381,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        isEditing = false
         ignoreThemeDidChange = false
         titleLabel.text = ""
         titleLabel.labelize = enableMarquee

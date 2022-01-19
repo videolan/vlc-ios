@@ -266,7 +266,6 @@ extension EditController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.cellType.defaultReuseIdentifier,
                                                          for: indexPath) as? BaseCollectionViewCell {
-            cell.media = model.anyfiles[indexPath.row]
             cell.isSelected = selectedCellIndexPaths.contains(indexPath)
             cell.isAccessibilityElement = true
             cell.checkImageView?.isHidden = false
@@ -288,6 +287,8 @@ extension EditController: UICollectionViewDataSource {
             if cell.isSelected {
                 cell.selectionViewOverlay?.isHidden = false
             }
+
+            cell.media = model.anyfiles[indexPath.row]
             return cell
         } else {
             assertionFailure("We couldn't dequeue a reusable cell, the cell might not be registered or is not a MediaEditCell")

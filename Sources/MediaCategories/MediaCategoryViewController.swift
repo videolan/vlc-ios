@@ -913,13 +913,13 @@ extension MediaCategoryViewController {
             }
         }
 
-        mediaCell.media = mediaObject
-        mediaCell.isAccessibilityElement = true
-
         if let mediaCell = mediaCell as? MediaCollectionViewCell {
             mediaCell.delegate = self
             mediaCell.isEditing = false
         }
+
+        mediaCell.media = mediaObject
+        mediaCell.isAccessibilityElement = true
 
         return mediaCell
     }
