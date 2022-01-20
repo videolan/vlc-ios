@@ -49,6 +49,7 @@ class TabBarCoordinator: NSObject {
         tabBarLayer.shadowRadius = 4.0
         tabBarLayer.shadowColor = colors.cellDetailTextColor.cgColor
         tabBarLayer.shadowOpacity = 0.6
+        tabBarLayer.shadowPath = UIBezierPath(rect: tabBar.bounds).cgPath
 
         tabBarController.viewControllers?.forEach {
             if let navController = $0 as? UINavigationController, navController.topViewController is SettingsController {
