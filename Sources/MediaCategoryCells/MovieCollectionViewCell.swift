@@ -92,14 +92,15 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
         newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
-        selectionOverlay.layer.cornerRadius = 6
+        selectionOverlay.layer.cornerRadius = 3
+        thumbnailView.layer.cornerRadius = 3
         thumbnailsArray = [firstThumbnail, secondThumbnail, thirdThumbnail, fourthThumbnail]
         themeDidChange()
     }
 
     private func setupGroupView() {
         thumbnailsBackground.isHidden = false
-        thumbnailsBackground.layer.cornerRadius = 6
+        thumbnailsBackground.layer.cornerRadius = 3
         thumbnailsBackground.backgroundColor = PresentationTheme.current.colors.thumbnailBackgroundColor
 
         firstThumbnail.layer.cornerRadius = 3
@@ -142,13 +143,12 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         progressView.progress = progress
         newLabel.isHidden = !movie.isNew
         sizeLabel.text = movie.formatSize()
-        thumbnailView.layer.cornerRadius = 6
 
         progressView.progressViewStyle = .bar
 
         if !progressView.isHidden {
             if #available(iOS 11.0, *) {
-                progressView.layer.cornerRadius = 7
+                progressView.layer.cornerRadius = 3
                 progressView.clipsToBounds = true
                 progressView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             } else {
