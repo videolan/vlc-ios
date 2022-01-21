@@ -84,7 +84,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="309" height="230"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiI-8P-vuS" userLabel="Thumbnails Background">
-                                <rect key="frame" x="0.0" y="0.0" width="309" height="193.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="309" height="192.5"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oHG-G0-9Vk" userLabel="First Thumbnail">
@@ -106,16 +106,16 @@
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rHh-pR-BuA" userLabel="Fourth Thumbnail">
-                                <rect key="frame" x="157" y="98" width="146" height="89.5"/>
+                                <rect key="frame" x="157" y="98" width="146" height="90.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="rHh-pR-BuA" secondAttribute="height" multiplier="49:30" id="6VX-FI-QkT"/>
+                                    <constraint firstAttribute="width" secondItem="rHh-pR-BuA" secondAttribute="height" multiplier="73:45" id="6VX-FI-QkT"/>
                                 </constraints>
                             </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvr-ZF-Vma" userLabel="Additional Media Overlay">
-                                <rect key="frame" x="157" y="98" width="146" height="89.5"/>
+                                <rect key="frame" x="157" y="98" width="146" height="90.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRq-Xx-voS" userLabel="Number Label">
-                                        <rect key="frame" x="67.5" y="34.5" width="10.5" height="20.5"/>
+                                        <rect key="frame" x="67.5" y="35" width="10.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -128,13 +128,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIV-SU-9UQ" userLabel="Group Title Label">
-                                <rect key="frame" x="136" y="195.5" width="37" height="17"/>
+                                <rect key="frame" x="136" y="194.5" width="37" height="17"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1l-5h-C9o" userLabel="Group Size Label">
-                                <rect key="frame" x="139" y="212.5" width="31" height="14.5"/>
+                                <rect key="frame" x="139" y="211.5" width="31" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -169,7 +169,7 @@
                             <constraint firstItem="e1l-5h-C9o" firstAttribute="centerX" secondItem="5eL-fF-57J" secondAttribute="centerX" id="n8x-KG-ubK"/>
                             <constraint firstItem="UIV-SU-9UQ" firstAttribute="centerX" secondItem="5eL-fF-57J" secondAttribute="centerX" id="qL2-cg-ePi"/>
                             <constraint firstItem="xvr-ZF-Vma" firstAttribute="centerX" secondItem="rHh-pR-BuA" secondAttribute="centerX" id="sgr-eT-aec"/>
-                            <constraint firstItem="aiI-8P-vuS" firstAttribute="bottom" secondItem="rHh-pR-BuA" secondAttribute="bottom" constant="6" id="tpQ-uQ-djk"/>
+                            <constraint firstItem="aiI-8P-vuS" firstAttribute="bottom" secondItem="rHh-pR-BuA" secondAttribute="bottom" constant="4" id="tpQ-uQ-djk"/>
                             <constraint firstItem="aiI-8P-vuS" firstAttribute="top" secondItem="5eL-fF-57J" secondAttribute="top" id="v7t-AT-VQl"/>
                         </constraints>
                     </view>
