@@ -98,6 +98,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     }
 
     private func setupGroupView() {
+        thumbnailsBackground.isHidden = false
         thumbnailsBackground.layer.cornerRadius = 6
         thumbnailsBackground.backgroundColor = PresentationTheme.current.colors.thumbnailBackgroundColor
 
@@ -172,7 +173,6 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         groupTitleLabel.text = playlist.title()
         groupSizeLabel.text = playlist.numberOfTracksString()
 
-        thumbnailsBackground.isHidden = false
         groupView.isHidden = false
     }
 
@@ -198,7 +198,6 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         groupTitleLabel.text = mediaGroup.name()
         groupSizeLabel.text = mediaGroup.numberOfTracksString()
 
-        thumbnailsBackground.isHidden = false
         groupView.isHidden = false
     }
 
@@ -241,9 +240,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         checkboxImageView.isHidden = true
         selectionOverlay.isHidden = true
         sizeLabel.isHidden = true
-
         mediaView.isHidden = false
-        thumbnailsBackground.isHidden = true
+
         firstThumbnail.image = nil
         secondThumbnail.image = nil
         thirdThumbnail.image = nil
