@@ -901,11 +901,17 @@ extension MediaCategoryViewController {
         }
 
         if let mediaGroup = mediaObject as? VLCMLMediaGroup {
-            guard let media = mediaGroup.media(of: .unknown)?.first else {
-                assertionFailure("MediaCategoryViewController: Failed to retrieve media")
+            guard let mediaArray = mediaGroup.media(of: .unknown) else {
+                assertionFailure("MediaCategoryViewController: Failed to retrieve media array")
                 return mediaCell
             }
-            services.medialibraryService.requestThumbnail(for: media)
+
+            // we show up to 4 thumbnails per group, so request those
+            for index in 0...3 {
+                if let media = mediaArray.objectAtIndex(index: index) {
+                    services.medialibraryService.requestThumbnail(for: media)
+                }
+            }
         } else if let media = mediaObject as? VLCMLMedia {
             if media.type() == .unknown || media.type() == .video {
                 services.medialibraryService.requestThumbnail(for: media)
