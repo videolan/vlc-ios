@@ -123,6 +123,18 @@ extension CollectionModel: MediaLibraryObserver {
         }
     }
 
+    func medialibrary(_ medialibrary: MediaLibraryService,
+                      thumbnailReady media: VLCMLMedia,
+                      type: VLCMLThumbnailSizeType, success: Bool) {
+        guard success else {
+            return
+        }
+        files = mediaCollection.files() ?? []
+        observable.observers.forEach() {
+            $0.value.observer?.mediaLibraryBaseModelReloadView()
+        }
+    }
+
     func medialibraryDidStartRescan() {
         files.removeAll()
     }
