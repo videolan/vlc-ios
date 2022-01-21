@@ -84,6 +84,7 @@
                                   @"kVLCAudioLibraryGridLayoutGENRES" : @(YES),
                                   @"kVLCVideoLibraryGridLayoutALL_VIDEOS" : @(YES),
                                   @"kVLCVideoLibraryGridLayoutVIDEO_GROUPS" : @(YES),
+                                  @"kVLCVideoLibraryGridLayoutVLCMLMediaGroupCollections" : @(YES),
     };
     [defaults registerDefaults:appDefaults];
 }
