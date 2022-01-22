@@ -15,5 +15,6 @@
 @interface VLCThumbnailsCache : NSObject
 
 + (nullable UIImage *)thumbnailForURL:(nullable NSURL *)url;
++ (void)invalidateThumbnailForURL:(nullable NSURL *)url;
 
 @end

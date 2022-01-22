@@ -71,6 +71,15 @@
     return [sharedCache _thumbnailForURL:url];
 }
 
++ (void)invalidateThumbnailForURL:(nullable NSURL *)url
+{
+    if (!url) {
+        return;
+    }
+    VLCThumbnailsCache *sharedCache = [VLCThumbnailsCache sharedThumbnailCache];
+    [sharedCache _invalidateThumbnailForURL:url];
+}
+
 - (void)_setThumbnail:(UIImage *)image forURL:(NSURL *)url
 {
     if (image)
@@ -91,6 +100,11 @@
     [self _setThumbnail:theImage forURL:url];
 
     return theImage;
+}
+
+- (void)_invalidateThumbnailForURL:(NSURL *)url
+{
+    [_thumbnailCache removeObjectForKey:url];
 }
 
 @end

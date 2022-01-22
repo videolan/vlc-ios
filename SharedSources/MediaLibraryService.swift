@@ -292,6 +292,12 @@ private extension MediaLibraryService {
         mlMedia.titleIndex = Int64(player.indexOfCurrentTitle)
 
         if mlMedia.type() == .video {
+            if let thumbnailURL = mlMedia.thumbnail() {
+                if mlMedia.progress < 0.90 {
+                    _ = try? FileManager.default.removeItem(at: thumbnailURL)
+                    VLCThumbnailsCache.invalidateThumbnail(for: thumbnailURL)
+                }
+            }
             mlMedia.requestThumbnail(of: .thumbnail, desiredWidth: desiredThumbnailWidth,
                                      desiredHeight: desiredThumbnailHeight, atPosition: player.playbackPosition)
         }
