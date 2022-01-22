@@ -2,8 +2,8 @@
  * MediaLibraryService.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2018 VideoLAN. All rights reserved.
- * Copyright © 2018 Videolabs
+ * Copyright © 2018-2022 VideoLAN. All rights reserved.
+ * Copyright © 2018-2022 Videolabs
  *
  * Authors: Soomin Lee <bubu # mikan.io>
  *
@@ -11,6 +11,8 @@
  *****************************************************************************/
 
 import CoreSpotlight
+import VLCMediaLibraryKit
+import UIKit
 
 // MARK: - Notification names
 
@@ -134,6 +136,9 @@ class MediaLibraryService: NSObject {
 
     private var didFinishDiscovery = false
 
+    private var desiredThumbnailWidth = UInt(320)
+    private var desiredThumbnailHeight = UInt(200)
+
     private(set) var observable = Observable<MediaLibraryObserver>()
 
     private(set) lazy var medialib = VLCMediaLibrary()
@@ -153,6 +158,12 @@ class MediaLibraryService: NSObject {
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleWillEnterForegroundNotification),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
+
+        let screen = UIScreen.main
+        let cellSizeWidth = MovieCollectionViewCell.cellSizeForWidth(screen.bounds.width).width
+        let scaledCellWidth = cellSizeWidth * screen.scale
+        desiredThumbnailWidth = UInt(scaledCellWidth)
+        desiredThumbnailHeight = UInt(scaledCellWidth / 1.6)
     }
 }
 
@@ -281,8 +292,8 @@ private extension MediaLibraryService {
         mlMedia.titleIndex = Int64(player.indexOfCurrentTitle)
 
         if mlMedia.type() == .video {
-            mlMedia.requestThumbnail(of: .thumbnail, desiredWidth: 320,
-                                     desiredHeight: 200, atPosition: player.playbackPosition)
+            mlMedia.requestThumbnail(of: .thumbnail, desiredWidth: desiredThumbnailWidth,
+                                     desiredHeight: desiredThumbnailHeight, atPosition: player.playbackPosition)
         }
     }
 
@@ -387,7 +398,7 @@ extension MediaLibraryService {
             assertionFailure("MediaLibraryService: requestThumbnail: unknown case.")
         }
 
-        if !media.requestThumbnail(of: .thumbnail, desiredWidth: 320, desiredHeight: 200, atPosition: 0.03) {
+        if !media.requestThumbnail(of: .thumbnail, desiredWidth: desiredThumbnailWidth, desiredHeight: desiredThumbnailHeight, atPosition: 0.03) {
             assertionFailure("MediaLibraryService: Failed to generate thumbnail for: \(media.identifier())")
         }
     }
