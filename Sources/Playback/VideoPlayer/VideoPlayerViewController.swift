@@ -2,10 +2,10 @@
  * VideoPlayerViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2020-2021 VideoLAN. All rights reserved.
- * Copyright © 2020-2021 Videolabs
+ * Copyright © 2020-2022 VLC authors and VideoLAN
  *
  * Authors: Soomin Lee <bubu # mikan.io>
+ *          Maxime Chapelet <umxprime # videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -246,7 +246,7 @@ class VideoPlayerViewController: UIViewController {
     private var rendererButton: UIButton?
     let notificationCenter = NotificationCenter.default
 
-    private var isFirstCall: Bool = true
+    private var resetOptionsOnNextPresentation: Bool = false
 
     private(set) lazy var titleSelectionView: TitleSelectionView = {
         let isLandscape = UIDevice.current.orientation.isLandscape
@@ -583,6 +583,9 @@ class VideoPlayerViewController: UIViewController {
         if #available(iOS 11.0, *) {
             adaptVideoOutputToNotch()
         }
+
+        let setIconVisibility = playbackService.adjustFilter.isEnabled ? showIcon : hideIcon
+        setIconVisibility(optionsNavigationBar.videoFiltersButton)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -600,11 +603,10 @@ class VideoPlayerViewController: UIViewController {
 
         // Checking if this is the first time that the controller appears.
         // Reseting the options if necessary the first time unables the user to modify the video filters.
-        if isFirstCall {
-            isFirstCall = false
-        } else {
+        if resetOptionsOnNextPresentation {
             moreOptionsActionSheet.resetOptionsIfNecessary()
         }
+        resetOptionsOnNextPresentation = true
     }
 
     func setRepeatMode() {

@@ -2,11 +2,12 @@
  * VLCPlaybackService.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2022 VLC authors and VideoLAN
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Tobias Conradi <videolan # tobias-conradi.de>
+ *          Maxime Chapelet <umxprime # videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -32,6 +33,7 @@ extern NSString *const VLCPlaybackServicePlaybackPositionUpdated;
 @class VLCMetaData;
 @class VLCMLMedia;
 @class VLCPlayerDisplayController;
+@class VLCPlaybackServiceAdjustFilter;
 
 @protocol VLCPlaybackServiceDelegate <NSObject>
 #if TARGET_OS_IOS
@@ -81,13 +83,7 @@ NS_SWIFT_NAME(PlaybackService)
 @property (nonatomic, readwrite) float audioDelay; // in milliseconds, default = 0.0
 @property (nonatomic, readwrite) float playbackPosition; // in seconds, default = 0.0
 @property (nonatomic, readwrite) float subtitleDelay; // in milliseconds, default = 0.0
-
-@property (nonatomic, readwrite) float hue; // default = 0.0
-@property (nonatomic, readwrite) float contrast; // default = 1.0
-@property (nonatomic, readwrite) float brightness; // default = 1.0
-@property (nonatomic, readwrite) float saturation; // default = 1.0
-@property (nonatomic, readwrite) float gamma; // default = 1.0
-
+@property (nonatomic, readonly) VLCPlaybackServiceAdjustFilter *adjustFilter;
 @property (nonatomic, readonly) CGFloat yaw; //  between ]-180;180]
 @property (nonatomic, readonly) CGFloat pitch; // ]-90;90]
 @property (nonatomic, readonly) CGFloat roll; // ]-180;180]
@@ -130,7 +126,6 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)jumpForward:(int)interval;
 - (void)jumpBackward:(int)interval;
 - (void)toggleRepeatMode;
-- (void)resetFilters;
 - (VLCTime *)remainingTime;
 
 - (NSString *)audioTrackNameAtIndex:(NSInteger)index;

@@ -1,10 +1,10 @@
 /*****************************************************************************
  * VideoFiltersView.swift
  *
- * Copyright © 2020 VLC authors and VideoLAN
- * Copyright © 2020 Videolabs
+ * Copyright © 2020-2022 VLC authors and VideoLAN
  *
  * Authors: Diogo Simao Marques <diogo.simaomarquespro@gmail.com>
+ *          Maxime Chapelet <umxprime # videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -30,26 +30,6 @@ class VideoFiltersView: UIView {
     @IBOutlet weak var gammaSlider: VLCSlider!
     private let resetButton = UIButton()
 
-    private let defaultBrightness: Float = 1.0
-    private let defaultContrast: Float = 1.0
-    private let defaultHue: Float = 0.0
-    private let defaultSaturation: Float = 1.0
-    private let defaultGamma: Float = 1.0
-
-    private let minValue: Float = 0.0
-    private let minHue: Float = -180.0
-    private let maxBrightness: Float = 2.0
-    private let maxContrast: Float = 2.0
-    private let maxHue: Float = 180.0
-    private let maxSaturation: Float = 3.0
-    private let maxGamma: Float = 10.0
-
-    private var currentBrightness: Float = 1.0
-    private var currentContrast: Float = 1.0
-    private var currentHue: Float = 0.0
-    private var currentSaturation: Float = 1.0
-    private var currentGamma: Float = 1.0
-
     weak var delegate: VideoFiltersViewDelegate?
 
     let vpc = PlaybackService.sharedInstance()
@@ -60,6 +40,14 @@ class VideoFiltersView: UIView {
         setupResetButton()
         setupSliders()
         setupTheme()
+    }
+
+    override func willMove(toSuperview newSuperview: UIView?) {
+        guard newSuperview != nil else {
+            return
+        }
+        vpc.adjustFilter.isEnabled ? delegate?.videoFiltersViewShowIcon() : delegate?.videoFiltersViewHideIcon()
+        setupSliders()
     }
 
     func setupTheme() {
@@ -95,98 +83,47 @@ class VideoFiltersView: UIView {
         resetButton.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
-    private func setupSliders() {
-        brightnessSlider.minimumValue = minValue
-        brightnessSlider.maximumValue = maxBrightness
-        brightnessSlider.setValue(currentBrightness, animated: true)
-
-        contrastSlider.minimumValue = minValue
-        contrastSlider.maximumValue = maxContrast
-        contrastSlider.setValue(currentContrast, animated: true)
-
-        hueSlider.minimumValue = minHue
-        hueSlider.maximumValue = maxHue
-        hueSlider.setValue(currentHue, animated: true)
-
-        saturationSlider.minimumValue = minValue
-        saturationSlider.maximumValue = maxSaturation
-        saturationSlider.setValue(currentSaturation, animated: true)
-
-        gammaSlider.minimumValue = minValue
-        gammaSlider.maximumValue = maxGamma
-        gammaSlider.setValue(currentGamma, animated: true)
+    private func setupSlider(_ slider: VLCSlider, _ parameter: PlaybackServiceAdjustFilter.Parameter) {
+        slider.minimumValue = parameter.minValue
+        slider.maximumValue = parameter.maxValue
+        slider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
+        slider.setValue(parameter.value, animated: true)
     }
 
-    func resetSlidersIfNeeded() {
-        if vpc.brightness != currentBrightness ||
-            vpc.contrast != currentContrast ||
-            vpc.hue != currentHue ||
-            vpc.saturation != currentSaturation ||
-            vpc.gamma != currentGamma {
-            currentBrightness = defaultBrightness
-            currentContrast = defaultContrast
-            currentHue = defaultHue
-            currentSaturation = defaultSaturation
-            currentGamma = defaultGamma
+    private func setupSliders() {
+        setupSlider(brightnessSlider, vpc.adjustFilter.brightness)
+        setupSlider(contrastSlider, vpc.adjustFilter.contrast)
+        setupSlider(hueSlider, vpc.adjustFilter.hue)
+        setupSlider(saturationSlider, vpc.adjustFilter.saturation)
+        setupSlider(gammaSlider, vpc.adjustFilter.gamma)
+    }
 
+    func resetIfNeeded() {
+        if vpc.adjustFilter.resetParametersIfNeeded() {
+            vpc.adjustFilter.isEnabled = false
             setupSliders()
-
             delegate?.videoFiltersViewHideIcon()
         }
     }
 
     @IBAction func handleSliderChange(_ sender: VLCSlider) {
+        let newValue = sender.value
         if sender.tag == 1 {
-            currentBrightness = sender.value
-            brightnessSlider.setValue(currentBrightness, animated: true)
-            vpc.brightness = currentBrightness
+            vpc.adjustFilter.brightness.value = newValue
         } else if sender.tag == 2 {
-            currentContrast = sender.value
-            contrastSlider.setValue(currentContrast, animated: true)
-            vpc.contrast = currentContrast
+            vpc.adjustFilter.contrast.value = newValue
         } else if sender.tag == 3 {
-            currentHue = sender.value
-            hueSlider.setValue(currentHue, animated: true)
-            vpc.hue = currentHue
+            vpc.adjustFilter.hue.value = newValue
         } else if sender.tag == 4 {
-            currentSaturation = sender.value
-            saturationSlider.setValue(currentSaturation, animated: true)
-            vpc.saturation = currentSaturation
+            vpc.adjustFilter.saturation.value = newValue
         } else if sender.tag == 5 {
-            currentGamma = sender.value
-            gammaSlider.setValue(currentGamma, animated: true)
-            vpc.gamma = currentGamma
+            vpc.adjustFilter.gamma.value = newValue
         }
-
         delegate?.videoFiltersViewShowIcon()
     }
 
-    func reset() {
-        currentBrightness = defaultBrightness
-        brightnessSlider.setValue(currentBrightness, animated: true)
-        vpc.brightness = currentBrightness
-
-        currentContrast = defaultContrast
-        contrastSlider.setValue(currentContrast, animated: true)
-        vpc.contrast = currentContrast
-
-        currentHue = defaultHue
-        hueSlider.setValue(currentHue, animated: true)
-        vpc.hue = currentHue
-
-        currentSaturation = defaultSaturation
-        saturationSlider.setValue(currentSaturation, animated: true)
-        vpc.saturation = currentSaturation
-
-        currentGamma = defaultGamma
-        gammaSlider.setValue(currentGamma, animated: true)
-        vpc.gamma = currentGamma
-    }
-
     @objc func handleResetButton(_ sender: UIButton) {
-        reset()
-
-        delegate?.videoFiltersViewHideIcon()
+        resetIfNeeded()
     }
 }
 

@@ -2,7 +2,7 @@
  * VLCPlaybackService.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2022 VLC authors and VideoLAN
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -12,6 +12,7 @@
  *          Tobias Conradi <videolan # tobias-conradi.de>
  *          Sylver Bruneau <sylver.bruneau # gmail dot com>
  *          Winston Weinert <winston # ml1 dot net>
+ *          Maxime Chapelet <umxprime # videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -261,7 +262,12 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         [_listPlayer.mediaPlayer.libraryInstance setDebugLoggingToFile:logFilePath];
     }
 
+    id<VLCFilter> newFilter = _listPlayer.mediaPlayer.adjustFilter;
+    [newFilter applyParametersFrom:_adjustFilter.mediaPlayerAdjustFilter];
+    newFilter.enabled = _adjustFilter.mediaPlayerAdjustFilter.isEnabled;
+    _adjustFilter = [[VLCPlaybackServiceAdjustFilter alloc] initWithMediaPlayerAdjustFilter:newFilter];
     _mediaPlayer = _listPlayer.mediaPlayer;
+
     [_mediaPlayer setDelegate:self];
     if ([[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue] != 0)
         [_mediaPlayer setRate: [[defaults objectForKey:kVLCSettingPlaybackSpeedDefaultValue] floatValue]];
@@ -538,65 +544,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 - (float)subtitleDelay
 {
     return _mediaPlayer.currentVideoSubTitleDelay/1000.;
-}
-
-- (float)hue
-{
-    return _mediaPlayer.hue;
-}
-
-- (void)setHue:(float)hue
-{
-    _mediaPlayer.hue = hue;
-}
-
-- (float)contrast
-{
-    return _mediaPlayer.contrast;
-}
-
-- (void)setContrast:(float)contrast
-{
-    _mediaPlayer.contrast = contrast;
-}
-
-- (float)brightness
-{
-    return _mediaPlayer.brightness;
-}
-
-- (void)setBrightness:(float)brightness
-{
-    _mediaPlayer.brightness = brightness;
-}
-
-- (float)saturation
-{
-    return _mediaPlayer.saturation;
-}
-
-- (void)setSaturation:(float)saturation
-{
-    _mediaPlayer.saturation = saturation;
-}
-
-- (void)setGamma:(float)gamma
-{
-    _mediaPlayer.gamma = gamma;
-}
-
-- (float)gamma
-{
-    return _mediaPlayer.gamma;
-}
-
-- (void)resetFilters
-{
-    _mediaPlayer.hue = 0.;
-    _mediaPlayer.contrast = 1.;
-    _mediaPlayer.brightness = 1.;
-    _mediaPlayer.saturation = 1.;
-    _mediaPlayer.gamma = 1.;
 }
 
 - (void)toggleRepeatMode

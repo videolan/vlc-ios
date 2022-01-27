@@ -1,9 +1,10 @@
 /*****************************************************************************
  * MediaPlayerActionSheet.swift
  *
- * Copyright © 2019 VLC authors and VideoLAN
+ * Copyright © 2019-2022 VLC authors and VideoLAN
  *
  * Authors: Robert Gordon <robwaynegordon@gmail.com>
+ *          Maxime Chapelet <umxprime # videolabs.io>
  *
  *
  * Refer to the COPYING file of the official project for license.
@@ -61,9 +62,7 @@ class MediaPlayerActionSheet: ActionSheet {
 
     // MARK: Private Methods
     private func getTitle(of childView: UIView) -> String {
-        // FIXME: Add the case where childView is the EqualizerView
-        if let view = childView as? VideoFiltersView {
-            view.resetSlidersIfNeeded()
+        if childView is VideoFiltersView {
             return MediaPlayerActionSheetCellIdentifier.filter.description
         } else if childView is NewPlaybackSpeedView {
             return MediaPlayerActionSheetCellIdentifier.playback.description

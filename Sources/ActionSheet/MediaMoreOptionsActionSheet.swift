@@ -1,9 +1,10 @@
 /*****************************************************************************
  * MediaMoreOptionsActionSheet.swift
  *
- * Copyright © 2019 VLC authors and VideoLAN
+ * Copyright © 2019-2022 VLC authors and VideoLAN
  *
  * Authors: Robert Gordon <robwaynegordon@gmail.com>
+ *          Maxime Chapelet <umxprime # videolabs.io>
  *
  *
  * Refer to the COPYING file of the official project for license.
@@ -124,7 +125,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     // MARK: - Instance Methods
     func resetVideoFilters() {
-        videoFiltersView.reset()
+        videoFiltersView.resetIfNeeded()
     }
 
     func resetPlaybackSpeed() {
@@ -168,7 +169,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     func resetOptionsIfNecessary() {
         // FIXME: Reset Equalizer if needed
-        videoFiltersView.resetSlidersIfNeeded()
         playbackView.resetSlidersIfNeeded()
         updateThemes()
     }
