@@ -38,6 +38,8 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var groupSizeLabel: UILabel!
 
     private var thumbnailsArray: [UIImageView] = []
+    private let itemCornerRadius: CGFloat = 4.5
+    private let groupCornerRadius: CGFloat = 3.0
 
     override class var edgePadding: CGFloat {
         return 12.5
@@ -92,20 +94,20 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
         newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
-        selectionOverlay.layer.cornerRadius = 3
-        thumbnailView.layer.cornerRadius = 3
+        selectionOverlay.layer.cornerRadius = itemCornerRadius
+        thumbnailView.layer.cornerRadius = itemCornerRadius
         thumbnailsArray = [firstThumbnail, secondThumbnail, thirdThumbnail, fourthThumbnail]
         themeDidChange()
     }
 
     private func setupGroupView() {
-        thumbnailsBackground.layer.cornerRadius = 3
+        thumbnailsBackground.layer.cornerRadius = itemCornerRadius
 
-        firstThumbnail.layer.cornerRadius = 3
-        secondThumbnail.layer.cornerRadius = 3
-        thirdThumbnail.layer.cornerRadius = 3
-        fourthThumbnail.layer.cornerRadius = 3
-        additionalMediaOverlay.layer.cornerRadius = 3
+        firstThumbnail.layer.cornerRadius = groupCornerRadius
+        secondThumbnail.layer.cornerRadius = groupCornerRadius
+        thirdThumbnail.layer.cornerRadius = groupCornerRadius
+        fourthThumbnail.layer.cornerRadius = groupCornerRadius
+        additionalMediaOverlay.layer.cornerRadius = groupCornerRadius
     }
 
     @objc fileprivate func themeDidChange() {
@@ -156,7 +158,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
         if !progressView.isHidden {
             if #available(iOS 11.0, *) {
-                progressView.layer.cornerRadius = 3
+                progressView.layer.cornerRadius = itemCornerRadius
                 progressView.clipsToBounds = true
                 progressView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             } else {
