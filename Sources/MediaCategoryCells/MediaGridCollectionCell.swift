@@ -53,7 +53,6 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
     private let titleLabel: VLCMarqueeLabel = {
         let label = VLCMarqueeLabel()
         label.font = UIFont.preferredCustomFont(forTextStyle: .headline).semibolded
-        label.textColor = PresentationTheme.current.colors.cellTextColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -61,7 +60,6 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
     private let descriptionLabel: VLCMarqueeLabel = {
         let label = VLCMarqueeLabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = PresentationTheme.current.colors.cellDetailTextColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -69,7 +67,6 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
     private let sizeLabel: VLCMarqueeLabel = {
         let label = VLCMarqueeLabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = PresentationTheme.current.colors.cellDetailTextColor
         label.minimumScaleFactor = 0.2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -202,7 +199,6 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         descriptionStackView.addArrangedSubview(subDescriptionStack)
         contentStackView.addArrangedSubview(descriptionStackView)
 
-
         NSLayoutConstraint.activate([
             thumbnailView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
             thumbnailView.heightAnchor.constraint(equalTo: thumbnailView.widthAnchor),
@@ -219,6 +215,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         selectionOverlay.isHidden = true
         sizeLabel.isHidden = true 
         separatorLabel.isHidden = true
+        themeDidChange()
     }
 
     private func setupNotificationObservers() {
@@ -229,9 +226,15 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
     }
 
     @objc private func themeDidChange() {
-        backgroundColor = PresentationTheme.current.colors.background
-        titleLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        descriptionLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
+        let colors = PresentationTheme.current.colors
+        backgroundColor = colors.background
+        titleLabel.textColor = colors.cellTextColor
+        titleLabel.backgroundColor = backgroundColor
+        descriptionLabel.textColor = colors.cellDetailTextColor
+        descriptionLabel.backgroundColor = backgroundColor
+        sizeLabel.textColor = colors.cellDetailTextColor
+        sizeLabel.backgroundColor = backgroundColor
+        newLabel.backgroundColor = backgroundColor
         configureShadows()
     }
 
