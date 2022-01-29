@@ -244,7 +244,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         scrollContentView.backgroundColor = colors.background
         backgroundColor = colors.background
         titleLabel?.textColor = colors.cellTextColor
+        titleLabel?.backgroundColor = backgroundColor
         sizeDescriptionLabel?.textColor = colors.cellDetailTextColor
+        sizeDescriptionLabel?.backgroundColor = backgroundColor
+        newLabel.backgroundColor = backgroundColor
         dragIndicatorImageView.tintColor = colors.cellDetailTextColor
     }
 
