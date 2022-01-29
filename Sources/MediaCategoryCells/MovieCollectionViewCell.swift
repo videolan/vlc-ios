@@ -99,9 +99,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     }
 
     private func setupGroupView() {
-        thumbnailsBackground.isHidden = false
         thumbnailsBackground.layer.cornerRadius = 3
-        thumbnailsBackground.backgroundColor = PresentationTheme.current.colors.thumbnailBackgroundColor
 
         firstThumbnail.layer.cornerRadius = 3
         secondThumbnail.layer.cornerRadius = 3
@@ -111,12 +109,22 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
     }
 
     @objc fileprivate func themeDidChange() {
-        backgroundColor = PresentationTheme.current.colors.background
-        titleLabel?.textColor = PresentationTheme.current.colors.cellTextColor
-        descriptionLabel?.textColor = PresentationTheme.current.colors.cellDetailTextColor
-        sizeLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
-        groupTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        groupSizeLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
+        let colors = PresentationTheme.current.colors
+        backgroundColor = colors.background
+        titleLabel?.textColor = colors.cellTextColor
+        descriptionLabel?.textColor = colors.cellDetailTextColor
+        sizeLabel.textColor = colors.cellDetailTextColor
+        groupTitleLabel.textColor = colors.cellTextColor
+        groupSizeLabel.textColor = colors.cellDetailTextColor
+        titleLabel?.backgroundColor = backgroundColor
+        descriptionLabel?.backgroundColor = backgroundColor
+        sizeLabel.backgroundColor = backgroundColor
+        groupTitleLabel.backgroundColor = backgroundColor
+        groupSizeLabel.backgroundColor = backgroundColor
+        mediaView.backgroundColor = backgroundColor
+        groupView.backgroundColor = backgroundColor
+        newLabel.backgroundColor = backgroundColor
+        thumbnailsBackground.backgroundColor = colors.thumbnailBackgroundColor
     }
 
     private func setThumbnails(medias: [VLCMLMedia]?) {

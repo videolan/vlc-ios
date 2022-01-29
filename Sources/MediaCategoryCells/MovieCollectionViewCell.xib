@@ -83,9 +83,9 @@
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5eL-fF-57J" userLabel="Group View">
                         <rect key="frame" x="0.0" y="0.0" width="309" height="230"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiI-8P-vuS" userLabel="Thumbnails Background">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiI-8P-vuS" userLabel="Thumbnails Background">
                                 <rect key="frame" x="0.0" y="0.0" width="309" height="192.5"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oHG-G0-9Vk" userLabel="First Thumbnail">
                                 <rect key="frame" x="6" y="4" width="146.5" height="90"/>
