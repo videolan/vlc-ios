@@ -41,8 +41,11 @@
 
 - (void)themeDidChange
 {
-    _emptyLibraryLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-    _emptyLibraryLongDescriptionLabel.textColor = PresentationTheme.current.colors.lightTextColor;
+    ColorPalette *colors = PresentationTheme.current.colors;
+    _emptyLibraryLabel.textColor = colors.cellTextColor;
+    _emptyLibraryLabel.backgroundColor = colors.background;
+    _emptyLibraryLongDescriptionLabel.textColor = colors.lightTextColor;
+    _emptyLibraryLongDescriptionLabel.backgroundColor = colors.background;
 }
 
 - (void)setContentType:(VLCEmptyLibraryViewContentType)contentType
