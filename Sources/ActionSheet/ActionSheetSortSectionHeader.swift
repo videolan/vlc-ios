@@ -84,23 +84,27 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
 
     private let gridLayoutLabel: UILabel = {
         let gridLayoutLabel = UILabel()
+        let colors = PresentationTheme.currentExcludingBlack.colors
         gridLayoutLabel.text = NSLocalizedString("GRID_LAYOUT", comment: "")
         gridLayoutLabel.accessibilityLabel = NSLocalizedString("GRID_LAYOUT", comment: "")
         gridLayoutLabel.accessibilityHint = NSLocalizedString("GRID_LAYOUT", comment: "")
         //TODO: Set appropriate accessibilityLabel and accessibilityHint
         gridLayoutLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
-        gridLayoutLabel.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
+        gridLayoutLabel.textColor = colors.cellTextColor
+        gridLayoutLabel.backgroundColor = colors.background
         gridLayoutLabel.translatesAutoresizingMaskIntoConstraints = false
         return gridLayoutLabel
     }()
 
     private let displayByLabel: UILabel = {
         let displayByLabel = UILabel()
+        let colors = PresentationTheme.currentExcludingBlack.colors
         displayByLabel.text = NSLocalizedString("DISPLAY_AS", comment: "")
         displayByLabel.accessibilityLabel = NSLocalizedString("DISPLAY_AS", comment: "")
         displayByLabel.accessibilityHint = NSLocalizedString("DISPLAY_AS", comment: "")
         displayByLabel.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
-        displayByLabel.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
+        displayByLabel.textColor = colors.cellTextColor
+        displayByLabel.backgroundColor = colors.background
         displayByLabel.translatesAutoresizingMaskIntoConstraints = false
         return displayByLabel
     }()
@@ -151,11 +155,16 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     }
 
     @objc private func updateTheme() {
-        backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
-        title.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
-        displayByLabel.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
-        descendingLabel.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
-        gridLayoutLabel.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
+        let colors = PresentationTheme.currentExcludingBlack.colors
+        backgroundColor = colors.background
+        title.textColor = colors.cellTextColor
+        title.backgroundColor = backgroundColor
+        displayByLabel.textColor = colors.cellTextColor
+        displayByLabel.backgroundColor = backgroundColor
+        descendingLabel.textColor = colors.cellTextColor
+        descendingLabel.backgroundColor = backgroundColor
+        gridLayoutLabel.textColor = colors.cellTextColor
+        gridLayoutLabel.backgroundColor = backgroundColor
     }
 
     @objc func handleDescendingSwitch(_ sender: UISwitch) {

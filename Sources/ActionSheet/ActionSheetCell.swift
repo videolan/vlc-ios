@@ -98,7 +98,9 @@ class ActionSheetCell: UICollectionViewCell {
 
     let name: UILabel = {
         let name = UILabel()
-        name.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
+        let colors = PresentationTheme.currentExcludingBlack.colors
+        name.textColor = colors.cellTextColor
+        name.backgroundColor = colors.background
         name.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
@@ -255,8 +257,10 @@ class ActionSheetCell: UICollectionViewCell {
     }
 
     @objc private func updateTheme() {
-        backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
-        name.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
-        viewToPresent?.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
+        let colors = PresentationTheme.currentExcludingBlack.colors
+        backgroundColor = colors.background
+        name.textColor = colors.cellTextColor
+        name.backgroundColor = backgroundColor
+        viewToPresent?.backgroundColor = backgroundColor
     }
 }
