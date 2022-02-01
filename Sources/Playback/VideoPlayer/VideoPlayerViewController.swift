@@ -268,20 +268,32 @@ class VideoPlayerViewController: UIViewController {
         return statusLabel
     }()
 
-    private lazy var backgroundGradientLayers: [CAGradientLayer] = {
-        let verticalGradient = CAGradientLayer()
-        let horizontalGradient = CAGradientLayer()
+    private lazy var volumeBackgroundGradientLayer: CAGradientLayer = {
+        let volumeBackGroundGradientLayer = CAGradientLayer()
 
-        verticalGradient.frame = UIScreen.main.bounds
-        horizontalGradient.frame = UIScreen.main.bounds
-        verticalGradient.colors = [UIColor.black.cgColor, UIColor.black.withAlphaComponent(0),
-                           UIColor.black.withAlphaComponent(0), UIColor.black.cgColor]
-        horizontalGradient.colors = [UIColor.black.cgColor, UIColor.black.withAlphaComponent(0),
-                           UIColor.black.withAlphaComponent(0), UIColor.black.cgColor]
-        verticalGradient.locations = [0, 0.3, 0.7, 1]
-        horizontalGradient.locations = [0, 0.2, 0.8, 1]
-        horizontalGradient.transform = CATransform3DMakeRotation(CGFloat.pi / 2, 0, 0, 1)
-        return [verticalGradient, horizontalGradient]
+        volumeBackGroundGradientLayer.frame = UIScreen.main.bounds
+        volumeBackGroundGradientLayer.colors = [UIColor.clear.cgColor,
+                                                UIColor.clear.cgColor,
+                                                UIColor.clear.cgColor,
+                                                UIColor.black.cgColor]
+        volumeBackGroundGradientLayer.locations = [0, 0.2, 0.8, 1]
+        volumeBackGroundGradientLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
+        volumeBackGroundGradientLayer.isHidden = true
+        return volumeBackGroundGradientLayer
+    }()
+
+    private lazy var brightnessBackgroundGradientLayer: CAGradientLayer = {
+        let brightnessGroundGradientLayer = CAGradientLayer()
+
+        brightnessGroundGradientLayer.frame = UIScreen.main.bounds
+        brightnessGroundGradientLayer.colors = [UIColor.clear.cgColor,
+                                                UIColor.clear.cgColor,
+                                                UIColor.clear.cgColor,
+                                                UIColor.black.cgColor]
+        brightnessGroundGradientLayer.locations = [0, 0.2, 0.8, 1]
+        brightnessGroundGradientLayer.transform = CATransform3DMakeRotation(CGFloat.pi / 2, 0, 0, 1)
+        brightnessGroundGradientLayer.isHidden = true
+        return brightnessGroundGradientLayer
     }()
 
     private lazy var brightnessControlView: BrightnessControlView = {
@@ -298,14 +310,28 @@ class VideoPlayerViewController: UIViewController {
         return vc
     }()
 
+    private lazy var sideBackgroundGradientView: UIView = {
+        let backgroundGradientView = UIView()
+        backgroundGradientView.frame = UIScreen.main.bounds
+        backgroundGradientView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+
+        backgroundGradientView.layer.addSublayer(brightnessBackgroundGradientLayer)
+        backgroundGradientView.layer.addSublayer(volumeBackgroundGradientLayer)
+        return backgroundGradientView
+    }()
+
     private lazy var backgroundGradientView: UIView = {
         let backgroundGradientView = UIView()
         backgroundGradientView.frame = UIScreen.main.bounds
         backgroundGradientView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 
-        for backgroundGradientLayer in backgroundGradientLayers {
-            backgroundGradientView.layer.addSublayer(backgroundGradientLayer)
-        }
+        let horizontalGradient = CAGradientLayer()
+        horizontalGradient.frame = UIScreen.main.bounds
+        horizontalGradient.colors = [UIColor.black.cgColor, UIColor.black.withAlphaComponent(0),
+                           UIColor.black.withAlphaComponent(0), UIColor.black.cgColor]
+        horizontalGradient.locations = [0, 0.3, 0.7, 1]
+
+        backgroundGradientView.layer.addSublayer(horizontalGradient)
         return backgroundGradientView
     }()
 
@@ -596,7 +622,9 @@ class VideoPlayerViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        backgroundGradientLayers.forEach { $0.frame = UIScreen.main.bounds }
+        backgroundGradientView.layer.frame = UIScreen.main.bounds
+        brightnessBackgroundGradientLayer.frame = UIScreen.main.bounds
+        volumeBackgroundGradientLayer.frame = UIScreen.main.bounds
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -970,14 +998,18 @@ extension VideoPlayerViewController {
             currentPanType = panType
             switch currentPanType {
             case .brightness:
+                brightnessBackgroundGradientLayer.isHidden = false
                 brightnessControl.fetchDeviceValue()
-                animations = { [brightnessControlView] in
+                animations = { [brightnessControlView, sideBackgroundGradientView] in
                     brightnessControlView.alpha = 1
+                    sideBackgroundGradientView.alpha = 1
                 }
             case .volume:
+                volumeBackgroundGradientLayer.isHidden = false
                 volumeControl.fetchDeviceValue()
-                animations = { [volumeControlView] in
+                animations = { [volumeControlView, sideBackgroundGradientView] in
                     volumeControlView.alpha = 1
+                    sideBackgroundGradientView.alpha = 1
                 }
             default:
                 break
@@ -1020,20 +1052,28 @@ extension VideoPlayerViewController {
             var animations : (() -> Void)?
             switch currentPanType {
             case .brightness:
-                animations = { [brightnessControlView] in
+                animations = { [brightnessControlView,
+                                sideBackgroundGradientView] in
                     brightnessControlView.alpha = 0
+                    sideBackgroundGradientView.alpha = 0
                 }
             case .volume:
-                animations = { [volumeControlView] in
+                animations = { [volumeControlView,
+                                sideBackgroundGradientView] in
                     volumeControlView.alpha = 0
+                    sideBackgroundGradientView.alpha = 0
                 }
             default:
                 break
             }
             if let animations = animations {
                 UIView.animate(withDuration: 0.2, delay: 1.0,
-                               options: .beginFromCurrentState, animations: animations,
-                               completion: nil)
+                               options: .beginFromCurrentState, animations: animations, completion: {
+                    [brightnessBackgroundGradientLayer,
+                    volumeBackgroundGradientLayer] _ in
+                    brightnessBackgroundGradientLayer.isHidden = true
+                    volumeBackgroundGradientLayer.isHidden = true
+                })
             }
 
             currentPanType = .none
@@ -1125,6 +1165,7 @@ private extension VideoPlayerViewController {
         view.bringSubviewToFront(statusLabel)
         view.sendSubviewToBack(videoOutputView)
         view.insertSubview(backgroundGradientView, aboveSubview: videoOutputView)
+        view.insertSubview(sideBackgroundGradientView, aboveSubview: backgroundGradientView)
         videoOutputView.addSubview(artWorkImageView)
     }
 
