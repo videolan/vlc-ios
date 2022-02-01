@@ -430,8 +430,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         collectionView?.dataSource = editing ? editController : self
         collectionView?.delegate = editing ? editController : self
         if #available(iOS 14.0, *) {
-            collectionView?.allowsSelectionDuringEditing = true
-            collectionView?.allowsMultipleSelectionDuringEditing = true
+            /// Those changes are highly recommended in order to prevent a UICollectionView gesture
+            /// issue when cells are embedding a UIScrollView
+            /// See https://code.videolan.org/umxprime/collection-view-bug
+            collectionView?.allowsSelectionDuringEditing = editing
+            collectionView?.allowsMultipleSelectionDuringEditing = editing
         }
 
         editController.resetSelections(resetUI: true)
