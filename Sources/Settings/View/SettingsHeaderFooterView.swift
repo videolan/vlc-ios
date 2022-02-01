@@ -70,8 +70,10 @@ class SettingsHeaderView: UITableViewHeaderFooterView {
     }
 
     @objc private func themeDidChange() {
-        containerView.backgroundColor = PresentationTheme.current.colors.background
-        sectionHeaderLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        let colors = PresentationTheme.current.colors
+        containerView.backgroundColor = colors.background
+        sectionHeaderLabel.textColor = colors.cellTextColor
+        sectionHeaderLabel.backgroundColor = colors.background
     }
 }
 

@@ -51,7 +51,9 @@ class SettingsCell: UITableViewCell {
 
     lazy var switchControl: UISwitch = {
         let switchControl = UISwitch()
-        switchControl.onTintColor = PresentationTheme.current.colors.orangeUI
+        let colors = PresentationTheme.current.colors
+        switchControl.onTintColor = colors.orangeUI
+        switchControl.backgroundColor = colors.background
         switchControl.addTarget(self,
                                 action: #selector(handleSwitchAction),
                                 for: .valueChanged)
@@ -66,8 +68,10 @@ class SettingsCell: UITableViewCell {
 
     let mainLabel: UILabel = {
         let label = UILabel()
+        let colors = PresentationTheme.current.colors
         label.numberOfLines = 2
-        label.textColor = PresentationTheme.current.colors.cellTextColor
+        label.textColor = colors.cellTextColor
+        label.backgroundColor = colors.background
         label.font = .preferredFont(forTextStyle: .callout) //16pt default
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -75,9 +79,11 @@ class SettingsCell: UITableViewCell {
 
     let subtitleLabel: UILabel = {
         let label = UILabel()
+        let colors = PresentationTheme.current.colors
         label.font = .preferredFont(forTextStyle: .footnote) //13pt default
         label.numberOfLines = 2
-        label.textColor = PresentationTheme.current.colors.cellDetailTextColor
+        label.textColor = colors.cellDetailTextColor
+        label.backgroundColor = colors.background
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -204,11 +210,16 @@ class SettingsCell: UITableViewCell {
     }
 
     @objc fileprivate func themeDidChange() {
-        backgroundColor = PresentationTheme.current.colors.background
-        selectedBackgroundView?.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor
-        mainLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor
-        activityIndicator.color = PresentationTheme.current.colors.cellDetailTextColor
+        let colors = PresentationTheme.current.colors
+        backgroundColor = colors.background
+        selectedBackgroundView?.backgroundColor = colors.mediaCategorySeparatorColor
+        mainLabel.textColor = colors.cellTextColor
+        mainLabel.backgroundColor = backgroundColor
+        subtitleLabel.textColor = colors.cellDetailTextColor
+        subtitleLabel.backgroundColor = backgroundColor
+        activityIndicator.color = colors.cellDetailTextColor
+        activityIndicator.backgroundColor = backgroundColor
+        switchControl.backgroundColor = colors.background
     }
 
     @objc private func updateValues() {
