@@ -11,8 +11,7 @@
  *****************************************************************************/
 
 
-#import <UIKit/UIKit.h>
-
+NS_SWIFT_NAME(VLCServerListViewController)
 @interface VLCServerListViewController : UIViewController
 
 @end

@@ -103,7 +103,7 @@ class TabBarCoordinator: NSObject {
             }) ?? 2
         case kVLCApplicationShortcutNetwork:
             tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in
-                vc is VLCServerListViewController
+                vc is ServerListViewController
             }) ?? 3
         default:
             assertionFailure("unhandled shortcut")
