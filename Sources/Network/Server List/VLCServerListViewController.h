@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCLocalServerListViewController.h
+ * VLCServerListViewController.h
  * VLC for iOS
  *****************************************************************************
  * Copyright (c) 2013 VideoLAN. All rights reserved.
