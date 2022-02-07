@@ -59,6 +59,7 @@
     VLCRemoteNetworkDataSourceAndDelegate *_remoteNetworkDataSourceAndDelegate;
     NSLayoutConstraint* _localNetworkHeight;
     NSLayoutConstraint* _remoteNetworkHeight;
+    MediaLibraryService *_medialibraryService;
 }
 
 @end
@@ -86,10 +87,11 @@
 
 #endif
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithMedialibraryService:(MediaLibraryService *)medialibraryService
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
+        _medialibraryService = medialibraryService;
         [self setupUI];
     }
     return self;
@@ -371,7 +373,9 @@
     if ([service respondsToSelector:@selector(serverBrowser)]) {
         id<VLCNetworkServerBrowser> serverBrowser = [service serverBrowser];
         if (serverBrowser) {
-            VLCNetworkServerBrowserViewController *vc = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
+            VLCNetworkServerBrowserViewController *vc = [[VLCNetworkServerBrowserViewController alloc]
+                                                         initWithServerBrowser:serverBrowser
+                                                         medialibraryService:_medialibraryService];
             [self.navigationController pushViewController:vc animated:YES];
             return;
         }
@@ -397,7 +401,9 @@
     /* UPnP does not support authentication, so skip this step */
     if ([login.protocolIdentifier isEqualToString:VLCNetworkServerProtocolIdentifierUPnP]) {
         VLCNetworkServerBrowserVLCMedia *serverBrowser = [VLCNetworkServerBrowserVLCMedia UPnPNetworkServerBrowserWithLogin:login];
-        VLCNetworkServerBrowserViewController *vc = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
+        VLCNetworkServerBrowserViewController *vc = [[VLCNetworkServerBrowserViewController alloc]
+                                                     initWithServerBrowser:serverBrowser
+                                                     medialibraryService:_medialibraryService];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
@@ -541,7 +547,9 @@
     }
 
     if (serverBrowser) {
-        VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:serverBrowser];
+        VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc]
+                                                                       initWithServerBrowser:serverBrowser
+                                                                       medialibraryService:_medialibraryService];
         [self.navigationController pushViewController:targetViewController animated:YES];
     }
 }

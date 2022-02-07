@@ -29,9 +29,21 @@
 #import "VLCDownloadController.h"
 #endif
 
+@interface VLCServerBrowsingController()
+{
+#if TARGET_OS_IOS
+    MediaLibraryService *_medialibraryService;
+#endif
+}
+@end
+
 @implementation VLCServerBrowsingController
 
-- (instancetype)initWithViewController:(UIViewController *)viewController serverBrowser:(id<VLCNetworkServerBrowser>)browser
+- (instancetype)initWithViewController:(UIViewController *)viewController
+                         serverBrowser:(id<VLCNetworkServerBrowser>)browser
+#if TARGET_OS_IOS
+                   medialibraryService:(MediaLibraryService *)medialibraryService
+#endif
 {
     self = [super init];
     if (self) {
@@ -43,6 +55,8 @@
             movieDBSessionManager.apiKey = kVLCfortvOSMovieDBKey;
             [movieDBSessionManager fetchProperties];
         }
+# elif TARGET_OS_IOS
+        _medialibraryService = medialibraryService;
 #endif
     }
     return self;
@@ -115,9 +129,16 @@
     cell.title = item.name;
 
     NSURL *thumbnailURL = nil;
-    if ([item respondsToSelector:@selector(thumbnailURL)])
+#if TARGET_OS_IOS
+    VLCMLMedia *media = [_medialibraryService fetchMediaWith:[item URL]];
+    if (media != nil) {
+        thumbnailURL = media.thumbnail;
+    } else if ([item respondsToSelector:@selector(thumbnailURL)]) {
+#elif TARGET_OS_TV
+        if ([item respondsToSelector:@selector(thumbnailURL)]) {
+#endif
         thumbnailURL = item.thumbnailURL;
-
+    }
     [cell setThumbnailURL:thumbnailURL];
 }
 

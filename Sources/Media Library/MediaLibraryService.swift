@@ -293,10 +293,9 @@ private extension MediaLibraryService {
         return medialib.media(withIdentifier: identifier)
     }
 
-    func savePlaybackState(from player: PlaybackService) {
-        let media: VLCMedia? = player.currentlyPlayingMedia
-        guard let mlMedia = fetchMedia(with: media?.url?.absoluteURL) else {
-            // we opened a url and not a local file
+
+    private func saveMetaData(of media: VLCMLMedia?, from player: PlaybackService) {
+        guard let mlMedia = media else {
             return
         }
 
@@ -307,7 +306,7 @@ private extension MediaLibraryService {
         mlMedia.chapterIndex = Int64(player.indexOfCurrentChapter)
         mlMedia.titleIndex = Int64(player.indexOfCurrentTitle)
 
-        if mlMedia.type() == .video {
+        if mlMedia.type() != .audio {
             if let thumbnailURL = mlMedia.thumbnail() {
                 if mlMedia.progress < 0.90 {
                     mlMedia.removeThumbnail(of: .thumbnail)
@@ -317,6 +316,23 @@ private extension MediaLibraryService {
             mlMedia.requestThumbnail(of: .thumbnail, desiredWidth: desiredThumbnailWidth,
                                      desiredHeight: desiredThumbnailHeight, atPosition: player.playbackPosition)
         }
+    }
+
+    func savePlaybackState(from player: PlaybackService) {
+        let media: VLCMedia? = player.currentlyPlayingMedia
+
+        guard let mrl = media?.url.absoluteURL else {
+            // No URL from currently played media
+            return
+        }
+
+        var mlMedia: VLCMLMedia? = medialib.media(withMrl: mrl)
+
+        if mlMedia == nil {
+            // Add media unknown to the medialibrary.
+            mlMedia = medialib.addExternalMedia(withMrl: mrl)
+        }
+        saveMetaData(of: mlMedia, from: player)
     }
 
     @objc func excludeFromDeviceBackup(_ exclude: Bool) {

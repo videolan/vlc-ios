@@ -14,6 +14,8 @@
 
 #define DOWNLOAD_SUPPORTED TARGET_OS_IOS
 
+@class MediaLibraryService;
+
 NS_ASSUME_NONNULL_BEGIN
 @protocol VLCRemoteBrowsingCell <NSObject>
 
@@ -38,7 +40,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable, readonly) UIViewController *viewController;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithViewController:(UIViewController *)viewController serverBrowser:(id<VLCNetworkServerBrowser>)browser;
+
+#if TARGET_OS_IOS
+- (instancetype)initWithViewController:(UIViewController *)viewController
+                         serverBrowser:(id<VLCNetworkServerBrowser>)browser
+                   medialibraryService:(MediaLibraryService *)medialibraryService;
+# elif TARGET_OS_TV
+- (instancetype)initWithViewController:(UIViewController *)viewController
+                         serverBrowser:(id<VLCNetworkServerBrowser>)browser;
+#endif
 
 - (void)configureCell:(id<VLCRemoteBrowsingCell>)cell withItem:(id<VLCNetworkServerBrowserItem>)item;
 

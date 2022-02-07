@@ -10,8 +10,11 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+@class MediaLibraryService;
 
 NS_SWIFT_NAME(VLCServerListViewController)
 @interface VLCServerListViewController : UIViewController
+
+- (instancetype)initWithMedialibraryService:(MediaLibraryService *)medialibraryService;
 
 @end

@@ -26,6 +26,7 @@
 @interface VLCNetworkServerBrowserViewController () <VLCNetworkServerBrowserDelegate,VLCNetworkListCellDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
     UIRefreshControl *_refreshControl;
+    MediaLibraryService *_medialibraryService;
 }
 @property (nonatomic) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic) VLCServerBrowsingController *browsingController;
@@ -35,12 +36,18 @@
 @implementation VLCNetworkServerBrowserViewController
 
 - (instancetype)initWithServerBrowser:(id<VLCNetworkServerBrowser>)browser
+                  medialibraryService:(MediaLibraryService *)medialibraryService
+
 {
     self = [super init];
     if (self) {
+        _medialibraryService = medialibraryService;
         _serverBrowser = browser;
         browser.delegate = self;
-        _browsingController = [[VLCServerBrowsingController alloc] initWithViewController:self serverBrowser:browser];
+        _browsingController = [[VLCServerBrowsingController alloc]
+                               initWithViewController:self
+                               serverBrowser:browser
+                               medialibraryService:_medialibraryService];
     }
     return self;
 }
@@ -140,7 +147,8 @@
 - (void)didSelectItem:(id<VLCNetworkServerBrowserItem>)item index:(NSUInteger)index singlePlayback:(BOOL)singlePlayback
 {
     if (item.isContainer) {
-        VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc] initWithServerBrowser:item.containerBrowser];
+        VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc]
+                                                                       initWithServerBrowser:item.containerBrowser medialibraryService:_medialibraryService];
         [self.navigationController pushViewController:targetViewController animated:YES];
     } else {
         if (singlePlayback) {
