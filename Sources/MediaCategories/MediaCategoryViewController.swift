@@ -175,7 +175,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
         marqueeTitle.text = title
         marqueeTitle.textColor = PresentationTheme.current.colors.navigationbarTextColor
-        marqueeTitle.font = UIFont.preferredCustomFont(forTextStyle: .headline)
+        marqueeTitle.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
         self.navigationItem.titleView = marqueeTitle
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
                                                name: .VLCThemeDidChangeNotification, object: nil)
