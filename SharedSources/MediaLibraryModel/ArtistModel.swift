@@ -143,7 +143,7 @@ extension VLCMLArtist: MediaCollectionModel {
     }
 
     func title() -> String {
-        return name
+        return artistName()
     }
 }
 

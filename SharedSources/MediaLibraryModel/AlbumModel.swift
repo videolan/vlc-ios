@@ -127,7 +127,7 @@ extension VLCMLAlbum: MediaCollectionModel {
     }
 
     func title() -> String {
-        return title
+        return albumArtistName()
     }
 }
 
