@@ -882,12 +882,18 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     if (nextIndex < 0) {
         if (self.repeatMode == VLCRepeatAllItems) {
+#if TARGET_OS_IOS
+            [_delegate savePlaybackState:self];
+#endif
             [_listPlayer next];
             [[NSNotificationCenter defaultCenter]
              postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
         }
         return NO;
     }
+#if TARGET_OS_IOS
+    [_delegate savePlaybackState:self];
+#endif
 
     [_listPlayer playItemAtNumber:@(nextIndex)];
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
@@ -901,6 +907,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         if (playedTime.value.longLongValue / 2000 >= 1) {
             self.playbackPosition = .0;
         } else {
+#if TARGET_OS_IOS
+            [_delegate savePlaybackState:self];
+#endif
             [_listPlayer previous];
             [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
         }

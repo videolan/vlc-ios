@@ -211,10 +211,6 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
 
         return mediaService.fetchMedia(with: media.url)
     }
-
-    func playbackService(_ playbackService: PlaybackService, nextMedia media: VLCMedia) {
-        savePlaybackState(playbackService)
-    }
 }
 
 // MARK: - UI Receivers
