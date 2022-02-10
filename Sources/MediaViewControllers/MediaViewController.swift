@@ -58,6 +58,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         super.init(nibName: nil, bundle: nil)
         rightBarButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
         leftBarButton = sortButton
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
     }
 
     override func viewDidLoad() {
@@ -101,6 +102,12 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         navigationController?.navigationBar.isTranslucent = false
         setNeedsStatusBarAppearanceUpdate()
         updateButtonsFor(viewControllers[currentIndex])
+    }
+
+    @objc private func updateTheme() {
+        if containerView != nil {
+            containerView.backgroundColor = PresentationTheme.current.colors.background
+        }
     }
 
     // MARK: - PagerTabStripDataSource
