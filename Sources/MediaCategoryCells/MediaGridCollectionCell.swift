@@ -314,6 +314,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         thumbnailView.layer.shadowOpacity = 0.7
         thumbnailView.layer.shadowOffset = .zero
         thumbnailView.layer.shadowRadius = 8
+        thumbnailView.layer.shadowPath = UIBezierPath(rect: thumbnailView.bounds).cgPath
     }
 
     private func clearShadow() {
