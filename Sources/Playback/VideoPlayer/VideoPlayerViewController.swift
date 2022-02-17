@@ -320,18 +320,23 @@ class VideoPlayerViewController: UIViewController {
         return backgroundGradientView
     }()
 
+    private lazy var topBottomBackgroundGradientLayer: CAGradientLayer = {
+        let topBottomBackgroundGradientLayer = CAGradientLayer()
+
+        topBottomBackgroundGradientLayer.frame = UIScreen.main.bounds
+        topBottomBackgroundGradientLayer.colors = [UIColor.black.cgColor,
+                                                   UIColor.clear.cgColor,
+                                                   UIColor.clear.cgColor,
+                                                   UIColor.black.cgColor]
+        topBottomBackgroundGradientLayer.locations = [0, 0.3, 0.7, 1]
+        return topBottomBackgroundGradientLayer
+    }()
+
     private lazy var backgroundGradientView: UIView = {
         let backgroundGradientView = UIView()
         backgroundGradientView.frame = UIScreen.main.bounds
         backgroundGradientView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-
-        let horizontalGradient = CAGradientLayer()
-        horizontalGradient.frame = UIScreen.main.bounds
-        horizontalGradient.colors = [UIColor.black.cgColor, UIColor.black.withAlphaComponent(0),
-                           UIColor.black.withAlphaComponent(0), UIColor.black.cgColor]
-        horizontalGradient.locations = [0, 0.3, 0.7, 1]
-
-        backgroundGradientView.layer.addSublayer(horizontalGradient)
+        backgroundGradientView.layer.addSublayer(topBottomBackgroundGradientLayer)
         return backgroundGradientView
     }()
 
@@ -622,7 +627,7 @@ class VideoPlayerViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        backgroundGradientView.layer.frame = UIScreen.main.bounds
+        topBottomBackgroundGradientLayer.frame = UIScreen.main.bounds
         brightnessBackgroundGradientLayer.frame = UIScreen.main.bounds
         volumeBackgroundGradientLayer.frame = UIScreen.main.bounds
     }
