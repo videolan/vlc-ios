@@ -37,6 +37,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     @IBOutlet weak var selectionOverlay: UIView!
     @IBOutlet weak var dragIndicatorImageView: UIImageView!
 
+    @IBOutlet weak var sizeDescriptionLabelTrailingConstraint: NSLayoutConstraint!
+    private var defaultTrailingConstant: CGFloat = -4.0
+
     private var maxXOffset: CGFloat = 0.0
     private var vibrationTriggered: Bool = false
     private var isDeleteDisplayed: Bool = false
@@ -272,6 +275,12 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         newLabel.isHidden = !audiotrack.isNew
         thumbnailView.image = audiotrack.thumbnailImage()
         scrollView.isScrollEnabled = true
+
+        if newLabel.isHidden {
+            sizeDescriptionLabelTrailingConstraint.constant = newLabel.intrinsicContentSize.width
+        } else {
+            sizeDescriptionLabelTrailingConstraint.constant = defaultTrailingConstant
+        }
     }
 
     func update(album: VLCMLAlbum) {
@@ -281,6 +290,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel.text = album.albumArtistName()
         thumbnailView.image = album.thumbnail()
         scrollView.isScrollEnabled = false
+        sizeDescriptionLabelTrailingConstraint.constant = newLabel.intrinsicContentSize.width
     }
 
     func update(artist: VLCMLArtist) {
@@ -292,6 +302,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel.text = artist.numberOfTracksString()
         thumbnailView.image = artist.thumbnail()
         scrollView.isScrollEnabled = false
+        sizeDescriptionLabelTrailingConstraint.constant = newLabel.intrinsicContentSize.width
     }
 
     func update(movie: VLCMLMedia) {
@@ -306,6 +317,12 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             sizeDescriptionLabel.text = movie.mediaDuration()
         }
         scrollView.isScrollEnabled = true
+
+        if newLabel.isHidden {
+            sizeDescriptionLabelTrailingConstraint.constant = newLabel.intrinsicContentSize.width
+        } else {
+            sizeDescriptionLabelTrailingConstraint.constant = defaultTrailingConstant
+        }
     }
 
     func update(playlist: VLCMLPlaylist) {
@@ -319,6 +336,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         dragIndicatorImageView.tintColor = PresentationTheme.current.colors.orangeUI
         dragIndicatorImageView.isHidden = false
         scrollView.isScrollEnabled = true
+        sizeDescriptionLabelTrailingConstraint.constant = newLabel.intrinsicContentSize.width
     }
 
     func update(mediaGroup: VLCMLMediaGroup) {
@@ -344,6 +362,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         newLabel.isHidden = true
         dragIndicatorImageView.isHidden = false
         scrollView.isScrollEnabled = true
+        sizeDescriptionLabelTrailingConstraint.constant = newLabel.intrinsicContentSize.width
     }
 
     func update(genre: VLCMLGenre) {
@@ -354,6 +373,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         thumbnailView.image = genre.thumbnail()
         sizeDescriptionLabel.text = genre.numberOfTracksString()
         scrollView.isScrollEnabled = false
+        sizeDescriptionLabelTrailingConstraint.constant = newLabel.intrinsicContentSize.width
     }
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
