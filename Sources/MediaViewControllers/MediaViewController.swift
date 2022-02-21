@@ -45,19 +45,29 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         return regroup
     }()
 
+    private lazy var selectAllButton: UIBarButtonItem = {
+        var selectAll = UIBarButtonItem(image: UIImage(named: "emptySelectAll"),
+                                        style: .plain, target: self,
+                                        action: #selector(handleSelectAll))
+        selectAll.accessibilityLabel = NSLocalizedString("BUTTON_SELECT_ALL", comment: "")
+        selectAll.accessibilityHint = NSLocalizedString("BUTTON_SELECT_ALL_HINT", comment: "")
+        return selectAll
+    }()
+
+
     private lazy var doneButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(customSetEditing))
     }()
 
     private var rightBarButtons: [UIBarButtonItem]?
-    private var leftBarButton: UIBarButtonItem?
+    private var leftBarButtons: [UIBarButtonItem]?
 
     init(services: Services) {
         self.services = services
         rendererButton = services.rendererDiscovererManager.setupRendererButton()
         super.init(nibName: nil, bundle: nil)
         rightBarButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
-        leftBarButton = sortButton
+        leftBarButtons = [sortButton]
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
     }
 
@@ -124,7 +134,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             showButtons = mediaCategoryViewController.isEmptyCollectionView() ? false : true
         }
         navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : nil
-        navigationItem.leftBarButtonItem = showButtons ? leftBarButton : nil
+        navigationItem.leftBarButtonItems = showButtons ? leftBarButtons : nil
     }
 
     override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
@@ -173,12 +183,16 @@ extension MediaViewController {
 
         if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController,
             mediaCategoryViewController.model is MediaGroupViewModel {
-            leftBarButton = isEditing ? regroupButton : sortButton
+            leftBarButtons = isEditing ? [regroupButton, selectAllButton] : [sortButton]
         } else {
-            leftBarButton = isEditing ? nil : sortButton
+            leftBarButtons = isEditing ? [selectAllButton] : [sortButton]
         }
         navigationItem.rightBarButtonItems = rightBarButtons
-        navigationItem.leftBarButtonItem = leftBarButton
+        navigationItem.leftBarButtonItems = leftBarButtons
+
+        if isEditing == false {
+            selectAllButton.image = UIImage(named: "emptySelectAll")
+        }
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -199,6 +213,14 @@ extension MediaViewController {
                 return
             }
             mediaCategoryViewController.handleRegroup()
+        }
+    }
+
+    @objc func handleSelectAll() {
+        if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
+            mediaCategoryViewController.handleSelectAll()
+            selectAllButton.image = mediaCategoryViewController.isAllSelected ? UIImage(named: "allSelected")
+                : UIImage(named: "emptySelectAll")
         }
     }
 

@@ -346,6 +346,9 @@
 "BUTTON_EDIT" = "Edit";
 "BUTTON_EDIT_HINT" = "Edit mode";
 
+"BUTTON_SELECT_ALL" = "Select all";
+"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
+
 "ADD_TO_PLAYLIST" = "Add to Playlist";
 "ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
 

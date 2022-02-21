@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 import Foundation
+import UIKit
 
 @objc protocol MediaCategoryViewControllerDelegate: NSObjectProtocol {
     func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController)
@@ -110,6 +111,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         return setupEditBarButton()
     }()
 
+    private lazy var selectAllBarButton: UIBarButtonItem = {
+        return setupSelectAllButton()
+    }()
+
     private lazy var rendererBarButton: UIBarButtonItem = {
         return UIBarButtonItem(customView: rendererButton)
     }()
@@ -138,6 +143,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     private var scrolledCellIndex: IndexPath = IndexPath()
+    private(set) var isAllSelected: Bool = false
 
     // MARK: - Initializers
 
@@ -444,6 +450,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         searchBar.resignFirstResponder()
         searchBarConstraint?.constant = -self.searchBarSize
+
+        // When quitting the edit mode, reset all selection state
+        if isEditing == false {
+            isAllSelected = false
+            selectAllBarButton.image = UIImage(named: "emptySelectAll")
+        }
+
         reloadData()
     }
 
@@ -493,7 +506,7 @@ private extension MediaCategoryViewController {
         }
         searchBar.isHidden = isEmpty || isEditing
         collectionView?.backgroundView = isEmpty ? emptyView : nil
-        updateRightbarButtonItems()
+        updateBarButtonItems()
     }
 
     private func objects(from modelContent: VLCMLObject) -> [VLCMLObject] {
@@ -532,6 +545,16 @@ extension MediaCategoryViewController {
         return editButton
     }
 
+    private func setupSelectAllButton() -> UIBarButtonItem {
+        let selectAll = UIBarButtonItem(image: UIImage(named: "emptySelectAll"),
+                                        style: .plain, target: self,
+                                        action: #selector(handleSelectAll))
+        selectAll.accessibilityLabel = NSLocalizedString("BUTTON_SELECT_ALL", comment: "")
+        selectAll.accessibilityHint = NSLocalizedString("BUTTON_SELECT_ALL_HINT", comment: "")
+        return selectAll
+    }
+
+
     private func setupSortButton() -> UIButton {
         // Fetch sortButton configuration from MediaVC
         let sortButton = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
@@ -547,6 +570,13 @@ extension MediaCategoryViewController {
         sortButton.accessibilityLabel = NSLocalizedString("BUTTON_SORT", comment: "")
         sortButton.accessibilityHint = NSLocalizedString("BUTTON_SORT_HINT", comment: "")
         return sortButton
+    }
+
+    private func leftBarButtonItem() -> [UIBarButtonItem] {
+        var leftBarButtonItems = [UIBarButtonItem]()
+
+        leftBarButtonItems.append(selectAllBarButton)
+        return leftBarButtonItems
     }
 
     private func rightBarButtonItems() -> [UIBarButtonItem] {
@@ -613,6 +643,13 @@ extension MediaCategoryViewController {
         }
     }
 
+    @objc func handleSelectAll() {
+        isAllSelected = !isAllSelected
+        editController.selectAll()
+        selectAllBarButton.image = isAllSelected ? UIImage(named: "allSelected")
+            : UIImage(named: "emptySelectAll")
+    }
+
     @objc func handleSortShortcut() {
         model.sort(by: model.sortModel.currentSort, desc: !model.sortModel.desc)
     }
@@ -623,6 +660,7 @@ extension MediaCategoryViewController {
                                                                           target: self,
                                                                           action: #selector(handleEditing))]
             : rightBarButtonItems()
+        navigationItem.leftBarButtonItems = leftBarButtonItem()
         navigationItem.setHidesBackButton(isEditing, animated: true)
     }
 }
@@ -630,22 +668,24 @@ extension MediaCategoryViewController {
 // MARK: - VLCRendererDiscovererManagerDelegate
 
 extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
-    private func updateRightbarButtonItems() {
+    private func updateBarButtonItems() {
         if !isEditing {
             navigationItem.rightBarButtonItems = rightBarButtonItems()
+            navigationItem.leftBarButtonItem = nil
         }
 
         if isEmptyCollectionView() {
             navigationItem.rightBarButtonItem = nil
+            navigationItem.leftBarButtonItem = nil
         }
     }
 
     @objc func addedRendererItem() {
-        updateRightbarButtonItems()
+        updateBarButtonItems()
     }
 
     @objc func removedRendererItem() {
-        updateRightbarButtonItems()
+        updateBarButtonItems()
     }
 }
 

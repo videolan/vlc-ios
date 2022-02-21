@@ -24,6 +24,7 @@ class EditController: UIViewController {
     private let mediaLibraryService: MediaLibraryService
     private let presentingView: UICollectionView
     private(set) var editActions: EditActions
+    private var isAllSelected: Bool = false
 
     weak var delegate: EditControllerDelegate?
 
@@ -49,6 +50,24 @@ class EditController: UIViewController {
             }
         }
         selectedCellIndexPaths.removeAll()
+        isAllSelected = false
+    }
+
+    func selectAll() {
+        isAllSelected = !isAllSelected
+        if isAllSelected {
+            (0..<presentingView.numberOfSections).compactMap {
+                section -> [IndexPath]? in
+                return (0..<presentingView.numberOfItems(inSection: section)).compactMap({
+                    item -> IndexPath? in
+                    return IndexPath(item: item, section: section)
+                })}
+            .flatMap { $0 }.forEach { (indexPath) in
+                collectionView(presentingView, didSelectItemAt: indexPath)
+            }
+        } else {
+            resetSelections(resetUI: true)
+        }
     }
 }
 
@@ -242,6 +261,7 @@ extension EditController: UICollectionViewDelegate {
         // Isolate selectionViewOverlay changes inside EditController
         if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
             cell.selectionViewOverlay?.isHidden = false
+            cell.isSelected = true
         }
     }
 
@@ -252,6 +272,7 @@ extension EditController: UICollectionViewDelegate {
         }
         if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
             cell.selectionViewOverlay?.isHidden = true
+            cell.isSelected = false
         }
     }
 }
