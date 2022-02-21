@@ -293,6 +293,10 @@ class QueueViewController: UIViewController {
     }
 
     func reloadBackground(with image: UIImage?) {
+        guard #available(iOS 13, *) else {
+            return
+        }
+
         if !UIAccessibility.isReduceTransparencyEnabled {
             artworkImageBackgroundView.image = image
             artworkBlurView.isHidden = false
@@ -308,7 +312,15 @@ class QueueViewController: UIViewController {
 private extension QueueViewController {
     private func initViews() {
         Bundle.main.loadNibNamed("QueueView", owner: self, options: nil)
-        view.backgroundColor = .clear
+
+        if #available(iOS 13, *) {
+            view.backgroundColor = .clear
+        } else {
+            view.backgroundColor = PresentationTheme.darkTheme.colors.background
+            artworkImageBackgroundView.backgroundColor = PresentationTheme.darkTheme.colors.background
+            grabberView.backgroundColor = PresentationTheme.darkTheme.colors.background
+        }
+
         view.translatesAutoresizingMaskIntoConstraints = false
         initDarkOverlayView()
         initQueueCollectionView()
