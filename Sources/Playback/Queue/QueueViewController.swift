@@ -368,6 +368,14 @@ private extension QueueViewController {
 
         cell.tintColor = tintColor
         cell.titleLabel.textColor = textColor
+
+        if #available(iOS 13, *) {
+            cell.titleLabel.backgroundColor = .clear
+            cell.sizeDescriptionLabel.backgroundColor = .clear
+        } else {
+            cell.titleLabel.backgroundColor = PresentationTheme.darkTheme.colors.background
+            cell.sizeDescriptionLabel.backgroundColor = PresentationTheme.darkTheme.colors.background
+        }
     }
 
     @objc private func handleLongPress(gesture: UILongPressGestureRecognizer) {
