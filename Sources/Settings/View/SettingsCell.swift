@@ -53,7 +53,6 @@ class SettingsCell: UITableViewCell {
         let switchControl = UISwitch()
         let colors = PresentationTheme.current.colors
         switchControl.onTintColor = colors.orangeUI
-        switchControl.backgroundColor = colors.background
         switchControl.addTarget(self,
                                 action: #selector(handleSwitchAction),
                                 for: .valueChanged)
@@ -71,7 +70,6 @@ class SettingsCell: UITableViewCell {
         let colors = PresentationTheme.current.colors
         label.numberOfLines = 2
         label.textColor = colors.cellTextColor
-        label.backgroundColor = colors.background
         label.font = .preferredFont(forTextStyle: .callout) //16pt default
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -83,7 +81,6 @@ class SettingsCell: UITableViewCell {
         label.font = .preferredFont(forTextStyle: .footnote) //13pt default
         label.numberOfLines = 2
         label.textColor = colors.cellDetailTextColor
-        label.backgroundColor = colors.background
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -211,15 +208,18 @@ class SettingsCell: UITableViewCell {
 
     @objc fileprivate func themeDidChange() {
         let colors = PresentationTheme.current.colors
-        backgroundColor = colors.background
         selectedBackgroundView?.backgroundColor = colors.mediaCategorySeparatorColor
         mainLabel.textColor = colors.cellTextColor
-        mainLabel.backgroundColor = backgroundColor
         subtitleLabel.textColor = colors.cellDetailTextColor
-        subtitleLabel.backgroundColor = backgroundColor
         activityIndicator.color = colors.cellDetailTextColor
-        activityIndicator.backgroundColor = backgroundColor
-        switchControl.backgroundColor = colors.background
+        guard #available(iOS 13, *) else {
+            backgroundColor = colors.background
+            mainLabel.backgroundColor = backgroundColor
+            subtitleLabel.backgroundColor = backgroundColor
+            activityIndicator.backgroundColor = backgroundColor
+            switchControl.backgroundColor = backgroundColor
+            return
+        }
     }
 
     @objc private func updateValues() {
