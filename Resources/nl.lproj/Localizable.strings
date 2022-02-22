@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Afspeellijst leegmaken";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Media toevoegen tijdens het bewerken in de respectievelijke categorieën";
 
-"PLAYBACK_SCRUB_HELP" = "Beweeg uw vinger naar beneden om de scrubbing-ratio te wijzigen.";
+"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "Hoge snelheid scrubben";
 "PLAYBACK_SCRUB_HALF" = "Halve snelheid scrubben";
 "PLAYBACK_SCRUB_QUARTER" = "Kwart-snelheid scrubben";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Bewerken";
 "BUTTON_EDIT_HINT" = "Bewerkingsmodus";
+
+"BUTTON_SELECT_ALL" = "Select all";
+"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
 "ADD_TO_PLAYLIST" = "Aan afspeellijst toevoegen";
 "ADD_TO_PLAYLIST_HINT" = "Menu 'aan afspeellijst toevoegen' openen";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Afspeelsnelheid verhogen";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Afspeelsnelheid verlagen";
 "KEY_RESET_PLAYBACK_SPEED" = "Afspeelsnelheid herstellen";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
+"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
