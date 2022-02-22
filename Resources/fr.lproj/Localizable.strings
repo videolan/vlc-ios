@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Liste de lecture vide";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Ajouter un média en modifiant les catégories respectives.";
 
-"PLAYBACK_SCRUB_HELP" = "Faire glisser le doigt vers le bas pour régler la vitesse.";
+"PLAYBACK_SCRUB_HELP" = "Glissez votre doigt vers le haut pour régler la vitesse de balayage.";
 "PLAYBACK_SCRUB_HIGH" = "Défilement haute vitesse";
 "PLAYBACK_SCRUB_HALF" = "Défilement demi-vitesse";
 "PLAYBACK_SCRUB_QUARTER" = "Défilement quart de vitesse";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Modifier";
 "BUTTON_EDIT_HINT" = "Mode selection";
+
+"BUTTON_SELECT_ALL" = "Tout sélectionner";
+"BUTTON_SELECT_ALL_HINT" = "Sélectionnez tous les éléments multimédia présents dans cette vue";
 
 "ADD_TO_PLAYLIST" = "Ajouter à la liste de lecture";
 "ADD_TO_PLAYLIST_HINT" = "Ouvrir le menu Ajouter à la liste de lecture";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Augmenter la vitesse de lecture";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Ralentir la vitesse de lecture";
 "KEY_RESET_PLAYBACK_SPEED" = "Réinitialiser la vitesse de lecture";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Choisir le titre de l'arrière-plan";
+"TITLESELECTION_BACKGROUND_HINT" = "Tapez pour supprimer la vue.";
