@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Scaletta vuota";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Aggiungi media durante la modifica nelle categorie rispettive.";
 
-"PLAYBACK_SCRUB_HELP" = "Scorri dito verso il basso per regolare la velocità di scrubbing.";
+"PLAYBACK_SCRUB_HELP" = "Scorri il dito verso l'alto per regolare la velocità di scrubbing.";
 "PLAYBACK_SCRUB_HIGH" = "Scrubbing ad alta velocità";
 "PLAYBACK_SCRUB_HALF" = "Scrubbing con velocità al 50%";
 "PLAYBACK_SCRUB_QUARTER" = "Scrubbing con velocità al 25%";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Modifica";
 "BUTTON_EDIT_HINT" = "Modalità modifica";
+
+"BUTTON_SELECT_ALL" = "Seleziona tutto";
+"BUTTON_SELECT_ALL_HINT" = "Seleziona tutti gli elementi multimediali presenti in questa vista";
 
 "ADD_TO_PLAYLIST" = "Aggiungi alla scaletta";
 "ADD_TO_PLAYLIST_HINT" = "Apri il menu Aggiungi a scaletta";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Aumenta velocità di riproduzione";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Riduci velocità di riproduzione";
 "KEY_RESET_PLAYBACK_SPEED" = "Ripristina velocità di riproduzione";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Sfondo di selezione del titolo";
+"TITLESELECTION_BACKGROUND_HINT" = "Tocca per rimuovere la vista.";
