@@ -7,11 +7,11 @@
 "SETTINGS_THEME_BRIGHT" = "Lyst tema";
 "SETTINGS_THEME_DARK" = "Mørkt tema";
 "SETTINGS_THEME_SYSTEM" = "Automatisk";
-"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
-"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
+"SETTINGS_THEME_BLACK" = "Bruk svart bakgrunn i mørk modus";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "gjør batteri liv bedre med enheter med en OLED skjerm";
 "SETTINGS_PRIVACY_SUBTITLE" = "Åpne i Innstillinger";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Sikre tilgangen til ditt innhold";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Ditt media kommer til å bli skjulti i din fil app";
 
 "SETTINGS_DARKTHEME" = "Utseende";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Strekking av lyd";
@@ -84,10 +84,10 @@
 "SETTINGS_PTCASTING" = "Audio Passthrough";
 "SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
 "SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
+"SETTINGS_HIGH" = "Høy";
 "SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_LOW" = "Lav";
+"SETTINGS_LOWEST" = "Lavest";
 
 "SETTINGS_FEEDBACK" = "Tilbakemelding";
 "SETTINGS_SEND_FEEDBACK" = "Send tilbakemelding";
@@ -96,12 +96,12 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediebibliotek";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Tving oppdatering av mediebiblioteket";
 "SETTINGS_DECRAPIFY" = "Optimer emnenavn for visning";
-"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
+"SETTINGS_DISABLE_GROUPING" = "Slå av automatisk media guppering";
 "SETTINGS_SHOW_THUMBNAILS" = "Vis miniatyrbilder av videoer";
 "SETTINGS_SHOW_ARTWORKS" = "Vis omslagsbilder for lyd";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Inkluder mediebiblioteket ved reservekopiering av enheten";
 
-"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK" = "Nettverk";
 "SETTINGS_NETWORK_CACHING_TITLE" = "Nettverksbuffernivå";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lavest ventetid";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Lav ventetid";
@@ -109,16 +109,16 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Høy ventetid";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Høyest ventetid";
 "SETTINGS_WIFISHARING_IPv6" = "IPv6-støtte for Wi-Fi-deling";
-"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
+"SETTINGS_FORCE_SMBV1" = "Foretrekk SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
-"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_RTSP_TCP" = "Bruk RTP over RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Tilpasset SAT>IP kanall liste URL";
 
 "SETTINGS_ARTWORK" = "Omslagsbilde";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Last ned omslagsbilde";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Lagre Debug logger på enhet";
+"SETTINGS_EXPORT_LIBRARY" = "Dump media biblotek";
 
 "ABOUT_APP_TV" = "Om VLC for tvOS";
