@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Κενή λίστα αναπαραγωγής";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Προσθέστε αρχεία πολυμέσων ενόσω επεξεργάζεστε τις αντίστοιχες κατηγορίες.";
 
-"PLAYBACK_SCRUB_HELP" = "Σύρετε το δάκτυλό σας προς τα κάτω για να προσαρμόσετε τον ρυθμό μετατόπισης.";
+"PLAYBACK_SCRUB_HELP" = "Σύρετε το δάχτυλό σας προς τα πάνω για να προσαρμόσετε τον ρυθμό τριψίματος.";
 "PLAYBACK_SCRUB_HIGH" = "Υψηλή ταχύτητα μετατόπισης";
 "PLAYBACK_SCRUB_HALF" = "Μέση ταχύτητα μετατόπισης";
 "PLAYBACK_SCRUB_QUARTER" = "Ένα τέταρτο ταχύτητας μετατόπισης";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Επεξεργασία";
 "BUTTON_EDIT_HINT" = "Λειτουργία επεξεργασίας";
+
+"BUTTON_SELECT_ALL" = "Επιλογή όλων";
+"BUTTON_SELECT_ALL_HINT" = "Επιλέξτε όλα τα στοιχεία πολυμέσων που υπάρχουν σε αυτήν την προβολή";
 
 "ADD_TO_PLAYLIST" = "Προσθήκη στη λίστα αναπαραγωγής";
 "ADD_TO_PLAYLIST_HINT" = "Άνοιγμα μενού, προσθήκη σε λίστα αναπαραγωγής";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Αύξηση ταχύτητας αναπαραγωγής";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Μείωση ταχύτητας αναπαραγωγής";
 "KEY_RESET_PLAYBACK_SPEED" = "Επαναφορά ταχύτητας αναπαραγωγής";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Φόντο επιλογής τίτλου";
+"TITLESELECTION_BACKGROUND_HINT" = "Πατήστε για να καταργήσετε την προβολή.";
