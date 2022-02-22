@@ -7,7 +7,7 @@
 "SETTINGS_THEME_BRIGHT" = "Bright theme";
 "SETTINGS_THEME_DARK" = "Dark theme";
 "SETTINGS_THEME_SYSTEM" = "ഓട്ടോമാറ്റിക്";
-"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
+"SETTINGS_THEME_BLACK" = "ഡാർക്ക് മോഡിൽ കറുപ്പ് ബാക്ക്ഗ്രൗണ്ട് ഉപയോഗിക്കുക";
 "SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
 "SETTINGS_PRIVACY_SUBTITLE" = "ക്രമീകരണങ്ങളിൽ തുറക്കുക";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
@@ -111,7 +111,7 @@
 "SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
 "SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
-"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
+"SETTINGS_RTSP_TCP" = "RTSP (TCP) ന് പകരം RTP ഉപയോഗിക്കുക";
 "SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
 "SETTINGS_ARTWORK" = "കലാസൃഷ്‌ടി";
