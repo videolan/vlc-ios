@@ -16,6 +16,7 @@
 @interface VLCStatusLabel ()
 {
     NSTimer *_displayTimer;
+    UIEdgeInsets _insets;
 }
 @end
 
@@ -41,6 +42,7 @@
 
 - (void)initialize
 {
+    _insets = UIEdgeInsetsMake(5, 10, 5, 10);
     self.backgroundColor = [UIColor clearColor];
     self.textAlignment = NSTextAlignmentCenter;
 }
@@ -118,7 +120,20 @@
     UIBezierPath* bezierPath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:rect.size.height / 2];
     [bezierPath fill];
 
-    [super drawRect:rect];
+
+    [super drawRect:UIEdgeInsetsInsetRect(rect, _insets)];
+}
+
+- (void)drawTextInRect:(CGRect)rect
+{
+    [super drawTextInRect:UIEdgeInsetsInsetRect(rect, _insets)];
+}
+
+- (CGSize)intrinsicContentSize {
+    CGSize intrinsicSuperViewContentSize = [super intrinsicContentSize];
+    intrinsicSuperViewContentSize.height += _insets.top + _insets.bottom;
+    intrinsicSuperViewContentSize.width += _insets.left + _insets.right;
+    return intrinsicSuperViewContentSize;
 }
 
 @end
