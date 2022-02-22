@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Erreprodukzio zerrenda hutsa";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Gehitu euskarria dagokien kategorietan editatzen ari zaren bitartean.";
 
-"PLAYBACK_SCRUB_HELP" = "Irristatu hatza behera garbiketa-emaria doitzeko.";
+"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "Abiadura Handiko Garbiketa";
 "PLAYBACK_SCRUB_HALF" = "Abiadura Erdiko Garbiketa";
 "PLAYBACK_SCRUB_QUARTER" = "Abiadura Laurdeneko Garbiketa";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Editatu";
 "BUTTON_EDIT_HINT" = "Edizio modua";
+
+"BUTTON_SELECT_ALL" = "Select all";
+"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
 "ADD_TO_PLAYLIST" = "Gehitu erreprodukzio-zerrendara";
 "ADD_TO_PLAYLIST_HINT" = "Ireki 'gehitu erreprodukzio-zerrendara' menua";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Erreprodukzio abiadura handitu";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Erreprodukzio abiadura murriztu";
 "KEY_RESET_PLAYBACK_SPEED" = "Erreprodukzio abiadura berrezarri ";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
+"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";

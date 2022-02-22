@@ -112,13 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = "Nahiagotu SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Desmarkatu ezarpen hau zure SMB zerbitzarian arakatzeko zailtasunak badituzu";
 "SETTINGS_RTSP_TCP" = "RTP erabili RTSP (TCP)-ren gainetik";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "SAT>IP kanal zerrendaren URL pertsonalizatua";
 
 "SETTINGS_ARTWORK" = "Artelanak";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Deskargatu Artelana";
 
 "SETTINGS_LAB" = "Laborategia";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Gorde arazketa-erregistroak gailuan";
+"SETTINGS_EXPORT_LIBRARY" = "Zabortegiko mediateka";
 
 "ABOUT_APP_TV" = "iOS sistemarako VLC honi buruz";
