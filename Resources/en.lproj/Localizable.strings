@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Empty playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
-"PLAYBACK_SCRUB_HELP" = "Slide your finger down to adjust the scrubbing rate.";
+"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "High-Speed Scrubbing";
 "PLAYBACK_SCRUB_HALF" = "Half-Speed Scrubbing";
 "PLAYBACK_SCRUB_QUARTER" = "Quarter-Speed Scrubbing";
