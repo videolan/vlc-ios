@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Prazen seznam predvajanja";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Dodaj vsebino med urejanjem v ustrezne kategorije.";
 
-"PLAYBACK_SCRUB_HELP" = "Potegnite s prstom nižje za dostop do različnih hitrosti iskanja po posnetku.";
+"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "Iskanje z visoko hitrostjo";
 "PLAYBACK_SCRUB_HALF" = "Iskanje s polovično hitrostjo";
 "PLAYBACK_SCRUB_QUARTER" = "Iskanje s četrtinsko hitrostjo";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Uredi";
 "BUTTON_EDIT_HINT" = "Način urejanja";
+
+"BUTTON_SELECT_ALL" = "Select all";
+"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
 "ADD_TO_PLAYLIST" = "Dodaj v seznam predvajanja";
 "ADD_TO_PLAYLIST_HINT" = "Odpri meni za dodajanje na seznam predvajanja";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Povečaj hitrost predvajanja";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Zmanjšaj hitrost predvajanja";
 "KEY_RESET_PLAYBACK_SPEED" = "Ponastavi hitrost predvajanja";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
+"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
