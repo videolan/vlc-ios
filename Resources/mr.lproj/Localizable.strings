@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Empty playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
-"PLAYBACK_SCRUB_HELP" = "स्क्रबिंग दर समायोजित करण्यासाठी आपले बोट खाली घसरवा.";
+"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "उच्च-गती स्क्रबिंग";
 "PLAYBACK_SCRUB_HALF" = "अर्ध-गती स्क्रबिंग";
 "PLAYBACK_SCRUB_QUARTER" = "पाव-गती स्क्रबिंग";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Edit";
 "BUTTON_EDIT_HINT" = "Edit mode";
+
+"BUTTON_SELECT_ALL" = "Select all";
+"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
 "ADD_TO_PLAYLIST" = "Add to Playlist";
 "ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Increase playback speed";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Decrease playback speed";
 "KEY_RESET_PLAYBACK_SPEED" = "Reset playback speed";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
+"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
