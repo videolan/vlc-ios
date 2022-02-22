@@ -100,6 +100,9 @@ class MediaScrubProgressBar: UIStackView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWillResignActive),
+                                               name: UIApplication.willResignActiveNotification, object: nil)
     }
 
     @objc func updateInterfacePosition() {
@@ -234,5 +237,9 @@ private extension MediaScrubProgressBar {
     @objc private func progressSliderTouchUp() {
         isScrubbing = false
         scrubInfoStackView.isHidden = !isScrubbing
+    }
+
+    @objc private func handleWillResignActive() {
+        progressSliderTouchUp()
     }
 }
