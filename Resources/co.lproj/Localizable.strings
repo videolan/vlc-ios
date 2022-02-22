@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Lista di lettura viota";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Aghjunghje un media mudifichendu e categurie rispettive.";
 
-"PLAYBACK_SCRUB_HELP" = "Fate sculiscià u ditu inghjò per adattà a cadenza di scaruschjera.";
+"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "Scaruschjera à alta vitezza";
 "PLAYBACK_SCRUB_HALF" = "Scaruschjera à meza vitezza";
 "PLAYBACK_SCRUB_QUARTER" = "Scaruschjera à quartu vitezza";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Mudificà";
 "BUTTON_EDIT_HINT" = "Modu di mudificazione";
+
+"BUTTON_SELECT_ALL" = "Select all";
+"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
 "ADD_TO_PLAYLIST" = "Aghjunghje à a lista di lettura";
 "ADD_TO_PLAYLIST_HINT" = "Apre u listinu per aghjunghje à a lista di lettura";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Aummentà a vitezza di lettura";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Diminuisce a vitezza di lettura";
 "KEY_RESET_PLAYBACK_SPEED" = "Reinizià a vitezza di lettura";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
+"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
