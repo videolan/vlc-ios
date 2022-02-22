@@ -42,7 +42,7 @@
 "SETTINGS_GESTURES_VOLUME" = "Sesi değiştirmek için yukarı/aşağı kaydırın";
 "SETTINGS_GESTURES_PLAYPAUSE" = "Oynatma/duraklatma için iki parmakla dokun";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Parlaklığı değiştirmek için yukarı/aşağı kaydırın";
-"SETTINGS_GESTURES_SEEK" = "Taramak için sağa/sola kaydırın";
+"SETTINGS_GESTURES_SEEK" = "Atlamak için sağa/sola kaydırın";
 "SETTINGS_GESTURES_CLOSE" = "Kapatmak için kıstırın";
 "SETTINGS_GESTURE_JUMP_DURATION" = "Değişken atlama süresi";
 

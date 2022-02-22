@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Boş oynatma listesi";
 "EMPTY_PLAYLIST_DESCRIPTION" = "İlgili kategorilerde düzenleme yaparken ortam ekle.";
 
-"PLAYBACK_SCRUB_HELP" = "Sürtme hızını ayarlamak için parmağınızı aşağı kaydırın.";
+"PLAYBACK_SCRUB_HELP" = "Sürtme hızını ayarlamak için parmağınızı yukarı kaydırın.";
 "PLAYBACK_SCRUB_HIGH" = "Yüksek hızlı sürtme";
 "PLAYBACK_SCRUB_HALF" = "Yarım hızlı sürtme";
 "PLAYBACK_SCRUB_QUARTER" = "Çeyrek hızlı sürtme";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Düzenle";
 "BUTTON_EDIT_HINT" = "Düzenleme kipi";
+
+"BUTTON_SELECT_ALL" = "Tümünü seç";
+"BUTTON_SELECT_ALL_HINT" = "Bu görünümdeki tüm ortam ögelerini seçin";
 
 "ADD_TO_PLAYLIST" = "Oynatma listesine ekle";
 "ADD_TO_PLAYLIST_HINT" = "Oynatma listesine ekle menüsünü aç";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Oynatma hızını artır";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Oynatma hızını azalt";
 "KEY_RESET_PLAYBACK_SPEED" = "Oynatma hızını sıfırla";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Başlık seçimi arka planı";
+"TITLESELECTION_BACKGROUND_HINT" = "Görünümü kaldırmak için dokunun";
