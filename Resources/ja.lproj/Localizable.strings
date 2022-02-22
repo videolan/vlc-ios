@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "プレイリストを空に";
 "EMPTY_PLAYLIST_DESCRIPTION" = "カテゴリを編集中にメディアを追加する";
 
-"PLAYBACK_SCRUB_HELP" = "指をスライドさせてスクラビングレートを調整してください";
+"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "高速なスクラビング";
 "PLAYBACK_SCRUB_HALF" = "中速のスクラビング";
 "PLAYBACK_SCRUB_QUARTER" = "1/4の速度のスクラビング";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "編集";
 "BUTTON_EDIT_HINT" = "編集モード";
+
+"BUTTON_SELECT_ALL" = "すべて選択";
+"BUTTON_SELECT_ALL_HINT" = "このビューに表示されているすべてのメディアを選択";
 
 "ADD_TO_PLAYLIST" = "プレイリストに追加";
 "ADD_TO_PLAYLIST_HINT" = "プレイリストに追加メニューを表示";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "再生速度を上げる";
 "KEY_DECREASE_PLAYBACK_SPEED" = "再生速度を下げる";
 "KEY_RESET_PLAYBACK_SPEED" = "再生速度をリセットする";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
+"TITLESELECTION_BACKGROUND_HINT" = "タップしてこのビューを削除";
