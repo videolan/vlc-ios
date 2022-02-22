@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "เพลย์ลิสต์เปล่า";
 "EMPTY_PLAYLIST_DESCRIPTION" = "เพิ่มสื่อขณะแก้ไขในหมวดหมู่ที่เรียงตามลำดับ";
 
-"PLAYBACK_SCRUB_HELP" = "ไถลนิ้วของคุณลงเพื่อปรับอัตราการสครับบิง";
+"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "การสครับบิงความเร็วสูง";
 "PLAYBACK_SCRUB_HALF" = "การสครับบิงความเร็วกลาง";
 "PLAYBACK_SCRUB_QUARTER" = "การสครับบิงความเร็วหนึ่งในสี่";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "แก้ไข";
 "BUTTON_EDIT_HINT" = "โหมดการแก้ไข";
+
+"BUTTON_SELECT_ALL" = "Select all";
+"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
 "ADD_TO_PLAYLIST" = "เพิ่มลงในเพลย์ลิสต์";
 "ADD_TO_PLAYLIST_HINT" = "เปิดเมนู 'เพิ่มลงในเพลย์ลิสต์'";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Increase playback speed";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Decrease playback speed";
 "KEY_RESET_PLAYBACK_SPEED" = "Reset playback speed";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
+"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
