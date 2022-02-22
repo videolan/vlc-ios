@@ -39,11 +39,11 @@
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "முன்னிருப்பு இயக்கி வேகம்";
 
 "SETTINGS_GESTURES" = "சைகையுடன் இயக்கத்தை கட்டுப்படுத்தவும்";
-"SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
+"SETTINGS_GESTURES_VOLUME" = "ஒலியளவிற்கு மேலே/கீழே தேய்";
 "SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
-"SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
-"SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
-"SETTINGS_GESTURES_CLOSE" = "Pinch to close";
+"SETTINGS_GESTURES_BRIGHTNESS" = "வெளிச்சத்திற்கு மேலே/கீழே தேய்";
+"SETTINGS_GESTURES_SEEK" = "நாட வலது/இடதில் தேய்";
+"SETTINGS_GESTURES_CLOSE" = "மூட கிள்ளு";
 "SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
 
 "SETTINGS_SUBTITLES_TITLE" = "துணைத் தலைப்புகள்";
