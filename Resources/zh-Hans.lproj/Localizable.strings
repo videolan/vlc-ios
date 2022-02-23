@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "清空播放列表";
 "EMPTY_PLAYLIST_DESCRIPTION" = "在编辑相应类别时添加媒体。";
 
-"PLAYBACK_SCRUB_HELP" = "向下滑动手指可调整步进间隔。";
+"PLAYBACK_SCRUB_HELP" = "向上滑动手指来调整擦洗速度。";
 "PLAYBACK_SCRUB_HIGH" = "高速步进";
 "PLAYBACK_SCRUB_HALF" = "半速步进";
 "PLAYBACK_SCRUB_QUARTER" = "¼速步进";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "编辑";
 "BUTTON_EDIT_HINT" = "编辑模式";
+
+"BUTTON_SELECT_ALL" = "全选";
+"BUTTON_SELECT_ALL_HINT" = "选择此视图中存在的所有媒体项目";
 
 "ADD_TO_PLAYLIST" = "添加到播放列表";
 "ADD_TO_PLAYLIST_HINT" = "打开「添加到播放列表」菜单";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "提高播放速度";
 "KEY_DECREASE_PLAYBACK_SPEED" = "降低播放速度";
 "KEY_RESET_PLAYBACK_SPEED" = "重置播放速度";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "标题选择背景";
+"TITLESELECTION_BACKGROUND_HINT" = "轻按删除视图";
