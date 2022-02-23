@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Iscalita bòida";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Annaghe documentos multimediales cando ses faghende modìficas in sas categorias chi lis pertocant.";
 
-"PLAYBACK_SCRUB_HELP" = "Iscurre su pòddighe cara a bassu pro acontzare sa letresa de trisinadura.";
+"PLAYBACK_SCRUB_HELP" = "Iscurre su pòddighe cara a susu pro acontzare sa letresa de trisinadura.";
 "PLAYBACK_SCRUB_HIGH" = "Trisinadura a lestresa arta";
 "PLAYBACK_SCRUB_HALF" = "Trisinadura cun lestresa a su 50%";
 "PLAYBACK_SCRUB_QUARTER" = "Trisinadura cun lestresa a su 25%";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Modìfica";
 "BUTTON_EDIT_HINT" = "Modalidade de modìfica";
+
+"BUTTON_SELECT_ALL" = "Seletziona totu";
+"BUTTON_SELECT_ALL_HINT" = "Seletziona totu sos elementos multimediales presentes in custa vista";
 
 "ADD_TO_PLAYLIST" = "Annanghe a s'iscalita";
 "ADD_TO_PLAYLIST_HINT" = "Aberi su menù pro annànghere a s'iscalita";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Aumenta sa lestresa de riprodutzione";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Mìnima sa lestresa de riprodutzione";
 "KEY_RESET_PLAYBACK_SPEED" = "Reseta sa lestresa de riprodutzione";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Isfundu de seletzione de su tìtulu";
+"TITLESELECTION_BACKGROUND_HINT" = "Toca pro bogare sa vista.";
