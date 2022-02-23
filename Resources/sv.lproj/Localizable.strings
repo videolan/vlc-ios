@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Tom spellista";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Lägg till media medan du redigerar de respektive kategorierna.";
 
-"PLAYBACK_SCRUB_HELP" = "Dra ditt finger nedåt för att justera skrubbningsgraden.";
+"PLAYBACK_SCRUB_HELP" = "Dra ditt finger uppåt för att justera skrubbningsgraden.";
 "PLAYBACK_SCRUB_HIGH" = "Skrubbning i högfart";
 "PLAYBACK_SCRUB_HALF" = "Skrubbning i halvfart";
 "PLAYBACK_SCRUB_QUARTER" = "Skrubbning i fjärdedelsfart";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Redigera";
 "BUTTON_EDIT_HINT" = "Redigeringsläge";
+
+"BUTTON_SELECT_ALL" = "Markera alla";
+"BUTTON_SELECT_ALL_HINT" = "Markera alla mediaobjekt som finns i denna vy";
 
 "ADD_TO_PLAYLIST" = "Lägg till i spellista";
 "ADD_TO_PLAYLIST_HINT" = "Öppna menyn för att lägga till i spellista";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Öka uppspelningshastighet";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Minska uppspelningshastighet";
 "KEY_RESET_PLAYBACK_SPEED" = "Återställ uppspelningshastighet";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Bakgrund för markering av titlar";
+"TITLESELECTION_BACKGROUND_HINT" = "Tryck för att ta bort vyn.";
