@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "רשימת נגינה ריקה";
 "EMPTY_PLAYLIST_DESCRIPTION" = "הוספת מדיה בעת עריכת הקטגוריות בהתאמה.";
 
-"PLAYBACK_SCRUB_HELP" = "יש להחליק את האצבע כלפי מטה כדי להתאים את מהירות הגלילה.";
+"PLAYBACK_SCRUB_HELP" = "יש להחליק את האצבע כלפי מעלה כדי להתאים את קצב השיוט.";
 "PLAYBACK_SCRUB_HIGH" = "גלילה במהירות גבוהה";
 "PLAYBACK_SCRUB_HALF" = "גלילה במהירות בינונית";
 "PLAYBACK_SCRUB_QUARTER" = "גלילה ברבע מהמהירות";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "עריכה";
 "BUTTON_EDIT_HINT" = "מצב עריכה";
+
+"BUTTON_SELECT_ALL" = "בחירה בהכול";
+"BUTTON_SELECT_ALL_HINT" = "לבחור את כל פריטי המדיה שקיימים בתצוגה הזאת";
 
 "ADD_TO_PLAYLIST" = "הוספה לרשימת הנגינה";
 "ADD_TO_PLAYLIST_HINT" = "פתיחת תפריט ההוספה לרשימת נגינה";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "הגברת מהירות הנגינה";
 "KEY_DECREASE_PLAYBACK_SPEED" = "האטת מהירות הנגינה";
 "KEY_RESET_PLAYBACK_SPEED" = "איפוס מהירות הנגינה";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "רקע בחירת כותרת";
+"TITLESELECTION_BACKGROUND_HINT" = "נגיעה מסירה את התצוגה.";
