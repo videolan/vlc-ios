@@ -117,7 +117,7 @@
 "SETTINGS_ARTWORK" = "Kansikuvat";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Lataa kansikuvat";
 
-"SETTINGS_LAB" = "Lab";
+"SETTINGS_LAB" = "Labra";
 "SETTINGS_DEBUG_LOG" = "Tallenna virhelokit laitteelle";
 "SETTINGS_EXPORT_LIBRARY" = "Hylkää mediakirjasto";
 

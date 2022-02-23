@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Tyhjä soittolista";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Lisää media muokkaamalla vastaavia luokia.";
 
-"PLAYBACK_SCRUB_HELP" = "Säädä raahausnopeutta vetämällä sormea alas.";
+"PLAYBACK_SCRUB_HELP" = "Liu'uta sormeasi ylöspäin säätääksesi raahausnopeutta.";
 "PLAYBACK_SCRUB_HIGH" = "Nopea raahaus";
 "PLAYBACK_SCRUB_HALF" = "Puolinopea raahaus";
 "PLAYBACK_SCRUB_QUARTER" = "Raahaus neljäsosanopeudella";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Muokkaa";
 "BUTTON_EDIT_HINT" = "Muokkaustila";
+
+"BUTTON_SELECT_ALL" = "Valitse kaikki";
+"BUTTON_SELECT_ALL_HINT" = "Valitse kaikki tässä näkymässä olevat mediat";
 
 "ADD_TO_PLAYLIST" = "Lisää soittolistaan";
 "ADD_TO_PLAYLIST_HINT" = "Avaa valikko Lisää soittolistaan";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Kasvata äänentoiston nopeutta";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Vähennä äänentoiston nopeutta";
 "KEY_RESET_PLAYBACK_SPEED" = "Nollaa äänentoiston nopeus";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Otsikon valinnan tausta";
+"TITLESELECTION_BACKGROUND_HINT" = "Poista näkymä napauttamalla.";
