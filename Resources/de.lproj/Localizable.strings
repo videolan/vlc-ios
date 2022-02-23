@@ -346,6 +346,9 @@
 "BUTTON_EDIT" = "Bearbeiten";
 "BUTTON_EDIT_HINT" = "Bearbeitungsmodus";
 
+"BUTTON_SELECT_ALL" = "Alles auswählen";
+"BUTTON_SELECT_ALL_HINT" = "Alle, in dieser Ansicht vorhandenen Medienelemente, auswählen";
+
 "ADD_TO_PLAYLIST" = "Zu Liste hinzufügen";
 "ADD_TO_PLAYLIST_HINT" = "Menü zum Wiedergabeliste hinzufügen öffnen";
 
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Wiedergabegeschwindigkeit erhöhen";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Wiedergabegeschwindigkeit verringern";
 "KEY_RESET_PLAYBACK_SPEED" = "Wiedergabegeschwindigkeit zurücksetzen";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Hintergrund der Titelauswahl";
+"TITLESELECTION_BACKGROUND_HINT" = "Tippen, um die Ansicht zu entfernen.";
