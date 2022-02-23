@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Üres lejátszólista";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Média hozzáadása a megfelelő kategóriák szerkesztésekor";
 
-"PLAYBACK_SCRUB_HELP" = "A tekerési sebesség állításához csúsztassa lefelé az ujját.";
+"PLAYBACK_SCRUB_HELP" = "A tekerési sebesség állításához csúsztassa felfelé az ujját.";
 "PLAYBACK_SCRUB_HIGH" = "Nagy sebességű tekerés";
 "PLAYBACK_SCRUB_HALF" = "Fél sebességű tekerés";
 "PLAYBACK_SCRUB_QUARTER" = "Negyed sebességű tekerés";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Szerkesztés";
 "BUTTON_EDIT_HINT" = "Szerkesztési mód";
+
+"BUTTON_SELECT_ALL" = "Összes kiválasztása";
+"BUTTON_SELECT_ALL_HINT" = "A nézetben szereplő összes médiaelem kiválasztása";
 
 "ADD_TO_PLAYLIST" = "Hozzáadás a lejátszólistához";
 "ADD_TO_PLAYLIST_HINT" = "A hozzáadás a lejátszólistához menü megnytiása";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Lejátszási sebesség növelése";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Lejátszási sebesség csökkentése";
 "KEY_RESET_PLAYBACK_SPEED" = "Lejátszási sebesség visszaállítása";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Címkiválasztás háttere";
+"TITLESELECTION_BACKGROUND_HINT" = "Koppintson a nézet eltávolításához.";
