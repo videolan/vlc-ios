@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Vyprázdniť playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Pridať médium počas úpravy v príslušných kategóriách.";
 
-"PLAYBACK_SCRUB_HELP" = "Pre úpravu rýchlosti posúvania prejdite prstom nadol.";
+"PLAYBACK_SCRUB_HELP" = "Posunom prsta nahor zmeníte rýchlosť posúvania.";
 "PLAYBACK_SCRUB_HIGH" = "Posúvanie vysokou rýchlosťou";
 "PLAYBACK_SCRUB_HALF" = "Posúvanie polovičnou rýchlosťou";
 "PLAYBACK_SCRUB_QUARTER" = "Posúvanie štvrtinovou rýchlosťou";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Upraviť";
 "BUTTON_EDIT_HINT" = "Režim úprav";
+
+"BUTTON_SELECT_ALL" = "Vybrať všetko";
+"BUTTON_SELECT_ALL_HINT" = "Vybrať všetky médiá v tomto zobrazení";
 
 "ADD_TO_PLAYLIST" = "Pridať do playlistu";
 "ADD_TO_PLAYLIST_HINT" = "Otvoriť menu na pridanie do playlistu";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Zvýšiť rýchlosť prehrávania";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Znížiť rýchlosť prehrávania";
 "KEY_RESET_PLAYBACK_SPEED" = "Reset rýchlosti prehrávania";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Pozadie pre výber titulu";
+"TITLESELECTION_BACKGROUND_HINT" = "Zobrazenie odstránite dotykom.";
