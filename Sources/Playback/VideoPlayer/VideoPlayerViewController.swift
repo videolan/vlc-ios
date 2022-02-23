@@ -272,6 +272,7 @@ class VideoPlayerViewController: UIViewController {
 
     private lazy var statusLabel: VLCStatusLabel = {
         var statusLabel = VLCStatusLabel()
+        statusLabel.isHidden = true
         statusLabel.textColor = .white
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         return statusLabel
