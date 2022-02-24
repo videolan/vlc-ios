@@ -64,7 +64,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
 
     private let descendingLabel: UILabel = {
         let descendingLabel = UILabel()
-        descendingLabel.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
+        descendingLabel.textColor = PresentationTheme.current.colors.cellTextColor
         descendingLabel.text = NSLocalizedString("DESCENDING_LABEL", comment: "")
         descendingLabel.accessibilityLabel = NSLocalizedString("DESCENDING_LABEL", comment: "")
         descendingLabel.accessibilityHint = NSLocalizedString("DESCENDING_LABEL", comment: "")
@@ -84,7 +84,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
 
     private let gridLayoutLabel: UILabel = {
         let gridLayoutLabel = UILabel()
-        let colors = PresentationTheme.currentExcludingBlack.colors
+        let colors = PresentationTheme.current.colors
         gridLayoutLabel.text = NSLocalizedString("GRID_LAYOUT", comment: "")
         gridLayoutLabel.accessibilityLabel = NSLocalizedString("GRID_LAYOUT", comment: "")
         gridLayoutLabel.accessibilityHint = NSLocalizedString("GRID_LAYOUT", comment: "")
@@ -98,7 +98,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
 
     private let displayByLabel: UILabel = {
         let displayByLabel = UILabel()
-        let colors = PresentationTheme.currentExcludingBlack.colors
+        let colors = PresentationTheme.current.colors
         displayByLabel.text = NSLocalizedString("DISPLAY_AS", comment: "")
         displayByLabel.accessibilityLabel = NSLocalizedString("DISPLAY_AS", comment: "")
         displayByLabel.accessibilityHint = NSLocalizedString("DISPLAY_AS", comment: "")
@@ -155,7 +155,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     }
 
     @objc private func updateTheme() {
-        let colors = PresentationTheme.currentExcludingBlack.colors
+        let colors = PresentationTheme.current.colors
         backgroundColor = colors.background
         title.textColor = colors.cellTextColor
         title.backgroundColor = backgroundColor

@@ -73,6 +73,7 @@ class ActionSheetCell: UICollectionViewCell {
     private(set) var accessoryView = UIView ()
     weak var delegate: ActionSheetCellDelegate?
     var identifier: MediaPlayerActionSheetCellIdentifier?
+    var isMediaPlayerActionSheetCell: Bool = false
 
     @objc static var identifier: String {
         return String(describing: self)
@@ -98,7 +99,7 @@ class ActionSheetCell: UICollectionViewCell {
 
     let name: UILabel = {
         let name = UILabel()
-        let colors = PresentationTheme.currentExcludingBlack.colors
+        let colors = PresentationTheme.current.colors
         name.textColor = colors.cellTextColor
         name.backgroundColor = colors.background
         name.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
@@ -171,9 +172,20 @@ class ActionSheetCell: UICollectionViewCell {
         setupViews()
     }
 
+    private func getThemeColors() -> ColorPalette {
+        if isMediaPlayerActionSheetCell && PresentationTheme.current.isBlack {
+            return PresentationTheme.blackTheme.colors
+        } else if isMediaPlayerActionSheetCell {
+            return PresentationTheme.darkTheme.colors
+        } else {
+            return PresentationTheme.current.colors
+        }
+    }
+
     private func updateColors() {
+        updateTheme()
         let shouldUpdateColors = delegate?.actionSheetCellShouldUpdateColors() ?? true
-        let colors = PresentationTheme.currentExcludingBlack.colors
+        let colors = getThemeColors()
         if shouldUpdateColors {
             name.textColor = isSelected ? colors.orangeUI : colors.cellTextColor
             tintColor = isSelected ? colors.orangeUI : colors.cellDetailTextColor
@@ -206,7 +218,7 @@ class ActionSheetCell: UICollectionViewCell {
         ])
     }
     
-    func configure(withModel model: ActionSheetCellModel) {
+    func configure(withModel model: ActionSheetCellModel, isFromMediaPlayerActionSheet: Bool = false) {
         if model.accessoryType == .disclosureChevron {
             assert(model.viewToPresent != nil, "ActionSheetCell: Cell with disclosure chevron must have accompanying presentable UIView")
         }
@@ -216,10 +228,13 @@ class ActionSheetCell: UICollectionViewCell {
         identifier = model.cellIdentifier
         // disclosure chevron is set as the default accessoryView if a viewController is present
         accessoryType = model.viewToPresent != nil && model.accessoryType != .popup ? .disclosureChevron : model.accessoryType
+        isMediaPlayerActionSheetCell = isFromMediaPlayerActionSheet
+        let colors = getThemeColors()
 
         if accessoryType == .disclosureChevron || accessoryType == .popup {
-            accessoryTypeImageView.tintColor = PresentationTheme.currentExcludingBlack.colors.orangeUI
+            accessoryTypeImageView.tintColor = colors.orangeUI
         }
+        updateColors()
     }
 
     func setToggleSwitch(state: Bool) {
@@ -257,10 +272,11 @@ class ActionSheetCell: UICollectionViewCell {
     }
 
     @objc private func updateTheme() {
-        let colors = PresentationTheme.currentExcludingBlack.colors
+        let colors = getThemeColors()
         backgroundColor = colors.background
         name.textColor = colors.cellTextColor
         name.backgroundColor = backgroundColor
+        stackView.backgroundColor = colors.background
         viewToPresent?.backgroundColor = backgroundColor
     }
 }

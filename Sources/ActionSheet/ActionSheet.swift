@@ -61,7 +61,7 @@ class ActionSheet: UIViewController {
                                               collectionViewLayout: collectionViewLayout)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
+        collectionView.backgroundColor = PresentationTheme.current.colors.background
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -74,15 +74,15 @@ class ActionSheet: UIViewController {
 
     lazy var collectionWrapperView: UIView = {
         let collectionWrapperView: UIView = UIView(frame: UIScreen.main.bounds)
-        collectionWrapperView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
+        collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
         return collectionWrapperView
     }()
 
     private(set) lazy var headerView: ActionSheetSectionHeader = {
         let headerView = ActionSheetSectionHeader()
         headerView.title.text = delegate?.headerViewTitle?() ?? "Default header title"
-        headerView.title.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
-        headerView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
+        headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
+        headerView.backgroundColor = PresentationTheme.current.colors.background
         headerView.translatesAutoresizingMaskIntoConstraints = false
         return headerView
     }()
@@ -93,7 +93,7 @@ class ActionSheet: UIViewController {
         mainStackView.axis = .vertical
         mainStackView.alignment = .center
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        mainStackView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        mainStackView.backgroundColor = .clear
         return mainStackView
     }()
 
@@ -248,10 +248,11 @@ class ActionSheet: UIViewController {
     }
 
     @objc private func updateTheme() {
-        collectionWrapperView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
-        collectionView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
-        headerView.backgroundColor = PresentationTheme.currentExcludingBlack.colors.background
-        headerView.title.textColor = PresentationTheme.currentExcludingBlack.colors.cellTextColor
+        collectionView.backgroundColor = PresentationTheme.current.colors.background
+        collectionWrapperView.backgroundColor = PresentationTheme.current.colors.background
+        headerView.backgroundColor = PresentationTheme.current.colors.background
+        headerView.title.textColor = PresentationTheme.current.colors.cellTextColor
+        headerView.title.backgroundColor = PresentationTheme.current.colors.background
         collectionView.layoutIfNeeded()
     }
     

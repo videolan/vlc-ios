@@ -113,6 +113,10 @@ enum PresentationThemeType: Int {
         return colors.isDark
     }
 
+    var isBlack: Bool {
+        return UserDefaults.standard.bool(forKey: kVLCSettingAppThemeBlack)
+    }
+
     static var current: PresentationTheme = {
         let themeSettings = UserDefaults.standard.integer(forKey: kVLCSettingAppTheme)
         return PresentationTheme.respectiveTheme(for: PresentationThemeType(rawValue: themeSettings))
