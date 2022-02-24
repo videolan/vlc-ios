@@ -62,14 +62,18 @@ class VideoFiltersView: UIView {
         setupTheme()
     }
 
-    private func setupTheme() {
-        brightnessLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        contrastLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        hueLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        saturationLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        gammaLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
-        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI.withAlphaComponent(0.5), for: .highlighted)
+    func setupTheme() {
+        backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        brightnessLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        brightnessSlider.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+        contrastLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        contrastSlider.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+        hueLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        hueSlider.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+        saturationLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        saturationSlider.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+        gammaLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        gammaSlider.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
     }
 
     private func setupLabels() {
@@ -94,27 +98,22 @@ class VideoFiltersView: UIView {
     private func setupSliders() {
         brightnessSlider.minimumValue = minValue
         brightnessSlider.maximumValue = maxBrightness
-        brightnessSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         brightnessSlider.setValue(currentBrightness, animated: true)
 
         contrastSlider.minimumValue = minValue
         contrastSlider.maximumValue = maxContrast
-        contrastSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         contrastSlider.setValue(currentContrast, animated: true)
 
         hueSlider.minimumValue = minHue
         hueSlider.maximumValue = maxHue
-        hueSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         hueSlider.setValue(currentHue, animated: true)
 
         saturationSlider.minimumValue = minValue
         saturationSlider.maximumValue = maxSaturation
-        saturationSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         saturationSlider.setValue(currentSaturation, animated: true)
 
         gammaSlider.minimumValue = minValue
         gammaSlider.maximumValue = maxGamma
-        gammaSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
         gammaSlider.setValue(currentGamma, animated: true)
     }
 

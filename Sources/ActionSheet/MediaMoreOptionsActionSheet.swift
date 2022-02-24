@@ -79,7 +79,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
         if #available(iOS 13.0, *) {
             videoFiltersView.overrideUserInterfaceStyle = .dark
         }
-        videoFiltersView.backgroundColor = PresentationTheme.darkTheme.colors.background
         videoFiltersView.delegate = self
         return videoFiltersView
     }()
@@ -94,7 +93,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
         if #available(iOS 13.0, *) {
             playbackSpeedView.overrideUserInterfaceStyle = .dark
         }
-        playbackSpeedView.backgroundColor = PresentationTheme.darkTheme.colors.background
         playbackSpeedView.delegate = self
         return playbackSpeedView
     }()
@@ -108,7 +106,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
         if #available(iOS 13.0, *) {
             sleepTimerView.overrideUserInterfaceStyle = .dark
         }
-        sleepTimerView.backgroundColor = PresentationTheme.darkTheme.colors.background
         sleepTimerView.delegate = self
         return sleepTimerView
     }()
@@ -134,6 +131,13 @@ protocol MediaMoreOptionsActionSheetDelegate {
         return sleepTimerView.remainingTime()
     }
 
+    func updateThemes() {
+        videoFiltersView.setupTheme()
+        playbackView.setupTheme()
+        sleepTimerView.setupTheme()
+        equalizerView.setupTheme()
+    }
+
 // MARK: - Equalizer
 
     private lazy var equalizerView: EqualizerView = {
@@ -153,6 +157,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
         // FIXME: Reset Equalizer if needed
         videoFiltersView.resetSlidersIfNeeded()
         playbackView.resetSlidersIfNeeded()
+        updateThemes()
     }
 }
 
@@ -190,7 +195,7 @@ extension MediaMoreOptionsActionSheet: SleepTimerViewDelegate {
         if #available(iOS 13.0, *) {
             alert.view.overrideUserInterfaceStyle = .dark
         }
-        alert.view.backgroundColor = PresentationTheme.darkTheme.colors.background
+        alert.view.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
         alert.view.layer.cornerRadius = 15
 
         self.present(alert, animated: true)

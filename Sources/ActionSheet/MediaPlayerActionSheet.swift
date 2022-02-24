@@ -135,11 +135,11 @@ class MediaPlayerActionSheet: ActionSheet {
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .dark
         }
-        let darkColors = PresentationTheme.darkTheme.colors
-        collectionWrapperView.backgroundColor = darkColors.background
-        collectionView.backgroundColor = darkColors.background
-        headerView.backgroundColor = darkColors.background
-        headerView.title.textColor = darkColors.cellTextColor
+        collectionWrapperView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        collectionView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        headerView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        headerView.title.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        headerView.title.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
     }
 
     /// Animates the removal of the `currentChildViewController` when it is dragged from its left edge to the right
@@ -240,23 +240,23 @@ extension MediaPlayerActionSheet: ActionSheetDataSource {
             withReuseIdentifier: ActionSheetCell.identifier,
             for: indexPath) as? ActionSheetCell {
             sheetCell = cell
-            sheetCell.configure(withModel: cellModel)
-            let darkColors = PresentationTheme.darkTheme.colors
-            sheetCell.backgroundColor = darkColors.background
-            sheetCell.name.textColor = darkColors.cellTextColor
-            sheetCell.icon.tintColor = darkColors.orangeUI
+            sheetCell.configure(withModel: cellModel, isFromMediaPlayerActionSheet: true)
+
+            sheetCell.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+            sheetCell.name.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+            sheetCell.icon.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
 
             if sheetCell.accessoryType == .disclosureChevron {
-                cell.accessoryView.tintColor = darkColors.cellDetailTextColor
+                cell.accessoryView.tintColor = PresentationTheme.currentExcludingWhite.colors.cellDetailTextColor
             } else {
-                sheetCell.accessoryView.tintColor = darkColors.orangeUI
+                sheetCell.accessoryView.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
             }
         } else {
             assertionFailure("MediaMoreOptionsActionSheet: Could not dequeue reusable cell")
             sheetCell = ActionSheetCell(withCellModel: cellModel)
         }
 
-        sheetCell.accessoryView.tintColor = PresentationTheme.darkTheme.colors.cellDetailTextColor
+        sheetCell.accessoryView.tintColor = PresentationTheme.currentExcludingWhite.colors.cellDetailTextColor
         sheetCell.delegate = self
         return sheetCell
     }

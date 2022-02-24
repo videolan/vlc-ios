@@ -37,11 +37,11 @@ class SleepTimerView: UIView {
         setupTheme()
     }
 
-    private func setupTheme() {
-        timePicker.setValue(UIColor.white, forKey: "textColor")
-        backgroundColor = PresentationTheme.darkTheme.colors.background
-        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
-        setButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
+    func setupTheme() {
+        timePicker.setValue(PresentationTheme.currentExcludingWhite.colors.cellTextColor, forKey: "textColor")
+        backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        resetButton.setTitleColor(PresentationTheme.currentExcludingWhite.colors.orangeUI, for: .normal)
+        setButton.setTitleColor(PresentationTheme.currentExcludingWhite.colors.orangeUI, for: .normal)
     }
 
     private func setupButtons() {

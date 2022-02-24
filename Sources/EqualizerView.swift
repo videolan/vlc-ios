@@ -332,18 +332,18 @@ import UIKit
     }
 
     @objc func setupTheme() {
-        backgroundColor = PresentationTheme.darkTheme.colors.background
-        plus20Label.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        zeroLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        minus20Label.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        snapBandsLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        cancelButton.tintColor = PresentationTheme.darkTheme.colors.orangeUI
-        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
+        backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        plus20Label.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        zeroLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        minus20Label.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        snapBandsLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        cancelButton.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+        resetButton.setTitleColor(PresentationTheme.currentExcludingWhite.colors.orangeUI, for: .normal)
 
         for eqFrequency in eqFrequencies {
-            eqFrequency.currentValueLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-            eqFrequency.slider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
-            eqFrequency.frequencyLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+            eqFrequency.currentValueLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+            eqFrequency.slider.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+            eqFrequency.frequencyLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
         }
     }
 

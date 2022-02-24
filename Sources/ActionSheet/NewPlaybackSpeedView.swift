@@ -52,22 +52,23 @@ class NewPlaybackSpeedView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        setupTheme()
         setupResetButton()
         setupSegmentedControl()
+        setupTheme()
     }
 
 
-    private func setupTheme() {
-        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
-        resetButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI.withAlphaComponent(0.5), for: .highlighted)
-        minLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        currentButton.setTitleColor(PresentationTheme.darkTheme.colors.orangeUI, for: .normal)
-        maxLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
-        speedSlider.tintColor = PresentationTheme.darkTheme.colors.orangeUI
-        increaseSpeedButton.tintColor = PresentationTheme.darkTheme.colors.orangeUI
-        decreaseSpeedButton.tintColor = PresentationTheme.darkTheme.colors.orangeUI
-        self.backgroundColor = PresentationTheme.darkTheme.colors.background
+    func setupTheme() {
+        backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        resetButton.setTitleColor(PresentationTheme.currentExcludingWhite.colors.orangeUI, for: .normal)
+        resetButton.setTitleColor(PresentationTheme.currentExcludingWhite.colors.orangeUI.withAlphaComponent(0.5), for: .highlighted)
+        optionsSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: PresentationTheme.currentExcludingWhite.colors.cellTextColor], for: .normal)
+        minLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        currentButton.setTitleColor(PresentationTheme.currentExcludingWhite.colors.orangeUI, for: .normal)
+        maxLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        speedSlider.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+        increaseSpeedButton.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+        decreaseSpeedButton.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
     }
 
     private func setupResetButton() {

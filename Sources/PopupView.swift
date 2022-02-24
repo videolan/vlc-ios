@@ -15,7 +15,7 @@ import UIKit
 class PopupView: UIView {
     var isShown: Bool = false
     private let titleStackView = UIStackView()
-    private let closeButton = UIButton()
+    let closeButton = UIButton()
     let titleLabel = UILabel()
     private let scrollView = UIScrollView()
 
@@ -139,10 +139,10 @@ class PopupView: UIView {
     // MARK: - Event handlers
 
     @objc private func themeDidChange() {
-        backgroundColor = PresentationTheme.darkTheme.colors.background
-        closeButton.tintColor = PresentationTheme.darkTheme.colors.cellTextColor
-        closeButton.backgroundColor = PresentationTheme.darkTheme.colors.background
-        titleLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
+        backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        closeButton.tintColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        closeButton.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        titleLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
     }
 
     @objc func close() {

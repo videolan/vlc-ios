@@ -127,10 +127,13 @@ enum PresentationThemeType: Int {
         }
     }
 
-    static var currentExcludingBlack: PresentationTheme = {
-        let themeSettings = UserDefaults.standard.integer(forKey: kVLCSettingAppTheme)
-        return PresentationTheme.respectiveTheme(for: PresentationThemeType(rawValue: themeSettings), excludingBlackTheme: true)
-    }()
+    static var currentExcludingWhite: PresentationTheme {
+        if PresentationTheme.current.isBlack {
+            return PresentationTheme.blackTheme
+        } else {
+            return PresentationTheme.darkTheme
+        }
+    }
 
     init(colors: ColorPalette) {
         self.colors = colors
@@ -150,10 +153,11 @@ enum PresentationThemeType: Int {
 
         var presentationTheme = PresentationTheme.brightTheme
         var darkTheme: PresentationTheme
-        if !excludingBlackTheme && UserDefaults.standard.bool(forKey: kVLCSettingAppThemeBlack) {
-            darkTheme = PresentationTheme(colors: blackPalette)
+
+        if UserDefaults.standard.bool(forKey: kVLCSettingAppThemeBlack) {
+            darkTheme = PresentationTheme.blackTheme
         } else {
-            darkTheme = PresentationTheme(colors: darkPalette)
+            darkTheme = PresentationTheme.darkTheme
         }
 
         if theme == .dark {
