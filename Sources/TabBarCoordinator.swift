@@ -46,7 +46,7 @@ class TabBarCoordinator: NSObject {
         tabBar.itemPositioning = .fill
 
         tabBarLayer.shadowOffset = CGSize(width: 0, height: 0)
-        tabBarLayer.shadowRadius = 4.0
+        tabBarLayer.shadowRadius = 1.0
         tabBarLayer.shadowColor = colors.cellDetailTextColor.cgColor
         tabBarLayer.shadowOpacity = 0.6
         tabBarLayer.shadowPath = UIBezierPath(rect: tabBar.bounds).cgPath
