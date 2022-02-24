@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Listă redare goală";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Adaugă fișiere media în timp ce modifici categoriile respective";
 
-"PLAYBACK_SCRUB_HELP" = "Glisaţi degetul în jos pentru ajustarea ratei de redare.";
+"PLAYBACK_SCRUB_HELP" = "Glisează degetul în sus pentru a regla rata de spălare.";
 "PLAYBACK_SCRUB_HIGH" = "Rată Redare Viteză-Mare";
 "PLAYBACK_SCRUB_HALF" = "Rată Redare Viteză-Medie";
 "PLAYBACK_SCRUB_QUARTER" = "Rată Redare Viteză-Pe-Sfert";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Editați";
 "BUTTON_EDIT_HINT" = "Modul de editare";
+
+"BUTTON_SELECT_ALL" = "Selectează tot";
+"BUTTON_SELECT_ALL_HINT" = "Selectează toate elementele media prezente în această vizualizare";
 
 "ADD_TO_PLAYLIST" = "Adăugați la lista de redare";
 "ADD_TO_PLAYLIST_HINT" = "Deschideți meniul de adăugare la lista de redare";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Creșterea vitezei de redare";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Reduceți viteza de redare";
 "KEY_RESET_PLAYBACK_SPEED" = "Resetare viteză de redare";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Fundal pentru selecția titlului";
+"TITLESELECTION_BACKGROUND_HINT" = "Atinge pentru a elimina vizualizarea.";
