@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Llista de reproducció buida";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Agregar arxius mentre s'editen en les respectives categories.";
 
-"PLAYBACK_SCRUB_HELP" = "Feu lliscar el dit avall per ajustar la taxa de depuració.";
+"PLAYBACK_SCRUB_HELP" = "Feu lliscar el dit amunt per ajustar la taxa de depuració.";
 "PLAYBACK_SCRUB_HIGH" = "Depuració molt ràpida";
 "PLAYBACK_SCRUB_HALF" = "Depuració a velocitat 1/2";
 "PLAYBACK_SCRUB_QUARTER" = "Depuració a velocitat 1/4";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Edita";
 "BUTTON_EDIT_HINT" = "Mode edició";
+
+"BUTTON_SELECT_ALL" = "Selecciona-ho tot";
+"BUTTON_SELECT_ALL_HINT" = "Selecciona tots els fitxers multimèdia d'aquesta vista";
 
 "ADD_TO_PLAYLIST" = "Afegeix a la llista de reproducció";
 "ADD_TO_PLAYLIST_HINT" = "Obrir el menú \"Afegir a la llista de reproducció\".";
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Augmenta la velocitat de reproducció";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Disminueix la velocitat de reproducció";
 "KEY_RESET_PLAYBACK_SPEED" = "Restaura la velocitat de reproducció";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Fons de selecció de títols";
+"TITLESELECTION_BACKGROUND_HINT" = "Feu un toc per eliminar la vista.";
