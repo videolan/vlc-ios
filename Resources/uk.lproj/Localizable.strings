@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Порожній список відтворення";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Додати медіа під час редагування у відповідні категорії.";
 
-"PLAYBACK_SCRUB_HELP" = "Проведіть пальцем вниз, щоб відрегулювати швидкість перемотування.";
+"PLAYBACK_SCRUB_HELP" = "Проведіть пальцем вгору, щоб відрегулювати швидкість перемотування.";
 "PLAYBACK_SCRUB_HIGH" = "Найвища швидкість перемотування";
 "PLAYBACK_SCRUB_HALF" = "Половинна швидкість перемотування";
 "PLAYBACK_SCRUB_QUARTER" = "Четвертинна швидкість перемотування";
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Редагувати";
 "BUTTON_EDIT_HINT" = "Режим редагування";
+
+"BUTTON_SELECT_ALL" = "Виділити все";
+"BUTTON_SELECT_ALL_HINT" = "Виділити усі медіаелементи, представлені у цьому перегляді";
 
 "ADD_TO_PLAYLIST" = "Додати до списку відтворення";
 "ADD_TO_PLAYLIST_HINT" = "Відкрити „додати до меню списку відтворення“";
@@ -526,7 +529,7 @@
 // MARK: - ActionSheet
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Тло аркуша дій";
-"ACTIONSHEET_BACKGROUND_HINT" = "Торкніться, щоб вилучити аркуш дій.";
+"ACTIONSHEET_BACKGROUND_HINT" = "Проведіть, щоб вилучити аркуш дій.";
 
 // MARK: - Playback keyboard shortcuts
 
@@ -535,3 +538,8 @@
 "KEY_INCREASE_PLAYBACK_SPEED" = "Збільшити швидкість відтворення";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Зменшити швидкість відтворення";
 "KEY_RESET_PLAYBACK_SPEED" = "Очистити швидкість відтворення";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Тло вибору заголовка";
+"TITLESELECTION_BACKGROUND_HINT" = "Проведіть, що вилучити цей перегляд.";
