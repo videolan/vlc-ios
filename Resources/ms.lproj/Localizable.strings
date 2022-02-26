@@ -45,7 +45,7 @@
 "DEFAULT" = "Lalai";
 "FILL_TO_SCREEN" = "Kerat untuk mengisi skrin";
 "PLAYBACK_SPEED" = "Kelajuan main balik";
-"SPU_DELAY" = "Lengah sarikata";
+"SPU_DELAY" = "Lengah sari kata";
 "AUDIO_DELAY" = "Lengah audio";
 "BUTTON_SLEEP_TIMER" = "Pemasa Tidur";
 "SLEEP_TIMER_UPDATED" = "Pemasa Tidur Dikemas Kini";
@@ -63,7 +63,7 @@
 "BUTTON_CONTRIBUTE" = "Sumbangan";
 "BUTTON_CONNECT" = "Sambung";
 "BUTTON_RENAME" = "Nama Semula";
-"BUTTON_LEARN_MORE" = "Pelajari Lagi";
+"BUTTON_LEARN_MORE" = "Ketahui Lagi";
 "BUTTON_LOGOUT" = "Daftar Keluar";
 "BUTTON_CONTINUE" = "Teruskan";
 "BUTTON_SET" = "Tetap";
@@ -72,10 +72,10 @@
 "PRIVATE_PLAYBACK_TOGGLE" = "Main Balik Persendirian";
 "SCAN_SUBTITLE_TOGGLE" = "Imbas untuk Sari Kata (http-sahaja)";
 
-"BUTTON_RENDERER" = "Peranti casting";
-"BUTTON_RENDERER_HINT" = "Tunjuk menu peranti casting yang tersedia";
-"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
-"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
+"BUTTON_RENDERER" = "Peranti penyiaran";
+"BUTTON_RENDERER_HINT" = "Tunjuk menu peranti penyiaran yang ada";
+"BUTTON_AIRPLAY" = "AirPlay atau Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Tunjuk menu peranti AirPlay atau Bluetooth yang ada";
 
 "UPGRADING_LIBRARY" = "Menatar Pustaka Media";
 
@@ -84,7 +84,7 @@
 "OPEN_NETWORK_HELP" = "Masukkan mana-mana alamat HTTP, RTSP, RTMP, MMS, FTP atau UDP/RTP untuk membuka strim secara langsung.";
 "HTTP_UPLOAD_SERVER_OFF" = "Pelayan Tidak Aktif";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "Tiada sambungan Wi-Fi aktif";
-"OPEN_STREAM_OR_DOWNLOAD" = "Adakah anda ingin memuat turun atau memainkan URL ini?";
+"OPEN_STREAM_OR_DOWNLOAD" = "Anda mahu memuat turun atau memainkan URL ini?";
 "SHARED_VLC_IOS_LIBRARY" = "VLC Terkongsi untuk Pustaka iOS";
 "SMB_CIFS_FILE_SERVERS" = "Pelayan Fail (SMB)";
 
@@ -93,7 +93,7 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Muat turun dibatal oleh pengguna";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Masukkan alamat untuk muat turun fail ke dalam %@ anda.";
+"DOWNLOAD_FROM_HTTP_HELP" = "Masukkan satu alamat untuk muat turun fail ke dalam %@ anda.";
 "DOWNLOAD_FROM_HTTP" = "Muat turun";
 "ERROR_NUMBER" = "Ralat %i berlaku";
 "DOWNLOAD_FAILED" = "Muat turun gagal";
@@ -105,7 +105,7 @@
 
 "FOLDER_EMPTY" = "Folder kosong";
 
-"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Pilih fail untuk dibuka:";
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "Pilih satu fail untuk dibuka:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "Buka Dalam...";
 "SHARING_ERROR_NO_FILES" = "Tidak dapat cari mana-mana fail untuk dikongsi";
 "SHARING_ERROR_NO_APPLICATIONS" = "Tidak dapat cari mana-mana aplikasi untuk membuka jenis fail ini";
@@ -113,7 +113,7 @@
 
 "STREAMVC_DETAILTEXT" = "Main strim secara terus tanpa memuat turun";
 "DOWNLOADVC_DETAILTEXT" = "Muat turun fail terus ke dalam peranti anda";
-"HEADER_TITLE_RENDERER" = "Pilih satu peranti casting";
+"HEADER_TITLE_RENDERER" = "Pilih satu peranti penyiaran";
 
 "NETWORK" = "Rangkaian";
 "LOCAL_NETWORK" = "Rangkaian Setempat";
@@ -145,7 +145,7 @@
 "GDRIVE_ERROR_FETCHING_FILES" = "Ralat semasa mendapatkan fail";
 "GDRIVE_DOWNLOAD_SUCCESSFUL" = "Fail anda berjaya dimuat turun";
 "GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "BERJAYA";
-"GDRIVE_ERROR_DOWNLOADING_FILE" = "Ralat berlaku ketika memuat turun";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "Satu ralat berlaku ketika memuat turun";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "RALAT";
 
 "ONEDRIVE_MEDIA_WITHOUT_URL" = "Media terpilih tidak mempunyai url boleh main";
@@ -180,15 +180,15 @@
 "OFF" = "Mati";
 
 "EMPTY_LIBRARY" = "Pustaka Media Kosong";
-"EMPTY_LIBRARY_LONG" = "Untuk main balik, anda boleh strimkan media melalui pelayan pada rangkaian tempatan anda, darip awan atau menyegerak media ke peranti anda menggunakan perkhidmatan iTunes,  Muat Naik Wi-Fi atau Awan.";
+"EMPTY_LIBRARY_LONG" = "Untuk main balik, anda boleh strimkan media melalui pelayan pada rangkaian tempatan anda, daripada awan atau menyegerak media ke peranti anda menggunakan perkhidmatan iTunes,  Muat Naik Wi-Fi atau Awan.";
 
 "EMPTY_NO_PLAYLISTS" = "Senarai Main";
-"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Untuk mencipta senarai main, masuk mod Sunting dalam tab kandungan Video atau Audio dan kemudian pilih media kegemaran anda.\nAnda juga boleh menyegerak senarai main sedia ada melalui peranti lain anda tau internet.";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Untuk mencipta senarai main, masuk mod Sunting dalam tab kandungan Video atau Audio dan kemudian pilih media kegemaran anda.\nAnda juga boleh menyegerak senarai main sedia ada melalui peranti lain anda atau internet.";
 
 "EMPTY_PLAYLIST" = "Senarai main kosong";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Tambah media ketika menyunting dalam kategori masing-masing.";
 
-"PLAYBACK_SCRUB_HELP" = "Leret jari anda untuk melaras kadar penggerakan.";
+"PLAYBACK_SCRUB_HELP" = "Seret jari anda mengarah ke atas untuk melaras kadar scrubbing.";
 "PLAYBACK_SCRUB_HIGH" = "Penggerakan Berkelajuan-Tinggi";
 "PLAYBACK_SCRUB_HALF" = "Penggerakan Berkelajuan-Separa";
 "PLAYBACK_SCRUB_QUARTER" = "Penggerakan Berkelajuan-Suku";
@@ -198,7 +198,7 @@
 "VIDEO_FILTER_RESET_BUTTON" = "Tetap Semula Penapis Video";
 "VIDEO_ASPECT_RATIO_BUTTON" = "Nisbah bidang video";
 "BWD_BUTTON" = "Lompat Mengundur";
-"FWD_BUTTON" = "Lompat Ke Hadapan";
+"FWD_BUTTON" = "Lompat Maju";
 "PLAY_BUTTON" = "Main";
 "NEXT_BUTTON" = "Berikutnya";
 "PREV_BUTTON" = "Terdahulu";
@@ -216,7 +216,7 @@
 
 
 "VO_VIDEOPLAYER_TITLE" = "Pemain Video";
-"VO_VIDEOPLAYER_DOUBLETAP" = "Dwi-ketuk untuk tunjuk atau sembunyikan kawalan main balik";
+"VO_VIDEOPLAYER_DOUBLETAP" = "Ketik dua kali untuk tunjuk atau sembunyikan kawalan main balik";
 
 "FIRST_STEPS_ITUNES" = "Segerak Fail iTunes";
 "FIRST_STEPS_ITUNES_TITLE" = "Segerak Dengan Komputer Anda";
@@ -243,7 +243,7 @@
 "WEBINTF_DROPFILES_LONG" = "Lepas fail ke tetingkap untuk menambahnya ke dalam %@ anda.<br>Atau klik pada butang \"+\" untuk guna dialog pengambil fail.";
 "WEBINTF_DOWNLOADFILES" = "Muat Turun Fail";
 "WEBINTF_DOWNLOADFILES_LONG" = "Hanya klik fail yang anda mahu muat turun dari %@ anda.";
-"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
+"WEBINTF_ADDRESS_COPIED" = "Alamat disalin ke papan keratan";
 "WEBINTF_TITLE_ATV" = "Main Balik Jauh";
 "WEBINTF_DROPFILES_LONG_ATV" = "Lepas fail dalam tetingkap untuk menambah %@ anda.<br>Atau klik pada butang \"+\" untuk guna dialog pengambil fail.";
 "WEBINTF_URL_SENT" = "Penghantaran URL berjaya.";
@@ -284,8 +284,8 @@
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Kocok";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Tetap semula senarai";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Tetap semula senarai strim rangkaian dimainkan baru-baru ini secara kekal.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Plug'n'Play Universal (UPnP)";
@@ -301,7 +301,7 @@
 "NFS_SHORT" = "NFS";
 
 "BONJOUR_FILE_SERVERS" = "Pelayang Fail BONJOUR";
-"DSM_WORKGROUP" = "KumpulanKerja";
+"DSM_WORKGROUP" = "Kumpulan Kerja";
 
 "URL_NOT_SUPPORTED" = "URL tidak dapat dibuka";
 
@@ -345,6 +345,9 @@
 
 "BUTTON_EDIT" = "Sunting";
 "BUTTON_EDIT_HINT" = "Mod sunting";
+
+"BUTTON_SELECT_ALL" = "Pilih semua";
+"BUTTON_SELECT_ALL_HINT" = "Pilih semua item media yang hadir dalam pandangan ini";
 
 "ADD_TO_PLAYLIST" = "Tambah ke dalam Senarai Main";
 "ADD_TO_PLAYLIST_HINT" = "Buka untuk tambah ke dalam menu senarai main";
@@ -403,8 +406,8 @@
 
 // MARK: - VideoPlayerControls
 
-"SUBTITLE_AND_TRACK_BUTTON" = "Trek sarikata dan audio";
-"SUBTITLE_AND_TRACK_HINT" = "Pilih trek sarikata atau audio";
+"SUBTITLE_AND_TRACK_BUTTON" = "Trek sari kata dan audio";
+"SUBTITLE_AND_TRACK_HINT" = "Pilih trek sari kata atau audio";
 
 "DVD_BUTTON" = "DVD";
 "DVD_HINT" = "Antara muka DVD";
@@ -440,8 +443,8 @@
 "MORE_OPTIONS_BUTTON" = "Lagi";
 "MORE_OPTIONS_HINT" = "Lihat lebih banyak kawalan pilihan";
 
-"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Subtitles unsupported";
-"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Subtitles are not yet supported while casting.";
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Sari kata tidak disokong";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Sari kata belum disokong semasa penyiaran.";
 
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Penyama";
@@ -476,7 +479,7 @@
 
 "MEDIA_GROUP_CREATION" = "Kumpulan media baharu";
 "MEDIA_GROUP_CREATION_HINT" = "Tunjuk amaran ketika mencipta satu senarai main";
-"MEDIA_GROUP_MOVE_TO_ROOT" = "Alih kandungan ke atas teratas";
+"MEDIA_GROUP_MOVE_TO_ROOT" = "Alih kandungan ke aras teratas";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Alih kandungan pemilihan ke aras teratas";
 
 "BUTTON_REGROUP" = "Kumpul Semula";
@@ -490,13 +493,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Berilah Tip";
-"MAKE_DONATION_TITLE" = "Make a donation";
-"DONATION_DESCRIPTION" = "Your sponsorship will allow us to improve the VLC-iOS app and support the VideoLAN association.";
+"MAKE_DONATION_TITLE" = "Hulurkan derma";
+"DONATION_DESCRIPTION" = "Penajaan anda akan membantu kami menambah baik apl VLC-iOS dan menyokong Persatuan VideoLAN";
 "CANNOT_MAKE_PAYMENTS" = "Anda tidak dibenarkan membuat apa-apa bayaran menerusi peranti ini.";
-"PURCHASE_FAILED" = "Purchase Failed.";
-"SEND_DONATION" = "Send your donation";
-"PURCHASE_SUCESS_TITLE" = "Donation sent";
-"PURCHASE_SUCESS_DESCRIPTION" = "Thank you for your donation!";
+"PURCHASE_FAILED" = ".Pembayaran Gagal";
+"SEND_DONATION" = "Hantar derma anda";
+"PURCHASE_SUCESS_TITLE" = "Derma berjaya dihantar";
+"PURCHASE_SUCESS_DESCRIPTION" = "Terima kasih atas derma anda!";
 
 // MARK: - QueueViewController
 
@@ -530,8 +533,13 @@
 
 // MARK: - Playback keyboard shortcuts
 
-"KEY_JUMP_BACKWARDS" = "Jump backwards";
-"KEY_JUMP_FORWARDS" = "Jump forwards";
-"KEY_INCREASE_PLAYBACK_SPEED" = "Increase playback speed";
-"KEY_DECREASE_PLAYBACK_SPEED" = "Decrease playback speed";
-"KEY_RESET_PLAYBACK_SPEED" = "Reset playback speed";
+"KEY_JUMP_BACKWARDS" = "Lompat mengundur";
+"KEY_JUMP_FORWARDS" = "Lompat maju";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Tingkatkan kelajuan main balik";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Kurangkan kelajuan main balik";
+"KEY_RESET_PLAYBACK_SPEED" = "Tetap semula kelajuan main balik";
+
+// MARK: - TitleSelection
+
+"TITLESELECTION_BACKGROUND_LABEL" = "Latar belakang pemilihan tajuk";
+"TITLESELECTION_BACKGROUND_HINT" = "Ketik untuk buang pandangan.";

@@ -7,7 +7,7 @@
 "SETTINGS_THEME_BRIGHT" = "Tema cerah";
 "SETTINGS_THEME_DARK" = "Tema gelap";
 "SETTINGS_THEME_SYSTEM" = "Automatik";
-"SETTINGS_THEME_BLACK" = "Guna latar belakang hitam semasa mod gelap";
+"SETTINGS_THEME_BLACK" = "Guna latar belakang hitam ketika mod gelap";
 "SETTINGS_THEME_BLACK_SUBTITLE" = "Tambah baik hayat bateri bagi peranti berskrin OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "Buka dalam Tetapan";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Capaian selamat ke kandungan anda";
@@ -28,7 +28,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Tidak sesekali";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Tanya";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sentiasa";
-"SETTINGS_NETWORK_PLAY_ALL" = "Main item berikutnya secara automatik";
+"SETTINGS_NETWORK_PLAY_ALL" = "Main item berikut secara automatik";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Benarkan penatalan teks dalam senarai media";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Nyasekat penapis";
@@ -39,14 +39,14 @@
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "Kelajuan main balik lalai";
 
 "SETTINGS_GESTURES" = "Kawal main balik dengan gerak isyarat";
-"SETTINGS_GESTURES_VOLUME" = "Leret ke atas/bawah untuk volum";
+"SETTINGS_GESTURES_VOLUME" = "Seret ke atas/bawah untuk volum";
 "SETTINGS_GESTURES_PLAYPAUSE" = "Ketik dua jari untuk main/jeda";
-"SETTINGS_GESTURES_BRIGHTNESS" = "Leret ke atas/bawah untuk kecerahan";
-"SETTINGS_GESTURES_SEEK" = "Leret kanan/kiri untuk jangkau";
-"SETTINGS_GESTURES_CLOSE" = "Picit untuk tutup";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Jangkamasa pembolehubah lompat";
+"SETTINGS_GESTURES_BRIGHTNESS" = "Seret ke atas/bawah untuk kecerahan";
+"SETTINGS_GESTURES_SEEK" = "Seret kanan/kiri untuk jangkau";
+"SETTINGS_GESTURES_CLOSE" = "Jepit untuk tutup";
+"SETTINGS_GESTURE_JUMP_DURATION" = "Tempoh lompat pemboleh ubah";
 
-"SETTINGS_SUBTITLES_TITLE" = "Sarikata";
+"SETTINGS_SUBTITLES_TITLE" = "Sari kata";
 "SETTINGS_SUBTITLES_FONT" = "Fon";
 "SETTINGS_SUBTITLES_TEXT_ENCODING" = "Pengekodan Teks";
 "SETTINGS_SUBTITLES_FONTSIZE" = "Saiz fon relatif";
@@ -66,10 +66,10 @@
 "SETTINGS_SUBTITLES_FONTCOLOR_YELLOW" = "Kuning";
 "SETTINGS_SUBTITLES_FONTCOLOR_GREEN" = "Hijau";
 "SETTINGS_SUBTITLES_FONTCOLOR_NAVY" = "Biru Kelasi";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Ketebalan Garis Luar";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS" = "Ketebalan Rangka";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NONE" = "Tiada";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Nipis";
-"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normal";
+"SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Biasa";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Tebal";
 
 "SETTINGS_DEINTERLACE" = "Nyahselang-seli";
@@ -80,7 +80,7 @@
 "SETTINGS_HWDECODING" = "Penyahkodan Perkakasan";
 "SETTINGS_HWDECODING_ON" = "Hidup";
 "SETTINGS_HWDECODING_OFF" = "Mati";
-"SETTINGS_CASTING" = "Casting";
+"SETTINGS_CASTING" = "Penyiaran";
 "SETTINGS_PTCASTING" = "Passthrough Audio";
 "SETTINGS_PTCASTINGLONG" = "Biarkan TV anda mengurus pengemasgabungan audio";
 "SETTINGS_CASTING_CONVERSION_QUALITY" = "Kualiti penukaran";
@@ -89,36 +89,36 @@
 "SETTINGS_LOW" = "Rendah";
 "SETTINGS_LOWEST" = "Paling rendah";
 
-"SETTINGS_FEEDBACK" = "Maklumbalas";
-"SETTINGS_SEND_FEEDBACK" = "Hantar Maklumbalas";
+"SETTINGS_FEEDBACK" = "Maklum balas";
+"SETTINGS_SEND_FEEDBACK" = "Hantar Maklum Balas";
 "SETTINGS_SEND_RATING" = "Sila Beri Penarafan VLC untuk iOS";
 
 "SETTINGS_MEDIA_LIBRARY" = "Pustaka media";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Paksa VLC mengimbas semula pustaka media";
 "SETTINGS_DECRAPIFY" = "Optimumkan nama item untuk paparan";
 "SETTINGS_DISABLE_GROUPING" = "Lumpuhkan pengumpulan media automatik";
-"SETTINGS_SHOW_THUMBNAILS" = "Tunjuk lakaran kenit video";
+"SETTINGS_SHOW_THUMBNAILS" = "Tunjuk imej kenit video";
 "SETTINGS_SHOW_ARTWORKS" = "Tunjuk kerja seni audio";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Sertakan pustaka media dalam sandar peranti";
 
 "SETTINGS_NETWORK" = "Rangkaian";
-"SETTINGS_NETWORK_CACHING_TITLE" = "Aras Caching Rangkaian";
-"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Kependaman Terendah";
+"SETTINGS_NETWORK_CACHING_TITLE" = "Aras Pengagregatan Rangkaian";
+"SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Kependaman Paling Rendah";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Kependaman Rendah";
 "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Biasa";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Kependaman Tinggi";
-"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Kependaman Tertinggi";
+"SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Kependaman Paling Tinggi";
 "SETTINGS_WIFISHARING_IPv6" = "Sokongan IPv6 untuk Perkongsian Wi-Fi";
 "SETTINGS_FORCE_SMBV1" = "Utamakan SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Nyahtanda tetapan ini jika anda menghadapi kesukaran ketika melayari pelayan SMB anda";
 "SETTINGS_RTSP_TCP" = "Guna RTP melalui RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "URL senarai saluran SAT>IP suai";
 
 "SETTINGS_ARTWORK" = "Kerja Seni";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Muat Turun Kerja Seni";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Simpan Log Nyahpepijat dalam peranti";
+"SETTINGS_EXPORT_LIBRARY" = "Longgok pustaka media";
 
 "ABOUT_APP_TV" = "Perihal VLC untuk tvOS";
