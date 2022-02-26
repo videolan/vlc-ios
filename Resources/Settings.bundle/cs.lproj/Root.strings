@@ -7,7 +7,7 @@
 "SETTINGS_THEME_BRIGHT" = "Světlé téma";
 "SETTINGS_THEME_DARK" = "Tmavé téma";
 "SETTINGS_THEME_SYSTEM" = "Automaticky";
-"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
+"SETTINGS_THEME_BLACK" = "Použít černé pozadí v tmavém režimu";
 "SETTINGS_THEME_BLACK_SUBTITLE" = "Zlepšuje výdrž baterie na zařízeních s OLED obrazovkou.";
 "SETTINGS_PRIVACY_SUBTITLE" = "Otevřít v nastavení";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Bezpečný přístup k Vašemu obsahu";
@@ -111,14 +111,14 @@
 "SETTINGS_WIFISHARING_IPv6" = "Podpora IPv6 pro Wi-Fi sdílení";
 "SETTINGS_FORCE_SMBV1" = "Povolit SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Zakázat, pokud jsou potíže s procházením serveru SMB.";
-"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_RTSP_TCP" = "Používat RTP přes RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Uživatelský SAT>IP seznam kanálů URL";
 
 "SETTINGS_ARTWORK" = "Obal alba";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Stáhnout obal";
 
 "SETTINGS_LAB" = "Laboratoř";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Ukládat záznamy pro ladění do zařízení";
+"SETTINGS_EXPORT_LIBRARY" = "Výpis z knihovny médií";
 
 "ABOUT_APP_TV" = "O VLC pro tvOS";
