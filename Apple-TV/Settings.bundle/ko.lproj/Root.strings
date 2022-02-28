@@ -1,7 +1,7 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
 "SETTINGS_PRIVACY_TITLE" = "개인정보";
-"SETTINGS_VIDEO_TITLE" = "비디오";
+"SETTINGS_VIDEO_TITLE" = "동영상";
 "SETTINGS_AUDIO_TITLE" = "오디오";
 
 "SETTINGS_THEME_BRIGHT" = "밝은 테마";
@@ -22,8 +22,8 @@
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Allow Touch ID for unlock";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "잠금해제용 페이스 ID 허용하기";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "파일 앱에서 미디어 라이브러리 숨김";
-"SETTINGS_VIDEO_FULLSCREEN" = "비디오을 전체화면에서 재생하기";
-"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "비디오 이어서 재생하기";
+"SETTINGS_VIDEO_FULLSCREEN" = "동영상을 전체화면에서 재생하기";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "동영상 이어서 재생하기";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "오디오 이어서 재생하기";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "없음";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "물어보기";
@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "제스쳐로 재생 제어하기";
 "SETTINGS_GESTURES_VOLUME" = "위/아래로 밀어서 볼륨조절";
-"SETTINGS_GESTURES_PLAYPAUSE" = "두 손가락 터치로 재생/일시정지";
+"SETTINGS_GESTURES_PLAYPAUSE" = "재생/일시정지 하려면 두 손가락으로 가볍게 누르기";
 "SETTINGS_GESTURES_BRIGHTNESS" = "위/아래로 밀어서 밝기조절";
 "SETTINGS_GESTURES_SEEK" = "좌/우로 밀어서 탐색";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
@@ -97,7 +97,7 @@
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "미디어 라이브러리 다시 스캔하기";
 "SETTINGS_DECRAPIFY" = "출력을 위해 항목 이름을 최적화하기";
 "SETTINGS_DISABLE_GROUPING" = "자동 미디어 그룹화 비활성화";
-"SETTINGS_SHOW_THUMBNAILS" = "비디오 섬네일 표시하기";
+"SETTINGS_SHOW_THUMBNAILS" = "동영상 섬네일 표시하기";
 "SETTINGS_SHOW_ARTWORKS" = "오디오 아트워크 표시하기";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "디바이스 백업에 미디어 라이브러리 포함하기";
 

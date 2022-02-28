@@ -16,7 +16,7 @@
 "SUBTITLES" = "자막";
 "LANGUAGE" = "언어";
 "MEDIA_INFO" = "미디어 정보";
-"VIDEO_DIMENSIONS" = "비디오 차원";
+"VIDEO_DIMENSIONS" = "동영상 차원";
 "FORMAT_VIDEO_DIMENSIONS" = "%ix%i 픽셀";
 "FORMAT_AUDIO_TRACKS" = "오디오 트랙 %i 개";
 "ONE_AUDIO_TRACK" = "오디오 트랙 1 개";
@@ -26,7 +26,7 @@
 "TRACK" = "%i트랙";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV 연결됨";
-"PLAYING_EXTERNALLY_DESC" = "이 비디오는 TV에서 재생중입니다";
+"PLAYING_EXTERNALLY_DESC" = "이 동영상은 TV에서 재생중입니다";
 "PLAYING_EXTERNALLY_ADDITION" = "\n현재 재생중:"; /* \n should stay in every translation */
 
 "VFILTER_HUE" = "색조";
@@ -183,20 +183,20 @@
 "EMPTY_LIBRARY_LONG" = "재생을 위해 로컬 네트워크의 서버, 클라우드에서 미디어를 스트리밍하거나 iTunes, Wi-Fi 업로드 또는 클라우드 서비스를 사용하여 미디어를 장치와 동기화 할 수 있습니다.";
 
 "EMPTY_NO_PLAYLISTS" = "재생목록";
-"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "재생 목록을 만들려면 비디오 또는 오디오 컨텐츠 탭에서 편집 모드를 입력하고 좋아하는 미디어를 선택합니다.\n다른 장치나 인터넷에서 기존 재생 목록을 동기화할 수도 있습니다.";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "재생 목록을 만들려면 동영상 또는 오디오 컨텐츠 탭에서 편집 모드를 입력하고 좋아하는 미디어를 선택합니다.\n다른 장치나 인터넷에서 기존 재생 목록을 동기화할 수도 있습니다.";
 
 "EMPTY_PLAYLIST" = "재생목록 비었음";
 "EMPTY_PLAYLIST_DESCRIPTION" = "편집하면서 미디어를 각각 다른 카테고리에서 추가하기";
 
-"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
+"PLAYBACK_SCRUB_HELP" = "손가락을 위로 밀어 문지름 속도를 조정합니다.";
 "PLAYBACK_SCRUB_HIGH" = "빠른 속도로 문지르기";
 "PLAYBACK_SCRUB_HALF" = "중간 속도로 문지르기";
 "PLAYBACK_SCRUB_QUARTER" = "1/4 속도로 문지르기";
 "PLAYBACK_SCRUB_FINE" = "미세하게 문지르기";
 "PLAYBACK_POSITION" = "재생 위치";
-"VIDEO_FILTER" = "비디오 필터";
-"VIDEO_FILTER_RESET_BUTTON" = "비디오 필터 초기화";
-"VIDEO_ASPECT_RATIO_BUTTON" = "비디오 화면 비율";
+"VIDEO_FILTER" = "동영상 필터";
+"VIDEO_FILTER_RESET_BUTTON" = "동영상 필터 초기화";
+"VIDEO_ASPECT_RATIO_BUTTON" = "동영상 화면 비율";
 "BWD_BUTTON" = "뒤로 이동하기";
 "FWD_BUTTON" = "앞으로 이동하기";
 "PLAY_BUTTON" = "재생하기";
@@ -204,7 +204,7 @@
 "PREV_BUTTON" = "이전";
 "PLAY_ALL_BUTTON" = "모두 재생하기";
 
-"RESET_VIDEO_FILTERS" = "비디오 필터를 재설정하시겠습니까?";
+"RESET_VIDEO_FILTERS" = "동영상 필터를 재설정하시겠습니까?";
 "RESET_PLAYBACK_SPEED" = "재생 속도를 재설정 하시겠습니까?";
 "RESET_EQUALIZER" = "이퀄라이저의 설정을 재설정하시겠습니까?";
 "RESET_SLEEP_TIMER" = "절전 타이머를 재설정하시겠습니까";
@@ -215,8 +215,8 @@
 "NEW" = "새로운 기능";
 
 
-"VO_VIDEOPLAYER_TITLE" = "비디오 재생기";
-"VO_VIDEOPLAYER_DOUBLETAP" = "재생 컨트롤을 표시하거나 숨기려면 가볍게 두 번 두드리기";
+"VO_VIDEOPLAYER_TITLE" = "동영상 재생기";
+"VO_VIDEOPLAYER_DOUBLETAP" = "재생 컨트롤을 표시하거나 숨기려면 가볍게 두 번 누르기";
 
 "FIRST_STEPS_ITUNES" = "iTunes 파일 동기화하기";
 "FIRST_STEPS_ITUNES_TITLE" = "컴퓨터와 싱크하기";
@@ -326,17 +326,17 @@
 "SORT" = "정렬";
 "SORT_BY" = "다음 순으로 나열";
 "SEARCH" = "검색";
-"VIDEO" = "비디오";
+"VIDEO" = "동영상";
 
 // MARK: - MediaViewController Swipable Header
 "ALBUMS" = "음반";
 "ARTISTS" = "예술가";
 "EPISODES" = "에피소드";
 "GENRES" = "장르";
-"ALL_VIDEOS" = "모든 비디오";
+"ALL_VIDEOS" = "모든 동영상";
 "SONGS" = "노래";
 "PLAYLISTS" = "재생목록";
-"VIDEO_GROUPS" = "비디오 그룹";
+"VIDEO_GROUPS" = "동영상 그룹";
 
 "MODIFIED_DATE" = "마지막 변경 날짜";
 "NAME" = "이름";
@@ -346,8 +346,8 @@
 "BUTTON_EDIT" = "편집";
 "BUTTON_EDIT_HINT" = "편집 모드";
 
-"BUTTON_SELECT_ALL" = "Select all";
-"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
+"BUTTON_SELECT_ALL" = "모두 선택";
+"BUTTON_SELECT_ALL_HINT" = "이 보기에 있는 모든 미디어 항목 선택";
 
 "ADD_TO_PLAYLIST" = "재생목록에 추가하기";
 "ADD_TO_PLAYLIST_HINT" = "\"재생목록에 추가\" 메뉴를 열기";
@@ -392,7 +392,7 @@
 "TRACK_NUMBER" = "트랙 번호";
 "NB_AUDIO" = "오디오 수";
 "NB_MEDIA" = "미디어 수";
-"NB_VIDEO" = "비디오 수";
+"NB_VIDEO" = "동영상 수";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -413,7 +413,7 @@
 "DVD_HINT" = "DVD 인터페이스";
 
 "ROTATION_LOCK_BUTTON" = "회전 잠금";
-"ROTATION_LOCK_HINT" = "비디오를 현재 방향으로 잠금";
+"ROTATION_LOCK_HINT" = "동영상을 현재 방향으로 잠금";
 
 "REPEAT_HINT" = "동일한 미디어 반복";
 
@@ -437,8 +437,8 @@
 
 "SHUFFLE_HINT" = "미디어 목록 순서섞기";
 
-"VIDEO_ASPECT_RATIO_BUTTON" = "비디오 화면 비율";
-"VIDEO_ASPECT_RATIO_HINT" = "현재 비디오의 화면 비율을 변경";
+"VIDEO_ASPECT_RATIO_BUTTON" = "동영상 화면 비율";
+"VIDEO_ASPECT_RATIO_HINT" = "현재 동영상의 화면 비율 변경";
 
 "MORE_OPTIONS_BUTTON" = "더";
 "MORE_OPTIONS_HINT" = "옵션 컨트롤 더 보기";
@@ -448,7 +448,7 @@
 
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "이퀄라이저";
-"MORE_OPTIONS_HEADER_TITLE" = "비디오 옵션";
+"MORE_OPTIONS_HEADER_TITLE" = "동영상 옵션";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "미디어 라이브러리 다시 스캔하기";
@@ -529,7 +529,7 @@
 // MARK: - ActionSheet
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "작업 시트 배경";
-"ACTIONSHEET_BACKGROUND_HINT" = "탭하여 작업 시트를 제거합니다.";
+"ACTIONSHEET_BACKGROUND_HINT" = "작업 시트를 제거하려면 가볍게 누릅니다.";
 
 // MARK: - Playback keyboard shortcuts
 
@@ -541,5 +541,5 @@
 
 // MARK: - TitleSelection
 
-"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
-"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+"TITLESELECTION_BACKGROUND_LABEL" = "제목 선택 배경";
+"TITLESELECTION_BACKGROUND_HINT" = "보기를 제거하려면 가볍게 누르기";
