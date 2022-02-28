@@ -64,6 +64,7 @@
     [self restoreFromSharedCredentials];
     self.driveService = [GTLRDriveService new];
     self.driveService.authorizer = [GTMAppAuthFetcherAuthorization authorizationFromKeychainForName:kKeychainItemName];
+    _driveService.shouldFetchNextPages = YES;
 }
 
 - (void)stopSession
@@ -189,9 +190,7 @@
 
     query = [GTLRDriveQuery_FilesList query];
     query.pageToken = _nextPageToken;
-    //the results don't come in alphabetical order when paging. So the maxresult (default 100) is set to 1000 in order to get a few more files at once.
-    //query.pageSize = 1000;
-    query.fields = @"files(*)";
+    query.fields = @"nextPageToken,files(*)";
     
     //Set orderBy parameter based on sortBy
     if (self.sortBy == VLCCloudSortingCriteriaName)
