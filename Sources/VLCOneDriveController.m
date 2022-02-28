@@ -90,6 +90,9 @@ static void *ProgressObserverContext = &ProgressObserverContext;
         if (@available(iOS 11.0, *)) {
             [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
         }
+        if (@available(iOS 13.0, *)) {
+            [VLCAppearanceManager setupUserInterfaceStyleWithTheme:PresentationTheme.current];
+        }
         if (error) {
             [self authFailed:error];
             return;

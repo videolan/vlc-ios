@@ -63,6 +63,10 @@ extension ActionSheetSpecifier: ActionSheetDelegate {
             NotificationFeedbackGenerator().success()
         }
     }
+
+    func actionSheetDidFinishClosingAnimation(_ actionSheet: ActionSheet) {
+        AppearanceManager.setupUserInterfaceStyle()
+    }
 }
 
 extension ActionSheetSpecifier: ActionSheetDataSource {

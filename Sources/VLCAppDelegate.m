@@ -135,6 +135,9 @@
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
     [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
+    if (@available(iOS 13.0, *)) {
+        [VLCAppearanceManager setupUserInterfaceStyleWithTheme:PresentationTheme.current];
+    }
     [self setupApplicationCoordinator];
 
     [self configureShortCutItemsWithApplication:application];

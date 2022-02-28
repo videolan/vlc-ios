@@ -25,6 +25,7 @@ protocol ActionSheetDelegate {
     @objc func itemAtIndexPath(_ indexPath: IndexPath) -> Any?
     @objc optional func actionSheet(collectionView: UICollectionView,
                                     didSelectItem item: Any, At indexPath: IndexPath)
+    @objc optional func actionSheetDidFinishClosingAnimation(_ actionSheet: ActionSheet)
 }
 
 // MARK: ActionSheet
@@ -345,6 +346,7 @@ extension ActionSheet {
                 mainStackView.isHidden = true
                 mainStackView.frame = realMainStackView
                 presentingViewController?.dismiss(animated: false)
+                self.delegate?.actionSheetDidFinishClosingAnimation?(self)
         })
     }
 }

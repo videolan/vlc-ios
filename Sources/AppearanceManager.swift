@@ -15,13 +15,6 @@ import UIKit
 class AppearanceManager: NSObject {
 
     @objc class func setupAppearance(theme: PresentationTheme = PresentationTheme.current) {
-        if #available(iOS 13.0, *) {
-            if UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeSystem {
-                UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = .unspecified
-            } else {
-                UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
-            }
-        }
         // Change the keyboard for UISearchBar
         UITextField.appearance().keyboardAppearance = theme.isDark ? .dark : .light
         // For the cursor
@@ -62,6 +55,22 @@ class AppearanceManager: NSObject {
 
         UIPageControl.appearance().pageIndicatorTintColor = .lightGray
         UIPageControl.appearance().currentPageIndicatorTintColor = theme.colors.orangeUI
+    }
+
+    @objc class func setupUserInterfaceStyle(theme: PresentationTheme = PresentationTheme.current) {
+        if #available(iOS 13.0, *) {
+            UIView.animate(withDuration: 0.55, delay: 0,
+                           usingSpringWithDamping: 1,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseIn,
+                           animations: {
+                if UserDefaults.standard.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeSystem {
+                    UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = .unspecified
+                } else {
+                    UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
+                }
+            })
+        }
     }
 
     @available(iOS 13.0, *)
