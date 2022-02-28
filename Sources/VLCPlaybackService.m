@@ -101,6 +101,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 {
     self = [super init];
     if (self) {
+        _fullscreenSessionRequested = YES;
         // listen to audiosessions and appkit callback
         _externalAudioPlaybackDeviceConnected = [self isExternalAudioPlaybackDeviceConnected];
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];

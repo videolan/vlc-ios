@@ -170,7 +170,6 @@
     }
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    vpc.fullscreenSessionRequested = NO;
     [vpc playMediaList:mediaList firstIndex:startIndex subtitlesFilePath:subtitlesFilePath];
 }
 
