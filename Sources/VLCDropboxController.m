@@ -182,22 +182,52 @@
 
 # pragma mark - Dropbox API Request
 
+- (void)listFolderContinueWithClient:(DBUserClient *)client cursor:(NSString *)cursor list:(NSMutableArray *)list {
+    [[[self client].filesRoutes listFolderContinue:cursor]
+     setResponseBlock:^(DBFILESListFolderResult *response, DBFILESListFolderContinueError *routeError,
+                        DBRequestError *networkError) {
+        if (response) {
+            [list addObjectsFromArray:response.entries];
+            if ([response.hasMore boolValue]) {
+                [self listFolderContinueWithClient:client cursor:response.cursor list:list];
+            } else {
+                [self sendMediaListUpdatedWithList:list];
+            }
+        } else {
+            NSLog(@"%@\n%@\n", routeError, networkError);
+        }
+    }];
+}
+
+- (void)sendMediaListUpdatedWithList:(NSArray *)list
+{
+    self.currentFileList = [[list sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSString *first = [(DBFILESMetadata*)a name];
+        NSString *second = [(DBFILESMetadata*)b name];
+        return [first caseInsensitiveCompare:second];
+    }] copy];
+    APLog(@"found filtered metadata for %lu files", (unsigned long)self.currentFileList.count);
+    if ([self.delegate respondsToSelector:@selector(mediaListUpdated)]) {
+        [self.delegate mediaListUpdated];
+    }
+}
+
 - (void)listFiles:(NSString *)path
 {
     // DropBox API prefers an empty path than a '/'
     if (!path || [path isEqualToString:@"/"]) {
         path = @"";
     }
+
+    NSMutableArray<DBFILESMetadata *> *stock = [[NSMutableArray alloc] init];
+
     [[[self client].filesRoutes listFolder:path] setResponseBlock:^(DBFILESListFolderResult * _Nullable result, DBFILESListFolderError * _Nullable routeError, DBRequestError * _Nullable networkError) {
         if (result) {
-            self.currentFileList = [result.entries sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                NSString *first = [(DBFILESMetadata*)a name];
-                NSString *second = [(DBFILESMetadata*)b name];
-                return [first caseInsensitiveCompare:second];
-            }];
-            APLog(@"found filtered metadata for %lu files", (unsigned long)self.currentFileList.count);
-            if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
-                [self.delegate mediaListUpdated];
+            if ([result.hasMore boolValue]) {
+                [self listFolderContinueWithClient:self->_client cursor:result.cursor list:stock];
+            } else {
+                [self sendMediaListUpdatedWithList:result.entries];
+            }
         } else {
             APLog(@"listFiles failed with network error %li and error tag %li", (long)networkError.statusCode, (long)networkError.tag);
             [self _handleError:[NSError errorWithDomain:networkError.description code:networkError.statusCode.integerValue userInfo:nil]];
