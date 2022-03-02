@@ -109,10 +109,14 @@ static NSString *const VLCLocalNetworkServiceDSMWorkgroupIdentifier = @"VLCLocal
 + (instancetype)SMBNetworkServerBrowserWithURL:(NSURL *)url username:(NSString *)username password:(NSString *)password workgroup:(NSString *)workgroup
 {
 	VLCMedia *media = [VLCMedia mediaWithURL:url];
-	NSDictionary *mediaOptions = @{@"smb-user" : username ?: @"",
-								   @"smb-pwd" : password ?: @"",
-                                   @"smb-domain" : workgroup?: @"WORKGROUP",
-                                   kVLCForceSMBV1 : @([[NSUserDefaults standardUserDefaults] boolForKey:kVLCForceSMBV1])};
+	NSMutableDictionary *mediaOptions = @{
+        @"smb-user" : username ?: @"",
+        @"smb-pwd" : password ?: @"",
+        @"smb-domain" : workgroup?: @"WORKGROUP",
+    }.mutableCopy;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCForceSMBV1]) {
+        mediaOptions[kVLCForceSMBV1] = [NSNull null];
+    }
 	[media addOptions:mediaOptions];
 	return [[self alloc] initWithMedia:media options:mediaOptions];
 }
