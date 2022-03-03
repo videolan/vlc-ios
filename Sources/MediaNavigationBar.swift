@@ -119,6 +119,7 @@ protocol MediaNavigationBarDelegate {
 
     private func setupViews() {
         distribution = .fill
+        semanticContentAttribute = .forceLeftToRight
         translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(closePlaybackButton)
         addArrangedSubview(minimizePlaybackButton)

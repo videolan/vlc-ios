@@ -30,6 +30,7 @@ class MediaScrubProgressBar: UIStackView {
         slider.setThumbImage(UIImage(named: "sliderThumb"), for: .normal)
         slider.setThumbImage(UIImage(named: "sliderThumbBig"), for: .highlighted)
         slider.isContinuous = true
+        slider.semanticContentAttribute = .forceLeftToRight
         slider.addTarget(self, action: #selector(handleSlide(slider:)), for: .valueChanged)
         slider.addTarget(self, action: #selector(progressSliderTouchDown), for: .touchDown)
         slider.addTarget(self, action: #selector(progressSliderTouchUp), for: .touchUpInside)
@@ -46,6 +47,7 @@ class MediaScrubProgressBar: UIStackView {
         label.text = "--:--"
         label.numberOfLines = 1
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        label.semanticContentAttribute = .forceLeftToRight
         return label
     }()
     
@@ -60,6 +62,7 @@ class MediaScrubProgressBar: UIStackView {
         // Use a monospace variant for the digits so the width does not jitter as the numbers changes.
         remainingTimeButton.titleLabel?.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).semibolded
 
+        remainingTimeButton.semanticContentAttribute = .forceLeftToRight
         remainingTimeButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return remainingTimeButton
     }()
@@ -132,6 +135,7 @@ private extension MediaScrubProgressBar {
     private func setupViews() {
         let horizontalStack = UIStackView(arrangedSubviews: [elapsedTimeLabel, remainingTimeButton])
         horizontalStack.distribution = .equalSpacing
+        horizontalStack.semanticContentAttribute = .forceLeftToRight
         addArrangedSubview(scrubInfoStackView)
         addArrangedSubview(horizontalStack)
         addArrangedSubview(progressSlider)
