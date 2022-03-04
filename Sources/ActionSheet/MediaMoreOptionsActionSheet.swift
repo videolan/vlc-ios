@@ -17,6 +17,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier)
     func mediaMoreOptionsActionSheetHideAlertIfNecessary()
     func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView)
+    func mediaMoreOptionsActionSheetUpdateProgressBar()
 }
 
 @objc (VLCMediaMoreOptionsActionSheet)
@@ -235,6 +236,7 @@ extension MediaMoreOptionsActionSheet: SleepTimerViewDelegate {
 extension MediaMoreOptionsActionSheet: ChapterViewDelegate {
     func chapterViewDelegateDidSelectChapter(_ chapterView: ChapterView) {
         removeActionSheet()
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetUpdateProgressBar()
     }
 }
 

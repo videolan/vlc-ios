@@ -1745,6 +1745,12 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
             showPopup(equalizerPopupView, with: equalizerView, accessoryViewsDelegate: equalizerView)
         }
     }
+
+    func mediaMoreOptionsActionSheetUpdateProgressBar() {
+        if !playbackService.isPlaying {
+            playbackService.playPause()
+        }
+    }
 }
 
 // MARK: - OptionsNavigationBarDelegate
