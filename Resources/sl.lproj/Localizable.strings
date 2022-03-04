@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Naprave za predvajanje";
 "BUTTON_RENDERER_HINT" = "Prikaži meni z predvajalnimi napravami, ki so na voljo";
-"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
-"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
+"BUTTON_AIRPLAY" = "AirPlay ali Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Prikaz menija z napravami, ki so na voljo preko AirPlay ali Bluetooth";
 
 "UPGRADING_LIBRARY" = "Nadgrajevanje knjižnice predstavnih vsebin";
 
@@ -169,7 +169,7 @@
 "Enter your new passcode" = "Vnesite novo geslo";
 "Enter your old passcode" = "Vnesite staro geslo";
 "Enter your passcode" = "Vnesite geslo";
-"Next" = "Naprej";
+"Next" = "Naslednje";
 "Passcodes did not match. Try again." = "Gesli se ne ujemata. Poskusite znova.";
 "Re-enter your new passcode" = "Ponovno vnesite novo geslo";
 "Re-enter your passcode" = "Ponovni vnos gesla";
@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Prazen seznam predvajanja";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Dodaj vsebino med urejanjem v ustrezne kategorije.";
 
-"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
+"PLAYBACK_SCRUB_HELP" = "Podrsajte s prstom navzgor, da sprmenite hitrost preiskovanja.";
 "PLAYBACK_SCRUB_HIGH" = "Iskanje z visoko hitrostjo";
 "PLAYBACK_SCRUB_HALF" = "Iskanje s polovično hitrostjo";
 "PLAYBACK_SCRUB_QUARTER" = "Iskanje s četrtinsko hitrostjo";
@@ -200,7 +200,7 @@
 "BWD_BUTTON" = "Skoči nazaj";
 "FWD_BUTTON" = "Skoči naprej";
 "PLAY_BUTTON" = "Predvajaj";
-"NEXT_BUTTON" = "Naprej";
+"NEXT_BUTTON" = "Naslednje";
 "PREV_BUTTON" = "Nazaj";
 "PLAY_ALL_BUTTON" = "Predvajaj vse";
 
@@ -243,7 +243,7 @@
 "WEBINTF_DROPFILES_LONG" = "Spustite datoteke v okno, da jih dodate na napravo %@.<br>Lahko tudi kliknete gumb \"+\", da uporabite izbirnik datotek.";
 "WEBINTF_DOWNLOADFILES" = "Prejmi datoteke";
 "WEBINTF_DOWNLOADFILES_LONG" = "Samo kliknite datoteko, ki jo želite prenesti z naprave %@.";
-"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
+"WEBINTF_ADDRESS_COPIED" = "Naslov je kopiran v odložišče";
 "WEBINTF_TITLE_ATV" = "Oddaljeno predvajanje";
 "WEBINTF_DROPFILES_LONG_ATV" = "Spustite datoteke v okno, da jih predvajate na napravi %@.<br>Lahko tudi kliknete gumb \"+\", da uporabite izbirnik datotek.";
 "WEBINTF_URL_SENT" = "Naslov URL je uspešno poslan.";
@@ -284,8 +284,8 @@
 "REPEAT_FOLDER" = "Mapa";
 "SHUFFLE" = "Premešaj";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Ponastavi seznam";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Trajno ponastavi seznam nedavno predvajanih omrežnih pretokov.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Splošni Plug'n'Play (UPnP)";
@@ -346,8 +346,8 @@
 "BUTTON_EDIT" = "Uredi";
 "BUTTON_EDIT_HINT" = "Način urejanja";
 
-"BUTTON_SELECT_ALL" = "Select all";
-"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
+"BUTTON_SELECT_ALL" = "Izberi vse";
+"BUTTON_SELECT_ALL_HINT" = "Izbere vse predmete, ki so v tem prikazu";
 
 "ADD_TO_PLAYLIST" = "Dodaj v seznam predvajanja";
 "ADD_TO_PLAYLIST_HINT" = "Odpri meni za dodajanje na seznam predvajanja";
@@ -443,8 +443,8 @@
 "MORE_OPTIONS_BUTTON" = "Več";
 "MORE_OPTIONS_HINT" = "Prikaži več izbirnih kontrol";
 
-"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Subtitles unsupported";
-"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Subtitles are not yet supported while casting.";
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Podnapisi niso podprti";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Ob predvajanju na oddaljeno napravo podnapisi še niso podprti";
 
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Izravnalnik";
@@ -493,13 +493,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Podaj namig";
-"MAKE_DONATION_TITLE" = "Make a donation";
-"DONATION_DESCRIPTION" = "Your sponsorship will allow us to improve the VLC-iOS app and support the VideoLAN association.";
+"MAKE_DONATION_TITLE" = "Donirajte";
+"DONATION_DESCRIPTION" = "Vaš prispevek nam bo omogočil izboljšati VLC-iOS aplikacijo in podpreti združenje VideoLAN.";
 "CANNOT_MAKE_PAYMENTS" = "Nimate dovoljenja za plačevanja preko te naprave";
-"PURCHASE_FAILED" = "Purchase Failed.";
-"SEND_DONATION" = "Send your donation";
-"PURCHASE_SUCESS_TITLE" = "Donation sent";
-"PURCHASE_SUCESS_DESCRIPTION" = "Thank you for your donation!";
+"PURCHASE_FAILED" = "Nakup ni bil uspešen.";
+"SEND_DONATION" = "Pošljite svojo donacijo";
+"PURCHASE_SUCESS_TITLE" = "Donacija je bila poslana";
+"PURCHASE_SUCESS_DESCRIPTION" = "Hvala za vašo donacijo!";
 
 // MARK: - QueueViewController
 
@@ -541,5 +541,5 @@
 
 // MARK: - TitleSelection
 
-"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
-"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+"TITLESELECTION_BACKGROUND_LABEL" = "Ozadje ob izbiri naslova";
+"TITLESELECTION_BACKGROUND_HINT" = "Tapnite za odstranitev prikaza.";

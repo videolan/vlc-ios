@@ -112,13 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = "Prednost za SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Izklopite to možnost, če imate težave z brskanjem po SMB strežniku";
 "SETTINGS_RTSP_TCP" = "Uporabi RTP pred RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Lastni seznam URl naslovov za SAT>IP";
 
 "SETTINGS_ARTWORK" = "Grafična podoba";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Prenesi grafično podobo";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Shrani dnevnik razhroščevanj v napravi";
+"SETTINGS_EXPORT_LIBRARY" = "Zavrzi knjižnico vsebin";
 
 "ABOUT_APP_TV" = "O VLC-ju za tvOS";
