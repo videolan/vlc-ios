@@ -343,6 +343,8 @@
 		CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE2A22D17A5859E00D9EAAD /* CoreText.framework */; };
 		D0AF091F220A741300076D07 /* VLCCloudSortingSpecifierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF091E220A741300076D07 /* VLCCloudSortingSpecifierManager.swift */; };
 		D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */; };
+		D92C186327CD30DE0034058F /* ChapterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D92C186227CD30DE0034058F /* ChapterView.xib */; };
+		D92C186527CD317D0034058F /* ChapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C186427CD317D0034058F /* ChapterView.swift */; };
 		DD13A37B1BEE2FAA00A35554 /* VLCMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */; };
 		DD1B31F41BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */; };
 		DD1CB05A1BBAC549006EDDE6 /* VLCVolumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1CB0591BBAC549006EDDE6 /* VLCVolumeView.m */; };
@@ -973,6 +975,8 @@
 		D5BE7EF6F028FE82FA278E5E /* libPods-VLC-iOS-Screenshots.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOS-Screenshots.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E034EB1CC284FC0037F516 /* VLCStreamingHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStreamingHistoryCell.h; path = Sources/VLCStreamingHistoryCell.h; sourceTree = SOURCE_ROOT; };
 		D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStreamingHistoryCell.m; path = Sources/VLCStreamingHistoryCell.m; sourceTree = SOURCE_ROOT; };
+		D92C186227CD30DE0034058F /* ChapterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChapterView.xib; sourceTree = "<group>"; };
+		D92C186427CD317D0034058F /* ChapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterView.swift; sourceTree = "<group>"; };
 		DD13A3791BEE2FAA00A35554 /* VLCMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMaskView.h; path = "UI Elements/VLCMaskView.h"; sourceTree = "<group>"; };
 		DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMaskView.m; path = "UI Elements/VLCMaskView.m"; sourceTree = "<group>"; };
 		DD1B31F11BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoTracksTVViewController.h; sourceTree = "<group>"; };
@@ -2109,6 +2113,7 @@
 				40C959FF256E9272002DD208 /* NewPlaybackSpeedView.xib */,
 				407EB586257A418900686B1F /* SleepTimerView.xib */,
 				4072A776258791B8006EA498 /* VideoFiltersView.xib */,
+				D92C186227CD30DE0034058F /* ChapterView.xib */,
 			);
 			name = VideoPlayer;
 			path = Resources/Xib/VideoPlayer;
@@ -2126,6 +2131,7 @@
 				40C95A06256E929D002DD208 /* NewPlaybackSpeedView.swift */,
 				407EB58D257A41B200686B1F /* SleepTimerView.swift */,
 				4072A77D25879577006EA498 /* VideoFiltersView.swift */,
+				D92C186427CD317D0034058F /* ChapterView.swift */,
 			);
 			name = ActionSheet;
 			path = Sources/ActionSheet;
@@ -2819,6 +2825,7 @@
 				407EB587257A418900686B1F /* SleepTimerView.xib in Resources */,
 				26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */,
 				7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */,
+				D92C186327CD30DE0034058F /* ChapterView.xib in Resources */,
 				7D27EC2C19DF310300EF0370 /* VLCFirstStepsiTunesSyncViewController.xib in Resources */,
 				7AC8629D1765DC560011611A /* style.css in Resources */,
 				8DB0D71C24CED2BE00915506 /* VideoPlayerControls.xib in Resources */,
@@ -3206,6 +3213,7 @@
 				6D758AAB2577DDAF0016F675 /* VerticalSlider.swift in Sources */,
 				DDC10BE41AEE8EA700890DC3 /* VLCTimeNavigationTitleView.m in Sources */,
 				7D2DE69B24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */,
+				D92C186527CD317D0034058F /* ChapterView.swift in Sources */,
 				DD870E9A1CEF929A00BBD4FE /* VLCNetworkLoginViewFieldCell.m in Sources */,
 				4195747D206A92ED00393A42 /* RemoteNetworkDataSource.swift in Sources */,
 				44C8BBAE24AF36F4003F8940 /* SettingsController.swift in Sources */,

@@ -17,7 +17,6 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier)
     func mediaMoreOptionsActionSheetHideAlertIfNecessary()
     func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView)
-    func mediaMoreOptionsActionSheetDidSelectChapters()
 }
 
 @objc (VLCMediaMoreOptionsActionSheet)
@@ -110,6 +109,18 @@ protocol MediaMoreOptionsActionSheetDelegate {
         return sleepTimerView
     }()
 
+    private lazy var chapterView: ChapterView = {
+        let chapterView = Bundle.main.loadNibNamed("ChapterView",
+                                                   owner: nil,
+                                                   options: nil)?.first as! ChapterView
+        chapterView.frame = offScreenFrame
+        if #available(iOS 13.0, *) {
+            chapterView.overrideUserInterfaceStyle = .dark
+        }
+        chapterView.delegate = self
+        return chapterView
+    }()
+
     // MARK: - Instance Methods
     func resetVideoFilters() {
         videoFiltersView.reset()
@@ -136,6 +147,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
         playbackView.setupTheme()
         sleepTimerView.setupTheme()
         equalizerView.setupTheme()
+        chapterView.setupTheme()
     }
 
 // MARK: - Equalizer
@@ -220,6 +232,12 @@ extension MediaMoreOptionsActionSheet: SleepTimerViewDelegate {
     }
 }
 
+extension MediaMoreOptionsActionSheet: ChapterViewDelegate {
+    func chapterViewDelegateDidSelectChapter(_ chapterView: ChapterView) {
+        removeActionSheet()
+    }
+}
+
 // MARK: - MediaPlayerActionSheetDelegate
 extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDelegate {
     func mediaPlayerActionSheetHeaderTitle() -> String? {
@@ -252,7 +270,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
         case .equalizer:
             return equalizerView
         case .chapters:
-            return ChapterDummyView()
+            return chapterView
         default:
             return mockView
         }

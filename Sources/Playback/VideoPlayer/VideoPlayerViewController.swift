@@ -1745,12 +1745,6 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
             showPopup(equalizerPopupView, with: equalizerView, accessoryViewsDelegate: equalizerView)
         }
     }
-
-    func mediaMoreOptionsActionSheetDidSelectChapters() {
-        trackSelector.trackChapters = true
-        trackSelector.update()
-        shouldShowTrackSelectorPopup(!trackSelectorPopupView.isShown)
-    }
 }
 
 // MARK: - OptionsNavigationBarDelegate

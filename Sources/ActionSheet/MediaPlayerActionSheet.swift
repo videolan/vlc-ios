@@ -9,8 +9,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class ChapterDummyView: UIView { }
-
 enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
     case filter
     case playback
@@ -73,6 +71,8 @@ class MediaPlayerActionSheet: ActionSheet {
             return MediaPlayerActionSheetCellIdentifier.sleepTimer.description
         } else if childView is EqualizerView {
             return MediaPlayerActionSheetCellIdentifier.equalizer.description
+        } else if childView is ChapterView {
+            return MediaPlayerActionSheetCellIdentifier.chapters.description
         } else {
             return NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
         }
@@ -196,12 +196,7 @@ class MediaPlayerActionSheet: ActionSheet {
         modalPresentationStyle = .custom
         setAction { (item) in
             if let item = item as? UIView {
-                if item is ChapterDummyView {
-                    if let actionSheet = self as? MediaMoreOptionsActionSheet {
-                        actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetDidSelectChapters()
-                        self.removeActionSheet()
-                    }
-                } else if let equalizerView = item as? EqualizerView {
+                if let equalizerView = item as? EqualizerView {
                     if let actionSheet = self as? MediaMoreOptionsActionSheet {
                         equalizerView.willShow()
                         actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentPopupView(withChild: equalizerView)
