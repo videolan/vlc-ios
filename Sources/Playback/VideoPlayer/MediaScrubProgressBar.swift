@@ -31,6 +31,7 @@ class MediaScrubProgressBar: UIStackView {
         slider.setThumbImage(UIImage(named: "sliderThumbBig"), for: .highlighted)
         slider.isContinuous = true
         slider.semanticContentAttribute = .forceLeftToRight
+        slider.accessibilityIdentifier = VLCAccessibilityIdentifier.videoPlayerScrubBar
         slider.addTarget(self, action: #selector(handleSlide(slider:)), for: .valueChanged)
         slider.addTarget(self, action: #selector(progressSliderTouchDown), for: .touchDown)
         slider.addTarget(self, action: #selector(progressSliderTouchUp), for: .touchUpInside)

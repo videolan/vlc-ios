@@ -55,7 +55,10 @@ class Screenshot: XCTestCase {
 
     func testCaptureVideoPlayback() {
         helper.tapTabBarItem(VLCAccessibilityIdentifier.video)
+        app.collectionViews.cells.element(boundBy: 5).tap()
         app.collectionViews.cells.element(boundBy: 1).tap()
+        app.sliders[VLCAccessibilityIdentifier.videoPlayerScrubBar]
+            .adjust(toNormalizedSliderPosition: 0.5)
         snapshot("video_tab_playback")
     }
 }

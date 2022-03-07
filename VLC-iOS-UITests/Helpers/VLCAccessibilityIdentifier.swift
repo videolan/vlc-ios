@@ -27,4 +27,5 @@ import Foundation
     @objc static let contribute = "contribute"
     @objc static let about = "about"
     @objc static let playPause = "playPause"
+    static let videoPlayerScrubBar = "videoPlayerScrubBar"
 }
