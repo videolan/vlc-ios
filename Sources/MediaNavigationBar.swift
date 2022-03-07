@@ -19,6 +19,10 @@ protocol MediaNavigationBarDelegate {
     func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar)
 }
 
+private enum RendererActionSheetContent: Int, CaseIterable {
+    case airplay, chromecast
+}
+
 @objc (VLCMediaNavigationBar)
 @objcMembers class MediaNavigationBar: UIStackView {
     // MARK: Instance Variables
@@ -61,6 +65,36 @@ protocol MediaNavigationBarDelegate {
         return chromeButton
     }()
 
+
+    lazy var deviceButton: UIButton = {
+        var chromeButton = UIButton(type: .system)
+        chromeButton.addTarget(self, action: #selector(toggleDeviceActionSheet),
+                               for: .touchDown)
+        chromeButton.setImage(UIImage(named: "renderer"), for: .normal)
+        chromeButton.tintColor = .white
+        chromeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        return chromeButton
+    }()
+
+    private var closureQueue: (() -> Void)? = nil
+
+    private lazy var deviceActionSheet: ActionSheet = {
+        let actionSheet = ActionSheet()
+        actionSheet.delegate = self
+        actionSheet.dataSource = self
+        actionSheet.modalPresentationStyle = .custom
+        actionSheet.collectionWrapperView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        actionSheet.collectionView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        actionSheet.headerView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        actionSheet.headerView.title.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        actionSheet.headerView.title.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        return actionSheet
+    }()
+
+    var presentingViewController: UIViewController?
+
+    private var rendererDiscovererService: VLCRendererDiscovererManager
+
     @available(iOS 11.0, *)
     lazy var airplayRoutePickerView: AVRoutePickerView = {
         var airPlayRoutePicker = AVRoutePickerView()
@@ -82,7 +116,8 @@ protocol MediaNavigationBarDelegate {
         fatalError("init(coder: NSCoder) not implemented")
     }
 
-    override init(frame: CGRect) {
+    init(frame: CGRect, rendererDiscovererService: VLCRendererDiscovererManager) {
+        self.rendererDiscovererService = rendererDiscovererService
         super.init(frame: frame)
         setupViews()
         setupContraints()
@@ -99,11 +134,6 @@ protocol MediaNavigationBarDelegate {
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
             queueButton.widthAnchor.constraint(equalTo: heightAnchor)
         ])
-        if #available(iOS 11.0, *) {
-            airplayRoutePickerView.widthAnchor.constraint(equalTo: heightAnchor).isActive = true
-        } else {
-            airplayVolumeView.widthAnchor.constraint(equalTo: heightAnchor).isActive = true
-        }
     }
 
     private func setupViews() {
@@ -114,20 +144,20 @@ protocol MediaNavigationBarDelegate {
         addArrangedSubview(mediaTitleTextLabel)
         addArrangedSubview(queueButton)
         if #available(iOS 11.0, *) {
-            addArrangedSubview(airplayRoutePickerView)
+            addArrangedSubview(deviceButton)
         } else {
             addArrangedSubview(airplayVolumeView)
         }
     }
 
-    func updateChromecastButton(with button: UIButton) {
-        removeArrangedSubview(chromeCastButton)
-        chromeCastButton = button
-        addArrangedSubview(chromeCastButton)
-        chromeCastButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-    }
-
     // MARK: Button Actions
+
+    func toggleDeviceActionSheet() {
+        deviceActionSheet.delegate = self
+        deviceActionSheet.dataSource = self
+        presentingViewController?.present(deviceActionSheet,
+                                          animated: true)
+    }
 
     func handleCloseTap() {
         assert(delegate != nil, "Delegate not set for MediaNavigationBar")
@@ -142,6 +172,71 @@ protocol MediaNavigationBarDelegate {
     func toggleChromeCast() {
         assert(delegate != nil, "Delegate not set for MediaNavigationBar")
         delegate?.mediaNavigationBarDidToggleChromeCast(self)
+    }
+}
+
+extension MediaNavigationBar: ActionSheetDelegate, ActionSheetDataSource {
+    func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
+        if indexPath.row == 0 {
+            let selector = NSSelectorFromString("_displayAudioRoutePicker")
+            if airplayVolumeView.responds(to: selector) {
+                airplayVolumeView.perform(selector)
+            }
+        } else {
+            // Save closure for chromecast until the end of the actionSheet animation
+            closureQueue = { [weak self] in
+                self?.chromeCastButton.sendActions(for: .touchUpInside)
+            }
+        }
+        return nil
+    }
+
+    func headerViewTitle() -> String? {
+        return NSLocalizedString("HEADER_TITLE_RENDERER", comment: "")
+    }
+
+    func numberOfRows() -> Int {
+        RendererActionSheetContent.allCases.count
+    }
+
+    private func enableViews(_ enable: Bool, _ view: UIView) {
+        view.subviews.forEach() {
+            $0.alpha = enable ? 1 : 0.5
+            $0.isUserInteractionEnabled = enable
+        }
+    }
+
+    func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: ActionSheetCell.identifier,
+            for: indexPath) as? ActionSheetCell else {
+                assertionFailure("MediaNavigationBar: VLCActionSheetDataSource: Unable to dequeue reusable cell")
+                return UICollectionViewCell()
+            }
+
+        switch indexPath.row {
+        case RendererActionSheetContent.airplay.rawValue:
+            cell.name.text = NSLocalizedString("BUTTON_AIRPLAY", comment: "")
+            cell.name.accessibilityHint = NSLocalizedString("BUTTON_AIRPLAY_HINT", comment: "")
+            cell.icon.image = UIImage(named: "airplay-audio")
+        case RendererActionSheetContent.chromecast.rawValue:
+            cell.name.text = NSLocalizedString("BUTTON_RENDERER", comment: "")
+            cell.icon.image = UIImage(named: "renderer")
+            enableViews(!rendererDiscovererService.getAllRenderers().isEmpty,
+                        cell)
+        default:
+            break
+        }
+
+        cell.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        cell.name.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        cell.icon.tintColor = .white
+        return cell
+    }
+
+    func actionSheetDidFinishClosingAnimation(_ actionSheet: ActionSheet) {
+        closureQueue?()
+        closureQueue = nil
     }
 }
 

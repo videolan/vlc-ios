@@ -192,8 +192,10 @@ class VideoPlayerViewController: UIViewController {
     }()
 
     private lazy var mediaNavigationBar: MediaNavigationBar = {
-        var mediaNavigationBar = MediaNavigationBar()
+        var mediaNavigationBar = MediaNavigationBar(frame: .zero,
+                                                    rendererDiscovererService: services.rendererDiscovererManager)
         mediaNavigationBar.delegate = self
+        mediaNavigationBar.presentingViewController = self
         mediaNavigationBar.chromeCastButton.isHidden =
             self.playbackService.renderer == nil
         return mediaNavigationBar
@@ -526,7 +528,7 @@ class VideoPlayerViewController: UIViewController {
             rendererButton?.isSelected = true
         }
         if let rendererButton = rendererButton {
-            mediaNavigationBar.updateChromecastButton(with: rendererButton)
+            mediaNavigationBar.chromeCastButton = rendererButton
         }
         services.rendererDiscovererManager.addSelectionHandler {
             rendererItem in
@@ -534,24 +536,6 @@ class VideoPlayerViewController: UIViewController {
                 self.changeVideoOutput(to: self.externalVideoOutputView.displayView)
             } else if let currentRenderer = self.playbackService.renderer {
                 self.removedCurrentRendererItem(currentRenderer)
-            }
-        }
-
-        if #available(iOS 11.0, *) {
-            let airPlaySubviews = mediaNavigationBar.airplayRoutePickerView.subviews
-            for subview in airPlaySubviews {
-                if subview is UIButton {
-                    subview.accessibilityLabel = NSLocalizedString("BUTTON_AIRPLAY", comment: "")
-                    subview.accessibilityHint = NSLocalizedString("BUTTON_AIRPLAY_HINT", comment: "")
-                }
-            }
-        } else {
-            let airPlaySubviews = mediaNavigationBar.airplayVolumeView.subviews
-            for subview in airPlaySubviews {
-                if subview is UIButton {
-                    subview.accessibilityLabel = NSLocalizedString("BUTTON_AIRPLAY", comment: "")
-                    subview.accessibilityHint = NSLocalizedString("BUTTON_AIRPLAY_HINT", comment: "")
-                }
             }
         }
     }
@@ -1420,7 +1404,7 @@ internal extension VideoPlayerViewController {
 private extension VideoPlayerViewController {
     private func setPlayerInterfaceEnabled(_ enabled: Bool) {
         mediaNavigationBar.closePlaybackButton.isEnabled = enabled
-        mediaNavigationBar.chromeCastButton.isEnabled = enabled
+        mediaNavigationBar.deviceButton.isEnabled = enabled
         mediaNavigationBar.queueButton.isEnabled = enabled
         if #available(iOS 11.0, *) {
             mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = enabled
