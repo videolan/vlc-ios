@@ -74,8 +74,8 @@
 
 "BUTTON_RENDERER" = "Apparechji di diffusione";
 "BUTTON_RENDERER_HINT" = "Affissà un listinu di l’apparechji di diffusione dispunibule";
-"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
-"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
+"BUTTON_AIRPLAY" = "AirPlay o Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Affissà un listinu di l’apparechji AirPlay o Bluetooth dispunibule";
 
 "UPGRADING_LIBRARY" = "Rinnovà a mediateca";
 
@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Lista di lettura viota";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Aghjunghje un media mudifichendu e categurie rispettive.";
 
-"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
+"PLAYBACK_SCRUB_HELP" = "Fate sculiscià u ditu insù per adattà a cadenza di scaruschjera.";
 "PLAYBACK_SCRUB_HIGH" = "Scaruschjera à alta vitezza";
 "PLAYBACK_SCRUB_HALF" = "Scaruschjera à meza vitezza";
 "PLAYBACK_SCRUB_QUARTER" = "Scaruschjera à quartu vitezza";
@@ -243,7 +243,7 @@
 "WEBINTF_DROPFILES_LONG" = "Depone i schedarii in a finestra per aghjunghjelli à u vostru %@.<br>O cliccà nant’à u buttone \"+\" per impiegà u dialogu di u selettore di schedariu.";
 "WEBINTF_DOWNLOADFILES" = "Scaricà i schedarii";
 "WEBINTF_DOWNLOADFILES_LONG" = "Basta à cliccà nant’à u schedariu chì voi vulete scaricà da u vostru %@.";
-"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
+"WEBINTF_ADDRESS_COPIED" = "Indirizzu cupiatu in u preme’papei";
 "WEBINTF_TITLE_ATV" = "Ripruduzzione alluntanata";
 "WEBINTF_DROPFILES_LONG_ATV" = "Depone i schedarii in a finestra per sunalli nant’à u vostru %@.<br>O cliccà nant’à u buttone \"+\" per impiegà u dialogu di u selettore di schedariu.";
 "WEBINTF_URL_SENT" = "Indirizzu mandatu bè.";
@@ -284,8 +284,8 @@
 "REPEAT_FOLDER" = "Cartulare";
 "SHUFFLE" = "Aleatoriu";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Reinizià a lista";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Reinizià ab’eternu a lista di i flussi di a reta letti pocu fà.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Plug’n’Play (UPnP) Universale";
@@ -346,8 +346,8 @@
 "BUTTON_EDIT" = "Mudificà";
 "BUTTON_EDIT_HINT" = "Modu di mudificazione";
 
-"BUTTON_SELECT_ALL" = "Select all";
-"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
+"BUTTON_SELECT_ALL" = "Tuttu selezziunà";
+"BUTTON_SELECT_ALL_HINT" = "Selezziunà tutti l’elementi multimedià presenti nant’à sta vista";
 
 "ADD_TO_PLAYLIST" = "Aghjunghje à a lista di lettura";
 "ADD_TO_PLAYLIST_HINT" = "Apre u listinu per aghjunghje à a lista di lettura";
@@ -443,8 +443,8 @@
 "MORE_OPTIONS_BUTTON" = "Più";
 "MORE_OPTIONS_HINT" = "Fighjà più di cuntrolli d’ozzione";
 
-"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Subtitles unsupported";
-"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Subtitles are not yet supported while casting.";
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Sottutituli micca accettati";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "I sottutituli ùn sò ancu accettati durante a diffusione.";
 
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ugualizatore";
@@ -493,13 +493,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Dà un bonamanu";
-"MAKE_DONATION_TITLE" = "Make a donation";
-"DONATION_DESCRIPTION" = "Your sponsorship will allow us to improve the VLC-iOS app and support the VideoLAN association.";
+"MAKE_DONATION_TITLE" = "Fà una dunazione";
+"DONATION_DESCRIPTION" = "U vostru finanziamentu ci permetterà d’amendà l’appiecazione VLC-iOS è di sustene l’associu VideoLAN.";
 "CANNOT_MAKE_PAYMENTS" = "Ùn avete micca u permessu d’effettuà pagamenti nant’à st’apparechju.";
-"PURCHASE_FAILED" = "Purchase Failed.";
-"SEND_DONATION" = "Send your donation";
-"PURCHASE_SUCESS_TITLE" = "Donation sent";
-"PURCHASE_SUCESS_DESCRIPTION" = "Thank you for your donation!";
+"PURCHASE_FAILED" = "Fiascu di a comprera.";
+"SEND_DONATION" = "Mandà a vostra dunazione";
+"PURCHASE_SUCESS_TITLE" = "Dunazione mandata";
+"PURCHASE_SUCESS_DESCRIPTION" = "Vi ringraziemu per a vostra dunazione";
 
 // MARK: - QueueViewController
 
@@ -541,5 +541,5 @@
 
 // MARK: - TitleSelection
 
-"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
-"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+"TITLESELECTION_BACKGROUND_LABEL" = "Sfondulu di a selezzione di u titulu";
+"TITLESELECTION_BACKGROUND_HINT" = "Picchichjà per caccià a vista.";

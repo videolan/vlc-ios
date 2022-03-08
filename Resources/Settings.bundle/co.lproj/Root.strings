@@ -7,7 +7,7 @@
 "SETTINGS_THEME_BRIGHT" = "Tema chjaru";
 "SETTINGS_THEME_DARK" = "Tema scuru";
 "SETTINGS_THEME_SYSTEM" = "Autumaticu";
-"SETTINGS_THEME_BLACK" = "Impiegà un fondu neru cù u modu scuru";
+"SETTINGS_THEME_BLACK" = "Impiegà un sfondulu neru cù u modu scuru";
 "SETTINGS_THEME_BLACK_SUBTITLE" = "Ecunumizeghja a batteria nant’à l’apparechji cù un screnu OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "Apre in Preferenze";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accessu assicuratu à u vostru cuntenutu";
@@ -112,13 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = "Preferisce SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Disattivà st’ozzione s’è vò avete qualchì difficultà à navigà nant’à u vostru servitore SMB";
 "SETTINGS_RTSP_TCP" = "Impiegà RTP cù RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Indirizzu persunalizatu di a lista di canali SAT>IP";
 
 "SETTINGS_ARTWORK" = "Illustrazione";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Scaricà l’illustrazione";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Arregistrà i ghjurnali di spannatura nant’à l’apparechju";
+"SETTINGS_EXPORT_LIBRARY" = "Estrae a mediateca";
 
 "ABOUT_APP_TV" = "Apprupositu di VLC for tvOS";
