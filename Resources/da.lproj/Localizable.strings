@@ -188,7 +188,7 @@
 "EMPTY_PLAYLIST" = "Tom spilleliste";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Tilføj medier når de respektive kategorier redigeres.";
 
-"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
+"PLAYBACK_SCRUB_HELP" = "Lad din finger glide op for at justere scrubbinghastiged.";
 "PLAYBACK_SCRUB_HIGH" = "Spoling med høj hastighed";
 "PLAYBACK_SCRUB_HALF" = "Spoling med halv hastighed";
 "PLAYBACK_SCRUB_QUARTER" = "Spoling med kvart hastighed";
@@ -346,8 +346,8 @@
 "BUTTON_EDIT" = "Rediger";
 "BUTTON_EDIT_HINT" = "Redigeringstilstand";
 
-"BUTTON_SELECT_ALL" = "Select all";
-"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
+"BUTTON_SELECT_ALL" = "Vælg alle";
+"BUTTON_SELECT_ALL_HINT" = "Vælg alle medieelementer som ses i denne visning";
 
 "ADD_TO_PLAYLIST" = "Tilføj til spilleliste";
 "ADD_TO_PLAYLIST_HINT" = "Åbn menuen tilføj til spilleliste";
@@ -541,5 +541,5 @@
 
 // MARK: - TitleSelection
 
-"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
-"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+"TITLESELECTION_BACKGROUND_LABEL" = "Baggrund for titelvalg";
+"TITLESELECTION_BACKGROUND_HINT" = "Tap for at fjerne visningen.";

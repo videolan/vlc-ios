@@ -112,13 +112,13 @@
 "SETTINGS_FORCE_SMBV1" = "Foretræk SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Slå denne indstilling fra hvis du har besvær med at browse din SMB-server";
 "SETTINGS_RTSP_TCP" = "Anvend RTP fremfor RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Brugerdefineret SAT>IP kanalliste-URL";
 
 "SETTINGS_ARTWORK" = "Billede";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download billede";
 
 "SETTINGS_LAB" = "Laboratorium";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Gem fejlsøgningslog på enhed";
+"SETTINGS_EXPORT_LIBRARY" = "Dump mediebibliotek";
 
 "ABOUT_APP_TV" = "Om VLC til tvOS";
