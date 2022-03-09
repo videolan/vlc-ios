@@ -1422,7 +1422,6 @@ private extension VideoPlayerViewController {
         mediaNavigationBar.closePlaybackButton.isEnabled = enabled
         mediaNavigationBar.chromeCastButton.isEnabled = enabled
         mediaNavigationBar.queueButton.isEnabled = enabled
-        mediaNavigationBar.minimizePlaybackButton.isEnabled = enabled
         if #available(iOS 11.0, *) {
             mediaNavigationBar.airplayRoutePickerView.isUserInteractionEnabled = enabled
             mediaNavigationBar.airplayRoutePickerView.alpha = !enabled ? 0.5 : 1
@@ -1620,11 +1619,11 @@ extension VideoPlayerViewController: PlayerControllerDelegate {
 
 extension VideoPlayerViewController: MediaNavigationBarDelegate {
     func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar) {
-        playbackService.stopPlayback()
-    }
-
-    func mediaNavigationBarDidTapMinimize(_ mediaNavigationBar: MediaNavigationBar) {
-        delegate?.videoPlayerViewControllerDidMinimize(self)
+        if playbackService.isPlaying {
+            delegate?.videoPlayerViewControllerDidMinimize(self)
+        } else {
+            playbackService.stopPlayback()
+        }
     }
 
     func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar) {

@@ -15,7 +15,6 @@ import MediaPlayer
 @objc (VLCMediaNavigationBarDelegate)
 protocol MediaNavigationBarDelegate {
     func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar)
-    func mediaNavigationBarDidTapMinimize(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar)
 }
@@ -24,15 +23,6 @@ protocol MediaNavigationBarDelegate {
 @objcMembers class MediaNavigationBar: UIStackView {
     // MARK: Instance Variables
     weak var delegate: MediaNavigationBarDelegate?
-
-    lazy var minimizePlaybackButton: UIButton = {
-        var minButton = UIButton(type: .system)
-        minButton.addTarget(self, action: #selector(handleMinimizeTap), for: .touchDown)
-        minButton.setImage(UIImage(named: "minimize"), for: .normal)
-        minButton.tintColor = .white
-        minButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        return minButton
-    }()
 
     lazy var closePlaybackButton: UIButton = {
         var closeButton = UIButton(type: .system)
@@ -107,7 +97,6 @@ protocol MediaNavigationBarDelegate {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
-            minimizePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
             queueButton.widthAnchor.constraint(equalTo: heightAnchor)
         ])
         if #available(iOS 11.0, *) {
@@ -122,7 +111,6 @@ protocol MediaNavigationBarDelegate {
         semanticContentAttribute = .forceLeftToRight
         translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(closePlaybackButton)
-        addArrangedSubview(minimizePlaybackButton)
         addArrangedSubview(mediaTitleTextLabel)
         addArrangedSubview(queueButton)
         if #available(iOS 11.0, *) {
@@ -144,11 +132,6 @@ protocol MediaNavigationBarDelegate {
     func handleCloseTap() {
         assert(delegate != nil, "Delegate not set for MediaNavigationBar")
         delegate?.mediaNavigationBarDidTapClose(self)
-    }
-
-    func handleMinimizeTap() {
-        assert(delegate != nil, "Delegate not set for MediaNavigationBar")
-        delegate?.mediaNavigationBarDidTapMinimize(self)
     }
 
     func toggleQueueView() {
