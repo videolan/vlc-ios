@@ -1,9 +1,7 @@
-"STORE_DESCRIPTION" = "VLC for iOS是免費的VLC media player對iPad、iPhone與iPod touch的端口。\n它可直接播放您所有的電影、節目與音樂，大多格式都不需轉檔。\n它可同步檔案至Dropbox、GDrive、OneDrive、Box、iCloud Drive、iTunes，可透過WiFi分享直接下載，也可以自SMB、FTP、UPnP/DLNA媒體伺服器及網站串流。\nVLC提供先進的字幕支援，包含完整相容SSA、多軌音訊及播放速度控制。\n\nVLC for iOS完全免費且為開放源碼。";
+"STORE_DESCRIPTION" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, playback speed control and rendering through Chromecast.\n\nVLC is completely free and open source.";
 
-"STORE_DESCRIPTION_TV" = "VLC媒體撥放器是免費的開源跨平台多媒體撥放器。\n它可以直接播放所有您的電影、節目與音樂，大多格式都不需轉檔。\n它允許經由雲端服務串流(Dropbox、OneDrive、Box)，經由Mac或PC網頁介面遠端播放，也可以自SMB、FTP、UPnP/DLNA媒體伺服器及網站串流。\nVLC提供先進的字幕支援，包含完整相容SSA、多軌音訊及播放速度控制。\n\nVLC for iOS是完全免費且為開放源碼。\n\n中繼資料和圖稿是由TMDb及Hatchet所提供，這是由社群所維護的電影及音樂資料庫。";
+"STORE_DESCRIPTION_TV" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC is completely free and open source.\n\nArtwork is provided by TMDb, which is a community maintained movie database.";
 
-"CHOOSE_AUDIO_TRACK" = "選擇音軌";
-"CHOOSE_SUBTITLE_TRACK" = "選擇字幕軌";
 "UNKNOWN_TRACK_TYPE" = "未知曲目類型";
 "CHOOSE_TITLE" = "選擇標題";
 "CHOOSE_CHAPTER" = "選擇章節";
