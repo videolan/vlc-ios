@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Dump media library";
 
 "ABOUT_APP_TV" = "Par VLC tvOS lietotni";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
