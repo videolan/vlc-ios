@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
 "SMB_CIFS_FILE_SERVERS" = "ဖိုင် ဆာဗာများ (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 file";
 "NO_FILES" = "No supported files";
 "DOWNLOADING" = "Downloading...";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Remaining time: %@";
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "ရှေ့သို့";
 "PREV_BUTTON" = "ယခင်သို့";
 "PLAY_ALL_BUTTON" = "အားလုံး ပြသ";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
 "RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "ပြင်ဆင်";
 "BUTTON_EDIT_HINT" = "Edit mode";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "ဗီဒီယို အရေအတွက်";
 "NB_ALBUM" = "Number of albums";
 "LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
