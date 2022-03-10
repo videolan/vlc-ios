@@ -14,8 +14,6 @@
 
 extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     func videoPlayerControlsDelegateDidTapSubtitle(_ videoPlayerControls: VideoPlayerControls) {
-        trackSelector.trackChapters = false
-
         let orientation = getInterfaceOrientationMask(orientation: UIApplication.shared.statusBarOrientation)
 
         titleSelectionView.mainStackView.axis = orientation == .landscape ? .horizontal : .vertical

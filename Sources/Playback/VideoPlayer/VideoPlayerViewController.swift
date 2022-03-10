@@ -248,13 +248,6 @@ class VideoPlayerViewController: UIViewController {
 
     private var isFirstCall: Bool = true
 
-    private(set) lazy var trackSelector: TrackSelectorView = {
-        var trackSelector = TrackSelectorView(frame: .zero)
-        trackSelector.parentViewController = self
-        trackSelector.delegate = self
-        return trackSelector
-    }()
-
     private(set) lazy var titleSelectionView: TitleSelectionView = {
         let isLandscape = UIDevice.current.orientation.isLandscape
         let titleSelectionView = TitleSelectionView(frame: .zero,
@@ -1526,10 +1519,6 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
             mediaDuration = playbackService.mediaDuration
         }
 
-        if trackSelectorPopupView.isShown {
-            trackSelector.update()
-        }
-
         if titleSelectionView.isHidden == false {
             titleSelectionView.updateHeightConstraints()
             titleSelectionView.reload()
@@ -1884,14 +1873,6 @@ extension VideoPlayerViewController {
         ]
         NSLayoutConstraint.activate(newConstraints)
     }
-
-    func shouldShowTrackSelectorPopup(_ show: Bool) {
-        if show {
-            showPopup(trackSelectorPopupView, with: trackSelector, accessoryViewsDelegate: trackSelector)
-        } else {
-            trackSelectorPopupView.close()
-        }
-    }
 }
 
 // MARK: - PopupViewDelegate
@@ -1999,14 +1980,6 @@ extension VideoPlayerViewController {
         }
 
         return commands
-    }
-}
-
-// MARK: - TrackSelectorViewDelegate
-
-extension VideoPlayerViewController: TrackSelectorViewDelegate {
-    func trackSelectorViewDelegateDidSelectTrack(_ trackSelectorView: TrackSelectorView) {
-        shouldShowTrackSelectorPopup(false)
     }
 }
 
