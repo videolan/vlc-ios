@@ -21,11 +21,11 @@ PODS:
     - box-ios-sdk-v2/no-arc (= 1.2.3)
   - box-ios-sdk-v2/no-arc (1.2.3)
   - CocoaHTTPServer (2.3)
-  - GoogleAPIClientForREST/Core (1.6.0):
-    - GTMSessionFetcher (>= 1.6.1)
-  - GoogleAPIClientForREST/Drive (1.6.0):
+  - GoogleAPIClientForREST/Core (1.7.0):
+    - GTMSessionFetcher (< 2.0, >= 1.6.1)
+  - GoogleAPIClientForREST/Drive (1.7.0):
     - GoogleAPIClientForREST/Core
-    - GTMSessionFetcher (>= 1.6.1)
+    - GTMSessionFetcher (< 2.0, >= 1.6.1)
   - GRKArrayDiff (2.2.2)
   - GTMAppAuth (0.7.1):
     - AppAuth (~> 0.95)
@@ -39,7 +39,7 @@ PODS:
   - MarqueeLabel (4.0.2)
   - MetaDataFetcherKit (0.5.0):
     - AFNetworking (= 4.0.0)
-  - MobileVLCKit (3.3.18b10)
+  - MobileVLCKit (3.3.18b11)
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (6.2.3)
   - OBSlider (1.1.0)
@@ -64,7 +64,7 @@ PODS:
     - OneDriveSDK/Common
   - SimulatorStatusMagic (2.6)
   - SwiftLint (0.25.1)
-  - TVVLCKit (3.3.18b10)
+  - TVVLCKit (3.3.18b11)
   - VLCMediaLibraryKit (0.10.1):
     - MobileVLCKit
   - XKKeychain (1.0.1)
@@ -82,13 +82,13 @@ DEPENDENCIES:
   - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
   - MetaDataFetcherKit (~> 0.5.0)
-  - MobileVLCKit (= 3.3.18b10)
+  - MobileVLCKit (= 3.3.18b11)
   - ObjectiveDropboxOfficial
   - OBSlider (= 1.1.0)
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
-  - TVVLCKit (= 3.3.18b10)
+  - TVVLCKit (= 3.3.18b11)
   - VLCMediaLibraryKit (= 0.10.1)
   - XKKeychain (~> 1.0)
   - xmlrpc (from `https://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
@@ -160,25 +160,25 @@ SPEC CHECKSUMS:
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
-  GoogleAPIClientForREST: 5183df28e7bcb7b7b41ebd558e16083cfed60d99
+  GoogleAPIClientForREST: 2d4140915e2ec6d1bcb39c9df4a534c75706c595
   GRKArrayDiff: 13738c0300068a28cf17614a72e0398ee13bb6b3
   GTMAppAuth: c5e41aaf039ac1ccc41543e6ea2ef7abd255ad41
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MetaDataFetcherKit: c77fa3d0791d406a8cfab43464ed728437bd241b
-  MobileVLCKit: b502dd1f081c69901bb8582279bb8312463a3317
+  MobileVLCKit: 3f44b92b4a5908fffdd6ce1b00612523821203d3
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: fe206ce8c0bc49976c249d472db7fdbc53ebbd53
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   SimulatorStatusMagic: 9f5294c12ca99c6cadb243a60362a66000df540c
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
-  TVVLCKit: 30bb049702f2c0a65503543df52fbce052003d0e
+  TVVLCKit: 119e967033503e257e5d3533b57e965d3bc03226
   VLCMediaLibraryKit: 2bcfd7289e5088354f9b94b4a3a56aeb283a1558
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: a37647320cd3b9229794dbc380b1a7d26c3001f1
+PODFILE CHECKSUM: c8b8db0e401c8a7e3d177b08bb0acc71850da7d1
 
 COCOAPODS: 1.11.2
