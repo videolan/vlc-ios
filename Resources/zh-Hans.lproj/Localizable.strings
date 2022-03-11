@@ -1,9 +1,7 @@
-"STORE_DESCRIPTION" = "VLC for iOS 是自由软件 VLC 媒体播放器面向 iPad, iPhone 和 iPod touch 设备的移植版本。它无需转换就可播放多数格式的电影，节目和音乐。它允许通过 Dropbox、GDrive、OneDrive、Box、iCloud Drive、iTunes、直接下载和 Wi-Fi 共享进行文件同步，还可以从 SMB、FTP、UPnP/DLNA 媒体服务器和网络播放文件。VLC 提供了对高级字幕的支持，包括完全的 SSA 兼容性，多轨音频，和回放速度控制。VLC for iOS 完全免费和开源。";
+"STORE_DESCRIPTION" = "VLC 是一款自由开源的开平台多媒体播放器。\n无需转换格式，它便可直接播放多数格式的电影、节目和音乐。\n它允许与 Dropbox、GDrive、OneDrive、Box、iCloud Drive、iTunes进行文件同步，直接下载和通过 Wi-Fi 共享以及从 SMB、FTP、SFTP、NFS、UPnP/DLNA媒体服务器和网页进行在线播放。\nVLC提供了对高级字幕的支持，包括完全兼容 SSA，多轨道音频，播放速度控制和通过 Chromecast 渲染。\n\nVLC 完全免费和开源。";
 
-"STORE_DESCRIPTION_TV" = "VLC media player 是一款免费、自由且开源的跨平台多媒体播放器。\n它可以直接播放大多数格式的影片、节目及音乐，无需转换。\n它允许从云服务 (Dropbox、OneDrive、Box) 串流播放，可以通过 Web 界面从 Mac 或 PC 远程回放，以及直接播放 SMB、FTP、UPnP/DLNA 媒体服务器及网络上的流媒体。\nVLC 支持高级字幕格式（包括对 SSA 的完全兼容），多轨道音频以及回放速度控制。\n\nVLC for iOS 完全免费及开源。\n\n元数据及专辑封面由 TMDb 与 Hatchet 提供，它们均为社区维护的影片及音乐数据库。";
+"STORE_DESCRIPTION_TV" = "VLC 是一款自由开源的开平台多媒体播放器。\n无需转换格式，它便可直接播放多数格式的电影、节目和音乐。\n它允许从您的 Mac 或 PC 通过 Web UI 进行远程播放以及从 SMB、FTP、SFTP、NFS、UPnP/DLNA 媒体服务器和 Web 进行在线播放。\nVLC提供了对高级字幕的支持，包括完全兼容 SSA，多轨道音频，播放速度控制。\n\nVLC 完全免费和开源。\n\nArtwork 由 TMDb 提供，这是一个社区维护的电影数据库。";
 
-"CHOOSE_AUDIO_TRACK" = "选择音频轨道";
-"CHOOSE_SUBTITLE_TRACK" = "选择字幕轨道";
 "UNKNOWN_TRACK_TYPE" = "未知曲目类型";
 "CHOOSE_TITLE" = "选择标题";
 "CHOOSE_CHAPTER" = "选择章节";
