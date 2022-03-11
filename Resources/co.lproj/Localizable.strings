@@ -1,9 +1,7 @@
-"STORE_DESCRIPTION" = "VLC per iOS hè una purtera di u lettore media VLC liberu nant’à iPad, iPhone è iPod touch.\nPò leghje tutti i vostri video, spettaculi è musica in a maiò parte di i furmati direttamente è senza cunversione.\nPermette a sincrunizazione di schedariu cù Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, offre i scaricamenti diretti, u spartimentu Wi-Fi, ma dinù a lettura di cuntinuu di i servitori media SMB, FTP, UPnP/DLNA è da u web.\nVLC permette l’impiegu di sottutituli avanzati inchjudendu a cumpatibilità sana SSA, l’audio multi-traccia, è u cuntrollu di a vitezza di ripruduzzione.\n\nVLC per iOS hè liberu sanu è di fonte aperta.";
+"STORE_DESCRIPTION" = "VLC hè un lettore multimedià di rigalu è à fonte aperta per tutte e piattaforme.\nPò leghje tutti i vostri video, spettaculi è musica in a maiò parte di i furmati direttamente è senza cunversione.\nPermette a sincrunizazione di schedariu cù Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, offre i scaricamenti diretti, u spartimentu Wi-Fi, ma dinù a lettura di cuntinuu di i servitori medià SMB, FTP, SFTP, NFS, UPnP/DLNA è da u web.\nVLC permette l’impiegu di sottutituli avanzati inchjudendu a cumpatibilità SSA sana, l’audio multitraccia, u cuntrollu di a vitezza di ripruduzzione è a trasfurmazione cù Chromecast.\n\nVLC hè tuttu di rigalu è à fonte aperta.";
 
-"STORE_DESCRIPTION_TV" = "VLC media player hè un lettore di media liberu è di rigalu per tutti i sistemi.\nPò sunà tutti i vostri video, spettaculi è musica in a maiò parte di i furmati direttamente, senza cunversione.\nPermette a lettura di cuntinuu à partesi di servizii Nivulu (Dropbox, OneDrive, Box), a Ripruduzzione Alluntanata da u vostru Mac o PC grazia à un’interfaccia web, ma dinù a lettura di cuntinuu à partesi di servitori media SMB, FTP, UPnP/DLNA è da u web.\nVLC permette l’impiegu di sottutituli avanzati includendu a cumpatibilità sana SSA, l’audio multi-traccia, è u cuntrollu di a vitezza di ripruduzzione.\n\nVLC per iOS hè liberu è sanu di rigalu.\n\nI metadati è l’illustrazioni sò pruvisti da TMDb è Hatchet, chì sò banche di dati di filmi è musica mentenute da a cumunità.";
+"STORE_DESCRIPTION_TV" = "VLC hè un lettore multimedià di rigalu è à fonte aperta per tutte e piattaforme.\nPò sunà tutti i vostri video, spettaculi è musica in a maiò parte di i furmati direttamente, senza cunversione.\nPermette a ripruduzzione alluntanata da u vostru Mac o PC grazia à un’interfaccia web, ma dinù a lettura di cuntinuu à partesi di servitori medià SMB, FTP, SFTP, NFS, UPnP/DLNA è da u web.\nVLC permette l’impiegu di sottutituli avanzati includendu a cumpatibilità sana SSA, l’audio multitraccia, è u cuntrollu di a vitezza di ripruduzzione.\n\nVLC hè tuttu di rigalu è à fonte aperta.\n\nL’illustrazioni sò pruvisti da TMDb, chì hè una banca di dati di filmi mantenuta da a cumunità.";
 
-"CHOOSE_AUDIO_TRACK" = "Sceglie a traccia audio";
-"CHOOSE_SUBTITLE_TRACK" = "Sceglie a traccia di sottutitulu";
 "UNKNOWN_TRACK_TYPE" = "Tipu di traccia scunnisciutu";
 "CHOOSE_TITLE" = "Sceglie u titulu";
 "CHOOSE_CHAPTER" = "Sceglie u capitulu";
@@ -15,7 +13,7 @@
 "AUDIO" = "Audio";
 "SUBTITLES" = "Sottutituli";
 "LANGUAGE" = "Lingua";
-"MEDIA_INFO" = "Infurmazione media";
+"MEDIA_INFO" = "Infurmazione medià";
 "VIDEO_DIMENSIONS" = "Dimensioni di a video";
 "FORMAT_VIDEO_DIMENSIONS" = "%ix%i pixel";
 "FORMAT_AUDIO_TRACKS" = "%i traccie audio";
@@ -148,7 +146,7 @@
 "GDRIVE_ERROR_DOWNLOADING_FILE" = "Un sbagliu hè accadutu durante u scaricamentu";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "SBAGLIU";
 
-"ONEDRIVE_MEDIA_WITHOUT_URL" = "U media selezziunatu ùn hà micca un indirizzu chì si pò sunà";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "U medià selezziunatu ùn hà micca un indirizzu chì si pò sunà";
 
 "DISK_FULL" = "Cunfina d’allucamentu tocca";
 "DISK_FULL_FORMAT" = "%@ ùn pò micca esse allucatu nant’à u vostru %@, perchè ùn avete micca abbastanza di spaziu liberu.";
@@ -161,8 +159,8 @@
 "BIOMETRIC_UNLOCK" = "Sbluccà a mediateca\nAbbandunà a scrittura di u codice d’intesa";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d tentativi fiaschi di codice d’intesa";
-"1 Failed Passcode Attempt" = "1 tentativu fiascu di codice d’intesa";
+"%d Failed Passcode Attempts" = "%d tentativi fiascati di codice d’intesa";
+"1 Failed Passcode Attempt" = "1 tentativu fiascatu di codice d’intesa";
 "Change Passcode" = "Cambià u codice d’intesa";
 "Enter Passcode" = "Scrivite u codice d’intesa";
 "Enter a passcode" = "Scrive un codice d’intesa";
@@ -180,13 +178,13 @@
 "OFF" = "Innò";
 
 "EMPTY_LIBRARY" = "Mediateca viota";
-"EMPTY_LIBRARY_LONG" = "Per a ripruduzzione, pudete diffonde un media da un servitore di a vostra reta lucale, da u nivulu o sincrunizà u media cù u vostru apparechju impieghendu iTunes, Wi-Fi Upload o i servizii di Nivulu.";
+"EMPTY_LIBRARY_LONG" = "Per a ripruduzzione, pudete diffonde un medià da un servitore di a vostra reta lucale, da u nivulu o sincrunizà u medià cù u vostru apparechju impieghendu iTunes, Wi-Fi Upload o i servizii di Nivulu.";
 
 "EMPTY_NO_PLAYLISTS" = "Liste di lettura";
-"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Per creà e liste di lettura, aprite u modu di mudificazione nant’à l’unghjette di cuntenutu audio o video è selezziunate u vostru media favuritu.\nPudete dinù sincrunizà e liste di lettura esistente da i vostri altri apparechji o da Internet.";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Per creà e liste di lettura, aprite u modu di mudificazione nant’à l’unghjette di cuntenutu audio o video è selezziunate u vostru medià favuritu.\nPudete dinù sincrunizà e liste di lettura esistente da i vostri altri apparechji o da Internet.";
 
 "EMPTY_PLAYLIST" = "Lista di lettura viota";
-"EMPTY_PLAYLIST_DESCRIPTION" = "Aghjunghje un media mudifichendu e categurie rispettive.";
+"EMPTY_PLAYLIST_DESCRIPTION" = "Aghjunghje un medià mudifichendu e categurie rispettive.";
 
 "PLAYBACK_SCRUB_HELP" = "Fate sculiscià u ditu insù per adattà a cadenza di scaruschjera.";
 "PLAYBACK_SCRUB_HIGH" = "Scaruschjera à alta vitezza";
@@ -225,7 +223,7 @@
 "FIRST_STEPS_WIFI_DETAILS" = "Scrite l’indirizzu generata in u vostru navigatore favuritu quandu site cunnettu à a listessa reta chì u vostru telefonu";
 "FIRST_STEPS_CLOUDS" = "Nivuli";
 "FIRST_STEPS_CLOUD_TITLE" = "Nivulu";
-"FIRST_STEPS_CLOUD_DETAILS" = "Incaricà u vostru media ver di un serviziu di nivulu cum’è Google Drive o Dropbox per scaricalli da luntanu o leghjeli da cuntinuu.";
+"FIRST_STEPS_CLOUD_DETAILS" = "Incaricà u vostru medià ver di un serviziu di nivulu cum’è Google Drive o Dropbox per scaricalli da luntanu o leghjeli da cuntinuu.";
 
 
 "PLEX_CHECK_ACCOUNT" = "Cuntrollà u vostru contu Plex in e preferenze";
@@ -270,11 +268,11 @@
 "ENTER_URL" = "Scrivite l’indirizzu à leghje";
 "HTTP_SERVER_ON" = "Disattivà a ripruduzzione alluntanata";
 "HTTP_SERVER_OFF" = "Attivà a ripruduzzione alluntanata";
-"CACHED_MEDIA" = "Media in impiatta";
-"CACHED_MEDIA_LONG" = "I media affissati quì sò allucati lucalmente nant’à a vostra Apple TV. Nota : stu cuntenutu pò esse cacciatu à ogni mumentu senza avertimentu da u sistema quandu VLC ùn funzioneghja micca s’è u vostru apparechju si trova troppu pienu.";
+"CACHED_MEDIA" = "Medià in impiatta";
+"CACHED_MEDIA_LONG" = "I medià affissati quì sò allucati lucalmente nant’à a vostra Apple TV. Nota : stu cuntenutu pò esse cacciatu à ogni mumentu senza avertimentu da u sistema quandu VLC ùn funzioneghja micca s’è u vostru apparechju si trova troppu pienu.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Scaricà sottutituli à partesi di OpenSubtitles.org…";
 "FOUND_SUBS" = "Sottutituli trovi";
-"NO_SUB_FOUND_OSO" = "Ùn si pò truvà alcunu sottutitulu per u vostru elementu media « %@».";
+"NO_SUB_FOUND_OSO" = "Ùn si pò truvà alcunu sottutitulu per u vostru elementu medià « %@».";
 "USE_SPDIF" = "Impiegà Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Ripruduzzione";
@@ -309,8 +307,8 @@
 "DELETE_ITEM_HINT" = "Appughjà %@ per squassà"; /* Insert %@ where play-pause-glyph should be placed */
 
 "DELETE_MESSAGE" = "Cunfirmà a squassatura di a selezzione";
-"DELETE_MESSAGE_PLAYLIST" = "Site sicuru di vulè squassà a lista di lettura selezziunata ?\nI schedarii multimedia assuciati ùn seranu micca squassati.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Site sicuru di vulè caccià i media selezziunati da a lista di lettura ?\nÙn seranu micca squassati nant’à u discu.";
+"DELETE_MESSAGE_PLAYLIST" = "Site sicuru di vulè squassà a lista di lettura selezziunata ?\nI schedarii multimedià assuciati ùn seranu micca squassati.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Site sicuru di vulè caccià i medià selezziunati da a lista di lettura ?\nÙn seranu micca squassati nant’à u discu.";
 "DELETE_TITLE" = "Squassà a selezzione";
 
 // MARK: - Drag and Drop
@@ -359,7 +357,7 @@
 "ERROR_PLAYLIST_CREATION" = "Fiascu per creà una lista di lettura";
 "ERROR_PLAYLIST_TRACKS" = "Fiascu per ritruvà e traccie";
 
-"ERROR_RENAME_FAILED" = "Rinuminazione fiasca";
+"ERROR_RENAME_FAILED" = "Rinuminazione fiascata";
 "ERROR_EMPTY_NAME" = "U titulu ùn pò micca esse viotu";
 
 "SHARE_LABEL" = "Sparte";
@@ -391,7 +389,7 @@
 "FILENAME" = "Nome di schedariu";
 "TRACK_NUMBER" = "Numeru di traccia";
 "NB_AUDIO" = "Numeru di traccie audio";
-"NB_MEDIA" = "Numeru di traccie multimedia";
+"NB_MEDIA" = "Numeru di traccie multimedià";
 "NB_VIDEO" = "Numeru di traccie video";
 
 // MARK: - VLCNetworkLoginTVViewController
@@ -415,27 +413,27 @@
 "ROTATION_LOCK_BUTTON" = "Sblucchime di a rutazione";
 "ROTATION_LOCK_HINT" = "Ammarchjunà a video cù l’orientazione attuale";
 
-"REPEAT_HINT" = "Ripete u listessu media";
+"REPEAT_HINT" = "Ripete u listessu medià";
 
 "BACKWARD_BUTTON" = "In daretu";
 "BACKWARD_HINT" = "Saltà in daretu";
 
 "PREVIOUS_BUTTON" = "Precedente";
-"PREVIOUS_HINT" = "Media precedente";
+"PREVIOUS_HINT" = "Medià precedente";
 
 "PLAY_PAUSE_BUTTON" = "Lettura o pausa";
 "PLAY_PAUSE_HINT" = "Lettura o pausa di a ripruduzzione attuale";
 
 "STOP_BUTTON" = "Piantà";
 
-"NEXT_HINT" = "Media seguente";
+"NEXT_HINT" = "Medià seguente";
 
 "FORWARD_BUTTON" = "In avanti";
 "FORWARD_HINT" = "Saltà in avanti";
 
 "INTERFACE_LOCK_BUTTON" = "Ammarchjunà l’interfaccia";
 
-"SHUFFLE_HINT" = "Lettura à l’azardu di a lista di i media";
+"SHUFFLE_HINT" = "Lettura à l’azardu di a lista di i medià";
 
 "VIDEO_ASPECT_RATIO_BUTTON" = "Prupurzioni di a video";
 "VIDEO_ASPECT_RATIO_HINT" = "Cambià u furmatu di a video currente";
@@ -467,28 +465,28 @@
 
 // MARK: - Media groups
 
-"ADD_TO_MEDIA_GROUP" = "Aghjunghje à u gruppu multimedia";
-"ADD_TO_MEDIA_GROUP_HINT" = "Apre u listinu per aghjunghje à u gruppu multimedia";
+"ADD_TO_MEDIA_GROUP" = "Aghjunghje à u gruppu multimedià";
+"ADD_TO_MEDIA_GROUP_HINT" = "Apre u listinu per aghjunghje à u gruppu multimedià";
 
-"MEDIA_GROUPS" = "Gruppi multimedia";
-"MEDIA_GROUPS_DESCRIPTION" = "Sceglie un titulu per u vostru novu gruppu multimedia";
-"MEDIA_GROUPS_PLACEHOLDER" = "Titulu di u gruppu multimedia";
+"MEDIA_GROUPS" = "Gruppi multimedià";
+"MEDIA_GROUPS_DESCRIPTION" = "Sceglie un titulu per u vostru novu gruppu multimedià";
+"MEDIA_GROUPS_PLACEHOLDER" = "Titulu di u gruppu multimedià";
 
-"REMOVE_FROM_MEDIA_GROUP" = "Caccià da u gruppu multimedia";
-"REMOVE_FROM_MEDIA_GROUP_HINT" = "Caccià a selezzione da u gruppu multimedia";
+"REMOVE_FROM_MEDIA_GROUP" = "Caccià da u gruppu multimedià";
+"REMOVE_FROM_MEDIA_GROUP_HINT" = "Caccià a selezzione da u gruppu multimedià";
 
-"MEDIA_GROUP_CREATION" = "Novu gruppu multimedia";
+"MEDIA_GROUP_CREATION" = "Novu gruppu multimedià";
 "MEDIA_GROUP_CREATION_HINT" = "Affissà un’alerta per creà una lista di lettura";
 "MEDIA_GROUP_MOVE_TO_ROOT" = "Dispiazzà u cuntenutu à u livellu u più altu";
 "MEDIA_GROUP_MOVE_TO_ROOT_HINT" = "Dispiazzà u cuntenutu di a selezzione à u livellu u più altu";
 
 "BUTTON_REGROUP" = "Raggruppà";
 "BUTTON_REGROUP_TITLE" = "Raggruppà a selezzione";
-"BUTTON_REGROUP_HINT" = "Pruvà di raggruppà autumaticamente i schedarii multimedia isulati.";
-"BUTTON_REGROUP_DESCRIPTION" = "Site sicuru di vulè raggruppà autumaticamente i schedarii multimedia isulati ?\nForse piglierà un pocu di tempu.";
+"BUTTON_REGROUP_HINT" = "Pruvà di raggruppà autumaticamente i schedarii multimedià isulati.";
+"BUTTON_REGROUP_DESCRIPTION" = "Site sicuru di vulè raggruppà autumaticamente i schedarii multimedià isulati ?\nForse piglierà un pocu di tempu.";
 
 // MARK: - Files.app persistence file
-"MEDIALIBRARY_FILES_PLACEHOLDER" = "Piazzà i media quì per aghjunghjeli";
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "Piazzà i medià quì per aghjunghjeli";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Aghjuntu…";
 
 // MARK: - tip jar
@@ -523,7 +521,7 @@
 // MARK: - AudioMiniPlayer playback controls menu
 "MENU_PLAYBACK_CONTROLS" = "Cuntrolli di ripruduzzione";
 "MENU_REPEAT_DISABLED" = "Ùn micca ripete";
-"MENU_REPEAT_SINGLE" = "Ripete u media";
+"MENU_REPEAT_SINGLE" = "Ripete u medià";
 "MENU_REPEAT_ALL" = "Tuttu ripete";
 
 // MARK: - ActionSheet
@@ -535,7 +533,7 @@
 
 "KEY_JUMP_BACKWARDS" = "Saltà in daretu";
 "KEY_JUMP_FORWARDS" = "Saltà in avanti";
-"KEY_INCREASE_PLAYBACK_SPEED" = "Aummentà a vitezza di lettura";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Aumentà a vitezza di lettura";
 "KEY_DECREASE_PLAYBACK_SPEED" = "Diminuisce a vitezza di lettura";
 "KEY_RESET_PLAYBACK_SPEED" = "Reinizià a vitezza di lettura";
 

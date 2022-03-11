@@ -11,7 +11,7 @@
 "SETTINGS_THEME_BLACK_SUBTITLE" = "Ecunumizeghja a batteria nant’à l’apparechji cù un screnu OLED";
 "SETTINGS_PRIVACY_SUBTITLE" = "Apre in Preferenze";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Accessu assicuratu à u vostru cuntenutu";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "U vostru media serà piattatu in l’appiecazione Schedarii";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "U vostru medià serà piattatu in l’appiecazione Schedarii";
 
 "SETTINGS_DARKTHEME" = "Aspettu";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Stinzata di tempu audio";
@@ -29,10 +29,10 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Dumandà";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Sempre";
 "SETTINGS_NETWORK_PLAY_ALL" = "Sunà autumaticamente l’elementu chì seguita";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Attivà a sfilarata di u testu in a lista di i media";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Attivà a sfilarata di u testu in a lista di i medià";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filtru di sblucchime";
-"SETTINGS_SKIP_LOOP_FILTER_NONE" = "Senza filtru (u più rapidu)";
+"SETTINGS_SKIP_LOOP_FILTER_NONE" = "Senza sblucchime (u più rapidu)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Sblucchime medianu";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Sblucchime legeru";
 
@@ -96,7 +96,7 @@
 "SETTINGS_MEDIA_LIBRARY" = "Mediateca";
 "SETTINGS_MEDIA_LIBRARY_RESCAN" = "Sfurzà VLC à analisà torna a mediateca";
 "SETTINGS_DECRAPIFY" = "Megliurà i nomi d’elementi per l’affissu";
-"SETTINGS_DISABLE_GROUPING" = "Disattivà l’aggruppamentu autumaticu di i media";
+"SETTINGS_DISABLE_GROUPING" = "Disattivà l’aggruppamentu autumaticu di i medià";
 "SETTINGS_SHOW_THUMBNAILS" = "Affissà e vignette di e video";
 "SETTINGS_SHOW_ARTWORKS" = "Affissà l’illustrazioni di i schedarii audio";
 "SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include a mediateca in a salvaguardia di l’apparechju";
