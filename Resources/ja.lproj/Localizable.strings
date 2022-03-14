@@ -1,9 +1,7 @@
-"STORE_DESCRIPTION" = "iOS用のVLCは、フリーのVLCメディアプレイヤーをiPad, iPhone、およびiPod touch向けに移植したものです。 \nVLCではあなたのすべての動画、ショーや音楽の多くのフォーマットを変換せずに直接再生することが可能です。\nまた、Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunesからiTunesやネットワークから直接ダウンロードしたり、SMB, FTP, UPnP/DLNAメディアサーバーのようにWiFiで共有したりすることも可能です。\nVLCはSSAの完全互換を含む拡張字幕に対応しています。\n\niOS用のVLCは完全にフリーのオープンソースです。";
+"STORE_DESCRIPTION" = "VLCはフリーで多くのプラットフォーム対応するマルチメディアプレイヤーです。\nVLCではあなたのすべての動画、ショーや音楽の多くのフォーマットを変換せずに直接再生することが可能です。\nまた、Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunesから直接ダウンロードしたり、SMB, FTP, SFTP, NFS, UPnP/DLNAメディアサーバーやWebサーバーのようにWiFiを通じて共有したりすることも可能です。\nVLCはSSAの完全互換を含む拡張字幕、マルチトラックのオーディオ、再生速度の制御とChromecastによるレンダリングに対応しています。\n\nVLCは完全にフリーのオープンソースです。";
 
-"STORE_DESCRIPTION_TV" = "VLCメディアプレイヤーはフリーのオープンソースによるクロスプラットフォームのマルチメディアプレイヤーです。\nVLCではあなたのすべての動画、ショーや音楽の多くのフォーマットを変換せずに直接再生することが可能です。 \nVLCは各種クラウドサービス (Dropbox, OneDrive, Box) からのストリーミング、MacやPCからのWebユーザーインターフェースを使ったリモート再生に対応しています。\nVLCはSSAの完全互換を含む拡張字幕、マルチトラックオーディオ、および再生速度の制御に対応しています。 \n\niOS用のVLCは完全にフリーのオープンソースです。\n\nメタデータとアートワークは、映画と音楽データベースの保守を行うコミュニティ、TMDb and Hatchetにより提供されています。";
+"STORE_DESCRIPTION_TV" = "VLCはフリーで多くのプラットフォーム対応するマルチメディアプレイヤーです。\nVLCではあなたのすべての動画、ショーや音楽の多くのフォーマットを変換せずに直接再生することが可能です。\nあなたのMacやPCからWebユーザーインターフェースを介してSMB, FTP, SFTP, NFS, UPnP/DLNAメディアサーバーやWebサーバーのようにストリーミングしてリモートで再生することも可能です。\nVLCはSSAの完全互換を含む拡張字幕、マルチトラックのオーディオ、再生速度の制御に対応しています。\n\nVLCは完全にフリーのオープンソースです。\n\nアートワークは映画のデータベースをメンテナンスするコミュニティであるTMDbによって提供されています。";
 
-"CHOOSE_AUDIO_TRACK" = "オーディオトラックを選択してください";
-"CHOOSE_SUBTITLE_TRACK" = "字幕トラックを選択してください";
 "UNKNOWN_TRACK_TYPE" = "未知のトラックタイプ";
 "CHOOSE_TITLE" = "タイトルを選択する";
 "CHOOSE_CHAPTER" = "チャプターを選択する";
