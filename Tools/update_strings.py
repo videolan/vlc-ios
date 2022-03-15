@@ -7,8 +7,6 @@ Update or create an Apple XCode project localization strings file.
 TODO: handle localization domains
 '''
 
-from __future__ import with_statement
-
 import sys
 import os
 import os.path
@@ -260,14 +258,14 @@ def update_encoded_file_with_strings(
                 localized_string = localized_strings.get(key, None)
                 if localized_string:
                     keys.add(key)
-                    output_strings.append(unicode(localized_string))
+                    output_strings.append(str(localized_string))
             else:
                 output_strings.append(line[:-1])
 
     new_strings = []
-    for value in localized_strings.itervalues():
+    for value in localized_strings.values():
         if value.key not in keys:
-            new_strings.append(unicode(value))
+            new_strings.append(str(value))
 
     if len(new_strings) != 0:
         output_strings.append('')
@@ -290,7 +288,7 @@ def match_strings(scanned_strings, reference_strings):
     '''
     final_strings = {}
 
-    for key, value in scanned_strings.iteritems():
+    for key, value in scanned_strings.items():
         reference_value = reference_strings.get(key, None)
         if reference_value:
             if reference_value.is_raw():
@@ -306,7 +304,7 @@ def match_strings(scanned_strings, reference_strings):
             final_strings[key] = value
 
     final_keys = set(final_strings.keys())
-    for key in reference_strings.iterkeys():
+    for key in reference_strings.keys():
         if key not in final_keys:
             logging.debug('[deleted] %s', key)
 
@@ -322,7 +320,7 @@ def merge_dictionaries(reference_dict, import_dict):
     final_dict = reference_dict.copy()
 
     reference_dict_keys = set(reference_dict.keys())
-    for key, value in import_dict.iteritems():
+    for key, value in import_dict.items():
         if key not in reference_dict_keys:
             final_dict[key] = value
 
@@ -333,7 +331,7 @@ def sorted_strings_from_dict(strings):
     '''
     Return an array containing the string objects sorted alphabetically.
     '''
-    keys = strings.keys()
+    keys = list(strings.keys())
     keys.sort()
 
     values = []
@@ -497,7 +495,7 @@ def main():
                 update_file_with_strings(strings_file, scanned_strings)
             else:
                 strings_to_file(scanned_strings, strings_file)
-        except IOError, exc:
+        except IOError as exc:
             logging.error('Error writing to file %s: %s', strings_file, exc)
             return 1
 
