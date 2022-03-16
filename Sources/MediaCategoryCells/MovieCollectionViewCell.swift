@@ -129,6 +129,15 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         thumbnailsBackground.backgroundColor = colors.thumbnailBackgroundColor
     }
 
+    @objc fileprivate func dynamicFontSizeChange() {
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+        newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
+        groupTitleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+        descriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        sizeLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        groupSizeLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+    }
+
     private func setThumbnails(medias: [VLCMLMedia]?) {
         for index in 0...3 {
             if let media = medias?.objectAtIndex(index: index) {
@@ -236,8 +245,11 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
 
-        // 17 * 2 for title, 14 for new + duration, 3 * 4 paddings for lines
-        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + (16 * 2) + 14 + (3 * 3))
+        let titleHeight = UIFont.preferredFont(forTextStyle: .headline).pointSize
+        let newHeight = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded.pointSize
+
+        // title * 2, newLabel + duration, 3 * 4 paddings for lines
+        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + titleHeight * 2 + newHeight + (3 * 3))
     }
 
     override func prepareForReuse() {
