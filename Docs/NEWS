@@ -12,6 +12,7 @@
 · Add downloads from SMB servers
 · Add support for http(s) downloads from servers requiring authentication
 · Add grid layout for Audio library
+· Major speed and performance improvements avoiding heating issues
 · Fix storing user credentials for network shares
 · Retain downloaded subtitles for locally stored media
 · Automatic video deinterlacing (by default)
@@ -20,16 +21,19 @@
   · This allows playback from external devices, too!
 · Add a queue view controller to switch between scheduled media items and for TV channel listings
 · Add a full black theme for OLED devices
-· Subtitle download improvements
 · Add rtsp-tcp option
 · Add support for spatial audio with AirPods Pro and Max
 · library: allow sorting tracks and albums by insertion date
 · playback: allow up to 8x playback speed
 · video: modify white point adaptation mode on modern iOS devices
 · Add support for SAT>IP including custom channel lists
+· Clicking previous during playback now resets the playback position instead of directly going to the previous item in list
+· Add Select-All feature to media library screens
+· Fix listing large number of media in Google Drive and Dropbox folders
 
 ## tvOS [3.3.0]
 
+· Major speed and performance improvements avoiding heating issues
 · Add support to browse NFS and SFTP shares
 · Replace previous UPnP integration with VLC's native support based on libupnp
   · this improves compatibility with off-standard UPnP servers
@@ -39,10 +43,10 @@
 · Fix storing user credentials for network shares
 · Retain downloaded subtitles for locally stored media
 · Automatic video deinterlacing (by default)
-· Subtitle download improvements
 · Add rtsp-tcp option
 · Add support for spatial audio with AirPods Pro and Max
 · Add support for SAT>IP including custom channel lists
+· Clicking previous during playback now resets the playback position instead of directly going to the previous item in list
 
 ## iOS [3.2.13]
 
