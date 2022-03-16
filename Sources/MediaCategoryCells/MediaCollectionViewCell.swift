@@ -224,14 +224,12 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         }
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
-        newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
         titleLabel.labelize = enableMarquee
         sizeDescriptionLabel.labelize = enableMarquee
         sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         thumbnailWidth.constant = isIpad ? 72 : 56
         thumbnailView.contentMode = .scaleAspectFill
         deleteButtonHeight.constant = isIpad ? 72 : 56
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
         setupScrollView()
         setupGestureRecognizer()
         deleteButton.setTitle(NSLocalizedString("BUTTON_DELETE", comment: ""), for: .normal)
@@ -239,7 +237,17 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         deleteButton.accessibilityHint = NSLocalizedString("DELETE_HINT", comment: "")
         deleteButton.layer.cornerRadius = 5.0
         deleteButton.backgroundColor = .systemRed
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(themeDidChange),
+                                       name: .VLCThemeDidChangeNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self, selector: #selector(dynamicFontSizeChange),
+                                       name: UIContentSizeCategory.didChangeNotification,
+                                       object: nil)
+
         themeDidChange()
+        dynamicFontSizeChange()
     }
 
     func setTheme(to presentationTheme: PresentationTheme) {
@@ -258,6 +266,12 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         guard !ignoreThemeDidChange else { return }
 
         setTheme(to: PresentationTheme.current)
+    }
+
+    @objc fileprivate func dynamicFontSizeChange() {
+        newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+        sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
     }
 
     func update(audiotrack: VLCMLMedia) {

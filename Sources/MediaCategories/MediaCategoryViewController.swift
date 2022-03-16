@@ -192,12 +192,17 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         NotificationCenter.default.addObserver(self, selector: #selector(miniPlayerIsHidden),
                                                name: NSNotification.Name(rawValue: VLCPlayerDisplayControllerHideMiniPlayer),
                                                object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(preferredContentSizeChanged(_:)),
+                                               name: UIContentSizeCategory.didChangeNotification,
+                                               object: nil)
 
         if model is MediaGroupViewModel || model is VideoModel {
             NotificationCenter.default.addObserver(self, selector: #selector(handleDisableGrouping),
                                                    name: .VLCDisableGroupingDidChangeNotification,
                                                    object: nil)
         }
+
+
     }
 
     @objc private func handleDisableGrouping() {
@@ -529,6 +534,11 @@ private extension MediaCategoryViewController {
         userActivity?.isEligibleForSearch = true
         userActivity?.isEligibleForHandoff = true
         userActivity?.becomeCurrent()
+    }
+
+    @objc func preferredContentSizeChanged(_ notification: Notification) {
+        cachedCellSize = .zero
+        collectionView?.collectionViewLayout.invalidateLayout()
     }
 }
 

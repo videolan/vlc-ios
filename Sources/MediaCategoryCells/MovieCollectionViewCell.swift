@@ -92,11 +92,18 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
 
         newLabel.text = NSLocalizedString("NEW", comment: "")
         newLabel.textColor = PresentationTheme.current.colors.orangeUI
-        newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .VLCThemeDidChangeNotification, object: nil)
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(themeDidChange),
+                                       name: .VLCThemeDidChangeNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self, selector: #selector(dynamicFontSizeChange),
+                                       name: UIContentSizeCategory.didChangeNotification,
+                                       object: nil)
         selectionOverlay.layer.cornerRadius = itemCornerRadius
         thumbnailView.layer.cornerRadius = itemCornerRadius
         thumbnailsArray = [firstThumbnail, secondThumbnail, thirdThumbnail, fourthThumbnail]
+        dynamicFontSizeChange()
         themeDidChange()
     }
 
@@ -248,7 +255,7 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         let titleHeight = UIFont.preferredFont(forTextStyle: .headline).pointSize
         let newHeight = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded.pointSize
 
-        // title * 2, newLabel + duration, 3 * 4 paddings for lines
+        // title * 2, newLabel, 3 * 4 paddings for lines
         return CGSize(width: cellWidth, height: cellWidth * aspectRatio + titleHeight * 2 + newHeight + (3 * 3))
     }
 
