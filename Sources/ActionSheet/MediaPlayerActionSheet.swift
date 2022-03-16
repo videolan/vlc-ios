@@ -17,6 +17,7 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
     case equalizer
     case interfaceLock
     case chapters
+    case bookmarks
 
     var description: String {
         switch self {
@@ -32,6 +33,8 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
             return NSLocalizedString("INTERFACE_LOCK_BUTTON", comment: "")
         case .chapters:
             return NSLocalizedString("CHAPTER_SELECTION_TITLE", comment: "")
+        case .bookmarks:
+            return NSLocalizedString("BOOKMARKS_TITLE", comment: "")
         }
     }
 }
@@ -55,10 +58,11 @@ class MediaPlayerActionSheet: ActionSheet {
     @objc weak var mediaPlayerActionSheetDelegate: MediaPlayerActionSheetDelegate?
     @objc weak var mediaPlayerActionSheetDataSource: MediaPlayerActionSheetDataSource?
     
-    private var leftToRightGesture: UIPanGestureRecognizer {
+    private lazy var leftToRightGesture: UIPanGestureRecognizer = {
         let leftToRight = UIPanGestureRecognizer(target: self, action: #selector(draggedRight(panGesture:)))
+        leftToRight.delegate = self
         return leftToRight
-    }
+    }()
 
     // MARK: Private Methods
     private func getTitle(of childView: UIView) -> String {
@@ -72,6 +76,8 @@ class MediaPlayerActionSheet: ActionSheet {
             return MediaPlayerActionSheetCellIdentifier.equalizer.description
         } else if childView is ChapterView {
             return MediaPlayerActionSheetCellIdentifier.chapters.description
+        } else if childView is BookmarksView {
+            return MediaPlayerActionSheetCellIdentifier.bookmarks.description
         } else {
             return NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
         }
@@ -128,6 +134,10 @@ class MediaPlayerActionSheet: ActionSheet {
         if let current = currentChildView {
             remove(childView: current)
         }
+    }
+
+    func openOptionView(_ view: UIView) {
+        add(childView: view)
     }
 
     func setTheme() {
@@ -214,6 +224,10 @@ class MediaPlayerActionSheet: ActionSheet {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    func shouldDisablePanGesture(_ disable: Bool) {
+        leftToRightGesture.isEnabled = !disable
+    }
 }
 
 extension MediaPlayerActionSheet: ActionSheetDataSource {
@@ -283,5 +297,11 @@ extension MediaPlayerActionSheet: ActionSheetCellDelegate {
         }
 
         mediaDelegate.mediaPlayerDidToggleSwitch?(for: cell, state: state)
+    }
+}
+
+extension MediaPlayerActionSheet: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

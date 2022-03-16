@@ -1729,6 +1729,74 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
             playbackService.playPause()
         }
     }
+
+    func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia? {
+        let media = playbackService.currentlyPlayingMedia
+        let currentMedia = services.medialibraryService.fetchMedia(with: media.url)
+        return currentMedia
+    }
+
+    func mediaMoreOptionsActionSheetDidSelectBookmark(value: Float) {
+        scrubProgressBar.updateSliderWithValue(value: value)
+        if !playbackService.isPlaying {
+            playbackService.playPause()
+        }
+    }
+
+    private func openOptionView(view: MediaPlayerActionSheetCellIdentifier) {
+        present(moreOptionsActionSheet, animated: true, completion: {
+            self.moreOptionsActionSheet.addView(view)
+        })
+    }
+
+    func mediaMoreOptionsActionSheetDisplayAlert(title: String, message: String, action: BookmarkActionIdentifier, index: Int) {
+        moreOptionsActionSheet.dismiss(animated: true, completion: {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+            var actionTitle = NSLocalizedString("BUTTON_CANCEL", comment: "")
+            let cancelAction = UIAlertAction(title: actionTitle, style: .cancel) { _ in
+                self.openOptionView(view: .bookmarks)
+            }
+
+            alertController.addAction(cancelAction)
+
+            if action == .delete {
+                actionTitle = NSLocalizedString("BUTTON_DELETE", comment: "")
+                let mainAction = UIAlertAction(title: actionTitle, style: .destructive, handler: { _ in
+                    self.moreOptionsActionSheet.deleteBookmarkAt(row: index)
+                    self.openOptionView(view: .bookmarks)
+                })
+
+                alertController.addAction(mainAction)
+            } else if action == .rename {
+                alertController.addTextField(configurationHandler: { field in
+                    field.text = message
+                    field.returnKeyType = .done
+                })
+
+                actionTitle = NSLocalizedString("BUTTON_RENAME", comment: "")
+                let mainAction = UIAlertAction(title: actionTitle, style: .default, handler: { _ in
+                    guard let field = alertController.textFields else {
+                        return
+                    }
+
+                    guard let newName = field[0].text else {
+                        return
+                    }
+
+                    self.moreOptionsActionSheet.renameBookmarkAt(name: newName, row: index)
+
+                    self.openOptionView(view: .bookmarks)
+                })
+
+                alertController.addAction(mainAction)
+            }
+
+            self.setControlsHidden(true, animated: true)
+            self.present(alertController, animated: true, completion: nil)
+            self.alertController = alertController
+        })
+    }
 }
 
 // MARK: - OptionsNavigationBarDelegate

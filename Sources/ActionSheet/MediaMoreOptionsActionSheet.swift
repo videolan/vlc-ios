@@ -19,6 +19,9 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetHideAlertIfNecessary()
     func mediaMoreOptionsActionSheetPresentPopupView(withChild child: UIView)
     func mediaMoreOptionsActionSheetUpdateProgressBar()
+    func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia?
+    func mediaMoreOptionsActionSheetDidSelectBookmark(value: Float)
+    func mediaMoreOptionsActionSheetDisplayAlert(title: String, message: String, action: BookmarkActionIdentifier, index: Int)
 }
 
 @objc (VLCMediaMoreOptionsActionSheet)
@@ -65,6 +68,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
         removeCurrentChild()
         removeActionSheet()
         moreOptionsDelegate?.mediaMoreOptionsActionSheetDidAppeared()
+        bookmarksView.update()
     }
 
     func hidePlayer() {
@@ -123,6 +127,15 @@ protocol MediaMoreOptionsActionSheetDelegate {
         return chapterView
     }()
 
+    private lazy var bookmarksView: BookmarksView = {
+        let bookmarksView = BookmarksView(frame: offScreenFrame)
+        if #available(iOS 13.0, *) {
+            bookmarksView.overrideUserInterfaceStyle = .dark
+        }
+        bookmarksView.delegate = self
+        return bookmarksView
+    }()
+
     // MARK: - Instance Methods
     func resetVideoFilters() {
         videoFiltersView.resetIfNeeded()
@@ -150,6 +163,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
         sleepTimerView.setupTheme()
         equalizerView.setupTheme()
         chapterView.setupTheme()
+        bookmarksView.setupTheme()
     }
 
 // MARK: - Equalizer
@@ -171,6 +185,33 @@ protocol MediaMoreOptionsActionSheetDelegate {
         // FIXME: Reset Equalizer if needed
         playbackView.resetSlidersIfNeeded()
         updateThemes()
+    }
+
+    func addView(_ view: MediaPlayerActionSheetCellIdentifier) {
+        switch view {
+        case .filter:
+            openOptionView(videoFiltersView)
+        case .playback:
+            openOptionView(playbackView)
+        case .sleepTimer:
+            openOptionView(sleepTimerView)
+        case .equalizer:
+            openOptionView(equalizerView)
+        case .chapters:
+            openOptionView(chapterView)
+        case .bookmarks:
+            openOptionView(bookmarksView)
+        default:
+            openOptionView(mockView)
+        }
+    }
+
+    func deleteBookmarkAt(row: Int) {
+        bookmarksView.deleteBookmarkAt(row: row)
+    }
+
+    func renameBookmarkAt(name: String, row: Int) {
+        bookmarksView.renameBookmarkAt(name: name, row: row)
     }
 }
 
@@ -240,6 +281,44 @@ extension MediaMoreOptionsActionSheet: ChapterViewDelegate {
     }
 }
 
+extension MediaMoreOptionsActionSheet: BookmarksViewDelegate {
+    func bookmarksViewGetCurrentPlayingMedia() -> VLCMLMedia? {
+        return moreOptionsDelegate?.mediaMoreOptionsActionSheetGetCurrentMedia()
+    }
+
+    func bookmarksViewDidSelectBookmark(value: Float) {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetDidSelectBookmark(value: value)
+        removeActionSheet()
+    }
+
+    func bookmarksViewDidBeginEditingRow() {
+        shouldDisablePanGesture(true)
+    }
+
+    func bookmarksViewDidEndEditingRow() {
+        shouldDisablePanGesture(false)
+    }
+
+    func bookmarksViewDisplayAlert(action: BookmarkActionIdentifier, index: Int) {
+        var title = String()
+        var message = String()
+
+        if action == .delete {
+            title = NSLocalizedString("BOOKMARK_DELETE_TITLE", comment: "")
+            message = NSLocalizedString("BOOKMARK_DELETE_MESSAGE", comment: "")
+        } else if action == .rename {
+            message = bookmarksView.getBookmarkNameAt(row: index)
+            title = NSLocalizedString("BOOKMARK_RENAME_TITLE", comment: "")
+        }
+
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetDisplayAlert(title: title, message: message, action: action, index: index)
+    }
+
+    func bookmarksViewOpenBookmarksView() {
+        openOptionView(bookmarksView)
+    }
+}
+
 // MARK: - MediaPlayerActionSheetDelegate
 extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDelegate {
     func mediaPlayerActionSheetHeaderTitle() -> String? {
@@ -273,6 +352,8 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
             return equalizerView
         case .chapters:
             return chapterView
+        case .bookmarks:
+            return bookmarksView
         default:
             return mockView
         }
@@ -288,7 +369,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
 
             let cellModel = ActionSheetCellModel(
                 title: String(describing: $0),
-                imageIdentifier: $0.rawValue,
+                imageIdentifier: $0.rawValue == "bookmarks" ? "chapters" : $0.rawValue,
                 viewToPresent: selectViewToPresent(for: $0),
                 cellIdentifier: $0
             )
