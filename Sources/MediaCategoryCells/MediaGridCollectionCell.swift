@@ -216,12 +216,17 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         sizeLabel.isHidden = true 
         separatorLabel.isHidden = true
         themeDidChange()
+        dynamicFontSizeChange()
     }
 
     private func setupNotificationObservers() {
         notificationCenter.addObserver(self,
                                        selector: #selector(themeDidChange),
                                        name: .VLCThemeDidChangeNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(dynamicFontSizeChange),
+                                       name: UIContentSizeCategory.didChangeNotification,
                                        object: nil)
     }
 
@@ -236,6 +241,13 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         sizeLabel.backgroundColor = backgroundColor
         newLabel.backgroundColor = backgroundColor
         configureShadows()
+    }
+
+    @objc private func dynamicFontSizeChange() {
+        newLabel.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
+        titleLabel.font = UIFont.preferredCustomFont(forTextStyle: .headline).semibolded
+        descriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        sizeLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
     }
 
     override func layoutSubviews() {
@@ -343,9 +355,10 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         let overallWidth = width - (2 * edgePadding)
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
+        let titleHeight = UIFont.preferredCustomFont(forTextStyle: .headline).semibolded.pointSize
+        let newHeight = UIFont.preferredCustomFont(forTextStyle: .headline).bolded.pointSize
 
-        // 16 * 2 for title, 14 for new + duration
-        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + (16 * 2) + 14 + (3 * 3))
+        return CGSize(width: cellWidth, height: cellWidth * aspectRatio + (titleHeight * 2) + newHeight + (3 * 3))
     }
 
     override func prepareForReuse() {
