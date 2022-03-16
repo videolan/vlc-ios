@@ -2,7 +2,7 @@
  * VLCAppDelegate.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2021 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -26,6 +26,8 @@
     VLCKeychainCoordinator *_keychainCoordinator;
     AppCoordinator *appCoordinator;
     UITabBarController *rootViewController;
+    id<VLCURLHandler> _urlHandlerToExecute;
+    NSURL *_urlToHandle;
 }
 
 @end
@@ -178,7 +180,13 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 {
     for (id<VLCURLHandler> handler in URLHandlers.handlers) {
         if ([handler canHandleOpenWithUrl:url options:options]) {
-            if ([handler performOpenWithUrl:url options:options]) {
+            /* if no passcode is set, immediately execute the handler
+             * otherwise, store it for later use by the passcode controller's completion function */
+            if (![VLCKeychainCoordinator passcodeLockEnabled]) {
+                return [handler performOpenWithUrl:url options:options];
+            } else {
+                _urlHandlerToExecute = handler;
+                _urlToHandle = url;
                 return YES;
             }
         }
@@ -199,6 +207,15 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
         //TODO: handle updating the videoview and
         if ([VLCPlaybackService sharedInstance].isPlaying){
             //TODO: push playback
+        }
+
+        /* execute a potential URL handler that was set when the app was moved into foreground */
+        if (self->_urlHandlerToExecute) {
+            if (![self->_urlHandlerToExecute performOpenWithUrl:self->_urlToHandle options:@{}]) {
+                APLog(@"Failed to execute %@", _urlToHandle);
+            }
+            self->_urlHandlerToExecute = nil;
+            self->_urlToHandle = nil;
         }
     }];
 }
