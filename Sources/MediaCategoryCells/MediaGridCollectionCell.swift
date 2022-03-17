@@ -355,8 +355,8 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         let overallWidth = width - (2 * edgePadding)
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
-        let titleHeight = UIFont.preferredCustomFont(forTextStyle: .headline).semibolded.pointSize
-        let newHeight = UIFont.preferredCustomFont(forTextStyle: .headline).bolded.pointSize
+        let titleHeight = UIFont.preferredCustomFont(forTextStyle: .headline).semibolded.lineHeight
+        let newHeight = UIFont.preferredCustomFont(forTextStyle: .headline).bolded.lineHeight
 
         return CGSize(width: cellWidth, height: cellWidth * aspectRatio + (titleHeight * 2) + newHeight + (3 * 3))
     }

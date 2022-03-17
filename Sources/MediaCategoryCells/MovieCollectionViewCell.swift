@@ -252,10 +252,11 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
 
-        let titleHeight = UIFont.preferredFont(forTextStyle: .headline).pointSize
-        let newHeight = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded.pointSize
+        let titleHeight = UIFont.preferredFont(forTextStyle: .headline).lineHeight
+        let newHeight = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded.lineHeight
 
         // title * 2, newLabel, 3 * 4 paddings for lines
+
         return CGSize(width: cellWidth, height: cellWidth * aspectRatio + titleHeight * 2 + newHeight + (3 * 3))
     }
 
