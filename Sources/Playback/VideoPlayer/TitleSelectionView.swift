@@ -235,10 +235,14 @@ private extension TitleSelectionView {
 
     private func setupConstraints() {
         let limitTopConstraint = mainStackView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor,
-                                                                    constant: 200)
+                                                                    constant: 150)
 
         let minSubtitleConstraint = subtitleTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: TitleSelectionTableViewCell.size * 2)
         minSubtitleConstraint.priority = .required
+
+        let minAudioConstraint = audioTableView.heightAnchor.constraint(greaterThanOrEqualToConstant: TitleSelectionTableViewCell.size * 1.5)
+        minAudioConstraint.priority = .required
+
         audioTableViewHeightConstraint.priority = .defaultHigh
         subtitleTableViewHeightConstraint.priority = .defaultHigh
         limitTopConstraint.priority = .required
@@ -250,6 +254,7 @@ private extension TitleSelectionView {
             audioTableViewHeightConstraint,
             subtitleTableViewHeightConstraint,
             limitTopConstraint,
+            minAudioConstraint,
             minSubtitleConstraint,
         ])
     }
