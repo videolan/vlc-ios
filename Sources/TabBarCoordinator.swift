@@ -65,6 +65,11 @@ class TabBarCoordinator: NSObject {
                     navController.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()
                     navController.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
                 }
+                if #available(iOS 15.0, *) {
+                    UINavigationBar.appearance().standardAppearance = AppearanceManager.navigationbarAppearance()
+                    UINavigationBar.appearance().compactAppearance = AppearanceManager.navigationbarAppearance()
+                    UINavigationBar.appearance().scrollEdgeAppearance = AppearanceManager.navigationbarAppearance()
+                }
             }
         }
     }
