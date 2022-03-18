@@ -64,6 +64,10 @@ extension VLCMLSortingCriteria: CustomStringConvertible {
             return NSLocalizedString("NB_AUDIO", comment: "")
         case.nbMedia:
             return NSLocalizedString("NB_MEDIA", comment: "")
+        case .nbAlbum:
+            return NSLocalizedString("NB_ALBUM", comment: "")
+        case .lastPlaybackDate:
+            return NSLocalizedString("LAST_PLAYBACK_DATE", comment: "")
         default:
             return NSLocalizedString("DEFAULT", comment: "")
         }

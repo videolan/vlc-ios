@@ -391,6 +391,8 @@
 "NB_AUDIO" = "Number of audio";
 "NB_MEDIA" = "Number of media";
 "NB_VIDEO" = "Number of video";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
