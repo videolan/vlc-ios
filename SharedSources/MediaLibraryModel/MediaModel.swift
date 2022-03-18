@@ -33,12 +33,8 @@ extension MediaModel {
 
 extension VLCMLMedia {
     func deleteMainFile() {
-        do {
-            if let mainFile = mainFile() {
-                try FileManager.default.removeItem(atPath: mainFile.mrl.path)
-            }
-        } catch let error as NSError {
-            assertionFailure("VLCMLMedia: Delete failed: \(error.localizedDescription)")
+        if let mainFile = mainFile() {
+            mainFile.delete()
         }
     }
 

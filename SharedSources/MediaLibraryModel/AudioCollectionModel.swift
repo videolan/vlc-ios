@@ -19,7 +19,7 @@ extension AudioCollectionModel {
                 if let tracks = item.files() {
                     for track in tracks {
                         if let mainFile = track.mainFile() {
-                            try FileManager.default.removeItem(atPath: mainFile.mrl.path)
+                            mainFile.delete()
                         }
                     }
                     let folderPaths = Set(tracks.map {

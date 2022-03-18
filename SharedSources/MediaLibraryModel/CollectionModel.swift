@@ -75,13 +75,10 @@ class CollectionModel: MLBaseModel {
             do {
                 for case let media in items {
                     if let mainFile = media.mainFile() {
-                        try FileManager.default.removeItem(atPath: mainFile.mrl.path)
+                        mainFile.delete()
                     }
                 }
                 medialibrary.reload()
-            }
-            catch let error as NSError {
-                assertionFailure("CollectionModel: Delete failed: \(error.localizedDescription)")
             }
             filterFilesFromDeletion(of: items)
         }
