@@ -27,9 +27,12 @@
 · playback: allow up to 8x playback speed
 · video: modify white point adaptation mode on modern iOS devices
 · Add support for SAT>IP including custom channel lists
-· Clicking previous during playback now resets the playback position instead of directly going to the previous item in list
+· Clicking previous during playback now resets the playback position instead of directly going
+  to the previous item in list
 · Add Select-All feature to media library screens
 · Fix listing large number of media in Google Drive and Dropbox folders
+· Major UI speed improvements for older iOS devices
+· VLC still supports all devices running iOS 9.0 or later!
 
 ## tvOS [3.3.0]
 
@@ -40,13 +43,14 @@
 · Replace previous FTP integration with VLC's native support
   · this improves compatibility with servers using non-western text encodings
     and allows connections to servers with off-standard port configurations
-· Fix storing user credentials for network shares
+· Fix storing user credentials for network shares, notably SMB
 · Retain downloaded subtitles for locally stored media
 · Automatic video deinterlacing (by default)
 · Add rtsp-tcp option
 · Add support for spatial audio with AirPods Pro and Max
 · Add support for SAT>IP including custom channel lists
-· Clicking previous during playback now resets the playback position instead of directly going to the previous item in list
+· Clicking previous during playback now resets the playback position instead of directly going
+  to the previous item in list
 
 ## iOS [3.2.13]
 
