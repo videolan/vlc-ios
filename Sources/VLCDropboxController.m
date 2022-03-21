@@ -252,9 +252,6 @@
         return;
     }
 
-    // Need to replace all ' ' by '_' because it causes a `NSInvalidArgumentException ... destination path is nil` in the dropbox library.
-    destination = [destination stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-
     destination = [self createPotentialPathFrom:destination];
     destination = [destination
                    stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet
