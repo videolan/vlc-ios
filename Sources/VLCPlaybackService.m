@@ -65,7 +65,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     NSLock *_playbackSessionManagementLock;
 
-    NSMutableArray *_shuffleStack;
     void (^_playbackCompletion)(BOOL success);
 
     VLCDialogProvider *_dialogProvider;
@@ -73,6 +72,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     VLCPlayerDisplayController *_playerDisplayController;
 
     NSMutableArray *_openedLocalURLs;
+    
+    NSInteger _currentIndex;
+    NSMutableArray *_shuffledOrder;
 }
 
 @end
@@ -130,7 +132,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
         _playbackSessionManagementLock = [[NSLock alloc] init];
         _shuffleMode = NO;
-        _shuffleStack = [[NSMutableArray alloc] init];
 
         // Initialize a separate media player in order to play silence so that the application can
         // stay alive in background exclusively for Chromecast.
@@ -313,7 +314,11 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     [_mediaPlayer setRendererItem:_renderer];
 
     [_listPlayer playItemAtNumber:@(_itemInMediaListToBePlayedFirst)];
-
+    
+    _currentIndex = _itemInMediaListToBePlayedFirst;
+    if(_shuffleMode) {
+        [self shuffleMediaList];
+    }
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
         [self.delegate prepareForMediaPlayback:self];
 
@@ -397,7 +402,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         _mediaList = [[VLCMediaList alloc] init];
     }
     _playerIsSetup = NO;
-    [_shuffleStack removeAllObjects];
 
     [[self remoteControlService] unsubscribeFromRemoteCommands];
 
@@ -779,43 +783,49 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     _shuffleMode = shuffleMode;
 
     if (_shuffleMode) {
-        [_shuffleStack removeAllObjects];
+        [self shuffleMediaList];
+        _currentIndex = 0;
+    } else {
+        _currentIndex = [_shuffledOrder[_currentIndex] integerValue];
+    }
+}
+
+- (void)shuffleMediaList {
+    _shuffledOrder = [[NSMutableArray alloc]init];
+    int mediaListLength = (int) _mediaList.count;
+    for (int i = 0; i < mediaListLength; i++)
+    {
+        [_shuffledOrder addObject:[NSNumber numberWithInt:i]];
+    }
+    [_shuffledOrder exchangeObjectAtIndex:0 withObjectAtIndex:_currentIndex];
+    for (int i = 1; i < mediaListLength; i++) {
+        int nElements = mediaListLength - i;
+        int n = arc4random_uniform(nElements) + i;
+        [_shuffledOrder exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
 }
 
 - (NSInteger)nextMediaIndex
 {
-    NSInteger nextIndex = -1;
-    NSInteger mediaListCount = _mediaList.count;
-    NSUInteger currentIndex = [_mediaList indexOfMedia:_listPlayer.mediaPlayer.media];
-
+    int mediaListCount = (int) _mediaList.count;
     if (self.repeatMode == VLCRepeatCurrentItem) {
-        return currentIndex;
+        return _currentIndex;
     }
-
-    if (_shuffleMode && mediaListCount > 2) {
-        //Reached end of playlist
-        if (_shuffleStack.count + 1 == mediaListCount) {
-            if ([self repeatMode] == VLCDoNotRepeat)
-                return -1;
-            [_shuffleStack removeAllObjects];
-        }
-
-        [_shuffleStack addObject:@(currentIndex)];
-        do {
-            nextIndex = arc4random_uniform((uint32_t)mediaListCount);
-        } while (currentIndex == nextIndex || [_shuffleStack containsObject:@(nextIndex)]);
+    // Normal playback
+    if(_currentIndex + 1 < mediaListCount) {
+        _currentIndex += 1;
     } else {
-        // Normal playback
-        if (currentIndex + 1 < mediaListCount) {
-            nextIndex =  currentIndex + 1;
-        } else if (self.repeatMode == VLCRepeatAllItems) {
-            nextIndex = 0;
-        } else if ([self repeatMode] == VLCDoNotRepeat) {
-            nextIndex = -1;
+        if(self.repeatMode == VLCRepeatAllItems) {
+            _currentIndex = 0;
+        } else {
+            return -1;
         }
     }
-    return nextIndex;
+    if (_shuffleMode && mediaListCount > 2) {
+        return [_shuffledOrder[_currentIndex] integerValue];
+    } else {
+        return _currentIndex;
+    }
 }
 
 - (BOOL)next
@@ -858,8 +868,18 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #if TARGET_OS_IOS
             [_delegate savePlaybackState:self];
 #endif
-            [_listPlayer previous];
-            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
+            if(_currentIndex > 0) {
+                _currentIndex -= 1;
+            } else{
+                if(_listPlayer.repeatMode == VLCRepeatAllItems) {
+                    _currentIndex = _mediaList.count - 1;
+                }
+            }
+            if(_shuffleMode){
+                [_listPlayer playItemAtNumber:@([_shuffledOrder[_currentIndex] integerValue])];
+            }else{
+                [_listPlayer playItemAtNumber:@(_currentIndex)];
+            }
         }
     } else {
         NSNumber *skipLength = [[NSUserDefaults standardUserDefaults] valueForKey:kVLCSettingPlaybackBackwardSkipLength];
@@ -1438,3 +1458,8 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 }
 
 @end
+
+
+
+
+
