@@ -1458,8 +1458,3 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 }
 
 @end
-
-
-
-
-
