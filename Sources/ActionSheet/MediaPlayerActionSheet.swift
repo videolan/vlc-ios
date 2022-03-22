@@ -18,6 +18,7 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
     case interfaceLock
     case chapters
     case bookmarks
+    case addBookmarks
 
     var description: String {
         switch self {
@@ -35,6 +36,8 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
             return NSLocalizedString("CHAPTER_SELECTION_TITLE", comment: "")
         case .bookmarks:
             return NSLocalizedString("BOOKMARKS_TITLE", comment: "")
+        case .addBookmarks:
+            return NSLocalizedString("ADD_BOOKMARKS_TITLE", comment: "")
         }
     }
 }

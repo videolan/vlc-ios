@@ -21,7 +21,12 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetUpdateProgressBar()
     func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia?
     func mediaMoreOptionsActionSheetDidSelectBookmark(value: Float)
-    func mediaMoreOptionsActionSheetDisplayAlert(title: String, message: String, action: BookmarkActionIdentifier, index: Int)
+    func mediaMoreOptionsActionSheetDisplayAlert(title: String, message: String,
+                                                 action: BookmarkActionIdentifier,
+                                                 index: Int,
+                                                 isEditing: Bool)
+    func mediaMoreOptionsActionSheetDisplayAddBookmarksView(_ bookmarksView: AddBookmarksView)
+    func mediaMoreOptionsActionSheetRemoveAddBookmarksView()
 }
 
 @objc (VLCMediaMoreOptionsActionSheet)
@@ -136,6 +141,11 @@ protocol MediaMoreOptionsActionSheetDelegate {
         return bookmarksView
     }()
 
+    private lazy var addBookmarksView: AddBookmarksView = {
+        let addBookmarksView = bookmarksView.getAddBookmarksView()
+        return addBookmarksView
+    }()
+
     // MARK: - Instance Methods
     func resetVideoFilters() {
         videoFiltersView.resetIfNeeded()
@@ -201,6 +211,8 @@ protocol MediaMoreOptionsActionSheetDelegate {
             openOptionView(chapterView)
         case .bookmarks:
             openOptionView(bookmarksView)
+        case .addBookmarks:
+            openOptionView(addBookmarksView)
         default:
             openOptionView(mockView)
         }
@@ -299,7 +311,7 @@ extension MediaMoreOptionsActionSheet: BookmarksViewDelegate {
         shouldDisablePanGesture(false)
     }
 
-    func bookmarksViewDisplayAlert(action: BookmarkActionIdentifier, index: Int) {
+    func bookmarksViewDisplayAlert(action: BookmarkActionIdentifier, index: Int, isEditing: Bool) {
         var title = String()
         var message = String()
 
@@ -311,11 +323,20 @@ extension MediaMoreOptionsActionSheet: BookmarksViewDelegate {
             title = NSLocalizedString("BOOKMARK_RENAME_TITLE", comment: "")
         }
 
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetDisplayAlert(title: title, message: message, action: action, index: index)
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetDisplayAlert(title: title, message: message, action: action, index: index, isEditing: isEditing)
     }
 
     func bookmarksViewOpenBookmarksView() {
         openOptionView(bookmarksView)
+    }
+
+    func bookmarksViewOpenAddBookmarksView() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetDisplayAddBookmarksView(addBookmarksView)
+        removeActionSheet()
+    }
+
+    func bookmarksViewCloseAddBookmarksView() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetRemoveAddBookmarksView()
     }
 }
 
@@ -364,6 +385,10 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
         MediaPlayerActionSheetCellIdentifier.allCases.forEach {
             if $0 == .chapters && currentMediaHasChapters == false {
                 // Do not show the chapters category when there are no chapters.
+                return
+            }
+
+            if $0 == .addBookmarks {
                 return
             }
 

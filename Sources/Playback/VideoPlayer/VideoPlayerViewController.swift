@@ -457,6 +457,8 @@ class VideoPlayerViewController: UIViewController {
         return trackSelectorPopupView
     }()
 
+    private var addBookmarksView: AddBookmarksView? = nil
+
     // MARK: - Constraints
 
     private lazy var mainLayoutGuide: UILayoutGuide = {
@@ -1749,13 +1751,15 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
         })
     }
 
-    func mediaMoreOptionsActionSheetDisplayAlert(title: String, message: String, action: BookmarkActionIdentifier, index: Int) {
+    func mediaMoreOptionsActionSheetDisplayAlert(title: String, message: String, action: BookmarkActionIdentifier, index: Int, isEditing: Bool) {
         moreOptionsActionSheet.dismiss(animated: true, completion: {
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
             var actionTitle = NSLocalizedString("BUTTON_CANCEL", comment: "")
             let cancelAction = UIAlertAction(title: actionTitle, style: .cancel) { _ in
-                self.openOptionView(view: .bookmarks)
+                if !isEditing {
+                    self.openOptionView(view: .bookmarks)
+                }
             }
 
             alertController.addAction(cancelAction)
@@ -1764,7 +1768,9 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
                 actionTitle = NSLocalizedString("BUTTON_DELETE", comment: "")
                 let mainAction = UIAlertAction(title: actionTitle, style: .destructive, handler: { _ in
                     self.moreOptionsActionSheet.deleteBookmarkAt(row: index)
-                    self.openOptionView(view: .bookmarks)
+                    if !isEditing {
+                        self.openOptionView(view: .bookmarks)
+                    }
                 })
 
                 alertController.addAction(mainAction)
@@ -1786,7 +1792,9 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
 
                     self.moreOptionsActionSheet.renameBookmarkAt(name: newName, row: index)
 
-                    self.openOptionView(view: .bookmarks)
+                    if !isEditing {
+                        self.openOptionView(view: .bookmarks)
+                    }
                 })
 
                 alertController.addAction(mainAction)
@@ -1796,6 +1804,48 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
             self.present(alertController, animated: true, completion: nil)
             self.alertController = alertController
         })
+    }
+
+    func mediaMoreOptionsActionSheetDisplayAddBookmarksView(_ bookmarksView: AddBookmarksView) {
+        shouldDisableGestures(true)
+
+        mediaNavigationBar.isHidden = true
+
+        bookmarksView.translatesAutoresizingMaskIntoConstraints = false
+
+        addBookmarksView = bookmarksView
+
+        if let bookmarksView = addBookmarksView {
+            view.addSubview(bookmarksView)
+            NSLayoutConstraint.activate([
+                bookmarksView.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
+                bookmarksView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
+                bookmarksView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
+                bookmarksView.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: 16),
+                bookmarksView.bottomAnchor.constraint(lessThanOrEqualTo: scrubProgressBar.topAnchor),
+            ])
+        }
+
+        if let safeIdleTimer = idleTimer {
+            safeIdleTimer.invalidate()
+        }
+        videoPlayerControls.shouldDisableControls(true)
+        setControlsHidden(true, animated: true)
+    }
+
+    func mediaMoreOptionsActionSheetRemoveAddBookmarksView() {
+        shouldDisableGestures(false)
+
+        mediaNavigationBar.isHidden = false
+
+        if let bookmarksView = addBookmarksView {
+            bookmarksView.removeFromSuperview()
+        }
+
+        addBookmarksView = nil
+        idleTimer = nil
+        resetIdleTimer()
+        videoPlayerControls.shouldDisableControls(false)
     }
 }
 

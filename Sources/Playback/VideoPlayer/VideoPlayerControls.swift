@@ -141,6 +141,20 @@ class VideoPlayerControls: UIView {
         let imageName = isPlaying ? "pause-circle" : "play-circle"
         playPauseButton.setImage(UIImage(named: imageName), for: .normal)
     }
+
+    func shouldDisableControls(_ disable: Bool) {
+        subtitleButton.isEnabled = !disable
+        dvdButton.isEnabled = !disable
+        rotationLockButton.isEnabled = !disable
+        repeatButton.isEnabled = !disable
+        backwardButton.isEnabled = !disable
+        previousMediaButton.isEnabled = !disable
+        nextMediaButton.isEnabled = !disable
+        forwardButton.isEnabled = !disable
+        aspectRatioButton.isEnabled = !disable
+        moreActionsButton.isEnabled = !disable
+        shuffleButton.isEnabled = !disable
+    }
 }
 
 // MARK: - IB Actions
