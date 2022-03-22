@@ -294,7 +294,7 @@ private extension MediaLibraryService {
         if mlMedia.type() == .video {
             if let thumbnailURL = mlMedia.thumbnail() {
                 if mlMedia.progress < 0.90 {
-                    _ = try? FileManager.default.removeItem(at: thumbnailURL)
+                    mlMedia.removeThumbnail(of: .thumbnail)
                     VLCThumbnailsCache.invalidateThumbnail(for: thumbnailURL)
                 }
             }
