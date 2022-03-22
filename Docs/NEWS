@@ -1,5 +1,15 @@
 # Changelog
 
+## iOS [3.3.1]
+· Fix UPnP server browsing issue on IPv4/IPv6 dual stack networks
+· Prevent automatic renaming of files downloaded from Dropbox
+· Fix display of 'Now Playing' metadata
+· Show individual UPnP server icons
+
+## tvOS [3.3.1]
+· Fix UPnP server browsing issue on IPv4/IPv6 dual stack networks
+· Show individual UPnP server icons
+
 ## iOS [3.3.0]
 
 · Add new video player interface
