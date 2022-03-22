@@ -141,7 +141,7 @@ extension CollectionViewCellPreviewController {
             if media.subtype() == .albumTrack {
                 var description: [String] = [media.albumTrackArtistName()]
 
-                if let album = media.albumTrack?.album, !album.title.isEmpty {
+                if let album = media.album, !album.title.isEmpty {
                     description.append(album.title)
                 }
                 infos.append(PreviewInformation(value: description.joined(separator: listSeparator),

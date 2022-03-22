@@ -278,7 +278,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.text = audiotrack.title()
         accessibilityLabel = audiotrack.accessibilityText(editing: false)
         var descriptionText = audiotrack.albumTrackArtistName()
-        if let albumTitle = audiotrack.albumTrack?.album?.title, !albumTitle.isEmpty {
+        if let albumTitle = audiotrack.album?.title, !albumTitle.isEmpty {
             descriptionText += " · " + albumTitle
         }
         if isEditing {

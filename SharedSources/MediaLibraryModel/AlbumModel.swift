@@ -64,16 +64,6 @@ extension VLCMLAlbum: SearchableMLModel {
     }
 }
 
-extension VLCMLAlbumTrack: SearchableMLModel {
-    func contains(_ searchString: String) -> Bool {
-        var matches = false
-        matches = matches || artist?.contains(searchString) ?? false
-        matches = matches || genre?.contains(searchString) ?? false
-        matches = matches || album?.contains(searchString) ?? false
-        return matches
-    }
-}
-
 // MARK: - MediaLibraryObserver
 
 extension AlbumModel: MediaLibraryObserver {
@@ -155,14 +145,5 @@ extension VLCMLAlbum {
             return albumName() + " " + albumArtistName() + " " + numberOfTracksString()
         }
         return albumName() + " " + albumArtistName()
-    }
-}
-
-extension VLCMLAlbumTrack {
-    func albumArtistName() -> String {
-        guard let artist = artist else {
-            return NSLocalizedString("UNKNOWN_ARTIST", comment: "")
-        }
-        return artist.artistName()
     }
 }

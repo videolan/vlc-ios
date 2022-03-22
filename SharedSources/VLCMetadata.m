@@ -44,9 +44,9 @@
 {
     if (media && !media.isExternalMedia) {
         self.title = media.title;
-        self.artist = media.albumTrack.artist.name;
-        self.trackNumber = @(media.albumTrack.trackNumber);
-        self.albumName = media.albumTrack.album.title;
+        self.artist = media.artist.name;
+        self.trackNumber = @(media.trackNumber);
+        self.albumName = media.album.title;
         self.artworkImage = [media thumbnailImage];
         self.isAudioOnly = [media subtype] == VLCMLMediaSubtypeAlbumTrack;
     } else { // We're streaming something

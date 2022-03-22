@@ -30,11 +30,11 @@ PODS:
   - GTMAppAuth (0.7.1):
     - AppAuth (~> 0.95)
     - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.7.0):
-    - GTMSessionFetcher/Full (= 1.7.0)
-  - GTMSessionFetcher/Core (1.7.0)
-  - GTMSessionFetcher/Full (1.7.0):
-    - GTMSessionFetcher/Core (= 1.7.0)
+  - GTMSessionFetcher (1.7.1):
+    - GTMSessionFetcher/Full (= 1.7.1)
+  - GTMSessionFetcher/Core (1.7.1)
+  - GTMSessionFetcher/Full (1.7.1):
+    - GTMSessionFetcher/Core (= 1.7.1)
   - InAppSettingsKit (2.14)
   - MarqueeLabel (4.0.2)
   - MetaDataFetcherKit (0.5.0):
@@ -65,7 +65,7 @@ PODS:
   - SimulatorStatusMagic (2.6)
   - SwiftLint (0.25.1)
   - TVVLCKit (3.3.18b12)
-  - VLCMediaLibraryKit (0.10.1):
+  - VLCMediaLibraryKit (0.11.0b1):
     - MobileVLCKit
   - XKKeychain (1.0.1)
   - xmlrpc (2.3.4):
@@ -89,7 +89,7 @@ DEPENDENCIES:
   - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
   - TVVLCKit (= 3.3.18b12)
-  - VLCMediaLibraryKit (= 0.10.1)
+  - VLCMediaLibraryKit (= 0.11.0b1)
   - XKKeychain (~> 1.0)
   - xmlrpc (from `https://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
 
@@ -163,7 +163,7 @@ SPEC CHECKSUMS:
   GoogleAPIClientForREST: 2d4140915e2ec6d1bcb39c9df4a534c75706c595
   GRKArrayDiff: 13738c0300068a28cf17614a72e0398ee13bb6b3
   GTMAppAuth: c5e41aaf039ac1ccc41543e6ea2ef7abd255ad41
-  GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
+  GTMSessionFetcher: 4577a4cc914a5a07c40a8a0ad0acc22080418c2d
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MetaDataFetcherKit: c77fa3d0791d406a8cfab43464ed728437bd241b
@@ -175,10 +175,10 @@ SPEC CHECKSUMS:
   SimulatorStatusMagic: 9f5294c12ca99c6cadb243a60362a66000df540c
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   TVVLCKit: 79e3396517afec1ab19f4e4acef9e2b04c5bb991
-  VLCMediaLibraryKit: 2bcfd7289e5088354f9b94b4a3a56aeb283a1558
+  VLCMediaLibraryKit: abedbf7ba3134011edf1f038aa1b2f410d0d17e8
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 2953f84daa179bc960dd29760ce4e89777137980
+PODFILE CHECKSUM: 94ac64f6ae956764334954feefa7d797ab4bb1b5
 
 COCOAPODS: 1.11.2

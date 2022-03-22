@@ -109,15 +109,15 @@ extension VLCMLMedia {
                 attributeSet.audioSampleRate = NSNumber(value: track.sampleRate())
             }
         }
-        if let albumTrack = albumTrack {
-            if let genre = albumTrack.genre {
+        if subtype() == .albumTrack {
+            if let genre = genre {
                 attributeSet.genre = genre.name
             }
-            if let artist = albumTrack.artist {
+            if let artist = artist {
                 attributeSet.artist = artist.name
             }
-            attributeSet.audioTrackNumber = NSNumber(value:albumTrack.trackNumber())
-            if let album = albumTrack.album {
+            attributeSet.audioTrackNumber = NSNumber(value:trackNumber)
+            if let album = album {
                 attributeSet.artist = album.title
             }
         }
@@ -178,15 +178,25 @@ extension VLCMLMedia {
 // MARK: - Search
 extension VLCMLMedia: SearchableMLModel {
     func contains(_ searchString: String) -> Bool {
-        return title.lowercased().contains(searchString)
+        var matches = false
+
+        if subtype() == .albumTrack {
+            matches = matches || artist?.contains(searchString) ?? false
+            matches = matches || genre?.contains(searchString) ?? false
+            matches = matches || album?.contains(searchString) ?? false
+        }
+
+        matches = matches || title.lowercased().contains(searchString)
+
+        return matches
     }
 }
 
 extension VLCMLMedia {
     func albumTrackArtistName() -> String {
-        guard let albumTrack = albumTrack else {
+        guard let albumTrackName = artist?.name else {
             return NSLocalizedString("UNKNOWN_ARTIST", comment: "")
         }
-        return albumTrack.albumArtistName()
+        return albumTrackName
     }
 }

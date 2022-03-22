@@ -261,7 +261,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
         titleLabel.text = audioTrack.title()
         accessibilityLabel = audioTrack.accessibilityText(editing: false)
         var descriptionText = audioTrack.albumTrackArtistName()
-        if let albumTitle = audioTrack.albumTrack?.album?.title, !albumTitle.isEmpty {
+        if let albumTitle = audioTrack.album?.title, !albumTitle.isEmpty {
             descriptionText += " - " + albumTitle
         }
         descriptionLabel.text = descriptionText
