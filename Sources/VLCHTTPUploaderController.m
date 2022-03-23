@@ -154,6 +154,8 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     BOOL serverWasRunning = self.isServerRunning;
     [self changeHTTPServerState:NO];
     _nameOfUsedNetworkInterface = nil;
+    NSString *preferredipv4Interface;
+    NSString *preferredipv6Interface;
     int ret = getifaddrs(&listOfInterfaces);
     if (ret == 0) {
         anInterface = listOfInterfaces;
@@ -164,7 +166,7 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
                 APLog(@"Found an IPv4 interface %s, address %@", anInterface->ifa_name, @(inet_ntoa(((struct sockaddr_in *)anInterface->ifa_addr)->sin_addr)));
 #endif
                 if ([self interfaceIsSuitableForUse:anInterface]) {
-                    _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
+                    preferredipv4Interface = [NSString stringWithUTF8String:anInterface->ifa_name];
                 }
             } else if (anInterface->ifa_addr->sa_family == AF_INET6) {
                 char addr[INET6_ADDRSTRLEN];
@@ -174,13 +176,18 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
                 APLog(@"Found an IPv6 interface %s, address %@", anInterface->ifa_name, @(addr));
 #endif
                 if ([self interfaceIsSuitableForUse:anInterface]) {
-                    _nameOfUsedNetworkInterface = [NSString stringWithUTF8String:anInterface->ifa_name];
+                    preferredipv6Interface = [NSString stringWithUTF8String:anInterface->ifa_name];
                 }
             }
             anInterface = anInterface->ifa_next;
         }
     }
     freeifaddrs(listOfInterfaces);
+    if (preferredipv4Interface) {
+        _nameOfUsedNetworkInterface = preferredipv4Interface;
+    } else {
+        _nameOfUsedNetworkInterface = preferredipv6Interface;
+    }
     if (_nameOfUsedNetworkInterface == nil) {
         _isReachable = NO;
         [self changeHTTPServerState:NO];
