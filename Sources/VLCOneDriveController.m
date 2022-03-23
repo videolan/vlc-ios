@@ -196,10 +196,30 @@ static void *ProgressObserverContext = &ProgressObserverContext;
 
 }
 
+- (void)loadODItemsContinueWithRequest:(ODChildrenCollectionRequest *)request
+                                result:(NSMutableArray *)result
+{
+    __weak typeof(self) weakSelf = self;
+    [request getWithCompletion:^(ODCollection *response,
+                                 ODChildrenCollectionRequest *nextRequest, NSError *error) {
+        if (!error) {
+            [result addObjectsFromArray:response.value];
+            if (nextRequest != NULL) {
+                [weakSelf loadODItemsContinueWithRequest:nextRequest result:result];
+            } else {
+                [weakSelf sendMediaListUpdateWithContent:result completionHandler:NULL];
+            }
+        } else {
+            [weakSelf handleLoadODItemErrorWithError:error itemID:@"root"];
+        }
+    }];
+}
+
 - (void)loadODItemsWithCompletionHandler:(void (^)(void))completionHandler
 {
     NSString *itemID = _currentItem ? _currentItem.id : @"root";
     ODChildrenCollectionRequest * request = [[[[_oneDriveClient drive] items:itemID] children] request];
+    NSMutableArray<ODItem *> *requestContent = [[NSMutableArray alloc] init];
 
     // Clear all current
     [_currentItems removeAllObjects];
@@ -208,14 +228,24 @@ static void *ProgressObserverContext = &ProgressObserverContext;
 
     [request getWithCompletion:^(ODCollection *response, ODChildrenCollectionRequest *nextRequest, NSError *error) {
         if (!error) {
-            [self prepareODItems:response.value];
-            if (completionHandler) {
-                completionHandler();
+            if (nextRequest != NULL) {
+                [weakSelf loadODItemsContinueWithRequest:nextRequest result:requestContent];
+            } else {
+                [weakSelf sendMediaListUpdateWithContent:response.value
+                                       completionHandler:completionHandler];
             }
         } else {
             [weakSelf handleLoadODItemErrorWithError:error itemID:itemID];
         }
     }];
+}
+
+- (void)sendMediaListUpdateWithContent:(NSArray *)content completionHandler:(void (^)(void))completionHandler
+{
+    [self prepareODItems:content];
+    if (completionHandler) {
+        completionHandler();
+    }
 }
 
 - (void)handleLoadODItemErrorWithError:(NSError *)error itemID:(NSString *)itemID
