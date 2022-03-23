@@ -64,10 +64,6 @@ static NSString *const VLCLocalNetworkServiceDSMWorkgroupIdentifier = @"VLCLocal
     [VLCNetworkServerLoginInformation registerTemplateLoginInformation:login];
 }
 
-- (UIImage *)icon {
-    return [UIImage imageNamed:@"serverIcon"];
-}
-
 - (VLCNetworkServerLoginInformation *)loginInformation {
 
     VLCMedia *media = self.mediaItem;
