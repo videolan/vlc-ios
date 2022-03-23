@@ -1193,16 +1193,16 @@ private extension VideoPlayerViewController {
         panRecognizer.require(toFail: rightSwipeRecognizer)
     }
 
-    private func disableGestures() {
-        view.removeGestureRecognizer(tapOnVideoRecognizer)
-        view.removeGestureRecognizer(pinchRecognizer)
-        view.removeGestureRecognizer(doubleTapRecognizer)
-        view.removeGestureRecognizer(playPauseRecognizer)
-        view.removeGestureRecognizer(panRecognizer)
-        view.removeGestureRecognizer(leftSwipeRecognizer)
-        view.removeGestureRecognizer(rightSwipeRecognizer)
-        view.removeGestureRecognizer(upSwipeRecognizer)
-        view.removeGestureRecognizer(downSwipeRecognizer)
+    private func shouldDisableGestures(_ disable: Bool) {
+        tapOnVideoRecognizer.isEnabled = !disable
+        pinchRecognizer.isEnabled = !disable
+        doubleTapRecognizer.isEnabled = !disable
+        playPauseRecognizer.isEnabled = !disable
+        panRecognizer.isEnabled = !disable
+        leftSwipeRecognizer.isEnabled = !disable
+        rightSwipeRecognizer.isEnabled = !disable
+        upSwipeRecognizer.isEnabled = !disable
+        downSwipeRecognizer.isEnabled = !disable
     }
 
     private func videoPlayerButtons() {
@@ -1612,7 +1612,7 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
 
     func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar) {
         if let qvc = queueViewController {
-            disableGestures()
+            shouldDisableGestures(true)
             qvc.removeFromParent()
             qvc.show()
             qvc.topView.isHidden = false
@@ -1894,7 +1894,7 @@ extension VideoPlayerViewController {
 
 extension VideoPlayerViewController {
     func showPopup(_ popupView: PopupView, with contentView: UIView, accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? = nil) {
-        disableGestures()
+        shouldDisableGestures(true)
         videoPlayerControls.moreActionsButton.isEnabled = false
         popupView.isShown = true
 
@@ -1941,7 +1941,7 @@ extension VideoPlayerViewController: PopupViewDelegate {
         videoPlayerControlsHeightConstraint.constant = 44
         scrubProgressBar.spacing = 5
 
-        setupGestures()
+        shouldDisableGestures(false)
         resetIdleTimer()
     }
 }
@@ -1952,7 +1952,7 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
     func queueViewControllerDidDisappear(_ queueViewController: QueueViewController?) {
         setControlsHidden(false, animated: true)
         queueViewController?.hide()
-        setupGestures()
+        shouldDisableGestures(false)
         videoPlayerControlsBottomConstraint.isActive = true
         videoPlayerControls.subtitleButton.isEnabled = true
         videoPlayerControls.rotationLockButton.isEnabled = true
