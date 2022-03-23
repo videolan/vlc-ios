@@ -5,9 +5,14 @@
 · Prevent automatic renaming of files downloaded from Dropbox
 · Fix display of 'Now Playing' metadata
 · Show individual UPnP server icons
+· Web interface preferably runs on IPv4 instead of IPv6 interfaces
 
 ## tvOS [3.3.1]
 · Fix UPnP server browsing issue on IPv4/IPv6 dual stack networks
+· Fix playback of URLs shared through the web interface
+· Fix playback of the first file received through the web interface
+· Web interface preferably runs on IPv4 instead of IPv6 interfaces
+· Add option to run the web interface on IPv6 interfaces
 · Show individual UPnP server icons
 
 ## iOS [3.3.0]
