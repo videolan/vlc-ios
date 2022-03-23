@@ -732,15 +732,16 @@ static NSMutableDictionary *authentifiedHosts;
         return;
     }
 
-    APLog(@"Starting playback of %@", path);
     if (_receivedFiles == nil)
         _receivedFiles = [[NSMutableArray alloc] init];
 
-    if ([_receivedFiles containsObject:path])
+    if ([_receivedFiles containsObject:path]) {
         return;
+    }
 
     [_receivedFiles addObject:path];
 
+    APLog(@"Starting playback of %@", path);
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     VLCMediaList *mediaList = vpc.mediaList;
 
@@ -748,10 +749,12 @@ static NSMutableDictionary *authentifiedHosts;
         mediaList = [[VLCMediaList alloc] init];
     }
 
-    [mediaList addMedia:[VLCMedia mediaWithURL:[NSURL fileURLWithPath:path]]];
+    VLCMedia *mediaToPlay = [VLCMedia mediaWithURL:[NSURL fileURLWithPath:path]];
+    [mediaList addMedia:mediaToPlay];
+    NSInteger indexToPlay = [mediaList indexOfMedia:mediaToPlay];
 
-    if (!vpc.mediaList) {
-        [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
+    if (!vpc.isPlaying) {
+        [vpc playMediaList:mediaList firstIndex:indexToPlay subtitlesFilePath:nil];
     }
 }
 #endif
