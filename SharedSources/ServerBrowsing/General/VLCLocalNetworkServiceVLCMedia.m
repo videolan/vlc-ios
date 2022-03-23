@@ -33,7 +33,21 @@
     return [self.mediaItem metadataForKey:VLCMetaInformationTitle];
 }
 - (UIImage *)icon {
-    return nil;
+    UIImage *image;
+    NSString *artworkMRL = [self.mediaItem metadataForKey:VLCMetaInformationArtworkURL];
+    if (artworkMRL) {
+        NSURL *url = [NSURL URLWithString:artworkMRL];
+        if (url) {
+            NSData *imageData = [NSData dataWithContentsOfURL:url];
+            if (imageData) {
+                image = [UIImage imageWithData:imageData];
+            }
+        }
+    }
+    if (!image) {
+        image = [UIImage imageNamed:@"serverIcon"];
+    }
+    return image;
 }
 
 - (VLCNetworkServerLoginInformation *)loginInformation {

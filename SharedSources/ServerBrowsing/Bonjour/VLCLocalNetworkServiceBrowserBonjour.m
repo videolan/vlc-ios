@@ -38,11 +38,6 @@ NSString *const VLCNetworkServerProtocolIdentifierBonjour = @"Bonjour";
 
 @implementation VLCLocalNetworkServiceBonjour
 
-- (UIImage *)icon
-{
-    return [UIImage imageNamed:@"serverIcon"];
-}
-
 - (VLCNetworkServerLoginInformation *)loginInformation {
     VLCMedia *media = self.mediaItem;
     if (media.mediaType != VLCMediaTypeDirectory) {
