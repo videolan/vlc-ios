@@ -42,7 +42,7 @@
 #if TARGET_OS_IOS
 - (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer
 {
-    if (media) {
+    if (media && !media.isExternalMedia) {
         self.title = media.title;
         self.artist = media.albumTrack.artist.name;
         self.trackNumber = @(media.albumTrack.trackNumber);
