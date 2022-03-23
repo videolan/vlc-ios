@@ -266,12 +266,9 @@
         "url": "https://vimeo.com/74370512"
      }
      */
-    BOOL needsMediaList = NO;
-
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     VLCMediaList *mediaList = vpc.mediaList;
     if (!mediaList) {
-        needsMediaList = YES;
         mediaList = [[VLCMediaList alloc] init];
     }
 
@@ -297,20 +294,11 @@
     /* sync back */
     [ubiquitousKeyValueStore setArray:recentURLs forKey:kVLCRecentURLs];
 
-    [mediaList addMedia:[VLCMedia mediaWithURL:[NSURL URLWithString:urlString]]];
-    if (needsMediaList) {
-        [vpc playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
-
-        VLCFullscreenMovieTVViewController *movieVC = [VLCFullscreenMovieTVViewController fullscreenMovieTVViewController];
-        if ([[[UIApplication sharedApplication].delegate.window rootViewController] presentedViewController] != nil) {
-            [[[[UIApplication sharedApplication].delegate.window rootViewController] presentedViewController] presentViewController:movieVC
-                                                                                                                           animated:NO
-                                                                                                                         completion:nil];
-        } else {
-            [[[UIApplication sharedApplication].delegate.window rootViewController] presentViewController:movieVC
-                                                                                                 animated:NO
-                                                                                               completion:nil];
-        }
+    VLCMedia *receivedMedia = [VLCMedia mediaWithURL:[NSURL URLWithString:urlString]];
+    [mediaList addMedia:receivedMedia];
+    NSInteger indexToPlay = [mediaList indexOfMedia:receivedMedia];
+    if (!vpc.isPlaying) {
+        [vpc playMediaList:mediaList firstIndex:indexToPlay subtitlesFilePath:nil];
     }
 }
 
