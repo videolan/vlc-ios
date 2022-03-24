@@ -2,7 +2,7 @@
  * VLCOpenNetworkStreamViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -125,10 +125,12 @@
     [self.openButton setAccessibilityIdentifier:@"Open Network Stream"];
     self.openButton.layer.cornerRadius = 4.0;
     [self.privateModeLabel setText:NSLocalizedString(@"PRIVATE_PLAYBACK_TOGGLE", nil)];
-    UILabel *scanSubModelabel = self.ScanSubModeLabel;
-    [scanSubModelabel setText:NSLocalizedString(@"SCAN_SUBTITLE_TOGGLE", nil)];
-    [scanSubModelabel setAdjustsFontSizeToFitWidth:YES];
-    [scanSubModelabel setNumberOfLines:0];
+    [self.scanSubModeLabel setText:NSLocalizedString(@"SCAN_SUBTITLE_TOGGLE", nil)];
+
+    [self.privateToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-checked"] forState:UIControlStateSelected];
+    [self.privateToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-empty"] forState:UIControlStateNormal];
+    [self.scanSubToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-checked"] forState:UIControlStateSelected];
+    [self.scanSubToggleButton setImage:[UIImage imageNamed:@"iconCheckbox-empty"] forState:UIControlStateNormal];
 
     [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", nil)];
     self.urlField.delegate = self;
@@ -163,17 +165,20 @@
 
 - (void)updateForTheme
 {
-    self.historyTableView.backgroundColor = PresentationTheme.current.colors.background;
-    self.view.backgroundColor = PresentationTheme.current.colors.background;
-    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: PresentationTheme.current.colors.textfieldPlaceholderColor}];
+    ColorPalette *colors = PresentationTheme.current.colors;
+    self.historyTableView.backgroundColor = colors.background;
+    self.view.backgroundColor = colors.background;
+    NSAttributedString *coloredAttributedPlaceholder = [[NSAttributedString alloc] initWithString:@"http://myserver.com/file.mkv" attributes:@{NSForegroundColorAttributeName: colors.textfieldPlaceholderColor}];
     self.urlField.attributedPlaceholder = coloredAttributedPlaceholder;
-    self.urlField.backgroundColor = PresentationTheme.current.colors.mediaCategorySeparatorColor;
-    self.urlField.textColor = PresentationTheme.current.colors.cellTextColor;
-    self.urlBorder.backgroundColor = PresentationTheme.current.colors.textfieldBorderColor;
-    self.privateModeLabel.textColor = PresentationTheme.current.colors.lightTextColor;
-    self.ScanSubModeLabel.textColor = PresentationTheme.current.colors.lightTextColor;
-    self.whatToOpenHelpLabel.textColor = PresentationTheme.current.colors.lightTextColor;
-    self.openButton.backgroundColor = PresentationTheme.current.colors.orangeUI;
+    self.urlField.backgroundColor = colors.mediaCategorySeparatorColor;
+    self.urlField.textColor = colors.cellTextColor;
+    self.urlBorder.backgroundColor = colors.textfieldBorderColor;
+    self.privateModeLabel.textColor = colors.lightTextColor;
+    self.scanSubModeLabel.textColor = colors.lightTextColor;
+    self.whatToOpenHelpLabel.textColor = colors.lightTextColor;
+    self.openButton.backgroundColor = colors.orangeUI;
+    self.privateToggleButton.tintColor = colors.orangeUI;
+    self.scanSubToggleButton.tintColor = colors.orangeUI;
     [self.historyTableView reloadData];
     [self setNeedsStatusBarAppearanceUpdate];
 }
@@ -193,8 +198,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.privateToggleSwitch.on = [defaults boolForKey:kVLCPrivateWebStreaming];
-    self.ScanSubToggleSwitch.on = [defaults boolForKey:kVLChttpScanSubtitle];
+    self.privateToggleButton.selected = [defaults boolForKey:kVLCPrivateWebStreaming];
+    self.scanSubToggleButton.selected = [defaults boolForKey:kVLChttpScanSubtitle];
 
     [super viewWillAppear:animated];
 }
@@ -206,8 +211,8 @@
                                                   object:[UIApplication sharedApplication]];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:self.privateToggleSwitch.on forKey:kVLCPrivateWebStreaming];
-    [defaults setBool:self.ScanSubToggleSwitch.on forKey:kVLChttpScanSubtitle];
+    [defaults setBool:self.privateToggleButton.selected forKey:kVLCPrivateWebStreaming];
+    [defaults setBool:self.scanSubToggleButton.selected forKey:kVLChttpScanSubtitle];
     [self.view endEditing:YES];
 
     /* force update before we leave */
@@ -229,6 +234,11 @@
     return YES;
 }
 
+- (IBAction)toggleButtonAction:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+}
+
 - (IBAction)openButtonAction:(id)sender
 {
     if ([self.urlField.text length] <= 0 || [NSURL URLWithString:self.urlField.text] == nil) {
@@ -237,7 +247,7 @@
                                            viewController:self];
         return;
     }
-    if (!self.privateToggleSwitch.on) {
+    if (!self.privateToggleButton.selected) {
         NSString *urlString = self.urlField.text;
         if ([_recentURLs indexOfObject:urlString] != NSNotFound)
             [_recentURLs removeObject:urlString];
@@ -374,8 +384,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *actionText = NSStringFromSelector(action);
 
-    NSLog(@"%s: %@", __func__, actionText);
-
     if ([actionText isEqualToString:@"copy:"])
         [UIPasteboard generalPasteboard].string = _recentURLs[indexPath.row];
 }
@@ -404,7 +412,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSURL *playbackURL = [NSURL URLWithString:url];
     NSURL *subtitlesURL = nil;
 
-    if (([playbackURL.scheme isEqualToString:@"http"] || [playbackURL.scheme isEqualToString:@"https"]) && self.ScanSubToggleSwitch.on) {
+    if (([playbackURL.scheme isEqualToString:@"http"] || [playbackURL.scheme isEqualToString:@"https"]) && self.scanSubToggleButton.selected) {
         subtitlesURL = [self _checkURLofSubtitle:playbackURL];
     }
 
