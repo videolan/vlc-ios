@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "പാസ്‌കോഡ് മാറ്റുക";
 "Enter Passcode" = "പാസ്‌കോഡ് നൽകുക";
 "Enter a passcode" = "ഒരു പാസ്‌കോഡ് നൽകുക";
-"Enter your new passcode" = "നിങ്ങളുടെ പുതിയ പാസ്‌കോഡ് നൽകുക";
-"Enter your old passcode" = "നിങ്ങളുടെ പഴയ പാസ്‌കോഡ് നൽകുക";
-"Enter your passcode" = "നിങ്ങളുടെ പാസ്‌കോഡ് നൽകുക";
-"Next" = "അടുത്തത്";
 "Passcodes did not match. Try again." = "പാസ്‌കോഡുകൾ പൊരുത്തപ്പെടുന്നില്ല. വീണ്ടും ശ്രമിക്കുക.";
-"Re-enter your new passcode" = "നിങ്ങളുടെ പുതിയ പാസ്‌കോഡ് വീണ്ടും നൽകുക";
 "Re-enter your passcode" = "നിങ്ങളുടെ പാസ്‌കോഡ് വീണ്ടും നൽകുക";
 "Set Passcode" = "പാസ്‌കോഡ് സൃഷ്‌ടിക്കുക";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "ഓഡിയോയുടെ എണ്ണം";
 "NB_MEDIA" = "മീഡിയയുടെ എണ്ണം";
 "NB_VIDEO" = "വീഡിയോയുടെ എണ്ണം";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
