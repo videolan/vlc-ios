@@ -203,6 +203,7 @@
 		7D63C19018774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m */; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
+		7D71ABD027ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */; };
 		7D71F17F2740041D00F957D4 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418E88402110E51B00DDA6A7 /* URLHandler.swift */; };
 		7D7EF3DA1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */; };
 		7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */; };
@@ -781,6 +782,7 @@
 		7D6B08F9174D716200A05173 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7D6B08FB174D773C00A05173 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = SOURCE_ROOT; };
 		7D6D13591758D1A00007EA9A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCStreamingHistoryCell.xib; path = Resources/VLCStreamingHistoryCell.xib; sourceTree = "<group>"; };
 		7D7DA52F1768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D7EF3D71BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOpenNetworkStreamTVViewController.h; sourceTree = "<group>"; };
 		7D7EF3D81BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCOpenNetworkStreamTVViewController.m; sourceTree = "<group>"; };
@@ -1614,6 +1616,7 @@
 				7DBBF18F183AB4300009A339 /* VLCNetworkListCell.xib */,
 				9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */,
 				7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */,
+				7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */,
 			);
 			name = "Download & Network";
 			sourceTree = "<group>";
@@ -2824,6 +2827,7 @@
 				407EB587257A418900686B1F /* SleepTimerView.xib in Resources */,
 				26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */,
 				7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */,
+				7D71ABD027ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib in Resources */,
 				D92C186327CD30DE0034058F /* ChapterView.xib in Resources */,
 				7AC8629D1765DC560011611A /* style.css in Resources */,
 				8DB0D71C24CED2BE00915506 /* VideoPlayerControls.xib in Resources */,

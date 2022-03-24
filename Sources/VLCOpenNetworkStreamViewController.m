@@ -301,6 +301,7 @@
         }];
     } else {
         [[NSUserDefaults standardUserDefaults] setObject:_recentURLTitles forKey:kVLCRecentURLTitles];
+        [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
@@ -326,21 +327,15 @@
     NSString *content = [_recentURLs[indexPath.row] stringByRemovingPercentEncoding];
     NSString *possibleTitle = _recentURLTitles[[@(indexPath.row) stringValue]];
 
-    cell.subtitle = content;
-    cell.title = possibleTitle ?: [content lastPathComponent];
-    cell.thumbnailImage = [UIImage imageNamed:@"serverIcon"];
+    cell.titleLabel.text = possibleTitle ?: [content lastPathComponent];
+    cell.subtitleLabel.text = content;
+    cell.thumbnailView.image = [UIImage imageNamed:@"serverIcon"];
+    cell.delegate = self;
 
     return cell;
 }
 
 #pragma mark - table view delegate
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    cell.backgroundColor = PresentationTheme.current.colors.cellBackgroundA;
-    cell.textLabel.textColor =  PresentationTheme.current.colors.cellTextColor;
-    cell.detailTextLabel.textColor =  PresentationTheme.current.colors.cellDetailTextColor;
-}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -378,6 +373,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
        withSender:(id)sender
 {
     NSString *actionText = NSStringFromSelector(action);
+
+    NSLog(@"%s: %@", __func__, actionText);
 
     if ([actionText isEqualToString:@"copy:"])
         [UIPasteboard generalPasteboard].string = _recentURLs[indexPath.row];
