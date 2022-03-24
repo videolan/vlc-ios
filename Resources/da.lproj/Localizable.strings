@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Lås mediebibliotek op\nAnnuller for at indtaste adgangskode";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d fejlslagne adgangskodeforsøg";
-"1 Failed Passcode Attempt" = "1 fejlslagent adgangskodeforsøg";
-"Change Passcode" = "Skift adgangskode";
 "Enter Passcode" = "Indtast adgangskode";
 "Enter a passcode" = "Indtast en adgangskode";
-"Enter your new passcode" = "Indtast din nye adgangskode";
-"Enter your old passcode" = "Indtast din gamle adgangskode";
-"Enter your passcode" = "Indtast din adgangskode";
-"Next" = "Næste";
 "Passcodes did not match. Try again." = "Adgangskoderne er ikke ens. Prøv igen.";
-"Re-enter your new passcode" = "Indtast din nye adgangskode igen";
 "Re-enter your passcode" = "Indtast din adgangskode igen";
 "Set Passcode" = "Indstil adgangskode";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Antal lyd";
 "NB_MEDIA" = "Antal medier";
 "NB_VIDEO" = "Antal video";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
