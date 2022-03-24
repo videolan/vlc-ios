@@ -17,6 +17,7 @@ protocol MediaNavigationBarDelegate {
     func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar)
+    func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar)
 }
 
 private enum RendererActionSheetContent: Int, CaseIterable {
@@ -30,9 +31,15 @@ private enum RendererActionSheetContent: Int, CaseIterable {
 
     lazy var closePlaybackButton: UIButton = {
         var closeButton = UIButton(type: .system)
-        closeButton.addTarget(self, action: #selector(handleCloseTap), for: .touchDown)
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                        action: #selector(handleCloseTap))
+        let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self,
+                                                                                          action: #selector(handleLongPressPlayPause(_:)))
+        longPressGesture.shouldRequireFailure(of: tapGesture)
         closeButton.setImage(UIImage(named: "close"), for: .normal)
         closeButton.tintColor = .white
+        closeButton.addGestureRecognizer(longPressGesture)
+        closeButton.addGestureRecognizer(tapGesture)
         closeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return closeButton
     }()
@@ -147,6 +154,14 @@ private enum RendererActionSheetContent: Int, CaseIterable {
             addArrangedSubview(deviceButton)
         } else {
             addArrangedSubview(airplayVolumeView)
+        }
+    }
+
+    // MARK: Gesture recognizer
+
+    @objc private func handleLongPressPlayPause(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .ended {
+            delegate?.mediaNavigationBarDidCloseLongPress(self)
         }
     }
 

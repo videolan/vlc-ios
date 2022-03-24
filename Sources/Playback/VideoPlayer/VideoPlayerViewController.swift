@@ -1640,6 +1640,10 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
         // TODO: Add current renderer functionality to chromeCast Button
         // NSAssert(0, @"didToggleChromeCast not implemented");
     }
+
+    func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar) {
+        playbackService.stopPlayback()
+    }
 }
 
 // MARK: - MediaScrubProgressBarDelegate
