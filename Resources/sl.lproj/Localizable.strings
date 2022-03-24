@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Odkleni knižnjico predstavnih vsebin\nPrekini za vnos gesla";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d neuspelih poskusov vnosa gesla";
-"1 Failed Passcode Attempt" = "En neuspel poskus vnosa gesla";
-"Change Passcode" = "Sprememba gesla";
 "Enter Passcode" = "Vnesite geslo";
 "Enter a passcode" = "Vnos gesla";
-"Enter your new passcode" = "Vnesite novo geslo";
-"Enter your old passcode" = "Vnesite staro geslo";
-"Enter your passcode" = "Vnesite geslo";
-"Next" = "Naslednje";
 "Passcodes did not match. Try again." = "Gesli se ne ujemata. Poskusite znova.";
-"Re-enter your new passcode" = "Ponovno vnesite novo geslo";
 "Re-enter your passcode" = "Ponovni vnos gesla";
 "Set Passcode" = "Določite geslo";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Število skladb";
 "NB_MEDIA" = "Število vsebin";
 "NB_VIDEO" = "Število videov";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
