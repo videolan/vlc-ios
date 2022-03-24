@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Розблокуйте бібліотеку медіа\nСкасуйте для введення парольного коду";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d невдалих спроб вводу пароля";
-"1 Failed Passcode Attempt" = "1 невдала спроба вводу пароля";
-"Change Passcode" = "Змінити пароль";
 "Enter Passcode" = "Введення паролю";
 "Enter a passcode" = "Введіть пароль";
-"Enter your new passcode" = "Введіть ваш новий пароль";
-"Enter your old passcode" = "Введіть ваш старий пароль";
-"Enter your passcode" = "Введіть ваш пароль";
-"Next" = "Далі";
 "Passcodes did not match. Try again." = "Паролі не збігаються. Спробуйте знову.";
-"Re-enter your new passcode" = "Повторно введіть ваш новий пароль";
 "Re-enter your passcode" = "Повторно введіть ваш пароль";
 "Set Passcode" = "Задання пароля";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Кількість аудіо";
 "NB_MEDIA" = "Кількість медіа";
 "NB_VIDEO" = "Кількість відео";
+"NB_ALBUM" = "Кількість альбомів";
+"LAST_PLAYBACK_DATE" = "Остання дата відтворення";
 
 // MARK: - VLCNetworkLoginTVViewController
 
