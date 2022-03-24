@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Buka Pustaka Media\nBatal untuk masukkan Kod Laluan";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Pecubaan Kod Laluan Gagal";
-"1 Failed Passcode Attempt" = "1 Percubaan Kod Laluan Gagal";
-"Change Passcode" = "Ubah Kod Laluan";
 "Enter Passcode" = "Masukkan Kod Laluan";
 "Enter a passcode" = "Masukkan satu kod laluan";
-"Enter your new passcode" = "Masukkan kod laluan baharu anda";
-"Enter your old passcode" = "Masukkan kod laluan lama anda";
-"Enter your passcode" = "Masukkan kod laluan baharu anda";
-"Next" = "Berikutnya";
 "Passcodes did not match. Try again." = "Kod laluan tidak sepadan. Cuba lagi.";
-"Re-enter your new passcode" = "Masukkan semula kod laluan baharu anda";
 "Re-enter your passcode" = "Masukkan semula kod laluan anda";
 "Set Passcode" = "Tetapkan Kod Laluan";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Bilangan audio";
 "NB_MEDIA" = "Bilangan media";
 "NB_VIDEO" = "Bilangan video";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
