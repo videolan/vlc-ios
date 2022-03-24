@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Estrae a mediateca";
 
 "ABOUT_APP_TV" = "Apprupositu di VLC for tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
