@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Avaa mediakirjaston lukitus\nPeruuta salasanan syöttäminen";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d epäonnistunutta salasanayritystä";
-"1 Failed Passcode Attempt" = "1 epäonnistunut salasanayritys";
-"Change Passcode" = "Vaihda salasana";
 "Enter Passcode" = "Anna salasana";
 "Enter a passcode" = "Anna salasana";
-"Enter your new passcode" = "Anna uusi salasanasi";
-"Enter your old passcode" = "Kirjoita nykyinen salasanasi";
-"Enter your passcode" = "Anna salasanasi";
-"Next" = "Seuraava";
 "Passcodes did not match. Try again." = "Salasanat eivät täsmää. Yritä uudelleen.";
-"Re-enter your new passcode" = "Anna uusi salasanasi uudelleen";
 "Re-enter your passcode" = "Kirjoita salasanasi uudelleen";
 "Set Passcode" = "Aseta salasana";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Äänen nro";
 "NB_MEDIA" = "Kappaleen nro";
 "NB_VIDEO" = "Videon nro";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
