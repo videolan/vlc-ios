@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Déverrouiller la médiathèque\nAnnuler pour entrer le mot de passe";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d tentatives échouées pour le mot de passe";
-"1 Failed Passcode Attempt" = "1 tentative échouée pour le mot de passe";
-"Change Passcode" = "Changer le mot de passe";
 "Enter Passcode" = "Entrer le mot de passe";
 "Enter a passcode" = "Entrer un mot de passe";
-"Enter your new passcode" = "Entrer votre nouveau mot de passe";
-"Enter your old passcode" = "Entrer votre ancien mot de passe";
-"Enter your passcode" = "Entrer votre mot de passe";
-"Next" = "Suivant";
 "Passcodes did not match. Try again." = "Les mots de passe ne correspondent pas. Veuillez recommencer.";
-"Re-enter your new passcode" = "Entrer à nouveau votre nouveau mot de passe";
 "Re-enter your passcode" = "Entrer à nouveau votre mot de passe";
 "Set Passcode" = "Définir le mot de passe";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Nombre de pistes audio";
 "NB_MEDIA" = "Nombre de pistes multimédias";
 "NB_VIDEO" = "Nombre de pistes vidéo";
+"NB_ALBUM" = "Nombre de titres";
+"LAST_PLAYBACK_DATE" = "Dernière date de lecture";
 
 // MARK: - VLCNetworkLoginTVViewController
 
