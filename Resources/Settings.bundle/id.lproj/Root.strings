@@ -4,24 +4,24 @@
 "SETTINGS_VIDEO_TITLE" = "Video";
 "SETTINGS_AUDIO_TITLE" = "Audio";
 
-"SETTINGS_THEME_BRIGHT" = "Bright theme";
-"SETTINGS_THEME_DARK" = "Dark theme";
-"SETTINGS_THEME_SYSTEM" = "Automatic";
-"SETTINGS_THEME_BLACK" = "Use black background on dark mode";
-"SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
-"SETTINGS_PRIVACY_SUBTITLE" = "Open in Settings";
-"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Secure access to your content";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Your media will be hidden in the Files app";
+"SETTINGS_THEME_BRIGHT" = "Tema terang";
+"SETTINGS_THEME_DARK" = "Tema gelap";
+"SETTINGS_THEME_SYSTEM" = "Otomatis";
+"SETTINGS_THEME_BLACK" = "Gunakan layar belakang hitam untuk mode gelap";
+"SETTINGS_THEME_BLACK_SUBTITLE" = "Meningkatkan daya tahan baterai dengan layar OLED";
+"SETTINGS_PRIVACY_SUBTITLE" = "Buka di pengaturan";
+"SETTINGS_PASSCODE_LOCK_SUBTITLE" = "Amankan akses ke konten Anda";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Media Anda akan tersembunyi di aplikasi Files";
 
-"SETTINGS_DARKTHEME" = "Appearance";
+"SETTINGS_DARKTHEME" = "Penampilan";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Masa-renggang Audio";
-"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
+"SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Mempercepat dan memperlambat audio tanpa mengubah nada (memerlukan perangkat yang cepat)";
 "SETTINGS_BACKGROUND_AUDIO" = "Pemutaran audio di latar belakang";
 "SETTINGS_GENERIC_TITLE" = "Umum";
 "SETTINGS_PASSCODE_LOCK" = "Kunci Kode Sandi";
 "SETTINGS_PASSCODE_LOCK_ALLOWTOUCHID" = "Izinkan penggunaan Touch ID untuk membuka";
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Izinkan penggunaan Face ID untuk membuka";
-"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
+"SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Sembunyikan pustaka media dalam Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Putar video dalam layar penuh";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
@@ -29,7 +29,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Tanyakan";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Selalu";
 "SETTINGS_NETWORK_PLAY_ALL" = "Putar otomatis item selanjutnya";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Aktifkan teks gulir di daftar media";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Filter Awablok";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Tidak ada awablok (tercepat)";
@@ -40,7 +40,7 @@
 
 "SETTINGS_GESTURES" = "Kendalikan pemutaran dengan gestur";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
-"SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
+"SETTINGS_GESTURES_PLAYPAUSE" = "Ketuk dengan dua jari untuk memutar/jeda";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Geser ke atas/bawah untuk ubah kecerahan";
 "SETTINGS_GESTURES_SEEK" = "Geser ke kanan/kiri untuk mencari";
 "SETTINGS_GESTURES_CLOSE" = "Cubit untuk menutup";
@@ -77,48 +77,50 @@
 "SETTINGS_DEINTERLACE_OFF" = "Mati";
 "SETTINGS_DEINTERLACE_AUTO" = "Otomatis";
 
-"SETTINGS_HWDECODING" = "Hardware Decoding";
-"SETTINGS_HWDECODING_ON" = "On";
-"SETTINGS_HWDECODING_OFF" = "Off";
+"SETTINGS_HWDECODING" = "Decoding perangkat keras";
+"SETTINGS_HWDECODING_ON" = "Nyala";
+"SETTINGS_HWDECODING_OFF" = "Mati";
 "SETTINGS_CASTING" = "Casting";
 "SETTINGS_PTCASTING" = "Audio Passthrough";
-"SETTINGS_PTCASTINGLONG" = "Let your TV manage audio rendering";
-"SETTINGS_CASTING_CONVERSION_QUALITY" = "Conversion quality";
-"SETTINGS_HIGH" = "High";
-"SETTINGS_MEDIUM" = "Medium";
-"SETTINGS_LOW" = "Low";
-"SETTINGS_LOWEST" = "Lowest";
+"SETTINGS_PTCASTINGLONG" = "Biarkan TV Anda mengatur rendering audio";
+"SETTINGS_CASTING_CONVERSION_QUALITY" = "Konversi kualitas";
+"SETTINGS_HIGH" = "Tinggi";
+"SETTINGS_MEDIUM" = "Sedang";
+"SETTINGS_LOW" = "Rendah";
+"SETTINGS_LOWEST" = "Paling rendah";
 
 "SETTINGS_FEEDBACK" = "Umpan Balik";
 "SETTINGS_SEND_FEEDBACK" = "Kirim Umpan Balik";
 "SETTINGS_SEND_RATING" = "Mohon Nilai VLC untuk iOS";
 
-"SETTINGS_MEDIA_LIBRARY" = "Media library";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Force VLC to rescan the media library";
+"SETTINGS_MEDIA_LIBRARY" = "Pustaka media";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "Paksa VLC untuk memindai ulang pustaka media";
 "SETTINGS_DECRAPIFY" = "Optimalisasi nama item untuk tampilan";
-"SETTINGS_DISABLE_GROUPING" = "Disable automatic media grouping";
-"SETTINGS_SHOW_THUMBNAILS" = "Show video thumbnails";
-"SETTINGS_SHOW_ARTWORKS" = "Show audio artworks";
-"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Include the media library in device backup";
+"SETTINGS_DISABLE_GROUPING" = "Matikan grouping media otomatis";
+"SETTINGS_SHOW_THUMBNAILS" = "Tampilkan thumbnail vide.";
+"SETTINGS_SHOW_ARTWORKS" = "Tampilkan karya seni audio";
+"SETTINGS_BACKUP_MEDIA_LIBRARY" = "Sisipkan pustaka media di dalam cadangan perangkat";
 
-"SETTINGS_NETWORK" = "Network";
+"SETTINGS_NETWORK" = "Jaringan";
 "SETTINGS_NETWORK_CACHING_TITLE" = "Aras Tembolok Jaringan";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Latensi Terendah";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Latensi Rendah";
 "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latensi Tinggi";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latensi Tertinggi";
-"SETTINGS_WIFISHARING_IPv6" = "IPv6 support for Wi-Fi Sharing";
-"SETTINGS_FORCE_SMBV1" = "Prefer SMB 1";
-"SETTINGS_FORCE_SMBV1_LONG" = "Uncheck this setting if you have some difficulties browsing your SMB server";
-"SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_WIFISHARING_IPv6" = "Dukungan IPv6 untuk Wi-Fi Sharing";
+"SETTINGS_FORCE_SMBV1" = "Pilih SMB 1";
+"SETTINGS_FORCE_SMBV1_LONG" = "Hapus centang pengaturan ini jika Anda memiliki kesulitan menjelajah SMB server Anda.";
+"SETTINGS_RTSP_TCP" = "Gunakan RTP over RTSP (TCP)";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "SAT kustom>URL daftar saluran IP";
 
-"SETTINGS_ARTWORK" = "Artwork";
-"SETTINGS_DOWNLOAD_ARTWORK" = "Download Artwork";
+"SETTINGS_ARTWORK" = "Karya seni";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Unduh karya seni";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Simpan Log Debug pada perangkat";
+"SETTINGS_EXPORT_LIBRARY" = "Buang pustaka media";
 
 "ABOUT_APP_TV" = "Tentang VLC untuk tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
