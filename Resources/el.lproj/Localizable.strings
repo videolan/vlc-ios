@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Ξεκλείδωμα βιβλιοθήκης πολυμέσων\nΑκυρώστε για να εισαγάγετε κωδικό";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%dΑποτυχημένες προσπάθειες";
-"1 Failed Passcode Attempt" = "1 αποτυχημένη προσπάθεια";
-"Change Passcode" = "Αλλαγή κωδικού";
 "Enter Passcode" = "Εισαγωγή κωδικού";
 "Enter a passcode" = "Εισάγετε έναν κωδικό";
-"Enter your new passcode" = "Εισάγετε το νέο σας κωδικό";
-"Enter your old passcode" = "Εισάγετε τον παλιό σας κωδικό";
-"Enter your passcode" = "Εισάγετε τον κωδικό σας";
-"Next" = "Επόμενο";
 "Passcodes did not match. Try again." = "Οι κωδικοί διαφέρουν. Προσπαθήστε ξανά.";
-"Re-enter your new passcode" = "Εισάγετε ξανά το νέο σας κωδικό";
 "Re-enter your passcode" = "Εισάγετε ξανά τον κωδικό σας";
 "Set Passcode" = "Ορισμός κωδικού";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Αριθμός αρχείων ήχου";
 "NB_MEDIA" = "Αριθμός αρχείων πολυμέσων";
 "NB_VIDEO" = "Αριθμός αρχείων βίντεο";
+"NB_ALBUM" = "Αριθμός άλμπουμ";
+"LAST_PLAYBACK_DATE" = "Τελευταία ημερομηνία αναπαραγωγής";
 
 // MARK: - VLCNetworkLoginTVViewController
 
