@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Divorailhañ al Levraoueg Media\nNullañ evit reiñ ar C'hod moned";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d a glaskadennoù ger-tremen c'hwitet";
-"1 Failed Passcode Attempt" = "1 glaskadenn ger-tremen c'hwitet";
-"Change Passcode" = "Cheñch Ger-tremen";
 "Enter Passcode" = "Skrivit ar Ger-tremen";
 "Enter a passcode" = "Skrivit ur Ger-tremen";
-"Enter your new passcode" = "Skrivit ho ker-tremen nevez";
-"Enter your old passcode" = "Skrivit ho ker-tremen kozh";
-"Enter your passcode" = "Skrivit ho ker-tremen";
-"Next" = "War-lerc'h";
 "Passcodes did not match. Try again." = "Ar gerioù-tremen ne genglotont ket. Klaskit en-dro.";
-"Re-enter your new passcode" = "Skrivit en-dro ho ker-tremen nevez";
 "Re-enter your passcode" = "Skrivit en-dro ho ker-tremen";
 "Set Passcode" = "Spisaat ar ger-tremen";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Niver a roudoù aodio";
 "NB_MEDIA" = "Niver a roudennoù liesvedia";
 "NB_VIDEO" = "Niver a roudennoù video";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
