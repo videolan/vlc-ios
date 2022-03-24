@@ -4,10 +4,9 @@ stages:
 
 default:
     before_script:
-        - pod update
+        - arch -x86_64 pod update
     tags:
-        - catalina
-        - amd64
+        - monterey-m1-lasvegas
     interruptible: true
 
 variables:
@@ -59,14 +58,14 @@ iOS 12.x:
         BUILD_SCHEME: "VLC-iOS"
         BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone X,OS=12.4"
 
-iOS 14.x:
+iOS 15.x:
     extends:
         - .job-base
         - .build-base
     stage: build
     variables:
         BUILD_SCHEME: "VLC-iOS"
-        BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone 11,OS=14.4"
+        BUILD_DESTINATION: "platform=iOS Simulator,name=iPhone 11,OS=15.4"
 
 ### tvOS Builds
 
@@ -81,14 +80,13 @@ iOS 14.x:
 #     BUILD_SCHEME: "VLC-tvOS"
 #     BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=11.0"
 
-tvOS 14.x:
+tvOS 15.x:
     extends:
         - .job-base
         - .build-base
     tags:
-        - catalina
-        - amd64
+        - monterey-m1-lasvegas
     stage: build
     variables:
         BUILD_SCHEME: "VLC-tvOS"
-        BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=14.3"
+        BUILD_DESTINATION: "platform=tvOS Simulator,name=Apple TV,OS=15.4"
