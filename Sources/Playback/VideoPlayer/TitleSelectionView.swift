@@ -124,7 +124,7 @@ class TitleSelectionView: UIView {
     }()
 
     private lazy var audioTableView: UITableView = {
-        let audioTableView: UITableView = UITableView()
+        let audioTableView: UITableView = UITableView(frame: .zero, style: .grouped)
         audioTableView.delegate = self
         audioTableView.dataSource = self
         audioTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -132,7 +132,7 @@ class TitleSelectionView: UIView {
     }()
 
     private lazy var subtitleTableView: UITableView = {
-        let subtitleTableView: UITableView = UITableView()
+        let subtitleTableView: UITableView = UITableView(frame: .zero, style: .grouped)
         subtitleTableView.delegate = self
         subtitleTableView.dataSource = self
         subtitleTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -349,6 +349,8 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
         }
 
         header.textLabel?.textColor = .white
+
+        header.textLabel?.text = header.textLabel?.text?.capitalized
 
         if #available(iOS 13.0, *) {
             header.backgroundColor = UIColor.black.withAlphaComponent(0.8)
