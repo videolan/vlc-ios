@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "שחרור נעילת ספריית המדיה\nיש לבטל כדי להכניס קוד";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d ניסיונות צופן שנכשלו";
-"1 Failed Passcode Attempt" = "ניסיון צופן אחד נכשל";
-"Change Passcode" = "החלפת צופן";
 "Enter Passcode" = "נא להקליד צופן";
 "Enter a passcode" = "נא להקליד צופן";
-"Enter your new passcode" = "נא להקליד את הצופן החדש שלך";
-"Enter your old passcode" = "נא להקליד את הצופן החדש שלך";
-"Enter your passcode" = "נא להקליד את הצופן שלך";
-"Next" = "הבא";
 "Passcodes did not match. Try again." = "הצפנים אינם תואמים. נא לנסות שוב.";
-"Re-enter your new passcode" = "נא להקליד את הצופן החדש שלך שוב";
 "Re-enter your passcode" = "נא להקליד את הצופן שלך שוב";
 "Set Passcode" = "הגדרת צופן";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "מספר שמע";
 "NB_MEDIA" = "מספר מדיה";
 "NB_VIDEO" = "מספר וידאו";
+"NB_ALBUM" = "מספר האלבומים";
+"LAST_PLAYBACK_DATE" = "תאריך הנגינה האחרון";
 
 // MARK: - VLCNetworkLoginTVViewController
 
