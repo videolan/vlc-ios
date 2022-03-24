@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "解鎖媒體庫\n輸入密碼以取消";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d 次嘗試通關密碼失敗";
-"1 Failed Passcode Attempt" = "一次嘗試通關密碼失敗";
-"Change Passcode" = "更換通關密碼";
 "Enter Passcode" = "輸入通關密碼";
 "Enter a passcode" = "輸入通關密碼";
-"Enter your new passcode" = "輸入您新的通關密碼";
-"Enter your old passcode" = "輸入您舊的通關密碼";
-"Enter your passcode" = "輸入您的通關密碼";
-"Next" = "下一個";
 "Passcodes did not match. Try again." = "通關密碼不一致。請再試一次。";
-"Re-enter your new passcode" = "再次輸入您新的通關密碼";
 "Re-enter your passcode" = "再次輸入您的通關密碼";
 "Set Passcode" = "設定通關密碼";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "音訊數量";
 "NB_MEDIA" = "媒體數量";
 "NB_VIDEO" = "影片數量";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
