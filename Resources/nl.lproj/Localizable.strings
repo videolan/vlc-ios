@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Mediabibliotheek ontgrendelen\nAnnuleren om paswoord in te geven";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d mislukte wachtwoordpogingen";
-"1 Failed Passcode Attempt" = "1 mislukte wachtwoordpoging";
-"Change Passcode" = "Wachtwoord wijzigen";
 "Enter Passcode" = "Wachtwoord ingeven";
 "Enter a passcode" = "Een wachtwoord ingeven";
-"Enter your new passcode" = "Nieuw wachtwoord ingeven";
-"Enter your old passcode" = "Oud wachtwoord ingeven";
-"Enter your passcode" = "Wachtwoord ingeven";
-"Next" = "Volgende";
 "Passcodes did not match. Try again." = "Wachtwoorden kwamen niet overeen. Probeer opnieuw.";
-"Re-enter your new passcode" = "Nieuw  wachtwoord opnieuw ingeven";
 "Re-enter your passcode" = "Wachtwoord opnieuw ingeven";
 "Set Passcode" = "Wachtwoord instellen";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Audio-aantal";
 "NB_MEDIA" = "Media-aantal";
 "NB_VIDEO" = "Video-aantal";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
