@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "ปลดล็อกคลังสื่อ\nยกเลิกเพื่อใส่รหัสผ่าน";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "ป้อนรหัสผ่านไม่สำเร็จ %d ครั้ง";
-"1 Failed Passcode Attempt" = "ป้อนรหัสผ่านไม่สำเร็จ 1 ครั้ง";
-"Change Passcode" = "เปลี่ยนรหัสผ่าน";
 "Enter Passcode" = "ป้อนรหัสผ่าน";
 "Enter a passcode" = "ป้อนรหัสผ่าน";
-"Enter your new passcode" = "ป้อนรหัสผ่านใหม่ของคุณ";
-"Enter your old passcode" = "ป้อนรหัสผ่านเก่าของคุณ";
-"Enter your passcode" = "ป้อนรหัสผ่านของคุณ";
-"Next" = "ถัดไป";
 "Passcodes did not match. Try again." = "รหัสผ่านไม่ตรงกัน กรุณาลองอีกครั้ง";
-"Re-enter your new passcode" = "ป้อนรหัสผ่านใหม่ของคุณอีกครั้ง";
 "Re-enter your passcode" = "ป้อนรหัสผ่านของคุณอีกครั้ง";
 "Set Passcode" = "กำหนดรหัสผ่าน";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "จำนวนเสียง";
 "NB_MEDIA" = "จำนวนสื่อ";
 "NB_VIDEO" = "จำนวนวิดีโอ";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
