@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Médiatár feloldása\nMégse a jelkód megadásához";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d sikertelen jelkódkísérlet";
-"1 Failed Passcode Attempt" = "1 sikertelen jelkódkísérlet";
-"Change Passcode" = "Jelkód módosítása";
 "Enter Passcode" = "Adja meg a jelkódot";
 "Enter a passcode" = "Adjon meg egy jelkódot";
-"Enter your new passcode" = "Adja meg az új jelkódját";
-"Enter your old passcode" = "Adja meg a régi jelkódját";
-"Enter your passcode" = "Adja meg a jelkódját";
-"Next" = "Következő";
 "Passcodes did not match. Try again." = "A jelkódok nem egyeznek. Próbálja újra.";
-"Re-enter your new passcode" = "Adja meg újból az új jelkódját";
 "Re-enter your passcode" = "Adja meg újból a jelkódját";
 "Set Passcode" = "Jelkód beállítása";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Hangok száma";
 "NB_MEDIA" = "Médiák száma";
 "NB_VIDEO" = "Videók száma";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
