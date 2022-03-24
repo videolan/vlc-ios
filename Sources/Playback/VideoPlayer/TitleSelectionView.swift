@@ -107,7 +107,7 @@ class TitleSelectionView: UIView {
 
         backgroundView.accessibilityTraits = .allowsDirectInteraction
         backgroundView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                                    action: #selector(self.removeView)))
         return backgroundView
@@ -203,7 +203,7 @@ class TitleSelectionView: UIView {
 
 private extension TitleSelectionView {
     private func setupStackView() {
-        mainStackView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        mainStackView.backgroundColor = .clear
         mainStackView.addArrangedSubview(audioTableView)
         mainStackView.addArrangedSubview(subtitleTableView)
     }
@@ -279,6 +279,7 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
 
         cell.checkImageView.alpha = 0
         cell.selectionStyle = .none
+        cell.backgroundColor = .clear
 
         var cellTitle: String = ""
         if tableView == audioTableView {
@@ -348,6 +349,7 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
             return
         }
 
+        header.tintColor = UIColor.black.withAlphaComponent(0.8)
         header.textLabel?.textColor = .white
 
         header.textLabel?.text = header.textLabel?.text?.capitalized
