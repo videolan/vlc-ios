@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "تغییر رمز";
 "Enter Passcode" = "رمز را وارد کنید";
 "Enter a passcode" = "رمز را وارد کنید";
-"Enter your new passcode" = "رمز جدید خود را وارد کنید";
-"Enter your old passcode" = "رمز قبلی خود را وارد کنید";
-"Enter your passcode" = "رمزتان را وارد کنید";
-"Next" = "بعدی";
 "Passcodes did not match. Try again." = "رمزها یکی نبود. دوباره تلاش کنید.";
-"Re-enter your new passcode" = "رمز جدید خود را دوباره وارد کنید";
 "Re-enter your passcode" = "رمز را دوباره وارد کنید";
 "Set Passcode" = "تنظیم رمز";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Number of audio";
 "NB_MEDIA" = "Number of media";
 "NB_VIDEO" = "Number of video";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
