@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Desblokeatu euskarri liburutegia\nUtzi pasahitza sartzeko";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d pasahitz saiakera hutsegituta";
-"1 Failed Passcode Attempt" = "Huts egite 1 pasahitzaren saiakeran";
-"Change Passcode" = "Aldatu pasakodea";
 "Enter Passcode" = "Sartu pasakodea";
 "Enter a passcode" = "Sartu pasakodea";
-"Enter your new passcode" = "Sartu zure pasakode berria";
-"Enter your old passcode" = "Sartu zure pasakode zaharra";
-"Enter your passcode" = "Sartu zure pasakodea";
-"Next" = "Hurrengoa";
 "Passcodes did not match. Try again." = "Pasakodeak ez datoz bat. Saiatu berriro.";
-"Re-enter your new passcode" = "Sartu berriro zure pasakode berria";
 "Re-enter your passcode" = "Sartu berriro zure pasakodea";
 "Set Passcode" = "Ezarri pasakodea";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Audio kopurua";
 "NB_MEDIA" = "Multimedia kopurua";
 "NB_VIDEO" = "Bideo kopurua";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
