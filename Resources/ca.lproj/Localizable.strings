@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Desbloquejar la Mediateca \nCancel·lar per a introduir la clau d'accés";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Intents fallits de claus d'accés";
-"1 Failed Passcode Attempt" = "1 intent fallit de codi d'accés";
-"Change Passcode" = "Canviï el codi d'accés";
 "Enter Passcode" = "Introduïu la clau d'accés";
 "Enter a passcode" = "Entra una clau d'accés";
-"Enter your new passcode" = "Entra la nova clau d'accés";
-"Enter your old passcode" = "Entra l'antiga clau d'accés";
-"Enter your passcode" = "Entra la clau d'accés";
-"Next" = "Endavant";
 "Passcodes did not match. Try again." = "Les claus d'accés no coincideixen. Intenta-ho de nou.";
-"Re-enter your new passcode" = "Repeteix la nova clau d'accés";
 "Re-enter your passcode" = "Repeteix la clau d'accés";
 "Set Passcode" = "Estableix la nova clau d'accés";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Nombre d'àudio";
 "NB_MEDIA" = "Nombre de multimèdia";
 "NB_VIDEO" = "Número de vídeo";
+"NB_ALBUM" = "Nombre d'àlbums";
+"LAST_PLAYBACK_DATE" = "Darrera data de reproducció";
 
 // MARK: - VLCNetworkLoginTVViewController
 
