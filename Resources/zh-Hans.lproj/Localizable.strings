@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "网络串流";
 "OPEN_NETWORK_HELP" = "请输入任意 HTTP、RTSP、RTMP、MMS、FTP 或 UDP/RTP 地址，以便直接打开串流。";
 "HTTP_UPLOAD_SERVER_OFF" = "非活动服务器";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "无活跃Wi-Fi连接";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "无活动的 Wi-Fi 连接";
 "OPEN_STREAM_OR_DOWNLOAD" = "您是否希望下载或打开该 URL?";
 "SHARED_VLC_IOS_LIBRARY" = "共享 VLC for iOS 库";
 "SMB_CIFS_FILE_SERVERS" = "文件服务器 (SMB)";
@@ -128,7 +128,7 @@
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "请检查您服务器的地址及登录凭据";
 
 "FILES_APP_CELL_TITLE" = "本地文件";
-"FILES_APP_CELL_SUBTITLE" = "在不复制文件到 VLC 情形下打开它";
+"FILES_APP_CELL_SUBTITLE" = "直接打开文件，而不将其复制到 VLC";
 
 "CLOUD_SERVICES" = "云服务";
 "LOGIN" = "登录";
@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "解锁媒体库\n按「取消」可输入口令解锁";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "口令验证失败 %d 次";
-"1 Failed Passcode Attempt" = "口令验证失败 1 次";
-"Change Passcode" = "更改口令";
 "Enter Passcode" = "输入口令";
 "Enter a passcode" = "请输入口令";
-"Enter your new passcode" = "请输入新口令";
-"Enter your old passcode" = "请输入旧口令";
-"Enter your passcode" = "请输入您的口令";
-"Next" = "下一步";
 "Passcodes did not match. Try again." = "口令不匹配。请再试一次。";
-"Re-enter your new passcode" = "请再次输入新口令";
 "Re-enter your passcode" = "请再次输入口令";
 "Set Passcode" = "设置口令";
 
@@ -219,7 +211,7 @@
 "FIRST_STEPS_ITUNES" = "iTunes 文件同步";
 "FIRST_STEPS_ITUNES_TITLE" = "与计算机同步";
 "FIRST_STEPS_ITUNES_DETAILS" = "将设备连接到 iTunes 并选择该设备。在 iTunes 左侧菜单中选择「文件共享」，找到「VLC」，即可开始传输文件";
-"FIRST_STEPS_WIFI_TITLE" = "通过Wi-Fi分享";
+"FIRST_STEPS_WIFI_TITLE" = "通过 Wi-Fi 共享";
 "FIRST_STEPS_WIFI_DETAILS" = "连接到手机所处的网络，并在您偏好的 web 浏览器中输入生成的 URL";
 "FIRST_STEPS_CLOUDS" = "云存储";
 "FIRST_STEPS_CLOUD_TITLE" = "云";
@@ -236,7 +228,7 @@
 "NO_SERVER_FOUND" = "未找到服务器";
 "NO_RECENT_STREAMS" = "最近没有播放流";
 
-"WEBINTF_TITLE" = "正在通过Wi-Fi分享";
+"WEBINTF_TITLE" = "通过 Wi-Fi 分享";
 "WEBINTF_DROPFILES" = "拖放文件";
 "WEBINTF_DROPFILES_LONG" = "请将打算添加到 %@ 的文件拖入本窗口。<br>也可以点击“+”按钮，打开文件选择对话框。";
 "WEBINTF_DOWNLOADFILES" = "下载文件";
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "音频数量";
 "NB_MEDIA" = "媒体数量";
 "NB_VIDEO" = "视频数量";
+"NB_ALBUM" = "专辑数量";
+"LAST_PLAYBACK_DATE" = "上次播放日期";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -411,7 +405,7 @@
 "DVD_HINT" = "DVD 接口";
 
 "ROTATION_LOCK_BUTTON" = "旋转锁";
-"ROTATION_LOCK_HINT" = "锁定视频到当前方向";
+"ROTATION_LOCK_HINT" = "锁定视频屏幕方向";
 
 "REPEAT_HINT" = "重复相同媒体";
 
@@ -494,7 +488,7 @@
 "MAKE_DONATION_TITLE" = "捐赠";
 "DONATION_DESCRIPTION" = "您的赞助将允许我们改进 VLC-iOS 应用程序，并支持 VideoLAN 协会。";
 "CANNOT_MAKE_PAYMENTS" = "您不被允许在此设备上付款。";
-"PURCHASE_FAILED" = "购买失败";
+"PURCHASE_FAILED" = "购买失败。";
 "SEND_DONATION" = "发送捐款";
 "PURCHASE_SUCESS_TITLE" = "捐赠已发送";
 "PURCHASE_SUCESS_DESCRIPTION" = "感谢您的捐赠";
