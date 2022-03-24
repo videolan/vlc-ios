@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Odemknout Knihovnu médií\nZrušte pro zadání hesla";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d neplatných pokusů pro přihlášení";
-"1 Failed Passcode Attempt" = "1 neplatný pokus pro přihlášení";
-"Change Passcode" = "Změnit heslo";
 "Enter Passcode" = "Zadat heslo";
 "Enter a passcode" = "Zadejte heslo";
-"Enter your new passcode" = "Zadejte nové heslo";
-"Enter your old passcode" = "Zadejte staré heslo";
-"Enter your passcode" = "Zadejte heslo";
-"Next" = "Další";
 "Passcodes did not match. Try again." = "Hesla se neshodují. Zkuste to znovu.";
-"Re-enter your new passcode" = "Zadejte nové heslo znovu";
 "Re-enter your passcode" = "Zadejte heslo znovu";
 "Set Passcode" = "Nastavit heslo";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Pořadí zvuku";
 "NB_MEDIA" = "Pořadí média";
 "NB_VIDEO" = "Pořadí videa";
+"NB_ALBUM" = "Počet alb";
+"LAST_PLAYBACK_DATE" = "Datum posledního přehrávání";
 
 // MARK: - VLCNetworkLoginTVViewController
 
