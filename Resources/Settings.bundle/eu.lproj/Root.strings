@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Zabortegiko mediateka";
 
 "ABOUT_APP_TV" = "iOS sistemarako VLC honi buruz";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
