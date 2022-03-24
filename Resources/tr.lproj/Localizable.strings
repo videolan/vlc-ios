@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Ortam Kitaplığının Kilidini Aç\nParola yazmayı iptal et";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d başarısız parola denemesi";
-"1 Failed Passcode Attempt" = "1 başarısız parola denemesi";
-"Change Passcode" = "Parolayı değiştir";
 "Enter Passcode" = "Parolayı yazın";
 "Enter a passcode" = "Bir parola yazın";
-"Enter your new passcode" = "Yeni parolanızı yazın";
-"Enter your old passcode" = "Eski parolanızı yazın";
-"Enter your passcode" = "Parolanızı yazın";
-"Next" = "Sonraki";
 "Passcodes did not match. Try again." = "Parola ile onayı aynı değil. Yeniden deneyin.";
-"Re-enter your new passcode" = "Yeni parolanızı onaylayın";
 "Re-enter your passcode" = "Parolanızı onaylayın";
 "Set Passcode" = "Parola koruması";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Ses kaydı sayısı";
 "NB_MEDIA" = "Ortam sayısı";
 "NB_VIDEO" = "Görüntü kaydı sayısı";
+"NB_ALBUM" = "Albüm sayıları";
+"LAST_PLAYBACK_DATE" = "Son oynatma tarihi";
 
 // MARK: - VLCNetworkLoginTVViewController
 
