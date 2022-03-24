@@ -95,6 +95,7 @@ class ActionSheet: UIViewController {
         mainStackView.alignment = .center
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.backgroundColor = .clear
+        mainStackView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss(sender:))))
         return mainStackView
     }()
 
@@ -133,6 +134,8 @@ class ActionSheet: UIViewController {
         let h = collectionView.frame.size.height
         return CGRect(x: w, y: y, width: w, height: h)
     }
+
+    private var mainStackViewTranslation = CGPoint(x: 0, y: 0)
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -228,6 +231,7 @@ class ActionSheet: UIViewController {
                        animations: {
                         [mainStackView, backgroundView] in
                         mainStackView.frame = realMainStackView
+                        mainStackView.transform = .identity
                         backgroundView.alpha = 1
         })
     }
@@ -348,6 +352,30 @@ extension ActionSheet {
                 presentingViewController?.dismiss(animated: false)
                 self.delegate?.actionSheetDidFinishClosingAnimation?(self)
         })
+    }
+
+    @objc func handleDismiss(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .changed:
+            mainStackViewTranslation = sender.translation(in: mainStackView)
+            if mainStackViewTranslation.y < 0 {
+                return
+            }
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.mainStackView.transform = CGAffineTransform(translationX: 0, y: self.mainStackViewTranslation.y)
+            })
+        case .ended:
+            let halfHeight = mainStackView.frame.height / 2
+            if mainStackViewTranslation.y < halfHeight {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                    self.mainStackView.transform = .identity
+                })
+            } else {
+                removeActionSheet()
+            }
+        default:
+            break
+        }
     }
 }
 
