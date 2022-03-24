@@ -441,6 +441,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Penyama";
 "MORE_OPTIONS_HEADER_TITLE" = "Pilihan Video";
+"BOOKMARKS_TITLE" = "Bookmarks";
+"ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
+"BOOKMARK_DEFAULT_NAME" = "Bookmark at";
+"BOOKMARK_RENAME_TITLE" = "Rename bookmark";
+"BOOKMARK_DELETE_TITLE" = "Delete bookmark";
+"BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Paksa imbas semula pustaka media";
