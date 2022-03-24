@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "미디어 라이브러리 잠금 해제\n비밀번호를 입력하려면 취소하세요";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "비밀번호 시도 실패 %d회";
-"1 Failed Passcode Attempt" = "비밀번호 시도 실패 1회";
-"Change Passcode" = "비밀번호 변경";
 "Enter Passcode" = "비밀번호를 입력하세요";
 "Enter a passcode" = "비밀번호를 입력하세요";
-"Enter your new passcode" = "새 비밀번호를 입력하세요";
-"Enter your old passcode" = "이전 비밀번호를 입력하세요";
-"Enter your passcode" = "비밀번호를 입력하세요";
-"Next" = "다음";
 "Passcodes did not match. Try again." = "비밀번호가 맞지 않습니다. 다시 해 보세요.";
-"Re-enter your new passcode" = "새 비밀번호를 다시 입력하세요";
 "Re-enter your passcode" = "비밀번호를 다시 입력하세요";
 "Set Passcode" = "비밀번호 설정";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "오디오 수";
 "NB_MEDIA" = "미디어 수";
 "NB_VIDEO" = "동영상 수";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
