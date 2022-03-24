@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Sbluccà a mediateca\nAbbandunà a scrittura di u codice d’intesa";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d tentativi fiascati di codice d’intesa";
-"1 Failed Passcode Attempt" = "1 tentativu fiascatu di codice d’intesa";
-"Change Passcode" = "Cambià u codice d’intesa";
 "Enter Passcode" = "Scrivite u codice d’intesa";
 "Enter a passcode" = "Scrive un codice d’intesa";
-"Enter your new passcode" = "Scrive u vostru novu codice d’intesa";
-"Enter your old passcode" = "Scrive u vostru vechju codice d’intesa";
-"Enter your passcode" = "Scrive u vostru codice d’intesa";
-"Next" = "Seguente";
 "Passcodes did not match. Try again." = "I codici d’intesa ùn currispundenu micca. Pruvate torna.";
-"Re-enter your new passcode" = "Scrive torna u vostru novu codice d’intesa";
 "Re-enter your passcode" = "Scrive torna u vostru codice d’intesa";
 "Set Passcode" = "Definisce un codice d’intesa";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Numeru di traccie audio";
 "NB_MEDIA" = "Numeru di traccie multimedià";
 "NB_VIDEO" = "Numeru di traccie video";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
