@@ -417,6 +417,7 @@
 
 - (void)stopActivity
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(cancelActivity) object:nil];
     [self.activityIndicatorView stopAnimating];
 }
 
