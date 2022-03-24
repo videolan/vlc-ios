@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "Deblocare bibliotecă Media \nAnulare pentru a introduce parola";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d (de) încercări eșuate de parolă";
-"1 Failed Passcode Attempt" = "1 încercare eșuată de cod de acces";
-"Change Passcode" = "Modificare cod de acces";
 "Enter Passcode" = "Introduceți parola";
 "Enter a passcode" = "Introduceți o parolă";
-"Enter your new passcode" = "Introduceți o parolă nouă";
-"Enter your old passcode" = "Introduceți parola veche";
-"Enter your passcode" = "Introduceți parola dumneavoastră";
-"Next" = "Înainte";
 "Passcodes did not match. Try again." = "Parolele nu se potrivesc. Mai încercați.";
-"Re-enter your new passcode" = "Reintroduceți noua parolă";
 "Re-enter your passcode" = "Reintroduceți parola dumneavoastră";
 "Set Passcode" = "Stabilire cod de acces";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "Număr de audio";
 "NB_MEDIA" = "Numărul de media";
 "NB_VIDEO" = "Număr de videoclipuri";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
