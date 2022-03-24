@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "فتح مكتبة الوسائط\nإلغِ لإدخال الرقم السري";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d محاولة رمز مرور فاشلة";
-"1 Failed Passcode Attempt" = "1 محاولة رمز مرور فاشلة واحدة";
-"Change Passcode" = "غير رمز المرور";
 "Enter Passcode" = "أدخل رمز المرور";
 "Enter a passcode" = "أدخل رمز المرور";
-"Enter your new passcode" = "أدخل رمز المرور الجديد";
-"Enter your old passcode" = "أدخل رمز المرور القديم";
-"Enter your passcode" = "أدخل رمزك المرور";
-"Next" = "التالي";
 "Passcodes did not match. Try again." = "رمز المرور غير متطابق. حاول مجددا.";
-"Re-enter your new passcode" = "أعِد إدخال رمز مرورك الجديد";
 "Re-enter your passcode" = "أعِد إدخال رمز مرورك ";
 "Set Passcode" = "اضبط رمز المرور";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "عدد الصوت";
 "NB_MEDIA" = "عدد الوسائط";
 "NB_VIDEO" = "عدد مقاطع الفيديو";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
 
 // MARK: - VLCNetworkLoginTVViewController
 
