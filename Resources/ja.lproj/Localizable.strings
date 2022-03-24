@@ -159,17 +159,9 @@
 "BIOMETRIC_UNLOCK" = "メディアライブラリのロック解除\nパスコード入力をキャンセル";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "パスコードの試行に %d 回失敗しました";
-"1 Failed Passcode Attempt" = "パスコードの試行に1回失敗しました";
-"Change Passcode" = "パスコード変更";
 "Enter Passcode" = "パスコードを入力してください";
 "Enter a passcode" = "パスコードを入力してください";
-"Enter your new passcode" = "新しいパスコードを入力してください";
-"Enter your old passcode" = "古いパスコードを入力してください";
-"Enter your passcode" = "パスコードを入力してください";
-"Next" = "次";
 "Passcodes did not match. Try again." = "パスコードが一致しません。再入力してください。";
-"Re-enter your new passcode" = "新しいパスコードを再入力してください";
 "Re-enter your passcode" = "パスコードを再入力してください";
 "Set Passcode" = "パスコード設定";
 
@@ -391,6 +383,8 @@
 "NB_AUDIO" = "オーディオ数";
 "NB_MEDIA" = "メディア数";
 "NB_VIDEO" = "ビデオ数";
+"NB_ALBUM" = "アルバム数";
+"LAST_PLAYBACK_DATE" = "最終再生日";
 
 // MARK: - VLCNetworkLoginTVViewController
 
