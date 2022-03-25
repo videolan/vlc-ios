@@ -2,13 +2,21 @@
 
 ## iOS [3.3.1]
 · Fix UPnP server browsing issue on IPv4/IPv6 dual stack networks
+· Improve SMB compatiblity
+· Fix frequent crashes when SMBv1 shares are discovered on the local network
 · Prevent automatic renaming of files downloaded from Dropbox
 · Fix display of 'Now Playing' metadata
 · Show individual UPnP server icons
 · Web interface preferably runs on IPv4 instead of IPv6 interfaces
+· Fix renaming stored network streams
+· Improve network stream opening UI for small devices
+· Fix issues listing downloable subtitles
+· Fix listing more than 200 items on OneDrive shares
 
 ## tvOS [3.3.1]
 · Fix UPnP server browsing issue on IPv4/IPv6 dual stack networks
+· Improve SMB compatiblity
+· Fix frequent crashes when SMBv1 shares are discovered on the local network
 · Fix playback of URLs shared through the web interface
 · Fix playback of the first file received through the web interface
 · Web interface preferably runs on IPv4 instead of IPv6 interfaces
