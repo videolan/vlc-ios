@@ -26,6 +26,7 @@
     BoxFile *_selectedFile;
     VLCBoxController *_boxController;
     NSArray *_listOfFiles;
+    NSString *_currentFileName;
 }
 
 @end
@@ -175,6 +176,7 @@
         return;
 
     _selectedFile = _listOfFiles[indexPath.row];
+    _currentFileName = _selectedFile.name;
     if (![_selectedFile.type isEqualToString:@"folder"])
         [self streamFile:(BoxFile *)_selectedFile];
     else {
@@ -222,7 +224,8 @@
         [connection cancel];
 
         /* now ask VLC to stream the URL we were just passed */
-        VLCMedia *media = [VLCMedia mediaWithURL:theActualURL];
+        VLCMedia *media = [_boxController setMediaNameMetadata:[VLCMedia mediaWithURL:theActualURL]
+                                                      withName:_currentFileName];
         VLCMediaList *medialist = [[VLCMediaList alloc] init];
         [medialist addMedia:media];
         [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];

@@ -51,4 +51,12 @@
     return path;
 }
 
+- (VLCMedia *)setMediaNameMetadata:(VLCMedia *)media withName:(NSString *)name
+{
+    if (name.length) {
+        [media setMetadata:name forKey:VLCMetaInformationTitle];
+    }
+    return media;
+}
+
 @end

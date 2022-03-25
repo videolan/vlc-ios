@@ -224,7 +224,8 @@
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/drive/v3/files/%@?alt=media", file.identifier];
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:urlString]];
+    VLCMedia *media = [self setMediaNameMetadata:[VLCMedia mediaWithURL:[NSURL URLWithString:urlString]]
+                                        withName:file.name];
     [media addOptions:@{@"http-token" : token}];
     VLCMediaList *medialist = [[VLCMediaList alloc] init];
     [medialist addMedia:media];
