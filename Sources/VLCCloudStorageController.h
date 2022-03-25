@@ -43,5 +43,6 @@ typedef NS_ENUM (NSInteger, VLCCloudSortingCriteria) {
 - (void)requestDirectoryListingAtPath:(NSString *)path;
 - (BOOL)supportSorting;
 - (NSString *)createPotentialPathFrom:(NSString *)path;
+- (VLCMedia *)setMediaNameMetadata:(VLCMedia *)media withName:(NSString *)name;
 
 @end

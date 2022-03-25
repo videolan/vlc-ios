@@ -301,7 +301,8 @@
     [[self.client.filesRoutes getTemporaryLink:path] setResponseBlock:^(DBFILESGetTemporaryLinkResult * _Nullable result, DBFILESGetTemporaryLinkError * _Nullable routeError, DBRequestError * _Nullable networkError) {
 
         if (result) {
-            VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:result.link]];
+            VLCMedia *media = [self setMediaNameMetadata:[VLCMedia mediaWithURL:[NSURL URLWithString:result.link]]
+                                                withName:result.metadata.name];
             VLCMediaList *medialist = [[VLCMediaList alloc] init];
             [medialist addMedia:media];
             [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
