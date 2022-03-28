@@ -89,6 +89,16 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>smb-force-v1</string>
+			<key>Title</key>
+			<string>SETTINGS_FORCE_SMBV1</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
