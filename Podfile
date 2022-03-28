@@ -19,7 +19,7 @@ target 'VLC-iOS' do
   pod 'OBSlider', '1.1.0'
   pod 'InAppSettingsKit', :git => 'https://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
   pod 'GoogleAPIClientForREST/Drive'
-  pod 'MobileVLCKit', '3.4.1b1'
+  pod 'MobileVLCKit', '3.4.1b2'
   pod 'VLCMediaLibraryKit', '0.10.1'
   pod 'GTMAppAuth', '0.7.1'
   pod 'ADAL', :git => 'https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git', :commit => '348e94df'
@@ -41,7 +41,7 @@ target 'VLC-tvOS' do
   platform :tvos, '11.0'
   shared_pods
   pod 'GRKArrayDiff', '~> 2.1'
-  pod 'TVVLCKit', '3.4.1b1'
+  pod 'TVVLCKit', '3.4.1b2'
   pod 'MetaDataFetcherKit', '~>0.5.0'
 end
 
