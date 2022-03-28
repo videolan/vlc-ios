@@ -441,6 +441,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Dengeleyici";
 "MORE_OPTIONS_HEADER_TITLE" = "Görüntü ayarları";
+"BOOKMARKS_TITLE" = "Yer imleri";
+"ADD_BOOKMARKS_TITLE" = "Yer imi ekle";
+"BOOKMARK_DEFAULT_NAME" = "Yer imi konumu";
+"BOOKMARK_RENAME_TITLE" = "Yer imini yeniden adlandır";
+"BOOKMARK_DELETE_TITLE" = "Yer imini sil";
+"BOOKMARK_DELETE_MESSAGE" = "Yer imini silmeyi onayla";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Ortam kitaplığı yeniden taranmaya zorlansın";
