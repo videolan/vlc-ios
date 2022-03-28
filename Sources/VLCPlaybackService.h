@@ -105,7 +105,9 @@ NS_SWIFT_NAME(PlaybackService)
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly) NSTimer *sleepTimer;
 
+#if !TARGET_OS_TV
 @property (nonatomic, nullable) VLCRendererItem *renderer;
+#endif
 
 @property (nonatomic, readonly) VLCAspectRatio currentAspectRatio;
 
