@@ -139,7 +139,8 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
-            queueButton.widthAnchor.constraint(equalTo: heightAnchor)
+            queueButton.widthAnchor.constraint(equalTo: heightAnchor),
+            deviceButton.widthAnchor.constraint(equalTo: heightAnchor)
         ])
     }
 
