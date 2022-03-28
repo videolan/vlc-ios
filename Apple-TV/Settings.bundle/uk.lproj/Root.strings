@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Знімок бібліотеки медіа";
 
 "ABOUT_APP_TV" = "Про VLC для tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Запам'ятати стан програвача (перемішування, цикл)";
