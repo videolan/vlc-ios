@@ -27,6 +27,8 @@ protocol MediaMoreOptionsActionSheetDelegate {
                                                  isEditing: Bool)
     func mediaMoreOptionsActionSheetDisplayAddBookmarksView(_ bookmarksView: AddBookmarksView)
     func mediaMoreOptionsActionSheetRemoveAddBookmarksView()
+    func mediaMoreOptionsActionSheetDidToggleShuffle(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet)
+    func mediaMoreOptionsActionSheetDidTapRepeat(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet)
 }
 
 @objc (VLCMediaMoreOptionsActionSheet)
@@ -37,7 +39,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     var currentMediaHasChapters: Bool = false
 
     // To be removed when Designs are done for the Filters, Equalizer etc views are added to Figma
-    lazy private var mockView: UIView = {
+    lazy private(set) var mockView: UIView = {
         let v = UIView()
         v.backgroundColor = .green
         v.frame = offScreenFrame
@@ -174,6 +176,39 @@ protocol MediaMoreOptionsActionSheetDelegate {
         equalizerView.setupTheme()
         chapterView.setupTheme()
         bookmarksView.setupTheme()
+    }
+
+    func configureRepeatMode() -> (image: UIImage?, title: String, isEnabled: Bool) {
+        var image: UIImage?
+        var localization: String = ""
+        var isEnabled: Bool = false
+        let playbackService = PlaybackService.sharedInstance()
+        switch playbackService.repeatMode {
+        case .doNotRepeat:
+            isEnabled = false
+            image = UIImage(named: "iconNoRepeat")
+            localization = NSLocalizedString("MENU_REPEAT_DISABLED", comment: "")
+        case .repeatCurrentItem:
+            isEnabled = true
+            image = UIImage(named: "iconRepeatOne")
+            localization = NSLocalizedString("MENU_REPEAT_SINGLE", comment: "")
+        case .repeatAllItems:
+            isEnabled = true
+            image = UIImage(named: "iconRepeat")
+            localization = NSLocalizedString("MENU_REPEAT_ALL", comment: "")
+        @unknown default: break
+
+        }
+        return (image, localization, isEnabled)
+    }
+
+    func configureShuffleMode() -> (image: UIImage?, title: String, isEnabled: Bool) {
+        let playbackService = PlaybackService.sharedInstance()
+        let image: UIImage? = playbackService.isShuffleMode ?  UIImage(named: "iconShuffle") :  UIImage(named: "iconNoShuffle")
+        let localization: String = playbackService.isShuffleMode ? NSLocalizedString("SHUFFLE", comment: "") : NSLocalizedString("SHUFFLE_DISABLED", comment: "")
+        let isEnabled: Bool = playbackService.isShuffleMode
+
+        return (image, localization, isEnabled)
     }
 
 // MARK: - Equalizer
@@ -348,7 +383,11 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDelegate {
             preconditionFailure("MediaMoreOptionsActionSheet: MoreOptionsActionSheetDelegate not set")
         }
 
-        if let id = cell.identifier, id == .interfaceLock {
+        guard let identifier = cell.identifier else {
+            return
+        }
+
+        if identifier == .interfaceLock {
             moreOptionsDelegate.mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: state)
             interfaceDisabled = state
         }
@@ -402,6 +441,12 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
                 cellModel.accessoryType = .popup
             } else if $0 == .chapters {
                 cellModel.accessoryType = .popup
+            } else if $0 == .repeatShuffle {
+                cellModel.accessoryType = .none
+                cellModel.viewToPresent = mockView
+                let repeatTuple = configureRepeatMode()
+                cellModel.iconImage = repeatTuple.image
+                cellModel.title = repeatTuple.title
             }
             models.append(cellModel)
         }

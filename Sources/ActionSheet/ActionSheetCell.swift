@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 enum ActionSheetCellAccessoryType {
+    case none
     case toggleSwitch
     case checkmark
     case disclosureChevron
@@ -61,6 +62,197 @@ class ActionSheetCellImageView: UIImageView {
 protocol ActionSheetCellDelegate {
     func actionSheetCellShouldUpdateColors() -> Bool
     func actionSheetCellDidToggleSwitch(for cell: ActionSheetCell, state: Bool)
+}
+
+@objc (VLCDoubleActionSheetCellDelegate)
+protocol DoubleActionSheetCellDelegate {
+    func doubleActionSheetCellShouldUpdateColors() -> Bool
+    func doubleActionSheetCellDidTapLeft(_ cell: DoubleActionSheetCell)
+    func doubleActionSheetCellDidTapRight(_ cell: DoubleActionSheetCell)
+}
+
+class DoubleActionSheetCell: UICollectionViewCell {
+    // MARK: - Properties
+
+    static var reusableIdentifier: String {
+        return NSStringFromClass(self)
+    }
+
+    weak var delegate: DoubleActionSheetCellDelegate?
+
+    private let mainStackView: UIStackView = {
+        var mainStackView: UIStackView = UIStackView()
+        mainStackView.axis = .horizontal
+        mainStackView.distribution = .fill
+        mainStackView.spacing = 20
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        return mainStackView
+    }()
+
+    private let leftStackView: UIStackView = {
+        var leftStackView: UIStackView = UIStackView()
+        leftStackView.axis = .horizontal
+        leftStackView.alignment = .center
+        leftStackView.spacing = 10
+        leftStackView.translatesAutoresizingMaskIntoConstraints = false
+        return leftStackView
+    }()
+
+    private let leftIcon: ActionSheetCellImageView = {
+        let leftIcon = ActionSheetCellImageView()
+        leftIcon.setContentHuggingPriority(.required, for: .horizontal)
+        leftIcon.contentMode = .scaleAspectFit
+        leftIcon.translatesAutoresizingMaskIntoConstraints = false
+        return leftIcon
+    }()
+
+    private let leftName: UILabel = {
+        let name = UILabel()
+        let colors = PresentationTheme.current.colors
+        name.textColor = colors.cellTextColor
+        name.backgroundColor = colors.background
+        name.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
+        name.translatesAutoresizingMaskIntoConstraints = false
+        return name
+    }()
+
+    private let rightStackView: UIStackView = {
+        var rightStackView: UIStackView = UIStackView()
+        rightStackView.axis = .horizontal
+        rightStackView.alignment = .center
+        rightStackView.spacing = 10
+        rightStackView.translatesAutoresizingMaskIntoConstraints = false
+        return rightStackView
+    }()
+
+    private let rightIcon: ActionSheetCellImageView = {
+        let rightIcon = ActionSheetCellImageView()
+        rightIcon.setContentHuggingPriority(.required, for: .horizontal)
+        rightIcon.contentMode = .scaleAspectFit
+        rightIcon.translatesAutoresizingMaskIntoConstraints = false
+        return rightIcon
+    }()
+
+    private let rightName: UILabel = {
+        let rightName = UILabel()
+        let colors = PresentationTheme.current.colors
+        rightName.textColor = colors.cellTextColor
+        rightName.backgroundColor = colors.background
+        rightName.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
+        rightName.translatesAutoresizingMaskIntoConstraints = false
+        return rightName
+    }()
+
+    private let separatorView: UIView = {
+        let separatorView = UIView(frame: .zero)
+        separatorView.backgroundColor = .lightGray
+        return separatorView
+    }()
+
+    private lazy var rightTapGestureRecognizer: UITapGestureRecognizer = {
+        let rightTapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                               action: #selector(handleTapOnCell(_:)))
+        return rightTapGestureRecognizer
+    }()
+
+    private lazy var leftTapGestureRecognizer: UITapGestureRecognizer = {
+        let leftTapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                               action: #selector(handleTapOnCell(_:)))
+        return leftTapGestureRecognizer
+    }()
+
+    @objc func handleTapOnCell(_ sender: UITapGestureRecognizer) {
+        if sender == leftTapGestureRecognizer {
+            delegate?.doubleActionSheetCellDidTapLeft(self)
+        } else {
+            delegate?.doubleActionSheetCellDidTapRight(self)
+        }
+    }
+
+    // MARK: - Init
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+        setupConstraints()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+
+    // MARK: - Setup
+
+    private func setupViews() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTheme),
+                                               name: .VLCThemeDidChangeNotification, object: nil)
+
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        leftStackView.addArrangedSubview(leftIcon)
+        leftStackView.addArrangedSubview(leftName)
+
+        rightStackView.addArrangedSubview(rightIcon)
+        rightStackView.addArrangedSubview(rightName)
+
+        mainStackView.addArrangedSubview(leftStackView)
+        mainStackView.addArrangedSubview(separatorView)
+        mainStackView.addArrangedSubview(rightStackView)
+
+        rightStackView.addGestureRecognizer(rightTapGestureRecognizer)
+        leftStackView.addGestureRecognizer(leftTapGestureRecognizer)
+        addSubview(mainStackView)
+        updateTheme()
+    }
+
+
+    private func getThemeColors() -> ColorPalette {
+        if PresentationTheme.current.isBlack {
+            return PresentationTheme.blackTheme.colors
+        } else {
+            return PresentationTheme.darkTheme.colors
+        }
+    }
+    @objc private func updateTheme() {
+        let colors = getThemeColors()
+        backgroundColor = colors.background
+        leftName.backgroundColor = backgroundColor
+        rightName.backgroundColor = backgroundColor
+        mainStackView.backgroundColor = colors.background
+        rightStackView.backgroundColor = colors.background
+        leftStackView.backgroundColor = colors.background
+    }
+
+    private func setupConstraints() {
+        var guide: LayoutAnchorContainer = self
+
+        if #available(iOS 11.0, *) {
+            guide = safeAreaLayoutGuide
+        }
+        NSLayoutConstraint.activate([
+            mainStackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
+            mainStackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -20),
+            mainStackView.heightAnchor.constraint(equalTo: heightAnchor),
+            mainStackView.topAnchor.constraint(equalTo: topAnchor),
+            leftStackView.widthAnchor.constraint(equalTo: rightStackView.widthAnchor),
+            separatorView.widthAnchor.constraint(equalToConstant: 0.5)
+        ])
+    }
+
+    func configureRightCell(with name: String, image: UIImage, isEnabled: Bool = true) {
+        rightIcon.image = image
+        rightName.text = name
+        rightName.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        rightIcon.tintColor = isEnabled ? PresentationTheme.currentExcludingWhite.colors.orangeUI : .white
+    }
+
+    func configureLeftCell(with name: String, image: UIImage, isEnabled: Bool = true) {
+        leftIcon.image = image
+        leftName.text = name
+        leftName.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        leftIcon.tintColor = isEnabled ? PresentationTheme.currentExcludingWhite.colors.orangeUI : .white
+    }
 }
 
 @objc(VLCActionSheetCell)
@@ -126,10 +318,12 @@ class ActionSheetCell: UICollectionViewCell {
 
     private(set) var accessoryType: ActionSheetCellAccessoryType = .checkmark {
         didSet {
+            accessoryView.isHidden = false
             switch accessoryType {
             case .checkmark:
                 accessoryTypeImageView.image = UIImage(named: "checkmark")?.withRenderingMode(.alwaysTemplate)
                 add(view: accessoryTypeImageView, to: accessoryView)
+                accessoryView.isHidden = !isSelected
             case .disclosureChevron:
                 accessoryTypeImageView.image = UIImage(named: "disclosureChevron")?.withRenderingMode(.alwaysTemplate)
                 add(view: accessoryTypeImageView, to: accessoryView)
@@ -138,11 +332,8 @@ class ActionSheetCell: UICollectionViewCell {
             case .popup:
                 accessoryTypeImageView.image = UIImage(named: "iconMoreOptions")?.withRenderingMode(.alwaysTemplate)
                 add(view: accessoryTypeImageView, to: accessoryView)
-            }
-            if accessoryType == .checkmark {
-                accessoryView.isHidden = !isSelected
-            } else {
-                accessoryView.isHidden = false
+            case .none:
+                accessoryView.isHidden = true
             }
         }
     }
@@ -203,6 +394,7 @@ class ActionSheetCell: UICollectionViewCell {
         super.prepareForReuse()
         toggleSwitch.removeFromSuperview()
         accessoryType = .checkmark
+        identifier = nil
         updateColors()
     }
 
@@ -227,7 +419,7 @@ class ActionSheetCell: UICollectionViewCell {
         viewToPresent = model.viewToPresent
         identifier = model.cellIdentifier
         // disclosure chevron is set as the default accessoryView if a viewController is present
-        accessoryType = model.viewToPresent != nil && model.accessoryType != .popup ? .disclosureChevron : model.accessoryType
+        accessoryType = model.viewToPresent != nil && model.accessoryType != .popup && model.accessoryType != .none ? .disclosureChevron : model.accessoryType
         isMediaPlayerActionSheetCell = isFromMediaPlayerActionSheet
         let colors = getThemeColors()
 

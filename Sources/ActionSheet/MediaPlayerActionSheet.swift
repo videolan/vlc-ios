@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
+    case repeatShuffle
     case filter
     case playback
     case sleepTimer
@@ -38,6 +39,8 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
             return NSLocalizedString("ADD_BOOKMARKS_TITLE", comment: "")
         case .interfaceLock:
             return NSLocalizedString("INTERFACE_LOCK_BUTTON", comment: "")
+        case .repeatShuffle:
+            return NSLocalizedString("REPEAT_MODE", comment: "")
         }
     }
 }
@@ -221,6 +224,8 @@ class MediaPlayerActionSheet: ActionSheet {
                         actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentPopupView(withChild: equalizerView)
                         self.removeActionSheet()
                     }
+                } else if let sheet = self as? MediaMoreOptionsActionSheet {
+                    if item == sheet.mockView { }
                 } else {
                     self.add(childView: item)
                 }
@@ -254,6 +259,28 @@ extension MediaPlayerActionSheet: ActionSheetDataSource {
         var sheetCell: ActionSheetCell
         let cellModel = source.configurableCellModels[indexPath.row]
 
+
+        if indexPath.row == 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoubleActionSheetCell.reusableIdentifier,
+                                                                for: indexPath) as? DoubleActionSheetCell else {
+                return UICollectionViewCell()
+            }
+            cell.delegate = self
+
+            if let mediaMoreOptionSheet = self as? MediaMoreOptionsActionSheet {
+                let repeatTuple = mediaMoreOptionSheet.configureRepeatMode()
+                let shuffleTuple = mediaMoreOptionSheet.configureShuffleMode()
+                cell.configureLeftCell(with: repeatTuple.title,
+                                       image: repeatTuple.image!,
+                                       isEnabled: repeatTuple.isEnabled)
+                cell.configureRightCell(with: shuffleTuple.title,
+                                        image: shuffleTuple.image!,
+                                        isEnabled: shuffleTuple.isEnabled)
+            }
+            cell.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+            return cell
+        }
+
         if let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ActionSheetCell.identifier,
             for: indexPath) as? ActionSheetCell {
@@ -277,6 +304,24 @@ extension MediaPlayerActionSheet: ActionSheetDataSource {
         sheetCell.accessoryView.tintColor = PresentationTheme.currentExcludingWhite.colors.cellDetailTextColor
         sheetCell.delegate = self
         return sheetCell
+    }
+}
+
+extension MediaPlayerActionSheet: DoubleActionSheetCellDelegate {
+    func doubleActionSheetCellShouldUpdateColors() -> Bool {
+        return false
+    }
+
+    func doubleActionSheetCellDidTapLeft(_ cell: DoubleActionSheetCell) {
+        if let sheet = self as? MediaMoreOptionsActionSheet {
+            sheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetDidTapRepeat(sheet)
+        }
+    }
+
+    func doubleActionSheetCellDidTapRight(_ cell: DoubleActionSheetCell) {
+        if let sheet = self as? MediaMoreOptionsActionSheet {
+            sheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetDidToggleShuffle(sheet)
+        }
     }
 }
 

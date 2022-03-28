@@ -1231,18 +1231,18 @@ private extension VideoPlayerViewController {
 
     private func videoPlayerButtons() {
         let audioMedia: Bool = playbackService.metadata.isAudioOnly
-        if view.frame.width >= DeviceWidth.iPhone12ProMaxPortrait.rawValue {
+        if audioMedia {
             videoPlayerControls.repeatButton.isHidden = false
             videoPlayerControls.shuffleButton.isHidden = false
 
+            videoPlayerControls.subtitleButton.isHidden = true
+            videoPlayerControls.aspectRatioButton.isHidden = true
+        } else {
+            videoPlayerControls.repeatButton.isHidden = true
+            videoPlayerControls.shuffleButton.isHidden = true
+
             videoPlayerControls.subtitleButton.isHidden = false
             videoPlayerControls.aspectRatioButton.isHidden = false
-        } else {
-            videoPlayerControls.repeatButton.isHidden = !audioMedia
-            videoPlayerControls.shuffleButton.isHidden = !audioMedia
-
-            videoPlayerControls.subtitleButton.isHidden = audioMedia
-            videoPlayerControls.aspectRatioButton.isHidden = audioMedia
         }
     }
     // MARK: - Constraints
@@ -1868,6 +1868,16 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
         idleTimer = nil
         resetIdleTimer()
         videoPlayerControls.shouldDisableControls(false)
+    }
+
+    func mediaMoreOptionsActionSheetDidToggleShuffle(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet) {
+        videoPlayerControlsDelegateShuffle(videoPlayerControls)
+        mediaMoreOptionsActionSheet.collectionView.reloadData()
+    }
+
+    func mediaMoreOptionsActionSheetDidTapRepeat(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet) {
+        videoPlayerControlsDelegateRepeat(videoPlayerControls)
+        mediaMoreOptionsActionSheet.collectionView.reloadData()
     }
 }
 
