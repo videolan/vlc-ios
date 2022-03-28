@@ -69,6 +69,8 @@ class ActionSheet: UIViewController {
 
         collectionView.register(ActionSheetCell.self,
                                 forCellWithReuseIdentifier: ActionSheetCell.identifier)
+        collectionView.register(DoubleActionSheetCell.self,
+                                forCellWithReuseIdentifier: DoubleActionSheetCell.reusableIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
