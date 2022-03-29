@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Speicherabzug der Medienbibliothek";
 
 "ABOUT_APP_TV" = "Über VLC für tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
