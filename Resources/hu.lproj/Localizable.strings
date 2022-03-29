@@ -1,6 +1,6 @@
-"STORE_DESCRIPTION" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, playback speed control and rendering through Chromecast.\n\nVLC is completely free and open source.";
+"STORE_DESCRIPTION" = "A VLC egy szabad és nyílt forráskódú keresztplatformos médialejátszó portja.\nBármilyen filmet, műsort, és zenét le tud játszani a legtöbb formátumban, átalakítás nélkül.\nLehetővé teszi a fájlszinkronizációt Dropboxszal, GDrive-val, Boxszal, iCloud Drive-val, iTunes-szal; a közvetlen és a Wi-Fi megosztáson keresztüli letöltéseket, valamint a közvetítéseket SMB, FTP, SFTP, NFS és UPnP/DLNA médiakiszolgálókról és a webről.\nA VLC támogatja a fejlett feliratokat, köztük a teljes SSA kompatibilitást, a többsávos hangot, a lejátszási sebesség vezérlését és a Chromecasten keresztüli megjelenítést.\n\nA VLC teljesen szabad és nyílt forráskódú szoftver.";
 
-"STORE_DESCRIPTION_TV" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC is completely free and open source.\n\nArtwork is provided by TMDb, which is a community maintained movie database.";
+"STORE_DESCRIPTION_TV" = "A VLC egy szabad, nyílt forráskódú, keresztplatformos multimédia lejátszó. Bármilyen filmet, műsort, és zenét le tud játszani a legtöbb formátumban, átalakítás nélkül.\nLehetővé teszi a távoli lejátszást Macről vagy PC-ről a webes felületén keresztül, továbbá az SMB, FTP, SFTP, NFS és UPnP/DLNA médiakiszolgálókról, valamint a közvetlenül a webről.\nA VLC támogatja a fejlett feliratokat, köztük a teljes SSA kompatibilitást, a többsávos hangot, és a lejátszási sebesség vezérlését.\n\nA VLC teljesen szabad és nyílt forráskódú szoftver.\n\nA grafikákat a TMDb biztosítja, amely egy közösség által karbantartott filmadatbázis.";
 
 "UNKNOWN_TRACK_TYPE" = "Ismeretlen zeneszám típus";
 "CHOOSE_TITLE" = "Cím választása";
@@ -383,8 +383,8 @@
 "NB_AUDIO" = "Hangok száma";
 "NB_MEDIA" = "Médiák száma";
 "NB_VIDEO" = "Videók száma";
-"NB_ALBUM" = "Number of albums";
-"LAST_PLAYBACK_DATE" = "Last playback date";
+"NB_ALBUM" = "Albumok száma";
+"LAST_PLAYBACK_DATE" = "Utolsó lejátszás ideje";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -441,6 +441,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Hangszínszabályzó";
 "MORE_OPTIONS_HEADER_TITLE" = "Videobeállítások";
+"BOOKMARKS_TITLE" = "Könyvjelzők";
+"ADD_BOOKMARKS_TITLE" = "Könyvjelzők hozzáadása";
+"BOOKMARK_DEFAULT_NAME" = "Könyvjelző itt:";
+"BOOKMARK_RENAME_TITLE" = "Könyvjelző átnevezése";
+"BOOKMARK_DELETE_TITLE" = "Könyvjelző törlése";
+"BOOKMARK_DELETE_MESSAGE" = "Erősítse meg a könyvjelző törlését";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Médiatár átvizsgálásának kényszerítése";
