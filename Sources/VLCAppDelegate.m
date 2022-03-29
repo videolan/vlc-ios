@@ -212,7 +212,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
         /* execute a potential URL handler that was set when the app was moved into foreground */
         if (self->_urlHandlerToExecute) {
             if (![self->_urlHandlerToExecute performOpenWithUrl:self->_urlToHandle options:@{}]) {
-                APLog(@"Failed to execute %@", _urlToHandle);
+                APLog(@"Failed to execute %@", self->_urlToHandle);
             }
             self->_urlHandlerToExecute = nil;
             self->_urlToHandle = nil;
