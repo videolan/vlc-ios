@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Zavrzi knjižnico vsebin";
 
 "ABOUT_APP_TV" = "O VLC-ju za tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
