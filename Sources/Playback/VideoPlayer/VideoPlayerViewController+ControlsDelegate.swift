@@ -86,6 +86,10 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
         videoPlayerControls.updatePlayPauseButton(toState: playbackService.isPlaying)
     }
 
+    func videoPlayerControlsDelegateDidLongPressPlayPauseEnded(_ videoPlayerControls: VideoPlayerControls) {
+        playbackService.stopPlayback()
+    }
+
     func videoPlayerControlsDelegateDidTapNextMedia(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.next()
     }

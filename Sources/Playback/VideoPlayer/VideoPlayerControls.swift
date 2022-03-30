@@ -23,6 +23,8 @@ protocol VideoPlayerControlsDelegate: AnyObject {
     func videoPlayerControlsDelegateDidTapBackward(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidTapPreviousMedia(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidTapPlayPause(_ videoPlayerControls: VideoPlayerControls)
+    @objc optional func videoPlayerControlsDelegateDidLongPressPlayPauseBegan(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidLongPressPlayPauseEnded(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidTapNextMedia(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidTapForeward(_ videoPlayerControls: VideoPlayerControls)
 
@@ -191,6 +193,19 @@ extension VideoPlayerControls {
 
     @IBAction func handlePlayPauseButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapPlayPause(self)
+    }
+
+    @IBAction func handlePlayPauseLongPressButton(_ sender: UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            delegate?.videoPlayerControlsDelegateDidLongPressPlayPauseBegan?(self)
+        case .ended:
+            delegate?.videoPlayerControlsDelegateDidLongPressPlayPauseEnded(self)
+        case .cancelled, .failed:
+            delegate?.videoPlayerControlsDelegateDidTapPlayPause(self)
+        default:
+            break
+        }
     }
 
     @IBAction func handleNextButton(_ sender: Any) {

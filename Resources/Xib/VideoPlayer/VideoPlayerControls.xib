@@ -117,6 +117,7 @@
                                     </state>
                                     <connections>
                                         <outletCollection property="gestureRecognizers" destination="cbo-F2-Mgg" appends="YES" id="EEV-CH-c8R"/>
+                                        <outletCollection property="gestureRecognizers" destination="8pg-tx-G4U" appends="YES" id="a7g-Fl-Ssf"/>
                                     </connections>
                                 </button>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="NO1-OE-x4I">
@@ -261,6 +262,11 @@
                 <action selector="handlePlayPauseButton:" destination="Ve6-FF-JXf" id="ZfB-nF-nnj"/>
             </connections>
         </tapGestureRecognizer>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="8pg-tx-G4U" userLabel="PlayPauseLongGesture">
+            <connections>
+                <action selector="handlePlayPauseLongPressButton:" destination="Ve6-FF-JXf" id="imL-4x-aZ2"/>
+            </connections>
+        </pongPressGestureRecognizer>
         <tapGestureRecognizer id="NOV-wr-M0T" userLabel="NextTapGesture">
             <connections>
                 <action selector="handleNextButton:" destination="Ve6-FF-JXf" id="LQt-lG-hS0"/>
