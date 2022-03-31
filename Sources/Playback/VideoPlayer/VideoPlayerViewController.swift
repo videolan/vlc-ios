@@ -582,7 +582,7 @@ class VideoPlayerViewController: UIViewController {
         // [self resetVideoFiltersSliders];
         playbackService.videoOutputView = videoOutputView
 
-        setRepeatMode()
+        setupRepeatModeButton()
 
         // Media is loaded in the media player, checking the projection type and configuring accordingly.
         setupForMediaProjection()
@@ -595,7 +595,7 @@ class VideoPlayerViewController: UIViewController {
         resetOptionsOnNextPresentation = true
     }
 
-    func setRepeatMode() {
+    func setupRepeatModeButton() {
         switch playbackService.repeatMode {
         case .doNotRepeat:
             videoPlayerControls.repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
@@ -1153,11 +1153,23 @@ private extension VideoPlayerViewController {
         AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
     }
 
+    private func setupVideoControlsState() {
+        let isShuffleEnabled = playerController.isShuffleEnabled
+        let repeatMode = playerController.isRepeatEnabled
+        playbackService.isShuffleMode = isShuffleEnabled
+        playbackService.repeatMode = repeatMode
+        videoPlayerControls.shuffleButton.tintColor = isShuffleEnabled ? PresentationTheme.current.colors.orangeUI : .white
+        setupRepeatModeButton()
+    }
+
     private func setupViews() {
         view.backgroundColor = .black
         view.addSubview(mediaNavigationBar)
         hideSystemVolumeInfo()
         videoPlayerButtons()
+        if playerController.isRememberStateEnabled {
+            setupVideoControlsState()
+        }
 
         view.addSubview(optionsNavigationBar)
         view.addSubview(videoPlayerControls)
