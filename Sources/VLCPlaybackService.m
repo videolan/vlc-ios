@@ -280,8 +280,12 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     [media addOptions:self.mediaOptionsDictionary];
 
     [_listPlayer setMediaList:self.mediaList];
-
-    [_listPlayer setRepeatMode:VLCDoNotRepeat];
+#if TARGET_OS_IOS
+    if ([defaults boolForKey:kVLCPlayerShouldRememberState]) {
+        VLCRepeatMode repeatMode = [defaults integerForKey:kVLCPlayerIsRepeatEnabled];
+        [_listPlayer setRepeatMode:repeatMode];
+    }
+#endif
 
     [_playbackSessionManagementLock unlock];
 

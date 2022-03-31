@@ -87,6 +87,9 @@
                                   @"kVLCVideoLibraryGridLayoutALL_VIDEOS" : @(YES),
                                   @"kVLCVideoLibraryGridLayoutVIDEO_GROUPS" : @(YES),
                                   @"kVLCVideoLibraryGridLayoutVLCMLMediaGroupCollections" : @(YES),
+                                  kVLCPlayerShouldRememberState: @(YES),
+                                  kVLCPlayerIsShuffleEnabled: kVLCPlayerIsShuffleEnabledDefaultValue,
+                                  kVLCPlayerIsRepeatEnabled: kVLCPlayerIsRepeatEnabledDefaultValue
     };
     [defaults registerDefaults:appDefaults];
 }

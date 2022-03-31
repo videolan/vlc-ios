@@ -71,6 +71,21 @@ class PlayerController: NSObject {
         return UserDefaults.standard.bool(forKey: kVLCSettingVariableJumpDuration)
     }
 
+    var isShuffleEnabled: Bool {
+        return UserDefaults.standard.bool(forKey: kVLCPlayerIsShuffleEnabled)
+    }
+
+    var isRepeatEnabled: VLCRepeatMode {
+        let storedValue = UserDefaults.standard.integer(forKey: kVLCPlayerIsRepeatEnabled)
+
+        return VLCRepeatMode(rawValue: storedValue) ?? .doNotRepeat
+    }
+
+    var isRememberStateEnabled: Bool {
+        return UserDefaults.standard.bool(forKey: kVLCPlayerShouldRememberState)
+    }
+
+
     @objc init(services: Services) {
         self.services = services
         super.init()
