@@ -190,9 +190,9 @@ extension VLCMLMedia: SearchableMLModel {
 
 extension VLCMLMedia {
     func albumTrackArtistName() -> String {
-        guard let albumTrackName = artist?.name else {
+        guard let artist = artist, artist.identifier() != UnknownArtistID else {
             return NSLocalizedString("UNKNOWN_ARTIST", comment: "")
         }
-        return albumTrackName
+        return artist.name
     }
 }
