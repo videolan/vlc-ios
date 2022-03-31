@@ -66,6 +66,14 @@ class AlbumCategoryViewController: MediaCategoryViewController {
     }
 }
 
+class ArtistAlbumCategoryViewController: MediaCategoryViewController {
+    init(_ services: Services, mediaCollection: VLCMLArtist) {
+        let model = AlbumModel(medialibrary: services.medialibraryService, artist: mediaCollection)
+        super.init(services: services, model: model)
+        model.observable.addObserver(self)
+    }
+}
+
 class CollectionCategoryViewController: MediaCategoryViewController {
     init(_ services: Services, mediaCollection: MediaCollectionModel) {
         let model = CollectionModel(mediaService: services.medialibraryService, mediaCollection: mediaCollection)

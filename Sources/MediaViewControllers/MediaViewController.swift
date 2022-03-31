@@ -133,8 +133,29 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             showButtons = true
             showButtons = mediaCategoryViewController.isEmptyCollectionView() ? false : true
         }
+
+        if navigationController?.viewControllers.last is ArtistViewController {
+            showButtons = true
+            leftBarButtons = isEditing ? [selectAllButton] : nil
+            rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems()
+        }
+
         navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : nil
         navigationItem.leftBarButtonItems = showButtons ? leftBarButtons : nil
+    }
+
+    private func rightBarButtonItems() -> [UIBarButtonItem] {
+        var rightBarButtonItems = [UIBarButtonItem]()
+
+        rightBarButtonItems.append(editButton)
+        if navigationController?.viewControllers.last is ArtistViewController {
+            rightBarButtonItems.append(sortButton)
+        }
+
+        if !rendererButton.isHidden {
+            rightBarButtonItems.append(UIBarButtonItem(customView: rendererButton))
+        }
+        return rightBarButtonItems
     }
 
     override func configure(cell: VLCLabelCell, for indicatorInfo: IndicatorInfo) {
@@ -172,6 +193,16 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
     func setEditingStateChanged(for viewController: MediaCategoryViewController, editing: Bool) {
         customSetEditing()
     }
+
+    func updateNavigationBarButtons(isEditing: Bool) {
+        leftBarButtons = isEditing ? [selectAllButton] : nil
+        rightBarButtons = isEditing ? [doneButton] : [editButton, sortButton, UIBarButtonItem(customView: rendererButton)]
+
+        navigationItem.rightBarButtonItems = rightBarButtons
+        navigationItem.leftBarButtonItems = leftBarButtons
+
+        setEditing(isEditing, animated: true)
+    }
 }
 
 // MARK: - Edit
@@ -184,6 +215,9 @@ extension MediaViewController {
         if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController,
             mediaCategoryViewController.model is MediaGroupViewModel {
             leftBarButtons = isEditing ? [regroupButton, selectAllButton] : [sortButton]
+        } else if navigationController?.viewControllers.last is ArtistViewController {
+            leftBarButtons = viewControllers[currentIndex].isEditing ? [selectAllButton] : nil
+            rightBarButtons = viewControllers[currentIndex].isEditing ? [doneButton] : [editButton, sortButton, UIBarButtonItem(customView: rendererButton)]
         } else {
             leftBarButtons = isEditing ? [selectAllButton] : [sortButton]
         }

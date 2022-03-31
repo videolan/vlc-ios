@@ -35,8 +35,7 @@ class CollectionModel: MLBaseModel {
 
     var name: String = "Collections"
 
-    // No indicator for this model so no localization needed.
-    var indicatorName: String = "Collections"
+    var indicatorName: String = NSLocalizedString("SONGS", comment: "")
 
     required init(medialibrary: MediaLibraryService) {
         preconditionFailure("")

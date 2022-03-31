@@ -19,6 +19,7 @@ import UIKit
     func enableCategorySwitching(for viewController: MediaCategoryViewController,
                                  enable: Bool)
     func setEditingStateChanged(for viewController: MediaCategoryViewController, editing: Bool)
+    func updateNavigationBarButtons(isEditing: Bool)
 }
 
 class MediaCategoryViewController: UICollectionViewController, UISearchBarDelegate, IndicatorInfoProvider {
@@ -671,6 +672,9 @@ extension MediaCategoryViewController {
                                                                           action: #selector(handleEditing))]
             : rightBarButtonItems()
         navigationItem.leftBarButtonItems = leftBarButtonItem()
+        if navigationController?.viewControllers.last is ArtistViewController {
+            delegate?.updateNavigationBarButtons(isEditing: isEditing)
+        }
         navigationItem.setHidesBackButton(isEditing, animated: true)
     }
 }
@@ -880,6 +884,9 @@ extension MediaCategoryViewController {
         if let media = modelContent as? VLCMLMedia {
             play(media: media, at: indexPath)
             createSpotlightItem(media: media)
+        } else if let artist = modelContent as? VLCMLArtist {
+            let artistViewController = ArtistViewController(services: services, mediaCollection: artist)
+            navigationController?.pushViewController(artistViewController, animated: true)
         } else if let mediaCollection = modelContent as? MediaCollectionModel {
             let collectionViewController = CollectionCategoryViewController(services,
                                                                             mediaCollection: mediaCollection)

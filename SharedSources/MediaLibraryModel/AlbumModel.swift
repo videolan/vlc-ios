@@ -18,6 +18,8 @@ class AlbumModel: AudioCollectionModel {
 
     var files = [VLCMLAlbum]()
 
+    private var artist: VLCMLArtist? = nil
+
     var cellType: BaseCollectionViewCell.Type {
         return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(name)") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
     }
@@ -34,6 +36,17 @@ class AlbumModel: AudioCollectionModel {
         files = medialibrary.albums()
     }
 
+    init(medialibrary: MediaLibraryService, artist: VLCMLArtist) {
+        self.medialibrary = medialibrary
+        self.artist = artist
+        if let albums = artist.albums() {
+            files = albums
+        } else {
+            files = []
+        }
+        medialibrary.observable.addObserver(self)
+    }
+
     func append(_ item: VLCMLAlbum) {
         files.append(item)
     }
@@ -42,7 +55,19 @@ class AlbumModel: AudioCollectionModel {
 // MARK: - Sort
 extension AlbumModel {
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        files = medialibrary.albums(sortingCriteria: criteria, desc: desc)
+        if artist != nil {
+            var albums: [VLCMLAlbum] = []
+            medialibrary.albums(sortingCriteria: criteria, desc: desc).forEach() {
+                if let albumArtist = $0.albumArtist?.artistName(),
+                   let artist = self.artist?.artistName(),
+                   albumArtist == artist {
+                    albums.append($0)
+                }
+            }
+            files = albums
+        } else {
+            files = medialibrary.albums(sortingCriteria: criteria, desc: desc)
+        }
         sortModel.currentSort = criteria
         sortModel.desc = desc
         observable.observers.forEach() {
