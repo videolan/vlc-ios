@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Exporter la médiathèque";
 
 "ABOUT_APP_TV" = "À propos de VLC pour tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Se souvenir de l'état du lecteur (mélanger, boucler)";
