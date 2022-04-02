@@ -1,6 +1,6 @@
-"STORE_DESCRIPTION" = "VLC 是一款自由开源的开平台多媒体播放器。\n无需转换格式，它便可直接播放多数格式的电影、节目和音乐。\n它允许与 Dropbox、GDrive、OneDrive、Box、iCloud Drive、iTunes进行文件同步，直接下载和通过 Wi-Fi 共享以及从 SMB、FTP、SFTP、NFS、UPnP/DLNA媒体服务器和网页进行在线播放。\nVLC提供了对高级字幕的支持，包括完全兼容 SSA，多轨道音频，播放速度控制和通过 Chromecast 渲染。\n\nVLC 完全免费和开源。";
+"STORE_DESCRIPTION" = "VLC 是一款免费、自由且开源的跨平台多媒体播放器。\n它能够直接播放绝大多数格式的视频及音频，无需事先转换。\n它支持通过 Dropbox、Google Drive、OneDrive、Box、iCloud Drive、iTunes、直接下载链接、WiFi 共享等方式同步文件，还可以直接播放 SMB、FTP、SFTP、NFS、UPnP/DLNA 媒体服务器以及互联网上的流媒体。\nVLC 还支持高级字幕格式（包括对 SSA 的完全兼容）、多轨道音频、回放速度控制以及 Chromecast 渲染。\n\nVLC 完全免费、自由且开源。";
 
-"STORE_DESCRIPTION_TV" = "VLC 是一款自由开源的开平台多媒体播放器。\n无需转换格式，它便可直接播放多数格式的电影、节目和音乐。\n它允许从您的 Mac 或 PC 通过 Web UI 进行远程播放以及从 SMB、FTP、SFTP、NFS、UPnP/DLNA 媒体服务器和 Web 进行在线播放。\nVLC提供了对高级字幕的支持，包括完全兼容 SSA，多轨道音频，播放速度控制。\n\nVLC 完全免费和开源。\n\nArtwork 由 TMDb 提供，这是一个社区维护的电影数据库。";
+"STORE_DESCRIPTION_TV" = "VLC 是一款免费、自由且开源的跨平台多媒体播放器。\n它能够直接播放大多数格式的视频及音频，无需事先转换。\n它支持通过 Web 界面从 Mac 或 PC 远程播放，以及直接播放 SMB、FTP、SFTP、NFS、UPnP/DLNA 媒体服务器以及互联网上的流媒体。\nVLC 支持高级字幕格式（包括对 SSA 的完全兼容），多轨道音频以及回放速度控制。\n\nVLC 完全免费、自由及开源。\n\n影片封面由 TMDb 提供，它是一家由社区用户维护的影片数据库。";
 
 "UNKNOWN_TRACK_TYPE" = "未知曲目类型";
 "CHOOSE_TITLE" = "选择标题";
@@ -68,7 +68,7 @@
 "BUTTON_RESET" = "重置";
 "BUTTON_RESCAN" = "重新扫描";
 "PRIVATE_PLAYBACK_TOGGLE" = "私密回放";
-"SCAN_SUBTITLE_TOGGLE" = "扫描字幕文件 (仅限 http)";
+"SCAN_SUBTITLE_TOGGLE" = "扫描字幕文件 (仅支持 http)";
 
 "BUTTON_RENDERER" = "投屏设备";
 "BUTTON_RENDERER_HINT" = "显示可用投屏设备菜单";
@@ -130,7 +130,7 @@
 "FILES_APP_CELL_TITLE" = "本地文件";
 "FILES_APP_CELL_SUBTITLE" = "直接打开文件，而不将其复制到 VLC";
 
-"CLOUD_SERVICES" = "云服务";
+"CLOUD_SERVICES" = "云存储服务";
 "LOGIN" = "登录";
 "LOGGED_IN" = "已登录";
 "LOGGED_IN_SERVICES" = "%d 个服务已登录";
@@ -170,7 +170,7 @@
 "OFF" = "关";
 
 "EMPTY_LIBRARY" = "媒体库为空";
-"EMPTY_LIBRARY_LONG" = "要播放，你可以从本地网络服务器或云端引流文件，或者用iTunes, Wi-Fi上传或云服务将媒体文件同步到你的设备。";
+"EMPTY_LIBRARY_LONG" = "要开始播放内容，您可以选择在线播放本地网络内服务器上的内容、云存储中的媒体文件，也可以通过 iTunes、Wi-Fi 上传或云存储服务将媒体文件同步到设备。";
 
 "EMPTY_NO_PLAYLISTS" = "播放列表";
 "EMPTY_NO_PLAYLISTS_DESCRIPTION" = "要创建播放列表，请在视频或音频内容选项卡中进入编辑模式并选择您喜欢的媒体文件。\n你也可以从其他设备或互联网同步现有的播放列表。";
@@ -178,7 +178,7 @@
 "EMPTY_PLAYLIST" = "清空播放列表";
 "EMPTY_PLAYLIST_DESCRIPTION" = "在编辑相应类别时添加媒体。";
 
-"PLAYBACK_SCRUB_HELP" = "向上滑动手指来调整擦洗速度。";
+"PLAYBACK_SCRUB_HELP" = "向上滑动手指来调整步进速度。";
 "PLAYBACK_SCRUB_HIGH" = "高速步进";
 "PLAYBACK_SCRUB_HALF" = "半速步进";
 "PLAYBACK_SCRUB_QUARTER" = "¼速步进";
@@ -194,10 +194,10 @@
 "PREV_BUTTON" = "上一曲";
 "PLAY_ALL_BUTTON" = "全部播放";
 
-"RESET_VIDEO_FILTERS" = "你想重置视频滤镜吗？";
-"RESET_PLAYBACK_SPEED" = "你想重置回放速度吗？";
-"RESET_EQUALIZER" = "你想重置均衡器的设置吗？";
-"RESET_SLEEP_TIMER" = "你想重置睡眠定时器吗？";
+"RESET_VIDEO_FILTERS" = "您是否希望重置视频滤镜?";
+"RESET_PLAYBACK_SPEED" = "您是否希望重置播放速度?";
+"RESET_EQUALIZER" = "您是否希望重置均衡器配置?";
+"RESET_SLEEP_TIMER" = "您是否希望重置睡眠计时器?";
 
 "VERSION_FORMAT" = "版本: %@";
 "BASED_ON_FORMAT" = "基于:<br />%@";
@@ -206,16 +206,16 @@
 
 
 "VO_VIDEOPLAYER_TITLE" = "视频播放器";
-"VO_VIDEOPLAYER_DOUBLETAP" = "轻按两次可显示或隐藏回放控件";
+"VO_VIDEOPLAYER_DOUBLETAP" = "轻按两次可显示或隐藏播放控件";
 
 "FIRST_STEPS_ITUNES" = "iTunes 文件同步";
 "FIRST_STEPS_ITUNES_TITLE" = "与计算机同步";
-"FIRST_STEPS_ITUNES_DETAILS" = "将设备连接到 iTunes 并选择该设备。在 iTunes 左侧菜单中选择「文件共享」，找到「VLC」，即可开始传输文件";
+"FIRST_STEPS_ITUNES_DETAILS" = "将设备连接到电脑，并在 iTunes 中选择该设备。 在 iTunes 左侧菜单中选择「文件共享」， 找到「VLC」，即可传输文件";
 "FIRST_STEPS_WIFI_TITLE" = "通过 Wi-Fi 共享";
-"FIRST_STEPS_WIFI_DETAILS" = "连接到手机所处的网络，并在您偏好的 web 浏览器中输入生成的 URL";
-"FIRST_STEPS_CLOUDS" = "云存储";
-"FIRST_STEPS_CLOUD_TITLE" = "云";
-"FIRST_STEPS_CLOUD_DETAILS" = "将媒体上传到云服务，例如 Google Drive 或 Dropbox，即可远程下载/串流播放。";
+"FIRST_STEPS_WIFI_DETAILS" = "连接到手机所处的同一个网络，并在您喜爱的浏览器中输入生成的 URL";
+"FIRST_STEPS_CLOUDS" = "云服务";
+"FIRST_STEPS_CLOUD_TITLE" = "连接云存储服务";
+"FIRST_STEPS_CLOUD_DETAILS" = "将媒体文件上传到云存储服务商，例如 Google Drive 或 Dropbox，即可远程下载/在线播放。";
 
 
 "PLEX_CHECK_ACCOUNT" = "在设置中检查您的 Plex 账号";
@@ -228,7 +228,7 @@
 "NO_SERVER_FOUND" = "未找到服务器";
 "NO_RECENT_STREAMS" = "最近没有播放流";
 
-"WEBINTF_TITLE" = "通过 Wi-Fi 分享";
+"WEBINTF_TITLE" = "Wi-Fi 共享功能";
 "WEBINTF_DROPFILES" = "拖放文件";
 "WEBINTF_DROPFILES_LONG" = "请将打算添加到 %@ 的文件拖入本窗口。<br>也可以点击“+”按钮，打开文件选择对话框。";
 "WEBINTF_DOWNLOADFILES" = "下载文件";
@@ -256,7 +256,7 @@
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "音频信息";
-"CLOUD_LOGIN_LONG" = "要访问云服务，请使用相同的 Apple ID 在本 Apple TV 与一款 iOS 设备上登录 iCloud，并在系统设置中启用钥匙环共享。\n使用 iOS 设备上的 VLC，登录任意云服务商。最后在本屏幕上选择该服务商。";
+"CLOUD_LOGIN_LONG" = "要访问云存储服务，请确保 iOS 设备与此 Apple TV 均使用相同的 Apple ID 登录 iCloud，并在「系统设置」中启用「钥匙串共享」。\n然后，在 iOS 端的 VLC 应用内登录您喜爱的云存储服务商。最后，在本屏幕选择那家服务商。";
 "ENTER_URL" = "输入要播放的 URL";
 "HTTP_SERVER_ON" = "禁用远程回放";
 "HTTP_SERVER_OFF" = "启用远程回放";
@@ -264,7 +264,7 @@
 "CACHED_MEDIA_LONG" = "这里显示的是您 Apple TV 本地存储的媒体。请注意，当 VLC 没有运行时，操作系统可能会为了腾出更多存储空间，而将这些内容移除，并且不会事先通知。";
 "DOWNLOAD_SUBS_FROM_OSO" = "正在从 OpenSubtitles.org 下载字幕...";
 "FOUND_SUBS" = "已找到字幕";
-"NO_SUB_FOUND_OSO" = "没有找到你的媒体项目 \"%@\" 的字幕。";
+"NO_SUB_FOUND_OSO" = "未能找到与您的媒体文件 ｢%@｣相匹配的字幕。";
 "USE_SPDIF" = "使用呈递 (S/PDIF)";
 
 "PLAYBACK" = "回放";
@@ -398,13 +398,13 @@
 
 // MARK: - VideoPlayerControls
 
-"SUBTITLE_AND_TRACK_BUTTON" = "字幕和音轨";
-"SUBTITLE_AND_TRACK_HINT" = "选择字幕或音轨";
+"SUBTITLE_AND_TRACK_BUTTON" = "字幕与音频轨道";
+"SUBTITLE_AND_TRACK_HINT" = "选择字幕与音频轨道";
 
 "DVD_BUTTON" = "DVD";
-"DVD_HINT" = "DVD 接口";
+"DVD_HINT" = "DVD 界面";
 
-"ROTATION_LOCK_BUTTON" = "旋转锁";
+"ROTATION_LOCK_BUTTON" = "旋转锁定";
 "ROTATION_LOCK_HINT" = "锁定视频屏幕方向";
 
 "REPEAT_HINT" = "重复相同媒体";
@@ -435,12 +435,18 @@
 "MORE_OPTIONS_BUTTON" = "更多";
 "MORE_OPTIONS_HINT" = "查看更多选项控件";
 
-"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "不支持字幕";
-"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "尚不支持投屏播放时显示字幕";
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "投屏不支持字幕";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "暂未支持投屏时的字幕功能。";
 
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "均衡器";
 "MORE_OPTIONS_HEADER_TITLE" = "视频选项";
+"BOOKMARKS_TITLE" = "书签";
+"ADD_BOOKMARKS_TITLE" = "添加书签";
+"BOOKMARK_DEFAULT_NAME" = "书签位置";
+"BOOKMARK_RENAME_TITLE" = "重命名书签";
+"BOOKMARK_DELETE_TITLE" = "删除书签";
+"BOOKMARK_DELETE_MESSAGE" = "确认删除书签";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "强制媒体库重新扫描";
@@ -480,13 +486,13 @@
 "BUTTON_REGROUP_DESCRIPTION" = "是否确定要尝试对单个媒体自动重新分组?\n可能需要耗费一些时间。";
 
 // MARK: - Files.app persistence file
-"MEDIALIBRARY_FILES_PLACEHOLDER" = "把媒体文件放在这里来添加它们";
-"MEDIALIBRARY_ADDING_PLACEHOLDER" = "添加中...";
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "将媒体文件放到这里即可导入 VLC 应用";
+"MEDIALIBRARY_ADDING_PLACEHOLDER" = "正在添加...";
 
 // MARK: - tip jar
 "GIVE_TIP" = "给小费";
 "MAKE_DONATION_TITLE" = "捐赠";
-"DONATION_DESCRIPTION" = "您的赞助将允许我们改进 VLC-iOS 应用程序，并支持 VideoLAN 协会。";
+"DONATION_DESCRIPTION" = "您的赞助将用于改进 iOS 版的 VLC app，以及支持 VideoLAN 协会。";
 "CANNOT_MAKE_PAYMENTS" = "您不被允许在此设备上付款。";
 "PURCHASE_FAILED" = "购买失败。";
 "SEND_DONATION" = "发送捐款";
@@ -521,7 +527,7 @@
 // MARK: - ActionSheet
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "操作列表背景";
-"ACTIONSHEET_BACKGROUND_HINT" = "轻按删除操作列表";
+"ACTIONSHEET_BACKGROUND_HINT" = "轻按可隐藏操作说明。";
 
 // MARK: - Playback keyboard shortcuts
 
@@ -534,4 +540,4 @@
 // MARK: - TitleSelection
 
 "TITLESELECTION_BACKGROUND_LABEL" = "标题选择背景";
-"TITLESELECTION_BACKGROUND_HINT" = "轻按删除视图";
+"TITLESELECTION_BACKGROUND_HINT" = "轻按可移除视图。";
