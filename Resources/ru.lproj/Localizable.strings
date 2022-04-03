@@ -383,8 +383,8 @@
 "NB_AUDIO" = "Количество аудио";
 "NB_MEDIA" = "Количество медиа";
 "NB_VIDEO" = "Количество видео";
-"NB_ALBUM" = "Number of albums";
-"LAST_PLAYBACK_DATE" = "Last playback date";
+"NB_ALBUM" = "Количество альбомов";
+"LAST_PLAYBACK_DATE" = "Дата последнего воспроизведения";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -441,6 +441,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Эквалайзер";
 "MORE_OPTIONS_HEADER_TITLE" = "Параметры видео";
+"BOOKMARKS_TITLE" = "Закладки";
+"ADD_BOOKMARKS_TITLE" = "Добавление закладок";
+"BOOKMARK_DEFAULT_NAME" = "Закладка в";
+"BOOKMARK_RENAME_TITLE" = "Переименование закладки";
+"BOOKMARK_DELETE_TITLE" = "Удаление закладки";
+"BOOKMARK_DELETE_MESSAGE" = "Подтвердите удаление закладки";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Пересканировать медиатеку";
