@@ -73,7 +73,6 @@ class NewPlaybackSpeedView: UIView {
 
     private func setupResetButton() {
         resetButton.setTitle(NSLocalizedString("BUTTON_RESET", comment: ""), for: .normal)
-        //resetButton.accessibilityLabel = NSLocalizedString("VIDEO_FILTER_RESET_BUTTON", comment: "")
         resetButton.titleLabel?.font = .systemFont(ofSize: 17.0, weight: .semibold)
         resetButton.addTarget(self, action: #selector(self.handleResetTap(_:)), for: .touchUpInside)
         resetButton.setContentHuggingPriority(.required, for: .horizontal)
@@ -88,8 +87,6 @@ class NewPlaybackSpeedView: UIView {
 
         optionsSegmentedControl.extendAndHyphenateLabels()
 
-//        optionsSegmentedControl.accessibilityLabel =
-//        optionsSegmentedControl.accessibilityHint =
         optionsSegmentedControl.selectedSegmentIndex = 0
 
         optionsSegmentedControl.addTarget(self, action: #selector(self.handleSegmentedControlChange(_:)), for: .valueChanged)
@@ -144,7 +141,6 @@ class NewPlaybackSpeedView: UIView {
             currentSpeed = sender.value
             currentValue = currentSpeed
             currentButtonText = String(format: "%.2fx", currentValue)
-            //vpc.playbackRate = exp2(currentValue)
             vpc.playbackRate = currentValue
 
             if currentValue == defaultSpeed {
@@ -154,7 +150,6 @@ class NewPlaybackSpeedView: UIView {
             currentSubtitlesDelay = sender.value
             currentValue = currentSubtitlesDelay
             currentButtonText = String(format: "%.0f ms", currentValue)
-            //vpc.subtitleDelay = round(currentValue / 50) * 50
             vpc.subtitleDelay = currentValue
 
             if currentValue == defaultDelay {
@@ -164,7 +159,6 @@ class NewPlaybackSpeedView: UIView {
             currentAudioDelay = sender.value
             currentValue = currentAudioDelay
             currentButtonText = String(format: "%.0f ms", currentValue)
-            //vpc.audioDelay = round(currentValue / 50) * 50
             vpc.audioDelay = currentValue
 
             if currentValue == defaultDelay {
@@ -260,7 +254,6 @@ class NewPlaybackSpeedView: UIView {
             currentSpeed = computeValue(currentValue: currentValue, offset: speedOffset, lowerBound: minSpeed, upperBound: maxSpeed)
             currentValue = currentSpeed
             currentButtonText = String(format: "%.2fx", currentValue)
-            //vpc.playbackRate = exp2(currentValue)
             vpc.playbackRate = currentValue
 
             if currentValue == defaultSpeed {
@@ -272,12 +265,10 @@ class NewPlaybackSpeedView: UIView {
             if selectedIndex == 1 {
                 currentSubtitlesDelay = finalValue
                 currentValue = currentSubtitlesDelay
-                //vpc.subtitleDelay = round(currentValue / 50) * 50
                 vpc.subtitleDelay = currentValue
             } else {
                 currentAudioDelay = finalValue
                 currentValue = currentAudioDelay
-                //vpc.audioDelay = round(currentValue / 50) * 50
                 vpc.audioDelay = currentValue
             }
 
