@@ -30,8 +30,8 @@ class NewPlaybackSpeedView: UIView {
 
     weak var delegate: NewPlaybackSpeedViewDelegate?
 
-    private let minDelay: Float = -5000.0
-    private let maxDelay: Float = 5000.0
+    private let minDelay: Float = -30000.0
+    private let maxDelay: Float = 30000.0
     private let minSpeed: Float = 0.25
     private let maxSpeed: Float = 8.00
 
