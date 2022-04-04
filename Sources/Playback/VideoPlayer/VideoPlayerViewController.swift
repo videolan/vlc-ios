@@ -1171,6 +1171,7 @@ private extension VideoPlayerViewController {
         view.backgroundColor = .black
         view.addSubview(mediaNavigationBar)
         hideSystemVolumeInfo()
+        videoPlayerButtons()
 
         view.addSubview(optionsNavigationBar)
         view.addSubview(videoPlayerControls)
