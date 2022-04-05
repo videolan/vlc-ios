@@ -441,6 +441,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizador";
 "MORE_OPTIONS_HEADER_TITLE" = "Opções de Vídeo";
+"BOOKMARKS_TITLE" = "Favoritos";
+"ADD_BOOKMARKS_TITLE" = "Adicionar aos Favoritos";
+"BOOKMARK_DEFAULT_NAME" = "Criar favorito em";
+"BOOKMARK_RENAME_TITLE" = "Renomear favorito";
+"BOOKMARK_DELETE_TITLE" = "Excluir favorito";
+"BOOKMARK_DELETE_MESSAGE" = "Confirmar a exclusão do favorito";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Forçar nova verificação da biblioteca de mídias";
