@@ -228,13 +228,11 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
 - (void)request: (XMLRPCRequest *)request didReceiveResponse:(XMLRPCResponse *)response {
     // Nothing will work without a valid user agent.
     NSString *status = response.object[@"status"];
-    if ([status isEqualToString:@"414 Unknown User Agent"]) {
-        NSLog(@"The user agent used was %@", _userAgent);
-        #ifdef DEBUG
-        [NSException raise:@"Your app needs a valid user agent" format:@"Your app needs a valid user agent"];
-        #else
-        NSLog(@"Did not log in with a valid user agent string, cannot get subtitles");
-        #endif
+
+    if ([status hasPrefix:@"4"]) {
+        APLog(@"%s: status failure %@", __func__, status);
+        NSArray *components = [status componentsSeparatedByString:@" "];
+        [self request:request didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:[(NSString *)components.firstObject intValue] userInfo:@{@"userinfo" : components}]];
         return;
     }
 
