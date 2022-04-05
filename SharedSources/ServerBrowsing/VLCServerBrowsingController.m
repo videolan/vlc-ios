@@ -21,6 +21,8 @@
 #if TARGET_OS_TV
 #import "VLCFullscreenMovieTVViewController.h"
 #import "MetaDataFetcherKit.h"
+#else
+#import "VLCNetworkListCell.h"
 #endif
 
 #if DOWNLOAD_SUPPORTED
@@ -98,6 +100,11 @@
             subtitle = duration;
         }
         cell.subtitle = subtitle;
+#if TARGET_OS_IOS
+        if ([cell isKindOfClass:[VLCNetworkListCell class]] && subtitle == nil) {
+            [(VLCNetworkListCell *)cell setTitleLabelCentered:YES];
+        }
+#endif
 #if DOWNLOAD_SUPPORTED
         if ([item respondsToSelector:@selector(isDownloadable)])
             cell.isDownloadable = item.isDownloadable;
