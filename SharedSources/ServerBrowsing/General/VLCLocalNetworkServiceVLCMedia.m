@@ -50,6 +50,15 @@
     return image;
 }
 
+- (NSURL *)iconURL {
+    NSURL *url;
+    NSString *artworkMRL = [self.mediaItem metadataForKey:VLCMetaInformationArtworkURL];
+    if (artworkMRL) {
+        url = [NSURL URLWithString:artworkMRL];
+    }
+    return url;
+}
+
 - (VLCNetworkServerLoginInformation *)loginInformation {
     VLCMedia *media = self.mediaItem;
     if (media.mediaType != VLCMediaTypeDirectory) {

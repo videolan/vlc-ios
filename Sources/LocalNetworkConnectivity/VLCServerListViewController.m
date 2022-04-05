@@ -332,7 +332,11 @@
     id<VLCLocalNetworkService> service = [_discoveryController networkServiceForIndexPath:indexPath];
 
     [cell setIsDirectory:YES];
-    [cell setIcon:service.icon];
+    if ([service respondsToSelector:@selector(iconURL)]) {
+        [cell setIconURL:service.iconURL];
+    }
+    if (cell.iconURL == nil)
+        [cell setIcon:service.icon];
     [cell setTitle:service.title];
     [cell setTitleLabelCentered:NO];
     [cell setSubtitle:service.serviceName];
