@@ -43,6 +43,7 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginInformationFieldType) {
 @property (nonatomic, readonly) NSString *serviceName;
 
 @optional
+@property (nonatomic, readonly, nullable) NSURL *iconURL;
 - (nullable id<VLCNetworkServerBrowser>)serverBrowser;
 - (NSURL *)directPlaybackURL;
 - (nullable id<VLCNetworkServerLoginInformation>)loginInformation;
