@@ -412,7 +412,8 @@
 {
     [self.activityIndicatorView startAnimating];
     self.activityCancelled = NO;
-    [self performSelector:@selector(cancelActivity) withObject:nil afterDelay:5.];
+    [self performSelector:@selector(cancelActivity) withObject:nil afterDelay:20.];
+    self.nothingFoundLabel.hidden = YES;
 }
 
 - (void)stopActivity
