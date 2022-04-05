@@ -223,9 +223,14 @@
 
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 
-    [self dismissViewControllerAnimated:YES completion:^{
+    if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self.delegate loginWithLoginViewController:self loginInfo:dataSource.loginInformation];
+        }];
+    } else {
+        [self dismissViewControllerAnimated:NO completion:nil];
         [self.delegate loginWithLoginViewController:self loginInfo:dataSource.loginInformation];
-    }];
+    }
 }
 
 - (void)connectLoginDataSource
