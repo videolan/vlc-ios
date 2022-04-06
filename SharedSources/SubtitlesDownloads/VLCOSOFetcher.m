@@ -14,7 +14,7 @@
 #import "VLCSubtitleItem.h"
 #import "OROpenSubtitleDownloader.h"
 
-NSString *VLCOSOFetcherUserAgentKey = @"VLSub 0.11.0";
+NSString *VLCOSOFetcherUserAgentKey = @"VLSub 0.9";
 
 @interface VLCOSOFetcher () <OROpenSubtitleDownloaderDelegate>
 {
