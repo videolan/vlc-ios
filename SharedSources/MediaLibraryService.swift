@@ -370,10 +370,15 @@ private extension MediaLibraryService {
         // for the user that can be created by deleting media from the Files app.
         // This could lead to disk space issues.
         // For now since we do not handle restoration, we delete the `.Trash` folder every time.
-         _ = try? FileManager.default.removeItem(atPath: documentPath + "/.Trash")
+        // Run this on a background queue to not block the main thread and have the app killed on launch for taking too long
+        DispatchQueue.global(qos: .userInitiated).async {
+            _ = try? FileManager.default.removeItem(atPath: documentPath + "/.Trash")
 
-        // Reload in order to make sure that there is no old artifacts left
-        reload()
+            DispatchQueue.main.async {
+                // Reload in order to make sure that there is no old artifacts left
+                self.reload()
+            }
+        }
     }
 }
 
