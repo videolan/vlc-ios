@@ -92,7 +92,11 @@ import UIKit
             self.performSelector(onMainThread: #selector(ubiquitousKeyValueStoreDidChange), with: notification, waitUntilDone: false)
             return
         }
-        serverList?.setArray(NSUbiquitousKeyValueStore.default.array(forKey: kVLCStoredServerList)!)
+        guard let storedServerList = NSUbiquitousKeyValueStore.default.array(forKey: kVLCStoredServerList)
+        else {
+            return
+        }
+        serverList?.setArray(storedServerList)
         tableView.reloadData()
     }
 
