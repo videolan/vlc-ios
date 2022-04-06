@@ -1,5 +1,22 @@
 # Changelog
 
+## iOS [3.3.3]
+· allow delaying subtitles and audio up to 30s instead of 5s
+· fix integration with OpenSubtitles.org
+· fix opening certain streams from third party apps via x-callback-url
+· remember shuffle/loop states across playback sessions
+· various minor UI improvements
+
+## tvOS [3.3.3]
+· various minor UI improvements
+· fix integration with OpenSubtitles.org
+
+## iOS [3.3.2]
+· Fix colorspace handling error introduced in the last update
+
+## tvOS [3.3.2]
+· Fix colorspace handling error introduced in the last update
+
 ## iOS [3.3.1]
 · Fix UPnP server browsing issue on IPv4/IPv6 dual stack networks
 · Improve SMB compatiblity
