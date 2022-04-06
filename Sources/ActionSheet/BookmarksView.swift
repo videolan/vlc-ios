@@ -14,8 +14,7 @@ import UIKit
 protocol BookmarksViewDelegate: AnyObject {
     func bookmarksViewGetCurrentPlayingMedia() -> VLCMLMedia?
     func bookmarksViewDidSelectBookmark(value: Float)
-    func bookmarksViewDidBeginEditingRow()
-    func bookmarksViewDidEndEditingRow()
+    func bookmarksViewShouldDisableGestures(_ disable: Bool)
     func bookmarksViewDisplayAlert(action: BookmarkActionIdentifier, index: Int, isEditing: Bool)
     func bookmarksViewOpenBookmarksView()
     func bookmarksViewOpenAddBookmarksView()
@@ -368,11 +367,11 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
-        delegate?.bookmarksViewDidBeginEditingRow()
+        delegate?.bookmarksViewShouldDisableGestures(true)
     }
 
     func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        delegate?.bookmarksViewDidEndEditingRow()
+        delegate?.bookmarksViewShouldDisableGestures(false)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -409,6 +408,16 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
                 delegate?.bookmarksViewDidSelectBookmark(value: Float(time))
             }
         }
+    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if frame.minX == 0 {
+            delegate?.bookmarksViewShouldDisableGestures(true)
+        }
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        delegate?.bookmarksViewShouldDisableGestures(false)
     }
 }
 

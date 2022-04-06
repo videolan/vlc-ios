@@ -303,12 +303,9 @@ extension MediaMoreOptionsActionSheet: BookmarksViewDelegate {
         removeActionSheet()
     }
 
-    func bookmarksViewDidBeginEditingRow() {
-        shouldDisablePanGesture(true)
-    }
-
-    func bookmarksViewDidEndEditingRow() {
-        shouldDisablePanGesture(false)
+    func bookmarksViewShouldDisableGestures(_ disable: Bool) {
+        shouldDisablePanGesture(disable)
+        shouldDisableDragDownGesture(disable)
     }
 
     func bookmarksViewDisplayAlert(action: BookmarkActionIdentifier, index: Int, isEditing: Bool) {

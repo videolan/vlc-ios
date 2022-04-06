@@ -88,6 +88,11 @@ class ActionSheet: UIViewController {
         return headerView
     }()
 
+    private lazy var downGesture: UIPanGestureRecognizer = {
+        let downGesture = UIPanGestureRecognizer(target: self, action: #selector(handleDismiss(sender:)))
+        return downGesture
+    }()
+
     private lazy var mainStackView: UIStackView = {
         let mainStackView = UIStackView()
         mainStackView.spacing = 0
@@ -95,7 +100,7 @@ class ActionSheet: UIViewController {
         mainStackView.alignment = .center
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.backgroundColor = .clear
-        mainStackView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss(sender:))))
+        mainStackView.addGestureRecognizer(downGesture)
         return mainStackView
     }()
 
@@ -264,6 +269,14 @@ class ActionSheet: UIViewController {
     func addChildToStackView(_ child: UIView) {
         mainStackView.addSubview(child)
     }
+
+    func updateDragDownGestureDelegate(to delegate: ActionSheet?) {
+        downGesture.delegate = delegate
+    }
+
+    func shouldDisableDragDownGesture(_ disable: Bool) {
+        downGesture.isEnabled = !disable
+    }
 }
 
 // MARK: Private setup methods
@@ -424,5 +437,11 @@ extension ActionSheet: UICollectionViewDataSource {
                                           cellForItemAt: indexPath)
         }
         preconditionFailure("VLCActionSheet: No data source")
+    }
+}
+
+extension ActionSheet: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

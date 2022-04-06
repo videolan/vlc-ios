@@ -63,7 +63,6 @@ class MediaPlayerActionSheet: ActionSheet {
     
     private lazy var leftToRightGesture: UIPanGestureRecognizer = {
         let leftToRight = UIPanGestureRecognizer(target: self, action: #selector(draggedRight(panGesture:)))
-        leftToRight.delegate = self
         return leftToRight
     }()
 
@@ -104,6 +103,10 @@ class MediaPlayerActionSheet: ActionSheet {
             if let child = child as? ActionSheetAccessoryViewsDelegate {
                 self.headerView.accessoryViewsDelegate = child
             }
+            if child is BookmarksView {
+                self.leftToRightGesture.delegate = self
+                self.updateDragDownGestureDelegate(to: self)
+            }
         }) {
             (completed) in
             child.addGestureRecognizer(self.leftToRightGesture)
@@ -123,6 +126,10 @@ class MediaPlayerActionSheet: ActionSheet {
             self.headerView.updateAccessoryViews()
             self.headerView.previousButton.isHidden = true
             self.headerView.title.text = NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
+            if child is BookmarksView {
+                self.leftToRightGesture.delegate = nil
+                self.updateDragDownGestureDelegate(to: nil)
+            }
         }) { (completed) in
             child.removeFromSuperview()
             child.removeGestureRecognizer(self.leftToRightGesture)
@@ -300,11 +307,5 @@ extension MediaPlayerActionSheet: ActionSheetCellDelegate {
         }
 
         mediaDelegate.mediaPlayerDidToggleSwitch?(for: cell, state: state)
-    }
-}
-
-extension MediaPlayerActionSheet: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 }
