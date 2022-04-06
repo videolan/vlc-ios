@@ -138,8 +138,18 @@
     browsingCell.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     browsingCell.subtitle = service.serviceName;
     browsingCell.subtitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    UIImage *serviceIcon = service.icon;
-    browsingCell.thumbnailImage = serviceIcon ? serviceIcon : [UIImage imageNamed:@"serverIcon"];
+
+    NSURL *thumbnailURL;
+    if ([service respondsToSelector:@selector(iconURL)]) {
+        thumbnailURL = service.iconURL;
+    }
+    if (thumbnailURL == nil) {
+        UIImage *serviceIcon = service.icon;
+        browsingCell.thumbnailImage = serviceIcon ? serviceIcon : [UIImage imageNamed:@"serverIcon"];
+        [browsingCell setThumbnailImage:serviceIcon];
+    } else {
+        [browsingCell setThumbnailURL:thumbnailURL];
+    }
 
     return browsingCell;
 }
