@@ -45,7 +45,7 @@ class NewPlaybackSpeedView: UIView {
     private var currentSpeed: Float = 1.0
 
     private let defaultDelay: Float = 0.0
-    private let defaultSpeed: Float = 1.0
+    private var defaultSpeed: Float = UserDefaults.standard.float(forKey: kVLCSettingPlaybackSpeedDefaultValue)
 
     let vpc = PlaybackService.sharedInstance()
 
@@ -56,7 +56,6 @@ class NewPlaybackSpeedView: UIView {
         setupSegmentedControl()
         setupTheme()
     }
-
 
     func setupTheme() {
         backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
@@ -183,7 +182,7 @@ class NewPlaybackSpeedView: UIView {
            round(vpc.audioDelay) != round(currentAudioDelay) {
             optionsSegmentedControl.selectedSegmentIndex = 0
 
-            currentSpeed = defaultSpeed
+            currentSpeed = vpc.playbackRate
             currentSubtitlesDelay = defaultDelay
             currentAudioDelay = defaultDelay
             setupSlider()
@@ -217,6 +216,7 @@ class NewPlaybackSpeedView: UIView {
     }
 
     func reset() {
+        defaultSpeed = UserDefaults.standard.float(forKey: kVLCSettingPlaybackSpeedDefaultValue)
         currentSpeed = defaultSpeed
         vpc.playbackRate = currentSpeed
 

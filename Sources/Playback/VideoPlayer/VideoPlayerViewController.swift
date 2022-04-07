@@ -246,8 +246,6 @@ class VideoPlayerViewController: UIViewController {
     private var rendererButton: UIButton?
     let notificationCenter = NotificationCenter.default
 
-    private var resetOptionsOnNextPresentation: Bool = false
-
     private(set) lazy var titleSelectionView: TitleSelectionView = {
         let isLandscape = UIDevice.current.orientation.isLandscape
         let titleSelectionView = TitleSelectionView(frame: .zero,
@@ -601,12 +599,7 @@ class VideoPlayerViewController: UIViewController {
         // Media is loaded in the media player, checking the projection type and configuring accordingly.
         setupForMediaProjection()
 
-        // Checking if this is the first time that the controller appears.
-        // Reseting the options if necessary the first time unables the user to modify the video filters.
-        if resetOptionsOnNextPresentation {
-            moreOptionsActionSheet.resetOptionsIfNecessary()
-        }
-        resetOptionsOnNextPresentation = true
+        moreOptionsActionSheet.resetOptionsIfNecessary()
     }
 
     func setupRepeatModeButton() {
