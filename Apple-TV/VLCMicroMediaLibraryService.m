@@ -106,6 +106,15 @@
     return medialist;
 }
 
+- (NSArray *)rawListOfFiles
+{
+    NSArray *ret;
+    @synchronized (self.discoveredFiles) {
+        ret = self.discoveredFiles.readonlycopy;
+    }
+    return ret;
+}
+
 #pragma mark - thumbnail cache
 
 - (void)thumbnailerUpdated
@@ -163,6 +172,11 @@
         }
     }
     return thumbnailURL;
+}
+
+- (NSURL *)thumbnailURLForItemWithPath:(NSString *)path
+{
+    return [self.thumbnailerCache getThumbnailURL:path];
 }
 
 - (NSString *)titleForItemAtIndex:(NSInteger)index

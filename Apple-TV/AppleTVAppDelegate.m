@@ -18,6 +18,7 @@
 #import "VLCCloudServicesTVViewController.h"
 #import "VLCHTTPUploaderController.h"
 #import "VLCRemotePlaybackViewController.h"
+#import "VLCMicroMediaLibraryService.h"
 
 @interface AppleTVAppDelegate ()
 {
@@ -81,8 +82,9 @@
 
     self.window.rootViewController = _mainViewController;
 
-    // Init the HTTP Server
+    // Init the HTTP Server and the micro media library
     [VLCHTTPUploaderController sharedInstance];
+    [[VLCMicroMediaLibraryService sharedInstance] updateMediaList];;
 
     [self.window makeKeyAndVisible];
     return YES;
