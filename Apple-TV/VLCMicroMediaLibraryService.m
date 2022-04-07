@@ -112,6 +112,11 @@
     @synchronized (self.discoveredFiles) {
         ret = self.discoveredFiles.readonlycopy;
     }
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kVLCSaveDebugLogs]) {
+        ret = [self injectLogsToMedia:ret];
+    }
+
     return ret;
 }
 
@@ -200,6 +205,27 @@
     }
 
     return [UIImage imageNamed:@"blank"];
+}
+
+#pragma mark - debug log exposure
+
+- (NSArray *)injectLogsToMedia:(NSArray *)media
+{
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString* logFilePath = [searchPaths.firstObject stringByAppendingPathComponent:@"Logs"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL ret = [fileManager fileExistsAtPath:logFilePath];
+    if (!ret) {
+        /* we don't have logs, return early */
+        return media;
+    }
+    NSArray *listOfLogs = [fileManager contentsOfDirectoryAtPath:logFilePath error:nil];
+    NSUInteger logCount = listOfLogs.count;
+    NSMutableArray *logsWithPaths = [NSMutableArray arrayWithCapacity:logCount];
+    for (NSUInteger x = 0; x < logCount; x++) {
+        [logsWithPaths addObject:[logFilePath stringByAppendingPathComponent:listOfLogs[x]]];
+    }
+    return [media arrayByAddingObject:[logsWithPaths copy]];
 }
 
 @end

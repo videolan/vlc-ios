@@ -461,6 +461,19 @@ static NSMutableDictionary *authentifiedHosts;
     for (NSObject *mediaObject in media) {
         if ([mediaObject isKindOfClass:[NSString class]]) {
             [mediaInHtml addObject:[self createHTMLMediaObjectFromRawFileWithPath:(NSString *)mediaObject]];
+        } else if ([mediaObject isKindOfClass:[NSArray class]]) {
+            NSArray *folderItems = (NSArray *)mediaObject;
+            NSString *firstItem = folderItems.firstObject;
+            NSString *folderName = firstItem.stringByDeletingLastPathComponent.lastPathComponent;
+            NSString *artworkPath = @"";
+
+            [mediaInHtml addObject: [self createHTMLFolderObjectWithImagePath:artworkPath
+                                                                name:folderName
+                                                               count:folderItems.count]];
+            for (NSString *path in folderItems) {
+                [mediaInHtml addObject:[self createHTMLMediaObjectFromRawFileWithPath:path]];
+            }
+            [mediaInHtml addObject:@"</div></div>"];
         }
     }
     NSDictionary *replacementDict = @{@"FILES" : [mediaInHtml componentsJoinedByString:@" "],
