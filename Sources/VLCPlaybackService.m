@@ -246,7 +246,12 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #endif
     BOOL saveDebugLogs = [userDefaults boolForKey:kVLCSaveDebugLogs];
     if (saveDebugLogs) {
-        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSArray *searchPaths;
+#if TARGET_OS_IOS
+        searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+#else
+        searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+#endif
         NSString* logFilePath = [searchPaths[0] stringByAppendingPathComponent:@"Logs"];
         NSFileManager *fileManager = [NSFileManager defaultManager];
         ret = [fileManager fileExistsAtPath:logFilePath];
