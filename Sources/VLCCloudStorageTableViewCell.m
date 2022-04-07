@@ -14,6 +14,8 @@
 #import "VLCCloudStorageTableViewCell.h"
 #import "VLCNetworkImageView.h"
 
+#import "VLC-Swift.h"
+
 @implementation VLCCloudStorageTableViewCell
 
 + (VLCCloudStorageTableViewCell *)cellWithReuseIdentifier:(NSString *)ident
@@ -26,6 +28,9 @@
     cell.titleLabel.hidden = YES;
     cell.subtitleLabel.hidden = YES;
     cell.folderTitleLabel.hidden = YES;
+
+    [[NSNotificationCenter defaultCenter] addObserver:cell selector:@selector(updateAppearanceForColorScheme) name:kVLCThemeDidChangeNotification object:nil];
+    [cell updateAppearanceForColorScheme];
 
     return cell;
 }
@@ -253,4 +258,14 @@
     [super prepareForReuse];
     _thumbnailView.image = nil;
 }
+
+- (void)updateAppearanceForColorScheme
+{
+    ColorPalette *colors = PresentationTheme.current.colors;
+    self.backgroundColor = colors.cellBackgroundA;
+    self.titleLabel.textColor = colors.cellTextColor;
+    self.folderTitleLabel.textColor = colors.cellTextColor;
+    self.subtitleLabel.textColor = colors.cellDetailTextColor;
+}
+
 @end

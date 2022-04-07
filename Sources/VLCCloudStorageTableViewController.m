@@ -99,14 +99,15 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 
 - (void)updateForTheme
 {
-    self.tableView.separatorColor = PresentationTheme.current.colors.background;
-    self.tableView.backgroundColor = PresentationTheme.current.colors.background;
-    self.view.backgroundColor = PresentationTheme.current.colors.background;
-    _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
+    ColorPalette *colors = PresentationTheme.current.colors;
+    self.tableView.separatorColor = colors.background;
+    self.tableView.backgroundColor = colors.background;
+    self.view.backgroundColor = colors.background;
+    _refreshControl.backgroundColor = colors.background;
     _activityIndicator.activityIndicatorViewStyle = PresentationTheme.current == PresentationTheme.brightTheme ? UIActivityIndicatorViewStyleGray : UIActivityIndicatorViewStyleWhiteLarge;
-    self.loginToCloudStorageView.backgroundColor = PresentationTheme.current.colors.background;
-    self.navigationController.toolbar.barStyle = PresentationTheme.current.colors.toolBarStyle;
-    _progressView.progressLabel.textColor = PresentationTheme.current.colors.cellTextColor;
+    self.loginToCloudStorageView.backgroundColor = colors.background;
+    self.navigationController.toolbar.barStyle = colors.toolBarStyle;
+    _progressView.progressLabel.textColor = colors.cellTextColor;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -225,15 +226,6 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 }
 
 #pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(__kindof UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    VLCCloudStorageTableViewCell *cloudcell = [cell isKindOfClass:VLCCloudStorageTableViewCell.class] ? (id)cell : nil;
-    cloudcell.backgroundColor = PresentationTheme.current.colors.cellBackgroundA;
-    cloudcell.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-    cloudcell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-    cloudcell.subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
-}
 
 - (void)goBack
 {
