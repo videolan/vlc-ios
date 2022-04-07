@@ -234,6 +234,7 @@
 		7DB559BF27E1EED900E83E7C /* VLCFirstStepsBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB60BC25275E5700405250 /* VLCFirstStepsBaseViewController.m */; };
 		7DB638AB185BC0890003887C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB638AA185BC0890003887C /* Images.xcassets */; };
 		7DB66CF02520E3B90077481C /* VLCDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DB66CEF2520E3B90077481C /* VLCDownloadController.m */; };
+		7DBB9D3F27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBB9D3E27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.m */; };
 		7DBBF182183AB3B80009A339 /* VLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */; };
 		7DBBF19A183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */; };
 		7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell~iphone.xib */; };
@@ -830,6 +831,8 @@
 		7DB638AA185BC0890003887C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "../vlc-ios/Images.xcassets"; sourceTree = "<group>"; };
 		7DB66CEE2520E3B90077481C /* VLCDownloadController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDownloadController.h; sourceTree = "<group>"; };
 		7DB66CEF2520E3B90077481C /* VLCDownloadController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDownloadController.m; sourceTree = "<group>"; };
+		7DBB9D3D27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMicroMediaLibraryService.h; sourceTree = "<group>"; };
+		7DBB9D3E27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMicroMediaLibraryService.m; sourceTree = "<group>"; };
 		7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAppDelegate.h; path = Sources/VLCAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAppDelegate.m; path = Sources/VLCAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		7DBBF185183AB4300009A339 /* VLCCloudStorageTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VLCCloudStorageTableViewCell~ipad.xib"; path = "Resources/VLCCloudStorageTableViewCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
@@ -1810,6 +1813,8 @@
 			children = (
 				7DC5A3E41BF6370800CFEBA8 /* VLCRemotePlaybackViewController.h */,
 				7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */,
+				7DBB9D3D27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.h */,
+				7DBB9D3E27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.m */,
 			);
 			name = "Remote Playback";
 			sourceTree = "<group>";
@@ -3137,6 +3142,7 @@
 				DD13A37B1BEE2FAA00A35554 /* VLCMaskView.m in Sources */,
 				7DB0CB43247FCBCE00077592 /* VLCLocalNetworkServiceBrowserUPnP.m in Sources */,
 				7D5A23E024756D03001F76D8 /* VLCLocalNetworkServiceBrowserNFS.m in Sources */,
+				7DBB9D3F27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.m in Sources */,
 				7DF383AC1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m in Sources */,
 				DD9D8F5F1C00C73F00B4060F /* VLCDeleteHintTVView.m in Sources */,
 				7D405ED01BEA11C1006ED886 /* VLCHTTPConnection.m in Sources */,
