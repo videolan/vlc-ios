@@ -18,6 +18,9 @@
 #define SettingsReUseIdentifier @"SettingsReUseIdentifier"
 
 @interface VLCSettingsViewController () <UITableViewDataSource, UITableViewDelegate>
+{
+    BOOL _debugLoggingOn;
+}
 
 @property (strong, nonatomic) NSUserDefaults *userDefaults;
 @property (strong, nonatomic) IASKSettingsReader *settingsReader;
@@ -41,11 +44,28 @@
 
     self.tableView.opaque = NO;
     self.tableView.backgroundColor = [UIColor clearColor];
+
+    _debugLoggingOn = [self.userDefaults boolForKey:kVLCSaveDebugLogs];
 }
 
 - (NSString *)title
 {
     return NSLocalizedString(@"Settings", nil);
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    /* if debug logging was disabled in this session of the settings screen, delete all the logs */
+    if (_debugLoggingOn) {
+        if (![self.userDefaults boolForKey:kVLCSaveDebugLogs]) {
+            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString* logFilePath = [searchPaths.firstObject stringByAppendingPathComponent:@"Logs"];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            [fileManager removeItemAtPath:logFilePath error:nil];
+        }
+    }
 }
 
 #pragma mark - Table view data source
