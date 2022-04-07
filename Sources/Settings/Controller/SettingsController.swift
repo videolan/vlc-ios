@@ -26,7 +26,7 @@ class SettingsController: UITableViewController {
     private let actionSheet = ActionSheet()
     private let specifierManager = ActionSheetSpecifier()
     private var mediaLibraryService: MediaLibraryService
-    private var localeDictionary = NSDictionary()
+    private var settingsBundle = Bundle()
     private var isBackingUp = false
     private let isLabActivated: Bool = true
 
@@ -70,8 +70,8 @@ class SettingsController: UITableViewController {
         tableView.cellLayoutMarginsFollowReadableWidth = false //Fix for iPad
         view.backgroundColor = PresentationTheme.current.colors.background
         actionSheet.modalPresentationStyle = .custom
-        guard let localDict = getLocaleDictionary() else { return }
-        localeDictionary = localDict
+        guard let unsafeSettingsBundle = getSettingsBundle() else { return }
+        settingsBundle = unsafeSettingsBundle
     }
 
     private func addObservers() {
@@ -215,6 +215,7 @@ class SettingsController: UITableViewController {
 
     private func showActionSheet(preferenceKey: String?) {
         specifierManager.preferenceKey = preferenceKey
+        specifierManager.settingsBundle = settingsBundle
         actionSheet.delegate = specifierManager
         actionSheet.dataSource = specifierManager
         present(actionSheet, animated: false) {
@@ -285,6 +286,7 @@ extension SettingsController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as? SettingsCell else {
             return UITableViewCell()
         }
+        cell.settingsBundle = settingsBundle
         guard let section = SettingsSection(rawValue: indexPath.section) else {
             return UITableViewCell()
         }
@@ -424,7 +426,7 @@ extension SettingsController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView( withIdentifier: sectionHeaderReuseIdentifier) as? SettingsHeaderView else { return nil }
         guard let description = SettingsSection.init(rawValue: section)?.description else { return nil }
-        headerView.sectionHeaderLabel.text = localeDictionary[description] as? String
+        headerView.sectionHeaderLabel.text = settingsBundle.localizedString(forKey: description, value: description, table: "Root")
         return headerView
     }
 

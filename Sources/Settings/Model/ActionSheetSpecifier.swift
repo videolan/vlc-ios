@@ -13,7 +13,7 @@ import UIKit
 
 class ActionSheetSpecifier: NSObject {
 
-    private var localeDictionary = NSDictionary()
+    var settingsBundle = Bundle()
     private let userDefaults = UserDefaults.standard
     private var settingSpecifier: SettingSpecifier?
     var preferenceKey: String? {
@@ -34,8 +34,6 @@ class ActionSheetSpecifier: NSObject {
     }
 
     private func loadData() {
-        guard let localeDictionary = getLocaleDictionary() else { return }
-        self.localeDictionary = localeDictionary
         guard let preferenceKey = preferenceKey else {
             assertionFailure("No Preference Key Provided")
             return
@@ -76,12 +74,7 @@ extension ActionSheetSpecifier: ActionSheetDataSource {
             assertionFailure("No Title found for Settings Specifier")
             return nil
         }
-        if let headerTitle = localeDictionary[title] as? String {
-            return headerTitle
-        }
-        else {
-            return settingSpecifier?.title
-        }
+        return settingsBundle.localizedString(forKey: title, value: title, table: "Root")
     }
 
     func numberOfRows() -> Int {
@@ -109,12 +102,7 @@ extension ActionSheetSpecifier: ActionSheetDataSource {
         guard let itemTitle = settingSpecifier?.specifier[indexPath.row].itemTitle else {
             return UICollectionViewCell()
         }
-        if let cellName = localeDictionary[itemTitle] as? String {
-            cell.name.text = cellName
-        }
-        else {
-            cell.name.text = itemTitle
-        }
+        cell.name.text = settingsBundle.localizedString(forKey: itemTitle, value: itemTitle, table: "Root")
         return cell
     }
 }

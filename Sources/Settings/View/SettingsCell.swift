@@ -41,7 +41,7 @@ class SettingsCell: UITableViewCell {
 
     private let userDefaults = UserDefaults.standard
     private let notificationCenter = NotificationCenter.default
-    private var localeDictionary = NSDictionary()
+    var settingsBundle = Bundle()
     var showsActivityIndicator = false
     weak var blackThemeSwitchDelegate: BlackThemeActivateDelegate?
     weak var passcodeSwitchDelegate: PasscodeActivateDelegate?
@@ -99,10 +99,10 @@ class SettingsCell: UITableViewCell {
                 assertionFailure("No Section Type provided")
                 return
             }
-            mainLabel.text = localeDictionary[sectionType.description] as? String
-            if let subtitle = sectionType.subtitle, let subtitleTextLocalized = localeDictionary[subtitle] as? String {
+            mainLabel.text = settingsBundle.localizedString(forKey: sectionType.description, value: sectionType.description, table: "Root")
+            if let subtitle = sectionType.subtitle {
                 //Handles No Value (No user-defaults value set) case
-                subtitleLabel.text = subtitleTextLocalized
+                subtitleLabel.text = settingsBundle.localizedString(forKey: subtitle, value: subtitle, table: "Root")
             }
             else {
                 subtitleLabel.text = sectionType.subtitle
@@ -151,8 +151,6 @@ class SettingsCell: UITableViewCell {
     }
 
     private func setup() {
-        guard let localeDict = getLocaleDictionary() else { return }
-        localeDictionary = localeDict
         setupView()
         setupObservers()
         themeDidChange()
@@ -238,11 +236,7 @@ class SettingsCell: UITableViewCell {
 
     private func updateSubtitle() {
         if let subtitle = self.getSubtitle(for: self.sectionType?.preferenceKey ?? "") {
-            if let localizedSubtitle = self.localeDictionary[subtitle] as? String {
-                self.subtitleLabel.text = localizedSubtitle
-            } else {
-                self.subtitleLabel.text = subtitle
-            }
+            self.subtitleLabel.text = settingsBundle.localizedString(forKey: subtitle, value: subtitle, table: "Root")
         }
     }
 }

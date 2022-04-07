@@ -12,58 +12,11 @@
 import Foundation
 
 extension NSObject {
-
-    private func bestMatchingLocale() -> URL? {
-        guard let collatorIdentifier = Locale.current.collatorIdentifier else { return nil }
-        guard let language = Locale.current.languageCode else { return nil }
-
-        var scripts: [String] = [""]
-        var regions: [String] = [""]
-
-        if let script = Locale.current.scriptCode {
-            scripts.insert("-\(script)", at: 0)
-        }
-        if let region = Locale.current.regionCode {
-            regions.insert("-\(region)", at: 0)
-        }
-
-        // Check if the default URL for current locale settings would work
-        let lprojPath = "Settings.bundle/\(collatorIdentifier).lproj"
-        let lprojURL = Bundle.main.url(forResource: "Root",
-                                       withExtension: "strings",
-                                       subdirectory: lprojPath)
-        if let path = lprojURL?.path,
-           FileManager.default.fileExists(atPath: path) {
-            return lprojURL
-        }
-
-        // If not, for more exotic cases like using a language in a country where this language is not official (like de_FR),
-        // we check combinations with available lproj files.
-        for region in regions {
-            for script in scripts {
-                let lprojPath = "Settings.bundle/\(language)\(script)\(region).lproj"
-                let lprojURL = Bundle.main.url(forResource: "Root",
-                                               withExtension: "strings",
-                                               subdirectory: lprojPath)
-                if let path = lprojURL?.path,
-                   FileManager.default.fileExists(atPath: path) {
-                    return lprojURL
-                }
-            }
+    func getSettingsBundle() -> Bundle? {
+        if let settingsBundlePath = Bundle.main.path(forResource: "Settings", ofType: "bundle") {
+            return Bundle.init(path: settingsBundlePath)
         }
         return nil
-    }
-
-    func getLocaleDictionary() -> NSDictionary? {
-        // Use English as default instead of returning nil, leading to empty localisation
-        guard let defaultURL = Bundle.main.url(forResource: "Root",
-                                               withExtension: "strings",
-                                               subdirectory: "Settings.bundle/en.lproj") else { return nil }
-
-        let url = bestMatchingLocale()
-
-        guard let dict = NSDictionary(contentsOf: url ?? defaultURL) else { return nil }
-        return dict
     }
 
     func getSettingsSpecifier(for preferenceKey: String) -> SettingSpecifier? {
