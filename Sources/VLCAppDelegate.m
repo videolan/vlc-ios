@@ -89,7 +89,8 @@
                                   @"kVLCVideoLibraryGridLayoutVLCMLMediaGroupCollections" : @(YES),
                                   kVLCPlayerShouldRememberState: @(YES),
                                   kVLCPlayerIsShuffleEnabled: kVLCPlayerIsShuffleEnabledDefaultValue,
-                                  kVLCPlayerIsRepeatEnabled: kVLCPlayerIsRepeatEnabledDefaultValue
+                                  kVLCPlayerIsRepeatEnabled: kVLCPlayerIsRepeatEnabledDefaultValue,
+                                  kVLCSettingPlaybackSpeedDefaultValue: @(1.0)
     };
     [defaults registerDefaults:appDefaults];
 }
