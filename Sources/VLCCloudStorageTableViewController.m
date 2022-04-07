@@ -44,6 +44,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     [super viewDidLoad];
 
     _authorizationInProgress = NO;
+    ColorPalette *colors = PresentationTheme.current.colors;
 
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
@@ -53,7 +54,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     _logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_LOGOUT", "") style:UIBarButtonItemStylePlain target:self action:@selector(logout)];
 
     [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
-    [self.loginButton setTitleColor:PresentationTheme.current.colors.orangeUI forState:UIControlStateNormal];
+    [self.loginButton setTitleColor:colors.orangeUI forState:UIControlStateNormal];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
@@ -71,8 +72,8 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     _numberOfFilesBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"NUM_OF_FILES", nil), 0] style:UIBarButtonItemStylePlain target:nil action:nil];
     _sortBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: [NSString stringWithFormat:NSLocalizedString(@"SORT", nil), 0]
                                                           style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonClicked:)];
-    _sortBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
-    _numberOfFilesBarButtonItem.tintColor = PresentationTheme.current.colors.orangeUI;
+    _sortBarButtonItem.tintColor = colors.orangeUI;
+    _numberOfFilesBarButtonItem.tintColor = colors.orangeUI;
 
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _activityIndicator.hidesWhenStopped = YES;
@@ -85,9 +86,8 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 
     _progressView = [VLCProgressView new];
     _progressBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_progressView];
-    _progressView.tintColor = PresentationTheme.current.colors.orangeUI;
-    _progressView.progressLabel.textColor = PresentationTheme.current.colors.cellTextColor;
-    
+    _progressView.tintColor = colors.orangeUI;
+
     sheet = [[VLCActionSheet alloc] init];
     manager = [[VLCCloudSortingSpecifierManager alloc] initWithController: self];
     sheet.dataSource = manager;
