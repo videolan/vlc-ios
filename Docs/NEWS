@@ -1,5 +1,13 @@
 # Changelog
 
+## iOS [3.3.4]
+· fix display of the Chinese (simplified) translation in Settings when in mainland China
+· fix default playback speed option
+· improve appearance of cloud sharing services
+
+## tvOS [3.3.4]
+· add downloads from Apple TV using the web interface
+
 ## iOS [3.3.3]
 · allow delaying subtitles and audio up to 30s instead of 5s
 · fix integration with OpenSubtitles.org
