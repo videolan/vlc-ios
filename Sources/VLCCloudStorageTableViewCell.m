@@ -240,10 +240,7 @@
 + (CGFloat)heightOfCell
 {
 #if TARGET_OS_IOS
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-        return 80.;
-
-    return 52.;
+    return 8. * 4. + [[UIFont preferredFontForTextStyle:UIFontTextStyleBody] lineHeight] + [[UIFont preferredFontForTextStyle:UIFontTextStyleCaption2] lineHeight];
 #else
     return 107.;
 #endif

@@ -1,50 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="CloudStorageCell" rowHeight="44" id="3" userLabel="Cloud Storage Table View Cell - CloudStorageCell" customClass="VLCCloudStorageTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3" id="Tip-yB-5Gh">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4" customClass="VLCNetworkImageView">
-                        <rect key="frame" x="13" y="10" width="32" height="32"/>
+                        <rect key="frame" x="8" y="8" width="38" height="38"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="32" id="8sh-hN-G1h"/>
-                            <constraint firstAttribute="width" constant="32" id="UDp-Hy-iQT"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="XXM-tN-Yiw"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="kbw-iW-o86"/>
+                            <constraint firstAttribute="width" secondItem="4" secondAttribute="height" multiplier="1:1" id="10D-U5-sbF"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                        <rect key="frame" x="53" y="11" width="202" height="17"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                        <rect key="frame" x="54" y="10" width="201" height="17"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Folder Title" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                        <rect key="frame" x="53" y="17.5" width="259" height="17"/>
+                        <rect key="frame" x="54" y="18.5" width="258" height="17"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                        <rect key="frame" x="53" y="27.5" width="202" height="15"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                        <rect key="frame" x="54" y="30.5" width="201" height="13.5"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="661-nY-3Tr">
-                        <rect key="frame" x="263" y="4" width="44" height="44"/>
+                        <rect key="frame" x="263" y="5" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="81d-I9-5xt"/>
                             <constraint firstAttribute="width" constant="44" id="jiF-Ov-RGW"/>
@@ -67,15 +64,18 @@
                     <constraint firstAttribute="trailingMargin" secondItem="661-nY-3Tr" secondAttribute="trailing" constant="-3" id="53c-NY-VW4"/>
                     <constraint firstItem="661-nY-3Tr" firstAttribute="centerY" secondItem="Tip-yB-5Gh" secondAttribute="centerY" id="87e-tn-W3Z"/>
                     <constraint firstItem="23" firstAttribute="centerY" secondItem="Tip-yB-5Gh" secondAttribute="centerY" id="A7X-SG-2gf"/>
+                    <constraint firstItem="7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6" secondAttribute="bottom" constant="2" id="AOE-WV-4yX"/>
                     <constraint firstItem="23" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" id="C3b-pA-uOA"/>
                     <constraint firstItem="23" firstAttribute="trailing" secondItem="Tip-yB-5Gh" secondAttribute="trailing" constant="-8" id="Fqx-O2-LB5"/>
-                    <constraint firstItem="4" firstAttribute="leading" secondItem="Tip-yB-5Gh" secondAttribute="leadingMargin" constant="-3" id="UFr-k7-0zu"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="7" secondAttribute="bottom" constant="-1.5" id="bPU-S7-Pxf"/>
+                    <constraint firstItem="7" firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="-2" id="KGc-0W-IIt"/>
+                    <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="8" id="acL-xO-d30"/>
                     <constraint firstItem="7" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" id="c7M-0S-tyB"/>
-                    <constraint firstAttribute="topMargin" secondItem="6" secondAttribute="top" id="efd-WL-qVn"/>
                     <constraint firstItem="4" firstAttribute="centerY" secondItem="Tip-yB-5Gh" secondAttribute="centerY" id="fyJ-RB-ru7"/>
                     <constraint firstItem="6" firstAttribute="trailing" secondItem="661-nY-3Tr" secondAttribute="leading" constant="-8" id="hp2-dT-ocj"/>
+                    <constraint firstItem="4" firstAttribute="top" secondItem="Tip-yB-5Gh" secondAttribute="top" constant="8" id="mTr-4f-FSJ"/>
                     <constraint firstItem="6" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" id="rrY-Y1-Ttv"/>
+                    <constraint firstItem="4" firstAttribute="leading" secondItem="Tip-yB-5Gh" secondAttribute="leading" constant="8" id="scr-nK-URb"/>
+                    <constraint firstItem="6" firstAttribute="top" secondItem="4" secondAttribute="top" constant="2" id="so0-8Q-mqf"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

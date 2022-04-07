@@ -55,7 +55,9 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     [self.loginButton setTitle:NSLocalizedString(@"DROPBOX_LOGIN", nil) forState:UIControlStateNormal];
     [self.loginButton setTitleColor:PresentationTheme.current.colors.orangeUI forState:UIControlStateNormal];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self selector:@selector(updateForTheme) name:kVLCThemeDidChangeNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(updateForSizing) name:UIContentSizeCategoryDidChangeNotification object:nil];
 
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.tintColor = [UIColor whiteColor];
@@ -108,6 +110,12 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     self.loginToCloudStorageView.backgroundColor = colors.background;
     self.navigationController.toolbar.barStyle = colors.toolBarStyle;
     _progressView.progressLabel.textColor = colors.cellTextColor;
+}
+
+- (void)updateForSizing
+{
+    self.tableView.rowHeight = [VLCCloudStorageTableViewCell heightOfCell];
+    [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
