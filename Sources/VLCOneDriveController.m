@@ -87,12 +87,14 @@ static void *ProgressObserverContext = &ProgressObserverContext;
     }
 
     [ODClient authenticatedClientWithCompletion:^(ODClient *client, NSError *error) {
-        if (@available(iOS 11.0, *)) {
-            [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
-        }
-        if (@available(iOS 13.0, *)) {
-            [VLCAppearanceManager setupUserInterfaceStyleWithTheme:PresentationTheme.current];
-        }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if (@available(iOS 11.0, *)) {
+                [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
+            }
+            if (@available(iOS 13.0, *)) {
+                [VLCAppearanceManager setupUserInterfaceStyleWithTheme:PresentationTheme.current];
+            }
+        });
         if (error) {
             [self authFailed:error];
             return;
