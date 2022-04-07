@@ -31,9 +31,13 @@ class ArtistViewController: MediaViewController {
             return []
         }
 
-        return [
-            ArtistAlbumCategoryViewController(services, mediaCollection: artist),
-            CollectionCategoryViewController(services, mediaCollection: artist)
-        ]
+        if artist.albumsCount() == 0 {
+            return [CollectionCategoryViewController(services, mediaCollection: artist)]
+        } else {
+            return [
+                ArtistAlbumCategoryViewController(services, mediaCollection: artist),
+                CollectionCategoryViewController(services, mediaCollection: artist)
+            ]
+        }
     }
 }
