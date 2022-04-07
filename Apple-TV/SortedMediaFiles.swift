@@ -50,6 +50,8 @@ class SortedMediaFiles: NSObject {
         files.remove(path)
     }
 
+    @objc var readonlycopy: NSArray { files.copy() as! NSArray }
+
     // Gets the index of the given path or an appropriate insertion index to
     // maintain sorted order.
     private func index(of path: NSString) -> Int {

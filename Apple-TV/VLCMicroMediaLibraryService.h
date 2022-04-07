@@ -29,12 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, weak) id<VLCMicroMediaLibraryServiceDelegate> delegate;
 @property (readonly) NSInteger numberOfDiscoveredMedia;
 @property (readonly, copy) VLCMediaList *mediaList;
+@property (readonly, copy) NSArray *rawListOfFiles;
 
 - (void)updateMediaList;
 - (NSString *)filenameOfItemAtIndex:(NSInteger)index;
 - (void)deleteFileAtIndex:(NSInteger)index;
 
 - (NSURL *)thumbnailURLForItemAtIndex:(NSInteger)index;
+- (NSURL *)thumbnailURLForItemWithPath:(NSString *)path;
 - (NSString *)titleForItemAtIndex:(NSInteger)index;
 - (UIImage *)placeholderImageForItemWithTitle:(NSString *)title;
 
