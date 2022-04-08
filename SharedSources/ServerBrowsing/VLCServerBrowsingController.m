@@ -237,7 +237,7 @@
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     VLCMediaList *medialist = [[VLCMediaList alloc] init];
-    [medialist addMedia:[VLCMedia mediaWithURL:item.URL]];
+    [medialist addMedia:item.media];
     [vpc playMediaList:medialist firstIndex:0 subtitlesFilePath:URLofSubtitle];
     [self showMovieViewController];
 }
