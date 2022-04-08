@@ -28,10 +28,14 @@ class ArtistModel: AudioCollectionModel {
 
     var indicatorName: String = NSLocalizedString("ARTISTS", comment: "")
 
+    var hideFeatArtists: Bool {
+        return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryHideFeatArtists)")
+    }
+
     required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
         medialibrary.observable.addObserver(self)
-        files = medialibrary.artists()
+        files = hideFeatArtists ? medialibrary.artists(listAll: false) : medialibrary.artists()
     }
 
     func append(_ item: VLCMLArtist) {
@@ -69,7 +73,8 @@ class ArtistModel: AudioCollectionModel {
 // MARK: - Sort
 extension ArtistModel {
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        files = medialibrary.artists(sortingCriteria: criteria, desc: desc)
+        files = hideFeatArtists ? medialibrary.artists(sortingCriteria: criteria, desc: desc, listAll: false) :
+                                medialibrary.artists(sortingCriteria: criteria, desc: desc, listAll: true)
         sortModel.currentSort = criteria
         sortModel.desc = desc
         observable.observers.forEach() {

@@ -99,6 +99,7 @@
 #define kVLChttpScanSubtitle @"http-scan-subtitle"
 #define kVLCHTTPUploadDirectory @"Upload"
 #define kVLCAudioLibraryGridLayout @"kVLCAudioLibraryGridLayout"
+#define kVLCAudioLibraryHideFeatArtists @"kVLCAudioLibraryHideFeatArtists"
 #define kVLCVideoLibraryGridLayout @"kVLCVideoLibraryGridLayout"
 
 #define kVLCPlayerShouldRememberState @"PlayerShouldRememberState"

@@ -366,6 +366,7 @@
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 "GRID_LAYOUT" = "Grid Layout";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 

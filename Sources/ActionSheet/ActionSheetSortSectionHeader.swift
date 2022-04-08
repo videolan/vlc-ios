@@ -17,18 +17,20 @@ protocol ActionSheetSortSectionHeaderDelegate: AnyObject {
     func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader,
                                       onSwitchIsOnChange: Bool,
                                       type: ActionSheetSortHeaderOptions)
+    func actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: Bool)
 }
 
 class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     private var modelType: String
 
     override var cellHeight: CGFloat {
-        return 185
+        return isArtistsOptionShown ? 225 : 185
     }
 
     private var sortModel: SortModel
     private var secondSortModel: SortModel?
     private let userDefaults = UserDefaults.standard
+    private var isArtistsOptionShown: Bool = false
 
     private let descendingStackView: UIStackView = {
         let descendingStackView = UIStackView()
@@ -44,6 +46,14 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         gridLayoutStackView.alignment = .center
         gridLayoutStackView.translatesAutoresizingMaskIntoConstraints = false
         return gridLayoutStackView
+    }()
+
+    private let hideFeatArtistsStackView: UIStackView = {
+        let hideFeatArtistsStackView = UIStackView()
+        hideFeatArtistsStackView.spacing = 0
+        hideFeatArtistsStackView.alignment = .center
+        hideFeatArtistsStackView.translatesAutoresizingMaskIntoConstraints = false
+        return hideFeatArtistsStackView
     }()
 
     private let mainStackView: UIStackView = {
@@ -120,6 +130,28 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return layoutChangeSwitch
     }()
 
+    let hideFeatArtistsLabel: UILabel = {
+        let hideFeatArtistsLabel = UILabel()
+        let colors = PresentationTheme.current.colors
+        hideFeatArtistsLabel.text = NSLocalizedString("HIDE_FEAT_ARTISTS", comment: "")
+        hideFeatArtistsLabel.accessibilityLabel = NSLocalizedString("HIDE_FEAT_ARTISTS", comment: "")
+        hideFeatArtistsLabel.accessibilityHint = NSLocalizedString("HIDE_FEAT_ARTISTS", comment: "")
+        hideFeatArtistsLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
+        hideFeatArtistsLabel.textColor = colors.cellTextColor
+        hideFeatArtistsLabel.backgroundColor = colors.background
+        hideFeatArtistsLabel.translatesAutoresizingMaskIntoConstraints = false
+        return hideFeatArtistsLabel
+    }()
+
+    let hideFeatArtistsSwitch: UISwitch = {
+        let hideFeatArtistsSwitch = UISwitch()
+        hideFeatArtistsSwitch.addTarget(self, action: #selector(handleHideFeatArtistsSwitch(_:)), for: .valueChanged)
+        hideFeatArtistsSwitch.accessibilityLabel = NSLocalizedString("HIDE_FEAT_ARTISTS", comment: "")
+        hideFeatArtistsSwitch.accessibilityHint = NSLocalizedString("HIDE_FEAT_ARTISTS", comment: "")
+        hideFeatArtistsSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return hideFeatArtistsSwitch
+    }()
+
     weak var delegate: ActionSheetSortSectionHeaderDelegate?
 
     private var isVideoModel: Bool
@@ -179,6 +211,10 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
                                                type: .layoutChange)
      }
 
+    @objc func handleHideFeatArtistsSwitch(_ sender: UISwitch) {
+        delegate?.actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: sender.isOn)
+    }
+
     private func setSwitchIsOnFromUserDefaults() {
         let key = isVideoModel ? kVLCVideoLibraryGridLayout : kVLCAudioLibraryGridLayout
         layoutChangeSwitch.isOn = UserDefaults.standard.bool(forKey: key + modelType)
@@ -216,5 +252,15 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             mainStackView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
         ])
+    }
+
+    func updateHeaderForArtists() {
+        isArtistsOptionShown = true
+        hideFeatArtistsStackView.addArrangedSubview(hideFeatArtistsLabel)
+        hideFeatArtistsStackView.addArrangedSubview(hideFeatArtistsSwitch)
+
+        secondaryStackView.addArrangedSubview(hideFeatArtistsStackView)
+
+        hideFeatArtistsSwitch.isOn = UserDefaults.standard.bool(forKey: kVLCAudioLibraryHideFeatArtists)
     }
 }

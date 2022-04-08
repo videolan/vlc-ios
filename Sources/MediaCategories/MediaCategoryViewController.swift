@@ -85,6 +85,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                                               isVideoModel: isVideoModel,
                                               currentModelType: collectionModelName)
 
+        if model is ArtistModel {
+            header.updateHeaderForArtists()
+        }
+
         let actionSheet = ActionSheet(header: header)
         header.delegate = self
         actionSheet.delegate = self
@@ -1109,6 +1113,14 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
         setupCollectionView()
         cachedCellSize = .zero
         collectionView?.collectionViewLayout.invalidateLayout()
+        reloadData()
+    }
+
+    func actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: Bool) {
+        userDefaults.set(onSwitchIsOnChange, forKey: "\(kVLCAudioLibraryHideFeatArtists)")
+        setupCollectionView()
+        cachedCellSize = .zero
+        model.sort(by: model.sortModel.currentSort, desc: model.sortModel.desc)
         reloadData()
     }
 }
