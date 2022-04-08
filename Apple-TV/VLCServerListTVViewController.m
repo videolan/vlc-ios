@@ -296,9 +296,9 @@
     }
 
     void(^loginBlock)(BOOL) = ^(BOOL save) {
-        login.username = usernameField.text;
-        login.password = passwordField.text;
-        login.port = [NSNumber numberWithInt:portField.text.intValue];
+        login.username = usernameField.text.length > 0 ? usernameField.text : nil;
+        login.password = passwordField.text.length > 0 ? passwordField.text : nil;
+        login.port = portField.text.intValue > 0 ? [NSNumber numberWithInt:portField.text.intValue] : nil;
         for (VLCNetworkServerLoginInformationField *fieldInfo in login.additionalFields) {
             UITextField *textField = additionalFieldsDict[fieldInfo.identifier];
             fieldInfo.textValue = textField.text;
