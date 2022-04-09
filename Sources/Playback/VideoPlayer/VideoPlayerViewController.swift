@@ -37,7 +37,7 @@ struct VideoPlayerSeek {
     static let shortSeek: Int = 10
 
     struct Swipe {
-        static let forward: Int = 10
+        static let forward: Int = 30
         static let backward: Int = 10
     }
 }
