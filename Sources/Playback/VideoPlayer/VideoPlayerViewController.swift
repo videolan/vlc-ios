@@ -377,6 +377,9 @@ class VideoPlayerViewController: UIViewController {
 
     // MARK: - Gestures
 
+    private var volumeGestureEnabled = true
+    private var brightnessGestureEnabled = true
+
     private lazy var tapOnVideoRecognizer: UITapGestureRecognizer = {
         let tapOnVideoRecognizer = UITapGestureRecognizer(target: self,
                                                           action: #selector(handleTapOnVideo))
@@ -851,17 +854,24 @@ extension VideoPlayerViewController {
             qvcHidden = qvc.view.alpha == 0.0
         }
 
-        let animations = { [weak self, playerController] in
+        volumeGestureEnabled = playerController.isVolumeGestureEnabled
+        brightnessGestureEnabled = playerController.isBrightnessGestureEnabled
+
+        let animations = { [weak self] in
             self?.mediaNavigationBar.alpha = uiComponentOpacity
             self?.optionsNavigationBar.alpha = uiComponentOpacity
-            self?.volumeControlView.alpha = playerController.isVolumeGestureEnabled ? 0 : uiComponentOpacity
-            self?.brightnessControlView.alpha = playerController.isBrightnessGestureEnabled ? 0 : uiComponentOpacity
+            self?.volumeControlView.alpha = self?.volumeGestureEnabled ?? true ? 0 : uiComponentOpacity
+            self?.brightnessControlView.alpha = self?.brightnessGestureEnabled ?? true ? 0 : uiComponentOpacity
             if !hidden || qvcHidden {
                 self?.videoPlayerControls.alpha = uiComponentOpacity
                 self?.scrubProgressBar.alpha = uiComponentOpacity
             }
             self?.backgroundGradientView.alpha = hidden && qvcHidden ? 0 : 1
         }
+
+        self.volumeControlView.isHidden = !volumeGestureEnabled
+        self.brightnessControlView.isHidden = !brightnessGestureEnabled
+
         let duration = animated ? 0.2 : 0
         UIView.animate(withDuration: duration, delay: 0,
                        options: .beginFromCurrentState, animations: animations,
@@ -985,8 +995,8 @@ extension VideoPlayerViewController {
         let panType = detectPanType(recognizer)
 
         guard panType == .projection
-                || playerController.isVolumeGestureEnabled
-                || playerController.isBrightnessGestureEnabled
+                || brightnessGestureEnabled
+                || volumeGestureEnabled
         else {
             return
         }
@@ -996,6 +1006,9 @@ extension VideoPlayerViewController {
             currentPanType = panType
             switch currentPanType {
             case .brightness:
+                if !brightnessGestureEnabled {
+                    break
+                }
                 brightnessBackgroundGradientLayer.isHidden = false
                 brightnessControl.fetchDeviceValue()
                 animations = { [brightnessControlView, sideBackgroundGradientView] in
@@ -1003,6 +1016,9 @@ extension VideoPlayerViewController {
                     sideBackgroundGradientView.alpha = 1
                 }
             case .volume:
+                if !volumeGestureEnabled {
+                    break
+                }
                 volumeBackgroundGradientLayer.isHidden = false
                 volumeControl.fetchDeviceValue()
                 animations = { [volumeControlView, sideBackgroundGradientView] in
