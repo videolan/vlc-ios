@@ -296,38 +296,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     [_playbackSessionManagementLock unlock];
 
-    NSURL *mediaURL = media.url;
-    if (mediaURL.isFileURL) {
-        /* let's see if it is in the Inbox folder and if yes, maybe we have a cached subtitles file? */
-        NSURLRelationship relationship;
-        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *directoryPath = [searchPaths.firstObject stringByAppendingPathComponent:@"Inbox"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        [fileManager getRelationship:&relationship ofDirectoryAtURL:[NSURL fileURLWithPath:directoryPath] toItemAtURL:mediaURL error:nil];
-        if (relationship == NSURLRelationshipContains) {
-            NSString *mediaFileName = mediaURL.path.lastPathComponent.stringByDeletingPathExtension;
-            searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-            directoryPath = [searchPaths.firstObject stringByAppendingPathComponent:kVLCSubtitlesCacheFolderName];
-
-            NSDirectoryEnumerator *folderEnumerator = [fileManager enumeratorAtURL:[NSURL fileURLWithPath:directoryPath]
-                                                        includingPropertiesForKeys:@[NSURLNameKey]
-                                                                           options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
-                                                                      errorHandler:nil];
-            NSString *theSubtitleFileName;
-            for (NSURL *theURL in folderEnumerator) {
-                NSString *iter;
-                [theURL getResourceValue:&iter forKey:NSURLNameKey error:NULL];
-
-                if ([iter hasPrefix:mediaFileName]) {
-                    theSubtitleFileName = iter;
-                    break;
-                }
-            }
-
-            _pathToExternalSubtitlesFile = [directoryPath stringByAppendingPathComponent:theSubtitleFileName];
-        }
-    }
-
     [self _playNewMedia];
 }
 
@@ -1312,6 +1280,49 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     }
     [self restoreAudioAndSubtitleTrack];
 }
+
+- (void)_findCachedSubtitlesForMedia:(VLCMedia *)media
+{
+    /* if we already enforce a subtitle e.g. through Google Drive, don't try to find another */
+    if (_pathToExternalSubtitlesFile) {
+        return;
+    }
+    NSURL *mediaURL = media.url;
+    if (mediaURL.isFileURL) {
+        /* let's see if it is in the Inbox folder or outside our Documents folder and if yes, maybe we have a cached subtitles file? */
+        NSURLRelationship inboxFolderRelationship;
+        NSURLRelationship documentFolderRelationship;
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentFolderPath = [searchPaths firstObject];
+        NSString *potentialInboxFolderPath = [documentFolderPath stringByAppendingPathComponent:@"Inbox"];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        [fileManager getRelationship:&documentFolderRelationship ofDirectoryAtURL:[NSURL fileURLWithPath:documentFolderPath] toItemAtURL:mediaURL error:nil];
+        [fileManager getRelationship:&inboxFolderRelationship ofDirectoryAtURL:[NSURL fileURLWithPath:potentialInboxFolderPath] toItemAtURL:mediaURL error:nil];
+        if (inboxFolderRelationship == NSURLRelationshipContains || documentFolderRelationship != NSURLRelationshipContains) {
+            NSString *mediaFileName = mediaURL.path.lastPathComponent.stringByDeletingPathExtension;
+            searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *cachefolderPath = [searchPaths.firstObject stringByAppendingPathComponent:kVLCSubtitlesCacheFolderName];
+
+            NSDirectoryEnumerator *folderEnumerator = [fileManager enumeratorAtURL:[NSURL fileURLWithPath:cachefolderPath]
+                                                        includingPropertiesForKeys:@[NSURLNameKey]
+                                                                           options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                                                      errorHandler:nil];
+            NSString *theSubtitleFileName;
+            for (NSURL *theURL in folderEnumerator) {
+                NSString *iter;
+                [theURL getResourceValue:&iter forKey:NSURLNameKey error:NULL];
+
+                if ([iter hasPrefix:mediaFileName]) {
+                    theSubtitleFileName = iter;
+                    break;
+                }
+            }
+
+            NSURL *subtitleURL = [NSURL fileURLWithPath:[cachefolderPath stringByAppendingPathComponent:theSubtitleFileName]];
+            [_mediaPlayer addPlaybackSlave:subtitleURL type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
+        }
+    }
+}
 #endif
 
 - (void)recoverDisplayedMetadata
@@ -1493,6 +1504,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (void)mediaListPlayer:(VLCMediaListPlayer *)player nextMedia:(VLCMedia *)media
 {
+#if TARGET_OS_IOS
+    [self _findCachedSubtitlesForMedia:media];
+#endif
+
     if ([_delegate respondsToSelector:@selector(playbackService:nextMedia:)]) {
         [_delegate playbackService:self nextMedia:media];
     }
