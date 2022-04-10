@@ -44,6 +44,7 @@
 #define kVLCSettingSubtitlesFontColor @"quartztext-color"
 #define kVLCSettingSubtitlesFontColorDefaultValue @"16777215"
 #define kVLCSettingSubtitlesFilePath @"sub-file"
+#define kVLCSubtitlesCacheFolderName @"cached-subtitles"
 #define kVLCSettingDeinterlace @"deinterlace"
 #define kVLCSettingDeinterlaceDefaultValue @(-1)
 #define kVLCSettingHardwareDecoding @"codec"

@@ -269,6 +269,7 @@
 
 - (void)VLCOSOFetcher:(VLCOSOFetcher *)aFetcher subtitleDownloadSucceededForItem:(VLCSubtitleItem *)subtitleItem atPath:(NSString *)pathToFile
 {
+    APLog(@"%s: %@", __func__, subtitleItem.name);
     [self stopActivity];
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     [vpc openVideoSubTitlesFromFile:pathToFile];
@@ -394,13 +395,22 @@
         VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
         NSURL *mediaURL = vpc.currentlyPlayingMedia.url;
         if (mediaURL.isFileURL) {
-            subStorageLocation = [[mediaURL.path stringByDeletingPathExtension] stringByAppendingPathExtension:item.format];
-        } else {
+            /* do not attempt to write the read-only Inbox folder */
+            NSURLRelationship relationship;
+            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *directoryPath = [searchPaths.firstObject stringByAppendingPathComponent:@"Inbox"];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            [fileManager getRelationship:&relationship ofDirectoryAtURL:[NSURL fileURLWithPath:directoryPath] toItemAtURL:mediaURL error:nil];
+            if (relationship != NSURLRelationshipContains) {
+                subStorageLocation = [[mediaURL.path stringByDeletingPathExtension] stringByAppendingPathExtension:item.format];
+            }
+        }
+        if (!subStorageLocation) {
 #endif
-        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString *folderPath = [searchPaths[0] stringByAppendingPathComponent:@"tempsubs"];
-        [[NSFileManager defaultManager] createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
-        subStorageLocation = [folderPath stringByAppendingPathComponent:item.name];
+            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *folderPath = [searchPaths.firstObject stringByAppendingPathComponent:kVLCSubtitlesCacheFolderName];
+            [[NSFileManager defaultManager] createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
+            subStorageLocation = [folderPath stringByAppendingPathComponent:item.name];
 #if TARGET_OS_IOS
         }
 #endif
