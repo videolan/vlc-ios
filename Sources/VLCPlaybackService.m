@@ -295,6 +295,38 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     [_playbackSessionManagementLock unlock];
 
+    NSURL *mediaURL = media.url;
+    if (mediaURL.isFileURL) {
+        /* let's see if it is in the Inbox folder and if yes, maybe we have a cached subtitles file? */
+        NSURLRelationship relationship;
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *directoryPath = [searchPaths.firstObject stringByAppendingPathComponent:@"Inbox"];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        [fileManager getRelationship:&relationship ofDirectoryAtURL:[NSURL fileURLWithPath:directoryPath] toItemAtURL:mediaURL error:nil];
+        if (relationship == NSURLRelationshipContains) {
+            NSString *mediaFileName = mediaURL.path.lastPathComponent.stringByDeletingPathExtension;
+            searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            directoryPath = [searchPaths.firstObject stringByAppendingPathComponent:kVLCSubtitlesCacheFolderName];
+
+            NSDirectoryEnumerator *folderEnumerator = [fileManager enumeratorAtURL:[NSURL fileURLWithPath:directoryPath]
+                                                        includingPropertiesForKeys:@[NSURLNameKey]
+                                                                           options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                                                      errorHandler:nil];
+            NSString *theSubtitleFileName;
+            for (NSURL *theURL in folderEnumerator) {
+                NSString *iter;
+                [theURL getResourceValue:&iter forKey:NSURLNameKey error:NULL];
+
+                if ([iter hasPrefix:mediaFileName]) {
+                    theSubtitleFileName = iter;
+                    break;
+                }
+            }
+
+            _pathToExternalSubtitlesFile = [directoryPath stringByAppendingPathComponent:theSubtitleFileName];
+        }
+    }
+
     [self _playNewMedia];
 }
 
@@ -399,7 +431,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     for (NSURL *url in _openedLocalURLs) {
         [url stopAccessingSecurityScopedResource];
-        NSLog(@"%@", url);
     }
     _openedLocalURLs = nil;
     _openedLocalURLs = [[NSMutableArray alloc] init];

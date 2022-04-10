@@ -403,6 +403,12 @@
             [fileManager getRelationship:&relationship ofDirectoryAtURL:[NSURL fileURLWithPath:directoryPath] toItemAtURL:mediaURL error:nil];
             if (relationship != NSURLRelationshipContains) {
                 subStorageLocation = [[mediaURL.path stringByDeletingPathExtension] stringByAppendingPathExtension:item.format];
+            } else {
+                NSString *mediaFileName = mediaURL.path.lastPathComponent.stringByDeletingPathExtension;
+                searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+                directoryPath = [searchPaths.firstObject stringByAppendingPathComponent:kVLCSubtitlesCacheFolderName];
+                [fileManager createDirectoryAtPath:directoryPath withIntermediateDirectories:YES attributes:nil error:nil];
+                subStorageLocation = [directoryPath stringByAppendingFormat:@"/%@.%@", mediaFileName, item.format];
             }
         }
         if (!subStorageLocation) {
