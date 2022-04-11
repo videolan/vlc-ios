@@ -412,8 +412,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         let overallCellWidthWithoutPadding = overallWidth - (numberOfCells + 1) * interItemPadding
         let cellWidth = floor(overallCellWidthWithoutPadding / numberOfCells)
 
-        let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
-        return CGSize(width: cellWidth, height: isIpad ? 94 : 67)
+        let titleHeight = UIFont.preferredFont(forTextStyle: .title3).lineHeight
+        let subtitleHeight = UIFont.preferredFont(forTextStyle: .subheadline).lineHeight
+
+        return CGSize(width: cellWidth, height: titleHeight + subtitleHeight + edgePadding + interItemPadding * 2)
     }
 
     override func prepareForReuse() {
