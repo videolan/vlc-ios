@@ -390,6 +390,7 @@
 
         VLCSubtitleItem *item = self.searchResults[indexPath.row];
         NSString *subStorageLocation;
+        NSFileManager *fileManager = [NSFileManager defaultManager];
 #if TARGET_OS_IOS
         /* on iOS, we try to retain the subtitles if the played media is stored locally */
         VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
@@ -398,15 +399,11 @@
             /* that the media is a file URL does not mean that we can dump a subtitles file next to it
              * tl;dr we may write to the Documents-folder only, but not to the potential Inbox folder stored within
              * that needs to be treated as read-only */
-            NSURLRelationship inboxFolderRelationship;
-            NSURLRelationship documentFolderRelationship;
             NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *documentFolderPath = [searchPaths firstObject];
             NSString *potentialInboxFolderPath = [documentFolderPath stringByAppendingPathComponent:@"Inbox"];
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            [fileManager getRelationship:&documentFolderRelationship ofDirectoryAtURL:[NSURL fileURLWithPath:documentFolderPath] toItemAtURL:mediaURL error:nil];
-            [fileManager getRelationship:&inboxFolderRelationship ofDirectoryAtURL:[NSURL fileURLWithPath:potentialInboxFolderPath] toItemAtURL:mediaURL error:nil];
-            if (inboxFolderRelationship != NSURLRelationshipContains && documentFolderRelationship == NSURLRelationshipContains) {
+            NSString *mediaURLpath = mediaURL.path;
+            if (![mediaURLpath containsString:potentialInboxFolderPath] && [mediaURLpath containsString:documentFolderPath]) {
                 /* the media is stored in the Documents folder but not in Inbox */
                 NSString *mediaPath = mediaURL.path;
                 subStorageLocation = [[mediaPath stringByDeletingPathExtension] stringByAppendingPathExtension:item.format];
@@ -416,6 +413,7 @@
                     subStorageLocation = nil;
                 }
             }
+
             if (!subStorageLocation) {
                 /* cache the downloaded subtitle in a writeable cache folder that is eventually emptied by the OS */
                 NSString *mediaFileName = mediaURL.path.lastPathComponent.stringByDeletingPathExtension;
@@ -431,7 +429,7 @@
              * and have it deleted by the OS some day through the cache folder */
             NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
             NSString *folderPath = [searchPaths.firstObject stringByAppendingPathComponent:kVLCSubtitlesCacheFolderName];
-            [[NSFileManager defaultManager] createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
+            [fileManager createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
             subStorageLocation = [folderPath stringByAppendingPathComponent:item.name];
 #if TARGET_OS_IOS
         }
