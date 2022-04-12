@@ -1272,15 +1272,12 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     NSURL *mediaURL = media.url;
     if (mediaURL.isFileURL) {
         /* let's see if it is in the Inbox folder or outside our Documents folder and if yes, maybe we have a cached subtitles file? */
-        NSURLRelationship inboxFolderRelationship;
-        NSURLRelationship documentFolderRelationship;
         NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentFolderPath = [searchPaths firstObject];
         NSString *potentialInboxFolderPath = [documentFolderPath stringByAppendingPathComponent:@"Inbox"];
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        [fileManager getRelationship:&documentFolderRelationship ofDirectoryAtURL:[NSURL fileURLWithPath:documentFolderPath] toItemAtURL:mediaURL error:nil];
-        [fileManager getRelationship:&inboxFolderRelationship ofDirectoryAtURL:[NSURL fileURLWithPath:potentialInboxFolderPath] toItemAtURL:mediaURL error:nil];
-        if (inboxFolderRelationship == NSURLRelationshipContains || documentFolderRelationship != NSURLRelationshipContains) {
+        NSString *mediaURLpath = mediaURL.path;
+        if ([mediaURLpath containsString:potentialInboxFolderPath] && ![mediaURLpath containsString:documentFolderPath]) {
             NSString *mediaFileName = mediaURL.path.lastPathComponent.stringByDeletingPathExtension;
             searchPaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
             NSString *cachefolderPath = [searchPaths.firstObject stringByAppendingPathComponent:kVLCSubtitlesCacheFolderName];
