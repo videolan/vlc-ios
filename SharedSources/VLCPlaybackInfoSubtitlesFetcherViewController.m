@@ -272,7 +272,7 @@
     APLog(@"%s: %@", __func__, subtitleItem.name);
     [self stopActivity];
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
-    [vpc openVideoSubTitlesFromFile:pathToFile];
+    [vpc addSubtitlesToCurrentPlaybackFromURL:[NSURL fileURLWithPath:pathToFile]];
     [self dismissViewControllerAnimated:YES completion:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:nil];
 }
