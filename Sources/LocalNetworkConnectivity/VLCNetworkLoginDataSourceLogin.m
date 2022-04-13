@@ -66,12 +66,17 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
     NSString *labelString = nil;
     NSString *valueString = nil;
     UIReturnKeyType returnKeyType = UIReturnKeyNext;
+    NSString *textContentType = nil;
+
     switch (row) {
         case VLCNetworkServerLoginIndexServer:
             keyboardType = UIKeyboardTypeURL;
             labelString = NSLocalizedString(@"SERVER", nil);
             valueString = self.loginInformation.address;
             [self.delegate canConnect:valueString && valueString.length > 0];
+            if (@available(iOS 10.0, *)) {
+                textContentType = UITextContentTypeURL;
+            }
             break;
         case VLCNetworkServerLoginIndexPort:
             keyboardType = UIKeyboardTypeNumberPad;
@@ -81,6 +86,9 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
         case VLCNetworkServerLoginIndexUsername:
             labelString = NSLocalizedString(@"USER_LABEL", nil);
             valueString = self.loginInformation.username;
+            if (@available(iOS 11.0, *)) {
+                textContentType = UITextContentTypeUsername;
+            }
             break;
         case VLCNetworkServerLoginIndexPassword:
             labelString = NSLocalizedString(@"PASSWORD_LABEL", nil);
@@ -88,6 +96,9 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
             secureTextEntry = YES;
             if (self.loginInformation.additionalFields.count == 0) {
                 returnKeyType = UIReturnKeyDone;
+            }
+            if (@available(iOS 11.0, *)) {
+                textContentType = UITextContentTypePassword;
             }
             break;
         default: {
@@ -113,6 +124,9 @@ typedef NS_ENUM(NSUInteger, VLCNetworkServerLoginIndex) {
     textField.secureTextEntry        = secureTextEntry;
     textField.returnKeyType          = returnKeyType;
     textField.tag                    = row;
+    if (@available(iOS 10.0, *)) {
+        textField.textContentType = textContentType;
+    }
     fieldCell.delegate = self;
 }
 

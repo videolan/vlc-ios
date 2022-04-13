@@ -135,6 +135,9 @@
     [self.whatToOpenHelpLabel setText:NSLocalizedString(@"OPEN_NETWORK_HELP", nil)];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
+    if (@available(iOS 10.0, *)) {
+        self.urlField.textContentType = UITextContentTypeURL;
+    }
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
 

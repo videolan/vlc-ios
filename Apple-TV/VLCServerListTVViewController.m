@@ -263,12 +263,18 @@
         textField.placeholder = NSLocalizedString(@"USER_LABEL", nil);
         textField.text = login.username;
         usernameField = textField;
+        if (@available(tvOS 11.0, *)) {
+            usernameField.textContentType = UITextContentTypeUsername;
+        }
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.secureTextEntry = YES;
         textField.placeholder = NSLocalizedString(@"PASSWORD_LABEL", nil);
         textField.text = login.password;
         passwordField = textField;
+        if (@available(tvOS 11.0, *)) {
+            passwordField.textContentType = UITextContentTypePassword;
+        }
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = NSLocalizedString(@"SERVER_PORT", nil);
