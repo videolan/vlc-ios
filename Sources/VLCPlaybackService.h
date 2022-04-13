@@ -159,7 +159,7 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)performNavigationAction:(VLCMediaPlaybackNavigationAction)action;
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(nullable NSString *)subsFilePath;
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(nullable NSString *)subsFilePath completion:(void (^ __nullable)(BOOL success))completion;
-- (void)openVideoSubTitlesFromFile:(NSString *)pathToFile;
+- (void)addSubtitlesToCurrentPlaybackFromURL:(NSURL *)subtitleURL;
 
 NS_ASSUME_NONNULL_END
 @end

@@ -155,9 +155,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 }
 #pragma mark - playback management
 
-- (void)openVideoSubTitlesFromFile:(NSString *)pathToFile
+- (void)addSubtitlesToCurrentPlaybackFromURL:(NSURL *)subtitleURL
 {
-    [_mediaPlayer addPlaybackSlave:[NSURL fileURLWithPath:pathToFile] type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
+    [_mediaPlayer addPlaybackSlave:subtitleURL type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
 }
 
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(NSString * _Nullable)subsFilePath
