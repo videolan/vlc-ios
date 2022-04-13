@@ -410,29 +410,31 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)_openURLStringAndDismiss:(NSString *)url
 {
     NSURL *playbackURL = [NSURL URLWithString:url];
-    NSURL *subtitlesURL = nil;
-
-    if (([playbackURL.scheme isEqualToString:@"http"] || [playbackURL.scheme isEqualToString:@"https"]) && self.scanSubToggleButton.selected) {
-        subtitlesURL = [self _checkURLofSubtitle:playbackURL];
-    }
 
     VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:url]];
     VLCMediaList *medialist = [[VLCMediaList alloc] init];
     [medialist addMedia:media];
-    [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:subtitlesURL.absoluteString];
+    [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
+
+    if (([playbackURL.scheme isEqualToString:@"http"] || [playbackURL.scheme isEqualToString:@"https"]) && self.scanSubToggleButton.selected) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self _tryToFindSubtitleOnServerForURL:playbackURL];
+        });
+    }
 }
 
-- (NSURL *)_checkURLofSubtitle:(NSURL *)url
+- (void)_tryToFindSubtitleOnServerForURL:(NSURL *)url
 {
     NSCharacterSet *characterFilter = [NSCharacterSet characterSetWithCharactersInString:@"\\.():$"];
     NSString *subtitleFileExtensions = [[kSupportedSubtitleFileExtensions componentsSeparatedByCharactersInSet:characterFilter] componentsJoinedByString:@""];
     NSArray *arraySubtitleFileExtensions = [subtitleFileExtensions componentsSeparatedByString:@"|"];
     NSURL *urlWithoutExtension = [url URLByDeletingPathExtension];
     NSUInteger count = arraySubtitleFileExtensions.count;
+    NSURL *matchedURL = nil;
 
     for (int i = 0; i < count; i++) {
-        NSURL *checkURL = [urlWithoutExtension URLByAppendingPathExtension:arraySubtitleFileExtensions[i]];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:checkURL];
+        matchedURL = [urlWithoutExtension URLByAppendingPathExtension:arraySubtitleFileExtensions[i]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:matchedURL];
         request.HTTPMethod = @"HEAD";
 
         NSURLResponse *response = nil;
@@ -441,11 +443,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
 
         if (httpStatus == 200) {
-            APLog(@"%s:found matching spu file: %@", __PRETTY_FUNCTION__, checkURL);
-            return checkURL;
+            APLog(@"%s:found matching spu file: %@", __PRETTY_FUNCTION__, matchedURL);
+            break;
         }
     }
-    return nil;
+
+    if (matchedURL) {
+        [[VLCPlaybackService sharedInstance] addSubtitlesToCurrentPlaybackFromURL:matchedURL];
+    }
 }
 
 - (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error
