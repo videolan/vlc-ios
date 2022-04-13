@@ -460,19 +460,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSError __block *erreur = NULL;
     NSData __block *data;
-    BOOL __block reqProcessed = false;
     NSURLResponse __block *urlResponse;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
         urlResponse = _response;
         erreur = _error;
         data = _data;
-        reqProcessed = true;
+        dispatch_semaphore_signal(semaphore);
     }] resume];
-
-    while (!reqProcessed) {
-        [NSThread sleepForTimeInterval:0];
-    }
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 
     *response = urlResponse;
     *error = erreur;
