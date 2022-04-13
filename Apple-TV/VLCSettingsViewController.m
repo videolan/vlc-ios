@@ -178,6 +178,12 @@
 
         [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.text = [self.userDefaults stringForKey:specifier.key];
+            if ([specifier.key isEqualToString:kVLCSettingNetworkSatIPChannelListUrl]) {
+                textField.keyboardType = UIKeyboardTypeURL;
+                if (@available(tvOS 10.0, *)) {
+                    textField.textContentType = UITextContentTypeURL;
+                }
+            }
 
             [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
                                                               object:textField

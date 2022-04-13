@@ -46,6 +46,9 @@
                              object:[NSUbiquitousKeyValueStore defaultStore]];
 
     self.playURLField.placeholder = NSLocalizedString(@"ENTER_URL", nil);
+    if (@available(tvOS 10.0, *)) {
+        self.playURLField.textContentType = UITextContentTypeURL;
+    }
     self.emptyListButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
 
     self.previouslyPlayedStreamsTableView.backgroundColor = [UIColor clearColor];

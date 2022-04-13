@@ -79,6 +79,13 @@ import UIKit
         passwordField.placeholder = NSLocalizedString("PASSWORD_LABEL", comment: "")
         workgroupField.placeholder = NSLocalizedString("DSM_WORKGROUP", comment: "")
         workgroupField.isHidden = true
+        if #available(tvOS 10.0, *) {
+            serverField.textContentType = UITextContentType.URL
+        }
+        if #available(tvOS 11.0, *) {
+            usernameField.textContentType = UITextContentType.username
+            passwordField.textContentType = UITextContentType.password
+        }
 
         buttonSave.setTitle(NSLocalizedString("BUTTON_SAVE", comment: ""), for: .normal)
         buttonConnect.setTitle(NSLocalizedString("BUTTON_CONNECT", comment: ""), for: .normal)

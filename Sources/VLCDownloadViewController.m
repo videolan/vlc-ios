@@ -48,6 +48,9 @@
     self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", nil), [[UIDevice currentDevice] model]];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
+    if (@available(iOS 10.0, *)) {
+        self.urlField.textContentType = UITextContentTypeURL;
+    }
     self.progressContainer.hidden = YES;
     self.downloadsTable.hidden = YES;
     self.downloadsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
