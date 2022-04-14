@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Urzh war-zigresk";
 "DESCENDING_SWITCH_LABEL" = "Urzh war-gresk pe war-zigresk";
 "DESCENDING_SWITCH_HINT" = "Rummañ urzh ar c'hoñtekst war-gresk pe war-zigresk";
-"GRID_LAYOUT" = "Diskouez e keal";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
