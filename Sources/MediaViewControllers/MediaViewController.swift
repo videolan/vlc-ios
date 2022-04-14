@@ -62,7 +62,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     @available(iOS 14.0, *)
     private lazy var menuButton: UIBarButtonItem = {
-        return UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
+        return UIBarButtonItem(image: UIImage(named: "EllipseCircle"),
                                menu: generateMenu())
     }()
 
