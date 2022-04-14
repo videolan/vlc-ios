@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Kolejność malejąca";
 "DESCENDING_SWITCH_LABEL" = "Kolejność rosnąca lub malejąca";
 "DESCENDING_SWITCH_HINT" = "Sortuj kontekst w kolejności rosnącej lub malejącej";
-"GRID_LAYOUT" = "Układ siatki";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
