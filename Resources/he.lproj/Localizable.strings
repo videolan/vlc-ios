@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "בסדר יורד";
 "DESCENDING_SWITCH_LABEL" = "בסדר עולה או יורד";
 "DESCENDING_SWITCH_HINT" = "מיון הקשר בסדר עולה או יורד";
-"GRID_LAYOUT" = "פריסת רשת";
+"GRID_LAYOUT" = "רשת";
+"LIST_LAYOUT" = "רשימה";
+"HIDE_FEAT_ARTISTS" = "הסתרת אומנים מובילים";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
