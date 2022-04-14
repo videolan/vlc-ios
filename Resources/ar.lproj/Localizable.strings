@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "ترتيب تنازلي";
 "DESCENDING_SWITCH_LABEL" = "ترتيب تصاعدي أو تنازلي";
 "DESCENDING_SWITCH_HINT" = "افرز السياق بترتيب تصاعدي أو تنازلي";
-"GRID_LAYOUT" = "تخطيط الشبكة";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
