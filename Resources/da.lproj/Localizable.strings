@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Faldende rækkefølge";
 "DESCENDING_SWITCH_LABEL" = "Stigende eller faldende rækkefølge";
 "DESCENDING_SWITCH_HINT" = "Sortér indholdet i stigende eller faldende rækkefølge";
-"GRID_LAYOUT" = "Gitterlayout";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
