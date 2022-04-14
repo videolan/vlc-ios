@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Ordine decrescente";
 "DESCENDING_SWITCH_LABEL" = "Ordine crescente o decrescente";
 "DESCENDING_SWITCH_HINT" = "Mostra il contesto in ordine crescente o decrescente";
-"GRID_LAYOUT" = "Struttura della griglia";
+"GRID_LAYOUT" = "Griglia";
+"LIST_LAYOUT" = "Elenco";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
