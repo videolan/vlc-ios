@@ -256,16 +256,16 @@
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "오디오 정보";
-"CLOUD_LOGIN_LONG" = "클라우드 서비스를 이용하기 위해서는, 이 Apple TV와 다른 한 iOS 기기를 같은 Apple ID를 사용해 iCloud에 로그인 한 뒤, 시스템 설정에서 키체인 공유 설정을 활성화해야 합니다.";
+"CLOUD_LOGIN_LONG" = "클라우드 서비스를 이용하기 위해서는, 이 Apple TV와 다른 한 iOS 기기를 같은 Apple ID를 활성화해 iCloud에 로그인 한 뒤, 시스템 설정에서 키체인 공유 설정을 활성화해야 합니다.";
 "ENTER_URL" = "재생하기 위해서는 URL을 입력하세요";
 "HTTP_SERVER_ON" = "원격 재생 비활성화하기";
-"HTTP_SERVER_OFF" = "원격 재생 활성화하기";
+"HTTP_SERVER_OFF" = "원격 재생 활성화";
 "CACHED_MEDIA" = "캐시된 미디어";
 "CACHED_MEDIA_LONG" = "이곳에 보여지는 미디어는 당신의 Apple TV에 저장되어 있습니다. VLC가 실행되지 않는 때에도 기기 용량이 부족할 경우 운영체제가 사용자의 동의 없이 콘텐츠를 지울 수 있습니다.";
 "DOWNLOAD_SUBS_FROM_OSO" = "OpenSubtitles.org에서 자막을 다운받으세요...";
 "FOUND_SUBS" = "자막을 찾았습니다";
 "NO_SUB_FOUND_OSO" = "미디어 항목 \"%@\"에 대한 자막을 찾을 수 없습니다.";
-"USE_SPDIF" = "(S/PDIF)를 통하여 사용";
+"USE_SPDIF" = "패스스루 사용 (S/PDIF)";
 
 "PLAYBACK" = "재생";
 "REPEAT_MODE" = "반복";
@@ -360,12 +360,14 @@
 // MARK: - Sort
 
 "BUTTON_SORT" = "정렬";
-"BUTTON_SORT_HINT" = "정렬 액션 시트 표시";
+"BUTTON_SORT_HINT" = "정렬 작업 시트 표시";
 "HEADER_TITLE_SORT" = "정렬 기준";
 "DESCENDING_LABEL" = "내림차순";
 "DESCENDING_SWITCH_LABEL" = "오름차순 또는 내림차순";
 "DESCENDING_SWITCH_HINT" = "내용을 오름차순 또는 내림차순으로 정렬하기";
-"GRID_LAYOUT" = "그리드 레이아웃";
+"GRID_LAYOUT" = "격자";
+"LIST_LAYOUT" = "목록";
+"HIDE_FEAT_ARTISTS" = "기능 숨김. 아티스트";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,7 +451,7 @@
 "BOOKMARK_DELETE_MESSAGE" = "바로찾기 삭제 확인";
 
 // MARK: - Settings - Force rescan alert
-"FORCE_RESCAN_TITLE" = "미디어 라이브러리 다시 스캔하기";
+"FORCE_RESCAN_TITLE" = "미디어 라이브러리 다시 검색 강제 지정";
 "FORCE_RESCAN_MESSAGE" = "미디어 라이브러리를 다시 스캔하시겠습니까? 시간이 조금 걸릴 수 있습니다.";
 
 // MARK: - Local Network

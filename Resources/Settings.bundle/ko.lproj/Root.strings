@@ -29,7 +29,7 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "물어보기";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "항상";
 "SETTINGS_NETWORK_PLAY_ALL" = "자동으로 다음 항목 재생하기";
-"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "미디어 리스트에서 텍스트 스크롤 활성화하기";
+"SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "미디어 리스트에서 텍스트 스크롤 활성화";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblocking 필터";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "Deblocking 없음 (가장 빠름)";
@@ -81,7 +81,7 @@
 "SETTINGS_HWDECODING_ON" = "켜기";
 "SETTINGS_HWDECODING_OFF" = "끄기";
 "SETTINGS_CASTING" = "캐스팅";
-"SETTINGS_PTCASTING" = "오디오 패스쓰루";
+"SETTINGS_PTCASTING" = "오디오 패스스루";
 "SETTINGS_PTCASTINGLONG" = "TV가 오디오 렌더링을 관리하도록 합니다";
 "SETTINGS_CASTING_CONVERSION_QUALITY" = "변환 품질";
 "SETTINGS_HIGH" = "높음";
@@ -94,7 +94,7 @@
 "SETTINGS_SEND_RATING" = "iOS용 VLC를 평가해주세요";
 
 "SETTINGS_MEDIA_LIBRARY" = "미디어 라이브러리";
-"SETTINGS_MEDIA_LIBRARY_RESCAN" = "미디어 라이브러리 다시 스캔하기";
+"SETTINGS_MEDIA_LIBRARY_RESCAN" = "VLC가 미디어 라이브러리를 다시 검색하도록 강제 지정";
 "SETTINGS_DECRAPIFY" = "출력을 위해 항목 이름을 최적화하기";
 "SETTINGS_DISABLE_GROUPING" = "자동 미디어 그룹화 비활성화";
 "SETTINGS_SHOW_THUMBNAILS" = "동영상 섬네일 표시하기";
@@ -123,4 +123,4 @@
 
 "ABOUT_APP_TV" = "About VLC for tvOS";
 
-"SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
+"SETTINGS_REMEMBER_PLAYER_STATE" = "재생기 상태 기억하기 (순서섞기, 순환)";
