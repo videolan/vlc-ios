@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Beherako ordena";
 "DESCENDING_SWITCH_LABEL" = "Goranzko edo beheranzko ordena";
 "DESCENDING_SWITCH_HINT" = "Ordenatu testuingurua gorantz edo beherantz";
-"GRID_LAYOUT" = "Sareta-diseinua";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
