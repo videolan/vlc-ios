@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Спадний порядок";
 "DESCENDING_SWITCH_LABEL" = "Зростальний чи спадний порядок";
 "DESCENDING_SWITCH_HINT" = "Упорядкувати вміст за порядком зростанням чи спадання";
-"GRID_LAYOUT" = "Макет сітки";
+"GRID_LAYOUT" = "Сітка";
+"LIST_LAYOUT" = "Список";
+"HIDE_FEAT_ARTISTS" = "Сховати обр. артистів\n";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
