@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Ordem Decrescente";
 "DESCENDING_SWITCH_LABEL" = "Ordem Crescente ou Decrescente";
 "DESCENDING_SWITCH_HINT" = "Ordena o contexto em ordem crescente ou decrescente";
-"GRID_LAYOUT" = "Leiaute da Grade";
+"GRID_LAYOUT" = "Grade";
+"LIST_LAYOUT" = "Lista";
+"HIDE_FEAT_ARTISTS" = "Ocultar artistas participantes";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
