@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Csökkenő sorrend";
 "DESCENDING_SWITCH_LABEL" = "Növekvő vagy csökkenő sorrend";
 "DESCENDING_SWITCH_HINT" = "Helyi menü rendezése növekvő vagy csökkenő sorrendben";
-"GRID_LAYOUT" = "Rácselrendezés";
+"GRID_LAYOUT" = "Rács";
+"LIST_LAYOUT" = "Lista";
+"HIDE_FEAT_ARTISTS" = "Társelőadók elrejtése";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
