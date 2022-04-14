@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "padajoče";
 "DESCENDING_SWITCH_LABEL" = "naraščajoče ali padajoče";
 "DESCENDING_SWITCH_HINT" = "Sortiraj kontekst naraščajoče ali padajoče";
-"GRID_LAYOUT" = "Postavitev mreže";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
