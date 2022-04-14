@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Zostupné poradie";
 "DESCENDING_SWITCH_LABEL" = "Vzostupné alebo zostupné poradie";
 "DESCENDING_SWITCH_HINT" = "Zoradiť kontext vzostupne alebo zostupne";
-"GRID_LAYOUT" = "Rozloženie mriežky";
+"GRID_LAYOUT" = "Mriežka";
+"LIST_LAYOUT" = "Zoznam";
+"HIDE_FEAT_ARTISTS" = "Skryť uvádzaných umelcov";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
