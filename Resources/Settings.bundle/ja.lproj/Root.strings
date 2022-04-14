@@ -123,4 +123,4 @@
 
 "ABOUT_APP_TV" = "VLC for tvOSについて";
 
-"SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
+"SETTINGS_REMEMBER_PLAYER_STATE" = "再生モード（シャッフル、ループ）を記憶";
