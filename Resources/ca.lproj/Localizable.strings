@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Ordre descendent";
 "DESCENDING_SWITCH_LABEL" = "Ordre ascendent o descendent";
 "DESCENDING_SWITCH_HINT" = "Ordenar el context en ordre ascendent o descendent";
-"GRID_LAYOUT" = "Disposició de la graella";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
