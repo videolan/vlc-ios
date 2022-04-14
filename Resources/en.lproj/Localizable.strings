@@ -365,8 +365,8 @@
 "DESCENDING_LABEL" = "Descending Order";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
-"GRID_LAYOUT" = "Grid Layout";
-"LIST_LAYOUT" = "List Layout";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
 "HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
