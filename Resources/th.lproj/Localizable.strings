@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "จากมากไปหาน้อย";
 "DESCENDING_SWITCH_LABEL" = "จากน้อยไปหามาก หรือจากมากไปหาน้อย";
 "DESCENDING_SWITCH_HINT" = "เรียงลำดับบริบทจากน้อยไปหามาก หรือจากมากไปหาน้อย";
-"GRID_LAYOUT" = "เค้าโครงเส้นตาราง";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
