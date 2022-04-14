@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Azalan sıralama";
 "DESCENDING_SWITCH_LABEL" = "Artan ya da azalan sıralama";
 "DESCENDING_SWITCH_HINT" = "İçeriği artan ya da azalan şekilde sıralar";
-"GRID_LAYOUT" = "Izgara görünümü";
+"GRID_LAYOUT" = "Tablo";
+"LIST_LAYOUT" = "Liste";
+"HIDE_FEAT_ARTISTS" = "Sanatçı gizlensin";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
