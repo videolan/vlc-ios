@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Lækkandi röð";
 "DESCENDING_SWITCH_LABEL" = "Hækkandi eða lækkandi röð";
 "DESCENDING_SWITCH_HINT" = "Raða efni í hækkandi eða lækkandi röð";
-"GRID_LAYOUT" = "Framsetning í reitum";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
