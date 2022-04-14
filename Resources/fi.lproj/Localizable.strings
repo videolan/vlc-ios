@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Laskeva järjestys";
 "DESCENDING_SWITCH_LABEL" = "Nouseva tai laskeva järjestys";
 "DESCENDING_SWITCH_HINT" = "Lajittele sisältö nousevaan tai laskevaan järjestykseen";
-"GRID_LAYOUT" = "Ruudukon asettelu";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
