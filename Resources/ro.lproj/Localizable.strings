@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Ordine descrescătoare";
 "DESCENDING_SWITCH_LABEL" = "Ordine crescătoare sau descrescătoare";
 "DESCENDING_SWITCH_HINT" = "Sortarea contextului în ordine crescătoare sau descrescătoare";
-"GRID_LAYOUT" = "Dispunere grilă";
+"GRID_LAYOUT" = "Grilă";
+"LIST_LAYOUT" = "Listă";
+"HIDE_FEAT_ARTISTS" = "Ascunde-i pe ceilalți artiști";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
