@@ -366,6 +366,8 @@
 "DESCENDING_SWITCH_LABEL" = "Seřadit vzestupně nebo sestupně";
 "DESCENDING_SWITCH_HINT" = "Seřadit kontext vzestupně nebo sestupně";
 "GRID_LAYOUT" = "Mřížka";
+"LIST_LAYOUT" = "Seznam";
+"HIDE_FEAT_ARTISTS" = "Skrýt feat. umělce";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
