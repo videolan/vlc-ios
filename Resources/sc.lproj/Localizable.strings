@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Òrdine minimante";
 "DESCENDING_SWITCH_LABEL" = "Òrdine artiante o minimante";
 "DESCENDING_SWITCH_HINT" = "Òrdina su cuntestu in manera artiante o minimante";
-"GRID_LAYOUT" = "Istrutura de sa grìllia";
+"GRID_LAYOUT" = "Grìllia";
+"LIST_LAYOUT" = "Lista";
+"HIDE_FEAT_ARTISTS" = "Cua sos artistas collaboradores";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
