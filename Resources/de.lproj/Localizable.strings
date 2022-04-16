@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Absteigende Sortierung";
 "DESCENDING_SWITCH_LABEL" = "Aufsteigende oder Absteigende Sortierung";
 "DESCENDING_SWITCH_HINT" = "Inhalt aufsteigend oder absteigend sortieren";
-"GRID_LAYOUT" = "Gitterstruktur";
+"GRID_LAYOUT" = "Gitter";
+"LIST_LAYOUT" = "Liste";
+"HIDE_FEAT_ARTISTS" = "Vorgestellte Künstler ausblenden";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
