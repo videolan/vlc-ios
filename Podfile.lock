@@ -39,9 +39,9 @@ PODS:
   - MarqueeLabel (4.0.2)
   - MetaDataFetcherKit (0.5.0):
     - AFNetworking (= 4.0.0)
-  - MobileVLCKit (3.4.1b5)
+  - MobileVLCKit (3.4.1b6)
   - "NSData+Base64 (1.0.0)"
-  - ObjectiveDropboxOfficial (6.2.3)
+  - ObjectiveDropboxOfficial (6.3.0)
   - OBSlider (1.1.0)
   - OneDriveSDK (1.3.0):
     - OneDriveSDK/Auth (= 1.3.0)
@@ -64,7 +64,7 @@ PODS:
     - OneDriveSDK/Common
   - SimulatorStatusMagic (2.6)
   - SwiftLint (0.25.1)
-  - TVVLCKit (3.4.1b5)
+  - TVVLCKit (3.4.1b6)
   - VLCMediaLibraryKit (0.10.2b1):
     - MobileVLCKit
   - XKKeychain (1.0.1)
@@ -82,13 +82,13 @@ DEPENDENCIES:
   - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
   - MetaDataFetcherKit (~> 0.5.0)
-  - MobileVLCKit (= 3.4.1b5)
+  - MobileVLCKit (= 3.4.1b6)
   - ObjectiveDropboxOfficial
   - OBSlider (= 1.1.0)
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.25.0)
-  - TVVLCKit (= 3.4.1b5)
+  - TVVLCKit (= 3.4.1b6)
   - VLCMediaLibraryKit (= 0.10.2b1)
   - XKKeychain (~> 1.0)
   - xmlrpc (from `https://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
@@ -167,18 +167,18 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MetaDataFetcherKit: c77fa3d0791d406a8cfab43464ed728437bd241b
-  MobileVLCKit: 95f024133a825a6997e0ce0e30e311c3d12dc67a
+  MobileVLCKit: 582bf46a6acdb2fcd84706e728e7e810ee93bdcc
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
-  ObjectiveDropboxOfficial: fe206ce8c0bc49976c249d472db7fdbc53ebbd53
+  ObjectiveDropboxOfficial: cd993cfaf4887aff51aeab4b369b68fadc3571f3
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   SimulatorStatusMagic: 9f5294c12ca99c6cadb243a60362a66000df540c
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
-  TVVLCKit: 35011d91d3eb9b8092e102c0c527cb268eac7ef5
+  TVVLCKit: 9cb568dbc081138901aba5a65b005cc20e8dea5c
   VLCMediaLibraryKit: 8f199edb860d99e64aa33b7390ed458c50eaf3c8
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 92b3f3e9ae33f78b68a6ec5d8ddc7f8be4705597
+PODFILE CHECKSUM: f7227d1ca42738eb92dfc93508143e6201efb7bc
 
 COCOAPODS: 1.11.2
