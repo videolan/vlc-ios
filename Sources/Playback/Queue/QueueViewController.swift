@@ -592,13 +592,13 @@ extension QueueViewController: UICollectionViewDataSource {
         let isSelected = playbackService.currentlyPlayingMedia == media
         updateCollectionViewCellApparence(cell, isSelected: isSelected)
 
-        guard let safeMedia = media else {
-            assertionFailure("QueueViewController: cellForItemAt: Failed to fetch media")
+        guard let safeURL = media?.url else {
+            assertionFailure("QueueViewController: cellForItemAt: Failed to fetch media url")
             return cell
         }
-        if let media = medialibraryService.fetchMedia(with: safeMedia.url) {
+        if let media = medialibraryService.fetchMedia(with: safeURL) {
             cell.media = media
-        } else if let media = medialibraryService.medialib.addExternalMedia(withMrl: safeMedia.url) {
+        } else if let media = medialibraryService.medialib.addExternalMedia(withMrl: safeURL) {
             cell.media = media
         }
         cell.newLabel.isHidden = true
