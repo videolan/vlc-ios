@@ -24,25 +24,26 @@ import UIKit
         let thumbnailer = VLCMediaThumbnailer(media: media, andDelegate: self)
 
         let thumbSize = CGSize(width: 800, height: 600)
-        thumbnailer?.thumbnailWidth = thumbSize.width
-        thumbnailer?.thumbnailHeight = thumbSize.height
+        thumbnailer.thumbnailWidth = thumbSize.width
+        thumbnailer.thumbnailHeight = thumbSize.height
 
-        thumbnailer?.fetchThumbnail()
+        thumbnailer.fetchThumbnail()
     }
 
     // MARK: - VLCMediaThumbnailer data source
-    func mediaThumbnailer(_ mediaThumbnailer: VLCMediaThumbnailer!, didFinishThumbnail thumbnail: CGImage!) {
-        if thumbnail != nil {
-            let thumbnailImage: UIImage? = UIImage.init(cgImage: thumbnail)
-            if thumbnailImage != nil {
-                saveThumbnail(thumbnailImage!, mediaURL: mediaThumbnailer.media.url)
-                NotificationCenter.default.post(name: Notification.Name("thumbnailIComplete"), object: nil)
+    func mediaThumbnailer(_ mediaThumbnailer: VLCMediaThumbnailer, didFinishThumbnail thumbnail: CGImage) {
+        let thumbnailImage: UIImage? = UIImage.init(cgImage: thumbnail)
+        if thumbnailImage != nil {
+            guard let mediaURL = mediaThumbnailer.media.url else {
+                return
             }
+            saveThumbnail(thumbnailImage!, mediaURL: mediaURL)
+            NotificationCenter.default.post(name: Notification.Name("thumbnailIComplete"), object: nil)
         }
     }
 
-    func mediaThumbnailerDidTimeOut(_ mediaThumbnailer: VLCMediaThumbnailer!) {
-        print("Time out : \(mediaThumbnailer.media.url)")
+    func mediaThumbnailerDidTimeOut(_ mediaThumbnailer: VLCMediaThumbnailer) {
+        print("Time out : \(String(describing: mediaThumbnailer.media.url))")
     }
 
     // MARK: - 
