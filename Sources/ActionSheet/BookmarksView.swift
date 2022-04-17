@@ -250,23 +250,14 @@ class BookmarksView: UIView {
         NSLayoutConstraint.activate(constraints)
     }
 
-    private func getStringTimeValue(_ value: Int64) -> String {
-        let time = VLCTime(number: NSNumber.init(value: value))
-        if let stringValue = time?.stringValue {
-            return stringValue
-        }
-
-        return ""
-    }
-
     @objc private func addBookmark() {
         if let currentMedia = delegate?.bookmarksViewGetCurrentPlayingMedia() {
             let playbackService = PlaybackService.sharedInstance()
-            let currentTime = Int64(truncating: playbackService.playedTime().value)
-            currentMedia.addBookmark(atTime: currentTime)
-            if let bookmark = currentMedia.bookmark(atTime: currentTime) {
-                let time = getStringTimeValue(currentTime)
-                bookmark.name = NSLocalizedString("BOOKMARK_DEFAULT_NAME", comment: "") + time
+            let currentTime = playbackService.playedTime()
+            let currentTimeInt64 = Int64(truncating: currentTime.value ?? 0)
+            currentMedia.addBookmark(atTime: currentTimeInt64)
+            if let bookmark = currentMedia.bookmark(atTime: currentTimeInt64) {
+                bookmark.name = NSLocalizedString("BOOKMARK_DEFAULT_NAME", comment: "") + currentTime.stringValue
             }
             bookmarksTableView.reloadData()
         }
@@ -296,7 +287,7 @@ class BookmarksView: UIView {
                 if bookmarks.count > row {
                     if name.isEmpty {
                         var newName = String()
-                        let time = getStringTimeValue(bookmarks[row].time)
+                        let time = VLCTime(number: NSNumber.init(value: bookmarks[row].time)).stringValue
                         newName = NSLocalizedString("BOOKMARK_DEFAULT_NAME", comment: "") + time
                         bookmarks[row].name = newName
                     } else {

@@ -134,19 +134,19 @@ class MediaScrubProgressBar: UIStackView {
         progressSlider.value = value / Float(playbackService.mediaDuration)
         playbackService.playbackPosition = value / Float(playbackService.mediaDuration)
 
-        if let newPosition = VLCTime(number: NSNumber.init(value: value)) {
-            elapsedTimeLabel.text = newPosition.stringValue
-            elapsedTimeLabel.accessibilityLabel =
-                String(format: "%@: %@",
-                       NSLocalizedString("PLAYBACK_POSITION", comment: ""),
-                       newPosition.stringValue)
-            if UserDefaults.standard.bool(forKey: kVLCShowRemainingTime) {
-                let newRemainingTime = Int(newPosition.intValue) - playbackService.mediaDuration
-                remainingTimeButton.setTitle(VLCTime(number: NSNumber.init(value: newRemainingTime)).stringValue, for: .normal)
-                remainingTimeButton.setNeedsLayout()
-            }
-            elapsedTimeLabel.setNeedsLayout()
+        let newPosition = VLCTime(number: NSNumber.init(value: value))
+        elapsedTimeLabel.text = newPosition.stringValue
+        elapsedTimeLabel.accessibilityLabel =
+            String(format: "%@: %@",
+                   NSLocalizedString("PLAYBACK_POSITION", comment: ""),
+                   newPosition.stringValue)
+        if UserDefaults.standard.bool(forKey: kVLCShowRemainingTime) {
+            let newRemainingTime = Int(newPosition.intValue) - playbackService.mediaDuration
+            remainingTimeButton.setTitle(VLCTime(number: NSNumber.init(value: newRemainingTime)).stringValue, for: .normal)
+            remainingTimeButton.setNeedsLayout()
         }
+        elapsedTimeLabel.setNeedsLayout()
+
         positionSet = false
         delegate?.mediaScrubProgressBarShouldResetIdleTimer()
     }
@@ -234,22 +234,21 @@ private extension MediaScrubProgressBar {
                 progressSlider.value = playbackService.playbackPosition
             }
 
-            if let newPosition = VLCTime(number: NSNumber.init(value: slider.value * Float(playbackService.mediaDuration))) {
-                elapsedTimeLabel.text = newPosition.stringValue
-                elapsedTimeLabel.accessibilityLabel =
-                    String(format: "%@: %@",
-                           NSLocalizedString("PLAYBACK_POSITION", comment: ""),
-                           newPosition.stringValue)
-                // Update only remaining time and not media duration.
-                if UserDefaults.standard.bool(forKey: kVLCShowRemainingTime) {
-                    let newRemainingTime = Int(newPosition.intValue) - playbackService.mediaDuration
-                    remainingTimeButton.setTitle(VLCTime(number: NSNumber.init(value:newRemainingTime)).stringValue,
-                                                 for: .normal)
-                    remainingTimeButton.setNeedsLayout()
-                }
-
-                elapsedTimeLabel.setNeedsLayout()
+            let newPosition = VLCTime(number: NSNumber.init(value: slider.value * Float(playbackService.mediaDuration)))
+            elapsedTimeLabel.text = newPosition.stringValue
+            elapsedTimeLabel.accessibilityLabel =
+                String(format: "%@: %@",
+                       NSLocalizedString("PLAYBACK_POSITION", comment: ""),
+                       newPosition.stringValue)
+            // Update only remaining time and not media duration.
+            if UserDefaults.standard.bool(forKey: kVLCShowRemainingTime) {
+                let newRemainingTime = Int(newPosition.intValue) - playbackService.mediaDuration
+                remainingTimeButton.setTitle(VLCTime(number: NSNumber.init(value:newRemainingTime)).stringValue,
+                                             for: .normal)
+                remainingTimeButton.setNeedsLayout()
             }
+
+            elapsedTimeLabel.setNeedsLayout()
         }
         positionSet = false
         delegate?.mediaScrubProgressBarShouldResetIdleTimer()
