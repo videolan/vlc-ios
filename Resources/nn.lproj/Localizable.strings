@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Fallande rekkjefølgje";
 "DESCENDING_SWITCH_LABEL" = "Stigande eller fallande rekkjefølgje";
 "DESCENDING_SWITCH_HINT" = "Sorter kontekst i stigande eller fallande rekkjefølgje";
-"GRID_LAYOUT" = "Utforming av rutenett";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -441,7 +443,7 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Tonekontroll";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoinnstillingar";
-"BOOKMARKS_TITLE" = "Bookmarks";
+"BOOKMARKS_TITLE" = "Bokmerke";
 "ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
 "BOOKMARK_DEFAULT_NAME" = "Bookmark at";
 "BOOKMARK_RENAME_TITLE" = "Rename bookmark";
