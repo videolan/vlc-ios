@@ -321,7 +321,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
 
+#if TARGET_OS_IOS
     [_mediaPlayer setRendererItem:_renderer];
+#endif
 
     [_listPlayer playItemAtNumber:@(_itemInMediaListToBePlayedFirst)];
     
@@ -1351,7 +1353,11 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (BOOL)isPlayingOnExternalScreen
 {
+#if TARGET_OS_IOS
     return (_renderer || [[UIDevice currentDevice] VLCHasExternalDisplay]);
+#else
+    return [[UIDevice currentDevice] VLCHasExternalDisplay];
+#endif
 }
 
 #pragma mark - background interaction
@@ -1374,12 +1380,17 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 {
     _preBackgroundWrapperView = _videoOutputViewWrapper;
 
+#if TARGET_OS_IOS
     if (!_renderer && _mediaPlayer.audioTrackIndexes.count > 0 && [_mediaPlayer isPlaying])
         [self setVideoTrackEnabled:false];
 
     if (_renderer) {
         [_backgroundDummyPlayer play];
     }
+#else
+    if (_mediaPlayer.audioTrackIndexes.count > 0 && [_mediaPlayer isPlaying])
+        [self setVideoTrackEnabled:false];
+#endif
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification
@@ -1389,9 +1400,11 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         _preBackgroundWrapperView = nil;
     }
 
+#if TARGET_OS_IOS
     if (_renderer) {
         [_backgroundDummyPlayer stop];
     }
+#endif
 
     if (_mediaPlayer.currentVideoTrackIndex == -1) {
         [self setVideoTrackEnabled:true];
@@ -1478,11 +1491,13 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 #pragma mark - Renderer
 
+#if TARGET_OS_IOS
 - (void)setRenderer:(VLCRendererItem * __nullable)renderer
 {
     _renderer = renderer;
     [_mediaPlayer setRendererItem:_renderer];
 }
+#endif
 
 #pragma mark - PlayerDisplayController
 
