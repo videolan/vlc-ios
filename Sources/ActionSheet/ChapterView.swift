@@ -116,19 +116,18 @@ extension ChapterView: UITableViewDelegate, UITableViewDataSource {
 
             if hasMultipleTitles() && section == 0 {
                 let description = playbackService.titleDescriptionsDict(at: row)
-                if let name = description[VLCTitleDescriptionName],
-                   let duration = VLCTime(number: description[VLCTitleDescriptionDuration] as? NSNumber).stringValue {
-                    cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
-                }
+                let name = description[VLCTitleDescriptionName] ?? ""
+                let duration = VLCTime(number: description[VLCTitleDescriptionDuration] as? NSNumber).stringValue
+                cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
+
                 if playbackService.indexOfCurrentTitle == row {
                     cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
                 }
             } else {
                 let description = playbackService.chapterDescriptionsDict(at: row)
-                if let name = description[VLCChapterDescriptionName],
-                   let duration = VLCTime(number: description[VLCChapterDescriptionDuration] as? NSNumber).stringValue {
-                    cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
-                }
+                let name = description[VLCChapterDescriptionName] ?? ""
+                let duration = VLCTime(number: description[VLCChapterDescriptionDuration] as? NSNumber).stringValue
+                cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
                 if playbackService.indexOfCurrentChapter == row {
                     cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
                 }
