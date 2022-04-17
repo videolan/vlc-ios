@@ -35,7 +35,7 @@
 
 "PRESET_PREAMP_SETTING" = "预设 / 前置放大设置";
 "PREAMP" = "放大器";
-"SNAP_BANDS" = "沿着频段拉";
+"SNAP_BANDS" = "同时影响邻近频段";
 
 "PLAYBACK_FAILED" = "回放失败";
 "PLEASE_WAIT" = "请稍候";
@@ -82,7 +82,7 @@
 "OPEN_NETWORK_HELP" = "请输入任意 HTTP、RTSP、RTMP、MMS、FTP 或 UDP/RTP 地址，以便直接打开串流。";
 "HTTP_UPLOAD_SERVER_OFF" = "非活动服务器";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "无活动的 Wi-Fi 连接";
-"OPEN_STREAM_OR_DOWNLOAD" = "您是否希望下载或打开该 URL?";
+"OPEN_STREAM_OR_DOWNLOAD" = "是否希望下载或打开该 URL?";
 "SHARED_VLC_IOS_LIBRARY" = "共享 VLC for iOS 库";
 "SMB_CIFS_FILE_SERVERS" = "文件服务器 (SMB)";
 
@@ -194,10 +194,10 @@
 "PREV_BUTTON" = "上一曲";
 "PLAY_ALL_BUTTON" = "全部播放";
 
-"RESET_VIDEO_FILTERS" = "您是否希望重置视频滤镜?";
-"RESET_PLAYBACK_SPEED" = "您是否希望重置播放速度?";
-"RESET_EQUALIZER" = "您是否希望重置均衡器配置?";
-"RESET_SLEEP_TIMER" = "您是否希望重置睡眠计时器?";
+"RESET_VIDEO_FILTERS" = "是否希望重置视频滤镜?";
+"RESET_PLAYBACK_SPEED" = "是否希望重置播放速度?";
+"RESET_EQUALIZER" = "是否希望重置均衡器配置?";
+"RESET_SLEEP_TIMER" = "是否希望重置睡眠计时器?";
 
 "VERSION_FORMAT" = "版本: %@";
 "BASED_ON_FORMAT" = "基于:<br />%@";
@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "降序";
 "DESCENDING_SWITCH_LABEL" = "升序或降序";
 "DESCENDING_SWITCH_HINT" = "以升序或降序排列上下文";
-"GRID_LAYOUT" = "网格布局";
+"GRID_LAYOUT" = "网格";
+"LIST_LAYOUT" = "列表";
+"HIDE_FEAT_ARTISTS" = "隐藏特邀歌手";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
