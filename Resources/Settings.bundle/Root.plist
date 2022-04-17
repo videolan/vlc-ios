@@ -27,7 +27,11 @@
 				<string>1.00x</string>
 				<string>1.25x</string>
 				<string>1.50x</string>
+				<string>1.75x</string>
 				<string>2.00x</string>
+				<string>2.50x</string>
+				<string>3.00x</string>
+				<string>3.50x</string>
 				<string>4.00x</string>
 			</array>
 			<key>Values</key>
@@ -38,7 +42,11 @@
 				<real>1</real>
 				<real>1.25</real>
 				<real>1.5</real>
+				<real>1.75</real>
 				<real>2</real>
+				<real>2.50</real>
+				<real>3.00</real>
+				<real>3.5</real>
 				<real>4</real>
 			</array>
 		</dict>
