@@ -123,4 +123,4 @@
 
 "ABOUT_APP_TV" = "О программе VLC для tvOS";
 
-"SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Запоминать состояние плеера (перемешивание, зацикливание)";

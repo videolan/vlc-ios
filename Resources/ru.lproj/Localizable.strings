@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "По убыванию";
 "DESCENDING_SWITCH_LABEL" = "По возрастанию или по убыванию";
 "DESCENDING_SWITCH_HINT" = "Отсортировать контекст по возрастанию или по убыванию";
-"GRID_LAYOUT" = "В виде сетки";
+"GRID_LAYOUT" = "Сетка";
+"LIST_LAYOUT" = "Список";
+"HIDE_FEAT_ARTISTS" = "Скрыть пригл. исполнителей";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
