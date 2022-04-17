@@ -554,7 +554,10 @@ extension QueueViewController: UICollectionViewDataSource {
             return
         }
         mediaList.lock()
-        let currentMedia = mediaList.media(at: UInt(sourceIndexPath.row))
+        guard let currentMedia = mediaList.media(at: UInt(sourceIndexPath.row)) else {
+            mediaList.unlock()
+            return
+        }
         if mediaList.removeMedia(at: UInt(sourceIndexPath.row)) {
             mediaList.insert(currentMedia, at: UInt(destinationIndexPath.row))
         }
