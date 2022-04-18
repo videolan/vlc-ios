@@ -365,7 +365,9 @@
 "DESCENDING_LABEL" = "Φθίνουσα σειρά";
 "DESCENDING_SWITCH_LABEL" = "Αύξουσα ή φθίνουσα σειρά";
 "DESCENDING_SWITCH_HINT" = "Ταξινόμηση περιεχομένου κατά αύξουσα ή φθίνουσα σειρά";
-"GRID_LAYOUT" = "Διάταξη πλέγματος";
+"GRID_LAYOUT" = "Πλέγμα";
+"LIST_LAYOUT" = "Λίστα";
+"HIDE_FEAT_ARTISTS" = "Απόκρυψη προτεινόμενων καλλιτεχνών";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
