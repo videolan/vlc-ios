@@ -15,6 +15,9 @@ protocol EditControllerDelegate: AnyObject {
     func editControllerDidSelectMultipleItem(editContrller: EditController)
     func editControllerDidDeSelectMultipleItem(editContrller: EditController)
     func editControllerDidFinishEditing(editController: EditController?)
+    func editControllerGetCurrentThumbnail() -> UIImage?
+    func editControllerGetAlbumHeaderSize(with width: CGFloat) -> CGSize
+    func editControllerUpdateNavigationBar(offset: CGFloat)
 }
 
 class EditController: UIViewController {
@@ -275,6 +278,16 @@ extension EditController: UICollectionViewDelegate {
             cell.isSelected = false
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        guard let model = model as? CollectionModel,
+              model.mediaCollection is VLCMLAlbum,
+              let size = delegate?.editControllerGetAlbumHeaderSize(with: collectionView.frame.size.width) else {
+            return .init(width: 0, height: 0)
+        }
+
+        return size
+    }
 }
 
 // MARK: - UICollectdiionViewDataSource
@@ -330,6 +343,31 @@ extension EditController: UICollectionViewDataSource {
             return true
         }
         return false
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumHeader.headerID, for: indexPath)
+
+        guard let header = headerView as? AlbumHeader,
+              let collectionModel = model as? CollectionModel,
+              collectionModel.mediaCollection is VLCMLAlbum else {
+            return headerView
+        }
+
+        if let currentThumbnail = delegate?.editControllerGetCurrentThumbnail() {
+            header.updateImage(with: currentThumbnail)
+        }
+
+        header.shouldDisablePlayButtons(true)
+
+        return header
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let model = model as? CollectionModel,
+           model.mediaCollection is VLCMLAlbum {
+            delegate?.editControllerUpdateNavigationBar(offset: scrollView.contentOffset.y)
+        }
     }
 }
 

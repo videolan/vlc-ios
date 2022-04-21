@@ -350,6 +350,7 @@
 		D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */; };
 		D902E21527F4ADF900DC2B41 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */; };
 		D92C186527CD317D0034058F /* ChapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C186427CD317D0034058F /* ChapterView.swift */; };
+		D96C9EBC28105F5B005F13BB /* AlbumHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C9EBB28105F5B005F13BB /* AlbumHeader.swift */; };
 		D9AFDCA527D6383F002326CC /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AFDCA427D6383F002326CC /* BookmarksView.swift */; };
 		DD13A37B1BEE2FAA00A35554 /* VLCMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */; };
 		DD1B31F41BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */; };
@@ -985,6 +986,7 @@
 		D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStreamingHistoryCell.m; path = Sources/VLCStreamingHistoryCell.m; sourceTree = SOURCE_ROOT; };
 		D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
 		D92C186427CD317D0034058F /* ChapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterView.swift; sourceTree = "<group>"; };
+		D96C9EBB28105F5B005F13BB /* AlbumHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeader.swift; sourceTree = "<group>"; };
 		D9AFDCA427D6383F002326CC /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
 		DD13A3791BEE2FAA00A35554 /* VLCMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMaskView.h; path = "UI Elements/VLCMaskView.h"; sourceTree = "<group>"; };
 		DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMaskView.m; path = "UI Elements/VLCMaskView.m"; sourceTree = "<group>"; };
@@ -2166,6 +2168,7 @@
 			children = (
 				418B144620179C00000447AA /* MediaCategoryViewController.swift */,
 				8DE1879921060DBE00A091D2 /* MediaCategory.swift */,
+				D96C9EBB28105F5B005F13BB /* AlbumHeader.swift */,
 			);
 			name = MediaCategories;
 			path = Sources/MediaCategories;
@@ -3280,6 +3283,7 @@
 				8DD651C4208F786F0052EE68 /* ActionSheetSectionHeader.swift in Sources */,
 				DD3EFF411BDEBCE500B68579 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
 				8D15A1F022B0FB9300CFA758 /* QueueViewController.swift in Sources */,
+				D96C9EBC28105F5B005F13BB /* AlbumHeader.swift in Sources */,
 				418E88412110E51B00DDA6A7 /* URLHandler.swift in Sources */,
 				8DE187812105DAB100A091D2 /* VideoViewController.swift in Sources */,
 				6D0B038825E7CBF90013DEF4 /* PopupView.swift in Sources */,

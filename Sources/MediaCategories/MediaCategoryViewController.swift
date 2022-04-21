@@ -51,6 +51,21 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private var longPressGesture: UILongPressGestureRecognizer!
     weak var delegate: MediaCategoryViewControllerDelegate?
 
+    private lazy var statusBarView: UIView = {
+        let statusBarFrame: CGRect
+        if #available(iOS 13.0, *) {
+            statusBarFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+        } else {
+            statusBarFrame = UIApplication.shared.statusBarFrame
+        }
+
+        let statusBarView = UIView(frame: statusBarFrame)
+        return statusBarView
+    }()
+
+    private weak var albumHeader: AlbumHeader?
+    private lazy var albumFlowLayout = AlbumHeaderLayout()
+
 //    @available(iOS 11.0, *)
 //    lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
 //        VLCDragAndDropManager<T>(subcategory: VLCMediaSubcategories<>)
@@ -179,7 +194,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
 
         let marqueeTitle = VLCMarqueeLabel()
-        if let collection = model as? CollectionModel {
+        if let model = model as? CollectionModel,
+           let collection = model.mediaCollection as? VLCMLAlbum {
+            title = collection.title
+        } else if let collection = model as? CollectionModel {
             title = collection.mediaCollection.title()
         }
         marqueeTitle.text = title
@@ -228,6 +246,34 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     @objc func miniPlayerIsHidden() {
         collectionView.contentInset.bottom = 0
+    }
+
+    private func updateCollectionViewForAlbum() {
+        guard let model = model as? CollectionModel, model.mediaCollection is VLCMLAlbum else {
+            return
+        }
+
+        collectionView?.register(AlbumHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.headerID)
+        collectionView.collectionViewLayout = albumFlowLayout
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        let isLandscape: Bool = UIDevice.current.orientation.isLandscape
+        let constant: CGFloat
+        if let navigationBarHeight = navigationController?.navigationBar.frame.height {
+            constant = isLandscape ? navigationBarHeight : navigationBarHeight * 2
+        } else {
+            constant = isLandscape ? searchBarSize : searchBarSize * 2
+        }
+
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: -constant),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        navigationController?.navigationBar.backgroundColor = .clear
+        navigationController?.setStatusBarColor(barView: self.statusBarView, backgroundColor: .clear)
+        navigationItem.titleView?.isHidden = true
     }
 
     private func setupSearchBar() {
@@ -333,6 +379,20 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         super.viewDidLoad()
         setupCollectionView()
         setupSearchBar()
+        if let model = model as? CollectionModel {
+            if model.mediaCollection is VLCMLAlbum {
+                searchBar.removeFromSuperview()
+                updateCollectionViewForAlbum()
+            }
+        }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        if let model = model as? CollectionModel,
+           model.mediaCollection is VLCMLAlbum {
+            statusBarView.removeFromSuperview()
+            view.addSubview(searchBar)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -353,6 +413,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
         setupCollectionView() //Fixes crash that is caused due to layout change
+        updateCollectionViewForAlbum()
         reloadData()
         showGuideOnLaunch()
         setNavbarAppearance()
@@ -430,6 +491,33 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
         if scrollView.contentOffset.y >= 0 && scrollView.contentInset.top != 0 {
             collectionView.contentInset.top = 0
+        }
+
+        if let model = model as? CollectionModel,
+           model.mediaCollection is VLCMLAlbum {
+
+            let backgroundColor: UIColor
+            if scrollView.contentOffset.y >= 50 {
+                backgroundColor = PresentationTheme.current.colors.background.withAlphaComponent(0.4 * (scrollView.contentOffset.y / 100))
+            } else {
+                backgroundColor = .clear
+            }
+
+            navigationController?.navigationBar.backgroundColor = backgroundColor
+            navigationController?.setStatusBarColor(barView: statusBarView, backgroundColor: backgroundColor)
+
+            if let albumHeader = albumHeader,
+               let navBar = navigationController?.navigationBar {
+                let padding = statusBarView.frame.maxY + navBar.frame.maxY
+                let hideNavigationItemTitle: Bool
+                if scrollView.contentOffset.y >= albumHeader.frame.maxY - padding {
+                    hideNavigationItemTitle = false
+                } else {
+                    hideNavigationItemTitle = true
+                }
+
+                navigationItem.titleView?.isHidden = hideNavigationItemTitle
+            }
         }
     }
 
@@ -957,6 +1045,15 @@ extension MediaCategoryViewController {
             }
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        guard let model = model as? CollectionModel,
+              model.mediaCollection is VLCMLAlbum else {
+            return .init(width: 0, height: 0)
+        }
+
+        return albumFlowLayout.getHeaderSize(with: collectionView.frame.size.width)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -1008,6 +1105,26 @@ extension MediaCategoryViewController {
         mediaCell.isAccessibilityElement = true
 
         return mediaCell
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumHeader.headerID, for: indexPath)
+        guard let header = headerView as? AlbumHeader,
+              let collectionModel = model as? CollectionModel,
+              let collection = collectionModel.mediaCollection as? VLCMLAlbum else {
+            return headerView
+        }
+
+        let thumbnail = collectionModel.thumbnail
+        header.updateImage(with: thumbnail)
+        header.collection = collection
+        header.updateThumbnailTitle(collection.title)
+
+        header.shouldDisablePlayButtons(false)
+        header.updateParentView(parent: view)
+        albumHeader = header
+
+        return header
     }
 }
 
@@ -1185,10 +1302,53 @@ extension MediaCategoryViewController: EditControllerDelegate {
             delegate?.setEditingStateChanged(for: self, editing: false)
         }
     }
+
+    func editControllerGetCurrentThumbnail() -> UIImage? {
+        if let model = model as? CollectionModel {
+            return model.thumbnail
+        }
+
+        return nil
+    }
+
+    func editControllerGetAlbumHeaderSize(with width: CGFloat) -> CGSize {
+        return albumFlowLayout.getHeaderSize(with: width)
+    }
+
+    func editControllerUpdateNavigationBar(offset: CGFloat) {
+        if let model = model as? CollectionModel,
+           model.mediaCollection is VLCMLAlbum {
+
+            let backgroundColor: UIColor
+            if offset >= 50 {
+                backgroundColor = PresentationTheme.current.colors.background.withAlphaComponent(0.4 * (offset / 100))
+            } else {
+                backgroundColor = .clear
+            }
+
+            navigationController?.navigationBar.backgroundColor = backgroundColor
+            navigationController?.setStatusBarColor(barView: statusBarView, backgroundColor: backgroundColor)
+
+            if let albumHeader = albumHeader,
+               let navBar = navigationController?.navigationBar {
+                let padding = statusBarView.frame.maxY + navBar.frame.maxY
+                let hideNavigationBarTitle: Bool
+                if offset >= albumHeader.frame.maxY - padding {
+                    hideNavigationBarTitle = false
+                } else {
+                    hideNavigationBarTitle = true
+                }
+
+                navigationItem.titleView?.isHidden = hideNavigationBarTitle
+            }
+        }
+    }
 }
 
 private extension MediaCategoryViewController {
     func setupCollectionView() {
+        collectionView.register(AlbumHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AlbumHeader.headerID)
+
         if model.cellType.nibName == mediaGridCellNibIdentifier {
             //GridCells are made programmatically so we register the cell class directly.
             collectionView?.register(MediaGridCollectionCell.self,
@@ -1244,6 +1404,13 @@ private extension MediaCategoryViewController {
 extension MediaCategoryViewController: MediaLibraryBaseModelObserver {
     func mediaLibraryBaseModelReloadView() {
         reloadData()
+    }
+
+    func mediaLibraryBaseModelObserverUpdateNavigationBar() {
+        if #available(iOS 13.0, *) {
+            navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationBarAlbumAppearance()
+            navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationBarAlbumAppearance()
+        }
     }
 }
 
@@ -1335,6 +1502,27 @@ extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
     private func resetScrollView() {
         if let mediaCell = mediaCollectionViewCellGetScrolledCell() {
             mediaCell.resetScrollView()
+        }
+    }
+}
+
+// MARK: - UINavigationController
+
+extension UINavigationController {
+    func setStatusBarColor(barView: UIView, backgroundColor: UIColor) {
+        if #available(iOS 13.0, *) {
+            let isLandscape = UIDevice.current.orientation.isLandscape
+            if !isLandscape {
+                barView.frame = view.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+            } else {
+                barView.frame = .zero
+            }
+
+            barView.backgroundColor = backgroundColor
+            view.addSubview(barView)
+        } else {
+            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+            statusBar?.backgroundColor = backgroundColor
         }
     }
 }

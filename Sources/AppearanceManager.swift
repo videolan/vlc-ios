@@ -82,6 +82,16 @@ class AppearanceManager: NSObject {
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: PresentationTheme.current.colors.navigationbarTextColor]
         return navBarAppearance
     }
+
+    @available(iOS 13.0, *)
+    @objc class func navigationBarAlbumAppearance() -> UINavigationBarAppearance {
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        navBarAppearance.backgroundColor = .clear
+        navBarAppearance.titleTextAttributes = [.foregroundColor: PresentationTheme.current.colors.navigationbarTextColor]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: PresentationTheme.current.colors.navigationbarTextColor]
+        return navBarAppearance
+    }
 }
 
 //extensions so that preferredStatusBarStyle is called on all childViewControllers otherwise this is not forwarded

@@ -17,6 +17,8 @@ class CollectionModel: MLBaseModel {
 
     var mediaCollection: MediaCollectionModel
 
+    var thumbnail: UIImage?
+
     var medialibrary: MediaLibraryService
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
@@ -55,6 +57,9 @@ class CollectionModel: MLBaseModel {
         }
 
         self.sortModel.currentSort = sortingCriteria
+
+        self.thumbnail = mediaCollection.thumbnail()
+
         files = mediaCollection.files() ?? []
         medialibrary.observable.addObserver(self)
     }
@@ -89,6 +94,10 @@ class CollectionModel: MLBaseModel {
         sortModel.desc = desc
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
+
+            if mediaCollection is VLCMLAlbum {
+                $0.value.observer?.mediaLibraryBaseModelObserverUpdateNavigationBar?()
+            }
         }
     }
 }
