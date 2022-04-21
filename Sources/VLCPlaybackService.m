@@ -805,8 +805,12 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 }
 
 - (void)shuffleMediaList {
-    _shuffledOrder = [[NSMutableArray alloc]init];
     int mediaListLength = (int) _mediaList.count;
+
+    if (mediaListLength <= 1) {
+        return;
+    }
+    _shuffledOrder = [[NSMutableArray alloc]init];
     for (int i = 0; i < mediaListLength; i++)
     {
         [_shuffledOrder addObject:[NSNumber numberWithInt:i]];
