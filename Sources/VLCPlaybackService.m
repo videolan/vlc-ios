@@ -313,7 +313,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     _mediaPlayer.equalizerEnabled = ![userDefaults boolForKey:kVLCSettingEqualizerProfileDisabled];
 
     if (_mediaPlayer.equalizerEnabled) {
-        unsigned int profile = (unsigned int)[[userDefaults objectForKey:kVLCSettingEqualizerProfile] integerValue];
+        unsigned int profile = (unsigned int)[userDefaults integerForKey:kVLCSettingEqualizerProfile];
         [_mediaPlayer resetEqualizerFromProfile:profile];
         [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
     }
@@ -1105,12 +1105,19 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (void)resetEqualizerFromProfile:(unsigned int)profile
 {
-    _mediaPlayer.equalizerEnabled = profile != 0;
-    [[NSUserDefaults standardUserDefaults] setBool:profile == 0 forKey:kVLCSettingEqualizerProfileDisabled];
-    if (profile != 0) {
-        [[NSUserDefaults standardUserDefaults] setObject:@(profile - 1) forKey:kVLCSettingEqualizerProfile];
-        [_mediaPlayer resetEqualizerFromProfile:profile - 1];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if (profile == 0) {
+        _mediaPlayer.equalizerEnabled = NO;
+        [userDefaults setBool:YES forKey:kVLCSettingEqualizerProfileDisabled];
+        return;
     }
+
+    [userDefaults setBool:NO forKey:kVLCSettingEqualizerProfileDisabled];
+    _mediaPlayer.equalizerEnabled = YES;
+
+    unsigned int actualProfile = profile - 1;
+    [userDefaults setInteger:actualProfile forKey:kVLCSettingEqualizerProfile];
+    [_mediaPlayer resetEqualizerFromProfile:actualProfile];
 }
 
 - (void)setPreAmplification:(CGFloat)preAmplification
