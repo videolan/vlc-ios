@@ -350,6 +350,7 @@ import UIKit
     @objc func reloadData() {
         if let delegate = delegate {
             presetSelectorView?.setPreampSliderValue(Float(delegate.preAmplification))
+            presetSelectorView?.setSelectedProfileValue(delegate.selectedEqualizerProfile())
 
             for (i, eqFrequency) in eqFrequencies.enumerated() {
                 eqFrequency.slider.value = Float(delegate.amplification(ofBand: UInt32(i)))
@@ -475,6 +476,7 @@ extension EqualizerView: PopupViewAccessoryViewsDelegate {
     @objc func resetEqualizer(fromProfile profile: UInt32)
     @objc func numberOfBands() -> UInt32
     @objc func frequencyOfBand(atIndex index: UInt32) -> CGFloat
+    @objc func selectedEqualizerProfile() -> UInt32
 }
 
 // MARK: - EqualizerViewUIDelegate

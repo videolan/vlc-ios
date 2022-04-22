@@ -21,6 +21,7 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
     private let profiles: [NSString]
     var delegate: EqualizerPresetSelectorDelegate?
     private let presetTableViewReuseIdentifier = "presetTableViewReuseIdentifier"
+    var selectedProfileIndex = Int.init(0)
 
     // MARK: - Init
     required init(coder: NSCoder) {
@@ -110,8 +111,13 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
 
         let colors = PresentationTheme.darkTheme.colors
         cell.textLabel?.text = String(profiles[indexPath.row])
-        cell.textLabel?.textColor = colors.orangeUI
-        cell.textLabel?.font = .boldSystemFont(ofSize: 16)
+        if selectedProfileIndex == indexPath.row {
+            cell.textLabel?.textColor = colors.orangeUI
+            cell.textLabel?.font = .boldSystemFont(ofSize: 16)
+        } else {
+            cell.textLabel?.textColor = .white
+            cell.textLabel?.font = .systemFont(ofSize: 16)
+        }
         cell.backgroundColor = colors.cellBackgroundA
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
 
@@ -134,6 +140,11 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
     func setPreampSliderValue(_ value: Float) {
         preampSlider.value = value
         preampValueLabel.text = "\(Float(Int(preampSlider.value * 100)) / 100.0)dB"
+    }
+
+    func setSelectedProfileValue(_ value: UInt32) {
+        selectedProfileIndex = Int(value)
+        presetsTableView.reloadData()
     }
 }
 

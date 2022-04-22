@@ -1143,6 +1143,18 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     return [_mediaPlayer frequencyOfBandAtIndex:index];
 }
 
+- (unsigned int)selectedEqualizerProfile
+{
+    /* this is a bit complex, if the eq is off, we need to return 0
+     * if it is on, we need to provide the profile + 1 as the UI fakes a "Off" profile in its list */
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults boolForKey:kVLCSettingEqualizerProfileDisabled]) {
+        return 0;
+    }
+    unsigned int actualProfile = (unsigned int)[userDefaults integerForKey:kVLCSettingEqualizerProfile];
+    return actualProfile + 1;
+}
+
 #pragma mark - AVAudioSession Notification Observers
 
 - (void)handleInterruption:(NSNotification *)notification
