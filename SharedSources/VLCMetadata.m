@@ -50,10 +50,12 @@
         self.artworkImage = [media thumbnailImage];
         self.isAudioOnly = [media subtype] == VLCMLMediaSubtypeAlbumTrack;
     } else { // We're streaming something
-        BOOL isDarktheme = PresentationTheme.current.isDark;
-        self.artworkImage = isDarktheme ? [UIImage imageNamed:@"song-placeholder-dark"]
-                                        : [UIImage imageNamed:@"song-placeholder-white"];
         [self fillFromMetaDict:mediaPlayer];
+        if (!self.artworkImage) {
+            BOOL isDarktheme = PresentationTheme.current.isDark;
+            self.artworkImage = isDarktheme ? [UIImage imageNamed:@"song-placeholder-dark"]
+                                            : [UIImage imageNamed:@"song-placeholder-white"];
+        }
     }
 
     [self checkIsAudioOnly:mediaPlayer];
@@ -125,6 +127,17 @@
         self.artist = metaDict[VLCMetaInformationArtist];
         self.albumName = metaDict[VLCMetaInformationAlbum];
         self.trackNumber = metaDict[VLCMetaInformationTrackNumber];
+
+        NSString *artworkURLString = metaDict[VLCMetaInformationArtworkURL];
+        if (artworkURLString) {
+            NSURL *artworkURL = [NSURL URLWithString:artworkURLString];
+            if (artworkURL) {
+                NSData *imageData = [NSData dataWithContentsOfURL:artworkURL];
+                if (imageData) {
+                    self.artworkImage = [UIImage imageWithData:imageData];
+                }
+            }
+        }
     }
 }
 
