@@ -307,12 +307,13 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         APLog(@"%s: locking failed", __PRETTY_FUNCTION__);
         return;
     }
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
     // Set last selected equalizer profile if enabled
-    _mediaPlayer.equalizerEnabled = ![[NSUserDefaults standardUserDefaults] boolForKey:kVLCSettingEqualizerProfileDisabled];
+    _mediaPlayer.equalizerEnabled = ![userDefaults boolForKey:kVLCSettingEqualizerProfileDisabled];
 
     if (_mediaPlayer.equalizerEnabled) {
-        unsigned int profile = (unsigned int)[[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingEqualizerProfile] integerValue];
+        unsigned int profile = (unsigned int)[[userDefaults objectForKey:kVLCSettingEqualizerProfile] integerValue];
         [_mediaPlayer resetEqualizerFromProfile:profile];
         [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
     }
