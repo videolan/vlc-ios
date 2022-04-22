@@ -73,7 +73,7 @@
     }
     self.osoFetcher.subtitleLanguageId = selectedLocale;
     self.activityIndicatorView = [[UIActivityIndicatorView alloc] init];
-    if (@available(iOS 13.0, *)) {
+    if (@available(iOS 13.0, tvOS 13.0, *)) {
         self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
     } else {
         self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
