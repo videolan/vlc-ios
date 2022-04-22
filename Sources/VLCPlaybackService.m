@@ -104,7 +104,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     if (self) {
         _fullscreenSessionRequested = YES;
         // listen to audiosessions and appkit callback
-        _externalAudioPlaybackDeviceConnected = [self isExternalAudioPlaybackDeviceConnected];
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter addObserver:self selector:@selector(audioSessionRouteChange:)
                               name:AVAudioSessionRouteChangeNotification object:nil];
@@ -140,6 +139,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         _mediaList = [[VLCMediaList alloc] init];
 
         _openedLocalURLs = [[NSMutableArray alloc] init];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self->_externalAudioPlaybackDeviceConnected = [self isExternalAudioPlaybackDeviceConnected];
+        });
     }
     return self;
 }
