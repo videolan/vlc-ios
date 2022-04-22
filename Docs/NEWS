@@ -1,5 +1,15 @@
 # Changelog
 
+## iOS [3.3.5]
+· fix playback of media larger than 2 GB on some SMB2 shares
+· fix crash when accessing SMB2 shares without a password set
+· minor performance and appearance improvements
+
+## tvOS [3.3.5]
+· fix playback of media larger than 2 GB on some SMB2 shares
+· fix crash when accessing SMB2 shares without a password set
+· minor performance and appearance improvements
+
 ## iOS [3.3.4]
 · fix display of the Chinese (simplified) translation in Settings when in mainland China
 · fix default playback speed option
