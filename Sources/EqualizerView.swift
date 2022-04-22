@@ -133,6 +133,7 @@ import UIKit
     func willShow() {
         showCancel = false
         parentPopup?.updateAccessoryViews()
+        reloadData()
         resetValuesOnShow()
     }
 
