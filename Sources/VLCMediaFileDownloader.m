@@ -2,7 +2,7 @@
  * VLCMediaFileDownloader.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2020-2022 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -39,8 +39,14 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
         _mediaPlayer = [[VLCMediaPlayer alloc] init];
         _mediaPlayer.delegate = self;
         _fileManager = [NSFileManager defaultManager];
+        _demuxDumpFilePath = @"";
     }
     return self;
+}
+
+- (NSString *)downloadLocationPath
+{
+    return [_demuxDumpFilePath copy];
 }
 
 - (NSString *)createPotentialNameFromName:(NSString *)name
@@ -118,14 +124,14 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 
 - (void)_downloadStarted
 {
-    [self.delegate mediaFileDownloadStarted];
+    [self.delegate mediaFileDownloadStarted:self];
 }
 
 - (void)_downloadFailed
 {
-    if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)]) {
+    if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:forDownloader:)]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate downloadFailedWithErrorDescription:@"libvlc failure"];
+            [self.delegate downloadFailedWithErrorDescription:@"libvlc failure" forDownloader:self];
         });
     }
     [self _downloadEnded];
@@ -136,9 +142,9 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
     /* remove partially downloaded content */
     [_fileManager removeItemAtURL:[NSURL fileURLWithPath:_demuxDumpFilePath] error:nil];
 
-    if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:)]) {
+    if ([self.delegate respondsToSelector:@selector(downloadFailedWithErrorDescription:forDownloader:)]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate downloadFailedWithErrorDescription:NSLocalizedString(@"HTTP_DOWNLOAD_CANCELLED",nil)];
+            [self.delegate downloadFailedWithErrorDescription:NSLocalizedString(@"HTTP_DOWNLOAD_CANCELLED",nil) forDownloader:self];
         });
     }
 }
@@ -162,7 +168,7 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 
     _downloadInProgress = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.delegate mediaFileDownloadEnded];
+        [self.delegate mediaFileDownloadEnded:self];
     });
 
     [self terminateBackgroundTask];
