@@ -212,7 +212,7 @@
 }
 
 #pragma mark - VLC media downloader delegate
-- (void)mediaFileDownloadStarted
+- (void)mediaFileDownloadStarted:(VLCMediaFileDownloader *)theDownloader
 {
     VLCActivityManager *activityManager = [VLCActivityManager defaultManager];
     [activityManager networkActivityStopped];
@@ -228,21 +228,21 @@
     APLog(@"download started");
 }
 
-- (void)mediaFileDownloadEnded
+- (void)mediaFileDownloadEnded:(VLCMediaFileDownloader *)theDownloader
 {
     [[VLCActivityManager defaultManager] networkActivityStopped];
     _downloadActive = NO;
     [_delegate downloadEnded];
 
-    APLog(@"download ended");
+    APLog(@"download ended here: %@", theDownloader.downloadLocationPath);
 
     [self _triggerNextDownload];
 }
 
-- (void)downloadFailedWithErrorDescription:(NSString *)description
+- (void)downloadFailedWithErrorDescription:(NSString *)description forDownloader:(VLCMediaFileDownloader *)theDownloader
 {
     [_delegate downloadFailedWithDescription:description];
-    [self mediaFileDownloadEnded];
+    [self mediaFileDownloadEnded:theDownloader];
 }
 
 - (void)progressUpdatedTo:(CGFloat)percentage receivedDataSize:(CGFloat)receivedDataSize  expectedDownloadSize:(CGFloat)expectedDownloadSize
