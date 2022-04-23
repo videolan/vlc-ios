@@ -133,6 +133,7 @@ extension NSNotification {
 class MediaLibraryService: NSObject {
     private static let databaseName: String = "medialibrary.db"
     private static let didForceRescan: String = "MediaLibraryDidForceRescan"
+    private var triedToRecoverFromInitializationErrorOnce = false
 
     private var didFinishDiscovery = false
 
@@ -225,7 +226,18 @@ private extension MediaLibraryService {
         case .alreadyInitialized:
             assertionFailure("MediaLibraryService: Medialibrary already initialized.")
         case .failed:
-            preconditionFailure("MediaLibraryService: Failed to setup medialibrary.")
+            if triedToRecoverFromInitializationErrorOnce == false {
+                triedToRecoverFromInitializationErrorOnce = true
+                do {
+                    APLog(String(format: "MediaLibraryService: Failed to setup medialibrary, trying to recover by deleting previous database (%@)", databasePath))
+                    try FileManager.default.removeItem(atPath: databasePath)
+                    setupMediaLibrary()
+                    return
+                } catch let error as NSError {
+                    APLog(String(format: "Failed to delete previous database (%@)", error.localizedDescription))
+                }
+            }
+            preconditionFailure("MediaLibraryService: Permanently failed to setup medialibrary.")
         case .dbCorrupted:
             medialib.clearDatabase(restorePlaylists: true)
             startMediaLibrary(on: documentPath)
