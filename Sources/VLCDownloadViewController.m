@@ -45,7 +45,6 @@
     [self.downloadButton setTitle:NSLocalizedString(@"BUTTON_DOWNLOAD", nil) forState:UIControlStateNormal];
     [self.downloadButton setAccessibilityIdentifier:@"Download"];
     self.downloadButton.layer.cornerRadius = 4.0;
-    self.whatToDownloadHelpLabel.text = [NSString stringWithFormat:NSLocalizedString(@"DOWNLOAD_FROM_HTTP_HELP", nil), [[UIDevice currentDevice] model]];
     self.urlField.delegate = self;
     self.urlField.keyboardType = UIKeyboardTypeURL;
     if (@available(iOS 10.0, *)) {
@@ -54,7 +53,6 @@
     self.progressContainer.hidden = YES;
     self.downloadsTable.hidden = YES;
     self.downloadsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.whatToDownloadHelpLabel.backgroundColor = [UIColor clearColor];
 
     _contentViewHeight = [_contentView.heightAnchor constraintEqualToConstant:0];
     _contentViewHeight.active = YES;
@@ -89,7 +87,6 @@
     self.downloadsTable.backgroundColor = colors.background;
     self.view.backgroundColor = colors.background;
     self.downloadButton.backgroundColor = colors.orangeUI;
-    self.whatToDownloadHelpLabel.textColor = colors.lightTextColor;
     self.progressContainer.backgroundColor = colors.background;
     self.currentDownloadLabel.textColor = colors.cellTextColor;
     self.progressPercent.textColor = colors.cellDetailTextColor;
