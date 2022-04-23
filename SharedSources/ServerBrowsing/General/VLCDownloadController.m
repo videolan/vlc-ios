@@ -19,6 +19,10 @@
 @interface VLCDownloadController () <VLCMediaFileDownloader>
 {
     NSMutableArray *_currentDownloads;
+    NSMutableArray *_downloadedMedia;
+    NSMutableArray *_downloadedMediaDates;
+    NSDateFormatter *_dateFormatter;
+
     BOOL _downloadActive;
     NSString *_humanReadableFilename;
     NSMutableDictionary *_userDefinedFileNameForDownloadItem;
@@ -55,10 +59,16 @@
     if (self) {
         _lastSpeeds = [[NSMutableArray alloc] init];
         _currentDownloads = [[NSMutableArray alloc] init];
+        _downloadedMedia = [[NSMutableArray alloc] init];
+        _downloadedMediaDates = [[NSMutableArray alloc] init];
         _userDefinedFileNameForDownloadItem = [[NSMutableDictionary alloc] init];
         _expectedDownloadSizesForItem = [[NSMutableDictionary alloc] init];
         _mediaDownloader = [[VLCMediaFileDownloader alloc] init];
         _mediaDownloader.delegate = self;
+
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.dateStyle = NSDateFormatterShortStyle;
+        _dateFormatter.timeStyle = NSDateFormatterMediumStyle;
     }
     return self;
 }
@@ -95,6 +105,27 @@
 - (void)cancelCurrentDownload
 {
     [_mediaDownloader cancelDownload];
+}
+
+- (NSUInteger)numberOfCompletedDownloads
+{
+    return _downloadedMedia.count;
+}
+
+- (NSString *)displayNameForCompletedDownloadAtIndex:(NSUInteger)index
+{
+    NSString *recentDownload = _downloadedMedia[index];
+    return [recentDownload lastPathComponent];
+}
+
+- (NSString *)metadataForCompletedDownloadAtIndex:(NSUInteger)index
+{
+    return [_dateFormatter stringFromDate:_downloadedMediaDates[index]];
+}
+
+- (VLCMedia *)mediaForCompletedDownloadAtIndex:(NSUInteger)index
+{
+    return [VLCMedia mediaWithPath:_downloadedMedia[index]];
 }
 
 - (NSUInteger)numberOfScheduledDownloads
@@ -154,7 +185,7 @@
     if (_downloadActive) {
         [_delegate downloadStartedWithDisplayName:_humanReadableFilename];
     } else {
-        [_delegate downloadEndedWithStoragePath:nil];
+        [_delegate downloadEnded];
     }
     [_delegate listOfScheduledDownloadsChanged];
 }
@@ -232,9 +263,18 @@
 {
     [[VLCActivityManager defaultManager] networkActivityStopped];
     _downloadActive = NO;
-    [_delegate downloadEndedWithStoragePath:theDownloader.downloadLocationPath];
 
-    APLog(@"download ended here: %@", theDownloader.downloadLocationPath);
+    NSString *storageLocationPath = theDownloader.downloadLocationPath;
+    if (storageLocationPath) {
+        if ([_downloadedMedia indexOfObject:storageLocationPath] == NSNotFound) {
+            [_downloadedMedia addObject:storageLocationPath];
+            [_downloadedMediaDates addObject:[NSDate date]];
+        }
+    }
+
+    [_delegate downloadEnded];
+
+    APLog(@"download ended here: %@", storageLocationPath);
 
     [self _triggerNextDownload];
 }
