@@ -2,7 +2,7 @@
  * VLCDownloadViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -51,7 +51,7 @@
         self.urlField.textContentType = UITextContentTypeURL;
     }
     self.progressContainer.hidden = YES;
-    self.downloadsTable.hidden = YES;
+    self.downloadsTable.hidden = NO;
     self.downloadsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     _contentViewHeight = [_contentView.heightAnchor constraintEqualToConstant:0];
@@ -175,14 +175,16 @@
 #pragma mark - table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSUInteger count = _downloadController.numberOfScheduledDownloads;
-    self.downloadsTable.hidden = !(count > 0);
-    return count;
+    if (section == 0) {
+        return _downloadController.numberOfScheduledDownloads;
+    }
+
+    return _downloadController.numberOfCompletedDownloads;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -195,8 +197,13 @@
     }
 
     NSInteger row = indexPath.row;
-    cell.textLabel.text = [_downloadController displayNameForDownloadAtIndex:row];
-    cell.detailTextLabel.text = [_downloadController urlStringForDownloadAtIndex:row];
+    if (indexPath.section == 0) {
+        cell.textLabel.text = [_downloadController displayNameForDownloadAtIndex:row];
+        cell.detailTextLabel.text = [_downloadController urlStringForDownloadAtIndex:row];
+    } else {
+        cell.textLabel.text = [_downloadController displayNameForCompletedDownloadAtIndex:row];
+        cell.detailTextLabel.text = [_downloadController metadataForCompletedDownloadAtIndex:row];
+    }
 
     ColorPalette *colors = PresentationTheme.current.colors;
     cell.textLabel.textColor = colors.cellTextColor;
@@ -210,6 +217,29 @@
     return 60;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return NSLocalizedString(@"DOWNLOADING", nil);
+    }
+
+    return NSLocalizedString(@"DOWNLOAD_FROM_HTTP", comment:@"");
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        if (_downloadController.numberOfScheduledDownloads == 0) {
+            return 0.;
+        }
+    } else {
+        if (_downloadController.numberOfCompletedDownloads == 0) {
+            return 0.;
+        }
+    }
+    return 14.;
+}
+
 #pragma mark - table view delegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -219,7 +249,11 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    if (indexPath.section == 0) {
+        return YES;
+    }
+
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -229,6 +263,18 @@
         [tableView reloadData];
         [self updateContentViewHeightConstraint];
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (indexPath.section == 0) {
+        return;
+    }
+
+    VLCMedia *media = [_downloadController mediaForCompletedDownloadAtIndex:indexPath.row];
+    VLCMediaList *mediaList = [[VLCMediaList alloc] initWithArray:@[media]];
+    [VLCPlaybackService.sharedInstance playMediaList:mediaList firstIndex:0 subtitlesFilePath:nil];
 }
 
 #pragma mark - text view delegate

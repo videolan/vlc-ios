@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 - (void)downloadStartedWithDisplayName:(NSString *)displayName;
-- (void)downloadEndedWithStoragePath:(NSString *)storageLocationPath;
+- (void)downloadEnded;
 - (void)downloadFailedWithDescription:(NSString *)description;
 - (void)downloadProgressUpdatedWithPercentage:(CGFloat)percentage time:(NSString *)time speed:(NSString *)speed totalSizeKnown:(BOOL)totalSizeKnown;
 - (void)listOfScheduledDownloadsChanged;
@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VLCDownloadController : NSObject
 
 @property (readonly) NSUInteger numberOfScheduledDownloads;
+@property (readonly) NSUInteger numberOfCompletedDownloads;
 @property (readwrite, weak) id<VLCDownloadControllerDelegate> delegate;
 
 + (instancetype)sharedInstance;
@@ -42,6 +43,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cancelCurrentDownload;
 - (nullable NSString *)displayNameForDownloadAtIndex:(NSUInteger)index;
 - (nullable NSString *)urlStringForDownloadAtIndex:(NSUInteger)index;
+- (nullable NSString *)displayNameForCompletedDownloadAtIndex:(NSUInteger)index;
+- (nullable NSString *)metadataForCompletedDownloadAtIndex:(NSUInteger)index;
+- (nullable VLCMedia *)mediaForCompletedDownloadAtIndex:(NSUInteger)index;
 - (void)bringDelegateUpToDate;
 
 @end
