@@ -2,7 +2,7 @@
  * VLCDownloadController.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2020 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 - (void)downloadStartedWithDisplayName:(NSString *)displayName;
-- (void)downloadEnded;
+- (void)downloadEndedWithStoragePath:(NSString *)storageLocationPath;
 - (void)downloadFailedWithDescription:(NSString *)description;
 - (void)downloadProgressUpdatedWithPercentage:(CGFloat)percentage time:(NSString *)time speed:(NSString *)speed totalSizeKnown:(BOOL)totalSizeKnown;
 - (void)listOfScheduledDownloadsChanged;
