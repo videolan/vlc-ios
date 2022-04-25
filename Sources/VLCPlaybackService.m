@@ -805,7 +805,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 }
 
 - (void)shuffleMediaList {
-    int mediaListLength = (int) _mediaList.count;
+    NSInteger mediaListLength = _mediaList.count;
 
     if (mediaListLength <= 1) {
         return;
@@ -816,9 +816,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         [_shuffledOrder addObject:[NSNumber numberWithInt:i]];
     }
     [_shuffledOrder exchangeObjectAtIndex:0 withObjectAtIndex:_currentIndex];
-    for (int i = 1; i < mediaListLength; i++) {
-        int nElements = mediaListLength - i;
-        int n = arc4random_uniform(nElements) + i;
+    for (NSInteger i = 1; i < mediaListLength; i++) {
+        NSInteger nElements = mediaListLength - i;
+        NSInteger n = arc4random_uniform((uint32_t)nElements) + i;
         [_shuffledOrder exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
 }
