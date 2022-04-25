@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "VLC rannet evit Levraoueg iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servijerioù Restroù (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 restr";
 "NO_FILES" = "Restroù nann kemeret e kont";
 "DOWNLOADING" = "O pellgargañ...";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Amzer a chom: %@";
 "BIOMETRIC_UNLOCK" = "Divorailhañ al Levraoueg Media\nNullañ evit reiñ ar C'hod moned";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "War-lerc'h";
 "PREV_BUTTON" = "Kent";
 "PLAY_ALL_BUTTON" = "Lenn an holl";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Ha c'hoant ho peus da adderaouiñ siloù ar video?";
 "RESET_PLAYBACK_SPEED" = "Ha c'hoant ho peus da adderaouiñ tizh al lenn?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Aozañ";
 "BUTTON_EDIT_HINT" = "Mod aozañ";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Niver a roudennoù video";
 "NB_ALBUM" = "Number of albums";
 "LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 

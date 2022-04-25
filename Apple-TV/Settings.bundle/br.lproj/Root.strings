@@ -112,7 +112,7 @@
 "SETTINGS_FORCE_SMBV1" = "Kavout gwelloc'h SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Digochañ an arventenn-mañ m'ho peus kudennoù da verdeiñ en ho servijer SMB";
 "SETTINGS_RTSP_TCP" = "Implijit RTP war RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Chadenn listennad URLioù SAT>IP personelaet";
 
 "SETTINGS_ARTWORK" = "Jaketenn";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Pellgargañ ar jaketenn";
