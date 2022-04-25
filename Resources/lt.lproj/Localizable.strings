@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Vartotojas nutraukė atsisiuntimą";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Įveskite adresą iš kurio norite atsisiųsti failą į savo %@.";
 "DOWNLOAD_FROM_HTTP" = "Siuntiniai";
 "ERROR_NUMBER" = "Įvyko klaida %i";
 "DOWNLOAD_FAILED" = "Parsisiųsti nepavyko";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "Change Passcode";
 "Enter Passcode" = "Enter Passcode";
 "Enter a passcode" = "Enter a passcode";
-"Enter your new passcode" = "Enter your new passcode";
-"Enter your old passcode" = "Enter your old passcode";
-"Enter your passcode" = "Enter your passcode";
-"Next" = "Toliau";
 "Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
-"Re-enter your new passcode" = "Re-enter your new passcode";
 "Re-enter your passcode" = "Re-enter your passcode";
 "Set Passcode" = "Set Passcode";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Singlas";
 "REPEAT_FOLDER" = "Aplankas";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Keisti";
 "BUTTON_EDIT_HINT" = "Keitimo veiksena";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Mažėjančiai";
 "DESCENDING_SWITCH_LABEL" = "Didėjančiai ar mažėjančiai";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
-"GRID_LAYOUT" = "Grid Layout";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Number of audio";
 "NB_MEDIA" = "Number of media";
 "NB_VIDEO" = "Number of video";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Nežinomas atlikėjas";
 "VARIOUS_ARTIST" = "Įvairūs atlikėjai";
 "UNKNOWN_ALBUM" = "Nežinomas albumas";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Glodintuvas";
 "MORE_OPTIONS_HEADER_TITLE" = "Vaizdo parinktys";
+"BOOKMARKS_TITLE" = "Bookmarks";
+"ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
+"BOOKMARK_DEFAULT_NAME" = "Bookmark at";
+"BOOKMARK_RENAME_TITLE" = "Rename bookmark";
+"BOOKMARK_DELETE_TITLE" = "Delete bookmark";
+"BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Priverstinai iš naujo peržvalgyti kūrinius";
