@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Nedlasting avbroten av brukar";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Skriv inn ei adresse for å lasta ned fila til %@.";
 "DOWNLOAD_FROM_HTTP" = "Nedlastingar";
 "ERROR_NUMBER" = "Feilen %i oppstod";
 "DOWNLOAD_FAILED" = "Mislukka nedlasting";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Enkel";
 "REPEAT_FOLDER" = "Mappe";
 "SHUFFLE" = "Bland";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
