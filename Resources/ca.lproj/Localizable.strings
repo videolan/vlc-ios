@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Baixada cancel·lada per l'usuari";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Entreu una adreça per a baixar el fitxer en la carpeta %@";
 "DOWNLOAD_FROM_HTTP" = "Baixades";
 "ERROR_NUMBER" = "S'ha produït un error %i";
 "DOWNLOAD_FAILED" = "S'ha produït un error en la baixada";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Sol";
 "REPEAT_FOLDER" = "Carpeta";
 "SHUFFLE" = "Aleatori";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Restableix la llista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Restableix de forma permanent la llista dels fluxos de xarxa reproduïts recentment.";
