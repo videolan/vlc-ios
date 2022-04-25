@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Kullanıcı indirmeyi iptal etti";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Dosyayı %@ üzerine indireceğiniz adresi yazın.";
 "DOWNLOAD_FROM_HTTP" = "İndirilenler";
 "ERROR_NUMBER" = "%i hatası oluştu";
 "DOWNLOAD_FAILED" = "İndirilemedi";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Tek";
 "REPEAT_FOLDER" = "Klasör";
 "SHUFFLE" = "Karışık";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Listeyi temizle";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Son oynatılan ağ akışları listesini temizler.";
