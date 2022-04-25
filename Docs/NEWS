@@ -1,6 +1,8 @@
 # Changelog
 
 ## iOS [3.3.5]
+· add shuffle / repeat actions to the playback screen's more button
+· list recently downloaded media
 · fix playback of media larger than 2 GB on some SMB2 shares
 · fix crash when accessing SMB2 shares without a password set
 · minor performance and appearance improvements
