@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Download annulleret af bruger";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Indtast en adresse for at downloade filen til din %@.";
 "DOWNLOAD_FROM_HTTP" = "Downloads";
 "ERROR_NUMBER" = "Fejl %i";
 "DOWNLOAD_FAILED" = "Overførsel mislykkedes";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "En";
 "REPEAT_FOLDER" = "Mappe";
 "SHUFFLE" = "Bland";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Nulstil liste";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanent nulstilling af listen over nyligt afspillede netværksstreams.";
