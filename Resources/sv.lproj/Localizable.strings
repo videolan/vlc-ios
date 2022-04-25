@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "En gång";
 "REPEAT_FOLDER" = "Mapp";
 "SHUFFLE" = "Blanda";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Blanda av";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Återställ lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Återställ listan över senast uppspelade nätverksströmmar permanent.";
@@ -365,9 +365,9 @@
 "DESCENDING_LABEL" = "Fallande ordning";
 "DESCENDING_SWITCH_LABEL" = "Stigande eller fallande ordning";
 "DESCENDING_SWITCH_HINT" = "Sortera alternativmenyn i stigande eller fallande ordning";
-"GRID_LAYOUT" = "Grid";
-"LIST_LAYOUT" = "List";
-"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"GRID_LAYOUT" = "Rutnät";
+"LIST_LAYOUT" = "Lista";
+"HIDE_FEAT_ARTISTS" = "Dölj gästartister";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
