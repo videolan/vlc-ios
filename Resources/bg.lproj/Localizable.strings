@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Изтеглянето е отменено от потребителя";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Въведете адрес за да свалите файл в %@.";
 "DOWNLOAD_FROM_HTTP" = "Свалени файлове";
 "ERROR_NUMBER" = "Възникна грешка  %i";
 "DOWNLOAD_FAILED" = "Проблем със свалянето";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Папка";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
