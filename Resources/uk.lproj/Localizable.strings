@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Одноразово";
 "REPEAT_FOLDER" = "Тека";
 "SHUFFLE" = "Перемішати";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Перемішування вимк.";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Перезапуск списку";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Назавжди перезапускає список нещодавно відтворених мережевих потоків.";
