@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "تحرير";
 "BUTTON_EDIT_HINT" = "نمط التحرير";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "فنّان غير معروف";
 "VARIOUS_ARTIST" = "عدّة فنانين";
 "UNKNOWN_ALBUM" = "ألبوم غير معروف";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
