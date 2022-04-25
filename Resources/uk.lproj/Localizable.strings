@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Завантаження скасовано користувачем";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Введіть адресу для завантаження файлу на ваш %@.";
 "DOWNLOAD_FROM_HTTP" = "Завантаження";
 "ERROR_NUMBER" = "Трапилася помилка %i";
 "DOWNLOAD_FAILED" = "Провал завантаження";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Одноразово";
 "REPEAT_FOLDER" = "Тека";
 "SHUFFLE" = "Перемішати";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Перезапуск списку";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Назавжди перезапускає список нещодавно відтворених мережевих потоків.";
