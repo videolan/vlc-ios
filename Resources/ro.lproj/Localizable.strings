@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Dosar";
 "SHUFFLE" = "Amestecă";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Dezactivează amestecul";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Resetați lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Resetarea permanentă a listei cu fluxurile de rețea redate recent.";
