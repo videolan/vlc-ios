@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Niðurtøkan var endað av brúkara";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Skriva eina netsíðu fyri at taka fíluna niður á tín/a %@.";
 "DOWNLOAD_FROM_HTTP" = "Niðurtøkur";
 "ERROR_NUMBER" = "Villan %i íkomin";
 "DOWNLOAD_FAILED" = "Niðurtøka miseydnaðist";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
