@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Modifier";
 "BUTTON_EDIT_HINT" = "Mode selection";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Tout sélectionner";
 "BUTTON_SELECT_ALL_HINT" = "Sélectionnez tous les éléments multimédia présents dans cette vue";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Artiste inconnu";
 "VARIOUS_ARTIST" = "Artistes divers";
 "UNKNOWN_ALBUM" = "Album inconnu";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
