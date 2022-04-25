@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Descarga cancelada por el usuario";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Introduzca una dirección para descargar el archivo a su %@.";
 "DOWNLOAD_FROM_HTTP" = "Descargas";
 "ERROR_NUMBER" = "Ha ocurrido el error %i";
 "DOWNLOAD_FAILED" = "La descarga falló";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Uno solo";
 "REPEAT_FOLDER" = "Carpeta";
 "SHUFFLE" = "Desordenar";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
