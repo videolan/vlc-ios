@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Download cancelado pelo usuário";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Digite um endereço para baixar o arquivo para o seu %@.";
 "DOWNLOAD_FROM_HTTP" = "Transferências";
 "ERROR_NUMBER" = "O erro %i ocorreu";
 "DOWNLOAD_FAILED" = "Falha na transferência";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Uma vez";
 "REPEAT_FOLDER" = "Pasta";
 "SHUFFLE" = "Aleatório";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Restaurar lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Restaura permanentemente a lista de transmissões de rede reproduzidas recentemente.";
