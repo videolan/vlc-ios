@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Pellgargañ nullet gant an implijader";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Ebarzhit ur chomlec'h evit pellgargañ ar restr en ho %@.";
 "DOWNLOAD_FROM_HTTP" = "Pellgargadennoù";
 "ERROR_NUMBER" = "%i fazi degouezhet";
 "DOWNLOAD_FAILED" = "Pellgargadenn c'hwitet";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Teuliad";
 "SHUFFLE" = "Dre zegouezh";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
