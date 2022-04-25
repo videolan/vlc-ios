@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Partekatutako VLC iOS liburutegirako";
 "SMB_CIFS_FILE_SERVERS" = "Fitxategi zerbitzariak (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "Fitxategi 1";
 "NO_FILES" = "Onartutako fitxategirik ez";
 "DOWNLOADING" = "Deskargatzen...";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Geratzen den denbora: %@";
 "BIOMETRIC_UNLOCK" = "Desblokeatu euskarri liburutegia\nUtzi pasahitza sartzeko";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Hurrengoa";
 "PREV_BUTTON" = "Aurrekoa";
 "PLAY_ALL_BUTTON" = "Erreproduzitu denak";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Bideo iragazkiak berrezarri nahi dituzu?";
 "RESET_PLAYBACK_SPEED" = "Erreprodukzio abiadura berrezarri nahi duzu?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Editatu";
 "BUTTON_EDIT_HINT" = "Edizio modua";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Bideo kopurua";
 "NB_ALBUM" = "Number of albums";
 "LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
