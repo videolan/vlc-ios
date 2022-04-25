@@ -35,7 +35,7 @@
 
 "PRESET_PREAMP_SETTING" = "预设 / 前置放大设置";
 "PREAMP" = "放大器";
-"SNAP_BANDS" = "同时影响邻近频段";
+"SNAP_BANDS" = "同时影响附近频段";
 
 "PLAYBACK_FAILED" = "回放失败";
 "PLEASE_WAIT" = "请稍候";
@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "下载已被用户取消";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "请输入文件的地址，以便将其下载到您的 %@。";
 "DOWNLOAD_FROM_HTTP" = "下载内容";
 "ERROR_NUMBER" = "发生错误 %i";
 "DOWNLOAD_FAILED" = "下载失败";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "单曲";
 "REPEAT_FOLDER" = "文件夹";
 "SHUFFLE" = "随机 ";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "重置列表";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "永久重置最近播放的网络流列表。";
