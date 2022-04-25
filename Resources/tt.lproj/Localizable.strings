@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Йөкләү туктатылды";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Файлны %@ йөкләү өчен адрес кертегез.";
 "DOWNLOAD_FROM_HTTP" = "Йөкләүләр";
 "ERROR_NUMBER" = "%i хатасы чыкты";
 "DOWNLOAD_FAILED" = "Йөкләүдә хата";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Бер тапкыр";
 "REPEAT_FOLDER" = "Папка";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
