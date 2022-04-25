@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Lejuplādi atcēlta lietotājs";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Ievadiet adresi, lai lejupielādētu failu uz jūsu %@.";
 "DOWNLOAD_FROM_HTTP" = "Lejupielādes";
 "ERROR_NUMBER" = "%i Kļūda notika";
 "DOWNLOAD_FAILED" = "Lejuplādēt neizdevās";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
