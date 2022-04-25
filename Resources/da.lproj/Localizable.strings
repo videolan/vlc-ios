@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Rediger";
 "BUTTON_EDIT_HINT" = "Redigeringstilstand";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Vælg alle";
 "BUTTON_SELECT_ALL_HINT" = "Vælg alle medieelementer som ses i denne visning";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Ukendt kunstner";
 "VARIOUS_ARTIST" = "Diverse kunstnere";
 "UNKNOWN_ALBUM" = "Ukendt album";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
