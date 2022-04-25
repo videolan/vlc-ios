@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "การดาวน์โหลดถูกยกเลิกโดยผู้ใช้";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "ป้อนที่อยู่ที่ต้องการดาวน์โหลดไฟล์ไปที่ %@ ของคุณ";
 "DOWNLOAD_FROM_HTTP" = "รายการดาวน์โหลด";
 "ERROR_NUMBER" = "เกิดปัญหา %i";
 "DOWNLOAD_FAILED" = "การดาวน์โหลดล้มเหลว";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "ปลดล็อกคลังสื่อ\nยกเลิกเพื่อใส่รหัสผ่าน";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "ป้อนรหัสผ่านไม่สำเร็จ %d ครั้ง";
-"1 Failed Passcode Attempt" = "ป้อนรหัสผ่านไม่สำเร็จ 1 ครั้ง";
-"Change Passcode" = "เปลี่ยนรหัสผ่าน";
 "Enter Passcode" = "ป้อนรหัสผ่าน";
 "Enter a passcode" = "ป้อนรหัสผ่าน";
-"Enter your new passcode" = "ป้อนรหัสผ่านใหม่ของคุณ";
-"Enter your old passcode" = "ป้อนรหัสผ่านเก่าของคุณ";
-"Enter your passcode" = "ป้อนรหัสผ่านของคุณ";
-"Next" = "ถัดไป";
 "Passcodes did not match. Try again." = "รหัสผ่านไม่ตรงกัน กรุณาลองอีกครั้ง";
-"Re-enter your new passcode" = "ป้อนรหัสผ่านใหม่ของคุณอีกครั้ง";
 "Re-enter your passcode" = "ป้อนรหัสผ่านของคุณอีกครั้ง";
 "Set Passcode" = "กำหนดรหัสผ่าน";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "โดดเดี่ยว";
 "REPEAT_FOLDER" = "โฟลเดอร์";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "แก้ไข";
 "BUTTON_EDIT_HINT" = "โหมดการแก้ไข";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "จากมากไปหาน้อย";
 "DESCENDING_SWITCH_LABEL" = "จากน้อยไปหามาก หรือจากมากไปหาน้อย";
 "DESCENDING_SWITCH_HINT" = "เรียงลำดับบริบทจากน้อยไปหามาก หรือจากมากไปหาน้อย";
-"GRID_LAYOUT" = "เค้าโครงเส้นตาราง";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "จำนวนเสียง";
 "NB_MEDIA" = "จำนวนสื่อ";
 "NB_VIDEO" = "จำนวนวิดีโอ";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "ไม่ทราบศิลปิน";
 "VARIOUS_ARTIST" = "หลายศิลปิน";
 "UNKNOWN_ALBUM" = "ไม่ทราบอัลบั้ม";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "อีควอไลเซอร์";
 "MORE_OPTIONS_HEADER_TITLE" = "ตัวเลือกวิดีโอ";
+"BOOKMARKS_TITLE" = "Bookmarks";
+"ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
+"BOOKMARK_DEFAULT_NAME" = "Bookmark at";
+"BOOKMARK_RENAME_TITLE" = "Rename bookmark";
+"BOOKMARK_DELETE_TITLE" = "Delete bookmark";
+"BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "บังคับให้สแกนคลังสื่อใหม่";
