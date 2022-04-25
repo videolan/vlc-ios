@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "பயனர் பதிவிறக்கத்தை இரத்து செய்தார்";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "உங்கள் %@ இடத்திற்கு கோப்பை பதிவிறக்க ஒரு முகவரியை உள்ளிடு.";
 "DOWNLOAD_FROM_HTTP" = "பதிவிறக்கங்கள்";
 "ERROR_NUMBER" = "%i பிழை நேர்ந்தது";
 "DOWNLOAD_FAILED" = "பதிவிறக்கம் தோல்வியுற்றது";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
