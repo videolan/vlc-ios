@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Aozañ";
 "BUTTON_EDIT_HINT" = "Mod aozañ";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Arzour dianav";
 "VARIOUS_ARTIST" = "Arzourien a bep seurt";
 "UNKNOWN_ALBUM" = "Albom dianav";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
