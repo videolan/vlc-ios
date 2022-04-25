@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "ការ​ទាញ​យក​ត្រូវ​បាន​បោះបង់​ដោយ​អ្នក​ប្រើ";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "បញ្ចូល​អាសយដ្ឋាន​ដើម្បី​ទាញ​យក​ឯកសារ​ទៅកាន់ %@ របស់​អ្នក។";
 "DOWNLOAD_FROM_HTTP" = "ទាញ​យក";
 "ERROR_NUMBER" = "កំហុស %i បាន​កើតឡើង";
 "DOWNLOAD_FAILED" = "ការ​ទាញ​យក​បាន​បរាជ័យ";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
