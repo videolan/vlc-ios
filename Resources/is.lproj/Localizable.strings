@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Samnýtt VLC fyrir iOS safn";
 "SMB_CIFS_FILE_SERVERS" = "Skráaþjónar (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "Ein skrá";
 "NO_FILES" = "Engar studdar skrár";
 "DOWNLOADING" = "Hleð niður...";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Tími eftir: %@";
 "BIOMETRIC_UNLOCK" = "Aflæsa margmiðlunarsafni\nHættu við til að setja inn aðgangsorð";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Næsta";
 "PREV_BUTTON" = "Fyrra";
 "PLAY_ALL_BUTTON" = "Spila allt";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
 "RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Breyta";
 "BUTTON_EDIT_HINT" = "Breytingahamur";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Fjöldi myndskeiða";
 "NB_ALBUM" = "Number of albums";
 "LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
