@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "A fájl letöltése meg lett szakítva.";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Adja meg a letölteni kívánt fájl címét.";
 "DOWNLOAD_FROM_HTTP" = "Letöltések";
 "ERROR_NUMBER" = "Hiba történt. Kód: %i";
 "DOWNLOAD_FAILED" = "A letöltés nem sikerült";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Egy szám";
 "REPEAT_FOLDER" = "Mappa";
 "SHUFFLE" = "Keverés";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Lista visszaállítása";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "A legutóbb lejátszott hálózati közvetítések listájának végleges visszaállítása.";
