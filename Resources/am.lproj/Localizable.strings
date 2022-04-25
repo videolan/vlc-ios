@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "ማውረዱ በተጠቃሚው ተሰርዟል";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "ፋይሉን ለማውረድ አድራሻ ያስገቡ ወደ እርስዎ your %@.";
 "DOWNLOAD_FROM_HTTP" = "የወረደ";
 "ERROR_NUMBER" = "ስህተት %i ተፈጥሯል";
 "DOWNLOAD_FAILED" = "ማውረድ አልተሳካም";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "ነጠላ";
 "REPEAT_FOLDER" = "ፎልደር";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
