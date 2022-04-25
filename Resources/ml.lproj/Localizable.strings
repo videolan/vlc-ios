@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "ഉപയോക്താവ് ഡൌണ്‍ലോഡിംഗ് ഒഴിവാക്കി";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "ഫയല്‍ നിങ്ങളുടെ %@ ലേക്ക് ഡൌണ്‍ലോ‍ഡ് ചെയ്യാന്‍ ഒരു വിലാസം നല്‍കുക";
 "DOWNLOAD_FROM_HTTP" = "ഡൌണ്‍ലോ‍ഡുകള്‍";
 "ERROR_NUMBER" = "%iാം പ്രശ്നം സംഭവിച്ചു";
 "DOWNLOAD_FAILED" = "ഡൌണ്‍ലോ‍ഡ് പരാജയപ്പെട്ടു";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "ഫോൾഡർ";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "ലിസ്റ്റ് പുനഃസജ്ജമാക്കുക";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "അടുത്തിടെ പ്ലേ ചെയ്ത നെറ്റ്‌വർക്ക് സ്ട്രീമുകളുടെ ലിസ്റ്റ് പുനഃസജ്ജമാക്കുക.";
