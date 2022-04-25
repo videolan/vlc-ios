@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Stahování bylo zrušeno uživatelem";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Zadejte URL adresu pro stažení souboru do Vašeho %@.";
 "DOWNLOAD_FROM_HTTP" = "Stahování";
 "ERROR_NUMBER" = "Vyskytla se chyba %i";
 "DOWNLOAD_FAILED" = "Chyba stahování";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Jedna položka";
 "REPEAT_FOLDER" = "Složka";
 "SHUFFLE" = "Náhodné přehrávání";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Obnovit seznam";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Trvale obnovovat seznam nedávno přehrávaných síťových proudů.";
