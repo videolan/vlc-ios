@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Download geannuleerd door gebruiker";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Geef een adres op om het bestand naar uw %@ te downloaden.";
 "DOWNLOAD_FROM_HTTP" = "Downloads";
 "ERROR_NUMBER" = "Fout %i opgetreden";
 "DOWNLOAD_FAILED" = "Downloaden mislukt";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Een herhalen";
 "REPEAT_FOLDER" = "Map";
 "SHUFFLE" = "Willekeurige volgorde";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Lijst herstellen";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "De lijst van recent afgespeelde netwerkstreams permanent herstellen.";
