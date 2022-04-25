@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Сцягванне скасавана карыстальнікам";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Увядзіце адрас, каб сцягнуць файл на %@.";
 "DOWNLOAD_FROM_HTTP" = "Сцягванні";
 "ERROR_NUMBER" = "Здарылася памылка %i";
 "DOWNLOAD_FAILED" = "Сцягнуць не ўдалося";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
