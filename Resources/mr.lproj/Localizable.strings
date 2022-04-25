@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "iOS साठी VLC ची सामायिक लायब्ररी";
 "SMB_CIFS_FILE_SERVERS" = "फाइल सर्व्हर (एस एम बी )";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "एस एम बी ";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 फाईल";
 "NO_FILES" = "एकही समर्थित फाईल नाही";
 "DOWNLOADING" = "डाऊनलोड होत आहे...";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "बाकी वेळ: %@";
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Next";
 "PREV_BUTTON" = "Previous";
 "PLAY_ALL_BUTTON" = "सर्व चालवा";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
 "RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Edit";
 "BUTTON_EDIT_HINT" = "Edit mode";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Number of video";
 "NB_ALBUM" = "Number of albums";
 "LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
