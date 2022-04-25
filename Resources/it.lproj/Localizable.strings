@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Scaricamento annullato dall'utente";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Inserisci un indirizzo per scaricare il file al tuo %@.";
 "DOWNLOAD_FROM_HTTP" = "Scaricati";
 "ERROR_NUMBER" = "Si è verificato l'errore %i";
 "DOWNLOAD_FAILED" = "Scaricamento non riuscito";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Singolo";
 "REPEAT_FOLDER" = "Cartella";
 "SHUFFLE" = "Mescola";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Ripristina l'elenco";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Ripristina definitivamente l'elenco dei flussi di rete riprodotti di recente.";
