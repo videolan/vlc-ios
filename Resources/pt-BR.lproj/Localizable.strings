@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Uma vez";
 "REPEAT_FOLDER" = "Pasta";
 "SHUFFLE" = "Aleatório";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Aleatório desativado";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Restaurar lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Restaura permanentemente a lista de transmissões de rede reproduzidas recentemente.";
