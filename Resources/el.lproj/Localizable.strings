@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Φάκελος";
 "SHUFFLE" = "Ανακάτεμα";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Απενεργοποίηση ανακατέματος";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Επαναφορά λίστας";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Επαναφέρετε μόνιμα τη λίστα των μεταδόσεων δικτύου που αναπαράχθηκαν πρόσφατα.";
