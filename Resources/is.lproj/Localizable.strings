@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Hætt var við niðurhal af notanda";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Settu inn vistfang til að senda skrána inn á %@.";
 "DOWNLOAD_FROM_HTTP" = "Sóttar skrár";
 "ERROR_NUMBER" = "Villan %i kom upp";
 "DOWNLOAD_FAILED" = "Niðurhal tókst ekki";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Einfalt";
 "REPEAT_FOLDER" = "Mappa";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
