@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Delt VLC for iOS bibliotek";
 "SMB_CIFS_FILE_SERVERS" = "Filservere (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fil";
 "NO_FILES" = "Ingen støttede filer";
 "DOWNLOADING" = "Nedlasting…";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Gjenstående tid: %@";
 "BIOMETRIC_UNLOCK" = "Lås opp mediebiblioteket\nAvbryt for å skrive inn passord";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Neste";
 "PREV_BUTTON" = "Forrige";
 "PLAY_ALL_BUTTON" = "Spill alle";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
 "RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Rediger";
 "BUTTON_EDIT_HINT" = "Redigeringsmodus";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Number of video";
 "NB_ALBUM" = "Number of albums";
 "LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
