@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Wspólny VLC dla Biblioteki iOS";
 "SMB_CIFS_FILE_SERVERS" = "Serwery plików (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 plik";
 "NO_FILES" = "Brak obsługiwanych plików";
 "DOWNLOADING" = "Pobieranie...";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Pozostały czas: %@";
 "BIOMETRIC_UNLOCK" = "Odblokuj Bibliotekę multimedialną\nAnuluj, aby wprowadzić kod dostępu";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Następny";
 "PREV_BUTTON" = "Poprzedni";
 "PLAY_ALL_BUTTON" = "Odtwórz wszystko";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Czy chcesz zresetować filtry wideo?";
 "RESET_PLAYBACK_SPEED" = "Czy chcesz zresetować prędkość odtwarzania?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Edytuj";
 "BUTTON_EDIT_HINT" = "Tryb edycji";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Ilość filmów";
 "NB_ALBUM" = "Number of albums";
 "LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
