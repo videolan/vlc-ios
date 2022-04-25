@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "تم إلغاء التّنزيل من طرف المستخدم";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "أدخل عنوانًا لتنزّل ملفّه إلى %@.";
 "DOWNLOAD_FROM_HTTP" = "التّنزيلات";
 "ERROR_NUMBER" = "حدث الخطأ %i";
 "DOWNLOAD_FAILED" = "فشل التّنزيل";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "فتح مكتبة الوسائط\nإلغِ لإدخال الرقم السري";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d محاولة رمز مرور فاشلة";
-"1 Failed Passcode Attempt" = "1 محاولة رمز مرور فاشلة واحدة";
-"Change Passcode" = "غير رمز المرور";
 "Enter Passcode" = "أدخل رمز المرور";
 "Enter a passcode" = "أدخل رمز المرور";
-"Enter your new passcode" = "أدخل رمز المرور الجديد";
-"Enter your old passcode" = "أدخل رمز المرور القديم";
-"Enter your passcode" = "أدخل رمزك المرور";
-"Next" = "التالي";
 "Passcodes did not match. Try again." = "رمز المرور غير متطابق. حاول مجددا.";
-"Re-enter your new passcode" = "أعِد إدخال رمز مرورك الجديد";
 "Re-enter your passcode" = "أعِد إدخال رمز مرورك ";
 "Set Passcode" = "اضبط رمز المرور";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "مفرد";
 "REPEAT_FOLDER" = "مجلد";
 "SHUFFLE" = "عشوائي";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "تحرير";
 "BUTTON_EDIT_HINT" = "نمط التحرير";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "ترتيب تنازلي";
 "DESCENDING_SWITCH_LABEL" = "ترتيب تصاعدي أو تنازلي";
 "DESCENDING_SWITCH_HINT" = "افرز السياق بترتيب تصاعدي أو تنازلي";
-"GRID_LAYOUT" = "تخطيط الشبكة";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "عدد الصوت";
 "NB_MEDIA" = "عدد الوسائط";
 "NB_VIDEO" = "عدد مقاطع الفيديو";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "فنّان غير معروف";
 "VARIOUS_ARTIST" = "عدّة فنانين";
 "UNKNOWN_ALBUM" = "ألبوم غير معروف";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "المُعادِل";
 "MORE_OPTIONS_HEADER_TITLE" = "خيارات الفيديو";
+"BOOKMARKS_TITLE" = "Bookmarks";
+"ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
+"BOOKMARK_DEFAULT_NAME" = "Bookmark at";
+"BOOKMARK_RENAME_TITLE" = "Rename bookmark";
+"BOOKMARK_DELETE_TITLE" = "Delete bookmark";
+"BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "فرض إعادة فحص مكتبة الوسائط";
