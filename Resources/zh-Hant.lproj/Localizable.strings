@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "檔案被使用者刪除";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "請輸入一個地址來下載檔案到您的 %@ 。";
 "DOWNLOAD_FROM_HTTP" = "下載";
 "ERROR_NUMBER" = "錯誤 %i 發生";
 "DOWNLOAD_FAILED" = "下載失敗";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "單曲";
 "REPEAT_FOLDER" = "資料夾";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
