@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "編輯";
 "BUTTON_EDIT_HINT" = "編輯模式";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "未知藝人";
 "VARIOUS_ARTIST" = "多個藝人";
 "UNKNOWN_ALBUM" = "未知專輯";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
