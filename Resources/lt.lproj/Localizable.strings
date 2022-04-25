@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Vartotojas nutraukė atsisiuntimą";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Įveskite adresą iš kurio norite atsisiųsti failą į savo %@.";
 "DOWNLOAD_FROM_HTTP" = "Siuntiniai";
 "ERROR_NUMBER" = "Įvyko klaida %i";
 "DOWNLOAD_FAILED" = "Parsisiųsti nepavyko";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Singlas";
 "REPEAT_FOLDER" = "Aplankas";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
