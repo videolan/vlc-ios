@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Jedna položka";
 "REPEAT_FOLDER" = "Složka";
 "SHUFFLE" = "Náhodné přehrávání";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Vypnout náhodné přehrávání";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Obnovit seznam";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Trvale obnovovat seznam nedávno přehrávaných síťových proudů.";
