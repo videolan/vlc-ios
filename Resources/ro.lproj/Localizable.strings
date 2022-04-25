@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Decărcare anulată de utilizator";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Introduceţi o adresă pentru descărcarea fişierului în %@ dvs.";
 "DOWNLOAD_FROM_HTTP" = "Descărcări";
 "ERROR_NUMBER" = "A apărut Eroarea %i";
 "DOWNLOAD_FAILED" = "Descărcare eşuată";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Dosar";
 "SHUFFLE" = "Amestecă";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Resetați lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Resetarea permanentă a listei cu fluxurile de rețea redate recent.";
