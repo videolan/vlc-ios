@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Muokkaa";
 "BUTTON_EDIT_HINT" = "Muokkaustila";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Valitse kaikki";
 "BUTTON_SELECT_ALL_HINT" = "Valitse kaikki tässä näkymässä olevat mediat";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Tuntematon artisti";
 "VARIOUS_ARTIST" = "Useat artistit";
 "UNKNOWN_ALBUM" = "Tuntematon albumi";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
