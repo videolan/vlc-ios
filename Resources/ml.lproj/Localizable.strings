@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "എഡിറ്റുചെയ്യുക";
 "BUTTON_EDIT_HINT" = "എഡിറ്റ് മോഡ്";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "അജ്ഞാത ആർട്ടിസ്റ്റ്";
 "VARIOUS_ARTIST" = "വിവിധ കലാകാരന്മാർ";
 "UNKNOWN_ALBUM" = "അജ്ഞാത ആൽബം";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
