@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Tek";
 "REPEAT_FOLDER" = "Klasör";
 "SHUFFLE" = "Karışık";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Karıştırma kapalı";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Listeyi temizle";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Son oynatılan ağ akışları listesini temizler.";
