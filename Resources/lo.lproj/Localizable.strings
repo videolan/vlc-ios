@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "ຜູ້ໃຊ້ຍົກເລີກການດາວໂຫຼດ";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "ກາລຸນາໃສ່ທີ່ຢູ່ເພື່ອດາວໂຫຼດຟຼາຍຂອງທ່ານໄປຍັງ %@.";
 "DOWNLOAD_FROM_HTTP" = "ດາວໂຫຼດທັງໝົດ";
 "ERROR_NUMBER" = "ຂໍ້ຜິດພາດ %i ທີ່ເກີດຂຶ້ນ";
 "DOWNLOAD_FAILED" = "ການດາວໂຫຼດບໍ່ສຳເລັດ";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
