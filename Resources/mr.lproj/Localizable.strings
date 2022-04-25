@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "वापरकर्त्याद्वारा डाऊनलोड रद्द";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "आपल्या %@ वर फाईल डाऊनलोड करण्यासाठी पत्ता प्रविष्ट करा.";
 "DOWNLOAD_FROM_HTTP" = "डाऊनलोड्स";
 "ERROR_NUMBER" = "त्रुटी %i आढळली";
 "DOWNLOAD_FAILED" = "डाऊनलोड अयशस्वी";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
