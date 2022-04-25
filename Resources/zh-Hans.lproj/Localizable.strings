@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "单曲";
 "REPEAT_FOLDER" = "文件夹";
 "SHUFFLE" = "随机 ";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "随机关闭";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "重置列表";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "永久重置最近播放的网络流列表。";
