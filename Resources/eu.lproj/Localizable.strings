@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Erabiltzaileak bertan behera utzi du deskarga";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Idatzi helbide bat fitxategia %@-ra deskargatzeko.";
 "DOWNLOAD_FROM_HTTP" = "Deskargak";
 "ERROR_NUMBER" = " %i errorea gertatu da";
 "DOWNLOAD_FAILED" = "Deskargak huts egin du";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Desblokeatu euskarri liburutegia\nUtzi pasahitza sartzeko";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d pasahitz saiakera hutsegituta";
-"1 Failed Passcode Attempt" = "Huts egite 1 pasahitzaren saiakeran";
-"Change Passcode" = "Aldatu pasakodea";
 "Enter Passcode" = "Sartu pasakodea";
 "Enter a passcode" = "Sartu pasakodea";
-"Enter your new passcode" = "Sartu zure pasakode berria";
-"Enter your old passcode" = "Sartu zure pasakode zaharra";
-"Enter your passcode" = "Sartu zure pasakodea";
-"Next" = "Hurrengoa";
 "Passcodes did not match. Try again." = "Pasakodeak ez datoz bat. Saiatu berriro.";
-"Re-enter your new passcode" = "Sartu berriro zure pasakode berria";
 "Re-enter your passcode" = "Sartu berriro zure pasakodea";
 "Set Passcode" = "Ezarri pasakodea";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Bakarra";
 "REPEAT_FOLDER" = "Karpeta";
 "SHUFFLE" = "Nahastu";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Editatu";
 "BUTTON_EDIT_HINT" = "Edizio modua";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Beherako ordena";
 "DESCENDING_SWITCH_LABEL" = "Goranzko edo beheranzko ordena";
 "DESCENDING_SWITCH_HINT" = "Ordenatu testuingurua gorantz edo beherantz";
-"GRID_LAYOUT" = "Sareta-diseinua";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Audio kopurua";
 "NB_MEDIA" = "Multimedia kopurua";
 "NB_VIDEO" = "Bideo kopurua";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Artista ezezaguna";
 "VARIOUS_ARTIST" = "Hainbat artista";
 "UNKNOWN_ALBUM" = "Album ezezaguna";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ekualizadorea";
 "MORE_OPTIONS_HEADER_TITLE" = "Bideo-aukerak";
+"BOOKMARKS_TITLE" = "Bookmarks";
+"ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
+"BOOKMARK_DEFAULT_NAME" = "Bookmark at";
+"BOOKMARK_RENAME_TITLE" = "Rename bookmark";
+"BOOKMARK_DELETE_TITLE" = "Delete bookmark";
+"BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Behartu multimedia-liburutegia bireskaneatzea";
