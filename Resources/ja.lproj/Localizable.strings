@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "シングル";
 "REPEAT_FOLDER" = "フォルダー";
 "SHUFFLE" = "シャッフル";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "シャッフルオフ";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "リストをリセット";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "最近再生したネットワークストリームのリストを恒久的にリセットします。";
@@ -365,9 +365,9 @@
 "DESCENDING_LABEL" = "逆順";
 "DESCENDING_SWITCH_LABEL" = "昇順/逆順";
 "DESCENDING_SWITCH_HINT" = "並び替えの順序";
-"GRID_LAYOUT" = "Grid";
-"LIST_LAYOUT" = "List";
-"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"GRID_LAYOUT" = "グリッド";
+"LIST_LAYOUT" = "リスト";
+"HIDE_FEAT_ARTISTS" = "フィーチャーとアーティストを隠す";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
