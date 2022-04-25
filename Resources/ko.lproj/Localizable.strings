@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "사용자에 의해 다운로드 취소됨";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "파일을 당신의 %@로 다운로드할 주소를 입력하세요.";
 "DOWNLOAD_FROM_HTTP" = "다운로드";
 "ERROR_NUMBER" = "%i 에러 발생";
 "DOWNLOAD_FAILED" = "다운로드 실패";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "하나";
 "REPEAT_FOLDER" = "폴더";
 "SHUFFLE" = "순서섞기";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "목록 재설정";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "최근에 재생한 네트워크 스트림 목록을 영구적으로 재설정합니다.";
@@ -371,7 +371,7 @@
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
-"ALPHA" = "알파벳숫자순으로";
+"ALPHA" = "영숫자로";
 "DURATION" = "재생시간";
 "INSERTION_DATE" = "삽입 날짜";
 "LAST_MODIFICATION_DATE" = "마지막 변경 날짜";
@@ -484,11 +484,11 @@
 
 "BUTTON_REGROUP" = "재그룹";
 "BUTTON_REGROUP_TITLE" = "재그룹 선택";
-"BUTTON_REGROUP_HINT" = "하나의 미디어를 자동으로 재그룹하기";
-"BUTTON_REGROUP_DESCRIPTION" = "하나의 미디어를 자동으로 재그룹하시겠습니까? 시간이 조금 걸릴수도 있습니다.";
+"BUTTON_REGROUP_HINT" = "단일 미디어를 자동으로 다시 그룹화하려고 합니다.";
+"BUTTON_REGROUP_DESCRIPTION" = "단일 미디어를 자동으로 다시 그룹화하시겠습니까?\n시간이 걸릴 수 있습니다.";
 
 // MARK: - Files.app persistence file
-"MEDIALIBRARY_FILES_PLACEHOLDER" = "여기에 미디어를 가져와서 추가하세요";
+"MEDIALIBRARY_FILES_PLACEHOLDER" = "미디어를 추가하려면 여기에 미디어 배치";
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "추가중...";
 
 // MARK: - tip jar
