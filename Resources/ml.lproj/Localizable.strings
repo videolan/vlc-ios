@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
 "SMB_CIFS_FILE_SERVERS" = "ഫയൽ സെർവറുകൾ (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "ഒരു ഫയല്‍";
 "NO_FILES" = "പിന്തുണക്കുന്ന ഫയലുകള്‍ ഇല്ല";
 "DOWNLOADING" = "ഡൌണ്‍ലോ‍ഡ് ചെയ്യുന്നു....";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "ബാക്കിയുള്ള സമയം :%@";
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "അടുത്തത്";
 "PREV_BUTTON" = "മുമ്പത്തെ";
 "PLAY_ALL_BUTTON" = "എല്ലാം പ്ലേ ചെയ്യുക";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "വീഡിയോ ഫിൽട്ടറുകൾ പുനഃസജ്ജമാക്കണോ?";
 "RESET_PLAYBACK_SPEED" = "പ്ലേബാക്ക് വേഗത പുനഃസജ്ജമാക്കണോ?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "എഡിറ്റുചെയ്യുക";
 "BUTTON_EDIT_HINT" = "എഡിറ്റ് മോഡ്";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "വീഡിയോയുടെ എണ്ണം";
 "NB_ALBUM" = "Number of albums";
 "LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
