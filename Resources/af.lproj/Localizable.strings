@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Aflaai deur gebruiker gekanselleer";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Voer ’n adres in om die lêer na u %@ af te laai.";
 "DOWNLOAD_FROM_HTTP" = "Aflaaie";
 "ERROR_NUMBER" = "Fout %i het voorgekom";
 "DOWNLOAD_FAILED" = "Aflaai het misluk";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Enkel";
 "REPEAT_FOLDER" = "Vouer";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
