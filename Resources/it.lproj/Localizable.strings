@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Singolo";
 "REPEAT_FOLDER" = "Cartella";
 "SHUFFLE" = "Mescola";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Non mescolare";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Ripristina l'elenco";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Ripristina definitivamente l'elenco dei flussi di rete riprodotti di recente.";
