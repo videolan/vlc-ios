@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Η ληψη ακυρώθηκε από το χρήστη";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Εισάγετε μια διεύθυνση για λήψη του αρχείου στο %@.";
 "DOWNLOAD_FROM_HTTP" = "Λήψεις";
 "ERROR_NUMBER" = "Παρουσιάστηκε σφάλμα %i";
 "DOWNLOAD_FAILED" = "Αποτυχία λήψης";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Φάκελος";
 "SHUFFLE" = "Ανακάτεμα";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Επαναφορά λίστας";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Επαναφέρετε μόνιμα τη λίστα των μεταδόσεων δικτύου που αναπαράχθηκαν πρόσφατα.";
