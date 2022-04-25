@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Изменить";
 "BUTTON_EDIT_HINT" = "Режим изменения";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Выбрать всё";
 "BUTTON_SELECT_ALL_HINT" = "Выбрать все медиобъекты, представленные здесь";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Неизвестный исполнитель";
 "VARIOUS_ARTIST" = "Разные исполнители";
 "UNKNOWN_ALBUM" = "Неизвестный альбом";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
