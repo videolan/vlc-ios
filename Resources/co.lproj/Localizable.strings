@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Scaricamentu abbandunatu da l’utilizatore";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Scrivite un indirizzu per scaricà u schedariu nant’à u vostru %@.";
 "DOWNLOAD_FROM_HTTP" = "Scaricamenti";
 "ERROR_NUMBER" = "U sbagliu %i hè accadutu";
 "DOWNLOAD_FAILED" = "Fiascu di u scaricamentu";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Schedariu attuale";
 "REPEAT_FOLDER" = "Cartulare";
 "SHUFFLE" = "Aleatoriu";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reinizià a lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Reinizià ab’eternu a lista di i flussi di a reta letti pocu fà.";
