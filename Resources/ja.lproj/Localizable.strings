@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "ダウンロードがユーザーによってキャンセルされました";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "あなたの %@ にファイルをダウンロードするためのアドレスを入力してください。";
 "DOWNLOAD_FROM_HTTP" = "ダウンロード";
 "ERROR_NUMBER" = "エラー %i が発生しました";
 "DOWNLOAD_FAILED" = "ダウンロードに失敗しました";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "シングル";
 "REPEAT_FOLDER" = "フォルダー";
 "SHUFFLE" = "シャッフル";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "リストをリセット";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "最近再生したネットワークストリームのリストを恒久的にリセットします。";
