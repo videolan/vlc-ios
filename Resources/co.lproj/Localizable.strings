@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Mudificà";
 "BUTTON_EDIT_HINT" = "Modu di mudificazione";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Tuttu selezziunà";
 "BUTTON_SELECT_ALL_HINT" = "Selezziunà tutti l’elementi multimedià presenti nant’à sta vista";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Artista scunnisciutu";
 "VARIOUS_ARTIST" = "Artisti diversi";
 "UNKNOWN_ALBUM" = "Albumu scunnisciutu";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
