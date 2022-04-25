@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Téléchargement annulé par l'utilisateur";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Entrer une adresse pour télécharger le fichier sur votre %@.";
 "DOWNLOAD_FROM_HTTP" = "Téléchargements";
 "ERROR_NUMBER" = "Erreur %i ";
 "DOWNLOAD_FAILED" = "Le téléchargement a échoué";
@@ -272,7 +271,8 @@
 "REPEAT_DISABLED" = "Désactivée";
 "REPEAT_SINGLE" = "Unique";
 "REPEAT_FOLDER" = "Dossier";
-"SHUFFLE" = "Shuffle";
+"SHUFFLE" = "Alétoire activé";
+"SHUFFLE_DISABLED" = "Alétoire desactivé";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Réinitialiser la liste";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Réinitialiser définitivement la liste des flux réseau récemment lus.";
