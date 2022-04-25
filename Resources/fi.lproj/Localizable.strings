@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Käyttäjä peruutti latauksen";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Syötä osoite ladataksesi tiedoston laitteeseen %@.";
 "DOWNLOAD_FROM_HTTP" = "Lataukset";
 "ERROR_NUMBER" = "Virhe %i ilmaantui";
 "DOWNLOAD_FAILED" = "Lataus epäonnistui";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "Yksittäinen";
 "REPEAT_FOLDER" = "Kansio";
 "SHUFFLE" = "Sekoita";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Nollaa lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Nollaa äskettäin verkosta toistetut luettelo pysyvästi.";
