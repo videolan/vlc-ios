@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "تم إلغاء التّنزيل من طرف المستخدم";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "أدخل عنوانًا لتنزّل ملفّه إلى %@.";
 "DOWNLOAD_FROM_HTTP" = "التّنزيلات";
 "ERROR_NUMBER" = "حدث الخطأ %i";
 "DOWNLOAD_FAILED" = "فشل التّنزيل";
@@ -273,6 +272,7 @@
 "REPEAT_SINGLE" = "مفرد";
 "REPEAT_FOLDER" = "مجلد";
 "SHUFFLE" = "عشوائي";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
