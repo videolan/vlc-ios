@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Breyta";
 "BUTTON_EDIT_HINT" = "Breytingahamur";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Óþekktur flytjandi";
 "VARIOUS_ARTIST" = "Ýmsir flytjendur";
 "UNKNOWN_ALBUM" = "Óþekkt hljómplata";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
