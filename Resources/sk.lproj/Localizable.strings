@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Jednu položku";
 "REPEAT_FOLDER" = "Priečinok";
 "SHUFFLE" = "Náhodne";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Vypnúť náhodné prehrávanie";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset zoznamu";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Natrvalo resetovať zoznam naposledy prehraných sieťových streamov.";
