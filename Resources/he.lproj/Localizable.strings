@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "בודד";
 "REPEAT_FOLDER" = "תיקייה";
 "SHUFFLE" = "ערבוב";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "כיבוי הערבול";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "איפוס הרשימה";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "איפוס הרשימה של תזרימי הרשת שנוגנו לאחרונה לצמיתות.";
