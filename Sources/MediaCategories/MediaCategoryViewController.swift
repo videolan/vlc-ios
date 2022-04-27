@@ -19,7 +19,7 @@ import UIKit
     func enableCategorySwitching(for viewController: MediaCategoryViewController,
                                  enable: Bool)
     func setEditingStateChanged(for viewController: MediaCategoryViewController, editing: Bool)
-    func updateNavigationBarButtons(isEditing: Bool)
+    func updateNavigationBarButtons(for viewController: MediaCategoryViewController, isEditing: Bool)
     @available(iOS 14.0, *)
     func generateMenu(for viewController: MediaCategoryViewController) -> UIMenu
 }
@@ -779,8 +779,8 @@ extension MediaCategoryViewController {
                                                                           action: #selector(handleEditingInsideCollection))]
             : rightBarButtonItems()
         navigationItem.leftBarButtonItems = leftBarButtonItem()
-        if navigationController?.viewControllers.last is ArtistViewController {
-            delegate?.updateNavigationBarButtons(isEditing: isEditing)
+        if navigationController?.viewControllers.last is ArtistViewController || navigationController?.viewControllers.last is CollectionCategoryViewController {
+            delegate?.updateNavigationBarButtons(for: self, isEditing: isEditing)
         }
         navigationItem.setHidesBackButton(isEditing, animated: true)
     }
@@ -792,7 +792,7 @@ extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
     private func updateBarButtonItems() {
         if !isEditing {
             navigationItem.rightBarButtonItems = rightBarButtonItems()
-            navigationItem.leftBarButtonItem = nil
+            navigationItem.setHidesBackButton(isEditing, animated: true)
         }
 
         if isEmptyCollectionView() {

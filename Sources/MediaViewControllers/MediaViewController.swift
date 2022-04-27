@@ -62,8 +62,7 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     @available(iOS 14.0, *)
     private lazy var menuButton: UIBarButtonItem = {
-        return UIBarButtonItem(image: UIImage(named: "EllipseCircle"),
-                               menu: generateMenu())
+        return UIBarButtonItem(image: UIImage(named: "EllipseCircle"))
     }()
 
     @available(iOS 14.0, *)
@@ -158,17 +157,26 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
         if #available(iOS 14.0, *) {
             // Update menu for new ViewController
-            menuButton.menu = generateMenu()
-        }
-
-        if navigationController?.viewControllers.last is ArtistViewController {
-            showButtons = true
-            leftBarButtons = isEditing ? [selectAllButton] : nil
+            if let viewController = viewController as? MediaCategoryViewController {
+                menuButton.menu = generateMenu(viewController: viewController)
+                leftBarButtons = isEditing ? [selectAllButton] : nil
+                rightBarButtons = isEditing ? [doneButton] : [menuButton]
+            }
+        } else {
+            leftBarButtons = isEditing ? [selectAllButton] : [sortButton]
             rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems()
         }
 
-        navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : nil
-        navigationItem.leftBarButtonItems = showButtons ? leftBarButtons : nil
+        var mediaCategoryViewController: UIViewController = self
+        if navigationController?.viewControllers.last is ArtistViewController {
+            showButtons = true
+            mediaCategoryViewController = self
+        } else if viewController is CollectionCategoryViewController {
+            mediaCategoryViewController = viewController
+        }
+
+        mediaCategoryViewController.navigationItem.leftBarButtonItems = showButtons ? leftBarButtons : nil
+        mediaCategoryViewController.navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : nil
     }
 
     private func rightBarButtonItems() -> [UIBarButtonItem] {
@@ -212,11 +220,13 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 extension MediaViewController: MediaCategoryViewControllerDelegate {
     @available(iOS 14.0, *)
     func generateMenu(for viewController: MediaCategoryViewController) -> UIMenu {
-        return generateMenu()
+        return generateMenu(viewController: viewController)
     }
 
     func needsToUpdateNavigationbarIfNeeded(_ viewController: MediaCategoryViewController) {
         if viewController == viewControllers[currentIndex] {
+            updateButtonsFor(viewController)
+        } else if viewController is CollectionCategoryViewController {
             updateButtonsFor(viewController)
         }
     }
@@ -229,12 +239,17 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
         customSetEditing()
     }
 
-    func updateNavigationBarButtons(isEditing: Bool) {
+    func updateNavigationBarButtons(for viewController: MediaCategoryViewController, isEditing: Bool) {
         leftBarButtons = isEditing ? [selectAllButton] : nil
-        rightBarButtons = isEditing ? [doneButton] : [editButton, sortButton, UIBarButtonItem(customView: rendererButton)]
+        if #available(iOS 14.0, *) {
+            rightBarButtons = isEditing ? [doneButton] : [menuButton]
+        } else {
+            rightBarButtons = isEditing ? [doneButton] : [editButton, sortButton, UIBarButtonItem(customView: rendererButton)]
+        }
 
-        navigationItem.rightBarButtonItems = rightBarButtons
-        navigationItem.leftBarButtonItems = leftBarButtons
+
+        viewController.navigationItem.rightBarButtonItems = rightBarButtons
+        viewController.navigationItem.leftBarButtonItems = leftBarButtons
 
         setEditing(isEditing, animated: true)
     }
@@ -276,7 +291,13 @@ extension MediaViewController {
         super.setEditing(editing, animated: animated)
 
         scrollingEnabled(!editing)
-        viewControllers[currentIndex].setEditing(editing, animated: animated)
+
+        if let controllers = navigationController?.viewControllers,
+           controllers.count > 1, controllers.last is CollectionCategoryViewController {
+            controllers.last?.setEditing(editing, animated: animated)
+        } else {
+            viewControllers[currentIndex].setEditing(editing, animated: animated)
+        }
     }
 }
 
@@ -294,11 +315,17 @@ extension MediaViewController {
     }
 
     @objc func handleSelectAll() {
-        if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
-            mediaCategoryViewController.handleSelectAll()
-            selectAllButton.image = mediaCategoryViewController.isAllSelected ? UIImage(named: "allSelected")
-                : UIImage(named: "emptySelectAll")
+        let controller: MediaCategoryViewController
+        if let mediaCategoryViewController = navigationController?.viewControllers.last as? CollectionCategoryViewController {
+            controller = mediaCategoryViewController
+        } else if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController {
+            controller = mediaCategoryViewController
+        } else {
+            preconditionFailure("MediaViewController: Invalid view controller.")
         }
+
+        controller.handleSelectAll()
+        selectAllButton.image = controller.isAllSelected ? UIImage(named: "allSelected") : UIImage(named: "emptySelectAll")
     }
 
     @objc func handleSort() {
@@ -328,7 +355,7 @@ extension MediaViewController {
                                   handler: {
             [unowned self] _ in
             mediaCategoryViewController.handleLayoutChange(gridLayout: true)
-            menuButton.menu = generateMenu()
+            menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         })
 
         let listAction = UIAction(title: NSLocalizedString("LIST_LAYOUT", comment: ""),
@@ -337,7 +364,7 @@ extension MediaViewController {
                                   handler: {
             [unowned self] _ in
             mediaCategoryViewController.handleLayoutChange(gridLayout: false)
-            menuButton.menu = generateMenu()
+            menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         })
 
         return UIMenu(options: .displayInline,
@@ -370,7 +397,7 @@ extension MediaViewController {
                 [unowned self] _ in
                 mediaCategoryViewController.executeSortAction(with: criterion,
                                                               desc: !sortModel.desc)
-                menuButton.menu = generateMenu()
+                menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
             })
             sortActions.append(action)
         }
@@ -378,9 +405,9 @@ extension MediaViewController {
     }
 
     @available(iOS 14.0, *)
-    func generateMenu() -> UIMenu {
-        guard let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController else {
-            preconditionFailure("MediaViewControllers: viewControllers wrong class.")
+    func generateMenu(viewController: MediaCategoryViewController?) -> UIMenu {
+        guard let mediaCategoryViewController = viewController else {
+            preconditionFailure("MediaViewControllers: invalid viewController")
         }
         let layoutSubMenu = generateLayoutMenu(with: mediaCategoryViewController)
         let sortSubMenu = generateSortMenu(with: mediaCategoryViewController)
