@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Sìngulu";
 "REPEAT_FOLDER" = "Cartella";
 "SHUFFLE" = "Ammistura";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "No ammestures";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reseta sa lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Reseta in manera permanente sa lista de sos flussos de retza riproduidos dae pagu";
