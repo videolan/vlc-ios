@@ -218,14 +218,14 @@ class MediaPlayerActionSheet: ActionSheet {
         modalPresentationStyle = .custom
         setAction { (item) in
             if let item = item as? UIView {
+                guard let actionSheet = self as? MediaMoreOptionsActionSheet,
+                      item != actionSheet.mockView else {
+                    return
+                }
                 if let equalizerView = item as? EqualizerView {
-                    if let actionSheet = self as? MediaMoreOptionsActionSheet {
-                        equalizerView.willShow()
-                        actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentPopupView(withChild: equalizerView)
-                        self.removeActionSheet()
-                    }
-                } else if let sheet = self as? MediaMoreOptionsActionSheet {
-                    if item == sheet.mockView { }
+                    equalizerView.willShow()
+                    actionSheet.moreOptionsDelegate?.mediaMoreOptionsActionSheetPresentPopupView(withChild: equalizerView)
+                    self.removeActionSheet()
                 } else {
                     self.add(childView: item)
                 }
