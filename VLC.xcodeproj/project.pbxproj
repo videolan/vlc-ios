@@ -983,7 +983,6 @@
 		D5BE7EF6F028FE82FA278E5E /* libPods-VLC-iOS-Screenshots.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOS-Screenshots.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E034EB1CC284FC0037F516 /* VLCStreamingHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStreamingHistoryCell.h; path = Sources/VLCStreamingHistoryCell.h; sourceTree = SOURCE_ROOT; };
 		D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStreamingHistoryCell.m; path = Sources/VLCStreamingHistoryCell.m; sourceTree = SOURCE_ROOT; };
-		D92C186227CD30DE0034058F /* ChapterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChapterView.xib; sourceTree = "<group>"; };
 		D92C186427CD317D0034058F /* ChapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterView.swift; sourceTree = "<group>"; };
 		DD13A3791BEE2FAA00A35554 /* VLCMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMaskView.h; path = "UI Elements/VLCMaskView.h"; sourceTree = "<group>"; };
 		DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMaskView.m; path = "UI Elements/VLCMaskView.m"; sourceTree = "<group>"; };
@@ -2124,7 +2123,6 @@
 				40C959FF256E9272002DD208 /* NewPlaybackSpeedView.xib */,
 				407EB586257A418900686B1F /* SleepTimerView.xib */,
 				4072A776258791B8006EA498 /* VideoFiltersView.xib */,
-				D92C186227CD30DE0034058F /* ChapterView.xib */,
 			);
 			name = VideoPlayer;
 			path = Resources/Xib/VideoPlayer;
