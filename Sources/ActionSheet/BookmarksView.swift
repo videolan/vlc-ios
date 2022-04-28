@@ -114,11 +114,12 @@ class AddBookmarksView: UIView {
     }
 
     private func setupTheme() {
-        closeButton.tintColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
-        addButton.tintColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
-        titleLabel.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
-        headerStackView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background.withAlphaComponent(0.6)
-        bookmarksTableView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background.withAlphaComponent(0.6)
+        let colors = PresentationTheme.currentExcludingWhite.colors
+        closeButton.tintColor = colors.cellTextColor
+        addButton.tintColor = colors.orangeUI
+        titleLabel.textColor = colors.cellTextColor
+        headerStackView.backgroundColor = colors.background.withAlphaComponent(0.6)
+        bookmarksTableView.backgroundColor = headerStackView.backgroundColor
     }
 
     private func setupConstraints() {
@@ -378,11 +379,11 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: bookmarksTableViewCellReuseIdentifier, for: indexPath)
-
         let row = indexPath.row
+        let colors = PresentationTheme.currentExcludingWhite.colors
 
-        cell.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background.withAlphaComponent(0)
-        cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        cell.backgroundColor = colors.background
+        cell.textLabel?.textColor = colors.cellTextColor
         cell.selectionStyle = .none
 
         if let currentMedia = delegate?.bookmarksViewGetCurrentPlayingMedia() {
