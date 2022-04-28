@@ -349,7 +349,6 @@
 		CCE2A22E17A5859E00D9EAAD /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE2A22D17A5859E00D9EAAD /* CoreText.framework */; };
 		D0AF091F220A741300076D07 /* VLCCloudSortingSpecifierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF091E220A741300076D07 /* VLCCloudSortingSpecifierManager.swift */; };
 		D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */; };
-		D92C186327CD30DE0034058F /* ChapterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D92C186227CD30DE0034058F /* ChapterView.xib */; };
 		D92C186527CD317D0034058F /* ChapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C186427CD317D0034058F /* ChapterView.swift */; };
 		DD13A37B1BEE2FAA00A35554 /* VLCMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */; };
 		DD1B31F41BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */; };
@@ -2841,7 +2840,6 @@
 				26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */,
 				7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */,
 				7D71ABD027ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib in Resources */,
-				D92C186327CD30DE0034058F /* ChapterView.xib in Resources */,
 				7AC8629D1765DC560011611A /* style.css in Resources */,
 				8DB0D71C24CED2BE00915506 /* VideoPlayerControls.xib in Resources */,
 				40C95A00256E9272002DD208 /* NewPlaybackSpeedView.xib in Resources */,

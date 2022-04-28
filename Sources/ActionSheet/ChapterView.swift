@@ -5,6 +5,7 @@
  * Copyright © 2022 Videolabs
  *
  * Authors: Diogo Simao Marques <diogo.simaomarquespro@gmail.com>
+ *          Felix Paul Kühne <fkuehne@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -16,7 +17,7 @@ protocol ChapterViewDelegate: AnyObject {
 }
 
 class ChapterView: UIView {
-    @IBOutlet weak var chapterTableView: UITableView!
+    private var chapterTableView: UITableView!
 
     private lazy var playbackService = PlaybackService.sharedInstance()
     weak var delegate: ChapterViewDelegate?
@@ -25,14 +26,16 @@ class ChapterView: UIView {
         UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
     }()
 
-    override func awakeFromNib() {
-        setupChapterTable()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        setupTableView()
+
         setupTheme()
     }
 
-    private func setupChapterTable() {
-        chapterTableView.dataSource = self
-        chapterTableView.delegate = self
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     private func update() {
@@ -41,10 +44,24 @@ class ChapterView: UIView {
         layoutIfNeeded()
     }
 
+    func setupTableView() {
+        chapterTableView = UITableView.init(frame: frame)
+        chapterTableView.dataSource = self
+        chapterTableView.delegate = self
+        chapterTableView.autoresizesSubviews = false
+        chapterTableView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(chapterTableView)
+        let chapterTableViewConstraints = [
+            chapterTableView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            chapterTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            chapterTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 10),
+            chapterTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 5)
+        ]
+        NSLayoutConstraint.activate(chapterTableViewConstraints)
+    }
+
     func setupTheme() {
-        let colors = PresentationTheme.currentExcludingWhite.colors
-        backgroundColor = colors.background
-        chapterTableView.backgroundColor = colors.background
+        chapterTableView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
         update()
     }
 
