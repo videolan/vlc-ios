@@ -96,7 +96,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     }()
 
 // MARK: - Playback Speed View
-    private lazy var playbackView: PlaybackSpeedView = {
+    private lazy var playbackSpeedView: PlaybackSpeedView = {
         let playbackSpeedView = Bundle.main.loadNibNamed("PlaybackSpeedView",
                                                          owner: nil,
                                                          options: nil)?.first as! PlaybackSpeedView
@@ -151,7 +151,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     }
 
     func resetPlaybackSpeed() {
-        playbackView.reset()
+        playbackSpeedView.reset()
     }
 
     func resetEqualizer() {
@@ -168,7 +168,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     func updateThemes() {
         videoFiltersView.setupTheme()
-        playbackView.setupTheme()
+        playbackSpeedView.setupTheme()
         sleepTimerView.setupTheme()
         equalizerView.setupTheme()
         chapterView.setupTheme()
@@ -225,7 +225,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     func resetOptionsIfNecessary() {
         // FIXME: Reset Equalizer if needed
-        playbackView.resetSlidersIfNeeded()
+        playbackSpeedView.resetSlidersIfNeeded()
         updateThemes()
     }
 
@@ -234,7 +234,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
         case .filter:
             openOptionView(videoFiltersView)
         case .playback:
-            openOptionView(playbackView)
+            openOptionView(playbackSpeedView)
         case .sleepTimer:
             openOptionView(sleepTimerView)
         case .equalizer:
@@ -399,7 +399,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
         case .filter:
             return videoFiltersView
         case .playback:
-            return playbackView
+            return playbackSpeedView
         case .sleepTimer:
             return sleepTimerView
         case .equalizer:
