@@ -42,8 +42,9 @@ class ChapterView: UIView {
     }
 
     func setupTheme() {
-        backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
-        chapterTableView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+        let colors = PresentationTheme.currentExcludingWhite.colors
+        backgroundColor = colors.background
+        chapterTableView.backgroundColor = colors.background
         update()
     }
 
@@ -99,8 +100,9 @@ extension ChapterView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView {
-            headerView.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
-            headerView.contentView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
+            let colors = PresentationTheme.currentExcludingWhite.colors
+            headerView.textLabel?.textColor = colors.cellTextColor
+            headerView.contentView.backgroundColor = colors.background
         }
     }
 
@@ -109,9 +111,10 @@ extension ChapterView: UITableViewDelegate, UITableViewDataSource {
 
         let section = indexPath.section
         let row = indexPath.row
+        let colors = PresentationTheme.currentExcludingWhite.colors
 
-        cell.backgroundColor = PresentationTheme.currentExcludingWhite.colors.cellBackgroundA
-        cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        cell.backgroundColor = colors.cellBackgroundA
+        cell.textLabel?.textColor = colors.cellTextColor
         cell.textLabel?.numberOfLines = 0
         cell.selectionStyle = .none
 
@@ -122,7 +125,7 @@ extension ChapterView: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
 
             if playbackService.indexOfCurrentTitle == row {
-                cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+                cell.textLabel?.textColor = colors.orangeUI
             }
         } else {
             let description = playbackService.chapterDescriptionsDict(at: row)
@@ -130,7 +133,7 @@ extension ChapterView: UITableViewDelegate, UITableViewDataSource {
             let duration = VLCTime(number: description[VLCChapterDescriptionDuration] as? NSNumber).stringValue
             cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
             if playbackService.indexOfCurrentChapter == row {
-                cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+                cell.textLabel?.textColor = colors.orangeUI
             }
         }
 
