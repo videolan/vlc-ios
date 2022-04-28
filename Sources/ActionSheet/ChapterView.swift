@@ -70,30 +70,30 @@ extension ChapterView: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         var sections = 0
 
-            if hasMultipleTitles() {
-                sections += 1
-            }
-            if hasMultipleChapters() {
-                sections += 1
-            }
+        if hasMultipleTitles() {
+            sections += 1
+        }
+        if hasMultipleChapters() {
+            sections += 1
+        }
 
         return sections
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            if hasMultipleTitles() && section == 0 {
-                return playbackService.numberOfTitles
-            }
-            return playbackService.numberOfChaptersForCurrentTitle
+        if hasMultipleTitles() && section == 0 {
+            return playbackService.numberOfTitles
+        }
+        return playbackService.numberOfChaptersForCurrentTitle
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-            if hasMultipleTitles() && section == 0 {
-                return NSLocalizedString("CHOOSE_TITLE", comment: "")
-            }
-            if hasMultipleChapters() {
-                return NSLocalizedString("CHOOSE_CHAPTER", comment: "")
-            }
+        if hasMultipleTitles() && section == 0 {
+            return NSLocalizedString("CHOOSE_TITLE", comment: "")
+        }
+        if hasMultipleChapters() {
+            return NSLocalizedString("CHOOSE_CHAPTER", comment: "")
+        }
         return NSLocalizedString("UNKNOWN_TRACK_TYPE", comment: "")
     }
 
@@ -114,24 +114,24 @@ extension ChapterView: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
         cell.selectionStyle = .none
 
-            if hasMultipleTitles() && section == 0 {
-                let description = playbackService.titleDescriptionsDict(at: row)
-                let name = description[VLCTitleDescriptionName] ?? ""
-                let duration = VLCTime(number: description[VLCTitleDescriptionDuration] as? NSNumber).stringValue
-                cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
+        if hasMultipleTitles() && section == 0 {
+            let description = playbackService.titleDescriptionsDict(at: row)
+            let name = description[VLCTitleDescriptionName] ?? ""
+            let duration = VLCTime(number: description[VLCTitleDescriptionDuration] as? NSNumber).stringValue
+            cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
 
-                if playbackService.indexOfCurrentTitle == row {
-                    cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
-                }
-            } else {
-                let description = playbackService.chapterDescriptionsDict(at: row)
-                let name = description[VLCChapterDescriptionName] ?? ""
-                let duration = VLCTime(number: description[VLCChapterDescriptionDuration] as? NSNumber).stringValue
-                cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
-                if playbackService.indexOfCurrentChapter == row {
-                    cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
-                }
+            if playbackService.indexOfCurrentTitle == row {
+                cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
             }
+        } else {
+            let description = playbackService.chapterDescriptionsDict(at: row)
+            let name = description[VLCChapterDescriptionName] ?? ""
+            let duration = VLCTime(number: description[VLCChapterDescriptionDuration] as? NSNumber).stringValue
+            cell.textLabel?.text = isRightToLeft ? "(\(duration)) \(name)" : "\(name) (\(duration))"
+            if playbackService.indexOfCurrentChapter == row {
+                cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.orangeUI
+            }
+        }
 
         return cell
     }
@@ -142,12 +142,12 @@ extension ChapterView: UITableViewDelegate, UITableViewDataSource {
         let section = indexPath.section
         let row = indexPath.row
 
-            if hasMultipleTitles() && section == 0 {
-                playbackService.selectTitle(at: row)
-            } else {
-                playbackService.selectChapter(at: row)
-                delegate?.chapterViewDelegateDidSelectChapter(self)
-            }
+        if hasMultipleTitles() && section == 0 {
+            playbackService.selectTitle(at: row)
+        } else {
+            playbackService.selectChapter(at: row)
+            delegate?.chapterViewDelegateDidSelectChapter(self)
+        }
 
         reload(tableView)
     }
