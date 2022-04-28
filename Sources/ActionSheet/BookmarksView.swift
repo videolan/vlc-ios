@@ -175,6 +175,7 @@ class BookmarksView: UIView {
     private let addBookmarkButton = UIButton()
     private let addBookmarkAtTimeButton = UIButton()
     private let bookmarksTableView = UITableView()
+    private let bookmarksTableViewCellReuseIdentifier = "bookmarksTableViewCellReuseIdentifier"
     private lazy var addBookmarksView: AddBookmarksView = {
         let addBookmarksView = AddBookmarksView(frame: .zero, tableView: bookmarksTableView)
         addBookmarksView.delegate = self
@@ -217,6 +218,7 @@ class BookmarksView: UIView {
         addSubview(bookmarksTableView)
         bookmarksTableView.delegate = self
         bookmarksTableView.dataSource = self
+        bookmarksTableView.register(UITableViewCell.self, forCellReuseIdentifier: bookmarksTableViewCellReuseIdentifier)
     }
 
     private func setupButton() {
@@ -375,7 +377,7 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: bookmarksTableViewCellReuseIdentifier, for: indexPath)
 
         let row = indexPath.row
 
