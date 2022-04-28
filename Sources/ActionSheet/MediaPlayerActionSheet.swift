@@ -67,7 +67,7 @@ class MediaPlayerActionSheet: ActionSheet {
     private func getTitle(of childView: UIView) -> String {
         if childView is VideoFiltersView {
             return MediaPlayerActionSheetCellIdentifier.filter.description
-        } else if childView is NewPlaybackSpeedView {
+        } else if childView is PlaybackSpeedView {
             return MediaPlayerActionSheetCellIdentifier.playback.description
         } else if childView is SleepTimerView {
             return MediaPlayerActionSheetCellIdentifier.sleepTimer.description

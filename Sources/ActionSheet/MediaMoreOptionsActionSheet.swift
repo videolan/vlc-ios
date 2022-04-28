@@ -87,10 +87,10 @@ protocol MediaMoreOptionsActionSheetDelegate {
     }()
 
 // MARK: - Playback Speed View
-    private lazy var playbackView: NewPlaybackSpeedView = {
-        let playbackSpeedView = Bundle.main.loadNibNamed("NewPlaybackSpeedView",
+    private lazy var playbackView: PlaybackSpeedView = {
+        let playbackSpeedView = Bundle.main.loadNibNamed("PlaybackSpeedView",
                                                          owner: nil,
-                                                         options: nil)?.first as! NewPlaybackSpeedView
+                                                         options: nil)?.first as! PlaybackSpeedView
 
         playbackSpeedView.frame = offScreenFrame
         if #available(iOS 13.0, *) {
@@ -233,16 +233,16 @@ extension MediaMoreOptionsActionSheet: VideoFiltersViewDelegate {
     }
 }
 
-extension MediaMoreOptionsActionSheet: NewPlaybackSpeedViewDelegate {
-    func newPlaybackSpeedViewHandleOptionChange(title: String) {
+extension MediaMoreOptionsActionSheet: PlaybackSpeedViewDelegate {
+    func playbackSpeedViewHandleOptionChange(title: String) {
         self.headerView.title.text = title
     }
 
-    func newPlaybackSpeedViewShowIcon() {
+    func playbackSpeedViewShowIcon() {
         moreOptionsDelegate?.mediaMoreOptionsActionSheetShowIcon(for: .playbackSpeed)
     }
 
-    func newPlaybackSpeedViewHideIcon() {
+    func playbackSpeedViewHideIcon() {
         moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .playbackSpeed)
     }
 }
