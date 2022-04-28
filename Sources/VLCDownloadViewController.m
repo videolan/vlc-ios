@@ -125,7 +125,7 @@
         NSURL *URLtoSave = [NSURL URLWithString:self.urlField.text];
         NSString *lastPathComponent = URLtoSave.lastPathComponent;
         NSString *scheme = URLtoSave.scheme;
-        if (![lastPathComponent isSupportedFormat] && ![lastPathComponent.pathExtension isEqualToString:@""]) {
+        if (!([lastPathComponent isSupportedFormat] || [lastPathComponent isSupportedPlaylistFormat]) && ![lastPathComponent.pathExtension isEqualToString:@""]) {
             [VLCAlertViewController alertViewManagerWithTitle:NSLocalizedString(@"FILE_NOT_SUPPORTED", nil)
                                                  errorMessage:[NSString stringWithFormat:NSLocalizedString(@"FILE_NOT_SUPPORTED_LONG", nil), lastPathComponent]
                                                viewController:self];
