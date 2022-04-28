@@ -102,7 +102,7 @@ class MediaPlayerActionSheet: ActionSheet {
             (completed) in
             child.addGestureRecognizer(self.leftToRightGesture)
             self.currentChildView = child
-            if child is VideoFiltersView {
+            if child is VideoFiltersView || child is PlaybackSpeedView {
                 self.changeBackground(alpha: 0)
             }
 
