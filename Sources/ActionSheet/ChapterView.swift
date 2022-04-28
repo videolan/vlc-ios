@@ -18,6 +18,7 @@ protocol ChapterViewDelegate: AnyObject {
 
 class ChapterView: UIView {
     private var chapterTableView: UITableView!
+    private let chapterTitleViewCellIdentifier = "chapterTitleViewCellIdentifier"
 
     private lazy var playbackService = PlaybackService.sharedInstance()
     weak var delegate: ChapterViewDelegate?
@@ -58,6 +59,7 @@ class ChapterView: UIView {
             chapterTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 5)
         ]
         NSLayoutConstraint.activate(chapterTableViewConstraints)
+        chapterTableView.register(UITableViewCell.self, forCellReuseIdentifier: chapterTitleViewCellIdentifier)
     }
 
     func setupTheme() {
@@ -126,7 +128,7 @@ extension ChapterView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: chapterTitleViewCellIdentifier, for: indexPath)
 
         let section = indexPath.section
         let row = indexPath.row
