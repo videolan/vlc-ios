@@ -127,6 +127,7 @@
         self.artist = metaDict[VLCMetaInformationArtist];
         self.albumName = metaDict[VLCMetaInformationAlbum];
         self.trackNumber = metaDict[VLCMetaInformationTrackNumber];
+        self.artworkImage = nil;
 
         NSString *artworkURLString = metaDict[VLCMetaInformationArtworkURL];
         if (artworkURLString) {
