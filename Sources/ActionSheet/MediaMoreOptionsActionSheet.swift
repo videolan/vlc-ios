@@ -123,10 +123,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     }()
 
     private lazy var chapterView: ChapterView = {
-        let chapterView = Bundle.main.loadNibNamed("ChapterView",
-                                                   owner: nil,
-                                                   options: nil)?.first as! ChapterView
-        chapterView.frame = offScreenFrame
+        let chapterView = ChapterView.init(frame: offScreenFrame)
         if #available(iOS 13.0, *) {
             chapterView.overrideUserInterfaceStyle = .dark
         }
