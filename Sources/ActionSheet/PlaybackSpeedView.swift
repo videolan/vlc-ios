@@ -1,5 +1,5 @@
 /*****************************************************************************
- * NewPlaybackSpeedView.swift
+ * PlaybackSpeedView.swift
  *
  * Copyright © 2020 VLC authors and VideoLAN
  * Copyright © 2020 Videolabs
@@ -11,13 +11,13 @@
 
 import UIKit
 
-protocol NewPlaybackSpeedViewDelegate: AnyObject {
-    func newPlaybackSpeedViewHandleOptionChange(title: String)
-    func newPlaybackSpeedViewShowIcon()
-    func newPlaybackSpeedViewHideIcon()
+protocol PlaybackSpeedViewDelegate: AnyObject {
+    func playbackSpeedViewHandleOptionChange(title: String)
+    func playbackSpeedViewShowIcon()
+    func playbackSpeedViewHideIcon()
 }
 
-class NewPlaybackSpeedView: UIView {
+class PlaybackSpeedView: UIView {
 
     @IBOutlet weak var minLabel: UILabel!
     @IBOutlet weak var currentButton: UIButton!
@@ -28,7 +28,7 @@ class NewPlaybackSpeedView: UIView {
     @IBOutlet weak var optionsSegmentedControl: UISegmentedControl!
     private let resetButton = UIButton()
 
-    weak var delegate: NewPlaybackSpeedViewDelegate?
+    weak var delegate: PlaybackSpeedViewDelegate?
 
     private let minDelay: Float = -30000.0
     private let maxDelay: Float = 30000.0
@@ -125,7 +125,7 @@ class NewPlaybackSpeedView: UIView {
 
     @objc func handleSegmentedControlChange(_ control: UISegmentedControl) {
         let selectedIndex = control.selectedSegmentIndex
-        delegate?.newPlaybackSpeedViewHandleOptionChange(title: optionsSegmentedControl.titleForSegment(at: selectedIndex)!)
+        delegate?.playbackSpeedViewHandleOptionChange(title: optionsSegmentedControl.titleForSegment(at: selectedIndex)!)
         setupSlider()
     }
 
@@ -172,7 +172,7 @@ class NewPlaybackSpeedView: UIView {
         }
 
         if showIcon {
-            delegate?.newPlaybackSpeedViewShowIcon()
+            delegate?.playbackSpeedViewShowIcon()
         }
     }
 
@@ -187,7 +187,7 @@ class NewPlaybackSpeedView: UIView {
             currentAudioDelay = defaultDelay
             setupSlider()
 
-            delegate?.newPlaybackSpeedViewHideIcon()
+            delegate?.playbackSpeedViewHideIcon()
         }
     }
 
@@ -211,7 +211,7 @@ class NewPlaybackSpeedView: UIView {
         }
 
         if currentSpeed == defaultSpeed && currentSubtitlesDelay == defaultDelay && currentAudioDelay == defaultDelay {
-            delegate?.newPlaybackSpeedViewHideIcon()
+            delegate?.playbackSpeedViewHideIcon()
         }
     }
 
@@ -286,16 +286,16 @@ class NewPlaybackSpeedView: UIView {
         }
 
         if showIcon {
-            delegate?.newPlaybackSpeedViewShowIcon()
+            delegate?.playbackSpeedViewShowIcon()
         }
 
         if currentSpeed == defaultSpeed && currentSubtitlesDelay == defaultDelay && currentAudioDelay == defaultDelay {
-            delegate?.newPlaybackSpeedViewHideIcon()
+            delegate?.playbackSpeedViewHideIcon()
         }
     }
 }
 
-extension NewPlaybackSpeedView: ActionSheetAccessoryViewsDelegate {
+extension PlaybackSpeedView: ActionSheetAccessoryViewsDelegate {
     func actionSheetAccessoryViews(_ actionSheet: ActionSheetSectionHeader) -> [UIView] {
         return [resetButton]
     }
