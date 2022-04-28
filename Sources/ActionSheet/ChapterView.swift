@@ -112,6 +112,7 @@ extension ChapterView: UITableViewDelegate, UITableViewDataSource {
 
         cell.backgroundColor = PresentationTheme.currentExcludingWhite.colors.cellBackgroundA
         cell.textLabel?.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        cell.textLabel?.numberOfLines = 0
         cell.selectionStyle = .none
 
         if hasMultipleTitles() && section == 0 {
