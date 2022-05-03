@@ -17,6 +17,7 @@ class TrackModel: MediaModel {
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLMedia]()
+    var fileArrayLock = NSLock()
 
     var cellType: BaseCollectionViewCell.Type {
         return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(name)") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
@@ -29,8 +30,12 @@ class TrackModel: MediaModel {
     var indicatorName: String = NSLocalizedString("SONGS", comment: "")
 
     required init(medialibrary: MediaLibraryService) {
+        defer {
+            fileArrayLock.unlock()
+        }
         self.medialibrary = medialibrary
         medialibrary.observable.addObserver(self)
+        fileArrayLock.lock()
         files = medialibrary.media(ofType: .audio)
     }
 }
@@ -40,6 +45,10 @@ class TrackModel: MediaModel {
 extension TrackModel {
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
         // FIXME: Currently if sorted by name, the files are sorted by filename but displaying title
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files = medialibrary.media(ofType: .audio,
                                    sortingCriteria: criteria,
                                    desc: desc)
@@ -55,6 +64,10 @@ extension TrackModel {
 
 extension TrackModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService, didAddTracks tracks: [VLCMLMedia]) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         tracks.forEach({ append($0) })
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
@@ -63,6 +76,10 @@ extension TrackModel: MediaLibraryObserver {
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyTracks tracks: [VLCMLMedia]) {
         if !tracks.isEmpty {
+            defer {
+                fileArrayLock.unlock()
+            }
+            fileArrayLock.lock()
             files = swapModels(with: tracks)
             observable.observers.forEach() {
                 $0.value.observer?.mediaLibraryBaseModelReloadView()
@@ -71,6 +88,10 @@ extension TrackModel: MediaLibraryObserver {
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files = files.filter() {
             for id in ids where $0.identifier() == id.int64Value {
                 return false

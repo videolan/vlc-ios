@@ -23,6 +23,7 @@ class CollectionModel: MLBaseModel {
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
+    var fileArrayLock = NSLock()
     var files = [VLCMLMedia]()
 
     var cellType: BaseCollectionViewCell.Type {
@@ -44,6 +45,9 @@ class CollectionModel: MLBaseModel {
     }
 
     required init(mediaService: MediaLibraryService, mediaCollection: MediaCollectionModel) {
+        defer {
+            fileArrayLock.unlock()
+        }
         self.medialibrary = mediaService
         self.mediaCollection = mediaCollection
         self.sortModel = mediaCollection.sortModel() ?? self.sortModel
@@ -60,16 +64,25 @@ class CollectionModel: MLBaseModel {
 
         self.thumbnail = mediaCollection.thumbnail()
 
+        fileArrayLock.lock()
         files = mediaCollection.files() ?? []
         medialibrary.observable.addObserver(self)
     }
 
     func append(_ item: VLCMLMedia) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files.append(item)
     }
 
     func delete(_ items: [MLType]) {
+        defer {
+            fileArrayLock.unlock()
+        }
         if let playlist = mediaCollection as? VLCMLPlaylist {
+            fileArrayLock.lock()
             for case let media in items {
                 if let index = files.firstIndex(of: media) {
                     playlist.removeMedia(fromPosition: UInt32(index))
@@ -84,11 +97,16 @@ class CollectionModel: MLBaseModel {
                 }
                 medialibrary.reload()
             }
+            fileArrayLock.lock()
             filterFilesFromDeletion(of: items)
         }
     }
 
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files = mediaCollection.files(with: criteria, desc: desc) ?? []
         sortModel.currentSort = criteria
         sortModel.desc = desc
@@ -106,7 +124,11 @@ class CollectionModel: MLBaseModel {
 extension CollectionModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService,
                       didModifyPlaylistsWithIds playlistsIds: [NSNumber]) {
+        defer {
+            fileArrayLock.unlock()
+        }
         if mediaCollection is VLCMLPlaylist {
+            fileArrayLock.lock()
             files = mediaCollection.files() ?? []
             observable.observers.forEach() {
                 $0.value.observer?.mediaLibraryBaseModelReloadView()
@@ -115,6 +137,10 @@ extension CollectionModel: MediaLibraryObserver {
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didModifyTracks tracks: [VLCMLMedia]) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files = mediaCollection.files() ?? []
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
@@ -122,6 +148,10 @@ extension CollectionModel: MediaLibraryObserver {
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files = mediaCollection.files() ?? []
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
@@ -134,6 +164,10 @@ extension CollectionModel: MediaLibraryObserver {
         guard success else {
             return
         }
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files = mediaCollection.files() ?? []
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
@@ -141,6 +175,10 @@ extension CollectionModel: MediaLibraryObserver {
     }
 
     func medialibraryDidStartRescan() {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files.removeAll()
     }
 }
