@@ -16,6 +16,7 @@ class GenreModel: AudioCollectionModel {
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
+    var fileArrayLock = NSLock()
     var files = [VLCMLGenre]()
 
     var cellType: BaseCollectionViewCell.Type {
@@ -29,12 +30,20 @@ class GenreModel: AudioCollectionModel {
     var indicatorName: String = NSLocalizedString("GENRES", comment: "")
 
     required init(medialibrary: MediaLibraryService) {
+        defer {
+            fileArrayLock.unlock()
+        }
         self.medialibrary = medialibrary
         medialibrary.observable.addObserver(self)
+        fileArrayLock.lock()
         files = medialibrary.genres()
     }
 
     func append(_ item: VLCMLGenre) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files.append(item)
     }
 }
@@ -51,6 +60,9 @@ extension GenreModel: MediaLibraryObserver {
 
     func medialibrary(_ medialibrary: MediaLibraryService,
                       didModifyGenresWithIds genresIds: [NSNumber]) {
+        defer {
+            fileArrayLock.unlock()
+        }
         var genres = [VLCMLGenre]()
 
         genresIds.forEach() {
@@ -60,6 +72,7 @@ extension GenreModel: MediaLibraryObserver {
             genres.append(safeGenre)
         }
 
+        fileArrayLock.lock()
         files = swapModels(with: genres)
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
@@ -67,6 +80,10 @@ extension GenreModel: MediaLibraryObserver {
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteGenresWithIds genresIds: [NSNumber]) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files.removeAll {
             genresIds.contains(NSNumber(value: $0.identifier()))
         }
@@ -76,6 +93,10 @@ extension GenreModel: MediaLibraryObserver {
     }
 
     func medialibraryDidStartRescan() {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files.removeAll()
     }
 }
@@ -83,6 +104,10 @@ extension GenreModel: MediaLibraryObserver {
 // MARK: - Sort
 extension GenreModel {
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files = medialibrary.genres(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc

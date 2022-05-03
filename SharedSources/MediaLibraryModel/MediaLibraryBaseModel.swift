@@ -40,6 +40,7 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
 
     init(medialibrary: MediaLibraryService)
 
+    var fileArrayLock: NSLock { get }
     var files: [MLType] { get set }
 
     var medialibrary: MediaLibraryService { get }

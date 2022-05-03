@@ -16,6 +16,7 @@ class PlaylistModel: MLBaseModel {
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
+    var fileArrayLock = NSLock()
     var files = [VLCMLPlaylist]()
 
     var cellType: BaseCollectionViewCell.Type {
@@ -29,12 +30,20 @@ class PlaylistModel: MLBaseModel {
     var indicatorName: String = NSLocalizedString("PLAYLISTS", comment: "")
 
     required init(medialibrary: MediaLibraryService) {
+        defer {
+            fileArrayLock.unlock()
+        }
         self.medialibrary = medialibrary
         medialibrary.observable.addObserver(self)
+        fileArrayLock.lock()
         files = medialibrary.playlists()
     }
 
     func append(_ item: VLCMLPlaylist) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         for file in files {
             if file.identifier() == item.identifier() {
                 return
@@ -44,6 +53,9 @@ class PlaylistModel: MLBaseModel {
     }
 
     func delete(_ items: [VLCMLPlaylist]) {
+        defer {
+            fileArrayLock.unlock()
+        }
         for case let playlist in items {
             if !(medialibrary.deletePlaylist(with: playlist.identifier())) {
                 assertionFailure("PlaylistModel: Failed to delete playlist: \(playlist.identifier())")
@@ -60,6 +72,7 @@ class PlaylistModel: MLBaseModel {
         }
 
         // Update directly the UI without waiting the delegate to avoid showing 'ghost' items
+        fileArrayLock.lock()
         filterFilesFromDeletion(of: items)
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
@@ -82,6 +95,10 @@ class PlaylistModel: MLBaseModel {
 // MARK: - Sort
 extension PlaylistModel {
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files = medialibrary.playlists(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
@@ -109,6 +126,9 @@ extension PlaylistModel: MediaLibraryObserver {
 
     func medialibrary(_ medialibrary: MediaLibraryService,
                       didModifyPlaylistsWithIds playlistsIds: [NSNumber]) {
+        defer {
+            fileArrayLock.unlock()
+        }
         var playlists = [VLCMLPlaylist]()
 
         playlistsIds.forEach() {
@@ -119,6 +139,7 @@ extension PlaylistModel: MediaLibraryObserver {
             playlists.append(safePlaylist)
         }
 
+        fileArrayLock.lock()
         files = swapModels(with: playlists)
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
@@ -126,6 +147,10 @@ extension PlaylistModel: MediaLibraryObserver {
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeletePlaylistsWithIds playlistsIds: [NSNumber]) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files = files.filter() {
             for id in playlistsIds where $0.identifier() == id.int64Value {
                 return false
@@ -138,6 +163,10 @@ extension PlaylistModel: MediaLibraryObserver {
     }
 
     func medialibraryDidStartRescan() {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files.removeAll()
     }
 }

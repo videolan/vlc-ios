@@ -264,6 +264,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         // If we are a MediaGroupViewModel, check if there are no empty groups from ungrouping.
         if let mediaGroupModel = model as? MediaGroupViewModel {
+            defer {
+                mediaGroupModel.fileArrayLock.unlock()
+            }
+            mediaGroupModel.fileArrayLock.lock()
             mediaGroupModel.files = mediaGroupModel.files.filter() {
                 return $0.nbTotalMedia() != 0
             }
@@ -949,7 +953,6 @@ extension MediaCategoryViewController {
         let mediaObject = mediaObjectArray.objectAtIndex(index: indexPath.row)
 
         guard mediaObject != nil else {
-            assertionFailure("MediaCategoryViewController: Failed to fetch media object.")
             return mediaCell
         }
 

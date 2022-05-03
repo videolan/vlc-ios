@@ -15,6 +15,9 @@ protocol AudioCollectionModel: MLBaseModel { }
 extension AudioCollectionModel {
     func delete(_ items: [MLType]) {
         do {
+            defer {
+                fileArrayLock.unlock()
+            }
             for case let item as MediaCollectionModel in items {
                 if let tracks = item.files() {
                     for track in tracks {
@@ -32,6 +35,7 @@ extension AudioCollectionModel {
                     }
                 }
             }
+            fileArrayLock.lock()
             filterFilesFromDeletion(of: items)
             medialibrary.reload()
         }

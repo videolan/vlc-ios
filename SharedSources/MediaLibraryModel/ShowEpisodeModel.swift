@@ -17,6 +17,7 @@ class ShowEpisodeModel: MediaModel {
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLMedia]()
+    var fileArrayLock = NSLock()
 
     var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }
 
@@ -32,6 +33,10 @@ class ShowEpisodeModel: MediaModel {
     }
 
     func append(_ item: VLCMLMedia) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files.append(item)
     }
 
@@ -59,6 +64,10 @@ extension ShowEpisodeModel: MediaLibraryObserver {
     }
 
     func medialibraryDidStartRescan() {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files.removeAll()
     }
 }

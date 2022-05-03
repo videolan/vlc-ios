@@ -16,6 +16,7 @@ class AlbumModel: AudioCollectionModel {
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
+    var fileArrayLock = NSLock()
     var files = [VLCMLAlbum]()
 
     var cellType: BaseCollectionViewCell.Type {
@@ -29,12 +30,20 @@ class AlbumModel: AudioCollectionModel {
     var indicatorName: String = NSLocalizedString("ALBUMS", comment: "")
 
     required init(medialibrary: MediaLibraryService) {
+        defer {
+            fileArrayLock.unlock()
+        }
         self.medialibrary = medialibrary
         medialibrary.observable.addObserver(self)
+        fileArrayLock.lock()
         files = medialibrary.albums()
     }
 
     func append(_ item: VLCMLAlbum) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files.append(item)
     }
 }
@@ -42,6 +51,10 @@ class AlbumModel: AudioCollectionModel {
 // MARK: - Sort
 extension AlbumModel {
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files = medialibrary.albums(sortingCriteria: criteria, desc: desc)
         sortModel.currentSort = criteria
         sortModel.desc = desc
@@ -86,6 +99,9 @@ extension AlbumModel: MediaLibraryObserver {
 
     func medialibrary(_ medialibrary: MediaLibraryService,
                       didModifyAlbumsWithIds albumsIds: [NSNumber]) {
+        defer {
+            fileArrayLock.unlock()
+        }
         var albums = [VLCMLAlbum]()
 
         albumsIds.forEach() {
@@ -96,6 +112,7 @@ extension AlbumModel: MediaLibraryObserver {
             albums.append(safeAlbum)
         }
 
+        fileArrayLock.lock()
         files = swapModels(with: albums)
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
@@ -103,6 +120,10 @@ extension AlbumModel: MediaLibraryObserver {
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteAlbumsWithIds albumsIds: [NSNumber]) {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files.removeAll {
             albumsIds.contains(NSNumber(value: $0.identifier()))
         }
@@ -112,6 +133,10 @@ extension AlbumModel: MediaLibraryObserver {
     }
 
     func medialibraryDidStartRescan() {
+        defer {
+            fileArrayLock.unlock()
+        }
+        fileArrayLock.lock()
         files.removeAll()
     }
 }
