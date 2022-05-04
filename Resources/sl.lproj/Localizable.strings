@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Enkrat";
 "REPEAT_FOLDER" = "Mapa";
 "SHUFFLE" = "Premešaj";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Premešanje izključeno";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Ponastavi seznam";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Trajno ponastavi seznam nedavno predvajanih omrežnih pretokov.";
@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Uredi";
 "BUTTON_EDIT_HINT" = "Način urejanja";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Izberi vse";
 "BUTTON_SELECT_ALL_HINT" = "Izbere vse predmete, ki so v tem prikazu";
 
@@ -365,9 +368,9 @@
 "DESCENDING_LABEL" = "padajoče";
 "DESCENDING_SWITCH_LABEL" = "naraščajoče ali padajoče";
 "DESCENDING_SWITCH_HINT" = "Sortiraj kontekst naraščajoče ali padajoče";
-"GRID_LAYOUT" = "Grid";
-"LIST_LAYOUT" = "List";
-"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"GRID_LAYOUT" = "Mreža";
+"LIST_LAYOUT" = "Seznam";
+"HIDE_FEAT_ARTISTS" = "Skrij gostujoče izvajalce";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Neznan izvajalec";
 "VARIOUS_ARTIST" = "Različni izvajalci";
 "UNKNOWN_ALBUM" = "Neznan album";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
