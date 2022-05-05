@@ -56,6 +56,24 @@ class EditController: UIViewController {
         isAllSelected = false
     }
 
+    func shouldResetCells(_ reset: Bool) {
+        guard reset else {
+            return
+        }
+
+        (0..<presentingView.numberOfSections).compactMap {
+            section -> [IndexPath]? in
+            return (0..<presentingView.numberOfItems(inSection: section)).compactMap({
+                item -> IndexPath? in
+                return IndexPath(item: item, section: section)
+            })}
+        .flatMap { $0 }.forEach { (indexPath) in
+            if let cell = presentingView.cellForItem(at: indexPath) as? MediaCollectionViewCell {
+                cell.showCheckmark(false)
+            }
+        }
+    }
+
     func selectAll() {
         isAllSelected = !isAllSelected
         if isAllSelected {
@@ -262,8 +280,14 @@ extension EditController: UICollectionViewDelegate {
             delegate?.editControllerDidSelectMultipleItem(editContrller: self)
         }
         // Isolate selectionViewOverlay changes inside EditController
+        var showOverlay: Bool = true
+
+        if collectionView.cellForItem(at: indexPath) is MediaCollectionViewCell {
+            showOverlay = false
+        }
+
         if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
-            cell.selectionViewOverlay?.isHidden = false
+            cell.selectionViewOverlay?.isHidden = !showOverlay
             cell.isSelected = true
         }
     }
@@ -304,7 +328,10 @@ extension EditController: UICollectionViewDataSource {
             cell.isAccessibilityElement = true
             cell.checkImageView?.isHidden = false
 
+            var showOverlay: Bool = true
+
             if let cell = cell as? MediaCollectionViewCell {
+                cell.showCheckmark(true)
                 cell.disableScrollView()
                 if let collectionModel = model as? CollectionModel, collectionModel.mediaCollection is VLCMLPlaylist {
                     cell.dragIndicatorImageView.isHidden = false
@@ -312,6 +339,7 @@ extension EditController: UICollectionViewDataSource {
                     cell.dragIndicatorImageView.isHidden = true
                 }
                 cell.isEditing = true
+                showOverlay = false
             }
             if cell.media is VLCMLMedia || cell.media is VLCMLMediaGroup {
                 cell.secondDescriptionLabelView?.isHidden = false
@@ -319,7 +347,7 @@ extension EditController: UICollectionViewDataSource {
             }
 
             if cell.isSelected {
-                cell.selectionViewOverlay?.isHidden = false
+                cell.selectionViewOverlay?.isHidden = !showOverlay
             }
 
             cell.media = model.anyfiles[indexPath.row]

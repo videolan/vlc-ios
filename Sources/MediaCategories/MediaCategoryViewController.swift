@@ -527,6 +527,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             return
         }
         super.setEditing(editing, animated: animated)
+
+        editController.shouldResetCells(!isEditing)
+
         // might have an issue if the old datasource was search
         // Most of the edit logic is handled inside editController
         collectionView?.dataSource = editing ? editController : self

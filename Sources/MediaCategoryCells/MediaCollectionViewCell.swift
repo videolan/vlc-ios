@@ -38,6 +38,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     @IBOutlet weak var dragIndicatorImageView: UIImageView!
 
     @IBOutlet weak var sizeDescriptionLabelTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewLeadingConstraint: NSLayoutConstraint!
     private var defaultTrailingConstant: CGFloat = -4.0
 
     private var maxXOffset: CGFloat = 0.0
@@ -232,6 +233,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         deleteButtonHeight.constant = isIpad ? 72 : 56
         setupScrollView()
         setupGestureRecognizer()
+        showCheckmark(false)
         deleteButton.setTitle(NSLocalizedString("BUTTON_DELETE", comment: ""), for: .normal)
         deleteButton.accessibilityLabel = NSLocalizedString("BUTTON_DELETE", comment: "")
         deleteButton.accessibilityHint = NSLocalizedString("DELETE_HINT", comment: "")
@@ -390,6 +392,19 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabelTrailingConstraint.constant = newLabel.intrinsicContentSize.width
     }
 
+    func showCheckmark(_ show: Bool) {
+        let checkmarkWidth = checkboxImageView.frame.size.width
+        let constant: CGFloat
+
+        if show {
+            constant = 10.0
+        } else {
+            constant = -checkmarkWidth
+        }
+
+        scrollViewLeadingConstraint.constant = constant
+    }
+
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
         if width <= DeviceWidth.iPhone12ProMaxPortrait.rawValue {
             return 1
@@ -429,6 +444,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel.labelize = enableMarquee
         thumbnailView.image = nil
         checkboxImageView.isHidden = true
+        showCheckmark(false)
         selectionOverlay.isHidden = true
         dragIndicatorImageView.image = UIImage(named: "list")
         dragIndicatorImageView.isHidden = true
