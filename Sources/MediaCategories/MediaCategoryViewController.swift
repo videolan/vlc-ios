@@ -65,6 +65,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     private weak var albumHeader: AlbumHeader?
     private lazy var albumFlowLayout = AlbumHeaderLayout()
+    private lazy var navItemTitle: VLCMarqueeLabel = VLCMarqueeLabel()
 
 //    @available(iOS 11.0, *)
 //    lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
@@ -193,17 +194,17 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             rendererButton.isSelected = true
         }
 
-        let marqueeTitle = VLCMarqueeLabel()
         if let model = model as? CollectionModel,
            let collection = model.mediaCollection as? VLCMLAlbum {
-            title = collection.title
+            navItemTitle.text = collection.title
         } else if let collection = model as? CollectionModel {
-            title = collection.mediaCollection.title()
+            navItemTitle.text = collection.mediaCollection.title()
         }
-        marqueeTitle.text = title
-        marqueeTitle.textColor = PresentationTheme.current.colors.navigationbarTextColor
-        marqueeTitle.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
-        self.navigationItem.titleView = marqueeTitle
+
+        navItemTitle.textColor = PresentationTheme.current.colors.navigationbarTextColor
+        navItemTitle.font = UIFont.preferredCustomFont(forTextStyle: .headline).bolded
+
+        self.navigationItem.titleView = navItemTitle
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange),
                                                name: .VLCThemeDidChangeNotification, object: nil)
 
@@ -1345,6 +1346,42 @@ extension MediaCategoryViewController: EditControllerDelegate {
                 navigationItem.titleView?.isHidden = hideNavigationBarTitle
             }
         }
+    }
+
+    func editControllerSetNavigationItemTitle(with title: String?) {
+        var newTitle = title
+
+        if title == nil {
+            if let controller = navigationController?.viewControllers.last as? AudioViewController {
+                controller.resetTitleView()
+                return
+            } else if let controller = navigationController?.viewControllers.last as? ArtistViewController {
+                controller.resetTitleView()
+                return
+            } else if let controller = navigationController?.viewControllers.last as? PlaylistViewController {
+                controller.resetTitleView()
+                return
+            } else if let controller = navigationController?.viewControllers.last as? VideoViewController {
+                controller.resetTitleView()
+                return
+            } else if let controller = navigationController?.viewControllers.last as? CollectionCategoryViewController,
+                      let model = controller.model as? CollectionModel,
+                      let collection = model.mediaCollection as? VLCMLAlbum {
+                newTitle = collection.title
+            } else if let controller = navigationController?.viewControllers.last as? CollectionCategoryViewController,
+                      let model = controller.model as? CollectionModel,
+                      let collection = model.mediaCollection as? VLCMLGenre {
+                newTitle = collection.title()
+            } else if let controller = navigationController?.viewControllers.last as? CollectionCategoryViewController,
+                      let model = controller.model as? CollectionModel,
+                      let collection = model.mediaCollection as? VLCMLPlaylist {
+                newTitle = collection.title()
+            }
+        }
+
+        navItemTitle.text = newTitle
+        navigationController?.viewControllers.last?.navigationItem.titleView = navItemTitle
+        navigationController?.viewControllers.last?.navigationItem.titleView?.sizeToFit()
     }
 }
 

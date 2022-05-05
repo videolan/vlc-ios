@@ -30,4 +30,8 @@ class PlaylistViewController: MediaViewController {
             PlaylistCategoryViewController(services)
         ]
     }
+
+    func resetTitleView() {
+        navigationItem.titleView = nil
+    }
 }

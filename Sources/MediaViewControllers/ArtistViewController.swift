@@ -40,4 +40,8 @@ class ArtistViewController: MediaViewController {
             ]
         }
     }
+
+    func resetTitleView() {
+        navigationItem.titleView = nil
+    }
 }

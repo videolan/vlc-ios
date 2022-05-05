@@ -33,4 +33,8 @@ class AudioViewController: MediaViewController {
             GenreCategoryViewController(services)
         ]
     }
+
+    func resetTitleView() {
+        navigationItem.titleView = nil
+    }
 }

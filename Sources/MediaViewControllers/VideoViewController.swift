@@ -28,4 +28,8 @@ class VideoViewController: MediaViewController {
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         return [MovieCategoryViewController(services)]
     }
+
+    func resetTitleView() {
+        navigationItem.titleView = nil
+    }
 }

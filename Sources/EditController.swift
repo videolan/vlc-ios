@@ -18,6 +18,7 @@ protocol EditControllerDelegate: AnyObject {
     func editControllerGetCurrentThumbnail() -> UIImage?
     func editControllerGetAlbumHeaderSize(with width: CGFloat) -> CGSize
     func editControllerUpdateNavigationBar(offset: CGFloat)
+    func editControllerSetNavigationItemTitle(with title: String?)
 }
 
 class EditController: UIViewController {
@@ -142,6 +143,17 @@ private extension EditController {
         alertController.addAction(confirmAction)
 
         present(alertController, animated: true, completion: nil)
+    }
+
+    private func getTitle(for count: Int) -> String {
+        var title = "\(count) "
+        if count == 1 {
+            title += NSLocalizedString("SINGLE_ITEM_SELECTED", comment: "")
+        } else {
+            title += NSLocalizedString("MULTIPLE_ITEMS_SELECTED", comment: "")
+        }
+
+        return title
     }
 }
 
@@ -290,6 +302,9 @@ extension EditController: UICollectionViewDelegate {
             cell.selectionViewOverlay?.isHidden = !showOverlay
             cell.isSelected = true
         }
+
+        let title = getTitle(for: selectedCellIndexPaths.count)
+        delegate?.editControllerSetNavigationItemTitle(with: title)
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -301,6 +316,16 @@ extension EditController: UICollectionViewDelegate {
             cell.selectionViewOverlay?.isHidden = true
             cell.isSelected = false
         }
+
+        let title: String?
+
+        if selectedCellIndexPaths.isEmpty {
+            title = nil
+        } else {
+            title = getTitle(for: selectedCellIndexPaths.count)
+        }
+
+        delegate?.editControllerSetNavigationItemTitle(with: title)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
