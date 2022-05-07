@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "하나";
 "REPEAT_FOLDER" = "폴더";
 "SHUFFLE" = "순서섞기";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "순서섞기 끄기";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "목록 재설정";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "최근에 재생한 네트워크 스트림 목록을 영구적으로 재설정합니다.";
@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "편집";
 "BUTTON_EDIT_HINT" = "편집 모드";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "모두 선택";
 "BUTTON_SELECT_ALL_HINT" = "이 보기에 있는 모든 미디어 항목 선택";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "알 수 없는 아티스트";
 "VARIOUS_ARTIST" = "여러 아티스트";
 "UNKNOWN_ALBUM" = "알 수 없는 앨범";
+"SINGLE_ITEM_SELECTED" = "선택한 항목";
+"MULTIPLE_ITEMS_SELECTED" = "선택한 항목";
 
 // MARK: - VideoPlayerControls
 
