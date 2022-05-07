@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Editați";
 "BUTTON_EDIT_HINT" = "Modul de editare";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Selectează tot";
 "BUTTON_SELECT_ALL_HINT" = "Selectează toate elementele media prezente în această vizualizare";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Artist necunoscut";
 "VARIOUS_ARTIST" = "Diferiți artiști";
 "UNKNOWN_ALBUM" = "Album necunoscut";
+"SINGLE_ITEM_SELECTED" = "element selectat";
+"MULTIPLE_ITEMS_SELECTED" = "elemente selectate";
 
 // MARK: - VideoPlayerControls
 
