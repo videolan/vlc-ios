@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Modìfica";
 "BUTTON_EDIT_HINT" = "Modalidade de modìfica";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Seletziona totu";
 "BUTTON_SELECT_ALL_HINT" = "Seletziona totu sos elementos multimediales presentes in custa vista";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Artista disconnotu";
 "VARIOUS_ARTIST" = "Artistas vàrios";
 "UNKNOWN_ALBUM" = "Album disconnotu";
+"SINGLE_ITEM_SELECTED" = "elementu seletzionadu";
+"MULTIPLE_ITEMS_SELECTED" = "elementos seletzionados";
 
 // MARK: - VideoPlayerControls
 
