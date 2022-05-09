@@ -110,7 +110,9 @@
     self.playbackRate = @(mediaPlayer.rate);
     self.elapsedPlaybackTime = @(mediaPlayer.time.value.floatValue / 1000.);
     self.position = @(mediaPlayer.position);
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
+    });
 }
 
 - (void)checkIsAudioOnly:(VLCMediaPlayer *)mediaPlayer
