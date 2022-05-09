@@ -19,6 +19,7 @@ protocol EditControllerDelegate: AnyObject {
     func editControllerGetAlbumHeaderSize(with width: CGFloat) -> CGSize
     func editControllerUpdateNavigationBar(offset: CGFloat)
     func editControllerSetNavigationItemTitle(with title: String?)
+    func editControllerUpdateIsAllSelected(with allSelected: Bool)
 }
 
 class EditController: UIViewController {
@@ -288,6 +289,8 @@ extension EditController: EditToolbarDelegate {
 extension EditController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedCellIndexPaths.insert(indexPath)
+        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+
         if !selectedCellIndexPaths.isEmpty {
             delegate?.editControllerDidSelectMultipleItem(editContrller: self)
         }
@@ -300,7 +303,11 @@ extension EditController: UICollectionViewDelegate {
 
         if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
             cell.selectionViewOverlay?.isHidden = !showOverlay
-            cell.isSelected = true
+        }
+
+        if model.anyfiles.count == selectedCellIndexPaths.count {
+            isAllSelected = true
+            delegate?.editControllerUpdateIsAllSelected(with: true)
         }
 
         let title = getTitle(for: selectedCellIndexPaths.count)
@@ -309,12 +316,13 @@ extension EditController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectedCellIndexPaths.remove(indexPath)
+        collectionView.deselectItem(at: indexPath, animated: false)
+
         if selectedCellIndexPaths.isEmpty {
             delegate?.editControllerDidDeSelectMultipleItem(editContrller: self)
         }
         if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
             cell.selectionViewOverlay?.isHidden = true
-            cell.isSelected = false
         }
 
         let title: String?
@@ -323,6 +331,11 @@ extension EditController: UICollectionViewDelegate {
             title = nil
         } else {
             title = getTitle(for: selectedCellIndexPaths.count)
+        }
+
+        if isAllSelected {
+            isAllSelected = false
+            delegate?.editControllerUpdateIsAllSelected(with: false)
         }
 
         delegate?.editControllerSetNavigationItemTitle(with: title)

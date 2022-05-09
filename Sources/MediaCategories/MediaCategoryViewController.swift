@@ -22,6 +22,7 @@ import UIKit
     func updateNavigationBarButtons(for viewController: MediaCategoryViewController, isEditing: Bool)
     @available(iOS 14.0, *)
     func generateMenu(for viewController: MediaCategoryViewController) -> UIMenu
+    func updateSelectAllButton(for viewController: MediaCategoryViewController)
 }
 
 class MediaCategoryViewController: UICollectionViewController, UISearchBarDelegate, IndicatorInfoProvider {
@@ -1382,6 +1383,11 @@ extension MediaCategoryViewController: EditControllerDelegate {
         navItemTitle.text = newTitle
         navigationController?.viewControllers.last?.navigationItem.titleView = navItemTitle
         navigationController?.viewControllers.last?.navigationItem.titleView?.sizeToFit()
+    }
+
+    func editControllerUpdateIsAllSelected(with allSelected: Bool) {
+        isAllSelected = allSelected
+        delegate?.updateSelectAllButton(for: self)
     }
 }
 
