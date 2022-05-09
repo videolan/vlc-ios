@@ -19,6 +19,7 @@ import UIKit
     func enableCategorySwitching(for viewController: MediaCategoryViewController,
                                  enable: Bool)
     func setEditingStateChanged(for viewController: MediaCategoryViewController, editing: Bool)
+    func updateSelectAllButton(for viewController: MediaCategoryViewController)
 }
 
 class MediaCategoryViewController: UICollectionViewController, UISearchBarDelegate, IndicatorInfoProvider {
@@ -1141,6 +1142,11 @@ extension MediaCategoryViewController: EditControllerDelegate {
         } else {
             delegate?.setEditingStateChanged(for: self, editing: false)
         }
+    }
+
+    func editControllerUpdateIsAllSelected(with allSelected: Bool) {
+        isAllSelected = allSelected
+        delegate?.updateSelectAllButton(for: self)
     }
 }
 

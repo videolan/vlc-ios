@@ -172,6 +172,10 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
     func setEditingStateChanged(for viewController: MediaCategoryViewController, editing: Bool) {
         customSetEditing()
     }
+
+    func updateSelectAllButton(for viewController: MediaCategoryViewController) {
+        selectAllButton.image = viewController.isAllSelected ? UIImage(named: "allSelected") : UIImage(named: "emptySelectAll")
+    }
 }
 
 // MARK: - Edit
