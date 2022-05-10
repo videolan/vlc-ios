@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Επεξεργασία";
 "BUTTON_EDIT_HINT" = "Λειτουργία επεξεργασίας";
 
+"BUTTON_SELECT" = "Επιλογή";
+"BUTTON_SELECT_HINT" = "Κουμπί επιλογής";
+
 "BUTTON_SELECT_ALL" = "Επιλογή όλων";
 "BUTTON_SELECT_ALL_HINT" = "Επιλέξτε όλα τα στοιχεία πολυμέσων που υπάρχουν σε αυτήν την προβολή";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Άγνωστος καλλιτέχνης";
 "VARIOUS_ARTIST" = "Διάφοροι καλλιτέχνες";
 "UNKNOWN_ALBUM" = "Άγνωστο άλμπουμ";
+"SINGLE_ITEM_SELECTED" = "επιλεγμένο στοιχείο";
+"MULTIPLE_ITEMS_SELECTED" = "επιλεγμένα στοιχεία";
 
 // MARK: - VideoPlayerControls
 
