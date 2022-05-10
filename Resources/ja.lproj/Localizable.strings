@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "編集";
 "BUTTON_EDIT_HINT" = "編集モード";
 
+"BUTTON_SELECT" = "選択";
+"BUTTON_SELECT_HINT" = "選択ボタン";
+
 "BUTTON_SELECT_ALL" = "すべて選択";
 "BUTTON_SELECT_ALL_HINT" = "このビューに表示されているすべてのメディアを選択";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "未知のアーティスト";
 "VARIOUS_ARTIST" = "複数アーティスト";
 "UNKNOWN_ALBUM" = "未知のアルバム";
+"SINGLE_ITEM_SELECTED" = "選択された項目";
+"MULTIPLE_ITEMS_SELECTED" = "選択された項目";
 
 // MARK: - VideoPlayerControls
 
