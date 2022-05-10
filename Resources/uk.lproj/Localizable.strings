@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Редагувати";
 "BUTTON_EDIT_HINT" = "Режим редагування";
 
+"BUTTON_SELECT" = "Вибрати";
+"BUTTON_SELECT_HINT" = "Кнопка вибору";
+
 "BUTTON_SELECT_ALL" = "Виділити все";
 "BUTTON_SELECT_ALL_HINT" = "Виділити усі медіаелементи, представлені у цьому перегляді";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Невідомий виконавець";
 "VARIOUS_ARTIST" = "Різні виконавці";
 "UNKNOWN_ALBUM" = "Невідомий альбом";
+"SINGLE_ITEM_SELECTED" = "елемент обрано";
+"MULTIPLE_ITEMS_SELECTED" = "елементів обрано";
 
 // MARK: - VideoPlayerControls
 
