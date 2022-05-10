@@ -246,9 +246,11 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     }
     _listPlayer.delegate = self;
 
+    NSMutableArray *debugLoggers = [NSMutableArray array];
 #if MEDIA_PLAYBACK_DEBUG
-    _listPlayer.mediaPlayer.libraryInstance.debugLogging = YES;
-    _listPlayer.mediaPlayer.libraryInstance.debugLoggingLevel = 4;
+    VLCConsoleLogger *consoleLogger = [[VLCConsoleLogger alloc] init];
+    consoleLogger.level = kVLCLogLevelDebug;
+    [debugLoggers addObject:consoleLogger];
 #endif
     BOOL saveDebugLogs = [userDefaults boolForKey:kVLCSaveDebugLogs];
     if (saveDebugLogs) {
@@ -270,8 +272,15 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         [dateFormatter setDateFormat:@"yyyy-MM-dd--HH-mm-ss"];
         logFilePath = [logFilePath stringByAppendingPathComponent:[NSString stringWithFormat: @"vlcdebug-%@.log", [dateFormatter stringFromDate:date]]];
         APLog(@"logging at '%@'", logFilePath);
-        [_listPlayer.mediaPlayer.libraryInstance setDebugLoggingToFile:logFilePath];
+        [fileManager createFileAtPath:logFilePath contents:nil attributes:nil];
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:logFilePath];
+        if (fileHandle) {
+            VLCFileLogger *fileLogger = [[VLCFileLogger alloc] initWithFileHandle:fileHandle];
+            fileLogger.level = kVLCLogLevelDebug;
+            [debugLoggers addObject:fileLogger];
+        }
     }
+    [_listPlayer.mediaPlayer.libraryInstance setLoggers:debugLoggers];
 
     id<VLCFilter> newFilter = _listPlayer.mediaPlayer.adjustFilter;
     [newFilter applyParametersFrom:_adjustFilter.mediaPlayerAdjustFilter];
