@@ -301,6 +301,7 @@ class VideoPlayerViewController: UIViewController {
         let vc = BrightnessControlView()
         vc.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
         vc.translatesAutoresizingMaskIntoConstraints = false
+        vc.alpha = 0
         return vc
     }()
 
@@ -308,6 +309,7 @@ class VideoPlayerViewController: UIViewController {
         let vc = VolumeControlView(volumeView: self.volumeView)
         vc.updateIcon(level: volumeControl.fetchAndGetDeviceValue())
         vc.translatesAutoresizingMaskIntoConstraints = false
+        vc.alpha = 0
         return vc
     }()
 
@@ -374,9 +376,6 @@ class VideoPlayerViewController: UIViewController {
     }()
 
     // MARK: - Gestures
-
-    private var volumeGestureEnabled = true
-    private var brightnessGestureEnabled = true
 
     private lazy var tapOnVideoRecognizer: UITapGestureRecognizer = {
         let tapOnVideoRecognizer = UITapGestureRecognizer(target: self,
@@ -868,23 +867,17 @@ extension VideoPlayerViewController {
             qvcHidden = qvc.view.alpha == 0.0
         }
 
-        volumeGestureEnabled = playerController.isVolumeGestureEnabled
-        brightnessGestureEnabled = playerController.isBrightnessGestureEnabled
-
-        let animations = { [weak self] in
+        let animations = { [weak self, playerController] in
             self?.mediaNavigationBar.alpha = uiComponentOpacity
             self?.optionsNavigationBar.alpha = uiComponentOpacity
-            self?.volumeControlView.alpha = self?.volumeGestureEnabled ?? true ? 0 : uiComponentOpacity
-            self?.brightnessControlView.alpha = self?.brightnessGestureEnabled ?? true ? 0 : uiComponentOpacity
+            self?.volumeControlView.alpha = playerController.isVolumeGestureEnabled ? uiComponentOpacity : 0
+            self?.brightnessControlView.alpha = playerController.isBrightnessGestureEnabled ? uiComponentOpacity : 0
             if !hidden || qvcHidden {
                 self?.videoPlayerControls.alpha = uiComponentOpacity
                 self?.scrubProgressBar.alpha = uiComponentOpacity
             }
             self?.backgroundGradientView.alpha = hidden && qvcHidden ? 0 : 1
         }
-
-        self.volumeControlView.isHidden = !volumeGestureEnabled
-        self.brightnessControlView.isHidden = !brightnessGestureEnabled
 
         let duration = animated ? 0.2 : 0
         UIView.animate(withDuration: duration, delay: 0,
@@ -1009,8 +1002,8 @@ extension VideoPlayerViewController {
         let panType = detectPanType(recognizer)
 
         guard panType == .projection
-                || brightnessGestureEnabled
-                || volumeGestureEnabled
+                || (panType == .volume && playerController.isVolumeGestureEnabled)
+                || (panType == .brightness && playerController.isBrightnessGestureEnabled)
         else {
             return
         }
@@ -1020,9 +1013,6 @@ extension VideoPlayerViewController {
             currentPanType = panType
             switch currentPanType {
             case .brightness:
-                if !brightnessGestureEnabled {
-                    break
-                }
                 brightnessBackgroundGradientLayer.isHidden = false
                 brightnessControl.fetchDeviceValue()
                 animations = { [brightnessControlView, sideBackgroundGradientView] in
@@ -1030,9 +1020,6 @@ extension VideoPlayerViewController {
                     sideBackgroundGradientView.alpha = 1
                 }
             case .volume:
-                if !volumeGestureEnabled {
-                    break
-                }
                 volumeBackgroundGradientLayer.isHidden = false
                 volumeControl.fetchDeviceValue()
                 animations = { [volumeControlView, sideBackgroundGradientView] in
