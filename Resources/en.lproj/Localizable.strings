@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Edit";
 "BUTTON_EDIT_HINT" = "Edit mode";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 

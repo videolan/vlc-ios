@@ -67,14 +67,14 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     @available(iOS 14.0, *)
     private lazy var selectAction: UIAction = {
-        let selectAction = UIAction(title: NSLocalizedString("BUTTON_EDIT", comment: ""),
+        let selectAction = UIAction(title: NSLocalizedString("BUTTON_SELECT", comment: ""),
                                     image: UIImage(systemName: "checkmark.circle"),
                                     handler: {
             [unowned self] _ in
             customSetEditing()
         })
-        selectAction.accessibilityLabel = NSLocalizedString("BUTTON_EDIT", comment: "")
-        selectAction.accessibilityHint = NSLocalizedString("BUTTON_EDIT_HINT", comment: "")
+        selectAction.accessibilityLabel = NSLocalizedString("BUTTON_SELECT", comment: "")
+        selectAction.accessibilityHint = NSLocalizedString("BUTTON_SELECT_HINT", comment: "")
         return selectAction
     }()
 
