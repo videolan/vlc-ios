@@ -17,7 +17,7 @@ class AboutController: UIViewController {
 
     private let webView = WKWebView()
     private let notificationCenter = NotificationCenter.default
-    private let contributeURL = "http://www.videolan.org/contribute.html"
+    private let contributeURL = "https://www.videolan.org/contribute.html"
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return PresentationTheme.current.colors.statusBarStyle
