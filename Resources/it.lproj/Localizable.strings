@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Modifica";
 "BUTTON_EDIT_HINT" = "Modalità modifica";
 
+"BUTTON_SELECT" = "Seleziona";
+"BUTTON_SELECT_HINT" = "Pulsante di selezione";
+
 "BUTTON_SELECT_ALL" = "Seleziona tutto";
 "BUTTON_SELECT_ALL_HINT" = "Seleziona tutti gli elementi multimediali presenti in questa vista";
 
@@ -367,7 +370,7 @@
 "DESCENDING_SWITCH_HINT" = "Mostra il contesto in ordine crescente o decrescente";
 "GRID_LAYOUT" = "Griglia";
 "LIST_LAYOUT" = "Elenco";
-"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"HIDE_FEAT_ARTISTS" = "Nascondi collaborazioni";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Artista sconosciuto";
 "VARIOUS_ARTIST" = "Artisti vari";
 "UNKNOWN_ALBUM" = "Album sconosciuto";
+"SINGLE_ITEM_SELECTED" = "elemento selezionato";
+"MULTIPLE_ITEMS_SELECTED" = "elementi selezionati";
 
 // MARK: - VideoPlayerControls
 
