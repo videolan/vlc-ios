@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Egy szám";
 "REPEAT_FOLDER" = "Mappa";
 "SHUFFLE" = "Keverés";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Véletlen sorrend ki";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Lista visszaállítása";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "A legutóbb lejátszott hálózati közvetítések listájának végleges visszaállítása.";
@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Szerkesztés";
 "BUTTON_EDIT_HINT" = "Szerkesztési mód";
 
+"BUTTON_SELECT" = "Kiválasztás";
+"BUTTON_SELECT_HINT" = "Kiválasztás gomb";
+
 "BUTTON_SELECT_ALL" = "Összes kiválasztása";
 "BUTTON_SELECT_ALL_HINT" = "A nézetben szereplő összes médiaelem kiválasztása";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Ismeretlen előadó";
 "VARIOUS_ARTIST" = "Különböző előadók";
 "UNKNOWN_ALBUM" = "Ismeretlen album";
+"SINGLE_ITEM_SELECTED" = "elem kiválasztva";
+"MULTIPLE_ITEMS_SELECTED" = "elem kiválasztva";
 
 // MARK: - VideoPlayerControls
 
