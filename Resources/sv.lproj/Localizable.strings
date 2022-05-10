@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Redigera";
 "BUTTON_EDIT_HINT" = "Redigeringsläge";
 
+"BUTTON_SELECT" = "Markera";
+"BUTTON_SELECT_HINT" = "Markeringsknapp";
+
 "BUTTON_SELECT_ALL" = "Markera alla";
 "BUTTON_SELECT_ALL_HINT" = "Markera alla mediaobjekt som finns i denna vy";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Okänd artist";
 "VARIOUS_ARTIST" = "Blandade artister";
 "UNKNOWN_ALBUM" = "Okänt album";
+"SINGLE_ITEM_SELECTED" = "markerat objekt";
+"MULTIPLE_ITEMS_SELECTED" = "markerade objekt";
 
 // MARK: - VideoPlayerControls
 
