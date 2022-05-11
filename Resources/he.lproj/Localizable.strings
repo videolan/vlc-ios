@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "עריכה";
 "BUTTON_EDIT_HINT" = "מצב עריכה";
 
+"BUTTON_SELECT" = "בחירה";
+"BUTTON_SELECT_HINT" = "כפתור בחירה";
+
 "BUTTON_SELECT_ALL" = "בחירה בהכול";
 "BUTTON_SELECT_ALL_HINT" = "לבחור את כל פריטי המדיה שקיימים בתצוגה הזאת";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "אמן לא ידוע";
 "VARIOUS_ARTIST" = "מגוון אמנים";
 "UNKNOWN_ALBUM" = "אלבום לא ידוע";
+"SINGLE_ITEM_SELECTED" = "פריט נבחר";
+"MULTIPLE_ITEMS_SELECTED" = "פריטים נבחרו";
 
 // MARK: - VideoPlayerControls
 
