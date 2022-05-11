@@ -97,7 +97,6 @@
 - (void)loadView
 {
     [super loadView];
-    [self configureCloudControllers];
 
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -113,9 +112,10 @@
     _remoteNetworkDataSourceAndDelegate = [VLCRemoteNetworkDataSourceAndDelegate new];
     _remoteNetworkDataSourceAndDelegate.delegate = self;
 
-    _localNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+    CGRect screenDimensions = [UIScreen mainScreen].bounds;
+
+    _localNetworkTableView = [[UITableView alloc] initWithFrame:screenDimensions style:UITableViewStylePlain];
     _localNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
-    _localNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
     _localNetworkTableView.delegate = self;
     _localNetworkTableView.dataSource = self;
     _localNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
@@ -125,16 +125,15 @@
     _localNetworkTableView.estimatedRowHeight = [VLCNetworkListCell heightOfCell];
 
     [self.navigationController.navigationBar setTranslucent:NO];
-    self.navigationController.view.backgroundColor = PresentationTheme.current.colors.background;
 
-    _remoteNetworkTableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+    _remoteNetworkTableView = [[UITableView alloc] initWithFrame:screenDimensions style:UITableViewStylePlain];
     _remoteNetworkTableView.translatesAutoresizingMaskIntoConstraints = NO;
-    _remoteNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
     _remoteNetworkTableView.delegate = _remoteNetworkDataSourceAndDelegate;
     _remoteNetworkTableView.dataSource = _remoteNetworkDataSourceAndDelegate;
     _remoteNetworkTableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     _remoteNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _remoteNetworkTableView.bounces = NO;
+    _remoteNetworkTableView.scrollEnabled = NO;
 
     VLCFileServerView *fileServerView = [VLCFileServerView new];
     fileServerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -145,7 +144,6 @@
     [_remoteNetworkTableView registerClass:[VLCExternalMediaProviderCell class] forCellReuseIdentifier:VLCExternalMediaProviderCell.cellIdentifier];
 
     _refreshControl = [[UIRefreshControl alloc] init];
-    _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
     _refreshControl.tintColor = [UIColor whiteColor];
     [_refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [_localNetworkTableView addSubview:_refreshControl];
@@ -160,9 +158,8 @@
     [_scrollView addSubview:fileServerView];
     [_scrollView addSubview:_remoteNetworkTableView];
 
-    [_remoteNetworkTableView layoutIfNeeded];
     _localNetworkHeight = [_localNetworkTableView.heightAnchor constraintEqualToConstant:_localNetworkTableView.contentSize.height];
-    _remoteNetworkHeight = [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:_remoteNetworkTableView.contentSize.height];
+    _remoteNetworkHeight = [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:[VLCNetworkListCell heightOfCell] * _remoteNetworkDataSourceAndDelegate.numberOfRemoteNetworkCellTypes];
 
     [NSLayoutConstraint activateConstraints:@[
                                               [_remoteNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
@@ -178,7 +175,6 @@
                                               _localNetworkHeight,
                                               _remoteNetworkHeight
                                               ]];
-    _scrollView.backgroundColor = PresentationTheme.current.colors.background;
 }
 
 - (void)setupUI
@@ -215,6 +211,8 @@
 
     _discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:browserClasses];
     _discoveryController.delegate = self;
+
+    [self configureCloudControllers];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -228,13 +226,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [_discoveryController startDiscovery];
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
     }
     VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible
     ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
-    [_remoteNetworkTableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->_remoteNetworkTableView reloadData];
+        [self->_discoveryController startDiscovery];
+    });
 }
 
 - (void)miniPlayerIsShown
@@ -422,12 +422,13 @@
 #pragma mark -
 - (void)themeDidChange
 {
-    _localNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
-    _remoteNetworkTableView.backgroundColor = PresentationTheme.current.colors.background;
-    _scrollView.backgroundColor = PresentationTheme.current.colors.background;
-    _localNetworkTableView.separatorColor = PresentationTheme.current.colors.background;
-    _refreshControl.backgroundColor = PresentationTheme.current.colors.background;
-    self.navigationController.view.backgroundColor = PresentationTheme.current.colors.background;
+    ColorPalette *colors = PresentationTheme.current.colors;
+    _localNetworkTableView.backgroundColor = colors.background;
+    _remoteNetworkTableView.backgroundColor = colors.background;
+    _scrollView.backgroundColor = colors.background;
+    _localNetworkTableView.separatorColor = colors.background;
+    _refreshControl.backgroundColor = colors.background;
+    self.navigationController.view.backgroundColor = colors.background;
     if (@available(iOS 13.0, *)) {
         UINavigationBarAppearance *navigationBarAppearance = [VLCAppearanceManager navigationbarAppearance];
         self.navigationController.navigationBar.standardAppearance = navigationBarAppearance;

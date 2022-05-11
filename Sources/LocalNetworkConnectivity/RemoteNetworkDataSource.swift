@@ -151,4 +151,8 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             return 80
         }
     }
+
+    @objc func numberOfRemoteNetworkCellTypes() -> Int {
+        return RemoteNetworkCellType.count
+    }
 }
