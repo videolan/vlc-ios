@@ -27,8 +27,6 @@
 #define kVLCSettingEnableMediaCellTextScrolling @"EnableMediaCellTextScrolling"
 #define kVLCSettingContinueAudioInBackgroundKey @"BackgroundAudioPlayback"
 #define kVLCSettingStretchAudio @"audio-time-stretch"
-#define kVLCSettingStretchAudioOnValue @"1"
-#define kVLCSettingStretchAudioOffValue @"0"
 #define kVLCSettingTextEncoding @"subsdec-encoding"
 #define kVLCSettingTextEncodingDefaultValue @"Windows-1252"
 #define kVLCSettingSkipLoopFilter @"avcodec-skiploopfilter"
