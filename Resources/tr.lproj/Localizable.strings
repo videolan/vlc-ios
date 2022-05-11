@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Düzenle";
 "BUTTON_EDIT_HINT" = "Düzenleme kipi";
 
+"BUTTON_SELECT" = "Seçin";
+"BUTTON_SELECT_HINT" = "Seçme düğmesi";
+
 "BUTTON_SELECT_ALL" = "Tümünü seç";
 "BUTTON_SELECT_ALL_HINT" = "Bu görünümdeki tüm ortam ögelerini seçin";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Sanatçı bilinmiyor";
 "VARIOUS_ARTIST" = "Çeşitli sanatçılar";
 "UNKNOWN_ALBUM" = "Albüm bilinmiyor";
+"SINGLE_ITEM_SELECTED" = "öge seçilmiş";
+"MULTIPLE_ITEMS_SELECTED" = "öge seçilmiş";
 
 // MARK: - VideoPlayerControls
 
