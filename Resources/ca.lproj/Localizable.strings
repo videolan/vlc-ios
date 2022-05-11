@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Edita";
 "BUTTON_EDIT_HINT" = "Mode edició";
 
+"BUTTON_SELECT" = "Selecciona";
+"BUTTON_SELECT_HINT" = "Botó de selecció";
+
 "BUTTON_SELECT_ALL" = "Selecciona-ho tot";
 "BUTTON_SELECT_ALL_HINT" = "Selecciona tots els fitxers multimèdia d'aquesta vista";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Artista desconegut";
 "VARIOUS_ARTIST" = "Diferents artistes";
 "UNKNOWN_ALBUM" = "Àlbum desconegut";
+"SINGLE_ITEM_SELECTED" = "element seleccionat";
+"MULTIPLE_ITEMS_SELECTED" = "elements seleccionats";
 
 // MARK: - VideoPlayerControls
 
