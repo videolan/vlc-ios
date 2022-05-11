@@ -1,6 +1,6 @@
-"STORE_DESCRIPTION" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, playback speed control and rendering through Chromecast.\n\nVLC is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC is een gratis en open source platformoverschrijdende multimediaspeler.\nHet kan al uw films, series en muziek in de meeste formaten direct afspelen, zonder conversie.\nHet laat bestandssynchronisatie toe met Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, directe downloads, via wifi-delen en ook streamen vanaf SMB, FTP, SFTP, NFS, UPnP/DLNA mediaservers en het web. VLC biedt ondersteuning voor geavanceerde ondertitels inclusief volledige SSA-compatibiliteit, multi-track audio, regeling van afspeelsnelheid en renderen via Chromecast.\n\nVLC helemaal gratis en open source.";
 
-"STORE_DESCRIPTION_TV" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC is completely free and open source.\n\nArtwork is provided by TMDb, which is a community maintained movie database.";
+"STORE_DESCRIPTION_TV" = "VLC is een gratis en open source platformoverschrijdende multimediaspeler.\nHet kan al uw films, series en muziek in de meeste formaten direct afspelen zonder conversie.\nHet laat Remote Playback toe vanaf uw Mac of pc via een web-UI en ook streamen van SMB, FTP, SFTP, NFS, UPnP/DLNA mediaservers en het web.\nVLC biedt ondersteuning voor geavanceerde ondertitels inclusief volledige SSA-compatibiliteit, multi-track audio, en regeling van afspeelsnelheid.\n\nVLC is volledig vrij en opensource.\n\nAlbumhoezen worden voorzien door TMDb, dat een door de gemeenschap beheerde filmdatabase is.";
 
 "UNKNOWN_TRACK_TYPE" = "Onbekend tracktype";
 "CHOOSE_TITLE" = "Titel kiezen";
@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Download geannuleerd door gebruiker";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Geef een adres op om het bestand naar uw %@ te downloaden.";
 "DOWNLOAD_FROM_HTTP" = "Downloads";
 "ERROR_NUMBER" = "Fout %i opgetreden";
 "DOWNLOAD_FAILED" = "Downloaden mislukt";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Mediabibliotheek ontgrendelen\nAnnuleren om paswoord in te geven";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d mislukte wachtwoordpogingen";
-"1 Failed Passcode Attempt" = "1 mislukte wachtwoordpoging";
-"Change Passcode" = "Wachtwoord wijzigen";
 "Enter Passcode" = "Wachtwoord ingeven";
 "Enter a passcode" = "Een wachtwoord ingeven";
-"Enter your new passcode" = "Nieuw wachtwoord ingeven";
-"Enter your old passcode" = "Oud wachtwoord ingeven";
-"Enter your passcode" = "Wachtwoord ingeven";
-"Next" = "Volgende";
 "Passcodes did not match. Try again." = "Wachtwoorden kwamen niet overeen. Probeer opnieuw.";
-"Re-enter your new passcode" = "Nieuw  wachtwoord opnieuw ingeven";
 "Re-enter your passcode" = "Wachtwoord opnieuw ingeven";
 "Set Passcode" = "Wachtwoord instellen";
 
@@ -186,7 +177,7 @@
 "EMPTY_PLAYLIST" = "Afspeellijst leegmaken";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Media toevoegen tijdens het bewerken in de respectievelijke categorieën";
 
-"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
+"PLAYBACK_SCRUB_HELP" = "Beweeg uw vinger naar boven om de scrubbing-ratio te wijzigen.";
 "PLAYBACK_SCRUB_HIGH" = "Hoge snelheid scrubben";
 "PLAYBACK_SCRUB_HALF" = "Halve snelheid scrubben";
 "PLAYBACK_SCRUB_QUARTER" = "Kwart-snelheid scrubben";
@@ -270,7 +261,7 @@
 "HTTP_SERVER_OFF" = "Remote Playback inschakelen";
 "CACHED_MEDIA" = "Media in cache";
 "CACHED_MEDIA_LONG" = "De hier weergegeven media is lokaal opgeslagen op uw Apple TV. Merk op dat inhoud op elk moment verwijderd kan worden door het besturingssysteem zonder voorafgaande melding wanneer VLC niet draait en als uw toestel te weinig opslagruimte heeft.";
-"DOWNLOAD_SUBS_FROM_OSO" = "Ondertitels downloaden van OpenSubttles.org...";
+"DOWNLOAD_SUBS_FROM_OSO" = "Ondertitels downloaden van OpenSubtitles.org...";
 "FOUND_SUBS" = "Ondertitels teruggevonden";
 "NO_SUB_FOUND_OSO" = "Er zijn geen ondertitels gevonden voor uw media-item \"%@\".";
 "USE_SPDIF" = "Pass-through (S/PDIF) gebruiken";
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Een herhalen";
 "REPEAT_FOLDER" = "Map";
 "SHUFFLE" = "Willekeurige volgorde";
+"SHUFFLE_DISABLED" = "Willekeurige volgorde uit";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Lijst herstellen";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "De lijst van recent afgespeelde netwerkstreams permanent herstellen.";
@@ -344,8 +336,11 @@
 "BUTTON_EDIT" = "Bewerken";
 "BUTTON_EDIT_HINT" = "Bewerkingsmodus";
 
-"BUTTON_SELECT_ALL" = "Select all";
-"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
+"BUTTON_SELECT" = "Selecteren";
+"BUTTON_SELECT_HINT" = "Selectieknop";
+
+"BUTTON_SELECT_ALL" = "Alles selecteren";
+"BUTTON_SELECT_ALL_HINT" = "Selecteer alle media-items die in deze weergave aanwezig zijn";
 
 "ADD_TO_PLAYLIST" = "Aan afspeellijst toevoegen";
 "ADD_TO_PLAYLIST_HINT" = "Menu 'aan afspeellijst toevoegen' openen";
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Aflopende volgorde";
 "DESCENDING_SWITCH_LABEL" = "Oplopende of aflopende volgorde";
 "DESCENDING_SWITCH_HINT" = "Context sorteren in oplopende of aflopende volgorde";
-"GRID_LAYOUT" = "Raster-layout";
+"GRID_LAYOUT" = "Raster";
+"LIST_LAYOUT" = "Lijst";
+"HIDE_FEAT_ARTISTS" = "Meewerkende artiesten verbergen";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Audio-aantal";
 "NB_MEDIA" = "Media-aantal";
 "NB_VIDEO" = "Video-aantal";
+"NB_ALBUM" = "Aantal albums";
+"LAST_PLAYBACK_DATE" = "Laatste afspeeldatum";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Onbekende artiest";
 "VARIOUS_ARTIST" = "Diverse artiesten";
 "UNKNOWN_ALBUM" = "Onbekend album";
+"SINGLE_ITEM_SELECTED" = "item geselecteerd";
+"MULTIPLE_ITEMS_SELECTED" = "items geselecteerd";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video-opties";
+"BOOKMARKS_TITLE" = "Bladwijzers";
+"ADD_BOOKMARKS_TITLE" = "Bladwijzers toevoegen";
+"BOOKMARK_DEFAULT_NAME" = "Bladwijzer op";
+"BOOKMARK_RENAME_TITLE" = "Naam bladwijzer wijzigen";
+"BOOKMARK_DELETE_TITLE" = "Bladwijzer verwijderen";
+"BOOKMARK_DELETE_MESSAGE" = "Verwijderen van de bladwijzer bevestigen";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Opnieuw scannen van mediabibliotheek forceren";
@@ -539,5 +547,5 @@
 
 // MARK: - TitleSelection
 
-"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
-"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+"TITLESELECTION_BACKGROUND_LABEL" = "Achtergrond titelselectie";
+"TITLESELECTION_BACKGROUND_HINT" = "Tikken om de weergave te verwijderen.";
