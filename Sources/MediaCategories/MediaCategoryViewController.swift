@@ -46,7 +46,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         editController.delegate = self
         return editController
     }()
-    private var reloadTimer: Timer? = nil
+    private let reloadLock = NSLock()
     private var cachedCellSize = CGSize.zero
     private var toSize = CGSize.zero
     private var longPressGesture: UILongPressGestureRecognizer!
@@ -305,10 +305,18 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         ])
     }
 
-    func launchReload() {
+    @objc func reloadData() {
+        defer {
+            reloadLock.unlock()
+        }
+
+        /* this function can be called multiple times from different threads in short
+         * intervalls, but we may not reload the views without the previous to finish */
+        reloadLock.lock()
+
         guard Thread.isMainThread else {
             DispatchQueue.main.async {
-                self.launchReload()
+                self.reloadData()
             }
             return
         }
@@ -335,39 +343,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if isEditing {
             if let editToolbar = tabBarController?.editToolBar() {
                 editToolbar.updateEditToolbar(for: model)
-            }
-        }
-    }
-
-    @objc func fireReloadData() {
-        reloadTimer = nil
-        launchReload()
-    }
-
-    @objc func reloadData() {
-        // Timer set to 0.0 instead of 0.3 seconds because it causes a bug related to the swipe to delete.
-        // The timer was created two times due to several calls to reloadData().
-        // Meanwhile the user could try so swipe to delete and when the timer finally fired, the cell scrolled would be updated.
-        // Leading to another cell being scrolled instead of the first one.
-        let timeInterval: Double = 0.0
-
-        if reloadTimer == nil {
-            DispatchQueue.main.async {
-                if self.reloadTimer == nil {
-                    self.reloadTimer = Timer.scheduledTimer(timeInterval: timeInterval,
-                                                             target: self,
-                                                             selector: #selector(self.fireReloadData),
-                                                             userInfo: nil, repeats: false)
-                }
-            }
-        } else if let reloadTimer = reloadTimer {
-            let nowDate = Date()
-            let fireDate = reloadTimer.fireDate
-            let remainingTime = abs(nowDate.timeIntervalSince(fireDate))
-
-            if remainingTime > 0.0 {
-                //Reset timer's fireDate
-                reloadTimer.fireDate = nowDate.addingTimeInterval(timeInterval)
             }
         }
     }
