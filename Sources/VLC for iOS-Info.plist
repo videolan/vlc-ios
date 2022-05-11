@@ -277,6 +277,8 @@
 	</array>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enable access to Face ID to unlock VLC</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>In order to discover media servers we will need access to your local network. This is also needed to find Chromecast devices.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>In order to save the video we will need access to your camera roll</string>
 	<key>NSPhotoLibraryUsageDescription</key>
