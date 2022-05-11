@@ -1,4 +1,4 @@
-"STORE_DESCRIPTION" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, playback speed control and rendering through Chromecast.\n\nVLC is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronisation with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, playback speed control and rendering through Chromecast.\n\nVLC is completely free and open source.";
 
 "STORE_DESCRIPTION_TV" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC is completely free and open source.\n\nArtwork is provided by TMDb, which is a community maintained movie database.";
 
@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Download canceled by user";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Enter an address to download the file to your %@.";
 "DOWNLOAD_FROM_HTTP" = "Downloads";
 "ERROR_NUMBER" = "Error %i occured";
 "DOWNLOAD_FAILED" = "Download failed";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Failed Passcode Attempts";
-"1 Failed Passcode Attempt" = "1 Failed Passcode Attempt";
-"Change Passcode" = "Change Passcode";
 "Enter Passcode" = "Enter Passcode";
 "Enter a passcode" = "Enter a passcode";
-"Enter your new passcode" = "Enter your new passcode";
-"Enter your old passcode" = "Enter your old passcode";
-"Enter your passcode" = "Enter your passcode";
-"Next" = "Next";
 "Passcodes did not match. Try again." = "Passcodes did not match. Try again.";
-"Re-enter your new passcode" = "Re-enter your new passcode";
 "Re-enter your passcode" = "Re-enter your passcode";
 "Set Passcode" = "Set Passcode";
 
@@ -178,10 +169,10 @@
 "OFF" = "Off";
 
 "EMPTY_LIBRARY" = "Empty Media Library";
-"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
+"EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronise media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
 "EMPTY_NO_PLAYLISTS" = "Playlists";
-"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
+"EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favourite media.\nYou can also synchronise existing playlists from your other devices or the Internet.";
 
 "EMPTY_PLAYLIST" = "Empty playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
@@ -204,7 +195,7 @@
 
 "RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
 "RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
-"RESET_EQUALIZER" = "Do you want to reset the equalizer's settings?";
+"RESET_EQUALIZER" = "Do you want to reset the equaliser's settings?";
 "RESET_SLEEP_TIMER" = "Do you want to reset the sleep timer?";
 
 "VERSION_FORMAT" = "Version: %@";
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Shuffle";
+"SHUFFLE_DISABLED" = "Shuffle off";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Edit";
 "BUTTON_EDIT_HINT" = "Edit mode";
 
+"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT_HINT" = "Select button";
+
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Descending Order";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
-"GRID_LAYOUT" = "Grid Layout";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Number of audio";
 "NB_MEDIA" = "Number of media";
 "NB_VIDEO" = "Number of video";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Unknown Artist";
 "VARIOUS_ARTIST" = "Various Artists";
 "UNKNOWN_ALBUM" = "Unknown Album";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
@@ -448,8 +450,8 @@
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video Options";
 "BOOKMARKS_TITLE" = "Bookmarks";
-"ADD_BOOKMARKS_TITLE" = " Add Bookmarks";
-"BOOKMARK_DEFAULT_NAME" = "Bookmark at ";
+"ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
+"BOOKMARK_DEFAULT_NAME" = "Bookmark at";
 "BOOKMARK_RENAME_TITLE" = "Rename bookmark";
 "BOOKMARK_DELETE_TITLE" = "Delete bookmark";
 "BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
