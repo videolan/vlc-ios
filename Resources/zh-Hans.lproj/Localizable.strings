@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "编辑";
 "BUTTON_EDIT_HINT" = "编辑模式";
 
+"BUTTON_SELECT" = "选择";
+"BUTTON_SELECT_HINT" = "｢选择｣ 按钮";
+
 "BUTTON_SELECT_ALL" = "全选";
 "BUTTON_SELECT_ALL_HINT" = "选择此视图中存在的所有媒体项目";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "未知艺术家";
 "VARIOUS_ARTIST" = "群星";
 "UNKNOWN_ALBUM" = "未知专辑";
+"SINGLE_ITEM_SELECTED" = "项已选中";
+"MULTIPLE_ITEMS_SELECTED" = "项已选中";
 
 // MARK: - VideoPlayerControls
 
