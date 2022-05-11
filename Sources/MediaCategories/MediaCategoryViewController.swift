@@ -326,7 +326,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
         setupCollectionView() //Fixes crash that is caused due to layout change
-        reloadData()
         showGuideOnLaunch()
         setNavbarAppearance()
         loadSort()
