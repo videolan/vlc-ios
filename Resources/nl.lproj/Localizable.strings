@@ -261,7 +261,7 @@
 "HTTP_SERVER_OFF" = "Remote Playback inschakelen";
 "CACHED_MEDIA" = "Media in cache";
 "CACHED_MEDIA_LONG" = "De hier weergegeven media is lokaal opgeslagen op uw Apple TV. Merk op dat inhoud op elk moment verwijderd kan worden door het besturingssysteem zonder voorafgaande melding wanneer VLC niet draait en als uw toestel te weinig opslagruimte heeft.";
-"DOWNLOAD_SUBS_FROM_OSO" = "Ondertitels downloaden van OpenSubttles.org...";
+"DOWNLOAD_SUBS_FROM_OSO" = "Ondertitels downloaden van OpenSubtitles.org...";
 "FOUND_SUBS" = "Ondertitels teruggevonden";
 "NO_SUB_FOUND_OSO" = "Er zijn geen ondertitels gevonden voor uw media-item \"%@\".";
 "USE_SPDIF" = "Pass-through (S/PDIF) gebruiken";
@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Een herhalen";
 "REPEAT_FOLDER" = "Map";
 "SHUFFLE" = "Willekeurige volgorde";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Willekeurige volgorde uit";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Lijst herstellen";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "De lijst van recent afgespeelde netwerkstreams permanent herstellen.";
@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Bewerken";
 "BUTTON_EDIT_HINT" = "Bewerkingsmodus";
 
+"BUTTON_SELECT" = "Selecteren";
+"BUTTON_SELECT_HINT" = "Selectieknop";
+
 "BUTTON_SELECT_ALL" = "Alles selecteren";
 "BUTTON_SELECT_ALL_HINT" = "Selecteer alle media-items die in deze weergave aanwezig zijn";
 
@@ -365,9 +368,9 @@
 "DESCENDING_LABEL" = "Aflopende volgorde";
 "DESCENDING_SWITCH_LABEL" = "Oplopende of aflopende volgorde";
 "DESCENDING_SWITCH_HINT" = "Context sorteren in oplopende of aflopende volgorde";
-"GRID_LAYOUT" = "Grid";
-"LIST_LAYOUT" = "List";
-"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"GRID_LAYOUT" = "Raster";
+"LIST_LAYOUT" = "Lijst";
+"HIDE_FEAT_ARTISTS" = "Meewerkende artiesten verbergen";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Onbekende artiest";
 "VARIOUS_ARTIST" = "Diverse artiesten";
 "UNKNOWN_ALBUM" = "Onbekend album";
+"SINGLE_ITEM_SELECTED" = "item geselecteerd";
+"MULTIPLE_ITEMS_SELECTED" = "items geselecteerd";
 
 // MARK: - VideoPlayerControls
 
