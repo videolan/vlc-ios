@@ -222,18 +222,22 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     _actualVideoOutputView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _actualVideoOutputView.autoresizesSubviews = YES;
 
-    /* the chromecast options cannot be set per media, so we need to set it per
+    /* the chromecast and audio options cannot be set per media, so we need to set it per
      * media player instance however, potentially initialising an additional library instance
      * for this is costly, so this should be done only if needed */
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     BOOL chromecastPassthrough = [[userDefaults objectForKey:kVLCSettingCastingAudioPassthrough] boolValue];
     int chromecastQuality = [[userDefaults objectForKey:kVLCSettingCastingConversionQuality] intValue];
+    BOOL audioTimeStretch = [[userDefaults objectForKey:kVLCSettingStretchAudio] boolValue];
     NSMutableArray *libVLCOptions = [NSMutableArray array];
     if (chromecastPassthrough) {
         [libVLCOptions addObject:[@"--" stringByAppendingString:kVLCSettingCastingAudioPassthrough]];
     }
     if (chromecastQuality != 2) {
         [libVLCOptions addObject:[NSString stringWithFormat:@"--%@=%i", kVLCSettingCastingConversionQuality, chromecastQuality]];
+    }
+    if (!audioTimeStretch) {
+        [libVLCOptions addObject:[NSString stringWithFormat:@"--no-%@", kVLCSettingStretchAudio]];
     }
     if (libVLCOptions.count > 0) {
         _listPlayer = [[VLCMediaListPlayer alloc] initWithOptions:libVLCOptions
@@ -1509,7 +1513,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return @{ kVLCSettingNetworkCaching : [defaults objectForKey:kVLCSettingNetworkCaching],
-              kVLCSettingStretchAudio : [[defaults objectForKey:kVLCSettingStretchAudio] boolValue] ? kVLCSettingStretchAudioOnValue : kVLCSettingStretchAudioOffValue,
               kVLCSettingTextEncoding : [defaults objectForKey:kVLCSettingTextEncoding],
               kVLCSettingSkipLoopFilter : [defaults objectForKey:kVLCSettingSkipLoopFilter],
               kVLCSettingHardwareDecoding : [defaults objectForKey:kVLCSettingHardwareDecoding],
