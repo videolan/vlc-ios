@@ -272,7 +272,7 @@
 "REPEAT_SINGLE" = "Tunggal";
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Kocok";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Kocok mati";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Tetap semula senarai";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Tetap semula senarai strim rangkaian dimainkan baru-baru ini secara kekal.";
@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Sunting";
 "BUTTON_EDIT_HINT" = "Mod sunting";
 
+"BUTTON_SELECT" = "Pilih";
+"BUTTON_SELECT_HINT" = "Pilih butang";
+
 "BUTTON_SELECT_ALL" = "Pilih semua";
 "BUTTON_SELECT_ALL_HINT" = "Pilih semua item media yang hadir dalam pandangan ini";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Artis Tidak Diketahui";
 "VARIOUS_ARTIST" = "Pelbagai Artis";
 "UNKNOWN_ALBUM" = "Album Tidak Diketahui";
+"SINGLE_ITEM_SELECTED" = "item dipilih";
+"MULTIPLE_ITEMS_SELECTED" = "item dipilih";
 
 // MARK: - VideoPlayerControls
 
