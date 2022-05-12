@@ -16,7 +16,7 @@ class GenreModel: AudioCollectionModel {
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
-    var fileArrayLock = NSLock()
+    var fileArrayLock = NSRecursiveLock()
     var files = [VLCMLGenre]()
 
     var cellType: BaseCollectionViewCell.Type {

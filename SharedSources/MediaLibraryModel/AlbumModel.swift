@@ -16,7 +16,7 @@ class AlbumModel: AudioCollectionModel {
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
-    var fileArrayLock = NSLock()
+    var fileArrayLock = NSRecursiveLock()
     var files = [VLCMLAlbum]()
 
     var cellType: BaseCollectionViewCell.Type {
