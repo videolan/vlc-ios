@@ -16,7 +16,7 @@ class PlaylistModel: MLBaseModel {
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
-    var fileArrayLock = NSLock()
+    var fileArrayLock = NSRecursiveLock()
     var files = [VLCMLPlaylist]()
 
     var cellType: BaseCollectionViewCell.Type {

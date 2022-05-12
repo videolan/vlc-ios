@@ -15,7 +15,7 @@ class MediaGroupViewModel: MLBaseModel {
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
-    var fileArrayLock = NSLock()
+    var fileArrayLock = NSRecursiveLock()
     var files: [VLCMLMediaGroup]
 
     var cellType: BaseCollectionViewCell.Type {

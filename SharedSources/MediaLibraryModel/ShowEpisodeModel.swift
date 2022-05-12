@@ -17,7 +17,7 @@ class ShowEpisodeModel: MediaModel {
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLMedia]()
-    var fileArrayLock = NSLock()
+    var fileArrayLock = NSRecursiveLock()
 
     var cellType: BaseCollectionViewCell.Type { return MovieCollectionViewCell.self }
 

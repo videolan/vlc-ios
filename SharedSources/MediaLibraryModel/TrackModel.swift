@@ -17,7 +17,7 @@ class TrackModel: MediaModel {
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var files = [VLCMLMedia]()
-    var fileArrayLock = NSLock()
+    var fileArrayLock = NSRecursiveLock()
 
     var cellType: BaseCollectionViewCell.Type {
         return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(name)") ? MediaGridCollectionCell.self : MediaCollectionViewCell.self
