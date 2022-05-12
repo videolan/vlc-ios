@@ -336,6 +336,9 @@
 "BUTTON_EDIT" = "Upraviť";
 "BUTTON_EDIT_HINT" = "Režim úprav";
 
+"BUTTON_SELECT" = "Vybrať";
+"BUTTON_SELECT_HINT" = "Tlačidlo pre výber";
+
 "BUTTON_SELECT_ALL" = "Vybrať všetko";
 "BUTTON_SELECT_ALL_HINT" = "Vybrať všetky médiá v tomto zobrazení";
 
@@ -397,6 +400,8 @@
 "UNKNOWN_ARTIST" = "Neznámy umelec";
 "VARIOUS_ARTIST" = "Rôzni umelci";
 "UNKNOWN_ALBUM" = "Neznámy album";
+"SINGLE_ITEM_SELECTED" = "položka vybraná";
+"MULTIPLE_ITEMS_SELECTED" = "položky vybrané";
 
 // MARK: - VideoPlayerControls
 
