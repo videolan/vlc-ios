@@ -94,7 +94,7 @@ DEPENDENCIES:
   - xmlrpc (from `https://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - AFNetworking
     - AppAuth
     - Base32
@@ -179,6 +179,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: cc8415ef1a480db58c8cfea607059f559aaa3e6a
+PODFILE CHECKSUM: dce22d845aa487784bb97d30d7467e47d21ff946
 
 COCOAPODS: 1.11.3
