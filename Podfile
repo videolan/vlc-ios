@@ -1,5 +1,4 @@
-source 'https://github.com/CocoaPods/Specs.git'
-#source 'https://cdn.cocoapods.org'
+source 'https://cdn.cocoapods.org'
 install! 'cocoapods', :deterministic_uuids => false
 inhibit_all_warnings!
 
