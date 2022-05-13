@@ -12,7 +12,7 @@
 class GenreModel: AudioCollectionModel {
     typealias MLType = VLCMLGenre
 
-    var sortModel = SortModel([.alpha])
+    var sortModel = SortModel([.alpha, .playCount])
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 

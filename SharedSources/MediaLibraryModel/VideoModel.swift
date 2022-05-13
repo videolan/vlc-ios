@@ -12,7 +12,7 @@
 class VideoModel: MediaModel {
     typealias MLType = VLCMLMedia
 
-    var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize])
+    var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize, .lastPlaybackDate, .playCount])
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 

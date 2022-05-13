@@ -13,7 +13,7 @@ import Foundation
 class CollectionModel: MLBaseModel {
     typealias MLType = VLCMLMedia
 
-    var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize])
+    var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize, .lastPlaybackDate, .playCount])
 
     var mediaCollection: MediaCollectionModel
 

@@ -12,7 +12,7 @@
 class TrackModel: MediaModel {
     typealias MLType = VLCMLMedia
 
-    var sortModel = SortModel([.alpha, .album, .duration, .fileSize, .insertionDate])
+    var sortModel = SortModel([.alpha, .album, .duration, .fileSize, .insertionDate, .lastPlaybackDate, .playCount])
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 

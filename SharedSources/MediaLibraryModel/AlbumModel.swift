@@ -12,7 +12,7 @@
 class AlbumModel: AudioCollectionModel {
     typealias MLType = VLCMLAlbum
 
-    var sortModel = SortModel([.alpha, .duration, .releaseDate, .trackNumber, .insertionDate])
+    var sortModel = SortModel([.alpha, .duration, .releaseDate, .trackNumber, .insertionDate, .lastPlaybackDate, .playCount])
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 

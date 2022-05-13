@@ -11,7 +11,7 @@
 class MediaGroupViewModel: MLBaseModel {
     typealias MLType = VLCMLMediaGroup
 
-    var sortModel = SortModel([.alpha, .duration, .insertionDate, .lastModificationDate, .nbVideo])
+    var sortModel = SortModel([.alpha, .duration, .insertionDate, .lastModificationDate, .nbVideo, .releaseDate, .fileSize, .lastPlaybackDate, .playCount])
 
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
