@@ -58,17 +58,19 @@ extension VLCMLSortingCriteria: CustomStringConvertible {
             return NSLocalizedString("FILENAME", comment: "")
         case .trackNumber:
             return NSLocalizedString("TRACK_NUMBER", comment: "")
-        case.nbVideo:
+        case .nbVideo:
             return NSLocalizedString("NB_VIDEO", comment: "")
-        case.nbAudio:
+        case .nbAudio:
             return NSLocalizedString("NB_AUDIO", comment: "")
-        case.nbMedia:
+        case .nbMedia:
             return NSLocalizedString("NB_MEDIA", comment: "")
         case .nbAlbum:
             return NSLocalizedString("NB_ALBUM", comment: "")
         case .lastPlaybackDate:
             return NSLocalizedString("LAST_PLAYBACK_DATE", comment: "")
-        default:
+        case .trackID:
+            return NSLocalizedString("TRACK_ID", comment: "")
+        case .default:
             return NSLocalizedString("DEFAULT", comment: "")
         }
     }
