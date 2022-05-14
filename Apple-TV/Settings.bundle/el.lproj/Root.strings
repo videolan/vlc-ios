@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Μεταποθήκευση βιβλιοθήκης πολυμέσων";
 
 "ABOUT_APP_TV" = "Σχετικά με το VLC για tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Απομνημόνευση κατάστασης αναπαραγωγής (ανακάτεμα, επανάληψη)";
