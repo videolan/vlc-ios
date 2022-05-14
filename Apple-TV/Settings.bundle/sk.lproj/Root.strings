@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Výpis z pamäte knižnice médií";
 
 "ABOUT_APP_TV" = "O aplikácii VLC pre tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Pamätať si stav prehrávača (náhodne, opakovanie v slučke)";

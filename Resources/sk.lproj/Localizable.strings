@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Sťahovanie bolo ukončené používateľom";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Zadajte adresu pre stiahnutie do vášho %@.";
 "DOWNLOAD_FROM_HTTP" = "Sťahovanie";
 "ERROR_NUMBER" = "Nastala chyba %i";
 "DOWNLOAD_FAILED" = "Sťahovanie nebolo úspešné";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Odomknúť knižnicu médií\nZrušiť pre zadanie hesla";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "Počet neúspešných pokusov o zadanie hesla: %d";
-"1 Failed Passcode Attempt" = "1 neúspešný pokus o zadanie hesla";
-"Change Passcode" = "Zmeniť heslo";
 "Enter Passcode" = "Zadanie hesla";
 "Enter a passcode" = "Zadajte heslo";
-"Enter your new passcode" = "Zadajte svoje nové heslo";
-"Enter your old passcode" = "Zadajte svoje staré heslo";
-"Enter your passcode" = "Zadajte svoje heslo";
-"Next" = "Ďalej";
 "Passcodes did not match. Try again." = "Heslá sa nezhodujú. Skúste to ešte raz.";
-"Re-enter your new passcode" = "Znovu zadajte svoje nové heslo";
 "Re-enter your passcode" = "Znovu zadajte svoje heslo";
 "Set Passcode" = "Nastaviť heslo";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Jednu položku";
 "REPEAT_FOLDER" = "Priečinok";
 "SHUFFLE" = "Náhodne";
+"SHUFFLE_DISABLED" = "Vypnúť náhodné prehrávanie";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reset zoznamu";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Natrvalo resetovať zoznam naposledy prehraných sieťových streamov.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Upraviť";
 "BUTTON_EDIT_HINT" = "Režim úprav";
 
+"BUTTON_SELECT" = "Vybrať";
+"BUTTON_SELECT_HINT" = "Tlačidlo pre výber";
+
 "BUTTON_SELECT_ALL" = "Vybrať všetko";
 "BUTTON_SELECT_ALL_HINT" = "Vybrať všetky médiá v tomto zobrazení";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Zostupné poradie";
 "DESCENDING_SWITCH_LABEL" = "Vzostupné alebo zostupné poradie";
 "DESCENDING_SWITCH_HINT" = "Zoradiť kontext vzostupne alebo zostupne";
-"GRID_LAYOUT" = "Rozloženie mriežky";
+"GRID_LAYOUT" = "Mriežka";
+"LIST_LAYOUT" = "Zoznam";
+"HIDE_FEAT_ARTISTS" = "Skryť uvádzaných umelcov";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Číslo zvuku";
 "NB_MEDIA" = "Číslo média";
 "NB_VIDEO" = "Číslo videa";
+"NB_ALBUM" = "Počet albumov";
+"LAST_PLAYBACK_DATE" = "Dátum posledného prehrávania";
+"TRACK_ID" = "ID stopy";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Neznámy umelec";
 "VARIOUS_ARTIST" = "Rôzni umelci";
 "UNKNOWN_ALBUM" = "Neznámy album";
+"SINGLE_ITEM_SELECTED" = "položka vybraná";
+"MULTIPLE_ITEMS_SELECTED" = "položky vybrané";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ekvalizér";
 "MORE_OPTIONS_HEADER_TITLE" = "Možnosti videa";
+"BOOKMARKS_TITLE" = "Záložky";
+"ADD_BOOKMARKS_TITLE" = "Pridať záložky";
+"BOOKMARK_DEFAULT_NAME" = "Záložka pre";
+"BOOKMARK_RENAME_TITLE" = "Premenovať záložku";
+"BOOKMARK_DELETE_TITLE" = "Vymazať záložku";
+"BOOKMARK_DELETE_MESSAGE" = "Potvrďte vymazanie záložky";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Vynútiť si opätovné skenovanie knižnice médií";
