@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Завантаження скасовано користувачем";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Введіть адресу для завантаження файлу на ваш %@.";
 "DOWNLOAD_FROM_HTTP" = "Завантаження";
 "ERROR_NUMBER" = "Трапилася помилка %i";
 "DOWNLOAD_FAILED" = "Провал завантаження";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Розблокуйте бібліотеку медіа\nСкасуйте для введення парольного коду";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d невдалих спроб вводу пароля";
-"1 Failed Passcode Attempt" = "1 невдала спроба вводу пароля";
-"Change Passcode" = "Змінити пароль";
 "Enter Passcode" = "Введення паролю";
 "Enter a passcode" = "Введіть пароль";
-"Enter your new passcode" = "Введіть ваш новий пароль";
-"Enter your old passcode" = "Введіть ваш старий пароль";
-"Enter your passcode" = "Введіть ваш пароль";
-"Next" = "Далі";
 "Passcodes did not match. Try again." = "Паролі не збігаються. Спробуйте знову.";
-"Re-enter your new passcode" = "Повторно введіть ваш новий пароль";
 "Re-enter your passcode" = "Повторно введіть ваш пароль";
 "Set Passcode" = "Задання пароля";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Одноразово";
 "REPEAT_FOLDER" = "Тека";
 "SHUFFLE" = "Перемішати";
+"SHUFFLE_DISABLED" = "Перемішування вимк.";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Перезапуск списку";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Назавжди перезапускає список нещодавно відтворених мережевих потоків.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Редагувати";
 "BUTTON_EDIT_HINT" = "Режим редагування";
 
+"BUTTON_SELECT" = "Вибрати";
+"BUTTON_SELECT_HINT" = "Кнопка вибору";
+
 "BUTTON_SELECT_ALL" = "Виділити все";
 "BUTTON_SELECT_ALL_HINT" = "Виділити усі медіаелементи, представлені у цьому перегляді";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Спадний порядок";
 "DESCENDING_SWITCH_LABEL" = "Зростальний чи спадний порядок";
 "DESCENDING_SWITCH_HINT" = "Упорядкувати вміст за порядком зростанням чи спадання";
-"GRID_LAYOUT" = "Макет сітки";
+"GRID_LAYOUT" = "Сітка";
+"LIST_LAYOUT" = "Список";
+"HIDE_FEAT_ARTISTS" = "Сховати обр. артистів\n";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Кількість аудіо";
 "NB_MEDIA" = "Кількість медіа";
 "NB_VIDEO" = "Кількість відео";
+"NB_ALBUM" = "Кількість альбомів";
+"LAST_PLAYBACK_DATE" = "Остання дата відтворення";
+"TRACK_ID" = "ID доріжки";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Невідомий виконавець";
 "VARIOUS_ARTIST" = "Різні виконавці";
 "UNKNOWN_ALBUM" = "Невідомий альбом";
+"SINGLE_ITEM_SELECTED" = "елемент обрано";
+"MULTIPLE_ITEMS_SELECTED" = "елементів обрано";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Еквалайзер";
 "MORE_OPTIONS_HEADER_TITLE" = "Параметри відео";
+"BOOKMARKS_TITLE" = "Закладки";
+"ADD_BOOKMARKS_TITLE" = "Додати закладки";
+"BOOKMARK_DEFAULT_NAME" = "Закладка на";
+"BOOKMARK_RENAME_TITLE" = "Перейменувати закладку";
+"BOOKMARK_DELETE_TITLE" = "Вилучити закладку";
+"BOOKMARK_DELETE_MESSAGE" = "Підтвердіть вилучення закладки";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Примусово пересканувати медіабібліотеку";
