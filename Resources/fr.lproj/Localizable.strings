@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Téléchargement annulé par l'utilisateur";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Entrer une adresse pour télécharger le fichier sur votre %@.";
 "DOWNLOAD_FROM_HTTP" = "Téléchargements";
 "ERROR_NUMBER" = "Erreur %i ";
 "DOWNLOAD_FAILED" = "Le téléchargement a échoué";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Déverrouiller la médiathèque\nAnnuler pour entrer le mot de passe";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d tentatives échouées pour le mot de passe";
-"1 Failed Passcode Attempt" = "1 tentative échouée pour le mot de passe";
-"Change Passcode" = "Changer le mot de passe";
 "Enter Passcode" = "Entrer le mot de passe";
 "Enter a passcode" = "Entrer un mot de passe";
-"Enter your new passcode" = "Entrer votre nouveau mot de passe";
-"Enter your old passcode" = "Entrer votre ancien mot de passe";
-"Enter your passcode" = "Entrer votre mot de passe";
-"Next" = "Suivant";
 "Passcodes did not match. Try again." = "Les mots de passe ne correspondent pas. Veuillez recommencer.";
-"Re-enter your new passcode" = "Entrer à nouveau votre nouveau mot de passe";
 "Re-enter your passcode" = "Entrer à nouveau votre mot de passe";
 "Set Passcode" = "Définir le mot de passe";
 
@@ -280,7 +271,8 @@
 "REPEAT_DISABLED" = "Désactivée";
 "REPEAT_SINGLE" = "Unique";
 "REPEAT_FOLDER" = "Dossier";
-"SHUFFLE" = "Shuffle";
+"SHUFFLE" = "Alétoire activé";
+"SHUFFLE_DISABLED" = "Alétoire desactivé";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Réinitialiser la liste";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Réinitialiser définitivement la liste des flux réseau récemment lus.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Modifier";
 "BUTTON_EDIT_HINT" = "Mode selection";
 
+"BUTTON_SELECT" = "Sélectionner";
+"BUTTON_SELECT_HINT" = "Sélectionnez le bouton";
+
 "BUTTON_SELECT_ALL" = "Tout sélectionner";
 "BUTTON_SELECT_ALL_HINT" = "Sélectionnez tous les éléments multimédia présents dans cette vue";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Ordre décroissant";
 "DESCENDING_SWITCH_LABEL" = "Ordre croissant ou décroissant";
 "DESCENDING_SWITCH_HINT" = "Trier le contexte par ordre croissant ou décroissant";
-"GRID_LAYOUT" = "Disposition en grille";
+"GRID_LAYOUT" = "Grille";
+"LIST_LAYOUT" = "Liste";
+"HIDE_FEAT_ARTISTS" = "Cacher les artistes invités (feat. artists)";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Nombre de pistes audio";
 "NB_MEDIA" = "Nombre de pistes multimédias";
 "NB_VIDEO" = "Nombre de pistes vidéo";
+"NB_ALBUM" = "Nombre de titres";
+"LAST_PLAYBACK_DATE" = "Dernière date de lecture";
+"TRACK_ID" = "ID de la piste";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Artiste inconnu";
 "VARIOUS_ARTIST" = "Artistes divers";
 "UNKNOWN_ALBUM" = "Album inconnu";
+"SINGLE_ITEM_SELECTED" = "élément sélectionné";
+"MULTIPLE_ITEMS_SELECTED" = "éléments sélectionnés";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Égaliseur";
 "MORE_OPTIONS_HEADER_TITLE" = "Options vidéo";
+"BOOKMARKS_TITLE" = "Favoris";
+"ADD_BOOKMARKS_TITLE" = "Ajouter des favoris";
+"BOOKMARK_DEFAULT_NAME" = "Ajouter un favori à";
+"BOOKMARK_RENAME_TITLE" = "Renommer un favori";
+"BOOKMARK_DELETE_TITLE" = "Effacer un favori";
+"BOOKMARK_DELETE_MESSAGE" = "Confirmez l'effacement du favori";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Forcer la réanalyse de la médiathèque";
