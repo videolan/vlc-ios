@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Scaricamento annullato dall'utente";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Inserisci un indirizzo per scaricare il file al tuo %@.";
 "DOWNLOAD_FROM_HTTP" = "Scaricati";
 "ERROR_NUMBER" = "Si è verificato l'errore %i";
 "DOWNLOAD_FAILED" = "Scaricamento non riuscito";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Sblocco raccolta multimediale\nAnnulla per digitare il codice di sicurezza";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d tentativi non riusciti";
-"1 Failed Passcode Attempt" = "Un tentativo non riuscito";
-"Change Passcode" = "Cambia codice di sicurezza";
 "Enter Passcode" = "Digita codice di sicurezza";
 "Enter a passcode" = "Digita un codice di sicurezza";
-"Enter your new passcode" = "Digita il tuo nuovo codice di sicurezza";
-"Enter your old passcode" = "Digita il tuo codice di sicurezza precedente";
-"Enter your passcode" = "Digita il tuo codice di sicurezza";
-"Next" = "Successivo";
 "Passcodes did not match. Try again." = "I codici di sicurezza non corrispondono. Riprova.";
-"Re-enter your new passcode" = "Digita ancora il tuo nuovo codice di sicurezza";
 "Re-enter your passcode" = "Digita ancora il tuo codice di sicurezza";
 "Set Passcode" = "Imposta codice di sicurezza";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Singolo";
 "REPEAT_FOLDER" = "Cartella";
 "SHUFFLE" = "Mescola";
+"SHUFFLE_DISABLED" = "Non mescolare";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Ripristina l'elenco";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Ripristina definitivamente l'elenco dei flussi di rete riprodotti di recente.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Modifica";
 "BUTTON_EDIT_HINT" = "Modalità modifica";
 
+"BUTTON_SELECT" = "Seleziona";
+"BUTTON_SELECT_HINT" = "Pulsante di selezione";
+
 "BUTTON_SELECT_ALL" = "Seleziona tutto";
 "BUTTON_SELECT_ALL_HINT" = "Seleziona tutti gli elementi multimediali presenti in questa vista";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Ordine decrescente";
 "DESCENDING_SWITCH_LABEL" = "Ordine crescente o decrescente";
 "DESCENDING_SWITCH_HINT" = "Mostra il contesto in ordine crescente o decrescente";
-"GRID_LAYOUT" = "Struttura della griglia";
+"GRID_LAYOUT" = "Griglia";
+"LIST_LAYOUT" = "Elenco";
+"HIDE_FEAT_ARTISTS" = "Nascondi collaborazioni";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Numero di audio";
 "NB_MEDIA" = "Numero di media";
 "NB_VIDEO" = "Numero di video";
+"NB_ALBUM" = "Numero di album";
+"LAST_PLAYBACK_DATE" = "Ultima data di riproduzione";
+"TRACK_ID" = "ID traccia ";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Artista sconosciuto";
 "VARIOUS_ARTIST" = "Artisti vari";
 "UNKNOWN_ALBUM" = "Album sconosciuto";
+"SINGLE_ITEM_SELECTED" = "elemento selezionato";
+"MULTIPLE_ITEMS_SELECTED" = "elementi selezionati";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizzatore";
 "MORE_OPTIONS_HEADER_TITLE" = "Opzioni video";
+"BOOKMARKS_TITLE" = "Segnalibri";
+"ADD_BOOKMARKS_TITLE" = "Aggiungi segnalibri";
+"BOOKMARK_DEFAULT_NAME" = "Segnalibro a";
+"BOOKMARK_RENAME_TITLE" = "Rinomina segnalibro";
+"BOOKMARK_DELETE_TITLE" = "Elimina segnalibro";
+"BOOKMARK_DELETE_MESSAGE" = "Conferma l'eliminazione del segnalibro";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Forza nuova scansione della raccolta multimediale";
