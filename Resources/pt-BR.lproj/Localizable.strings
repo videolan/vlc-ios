@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "VLC Compartilhado para a Biblioteca iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servidores de Arquivos (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 arquivos";
 "NO_FILES" = "Nenhum arquivo com suporte";
 "DOWNLOADING" = "Transferindo...";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Tempo restante: %@";
 "BIOMETRIC_UNLOCK" = "Desbloquear a Biblioteca de Mídia\nCancelar para digitar uma Senha";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Próximo";
 "PREV_BUTTON" = "Anterior";
 "PLAY_ALL_BUTTON" = "Reproduzir tudo";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Deseja restaurar os filtros de vídeo?";
 "RESET_PLAYBACK_SPEED" = "Deseja restaurar a velocidade de reprodução?";
@@ -333,11 +337,14 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Editar";
 "BUTTON_EDIT_HINT" = "Modo de edição";
 
-"BUTTON_SELECT" = "Select";
-"BUTTON_SELECT_HINT" = "Select button";
+"BUTTON_SELECT" = "Selecionar";
+"BUTTON_SELECT_HINT" = "Botão de seleção";
 
 "BUTTON_SELECT_ALL" = "Selecionar todos";
 "BUTTON_SELECT_ALL_HINT" = "Seleciona todos os itens de mídia presentes nesta exibição";
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Número de vídeos";
 "NB_ALBUM" = "Número de álbuns";
 "LAST_PLAYBACK_DATE" = "Últma data de reprodução";
+"TRACK_ID" = "Identificador da Trilha";
 
 // MARK: - VLCNetworkLoginTVViewController
 
