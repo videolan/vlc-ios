@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Longgok pustaka media";
 
 "ABOUT_APP_TV" = "Perihal VLC untuk tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Ingat keadaan pemain (kocok, ulang)";

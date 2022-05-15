@@ -1,6 +1,6 @@
-"STORE_DESCRIPTION" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, playback speed control and rendering through Chromecast.\n\nVLC is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC merupakan sebuah pemain multimedia silang-platform bersumber-terbuka.\nIa boleh memainkan semua jenis filem, rancangan dan muzik dalam pelbagai format secara terus tanpa membuat penukaran format.\nIa membenarkan penyegerakkan fail dengan Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, muat turun terus melalui perkongsian Wi-Fi selain penstriman daripada pelayan media SMB, FTP, UPnP/DLNA dan sesawang. \nVLC menawarkan sokongan untuk sari kata lanjutan termasuk keserasian penuh SSA, audio berbilang-trek, kawalan kelajuan main balik dan pengemasgabungan melalui Chromecast.";
 
-"STORE_DESCRIPTION_TV" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC is completely free and open source.\n\nArtwork is provided by TMDb, which is a community maintained movie database.";
+"STORE_DESCRIPTION_TV" = "VLC adalah pemain multimedia platform-silang bersumber terbuka dan ianya percuma.\nIa dapat memainkan semua filem, rancangan TV dan muzik anda dalam kebanyakan format secara terus tanpa penukaran format.\nIa membolehkan Main Balik Jauh melalui Mac atau PC anda melalui UI Sesawang serta penstriman menerusi pelayan media UPnP, SMB, FTP dan sesawang.\n\nVLC sepenuhnya percuma dan bersumber terbuka.\n\nKerja seni disediakan oleh TMDb, yang menyelenggara pangkalan data filem oleh komuniti.";
 
 "UNKNOWN_TRACK_TYPE" = "Jenis trek tidak diketahui";
 "CHOOSE_TITLE" = "Pilih Tajuk";
@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Muat turun dibatal oleh pengguna";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Masukkan satu alamat untuk muat turun fail ke dalam %@ anda.";
 "DOWNLOAD_FROM_HTTP" = "Muat turun";
 "ERROR_NUMBER" = "Ralat %i berlaku";
 "DOWNLOAD_FAILED" = "Muat turun gagal";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Buka Pustaka Media\nBatal untuk masukkan Kod Laluan";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Pecubaan Kod Laluan Gagal";
-"1 Failed Passcode Attempt" = "1 Percubaan Kod Laluan Gagal";
-"Change Passcode" = "Ubah Kod Laluan";
 "Enter Passcode" = "Masukkan Kod Laluan";
 "Enter a passcode" = "Masukkan satu kod laluan";
-"Enter your new passcode" = "Masukkan kod laluan baharu anda";
-"Enter your old passcode" = "Masukkan kod laluan lama anda";
-"Enter your passcode" = "Masukkan kod laluan baharu anda";
-"Next" = "Berikutnya";
 "Passcodes did not match. Try again." = "Kod laluan tidak sepadan. Cuba lagi.";
-"Re-enter your new passcode" = "Masukkan semula kod laluan baharu anda";
 "Re-enter your passcode" = "Masukkan semula kod laluan anda";
 "Set Passcode" = "Tetapkan Kod Laluan";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Tunggal";
 "REPEAT_FOLDER" = "Folder";
 "SHUFFLE" = "Kocok";
+"SHUFFLE_DISABLED" = "Kocok mati";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Tetap semula senarai";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Tetap semula senarai strim rangkaian dimainkan baru-baru ini secara kekal.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Sunting";
 "BUTTON_EDIT_HINT" = "Mod sunting";
 
+"BUTTON_SELECT" = "Pilih";
+"BUTTON_SELECT_HINT" = "Pilih butang";
+
 "BUTTON_SELECT_ALL" = "Pilih semua";
 "BUTTON_SELECT_ALL_HINT" = "Pilih semua item media yang hadir dalam pandangan ini";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Tertib Menurun";
 "DESCENDING_SWITCH_LABEL" = "Tertib menaik atau menurun";
 "DESCENDING_SWITCH_HINT" = "Isih konteks dalam tertib menaik atau menurun";
-"GRID_LAYOUT" = "Bentangan Grid";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "Senarai";
+"HIDE_FEAT_ARTISTS" = "Sembunyi artis bersama";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Bilangan audio";
 "NB_MEDIA" = "Bilangan media";
 "NB_VIDEO" = "Bilangan video";
+"NB_ALBUM" = "Bilangan album";
+"LAST_PLAYBACK_DATE" = "Tarikh main balik terakhir";
+"TRACK_ID" = "ID Trek";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Artis Tidak Diketahui";
 "VARIOUS_ARTIST" = "Pelbagai Artis";
 "UNKNOWN_ALBUM" = "Album Tidak Diketahui";
+"SINGLE_ITEM_SELECTED" = "item dipilih";
+"MULTIPLE_ITEMS_SELECTED" = "item dipilih";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Penyama";
 "MORE_OPTIONS_HEADER_TITLE" = "Pilihan Video";
+"BOOKMARKS_TITLE" = "Tanda buku";
+"ADD_BOOKMARKS_TITLE" = "Tambah Tanda Buku";
+"BOOKMARK_DEFAULT_NAME" = "Tanda buku di";
+"BOOKMARK_RENAME_TITLE" = "Nama semula tanda buku";
+"BOOKMARK_DELETE_TITLE" = "Padam tanda buku";
+"BOOKMARK_DELETE_MESSAGE" = "Sahkan pemadaman tanda buku";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Paksa imbas semula pustaka media";
