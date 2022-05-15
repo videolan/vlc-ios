@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Ortam kitaplığı dökümü";
 
 "ABOUT_APP_TV" = "tvOS için VLC hakkında";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Oynatıcı durumu hatırlansın (karışık, çevrim)";

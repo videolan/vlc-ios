@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Kullanıcı indirmeyi iptal etti";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Dosyayı %@ üzerine indireceğiniz adresi yazın.";
 "DOWNLOAD_FROM_HTTP" = "İndirilenler";
 "ERROR_NUMBER" = "%i hatası oluştu";
 "DOWNLOAD_FAILED" = "İndirilemedi";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Ortam Kitaplığının Kilidini Aç\nParola yazmayı iptal et";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d başarısız parola denemesi";
-"1 Failed Passcode Attempt" = "1 başarısız parola denemesi";
-"Change Passcode" = "Parolayı değiştir";
 "Enter Passcode" = "Parolayı yazın";
 "Enter a passcode" = "Bir parola yazın";
-"Enter your new passcode" = "Yeni parolanızı yazın";
-"Enter your old passcode" = "Eski parolanızı yazın";
-"Enter your passcode" = "Parolanızı yazın";
-"Next" = "Sonraki";
 "Passcodes did not match. Try again." = "Parola ile onayı aynı değil. Yeniden deneyin.";
-"Re-enter your new passcode" = "Yeni parolanızı onaylayın";
 "Re-enter your passcode" = "Parolanızı onaylayın";
 "Set Passcode" = "Parola koruması";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Tek";
 "REPEAT_FOLDER" = "Klasör";
 "SHUFFLE" = "Karışık";
+"SHUFFLE_DISABLED" = "Karıştırma kapalı";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Listeyi temizle";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Son oynatılan ağ akışları listesini temizler.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Düzenle";
 "BUTTON_EDIT_HINT" = "Düzenleme kipi";
 
+"BUTTON_SELECT" = "Seçin";
+"BUTTON_SELECT_HINT" = "Seçme düğmesi";
+
 "BUTTON_SELECT_ALL" = "Tümünü seç";
 "BUTTON_SELECT_ALL_HINT" = "Bu görünümdeki tüm ortam ögelerini seçin";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Azalan sıralama";
 "DESCENDING_SWITCH_LABEL" = "Artan ya da azalan sıralama";
 "DESCENDING_SWITCH_HINT" = "İçeriği artan ya da azalan şekilde sıralar";
-"GRID_LAYOUT" = "Izgara görünümü";
+"GRID_LAYOUT" = "Tablo";
+"LIST_LAYOUT" = "Liste";
+"HIDE_FEAT_ARTISTS" = "Sanatçı gizlensin";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Ses kaydı sayısı";
 "NB_MEDIA" = "Ortam sayısı";
 "NB_VIDEO" = "Görüntü kaydı sayısı";
+"NB_ALBUM" = "Albüm sayıları";
+"LAST_PLAYBACK_DATE" = "Son oynatma tarihi";
+"TRACK_ID" = "Kayıt kodu";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Sanatçı bilinmiyor";
 "VARIOUS_ARTIST" = "Çeşitli sanatçılar";
 "UNKNOWN_ALBUM" = "Albüm bilinmiyor";
+"SINGLE_ITEM_SELECTED" = "öge seçilmiş";
+"MULTIPLE_ITEMS_SELECTED" = "öge seçilmiş";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Dengeleyici";
 "MORE_OPTIONS_HEADER_TITLE" = "Görüntü ayarları";
+"BOOKMARKS_TITLE" = "Yer imleri";
+"ADD_BOOKMARKS_TITLE" = "Yer imi ekle";
+"BOOKMARK_DEFAULT_NAME" = "Yer imi konumu";
+"BOOKMARK_RENAME_TITLE" = "Yer imini yeniden adlandır";
+"BOOKMARK_DELETE_TITLE" = "Yer imini sil";
+"BOOKMARK_DELETE_MESSAGE" = "Yer imini silmeyi onayla";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Ortam kitaplığı yeniden taranmaya zorlansın";
