@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Download durch Nutzer abgebrochen";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Geben Sie eine Adresse ein, um eine Datei auf Ihr %@ herunterzuladen.";
 "DOWNLOAD_FROM_HTTP" = "Downloads";
 "ERROR_NUMBER" = "Fehler %i aufgetreten";
 "DOWNLOAD_FAILED" = "Download fehlgeschlagen";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Mediathek entsperren\nAbbrechen um Passcode einzugeben";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d fehlgeschlagene Eingabeversuche";
-"1 Failed Passcode Attempt" = "1 fehlgeschlagener Eingabeversuch";
-"Change Passcode" = "Passcode ändern";
 "Enter Passcode" = "Passcode eingeben";
 "Enter a passcode" = "Passcode eingeben";
-"Enter your new passcode" = "Geben Sie Ihren neuen Passcode ein";
-"Enter your old passcode" = "Geben Sie Ihren alten Passcode ein";
-"Enter your passcode" = "Geben Sie Ihren Passcode ein";
-"Next" = "Fortfahren";
 "Passcodes did not match. Try again." = "Passcodes stimmen nicht überein. Erneut probieren.";
-"Re-enter your new passcode" = "Neuen Passcode erneut eingeben";
 "Re-enter your passcode" = "Passcode erneut eingeben";
 "Set Passcode" = "Passcode festlegen";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Aktuelles Medium";
 "REPEAT_FOLDER" = "Aktuellen Ordner";
 "SHUFFLE" = "Zufällig";
+"SHUFFLE_DISABLED" = "Zufällig aus";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Liste zurücksetzen";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Liste der zuletzt wiedergegebenen Netzwerkstreams dauerhaft zurücksetzen.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Bearbeiten";
 "BUTTON_EDIT_HINT" = "Bearbeitungsmodus";
 
+"BUTTON_SELECT" = "Auswählen";
+"BUTTON_SELECT_HINT" = "Auswahl-Knopf";
+
 "BUTTON_SELECT_ALL" = "Alles auswählen";
 "BUTTON_SELECT_ALL_HINT" = "Alle, in dieser Ansicht vorhandenen Medienelemente, auswählen";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Absteigende Sortierung";
 "DESCENDING_SWITCH_LABEL" = "Aufsteigende oder Absteigende Sortierung";
 "DESCENDING_SWITCH_HINT" = "Inhalt aufsteigend oder absteigend sortieren";
-"GRID_LAYOUT" = "Gitterstruktur";
+"GRID_LAYOUT" = "Gitter";
+"LIST_LAYOUT" = "Liste";
+"HIDE_FEAT_ARTISTS" = "Vorgestellte Künstler ausblenden";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Anzahl von Audiodateien";
 "NB_MEDIA" = "Anzahl von Mediendateien";
 "NB_VIDEO" = "Anzahl von Videodateien";
+"NB_ALBUM" = "Anzahl der Alben";
+"LAST_PLAYBACK_DATE" = "Letztes Wiedergabedatum";
+"TRACK_ID" = "Titel-ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Unbekannter Künstler";
 "VARIOUS_ARTIST" = "Verschiedene Künstler";
 "UNKNOWN_ALBUM" = "Unbekanntes Album";
+"SINGLE_ITEM_SELECTED" = "Element ausgewählt";
+"MULTIPLE_ITEMS_SELECTED" = "Elemente ausgewählt";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoeinstellungen";
+"BOOKMARKS_TITLE" = "Lesezeichen";
+"ADD_BOOKMARKS_TITLE" = "Lesezeichen hinzufügen";
+"BOOKMARK_DEFAULT_NAME" = "Lesezeichen bei";
+"BOOKMARK_RENAME_TITLE" = "Lesezeichen umbenennen";
+"BOOKMARK_DELETE_TITLE" = "Lesezeichen löschen";
+"BOOKMARK_DELETE_MESSAGE" = "Löschung dieses Lesezeichens bestätigen";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Medienbibliothek erneut durchsuchen";
