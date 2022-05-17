@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Aruncați biblioteca media";
 
 "ABOUT_APP_TV" = "About VLC for tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Amintește-ți starea playerului (aleatoriu, buclă)";
