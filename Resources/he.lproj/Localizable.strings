@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "ההורדה בוטלה על ידי המשתמש";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "נא להזין כתובת כדי להוריד את הקובץ אל ה־%@ שלך.";
 "DOWNLOAD_FROM_HTTP" = "הורדות";
 "ERROR_NUMBER" = "אירעה שגיאת %i";
 "DOWNLOAD_FAILED" = "ההורדה נכשלה";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "שחרור נעילת ספריית המדיה\nיש לבטל כדי להכניס קוד";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d ניסיונות צופן שנכשלו";
-"1 Failed Passcode Attempt" = "ניסיון צופן אחד נכשל";
-"Change Passcode" = "החלפת צופן";
 "Enter Passcode" = "נא להקליד צופן";
 "Enter a passcode" = "נא להקליד צופן";
-"Enter your new passcode" = "נא להקליד את הצופן החדש שלך";
-"Enter your old passcode" = "נא להקליד את הצופן החדש שלך";
-"Enter your passcode" = "נא להקליד את הצופן שלך";
-"Next" = "הבא";
 "Passcodes did not match. Try again." = "הצפנים אינם תואמים. נא לנסות שוב.";
-"Re-enter your new passcode" = "נא להקליד את הצופן החדש שלך שוב";
 "Re-enter your passcode" = "נא להקליד את הצופן שלך שוב";
 "Set Passcode" = "הגדרת צופן";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "בודד";
 "REPEAT_FOLDER" = "תיקייה";
 "SHUFFLE" = "ערבוב";
+"SHUFFLE_DISABLED" = "כיבוי הערבול";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "איפוס הרשימה";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "איפוס הרשימה של תזרימי הרשת שנוגנו לאחרונה לצמיתות.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "עריכה";
 "BUTTON_EDIT_HINT" = "מצב עריכה";
 
+"BUTTON_SELECT" = "בחירה";
+"BUTTON_SELECT_HINT" = "כפתור בחירה";
+
 "BUTTON_SELECT_ALL" = "בחירה בהכול";
 "BUTTON_SELECT_ALL_HINT" = "לבחור את כל פריטי המדיה שקיימים בתצוגה הזאת";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "בסדר יורד";
 "DESCENDING_SWITCH_LABEL" = "בסדר עולה או יורד";
 "DESCENDING_SWITCH_HINT" = "מיון הקשר בסדר עולה או יורד";
-"GRID_LAYOUT" = "פריסת רשת";
+"GRID_LAYOUT" = "רשת";
+"LIST_LAYOUT" = "רשימה";
+"HIDE_FEAT_ARTISTS" = "הסתרת אומנים מובילים";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "מספר שמע";
 "NB_MEDIA" = "מספר מדיה";
 "NB_VIDEO" = "מספר וידאו";
+"NB_ALBUM" = "מספר האלבומים";
+"LAST_PLAYBACK_DATE" = "תאריך הנגינה האחרון";
+"TRACK_ID" = "מזהה רצועה";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "אמן לא ידוע";
 "VARIOUS_ARTIST" = "מגוון אמנים";
 "UNKNOWN_ALBUM" = "אלבום לא ידוע";
+"SINGLE_ITEM_SELECTED" = "פריט נבחר";
+"MULTIPLE_ITEMS_SELECTED" = "פריטים נבחרו";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "אקולייזר";
 "MORE_OPTIONS_HEADER_TITLE" = "אפשרויות וידאו";
+"BOOKMARKS_TITLE" = "סימניות";
+"ADD_BOOKMARKS_TITLE" = "הוספת סימניות";
+"BOOKMARK_DEFAULT_NAME" = "ליצור סימנייה ב־";
+"BOOKMARK_RENAME_TITLE" = "שינוי שם סימניה";
+"BOOKMARK_DELETE_TITLE" = "מחיקת סימניה";
+"BOOKMARK_DELETE_MESSAGE" = "אישור מחיקת הסימניה";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "אילוץ סריקת ספריית המדיה מחדש";

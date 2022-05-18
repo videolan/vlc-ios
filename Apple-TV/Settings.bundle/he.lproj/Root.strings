@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "היטל ספריית המדיה";
 
 "ABOUT_APP_TV" = "אודות VLC ל tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "לזכור את מצב הנגן (ערבול, לולאה)";
