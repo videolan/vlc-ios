@@ -1,6 +1,6 @@
-"STORE_DESCRIPTION" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, playback speed control and rendering through Chromecast.\n\nVLC is completely free and open source.";
+"STORE_DESCRIPTION" = "A VLC egy szabad és nyílt forráskódú keresztplatformos médialejátszó portja.\nBármilyen filmet, műsort, és zenét le tud játszani a legtöbb formátumban, átalakítás nélkül.\nLehetővé teszi a fájlszinkronizációt Dropboxszal, GDrive-val, Boxszal, iCloud Drive-val, iTunes-szal; a közvetlen és a Wi-Fi megosztáson keresztüli letöltéseket, valamint a közvetítéseket SMB, FTP, SFTP, NFS és UPnP/DLNA médiakiszolgálókról és a webről.\nA VLC támogatja a fejlett feliratokat, köztük a teljes SSA kompatibilitást, a többsávos hangot, a lejátszási sebesség vezérlését és a Chromecasten keresztüli megjelenítést.\n\nA VLC teljesen szabad és nyílt forráskódú szoftver.";
 
-"STORE_DESCRIPTION_TV" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC is completely free and open source.\n\nArtwork is provided by TMDb, which is a community maintained movie database.";
+"STORE_DESCRIPTION_TV" = "A VLC egy szabad, nyílt forráskódú, keresztplatformos multimédia lejátszó. Bármilyen filmet, műsort, és zenét le tud játszani a legtöbb formátumban, átalakítás nélkül.\nLehetővé teszi a távoli lejátszást Macről vagy PC-ről a webes felületén keresztül, továbbá az SMB, FTP, SFTP, NFS és UPnP/DLNA médiakiszolgálókról, valamint a közvetlenül a webről.\nA VLC támogatja a fejlett feliratokat, köztük a teljes SSA kompatibilitást, a többsávos hangot, és a lejátszási sebesség vezérlését.\n\nA VLC teljesen szabad és nyílt forráskódú szoftver.\n\nA grafikákat a TMDb biztosítja, amely egy közösség által karbantartott filmadatbázis.";
 
 "UNKNOWN_TRACK_TYPE" = "Ismeretlen zeneszám típus";
 "CHOOSE_TITLE" = "Cím választása";
@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "A fájl letöltése meg lett szakítva.";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Adja meg a letölteni kívánt fájl címét.";
 "DOWNLOAD_FROM_HTTP" = "Letöltések";
 "ERROR_NUMBER" = "Hiba történt. Kód: %i";
 "DOWNLOAD_FAILED" = "A letöltés nem sikerült";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Médiatár feloldása\nMégse a jelkód megadásához";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d sikertelen jelkódkísérlet";
-"1 Failed Passcode Attempt" = "1 sikertelen jelkódkísérlet";
-"Change Passcode" = "Jelkód módosítása";
 "Enter Passcode" = "Adja meg a jelkódot";
 "Enter a passcode" = "Adjon meg egy jelkódot";
-"Enter your new passcode" = "Adja meg az új jelkódját";
-"Enter your old passcode" = "Adja meg a régi jelkódját";
-"Enter your passcode" = "Adja meg a jelkódját";
-"Next" = "Következő";
 "Passcodes did not match. Try again." = "A jelkódok nem egyeznek. Próbálja újra.";
-"Re-enter your new passcode" = "Adja meg újból az új jelkódját";
 "Re-enter your passcode" = "Adja meg újból a jelkódját";
 "Set Passcode" = "Jelkód beállítása";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Egy szám";
 "REPEAT_FOLDER" = "Mappa";
 "SHUFFLE" = "Keverés";
+"SHUFFLE_DISABLED" = "Véletlen sorrend ki";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Lista visszaállítása";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "A legutóbb lejátszott hálózati közvetítések listájának végleges visszaállítása.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Szerkesztés";
 "BUTTON_EDIT_HINT" = "Szerkesztési mód";
 
+"BUTTON_SELECT" = "Kiválasztás";
+"BUTTON_SELECT_HINT" = "Kiválasztás gomb";
+
 "BUTTON_SELECT_ALL" = "Összes kiválasztása";
 "BUTTON_SELECT_ALL_HINT" = "A nézetben szereplő összes médiaelem kiválasztása";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Csökkenő sorrend";
 "DESCENDING_SWITCH_LABEL" = "Növekvő vagy csökkenő sorrend";
 "DESCENDING_SWITCH_HINT" = "Helyi menü rendezése növekvő vagy csökkenő sorrendben";
-"GRID_LAYOUT" = "Rácselrendezés";
+"GRID_LAYOUT" = "Rács";
+"LIST_LAYOUT" = "Lista";
+"HIDE_FEAT_ARTISTS" = "Társelőadók elrejtése";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Hangok száma";
 "NB_MEDIA" = "Médiák száma";
 "NB_VIDEO" = "Videók száma";
+"NB_ALBUM" = "Albumok száma";
+"LAST_PLAYBACK_DATE" = "Utolsó lejátszás ideje";
+"TRACK_ID" = "Számazonosító";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Ismeretlen előadó";
 "VARIOUS_ARTIST" = "Különböző előadók";
 "UNKNOWN_ALBUM" = "Ismeretlen album";
+"SINGLE_ITEM_SELECTED" = "elem kiválasztva";
+"MULTIPLE_ITEMS_SELECTED" = "elem kiválasztva";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Hangszínszabályzó";
 "MORE_OPTIONS_HEADER_TITLE" = "Videobeállítások";
+"BOOKMARKS_TITLE" = "Könyvjelzők";
+"ADD_BOOKMARKS_TITLE" = "Könyvjelzők hozzáadása";
+"BOOKMARK_DEFAULT_NAME" = "Könyvjelző itt:";
+"BOOKMARK_RENAME_TITLE" = "Könyvjelző átnevezése";
+"BOOKMARK_DELETE_TITLE" = "Könyvjelző törlése";
+"BOOKMARK_DELETE_MESSAGE" = "Erősítse meg a könyvjelző törlését";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Médiatár átvizsgálásának kényszerítése";
