@@ -91,14 +91,13 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Nedladdning avbruten av användare";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Ange en adress för att ladda ned filen till din %@";
 "DOWNLOAD_FROM_HTTP" = "Nedladdningar";
 "ERROR_NUMBER" = "Felet %i uppstod";
 "DOWNLOAD_FAILED" = "Nedladdning misslyckades";
 "FILE_NOT_SUPPORTED" = "Filformatet stöds inte";
 "FILE_NOT_SUPPORTED_LONG" = "Filformatet som %@ använder stöds inte i denna version av VLC för iOS.";
 "SCHEME_NOT_SUPPORTED" = "Adresschema stöds inte";
-"SCHEME_NOT_SUPPORTED_LONG" = "Adresschemat (%@) stöds inte. Var god använd en adress som börjar med HTTP, HTTPS eller FTP.";
+"SCHEME_NOT_SUPPORTED_LONG" = "Adresschemat (%@) stöds inte. Använd en adress som börjar med HTTP, HTTPS eller FTP.";
 "RENAME_MEDIA_TO" = "Ange ett nytt namn för %@";
 
 "FOLDER_EMPTY" = "Tom mapp";
@@ -125,7 +124,7 @@
 "LOCAL_SERVER_REFRESH" = "Uppdatera";
 "LOCAL_SERVER_LAST_UPDATE" = "Senast uppdaterad den %@";
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "SERVERANSLUTNING MISSLYCKADES";
-"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Var god kontrollera din serveradress och autentiseringsuppgifter";
+"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Kontrollera din serveradress och autentiseringsuppgifter";
 
 "FILES_APP_CELL_TITLE" = "Lokala filer";
 "FILES_APP_CELL_SUBTITLE" = "Öppna en fil utan att kopiera den till VLC.";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Lås upp mediabiblioteket\nAvbryt för att ange lösenkod";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d misslyckade lösenkodsförsök";
-"1 Failed Passcode Attempt" = "1 misslyckat lösenkodsförsök";
-"Change Passcode" = "Ändra lösenkod";
 "Enter Passcode" = "Ange lösenkod";
 "Enter a passcode" = "Ange en lösenkod";
-"Enter your new passcode" = "Ange din nya lösenkod";
-"Enter your old passcode" = "Ange din gamla lösenkod";
-"Enter your passcode" = "Ange din lösenkod";
-"Next" = "Nästa";
 "Passcodes did not match. Try again." = "Lösenkoderna stämmer inte överens. Försök igen.";
-"Re-enter your new passcode" = "Ange din nya lösenkod igen";
 "Re-enter your passcode" = "Ange din lösenkod igen";
 "Set Passcode" = "Ändra lösenkod";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "En gång";
 "REPEAT_FOLDER" = "Mapp";
 "SHUFFLE" = "Blanda";
+"SHUFFLE_DISABLED" = "Blanda av";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Återställ lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Återställ listan över senast uppspelade nätverksströmmar permanent.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Redigera";
 "BUTTON_EDIT_HINT" = "Redigeringsläge";
 
+"BUTTON_SELECT" = "Markera";
+"BUTTON_SELECT_HINT" = "Markeringsknapp";
+
 "BUTTON_SELECT_ALL" = "Markera alla";
 "BUTTON_SELECT_ALL_HINT" = "Markera alla mediaobjekt som finns i denna vy";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Fallande ordning";
 "DESCENDING_SWITCH_LABEL" = "Stigande eller fallande ordning";
 "DESCENDING_SWITCH_HINT" = "Sortera alternativmenyn i stigande eller fallande ordning";
-"GRID_LAYOUT" = "Rutnätslayout";
+"GRID_LAYOUT" = "Rutnät";
+"LIST_LAYOUT" = "Lista";
+"HIDE_FEAT_ARTISTS" = "Dölj gästartister";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Antal ljud";
 "NB_MEDIA" = "Antal media";
 "NB_VIDEO" = "Antal videor";
+"NB_ALBUM" = "Antal album";
+"LAST_PLAYBACK_DATE" = "Senast uppspelat datum";
+"TRACK_ID" = "Spår-ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Okänd artist";
 "VARIOUS_ARTIST" = "Blandade artister";
 "UNKNOWN_ALBUM" = "Okänt album";
+"SINGLE_ITEM_SELECTED" = "markerat objekt";
+"MULTIPLE_ITEMS_SELECTED" = "markerade objekt";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoalternativ";
+"BOOKMARKS_TITLE" = "Bokmärken";
+"ADD_BOOKMARKS_TITLE" = "Lägg till bokmärken";
+"BOOKMARK_DEFAULT_NAME" = "Bokmärke vid";
+"BOOKMARK_RENAME_TITLE" = "Byt namn på bokmärke";
+"BOOKMARK_DELETE_TITLE" = "Radera bokmärke";
+"BOOKMARK_DELETE_MESSAGE" = "Bekräfta radering av bokmärket";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Tvinga genomsökning av mediabiblioteket";

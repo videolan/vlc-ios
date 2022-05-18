@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Dumpa mediabibliotek";
 
 "ABOUT_APP_TV" = "Om VLC för tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Kom ihåg spelarens tillstånd (blanda, slinga)";
