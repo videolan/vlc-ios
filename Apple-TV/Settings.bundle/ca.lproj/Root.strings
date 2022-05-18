@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Bolca la biblioteca multimèdia";
 
 "ABOUT_APP_TV" = "Quant al VLC per a tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Recorda l'estat del reproductor (aleatori, repetició)";
