@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Käyttäjä peruutti latauksen";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Syötä osoite ladataksesi tiedoston laitteeseen %@.";
 "DOWNLOAD_FROM_HTTP" = "Lataukset";
 "ERROR_NUMBER" = "Virhe %i ilmaantui";
 "DOWNLOAD_FAILED" = "Lataus epäonnistui";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Avaa mediakirjaston lukitus\nPeruuta salasanan syöttäminen";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d epäonnistunutta salasanayritystä";
-"1 Failed Passcode Attempt" = "1 epäonnistunut salasanayritys";
-"Change Passcode" = "Vaihda salasana";
 "Enter Passcode" = "Anna salasana";
 "Enter a passcode" = "Anna salasana";
-"Enter your new passcode" = "Anna uusi salasanasi";
-"Enter your old passcode" = "Kirjoita nykyinen salasanasi";
-"Enter your passcode" = "Anna salasanasi";
-"Next" = "Seuraava";
 "Passcodes did not match. Try again." = "Salasanat eivät täsmää. Yritä uudelleen.";
-"Re-enter your new passcode" = "Anna uusi salasanasi uudelleen";
 "Re-enter your passcode" = "Kirjoita salasanasi uudelleen";
 "Set Passcode" = "Aseta salasana";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Yksittäinen";
 "REPEAT_FOLDER" = "Kansio";
 "SHUFFLE" = "Sekoita";
+"SHUFFLE_DISABLED" = "Satunnaistoisto pois";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Nollaa lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Nollaa äskettäin verkosta toistetut luettelo pysyvästi.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Muokkaa";
 "BUTTON_EDIT_HINT" = "Muokkaustila";
 
+"BUTTON_SELECT" = "Valitse";
+"BUTTON_SELECT_HINT" = "Valintapainike";
+
 "BUTTON_SELECT_ALL" = "Valitse kaikki";
 "BUTTON_SELECT_ALL_HINT" = "Valitse kaikki tässä näkymässä olevat mediat";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Laskeva järjestys";
 "DESCENDING_SWITCH_LABEL" = "Nouseva tai laskeva järjestys";
 "DESCENDING_SWITCH_HINT" = "Lajittele sisältö nousevaan tai laskevaan järjestykseen";
-"GRID_LAYOUT" = "Ruudukon asettelu";
+"GRID_LAYOUT" = "Ruudukko";
+"LIST_LAYOUT" = "Lista";
+"HIDE_FEAT_ARTISTS" = "Piilota artistit";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Äänen nro";
 "NB_MEDIA" = "Kappaleen nro";
 "NB_VIDEO" = "Videon nro";
+"NB_ALBUM" = "Albumien määrä";
+"LAST_PLAYBACK_DATE" = "Viimeinen toistopäivä";
+"TRACK_ID" = "Raidan tunniste";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Tuntematon artisti";
 "VARIOUS_ARTIST" = "Useat artistit";
 "UNKNOWN_ALBUM" = "Tuntematon albumi";
+"SINGLE_ITEM_SELECTED" = "kohde valittu";
+"MULTIPLE_ITEMS_SELECTED" = "kohdetta valittu";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Taajuuskorjain";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoasetukset";
+"BOOKMARKS_TITLE" = "Kirjanmerkit";
+"ADD_BOOKMARKS_TITLE" = "Lisää kirjanmerkki";
+"BOOKMARK_DEFAULT_NAME" = "Kirjanmerkki kohdassa";
+"BOOKMARK_RENAME_TITLE" = "Nimeä kirjanmerkki";
+"BOOKMARK_DELETE_TITLE" = "Poista kirjanmerkki";
+"BOOKMARK_DELETE_MESSAGE" = "Vahvista kirjanmerkin poistaminen";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Pakota mediakirjaston tarkistus uudelleen";
