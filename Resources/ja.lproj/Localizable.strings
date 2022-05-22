@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "ダウンロードがユーザーによってキャンセルされました";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "あなたの %@ にファイルをダウンロードするためのアドレスを入力してください。";
 "DOWNLOAD_FROM_HTTP" = "ダウンロード";
 "ERROR_NUMBER" = "エラー %i が発生しました";
 "DOWNLOAD_FAILED" = "ダウンロードに失敗しました";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "メディアライブラリのロック解除\nパスコード入力をキャンセル";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "パスコードの試行に %d 回失敗しました";
-"1 Failed Passcode Attempt" = "パスコードの試行に1回失敗しました";
-"Change Passcode" = "パスコード変更";
 "Enter Passcode" = "パスコードを入力してください";
 "Enter a passcode" = "パスコードを入力してください";
-"Enter your new passcode" = "新しいパスコードを入力してください";
-"Enter your old passcode" = "古いパスコードを入力してください";
-"Enter your passcode" = "パスコードを入力してください";
-"Next" = "次";
 "Passcodes did not match. Try again." = "パスコードが一致しません。再入力してください。";
-"Re-enter your new passcode" = "新しいパスコードを再入力してください";
 "Re-enter your passcode" = "パスコードを再入力してください";
 "Set Passcode" = "パスコード設定";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "シングル";
 "REPEAT_FOLDER" = "フォルダー";
 "SHUFFLE" = "シャッフル";
+"SHUFFLE_DISABLED" = "シャッフルオフ";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "リストをリセット";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "最近再生したネットワークストリームのリストを恒久的にリセットします。";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "編集";
 "BUTTON_EDIT_HINT" = "編集モード";
 
+"BUTTON_SELECT" = "選択";
+"BUTTON_SELECT_HINT" = "選択ボタン";
+
 "BUTTON_SELECT_ALL" = "すべて選択";
 "BUTTON_SELECT_ALL_HINT" = "このビューに表示されているすべてのメディアを選択";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "逆順";
 "DESCENDING_SWITCH_LABEL" = "昇順/逆順";
 "DESCENDING_SWITCH_HINT" = "並び替えの順序";
-"GRID_LAYOUT" = "グリッドレイアウト";
+"GRID_LAYOUT" = "グリッド";
+"LIST_LAYOUT" = "リスト";
+"HIDE_FEAT_ARTISTS" = "フィーチャーとアーティストを隠す";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "オーディオ数";
 "NB_MEDIA" = "メディア数";
 "NB_VIDEO" = "ビデオ数";
+"NB_ALBUM" = "アルバム数";
+"LAST_PLAYBACK_DATE" = "最終再生日";
+"TRACK_ID" = "トラックID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "未知のアーティスト";
 "VARIOUS_ARTIST" = "複数アーティスト";
 "UNKNOWN_ALBUM" = "未知のアルバム";
+"SINGLE_ITEM_SELECTED" = "選択された項目";
+"MULTIPLE_ITEMS_SELECTED" = "選択された項目";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "イコライザー";
 "MORE_OPTIONS_HEADER_TITLE" = "ビデオオプション";
+"BOOKMARKS_TITLE" = "ブックマーク";
+"ADD_BOOKMARKS_TITLE" = "ブックマークを追加";
+"BOOKMARK_DEFAULT_NAME" = "ブックマーク";
+"BOOKMARK_RENAME_TITLE" = "ブックマークを変更";
+"BOOKMARK_DELETE_TITLE" = "ブックマークを削除";
+"BOOKMARK_DELETE_MESSAGE" = "ブックマークの削除の確認";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "メディアライブラリを強制的に再スキャン";

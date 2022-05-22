@@ -9,7 +9,7 @@
 "SETTINGS_THEME_SYSTEM" = "自動";
 "SETTINGS_THEME_BLACK" = "ダークモードの時、黒い背景を使用";
 "SETTINGS_THEME_BLACK_SUBTITLE" = "OLEDディスプレイを持つデバイスのバッテリーライフを向上";
-"SETTINGS_PRIVACY_SUBTITLE" = "設定で開く";
+"SETTINGS_PRIVACY_SUBTITLE" = "設定を開く";
 "SETTINGS_PASSCODE_LOCK_SUBTITLE" = "コンテンツへの安全なアクセス";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "ファイルアプリケーションでメディアが非表示になります";
 
@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "メディアライブラリをダンプ";
 
 "ABOUT_APP_TV" = "VLC for tvOSについて";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "再生モード（シャッフル、ループ）を記憶";
