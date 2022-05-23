@@ -14,7 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "U vostru medià serà piattatu in l’appiecazione Schedarii";
 
 "SETTINGS_DARKTHEME" = "Aspettu";
-"SETTINGS_TIME_STRETCH_AUDIO" = "Stinzata di tempu audio";
+"SETTINGS_TIME_STRETCH_AUDIO" = "Stinzata tempurale audio";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Accelera è frena l’audio senza cambià a tunalità (richiede un apparechju rapidu)";
 "SETTINGS_BACKGROUND_AUDIO" = "Ripruduzzione audio in fondu";
 "SETTINGS_GENERIC_TITLE" = "Genericu";
@@ -72,7 +72,7 @@
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Nurmale";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Grossa";
 
-"SETTINGS_DEINTERLACE" = "Sbucinà";
+"SETTINGS_DEINTERLACE" = "Disintricciamentu";
 "SETTINGS_DEINTERLACE_ON" = "Iè";
 "SETTINGS_DEINTERLACE_OFF" = "Innò";
 "SETTINGS_DEINTERLACE_AUTO" = "Autumaticu";
@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Estrae a mediateca";
 
 "ABOUT_APP_TV" = "Apprupositu di VLC for tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Arricurdassi di u statu di u lettore (lettura aleatoria, ripetizione)";

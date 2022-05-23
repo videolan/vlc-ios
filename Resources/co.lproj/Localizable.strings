@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Scaricamentu abbandunatu da l’utilizatore";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Scrivite un indirizzu per scaricà u schedariu nant’à u vostru %@.";
 "DOWNLOAD_FROM_HTTP" = "Scaricamenti";
 "ERROR_NUMBER" = "U sbagliu %i hè accadutu";
 "DOWNLOAD_FAILED" = "Fiascu di u scaricamentu";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Sbluccà a mediateca\nAbbandunà a scrittura di u codice d’intesa";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d tentativi fiascati di codice d’intesa";
-"1 Failed Passcode Attempt" = "1 tentativu fiascatu di codice d’intesa";
-"Change Passcode" = "Cambià u codice d’intesa";
 "Enter Passcode" = "Scrivite u codice d’intesa";
 "Enter a passcode" = "Scrive un codice d’intesa";
-"Enter your new passcode" = "Scrive u vostru novu codice d’intesa";
-"Enter your old passcode" = "Scrive u vostru vechju codice d’intesa";
-"Enter your passcode" = "Scrive u vostru codice d’intesa";
-"Next" = "Seguente";
 "Passcodes did not match. Try again." = "I codici d’intesa ùn currispundenu micca. Pruvate torna.";
-"Re-enter your new passcode" = "Scrive torna u vostru novu codice d’intesa";
 "Re-enter your passcode" = "Scrive torna u vostru codice d’intesa";
 "Set Passcode" = "Definisce un codice d’intesa";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Schedariu attuale";
 "REPEAT_FOLDER" = "Cartulare";
 "SHUFFLE" = "Aleatoriu";
+"SHUFFLE_DISABLED" = "Lettura aleatoria disattivata";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reinizià a lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Reinizià ab’eternu a lista di i flussi di a reta letti pocu fà.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Mudificà";
 "BUTTON_EDIT_HINT" = "Modu di mudificazione";
 
+"BUTTON_SELECT" = "Selezziunà";
+"BUTTON_SELECT_HINT" = "Buttone di selezzione";
+
 "BUTTON_SELECT_ALL" = "Tuttu selezziunà";
 "BUTTON_SELECT_ALL_HINT" = "Selezziunà tutti l’elementi multimedià presenti nant’à sta vista";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Ordine discendente";
 "DESCENDING_SWITCH_LABEL" = "Ordine crescente o discendente";
 "DESCENDING_SWITCH_HINT" = "Classificà u cuntestu da l’ordine crescente o discendente";
-"GRID_LAYOUT" = "Accunciamentu in quadrittera";
+"GRID_LAYOUT" = "Quadrittera";
+"LIST_LAYOUT" = "Lista";
+"HIDE_FEAT_ARTISTS" = "Piattà l’artisti feat.";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Numeru di traccie audio";
 "NB_MEDIA" = "Numeru di traccie multimedià";
 "NB_VIDEO" = "Numeru di traccie video";
+"NB_ALBUM" = "Numeru d’albumi";
+"LAST_PLAYBACK_DATE" = "Ultima data di lettura";
+"TRACK_ID" = "ID di a traccia";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Artista scunnisciutu";
 "VARIOUS_ARTIST" = "Artisti diversi";
 "UNKNOWN_ALBUM" = "Albumu scunnisciutu";
+"SINGLE_ITEM_SELECTED" = "elementu selezziunatu";
+"MULTIPLE_ITEMS_SELECTED" = "elementi selezziunati";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ugualizatore";
 "MORE_OPTIONS_HEADER_TITLE" = "Ozzioni video";
+"BOOKMARKS_TITLE" = "Indette";
+"ADD_BOOKMARKS_TITLE" = "Aghjunghje l’indette";
+"BOOKMARK_DEFAULT_NAME" = "Aghjunghje un’indetta à";
+"BOOKMARK_RENAME_TITLE" = "Rinuminà l’indetta";
+"BOOKMARK_DELETE_TITLE" = "Squassà l’indetta";
+"BOOKMARK_DELETE_MESSAGE" = "Cunfirmà a squassatura di l’indetta";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Sfurzà una nova analisa di a mediateca";
