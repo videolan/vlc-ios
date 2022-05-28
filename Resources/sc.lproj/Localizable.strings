@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Iscarrigamentu annulladu dae s'impradore";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Inserta un'indiritzu pro iscarrigare su documentu in su %@ tuo.";
 "DOWNLOAD_FROM_HTTP" = "Iscarrigados";
 "ERROR_NUMBER" = "Est acontèssidu s'errore %i";
 "DOWNLOAD_FAILED" = "Iscarrigamentu fallidu";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Isblocu biblioteca multimediale\nAnnulla pro insertare su còdighe de seguresa";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d tentativos de insertada de su còdighe de seguresa fallidos";
-"1 Failed Passcode Attempt" = "1 tentativu de insertada de su còdighe de seguresa fallidu";
-"Change Passcode" = "Càmbia su còdighe de seguresa";
 "Enter Passcode" = "Inserta su còdighe de seguresa";
 "Enter a passcode" = "Inserta unu còdighe de seguresa";
-"Enter your new passcode" = "Inserta su còdighe de seguresa nou tuo";
-"Enter your old passcode" = "Inserta su còdighe de seguresa betzu tuo";
-"Enter your passcode" = "Inserta su còdighe de seguresa tuo";
-"Next" = "Imbeniente";
 "Passcodes did not match. Try again." = "Sos còdighes de seguresa non sunt sos matessi. Torra a proare.";
-"Re-enter your new passcode" = "Torra a insertare su còdighe de seguresa nou tuo";
 "Re-enter your passcode" = "Torra a insertare su còdighe de seguresa tuo";
 "Set Passcode" = "Imposta su còdighe de seguresa";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Sìngulu";
 "REPEAT_FOLDER" = "Cartella";
 "SHUFFLE" = "Ammistura";
+"SHUFFLE_DISABLED" = "No ammestures";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Reseta sa lista";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Reseta in manera permanente sa lista de sos flussos de retza riproduidos dae pagu";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Modìfica";
 "BUTTON_EDIT_HINT" = "Modalidade de modìfica";
 
+"BUTTON_SELECT" = "Seletziona";
+"BUTTON_SELECT_HINT" = "Butone de seletzione";
+
 "BUTTON_SELECT_ALL" = "Seletziona totu";
 "BUTTON_SELECT_ALL_HINT" = "Seletziona totu sos elementos multimediales presentes in custa vista";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Òrdine minimante";
 "DESCENDING_SWITCH_LABEL" = "Òrdine artiante o minimante";
 "DESCENDING_SWITCH_HINT" = "Òrdina su cuntestu in manera artiante o minimante";
-"GRID_LAYOUT" = "Istrutura de sa grìllia";
+"GRID_LAYOUT" = "Grìllia";
+"LIST_LAYOUT" = "Lista";
+"HIDE_FEAT_ARTISTS" = "Cua sos artistas collaboradores";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Nùmeru de documentos àudio";
 "NB_MEDIA" = "Nùmeru de documentos multimediales";
 "NB_VIDEO" = "Nùmeru de vìdeos";
+"NB_ALBUM" = "Nùmeru de albums";
+"LAST_PLAYBACK_DATE" = "Ùrtima data de riprodutzione";
+"TRACK_ID" = "ID de sa rasta";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Artista disconnotu";
 "VARIOUS_ARTIST" = "Artistas vàrios";
 "UNKNOWN_ALBUM" = "Album disconnotu";
+"SINGLE_ITEM_SELECTED" = "elementu seletzionadu";
+"MULTIPLE_ITEMS_SELECTED" = "elementos seletzionados";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ecualizadore";
 "MORE_OPTIONS_HEADER_TITLE" = "Optziones vìdeu";
+"BOOKMARKS_TITLE" = "Sinnalibros";
+"ADD_BOOKMARKS_TITLE" = "Annanghe sinnalibros";
+"BOOKMARK_DEFAULT_NAME" = "Sinnalibru a";
+"BOOKMARK_RENAME_TITLE" = "Muda unu sinnalibru de nùmene";
+"BOOKMARK_DELETE_TITLE" = "Iscantzella unu sinnalibru";
+"BOOKMARK_DELETE_MESSAGE" = "Cunfirma s'iscantzellamentu de su sinnalibru";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Fortza un'iscansidura noa de sa biblioteca multimediale";
