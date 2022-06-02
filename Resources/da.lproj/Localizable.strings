@@ -1,6 +1,6 @@
-"STORE_DESCRIPTION" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, playback speed control and rendering through Chromecast.\n\nVLC is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC er en gratis og opensource multimedieafspiller på tværs af platforme.\nDen kan afspille alle dine film, foresttillinger og musik i de fleste formater uden konvertering.\nDen tillader filsynkronisering med Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direkte downloads og gennem wifideling samt streaming fra SMB, FTP, SFTP, NFS, UPnP/DLNA medieservere og nettet.\nVLC understøttter avancerede undertekster med fuld SSA-kompatibilitet, flerspors-audio, afspilningshastighedskontrol og rendering via Chromecast.\n\nVLC er helt gratis og opensource.";
 
-"STORE_DESCRIPTION_TV" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC is completely free and open source.\n\nArtwork is provided by TMDb, which is a community maintained movie database.";
+"STORE_DESCRIPTION_TV" = "VLC er en gratis og opensource multimedieafspiller på tværs af platforme.\nDen kan afspille alle dine film, foresttillinger og musik i de fleste formater uden konvertering.\nDen tillader fjernafspilning fra din Mac eller PC via en webside samt streaming fra SMB, FTP, SFTP, NFS, UPnP/DLNA medieservere og netttet.\nVLC understøtter avancerede undertekster inklusive fuld SSA-kompatibilitet, multispor-audio og afspilningshastighedskontrol.\n\nVLC er helt gratis og opensource.\n\nIllustrationer er fra TMDb, der er en filmdatabase vedligeholdt af fællesskabet.";
 
 "UNKNOWN_TRACK_TYPE" = "Ukendt type spor";
 "CHOOSE_TITLE" = "Vælg titel";
@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Download annulleret af bruger";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Indtast en adresse for at downloade filen til din %@.";
 "DOWNLOAD_FROM_HTTP" = "Downloads";
 "ERROR_NUMBER" = "Fejl %i";
 "DOWNLOAD_FAILED" = "Overførsel mislykkedes";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Lås mediebibliotek op\nAnnuller for at indtaste adgangskode";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d fejlslagne adgangskodeforsøg";
-"1 Failed Passcode Attempt" = "1 fejlslagent adgangskodeforsøg";
-"Change Passcode" = "Skift adgangskode";
 "Enter Passcode" = "Indtast adgangskode";
 "Enter a passcode" = "Indtast en adgangskode";
-"Enter your new passcode" = "Indtast din nye adgangskode";
-"Enter your old passcode" = "Indtast din gamle adgangskode";
-"Enter your passcode" = "Indtast din adgangskode";
-"Next" = "Næste";
 "Passcodes did not match. Try again." = "Adgangskoderne er ikke ens. Prøv igen.";
-"Re-enter your new passcode" = "Indtast din nye adgangskode igen";
 "Re-enter your passcode" = "Indtast din adgangskode igen";
 "Set Passcode" = "Indstil adgangskode";
 
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "En";
 "REPEAT_FOLDER" = "Mappe";
 "SHUFFLE" = "Bland";
+"SHUFFLE_DISABLED" = "Bland slået fra";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Nulstil liste";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanent nulstilling af listen over nyligt afspillede netværksstreams.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Rediger";
 "BUTTON_EDIT_HINT" = "Redigeringstilstand";
 
+"BUTTON_SELECT" = "Vælg";
+"BUTTON_SELECT_HINT" = "Vælg knap";
+
 "BUTTON_SELECT_ALL" = "Vælg alle";
 "BUTTON_SELECT_ALL_HINT" = "Vælg alle medieelementer som ses i denne visning";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Faldende rækkefølge";
 "DESCENDING_SWITCH_LABEL" = "Stigende eller faldende rækkefølge";
 "DESCENDING_SWITCH_HINT" = "Sortér indholdet i stigende eller faldende rækkefølge";
-"GRID_LAYOUT" = "Gitterlayout";
+"GRID_LAYOUT" = "Gitter";
+"LIST_LAYOUT" = "Liste";
+"HIDE_FEAT_ARTISTS" = "Skjul deltagende kunstnere";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Antal lyd";
 "NB_MEDIA" = "Antal medier";
 "NB_VIDEO" = "Antal video";
+"NB_ALBUM" = "Antal albummer";
+"LAST_PLAYBACK_DATE" = "Sidste afspilningsdato";
+"TRACK_ID" = "Spor ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Ukendt kunstner";
 "VARIOUS_ARTIST" = "Diverse kunstnere";
 "UNKNOWN_ALBUM" = "Ukendt album";
+"SINGLE_ITEM_SELECTED" = "enhed valgt";
+"MULTIPLE_ITEMS_SELECTED" = "enheder valgt";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoindstillinger";
+"BOOKMARKS_TITLE" = "Bogmærker";
+"ADD_BOOKMARKS_TITLE" = "Tilføj bogmærker";
+"BOOKMARK_DEFAULT_NAME" = "Bogmærke ved";
+"BOOKMARK_RENAME_TITLE" = "Omdøb bogmærke";
+"BOOKMARK_DELETE_TITLE" = "Slet bogmærke";
+"BOOKMARK_DELETE_MESSAGE" = "Bekræft sletning af bogmærket";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Tving genskanning af mediebibliotek";

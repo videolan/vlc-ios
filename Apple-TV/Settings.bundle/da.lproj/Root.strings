@@ -122,3 +122,5 @@
 "SETTINGS_EXPORT_LIBRARY" = "Dump mediebibliotek";
 
 "ABOUT_APP_TV" = "Om VLC til tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Husk afspillertilstand (bland, loop)";
