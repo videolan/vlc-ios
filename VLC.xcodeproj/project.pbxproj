@@ -472,7 +472,6 @@
 		2629C887223991A400F8D080 /* VLCMediaThumbnailerCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCMediaThumbnailerCache.swift; sourceTree = "<group>"; };
 		2663ACB122497D21000FBB95 /* VLCNetworkLoginTVViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCNetworkLoginTVViewController.swift; sourceTree = "<group>"; };
 		2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCNetworkLoginTVViewController.xib; sourceTree = "<group>"; };
-		268BDA7D1B4FE1E200D622DD /* backArrow_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backArrow_black.png; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/Resources/backArrow_black.png; sourceTree = SOURCE_ROOT; };
 		26F1BFCF1A770408001DF30C /* libMediaVLC.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libMediaVLC.xml; sourceTree = "<group>"; };
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		2915544217490D4A00B86CAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -687,7 +686,6 @@
 		7D1AB290179C98E3004CC271 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB2A4179C99AE004CC271 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoSubtitlesFetcherViewController.xib; sourceTree = "<group>"; };
-		7D2AC5CF1B67746700A8D9DD /* LiveAuthDialog_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LiveAuthDialog_iPhone.xib; path = ImportedSources/OneDrive/src/LiveSDK/Library/Internal/LiveAuthDialog_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D2AEDE517FB785100B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D2D7FD21BD2F109002D6B6D /* VLC-TV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "VLC-TV.entitlements"; sourceTree = "<group>"; };
@@ -1392,15 +1390,6 @@
 				7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */,
 			);
 			name = Menu;
-			sourceTree = "<group>";
-		};
-		7D2AC5D21B67747000A8D9DD /* OneDrive (Imported) */ = {
-			isa = PBXGroup;
-			children = (
-				268BDA7D1B4FE1E200D622DD /* backArrow_black.png */,
-				7D2AC5CF1B67746700A8D9DD /* LiveAuthDialog_iPhone.xib */,
-			);
-			name = "OneDrive (Imported)";
 			sourceTree = "<group>";
 		};
 		7D2DE69524D5A9B100E8D84D /* OROpenSubtitleDownloader */ = {
@@ -2235,7 +2224,6 @@
 				7D5DD5C617590ABF001421E3 /* About Contents.html */,
 				417E68711F307D8F00DB9BB2 /* InfoPlist.strings */,
 				A79246C6170F11DF0036AAF2 /* Localizable.strings */,
-				7D2AC5D21B67747000A8D9DD /* OneDrive (Imported) */,
 				419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */,
 				7DAF3E93268F536400C47D95 /* Launch Screen.storyboard */,
 			);
