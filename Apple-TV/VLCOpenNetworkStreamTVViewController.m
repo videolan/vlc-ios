@@ -146,7 +146,9 @@
 - (void)URLEnteredInField:(id)sender
 {
     NSString *urlString = self.playURLField.text;
-    if (urlString.length) {
+    NSURL *url = [NSURL URLWithString:urlString];
+
+    if (url && url.scheme && url.host) {
         if ([_recentURLs indexOfObject:urlString] != NSNotFound)
             [_recentURLs removeObject:urlString];
 

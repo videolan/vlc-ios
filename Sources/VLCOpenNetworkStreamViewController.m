@@ -252,19 +252,23 @@
     }
     if (!self.privateToggleButton.selected) {
         NSString *urlString = self.urlField.text;
-        if ([_recentURLs indexOfObject:urlString] != NSNotFound)
-            [_recentURLs removeObject:urlString];
+        NSURL *url = [NSURL URLWithString:urlString];
 
-        if (_recentURLs.count >= 100)
-            [_recentURLs removeLastObject];
-        [_recentURLs addObject:urlString];
-        if ([self ubiquitousKeyStoreAvailable]) {
-            [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
-        } else {
-            [[NSUserDefaults standardUserDefaults] setObject:_recentURLs forKey:kVLCRecentURLs];
+        if (url && url.scheme && url.host) {
+            if ([_recentURLs indexOfObject:urlString] != NSNotFound)
+                [_recentURLs removeObject:urlString];
+
+            if (_recentURLs.count >= 100)
+                [_recentURLs removeLastObject];
+            [_recentURLs addObject:urlString];
+            if ([self ubiquitousKeyStoreAvailable]) {
+                [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
+            } else {
+                [[NSUserDefaults standardUserDefaults] setObject:_recentURLs forKey:kVLCRecentURLs];
+            }
+
+            [self.historyTableView reloadData];
         }
-
-        [self.historyTableView reloadData];
     }
     [self.urlField resignFirstResponder];
     [self _openURLStringAndDismiss:self.urlField.text];
