@@ -55,7 +55,7 @@
 "BUTTON_DONE" = "Končano";
 "BUTTON_CANCEL" = "Prekliči";
 "BUTTON_SAVE" = "Shrani";
-"BUTTON_DOWNLOAD" = "Prejmi";
+"BUTTON_DOWNLOAD" = "Prenos";
 "BUTTON_DELETE" = "Izbriši";
 "BUTTON_OK" = "V redu";
 "BUTTON_CONTRIBUTE" = "Prispevaj";
@@ -82,19 +82,18 @@
 "OPEN_NETWORK_HELP" = "Z vnosom kateregakoli naslova HTTP, RTSP, RTMP, MMS, FTP ali UDP/RTP neposredno odprete pretok.";
 "HTTP_UPLOAD_SERVER_OFF" = "Nedejaven strežnik";
 "HTTP_UPLOAD_NO_CONNECTIVITY" = "Ni dejavne povezave WiFi";
-"OPEN_STREAM_OR_DOWNLOAD" = "Ali želite prejeti ali predvajati vsebino na naslovu URL?";
+"OPEN_STREAM_OR_DOWNLOAD" = "Ali želite spletno vsebino prenesti ali predvajati?";
 "SHARED_VLC_IOS_LIBRARY" = "Knjižnica VLC za iOS v souporabi";
 "SMB_CIFS_FILE_SERVERS" = "Datotečni strežniki (SMB)";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
-"HTTP_DOWNLOAD_CANCELLED" = "Prejem je uporabniško preklican";
+"HTTP_DOWNLOAD_CANCELLED" = "Uporabnik je prekinil prenos";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Vnesite naslov za prejem datoteke na %@.";
-"DOWNLOAD_FROM_HTTP" = "Prejemi";
+"DOWNLOAD_FROM_HTTP" = "Prenosi";
 "ERROR_NUMBER" = "Prišlo je do napake %i";
-"DOWNLOAD_FAILED" = "Prejem je spodletel";
+"DOWNLOAD_FAILED" = "Prenos je spodletel";
 "FILE_NOT_SUPPORTED" = "Zapis datoteke ni podprt";
 "FILE_NOT_SUPPORTED_LONG" = "Format datoteke, ki ga uporablja %@ ni podprt za to različico VLC za iOS.";
 "SCHEME_NOT_SUPPORTED" = "Naslovni prostor ni podprt";
@@ -109,7 +108,7 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Programa, ki bi odprl to vrsto datoteke, ni mogoče najti";
 "SHARING_SUCCESS_CAMERA_ROLL" = "Datoteka je bila uspešno shranjena v Camera Roll";
 
-"STREAMVC_DETAILTEXT" = "Predvajaj pretoke neposredno brez prenosa";
+"STREAMVC_DETAILTEXT" = "Predvajaj pretoke neposredno brez prenašanja";
 "DOWNLOADVC_DETAILTEXT" = "Prenesite datoteke v vašo napravo";
 "HEADER_TITLE_RENDERER" = "Izberite napravo za predvajanje";
 
@@ -136,14 +135,14 @@
 "LOGGED_IN_SERVICES" = "Prijavljen v %d storitev";
 "LOGGED_IN_SERVICE" = "Prijavljen v eno storitev";
 
-"DROPBOX_DOWNLOAD" = "Ali želite prejeti datoteko?";
-"DROPBOX_DL_LONG" = "Ali želite prejeti \"%@\" na %@?";
+"DROPBOX_DOWNLOAD" = "Ali želite prensti datoteko?";
+"DROPBOX_DL_LONG" = "Ali želite prenesti \"%@\" na %@?";
 "DROPBOX_LOGIN" = "Prijava";
 
 "GDRIVE_ERROR_FETCHING_FILES" = "Napaka med pridobivanjem datotek";
-"GDRIVE_DOWNLOAD_SUCCESSFUL" = "Datoteka je bila uspešno prejeta";
+"GDRIVE_DOWNLOAD_SUCCESSFUL" = "Datoteka je bila uspešno prenesena";
 "GDRIVE_DOWNLOAD_SUCCESSFUL_TITLE" = "USPEH";
-"GDRIVE_ERROR_DOWNLOADING_FILE" = "Pri prejemu je prišlo do napake";
+"GDRIVE_ERROR_DOWNLOADING_FILE" = "Pri prenosu je prišlo do napake";
 "GDRIVE_ERROR_DOWNLOADING_FILE_TITLE" = "NAPAKA";
 
 "ONEDRIVE_MEDIA_WITHOUT_URL" = "Izbrana vsebina nima url naslova primernega za predvajanje";
@@ -154,22 +153,14 @@
 "NUM_OF_FILES" = "%i datotek";
 "ONE_FILE" = "1 datoteka";
 "NO_FILES" = "Ni podprtih datotek";
-"DOWNLOADING" = "Poteka prejemanje ...";
+"DOWNLOADING" = "Poteka prenos...";
 "REMAINING_TIME" = "Preostali čas: %@";
 "BIOMETRIC_UNLOCK" = "Odkleni knižnjico predstavnih vsebin\nPrekini za vnos gesla";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d neuspelih poskusov vnosa gesla";
-"1 Failed Passcode Attempt" = "En neuspel poskus vnosa gesla";
-"Change Passcode" = "Sprememba gesla";
 "Enter Passcode" = "Vnesite geslo";
 "Enter a passcode" = "Vnos gesla";
-"Enter your new passcode" = "Vnesite novo geslo";
-"Enter your old passcode" = "Vnesite staro geslo";
-"Enter your passcode" = "Vnesite geslo";
-"Next" = "Naslednje";
 "Passcodes did not match. Try again." = "Gesli se ne ujemata. Poskusite znova.";
-"Re-enter your new passcode" = "Ponovno vnesite novo geslo";
 "Re-enter your passcode" = "Ponovni vnos gesla";
 "Set Passcode" = "Določite geslo";
 
@@ -178,7 +169,7 @@
 "OFF" = "Izklopljeno";
 
 "EMPTY_LIBRARY" = "Knjižnica predstavnih vsebin je prazna";
-"EMPTY_LIBRARY_LONG" = "Predstavne vsebine je za predvajanje mogoče pretakati s strežnika v lokalnem omrežju, z oblaka ali jih sinhronizirati na vašo napravo s pomočjo ITunes, brezžičnega prenosa ali oblačnih storitev.";
+"EMPTY_LIBRARY_LONG" = "Predstavne vsebine je za predvajanje mogoče pretakati z lokalnega strežnika, z oblaka ali jih sinhronizirati z napravo preko ITunes, brezžičnega prenosa ali oblačnih storitev.";
 
 "EMPTY_NO_PLAYLISTS" = "Seznami predvajanja";
 "EMPTY_NO_PLAYLISTS_DESCRIPTION" = "Za ustvarjanje seznamov predvajanja pojdite v način urejanja na zavihkih z video in zvočno vsebino ter izberite svoje najljubše vsebine.\nLahko tudi sinhronizirate obstoječe sezname predvajanja iz drugih naprav ali s spleta.";
@@ -223,7 +214,7 @@
 "FIRST_STEPS_WIFI_DETAILS" = "Vnesite ustvarjeni URL v spletni brskalnik, ki se nahaja v istem omrežju kot telefon.";
 "FIRST_STEPS_CLOUDS" = "Oblaki";
 "FIRST_STEPS_CLOUD_TITLE" = "Oblak";
-"FIRST_STEPS_CLOUD_DETAILS" = "Naložite svoje predstavne vsebine na oblačno storitev, kot sta Google Drive ali Dropbox, za oddaljeno pretakanje ali prenos.";
+"FIRST_STEPS_CLOUD_DETAILS" = "Naložite svoje predstavne vsebine na oblačno storitev, kot sta Google Drive ali Dropbox, za oddaljeno pretakanje ali prenašanje.";
 
 
 "PLEX_CHECK_ACCOUNT" = "V nastavitvah preverite račun Plex";
@@ -239,7 +230,7 @@
 "WEBINTF_TITLE" = "Souporaba preko brezžičnega omrežja";
 "WEBINTF_DROPFILES" = "Spusti datoteke";
 "WEBINTF_DROPFILES_LONG" = "Spustite datoteke v okno, da jih dodate na napravo %@.<br>Lahko tudi kliknete gumb \"+\", da uporabite izbirnik datotek.";
-"WEBINTF_DOWNLOADFILES" = "Prejmi datoteke";
+"WEBINTF_DOWNLOADFILES" = "Prenesi datoteke";
 "WEBINTF_DOWNLOADFILES_LONG" = "Samo kliknite datoteko, ki jo želite prenesti z naprave %@.";
 "WEBINTF_ADDRESS_COPIED" = "Naslov je kopiran v odložišče";
 "WEBINTF_TITLE_ATV" = "Oddaljeno predvajanje";
@@ -270,7 +261,7 @@
 "HTTP_SERVER_OFF" = "Omogoči oddaljeno predvajanje";
 "CACHED_MEDIA" = "Predpomnjena vsebina";
 "CACHED_MEDIA_LONG" = "Tukaj prikazane vsebine so shranjene lokalno na vašem Apple TV. Upoštevajte, da lahko operacijski sistem, kadar VLC ni zagnan, odstrani vsebine brez vnaprejšnjega opozorila, ko napravi zmanjka prostora za shranjevanje.";
-"DOWNLOAD_SUBS_FROM_OSO" = "Prejmi podnapise z OpenSubtitles.org ...";
+"DOWNLOAD_SUBS_FROM_OSO" = "Prenesi podnapise z OpenSubtitles.org ...";
 "FOUND_SUBS" = "Najdeni podnapisi";
 "NO_SUB_FOUND_OSO" = "Za vsebino \"%@\" ni bilo najdenih posnapisov.";
 "USE_SPDIF" = "Uporabi prehod (S/PDIF)";
@@ -281,6 +272,7 @@
 "REPEAT_SINGLE" = "Enkrat";
 "REPEAT_FOLDER" = "Mapa";
 "SHUFFLE" = "Premešaj";
+"SHUFFLE_DISABLED" = "Premešanje izključeno";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Ponastavi seznam";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Trajno ponastavi seznam nedavno predvajanih omrežnih pretokov.";
@@ -344,6 +336,9 @@
 "BUTTON_EDIT" = "Uredi";
 "BUTTON_EDIT_HINT" = "Način urejanja";
 
+"BUTTON_SELECT" = "Izberi";
+"BUTTON_SELECT_HINT" = "Izberite gumb";
+
 "BUTTON_SELECT_ALL" = "Izberi vse";
 "BUTTON_SELECT_ALL_HINT" = "Izbere vse predmete, ki so v tem prikazu";
 
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "padajoče";
 "DESCENDING_SWITCH_LABEL" = "naraščajoče ali padajoče";
 "DESCENDING_SWITCH_HINT" = "Sortiraj kontekst naraščajoče ali padajoče";
-"GRID_LAYOUT" = "Postavitev mreže";
+"GRID_LAYOUT" = "Mreža";
+"LIST_LAYOUT" = "Seznam";
+"HIDE_FEAT_ARTISTS" = "Skrij gostujoče izvajalce";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Število skladb";
 "NB_MEDIA" = "Število vsebin";
 "NB_VIDEO" = "Število videov";
+"NB_ALBUM" = "Število albumov";
+"LAST_PLAYBACK_DATE" = "Datum zadnjega predvajanja";
+"TRACK_ID" = "ID vsebine";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Neznan izvajalec";
 "VARIOUS_ARTIST" = "Različni izvajalci";
 "UNKNOWN_ALBUM" = "Neznan album";
+"SINGLE_ITEM_SELECTED" = "izbran element";
+"MULTIPLE_ITEMS_SELECTED" = "izbranih elementov";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Izravnalnik";
 "MORE_OPTIONS_HEADER_TITLE" = "Možnosti videa";
+"BOOKMARKS_TITLE" = "Zaznamki";
+"ADD_BOOKMARKS_TITLE" = "Dodaj zaznamke";
+"BOOKMARK_DEFAULT_NAME" = "Zaznamek pri";
+"BOOKMARK_RENAME_TITLE" = "Preimenuj zaznamek";
+"BOOKMARK_DELETE_TITLE" = "Izbriši zaznamke";
+"BOOKMARK_DELETE_MESSAGE" = "Potrdite brisanje zaznamka";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Prisili ponoven pregled knjižnice predstavnih vsebin";
