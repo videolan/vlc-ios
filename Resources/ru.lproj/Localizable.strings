@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Разделяемая библиотека VLC для iOS";
 "SMB_CIFS_FILE_SERVERS" = "Файловые серверы (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 файл";
 "NO_FILES" = "Нет поддерживаемых файлов";
 "DOWNLOADING" = "Загрузка...";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Осталось: %@";
 "BIOMETRIC_UNLOCK" = "Разблокирование медиатеки\nОтмена позволяет ввести защитный код";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Далее";
 "PREV_BUTTON" = "Назад";
 "PLAY_ALL_BUTTON" = "Воспроизвести всё";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Вы хотите сбросить видеофильтры?";
 "RESET_PLAYBACK_SPEED" = "Вы хотите сбросить скорость воспроизведения?";
@@ -272,7 +276,7 @@
 "REPEAT_SINGLE" = "Один раз";
 "REPEAT_FOLDER" = "Папка";
 "SHUFFLE" = "Перемешивать";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE_DISABLED" = "Не перемешивать";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "Сбросить список";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Необратимо очистить список недавно воспроизводимых сетевых потоков.";
@@ -333,11 +337,14 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Изменить";
 "BUTTON_EDIT_HINT" = "Режим изменения";
 
-"BUTTON_SELECT" = "Select";
-"BUTTON_SELECT_HINT" = "Select button";
+"BUTTON_SELECT" = "Выбрать";
+"BUTTON_SELECT_HINT" = "Кнопка Выбрать";
 
 "BUTTON_SELECT_ALL" = "Выбрать всё";
 "BUTTON_SELECT_ALL_HINT" = "Выбрать все медиобъекты, представленные здесь";
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Количество видео";
 "NB_ALBUM" = "Количество альбомов";
 "LAST_PLAYBACK_DATE" = "Дата последнего воспроизведения";
+"TRACK_ID" = "Дорожка";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -400,8 +408,8 @@
 "UNKNOWN_ARTIST" = "Неизвестный исполнитель";
 "VARIOUS_ARTIST" = "Разные исполнители";
 "UNKNOWN_ALBUM" = "Неизвестный альбом";
-"SINGLE_ITEM_SELECTED" = "item selected";
-"MULTIPLE_ITEMS_SELECTED" = "items selected";
+"SINGLE_ITEM_SELECTED" = "выбрано";
+"MULTIPLE_ITEMS_SELECTED" = "выбрано";
 
 // MARK: - VideoPlayerControls
 
