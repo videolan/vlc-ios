@@ -112,13 +112,15 @@
 "SETTINGS_FORCE_SMBV1" = "Предпочитать SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Снимите этот флажок, если вы испытываете трудности при обращении к серверу SMB";
 "SETTINGS_RTSP_TCP" = "Использовать RTP поверх RTSP (TCP)";
-"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
+"SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "URL списка каналов SAT>IP";
 
 "SETTINGS_ARTWORK" = "Обложка";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Загрузить обложку";
 
 "SETTINGS_LAB" = "Лаборатория";
-"SETTINGS_DEBUG_LOG" = "Save Debug Logs on device";
-"SETTINGS_EXPORT_LIBRARY" = "Dump media library";
+"SETTINGS_DEBUG_LOG" = "Сохранять журналы отладки в устройстве";
+"SETTINGS_EXPORT_LIBRARY" = "Выгрузить медиатеку";
 
 "ABOUT_APP_TV" = "О программе VLC для tvOS";
+
+"SETTINGS_REMEMBER_PLAYER_STATE" = "Запоминать состояние плеера (перемешивание, зацикливание)";

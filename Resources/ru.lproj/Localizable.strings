@@ -1,6 +1,6 @@
-"STORE_DESCRIPTION" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, playback speed control and rendering through Chromecast.\n\nVLC is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC — это свободный кроссплатформенный медиаплеер с открытым исходным кодом.\nОн может воспроизводить все ваши фильмы, сериалы и музыку во многих форматах без конвертирования.\nПоддерживается воспроизведение файлов с Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, напрямую по ссылке, через общий Wi-Fi, а также трансляция файлов с SMB, FTP, SFTP, NFS, медиасерверов UPnP/DLNA и Интернета.\nVLC поддерживает расширенные форматы субтитров (в частности обеспечивается полная совместимость с SSA), позволяет выбирать аудиодорожки, менять скорость воспроизведения и воспроизводить медиа через Chromecast.\n\nVLC полностью бесплатен и его исходный код открыт.";
 
-"STORE_DESCRIPTION_TV" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC is completely free and open source.\n\nArtwork is provided by TMDb, which is a community maintained movie database.";
+"STORE_DESCRIPTION_TV" = "VLC — это свободный кроссплатформенный медиаплеер с открытым исходным кодом.\nОн может воспроизводить все ваши фильмы, сериалы и музыку во многих форматах без конвертирования.\nПоддерживается удалённое воспроизведение с вашего Mac или PC через веб-интерфейс, а также трансляция файлов с SMB, FTP, SFTP, NFS, медиасерверов UPnP/DLNA и с Интернета.\nVLC поддерживает расширенные форматы субтитров (в частности обеспечивается полная совместимость с SSA), позволяет выбирать аудиодорожки и менять скорость воспроизведения.\n\nVLC полностью бесплатен и его исходный код открыт.\n\nОбложки загружаются из TMDb — поддерживаемой сообществом базы фильмов.";
 
 "UNKNOWN_TRACK_TYPE" = "Неизвестный тип дорожки";
 "CHOOSE_TITLE" = "Выберите произведение";
@@ -72,8 +72,8 @@
 
 "BUTTON_RENDERER" = "Передающие устройства";
 "BUTTON_RENDERER_HINT" = "Показать меню доступных передающих устройств";
-"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
-"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
+"BUTTON_AIRPLAY" = "AirPlay или Bluetooth";
+"BUTTON_AIRPLAY_HINT" = "Показать список доступных устройств AirPlay или Bluetooth";
 
 "UPGRADING_LIBRARY" = "Обновление медиатеки";
 
@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Загрузка отменена";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Введите адрес, чтобы загрузить файл на ваш %@.";
 "DOWNLOAD_FROM_HTTP" = "Загрузки";
 "ERROR_NUMBER" = "Произошла ошибка %i";
 "DOWNLOAD_FAILED" = "Ошибка загрузки";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Разблокирование медиатеки\nОтмена позволяет ввести защитный код";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "Ошибок ввода кода доступа: %d ";
-"1 Failed Passcode Attempt" = "1 ошибка ввода кода доступа";
-"Change Passcode" = "Изменить код доступа";
 "Enter Passcode" = "Введите код доступа";
 "Enter a passcode" = "Ввести код доступа";
-"Enter your new passcode" = "Введите новый код доступа";
-"Enter your old passcode" = "Введите прежний код доступа";
-"Enter your passcode" = "Введите свой код доступа";
-"Next" = "Следующий";
 "Passcodes did not match. Try again." = "Коды доступа не совпадают. Попробуйте снова.";
-"Re-enter your new passcode" = "Еще раз введите новый код доступа";
 "Re-enter your passcode" = "Еще раз введите код доступа";
 "Set Passcode" = "Задать код доступа";
 
@@ -186,7 +177,7 @@
 "EMPTY_PLAYLIST" = "Пустой плейлист";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Добавить медиа во время редактирования в соответствующих категориях.";
 
-"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
+"PLAYBACK_SCRUB_HELP" = "Чтобы изменить скорость перемотки, проведите пальцем вверх.";
 "PLAYBACK_SCRUB_HIGH" = "Скорость перемотки: 1";
 "PLAYBACK_SCRUB_HALF" = "Скорость перемотки: 1/2";
 "PLAYBACK_SCRUB_QUARTER" = "Скорость перемотки: 1/4";
@@ -241,7 +232,7 @@
 "WEBINTF_DROPFILES_LONG" = "Перенесите файлы в окно, чтобы добавить их в %@.<br>Также вы можете нажать кнопку «+» и воспользоваться диалогом выбора файла.";
 "WEBINTF_DOWNLOADFILES" = "Загрузка файлов";
 "WEBINTF_DOWNLOADFILES_LONG" = "Просто щёлкните файл, который вы хотите скачать с %@.";
-"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
+"WEBINTF_ADDRESS_COPIED" = "Адрес скопирован в буфер обмена";
 "WEBINTF_TITLE_ATV" = "Удаленное воспроизведение";
 "WEBINTF_DROPFILES_LONG_ATV" = "Перенесите файлы в окно, чтобы добавить их в %@<br>Также вы можете нажать кнопку «+» и воспользоваться диалогом выбора файла.";
 "WEBINTF_URL_SENT" = "URL успешно отослан.";
@@ -281,9 +272,10 @@
 "REPEAT_SINGLE" = "Один раз";
 "REPEAT_FOLDER" = "Папка";
 "SHUFFLE" = "Перемешивать";
+"SHUFFLE_DISABLED" = "Не перемешивать";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Сбросить список";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Необратимо очистить список недавно воспроизводимых сетевых потоков.";
 
 // MARK: - Local Network Service Names
 "UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
@@ -344,8 +336,11 @@
 "BUTTON_EDIT" = "Изменить";
 "BUTTON_EDIT_HINT" = "Режим изменения";
 
-"BUTTON_SELECT_ALL" = "Select all";
-"BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
+"BUTTON_SELECT" = "Выбрать";
+"BUTTON_SELECT_HINT" = "Кнопка Выбрать";
+
+"BUTTON_SELECT_ALL" = "Выбрать всё";
+"BUTTON_SELECT_ALL_HINT" = "Выбрать все медиобъекты, представленные здесь";
 
 "ADD_TO_PLAYLIST" = "Добавить в плейлист";
 "ADD_TO_PLAYLIST_HINT" = "Открыть меню добавления в плейлист";
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "По убыванию";
 "DESCENDING_SWITCH_LABEL" = "По возрастанию или по убыванию";
 "DESCENDING_SWITCH_HINT" = "Отсортировать контекст по возрастанию или по убыванию";
-"GRID_LAYOUT" = "В виде сетки";
+"GRID_LAYOUT" = "Сетка";
+"LIST_LAYOUT" = "Список";
+"HIDE_FEAT_ARTISTS" = "Скрыть пригл. исполнителей";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Количество аудио";
 "NB_MEDIA" = "Количество медиа";
 "NB_VIDEO" = "Количество видео";
+"NB_ALBUM" = "Количество альбомов";
+"LAST_PLAYBACK_DATE" = "Дата последнего воспроизведения";
+"TRACK_ID" = "Дорожка";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Неизвестный исполнитель";
 "VARIOUS_ARTIST" = "Разные исполнители";
 "UNKNOWN_ALBUM" = "Неизвестный альбом";
+"SINGLE_ITEM_SELECTED" = "выбрано";
+"MULTIPLE_ITEMS_SELECTED" = "выбрано";
 
 // MARK: - VideoPlayerControls
 
@@ -424,7 +426,7 @@
 "PLAY_PAUSE_BUTTON" = "Воспроизвести или приостановить";
 "PLAY_PAUSE_HINT" = "Воспроизвести или приостановить текущее воспроизведение ";
 
-"STOP_BUTTON" = "Stop";
+"STOP_BUTTON" = "Стоп";
 
 "NEXT_HINT" = "Следующее";
 
@@ -441,12 +443,18 @@
 "MORE_OPTIONS_BUTTON" = "Ещё";
 "MORE_OPTIONS_HINT" = "Показать больше элементов управления";
 
-"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Subtitles unsupported";
-"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Subtitles are not yet supported while casting.";
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Субтитры не поддерживаются";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Субтитры не поддерживаются во время трансляции.";
 
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Эквалайзер";
 "MORE_OPTIONS_HEADER_TITLE" = "Параметры видео";
+"BOOKMARKS_TITLE" = "Закладки";
+"ADD_BOOKMARKS_TITLE" = "Добавление закладок";
+"BOOKMARK_DEFAULT_NAME" = "Закладка в";
+"BOOKMARK_RENAME_TITLE" = "Переименование закладки";
+"BOOKMARK_DELETE_TITLE" = "Удаление закладки";
+"BOOKMARK_DELETE_MESSAGE" = "Подтвердите удаление закладки";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Пересканировать медиатеку";
@@ -491,13 +499,13 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Выразить благодарность";
-"MAKE_DONATION_TITLE" = "Make a donation";
-"DONATION_DESCRIPTION" = "Your sponsorship will allow us to improve the VLC-iOS app and support the VideoLAN association.";
+"MAKE_DONATION_TITLE" = "Сделать пожертвование";
+"DONATION_DESCRIPTION" = "Ваша финансовая поддержка поможет нам улучшать приложение VLC-iOS и поддерживать организацию VideoLAN.";
 "CANNOT_MAKE_PAYMENTS" = "Вам не разрешено совершать покупки на этом устройстве.";
-"PURCHASE_FAILED" = "Purchase Failed.";
-"SEND_DONATION" = "Send your donation";
-"PURCHASE_SUCESS_TITLE" = "Donation sent";
-"PURCHASE_SUCESS_DESCRIPTION" = "Thank you for your donation!";
+"PURCHASE_FAILED" = "Произвести оплату не удалось.";
+"SEND_DONATION" = "Отправить пожертвование";
+"PURCHASE_SUCESS_TITLE" = "Пожертвование отправлено";
+"PURCHASE_SUCESS_DESCRIPTION" = "Спасибо за вашу поддержку!";
 
 // MARK: - QueueViewController
 
@@ -519,25 +527,25 @@
 "VOLUME_SLIDER" = "Проведите вертикально для изменения уровня громкости";
 
 // MARK: - AudioMiniPlayer playback controls menu
-"MENU_PLAYBACK_CONTROLS" = "Playback controls";
-"MENU_REPEAT_DISABLED" = "Do not repeat";
-"MENU_REPEAT_SINGLE" = "Repeat one";
-"MENU_REPEAT_ALL" = "Repeat all";
+"MENU_PLAYBACK_CONTROLS" = "Управление воспроизведением";
+"MENU_REPEAT_DISABLED" = "Не повторять";
+"MENU_REPEAT_SINGLE" = "Повторять одно";
+"MENU_REPEAT_ALL" = "Повторять всё";
 
 // MARK: - ActionSheet
 
-"ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
-"ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
+"ACTIONSHEET_BACKGROUND_LABEL" = "Фон с листом действий";
+"ACTIONSHEET_BACKGROUND_HINT" = "Коснитесь, чтобы убрать лист действий.";
 
 // MARK: - Playback keyboard shortcuts
 
-"KEY_JUMP_BACKWARDS" = "Jump backwards";
-"KEY_JUMP_FORWARDS" = "Jump forwards";
-"KEY_INCREASE_PLAYBACK_SPEED" = "Increase playback speed";
-"KEY_DECREASE_PLAYBACK_SPEED" = "Decrease playback speed";
-"KEY_RESET_PLAYBACK_SPEED" = "Reset playback speed";
+"KEY_JUMP_BACKWARDS" = "Перемотать назад";
+"KEY_JUMP_FORWARDS" = "Перемотать вперёд";
+"KEY_INCREASE_PLAYBACK_SPEED" = "Увеличить скорость воспроизведения";
+"KEY_DECREASE_PLAYBACK_SPEED" = "Уменьшить скорость воспроизведения";
+"KEY_RESET_PLAYBACK_SPEED" = "Сбросить скорость воспроизведения";
 
 // MARK: - TitleSelection
 
-"TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
-"TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+"TITLESELECTION_BACKGROUND_LABEL" = "Фон с выбором произведения";
+"TITLESELECTION_BACKGROUND_HINT" = "Коснитесь, чтобы убрать этот фон.";
