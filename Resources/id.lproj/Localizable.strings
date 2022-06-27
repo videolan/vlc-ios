@@ -1,6 +1,6 @@
-"STORE_DESCRIPTION" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, playback speed control and rendering through Chromecast.\n\nVLC is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC merupakan pemutar multimedia lintas platform yang gratis dan open source.\nVLC bisa memutar seluruh film, acara dan musik Anda di sebagian besar format secara langsung tanpa konversi.\nVLC memberikan kemampuan sinkronisasi file dengan Dropbox, GDrive, OneDrive, Box, ICloud Drive, iTunes, unduhan langsung dan melalui Wi-Fi sharing demikian juga streaming dari SMB, FTP, SFTP, NFS, UPnP/DLNA server media dan web.\nVLC menawarkan dukungan untuk takarir lanjutan termasuk kompabilitas penuh SSA, audio multi-track, kontrol kecepatan playback dan rendering melalui Chromecast.\n\nVLC sepenuhnya gratis dan open source. ";
 
-"STORE_DESCRIPTION_TV" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC is completely free and open source.\n\nArtwork is provided by TMDb, which is a community maintained movie database.";
+"STORE_DESCRIPTION_TV" = "VLC merupakan pemutar multimedia lintas platform yang gratis dan open source.\nVLC bisa memutar seluruh film, acara dan musik Anda di sebagian besar format secara langsung tanpa konversi.\nVLC memberikan kemampuan sinkronisasi file dengan Dropbox, GDrive, OneDrive, Box, ICloud Drive, iTunes, unduhan langsung dan melalui Wi-Fi sharing demikian juga streaming dari SMB, FTP, SFTP, NFS, UPnP/DLNA server media dan web.\nVLC menawarkan dukungan untuk takarir lanjutan termasuk kompabilitas penuh SSA, audio multi-track, kontrol kecepatan playback dan rendering melalui Chromecast.\n\nVLC sepenuhnya gratis dan open source. \n\nKarya seni disediakan oleh TMDb, yang merupakan database film yang dipelihara oleh komunitas.";
 
 "UNKNOWN_TRACK_TYPE" = "Tipe trek tidak diketahui";
 "CHOOSE_TITLE" = "Pilih Judul";
@@ -73,7 +73,7 @@
 "BUTTON_RENDERER" = "Perangkat Casting";
 "BUTTON_RENDERER_HINT" = "Perlihatkan menu dari perangkat yang tersedia";
 "BUTTON_AIRPLAY" = "AirPlay atau Bluetooth";
-"BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
+"BUTTON_AIRPLAY_HINT" = "Tampilkan sebuah menu dari perangkat AirPlay atau Bluertooth yang tersedia";
 
 "UPGRADING_LIBRARY" = "Pembaruan Pustaka Media";
 
@@ -91,7 +91,6 @@
 
 "HTTP_DOWNLOAD_CANCELLED" = "Pengunduhan dibatalkan oleh pengguna";
 
-"DOWNLOAD_FROM_HTTP_HELP" = "Masukkan alamat untuk mengunduh berkas ke %@ anda.";
 "DOWNLOAD_FROM_HTTP" = "Unduhan";
 "ERROR_NUMBER" = "Terjadi kesalahan %i";
 "DOWNLOAD_FAILED" = "Pengunduhan gagal";
@@ -159,17 +158,9 @@
 "BIOMETRIC_UNLOCK" = "Buka Library Media\nBatalkan untuk memasukkan Kode sandi";
 
 //PAPasscode Strings that we need to localize for them
-"%d Failed Passcode Attempts" = "%d Percobaan Kata sandi gagal";
-"1 Failed Passcode Attempt" = "1 Percobaan Kata sandi gagal";
-"Change Passcode" = "Masukan kode pass";
 "Enter Passcode" = "Masukkan Kata sandi";
 "Enter a passcode" = "Masukkan Kata sandi";
-"Enter your new passcode" = "Masukkan Kata sandi Anda yang baru";
-"Enter your old passcode" = "Masukkan Kata sandi Anda yang dulu";
-"Enter your passcode" = "Masukkan Kata sandi Anda";
-"Next" = "Selanjutnya";
 "Passcodes did not match. Try again." = "Kata sandi tidak cocok. Coba lagi.";
-"Re-enter your new passcode" = "Masukkan ulang Kata sandi baru Anda";
 "Re-enter your passcode" = "Masukkan ulang Kata sandi Anda";
 "Set Passcode" = "Pasang Kata sandi";
 
@@ -186,7 +177,7 @@
 "EMPTY_PLAYLIST" = "Daftar putar kosong";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Tambahkan media saat menyunting masing-masing kategori.";
 
-"PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
+"PLAYBACK_SCRUB_HELP" = "Geser jari Anda ke atas untuk mengatur laju scrubbing.";
 "PLAYBACK_SCRUB_HIGH" = "Penyusuran Sangat Cepat";
 "PLAYBACK_SCRUB_HALF" = "Penyusuran Agak Cepat";
 "PLAYBACK_SCRUB_QUARTER" = "Penyusuran Kurang Cepat";
@@ -241,15 +232,15 @@
 "WEBINTF_DROPFILES_LONG" = "Jatuhkan berkas di jendela untuk menambahkannya ke %@ anda.<br>Atau klik tombol \"+\" untuk menggunakan penyomot berkas.";
 "WEBINTF_DOWNLOADFILES" = "Berkas Unduhan";
 "WEBINTF_DOWNLOADFILES_LONG" = "Klik saja berkas yang ingin anda unduh dari %@ anda.";
-"WEBINTF_ADDRESS_COPIED" = "Address copied to clipboard";
+"WEBINTF_ADDRESS_COPIED" = "Alamat disalin ke papan klip";
 "WEBINTF_TITLE_ATV" = "Remote Playback";
 "WEBINTF_DROPFILES_LONG_ATV" = "Jatuhkan file pada jendela untuk memutarnya pada %@ Anda. <br> Atau klik pada tombol \"+\" untuk menggunakan dialog pemilih file.";
 "WEBINTF_URL_SENT" = "URL berhasil dikirim.";
 "WEBINTF_URL_EMPTY" = "URL tidak boleh kosong.";
 "WEBINTF_URL_INVALID" = "Bukan URL yang valid.";
-"WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
-"WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
-"WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
+"WEBINTF_AUTH_REQUIRED" = "Mohon untuk memasukkan kode sandi yang Anda pasang di dalam VLC iOS:";
+"WEBINTF_AUTH_WRONG_PASSCODE" = "Kata sandi salah.<br> upaya tersisa:";
+"WEBINTF_AUTH_BANNED" = "Anda memasukkan terlalu banyak kata sandi salah.<br> Mohon untuk memulai ulang VLC iOS dan coba lagi.";
 
 
 
@@ -264,87 +255,91 @@
 
 // MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Info Audio";
-"CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
-"ENTER_URL" = "Enter URL to play";
-"HTTP_SERVER_ON" = "Disable Remote Playback";
-"HTTP_SERVER_OFF" = "Enable Remote Playback";
-"CACHED_MEDIA" = "Cached Media";
-"CACHED_MEDIA_LONG" = "Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running in case your device runs out of storage.";
+"CLOUD_LOGIN_LONG" = "Untuk mengakses layanan Cloud, masuk ke iCloud pada kedua Apple TV ini dan sebuah perangkat iOS dengan Apple ID yang sama dan aktifkan Keychain Sharing di dalam pengaturan sistem.\nSetelah itu, masuk pada penyedia cloud pilihan Anda menggunakan aplikasi VLC pada perangkat iOS Anda. Akhirnya, pilih pada layar ini.";
+"ENTER_URL" = "Masukkan URL untuk main";
+"HTTP_SERVER_ON" = "Matikan pemutaran secara remote";
+"HTTP_SERVER_OFF" = "Aktifkan Pemutaran secara Remote";
+"CACHED_MEDIA" = "Media di-cache";
+"CACHED_MEDIA_LONG" = "Media yang terlihat di sini disimpan secara lokal pada Apple TV Anda. Catat bahwa konten dapat dihapus oleh sistem operasi tanpa pemberitahuan terlebih dahulu setiap saat ketika VLC tidak sedang berjalan jikalau perangkat Anda kehabisan penyimpanan.";
 "DOWNLOAD_SUBS_FROM_OSO" = "Unduh terjemahan dari OpenSubtitles.org...";
-"FOUND_SUBS" = "Found subtitles";
-"NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
-"USE_SPDIF" = "Use Pass-through (S/PDIF)";
+"FOUND_SUBS" = "Temukan takarir";
+"NO_SUB_FOUND_OSO" = "Tidak ada takarir yang ditemukan untuk item media \"%@\" Anda.";
+"USE_SPDIF" = "Gunakan Pass-through (S/PDIF)";
 
-"PLAYBACK" = "Playback";
-"REPEAT_MODE" = "Repeat";
-"REPEAT_DISABLED" = "Disabled";
+"PLAYBACK" = "Pemutaran Ulang";
+"REPEAT_MODE" = "Ulang";
+"REPEAT_DISABLED" = "Nonaktif";
 "REPEAT_SINGLE" = "Single";
 "REPEAT_FOLDER" = "Folder";
-"SHUFFLE" = "Shuffle";
+"SHUFFLE" = "Acak";
+"SHUFFLE_DISABLED" = "Acak mati";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
-"RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "Daftar pengaturan ulang";
+"RESET_NETWORK_STREAM_LIST_TEXT" = "Atur ulang daftar stream jaringan yang baru-baru ini dimainkan.";
 
 // MARK: - Local Network Service Names
-"UPNP_LONG" = "Universal Plug'n'Play (UPnP)";
+"UPNP_LONG" = "Plug'n'Play Universal (UPnP)";
 "UPNP_SHORT" = "UPnP";
 
-"PLEX_LONG" = "Plex Media Server (via Bonjour)";
+"PLEX_LONG" = "Media Server Plex (lewat Bonjour)";
 "PLEX_SHORT" = "Plex";
 
 "FTP_SHORT" = "FTP";
 "SFTP_SHORT" = "SFTP";
 
-"NFS_LONG" = "Network File System (NFS)";
+"NFS_LONG" = "Sistem File Jaringan (NFS)";
 "NFS_SHORT" = "NFS";
 
-"BONJOUR_FILE_SERVERS" = "BONJOUR File Server";
-"DSM_WORKGROUP" = "Workgroup";
+"BONJOUR_FILE_SERVERS" = "File Server BONJOUR";
+"DSM_WORKGROUP" = "Grup kerja";
 
-"URL_NOT_SUPPORTED" = "The URL can't be opened";
+"URL_NOT_SUPPORTED" = "URL tidak dapat dibuka";
 
 // Insert %@ where play-pause-glyph should be placed
-"DELETE_ITEM_HINT" = "Press %@ to Delete"; /* Insert %@ where play-pause-glyph should be placed */
+"DELETE_ITEM_HINT" = "Tekan %@ untuk hapus"; /* Insert %@ where play-pause-glyph should be placed */
 
-"DELETE_MESSAGE" = "Confirm the deletion of the selection";
-"DELETE_MESSAGE_PLAYLIST" = "Are you sure to delete the selected playlist?\nAssociated media files won't be deleted.";
-"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Are you sure to remove the selected media from the playlist?\nThey won't be deleted from the disk.";
-"DELETE_TITLE" = "Delete Selection";
+"DELETE_MESSAGE" = "Konfirmasi penghapusan seleksi";
+"DELETE_MESSAGE_PLAYLIST" = "Apakah Anda yakin untuk menghapus daftar putar yang dipilih?\nFile media yang terasosiasi tidak akan dihapus.";
+"DELETE_MESSAGE_PLAYLIST_CONTENT" = "Apakah Anda yakin untuk menghapus media yang dipilih dari daftar putar?\nMereka tidak akan dihapus dari disk.";
+"DELETE_TITLE" = "Hapus Pilihan";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "This file";
-"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
-"FILE_EXISTS" = "%@ already exists";
+"THIS_FILE" = "File ini";
+"NOT_SUPPORTED_FILETYPE" = "%@ adalah filetype yang tidak didukung oleh VLC";
+"FILE_EXISTS" = "%@ sudah ada";
 
-"PROTOCOL_NOT_SELECTED" = "Protocol not selected";
+"PROTOCOL_NOT_SELECTED" = "Protokol tidak dipilih";
 "Settings" = "Pengaturan";
 
-"ERROR" = "Error";
+"ERROR" = "Eror";
 "OK" = "Ok";
-"SORT" = "Sort";
-"SORT_BY" = "Sort by";
-"SEARCH" = "Search";
+"SORT" = "Sortir";
+"SORT_BY" = "Sortir berdasarkan";
+"SEARCH" = "Cari";
 "VIDEO" = "Video";
 
 // MARK: - MediaViewController Swipable Header
-"ALBUMS" = "Albums";
-"ARTISTS" = "Artists";
-"EPISODES" = "Episodes";
+"ALBUMS" = "Album";
+"ARTISTS" = "Artis";
+"EPISODES" = "Episode";
 "GENRES" = "Genre";
-"ALL_VIDEOS" = "All videos";
-"SONGS" = "Songs";
-"PLAYLISTS" = "Playlists";
-"VIDEO_GROUPS" = "Video groups";
+"ALL_VIDEOS" = "Semua video";
+"SONGS" = "Lagu";
+"PLAYLISTS" = "Daftar putar";
+"VIDEO_GROUPS" = "Grup video";
 
-"MODIFIED_DATE" = "Modified date";
+"MODIFIED_DATE" = "Tanggal dimodifikasi";
 "NAME" = "Nama";
 
 // MARK: - EDIT
 
-"BUTTON_EDIT" = "Edit";
-"BUTTON_EDIT_HINT" = "Edit mode";
+"BUTTON_EDIT" = "Sunting";
+"BUTTON_EDIT_HINT" = "Mode sunting";
 
-"BUTTON_SELECT_ALL" = "Select all";
+"BUTTON_SELECT" = "Pilih";
+"BUTTON_SELECT_HINT" = "Pilih tombol";
+
+"BUTTON_SELECT_ALL" = "Pilih semua";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
 "ADD_TO_PLAYLIST" = "Add to Playlist";
@@ -373,7 +368,9 @@
 "DESCENDING_LABEL" = "Descending Order";
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
-"GRID_LAYOUT" = "Grid Layout";
+"GRID_LAYOUT" = "Grid";
+"LIST_LAYOUT" = "List";
+"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -391,6 +388,9 @@
 "NB_AUDIO" = "Number of audio";
 "NB_MEDIA" = "Number of media";
 "NB_VIDEO" = "Number of video";
+"NB_ALBUM" = "Number of albums";
+"LAST_PLAYBACK_DATE" = "Last playback date";
+"TRACK_ID" = "Track ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,6 +401,8 @@
 "UNKNOWN_ARTIST" = "Unknown Artist";
 "VARIOUS_ARTIST" = "Various Artists";
 "UNKNOWN_ALBUM" = "Unknown Album";
+"SINGLE_ITEM_SELECTED" = "item selected";
+"MULTIPLE_ITEMS_SELECTED" = "items selected";
 
 // MARK: - VideoPlayerControls
 
@@ -447,6 +449,12 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+"BOOKMARKS_TITLE" = "Bookmarks";
+"ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
+"BOOKMARK_DEFAULT_NAME" = "Bookmark at";
+"BOOKMARK_RENAME_TITLE" = "Rename bookmark";
+"BOOKMARK_DELETE_TITLE" = "Delete bookmark";
+"BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Force media library rescan";
