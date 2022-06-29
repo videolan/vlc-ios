@@ -1,5 +1,79 @@
 # Changelog
 
+## iOS [3.3.7]
+· layout improvements for playback subpanels
+· stability and speed improvements
+
+## tvOS [3.3.7]
+· stability and speed improvements
+
+## iOS [3.3.6]
+· fix minor regression from previous update
+
+## iOS [3.3.5]
+· add shuffle / repeat actions to the playback screen's more button
+· list recently downloaded media
+· fix playback of media larger than 2 GB on some SMB2 shares
+· fix crash when accessing SMB2 shares without a password set
+· minor performance and appearance improvements
+
+## tvOS [3.3.5]
+· fix playback of media larger than 2 GB on some SMB2 shares
+· fix crash when accessing SMB2 shares without a password set
+· minor performance and appearance improvements
+
+## iOS [3.3.4]
+· fix display of the Chinese (simplified) translation in Settings when in mainland China
+· fix default playback speed option
+· improve appearance of cloud sharing services
+· update SMB2 stack
+· fix subtitles storage for media imported from other apps or stored outside the app
+
+## tvOS [3.3.4]
+· fix playback from SMB when playing a singular file
+· add downloads from Apple TV using the web interface
+· update SMB2 stack
+
+## iOS [3.3.3]
+· allow delaying subtitles and audio up to 30s instead of 5s
+· fix integration with OpenSubtitles.org
+· fix opening certain streams from third party apps via x-callback-url
+· remember shuffle/loop states across playback sessions
+· various minor UI improvements
+
+## tvOS [3.3.3]
+· various minor UI improvements
+· fix integration with OpenSubtitles.org
+
+## iOS [3.3.2]
+· Fix colorspace handling error introduced in the last update
+
+## tvOS [3.3.2]
+· Fix colorspace handling error introduced in the last update
+
+## iOS [3.3.1]
+· Fix UPnP server browsing issue on IPv4/IPv6 dual stack networks
+· Improve SMB compatiblity
+· Fix frequent crashes when SMBv1 shares are discovered on the local network
+· Prevent automatic renaming of files downloaded from Dropbox
+· Fix display of 'Now Playing' metadata
+· Show individual UPnP server icons
+· Web interface preferably runs on IPv4 instead of IPv6 interfaces
+· Fix renaming stored network streams
+· Improve network stream opening UI for small devices
+· Fix issues listing downloable subtitles
+· Fix listing more than 200 items on OneDrive shares
+
+## tvOS [3.3.1]
+· Fix UPnP server browsing issue on IPv4/IPv6 dual stack networks
+· Improve SMB compatiblity
+· Fix frequent crashes when SMBv1 shares are discovered on the local network
+· Fix playback of URLs shared through the web interface
+· Fix playback of the first file received through the web interface
+· Web interface preferably runs on IPv4 instead of IPv6 interfaces
+· Add option to run the web interface on IPv6 interfaces
+· Show individual UPnP server icons
+
 ## iOS [3.3.0]
 
 · Add new video player interface
@@ -27,9 +101,12 @@
 · playback: allow up to 8x playback speed
 · video: modify white point adaptation mode on modern iOS devices
 · Add support for SAT>IP including custom channel lists
-· Clicking previous during playback now resets the playback position instead of directly going to the previous item in list
+· Clicking previous during playback now resets the playback position instead of directly going
+  to the previous item in list
 · Add Select-All feature to media library screens
 · Fix listing large number of media in Google Drive and Dropbox folders
+· Major UI speed improvements for older iOS devices
+· VLC still supports all devices running iOS 9.0 or later!
 
 ## tvOS [3.3.0]
 
@@ -40,13 +117,14 @@
 · Replace previous FTP integration with VLC's native support
   · this improves compatibility with servers using non-western text encodings
     and allows connections to servers with off-standard port configurations
-· Fix storing user credentials for network shares
+· Fix storing user credentials for network shares, notably SMB
 · Retain downloaded subtitles for locally stored media
 · Automatic video deinterlacing (by default)
 · Add rtsp-tcp option
 · Add support for spatial audio with AirPods Pro and Max
 · Add support for SAT>IP including custom channel lists
-· Clicking previous during playback now resets the playback position instead of directly going to the previous item in list
+· Clicking previous during playback now resets the playback position instead of directly going
+  to the previous item in list
 
 ## iOS [3.2.13]
 
