@@ -1,5 +1,13 @@
 # Changelog
 
+## iOS [3.4.0]
+· add views for artists, albums and episodes to the media library
+· add more options to sort the media library
+· add support for bookmarks
+· improve shuffle algorithm for playback
+· major update to internal event handling
+· performance improvements
+
 ## iOS [3.3.7]
 · layout improvements for playback subpanels
 · stability and speed improvements
