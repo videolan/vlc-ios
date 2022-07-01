@@ -49,4 +49,11 @@
     [self.progressLabel setFrame:CGRectMake(self.progressLabel.frame.origin.x, self.progressLabel.frame.origin.y, size.width, size.height)];
 }
 
+- (void)updateProgressLabel:(NSString *)mediaName
+{
+    [self.progressLabel setText:[NSString stringWithFormat:NSLocalizedString(@"DOWNLOADING_MEDIA", nil), mediaName]];
+    CGSize size = [self.progressLabel.text sizeWithAttributes:self.progressLabel.font.fontDescriptor.fontAttributes];
+    [self.progressLabel setFrame:CGRectMake(self.progressLabel.frame.origin.x, self.progressLabel.frame.origin.y, size.width, size.height)];
+}
+
 @end

@@ -211,6 +211,11 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     [_progressView updateTime:time];
 }
 
+-(void)updateProgressLabel:(NSString *)mediaName
+{
+    [_progressView updateProgressLabel:mediaName];
+}
+
 - (void)currentProgressInformation:(CGFloat)progress
 {
     [_progressView.progressBar setProgress:progress animated:YES];

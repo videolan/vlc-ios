@@ -22,6 +22,7 @@ typedef NS_ENUM (NSInteger, VLCCloudSortingCriteria) {
 - (void)operationWithProgressInformationStarted;
 - (void)currentProgressInformation:(CGFloat)progress;
 - (void)updateRemainingTime:(NSString *)time;
+- (void)updateProgressLabel:(NSString *)mediaName;
 - (void)operationWithProgressInformationStopped;
 - (void)numberOfFilesWaitingToBeDownloadedChanged;
 - (void)sessionWasUpdated;
