@@ -40,8 +40,6 @@
 #import "VLCWiFiUploadTableViewCell.h"
 
 #import "VLCBoxController.h"
-#import <OneDriveSDK.h>
-#import "VLCOneDriveConstants.h"
 #import "VLCDropboxConstants.h"
 
 #import "VLC-Swift.h"
@@ -287,9 +285,6 @@
 
     // Configure Dropbox
     [DBClientsManager setupWithAppKey:kVLCDropboxAppKey];
-
-    // Configure OneDrive
-    [ODClient setMicrosoftAccountAppId:kVLCOneDriveClientID scopes:@[@"onedrive.readwrite", @"offline_access"]];
 }
 
 - (void)boxSessionUpdated
