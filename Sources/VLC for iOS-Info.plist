@@ -242,6 +242,12 @@
 				<string>com.googleusercontent.apps.CLIENT</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>msauth.com.example.vlc-ios</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
@@ -253,6 +259,9 @@
 	<array>
 		<string>dbapi-2</string>
 		<string>dbapi-8-emm</string>
+		<string>msauth</string>
+		<string>msauthv2</string>
+		<string>msauthv3</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

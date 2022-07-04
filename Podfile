@@ -3,6 +3,7 @@ install! 'cocoapods', :deterministic_uuids => false
 inhibit_all_warnings!
 
 def shared_pods
+  use_modular_headers!
   pod 'XKKeychain', '~>1.0'
   pod 'box-ios-sdk-v2', :git => 'https://github.com/fkuehne/box-ios-sdk-v2.git', :commit => '08161e74' #has a our fixes
   pod 'CocoaHTTPServer', :git => 'https://github.com/fkuehne/CocoaHTTPServer.git' # has our fixes
@@ -30,6 +31,11 @@ target 'VLC-iOS' do
   target 'VLC-iOSTests' do
       inherit! :search_paths
   end
+
+  use_modular_headers!
+  pod 'MSGraphClientSDK'
+  pod 'MSGraphClientModels'
+  pod 'MSGraphMSALAuthProvider', :git => 'https://github.com/Mikanbu/msgraph-sdk-objc-auth'
 end
 
 target 'VLC-iOS-Screenshots' do
