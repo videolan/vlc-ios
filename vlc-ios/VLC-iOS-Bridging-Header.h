@@ -26,6 +26,7 @@
 #import "VLCMediaFileDiscoverer.h"
 #import "VLCMigrationViewController.h"
 #import "VLCCloudStorageTableViewController.h"
+#import "VLCCloudStorageTableViewCell.h"
 #import "VLCMetadata.h"
 #import "VLCPlayerDisplayController.h"
 #import "NSString+SupportedMedia.h"
