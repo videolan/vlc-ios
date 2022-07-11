@@ -369,6 +369,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
            model.mediaCollection is VLCMLAlbum {
             statusBarView.removeFromSuperview()
             view.addSubview(searchBar)
+            AppearanceManager.setupUserInterfaceStyle(theme: PresentationTheme.current)
         }
     }
 
@@ -493,6 +494,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
                 }
 
                 navigationItem.titleView?.isHidden = hideNavigationItemTitle
+                albumHeader.updateUserInterfaceStyle(isStatusBarVisible: !hideNavigationItemTitle)
             }
         }
     }

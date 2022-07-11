@@ -74,6 +74,7 @@ class AlbumHeader: UICollectionReusableView {
         setupPlayAllButton()
         setupShuffleButton()
         setupConstraints()
+        updateUserInterfaceStyle()
     }
 
     required init?(coder: NSCoder) {
@@ -91,7 +92,9 @@ class AlbumHeader: UICollectionReusableView {
 
     private func setupTitleLabel() {
         addSubview(titleLabel)
-        titleLabel.textColor = PresentationTheme.current.colors.cellTextColor
+        // The text color should be light colored in order to be visible on top of
+        // the image with the dark gradient.
+        titleLabel.textColor = PresentationTheme.darkTheme.colors.cellTextColor
         titleLabel.font = UIFont.preferredFont(forTextStyle: .title3).bolded
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -227,6 +230,15 @@ class AlbumHeader: UICollectionReusableView {
         parentView = parent
         removeConstraints(self.constraints)
         setupConstraints()
+    }
+
+    func updateUserInterfaceStyle(isStatusBarVisible: Bool = false) {
+        guard #available(iOS 13.0, *), !PresentationTheme.current.isDark else {
+            return
+        }
+
+        let currentTheme = !isStatusBarVisible ? PresentationTheme.darkTheme : PresentationTheme.current
+        AppearanceManager.setupUserInterfaceStyle(theme: currentTheme)
     }
 
     // MARK: - Actions
