@@ -111,8 +111,9 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     }
 
     func updateShuffleButton() {
+        let colors = PresentationTheme.current.colors
         shuffleButton.tintColor =
-            playbackController.isShuffleMode ? PresentationTheme.current.colors.orangeUI : .white
+        playbackController.isShuffleMode ? colors.orangeUI : colors.cellTextColor
     }
 }
 
@@ -493,11 +494,12 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
 
     private func generateContextMenu(_ suggestedActions: [UIMenuElement]) -> UIMenu? {
         var actions: [UIMenuElement] = []
+        let defaultButtonColor: UIColor = PresentationTheme.current.colors.cellTextColor
 
         if shuffleButton.isHidden {
             let shuffleState: UIMenuElement.State = playbackController.isShuffleMode ? .on : .off
-            let shuffleIconTint = shuffleButton.tintColor
-            let shuffleIcon = shuffleButton.image(for: .normal)?.withTintColor(shuffleIconTint ?? .white, renderingMode: .alwaysOriginal)
+            let shuffleIconTint: UIColor = shuffleButton.tintColor
+            let shuffleIcon = shuffleButton.image(for: .normal)?.withTintColor(shuffleIconTint, renderingMode: .alwaysOriginal)
             actions.append(
                 UIAction(title: shuffleButton.currentTitle ?? NSLocalizedString("SHUFFLE", comment: ""),
                          image: shuffleIcon, state: shuffleState) {
@@ -512,7 +514,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
             var repeatActions: [UIMenuElement] = []
 
             let noRepeatState: UIMenuElement.State = repeatMode == .doNotRepeat ? .on : .off
-            let noRepeatIconTint = repeatMode == .doNotRepeat ? PresentationTheme.current.colors.orangeUI : .white
+            let noRepeatIconTint = repeatMode == .doNotRepeat ? PresentationTheme.current.colors.orangeUI : defaultButtonColor
             let noRepeatIcon = UIImage(named: "iconNoRepeat")?.withTintColor(noRepeatIconTint, renderingMode: .alwaysOriginal)
             repeatActions.append(
                 UIAction(title: NSLocalizedString("MENU_REPEAT_DISABLED", comment: ""), image: noRepeatIcon, state: noRepeatState) {
@@ -523,7 +525,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
             )
 
             let repeatOneState: UIMenuElement.State = repeatMode == .repeatCurrentItem ? .on : .off
-            let repeatOneIconTint = repeatMode == .repeatCurrentItem ? PresentationTheme.current.colors.orangeUI : .white
+            let repeatOneIconTint = repeatMode == .repeatCurrentItem ? PresentationTheme.current.colors.orangeUI : defaultButtonColor
             let repeatOneIcon = UIImage(named: "iconRepeatOne")?.withTintColor(repeatOneIconTint, renderingMode: .alwaysOriginal)
             repeatActions.append(
                 UIAction(title: NSLocalizedString("MENU_REPEAT_SINGLE", comment: ""), image: repeatOneIcon, state: repeatOneState) {
@@ -534,7 +536,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
             )
 
             let repeatAllState: UIMenuElement.State = repeatMode == .repeatAllItems ? .on : .off
-            let repeatAllIconTint = repeatMode == .repeatAllItems ? PresentationTheme.current.colors.orangeUI : .white
+            let repeatAllIconTint = repeatMode == .repeatAllItems ? PresentationTheme.current.colors.orangeUI : defaultButtonColor
             let repeatAllIcon = UIImage(named: "iconRepeat")?.withTintColor(repeatAllIconTint, renderingMode: .alwaysOriginal)
             repeatActions.append(
                 UIAction(title: NSLocalizedString("MENU_REPEAT_ALL", comment: ""), image: repeatAllIcon, state: repeatAllState) {
@@ -548,7 +550,8 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
         }
 
         actions.append(
-            UIAction(title: NSLocalizedString("STOP_BUTTON", comment: ""), image: UIImage(named: "stopIcon")) {
+            UIAction(title: NSLocalizedString("STOP_BUTTON", comment: ""),
+                     image: UIImage(named: "stopIcon")?.withTintColor(defaultButtonColor, renderingMode: .alwaysOriginal)) {
                 action in
                 self.playbackController.stopPlayback()
             }
