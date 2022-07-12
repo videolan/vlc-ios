@@ -260,7 +260,7 @@ class BookmarksView: UIView {
             let currentTimeInt64 = Int64(truncating: currentTime.value ?? 0)
             currentMedia.addBookmark(atTime: currentTimeInt64)
             if let bookmark = currentMedia.bookmark(atTime: currentTimeInt64) {
-                bookmark.name = NSLocalizedString("BOOKMARK_DEFAULT_NAME", comment: "") + currentTime.stringValue
+                bookmark.name = NSLocalizedString("BOOKMARK_DEFAULT_NAME", comment: "") + " " + currentTime.stringValue
             }
             bookmarksTableView.reloadData()
         }
@@ -291,7 +291,7 @@ class BookmarksView: UIView {
                     if name.isEmpty {
                         var newName = String()
                         let time = VLCTime(number: NSNumber.init(value: bookmarks[row].time)).stringValue
-                        newName = NSLocalizedString("BOOKMARK_DEFAULT_NAME", comment: "") + time
+                        newName = NSLocalizedString("BOOKMARK_DEFAULT_NAME", comment: "") + " " + time
                         bookmarks[row].name = newName
                     } else {
                         bookmarks[row].name = name
@@ -382,7 +382,7 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
         let row = indexPath.row
         let colors = PresentationTheme.currentExcludingWhite.colors
 
-        cell.backgroundColor = colors.background
+        cell.backgroundColor = .clear
         cell.textLabel?.textColor = colors.cellTextColor
         cell.selectionStyle = .none
 
