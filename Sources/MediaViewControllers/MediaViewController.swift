@@ -163,8 +163,8 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
                 rightBarButtons = isEditing ? [doneButton] : [menuButton]
             }
         } else {
-            leftBarButtons = isEditing ? [selectAllButton] : [sortButton]
-            rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems()
+            leftBarButtons = isEditing ? [selectAllButton] : leftBarButtonItems(for: viewController)
+            rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems(for: viewController)
         }
 
         var mediaCategoryViewController: UIViewController = self
@@ -179,11 +179,25 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         mediaCategoryViewController.navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : nil
     }
 
-    private func rightBarButtonItems() -> [UIBarButtonItem] {
+    private func leftBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem]? {
+        var leftBarButtonItems = [UIBarButtonItem]()
+
+        if viewController is CollectionCategoryViewController ||
+            viewController is ArtistAlbumCategoryViewController {
+            return nil
+        }
+
+        leftBarButtonItems.append(sortButton)
+
+        return leftBarButtonItems
+    }
+
+    private func rightBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem] {
         var rightBarButtonItems = [UIBarButtonItem]()
 
         rightBarButtonItems.append(editButton)
-        if navigationController?.viewControllers.last is ArtistViewController {
+        if navigationController?.viewControllers.last is ArtistViewController ||
+            viewController is CollectionCategoryViewController {
             rightBarButtonItems.append(sortButton)
         }
 
