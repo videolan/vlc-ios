@@ -111,6 +111,13 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
     _downloadInProgress = YES;
 
     _mediaPlayer.media = media;
+
+#if MEDIA_DOWNLOAD_DEBUG
+    VLCConsoleLogger *consoleLogger = [[VLCConsoleLogger alloc] init];
+    consoleLogger.level = kVLCLogLevelDebug;
+    _mediaPlayer.libraryInstance.loggers = @[consoleLogger];
+#endif
+
     [_mediaPlayer play];
 
     return [[NSUUID UUID] UUIDString];
@@ -183,6 +190,10 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
                 _timer = [NSTimer scheduledTimerWithTimeInterval:1. target:self selector:@selector(updatePosition) userInfo:nil repeats:YES];
                 APLog(@"%s: playing", __func__);
                 [self _downloadStarted];
+                break;
+
+            case VLCMediaPlayerStateOpening:
+                APLog(@"%s: opening", __func__);
                 break;
 
             case VLCMediaPlayerStateBuffering:
