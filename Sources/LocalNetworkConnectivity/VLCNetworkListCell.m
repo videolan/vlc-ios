@@ -127,6 +127,8 @@
     self.isDownloadable = NO;
     self.subtitle = nil;
     self.title = nil;
+    self.iconURL = nil;
+    self.icon = nil;
 }
 
 + (CGFloat)heightOfCell
