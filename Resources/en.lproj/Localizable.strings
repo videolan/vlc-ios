@@ -333,6 +333,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Edit";
 "BUTTON_EDIT_HINT" = "Edit mode";
 
