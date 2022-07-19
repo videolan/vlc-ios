@@ -10,7 +10,7 @@ def shared_pods
   pod 'AFNetworking', '~>4.0'
 
   # debug
-  pod 'SwiftLint', '~> 0.25.0', :configurations => ['Debug']
+  pod 'SwiftLint', '~> 0.47.1', :configurations => ['Debug']
 end
 
 target 'VLC-iOS' do

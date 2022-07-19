@@ -63,7 +63,7 @@ PODS:
   - OneDriveSDK/OneDriveCoreSDK (1.3.0):
     - OneDriveSDK/Common
   - SimulatorStatusMagic (2.6)
-  - SwiftLint (0.25.1)
+  - SwiftLint (0.47.1)
   - TVVLCKit (3.4.1b11)
   - VLCMediaLibraryKit (0.11.0b2):
     - MobileVLCKit
@@ -87,7 +87,7 @@ DEPENDENCIES:
   - OBSlider (= 1.1.0)
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
   - SimulatorStatusMagic
-  - SwiftLint (~> 0.25.0)
+  - SwiftLint (~> 0.47.1)
   - TVVLCKit (= 3.4.1b11)
   - VLCMediaLibraryKit (= 0.11.0b2)
   - XKKeychain (~> 1.0)
@@ -173,12 +173,12 @@ SPEC CHECKSUMS:
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   OneDriveSDK: fbb41c73c36a23a580d172657c67c47dbb8f8e24
   SimulatorStatusMagic: 9f5294c12ca99c6cadb243a60362a66000df540c
-  SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
+  SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
   TVVLCKit: 805100cd9b8c62440d0222f9a5696c950df9fd73
   VLCMediaLibraryKit: d7a3f1bbcccabddfc5faa010058f92bc96c34ad3
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 56ba9fee93cb59d561d3a265877fa43526e725c0
+PODFILE CHECKSUM: 412675d649a1f3e178e8ee10d1c8eac7a9806d5f
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2
