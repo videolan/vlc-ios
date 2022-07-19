@@ -141,16 +141,12 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         }
 
         if #available(iOS 14.0, *) {
-            // Update menu for new ViewController
             if let viewController = viewController as? MediaCategoryViewController {
                 menuButton.menu = generateMenu(viewController: viewController)
-                leftBarButtons = isEditing ? [selectAllButton] : nil
-                rightBarButtons = isEditing ? [doneButton] : [menuButton]
             }
-        } else {
-            leftBarButtons = isEditing ? [selectAllButton] : leftBarButtonItems(for: viewController)
-            rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems(for: viewController)
         }
+        leftBarButtons = isEditing ? [selectAllButton] : leftBarButtonItems(for: viewController)
+        rightBarButtons = isEditing ? [doneButton] : rightBarButtonItems(for: viewController)
 
         var mediaCategoryViewController: UIViewController = self
         if navigationController?.viewControllers.last is ArtistViewController {
@@ -241,11 +237,10 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
     func updateNavigationBarButtons(for viewController: MediaCategoryViewController, isEditing: Bool) {
         leftBarButtons = isEditing ? [selectAllButton] : nil
         if #available(iOS 14.0, *) {
-            rightBarButtons = isEditing ? [doneButton] : [menuButton]
+            rightBarButtons = isEditing ? [doneButton] : [menuButton, UIBarButtonItem(customView: rendererButton)]
         } else {
             rightBarButtons = isEditing ? [doneButton] : [editButton, sortButton, UIBarButtonItem(customView: rendererButton)]
         }
-
 
         viewController.navigationItem.rightBarButtonItems = rightBarButtons
         viewController.navigationItem.leftBarButtonItems = leftBarButtons
