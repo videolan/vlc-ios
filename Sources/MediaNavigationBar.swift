@@ -102,12 +102,16 @@ private enum RendererActionSheetContent: Int, CaseIterable {
 
     private var rendererDiscovererService: VLCRendererDiscovererManager
 
-    @available(iOS 11.0, *)
-    lazy var airplayRoutePickerView: AVRoutePickerView = {
-        var airPlayRoutePicker = AVRoutePickerView()
-        airPlayRoutePicker.activeTintColor = .orange
-        airPlayRoutePicker.tintColor = .white
-        return airPlayRoutePicker
+    lazy var airplayRoutePickerView: UIView = {
+        if #available(iOS 11.0, *) {
+            var airPlayRoutePicker = AVRoutePickerView()
+            airPlayRoutePicker.activeTintColor = .orange
+            airPlayRoutePicker.tintColor = .white
+            return airPlayRoutePicker
+        } else {
+            assertionFailure("airplay route picker view is unavailable to iOS 10 and earlier")
+            return UIView()
+        }
     }()
     
     lazy var airplayVolumeView: MPVolumeView = {
