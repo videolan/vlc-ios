@@ -214,7 +214,8 @@
         _thumbnailURL = thumbPath.length ? [NSURL URLWithString:thumbPath] : nil;
 
         _duration = dictionary[@"duration"];
-        _fileSizeBytes = dictionary[@"size"];
+        NSString *fileSizeString = dictionary[@"size"];
+        _fileSizeBytes = @(fileSizeString.longLongValue);
         _filename = dictionary[@"namefile"];
 
         NSString *subtitleURLString = dictionary[@"keySubtitle"];
