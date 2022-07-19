@@ -169,8 +169,12 @@
 
 #if TARGET_OS_IOS
     if (self.artworkImage) {
-        MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithImage:self.artworkImage];
-        currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = mpartwork;
+        @try {
+            MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithImage:self.artworkImage];
+            currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = mpartwork;
+        } @catch (NSException *exception) {
+            currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = nil;
+        }
     }
 #endif
 
