@@ -57,25 +57,10 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     // MARK: UIMenu & UIActions
 
-    @available(iOS 14.0, *)
-    private lazy var rightMenuItems: [UIMenuElement] = []
-
-    @available(iOS 14.0, *)
     private lazy var menuButton: UIBarButtonItem = {
-        return UIBarButtonItem(image: UIImage(named: "EllipseCircle"))
-    }()
-
-    @available(iOS 14.0, *)
-    private lazy var selectAction: UIAction = {
-        let selectAction = UIAction(title: NSLocalizedString("BUTTON_SELECT", comment: ""),
-                                    image: UIImage(systemName: "checkmark.circle"),
-                                    handler: {
-            [unowned self] _ in
-            customSetEditing()
-        })
-        selectAction.accessibilityLabel = NSLocalizedString("BUTTON_SELECT", comment: "")
-        selectAction.accessibilityHint = NSLocalizedString("BUTTON_SELECT_HINT", comment: "")
-        return selectAction
+        var buttonItem = UIBarButtonItem()
+        buttonItem.image = UIImage(named: "EllipseCircle")
+        return buttonItem
     }()
 
     private lazy var doneButton: UIBarButtonItem = {
@@ -423,14 +408,28 @@ extension MediaViewController {
     }
 
     @available(iOS 14.0, *)
+    func generateSelectAction() -> UIAction {
+        let selectAction = UIAction(title: NSLocalizedString("BUTTON_SELECT", comment: ""),
+                                    image: UIImage(systemName: "checkmark.circle"),
+                                    handler: {
+            [unowned self] _ in
+            customSetEditing()
+        })
+        selectAction.accessibilityLabel = NSLocalizedString("BUTTON_SELECT", comment: "")
+        selectAction.accessibilityHint = NSLocalizedString("BUTTON_SELECT_HINT", comment: "")
+        return selectAction
+    }
+
+    @available(iOS 14.0, *)
     func generateMenu(viewController: MediaCategoryViewController?) -> UIMenu {
         guard let mediaCategoryViewController = viewController else {
             preconditionFailure("MediaViewControllers: invalid viewController")
         }
+        let selectAction = generateSelectAction()
         let layoutSubMenu = generateLayoutMenu(with: mediaCategoryViewController)
         let sortSubMenu = generateSortMenu(with: mediaCategoryViewController)
 
-        rightMenuItems = [selectAction, layoutSubMenu, sortSubMenu]
+        var rightMenuItems = [selectAction, layoutSubMenu, sortSubMenu]
 
         if mediaCategoryViewController.model is ArtistModel {
             let isIncludeAllArtistActive = UserDefaults.standard.bool(forKey: kVLCAudioLibraryHideFeatArtists)
