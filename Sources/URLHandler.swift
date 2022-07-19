@@ -109,7 +109,7 @@ extension VLCURLHandler {
                  * while if the entire URL is encoded, it needs to be decoded before forwarding it to VLC */
                 let length = value.count
                 let end = value.index(value.startIndex, offsetBy: length > 14 ? 14 : length)
-                if (value.range(of: "%3A%2F%2F", options: NSString.CompareOptions.caseInsensitive, range: value.startIndex..<end, locale: nil) == nil) {
+                if value.range(of: "%3A%2F%2F", options: NSString.CompareOptions.caseInsensitive, range: value.startIndex..<end, locale: nil) == nil {
                     movieURL = URL(string: value)
                     break
                 }
