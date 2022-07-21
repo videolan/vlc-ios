@@ -158,6 +158,12 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             mediaCategoryViewController = viewController
         }
 
+        if navigationController?.viewControllers.last is ArtistViewController,
+           let viewController = viewControllers[currentIndex] as? CollectionCategoryViewController {
+            let playButton = viewController.getPlayAllButton()
+            rightBarButtons?.append(playButton)
+        }
+
         mediaCategoryViewController.navigationItem.leftBarButtonItems = showButtons ? leftBarButtons : nil
         mediaCategoryViewController.navigationItem.rightBarButtonItems = showButtons ? rightBarButtons : nil
     }

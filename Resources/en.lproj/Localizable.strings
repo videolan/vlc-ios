@@ -193,6 +193,7 @@
 "NEXT_BUTTON" = "Next";
 "PREV_BUTTON" = "Previous";
 "PLAY_ALL_BUTTON" = "Play all";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
 "RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
