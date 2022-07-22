@@ -436,11 +436,22 @@ extension MediaViewController {
         guard let mediaCategoryViewController = viewController else {
             preconditionFailure("MediaViewControllers: invalid viewController")
         }
+
         let selectAction = generateSelectAction()
+
+        var rightMenuItems: [UIMenuElement] = [selectAction]
+
+        if let model = mediaCategoryViewController.model as? CollectionModel,
+           model.mediaCollection is VLCMLPlaylist {
+            return UIMenu(options: .displayInline, children: rightMenuItems)
+        }
+
         let layoutSubMenu = generateLayoutMenu(with: mediaCategoryViewController)
         let sortSubMenu = generateSortMenu(with: mediaCategoryViewController)
 
-        var rightMenuItems = [selectAction, layoutSubMenu, sortSubMenu]
+        rightMenuItems.append(layoutSubMenu)
+        rightMenuItems.append(sortSubMenu)
+
         var additionalMenuItems: [UIAction] = []
 
         if mediaCategoryViewController.model is ArtistModel {
