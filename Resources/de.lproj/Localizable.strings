@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Geteilte VLC für iOS Mediathek";
 "SMB_CIFS_FILE_SERVERS" = "Dateiserver (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 Datei";
 "NO_FILES" = "Keine unterstützten Dateien";
 "DOWNLOADING" = "Wird heruntergeladen …";
+"DOWNLOADING_MEDIA" = "Wird heruntergeladen: %@";
 "REMAINING_TIME" = "Verbleibende Zeit: %@";
 "BIOMETRIC_UNLOCK" = "Mediathek entsperren\nAbbrechen um Passcode einzugeben";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Nächster";
 "PREV_BUTTON" = "Vorheriger";
 "PLAY_ALL_BUTTON" = "Alle wiedergeben";
+"PLAY_ALL_HINT" = "Alle Medien in der Sammlung abspielen";
 
 "RESET_VIDEO_FILTERS" = "Möchten Sie die Videofilter zurücksetzen?";
 "RESET_PLAYBACK_SPEED" = "Möchten Sie die Wiedergabegeschwindigkeit zurücksetzen?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menü";
+"BUTTON_MENU_HINT" = "Wählen, sortieren oder ordnen Sie die Medien in dieser Darstellung neu.";
+
 "BUTTON_EDIT" = "Bearbeiten";
 "BUTTON_EDIT_HINT" = "Bearbeitungsmodus";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Anzahl von Videodateien";
 "NB_ALBUM" = "Anzahl der Alben";
 "LAST_PLAYBACK_DATE" = "Letztes Wiedergabedatum";
+"TRACK_ID" = "Titel-ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
