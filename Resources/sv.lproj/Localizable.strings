@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Delat bibliotek för VLC för iOS";
 "SMB_CIFS_FILE_SERVERS" = "Filservrar (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fil";
 "NO_FILES" = "Inga stödjande filer";
 "DOWNLOADING" = "Laddar ned...";
+"DOWNLOADING_MEDIA" = "Laddar ned: %@";
 "REMAINING_TIME" = "Återstående tid: %@";
 "BIOMETRIC_UNLOCK" = "Lås upp mediabiblioteket\nAvbryt för att ange lösenkod";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Nästa";
 "PREV_BUTTON" = "Föregående";
 "PLAY_ALL_BUTTON" = "Spela upp alla";
+"PLAY_ALL_HINT" = "Spela upp alla mediafiler i samlingen";
 
 "RESET_VIDEO_FILTERS" = "Vill du återställa videofiltren?";
 "RESET_PLAYBACK_SPEED" = "Vill du återställa uppspelningshastigheten?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Meny";
+"BUTTON_MENU_HINT" = "Markera, byt ordning och sortera mediaobjekt som finns i denna vy";
+
 "BUTTON_EDIT" = "Redigera";
 "BUTTON_EDIT_HINT" = "Redigeringsläge";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Antal videor";
 "NB_ALBUM" = "Antal album";
 "LAST_PLAYBACK_DATE" = "Senast uppspelat datum";
+"TRACK_ID" = "Spår-ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
