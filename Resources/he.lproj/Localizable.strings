@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "שתף את ספריית ה VLC ל iOS";
 "SMB_CIFS_FILE_SERVERS" = "שרתי קבצים (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "קובץ אחד";
 "NO_FILES" = "אין קבצים נתמכים";
 "DOWNLOADING" = "בהורדה…";
+"DOWNLOADING_MEDIA" = "הורדה: %@";
 "REMAINING_TIME" = "הזמן שנותר: %@";
 "BIOMETRIC_UNLOCK" = "שחרור נעילת ספריית המדיה\nיש לבטל כדי להכניס קוד";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "הבא";
 "PREV_BUTTON" = "הקודם";
 "PLAY_ALL_BUTTON" = "לנגן הכול";
+"PLAY_ALL_HINT" = "לנגן את כל פריטי המדיה באוסף";
 
 "RESET_VIDEO_FILTERS" = "לאפס את מסנני הווידאו?";
 "RESET_PLAYBACK_SPEED" = "לאפס את מהירות הנגינה?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "תפריט";
+"BUTTON_MENU_HINT" = "ניתן לבחור, לסדר מחדש ולמיין את פריטי המדיה שבתצוגה הזאת";
+
 "BUTTON_EDIT" = "עריכה";
 "BUTTON_EDIT_HINT" = "מצב עריכה";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "מספר וידאו";
 "NB_ALBUM" = "מספר האלבומים";
 "LAST_PLAYBACK_DATE" = "תאריך הנגינה האחרון";
+"TRACK_ID" = "מזהה רצועה";
 
 // MARK: - VLCNetworkLoginTVViewController
 
