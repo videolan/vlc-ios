@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Zdieľaná knižnica VLC for iOS";
 "SMB_CIFS_FILE_SERVERS" = "Súborové servery (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 súbor";
 "NO_FILES" = "Žiadne podporované súbory";
 "DOWNLOADING" = "Prebieha sťahovanie...";
+"DOWNLOADING_MEDIA" = "Sťahovanie: %@";
 "REMAINING_TIME" = "Zostávajúci čas: %@";
 "BIOMETRIC_UNLOCK" = "Odomknúť knižnicu médií\nZrušiť pre zadanie hesla";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Ďalej";
 "PREV_BUTTON" = "Predchádzajúce";
 "PLAY_ALL_BUTTON" = "Prehrať všetko";
+"PLAY_ALL_HINT" = "Prehrať všetky médiá v kolekcii";
 
 "RESET_VIDEO_FILTERS" = "Chcete vykonať reset filtrov pre video?";
 "RESET_PLAYBACK_SPEED" = "Chcete vykonať reset rýchlosti prehrávania?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Výber, zmena poradia a triedenie mediálnych položiek prítomných v tomto zobrazení";
+
 "BUTTON_EDIT" = "Upraviť";
 "BUTTON_EDIT_HINT" = "Režim úprav";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Číslo videa";
 "NB_ALBUM" = "Počet albumov";
 "LAST_PLAYBACK_DATE" = "Dátum posledného prehrávania";
+"TRACK_ID" = "ID stopy";
 
 // MARK: - VLCNetworkLoginTVViewController
 
