@@ -115,7 +115,7 @@
 "SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Lastni seznam URl naslovov za SAT>IP";
 
 "SETTINGS_ARTWORK" = "Grafična podoba";
-"SETTINGS_DOWNLOAD_ARTWORK" = "Prenesi grafično podobo";
+"SETTINGS_DOWNLOAD_ARTWORK" = "Prenesi naslovnico";
 
 "SETTINGS_LAB" = "Lab";
 "SETTINGS_DEBUG_LOG" = "Shrani dnevnik razhroščevanj v napravi";
