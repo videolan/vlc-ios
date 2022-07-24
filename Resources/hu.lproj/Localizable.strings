@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Megosztott VLC for iOS médiatár";
 "SMB_CIFS_FILE_SERVERS" = "Fájlkiszolgálók (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fájl";
 "NO_FILES" = "Nincs médiafájl";
 "DOWNLOADING" = "Letöltés…";
+"DOWNLOADING_MEDIA" = "Letöltés: %@";
 "REMAINING_TIME" = "%@ van hátra";
 "BIOMETRIC_UNLOCK" = "Médiatár feloldása\nMégse a jelkód megadásához";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Következő";
 "PREV_BUTTON" = "Előző";
 "PLAY_ALL_BUTTON" = "Összes lejátszása";
+"PLAY_ALL_HINT" = "A gyűjteményben lévő összes média lejátszása";
 
 "RESET_VIDEO_FILTERS" = "Vissza akarja állítani a videószűrőket?";
 "RESET_PLAYBACK_SPEED" = "Vissza akarja állítani a lejátszási sebességet?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menü";
+"BUTTON_MENU_HINT" = "A nézetben szereplő médiaelemek kiválasztása, átrendezése és sorrendezése";
+
 "BUTTON_EDIT" = "Szerkesztés";
 "BUTTON_EDIT_HINT" = "Szerkesztési mód";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Videók száma";
 "NB_ALBUM" = "Albumok száma";
 "LAST_PLAYBACK_DATE" = "Utolsó lejátszás ideje";
+"TRACK_ID" = "Számazonosító";
 
 // MARK: - VLCNetworkLoginTVViewController
 
