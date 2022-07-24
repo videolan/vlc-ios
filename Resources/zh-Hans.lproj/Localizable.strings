@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "共享 VLC for iOS 库";
 "SMB_CIFS_FILE_SERVERS" = "文件服务器 (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 个文件";
 "NO_FILES" = "无媒体文件";
 "DOWNLOADING" = "正在下载...";
+"DOWNLOADING_MEDIA" = "正在下载: %@";
 "REMAINING_TIME" = "剩余时间: %@";
 "BIOMETRIC_UNLOCK" = "解锁媒体库\n按「取消」可输入口令解锁";
 
@@ -189,9 +192,10 @@
 "BWD_BUTTON" = "快进";
 "FWD_BUTTON" = "快退";
 "PLAY_BUTTON" = "播放";
-"NEXT_BUTTON" = "下一曲";
-"PREV_BUTTON" = "上一曲";
+"NEXT_BUTTON" = "下一项";
+"PREV_BUTTON" = "前一项";
 "PLAY_ALL_BUTTON" = "全部播放";
+"PLAY_ALL_HINT" = "播放集合中的所有媒体";
 
 "RESET_VIDEO_FILTERS" = "是否希望重置视频滤镜?";
 "RESET_PLAYBACK_SPEED" = "是否希望重置播放速度?";
@@ -267,11 +271,11 @@
 "USE_SPDIF" = "使用呈递 (S/PDIF)";
 
 "PLAYBACK" = "回放";
-"REPEAT_MODE" = "重复";
+"REPEAT_MODE" = "循环播放";
 "REPEAT_DISABLED" = "已禁用";
 "REPEAT_SINGLE" = "单曲";
 "REPEAT_FOLDER" = "文件夹";
-"SHUFFLE" = "随机 ";
+"SHUFFLE" = "随机开启";
 "SHUFFLE_DISABLED" = "随机关闭";
 
 "RESET_NETWORK_STREAM_LIST_TITLE" = "重置列表";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "菜单";
+"BUTTON_MENU_HINT" = "对该视图中的媒体对象进行选择、调整顺序、排序操作";
+
 "BUTTON_EDIT" = "编辑";
 "BUTTON_EDIT_HINT" = "编辑模式";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "视频数量";
 "NB_ALBUM" = "专辑数量";
 "LAST_PLAYBACK_DATE" = "上次播放日期";
+"TRACK_ID" = "轨道 ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -414,12 +422,12 @@
 "ROTATION_LOCK_BUTTON" = "旋转锁定";
 "ROTATION_LOCK_HINT" = "锁定视频屏幕方向";
 
-"REPEAT_HINT" = "重复相同媒体";
+"REPEAT_HINT" = "反复播放相同的媒体文件";
 
 "BACKWARD_BUTTON" = "后退";
 "BACKWARD_HINT" = "快退";
 
-"PREVIOUS_BUTTON" = "前一个";
+"PREVIOUS_BUTTON" = "前一项";
 "PREVIOUS_HINT" = "前一个媒体文件";
 
 "PLAY_PAUSE_BUTTON" = "播放或暂停";
@@ -443,7 +451,7 @@
 "MORE_OPTIONS_HINT" = "查看更多选项控件";
 
 "PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "投屏不支持字幕";
-"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "暂未支持投屏时的字幕功能。";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "暂未支持在投屏的同时投放字幕。";
 
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "均衡器";
@@ -510,8 +518,8 @@
 
 "PLAY_HINT" = "播放";
 "PLAY_LABEL" = "播放";
-"PLAY_NEXT_IN_QUEUE_HINT" = "播放队列中的下一曲目";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "播放队列中的下一曲目";
+"PLAY_NEXT_IN_QUEUE_HINT" = "作为下一项播放";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "接下来播放它";
 "APPEND_TO_QUEUE_HINT" = "添加到队列";
 "APPEND_TO_QUEUE_LABEL" = "添加到队列";
 
@@ -527,9 +535,9 @@
 
 // MARK: - AudioMiniPlayer playback controls menu
 "MENU_PLAYBACK_CONTROLS" = "播放控制";
-"MENU_REPEAT_DISABLED" = "不重复";
-"MENU_REPEAT_SINGLE" = "重复一首";
-"MENU_REPEAT_ALL" = "全部重复";
+"MENU_REPEAT_DISABLED" = "循环关闭";
+"MENU_REPEAT_SINGLE" = "单曲循环";
+"MENU_REPEAT_ALL" = "全部循环";
 
 // MARK: - ActionSheet
 
