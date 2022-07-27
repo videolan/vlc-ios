@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Biblioteca cumpartzida de VLC pro iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servers pro sos documentos (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 documentu";
 "NO_FILES" = "Perunu documentu suportadu";
 "DOWNLOADING" = "Iscarrighende...";
+"DOWNLOADING_MEDIA" = "Iscarrighende: %@";
 "REMAINING_TIME" = "Tempus chi abarrat: %@";
 "BIOMETRIC_UNLOCK" = "Isblocu biblioteca multimediale\nAnnulla pro insertare su còdighe de seguresa";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Imbeniente";
 "PREV_BUTTON" = "Antepostu";
 "PLAY_ALL_BUTTON" = "Riprodui totu";
+"PLAY_ALL_HINT" = "Riprodui totu sos cuntenutos multimediales in sa regorta";
 
 "RESET_VIDEO_FILTERS" = "Cheres resetare sos filtros de su vìdeu?";
 "RESET_PLAYBACK_SPEED" = "Cheres resetare sa lestresa de riprodutzione?";
@@ -333,11 +337,14 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menù";
+"BUTTON_MENU_HINT" = "Seletziona, torra a ordinare e òrdina sos elementos multimediales presentes in custa vista";
+
 "BUTTON_EDIT" = "Modìfica";
 "BUTTON_EDIT_HINT" = "Modalidade de modìfica";
 
-"BUTTON_SELECT" = "Select";
-"BUTTON_SELECT_HINT" = "Select button";
+"BUTTON_SELECT" = "Seletziona";
+"BUTTON_SELECT_HINT" = "Butone de seletzione";
 
 "BUTTON_SELECT_ALL" = "Seletziona totu";
 "BUTTON_SELECT_ALL_HINT" = "Seletziona totu sos elementos multimediales presentes in custa vista";
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Nùmeru de vìdeos";
 "NB_ALBUM" = "Nùmeru de albums";
 "LAST_PLAYBACK_DATE" = "Ùrtima data de riprodutzione";
+"TRACK_ID" = "ID de sa rasta";
 
 // MARK: - VLCNetworkLoginTVViewController
 
