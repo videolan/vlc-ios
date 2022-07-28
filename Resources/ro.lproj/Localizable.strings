@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "VLC comun pentru biblioteca iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servere de fișiere (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fişier";
 "NO_FILES" = "Nici-un fişier suportat";
 "DOWNLOADING" = "Se descarcă ...";
+"DOWNLOADING_MEDIA" = "Se descarcă: %@";
 "REMAINING_TIME" = "Timp rămas: %@";
 "BIOMETRIC_UNLOCK" = "Deblocare bibliotecă Media \nAnulare pentru a introduce parola";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Înainte";
 "PREV_BUTTON" = "Înapoi";
 "PLAY_ALL_BUTTON" = "Redați toate";
+"PLAY_ALL_HINT" = "Redă toate fișierele media din colecție";
 
 "RESET_VIDEO_FILTERS" = "Doriți să resetați filtrele video?";
 "RESET_PLAYBACK_SPEED" = "Doriți să resetați viteza de redare?";
@@ -333,11 +337,14 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Meniu";
+"BUTTON_MENU_HINT" = "Selectează, reodonează și sortează toate elementele media prezente în această vizualizare";
+
 "BUTTON_EDIT" = "Editați";
 "BUTTON_EDIT_HINT" = "Modul de editare";
 
-"BUTTON_SELECT" = "Select";
-"BUTTON_SELECT_HINT" = "Select button";
+"BUTTON_SELECT" = "Selectează";
+"BUTTON_SELECT_HINT" = "Butonul de selecție";
 
 "BUTTON_SELECT_ALL" = "Selectează tot";
 "BUTTON_SELECT_ALL_HINT" = "Selectează toate elementele media prezente în această vizualizare";
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Număr de videoclipuri";
 "NB_ALBUM" = "Numărul de albume";
 "LAST_PLAYBACK_DATE" = "Data ultimei redări";
+"TRACK_ID" = "ID-ul piesei";
 
 // MARK: - VLCNetworkLoginTVViewController
 
