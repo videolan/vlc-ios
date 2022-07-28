@@ -18,10 +18,11 @@ target 'VLC-iOS' do
   shared_pods
   pod 'OBSlider', '1.1.0'
   pod 'InAppSettingsKit', :git => 'https://github.com/Mikanbu/InAppSettingsKit.git', :commit => 'a429840' #tvOS fix
-  pod 'GoogleAPIClientForREST/Drive'
+  pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
+  pod 'GoogleSignIn', '6.2.0'
   pod 'MobileVLCKit', '3.4.1b9'
   pod 'VLCMediaLibraryKit', '0.10.2b1'
-  pod 'GTMAppAuth', '0.7.1'
+  pod 'GTMAppAuth', '~> 1.0'
   pod 'ADAL', :git => 'https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git', :commit => '348e94df'
   pod 'OneDriveSDK', :git => 'https://code.videolan.org/fkuehne/onedrive-sdk-ios.git', :commit => '810f82da'
   pod 'MarqueeLabel', '4.0.2'

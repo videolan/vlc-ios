@@ -15,21 +15,30 @@ PODS:
   - AFNetworking/Serialization (4.0.0)
   - AFNetworking/UIKit (4.0.0):
     - AFNetworking/NSURLSession
-  - AppAuth (0.95.1)
+  - AppAuth (1.5.0):
+    - AppAuth/Core (= 1.5.0)
+    - AppAuth/ExternalUserAgent (= 1.5.0)
+  - AppAuth/Core (1.5.0)
+  - AppAuth/ExternalUserAgent (1.5.0):
+    - AppAuth/Core
   - Base32 (1.1.2)
   - box-ios-sdk-v2 (1.2.3):
     - box-ios-sdk-v2/no-arc (= 1.2.3)
   - box-ios-sdk-v2/no-arc (1.2.3)
   - CocoaHTTPServer (2.3)
-  - GoogleAPIClientForREST/Core (2.0.1):
-    - GTMSessionFetcher/Full (< 3.0, >= 1.6.1)
-  - GoogleAPIClientForREST/Drive (2.0.1):
+  - GoogleAPIClientForREST/Core (1.2.1):
+    - GTMSessionFetcher (>= 1.1.7)
+  - GoogleAPIClientForREST/Drive (1.2.1):
     - GoogleAPIClientForREST/Core
-    - GTMSessionFetcher/Full (< 3.0, >= 1.6.1)
+    - GTMSessionFetcher (>= 1.1.7)
+  - GoogleSignIn (6.2.0):
+    - AppAuth (~> 1.5)
+    - GTMAppAuth (< 2.0, >= 1.3.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - GRKArrayDiff (2.2.2)
-  - GTMAppAuth (0.7.1):
-    - AppAuth (~> 0.95)
-    - GTMSessionFetcher (~> 1.1)
+  - GTMAppAuth (1.3.0):
+    - AppAuth/Core (~> 1.4)
+    - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher (1.7.2):
     - GTMSessionFetcher/Full (= 1.7.2)
   - GTMSessionFetcher/Core (1.7.2)
@@ -76,9 +85,10 @@ DEPENDENCIES:
   - AFNetworking (~> 4.0)
   - box-ios-sdk-v2 (from `https://github.com/fkuehne/box-ios-sdk-v2.git`, commit `08161e74`)
   - CocoaHTTPServer (from `https://github.com/fkuehne/CocoaHTTPServer.git`)
-  - GoogleAPIClientForREST/Drive
+  - GoogleAPIClientForREST/Drive (~> 1.2.1)
+  - GoogleSignIn (= 6.2.0)
   - GRKArrayDiff (~> 2.1)
-  - GTMAppAuth (= 0.7.1)
+  - GTMAppAuth (~> 1.0)
   - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
   - MetaDataFetcherKit (~> 0.5.0)
@@ -99,6 +109,7 @@ SPEC REPOS:
     - AppAuth
     - Base32
     - GoogleAPIClientForREST
+    - GoogleSignIn
     - GRKArrayDiff
     - GTMAppAuth
     - GTMSessionFetcher
@@ -156,13 +167,14 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
   AFNetworking: d9fdf484a3c723ec3c558a41cc5754c7e845ee77
-  AppAuth: cd34aac431e5c77c46ec7f03935377faa8c5808b
+  AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
   Base32: 163c298644d184e89ca4e00a996bad6bf5166390
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
-  GoogleAPIClientForREST: 1c2743c7ed11d190f69617e1caa4f0cce24ea62e
+  GoogleAPIClientForREST: a8b95a252014ce2e618df6b75dc72eca2c00b4af
+  GoogleSignIn: cdb27fee152cde4efd4bb814cfb4ad595fe1ff03
   GRKArrayDiff: 13738c0300068a28cf17614a72e0398ee13bb6b3
-  GTMAppAuth: c5e41aaf039ac1ccc41543e6ea2ef7abd255ad41
+  GTMAppAuth: 4d8f864896f3646f0c33baf38a28362f4c601e15
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
@@ -179,6 +191,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 5851de0c653a5d44dd524438f4be5a958666a772
+PODFILE CHECKSUM: 01a8c29b8c3144c68fb9289edb89a07cf88da900
 
 COCOAPODS: 1.11.2
