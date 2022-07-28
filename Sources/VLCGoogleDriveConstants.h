@@ -15,3 +15,4 @@
 #define kVLCGoogleRedirectURI @""
 #define kVLCGoogleDriveClientSecret @""
 #define kVLCGoogleDrivePrivateKey @""
+#define kVLCGoogleDriveScope @"https://www.googleapis.com/auth/drive.readonly"

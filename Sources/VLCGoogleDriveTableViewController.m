@@ -20,10 +20,13 @@
 
 #import <AppAuth/AppAuth.h>
 #import <GTMAppAuth/GTMAppAuth.h>
+@import GoogleSignIn;
 
 @interface VLCGoogleDriveTableViewController () <VLCCloudStorageTableViewCell>
 {
     VLCGoogleDriveController *_googleDriveController;
+
+    VLCGoogleSignInAuthenticator *_signInAuthenticator;
 
     GTLRDrive_File *_selectedFile;
 }
@@ -46,6 +49,8 @@
 
     [self.cloudStorageLogo sizeToFit];
     self.cloudStorageLogo.center = self.view.center;
+
+    _signInAuthenticator = [VLCGoogleSignInAuthenticator create];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -56,7 +61,15 @@
         self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
 
-    [self updateViewAfterSessionChange];
+    [GIDSignIn.sharedInstance restorePreviousSignInWithCallback:^(GIDGoogleUser * _Nullable user,
+                                                                  NSError * _Nullable error) {
+      if (error) {
+          // No previous session could be loaded
+          [self updateViewAfterSessionChange];
+      } else {
+          [self setAuthorizerAndUpdate];
+      }
+    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -155,39 +168,21 @@
 }
 #pragma mark - login dialog
 
+- (void)setAuthorizerAndUpdate
+{
+    self->_googleDriveController.driveService.authorizer = [[GIDSignIn sharedInstance].currentUser.authentication fetcherAuthorizer];
+    [self updateViewAfterSessionChange];
+    [self requestInformationForCurrentPath];
+}
+
 - (IBAction)loginAction:(id)sender
 {
     if (![_googleDriveController isAuthorized]) {
 
         self.authorizationInProgress = YES;
 
-        // Build the request with the clientID and scopes.
-        OIDAuthorizationRequest *request = [[OIDAuthorizationRequest alloc] initWithConfiguration:[GTMAppAuthFetcherAuthorization configurationForGoogle]
-                                                                                         clientId:kVLCGoogleDriveClientID
-                                                                                     clientSecret:kVLCGoogleDriveClientSecret
-                                                                                           scopes:@[OIDScopeOpenID, kGTLRAuthScopeDrive]
-                                                                                      redirectURL:[NSURL URLWithString:kVLCGoogleRedirectURI]
-                                                                                     responseType:OIDResponseTypeCode
-                                                                             additionalParameters:nil];
-
-        // Perform the previously built request and saving the current authorization flow.
-
-        URLHandlers.googleURLHandler.currentGoogleAuthorizationFlow = [OIDAuthState authStateByPresentingAuthorizationRequest:request presentingViewController:self
-           callback:^(OIDAuthState *_Nullable authState, NSError *_Nullable error) {
-
-               self.authorizationInProgress = NO;
-               if (authState) {
-                   // Upon successful completion...
-                   self->_googleDriveController.driveService.authorizer = [[GTMAppAuthFetcherAuthorization alloc] initWithAuthState:authState];
-                   [GTMAppAuthFetcherAuthorization saveAuthorization:(GTMAppAuthFetcherAuthorization *)self->_googleDriveController.driveService.authorizer
-                                                   toKeychainForName:kKeychainItemName];
-                   [self updateViewAfterSessionChange];
-                   [self.activityIndicator startAnimating];
-               } else {
-                   self->_googleDriveController.driveService.authorizer = nil;
-               }
-           }];
-
+        GIDSignIn *googleSignIn = [GIDSignIn sharedInstance];
+        [VLCGoogleSignInAuthenticator signIn:googleSignIn presentingView:self];
     } else {
         [_googleDriveController logout];
     }

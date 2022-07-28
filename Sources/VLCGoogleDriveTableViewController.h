@@ -13,4 +13,6 @@
 
 @interface VLCGoogleDriveTableViewController : VLCCloudStorageTableViewController
 
+- (void)setAuthorizerAndUpdate;
+
 @end
