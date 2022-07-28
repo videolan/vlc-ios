@@ -109,7 +109,7 @@
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGH" = "Latence forte";
 "SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST" = "Latence la plus forte";
 "SETTINGS_WIFISHARING_IPv6" = "Compatibilité IPv6 pour le partage Wi-Fi";
-"SETTINGS_FORCE_SMBV1" = "Préfère SMB 1";
+"SETTINGS_FORCE_SMBV1" = "Préférer SMB 1";
 "SETTINGS_FORCE_SMBV1_LONG" = "Décochez ce paramètre si vous avez des difficultés à naviguer sur votre serveur SMB";
 "SETTINGS_RTSP_TCP" = "Utiliser RTP sur RTSP (TCP)";
 "SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Personaliser SAT>Liste URL des canux IP";
@@ -118,7 +118,7 @@
 "SETTINGS_DOWNLOAD_ARTWORK" = "Télécharger l'illustration";
 
 "SETTINGS_LAB" = "Lab";
-"SETTINGS_DEBUG_LOG" = "Enregistrer les journaux de débogage sur un périphérique";
+"SETTINGS_DEBUG_LOG" = "Enregistrer les journaux de débogage sur l'appareil";
 "SETTINGS_EXPORT_LIBRARY" = "Exporter la médiathèque";
 
 "ABOUT_APP_TV" = "À propos de VLC pour tvOS";

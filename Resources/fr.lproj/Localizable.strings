@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Bibliothèque partagée de VLC pour iOS";
 "SMB_CIFS_FILE_SERVERS" = "Serveurs de fichiers (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -114,7 +116,7 @@
 
 "NETWORK" = "Réseau";
 "LOCAL_NETWORK" = "Réseau local";
-"CONNECT_TO_SERVER" = "Connecter au serveur";
+"CONNECT_TO_SERVER" = "Connecter un serveur";
 "FILE_SERVER" = "Serveurs de fichiers";
 "USER_LABEL" = "Utilisateur";
 "PASSWORD_LABEL" = "Mot de passe";
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fichier";
 "NO_FILES" = "Pas de fichier pris en charge";
 "DOWNLOADING" = "Téléchargement…";
+"DOWNLOADING_MEDIA" = "Téléchargement: %@";
 "REMAINING_TIME" = "Temps restant : %@";
 "BIOMETRIC_UNLOCK" = "Déverrouiller la médiathèque\nAnnuler pour entrer le mot de passe";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Suivant";
 "PREV_BUTTON" = "Précédent";
 "PLAY_ALL_BUTTON" = "Tout lire";
+"PLAY_ALL_HINT" = "Lire tous les médias de la collection";
 
 "RESET_VIDEO_FILTERS" = "Voulez-vous réinitialiser les filtres vidéo ?";
 "RESET_PLAYBACK_SPEED" = "Voulez-vous réinitialiser la vitesse de lecture ?";
@@ -333,17 +337,20 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Sélectionner, réorganiser et trier les éléments multimédia présents dans cette vue";
+
 "BUTTON_EDIT" = "Modifier";
 "BUTTON_EDIT_HINT" = "Mode selection";
 
-"BUTTON_SELECT" = "Select";
-"BUTTON_SELECT_HINT" = "Select button";
+"BUTTON_SELECT" = "Sélectionner";
+"BUTTON_SELECT_HINT" = "Sélectionnez le bouton";
 
 "BUTTON_SELECT_ALL" = "Tout sélectionner";
 "BUTTON_SELECT_ALL_HINT" = "Sélectionnez tous les éléments multimédia présents dans cette vue";
 
-"ADD_TO_PLAYLIST" = "Ajouter à la liste de lecture";
-"ADD_TO_PLAYLIST_HINT" = "Ouvrir le menu Ajouter à la liste de lecture";
+"ADD_TO_PLAYLIST" = "Ajouter à une liste de lecture";
+"ADD_TO_PLAYLIST_HINT" = "Ouvrir le menu Ajouter à une liste de lecture";
 
 "PLAYLIST_PLACEHOLDER" = "Titre de la liste de lecture";
 "PLAYLIST_DESCRIPTION" = "Choisir un titre pour votre nouvelle liste de lecture";
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Nombre de pistes vidéo";
 "NB_ALBUM" = "Nombre de titres";
 "LAST_PLAYBACK_DATE" = "Dernière date de lecture";
+"TRACK_ID" = "ID de la piste";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -400,8 +408,8 @@
 "UNKNOWN_ARTIST" = "Artiste inconnu";
 "VARIOUS_ARTIST" = "Artistes divers";
 "UNKNOWN_ALBUM" = "Album inconnu";
-"SINGLE_ITEM_SELECTED" = "item selected";
-"MULTIPLE_ITEMS_SELECTED" = "items selected";
+"SINGLE_ITEM_SELECTED" = "élément sélectionné";
+"MULTIPLE_ITEMS_SELECTED" = "éléments sélectionnés";
 
 // MARK: - VideoPlayerControls
 
@@ -497,7 +505,7 @@
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Ajout...";
 
 // MARK: - tip jar
-"GIVE_TIP" = "Donner un pourboire";
+"GIVE_TIP" = "Pourboire";
 "MAKE_DONATION_TITLE" = "Faire un don";
 "DONATION_DESCRIPTION" = "Votre parrainage nous permettra d'améliorer l'application VLC-iOS et de soutenir l'association VideoLAN";
 "CANNOT_MAKE_PAYMENTS" = "Vous n'êtes pas autorisé à effectuer des paiements sur cet appareil.";
@@ -510,10 +518,10 @@
 
 "PLAY_HINT" = "Lire";
 "PLAY_LABEL" = "Lire";
-"PLAY_NEXT_IN_QUEUE_HINT" = "Jouer la suivante de la liste de lecture";
-"PLAY_NEXT_IN_QUEUE_LABEL" = "Jouer la suivante de la liste de lecture";
-"APPEND_TO_QUEUE_HINT" = "Ajouter à la liste de lecture";
-"APPEND_TO_QUEUE_LABEL" = "Ajouter à la liste de lecture";
+"PLAY_NEXT_IN_QUEUE_HINT" = "Lire ensuite";
+"PLAY_NEXT_IN_QUEUE_LABEL" = "Lire ensuite";
+"APPEND_TO_QUEUE_HINT" = "Lire en dernier";
+"APPEND_TO_QUEUE_LABEL" = "Lire en dernier";
 
 "DISPLAY_AS" = "Afficher comme";
 
