@@ -357,6 +357,7 @@
 		D6E034ED1CC284FC0037F516 /* VLCStreamingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */; };
 		D902E21527F4ADF900DC2B41 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */; };
 		D92C186527CD317D0034058F /* ChapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C186427CD317D0034058F /* ChapterView.swift */; };
+		D960DD0F2892A946008B81D9 /* GoogleSignInAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960DD0E2892A946008B81D9 /* GoogleSignInAuthenticator.swift */; };
 		D96ACA962832836C00DD1A3E /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96ACA952832836C00DD1A3E /* GraphViewController.swift */; };
 		D96C9EBC28105F5B005F13BB /* AlbumHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C9EBB28105F5B005F13BB /* AlbumHeader.swift */; };
 		D98EE7452846183F00E6B02D /* GraphTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98EE7442846183F00E6B02D /* GraphTableViewController.swift */; };
@@ -967,6 +968,7 @@
 		D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStreamingHistoryCell.m; path = "Sources/Network/Open Network Stream/VLCStreamingHistoryCell.m"; sourceTree = SOURCE_ROOT; };
 		D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
 		D92C186427CD317D0034058F /* ChapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterView.swift; sourceTree = "<group>"; };
+		D960DD0E2892A946008B81D9 /* GoogleSignInAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInAuthenticator.swift; sourceTree = "<group>"; };
 		D96ACA952832836C00DD1A3E /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		D96C9EBB28105F5B005F13BB /* AlbumHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeader.swift; sourceTree = "<group>"; };
 		D98EE7442846183F00E6B02D /* GraphTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphTableViewController.swift; sourceTree = "<group>"; };
@@ -2283,6 +2285,7 @@
 		7DC869F328CB8A3200EE99F8 /* Google Drive */ = {
 			isa = PBXGroup;
 			children = (
+				D960DD0E2892A946008B81D9 /* GoogleSignInAuthenticator.swift */,
 				7D30F3E3183AB34200FFC021 /* VLCGoogleDriveConstants.h */,
 				7D30F3E4183AB34200FFC021 /* VLCGoogleDriveController.h */,
 				7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */,
@@ -3415,6 +3418,7 @@
 				DD3EAC091BE2192A003668DA /* VLCServerBrowsingController.m in Sources */,
 				6C5B0C9F27A46258005AE25B /* PlaybackServiceAdjustFilter.swift in Sources */,
 				7DC869C428CB7E8400EE99F8 /* VLCNetworkLoginViewController.m in Sources */,
+				D960DD0F2892A946008B81D9 /* GoogleSignInAuthenticator.swift in Sources */,
 				8DE18894210B5F8200A091D2 /* AlbumModel.swift in Sources */,
 				8D0E75CB24D1D870000D5267 /* VideoPlayerViewController+ControlsDelegate.swift in Sources */,
 				7DD9CD5E24223B1300D0324F /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */,

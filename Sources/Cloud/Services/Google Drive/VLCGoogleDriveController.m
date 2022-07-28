@@ -21,6 +21,7 @@
 
 #import <GTMAppAuth/GTMAppAuth.h>
 #import <GTMSessionFetcher/GTMSessionFetcherService.h>
+#import <GoogleSignIn/GIDSignIn.h>
 
 @interface VLCGoogleDriveController ()
 {
@@ -81,6 +82,7 @@
     [ubiquitousStore setString:nil forKey:kVLCStoreGDriveCredentials];
     [ubiquitousStore synchronize];
     [self stopSession];
+    [GIDSignIn.sharedInstance signOut];
     if ([self.delegate respondsToSelector:@selector(mediaListUpdated)])
         [self.delegate mediaListUpdated];
 }
