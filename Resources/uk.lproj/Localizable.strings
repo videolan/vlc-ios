@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Поширено VLC для бібліотеки iOS";
 "SMB_CIFS_FILE_SERVERS" = "Файлові сервери (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 файл";
 "NO_FILES" = "Нема підтримуваних файлів";
 "DOWNLOADING" = "Завантаження…";
+"DOWNLOADING_MEDIA" = "Завантажується: %@";
 "REMAINING_TIME" = "Залишок часу: %@";
 "BIOMETRIC_UNLOCK" = "Розблокуйте бібліотеку медіа\nСкасуйте для введення парольного коду";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Наступний";
 "PREV_BUTTON" = "Попередній";
 "PLAY_ALL_BUTTON" = "Відтворити все";
+"PLAY_ALL_HINT" = "Відтворювати усі медіафайли у збірці";
 
 "RESET_VIDEO_FILTERS" = "Ви хочете очистити фільтри відео?";
 "RESET_PLAYBACK_SPEED" = "Ви хочете вернути швидкість відтворення?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Меню";
+"BUTTON_MENU_HINT" = "Виберіть, упорядкуйте та змініть розміщення медіаелементів,  поданих у цьому списку";
+
 "BUTTON_EDIT" = "Редагувати";
 "BUTTON_EDIT_HINT" = "Режим редагування";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Кількість відео";
 "NB_ALBUM" = "Кількість альбомів";
 "LAST_PLAYBACK_DATE" = "Остання дата відтворення";
+"TRACK_ID" = "ID доріжки";
 
 // MARK: - VLCNetworkLoginTVViewController
 
