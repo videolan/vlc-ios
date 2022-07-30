@@ -976,9 +976,9 @@
 		D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStreamingHistoryCell.m; path = Sources/VLCStreamingHistoryCell.m; sourceTree = SOURCE_ROOT; };
 		D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
 		D92C186427CD317D0034058F /* ChapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterView.swift; sourceTree = "<group>"; };
-		D96ACA952832836C00DD1A3E /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		D96ACA952832836C00DD1A3E /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GraphViewController.swift; path = Sources/GraphViewController.swift; sourceTree = "<group>"; };
 		D96C9EBB28105F5B005F13BB /* AlbumHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeader.swift; sourceTree = "<group>"; };
-		D98EE7442846183F00E6B02D /* GraphTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphTableViewController.swift; sourceTree = "<group>"; };
+		D98EE7442846183F00E6B02D /* GraphTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GraphTableViewController.swift; path = Sources/GraphTableViewController.swift; sourceTree = "<group>"; };
 		D9AFDCA427D6383F002326CC /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
 		DD13A3791BEE2FAA00A35554 /* VLCMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMaskView.h; path = "UI Elements/VLCMaskView.h"; sourceTree = "<group>"; };
 		DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMaskView.m; path = "UI Elements/VLCMaskView.m"; sourceTree = "<group>"; };
@@ -1355,11 +1355,13 @@
 			name = web;
 			sourceTree = "<group>";
 		};
-		7D1052EA1A4DCC1700295F08 /* OneDrive */ = {
+		7D1052EA1A4DCC1700295F08 /* Graph */ = {
 			isa = PBXGroup;
 			children = (
+				D96ACA952832836C00DD1A3E /* GraphViewController.swift */,
+				D98EE7442846183F00E6B02D /* GraphTableViewController.swift */,
 			);
-			name = OneDrive;
+			name = Graph;
 			sourceTree = "<group>";
 		};
 		7D13293E1BA1F10100BE647E /* VLC-TV */ = {
@@ -1513,7 +1515,7 @@
 				41CD69561A29D71B00E60BCE /* Box */,
 				9B51719A17EDEC8900F8FBA7 /* GoogleDrive */,
 				7DFB1567185CC38A008D49BB /* Dropbox */,
-				7D1052EA1A4DCC1700295F08 /* OneDrive */,
+				7D1052EA1A4DCC1700295F08 /* Graph */,
 				7D3784AF183A990F009EE944 /* VLCCloudStorageTableViewCell.h */,
 				7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */,
 				7D7F9C0B1BFBB05400508518 /* VLCRemoteBrowsingTVCell+CloudStorage.h */,
@@ -1523,8 +1525,6 @@
 				D0AF091E220A741300076D07 /* VLCCloudSortingSpecifierManager.swift */,
 				4184AA131A5492070063DF5A /* VLCCloudStorageController.h */,
 				4184AA141A5492070063DF5A /* VLCCloudStorageController.m */,
-				D96ACA952832836C00DD1A3E /* GraphViewController.swift */,
-				D98EE7442846183F00E6B02D /* GraphTableViewController.swift */,
 			);
 			name = "Cloud Integration";
 			path = ..;
