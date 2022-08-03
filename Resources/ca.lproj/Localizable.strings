@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "VLC compartit per a la Biblioteca iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servidors de fitxers (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fitxer";
 "NO_FILES" = "Cap fitxer compatible";
 "DOWNLOADING" = "S'està baixant...";
+"DOWNLOADING_MEDIA" = "Baixant: %@";
 "REMAINING_TIME" = "Temps restant: %@";
 "BIOMETRIC_UNLOCK" = "Desbloquejar la Mediateca \nCancel·lar per a introduir la clau d'accés";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Endavant";
 "PREV_BUTTON" = "Enrere";
 "PLAY_ALL_BUTTON" = "Reprodueix-ho tot";
+"PLAY_ALL_HINT" = "Reprodueix tots els multimèdia de la col·lecció";
 
 "RESET_VIDEO_FILTERS" = "Voleu restablir els filtres de vídeo?";
 "RESET_PLAYBACK_SPEED" = "Voleu restablir la velocitat de reproducció?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menú";
+"BUTTON_MENU_HINT" = "Selecciona i reordena els fitxers multimèdia d'aquesta vista";
+
 "BUTTON_EDIT" = "Edita";
 "BUTTON_EDIT_HINT" = "Mode edició";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Número de vídeo";
 "NB_ALBUM" = "Nombre d'àlbums";
 "LAST_PLAYBACK_DATE" = "Darrera data de reproducció";
+"TRACK_ID" = "Identificador de la pista";
 
 // MARK: - VLCNetworkLoginTVViewController
 
