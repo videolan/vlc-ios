@@ -42,9 +42,9 @@
 "SETTINGS_GESTURES_VOLUME" = "위/아래로 밀어서 음량조절";
 "SETTINGS_GESTURES_PLAYPAUSE" = "재생/일시정지 하려면 두 손가락으로 가볍게 누르기";
 "SETTINGS_GESTURES_BRIGHTNESS" = "위/아래로 밀어서 밝기조절";
-"SETTINGS_GESTURES_SEEK" = "좌/우로 밀어서 탐색";
+"SETTINGS_GESTURES_SEEK" = "찾으려면 오른쪽/왼쪽으로 살짝 밀기";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
+"SETTINGS_GESTURE_JUMP_DURATION" = "가변적인 점프 재생시간";
 
 "SETTINGS_SUBTITLES_TITLE" = "자막";
 "SETTINGS_SUBTITLES_FONT" = "폰트";

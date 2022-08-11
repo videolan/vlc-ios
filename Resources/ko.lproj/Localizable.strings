@@ -3,8 +3,8 @@
 "STORE_DESCRIPTION_TV" = "VLC는 자유로운 오픈 소스 크로스 플랫폼 멀티미디어 재생기입니다.\n변환 없이 대부분의 형식으로 모든 영화, 프로그램 및 음악을 직접 재생할 수 있습니다.\n웹 UI를 통해 Mac 또는 PC에서 원격 재생이 가능하며 SMB, FTP, SFTP, NFS, UPnP/DLNA 미디어 서버 및 웹에서 스트리밍할 수 있습니다.\nVLC는 전체 SSA 호환성, 다중 트랙 오디오 및 재생 속도 제어를 포함한 고급 자막을 지원합니다.\n\nVLC는 완전히 자유로운 오픈 소스입니다.\n\n아트워크는 커뮤니티에서 관리하는 영화 데이터베이스인 TMDb에서 제공합니다.";
 
 "UNKNOWN_TRACK_TYPE" = "알 수 없는 트랙 유형";
-"CHOOSE_TITLE" = "타이틀 선택하기";
-"CHOOSE_CHAPTER" = "챕터 선택하기";
+"CHOOSE_TITLE" = "타이틀 고르기";
+"CHOOSE_CHAPTER" = "챕터 고르기";
 "CHAPTER_SELECTION_TITLE" = "챕터";
 "TITLE" = "제목";
 "CHAPTER" = "챕터";
@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "공유된 iOS용 VLC 라이브러리";
 "SMB_CIFS_FILE_SERVERS" = "파일 서버(SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -102,7 +104,7 @@
 
 "FOLDER_EMPTY" = "빈 폴더";
 
-"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "열 파일 선택:";
+"SHARING_ACTION_SHEET_TITLE_CHOOSE_FILE" = "열려는 파일 고르기:";
 "SHARING_ACTIVITY_OPEN_IN_TITLE" = "열기...";
 "SHARING_ERROR_NO_FILES" = "공유할 파일을 찾을 수 없음";
 "SHARING_ERROR_NO_APPLICATIONS" = "이 파일 형식을 열 응용프로그램을 찾을 수 없습니다";
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 파일";
 "NO_FILES" = "지원되는 파일 없음";
 "DOWNLOADING" = "다운로드중...";
+"DOWNLOADING_MEDIA" = "다운로드중: %@";
 "REMAINING_TIME" = "남은 시간: %@";
 "BIOMETRIC_UNLOCK" = "미디어 라이브러리 잠금 해제\n비밀번호를 입력하려면 취소하세요";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "다음";
 "PREV_BUTTON" = "이전";
 "PLAY_ALL_BUTTON" = "모두 재생하기";
+"PLAY_ALL_HINT" = "모음집의 모든 미디어 재생하기";
 
 "RESET_VIDEO_FILTERS" = "동영상 필터를 재설정하시겠습니까?";
 "RESET_PLAYBACK_SPEED" = "재생 속도를 재설정 하시겠습니까?";
@@ -333,11 +337,14 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "메뉴";
+"BUTTON_MENU_HINT" = "이 보기에 있는 미디어 항목 선택하기, 순서변경 및 정렬하기";
+
 "BUTTON_EDIT" = "편집";
 "BUTTON_EDIT_HINT" = "편집 모드";
 
-"BUTTON_SELECT" = "Select";
-"BUTTON_SELECT_HINT" = "Select button";
+"BUTTON_SELECT" = "선택하기";
+"BUTTON_SELECT_HINT" = "버튼 선택하기";
 
 "BUTTON_SELECT_ALL" = "모두 선택";
 "BUTTON_SELECT_ALL_HINT" = "이 보기에 있는 모든 미디어 항목 선택";
@@ -346,7 +353,7 @@
 "ADD_TO_PLAYLIST_HINT" = "\"재생목록에 추가\" 메뉴를 열기";
 
 "PLAYLIST_PLACEHOLDER" = "재생목록 제목";
-"PLAYLIST_DESCRIPTION" = "새 재생 목록의 제목 선택하기";
+"PLAYLIST_DESCRIPTION" = "새 재생 목록의 제목 고르기";
 "PLAYLIST_CREATION" = "새 재생목록을 만들기";
 "PLAYLIST_CREATION_HINT" = "새 재생목록을 만들기를 위하여 상호적인 행동을 표시하기";
 "ERROR_PLAYLIST_CREATION" = "재생목록 창작 실패";
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "동영상 수";
 "NB_ALBUM" = "앨범 수";
 "LAST_PLAYBACK_DATE" = "마지막 재생 날짜";
+"TRACK_ID" = "트랙 ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -406,7 +414,7 @@
 // MARK: - VideoPlayerControls
 
 "SUBTITLE_AND_TRACK_BUTTON" = "자막 및 오디오 트랙";
-"SUBTITLE_AND_TRACK_HINT" = "자막 또는 오디오 트랙 선택";
+"SUBTITLE_AND_TRACK_HINT" = "자막 또는 오디오 트랙 고르기";
 
 "DVD_BUTTON" = "DVD";
 "DVD_HINT" = "DVD 인터페이스";
@@ -449,7 +457,7 @@
 "EQUALIZER_CELL_TITLE" = "이퀄라이저";
 "MORE_OPTIONS_HEADER_TITLE" = "동영상 옵션";
 "BOOKMARKS_TITLE" = "바로찾기";
-"ADD_BOOKMARKS_TITLE" = "바로찾기 추가";
+"ADD_BOOKMARKS_TITLE" = "바로찾기 추가하기";
 "BOOKMARK_DEFAULT_NAME" = "바로찾기에서";
 "BOOKMARK_RENAME_TITLE" = "바로찾기 이름 바꾸기";
 "BOOKMARK_DELETE_TITLE" = "바로찾기 삭제";
@@ -472,11 +480,11 @@
 
 // MARK: - Media groups
 
-"ADD_TO_MEDIA_GROUP" = "미디어 그룹에 추가";
-"ADD_TO_MEDIA_GROUP_HINT" = "\"미디어 그룹에 추가\" 열기";
+"ADD_TO_MEDIA_GROUP" = "미디어 그룹에 추가하기";
+"ADD_TO_MEDIA_GROUP_HINT" = "\"미디어 그룹에 추가하기\" 열기";
 
 "MEDIA_GROUPS" = "미디어 그룹";
-"MEDIA_GROUPS_DESCRIPTION" = "새 미디어 그룹 제목을 선택하세요";
+"MEDIA_GROUPS_DESCRIPTION" = "새 미디어 그룹의 제목 고르기";
 "MEDIA_GROUPS_PLACEHOLDER" = "미디어 그룹 제목";
 
 "REMOVE_FROM_MEDIA_GROUP" = "미디어 그룹에서 제거하기";
