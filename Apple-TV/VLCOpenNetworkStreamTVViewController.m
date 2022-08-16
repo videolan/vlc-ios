@@ -19,6 +19,7 @@
 {
     NSMutableArray *_recentURLs;
     NSMutableDictionary *_recentURLTitles;
+    BOOL newestFirst;
 }
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
 @end
@@ -50,6 +51,9 @@
         self.playURLField.textContentType = UITextContentTypeURL;
     }
     self.emptyListButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
+    self.reverseListSortingButton.accessibilityLabel = NSLocalizedString(@"BUTTON_REVERSE", nil);
+
+    newestFirst = false;
 
     self.previouslyPlayedStreamsTableView.backgroundColor = [UIColor clearColor];
     self.previouslyPlayedStreamsTableView.rowHeight = UITableViewAutomaticDimension;
@@ -129,6 +133,7 @@
     if (count > 0) {
         self.nothingFoundView.hidden = YES;
         self.emptyListButton.hidden = NO;
+        self.reverseListSortingButton.hidden = NO;
     }
     return count;
 }
@@ -202,6 +207,17 @@
         [alertController setPreferredAction:deleteAction];
     }
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (IBAction)reverseListSortingAction:(id)sender
+{
+    newestFirst = !newestFirst;
+
+    if (newestFirst) {
+        self.reverseListSortingButton.transform = CGAffineTransformMakeRotation( M_PI );
+    } else {
+        self.reverseListSortingButton.transform = CGAffineTransformIdentity;
+    }
 }
 
 #pragma mark - editing

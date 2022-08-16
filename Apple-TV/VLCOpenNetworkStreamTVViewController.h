@@ -22,8 +22,10 @@
 @property (readwrite, nonatomic, weak) IBOutlet UIImageView *nothingFoundConeImageView;
 
 @property (readwrite, nonatomic, weak) IBOutlet UIButton *emptyListButton;
+@property (readwrite, nonatomic, weak) IBOutlet UIButton *reverseListSortingButton;
 
 - (IBAction)URLEnteredInField:(id)sender;
 - (IBAction)emptyListAction:(id)sender;
+- (IBAction)reverseListSortingAction:(id)sender;
 
 @end

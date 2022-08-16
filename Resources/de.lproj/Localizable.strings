@@ -66,6 +66,7 @@
 "BUTTON_CONTINUE" = "Fortsetzen";
 "BUTTON_SET" = "Einstellen";
 "BUTTON_RESET" = "Zurücksetzen";
+"BUTTON_REVERSE" = "Sortierung umkehren";
 "BUTTON_RESCAN" = "Erneut durchsuchen";
 "PRIVATE_PLAYBACK_TOGGLE" = "Private Wiedergabe";
 "SCAN_SUBTITLE_TOGGLE" = "Untertitelsuche (nur HTTP)";

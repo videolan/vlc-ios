@@ -1,0 +1,18 @@
+{
+  "images" : [
+    {
+      "filename" : "sortingImage@1.png",
+      "idiom" : "tv",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "sortingImage@2.png",
+      "idiom" : "tv",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
