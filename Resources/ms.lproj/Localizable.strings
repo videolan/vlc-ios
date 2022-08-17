@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "VLC Terkongsi untuk Pustaka iOS";
 "SMB_CIFS_FILE_SERVERS" = "Pelayan Fail (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fail";
 "NO_FILES" = "Tiada fail disokong";
 "DOWNLOADING" = "Memuat turun...";
+"DOWNLOADING_MEDIA" = "Memuat turun: %@";
 "REMAINING_TIME" = "Masa berbaki: %@";
 "BIOMETRIC_UNLOCK" = "Buka Pustaka Media\nBatal untuk masukkan Kod Laluan";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Berikutnya";
 "PREV_BUTTON" = "Terdahulu";
 "PLAY_ALL_BUTTON" = "Main semua";
+"PLAY_ALL_HINT" = "Main semua media di dalam koleksi";
 
 "RESET_VIDEO_FILTERS" = "Anda pasti mahu menetap semula penapis video?";
 "RESET_PLAYBACK_SPEED" = "Anda pasti mahu menetap semula kelajuan main balik?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Pilih, tertib semula dan isih item-item media yang ada dalam pandangan ini";
+
 "BUTTON_EDIT" = "Sunting";
 "BUTTON_EDIT_HINT" = "Mod sunting";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Bilangan video";
 "NB_ALBUM" = "Bilangan album";
 "LAST_PLAYBACK_DATE" = "Tarikh main balik terakhir";
+"TRACK_ID" = "ID Trek";
 
 // MARK: - VLCNetworkLoginTVViewController
 
