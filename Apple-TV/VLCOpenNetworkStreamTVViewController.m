@@ -19,7 +19,7 @@
 {
     NSMutableArray *_recentURLs;
     NSMutableDictionary *_recentURLTitles;
-    BOOL newestFirst;
+    BOOL _newestFirst;
 }
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
 @end
@@ -53,7 +53,7 @@
     self.emptyListButton.accessibilityLabel = NSLocalizedString(@"BUTTON_RESET", nil);
     self.reverseListSortingButton.accessibilityLabel = NSLocalizedString(@"BUTTON_REVERSE", nil);
 
-    newestFirst = false;
+    _newestFirst = false;
 
     self.previouslyPlayedStreamsTableView.backgroundColor = [UIColor clearColor];
     self.previouslyPlayedStreamsTableView.rowHeight = UITableViewAutomaticDimension;
@@ -112,8 +112,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"RecentlyPlayedURLsTableViewCell"];
     }
 
-    NSString *content = [_recentURLs[indexPath.row] stringByRemovingPercentEncoding];
-    NSString *possibleTitle = _recentURLTitles[[@(indexPath.row) stringValue]];
+    NSInteger index = _newestFirst ? _recentURLs.count - 1 - indexPath.row : indexPath.row;
+    NSString *content = [_recentURLs[index] stringByRemovingPercentEncoding];
+    NSString *possibleTitle = _recentURLTitles[[@(index) stringValue]];
 
     cell.detailTextLabel.text = content;
     cell.textLabel.text = (possibleTitle != nil) ? possibleTitle : [content lastPathComponent];
@@ -124,7 +125,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.previouslyPlayedStreamsTableView deselectRowAtIndexPath:indexPath animated:NO];
-    [self _openURLStringAndDismiss:_recentURLs[indexPath.row]];
+    NSInteger index = _newestFirst ? _recentURLs.count - 1 - indexPath.row : indexPath.row;
+    [self _openURLStringAndDismiss:_recentURLs[index]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -211,13 +213,14 @@
 
 - (IBAction)reverseListSortingAction:(id)sender
 {
-    newestFirst = !newestFirst;
-
-    if (newestFirst) {
+    _newestFirst = !_newestFirst;
+    if (_newestFirst) {
         self.reverseListSortingButton.transform = CGAffineTransformMakeRotation( M_PI );
     } else {
         self.reverseListSortingButton.transform = CGAffineTransformIdentity;
     }
+
+    [self.previouslyPlayedStreamsTableView reloadData];
 }
 
 #pragma mark - editing
@@ -237,7 +240,7 @@
 
     NSString *ret = nil;
     @synchronized(_recentURLs) {
-        NSInteger index = indexPathToDelete.item;
+        NSInteger index = _newestFirst ? _recentURLs.count - 1 - indexPathToDelete.item : indexPathToDelete.item;
         if (index < _recentURLs.count) {
             ret = _recentURLs[index];
         }
