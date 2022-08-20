@@ -333,6 +333,8 @@
 		9B9231C4185A703700F89498 /* VLCNetworkLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */; };
 		9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */; };
 		9BE4D1CE183D76950006346C /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
+		A1CA2EF328240A8D000DB82F /* VLCOpenManagedServersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1CA2EF228240A8D000DB82F /* VLCOpenManagedServersViewController.xib */; };
+		A1CA2EF628240BA0000DB82F /* VLCOpenManagedServersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CA2EF528240BA0000DB82F /* VLCOpenManagedServersViewController.m */; };
 		A483C473E441E7BA7B31BF76 /* libPods-VLC-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6CC455148EC65B1D66CC66 /* libPods-VLC-iOS.a */; };
 		A79246C8170F11DF0036AAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		CAA0B0ED2072651000B9274E /* VLCTestMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */; };
@@ -954,6 +956,9 @@
 		9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCNetworkLoginViewController.xib; path = Resources/VLCNetworkLoginViewController.xib; sourceTree = SOURCE_ROOT; };
 		9BADAF43185FBD9D00108BD8 /* VLCFrostedGlasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFrostedGlasView.h; path = Sources/VLCFrostedGlasView.h; sourceTree = SOURCE_ROOT; };
 		9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFrostedGlasView.m; path = Sources/VLCFrostedGlasView.m; sourceTree = SOURCE_ROOT; };
+		A1CA2EF228240A8D000DB82F /* VLCOpenManagedServersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCOpenManagedServersViewController.xib; sourceTree = "<group>"; };
+		A1CA2EF428240B8E000DB82F /* VLCOpenManagedServersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCOpenManagedServersViewController.h; sourceTree = "<group>"; };
+		A1CA2EF528240BA0000DB82F /* VLCOpenManagedServersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCOpenManagedServersViewController.m; sourceTree = "<group>"; };
 		A7035BBD174519600057DFA7 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		A79246C7170F11DF0036AAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		A79246C9170F11E40036AAF2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1844,6 +1849,7 @@
 				7DC0B56F1C0094370027BFAD /* VLCSettingsViewController.xib */,
 				2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */,
 				7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */,
+				A1CA2EF228240A8D000DB82F /* VLCOpenManagedServersViewController.xib */,
 			);
 			name = xibs;
 			sourceTree = "<group>";
@@ -1912,6 +1918,8 @@
 				7DB174A51CD20D7B0085BCF0 /* VLCSearchableServerBrowsingTVViewController.h */,
 				7DB174A61CD20D7B0085BCF0 /* VLCSearchableServerBrowsingTVViewController.m */,
 				2663ACB122497D21000FBB95 /* VLCNetworkLoginTVViewController.swift */,
+				A1CA2EF428240B8E000DB82F /* VLCOpenManagedServersViewController.h */,
+				A1CA2EF528240BA0000DB82F /* VLCOpenManagedServersViewController.m */,
 			);
 			name = "Network UI";
 			sourceTree = "<group>";
@@ -2780,6 +2788,7 @@
 				7DEDD38C1BE936130053802C /* About Contents.html in Resources */,
 				7D5B26651D6350BF00FE7B4D /* gradient-cell.png in Resources */,
 				7DF383AE1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib in Resources */,
+				A1CA2EF328240A8D000DB82F /* VLCOpenManagedServersViewController.xib in Resources */,
 				7D21407F2431F3A50075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */,
 				7DDE41931BE925820065C53A /* Assets.xcassets in Resources */,
 				DD29A3E91BF223D000A27A91 /* Localizable.strings in Resources */,
@@ -3096,6 +3105,7 @@
 				7DDE418F1BE9225A0065C53A /* VLCAboutViewController.m in Sources */,
 				7D0C34E71BD951080058CD19 /* NSString+SupportedMedia.m in Sources */,
 				DD8095F61BE624C00065D8E1 /* VLCPlaybackInfoTVAnimators.m in Sources */,
+				A1CA2EF628240BA0000DB82F /* VLCOpenManagedServersViewController.m in Sources */,
 				DDEAECBF1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m in Sources */,
 				7D2DE69C24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */,
 				DD3EFF381BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m in Sources */,
