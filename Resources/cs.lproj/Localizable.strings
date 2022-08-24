@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "Sdílená knihovna VLC pro iOS";
 "SMB_CIFS_FILE_SERVERS" = "Souborové servery (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 soubor";
 "NO_FILES" = "Žádné podporované soubory";
 "DOWNLOADING" = "Stahování...";
+"DOWNLOADING_MEDIA" = "Stahování: %@";
 "REMAINING_TIME" = "Zbývající čas: %@";
 "BIOMETRIC_UNLOCK" = "Odemknout Knihovnu médií\nZrušte pro zadání hesla";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Následující";
 "PREV_BUTTON" = "Předchozí";
 "PLAY_ALL_BUTTON" = "Přehrát vše";
+"PLAY_ALL_HINT" = "Přehrát všechna média v kolekci";
 
 "RESET_VIDEO_FILTERS" = "Chcete vrátit nastavení filtrů videa?";
 "RESET_PLAYBACK_SPEED" = "Chcete resetovat rychlost přehrávání?";
@@ -333,11 +337,14 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Nabídka";
+"BUTTON_MENU_HINT" = "Výběr, změna pořadí a třídění položek médií přítomných v tomto zobrazení";
+
 "BUTTON_EDIT" = "Upravit";
 "BUTTON_EDIT_HINT" = "Režim editace";
 
-"BUTTON_SELECT" = "Select";
-"BUTTON_SELECT_HINT" = "Select button";
+"BUTTON_SELECT" = "Vybrat";
+"BUTTON_SELECT_HINT" = "Tlačítko pro výběr";
 
 "BUTTON_SELECT_ALL" = "vybrat vše";
 "BUTTON_SELECT_ALL_HINT" = "Vybrat všechny položky médií přítomné v tomto zobrazení";
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Pořadí videa";
 "NB_ALBUM" = "Počet alb";
 "LAST_PLAYBACK_DATE" = "Datum posledního přehrávání";
+"TRACK_ID" = "ID stopy";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -400,8 +408,8 @@
 "UNKNOWN_ARTIST" = "Neznámý umělec";
 "VARIOUS_ARTIST" = "Různí umělci";
 "UNKNOWN_ALBUM" = "Neznámé album";
-"SINGLE_ITEM_SELECTED" = "item selected";
-"MULTIPLE_ITEMS_SELECTED" = "items selected";
+"SINGLE_ITEM_SELECTED" = "položka vybraná";
+"MULTIPLE_ITEMS_SELECTED" = "položky vybrané";
 
 // MARK: - VideoPlayerControls
 
