@@ -86,6 +86,8 @@
 "SHARED_VLC_IOS_LIBRARY" = "iOS kitaplığı için paylaşılan VLC";
 "SMB_CIFS_FILE_SERVERS" = "Dosya sunucuları (SMB)";
 
+"MANAGED_SERVERS" = "Managed";
+
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 dosya";
 "NO_FILES" = "Desteklenen bir dosya yok";
 "DOWNLOADING" = "İndiriliyor...";
+"DOWNLOADING_MEDIA" = "İndiriliyor: %@";
 "REMAINING_TIME" = "Kalan süre: %@";
 "BIOMETRIC_UNLOCK" = "Ortam Kitaplığının Kilidini Aç\nParola yazmayı iptal et";
 
@@ -177,11 +180,11 @@
 "EMPTY_PLAYLIST" = "Boş oynatma listesi";
 "EMPTY_PLAYLIST_DESCRIPTION" = "İlgili kategorilerde düzenleme yaparken ortam ekle.";
 
-"PLAYBACK_SCRUB_HELP" = "Sürtme hızını ayarlamak için parmağınızı yukarı kaydırın.";
-"PLAYBACK_SCRUB_HIGH" = "Yüksek hızlı sürtme";
-"PLAYBACK_SCRUB_HALF" = "Yarım hızlı sürtme";
-"PLAYBACK_SCRUB_QUARTER" = "Çeyrek hızlı sürtme";
-"PLAYBACK_SCRUB_FINE" = "Hafif sürtme";
+"PLAYBACK_SCRUB_HELP" = "Sarma hızını ayarlamak için parmağınızı yukarı kaydırın.";
+"PLAYBACK_SCRUB_HIGH" = "Yüksek hızlı sarma";
+"PLAYBACK_SCRUB_HALF" = "Yarım hızlı sarma";
+"PLAYBACK_SCRUB_QUARTER" = "Çeyrek hızlı sarma";
+"PLAYBACK_SCRUB_FINE" = "Yavaş sarma";
 "PLAYBACK_POSITION" = "Oynatma konumu";
 "VIDEO_FILTER" = "Görüntü süzgeçleri";
 "VIDEO_FILTER_RESET_BUTTON" = "Görüntü süzgeçlerini sıfırla";
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Sonraki";
 "PREV_BUTTON" = "Önceki";
 "PLAY_ALL_BUTTON" = "Tümünü oynat";
+"PLAY_ALL_HINT" = "Koleksiyondaki tüm ortamları oynat";
 
 "RESET_VIDEO_FILTERS" = "Görüntü etkilerini sıfırlamak ister misiniz?";
 "RESET_PLAYBACK_SPEED" = "Oynatma hızını sıfırlamak ister misiniz?";
@@ -333,6 +337,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menü";
+"BUTTON_MENU_HINT" = "Bu görünümdeki tüm ortam ögelerini seçin, dizin ve sıralayın";
+
 "BUTTON_EDIT" = "Düzenle";
 "BUTTON_EDIT_HINT" = "Düzenleme kipi";
 
@@ -390,6 +397,7 @@
 "NB_VIDEO" = "Görüntü kaydı sayısı";
 "NB_ALBUM" = "Albüm sayıları";
 "LAST_PLAYBACK_DATE" = "Son oynatma tarihi";
+"TRACK_ID" = "Kayıt kodu";
 
 // MARK: - VLCNetworkLoginTVViewController
 
