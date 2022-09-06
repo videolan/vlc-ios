@@ -664,7 +664,7 @@
 		7D1329421BA1F10100BE647E /* AppleTVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleTVAppDelegate.h; sourceTree = "<group>"; };
 		7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleTVAppDelegate.m; sourceTree = "<group>"; };
 		7D13294E1BA1F10100BE647E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7D1329501BA1F10100BE647E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D1329501BA1F10100BE647E /* tvOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "tvOS-Info.plist"; path = "../Packaging/tvOS-Info.plist"; sourceTree = "<group>"; };
 		7D13297A1BA313D500BE647E /* VLC-tvOS-Prefix-Header.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLC-tvOS-Prefix-Header.pch"; path = "../Sources/Headers/VLC-tvOS-Prefix-Header.pch"; sourceTree = "<group>"; };
 		7D15168A194773630086FB8C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7D168F6B18D49E74003FAF59 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -685,7 +685,7 @@
 		7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoSubtitlesFetcherViewController.xib; sourceTree = "<group>"; };
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D2AEDE517FB785100B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
-		7D2D7FD21BD2F109002D6B6D /* VLC-TV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "VLC-TV.entitlements"; sourceTree = "<group>"; };
+		7D2D7FD21BD2F109002D6B6D /* VLC-tvOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "VLC-tvOS.entitlements"; path = "Packaging/VLC-tvOS.entitlements"; sourceTree = SOURCE_ROOT; };
 		7D2DE69124D5A9AA00E8D84D /* OROpenSubtitleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OROpenSubtitleDownloader.h; path = SharedSources/Imported/OROpenSubtitleDownloader.h; sourceTree = "<group>"; };
 		7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OROpenSubtitleDownloader.m; path = SharedSources/Imported/OROpenSubtitleDownloader.m; sourceTree = "<group>"; };
 		7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOSOFetcher.m; path = SharedSources/SubtitlesDownloads/VLCOSOFetcher.m; sourceTree = "<group>"; };
@@ -716,7 +716,7 @@
 		7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveTableViewController.m; path = Sources/VLCGoogleDriveTableViewController.m; sourceTree = SOURCE_ROOT; };
 		7D310883245F1EE100BC6D79 /* VLCMediaFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMediaFileDownloader.h; path = Sources/VLCMediaFileDownloader.h; sourceTree = SOURCE_ROOT; };
 		7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaFileDownloader.m; path = Sources/VLCMediaFileDownloader.m; sourceTree = SOURCE_ROOT; };
-		7D31719C19FEC91F0019357A /* VLC for iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "VLC for iOS.entitlements"; path = "../vlc-ios/VLC for iOS.entitlements"; sourceTree = "<group>"; };
+		7D31719C19FEC91F0019357A /* VLC-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "VLC-iOS.entitlements"; path = "Packaging/VLC-iOS.entitlements"; sourceTree = SOURCE_ROOT; };
 		7D3323FB18E61DD5000ABEA5 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExternalDisplayController.h; path = Sources/Playback/VLCExternalDisplayController.h; sourceTree = SOURCE_ROOT; };
 		7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExternalDisplayController.m; path = Sources/Playback/VLCExternalDisplayController.m; sourceTree = SOURCE_ROOT; };
@@ -740,7 +740,7 @@
 		7D3784E5183A99E1009EE944 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = SharedSources/Imported/Reachability.h; sourceTree = SOURCE_ROOT; };
 		7D3784E6183A99E1009EE944 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = SharedSources/Imported/Reachability.m; sourceTree = SOURCE_ROOT; };
 		7D3784E8183A9A15009EE944 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Sources/main.m; sourceTree = SOURCE_ROOT; };
-		7D3784EA183A9A1E009EE944 /* VLC for iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "VLC for iOS-Info.plist"; path = "Sources/VLC for iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
+		7D3784EA183A9A1E009EE944 /* iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "iOS-Info.plist"; path = "Packaging/iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		7D3784EB183A9A1E009EE944 /* VLC-iOS-Prefix-Header.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLC-iOS-Prefix-Header.pch"; path = "Sources/Headers/VLC-iOS-Prefix-Header.pch"; sourceTree = SOURCE_ROOT; };
 		7D38BF8E249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCNetworkServerBrowserVLCMedia+SFTP.h"; sourceTree = "<group>"; };
 		7D38BF8F249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VLCNetworkServerBrowserVLCMedia+SFTP.m"; sourceTree = "<group>"; };
@@ -1740,10 +1740,10 @@
 		7D94FCE516DE7D1000F2623B /* iOS Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7D31719C19FEC91F0019357A /* VLC for iOS.entitlements */,
+				7D31719C19FEC91F0019357A /* VLC-iOS.entitlements */,
 				7DB638AA185BC0890003887C /* Images.xcassets */,
 				7D3784E8183A9A15009EE944 /* main.m */,
-				7D3784EA183A9A1E009EE944 /* VLC for iOS-Info.plist */,
+				7D3784EA183A9A1E009EE944 /* iOS-Info.plist */,
 				41251ECB1FD0C5C100099110 /* VLC-iOS-Bridging-Header.h */,
 				7D3784EB183A9A1E009EE944 /* VLC-iOS-Prefix-Header.pch */,
 				4129CF2E22D5E498005EF5E8 /* AppUtitlity.swift */,
@@ -1969,10 +1969,10 @@
 			children = (
 				6B4E33CC1BF2A35A00A35255 /* web */,
 				7DEDD38B1BE936130053802C /* About Contents.html */,
-				7D2D7FD21BD2F109002D6B6D /* VLC-TV.entitlements */,
+				7D2D7FD21BD2F109002D6B6D /* VLC-tvOS.entitlements */,
 				7D13294E1BA1F10100BE647E /* Assets.xcassets */,
 				7D405EE11BEA1FAD006ED886 /* index.html */,
-				7D1329501BA1F10100BE647E /* Info.plist */,
+				7D1329501BA1F10100BE647E /* tvOS-Info.plist */,
 				2629C886223991A300F8D080 /* VLC-tvOS-Bridging-Header.h */,
 				7DEC8BE81BD68BC9006E1093 /* Settings.bundle */,
 			);
@@ -3939,7 +3939,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = "Apple-TV/VLC-TV.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Packaging/VLC-tvOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 500;
@@ -3955,7 +3955,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "Apple-TV/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Packaging/tvOS-Info.plist";
 				KEYCHAIN_ACCESS_GROUP = "$(AppIdentifierPrefix)$(BUNDLE_IDENTIFIER_PREFIX).vlc-tvos";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.4.0;
@@ -3984,7 +3984,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = "Apple-TV/VLC-TV.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Packaging/VLC-tvOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -4001,7 +4001,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "Apple-TV/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Packaging/tvOS-Info.plist";
 				KEYCHAIN_ACCESS_GROUP = "$(AppIdentifierPrefix)$(BUNDLE_IDENTIFIER_PREFIX).vlc-tvos";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.4.0;
@@ -4029,7 +4029,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = "Apple-TV/VLC-TV.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Packaging/VLC-tvOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -4046,7 +4046,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "Apple-TV/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Packaging/tvOS-Info.plist";
 				KEYCHAIN_ACCESS_GROUP = "$(AppIdentifierPrefix)$(BUNDLE_IDENTIFIER_PREFIX).vlc-tvos";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.4.0;
@@ -4178,7 +4178,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = "vlc-ios/VLC for iOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Packaging/VLC-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -4192,7 +4192,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sources/Headers/VLC-iOS-Prefix-Header.pch";
-				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Packaging/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.4.0;
@@ -4226,7 +4226,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = "vlc-ios/VLC for iOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Packaging/VLC-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
@@ -4240,7 +4240,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sources/Headers/VLC-iOS-Prefix-Header.pch";
-				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Packaging/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.4.0;
@@ -4323,7 +4323,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = "vlc-ios/VLC for iOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Packaging/VLC-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
@@ -4337,7 +4337,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sources/Headers/VLC-iOS-Prefix-Header.pch";
-				INFOPLIST_FILE = "Sources/VLC for iOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Packaging/iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.4.0;
