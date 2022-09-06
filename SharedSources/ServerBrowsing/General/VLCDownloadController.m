@@ -14,6 +14,7 @@
 
 #import "VLCDownloadController.h"
 #import "VLCMediaFileDownloader.h"
+#import "VLCHTTPFileDownloader.h"
 #import "VLCActivityManager.h"
 
 @interface VLCDownloadController () <VLCMediaFileDownloader>
@@ -30,6 +31,7 @@
     NSTimeInterval _startDL;
 
     VLCMediaFileDownloader *_mediaDownloader;
+    VLCHTTPFileDownloader *_httpDownloader;
 
     NSTimeInterval _lastStatsUpdate;
     NSMutableArray *_lastSpeeds;
@@ -65,6 +67,8 @@
         _expectedDownloadSizesForItem = [[NSMutableDictionary alloc] init];
         _mediaDownloader = [[VLCMediaFileDownloader alloc] init];
         _mediaDownloader.delegate = self;
+        _httpDownloader = [[VLCHTTPFileDownloader alloc] init];
+        _httpDownloader.delegate = self;
 
         _dateFormatter = [[NSDateFormatter alloc] init];
         _dateFormatter.dateStyle = NSDateFormatterShortStyle;
@@ -105,6 +109,7 @@
 - (void)cancelCurrentDownload
 {
     [_mediaDownloader cancelDownload];
+    [_httpDownloader cancelDownload];
 }
 
 - (NSUInteger)numberOfCompletedDownloads
@@ -193,8 +198,7 @@
 #pragma mark - Download management
 - (void)_downloadVLCMediaItem:(VLCMedia *)media
 {
-    VLCMediaFileDownloader *fileDownloader = _mediaDownloader;
-    if (fileDownloader.downloadInProgress) {
+    if (_mediaDownloader.downloadInProgress || _httpDownloader.downloadInProgress) {
         return;
     }
 
@@ -209,7 +213,11 @@
     long long unsigned expectedDownloadSize = [[_expectedDownloadSizesForItem objectForKey:mediaURL] unsignedLongLongValue];
 
     _downloadActive = YES;
-    [fileDownloader downloadFileFromVLCMedia:media withName:_humanReadableFilename expectedDownloadSize:expectedDownloadSize];
+    if ([mediaURL.scheme isEqualToString:@"http"]) {
+        [_httpDownloader downloadFileFromVLCMedia:media withName:_humanReadableFilename expectedDownloadSize:expectedDownloadSize];
+    } else {
+        [_mediaDownloader downloadFileFromVLCMedia:media withName:_humanReadableFilename expectedDownloadSize:expectedDownloadSize];
+    }
 
     [_userDefinedFileNameForDownloadItem removeObjectForKey:mediaURL];
     [_expectedDownloadSizesForItem removeObjectForKey:mediaURL];
