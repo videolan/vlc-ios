@@ -1,5 +1,16 @@
 # Changelog
 
+## iOS [3.3.8]
+· Fix PLEX server discovery using Bonjour
+· Fix progress reporting for http downloads
+· Fix x-callback-url issue displaying the wrong subtitles
+· Set default pre-amp level to 0 to render full dynamic range
+
+## tvOS [3.3.8]
+· Fix PLEX server discovery using Bonjour
+· Fix x-callback-url issue displaying the wrong subtitles
+· Set default pre-amp level to 0 to render full dynamic range
+
 ## iOS [3.3.7]
 · layout improvements for playback subpanels
 · stability and speed improvements
