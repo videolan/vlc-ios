@@ -81,6 +81,14 @@ extension VLCURLHandler {
         downloadMovie(from: safeMovieURL, fileNameOfMedia: self.fileName)
     }
 
+    func cleanState() {
+        movieURL = nil
+        subURL = nil
+        successCallback = nil
+        errorCallback = nil
+        fileName = nil
+    }
+
     func parseURL(url: URL) {
         guard let query = url.query else {
             assertionFailure("VLCURLHandler: Invalid query.")
@@ -331,6 +339,7 @@ class XCallbackURLHandler: NSObject, VLCURLHandler {
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
         let action = matchAction(action: url.path.replacingOccurrences(of: "/", with: ""))
 
+        cleanState()
         parseURL(url: url)
 
         switch action {
