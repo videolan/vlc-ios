@@ -92,13 +92,13 @@ private_lane :set_version_bump_build_and_commit do |options|
   commit_version_bump(message: 'Version Bump by fastlane', force: true)
 end
 
-desc 'Update changelog in iTunes Connect with the content from Docs/NEWS'
+desc 'Update changelog in iTunes Connect with the content from doc/NEWS.md'
 private_lane :update_changelog do |options|
   platform = options[:platform]
   version = options[:version]
 
   regex = /## #{platform} \[#{version}\](.*?)^##/m
-  if (match = File.read('../Docs/NEWS').match(regex))
+  if (match = File.read('../doc/NEWS.md').match(regex))
     changelog = match.captures
     set_changelog(app_identifier: 'org.videolan.vlc-ios',
                   username: '*',
