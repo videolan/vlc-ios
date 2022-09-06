@@ -328,7 +328,11 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     if (_mediaPlayer.equalizerEnabled) {
         unsigned int profile = (unsigned int)[userDefaults integerForKey:kVLCSettingEqualizerProfile];
         [_mediaPlayer resetEqualizerFromProfile:profile];
+        /* make sure the preset's preamp setting is deployed */
         [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
+    } else {
+        /* the default is 6 dB leading to audio compression */
+        [_mediaPlayer setPreAmplification:0.];
     }
 
     _mediaWasJustStarted = YES;
@@ -1097,8 +1101,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (void)setAmplification:(CGFloat)amplification forBand:(unsigned int)index
 {
-    if (!_mediaPlayer.equalizerEnabled)
+    if (!_mediaPlayer.equalizerEnabled) {
         [_mediaPlayer setEqualizerEnabled:YES];
+    }
 
     [_mediaPlayer setAmplification:amplification forBand:index];
 
@@ -1122,6 +1127,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     if (profile == 0) {
         _mediaPlayer.equalizerEnabled = NO;
         [userDefaults setBool:YES forKey:kVLCSettingEqualizerProfileDisabled];
+        [_mediaPlayer setPreAmplification:0.];
         return;
     }
 
