@@ -994,7 +994,7 @@
 		DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoTracksTVViewController.m; sourceTree = "<group>"; };
 		DD1CB0581BBAC549006EDDE6 /* VLCVolumeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCVolumeView.h; path = Sources/VLCVolumeView.h; sourceTree = SOURCE_ROOT; };
 		DD1CB0591BBAC549006EDDE6 /* VLCVolumeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVolumeView.m; path = Sources/VLCVolumeView.m; sourceTree = SOURCE_ROOT; };
-		DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SharedConfig.xcconfig; sourceTree = "<group>"; };
+		DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = buildsystem/SharedConfig.xcconfig; sourceTree = "<group>"; };
 		DD3EABE71BE13D5B003668DA /* VLCRemoteBrowsingTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRemoteBrowsingTVCell.h; sourceTree = "<group>"; };
 		DD3EABE81BE13D5B003668DA /* VLCRemoteBrowsingTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRemoteBrowsingTVCell.m; sourceTree = "<group>"; };
 		DD3EABED1BE14720003668DA /* VLCPlaybackControlsFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackControlsFocusView.h; sourceTree = "<group>"; };
