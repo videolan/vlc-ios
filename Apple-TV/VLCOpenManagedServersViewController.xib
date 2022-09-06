@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="20037" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
+    <dependencies>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCOpenManagedServersViewController">
+            <connections>
+                <outlet property="managedServersTableView" destination="v0o-s0-Xaz" id="y2g-wA-YdX"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="73" sectionFooterHeight="66" translatesAutoresizingMaskIntoConstraints="NO" id="v0o-s0-Xaz">
+                    <rect key="frame" x="182.5" y="193" width="1555" height="817"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1555" id="LYi-d6-NCG"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="5xO-BE-h5Q"/>
+                        <outlet property="delegate" destination="-1" id="osW-Kv-1VK"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="v0o-s0-Xaz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Rc3-GK-Hcy"/>
+                <constraint firstAttribute="bottom" secondItem="v0o-s0-Xaz" secondAttribute="bottom" constant="70" id="b6M-nT-Wk3"/>
+                <constraint firstItem="v0o-s0-Xaz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="193" id="kYM-aD-JmQ"/>
+            </constraints>
+            <point key="canvasLocation" x="185" y="34"/>
+        </view>
+    </objects>
+</document>

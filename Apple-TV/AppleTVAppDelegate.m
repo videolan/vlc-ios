@@ -14,6 +14,7 @@
 #import "AppleTVAppDelegate.h"
 #import "VLCServerListTVViewController.h"
 #import "VLCOpenNetworkStreamTVViewController.h"
+#import "VLCOpenManagedServersViewController.h"
 #import "VLCSettingsViewController.h"
 #import "VLCCloudServicesTVViewController.h"
 #import "VLCHTTPUploaderController.h"
@@ -28,6 +29,7 @@
     VLCCloudServicesTVViewController *_cloudServicesVC;
     VLCRemotePlaybackViewController *_remotePlaybackVC;
     VLCOpenNetworkStreamTVViewController *_openNetworkVC;
+    VLCOpenManagedServersViewController *_openManagedServersVC;
     VLCSettingsViewController *_settingsVC;
 }
 
@@ -70,15 +72,24 @@
     _localNetworkVC = [[VLCServerListTVViewController alloc] initWithNibName:nil bundle:nil];
     _remotePlaybackVC = [[VLCRemotePlaybackViewController alloc] initWithNibName:nil bundle:nil];
     _openNetworkVC = [[VLCOpenNetworkStreamTVViewController alloc] initWithNibName:nil bundle:nil];
+    _openManagedServersVC = [[VLCOpenManagedServersViewController alloc] initWithNibName:nil bundle:nil];
     _settingsVC = [[VLCSettingsViewController alloc] initWithNibName:nil bundle:nil];
 
     _mainViewController = [[UITabBarController alloc] init];
     _mainViewController.tabBar.barTintColor = [UIColor VLCOrangeTintColor];
+    
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+    [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_localNetworkVC]];
+    [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_remotePlaybackVC]];
+    [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_openNetworkVC]];
 
-    _mainViewController.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:_localNetworkVC],
-                                            [[UINavigationController alloc] initWithRootViewController:_remotePlaybackVC],
-                                            [[UINavigationController alloc] initWithRootViewController:_openNetworkVC],
-                                            [[UINavigationController alloc] initWithRootViewController:_settingsVC]];
+    if(_openManagedServersVC.hasManagedServers) {
+        [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_openManagedServersVC]];
+    }
+    
+    [viewControllers addObject:[[UINavigationController alloc] initWithRootViewController:_settingsVC]];
+    
+    [_mainViewController setViewControllers:viewControllers];
 
     self.window.rootViewController = _mainViewController;
 
