@@ -1236,14 +1236,15 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		4133CADD22CCB0620047A4EC /* VLC-iOSScreenShots */ = {
+		4133CADD22CCB0620047A4EC /* Screenshots */ = {
 			isa = PBXGroup;
 			children = (
 				CA6FB8222074601900FC9BF2 /* VLC-iOS-Screenshots-Bridging-Header.h */,
 				CAD925782075536300F88496 /* Screenshot.swift */,
 				4133CAE022CCB0620047A4EC /* Info.plist */,
 			);
-			path = "VLC-iOSScreenShots";
+			name = Screenshots;
+			path = testing/screenshots;
 			sourceTree = "<group>";
 		};
 		415163B01FD0AEC700161354 /* Coordinators */ = {
@@ -1656,7 +1657,6 @@
 				DD7110ED1AF38AFD00854776 /* SharedSources */,
 				7D13293E1BA1F10100BE647E /* VLC-TV */,
 				7DB40AA028C7B49700EDACA0 /* Testing */,
-				4133CADD22CCB0620047A4EC /* VLC-iOSScreenShots */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
 				7D94FCDC16DE7D1000F2623B /* Products */,
 				412A87D01F3B89B000640BB7 /* Recovered References */,
@@ -1786,6 +1786,7 @@
 		7DB40AA028C7B49700EDACA0 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
+				4133CADD22CCB0620047A4EC /* Screenshots */,
 				41533C92211338D500EC3ABA /* Unit Testing */,
 				41B0BC871F73ED7D0063BA26 /* UI Testing */,
 			);
@@ -3574,7 +3575,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "VLC-iOSScreenShots/Info.plist";
+				INFOPLIST_FILE = testing/screenshots/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -3583,7 +3584,7 @@
 				PRODUCT_MODULE_NAME = VLC_iOS_Screenshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "vlc-iosscreenshots/VLC-iOS-Screenshots-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "testing/screenshots/VLC-iOS-Screenshots-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3612,7 +3613,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "VLC-iOSScreenShots/Info.plist";
+				INFOPLIST_FILE = testing/screenshots/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3620,7 +3621,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.VLC-iOSScreenShots";
 				PRODUCT_MODULE_NAME = VLC_iOS_Screenshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "vlc-iosscreenshots/VLC-iOS-Screenshots-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "testing/screenshots/VLC-iOS-Screenshots-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "VLC-iOS";
@@ -3648,7 +3649,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "VLC-iOSScreenShots/Info.plist";
+				INFOPLIST_FILE = testing/screenshots/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3656,7 +3657,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.VLC-iOSScreenShots";
 				PRODUCT_MODULE_NAME = VLC_iOS_Screenshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "vlc-iosscreenshots/VLC-iOS-Screenshots-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "testing/screenshots/VLC-iOS-Screenshots-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "VLC-iOS";
