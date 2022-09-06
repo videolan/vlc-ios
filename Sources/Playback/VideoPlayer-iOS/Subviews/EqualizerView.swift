@@ -439,6 +439,9 @@ extension EqualizerView {
             eqFrequency.currentValueLabel.text = "0.0"
         }
 
+        delegate?.preAmplification = 0
+        presetSelectorView?.setPreampSliderValue(0)
+
         UIDelegate?.equalizerViewHideIcon()
     }
 
