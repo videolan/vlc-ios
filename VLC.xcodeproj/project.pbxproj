@@ -506,7 +506,7 @@
 		4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeychainCoordinator.swift; path = Sources/KeychainCoordinator.swift; sourceTree = "<group>"; };
 		41533C91211338D500EC3ABA /* VLC-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandlerTests.swift; sourceTree = "<group>"; };
-		41533CA1211343D100EC3ABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "VLC-iOS-Tests/Info.plist"; sourceTree = SOURCE_ROOT; };
+		41533CA1211343D100EC3ABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = testing/unit/Info.plist; sourceTree = SOURCE_ROOT; };
 		416443852048419E00CAC646 /* DeviceMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotion.swift; sourceTree = "<group>"; };
 		416DACB620B6DB9A001BC75D /* PlayingExternallyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingExternallyView.swift; sourceTree = "<group>"; };
 		416DEFF51FEEA76A00F4FC59 /* LayoutAnchorContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LayoutAnchorContainer.swift; path = Sources/LayoutAnchorContainer.swift; sourceTree = "<group>"; };
@@ -994,7 +994,7 @@
 		DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoTracksTVViewController.m; sourceTree = "<group>"; };
 		DD1CB0581BBAC549006EDDE6 /* VLCVolumeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCVolumeView.h; path = Sources/VLCVolumeView.h; sourceTree = SOURCE_ROOT; };
 		DD1CB0591BBAC549006EDDE6 /* VLCVolumeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVolumeView.m; path = Sources/VLCVolumeView.m; sourceTree = SOURCE_ROOT; };
-		DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = buildsystem/SharedConfig.xcconfig; sourceTree = "<group>"; };
+		DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfig.xcconfig; path = buildsystem/SharedConfig.xcconfig; sourceTree = "<group>"; };
 		DD3EABE71BE13D5B003668DA /* VLCRemoteBrowsingTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRemoteBrowsingTVCell.h; sourceTree = "<group>"; };
 		DD3EABE81BE13D5B003668DA /* VLCRemoteBrowsingTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRemoteBrowsingTVCell.m; sourceTree = "<group>"; };
 		DD3EABED1BE14720003668DA /* VLCPlaybackControlsFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackControlsFocusView.h; sourceTree = "<group>"; };
@@ -1257,13 +1257,14 @@
 			name = Coordinators;
 			sourceTree = "<group>";
 		};
-		41533C92211338D500EC3ABA /* VLC-iOS-Tests */ = {
+		41533C92211338D500EC3ABA /* Unit Testing */ = {
 			isa = PBXGroup;
 			children = (
 				41533CA1211343D100EC3ABA /* Info.plist */,
 				41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */,
 			);
-			path = "VLC-iOS-Tests";
+			name = "Unit Testing";
+			path = testing/unit;
 			sourceTree = "<group>";
 		};
 		41884A4C214BE09D00D2C6B4 /* MediaCategoryCells */ = {
@@ -1280,14 +1281,15 @@
 			path = Sources/MediaCategoryCells;
 			sourceTree = "<group>";
 		};
-		41B0BC871F73ED7D0063BA26 /* VLC-iOS-UITests */ = {
+		41B0BC871F73ED7D0063BA26 /* UI Testing */ = {
 			isa = PBXGroup;
 			children = (
 				CAC0AFE720CF8A6900EDB035 /* Helpers */,
 				41B0BC8A1F73ED7D0063BA26 /* Info.plist */,
 				CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */,
 			);
-			path = "VLC-iOS-UITests";
+			name = "UI Testing";
+			path = testing/ui;
 			sourceTree = "<group>";
 		};
 		41CD69561A29D71B00E60BCE /* Box */ = {
@@ -1653,8 +1655,7 @@
 				7D94FCE516DE7D1000F2623B /* iOS Supporting Files */,
 				DD7110ED1AF38AFD00854776 /* SharedSources */,
 				7D13293E1BA1F10100BE647E /* VLC-TV */,
-				41B0BC871F73ED7D0063BA26 /* VLC-iOS-UITests */,
-				41533C92211338D500EC3ABA /* VLC-iOS-Tests */,
+				7DB40AA028C7B49700EDACA0 /* Testing */,
 				4133CADD22CCB0620047A4EC /* VLC-iOSScreenShots */,
 				7D94FCDD16DE7D1000F2623B /* Frameworks */,
 				7D94FCDC16DE7D1000F2623B /* Products */,
@@ -1780,6 +1781,15 @@
 			);
 			name = Imported;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		7DB40AA028C7B49700EDACA0 /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				41533C92211338D500EC3ABA /* Unit Testing */,
+				41B0BC871F73ED7D0063BA26 /* UI Testing */,
+			);
+			name = Testing;
 			sourceTree = "<group>";
 		};
 		7DBB788E1B305D8300894467 /* Keychain & random singletons */ = {
@@ -3674,7 +3684,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "VLC-iOS-Tests/Info.plist";
+				INFOPLIST_FILE = testing/unit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -3713,7 +3723,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "VLC-iOS-Tests/Info.plist";
+				INFOPLIST_FILE = testing/unit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3751,7 +3761,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "VLC-iOS-Tests/Info.plist";
+				INFOPLIST_FILE = testing/unit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3801,7 +3811,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "VLC-iOS-UITests/Info.plist";
+				INFOPLIST_FILE = testing/ui/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -3851,7 +3861,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "VLC-iOS-UITests/Info.plist";
+				INFOPLIST_FILE = testing/ui/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3902,7 +3912,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "VLC-iOS-UITests/Info.plist";
+				INFOPLIST_FILE = testing/ui/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
