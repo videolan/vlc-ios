@@ -2922,7 +2922,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python3 Tools/update_strings.py Resources/en.lproj/Localizable.strings\n";
+			shellScript = "python3 buildsystem/tools/update_strings.py Resources/en.lproj/Localizable.strings\n";
 		};
 		6B1272663E377D4BC4DCBF9D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
