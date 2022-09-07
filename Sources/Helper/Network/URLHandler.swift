@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 import Foundation
+import UIKit
 
 enum VLCXCallbackType {
     case url
@@ -293,7 +294,7 @@ class FileURLHandler: NSObject, VLCURLHandler {
     }
 
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
-        let subclass = DocumentClass(fileURL: url)
+        let subclass = UIDocument(fileURL: url)
         subclass.open { _ in
             self.play(url: url) { _ in
                 subclass.close(completionHandler: nil)
