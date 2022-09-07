@@ -467,8 +467,8 @@
 
 /* Begin PBXFileReference section */
 		027E1E187A0A43CF5CFAECEC /* Pods-VLC-iOS.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS.distribution.xcconfig"; path = "Target Support Files/Pods-VLC-iOS/Pods-VLC-iOS.distribution.xcconfig"; sourceTree = "<group>"; };
-		1ACB60BB25275E5700405250 /* VLCFirstStepsBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsBaseViewController.h; path = Sources/VLCFirstStepsBaseViewController.h; sourceTree = "<group>"; };
-		1ACB60BC25275E5700405250 /* VLCFirstStepsBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsBaseViewController.m; path = Sources/VLCFirstStepsBaseViewController.m; sourceTree = "<group>"; };
+		1ACB60BB25275E5700405250 /* VLCFirstStepsBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCFirstStepsBaseViewController.h; sourceTree = "<group>"; };
+		1ACB60BC25275E5700405250 /* VLCFirstStepsBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCFirstStepsBaseViewController.m; sourceTree = "<group>"; };
 		2629C887223991A400F8D080 /* VLCMediaThumbnailerCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCMediaThumbnailerCache.swift; sourceTree = "<group>"; };
 		2663ACB122497D21000FBB95 /* VLCNetworkLoginTVViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCNetworkLoginTVViewController.swift; sourceTree = "<group>"; };
 		2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCNetworkLoginTVViewController.xib; sourceTree = "<group>"; };
@@ -753,8 +753,8 @@
 		7D609555242B8333000460D3 /* VLCStoreViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCStoreViewController.xib; sourceTree = "<group>"; };
 		7D6262181C18AECD00F7CB24 /* VLCDeletionCapableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDeletionCapableViewController.h; sourceTree = "<group>"; };
 		7D6262191C18AECD00F7CB24 /* VLCDeletionCapableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDeletionCapableViewController.m; sourceTree = "<group>"; };
-		7D63C18D18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsiTunesSyncViewController.h; path = Sources/VLCFirstStepsiTunesSyncViewController.h; sourceTree = SOURCE_ROOT; };
-		7D63C18E18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsiTunesSyncViewController.m; path = Sources/VLCFirstStepsiTunesSyncViewController.m; sourceTree = SOURCE_ROOT; };
+		7D63C18D18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsiTunesSyncViewController.h; path = Sources/Onboarding/VLCFirstStepsiTunesSyncViewController.h; sourceTree = SOURCE_ROOT; };
+		7D63C18E18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsiTunesSyncViewController.m; path = Sources/Onboarding/VLCFirstStepsiTunesSyncViewController.m; sourceTree = SOURCE_ROOT; };
 		7D685A861AAF73DD006CD82A /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D685A8B1AAF73F2006CD82A /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D685A901AAF7406006CD82A /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = fo; path = fo.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
@@ -784,10 +784,10 @@
 		7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCOpenNetworkStreamViewController.xib; path = Resources/VLCOpenNetworkStreamViewController.xib; sourceTree = SOURCE_ROOT; };
 		7D8986D4278B0C25005396AA /* VLCThumbnailsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCThumbnailsCache.h; sourceTree = "<group>"; };
 		7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCThumbnailsCache.m; sourceTree = "<group>"; };
-		7D9289721877459B009108FD /* VLCFirstStepsWifiSharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsWifiSharingViewController.h; path = Sources/VLCFirstStepsWifiSharingViewController.h; sourceTree = SOURCE_ROOT; };
-		7D9289731877459B009108FD /* VLCFirstStepsWifiSharingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsWifiSharingViewController.m; path = Sources/VLCFirstStepsWifiSharingViewController.m; sourceTree = SOURCE_ROOT; };
-		7D9289771877467E009108FD /* VLCFirstStepsCloudViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsCloudViewController.h; path = Sources/VLCFirstStepsCloudViewController.h; sourceTree = SOURCE_ROOT; };
-		7D9289781877467E009108FD /* VLCFirstStepsCloudViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsCloudViewController.m; path = Sources/VLCFirstStepsCloudViewController.m; sourceTree = SOURCE_ROOT; };
+		7D9289721877459B009108FD /* VLCFirstStepsWifiSharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsWifiSharingViewController.h; path = Sources/Onboarding/VLCFirstStepsWifiSharingViewController.h; sourceTree = SOURCE_ROOT; };
+		7D9289731877459B009108FD /* VLCFirstStepsWifiSharingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsWifiSharingViewController.m; path = Sources/Onboarding/VLCFirstStepsWifiSharingViewController.m; sourceTree = SOURCE_ROOT; };
+		7D9289771877467E009108FD /* VLCFirstStepsCloudViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsCloudViewController.h; path = Sources/Onboarding/VLCFirstStepsCloudViewController.h; sourceTree = SOURCE_ROOT; };
+		7D9289781877467E009108FD /* VLCFirstStepsCloudViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsCloudViewController.m; path = Sources/Onboarding/VLCFirstStepsCloudViewController.m; sourceTree = SOURCE_ROOT; };
 		7D94DDC31BF76A26002DE657 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D94FCDB16DE7D1000F2623B /* VLC for iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC for iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D94FCDE16DE7D1000F2623B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -809,7 +809,7 @@
 		7DB2486E18EA1D6D0097ADD2 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DB40A9B28C77B8900EDACA0 /* VLCHTTPFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCHTTPFileDownloader.m; sourceTree = "<group>"; };
 		7DB40A9C28C77B8900EDACA0 /* VLCHTTPFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCHTTPFileDownloader.h; sourceTree = "<group>"; };
-		7DB559BD27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCFirstStepsBaseViewController.xib; path = Resources/VLCFirstStepsBaseViewController.xib; sourceTree = "<group>"; };
+		7DB559BD27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCFirstStepsBaseViewController.xib; sourceTree = "<group>"; };
 		7DB638AA185BC0890003887C /* Images-iOS.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Images-iOS.xcassets"; path = "Resources/Images-iOS.xcassets"; sourceTree = SOURCE_ROOT; };
 		7DB66CEE2520E3B90077481C /* VLCDownloadController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDownloadController.h; sourceTree = "<group>"; };
 		7DB66CEF2520E3B90077481C /* VLCDownloadController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDownloadController.m; sourceTree = "<group>"; };
@@ -824,8 +824,8 @@
 		7DC0B56D1C0094370027BFAD /* VLCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSettingsViewController.h; sourceTree = "<group>"; };
 		7DC0B56E1C0094370027BFAD /* VLCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSettingsViewController.m; sourceTree = "<group>"; };
 		7DC0B56F1C0094370027BFAD /* VLCSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCSettingsViewController.xib; sourceTree = "<group>"; };
-		7DC19ADC1868C7BB00810BF7 /* VLCFirstStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsViewController.h; path = Sources/VLCFirstStepsViewController.h; sourceTree = SOURCE_ROOT; };
-		7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsViewController.m; path = Sources/VLCFirstStepsViewController.m; sourceTree = SOURCE_ROOT; };
+		7DC19ADC1868C7BB00810BF7 /* VLCFirstStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsViewController.h; path = Sources/Onboarding/VLCFirstStepsViewController.h; sourceTree = SOURCE_ROOT; };
+		7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsViewController.m; path = Sources/Onboarding/VLCFirstStepsViewController.m; sourceTree = SOURCE_ROOT; };
 		7DC222771773AB0900371B5C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7DC5A3E41BF6370800CFEBA8 /* VLCRemotePlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRemotePlaybackViewController.h; sourceTree = "<group>"; };
 		7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRemotePlaybackViewController.m; sourceTree = "<group>"; };
@@ -1551,6 +1551,24 @@
 			path = tvOS;
 			sourceTree = "<group>";
 		};
+		7D0C209F28C8A56E00CCFFEF /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				7DC19ADC1868C7BB00810BF7 /* VLCFirstStepsViewController.h */,
+				7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */,
+				7D63C18D18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.h */,
+				7D63C18E18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m */,
+				7D9289721877459B009108FD /* VLCFirstStepsWifiSharingViewController.h */,
+				7D9289731877459B009108FD /* VLCFirstStepsWifiSharingViewController.m */,
+				7D9289771877467E009108FD /* VLCFirstStepsCloudViewController.h */,
+				7D9289781877467E009108FD /* VLCFirstStepsCloudViewController.m */,
+				1ACB60BB25275E5700405250 /* VLCFirstStepsBaseViewController.h */,
+				1ACB60BC25275E5700405250 /* VLCFirstStepsBaseViewController.m */,
+				7DB559BD27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		7D1052EA1A4DCC1700295F08 /* Graph */ = {
 			isa = PBXGroup;
 			children = (
@@ -1703,14 +1721,6 @@
 			name = "Cloud Integration";
 			sourceTree = "<group>";
 		};
-		7D5F7AB717526573006CCCFA /* Accessory dialogs */ = {
-			isa = PBXGroup;
-			children = (
-				7DC19AEB1868C91400810BF7 /* First Steps */,
-			);
-			name = "Accessory dialogs";
-			sourceTree = "<group>";
-		};
 		7D5F7AB81752658E006CCCFA /* Everything Playlist */ = {
 			isa = PBXGroup;
 			children = (
@@ -1848,7 +1858,6 @@
 				7DF383B41BF20E4600D71A5C /* Network dialogs */,
 				7D31002117B676D500E6516D /* Local Network Connectivity */,
 				7D5F7AB81752658E006CCCFA /* Everything Playlist */,
-				7D5F7AB717526573006CCCFA /* Accessory dialogs */,
 				7D5E39CC174FCDBE007DAFA1 /* Cloud Integration */,
 				7D31CF061746AEF2005997E0 /* UI Elements */,
 			);
@@ -1862,7 +1871,6 @@
 				8D3B4C0C2226E47900B9F652 /* MiniPlayer */,
 				41D7DD2020C1FC2D00AD94F6 /* VLCLabelCell.xib */,
 				41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */,
-				7DC19AF41868CDB800810BF7 /* First Steps */,
 				7D6BEF1D19E027A100DF3972 /* Cloud */,
 				7D6BEF1F19E027DA00DF3972 /* Download & Network */,
 				7D6BEF1E19E027BE00DF3972 /* Library */,
@@ -1881,31 +1889,6 @@
 				41B0BC871F73ED7D0063BA26 /* UI Testing */,
 			);
 			name = Testing;
-			sourceTree = "<group>";
-		};
-		7DC19AEB1868C91400810BF7 /* First Steps */ = {
-			isa = PBXGroup;
-			children = (
-				7DC19ADC1868C7BB00810BF7 /* VLCFirstStepsViewController.h */,
-				7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */,
-				7D63C18D18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.h */,
-				7D63C18E18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m */,
-				7D9289721877459B009108FD /* VLCFirstStepsWifiSharingViewController.h */,
-				7D9289731877459B009108FD /* VLCFirstStepsWifiSharingViewController.m */,
-				7D9289771877467E009108FD /* VLCFirstStepsCloudViewController.h */,
-				7D9289781877467E009108FD /* VLCFirstStepsCloudViewController.m */,
-				1ACB60BB25275E5700405250 /* VLCFirstStepsBaseViewController.h */,
-				1ACB60BC25275E5700405250 /* VLCFirstStepsBaseViewController.m */,
-			);
-			name = "First Steps";
-			sourceTree = "<group>";
-		};
-		7DC19AF41868CDB800810BF7 /* First Steps */ = {
-			isa = PBXGroup;
-			children = (
-				7DB559BD27E1EE8C00E83E7C /* VLCFirstStepsBaseViewController.xib */,
-			);
-			name = "First Steps";
 			sourceTree = "<group>";
 		};
 		7DC5A3EB1BF6370E00CFEBA8 /* Remote Playback */ = {
@@ -1943,6 +1926,7 @@
 		7DC7BA6C28C892EA00109F28 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7D0C209F28C8A56E00CCFFEF /* Onboarding */,
 				7DEE16CB242B53B50004E88F /* Store Integration */,
 				7D0C209928C89E2A00CCFFEF /* WiFi Sharing */,
 				8D590F622493836A0078D358 /* Playback */,
