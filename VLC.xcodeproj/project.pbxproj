@@ -685,12 +685,12 @@
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D2AEDE517FB785100B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D2D7FD21BD2F109002D6B6D /* VLC-tvOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "VLC-tvOS.entitlements"; path = "Packaging/VLC-tvOS.entitlements"; sourceTree = SOURCE_ROOT; };
-		7D2DE69124D5A9AA00E8D84D /* OROpenSubtitleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OROpenSubtitleDownloader.h; path = SharedSources/Imported/OROpenSubtitleDownloader.h; sourceTree = "<group>"; };
-		7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OROpenSubtitleDownloader.m; path = SharedSources/Imported/OROpenSubtitleDownloader.m; sourceTree = "<group>"; };
-		7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOSOFetcher.m; path = SharedSources/SubtitlesDownloads/VLCOSOFetcher.m; sourceTree = "<group>"; };
-		7D2DE69824D5AC0E00E8D84D /* VLCSubtitleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSubtitleItem.h; path = SharedSources/SubtitlesDownloads/VLCSubtitleItem.h; sourceTree = "<group>"; };
-		7D2DE69924D5AC0E00E8D84D /* VLCOSOFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOSOFetcher.h; path = SharedSources/SubtitlesDownloads/VLCOSOFetcher.h; sourceTree = "<group>"; };
-		7D2DE69A24D5AC0E00E8D84D /* VLCSubtitleItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSubtitleItem.m; path = SharedSources/SubtitlesDownloads/VLCSubtitleItem.m; sourceTree = "<group>"; };
+		7D2DE69124D5A9AA00E8D84D /* OROpenSubtitleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OROpenSubtitleDownloader.h; sourceTree = "<group>"; };
+		7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OROpenSubtitleDownloader.m; sourceTree = "<group>"; };
+		7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCOSOFetcher.m; sourceTree = "<group>"; };
+		7D2DE69824D5AC0E00E8D84D /* VLCSubtitleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCSubtitleItem.h; sourceTree = "<group>"; };
+		7D2DE69924D5AC0E00E8D84D /* VLCOSOFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOSOFetcher.h; sourceTree = "<group>"; };
+		7D2DE69A24D5AC0E00E8D84D /* VLCSubtitleItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSubtitleItem.m; sourceTree = "<group>"; };
 		7D2DF7C21B67777D00FB78AB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		7D30F3BC183AB24C00FFC021 /* VLCHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPConnection.h; path = Sources/VLCHTTPConnection.h; sourceTree = SOURCE_ROOT; };
 		7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPConnection.m; path = Sources/VLCHTTPConnection.m; sourceTree = SOURCE_ROOT; };
@@ -869,7 +869,7 @@
 		7DC7BABB28C8959F00109F28 /* URL+isExcludedFromBackup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+isExcludedFromBackup.swift"; path = "Extensions/URLs/URL+isExcludedFromBackup.swift"; sourceTree = "<group>"; };
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DC87AF017413A17009DC250 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
-		7DCD84F0242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaybackInfoSubtitlesFetcherViewController.xib; path = Sources/VLCPlaybackInfoSubtitlesFetcherViewController.xib; sourceTree = "<group>"; };
+		7DCD84F0242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoSubtitlesFetcherViewController.xib; sourceTree = "<group>"; };
 		7DD32D22194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7DD9CD5F24223CBC00D0324F /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCPlaybackInfoSubtitlesFetcherViewController.xib; sourceTree = SOURCE_ROOT; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -879,7 +879,6 @@
 		7DEB3B5F17647DE30038FC70 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		7DEBF3761C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoSubtitlesFetcherViewController.h; sourceTree = "<group>"; };
 		7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoSubtitlesFetcherViewController.m; sourceTree = "<group>"; };
-		7DEBF3781C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaybackInfoSubtitlesFetcherViewController.xib; path = "Playback/Playback Info/VLCPlaybackInfoSubtitlesFetcherViewController.xib"; sourceTree = "<group>"; };
 		7DEC8BDB1BD67899006E1093 /* VLCFullscreenMovieTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCFullscreenMovieTVViewController.h; sourceTree = "<group>"; };
 		7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCFullscreenMovieTVViewController.m; sourceTree = "<group>"; };
 		7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCFullscreenMovieTVViewController.xib; sourceTree = "<group>"; };
@@ -1466,6 +1465,39 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
+		7D0C209628C89C9900CCFFEF /* Subtitles Downloading */ = {
+			isa = PBXGroup;
+			children = (
+				7D0C209828C89D9100CCFFEF /* tvOS */,
+				7D0C209728C89D8B00CCFFEF /* iOS */,
+				7DEBF3761C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.h */,
+				7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */,
+				7D2DE69924D5AC0E00E8D84D /* VLCOSOFetcher.h */,
+				7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */,
+				7D2DE69824D5AC0E00E8D84D /* VLCSubtitleItem.h */,
+				7D2DE69A24D5AC0E00E8D84D /* VLCSubtitleItem.m */,
+				7D2DE69124D5A9AA00E8D84D /* OROpenSubtitleDownloader.h */,
+				7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */,
+			);
+			path = "Subtitles Downloading";
+			sourceTree = "<group>";
+		};
+		7D0C209728C89D8B00CCFFEF /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				7DCD84F0242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		7D0C209828C89D9100CCFFEF /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */,
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
 		7D1052EA1A4DCC1700295F08 /* Graph */ = {
 			isa = PBXGroup;
 			children = (
@@ -1506,27 +1538,6 @@
 				7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */,
 			);
 			name = Menu;
-			sourceTree = "<group>";
-		};
-		7D2DE69524D5A9B100E8D84D /* OROpenSubtitleDownloader */ = {
-			isa = PBXGroup;
-			children = (
-				7D2DE69124D5A9AA00E8D84D /* OROpenSubtitleDownloader.h */,
-				7D2DE69224D5A9AA00E8D84D /* OROpenSubtitleDownloader.m */,
-			);
-			name = OROpenSubtitleDownloader;
-			sourceTree = "<group>";
-		};
-		7D2DE69624D5ABC500E8D84D /* Subtitles Downloading */ = {
-			isa = PBXGroup;
-			children = (
-				7D2DE69924D5AC0E00E8D84D /* VLCOSOFetcher.h */,
-				7D2DE69724D5AC0E00E8D84D /* VLCOSOFetcher.m */,
-				7D2DE69824D5AC0E00E8D84D /* VLCSubtitleItem.h */,
-				7D2DE69A24D5AC0E00E8D84D /* VLCSubtitleItem.m */,
-			);
-			name = "Subtitles Downloading";
-			path = ..;
 			sourceTree = "<group>";
 		};
 		7D31002117B676D500E6516D /* Local Network Connectivity */ = {
@@ -1819,7 +1830,6 @@
 				7DBB788E1B305D8300894467 /* Keychain & random singletons */,
 				7D2339AB176DE70E008D223C /* Menu */,
 				7D31002117B676D500E6516D /* Local Network Connectivity */,
-				8D590F622493836A0078D358 /* Playback */,
 				7D5F7AB81752658E006CCCFA /* Everything Playlist */,
 				7D5F7AB717526573006CCCFA /* Accessory dialogs */,
 				7D5E39CC174FCDBE007DAFA1 /* Cloud Integration */,
@@ -1851,7 +1861,6 @@
 				7D6BEF1F19E027DA00DF3972 /* Download & Network */,
 				7D6BEF1E19E027BE00DF3972 /* Library */,
 				418108792142894A0046A931 /* PlayingExternallyView.xib */,
-				7DCD84F0242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */,
 				7DB078B8242F6970002A776F /* VLCStoreViewController.xib */,
 				8D2AD4D6227869AF00393833 /* AddToCollection */,
 				8D15A1F122B0FC8300CFA758 /* Queue */,
@@ -1863,7 +1872,6 @@
 		7DADC5601704FACC001DAC63 /* Imported */ = {
 			isa = PBXGroup;
 			children = (
-				7D2DE69524D5A9B100E8D84D /* OROpenSubtitleDownloader */,
 				7DC72D6517B7ED36008A26D0 /* Reachability */,
 			);
 			name = Imported;
@@ -1929,7 +1937,6 @@
 		7DC71D281BC83138001FACAA /* xibs */ = {
 			isa = PBXGroup;
 			children = (
-				7DEBF3781C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */,
 				7DC5A3E61BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib */,
 				DD3EAC121BE26166003668DA /* VLCRemoteBrowsingTVCell.xib */,
 				7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */,
@@ -1943,7 +1950,6 @@
 				DD4089E81BF63AD00022745E /* VLCPlaybackInfoTracksTVViewController.xib */,
 				DD4089EE1BF646540022745E /* VLCPlaybackInfoTVCollectionViewCell.xib */,
 				2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */,
-				7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */,
 				A1CA2EF228240A8D000DB82F /* VLCOpenManagedServersViewController.xib */,
 			);
 			name = xibs;
@@ -1961,6 +1967,7 @@
 		7DC7BA6C28C892EA00109F28 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				8D590F622493836A0078D358 /* Playback */,
 				7D0C208E28C89BC800CCFFEF /* Headers */,
 				44C8BBA124AF2B5C003F8940 /* Helper */,
 				44C8BBA424AF36F4003F8940 /* Settings */,
@@ -2071,8 +2078,6 @@
 				417D7F5E1F7BA26200DDF36A /* VLCRemoteControlService.h */,
 				417D7F5F1F7BA26200DDF36A /* VLCRemoteControlService.m */,
 				418DFE9E211C93C6005D3652 /* CustomDialogRendererHandler.swift */,
-				7DEBF3761C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.h */,
-				7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */,
 				6C5B0C9C27A43098005AE25B /* PlaybackServiceAdjustFilter.swift */,
 			);
 			name = Playback;
@@ -2274,6 +2279,7 @@
 		8D590F622493836A0078D358 /* Playback */ = {
 			isa = PBXGroup;
 			children = (
+				7D0C209628C89C9900CCFFEF /* Subtitles Downloading */,
 				8D9F1F9C249385BB0074BDBB /* VideoPlayer */,
 				8D144D6122298E5800984C46 /* MiniPlayer */,
 				8D15A1EE22B0FB1900CFA758 /* Queue */,
@@ -2557,7 +2563,6 @@
 				7DEC8BE11BD686FA006E1093 /* Library */,
 				7DEE16CB242B53B50004E88F /* Store Integration */,
 				DD3EFEEF1BDEBCE500B68579 /* ServerBrowsing */,
-				7D2DE69624D5ABC500E8D84D /* Subtitles Downloading */,
 				7DADC5601704FACC001DAC63 /* Imported */,
 				DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.h */,
 				DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.m */,
