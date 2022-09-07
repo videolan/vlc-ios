@@ -122,9 +122,14 @@
 		7D0C208528C8993800CCFFEF /* VLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */; };
 		7D0C208C28C89A9100CCFFEF /* VLCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC0B56E1C0094370027BFAD /* VLCSettingsViewController.m */; };
 		7D0C209528C89C1D00CCFFEF /* VLCMediaThumbnailerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2629C887223991A400F8D080 /* VLCMediaThumbnailerCache.swift */; };
-		7D0C20A128C8A6B900CCFFEF /* VLCMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */; };
 		7D0C20A228C8A6B900CCFFEF /* VLCFullWidthCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4089F41BF6556F0022745E /* VLCFullWidthCollectionViewFlowLayout.m */; };
-		7D0C20A728C8A79B00CCFFEF /* VLCBufferingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8095DA1BE3C42F0065D8E1 /* VLCBufferingBar.m */; };
+		7D0C20AA28C8AA2700CCFFEF /* VLCMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */; };
+		7D0C20AB28C8AA3000CCFFEF /* VLCBufferingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8095DA1BE3C42F0065D8E1 /* VLCBufferingBar.m */; };
+		7D0C20AC28C8AA6400CCFFEF /* VLCNetworkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EAC031BE153B4003668DA /* VLCNetworkImageView.m */; };
+		7D0C20AE28C8AAF500CCFFEF /* VLCPlaybackInfoChaptersTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C20AD28C8AAF500CCFFEF /* VLCPlaybackInfoChaptersTVViewController.xib */; };
+		7D0C20B028C8AB0000CCFFEF /* VLCPlaybackInfoMediaInfoTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C20AF28C8AB0000CCFFEF /* VLCPlaybackInfoMediaInfoTVViewController.xib */; };
+		7D0C20B228C8AB1500CCFFEF /* VLCPlaybackInfoTVCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C20B128C8AB1500CCFFEF /* VLCPlaybackInfoTVCollectionViewCell.xib */; };
+		7D0C20B428C8AB5100CCFFEF /* VLCPlaybackInfoTracksTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C20B328C8AB5100CCFFEF /* VLCPlaybackInfoTracksTVViewController.xib */; };
 		7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */; };
 		7D15168B194773630086FB8C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D15168A194773630086FB8C /* MobileCoreServices.framework */; };
 		7D168F7118D4A21B003FAF59 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D168F7018D4A21B003FAF59 /* Accelerate.framework */; };
@@ -173,7 +178,6 @@
 		7D405EE21BEA1FAD006ED886 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D405EE11BEA1FAD006ED886 /* index.html */; };
 		7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4DF2171B55209200739326 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D51B3B01BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */; };
-		7D51B3B11BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D51B3AF1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib */; };
 		7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
 		7D5A23CF24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5A23CE24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m */; };
 		7D5A23D024754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5A23CE24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m */; };
@@ -397,8 +401,6 @@
 		DD3EFF561BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF201BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserDSM.m */; };
 		DD3EFF5D1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF2B1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m */; };
 		DD3EFF5E1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EFF2B1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m */; };
-		DD4089E91BF63AD00022745E /* VLCPlaybackInfoTracksTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD4089E81BF63AD00022745E /* VLCPlaybackInfoTracksTVViewController.xib */; };
-		DD4089EF1BF646540022745E /* VLCPlaybackInfoTVCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD4089EE1BF646540022745E /* VLCPlaybackInfoTVCollectionViewCell.xib */; };
 		DD4089F21BF6467E0022745E /* VLCPlaybackInfoTVCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4089F11BF6467E0022745E /* VLCPlaybackInfoTVCollectionViewCell.m */; };
 		DD4089FA1BF659030022745E /* VLCPlaybackInfoTVCollectionSectionTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4089F91BF659030022745E /* VLCPlaybackInfoTVCollectionSectionTitleView.m */; };
 		DD490B171BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD490B161BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.m */; };
@@ -417,7 +419,6 @@
 		DD8F84311B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8F84301B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.m */; };
 		DD9D8F5F1C00C73F00B4060F /* VLCDeleteHintTVView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9D8F5E1C00C73F00B4060F /* VLCDeleteHintTVView.m */; };
 		DD9D8F651C01F96700B4060F /* VLCPlaybackInfoChaptersTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9D8F631C01F96700B4060F /* VLCPlaybackInfoChaptersTVViewController.m */; };
-		DD9D8F681C01FAB500B4060F /* VLCPlaybackInfoChaptersTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD9D8F671C01FAB500B4060F /* VLCPlaybackInfoChaptersTVViewController.xib */; };
 		DD9D8F6B1C01FE5B00B4060F /* VLCPlaybackInfoCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9D8F6A1C01FE5B00B4060F /* VLCPlaybackInfoCollectionViewDataSource.m */; };
 		DDA1B9091CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1B9081CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m */; };
 		DDA1B90A1CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1B9081CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.m */; };
@@ -556,7 +557,7 @@
 		417E689D1F307E1000DB9BB2 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		417E68B71F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCActivityViewControllerVendor.h; sourceTree = "<group>"; };
 		417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCActivityViewControllerVendor.m; sourceTree = "<group>"; };
-		418108792142894A0046A931 /* PlayingExternallyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlayingExternallyView.xib; path = Resources/PlayingExternallyView.xib; sourceTree = "<group>"; };
+		418108792142894A0046A931 /* PlayingExternallyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayingExternallyView.xib; sourceTree = "<group>"; };
 		4184AA131A5492070063DF5A /* VLCCloudStorageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageController.h; path = Sources/VLCCloudStorageController.h; sourceTree = SOURCE_ROOT; };
 		4184AA141A5492070063DF5A /* VLCCloudStorageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCloudStorageController.m; path = Sources/VLCCloudStorageController.m; sourceTree = SOURCE_ROOT; };
 		41873030228F017B00F7D8B7 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -624,11 +625,11 @@
 		6D4756B023607D49005F670E /* EditActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditActions.swift; path = Sources/EditActions.swift; sourceTree = "<group>"; };
 		6D5EC85E25C46F0400E25783 /* ExternalMediaProviderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMediaProviderCell.swift; sourceTree = "<group>"; };
 		6D63C06A23FEE93C00B9C05A /* VLCMarqueeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCMarqueeLabel.swift; sourceTree = "<group>"; };
-		6D758AA82577DDAF0016F675 /* EqualizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EqualizerView.swift; path = Sources/EqualizerView.swift; sourceTree = "<group>"; };
+		6D758AA82577DDAF0016F675 /* EqualizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EqualizerView.swift; sourceTree = "<group>"; };
 		6D758AA92577DDAF0016F675 /* VerticalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSlider.swift; sourceTree = "<group>"; };
 		6D86F50425F8168600044C79 /* SpoilerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpoilerButton.swift; path = Sources/SpoilerButton.swift; sourceTree = "<group>"; };
 		6D8E6429234CBF2200EBC8FC /* AudioCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCollectionModel.swift; sourceTree = "<group>"; };
-		6D8EC09125F8010E00FDDE17 /* EqualizerPresetSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EqualizerPresetSelector.swift; path = Sources/EqualizerPresetSelector.swift; sourceTree = "<group>"; };
+		6D8EC09125F8010E00FDDE17 /* EqualizerPresetSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerPresetSelector.swift; sourceTree = "<group>"; };
 		6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCellPreviewController.swift; path = Sources/CollectionViewCellPreviewController.swift; sourceTree = "<group>"; };
 		6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditButtons.swift; path = Sources/EditButtons.swift; sourceTree = "<group>"; };
 		6DE63F3E270FD3D1008A011D /* VLCPlayerDisplayController+MiniPlayerDraggingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VLCPlayerDisplayController+MiniPlayerDraggingDelegate.swift"; sourceTree = "<group>"; };
@@ -650,6 +651,10 @@
 		7D0C209228C89BDC00CCFFEF /* VLCTVConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCTVConstants.h; sourceTree = "<group>"; };
 		7D0C209328C89BDC00CCFFEF /* VLCConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCConstants.h; sourceTree = "<group>"; };
 		7D0C209428C89BDC00CCFFEF /* VLC-tvOS-Prefix-Header.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLC-tvOS-Prefix-Header.pch"; sourceTree = "<group>"; };
+		7D0C20AD28C8AAF500CCFFEF /* VLCPlaybackInfoChaptersTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoChaptersTVViewController.xib; sourceTree = "<group>"; };
+		7D0C20AF28C8AB0000CCFFEF /* VLCPlaybackInfoMediaInfoTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoMediaInfoTVViewController.xib; sourceTree = "<group>"; };
+		7D0C20B128C8AB1500CCFFEF /* VLCPlaybackInfoTVCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoTVCollectionViewCell.xib; sourceTree = "<group>"; };
+		7D0C20B328C8AB5100CCFFEF /* VLCPlaybackInfoTracksTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoTracksTVViewController.xib; sourceTree = "<group>"; };
 		7D13293D1BA1F10100BE647E /* VLC-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VLC-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1329421BA1F10100BE647E /* AppleTVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleTVAppDelegate.h; sourceTree = "<group>"; };
 		7D1329431BA1F10100BE647E /* AppleTVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleTVAppDelegate.m; sourceTree = "<group>"; };
@@ -705,8 +710,8 @@
 		7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaFileDownloader.m; path = Sources/VLCMediaFileDownloader.m; sourceTree = SOURCE_ROOT; };
 		7D31719C19FEC91F0019357A /* VLC-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "VLC-iOS.entitlements"; path = "Resources/VLC-iOS.entitlements"; sourceTree = SOURCE_ROOT; };
 		7D3323FB18E61DD5000ABEA5 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExternalDisplayController.h; path = Sources/Playback/VLCExternalDisplayController.h; sourceTree = SOURCE_ROOT; };
-		7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExternalDisplayController.m; path = Sources/Playback/VLCExternalDisplayController.m; sourceTree = SOURCE_ROOT; };
+		7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExternalDisplayController.h; path = Sources/Playback/Control/VLCExternalDisplayController.h; sourceTree = SOURCE_ROOT; };
+		7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExternalDisplayController.m; path = Sources/Playback/Control/VLCExternalDisplayController.m; sourceTree = SOURCE_ROOT; };
 		7D3784A8183A9906009EE944 /* VLCDropboxConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDropboxConstants.h; path = Sources/VLCDropboxConstants.h; sourceTree = SOURCE_ROOT; };
 		7D3784A9183A9906009EE944 /* VLCDropboxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDropboxController.h; path = Sources/VLCDropboxController.h; sourceTree = SOURCE_ROOT; };
 		7D3784AA183A9906009EE944 /* VLCDropboxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDropboxController.m; path = Sources/VLCDropboxController.m; sourceTree = SOURCE_ROOT; };
@@ -739,7 +744,6 @@
 		7D4DF2171B55209200739326 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		7D51B3AD1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoMediaInfoTVViewController.h; sourceTree = "<group>"; };
 		7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoMediaInfoTVViewController.m; sourceTree = "<group>"; };
-		7D51B3AF1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaybackInfoMediaInfoTVViewController.xib; path = "Playback/Playback Info/VLCPlaybackInfoMediaInfoTVViewController.xib"; sourceTree = "<group>"; };
 		7D5A23CD24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCNetworkServerBrowserVLCMedia+FTP.h"; sourceTree = "<group>"; };
 		7D5A23CE24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VLCNetworkServerBrowserVLCMedia+FTP.m"; sourceTree = "<group>"; };
 		7D5A23DD24756D03001F76D8 /* VLCLocalNetworkServiceBrowserNFS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkServiceBrowserNFS.m; sourceTree = "<group>"; };
@@ -1037,8 +1041,6 @@
 		DD3EFF2A1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCLocalServerDiscoveryController.h; sourceTree = "<group>"; };
 		DD3EFF2B1BDEBCE500B68579 /* VLCLocalServerDiscoveryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalServerDiscoveryController.m; sourceTree = "<group>"; };
 		DD3EFF2C1BDEBCE500B68579 /* VLCNetworkServerBrowser-Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCNetworkServerBrowser-Protocol.h"; sourceTree = "<group>"; };
-		DD4089E81BF63AD00022745E /* VLCPlaybackInfoTracksTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaybackInfoTracksTVViewController.xib; path = "Playback/Playback Info/VLCPlaybackInfoTracksTVViewController.xib"; sourceTree = "<group>"; };
-		DD4089EE1BF646540022745E /* VLCPlaybackInfoTVCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaybackInfoTVCollectionViewCell.xib; path = "Playback/Playback Info/VLCPlaybackInfoTVCollectionViewCell.xib"; sourceTree = "<group>"; };
 		DD4089F01BF6467E0022745E /* VLCPlaybackInfoTVCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoTVCollectionViewCell.h; sourceTree = "<group>"; };
 		DD4089F11BF6467E0022745E /* VLCPlaybackInfoTVCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoTVCollectionViewCell.m; sourceTree = "<group>"; };
 		DD4089F31BF6556F0022745E /* VLCFullWidthCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCFullWidthCollectionViewFlowLayout.h; sourceTree = "<group>"; };
@@ -1071,13 +1073,12 @@
 		DD870E941CEF78D800BBD4FE /* VLCNetworkLoginDataSourceLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkLoginDataSourceLogin.m; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginDataSourceLogin.m; sourceTree = SOURCE_ROOT; };
 		DD870E981CEF929A00BBD4FE /* VLCNetworkLoginViewFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkLoginViewFieldCell.h; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginViewFieldCell.h; sourceTree = SOURCE_ROOT; };
 		DD870E991CEF929A00BBD4FE /* VLCNetworkLoginViewFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkLoginViewFieldCell.m; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginViewFieldCell.m; sourceTree = SOURCE_ROOT; };
-		DD8F842F1B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLCPlaybackService+MediaLibrary.h"; path = "Sources/Playback/VLCPlaybackService+MediaLibrary.h"; sourceTree = SOURCE_ROOT; };
-		DD8F84301B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "VLCPlaybackService+MediaLibrary.m"; path = "Sources/Playback/VLCPlaybackService+MediaLibrary.m"; sourceTree = SOURCE_ROOT; };
+		DD8F842F1B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VLCPlaybackService+MediaLibrary.h"; path = "Sources/Playback/Control/VLCPlaybackService+MediaLibrary.h"; sourceTree = SOURCE_ROOT; };
+		DD8F84301B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "VLCPlaybackService+MediaLibrary.m"; path = "Sources/Playback/Control/VLCPlaybackService+MediaLibrary.m"; sourceTree = SOURCE_ROOT; };
 		DD9D8F5D1C00C73F00B4060F /* VLCDeleteHintTVView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCDeleteHintTVView.h; sourceTree = "<group>"; };
 		DD9D8F5E1C00C73F00B4060F /* VLCDeleteHintTVView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCDeleteHintTVView.m; sourceTree = "<group>"; };
 		DD9D8F621C01F96700B4060F /* VLCPlaybackInfoChaptersTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoChaptersTVViewController.h; sourceTree = "<group>"; };
 		DD9D8F631C01F96700B4060F /* VLCPlaybackInfoChaptersTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoChaptersTVViewController.m; sourceTree = "<group>"; };
-		DD9D8F671C01FAB500B4060F /* VLCPlaybackInfoChaptersTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCPlaybackInfoChaptersTVViewController.xib; path = "Playback/Playback Info/VLCPlaybackInfoChaptersTVViewController.xib"; sourceTree = "<group>"; };
 		DD9D8F691C01FE5B00B4060F /* VLCPlaybackInfoCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoCollectionViewDataSource.h; sourceTree = "<group>"; };
 		DD9D8F6A1C01FE5B00B4060F /* VLCPlaybackInfoCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoCollectionViewDataSource.m; sourceTree = "<group>"; };
 		DDA1B9071CE902EE0076BC45 /* VLCNetworkServerLoginInformation+Keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCNetworkServerLoginInformation+Keychain.h"; sourceTree = "<group>"; };
@@ -1523,12 +1524,18 @@
 		7D0C209C28C8A21200CCFFEF /* Control */ = {
 			isa = PBXGroup;
 			children = (
+				7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */,
+				7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */,
+				DD8F842F1B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.h */,
+				DD8F84301B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.m */,
 				7DE56C181AD93F9100E8CA00 /* VLCPlaybackService.h */,
 				7DE56C191AD93F9100E8CA00 /* VLCPlaybackService.m */,
 				DD510B6E1B14E564003BA71C /* VLCPlayerDisplayController.h */,
 				DD510B6F1B14E564003BA71C /* VLCPlayerDisplayController.m */,
+				6DE63F3E270FD3D1008A011D /* VLCPlayerDisplayController+MiniPlayerDraggingDelegate.swift */,
 				418DFE9E211C93C6005D3652 /* CustomDialogRendererHandler.swift */,
 				6C5B0C9C27A43098005AE25B /* PlaybackServiceAdjustFilter.swift */,
+				8D43712C2056AF1600F36458 /* VLCRendererDiscovererManager.swift */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -1570,6 +1577,7 @@
 		7D0C20A028C8A5DB00CCFFEF /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				8DD651B0208F62B70052EE68 /* ActionSheet */,
 				7D0C20A628C8A73600CCFFEF /* Visual Effects */,
 				7D0C20A528C8A71C00CCFFEF /* Labels */,
 				7D0C20A428C8A70A00CCFFEF /* Sliders */,
@@ -1636,6 +1644,26 @@
 			path = "Visual Effects";
 			sourceTree = "<group>";
 		};
+		7D0C20A928C8A8C500CCFFEF /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				418108792142894A0046A931 /* PlayingExternallyView.xib */,
+				416DACB620B6DB9A001BC75D /* PlayingExternallyView.swift */,
+				E08AD1702304DDE800E023B9 /* MediaPlayerActionSheet.swift */,
+				40C95A06256E929D002DD208 /* PlaybackSpeedView.swift */,
+				40C959FF256E9272002DD208 /* PlaybackSpeedView.xib */,
+				407EB58D257A41B200686B1F /* SleepTimerView.swift */,
+				407EB586257A418900686B1F /* SleepTimerView.xib */,
+				4072A77D25879577006EA498 /* VideoFiltersView.swift */,
+				4072A776258791B8006EA498 /* VideoFiltersView.xib */,
+				D92C186427CD317D0034058F /* ChapterView.swift */,
+				D9AFDCA427D6383F002326CC /* BookmarksView.swift */,
+				6D758AA82577DDAF0016F675 /* EqualizerView.swift */,
+				6D8EC09125F8010E00FDDE17 /* EqualizerPresetSelector.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		7D1052EA1A4DCC1700295F08 /* Graph */ = {
 			isa = PBXGroup;
 			children = (
@@ -1652,7 +1680,6 @@
 				7DEC8BE31BD68882006E1093 /* Network UI */,
 				7D3E528D1BD7B5E600309D15 /* Cloud */,
 				7DC5A3EB1BF6370E00CFEBA8 /* Remote Playback */,
-				7DEC8BE51BD6889C006E1093 /* Playback */,
 				7DC71D281BC83138001FACAA /* xibs */,
 			);
 			name = "VLC-TV";
@@ -1682,8 +1709,6 @@
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
-				6D758AA82577DDAF0016F675 /* EqualizerView.swift */,
-				8DD651B0208F62B70052EE68 /* ActionSheet */,
 				4144156920ECD2620078EC37 /* VLCSectionTableHeaderView.swift */,
 				4144156B20ECE6330078EC37 /* FileServerView.swift */,
 				8DF9669C2113317100D0FCD6 /* EditToolbar.swift */,
@@ -1693,7 +1718,6 @@
 				6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */,
 				4090705825A60341004667E7 /* OptionsNavigationBar.swift */,
 				6D86F50425F8168600044C79 /* SpoilerButton.swift */,
-				6D8EC09125F8010E00FDDE17 /* EqualizerPresetSelector.swift */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -1915,14 +1939,11 @@
 		7DADC55C1704FAA8001DAC63 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
-				8DB0D71A24CED21600915506 /* VideoPlayer */,
-				8D3B4C0C2226E47900B9F652 /* MiniPlayer */,
 				41D7DD2020C1FC2D00AD94F6 /* VLCLabelCell.xib */,
 				41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */,
 				7D6BEF1D19E027A100DF3972 /* Cloud */,
 				7D6BEF1F19E027DA00DF3972 /* Download & Network */,
 				7D6BEF1E19E027BE00DF3972 /* Library */,
-				418108792142894A0046A931 /* PlayingExternallyView.xib */,
 				8D2AD4D6227869AF00393833 /* AddToCollection */,
 				8D15A1F122B0FC8300CFA758 /* Queue */,
 			);
@@ -1957,14 +1978,7 @@
 				DD3EAC121BE26166003668DA /* VLCRemoteBrowsingTVCell.xib */,
 				7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */,
 				7D3E528A1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib */,
-				7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */,
-				DD8095E41BE3F4240065D8E1 /* VLCPlaybackInfoTVViewController.xib */,
-				DD8095EA1BE4F04E0065D8E1 /* VLCPlaybackInfoPlaybackTVViewController.xib */,
-				DD9D8F671C01FAB500B4060F /* VLCPlaybackInfoChaptersTVViewController.xib */,
 				7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */,
-				7D51B3AF1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib */,
-				DD4089E81BF63AD00022745E /* VLCPlaybackInfoTracksTVViewController.xib */,
-				DD4089EE1BF646540022745E /* VLCPlaybackInfoTVCollectionViewCell.xib */,
 				2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */,
 				A1CA2EF228240A8D000DB82F /* VLCOpenManagedServersViewController.xib */,
 			);
@@ -2108,7 +2122,7 @@
 			name = "Network UI";
 			sourceTree = "<group>";
 		};
-		7DEC8BE51BD6889C006E1093 /* Playback */ = {
+		7DEC8BE51BD6889C006E1093 /* VideoPlayer-tvOS */ = {
 			isa = PBXGroup;
 			children = (
 				DD3EABED1BE14720003668DA /* VLCPlaybackControlsFocusView.h */,
@@ -2117,13 +2131,14 @@
 				DD8095D51BE3C3BA0065D8E1 /* VLCTransportBar.m */,
 				7DEC8BDB1BD67899006E1093 /* VLCFullscreenMovieTVViewController.h */,
 				7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */,
+				7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */,
 				DD490B151BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.h */,
 				DD490B161BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.m */,
 				DD490B1D1BE95B5C0010F335 /* VLCSiriRemoteGestureRecognizer.h */,
 				DD490B1E1BE95B5C0010F335 /* VLCSiriRemoteGestureRecognizer.m */,
 				DD8095FA1BE628800065D8E1 /* Playback Info */,
 			);
-			path = Playback;
+			path = "VideoPlayer-tvOS";
 			sourceTree = "<group>";
 		};
 		7DEE16CB242B53B50004E88F /* Store Integration */ = {
@@ -2194,14 +2209,15 @@
 			name = Dropbox;
 			sourceTree = "<group>";
 		};
-		8D144D6122298E5800984C46 /* MiniPlayer */ = {
+		8D144D6122298E5800984C46 /* MiniPlayer-iOS */ = {
 			isa = PBXGroup;
 			children = (
 				8D144D6222298E8E00984C46 /* AudioMiniPlayer.swift */,
+				8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */,
 				8D6E1587223BBAF600077DD3 /* MiniPlayer.swift */,
 			);
-			name = MiniPlayer;
-			path = Sources/Playback/MiniPlayer;
+			name = "MiniPlayer-iOS";
+			path = "Sources/Playback/MiniPlayer-iOS";
 			sourceTree = SOURCE_ROOT;
 		};
 		8D15A1EE22B0FB1900CFA758 /* Queue */ = {
@@ -2230,80 +2246,49 @@
 			path = Resources/Xib/AddToCollection;
 			sourceTree = "<group>";
 		};
-		8D3B4C0C2226E47900B9F652 /* MiniPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */,
-			);
-			name = MiniPlayer;
-			path = Resources/Xib/MiniPlayer;
-			sourceTree = "<group>";
-		};
 		8D590F622493836A0078D358 /* Playback */ = {
 			isa = PBXGroup;
 			children = (
 				7D0C209C28C8A21200CCFFEF /* Control */,
 				7D0C209B28C89FE000CCFFEF /* OS Integration */,
 				7D0C209628C89C9900CCFFEF /* Subtitles Downloading */,
-				8D9F1F9C249385BB0074BDBB /* VideoPlayer */,
-				8D144D6122298E5800984C46 /* MiniPlayer */,
+				7DEC8BE51BD6889C006E1093 /* VideoPlayer-tvOS */,
+				8D9F1F9C249385BB0074BDBB /* VideoPlayer-iOS */,
+				8D144D6122298E5800984C46 /* MiniPlayer-iOS */,
 				8D15A1EE22B0FB1900CFA758 /* Queue */,
 				416443852048419E00CAC646 /* DeviceMotion.swift */,
-				DD8F842F1B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.h */,
-				DD8F84301B00EB3B0009138A /* VLCPlaybackService+MediaLibrary.m */,
-				7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */,
-				7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */,
-				8D43712C2056AF1600F36458 /* VLCRendererDiscovererManager.swift */,
-				6DE63F3E270FD3D1008A011D /* VLCPlayerDisplayController+MiniPlayerDraggingDelegate.swift */,
 			);
 			name = Playback;
 			path = Sources/Playback;
 			sourceTree = SOURCE_ROOT;
 		};
-		8D9F1F9C249385BB0074BDBB /* VideoPlayer */ = {
+		8D9F1F9C249385BB0074BDBB /* VideoPlayer-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				7D0C20A928C8A8C500CCFFEF /* Subviews */,
 				8D6058DF24975DD200FC74D3 /* PlayerController.swift */,
 				E0F8980322D399E10061DB2F /* MediaScrubProgressBar.swift */,
 				8DB0D71824CED15C00915506 /* VideoPlayerControls.swift */,
+				8DB0D71B24CED2BE00915506 /* VideoPlayerControls.xib */,
 				8D9F1F9E24938B680074BDBB /* VideoPlayerViewController.swift */,
 				8D0E75CA24D1D870000D5267 /* VideoPlayerViewController+ControlsDelegate.swift */,
 				91D33C7225E6B6E700CC49BE /* VideoPlayerInfoView.swift */,
 				597B403E2625E85000C0D81E /* SliderInfoView.swift */,
 				918C8E10279065C6002B3CD6 /* TitleSelectionView.swift */,
+				E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */,
 			);
-			path = VideoPlayer;
-			sourceTree = "<group>";
-		};
-		8DB0D71A24CED21600915506 /* VideoPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				8DB0D71B24CED2BE00915506 /* VideoPlayerControls.xib */,
-				40C959FF256E9272002DD208 /* PlaybackSpeedView.xib */,
-				407EB586257A418900686B1F /* SleepTimerView.xib */,
-				4072A776258791B8006EA498 /* VideoFiltersView.xib */,
-			);
-			name = VideoPlayer;
-			path = Resources/Xib/VideoPlayer;
+			path = "VideoPlayer-iOS";
 			sourceTree = "<group>";
 		};
 		8DD651B0208F62B70052EE68 /* ActionSheet */ = {
 			isa = PBXGroup;
 			children = (
-				E08AD1702304DDE800E023B9 /* MediaPlayerActionSheet.swift */,
 				8D437153205808FF00F36458 /* ActionSheet.swift */,
 				8DD651B9208F6AF00052EE68 /* ActionSheetCell.swift */,
 				8DD651C3208F786F0052EE68 /* ActionSheetSectionHeader.swift */,
 				8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */,
-				E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */,
-				40C95A06256E929D002DD208 /* PlaybackSpeedView.swift */,
-				407EB58D257A41B200686B1F /* SleepTimerView.swift */,
-				4072A77D25879577006EA498 /* VideoFiltersView.swift */,
-				D92C186427CD317D0034058F /* ChapterView.swift */,
-				D9AFDCA427D6383F002326CC /* BookmarksView.swift */,
 			);
-			name = ActionSheet;
-			path = Sources/ActionSheet;
+			path = ActionSheet;
 			sourceTree = "<group>";
 		};
 		8DE1877F2105DA2B00A091D2 /* MediaViewControllers */ = {
@@ -2531,7 +2516,6 @@
 				DD3EFEEF1BDEBCE500B68579 /* ServerBrowsing */,
 				417E68B71F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.h */,
 				417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */,
-				416DACB620B6DB9A001BC75D /* PlayingExternallyView.swift */,
 			);
 			path = SharedSources;
 			sourceTree = "<group>";
@@ -2541,20 +2525,26 @@
 			children = (
 				DD8095DD1BE3EFC20065D8E1 /* VLCPlaybackInfoTVViewController.h */,
 				DD8095DE1BE3EFC20065D8E1 /* VLCPlaybackInfoTVViewController.m */,
+				DD8095E41BE3F4240065D8E1 /* VLCPlaybackInfoTVViewController.xib */,
 				DD8095F41BE624C00065D8E1 /* VLCPlaybackInfoTVAnimators.h */,
 				DD8095F51BE624C00065D8E1 /* VLCPlaybackInfoTVAnimators.m */,
 				DD8095F71BE6268A0065D8E1 /* VLCPlaybackInfoPanelTVViewController.h */,
 				DD8095F81BE6268A0065D8E1 /* VLCPlaybackInfoPanelTVViewController.m */,
 				DD8095E81BE4F04E0065D8E1 /* VLCPlaybackInfoPlaybackTVViewController.h */,
 				DD8095E91BE4F04E0065D8E1 /* VLCPlaybackInfoPlaybackTVViewController.m */,
+				DD8095EA1BE4F04E0065D8E1 /* VLCPlaybackInfoPlaybackTVViewController.xib */,
 				7D51B3AD1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.h */,
 				7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */,
+				7D0C20AF28C8AB0000CCFFEF /* VLCPlaybackInfoMediaInfoTVViewController.xib */,
 				DD1B31F11BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.h */,
 				DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */,
+				7D0C20B328C8AB5100CCFFEF /* VLCPlaybackInfoTracksTVViewController.xib */,
 				DD9D8F621C01F96700B4060F /* VLCPlaybackInfoChaptersTVViewController.h */,
 				DD9D8F631C01F96700B4060F /* VLCPlaybackInfoChaptersTVViewController.m */,
+				7D0C20AD28C8AAF500CCFFEF /* VLCPlaybackInfoChaptersTVViewController.xib */,
 				DD4089F01BF6467E0022745E /* VLCPlaybackInfoTVCollectionViewCell.h */,
 				DD4089F11BF6467E0022745E /* VLCPlaybackInfoTVCollectionViewCell.m */,
+				7D0C20B128C8AB1500CCFFEF /* VLCPlaybackInfoTVCollectionViewCell.xib */,
 				DD4089F81BF659030022745E /* VLCPlaybackInfoTVCollectionSectionTitleView.h */,
 				DD4089F91BF659030022745E /* VLCPlaybackInfoTVCollectionSectionTitleView.m */,
 				DD9D8F691C01FE5B00B4060F /* VLCPlaybackInfoCollectionViewDataSource.h */,
@@ -2872,11 +2862,11 @@
 				7DBB9D4027FF3BFB00ABCEC7 /* web-open.png in Resources */,
 				6DE0114323DF31C600D704E5 /* public in Resources */,
 				7D405EDB1BEA1F56006ED886 /* main.js in Resources */,
+				7D0C20B428C8AB5100CCFFEF /* VLCPlaybackInfoTracksTVViewController.xib in Resources */,
 				417E686C1F307D8F00DB9BB2 /* InfoPlist.strings in Resources */,
 				DD8095E51BE3F4240065D8E1 /* VLCPlaybackInfoTVViewController.xib in Resources */,
 				7D405ED91BEA1F56006ED886 /* jquery.ui.widget.js in Resources */,
 				7D405ED71BEA1F56006ED886 /* jquery.fileupload.js in Resources */,
-				DD4089E91BF63AD00022745E /* VLCPlaybackInfoTracksTVViewController.xib in Resources */,
 				7DEC8BDF1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib in Resources */,
 				7D5B26651D6350BF00FE7B4D /* gradient-cell.png in Resources */,
 				7DF383AE1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib in Resources */,
@@ -2886,20 +2876,20 @@
 				DD29A3E91BF223D000A27A91 /* Localizable.strings in Resources */,
 				DD8095EC1BE4F04E0065D8E1 /* VLCPlaybackInfoPlaybackTVViewController.xib in Resources */,
 				7DEC8BE91BD68BC9006E1093 /* Settings.bundle in Resources */,
-				DD9D8F681C01FAB500B4060F /* VLCPlaybackInfoChaptersTVViewController.xib in Resources */,
 				7DC0B5711C0094370027BFAD /* VLCSettingsViewController.xib in Resources */,
 				2663ACB422497D47000FBB95 /* VLCNetworkLoginTVViewController.xib in Resources */,
 				7D405ED81BEA1F56006ED886 /* jquery.iframe-transport.js in Resources */,
-				DD4089EF1BF646540022745E /* VLCPlaybackInfoTVCollectionViewCell.xib in Resources */,
+				7D0C20AE28C8AAF500CCFFEF /* VLCPlaybackInfoChaptersTVViewController.xib in Resources */,
 				DD3EAC131BE26166003668DA /* VLCRemoteBrowsingTVCell.xib in Resources */,
 				7D3E528C1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib in Resources */,
 				7D405EDA1BEA1F56006ED886 /* style.css in Resources */,
+				7D0C20B228C8AB1500CCFFEF /* VLCPlaybackInfoTVCollectionViewCell.xib in Resources */,
 				7D5B266F1D63511700FE7B4D /* favicon.ico in Resources */,
 				7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */,
 				7DC5A3E81BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib in Resources */,
 				7D0C207628C897DA00CCFFEF /* About Contents.html in Resources */,
 				7D405EE21BEA1FAD006ED886 /* index.html in Resources */,
-				7D51B3B11BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.xib in Resources */,
+				7D0C20B028C8AB0000CCFFEF /* VLCPlaybackInfoMediaInfoTVViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3265,6 +3255,7 @@
 				DD9D8F5F1C00C73F00B4060F /* VLCDeleteHintTVView.m in Sources */,
 				7D405ED01BEA11C1006ED886 /* VLCHTTPConnection.m in Sources */,
 				DD490B1F1BE95B5C0010F335 /* VLCSiriRemoteGestureRecognizer.m in Sources */,
+				7D0C20AA28C8AA2700CCFFEF /* VLCMaskView.m in Sources */,
 				DD3EFF3C1BDEBCE500B68579 /* VLCNetworkServerBrowserVLCMedia.m in Sources */,
 				DD4089FA1BF659030022745E /* VLCPlaybackInfoTVCollectionSectionTitleView.m in Sources */,
 				7D38BF91249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m in Sources */,
@@ -3272,6 +3263,7 @@
 				7DC7BA9528C8954B00109F28 /* NSString+SupportedMedia.m in Sources */,
 				7D62621A1C18AECD00F7CB24 /* VLCDeletionCapableViewController.m in Sources */,
 				7D1329441BA1F10100BE647E /* AppleTVAppDelegate.m in Sources */,
+				7D0C20AC28C8AA6400CCFFEF /* VLCNetworkImageView.m in Sources */,
 				6C5B0C9E27A43098005AE25B /* PlaybackServiceAdjustFilter.swift in Sources */,
 				DD4089F21BF6467E0022745E /* VLCPlaybackInfoTVCollectionViewCell.m in Sources */,
 				4342C3C327474CA000E52334 /* SortedMediaFiles.swift in Sources */,
@@ -3287,6 +3279,7 @@
 				7DC5A3EC1BF63F4B00CFEBA8 /* VLCMediaFileDiscoverer.m in Sources */,
 				7D3E528B1BD7B5E100309D15 /* VLCCloudServicesTVViewController.m in Sources */,
 				DD9D8F6B1C01FE5B00B4060F /* VLCPlaybackInfoCollectionViewDataSource.m in Sources */,
+				7D0C20AB28C8AA3000CCFFEF /* VLCBufferingBar.m in Sources */,
 				7D405ED41BEA150C006ED886 /* VLCActivityManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3372,7 +3365,6 @@
 				DD3EFF351BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
 				413EC987201A329D00BF412F /* SortModel.swift in Sources */,
 				41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */,
-				7D0C20A128C8A6B900CCFFEF /* VLCMaskView.m in Sources */,
 				44C8BBB224AF36F4003F8940 /* SettingsCell.swift in Sources */,
 				417CDA231A48D1F300D9ACE7 /* VLCCloudServicesTableViewController.m in Sources */,
 				418B145920179E50000447AA /* VLCDragAndDropManager.swift in Sources */,
@@ -3389,7 +3381,6 @@
 				6D4756B123607D4A005F670E /* EditActions.swift in Sources */,
 				8F91EC79195CEC7900F5BCBA /* VLCOpenInActivity.m in Sources */,
 				7D38BF90249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m in Sources */,
-				7D0C20A728C8A79B00CCFFEF /* VLCBufferingBar.m in Sources */,
 				DD3EFF4D1BDEBCE500B68579 /* VLCNetworkServerBrowserPlex.m in Sources */,
 				8D437154205808FF00F36458 /* ActionSheet.swift in Sources */,
 				DDF908E41CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m in Sources */,
