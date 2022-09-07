@@ -489,7 +489,6 @@
 		41273A391A955C4100A2EF77 /* VLCMigrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMigrationViewController.h; path = Sources/VLCMigrationViewController.h; sourceTree = SOURCE_ROOT; };
 		41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMigrationViewController.m; path = Sources/VLCMigrationViewController.m; sourceTree = SOURCE_ROOT; };
 		41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCMigrationViewController.xib; path = Sources/VLCMigrationViewController.xib; sourceTree = SOURCE_ROOT; };
-		4129CF2E22D5E498005EF5E8 /* AppUtitlity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppUtitlity.swift; path = Sources/AppUtitlity.swift; sourceTree = "<group>"; };
 		412BE7521FC4947400ACCC42 /* VLCMediaSubcategory+VLCDragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "VLCMediaSubcategory+VLCDragAndDrop.swift"; path = "Sources/VLCMediaSubcategory+VLCDragAndDrop.swift"; sourceTree = SOURCE_ROOT; };
 		4133CADC22CCB0620047A4EC /* VLC-iOS-Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC-iOS-Screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4133CAE022CCB0620047A4EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1783,7 +1782,6 @@
 				7D94FCE416DE7D1000F2623B /* iOS specific classes */,
 				7DADC55C1704FAA8001DAC63 /* XIBs */,
 				A7924697170F0ED20036AAF2 /* Resources */,
-				7D94FCE516DE7D1000F2623B /* iOS Supporting Files */,
 				DD7110ED1AF38AFD00854776 /* SharedSources */,
 				7D13293E1BA1F10100BE647E /* VLC-TV */,
 				7DB40AA028C7B49700EDACA0 /* Testing */,
@@ -1855,14 +1853,6 @@
 				7D31CF061746AEF2005997E0 /* UI Elements */,
 			);
 			name = "iOS specific classes";
-			sourceTree = "<group>";
-		};
-		7D94FCE516DE7D1000F2623B /* iOS Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4129CF2E22D5E498005EF5E8 /* AppUtitlity.swift */,
-			);
-			name = "iOS Supporting Files";
 			sourceTree = "<group>";
 		};
 		7DADC55C1704FAA8001DAC63 /* XIBs */ = {
