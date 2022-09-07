@@ -692,10 +692,10 @@
 		7D2DE69924D5AC0E00E8D84D /* VLCOSOFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOSOFetcher.h; sourceTree = "<group>"; };
 		7D2DE69A24D5AC0E00E8D84D /* VLCSubtitleItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCSubtitleItem.m; sourceTree = "<group>"; };
 		7D2DF7C21B67777D00FB78AB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		7D30F3BC183AB24C00FFC021 /* VLCHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPConnection.h; path = Sources/VLCHTTPConnection.h; sourceTree = SOURCE_ROOT; };
-		7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPConnection.m; path = Sources/VLCHTTPConnection.m; sourceTree = SOURCE_ROOT; };
-		7D30F3C0183AB24C00FFC021 /* VLCHTTPUploaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPUploaderController.h; path = Sources/VLCHTTPUploaderController.h; sourceTree = SOURCE_ROOT; };
-		7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPUploaderController.m; path = Sources/VLCHTTPUploaderController.m; sourceTree = SOURCE_ROOT; };
+		7D30F3BC183AB24C00FFC021 /* VLCHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPConnection.h; path = "Sources/WiFi Sharing/VLCHTTPConnection.h"; sourceTree = SOURCE_ROOT; };
+		7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPConnection.m; path = "Sources/WiFi Sharing/VLCHTTPConnection.m"; sourceTree = SOURCE_ROOT; };
+		7D30F3C0183AB24C00FFC021 /* VLCHTTPUploaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCHTTPUploaderController.h; path = "Sources/WiFi Sharing/VLCHTTPUploaderController.h"; sourceTree = SOURCE_ROOT; };
+		7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPUploaderController.m; path = "Sources/WiFi Sharing/VLCHTTPUploaderController.m"; sourceTree = SOURCE_ROOT; };
 		7D30F3C5183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenNetworkStreamViewController.h; path = Sources/VLCOpenNetworkStreamViewController.h; sourceTree = SOURCE_ROOT; };
 		7D30F3C6183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpenNetworkStreamViewController.m; path = Sources/VLCOpenNetworkStreamViewController.m; sourceTree = SOURCE_ROOT; };
 		7D30F3C8183AB27A00FFC021 /* VLCDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDownloadViewController.h; path = Sources/VLCDownloadViewController.h; sourceTree = SOURCE_ROOT; };
@@ -706,8 +706,8 @@
 		7D30F3D2183AB2F100FFC021 /* VLCNetworkListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkListCell.m; path = Sources/LocalNetworkConnectivity/VLCNetworkListCell.m; sourceTree = SOURCE_ROOT; };
 		7D30F3DA183AB2F900FFC021 /* VLCNetworkLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkLoginViewController.h; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginViewController.h; sourceTree = SOURCE_ROOT; };
 		7D30F3DB183AB2F900FFC021 /* VLCNetworkLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkLoginViewController.m; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginViewController.m; sourceTree = SOURCE_ROOT; };
-		7D30F3DD183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCWiFiUploadTableViewCell.h; path = Sources/VLCWiFiUploadTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCWiFiUploadTableViewCell.m; path = Sources/VLCWiFiUploadTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		7D30F3DD183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCWiFiUploadTableViewCell.h; path = "Sources/WiFi Sharing/VLCWiFiUploadTableViewCell.h"; sourceTree = SOURCE_ROOT; };
+		7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCWiFiUploadTableViewCell.m; path = "Sources/WiFi Sharing/VLCWiFiUploadTableViewCell.m"; sourceTree = SOURCE_ROOT; };
 		7D30F3E3183AB34200FFC021 /* VLCGoogleDriveConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveConstants.h; path = Sources/VLCGoogleDriveConstants.h; sourceTree = SOURCE_ROOT; };
 		7D30F3E4183AB34200FFC021 /* VLCGoogleDriveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveController.h; path = Sources/VLCGoogleDriveController.h; sourceTree = SOURCE_ROOT; };
 		7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveController.m; path = Sources/VLCGoogleDriveController.m; sourceTree = SOURCE_ROOT; };
@@ -893,8 +893,8 @@
 		7DF383AA1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRemoteBrowsingCollectionViewController.h; sourceTree = "<group>"; };
 		7DF383AB1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRemoteBrowsingCollectionViewController.m; sourceTree = "<group>"; };
 		7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCRemoteBrowsingCollectionViewController.xib; sourceTree = "<group>"; };
-		7DF383B71BF21E4400D71A5C /* VLCPlayerControlWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayerControlWebSocket.h; path = SharedSources/VLCPlayerControlWebSocket.h; sourceTree = SOURCE_ROOT; };
-		7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayerControlWebSocket.m; path = SharedSources/VLCPlayerControlWebSocket.m; sourceTree = SOURCE_ROOT; };
+		7DF383B71BF21E4400D71A5C /* VLCPlayerControlWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayerControlWebSocket.h; path = "Sources/WiFi Sharing/VLCPlayerControlWebSocket.h"; sourceTree = SOURCE_ROOT; };
+		7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayerControlWebSocket.m; path = "Sources/WiFi Sharing/VLCPlayerControlWebSocket.m"; sourceTree = SOURCE_ROOT; };
 		7DF383BF1BF231BC00D71A5C /* VLCCloudStorageTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCloudStorageTVViewController.h; sourceTree = "<group>"; };
 		7DF383C01BF231BC00D71A5C /* VLCCloudStorageTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCloudStorageTVViewController.m; sourceTree = "<group>"; };
 		7DF383CE1BF24BB100D71A5C /* VLCBoxCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxCollectionViewController.h; path = SharedSources/Clouds/VLCBoxCollectionViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1498,6 +1498,21 @@
 			path = tvOS;
 			sourceTree = "<group>";
 		};
+		7D0C209928C89E2A00CCFFEF /* WiFi Sharing */ = {
+			isa = PBXGroup;
+			children = (
+				7D30F3BC183AB24C00FFC021 /* VLCHTTPConnection.h */,
+				7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */,
+				7D30F3C0183AB24C00FFC021 /* VLCHTTPUploaderController.h */,
+				7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */,
+				7DF383B71BF21E4400D71A5C /* VLCPlayerControlWebSocket.h */,
+				7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */,
+				7D30F3DD183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.h */,
+				7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */,
+			);
+			path = "WiFi Sharing";
+			sourceTree = "<group>";
+		};
 		7D1052EA1A4DCC1700295F08 /* Graph */ = {
 			isa = PBXGroup;
 			children = (
@@ -1529,15 +1544,6 @@
 			children = (
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7D2339AB176DE70E008D223C /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				7D30F3DD183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.h */,
-				7D30F3DE183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m */,
-			);
-			name = Menu;
 			sourceTree = "<group>";
 		};
 		7D31002117B676D500E6516D /* Local Network Connectivity */ = {
@@ -1697,19 +1703,6 @@
 			name = "Everything Playlist";
 			sourceTree = "<group>";
 		};
-		7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */ = {
-			isa = PBXGroup;
-			children = (
-				7D30F3BC183AB24C00FFC021 /* VLCHTTPConnection.h */,
-				7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */,
-				7D30F3C0183AB24C00FFC021 /* VLCHTTPUploaderController.h */,
-				7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */,
-				7DF383B71BF21E4400D71A5C /* VLCPlayerControlWebSocket.h */,
-				7DF383B81BF21E4400D71A5C /* VLCPlayerControlWebSocket.m */,
-			);
-			name = "HTTP Connectivity";
-			sourceTree = "<group>";
-		};
 		7D6BEF1D19E027A100DF3972 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
@@ -1828,7 +1821,6 @@
 				41DFC6C52100BAAF00EEC9E3 /* VLCDocumentClass.swift */,
 				7DF383B41BF20E4600D71A5C /* Network dialogs */,
 				7DBB788E1B305D8300894467 /* Keychain & random singletons */,
-				7D2339AB176DE70E008D223C /* Menu */,
 				7D31002117B676D500E6516D /* Local Network Connectivity */,
 				7D5F7AB81752658E006CCCFA /* Everything Playlist */,
 				7D5F7AB717526573006CCCFA /* Accessory dialogs */,
@@ -1967,6 +1959,7 @@
 		7DC7BA6C28C892EA00109F28 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7D0C209928C89E2A00CCFFEF /* WiFi Sharing */,
 				8D590F622493836A0078D358 /* Playback */,
 				7D0C208E28C89BC800CCFFEF /* Headers */,
 				44C8BBA124AF2B5C003F8940 /* Helper */,
@@ -2556,7 +2549,6 @@
 			isa = PBXGroup;
 			children = (
 				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
-				7D5F7ABA175265CB006CCCFA /* HTTP Connectivity */,
 				7D4DFEA81BDF982400979881 /* Cloud Integration */,
 				7DEC8BE21BD6880C006E1093 /* UI Elements */,
 				7DEC8BE01BD686D3006E1093 /* Playback */,
