@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="20037" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="19529" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="appleTV" appearance="light"/>
     <dependencies>
         <deployment identifier="tvOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCOpenNetworkStreamTVViewController">
             <connections>
                 <outlet property="deleteHintView" destination="Wa3-IS-ztU" id="ipW-Hx-fMJ"/>
-                <outlet property="emptyListButton" destination="OXZ-Zx-045" id="kJS-RB-MGp"/>
+                <outlet property="emptyListButton" destination="OXZ-Zx-045" id="amt-Xy-VhT"/>
                 <outlet property="nothingFoundConeImageView" destination="aAb-aY-bkT" id="Abp-Yt-oQb"/>
                 <outlet property="nothingFoundLabel" destination="sdc-e1-PSc" id="dvi-jc-vaR"/>
                 <outlet property="nothingFoundView" destination="dvt-CP-ALF" id="lg3-aJ-oHg"/>
                 <outlet property="playURLField" destination="dWa-3n-YCa" id="Eoe-vT-AuM"/>
                 <outlet property="preferredFocusedView" destination="dWa-3n-YCa" id="0Ez-4Z-KFF"/>
                 <outlet property="previouslyPlayedStreamsTableView" destination="v0o-s0-Xaz" id="I1r-ie-lFf"/>
+                <outlet property="reverseListSortingButton" destination="S9C-So-1TT" id="Wys-kF-xwY"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
             </connections>
         </placeholder>
@@ -83,10 +84,21 @@
                         <action selector="emptyListAction:" destination="-1" eventType="primaryActionTriggered" id="Pp6-st-y2N"/>
                     </connections>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9C-So-1TT">
+                    <rect key="frame" x="1439" y="190" width="128" height="88"/>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="delete"/>
+                    <buttonConfiguration key="configuration" style="gray" image="sortingImage"/>
+                    <connections>
+                        <action selector="reverseListSortingAction:" destination="-1" eventType="primaryActionTriggered" id="pFj-w5-Hp2"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="Wa3-IS-ztU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0ms-Lt-g1Q"/>
                 <constraint firstItem="dWa-3n-YCa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="193" id="6FP-0U-Znd"/>
+                <constraint firstItem="S9C-So-1TT" firstAttribute="centerY" secondItem="dWa-3n-YCa" secondAttribute="centerY" id="D1b-zy-Rwv"/>
                 <constraint firstItem="dvt-CP-ALF" firstAttribute="centerY" secondItem="v0o-s0-Xaz" secondAttribute="centerY" id="GIx-LR-UOF"/>
                 <constraint firstItem="dvt-CP-ALF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="961" id="GfH-Fp-I0L"/>
                 <constraint firstItem="OXZ-Zx-045" firstAttribute="trailing" secondItem="v0o-s0-Xaz" secondAttribute="trailing" id="HGJ-W8-lfl"/>
@@ -94,6 +106,7 @@
                 <constraint firstAttribute="bottom" secondItem="Wa3-IS-ztU" secondAttribute="bottom" constant="50" id="ZDa-1f-46j"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="elq-bO-Tb3"/>
                 <constraint firstItem="v0o-s0-Xaz" firstAttribute="top" secondItem="dWa-3n-YCa" secondAttribute="bottom" constant="70" id="jCe-Gz-82c"/>
+                <constraint firstItem="OXZ-Zx-045" firstAttribute="leading" secondItem="S9C-So-1TT" secondAttribute="trailing" constant="42.5" id="jlD-FU-9bO"/>
                 <constraint firstItem="dWa-3n-YCa" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="oFS-xp-QJo"/>
                 <constraint firstItem="dvt-CP-ALF" firstAttribute="centerX" secondItem="v0o-s0-Xaz" secondAttribute="centerX" id="uSF-XP-xr0"/>
                 <constraint firstAttribute="bottom" secondItem="v0o-s0-Xaz" secondAttribute="bottom" constant="70" id="ydf-eT-5UK"/>
@@ -105,5 +118,6 @@
         <image name="cone" width="143" height="158"/>
         <image name="delete" width="24" height="24"/>
         <image name="deleteImage" width="48" height="48"/>
+        <image name="sortingImage" width="48" height="48"/>
     </resources>
 </document>

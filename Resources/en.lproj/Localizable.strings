@@ -66,6 +66,7 @@
 "BUTTON_CONTINUE" = "Continue";
 "BUTTON_SET" = "Set";
 "BUTTON_RESET" = "Reset";
+"BUTTON_REVERSE" = "Reverse sorting order";
 "BUTTON_RESCAN" = "Rescan";
 "PRIVATE_PLAYBACK_TOGGLE" = "Private Playback";
 "SCAN_SUBTITLE_TOGGLE" = "Scan for Subtitles (http-only)";
