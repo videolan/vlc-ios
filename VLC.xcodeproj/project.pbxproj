@@ -357,7 +357,6 @@
 		D98EE7452846183F00E6B02D /* GraphTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98EE7442846183F00E6B02D /* GraphTableViewController.swift */; };
 		D9AFDCA527D6383F002326CC /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AFDCA427D6383F002326CC /* BookmarksView.swift */; };
 		DD1B31F41BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */; };
-		DD1CB05A1BBAC549006EDDE6 /* VLCVolumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1CB0591BBAC549006EDDE6 /* VLCVolumeView.m */; };
 		DD29A3E91BF223D000A27A91 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		DD3EABE91BE13D5B003668DA /* VLCRemoteBrowsingTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABE81BE13D5B003668DA /* VLCRemoteBrowsingTVCell.m */; };
 		DD3EABEF1BE14720003668DA /* VLCPlaybackControlsFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABEE1BE14720003668DA /* VLCPlaybackControlsFocusView.m */; };
@@ -978,8 +977,6 @@
 		DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMaskView.m; sourceTree = "<group>"; };
 		DD1B31F11BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoTracksTVViewController.h; sourceTree = "<group>"; };
 		DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoTracksTVViewController.m; sourceTree = "<group>"; };
-		DD1CB0581BBAC549006EDDE6 /* VLCVolumeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCVolumeView.h; path = "Sources/UI Elements/VLCVolumeView.h"; sourceTree = SOURCE_ROOT; };
-		DD1CB0591BBAC549006EDDE6 /* VLCVolumeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVolumeView.m; path = "Sources/UI Elements/VLCVolumeView.m"; sourceTree = SOURCE_ROOT; };
 		DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfig.xcconfig; path = buildsystem/SharedConfig.xcconfig; sourceTree = "<group>"; };
 		DD3EABE71BE13D5B003668DA /* VLCRemoteBrowsingTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRemoteBrowsingTVCell.h; sourceTree = "<group>"; };
 		DD3EABE81BE13D5B003668DA /* VLCRemoteBrowsingTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRemoteBrowsingTVCell.m; sourceTree = "<group>"; };
@@ -1564,8 +1561,6 @@
 				7D0C20A328C8A6CE00CCFFEF /* Progress Indicators */,
 				7D9CB9DA1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.h */,
 				7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */,
-				DD1CB0581BBAC549006EDDE6 /* VLCVolumeView.h */,
-				DD1CB0591BBAC549006EDDE6 /* VLCVolumeView.m */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";
@@ -3419,7 +3414,6 @@
 				7D30F3C7183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m in Sources */,
 				7DB66CF02520E3B90077481C /* VLCDownloadController.m in Sources */,
 				41E6BECD207E64E900E158BA /* RemoteNetworkCell.swift in Sources */,
-				DD1CB05A1BBAC549006EDDE6 /* VLCVolumeView.m in Sources */,
 				DD870E951CEF78D800BBD4FE /* VLCNetworkLoginDataSourceLogin.m in Sources */,
 				CAC0AFED20CF8F6F00EDB035 /* VLCAccessibilityIdentifier.swift in Sources */,
 				41701546209B36E800802E44 /* VLCPagingViewController.swift in Sources */,
