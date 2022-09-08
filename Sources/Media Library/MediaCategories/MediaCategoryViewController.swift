@@ -68,11 +68,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private lazy var albumFlowLayout = AlbumHeaderLayout()
     private lazy var navItemTitle: VLCMarqueeLabel = VLCMarqueeLabel()
 
-//    @available(iOS 11.0, *)
-//    lazy var dragAndDropManager: VLCDragAndDropManager = { () -> VLCDragAndDropManager<T> in
-//        VLCDragAndDropManager<T>(subcategory: VLCMediaSubcategories<>)
-//    }()
-
     private var hasLaunchedBefore: Bool {
         return userDefaults.bool(forKey: kVLCHasLaunchedBefore)
     }
