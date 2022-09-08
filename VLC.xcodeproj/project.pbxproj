@@ -1648,6 +1648,9 @@
 		7D0C20B528CA085500CCFFEF /* Media Library */ = {
 			isa = PBXGroup;
 			children = (
+				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
+				8DE1887221089AF200A091D2 /* MediaLibraryModel */,
+				8D66A47220AC61B900FA5B92 /* MediaLibraryService.swift */,
 				7D0C20B928CA0D9200CCFFEF /* Activity View */,
 				CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */,
 				CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */,
@@ -1688,6 +1691,7 @@
 		7D0C20B828CA0B2A00CCFFEF /* Editing */ = {
 			isa = PBXGroup;
 			children = (
+				8D2AD4D9227AEE8E00393833 /* AddToCollectionView.xib */,
 				8D2AD4D722786F4000393833 /* AddToCollectionViewController.swift */,
 				6D4756B023607D49005F670E /* EditActions.swift */,
 				6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */,
@@ -1944,8 +1948,6 @@
 				419D7F041F54176900AF69A2 /* VLCTimeNavigationTitleView.xib */,
 				7D6BEF1D19E027A100DF3972 /* Cloud */,
 				7D6BEF1F19E027DA00DF3972 /* Download & Network */,
-				8D2AD4D6227869AF00393833 /* AddToCollection */,
-				8D15A1F122B0FC8300CFA758 /* Queue */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -2096,15 +2098,6 @@
 			name = URLs;
 			sourceTree = "<group>";
 		};
-		7DEC8BE11BD686FA006E1093 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				8DE1887221089AF200A091D2 /* MediaLibraryModel */,
-				8D66A47220AC61B900FA5B92 /* MediaLibraryService.swift */,
-			);
-			name = Library;
-			sourceTree = "<group>";
-		};
 		7DEC8BE31BD68882006E1093 /* Network UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -2224,27 +2217,10 @@
 		8D15A1EE22B0FB1900CFA758 /* Queue */ = {
 			isa = PBXGroup;
 			children = (
+				8D15A1F222B0FCE000CFA758 /* QueueView.xib */,
 				8D15A1EF22B0FB9300CFA758 /* QueueViewController.swift */,
 			);
 			path = Queue;
-			sourceTree = "<group>";
-		};
-		8D15A1F122B0FC8300CFA758 /* Queue */ = {
-			isa = PBXGroup;
-			children = (
-				8D15A1F222B0FCE000CFA758 /* QueueView.xib */,
-			);
-			name = Queue;
-			path = Resources/Xib/Queue;
-			sourceTree = "<group>";
-		};
-		8D2AD4D6227869AF00393833 /* AddToCollection */ = {
-			isa = PBXGroup;
-			children = (
-				8D2AD4D9227AEE8E00393833 /* AddToCollectionView.xib */,
-			);
-			name = AddToCollection;
-			path = Resources/Xib/AddToCollection;
 			sourceTree = "<group>";
 		};
 		8D590F622493836A0078D358 /* Playback */ = {
@@ -2374,6 +2350,7 @@
 				7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */,
 			);
 			name = MediaDiscovering;
+			path = SharedSources;
 			sourceTree = "<group>";
 		};
 		CAC0AFE720CF8A6900EDB035 /* Helpers */ = {
@@ -2510,9 +2487,7 @@
 		DD7110ED1AF38AFD00854776 /* SharedSources */ = {
 			isa = PBXGroup;
 			children = (
-				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
 				7D4DFEA81BDF982400979881 /* Cloud Integration */,
-				7DEC8BE11BD686FA006E1093 /* Library */,
 				DD3EFEEF1BDEBCE500B68579 /* ServerBrowsing */,
 			);
 			path = SharedSources;
