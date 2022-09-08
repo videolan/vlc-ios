@@ -31,7 +31,6 @@
 		413EC987201A329D00BF412F /* SortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC986201A329D00BF412F /* SortModel.swift */; };
 		413EC98B201B4F2C00BF412F /* PresentationTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EC98A201B4F2B00BF412F /* PresentationTheme.swift */; };
 		414396C22023316C005E3FAF /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414396C12023316C005E3FAF /* AppearanceManager.swift */; };
-		4144156A20ECD2620078EC37 /* VLCSectionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4144156920ECD2620078EC37 /* VLCSectionTableHeaderView.swift */; };
 		4144156C20ECE6330078EC37 /* FileServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4144156B20ECE6330078EC37 /* FileServerView.swift */; };
 		4144C4661A0ED6C700918C89 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784E6183A99E1009EE944 /* Reachability.m */; };
 		4152F1621FEF19BD00F1908B /* KeychainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */; };
@@ -478,20 +477,19 @@
 		4072A77D25879577006EA498 /* VideoFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFiltersView.swift; sourceTree = "<group>"; };
 		407EB586257A418900686B1F /* SleepTimerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SleepTimerView.xib; sourceTree = "<group>"; };
 		407EB58D257A41B200686B1F /* SleepTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimerView.swift; sourceTree = "<group>"; };
-		4090705825A60341004667E7 /* OptionsNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsNavigationBar.swift; path = Sources/OptionsNavigationBar.swift; sourceTree = SOURCE_ROOT; };
+		4090705825A60341004667E7 /* OptionsNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsNavigationBar.swift; path = "Sources/Playback/VideoPlayer-iOS/Subviews/OptionsNavigationBar.swift"; sourceTree = SOURCE_ROOT; };
 		40C959FF256E9272002DD208 /* PlaybackSpeedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaybackSpeedView.xib; sourceTree = "<group>"; };
 		40C95A06256E929D002DD208 /* PlaybackSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSpeedView.swift; sourceTree = "<group>"; };
 		4120863922323E87006A6630 /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		41251ECE1FD0CF7900099110 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppCoordinator.swift; path = Sources/Coordinators/AppCoordinator.swift; sourceTree = SOURCE_ROOT; };
 		41273A391A955C4100A2EF77 /* VLCMigrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMigrationViewController.h; path = "Sources/Media Library/VLCMigrationViewController.h"; sourceTree = SOURCE_ROOT; };
 		41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMigrationViewController.m; path = "Sources/Media Library/VLCMigrationViewController.m"; sourceTree = SOURCE_ROOT; };
-		41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCMigrationViewController.xib; path = Sources/VLCMigrationViewController.xib; sourceTree = SOURCE_ROOT; };
+		41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCMigrationViewController.xib; path = "Sources/Media Library/VLCMigrationViewController.xib"; sourceTree = SOURCE_ROOT; };
 		4133CADC22CCB0620047A4EC /* VLC-iOS-Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC-iOS-Screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4133CAE022CCB0620047A4EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		413EC986201A329D00BF412F /* SortModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SortModel.swift; path = Sources/Coordinators/SortModel.swift; sourceTree = SOURCE_ROOT; };
 		413EC98A201B4F2B00BF412F /* PresentationTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationTheme.swift; sourceTree = "<group>"; };
 		414396C12023316C005E3FAF /* AppearanceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppearanceManager.swift; path = Sources/AppearanceManager.swift; sourceTree = SOURCE_ROOT; };
-		4144156920ECD2620078EC37 /* VLCSectionTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VLCSectionTableHeaderView.swift; path = Sources/VLCSectionTableHeaderView.swift; sourceTree = "<group>"; };
 		4144156B20ECE6330078EC37 /* FileServerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileServerView.swift; path = Sources/FileServerView.swift; sourceTree = "<group>"; };
 		4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCoordinator.swift; sourceTree = "<group>"; };
 		41533C91211338D500EC3ABA /* VLC-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -589,7 +587,7 @@
 		41CD695A1A29D72600E60BCE /* VLCBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBoxTableViewController.h; path = Sources/VLCBoxTableViewController.h; sourceTree = SOURCE_ROOT; };
 		41CD695B1A29D72600E60BCE /* VLCBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCBoxTableViewController.m; path = Sources/VLCBoxTableViewController.m; sourceTree = SOURCE_ROOT; };
 		41D7DD0420C1853E00AD94F6 /* ButtonBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBarView.swift; sourceTree = "<group>"; };
-		41D7DD2020C1FC2D00AD94F6 /* VLCLabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCLabelCell.xib; path = Resources/VLCLabelCell.xib; sourceTree = "<group>"; };
+		41D7DD2020C1FC2D00AD94F6 /* VLCLabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCLabelCell.xib; sourceTree = "<group>"; };
 		41D7DD2620C3060300AD94F6 /* PagerStripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerStripViewController.swift; sourceTree = "<group>"; };
 		41E6BECC207E64E900E158BA /* RemoteNetworkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNetworkCell.swift; sourceTree = "<group>"; };
 		41EB6633216147DD00FDC38B /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
@@ -622,10 +620,10 @@
 		6D63C06A23FEE93C00B9C05A /* VLCMarqueeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCMarqueeLabel.swift; sourceTree = "<group>"; };
 		6D758AA82577DDAF0016F675 /* EqualizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EqualizerView.swift; sourceTree = "<group>"; };
 		6D758AA92577DDAF0016F675 /* VerticalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSlider.swift; sourceTree = "<group>"; };
-		6D86F50425F8168600044C79 /* SpoilerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpoilerButton.swift; path = Sources/SpoilerButton.swift; sourceTree = "<group>"; };
+		6D86F50425F8168600044C79 /* SpoilerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoilerButton.swift; sourceTree = "<group>"; };
 		6D8E6429234CBF2200EBC8FC /* AudioCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCollectionModel.swift; sourceTree = "<group>"; };
 		6D8EC09125F8010E00FDDE17 /* EqualizerPresetSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerPresetSelector.swift; sourceTree = "<group>"; };
-		6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCellPreviewController.swift; path = Sources/CollectionViewCellPreviewController.swift; sourceTree = "<group>"; };
+		6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellPreviewController.swift; sourceTree = "<group>"; };
 		6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditButtons.swift; sourceTree = "<group>"; };
 		6DE63F3E270FD3D1008A011D /* VLCPlayerDisplayController+MiniPlayerDraggingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VLCPlayerDisplayController+MiniPlayerDraggingDelegate.swift"; sourceTree = "<group>"; };
 		723659CB3834E1B30918E514 /* Pods-VLC-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-VLC-tvOS/Pods-VLC-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -895,7 +893,7 @@
 		8D15A1EC22A9603300CFA758 /* ActionSheetSortSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetSortSectionHeader.swift; sourceTree = "<group>"; };
 		8D15A1EF22B0FB9300CFA758 /* QueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueViewController.swift; sourceTree = "<group>"; };
 		8D15A1F222B0FCE000CFA758 /* QueueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QueueView.xib; sourceTree = "<group>"; };
-		8D2AD4D722786F4000393833 /* AddToCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddToCollectionViewController.swift; path = Sources/AddToCollectionViewController.swift; sourceTree = "<group>"; };
+		8D2AD4D722786F4000393833 /* AddToCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCollectionViewController.swift; sourceTree = "<group>"; };
 		8D2AD4D9227AEE8E00393833 /* AddToCollectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddToCollectionView.xib; sourceTree = "<group>"; };
 		8D3B4C0D2226E49A00B9F652 /* AudioMiniPlayer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMiniPlayer.xib; sourceTree = "<group>"; };
 		8D43712C2056AF1600F36458 /* VLCRendererDiscovererManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCRendererDiscovererManager.swift; sourceTree = "<group>"; };
@@ -921,8 +919,8 @@
 		8DE18891210B5BAD00A091D2 /* ArtistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistModel.swift; sourceTree = "<group>"; };
 		8DE18893210B5F8200A091D2 /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
 		8DE18897210F144B00A091D2 /* GenreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreModel.swift; sourceTree = "<group>"; };
-		8DF9669C2113317100D0FCD6 /* EditToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditToolbar.swift; path = Sources/EditToolbar.swift; sourceTree = "<group>"; };
-		8DF966B021188BDB00D0FCD6 /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditController.swift; path = Sources/EditController.swift; sourceTree = "<group>"; };
+		8DF9669C2113317100D0FCD6 /* EditToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolbar.swift; sourceTree = "<group>"; };
+		8DF966B021188BDB00D0FCD6 /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
 		8DF966EE211C643D00D0FCD6 /* PlaylistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistModel.swift; sourceTree = "<group>"; };
 		8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenInActivity.h; path = "Sources/Media Library/VLCOpenInActivity.h"; sourceTree = SOURCE_ROOT; };
 		8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpenInActivity.m; path = "Sources/Media Library/VLCOpenInActivity.m"; sourceTree = SOURCE_ROOT; };
@@ -1094,7 +1092,7 @@
 		DDF908E21CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkLoginDataSourceProtocol.h; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginDataSourceProtocol.h; sourceTree = SOURCE_ROOT; };
 		DDF908E31CFCD97400108B70 /* VLCNetworkLoginDataSourceProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkLoginDataSourceProtocol.m; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginDataSourceProtocol.m; sourceTree = SOURCE_ROOT; };
 		E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMoreOptionsActionSheet.swift; sourceTree = "<group>"; };
-		E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaNavigationBar.swift; path = Sources/MediaNavigationBar.swift; sourceTree = "<group>"; };
+		E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaNavigationBar.swift; sourceTree = "<group>"; };
 		E08AD1702304DDE800E023B9 /* MediaPlayerActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPlayerActionSheet.swift; sourceTree = "<group>"; };
 		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
 		E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentPickerController.m; path = Sources/VLCDocumentPickerController.m; sourceTree = SOURCE_ROOT; };
@@ -1627,6 +1625,8 @@
 		7D0C20A928C8A8C500CCFFEF /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */,
+				4090705825A60341004667E7 /* OptionsNavigationBar.swift */,
 				418108792142894A0046A931 /* PlayingExternallyView.xib */,
 				416DACB620B6DB9A001BC75D /* PlayingExternallyView.swift */,
 				E08AD1702304DDE800E023B9 /* MediaPlayerActionSheet.swift */,
@@ -1638,6 +1638,7 @@
 				4072A776258791B8006EA498 /* VideoFiltersView.xib */,
 				D92C186427CD317D0034058F /* ChapterView.swift */,
 				D9AFDCA427D6383F002326CC /* BookmarksView.swift */,
+				6D86F50425F8168600044C79 /* SpoilerButton.swift */,
 				6D758AA82577DDAF0016F675 /* EqualizerView.swift */,
 				6D8EC09125F8010E00FDDE17 /* EqualizerPresetSelector.swift */,
 			);
@@ -1651,11 +1652,11 @@
 				CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */,
 				41273A391A955C4100A2EF77 /* VLCMigrationViewController.h */,
 				41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */,
+				41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */,
 				8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */,
 				8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */,
 				4170AF9622848DCB008881BA /* LibrarySearchDataSource.swift */,
-				6D4756B023607D49005F670E /* EditActions.swift */,
-				6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */,
+				7D0C20B828CA0B2A00CCFFEF /* Editing */,
 				41884A4C214BE09D00D2C6B4 /* MediaCategoryCells */,
 				8DE1879821060D0B00A091D2 /* MediaCategories */,
 				8DE1877F2105DA2B00A091D2 /* MediaViewControllers */,
@@ -1668,6 +1669,7 @@
 			children = (
 				41D7DD2620C3060300AD94F6 /* PagerStripViewController.swift */,
 				41701545209B36E800802E44 /* VLCPagingViewController.swift */,
+				41D7DD2020C1FC2D00AD94F6 /* VLCLabelCell.xib */,
 				41FCD2F720B565B500660AAB /* VLCAlertViewController.swift */,
 			);
 			path = "View Controller";
@@ -1681,6 +1683,18 @@
 				DD4089F41BF6556F0022745E /* VLCFullWidthCollectionViewFlowLayout.m */,
 			);
 			path = "Data Presentation";
+			sourceTree = "<group>";
+		};
+		7D0C20B828CA0B2A00CCFFEF /* Editing */ = {
+			isa = PBXGroup;
+			children = (
+				8D2AD4D722786F4000393833 /* AddToCollectionViewController.swift */,
+				6D4756B023607D49005F670E /* EditActions.swift */,
+				6DBCE3CC2368811000BCA7D5 /* EditButtons.swift */,
+				8DF9669C2113317100D0FCD6 /* EditToolbar.swift */,
+				8DF966B021188BDB00D0FCD6 /* EditController.swift */,
+			);
+			path = Editing;
 			sourceTree = "<group>";
 		};
 		7D1052EA1A4DCC1700295F08 /* Graph */ = {
@@ -1728,15 +1742,7 @@
 		7D31CF061746AEF2005997E0 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
-				4144156920ECD2620078EC37 /* VLCSectionTableHeaderView.swift */,
 				4144156B20ECE6330078EC37 /* FileServerView.swift */,
-				8DF9669C2113317100D0FCD6 /* EditToolbar.swift */,
-				8DF966B021188BDB00D0FCD6 /* EditController.swift */,
-				8D2AD4D722786F4000393833 /* AddToCollectionViewController.swift */,
-				E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */,
-				6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */,
-				4090705825A60341004667E7 /* OptionsNavigationBar.swift */,
-				6D86F50425F8168600044C79 /* SpoilerButton.swift */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -1933,8 +1939,6 @@
 		7DADC55C1704FAA8001DAC63 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
-				41D7DD2020C1FC2D00AD94F6 /* VLCLabelCell.xib */,
-				41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */,
 				7D6BEF1D19E027A100DF3972 /* Cloud */,
 				7D6BEF1F19E027DA00DF3972 /* Download & Network */,
 				7D6BEF1E19E027BE00DF3972 /* Library */,
@@ -2289,6 +2293,7 @@
 		8DE1877F2105DA2B00A091D2 /* MediaViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				6DBCE3CA23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift */,
 				8DE187822105DB2E00A091D2 /* AudioViewController.swift */,
 				4170152B209A1D3600802E44 /* MediaViewController.swift */,
 				8DE187802105DAB100A091D2 /* VideoViewController.swift */,
@@ -3443,7 +3448,6 @@
 				41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */,
 				597B403F2625E85000C0D81E /* SliderInfoView.swift in Sources */,
 				407EB58E257A41B200686B1F /* SleepTimerView.swift in Sources */,
-				4144156A20ECD2620078EC37 /* VLCSectionTableHeaderView.swift in Sources */,
 				7DC7BABC28C8959F00109F28 /* URL+isHidden.swift in Sources */,
 				41EB6634216147DD00FDC38B /* PlaylistViewController.swift in Sources */,
 				7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */,

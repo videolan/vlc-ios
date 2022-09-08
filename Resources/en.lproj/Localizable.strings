@@ -308,15 +308,11 @@
 "DELETE_TITLE" = "Delete Selection";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "This file";
-"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
-"FILE_EXISTS" = "%@ already exists";
 
 "PROTOCOL_NOT_SELECTED" = "Protocol not selected";
 "Settings" = "Settings";
 
 "ERROR" = "Error";
-"OK" = "Ok";
 "SORT" = "Sort";
 "SORT_BY" = "Sort by";
 "SEARCH" = "Search";
