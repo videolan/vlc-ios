@@ -1084,8 +1084,8 @@
 		E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMoreOptionsActionSheet.swift; sourceTree = "<group>"; };
 		E03DECA522BEE27E00F44A05 /* MediaNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaNavigationBar.swift; sourceTree = "<group>"; };
 		E08AD1702304DDE800E023B9 /* MediaPlayerActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPlayerActionSheet.swift; sourceTree = "<group>"; };
-		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = Sources/VLCDocumentPickerController.h; sourceTree = SOURCE_ROOT; };
-		E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentPickerController.m; path = Sources/VLCDocumentPickerController.m; sourceTree = SOURCE_ROOT; };
+		E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentPickerController.h; path = "Sources/Cloud/Document Picker/VLCDocumentPickerController.h"; sourceTree = SOURCE_ROOT; };
+		E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentPickerController.m; path = "Sources/Cloud/Document Picker/VLCDocumentPickerController.m"; sourceTree = SOURCE_ROOT; };
 		E0F8980322D399E10061DB2F /* MediaScrubProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaScrubProgressBar.swift; sourceTree = "<group>"; };
 		F4D7CA6C946BEC69172FE01C /* libPods-VLC-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC34D45714F6ABBFF4645E35 /* Pods-VLC-iOS-Screenshots.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-Screenshots.distribution.xcconfig"; path = "Target Support Files/Pods-VLC-iOS-Screenshots/Pods-VLC-iOS-Screenshots.distribution.xcconfig"; sourceTree = "<group>"; };
@@ -2195,7 +2195,7 @@
 		7DC869E128CB86ED00EE99F8 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
-				E0C04F921A25B41C0080331A /* Document Picker */,
+				7DC869FB28CB94BB00EE99F8 /* Document Picker */,
 				7DC869F128CB89C100EE99F8 /* Services */,
 				7DC869EA28CB885900EE99F8 /* Content List */,
 				7DC869E228CB872C00EE99F8 /* Services List */,
@@ -2357,6 +2357,15 @@
 				7DEC8BE81BD68BC9006E1093 /* Settings.bundle */,
 			);
 			path = tvOS;
+			sourceTree = "<group>";
+		};
+		7DC869FB28CB94BB00EE99F8 /* Document Picker */ = {
+			isa = PBXGroup;
+			children = (
+				E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */,
+				E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */,
+			);
+			path = "Document Picker";
 			sourceTree = "<group>";
 		};
 		7DEC8BE51BD6889C006E1093 /* VideoPlayer-tvOS */ = {
@@ -2565,16 +2574,6 @@
 				DD9D8F6A1C01FE5B00B4060F /* VLCPlaybackInfoCollectionViewDataSource.m */,
 			);
 			path = "Playback Info";
-			sourceTree = "<group>";
-		};
-		E0C04F921A25B41C0080331A /* Document Picker */ = {
-			isa = PBXGroup;
-			children = (
-				E0C04F931A25B4410080331A /* VLCDocumentPickerController.h */,
-				E0C04F941A25B4410080331A /* VLCDocumentPickerController.m */,
-			);
-			name = "Document Picker";
-			path = ../..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
