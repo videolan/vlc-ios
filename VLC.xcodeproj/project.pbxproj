@@ -680,8 +680,8 @@
 		7D30F3C1183AB24C00FFC021 /* VLCHTTPUploaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCHTTPUploaderController.m; path = "Sources/WiFi Sharing/VLCHTTPUploaderController.m"; sourceTree = SOURCE_ROOT; };
 		7D30F3C5183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenNetworkStreamViewController.h; path = "Sources/Network/Open Network Stream/VLCOpenNetworkStreamViewController.h"; sourceTree = SOURCE_ROOT; };
 		7D30F3C6183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpenNetworkStreamViewController.m; path = "Sources/Network/Open Network Stream/VLCOpenNetworkStreamViewController.m"; sourceTree = SOURCE_ROOT; };
-		7D30F3C8183AB27A00FFC021 /* VLCDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDownloadViewController.h; path = Sources/VLCDownloadViewController.h; sourceTree = SOURCE_ROOT; };
-		7D30F3C9183AB27A00FFC021 /* VLCDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDownloadViewController.m; path = Sources/VLCDownloadViewController.m; sourceTree = SOURCE_ROOT; };
+		7D30F3C8183AB27A00FFC021 /* VLCDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDownloadViewController.h; path = Sources/Network/Download/VLCDownloadViewController.h; sourceTree = SOURCE_ROOT; };
+		7D30F3C9183AB27A00FFC021 /* VLCDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDownloadViewController.m; path = Sources/Network/Download/VLCDownloadViewController.m; sourceTree = SOURCE_ROOT; };
 		7D30F3CE183AB2AC00FFC021 /* VLCMediaFileDiscoverer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMediaFileDiscoverer.h; path = "Sources/Media Library/Discovery/VLCMediaFileDiscoverer.h"; sourceTree = SOURCE_ROOT; };
 		7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaFileDiscoverer.m; path = "Sources/Media Library/Discovery/VLCMediaFileDiscoverer.m"; sourceTree = SOURCE_ROOT; };
 		7D30F3D1183AB2F100FFC021 /* VLCNetworkListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkListCell.h; path = Sources/LocalNetworkConnectivity/VLCNetworkListCell.h; sourceTree = SOURCE_ROOT; };
@@ -695,8 +695,8 @@
 		7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveController.m; path = Sources/VLCGoogleDriveController.m; sourceTree = SOURCE_ROOT; };
 		7D30F3E8183AB34200FFC021 /* VLCGoogleDriveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCGoogleDriveTableViewController.h; path = Sources/VLCGoogleDriveTableViewController.h; sourceTree = SOURCE_ROOT; };
 		7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveTableViewController.m; path = Sources/VLCGoogleDriveTableViewController.m; sourceTree = SOURCE_ROOT; };
-		7D310883245F1EE100BC6D79 /* VLCMediaFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMediaFileDownloader.h; path = Sources/VLCMediaFileDownloader.h; sourceTree = SOURCE_ROOT; };
-		7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaFileDownloader.m; path = Sources/VLCMediaFileDownloader.m; sourceTree = SOURCE_ROOT; };
+		7D310883245F1EE100BC6D79 /* VLCMediaFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMediaFileDownloader.h; path = Sources/Network/Download/VLCMediaFileDownloader.h; sourceTree = SOURCE_ROOT; };
+		7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaFileDownloader.m; path = Sources/Network/Download/VLCMediaFileDownloader.m; sourceTree = SOURCE_ROOT; };
 		7D31719C19FEC91F0019357A /* VLC-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "VLC-iOS.entitlements"; path = "Resources/VLC-iOS.entitlements"; sourceTree = SOURCE_ROOT; };
 		7D3323FB18E61DD5000ABEA5 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D378490183A98BF009EE944 /* VLCExternalDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExternalDisplayController.h; path = Sources/Playback/Control/VLCExternalDisplayController.h; sourceTree = SOURCE_ROOT; };
@@ -770,7 +770,7 @@
 		7D84E4C81B41ABCE00EA7D1F /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		7D87D1CD24CDD4A800A0DF14 /* VLCConfettiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCConfettiView.swift; sourceTree = "<group>"; };
 		7D8968701BD3058800F4EAAD /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
-		7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDownloadViewController.xib; path = Resources/VLCDownloadViewController.xib; sourceTree = SOURCE_ROOT; };
+		7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCDownloadViewController.xib; path = Sources/Network/Download/VLCDownloadViewController.xib; sourceTree = SOURCE_ROOT; };
 		7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCOpenNetworkStreamViewController.xib; path = "Sources/Network/Open Network Stream/VLCOpenNetworkStreamViewController.xib"; sourceTree = SOURCE_ROOT; };
 		7D8986D4278B0C25005396AA /* VLCThumbnailsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCThumbnailsCache.h; sourceTree = "<group>"; };
 		7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCThumbnailsCache.m; sourceTree = "<group>"; };
@@ -1840,7 +1840,6 @@
 		7D6BEF1F19E027DA00DF3972 /* Download & Network */ = {
 			isa = PBXGroup;
 			children = (
-				7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */,
 				7DBBF18F183AB4300009A339 /* VLCNetworkListCell.xib */,
 				9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */,
 			);
@@ -1925,7 +1924,6 @@
 			isa = PBXGroup;
 			children = (
 				415163B01FD0AEC700161354 /* Coordinators */,
-				7DF383B41BF20E4600D71A5C /* Network dialogs */,
 				7D31002117B676D500E6516D /* Local Network Connectivity */,
 				7D5E39CC174FCDBE007DAFA1 /* Cloud Integration */,
 				7D31CF061746AEF2005997E0 /* UI Elements */,
@@ -2108,6 +2106,7 @@
 		7DC869B328CB772D00EE99F8 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7DC869BB28CB7B7500EE99F8 /* Download */,
 				7DC869B428CB773800EE99F8 /* Open Network Stream */,
 			);
 			path = Network;
@@ -2127,6 +2126,22 @@
 				7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */,
 			);
 			path = "Open Network Stream";
+			sourceTree = "<group>";
+		};
+		7DC869BB28CB7B7500EE99F8 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				7D310883245F1EE100BC6D79 /* VLCMediaFileDownloader.h */,
+				7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */,
+				7DB40A9C28C77B8900EDACA0 /* VLCHTTPFileDownloader.h */,
+				7DB40A9B28C77B8900EDACA0 /* VLCHTTPFileDownloader.m */,
+				7DB66CEE2520E3B90077481C /* VLCDownloadController.h */,
+				7DB66CEF2520E3B90077481C /* VLCDownloadController.m */,
+				7D30F3C8183AB27A00FFC021 /* VLCDownloadViewController.h */,
+				7D30F3C9183AB27A00FFC021 /* VLCDownloadViewController.m */,
+				7D89786E185DED88009BAB5D /* VLCDownloadViewController.xib */,
+			);
+			path = Download;
 			sourceTree = "<group>";
 		};
 		7DEC8BE31BD68882006E1093 /* Network UI */ = {
@@ -2188,15 +2203,6 @@
 				7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */,
 			);
 			name = "Common Code";
-			sourceTree = "<group>";
-		};
-		7DF383B41BF20E4600D71A5C /* Network dialogs */ = {
-			isa = PBXGroup;
-			children = (
-				7D30F3C8183AB27A00FFC021 /* VLCDownloadViewController.h */,
-				7D30F3C9183AB27A00FFC021 /* VLCDownloadViewController.m */,
-			);
-			name = "Network dialogs";
 			sourceTree = "<group>";
 		};
 		7DF90B451BE7A8030059C0E3 /* InAppSettingsKit */ = {
@@ -2414,12 +2420,6 @@
 		DD3EFEF71BDEBCE500B68579 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				7D310883245F1EE100BC6D79 /* VLCMediaFileDownloader.h */,
-				7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */,
-				7DB40A9C28C77B8900EDACA0 /* VLCHTTPFileDownloader.h */,
-				7DB40A9B28C77B8900EDACA0 /* VLCHTTPFileDownloader.m */,
-				7DB66CEE2520E3B90077481C /* VLCDownloadController.h */,
-				7DB66CEF2520E3B90077481C /* VLCDownloadController.m */,
 				DD3EFEF81BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.h */,
 				DD3EFEF91BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m */,
 				DD3EFEFA1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.h */,
