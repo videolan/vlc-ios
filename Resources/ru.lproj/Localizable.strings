@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Переименовать выбранные файлы";
 "DELETE_HINT" = "Удалить выбранные файлы";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Сортировать";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "По возрастанию или по убыванию";
 "DESCENDING_SWITCH_HINT" = "Отсортировать контекст по возрастанию или по убыванию";
 "GRID_LAYOUT" = "Сетка";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "Список";
 "HIDE_FEAT_ARTISTS" = "Скрыть пригл. исполнителей";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Переименование закладки";
 "BOOKMARK_DELETE_TITLE" = "Удаление закладки";
 "BOOKMARK_DELETE_MESSAGE" = "Подтвердите удаление закладки";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Пересканировать медиатеку";
