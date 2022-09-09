@@ -367,6 +367,8 @@
 "RENAME_HINT" = "重新命名選取的檔案";
 "DELETE_HINT" = "刪除選取的檔案";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "排序";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "遞增或遞減排序";
 "DESCENDING_SWITCH_HINT" = "以遞增或遞減順序排序內容";
 "GRID_LAYOUT" = "網格";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "清單";
 "HIDE_FEAT_ARTISTS" = "隱藏合作歌手";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "重新命名書籤";
 "BOOKMARK_DELETE_TITLE" = "刪除書籤";
 "BOOKMARK_DELETE_MESSAGE" = "確認刪除書籤";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "強制重新掃描媒體櫃";
