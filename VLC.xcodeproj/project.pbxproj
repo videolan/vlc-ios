@@ -19,7 +19,7 @@
 		4090705925A60341004667E7 /* OptionsNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4090705825A60341004667E7 /* OptionsNavigationBar.swift */; };
 		40C95A00256E9272002DD208 /* PlaybackSpeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40C959FF256E9272002DD208 /* PlaybackSpeedView.xib */; };
 		40C95A07256E929D002DD208 /* PlaybackSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C95A06256E929D002DD208 /* PlaybackSpeedView.swift */; };
-		412086362231FE43006A6630 /* UIViewController+VLCAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.m */; };
+		412086362231FE43006A6630 /* UIViewController+VLCAlert.h in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.h */; };
 		41251ED01FD0CF7900099110 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41251ECE1FD0CF7900099110 /* AppCoordinator.swift */; };
 		41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */; };
 		41273A3D1A955C4100A2EF77 /* VLCMigrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */; };
@@ -819,33 +819,33 @@
 		7DC5A3E41BF6370800CFEBA8 /* VLCRemotePlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCRemotePlaybackViewController.h; sourceTree = "<group>"; };
 		7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRemotePlaybackViewController.m; sourceTree = "<group>"; };
 		7DC5A3E61BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCRemotePlaybackViewController.xib; sourceTree = "<group>"; };
-		7DC7BA7728C894EC00109F28 /* GRKArrayDiff+UICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GRKArrayDiff+UICollectionView.h"; path = "Extensions/Data Structures/GRKArrayDiff+UICollectionView.h"; sourceTree = "<group>"; };
-		7DC7BA7828C894EC00109F28 /* Array+Safety.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array+Safety.swift"; path = "Extensions/Data Structures/Array+Safety.swift"; sourceTree = "<group>"; };
-		7DC7BA7928C894EC00109F28 /* GRKArrayDiff+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GRKArrayDiff+UICollectionView.m"; path = "Extensions/Data Structures/GRKArrayDiff+UICollectionView.m"; sourceTree = "<group>"; };
-		7DC7BA7A28C894EC00109F28 /* NSObject+SettingsReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSObject+SettingsReader.swift"; path = "Extensions/Data Structures/NSObject+SettingsReader.swift"; sourceTree = "<group>"; };
-		7DC7BA8228C8951C00109F28 /* FileManager+DeleteMediaFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FileManager+DeleteMediaFolder.swift"; path = "Extensions/Devices/FileManager+DeleteMediaFolder.swift"; sourceTree = "<group>"; };
-		7DC7BA8328C8951C00109F28 /* UIDevice+VLC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIDevice+VLC.swift"; path = "Extensions/Devices/UIDevice+VLC.swift"; sourceTree = "<group>"; };
-		7DC7BA8928C8953800109F28 /* APLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APLog.swift; path = Extensions/Foundation/APLog.swift; sourceTree = "<group>"; };
-		7DC7BA8A28C8953800109F28 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Observable.swift; path = Extensions/Foundation/Observable.swift; sourceTree = "<group>"; };
-		7DC7BA9028C8954B00109F28 /* NSString+Locale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Locale.h"; path = "Extensions/Strings/NSString+Locale.h"; sourceTree = "<group>"; };
-		7DC7BA9128C8954B00109F28 /* NSString+SupportedMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SupportedMedia.m"; path = "Extensions/Strings/NSString+SupportedMedia.m"; sourceTree = "<group>"; };
-		7DC7BA9228C8954B00109F28 /* NSString+SupportedMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SupportedMedia.h"; path = "Extensions/Strings/NSString+SupportedMedia.h"; sourceTree = "<group>"; };
-		7DC7BA9328C8954B00109F28 /* NSString+Locale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Locale.m"; path = "Extensions/Strings/NSString+Locale.m"; sourceTree = "<group>"; };
-		7DC7BA9928C8955F00109F28 /* UIAlertController+autoDismissable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertController+autoDismissable.swift"; path = "Extensions/UI Elements/UIAlertController+autoDismissable.swift"; sourceTree = "<group>"; };
-		7DC7BA9A28C8955F00109F28 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIScrollView+flashScrollIndicatorsIfNeeded.swift"; path = "Extensions/UI Elements/UIScrollView+flashScrollIndicatorsIfNeeded.swift"; sourceTree = "<group>"; };
-		7DC7BA9B28C8955F00109F28 /* UIBarButtonItem+Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+Theme.h"; path = "Extensions/UI Elements/UIBarButtonItem+Theme.h"; sourceTree = "<group>"; };
-		7DC7BA9C28C8955F00109F28 /* UIBarButtonItem+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+Theme.m"; path = "Extensions/UI Elements/UIBarButtonItem+Theme.m"; sourceTree = "<group>"; };
-		7DC7BA9D28C8955F00109F28 /* UISegmentedControl+CustomLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UISegmentedControl+CustomLabels.swift"; path = "Extensions/UI Elements/UISegmentedControl+CustomLabels.swift"; sourceTree = "<group>"; };
-		7DC7BAA728C8958800109F28 /* UIFont+Styling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIFont+Styling.swift"; path = "Extensions/UIKit/UIFont+Styling.swift"; sourceTree = "<group>"; };
-		7DC7BAA828C8958800109F28 /* CAAnimation+VLCWiggle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CAAnimation+VLCWiggle.m"; path = "Extensions/UIKit/CAAnimation+VLCWiggle.m"; sourceTree = "<group>"; };
-		7DC7BAA928C8958800109F28 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Blur.h"; path = "Extensions/UIKit/UIImage+Blur.h"; sourceTree = "<group>"; };
-		7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Blur.m"; path = "Extensions/UIKit/UIImage+Blur.m"; sourceTree = "<group>"; };
-		7DC7BAAB28C8958900109F28 /* UIColor+Presets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Presets.m"; path = "Extensions/UIKit/UIColor+Presets.m"; sourceTree = "<group>"; };
-		7DC7BAAC28C8958900109F28 /* CAAnimation+VLCWiggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CAAnimation+VLCWiggle.h"; path = "Extensions/UIKit/CAAnimation+VLCWiggle.h"; sourceTree = "<group>"; };
-		7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutAnchorContainer.swift; path = Extensions/UIKit/LayoutAnchorContainer.swift; sourceTree = "<group>"; };
-		7DC7BAAE28C8958900109F28 /* UIColor+Presets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Presets.h"; path = "Extensions/UIKit/UIColor+Presets.h"; sourceTree = "<group>"; };
-		7DC7BABA28C8959F00109F28 /* URL+isHidden.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+isHidden.swift"; path = "Extensions/URLs/URL+isHidden.swift"; sourceTree = "<group>"; };
-		7DC7BABB28C8959F00109F28 /* URL+isExcludedFromBackup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+isExcludedFromBackup.swift"; path = "Extensions/URLs/URL+isExcludedFromBackup.swift"; sourceTree = "<group>"; };
+		7DC7BA7728C894EC00109F28 /* GRKArrayDiff+UICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GRKArrayDiff+UICollectionView.h"; sourceTree = "<group>"; };
+		7DC7BA7828C894EC00109F28 /* Array+Safety.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Safety.swift"; sourceTree = "<group>"; };
+		7DC7BA7928C894EC00109F28 /* GRKArrayDiff+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GRKArrayDiff+UICollectionView.m"; sourceTree = "<group>"; };
+		7DC7BA7A28C894EC00109F28 /* NSObject+SettingsReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+SettingsReader.swift"; sourceTree = "<group>"; };
+		7DC7BA8228C8951C00109F28 /* FileManager+DeleteMediaFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+DeleteMediaFolder.swift"; sourceTree = "<group>"; };
+		7DC7BA8328C8951C00109F28 /* UIDevice+VLC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+VLC.swift"; sourceTree = "<group>"; };
+		7DC7BA8928C8953800109F28 /* APLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APLog.swift; sourceTree = "<group>"; };
+		7DC7BA8A28C8953800109F28 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		7DC7BA9028C8954B00109F28 /* NSString+Locale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Locale.h"; sourceTree = "<group>"; };
+		7DC7BA9128C8954B00109F28 /* NSString+SupportedMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SupportedMedia.m"; sourceTree = "<group>"; };
+		7DC7BA9228C8954B00109F28 /* NSString+SupportedMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SupportedMedia.h"; sourceTree = "<group>"; };
+		7DC7BA9328C8954B00109F28 /* NSString+Locale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Locale.m"; sourceTree = "<group>"; };
+		7DC7BA9928C8955F00109F28 /* UIAlertController+autoDismissable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+autoDismissable.swift"; sourceTree = "<group>"; };
+		7DC7BA9A28C8955F00109F28 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+flashScrollIndicatorsIfNeeded.swift"; sourceTree = "<group>"; };
+		7DC7BA9B28C8955F00109F28 /* UIBarButtonItem+Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Theme.h"; sourceTree = "<group>"; };
+		7DC7BA9C28C8955F00109F28 /* UIBarButtonItem+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Theme.m"; sourceTree = "<group>"; };
+		7DC7BA9D28C8955F00109F28 /* UISegmentedControl+CustomLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+CustomLabels.swift"; sourceTree = "<group>"; };
+		7DC7BAA728C8958800109F28 /* UIFont+Styling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Styling.swift"; sourceTree = "<group>"; };
+		7DC7BAA828C8958800109F28 /* CAAnimation+VLCWiggle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+VLCWiggle.m"; sourceTree = "<group>"; };
+		7DC7BAA928C8958800109F28 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
+		7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
+		7DC7BAAB28C8958900109F28 /* UIColor+Presets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Presets.m"; sourceTree = "<group>"; };
+		7DC7BAAC28C8958900109F28 /* CAAnimation+VLCWiggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+VLCWiggle.h"; sourceTree = "<group>"; };
+		7DC7BAAD28C8958900109F28 /* LayoutAnchorContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAnchorContainer.swift; sourceTree = "<group>"; };
+		7DC7BAAE28C8958900109F28 /* UIColor+Presets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Presets.h"; sourceTree = "<group>"; };
+		7DC7BABA28C8959F00109F28 /* URL+isHidden.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+isHidden.swift"; sourceTree = "<group>"; };
+		7DC7BABB28C8959F00109F28 /* URL+isExcludedFromBackup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+isExcludedFromBackup.swift"; sourceTree = "<group>"; };
 		7DC869C028CB7E0000EE99F8 /* VLCNetworkLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCNetworkLoginViewController.h; sourceTree = "<group>"; };
 		7DC87AEF17413634009DC250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7DC87AF017413A17009DC250 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
@@ -948,7 +948,7 @@
 		CA6FB8222074601900FC9BF2 /* VLC-iOS-Screenshots-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLC-iOS-Screenshots-Bridging-Header.h"; sourceTree = "<group>"; };
 		CAA0B0F620726A0E00B9274E /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		CAD925782075536300F88496 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
-		CAD925802075613100F88496 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
+		CAD925802075613100F88496 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = buildsystem/fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		CADFAD06207D128200103F33 /* VLCEmptyLibraryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCEmptyLibraryView.h; sourceTree = "<group>"; };
 		CADFAD07207D128200103F33 /* VLCEmptyLibraryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCEmptyLibraryView.m; sourceTree = "<group>"; };
 		CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCTestMenu.swift; sourceTree = "<group>"; };
@@ -982,8 +982,8 @@
 		DD3EABE81BE13D5B003668DA /* VLCRemoteBrowsingTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCRemoteBrowsingTVCell.m; sourceTree = "<group>"; };
 		DD3EABED1BE14720003668DA /* VLCPlaybackControlsFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackControlsFocusView.h; sourceTree = "<group>"; };
 		DD3EABEE1BE14720003668DA /* VLCPlaybackControlsFocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackControlsFocusView.m; sourceTree = "<group>"; };
-		DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+VLCAlert.h"; path = "Extensions/UI Elements/UIViewController+VLCAlert.h"; sourceTree = "<group>"; };
-		DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+VLCAlert.m"; path = "Extensions/UI Elements/UIViewController+VLCAlert.m"; sourceTree = "<group>"; };
+		DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+VLCAlert.m"; sourceTree = "<group>"; };
+		DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+VLCAlert.h"; sourceTree = "<group>"; };
 		DD3EAC021BE153B4003668DA /* VLCNetworkImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNetworkImageView.h; sourceTree = "<group>"; };
 		DD3EAC031BE153B4003668DA /* VLCNetworkImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNetworkImageView.m; sourceTree = "<group>"; };
 		DD3EAC071BE2192A003668DA /* VLCServerBrowsingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCServerBrowsingController.h; sourceTree = "<group>"; };
@@ -1208,7 +1208,7 @@
 				4133CAE022CCB0620047A4EC /* Info.plist */,
 			);
 			name = Screenshots;
-			path = testing/screenshots;
+			path = screenshots;
 			sourceTree = "<group>";
 		};
 		41533C92211338D500EC3ABA /* Unit Testing */ = {
@@ -1218,7 +1218,7 @@
 				41533C9D2113392F00EC3ABA /* URLHandlerTests.swift */,
 			);
 			name = "Unit Testing";
-			path = testing/unit;
+			path = unit;
 			sourceTree = "<group>";
 		};
 		41884A4C214BE09D00D2C6B4 /* MediaCategoryCells */ = {
@@ -1242,7 +1242,7 @@
 				CAF76D8F20709C4100E2AD7B /* VLCTestMenu.swift */,
 			);
 			name = "UI Testing";
-			path = testing/ui;
+			path = ui;
 			sourceTree = "<group>";
 		};
 		44C8BBA124AF2B5C003F8940 /* Helper */ = {
@@ -1296,14 +1296,6 @@
 				44C8BBAD24AF36F4003F8940 /* SettingsHeaderFooterView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		7D0C207228C8971800CCFFEF /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				7D0C207328C8978000CCFFEF /* About */,
-			);
-			name = Screens;
 			sourceTree = "<group>";
 		};
 		7D0C207328C8978000CCFFEF /* About */ = {
@@ -1756,6 +1748,7 @@
 				41B0BC871F73ED7D0063BA26 /* UI Testing */,
 			);
 			name = Testing;
+			path = testing;
 			sourceTree = "<group>";
 		};
 		7DC7BA6C28C892EA00109F28 /* Sources */ = {
@@ -1772,7 +1765,7 @@
 				44C8BBA124AF2B5C003F8940 /* Helper */,
 				44C8BBA424AF36F4003F8940 /* Settings */,
 				7D0C207E28C8989400CCFFEF /* Main */,
-				7D0C207228C8971800CCFFEF /* Screens */,
+				7D0C207328C8978000CCFFEF /* About */,
 				7DC869E128CB86ED00EE99F8 /* Cloud */,
 				7DC7BA7628C894DA00109F28 /* Extensions */,
 			);
@@ -1787,7 +1780,7 @@
 				7DC7BA7928C894EC00109F28 /* GRKArrayDiff+UICollectionView.m */,
 				7DC7BA7A28C894EC00109F28 /* NSObject+SettingsReader.swift */,
 			);
-			name = "Data Structures";
+			path = "Data Structures";
 			sourceTree = "<group>";
 		};
 		7DC7BA7628C894DA00109F28 /* Extensions */ = {
@@ -1801,7 +1794,7 @@
 				7DC7BA8128C8950800109F28 /* Devices */,
 				7DC7BA7528C894D100109F28 /* Data Structures */,
 			);
-			name = Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		7DC7BA8128C8950800109F28 /* Devices */ = {
@@ -1810,7 +1803,7 @@
 				7DC7BA8228C8951C00109F28 /* FileManager+DeleteMediaFolder.swift */,
 				7DC7BA8328C8951C00109F28 /* UIDevice+VLC.swift */,
 			);
-			name = Devices;
+			path = Devices;
 			sourceTree = "<group>";
 		};
 		7DC7BA8828C8952500109F28 /* Foundation */ = {
@@ -1819,7 +1812,7 @@
 				7DC7BA8928C8953800109F28 /* APLog.swift */,
 				7DC7BA8A28C8953800109F28 /* Observable.swift */,
 			);
-			name = Foundation;
+			path = Foundation;
 			sourceTree = "<group>";
 		};
 		7DC7BA8F28C8954400109F28 /* Strings */ = {
@@ -1830,21 +1823,21 @@
 				7DC7BA9228C8954B00109F28 /* NSString+SupportedMedia.h */,
 				7DC7BA9128C8954B00109F28 /* NSString+SupportedMedia.m */,
 			);
-			name = Strings;
+			path = Strings;
 			sourceTree = "<group>";
 		};
 		7DC7BA9828C8955700109F28 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
-				DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.h */,
-				DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.m */,
+				DD3EABFA1BE14C4B003668DA /* UIViewController+VLCAlert.m */,
+				DD3EABFB1BE14C4B003668DA /* UIViewController+VLCAlert.h */,
 				7DC7BA9928C8955F00109F28 /* UIAlertController+autoDismissable.swift */,
 				7DC7BA9B28C8955F00109F28 /* UIBarButtonItem+Theme.h */,
 				7DC7BA9C28C8955F00109F28 /* UIBarButtonItem+Theme.m */,
 				7DC7BA9A28C8955F00109F28 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift */,
 				7DC7BA9D28C8955F00109F28 /* UISegmentedControl+CustomLabels.swift */,
 			);
-			name = "UI Elements";
+			path = "UI Elements";
 			sourceTree = "<group>";
 		};
 		7DC7BAA628C8957A00109F28 /* UIKit */ = {
@@ -1859,7 +1852,7 @@
 				7DC7BAA928C8958800109F28 /* UIImage+Blur.h */,
 				7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */,
 			);
-			name = UIKit;
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 		7DC7BAB928C8959300109F28 /* URLs */ = {
@@ -1868,7 +1861,7 @@
 				7DC7BABB28C8959F00109F28 /* URL+isExcludedFromBackup.swift */,
 				7DC7BABA28C8959F00109F28 /* URL+isHidden.swift */,
 			);
-			name = URLs;
+			path = URLs;
 			sourceTree = "<group>";
 		};
 		7DC869AD28CB755C00EE99F8 /* Discovery */ = {
@@ -3342,7 +3335,7 @@
 				917ABA4D272AA91000A20EA4 /* StoreViewController.swift in Sources */,
 				41EC28E32136D905004BCF0F /* BaseCollectionViewCell.swift in Sources */,
 				7DC7BAA028C8955F00109F28 /* UIScrollView+flashScrollIndicatorsIfNeeded.swift in Sources */,
-				412086362231FE43006A6630 /* UIViewController+VLCAlert.m in Sources */,
+				412086362231FE43006A6630 /* UIViewController+VLCAlert.h in Sources */,
 				44C8BBB024AF36F4003F8940 /* SettingsSpecifier.swift in Sources */,
 				6D758AAB2577DDAF0016F675 /* VerticalSlider.swift in Sources */,
 				7D2DE69B24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */,
