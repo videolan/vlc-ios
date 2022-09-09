@@ -1456,6 +1456,7 @@
 		7D0C209928C89E2A00CCFFEF /* WiFi Sharing */ = {
 			isa = PBXGroup;
 			children = (
+				7DC869B028CB763A00EE99F8 /* tvOS */,
 				7D30F3BC183AB24C00FFC021 /* VLCHTTPConnection.h */,
 				7D30F3BD183AB24C00FFC021 /* VLCHTTPConnection.m */,
 				7D30F3C0183AB24C00FFC021 /* VLCHTTPUploaderController.h */,
@@ -1715,7 +1716,6 @@
 				7DF383AF1BF2088300D71A5C /* Common Code */,
 				7DEC8BE31BD68882006E1093 /* Network UI */,
 				7D3E528D1BD7B5E600309D15 /* Cloud */,
-				7DC5A3EB1BF6370E00CFEBA8 /* Remote Playback */,
 				7DC71D281BC83138001FACAA /* xibs */,
 			);
 			name = "VLC-TV";
@@ -1949,19 +1949,9 @@
 			name = Testing;
 			sourceTree = "<group>";
 		};
-		7DC5A3EB1BF6370E00CFEBA8 /* Remote Playback */ = {
-			isa = PBXGroup;
-			children = (
-				7DC5A3E41BF6370800CFEBA8 /* VLCRemotePlaybackViewController.h */,
-				7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */,
-			);
-			name = "Remote Playback";
-			sourceTree = "<group>";
-		};
 		7DC71D281BC83138001FACAA /* xibs */ = {
 			isa = PBXGroup;
 			children = (
-				7DC5A3E61BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib */,
 				DD3EAC121BE26166003668DA /* VLCRemoteBrowsingTVCell.xib */,
 				7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */,
 				7D3E528A1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib */,
@@ -2098,6 +2088,16 @@
 				7DBB9D3D27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.h */,
 				7DBB9D3E27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.m */,
 				4342C3C227474CA000E52334 /* SortedMediaFiles.swift */,
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
+		7DC869B028CB763A00EE99F8 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				7DC5A3E61BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib */,
+				7DC5A3E41BF6370800CFEBA8 /* VLCRemotePlaybackViewController.h */,
+				7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */,
 			);
 			path = tvOS;
 			sourceTree = "<group>";
