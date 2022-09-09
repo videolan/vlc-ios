@@ -1635,6 +1635,7 @@
 		7D0C20B528CA085500CCFFEF /* Media Library */ = {
 			isa = PBXGroup;
 			children = (
+				7DC869AF28CB75C400EE99F8 /* tvOS */,
 				7DC869AD28CB755C00EE99F8 /* Discovery */,
 				8DE1887221089AF200A091D2 /* MediaLibraryModel */,
 				8D66A47220AC61B900FA5B92 /* MediaLibraryService.swift */,
@@ -1953,8 +1954,6 @@
 			children = (
 				7DC5A3E41BF6370800CFEBA8 /* VLCRemotePlaybackViewController.h */,
 				7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */,
-				7DBB9D3D27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.h */,
-				7DBB9D3E27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.m */,
 			);
 			name = "Remote Playback";
 			sourceTree = "<group>";
@@ -2093,6 +2092,16 @@
 			path = Discovery;
 			sourceTree = "<group>";
 		};
+		7DC869AF28CB75C400EE99F8 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				7DBB9D3D27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.h */,
+				7DBB9D3E27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.m */,
+				4342C3C227474CA000E52334 /* SortedMediaFiles.swift */,
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
 		7DEC8BE31BD68882006E1093 /* Network UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -2146,7 +2155,6 @@
 		7DF383AF1BF2088300D71A5C /* Common Code */ = {
 			isa = PBXGroup;
 			children = (
-				4342C3C227474CA000E52334 /* SortedMediaFiles.swift */,
 				7DF383AA1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.h */,
 				7DF383AB1BF206F100D71A5C /* VLCRemoteBrowsingCollectionViewController.m */,
 				DD3EABE71BE13D5B003668DA /* VLCRemoteBrowsingTVCell.h */,
