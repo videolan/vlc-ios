@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Naam van geselecteerde bestanden wijzigen";
 "DELETE_HINT" = "Geselecteerde bestanden verwijderen";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sorteren";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Oplopende of aflopende volgorde";
 "DESCENDING_SWITCH_HINT" = "Context sorteren in oplopende of aflopende volgorde";
 "GRID_LAYOUT" = "Raster";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "Lijst";
 "HIDE_FEAT_ARTISTS" = "Meewerkende artiesten verbergen";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Naam bladwijzer wijzigen";
 "BOOKMARK_DELETE_TITLE" = "Bladwijzer verwijderen";
 "BOOKMARK_DELETE_MESSAGE" = "Verwijderen van de bladwijzer bevestigen";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Opnieuw scannen van mediabibliotheek forceren";
