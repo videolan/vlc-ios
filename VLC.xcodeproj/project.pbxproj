@@ -1721,7 +1721,7 @@
 				41B0BC871F73ED7D0063BA26 /* UI Testing */,
 			);
 			name = Testing;
-			path = testing;
+			path = buildsystem/testing;
 			sourceTree = "<group>";
 		};
 		7DC7BA6C28C892EA00109F28 /* Sources */ = {
