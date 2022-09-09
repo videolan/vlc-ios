@@ -232,7 +232,6 @@
 		7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC19ADD1868C7BB00810BF7 /* VLCFirstStepsViewController.m */; };
 		7DC5A3E71BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5A3E51BF6370800CFEBA8 /* VLCRemotePlaybackViewController.m */; };
 		7DC5A3E81BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DC5A3E61BF6370800CFEBA8 /* VLCRemotePlaybackViewController.xib */; };
-		7DC5A3EC1BF63F4B00CFEBA8 /* VLCMediaFileDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */; };
 		7DC7BA7B28C894EC00109F28 /* Array+Safety.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA7828C894EC00109F28 /* Array+Safety.swift */; };
 		7DC7BA7E28C894EC00109F28 /* GRKArrayDiff+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA7928C894EC00109F28 /* GRKArrayDiff+UICollectionView.m */; };
 		7DC7BA7F28C894EC00109F28 /* NSObject+SettingsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BA7A28C894EC00109F28 /* NSObject+SettingsReader.swift */; };
@@ -682,8 +681,8 @@
 		7D30F3C6183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpenNetworkStreamViewController.m; path = Sources/VLCOpenNetworkStreamViewController.m; sourceTree = SOURCE_ROOT; };
 		7D30F3C8183AB27A00FFC021 /* VLCDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDownloadViewController.h; path = Sources/VLCDownloadViewController.h; sourceTree = SOURCE_ROOT; };
 		7D30F3C9183AB27A00FFC021 /* VLCDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDownloadViewController.m; path = Sources/VLCDownloadViewController.m; sourceTree = SOURCE_ROOT; };
-		7D30F3CE183AB2AC00FFC021 /* VLCMediaFileDiscoverer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMediaFileDiscoverer.h; path = Sources/VLCMediaFileDiscoverer.h; sourceTree = SOURCE_ROOT; };
-		7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaFileDiscoverer.m; path = Sources/VLCMediaFileDiscoverer.m; sourceTree = SOURCE_ROOT; };
+		7D30F3CE183AB2AC00FFC021 /* VLCMediaFileDiscoverer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMediaFileDiscoverer.h; path = "Sources/Media Library/Discovery/VLCMediaFileDiscoverer.h"; sourceTree = SOURCE_ROOT; };
+		7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaFileDiscoverer.m; path = "Sources/Media Library/Discovery/VLCMediaFileDiscoverer.m"; sourceTree = SOURCE_ROOT; };
 		7D30F3D1183AB2F100FFC021 /* VLCNetworkListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkListCell.h; path = Sources/LocalNetworkConnectivity/VLCNetworkListCell.h; sourceTree = SOURCE_ROOT; };
 		7D30F3D2183AB2F100FFC021 /* VLCNetworkListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCNetworkListCell.m; path = Sources/LocalNetworkConnectivity/VLCNetworkListCell.m; sourceTree = SOURCE_ROOT; };
 		7D30F3DA183AB2F900FFC021 /* VLCNetworkLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCNetworkLoginViewController.h; path = Sources/LocalNetworkConnectivity/VLCNetworkLoginViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1636,7 +1635,7 @@
 		7D0C20B528CA085500CCFFEF /* Media Library */ = {
 			isa = PBXGroup;
 			children = (
-				A7D03A4817A4249F0022C16F /* MediaDiscovering */,
+				7DC869AD28CB755C00EE99F8 /* Discovery */,
 				8DE1887221089AF200A091D2 /* MediaLibraryModel */,
 				8D66A47220AC61B900FA5B92 /* MediaLibraryService.swift */,
 				7D0C20B928CA0D9200CCFFEF /* Activity View */,
@@ -2085,6 +2084,15 @@
 			name = URLs;
 			sourceTree = "<group>";
 		};
+		7DC869AD28CB755C00EE99F8 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+				7D30F3CE183AB2AC00FFC021 /* VLCMediaFileDiscoverer.h */,
+				7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */,
+			);
+			path = Discovery;
+			sourceTree = "<group>";
+		};
 		7DEC8BE31BD68882006E1093 /* Network UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -2329,16 +2337,6 @@
 			);
 			path = Resources;
 			sourceTree = SOURCE_ROOT;
-		};
-		A7D03A4817A4249F0022C16F /* MediaDiscovering */ = {
-			isa = PBXGroup;
-			children = (
-				7D30F3CE183AB2AC00FFC021 /* VLCMediaFileDiscoverer.h */,
-				7D30F3CF183AB2AC00FFC021 /* VLCMediaFileDiscoverer.m */,
-			);
-			name = MediaDiscovering;
-			path = SharedSources;
-			sourceTree = "<group>";
 		};
 		CAC0AFE720CF8A6900EDB035 /* Helpers */ = {
 			isa = PBXGroup;
@@ -3235,7 +3233,6 @@
 				DD490B171BE6BA580010F335 /* VLCIRTVTapGestureRecognizer.m in Sources */,
 				41EB91D71F7BE6F500821AA5 /* VLCRemoteControlService.m in Sources */,
 				7D0C208C28C89A9100CCFFEF /* VLCSettingsViewController.m in Sources */,
-				7DC5A3EC1BF63F4B00CFEBA8 /* VLCMediaFileDiscoverer.m in Sources */,
 				7D3E528B1BD7B5E100309D15 /* VLCCloudServicesTVViewController.m in Sources */,
 				DD9D8F6B1C01FE5B00B4060F /* VLCPlaybackInfoCollectionViewDataSource.m in Sources */,
 				7D0C20AB28C8AA3000CCFFEF /* VLCBufferingBar.m in Sources */,
