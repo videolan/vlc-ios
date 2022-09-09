@@ -21,12 +21,6 @@
                            withObject:boxFile waitUntilDone:NO];
 }
 
-//- (void)setOneDriveFile:(VLCOneDriveObject *)oneDriveFile
-//{
-//    [self performSelectorOnMainThread:@selector(_updateOneDriveRepresentation:)
-//                           withObject:oneDriveFile waitUntilDone:NO];
-//}
-
 - (void)_updateBoxRepresentation:(BoxItem *)boxFile
 {
     if (boxFile != nil) {
@@ -42,40 +36,5 @@
         self.title = boxFile.name;
     }
 }
-
-//- (void)_updateOneDriveRepresentation:(VLCOneDriveObject *)oneDriveFile
-//{
-//    if (oneDriveFile != nil) {
-//        if (oneDriveFile.isFolder) {
-//            self.isDirectory = YES;
-//            self.thumbnailImage = [UIImage imageNamed:@"folder"];
-//        } else {
-//            self.isDirectory = NO;
-//
-//            NSMutableString *subtitle = [[NSMutableString alloc] init];
-//            self.thumbnailImage = [UIImage imageNamed:@"blank"];
-//
-//            if (oneDriveFile.isVideo) {
-//                NSString *thumbnailURLString = oneDriveFile.thumbnailURL;
-//                if (thumbnailURLString) {
-//                    [self setThumbnailURL:[NSURL URLWithString:thumbnailURLString]];
-//                }
-//            }
-//
-//            if (oneDriveFile.size.intValue > 0) {
-//                [subtitle appendString:[NSByteCountFormatter stringFromByteCount:[oneDriveFile.size longLongValue] countStyle:NSByteCountFormatterCountStyleFile]];
-//                if (oneDriveFile.duration.intValue > 0) {
-//                    VLCTime *time = [VLCTime timeWithNumber:oneDriveFile.duration];
-//                    [subtitle appendFormat:@" — %@", [time verboseStringValue]];
-//                }
-//            } else if (oneDriveFile.duration.intValue > 0) {
-//                VLCTime *time = [VLCTime timeWithNumber:oneDriveFile.duration];
-//                [subtitle appendString:[time verboseStringValue]];
-//            }
-//            self.subtitle = subtitle;
-//        }
-//        self.title = oneDriveFile.name;
-//    }
-//}
 
 @end

@@ -11,15 +11,12 @@
 
 #import "VLCCloudServicesTVViewController.h"
 #import "VLCPlayerDisplayController.h"
-//#import "VLCOneDriveController.h"
-//#import "VLCOneDriveCollectionViewController.h"
 #import "VLCBoxCollectionViewController.h"
 #import "VLCBoxController.h"
 #import "MetaDataFetcherKit.h"
 
 @interface VLCCloudServicesTVViewController ()
 {
-//    VLCOneDriveController *_oneDriveController;
     VLCBoxController *_boxController;
 }
 @end
@@ -33,7 +30,6 @@
     [self.helpLabel sizeToFit];
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-//    [center addObserver:self selector:@selector(oneDriveSessionUpdated:) name:VLCOneDriveControllerSessionUpdated object:nil];
     [center addObserver:self selector:@selector(boxSessionUpdated:) name:VLCBoxControllerSessionUpdated object:nil];
 
     if (![kVLCfortvOSMovieDBKey isEqualToString:@""]) {
@@ -42,11 +38,9 @@
         [movieDBSessionManager fetchProperties];
     }
 
-//    _oneDriveController = [VLCOneDriveController sharedInstance];
     _boxController = [VLCBoxController sharedInstance];
     [_boxController startSession];
 
-//    [self oneDriveSessionUpdated:nil];
     [self boxSessionUpdated:nil];
 }
 
@@ -55,21 +49,10 @@
     return NSLocalizedString(@"CLOUD_SERVICES", nil);
 }
 
-//- (void)oneDriveSessionUpdated:(NSNotification *)aNotification
-//{
-//    self.oneDriveButton.enabled = _oneDriveController.activeSession;
-//}
-
 - (void)boxSessionUpdated:(NSNotification *)aNotification
 {
     self.boxButton.enabled = YES;
 }
-
-//- (IBAction)onedrive:(id)sender
-//{
-//    VLCOneDriveCollectionViewController *targetViewController = [[VLCOneDriveCollectionViewController alloc] initWithOneDriveObject:nil];
-//    [self.navigationController pushViewController:targetViewController animated:YES];
-//}
 
 - (IBAction)box:(id)sender
 {
