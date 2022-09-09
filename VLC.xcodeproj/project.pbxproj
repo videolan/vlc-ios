@@ -1957,7 +1957,6 @@
 				7DF383AD1BF206FB00D71A5C /* VLCRemoteBrowsingCollectionViewController.xib */,
 				7D3E528A1BD7B5E100309D15 /* VLCCloudServicesTVViewController.xib */,
 				2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */,
-				A1CA2EF228240A8D000DB82F /* VLCOpenManagedServersViewController.xib */,
 			);
 			name = xibs;
 			sourceTree = "<group>";
@@ -2106,6 +2105,7 @@
 		7DC869B328CB772D00EE99F8 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7DC869BC28CB7C0C00EE99F8 /* Managed Servers */,
 				7DC869BB28CB7B7500EE99F8 /* Download */,
 				7DC869B428CB773800EE99F8 /* Open Network Stream */,
 			);
@@ -2144,6 +2144,16 @@
 			path = Download;
 			sourceTree = "<group>";
 		};
+		7DC869BC28CB7C0C00EE99F8 /* Managed Servers */ = {
+			isa = PBXGroup;
+			children = (
+				A1CA2EF228240A8D000DB82F /* VLCOpenManagedServersViewController.xib */,
+				A1CA2EF428240B8E000DB82F /* VLCOpenManagedServersViewController.h */,
+				A1CA2EF528240BA0000DB82F /* VLCOpenManagedServersViewController.m */,
+			);
+			path = "Managed Servers";
+			sourceTree = "<group>";
+		};
 		7DEC8BE31BD68882006E1093 /* Network UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -2154,8 +2164,6 @@
 				7DB174A51CD20D7B0085BCF0 /* VLCSearchableServerBrowsingTVViewController.h */,
 				7DB174A61CD20D7B0085BCF0 /* VLCSearchableServerBrowsingTVViewController.m */,
 				2663ACB122497D21000FBB95 /* VLCNetworkLoginTVViewController.swift */,
-				A1CA2EF428240B8E000DB82F /* VLCOpenManagedServersViewController.h */,
-				A1CA2EF528240BA0000DB82F /* VLCOpenManagedServersViewController.m */,
 			);
 			name = "Network UI";
 			sourceTree = "<group>";
