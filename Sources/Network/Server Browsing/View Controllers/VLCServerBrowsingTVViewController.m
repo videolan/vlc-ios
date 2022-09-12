@@ -50,6 +50,7 @@
 
     self.nothingFoundLabel.text = NSLocalizedString(@"FOLDER_EMPTY", nil);
     [self.nothingFoundLabel sizeToFit];
+    self.nothingFoundLabel.hidden = YES;
     UIView *nothingFoundView = self.nothingFoundView;
     [nothingFoundView sizeToFit];
     [nothingFoundView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -131,7 +132,10 @@
                                dataSourceUpdate:^{
                                    self.items = newItems;
                                } completion:nil];
-
+    if (self.items.count == 0) {
+        [_activityIndicator stopAnimating];
+        self.nothingFoundLabel.hidden = NO;
+    }
 }
 
 - (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error {
@@ -140,6 +144,7 @@
                          message:NSLocalizedString(@"LOCAL_SERVER_CONNECTION_FAILED_MESSAGE", nil)
                      buttonTitle:NSLocalizedString(@"BUTTON_OK", nil)];
 
+    [_activityIndicator stopAnimating];
 }
 
 #pragma mark -
