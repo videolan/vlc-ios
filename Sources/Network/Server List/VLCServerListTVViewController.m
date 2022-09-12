@@ -111,6 +111,8 @@
 {
     [super viewDidDisappear:animated];
     [self.discoveryController stopDiscovery];
+    self.networkServices = nil;
+    [self.collectionView reloadData];
 }
 
 #pragma mark - Collection view data source
@@ -118,7 +120,9 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSInteger count = self.networkServices.count;
-    self.nothingFoundView.hidden = count > 0;
+    if (self.networkServices != nil) {
+        self.nothingFoundView.hidden = count > 0;
+    }
     return count;
 }
 
