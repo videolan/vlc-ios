@@ -33,9 +33,6 @@
 #import "VLC-Swift.h"
 
 @interface VLCServerListTVViewController ()
-{
-    UILabel *_nothingFoundLabel;
-}
 @property (nonatomic, copy) NSMutableArray<id<VLCLocalNetworkService>> *networkServices;
 
 @end
@@ -401,8 +398,6 @@
 
     self.networkServices = newNetworkServices;
     [self.collectionView reloadData];
-
-    _nothingFoundLabel.hidden = self.discoveryController.foundAnythingAtAll;
 }
 
 @end
