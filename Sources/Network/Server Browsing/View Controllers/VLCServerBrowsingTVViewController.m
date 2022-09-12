@@ -19,7 +19,6 @@
 
 @interface VLCServerBrowsingTVViewController ()
 {
-    UILabel *_nothingFoundLabel;
     UIActivityIndicatorView *_activityIndicator;
 }
 @property (nonatomic) VLCServerBrowsingController *browsingController;
@@ -133,7 +132,6 @@
                                    self.items = newItems;
                                } completion:nil];
 
-    _nothingFoundLabel.hidden = self.items.count > 0;
 }
 
 - (void)networkServerBrowser:(id<VLCNetworkServerBrowser>)networkBrowser requestDidFailWithError:(NSError *)error {
