@@ -75,7 +75,6 @@ NS_SWIFT_NAME(PlaybackService)
 
 @property (nonatomic, readonly) NSInteger mediaDuration;
 @property (nonatomic, readonly) BOOL isPlaying;
-@property (nonatomic, readonly) BOOL willPlay;
 @property (nonatomic, readonly) BOOL playerIsSetup;
 @property (nonatomic, readwrite) VLCRepeatMode repeatMode;
 @property (nonatomic, assign, getter=isShuffleMode) BOOL shuffleMode;

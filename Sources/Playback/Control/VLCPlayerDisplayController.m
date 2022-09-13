@@ -286,7 +286,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     VLCPlaybackService *playbackController = [VLCPlaybackService sharedInstance];
     UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer> *miniPlaybackView = (UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer>*)self.miniPlaybackView;
     const NSTimeInterval animationDuration = 0.25;
-    const BOOL activePlaybackSession = playbackController.isPlaying || playbackController.willPlay || playbackController.playerIsSetup;
+    const BOOL activePlaybackSession = playbackController.isPlaying || playbackController.playerIsSetup;
     const BOOL miniPlayerVisible = miniPlaybackView.visible;
 
     BOOL needsShow = activePlaybackSession && !miniPlayerVisible;
