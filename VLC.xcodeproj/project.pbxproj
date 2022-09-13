@@ -487,7 +487,7 @@
 		4133CAE022CCB0620047A4EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		413EC986201A329D00BF412F /* SortModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SortModel.swift; path = "Sources/Media Library/MediaLibraryModel/SortModel.swift"; sourceTree = SOURCE_ROOT; };
 		413EC98A201B4F2B00BF412F /* PresentationTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationTheme.swift; sourceTree = "<group>"; };
-		414396C12023316C005E3FAF /* AppearanceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppearanceManager.swift; path = Sources/Helper/AppearanceManager.swift; sourceTree = SOURCE_ROOT; };
+		414396C12023316C005E3FAF /* AppearanceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceManager.swift; sourceTree = "<group>"; };
 		4144156B20ECE6330078EC37 /* FileServerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServerView.swift; sourceTree = "<group>"; };
 		4152F1611FEF19BD00F1908B /* KeychainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCoordinator.swift; sourceTree = "<group>"; };
 		41533C91211338D500EC3ABA /* VLC-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -653,8 +653,8 @@
 		7D15168A194773630086FB8C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7D168F6B18D49E74003FAF59 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D168F7018D4A21B003FAF59 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		7D18F0A01B34522000651A30 /* VLCActivityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCActivityManager.h; path = Sources/Helper/Network/VLCActivityManager.h; sourceTree = SOURCE_ROOT; };
-		7D18F0A11B34522000651A30 /* VLCActivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCActivityManager.m; path = Sources/Helper/Network/VLCActivityManager.m; sourceTree = SOURCE_ROOT; };
+		7D18F0A01B34522000651A30 /* VLCActivityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCActivityManager.h; sourceTree = "<group>"; };
+		7D18F0A11B34522000651A30 /* VLCActivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCActivityManager.m; sourceTree = "<group>"; };
 		7D19492B17C661A300959800 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1A2DAF1BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMDFBrowsingArtworkProvider.h; sourceTree = "<group>"; };
 		7D1A2DB01BF66335002E0962 /* VLCMDFBrowsingArtworkProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMDFBrowsingArtworkProvider.m; sourceTree = "<group>"; };
@@ -714,8 +714,8 @@
 		7D3784BB183A9938009EE944 /* VLCSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSlider.m; path = "Sources/UI Elements/Sliders/VLCSlider.m"; sourceTree = SOURCE_ROOT; };
 		7D3784BC183A9938009EE944 /* VLCStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStatusLabel.h; path = "Sources/UI Elements/Labels/VLCStatusLabel.h"; sourceTree = SOURCE_ROOT; };
 		7D3784BD183A9938009EE944 /* VLCStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStatusLabel.m; path = "Sources/UI Elements/Labels/VLCStatusLabel.m"; sourceTree = SOURCE_ROOT; };
-		7D3784E5183A99E1009EE944 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Sources/Helper/Network/Reachability.h; sourceTree = SOURCE_ROOT; };
-		7D3784E6183A99E1009EE944 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Sources/Helper/Network/Reachability.m; sourceTree = SOURCE_ROOT; };
+		7D3784E5183A99E1009EE944 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		7D3784E6183A99E1009EE944 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		7D3784EA183A9A1E009EE944 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/iOS/Info.plist; sourceTree = SOURCE_ROOT; };
 		7D38BF8E249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCNetworkServerBrowserVLCMedia+SFTP.h"; sourceTree = "<group>"; };
 		7D38BF8F249799CA00902087 /* VLCNetworkServerBrowserVLCMedia+SFTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VLCNetworkServerBrowserVLCMedia+SFTP.m"; sourceTree = "<group>"; };
@@ -1245,7 +1245,7 @@
 			path = ui;
 			sourceTree = "<group>";
 		};
-		44C8BBA124AF2B5C003F8940 /* Helper */ = {
+		44C8BBA124AF2B5C003F8940 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				419A2C651F37A4B70069D224 /* VLCStringsForLocalization.m */,
@@ -1256,7 +1256,7 @@
 				414396C12023316C005E3FAF /* AppearanceManager.swift */,
 				91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */,
 			);
-			path = Helper;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		44C8BBA424AF36F4003F8940 /* Settings */ = {
@@ -1737,7 +1737,7 @@
 				7D0C209928C89E2A00CCFFEF /* WiFi Sharing */,
 				8D590F622493836A0078D358 /* Playback */,
 				7D0C208E28C89BC800CCFFEF /* Headers */,
-				44C8BBA124AF2B5C003F8940 /* Helper */,
+				44C8BBA124AF2B5C003F8940 /* Helpers */,
 				44C8BBA424AF36F4003F8940 /* Settings */,
 				7D0C207E28C8989400CCFFEF /* App */,
 				7D0C207328C8978000CCFFEF /* About */,
