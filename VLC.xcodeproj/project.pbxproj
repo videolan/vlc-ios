@@ -478,7 +478,7 @@
 		40C959FF256E9272002DD208 /* PlaybackSpeedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaybackSpeedView.xib; sourceTree = "<group>"; };
 		40C95A06256E929D002DD208 /* PlaybackSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSpeedView.swift; sourceTree = "<group>"; };
 		4120863922323E87006A6630 /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
-		41251ECE1FD0CF7900099110 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppCoordinator.swift; path = Sources/Main/iOS/AppCoordinator.swift; sourceTree = SOURCE_ROOT; };
+		41251ECE1FD0CF7900099110 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		41273A391A955C4100A2EF77 /* VLCMigrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMigrationViewController.h; path = "Sources/Media Library/VLCMigrationViewController.h"; sourceTree = SOURCE_ROOT; };
 		41273A3A1A955C4100A2EF77 /* VLCMigrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMigrationViewController.m; path = "Sources/Media Library/VLCMigrationViewController.m"; sourceTree = SOURCE_ROOT; };
 		41273A3B1A955C4100A2EF77 /* VLCMigrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCMigrationViewController.xib; path = "Sources/Media Library/VLCMigrationViewController.xib"; sourceTree = SOURCE_ROOT; };
@@ -564,7 +564,7 @@
 		41884A4D214BE0C800D2C6B4 /* MediaCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaCollectionViewCell.xib; sourceTree = "<group>"; };
 		41884A4F214BE0D800D2C6B4 /* MediaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCollectionViewCell.swift; sourceTree = "<group>"; };
 		418B144620179C00000447AA /* MediaCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCategoryViewController.swift; sourceTree = "<group>"; };
-		418B144C20179C74000447AA /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarCoordinator.swift; path = Sources/Main/iOS/TabBarCoordinator.swift; sourceTree = SOURCE_ROOT; };
+		418B144C20179C74000447AA /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		418DFE9E211C93C6005D3652 /* CustomDialogRendererHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDialogRendererHandler.swift; sourceTree = "<group>"; };
 		418E88402110E51B00DDA6A7 /* URLHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
 		4195747C206A92ED00393A42 /* RemoteNetworkDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNetworkDataSource.swift; sourceTree = "<group>"; };
@@ -804,8 +804,8 @@
 		7DB66CEF2520E3B90077481C /* VLCDownloadController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDownloadController.m; sourceTree = "<group>"; };
 		7DBB9D3D27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMicroMediaLibraryService.h; sourceTree = "<group>"; };
 		7DBB9D3E27FF246C00ABCEC7 /* VLCMicroMediaLibraryService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMicroMediaLibraryService.m; sourceTree = "<group>"; };
-		7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAppDelegate.h; path = Sources/Main/iOS/VLCAppDelegate.h; sourceTree = SOURCE_ROOT; };
-		7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAppDelegate.m; path = Sources/Main/iOS/VLCAppDelegate.m; sourceTree = SOURCE_ROOT; };
+		7DBBF180183AB3B80009A339 /* VLCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAppDelegate.h; sourceTree = "<group>"; };
+		7DBBF181183AB3B80009A339 /* VLCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCAppDelegate.m; sourceTree = "<group>"; };
 		7DBBF186183AB4300009A339 /* VLCCloudStorageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCCloudStorageTableViewCell.xib; path = "Sources/Cloud/Content List/Cells/VLCCloudStorageTableViewCell.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF188183AB4300009A339 /* VLCCloudStorageTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCCloudStorageTableViewController.xib; path = "Sources/Cloud/Content List/View Controller/VLCCloudStorageTableViewController.xib"; sourceTree = SOURCE_ROOT; };
 		7DBBF189183AB4300009A339 /* VLCEmptyLibraryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VLCEmptyLibraryView.xib; path = "Sources/Media Library/VLCEmptyLibraryView.xib"; sourceTree = SOURCE_ROOT; };
@@ -1325,13 +1325,13 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		7D0C207E28C8989400CCFFEF /* Main */ = {
+		7D0C207E28C8989400CCFFEF /* App */ = {
 			isa = PBXGroup;
 			children = (
 				7DC869F628CB8BBA00EE99F8 /* iOS */,
 				7DC869F728CB8BC100EE99F8 /* tvOS */,
 			);
-			path = Main;
+			path = App;
 			sourceTree = "<group>";
 		};
 		7D0C208828C899B800CCFFEF /* tvOS */ = {
@@ -1737,7 +1737,7 @@
 				7D0C208E28C89BC800CCFFEF /* Headers */,
 				44C8BBA124AF2B5C003F8940 /* Helper */,
 				44C8BBA424AF36F4003F8940 /* Settings */,
-				7D0C207E28C8989400CCFFEF /* Main */,
+				7D0C207E28C8989400CCFFEF /* App */,
 				7D0C207328C8978000CCFFEF /* About */,
 				7DC869E128CB86ED00EE99F8 /* Cloud */,
 				7DC7BA7628C894DA00109F28 /* Extensions */,
