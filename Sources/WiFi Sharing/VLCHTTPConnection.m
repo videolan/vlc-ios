@@ -674,7 +674,11 @@ static NSMutableDictionary *authentifiedHosts;
         VLCMedia *media = [mediaList mediaAtIndex:x];
         NSString *mediaTitle;
         if (media.parsedStatus == VLCMediaParsedStatusDone) {
+#if LIBVLC_VERSION_MAJOR == 3
             mediaTitle = [media metadataForKey:VLCMetaInformationTitle];
+#else
+            mediaTitle = media.metaData.title;
+#endif
         } else {
             mediaTitle = media.url.lastPathComponent;
         }

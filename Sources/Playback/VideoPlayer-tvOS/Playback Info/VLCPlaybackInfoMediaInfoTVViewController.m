@@ -56,12 +56,13 @@
 
     VLCMedia *media = [vpc currentlyPlayingMedia];
 
-    NSArray *mediaTrackData = media.tracksInformation;
-    NSUInteger trackDataCount = mediaTrackData.count;
     NSUInteger videoWidth = 0, videoHeight = 0;
     NSString *videoCodec;
     NSString *audioCodecs;
     NSString *spuCodecs;
+#if LIBVLC_VERSION_MAJOR == 3
+    NSArray *mediaTrackData = media.tracksInformation;
+    NSUInteger trackDataCount = mediaTrackData.count;
     for (NSUInteger x = 0; x < trackDataCount; x++) {
         NSDictionary *trackItem = mediaTrackData[x];
         NSString *trackType = trackItem[VLCMediaTracksInformationType];
@@ -102,6 +103,48 @@
             }
         }
     }
+#else
+    VLCMediaTrack *videoTrack = media.videoTracks.firstObject;
+    videoWidth = videoTrack.video.width;
+    videoHeight = videoTrack.video.height;
+    videoCodec = [VLCMedia codecNameForFourCC:videoTrack.codec trackType:VLCMediaTrackTypeVideo];
+
+    NSArray *audioTracks = media.audioTracks;
+    for (VLCMediaTrack *track in audioTracks) {
+        NSString *codec = [VLCMedia codecNameForFourCC:track.codec
+                                             trackType:VLCMediaTrackTypeAudio];
+        NSString *language = track.language;
+        if (audioCodecs) {
+            if (language)
+                audioCodecs = [audioCodecs stringByAppendingFormat:@", %@ — %@", language, codec];
+            else
+                audioCodecs = [audioCodecs stringByAppendingFormat:@", %@", codec];
+        } else {
+            if (language)
+                audioCodecs = [NSString stringWithFormat:@"%@ — %@", language, codec];
+            else
+                audioCodecs = codec;
+            }
+    }
+
+    NSArray *textTracks = media.textTracks;
+    for (VLCMediaTrack *track in textTracks) {
+        NSString *codec = [VLCMedia codecNameForFourCC:track.codec
+                                             trackType:VLCMediaTrackTypeText];
+        NSString *language = track.language;
+        if (spuCodecs) {
+            if (language)
+                spuCodecs = [spuCodecs stringByAppendingFormat:@", %@ — %@", language, codec];
+            else
+                spuCodecs = [spuCodecs stringByAppendingFormat:@", %@", codec];
+        } else {
+            if (language)
+                spuCodecs = [NSString stringWithFormat:@"%@ — %@", language, codec];
+            else
+                spuCodecs = codec;
+        }
+    }
+#endif
 
     NSString *metaDataString = @"";
     if (media.length.intValue > 0) {

@@ -19,6 +19,7 @@
 #endif
 
 #import <TVVLCKit/TVVLCKit.h>
+#import <TVVLCKit/vlc/libvlc_version.h>
 
 #import "UIColor+Presets.h"
 #import "VLCTVConstants.h"
