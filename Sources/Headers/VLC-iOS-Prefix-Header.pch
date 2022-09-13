@@ -18,6 +18,7 @@
 #endif
 
 #import <MobileVLCKit/MobileVLCKit.h>
+#import <MobileVLCKit/vlc/libvlc_version.h>
 
 #import "VLCConstants.h"
 #import "UIColor+Presets.h"

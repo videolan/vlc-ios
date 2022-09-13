@@ -96,7 +96,11 @@
 }
 
 - (NSString *)title {
+#if LIBVLC_VERSION_MAJOR == 3
     return [self.rootMedia metadataForKey:VLCMetaInformationTitle];
+#else
+    return self.rootMedia.metaData.title;
+#endif
 }
 
 - (NSArray<id<VLCNetworkServerBrowserItem>> *)items {
@@ -156,7 +160,11 @@
     if (self) {
         _media = media;
         _container = media.mediaType == VLCMediaTypeDirectory;
+#if LIBVLC_VERSION_MAJOR == 3
         NSString *title = [media metadataForKey:VLCMetaInformationTitle];
+#else
+        NSString *title = media.metaData.title;
+#endif
         if (!title) {
             title = [media.url.lastPathComponent stringByRemovingPercentEncoding];
         }
@@ -181,11 +189,15 @@
 
 - (NSURL *)thumbnailURL
 {
+#if LIBVLC_VERSION_MAJOR == 3
     NSString *artworkUrlString = [_media metadataForKey:VLCMetaInformationArtworkURL];
     if (artworkUrlString) {
         return [NSURL URLWithString:artworkUrlString];
     }
     return nil;
+#else
+    return _media.metaData.artworkURL;
+#endif
 }
 
 @end

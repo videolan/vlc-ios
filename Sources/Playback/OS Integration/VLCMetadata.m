@@ -125,6 +125,7 @@
 
 - (void)fillFromMetaDict:(VLCMediaPlayer *)mediaPlayer
 {
+#if LIBVLC_VERSION_MAJOR == 3
     NSDictionary *metaDict = mediaPlayer.media.metaDictionary;
 
     if (metaDict) {
@@ -145,6 +146,25 @@
             }
         }
     }
+#else
+    VLCMediaMetaData *metadata = mediaPlayer.media.metaData;
+
+    if (metadata) {
+        self.title = metadata.title;
+        self.artist = metadata.artist;
+        self.albumName = metadata.album;
+        self.trackNumber = @(metadata.trackNumber);
+        self.artworkImage = nil;
+
+        NSURL *artworkURL = metadata.artworkURL;
+        if (artworkURL) {
+            NSData *imageData = [NSData dataWithContentsOfURL:artworkURL];
+            if (imageData) {
+                self.artworkImage = [UIImage imageWithData:imageData];
+            }
+        }
+    }
+#endif
 }
 
 - (void)populateInfoCenterFromMetadata

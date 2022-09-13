@@ -352,7 +352,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     _currentAspectRatio = VLCAspectRatioDefault;
     _mediaPlayer.videoAspectRatio = NULL;
-    _mediaPlayer.videoCropGeometry = NULL;
+#if LIBVLC_VERSION_MAJOR == 3
+        _mediaPlayer.videoCropGeometry = NULL;
+#endif
 
     [[self remoteControlService] subscribeToRemoteCommands];
 
@@ -733,7 +735,12 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
             _sessionWillRestart = NO;
             [self stopPlayback];
         } break;
+#if LIBVLC_VERSION_MAJOR == 3
         case VLCMediaPlayerStateEnded: {
+#endif
+#if LIBVLC_VERSION_MAJOR == 4
+        case VLCMediaPlayerStateStopping: {
+#endif
             NSInteger nextIndex = [self nextMediaIndex];
 
             if (nextIndex == -1) {
@@ -970,7 +977,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         case VLCAspectRatioDefault:
             _mediaPlayer.scaleFactor = 0;
             _mediaPlayer.videoAspectRatio = NULL;
+#if LIBVLC_VERSION_MAJOR == 3
             _mediaPlayer.videoCropGeometry = NULL;
+#endif
             break;
         case VLCAspectRatioFillToScreen:
             // Reset aspect ratio only with aspectRatio button since we want to keep
@@ -982,7 +991,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         case VLCAspectRatioSixteenToTen:
         case VLCAspectRatioSixteenToNine:
             _mediaPlayer.scaleFactor = 0;
+#if LIBVLC_VERSION_MAJOR == 3
             _mediaPlayer.videoCropGeometry = NULL;
+#endif
             _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio:_currentAspectRatio] UTF8String];
     }
 
@@ -1096,6 +1107,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (NSInteger)currentMediaProjection
 {
+#if LIBVLC_VERSION_MAJOR == 3
     VLCMedia *media = [_mediaPlayer media];
     NSInteger currentVideoTrackIndex = [_mediaPlayer currentVideoTrackIndex];
 
@@ -1108,6 +1120,19 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
             }
         }
     }
+#else
+    NSArray *videoTracks = _mediaPlayer.videoTracks;
+    VLCMediaPlayerTrack *selectedVideoTrack = nil;
+    for (VLCMediaPlayerTrack *track in videoTracks) {
+        if (track.selected) {
+            selectedVideoTrack = track;
+            break;
+        }
+    }
+    if (selectedVideoTrack) {
+        return selectedVideoTrack.video.projection;
+    }
+#endif
     return -1;
 }
 #endif

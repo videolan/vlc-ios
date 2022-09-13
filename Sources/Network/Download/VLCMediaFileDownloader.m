@@ -204,10 +204,12 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
                 APLog(@"%s: error", __func__);
                 [self _downloadFailed];
                 break;
+#if LIBVLC_VERSION_MAJOR == 3
             case VLCMediaPlayerStateEnded:
                 APLog(@"%s: ended", __func__);
                 [self _downloadEnded];
                 break;
+#endif
             case VLCMediaPlayerStateStopped:
                 APLog(@"%s: stopped", __func__);
                 if (_downloadCancelled) {

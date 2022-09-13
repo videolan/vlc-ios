@@ -30,10 +30,15 @@
     return self;
 }
 - (NSString *)title {
+#if LIBVLC_VERSION_MAJOR == 3
     return [self.mediaItem metadataForKey:VLCMetaInformationTitle];
+#else
+    return self.mediaItem.metaData.title;
+#endif
 }
 - (UIImage *)icon {
     UIImage *image;
+#if LIBVLC_VERSION_MAJOR == 3
     NSString *artworkMRL = [self.mediaItem metadataForKey:VLCMetaInformationArtworkURL];
     if (artworkMRL) {
         NSURL *url = [NSURL URLWithString:artworkMRL];
@@ -44,6 +49,15 @@
             }
         }
     }
+#else
+    NSURL *artworkURL = self.mediaItem.metaData.artworkURL;
+    if (artworkURL) {
+        NSData *imageData = [NSData dataWithContentsOfURL:artworkURL];
+        if (imageData) {
+            image = [UIImage imageWithData:imageData];
+        }
+    }
+#endif
     if (!image) {
         image = [UIImage imageNamed:@"serverIcon"];
     }
@@ -51,12 +65,16 @@
 }
 
 - (NSURL *)iconURL {
+#if LIBVLC_VERSION_MAJOR == 3
     NSURL *url;
     NSString *artworkMRL = [self.mediaItem metadataForKey:VLCMetaInformationArtworkURL];
     if (artworkMRL) {
         url = [NSURL URLWithString:artworkMRL];
     }
     return url;
+#else
+    return self.mediaItem.metaData.artworkURL;
+#endif
 }
 
 - (VLCNetworkServerLoginInformation *)loginInformation {
