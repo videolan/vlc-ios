@@ -21,8 +21,8 @@ import UIKit
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var workgroupField: UITextField!
-    @IBOutlet weak var buttonConnect: UIButton!
     @IBOutlet weak var buttonSave: UIButton!
+    @IBOutlet weak var buttonConnect: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nothingFoundView: UIView!
     @IBOutlet weak var nothingFoundLabel: UILabel!
@@ -89,6 +89,7 @@ import UIKit
         }
 
         buttonSave.setTitle(NSLocalizedString("BUTTON_SAVE", comment: ""), for: .normal)
+        buttonSave.isEnabled = false
         buttonConnect.setTitle(NSLocalizedString("BUTTON_CONNECT", comment: ""), for: .normal)
         buttonConnect.isEnabled = false
 
@@ -334,6 +335,7 @@ import UIKit
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == self.serverField {
+            self.buttonSave.isEnabled = !(textField.text?.isEmpty)!
             self.buttonConnect.isEnabled = !(textField.text?.isEmpty)!
         } else if textField == self.portField {
             if Int(portField.text!) == nil {
