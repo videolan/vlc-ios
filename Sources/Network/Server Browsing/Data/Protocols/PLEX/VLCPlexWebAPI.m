@@ -141,14 +141,14 @@
 
 #pragma mark - Unofficial API
 
-- (NSInteger)MarkWatchedUnwatchedMedia:(NSString *)adress port:(NSString *)port videoRatingKey:(NSString *)ratingKey state:(NSString *)state authentification:(NSString *)auth
+- (NSInteger)MarkWatchedUnwatchedMedia:(NSString *)address port:(NSString *)port videoRatingKey:(NSString *)ratingKey state:(NSString *)state authentification:(NSString *)auth
 {
     NSString *url = nil;
 
     if ([state isEqualToString:@"watched"])
-        url = [NSString stringWithFormat:@"http://%@%@/:/unscrobble?identifier=com.plexapp.plugins.library&key=%@", adress, port, ratingKey];
+        url = [NSString stringWithFormat:@"http://%@%@/:/unscrobble?identifier=com.plexapp.plugins.library&key=%@", address, port, ratingKey];
     else
-        url = [NSString stringWithFormat:@"http://%@%@/:/scrobble?identifier=com.plexapp.plugins.library&key=%@", adress, port, ratingKey];
+        url = [NSString stringWithFormat:@"http://%@%@/:/scrobble?identifier=com.plexapp.plugins.library&key=%@", address, port, ratingKey];
 
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[[[VLCPlexWebAPI alloc] init] urlAuth:url authentification:auth]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:20];
     NSURLResponse *response = nil;
@@ -209,9 +209,9 @@
     return FileSubtitlePath;
 }
 
-- (void)stopSession:(NSString *)adress port:(NSString *)port session:(NSString *)session
+- (void)stopSession:(NSString *)address port:(NSString *)port session:(NSString *)session
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/video/:/transcode/universal/stop?session=%@", adress, port, session]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/video/:/transcode/universal/stop?session=%@", address, port, session]];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
     NSHTTPURLResponse *response = nil;

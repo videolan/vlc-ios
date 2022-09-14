@@ -31,7 +31,7 @@ import UIKit
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureAppreance()
+        configureAppearance()
 
         serverList = NSMutableArray.init()
 
@@ -68,7 +68,7 @@ import UIKit
         segmentedControl.setTitle(NSLocalizedString("SFTP_SHORT", comment: ""), forSegmentAt: 4)
     }
 
-    func configureAppreance() {
+    func configureAppearance() {
         setSegControlProtocolIdentifier(VLCNetworkServerProtocolIdentifierFTP)
 
         serverField.placeholder = NSLocalizedString("SERVER", comment: "")

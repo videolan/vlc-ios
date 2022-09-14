@@ -45,7 +45,7 @@
                                         <segment title="SFTP"/>
                                     </segments>
                                 </segmentedControl>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Server" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TKy-NO-Xtu" userLabel="adress">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Server" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TKy-NO-Xtu" userLabel="address">
                                     <rect key="frame" x="0.0" y="100" width="625" height="85"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="url"/>

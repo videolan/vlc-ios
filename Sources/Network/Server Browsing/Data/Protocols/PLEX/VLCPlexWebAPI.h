@@ -15,7 +15,7 @@
 - (NSMutableDictionary *)PlexBasicAuthentification:(NSString *)username password:(NSString *)password;
 - (NSString *)PlexAuthentification:(NSString *)username password:(NSString *)password;
 - (NSString *)urlAuth:(NSString *)url authentification:(NSString *)auth;
-- (void)stopSession:(NSString *)adress port:(NSString *)port session:(NSString *)session;
+- (void)stopSession:(NSString *)address port:(NSString *)port session:(NSString *)session;
 - (NSInteger)MarkWatchedUnwatchedMedia:(NSString *)address port:(NSString *)port videoRatingKey:(NSString *)ratingKey state:(NSString *)state authentification:(NSString *)auth;
 - (NSString *)getFileSubtitleFromPlexServer:(NSDictionary *)mediaObject modeStream:(BOOL)modeStream error:(NSError *__autoreleasing*)error;
 - (NSString *)getSession;
