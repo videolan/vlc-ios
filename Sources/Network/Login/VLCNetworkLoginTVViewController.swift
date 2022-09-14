@@ -309,6 +309,10 @@ import UIKit
             let login = serverLoginInformation(protocolSection: protocolSection!)
             do {
                 try login.saveToKeychain()
+                serverField.text = nil
+                portField.text = nil
+                usernameField.text = nil
+                passwordField.text = nil
             } catch let error as NSError {
                 // TODO : add vclalertview ?
                 print("Failed to save login with error: \(error)")
