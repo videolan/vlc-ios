@@ -74,6 +74,7 @@ import UIKit
         serverField.placeholder = NSLocalizedString("SERVER", comment: "")
         serverField.delegate = self
         portField.placeholder = NSLocalizedString("SERVER_PORT", comment: "")
+        portField.delegate = self
         portField.keyboardType = UIKeyboardType.numberPad
         usernameField.placeholder = NSLocalizedString("USER_LABEL", comment: "")
         passwordField.placeholder = NSLocalizedString("PASSWORD_LABEL", comment: "")
@@ -334,6 +335,10 @@ import UIKit
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == self.serverField {
             self.buttonConnect.isEnabled = !(textField.text?.isEmpty)!
+        } else if textField == self.portField {
+            if Int(portField.text!) == nil {
+                portField.text = ""
+            }
         }
     }
 }
