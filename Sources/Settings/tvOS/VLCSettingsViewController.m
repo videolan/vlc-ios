@@ -140,7 +140,9 @@
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
                                                                [self.userDefaults setObject:value forKey:[specifier key]];
-                                                               [self.tableView reloadData];
+                                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                                   [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                                               });
                                                            }];
             [alertController addAction:action];
             if (i == indexOfPreferredAction) {
@@ -156,7 +158,7 @@
     } else if ([specifierType isEqualToString:kIASKPSToggleSwitchSpecifier]) {
         NSString *specifierKey = [specifier key];
         [self.userDefaults setBool:![self.userDefaults boolForKey:specifierKey] forKey:specifierKey];
-        [self.tableView reloadData];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     } else if ([specifierType isEqualToString:@"PSTextFieldSpecifier"]) {
         NSString *saveString = NSLocalizedString(@"BUTTON_SAVE", nil);
         NSString *cancelString = NSLocalizedString(@"BUTTON_CANCEL", nil);
@@ -173,7 +175,9 @@
                                                            handler:^(UIAlertAction * _Nonnull action) {
             NSString *enteredText = alertController.textFields.firstObject.text;
             [self.userDefaults setObject:enteredText forKey:specifier.key];
-            [self.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            });
         }];
 
         [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
