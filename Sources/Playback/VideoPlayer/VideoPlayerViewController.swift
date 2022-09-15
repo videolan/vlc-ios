@@ -56,7 +56,7 @@ class VideoPlayerViewController: UIViewController {
         private var deviceSetter: (Float) -> Void
         private let deviceGetter: () -> Float
         var value: Float = 0.5
-        let speed: Float = 1.0 / 5000
+        let speed: Float = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad ? 1.0 / 70000 : 1.0 / 20000
         init(deviceSetter: @escaping (Float) -> Void, deviceGetter: @escaping () -> Float) {
             self.deviceGetter = deviceGetter
             self.deviceSetter = deviceSetter
