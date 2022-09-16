@@ -441,6 +441,8 @@ class VideoPlayerViewController: UIViewController {
         return downSwipeRecognizer
     }()
 
+    private var isGestureActive: Bool = false
+
     // MARK: - Popup Views
 
     private lazy var equalizerPopupView: PopupView = {
@@ -760,7 +762,7 @@ private extension VideoPlayerViewController {
 
         idleTimer = nil
         numberOfTapSeek = 0
-        if !playerController.isControlsHidden {
+        if !playerController.isControlsHidden && !isGestureActive {
             setControlsHidden(!playerController.isControlsHidden, animated: true)
         }
         // FIXME:- other states to reset
@@ -877,6 +879,9 @@ extension VideoPlayerViewController {
                 self?.scrubProgressBar.alpha = uiComponentOpacity
             }
             self?.backgroundGradientView.alpha = hidden && qvcHidden ? 0 : 1
+            if hidden {
+                self?.sideBackgroundGradientView.alpha = 0
+            }
         }
 
         let duration = animated ? 0.2 : 0
@@ -1009,6 +1014,7 @@ extension VideoPlayerViewController {
         }
 
         if recognizer.state == .began {
+            isGestureActive = true
             var animations : (() -> Void)?
             currentPanType = panType
             switch currentPanType {
@@ -1064,6 +1070,8 @@ extension VideoPlayerViewController {
         }
 
         if recognizer.state == .ended {
+            isGestureActive = false
+            setControlsHidden(true, animated: true)
             var animations : (() -> Void)?
             switch currentPanType {
             case .brightness:
