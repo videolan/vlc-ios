@@ -16,6 +16,7 @@ import MediaPlayer
 extension MPVolumeView {
 
     func setVolume(_ volume: Float) {
+        try? AVAudioSession.sharedInstance().setActive(true)
         let slider = self.subviews.first(where: { $0 is UISlider }) as? UISlider
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
