@@ -15,8 +15,6 @@
 #import "VLCPlexParser.h"
 #import "VLCPlexWebAPI.h"
 
-
-
 @interface VLCNetworkServerBrowserPlex ()
 @property (nonatomic, readonly) NSString *addressOrName;
 @property (nonatomic, readonly) NSUInteger port;
@@ -246,11 +244,7 @@
     VLCMedia *media =  [VLCMedia mediaWithURL:_URL];
     NSString *title = self.name;
     if (title.length) {
-#if LIBVLC_VERSION_MAJOR == 3
-        [media setMetadata:self.name forKey:VLCMetaInformationTitle];
-#else
         media.metaData.title = self.name;
-#endif
     }
     return media;
 }

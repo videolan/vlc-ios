@@ -74,22 +74,14 @@ NSString *const VLCNetworkServerProtocolIdentifierUPnP = @"upnp";
      * required to provide an icon for a SAT>IP server via UPnP, so it is
      * safe to query for the actual host address as the media's URL will
      * point to the generic playlist. */
-#if LIBVLC_VERSION_MAJOR == 3
-    NSString *artworkString = [media metadataForKey:VLCMetaInformationArtworkURL];
-    if (artworkString) {
-        NSURL *url = [NSURL URLWithString:artworkString];
-#else
-        NSURL *url = media.metaData.artworkURL;
-#endif
-        NSString *host = url.host;
+    NSURL *url = media.metaData.artworkURL;
 
-        if (host) {
-            NSDictionary *dict = @{ @"satip-host" : host };
-            login.options = dict;
-        }
-#if LIBVLC_VERSION_MAJOR == 3
+    NSString *host = url.host;
+
+    if (host) {
+        NSDictionary *dict = @{ @"satip-host" : host };
+        login.options = dict;
     }
-#endif
 
     return login;
 }

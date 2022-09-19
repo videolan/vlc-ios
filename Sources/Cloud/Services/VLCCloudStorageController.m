@@ -54,11 +54,7 @@
 - (VLCMedia *)setMediaNameMetadata:(VLCMedia *)media withName:(NSString *)name
 {
     if (name.length) {
-#if LIBVLC_VERSION_MAJOR == 3
-        [media setMetadata:name forKey:VLCMetaInformationTitle];
-#else
         media.metaData.title = name;
-#endif
     }
     return media;
 }
