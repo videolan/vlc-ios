@@ -5,6 +5,8 @@
 · Fix progress reporting for http downloads
 · Fix x-callback-url issue displaying the wrong subtitles
 · Set default pre-amp level to 0 to render full dynamic range
+· Improve volume and brightness gestures sensibility especially on iPad
+· Migrate Google Drive login flow to continue to work after October 3rd
 
 ## tvOS [3.3.8]
 · Fix PLEX server discovery using Bonjour
