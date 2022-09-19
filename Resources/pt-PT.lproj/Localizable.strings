@@ -1,8 +1,8 @@
-"STORE_DESCRIPTION" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows file synchronization with Dropbox, GDrive, OneDrive, Box, iCloud Drive, iTunes, direct downloads and through Wi-Fi sharing as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, playback speed control and rendering through Chromecast.\n\nVLC is completely free and open source.";
+"STORE_DESCRIPTION" = "VLC é um reprodutor de multimédia multiplataforma de código aberto.\nEste pode reproduzir diretamente todos os seus filmes, programas e músicas na maioria dos formatos sem conversão.\nEste permite-lhe sincronizar ficheiros com Box, Dropbox, Google Drive, iCloud Drive, iTunes e OneDrive, transferências diretas e via partilha em Wi-Fi, bem como reproduzir através de servidores de multimédia FTP, NFS, SFTP, SMB, UPnP/DLNA e na Web.\nVLC é compatível com legendas avançadas, incluindo compatibilidade total com SSA, múltiplas faixas de áudio, controlo de velocidade da reprodução e renderização via Chromecast.\n\nVLC é totalmente gratuito e de código aberto.";
 
 "STORE_DESCRIPTION_TV" = "VLC is a free and open source cross-platform multimedia player.\nIt can play all your movies, shows and music in most formats directly without conversion.\nIt allows Remote Playback from your Mac or PC via a Web UI as well as streaming from SMB, FTP, SFTP, NFS, UPnP/DLNA media servers and the web.\nVLC offers support for advanced subtitles including full SSA compatibility, multi-track audio, and playback speed control.\n\nVLC is completely free and open source.\n\nArtwork is provided by TMDb, which is a community maintained movie database.";
 
-"UNKNOWN_TRACK_TYPE" = "Unknown track type";
+"UNKNOWN_TRACK_TYPE" = "Tipo de faixa desconhecida";
 "CHOOSE_TITLE" = "Escolha um título";
 "CHOOSE_CHAPTER" = "Escolha um capítulo";
 "CHAPTER_SELECTION_TITLE" = "Capítulos ";
@@ -33,7 +33,7 @@
 "VFILTER_SATURATION" = "Saturação";
 "VFILTER_GAMMA" = "Gama";
 
-"PRESET_PREAMP_SETTING" = "Preset / preamp settings";
+"PRESET_PREAMP_SETTING" = "Definições de pré-ajuste/pré-amplificador";
 "PREAMP" = "Amplificador";
 "SNAP_BANDS" = "Snap bands";
 
@@ -72,7 +72,7 @@
 
 "BUTTON_RENDERER" = "Dispositivos de transmissão";
 "BUTTON_RENDERER_HINT" = "Mostrar um menu de dispositivos de transmissão disponíveis";
-"BUTTON_AIRPLAY" = "AirPlay or Bluetooth";
+"BUTTON_AIRPLAY" = "AirPlay ou Bluetooth";
 "BUTTON_AIRPLAY_HINT" = "Show a menu of available AirPlay or Bluetooth devices";
 
 "UPGRADING_LIBRARY" = "Atualização da Mediateca";
@@ -81,7 +81,7 @@
 "NETWORK_TITLE" = "Transmissão em rede";
 "OPEN_NETWORK_HELP" = "Digite qualquer endereço HTTP, RTSP, RTMP, MMS, FTP ou UDP/RTP para abrir diretamente a transmissão.";
 "HTTP_UPLOAD_SERVER_OFF" = "Servidor Inativo";
-"HTTP_UPLOAD_NO_CONNECTIVITY" = "No active Wi-Fi connection";
+"HTTP_UPLOAD_NO_CONNECTIVITY" = "Sem ligação Wi-Fi ativa";
 "OPEN_STREAM_OR_DOWNLOAD" = "Gostaria de transferir ou reproduzir este URL?";
 "SHARED_VLC_IOS_LIBRARY" = "Biblioteca partilhada do VLC para iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servidores de ficheiros (SMB)";
@@ -128,8 +128,8 @@
 "LOCAL_SERVER_CONNECTION_FAILED_TITLE" = "A LIGAÇÃO AO SERVIDOR FALHOU";
 "LOCAL_SERVER_CONNECTION_FAILED_MESSAGE" = "Por favor, verifique o endereço do servidor e os detalhes de início de sessão.";
 
-"FILES_APP_CELL_TITLE" = "Local files";
-"FILES_APP_CELL_SUBTITLE" = "Open a file without copying it to VLC";
+"FILES_APP_CELL_TITLE" = "Ficheiros locais";
+"FILES_APP_CELL_SUBTITLE" = "Abrir um ficheiro sem copiá-lo para VLC";
 
 "CLOUD_SERVICES" = "Serviços na nuvem";
 "LOGIN" = "Iniciar sessão";
@@ -156,7 +156,7 @@
 "ONE_FILE" = "1 ficheiro";
 "NO_FILES" = "Nenhum ficheiro suportado";
 "DOWNLOADING" = "A transferir…";
-"DOWNLOADING_MEDIA" = "Downloading: %@";
+"DOWNLOADING_MEDIA" = "A transferir: %@";
 "REMAINING_TIME" = "Tempo restante: %@";
 "BIOMETRIC_UNLOCK" = "Desbloquear a Mediateca\nCancelar para inserir 'Código'";
 
@@ -164,7 +164,7 @@
 "Enter Passcode" = "Introduzir Código";
 "Enter a passcode" = "Introduzir um código";
 "Passcodes did not match. Try again." = "Os códigos não coincidem. Tente novamente.";
-"Re-enter your passcode" = "Reintroduza o seu código";
+"Re-enter your passcode" = "Reinsira o seu código";
 "Set Passcode" = "Definir Código";
 
 "Settings" = "Definições"; // plain text key to keep compatibility with InAppSettingsKit's upstream
@@ -174,7 +174,7 @@
 "EMPTY_LIBRARY" = "Mediateca Vazia";
 "EMPTY_LIBRARY_LONG" = "For playback, you can stream media from a server on your local network, from the cloud or synchronize media to your device using iTunes, Wi-Fi Upload or Cloud services.";
 
-"EMPTY_NO_PLAYLISTS" = "Playlists";
+"EMPTY_NO_PLAYLISTS" = "Listas de reprodução";
 "EMPTY_NO_PLAYLISTS_DESCRIPTION" = "To create playlists, enter Edit mode in the Video or Audio content tabs and select your favorite media.\nYou can also synchronize existing playlists from your other devices or the internet.";
 
 "EMPTY_PLAYLIST" = "Lista de reprodução vazia";
@@ -268,7 +268,7 @@
 "DOWNLOAD_SUBS_FROM_OSO" = "Transferir legendas de OpenSubtitles.org...";
 "FOUND_SUBS" = "Legendas encontradas";
 "NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
-"USE_SPDIF" = "Usar passagem (S/PDIF)";
+"USE_SPDIF" = "Usar Passagem (S/PDIF)";
 
 "PLAYBACK" = "Reprodução";
 "REPEAT_MODE" = "Repetir";
@@ -330,7 +330,7 @@
 "ALL_VIDEOS" = "Todos os vídeos";
 "SONGS" = "Músicas";
 "PLAYLISTS" = "Listas de reprodução";
-"VIDEO_GROUPS" = "Grupos de vídeo";
+"VIDEO_GROUPS" = "Grupos de vídeos";
 
 "MODIFIED_DATE" = "Data de alteração";
 "NAME" = "Nome";
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Renomear os ficheiros selecionados";
 "DELETE_HINT" = "Eliminar os ficheiros selecionados";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Ordenar";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Ordem ascendente ou descendente";
 "DESCENDING_SWITCH_HINT" = "Ordenar contexto na ordem ascendente ou descendente";
 "GRID_LAYOUT" = "Grid";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "List";
 "HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Rename bookmark";
 "BOOKMARK_DELETE_TITLE" = "Delete bookmark";
 "BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Forçar nova verificação da biblioteca de multimédia";
@@ -470,7 +482,7 @@
 // MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "Aviso de ligação SMBv1";
-"SMBV1_WARN_DESCRIPTION" = "Detetámos um protocolo antigo (SMBv1).\nTem a certeza que deseja continuar com o SMBv1?\nAconselhamos a fazer o upgrade ou a alterar as definições do seu servidor.";
+"SMBV1_WARN_DESCRIPTION" = "Nós detetamos um protocolo antigo (SMBv1).\nTem a certeza que deseja continuar com o SMBv1?\nNós aconselhamos a atualização ou a alteração das definições do seu servidor.";
 "SMBV1_CONTINUE" = "Continuar com SMBv1";
 "SMBV1_NEXT_PROTOCOL" = "Experimentar SMBv2/v3";
 
