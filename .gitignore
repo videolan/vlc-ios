@@ -8,11 +8,11 @@ xcuserdata
 .DS_Store
 
 # Fastlane
-buildsystem/fastlane/Preview.html
-buildsystem/fastlane/report.xml
-buildsystem/fastlane/screenshots/*/*.png
-buildsystem/fastlane/screenshots/screenshots.html
-buildsystem/fastlane/test_output
+Buildsystem/fastlane/Preview.html
+Buildsystem/fastlane/report.xml
+Buildsystem/fastlane/screenshots/*/*.png
+Buildsystem/fastlane/screenshots/screenshots.html
+Buildsystem/fastlane/test_output
 
 # CocoaPods
 Pods
