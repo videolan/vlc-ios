@@ -93,7 +93,7 @@
         [self startSession];
     }
 
-    BOOL ret = [(GTMAppAuthFetcherAuthorization *)self.driveService.authorizer canAuthorize];
+    BOOL ret = [GIDSignIn.sharedInstance hasPreviousSignIn];
 
     if (ret) {
         [self shareCredentials];
