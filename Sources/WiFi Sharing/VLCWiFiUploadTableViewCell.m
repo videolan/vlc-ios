@@ -17,6 +17,9 @@
 #import "VLC-Swift.h"
 
 @interface VLCWiFiUploadTableViewCell()
+{
+    NSUserActivity *_userActivity;
+}
 
 @property (nonatomic, strong) UISwitch *serverToggle;
 @property (nonatomic, strong) Reachability *reachability;
@@ -83,13 +86,33 @@
 
 - (void)updateHTTPServerAddress
 {
+   
+    [self stopHandoff];
     BOOL connectedViaWifi = [[VLCHTTPUploaderController sharedInstance] isReachable];
     self.serverToggle.enabled = connectedViaWifi;
-
-    NSString *uploadText = connectedViaWifi ? [[VLCHTTPUploaderController sharedInstance] httpStatus] : NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
+    NSString *uploadText = connectedViaWifi ? [[VLCHTTPUploaderController sharedInstance] httpStatus] :        NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
     self.detailTextLabel.text = uploadText;
     self.serverToggle.on = connectedViaWifi && [VLCHTTPUploaderController sharedInstance].isServerRunning;
+    if(self.serverToggle.on) {
+       [self startHandoff];
+    }
     self.selectionStyle = self.serverToggle.isOn ? UITableViewCellSelectionStyleDefault : UITableViewCellSelectionStyleNone;
+}
+
+- (void)startHandoff
+{
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    _userActivity = [[NSUserActivity alloc] initWithActivityType:bundleIdentifier];
+    NSString *address = [[VLCHTTPUploaderController sharedInstance] addressToCopy];
+    _userActivity.webpageURL = [NSURL URLWithString: address];
+    _userActivity.eligibleForSearch = YES;
+    _userActivity.eligibleForPublicIndexing = YES;
+    [_userActivity setEligibleForHandoff:YES];
+    [_userActivity becomeCurrent];
+}
+
+-(void)stopHandoff{
+    [_userActivity invalidate];
 }
 
 - (void)toggleHTTPServer
