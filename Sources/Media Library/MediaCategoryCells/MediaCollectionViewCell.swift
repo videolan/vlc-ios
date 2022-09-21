@@ -18,6 +18,7 @@ protocol MediaCollectionViewCellDelegate: AnyObject {
     func mediaCollectionViewCellMediaTapped(in cell: MediaCollectionViewCell)
     func mediaCollectionViewCellSetScrolledCellIndex(of cell: MediaCollectionViewCell?)
     func mediaCollectionViewCellGetScrolledCell() -> MediaCollectionViewCell?
+    func mediaCollectionViewCellGetModel() -> MediaLibraryBaseModel?
 }
 
 // MARK: -
@@ -277,7 +278,16 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     }
 
     func update(audiotrack: VLCMLMedia) {
-        titleLabel.text = audiotrack.title()
+        var trackNumber: String = ""
+        if let model = delegate?.mediaCollectionViewCellGetModel() as? CollectionModel,
+           let mediaCollection = model.mediaCollection as? VLCMLAlbum,
+           !mediaCollection.isUnknownAlbum(),
+           let media = media as? VLCMLMedia {
+            trackNumber = String(describing: media.trackNumber) + ". "
+        }
+
+        let displayTrackNumber: Bool = !UserDefaults.standard.bool(forKey: kVLCAudioLibraryHideTrackNumbers)
+        titleLabel.text = displayTrackNumber ? trackNumber + audiotrack.title() : audiotrack.title()
         accessibilityLabel = audiotrack.accessibilityText(editing: false)
         var descriptionText = audiotrack.albumTrackArtistName()
         if let albumTitle = audiotrack.album?.title, !albumTitle.isEmpty {

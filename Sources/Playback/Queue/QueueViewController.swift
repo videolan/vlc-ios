@@ -504,6 +504,10 @@ extension QueueViewController: UICollectionViewDelegate, MediaCollectionViewCell
 
         return nil
     }
+
+    func mediaCollectionViewCellGetModel() -> MediaLibraryBaseModel? {
+        return nil
+    }
 }
 
 // MARK: - UIScrollViewDelegate

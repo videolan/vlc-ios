@@ -18,6 +18,7 @@ protocol ActionSheetSortSectionHeaderDelegate: AnyObject {
                                       onSwitchIsOnChange: Bool,
                                       type: ActionSheetSortHeaderOptions)
     func actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: Bool)
+    func actionSheetSortSectionHeaderShouldHideTrackNumbers(onSwitchIsOnChange: Bool)
 }
 
 class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
@@ -54,6 +55,14 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         hideFeatArtistsStackView.alignment = .center
         hideFeatArtistsStackView.translatesAutoresizingMaskIntoConstraints = false
         return hideFeatArtistsStackView
+    }()
+
+    private let hideTrackNumbersStackView: UIStackView = {
+        let hideTrackNumbersStackView = UIStackView()
+        hideTrackNumbersStackView.spacing = 0
+        hideTrackNumbersStackView.alignment = .center
+        hideTrackNumbersStackView.translatesAutoresizingMaskIntoConstraints = false
+        return hideTrackNumbersStackView
     }()
 
     private let mainStackView: UIStackView = {
@@ -152,6 +161,28 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return hideFeatArtistsSwitch
     }()
 
+    let hideTrackNumbersLabel: UILabel = {
+        let hideTrackNumbersLabel = UILabel()
+        let colors = PresentationTheme.current.colors
+        hideTrackNumbersLabel.text = NSLocalizedString("HIDE_TRACK_NUMBERS", comment: "")
+        hideTrackNumbersLabel.accessibilityLabel = NSLocalizedString("HIDE_TRACK_NUMBERS", comment: "")
+        hideTrackNumbersLabel.accessibilityHint = NSLocalizedString("HIDE_TRACK_NUMBERS", comment: "")
+        hideTrackNumbersLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
+        hideTrackNumbersLabel.textColor = colors.cellTextColor
+        hideTrackNumbersLabel.backgroundColor = colors.background
+        hideTrackNumbersLabel.translatesAutoresizingMaskIntoConstraints = false
+        return hideTrackNumbersLabel
+    }()
+
+    let hideTrackNumbersSwitch: UISwitch = {
+        let hideTrackNumbersSwitch = UISwitch()
+        hideTrackNumbersSwitch.addTarget(self, action: #selector(handleHideTrackNumbersSwitch(_:)), for: .valueChanged)
+        hideTrackNumbersSwitch.accessibilityLabel = NSLocalizedString("HIDE_TRACK_NUMBERS", comment: "")
+        hideTrackNumbersSwitch.accessibilityHint = NSLocalizedString("HIDE_TRACK_NUMBERS", comment: "")
+        hideTrackNumbersSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return hideTrackNumbersSwitch
+    }()
+
     weak var delegate: ActionSheetSortSectionHeaderDelegate?
 
     private var isVideoModel: Bool
@@ -215,6 +246,10 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         delegate?.actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: sender.isOn)
     }
 
+    @objc func handleHideTrackNumbersSwitch(_ sender: UISwitch) {
+        delegate?.actionSheetSortSectionHeaderShouldHideTrackNumbers(onSwitchIsOnChange: sender.isOn)
+    }
+
     private func setSwitchIsOnFromUserDefaults() {
         let key = isVideoModel ? kVLCVideoLibraryGridLayout : kVLCAudioLibraryGridLayout
         layoutChangeSwitch.isOn = UserDefaults.standard.bool(forKey: key + modelType)
@@ -262,5 +297,15 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         secondaryStackView.addArrangedSubview(hideFeatArtistsStackView)
 
         hideFeatArtistsSwitch.isOn = UserDefaults.standard.bool(forKey: kVLCAudioLibraryHideFeatArtists)
+    }
+
+    func updateHeaderForAlbums() {
+        isAdditionalOptionShown = true
+        hideTrackNumbersStackView.addArrangedSubview(hideTrackNumbersLabel)
+        hideTrackNumbersStackView.addArrangedSubview(hideTrackNumbersSwitch)
+
+        secondaryStackView.addArrangedSubview(hideTrackNumbersStackView)
+
+        hideTrackNumbersSwitch.isOn = UserDefaults.standard.bool(forKey: kVLCAudioLibraryHideTrackNumbers)
     }
 }

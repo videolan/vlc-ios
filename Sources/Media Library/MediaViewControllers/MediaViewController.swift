@@ -443,6 +443,16 @@ extension MediaViewController {
                 mediaCategoryViewController.actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: !isIncludeAllArtistActive)
             })
             rightMenuItems.append(includeAllArtist)
+        } else if let model = mediaCategoryViewController.model as? CollectionModel,
+                  let mediaCollection = model.mediaCollection as? VLCMLAlbum,
+                  !mediaCollection.isUnknownAlbum() {
+            let hideTrackNumbers = UserDefaults.standard.bool(forKey: kVLCAudioLibraryHideTrackNumbers)
+            let hideTrackNumbersAction = UIAction(title: NSLocalizedString("HIDE_TRACK_NUMBERS", comment: ""),
+                                                     state: hideTrackNumbers ? .on : .off,
+                                                     handler: { _ in
+                mediaCategoryViewController.actionSheetSortSectionHeaderShouldHideTrackNumbers(onSwitchIsOnChange: !hideTrackNumbers)
+            })
+            rightMenuItems.append(hideTrackNumbersAction)
         }
 
         return UIMenu(options: .displayInline, children: rightMenuItems)

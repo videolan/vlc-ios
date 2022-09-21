@@ -98,6 +98,7 @@
 #define kVLCHTTPUploadDirectory @"Upload"
 #define kVLCAudioLibraryGridLayout @"kVLCAudioLibraryGridLayout"
 #define kVLCAudioLibraryHideFeatArtists @"kVLCAudioLibraryHideFeatArtists"
+#define kVLCAudioLibraryHideTrackNumbers @"kVLCAudioLibraryHideTrackNumbers"
 #define kVLCVideoLibraryGridLayout @"kVLCVideoLibraryGridLayout"
 
 #define kVLCPlayerShouldRememberState @"PlayerShouldRememberState"

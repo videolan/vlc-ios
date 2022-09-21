@@ -101,6 +101,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         if model is ArtistModel {
             header.updateHeaderForArtists()
+        } else if let model = model as? CollectionModel,
+                  let mediaCollection = model.mediaCollection as? VLCMLAlbum,
+                  !mediaCollection.isUnknownAlbum() {
+            header.updateHeaderForAlbums()
         }
 
         let actionSheet = ActionSheet(header: header)
@@ -1227,6 +1231,14 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
         reloadData()
     }
 
+    func actionSheetSortSectionHeaderShouldHideTrackNumbers(onSwitchIsOnChange: Bool) {
+        userDefaults.set(onSwitchIsOnChange, forKey: "\(kVLCAudioLibraryHideTrackNumbers)")
+        setupCollectionView()
+        cachedCellSize = .zero
+        model.sort(by: model.sortModel.currentSort, desc: model.sortModel.desc)
+        reloadData()
+    }
+
     func actionSheetSortSectionHeader(_ header: ActionSheetSortSectionHeader, onSwitchIsOnChange: Bool, type: ActionSheetSortHeaderOptions) {
         var prefix: String = ""
         var suffix: String = ""
@@ -1514,6 +1526,10 @@ extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
         }
 
         return nil
+    }
+
+    func mediaCollectionViewCellGetModel() -> MediaLibraryBaseModel? {
+        return model
     }
 
     private func resetScrollView() {
