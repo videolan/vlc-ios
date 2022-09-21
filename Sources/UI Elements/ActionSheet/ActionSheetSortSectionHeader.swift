@@ -24,13 +24,13 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     private var modelType: String
 
     override var cellHeight: CGFloat {
-        return isArtistsOptionShown ? 225 : 185
+        return isAdditionalOptionShown ? 225 : 185
     }
 
     private var sortModel: SortModel
     private var secondSortModel: SortModel?
     private let userDefaults = UserDefaults.standard
-    private var isArtistsOptionShown: Bool = false
+    private var isAdditionalOptionShown: Bool = false
 
     private let descendingStackView: UIStackView = {
         let descendingStackView = UIStackView()
@@ -255,7 +255,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
     }
 
     func updateHeaderForArtists() {
-        isArtistsOptionShown = true
+        isAdditionalOptionShown = true
         hideFeatArtistsStackView.addArrangedSubview(hideFeatArtistsLabel)
         hideFeatArtistsStackView.addArrangedSubview(hideFeatArtistsSwitch)
 
