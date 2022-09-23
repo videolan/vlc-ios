@@ -362,6 +362,8 @@
 "RENAME_HINT" = "Rename selected files";
 "DELETE_HINT" = "Delete selected files";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sort";

@@ -373,7 +373,7 @@ extension MediaViewController {
             menuButton.menu = generateMenu(viewController: mediaCategoryViewController)
         })
 
-        return UIMenu(options: .displayInline,
+        return UIMenu(title: NSLocalizedString("DISPLAY_AS", comment: ""), options: .displayInline,
                       children: [gridAction, listAction])
     }
 
@@ -407,7 +407,15 @@ extension MediaViewController {
             })
             sortActions.append(action)
         }
-        return UIMenu(options: .displayInline, children: sortActions)
+
+        if #available(iOS 15.0, *) {
+            return UIMenu(title: NSLocalizedString("SORT_BY", comment: ""),
+                          image: UIImage(named: "sort"),
+                          options: .singleSelection,
+                          children: sortActions)
+        } else {
+            return UIMenu(title: NSLocalizedString("SORT_BY", comment: ""), options: .displayInline, children: sortActions)
+        }
     }
 
     @available(iOS 14.0, *)
@@ -433,6 +441,7 @@ extension MediaViewController {
         let sortSubMenu = generateSortMenu(with: mediaCategoryViewController)
 
         var rightMenuItems = [selectAction, layoutSubMenu, sortSubMenu]
+        var additionalMenuItems: [UIAction] = []
 
         if mediaCategoryViewController.model is ArtistModel {
             let isIncludeAllArtistActive = UserDefaults.standard.bool(forKey: kVLCAudioLibraryHideFeatArtists)
@@ -442,7 +451,8 @@ extension MediaViewController {
                                             handler: { _ in
                 mediaCategoryViewController.actionSheetSortSectionHeaderShouldHideFeatArtists(onSwitchIsOnChange: !isIncludeAllArtistActive)
             })
-            rightMenuItems.append(includeAllArtist)
+
+            additionalMenuItems.append(includeAllArtist)
         } else if let model = mediaCategoryViewController.model as? CollectionModel,
                   let mediaCollection = model.mediaCollection as? VLCMLAlbum,
                   !mediaCollection.isUnknownAlbum() {
@@ -452,7 +462,15 @@ extension MediaViewController {
                                                      handler: { _ in
                 mediaCategoryViewController.actionSheetSortSectionHeaderShouldHideTrackNumbers(onSwitchIsOnChange: !hideTrackNumbers)
             })
-            rightMenuItems.append(hideTrackNumbersAction)
+
+            additionalMenuItems.append(hideTrackNumbersAction)
+        }
+
+        if !additionalMenuItems.isEmpty {
+            let additionalMenu: UIMenu = UIMenu(title: NSLocalizedString("ADDITIONAL_OPTIONS", comment: ""),
+                                                options: .displayInline,
+                                                children: additionalMenuItems)
+            rightMenuItems.append(additionalMenu)
         }
 
         return UIMenu(options: .displayInline, children: rightMenuItems)
