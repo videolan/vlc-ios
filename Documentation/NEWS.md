@@ -7,6 +7,12 @@
 · improve shuffle algorithm for playback
 · major update to internal event handling
 · performance improvements
+· add Handoff support for WiFi Sharing
+· rewritten OneDrive support
+
+## tvOS [3.4.0]
+· add support for network streams distributed using MDM
+· Networking UI improvements
 
 ## iOS [3.3.7]
 · layout improvements for playback subpanels
