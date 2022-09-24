@@ -10,7 +10,5 @@
 	<array>
 		<string>$(KEYCHAIN_ACCESS_GROUP)</string>
 	</array>
-	<key>com.apple.developer.networking.multicast</key>
-	<true/>
 </dict>
 </plist>
