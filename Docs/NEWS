@@ -1,5 +1,11 @@
 # Changelog
 
+## iOS [3.3.9]
+· Fix UPnP discovery on iOS 16 and later
+
+## tvOS [3.3.9]
+· Fix UPnP discovery on tvOS 16 and later
+
 ## iOS [3.3.8]
 · Fix PLEX server discovery using Bonjour
 · Fix progress reporting for http downloads
