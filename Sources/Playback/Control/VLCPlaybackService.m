@@ -22,6 +22,7 @@
 #import "VLCRemoteControlService.h"
 #import "VLCMetadata.h"
 #import "VLCPlayerDisplayController.h"
+#import <stdatomic.h>
 
 #import "VLC-Swift.h"
 
@@ -57,7 +58,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     UIView *_actualVideoOutputView;
     UIView *_preBackgroundWrapperView;
 
-    BOOL _needsMetadataUpdate;
+    volatile atomic_bool _metadataUpdatePending;
     BOOL _mediaWasJustStarted;
     int _majorPositionChangeInProgress;
     BOOL _recheckForExistingThumbnail;
@@ -72,7 +73,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     VLCPlayerDisplayController *_playerDisplayController;
 
     NSMutableArray *_openedLocalURLs;
-    
+
     NSInteger _currentIndex;
     NSMutableArray *_shuffledOrder;
 }
@@ -342,7 +343,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #endif
 
     [_listPlayer playItemAtNumber:@(_itemInMediaListToBePlayedFirst)];
-    
+
     _currentIndex = _itemInMediaListToBePlayedFirst;
     if(_shuffleMode) {
         [self shuffleMediaList];
@@ -1286,9 +1287,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (void)setNeedsMetadataUpdate
 {
-    if (_needsMetadataUpdate == NO) {
-        _needsMetadataUpdate = YES;
+    if (!atomic_load(&_metadataUpdatePending)) {
+        atomic_store(&_metadataUpdatePending, true);
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            atomic_store(&self->_metadataUpdatePending, false);
 #if TARGET_OS_IOS
             VLCMLMedia *media = self->_mediaPlayer.media ? [self->_delegate mediaForPlayingMedia:self->_mediaPlayer.media] : nil;
             [self->_metadata updateMetadataFromMedia:media mediaPlayer:self->_mediaPlayer];
@@ -1296,7 +1298,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
             [self->_metadata updateMetadataFromMediaPlayer:self->_mediaPlayer];
 #endif
             dispatch_async(dispatch_get_main_queue(), ^{
-                self->_needsMetadataUpdate = NO;
                 [self recoverDisplayedMetadata];
             });
         });
