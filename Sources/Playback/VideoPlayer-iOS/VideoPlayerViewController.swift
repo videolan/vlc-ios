@@ -1058,22 +1058,31 @@ extension VideoPlayerViewController {
 
         if recognizer.state == .ended {
             var animations : (() -> Void)?
-            switch currentPanType {
-            case .brightness:
+
+            // Check if both of the sliders are visible to hide them at the same time
+            if currentPanType == .brightness && volumeControlView.alpha == 1 ||
+                currentPanType == .volume && brightnessControlView.alpha == 1 {
+                animations = { [brightnessControlView,
+                                volumeControlView,
+                                sideBackgroundGradientView] in
+                    brightnessControlView.alpha = 0
+                    volumeControlView.alpha = 0
+                    sideBackgroundGradientView.alpha = 0
+                }
+            } else if currentPanType == .brightness {
                 animations = { [brightnessControlView,
                                 sideBackgroundGradientView] in
                     brightnessControlView.alpha = 0
                     sideBackgroundGradientView.alpha = 0
                 }
-            case .volume:
+            } else if currentPanType == .volume {
                 animations = { [volumeControlView,
                                 sideBackgroundGradientView] in
                     volumeControlView.alpha = 0
                     sideBackgroundGradientView.alpha = 0
                 }
-            default:
-                break
             }
+
             if let animations = animations {
                 UIView.animate(withDuration: 0.2, delay: 0.5,
                                options: .beginFromCurrentState, animations: animations, completion: {
