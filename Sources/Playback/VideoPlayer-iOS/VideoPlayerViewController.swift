@@ -1057,8 +1057,6 @@ extension VideoPlayerViewController {
         }
 
         if recognizer.state == .ended {
-            isGestureActive = false
-            setControlsHidden(true, animated: true)
             var animations : (() -> Void)?
             switch currentPanType {
             case .brightness:
@@ -1077,12 +1075,14 @@ extension VideoPlayerViewController {
                 break
             }
             if let animations = animations {
-                UIView.animate(withDuration: 0.2, delay: 1.0,
+                UIView.animate(withDuration: 0.2, delay: 0.5,
                                options: .beginFromCurrentState, animations: animations, completion: {
                     [brightnessBackgroundGradientLayer,
-                    volumeBackgroundGradientLayer] _ in
+                     volumeBackgroundGradientLayer] _ in
                     brightnessBackgroundGradientLayer.isHidden = true
                     volumeBackgroundGradientLayer.isHidden = true
+                    self.isGestureActive = false
+                    self.setControlsHidden(true, animated: true)
                 })
             }
 
@@ -1401,6 +1401,7 @@ internal extension VideoPlayerViewController {
         // To processd properly we have to check we're not interacting with UI controls or gesture
         if keyPath == "outputVolume" &&
             !volumeControlView.isBeingTouched && // Check we're not interacting with volume slider
+            !isGestureActive && // Check if the slider did not just changed value
             currentPanType != .volume { // Check we're not doing pan gestures for volume
             let appearAnimations = { [volumeControlView] in
                 volumeControlView.alpha = 1
