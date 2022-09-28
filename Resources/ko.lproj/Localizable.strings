@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "공유된 iOS용 VLC 라이브러리";
 "SMB_CIFS_FILE_SERVERS" = "파일 서버(SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "관리됨";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -272,7 +272,7 @@
 
 "PLAYBACK" = "재생";
 "REPEAT_MODE" = "반복";
-"REPEAT_DISABLED" = "사용하지 않음";
+"REPEAT_DISABLED" = "비활성화됨";
 "REPEAT_SINGLE" = "하나";
 "REPEAT_FOLDER" = "폴더";
 "SHUFFLE" = "순서섞기";
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "선택된 파일 이름 바꾸기";
 "DELETE_HINT" = "선택된 파일 삭제하기";
 
+"ADDITIONAL_OPTIONS" = "부가적인 옵션";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "정렬";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "오름차순 또는 내림차순";
 "DESCENDING_SWITCH_HINT" = "내용을 오름차순 또는 내림차순으로 정렬하기";
 "GRID_LAYOUT" = "격자";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "목록";
 "HIDE_FEAT_ARTISTS" = "기능 숨김. 아티스트";
+"HIDE_TRACK_NUMBERS" = "트랙 번호 숨기기";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "바로찾기 이름 바꾸기";
 "BOOKMARK_DELETE_TITLE" = "바로찾기 삭제";
 "BOOKMARK_DELETE_MESSAGE" = "바로찾기 삭제 확인";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "미디어 라이브러리 다시 검색 강제 지정";
