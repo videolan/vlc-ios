@@ -58,6 +58,7 @@ class ActionSheetSectionHeader: UIView {
         previousButton.setContentHuggingPriority(.required, for: .horizontal)
         previousButton.setContentHuggingPriority(.required, for: .vertical)
         previousButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+        previousButton.accessibilityLabel = NSLocalizedString("BUTTON_BACK", comment: "")
         previousButton.translatesAutoresizingMaskIntoConstraints = false
         previousButton.isHidden = true
         return previousButton

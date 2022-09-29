@@ -374,6 +374,7 @@
 "DESCENDING_SWITCH_LABEL" = "Ascending or descending order";
 "DESCENDING_SWITCH_HINT" = "Sort context in ascending or descending order";
 "GRID_LAYOUT" = "Grid Layout";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -447,6 +448,14 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Force media library rescan";
