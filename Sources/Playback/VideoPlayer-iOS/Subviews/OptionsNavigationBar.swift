@@ -33,6 +33,7 @@ class OptionsNavigationBar: UIStackView {
         let image = UIImage(named: "filter")?.withRenderingMode(.alwaysTemplate)
         videoFiltersButton.setImage(image, for: .normal)
         videoFiltersButton.tintColor = PresentationTheme.current.colors.orangeUI
+        videoFiltersButton.accessibilityLabel = NSLocalizedString("VIDEO_FILTER", comment: "")
         videoFiltersButton.contentHorizontalAlignment = .right
         videoFiltersButton.isHidden = true
         videoFiltersButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -45,6 +46,7 @@ class OptionsNavigationBar: UIStackView {
         let image = UIImage(named: "playback")?.withRenderingMode(.alwaysTemplate)
         playbackSpeedButton.setImage(image, for: .normal)
         playbackSpeedButton.tintColor = PresentationTheme.current.colors.orangeUI
+        playbackSpeedButton.accessibilityLabel = NSLocalizedString("PLAYBACK_SPEED", comment: "")
         playbackSpeedButton.contentHorizontalAlignment = .right
         playbackSpeedButton.isHidden = true
         playbackSpeedButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -57,6 +59,7 @@ class OptionsNavigationBar: UIStackView {
         let image = UIImage(named: "equalizer")?.withRenderingMode(.alwaysTemplate)
         equalizerButton.setImage(image, for: .normal)
         equalizerButton.tintColor = PresentationTheme.current.colors.orangeUI
+        equalizerButton.accessibilityLabel = NSLocalizedString("EQUALIZER_CELL_TITLE", comment: "")
         equalizerButton.contentHorizontalAlignment = .right
         equalizerButton.isHidden = true
         equalizerButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -69,6 +72,7 @@ class OptionsNavigationBar: UIStackView {
         let image = UIImage(named: "sleepTimer")?.withRenderingMode(.alwaysTemplate)
         sleepTimerButton.setImage(image, for: .normal)
         sleepTimerButton.tintColor = PresentationTheme.current.colors.orangeUI
+        sleepTimerButton.accessibilityLabel = NSLocalizedString("BUTTON_SLEEP_TIMER", comment: "")
         sleepTimerButton.contentHorizontalAlignment = .right
         sleepTimerButton.isHidden = true
         sleepTimerButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)

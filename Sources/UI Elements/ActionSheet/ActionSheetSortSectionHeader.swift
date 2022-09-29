@@ -134,7 +134,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
                                action: #selector(handleLayoutChangeSwitch(_:)),
                                for: .valueChanged)
         layoutChangeSwitch.accessibilityLabel = NSLocalizedString("GRID_LAYOUT", comment: "")
-        layoutChangeSwitch.accessibilityHint = NSLocalizedString("GRID_LAYOUT", comment: "")
+        layoutChangeSwitch.accessibilityHint = NSLocalizedString("GRID_LAYOUT_HINT", comment: "")
         layoutChangeSwitch.translatesAutoresizingMaskIntoConstraints = false
         return layoutChangeSwitch
     }()

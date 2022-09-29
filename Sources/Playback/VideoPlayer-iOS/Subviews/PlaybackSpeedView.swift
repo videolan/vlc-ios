@@ -93,9 +93,11 @@ class PlaybackSpeedView: UIView {
     }
 
 
-    private func setupSlider() {
+    private func setupSliderAndButtons() {
         let selectedIndex = optionsSegmentedControl.selectedSegmentIndex
         var currentButtonText: String = ""
+        var increaseAccessibilityHint: String = ""
+        var decreaseAccessibilityHint: String = ""
 
         if selectedIndex == 0 {
             speedSlider.minimumValue = minSpeed
@@ -104,6 +106,8 @@ class PlaybackSpeedView: UIView {
             minLabel.text = String(minSpeed)
             maxLabel.text = String(maxSpeed)
             currentButtonText = String(format: "%.2fx", speedSlider.value)
+            increaseAccessibilityHint = NSLocalizedString("INCREASE_PLAYBACK_SPEED", comment: "")
+            decreaseAccessibilityHint = NSLocalizedString("DECREASE_PLAYBACK_SPEED", comment: "")
         } else {
             speedSlider.minimumValue = minDelay
             speedSlider.maximumValue = maxDelay
@@ -112,21 +116,28 @@ class PlaybackSpeedView: UIView {
 
             if selectedIndex == 1 {
                 speedSlider.setValue(currentSubtitlesDelay, animated: true)
+                increaseAccessibilityHint = NSLocalizedString("INCREASE_SUBTITLES_DELAY", comment: "")
+                decreaseAccessibilityHint = NSLocalizedString("DECREASE_SUBTITLES_DELAY", comment: "")
             } else {
                 speedSlider.setValue(currentAudioDelay, animated: true)
+                increaseAccessibilityHint = NSLocalizedString("INCREASE_AUDIO_DELAY", comment: "")
+                decreaseAccessibilityHint = NSLocalizedString("DECREASE_AUDIO_DELAY", comment: "")
             }
 
             currentButtonText = String(format: "%.0f ms", speedSlider.value)
         }
 
         currentButton.setTitle(currentButtonText, for: .normal)
+        increaseSpeedButton.accessibilityLabel = NSLocalizedString("INCREASE_BUTTON", comment: "")
+        increaseSpeedButton.accessibilityHint = increaseAccessibilityHint
+        decreaseSpeedButton.accessibilityLabel = NSLocalizedString("DECREASE_BUTTON", comment: "")
+        decreaseSpeedButton.accessibilityHint = decreaseAccessibilityHint
     }
-
 
     @objc func handleSegmentedControlChange(_ control: UISegmentedControl) {
         let selectedIndex = control.selectedSegmentIndex
         delegate?.playbackSpeedViewHandleOptionChange(title: optionsSegmentedControl.titleForSegment(at: selectedIndex)!)
-        setupSlider()
+        setupSliderAndButtons()
     }
 
 
@@ -185,7 +196,7 @@ class PlaybackSpeedView: UIView {
             currentSpeed = vpc.playbackRate
             currentSubtitlesDelay = defaultDelay
             currentAudioDelay = defaultDelay
-            setupSlider()
+            setupSliderAndButtons()
 
             delegate?.playbackSpeedViewHideIcon()
         }
@@ -226,7 +237,7 @@ class PlaybackSpeedView: UIView {
         currentAudioDelay = defaultDelay
         vpc.audioDelay = currentAudioDelay
 
-        setupSlider()
+        setupSliderAndButtons()
     }
 
 
