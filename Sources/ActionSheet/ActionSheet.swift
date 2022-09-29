@@ -188,7 +188,6 @@ class ActionSheet: UIViewController {
         mainStackView.addArrangedSubview(collectionWrapperView)
 
         backgroundView.frame = UIScreen.main.bounds
-        backgroundView.isAccessibilityElement = true
 
         backgroundView.accessibilityLabel = NSLocalizedString("ACTIONSHEET_BACKGROUND_LABEL",
                                                               comment: "")
