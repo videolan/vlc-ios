@@ -4,6 +4,7 @@
 * Copyright © 2020 VLC authors and VideoLAN
 *
 * Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
+*                       Diogo Simao Marques <dogo@videolabs.io>
 *
 * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
@@ -87,7 +88,8 @@ import UIKit
             setupViews()
         }
     }
-    @objc var UIDelegate: EqualizerViewUIDelegate?
+
+    weak var UIDelegate: EqualizerViewUIDelegate?
 
     // Container views
     private let stackView = UIStackView()
@@ -373,9 +375,10 @@ extension EqualizerView {
 
     @objc func sliderDidChangeValue(sender: UISlider) {
         delegate?.setAmplification(CGFloat(sender.value), forBand: UInt32(sender.tag))
-        UIDelegate?.equalizerViewReceivedUserInput()
         showCancel = true
         parentPopup?.updateAccessoryViews()
+        UIDelegate?.equalizerViewShowIcon()
+        hideEqualizerIconIfNeeded()
     }
 
     @objc func sliderDidDrag(sender: UISlider) {
@@ -435,6 +438,18 @@ extension EqualizerView {
             sliderDidChangeValue(sender: eqFrequency.slider.slider)
             eqFrequency.currentValueLabel.text = "0.0"
         }
+
+        UIDelegate?.equalizerViewHideIcon()
+    }
+
+    private func hideEqualizerIconIfNeeded() {
+        for eqFrequency in eqFrequencies {
+            if eqFrequency.slider.value != 0 {
+                return
+            }
+        }
+
+        UIDelegate?.equalizerViewHideIcon()
     }
 }
 
@@ -443,7 +458,6 @@ extension EqualizerView {
 extension EqualizerView: EqualizerPresetSelectorDelegate {
     func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSetPreamp preamp: Float) {
         delegate?.preAmplification = CGFloat(preamp)
-        UIDelegate?.equalizerViewReceivedUserInput()
     }
 
     func equalizerPresetSelector(_ equalizerPresetSelector: EqualizerPresetSelector, didSelectPreset preset: Int) {
@@ -482,6 +496,7 @@ extension EqualizerView: PopupViewAccessoryViewsDelegate {
 
 // MARK: - EqualizerViewUIDelegate
 
-@objc protocol EqualizerViewUIDelegate {
-    @objc func equalizerViewReceivedUserInput()
+protocol EqualizerViewUIDelegate: AnyObject {
+    func equalizerViewShowIcon()
+    func equalizerViewHideIcon()
 }

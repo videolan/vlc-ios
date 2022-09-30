@@ -6,6 +6,7 @@
  *
  * Authors: Soomin Lee <bubu # mikan.io>
  *          Maxime Chapelet <umxprime # videolabs.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -1890,8 +1891,8 @@ extension VideoPlayerViewController: OptionsNavigationBarDelegate {
     }
 
     private func resetEqualizer() {
+        moreOptionsActionSheet.resetEqualizer()
         hideIcon(button: optionsNavigationBar.equalizerButton)
-        // FIXME: Reset Equalizer
     }
 
     private func resetSleepTimer() {

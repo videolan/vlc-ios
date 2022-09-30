@@ -5,6 +5,7 @@
  *
  * Authors: Robert Gordon <robwaynegordon@gmail.com>
  *          Maxime Chapelet <umxprime # videolabs.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  *
  * Refer to the COPYING file of the official project for license.
@@ -155,7 +156,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     }
 
     func resetEqualizer() {
-        // FIXME: Call the reset of the equalizer
+        equalizerView.resetEqualizer()
     }
 
     func resetSleepTimer() {
@@ -220,11 +221,11 @@ protocol MediaMoreOptionsActionSheetDelegate {
             preconditionFailure("PlaybackService should be EqualizerViewDelegate.")
         }
         equalizerView.delegate = playbackService
+        equalizerView.UIDelegate = self
         return equalizerView
     }()
 
     func resetOptionsIfNecessary() {
-        // FIXME: Reset Equalizer if needed
         playbackSpeedView.resetSlidersIfNeeded()
         updateThemes()
     }
@@ -366,6 +367,16 @@ extension MediaMoreOptionsActionSheet: BookmarksViewDelegate {
 
     func bookmarksViewCloseAddBookmarksView() {
         moreOptionsDelegate?.mediaMoreOptionsActionSheetRemoveAddBookmarksView()
+    }
+}
+
+extension MediaMoreOptionsActionSheet: EqualizerViewUIDelegate {
+    func equalizerViewShowIcon() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetShowIcon(for: .equalizer)
+    }
+
+    func equalizerViewHideIcon() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .equalizer)
     }
 }
 
