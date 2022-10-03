@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "Delt VLC for iOS-bibliotek";
 "SMB_CIFS_FILE_SERVERS" = "Filtenarar (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "Handsama";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -156,7 +156,7 @@
 "ONE_FILE" = "1 fil";
 "NO_FILES" = "Ingen støtta filer";
 "DOWNLOADING" = "Lastar ned…";
-"DOWNLOADING_MEDIA" = "Downloading: %@";
+"DOWNLOADING_MEDIA" = "Lastar ned: %@";
 "REMAINING_TIME" = "Attståande tid: %@";
 "BIOMETRIC_UNLOCK" = "Lås opp mediebiblioteket\nAvbryt for å skriva inn passord";
 
@@ -337,13 +337,13 @@
 
 // MARK: - EDIT
 
-"BUTTON_MENU" = "Menu";
+"BUTTON_MENU" = "Meny";
 "BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
 
 "BUTTON_EDIT" = "Rediger";
 "BUTTON_EDIT_HINT" = "Redigeringsmodus";
 
-"BUTTON_SELECT" = "Select";
+"BUTTON_SELECT" = "Vel";
 "BUTTON_SELECT_HINT" = "Select button";
 
 "BUTTON_SELECT_ALL" = "Select all";
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Endre namn på valde filer";
 "DELETE_HINT" = "Slett valde filer";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sorter";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Stigande eller fallande rekkjefølgje";
 "DESCENDING_SWITCH_HINT" = "Sorter kontekst i stigande eller fallande rekkjefølgje";
 "GRID_LAYOUT" = "Grid";
-"LIST_LAYOUT" = "List";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
+"LIST_LAYOUT" = "Liste";
 "HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"HIDE_TRACK_NUMBERS" = "Gøym spornummer";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -395,9 +399,9 @@
 "NB_AUDIO" = "Tal på lydspor";
 "NB_MEDIA" = "Tal på media";
 "NB_VIDEO" = "Tal på videospor";
-"NB_ALBUM" = "Number of albums";
-"LAST_PLAYBACK_DATE" = "Last playback date";
-"TRACK_ID" = "Track ID";
+"NB_ALBUM" = "Tal på album";
+"LAST_PLAYBACK_DATE" = "Siste avspelingsdato";
+"TRACK_ID" = "Spor-ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -457,11 +461,19 @@
 "EQUALIZER_CELL_TITLE" = "Tonekontroll";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoinnstillingar";
 "BOOKMARKS_TITLE" = "Bokmerke";
-"ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
+"ADD_BOOKMARKS_TITLE" = "Legg til bokmerke";
 "BOOKMARK_DEFAULT_NAME" = "Bookmark at";
 "BOOKMARK_RENAME_TITLE" = "Rename bookmark";
-"BOOKMARK_DELETE_TITLE" = "Delete bookmark";
-"BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
+"BOOKMARK_DELETE_TITLE" = "Slett bokmerke";
+"BOOKMARK_DELETE_MESSAGE" = "Stadfest sletting av bokmerket";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Tving ny skanning av mediebiblioteket";
