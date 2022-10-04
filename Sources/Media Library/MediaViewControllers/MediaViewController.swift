@@ -87,10 +87,14 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         }
         super.viewDidLoad()
         if #available(iOS 14.0, *) {
-            rightBarButtons = [menuButton, UIBarButtonItem(customView: rendererButton)]
+            rightBarButtons = [menuButton]
         } else {
-            rightBarButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
+            rightBarButtons = [editButton]
             leftBarButtons = [sortButton]
+        }
+
+        if !rendererButton.isHidden {
+            rightBarButtons?.append(UIBarButtonItem(customView: rendererButton))
         }
 
         viewControllers.forEach {
@@ -192,12 +196,14 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
             rightBarButtonItems.append(sortButton)
         }
 
+        if #available(iOS 14.0, *) {
+            rightBarButtonItems = [menuButton]
+        }
+
         if !rendererButton.isHidden {
             rightBarButtonItems.append(UIBarButtonItem(customView: rendererButton))
         }
-        if #available(iOS 14.0, *) {
-            rightBarButtonItems = [menuButton, UIBarButtonItem(customView: rendererButton)]
-        }
+
         return rightBarButtonItems
     }
 
@@ -247,9 +253,13 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
     func updateNavigationBarButtons(for viewController: MediaCategoryViewController, isEditing: Bool) {
         leftBarButtons = isEditing ? [selectAllButton] : nil
         if #available(iOS 14.0, *) {
-            rightBarButtons = isEditing ? [doneButton] : [menuButton, UIBarButtonItem(customView: rendererButton)]
+            rightBarButtons = isEditing ? [doneButton] : [menuButton]
         } else {
-            rightBarButtons = isEditing ? [doneButton] : [editButton, sortButton, UIBarButtonItem(customView: rendererButton)]
+            rightBarButtons = isEditing ? [doneButton] : [editButton]
+        }
+
+        if !rendererButton.isHidden {
+            rightBarButtons?.append(UIBarButtonItem(customView: rendererButton))
         }
 
         viewController.navigationItem.rightBarButtonItems = rightBarButtons
