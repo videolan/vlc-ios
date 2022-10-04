@@ -171,8 +171,10 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     private func leftBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem]? {
         var leftBarButtonItems = [UIBarButtonItem]()
 
-        if viewController is CollectionCategoryViewController ||
-            viewController is ArtistAlbumCategoryViewController {
+        if #available(iOS 14.0, *) {
+            return nil
+        } else if viewController is CollectionCategoryViewController ||
+                    viewController is ArtistAlbumCategoryViewController {
             return nil
         }
 
@@ -266,24 +268,40 @@ extension MediaViewController: MediaCategoryViewControllerDelegate {
 extension MediaViewController {
     @objc private func customSetEditing() {
         isEditing = !isEditing
+        var rightButtons: [UIBarButtonItem] = []
+
         if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController,
             mediaCategoryViewController.model is MediaGroupViewModel {
             leftBarButtons = isEditing ? [regroupButton, selectAllButton] : [sortButton]
-        } else if navigationController?.viewControllers.last is ArtistViewController {
-            leftBarButtons = viewControllers[currentIndex].isEditing ? [selectAllButton] : nil
+            rightButtons = [editButton]
+        } else if viewControllers[currentIndex] is ArtistAlbumCategoryViewController ||
+                    viewControllers[currentIndex] is CollectionCategoryViewController {
+            leftBarButtons = nil
+            rightButtons = [editButton, sortButton]
         } else {
             leftBarButtons = isEditing ? [selectAllButton] : [sortButton]
+            rightButtons = [editButton]
         }
 
-        var rightButtons = [editButton, UIBarButtonItem(customView: rendererButton)]
-
         if #available(iOS 14.0, *) {
-            rightButtons = [menuButton, UIBarButtonItem(customView: rendererButton)]
+            rightButtons = [menuButton]
             // No left buttons with UIMenu
             if isEditing == false {
                 leftBarButtons = nil
             }
         }
+
+        if !rendererButton.isHidden {
+            rightButtons.append(UIBarButtonItem(customView: rendererButton))
+        }
+
+        // Check if the playAllButton should be displayed
+        if navigationController?.viewControllers.last is ArtistViewController,
+           let viewController = viewControllers[currentIndex] as? CollectionCategoryViewController {
+            let playAllButton = viewController.getPlayAllButton()
+            rightButtons.append(playAllButton)
+        }
+
         rightBarButtons = isEditing ? [doneButton] : rightButtons
         navigationItem.rightBarButtonItems = rightBarButtons
         navigationItem.leftBarButtonItems = leftBarButtons
