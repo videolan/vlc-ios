@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "Geteilte VLC für iOS Mediathek";
 "SMB_CIFS_FILE_SERVERS" = "Dateiserver (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "Verwaltet";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Ausgewählte Dateien umbenennen";
 "DELETE_HINT" = "Ausgewählte Dateien löschen";
 
+"ADDITIONAL_OPTIONS" = "Zusätzliche Optionen";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sortieren";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Aufsteigende oder Absteigende Sortierung";
 "DESCENDING_SWITCH_HINT" = "Inhalt aufsteigend oder absteigend sortieren";
 "GRID_LAYOUT" = "Gitter";
+"GRID_LAYOUT_HINT" = "Elemente als Raster anzeigen";
 "LIST_LAYOUT" = "Liste";
 "HIDE_FEAT_ARTISTS" = "Vorgestellte Künstler ausblenden";
+"HIDE_TRACK_NUMBERS" = "Titelnummern ausblenden";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Lesezeichen umbenennen";
 "BOOKMARK_DELETE_TITLE" = "Lesezeichen löschen";
 "BOOKMARK_DELETE_MESSAGE" = "Löschung dieses Lesezeichens bestätigen";
+"INCREASE_BUTTON" = "Erhöhen-Schaltfläche";
+"INCREASE_PLAYBACK_SPEED" = "Wiedergabegeschwindigkeit erhöhen";
+"INCREASE_AUDIO_DELAY" = "Audioverzögerung erhöhen";
+"INCREASE_SUBTITLES_DELAY" = "Untertitel-Verzögerung erhöhen";
+"DECREASE_BUTTON" = "Reduzier-Schaltfläche";
+"DECREASE_PLAYBACK_SPEED" = "Wiedergabegeschwindigkeit verringern";
+"DECREASE_AUDIO_DELAY" = "Audioverzögerung verringern";
+"DECREASE_SUBTITLES_DELAY" = "Untertitel-Verzögerung verringern";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Medienbibliothek erneut durchsuchen";
