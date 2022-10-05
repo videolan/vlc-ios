@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "共有VLC for iOSライブラリ";
 "SMB_CIFS_FILE_SERVERS" = "ファイルサーバー (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "マネージド";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "選択されたファイルを変名";
 "DELETE_HINT" = "選択されたファイルを削除";
 
+"ADDITIONAL_OPTIONS" = "追加のオプション";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "並べ替え";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "昇順/逆順";
 "DESCENDING_SWITCH_HINT" = "並び替えの順序";
 "GRID_LAYOUT" = "グリッド";
+"GRID_LAYOUT_HINT" = "項目をグリッドで表示";
 "LIST_LAYOUT" = "リスト";
 "HIDE_FEAT_ARTISTS" = "フィーチャーとアーティストを隠す";
+"HIDE_TRACK_NUMBERS" = "トラック番号を非表示";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "ブックマークを変更";
 "BOOKMARK_DELETE_TITLE" = "ブックマークを削除";
 "BOOKMARK_DELETE_MESSAGE" = "ブックマークの削除の確認";
+"INCREASE_BUTTON" = "増加ボタン";
+"INCREASE_PLAYBACK_SPEED" = "再生速度を上げる";
+"INCREASE_AUDIO_DELAY" = "オーディオの遅延を増加させる";
+"INCREASE_SUBTITLES_DELAY" = "字幕の遅延を増加させる";
+"DECREASE_BUTTON" = "減少ボタン";
+"DECREASE_PLAYBACK_SPEED" = "再生速度を下げる";
+"DECREASE_AUDIO_DELAY" = "オーディオの遅延を減少させる";
+"DECREASE_SUBTITLES_DELAY" = "字幕の遅延を減少させる";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "メディアライブラリを強制的に再スキャン";
