@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "Libreria condivisa di VLC per iOS";
 "SMB_CIFS_FILE_SERVERS" = "File Server (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "Gestiti";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Rinomina file selezionati";
 "DELETE_HINT" = "Elimina file selezionati";
 
+"ADDITIONAL_OPTIONS" = "Opzioni aggiuntive";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Ordina";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Ordine crescente o decrescente";
 "DESCENDING_SWITCH_HINT" = "Mostra il contesto in ordine crescente o decrescente";
 "GRID_LAYOUT" = "Griglia";
+"GRID_LAYOUT_HINT" = "Visualizza gli elementi come una griglia";
 "LIST_LAYOUT" = "Elenco";
 "HIDE_FEAT_ARTISTS" = "Nascondi collaborazioni";
+"HIDE_TRACK_NUMBERS" = "Nascondi numeri di traccia";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Rinomina segnalibro";
 "BOOKMARK_DELETE_TITLE" = "Elimina segnalibro";
 "BOOKMARK_DELETE_MESSAGE" = "Conferma l'eliminazione del segnalibro";
+"INCREASE_BUTTON" = "Pulsante di aumento";
+"INCREASE_PLAYBACK_SPEED" = "Aumenta la velocità di riproduzione";
+"INCREASE_AUDIO_DELAY" = "Aumenta il ritardo dell'audio";
+"INCREASE_SUBTITLES_DELAY" = "Aumenta il ritardo dei sottotitoli";
+"DECREASE_BUTTON" = "Pulsante di riduzione";
+"DECREASE_PLAYBACK_SPEED" = "Riduci la velocità di riproduzione";
+"DECREASE_AUDIO_DELAY" = "Riduci il ritardo dell'audio";
+"DECREASE_SUBTITLES_DELAY" = "Riduci il ritardo dei sottotitoli";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Forza nuova scansione della raccolta multimediale";
