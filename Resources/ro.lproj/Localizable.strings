@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "VLC comun pentru biblioteca iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servere de fișiere (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "Gestionat";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Redenumiți fișierele selectate";
 "DELETE_HINT" = "Ștergeți fișierele selectate";
 
+"ADDITIONAL_OPTIONS" = "Opțiuni suplimentare";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sortare";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Ordine crescătoare sau descrescătoare";
 "DESCENDING_SWITCH_HINT" = "Sortarea contextului în ordine crescătoare sau descrescătoare";
 "GRID_LAYOUT" = "Grilă";
+"GRID_LAYOUT_HINT" = "Afișează elementele ca o grilă";
 "LIST_LAYOUT" = "Listă";
 "HIDE_FEAT_ARTISTS" = "Ascunde-i pe ceilalți artiști";
+"HIDE_TRACK_NUMBERS" = "Ascunde numerele pistei";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Redenumește semnul de carte";
 "BOOKMARK_DELETE_TITLE" = "Șterge semnul de carte";
 "BOOKMARK_DELETE_MESSAGE" = "Confirmă ștergerea semnului de carte";
+"INCREASE_BUTTON" = "Buton de creștere";
+"INCREASE_PLAYBACK_SPEED" = "Crește viteza listei de redare";
+"INCREASE_AUDIO_DELAY" = "Crește viteza audio";
+"INCREASE_SUBTITLES_DELAY" = "Crește viteza subtitrărilor";
+"DECREASE_BUTTON" = "Buton de scădere";
+"DECREASE_PLAYBACK_SPEED" = "Scade viteza listei de redare";
+"DECREASE_AUDIO_DELAY" = "Scade întârzierea audio";
+"DECREASE_SUBTITLES_DELAY" = "Scade întârzierea subtitrărilor";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Forțați rescanarea bibliotecii media";
