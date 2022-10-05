@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "Delt VLC til iOS-bibliotek";
 "SMB_CIFS_FILE_SERVERS" = "Filservere (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "Styret";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -156,7 +156,7 @@
 "ONE_FILE" = "1 fil";
 "NO_FILES" = "Ingen understøttede filer";
 "DOWNLOADING" = "Downloader ...";
-"DOWNLOADING_MEDIA" = "Downloading: %@";
+"DOWNLOADING_MEDIA" = "Henter: %@";
 "REMAINING_TIME" = "Resterende tid: %@";
 "BIOMETRIC_UNLOCK" = "Lås mediebibliotek op\nAnnuller for at indtaste adgangskode";
 
@@ -195,7 +195,7 @@
 "NEXT_BUTTON" = "Næste";
 "PREV_BUTTON" = "Forrige";
 "PLAY_ALL_BUTTON" = "Afspil alle";
-"PLAY_ALL_HINT" = "Play all the medias in the collection";
+"PLAY_ALL_HINT" = "Afspil alle medier i samlingen";
 
 "RESET_VIDEO_FILTERS" = "Vil du nulstille videofiltrene?";
 "RESET_PLAYBACK_SPEED" = "Vil du nulstille afspilningshastigheden?";
@@ -338,7 +338,7 @@
 // MARK: - EDIT
 
 "BUTTON_MENU" = "Menu";
-"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+"BUTTON_MENU_HINT" = "Vælg, arrangér og sortér medier i denne visning";
 
 "BUTTON_EDIT" = "Rediger";
 "BUTTON_EDIT_HINT" = "Redigeringstilstand";
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Omdøb de valgte filer";
 "DELETE_HINT" = "Slet de valgte filer";
 
+"ADDITIONAL_OPTIONS" = "Yderligere indstillinger";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sortér";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Stigende eller faldende rækkefølge";
 "DESCENDING_SWITCH_HINT" = "Sortér indholdet i stigende eller faldende rækkefølge";
 "GRID_LAYOUT" = "Gitter";
+"GRID_LAYOUT_HINT" = "Vis elementerne i et gitter";
 "LIST_LAYOUT" = "Liste";
 "HIDE_FEAT_ARTISTS" = "Skjul deltagende kunstnere";
+"HIDE_TRACK_NUMBERS" = "Skjul spornumre";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Omdøb bogmærke";
 "BOOKMARK_DELETE_TITLE" = "Slet bogmærke";
 "BOOKMARK_DELETE_MESSAGE" = "Bekræft sletning af bogmærket";
+"INCREASE_BUTTON" = "Forøg knap";
+"INCREASE_PLAYBACK_SPEED" = "Øg afspilningshastigheden";
+"INCREASE_AUDIO_DELAY" = "Øg lydforsinkelsen";
+"INCREASE_SUBTITLES_DELAY" = "Øg undertekstforsinkelsen";
+"DECREASE_BUTTON" = "Sænk knap";
+"DECREASE_PLAYBACK_SPEED" = "Sænk afspilningshastigheden";
+"DECREASE_AUDIO_DELAY" = "Formindsk lydforsinkelsen";
+"DECREASE_SUBTITLES_DELAY" = "Formindsk undertekstforsinkelsen";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Tving genskanning af mediebibliotek";
