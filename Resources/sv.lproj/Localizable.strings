@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "Delat bibliotek för VLC för iOS";
 "SMB_CIFS_FILE_SERVERS" = "Filservrar (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "Hanterade";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Byt namn på markerade filer";
 "DELETE_HINT" = "Radera markerade filer";
 
+"ADDITIONAL_OPTIONS" = "Ytterligare alternativ";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sortera";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Stigande eller fallande ordning";
 "DESCENDING_SWITCH_HINT" = "Sortera alternativmenyn i stigande eller fallande ordning";
 "GRID_LAYOUT" = "Rutnät";
+"GRID_LAYOUT_HINT" = "Visa objekten som ett rutnät";
 "LIST_LAYOUT" = "Lista";
 "HIDE_FEAT_ARTISTS" = "Dölj gästartister";
+"HIDE_TRACK_NUMBERS" = "Dölj spårnummer";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Byt namn på bokmärke";
 "BOOKMARK_DELETE_TITLE" = "Radera bokmärke";
 "BOOKMARK_DELETE_MESSAGE" = "Bekräfta radering av bokmärket";
+"INCREASE_BUTTON" = "Plusknapp";
+"INCREASE_PLAYBACK_SPEED" = "Öka uppspelningshastigheten";
+"INCREASE_AUDIO_DELAY" = "Öka ljudfördröjningen";
+"INCREASE_SUBTITLES_DELAY" = "Öka undertextfördröjningen";
+"DECREASE_BUTTON" = "Minusknapp";
+"DECREASE_PLAYBACK_SPEED" = "Minska uppspelningshastigheten";
+"DECREASE_AUDIO_DELAY" = "Minska ljudfördröjningen";
+"DECREASE_SUBTITLES_DELAY" = "Minska undertextfördröjningen";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Tvinga genomsökning av mediabiblioteket";
