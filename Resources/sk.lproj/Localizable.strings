@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "Zdieľaná knižnica VLC for iOS";
 "SMB_CIFS_FILE_SERVERS" = "Súborové servery (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "Spravované";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Premenovať vybrané súbory";
 "DELETE_HINT" = "Vymazať vybrané súbory";
 
+"ADDITIONAL_OPTIONS" = "Dodatočné možnosti";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Zoradiť";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Vzostupné alebo zostupné poradie";
 "DESCENDING_SWITCH_HINT" = "Zoradiť kontext vzostupne alebo zostupne";
 "GRID_LAYOUT" = "Mriežka";
+"GRID_LAYOUT_HINT" = "Zobrazovať položky vo forme mriežky";
 "LIST_LAYOUT" = "Zoznam";
 "HIDE_FEAT_ARTISTS" = "Skryť uvádzaných umelcov";
+"HIDE_TRACK_NUMBERS" = "Skryť čísla stôp";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Premenovať záložku";
 "BOOKMARK_DELETE_TITLE" = "Vymazať záložku";
 "BOOKMARK_DELETE_MESSAGE" = "Potvrďte vymazanie záložky";
+"INCREASE_BUTTON" = "Tlačidlo pre zvýšenie";
+"INCREASE_PLAYBACK_SPEED" = "Zvýšiť rýchlosť prehrávania";
+"INCREASE_AUDIO_DELAY" = "Zväčšiť oneskorenie zvuku";
+"INCREASE_SUBTITLES_DELAY" = "Zväčšiť oneskorenie titulkov";
+"DECREASE_BUTTON" = "Tlačidlo pre zníženie";
+"DECREASE_PLAYBACK_SPEED" = "Znížiť rýchlosť prehrávania";
+"DECREASE_AUDIO_DELAY" = "Zmenšiť oneskorenie zvuku";
+"DECREASE_SUBTITLES_DELAY" = "Zmenšiť oneskorenie titulkov";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Vynútiť si opätovné skenovanie knižnice médií";
