@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "שתף את ספריית ה VLC ל iOS";
 "SMB_CIFS_FILE_SERVERS" = "שרתי קבצים (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "מנוהל";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "שינוי שמם של הקבצים הנבחרים";
 "DELETE_HINT" = "מחיקת הקבצים הנבחרים";
 
+"ADDITIONAL_OPTIONS" = "אפשרויות נוספות";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "מיון";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "בסדר עולה או יורד";
 "DESCENDING_SWITCH_HINT" = "מיון הקשר בסדר עולה או יורד";
 "GRID_LAYOUT" = "רשת";
+"GRID_LAYOUT_HINT" = "הצגת הפריטים כרשת";
 "LIST_LAYOUT" = "רשימה";
 "HIDE_FEAT_ARTISTS" = "הסתרת אומנים מובילים";
+"HIDE_TRACK_NUMBERS" = "הסתרת מספרי רצועות";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "שינוי שם סימניה";
 "BOOKMARK_DELETE_TITLE" = "מחיקת סימניה";
 "BOOKMARK_DELETE_MESSAGE" = "אישור מחיקת הסימניה";
+"INCREASE_BUTTON" = "כפתור האצה";
+"INCREASE_PLAYBACK_SPEED" = "האצת מהירות הנגינה";
+"INCREASE_AUDIO_DELAY" = "הגדלת השהיית השמע";
+"INCREASE_SUBTITLES_DELAY" = "הגדלת השהיית הכתוביות";
+"DECREASE_BUTTON" = "כפתור האטה";
+"DECREASE_PLAYBACK_SPEED" = "האטת מהירות הנגינה";
+"DECREASE_AUDIO_DELAY" = "צמצום השהיית השמע";
+"DECREASE_SUBTITLES_DELAY" = "צמצום השהיית הכתוביות";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "אילוץ סריקת ספריית המדיה מחדש";
