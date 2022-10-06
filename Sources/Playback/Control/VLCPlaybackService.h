@@ -8,6 +8,7 @@
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Tobias Conradi <videolan # tobias-conradi.de>
  *          Maxime Chapelet <umxprime # videolabs.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -66,7 +67,7 @@ NS_SWIFT_NAME(PlaybackService)
 
 /* returns nil if currently playing item is not available,*/
 
-@property (nonatomic, strong, readonly) VLCMedia *currentlyPlayingMedia;
+@property (nonatomic, strong, readonly, nullable) VLCMedia *currentlyPlayingMedia;
 
 @property (nonatomic, weak) id<VLCPlaybackServiceDelegate> delegate;
 

@@ -1764,7 +1764,10 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
     }
 
     func mediaMoreOptionsActionSheetGetCurrentMedia() -> VLCMLMedia? {
-        let media = playbackService.currentlyPlayingMedia
+        guard let media = playbackService.currentlyPlayingMedia else {
+            return nil
+        }
+
         let currentMedia = services.medialibraryService.fetchMedia(with: media.url)
         return currentMedia
     }
