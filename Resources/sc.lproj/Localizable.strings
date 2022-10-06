@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "Biblioteca cumpartzida de VLC pro iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servers pro sos documentos (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "Gestidos";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Càmbia su nùmene a sos documentos isseberados";
 "DELETE_HINT" = "Iscantzella sos documentos isseberados";
 
+"ADDITIONAL_OPTIONS" = "Optziones additzionales";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Òrdina";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Òrdine artiante o minimante";
 "DESCENDING_SWITCH_HINT" = "Òrdina su cuntestu in manera artiante o minimante";
 "GRID_LAYOUT" = "Grìllia";
+"GRID_LAYOUT_HINT" = "Ammustra sos elementos in una grìllia";
 "LIST_LAYOUT" = "Lista";
 "HIDE_FEAT_ARTISTS" = "Cua sos artistas collaboradores";
+"HIDE_TRACK_NUMBERS" = "Cua sos nùmeros de rasta";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Muda unu sinnalibru de nùmene";
 "BOOKMARK_DELETE_TITLE" = "Iscantzella unu sinnalibru";
 "BOOKMARK_DELETE_MESSAGE" = "Cunfirma s'iscantzellamentu de su sinnalibru";
+"INCREASE_BUTTON" = "Butone de aumentu";
+"INCREASE_PLAYBACK_SPEED" = "Aumenta sa lestresa de riprodutzione";
+"INCREASE_AUDIO_DELAY" = "Aumenta su ritardu de s'àudio";
+"INCREASE_SUBTITLES_DELAY" = "Aumenta su ritardu de sos sutatìtulos";
+"DECREASE_BUTTON" = "Butone de minimada";
+"DECREASE_PLAYBACK_SPEED" = "Mìnima sa lestresa de riprodutzione";
+"DECREASE_AUDIO_DELAY" = "Mìnima su ritardu de s'àudio";
+"DECREASE_SUBTITLES_DELAY" = "Mìnima su ritardu de sos sutatìtulos";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Fortza un'iscansidura noa de sa biblioteca multimediale";
