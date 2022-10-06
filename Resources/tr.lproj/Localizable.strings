@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "iOS kitaplığı için paylaşılan VLC";
 "SMB_CIFS_FILE_SERVERS" = "Dosya sunucuları (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "Yönetilen";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "Seçilmiş dosyaları yeniden adlandır";
 "DELETE_HINT" = "Seçilmiş dosyaları sil";
 
+"ADDITIONAL_OPTIONS" = "Ek ayarlar";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sıralama";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Artan ya da azalan sıralama";
 "DESCENDING_SWITCH_HINT" = "İçeriği artan ya da azalan şekilde sıralar";
 "GRID_LAYOUT" = "Tablo";
+"GRID_LAYOUT_HINT" = "Ögeleri tablo biçiminde görüntüle";
 "LIST_LAYOUT" = "Liste";
 "HIDE_FEAT_ARTISTS" = "Sanatçı gizlensin";
+"HIDE_TRACK_NUMBERS" = "Kayıt numaraları gizlensin";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Yer imini yeniden adlandır";
 "BOOKMARK_DELETE_TITLE" = "Yer imini sil";
 "BOOKMARK_DELETE_MESSAGE" = "Yer imini silmeyi onayla";
+"INCREASE_BUTTON" = "Artırma düğmesi";
+"INCREASE_PLAYBACK_SPEED" = "Oynatma hızını artır";
+"INCREASE_AUDIO_DELAY" = "Ses gecikmesini artır";
+"INCREASE_SUBTITLES_DELAY" = "Alt yazı gecikmesini artır";
+"DECREASE_BUTTON" = "Azaltma düğmesi";
+"DECREASE_PLAYBACK_SPEED" = "Oynatma hızını azalt";
+"DECREASE_AUDIO_DELAY" = "Ses gecikmesini azalt";
+"DECREASE_SUBTITLES_DELAY" = "Alt yazı gecikmesini azalt";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Ortam kitaplığı yeniden taranmaya zorlansın";
