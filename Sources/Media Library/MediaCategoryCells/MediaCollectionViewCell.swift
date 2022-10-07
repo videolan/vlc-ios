@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -46,7 +47,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     private var vibrationTriggered: Bool = false
     private var isDeleteDisplayed: Bool = false
     private var hasXGoneNegative: Bool = false
+    private var isMediaBeingPlayed: Bool = false
 
+    private let playbackService: PlaybackService = PlaybackService.sharedInstance()
     private let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
 
     var ignoreThemeDidChange: Bool = false
@@ -273,7 +276,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     @objc fileprivate func dynamicFontSizeChange() {
         newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
-        titleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+        titleLabel.font = isMediaBeingPlayed ? UIFont.preferredFont(forTextStyle: .title3).bolded : UIFont.preferredFont(forTextStyle: .title3)
         sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
     }
 
@@ -293,11 +296,27 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         if let albumTitle = audiotrack.album?.title, !albumTitle.isEmpty {
             descriptionText += " · " + albumTitle
         }
+
+        if let currentMedia = playbackService.currentlyPlayingMedia,
+           let audiotrackURL = audiotrack.mainFile()?.mrl,
+           let currentMediaURL = currentMedia.url,
+           currentMediaURL == audiotrackURL {
+            isMediaBeingPlayed = true
+        } else {
+            isMediaBeingPlayed = false
+        }
+
+        let colors = PresentationTheme.current.colors
+        titleLabel.textColor = isMediaBeingPlayed ? colors.orangeUI : colors.cellTextColor
+
         if isEditing {
             sizeDescriptionLabel.text = String(format: "%@ · %@", descriptionText, audiotrack.formatSize())
         } else {
             sizeDescriptionLabel.text = descriptionText
         }
+
+        dynamicFontSizeChange()
+
         newLabel.isHidden = !audiotrack.isNew
         thumbnailView.image = audiotrack.thumbnailImage()
         scrollView.isScrollEnabled = true
