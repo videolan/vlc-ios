@@ -86,7 +86,7 @@
 "SHARED_VLC_IOS_LIBRARY" = "Megosztott VLC for iOS médiatár";
 "SMB_CIFS_FILE_SERVERS" = "Fájlkiszolgálók (SMB)";
 
-"MANAGED_SERVERS" = "Managed";
+"MANAGED_SERVERS" = "Felügyelt";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -367,6 +367,8 @@
 "RENAME_HINT" = "A kiválasztott fájlok átnevezése";
 "DELETE_HINT" = "A kiválasztott fájlok törlése";
 
+"ADDITIONAL_OPTIONS" = "További beállítások";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Rendezés";
@@ -376,8 +378,10 @@
 "DESCENDING_SWITCH_LABEL" = "Növekvő vagy csökkenő sorrend";
 "DESCENDING_SWITCH_HINT" = "Helyi menü rendezése növekvő vagy csökkenő sorrendben";
 "GRID_LAYOUT" = "Rács";
+"GRID_LAYOUT_HINT" = "Az elemek megjelenítése rácsként";
 "LIST_LAYOUT" = "Lista";
 "HIDE_FEAT_ARTISTS" = "Társelőadók elrejtése";
+"HIDE_TRACK_NUMBERS" = "Számok sorszámának megjelenítése";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -462,6 +466,14 @@
 "BOOKMARK_RENAME_TITLE" = "Könyvjelző átnevezése";
 "BOOKMARK_DELETE_TITLE" = "Könyvjelző törlése";
 "BOOKMARK_DELETE_MESSAGE" = "Erősítse meg a könyvjelző törlését";
+"INCREASE_BUTTON" = "Növelési gomb";
+"INCREASE_PLAYBACK_SPEED" = "Lejátszási sebesség növelése";
+"INCREASE_AUDIO_DELAY" = "Hangkésleltetés növelése";
+"INCREASE_SUBTITLES_DELAY" = "Feliratkésleltetés növelése";
+"DECREASE_BUTTON" = "Csökkentési gomb";
+"DECREASE_PLAYBACK_SPEED" = "Lejátszási sebesség csökkentése";
+"DECREASE_AUDIO_DELAY" = "Hangkésleltetés csökkentése";
+"DECREASE_SUBTITLES_DELAY" = "Feliratkésleltetés csökkentése";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Médiatár átvizsgálásának kényszerítése";
