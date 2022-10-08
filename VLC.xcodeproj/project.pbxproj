@@ -1338,7 +1338,7 @@
 		7D0C208828C899B800CCFFEF /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
-				7DF90B451BE7A8030059C0E3 /* InAppSettingsKit */,
+				7D37195828F1C20A00C5A9F2 /* InAppSettingsKit */,
 				7DC0B56D1C0094370027BFAD /* VLCSettingsViewController.h */,
 				7DC0B56E1C0094370027BFAD /* VLCSettingsViewController.m */,
 				7DC0B56F1C0094370027BFAD /* VLCSettingsViewController.xib */,
@@ -1642,6 +1642,17 @@
 				417E68B81F321EFF00DB9BB2 /* VLCActivityViewControllerVendor.m */,
 			);
 			path = "Activity View";
+			sourceTree = "<group>";
+		};
+		7D37195828F1C20A00C5A9F2 /* InAppSettingsKit */ = {
+			isa = PBXGroup;
+			children = (
+				7DF90B461BE7A8110059C0E3 /* IASKSettingsReader.h */,
+				7DF90B471BE7A8110059C0E3 /* IASKSettingsReader.m */,
+				7DF90B481BE7A8110059C0E3 /* IASKSpecifier.h */,
+				7DF90B491BE7A8110059C0E3 /* IASKSpecifier.m */,
+			);
+			name = InAppSettingsKit;
 			sourceTree = "<group>";
 		};
 		7D8986D7278B0C30005396AA /* Thumbnail Cache */ = {
@@ -2400,18 +2411,6 @@
 				91F8BF1727318D890058D9DE /* StoreProductCollectionViewCell.swift */,
 			);
 			path = "Store Integration";
-			sourceTree = "<group>";
-		};
-		7DF90B451BE7A8030059C0E3 /* InAppSettingsKit */ = {
-			isa = PBXGroup;
-			children = (
-				7DF90B461BE7A8110059C0E3 /* IASKSettingsReader.h */,
-				7DF90B471BE7A8110059C0E3 /* IASKSettingsReader.m */,
-				7DF90B481BE7A8110059C0E3 /* IASKSpecifier.h */,
-				7DF90B491BE7A8110059C0E3 /* IASKSpecifier.m */,
-			);
-			name = InAppSettingsKit;
-			path = "../../../Apple-TV";
 			sourceTree = "<group>";
 		};
 		8D144D6122298E5800984C46 /* MiniPlayer-iOS */ = {
