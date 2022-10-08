@@ -439,8 +439,9 @@ extension EqualizerView {
             eqFrequency.currentValueLabel.text = "0.0"
         }
 
-        delegate?.preAmplification = 0
-        presetSelectorView?.setPreampSliderValue(0)
+        let preampValue = UserDefaults.standard.float(forKey: kVLCSettingDefaultPreampLevel)
+        delegate?.preAmplification = CGFloat(preampValue)
+        presetSelectorView?.setPreampSliderValue(preampValue)
 
         UIDelegate?.equalizerViewHideIcon()
     }

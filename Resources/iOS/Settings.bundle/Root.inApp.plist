@@ -602,6 +602,32 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_AUDIO_PREAMP_LEVEL</string>
+			<key>Key</key>
+			<string>pre-amp-level</string>
+			<key>DefaultValue</key>
+			<integer>6</integer>
+			<key>Titles</key>
+			<array>
+				<string>-12 dB</string>
+				<string>-6 dB</string>
+				<string>0 dB</string>
+				<string>6 dB</string>
+				<string>12 dB</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>-12</integer>
+				<integer>-6</integer>
+				<integer>0</integer>
+				<integer>6</integer>
+				<integer>12</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_TIME_STRETCH_AUDIO</string>

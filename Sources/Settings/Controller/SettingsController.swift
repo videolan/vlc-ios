@@ -407,6 +407,9 @@ extension SettingsController {
             playHaptics(sectionType: subtitleSection)
             showActionSheet(for: subtitleSection)
         case .audio:
+            let audioSection = AudioOptions(rawValue: indexPath.row)
+            playHaptics(sectionType: audioSection)
+            showActionSheet(for: audioSection)
             break
         case .casting:
             let castingSection = CastingOptions(rawValue: indexPath.row)

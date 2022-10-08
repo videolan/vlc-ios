@@ -2,7 +2,7 @@
  * VLCTVConstants.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2015, 2021 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -56,6 +56,7 @@
 #define kVLCSettingStretchAudioOnValue @"1"
 #define kVLCSettingStretchAudioOffValue @"0"
 #define kVLCSettingContinueAudioInBackgroundKey @"BackgroundAudioPlayback"
+#define kVLCSettingDefaultPreampLevel @"pre-amp-level"
 #define kVLCSettingSubtitlesFilePath @"sub-file"
 #define kVLCSettingEqualizerProfile @"EqualizerProfile"
 #define kVLCSettingEqualizerProfileDisabled @"EqualizerDisabled"

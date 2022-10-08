@@ -465,11 +465,14 @@ enum CastingOptions: Int, CaseIterable, SectionType {
 }
 
 enum AudioOptions: Int, CaseIterable, SectionType {
+    case preampLevel
     case timeStretchingAudio
     case audioPlaybackInBackground
 
     var description: String {
         switch self {
+        case .preampLevel:
+            return "SETTINGS_AUDIO_PREAMP_LEVEL"
         case .timeStretchingAudio:
             return "SETTINGS_TIME_STRETCH_AUDIO"
         case .audioPlaybackInBackground:
@@ -477,18 +480,29 @@ enum AudioOptions: Int, CaseIterable, SectionType {
         }
     }
 
-    var containsSwitch: Bool { return true }
+    var containsSwitch: Bool {
+        switch self {
+        case .preampLevel:
+            return false
+        default:
+            return true
+        }
+    }
     var subtitle: String? {
         switch self {
+        case .preampLevel:
+            return "6 dB"
         case .timeStretchingAudio:
             return "SETTINGS_TIME_STRETCH_AUDIO_LONG"
-        case .audioPlaybackInBackground:
+        default:
             return nil
         }
     }
 
     var preferenceKey: String? {
         switch self {
+        case .preampLevel:
+            return kVLCSettingDefaultPreampLevel
         case .timeStretchingAudio:
             return kVLCSettingStretchAudio
         case .audioPlaybackInBackground:
