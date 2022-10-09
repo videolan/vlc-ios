@@ -308,6 +308,23 @@
 		<string>org.videolan.vlc-ios.libraryselection</string>
 		<string>org.videolan.vlc-ios.playing</string>
 	</array>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>VLCDefaultAppScene</string>
+					<key>UISceneDelegateClassName</key>
+					<string>VLCAppSceneDelegate</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>

@@ -19,4 +19,6 @@
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, assign) UIInterfaceOrientationMask orientationLock;
 
+- (void)setupApplicationCoordinator;
+
 @end

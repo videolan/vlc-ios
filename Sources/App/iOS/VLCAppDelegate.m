@@ -19,13 +19,13 @@
 
 #import "VLCAppDelegate.h"
 #import "VLC-Swift.h"
+#import "VLCAppSceneDelegate.h"
 
 @interface VLCAppDelegate ()
 {
     BOOL _isComingFromHandoff;
     VLCKeychainCoordinator *_keychainCoordinator;
     AppCoordinator *appCoordinator;
-    UITabBarController *rootViewController;
     id<VLCURLHandler> _urlHandlerToExecute;
     NSURL *_urlToHandle;
 }
@@ -99,7 +99,7 @@
 - (void)setupApplicationCoordinator
 {
     void (^setupAppCoordinator)(void) = ^{
-        self->appCoordinator = [[AppCoordinator alloc] initWithTabBarController:self->rootViewController];
+        self->appCoordinator = [[AppCoordinator alloc] initWithTabBarController:(UITabBarController *)self->_window.rootViewController];
         [self->appCoordinator start];
     };
     [self validatePasscodeIfNeededWithCompletion:setupAppCoordinator];
@@ -135,17 +135,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
-
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    rootViewController = [UITabBarController new];
-    self.window.rootViewController = rootViewController;
-    [self.window makeKeyAndVisible];
-    [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
     if (@available(iOS 13.0, *)) {
-        [VLCAppearanceManager setupUserInterfaceStyleWithTheme:PresentationTheme.current];
+        APLog(@"Using Scene flow");
+    } else {
+        APLog(@"Using Traditional flow");
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.window.rootViewController = [UITabBarController new];
+        [self.window makeKeyAndVisible];
+        [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
+        [self setupApplicationCoordinator];
     }
-    [self setupApplicationCoordinator];
+    self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
 
     [self configureShortCutItemsWithApplication:application];
 
@@ -201,7 +201,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    //Touch ID is shown 
+    //Touch ID is shown
     if ([_window.rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]){
         UINavigationController *navCon = (UINavigationController *)_window.rootViewController.presentedViewController;
         if ([navCon.topViewController isKindOfClass:[PasscodeLockController class]]){
@@ -262,6 +262,18 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
     return self.orientationLock;
+}
+
+#pragma mark - UISceneSession lifecycle
+
+- (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
+                              options:(UISceneConnectionOptions *)options  API_AVAILABLE(ios(13.0))
+{
+    return [[UISceneConfiguration alloc] initWithName:@"VLCDefaultAppScene" sessionRole:connectingSceneSession.role];
+}
+
+- (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions  API_AVAILABLE(ios(13.0))
+{
 }
 
 @end
