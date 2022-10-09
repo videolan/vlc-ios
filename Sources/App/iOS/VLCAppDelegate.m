@@ -152,6 +152,11 @@
     return YES;
 }
 
+- (id)appCoordinator
+{
+    return _appCoordinator;
+}
+
 #pragma mark - Handoff
 
 - (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType
@@ -266,7 +271,11 @@
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
                               options:(UISceneConnectionOptions *)options  API_AVAILABLE(ios(13.0))
 {
-    return [[UISceneConfiguration alloc] initWithName:@"VLCDefaultAppScene" sessionRole:connectingSceneSession.role];
+    UISceneSessionRole role = connectingSceneSession.role;
+    if ([role isEqualToString:@"CPTemplateApplicationSceneSessionRoleApplication"]) {
+        return [[UISceneConfiguration alloc] initWithName:@"VLCCarPlayScene" sessionRole:role];
+    }
+    return [[UISceneConfiguration alloc] initWithName:@"VLCDefaultAppScene" sessionRole:role];
 }
 
 - (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions  API_AVAILABLE(ios(13.0))

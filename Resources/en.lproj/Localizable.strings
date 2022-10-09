@@ -21,6 +21,7 @@
 "ONE_SPU_TRACK" = "One subtitles track";
 "TRACKS" = "%i Tracks";
 "TRACK" = "%i Track";
+"TRACKS_DURATION" = "%u tracks, duration: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Connected";
 "PLAYING_EXTERNALLY_DESC" = "This video is playing on the TV";
@@ -566,3 +567,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
 "TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+

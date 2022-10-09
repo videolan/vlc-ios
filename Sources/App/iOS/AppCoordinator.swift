@@ -19,7 +19,7 @@ class Services: NSObject {
 }
 
 @objc class AppCoordinator: NSObject {
-    private var services = Services()
+    @objc let services = Services()
     private var childCoordinators: [NSObject] = []
     private var playerDisplayController: VLCPlayerDisplayController
     private var tabBarController: UITabBarController

@@ -92,6 +92,8 @@ class TitleSelectionTableViewCell: UITableViewCell {
 class TitleSelectionView: UIView {
     // MARK: - Properties
 
+    private var viewConfigured: Bool = false
+
     weak var delegate: TitleSelectionViewDelegate?
 
     private lazy var playbackService = PlaybackService.sharedInstance()
@@ -169,9 +171,6 @@ class TitleSelectionView: UIView {
         addSubview(backgroundView)
         addSubview(mainStackView)
         mainStackView.axis = orientation
-        setupStackView()
-        setupTableViews()
-        setupConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -179,6 +178,12 @@ class TitleSelectionView: UIView {
     }
 
     func reload() {
+        if !viewConfigured {
+            setupStackView()
+            setupTableViews()
+            setupConstraints()
+            viewConfigured = true
+        }
         audioTableView.reloadData()
         subtitleTableView.reloadData()
     }
@@ -224,13 +229,13 @@ private extension TitleSelectionView {
         audioTableView.delegate = self
         audioTableView.register(TitleSelectionTableViewCell.self,
                                 forCellReuseIdentifier: TitleSelectionTableViewCell.identifier)
-        audioTableView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        audioTableView.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.6)
 
         subtitleTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: subtitleTableView.frame.size.width, height: 1))
         subtitleTableView.delegate = self
         subtitleTableView.register(TitleSelectionTableViewCell.self,
                                    forCellReuseIdentifier: TitleSelectionTableViewCell.identifier)
-        subtitleTableView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        subtitleTableView.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.6)
     }
 
     private func setupConstraints() {
@@ -326,12 +331,16 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return TitleSelectionTableViewCell.size
+        APLog(String.init(format: "heightForRowAt %f", TitleSelectionTableViewCell.size))
+        return 10
+//        return TitleSelectionTableViewCell.size
     }
 
     func tableView(_ tableView: UITableView,
                    heightForHeaderInSection section: Int) -> CGFloat {
-        return TitleSelectionTableViewCell.size
+        APLog(String.init(format: "heightForHeaderInSection %f", TitleSelectionTableViewCell.size))
+        return 10
+//        return TitleSelectionTableViewCell.size
     }
 
     func tableView(_ tableView: UITableView,

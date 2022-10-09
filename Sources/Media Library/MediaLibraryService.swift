@@ -452,7 +452,7 @@ extension MediaLibraryService {
 
 // MARK: - Genre methods
 
-extension MediaLibraryService {
+@objc extension MediaLibraryService {
     func genres(sortingCriteria sort: VLCMLSortingCriteria = .alpha,
                 desc: Bool = false) -> [VLCMLGenre] {
         return medialib.genres(with: sort, desc: desc) ?? []

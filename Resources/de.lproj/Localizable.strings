@@ -22,6 +22,7 @@
 "ONE_SPU_TRACK" = "Eine Untertitelspur";
 "TRACKS" = "%i Titel";
 "TRACK" = "%i Titel";
+"TRACKS_DURATION" = "%u Titel, Laufzeit: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV verbunden";
 "PLAYING_EXTERNALLY_DESC" = "Dieses Video wird auf dem TV wiedergegeben.";
