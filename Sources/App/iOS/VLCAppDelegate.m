@@ -25,7 +25,7 @@
 {
     BOOL _isComingFromHandoff;
     VLCKeychainCoordinator *_keychainCoordinator;
-    AppCoordinator *appCoordinator;
+    AppCoordinator *_appCoordinator;
     id<VLCURLHandler> _urlHandlerToExecute;
     NSURL *_urlToHandle;
 }
@@ -99,8 +99,8 @@
 - (void)setupApplicationCoordinator
 {
     void (^setupAppCoordinator)(void) = ^{
-        self->appCoordinator = [[AppCoordinator alloc] initWithTabBarController:(UITabBarController *)self->_window.rootViewController];
-        [self->appCoordinator start];
+        self->_appCoordinator = [[AppCoordinator alloc] initWithTabBarController:(UITabBarController *)self->_window.rootViewController];
+        [self->_appCoordinator start];
     };
     [self validatePasscodeIfNeededWithCompletion:setupAppCoordinator];
 }
@@ -159,11 +159,10 @@
     return [userActivityType isEqualToString:kVLCUserActivityPlaying];
 }
 
-- (BOOL)application:(UIApplication *)application
-continueUserActivity:(NSUserActivity *)userActivity
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *))restorationHandler
 {
-    VLCMLMedia *media = [appCoordinator mediaForUserActivity:userActivity];
+    VLCMLMedia *media = [_appCoordinator mediaForUserActivity:userActivity];
     if (!media) return NO;
 
     [self validatePasscodeIfNeededWithCompletion:^{
@@ -172,8 +171,7 @@ continueUserActivity:(NSUserActivity *)userActivity
     return YES;
 }
 
-- (void)application:(UIApplication *)application
-didFailToContinueUserActivityWithType:(NSString *)userActivityType
+- (void)application:(UIApplication *)application didFailToContinueUserActivityWithType:(NSString *)userActivityType
               error:(NSError *)error
 {
     if (error.code != NSUserCancelledError){
@@ -228,7 +226,6 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     if (!_isComingFromHandoff) {
-      //  [[VLCMediaFileDiscoverer sharedInstance] updateMediaList];
         [[VLCPlaybackService sharedInstance] recoverDisplayedMetadata];
     } else if(_isComingFromHandoff) {
         _isComingFromHandoff = NO;
@@ -237,7 +234,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
-    [appCoordinator handleShortcutItem:shortcutItem];
+    [_appCoordinator handleShortcutItem:shortcutItem];
 }
 
 #pragma mark - pass code validation
@@ -252,7 +249,7 @@ didFailToContinueUserActivityWithType:(NSString *)userActivityType
 - (void)validatePasscodeIfNeededWithCompletion:(void(^)(void))completion
 {
     if ([VLCKeychainCoordinator passcodeLockEnabled]) {
-        //TODO: Dimiss playback
+        //TODO: Dismiss playback
         [self.keychainCoordinator validatePasscodeWithCompletion:completion];
     } else {
         completion();
