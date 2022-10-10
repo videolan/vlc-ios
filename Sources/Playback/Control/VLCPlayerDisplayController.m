@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -329,7 +330,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                _leadingConstraint,
                _trailingConstraint,
                ]];
-            ((VLCAudioMiniPlayer*)_miniPlaybackView).queueViewController = _queueViewController;
+            [((VLCAudioMiniPlayer*)_miniPlaybackView) setupQueueViewControllerWith:_queueViewController];
             [self.view layoutIfNeeded];
         }
         [self addPlayqueueToMiniPlayer];
@@ -373,12 +374,14 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                          }
                          completion:completionBlock];
     }
+    [miniPlaybackView savePlaybackState:playbackController];
 #endif
 }
 
 - (void)addPlayqueueToMiniPlayer
 {
     [_queueViewController didMoveToParentViewController:self];
+    [((VLCAudioMiniPlayer*)_miniPlaybackView) setupQueueViewControllerWith:_queueViewController];
 }
 
 #pragma mark - QueueViewController

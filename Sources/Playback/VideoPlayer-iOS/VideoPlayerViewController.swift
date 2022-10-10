@@ -1666,6 +1666,7 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
             UIView.animate(withDuration: 0.3, animations: {
                 self.view.layoutIfNeeded()
             })
+            qvc.delegate = self
         }
     }
 

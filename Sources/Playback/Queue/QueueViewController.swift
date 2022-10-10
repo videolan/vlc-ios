@@ -5,13 +5,15 @@
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *          Edgar Fouillet <vlc # edgar.fouillet.eu>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
 @objc(VLCQueueViewControllerDelegate)
 protocol QueueViewControllerDelegate {
-    func queueViewControllerDidDisappear(_ queueViewController: QueueViewController?)
+    @objc optional func queueViewControllerDidDisappear(_ queueViewController: QueueViewController?)
+    @objc optional func queueViewControllerSavePlaybackState(_ queueViewController: QueueViewController?)
 }
 
 class QueueViewFlowLayout: UICollectionViewFlowLayout {
@@ -110,7 +112,9 @@ class QueueViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        delegate?.queueViewControllerDidDisappear(self)
+        if let delegate = delegate as? VideoPlayerViewController {
+            delegate.queueViewControllerDidDisappear(self)
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -410,9 +414,13 @@ private extension QueueViewController {
     }
 
     @objc private func dismissView() {
+        guard let delegate = delegate as? VideoPlayerViewController else {
+            return
+        }
+
         dismiss(animated: true) {
             [weak self] in
-            self?.delegate?.queueViewControllerDidDisappear(self)
+            delegate.queueViewControllerDidDisappear(self)
         }
     }
 }
@@ -609,6 +617,11 @@ extension QueueViewController: UICollectionViewDataSource {
             cell.media = media
         }
         cell.newLabel.isHidden = true
+
+        if let delegate = delegate as? AudioMiniPlayer {
+            delegate.queueViewControllerSavePlaybackState(self)
+        }
+
         return cell
     }
 }

@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors: Soomin Lee <bubu # mikan.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -63,7 +64,7 @@ class AudioMiniPlayer: UIView, MiniPlayer {
     private var mediaService: MediaLibraryService
     private lazy var playbackController = PlaybackService.sharedInstance()
 
-    @objc public var queueViewController: QueueViewController?
+    private var queueViewController: QueueViewController?
 
     var position = MiniPlayerPosition(vertical: .bottom, horizontal: .center)
     var originY: CGFloat = 0.0
@@ -114,6 +115,11 @@ class AudioMiniPlayer: UIView, MiniPlayer {
         let colors = PresentationTheme.current.colors
         shuffleButton.tintColor =
         playbackController.isShuffleMode ? colors.orangeUI : colors.cellTextColor
+    }
+
+    @objc func setupQueueViewController(with view: QueueViewController) {
+        queueViewController = view
+        queueViewController?.delegate = self
     }
 }
 
@@ -562,6 +568,12 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
 
     private func addContextMenu() {
         audioMiniPlayer.addInteraction(UIContextMenuInteraction(delegate: self))
+    }
+}
+
+extension AudioMiniPlayer: QueueViewControllerDelegate {
+    func queueViewControllerSavePlaybackState(_ queueViewController: QueueViewController?) {
+        savePlaybackState(playbackController)
     }
 }
 
