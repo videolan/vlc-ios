@@ -1,5 +1,14 @@
 # Changelog
 
+## iOS [3.3.10]
+· Add option to configure pre-amp level
+· Improve accessibility of playback speed buttons
+· Stability improvements
+
+## tvOS [3.3.10]
+· Add option to configure pre-amp level
+· Stability improvements
+
 ## iOS [3.3.9]
 · Fix UPnP discovery on iOS 16 and later
 
