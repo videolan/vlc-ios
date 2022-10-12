@@ -369,6 +369,7 @@
 "DESCENDING_SWITCH_LABEL" = "Ordre croissant ou décroissant";
 "DESCENDING_SWITCH_HINT" = "Trier le contexte par ordre croissant ou décroissant";
 "GRID_LAYOUT" = "Grille";
+"GRID_LAYOUT_HINT" = "Afficher les éléments sous forme de grille";
 "LIST_LAYOUT" = "Liste";
 "HIDE_FEAT_ARTISTS" = "Cacher les artistes invités (feat. artists)";
 
@@ -455,6 +456,14 @@
 "BOOKMARK_RENAME_TITLE" = "Renommer un favori";
 "BOOKMARK_DELETE_TITLE" = "Effacer un favori";
 "BOOKMARK_DELETE_MESSAGE" = "Confirmez l'effacement du favori";
+"INCREASE_BUTTON" = "Bouton d'augmentation";
+"INCREASE_PLAYBACK_SPEED" = "Augmenter la vitesse de lecture";
+"INCREASE_AUDIO_DELAY" = "Augmenter le retard de l'audio";
+"INCREASE_SUBTITLES_DELAY" = "Augmenter le retard des sous-titres";
+"DECREASE_BUTTON" = "Bouton de réduction";
+"DECREASE_PLAYBACK_SPEED" = "Réduire la vitesse de lecture";
+"DECREASE_AUDIO_DELAY" = "Réduire le retard de l'audio";
+"DECREASE_SUBTITLES_DELAY" = "Réduire le retard des sous-titres";
 
 // MARK: - Settings - Force rescan alert
 "FORCE_RESCAN_TITLE" = "Forcer la réanalyse de la médiathèque";
