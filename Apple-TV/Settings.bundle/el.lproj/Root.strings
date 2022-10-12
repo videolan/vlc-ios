@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Τα αρχεία σας θα αποκρύπτονται από την εφαρμογή Αρχεία";
 
 "SETTINGS_DARKTHEME" = "Εμφάνιση";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Προεπιλεγμένο επίπεδο προενισχυτή";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Χρονική διαστολή ήχου";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Επιτάχυνση ή επιβράδυνση του ήχου, χωρίς την αλλαγή του τόνου φωνής (απαιτείται γρήγορη συσκευή)";
 "SETTINGS_BACKGROUND_AUDIO" = "Αναπαραγωγή ήχου στο υπόβαθρο";

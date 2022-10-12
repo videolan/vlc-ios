@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Media anda akan disembunyikan dalam apl Files";
 
 "SETTINGS_DARKTHEME" = "Penampilan";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio diregang-masa";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Laju atau perlahankan audio tanpa mengubah pic (perlukan peranti pantas)";
 "SETTINGS_BACKGROUND_AUDIO" = "Main balik video dibalik tabir";

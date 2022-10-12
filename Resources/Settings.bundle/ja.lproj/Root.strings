@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "ファイルアプリケーションでメディアが非表示になります";
 
 "SETTINGS_DARKTHEME" = "外観";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "タイムストレッチングオーディオ";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "ピッチを変更することなく、速度を変更する (高速なデバイスが必要)";
 "SETTINGS_BACKGROUND_AUDIO" = "バックグラウンドオーディオ再生";

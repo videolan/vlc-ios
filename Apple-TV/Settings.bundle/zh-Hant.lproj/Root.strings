@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "您的媒體將會隱藏在文件應用程式中";
 
 "SETTINGS_DARKTHEME" = "外觀";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "音訊時域伸縮";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "背景播放音訊";

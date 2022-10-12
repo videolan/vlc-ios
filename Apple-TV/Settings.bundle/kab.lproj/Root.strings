@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Amidya-inek m ad yettwaffer deg usnas n yifuyla";
 
 "SETTINGS_DARKTHEME" = "Timeẓri";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Étirement temporel audio";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "Taɣuri n imesli deg weɣawas n deffir";

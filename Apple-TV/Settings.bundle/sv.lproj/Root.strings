@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Dina mediafiler kommer att döljas i appen Filer";
 
 "SETTINGS_DARKTHEME" = "Utseende";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Aktivera pre-amp-nivå";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tidsutsträckt ljud";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Höj och sänk ljudets hastighet utan att ändra tonläget (kräver en snabb enhet)";
 "SETTINGS_BACKGROUND_AUDIO" = "Ljuduppspelning i bakgrunden";

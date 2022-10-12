@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Els teus fitxers multimèdia s'ocultaran a l'aplicació Fitxers";
 
 "SETTINGS_DARKTHEME" = "Aparença";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Canvi de velocitat de l'àudio";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Incrementa i redueix la velocitat de l'àudio sense canviar el to (requereix un dispositiu ràpid)";
 "SETTINGS_BACKGROUND_AUDIO" = "Reproducció de so de fons";

@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Ihre Medien werden in der Dateien-App ausgeblendet";
 
 "SETTINGS_DARKTHEME" = "Aussehen";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Vorverstärkerniveau";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio-Tonzeitstreckung";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Beschleunigt und verlangsamt Audio ohne dabei die Tonhöhe zu verändern (erfordert ein schnelles Gerät)";
 "SETTINGS_BACKGROUND_AUDIO" = "Hintergrundaudiowiedergabe";

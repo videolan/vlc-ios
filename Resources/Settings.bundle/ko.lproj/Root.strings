@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "당신의 미디어가 파일 앱에서 숨겨질 것입니다.";
 
 "SETTINGS_DARKTHEME" = "모양";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "음정 변화 없는 오디오";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "음조 변경 없이 오디오의 속도 높임 및  늦춤  (빠른 장치 필요)";
 "SETTINGS_BACKGROUND_AUDIO" = "백그라운드로 오디오 재생";

@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Su medio estará oculto en la app Files";
 
 "SETTINGS_DARKTHEME" = "Apariencia";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio «time-stretching»";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Acelerar y ralentizar el audio sin cambiar el tono (se necesita un dispositivo rápido)";
 "SETTINGS_BACKGROUND_AUDIO" = "Reproducir audio de fondo";

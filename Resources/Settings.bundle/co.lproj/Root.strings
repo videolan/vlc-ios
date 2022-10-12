@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "U vostru medià serà piattatu in l’appiecazione Schedarii";
 
 "SETTINGS_DARKTHEME" = "Aspettu";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Stinzata tempurale audio";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Accelera è frena l’audio senza cambià a tunalità (richiede un apparechju rapidu)";
 "SETTINGS_BACKGROUND_AUDIO" = "Ripruduzzione audio in fondu";

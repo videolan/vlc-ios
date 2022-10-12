@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Dit medie vil være skjult i programmet Filer";
 
 "SETTINGS_DARKTHEME" = "Udseende";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Standard forforstærkerniveau";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tidsudstrækning af lyd";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Øger og sænker lydhastighed uden at ændre tonehøjden (kræver en hurtig enhed)";
 "SETTINGS_BACKGROUND_AUDIO" = "Lydafspilning i baggrund";

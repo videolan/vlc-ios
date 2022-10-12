@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "您的媒体文件在「文件」应用中将处于隐藏状态";
 
 "SETTINGS_DARKTHEME" = "外观";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "默认前置放大级别";
 "SETTINGS_TIME_STRETCH_AUDIO" = "音频按时间伸缩";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "加速或减慢音频，但保持音调不变 (对设备性能略有要求)";
 "SETTINGS_BACKGROUND_AUDIO" = "音频后台回放";

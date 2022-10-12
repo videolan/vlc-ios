@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "سيتم إخفاء الوسائط الخاصة بك في تطبيق الملفات";
 
 "SETTINGS_DARKTHEME" = "المظهر";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "الوقت المُمتد للصّوت";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "تسريع و إبطاء الصوت بدون تغيير الحدة (يتطلب جهاز سريع)";
 "SETTINGS_BACKGROUND_AUDIO" = "تشغيل الصّوت في الخلفية";

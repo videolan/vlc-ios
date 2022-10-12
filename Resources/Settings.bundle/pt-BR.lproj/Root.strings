@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Suas mídias serão ocultadas no aplicativo Arquivos";
 
 "SETTINGS_DARKTHEME" = "Aparência";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Áudio de tempo comprimido";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Acelerar e desacelerar o áudio sem alterar o tom (requer um dispositivo rápido)";
 "SETTINGS_BACKGROUND_AUDIO" = "Reprodução de áudio em segundo plano";

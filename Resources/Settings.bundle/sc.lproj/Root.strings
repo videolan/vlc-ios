@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Sos cuntenutos multimediales tuos ant a èssere cuados in s'aplicatzione Documentos";
 
 "SETTINGS_DARKTHEME" = "Aparèntzia";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Livellu predefinidu pre-amplificatzione";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Illonghiamentu temporale àudio";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Aumenta e mìnima sa lestresa de s'àudio chene cambiare sa tonalidade (tenent bisòngiu de unu dispositivu lestru)";
 "SETTINGS_BACKGROUND_AUDIO" = "Riprodutzione àudio in s'isfundu";

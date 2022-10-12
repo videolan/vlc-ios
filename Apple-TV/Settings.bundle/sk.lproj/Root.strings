@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Vaše médium bude skryté v aplikácii Súbory";
 
 "SETTINGS_DARKTHEME" = "Vzhľad";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Predvolená úroveň predbežného zosilnenia";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časové roztiahnutie zvuku";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Zrýchliť a spomaliť zvuk bez zmeny výšky tónu (vyžaduje rýchle zariadenie)";
 "SETTINGS_BACKGROUND_AUDIO" = "Prehrávanie zvuku na pozadí";

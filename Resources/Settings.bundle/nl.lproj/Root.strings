@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Uw media zullen verborgen zijn in de \"Bestanden\"-app";
 
 "SETTINGS_DARKTHEME" = "Uiterlijk";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audio tijdrekken";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Audio versnellen en vertragen zonder de toonhoogte te veranderen (vereist een snel apparaat)";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio afspelen op achtergrond";

@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Mediasi piilotetaan Tiedostot-sovelluksessa";
 
 "SETTINGS_DARKTHEME" = "Ulkonäkö";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Äänen tasaus";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Nopeuta ja hidasta ääntä muuttamatta sen sävelasteikkoa (vaatii nopean laitteen)";
 "SETTINGS_BACKGROUND_AUDIO" = "Äänen toistaminen taustalla";

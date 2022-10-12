@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Ваши медиафайлы будут скрыты в приложении Files";
 
 "SETTINGS_DARKTHEME" = "Внешний вид";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Изменение скорости звука";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Ускорение/замедление звука без изменения его высоты (требуется мощное устройство)";
 "SETTINGS_BACKGROUND_AUDIO" = "Звук в фоновом режиме";

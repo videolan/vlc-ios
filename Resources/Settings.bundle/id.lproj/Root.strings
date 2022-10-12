@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Media Anda akan tersembunyi di aplikasi Files";
 
 "SETTINGS_DARKTHEME" = "Penampilan";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Masa-renggang Audio";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Mempercepat dan memperlambat audio tanpa mengubah nada (memerlukan perangkat yang cepat)";
 "SETTINGS_BACKGROUND_AUDIO" = "Pemutaran audio di latar belakang";

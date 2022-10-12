@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "A médiái rejtve lesznek a Fájlok alkalmazásban";
 
 "SETTINGS_DARKTHEME" = "Megjelenés";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Időbeli hangnyújtás";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "A hang gyorsítása vagy lassítása a hangmagasság megváltozása nélkül (gyors eszköz szükséges)";
 "SETTINGS_BACKGROUND_AUDIO" = "Hang lejátszása a háttérben";

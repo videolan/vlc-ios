@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "สื่อของคุณจะถูกซ่อนในแอปไฟล์";
 
 "SETTINGS_DARKTHEME" = "ลักษณะที่ปรากฏ";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "เปิดใช้งานการยืดเสียง";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Speed up and slow down audio without changing the pitch (requires a fast device)";
 "SETTINGS_BACKGROUND_AUDIO" = "เล่นเสียงแม้ทำงานในแบบเบื้องหลัง";

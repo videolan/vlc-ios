@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Çoklu ortamlarınız Dosyalar uygulamasında görüntülenmeyecek";
 
 "SETTINGS_DARKTHEME" = "Görünüm";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Zamana yaymalı ses";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Tonu değiştirmeden sesi hızlandırır ya da yavaşlatır (hızlı bir aygıt gerekir)";
 "SETTINGS_BACKGROUND_AUDIO" = "Ses arka planda oynatılsın";

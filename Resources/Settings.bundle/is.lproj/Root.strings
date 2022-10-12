@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Margmiðlunargögnin þín verða falin í Files-forritinu";
 
 "SETTINGS_DARKTHEME" = "Útlit";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Tímaaðlögun hljóðs (time streching)";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Hraða og hægja hljóð án þess að breyta tónhæð (krefst hraðvirks tækis)";
 "SETTINGS_BACKGROUND_AUDIO" = "Hljóðspilun í bakgrunni";

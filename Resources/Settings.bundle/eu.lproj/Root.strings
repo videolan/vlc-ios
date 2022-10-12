@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Zure euskarriak Fitxategi aplikazioan ezkutatutak egongo dira";
 
 "SETTINGS_DARKTHEME" = "Itxura";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Audioaren denbora-luzatzea";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Azkartu eta mantsotu audioa tonua aldatu gabe (gailu azkarra behar da)";
 "SETTINGS_BACKGROUND_AUDIO" = "Audio erreprodukzioa atzeko planoan";

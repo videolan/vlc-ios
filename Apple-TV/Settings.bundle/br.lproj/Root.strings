@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Ho mediaoù a vo kuzhet e-barzh restroù an arload";
 
 "SETTINGS_DARKTHEME" = "Neuz";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Dic'hourdañ-amzerel aodio";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Buanaat ha gorrekaat an aodio hep cheñch uhelder ar son (goulenn a ra un aparailh kreñv-marc'h)";
 "SETTINGS_BACKGROUND_AUDIO" = "Lenn aodio en drekleur";

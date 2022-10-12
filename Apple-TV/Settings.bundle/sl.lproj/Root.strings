@@ -14,6 +14,7 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP_SUBTITLE" = "Vaša vsebina bo skrita v datotečnem programu";
 
 "SETTINGS_DARKTHEME" = "Videz";
+"SETTINGS_AUDIO_PREAMP_LEVEL" = "Default pre-amp level";
 "SETTINGS_TIME_STRETCH_AUDIO" = "Časovno raztegovanje zvoka";
 "SETTINGS_TIME_STRETCH_AUDIO_LONG" = "Pohitri ali upočasni zvok brez spremembe višine (zahteva zmogljivo napravo)";
 "SETTINGS_BACKGROUND_AUDIO" = "Predvajanje zvoka v ozadju";
