@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 import Foundation
+import UIKit
 
 // MARK: - Delegate
 protocol MediaCollectionViewCellDelegate: AnyObject {
@@ -280,6 +281,17 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
     }
 
+    private func generateAnimation(with imageName: String, color: UIColor) -> [UIImage] {
+        var animation: [UIImage] = []
+        var index: Int = 1
+        while let image = UIImage(named: imageName + String(describing: index))?.withRenderingMode(.alwaysTemplate) {
+            let coloredImage = image.imageWithTint(tint: color)
+            animation.append(coloredImage)
+            index += 1
+        }
+        return animation
+    }
+
     func update(audiotrack: VLCMLMedia) {
         var trackNumber: String = ""
         if let model = delegate?.mediaCollectionViewCellGetModel() as? CollectionModel,
@@ -297,13 +309,39 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             descriptionText += " · " + albumTitle
         }
 
+        let orangeColor: UIColor = PresentationTheme.current.colors.orangeUI
+        let playingAnimation = generateAnimation(with: "playing-animation-", color: orangeColor)
+        let pauseAnimation = generateAnimation(with: "pause-animation-", color: orangeColor)
+
         if let currentMedia = playbackService.currentlyPlayingMedia,
            let audiotrackURL = audiotrack.mainFile()?.mrl,
            let currentMediaURL = currentMedia.url,
            currentMediaURL == audiotrackURL {
             isMediaBeingPlayed = true
+
+            // Animate the current played cell
+            if #available(iOS 13.0, *) {
+                if playbackService.isPlaying {
+                    thumbnailView.animationImages = playingAnimation
+                    thumbnailView.animationDuration = 1.2
+                    thumbnailView.animationRepeatCount = 0
+                    thumbnailView.image = thumbnailView.animationImages?.first
+                    thumbnailView.startAnimating()
+                } else {
+                    thumbnailView.stopAnimating()
+                    thumbnailView.animationImages = pauseAnimation
+                    thumbnailView.animationDuration = 0.8
+                    thumbnailView.animationRepeatCount = 1
+                    thumbnailView.image = thumbnailView.animationImages?.first
+                    thumbnailView.startAnimating()
+                    thumbnailView.image = pauseAnimation.last
+                }
+            } else {
+                thumbnailView.image = audiotrack.thumbnailImage()
+            }
         } else {
             isMediaBeingPlayed = false
+            thumbnailView.image = audiotrack.thumbnailImage()
         }
 
         let colors = PresentationTheme.current.colors
@@ -318,7 +356,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         dynamicFontSizeChange()
 
         newLabel.isHidden = !audiotrack.isNew
-        thumbnailView.image = audiotrack.thumbnailImage()
         scrollView.isScrollEnabled = true
 
         if newLabel.isHidden {
