@@ -5,6 +5,32 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_SET_CUSTOM_SEEK_SPEED</string>
+			<key>Key</key>
+			<string>SetCustomSeekSpeed</string>
+			<key>DefaultValue</key>
+			<integer>10</integer>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_DURATION_FIVE</string>
+				<string>SETTINGS_DURATION_TEN</string>
+				<string>SETTINGS_DURATION_FIFTEEN</string>
+				<string>SETTINGS_DURATION_THIRTY</string>
+				<string>SETTINGS_DURATION_SIXTY</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>5</integer>
+				<integer>10</integer>
+				<integer>15</integer>
+				<integer>30</integer>
+				<string>60</string>
+			</array>
+		</dict>
+		<dict>
 			<key>DefaultValue</key>
 			<string>NO</string>
 			<key>Key</key>
@@ -80,8 +106,8 @@
 				<real>1.5</real>
 				<real>1.75</real>
 				<real>2</real>
-				<real>2.50</real>
-				<real>3.00</real>
+				<real>2.5</real>
+				<real>3</real>
 				<real>3.5</real>
 				<real>4</real>
 			</array>

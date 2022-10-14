@@ -35,7 +35,7 @@ enum VideoPlayerPanType {
 }
 
 struct VideoPlayerSeek {
-    static let shortSeek: Int = 10
+     let shortSeek: Int
 
     struct Swipe {
         static let forward: Int = 30
@@ -139,6 +139,7 @@ class VideoPlayerViewController: UIViewController {
     private var mediaDuration: Int = 0
     private var numberOfTapSeek: Int = 0
     private var previousSeekState: VideoPlayerSeekState = .default
+    private var seekby:Int = 0
 
     // MARK: - UI elements
 
@@ -549,7 +550,7 @@ class VideoPlayerViewController: UIViewController {
         super.viewWillAppear(animated)
         playbackService.delegate = self
         playbackService.recoverPlaybackState()
-
+        seekby = UserDefaults.standard.integer(forKey: kVLCSettingSetCustomSeek)
         playerController.lockedOrientation = .portrait
         navigationController?.navigationBar.isHidden = true
 
@@ -782,15 +783,17 @@ private extension VideoPlayerViewController {
         // FIXME: Need to add interface (ripple effect) for seek indicator
         var hudString = ""
 
-        let seekDuration: Int = numberOfTapSeek * VideoPlayerSeek.shortSeek
+        var currentSeek = VideoPlayerSeek(shortSeek: seekby)
+
+        let seekDuration: Int = numberOfTapSeek * currentSeek.shortSeek
 
         if seekDuration > 0 {
             hudString = "⇒ "
-            playbackService.jumpForward(Int32(VideoPlayerSeek.shortSeek))
+            playbackService.jumpForward(Int32(currentSeek.shortSeek))
             previousSeekState = .forward
         } else {
             hudString = "⇐ "
-            playbackService.jumpBackward(Int32(VideoPlayerSeek.shortSeek))
+            playbackService.jumpBackward(Int32(currentSeek.shortSeek))
             previousSeekState = .backward
         }
         hudString.append(stringInTimeFormat(from: abs(seekDuration)))

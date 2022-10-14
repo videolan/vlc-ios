@@ -111,6 +111,7 @@ enum GenericOptions: Int, CaseIterable, SectionType {
     case automaticallyPlayNextItem
     case enableTextScrollingInMediaList
     case rememberPlayerState
+    case setcustomseek
 
     var description: String {
         switch self {
@@ -128,6 +129,8 @@ enum GenericOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING"
         case .rememberPlayerState:
             return "SETTINGS_REMEMBER_PLAYER_STATE"
+        case .setcustomseek:
+            return "SETTINGS_SET_CUSTOM_SEEK_SPEED"    
         }
     }
 
@@ -147,6 +150,8 @@ enum GenericOptions: Int, CaseIterable, SectionType {
             return true
         case .rememberPlayerState:
             return true
+        case .setcustomseek:
+           return false    
         }
     }
 
@@ -166,6 +171,8 @@ enum GenericOptions: Int, CaseIterable, SectionType {
             return nil
         case .rememberPlayerState:
             return nil
+        case .setcustomseek:
+            return nil    
         }
     }
 
@@ -185,6 +192,8 @@ enum GenericOptions: Int, CaseIterable, SectionType {
             return kVLCSettingEnableMediaCellTextScrolling
         case .rememberPlayerState:
             return kVLCPlayerShouldRememberState
+        case .setcustomseek:
+            return kVLCSettingSetCustomSeek    
         }
     }
 }

@@ -125,3 +125,10 @@
 "ABOUT_APP_TV" = "About VLC for tvOS";
 
 "SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
+
+"SETTINGS_SET_CUSTOM_SEEK_SPEED" = "Seek Duration";
+"SETTINGS_DURATION_FIVE" = "5 seconds";
+"SETTINGS_DURATION_TEN" =  "10 seconds";
+"SETTINGS_DURATION_FIFTEEN" = "15 seconds";
+"SETTINGS_DURATION_THIRTY" =  "30 seconds";
+"SETTINGS_DURATION_SIXTY" = "60 seconds";
