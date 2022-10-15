@@ -1,18 +1,68 @@
 # Changelog
 
 ## iOS [3.4.0]
-· add views for artists, albums and episodes to the media library
-· add more options to sort the media library
-· add support for bookmarks
-· improve shuffle algorithm for playback
-· major update to internal event handling
-· performance improvements
-· add Handoff support for WiFi Sharing
-· rewritten OneDrive support
+· Add views for artists, albums and episodes to the media library
+· Add more options to sort the media library
+· Add support for bookmarks
+· Improve shuffle algorithm for playback
+· Indicate currently playing media in library
+· Major update to internal event handling
+· Performance improvements
+· Add Handoff support for WiFi Sharing
+· Add option to configure seek duration
+· Rewritten OneDrive support
+· Updated UPnP support
+· Major adaptive streaming update, notably for multiple timelies and webvtt
+· Add support for DVBSub inside MKV
+· Fix some Flac files that could not be played
+· Improve seeking in Ogg and fragmented MP4 files
+· Fix styling issues with subs tx3g (mp4) tracks
+· Fix playback of live AV1 streams
+· Fix crashes with VP9 streams
 
 ## tvOS [3.4.0]
-· add support for network streams distributed using MDM
+· Add support for network streams distributed using MDM
 · Networking UI improvements
+· Major update to internal event handling
+· Performance improvements
+· Add Handoff support for WiFi Sharing
+· Rewritten OneDrive support
+· Updated UPnP support
+· Major adaptive streaming update, notably for multiple timelies and webvtt
+· Add support for DVBSub inside MKV
+· Fix some Flac files that could not be played
+· Improve seeking in Ogg and fragmented MP4 files
+· Fix styling issues with subs tx3g (mp4) tracks
+· Fix playback of live AV1 streams
+· Fix crashes with VP9 streams
+
+## iOS [3.3.10]
+· Add option to configure pre-amp level
+· Improve accessibility of playback speed buttons
+· Stability improvements
+
+## tvOS [3.3.10]
+· Add option to configure pre-amp level
+· Stability improvements
+
+## iOS [3.3.9]
+· Fix UPnP discovery on iOS 16 and later
+
+## tvOS [3.3.9]
+· Fix UPnP discovery on tvOS 16 and later
+
+## iOS [3.3.8]
+· Fix PLEX server discovery using Bonjour
+· Fix progress reporting for http downloads
+· Fix x-callback-url issue displaying the wrong subtitles
+· Set default pre-amp level to 0 to render full dynamic range
+· Improve volume and brightness gestures sensibility especially on iPad
+· Migrate Google Drive login flow to continue to work after October 3rd
+
+## tvOS [3.3.8]
+· Fix PLEX server discovery using Bonjour
+· Fix x-callback-url issue displaying the wrong subtitles
+· Set default pre-amp level to 0 to render full dynamic range
 
 ## iOS [3.3.7]
 · layout improvements for playback subpanels
