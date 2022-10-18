@@ -201,6 +201,14 @@ extension MediaNavigationBar: ActionSheetDelegate, ActionSheetDataSource {
             let selector = NSSelectorFromString("_displayAudioRoutePicker")
             if airplayVolumeView.responds(to: selector) {
                 airplayVolumeView.perform(selector)
+                addArrangedSubview(airplayVolumeView)
+                for view: UIView in airplayVolumeView.subviews {
+                    if let button = view as? UIButton {
+                        button.sendActions(for: .touchUpInside)
+                        break
+                    }
+                }
+                airplayVolumeView.removeFromSuperview()
             }
         } else {
             // Save closure for chromecast until the end of the actionSheet animation
