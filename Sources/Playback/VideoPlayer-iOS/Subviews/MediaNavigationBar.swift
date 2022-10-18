@@ -140,12 +140,19 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     }
 
     private func setupContraints() {
-        NSLayoutConstraint.activate([
+        var constraints: [NSLayoutConstraint] = [
             heightAnchor.constraint(equalToConstant: 44),
             closePlaybackButton.widthAnchor.constraint(equalTo: heightAnchor),
-            queueButton.widthAnchor.constraint(equalTo: heightAnchor),
-            deviceButton.widthAnchor.constraint(equalTo: heightAnchor)
-        ])
+            queueButton.widthAnchor.constraint(equalTo: heightAnchor)
+        ]
+
+        if #available(iOS 11.0, *) {
+            constraints.append(deviceButton.widthAnchor.constraint(equalTo: heightAnchor))
+        } else {
+            constraints.append(airplayVolumeView.widthAnchor.constraint(equalTo: heightAnchor))
+        }
+
+        NSLayoutConstraint.activate(constraints)
     }
 
     private func setupViews() {
