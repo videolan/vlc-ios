@@ -13,6 +13,7 @@
  *          Sylver Bruneau <sylver.bruneau # gmail dot com>
  *          Winston Weinert <winston # ml1 dot net>
  *          Maxime Chapelet <umxprime # videolabs.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -846,6 +847,11 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 - (NSInteger)nextMediaIndex
 {
     int mediaListCount = (int) _mediaList.count;
+
+    if (!_currentIndex) {
+        _currentIndex = [_mediaList indexOfMedia:self.currentlyPlayingMedia];
+    }
+
     if (self.repeatMode == VLCRepeatCurrentItem) {
         return _currentIndex;
     }
@@ -906,6 +912,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #if TARGET_OS_IOS
             [_delegate savePlaybackState:self];
 #endif
+            if (!_currentIndex) {
+                _currentIndex = [_mediaList indexOfMedia:self.currentlyPlayingMedia];
+            }
+
             if(_currentIndex > 0) {
                 _currentIndex -= 1;
             } else{
