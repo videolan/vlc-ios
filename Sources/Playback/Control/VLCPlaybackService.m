@@ -747,7 +747,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #if LIBVLC_VERSION_MAJOR == 4
         case VLCMediaPlayerStateStopping: {
 #endif
-            NSInteger nextIndex = [self nextMediaIndex];
+            NSInteger nextIndex = [self nextMediaIndex:false];
 
             if (nextIndex == -1) {
                 _sessionWillRestart = NO;
@@ -844,7 +844,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     }
 }
 
-- (NSInteger)nextMediaIndex
+- (NSInteger)nextMediaIndex:(BOOL)isButtonPressed
 {
     int mediaListCount = (int) _mediaList.count;
 
@@ -852,9 +852,16 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         _currentIndex = [_mediaList indexOfMedia:self.currentlyPlayingMedia];
     }
 
-    if (self.repeatMode == VLCRepeatCurrentItem) {
+    // Change the repeat mode if next button is pressed
+    if (self.repeatMode == VLCRepeatCurrentItem && isButtonPressed) {
+        [self setRepeatMode:VLCRepeatAllItems];
+        if ([self.delegate respondsToSelector:@selector(updateRepeatModeButton)]) {
+            [self.delegate updateRepeatModeButton];
+        }
+    } else if (self.repeatMode == VLCRepeatCurrentItem && !isButtonPressed) {
         return _currentIndex;
     }
+
     // Normal playback
     if(_currentIndex + 1 < mediaListCount) {
         _currentIndex += 1;
@@ -880,7 +887,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         return YES;
     }
 
-    NSInteger nextIndex = [self nextMediaIndex];
+    NSInteger nextIndex = [self nextMediaIndex:true];
 
     if (nextIndex < 0) {
         if (self.repeatMode == VLCRepeatAllItems) {
@@ -914,6 +921,14 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #endif
             if (!_currentIndex) {
                 _currentIndex = [_mediaList indexOfMedia:self.currentlyPlayingMedia];
+            }
+
+            // Change the repeat mode if next button is pressed
+            if (self.repeatMode == VLCRepeatCurrentItem) {
+                [self setRepeatMode:VLCRepeatAllItems];
+                if ([self.delegate respondsToSelector:@selector(updateRepeatModeButton)]) {
+                    [self.delegate updateRepeatModeButton];
+                }
             }
 
             if(_currentIndex > 0) {

@@ -55,7 +55,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)playbackServiceDidSwitchAspectRatio:(VLCAspectRatio)aspectRatio;
 - (void)playbackService:(VLCPlaybackService *)playbackService
               nextMedia:(VLCMedia *)media;
-
+- (void)updateRepeatModeButton;
 @end
 
 NS_SWIFT_NAME(PlaybackService)

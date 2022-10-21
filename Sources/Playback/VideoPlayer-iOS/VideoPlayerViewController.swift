@@ -594,7 +594,7 @@ class VideoPlayerViewController: UIViewController {
         moreOptionsActionSheet.resetOptionsIfNecessary()
     }
 
-    func setupRepeatModeButton() {
+    @objc func setupRepeatModeButton() {
         switch playbackService.repeatMode {
         case .doNotRepeat:
             videoPlayerControls.repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
@@ -1599,6 +1599,14 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         } else {
             artWorkImageView.isHidden = true
             queueViewController?.reloadBackground(with: nil)
+        }
+    }
+
+    func updateRepeatModeButton() {
+        setupRepeatModeButton()
+
+        if playerController.isRememberStateEnabled {
+            UserDefaults.standard.setValue(playbackService.repeatMode.rawValue, forKey: kVLCPlayerIsRepeatEnabled)
         }
     }
 }
