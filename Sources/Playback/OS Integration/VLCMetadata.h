@@ -5,6 +5,7 @@
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -26,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readwrite, nullable) NSNumber *playbackRate;
 @property(readwrite, nullable) NSNumber *position;
 @property(readwrite, nullable) NSNumber *identifier;
+@property(readwrite, assign) BOOL isLiveStream;
 
 #if TARGET_OS_IOS || TARGET_OS_VISION
 - (void)updateMetadataFromMedia:(VLCMLMedia *)media mediaPlayer:(VLCMediaPlayer*)mediaPlayer;

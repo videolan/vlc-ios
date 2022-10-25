@@ -529,8 +529,12 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([self.delegate respondsToSelector:@selector(playbackPositionUpdated:)])
+    if ([self.delegate respondsToSelector:@selector(playbackPositionUpdated:)]) {
         [self.delegate playbackPositionUpdated:self];
+        if (_metadata.isLiveStream && [self mediaDuration] > 0) {
+            [self setNeedsMetadataUpdate];
+        }
+    }
 
     if (_majorPositionChangeInProgress >= 1) {
         [self.metadata updateExposedTimingFromMediaPlayer:_listPlayer.mediaPlayer];

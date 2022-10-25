@@ -6,6 +6,7 @@
  *
  * Authors: Carola Nitz <caro # videolan.org>
  *          Felix Paul Kühne <fkuehne # videolan.org>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -31,6 +32,7 @@
         self.artworkImage = nil;
         self.isAudioOnly = NO;
         self.identifier = nil;
+        self.isLiveStream = NO;
     }
     return self;
 }
@@ -168,6 +170,7 @@
     currentlyPlayingTrackInfo[MPMediaItemPropertyPlaybackDuration] = duration;
     if (@available(iOS 10.0, *)) {
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyIsLiveStream] = @(duration.intValue <= 0);
+        self.isLiveStream = duration.intValue <= 0;
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyMediaType] = _isAudioOnly ? @(MPNowPlayingInfoMediaTypeAudio) : @(MPNowPlayingInfoMediaTypeVideo);
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackProgress] = self.position;
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyExternalContentIdentifier] = self.identifier;
