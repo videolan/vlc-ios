@@ -155,6 +155,8 @@ extension MediaCollectionModel {
             let isDarktheme = PresentationTheme.current.isDark
             if self is VLCMLMediaGroup {
                 image = isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
+            } else if self is VLCMLArtist {
+                image = isDarktheme ? UIImage(named: "artist-placeholder-dark") : UIImage(named: "artist-placeholder-white")
             } else {
                 image = isDarktheme ? UIImage(named: "album-placeholder-dark") : UIImage(named: "album-placeholder-white")
             }
