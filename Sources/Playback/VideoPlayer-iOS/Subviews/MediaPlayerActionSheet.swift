@@ -137,7 +137,7 @@ class MediaPlayerActionSheet: ActionSheet {
             child.removeFromSuperview()
             child.removeGestureRecognizer(self.leftToRightGesture)
 
-            if child is VideoFiltersView {
+            if child is VideoFiltersView || child is PlaybackSpeedView {
                 self.changeBackground(alpha: 0.6)
             }
         }
