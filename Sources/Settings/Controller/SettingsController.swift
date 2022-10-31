@@ -397,6 +397,9 @@ extension SettingsController {
             let privacySection = PrivacyOptions(rawValue: indexPath.row)
             playHaptics(sectionType: privacySection)
         case .gestureControl:
+            let gestureSection = PlaybackControlOptions(rawValue: indexPath.row)
+            playHaptics(sectionType: gestureSection)
+            showActionSheet(for: gestureSection)
             break
         case .video:
             let videoSection = VideoOptions(rawValue: indexPath.row)
