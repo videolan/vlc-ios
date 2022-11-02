@@ -2066,11 +2066,11 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
 
 extension VideoPlayerViewController {
     @objc func keyLeftArrow() {
-        jumpBackwards()
+        jumpBackwards(seekBy)
     }
 
     @objc func keyRightArrow() {
-        jumpForwards()
+        jumpForwards(seekBy)
     }
 
     @objc func keyRightBracket() {
