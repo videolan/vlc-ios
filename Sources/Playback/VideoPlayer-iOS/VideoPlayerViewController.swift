@@ -139,7 +139,7 @@ class VideoPlayerViewController: UIViewController {
     private var mediaDuration: Int = 0
     private var numberOfTapSeek: Int = 0
     private var previousSeekState: VideoPlayerSeekState = .default
-    private var seekby:Int = 0
+    private var seekBy: Int = 0
 
     // MARK: - UI elements
 
@@ -550,7 +550,7 @@ class VideoPlayerViewController: UIViewController {
         super.viewWillAppear(animated)
         playbackService.delegate = self
         playbackService.recoverPlaybackState()
-        seekby = UserDefaults.standard.integer(forKey: kVLCSettingSetCustomSeek)
+        seekBy = UserDefaults.standard.integer(forKey: kVLCSettingSetCustomSeek)
         playerController.lockedOrientation = .portrait
         navigationController?.navigationBar.isHidden = true
 
@@ -783,7 +783,7 @@ private extension VideoPlayerViewController {
         // FIXME: Need to add interface (ripple effect) for seek indicator
         var hudString = ""
 
-        var currentSeek = VideoPlayerSeek(shortSeek: seekby)
+        let currentSeek = VideoPlayerSeek(shortSeek: seekBy)
 
         let seekDuration: Int = numberOfTapSeek * currentSeek.shortSeek
 
