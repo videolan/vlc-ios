@@ -1123,28 +1123,26 @@ extension VideoPlayerViewController {
         var hudString = ""
         let tmp: Int = Int(Double(mediaDuration) * 0.001 * 0.05)
 
-        var swipeForwardDuration = playerController.isVariableJumpDurationEnabled ?
-        tmp : VideoPlayerSeek.Swipe.forward
-        let swipeBackwardDuration = playerController.isVariableJumpDurationEnabled ?
-        tmp : VideoPlayerSeek.Swipe.backward
+        var swipeDuration = playerController.isVariableJumpDurationEnabled ? tmp : seekBy
 
         switch recognizer.direction {
         case .right:
             let timeRemaining = -Int(Double(playbackService.remainingTime().intValue) * 0.001)
 
-            if swipeForwardDuration < timeRemaining {
-                if swipeForwardDuration < 1 {
-                    swipeForwardDuration = 1
+            if swipeDuration < timeRemaining {
+                if swipeDuration < 1 {
+                    swipeDuration = 1
                 }
-                jumpForwards(swipeForwardDuration)
-                hudString = String(format: "⇒ %is", swipeForwardDuration)
+
+                jumpForwards(swipeDuration)
+                hudString = String(format: "⇒ %is", swipeDuration)
             } else {
                 jumpForwards(timeRemaining - 5)
                 hudString = String(format: "⇒ %is", (timeRemaining - 5))
             }
         case .left:
-            jumpBackwards(swipeBackwardDuration)
-            hudString = String(format: "⇐ %is", swipeBackwardDuration)
+            jumpBackwards(swipeDuration)
+            hudString = String(format: "⇐ %is", swipeDuration)
         case .up:
             playbackService.previous()
             hudString = NSLocalizedString("BWD_BUTTON", comment: "")
