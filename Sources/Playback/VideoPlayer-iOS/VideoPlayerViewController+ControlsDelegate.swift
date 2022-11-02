@@ -6,6 +6,7 @@
  * Copyright © 2020 Videolabs
  *
  * Authors: Soomin Lee <bubu # mikan.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
@@ -78,7 +79,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     }
 
     func videoPlayerControlsDelegateDidTapBackward(_ videoPlayerControls: VideoPlayerControls) {
-        jumpBackwards()
+        jumpBackwards(seekBy)
     }
 
     func videoPlayerControlsDelegateDidTapPreviousMedia(_ videoPlayerControls: VideoPlayerControls) {
@@ -99,7 +100,7 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     }
 
     func videoPlayerControlsDelegateDidTapForeward(_ videoPlayerControls: VideoPlayerControls) {
-        jumpForwards()
+        jumpForwards(seekBy)
     }
 
     func videoPlayerControlsDelegateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls) {

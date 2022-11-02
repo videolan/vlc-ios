@@ -139,7 +139,7 @@ class VideoPlayerViewController: UIViewController {
     private var mediaDuration: Int = 0
     private var numberOfTapSeek: Int = 0
     private var previousSeekState: VideoPlayerSeekState = .default
-    private var seekBy: Int = 0
+    var seekBy: Int = 0
 
     // MARK: - UI elements
 
