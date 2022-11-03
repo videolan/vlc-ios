@@ -19,12 +19,15 @@
 #import "CPListTemplate+NetworkStreams.h"
 #import "CPListTemplate+Playlists.h"
 
+#import "VLC-Swift.h"
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
 
-@interface VLCCarPlaySceneDelegate() <CPTemplateApplicationSceneDelegate>
+@interface VLCCarPlaySceneDelegate() <CPTemplateApplicationSceneDelegate, CPMediaLibraryObserverDelegate>
 {
     CPInterfaceController *_interfaceController;
+    CarPlayMediaLibraryObserver *_mediaLibraryObserver;
 }
 
 @end
@@ -35,22 +38,34 @@
    didConnectInterfaceController:(CPInterfaceController *)interfaceController
 {
     _interfaceController = interfaceController;
+    _mediaLibraryObserver = [[CarPlayMediaLibraryObserver alloc] init];
+    _mediaLibraryObserver.observerDelegate = self;
+    [_mediaLibraryObserver observeLibrary];
 
-    CPListTemplate *artists = [CPListTemplate artistList];
-    CPListTemplate *genres = [CPListTemplate genreList];
-    CPListTemplate *streams = [CPListTemplate streamList];
-    CPListTemplate *playlists = [CPListTemplate playlists];
-
-    CPTabBarTemplate *rootTemplate = [[CPTabBarTemplate alloc] initWithTemplates:@[artists, genres, streams, playlists]];
-    [_interfaceController setRootTemplate:rootTemplate animated:YES];
-
-    APLog(@"%s", __PRETTY_FUNCTION__);
+    [_interfaceController setRootTemplate:[self generateRootTemplate] animated:YES];
 }
 
 - (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene
 didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
 {
-    APLog(@"%s", __PRETTY_FUNCTION__);
+    _interfaceController = nil;
+    [_mediaLibraryObserver unobserveLibrary];
+    _mediaLibraryObserver = nil;
+}
+
+- (CPTabBarTemplate *)generateRootTemplate
+{
+    CPListTemplate *artists = [CPListTemplate artistList];
+    CPListTemplate *genres = [CPListTemplate genreList];
+    CPListTemplate *streams = [CPListTemplate streamList];
+    CPListTemplate *playlists = [CPListTemplate playlists];
+
+    return [[CPTabBarTemplate alloc] initWithTemplates:@[artists, genres, streams, playlists]];
+}
+
+- (void)templatesNeedUpdate
+{
+    [_interfaceController setRootTemplate:[self generateRootTemplate] animated:YES];
 }
 
 @end

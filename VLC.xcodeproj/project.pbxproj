@@ -281,6 +281,7 @@
 		7DDE41931BE925820065C53A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D13294E1BA1F10100BE647E /* Images.xcassets */; };
 		7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */; };
 		7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE56C191AD93F9100E8CA00 /* VLCPlaybackService.m */; };
+		7DE6C1842913EF0200379A78 /* CarPlayMediaLibraryObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6C1832913EF0200379A78 /* CarPlayMediaLibraryObserver.swift */; };
 		7DEBF3791C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */; };
 		7DEC8BDE1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEC8BDC1BD67899006E1093 /* VLCFullscreenMovieTVViewController.m */; };
 		7DEC8BDF1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DEC8BDD1BD67899006E1093 /* VLCFullscreenMovieTVViewController.xib */; };
@@ -885,6 +886,7 @@
 		7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VLCCone512x512.png; path = Resources/iOS/VLCCone512x512.png; sourceTree = SOURCE_ROOT; };
 		7DE56C181AD93F9100E8CA00 /* VLCPlaybackService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaybackService.h; path = Sources/Playback/Control/VLCPlaybackService.h; sourceTree = SOURCE_ROOT; };
 		7DE56C191AD93F9100E8CA00 /* VLCPlaybackService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackService.m; path = Sources/Playback/Control/VLCPlaybackService.m; sourceTree = SOURCE_ROOT; };
+		7DE6C1832913EF0200379A78 /* CarPlayMediaLibraryObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayMediaLibraryObserver.swift; sourceTree = "<group>"; };
 		7DEBF3761C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoSubtitlesFetcherViewController.h; sourceTree = "<group>"; };
 		7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoSubtitlesFetcherViewController.m; sourceTree = "<group>"; };
 		7DEC8BDB1BD67899006E1093 /* VLCFullscreenMovieTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCFullscreenMovieTVViewController.h; sourceTree = "<group>"; };
@@ -2437,6 +2439,7 @@
 				7DD71F8928FB421300327ACE /* CPListTemplate+Playlists.m */,
 				7DD71F8F28FB421300327ACE /* VLCCarPlaySceneDelegate.h */,
 				7DD71F9B28FB425A00327ACE /* VLCCarPlaySceneDelegate.m */,
+				7DE6C1832913EF0200379A78 /* CarPlayMediaLibraryObserver.swift */,
 			);
 			path = CarPlay;
 			sourceTree = "<group>";
@@ -3411,6 +3414,7 @@
 				412086362231FE43006A6630 /* UIViewController+VLCAlert.h in Sources */,
 				44C8BBB024AF36F4003F8940 /* SettingsSpecifier.swift in Sources */,
 				6D758AAB2577DDAF0016F675 /* VerticalSlider.swift in Sources */,
+				7DE6C1842913EF0200379A78 /* CarPlayMediaLibraryObserver.swift in Sources */,
 				7D2DE69B24D5AC0E00E8D84D /* VLCOSOFetcher.m in Sources */,
 				D92C186527CD317D0034058F /* ChapterView.swift in Sources */,
 				DD870E9A1CEF929A00BBD4FE /* VLCNetworkLoginViewFieldCell.m in Sources */,

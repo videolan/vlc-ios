@@ -34,7 +34,6 @@
     NSDictionary *recentURLTitles;
 
     if ([[NSFileManager defaultManager] ubiquityIdentityToken] != nil) {
-        APLog(@"%s: ubiquitous key store is available", __func__);
         /* force store update */
         NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
         [ubiquitousKeyValueStore synchronize];
@@ -43,7 +42,6 @@
         recentURLs = [ubiquitousKeyValueStore arrayForKey:kVLCRecentURLs];
         recentURLTitles = [ubiquitousKeyValueStore dictionaryForKey:kVLCRecentURLTitles];
     } else {
-        APLog(@"%s: ubiquitous key store is not available", __func__);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         recentURLs = [defaults objectForKey:kVLCRecentURLs];
         recentURLTitles = [defaults objectForKey:kVLCRecentURLTitles];
