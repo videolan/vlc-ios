@@ -11,8 +11,8 @@
  *****************************************************************************/
 
 class AudioViewController: MediaViewController {
-    override init(services: Services) {
-        super.init(services: services)
+    override init(mediaLibraryService: MediaLibraryService) {
+        super.init(mediaLibraryService: mediaLibraryService)
         setupUI()
     }
 
@@ -27,10 +27,10 @@ class AudioViewController: MediaViewController {
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         return [
-            ArtistCategoryViewController(services),
-            AlbumCategoryViewController(services),
-            TrackCategoryViewController(services),
-            GenreCategoryViewController(services)
+            ArtistCategoryViewController(mediaLibraryService),
+            AlbumCategoryViewController(mediaLibraryService),
+            TrackCategoryViewController(mediaLibraryService),
+            GenreCategoryViewController(mediaLibraryService)
         ]
     }
 

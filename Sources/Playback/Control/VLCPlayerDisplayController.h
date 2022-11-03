@@ -54,12 +54,10 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 @property (nonatomic, strong, nullable) UIView *miniPlaybackView;
 @property (nonatomic, strong, readonly, nullable) VLCQueueViewController *queueViewController;
 
-- (instancetype)init NS_UNAVAILABLE;
+- (nullable instancetype)init;
 - (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil
                                  bundle:(nullable NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
-
-- (nullable instancetype)initWithServices:(nullable id)services NS_DESIGNATED_INITIALIZER;
 
 - (void)showFullscreenPlayback;
 - (void)showAudioPlayer;

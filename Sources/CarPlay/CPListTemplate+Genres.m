@@ -30,12 +30,8 @@
 
 + (NSArray *)listOfGenres
 {
-    VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
-    AppCoordinator *appCoordinator = appDelegate.appCoordinator;
-    VLCServices *services = appCoordinator.services;
-
-    MediaLibraryService *mlService = services.medialibraryService;
-    NSArray *genres = [mlService genresWithSortingCriteria:VLCMLSortingCriteriaDefault desc:NO];
+    NSArray *genres = [[VLCAppCoordinator sharedInstance].mediaLibraryService genresWithSortingCriteria:VLCMLSortingCriteriaDefault
+                                                                                                   desc:NO];
 
     NSUInteger count = genres.count;
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];

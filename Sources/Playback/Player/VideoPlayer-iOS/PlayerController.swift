@@ -27,8 +27,6 @@ protocol PlayerControllerDelegate: AnyObject {
 class PlayerController: NSObject {
     weak var delegate: PlayerControllerDelegate?
 
-    private var services: Services
-
     private var playbackService: PlaybackService = PlaybackService.sharedInstance()
 
     // MARK: - States
@@ -86,8 +84,7 @@ class PlayerController: NSObject {
     }
 
 
-    @objc init(services: Services) {
-        self.services = services
+    @objc override init() {
         super.init()
         setupObservers()
     }

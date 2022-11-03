@@ -37,7 +37,7 @@
 
     VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
     appDelegate.window = window;
-    [appDelegate setupApplicationCoordinator];
+    [appDelegate setupTabBarAppearance];
 }
 
 - (void)sceneDidDisconnect:(UIScene *)scene

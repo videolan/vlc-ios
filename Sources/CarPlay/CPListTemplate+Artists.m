@@ -31,12 +31,9 @@
 
 + (NSArray *)listOfArtists
 {
-    VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
-    AppCoordinator *appCoordinator = appDelegate.appCoordinator;
-    VLCServices *services = appCoordinator.services;
-
-    MediaLibraryService *mlService = services.medialibraryService;
-    NSArray *artists = [mlService artistsWithSortingCriteria:VLCMLSortingCriteriaDefault desc:NO listAll:YES];
+    NSArray *artists = [[VLCAppCoordinator sharedInstance].mediaLibraryService artistsWithSortingCriteria:VLCMLSortingCriteriaDefault
+                                                                                                     desc:NO
+                                                                                                  listAll:YES];
 
     NSUInteger count = artists.count;
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];

@@ -11,8 +11,8 @@
  *****************************************************************************/
 
 class VideoViewController: MediaViewController {
-    override init(services: Services) {
-        super.init(services: services)
+    override init(mediaLibraryService: MediaLibraryService) {
+        super.init(mediaLibraryService: mediaLibraryService)
         setupUI()
     }
 
@@ -26,7 +26,7 @@ class VideoViewController: MediaViewController {
     }
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        return [MovieCategoryViewController(services)]
+        return [MovieCategoryViewController(mediaLibraryService)]
     }
 
     func resetTitleView() {

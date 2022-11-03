@@ -12,8 +12,8 @@
 class ArtistViewController: MediaViewController {
     private var artist: VLCMLArtist? = nil
 
-    init(services: Services, mediaCollection: VLCMLArtist) {
-        super.init(services: services)
+    init(mediaLibraryService: MediaLibraryService, mediaCollection: VLCMLArtist) {
+        super.init(mediaLibraryService: mediaLibraryService)
         self.artist = mediaCollection
         setupTitle()
     }
@@ -32,11 +32,11 @@ class ArtistViewController: MediaViewController {
         }
 
         if artist.albumsCount() == 0 {
-            return [CollectionCategoryViewController(services, mediaCollection: artist)]
+            return [CollectionCategoryViewController(mediaLibraryService, mediaCollection: artist)]
         } else {
             return [
-                ArtistAlbumCategoryViewController(services, mediaCollection: artist),
-                CollectionCategoryViewController(services, mediaCollection: artist)
+                ArtistAlbumCategoryViewController(mediaLibraryService, mediaCollection: artist),
+                CollectionCategoryViewController(mediaLibraryService, mediaCollection: artist)
             ]
         }
     }

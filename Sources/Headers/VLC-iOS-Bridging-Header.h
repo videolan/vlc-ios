@@ -6,6 +6,7 @@
 #import "VLCExternalDisplayController.h"
 #import "UIColor+Presets.h"
 #import "VLCAppDelegate.h"
+#import "VLCAppCoordinator.h"
 #import "VLCCloudServicesTableViewController.h"
 #import "VLCConstants.h"
 #import "VLCDownloadController.h"

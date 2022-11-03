@@ -18,8 +18,7 @@
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, assign) UIInterfaceOrientationMask orientationLock;
-@property (readonly) id appCoordinator;
 
-- (void)setupApplicationCoordinator;
+- (void)setupTabBarAppearance;
 
 @end

@@ -15,7 +15,7 @@ import Foundation
 
 class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
-    var services: Services
+    var mediaLibraryService: MediaLibraryService
     private var rendererButton: UIButton
     private(set) lazy var sortButton: UIBarButtonItem = {
         let sortButton = setupSortbutton()
@@ -72,9 +72,9 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     private var rightBarButtons: [UIBarButtonItem]?
     private var leftBarButtons: [UIBarButtonItem]?
 
-    init(services: Services) {
-        self.services = services
-        rendererButton = services.rendererDiscovererManager.setupRendererButton()
+    init(mediaLibraryService: MediaLibraryService) {
+        self.mediaLibraryService = mediaLibraryService
+        rendererButton = VLCAppCoordinator.sharedInstance().rendererDiscovererManager.setupRendererButton()
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
     }

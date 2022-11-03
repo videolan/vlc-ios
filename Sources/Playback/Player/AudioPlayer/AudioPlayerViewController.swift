@@ -54,8 +54,8 @@ class AudioPlayerViewController: PlayerViewController {
 
     // MARK: - Init
 
-    @objc override init(services: Services, playerController: PlayerController) {
-        super.init(services: services, playerController: playerController)
+    @objc override init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
+        super.init(mediaLibraryService: mediaLibraryService, rendererDiscovererManager: rendererDiscovererManager, playerController: playerController)
 
         self.playerController.delegate = self
         mediaNavigationBar.addMoreOptionsButton(moreOptionsButton)

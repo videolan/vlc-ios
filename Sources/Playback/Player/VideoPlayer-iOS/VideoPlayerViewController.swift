@@ -101,7 +101,8 @@ class VideoPlayerViewController: UIViewController {
 
     let volumeView = MPVolumeView(frame: .zero)
 
-    private var services: Services
+    private var mediaLibraryService: MediaLibraryService
+    private var rendererDiscovererManager: VLCRendererDiscovererManager
 
     private(set) var playerController: PlayerController
 
@@ -197,7 +198,7 @@ class VideoPlayerViewController: UIViewController {
 
     private lazy var mediaNavigationBar: MediaNavigationBar = {
         var mediaNavigationBar = MediaNavigationBar(frame: .zero,
-                                                    rendererDiscovererService: services.rendererDiscovererManager)
+                                                    rendererDiscovererService: rendererDiscovererManager)
         mediaNavigationBar.delegate = self
         mediaNavigationBar.presentingViewController = self
         mediaNavigationBar.chromeCastButton.isHidden =
@@ -503,8 +504,9 @@ class VideoPlayerViewController: UIViewController {
 
     // MARK: -
 
-    @objc init(services: Services, playerController: PlayerController) {
-        self.services = services
+    @objc init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
+        self.mediaLibraryService = mediaLibraryService
+        self.rendererDiscovererManager = rendererDiscovererManager
         self.playerController = playerController
         super.init(nibName: nil, bundle: nil)
         self.playerController.delegate = self
@@ -530,7 +532,7 @@ class VideoPlayerViewController: UIViewController {
     }
 
     private func setupRendererDiscoverer() {
-        rendererButton = services.rendererDiscovererManager.setupRendererButton()
+        rendererButton = rendererDiscovererManager.setupRendererButton()
         rendererButton?.tintColor = .white
         if playbackService.renderer != nil {
             rendererButton?.isSelected = true
@@ -538,7 +540,7 @@ class VideoPlayerViewController: UIViewController {
         if let rendererButton = rendererButton {
             mediaNavigationBar.chromeCastButton = rendererButton
         }
-        services.rendererDiscovererManager.addSelectionHandler {
+        rendererDiscovererManager.addSelectionHandler {
             rendererItem in
             if rendererItem != nil {
                 self.changeVideoOutput(to: self.externalVideoOutputView.displayView)
@@ -563,7 +565,7 @@ class VideoPlayerViewController: UIViewController {
 
         artWorkImageView.image = nil
         // FIXME: Test userdefault
-        let rendererDiscoverer = services.rendererDiscovererManager
+        let rendererDiscoverer = rendererDiscovererManager
         rendererDiscoverer.presentingViewController = self
         rendererDiscoverer.delegate = self
 
@@ -1551,11 +1553,11 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
     }
 
     func savePlaybackState(_ playbackService: PlaybackService) {
-        services.medialibraryService.savePlaybackState(from: playbackService)
+        mediaLibraryService.savePlaybackState(from: playbackService)
     }
 
     func media(forPlaying media: VLCMedia?) -> VLCMLMedia? {
-        return services.medialibraryService.fetchMedia(with: media?.url)
+        return mediaLibraryService.fetchMedia(with: media?.url)
     }
 
     func showStatusMessage(_ statusMessage: String) {
@@ -1788,7 +1790,7 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
             return nil
         }
 
-        let currentMedia = services.medialibraryService.fetchMedia(with: media.url)
+        let currentMedia = mediaLibraryService.fetchMedia(with: media.url)
         return currentMedia
     }
 

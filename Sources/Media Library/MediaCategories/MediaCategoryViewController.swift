@@ -30,7 +30,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     // MARK: - Properties
     var model: MediaLibraryBaseModel
     private var secondModel: MediaLibraryBaseModel
-    private var services: Services
+    private var mediaLibraryService: MediaLibraryService
 
     var searchBar = UISearchBar(frame: .zero)
     var isSearching: Bool = false
@@ -41,7 +41,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private let userDefaults = UserDefaults.standard
     private var rendererButton: UIButton
     private lazy var editController: EditController = {
-        let editController = EditController(mediaLibraryService:services.medialibraryService,
+        let editController = EditController(mediaLibraryService:mediaLibraryService,
                                             model: model,
                                             presentingView: collectionView)
         editController.delegate = self
@@ -172,10 +172,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         fatalError()
     }
 
-    init(services: Services, model: MediaLibraryBaseModel) {
-        self.services = services
+    init(mediaLibraryService: MediaLibraryService, model: MediaLibraryBaseModel) {
+        self.mediaLibraryService = mediaLibraryService
 
-        let videoModel = VideoModel(medialibrary: services.medialibraryService)
+        let videoModel = VideoModel(medialibrary: mediaLibraryService)
         videoModel.secondName = model.name
 
         if model is MediaGroupViewModel {
@@ -186,7 +186,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             self.secondModel = videoModel
         }
 
-        self.rendererButton = services.rendererDiscovererManager.setupRendererButton()
+        self.rendererButton = VLCAppCoordinator.sharedInstance().rendererDiscovererManager.setupRendererButton()
         self.searchDataSource = LibrarySearchDataSource(model: model)
 
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -233,7 +233,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         model = secondModel
         secondModel = previousModel
         self.searchDataSource = LibrarySearchDataSource(model: model)
-        editController = EditController(mediaLibraryService: services.medialibraryService, model: model, presentingView: collectionView)
+        editController = EditController(mediaLibraryService: mediaLibraryService, model: model, presentingView: collectionView)
         editController.delegate = self
         model.sort(by: secondModel.sortModel.currentSort, desc: secondModel.sortModel.desc)
         setupCollectionView()
@@ -375,7 +375,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let manager = services.rendererDiscovererManager
+        let manager = VLCAppCoordinator.sharedInstance().rendererDiscovererManager
         manager.delegate = self
         if manager.discoverers.isEmpty {
             // Either didn't start or stopped before
@@ -694,8 +694,8 @@ extension MediaCategoryViewController {
                                            style: .destructive,
                                            action: {
                                             [unowned self] action in
-                                            self.services.medialibraryService.medialib.regroupAll()
-                                            mediaGroupViewModel.files = self.services.medialibraryService.medialib.mediaGroups() ?? []
+                                            self.mediaLibraryService.medialib.regroupAll()
+                                            mediaGroupViewModel.files = self.mediaLibraryService.medialib.mediaGroups() ?? []
                                             self.delegate?.setEditingStateChanged(for: self, editing: false)
         })
 
@@ -988,10 +988,10 @@ extension MediaCategoryViewController {
             play(media: media, at: indexPath)
             createSpotlightItem(media: media)
         } else if let artist = modelContent as? VLCMLArtist {
-            let artistViewController = ArtistViewController(services: services, mediaCollection: artist)
+            let artistViewController = ArtistViewController(mediaLibraryService: mediaLibraryService, mediaCollection: artist)
             navigationController?.pushViewController(artistViewController, animated: true)
         } else if let mediaCollection = modelContent as? MediaCollectionModel {
-            let collectionViewController = CollectionCategoryViewController(services,
+            let collectionViewController = CollectionCategoryViewController(mediaLibraryService,
                                                                             mediaCollection: mediaCollection)
 
             collectionViewController.delegate = delegate
@@ -1082,12 +1082,12 @@ extension MediaCategoryViewController {
             // we show up to 4 thumbnails per group, so request those
             for index in 0...3 {
                 if let media = mediaArray.objectAtIndex(index: index) {
-                    services.medialibraryService.requestThumbnail(for: media)
+                    mediaLibraryService.requestThumbnail(for: media)
                 }
             }
         } else if let media = mediaObject as? VLCMLMedia {
             if media.type() == .unknown || media.type() == .video {
-                services.medialibraryService.requestThumbnail(for: media)
+                mediaLibraryService.requestThumbnail(for: media)
                 assert(media.mainFile() != nil, "The mainfile is nil")
             }
         }

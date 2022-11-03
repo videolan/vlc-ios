@@ -25,7 +25,6 @@
 {
     BOOL _isComingFromHandoff;
     VLCKeychainCoordinator *_keychainCoordinator;
-    AppCoordinator *_appCoordinator;
     id<VLCURLHandler> _urlHandlerToExecute;
     NSURL *_urlToHandle;
 }
@@ -96,11 +95,10 @@
     [defaults registerDefaults:appDefaults];
 }
 
-- (void)setupApplicationCoordinator
+- (void)setupTabBarAppearance
 {
     void (^setupAppCoordinator)(void) = ^{
-        self->_appCoordinator = [[AppCoordinator alloc] initWithTabBarController:(UITabBarController *)self->_window.rootViewController];
-        [self->_appCoordinator start];
+        [[VLCAppCoordinator sharedInstance] setTabBarController:(UITabBarController *)self->_window.rootViewController];
     };
     [self validatePasscodeIfNeededWithCompletion:setupAppCoordinator];
 }
@@ -143,18 +141,13 @@
         self.window.rootViewController = [UITabBarController new];
         [self.window makeKeyAndVisible];
         [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
-        [self setupApplicationCoordinator];
+        [self setupTabBarAppearance];
     }
     self.orientationLock = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
 
     [self configureShortCutItemsWithApplication:application];
 
     return YES;
-}
-
-- (id)appCoordinator
-{
-    return _appCoordinator;
 }
 
 #pragma mark - Handoff
@@ -167,7 +160,7 @@
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *))restorationHandler
 {
-    VLCMLMedia *media = [_appCoordinator mediaForUserActivity:userActivity];
+    VLCMLMedia *media = [[VLCAppCoordinator sharedInstance] mediaForUserActivity:userActivity];
     if (!media) return NO;
 
     [self validatePasscodeIfNeededWithCompletion:^{
@@ -239,7 +232,7 @@
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
-    [_appCoordinator handleShortcutItem:shortcutItem];
+    [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
 }
 
 #pragma mark - pass code validation

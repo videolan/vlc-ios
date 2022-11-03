@@ -59,8 +59,8 @@ class PlayerViewController: UIViewController {
     }
 
     // MARK: - Properties
-
-    var services: Services
+    var mediaLibraryService: MediaLibraryService
+    var rendererDiscovererManager: VLCRendererDiscovererManager
     var playerController: PlayerController
     var playbackService: PlaybackService = PlaybackService.sharedInstance()
     var queueViewController: QueueViewController?
@@ -77,7 +77,7 @@ class PlayerViewController: UIViewController {
 
     lazy var mediaNavigationBar: MediaNavigationBar = {
         var mediaNavigationBar = MediaNavigationBar(frame: .zero,
-                                                    rendererDiscovererService: services.rendererDiscovererManager)
+                                                    rendererDiscovererService: rendererDiscovererManager)
         mediaNavigationBar.delegate = self
         mediaNavigationBar.presentingViewController = self
         mediaNavigationBar.chromeCastButton.isHidden =
@@ -241,8 +241,9 @@ class PlayerViewController: UIViewController {
 
     // MARK: - Init
 
-    @objc init(services: Services, playerController: PlayerController) {
-        self.services = services
+    @objc init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
+        self.mediaLibraryService = mediaLibraryService
+        self.rendererDiscovererManager = rendererDiscovererManager
         self.playerController = playerController
         super.init(nibName: nil, bundle: nil)
     }
@@ -589,11 +590,11 @@ class PlayerViewController: UIViewController {
 
 extension PlayerViewController: VLCPlaybackServiceDelegate {
     func savePlaybackState(_ playbackService: PlaybackService) {
-        services.medialibraryService.savePlaybackState(from: playbackService)
+        mediaLibraryService.savePlaybackState(from: playbackService)
     }
 
     func media(forPlaying media: VLCMedia?) -> VLCMLMedia? {
-        services.medialibraryService.fetchMedia(with: media?.url)
+        mediaLibraryService.fetchMedia(with: media?.url)
     }
 
     func playbackPositionUpdated(_ playbackService: PlaybackService) {
@@ -686,7 +687,7 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
             return nil
         }
 
-        return services.medialibraryService.fetchMedia(with: media.url)
+        return mediaLibraryService.fetchMedia(with: media.url)
     }
 
     func mediaMoreOptionsActionSheetDidSelectBookmark(value: Float) {

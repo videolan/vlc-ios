@@ -13,13 +13,13 @@ import UIKit
 
 class TabBarCoordinator: NSObject {
     private var tabBarController: UITabBarController
-    private var services: Services
+    private var mediaLibraryService: MediaLibraryService
 
     private lazy var editToolbar = EditToolbar()
 
-    init(tabBarController: UITabBarController, services: Services) {
+    @objc init(tabBarController: UITabBarController, mediaLibraryService: MediaLibraryService) {
         self.tabBarController = tabBarController
-        self.services = services
+        self.mediaLibraryService = mediaLibraryService
         super.init()
         setup()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTheme), name: .VLCThemeDidChangeNotification, object: nil)
@@ -76,18 +76,18 @@ class TabBarCoordinator: NSObject {
 
     private func setupViewControllers() {
         let controllers: [UIViewController] = [
-            VideoViewController(services: services),
-            AudioViewController(services: services),
-            PlaylistViewController(services: services),
+            VideoViewController(mediaLibraryService: mediaLibraryService),
+            AudioViewController(mediaLibraryService: mediaLibraryService),
+            PlaylistViewController(mediaLibraryService: mediaLibraryService),
             VLCServerListViewController(nibName: nil, bundle: nil),
-            SettingsController(mediaLibraryService: services.medialibraryService)
+            SettingsController(mediaLibraryService: mediaLibraryService)
         ]
 
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
         tabBarController.selectedIndex = UserDefaults.standard.integer(forKey: kVLCTabBarIndex)
     }
 
-    func handleShortcutItem(_ item: UIApplicationShortcutItem) {
+    @objc func handleShortcutItem(_ item: UIApplicationShortcutItem) {
         switch item.type {
         case kVLCApplicationShortcutLocalVideo:
             tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in

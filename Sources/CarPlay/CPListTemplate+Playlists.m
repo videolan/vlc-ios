@@ -30,12 +30,8 @@
 
 + (NSArray *)listOfPlaylists
 {
-    VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
-    AppCoordinator *appCoordinator = appDelegate.appCoordinator;
-    VLCServices *services = appCoordinator.services;
-
-    MediaLibraryService *mlService = services.medialibraryService;
-    NSArray *playlists = [mlService playlistsWithSortingCriteria:VLCMLSortingCriteriaDefault desc:NO];
+    NSArray *playlists = [[VLCAppCoordinator sharedInstance].mediaLibraryService playlistsWithSortingCriteria:VLCMLSortingCriteriaDefault
+                                                                                                         desc:NO];
 
     NSUInteger count = playlists.count;
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];

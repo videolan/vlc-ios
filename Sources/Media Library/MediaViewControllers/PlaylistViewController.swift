@@ -11,8 +11,8 @@
  *****************************************************************************/
 
 class PlaylistViewController: MediaViewController {
-    override init(services: Services) {
-        super.init(services: services)
+    override init(mediaLibraryService: MediaLibraryService) {
+        super.init(mediaLibraryService: mediaLibraryService)
         setupUI()
     }
 
@@ -27,7 +27,7 @@ class PlaylistViewController: MediaViewController {
 
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         return [
-            PlaylistCategoryViewController(services)
+            PlaylistCategoryViewController(mediaLibraryService)
         ]
     }
 

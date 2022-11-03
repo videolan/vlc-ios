@@ -42,7 +42,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 @interface VLCPlayerDisplayController () <VLCVideoPlayerViewControllerDelegate>
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *movieViewController;
 @property (nonatomic, strong) UIViewController<VLCPlaybackServiceDelegate> *videoPlayerViewController;
-@property (nonatomic, strong) VLCServices *services;
 @end
 
 @interface VLCPlayerDisplayController () <VLCAudioPlayerViewControllerDelegate>
@@ -51,14 +50,10 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 @implementation VLCPlayerDisplayController
 
-- (instancetype _Nullable)initWithServices:(nullable id)services
+- (nullable instancetype)init
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        NSAssert([services isKindOfClass:[VLCServices class]], @"VLCPlayerDisplayController: Injected services class issue");
-
-        _services = services;
-
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter addObserver:self selector:@selector(playbackDidStart:) name:VLCPlaybackServicePlaybackDidStart object:nil];
         [notificationCenter addObserver:self selector:@selector(playbackDidFail:) name:VLCPlaybackServicePlaybackDidFail object:nil];
@@ -75,9 +70,11 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
     [[VLCPlaybackService sharedInstance] setPlayerDisplayController:self];
 
-    VLCPlayerController *pc = [[VLCPlayerController alloc] initWithServices:_services];
+    VLCPlayerController *pc = [[VLCPlayerController alloc] init];
+    VLCAppCoordinator *ac = [VLCAppCoordinator sharedInstance];
     _videoPlayerViewController = [[VLCVideoPlayerViewController alloc]
-                                  initWithServices:_services
+                                  initWithMediaLibraryService:ac.mediaLibraryService
+                                  rendererDiscovererManager:ac.rendererDiscovererManager
                                   playerController:pc];
 
     [super viewDidLoad];
@@ -134,8 +131,11 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             [self initQueueViewController];
         }
 
-        VLCPlayerController *pc = [[VLCPlayerController alloc] initWithServices:_services];
-        _audioPlayerViewController = [[VLCAudioPlayerViewController alloc] initWithServices:_services playerController:pc];
+        VLCPlayerController *pc = [[VLCPlayerController alloc] init];
+        VLCAppCoordinator *ac = [VLCAppCoordinator sharedInstance];
+        _audioPlayerViewController = [[VLCAudioPlayerViewController alloc] initWithMediaLibraryService:ac.mediaLibraryService
+                                                                             rendererDiscovererManager:ac.rendererDiscovererManager
+                                                                                      playerController:pc];
         [((VLCAudioPlayerViewController *)_audioPlayerViewController) setupQueueViewControllerWith:_queueViewController];
         ((VLCAudioPlayerViewController *) _audioPlayerViewController).delegate = self;
         self.playbackController.delegate = _audioPlayerViewController;
@@ -369,7 +369,8 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             UIViewController *rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
 
             // Until VideoMiniPlayer is integrated, only AudioMiniPlayer is used.
-            self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithService:_services.medialibraryService draggingDelegate:self];
+            self.miniPlaybackView = miniPlaybackView = [[VLCAudioMiniPlayer alloc] initWithService:[VLCAppCoordinator sharedInstance].mediaLibraryService
+                                                                                  draggingDelegate:self];
             if (!_queueViewController) {
                 [self initQueueViewController];
             }
@@ -454,7 +455,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)initQueueViewController
 {
-    _queueViewController = [[VLCQueueViewController alloc] initWithMedialibraryService:_services.medialibraryService];
+    _queueViewController = [[VLCQueueViewController alloc] initWithMedialibraryService:[VLCAppCoordinator sharedInstance].mediaLibraryService];
 }
 
 - (void)hintPlayqueueWithDelay:(NSTimeInterval)delay
