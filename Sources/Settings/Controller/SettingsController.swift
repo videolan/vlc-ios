@@ -438,7 +438,9 @@ extension SettingsController {
 
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionFooterReuseIdentifier) as? SettingsFooterView else { return nil }
-        return section == 8 ? nil : footerView
+
+        // Do not display a separator for the last section
+        return section == tableView.numberOfSections - 1 ? nil : footerView
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
