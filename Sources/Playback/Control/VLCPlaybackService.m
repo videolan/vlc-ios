@@ -533,6 +533,19 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     return _mediaPlayer.isSeekable;
 }
 
+- (BOOL)isNextMediaAvailable
+{
+    if (_mediaList.count == 1) {
+        return NO;
+    }
+
+    if ([self nextMediaIndex:NO] > 0) {
+        return YES;
+    }
+
+    return NO;
+}
+
 - (NSNumber *)playbackTime
 {
     return _mediaPlayer.time.value;

@@ -102,6 +102,7 @@ NS_SWIFT_NAME(PlaybackService)
 @property (assign, readwrite) BOOL fullscreenSessionRequested;
 @property (assign, readonly) BOOL isSeekable;
 @property (assign, readonly) BOOL currentMediaIs360Video;
+@property (readonly) BOOL isNextMediaAvailable;
 @property (readonly) NSNumber *playbackTime;
 @property (nonatomic, readonly) NSDictionary *mediaOptionsDictionary;
 @property (nonatomic, readonly) NSTimer *sleepTimer;

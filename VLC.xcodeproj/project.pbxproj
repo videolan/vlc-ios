@@ -168,6 +168,7 @@
 		7D405EDB1BEA1F56006ED886 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
 		7D405EE21BEA1FAD006ED886 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D405EE11BEA1FAD006ED886 /* index.html */; };
 		7D43A29E28FB40B3002C41B1 /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D43A29D28FB40B3002C41B1 /* CarPlay.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7D4556AC29192F5400276567 /* VLCNowPlayingTemplateObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4556AB29192F5400276567 /* VLCNowPlayingTemplateObserver.m */; };
 		7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4DF2171B55209200739326 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D51B3B01BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */; };
 		7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
@@ -745,6 +746,8 @@
 		7D405EE11BEA1FAD006ED886 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = Resources/web/tvOS/index.html; sourceTree = SOURCE_ROOT; };
 		7D4136621896710500D7B4B2 /* si */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = si; path = si.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D43A29D28FB40B3002C41B1 /* CarPlay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CarPlay.framework; path = System/Library/Frameworks/CarPlay.framework; sourceTree = SDKROOT; };
+		7D4556AA29192F5400276567 /* VLCNowPlayingTemplateObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCNowPlayingTemplateObserver.h; sourceTree = "<group>"; };
+		7D4556AB29192F5400276567 /* VLCNowPlayingTemplateObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCNowPlayingTemplateObserver.m; sourceTree = "<group>"; };
 		7D49E178175A47A4002D1450 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D4BE733175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D4C484417ACF982008D228B /* bs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bs; path = bs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2439,6 +2442,8 @@
 				7DD71F8928FB421300327ACE /* CPListTemplate+Playlists.m */,
 				7DD71F8F28FB421300327ACE /* VLCCarPlaySceneDelegate.h */,
 				7DD71F9B28FB425A00327ACE /* VLCCarPlaySceneDelegate.m */,
+				7D4556AA29192F5400276567 /* VLCNowPlayingTemplateObserver.h */,
+				7D4556AB29192F5400276567 /* VLCNowPlayingTemplateObserver.m */,
 				7DE6C1832913EF0200379A78 /* CarPlayMediaLibraryObserver.swift */,
 			);
 			path = CarPlay;
@@ -3528,6 +3533,7 @@
 				597B403F2625E85000C0D81E /* SliderInfoView.swift in Sources */,
 				7DD71F9C28FB425A00327ACE /* VLCCarPlaySceneDelegate.m in Sources */,
 				407EB58E257A41B200686B1F /* SleepTimerView.swift in Sources */,
+				7D4556AC29192F5400276567 /* VLCNowPlayingTemplateObserver.m in Sources */,
 				7DC7BABC28C8959F00109F28 /* URL+isHidden.swift in Sources */,
 				41EB6634216147DD00FDC38B /* PlaylistViewController.swift in Sources */,
 				7D30F3C4183AB24C00FFC021 /* VLCHTTPUploaderController.m in Sources */,

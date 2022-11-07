@@ -57,8 +57,8 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
     commandCenter.bookmarkCommand.enabled = NO;
     commandCenter.enableLanguageOptionCommand.enabled = NO;
     commandCenter.disableLanguageOptionCommand.enabled = NO;
-    commandCenter.changeRepeatModeCommand.enabled = NO;
-    commandCenter.changeShuffleModeCommand.enabled = NO;
+    commandCenter.changeRepeatModeCommand.enabled = YES;
+    commandCenter.changeShuffleModeCommand.enabled = YES;
     commandCenter.seekForwardCommand.enabled = NO;
     commandCenter.seekBackwardCommand.enabled = NO;
 

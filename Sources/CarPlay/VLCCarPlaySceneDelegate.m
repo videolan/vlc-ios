@@ -18,6 +18,7 @@
 #import "CPListTemplate+Genres.h"
 #import "CPListTemplate+NetworkStreams.h"
 #import "CPListTemplate+Playlists.h"
+#import "VLCNowPlayingTemplateObserver.h"
 
 #import "VLC-Swift.h"
 
@@ -28,6 +29,7 @@
 {
     CPInterfaceController *_interfaceController;
     CarPlayMediaLibraryObserver *_mediaLibraryObserver;
+    VLCNowPlayingTemplateObserver *_nowPlayingTemplateObserver;
 }
 
 @end
@@ -43,6 +45,10 @@
     [_mediaLibraryObserver observeLibrary];
 
     [_interfaceController setRootTemplate:[self generateRootTemplate] animated:YES];
+
+    _nowPlayingTemplateObserver = [VLCNowPlayingTemplateObserver new];
+    [[CPNowPlayingTemplate sharedTemplate] addObserver:_nowPlayingTemplateObserver];
+    [_nowPlayingTemplateObserver configureNowPlayingTemplate];
 }
 
 - (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene
@@ -51,6 +57,8 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
     _interfaceController = nil;
     [_mediaLibraryObserver unobserveLibrary];
     _mediaLibraryObserver = nil;
+    [[CPNowPlayingTemplate sharedTemplate] removeObserver:_nowPlayingTemplateObserver];
+    _nowPlayingTemplateObserver = nil;
 }
 
 - (CPTabBarTemplate *)generateRootTemplate
