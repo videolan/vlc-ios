@@ -180,6 +180,23 @@ extension VLCMLPlaylist {
         return String(format: tracksString, mediaCount)
     }
 
+    @objc func thumbnailImage() -> UIImage? {
+        let artworkMRL = URL.init(string: artworkMrl())
+        var image = VLCThumbnailsCache.thumbnail(for: artworkMRL)
+        if image == nil {
+            guard let tracks = media else {
+                return nil
+            }
+            for iter in tracks {
+                if iter.thumbnailStatus() == .available {
+                    image = iter.thumbnailImage()
+                    break;
+                }
+            }
+        }
+        return image
+    }
+
     func accessibilityText() -> String? {
         return name + " " + numberOfTracksString()
     }

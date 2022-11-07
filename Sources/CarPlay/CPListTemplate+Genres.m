@@ -44,11 +44,7 @@
         NSMutableArray *artistImages = [NSMutableArray array];
 
         for (VLCMLArtist *artist in artists) {
-            UIImage *artworkImage;
-            NSData *data = [[NSData alloc] initWithContentsOfURL:artist.artworkMRL];
-            if (data) {
-                artworkImage = [[UIImage alloc] initWithData:data];
-            }
+            UIImage *artworkImage = [VLCThumbnailsCache thumbnailForURL:artist.artworkMRL];
             if (!artworkImage) {
                 artworkImage = [UIImage imageNamed:@"cp-Artist"];
             }

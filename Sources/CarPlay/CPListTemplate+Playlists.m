@@ -40,22 +40,7 @@
         CPListItem *listItem;
 
         VLCMLPlaylist *iter = playlists[x];
-
-        UIImage *artworkImage;
-        NSURL *artworkMRL = [[NSURL alloc] initWithString:iter.artworkMrl];
-        NSData *data = [[NSData alloc] initWithContentsOfURL:artworkMRL];
-        if (data) {
-            artworkImage = [[UIImage alloc] initWithData:data];
-        }
-        if (!artworkImage) {
-            NSArray *tracks = iter.media;
-            for (VLCMLMedia *media in tracks) {
-                if (media.thumbnailStatus == VLCMLThumbnailStatusAvailable) {
-                    artworkImage = media.thumbnailImage;
-                    break;
-                }
-            }
-        }
+        UIImage *artworkImage = iter.thumbnailImage;
         if (!artworkImage) {
             artworkImage = [UIImage imageNamed:@"cp-Playlist"];
         }
