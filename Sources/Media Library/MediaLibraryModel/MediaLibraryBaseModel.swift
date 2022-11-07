@@ -145,7 +145,7 @@ extension MediaCollectionModel {
         var image: UIImage? = nil
         if image == nil {
             for track in files() ?? [] where track.thumbnailStatus() == .available {
-                image = UIImage(contentsOfFile: track.thumbnail()?.path ?? "")
+                image = VLCThumbnailsCache.thumbnail(for: track.thumbnail())
                 break
             }
         }
