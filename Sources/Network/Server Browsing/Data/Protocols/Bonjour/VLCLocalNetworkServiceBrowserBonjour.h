@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init;
 @end
 
-extern NSString *const VLCNetworkServerProtocolIdentifierBonjour;
 @interface VLCLocalNetworkServiceBonjour: VLCLocalNetworkServiceVLCMedia
 
 @end

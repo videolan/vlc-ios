@@ -34,8 +34,6 @@
 
 @end
 
-NSString *const VLCNetworkServerProtocolIdentifierBonjour = @"Bonjour";
-
 @implementation VLCLocalNetworkServiceBonjour
 
 - (VLCNetworkServerLoginInformation *)loginInformation {
