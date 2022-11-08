@@ -4,6 +4,7 @@
  * Copyright © 2019 VLC authors and VideoLAN
  *
  * Authors: Robert Gordon <robwaynegordon # gmail.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  *
  * Refer to the COPYING file of the official project for license.
@@ -51,6 +52,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         label.textColor = .white
         label.font = UIFont.preferredCustomFont(forTextStyle: .headline)
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        label.accessibilityLabel = NSLocalizedString("TITLE", comment: "")
         return label
     }()
 
@@ -137,6 +139,7 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     // MARK: Instance Methods
     func setMediaTitleLabelText(_ titleText: String?) {
         mediaTitleTextLabel.text = titleText
+        mediaTitleTextLabel.accessibilityValue = titleText
     }
 
     private func setupContraints() {
