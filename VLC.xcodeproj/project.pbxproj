@@ -364,6 +364,7 @@
 		D96C9EBC28105F5B005F13BB /* AlbumHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C9EBB28105F5B005F13BB /* AlbumHeader.swift */; };
 		D98EE7452846183F00E6B02D /* GraphTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98EE7442846183F00E6B02D /* GraphTableViewController.swift */; };
 		D9AFDCA527D6383F002326CC /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AFDCA427D6383F002326CC /* BookmarksView.swift */; };
+		D9F0D67A2937624900A97964 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F0D6792937624900A97964 /* PlayerViewController.swift */; };
 		DD1B31F41BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */; };
 		DD29A3E91BF223D000A27A91 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79246C6170F11DF0036AAF2 /* Localizable.strings */; };
 		DD3EABEF1BE14720003668DA /* VLCPlaybackControlsFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3EABEE1BE14720003668DA /* VLCPlaybackControlsFocusView.m */; };
@@ -477,7 +478,7 @@
 		4072A77D25879577006EA498 /* VideoFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFiltersView.swift; sourceTree = "<group>"; };
 		407EB586257A418900686B1F /* SleepTimerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SleepTimerView.xib; sourceTree = "<group>"; };
 		407EB58D257A41B200686B1F /* SleepTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimerView.swift; sourceTree = "<group>"; };
-		4090705825A60341004667E7 /* OptionsNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsNavigationBar.swift; path = "Sources/Playback/VideoPlayer-iOS/Subviews/OptionsNavigationBar.swift"; sourceTree = SOURCE_ROOT; };
+		4090705825A60341004667E7 /* OptionsNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsNavigationBar.swift; sourceTree = "<group>"; };
 		40C959FF256E9272002DD208 /* PlaybackSpeedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaybackSpeedView.xib; sourceTree = "<group>"; };
 		40C95A06256E929D002DD208 /* PlaybackSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSpeedView.swift; sourceTree = "<group>"; };
 		4120863922323E87006A6630 /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
@@ -976,6 +977,7 @@
 		D96C9EBB28105F5B005F13BB /* AlbumHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeader.swift; sourceTree = "<group>"; };
 		D98EE7442846183F00E6B02D /* GraphTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphTableViewController.swift; sourceTree = "<group>"; };
 		D9AFDCA427D6383F002326CC /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
+		D9F0D6792937624900A97964 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		DD13A3791BEE2FAA00A35554 /* VLCMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMaskView.h; sourceTree = "<group>"; };
 		DD13A37A1BEE2FAA00A35554 /* VLCMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMaskView.m; sourceTree = "<group>"; };
 		DD1B31F11BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoTracksTVViewController.h; sourceTree = "<group>"; };
@@ -2425,7 +2427,7 @@
 				8D6E1587223BBAF600077DD3 /* MiniPlayer.swift */,
 			);
 			name = "MiniPlayer-iOS";
-			path = "Sources/Playback/MiniPlayer-iOS";
+			path = "Sources/Playback/Player/MiniPlayer-iOS";
 			sourceTree = SOURCE_ROOT;
 		};
 		8D15A1EE22B0FB1900CFA758 /* Queue */ = {
@@ -2440,12 +2442,10 @@
 		8D590F622493836A0078D358 /* Playback */ = {
 			isa = PBXGroup;
 			children = (
+				D9F0D6782937592200A97964 /* Player */,
 				7D0C209C28C8A21200CCFFEF /* Control */,
 				7D0C209B28C89FE000CCFFEF /* OS Integration */,
 				7D0C209628C89C9900CCFFEF /* Subtitles Downloading */,
-				7DEC8BE51BD6889C006E1093 /* VideoPlayer-tvOS */,
-				8D9F1F9C249385BB0074BDBB /* VideoPlayer-iOS */,
-				8D144D6122298E5800984C46 /* MiniPlayer-iOS */,
 				8D15A1EE22B0FB1900CFA758 /* Queue */,
 				416443852048419E00CAC646 /* DeviceMotion.swift */,
 			);
@@ -2546,6 +2546,17 @@
 				CAA0B0F620726A0E00B9274E /* TestHelper.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D9F0D6782937592200A97964 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				7DEC8BE51BD6889C006E1093 /* VideoPlayer-tvOS */,
+				8D144D6122298E5800984C46 /* MiniPlayer-iOS */,
+				8D9F1F9C249385BB0074BDBB /* VideoPlayer-iOS */,
+				D9F0D6792937624900A97964 /* PlayerViewController.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 		DD8095FA1BE628800065D8E1 /* Playback Info */ = {
@@ -3471,6 +3482,7 @@
 				44C8BBB124AF36F4003F8940 /* ActionSheetSpecifier.swift in Sources */,
 				44B5822024E434FD001A2583 /* MediaGridCollectionCell.swift in Sources */,
 				8D6E1588223BBAF600077DD3 /* MiniPlayer.swift in Sources */,
+				D9F0D67A2937624900A97964 /* PlayerViewController.swift in Sources */,
 				414396C22023316C005E3FAF /* AppearanceManager.swift in Sources */,
 				91F8BF1827318D890058D9DE /* StoreProductCollectionViewCell.swift in Sources */,
 				91D33C7325E6B6E700CC49BE /* VideoPlayerInfoView.swift in Sources */,

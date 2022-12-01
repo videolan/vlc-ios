@@ -16,8 +16,8 @@ import MediaPlayer
 @objc (VLCMediaNavigationBarDelegate)
 protocol MediaNavigationBarDelegate {
     func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar)
-    func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar)
-    func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar)
+    @objc optional func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar)
+    @objc optional func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar)
 }
 
@@ -196,12 +196,12 @@ private enum RendererActionSheetContent: Int, CaseIterable {
 
     func toggleQueueView() {
         assert(delegate != nil, "Delegate not set for MediaNavigationBar")
-        delegate?.mediaNavigationBarDidToggleQueueView(self)
+        delegate?.mediaNavigationBarDidToggleQueueView?(self)
     }
 
     func toggleChromeCast() {
         assert(delegate != nil, "Delegate not set for MediaNavigationBar")
-        delegate?.mediaNavigationBarDidToggleChromeCast(self)
+        delegate?.mediaNavigationBarDidToggleChromeCast?(self)
     }
 }
 

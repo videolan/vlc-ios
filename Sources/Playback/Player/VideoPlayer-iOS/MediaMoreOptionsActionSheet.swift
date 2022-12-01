@@ -14,7 +14,7 @@
 @objc (VLCMediaMoreOptionsActionSheetDelegate)
 protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetDidToggleInterfaceLock(state: Bool)
-    func mediaMoreOptionsActionSheetDidAppeared()
+    @objc optional func mediaMoreOptionsActionSheetDidAppeared()
     func mediaMoreOptionsActionSheetShowIcon(for option: OptionsNavigationBarIdentifier)
     func mediaMoreOptionsActionSheetHideIcon(for option: OptionsNavigationBarIdentifier)
     func mediaMoreOptionsActionSheetHideAlertIfNecessary()
@@ -150,12 +150,12 @@ protocol MediaMoreOptionsActionSheetDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         removeCurrentChild()
         removeActionSheet()
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetDidAppeared()
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetDidAppeared?()
         bookmarksView.update()
     }
 
     func hidePlayer() {
-        moreOptionsDelegate?.mediaMoreOptionsActionSheetDidAppeared()
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetDidAppeared?()
     }
 
     // MARK: - Instance Methods
