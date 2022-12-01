@@ -5,6 +5,7 @@
  *
  * Authors: Robert Gordon <robwaynegordon@gmail.com>
  *          Maxime Chapelet <umxprime # videolabs.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  *
  * Refer to the COPYING file of the official project for license.
@@ -70,6 +71,18 @@ class MediaPlayerActionSheet: ActionSheet {
     }()
 
     // MARK: Private Methods
+    private func getDefaultHeaderTitle() -> String {
+        guard let actionSheetDelegate = mediaPlayerActionSheetDelegate as? MediaMoreOptionsActionSheet else {
+            return ""
+        }
+
+        if actionSheetDelegate.moreOptionsDelegate is AudioPlayerViewController {
+            return NSLocalizedString("MORE_OPTIONS_HEADER_AUDIO_TITLE", comment: "")
+        }
+
+        return NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
+    }
+
     private func getTitle(of childView: UIView) -> String {
         if childView is VideoFiltersView {
             return MediaPlayerActionSheetCellIdentifier.filter.description
@@ -84,7 +97,7 @@ class MediaPlayerActionSheet: ActionSheet {
         } else if childView is BookmarksView {
             return MediaPlayerActionSheetCellIdentifier.bookmarks.description
         } else {
-            return NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
+            return getDefaultHeaderTitle()
         }
     }
 
@@ -128,7 +141,7 @@ class MediaPlayerActionSheet: ActionSheet {
             self.headerView.accessoryViewsDelegate = nil
             self.headerView.updateAccessoryViews()
             self.headerView.previousButton.isHidden = true
-            self.headerView.title.text = NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
+            self.headerView.title.text = self.getDefaultHeaderTitle()
             if child is BookmarksView {
                 self.leftToRightGesture.delegate = nil
                 self.updateDragDownGestureDelegate(to: nil)

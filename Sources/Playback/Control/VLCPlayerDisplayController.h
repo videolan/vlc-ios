@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -61,6 +62,7 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 - (nullable instancetype)initWithServices:(nullable id)services NS_DESIGNATED_INITIALIZER;
 
 - (void)showFullscreenPlayback;
+- (void)showAudioPlayer;
 - (void)closeFullscreenPlayback;
 
 - (void)pushPlaybackView;

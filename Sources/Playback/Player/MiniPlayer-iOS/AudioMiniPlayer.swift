@@ -250,7 +250,18 @@ private extension AudioMiniPlayer {
         if position.vertical == .top {
             dismissPlayqueue()
         }
-        UIApplication.shared.sendAction(#selector(VLCPlayerDisplayController.showFullscreenPlayback),
+
+        let currentMedia: VLCMedia? = playbackController.currentlyPlayingMedia
+        let mlMedia: VLCMLMedia? = media(forPlaying: currentMedia)
+
+        let selector: Selector
+        if let mlMedia = mlMedia, mlMedia.type() == .audio {
+            selector = #selector(VLCPlayerDisplayController.showAudioPlayer)
+        } else {
+            selector = #selector(VLCPlayerDisplayController.showFullscreenPlayback)
+        }
+
+        UIApplication.shared.sendAction(selector,
                                         to: nil,
                                         from: self,
                                         for: nil)

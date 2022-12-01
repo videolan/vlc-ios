@@ -154,6 +154,13 @@ class QueueViewController: UIViewController {
                                                                     constant: -(topConstraintConstant + parent.videoPlayerControls.frame.height + parent.scrubProgressBar.frame.height))
                     bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor,
                                                                     constant: self.view.frame.height)
+                } else if let parent = parent as? AudioPlayerViewController {
+                    heightConstraint = view.heightAnchor.constraint(equalToConstant: parent.audioPlayerView.playqueueView.bounds.height)
+                    grabberView.isHidden = true
+                    closeButton.isHidden = true
+                    topConstraint = view.topAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.topAnchor)
+                    bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.bottomAnchor)
+                    darkOverlayView.isHidden = true
                 } else {
                     topConstraint = view.topAnchor.constraint(equalTo: parent.view.bottomAnchor)
                     heightConstraint = nil
@@ -261,6 +268,15 @@ class QueueViewController: UIViewController {
         bottomConstraint?.constant = 0
         UIView.animate(withDuration: animationDuration, animations: {
             self.parent?.view.layoutIfNeeded()
+        })
+    }
+
+    func dismissFromAudioPlayer() {
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.view.alpha = 0.0
+        }, completion: { _ in
+            self.view.removeFromSuperview()
+            self.removeFromParent()
         })
     }
 

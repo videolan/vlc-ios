@@ -142,6 +142,13 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         mediaTitleTextLabel.accessibilityValue = titleText
     }
 
+    func addMoreOptionsButton(_ button: UIButton) {
+        addArrangedSubview(button)
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalTo: heightAnchor)
+        ])
+    }
+
     private func setupContraints() {
         var constraints: [NSLayoutConstraint] = [
             heightAnchor.constraint(equalToConstant: 44),

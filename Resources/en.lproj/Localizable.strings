@@ -455,6 +455,7 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Video Options";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audio Options";
 "BOOKMARKS_TITLE" = "Bookmarks";
 "ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
 "BOOKMARK_DEFAULT_NAME" = "Bookmark at";

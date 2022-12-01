@@ -385,6 +385,10 @@ extension MediaMoreOptionsActionSheet: BookmarksViewDelegate {
 // MARK: - MediaPlayerActionSheetDelegate
 extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDelegate {
     func mediaPlayerActionSheetHeaderTitle() -> String? {
+        if moreOptionsDelegate is AudioPlayerViewController {
+            return NSLocalizedString("MORE_OPTIONS_HEADER_AUDIO_TITLE", comment: "")
+        }
+
         return NSLocalizedString("MORE_OPTIONS_HEADER_TITLE", comment: "")
     }
 
@@ -428,13 +432,20 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
 
     var configurableCellModels: [ActionSheetCellModel] {
         var models: [ActionSheetCellModel] = []
+        let isAudioPlayer: Bool = moreOptionsDelegate is AudioPlayerViewController
+
         MediaPlayerActionSheetCellIdentifier.allCases.forEach {
-            if $0 == .chapters && currentMediaHasChapters == false {
+            if $0 == .chapters && (currentMediaHasChapters == false || isAudioPlayer) {
                 // Do not show the chapters category when there are no chapters.
                 return
             }
 
             if $0 == .addBookmarks {
+                return
+            }
+
+            if $0 == .filter && isAudioPlayer {
+                // Do not show the video filters category when the audio player is shown.
                 return
             }
 
