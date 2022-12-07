@@ -1,5 +1,19 @@
 # Changelog
 
+## iOS [3.3.11]
+· Fix browsing of Google Drive shares
+· Update libvlc to version 3.0.18
+· Major adaptive streaming update
+· Many updates of third party libraries
+· Minor UI and accessbility improvements
+· Stability improvements
+
+## tvOS [3.3.11]
+· Update libvlc to version 3.0.18
+· Major adaptive streaming update
+· Many updates of third party libraries
+· Stability improvements
+
 ## iOS [3.3.10]
 · Add option to configure pre-amp level
 · Improve accessibility of playback speed buttons
