@@ -30,6 +30,7 @@ class AudioPlayerView: UIView {
     @IBOutlet weak var thumbnailImageView: UIImageView!
 
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var playqueueView: UIView!
     @IBOutlet weak var controlsStackView: UIStackView!
     @IBOutlet weak var backwardButton: UIButton!
@@ -40,13 +41,17 @@ class AudioPlayerView: UIView {
 
     @IBOutlet weak var progressionView: UIView!
 
+    @IBOutlet weak var thumbnailImageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var thumbnailImageViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var progressionViewBottomConstraint: NSLayoutConstraint!
+
     weak var delegate: AudioPlayerViewDelegate?
 
     // MARK: - Init
 
     override func awakeFromNib() {
         overlayView.backgroundColor = .black.withAlphaComponent(0.4)
-        setupTitleLabel()
+        setupLabels()
     }
 
     // MARK: - Public methods
@@ -66,14 +71,30 @@ class AudioPlayerView: UIView {
     func setupThumbnailView() {
         thumbnailImageView.image = delegate?.audioPlayerViewDelegateGetThumbnail(self)
         thumbnailImageView.clipsToBounds = true
+
+        let factor: CGFloat
+        var constant: CGFloat = 30.0
+        let width = UIScreen.main.bounds.width
+        if width <= DeviceWidth.iPhone4sPortrait.rawValue {
+            factor = 0.2
+        } else if width <= DeviceWidth.iPhone6Portrait.rawValue {
+            factor = 0.5
+        } else {
+            factor = 0.65
+            constant = 40.0
+        }
+
+        thumbnailImageViewWidthConstraint.constant = width * factor
+        thumbnailImageViewBottomConstraint.constant = constant
     }
 
     func setupBackgroundColor() {
         backgroundView.backgroundColor = thumbnailImageView.image?.averageColor
     }
 
-    func setupTitleLabel() {
+    func setupLabels() {
         titleLabel.textColor = .white
+        artistLabel.textColor = .white
     }
 
     func setupPlayqueueView(with qvc: UIView) {
@@ -91,27 +112,40 @@ class AudioPlayerView: UIView {
         backwardButton.contentMode = .scaleAspectFit
         backwardButton.imageView?.contentMode = .scaleAspectFit
         backwardButton.setTitle("", for: .normal)
+        backwardButton.tintColor = .white
 
         previousButton.contentMode = .scaleAspectFit
         previousButton.imageView?.contentMode = .scaleAspectFit
         previousButton.setTitle("", for: .normal)
+        previousButton.tintColor = .white
 
         playButton.contentMode = .scaleAspectFit
         playButton.imageView?.contentMode = .scaleAspectFit
         playButton.setTitle("", for: .normal)
+        playButton.tintColor = .white
 
         nextButton.contentMode = .scaleAspectFit
         nextButton.imageView?.contentMode = .scaleAspectFit
         nextButton.setTitle("", for: .normal)
+        nextButton.tintColor = .white
 
         forwardButton.contentMode = .scaleAspectFit
         forwardButton.imageView?.contentMode = .scaleAspectFit
         forwardButton.setTitle("", for: .normal)
+        forwardButton.tintColor = .white
     }
 
     func setupProgressView(with view: MediaScrubProgressBar) {
-        let padding: CGFloat = 25.0
+        let constant: CGFloat
+        if UIScreen.main.bounds.width <= DeviceWidth.iPhone4sPortrait.rawValue {
+            constant = 40
+        } else {
+            constant = 60
+        }
 
+        progressionViewBottomConstraint.constant = constant
+
+        let padding: CGFloat = 25.0
         view.translatesAutoresizingMaskIntoConstraints = false
         progressionView.addSubview(view)
         NSLayoutConstraint.activate([
@@ -121,12 +155,16 @@ class AudioPlayerView: UIView {
         ])
     }
 
-    func updateTitleLabel(with title: String?, isQueueHidden: Bool) {
+    func updateLabels(title: String?, artist: String?, isQueueHidden: Bool) {
         if isQueueHidden {
             titleLabel.isHidden = false
+            artistLabel.isHidden = false
+
             titleLabel.text = title
+            artistLabel.text = artist
         } else {
             titleLabel.isHidden = true
+            artistLabel.isHidden = true
         }
     }
 

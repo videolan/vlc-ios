@@ -173,6 +173,22 @@ class AudioPlayerViewController: PlayerViewController {
 
         playerController.isInterfaceLocked = !enabled
     }
+
+    private func getCurrentMediaTitle() -> String? {
+        if let audiotrack = media(forPlaying: playbackService.currentlyPlayingMedia) {
+            return audiotrack.title
+        } else {
+            return playbackService.metadata.title
+        }
+    }
+
+    private func getCurrentMediaArtist() -> String? {
+        if let audiotrack = media(forPlaying: playbackService.currentlyPlayingMedia) {
+            return audiotrack.albumTrackArtistName()
+        } else {
+            return nil
+        }
+    }
 }
 
 // MARK: - AudioPlayerViewDelegate
@@ -215,9 +231,10 @@ extension AudioPlayerViewController {
     func prepare(forMediaPlayback playbackService: PlaybackService) {
         audioPlayerView.updatePlayButton(isPlaying: playbackService.isPlaying)
 
-        let title: String? = playbackService.metadata.title
-        audioPlayerView.updateTitleLabel(with: title, isQueueHidden: isQueueHidden)
-        updateNavigationBar(with: isQueueHidden ? nil : title)
+        let title = getCurrentMediaTitle()
+        let artist = getCurrentMediaArtist()
+        audioPlayerView.updateLabels(title: title, artist: artist, isQueueHidden: isQueueHidden)
+        updateNavigationBar(with: isQueueHidden ? nil : playbackService.metadata.title)
 
         if let qvc = queueViewController, !isQueueHidden {
             showPlayqueue(from: qvc)
@@ -238,8 +255,11 @@ extension AudioPlayerViewController {
     }
 
     func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {
-        audioPlayerView.updateTitleLabel(with: metadata.title, isQueueHidden: isQueueHidden)
+        let title = getCurrentMediaTitle()
+        let artist = getCurrentMediaArtist()
+        audioPlayerView.updateLabels(title: title, artist: artist, isQueueHidden: isQueueHidden)
         updateNavigationBar(with: isQueueHidden ? nil : metadata.title)
+
         audioPlayerView.setupThumbnailView()
         audioPlayerView.setupBackgroundColor()
 
@@ -283,9 +303,10 @@ extension AudioPlayerViewController {
     }
 
     func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar) {
-        let title: String? = playbackService.metadata.title
-        updateNavigationBar(with: !isQueueHidden ? nil : title)
-        audioPlayerView.updateTitleLabel(with: title, isQueueHidden: !isQueueHidden)
+        let title = getCurrentMediaTitle()
+        let artist = getCurrentMediaArtist()
+        audioPlayerView.updateLabels(title: title, artist: artist, isQueueHidden: !isQueueHidden)
+        updateNavigationBar(with: !isQueueHidden ? nil : playbackService.metadata.title)
 
         audioPlayerView.thumbnailView.isHidden = isQueueHidden
         audioPlayerView.playqueueView.isHidden = !isQueueHidden
