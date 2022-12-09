@@ -24,6 +24,7 @@ class AudioPlayerView: UIView {
     // MARK: - Properties
 
     @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var navigationBarView: UIView!
     @IBOutlet weak var thumbnailView: UIView!
     @IBOutlet weak var thumbnailImageView: UIImageView!
@@ -44,7 +45,7 @@ class AudioPlayerView: UIView {
     // MARK: - Init
 
     override func awakeFromNib() {
-        backgroundView.backgroundColor = PresentationTheme.darkTheme.colors.background
+        overlayView.backgroundColor = .black.withAlphaComponent(0.4)
         setupTitleLabel()
     }
 
@@ -65,6 +66,10 @@ class AudioPlayerView: UIView {
     func setupThumbnailView() {
         thumbnailImageView.image = delegate?.audioPlayerViewDelegateGetThumbnail(self)
         thumbnailImageView.clipsToBounds = true
+    }
+
+    func setupBackgroundColor() {
+        backgroundView.backgroundColor = thumbnailImageView.image?.averageColor
     }
 
     func setupTitleLabel() {

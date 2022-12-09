@@ -61,6 +61,7 @@ class AudioPlayerViewController: PlayerViewController {
         mediaNavigationBar.addMoreOptionsButton(moreOptionsButton)
         audioPlayerView.setupNavigationBar(with: mediaNavigationBar)
         audioPlayerView.setupThumbnailView()
+        audioPlayerView.setupBackgroundColor()
         audioPlayerView.setupPlayerControls()
         audioPlayerView.setupProgressView(with: mediaScrubProgressBar)
         self.view = audioPlayerView
@@ -78,6 +79,7 @@ class AudioPlayerViewController: PlayerViewController {
         playbackService.recoverPlaybackState()
         seekBy = UserDefaults.standard.integer(forKey: kVLCSettingSetCustomSeek)
         audioPlayerView.setupThumbnailView()
+        audioPlayerView.setupBackgroundColor()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -239,6 +241,7 @@ extension AudioPlayerViewController {
         audioPlayerView.updateTitleLabel(with: metadata.title, isQueueHidden: isQueueHidden)
         updateNavigationBar(with: isQueueHidden ? nil : metadata.title)
         audioPlayerView.setupThumbnailView()
+        audioPlayerView.setupBackgroundColor()
 
         if let qvc = queueViewController, !isQueueHidden {
             qvc.reloadBackground(with: audioPlayerView.thumbnailImageView.image)
