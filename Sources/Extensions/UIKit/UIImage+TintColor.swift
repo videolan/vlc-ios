@@ -1,9 +1,9 @@
 /*****************************************************************************
- * UIFont+Styling.swift
+ * UIImage+TintColor.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2021 VLC authors and VideoLAN
- * Copyright © 2021 Videolabs
+ * Copyright © 2022 VLC authors and VideoLAN
+ * Copyright © 2022 Videolabs
  *
  * Authors: Diogo Simao Marques <dogo@videolabs.io>
  *
