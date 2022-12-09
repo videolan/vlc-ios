@@ -358,6 +358,8 @@
 		D902E21527F4ADF900DC2B41 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */; };
 		D9250B7D291BB3190081F729 /* AudioPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9250B7C291BB3180081F729 /* AudioPlayerView.xib */; };
 		D92C186527CD317D0034058F /* ChapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C186427CD317D0034058F /* ChapterView.swift */; };
+		D94E3A9D294384CD000ADB42 /* UIImage+AverageColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E3A9C294384CD000ADB42 /* UIImage+AverageColor.swift */; };
+		D94E3A9E294384CD000ADB42 /* UIImage+AverageColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E3A9C294384CD000ADB42 /* UIImage+AverageColor.swift */; };
 		D960DD0F2892A946008B81D9 /* GoogleSignInAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960DD0E2892A946008B81D9 /* GoogleSignInAuthenticator.swift */; };
 		D9691C4728F9C30E0047B321 /* UIImage+TintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9691C4628F9C30E0047B321 /* UIImage+TintColor.swift */; };
 		D9691C4828F9C30E0047B321 /* UIImage+TintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9691C4628F9C30E0047B321 /* UIImage+TintColor.swift */; };
@@ -975,6 +977,7 @@
 		D902E21427F4ADF900DC2B41 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
 		D9250B7C291BB3180081F729 /* AudioPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioPlayerView.xib; sourceTree = "<group>"; };
 		D92C186427CD317D0034058F /* ChapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterView.swift; sourceTree = "<group>"; };
+		D94E3A9C294384CD000ADB42 /* UIImage+AverageColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+AverageColor.swift"; sourceTree = "<group>"; };
 		D960DD0E2892A946008B81D9 /* GoogleSignInAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInAuthenticator.swift; sourceTree = "<group>"; };
 		D9691C4628F9C30E0047B321 /* UIImage+TintColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TintColor.swift"; sourceTree = "<group>"; };
 		D96ACA952832836C00DD1A3E /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
@@ -1848,6 +1851,7 @@
 				7DC7BAA928C8958800109F28 /* UIImage+Blur.h */,
 				7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */,
 				D9691C4628F9C30E0047B321 /* UIImage+TintColor.swift */,
+				D94E3A9C294384CD000ADB42 /* UIImage+AverageColor.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -3258,6 +3262,7 @@
 				7DC7BAB828C8958900109F28 /* LayoutAnchorContainer.swift in Sources */,
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
 				7DC869BA28CB7A7000EE99F8 /* VLCOpenNetworkStreamTVViewController.m in Sources */,
+				D94E3A9E294384CD000ADB42 /* UIImage+AverageColor.swift in Sources */,
 				7D2DE69424D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */,
 				DD3EFF3E1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				DD8095EB1BE4F04E0065D8E1 /* VLCPlaybackInfoPlaybackTVViewController.m in Sources */,
@@ -3502,6 +3507,7 @@
 				44C8BBB124AF36F4003F8940 /* ActionSheetSpecifier.swift in Sources */,
 				44B5822024E434FD001A2583 /* MediaGridCollectionCell.swift in Sources */,
 				8D6E1588223BBAF600077DD3 /* MiniPlayer.swift in Sources */,
+				D94E3A9D294384CD000ADB42 /* UIImage+AverageColor.swift in Sources */,
 				D9F0D67A2937624900A97964 /* PlayerViewController.swift in Sources */,
 				414396C22023316C005E3FAF /* AppearanceManager.swift in Sources */,
 				91F8BF1827318D890058D9DE /* StoreProductCollectionViewCell.swift in Sources */,
