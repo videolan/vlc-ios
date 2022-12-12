@@ -47,7 +47,7 @@ PODS:
   - MarqueeLabel (4.0.2)
   - MetaDataFetcherKit (0.5.0):
     - AFNetworking (= 4.0.0)
-  - MobileVLCKit (3.4.1b13)
+  - MobileVLCKit (3.5.0)
   - MSGraphClientModels (1.3.0)
   - MSGraphClientSDK (1.0.0):
     - MSGraphClientSDK/Authentication (= 1.0.0)
@@ -63,7 +63,7 @@ PODS:
   - OBSlider (1.1.0)
   - SimulatorStatusMagic (2.7)
   - SwiftLint (0.47.1)
-  - TVVLCKit (3.4.1b13)
+  - TVVLCKit (3.5.0)
   - VLC-MSAL (1.2.2):
     - VLC-MSAL/app-lib (= 1.2.2)
   - VLC-MSAL/app-lib (1.2.2)
@@ -85,7 +85,7 @@ DEPENDENCIES:
   - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
   - MetaDataFetcherKit (~> 0.5.0)
-  - MobileVLCKit (= 3.4.1b13)
+  - MobileVLCKit (= 3.5.0)
   - MSGraphClientModels
   - MSGraphClientSDK
   - MSGraphMSALAuthProvider (from `https://github.com/Mikanbu/msgraph-sdk-objc-auth`)
@@ -93,7 +93,7 @@ DEPENDENCIES:
   - OBSlider (= 1.1.0)
   - SimulatorStatusMagic
   - SwiftLint (~> 0.47.1)
-  - TVVLCKit (= 3.4.1b13)
+  - TVVLCKit (= 3.5.0)
   - VLCMediaLibraryKit (= 0.11.0b2)
   - XKKeychain (~> 1.0)
   - xmlrpc (from `https://github.com/fkuehne/xmlrpc.git`, commit `3f8ce3a8`)
@@ -174,7 +174,7 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MetaDataFetcherKit: c77fa3d0791d406a8cfab43464ed728437bd241b
-  MobileVLCKit: 685736e6bb92ed2107b0f083f094b61709413122
+  MobileVLCKit: f7a39ede91e47e227f8142343b311eb8c634f057
   MSGraphClientModels: ffef6d0a1cdaa774e1689e38da35301cb74fc72a
   MSGraphClientSDK: ffc07a58a838e0702c7bf2a856367035d4a335d7
   MSGraphMSALAuthProvider: cdd3114898fbe43a6e3b4cc0ba7a032c2a1e65a8
@@ -183,12 +183,12 @@ SPEC CHECKSUMS:
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
-  TVVLCKit: 98081dc2a3fb5427a38fa5e95c4456390e7a746b
+  TVVLCKit: d08c81812b89f7b629245b92139f6d35508bec7a
   VLC-MSAL: 752652c8ae6aa352d6452baac202db6b62c98ba5
   VLCMediaLibraryKit: d7a3f1bbcccabddfc5faa010058f92bc96c34ad3
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 5efc5c4bd39a045a79aafd1e316f0751f64a3208
+PODFILE CHECKSUM: 90f2fbea285bb0405bc8f1c63af46770fc8a05b0
 
 COCOAPODS: 1.11.2
