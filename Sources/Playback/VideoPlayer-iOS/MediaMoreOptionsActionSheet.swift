@@ -196,7 +196,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
         switch playbackService.repeatMode {
         case .doNotRepeat:
             isEnabled = false
-            image = UIImage(named: "iconNoRepeat")
+            image = UIImage(named: "iconRepeat")
             localization = NSLocalizedString("MENU_REPEAT_DISABLED", comment: "")
         case .repeatCurrentItem:
             isEnabled = true
@@ -214,7 +214,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
 
     func configureShuffleMode() -> (image: UIImage?, title: String, isEnabled: Bool) {
         let playbackService = PlaybackService.sharedInstance()
-        let image: UIImage? = playbackService.isShuffleMode ?  UIImage(named: "iconShuffle") :  UIImage(named: "iconNoShuffle")
+        let image: UIImage? = UIImage(named: "iconShuffle")
         let localization: String = playbackService.isShuffleMode ? NSLocalizedString("SHUFFLE", comment: "") : NSLocalizedString("SHUFFLE_DISABLED", comment: "")
         let isEnabled: Bool = playbackService.isShuffleMode
 
