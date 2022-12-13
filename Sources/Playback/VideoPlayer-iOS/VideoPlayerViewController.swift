@@ -597,7 +597,7 @@ class VideoPlayerViewController: UIViewController {
     @objc func setupRepeatModeButton() {
         switch playbackService.repeatMode {
         case .doNotRepeat:
-            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
+            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
             videoPlayerControls.repeatButton.tintColor = .white
         case .repeatCurrentItem:
             videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeatOne"), for: .normal)
