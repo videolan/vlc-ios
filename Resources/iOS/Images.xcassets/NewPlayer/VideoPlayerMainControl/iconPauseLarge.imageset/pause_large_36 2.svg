@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="36"
+   height="36"
+   viewBox="0 0 36 36"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="pause_large_36.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview9856"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="16"
+     inkscape:cx="14.78125"
+     inkscape:cy="10.84375"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-center="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid9919" />
+  </sodipodi:namedview>
+  <defs
+     id="defs9851" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="rect2803"
+       style="overflow:visible;fill:#000000;stroke-width:0.0999998;stroke-linecap:round;stroke-linejoin:round;stop-color:#000000"
+       d="m 9.9999981,6.0000038 h 4.0000009 c 0.554,0 1,0.446 1,1 V 29.000006 c 0,0.554 -0.446,1 -1,1 H 9.9999981 c -0.554,0 -1,-0.446 -1,-1 V 7.0000038 c 0,-0.554 0.446,-1 1,-1 z" />
+    <path
+       id="rect2800"
+       style="overflow:visible;fill:#000000;stroke-width:0.0999998;stroke-linecap:round;stroke-linejoin:round;stop-color:#000000"
+       d="m 21.999998,6.0000038 h 4.000001 c 0.554,0 1,0.446 1,1 V 29.000006 c 0,0.554 -0.446,1 -1,1 h -4.000001 c -0.554,0 -1,-0.446 -1,-1 V 7.0000038 c 0,-0.554 0.446,-1 1,-1 z" />
+  </g>
+</svg>
