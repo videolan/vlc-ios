@@ -431,7 +431,7 @@ extension QueueViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - (sidePadding * 2), height: cellHeight)
+        return MediaCollectionViewCell.cellSizeForWidth(collectionView.frame.width - (sidePadding * 2))
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -593,7 +593,7 @@ extension QueueViewController: UICollectionViewDataSource {
 
         var media: VLCMedia?
 
-        cell.thumbnailWidth.constant = cell.frame.height
+        cell.thumbnailWidth.constant = cell.getDefaultConstant()
 
         cell.ignoreThemeDidChange = true
         cell.setTheme(to: PresentationTheme.darkTheme)

@@ -233,9 +233,12 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         titleLabel.labelize = enableMarquee
         sizeDescriptionLabel.labelize = enableMarquee
         sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        thumbnailWidth.constant = isIpad ? 72 : 56
+
+        let defaultConstant: CGFloat = getDefaultConstant()
+        thumbnailWidth.constant = defaultConstant
         thumbnailView.contentMode = .scaleAspectFill
-        deleteButtonHeight.constant = isIpad ? 72 : 56
+        deleteButtonHeight.constant = defaultConstant
+
         setupScrollView()
         setupGestureRecognizer()
         showCheckmark(false)
@@ -290,6 +293,10 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             index += 1
         }
         return animation
+    }
+
+    func getDefaultConstant() -> CGFloat {
+        return isIpad ? 72.0 : 56.0
     }
 
     func update(audiotrack: VLCMLMedia) {
