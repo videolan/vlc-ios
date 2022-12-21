@@ -275,7 +275,14 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     @objc fileprivate func themeDidChange() {
         guard !ignoreThemeDidChange else { return }
 
-        setTheme(to: PresentationTheme.current)
+        let theme: PresentationTheme
+        if delegate is QueueViewController {
+            theme = PresentationTheme.darkTheme
+        } else {
+            theme = PresentationTheme.current
+        }
+
+        setTheme(to: theme)
     }
 
     @objc fileprivate func dynamicFontSizeChange() {
@@ -351,7 +358,13 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             thumbnailView.image = audiotrack.thumbnailImage()
         }
 
-        let colors = PresentationTheme.current.colors
+        let colors: ColorPalette
+        if delegate is QueueViewController {
+            colors = PresentationTheme.darkTheme.colors
+        } else {
+            colors = PresentationTheme.current.colors
+        }
+
         titleLabel.textColor = isMediaBeingPlayed ? colors.orangeUI : colors.cellTextColor
 
         if isEditing {
