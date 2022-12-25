@@ -454,8 +454,12 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     VLCMLMedia *media = [_delegate mediaForPlayingMedia:_mediaPlayer.media];
 
     if (media) {
-        _mediaPlayer.currentAudioTrackIndex = (int) media.audioTrackIndex;
-        _mediaPlayer.currentVideoSubTitleIndex = (int) media.subtitleTrackIndex;
+        NSTimeInterval delayInSeconds = 0.2;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            _mediaPlayer.currentAudioTrackIndex = (int) media.audioTrackIndex;
+            _mediaPlayer.currentVideoSubTitleIndex = 3; // (int) media.subtitleTrackIndex;
+        });
     }
 }
 #endif
