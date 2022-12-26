@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -42,32 +42,26 @@
                                                     <constraint firstAttribute="width" secondItem="DpW-xo-rll" secondAttribute="height" multiplier="1:1" id="UuK-UK-4Jx"/>
                                                 </constraints>
                                             </imageView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mSi-lw-k0S">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mSi-lw-k0S" userLabel="Labels View">
                                                 <rect key="frame" x="69" y="12" width="402" height="56"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zkn-vN-SN4" userLabel="Titlelabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="402" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="402" height="24"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WIy-sV-YQZ" userLabel="DetailContainer">
-                                                        <rect key="frame" x="0.0" y="20.5" width="402" height="38.5"/>
+                                                        <rect key="frame" x="0.0" y="24" width="402" height="35"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="new" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klo-Bq-5nI" userLabel="NewLabel">
-                                                                <rect key="frame" x="50" y="5" width="21.5" height="28"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="Dnr-ol-bPY"/>
-                                                                </constraints>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klo-Bq-5nI" userLabel="NewLabel">
+                                                                <rect key="frame" x="378.5" y="0.0" width="23.5" height="35"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKd-DQ-8Uh" userLabel="sizeDescriptionLabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="5" width="50" height="28"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="3LX-AO-eXd"/>
-                                                                </constraints>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKd-DQ-8Uh" userLabel="sizeDescriptionLabel" customClass="VLCMarqueeLabel" customModule="VLC" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="373.5" height="35"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -76,13 +70,12 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="WKd-DQ-8Uh" firstAttribute="leading" secondItem="WIy-sV-YQZ" secondAttribute="leading" id="CDV-7X-X2F"/>
-                                                            <constraint firstItem="WKd-DQ-8Uh" firstAttribute="leading" secondItem="WIy-sV-YQZ" secondAttribute="leading" id="P5G-Lj-u1k"/>
-                                                            <constraint firstItem="WKd-DQ-8Uh" firstAttribute="top" secondItem="WIy-sV-YQZ" secondAttribute="top" constant="5" id="VL6-Pj-Gg0"/>
-                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Klo-Bq-5nI" secondAttribute="trailing" constant="5" id="eOt-aO-dxS"/>
-                                                            <constraint firstAttribute="bottom" secondItem="Klo-Bq-5nI" secondAttribute="bottom" constant="5.5" id="giC-mK-ELC"/>
-                                                            <constraint firstAttribute="bottom" secondItem="WKd-DQ-8Uh" secondAttribute="bottom" constant="5.5" id="nFw-vV-AkW"/>
-                                                            <constraint firstItem="WKd-DQ-8Uh" firstAttribute="trailing" secondItem="Klo-Bq-5nI" secondAttribute="leading" id="sOv-PL-A7d"/>
-                                                            <constraint firstItem="Klo-Bq-5nI" firstAttribute="top" secondItem="WIy-sV-YQZ" secondAttribute="top" constant="5" id="vr2-VU-dTu"/>
+                                                            <constraint firstItem="WKd-DQ-8Uh" firstAttribute="top" secondItem="WIy-sV-YQZ" secondAttribute="top" id="VL6-Pj-Gg0"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Klo-Bq-5nI" secondAttribute="trailing" id="ba2-s2-0Ag"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Klo-Bq-5nI" secondAttribute="bottom" id="giC-mK-ELC"/>
+                                                            <constraint firstAttribute="bottom" secondItem="WKd-DQ-8Uh" secondAttribute="bottom" id="nFw-vV-AkW"/>
+                                                            <constraint firstItem="WKd-DQ-8Uh" firstAttribute="trailing" secondItem="Klo-Bq-5nI" secondAttribute="leading" constant="-5" id="sOv-PL-A7d"/>
+                                                            <constraint firstItem="Klo-Bq-5nI" firstAttribute="top" secondItem="WIy-sV-YQZ" secondAttribute="top" id="vr2-VU-dTu"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -181,6 +174,7 @@
                 <outlet property="deleteButton" destination="6Ey-dT-h2f" id="NOC-o2-rvy"/>
                 <outlet property="deleteButtonHeight" destination="336-fj-EUN" id="PEB-jP-nqV"/>
                 <outlet property="dragIndicatorImageView" destination="f9J-sb-sdM" id="t3G-VX-68j"/>
+                <outlet property="labelsViewTrailingConstraint" destination="uJY-5b-en0" id="HFJ-WP-rh2"/>
                 <outlet property="newLabel" destination="Klo-Bq-5nI" id="8jr-y0-SoR"/>
                 <outlet property="scrollContentView" destination="bhw-Aa-3Q7" id="7zP-ye-wWO"/>
                 <outlet property="scrollView" destination="D61-Eo-fsB" id="U9i-Sk-ZRH"/>
@@ -197,10 +191,10 @@
     </objects>
     <designables>
         <designable name="WKd-DQ-8Uh">
-            <size key="intrinsicContentSize" width="31" height="14.5"/>
+            <size key="intrinsicContentSize" width="37.5" height="18"/>
         </designable>
         <designable name="Zkn-vN-SN4">
-            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="48" height="24"/>
         </designable>
     </designables>
     <resources>
