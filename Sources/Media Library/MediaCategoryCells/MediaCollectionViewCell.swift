@@ -26,6 +26,8 @@ protocol MediaCollectionViewCellDelegate: AnyObject {
 // MARK: -
 class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
+    // MARK: - Properties
+
     @IBOutlet weak var thumbnailView: UIImageView!
     @IBOutlet private(set) weak var titleLabel: VLCMarqueeLabel!
     @IBOutlet private(set) weak var sizeDescriptionLabel: VLCMarqueeLabel!
@@ -106,31 +108,51 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         return !UserDefaults.standard.bool(forKey: kVLCSettingEnableMediaCellTextScrolling)
     }
 
+    // MARK: - Init
 
-    private func setupScrollView() {
-        scrollView.delegate = self
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.isUserInteractionEnabled = true
-    }
-
-    private func setupGestureRecognizer() {
-        let mediaTapGesture = UITapGestureRecognizer(target: self, action: #selector(mediaTapped(_:)))
-
-        scrollContentView.addGestureRecognizer(mediaTapGesture)
-    }
-
-
-    @IBAction func deleteButtonPressed(_ sender: Any) {
-        delegate?.mediaCollectionViewCellHandleDelete(of: self)
-        resetScrollView()
-    }
-
-    @objc private func mediaTapped(_ sender: UITapGestureRecognizer) {
-        if sender.state == .ended {
-            delegate?.mediaCollectionViewCellMediaTapped(in: self)
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        if #available(iOS 11.0, *) {
+            thumbnailView.accessibilityIgnoresInvertColors = true
         }
+
+        newLabel.text = NSLocalizedString("NEW", comment: "")
+        newLabel.textColor = PresentationTheme.current.colors.orangeUI
+        NSLayoutConstraint.activate([
+            newLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: newLabel.intrinsicContentSize.width)
+        ])
+
+        titleLabel.labelize = enableMarquee
+        sizeDescriptionLabel.labelize = enableMarquee
+        sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+
+        let defaultConstant: CGFloat = getDefaultConstant()
+        thumbnailWidth.constant = defaultConstant
+        thumbnailView.contentMode = .scaleAspectFill
+        deleteButtonHeight.constant = defaultConstant
+
+        setupScrollView()
+        setupGestureRecognizer()
+        showCheckmark(false)
+        deleteButton.setTitle(NSLocalizedString("BUTTON_DELETE", comment: ""), for: .normal)
+        deleteButton.accessibilityLabel = NSLocalizedString("BUTTON_DELETE", comment: "")
+        deleteButton.accessibilityHint = NSLocalizedString("DELETE_HINT", comment: "")
+        deleteButton.layer.cornerRadius = 5.0
+        deleteButton.backgroundColor = .systemRed
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(themeDidChange),
+                                       name: .VLCThemeDidChangeNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self, selector: #selector(dynamicFontSizeChange),
+                                       name: UIContentSizeCategory.didChangeNotification,
+                                       object: nil)
+
+        themeDidChange()
+        dynamicFontSizeChange()
     }
+
+    // MARK: - Public methods
 
     func resetScrollView(_ completion: ((Bool) -> Void)? = nil) {
         let offset: CGPoint = CGPoint(x: 0, y: scrollView.contentOffset.y)
@@ -151,15 +173,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     func enableScrollView() {
         scrollView.isScrollEnabled = true
         scrollView.isUserInteractionEnabled = true
-    }
-
-    private func checkScrollView() {
-        if let cell = delegate?.mediaCollectionViewCellGetScrolledCell() {
-            if cell != self && cell.isDeleteDisplayed {
-                cell.resetScrollView()
-                delegate?.mediaCollectionViewCellSetScrolledCellIndex(of: cell)
-            }
-        }
     }
 
     func applyScrolling(x: CGFloat, y: CGFloat) {
@@ -224,48 +237,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         }
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if #available(iOS 11.0, *) {
-            thumbnailView.accessibilityIgnoresInvertColors = true
-        }
-
-        newLabel.text = NSLocalizedString("NEW", comment: "")
-        newLabel.textColor = PresentationTheme.current.colors.orangeUI
-        NSLayoutConstraint.activate([
-            newLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: newLabel.intrinsicContentSize.width)
-        ])
-
-        titleLabel.labelize = enableMarquee
-        sizeDescriptionLabel.labelize = enableMarquee
-        sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
-
-        let defaultConstant: CGFloat = getDefaultConstant()
-        thumbnailWidth.constant = defaultConstant
-        thumbnailView.contentMode = .scaleAspectFill
-        deleteButtonHeight.constant = defaultConstant
-
-        setupScrollView()
-        setupGestureRecognizer()
-        showCheckmark(false)
-        deleteButton.setTitle(NSLocalizedString("BUTTON_DELETE", comment: ""), for: .normal)
-        deleteButton.accessibilityLabel = NSLocalizedString("BUTTON_DELETE", comment: "")
-        deleteButton.accessibilityHint = NSLocalizedString("DELETE_HINT", comment: "")
-        deleteButton.layer.cornerRadius = 5.0
-        deleteButton.backgroundColor = .systemRed
-
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(themeDidChange),
-                                       name: .VLCThemeDidChangeNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self, selector: #selector(dynamicFontSizeChange),
-                                       name: UIContentSizeCategory.didChangeNotification,
-                                       object: nil)
-
-        themeDidChange()
-        dynamicFontSizeChange()
-    }
-
     func setTheme(to presentationTheme: PresentationTheme) {
         let colors = presentationTheme.colors
         scrollContentView.backgroundColor = colors.background
@@ -276,54 +247,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         sizeDescriptionLabel?.backgroundColor = backgroundColor
         newLabel.backgroundColor = backgroundColor
         dragIndicatorImageView.tintColor = colors.cellDetailTextColor
-    }
-
-    @objc fileprivate func themeDidChange() {
-        guard !ignoreThemeDidChange else { return }
-
-        let theme: PresentationTheme
-        if delegate is QueueViewController {
-            theme = PresentationTheme.darkTheme
-        } else {
-            theme = PresentationTheme.current
-        }
-
-        setTheme(to: theme)
-    }
-
-    @objc fileprivate func dynamicFontSizeChange() {
-        newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
-        titleLabel.font = isMediaBeingPlayed ? UIFont.preferredFont(forTextStyle: .title3).bolded : UIFont.preferredFont(forTextStyle: .title3)
-        sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
-    }
-
-    private func generateAnimation(with imageName: String, color: UIColor) -> [UIImage] {
-        var animation: [UIImage] = []
-        var index: Int = 1
-        while let image = UIImage(named: imageName + String(describing: index))?.withRenderingMode(.alwaysTemplate) {
-            let coloredImage = image.imageWithTint(tint: color)
-            animation.append(coloredImage)
-            index += 1
-        }
-        return animation
-    }
-
-    private func updateSizeDescriptionLabelConstraint() {
-        if newLabel.isHidden {
-            sizeDescriptionLabelTrailingConstraint.constant = newLabel.intrinsicContentSize.width
-        } else {
-            sizeDescriptionLabelTrailingConstraint.constant = defaultTrailingConstant
-        }
-    }
-
-    private func updateLabelsViewContraint() {
-        let padding: CGFloat = 10.0
-
-        if dragIndicatorImageView.isHidden {
-            labelsViewTrailingConstraint.constant = padding
-        } else {
-            labelsViewTrailingConstraint.constant = dragIndicatorImageView.frame.size.width + padding
-        }
     }
 
     func getDefaultConstant() -> CGFloat {
@@ -510,6 +433,111 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         scrollViewLeadingConstraint.constant = constant
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        isEditing = false
+        ignoreThemeDidChange = false
+        titleLabel.text = ""
+        titleLabel.labelize = enableMarquee
+        accessibilityLabel = ""
+        sizeDescriptionLabel.text = ""
+        sizeDescriptionLabel.labelize = enableMarquee
+        thumbnailView.image = nil
+        checkboxImageView.isHidden = true
+        showCheckmark(false)
+        selectionOverlay.isHidden = true
+        dragIndicatorImageView.image = UIImage(named: "list")
+        dragIndicatorImageView.isHidden = true
+        enableScrollView()
+    }
+
+    // MARK: - Private methods
+
+    private func setupScrollView() {
+        scrollView.delegate = self
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isUserInteractionEnabled = true
+    }
+
+    private func setupGestureRecognizer() {
+        let mediaTapGesture = UITapGestureRecognizer(target: self, action: #selector(mediaTapped(_:)))
+
+        scrollContentView.addGestureRecognizer(mediaTapGesture)
+    }
+
+    @objc private func mediaTapped(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            delegate?.mediaCollectionViewCellMediaTapped(in: self)
+        }
+    }
+
+    private func checkScrollView() {
+        if let cell = delegate?.mediaCollectionViewCellGetScrolledCell() {
+            if cell != self && cell.isDeleteDisplayed {
+                cell.resetScrollView()
+                delegate?.mediaCollectionViewCellSetScrolledCellIndex(of: cell)
+            }
+        }
+    }
+
+    @objc fileprivate func themeDidChange() {
+        guard !ignoreThemeDidChange else { return }
+
+        let theme: PresentationTheme
+        if delegate is QueueViewController {
+            theme = PresentationTheme.darkTheme
+        } else {
+            theme = PresentationTheme.current
+        }
+
+        setTheme(to: theme)
+    }
+
+    @objc fileprivate func dynamicFontSizeChange() {
+        newLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline).bolded
+        titleLabel.font = isMediaBeingPlayed ? UIFont.preferredFont(forTextStyle: .title3).bolded : UIFont.preferredFont(forTextStyle: .title3)
+        sizeDescriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+    }
+
+    private func generateAnimation(with imageName: String, color: UIColor) -> [UIImage] {
+        var animation: [UIImage] = []
+        var index: Int = 1
+        while let image = UIImage(named: imageName + String(describing: index))?.withRenderingMode(.alwaysTemplate) {
+            let coloredImage = image.imageWithTint(tint: color)
+            animation.append(coloredImage)
+            index += 1
+        }
+        return animation
+    }
+
+    private func updateSizeDescriptionLabelConstraint() {
+        if newLabel.isHidden {
+            sizeDescriptionLabelTrailingConstraint.constant = newLabel.intrinsicContentSize.width
+        } else {
+            sizeDescriptionLabelTrailingConstraint.constant = defaultTrailingConstant
+        }
+    }
+
+    private func updateLabelsViewContraint() {
+        let padding: CGFloat = 10.0
+
+        if dragIndicatorImageView.isHidden {
+            labelsViewTrailingConstraint.constant = padding
+        } else {
+            labelsViewTrailingConstraint.constant = dragIndicatorImageView.frame.size.width + padding
+        }
+    }
+
+    // MARK: - Buttons handlers
+
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        delegate?.mediaCollectionViewCellHandleDelete(of: self)
+        resetScrollView()
+    }
+
+    // MARK: - Class methods
+
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
         if width <= DeviceWidth.iPhone12ProMaxPortrait.rawValue {
             return 1
@@ -536,23 +564,5 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         let subtitleHeight = UIFont.preferredFont(forTextStyle: .subheadline).lineHeight
 
         return CGSize(width: cellWidth, height: titleHeight + subtitleHeight + edgePadding + interItemPadding * 2)
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        isEditing = false
-        ignoreThemeDidChange = false
-        titleLabel.text = ""
-        titleLabel.labelize = enableMarquee
-        accessibilityLabel = ""
-        sizeDescriptionLabel.text = ""
-        sizeDescriptionLabel.labelize = enableMarquee
-        thumbnailView.image = nil
-        checkboxImageView.isHidden = true
-        showCheckmark(false)
-        selectionOverlay.isHidden = true
-        dragIndicatorImageView.image = UIImage(named: "list")
-        dragIndicatorImageView.isHidden = true
-        enableScrollView()
     }
 }
