@@ -138,6 +138,7 @@ class QueueViewController: UIViewController {
             ]
 
             let heightConstraint: NSLayoutConstraint?
+            var miniPlayerView: AudioMiniPlayer? = nil
             if let parent = parent as? VLCPlayerDisplayController, let miniPlaybackView = parent.miniPlaybackView as? AudioMiniPlayer {
                 grabberView.isHidden = true
                 closeButton.isHidden = true
@@ -145,6 +146,7 @@ class QueueViewController: UIViewController {
                 topConstraint = view.topAnchor.constraint(equalTo: miniPlaybackView.bottomAnchor)
                 heightConstraint = nil
                 bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
+                miniPlayerView = miniPlaybackView
             } else {
                 grabberView.isHidden = false
                 closeButton.isHidden = false
@@ -167,10 +169,29 @@ class QueueViewController: UIViewController {
                     bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
                 }
             }
+
             parent.view.addSubview(view)
+
+            let leadingAnchor: NSLayoutXAxisAnchor
+            let trailingAnchor: NSLayoutXAxisAnchor
+            if #available(iOS 11.0, *) {
+                let safeArea: UILayoutGuide
+                if let miniPlayerView = miniPlayerView {
+                    safeArea = miniPlayerView.safeAreaLayoutGuide
+                } else {
+                    safeArea = parent.view.safeAreaLayoutGuide
+                }
+
+                leadingAnchor = safeArea.leadingAnchor
+                trailingAnchor = safeArea.trailingAnchor
+            } else {
+                leadingAnchor = parent.view.leadingAnchor
+                trailingAnchor = parent.view.trailingAnchor
+            }
+
             constraints = [
-                view.leadingAnchor.constraint(equalTo: parent.view.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: parent.view.trailingAnchor)
+                view.leadingAnchor.constraint(equalTo: leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: trailingAnchor)
             ]
 
             if let topConstraint = topConstraint {
