@@ -5,6 +5,7 @@
  * Copyright © 2018 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -201,10 +202,10 @@ class ActionSheet: UIViewController {
 
         backgroundView.accessibilityTraits = .allowsDirectInteraction
 
-        setupCollectionWrapperView()
         setupMainStackViewConstraints()
-        setupCollectionViewConstraints()
         setupHeaderViewConstraints()
+        setupCollectionWrapperView()
+        setupCollectionViewConstraints()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -284,6 +285,10 @@ class ActionSheet: UIViewController {
 
 private extension ActionSheet {
     private func setupCollectionWrapperView() {
+        NSLayoutConstraint.activate([
+            collectionWrapperView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor),
+        ])
+
         collectionWrapperView.addSubview(collectionView)
         let bottomConstraint: NSLayoutConstraint
         if #available(iOS 11, *) {
@@ -302,7 +307,7 @@ private extension ActionSheet {
     private func setupHeaderViewConstraints() {
         NSLayoutConstraint.activate([
             headerView.heightAnchor.constraint(equalToConstant: headerView.cellHeight),
-            headerView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            headerView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor)
             ])
     }
 
@@ -310,18 +315,33 @@ private extension ActionSheet {
         NSLayoutConstraint.activate([
             collectionViewHeightConstraint,
             maxCollectionViewHeightConstraint,
-            collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            collectionView.widthAnchor.constraint(equalTo: collectionWrapperView.widthAnchor),
             ])
     }
 
     private func setupMainStackViewConstraints() {
+        let leadingAnchor: NSLayoutXAxisAnchor
+        let trailingAnchor: NSLayoutXAxisAnchor
+        let widthAnchor: NSLayoutDimension
+
+        if #available(iOS 11.0, *) {
+            let safeArea: UILayoutGuide = view.safeAreaLayoutGuide
+            leadingAnchor = safeArea.leadingAnchor
+            trailingAnchor = safeArea.trailingAnchor
+            widthAnchor = safeArea.widthAnchor
+        } else {
+            leadingAnchor = view.leadingAnchor
+            trailingAnchor = view.trailingAnchor
+            widthAnchor = view.widthAnchor
+        }
+
         NSLayoutConstraint.activate([
             // Extra padding for spring animation
+            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mainStackView.widthAnchor.constraint(equalTo: widthAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            ])
+        ])
     }
 }
 
