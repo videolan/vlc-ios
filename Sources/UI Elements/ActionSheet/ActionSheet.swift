@@ -285,22 +285,10 @@ class ActionSheet: UIViewController {
 
 private extension ActionSheet {
     private func setupCollectionWrapperView() {
+        collectionWrapperView.addSubview(collectionView)
+
         NSLayoutConstraint.activate([
             collectionWrapperView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor),
-        ])
-
-        collectionWrapperView.addSubview(collectionView)
-        let bottomConstraint: NSLayoutConstraint
-        if #available(iOS 11, *) {
-            bottomConstraint = collectionView.bottomAnchor.constraint(equalTo: collectionWrapperView.safeAreaLayoutGuide.bottomAnchor)
-        } else {
-            bottomConstraint = collectionView.bottomAnchor.constraint(equalTo: collectionWrapperView.bottomAnchor)
-        }
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: collectionWrapperView.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: collectionWrapperView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: collectionWrapperView.trailingAnchor),
-            bottomConstraint
         ])
     }
 
@@ -308,15 +296,26 @@ private extension ActionSheet {
         NSLayoutConstraint.activate([
             headerView.heightAnchor.constraint(equalToConstant: headerView.cellHeight),
             headerView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor)
-            ])
+        ])
     }
 
     private func setupCollectionViewConstraints() {
+        let bottomConstraint: NSLayoutConstraint
+        if #available(iOS 11, *) {
+            bottomConstraint = collectionView.bottomAnchor.constraint(equalTo: collectionWrapperView.safeAreaLayoutGuide.bottomAnchor)
+        } else {
+            bottomConstraint = collectionView.bottomAnchor.constraint(equalTo: collectionWrapperView.bottomAnchor)
+        }
+
         NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: collectionWrapperView.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: collectionWrapperView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: collectionWrapperView.trailingAnchor),
+            bottomConstraint,
             collectionViewHeightConstraint,
             maxCollectionViewHeightConstraint,
             collectionView.widthAnchor.constraint(equalTo: collectionWrapperView.widthAnchor),
-            ])
+        ])
     }
 
     private func setupMainStackViewConstraints() {
