@@ -10,8 +10,47 @@
  *****************************************************************************/
 
 import UIKit
+import AVFoundation
+import MediaPlayer
 
 class PlayerViewController: UIViewController {
+    // MARK: - Slider Gesture Contol
+
+    /* This struct is a small data container used for brightness and volume
+     * gesture value persistance
+     * It helps to keep their values around when they can't be get from/set to APIs
+     * unavailable on simulator
+     * This is a quick workaround and this should be refactored at some point
+     */
+    struct SliderGestureControl {
+        private var deviceSetter: (Float) -> Void
+        private let deviceGetter: () -> Float
+        var value: Float = 0.5
+        let speed: Float = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad ? 1.0 / 70000 : 1.0 / 20000
+        init(deviceSetter: @escaping (Float) -> Void, deviceGetter: @escaping () -> Float) {
+            self.deviceGetter = deviceGetter
+            self.deviceSetter = deviceSetter
+            self.fetchDeviceValue()
+        }
+
+        mutating func fetchDeviceValue() -> Void {
+#if !targetEnvironment(simulator)
+            self.value = deviceGetter()
+#endif
+        }
+
+        mutating func fetchAndGetDeviceValue() -> Float {
+            self.fetchDeviceValue()
+            return self.value
+        }
+
+        mutating func applyValueToDevice() -> Void {
+#if !targetEnvironment(simulator)
+            deviceSetter(self.value)
+#endif
+        }
+    }
+
     // MARK: - Properties
 
     var services: Services
@@ -53,6 +92,40 @@ class PlayerViewController: UIViewController {
         equalizerPopupView.delegate = self
         return equalizerPopupView
     }()
+
+    private lazy var brightnessControl: SliderGestureControl = {
+        return SliderGestureControl { value in
+            UIScreen.main.brightness = CGFloat(value)
+        } deviceGetter: {
+            return Float(UIScreen.main.brightness)
+        }
+    }()
+
+    private lazy var volumeControl: SliderGestureControl = {
+        return SliderGestureControl { [weak self] value in
+            self?.volumeView.setVolume(value)
+        } deviceGetter: {
+            return AVAudioSession.sharedInstance().outputVolume
+        }
+    }()
+
+    lazy var brightnessControlView: BrightnessControlView = {
+        let vc = BrightnessControlView()
+        vc.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
+        vc.translatesAutoresizingMaskIntoConstraints = false
+        vc.alpha = 0
+        return vc
+    }()
+
+    lazy var volumeControlView: VolumeControlView = {
+        let vc = VolumeControlView(volumeView: self.volumeView)
+        vc.updateIcon(level: volumeControl.fetchAndGetDeviceValue())
+        vc.translatesAutoresizingMaskIntoConstraints = false
+        vc.alpha = 0
+        return vc
+    }()
+
+    let volumeView = MPVolumeView(frame: .zero)
 
     var addBookmarksView: AddBookmarksView? = nil
 

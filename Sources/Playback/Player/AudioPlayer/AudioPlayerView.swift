@@ -18,6 +18,8 @@ protocol AudioPlayerViewDelegate: AnyObject {
     func audioPlayerViewDelegateDidTapPlayButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapNextButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapForwardButton(_ audioPlayerView: AudioPlayerView)
+    func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView
+    func audioPlayerViewDeleagteGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView
 }
 
 class AudioPlayerView: UIView {
@@ -86,6 +88,8 @@ class AudioPlayerView: UIView {
 
         thumbnailImageViewWidthConstraint.constant = width * factor
         thumbnailImageViewBottomConstraint.constant = constant
+
+        setupSliders()
     }
 
     func setupBackgroundColor() {
@@ -188,6 +192,47 @@ class AudioPlayerView: UIView {
 
         forwardButton.isEnabled = enabled
         forwardButton.alpha = enabled ? 1.0 : 0.5
+    }
+
+    // MARK: - Private methods
+
+    private func setupCommonSliderConstraints(for slider: UIView) {
+        let heightConstraint = slider.heightAnchor.constraint(lessThanOrEqualToConstant: 170)
+        let topConstraint = slider.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor)
+        let bottomConstraint = slider.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: -10)
+        let yConstraint = slider.centerYAnchor.constraint(equalTo: thumbnailView.centerYAnchor)
+
+        heightConstraint.priority = .required
+        topConstraint.priority = .defaultHigh
+        bottomConstraint.priority = .defaultHigh
+        yConstraint.priority = .defaultHigh
+
+        NSLayoutConstraint.activate([
+            heightConstraint,
+            topConstraint,
+            bottomConstraint,
+            slider.widthAnchor.constraint(equalToConstant: 50),
+            yConstraint,
+        ])
+    }
+
+    private func setupSliders() {
+        let brightnessControlView = delegate?.audioPlayerViewDelegateGetBrightnessSlider(self)
+        let volumeControlView = delegate?.audioPlayerViewDeleagteGetVolumeSlider(self)
+
+        if let brightnessControlView = brightnessControlView,
+           let volumeControlView = volumeControlView {
+            thumbnailView.addSubview(brightnessControlView)
+            thumbnailView.addSubview(volumeControlView)
+
+            setupCommonSliderConstraints(for: brightnessControlView)
+            setupCommonSliderConstraints(for: volumeControlView)
+
+            NSLayoutConstraint.activate([
+                brightnessControlView.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor),
+                volumeControlView.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor)
+            ])
+        }
     }
 
     // MARK: - Buttons handlers

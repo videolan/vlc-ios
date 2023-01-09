@@ -223,6 +223,14 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
     func audioPlayerViewDelegateDidTapForwardButton(_ audioPlayerView: AudioPlayerView) {
         playbackService.jumpForward(Int32(seekBy))
     }
+
+    func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView {
+        return brightnessControlView
+    }
+
+    func audioPlayerViewDeleagteGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView {
+        return volumeControlView
+    }
 }
 
 // MARK: - VLCPlaybackServiceDelegate
