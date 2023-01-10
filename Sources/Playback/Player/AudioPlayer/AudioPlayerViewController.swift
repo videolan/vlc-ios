@@ -80,6 +80,7 @@ class AudioPlayerViewController: PlayerViewController {
         seekBy = UserDefaults.standard.integer(forKey: kVLCSettingSetCustomSeek)
         audioPlayerView.setupThumbnailView()
         audioPlayerView.setupBackgroundColor()
+        setupGestures()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -120,6 +121,12 @@ class AudioPlayerViewController: PlayerViewController {
             [unowned self] in
             self.moreOptionsActionSheet.interfaceDisabled = self.playerController.isInterfaceLocked
         }
+    }
+
+    override func setupGestures() {
+        super.setupGestures()
+
+        audioPlayerView.thumbnailView.addGestureRecognizer(panRecognizer)
     }
 
     // MARK: - Private methods
@@ -170,6 +177,8 @@ class AudioPlayerViewController: PlayerViewController {
         mediaScrubProgressBar.remainingTimeButton.isEnabled = enabled
 
         audioPlayerView.setControlsEnabled(enabled)
+
+        shouldDisableGestures(!enabled)
 
         playerController.isInterfaceLocked = !enabled
     }
@@ -324,6 +333,8 @@ extension AudioPlayerViewController {
         } else if let qvc = queueViewController, !isQueueHidden {
             qvc.dismissFromAudioPlayer()
         }
+
+        shouldDisableGestures(isQueueHidden)
 
         isQueueHidden = !isQueueHidden
     }

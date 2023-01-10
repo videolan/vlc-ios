@@ -13,6 +13,13 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 
+enum PlayerPanType {
+    case none
+    case brightness
+    case volume
+    case projection
+}
+
 class PlayerViewController: UIViewController {
     // MARK: - Slider Gesture Contol
 
@@ -109,6 +116,44 @@ class PlayerViewController: UIViewController {
         }
     }()
 
+    private lazy var volumeBackgroundGradientLayer: CAGradientLayer = {
+        let volumeBackGroundGradientLayer = CAGradientLayer()
+
+        volumeBackGroundGradientLayer.frame = UIScreen.main.bounds
+        volumeBackGroundGradientLayer.colors = [UIColor.clear.cgColor,
+                                                UIColor.clear.cgColor,
+                                                UIColor.clear.cgColor,
+                                                UIColor.black.cgColor]
+        volumeBackGroundGradientLayer.locations = [0, 0.2, 0.8, 1]
+        volumeBackGroundGradientLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
+        volumeBackGroundGradientLayer.isHidden = true
+        return volumeBackGroundGradientLayer
+    }()
+
+    private lazy var brightnessBackgroundGradientLayer: CAGradientLayer = {
+        let brightnessGroundGradientLayer = CAGradientLayer()
+
+        brightnessGroundGradientLayer.frame = UIScreen.main.bounds
+        brightnessGroundGradientLayer.colors = [UIColor.clear.cgColor,
+                                                UIColor.clear.cgColor,
+                                                UIColor.clear.cgColor,
+                                                UIColor.black.cgColor]
+        brightnessGroundGradientLayer.locations = [0, 0.2, 0.8, 1]
+        brightnessGroundGradientLayer.transform = CATransform3DMakeRotation(CGFloat.pi / 2, 0, 0, 1)
+        brightnessGroundGradientLayer.isHidden = true
+        return brightnessGroundGradientLayer
+    }()
+
+    lazy var sideBackgroundGradientView: UIView = {
+        let backgroundGradientView = UIView()
+        backgroundGradientView.frame = UIScreen.main.bounds
+        backgroundGradientView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+
+        backgroundGradientView.layer.addSublayer(brightnessBackgroundGradientLayer)
+        backgroundGradientView.layer.addSublayer(volumeBackgroundGradientLayer)
+        return backgroundGradientView
+    }()
+
     lazy var brightnessControlView: BrightnessControlView = {
         let vc = BrightnessControlView()
         vc.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
@@ -129,6 +174,32 @@ class PlayerViewController: UIViewController {
 
     var addBookmarksView: AddBookmarksView? = nil
 
+    private var isGestureActive: Bool = false
+
+    private var currentPanType: PlayerPanType = .none
+
+    private var projectionLocation: CGPoint = .zero
+
+    private var fov: CGFloat = 0
+
+    private lazy var deviceMotion: DeviceMotion = {
+        let deviceMotion = DeviceMotion()
+        deviceMotion.delegate = self
+        return deviceMotion
+    }()
+
+    private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
+                                         height: UIScreen.main.bounds.height)
+
+    // MARK: - Gestures
+
+    lazy var panRecognizer: UIPanGestureRecognizer = {
+        let panRecognizer = UIPanGestureRecognizer(target: self,
+                                                   action: #selector(handlePanGesture(recognizer:)))
+        panRecognizer.maximumNumberOfTouches = 1
+        return panRecognizer
+    }()
+
     // MARK: - Init
 
     @objc init(services: Services, playerController: PlayerController) {
@@ -144,6 +215,8 @@ class PlayerViewController: UIViewController {
     // MARK: - Public methods
 
     func showPopup(_ popupView: PopupView, with contentView: UIView, accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? = nil) {
+        shouldDisableGestures(true)
+
         popupView.isShown = true
 
         popupView.addContentView(contentView, constraintWidth: true)
@@ -152,6 +225,20 @@ class PlayerViewController: UIViewController {
         }
 
         view.addSubview(popupView)
+    }
+
+    func setControlsHidden(_ hidden: Bool, animated: Bool) {
+        // HIDE THE CONTROLS IF NEEDED
+    }
+
+    func setupGestures() {
+        // SETUP THE GESTURES
+
+        shouldDisableGestures(false)
+    }
+
+    func shouldDisableGestures(_ disable: Bool) {
+        panRecognizer.isEnabled = !disable
     }
 
     // MARK: - Private methods
@@ -221,6 +308,50 @@ class PlayerViewController: UIViewController {
         }
     }
 
+    private func detectPanType(_ recognizer: UIPanGestureRecognizer) -> PlayerPanType {
+        let window: UIWindow = UIApplication.shared.keyWindow!
+        let windowWidth: CGFloat = window.bounds.width
+        let location: CGPoint = recognizer.location(in: window)
+
+        // Default or right side of the screen
+        var panType: PlayerPanType = .volume
+
+        if location.x < windowWidth / 2 {
+            panType = .brightness
+        }
+
+        if playbackService.currentMediaIs360Video {
+            panType = .projection
+        }
+
+        return panType
+    }
+
+    private func applyYaw(yaw: CGFloat, pitch: CGFloat) {
+        //Add and limit new pitch and yaw
+        deviceMotion.yaw += yaw
+        deviceMotion.pitch += pitch
+
+        playbackService.updateViewpoint(deviceMotion.yaw,
+                                        pitch: deviceMotion.pitch,
+                                        roll: 0,
+                                        fov: fov, absolute: true)
+    }
+
+    private func updateProjection(with recognizer: UIPanGestureRecognizer) {
+        let newLocationInView: CGPoint = recognizer.location(in: view)
+
+        let diffX = newLocationInView.x - projectionLocation.x
+        let diffY = newLocationInView.y - projectionLocation.y
+        projectionLocation = newLocationInView
+
+        // ScreenSizePixel width is used twice to get a constant speed on the movement.
+        let diffYaw = fov * -diffX / screenPixelSize.width
+        let diffPitch = fov * -diffY / screenPixelSize.width
+
+        applyYaw(yaw: diffYaw, pitch: diffPitch)
+    }
+
     // MARK: - Gesture handlers
 
     @objc func handlePlayPauseGesture() {
@@ -232,6 +363,121 @@ class PlayerViewController: UIViewController {
             playbackService.pause()
         } else {
             playbackService.play()
+        }
+    }
+
+    @objc private func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+        let verticalPanVelocity: Float = Float(recognizer.velocity(in: view).y)
+
+        let currentPos = recognizer.location(in: view)
+
+        let panType = detectPanType(recognizer)
+
+        guard panType == .projection
+                || (panType == .volume && playerController.isVolumeGestureEnabled)
+                || (panType == .brightness && playerController.isBrightnessGestureEnabled)
+        else {
+            return
+        }
+
+        if recognizer.state == .began {
+            isGestureActive = true
+            var animations : (() -> Void)?
+            currentPanType = panType
+            switch currentPanType {
+            case .brightness:
+                brightnessBackgroundGradientLayer.isHidden = false
+                brightnessControl.fetchDeviceValue()
+                animations = { [brightnessControlView, sideBackgroundGradientView] in
+                    brightnessControlView.alpha = 1
+                    sideBackgroundGradientView.alpha = 1
+                }
+            case .volume:
+                volumeBackgroundGradientLayer.isHidden = false
+                volumeControl.fetchDeviceValue()
+                animations = { [volumeControlView, sideBackgroundGradientView] in
+                    volumeControlView.alpha = 1
+                    sideBackgroundGradientView.alpha = 1
+                }
+            default:
+                break
+            }
+            if let animations = animations {
+                UIView.animate(withDuration: 0.2, delay: 0,
+                               options: .beginFromCurrentState, animations: animations,
+                               completion: nil)
+            }
+            if playbackService.currentMediaIs360Video {
+                projectionLocation = currentPos
+                deviceMotion.stopDeviceMotion()
+            }
+        }
+
+        switch currentPanType {
+        case .volume:
+            if recognizer.state == .changed || recognizer.state == .ended {
+                let newValue = volumeControl.value - (verticalPanVelocity * volumeControl.speed)
+                volumeControl.value = min(max(newValue, 0), 1)
+                volumeControl.applyValueToDevice()
+                volumeControlView.updateIcon(level: volumeControl.value)
+            }
+            break
+        case .brightness:
+            if recognizer.state == .changed || recognizer.state == .ended {
+                let newValue = brightnessControl.value - (verticalPanVelocity * brightnessControl.speed)
+                brightnessControl.value = min(max(newValue, 0), 1)
+                brightnessControl.applyValueToDevice()
+                brightnessControlView.updateIcon(level: brightnessControl.value)
+            }
+        case .projection:
+            updateProjection(with: recognizer)
+        case .none:
+            break
+        }
+
+        if recognizer.state == .ended {
+            var animations : (() -> Void)?
+
+            // Check if both of the sliders are visible to hide them at the same time
+            if currentPanType == .brightness && volumeControlView.alpha == 1 ||
+                currentPanType == .volume && brightnessControlView.alpha == 1 {
+                animations = { [brightnessControlView,
+                                volumeControlView,
+                                sideBackgroundGradientView] in
+                    brightnessControlView.alpha = 0
+                    volumeControlView.alpha = 0
+                    sideBackgroundGradientView.alpha = 0
+                }
+            } else if currentPanType == .brightness {
+                animations = { [brightnessControlView,
+                                sideBackgroundGradientView] in
+                    brightnessControlView.alpha = 0
+                    sideBackgroundGradientView.alpha = 0
+                }
+            } else if currentPanType == .volume {
+                animations = { [volumeControlView,
+                                sideBackgroundGradientView] in
+                    volumeControlView.alpha = 0
+                    sideBackgroundGradientView.alpha = 0
+                }
+            }
+
+            if let animations = animations {
+                UIView.animate(withDuration: 0.2, delay: 0.5,
+                               options: .beginFromCurrentState, animations: animations, completion: {
+                    [brightnessBackgroundGradientLayer,
+                     volumeBackgroundGradientLayer] _ in
+                    brightnessBackgroundGradientLayer.isHidden = true
+                    volumeBackgroundGradientLayer.isHidden = true
+                    self.isGestureActive = false
+                    self.setControlsHidden(true, animated: true)
+                })
+            }
+
+            currentPanType = .none
+            if playbackService.currentMediaIs360Video {
+                deviceMotion.startDeviceMotion()
+            }
         }
     }
 }
@@ -399,6 +645,8 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
     }
 
     func mediaMoreOptionsActionSheetDisplayAddBookmarksView(_ bookmarksView: AddBookmarksView) {
+        shouldDisableGestures(true)
+
         mediaNavigationBar.isHidden = true
 
         bookmarksView.translatesAutoresizingMaskIntoConstraints = false
@@ -407,6 +655,8 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
     }
 
     func mediaMoreOptionsActionSheetRemoveAddBookmarksView() {
+        shouldDisableGestures(false)
+
         mediaNavigationBar.isHidden = false
 
         if let bookmarksView = addBookmarksView {
@@ -460,7 +710,20 @@ extension PlayerViewController: OptionsNavigationBarDelegate {
 
 extension PlayerViewController: PopupViewDelegate {
     @objc func popupViewDidClose(_ popupView: PopupView) {
+        shouldDisableGestures(false)
+
         popupView.isShown = false
+    }
+}
+
+// MARK: - DeviceMotionDelegate
+
+extension PlayerViewController: DeviceMotionDelegate {
+    func deviceMotionHasAttitude(deviceMotion: DeviceMotion, pitch: Double, yaw: Double) {
+        if panRecognizer.state != .changed
+            || panRecognizer.state != .began {
+            applyYaw(yaw: CGFloat(yaw), pitch: CGFloat(pitch))
+        }
     }
 }
 
