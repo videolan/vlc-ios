@@ -87,7 +87,7 @@ DEPENDENCIES:
   - CocoaHTTPServer (from `https://github.com/fkuehne/CocoaHTTPServer.git`)
   - GoogleAPIClientForREST/Drive (~> 1.2.1)
   - GoogleSignIn (= 6.2.0)
-  - GRKArrayDiff (~> 2.1)
+  - GRKArrayDiff (from `https://code.videolan.org/fkuehne/GRKArrayDiff.git`)
   - GTMAppAuth (~> 1.0)
   - InAppSettingsKit (from `https://github.com/Mikanbu/InAppSettingsKit.git`, commit `a429840`)
   - MarqueeLabel (= 4.0.2)
@@ -110,7 +110,6 @@ SPEC REPOS:
     - Base32
     - GoogleAPIClientForREST
     - GoogleSignIn
-    - GRKArrayDiff
     - GTMAppAuth
     - GTMSessionFetcher
     - MarqueeLabel
@@ -134,6 +133,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/fkuehne/box-ios-sdk-v2.git
   CocoaHTTPServer:
     :git: https://github.com/fkuehne/CocoaHTTPServer.git
+  GRKArrayDiff:
+    :git: https://code.videolan.org/fkuehne/GRKArrayDiff.git
   InAppSettingsKit:
     :commit: a429840
     :git: https://github.com/Mikanbu/InAppSettingsKit.git
@@ -154,6 +155,9 @@ CHECKOUT OPTIONS:
   CocoaHTTPServer:
     :commit: 97933152c16f93ab36dd28a9d33c64c5f2a085e5
     :git: https://github.com/fkuehne/CocoaHTTPServer.git
+  GRKArrayDiff:
+    :commit: f4151360f979c3305a41a68e911079ee60652701
+    :git: https://code.videolan.org/fkuehne/GRKArrayDiff.git
   InAppSettingsKit:
     :commit: a429840
     :git: https://github.com/Mikanbu/InAppSettingsKit.git
@@ -173,7 +177,7 @@ SPEC CHECKSUMS:
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
   GoogleAPIClientForREST: a8b95a252014ce2e618df6b75dc72eca2c00b4af
   GoogleSignIn: cdb27fee152cde4efd4bb814cfb4ad595fe1ff03
-  GRKArrayDiff: 13738c0300068a28cf17614a72e0398ee13bb6b3
+  GRKArrayDiff: bb58b8e3c77eff900c14b704bcc657f45ba76e13
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   InAppSettingsKit: 3887d126d00a4ae468692deaaa7a8989e6b97fb7
@@ -191,6 +195,6 @@ SPEC CHECKSUMS:
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 48cf94c976c244ae302e329180db93150c366bdd
+PODFILE CHECKSUM: 9f7a106c5f12ecdc03dc7171fdcb2f36ac38484e
 
 COCOAPODS: 1.11.2

@@ -41,7 +41,7 @@ end
 target 'VLC-tvOS' do
   platform :tvos, '11.0'
   shared_pods
-  pod 'GRKArrayDiff', '~> 2.1'
+  pod 'GRKArrayDiff', :git => 'https://code.videolan.org/fkuehne/GRKArrayDiff.git'
   pod 'TVVLCKit', '3.5.1'
   pod 'MetaDataFetcherKit', '~>0.5.0'
 end
