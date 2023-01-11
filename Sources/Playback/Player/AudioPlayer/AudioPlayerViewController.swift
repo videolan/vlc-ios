@@ -127,6 +127,7 @@ class AudioPlayerViewController: PlayerViewController {
         super.setupGestures()
 
         audioPlayerView.thumbnailView.addGestureRecognizer(panRecognizer)
+        audioPlayerView.addGestureRecognizer(playPauseRecognizer)
     }
 
     // MARK: - Private methods

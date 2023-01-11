@@ -200,6 +200,13 @@ class PlayerViewController: UIViewController {
         return panRecognizer
     }()
 
+    lazy var playPauseRecognizer: UITapGestureRecognizer = {
+        let playPauseRecognizer = UITapGestureRecognizer(target: self,
+                                                         action: #selector(handlePlayPauseGesture))
+        playPauseRecognizer.numberOfTouchesRequired = 2
+        return playPauseRecognizer
+    }()
+
     // MARK: - Init
 
     @objc init(services: Services, playerController: PlayerController) {
@@ -239,6 +246,7 @@ class PlayerViewController: UIViewController {
 
     func shouldDisableGestures(_ disable: Bool) {
         panRecognizer.isEnabled = !disable
+        playPauseRecognizer.isEnabled = !disable
     }
 
     // MARK: - Private methods
@@ -361,6 +369,7 @@ class PlayerViewController: UIViewController {
 
         if playbackService.isPlaying {
             playbackService.pause()
+            setControlsHidden(false, animated: playerController.isControlsHidden)
         } else {
             playbackService.play()
         }
