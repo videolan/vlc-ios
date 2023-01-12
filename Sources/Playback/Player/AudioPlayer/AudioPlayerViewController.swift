@@ -128,8 +128,13 @@ class AudioPlayerViewController: PlayerViewController {
         super.setupGestures()
 
         audioPlayerView.thumbnailView.addGestureRecognizer(panRecognizer)
+        audioPlayerView.thumbnailView.addGestureRecognizer(leftSwipeRecognizer)
+        audioPlayerView.thumbnailView.addGestureRecognizer(rightSwipeRecognizer)
         audioPlayerView.addGestureRecognizer(playPauseRecognizer)
         audioPlayerView.addGestureRecognizer(pinchRecognizer)
+
+        panRecognizer.require(toFail: leftSwipeRecognizer)
+        panRecognizer.require(toFail: rightSwipeRecognizer)
     }
 
     @objc override func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
@@ -292,6 +297,10 @@ extension AudioPlayerViewController {
         if currentState == .error {
             statusLabel.showStatusMessage(NSLocalizedString("PLAYBACK_FAILED",
                                                             comment: ""))
+        }
+
+        if currentState == .buffering {
+            mediaDuration = playbackService.mediaDuration
         }
     }
 

@@ -182,6 +182,8 @@ class PlayerViewController: UIViewController {
 
     var addBookmarksView: AddBookmarksView? = nil
 
+    var mediaDuration: Int = 0
+
     private var isGestureActive: Bool = false
 
     private var currentPanType: PlayerPanType = .none
@@ -221,6 +223,20 @@ class PlayerViewController: UIViewController {
         let pinchRecognizer = UIPinchGestureRecognizer(target: self,
                                                        action: #selector(handlePinchGesture(recognizer:)))
         return pinchRecognizer
+    }()
+
+    lazy var leftSwipeRecognizer: UISwipeGestureRecognizer = {
+        let leftSwipeRecognizer = UISwipeGestureRecognizer(target: self,
+                                                           action: #selector(handleSwipeGestures(recognizer:)))
+        leftSwipeRecognizer.direction = .left
+        return leftSwipeRecognizer
+    }()
+
+    lazy var rightSwipeRecognizer: UISwipeGestureRecognizer = {
+        let rightSwipeRecognizer = UISwipeGestureRecognizer(target: self,
+                                                            action: #selector(handleSwipeGestures(recognizer:)))
+        rightSwipeRecognizer.direction = .right
+        return rightSwipeRecognizer
     }()
 
     // MARK: - Init
@@ -264,6 +280,8 @@ class PlayerViewController: UIViewController {
         panRecognizer.isEnabled = !disable
         playPauseRecognizer.isEnabled = !disable
         pinchRecognizer.isEnabled = !disable
+        leftSwipeRecognizer.isEnabled = !disable
+        rightSwipeRecognizer.isEnabled = !disable
     }
 
     // MARK: - Private methods
@@ -515,6 +533,54 @@ class PlayerViewController: UIViewController {
                 // Clam FOV between min and max
                 fov = max(min(fov + zoom, MediaProjection.FOV.max), MediaProjection.FOV.min)
             }
+        }
+    }
+
+    @objc private func handleSwipeGestures(recognizer: UISwipeGestureRecognizer) {
+        guard playerController.isSwipeSeekGestureEnabled else {
+            return
+        }
+
+        // Make sure that we are currently not scrubbing in order to avoid conflicts.
+        guard mediaScrubProgressBar.isScrubbing == false else {
+            return
+        }
+
+        var hudString = ""
+        let tmp: Int = Int(Double(mediaDuration) * 0.001 * 0.05)
+
+        var swipeDuration = playerController.isVariableJumpDurationEnabled ? tmp : seekBy
+
+        switch recognizer.direction {
+        case .right:
+            let timeRemaining = -Int(Double(playbackService.remainingTime().intValue) * 0.001)
+
+            if swipeDuration < timeRemaining {
+                if swipeDuration < 1 {
+                    swipeDuration = 1
+                }
+
+                jumpForwards(swipeDuration)
+                hudString = String(format: "⇒ %is", swipeDuration)
+            } else {
+                jumpForwards(timeRemaining - 5)
+                hudString = String(format: "⇒ %is", (timeRemaining - 5))
+            }
+        case .left:
+            jumpBackwards(swipeDuration)
+            hudString = String(format: "⇐ %is", swipeDuration)
+        case .up:
+            playbackService.previous()
+            hudString = NSLocalizedString("BWD_BUTTON", comment: "")
+        case .down:
+            playbackService.next()
+            hudString = NSLocalizedString("FWD_BUTTON", comment: "")
+        default:
+            break
+        }
+
+        if recognizer.state == .ended {
+            statusLabel.showStatusMessage(hudString)
         }
     }
 }
