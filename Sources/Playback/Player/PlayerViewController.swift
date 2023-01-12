@@ -188,6 +188,8 @@ class PlayerViewController: UIViewController {
         return deviceMotion
     }()
 
+    private let ZOOM_SENSITIVITY: CGFloat = 5
+
     private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
                                          height: UIScreen.main.bounds.height)
 
@@ -205,6 +207,12 @@ class PlayerViewController: UIViewController {
                                                          action: #selector(handlePlayPauseGesture))
         playPauseRecognizer.numberOfTouchesRequired = 2
         return playPauseRecognizer
+    }()
+
+    lazy var pinchRecognizer: UIPinchGestureRecognizer = {
+        let pinchRecognizer = UIPinchGestureRecognizer(target: self,
+                                                       action: #selector(handlePinchGesture(recognizer:)))
+        return pinchRecognizer
     }()
 
     // MARK: - Init
@@ -247,6 +255,7 @@ class PlayerViewController: UIViewController {
     func shouldDisableGestures(_ disable: Bool) {
         panRecognizer.isEnabled = !disable
         playPauseRecognizer.isEnabled = !disable
+        pinchRecognizer.isEnabled = !disable
     }
 
     // MARK: - Private methods
@@ -486,6 +495,17 @@ class PlayerViewController: UIViewController {
             currentPanType = .none
             if playbackService.currentMediaIs360Video {
                 deviceMotion.startDeviceMotion()
+            }
+        }
+    }
+
+    @objc func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
+        if playbackService.currentMediaIs360Video {
+            let zoom: CGFloat = MediaProjection.FOV.default * -(ZOOM_SENSITIVITY * recognizer.velocity / screenPixelSize.width)
+            if playbackService.updateViewpoint(0, pitch: 0,
+                                               roll: 0, fov: zoom, absolute: false) {
+                // Clam FOV between min and max
+                fov = max(min(fov + zoom, MediaProjection.FOV.max), MediaProjection.FOV.min)
             }
         }
     }

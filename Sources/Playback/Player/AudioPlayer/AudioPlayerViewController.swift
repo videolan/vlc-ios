@@ -128,6 +128,13 @@ class AudioPlayerViewController: PlayerViewController {
 
         audioPlayerView.thumbnailView.addGestureRecognizer(panRecognizer)
         audioPlayerView.addGestureRecognizer(playPauseRecognizer)
+        audioPlayerView.addGestureRecognizer(pinchRecognizer)
+    }
+
+    @objc override func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
+        if recognizer.velocity < 0 && playerController.isCloseGestureEnabled {
+            delegate?.audioPlayerViewControllerDidMinimize(self)
+        }
     }
 
     // MARK: - Private methods
