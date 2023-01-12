@@ -66,6 +66,7 @@ class AudioPlayerViewController: PlayerViewController {
         audioPlayerView.setupProgressView(with: mediaScrubProgressBar)
         self.view = audioPlayerView
         setupOptionsNavigationBar()
+        setupStatusLabel()
     }
 
     required init?(coder: NSCoder) {
@@ -146,6 +147,16 @@ class AudioPlayerViewController: PlayerViewController {
         NSLayoutConstraint.activate([
             optionsNavigationBar.topAnchor.constraint(equalTo: audioPlayerView.navigationBarView.bottomAnchor, constant: padding),
             optionsNavigationBar.trailingAnchor.constraint(equalTo: audioPlayerView.trailingAnchor, constant: -padding)
+        ])
+    }
+
+    private func setupStatusLabel() {
+        audioPlayerView.addSubview(statusLabel)
+        audioPlayerView.bringSubviewToFront(statusLabel)
+
+        NSLayoutConstraint.activate([
+            statusLabel.centerXAnchor.constraint(equalTo: audioPlayerView.centerXAnchor),
+            statusLabel.centerYAnchor.constraint(equalTo: audioPlayerView.centerYAnchor)
         ])
     }
 
@@ -276,6 +287,11 @@ extension AudioPlayerViewController {
 
         if let queueCollectionView = queueViewController?.queueCollectionView {
             queueCollectionView.reloadData()
+        }
+
+        if currentState == .error {
+            statusLabel.showStatusMessage(NSLocalizedString("PLAYBACK_FAILED",
+                                                            comment: ""))
         }
     }
 

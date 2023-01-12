@@ -67,6 +67,14 @@ class PlayerViewController: UIViewController {
     var alertController: UIAlertController?
     var seekBy: Int = 0
 
+    lazy var statusLabel: VLCStatusLabel = {
+        var statusLabel = VLCStatusLabel()
+        statusLabel.isHidden = true
+        statusLabel.textColor = .white
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        return statusLabel
+    }()
+
     lazy var mediaNavigationBar: MediaNavigationBar = {
         var mediaNavigationBar = MediaNavigationBar(frame: .zero,
                                                     rendererDiscovererService: services.rendererDiscovererManager)
@@ -524,6 +532,10 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
 
     func playbackPositionUpdated(_ playbackService: PlaybackService) {
         mediaScrubProgressBar.updateInterfacePosition()
+    }
+
+    func showStatusMessage(_ statusMessage: String) {
+        statusLabel.showStatusMessage(statusMessage)
     }
 }
 
