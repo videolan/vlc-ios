@@ -273,8 +273,11 @@ extension MediaNavigationBar: ActionSheetDelegate, ActionSheetDataSource {
             break
         }
 
-        cell.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
-        cell.name.textColor = PresentationTheme.currentExcludingWhite.colors.cellTextColor
+        let colors: ColorPalette = PresentationTheme.currentExcludingWhite.colors
+        cell.backgroundColor = colors.background
+        cell.name.textColor = colors.cellTextColor
+        cell.name.backgroundColor = colors.background
+        cell.stackView.backgroundColor = colors.background
         cell.icon.tintColor = .white
         return cell
     }
