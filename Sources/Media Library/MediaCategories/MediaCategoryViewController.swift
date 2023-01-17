@@ -7,6 +7,7 @@
  *
  * Authors: Carola Nitz <nitz.carola # gmail.com>
  *          Mike JS. Choi <mkchoi212 # icloud.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -839,6 +840,9 @@ private extension MediaCategoryViewController {
                     playbackController.playMediaNextInQueue(media)
                 case .appendToQueue:
                     playbackController.appendMediaToQueue(media)
+                case .playAsAudio:
+                    playbackController.setPlayAsAudio(true)
+                    playbackController.play(media)
                 default:
                     assertionFailure("generatePlayAction: cannot be used with other actions")
             }
@@ -859,6 +863,9 @@ private extension MediaCategoryViewController {
                     playbackController.playCollectionNextInQueue(files)
                 case .appendToQueue:
                     playbackController.appendCollectionToQueue(files)
+                case .playAsAudio:
+                    playbackController.setPlayAsAudio(true)
+                    playbackController.playCollection(files)
                 default:
                     assertionFailure("generatePlayAction: cannot be used with other actions")
             }
@@ -944,6 +951,11 @@ private extension MediaCategoryViewController {
                     _ in
                     self.generatePlayAction(for: modelContent, type: .appendToQueue)
                 })
+            case .playAsAudio:
+                return $0.action({
+                    _ in
+                    self.generatePlayAction(for: modelContent, type: .playAsAudio)
+                })
             }
         })
     }
@@ -955,6 +967,10 @@ extension MediaCategoryViewController {
     private func selectedItem(at indexPath: IndexPath) {
         let mediaObjectArray = isSearching ? searchDataSource.searchData : model.anyfiles
         let modelContent = mediaObjectArray.objectAtIndex(index: indexPath.row)
+
+        // Reset the play as audio variable
+        let playbackService = PlaybackService.sharedInstance()
+        playbackService.setPlayAsAudio(false)
 
         if let mediaGroup = modelContent as? VLCMLMediaGroup,
             mediaGroup.nbTotalMedia() == 1 && !mediaGroup.userInteracted() {

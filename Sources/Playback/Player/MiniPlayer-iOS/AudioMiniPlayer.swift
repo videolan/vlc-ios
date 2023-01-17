@@ -181,7 +181,7 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
         playbackService.delegate = self
         playbackService.recoverDisplayedMetadata()
         // For now, AudioMiniPlayer will be used for all media
-        if !playbackService.isPlayingOnExternalScreen() {
+        if !playbackService.isPlayingOnExternalScreen() && !playbackService.playAsAudio {
             playbackService.videoOutputView = artworkImageView
         }
     }
@@ -485,11 +485,17 @@ private extension AudioMiniPlayer {
     private func setMediaInfo(_ metadata: VLCMetaData) {
         titleLabel.text = metadata.title
         artistLabel.text = metadata.artist
-        if !UIAccessibility.isReduceTransparencyEnabled && metadata.isAudioOnly {
-            artworkImageView.image = metadata.artworkImage ?? UIImage(named: "no-artwork")
-            artworkBlurImageView.image = metadata.artworkImage
-            queueViewController?.reloadBackground(with: metadata.artworkImage)
-            artworkBlurView.isHidden = false
+        if (!UIAccessibility.isReduceTransparencyEnabled && metadata.isAudioOnly) ||
+            playbackController.playAsAudio {
+            // Only update the artwork image when the media is being played
+            if playbackController.isPlaying {
+                artworkImageView.image = metadata.artworkImage ?? UIImage(named: "no-artwork")
+                artworkBlurImageView.image = metadata.artworkImage
+                queueViewController?.reloadBackground(with: metadata.artworkImage)
+                artworkBlurView.isHidden = false
+            }
+
+            playbackController.videoOutputView = nil
         } else {
             artworkBlurImageView.image = nil
             queueViewController?.reloadBackground(with: nil)

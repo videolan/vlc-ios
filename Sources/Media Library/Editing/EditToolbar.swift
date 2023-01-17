@@ -5,6 +5,7 @@
  * Copyright © 2018 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -125,7 +126,8 @@ class EditToolbar: UIView {
             //Not supported in edit mode
             case .play,
                  .playNextInQueue,
-                 .appendToQueue:
+                 .appendToQueue,
+                 .playAsAudio:
                 break
             }
         }
@@ -156,7 +158,8 @@ class EditToolbar: UIView {
             //Not supported in edit mode
             case .play,
                  .playNextInQueue,
-                 .appendToQueue:
+                 .appendToQueue,
+                 .playAsAudio:
                 break
             }
         }

@@ -4,6 +4,7 @@
 * Copyright © 2019 VLC authors and VideoLAN
 *
 * Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
+*                     Diogo Simao Marques <dogo@videolabs.io>
 *
 * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
@@ -18,6 +19,7 @@
     case play
     case playNextInQueue
     case appendToQueue
+    case playAsAudio
 }
 
 class EditButton {
@@ -68,9 +70,11 @@ class EditButtonsFactory {
         actionList.append(.addToPlaylist)
         if model is MediaGroupViewModel {
             actionList.append(.addToMediaGroup)
+            actionList.append(.playAsAudio)
         } else if let collectionModel = model as? CollectionModel,
             collectionModel.mediaCollection is VLCMLMediaGroup {
             actionList.append(.removeFromMediaGroup)
+            actionList.append(.playAsAudio)
         }
 
         if !(model is ArtistModel) && !(model is GenreModel) && !(model is AlbumModel) {
@@ -142,6 +146,12 @@ class EditButtonsFactory {
                                                   image: "appendToQueue",
                                                   accessibilityLabel: NSLocalizedString("APPEND_TO_QUEUE_LABEL", comment: ""),
                                                   accessibilityHint: NSLocalizedString("APPEND_TO_QUEUE_HINT", comment: "")))
+                case .playAsAudio:
+                    editButtons.append(EditButton(identifier: button,
+                                                  title: NSLocalizedString("PLAY_AS_AUDIO", comment: ""),
+                                                  image: "Audio",
+                                                  accessibilityLabel: NSLocalizedString("PLAY_AS_AUDIO", comment: ""),
+                                                  accessibilityHint: NSLocalizedString("PLAY_AS_AUDIO_HINT", comment: "")))
             }
         }
         return editButtons

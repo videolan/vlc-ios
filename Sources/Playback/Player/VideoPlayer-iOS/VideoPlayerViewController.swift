@@ -47,6 +47,8 @@ struct VideoPlayerSeek {
 class VideoPlayerViewController: UIViewController {
     @objc weak var delegate: VideoPlayerViewControllerDelegate?
 
+    var playAsAudio: Bool = false
+
     /* This struct is a small data container used for brightness and volume
      * gesture value persistance
      * It helps to keep their values around when they can't be get from/set to APIs
@@ -584,7 +586,9 @@ class VideoPlayerViewController: UIViewController {
 
         playbackService.recoverDisplayedMetadata()
         // [self resetVideoFiltersSliders];
-        playbackService.videoOutputView = videoOutputView
+
+        // The video output view is not initialized when the play as audio option was chosen
+        playbackService.videoOutputView = playbackService.playAsAudio ? nil : videoOutputView
 
         setupRepeatModeButton()
 
@@ -1237,7 +1241,7 @@ private extension VideoPlayerViewController {
 
     private func videoPlayerButtons() {
         let audioMedia: Bool = playbackService.metadata.isAudioOnly
-        if audioMedia {
+        if audioMedia || playbackService.playAsAudio {
             videoPlayerControls.repeatButton.isHidden = false
             videoPlayerControls.shuffleButton.isHidden = false
 
@@ -1588,12 +1592,19 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
     }
 
     private func updateAudioInterface(with metadata: VLCMetaData) {
-        if metadata.isAudioOnly {
-            let artworkImage = metadata.artworkImage
-            artWorkImageView.image = artworkImage
+        if metadata.isAudioOnly || playbackService.playAsAudio {
+            // Only update the artwork image when the media is being played
+            if playbackService.isPlaying {
+                let artworkImage = metadata.artworkImage
+                artWorkImageView.image = artworkImage
+                queueViewController?.reloadBackground(with: artworkImage)
+            }
+
             // Only show the artwork when not casting to a device.
             artWorkImageView.isHidden = playbackService.renderer != nil ? true : false
-            queueViewController?.reloadBackground(with: artworkImage)
+            artWorkImageView.clipsToBounds = true
+            artWorkImageView.contentMode = .scaleAspectFit
+            playbackService.videoOutputView = nil
         } else {
             artWorkImageView.isHidden = true
             queueViewController?.reloadBackground(with: nil)
@@ -1646,6 +1657,7 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
             delegate?.videoPlayerViewControllerDidMinimize(self)
         } else {
             playbackService.stopPlayback()
+            playbackService.setPlayAsAudio(false)
         }
     }
 
@@ -1683,6 +1695,7 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
 
     func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar) {
         playbackService.stopPlayback()
+        playbackService.setPlayAsAudio(false)
     }
 }
 

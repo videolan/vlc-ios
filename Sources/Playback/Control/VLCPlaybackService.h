@@ -77,6 +77,7 @@ NS_SWIFT_NAME(PlaybackService)
 @property (nonatomic, readonly) NSInteger mediaDuration;
 @property (nonatomic, readonly) BOOL isPlaying;
 @property (nonatomic, readonly) BOOL playerIsSetup;
+@property (nonatomic, readonly) BOOL playAsAudio;
 @property (nonatomic, readwrite) VLCRepeatMode repeatMode;
 @property (nonatomic, assign, getter=isShuffleMode) BOOL shuffleMode;
 @property (nonatomic, readwrite) float playbackRate; // default = 1.0
@@ -162,6 +163,8 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(nullable NSString *)subsFilePath;
 - (void)playMediaList:(VLCMediaList *)mediaList firstIndex:(NSInteger)index subtitlesFilePath:(nullable NSString *)subsFilePath completion:(void (^ __nullable)(BOOL success))completion;
 - (void)addSubtitlesToCurrentPlaybackFromURL:(NSURL *)subtitleURL;
+
+- (void)setPlayAsAudio:(BOOL)playAsAudio;
 
 NS_ASSUME_NONNULL_END
 @end

@@ -783,6 +783,11 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     [self setNeedsMetadataUpdate];
 }
 
+- (void)setPlayAsAudio:(BOOL)playAsAudio
+{
+    _playAsAudio = playAsAudio;
+}
+
 #pragma mark - playback controls
 - (void)playPause
 {
