@@ -225,7 +225,11 @@ NSString *VLCMediaFileDownloaderBackgroundTaskName = @"VLCMediaFileDownloaderBac
 
 - (void)updatePosition
 {
+#if LIBVLC_VERSION_MAJOR == 3
     unsigned long long fileSize = _mediaPlayer.media.numberOfReadBytesOnInput;
+#else
+    unsigned long long fileSize = _mediaPlayer.media.statistics.readBytes;
+#endif
 
     if ([self.delegate respondsToSelector:@selector(progressUpdatedTo:receivedDataSize:expectedDownloadSize:)]) {
         dispatch_async(dispatch_get_main_queue(), ^{

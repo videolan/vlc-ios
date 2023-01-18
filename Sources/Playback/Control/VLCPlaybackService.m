@@ -412,8 +412,13 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
             if (_mediaPlayer.state == VLCMediaPlayerStateStopped && _mediaPlayer.media != nil) {
                 // Since VLCMediaPlayerStateError is sometimes not matched with a valid media.
                 // This checks for decoded Audio & Video blocks.
+#if LIBVLC_VERSION_MAJOR == 3
                 finishedPlaybackWithError = (_mediaPlayer.media.numberOfDecodedAudioBlocks == 0)
                                              && (_mediaPlayer.media.numberOfDecodedVideoBlocks == 0);
+#else
+                VLCMediaStats stats = _mediaPlayer.media.statistics;
+                finishedPlaybackWithError = (stats.decodedAudio == 0) && (stats.decodedVideo == 0);
+#endif
             } else {
                 finishedPlaybackWithError = _mediaPlayer.state == VLCMediaPlayerStateError;
             }
@@ -1041,8 +1046,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
             _mediaPlayer.scaleFactor = 0;
 #if LIBVLC_VERSION_MAJOR == 3
             _mediaPlayer.videoCropGeometry = NULL;
-#endif
             _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio:_currentAspectRatio] UTF8String];
+#else
+            _mediaPlayer.videoAspectRatio = [self stringForAspectRatio:_currentAspectRatio];
+#endif
     }
 
     if ([self.delegate respondsToSelector:@selector(showStatusMessage:)]) {
