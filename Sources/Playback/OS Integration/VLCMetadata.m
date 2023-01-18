@@ -113,9 +113,8 @@
         self.elapsedPlaybackTime = @(elapsedPlaybackTime.value.floatValue / 1000.);
     }
     self.position = @(mediaPlayer.position);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
-    });
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
 }
 
 - (void)checkIsAudioOnly:(VLCMediaPlayer *)mediaPlayer

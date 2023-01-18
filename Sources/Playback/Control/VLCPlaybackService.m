@@ -59,7 +59,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     UIView *_actualVideoOutputView;
     UIView *_preBackgroundWrapperView;
 
-    volatile atomic_bool _metadataUpdatePending;
     BOOL _mediaWasJustStarted;
     int _majorPositionChangeInProgress;
     BOOL _recheckForExistingThumbnail;
@@ -1343,21 +1342,12 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (void)setNeedsMetadataUpdate
 {
-    if (!atomic_load(&_metadataUpdatePending)) {
-        atomic_store(&_metadataUpdatePending, true);
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            atomic_store(&self->_metadataUpdatePending, false);
 #if TARGET_OS_IOS
-            VLCMLMedia *media = self->_mediaPlayer.media ? [self->_delegate mediaForPlayingMedia:self->_mediaPlayer.media] : nil;
-            [self->_metadata updateMetadataFromMedia:media mediaPlayer:self->_mediaPlayer];
+    VLCMLMedia *media = self->_mediaPlayer.media ? [self->_delegate mediaForPlayingMedia:self->_mediaPlayer.media] : nil;
+    [_metadata updateMetadataFromMedia:media mediaPlayer:_mediaPlayer];
 #else
-            [self->_metadata updateMetadataFromMediaPlayer:self->_mediaPlayer];
+    [_metadata updateMetadataFromMediaPlayer:_mediaPlayer];
 #endif
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self recoverDisplayedMetadata];
-            });
-        });
-    }
 }
 
 #if TARGET_OS_IOS
