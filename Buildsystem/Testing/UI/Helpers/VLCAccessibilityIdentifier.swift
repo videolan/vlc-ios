@@ -24,7 +24,7 @@ import Foundation
     static let stream = "stream"
     static let downloads = "downloads"
     @objc static let done = "done"
-    @objc static let contribute = "contribute"
+    static let contact = "contact"
     @objc static let about = "about"
     @objc static let playPause = "playPause"
     static let videoPlayerScrubBar = "videoPlayerScrubBar"
