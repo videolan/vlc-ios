@@ -48,6 +48,14 @@ class CollectionViewCellPreviewController: UIViewController {
     private var previewElements: [PreviewElement]
     private var ratio: CGFloat = 0
 
+    private var rowSeparator: String {
+        let languageCode = NSLocale.autoupdatingCurrent.languageCode!
+        if languageCode.starts(with: "fr") {
+            return " : "
+        }
+        return ": "
+    }
+
     private var width: CGFloat {
         return view.frame.width
     }
@@ -217,7 +225,7 @@ extension CollectionViewCellPreviewController {
     private func labelText(for info: PreviewInformation) -> String {
         var text = info.value
         if let label = info.label {
-            text = label + " : " + text
+            text = label + rowSeparator + text
         }
         return text
     }
