@@ -231,6 +231,7 @@
 "NO_RECENT_STREAMS" = "No stream was played recently";
 
 "WEBINTF_TITLE" = "Sharing via Wi-Fi";
+"WEBINTF_ETHERNET" = "Sharing via Ethernet";
 "WEBINTF_DROPFILES" = "Drop Files";
 "WEBINTF_DROPFILES_LONG" = "Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
 "WEBINTF_DOWNLOADFILES" = "Download Files";
@@ -244,8 +245,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
 "WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
-
-
 
 "DURATION" = "Duration";
 "TITLE" = "Title";

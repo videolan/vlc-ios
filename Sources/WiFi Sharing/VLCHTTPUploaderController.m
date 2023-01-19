@@ -146,6 +146,11 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     return _httpServer.isRunning;
 }
 
+- (BOOL)isUsingEthernet
+{
+    return [_nameOfUsedNetworkInterface isEqualToString:@"en3"];
+}
+
 - (void)netReachabilityChanged
 {
     // find an interface to listen on
@@ -219,6 +224,11 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 
     /* oh well, let's move on to the secondary interface */
     if ([self necessaryFlagsSetOnInterface:anInterface withName:"en1"]) {
+        return YES;
+    }
+
+    /* we can do ethernet, too */
+    if ([self necessaryFlagsSetOnInterface:anInterface withName:"en3"]) {
         return YES;
     }
 

@@ -86,14 +86,19 @@
 
 - (void)updateHTTPServerAddress
 {
-   
     [self stopHandoff];
-    BOOL connectedViaWifi = [[VLCHTTPUploaderController sharedInstance] isReachable];
+    VLCHTTPUploaderController *uploadController = [VLCHTTPUploaderController sharedInstance];
+    BOOL connectedViaWifi = [uploadController isReachable];
     self.serverToggle.enabled = connectedViaWifi;
-    NSString *uploadText = connectedViaWifi ? [[VLCHTTPUploaderController sharedInstance] httpStatus] :        NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
+    NSString *uploadText = connectedViaWifi ? [uploadController httpStatus] :        NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
     self.detailTextLabel.text = uploadText;
-    self.serverToggle.on = connectedViaWifi && [VLCHTTPUploaderController sharedInstance].isServerRunning;
-    if(self.serverToggle.on) {
+    self.serverToggle.on = connectedViaWifi && uploadController.isServerRunning;
+    if (uploadController.isUsingEthernet) {
+        self.textLabel.text = NSLocalizedString(@"WEBINTF_ETHERNET", nil);
+    } else {
+        self.textLabel.text = NSLocalizedString(@"WEBINTF_TITLE", nil);
+    }
+    if (self.serverToggle.on) {
        [self startHandoff];
     }
     self.selectionStyle = self.serverToggle.isOn ? UITableViewCellSelectionStyleDefault : UITableViewCellSelectionStyleNone;

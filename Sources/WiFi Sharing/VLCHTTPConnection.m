@@ -43,6 +43,7 @@
     NSString *_filepath;
     UInt64 _contentLength;
     UInt64 _receivedContent;
+    NSString *_webInterfaceTitle;
 #if TARGET_OS_TV
     NSMutableArray *_receivedFiles;
 #endif
@@ -62,6 +63,18 @@ static NSMutableDictionary *authentifiedHosts;
     authentificationAttemptsHosts = [[NSMutableDictionary alloc] init];
     authentifiedHosts = [[NSMutableDictionary alloc] init];
     [super initialize];
+}
+
+- (id)initWithAsyncSocket:(GCDAsyncSocket *)newSocket configuration:(HTTPConfig *)aConfig
+{
+    self = [super initWithAsyncSocket:newSocket configuration:aConfig];
+    if (self) {
+        if ([VLCHTTPUploaderController sharedInstance].isUsingEthernet)
+            _webInterfaceTitle = NSLocalizedString(@"WEBINTF_ETHERNET", nil);
+        else
+            _webInterfaceTitle = NSLocalizedString(@"WEBINTF_TITLE", nil);
+    }
+    return self;
 }
 
 - (BOOL)isPasswordProtected:(NSString *)path
@@ -84,7 +97,7 @@ static NSMutableDictionary *authentifiedHosts;
     NSData *authData = [NSData dataWithContentsOfFile:[self filePathForURI:@"/public/auth.html"]];
     NSString *authContent = [[NSString alloc] initWithData:authData encoding:NSUTF8StringEncoding];
     NSDictionary *replacementDict = @{
-        @"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
+        @"WEBINTF_TITLE" : _webInterfaceTitle,
         @"WEBINTF_AUTH_REQUIRED" : NSLocalizedString(@"WEBINTF_AUTH_REQUIRED", nil)
     };
 
@@ -452,7 +465,7 @@ static NSMutableDictionary *authentifiedHosts;
     } // end of forloop
 
     NSDictionary *replacementDict = @{@"FILES" : [mediaInHtml componentsJoinedByString:@" "],
-                        @"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil),
+                        @"WEBINTF_TITLE" : _webInterfaceTitle,
                         @"WEBINTF_DROPFILES" : NSLocalizedString(@"WEBINTF_DROPFILES", nil),
                         @"WEBINTF_DROPFILES_LONG" : [NSString stringWithFormat:NSLocalizedString(@"WEBINTF_DROPFILES_LONG", nil), deviceModel],
                         @"WEBINTF_DOWNLOADFILES" : NSLocalizedString(@"WEBINTF_DOWNLOADFILES", nil),
@@ -565,7 +578,7 @@ static NSMutableDictionary *authentifiedHosts;
 - (NSObject<HTTPResponse> *)_httpGETCSSForPath:(NSString *)path
 {
 #if TARGET_OS_IOS
-    NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE", nil)};
+    NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : _webInterfaceTitle};
 #else
     NSDictionary *replacementDict = @{@"WEBINTF_TITLE" : NSLocalizedString(@"WEBINTF_TITLE_ATV", nil)};
 #endif

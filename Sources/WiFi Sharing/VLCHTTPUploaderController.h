@@ -28,6 +28,7 @@
 - (nonnull NSString *)httpStatus;
 - (nonnull NSString *)addressToCopy;
 - (BOOL)isServerRunning;
+- (BOOL)isUsingEthernet;
 - (nonnull NSString *)hostname;
 - (nonnull NSString *)hostnamePort;
 
