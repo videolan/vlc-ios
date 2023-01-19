@@ -47,6 +47,14 @@ extension VLCMLMedia {
                                          countStyle: .file)
     }
 
+    @objc func videoDimensions() -> String {
+        if let firstTrack = videoTracks?.first {
+            return String(format: NSLocalizedString("FORMAT_VIDEO_DIMENSIONS", comment: ""),
+                          firstTrack.width(), firstTrack.height())
+        }
+        return ""
+    }
+
     @objc func thumbnailImage() -> UIImage? {
         var image = VLCThumbnailsCache.thumbnail(for: thumbnail())
         if image == nil

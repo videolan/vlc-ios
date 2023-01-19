@@ -137,6 +137,8 @@ extension CollectionViewCellPreviewController {
                                         label: NSLocalizedString("FILE_SIZE", comment: "")))
         infos.append(PreviewInformation(value: video.codecs().joined(separator: " "),
                                         label: NSLocalizedString("ENCODING", comment: "")))
+        infos.append(PreviewInformation(value: video.videoDimensions(),
+                                        label: NSLocalizedString("VIDEO_DIMENSIONS", comment: "")))
         return infos
     }
 
