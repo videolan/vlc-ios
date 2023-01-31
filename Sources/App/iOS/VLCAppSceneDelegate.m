@@ -28,11 +28,12 @@
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session
       options:(UISceneConnectionOptions *)connectionOptions
 {
+    [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
+
     UIWindow *window = [[UIWindow alloc] initWithWindowScene:(UIWindowScene *)scene];
     window.rootViewController = [UITabBarController new];
     [window makeKeyAndVisible];
 
-    [VLCAppearanceManager setupAppearanceWithTheme:PresentationTheme.current];
     [VLCAppearanceManager setupUserInterfaceStyleWithTheme:PresentationTheme.current];
 
     VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
