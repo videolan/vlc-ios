@@ -36,7 +36,6 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 
 @interface VLCHTTPUploaderController()
 {
-    NSString *_nameOfUsedNetworkInterface;
     HTTPServer *_httpServer;
     UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
     Reachability *_reachability;

@@ -21,6 +21,7 @@
 
 + (nonnull instancetype)sharedInstance;
 
+@property (readonly) NSString *nameOfUsedNetworkInterface;
 @property (nonatomic, readonly) BOOL isReachable;
 @property (nonatomic, readwrite, nullable) MediaLibraryService *medialibrary;
 

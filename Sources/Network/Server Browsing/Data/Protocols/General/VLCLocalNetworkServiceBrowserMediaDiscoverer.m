@@ -11,10 +11,10 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-
 #import "VLCLocalNetworkServiceBrowserMediaDiscoverer.h"
 #import "VLCLocalNetworkServiceVLCMedia.h"
 #import "VLCLocalNetworkServiceBrowserUPnP.h"
+#import "VLCHTTPUploaderController.h"
 
 @interface VLCLocalNetworkServiceBrowserMediaDiscoverer () <VLCMediaListDelegate>
 {
@@ -43,9 +43,16 @@
         if (_isUPnPdiscoverer) {
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             NSString *satipURLstring = [defaults stringForKey:kVLCSettingNetworkSatIPChannelListUrl];
+            NSMutableArray *libVLCOptions = [NSMutableArray array];
             if (satipURLstring.length > 0) {
-                NSArray *libVLCOptions = @[[NSString stringWithFormat:@"--%@=%@", kVLCSettingNetworkSatIPChannelListUrl, satipURLstring],
-                                           [NSString stringWithFormat:@"--%@=%@", kVLCSettingNetworkSatIPChannelList, kVLCSettingNetworkSatIPChannelListCustom]];
+                [libVLCOptions addObject:[NSString stringWithFormat:@"--%@=%@", kVLCSettingNetworkSatIPChannelListUrl, satipURLstring]];
+                [libVLCOptions addObject:[NSString stringWithFormat:@"--%@=%@", kVLCSettingNetworkSatIPChannelList, kVLCSettingNetworkSatIPChannelListCustom]];
+            }
+            NSString *multicastInterfaceName = [[VLCHTTPUploaderController sharedInstance] nameOfUsedNetworkInterface];
+            if (multicastInterfaceName.length > 0) {
+                [libVLCOptions addObject:[NSString stringWithFormat:@"--miface=%@", multicastInterfaceName]];
+            }
+            if (libVLCOptions.count > 0) {
                 _internalLibraryInstance = [[VLCLibrary alloc] initWithOptions:libVLCOptions];
             }
         }
