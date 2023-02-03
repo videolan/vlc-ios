@@ -250,6 +250,32 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         collectionView.contentInset.bottom = 0
     }
 
+    private func updateAlbumHeader() {
+        let backgroundColor: UIColor
+        if collectionView.contentOffset.y >= 50 {
+            backgroundColor = PresentationTheme.current.colors.background.withAlphaComponent(0.4 * (collectionView.contentOffset.y / 100))
+        } else {
+            backgroundColor = .clear
+        }
+
+        navigationController?.navigationBar.backgroundColor = backgroundColor
+        navigationController?.setStatusBarColor(barView: statusBarView, backgroundColor: backgroundColor)
+
+        if let albumHeader = albumHeader,
+           let navBar = navigationController?.navigationBar {
+            let padding = statusBarView.frame.maxY + navBar.frame.maxY
+            let hideNavigationItemTitle: Bool
+            if collectionView.contentOffset.y >= albumHeader.frame.maxY - padding {
+                hideNavigationItemTitle = false
+            } else {
+                hideNavigationItemTitle = true
+            }
+
+            navigationItem.titleView?.isHidden = hideNavigationItemTitle
+            albumHeader.updateUserInterfaceStyle(isStatusBarVisible: !hideNavigationItemTitle)
+        }
+    }
+
     private func updateCollectionViewForAlbum() {
         guard let model = model as? CollectionModel, model.mediaCollection is VLCMLAlbum else {
             return
@@ -273,9 +299,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
-        navigationController?.navigationBar.backgroundColor = .clear
-        navigationController?.setStatusBarColor(barView: self.statusBarView, backgroundColor: .clear)
         navigationItem.titleView?.isHidden = true
+
+        updateAlbumHeader()
     }
 
     private func setupSearchBar() {
@@ -391,10 +417,13 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         cachedCellSize = .zero
         collectionView.collectionViewLayout.invalidateLayout()
         setupCollectionView() //Fixes crash that is caused due to layout change
-        updateCollectionViewForAlbum()
         showGuideOnLaunch()
         setNavbarAppearance()
         loadSort()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        updateCollectionViewForAlbum()
     }
 
     func loadSort() {
@@ -473,29 +502,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if let model = model as? CollectionModel,
            model.mediaCollection is VLCMLAlbum {
 
-            let backgroundColor: UIColor
-            if scrollView.contentOffset.y >= 50 {
-                backgroundColor = PresentationTheme.current.colors.background.withAlphaComponent(0.4 * (scrollView.contentOffset.y / 100))
-            } else {
-                backgroundColor = .clear
-            }
-
-            navigationController?.navigationBar.backgroundColor = backgroundColor
-            navigationController?.setStatusBarColor(barView: statusBarView, backgroundColor: backgroundColor)
-
-            if let albumHeader = albumHeader,
-               let navBar = navigationController?.navigationBar {
-                let padding = statusBarView.frame.maxY + navBar.frame.maxY
-                let hideNavigationItemTitle: Bool
-                if scrollView.contentOffset.y >= albumHeader.frame.maxY - padding {
-                    hideNavigationItemTitle = false
-                } else {
-                    hideNavigationItemTitle = true
-                }
-
-                navigationItem.titleView?.isHidden = hideNavigationItemTitle
-                albumHeader.updateUserInterfaceStyle(isStatusBarVisible: !hideNavigationItemTitle)
-            }
+            updateAlbumHeader()
         }
     }
 
