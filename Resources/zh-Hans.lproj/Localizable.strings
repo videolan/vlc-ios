@@ -2,13 +2,12 @@
 
 "STORE_DESCRIPTION_TV" = "VLC 是一款免费、自由且开源的跨平台多媒体播放器。\n它能够直接播放大多数格式的视频及音频，无需事先转换。\n它支持通过 Web 界面从 Mac 或 PC 远程播放，以及直接播放 SMB、FTP、SFTP、NFS、UPnP/DLNA 媒体服务器以及互联网上的流媒体。\nVLC 支持高级字幕格式（包括对 SSA 的完全兼容），多轨道音频以及回放速度控制。\n\nVLC 完全免费、自由及开源。\n\n影片封面由 TMDb 提供，它是一家由社区用户维护的影片数据库。";
 
-"UNKNOWN_TRACK_TYPE" = "未知曲目类型";
+"UNKNOWN_TRACK_TYPE" = "未知轨道类型";
 "CHOOSE_TITLE" = "选择标题";
 "CHOOSE_CHAPTER" = "选择章节";
 "CHAPTER_SELECTION_TITLE" = "章节";
 "TITLE" = "标题";
 "CHAPTER" = "章节";
-"MINIMIZE_PLAYBACK_VIEW" = "最小化回放";
 "TRACK_SELECTION" = "轨道选择";
 "AUDIO" = "音频";
 "SUBTITLES" = "字幕";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "一条字幕轨道";
 "TRACKS" = "%i 条轨道";
 "TRACK" = "%i 条轨道";
+"TRACKS_DURATION" = "%u tracks, duration: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV 已连接";
 "PLAYING_EXTERNALLY_DESC" = "该视频正在电视上播放";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "下载";
 "BUTTON_DELETE" = "删除";
 "BUTTON_OK" = "确定";
-"BUTTON_CONTRIBUTE" = "贡献";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "连接";
 "BUTTON_RENAME" = "重命名";
 "BUTTON_LEARN_MORE" = "了解更多";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "是否希望下载或打开该 URL?";
 "SHARED_VLC_IOS_LIBRARY" = "共享 VLC for iOS 库";
 "SMB_CIFS_FILE_SERVERS" = "文件服务器 (SMB)";
+
+"MANAGED_SERVERS" = "被管理的设置";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 个文件";
 "NO_FILES" = "无媒体文件";
 "DOWNLOADING" = "正在下载...";
+"DOWNLOADING_MEDIA" = "正在下载: %@";
 "REMAINING_TIME" = "剩余时间: %@";
 "BIOMETRIC_UNLOCK" = "解锁媒体库\n按「取消」可输入口令解锁";
 
@@ -175,7 +178,7 @@
 "EMPTY_NO_PLAYLISTS_DESCRIPTION" = "要创建播放列表，请在视频或音频内容选项卡中进入编辑模式并选择您喜欢的媒体文件。\n你也可以从其他设备或互联网同步现有的播放列表。";
 
 "EMPTY_PLAYLIST" = "清空播放列表";
-"EMPTY_PLAYLIST_DESCRIPTION" = "在编辑相应类别时添加媒体。";
+"EMPTY_PLAYLIST_DESCRIPTION" = "可在执行 ｢编辑｣ 操作时，将媒体添加到各分类的播放列表中。";
 
 "PLAYBACK_SCRUB_HELP" = "向上滑动手指来调整步进速度。";
 "PLAYBACK_SCRUB_HIGH" = "高速步进";
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "下一项";
 "PREV_BUTTON" = "前一项";
 "PLAY_ALL_BUTTON" = "全部播放";
+"PLAY_ALL_HINT" = "播放集合中的所有媒体";
 
 "RESET_VIDEO_FILTERS" = "是否希望重置视频滤镜?";
 "RESET_PLAYBACK_SPEED" = "是否希望重置播放速度?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "最近没有播放流";
 
 "WEBINTF_TITLE" = "Wi-Fi 共享功能";
+"WEBINTF_ETHERNET" = "Sharing via Ethernet";
 "WEBINTF_DROPFILES" = "拖放文件";
 "WEBINTF_DROPFILES_LONG" = "请将打算添加到 %@ 的文件拖入本窗口。<br>也可以点击“+”按钮，打开文件选择对话框。";
 "WEBINTF_DOWNLOADFILES" = "下载文件";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "请输入您为 VLC iOS 所设置的口令:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "口令错误。<br>剩余尝试次数: ";
 "WEBINTF_AUTH_BANNED" = "您的口令已经输入错误太多次。<br>请重新启动 VLC iOS 再试。";
-
-
 
 "DURATION" = "时长";
 "TITLE" = "标题";
@@ -267,7 +270,7 @@
 "USE_SPDIF" = "使用呈递 (S/PDIF)";
 
 "PLAYBACK" = "回放";
-"REPEAT_MODE" = "重复";
+"REPEAT_MODE" = "循环播放";
 "REPEAT_DISABLED" = "已禁用";
 "REPEAT_SINGLE" = "单曲";
 "REPEAT_FOLDER" = "文件夹";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "删除选中内容";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "此文件";
-"NOT_SUPPORTED_FILETYPE" = "VLC 不支持 %@ 文件类型";
-"FILE_EXISTS" = "%@ 已存在";
 
 "PROTOCOL_NOT_SELECTED" = "未选择协议";
 "Settings" = "设置";
 
 "ERROR" = "错误";
-"OK" = "确定";
 "SORT" = "排序";
 "SORT_BY" = "排序条件";
 "SEARCH" = "搜索";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "菜单";
+"BUTTON_MENU_HINT" = "对该视图中的媒体对象进行选择、调整顺序、排序操作";
+
 "BUTTON_EDIT" = "编辑";
 "BUTTON_EDIT_HINT" = "编辑模式";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "添加到播放列表";
 "ADD_TO_PLAYLIST_HINT" = "打开「添加到播放列表」菜单";
+
+"PLAY_AS_AUDIO" = "Play as audio";
+"PLAY_AS_AUDIO_HINT" = "Play the video file as an audio file.";
 
 "PLAYLIST_PLACEHOLDER" = "播放列表标题";
 "PLAYLIST_DESCRIPTION" = "为新播放列表选择标题";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "重命名选中文件";
 "DELETE_HINT" = "删除选中文件";
 
+"ADDITIONAL_OPTIONS" = "其他选项";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "排序";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "升序或降序";
 "DESCENDING_SWITCH_HINT" = "以升序或降序排列上下文";
 "GRID_LAYOUT" = "网格";
+"GRID_LAYOUT_HINT" = "以网格模式显示对象";
 "LIST_LAYOUT" = "列表";
 "HIDE_FEAT_ARTISTS" = "隐藏特邀歌手";
+"HIDE_TRACK_NUMBERS" = "隐藏音轨编号";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -384,7 +393,7 @@
 "PLAY_COUNT" = "播放次数";
 "ALBUM" = "专辑";
 "FILENAME" = "文件名";
-"TRACK_NUMBER" = "轨道号";
+"TRACK_NUMBER" = "音轨编号";
 "NB_AUDIO" = "音频数量";
 "NB_MEDIA" = "媒体数量";
 "NB_VIDEO" = "视频数量";
@@ -415,7 +424,7 @@
 "ROTATION_LOCK_BUTTON" = "旋转锁定";
 "ROTATION_LOCK_HINT" = "锁定视频屏幕方向";
 
-"REPEAT_HINT" = "重复相同媒体";
+"REPEAT_HINT" = "反复播放相同的媒体文件";
 
 "BACKWARD_BUTTON" = "后退";
 "BACKWARD_HINT" = "快退";
@@ -435,7 +444,7 @@
 
 "INTERFACE_LOCK_BUTTON" = "锁定界面";
 
-"SHUFFLE_HINT" = "打乱媒体列表";
+"SHUFFLE_HINT" = "媒体列表随机播放";
 
 "VIDEO_ASPECT_RATIO_BUTTON" = "视频宽高比";
 "VIDEO_ASPECT_RATIO_HINT" = "更改当前视频的宽高比";
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "均衡器";
 "MORE_OPTIONS_HEADER_TITLE" = "视频选项";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audio Options";
 "BOOKMARKS_TITLE" = "书签";
 "ADD_BOOKMARKS_TITLE" = "添加书签";
 "BOOKMARK_DEFAULT_NAME" = "书签位置";
 "BOOKMARK_RENAME_TITLE" = "重命名书签";
 "BOOKMARK_DELETE_TITLE" = "删除书签";
 "BOOKMARK_DELETE_MESSAGE" = "确认删除书签";
+"INCREASE_BUTTON" = "｢增加｣ 按钮";
+"INCREASE_PLAYBACK_SPEED" = "提高播放速度";
+"INCREASE_AUDIO_DELAY" = "增加音频延迟";
+"INCREASE_SUBTITLES_DELAY" = "增加字幕延迟";
+"DECREASE_BUTTON" = "｢减小｣ 按钮";
+"DECREASE_PLAYBACK_SPEED" = "降低播放速度";
+"DECREASE_AUDIO_DELAY" = "减少音频延迟";
+"DECREASE_SUBTITLES_DELAY" = "减少字幕延迟";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "强制媒体库重新扫描";
 "FORCE_RESCAN_MESSAGE" = "是否希望强制 VLC 重新扫描媒体库?\n可能需要耗费一些时间。";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -528,14 +551,14 @@
 
 // MARK: - AudioMiniPlayer playback controls menu
 "MENU_PLAYBACK_CONTROLS" = "播放控制";
-"MENU_REPEAT_DISABLED" = "不重复";
-"MENU_REPEAT_SINGLE" = "重复一首";
-"MENU_REPEAT_ALL" = "全部重复";
+"MENU_REPEAT_DISABLED" = "循环关闭";
+"MENU_REPEAT_SINGLE" = "单曲循环";
+"MENU_REPEAT_ALL" = "全部循环";
 
 // MARK: - ActionSheet
 
-"ACTIONSHEET_BACKGROUND_LABEL" = "操作列表背景";
-"ACTIONSHEET_BACKGROUND_HINT" = "轻按可隐藏操作说明。";
+"ACTIONSHEET_BACKGROUND_LABEL" = "菜单背景";
+"ACTIONSHEET_BACKGROUND_HINT" = "轻按可隐藏菜单。";
 
 // MARK: - Playback keyboard shortcuts
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "标题选择背景";
 "TITLESELECTION_BACKGROUND_HINT" = "轻按可移除视图。";
+
