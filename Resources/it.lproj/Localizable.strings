@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Capitoli";
 "TITLE" = "Titolo";
 "CHAPTER" = "Capitolo";
-"MINIMIZE_PLAYBACK_VIEW" = "Minimizza la riproduzione";
 "TRACK_SELECTION" = "Selezione tracce";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Sottotitoli";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "Una traccia di sottotitoli";
 "TRACKS" = "%i tracce";
 "TRACK" = "%i traccia";
+"TRACKS_DURATION" = "%u tracce, durata: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Connessa";
 "PLAYING_EXTERNALLY_DESC" = "Questo video è in riproduzione sul televisore";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Scarica";
 "BUTTON_DELETE" = "Elimina";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "Contribuire";
+"BUTTON_CONTACT" = "Contattaci";
 "BUTTON_CONNECT" = "Connetti";
 "BUTTON_RENAME" = "Rinomina";
 "BUTTON_LEARN_MORE" = "Per saperne di più";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Vuoi scaricare o riprodurre questo URL?";
 "SHARED_VLC_IOS_LIBRARY" = "Libreria condivisa di VLC per iOS";
 "SMB_CIFS_FILE_SERVERS" = "File Server (SMB)";
+
+"MANAGED_SERVERS" = "Gestiti";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 file";
 "NO_FILES" = "Nessun file supportato";
 "DOWNLOADING" = "Scaricamento in corso...";
+"DOWNLOADING_MEDIA" = "Scaricamento: %@";
 "REMAINING_TIME" = "Tempo rimanente: %@";
 "BIOMETRIC_UNLOCK" = "Sblocco raccolta multimediale\nAnnulla per digitare il codice di sicurezza";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Successivo";
 "PREV_BUTTON" = "Precedente";
 "PLAY_ALL_BUTTON" = "Riproduci tutto";
+"PLAY_ALL_HINT" = "Riproduci tutti i media nella raccolta";
 
 "RESET_VIDEO_FILTERS" = "Vuoi ripristinare i filtri audio?";
 "RESET_PLAYBACK_SPEED" = "Vuoi ripristinare la velocità di riproduzione?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Nessun flusso è stato riprodotto di recente";
 
 "WEBINTF_TITLE" = "Condivisione tramite Wi-Fi";
+"WEBINTF_ETHERNET" = "Condivisione tramite Ethernet";
 "WEBINTF_DROPFILES" = "Rilascia file";
 "WEBINTF_DROPFILES_LONG" = "Rilascia i file nella finestra per aggiungerli al tuo %@.<br>Oppure fai clic sul pulsante \"+\" per usare il selettore dei file.";
 "WEBINTF_DOWNLOADFILES" = "Scarica file";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Digita il codice di sicurezza che hai impostato in VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Codice di sicurezza errato.<br>Tentativi rimanenti:";
 "WEBINTF_AUTH_BANNED" = "Hai digitato troppi codici di sicurezza errati.<br>Riavvia VLC iOS e prova ancora.";
-
-
 
 "DURATION" = "Durata";
 "TITLE" = "Titolo";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Elimina selezione";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Questo file";
-"NOT_SUPPORTED_FILETYPE" = "%@ non è un tipo di file supportato da VLC";
-"FILE_EXISTS" = "%@ esiste già";
 
 "PROTOCOL_NOT_SELECTED" = "Protocollo non selezionato";
 "Settings" = "Impostazioni";
 
 "ERROR" = "Errore";
-"OK" = "Ok";
 "SORT" = "Ordina";
 "SORT_BY" = "Ordina per";
 "SEARCH" = "Cerca";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Seleziona, riorganizza e ordina gli elementi multimediali presenti in questa vista";
+
 "BUTTON_EDIT" = "Modifica";
 "BUTTON_EDIT_HINT" = "Modalità modifica";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Aggiungi alla scaletta";
 "ADD_TO_PLAYLIST_HINT" = "Apri il menu Aggiungi a scaletta";
+
+"PLAY_AS_AUDIO" = "Riproduci come audio";
+"PLAY_AS_AUDIO_HINT" = "Riproduci il file video come un file audio.";
 
 "PLAYLIST_PLACEHOLDER" = "Titolo della scaletta";
 "PLAYLIST_DESCRIPTION" = "Scegli un titolo per la nuova scaletta";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Rinomina file selezionati";
 "DELETE_HINT" = "Elimina file selezionati";
 
+"ADDITIONAL_OPTIONS" = "Opzioni aggiuntive";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Ordina";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Ordine crescente o decrescente";
 "DESCENDING_SWITCH_HINT" = "Mostra il contesto in ordine crescente o decrescente";
 "GRID_LAYOUT" = "Griglia";
+"GRID_LAYOUT_HINT" = "Visualizza gli elementi come una griglia";
 "LIST_LAYOUT" = "Elenco";
 "HIDE_FEAT_ARTISTS" = "Nascondi collaborazioni";
+"HIDE_TRACK_NUMBERS" = "Nascondi numeri di traccia";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizzatore";
 "MORE_OPTIONS_HEADER_TITLE" = "Opzioni video";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Opzioni audio";
 "BOOKMARKS_TITLE" = "Segnalibri";
 "ADD_BOOKMARKS_TITLE" = "Aggiungi segnalibri";
 "BOOKMARK_DEFAULT_NAME" = "Segnalibro a";
 "BOOKMARK_RENAME_TITLE" = "Rinomina segnalibro";
 "BOOKMARK_DELETE_TITLE" = "Elimina segnalibro";
 "BOOKMARK_DELETE_MESSAGE" = "Conferma l'eliminazione del segnalibro";
+"INCREASE_BUTTON" = "Pulsante di aumento";
+"INCREASE_PLAYBACK_SPEED" = "Aumenta la velocità di riproduzione";
+"INCREASE_AUDIO_DELAY" = "Aumenta il ritardo dell'audio";
+"INCREASE_SUBTITLES_DELAY" = "Aumenta il ritardo dei sottotitoli";
+"DECREASE_BUTTON" = "Pulsante di riduzione";
+"DECREASE_PLAYBACK_SPEED" = "Riduci la velocità di riproduzione";
+"DECREASE_AUDIO_DELAY" = "Riduci il ritardo dell'audio";
+"DECREASE_SUBTITLES_DELAY" = "Riduci il ritardo dei sottotitoli";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Forza nuova scansione della raccolta multimediale";
 "FORCE_RESCAN_MESSAGE" = "Vuoi forzare VLC eseguire una nuova scansione della raccolta multimediale?\nPotrebbe richiedere del tempo.";
+
+"FEEDBACK_EMAIL_TITLE" = "Segnalazioni relative a VLC su iOS e iPad";
+"FEEDBACK_EMAIL_BODY" = "Inserisci la tua segnalazione sopra questa riga.\n\ninformazioni anonime:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Account di posta non configurato";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contattaci tramite %@ da un altro dispositivo.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Sfondo di selezione del titolo";
 "TITLESELECTION_BACKGROUND_HINT" = "Tocca per rimuovere la vista.";
+
