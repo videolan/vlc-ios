@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Главы";
 "TITLE" = "Название";
 "CHAPTER" = "Глава";
-"MINIMIZE_PLAYBACK_VIEW" = "Уменьшить видео";
 "TRACK_SELECTION" = "Выбор дорожки";
 "AUDIO" = "Аудио";
 "SUBTITLES" = "Субтитры";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "Одна дорожка субтитров";
 "TRACKS" = "Дорожек: %i";
 "TRACK" = "Дорожек: %i";
+"TRACKS_DURATION" = "%u tracks, duration: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "Подключен ТВ";
 "PLAYING_EXTERNALLY_DESC" = "Данное видео проигрывается на ТВ";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Загрузить";
 "BUTTON_DELETE" = "Удалить";
 "BUTTON_OK" = "ОК";
-"BUTTON_CONTRIBUTE" = "Участие";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "Открыть";
 "BUTTON_RENAME" = "Переименовать";
 "BUTTON_LEARN_MORE" = "Подробнее";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Вы хотите скачать или проиграть файл по этому адресу?";
 "SHARED_VLC_IOS_LIBRARY" = "Разделяемая библиотека VLC для iOS";
 "SMB_CIFS_FILE_SERVERS" = "Файловые серверы (SMB)";
+
+"MANAGED_SERVERS" = "Managed";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 файл";
 "NO_FILES" = "Нет поддерживаемых файлов";
 "DOWNLOADING" = "Загрузка...";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Осталось: %@";
 "BIOMETRIC_UNLOCK" = "Разблокирование медиатеки\nОтмена позволяет ввести защитный код";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Далее";
 "PREV_BUTTON" = "Назад";
 "PLAY_ALL_BUTTON" = "Воспроизвести всё";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Вы хотите сбросить видеофильтры?";
 "RESET_PLAYBACK_SPEED" = "Вы хотите сбросить скорость воспроизведения?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Нет ранее воспроизводимых потоков";
 
 "WEBINTF_TITLE" = "Предоставление доступа через Wi-Fi";
+"WEBINTF_ETHERNET" = "Sharing via Ethernet";
 "WEBINTF_DROPFILES" = "Добавление файлов";
 "WEBINTF_DROPFILES_LONG" = "Перенесите файлы в окно, чтобы добавить их в %@.<br>Также вы можете нажать кнопку «+» и воспользоваться диалогом выбора файла.";
 "WEBINTF_DOWNLOADFILES" = "Загрузка файлов";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Введите код доступа, заданный вами в VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Неправильный код доступа.<br>Осталось попыток: ";
 "WEBINTF_AUTH_BANNED" = "Код доступа был введён неправильно много раз.<br>Перезапустите VLC iOS и попробуйте снова.";
-
-
 
 "DURATION" = "Длительность";
 "TITLE" = "Название";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Удалить выбранное";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Этот файл";
-"NOT_SUPPORTED_FILETYPE" = "%@ имеет тип, который не поддерживается VLC";
-"FILE_EXISTS" = "%@ уже существует";
 
 "PROTOCOL_NOT_SELECTED" = "Протокол не выбран";
 "Settings" = "Настройки";
 
 "ERROR" = "Ошибка";
-"OK" = "ОК";
 "SORT" = "Сортировка";
 "SORT_BY" = "Сортировать по";
 "SEARCH" = "Поиск";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Изменить";
 "BUTTON_EDIT_HINT" = "Режим изменения";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Добавить в плейлист";
 "ADD_TO_PLAYLIST_HINT" = "Открыть меню добавления в плейлист";
+
+"PLAY_AS_AUDIO" = "Play as audio";
+"PLAY_AS_AUDIO_HINT" = "Play the video file as an audio file.";
 
 "PLAYLIST_PLACEHOLDER" = "Название плейлиста";
 "PLAYLIST_DESCRIPTION" = "Выберите название для вашего плейлиста";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Переименовать выбранные файлы";
 "DELETE_HINT" = "Удалить выбранные файлы";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Сортировать";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "По возрастанию или по убыванию";
 "DESCENDING_SWITCH_HINT" = "Отсортировать контекст по возрастанию или по убыванию";
 "GRID_LAYOUT" = "Сетка";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "Список";
 "HIDE_FEAT_ARTISTS" = "Скрыть пригл. исполнителей";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Эквалайзер";
 "MORE_OPTIONS_HEADER_TITLE" = "Параметры видео";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audio Options";
 "BOOKMARKS_TITLE" = "Закладки";
 "ADD_BOOKMARKS_TITLE" = "Добавление закладок";
 "BOOKMARK_DEFAULT_NAME" = "Закладка в";
 "BOOKMARK_RENAME_TITLE" = "Переименование закладки";
 "BOOKMARK_DELETE_TITLE" = "Удаление закладки";
 "BOOKMARK_DELETE_MESSAGE" = "Подтвердите удаление закладки";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Пересканировать медиатеку";
 "FORCE_RESCAN_MESSAGE" = "Вы действительно хотите чтобы VLC пересканировал вашу медиатеку?\nЭто может занять некоторое время.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Фон с выбором произведения";
 "TITLESELECTION_BACKGROUND_HINT" = "Коснитесь, чтобы убрать этот фон.";
+
