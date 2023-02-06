@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "فصول";
 "TITLE" = "العنوان";
 "CHAPTER" = "فصل";
-"MINIMIZE_PLAYBACK_VIEW" = "تصغير المشغِّل";
 "TRACK_SELECTION" = "اختيار المسار";
 "AUDIO" = "صوت";
 "SUBTITLES" = "ترجمات";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "مسار ترجمة واحد";
 "TRACKS" = "%i مقاطع";
 "TRACK" = "%i مقطع";
+"TRACKS_DURATION" = "%u tracks, duration: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "التّلفاز متصل";
 "PLAYING_EXTERNALLY_DESC" = "شُغّلت هذه المرئية على التّلفاز";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "نزّل";
 "BUTTON_DELETE" = "احذف";
 "BUTTON_OK" = "حسنا";
-"BUTTON_CONTRIBUTE" = "شارك";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "اتّصل";
 "BUTTON_RENAME" = "اعادة التسمية";
 "BUTTON_LEARN_MORE" = "لمزيدٍ من المعلومات";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "هل تودّ تحميل أو تشغيل هذا الرابط؟";
 "SHARED_VLC_IOS_LIBRARY" = "مشترك VLC لـمكتبة نظام التشغيل iOS";
 "SMB_CIFS_FILE_SERVERS" = "خوادم الملفات (SMB)";
+
+"MANAGED_SERVERS" = "Managed";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "ملف واحد";
 "NO_FILES" = "ملفات غير مدعومة";
 "DOWNLOADING" = "يجري التّنزيل";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "الوقت المتبقي : %@";
 "BIOMETRIC_UNLOCK" = "فتح مكتبة الوسائط\nإلغِ لإدخال الرقم السري";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "التالي";
 "PREV_BUTTON" = "السابق";
 "PLAY_ALL_BUTTON" = "تشغيل الكل";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "هل تريد إعادة تعيين مرشحات الفيديو؟";
 "RESET_PLAYBACK_SPEED" = "هل تريد إعادة تعيين سرعة التشغيل؟";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "لم يتم تشغيل بث مؤخراً";
 
 "WEBINTF_TITLE" = "المشاركة عبر WiFi";
+"WEBINTF_ETHERNET" = "Sharing via Ethernet";
 "WEBINTF_DROPFILES" = "أَلقِ الملفات";
 "WEBINTF_DROPFILES_LONG" = "ألقِ الملفات على النافذة لإضافتها إلى %@.<br>أو اضغط على زر \"+\" لاستخدام علبة التقاط الملفات.";
 "WEBINTF_DOWNLOADFILES" = "الملفات المحمّلة";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "الرجاء إدخال رمز المرور الذي قمت بتعيينه في VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "رمز المرور خاطئ. <br> المحاولات المتبقية:";
 "WEBINTF_AUTH_BANNED" = "لقد أدخلت عددًا كبيرًا جدًا من رموز المرور الخاطئة، <br>  يرجى إعادة تشغيل VLC iOS والمحاولة مرة أخرى.";
-
-
 
 "DURATION" = "المدة";
 "TITLE" = "العنوان";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "احذف المحدد";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "هذا الملف";
-"NOT_SUPPORTED_FILETYPE" = "%@ ليس نوع ملف مدعومًا بواسطة VLC";
-"FILE_EXISTS" = "%@ موجود بالفعل";
 
 "PROTOCOL_NOT_SELECTED" = "لم يتم تحديد البروتوكول";
 "Settings" = "الإعدادات";
 
 "ERROR" = "خطأ";
-"OK" = "حسنا";
 "SORT" = "فرز";
 "SORT_BY" = "افرز حسب…";
 "SEARCH" = "ابحث";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "تحرير";
 "BUTTON_EDIT_HINT" = "نمط التحرير";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "أضِف إلى قائمة التشغيل";
 "ADD_TO_PLAYLIST_HINT" = "أضفه إلى قائمة التشغيل";
+
+"PLAY_AS_AUDIO" = "Play as audio";
+"PLAY_AS_AUDIO_HINT" = "Play the video file as an audio file.";
 
 "PLAYLIST_PLACEHOLDER" = "قائمة التشغيل";
 "PLAYLIST_DESCRIPTION" = "أدخل عنوانا لقائمة التشغيل الجديدة";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "إعادة تسمية الملفات المحددة";
 "DELETE_HINT" = "احذف الملفات المحددة";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "فرز";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "ترتيب تصاعدي أو تنازلي";
 "DESCENDING_SWITCH_HINT" = "افرز السياق بترتيب تصاعدي أو تنازلي";
 "GRID_LAYOUT" = "Grid";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "List";
 "HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "المُعادِل";
 "MORE_OPTIONS_HEADER_TITLE" = "خيارات الفيديو";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audio Options";
 "BOOKMARKS_TITLE" = "Bookmarks";
 "ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
 "BOOKMARK_DEFAULT_NAME" = "Bookmark at";
 "BOOKMARK_RENAME_TITLE" = "Rename bookmark";
 "BOOKMARK_DELETE_TITLE" = "Delete bookmark";
 "BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "فرض إعادة فحص مكتبة الوسائط";
 "FORCE_RESCAN_MESSAGE" = "هل تريد إجبار VLC على إعادة فحص مكتبة الوسائط الخاصة بك؟\nقد يستغرق بعض الوقت.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
 "TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+
