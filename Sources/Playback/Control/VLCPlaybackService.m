@@ -20,6 +20,7 @@
 
 #import "VLCPlaybackService.h"
 #import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "VLCRemoteControlService.h"
 #import "VLCMetadata.h"
 #import "VLCPlayerDisplayController.h"
@@ -1593,6 +1594,28 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     float positionDiff = playbackTime - [self.metadata.elapsedPlaybackTime floatValue];
     [_mediaPlayer jumpForward:positionDiff];
     _majorPositionChangeInProgress = 1;
+}
+
+- (void)remoteControlService:(VLCRemoteControlService *)rcs setShuffleType:(NSInteger)shuffleType
+{
+    self.shuffleMode = shuffleType != MPShuffleTypeOff;
+}
+
+- (void)remoteControlService:(VLCRemoteControlService *)rcs setRepeatType:(NSInteger)repeatType
+{
+    switch (repeatType) {
+        case MPRepeatTypeOne:
+            self.repeatMode = VLCRepeatCurrentItem;
+            break;
+
+        case MPRepeatTypeAll:
+            self.repeatMode = VLCRepeatAllItems;
+            break;
+
+        default:
+            self.repeatMode = VLCDoNotRepeat;
+            break;
+    }
 }
 
 #pragma mark - helpers

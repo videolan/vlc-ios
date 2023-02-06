@@ -2,10 +2,11 @@
  * VLCRemoteControlService.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2017 VideoLAN. All rights reserved.
+ * Copyright (c) 2017, 2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # gmail.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -25,6 +26,8 @@
 - (NSInteger)remoteControlServiceNumberOfMediaItemsinList:(VLCRemoteControlService *)rcs;
 - (void)remoteControlService:(VLCRemoteControlService *)rcs setPlaybackRate:(CGFloat)playbackRate;
 - (void)remoteControlService:(VLCRemoteControlService *)rcs setCurrentPlaybackTime:(NSTimeInterval)playbackTime;
+- (void)remoteControlService:(VLCRemoteControlService *)rcs setShuffleType:(NSInteger)shuffleType;
+- (void)remoteControlService:(VLCRemoteControlService *)rcs setRepeatType:(NSInteger)repeatType;
 
 @end
 

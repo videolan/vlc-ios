@@ -2,10 +2,11 @@
  * VLCRemoteControlService.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2017 VideoLAN. All rights reserved.
+ * Copyright (c) 2017, 2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # gmail.com>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -31,6 +32,10 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
                                 nil];
     if (@available(iOS 9.1, *)) {
         [commands addObject:cc.changePlaybackPositionCommand];
+    }
+    if (@available(iOS 10, *)) {
+        [commands addObject:cc.changeShuffleModeCommand];
+        [commands addObject:cc.changeRepeatModeCommand];
     }
     return [commands copy];
 }
@@ -86,7 +91,10 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
 
 - (MPRemoteCommandHandlerStatus )remoteCommandEvent:(MPRemoteCommandEvent *)event
 {
-    if (!_remoteControlServiceDelegate) return MPRemoteCommandHandlerStatusCommandFailed;
+    if (!_remoteControlServiceDelegate) {
+        NSAssert(!_remoteControlServiceDelegate, @"no delegate set");
+        return MPRemoteCommandHandlerStatusCommandFailed;
+    }
 
     MPRemoteCommandCenter *cc = [MPRemoteCommandCenter sharedCommandCenter];
 
@@ -133,6 +141,18 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
         if (event.command == cc.changePlaybackPositionCommand) {
             MPChangePlaybackPositionCommandEvent *positionEvent = (MPChangePlaybackPositionCommandEvent *)event;
             [_remoteControlServiceDelegate remoteControlService:self setCurrentPlaybackTime:positionEvent.positionTime];
+            return MPRemoteCommandHandlerStatusSuccess;
+        }
+    }
+    if (@available(iOS 10, *)) {
+        if (event.command == cc.changeShuffleModeCommand) {
+            MPChangeShuffleModeCommandEvent *shuffleEvent = (MPChangeShuffleModeCommandEvent *)event;
+            [_remoteControlServiceDelegate remoteControlService:self setShuffleType:shuffleEvent.shuffleType];
+            return MPRemoteCommandHandlerStatusSuccess;
+        }
+        if (event.command == cc.changeRepeatModeCommand) {
+            MPChangeRepeatModeCommandEvent *repeatEvent = (MPChangeRepeatModeCommandEvent *)event;
+            [_remoteControlServiceDelegate remoteControlService:self setRepeatType:repeatEvent.repeatType];
             return MPRemoteCommandHandlerStatusSuccess;
         }
     }
