@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Capìtulos";
 "TITLE" = "Tìtulos";
 "CHAPTER" = "Capìtulu";
-"MINIMIZE_PLAYBACK_VIEW" = "Mìnima sa riprodutzione";
 "TRACK_SELECTION" = "Seletzione de sas rastas";
 "AUDIO" = "Àudio";
 "SUBTITLES" = "Sutatìtulos";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "Una rasta de sos sutatìtulos";
 "TRACKS" = "%i rastas";
 "TRACK" = "%i rasta";
+"TRACKS_DURATION" = "%u rasta, longària: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Connessa";
 "PLAYING_EXTERNALLY_DESC" = "Custu vìdeu est in riprodutzione in su televisore";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Iscàrriga";
 "BUTTON_DELETE" = "Iscantzella";
 "BUTTON_OK" = "AB";
-"BUTTON_CONTRIBUTE" = "Contribui";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "Connete·ti";
 "BUTTON_RENAME" = "Càmbia nùmene";
 "BUTTON_LEARN_MORE" = "Pro nde ischire de prus";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Cheres iscarrigare o riproduire custu URL?";
 "SHARED_VLC_IOS_LIBRARY" = "Biblioteca cumpartzida de VLC pro iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servers pro sos documentos (SMB)";
+
+"MANAGED_SERVERS" = "Gestidos";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 documentu";
 "NO_FILES" = "Perunu documentu suportadu";
 "DOWNLOADING" = "Iscarrighende...";
+"DOWNLOADING_MEDIA" = "Iscarrighende: %@";
 "REMAINING_TIME" = "Tempus chi abarrat: %@";
 "BIOMETRIC_UNLOCK" = "Isblocu biblioteca multimediale\nAnnulla pro insertare su còdighe de seguresa";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Imbeniente";
 "PREV_BUTTON" = "Antepostu";
 "PLAY_ALL_BUTTON" = "Riprodui totu";
+"PLAY_ALL_HINT" = "Riprodui totu sos cuntenutos multimediales in sa regorta";
 
 "RESET_VIDEO_FILTERS" = "Cheres resetare sos filtros de su vìdeu?";
 "RESET_PLAYBACK_SPEED" = "Cheres resetare sa lestresa de riprodutzione?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Perunu flussu est istadu riproduidu de reghente";
 
 "WEBINTF_TITLE" = "Cumpartzende cun su WiFi";
+"WEBINTF_ETHERNET" = "Cumpartzidura pro mèdiu de Ethernet";
 "WEBINTF_DROPFILES" = "Traga documentos";
 "WEBINTF_DROPFILES_LONG" = "Traga sos documentos in sa ventana pro los annànghere a su %@ tuo.<br>O incarca in su butone \"+\" pro impreare su seletzionadore de documentos.";
 "WEBINTF_DOWNLOADFILES" = "Iscàrriga documentos";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Inserta su còdighe de seguresa chi as impostadu in VLC pro iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Còdighe de seguresa isballiadu. <br> Tentativu/os galu a disponimentu:";
 "WEBINTF_AUTH_BANNED" = "As insertadu tropu còdighes de seguresa isballiados. <br>Pro praghere torra a allùghere VLC pro iOS e a proare.";
-
-
 
 "DURATION" = "Longària";
 "TITLE" = "Tìtulos";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Iscantzella sa seletzione";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Custu documentu";
-"NOT_SUPPORTED_FILETYPE" = "%@ no est una casta de documentu suportada dae VLC";
-"FILE_EXISTS" = "%@ esistit giai";
 
 "PROTOCOL_NOT_SELECTED" = "Protocollu non seletzionadu";
 "Settings" = "Impostatziones";
 
 "ERROR" = "Errore";
-"OK" = "AB";
 "SORT" = "Òrdina";
 "SORT_BY" = "Òrdina pro";
 "SEARCH" = "Chirca";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menù";
+"BUTTON_MENU_HINT" = "Seletziona, torra a ordinare e òrdina sos elementos multimediales presentes in custa vista";
+
 "BUTTON_EDIT" = "Modìfica";
 "BUTTON_EDIT_HINT" = "Modalidade de modìfica";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Annanghe a s'iscalita";
 "ADD_TO_PLAYLIST_HINT" = "Aberi su menù pro annànghere a s'iscalita";
+
+"PLAY_AS_AUDIO" = "Riprodui comente àudio";
+"PLAY_AS_AUDIO_HINT" = "Riprodui su documentu vìdeu comente documentu àudio.";
 
 "PLAYLIST_PLACEHOLDER" = "Tìtulu de s'iscalita";
 "PLAYLIST_DESCRIPTION" = "Issèbera unu tìtulu pro s'iscalita noa tua";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Càmbia su nùmene a sos documentos isseberados";
 "DELETE_HINT" = "Iscantzella sos documentos isseberados";
 
+"ADDITIONAL_OPTIONS" = "Optziones additzionales";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Òrdina";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Òrdine artiante o minimante";
 "DESCENDING_SWITCH_HINT" = "Òrdina su cuntestu in manera artiante o minimante";
 "GRID_LAYOUT" = "Grìllia";
+"GRID_LAYOUT_HINT" = "Ammustra sos elementos in una grìllia";
 "LIST_LAYOUT" = "Lista";
 "HIDE_FEAT_ARTISTS" = "Cua sos artistas collaboradores";
+"HIDE_TRACK_NUMBERS" = "Cua sos nùmeros de rasta";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ecualizadore";
 "MORE_OPTIONS_HEADER_TITLE" = "Optziones vìdeu";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Optziones àudio";
 "BOOKMARKS_TITLE" = "Sinnalibros";
 "ADD_BOOKMARKS_TITLE" = "Annanghe sinnalibros";
 "BOOKMARK_DEFAULT_NAME" = "Sinnalibru a";
 "BOOKMARK_RENAME_TITLE" = "Muda unu sinnalibru de nùmene";
 "BOOKMARK_DELETE_TITLE" = "Iscantzella unu sinnalibru";
 "BOOKMARK_DELETE_MESSAGE" = "Cunfirma s'iscantzellamentu de su sinnalibru";
+"INCREASE_BUTTON" = "Butone de aumentu";
+"INCREASE_PLAYBACK_SPEED" = "Aumenta sa lestresa de riprodutzione";
+"INCREASE_AUDIO_DELAY" = "Aumenta su ritardu de s'àudio";
+"INCREASE_SUBTITLES_DELAY" = "Aumenta su ritardu de sos sutatìtulos";
+"DECREASE_BUTTON" = "Butone de minimada";
+"DECREASE_PLAYBACK_SPEED" = "Mìnima sa lestresa de riprodutzione";
+"DECREASE_AUDIO_DELAY" = "Mìnima su ritardu de s'àudio";
+"DECREASE_SUBTITLES_DELAY" = "Mìnima su ritardu de sos sutatìtulos";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Fortza un'iscansidura noa de sa biblioteca multimediale";
 "FORCE_RESCAN_MESSAGE" = "Cheres fortzare VLC a iscansire torra sa biblioteca multimediale tua?\nBi diat pòdere chèrrere unu pagu de tempus.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Isfundu de seletzione de su tìtulu";
 "TITLESELECTION_BACKGROUND_HINT" = "Toca pro bogare sa vista.";
+
