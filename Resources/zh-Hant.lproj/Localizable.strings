@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "章節";
 "TITLE" = "標題";
 "CHAPTER" = "章節";
-"MINIMIZE_PLAYBACK_VIEW" = "最小化播放窗格";
 "TRACK_SELECTION" = "軌道選擇";
 "AUDIO" = "音訊";
 "SUBTITLES" = "字幕";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "一個字幕軌";
 "TRACKS" = "%i 首曲目";
 "TRACK" = "%i 首曲目";
+"TRACKS_DURATION" = "%u tracks, duration: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV 已連接";
 "PLAYING_EXTERNALLY_DESC" = "這個影片正在從 TV 播放";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "下載";
 "BUTTON_DELETE" = "刪除";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "貢獻";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "連線";
 "BUTTON_RENAME" = "重新命名";
 "BUTTON_LEARN_MORE" = "學習更多";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "您想要下載或播放這個 URL?";
 "SHARED_VLC_IOS_LIBRARY" = "分享 VLC for iOS 媒體庫";
 "SMB_CIFS_FILE_SERVERS" = "檔案伺服器 (SMB)";
+
+"MANAGED_SERVERS" = "Managed";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "一個檔案";
 "NO_FILES" = "沒有支援的檔案";
 "DOWNLOADING" = "下載中...";
+"DOWNLOADING_MEDIA" = "正在下載: %@";
 "REMAINING_TIME" = "剩餘時間: %@";
 "BIOMETRIC_UNLOCK" = "解鎖媒體庫\n輸入密碼以取消";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "下一個";
 "PREV_BUTTON" = "上一個";
 "PLAY_ALL_BUTTON" = "全部播放";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
 "RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "最近沒有已播放的串流";
 
 "WEBINTF_TITLE" = "透過WiFi分享";
+"WEBINTF_ETHERNET" = "Sharing via Ethernet";
 "WEBINTF_DROPFILES" = "拖放檔案";
 "WEBINTF_DROPFILES_LONG" = "將檔案丟入視窗以加入您的 %@.<br>或點擊 \"+\" 按鈕來將檔案選入對話框中。";
 "WEBINTF_DOWNLOADFILES" = "下載的檔案";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "請在 VLC iOS 輸入您設定的密碼:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "密碼錯誤。<br>剩餘嘗試次數:";
 "WEBINTF_AUTH_BANNED" = "您輸入了太多錯誤的密碼。<br>請重新啟動 VLC iOS ，然後再試一次。";
-
-
 
 "DURATION" = "時間";
 "TITLE" = "標題";
@@ -271,10 +274,10 @@
 "REPEAT_DISABLED" = "已停用";
 "REPEAT_SINGLE" = "單曲";
 "REPEAT_FOLDER" = "資料夾";
-"SHUFFLE" = "Shuffle";
-"SHUFFLE_DISABLED" = "Shuffle off";
+"SHUFFLE" = "隨機";
+"SHUFFLE_DISABLED" = "隨機關閉";
 
-"RESET_NETWORK_STREAM_LIST_TITLE" = "Reset list";
+"RESET_NETWORK_STREAM_LIST_TITLE" = "重置清單";
 "RESET_NETWORK_STREAM_LIST_TEXT" = "Permanently reset the list of recently played network streams.";
 
 // MARK: - Local Network Service Names
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "刪除選取的項目";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "此檔案";
-"NOT_SUPPORTED_FILETYPE" = "%@ 不是 VLC 支援的檔案格式";
-"FILE_EXISTS" = "%@ 已有";
 
 "PROTOCOL_NOT_SELECTED" = "尚未選擇通訊協定";
 "Settings" = "設定";
 
 "ERROR" = "錯誤";
-"OK" = "確定";
 "SORT" = "排序";
 "SORT_BY" = "排序依";
 "SEARCH" = "搜尋";
@@ -333,17 +332,23 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "選單";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "編輯";
 "BUTTON_EDIT_HINT" = "編輯模式";
 
-"BUTTON_SELECT" = "Select";
-"BUTTON_SELECT_HINT" = "Select button";
+"BUTTON_SELECT" = "選擇";
+"BUTTON_SELECT_HINT" = "｢選擇｣ 按鈕";
 
-"BUTTON_SELECT_ALL" = "Select all";
+"BUTTON_SELECT_ALL" = "選擇全部";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
 
 "ADD_TO_PLAYLIST" = "加到播放清單";
 "ADD_TO_PLAYLIST_HINT" = "開啟加入至播放清單選單";
+
+"PLAY_AS_AUDIO" = "Play as audio";
+"PLAY_AS_AUDIO_HINT" = "Play the video file as an audio file.";
 
 "PLAYLIST_PLACEHOLDER" = "播放清單標題";
 "PLAYLIST_DESCRIPTION" = "選擇您新的播放清單的標題";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "重新命名選取的檔案";
 "DELETE_HINT" = "刪除選取的檔案";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "排序";
@@ -368,9 +375,11 @@
 "DESCENDING_LABEL" = "遞減排序";
 "DESCENDING_SWITCH_LABEL" = "遞增或遞減排序";
 "DESCENDING_SWITCH_HINT" = "以遞增或遞減順序排序內容";
-"GRID_LAYOUT" = "Grid";
-"LIST_LAYOUT" = "List";
-"HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"GRID_LAYOUT" = "網格";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
+"LIST_LAYOUT" = "清單";
+"HIDE_FEAT_ARTISTS" = "隱藏合作歌手";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -388,9 +397,9 @@
 "NB_AUDIO" = "音訊數量";
 "NB_MEDIA" = "媒體數量";
 "NB_VIDEO" = "影片數量";
-"NB_ALBUM" = "Number of albums";
-"LAST_PLAYBACK_DATE" = "Last playback date";
-"TRACK_ID" = "Track ID";
+"NB_ALBUM" = "專輯數目";
+"LAST_PLAYBACK_DATE" = "上次播放日期";
+"TRACK_ID" = "軌道 ID";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -401,8 +410,8 @@
 "UNKNOWN_ARTIST" = "未知藝人";
 "VARIOUS_ARTIST" = "多個藝人";
 "UNKNOWN_ALBUM" = "未知專輯";
-"SINGLE_ITEM_SELECTED" = "item selected";
-"MULTIPLE_ITEMS_SELECTED" = "items selected";
+"SINGLE_ITEM_SELECTED" = "項已選取";
+"MULTIPLE_ITEMS_SELECTED" = "項已選取";
 
 // MARK: - VideoPlayerControls
 
@@ -412,8 +421,8 @@
 "DVD_BUTTON" = "DVD";
 "DVD_HINT" = "DVD 介面";
 
-"ROTATION_LOCK_BUTTON" = "Rotation lock";
-"ROTATION_LOCK_HINT" = "Lock video to current orientation";
+"ROTATION_LOCK_BUTTON" = "旋轉鎖定";
+"ROTATION_LOCK_HINT" = "鎖定視訊畫面方向";
 
 "REPEAT_HINT" = "Repeat same media";
 
@@ -423,7 +432,7 @@
 "PREVIOUS_BUTTON" = "Previous";
 "PREVIOUS_HINT" = "Previous media";
 
-"PLAY_PAUSE_BUTTON" = "Play or pause";
+"PLAY_PAUSE_BUTTON" = "播放或暫停";
 "PLAY_PAUSE_HINT" = "Play or Pause current playback";
 
 "STOP_BUTTON" = "Stop";
@@ -443,22 +452,36 @@
 "MORE_OPTIONS_BUTTON" = "更多";
 "MORE_OPTIONS_HINT" = "檢視更多選項控制";
 
-"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Subtitles unsupported";
-"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Subtitles are not yet supported while casting.";
+"PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "不支援字幕";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "投放時尚不支援字幕。";
 
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "等化器";
 "MORE_OPTIONS_HEADER_TITLE" = "視訊選項";
-"BOOKMARKS_TITLE" = "Bookmarks";
-"ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audio Options";
+"BOOKMARKS_TITLE" = "書籤";
+"ADD_BOOKMARKS_TITLE" = "添加書籤";
 "BOOKMARK_DEFAULT_NAME" = "Bookmark at";
-"BOOKMARK_RENAME_TITLE" = "Rename bookmark";
-"BOOKMARK_DELETE_TITLE" = "Delete bookmark";
-"BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
+"BOOKMARK_RENAME_TITLE" = "重新命名書籤";
+"BOOKMARK_DELETE_TITLE" = "刪除書籤";
+"BOOKMARK_DELETE_MESSAGE" = "確認刪除書籤";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "強制重新掃描媒體櫃";
 "FORCE_RESCAN_MESSAGE" = "您要強制 VLC 重新掃描媒體櫃嗎？這可能需要一些時間。";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -499,7 +522,7 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "提供小費";
-"MAKE_DONATION_TITLE" = "Make a donation";
+"MAKE_DONATION_TITLE" = "捐助";
 "DONATION_DESCRIPTION" = "Your sponsorship will allow us to improve the VLC-iOS app and support the VideoLAN association.";
 "CANNOT_MAKE_PAYMENTS" = "你沒有權限在此設備上付款。";
 "PURCHASE_FAILED" = "購買失敗。";
@@ -528,9 +551,9 @@
 
 // MARK: - AudioMiniPlayer playback controls menu
 "MENU_PLAYBACK_CONTROLS" = "Playback controls";
-"MENU_REPEAT_DISABLED" = "Do not repeat";
-"MENU_REPEAT_SINGLE" = "Repeat one";
-"MENU_REPEAT_ALL" = "Repeat all";
+"MENU_REPEAT_DISABLED" = "不要重複";
+"MENU_REPEAT_SINGLE" = "單曲重複";
+"MENU_REPEAT_ALL" = "全部重複";
 
 // MARK: - ActionSheet
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
 "TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+
