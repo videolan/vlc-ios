@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "ตอน";
 "TITLE" = "เรื่อง";
 "CHAPTER" = "ตอน";
-"MINIMIZE_PLAYBACK_VIEW" = "ย่อการเล่น";
 "TRACK_SELECTION" = "เลือกแทร็ก";
 "AUDIO" = "เสียง";
 "SUBTITLES" = "คำบรรยาย";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "หนึ่งแทร็กคำบรรยาย";
 "TRACKS" = "%i แทร็ก";
 "TRACK" = "%i แทร็ก";
+"TRACKS_DURATION" = "%u tracks, duration: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "เชื่อมต่อทีวีเรียบร้อยแล้ว";
 "PLAYING_EXTERNALLY_DESC" = "วีดีโอนี้กำลังเล่นอยู่บนทีวี";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "ดาวน์โหลด";
 "BUTTON_DELETE" = "ลบ";
 "BUTTON_OK" = "ตกลง";
-"BUTTON_CONTRIBUTE" = "เข้าร่วม";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "การเชื่อมต่อ";
 "BUTTON_RENAME" = "เปลี่ยนชื่อ";
 "BUTTON_LEARN_MORE" = "เรียนรู้เพิ่มเติม";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "คุณต้องการดาวน์โหลดหรือเล่น URL นี้หรือไม่?";
 "SHARED_VLC_IOS_LIBRARY" = "คลังสื่อ VLC สำหรับ iOS ที่มีการแชร์";
 "SMB_CIFS_FILE_SERVERS" = "เซิร์ฟเวอร์ไฟล์ (SMB)";
+
+"MANAGED_SERVERS" = "Managed";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 ไฟล์";
 "NO_FILES" = "ไม่รองรับไฟล์นี้";
 "DOWNLOADING" = "กำลังดาวน์โหลด....";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "เวลาที่เหลือ: %@";
 "BIOMETRIC_UNLOCK" = "ปลดล็อกคลังสื่อ\nยกเลิกเพื่อใส่รหัสผ่าน";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "ถัดไป";
 "PREV_BUTTON" = "ก่อนหน้า";
 "PLAY_ALL_BUTTON" = "เล่นทั้งหมด";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "คุณต้องการตั้งค่าตัวกรองวิดีโอใหม่หรือไม่";
 "RESET_PLAYBACK_SPEED" = "คุณต้องการตั้งค่าความเร็วในการเล่นใหม่หรือไม่";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "ไม่มีการสตรีมถูกเล่นเมื่อเร็ว ๆ นี้";
 
 "WEBINTF_TITLE" = "การแชร์ผ่าน Wi-Fi";
+"WEBINTF_ETHERNET" = "Sharing via Ethernet";
 "WEBINTF_DROPFILES" = "วางไฟล์";
 "WEBINTF_DROPFILES_LONG" = "วางไฟล์ในหน้าต่างเพื่อเพิ่มมันลงไปใน %@ ของคุณ<br>หรือคลิกที่ปุ่ม \"+\" เพื่อใช้กล่องโต้ตอบไฟล์";
 "WEBINTF_DOWNLOADFILES" = "ดาวน์โหลดไฟล์";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "โปรดป้อนรหัสผ่านที่คุณตั้งใน VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "รหัสผ่านไม่ถูกต้อง<br>จำนวนครั้งที่สามารถลองได้อีก: ";
 "WEBINTF_AUTH_BANNED" = "คุณป้อนรหัสผ่านไม่ถูกต้องหลายครั้งจนมากเกินไป<br>โปรดเปิ VLC iOS ใหม่แล้วลองอีกครั้ง";
-
-
 
 "DURATION" = "ระยะเวลา";
 "TITLE" = "เรื่อง";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "ลบส่วนที่เลือก";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "ไฟล์นี้";
-"NOT_SUPPORTED_FILETYPE" = "%@ ไม่ใช่ชนิดไฟล์ที่รองรับโดย VLC";
-"FILE_EXISTS" = "มี 1%@ อยู่แล้ว";
 
 "PROTOCOL_NOT_SELECTED" = "ไม่ได้เลือกโพรโทคอลไว้";
 "Settings" = "การตั้งค่า";
 
 "ERROR" = "ผิดพลาด";
-"OK" = "ตกลง";
 "SORT" = "จัดเรียง";
 "SORT_BY" = "จัดเรียงตาม";
 "SEARCH" = "ค้นหา";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "แก้ไข";
 "BUTTON_EDIT_HINT" = "โหมดการแก้ไข";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "เพิ่มลงในเพลย์ลิสต์";
 "ADD_TO_PLAYLIST_HINT" = "เปิดเมนู 'เพิ่มลงในเพลย์ลิสต์'";
+
+"PLAY_AS_AUDIO" = "Play as audio";
+"PLAY_AS_AUDIO_HINT" = "Play the video file as an audio file.";
 
 "PLAYLIST_PLACEHOLDER" = "ชื่อเรื่องเพลย์ลิสต์";
 "PLAYLIST_DESCRIPTION" = "เลือกชื่อเรื่องให้กับเพลย์ลิสต์ใหม่ของคุณ";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "เปลี่ยนชื่อไฟล์ที่เลือก";
 "DELETE_HINT" = "ลบไฟล์ที่เลือก";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "เรียงลำดับ";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "จากน้อยไปหามาก หรือจากมากไปหาน้อย";
 "DESCENDING_SWITCH_HINT" = "เรียงลำดับบริบทจากน้อยไปหามาก หรือจากมากไปหาน้อย";
 "GRID_LAYOUT" = "Grid";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "List";
 "HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "อีควอไลเซอร์";
 "MORE_OPTIONS_HEADER_TITLE" = "ตัวเลือกวิดีโอ";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audio Options";
 "BOOKMARKS_TITLE" = "Bookmarks";
 "ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
 "BOOKMARK_DEFAULT_NAME" = "Bookmark at";
 "BOOKMARK_RENAME_TITLE" = "Rename bookmark";
 "BOOKMARK_DELETE_TITLE" = "Delete bookmark";
 "BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "บังคับให้สแกนคลังสื่อใหม่";
 "FORCE_RESCAN_MESSAGE" = "คุณต้องการบังคับให้ VLC สแกนคลังสื่อของคุณใหม่หรือไม่?\nการดำเนินการนี้อาจใช้เวลาสักครู";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
 "TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+
