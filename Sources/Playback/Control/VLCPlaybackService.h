@@ -2,7 +2,7 @@
  * VLCPlaybackService.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2022 VLC authors and VideoLAN
+ * Copyright (c) 2013-2023 VLC authors and VideoLAN
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -37,9 +37,6 @@ extern NSString *const VLCPlaybackServicePlaybackPositionUpdated;
 @class VLCPlaybackServiceAdjustFilter;
 
 @protocol VLCPlaybackServiceDelegate <NSObject>
-#if TARGET_OS_IOS
-- (void)savePlaybackState:(VLCPlaybackService *)playbackService;
-#endif
 @optional
 - (void)playbackPositionUpdated:(VLCPlaybackService *)playbackService;
 - (void)mediaPlayerStateChanged:(VLCMediaPlayerState)currentState
@@ -165,6 +162,10 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)addSubtitlesToCurrentPlaybackFromURL:(NSURL *)subtitleURL;
 
 - (void)setPlayAsAudio:(BOOL)playAsAudio;
+
+#if TARGET_OS_IOS
+- (void)savePlaybackState;
+#endif
 
 NS_ASSUME_NONNULL_END
 @end

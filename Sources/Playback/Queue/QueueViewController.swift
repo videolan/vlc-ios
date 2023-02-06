@@ -13,7 +13,6 @@
 @objc(VLCQueueViewControllerDelegate)
 protocol QueueViewControllerDelegate {
     @objc optional func queueViewControllerDidDisappear(_ queueViewController: QueueViewController?)
-    @objc optional func queueViewControllerSavePlaybackState(_ queueViewController: QueueViewController?)
 }
 
 class QueueViewFlowLayout: UICollectionViewFlowLayout {
@@ -654,10 +653,6 @@ extension QueueViewController: UICollectionViewDataSource {
             cell.media = media
         }
         cell.newLabel.isHidden = true
-
-        if let delegate = delegate as? AudioMiniPlayer {
-            delegate.queueViewControllerSavePlaybackState(self)
-        }
 
         return cell
     }

@@ -1527,10 +1527,6 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         moreOptionsActionSheet.currentMediaHasChapters = currentMediaHasChapters
     }
 
-    func savePlaybackState(_ playbackService: PlaybackService) {
-        mediaLibraryService.savePlaybackState(from: playbackService)
-    }
-
     func showStatusMessage(_ statusMessage: String) {
         statusLabel.showStatusMessage(statusMessage)
     }

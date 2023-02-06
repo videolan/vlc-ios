@@ -586,10 +586,6 @@ class PlayerViewController: UIViewController {
 // MARK: - VLCPlaybackServiceDelegate
 
 extension PlayerViewController: VLCPlaybackServiceDelegate {
-    func savePlaybackState(_ playbackService: PlaybackService) {
-        mediaLibraryService.savePlaybackState(from: playbackService)
-    }
-
     func playbackPositionUpdated(_ playbackService: PlaybackService) {
         mediaScrubProgressBar.updateInterfacePosition()
     }

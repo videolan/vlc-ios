@@ -35,7 +35,7 @@ struct MiniPlayerPosition {
 }
 
 @objc(VLCAudioMiniPlayer)
-class AudioMiniPlayer: UIView, MiniPlayer {
+class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
     @objc static let height: Float = 72.0
     var visible: Bool = false
     var contentHeight: Float {
@@ -205,10 +205,6 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
 
     func playbackPositionUpdated(_ playbackService: PlaybackService) {
         progressBarView.progress = playbackService.playbackPosition
-    }
-
-    func savePlaybackState(_ playbackService: PlaybackService) {
-        mediaService.savePlaybackState(from: playbackService)
     }
 }
 
@@ -577,12 +573,6 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
 
     private func addContextMenu() {
         audioMiniPlayer.addInteraction(UIContextMenuInteraction(delegate: self))
-    }
-}
-
-extension AudioMiniPlayer: QueueViewControllerDelegate {
-    func queueViewControllerSavePlaybackState(_ queueViewController: QueueViewController?) {
-        savePlaybackState(playbackController)
     }
 }
 

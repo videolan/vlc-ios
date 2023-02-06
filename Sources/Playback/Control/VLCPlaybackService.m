@@ -2,7 +2,7 @@
  * VLCPlaybackService.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2022 VLC authors and VideoLAN
+ * Copyright (c) 2013-2023 VLC authors and VideoLAN
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -401,7 +401,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         if (_mediaPlayer.media) {
             [_mediaPlayer pause];
 #if TARGET_OS_IOS
-            [_delegate savePlaybackState: self];
+            [self savePlaybackState];
 #endif
             [_mediaPlayer stop];
         }
@@ -829,7 +829,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 {
     [_listPlayer pause];
 #if TARGET_OS_IOS
-    [_delegate savePlaybackState: self];
+    [self savePlaybackState];
 #endif
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
 }
@@ -926,7 +926,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     if (nextIndex < 0) {
         if (self.repeatMode == VLCRepeatAllItems) {
 #if TARGET_OS_IOS
-            [_delegate savePlaybackState:self];
+            [self savePlaybackState];
 #endif
             [_listPlayer next];
             [[NSNotificationCenter defaultCenter]
@@ -935,7 +935,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         return NO;
     }
 #if TARGET_OS_IOS
-    [_delegate savePlaybackState:self];
+    [self savePlaybackState];
 #endif
 
     [_listPlayer playItemAtNumber:@(nextIndex)];
@@ -951,7 +951,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
             self.playbackPosition = .0;
         } else {
 #if TARGET_OS_IOS
-            [_delegate savePlaybackState:self];
+            [self savePlaybackState];
 #endif
             if (!_currentIndex) {
                 _currentIndex = [_mediaList indexOfMedia:self.currentlyPlayingMedia];
@@ -1323,7 +1323,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         APLog(@"Pausing playback as previously connected external audio playback device was removed");
         [_mediaPlayer pause];
 #if TARGET_OS_IOS
-       [_delegate savePlaybackState: self];
+       [self savePlaybackState];
 #endif
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
     }
@@ -1485,7 +1485,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 - (void)applicationWillResignActive:(NSNotification *)aNotification
 {
 #if TARGET_OS_IOS
-    [_delegate savePlaybackState: self];
+    [self savePlaybackState];
 #endif
     if (![self isPlayingOnExternalScreen]
         && ![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {
@@ -1607,6 +1607,13 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
               kVLCSettingNetworkRTSPTCP : [defaults objectForKey:kVLCSettingNetworkRTSPTCP]
     };
 }
+
+#if TARGET_OS_IOS
+- (void)savePlaybackState
+{
+    [[VLCAppCoordinator sharedInstance].mediaLibraryService savePlaybackStateFrom:self];
+}
+#endif
 
 #pragma mark - Renderer
 
