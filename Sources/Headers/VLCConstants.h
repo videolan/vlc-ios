@@ -61,7 +61,6 @@
 #define kVLCSettingBrightnessGesture @"EnableBrightnessGesture"
 #define kVLCSettingSeekGesture @"EnableSeekGesture"
 #define kVLCSettingCloseGesture @"EnableCloseGesture"
-#define kVLCSettingVariableJumpDuration @"EnableVariableJumpDuration"
 #define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"
 #define kVLCSettingSetCustomSeek @"SetCustomSeekSpeed"
 #define kVLCSettingContinuePlayback @"ContinuePlayback"

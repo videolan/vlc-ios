@@ -548,28 +548,25 @@ class PlayerViewController: UIViewController {
         }
 
         var hudString = ""
-        let tmp: Int = Int(Double(mediaDuration) * 0.001 * 0.05)
-
-        var swipeDuration = playerController.isVariableJumpDurationEnabled ? tmp : seekBy
 
         switch recognizer.direction {
         case .right:
             let timeRemaining = -Int(Double(playbackService.remainingTime().intValue) * 0.001)
 
-            if swipeDuration < timeRemaining {
-                if swipeDuration < 1 {
-                    swipeDuration = 1
+            if seekBy < timeRemaining {
+                if seekBy < 1 {
+                    seekBy = 1
                 }
 
-                jumpForwards(swipeDuration)
-                hudString = String(format: "⇒ %is", swipeDuration)
+                jumpForwards(seekBy)
+                hudString = String(format: "⇒ %is", seekBy)
             } else {
                 jumpForwards(timeRemaining - 5)
                 hudString = String(format: "⇒ %is", (timeRemaining - 5))
             }
         case .left:
-            jumpBackwards(swipeDuration)
-            hudString = String(format: "⇐ %is", swipeDuration)
+            jumpBackwards(seekBy)
+            hudString = String(format: "⇐ %is", seekBy)
         case .up:
             playbackService.previous()
             hudString = NSLocalizedString("BWD_BUTTON", comment: "")

@@ -65,10 +65,6 @@ class PlayerController: NSObject {
         return UserDefaults.standard.bool(forKey: kVLCSettingCloseGesture)
     }
 
-    var isVariableJumpDurationEnabled: Bool {
-        return UserDefaults.standard.bool(forKey: kVLCSettingVariableJumpDuration)
-    }
-
     var isShuffleEnabled: Bool {
         return UserDefaults.standard.bool(forKey: kVLCPlayerIsShuffleEnabled)
     }

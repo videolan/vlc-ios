@@ -273,7 +273,6 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
     case swipeUpDownForBrightness
     case swipeRightLeftToSeek
     case pinchToClose
-    case variableJumpDuration
     case setCustomSeek
 
     var containsSwitch: Bool {
@@ -287,8 +286,6 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
         case .swipeRightLeftToSeek:
             return true
         case .pinchToClose:
-            return true
-        case .variableJumpDuration:
             return true
         case .setCustomSeek:
             return false
@@ -307,8 +304,6 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_GESTURES_SEEK"
         case .pinchToClose:
             return "SETTINGS_GESTURES_CLOSE"
-        case .variableJumpDuration:
-            return "SETTINGS_GESTURE_JUMP_DURATION"
         case .setCustomSeek:
             return "SETTINGS_SET_CUSTOM_SEEK_SPEED"
         }
@@ -328,8 +323,6 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return kVLCSettingSeekGesture
         case .pinchToClose:
             return kVLCSettingCloseGesture
-        case .variableJumpDuration:
-            return kVLCSettingVariableJumpDuration
         case .setCustomSeek:
             return kVLCSettingSetCustomSeek
         }
