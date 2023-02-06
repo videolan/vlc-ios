@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Kapitler";
 "TITLE" = "Titel";
 "CHAPTER" = "Kapitel";
-"MINIMIZE_PLAYBACK_VIEW" = "Minimér afspilning";
 "TRACK_SELECTION" = "Valg af spor";
 "AUDIO" = "Lyd";
 "SUBTITLES" = "Undertekster";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "Et underteksterspor";
 "TRACKS" = "%i spor";
 "TRACK" = "%i spor";
+"TRACKS_DURATION" = "%u tracks, duration: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV tilsluttet";
 "PLAYING_EXTERNALLY_DESC" = "Denne video afspilles på TV'et";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Download";
 "BUTTON_DELETE" = "Fjern";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "Bidrag";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "Forbind";
 "BUTTON_RENAME" = "Omdøb";
 "BUTTON_LEARN_MORE" = "Få mere at vide";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Vil du downloade eller afspille denne URL?";
 "SHARED_VLC_IOS_LIBRARY" = "Delt VLC til iOS-bibliotek";
 "SMB_CIFS_FILE_SERVERS" = "Filservere (SMB)";
+
+"MANAGED_SERVERS" = "Styret";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fil";
 "NO_FILES" = "Ingen understøttede filer";
 "DOWNLOADING" = "Downloader ...";
+"DOWNLOADING_MEDIA" = "Henter: %@";
 "REMAINING_TIME" = "Resterende tid: %@";
 "BIOMETRIC_UNLOCK" = "Lås mediebibliotek op\nAnnuller for at indtaste adgangskode";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Næste";
 "PREV_BUTTON" = "Forrige";
 "PLAY_ALL_BUTTON" = "Afspil alle";
+"PLAY_ALL_HINT" = "Afspil alle medier i samlingen";
 
 "RESET_VIDEO_FILTERS" = "Vil du nulstille videofiltrene?";
 "RESET_PLAYBACK_SPEED" = "Vil du nulstille afspilningshastigheden?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Der er ikke afspillet noget stream for nylig";
 
 "WEBINTF_TITLE" = "Deling via Wi-Fi";
+"WEBINTF_ETHERNET" = "Sharing via Ethernet";
 "WEBINTF_DROPFILES" = "Slip filer";
 "WEBINTF_DROPFILES_LONG" = "Slip filer i vinduet for at tilføje dem til din %@.<br>Eller klik på \"+\"-knappen for at bruge filvælgeren.";
 "WEBINTF_DOWNLOADFILES" = "Download filer";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Indtast venligst den adgangskode du indstillede i VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Forkert adgangskode.<br>Tilbageværende forsøg: ";
 "WEBINTF_AUTH_BANNED" = "Du har indtastet for mange forkerte adgangskoder.<br>Genstart venligst VLC iOS og prøv igen.";
-
-
 
 "DURATION" = "Varighed";
 "TITLE" = "Titel";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Slet markering";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Denne fil";
-"NOT_SUPPORTED_FILETYPE" = "%@ er ikke er understøttet filtype i VLC";
-"FILE_EXISTS" = "%@ findes allerede";
 
 "PROTOCOL_NOT_SELECTED" = "Protokol ikke valgt";
 "Settings" = "Indstillinger";
 
 "ERROR" = "Fejl";
-"OK" = "Ok";
 "SORT" = "Sortér";
 "SORT_BY" = "Sortér efter";
 "SEARCH" = "Søgning";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Vælg, arrangér og sortér medier i denne visning";
+
 "BUTTON_EDIT" = "Rediger";
 "BUTTON_EDIT_HINT" = "Redigeringstilstand";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Tilføj til spilleliste";
 "ADD_TO_PLAYLIST_HINT" = "Åbn menuen tilføj til spilleliste";
+
+"PLAY_AS_AUDIO" = "Play as audio";
+"PLAY_AS_AUDIO_HINT" = "Play the video file as an audio file.";
 
 "PLAYLIST_PLACEHOLDER" = "Spillelistetitel";
 "PLAYLIST_DESCRIPTION" = "Vælg en titel til din nye spilleliste";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Omdøb de valgte filer";
 "DELETE_HINT" = "Slet de valgte filer";
 
+"ADDITIONAL_OPTIONS" = "Yderligere indstillinger";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sortér";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Stigende eller faldende rækkefølge";
 "DESCENDING_SWITCH_HINT" = "Sortér indholdet i stigende eller faldende rækkefølge";
 "GRID_LAYOUT" = "Gitter";
+"GRID_LAYOUT_HINT" = "Vis elementerne i et gitter";
 "LIST_LAYOUT" = "Liste";
 "HIDE_FEAT_ARTISTS" = "Skjul deltagende kunstnere";
+"HIDE_TRACK_NUMBERS" = "Skjul spornumre";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoindstillinger";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Lydindstillinger";
 "BOOKMARKS_TITLE" = "Bogmærker";
 "ADD_BOOKMARKS_TITLE" = "Tilføj bogmærker";
 "BOOKMARK_DEFAULT_NAME" = "Bogmærke ved";
 "BOOKMARK_RENAME_TITLE" = "Omdøb bogmærke";
 "BOOKMARK_DELETE_TITLE" = "Slet bogmærke";
 "BOOKMARK_DELETE_MESSAGE" = "Bekræft sletning af bogmærket";
+"INCREASE_BUTTON" = "Forøg knap";
+"INCREASE_PLAYBACK_SPEED" = "Øg afspilningshastigheden";
+"INCREASE_AUDIO_DELAY" = "Øg lydforsinkelsen";
+"INCREASE_SUBTITLES_DELAY" = "Øg undertekstforsinkelsen";
+"DECREASE_BUTTON" = "Sænk knap";
+"DECREASE_PLAYBACK_SPEED" = "Sænk afspilningshastigheden";
+"DECREASE_AUDIO_DELAY" = "Formindsk lydforsinkelsen";
+"DECREASE_SUBTITLES_DELAY" = "Formindsk undertekstforsinkelsen";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Tving genskanning af mediebibliotek";
 "FORCE_RESCAN_MESSAGE" = "Vil du tvinge VLC til at genskanne dit mediebiblitek?\nDet kan tage en del tid.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Baggrund for titelvalg";
 "TITLESELECTION_BACKGROUND_HINT" = "Tap for at fjerne visningen.";
+
