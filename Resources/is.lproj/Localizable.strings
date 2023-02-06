@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Kaflar";
 "TITLE" = "Titill";
 "CHAPTER" = "Kafli";
-"MINIMIZE_PLAYBACK_VIEW" = "Lágmarka í afspilun";
 "TRACK_SELECTION" = "Val spora";
 "AUDIO" = "Hljóð";
 "SUBTITLES" = "Skjátextar";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "Eitt skjátextaspor";
 "TRACKS" = "%i hljóðspor";
 "TRACK" = "%i hljóðspor";
+"TRACKS_DURATION" = "%u tracks, duration: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "Tengt við sjónvarp";
 "PLAYING_EXTERNALLY_DESC" = "Þetta myndskeið er spilað í sjónvarpinu";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Sækja";
 "BUTTON_DELETE" = "Eyða";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "Taka þátt";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "Tengjast";
 "BUTTON_RENAME" = "Endurnefna";
 "BUTTON_LEARN_MORE" = "Vita meira";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Viltu hlaða niður eða spila þessa vefslóð?";
 "SHARED_VLC_IOS_LIBRARY" = "Samnýtt VLC fyrir iOS safn";
 "SMB_CIFS_FILE_SERVERS" = "Skráaþjónar (SMB)";
+
+"MANAGED_SERVERS" = "Managed";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "Ein skrá";
 "NO_FILES" = "Engar studdar skrár";
 "DOWNLOADING" = "Hleð niður...";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Tími eftir: %@";
 "BIOMETRIC_UNLOCK" = "Aflæsa margmiðlunarsafni\nHættu við til að setja inn aðgangsorð";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Næsta";
 "PREV_BUTTON" = "Fyrra";
 "PLAY_ALL_BUTTON" = "Spila allt";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Do you want to reset the video filters?";
 "RESET_PLAYBACK_SPEED" = "Do you want to reset the playback speed?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Ekkert streymi hefur verið spilað nýlega";
 
 "WEBINTF_TITLE" = "Deiling með þráðlausu Wi-Fi neti";
+"WEBINTF_ETHERNET" = "Sharing via Ethernet";
 "WEBINTF_DROPFILES" = "Sleppa skrám";
 "WEBINTF_DROPFILES_LONG" = "Slepptu skrám á gluggann til að bæta þeim inn á %@. <br>Eða smelltu á \"+\" hnappinn til að nota skráaveljarann.";
 "WEBINTF_DOWNLOADFILES" = "Sækja skrár";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Please enter the passcode you set in VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Wrong passcode.<br>Remaining attempts: ";
 "WEBINTF_AUTH_BANNED" = "You entered too many wrong passcodes.<br>Please restart VLC iOS and try again.";
-
-
 
 "DURATION" = "Lengd";
 "TITLE" = "Titill";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Eyða völdu";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Þessi skrá";
-"NOT_SUPPORTED_FILETYPE" = "%@ er ekki skrátegund sem VLC styður";
-"FILE_EXISTS" = "%@ er þegar til";
 
 "PROTOCOL_NOT_SELECTED" = "Samskiptamáti ekki valinn";
 "Settings" = "Stillingar";
 
 "ERROR" = "Villa";
-"OK" = "Í lagi";
 "SORT" = "Raða";
 "SORT_BY" = "Raða eftir";
 "SEARCH" = "Leita";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Breyta";
 "BUTTON_EDIT_HINT" = "Breytingahamur";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Bæta við spilunarlista";
 "ADD_TO_PLAYLIST_HINT" = "Opna valmyndina til að bæta við spilunarlista";
+
+"PLAY_AS_AUDIO" = "Play as audio";
+"PLAY_AS_AUDIO_HINT" = "Play the video file as an audio file.";
 
 "PLAYLIST_PLACEHOLDER" = "Titill spilunarlista";
 "PLAYLIST_DESCRIPTION" = "Veldu titil fyrir nýja spilunarlistann";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Endurnefna valdar skrár";
 "DELETE_HINT" = "Eyða völdum skrám";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Raða";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Hækkandi eða lækkandi röð";
 "DESCENDING_SWITCH_HINT" = "Raða efni í hækkandi eða lækkandi röð";
 "GRID_LAYOUT" = "Grid";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "List";
 "HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Tónjafnari";
 "MORE_OPTIONS_HEADER_TITLE" = "Valkostir myndskeiða";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audio Options";
 "BOOKMARKS_TITLE" = "Bookmarks";
 "ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
 "BOOKMARK_DEFAULT_NAME" = "Bookmark at";
 "BOOKMARK_RENAME_TITLE" = "Rename bookmark";
 "BOOKMARK_DELETE_TITLE" = "Delete bookmark";
 "BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Þvinga endurskönnun margmiðlunarsafns";
 "FORCE_RESCAN_MESSAGE" = "Viltu þvinga VLC til að endurskanna margmiðlunarsafnið þitt?\nÞað gæti tekið nokkurn tíma að gera það.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
 "TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+
