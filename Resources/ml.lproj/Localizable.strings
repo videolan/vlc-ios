@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "അധ്യായങ്ങൾ";
 "TITLE" = "തലക്കെട്ട്";
 "CHAPTER" = "അധ്യായം";
-"MINIMIZE_PLAYBACK_VIEW" = "പ്ലേബാക്ക് ചെറുതാക്കുക";
 "TRACK_SELECTION" = "ട്രാക്ക്‌ സെലെക്ട്ട് ചെയ്യുക";
 "AUDIO" = "ശബ്ദം";
 "SUBTITLES" = "ഉപശീര്‍ഷകങ്ങള്‍";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "ഒരു സബ്ടൈറ്റിൽ ട്രാക്ക്";
 "TRACKS" = "%i ട്രാക്കുകൾ";
 "TRACK" = "%i ട്രാക്ക്";
+"TRACKS_DURATION" = "%u tracks, duration: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "ടി.വി ബന്ധപ്പെടുത്തി";
 "PLAYING_EXTERNALLY_DESC" = "ഈ വീ‍‍ഡിയോ ടി.വിയില്‍ കാണിക്കുന്നു";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "ഡൌണ്‍ലോ‍ഡ്";
 "BUTTON_DELETE" = "കളയുക";
 "BUTTON_OK" = "ശരി";
-"BUTTON_CONTRIBUTE" = "സംഭാവന ചെയ്യുക";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "ബന്ധപ്പെടുത്തുക";
 "BUTTON_RENAME" = "പുനര്‍നാമകരണം";
 "BUTTON_LEARN_MORE" = "കൂടുതല്‍ മനസ്സിലാക്കൂ";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "ഈ യു ര്‍ ല്‍ ഡൌണ്‍ലോഡ് ചെയ്യന്നോ പ്ലേ ചെയ്യന്നോ ആഗ്രഹികുന്നോ?";
 "SHARED_VLC_IOS_LIBRARY" = "Shared VLC for iOS Library";
 "SMB_CIFS_FILE_SERVERS" = "ഫയൽ സെർവറുകൾ (SMB)";
+
+"MANAGED_SERVERS" = "Managed";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "ഒരു ഫയല്‍";
 "NO_FILES" = "പിന്തുണക്കുന്ന ഫയലുകള്‍ ഇല്ല";
 "DOWNLOADING" = "ഡൌണ്‍ലോ‍ഡ് ചെയ്യുന്നു....";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "ബാക്കിയുള്ള സമയം :%@";
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "അടുത്തത്";
 "PREV_BUTTON" = "മുമ്പത്തെ";
 "PLAY_ALL_BUTTON" = "എല്ലാം പ്ലേ ചെയ്യുക";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "വീഡിയോ ഫിൽട്ടറുകൾ പുനഃസജ്ജമാക്കണോ?";
 "RESET_PLAYBACK_SPEED" = "പ്ലേബാക്ക് വേഗത പുനഃസജ്ജമാക്കണോ?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "അടുത്തിടെ ഒരു സ്ട്രീമും പ്ലേ ചെയ്‌തില്ല";
 
 "WEBINTF_TITLE" = "Wi-Fi വഴി പങ്കിടുന്നു";
+"WEBINTF_ETHERNET" = "Sharing via Ethernet";
 "WEBINTF_DROPFILES" = "ഫയലുകള്‍ വലിച്ചിടുക ";
 "WEBINTF_DROPFILES_LONG" = "Drop files in the window to add them to your %@.<br>Or click on the \"+\" button to use the file picker dialog.";
 "WEBINTF_DOWNLOADFILES" = "ഡൌണ്‍ലോ‍ഡ്  ചെയ്ത ഫയലുകള്‍ ";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "VLC iOS-ൽ നിങ്ങൾ സജ്ജമാക്കിയ പാസ്‌കോഡ് നൽകുക:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "തെറ്റായ പാസ്‌കോഡ്.<br>അവശേഷിക്കുന്ന ശ്രമങ്ങൾ:";
 "WEBINTF_AUTH_BANNED" = "നിങ്ങൾ വളരെയധികം തെറ്റായ പാസ്‌കോഡുകൾ നൽകി.<br>ദയവായി VLC iOS പുനരാരംഭിച്ച് വീണ്ടും ശ്രമിക്കുക.";
-
-
 
 "DURATION" = "കാലയളവ്";
 "TITLE" = "തലക്കെട്ട്";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "തിരഞ്ഞെടുക്കൽ ഇല്ലാതാക്കുക";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "ഈ ഫയൽ";
-"NOT_SUPPORTED_FILETYPE" = "%@ is not a supported filetype by VLC";
-"FILE_EXISTS" = "%@ ഇതിനകം ലഭ്യമാണ്";
 
 "PROTOCOL_NOT_SELECTED" = "പ്രോട്ടോക്കോൾ തിരഞ്ഞെടുത്തിട്ടില്ല";
 "Settings" = "ക്രമീകരണങ്ങള്‍";
 
 "ERROR" = "പിശക്";
-"OK" = "ശരി";
 "SORT" = "അടുക്കുക";
 "SORT_BY" = "അടുക്കുക";
 "SEARCH" = "തിരയുക";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "എഡിറ്റുചെയ്യുക";
 "BUTTON_EDIT_HINT" = "എഡിറ്റ് മോഡ്";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "പ്ലേലിസ്റ്റിൽ ആഡ് ചെയ്യുക";
 "ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
+
+"PLAY_AS_AUDIO" = "Play as audio";
+"PLAY_AS_AUDIO_HINT" = "Play the video file as an audio file.";
 
 "PLAYLIST_PLACEHOLDER" = "പ്ലേലിസ്റ്റ് ശീർഷകം";
 "PLAYLIST_DESCRIPTION" = "നിങ്ങളുടെ പുതിയ പ്ലേലിസ്റ്റിനായി ഒരു ശീർഷകം തിരഞ്ഞെടുക്കുക";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "തിരഞ്ഞെടുത്ത ഫയലുകളുടെ പേരുമാറ്റുക";
 "DELETE_HINT" = "തിരഞ്ഞെടുത്ത ഫയലുകൾ ഇല്ലാതാക്കുക";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "അടുക്കുക";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "ആരോഹണം അല്ലെങ്കിൽ അവരോഹണ ക്രമം";
 "DESCENDING_SWITCH_HINT" = "ആരോഹണക്രമത്തിലോ അവരോഹണ ക്രമത്തിലോ സന്ദർഭം അടുക്കുക";
 "GRID_LAYOUT" = "Grid";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "List";
 "HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "ഈക്വലൈസർ";
 "MORE_OPTIONS_HEADER_TITLE" = "വീഡിയോ ഓപ്ഷനുകൾ";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audio Options";
 "BOOKMARKS_TITLE" = "Bookmarks";
 "ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
 "BOOKMARK_DEFAULT_NAME" = "Bookmark at";
 "BOOKMARK_RENAME_TITLE" = "Rename bookmark";
 "BOOKMARK_DELETE_TITLE" = "Delete bookmark";
 "BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "മീഡിയ ലൈബ്രറി വീണ്ടും സ്കാൻ ചെയ്യാൻ നിർബന്ധിക്കുക";
 "FORCE_RESCAN_MESSAGE" = "നിങ്ങളുടെ മീഡിയ ലൈബ്രറി വീണ്ടെടുക്കാൻ VLC-യെ നിർബന്ധിക്കാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?\nഇതിന് കുറച്ച് സമയമെടുക്കും.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
 "TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+
