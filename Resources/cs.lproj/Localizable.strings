@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Kapitoly";
 "TITLE" = "Název";
 "CHAPTER" = "Kapitola";
-"MINIMIZE_PLAYBACK_VIEW" = "Minimalizovat přehrávač";
 "TRACK_SELECTION" = "Výběr stopy";
 "AUDIO" = "Zvuk";
 "SUBTITLES" = "Titulky";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "1 stopa s titulky";
 "TRACKS" = "%i stopy";
 "TRACK" = "%i stopa";
+"TRACKS_DURATION" = "%u skladeb, délka: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "Připojená TV";
 "PLAYING_EXTERNALLY_DESC" = "Video je přehráváno v TV";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Stáhnout";
 "BUTTON_DELETE" = "Smazat";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "Přispět";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "Připojit";
 "BUTTON_RENAME" = "Přejmenovat";
 "BUTTON_LEARN_MORE" = "Více informací";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Chcete stáhnout nebo přehrát soubor z této URL adresy?";
 "SHARED_VLC_IOS_LIBRARY" = "Sdílená knihovna VLC pro iOS";
 "SMB_CIFS_FILE_SERVERS" = "Souborové servery (SMB)";
+
+"MANAGED_SERVERS" = "Spravované";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 soubor";
 "NO_FILES" = "Žádné podporované soubory";
 "DOWNLOADING" = "Stahování...";
+"DOWNLOADING_MEDIA" = "Stahování: %@";
 "REMAINING_TIME" = "Zbývající čas: %@";
 "BIOMETRIC_UNLOCK" = "Odemknout Knihovnu médií\nZrušte pro zadání hesla";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Následující";
 "PREV_BUTTON" = "Předchozí";
 "PLAY_ALL_BUTTON" = "Přehrát vše";
+"PLAY_ALL_HINT" = "Přehrát všechna média v kolekci";
 
 "RESET_VIDEO_FILTERS" = "Chcete vrátit nastavení filtrů videa?";
 "RESET_PLAYBACK_SPEED" = "Chcete resetovat rychlost přehrávání?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Žádný stream nebyl v poslední době přehráván.";
 
 "WEBINTF_TITLE" = "Sdílení přes Wi-Fi";
+"WEBINTF_ETHERNET" = "Sdílení přes Ethernet";
 "WEBINTF_DROPFILES" = "Přesunout soubory";
 "WEBINTF_DROPFILES_LONG" = "Pro přidání souborů do Vašeho %@ je přetáhněte do okna. <br>Nebo použijte tlačítko \"+\" pro dialog výběru souborů.";
 "WEBINTF_DOWNLOADFILES" = "Stažené soubory";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Zadejte přístupový kód nastavený ve VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Neplatný přístupový kód.<br>Zbývající pokusy: ";
 "WEBINTF_AUTH_BANNED" = "Zadali jste příliš mnoho neplatných přístupových kódů.<br>Restartujte VLC iOS a zkuste to znovu.";
-
-
 
 "DURATION" = "Délka";
 "TITLE" = "Název";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Smazat výběr";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Tento soubor";
-"NOT_SUPPORTED_FILETYPE" = "%@ není podporovaný typ souboru pro VLC";
-"FILE_EXISTS" = "%@ již existuje";
 
 "PROTOCOL_NOT_SELECTED" = "Žádný protokol nebyl vybrán";
 "Settings" = "Nastavení";
 
 "ERROR" = "Chyba";
-"OK" = "OK";
 "SORT" = "Seřadit";
 "SORT_BY" = "Seřadit dle";
 "SEARCH" = "Hledat";
@@ -333,17 +332,23 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Nabídka";
+"BUTTON_MENU_HINT" = "Výběr, změna pořadí a třídění položek médií přítomných v tomto zobrazení";
+
 "BUTTON_EDIT" = "Upravit";
 "BUTTON_EDIT_HINT" = "Režim editace";
 
 "BUTTON_SELECT" = "Vybrat";
 "BUTTON_SELECT_HINT" = "Tlačítko pro výběr";
 
-"BUTTON_SELECT_ALL" = "vybrat vše";
+"BUTTON_SELECT_ALL" = "Vybrat vše";
 "BUTTON_SELECT_ALL_HINT" = "Vybrat všechny položky médií přítomné v tomto zobrazení";
 
 "ADD_TO_PLAYLIST" = "Přidat do seznamu skladeb";
 "ADD_TO_PLAYLIST_HINT" = "Otevřete nabídku Přidat do seznamu skladeb";
+
+"PLAY_AS_AUDIO" = "Přehrát jako zvuk";
+"PLAY_AS_AUDIO_HINT" = "Přehrát video soubor jako zvukový soubor.";
 
 "PLAYLIST_PLACEHOLDER" = "Název seznamu skladeb";
 "PLAYLIST_DESCRIPTION" = "Zadejte název pro nový seznam skladeb";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Přejmenovat vybrané soubory";
 "DELETE_HINT" = "Smazat vybrané soubory";
 
+"ADDITIONAL_OPTIONS" = "Další možnosti";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Seřadit";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Seřadit vzestupně nebo sestupně";
 "DESCENDING_SWITCH_HINT" = "Seřadit kontext vzestupně nebo sestupně";
 "GRID_LAYOUT" = "Mřížka";
+"GRID_LAYOUT_HINT" = "Zobrazit položky do mřížky";
 "LIST_LAYOUT" = "Seznam";
 "HIDE_FEAT_ARTISTS" = "Skrýt feat. umělce";
+"HIDE_TRACK_NUMBERS" = "Skrýt pořadí stopy";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -401,8 +410,8 @@
 "UNKNOWN_ARTIST" = "Neznámý umělec";
 "VARIOUS_ARTIST" = "Různí umělci";
 "UNKNOWN_ALBUM" = "Neznámé album";
-"SINGLE_ITEM_SELECTED" = "položka vybraná";
-"MULTIPLE_ITEMS_SELECTED" = "položky vybrané";
+"SINGLE_ITEM_SELECTED" = "Položka vybraná";
+"MULTIPLE_ITEMS_SELECTED" = "Položky vybrané";
 
 // MARK: - VideoPlayerControls
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ekvalizér";
 "MORE_OPTIONS_HEADER_TITLE" = "Možnosti videa";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Možnosti zvuku";
 "BOOKMARKS_TITLE" = "Záložky";
 "ADD_BOOKMARKS_TITLE" = "Přidat záložky";
 "BOOKMARK_DEFAULT_NAME" = "Záložka v";
 "BOOKMARK_RENAME_TITLE" = "Přejmenovat záložku";
 "BOOKMARK_DELETE_TITLE" = "Smazat záložku";
 "BOOKMARK_DELETE_MESSAGE" = "Potvrdit smazání záložky";
+"INCREASE_BUTTON" = "Tlačítko zvýšit";
+"INCREASE_PLAYBACK_SPEED" = "Zvýšit rychlost přehrávání";
+"INCREASE_AUDIO_DELAY" = "Zvýšit zpoždění zvuku";
+"INCREASE_SUBTITLES_DELAY" = "Zvýšit zpoždění titulků";
+"DECREASE_BUTTON" = "Tlačítko snížit";
+"DECREASE_PLAYBACK_SPEED" = "Snížit rychlost přehrávání";
+"DECREASE_AUDIO_DELAY" = "Snížit zpoždění zvuku";
+"DECREASE_SUBTITLES_DELAY" = "Snížit zpoždění titulků";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Vynutit nové prohledání Knihovny médií";
 "FORCE_RESCAN_MESSAGE" = "Chcete aby VLC znovu prohledalo Vaši Knihovnu médií?\nMůže to chvíli trvat.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Pozadí výběru názvu";
 "TITLESELECTION_BACKGROUND_HINT" = "Klepnutím odeberete zobrazení.";
+
