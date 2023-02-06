@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Kapitel";
 "TITLE" = "Titel";
 "CHAPTER" = "Kapitel";
-"MINIMIZE_PLAYBACK_VIEW" = "Minimera uppspelningen";
 "TRACK_SELECTION" = "Spårval";
 "AUDIO" = "Ljud";
 "SUBTITLES" = "Undertexter";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "Ett undertextspår";
 "TRACKS" = "%i spår";
 "TRACK" = "%i spår";
+"TRACKS_DURATION" = "%u spår, varaktighet: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV ansluten";
 "PLAYING_EXTERNALLY_DESC" = "Denna video spelas upp på TV:n";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Ladda ned";
 "BUTTON_DELETE" = "Radera";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "Bidra";
+"BUTTON_CONTACT" = "Kontakta oss";
 "BUTTON_CONNECT" = "Anslut";
 "BUTTON_RENAME" = "Byt namn";
 "BUTTON_LEARN_MORE" = "Läs mer";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Vill du ladda ned eller spela upp denna webbadress?";
 "SHARED_VLC_IOS_LIBRARY" = "Delat bibliotek för VLC för iOS";
 "SMB_CIFS_FILE_SERVERS" = "Filservrar (SMB)";
+
+"MANAGED_SERVERS" = "Hanterade";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fil";
 "NO_FILES" = "Inga stödjande filer";
 "DOWNLOADING" = "Laddar ned...";
+"DOWNLOADING_MEDIA" = "Laddar ned: %@";
 "REMAINING_TIME" = "Återstående tid: %@";
 "BIOMETRIC_UNLOCK" = "Lås upp mediabiblioteket\nAvbryt för att ange lösenkod";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Nästa";
 "PREV_BUTTON" = "Föregående";
 "PLAY_ALL_BUTTON" = "Spela upp alla";
+"PLAY_ALL_HINT" = "Spela upp alla mediafiler i samlingen";
 
 "RESET_VIDEO_FILTERS" = "Vill du återställa videofiltren?";
 "RESET_PLAYBACK_SPEED" = "Vill du återställa uppspelningshastigheten?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Ingen ström har spelats nyligen";
 
 "WEBINTF_TITLE" = "Dela via WiFi";
+"WEBINTF_ETHERNET" = "Dela via Ethernet";
 "WEBINTF_DROPFILES" = "Släpp filer";
 "WEBINTF_DROPFILES_LONG" = "Släpp filer i fönstret för att lägga till dem i din %@.<br>Eller klicka på knappen \"+\" för att använda filväljaren.";
 "WEBINTF_DOWNLOADFILES" = "Ladda ned filer";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Ange lösenkoden du angav i VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Fel lösenkod.<br>Återstående försök: ";
 "WEBINTF_AUTH_BANNED" = "Du angav fel lösenkod för många gånger.<br>Starta om VLC iOS och försök igen.";
-
-
 
 "DURATION" = "Speltid";
 "TITLE" = "Titel";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Radera markering";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Denna fil";
-"NOT_SUPPORTED_FILETYPE" = "%@ är inte ett filformat som VLC stöder";
-"FILE_EXISTS" = "%@ finns redan";
 
 "PROTOCOL_NOT_SELECTED" = "Protokoll har inte valts";
 "Settings" = "Inställningar";
 
 "ERROR" = "Fel";
-"OK" = "OK";
 "SORT" = "Sortera";
 "SORT_BY" = "Sortera efter";
 "SEARCH" = "Sök";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Meny";
+"BUTTON_MENU_HINT" = "Markera, byt ordning och sortera mediaobjekt som finns i denna vy";
+
 "BUTTON_EDIT" = "Redigera";
 "BUTTON_EDIT_HINT" = "Redigeringsläge";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Lägg till i spellista";
 "ADD_TO_PLAYLIST_HINT" = "Öppna menyn för att lägga till i spellista";
+
+"PLAY_AS_AUDIO" = "Spela upp som ljud";
+"PLAY_AS_AUDIO_HINT" = "Spela upp videofilen som en ljudfil.";
 
 "PLAYLIST_PLACEHOLDER" = "Titel på spellista";
 "PLAYLIST_DESCRIPTION" = "Välj en titel för din nya spellista";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Byt namn på markerade filer";
 "DELETE_HINT" = "Radera markerade filer";
 
+"ADDITIONAL_OPTIONS" = "Ytterligare alternativ";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sortera";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Stigande eller fallande ordning";
 "DESCENDING_SWITCH_HINT" = "Sortera alternativmenyn i stigande eller fallande ordning";
 "GRID_LAYOUT" = "Rutnät";
+"GRID_LAYOUT_HINT" = "Visa objekten som ett rutnät";
 "LIST_LAYOUT" = "Lista";
 "HIDE_FEAT_ARTISTS" = "Dölj gästartister";
+"HIDE_TRACK_NUMBERS" = "Dölj spårnummer";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoalternativ";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Ljudalternativ";
 "BOOKMARKS_TITLE" = "Bokmärken";
 "ADD_BOOKMARKS_TITLE" = "Lägg till bokmärken";
 "BOOKMARK_DEFAULT_NAME" = "Bokmärke vid";
 "BOOKMARK_RENAME_TITLE" = "Byt namn på bokmärke";
 "BOOKMARK_DELETE_TITLE" = "Radera bokmärke";
 "BOOKMARK_DELETE_MESSAGE" = "Bekräfta radering av bokmärket";
+"INCREASE_BUTTON" = "Plusknapp";
+"INCREASE_PLAYBACK_SPEED" = "Öka uppspelningshastigheten";
+"INCREASE_AUDIO_DELAY" = "Öka ljudfördröjningen";
+"INCREASE_SUBTITLES_DELAY" = "Öka undertextfördröjningen";
+"DECREASE_BUTTON" = "Minusknapp";
+"DECREASE_PLAYBACK_SPEED" = "Minska uppspelningshastigheten";
+"DECREASE_AUDIO_DELAY" = "Minska ljudfördröjningen";
+"DECREASE_SUBTITLES_DELAY" = "Minska undertextfördröjningen";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Tvinga genomsökning av mediabiblioteket";
 "FORCE_RESCAN_MESSAGE" = "Vill du tvinga VLC att söka igenom ditt mediabibliotek?\nDet kan ta en stund.";
+
+"FEEDBACK_EMAIL_TITLE" = "Återkoppla om VLC på iOS och iPad";
+"FEEDBACK_EMAIL_BODY" = "Ange din återkoppling ovanför denna rad.\n\nAnonym information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "E-postkontot är inte konfigurerat";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Kontakta oss via %@ från en annan enhet.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Bakgrund för markering av titlar";
 "TITLESELECTION_BACKGROUND_HINT" = "Tryck för att ta bort vyn.";
+
