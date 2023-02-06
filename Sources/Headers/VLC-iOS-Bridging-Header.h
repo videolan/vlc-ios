@@ -39,3 +39,4 @@
 #import "VLCThumbnailsCache.h"
 #import "VLCGoogleDriveTableViewController.h"
 #import "VLCGoogleDriveConstants.h"
+#import "VLCMLMedia+App.h"

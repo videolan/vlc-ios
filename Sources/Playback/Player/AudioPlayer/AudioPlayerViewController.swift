@@ -208,7 +208,7 @@ class AudioPlayerViewController: PlayerViewController {
     }
 
     private func getCurrentMediaTitle() -> String? {
-        if let audiotrack = media(forPlaying: playbackService.currentlyPlayingMedia) {
+        if let audiotrack = VLCMLMedia.init(forPlaying: playbackService.currentlyPlayingMedia) {
             return audiotrack.title
         } else {
             return playbackService.metadata.title
@@ -216,7 +216,7 @@ class AudioPlayerViewController: PlayerViewController {
     }
 
     private func getCurrentMediaArtist() -> String? {
-        if let audiotrack = media(forPlaying: playbackService.currentlyPlayingMedia) {
+        if let audiotrack = VLCMLMedia.init(forPlaying: playbackService.currentlyPlayingMedia) {
             return audiotrack.albumTrackArtistName()
         } else {
             return nil

@@ -455,7 +455,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #if TARGET_OS_IOS
 - (void)restoreAudioAndSubtitleTrack
 {
-    VLCMLMedia *media = [_delegate mediaForPlayingMedia:_mediaPlayer.media];
+    VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
 
     if (media) {
         _mediaPlayer.currentAudioTrackIndex = (int) media.audioTrackIndex;
@@ -1343,7 +1343,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 - (void)setNeedsMetadataUpdate
 {
 #if TARGET_OS_IOS
-    VLCMLMedia *media = self->_mediaPlayer.media ? [self->_delegate mediaForPlayingMedia:self->_mediaPlayer.media] : nil;
+    VLCMLMedia *media = self->_mediaPlayer.media ? [VLCMLMedia mediaForPlayingMedia:self->_mediaPlayer.media] : nil;
     [_metadata updateMetadataFromMedia:media mediaPlayer:_mediaPlayer];
 #else
     [_metadata updateMetadataFromMediaPlayer:_mediaPlayer];
@@ -1353,7 +1353,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #if TARGET_OS_IOS
 - (void)_recoverLastPlaybackState
 {
-    VLCMLMedia *media = [_delegate mediaForPlayingMedia:_mediaPlayer.media];
+    VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
     if (!media) return;
 
     CGFloat lastPosition = media.progress;

@@ -210,14 +210,6 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
     func savePlaybackState(_ playbackService: PlaybackService) {
         mediaService.savePlaybackState(from: playbackService)
     }
-
-    func media(forPlaying media: VLCMedia?) -> VLCMLMedia? {
-        guard let media = media else {
-            return nil
-        }
-
-        return mediaService.fetchMedia(with: media.url)
-    }
 }
 
 // MARK: - UI Receivers
@@ -252,7 +244,7 @@ private extension AudioMiniPlayer {
         }
 
         let currentMedia: VLCMedia? = playbackController.currentlyPlayingMedia
-        let mlMedia: VLCMLMedia? = media(forPlaying: currentMedia)
+        let mlMedia: VLCMLMedia? = VLCMLMedia.init(forPlaying: currentMedia)
 
         let selector: Selector
         if let mlMedia = mlMedia, mlMedia.type() == .audio {

@@ -1548,10 +1548,6 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         mediaLibraryService.savePlaybackState(from: playbackService)
     }
 
-    func media(forPlaying media: VLCMedia?) -> VLCMLMedia? {
-        return mediaLibraryService.fetchMedia(with: media?.url)
-    }
-
     func showStatusMessage(_ statusMessage: String) {
         statusLabel.showStatusMessage(statusMessage)
     }

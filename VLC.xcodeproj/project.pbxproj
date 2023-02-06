@@ -201,6 +201,7 @@
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
 		7D94FCE116DE7D1000F2623B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE016DE7D1000F2623B /* Foundation.framework */; };
 		7D94FCE316DE7D1000F2623B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */; };
+		7D9BF3112991947400B68FEC /* VLCMLMedia+App.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9BF3102991947400B68FEC /* VLCMLMedia+App.m */; };
 		7D9CB9DC1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */; };
 		7DAF3E94268F536400C47D95 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DAF3E93268F536400C47D95 /* Launch Screen.storyboard */; };
 		7DB078B9242F6970002A776F /* VLCStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DB078B8242F6970002A776F /* VLCStoreViewController.xib */; };
@@ -807,6 +808,8 @@
 		7D94FCE016DE7D1000F2623B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D94FCE216DE7D1000F2623B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		7D9B6B0817C9625F00F9425D /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		7D9BF30F2991947400B68FEC /* VLCMLMedia+App.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLCMLMedia+App.h"; sourceTree = "<group>"; };
+		7D9BF3102991947400B68FEC /* VLCMLMedia+App.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "VLCMLMedia+App.m"; sourceTree = "<group>"; };
 		7D9CB9DA1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaybackNavigationController.h; path = "Sources/UI Elements/VLCPlaybackNavigationController.h"; sourceTree = SOURCE_ROOT; };
 		7D9CB9DB1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaybackNavigationController.m; path = "Sources/UI Elements/VLCPlaybackNavigationController.m"; sourceTree = SOURCE_ROOT; };
 		7DAF3E93268F536400C47D95 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -1616,6 +1619,7 @@
 		7D0C20B528CA085500CCFFEF /* Media Library */ = {
 			isa = PBXGroup;
 			children = (
+				7D9BF30E2991944200B68FEC /* Extensions */,
 				7DC869AF28CB75C400EE99F8 /* tvOS */,
 				7DC869AD28CB755C00EE99F8 /* Discovery */,
 				8DE1887221089AF200A091D2 /* MediaLibraryModel */,
@@ -1765,6 +1769,15 @@
 				B0E3BE184ED7B95399C04EB6 /* libPods-VLC-tvOS.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7D9BF30E2991944200B68FEC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7D9BF30F2991947400B68FEC /* VLCMLMedia+App.h */,
+				7D9BF3102991947400B68FEC /* VLCMLMedia+App.m */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		7DB40AA028C7B49700EDACA0 /* Testing */ = {
@@ -3531,6 +3544,7 @@
 				7DEE16CE242B53E50004E88F /* VLCStoreController.m in Sources */,
 				41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */,
 				597B403F2625E85000C0D81E /* SliderInfoView.swift in Sources */,
+				7D9BF3112991947400B68FEC /* VLCMLMedia+App.m in Sources */,
 				7DD71F9C28FB425A00327ACE /* VLCCarPlaySceneDelegate.m in Sources */,
 				407EB58E257A41B200686B1F /* SleepTimerView.swift in Sources */,
 				7D4556AC29192F5400276567 /* VLCNowPlayingTemplateObserver.m in Sources */,

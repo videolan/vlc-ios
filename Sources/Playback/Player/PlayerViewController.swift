@@ -590,10 +590,6 @@ extension PlayerViewController: VLCPlaybackServiceDelegate {
         mediaLibraryService.savePlaybackState(from: playbackService)
     }
 
-    func media(forPlaying media: VLCMedia?) -> VLCMLMedia? {
-        mediaLibraryService.fetchMedia(with: media?.url)
-    }
-
     func playbackPositionUpdated(_ playbackService: PlaybackService) {
         mediaScrubProgressBar.updateInterfacePosition()
     }

@@ -157,7 +157,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     }
 
     VLCMedia *currentMedia = _playbackController.currentlyPlayingMedia;
-    VLCMLMedia *media = [_playbackController.delegate mediaForPlayingMedia:currentMedia];
+    VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:currentMedia];
 
     switch (self.displayMode) {
         case VLCPlayerDisplayControllerDisplayModeFullscreen:
