@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Chabistroù";
 "TITLE" = "Titl";
 "CHAPTER" = "Chabistr";
-"MINIMIZE_PLAYBACK_VIEW" = "Bihanaat ar play-back";
 "TRACK_SELECTION" = "Dibab roudennoù";
 "AUDIO" = "Aodio";
 "SUBTITLES" = "Istitloù";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "Ur roudenn istitloù";
 "TRACKS" = "%i a Roudennoù";
 "TRACK" = "%i Roudenn";
+"TRACKS_DURATION" = "%u tracks, duration: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV kevreet";
 "PLAYING_EXTERNALLY_DESC" = "Ar video-mañ a zo lennet war an TV";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Pellgargañ";
 "BUTTON_DELETE" = "Dilemel";
 "BUTTON_OK" = "Mat eo";
-"BUTTON_CONTRIBUTE" = "Kemer perzh";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "Kevreañ";
 "BUTTON_RENAME" = "Adenvel";
 "BUTTON_LEARN_MORE" = "Gouzout hiroc'h";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Ha c'hoant ho pefe pellgargañ pe lenn an URL-mañ?";
 "SHARED_VLC_IOS_LIBRARY" = "VLC rannet evit Levraoueg iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servijerioù Restroù (SMB)";
+
+"MANAGED_SERVERS" = "Managed";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 restr";
 "NO_FILES" = "Restroù nann kemeret e kont";
 "DOWNLOADING" = "O pellgargañ...";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Amzer a chom: %@";
 "BIOMETRIC_UNLOCK" = "Divorailhañ al Levraoueg Media\nNullañ evit reiñ ar C'hod moned";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "War-lerc'h";
 "PREV_BUTTON" = "Kent";
 "PLAY_ALL_BUTTON" = "Lenn an holl";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Ha c'hoant ho peus da adderaouiñ siloù ar video?";
 "RESET_PLAYBACK_SPEED" = "Ha c'hoant ho peus da adderaouiñ tizh al lenn?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Froud lennet ebet nevez 'zo";
 
 "WEBINTF_TITLE" = "Rannañ dre WIFI";
+"WEBINTF_ETHERNET" = "Sharing via Ethernet";
 "WEBINTF_DROPFILES" = "Teurel ar restroù";
 "WEBINTF_DROPFILES_LONG" = "Taolit restroù er prenestr amañ evit o ouzhpennañ e-barzh hoc'h %@.<br>Pe klikit war ar bouton \"+\" evit implijout ar voest divizoù diuziñ restroù.";
 "WEBINTF_DOWNLOADFILES" = "Pellgargañ Restroù";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Ebarzhit mar plij ar ger-tremen ho peus termenet e-barzh VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Ger-tremen fall. <br> a daol-esae c'hoazh:";
 "WEBINTF_AUTH_BANNED" = "Ebarzhet ho peus re a c'herioù-tremen direizh. <br>Loc'hit en-dro VLC iOS ha klaskit en-dro.";
-
-
 
 "DURATION" = "Padelezh";
 "TITLE" = "Titl";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Dilemel an diuzadenn";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Ar restr-mañ";
-"NOT_SUPPORTED_FILETYPE" = "%@ n'eo ket ur furmad degemeret gant VLC";
-"FILE_EXISTS" = "%@ a zo anezhañ endeo";
 
 "PROTOCOL_NOT_SELECTED" = "Protokol nann-diuzet";
 "Settings" = "Arventennoù";
 
 "ERROR" = "Fazi";
-"OK" = "Mat eo";
 "SORT" = "Rummañ";
 "SORT_BY" = "Rummañ dre";
 "SEARCH" = "Klask";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Lañser";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Aozañ";
 "BUTTON_EDIT_HINT" = "Mod aozañ";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Ouzhpennañ d'ar roll-lenn";
 "ADD_TO_PLAYLIST_HINT" = "Digeriñ al lañser ouzhpennañ d'ar roll-lenn";
+
+"PLAY_AS_AUDIO" = "Play as audio";
+"PLAY_AS_AUDIO_HINT" = "Play the video file as an audio file.";
 
 "PLAYLIST_PLACEHOLDER" = "Titl ar roll-lenn";
 "PLAYLIST_DESCRIPTION" = "Dibabit un titl evit ho roll-lenn nevez";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Adenvel ar restroù diuzet";
 "DELETE_HINT" = "Dilemel ar restroù diuzet";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Rummañ";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Urzh war-gresk pe war-zigresk";
 "DESCENDING_SWITCH_HINT" = "Rummañ urzh ar c'hoñtekst war-gresk pe war-zigresk";
 "GRID_LAYOUT" = "Grid";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "List";
 "HIDE_FEAT_ARTISTS" = "Hide feat. artists";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Kevataler";
 "MORE_OPTIONS_HEADER_TITLE" = "Dibarzhioù video";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audio Options";
 "BOOKMARKS_TITLE" = "Bookmarks";
 "ADD_BOOKMARKS_TITLE" = "Add Bookmarks";
 "BOOKMARK_DEFAULT_NAME" = "Bookmark at";
 "BOOKMARK_RENAME_TITLE" = "Rename bookmark";
 "BOOKMARK_DELETE_TITLE" = "Delete bookmark";
 "BOOKMARK_DELETE_MESSAGE" = "Confirm the deletion of the bookmark";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Rediañ adskanañ ar vediaoueg";
 "FORCE_RESCAN_MESSAGE" = "Ha c'hoant ho peus da rediañ VLC da adskanañ ar vediaoueg?\nGellout a rafe bezañ hir a-walc'h.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
 "TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
+
