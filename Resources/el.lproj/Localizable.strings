@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Κεφάλαια";
 "TITLE" = "Τίτλος";
 "CHAPTER" = "Κεφάλαιο";
-"MINIMIZE_PLAYBACK_VIEW" = "Ελαχιστοποίηση αναπαραγωγής";
 "TRACK_SELECTION" = "Επιλογή κομματιού";
 "AUDIO" = "Ήχος";
 "SUBTITLES" = "Υπότιτλοι";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "Ένα κομμάτι υπότιτλων";
 "TRACKS" = "%i Κομμάτια";
 "TRACK" = "%i Κομμάτι";
+"TRACKS_DURATION" = "%u κομμάτια, διάρκεια: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "Η τηλεόραση συνδέθηκε";
 "PLAYING_EXTERNALLY_DESC" = "Αυτό το βίντεο παίζει τώρα στην τηλεόραση";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Λήψη";
 "BUTTON_DELETE" = "Διαγραφή";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "Συνεισφέρετε";
+"BUTTON_CONTACT" = "Επικοινωνήστε μαζί μας";
 "BUTTON_CONNECT" = "Σύνδεση";
 "BUTTON_RENAME" = "Μετονομασία";
 "BUTTON_LEARN_MORE" = "Μάθετε περισσότερα";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Θα θέλατε να κάνετε λήψη ή να αναπαράξετε αυτό το URL;";
 "SHARED_VLC_IOS_LIBRARY" = "Κοινόχρηστη βιβλιοθήκη του VLC για iOS ";
 "SMB_CIFS_FILE_SERVERS" = "Διακομιστές αρχείων (SMB)";
+
+"MANAGED_SERVERS" = "Διαχειριζόμενο";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 αρχείο";
 "NO_FILES" = "Κανένα υποστηριζόμενο αρχείο";
 "DOWNLOADING" = "Γίνεται λήψη...";
+"DOWNLOADING_MEDIA" = "Λήψη: %@";
 "REMAINING_TIME" = "Υπολειπόμενος χρόνος: %@";
 "BIOMETRIC_UNLOCK" = "Ξεκλείδωμα βιβλιοθήκης πολυμέσων\nΑκυρώστε για να εισαγάγετε κωδικό";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Επόμενο";
 "PREV_BUTTON" = "Προηγούμενο";
 "PLAY_ALL_BUTTON" = "Αναπαραγωγή όλων";
+"PLAY_ALL_HINT" = "Αναπαραγωγή όλων των μέσων στη συλλογή";
 
 "RESET_VIDEO_FILTERS" = "Θέλετε να επαναφέρετε τα φίλτρα του βίντεο;";
 "RESET_PLAYBACK_SPEED" = "Θέλετε να επαναφέρετε την ταχύτητα αναπαραγωγής;";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Καμία μετάδοση δεν αναπαράχθηκε πρόσφατα";
 
 "WEBINTF_TITLE" = "Διαμοιρασμός μέσω Wi-Fi";
+"WEBINTF_ETHERNET" = "Κοινή χρήση μέσω Ethernet";
 "WEBINTF_DROPFILES" = "Εναπόθεση αρχείων";
 "WEBINTF_DROPFILES_LONG" = "Εναποθέστε αρχεία στο παράθυρο για να τα προσθέσετε στο %@.<br> Ή κάντε κλικ στο κουμπί \"+\" για να χρησιμοποιήσετε το παράθυρο διαλόγου επιλογής αρχείων.";
 "WEBINTF_DOWNLOADFILES" = "Λήψη αρχείων";
@@ -236,13 +241,11 @@
 "WEBINTF_TITLE_ATV" = "Απομακρυσμένη αναπαραγωγή";
 "WEBINTF_DROPFILES_LONG_ATV" = "Εναποθέστε αρχεία στο παράθυρο για αναπαραγωγή στο %@.<br> Ή κάντε κλικ στο κουμπί \"+\" για να χρησιμοποιήσετε το παράθυρο διαλόγου επιλογής αρχείων.";
 "WEBINTF_URL_SENT" = "Επιτυχής αποστολή URL.";
-"WEBINTF_URL_EMPTY" = "Το URL δεν μπορεί να είναι άδειο.";
+"WEBINTF_URL_EMPTY" = "Το URL δεν μπορεί να είναι κενό.";
 "WEBINTF_URL_INVALID" = "Μη έγκυρο URL.";
 "WEBINTF_AUTH_REQUIRED" = "Παρακαλούμε εισάγετε τον κωδικό που ορίσατε μέσω του VLC για iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Εσφαλμένος κωδικός. <br>Εναπομείνασες προσπάθειες";
 "WEBINTF_AUTH_BANNED" = "Έχετε εισάγει πολλούς εσφαλμένους κωδικούς. <br>Παρακαλούμε επανεκκινήστε το VLC για iOS και προσπαθήστε ξανά.";
-
-
 
 "DURATION" = "Διάρκεια";
 "TITLE" = "Τίτλος";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Διαγραφή επιλογής";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Αυτό το αρχείο";
-"NOT_SUPPORTED_FILETYPE" = "Ο τύπος αρχείου %@ δεν υποστηρίζεται από το VLC";
-"FILE_EXISTS" = "%@ υπάρχει ήδη";
 
 "PROTOCOL_NOT_SELECTED" = "Δεν επιλέχθηκε πρωτόκολλο";
 "Settings" = "Επιλογές";
 
 "ERROR" = "Σφάλμα";
-"OK" = "Οκ";
 "SORT" = "Ταξινόμηση";
 "SORT_BY" = "Ταξινόμηση κατά";
 "SEARCH" = "Αναζήτηση";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Μενού";
+"BUTTON_MENU_HINT" = "Επιλέξτε, αναδιατάξτε και ταξινομήστε τα στοιχεία πολυμέσων που υπάρχουν σε αυτήν την προβολή";
+
 "BUTTON_EDIT" = "Επεξεργασία";
 "BUTTON_EDIT_HINT" = "Λειτουργία επεξεργασίας";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Προσθήκη στη λίστα αναπαραγωγής";
 "ADD_TO_PLAYLIST_HINT" = "Άνοιγμα μενού, προσθήκη σε λίστα αναπαραγωγής";
+
+"PLAY_AS_AUDIO" = "Αναπαραγωγή ως ήχος";
+"PLAY_AS_AUDIO_HINT" = "Αναπαραγωγή του αρχείου βίντεο ως αρχείο ήχου.";
 
 "PLAYLIST_PLACEHOLDER" = "Τίτλος λίστας αναπαραγωγής";
 "PLAYLIST_DESCRIPTION" = "Επιλέξτε έναν τίτλο για τη νέα λίστα αναπαραγωγής";
@@ -360,17 +365,21 @@
 "RENAME_HINT" = "Μετονομασία επιλεγμένων αρχείων";
 "DELETE_HINT" = "Διαγραφή επιλεγμένων αρχείων";
 
+"ADDITIONAL_OPTIONS" = "Επιπλέον επιλογές";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Ταξινόμηση";
-"BUTTON_SORT_HINT" = "Εμφάνιση φύλλου ενέργειας ταξινόμησης";
+"BUTTON_SORT_HINT" = "Εμφάνιση δελτίου οδηγιών ταξινόμησης";
 "HEADER_TITLE_SORT" = "Ταξινόμηση κατά";
 "DESCENDING_LABEL" = "Φθίνουσα σειρά";
 "DESCENDING_SWITCH_LABEL" = "Αύξουσα ή φθίνουσα σειρά";
 "DESCENDING_SWITCH_HINT" = "Ταξινόμηση περιεχομένου κατά αύξουσα ή φθίνουσα σειρά";
 "GRID_LAYOUT" = "Πλέγμα";
+"GRID_LAYOUT_HINT" = "Εμφάνιση των στοιχείων ως πλέγμα";
 "LIST_LAYOUT" = "Λίστα";
 "HIDE_FEAT_ARTISTS" = "Απόκρυψη προτεινόμενων καλλιτεχνών";
+"HIDE_TRACK_NUMBERS" = "Απόκρυψη αρίθμησης κομματιών";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -390,7 +399,7 @@
 "NB_VIDEO" = "Αριθμός αρχείων βίντεο";
 "NB_ALBUM" = "Αριθμός άλμπουμ";
 "LAST_PLAYBACK_DATE" = "Ημερομηνία τελευταίας αναπαραγωγής";
-"TRACK_ID" = "Αναγνωριστικό κομματιού";
+"TRACK_ID" = "ID κομματιού";
 
 // MARK: - VLCNetworkLoginTVViewController
 
@@ -444,21 +453,35 @@
 "MORE_OPTIONS_HINT" = "Εμφάνιση περισσότερων επιλογών χειρισμού";
 
 "PLAYER_WARNING_SUBTITLE_CAST_TITLE" = "Οι υπότιτλοι δεν υποστηρίζονται";
-"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Δεν υπάρχει υποστήριξη υποτίτλων ακόμη κατά τη μετάδοση";
+"PLAYER_WARNING_SUBTITLE_CAST_DESCRIPTION" = "Δεν υπάρχει υποστήριξη υπότιτλων ακόμη κατά τη μετάδοση";
 
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ισοσταθμιστής";
 "MORE_OPTIONS_HEADER_TITLE" = "Επιλογές βίντεο";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Επιλογές Ήχου";
 "BOOKMARKS_TITLE" = "Σελιδοδείκτες";
 "ADD_BOOKMARKS_TITLE" = "Προσθήκη σελιδοδεικτών";
 "BOOKMARK_DEFAULT_NAME" = "Σελιδοδείκτης στο";
 "BOOKMARK_RENAME_TITLE" = "Μετονομασία σελιδοδείκτη";
 "BOOKMARK_DELETE_TITLE" = "Διαγραφή σελιδοδείκτη";
 "BOOKMARK_DELETE_MESSAGE" = "Επιβεβαίωση διαγραφής του σελιδοδείκτη";
+"INCREASE_BUTTON" = "Κουμπί αύξησης";
+"INCREASE_PLAYBACK_SPEED" = "Αύξηση της ταχύτητα αναπαραγωγής";
+"INCREASE_AUDIO_DELAY" = "Αύξηση καθυστέρησης ήχου";
+"INCREASE_SUBTITLES_DELAY" = "Αύξηση της καθυστέρησης υπότιτλων";
+"DECREASE_BUTTON" = "Κουμπί μείωσης";
+"DECREASE_PLAYBACK_SPEED" = "Μείωση της ταχύτητας αναπαραγωγής";
+"DECREASE_AUDIO_DELAY" = "Μείωση καθυστέρησης ήχου";
+"DECREASE_SUBTITLES_DELAY" = "Μείωση της καθυστέρησης υπότιτλων";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Επιβολή επανασάρωσης της βιβλιοθήκης αρχείων πολυμέσων";
 "FORCE_RESCAN_MESSAGE" = "Επιθυμείτε την επιβολή επανασάρωσης της βιβλιοθήκης αρχείων πολυμέσων;\nΜπορεί να πάρει αρκετό χρόνο.";
+
+"FEEDBACK_EMAIL_TITLE" = "Σχόλια σχετικά με το VLC σε iOS και iPad";
+"FEEDBACK_EMAIL_BODY" = "Παρακαλούμε εισαγάγετε τα σχόλιά σας πάνω από αυτή τη γραμμή.\n\nΑνώνυμες πληροφορίες:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Ο λογαριασμός αλληλογραφίας δεν έχει διαμορφωθεί";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Επικοινωνήστε μαζί μας μέσω %@ από άλλη συσκευή.";
 
 // MARK: - Local Network
 
@@ -534,8 +557,8 @@
 
 // MARK: - ActionSheet
 
-"ACTIONSHEET_BACKGROUND_LABEL" = "Δελτίο οδηγιών στο παρασκήνιο";
-"ACTIONSHEET_BACKGROUND_HINT" = "Πατήστε για να αφαιρέσετε τη σελίδα ενεργειών";
+"ACTIONSHEET_BACKGROUND_LABEL" = "Παρασκήνιο δελτίου οδηγιών";
+"ACTIONSHEET_BACKGROUND_HINT" = "Πατήστε για να αφαιρέσετε το δελτίο οδηγιών";
 
 // MARK: - Playback keyboard shortcuts
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Φόντο επιλογής τίτλου";
 "TITLESELECTION_BACKGROUND_HINT" = "Πατήστε για να καταργήσετε την προβολή.";
+
