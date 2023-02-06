@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Bab";
 "TITLE" = "Tajuk";
 "CHAPTER" = "Bab";
-"MINIMIZE_PLAYBACK_VIEW" = "Minimumkan main balik";
 "TRACK_SELECTION" = "Pemilihan Trek";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Sari kata";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "Satu trek sari kata";
 "TRACKS" = "%i Trek";
 "TRACK" = "%i Trek";
+"TRACKS_DURATION" = "%u trek, tempoh: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Bersambung";
 "PLAYING_EXTERNALLY_DESC" = "Video ini dimainkan di TV";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Muat turun";
 "BUTTON_DELETE" = "Padam";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "Sumbangan";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "Sambung";
 "BUTTON_RENAME" = "Nama Semula";
 "BUTTON_LEARN_MORE" = "Ketahui Lagi";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Anda mahu memuat turun atau memainkan URL ini?";
 "SHARED_VLC_IOS_LIBRARY" = "VLC Terkongsi untuk Pustaka iOS";
 "SMB_CIFS_FILE_SERVERS" = "Pelayan Fail (SMB)";
+
+"MANAGED_SERVERS" = "Diurus";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fail";
 "NO_FILES" = "Tiada fail disokong";
 "DOWNLOADING" = "Memuat turun...";
+"DOWNLOADING_MEDIA" = "Memuat turun: %@";
 "REMAINING_TIME" = "Masa berbaki: %@";
 "BIOMETRIC_UNLOCK" = "Buka Pustaka Media\nBatal untuk masukkan Kod Laluan";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Berikutnya";
 "PREV_BUTTON" = "Terdahulu";
 "PLAY_ALL_BUTTON" = "Main semua";
+"PLAY_ALL_HINT" = "Main semua media di dalam koleksi";
 
 "RESET_VIDEO_FILTERS" = "Anda pasti mahu menetap semula penapis video?";
 "RESET_PLAYBACK_SPEED" = "Anda pasti mahu menetap semula kelajuan main balik?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Tiada strim telah dimainkan baru-baru ini";
 
 "WEBINTF_TITLE" = "Berkongsi melalui Wi-Fi";
+"WEBINTF_ETHERNET" = "Perkongsian melalui Ethernet";
 "WEBINTF_DROPFILES" = "Lepas Fail";
 "WEBINTF_DROPFILES_LONG" = "Lepas fail ke tetingkap untuk menambahnya ke dalam %@ anda.<br>Atau klik pada butang \"+\" untuk guna dialog pengambil fail.";
 "WEBINTF_DOWNLOADFILES" = "Muat Turun Fail";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Sila masukkan kod laluan yang anda telah tetapkan dalam VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Kod laluan salah. <br> Percubaan berbaki:";
 "WEBINTF_AUTH_BANNED" = "Anda telah memasukkan terlalu banyak kod laluan yang salah. <br>Sila mula semula VLC iOS dan cuba lagi sekali.";
-
-
 
 "DURATION" = "Tempoh";
 "TITLE" = "Tajuk";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Padam Pemilihan";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Fail ini";
-"NOT_SUPPORTED_FILETYPE" = "%@ ialah jenis fail yang tidak disokong oleh VLC";
-"FILE_EXISTS" = "%@ sudah wujud";
 
 "PROTOCOL_NOT_SELECTED" = "Protokol tidak terpilih";
 "Settings" = "Tetapan";
 
 "ERROR" = "Ralat";
-"OK" = "Ok";
 "SORT" = "Isih";
 "SORT_BY" = "Isih mengikut";
 "SEARCH" = "Gelintar";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Pilih, tertib semula dan isih item-item media yang ada dalam pandangan ini";
+
 "BUTTON_EDIT" = "Sunting";
 "BUTTON_EDIT_HINT" = "Mod sunting";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Tambah ke dalam Senarai Main";
 "ADD_TO_PLAYLIST_HINT" = "Buka untuk tambah ke dalam menu senarai main";
+
+"PLAY_AS_AUDIO" = "Main sebagai audio";
+"PLAY_AS_AUDIO_HINT" = "Main fail video sebagai fail audio.";
 
 "PLAYLIST_PLACEHOLDER" = "Tajuk senarai nama";
 "PLAYLIST_DESCRIPTION" = "Pilih satu tajuk untuk senarai main baharu anda";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Namakan semula fail terpilih";
 "DELETE_HINT" = "Padam fail terpilih";
 
+"ADDITIONAL_OPTIONS" = "Pilihan tambahan";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Isih";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Tertib menaik atau menurun";
 "DESCENDING_SWITCH_HINT" = "Isih konteks dalam tertib menaik atau menurun";
 "GRID_LAYOUT" = "Grid";
+"GRID_LAYOUT_HINT" = "Papar item sebagai grid";
 "LIST_LAYOUT" = "Senarai";
 "HIDE_FEAT_ARTISTS" = "Sembunyi artis bersama";
+"HIDE_TRACK_NUMBERS" = "Sembunyi nombor trek";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Penyama";
 "MORE_OPTIONS_HEADER_TITLE" = "Pilihan Video";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Pilihan Audio";
 "BOOKMARKS_TITLE" = "Tanda buku";
 "ADD_BOOKMARKS_TITLE" = "Tambah Tanda Buku";
 "BOOKMARK_DEFAULT_NAME" = "Tanda buku di";
 "BOOKMARK_RENAME_TITLE" = "Nama semula tanda buku";
 "BOOKMARK_DELETE_TITLE" = "Padam tanda buku";
 "BOOKMARK_DELETE_MESSAGE" = "Sahkan pemadaman tanda buku";
+"INCREASE_BUTTON" = "Butang tambah";
+"INCREASE_PLAYBACK_SPEED" = "Tambah kelajuan main balik";
+"INCREASE_AUDIO_DELAY" = "Tambah lengah audio";
+"INCREASE_SUBTITLES_DELAY" = "Tambah lengah sari kata";
+"DECREASE_BUTTON" = "Butang kurang";
+"DECREASE_PLAYBACK_SPEED" = "Kurangkan kelajuan main balik";
+"DECREASE_AUDIO_DELAY" = "Kurangkan lengah audio";
+"DECREASE_SUBTITLES_DELAY" = "Kurangkan lengah sari kata";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Paksa imbas semula pustaka media";
 "FORCE_RESCAN_MESSAGE" = "Anda mahu paksa VLC mengimbas semula pustaka media anda?\nIa mengambil masa.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Latar belakang pemilihan tajuk";
 "TITLESELECTION_BACKGROUND_HINT" = "Ketik untuk buang pandangan.";
+
