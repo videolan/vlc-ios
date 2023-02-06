@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Capituli";
 "TITLE" = "Titulu";
 "CHAPTER" = "Capitulu";
-"MINIMIZE_PLAYBACK_VIEW" = "Inchjuculì a ripruduzzione";
 "TRACK_SELECTION" = "Selezzione di traccia";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Sottutituli";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "Una traccia di sottutituli";
 "TRACKS" = "%i Traccie";
 "TRACK" = "%i Traccia";
+"TRACKS_DURATION" = "%u tracks, duration: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Cunnetta";
 "PLAYING_EXTERNALLY_DESC" = "Sta video hè sunata nant’à a TV";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Scaricà";
 "BUTTON_DELETE" = "Squassà";
 "BUTTON_OK" = "Vai";
-"BUTTON_CONTRIBUTE" = "Cuntribuì";
+"BUTTON_CONTACT" = "Contact us";
 "BUTTON_CONNECT" = "Cunnettà";
 "BUTTON_RENAME" = "Rinuminà";
 "BUTTON_LEARN_MORE" = "Per sapene di più";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Vulete scaricà o leghje st’indirizzu ?";
 "SHARED_VLC_IOS_LIBRARY" = "Bibliuteca sparta di VLC per iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servitori di schedariu (SMB)";
+
+"MANAGED_SERVERS" = "Managed";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 schedariu";
 "NO_FILES" = "Alcunu schedariu accettatu";
 "DOWNLOADING" = "Scaricamentu…";
+"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Tempu rimanentu : %@";
 "BIOMETRIC_UNLOCK" = "Sbluccà a mediateca\nAbbandunà a scrittura di u codice d’intesa";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Seguente";
 "PREV_BUTTON" = "Precedente";
 "PLAY_ALL_BUTTON" = "Sunà tutti";
+"PLAY_ALL_HINT" = "Play all the medias in the collection";
 
 "RESET_VIDEO_FILTERS" = "Vulete reinizià i filtri video ?";
 "RESET_PLAYBACK_SPEED" = "Vulete reinizià a vitezza di lettura ?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Alcunu flussu ùn hè statu sunatu pocu fà";
 
 "WEBINTF_TITLE" = "Spartimentu via Wi-Fi";
+"WEBINTF_ETHERNET" = "Sharing via Ethernet";
 "WEBINTF_DROPFILES" = "Depone i schedarii";
 "WEBINTF_DROPFILES_LONG" = "Depone i schedarii in a finestra per aghjunghjelli à u vostru %@.<br>O cliccà nant’à u buttone \"+\" per impiegà u dialogu di u selettore di schedariu.";
 "WEBINTF_DOWNLOADFILES" = "Scaricà i schedarii";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Ci vole à scrive u codice d’intesa chì vo avete definitu in VLC per iOS :";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "U codice d’intesa hè falsu.<br>Tentativi rimanente :";
 "WEBINTF_AUTH_BANNED" = "Avete scrittu troppu di codici d’intesa falsi.<br>Ci vole à rilancià VLC per iOS è pruvà torna.";
-
-
 
 "DURATION" = "Durata";
 "TITLE" = "Titulu";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Squassà a selezzione";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Stu schedariu";
-"NOT_SUPPORTED_FILETYPE" = "%@  hà un tipu (estensione) ch’ùn hè micca accettatu da VLC";
-"FILE_EXISTS" = "%@ esiste dighjà";
 
 "PROTOCOL_NOT_SELECTED" = "Protocollu micca selezziunatu";
 "Settings" = "Preferenze";
 
 "ERROR" = "Sbagliu";
-"OK" = "Vai";
 "SORT" = "Classificazione";
 "SORT_BY" = "Classificà da";
 "SEARCH" = "Ricerca";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menu";
+"BUTTON_MENU_HINT" = "Select, reorder and sort the media items present in this view";
+
 "BUTTON_EDIT" = "Mudificà";
 "BUTTON_EDIT_HINT" = "Modu di mudificazione";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Aghjunghje à a lista di lettura";
 "ADD_TO_PLAYLIST_HINT" = "Apre u listinu per aghjunghje à a lista di lettura";
+
+"PLAY_AS_AUDIO" = "Play as audio";
+"PLAY_AS_AUDIO_HINT" = "Play the video file as an audio file.";
 
 "PLAYLIST_PLACEHOLDER" = "Titulu di a lista di lettura";
 "PLAYLIST_DESCRIPTION" = "Sceglie un titulu per a vostra nova lista di lettura";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Rinuminà i schedarii selezziunati";
 "DELETE_HINT" = "Squassà i schedarii selezziunati";
 
+"ADDITIONAL_OPTIONS" = "Additional options";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Classificazione";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Ordine crescente o discendente";
 "DESCENDING_SWITCH_HINT" = "Classificà u cuntestu da l’ordine crescente o discendente";
 "GRID_LAYOUT" = "Quadrittera";
+"GRID_LAYOUT_HINT" = "Display the items as a grid";
 "LIST_LAYOUT" = "Lista";
 "HIDE_FEAT_ARTISTS" = "Piattà l’artisti feat.";
+"HIDE_TRACK_NUMBERS" = "Hide track numbers";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Ugualizatore";
 "MORE_OPTIONS_HEADER_TITLE" = "Ozzioni video";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audio Options";
 "BOOKMARKS_TITLE" = "Indette";
 "ADD_BOOKMARKS_TITLE" = "Aghjunghje l’indette";
 "BOOKMARK_DEFAULT_NAME" = "Aghjunghje un’indetta à";
 "BOOKMARK_RENAME_TITLE" = "Rinuminà l’indetta";
 "BOOKMARK_DELETE_TITLE" = "Squassà l’indetta";
 "BOOKMARK_DELETE_MESSAGE" = "Cunfirmà a squassatura di l’indetta";
+"INCREASE_BUTTON" = "Increase button";
+"INCREASE_PLAYBACK_SPEED" = "Increase the playback speed";
+"INCREASE_AUDIO_DELAY" = "Increase the audio delay";
+"INCREASE_SUBTITLES_DELAY" = "Increase the subtitles delay";
+"DECREASE_BUTTON" = "Decrease button";
+"DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
+"DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
+"DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Sfurzà una nova analisa di a mediateca";
 "FORCE_RESCAN_MESSAGE" = "Vulete sfurzà VLC à analisà torna a mediateca ?\nForse piglierà un pocu di tempu.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Mail account not configured";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contact us through %@ from another device.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Sfondulu di a selezzione di u titulu";
 "TITLESELECTION_BACKGROUND_HINT" = "Picchichjà per caccià a vista.";
+
