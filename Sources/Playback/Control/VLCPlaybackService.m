@@ -518,6 +518,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 - (void)setRepeatMode:(VLCRepeatMode)repeatMode
 {
     _listPlayer.repeatMode = repeatMode;
+
+    if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
+        [self.delegate playModeUpdated];
+    }
 }
 
 - (BOOL)currentMediaHasChapters
@@ -603,6 +607,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         _listPlayer.repeatMode = VLCDoNotRepeat;
     } else {
         _listPlayer.repeatMode += 1;
+    }
+
+    if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
+        [self.delegate playModeUpdated];
     }
 }
 
@@ -845,6 +853,10 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     } else {
         _currentIndex = [_shuffledOrder[_currentIndex] integerValue];
     }
+
+    if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
+        [self.delegate playModeUpdated];
+    }
 }
 
 - (void)shuffleMediaList {
@@ -877,8 +889,8 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     // Change the repeat mode if next button is pressed
     if (self.repeatMode == VLCRepeatCurrentItem && isButtonPressed) {
         [self setRepeatMode:VLCRepeatAllItems];
-        if ([self.delegate respondsToSelector:@selector(updateRepeatModeButton)]) {
-            [self.delegate updateRepeatModeButton];
+        if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
+            [self.delegate playModeUpdated];
         }
     } else if (self.repeatMode == VLCRepeatCurrentItem && !isButtonPressed) {
         return _currentIndex;
@@ -948,8 +960,8 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
             // Change the repeat mode if next button is pressed
             if (self.repeatMode == VLCRepeatCurrentItem) {
                 [self setRepeatMode:VLCRepeatAllItems];
-                if ([self.delegate respondsToSelector:@selector(updateRepeatModeButton)]) {
-                    [self.delegate updateRepeatModeButton];
+                if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
+                    [self.delegate playModeUpdated];
                 }
             }
 

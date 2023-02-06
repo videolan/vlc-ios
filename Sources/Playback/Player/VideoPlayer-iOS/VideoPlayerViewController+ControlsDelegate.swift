@@ -43,11 +43,10 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     
     func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.toggleRepeatMode()
-        self.setupRepeatModeButton()
+        self.playModeUpdated()
         if playerController.isRememberStateEnabled {
             UserDefaults.standard.setValue(playbackService.repeatMode.rawValue, forKey: kVLCPlayerIsRepeatEnabled)
         }
-
     }
 
     func videoPlayerControlsDelegateDidTapDVD(_ videoPlayerControls: VideoPlayerControls) {

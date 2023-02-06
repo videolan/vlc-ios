@@ -591,28 +591,12 @@ class VideoPlayerViewController: UIViewController {
         // The video output view is not initialized when the play as audio option was chosen
         playbackService.videoOutputView = playbackService.playAsAudio ? nil : videoOutputView
 
-        setupRepeatModeButton()
+        playModeUpdated()
 
         // Media is loaded in the media player, checking the projection type and configuring accordingly.
         setupForMediaProjection()
 
         moreOptionsActionSheet.resetOptionsIfNecessary()
-    }
-
-    @objc func setupRepeatModeButton() {
-        switch playbackService.repeatMode {
-        case .doNotRepeat:
-            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
-            videoPlayerControls.repeatButton.tintColor = .white
-        case .repeatCurrentItem:
-            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeatOne"), for: .normal)
-            videoPlayerControls.repeatButton.tintColor = .orange
-        case .repeatAllItems:
-            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
-            videoPlayerControls.repeatButton.tintColor = .orange
-        @unknown default:
-            assertionFailure("videoPlayerControlsDelegateRepeat: unhandled case.")
-        }
     }
 
 //    override func viewDidLayoutSubviews() {
@@ -1175,8 +1159,7 @@ private extension VideoPlayerViewController {
         let repeatMode = playerController.isRepeatEnabled
         playbackService.isShuffleMode = isShuffleEnabled
         playbackService.repeatMode = repeatMode
-        videoPlayerControls.shuffleButton.tintColor = isShuffleEnabled ? PresentationTheme.current.colors.orangeUI : .white
-        setupRepeatModeButton()
+        playModeUpdated()
     }
 
     private func setupViews() {
@@ -1601,12 +1584,28 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         }
     }
 
-    func updateRepeatModeButton() {
-        setupRepeatModeButton()
+    func playModeUpdated() {
+        let orangeColor = PresentationTheme.current.colors.orangeUI
+
+        switch playbackService.repeatMode {
+        case .doNotRepeat:
+            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
+            videoPlayerControls.repeatButton.tintColor = .white
+        case .repeatCurrentItem:
+            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeatOne"), for: .normal)
+            videoPlayerControls.repeatButton.tintColor = orangeColor
+        case .repeatAllItems:
+            videoPlayerControls.repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
+            videoPlayerControls.repeatButton.tintColor = orangeColor
+        @unknown default:
+            assertionFailure("videoPlayerControlsDelegateRepeat: unhandled case.")
+        }
 
         if playerController.isRememberStateEnabled {
             UserDefaults.standard.setValue(playbackService.repeatMode.rawValue, forKey: kVLCPlayerIsRepeatEnabled)
         }
+
+        videoPlayerControls.shuffleButton.tintColor = playbackService.isShuffleMode ? orangeColor : .white
     }
 }
 
