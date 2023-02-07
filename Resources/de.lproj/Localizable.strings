@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Kapitel";
 "TITLE" = "Titel";
 "CHAPTER" = "Kapitel";
-"MINIMIZE_PLAYBACK_VIEW" = "Wiedergabe minimieren";
 "TRACK_SELECTION" = "Spurauswahl";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Untertitel";
@@ -22,7 +21,7 @@
 "ONE_SPU_TRACK" = "Eine Untertitelspur";
 "TRACKS" = "%i Titel";
 "TRACK" = "%i Titel";
-"TRACKS_DURATION" = "%u Titel, Laufzeit: %@";
+"TRACKS_DURATION" = "%uTitel, Dauer: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV verbunden";
 "PLAYING_EXTERNALLY_DESC" = "Dieses Video wird auf dem TV wiedergegeben.";
@@ -59,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Download";
 "BUTTON_DELETE" = "Löschen";
 "BUTTON_OK" = "OK";
-"BUTTON_CONTRIBUTE" = "Mitwirken";
+"BUTTON_CONTACT" = "Kontaktieren Sie uns";
 "BUTTON_CONNECT" = "Verbinden";
 "BUTTON_RENAME" = "Umbenennen";
 "BUTTON_LEARN_MORE" = "Erfahren Sie mehr";
@@ -86,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Möchten Sie von dieser Adresse herunterladen oder diese wiedergeben?";
 "SHARED_VLC_IOS_LIBRARY" = "Geteilte VLC für iOS Mediathek";
 "SMB_CIFS_FILE_SERVERS" = "Dateiserver (SMB)";
+
+"MANAGED_SERVERS" = "Verwaltet";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -155,6 +156,7 @@
 "ONE_FILE" = "1 Datei";
 "NO_FILES" = "Keine unterstützten Dateien";
 "DOWNLOADING" = "Wird heruntergeladen …";
+"DOWNLOADING_MEDIA" = "Wird heruntergeladen: %@";
 "REMAINING_TIME" = "Verbleibende Zeit: %@";
 "BIOMETRIC_UNLOCK" = "Mediathek entsperren\nAbbrechen um Passcode einzugeben";
 
@@ -193,6 +195,7 @@
 "NEXT_BUTTON" = "Nächster";
 "PREV_BUTTON" = "Vorheriger";
 "PLAY_ALL_BUTTON" = "Alle wiedergeben";
+"PLAY_ALL_HINT" = "Alle Medien in der Sammlung abspielen";
 
 "RESET_VIDEO_FILTERS" = "Möchten Sie die Videofilter zurücksetzen?";
 "RESET_PLAYBACK_SPEED" = "Möchten Sie die Wiedergabegeschwindigkeit zurücksetzen?";
@@ -229,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Kein Stream wurde kürzlich wiedergegeben";
 
 "WEBINTF_TITLE" = "WLAN-Freigabe";
+"WEBINTF_ETHERNET" = "Über Ethernet-Netzwerk teilen";
 "WEBINTF_DROPFILES" = "Dateien hineinziehen";
 "WEBINTF_DROPFILES_LONG" = "Zum Hinzufügen zu Ihrem %@ bitte die Dateien in das Fenster fallen lassen.<br>Oder zur Nutzung des Dateiauswahldialogs auf den Knopf »+« klicken.";
 "WEBINTF_DOWNLOADFILES" = "Dateien herunterladen";
@@ -242,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Bitte den in VLC iOS konfigurierten Passcode eingeben:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Falscher Passcode. <br>Verbleibende Versuche:";
 "WEBINTF_AUTH_BANNED" = "Sie haben zu viele falsche Passcodes eingegeben.<br>Bitte VLC iOS neustarten und nochmals versuchen.";
-
-
 
 "DURATION" = "Laufzeit";
 "TITLE" = "Titel";
@@ -305,15 +307,11 @@
 "DELETE_TITLE" = "Auswahl löschen";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Diese Datei";
-"NOT_SUPPORTED_FILETYPE" = "%@ ist kein unterstützter Dateityp von VLC";
-"FILE_EXISTS" = "%@ existiert bereits";
 
 "PROTOCOL_NOT_SELECTED" = "Protokoll nicht ausgewählt";
 "Settings" = "Einstellungen";
 
 "ERROR" = "Fehler";
-"OK" = "OK";
 "SORT" = "Sortieren";
 "SORT_BY" = "Sortieren nach";
 "SEARCH" = "Suchen";
@@ -334,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menü";
+"BUTTON_MENU_HINT" = "Wählen, sortieren oder ordnen Sie die Medien in dieser Darstellung neu.";
+
 "BUTTON_EDIT" = "Bearbeiten";
 "BUTTON_EDIT_HINT" = "Bearbeitungsmodus";
 
@@ -345,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Zu Liste hinzufügen";
 "ADD_TO_PLAYLIST_HINT" = "Menü zum Wiedergabeliste hinzufügen öffnen";
+
+"PLAY_AS_AUDIO" = "Als Audio wiedergeben";
+"PLAY_AS_AUDIO_HINT" = "Die Videodatei als Audiodatei wiedergeben.";
 
 "PLAYLIST_PLACEHOLDER" = "Titel der Wiedergabeliste";
 "PLAYLIST_DESCRIPTION" = "Wählen Sie einen Titel für die neue Wiedergabeliste";
@@ -361,6 +365,8 @@
 "RENAME_HINT" = "Ausgewählte Dateien umbenennen";
 "DELETE_HINT" = "Ausgewählte Dateien löschen";
 
+"ADDITIONAL_OPTIONS" = "Zusätzliche Optionen";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sortieren";
@@ -370,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Aufsteigende oder Absteigende Sortierung";
 "DESCENDING_SWITCH_HINT" = "Inhalt aufsteigend oder absteigend sortieren";
 "GRID_LAYOUT" = "Gitter";
+"GRID_LAYOUT_HINT" = "Elemente als Raster anzeigen";
 "LIST_LAYOUT" = "Liste";
 "HIDE_FEAT_ARTISTS" = "Vorgestellte Künstler ausblenden";
+"HIDE_TRACK_NUMBERS" = "Titelnummern ausblenden";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -450,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalizer";
 "MORE_OPTIONS_HEADER_TITLE" = "Videoeinstellungen";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Audioeinstellungen";
 "BOOKMARKS_TITLE" = "Lesezeichen";
 "ADD_BOOKMARKS_TITLE" = "Lesezeichen hinzufügen";
 "BOOKMARK_DEFAULT_NAME" = "Lesezeichen bei";
 "BOOKMARK_RENAME_TITLE" = "Lesezeichen umbenennen";
 "BOOKMARK_DELETE_TITLE" = "Lesezeichen löschen";
 "BOOKMARK_DELETE_MESSAGE" = "Löschung dieses Lesezeichens bestätigen";
+"INCREASE_BUTTON" = "Erhöhen-Schaltfläche";
+"INCREASE_PLAYBACK_SPEED" = "Wiedergabegeschwindigkeit erhöhen";
+"INCREASE_AUDIO_DELAY" = "Audioverzögerung erhöhen";
+"INCREASE_SUBTITLES_DELAY" = "Untertitel-Verzögerung erhöhen";
+"DECREASE_BUTTON" = "Reduzier-Schaltfläche";
+"DECREASE_PLAYBACK_SPEED" = "Wiedergabegeschwindigkeit verringern";
+"DECREASE_AUDIO_DELAY" = "Audioverzögerung verringern";
+"DECREASE_SUBTITLES_DELAY" = "Untertitel-Verzögerung verringern";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Medienbibliothek erneut durchsuchen";
 "FORCE_RESCAN_MESSAGE" = "Möchten Sie VLC veranlassen, Ihre Medienbibliothek erneut zu durchsuchen?\nDies könnte einige Zeit dauern.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback zu VLC auf iOS und iPad";
+"FEEDBACK_EMAIL_BODY" = "Bitte geben Sie Ihr Feedback oberhalb dieser Zeile ein.\n\nAnonyme Informationen:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "E-Mail-Konto nicht konfiguriert";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Kontaktieren Sie uns über %@ ein anderes Gerät.";
 
 // MARK: - Local Network
 
@@ -550,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Hintergrund der Titelauswahl";
 "TITLESELECTION_BACKGROUND_HINT" = "Tippen, um die Ansicht zu entfernen.";
+
