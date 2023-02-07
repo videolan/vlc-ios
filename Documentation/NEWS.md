@@ -1,20 +1,27 @@
 # Changelog
 
 ## iOS [3.4.0]
+· Add new audio playback UI
+· Add support for CarPlay
 · Add views for artists, albums and episodes to the media library
 · Add more options to sort the media library
 · Add support for bookmarks
+· Add a way to contact us through the About dialog
 · Improve shuffle algorithm for playback
 · Indicate currently playing media in library
 · Major update to internal event handling
 · Performance improvements
-· Add Handoff support for WiFi Sharing
+· Add Handoff and Ethernet support for WiFi Sharing
 · Add option to configure seek duration
 · Rewritten OneDrive support
 · Updated UPnP support
+· Add information screens for complex settings
+· Remove the 'variable jump duration' feature
+· Show media dimensions in the library screen
+· Videos can be played as audio only now
 · Major adaptive streaming update, notably for multiple timelies and webvtt
 · Add support for DVBSub inside MKV
-· Fix some Flac files that could not be played
+· Fix some flac files that could not be played
 · Improve seeking in Ogg and fragmented MP4 files
 · Fix styling issues with subs tx3g (mp4) tracks
 · Fix playback of live AV1 streams
@@ -25,12 +32,12 @@
 · Networking UI improvements
 · Major update to internal event handling
 · Performance improvements
-· Add Handoff support for WiFi Sharing
+· Add Handoff and Ethernet support for WiFi Sharing
 · Rewritten OneDrive support
 · Updated UPnP support
 · Major adaptive streaming update, notably for multiple timelies and webvtt
 · Add support for DVBSub inside MKV
-· Fix some Flac files that could not be played
+· Fix some flac files that could not be played
 · Improve seeking in Ogg and fragmented MP4 files
 · Fix styling issues with subs tx3g (mp4) tracks
 · Fix playback of live AV1 streams
