@@ -498,7 +498,7 @@
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Ekleniyor...";
 
 // MARK: - tip jar
-"GIVE_TIP" = "İpucu ver";
+"GIVE_TIP" = "Bağış";
 "MAKE_DONATION_TITLE" = "Bağış yapın";
 "DONATION_DESCRIPTION" = "Desteğiniz sayesinde: iOS için VLC uygulaması geliştirilecek ve VideoLAN kuruluşu desteklenecek";
 "CANNOT_MAKE_PAYMENTS" = "Bu aygıt üzerinden ödeme yapmanıza izin verilmiyor.";
