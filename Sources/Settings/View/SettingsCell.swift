@@ -253,6 +253,12 @@ class SettingsCell: UITableViewCell {
         let alert = UIAlertController(title: title, message: settingSpecifier?.infobuttonvalue, preferredStyle: .actionSheet)
         let donetitle = NSLocalizedString("BUTTON_DONE", comment: "")
         alert.addAction(UIAlertAction(title: donetitle, style: .cancel, handler: nil))
+
+        // Set up the popoverPresentationController to avoid crash issues on iPad.
+        alert.popoverPresentationController?.sourceView = self
+        alert.popoverPresentationController?.permittedArrowDirections = .any
+        alert.popoverPresentationController?.sourceRect = self.bounds
+
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 
