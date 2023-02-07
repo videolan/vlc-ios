@@ -319,6 +319,8 @@
 			<string>SETTINGS_VIDEO_TITLE</string>
 		</dict>
 		<dict>
+			<key>infobuttonvalue</key>
+		<string>SETTINGS_SKIP_LOOP_FILTER_INFO</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -341,6 +343,8 @@
 			</array>
 		</dict>
 		<dict>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_DEINTERLACE_INFO</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -363,6 +367,8 @@
 			</array>
 		</dict>
 		<dict>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_HWDECODING_INFO</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -787,6 +793,8 @@
 			<string>SETTINGS_NETWORK</string>
 		</dict>
 		<dict>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_NETWORK_CACHING_INFO</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>

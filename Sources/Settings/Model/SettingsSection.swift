@@ -80,6 +80,8 @@ enum MainOptions: Int, CaseIterable, SectionType {
         }
     }
 
+    var containsInfobutton: Bool { return false }
+
     var subtitle: String? {
         switch self {
         case .privacy:
@@ -149,6 +151,8 @@ enum GenericOptions: Int, CaseIterable, SectionType {
             return true
         }
     }
+
+    var containsInfobutton: Bool { return false }
 
     var subtitle: String? {
         switch self {
@@ -230,6 +234,8 @@ enum PrivacyOptions: Int, CaseIterable, SectionType {
         }
     }
 
+    var containsInfobutton: Bool { return false }
+
     var subtitle: String? {
         switch self {
         case .passcodeLock:
@@ -274,6 +280,8 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
     case swipeRightLeftToSeek
     case pinchToClose
     case setCustomSeek
+
+    var containsInfobutton: Bool { return false }
 
     var containsSwitch: Bool {
         switch self {
@@ -346,6 +354,8 @@ enum VideoOptions: Int, CaseIterable, SectionType {
     }
 
     var containsSwitch: Bool { return false }
+
+    var containsInfobutton: Bool { return true }
 
     var subtitle: String? {
         switch self {
@@ -436,6 +446,8 @@ enum SubtitlesOptions: Int, CaseIterable, SectionType {
             return kVLCSettingTextEncoding
         }
     }
+
+    var containsInfobutton: Bool { return false }
 }
 
 enum CastingOptions: Int, CaseIterable, SectionType {
@@ -477,6 +489,8 @@ enum CastingOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_MEDIUM"
         }
     }
+
+    var containsInfobutton: Bool { return false }
 }
 
 enum AudioOptions: Int, CaseIterable, SectionType {
@@ -524,6 +538,8 @@ enum AudioOptions: Int, CaseIterable, SectionType {
             return kVLCSettingContinueAudioInBackgroundKey
         }
     }
+
+    var containsInfobutton: Bool { return false }
 }
 
 enum MediaLibraryOptions: Int, CaseIterable, SectionType {
@@ -578,6 +594,8 @@ enum MediaLibraryOptions: Int, CaseIterable, SectionType {
             return kVLCSettingBackupMediaLibrary
         }
     }
+
+    var containsInfobutton: Bool { return false }
 }
 
 enum NetworkOptions: Int, CaseIterable, SectionType {
@@ -637,6 +655,19 @@ enum NetworkOptions: Int, CaseIterable, SectionType {
             return kVLCSettingNetworkRTSPTCP
         }
     }
+
+    var containsInfobutton: Bool {
+        switch self {
+        case .networkCachingLevel:
+            return true
+        case .ipv6SupportForWiFiSharing:
+            return false
+        case .forceSMBv1:
+            return false
+        case .rtspctp:
+            return false
+        }
+    }
 }
 
 enum Lab: Int, CaseIterable, SectionType {
@@ -671,4 +702,6 @@ enum Lab: Int, CaseIterable, SectionType {
             return nil
         }
     }
+
+    var containsInfobutton: Bool { return false }
 }

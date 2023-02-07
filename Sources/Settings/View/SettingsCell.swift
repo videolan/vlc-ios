@@ -15,6 +15,7 @@ protocol SectionType: CustomStringConvertible {
     var containsSwitch: Bool { get }
     var subtitle: String? { get }
     var preferenceKey: String? { get }
+    var containsInfobutton: Bool { get }
 }
 
 protocol BlackThemeActivateDelegate: AnyObject {
@@ -57,6 +58,17 @@ class SettingsCell: UITableViewCell {
                                 action: #selector(handleSwitchAction),
                                 for: .valueChanged)
         return switchControl
+    }()
+
+    lazy var infoButton: UIButton = {
+        var infoButton = UIButton()
+        if blackThemeSwitchDelegate?.blackThemeSwitchOn(state: true) != nil {
+             infoButton = UIButton(type: .infoDark)
+        } else {
+             infoButton = UIButton(type: .infoLight)
+        }
+        infoButton.addTarget(self, action: #selector(infoTapped), for: .touchDown)
+        return infoButton
     }()
 
     let activityIndicator: UIActivityIndicatorView = {
@@ -108,7 +120,8 @@ class SettingsCell: UITableViewCell {
                 subtitleLabel.text = sectionType.subtitle
             }
             switchControl.isHidden = !sectionType.containsSwitch
-            if switchControl.isHidden {
+            infoButton.isHidden = !sectionType.containsInfobutton
+            if switchControl.isHidden && infoButton.isHidden {
                 accessoryView = .none
                 accessoryType = .disclosureIndicator
                 selectionStyle = .default
@@ -122,9 +135,22 @@ class SettingsCell: UITableViewCell {
                     accessoryView = .none
                     selectionStyle = .none
                 } else {
-                    activityIndicator.isHidden = true
-                    accessoryView = switchControl
-                    selectionStyle = .none
+                    if switchControl.isHidden == false {
+                        activityIndicator.isHidden = true
+                        accessoryView = switchControl
+                        selectionStyle = .none
+                    } else {
+                        addSubview(infoButton)
+                        let guide: LayoutAnchorContainer = self
+                        infoButton.translatesAutoresizingMaskIntoConstraints = false
+                        NSLayoutConstraint.activate([
+                            infoButton.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
+                            infoButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -40),
+                        ])
+                        accessoryView = .none
+                        accessoryType = .disclosureIndicator
+                        selectionStyle = .none
+                    }
                 }
             }
             updateSwitch()
@@ -218,6 +244,16 @@ class SettingsCell: UITableViewCell {
             switchControl.backgroundColor = backgroundColor
             return
         }
+    }
+
+    @objc func infoTapped(sender: UIButton) {
+        var settingSpecifier: SettingSpecifier?
+        settingSpecifier = getSettingsSpecifier(for: (sectionType?.preferenceKey)!)
+        var title = settingsBundle.localizedString(forKey: settingSpecifier!.title, value: settingSpecifier?.title, table: "Root")
+        let alert = UIAlertController(title: title, message: settingSpecifier?.infobuttonvalue, preferredStyle: .actionSheet)
+        let donetitle = NSLocalizedString("BUTTON_DONE", comment: "")
+        alert.addAction(UIAlertAction(title: donetitle, style: .cancel, handler: nil))
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 
     @objc private func updateValues() {

@@ -235,6 +235,8 @@
 		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
+			<key>infobuttonvalue</key>
+		<string>SETTINGS_SKIP_LOOP_FILTER_INFO</string>
 			<key>Title</key>
 			<string>SETTINGS_SKIP_LOOP_FILTER</string>
 			<key>Key</key>
@@ -259,6 +261,8 @@
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_DEINTERLACE</string>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_DEINTERLACE_INFO</string>
 			<key>Key</key>
 			<string>deinterlace</string>
 			<key>DefaultValue</key>
@@ -281,6 +285,8 @@
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_HWDECODING</string>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_HWDECODING_INFO</string>
 			<key>Key</key>
 			<string>codec</string>
 			<key>DefaultValue</key>
@@ -725,6 +731,8 @@
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_NETWORK_CACHING_TITLE</string>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_NETWORK_CACHING_INFO</string>
 			<key>Key</key>
 			<string>network-caching</string>
 			<key>DefaultValue</key>

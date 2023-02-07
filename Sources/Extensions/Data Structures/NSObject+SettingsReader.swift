@@ -30,6 +30,7 @@ extension NSObject {
             for prefSpecification in preferences {
                 if prefSpecification["Key"] as? String == preferenceKey {
                     let title = prefSpecification["Title"] as? String ?? ""
+                    let infobuttonvalue = prefSpecification["infobuttonvalue"] as? String ?? ""
                     var specifier = [Specifier]()
                     if let titles = prefSpecification["Titles"] as? [String], let values = prefSpecification["Values"] as? NSArray {
                         for (itemTitle, value) in zip(titles, values) {
@@ -37,7 +38,7 @@ extension NSObject {
                             specifier.append(newSpecifier)
                         }
                     }
-                    let newSpecifierObject = SettingSpecifier(title: title, preferenceKey: preferenceKey, specifier: specifier)
+                    let newSpecifierObject = SettingSpecifier(title: title, preferenceKey: preferenceKey, infobuttonvalue: infobuttonvalue,  specifier: specifier)
                     settingsSpecifierDict = newSpecifierObject
                 }
                 else {
