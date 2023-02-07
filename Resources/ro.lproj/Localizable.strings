@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Capitole";
 "TITLE" = "Titlu";
 "CHAPTER" = "Capitol";
-"MINIMIZE_PLAYBACK_VIEW" = "Minimizează fereastra de redare";
 "TRACK_SELECTION" = "Selecție piese";
 "AUDIO" = "Audio";
 "SUBTITLES" = "Subtitrări";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "O pistă pentru subtitrare";
 "TRACKS" = "%i piste";
 "TRACK" = "%i pista";
+"TRACKS_DURATION" = "%u piste, durată: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV conectat";
 "PLAYING_EXTERNALLY_DESC" = "Acest fişier video rulează pe TV";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Descărcare";
 "BUTTON_DELETE" = "Ştergere";
 "BUTTON_OK" = "Ok";
-"BUTTON_CONTRIBUTE" = "Contribuiţi";
+"BUTTON_CONTACT" = "Contactează-ne";
 "BUTTON_CONNECT" = "Conectare";
 "BUTTON_RENAME" = "Redenumește";
 "BUTTON_LEARN_MORE" = "Află mai multe";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Dorești să descarci sau să redai acest URL?";
 "SHARED_VLC_IOS_LIBRARY" = "VLC comun pentru biblioteca iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servere de fișiere (SMB)";
+
+"MANAGED_SERVERS" = "Gestionat";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fişier";
 "NO_FILES" = "Nici-un fişier suportat";
 "DOWNLOADING" = "Se descarcă ...";
+"DOWNLOADING_MEDIA" = "Se descarcă: %@";
 "REMAINING_TIME" = "Timp rămas: %@";
 "BIOMETRIC_UNLOCK" = "Deblocare bibliotecă Media \nAnulare pentru a introduce parola";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Înainte";
 "PREV_BUTTON" = "Înapoi";
 "PLAY_ALL_BUTTON" = "Redați toate";
+"PLAY_ALL_HINT" = "Redă toate fișierele media din colecție";
 
 "RESET_VIDEO_FILTERS" = "Doriți să resetați filtrele video?";
 "RESET_PLAYBACK_SPEED" = "Doriți să resetați viteza de redare?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Nicio piesă nu a fost redată recent";
 
 "WEBINTF_TITLE" = "Partajarea prin Wi-Fi";
+"WEBINTF_ETHERNET" = "Partajare prin Ethernet";
 "WEBINTF_DROPFILES" = "Trageți fișierele";
 "WEBINTF_DROPFILES_LONG" = "Trageți fișierele în fereastra pentru a le adăuga la %@ dvs.Sau apăsați pe butonul \"+\" pentru a utiliza fereastra de selectare a fișierelor.";
 "WEBINTF_DOWNLOADFILES" = "Descarcă fișierele";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Introdu parola setată în VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Cod de acces greșit.<br>Încercări rămase: ";
 "WEBINTF_AUTH_BANNED" = "Ați introdus prea multe coduri de acces greșite.<br>Vă rugăm să reporniți VLC iOS și să încercați din nou.";
-
-
 
 "DURATION" = "Durată";
 "TITLE" = "Titlu";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Ștergeți selecția";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Acest fișier";
-"NOT_SUPPORTED_FILETYPE" = "Fișierul %@ nu poate fi redat cu VLC";
-"FILE_EXISTS" = "%@ există deja";
 
 "PROTOCOL_NOT_SELECTED" = "Protocol neselectat";
 "Settings" = "Configurări";
 
 "ERROR" = "Eroare";
-"OK" = "Ok";
 "SORT" = "Sortare";
 "SORT_BY" = " Sortare după";
 "SEARCH" = "Căutare";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Meniu";
+"BUTTON_MENU_HINT" = "Selectează, reodonează și sortează toate elementele media prezente în această vizualizare";
+
 "BUTTON_EDIT" = "Editați";
 "BUTTON_EDIT_HINT" = "Modul de editare";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Adăugați la lista de redare";
 "ADD_TO_PLAYLIST_HINT" = "Deschideți meniul de adăugare la lista de redare";
+
+"PLAY_AS_AUDIO" = "Redare ca audio";
+"PLAY_AS_AUDIO_HINT" = "Redă fișierul video ca un fișier audio";
 
 "PLAYLIST_PLACEHOLDER" = "Titlul listei de redare";
 "PLAYLIST_DESCRIPTION" = "Alegeți un titlu pentru noua listă de redare";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Redenumiți fișierele selectate";
 "DELETE_HINT" = "Ștergeți fișierele selectate";
 
+"ADDITIONAL_OPTIONS" = "Opțiuni suplimentare";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Sortare";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Ordine crescătoare sau descrescătoare";
 "DESCENDING_SWITCH_HINT" = "Sortarea contextului în ordine crescătoare sau descrescătoare";
 "GRID_LAYOUT" = "Grilă";
+"GRID_LAYOUT_HINT" = "Afișează elementele ca o grilă";
 "LIST_LAYOUT" = "Listă";
 "HIDE_FEAT_ARTISTS" = "Ascunde-i pe ceilalți artiști";
+"HIDE_TRACK_NUMBERS" = "Ascunde numerele pistei";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Egalizator";
 "MORE_OPTIONS_HEADER_TITLE" = "Opțiuni video";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Opțiuni audio";
 "BOOKMARKS_TITLE" = "Semne de carte";
 "ADD_BOOKMARKS_TITLE" = "Adaugă semne de carte";
 "BOOKMARK_DEFAULT_NAME" = "Pune semn de carte la";
 "BOOKMARK_RENAME_TITLE" = "Redenumește semnul de carte";
 "BOOKMARK_DELETE_TITLE" = "Șterge semnul de carte";
 "BOOKMARK_DELETE_MESSAGE" = "Confirmă ștergerea semnului de carte";
+"INCREASE_BUTTON" = "Buton de creștere";
+"INCREASE_PLAYBACK_SPEED" = "Crește viteza listei de redare";
+"INCREASE_AUDIO_DELAY" = "Crește viteza audio";
+"INCREASE_SUBTITLES_DELAY" = "Crește viteza subtitrărilor";
+"DECREASE_BUTTON" = "Buton de scădere";
+"DECREASE_PLAYBACK_SPEED" = "Scade viteza listei de redare";
+"DECREASE_AUDIO_DELAY" = "Scade întârzierea audio";
+"DECREASE_SUBTITLES_DELAY" = "Scade întârzierea subtitrărilor";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Forțați rescanarea bibliotecii media";
 "FORCE_RESCAN_MESSAGE" = "Doriți să forțați VLC să vă scaneze din nou biblioteca media?\nAr putea dura ceva timp.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback despre VLC pe iOS și iPad";
+"FEEDBACK_EMAIL_BODY" = "Adaugă-ți feedback-ul deasupra acestei linii.\n\nInformații anonime:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "Contul de e-mail nu este configurat";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Contactează-ne prin %@ de la un alt dispozitiv.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Fundal pentru selecția titlului";
 "TITLESELECTION_BACKGROUND_HINT" = "Atinge pentru a elimina vizualizarea.";
+
