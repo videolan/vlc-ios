@@ -12,6 +12,7 @@
  *****************************************************************************/
 
 #import "VLCRemoteControlService.h"
+#import "VLCPlaybackService.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 @implementation VLCRemoteControlService
@@ -40,7 +41,18 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
     return [commands copy];
 }
 
-- (void)subscribeToRemoteCommands
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self selector:@selector(playbackStarted:) name:VLCPlaybackServicePlaybackDidStart object:nil];
+        [notificationCenter addObserver:self selector:@selector(playbackStopped:) name:VLCPlaybackServicePlaybackDidStop object:nil];
+    }
+    return self;
+}
+
+- (void)playbackStarted:(NSNotification *)aNotification
 {
     MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
 
@@ -48,10 +60,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
      * or next/previousTrack buttons but prefers skip buttons,
      * we only enable skip buttons if we have no medialist
      */
-    BOOL enableSkip = NO;
-    if (_remoteControlServiceDelegate) {
-        enableSkip = [_remoteControlServiceDelegate remoteControlServiceNumberOfMediaItemsinList:self] <= 1;
-    }
+    BOOL enableSkip = [VLCPlaybackService sharedInstance].isNextMediaAvailable;
     commandCenter.skipForwardCommand.enabled = enableSkip;
     commandCenter.skipBackwardCommand.enabled = enableSkip;
 
@@ -80,7 +89,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
     }
 }
 
-- (void)unsubscribeFromRemoteCommands
+- (void)playbackStopped:(NSNotification *)aNotification
 {
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nil;
 
@@ -91,68 +100,80 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
 
 - (MPRemoteCommandHandlerStatus )remoteCommandEvent:(MPRemoteCommandEvent *)event
 {
-    if (!_remoteControlServiceDelegate) {
-        NSAssert(!_remoteControlServiceDelegate, @"no delegate set");
-        return MPRemoteCommandHandlerStatusCommandFailed;
-    }
-
     MPRemoteCommandCenter *cc = [MPRemoteCommandCenter sharedCommandCenter];
+    VLCPlaybackService *vps = [VLCPlaybackService sharedInstance];
 
     if (event.command == cc.pauseCommand) {
-        [_remoteControlServiceDelegate remoteControlServiceHitPause:self];
+        [vps pause];
         return MPRemoteCommandHandlerStatusSuccess;
     }
     if (event.command == cc.playCommand) {
-        [_remoteControlServiceDelegate remoteControlServiceHitPlay:self];
+        [vps play];
         return MPRemoteCommandHandlerStatusSuccess;
     }
     if (event.command == cc.stopCommand) {
-        [_remoteControlServiceDelegate remoteControlServiceHitStop:self];
+        [vps stopPlayback];
         return MPRemoteCommandHandlerStatusSuccess;
     }
     if (event.command == cc.togglePlayPauseCommand) {
-        [_remoteControlServiceDelegate remoteControlServiceTogglePlayPause:self];
+        [vps playPause];
         return MPRemoteCommandHandlerStatusSuccess;
     }
     if (event.command == cc.nextTrackCommand) {
-        BOOL success = [_remoteControlServiceDelegate remoteControlServiceHitPlayNextIfPossible:self];
+        BOOL success = [vps next];
         return success ? MPRemoteCommandHandlerStatusSuccess : MPRemoteCommandHandlerStatusNoSuchContent;
     }
     if (event.command == cc.previousTrackCommand) {
-        BOOL success = [_remoteControlServiceDelegate remoteControlServiceHitPlayPreviousIfPossible:self];
+        BOOL success = [vps previous];
         return success ? MPRemoteCommandHandlerStatusSuccess : MPRemoteCommandHandlerStatusNoSuchContent;
     }
     if (event.command == cc.skipForwardCommand) {
         MPSkipIntervalCommandEvent *skipEvent = (MPSkipIntervalCommandEvent *)event;
-        [_remoteControlServiceDelegate remoteControlService:self jumpForwardInSeconds:skipEvent.interval];
+        [vps jumpForward:skipEvent.interval];
         return MPRemoteCommandHandlerStatusSuccess;
     }
     if (event.command == cc.skipBackwardCommand) {
         MPSkipIntervalCommandEvent *skipEvent = (MPSkipIntervalCommandEvent *)event;
-        [_remoteControlServiceDelegate remoteControlService:self jumpBackwardInSeconds:skipEvent.interval];
+        [vps jumpBackward:skipEvent.interval];
         return MPRemoteCommandHandlerStatusSuccess;
     }
     if (event.command == cc.changePlaybackRateCommand) {
         MPChangePlaybackRateCommandEvent *rateEvent = (MPChangePlaybackRateCommandEvent *)event;
-        [_remoteControlServiceDelegate remoteControlService:self setPlaybackRate:rateEvent.playbackRate];
+        [vps setPlaybackRate:rateEvent.playbackRate];
         return MPRemoteCommandHandlerStatusSuccess;
     }
     if (@available(iOS 9.1, *)) {
         if (event.command == cc.changePlaybackPositionCommand) {
             MPChangePlaybackPositionCommandEvent *positionEvent = (MPChangePlaybackPositionCommandEvent *)event;
-            [_remoteControlServiceDelegate remoteControlService:self setCurrentPlaybackTime:positionEvent.positionTime];
-            return MPRemoteCommandHandlerStatusSuccess;
+            NSInteger duration = vps.mediaDuration / 1000;
+            if (duration > 0) {
+                vps.playbackPosition = positionEvent.positionTime / duration;
+                return MPRemoteCommandHandlerStatusSuccess;
+            }
+            return MPRemoteCommandHandlerStatusCommandFailed;
         }
     }
     if (@available(iOS 10, *)) {
         if (event.command == cc.changeShuffleModeCommand) {
             MPChangeShuffleModeCommandEvent *shuffleEvent = (MPChangeShuffleModeCommandEvent *)event;
-            [_remoteControlServiceDelegate remoteControlService:self setShuffleType:shuffleEvent.shuffleType];
+            vps.shuffleMode = shuffleEvent.shuffleType != MPShuffleTypeOff;
             return MPRemoteCommandHandlerStatusSuccess;
         }
         if (event.command == cc.changeRepeatModeCommand) {
             MPChangeRepeatModeCommandEvent *repeatEvent = (MPChangeRepeatModeCommandEvent *)event;
-            [_remoteControlServiceDelegate remoteControlService:self setRepeatType:repeatEvent.repeatType];
+            switch (repeatEvent.repeatType) {
+                case MPRepeatTypeOne:
+                    vps.repeatMode = VLCRepeatCurrentItem;
+                    break;
+
+                case MPRepeatTypeAll:
+                    vps.repeatMode = VLCRepeatAllItems;
+                    break;
+
+                default:
+                    vps.repeatMode = VLCDoNotRepeat;
+                    break;
+            }
             return MPRemoteCommandHandlerStatusSuccess;
         }
     }

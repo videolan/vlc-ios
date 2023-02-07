@@ -12,6 +12,7 @@
 
 #import "VLCAppCoordinator.h"
 #import <CoreSpotlight/CoreSpotlight.h>
+#import "VLCRemoteControlService.h"
 #import "VLC-Swift.h"
 
 @interface VLCAppCoordinator()
@@ -22,6 +23,7 @@
     UITabBarController *_tabBarController;
     TabBarCoordinator *_tabCoordinator;
     VLCPlayerDisplayController *_playerDisplayController;
+    VLCRemoteControlService *_remoteControlService;
 }
 
 @end
@@ -51,6 +53,8 @@
         _httpUploaderController = [VLCHTTPUploaderController sharedInstance];
         [_httpUploaderController cleanCache];
         _httpUploaderController.medialibrary = _mediaLibraryService;
+
+        _remoteControlService = [[VLCRemoteControlService alloc] init];
     }
     return self;
 }

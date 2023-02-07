@@ -21,7 +21,6 @@
 #import "VLCPlaybackService.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "VLCRemoteControlService.h"
 #import "VLCMetadata.h"
 #import "VLCPlayerDisplayController.h"
 #import <stdatomic.h>
@@ -37,12 +36,11 @@ NSString *const VLCPlaybackServicePlaybackDidFail = @"VLCPlaybackServicePlayback
 NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackServicePlaybackPositionUpdated";
 
 #if TARGET_OS_IOS
-@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, VLCRemoteControlServiceDelegate, EqualizerViewDelegate>
+@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, EqualizerViewDelegate>
 #else
-@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, VLCRemoteControlServiceDelegate>
+@interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate>
 #endif
 {
-    VLCRemoteControlService *_remoteControlService;
     VLCMediaPlayer *_backgroundDummyPlayer;
     VLCMediaPlayer *_mediaPlayer;
     VLCMediaListPlayer *_listPlayer;
@@ -149,14 +147,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     return self;
 }
 
-- (VLCRemoteControlService *)remoteControlService
-{
-    if (!_remoteControlService) {
-        _remoteControlService = [[VLCRemoteControlService alloc] init];
-        _remoteControlService.remoteControlServiceDelegate = self;
-    }
-    return _remoteControlService;
-}
 #pragma mark - playback management
 
 - (void)addSubtitlesToCurrentPlaybackFromURL:(NSURL *)subtitleURL
@@ -362,8 +352,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         _mediaPlayer.videoCropGeometry = NULL;
 #endif
 
-    [[self remoteControlService] subscribeToRemoteCommands];
-
     if (_pathToExternalSubtitlesFile) {
         /* this could be a path or an absolute string - let's see */
         NSURL *subtitleURL = [NSURL URLWithString:_pathToExternalSubtitlesFile];
@@ -442,8 +430,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         _mediaList = [[VLCMediaList alloc] init];
     }
     _playerIsSetup = NO;
-
-    [[self remoteControlService] unsubscribeFromRemoteCommands];
 
     [_playbackSessionManagementLock unlock];
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStop object:self];
@@ -1534,87 +1520,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     if (_shouldResumePlaying) {
         _shouldResumePlaying = NO;
         [_listPlayer play];
-    }
-}
-
-#pragma mark - remoteControlDelegate
-
-- (void)remoteControlServiceHitPause:(VLCRemoteControlService *)rcs
-{
-    [_listPlayer pause];
-}
-
-- (void)remoteControlServiceHitPlay:(VLCRemoteControlService *)rcs
-{
-    [_listPlayer play];
-}
-
-- (void)remoteControlServiceTogglePlayPause:(VLCRemoteControlService *)rcs
-{
-    [self playPause];
-}
-
-- (void)remoteControlServiceHitStop:(VLCRemoteControlService *)rcs
-{
-    [self stopPlayback];
-}
-
-- (BOOL)remoteControlServiceHitPlayNextIfPossible:(VLCRemoteControlService *)rcs
-{
-    return [self next];
-}
-
-- (BOOL)remoteControlServiceHitPlayPreviousIfPossible:(VLCRemoteControlService *)rcs
-{
-    return [self previous];
-}
-
-- (void)remoteControlService:(VLCRemoteControlService *)rcs jumpForwardInSeconds:(NSTimeInterval)seconds
-{
-    [_mediaPlayer jumpForward:seconds];
-}
-
-- (void)remoteControlService:(VLCRemoteControlService *)rcs jumpBackwardInSeconds:(NSTimeInterval)seconds
-{
-    [_mediaPlayer jumpBackward:seconds];
-}
-
-- (NSInteger)remoteControlServiceNumberOfMediaItemsinList:(VLCRemoteControlService *)rcs
-{
-    return _mediaList.count;
-}
-
-- (void)remoteControlService:(VLCRemoteControlService *)rcs setPlaybackRate:(CGFloat)playbackRate
-{
-    self.playbackRate = playbackRate;
-}
-
-- (void)remoteControlService:(VLCRemoteControlService *)rcs setCurrentPlaybackTime:(NSTimeInterval)playbackTime
-{
-    float positionDiff = playbackTime - [self.metadata.elapsedPlaybackTime floatValue];
-    [_mediaPlayer jumpForward:positionDiff];
-    _majorPositionChangeInProgress = 1;
-}
-
-- (void)remoteControlService:(VLCRemoteControlService *)rcs setShuffleType:(NSInteger)shuffleType
-{
-    self.shuffleMode = shuffleType != MPShuffleTypeOff;
-}
-
-- (void)remoteControlService:(VLCRemoteControlService *)rcs setRepeatType:(NSInteger)repeatType
-{
-    switch (repeatType) {
-        case MPRepeatTypeOne:
-            self.repeatMode = VLCRepeatCurrentItem;
-            break;
-
-        case MPRepeatTypeAll:
-            self.repeatMode = VLCRepeatAllItems;
-            break;
-
-        default:
-            self.repeatMode = VLCDoNotRepeat;
-            break;
     }
 }
 
