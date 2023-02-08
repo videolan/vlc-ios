@@ -150,6 +150,11 @@ class MediaScrubProgressBar: UIStackView {
         positionSet = false
         delegate?.mediaScrubProgressBarShouldResetIdleTimer()
     }
+
+    func updateBackgroundAlpha(with alpha: CGFloat) {
+        scrubbingIndicatorLabel.backgroundColor = UIColor(white: 0, alpha: alpha)
+        scrubbingHelpLabel.backgroundColor = UIColor(white: 0, alpha: alpha)
+    }
 }
 
 // MARK: -

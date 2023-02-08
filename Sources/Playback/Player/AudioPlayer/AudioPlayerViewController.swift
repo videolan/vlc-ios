@@ -63,6 +63,7 @@ class AudioPlayerViewController: PlayerViewController {
         audioPlayerView.setupThumbnailView()
         audioPlayerView.setupBackgroundColor()
         audioPlayerView.setupPlayerControls()
+        mediaScrubProgressBar.updateBackgroundAlpha(with: 0.0)
         audioPlayerView.setupProgressView(with: mediaScrubProgressBar)
         self.view = audioPlayerView
         setupOptionsNavigationBar()
