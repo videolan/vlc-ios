@@ -8,7 +8,6 @@
 "CHAPTER_SELECTION_TITLE" = "Capítols";
 "TITLE" = "Títol";
 "CHAPTER" = "Capítol";
-"MINIMIZE_PLAYBACK_VIEW" = "Minimitza la reproducció";
 "TRACK_SELECTION" = "Selecció de pista";
 "AUDIO" = "Àudio";
 "SUBTITLES" = "Subtítols";
@@ -22,6 +21,7 @@
 "ONE_SPU_TRACK" = "Una pista de subtítols";
 "TRACKS" = "%i pistes";
 "TRACK" = "%i pista";
+"TRACKS_DURATION" = "%u pistes, duració: %@";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV connectada";
 "PLAYING_EXTERNALLY_DESC" = "Aquest vídeo s'està reproduint a la TV";
@@ -58,7 +58,7 @@
 "BUTTON_DOWNLOAD" = "Baixades";
 "BUTTON_DELETE" = "Elimina";
 "BUTTON_OK" = "D'acord";
-"BUTTON_CONTRIBUTE" = "Col·laboreu";
+"BUTTON_CONTACT" = "Contacte";
 "BUTTON_CONNECT" = "Connecta";
 "BUTTON_RENAME" = "Canvia el nom";
 "BUTTON_LEARN_MORE" = "Per saber més";
@@ -85,6 +85,8 @@
 "OPEN_STREAM_OR_DOWNLOAD" = "Voleu baixar or reproduir aquesta URL?";
 "SHARED_VLC_IOS_LIBRARY" = "VLC compartit per a la Biblioteca iOS";
 "SMB_CIFS_FILE_SERVERS" = "Servidors de fitxers (SMB)";
+
+"MANAGED_SERVERS" = "Gestionat";
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
@@ -154,6 +156,7 @@
 "ONE_FILE" = "1 fitxer";
 "NO_FILES" = "Cap fitxer compatible";
 "DOWNLOADING" = "S'està baixant...";
+"DOWNLOADING_MEDIA" = "Baixant: %@";
 "REMAINING_TIME" = "Temps restant: %@";
 "BIOMETRIC_UNLOCK" = "Desbloquejar la Mediateca \nCancel·lar per a introduir la clau d'accés";
 
@@ -192,6 +195,7 @@
 "NEXT_BUTTON" = "Endavant";
 "PREV_BUTTON" = "Enrere";
 "PLAY_ALL_BUTTON" = "Reprodueix-ho tot";
+"PLAY_ALL_HINT" = "Reprodueix tots els multimèdia de la col·lecció";
 
 "RESET_VIDEO_FILTERS" = "Voleu restablir els filtres de vídeo?";
 "RESET_PLAYBACK_SPEED" = "Voleu restablir la velocitat de reproducció?";
@@ -228,6 +232,7 @@
 "NO_RECENT_STREAMS" = "Recentment no s'ha reproduït cap stream";
 
 "WEBINTF_TITLE" = "Compartint mitjançant la xarxa sense fils";
+"WEBINTF_ETHERNET" = "Compartir per Ethernet";
 "WEBINTF_DROPFILES" = "Deixa anar els arxius";
 "WEBINTF_DROPFILES_LONG" = "Deixa anar els arxius en la finestra per afegir-los al teu%@.<br>O clic en el botó \"+\" per a seleccionar arxius.";
 "WEBINTF_DOWNLOADFILES" = "Arxius baixats";
@@ -241,8 +246,6 @@
 "WEBINTF_AUTH_REQUIRED" = "Per favor entra la teva contrasenya de VLC iOS:";
 "WEBINTF_AUTH_WRONG_PASSCODE" = "Clau de pas incorrecta.<br>Intents restants: ";
 "WEBINTF_AUTH_BANNED" = "Massa codis d'accés incorrectes.<br>. Reinicia el VLC iOS i torna a provar";
-
-
 
 "DURATION" = "Durada";
 "TITLE" = "Títol";
@@ -304,15 +307,11 @@
 "DELETE_TITLE" = "Elimina la selecció";
 
 // MARK: - Drag and Drop
-"THIS_FILE" = "Aquest fitxer";
-"NOT_SUPPORTED_FILETYPE" = "%@ és un tipus d'arxiu no suportat per VLC";
-"FILE_EXISTS" = "%@ ja existeix";
 
 "PROTOCOL_NOT_SELECTED" = "Protocol no seleccionat";
 "Settings" = "Paràmetres";
 
 "ERROR" = "Error";
-"OK" = "D'acord";
 "SORT" = "Ordena";
 "SORT_BY" = "Ordena per";
 "SEARCH" = "Cerca";
@@ -333,6 +332,9 @@
 
 // MARK: - EDIT
 
+"BUTTON_MENU" = "Menú";
+"BUTTON_MENU_HINT" = "Selecciona i reordena els fitxers multimèdia d'aquesta vista";
+
 "BUTTON_EDIT" = "Edita";
 "BUTTON_EDIT_HINT" = "Mode edició";
 
@@ -344,6 +346,9 @@
 
 "ADD_TO_PLAYLIST" = "Afegeix a la llista de reproducció";
 "ADD_TO_PLAYLIST_HINT" = "Obrir el menú \"Afegir a la llista de reproducció\".";
+
+"PLAY_AS_AUDIO" = "Reprodueix com a àudio";
+"PLAY_AS_AUDIO_HINT" = "Reprodueix el fitxer de vídeo com un fitxer d'àudio.";
 
 "PLAYLIST_PLACEHOLDER" = "Títol de la Llista de reproducció";
 "PLAYLIST_DESCRIPTION" = "Trieu un títol per a la llista de reproducció nova";
@@ -360,6 +365,8 @@
 "RENAME_HINT" = "Canviar de nom els arxius seleccionats";
 "DELETE_HINT" = "Elimina els arxius seleccionats";
 
+"ADDITIONAL_OPTIONS" = "Opcions addicionals";
+
 // MARK: - Sort
 
 "BUTTON_SORT" = "Ordena";
@@ -369,8 +376,10 @@
 "DESCENDING_SWITCH_LABEL" = "Ordre ascendent o descendent";
 "DESCENDING_SWITCH_HINT" = "Ordenar el context en ordre ascendent o descendent";
 "GRID_LAYOUT" = "Graella";
+"GRID_LAYOUT_HINT" = "Mostra els elements com una graella";
 "LIST_LAYOUT" = "Llista";
 "HIDE_FEAT_ARTISTS" = "Amaga els artistes destacats";
+"HIDE_TRACK_NUMBERS" = "Amaga els números de pista";
 
 // MARK: - VLCMediaLibraryKit - Sorting Criteria
 
@@ -449,16 +458,30 @@
 // MARK: - MediaMoreOptionsActionSheet
 "EQUALIZER_CELL_TITLE" = "Equalitzador";
 "MORE_OPTIONS_HEADER_TITLE" = "Opcions de vídeo";
+"MORE_OPTIONS_HEADER_AUDIO_TITLE" = "Opcions de l'àudio";
 "BOOKMARKS_TITLE" = "Preferits";
 "ADD_BOOKMARKS_TITLE" = "Afegir preferits";
 "BOOKMARK_DEFAULT_NAME" = "Preferit a";
 "BOOKMARK_RENAME_TITLE" = "Canvia el nom del preferit";
 "BOOKMARK_DELETE_TITLE" = "Elimina el preferit";
 "BOOKMARK_DELETE_MESSAGE" = "Confirmeu l'eliminació del preferit";
+"INCREASE_BUTTON" = "Botó d'augment";
+"INCREASE_PLAYBACK_SPEED" = "Augmenta la velocitat de reproducció";
+"INCREASE_AUDIO_DELAY" = "Augmenta el retard de l'àudio";
+"INCREASE_SUBTITLES_DELAY" = "Augmenta el retard dels subtítols";
+"DECREASE_BUTTON" = "Botó de disminució";
+"DECREASE_PLAYBACK_SPEED" = "Disminueix la velocitat de reproducció";
+"DECREASE_AUDIO_DELAY" = "Disminueix el retard de l'àudio";
+"DECREASE_SUBTITLES_DELAY" = "Disminueix el retard dels subtítols";
 
-// MARK: - Settings - Force rescan alert
+// MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Forçar el re-escaneig de, la Mediateca";
 "FORCE_RESCAN_MESSAGE" = "Vols forçar a VLC a re-escanejar la teva mediateca?\nPodria ser llarg.";
+
+"FEEDBACK_EMAIL_TITLE" = "Feedback about VLC on iOS and iPad";
+"FEEDBACK_EMAIL_BODY" = "Please enter your feedback above this line.\n\nAnonymous information:";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_TITLE" = "El compte de correu no està configurat.";
+"FEEDBACK_EMAIL_NOT_POSSIBLE_LONG" = "Poseu-vos en contacte a través de %@ des d'un altre dispositiu.";
 
 // MARK: - Local Network
 
@@ -549,3 +572,4 @@
 
 "TITLESELECTION_BACKGROUND_LABEL" = "Fons de selecció de títols";
 "TITLESELECTION_BACKGROUND_HINT" = "Feu un toc per eliminar la vista.";
+
