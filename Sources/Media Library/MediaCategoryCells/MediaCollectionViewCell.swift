@@ -51,13 +51,14 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     private var vibrationTriggered: Bool = false
     private var isDeleteDisplayed: Bool = false
     private var hasXGoneNegative: Bool = false
-    private var isMediaBeingPlayed: Bool = false
 
     private let playbackService: PlaybackService = PlaybackService.sharedInstance()
     private let isIpad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
 
     var ignoreThemeDidChange: Bool = false
     var isEditing: Bool = false
+    var isMediaBeingPlayed: Bool = false
+    var backupThumbnail: UIImage? = nil
 
     weak var delegate: MediaCollectionViewCellDelegate?
 
@@ -297,12 +298,16 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
                     thumbnailView.startAnimating()
                     thumbnailView.image = pauseAnimation.last
                 }
+
+                backupThumbnail = audiotrack.thumbnailImage()
             } else {
                 thumbnailView.image = audiotrack.thumbnailImage()
+                backupThumbnail = nil
             }
         } else {
             isMediaBeingPlayed = false
             thumbnailView.image = audiotrack.thumbnailImage()
+            backupThumbnail = nil
         }
 
         let colors: ColorPalette

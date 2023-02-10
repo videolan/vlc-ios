@@ -1022,7 +1022,13 @@ extension MediaCategoryViewController {
         if let cell = cell as? MovieCollectionViewCell {
             thumbnail = cell.thumbnailView.image
         } else if let cell = cell as? MediaCollectionViewCell {
-            thumbnail = cell.thumbnailView.image
+            let image: UIImage?
+            if cell.isMediaBeingPlayed {
+                image = cell.backupThumbnail
+            } else {
+                image = cell.thumbnailView.image
+            }
+            thumbnail = image
         } else if let cell = cell as? MediaGridCollectionCell {
             thumbnail = cell.thumbnailView.image
         }
