@@ -21,6 +21,7 @@ class MediaGridCollectionCell: BaseCollectionViewCell {
     private let checkboxImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isHidden = true
         return imageView
     }()
 
