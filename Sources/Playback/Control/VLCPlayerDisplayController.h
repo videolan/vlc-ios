@@ -53,6 +53,8 @@ typedef NS_ENUM(NSUInteger, VLCPlayerDisplayControllerDisplayMode) {
 @property (nonatomic, readonly) BOOL hintingPlayqueue;
 @property (nonatomic, strong, nullable) UIView *miniPlaybackView;
 @property (nonatomic, strong, readonly, nullable) VLCQueueViewController *queueViewController;
+@property (nullable, nonatomic, readonly) NSArray<UIKeyCommand *> *keyCommands;
+@property (nonatomic, readonly) BOOL canBecomeFirstResponder;
 
 - (nullable instancetype)init;
 - (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil

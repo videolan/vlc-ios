@@ -415,6 +415,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
             }
             [self->_queueViewController hide];
             [self->_queueViewController removeFromParentViewController];
+            [self resignFirstResponder];
         };
     }
     //when switching between tableview and collectionview all subviews are removed, make sure to readd it when this happens
@@ -448,6 +449,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 {
     [_queueViewController didMoveToParentViewController:self];
     [((VLCAudioMiniPlayer*)_miniPlaybackView) setupQueueViewControllerWith:_queueViewController];
+    [self becomeFirstResponder];
 }
 
 #pragma mark - QueueViewController
@@ -512,6 +514,64 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 - (BOOL)audioPlayerViewControllerShouldBeDisplayed:(VLCAudioPlayerViewController *)audioPlayerViewController
 {
     return self.displayMode == VLCPlayerDisplayControllerDisplayModeFullscreen;
+}
+
+#pragma mark - KeyCommands
+
+- (void)handlePlayPauseKeyInput
+{
+    [_playbackController playPause];
+}
+
+- (void)keyLeftArrow
+{
+    NSInteger seekBy = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingSetCustomSeek];
+    [_playbackController jumpBackward:(int)seekBy];
+}
+
+- (void)keyRightArrow
+{
+    NSInteger seekBy = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingSetCustomSeek];
+    [_playbackController jumpForward:(int)seekBy];
+}
+
+- (void)keyRightBracket
+{
+    _playbackController.playbackRate *= 1.5;
+}
+
+- (void)keyLeftBracket
+{
+    _playbackController.playbackRate *= 0.75;
+}
+
+- (void)keyEqual
+{
+    _playbackController.playbackRate = 1.0;
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+- (NSArray<UIKeyCommand *> *)keyCommands
+{
+    UIKeyCommand *spaceKeyCommand = [UIKeyCommand keyCommandWithInput:@" " modifierFlags:0 action:@selector(handlePlayPauseKeyInput)];
+    UIKeyCommand *enterKeyCommand = [UIKeyCommand keyCommandWithInput:@"\r" modifierFlags:0 action:@selector(handlePlayPauseGesture)];
+    UIKeyCommand *leftKeyCommand = [UIKeyCommand keyCommandWithInput:UIKeyInputLeftArrow modifierFlags:0 action:@selector(keyLeftArrow)];
+    UIKeyCommand *rightKeyCommand = [UIKeyCommand keyCommandWithInput:UIKeyInputRightArrow modifierFlags:0 action:@selector(keyRightArrow)];
+    UIKeyCommand *leftBracketKeyCommand = [UIKeyCommand keyCommandWithInput:@"[" modifierFlags:0 action:@selector(keyLeftBracket)];
+    UIKeyCommand *rightBracketKeyCommand = [UIKeyCommand keyCommandWithInput:@"]" modifierFlags:0 action:@selector(keyRightBracket)];
+
+    NSArray<UIKeyCommand *> *commands = @[spaceKeyCommand, enterKeyCommand, leftKeyCommand, rightKeyCommand, leftBracketKeyCommand, rightBracketKeyCommand];
+
+    if (fabs([VLCPlaybackService sharedInstance].playbackRate - 1.0) > FLT_EPSILON) {
+        UIKeyCommand *equalKeyCommand = [UIKeyCommand keyCommandWithInput:@"=" modifierFlags:0 action:@selector(keyEqual)];
+        commands = [commands arrayByAddingObject:equalKeyCommand];
+    }
+
+    return commands;
 }
 
 @end
