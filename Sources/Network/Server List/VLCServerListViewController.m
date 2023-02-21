@@ -11,6 +11,7 @@
  *          Tobias Conradi <videolan # tobias-conradi.de>
  *          Vincent L. Cone <vincent.l.cone # tuta.io>
  *          Carola Nitz <caro # videolan.org>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -132,6 +133,8 @@
     _remoteNetworkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _remoteNetworkTableView.bounces = NO;
     _remoteNetworkTableView.scrollEnabled = NO;
+    _remoteNetworkTableView.rowHeight = UITableViewAutomaticDimension;
+    _remoteNetworkTableView.estimatedRowHeight = 80.0;
 
     VLCFileServerView *fileServerView = [VLCFileServerView new];
     fileServerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -157,7 +160,7 @@
     [_scrollView addSubview:_remoteNetworkTableView];
 
     _localNetworkHeight = [_localNetworkTableView.heightAnchor constraintEqualToConstant:_localNetworkTableView.contentSize.height];
-    _remoteNetworkHeight = [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:[VLCNetworkListCell heightOfCell] * _remoteNetworkDataSourceAndDelegate.numberOfRemoteNetworkCellTypes];
+    _remoteNetworkHeight = [_remoteNetworkTableView.heightAnchor constraintEqualToConstant:_remoteNetworkTableView.contentSize.height];
 
     [NSLayoutConstraint activateConstraints:@[
                                               [_remoteNetworkTableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
@@ -182,6 +185,14 @@
                                                     image: [UIImage imageNamed:@"Network"]
                                             selectedImage: [UIImage imageNamed:@"Network"]];
     self.tabBarItem.accessibilityIdentifier = VLCAccessibilityIdentifier.localNetwork;
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+
+    _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
+    _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
 }
 
 - (void)viewDidLoad
@@ -233,6 +244,12 @@
         [self->_remoteNetworkTableView reloadData];
         [self->_discoveryController startDiscovery];
     });
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
+    _localNetworkHeight.constant = _localNetworkTableView.contentSize.height;
 }
 
 - (void)miniPlayerIsShown
@@ -400,6 +417,29 @@
         }
     } else {
         [self.navigationController pushViewController:loginViewController animated:YES];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"LocalNetworkCell";
+
+    VLCNetworkListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+    if (cell == nil) {
+        return UITableViewAutomaticDimension;
+    }
+
+    CGFloat size = 0.0;
+
+    size += cell.titleLabel.font.lineHeight;
+    size += cell.subtitleLabel.font.lineHeight;
+    size += cell.folderTitleLabel.font.lineHeight;
+
+    if (size != 0) {
+        return size + cell.edgePadding + (cell.interItemPadding * 2);
+    } else {
+        return UITableViewAutomaticDimension;
     }
 }
 

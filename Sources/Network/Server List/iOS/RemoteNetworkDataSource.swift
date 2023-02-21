@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors: Carola Nitz <nitz.carola # googlemail.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -144,12 +145,28 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             assertionFailure("We're having more rows than types of cells that should never happen")
             return UITableView.automaticDimension
         }
-        switch cellType {
-        case .local, .cloud, .streaming, .download:
-            return 64
-        case .wifi:
-            return 80
+
+        if cellType == .wifi && !UIDevice.current.systemVersion.hasPrefix("9.") {
+            return UITableView.automaticDimension
         }
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ExternalMediaProviderCell.cellIdentifier) as? ExternalMediaProviderCell else {
+            return UITableView.automaticDimension
+        }
+
+        let textLabelHeight = cell.textLabel?.font.lineHeight
+        let detailLabelHeight = cell.detailTextLabel?.font.lineHeight
+        var size = 0.0
+
+        if let textLabelHeight = textLabelHeight {
+            size += textLabelHeight
+        }
+
+        if let detailLabelHeight = detailLabelHeight {
+            size += detailLabelHeight
+        }
+
+        return size + ExternalMediaProviderCell.edgePadding + (ExternalMediaProviderCell.interItemPadding * 2)
     }
 
     @objc func numberOfRemoteNetworkCellTypes() -> Int {

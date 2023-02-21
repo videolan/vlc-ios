@@ -7,6 +7,7 @@
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Pierre SAGASPE <pierre.sagaspe # me.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -137,6 +138,16 @@
         return 80.;
 
     return 68.;
+}
+
+- (CGFloat)edgePadding
+{
+    return 15.0;
+}
+
+- (CGFloat)interItemPadding
+{
+    return 5.0;
 }
 
 @end

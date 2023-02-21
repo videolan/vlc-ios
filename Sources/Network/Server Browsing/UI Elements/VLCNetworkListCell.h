@@ -6,6 +6,7 @@
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -36,6 +37,9 @@
 @property (nonatomic, retain) UIImage *icon;
 @property (nonatomic, retain) NSURL *iconURL;
 @property (nonatomic, readwrite) BOOL isDownloadable;
+
+@property (nonatomic, readonly) CGFloat edgePadding;
+@property (nonatomic, readonly) CGFloat interItemPadding;
 
 + (VLCNetworkListCell *)cellWithReuseIdentifier:(NSString *)ident;
 + (CGFloat)heightOfCell;
