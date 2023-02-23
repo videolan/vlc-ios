@@ -38,6 +38,7 @@ enum RemoteNetworkCellType: Int {
 protocol RemoteNetworkDataSourceDelegate {
     func showViewController(_ viewController: UIViewController)
     func showDocumentPickerViewController(_ viewController: UIDocumentPickerViewController)
+    func reloadRemoteTableView()
 }
 
 @objc(VLCRemoteNetworkDataSourceAndDelegate)
@@ -94,7 +95,8 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 return networkCell
             }
         case .wifi:
-            if let wifiCell = tableView.dequeueReusableCell(withIdentifier: VLCWiFiUploadTableViewCell.cellIdentifier()) {
+            if let wifiCell = tableView.dequeueReusableCell(withIdentifier: VLCWiFiUploadTableViewCell.cellIdentifier()) as? VLCWiFiUploadTableViewCell {
+                wifiCell.delegate = self
                 return wifiCell
             }
         }
@@ -171,5 +173,11 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
 
     @objc func numberOfRemoteNetworkCellTypes() -> Int {
         return RemoteNetworkCellType.count
+    }
+}
+
+extension RemoteNetworkDataSource: VLCWiFiUploadTableViewCellDelegate {
+    func updateTableViewHeight() {
+        delegate?.reloadRemoteTableView()
     }
 }

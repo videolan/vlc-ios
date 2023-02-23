@@ -454,6 +454,13 @@
     [self presentViewController:viewControllerToPresent animated:YES completion:nil];
 }
 
+- (void)reloadRemoteTableView
+{
+    [_remoteNetworkTableView reloadData];
+    [_remoteNetworkTableView layoutIfNeeded];
+    _remoteNetworkHeight.constant = _remoteNetworkTableView.contentSize.height;
+}
+
 #pragma mark -
 - (void)themeDidChange
 {

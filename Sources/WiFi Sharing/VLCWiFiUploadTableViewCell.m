@@ -7,6 +7,7 @@
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
  *          Carola Nitz <caro # videolan.org>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -127,6 +128,7 @@
     [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:futureHTTPServerState];
     [self updateHTTPServerAddress];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [_delegate updateTableViewHeight];
 }
 
 - (void)prepareForReuse
