@@ -331,16 +331,12 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
-        APLog(String.init(format: "heightForRowAt %f", TitleSelectionTableViewCell.size))
-        return 10
-//        return TitleSelectionTableViewCell.size
+        return TitleSelectionTableViewCell.size
     }
 
     func tableView(_ tableView: UITableView,
                    heightForHeaderInSection section: Int) -> CGFloat {
-        APLog(String.init(format: "heightForHeaderInSection %f", TitleSelectionTableViewCell.size))
-        return 10
-//        return TitleSelectionTableViewCell.size
+        return TitleSelectionTableViewCell.size
     }
 
     func tableView(_ tableView: UITableView,
