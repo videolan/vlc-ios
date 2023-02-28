@@ -63,6 +63,7 @@
 #define kVLCSettingCloseGesture @"EnableCloseGesture"
 #define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"
 #define kVLCSettingSetCustomSeek @"SetCustomSeekSpeed"
+#define kVLCSettingCustomSeekDurationDefaultValue @(10)
 #define kVLCSettingContinuePlayback @"ContinuePlayback"
 #define kVLCSettingContinueAudioPlayback @"ContinueAudioPlayback"
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"
