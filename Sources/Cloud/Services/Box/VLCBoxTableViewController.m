@@ -142,6 +142,11 @@
     });
 }
 
+- (void)updateCurrentPath:(NSString *)path
+{
+    self.currentPath = path;
+}
+
 - (VLCCloudStorageTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"BoxCell";
@@ -168,6 +173,18 @@
 
 #pragma mark - Table view delegate
 
+- (void)goBack
+{
+    // When the user is logged in, the root directory can have both an empty value or a '0' as its ID.
+    // The current path is nil otherwise.
+    if ([self.currentPath isEqualToString:@""] || [self.currentPath isEqualToString:@"0"] || !self.currentPath) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+
+    [self.activityIndicator startAnimating];
+    [(VLCBoxController *) self.controller getFolderInformation];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -181,12 +198,7 @@
         [self streamFile:(BoxFile *)_selectedFile];
     else {
         /* dive into subdirectory */
-        NSString *path = self.currentPath;
-        if (![path isEqualToString:@""])
-            path = [path stringByAppendingString:@"/"];
-        path = [path stringByAppendingString:_selectedFile.modelID];
-
-        self.currentPath = path;
+        self.currentPath = _selectedFile.modelID;
         [self requestInformationForCurrentPath];
     }
 }

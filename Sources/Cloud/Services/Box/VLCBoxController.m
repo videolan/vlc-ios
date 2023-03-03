@@ -144,6 +144,26 @@
     return _offset < _maxOffset;
 }
 
+- (void)getFolderInformation
+{
+    BoxFolderBlock success = ^(BoxFolder *collection)
+    {
+        BoxFolder *folder = collection.parent;
+        NSString *parentId = folder.modelID;
+        self->_currentFileList = nil;
+        [self listFilesWithID:parentId];
+        [self.delegate updateCurrentPath:parentId];
+    };
+
+    BoxAPIJSONFailureBlock failure = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSDictionary *JSONDictionary)
+    {
+        APLog(@"there was an error getting the folder but we don't show an error. this request is used to check if we need to refresh the token");
+    };
+
+    [_operation cancel];
+    _operation = [[BoxSDK sharedSDK].foldersManager folderInfoWithID:_folderId requestBuilder:nil success:success failure:failure];
+}
+
 - (void)listFilesWithID:(NSString *)folderId
 {
     _fileList = nil;

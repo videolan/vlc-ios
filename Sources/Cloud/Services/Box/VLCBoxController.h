@@ -23,5 +23,6 @@
 #if TARGET_OS_IOS
 - (void)downloadFileToDocumentFolder:(BoxFile *)file;
 #endif
+- (void)getFolderInformation;
 
 @end
