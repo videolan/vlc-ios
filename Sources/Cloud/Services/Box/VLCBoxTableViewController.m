@@ -297,6 +297,7 @@
     [self performSelectorOnMainThread:@selector(updateViewAfterSessionChange)
                            withObject:nil waitUntilDone:NO];
     self.authorizationInProgress = NO;
+    [self requestInformationForCurrentPath];
 }
 
 #if TARGET_OS_IOS
