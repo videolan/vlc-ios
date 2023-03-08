@@ -149,6 +149,11 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         ])
     }
 
+    func updateDeviceButton(with image: UIImage?, color: UIColor) {
+        deviceButton.setImage(image, for: .normal)
+        deviceButton.tintColor = color
+    }
+
     private func setupContraints() {
         var constraints: [NSLayoutConstraint] = [
             heightAnchor.constraint(equalToConstant: 44),

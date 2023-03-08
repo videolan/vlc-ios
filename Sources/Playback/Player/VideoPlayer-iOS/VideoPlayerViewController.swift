@@ -543,8 +543,13 @@ class VideoPlayerViewController: UIViewController {
             rendererItem in
             if rendererItem != nil {
                 self.changeVideoOutput(to: self.externalVideoOutputView.displayView)
+                let color: UIColor = PresentationTheme.current.colors.orangeUI
+                self.mediaNavigationBar.updateDeviceButton(with: UIImage(named: "rendererFull"), color: color)
             } else if let currentRenderer = self.playbackService.renderer {
                 self.removedCurrentRendererItem(currentRenderer)
+            } else {
+                // There is no renderer item
+                self.mediaNavigationBar.updateDeviceButton(with: UIImage(named: "renderer"), color: .white)
             }
         }
     }
@@ -571,6 +576,8 @@ class VideoPlayerViewController: UIViewController {
         if playbackService.isPlayingOnExternalScreen() {
             // FIXME: Handle error case
             changeVideoOutput(to: externalVideoOutputView.displayView)
+            let color: UIColor = PresentationTheme.current.colors.orangeUI
+            mediaNavigationBar.updateDeviceButton(with: UIImage(named: "rendererFull"), color: color)
         }
 
         if #available(iOS 11.0, *) {
