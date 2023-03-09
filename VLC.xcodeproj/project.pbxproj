@@ -344,7 +344,7 @@
 		918C8E11279065C6002B3CD6 /* TitleSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918C8E10279065C6002B3CD6 /* TitleSelectionView.swift */; };
 		91B85AEF2731A4C00010F137 /* StoreProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91B85AEE2731A4C00010F137 /* StoreProductCollectionViewCell.xib */; };
 		91C1BB8025EFD7A40096F97E /* ColorThemeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */; };
-		91D33C7325E6B6E700CC49BE /* VideoPlayerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D33C7225E6B6E700CC49BE /* VideoPlayerInfoView.swift */; };
+		91D33C7325E6B6E700CC49BE /* PlayerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D33C7225E6B6E700CC49BE /* PlayerInfoView.swift */; };
 		91F8BF1827318D890058D9DE /* StoreProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F8BF1727318D890058D9DE /* StoreProductCollectionViewCell.swift */; };
 		9B9231C4185A703700F89498 /* VLCNetworkLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9231C3185A703700F89498 /* VLCNetworkLoginViewController.xib */; };
 		9BADAF45185FBD9D00108BD8 /* VLCFrostedGlasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */; };
@@ -964,7 +964,7 @@
 		918C8E10279065C6002B3CD6 /* TitleSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSelectionView.swift; sourceTree = "<group>"; };
 		91B85AEE2731A4C00010F137 /* StoreProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreProductCollectionViewCell.xib; sourceTree = "<group>"; };
 		91C1BB7F25EFD7A40096F97E /* ColorThemeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeExtension.swift; sourceTree = "<group>"; };
-		91D33C7225E6B6E700CC49BE /* VideoPlayerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerInfoView.swift; sourceTree = "<group>"; };
+		91D33C7225E6B6E700CC49BE /* PlayerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInfoView.swift; sourceTree = "<group>"; };
 		91F8BF1727318D890058D9DE /* StoreProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		939888242E2DC6874C59DCD6 /* libPods-VLC-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VLC-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B088306183D7BEC004B5C2A /* VLCCloudStorageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCloudStorageTableViewController.h; path = "Sources/Cloud/Content List/View Controller/VLCCloudStorageTableViewController.h"; sourceTree = SOURCE_ROOT; };
@@ -2544,7 +2544,7 @@
 				8DB0D71B24CED2BE00915506 /* VideoPlayerControls.xib */,
 				8D9F1F9E24938B680074BDBB /* VideoPlayerViewController.swift */,
 				8D0E75CA24D1D870000D5267 /* VideoPlayerViewController+ControlsDelegate.swift */,
-				91D33C7225E6B6E700CC49BE /* VideoPlayerInfoView.swift */,
+				91D33C7225E6B6E700CC49BE /* PlayerInfoView.swift */,
 				597B403E2625E85000C0D81E /* SliderInfoView.swift */,
 				918C8E10279065C6002B3CD6 /* TitleSelectionView.swift */,
 				E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */,
@@ -3592,7 +3592,7 @@
 				D9F0D67A2937624900A97964 /* PlayerViewController.swift in Sources */,
 				414396C22023316C005E3FAF /* AppearanceManager.swift in Sources */,
 				91F8BF1827318D890058D9DE /* StoreProductCollectionViewCell.swift in Sources */,
-				91D33C7325E6B6E700CC49BE /* VideoPlayerInfoView.swift in Sources */,
+				91D33C7325E6B6E700CC49BE /* PlayerInfoView.swift in Sources */,
 				D96ACA962832836C00DD1A3E /* GraphViewController.swift in Sources */,
 				8DE18890210B53E000A091D2 /* TrackModel.swift in Sources */,
 				8DE18898210F144B00A091D2 /* GenreModel.swift in Sources */,

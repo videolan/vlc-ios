@@ -374,8 +374,8 @@ class VideoPlayerViewController: UIViewController {
         return videoOutputView
     }()
 
-    private lazy var externalVideoOutputView: VideoPlayerInfoView = {
-        let externalVideoOutputView = VideoPlayerInfoView()
+    private lazy var externalVideoOutputView: PlayerInfoView = {
+        let externalVideoOutputView = PlayerInfoView()
         externalVideoOutputView.isHidden = true
         externalVideoOutputView.translatesAutoresizingMaskIntoConstraints = false
         return externalVideoOutputView

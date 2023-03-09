@@ -1,14 +1,15 @@
 /*****************************************************************************
- * VideoPlayerInfoView.swift
+ * PlayerInfoView.swift
  *
  * Copyright © 2021 VLC authors and VideoLAN
  *
  * Authors: Soomin Lee <bubu@mikan.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class VideoPlayerInfoView: UIView {
+class PlayerInfoView: UIView {
     @objc var displayView: UIView? {
         return externalWindow?.rootViewController?.view
     }
@@ -96,7 +97,7 @@ class VideoPlayerInfoView: UIView {
 
 }
 
-private extension VideoPlayerInfoView {
+private extension PlayerInfoView {
     private func setupStackViews() {
         labelStackView.addArrangedSubview(titleLabel)
         labelStackView.addArrangedSubview(descriptionLabel)
