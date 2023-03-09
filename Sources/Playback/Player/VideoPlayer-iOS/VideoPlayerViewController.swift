@@ -573,12 +573,17 @@ class VideoPlayerViewController: UIViewController {
         rendererDiscoverer.presentingViewController = self
         rendererDiscoverer.delegate = self
 
+        var color: UIColor = .white
+        var image: UIImage? = UIImage(named: "renderer")
+
         if playbackService.isPlayingOnExternalScreen() {
             // FIXME: Handle error case
             changeVideoOutput(to: externalVideoOutputView.displayView)
-            let color: UIColor = PresentationTheme.current.colors.orangeUI
-            mediaNavigationBar.updateDeviceButton(with: UIImage(named: "rendererFull"), color: color)
+            color = PresentationTheme.current.colors.orangeUI
+            image = UIImage(named: "rendererFull")
         }
+
+        mediaNavigationBar.updateDeviceButton(with: image, color: color)
 
         if #available(iOS 11.0, *) {
             adaptVideoOutputToNotch()
@@ -1480,6 +1485,7 @@ private extension VideoPlayerViewController {
 extension VideoPlayerViewController: VLCRendererDiscovererManagerDelegate {
     func removedCurrentRendererItem(_ item: VLCRendererItem) {
         changeVideoOutput(to: videoOutputView)
+        mediaNavigationBar.updateDeviceButton(with: UIImage(named: "renderer"), color: .white)
     }
 }
 
