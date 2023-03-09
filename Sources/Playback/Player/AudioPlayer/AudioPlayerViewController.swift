@@ -65,6 +65,7 @@ class AudioPlayerViewController: PlayerViewController {
         audioPlayerView.setupPlayerControls()
         mediaScrubProgressBar.updateBackgroundAlpha(with: 0.0)
         audioPlayerView.setupProgressView(with: mediaScrubProgressBar)
+        audioPlayerView.setupExternalOutputView(with: externalOutputView)
         self.view = audioPlayerView
         setupOptionsNavigationBar()
         setupStatusLabel()
@@ -83,6 +84,10 @@ class AudioPlayerViewController: PlayerViewController {
         audioPlayerView.setupThumbnailView()
         audioPlayerView.setupBackgroundColor()
         setupGestures()
+
+        if playbackService.isPlayingOnExternalScreen() {
+            changeOutputView(to: externalOutputView.displayView)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -142,6 +147,18 @@ class AudioPlayerViewController: PlayerViewController {
         if recognizer.velocity < 0 && playerController.isCloseGestureEnabled {
             delegate?.audioPlayerViewControllerDidMinimize(self)
         }
+    }
+
+    override func changeOutputView(to output: UIView?) {
+        guard output == externalOutputView.displayView else {
+            externalOutputView.isHidden = true
+            audioPlayerView.thumbnailView.isHidden = false
+            return
+        }
+
+        externalOutputView.updateUI(rendererItem: playbackService.renderer, title: nil)
+        externalOutputView.isHidden = false
+        audioPlayerView.thumbnailView.isHidden = true
     }
 
     // MARK: - Private methods
@@ -281,7 +298,12 @@ extension AudioPlayerViewController {
         if let qvc = queueViewController, !isQueueHidden {
             showPlayqueue(from: qvc)
         } else if isQueueHidden {
-            audioPlayerView.thumbnailView.isHidden = false
+            var isThumbnailViewHidden: Bool = false
+            if playbackService.isPlayingOnExternalScreen() {
+                isThumbnailViewHidden = true
+            }
+
+            audioPlayerView.thumbnailView.isHidden = isThumbnailViewHidden
         }
     }
 
@@ -359,7 +381,12 @@ extension AudioPlayerViewController {
         audioPlayerView.updateLabels(title: title, artist: artist, isQueueHidden: !isQueueHidden)
         updateNavigationBar(with: !isQueueHidden ? nil : playbackService.metadata.title)
 
-        audioPlayerView.thumbnailView.isHidden = isQueueHidden
+        var isThumbnailViewHidden: Bool = isQueueHidden
+        if playbackService.isPlayingOnExternalScreen() {
+            isThumbnailViewHidden = true
+        }
+
+        audioPlayerView.thumbnailView.isHidden = isThumbnailViewHidden
         audioPlayerView.playqueueView.isHidden = !isQueueHidden
 
         if let qvc = queueViewController, isQueueHidden {

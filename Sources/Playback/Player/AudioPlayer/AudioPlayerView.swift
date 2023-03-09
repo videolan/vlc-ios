@@ -159,6 +159,18 @@ class AudioPlayerView: UIView {
         ])
     }
 
+    func setupExternalOutputView(with externalOutputView: UIView) {
+        addSubview(externalOutputView)
+
+        let constant: CGFloat = 320
+        NSLayoutConstraint.activate([
+            externalOutputView.heightAnchor.constraint(equalToConstant: constant),
+            externalOutputView.widthAnchor.constraint(equalToConstant: constant),
+            externalOutputView.centerYAnchor.constraint(equalTo: thumbnailView.centerYAnchor),
+            externalOutputView.centerXAnchor.constraint(equalTo: thumbnailView.centerXAnchor),
+        ])
+    }
+
     func updateLabels(title: String?, artist: String?, isQueueHidden: Bool) {
         if isQueueHidden {
             titleLabel.isHidden = false

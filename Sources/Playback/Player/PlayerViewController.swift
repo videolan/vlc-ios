@@ -108,6 +108,31 @@ class PlayerViewController: UIViewController {
         return equalizerPopupView
     }()
 
+    lazy var externalOutputView: PlayerInfoView = {
+        let externalOutputView = PlayerInfoView()
+        externalOutputView.isHidden = true
+        externalOutputView.translatesAutoresizingMaskIntoConstraints = false
+        return externalOutputView
+    }()
+
+    private lazy var contentOutputView: UIView = {
+        var contentOutputView = UIView()
+        contentOutputView.backgroundColor = .clear
+        contentOutputView.isUserInteractionEnabled = false
+        contentOutputView.translatesAutoresizingMaskIntoConstraints = false
+
+        if #available(iOS 11.0, *) {
+            contentOutputView.accessibilityIgnoresInvertColors = true
+        }
+
+        contentOutputView.accessibilityIdentifier = "Video Player Title"
+        contentOutputView.accessibilityLabel = NSLocalizedString("VO_VIDEOPLAYER_TITLE",
+                                                               comment: "")
+        contentOutputView.accessibilityHint = NSLocalizedString("VO_VIDEOPLAYER_DOUBLETAP",
+                                                              comment: "")
+        return contentOutputView
+    }()
+
     private lazy var brightnessControl: SliderGestureControl = {
         return SliderGestureControl { value in
             UIScreen.main.brightness = CGFloat(value)
@@ -178,6 +203,31 @@ class PlayerViewController: UIViewController {
         return vc
     }()
 
+    lazy var rendererButton: UIButton = {
+        let rendererButton = rendererDiscovererManager.setupRendererButton()
+        rendererButton.tintColor = .white
+
+        if playbackService.renderer != nil {
+            rendererButton.isSelected = true
+        }
+
+        rendererDiscovererManager.addSelectionHandler {
+            rendererItem in
+            if rendererItem != nil {
+                self.changeOutputView(to: self.externalOutputView.displayView)
+                let color: UIColor = PresentationTheme.current.colors.orangeUI
+                self.mediaNavigationBar.updateDeviceButton(with: UIImage(named: "rendererFull"), color: color)
+            } else if let currentRenderer = self.playbackService.renderer {
+                self.removedCurrentRendererItem(currentRenderer)
+            } else {
+                // There is no renderer item
+                self.mediaNavigationBar.updateDeviceButton(with: UIImage(named: "renderer"), color: .white)
+            }
+        }
+
+        return rendererButton
+    }()
+
     let volumeView = MPVolumeView(frame: .zero)
 
     var addBookmarksView: AddBookmarksView? = nil
@@ -246,10 +296,25 @@ class PlayerViewController: UIViewController {
         self.rendererDiscovererManager = rendererDiscovererManager
         self.playerController = playerController
         super.init(nibName: nil, bundle: nil)
+        mediaNavigationBar.chromeCastButton = rendererButton
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        setupRendererDiscovererManager()
+
+        var color: UIColor = .white
+        var image: UIImage? = UIImage(named: "renderer")
+
+        if playbackService.isPlayingOnExternalScreen() {
+            color = PresentationTheme.current.colors.orangeUI
+            image = UIImage(named: "rendererFull")
+        }
+
+        mediaNavigationBar.updateDeviceButton(with: image, color: color)
     }
 
     // MARK: - Public methods
@@ -283,6 +348,10 @@ class PlayerViewController: UIViewController {
         pinchRecognizer.isEnabled = !disable
         leftSwipeRecognizer.isEnabled = !disable
         rightSwipeRecognizer.isEnabled = !disable
+    }
+
+    func changeOutputView(to output: UIView?) {
+        // Change the content output view if necessary according to the type of the player.
     }
 
     // MARK: - Private methods
@@ -394,6 +463,11 @@ class PlayerViewController: UIViewController {
         let diffPitch = fov * -diffY / screenPixelSize.width
 
         applyYaw(yaw: diffYaw, pitch: diffPitch)
+    }
+
+    private func setupRendererDiscovererManager() {
+        rendererDiscovererManager.presentingViewController = self
+        rendererDiscovererManager.delegate = self
     }
 
     // MARK: - Gesture handlers
@@ -821,6 +895,15 @@ extension PlayerViewController: DeviceMotionDelegate {
             || panRecognizer.state != .began {
             applyYaw(yaw: CGFloat(yaw), pitch: CGFloat(pitch))
         }
+    }
+}
+
+// MARK: - VLCRendererDiscovererManagerDelegate
+
+extension PlayerViewController: VLCRendererDiscovererManagerDelegate {
+    func removedCurrentRendererItem(_ item: VLCRendererItem) {
+        changeOutputView(to: contentOutputView)
+        mediaNavigationBar.updateDeviceButton(with: UIImage(named: "renderer"), color: .white)
     }
 }
 
