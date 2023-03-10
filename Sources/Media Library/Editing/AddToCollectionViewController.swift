@@ -78,6 +78,11 @@ class AddToCollectionViewController: UIViewController {
     override func viewSafeAreaInsetsDidChange() {
         collectionView.collectionViewLayout.invalidateLayout()
     }
+    
+     override func viewDidLayoutSubviews() {
+          super.viewDidLayoutSubviews()
+          collectionView.collectionViewLayout.invalidateLayout()
+    }
 
     @objc private func themeDidChange() {
         view.backgroundColor = PresentationTheme.current.colors.background
