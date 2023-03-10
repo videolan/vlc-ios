@@ -31,7 +31,6 @@ class AddToCollectionViewController: UIViewController {
     @IBOutlet private weak var newCollectionButton: UIButton!
     @IBOutlet private weak var collectionView: UICollectionView!
 
-    private let cellHeight: CGFloat = 56
     private let sidePadding: CGFloat = 10
     private var collectionModelType: MediaCollectionModel.Type?
 
@@ -223,7 +222,7 @@ extension AddToCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - (sidePadding * 2), height: cellHeight)
+        return MediaCollectionViewCell.cellSizeForWidth(collectionView.bounds.size.width)
     }
 
     func collectionView(_ collectionView: UICollectionView,
