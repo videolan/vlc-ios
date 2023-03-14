@@ -791,10 +791,19 @@ extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
 
     @objc func addedRendererItem() {
         updateBarButtonItems()
+
+        if let delegate = delegate as? MediaViewController {
+            delegate.updateButtonsFor(self)
+        }
     }
 
     @objc func removedRendererItem() {
         updateBarButtonItems()
+
+        if let delegate = delegate as? MediaViewController,
+           VLCAppCoordinator.sharedInstance().rendererDiscovererManager.getAllRenderers().isEmpty {
+            delegate.updateButtonsFor(self)
+        }
     }
 }
 
