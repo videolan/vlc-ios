@@ -902,10 +902,15 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
             }];
         }
         if (![self.lastArtist isEqualToString:artist]) {
-            UIImage *dummyImage = [UIImage imageNamed:@"about-app-icon"];
+            UIImage *artworkImage = metadata.artworkImage;
+
+            if (artworkImage == nil) {
+                artworkImage = [UIImage imageNamed:@"about-app-icon"];
+            }
+
             [UIView animateWithDuration:.3 animations:^{
-                self.audioArtworkImageView.image = dummyImage;
-                self.audioLargeBackgroundImageView.image = dummyImage;
+                self.audioArtworkImageView.image = artworkImage;
+                self.audioLargeBackgroundImageView.image = artworkImage;
             }];
         }
         self.lastArtist = artist;
