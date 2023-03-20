@@ -12,6 +12,7 @@
 #import "VLCSearchableServerBrowsingTVViewController.h"
 #import "VLCNetworkServerSearchBrowser.h"
 #import "VLCSearchController.h"
+#import "VLCIRTVTapGestureRecognizer.h"
 
 static NSString * const VLCSearchableServerBrowsingTVViewControllerSectionHeaderKey = @"VLCSearchableServerBrowsingTVViewControllerSectionHeader";
 @interface VLCSearchableServerBrowsingTVViewControllerHeader : UICollectionReusableView
@@ -21,6 +22,7 @@ static NSString * const VLCSearchableServerBrowsingTVViewControllerSectionHeader
 @interface VLCSearchableServerBrowsingTVViewController() <UISearchControllerDelegate, UISearchResultsUpdating>
 @property (nonatomic) UISearchController *searchController;
 @property (nonatomic) VLCNetworkServerSearchBrowser *searchBrowser;
+@property (nonatomic) NSNumber *collectionTopContentOffset;
 @end
 
 @implementation VLCSearchableServerBrowsingTVViewController
@@ -42,6 +44,8 @@ static NSString * const VLCSearchableServerBrowsingTVViewControllerSectionHeader
     flowLayout.headerReferenceSize = searchController.searchBar.bounds.size;
 
     [self.collectionView registerClass:[VLCSearchableServerBrowsingTVViewControllerHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:VLCSearchableServerBrowsingTVViewControllerSectionHeaderKey];
+
+    [self setupGestures];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -56,6 +60,11 @@ static NSString * const VLCSearchableServerBrowsingTVViewControllerSectionHeader
     if (!searchController.active) {
         [header addSubview:searchController.searchBar];
     }
+
+    if (_collectionTopContentOffset == nil) {
+        _collectionTopContentOffset = [[NSNumber alloc] initWithDouble:self.collectionView.contentOffset.y];
+    }
+
     return supplementaryView;
 }
 
@@ -87,6 +96,33 @@ static NSString * const VLCSearchableServerBrowsingTVViewControllerSectionHeader
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
     self.searchBrowser.searchText = searchController.searchBar.text;
+}
+
+#pragma mark - Gestures
+
+- (void)setupGestures
+{
+    UITapGestureRecognizer *upArrowRecognizer = [[VLCIRTVTapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture)];
+    upArrowRecognizer.allowedPressTypes = @[@(UIPressTypeUpArrow)];
+
+    UISwipeGestureRecognizer *upSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture)];
+    upSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
+
+    [self.view addGestureRecognizer:upArrowRecognizer];
+    [self.view addGestureRecognizer:upSwipeRecognizer];
+}
+
+- (void)handleTapGesture
+{
+    [_searchController.searchBar becomeFirstResponder];
+}
+
+- (void)handleSwipeGesture
+{
+    // If the user swipes up at the top of the collection view: display the search controller
+    if (self.collectionView.contentOffset.y == [_collectionTopContentOffset floatValue]) {
+        [_searchController.searchBar becomeFirstResponder];
+    }
 }
 
 @end
