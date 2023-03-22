@@ -13,4 +13,6 @@
 
 @interface VLCSearchController : UISearchController
 
+- (void)setupTapGesture;
+
 @end

@@ -26,4 +26,16 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)setupTapGesture
+{
+    UITapGestureRecognizer *menuTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuButtonPressed)];
+    menuTapGestureRecognizer.allowedPressTypes = @[@(UIPressTypeMenu)];
+    [self.view addGestureRecognizer:menuTapGestureRecognizer];
+}
+
+- (void)menuButtonPressed
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

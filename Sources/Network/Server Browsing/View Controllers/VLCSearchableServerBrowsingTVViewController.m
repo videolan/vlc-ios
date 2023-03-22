@@ -35,10 +35,11 @@ static NSString * const VLCSearchableServerBrowsingTVViewControllerSectionHeader
     VLCServerBrowsingTVViewController *resultBrowsingViewController = [[VLCServerBrowsingTVViewController alloc] initWithServerBrowser:searchBrowser];
     resultBrowsingViewController.subdirectoryBrowserClass = [self class];
     _searchBrowser = searchBrowser;
-    UISearchController *searchController = [[VLCSearchController alloc] initWithSearchResultsController:resultBrowsingViewController];
+    VLCSearchController *searchController = [[VLCSearchController alloc] initWithSearchResultsController:resultBrowsingViewController];
     searchController.searchResultsUpdater = self;
     searchController.delegate = self;
     searchController.hidesNavigationBarDuringPresentation = NO;
+    [searchController setupTapGesture];
     _searchController = searchController;
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
     flowLayout.headerReferenceSize = searchController.searchBar.bounds.size;
@@ -46,6 +47,8 @@ static NSString * const VLCSearchableServerBrowsingTVViewControllerSectionHeader
     [self.collectionView registerClass:[VLCSearchableServerBrowsingTVViewControllerHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:VLCSearchableServerBrowsingTVViewControllerSectionHeaderKey];
 
     [self setupGestures];
+
+    self.definesPresentationContext = YES;
 }
 
 #pragma mark - UICollectionViewDataSource
