@@ -294,8 +294,13 @@ class FileURLHandler: NSObject, VLCURLHandler {
     }
 
     @objc func performOpen(url: URL, options: [UIApplication.OpenURLOptionsKey: AnyObject]) -> Bool {
-        let subclass = UIDocument(fileURL: url)
-        subclass.open { _ in
+        let subclass = Document(fileURL: url)
+        subclass.open { success in
+            if !success {
+                assertionFailure("FileURLHandler: Couldn't open the file.")
+                return
+            }
+
             self.play(url: url) { _ in
                 subclass.close(completionHandler: nil)
             }
