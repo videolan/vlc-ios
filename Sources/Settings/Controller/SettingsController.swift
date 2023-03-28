@@ -247,31 +247,30 @@ extension SettingsController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
+        guard let settingsSection = SettingsSection(rawValue: section) else { return 0 }
+        switch settingsSection {
+        case .main:
             return MainOptions.allCases.count
-        case 1:
+        case .generic:
             return GenericOptions.allCases.count
-        case 2:
+        case .privacy:
             return PrivacyOptions.allCases.count
-        case 3:
+        case .gestureControl:
             return PlaybackControlOptions.allCases.count
-        case 4:
+        case .video:
             return VideoOptions.allCases.count
-        case 5:
+        case .subtitles:
             return SubtitlesOptions.allCases.count
-        case 6:
+        case .audio:
             return AudioOptions.allCases.count
-        case 7:
+        case .casting:
             return CastingOptions.allCases.count
-        case 8:
+        case .mediaLibrary:
             return MediaLibraryOptions.allCases.count
-        case 9:
+        case .network:
             return NetworkOptions.allCases.count
-        case 10:
+        case .lab:
             return Lab.allCases.count
-        default:
-            return 0
         }
     }
 
