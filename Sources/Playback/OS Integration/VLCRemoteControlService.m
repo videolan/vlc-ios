@@ -60,7 +60,7 @@ static inline NSArray * RemoteCommandCenterCommandsToHandle()
      * or next/previousTrack buttons but prefers skip buttons,
      * we only enable skip buttons if we have no medialist
      */
-    BOOL enableSkip = [VLCPlaybackService sharedInstance].isNextMediaAvailable;
+    BOOL enableSkip = [VLCPlaybackService sharedInstance].mediaList.count <= 1;
     commandCenter.skipForwardCommand.enabled = enableSkip;
     commandCenter.skipBackwardCommand.enabled = enableSkip;
 
