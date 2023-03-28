@@ -316,6 +316,64 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string>SETTINGS_PLAYBACK_SKIP</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_PLAYBACK_SKIP_FORWARD</string>
+			<key>Key</key>
+			<string>playback-forward-skip-length</string>
+			<key>DefaultValue</key>
+			<integer>60</integer>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_DURATION_FIVE</string>
+				<string>SETTINGS_DURATION_TEN</string>
+				<string>SETTINGS_DURATION_FIFTEEN</string>
+				<string>SETTINGS_DURATION_THIRTY</string>
+				<string>SETTINGS_DURATION_SIXTY</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>5</integer>
+				<integer>10</integer>
+				<integer>15</integer>
+				<integer>30</integer>
+				<integer>60</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_PLAYBACK_SKIP_BACKWARD</string>
+			<key>Key</key>
+			<string>playback-backward-skip-length</string>
+			<key>DefaultValue</key>
+			<integer>60</integer>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_DURATION_FIVE</string>
+				<string>SETTINGS_DURATION_TEN</string>
+				<string>SETTINGS_DURATION_FIFTEEN</string>
+				<string>SETTINGS_DURATION_THIRTY</string>
+				<string>SETTINGS_DURATION_SIXTY</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>5</integer>
+				<integer>10</integer>
+				<integer>15</integer>
+				<integer>30</integer>
+				<integer>60</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>SETTINGS_VIDEO_TITLE</string>
 		</dict>
 		<dict>

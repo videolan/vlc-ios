@@ -122,6 +122,10 @@
 
 "SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
 
+"SETTINGS_PLAYBACK_SKIP" = "Skip Buttons";
+"SETTINGS_PLAYBACK_SKIP_FORWARD" = "Forward";
+"SETTINGS_PLAYBACK_SKIP_BACKWARD" = "Back";
+
 "SETTINGS_SET_CUSTOM_SEEK_SPEED" = "Seek duration";
 "SETTINGS_DURATION_FIVE" = "5 seconds";
 "SETTINGS_DURATION_TEN" =  "10 seconds";

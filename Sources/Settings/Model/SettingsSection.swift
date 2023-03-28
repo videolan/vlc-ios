@@ -17,6 +17,7 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
     case generic
     case privacy
     case gestureControl
+    case skip
     case video
     case subtitles
     case audio
@@ -35,6 +36,8 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
             return "SETTINGS_PRIVACY_TITLE"
         case .gestureControl:
             return "SETTINGS_GESTURES"
+        case .skip:
+            return "SETTINGS_PLAYBACK_SKIP"
         case .video:
             return "SETTINGS_VIDEO_TITLE"
         case .subtitles:
@@ -333,6 +336,35 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return kVLCSettingCloseGesture
         case .setCustomSeek:
             return kVLCSettingSetCustomSeek
+        }
+    }
+}
+
+enum SkipOptions: Int, CaseIterable, SectionType {
+    case forwardSkipLength
+    case backwardSkipLength
+
+    var description: String {
+        switch self {
+        case .forwardSkipLength:
+            return "SETTINGS_PLAYBACK_SKIP_FORWARD"
+        case .backwardSkipLength:
+            return "SETTINGS_PLAYBACK_SKIP_BACKWARD"
+        }
+    }
+
+    var containsSwitch: Bool { return false }
+
+    var containsInfobutton: Bool { return false }
+
+    var subtitle: String? { return nil }
+
+    var preferenceKey: String? {
+        switch self {
+        case .forwardSkipLength:
+            return kVLCSettingPlaybackForwardSkipLength
+        case .backwardSkipLength:
+            return kVLCSettingPlaybackBackwardSkipLength
         }
     }
 }

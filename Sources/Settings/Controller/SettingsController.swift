@@ -257,6 +257,8 @@ extension SettingsController {
             return PrivacyOptions.allCases.count
         case .gestureControl:
             return PlaybackControlOptions.allCases.count
+        case .skip:
+            return SkipOptions.allCases.count
         case .video:
             return VideoOptions.allCases.count
         case .subtitles:
@@ -320,6 +322,9 @@ extension SettingsController {
         case .gestureControl:
             let gestureControlOptions = PlaybackControlOptions(rawValue: indexPath.row)
             cell.sectionType = gestureControlOptions
+        case .skip:
+            let skipOptions = SkipOptions(rawValue: indexPath.row) ?? SkipOptions.forwardSkipLength
+            cell.sectionType = skipOptions
         case .video:
             let videoOptions = VideoOptions(rawValue: indexPath.row)
             cell.sectionType = videoOptions
@@ -400,6 +405,10 @@ extension SettingsController {
             playHaptics(sectionType: gestureSection)
             showActionSheet(for: gestureSection)
             break
+        case .skip:
+            let skipOptions = SkipOptions(rawValue: indexPath.row)
+            playHaptics(sectionType: skipOptions)
+            showActionSheet(for: skipOptions)
         case .video:
             let videoSection = VideoOptions(rawValue: indexPath.row)
             playHaptics(sectionType: videoSection)
