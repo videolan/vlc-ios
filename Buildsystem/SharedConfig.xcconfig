@@ -11,7 +11,7 @@
 
 
 // Replace with your own reverse DNS name (not followed by a dot) before building.
-// The different target bundle identifer automatically use the identifier
+// The different target bundle identifier automatically use the identifier
 // Using com.example leads to com.example.vlc-ios for the iOS target.
 
 BUNDLE_IDENTIFIER_PREFIX=com.example
