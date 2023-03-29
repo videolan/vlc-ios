@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "ปัดขึ้น/ลงเพื่อปรับความสว่าง";
 "SETTINGS_GESTURES_SEEK" = "ปัดซ้าย/ขวาเพื่อเลื่อนตำแหน่งการเล่น";
 "SETTINGS_GESTURES_CLOSE" = "จีบนิ้วพื่อปิด";
-"SETTINGS_GESTURE_JUMP_DURATION" = "ระยะกระโดดข้ามไม่คงที่";
 
 "SETTINGS_SUBTITLES_TITLE" = "คำบรรยาย";
 "SETTINGS_SUBTITLES_FONT" = "แบบอักษร";

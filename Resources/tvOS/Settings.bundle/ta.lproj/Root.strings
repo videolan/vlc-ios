@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "வெளிச்சத்திற்கு மேலே/கீழே தேய்";
 "SETTINGS_GESTURES_SEEK" = "நாட வலது/இடதில் தேய்";
 "SETTINGS_GESTURES_CLOSE" = "மூட கிள்ளு";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
 
 "SETTINGS_SUBTITLES_TITLE" = "துணைத் தலைப்புகள்";
 "SETTINGS_SUBTITLES_FONT" = "எழுத்துரு";

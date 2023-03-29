@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Säädä kirkkautta pyyhkäisemällä ylös ja alas";
 "SETTINGS_GESTURES_SEEK" = "Kelaa pyyhkäisemällä vasemmalle tai oikealle";
 "SETTINGS_GESTURES_CLOSE" = "Sulje nipistämällä";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Vaihtuva hypyn kesto";
 
 "SETTINGS_SUBTITLES_TITLE" = "Tekstitykset";
 "SETTINGS_SUBTITLES_FONT" = "Fontti";

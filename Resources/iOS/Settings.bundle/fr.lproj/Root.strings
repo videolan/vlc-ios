@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Luminosité par balayage haut/bas";
 "SETTINGS_GESTURES_SEEK" = "Déplacement par balayage droite/gauche";
 "SETTINGS_GESTURES_CLOSE" = "Fermeture par pincement";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Durée de saut variable";
 
 "SETTINGS_SUBTITLES_TITLE" = "Sous-titres";
 "SETTINGS_SUBTITLES_FONT" = "Police";

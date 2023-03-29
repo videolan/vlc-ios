@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "سحب لاعلى/لأسفل لتغيير الاضاءة";
 "SETTINGS_GESTURES_SEEK" = "سحب لليمين/لليسار للبحث";
 "SETTINGS_GESTURES_CLOSE" = "قرص للإغلاق";
-"SETTINGS_GESTURE_JUMP_DURATION" = "مدة تنقل متغيرة";
 
 "SETTINGS_SUBTITLES_TITLE" = "التّرجمات";
 "SETTINGS_SUBTITLES_FONT" = "الخط";

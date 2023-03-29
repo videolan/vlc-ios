@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Přejeďte nahoru/dolů pro nastavení jasu";
 "SETTINGS_GESTURES_SEEK" = "Přejděte doprava/doleva pro posun času";
 "SETTINGS_GESTURES_CLOSE" = "Dlouhým stisknutím ukončit";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Proměnná délka přeskočení";
 
 "SETTINGS_SUBTITLES_TITLE" = "Titulky";
 "SETTINGS_SUBTITLES_FONT" = "Písmo";

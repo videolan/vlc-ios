@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Povucite gore/dole za svjetlost";
 "SETTINGS_GESTURES_SEEK" = "Povucite desno/lijevo za traženje";
 "SETTINGS_GESTURES_CLOSE" = "Štipnite za zatvaranje";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Promjenljivo trajanje skoka";
 
 "SETTINGS_SUBTITLES_TITLE" = "Podtitlovi";
 "SETTINGS_SUBTITLES_FONT" = "Font";

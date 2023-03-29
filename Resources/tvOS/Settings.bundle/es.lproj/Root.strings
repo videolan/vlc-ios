@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Desplazar arriba/abajo para brillo";
 "SETTINGS_GESTURES_SEEK" = "Desplazar derecha/izquierda para buscar";
 "SETTINGS_GESTURES_CLOSE" = "Pellizcar para cerrar";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Salto de duración variable";
 
 "SETTINGS_SUBTITLES_TITLE" = "Subtítulos";
 "SETTINGS_SUBTITLES_FONT" = "Fuente";

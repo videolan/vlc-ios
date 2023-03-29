@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Przesuń w górę/w dół dla jasności";
 "SETTINGS_GESTURES_SEEK" = "Przesuń w prawo/w lewo, aby szukać";
 "SETTINGS_GESTURES_CLOSE" = "Ściśnij, aby zamknąć";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Zmienny czas skoku";
 
 "SETTINGS_SUBTITLES_TITLE" = "Napisy";
 "SETTINGS_SUBTITLES_FONT" = "Czcionka";

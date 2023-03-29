@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Смахивание вверх/вниз — яркость";
 "SETTINGS_GESTURES_SEEK" = "Смахивание вправо/влево — перемотка";
 "SETTINGS_GESTURES_CLOSE" = "Щипок — закрытие";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Переменная продолжительность перехода";
 
 "SETTINGS_SUBTITLES_TITLE" = "Субтитры";
 "SETTINGS_SUBTITLES_FONT" = "Шрифт";

@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Проведіть вгору/вниз для яскравості";
 "SETTINGS_GESTURES_SEEK" = "Проведіть вправо/вліво для пошуку";
 "SETTINGS_GESTURES_CLOSE" = "Натисніть, щоб закрити";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Тривалість змінного переходу";
 
 "SETTINGS_SUBTITLES_TITLE" = "Субтитри";
 "SETTINGS_SUBTITLES_FONT" = "Шрифт";

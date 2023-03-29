@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Llisca amunt/avall per la brillantor";
 "SETTINGS_GESTURES_SEEK" = "Llisca dreta/esquerra per cercar";
 "SETTINGS_GESTURES_CLOSE" = "Pinça per tancar";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Duració de salt variable";
 
 "SETTINGS_SUBTITLES_TITLE" = "Subtítols";
 "SETTINGS_SUBTITLES_FONT" = "Lletra";

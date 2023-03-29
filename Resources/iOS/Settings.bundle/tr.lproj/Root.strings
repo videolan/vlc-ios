@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Parlaklığı değiştirmek için yukarı/aşağı kaydırın";
 "SETTINGS_GESTURES_SEEK" = "Atlamak için sağa/sola kaydırın";
 "SETTINGS_GESTURES_CLOSE" = "Kapatmak için kıstırın";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Değişken atlama süresi";
 
 "SETTINGS_SUBTITLES_TITLE" = "Alt yazılar";
 "SETTINGS_SUBTITLES_FONT" = "Yazı türü";

@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "തെളിച്ചത്തിനായി മുകളിലേക്കോ താഴേക്കോ സ്വൈപ്പുചെയ്യുക";
 "SETTINGS_GESTURES_SEEK" = "സീക് ചെയ്യാൻ വലത്തേക്ക് / ഇടത്തേക്ക് സ്വൈപ്പുചെയ്യുക";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Variable jump duration";
 
 "SETTINGS_SUBTITLES_TITLE" = "സബ്‌ടൈറ്റിലുകൾ";
 "SETTINGS_SUBTITLES_FONT" = "ഫോണ്ട്";

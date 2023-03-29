@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Oben/unten streichen für Helligkeit";
 "SETTINGS_GESTURES_SEEK" = "Links/rechts streichen um zu spulen";
 "SETTINGS_GESTURES_CLOSE" = "Zuziehen zum Schließen";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Variable Sprunggröße";
 
 "SETTINGS_SUBTITLES_TITLE" = "Untertitel";
 "SETTINGS_SUBTITLES_FONT" = "Schrift";

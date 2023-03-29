@@ -217,16 +217,6 @@
 			</array>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<false/>
-			<key>Key</key>
-			<string>EnableVariableJumpDuration</string>
-			<key>Title</key>
-			<string>SETTINGS_GESTURE_JUMP_DURATION</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>

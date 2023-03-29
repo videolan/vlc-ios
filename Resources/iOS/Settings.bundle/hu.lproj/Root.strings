@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Legyintés fel/le a fényerő állításához";
 "SETTINGS_GESTURES_SEEK" = "Legyintés balra/jobbra a kereséshez";
 "SETTINGS_GESTURES_CLOSE" = "Csippentés a bezáráshoz";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Változó ugráshosszok";
 
 "SETTINGS_SUBTITLES_TITLE" = "Feliratok";
 "SETTINGS_SUBTITLES_FONT" = "Betűkészlet";

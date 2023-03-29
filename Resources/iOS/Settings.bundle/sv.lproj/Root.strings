@@ -44,7 +44,6 @@
 "SETTINGS_GESTURES_BRIGHTNESS" = "Svep upp/ned för att ändra ljusstyrka";
 "SETTINGS_GESTURES_SEEK" = "Svep åt höger/vänster för att snabbspola";
 "SETTINGS_GESTURES_CLOSE" = "Nyp för att stänga";
-"SETTINGS_GESTURE_JUMP_DURATION" = "Föränderlig hopplängd";
 
 "SETTINGS_SUBTITLES_TITLE" = "Undertexter";
 "SETTINGS_SUBTITLES_FONT" = "Typsnitt";
