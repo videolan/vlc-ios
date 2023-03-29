@@ -38,7 +38,7 @@
 
 "SETTINGS_PLAYBACK_SPEED_DEFAULT" = "မူလ ပြသ နှုန်း";
 
-"SETTINGS_GESTURES" = "Control playback with gestures";
+"SETTINGS_GESTURES" = "Playback Controls";
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
 "SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
