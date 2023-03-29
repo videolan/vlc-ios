@@ -25,6 +25,8 @@
 · Fix silence for a split second when starting playback
 · Add option to force the video playback orientation lock
 · Seek playback using the number keys on external keyboards
+· Add options to skip forward/back instead of go to next/previous track
+    - on lockscreen and when using external controls (like headphones and car controls)
 · Integrate with the pCloud service
 
 Known issues:

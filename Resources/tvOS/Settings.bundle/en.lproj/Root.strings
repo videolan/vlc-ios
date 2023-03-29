@@ -151,6 +151,10 @@
 "SETTINGS_PLAYBACK_SKIP_FORWARD_SWIPE" = "Forward skip on swipe";
 "SETTINGS_PLAYBACK_SKIP_BACKWARD_SWIPE" = "Backward skip on swipe";
 "SETINGS_LONG_TOUCH_SPEED_UP" = "Long touch to speed-up";
+"SETTINGS_PLAYBACK_LOCKSCREEN_SKIP" = "Lock screen controls";
+"SETTINGS_PLAYBACK_EXTERNAL_CONTROLS_SKIP" = "External controls (headphones, car)";
+"SETTINGS_PLAYBACK_CONTROLS_SKIP_NO" = "Next/Previous";
+"SETTINGS_PLAYBACK_CONTROLS_SKIP_YES" = "Skip Forward/Back";
 
 "SETTINGS_DURATION_FOUR" = "4 seconds";
 "SETTINGS_DURATION_FIVE" = "5 seconds";

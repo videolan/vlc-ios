@@ -65,6 +65,8 @@
 #define kVLCSettingPlaybackForwardSkipLengthDefaultValue @(10)
 #define kVLCSettingPlaybackBackwardSkipLength @"playback-backward-skip-length"
 #define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(10)
+#define kVLCSettingPlaybackLockscreenSkip @"playback-lockscreen-skip"
+#define kVLCSettingPlaybackRemoteControlSkip @"playback-remote-control-skip"
 #define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
 #define kVLCPlayerUIShouldHide @"PlayerUIShouldHide"

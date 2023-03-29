@@ -75,6 +75,8 @@
                                   kVLCSettingPlaybackBackwardSkipLength : kVLCSettingPlaybackBackwardSkipLengthDefaultValue,
                                   kVLCSettingPlaybackForwardSkipLengthSwipe : kVLCSettingPlaybackForwardSkipLengthSwipeDefaultValue,
                                   kVLCSettingPlaybackBackwardSkipLengthSwipe : kVLCSettingPlaybackBackwardSkipLengthSwipeDefaultValue,
+                                  kVLCSettingPlaybackLockscreenSkip : @(NO),
+                                  kVLCSettingPlaybackRemoteControlSkip : @(NO),
                                   kVLCSettingOpenAppForPlayback : kVLCSettingOpenAppForPlaybackDefaultValue,
                                   kVLCAutomaticallyPlayNextItem : @(YES),
                                   kVLCPlaylistPlayNextItem: @(YES),

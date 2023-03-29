@@ -397,6 +397,20 @@ enum GestureControlOptions {
                 preferenceKey: kVLCSettingPlaybackLongTouchSpeedUp)
     }
 
+    static var lockScreenSkip: SettingsItem {
+        let k = kVLCSettingPlaybackLockscreenSkip
+        return .init(title: "SETTINGS_PLAYBACK_LOCKSCREEN_SKIP",
+                     subtitle: Localizer.getSubtitle(for: k),
+                     action: .showActionSheet(title: "SETTINGS_PLAYBACK_LOCKSCREEN_SKIP", preferenceKey: k, hasInfo: false))
+    }
+
+    static var externalControlsSkip: SettingsItem {
+        let k = kVLCSettingPlaybackRemoteControlSkip
+        return .init(title: "SETTINGS_PLAYBACK_EXTERNAL_CONTROLS_SKIP",
+                     subtitle: Localizer.getSubtitle(for: k),
+                     action: .showActionSheet(title: "SETTINGS_PLAYBACK_EXTERNAL_CONTROLS_SKIP", preferenceKey: k, hasInfo: false))
+    }
+
     static func section(isForwardBackwardEqual: Bool, isTapSwipeEqual: Bool) -> SettingsSection? {
         .init(title: "SETTINGS_GESTURES", items: [
             swipeUpDownForVolume,
@@ -411,6 +425,8 @@ enum GestureControlOptions {
             isTapSwipeEqual ? nil : forwardSkipLengthSwipe,
             (isTapSwipeEqual || isForwardBackwardEqual) ? nil : backwardSkipLengthSwipe,
             longTouchToSpeedUp,
+            lockScreenSkip,
+            externalControlsSkip,
         ].compactMap { $0 })
     }
 

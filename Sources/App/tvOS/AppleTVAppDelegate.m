@@ -58,6 +58,8 @@
                                   kVLCSettingEqualizerProfile : kVLCSettingEqualizerProfileDefaultValue,
                                   kVLCSettingPlaybackForwardSkipLength : kVLCSettingPlaybackForwardSkipLengthDefaultValue,
                                   kVLCSettingPlaybackBackwardSkipLength : kVLCSettingPlaybackBackwardSkipLengthDefaultValue,
+                                  kVLCSettingPlaybackLockscreenSkip : @(NO),
+                                  kVLCSettingPlaybackRemoteControlSkip : @(NO),
                                   kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue,
                                   kVLCAutomaticallyPlayNextItem : @(YES),
                                   kVLCPlayerShouldRememberState: @(YES),
