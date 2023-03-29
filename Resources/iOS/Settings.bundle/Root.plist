@@ -218,12 +218,6 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>SETTINGS_PLAYBACK_SKIP</string>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_PLAYBACK_SKIP_FORWARD</string>
