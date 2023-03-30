@@ -62,9 +62,9 @@
 #define kVLCSettingEqualizerProfileDisabled @"EqualizerDisabled"
 #define kVLCSettingEqualizerProfileDefaultValue @(0)
 #define kVLCSettingPlaybackForwardSkipLength @"playback-forward-skip-length"
-#define kVLCSettingPlaybackForwardSkipLengthDefaultValue @(60)
+#define kVLCSettingPlaybackForwardSkipLengthDefaultValue @(10)
 #define kVLCSettingPlaybackBackwardSkipLength @"playback-backward-skip-length"
-#define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(60)
+#define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(10)
 #define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
 #define kVLCSettingDownloadArtwork @"download-artwork"

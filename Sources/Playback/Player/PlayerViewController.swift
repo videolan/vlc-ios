@@ -65,7 +65,8 @@ class PlayerViewController: UIViewController {
     var playbackService: PlaybackService = PlaybackService.sharedInstance()
     var queueViewController: QueueViewController?
     var alertController: UIAlertController?
-    var seekBy: Int = 0
+    var seekForwardBy: Int = 0
+    var seekBackwardBy: Int = 0
 
     lazy var statusLabel: VLCStatusLabel = {
         var statusLabel = VLCStatusLabel()
@@ -627,20 +628,20 @@ class PlayerViewController: UIViewController {
         case .right:
             let timeRemaining = -Int(Double(playbackService.remainingTime().intValue) * 0.001)
 
-            if seekBy < timeRemaining {
-                if seekBy < 1 {
-                    seekBy = 1
+            if seekForwardBy < timeRemaining {
+                if seekForwardBy < 1 {
+                    seekForwardBy = 1
                 }
 
-                jumpForwards(seekBy)
-                hudString = String(format: "⇒ %is", seekBy)
+                jumpForwards(seekForwardBy)
+                hudString = String(format: "⇒ %is", seekForwardBy)
             } else {
                 jumpForwards(timeRemaining - 5)
                 hudString = String(format: "⇒ %is", (timeRemaining - 5))
             }
         case .left:
-            jumpBackwards(seekBy)
-            hudString = String(format: "⇐ %is", seekBy)
+            jumpBackwards(seekBackwardBy)
+            hudString = String(format: "⇐ %is", seekBackwardBy)
         case .up:
             playbackService.previous()
             hudString = NSLocalizedString("BWD_BUTTON", comment: "")
@@ -911,11 +912,11 @@ extension PlayerViewController: VLCRendererDiscovererManagerDelegate {
 
 extension PlayerViewController {
     @objc func keyLeftArrow() {
-        jumpBackwards(seekBy)
+        jumpBackwards(seekBackwardBy)
     }
 
     @objc func keyRightArrow() {
-        jumpForwards(seekBy)
+        jumpForwards(seekForwardBy)
     }
 
     @objc func keyRightBracket() {

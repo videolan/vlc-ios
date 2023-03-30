@@ -62,8 +62,6 @@
 #define kVLCSettingSeekGesture @"EnableSeekGesture"
 #define kVLCSettingCloseGesture @"EnableCloseGesture"
 #define kVLCSettingVideoFullscreenPlayback @"AlwaysUseFullscreenForVideo"
-#define kVLCSettingSetCustomSeek @"SetCustomSeekSpeed"
-#define kVLCSettingCustomSeekDurationDefaultValue @(10)
 #define kVLCSettingContinuePlayback @"ContinuePlayback"
 #define kVLCSettingContinueAudioPlayback @"ContinueAudioPlayback"
 #define kVLCSettingPlaybackSpeedDefaultValue @"playback-speed"
@@ -73,9 +71,9 @@
 #define kVLCSettingEqualizerProfileDisabled @"EqualizerDisabled"
 #define kVLCSettingEqualizerProfileDefaultValue @(0)
 #define kVLCSettingPlaybackForwardSkipLength @"playback-forward-skip-length"
-#define kVLCSettingPlaybackForwardSkipLengthDefaultValue @(60)
+#define kVLCSettingPlaybackForwardSkipLengthDefaultValue @(10)
 #define kVLCSettingPlaybackBackwardSkipLength @"playback-backward-skip-length"
-#define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(60)
+#define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(10)
 #define kVLCSettingOpenAppForPlayback @"open-app-for-playback"
 #define kVLCSettingOpenAppForPlaybackDefaultValue @YES
 #define kVLCSettingShowThumbnails @"ShowThumbnails"

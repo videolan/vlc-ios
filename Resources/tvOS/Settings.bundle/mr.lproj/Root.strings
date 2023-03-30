@@ -42,7 +42,7 @@
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
 "SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
-"SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
+"SETTINGS_GESTURES_SEEK" = "Swipe right/left to skip";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
 
 "SETTINGS_SUBTITLES_TITLE" = "उपशीर्षक";

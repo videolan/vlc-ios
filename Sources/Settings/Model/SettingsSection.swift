@@ -279,7 +279,6 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
     case swipeUpDownForBrightness
     case swipeRightLeftToSeek
     case pinchToClose
-    case setCustomSeek
     case forwardSkipLength
     case backwardSkipLength
 
@@ -297,8 +296,6 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return true
         case .pinchToClose:
             return true
-        case .setCustomSeek:
-            return false
         case .forwardSkipLength:
             return false
         case .backwardSkipLength:
@@ -318,8 +315,6 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_GESTURES_SEEK"
         case .pinchToClose:
             return "SETTINGS_GESTURES_CLOSE"
-        case .setCustomSeek:
-            return "SETTINGS_SET_CUSTOM_SEEK_SPEED"
         case .forwardSkipLength:
             return "SETTINGS_PLAYBACK_SKIP_FORWARD"
         case .backwardSkipLength:
@@ -341,8 +336,6 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return kVLCSettingSeekGesture
         case .pinchToClose:
             return kVLCSettingCloseGesture
-        case .setCustomSeek:
-            return kVLCSettingSetCustomSeek
         case .forwardSkipLength:
             return kVLCSettingPlaybackForwardSkipLength
         case .backwardSkipLength:

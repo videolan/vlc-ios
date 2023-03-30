@@ -525,13 +525,13 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)keyLeftArrow
 {
-    NSInteger seekBy = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingSetCustomSeek];
+    NSInteger seekBy = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingPlaybackBackwardSkipLength];
     [_playbackController jumpBackward:(int)seekBy];
 }
 
 - (void)keyRightArrow
 {
-    NSInteger seekBy = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingSetCustomSeek];
+    NSInteger seekBy = [[NSUserDefaults standardUserDefaults] integerForKey:kVLCSettingPlaybackForwardSkipLength];
     [_playbackController jumpForward:(int)seekBy];
 }
 

@@ -44,7 +44,7 @@
 "SETTINGS_GESTURES_VOLUME" = "Swipe up/down for volume";
 "SETTINGS_GESTURES_PLAYPAUSE" = "Two finger tap to play/pause";
 "SETTINGS_GESTURES_BRIGHTNESS" = "Swipe up/down for brightness";
-"SETTINGS_GESTURES_SEEK" = "Swipe right/left to seek";
+"SETTINGS_GESTURES_SEEK" = "Swipe right/left to skip";
 "SETTINGS_GESTURES_CLOSE" = "Pinch to close";
 
 "SETTINGS_SUBTITLES_TITLE" = "Subtitles";
@@ -125,10 +125,9 @@
 
 "SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
 
-"SETTINGS_PLAYBACK_SKIP_FORWARD" = "Forward skip button";
-"SETTINGS_PLAYBACK_SKIP_BACKWARD" = "Backward skip button";
+"SETTINGS_PLAYBACK_SKIP_FORWARD" = "Forward skip";
+"SETTINGS_PLAYBACK_SKIP_BACKWARD" = "Backward skip";
 
-"SETTINGS_SET_CUSTOM_SEEK_SPEED" = "Seek duration";
 "SETTINGS_DURATION_FIVE" = "5 seconds";
 "SETTINGS_DURATION_TEN" =  "10 seconds";
 "SETTINGS_DURATION_FIFTEEN" = "15 seconds";

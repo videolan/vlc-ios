@@ -80,7 +80,8 @@ class AudioPlayerViewController: PlayerViewController {
         navigationController?.navigationBar.isHidden = true
         playbackService.delegate = self
         playbackService.recoverPlaybackState()
-        seekBy = UserDefaults.standard.integer(forKey: kVLCSettingSetCustomSeek)
+        seekForwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
+        seekBackwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
         audioPlayerView.setupThumbnailView()
         audioPlayerView.setupBackgroundColor()
         setupGestures()
@@ -255,7 +256,7 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
     }
 
     func audioPlayerViewDelegateDidTapBackwardButton(_ audioPlayerView: AudioPlayerView) {
-        playbackService.jumpBackward(Int32(seekBy))
+        playbackService.jumpBackward(Int32(seekBackwardBy))
     }
 
     func audioPlayerViewDelegateDidTapPreviousButton(_ audioPlayerView: AudioPlayerView) {
@@ -272,7 +273,7 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
     }
 
     func audioPlayerViewDelegateDidTapForwardButton(_ audioPlayerView: AudioPlayerView) {
-        playbackService.jumpForward(Int32(seekBy))
+        playbackService.jumpForward(Int32(seekForwardBy))
     }
 
     func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView {

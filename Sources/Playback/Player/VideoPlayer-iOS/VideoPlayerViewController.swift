@@ -141,7 +141,8 @@ class VideoPlayerViewController: UIViewController {
    
     private var numberOfTapSeek: Int = 0
     private var previousSeekState: VideoPlayerSeekState = .default
-    var seekBy: Int = 0
+    var seekForwardBy: Int = 0
+    var seekBackwardBy: Int = 0
 
     // MARK: - UI elements
 
@@ -558,7 +559,8 @@ class VideoPlayerViewController: UIViewController {
         super.viewWillAppear(animated)
         playbackService.delegate = self
         playbackService.recoverPlaybackState()
-        seekBy = UserDefaults.standard.integer(forKey: kVLCSettingSetCustomSeek)
+        seekForwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
+        seekBackwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
         playerController.lockedOrientation = .portrait
         navigationController?.navigationBar.isHidden = true
 
@@ -784,7 +786,7 @@ private extension VideoPlayerViewController {
         // FIXME: Need to add interface (ripple effect) for seek indicator
         var hudString = ""
 
-        let currentSeek = VideoPlayerSeek(shortSeek: seekBy)
+        let currentSeek = VideoPlayerSeek(shortSeek: numberOfTapSeek > 0 ? seekForwardBy : seekBackwardBy)
 
         let seekDuration: Int = numberOfTapSeek * currentSeek.shortSeek
 
@@ -1127,20 +1129,20 @@ extension VideoPlayerViewController {
         case .right:
             let timeRemaining = -Int(Double(playbackService.remainingTime().intValue) * 0.001)
 
-            if seekBy < timeRemaining {
-                if seekBy < 1 {
-                    seekBy = 1
+            if seekForwardBy < timeRemaining {
+                if seekForwardBy < 1 {
+                    seekForwardBy = 1
                 }
 
-                jumpForwards(seekBy)
-                hudString = String(format: "⇒ %is", seekBy)
+                jumpForwards(seekForwardBy)
+                hudString = String(format: "⇒ %is", seekForwardBy)
             } else {
                 jumpForwards(timeRemaining - 5)
                 hudString = String(format: "⇒ %is", (timeRemaining - 5))
             }
         case .left:
-            jumpBackwards(seekBy)
-            hudString = String(format: "⇐ %is", seekBy)
+            jumpBackwards(seekBackwardBy)
+            hudString = String(format: "⇐ %is", seekBackwardBy)
         case .up:
             playbackService.previous()
             hudString = NSLocalizedString("BWD_BUTTON", comment: "")
@@ -2077,11 +2079,11 @@ extension VideoPlayerViewController: QueueViewControllerDelegate {
 
 extension VideoPlayerViewController {
     @objc func keyLeftArrow() {
-        jumpBackwards(seekBy)
+        jumpBackwards(seekBackwardBy)
     }
 
     @objc func keyRightArrow() {
-        jumpForwards(seekBy)
+        jumpForwards(seekForwardBy)
     }
 
     @objc func keyRightBracket() {
