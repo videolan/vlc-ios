@@ -232,6 +232,7 @@ class SettingsCell: UITableViewCell {
 
     @objc fileprivate func themeDidChange() {
         let colors = PresentationTheme.current.colors
+        backgroundColor = colors.background
         selectedBackgroundView?.backgroundColor = colors.mediaCategorySeparatorColor
         mainLabel.textColor = colors.cellTextColor
         subtitleLabel.textColor = colors.cellDetailTextColor
