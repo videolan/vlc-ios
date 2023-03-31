@@ -34,15 +34,6 @@ enum VideoPlayerPanType {
     case projection
 }
 
-struct VideoPlayerSeek {
-     let shortSeek: Int
-
-    struct Swipe {
-        static let forward: Int = 30
-        static let backward: Int = 10
-    }
-}
-
 @objc(VLCVideoPlayerViewController)
 class VideoPlayerViewController: UIViewController {
     @objc weak var delegate: VideoPlayerViewControllerDelegate?
@@ -786,17 +777,17 @@ private extension VideoPlayerViewController {
         // FIXME: Need to add interface (ripple effect) for seek indicator
         var hudString = ""
 
-        let currentSeek = VideoPlayerSeek(shortSeek: numberOfTapSeek > 0 ? seekForwardBy : seekBackwardBy)
+        let currentSeek = numberOfTapSeek > 0 ? seekForwardBy : seekBackwardBy
 
-        let seekDuration: Int = numberOfTapSeek * currentSeek.shortSeek
+        let seekDuration: Int = numberOfTapSeek * currentSeek
 
         if seekDuration > 0 {
             hudString = "⇒ "
-            playbackService.jumpForward(Int32(currentSeek.shortSeek))
+            playbackService.jumpForward(Int32(currentSeek))
             previousSeekState = .forward
         } else {
             hudString = "⇐ "
-            playbackService.jumpBackward(Int32(currentSeek.shortSeek))
+            playbackService.jumpBackward(Int32(currentSeek))
             previousSeekState = .backward
         }
         hudString.append(stringInTimeFormat(from: abs(seekDuration)))
