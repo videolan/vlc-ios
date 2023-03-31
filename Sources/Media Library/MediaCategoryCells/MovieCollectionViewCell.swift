@@ -165,8 +165,15 @@ class MovieCollectionViewCell: BaseCollectionViewCell {
         descriptionLabel.text = movie.mediaDuration()
         thumbnailView.image = movie.thumbnailImage()
         let progress = movie.progress
-        progressView.isHidden = progress == 0
-        progressView.progress = progress
+        guard let value = UserDefaults.standard.value(forKey: kVLCSettingContinuePlayback) as? Int else {
+            return
+        }
+        if value <= 0 {
+            progressView.isHidden = true
+        } else {
+            progressView.isHidden = progress < 0
+            progressView.progress = progress
+        }
         newLabel.isHidden = !movie.isNew
         sizeLabel.text = movie.formatSize()
 
