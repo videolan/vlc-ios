@@ -32,6 +32,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     [super awakeFromNib];
     _artworkProvider = [[VLCMDFBrowsingArtworkProvider alloc] init];
     _artworkProvider.artworkReceiver = self;
+    _thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
 
     [self prepareForReuse];
 }
