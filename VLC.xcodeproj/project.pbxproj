@@ -3048,6 +3048,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		0A9D17D120C4A14700AA4A8C /* Run SwiftLint Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -3106,6 +3107,7 @@
 		};
 		41F7087C1F37900A00953630 /* Generate Localized Strings */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
