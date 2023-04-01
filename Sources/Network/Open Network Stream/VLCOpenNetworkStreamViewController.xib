@@ -31,7 +31,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vcr-nA-XZ6" userLabel="ViewFields">
                     <rect key="frame" x="0.0" y="0.0" width="282" height="169"/>
                     <subviews>
-                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter any HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP address to open the stream directly." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UuA-Mv-6GU">
+                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter any HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP address to open the stream directly." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="UuA-Mv-6GU">
                             <rect key="frame" x="20" y="10" width="242" height="38"/>
                             <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -41,7 +41,7 @@
                             <color key="textColor" red="0.74659199620000005" green="0.74659199620000005" blue="0.74659199620000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="xNl-Fz-GRI">
+                        <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="xNl-Fz-GRI">
                             <rect key="frame" x="20" y="58" width="242" height="31"/>
                             <color key="backgroundColor" red="0.28627450980000002" green="0.28627450980000002" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -112,7 +112,7 @@
                         <action selector="toggleButtonAction:" destination="-1" eventType="primaryActionTriggered" id="fos-c4-a5U"/>
                     </connections>
                 </button>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Private Playback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9">
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Private Playback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9">
                     <rect key="frame" x="52" y="169" width="100" height="16"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>

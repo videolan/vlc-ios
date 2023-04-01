@@ -31,14 +31,14 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                         <rect key="frame" x="74" y="16" width="51.5" height="16"/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
-                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7">
                         <rect key="frame" x="74" y="36" width="104.5" height="14.5"/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
