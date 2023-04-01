@@ -190,7 +190,7 @@ extension VLCMLPlaylist {
             for iter in tracks {
                 if iter.thumbnailStatus() == .available {
                     image = iter.thumbnailImage()
-                    break;
+                    break
                 }
             }
         }

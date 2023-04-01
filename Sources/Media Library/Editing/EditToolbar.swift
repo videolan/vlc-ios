@@ -38,7 +38,7 @@ class EditToolbar: UIView {
         return rightStackView
     }()
 
-    private var addToPlaylistButton: UIButton = {
+    private lazy var addToPlaylistButton: UIButton = {
         let addToPlaylistButton = UIButton(type: .system)
         addToPlaylistButton.setTitle(NSLocalizedString("ADD_TO_PLAYLIST", comment: ""), for: .normal)
         addToPlaylistButton.titleLabel?.font = UIFont.preferredCustomFont(forTextStyle: .headline)

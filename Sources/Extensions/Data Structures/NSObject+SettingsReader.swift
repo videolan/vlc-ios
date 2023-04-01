@@ -38,7 +38,7 @@ extension NSObject {
                             specifier.append(newSpecifier)
                         }
                     }
-                    let newSpecifierObject = SettingSpecifier(title: title, preferenceKey: preferenceKey, infobuttonvalue: infobuttonvalue,  specifier: specifier)
+                    let newSpecifierObject = SettingSpecifier(title: title, preferenceKey: preferenceKey, infobuttonvalue: infobuttonvalue, specifier: specifier)
                     settingsSpecifierDict = newSpecifierObject
                 }
                 else {

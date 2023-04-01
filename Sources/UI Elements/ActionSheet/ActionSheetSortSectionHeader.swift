@@ -92,7 +92,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return descendingLabel
     }()
 
-    let actionSwitch: UISwitch = {
+    lazy var actionSwitch: UISwitch = {
         let actionSwitch = UISwitch()
         actionSwitch.addTarget(self, action: #selector(handleDescendingSwitch(_:)), for: .valueChanged)
         actionSwitch.accessibilityLabel = NSLocalizedString("DESCENDING_SWITCH_LABEL", comment: "")
@@ -128,7 +128,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return displayByLabel
     }()
 
-    let layoutChangeSwitch: UISwitch = {
+    private lazy var layoutChangeSwitch: UISwitch = {
         let layoutChangeSwitch = UISwitch()
         layoutChangeSwitch.addTarget(self,
                                action: #selector(handleLayoutChangeSwitch(_:)),
@@ -139,7 +139,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return layoutChangeSwitch
     }()
 
-    let hideFeatArtistsLabel: UILabel = {
+    private lazy var hideFeatArtistsLabel: UILabel = {
         let hideFeatArtistsLabel = UILabel()
         let colors = PresentationTheme.current.colors
         hideFeatArtistsLabel.text = NSLocalizedString("HIDE_FEAT_ARTISTS", comment: "")
@@ -152,7 +152,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return hideFeatArtistsLabel
     }()
 
-    let hideFeatArtistsSwitch: UISwitch = {
+    private lazy var hideFeatArtistsSwitch: UISwitch = {
         let hideFeatArtistsSwitch = UISwitch()
         hideFeatArtistsSwitch.addTarget(self, action: #selector(handleHideFeatArtistsSwitch(_:)), for: .valueChanged)
         hideFeatArtistsSwitch.accessibilityLabel = NSLocalizedString("HIDE_FEAT_ARTISTS", comment: "")
@@ -174,7 +174,7 @@ class ActionSheetSortSectionHeader: ActionSheetSectionHeader {
         return hideTrackNumbersLabel
     }()
 
-    let hideTrackNumbersSwitch: UISwitch = {
+    private lazy var hideTrackNumbersSwitch: UISwitch = {
         let hideTrackNumbersSwitch = UISwitch()
         hideTrackNumbersSwitch.addTarget(self, action: #selector(handleHideTrackNumbersSwitch(_:)), for: .valueChanged)
         hideTrackNumbersSwitch.accessibilityLabel = NSLocalizedString("HIDE_TRACK_NUMBERS", comment: "")

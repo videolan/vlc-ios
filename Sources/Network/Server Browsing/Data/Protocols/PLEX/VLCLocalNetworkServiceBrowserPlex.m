@@ -99,7 +99,6 @@ static NSString * ipAddressAsStringForData(NSData * data)
     }
 
     NSString *name = service.name;
-    NSString *hostName = service.hostName;
     NSUInteger portNum = service.port;
 
     VLCNetworkServerBrowserPlex *serverBrowser = [[VLCNetworkServerBrowserPlex alloc] initWithName:name host:ipAddressAsStringForData(service.addresses.firstObject)
