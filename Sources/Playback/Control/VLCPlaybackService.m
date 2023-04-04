@@ -1347,6 +1347,8 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #else
     [_metadata updateMetadataFromMediaPlayer:_mediaPlayer];
 #endif
+
+    [self recoverDisplayedMetadata];
 }
 
 #if TARGET_OS_IOS
