@@ -62,7 +62,7 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
     private let animationDuration = 0.2
 
     private var mediaService: MediaLibraryService
-    private lazy var playbackController = PlaybackService.sharedInstance()
+    private lazy var playbackService = PlaybackService.sharedInstance()
 
     private var queueViewController: QueueViewController?
 
@@ -92,11 +92,11 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
     }
 
     func updatePlayPauseButton() {
-        playPauseButton.isSelected = playbackController.isPlaying
+        playPauseButton.isSelected = playbackService.isPlaying
     }
 
     func updateRepeatButton() {
-        switch playbackController.repeatMode {
+        switch playbackService.repeatMode {
         case .doNotRepeat:
             repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
             repeatButton.tintColor = .white
@@ -114,7 +114,7 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
     func updateShuffleButton() {
         let colors = PresentationTheme.current.colors
         shuffleButton.tintColor =
-        playbackController.isShuffleMode ? colors.orangeUI : colors.cellTextColor
+        playbackService.isShuffleMode ? colors.orangeUI : colors.cellTextColor
     }
 
     @objc func setupQueueViewController(with view: QueueViewController) {
@@ -212,25 +212,25 @@ extension AudioMiniPlayer: VLCPlaybackServiceDelegate {
 
 private extension AudioMiniPlayer {
     @IBAction private func handlePrevious(_ sender: UIButton) {
-        playbackController.previous()
+        playbackService.previous()
     }
 
     @IBAction private func handlePlayPause(_ sender: UIButton) {
-        playbackController.playPause()
+        playbackService.playPause()
         updatePlayPauseButton()
     }
 
     @IBAction private func handleNext(_ sender: UIButton) {
-        playbackController.next()
+        playbackService.next()
     }
 
     @IBAction private func handelRepeat(_ sender: UIButton) {
-        playbackController.toggleRepeatMode()
+        playbackService.toggleRepeatMode()
         updateRepeatButton()
     }
 
     @IBAction private func handleShuffle(_ sender: UIButton? = nil) {
-        playbackController.isShuffleMode = !playbackController.isShuffleMode
+        playbackService.isShuffleMode = !playbackService.isShuffleMode
         updateShuffleButton()
     }
 
@@ -239,7 +239,7 @@ private extension AudioMiniPlayer {
             dismissPlayqueue()
         }
 
-        let currentMedia: VLCMedia? = playbackController.currentlyPlayingMedia
+        let currentMedia: VLCMedia? = playbackService.currentlyPlayingMedia
         let mlMedia: VLCMLMedia? = VLCMLMedia.init(forPlaying: currentMedia)
 
         let selector: Selector
@@ -260,9 +260,9 @@ private extension AudioMiniPlayer {
         // case .began:
         // In the case of .began we could a an icon like the old miniplayer
         case .ended:
-            playbackController.stopPlayback()
+            playbackService.stopPlayback()
         case .cancelled, .failed:
-            playbackController.playPause()
+            playbackService.playPause()
             updatePlayPauseButton()
         default:
             break
@@ -321,7 +321,7 @@ extension AudioMiniPlayer {
                             }
                         case .bottom:
                             if stopGestureEnabled && self.frame.minY > originY + 10 {
-                                playbackController.stopPlayback()
+                                playbackService.stopPlayback()
                             } else if self.frame.minY > limit && velocity.y > -1000.0 {
                                 dismissPlayqueue()
                             } else {
@@ -331,9 +331,9 @@ extension AudioMiniPlayer {
                 case .horizontal:
                     switch position.horizontal {
                         case .right:
-                            playbackController.previous()
+                            playbackService.previous()
                         case .left:
-                            playbackController.next()
+                            playbackService.next()
                         case .center:
                             break
                     }
@@ -474,16 +474,16 @@ private extension AudioMiniPlayer {
         titleLabel.text = metadata.title
         artistLabel.text = metadata.artist
         if (!UIAccessibility.isReduceTransparencyEnabled && metadata.isAudioOnly) ||
-            playbackController.playAsAudio {
+            playbackService.playAsAudio {
             // Only update the artwork image when the media is being played
-            if playbackController.isPlaying {
+            if playbackService.isPlaying {
                 artworkImageView.image = metadata.artworkImage ?? UIImage(named: "no-artwork")
                 artworkBlurImageView.image = metadata.artworkImage
                 queueViewController?.reloadBackground(with: metadata.artworkImage)
                 artworkBlurView.isHidden = false
             }
 
-            playbackController.videoOutputView = nil
+            playbackService.videoOutputView = nil
         } else {
             artworkBlurImageView.image = nil
             queueViewController?.reloadBackground(with: nil)
@@ -508,7 +508,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
         let defaultButtonColor: UIColor = PresentationTheme.current.colors.cellTextColor
 
         if shuffleButton.isHidden {
-            let shuffleState: UIMenuElement.State = playbackController.isShuffleMode ? .on : .off
+            let shuffleState: UIMenuElement.State = playbackService.isShuffleMode ? .on : .off
             let shuffleIconTint: UIColor = shuffleButton.tintColor
             let shuffleIcon = shuffleButton.image(for: .normal)?.withTintColor(shuffleIconTint, renderingMode: .alwaysOriginal)
             actions.append(
@@ -521,7 +521,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
         }
 
         if repeatButton.isHidden {
-            let repeatMode = playbackController.repeatMode
+            let repeatMode = playbackService.repeatMode
             var repeatActions: [UIMenuElement] = []
 
             let noRepeatState: UIMenuElement.State = repeatMode == .doNotRepeat ? .on : .off
@@ -530,7 +530,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
             repeatActions.append(
                 UIAction(title: NSLocalizedString("MENU_REPEAT_DISABLED", comment: ""), image: noRepeatIcon, state: noRepeatState) {
                     action in
-                    self.playbackController.repeatMode = .doNotRepeat
+                    self.playbackService.repeatMode = .doNotRepeat
                     self.updateRepeatButton()
                 }
             )
@@ -541,7 +541,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
             repeatActions.append(
                 UIAction(title: NSLocalizedString("MENU_REPEAT_SINGLE", comment: ""), image: repeatOneIcon, state: repeatOneState) {
                     action in
-                    self.playbackController.repeatMode = .repeatCurrentItem
+                    self.playbackService.repeatMode = .repeatCurrentItem
                     self.updateRepeatButton()
                 }
             )
@@ -552,7 +552,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
             repeatActions.append(
                 UIAction(title: NSLocalizedString("MENU_REPEAT_ALL", comment: ""), image: repeatAllIcon, state: repeatAllState) {
                     action in
-                    self.playbackController.repeatMode = .repeatAllItems
+                    self.playbackService.repeatMode = .repeatAllItems
                     self.updateRepeatButton()
                 }
             )
@@ -564,7 +564,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
             UIAction(title: NSLocalizedString("STOP_BUTTON", comment: ""),
                      image: UIImage(named: "stopIcon")?.withTintColor(defaultButtonColor, renderingMode: .alwaysOriginal)) {
                 action in
-                self.playbackController.stopPlayback()
+                self.playbackService.stopPlayback()
             }
         )
 
