@@ -271,10 +271,6 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
             descriptionText += " · " + albumTitle
         }
 
-        let orangeColor: UIColor = PresentationTheme.current.colors.orangeUI
-        let playingAnimation = generateAnimation(with: "playing-animation-", color: orangeColor)
-        let pauseAnimation = generateAnimation(with: "pause-animation-", color: orangeColor)
-
         if let currentMedia = playbackService.currentlyPlayingMedia,
            let audiotrackURL = audiotrack.mainFile()?.mrl,
            let currentMediaURL = currentMedia.url,
@@ -283,28 +279,18 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
             // Animate the current played cell
             if #available(iOS 13.0, *) {
-                if playbackService.isPlaying {
-                    thumbnailView.animationImages = playingAnimation
-                    thumbnailView.animationDuration = 1.2
-                    thumbnailView.animationRepeatCount = 0
-                    thumbnailView.image = thumbnailView.animationImages?.first
-                    thumbnailView.startAnimating()
-                } else {
-                    thumbnailView.stopAnimating()
-                    thumbnailView.animationImages = pauseAnimation
-                    thumbnailView.animationDuration = 0.8
-                    thumbnailView.animationRepeatCount = 1
-                    thumbnailView.image = thumbnailView.animationImages?.first
-                    thumbnailView.startAnimating()
-                    thumbnailView.image = pauseAnimation.last
-                }
-
+                NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidResume),
+                                                       object: nil, queue: OperationQueue.main, using: {_ in
+                    self.animateCurrentlyPlayingState()
+                })
+                animateCurrentlyPlayingState()
                 backupThumbnail = audiotrack.thumbnailImage()
             } else {
                 thumbnailView.image = audiotrack.thumbnailImage()
                 backupThumbnail = nil
             }
         } else {
+            NotificationCenter.default.removeObserver(self)
             isMediaBeingPlayed = false
             thumbnailView.image = audiotrack.thumbnailImage()
             backupThumbnail = nil
@@ -333,6 +319,32 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
         updateSizeDescriptionLabelConstraint()
         updateLabelsViewContraint()
+    }
+
+    func animateCurrentlyPlayingState() {
+        if !isMediaBeingPlayed {
+            return
+        }
+
+        let orangeColor: UIColor = PresentationTheme.current.colors.orangeUI
+        let playingAnimation = generateAnimation(with: "playing-animation-", color: orangeColor)
+        let pauseAnimation = generateAnimation(with: "pause-animation-", color: orangeColor)
+
+        if playbackService.isPlaying {
+            thumbnailView.animationImages = playingAnimation
+            thumbnailView.animationDuration = 1.2
+            thumbnailView.animationRepeatCount = 0
+            thumbnailView.image = thumbnailView.animationImages?.first
+            thumbnailView.startAnimating()
+        } else {
+            thumbnailView.stopAnimating()
+            thumbnailView.animationImages = pauseAnimation
+            thumbnailView.animationDuration = 0.8
+            thumbnailView.animationRepeatCount = 1
+            thumbnailView.image = thumbnailView.animationImages?.first
+            thumbnailView.startAnimating()
+            thumbnailView.image = pauseAnimation.last
+        }
     }
 
     func update(album: VLCMLAlbum) {
@@ -440,6 +452,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        NotificationCenter.default.removeObserver(self)
         isEditing = false
         ignoreThemeDidChange = false
         titleLabel.text = ""
