@@ -83,7 +83,9 @@ class PlaybackSpeedView: UIView {
         optionsSegmentedControl.setTitle(NSLocalizedString("PLAYBACK_SPEED", comment: ""), forSegmentAt: 0)
         optionsSegmentedControl.setTitle(NSLocalizedString("SPU_DELAY", comment: ""), forSegmentAt: 1)
         optionsSegmentedControl.setTitle(NSLocalizedString("AUDIO_DELAY", comment: ""), forSegmentAt: 2)
-
+        if vpc.metadata.isAudioOnly {
+            optionsSegmentedControl.removeSegment(at: 1, animated: false)
+        }
         optionsSegmentedControl.extendAndHyphenateLabels()
 
         optionsSegmentedControl.selectedSegmentIndex = 0
