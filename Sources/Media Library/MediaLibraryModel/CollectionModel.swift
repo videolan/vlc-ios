@@ -133,6 +133,8 @@ extension CollectionModel: MediaLibraryObserver {
             observable.observers.forEach() {
                 $0.value.observer?.mediaLibraryBaseModelReloadView()
             }
+
+            sort(by: sortModel.currentSort, desc: sortModel.desc)
         }
     }
 
@@ -145,6 +147,8 @@ extension CollectionModel: MediaLibraryObserver {
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
         }
+
+        sort(by: sortModel.currentSort, desc: sortModel.desc)
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService, didDeleteMediaWithIds ids: [NSNumber]) {
@@ -156,6 +160,8 @@ extension CollectionModel: MediaLibraryObserver {
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
         }
+
+        sort(by: sortModel.currentSort, desc: sortModel.desc)
     }
 
     func medialibrary(_ medialibrary: MediaLibraryService,
@@ -172,6 +178,8 @@ extension CollectionModel: MediaLibraryObserver {
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
         }
+
+        sort(by: sortModel.currentSort, desc: sortModel.desc)
     }
 
     func medialibraryDidStartRescan() {
