@@ -1398,6 +1398,10 @@ extension MediaCategoryViewController: EditControllerDelegate {
                       let model = controller.model as? CollectionModel,
                       let collection = model.mediaCollection as? VLCMLPlaylist {
                 newTitle = collection.title()
+            } else if let controller = navigationController?.viewControllers.last as? CollectionCategoryViewController,
+                      let model = controller.model as? CollectionModel,
+                      let collection = model.mediaCollection as? VLCMLMediaGroup {
+                newTitle = collection.title()
             }
         }
 
