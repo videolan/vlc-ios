@@ -193,6 +193,7 @@ extension EditController: EditToolbarDelegate {
             if state == .success || state == .fail {
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerDidFinishEditing(editController: self)
+                self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
             }
         })
     }
@@ -212,6 +213,7 @@ extension EditController: EditToolbarDelegate {
             if state == .success || state == .fail {
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerDidFinishEditing(editController: self)
+                self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
             }
         }
     }
@@ -229,6 +231,7 @@ extension EditController: EditToolbarDelegate {
             if state == .success || state == .fail {
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerDidFinishEditing(editController: self)
+                self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
             }
         }
     }
@@ -247,6 +250,7 @@ extension EditController: EditToolbarDelegate {
             if state == .success || state == .fail {
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerDidFinishEditing(editController: self)
+                self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
             }
         })
     }
@@ -280,6 +284,7 @@ extension EditController: EditToolbarDelegate {
             if state == .success || state == .fail {
                 self?.resetSelections(resetUI: true)
                 self?.delegate?.editControllerDidFinishEditing(editController: self)
+                self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
             }
         })
     }
