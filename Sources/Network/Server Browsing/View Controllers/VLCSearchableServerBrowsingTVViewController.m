@@ -105,24 +105,20 @@ static NSString * const VLCSearchableServerBrowsingTVViewControllerSectionHeader
 
 - (void)setupGestures
 {
-    UITapGestureRecognizer *upArrowRecognizer = [[VLCIRTVTapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture)];
+    UITapGestureRecognizer *upArrowRecognizer = [[VLCIRTVTapGestureRecognizer alloc] initWithTarget:self action:@selector(handleUpGestures)];
     upArrowRecognizer.allowedPressTypes = @[@(UIPressTypeUpArrow)];
 
-    UISwipeGestureRecognizer *upSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture)];
+    UISwipeGestureRecognizer *upSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleUpGestures)];
     upSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
 
     [self.view addGestureRecognizer:upArrowRecognizer];
     [self.view addGestureRecognizer:upSwipeRecognizer];
 }
 
-- (void)handleTapGesture
+- (void)handleUpGestures
 {
-    [self presentViewController:_searchController animated:NO completion:nil];
-}
-
-- (void)handleSwipeGesture
-{
-    // If the user swipes up at the top of the collection view: display the search controller
+    // If the user swipes up or taps the up button at the top of the collection view it
+    // will present the search controller
     if (self.collectionView.contentOffset.y == [_collectionTopContentOffset floatValue]) {
         [self presentViewController:_searchController animated:NO completion:nil];
     }
