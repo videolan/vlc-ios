@@ -117,14 +117,14 @@ static NSString * const VLCSearchableServerBrowsingTVViewControllerSectionHeader
 
 - (void)handleTapGesture
 {
-    [_searchController.searchBar becomeFirstResponder];
+    [self presentViewController:_searchController animated:NO completion:nil];
 }
 
 - (void)handleSwipeGesture
 {
     // If the user swipes up at the top of the collection view: display the search controller
     if (self.collectionView.contentOffset.y == [_collectionTopContentOffset floatValue]) {
-        [_searchController.searchBar becomeFirstResponder];
+        [self presentViewController:_searchController animated:NO completion:nil];
     }
 }
 
