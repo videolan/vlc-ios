@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #import "VLCSearchController.h"
+#import "VLCSearchableServerBrowsingTVViewController.h"
 
 @implementation VLCSearchController
 
@@ -20,10 +21,13 @@
 
 - (void)showViewController:(UIViewController *)vc sender:(id)sender
 {
-    // Setting to active to NO otherwise, it will perform a default presentation which led to an `NSInvalidArgumentException`.
-    self.active = NO;
-    [self.presentingViewController showViewController:vc sender:sender];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:^{
+        // The search bar's delegate should be the one displaying the folder's content,
+        // not the search controller itself.
+        if ([self.delegate isMemberOfClass:[VLCSearchableServerBrowsingTVViewController class]]) {
+            [(VLCSearchableServerBrowsingTVViewController *)self.delegate showViewController:vc sender:sender];
+        }
+    }];
 }
 
 - (void)setupTapGesture
