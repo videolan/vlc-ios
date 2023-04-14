@@ -15,13 +15,15 @@
 
 @interface UIEvent (VLCDigitizerLocation)
 - (CGPoint)vlc_digitizerLocation;
+
 @end
 
 @interface VLCSiriRemoteGestureRecognizer ()
 {
-	NSTimer *_longPressTimer;
+    NSTimer *_longPressTimer;
     BOOL _hasTouchEnded;
 }
+
 @end
 
 @implementation VLCSiriRemoteGestureRecognizer
@@ -33,28 +35,34 @@
     if (self) {
         self.allowedTouchTypes = @[@(UITouchTypeIndirect)];
         self.allowedPressTypes = @[@(UIPressTypeSelect)];
-		self.minLongPressDuration = 0.5;
+        self.minLongPressDuration = 0.5;
         self.cancelsTouchesInView = NO;
     }
     return self;
 }
+
+#pragma mark - Touch Gestures Recognition
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     self.state = UIGestureRecognizerStateBegan;
     [self updateTouchLocationWithEvent:event];
     _hasTouchEnded = NO;
 }
+
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     self.state = UIGestureRecognizerStateChanged;
     [self updateTouchLocationWithEvent:event];
 }
+
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     self.state = UIGestureRecognizerStateCancelled;
     [self updateTouchLocation:VLCSiriRemoteTouchLocationUnknown];
     _hasTouchEnded = YES;
 }
+
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     self.state = UIGestureRecognizerStateEnded;
@@ -80,12 +88,14 @@
 
 - (void)updateTouchLocation:(VLCSiriRemoteTouchLocation)location
 {
-	if (_touchLocation == location) {
-		return;
-	}
+    if (_touchLocation == location) {
+        return;
+    }
 
-	_touchLocation = location;
+    _touchLocation = location;
 }
+
+#pragma mark - Shared methods
 
 - (void)reset
 {
@@ -93,44 +103,50 @@
         return;
     }
 
-	_click = NO;
-	_touchLocation = VLCSiriRemoteTouchLocationUnknown;
-	_longPress = NO;
-	[_longPressTimer invalidate];
-	_longPressTimer = nil;
+    _click = NO;
+    _touchLocation = VLCSiriRemoteTouchLocationUnknown;
+    _longPress = NO;
+    [_longPressTimer invalidate];
+    _longPressTimer = nil;
     [super reset];
 }
 
+#pragma mark - Press Gestures Recognition
+
 - (void)longPressTimerFired
 {
-	if (_click && (self.state == UIGestureRecognizerStateBegan || self.state == UIGestureRecognizerStateChanged)) {
-		_longPress = YES;
+    if (_click && (self.state == UIGestureRecognizerStateBegan || self.state == UIGestureRecognizerStateChanged)) {
+        _longPress = YES;
         self.state = UIGestureRecognizerStateChanged;
     }
 }
 
 - (void)pressesBegan:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
 {
-	if ([self.allowedPressTypes containsObject:@(presses.anyObject.type)]) {
-		_click = YES;
-		_longPressTimer = [NSTimer scheduledTimerWithTimeInterval:self.minLongPressDuration target:self selector:@selector(longPressTimerFired) userInfo:nil repeats:NO];
-		self.state = UIGestureRecognizerStateChanged;
-	}
+    if ([self.allowedPressTypes containsObject:@(presses.anyObject.type)]) {
+        _click = YES;
+        _longPressTimer = [NSTimer scheduledTimerWithTimeInterval:self.minLongPressDuration target:self selector:@selector(longPressTimerFired) userInfo:nil repeats:NO];
+        self.state = UIGestureRecognizerStateChanged;
+    }
 }
+
 - (void)pressesChanged:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
 {
-	self.state = UIGestureRecognizerStateChanged;
+    self.state = UIGestureRecognizerStateChanged;
 }
+
 - (void)pressesCancelled:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
 {
-	self.state = UIGestureRecognizerStateCancelled;
+    self.state = UIGestureRecognizerStateCancelled;
 }
+
 - (void)pressesEnded:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
 {
-	if (_click) {
-		self.state = UIGestureRecognizerStateEnded;
-	}
+    if (_click) {
+        self.state = UIGestureRecognizerStateEnded;
+    }
 }
+
 @end
 
 
