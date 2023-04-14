@@ -5,6 +5,7 @@
  * $Id$
  *
  * Authors: Tobias Conradi <videolan # tobias-conradi.de>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -19,6 +20,7 @@
 @interface VLCSiriRemoteGestureRecognizer ()
 {
 	NSTimer *_longPressTimer;
+    BOOL _hasTouchEnded;
 }
 @end
 
@@ -40,6 +42,7 @@
 {
     self.state = UIGestureRecognizerStateBegan;
     [self updateTouchLocationWithEvent:event];
+    _hasTouchEnded = NO;
 }
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
@@ -50,11 +53,13 @@
 {
     self.state = UIGestureRecognizerStateCancelled;
     [self updateTouchLocation:VLCSiriRemoteTouchLocationUnknown];
+    _hasTouchEnded = YES;
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     self.state = UIGestureRecognizerStateEnded;
     [self updateTouchLocationWithEvent:event];
+    _hasTouchEnded = YES;
 }
 
 - (void)updateTouchLocationWithEvent:(UIEvent *)event
@@ -84,6 +89,10 @@
 
 - (void)reset
 {
+    if (!_hasTouchEnded) {
+        return;
+    }
+
 	_click = NO;
 	_touchLocation = VLCSiriRemoteTouchLocationUnknown;
 	_longPress = NO;
