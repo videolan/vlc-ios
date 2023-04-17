@@ -119,6 +119,16 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     rightArrowRecognizer.allowedPressTypes = @[@(UIPressTypeRightArrow)];
     [self.view addGestureRecognizer:rightArrowRecognizer];
 
+    UILongPressGestureRecognizer *rightLongPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleRightLongPress:)];
+    rightLongPressGestureRecognizer.allowedPressTypes = @[@(UIPressTypeRightArrow)];
+    rightLongPressGestureRecognizer.minimumPressDuration = 0.5;
+    [self.view addGestureRecognizer:rightLongPressGestureRecognizer];
+
+    UILongPressGestureRecognizer *leftLongPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLeftLongPress:)];
+    leftLongPressGestureRecognizer.allowedPressTypes = @[@(UIPressTypeLeftArrow)];
+    leftLongPressGestureRecognizer.minimumPressDuration = 0.5;
+    [self.view addGestureRecognizer:leftLongPressGestureRecognizer];
+
     // Siri remote arrow presses
     VLCSiriRemoteGestureRecognizer *siriArrowRecognizer = [[VLCSiriRemoteGestureRecognizer alloc] initWithTarget:self action:@selector(handleSiriRemote:)];
     siriArrowRecognizer.delegate = self;
@@ -371,17 +381,7 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     [self showPlaybackControlsIfNeededForUserInteraction];
 
-    if (!self.isSeekable) {
-        return;
-    }
-
-    BOOL paused = ![VLCPlaybackService sharedInstance].isPlaying;
-    if (paused) {
-        [self jumpBackward];
-    } else
-    {
-        [self scanForwardPrevious];
-    }
+    [self jumpBackward];
 }
 
 - (void)handleIRPressRight
@@ -398,16 +398,37 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     [self showPlaybackControlsIfNeededForUserInteraction];
 
-    if (!self.isSeekable) {
+    [self jumpForward];
+}
+
+- (void)handleRightLongPress:(UILongPressGestureRecognizer *)recognizer
+{
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+
+    if (!vpc.isPlaying || !self.isSeekable || recognizer.state == UIGestureRecognizerStateEnded) {
         return;
     }
 
-    BOOL paused = ![VLCPlaybackService sharedInstance].isPlaying;
-    if (paused) {
-        [self jumpForward];
-    } else {
-        [self scanForwardNext];
+    [self showPlaybackControlsIfNeededForUserInteraction];
+
+    [self scanForwardNext];
+}
+
+- (void)handleLeftLongPress:(UILongPressGestureRecognizer *)recognizer
+{
+    VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
+
+    if (!vpc.isPlaying || !self.isSeekable || recognizer.state == UIGestureRecognizerStateEnded) {
+        return;
     }
+
+    if (_scanState == VLCPlayerScanStateNone) {
+        return;
+    }
+
+    [self showPlaybackControlsIfNeededForUserInteraction];
+
+    [self scanForwardPrevious];
 }
 
 - (void)handleSiriRemote:(VLCSiriRemoteGestureRecognizer *)recognizer
