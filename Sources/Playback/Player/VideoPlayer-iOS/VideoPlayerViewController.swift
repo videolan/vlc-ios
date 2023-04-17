@@ -107,7 +107,7 @@ class VideoPlayerViewController: UIViewController {
                                          height: UIScreen.main.bounds.height)
 
     // MARK: - Private
-
+    private var systemBrightness: Double?
     // MARK: - 360
 
     private var fov: CGFloat = 0
@@ -297,7 +297,16 @@ class VideoPlayerViewController: UIViewController {
 
     private lazy var brightnessControlView: BrightnessControlView = {
         let vc = BrightnessControlView()
-        vc.updateIcon(level: brightnessControl.fetchAndGetDeviceValue())
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: kVLCPlayerShouldRememberBrightness) {
+            if let brightness = defaults.value(forKey: KVLCPlayerBrightness) as? Float {
+                vc.updateIcon(level:brightness)
+            } else {
+                vc.updateIcon(level:brightnessControl.fetchAndGetDeviceValue())
+            }
+        } else {
+            vc.updateIcon(level:brightnessControl.fetchAndGetDeviceValue())
+        }
         vc.translatesAutoresizingMaskIntoConstraints = false
         vc.alpha = 0
         return vc
@@ -501,6 +510,8 @@ class VideoPlayerViewController: UIViewController {
         self.playerController = playerController
         super.init(nibName: nil, bundle: nil)
         self.playerController.delegate = self
+        systemBrightness = UIScreen.main.brightness
+        NotificationCenter.default.addObserver(self, selector: #selector(systemBrightnessChanged), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -589,7 +600,14 @@ class VideoPlayerViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // _viewAppeared = YES;
-
+        
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: kVLCPlayerShouldRememberBrightness) {
+            if let brightness = defaults.value(forKey: KVLCPlayerBrightness) as? CGFloat {
+                UIScreen.main.brightness = brightness
+            }
+        }
+        
         playbackService.recoverDisplayedMetadata()
         // [self resetVideoFiltersSliders];
 
@@ -644,6 +662,12 @@ class VideoPlayerViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         deviceMotion.stopDeviceMotion()
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: kVLCPlayerShouldRememberBrightness) {
+            let currentBrightness = UIScreen.main.brightness
+            defaults.set(currentBrightness, forKey: KVLCPlayerBrightness)
+            UIScreen.main.brightness = systemBrightness!
+        }
     }
 
     override func viewDidLoad() {
@@ -654,6 +678,10 @@ class VideoPlayerViewController: UIViewController {
         setupGestures()
         setupConstraints()
         setupRendererDiscoverer()
+    }
+
+    @objc func systemBrightnessChanged() {
+        systemBrightness = UIScreen.main.brightness
     }
 
     @objc func setupQueueViewController(qvc: QueueViewController) {

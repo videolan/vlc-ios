@@ -102,6 +102,8 @@
 #define kVLCVideoLibraryGridLayout @"kVLCVideoLibraryGridLayout"
 
 #define kVLCPlayerShouldRememberState @"PlayerShouldRememberState"
+#define kVLCPlayerShouldRememberBrightness @"PlayerShouldRememberBrightness"
+#define KVLCPlayerBrightness @"playerbrightness"
 #define kVLCPlayerIsShuffleEnabled @"PlayerIsShuffleEnabled"
 #define kVLCPlayerIsShuffleEnabledDefaultValue @NO
 #define kVLCPlayerIsRepeatEnabled @"PlayerIsRepeatEnabled"

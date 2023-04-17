@@ -348,6 +348,7 @@ enum VideoOptions: Int, CaseIterable, SectionType {
     case deBlockingFilter
     case deInterlace
     case hardwareDecoding
+    case rememberPlayerBrightness
 
     var description: String {
         switch self {
@@ -357,10 +358,23 @@ enum VideoOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_DEINTERLACE"
         case .hardwareDecoding:
             return "SETTINGS_HWDECODING"
+        case .rememberPlayerBrightness:
+            return "SETTINGS_REMEMBER_PLAYER_BRIGHTNESS"
         }
     }
 
-    var containsSwitch: Bool { return false }
+    var containsSwitch: Bool {
+        switch self {
+        case .deBlockingFilter:
+            return false
+        case .deInterlace:
+            return false
+        case .hardwareDecoding:
+            return false
+        case .rememberPlayerBrightness:
+            return true
+        }
+    }
 
     var containsInfobutton: Bool { return true }
 
@@ -372,6 +386,8 @@ enum VideoOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_DEINTERLACE_OFF"
         case .hardwareDecoding:
             return "SETTINGS_HWDECODING_ON"
+        case .rememberPlayerBrightness:
+            return nil
         }
     }
 
@@ -383,6 +399,8 @@ enum VideoOptions: Int, CaseIterable, SectionType {
             return kVLCSettingDeinterlace
         case .hardwareDecoding:
             return kVLCSettingHardwareDecoding
+        case .rememberPlayerBrightness:
+            return kVLCPlayerShouldRememberBrightness
         }
     }
 }
