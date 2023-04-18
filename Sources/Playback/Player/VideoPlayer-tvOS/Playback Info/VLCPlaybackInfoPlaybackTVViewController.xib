@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="18122" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="21701" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="appleTV" appearance="light"/>
     <dependencies>
         <deployment identifier="tvOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,20 +24,20 @@
             <rect key="frame" x="0.0" y="0.0" width="1920" height="372"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" axis="vertical" distribution="fillProportionally" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="XnY-7I-cWB">
-                    <rect key="frame" x="0.0" y="20" width="1920" height="306"/>
+                <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" axis="vertical" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="XnY-7I-cWB">
+                    <rect key="frame" x="0.0" y="20" width="1920" height="332"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtb-Ho-wRT">
-                            <rect key="frame" x="504" y="0.0" width="912" height="69"/>
+                            <rect key="frame" x="642" y="0.0" width="636" height="97.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" text="Playback rate" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rae-ci-cH1">
-                                    <rect key="frame" x="296" y="11.5" width="226" height="46"/>
+                                    <rect key="frame" x="20" y="25.5" width="226" height="46"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="a34-9y-ZcI" userLabel="Rate Control">
-                                    <rect key="frame" x="542" y="0.0" width="350" height="70"/>
+                                    <rect key="frame" x="266" y="0.0" width="350" height="98.5"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                     <segments>
                                         <segment title="First"/>
@@ -51,17 +51,17 @@
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="a34-9y-ZcI" secondAttribute="bottom" id="DLD-cb-7Ie"/>
                                 <constraint firstItem="Rae-ci-cH1" firstAttribute="centerY" secondItem="a34-9y-ZcI" secondAttribute="centerY" id="H3u-bt-GQU"/>
-                                <constraint firstItem="Rae-ci-cH1" firstAttribute="leading" secondItem="xtb-Ho-wRT" secondAttribute="leading" priority="200" constant="20" id="MRB-u0-9Oq"/>
-                                <constraint firstAttribute="trailing" secondItem="a34-9y-ZcI" secondAttribute="trailing" priority="500" constant="20" symbolic="YES" id="XpK-y3-ikU"/>
+                                <constraint firstItem="Rae-ci-cH1" firstAttribute="leading" secondItem="xtb-Ho-wRT" secondAttribute="leading" constant="20" id="MRB-u0-9Oq"/>
+                                <constraint firstAttribute="trailing" secondItem="a34-9y-ZcI" secondAttribute="trailing" constant="20" symbolic="YES" id="XpK-y3-ikU"/>
                                 <constraint firstItem="a34-9y-ZcI" firstAttribute="top" secondItem="xtb-Ho-wRT" secondAttribute="top" id="Yv9-EY-Mae"/>
                                 <constraint firstItem="a34-9y-ZcI" firstAttribute="leading" secondItem="Rae-ci-cH1" secondAttribute="trailing" constant="20" id="xvy-Tv-Lch"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BkR-2u-SR9">
-                            <rect key="frame" x="504" y="89" width="912" height="69"/>
+                            <rect key="frame" x="695" y="117.5" width="530" height="97"/>
                             <subviews>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LT2-wc-v4T" userLabel="Repeat Control">
-                                    <rect key="frame" x="542" y="0.0" width="350" height="70"/>
+                                    <rect key="frame" x="160" y="0.0" width="350" height="98"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                     <segments>
                                         <segment title="First"/>
@@ -72,26 +72,26 @@
                                     </connections>
                                 </segmentedControl>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" text="Repeat" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrS-i0-38G">
-                                    <rect key="frame" x="402" y="11.5" width="120" height="46"/>
+                                    <rect key="frame" x="20" y="25.5" width="120" height="46"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="IrS-i0-38G" firstAttribute="leading" secondItem="BkR-2u-SR9" secondAttribute="leading" priority="200" constant="20" id="B7k-6N-0ko"/>
+                                <constraint firstItem="IrS-i0-38G" firstAttribute="leading" secondItem="BkR-2u-SR9" secondAttribute="leading" constant="20" id="B7k-6N-0ko"/>
                                 <constraint firstAttribute="bottom" secondItem="LT2-wc-v4T" secondAttribute="bottom" id="HUc-mt-yf9"/>
                                 <constraint firstItem="IrS-i0-38G" firstAttribute="centerY" secondItem="LT2-wc-v4T" secondAttribute="centerY" id="K1r-bM-tLv"/>
                                 <constraint firstItem="LT2-wc-v4T" firstAttribute="leading" secondItem="IrS-i0-38G" secondAttribute="trailing" constant="20" id="Qbm-kO-Yal"/>
-                                <constraint firstAttribute="trailing" secondItem="LT2-wc-v4T" secondAttribute="trailing" priority="500" constant="20" symbolic="YES" id="RvR-wy-oVN"/>
+                                <constraint firstAttribute="trailing" secondItem="LT2-wc-v4T" secondAttribute="trailing" constant="20" symbolic="YES" id="RvR-wy-oVN"/>
                                 <constraint firstItem="LT2-wc-v4T" firstAttribute="top" secondItem="BkR-2u-SR9" secondAttribute="top" id="mo7-kq-DgH"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oye-dk-lnh">
-                            <rect key="frame" x="524" y="178" width="872" height="128"/>
+                            <rect key="frame" x="704.5" y="234.5" width="511" height="97.5"/>
                             <subviews>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oHs-6b-Gfj" userLabel="Repeat Control">
-                                    <rect key="frame" x="522" y="0.0" width="350" height="129"/>
+                                    <rect key="frame" x="161" y="0.0" width="350" height="98.5"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                     <segments>
                                         <segment title="First"/>
@@ -102,7 +102,7 @@
                                     </connections>
                                 </segmentedControl>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" text="Shuffle" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L2V-L2-Nq0">
-                                    <rect key="frame" x="20" y="41" width="482" height="46"/>
+                                    <rect key="frame" x="20" y="26" width="121" height="46"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -118,15 +118,12 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <constraints>
-                        <constraint firstItem="IrS-i0-38G" firstAttribute="trailing" secondItem="Rae-ci-cH1" secondAttribute="trailing" id="cUn-w6-TMI"/>
-                        <constraint firstItem="L2V-L2-Nq0" firstAttribute="trailing" secondItem="IrS-i0-38G" secondAttribute="trailing" id="qZH-zw-Zer"/>
-                    </constraints>
                 </stackView>
             </subviews>
             <constraints>
                 <constraint firstItem="XnY-7I-cWB" firstAttribute="leading" secondItem="vgW-9U-IlZ" secondAttribute="leading" id="B54-Za-Kbq"/>
                 <constraint firstItem="XnY-7I-cWB" firstAttribute="top" secondItem="vgW-9U-IlZ" secondAttribute="top" constant="20" id="Oeh-Tr-9rS"/>
+                <constraint firstAttribute="bottom" secondItem="XnY-7I-cWB" secondAttribute="bottom" constant="20" id="fja-0d-Dkg"/>
                 <constraint firstAttribute="trailing" secondItem="XnY-7I-cWB" secondAttribute="trailing" id="zvp-8J-IRy"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
