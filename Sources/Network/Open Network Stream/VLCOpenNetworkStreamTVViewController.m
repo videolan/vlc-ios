@@ -64,20 +64,39 @@
     NSUInteger dayOfYear = [gregorian ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:[NSDate date]];
     if (dayOfYear >= 354)
         self.nothingFoundConeImageView.image = [UIImage imageNamed:@"xmas-cone"];
+
+    if ([self ubiquitousKeyStoreAvailable]) {
+        APLog(@"%s: ubiquitous key store is available", __func__);
+        /* force store update */
+        NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+        [ubiquitousKeyValueStore synchronize];
+
+        /* fetch data from cloud */
+        _recentURLs = [NSMutableArray arrayWithArray:[[NSUbiquitousKeyValueStore defaultStore] arrayForKey:kVLCRecentURLs]];
+        _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[[NSUbiquitousKeyValueStore defaultStore] dictionaryForKey:kVLCRecentURLTitles]];
+
+        /* merge data from local storage (aka legacy VLC versions) */
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *localRecentUrls = [defaults objectForKey:kVLCRecentURLs];
+        if (localRecentUrls != nil) {
+            if (localRecentUrls.count != 0) {
+                [_recentURLs addObjectsFromArray:localRecentUrls];
+                [defaults setObject:nil forKey:kVLCRecentURLs];
+                [ubiquitousKeyValueStore setArray:_recentURLs forKey:kVLCRecentURLs];
+                [ubiquitousKeyValueStore synchronize];
+            }
+        }
+    } else {
+        APLog(@"%s: ubiquitous key store is not available", __func__);
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        _recentURLs = [NSMutableArray arrayWithArray:[defaults objectForKey:kVLCRecentURLs]];
+        _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:kVLCRecentURLTitles]];
+    }
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (BOOL)ubiquitousKeyStoreAvailable
 {
-    /* force store update */
-    NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
-    [ubiquitousKeyValueStore synchronize];
-
-    /* fetch data from cloud */
-    _recentURLs = [NSMutableArray arrayWithArray:[ubiquitousKeyValueStore arrayForKey:kVLCRecentURLs]];
-    _recentURLTitles = [NSMutableDictionary dictionaryWithDictionary:[ubiquitousKeyValueStore dictionaryForKey:kVLCRecentURLTitles]];
-
-    [self.previouslyPlayedStreamsTableView reloadData];
-    [super viewWillAppear:animated];
+    return [[NSFileManager defaultManager] ubiquityIdentityToken] != nil;
 }
 
 - (void)ubiquitousKeyValueStoreDidChange:(NSNotification *)notification
@@ -155,9 +174,15 @@
         if (_recentURLs.count >= 100)
             [_recentURLs removeLastObject];
         [_recentURLs addObject:urlString];
-        [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
+        if ([self ubiquitousKeyStoreAvailable]) {
+            [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setObject:_recentURLs forKey:kVLCRecentURLs];
+        }
 
         [self _openURLStringAndDismiss:urlString];
+
+        [_previouslyPlayedStreamsTableView reloadData];
     }
 }
 
@@ -184,13 +209,20 @@
                                                      style:UIAlertActionStyleDestructive
                                                    handler:^(UIAlertAction *action){
         @synchronized(self->_recentURLs) {
-            NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
-            [ubiquitousKeyValueStore setArray:@[] forKey:kVLCRecentURLs];
-            [ubiquitousKeyValueStore setDictionary:@{} forKey:kVLCRecentURLTitles];
-            [[NSUbiquitousKeyValueStore defaultStore] synchronize];
             self->_recentURLs = [NSMutableArray array];
             self->_recentURLTitles = [NSMutableDictionary dictionary];
             [self.previouslyPlayedStreamsTableView reloadData];
+
+            if ([self ubiquitousKeyStoreAvailable]) {
+                NSUbiquitousKeyValueStore *ubiquitousKeyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+                [ubiquitousKeyValueStore setArray:@[] forKey:kVLCRecentURLs];
+                [ubiquitousKeyValueStore setDictionary:@{} forKey:kVLCRecentURLTitles];
+                [[NSUbiquitousKeyValueStore defaultStore] synchronize];
+            } else {
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:self->_recentURLs forKey:kVLCRecentURLs];
+                [userDefaults setObject:self->_recentURLTitles forKey:kVLCRecentURLTitles];
+            }
         }
     }];
     [alertController addAction:deleteAction];
@@ -248,10 +280,19 @@
     if (!indexPathToDelete) {
         return;
     }
-    @synchronized(_recentURLs) {
-        [_recentURLs removeObjectAtIndex:indexPathToDelete.row];
+
+    [_recentURLs removeObjectAtIndex:indexPathToDelete.row];
+    [_recentURLTitles removeObjectForKey:[@(indexPathToDelete.row) stringValue]];
+
+    if ([self ubiquitousKeyStoreAvailable]) {
+        NSUbiquitousKeyValueStore *keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+        [keyValueStore setArray:_recentURLs forKey:kVLCRecentURLs];
+        [keyValueStore setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
+    } else {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:_recentURLs forKey:kVLCRecentURLs];
+        [userDefaults setObject:_recentURLTitles forKey:kVLCRecentURLTitles];
     }
-    [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
 
     [self.previouslyPlayedStreamsTableView reloadData];
 }
