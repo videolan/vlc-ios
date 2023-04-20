@@ -290,7 +290,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
                 backupThumbnail = nil
             }
         } else {
-            NotificationCenter.default.removeObserver(self)
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidResume), object: nil)
             isMediaBeingPlayed = false
             thumbnailView.image = audiotrack.thumbnailImage()
             backupThumbnail = nil
@@ -452,7 +452,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidResume), object: nil)
         isEditing = false
         ignoreThemeDidChange = false
         titleLabel.text = ""
