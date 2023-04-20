@@ -18,6 +18,7 @@
 @property (nonatomic, readonly, nullable) NSIndexPath *indexPathToDelete;
 @property (nonatomic, readonly, nullable) NSString *itemToDelete;
 
+- (void)handlePlayPausePress;
 - (void)deleteFileAtIndex:(NSIndexPath * _Nullable)indexPathToDelete;
 
 @end

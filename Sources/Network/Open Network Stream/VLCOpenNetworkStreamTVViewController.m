@@ -274,6 +274,52 @@
     }
 }
 
+- (void)handlePlayPausePress
+{
+    if (!self.editing) {
+        return;
+    }
+
+    NSString *fileToDelete = self.itemToDelete;
+    if (fileToDelete == nil) {
+        return;
+    }
+
+    NSIndexPath *indexPathToDelete = self.indexPathToDelete;
+
+    NSString *title = _recentURLTitles[[@(indexPathToDelete.row) stringValue]];
+    if (!title) {
+        title = fileToDelete.lastPathComponent;
+    }
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *renameAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_RENAME", nil)
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+        [self renameCellAtIndex:indexPathToDelete withCurrentTitle:title];
+    }];
+
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil)
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+        [self deleteFileAtIndex:indexPathToDelete];
+    }];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+        self.editing = NO;
+    }];
+
+    [alertController addAction:renameAction];
+    [alertController addAction:deleteAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (void)deleteFileAtIndex:(NSIndexPath *)indexPathToDelete
 {
     [super deleteFileAtIndex:indexPathToDelete];
@@ -295,6 +341,58 @@
     }
 
     [self.previouslyPlayedStreamsTableView reloadData];
+}
+
+- (void)renameCellAtIndex:(NSIndexPath *)indexPath withCurrentTitle:(NSString *)title
+{
+    NSString *renameTitle = NSLocalizedString(@"BUTTON_RENAME", nil);
+    NSString *cancelTitle = NSLocalizedString(@"BUTTON_CANCEL", nil);
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:renameTitle
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+        NSString *streamTitle = alertController.textFields.firstObject.text;
+        [self renameStreamWithTitle:streamTitle atIndex:indexPath.row];
+    }];
+
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.text = title;
+
+        [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
+                                                          object:textField
+                                                           queue:[NSOperationQueue mainQueue]
+                                                      usingBlock:^(NSNotification * _Nonnull note) {
+            okAction.enabled = (textField.text.length != 0);
+        }];
+    }];
+
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)renameStreamWithTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    [_recentURLTitles setObject:title forKey:[@(index) stringValue]];
+    if ([self ubiquitousKeyStoreAvailable]) {
+        [[NSUbiquitousKeyValueStore defaultStore] setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:_recentURLTitles forKey:kVLCRecentURLTitles];
+    }
+
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self.previouslyPlayedStreamsTableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+                                             withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
 }
 
 @end
