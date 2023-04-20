@@ -17,10 +17,14 @@
 · Updated UPnP support
 · Add information screens for complex settings
 · Remove the 'variable jump duration' feature
-· Show media dimensions in the library screen
+· Add custom seek duration options
+· Show media dimensions in library screen
+· Add optional display of album track numbers to library screen
 · Videos can be played as audio only now
+· Improve login experience to box.com
 · Major adaptive streaming update, notably for multiple timelies and webvtt
 · Add support for DVBSub inside MKV
+· Fix flac audio quality regression
 · Fix some flac files that could not be played
 · Improve seeking in Ogg and fragmented MP4 files
 · Fix styling issues with subs tx3g (mp4) tracks
@@ -29,14 +33,16 @@
 
 ## tvOS [3.4.0]
 · Add support for network streams distributed using MDM
-· Networking UI improvements
+· Improve remote gestures during playback
+· Improve support for single click mode of the Apple Remote
+· Multiple UI improvements for playback, browsing and networking
 · Major update to internal event handling
 · Performance improvements
 · Add Handoff and Ethernet support for WiFi Sharing
-· Rewritten OneDrive support
 · Updated UPnP support
 · Major adaptive streaming update, notably for multiple timelies and webvtt
 · Add support for DVBSub inside MKV
+· Fix flac audio quality regression
 · Fix some flac files that could not be played
 · Improve seeking in Ogg and fragmented MP4 files
 · Fix styling issues with subs tx3g (mp4) tracks
