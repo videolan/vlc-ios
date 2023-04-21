@@ -48,7 +48,10 @@
         self.trackNumber = @(media.trackNumber);
         self.albumName = media.album.title;
         self.artworkImage = [media thumbnailImage];
-        self.isAudioOnly = [media subtype] == VLCMLMediaSubtypeAlbumTrack;
+        if ([media subtype] == VLCMLMediaSubtypeAlbumTrack ||
+            media.videoTracks.count == 0) {
+            self.isAudioOnly = YES;
+        }
     } else { // We're streaming something
         [self fillFromMetaDict:mediaPlayer];
         if (!self.artworkImage) {
@@ -56,9 +59,9 @@
             self.artworkImage = isDarktheme ? [UIImage imageNamed:@"song-placeholder-dark"]
                                             : [UIImage imageNamed:@"song-placeholder-white"];
         }
-    }
 
-    [self checkIsAudioOnly:mediaPlayer];
+        [self checkIsAudioOnly:mediaPlayer];
+    }
 
     if (self.isAudioOnly) {
         if (self.artworkImage) {
