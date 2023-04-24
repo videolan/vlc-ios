@@ -48,10 +48,7 @@
         self.trackNumber = @(media.trackNumber);
         self.albumName = media.album.title;
         self.artworkImage = [media thumbnailImage];
-        if ([media subtype] == VLCMLMediaSubtypeAlbumTrack ||
-            media.videoTracks.count == 0) {
-            self.isAudioOnly = YES;
-        }
+        self.isAudioOnly = ([media subtype] == VLCMLMediaSubtypeAlbumTrack || media.videoTracks.count == 0) ? YES : NO;
     } else { // We're streaming something
         [self fillFromMetaDict:mediaPlayer];
         if (!self.artworkImage) {
