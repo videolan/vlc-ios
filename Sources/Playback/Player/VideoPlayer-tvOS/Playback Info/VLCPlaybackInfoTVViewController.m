@@ -12,7 +12,6 @@
 #import "VLCPlaybackInfoTVViewController.h"
 #import "VLCPlaybackInfoPlaybackTVViewController.h"
 #import "VLCPlaybackInfoMediaInfoTVViewController.h"
-#import "VLCPlaybackInfoTVAnimators.h"
 #import "VLCPlaybackInfoTracksTVViewController.h"
 #import "VLCPlaybackInfoChaptersTVViewController.h"
 
@@ -151,17 +150,6 @@
     }
     return NO;
 }
-
-#pragma mark - TabBarControllerDelegate
-- (nullable id <UIViewControllerAnimatedTransitioning>)tabBarController:(UITabBarController *)tabBarController
-                     animationControllerForTransitionFromViewController:(UIViewController *)fromVC
-                                                       toViewController:(UIViewController *)toVC
-{
-    VLCPlaybackInfoTabBarTVTransitioningAnimator* animator = [[VLCPlaybackInfoTabBarTVTransitioningAnimator alloc] init];
-    animator.infoContainerViewController = self;
-    return animator;
-}
-
 
 @end
 
