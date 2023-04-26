@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="21701" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,33 +16,40 @@
                 <rect key="frame" x="0.0" y="0.0" width="460" height="56"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNn-kk-JAL">
-                        <rect key="frame" x="48" y="0.0" width="412" height="56"/>
-                        <animations/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" text="✔︎" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMP-ov-ixd">
-                        <rect key="frame" x="8" y="0.0" width="32" height="56"/>
-                        <animations/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="60b-6P-BXv">
+                        <rect key="frame" x="0.0" y="0.0" width="460" height="56"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" text="✔︎" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMP-ov-ixd">
+                                <rect key="frame" x="8" y="0.0" width="33" height="56"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNn-kk-JAL">
+                                <rect key="frame" x="49" y="0.0" width="403" height="56"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YMP-ov-ixd" firstAttribute="leading" secondItem="60b-6P-BXv" secondAttribute="leading" constant="8" id="ANL-BH-dJP"/>
+                            <constraint firstItem="iNn-kk-JAL" firstAttribute="leading" secondItem="YMP-ov-ixd" secondAttribute="trailing" constant="8" id="LWE-Y5-8KJ"/>
+                            <constraint firstAttribute="trailing" secondItem="iNn-kk-JAL" secondAttribute="trailing" constant="8" id="SgQ-i5-fg8"/>
+                            <constraint firstAttribute="bottom" secondItem="YMP-ov-ixd" secondAttribute="bottom" id="dpr-Yn-Ehm"/>
+                            <constraint firstItem="iNn-kk-JAL" firstAttribute="top" secondItem="60b-6P-BXv" secondAttribute="top" id="jHt-B7-hUt"/>
+                            <constraint firstAttribute="bottom" secondItem="iNn-kk-JAL" secondAttribute="bottom" id="kcl-ua-2Jb"/>
+                            <constraint firstItem="YMP-ov-ixd" firstAttribute="top" secondItem="60b-6P-BXv" secondAttribute="top" id="sEc-p3-0Vx"/>
+                        </constraints>
+                    </view>
                 </subviews>
-                <animations/>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <animations/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="YMP-ov-ixd" secondAttribute="bottom" id="EMu-OI-4qI"/>
-                <constraint firstItem="iNn-kk-JAL" firstAttribute="top" secondItem="m1I-s4-RPj" secondAttribute="top" id="EUZ-5I-erE"/>
-                <constraint firstItem="YMP-ov-ixd" firstAttribute="leading" secondItem="m1I-s4-RPj" secondAttribute="leading" constant="8" id="HDQ-rO-QHf"/>
-                <constraint firstAttribute="bottom" secondItem="iNn-kk-JAL" secondAttribute="bottom" id="Jfi-tb-NfI"/>
-                <constraint firstAttribute="trailing" secondItem="iNn-kk-JAL" secondAttribute="trailing" id="OTh-f4-bTz"/>
-                <constraint firstItem="iNn-kk-JAL" firstAttribute="leading" secondItem="YMP-ov-ixd" secondAttribute="trailing" constant="8" id="QUe-TA-BP4"/>
-                <constraint firstItem="YMP-ov-ixd" firstAttribute="top" secondItem="m1I-s4-RPj" secondAttribute="top" id="g0N-SR-4dY"/>
+                <constraint firstAttribute="trailing" secondItem="60b-6P-BXv" secondAttribute="trailing" id="0Rq-aD-2ea"/>
+                <constraint firstItem="60b-6P-BXv" firstAttribute="top" secondItem="m1I-s4-RPj" secondAttribute="top" id="Pvl-31-Wh8"/>
+                <constraint firstItem="60b-6P-BXv" firstAttribute="leading" secondItem="m1I-s4-RPj" secondAttribute="leading" id="fda-t3-YlZ"/>
+                <constraint firstAttribute="bottom" secondItem="60b-6P-BXv" secondAttribute="bottom" id="gNF-CR-MNO"/>
             </constraints>
             <size key="customSize" width="460" height="56"/>
             <connections>
