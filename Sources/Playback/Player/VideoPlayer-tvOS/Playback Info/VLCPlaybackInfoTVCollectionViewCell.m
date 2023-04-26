@@ -39,6 +39,15 @@
 - (void)setSelectionMarkerVisible:(BOOL)selectionMarkerVisible
 {
     self.selectionMarkerView.hidden = !selectionMarkerVisible;
+
+    UIFont *titleFont;
+    if (selectionMarkerVisible) {
+        titleFont = [UIFont boldSystemFontOfSize:29.];
+    } else {
+        titleFont = [UIFont systemFontOfSize:29.];
+    }
+
+    self.titleLabel.font = titleFont;
 }
 
 - (void)prepareForReuse
