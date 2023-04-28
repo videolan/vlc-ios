@@ -14,7 +14,6 @@
 #import "VLCPlaybackInfoTVCollectionViewCell.h"
 #import "VLCPlaybackInfoTVCollectionSectionTitleView.h"
 
-#define CONTENT_INSET 20.
 @interface VLCPlaybackInfoTitlesDataSource : VLCPlaybackInfoCollectionViewDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
 // other collectionView which sould be updated when selection changes
 @property (nonatomic) UICollectionView *dependendCollectionView;
@@ -74,6 +73,11 @@
 - (CGSize)preferredContentSize
 {
     CGFloat prefferedHeight = MAX(self.titlesCollectionView.contentSize.height, self.chaptersCollectionView.contentSize.height) + CONTENT_INSET;
+
+    if (prefferedHeight < MINIMAL_CONTENT_SIZE) {
+        prefferedHeight = MINIMAL_CONTENT_SIZE;
+    }
+
     return CGSizeMake(CGRectGetWidth(self.view.bounds), prefferedHeight);
 }
 

@@ -11,6 +11,9 @@
 
 #import <UIKit/UIKit.h>
 
+#define CONTENT_INSET 20.
+#define MINIMAL_CONTENT_SIZE 420.
+
 @class VLCPlaybackService;
 @protocol VLCPlaybackInfoPanelTVViewController <NSObject>
 
