@@ -15,9 +15,6 @@
 #import "VLCPlaybackInfoCollectionViewDataSource.h"
 #import "VLCPlaybackInfoSubtitlesFetcherViewController.h"
 
-#define CONTENT_INSET 20.
-#define MINIMAL_CONTENT_SIZE 420.
-
 @interface VLCPlaybackInfoTracksDataSourceAudio : VLCPlaybackInfoCollectionViewDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
 @end
 @interface VLCPlaybackInfoTracksDataSourceSubtitle : VLCPlaybackInfoCollectionViewDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
