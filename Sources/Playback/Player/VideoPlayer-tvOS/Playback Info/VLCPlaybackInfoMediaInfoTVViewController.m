@@ -187,7 +187,13 @@
 
 - (CGSize)preferredContentSize
 {
-    return CGSizeMake(CGRectGetWidth(self.view.bounds), 31. + self.titleLabel.frame.size.height + 8. + self.metaDataLabel.frame.size.height + 82.);
+    CGFloat height = 31. + self.titleLabel.frame.size.height + 8. + self.metaDataLabel.frame.size.height + 82.;
+
+    if (height < MINIMAL_CONTENT_SIZE) {
+        height = MINIMAL_CONTENT_SIZE;
+    }
+
+    return CGSizeMake(CGRectGetWidth(self.view.bounds), height);
 }
 
 - (void)updateMediaTitle
