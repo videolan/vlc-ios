@@ -29,11 +29,13 @@
 
 - (CGSize)preferredContentSize
 {
-    if (@available(tvOS 13.0, *)) {
-        return CGSizeMake(CGRectGetWidth(self.view.bounds), 380);
-    } else {
-        return CGSizeMake(CGRectGetWidth(self.view.bounds), 280);
+    CGFloat height = _rateControl.frame.size.height + _repeatControl.frame.size.height + _shuffleControl.frame.size.height + (3 * CONTENT_INSET);
+
+    if (height < MINIMAL_CONTENT_SIZE) {
+        height = MINIMAL_CONTENT_SIZE;
     }
+
+    return CGSizeMake(CGRectGetWidth(self.view.bounds), height);
 }
 
 + (BOOL)shouldBeVisibleForPlaybackController:(VLCPlaybackService *)vpc
