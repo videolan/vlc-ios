@@ -101,7 +101,7 @@ extension VLCMLAlbum: SearchableMLModel {
         matches = matches || String(releaseYear()).lowercased().contains(searchString)
         matches = matches || shortSummary.lowercased().contains(searchString)
         matches = matches || albumArtist?.contains(searchString) ?? false
-        matches = matches || tracks?.filter({ $0.contains(searchString)}).isEmpty == false
+
         return matches
     }
 }
