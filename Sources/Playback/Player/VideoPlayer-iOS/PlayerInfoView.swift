@@ -1,7 +1,7 @@
 /*****************************************************************************
  * PlayerInfoView.swift
  *
- * Copyright © 2021 VLC authors and VideoLAN
+ * Copyright © 2021, 2023 VLC authors and VideoLAN
  *
  * Authors: Soomin Lee <bubu@mikan.io>
  *          Diogo Simao Marques <dogo@videolabs.io>
@@ -75,26 +75,32 @@ class PlayerInfoView: UIView {
 
     @objc func shouldDisplay(_ show: Bool, movieView: UIView) {
         self.isHidden = !show
+
         if show {
-            guard let screen = UIScreen.screens.count > 1 ? UIScreen.screens[1] : nil else {
+            guard let externalWindow = VLCAppCoordinator.sharedInstance().externalWindow else {
                 return
             }
-            screen.overscanCompensation = .none
-            externalWindow = UIWindow(frame: screen.bounds)
-            guard let externalWindow = externalWindow else {
+            guard let rootView = externalWindow.rootViewController?.view else {
                 return
             }
-            externalWindow.rootViewController = VLCExternalDisplayController()
-            externalWindow.rootViewController?.view.addSubview(movieView)
-            externalWindow.screen = screen
-            externalWindow.rootViewController?.view.frame = externalWindow.bounds
-            movieView.frame = externalWindow.bounds
+            rootView.addSubview(movieView)
+
+            let bounds = externalWindow.screen.bounds
+            rootView.frame = bounds
+            movieView.frame = bounds
+
+            NSLayoutConstraint.activate([
+                movieView.leftAnchor.constraint(equalTo: rootView.leftAnchor),
+                movieView.rightAnchor.constraint(equalTo: rootView.rightAnchor),
+                movieView.topAnchor.constraint(equalTo: rootView.topAnchor),
+                movieView.bottomAnchor.constraint(equalTo: rootView.bottomAnchor),
+            ])
         } else {
+            VLCAppCoordinator.sharedInstance().externalWindow = nil
             externalWindow = nil
         }
         externalWindow?.isHidden = !show
     }
-
 }
 
 private extension PlayerInfoView {

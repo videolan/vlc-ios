@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) MediaLibraryService *mediaLibraryService;
 @property (readonly) VLCRendererDiscovererManager *rendererDiscovererManager;
+@property (nullable) UIWindow *externalWindow;
 
 - (void)setTabBarController:(UITabBarController *)tabBarController;
 
