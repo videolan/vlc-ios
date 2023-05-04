@@ -1,5 +1,15 @@
 # Changelog
 
+## iOS [3.4.1]
+· Fix playback on external displays including AirPlay
+· Fix crash when searching within the audio section of the media library
+· Fix intermittent black screens when starting playback
+· Fix playback of playlists and certain radio / TV streams
+
+## tvOS [3.4.1]
+· Add ability to rename previously played network streams
+· Fix multiple alignment issues in the playback interface
+
 ## iOS [3.4.0]
 · Add new audio playback UI
 · Add support for CarPlay
