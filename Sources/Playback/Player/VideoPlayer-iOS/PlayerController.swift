@@ -93,14 +93,25 @@ class PlayerController: NSObject {
         let notificationCenter = NotificationCenter.default
 
         // External Screen
-        notificationCenter.addObserver(self,
-                                       selector: #selector(handleExternalScreenDidConnect),
-                                       name: UIScreen.didConnectNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(handleExternalScreenDidDisconnect),
-                                       name: UIScreen.didDisconnectNotification,
-                                       object: nil)
+        if #available(iOS 13.0, *) {
+            notificationCenter.addObserver(self,
+                                           selector: #selector(handleExternalScreenDidConnect),
+                                           name: NSNotification.Name(rawValue: VLCNonInteractiveWindowSceneBecameActive),
+                                           object: nil)
+            notificationCenter.addObserver(self,
+                                           selector: #selector(handleExternalScreenDidDisconnect),
+                                           name: NSNotification.Name(rawValue: VLCNonInteractiveWindowSceneDisconnected),
+                                           object: nil)
+        } else {
+            notificationCenter.addObserver(self,
+                                           selector: #selector(handleExternalScreenDidConnect),
+                                           name: UIScreen.didConnectNotification,
+                                           object: nil)
+            notificationCenter.addObserver(self,
+                                           selector: #selector(handleExternalScreenDidDisconnect),
+                                           name: UIScreen.didDisconnectNotification,
+                                           object: nil)
+        }
         // UIApplication
         notificationCenter.addObserver(self,
                                        selector: #selector(handleAppBecameActive),

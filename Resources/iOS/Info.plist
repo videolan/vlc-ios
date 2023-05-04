@@ -311,18 +311,9 @@
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
-		<false/>
+		<true/>
 		<key>UISceneConfigurations</key>
 		<dict>
-			<key>UIWindowSceneSessionRoleApplication</key>
-			<array>
-				<dict>
-					<key>UISceneConfigurationName</key>
-					<string>VLCDefaultAppScene</string>
-					<key>UISceneDelegateClassName</key>
-					<string>VLCAppSceneDelegate</string>
-				</dict>
-			</array>
 			<key>CPTemplateApplicationSceneSessionRoleApplication</key>
 			<array>
 				<dict>
@@ -332,6 +323,26 @@
 					<string>VLCCarPlayScene</string>
 					<key>UISceneDelegateClassName</key>
 					<string>VLCCarPlaySceneDelegate</string>
+				</dict>
+			</array>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>VLCDefaultAppScene</string>
+					<key>UISceneDelegateClassName</key>
+					<string>VLCAppSceneDelegate</string>
+				</dict>
+			</array>
+			<key>UIWindowSceneSessionRoleExternalDisplayNonInteractive</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string>UIWindowScene</string>
+					<key>UISceneConfigurationName</key>
+					<string>VLCNonInteractiveWindowScene</string>
+					<key>UISceneDelegateClassName</key>
+					<string>VLCNonInteractiveWindowSceneDelegate</string>
 				</dict>
 			</array>
 		</dict>

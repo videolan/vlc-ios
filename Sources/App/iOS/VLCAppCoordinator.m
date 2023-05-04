@@ -24,6 +24,7 @@
     TabBarCoordinator *_tabCoordinator;
     VLCPlayerDisplayController *_playerDisplayController;
     VLCRemoteControlService *_remoteControlService;
+    UIWindow *_externalWindow;
 }
 
 @end
@@ -71,6 +72,31 @@
     }
 
     return _rendererDiscovererManager;
+}
+
+- (void)setExternalWindow:(UIWindow *)externalWindow
+{
+    _externalWindow = externalWindow;
+}
+
+- (UIWindow *)externalWindow
+{
+    if (@available(iOS 13.0, *)) {
+        return _externalWindow;
+    } else {
+        NSArray *screens = UIScreen.screens;
+        if (screens.count <= 1)
+            return nil;
+
+        UIScreen *externalScreen = screens[1];
+        externalScreen.overscanCompensation = UIScreenOverscanCompensationNone;
+
+        _externalWindow = [[UIWindow alloc] initWithFrame:externalScreen.bounds];
+        _externalWindow.rootViewController = [[VLCExternalDisplayController alloc] initWithNibName:nil bundle:nil];
+        _externalWindow.screen = externalScreen;
+        [_externalWindow makeKeyAndVisible];
+    }
+    return _externalWindow;
 }
 
 - (void)setTabBarController:(UITabBarController *)tabBarController

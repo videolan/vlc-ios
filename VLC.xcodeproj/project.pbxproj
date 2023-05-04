@@ -172,6 +172,7 @@
 		7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4DF2171B55209200739326 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D51B3B01BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */; };
 		7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
+		7D55A8532A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D55A8522A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m */; };
 		7D5A23CF24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5A23CE24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m */; };
 		7D5A23D024754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5A23CE24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m */; };
 		7D5A23DF24756D03001F76D8 /* VLCLocalNetworkServiceBrowserNFS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5A23DD24756D03001F76D8 /* VLCLocalNetworkServiceBrowserNFS.m */; };
@@ -760,6 +761,8 @@
 		7D4DF2171B55209200739326 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		7D51B3AD1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoMediaInfoTVViewController.h; sourceTree = "<group>"; };
 		7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoMediaInfoTVViewController.m; sourceTree = "<group>"; };
+		7D55A8512A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNonInteractiveWindowSceneDelegate.h; sourceTree = "<group>"; };
+		7D55A8522A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCNonInteractiveWindowSceneDelegate.m; sourceTree = "<group>"; };
 		7D5A23CD24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VLCNetworkServerBrowserVLCMedia+FTP.h"; sourceTree = "<group>"; };
 		7D5A23CE24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VLCNetworkServerBrowserVLCMedia+FTP.m"; sourceTree = "<group>"; };
 		7D5A23DD24756D03001F76D8 /* VLCLocalNetworkServiceBrowserNFS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCLocalNetworkServiceBrowserNFS.m; sourceTree = "<group>"; };
@@ -2405,6 +2408,8 @@
 				7D37196328F1F0B800C5A9F2 /* VLCAppSceneDelegate.m */,
 				7D8A030D2913D45400789583 /* VLCAppCoordinator.h */,
 				7D8A030E2913D45400789583 /* VLCAppCoordinator.m */,
+				7D55A8512A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.h */,
+				7D55A8522A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m */,
 				418B144C20179C74000447AA /* TabBarCoordinator.swift */,
 			);
 			path = iOS;
@@ -2839,7 +2844,6 @@
 						};
 					};
 					7D94FCDA16DE7D1000F2623B = {
-						DevelopmentTeam = 75GAHG3SZQ;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -3391,6 +3395,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D55A8532A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m in Sources */,
 				7DC7BABD28C8959F00109F28 /* URL+isExcludedFromBackup.swift in Sources */,
 				6D8EC09225F8010E00FDDE17 /* EqualizerPresetSelector.swift in Sources */,
 				4144C4661A0ED6C700918C89 /* Reachability.m in Sources */,
@@ -4435,6 +4440,7 @@
 				CURRENT_PROJECT_VERSION = 505;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 75GAHG3SZQ;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
@@ -4486,6 +4492,7 @@
 				CURRENT_PROJECT_VERSION = 505;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 75GAHG3SZQ;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
@@ -4586,6 +4593,7 @@
 				CURRENT_PROJECT_VERSION = 505;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 75GAHG3SZQ;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "iTunesArtwork*";
