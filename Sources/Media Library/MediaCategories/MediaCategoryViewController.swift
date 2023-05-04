@@ -1490,9 +1490,16 @@ extension MediaCategoryViewController: MediaLibraryBaseModelObserver {
 extension MediaCategoryViewController {
     func play(media: VLCMLMedia, at indexPath: IndexPath) {
         let playbackController = PlaybackService.sharedInstance()
-        let autoPlayNextItem = UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem)
+        var autoPlayNextItem = UserDefaults.standard.bool(forKey: kVLCAutomaticallyPlayNextItem)
 
         playbackController.fullscreenSessionRequested = media.type() != .audio
+
+        if let model = model as? CollectionModel,
+           model.mediaCollection is VLCMLPlaylist,
+           !autoPlayNextItem {
+            autoPlayNextItem = true
+        }
+
         if !autoPlayNextItem {
             playbackController.play(media)
             return
