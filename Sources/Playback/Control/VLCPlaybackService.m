@@ -761,10 +761,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #endif
             NSInteger nextIndex = [self nextMediaIndex:false];
 
-            if (nextIndex == -1) {
-                _sessionWillRestart = NO;
-                [self stopPlayback];
-            } else {
+            if (nextIndex > -1) {
                 [_listPlayer playItemAtNumber:@(nextIndex)];
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
