@@ -229,13 +229,13 @@ private extension TitleSelectionView {
         audioTableView.delegate = self
         audioTableView.register(TitleSelectionTableViewCell.self,
                                 forCellReuseIdentifier: TitleSelectionTableViewCell.identifier)
-        audioTableView.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        audioTableView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
 
         subtitleTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: subtitleTableView.frame.size.width, height: 1))
         subtitleTableView.delegate = self
         subtitleTableView.register(TitleSelectionTableViewCell.self,
                                    forCellReuseIdentifier: TitleSelectionTableViewCell.identifier)
-        subtitleTableView.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        subtitleTableView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
     }
 
     private func setupConstraints() {
