@@ -360,7 +360,7 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
         header.textLabel?.text = header.textLabel?.text?.capitalized
 
         if #available(iOS 13.0, *) {
-            header.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+            header.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         } else {
             header.contentView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         }
