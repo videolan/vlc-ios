@@ -1609,6 +1609,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
             artWorkImageView.contentMode = .scaleAspectFit
             playbackService.videoOutputView = nil
         } else {
+            playbackService.videoOutputView = videoOutputView
             artWorkImageView.isHidden = true
             queueViewController?.reloadBackground(with: nil)
         }
