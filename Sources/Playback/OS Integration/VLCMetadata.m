@@ -135,10 +135,20 @@
 
         NSURL *artworkURL = metadata.artworkURL;
         if (artworkURL) {
-            NSData *imageData = [NSData dataWithContentsOfURL:artworkURL];
-            if (imageData) {
-                self.artworkImage = [UIImage imageWithData:imageData];
-            }
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                NSData *imageData = [NSData dataWithContentsOfURL:artworkURL];
+                if (imageData) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.artworkImage = [UIImage imageWithData:imageData];
+                        [[VLCPlaybackService sharedInstance] recoverDisplayedMetadata];
+#if TARGET_OS_IOS
+                        if ([VLCKeychainCoordinator passcodeLockEnabled])
+                            return;
+#endif
+                        [self populateInfoCenterFromMetadata];
+                    });
+                }
+            });
         }
     }
 }
