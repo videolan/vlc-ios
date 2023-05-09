@@ -436,6 +436,9 @@
 "PLAY_PAUSE_HINT" = "Aktuelle Wiedergabe pausieren oder fortsetzen";
 
 "STOP_BUTTON" = "Stopp";
+"CLOSE_HINT" = "Wiedergabe beenden";
+
+"MINIMIZE_HINT" = "Player minimieren";
 
 "NEXT_HINT" = "Nächster Titel";
 

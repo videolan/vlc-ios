@@ -19,6 +19,7 @@ protocol MediaNavigationBarDelegate {
     @objc optional func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar)
     @objc optional func mediaNavigationBarDidToggleChromeCast(_ mediaNavigationBar: MediaNavigationBar)
     func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar)
+    @objc optional func mediaNavigationBarDisplayCloseAlert(_ mediaNavigationBar: MediaNavigationBar)
 }
 
 private enum RendererActionSheetContent: Int, CaseIterable {
@@ -187,7 +188,10 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     // MARK: Gesture recognizer
 
     @objc private func handleLongPressPlayPause(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == .ended {
+        if sender.state == .began {
+            updateCloseButton(with: UIImage(named: "close"))
+            delegate?.mediaNavigationBarDisplayCloseAlert?(self)
+        } else if sender.state == .ended {
             delegate?.mediaNavigationBarDidCloseLongPress(self)
         }
     }
@@ -214,6 +218,14 @@ private enum RendererActionSheetContent: Int, CaseIterable {
     func toggleChromeCast() {
         assert(delegate != nil, "Delegate not set for MediaNavigationBar")
         delegate?.mediaNavigationBarDidToggleChromeCast?(self)
+    }
+
+    func updateCloseButton(with icon: UIImage?) {
+        guard closePlaybackButton.imageView?.image != icon else {
+            return
+        }
+
+        closePlaybackButton.setImage(icon, for: .normal)
     }
 }
 

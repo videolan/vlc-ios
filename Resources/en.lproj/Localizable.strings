@@ -436,6 +436,9 @@
 "PLAY_PAUSE_HINT" = "Play or Pause current playback";
 
 "STOP_BUTTON" = "Stop";
+"CLOSE_HINT" = "Stop the playback";
+
+"MINIMIZE_HINT" = "Minimize the player";
 
 "NEXT_HINT" = "Next media";
 

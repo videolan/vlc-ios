@@ -436,6 +436,9 @@
 "PLAY_PAUSE_HINT" = "Lecture ou pause de la lecture en court";
 
 "STOP_BUTTON" = "Stop";
+"CLOSE_HINT" = "Arrêt de la lecture";
+
+"MINIMIZE_HINT" = "Réduction du lecteur";
 
 "NEXT_HINT" = "Média suivant";
 

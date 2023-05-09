@@ -1673,12 +1673,8 @@ extension VideoPlayerViewController: PlayerControllerDelegate {
 
 extension VideoPlayerViewController: MediaNavigationBarDelegate {
     func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar) {
-        if playbackService.isPlaying {
-            delegate?.videoPlayerViewControllerDidMinimize(self)
-        } else {
-            playbackService.stopPlayback()
-            playbackService.setPlayAsAudio(false)
-        }
+        playbackService.stopPlayback()
+        playbackService.setPlayAsAudio(false)
     }
 
     func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar) {
@@ -1714,8 +1710,11 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
     }
 
     func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar) {
-        playbackService.stopPlayback()
-        playbackService.setPlayAsAudio(false)
+        delegate?.videoPlayerViewControllerDidMinimize(self)
+    }
+
+    func mediaNavigationBarDisplayCloseAlert(_ mediaNavigationBar: MediaNavigationBar) {
+        statusLabel.showStatusMessage(NSLocalizedString("MINIMIZE_HINT", comment: ""))
     }
 }
 
