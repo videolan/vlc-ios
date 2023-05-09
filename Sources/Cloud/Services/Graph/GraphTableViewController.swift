@@ -105,10 +105,6 @@ class GraphTableViewController: VLCCloudStorageTableViewController {
         super.currentProgressInformation(progress)
     }
 
-    override func updateProgressLabel(_ mediaName: String!) {
-        super.updateProgressLabel(mediaName)
-    }
-
     // MARK: - Private helpers
     private func prepareMSGraphControllerIfNeeded() {
         if controller == nil {

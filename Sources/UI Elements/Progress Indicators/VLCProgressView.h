@@ -18,6 +18,5 @@
 @property(nonatomic) UILabel *progressLabel;
 
 - (void)updateTime:(NSString *)time;
-- (void)updateProgressLabel:(NSString *)mediaName;
 
 @end
