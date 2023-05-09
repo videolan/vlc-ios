@@ -156,7 +156,6 @@
 "ONE_FILE" = "1 file";
 "NO_FILES" = "No supported files";
 "DOWNLOADING" = "Downloading...";
-"DOWNLOADING_MEDIA" = "Downloading: %@";
 "REMAINING_TIME" = "Remaining time: %@";
 "BIOMETRIC_UNLOCK" = "Unlock Media Library\nCancel to enter Passcode";
 

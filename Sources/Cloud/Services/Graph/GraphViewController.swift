@@ -557,7 +557,6 @@ class GraphViewController: VLCCloudStorageController {
         if #available(iOS 11.0, *) {
             task.progress.totalUnitCount = item.size
             showProgress(progress: task.progress)
-            delegate.updateProgressLabel?(item.name!)
         }
         task.resume()
     }
