@@ -314,6 +314,9 @@ extension AudioPlayerViewController {
                                  for playbackService: PlaybackService) {
         audioPlayerView.updatePlayButton(isPlaying: isPlaying)
 
+        let image: UIImage? = isPlaying ? UIImage(named: "minimize") : UIImage(named: "close")
+        mediaNavigationBar.updateCloseButton(with: image)
+
         if let queueCollectionView = queueViewController?.queueCollectionView {
             queueCollectionView.reloadData()
         }
@@ -404,6 +407,10 @@ extension AudioPlayerViewController {
     override func mediaNavigationBarDidCloseLongPress(_ mediaNavigationBar: MediaNavigationBar) {
         super.mediaNavigationBarDidCloseLongPress(mediaNavigationBar)
         isQueueHidden = true
+    }
+
+    func mediaNavigationBarDisplayCloseAlert(_ mediaNavigationBar: MediaNavigationBar) {
+        statusLabel.showStatusMessage(NSLocalizedString("CLOSE_HINT", comment: ""))
     }
 }
 
