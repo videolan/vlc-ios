@@ -75,7 +75,18 @@
 
 - (void)loadThumbnail
 {
-    // Integrate the thumbnail generation for the OneDrive cells.
+    // The onedrive Api has no way to cancel a request and the ODThumbnail has no back reference to it's item
+    // so this might lead to wrong thumbnails if the cell is reused since we have no way of cancelling requests or check if the completion is still for the set item
+    ODDriveRequestBuilder *drive = [[ODClient loadCurrentClient] drive];
+    ODThumbnailRequest *request = [[[[drive items:_oneDriveFile.id] thumbnails:@"0"] medium] request];
+    __weak typeof(self) weakSelf = self;
+    [request getWithCompletion:^(ODThumbnail *response, NSError *error) {
+        if (error == nil && response.url) {// we don't care about errors for thumbnails
+            dispatch_async(dispatch_get_main_queue(), ^{
+                 [weakSelf.thumbnailView setImageWithURL:[NSURL URLWithString:response.url]];
+            });
+        }
+    }];
 }
 
 - (void)updateOneDriveDisplayAsItem
@@ -124,7 +135,7 @@
     _oneDriveFile.folder ? [self updateOneDriveDisplayAsFolder] : [self updateOneDriveDisplayAsItem];
 }
 
-- (void)setOneDriveFile:(MSGraphDriveItem *)oneDriveFile
+- (void)setOneDriveFile:(ODItem *)oneDriveFile
 {
     if (oneDriveFile != _oneDriveFile) {
         _oneDriveFile = oneDriveFile;

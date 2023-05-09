@@ -570,3 +570,7 @@
 "TITLESELECTION_BACKGROUND_LABEL" = "Title selection background";
 "TITLESELECTION_BACKGROUND_HINT" = "Tap to remove the view.";
 
+
+/* New strings */
+"ERROR" = "ERROR";
+"ONEDRIVE_MEDIA_WITHOUT_URL" = "ONEDRIVE_MEDIA_WITHOUT_URL";
