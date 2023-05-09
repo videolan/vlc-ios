@@ -3,12 +3,16 @@
 ## iOS [3.4.1]
 · Fix playback on external displays including AirPlay
 · Fix crash when searching within the audio section of the media library
-· Fix intermittent black screens when starting playback
+· Fix intermittent black screens during video playback, especially lists
 · Fix playback of playlists and certain radio / TV streams
+· Fix login to and download from OneDrive
+· Improve behavior of the close button during playback
+· Fix crash when exporting media to other apps
 
 ## tvOS [3.4.1]
 · Add ability to rename previously played network streams
 · Fix multiple alignment issues in the playback interface
+· Fix playback of playlists and certain radio / TV streams
 
 ## iOS [3.4.0]
 · Add new audio playback UI
