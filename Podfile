@@ -34,9 +34,6 @@ target 'VLC-iOS' do
   end
 
   use_modular_headers!
-  pod 'MSGraphClientSDK'
-  pod 'MSGraphClientModels'
-  pod 'MSGraphMSALAuthProvider', :git => 'https://github.com/Mikanbu/msgraph-sdk-objc-auth'
 end
 
 target 'VLC-iOS-Screenshots' do
