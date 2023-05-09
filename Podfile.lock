@@ -49,16 +49,6 @@ PODS:
   - MetaDataFetcherKit (0.5.0):
     - AFNetworking (= 4.0.0)
   - MobileVLCKit (3.6.0b3)
-  - MSGraphClientModels (1.3.0)
-  - MSGraphClientSDK (1.0.0):
-    - MSGraphClientSDK/Authentication (= 1.0.0)
-    - MSGraphClientSDK/Common (= 1.0.0)
-  - MSGraphClientSDK/Authentication (1.0.0)
-  - MSGraphClientSDK/Common (1.0.0):
-    - MSGraphClientSDK/Authentication
-  - MSGraphMSALAuthProvider (0.2.0):
-    - MSGraphClientSDK (~> 1.0.0)
-    - VLC-MSAL
   - "NSData+Base64 (1.0.0)"
   - ObjectiveDropboxOfficial (6.3.2)
   - OBSlider (1.1.0)
@@ -84,9 +74,6 @@ PODS:
   - SimulatorStatusMagic (2.7)
   - SwiftLint (0.47.1)
   - TVVLCKit (3.6.0b3)
-  - VLC-MSAL (1.2.2):
-    - VLC-MSAL/app-lib (= 1.2.2)
-  - VLC-MSAL/app-lib (1.2.2)
   - VLCMediaLibraryKit (0.11.0b2):
     - MobileVLCKit
   - XKKeychain (1.0.1)
@@ -106,9 +93,6 @@ DEPENDENCIES:
   - MarqueeLabel (= 4.0.2)
   - MetaDataFetcherKit (~> 0.5.0)
   - MobileVLCKit (= 3.6.0b3)
-  - MSGraphClientModels
-  - MSGraphClientSDK
-  - MSGraphMSALAuthProvider (from `https://github.com/Mikanbu/msgraph-sdk-objc-auth`)
   - ObjectiveDropboxOfficial
   - OBSlider (= 1.1.0)
   - OneDriveSDK (from `https://code.videolan.org/fkuehne/onedrive-sdk-ios.git`, commit `810f82da`)
@@ -131,15 +115,12 @@ SPEC REPOS:
     - MarqueeLabel
     - MetaDataFetcherKit
     - MobileVLCKit
-    - MSGraphClientModels
-    - MSGraphClientSDK
     - "NSData+Base64"
     - ObjectiveDropboxOfficial
     - OBSlider
     - SimulatorStatusMagic
     - SwiftLint
     - TVVLCKit
-    - VLC-MSAL
     - VLCMediaLibraryKit
     - XKKeychain
 
@@ -157,8 +138,6 @@ EXTERNAL SOURCES:
   InAppSettingsKit:
     :commit: a429840
     :git: https://github.com/Mikanbu/InAppSettingsKit.git
-  MSGraphMSALAuthProvider:
-    :git: https://github.com/Mikanbu/msgraph-sdk-objc-auth
   OneDriveSDK:
     :commit: 810f82da
     :git: https://code.videolan.org/fkuehne/onedrive-sdk-ios.git
@@ -182,9 +161,6 @@ CHECKOUT OPTIONS:
   InAppSettingsKit:
     :commit: a429840
     :git: https://github.com/Mikanbu/InAppSettingsKit.git
-  MSGraphMSALAuthProvider:
-    :commit: f3e91a7e4d9ba82206c3c1d7e8d7def201507f67
-    :git: https://github.com/Mikanbu/msgraph-sdk-objc-auth
   OneDriveSDK:
     :commit: 810f82da
     :git: https://code.videolan.org/fkuehne/onedrive-sdk-ios.git
@@ -208,9 +184,6 @@ SPEC CHECKSUMS:
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   MetaDataFetcherKit: c77fa3d0791d406a8cfab43464ed728437bd241b
   MobileVLCKit: 14fd47e65810704701a07b71fa2cb7e57e3cc9d4
-  MSGraphClientModels: ffef6d0a1cdaa774e1689e38da35301cb74fc72a
-  MSGraphClientSDK: ffc07a58a838e0702c7bf2a856367035d4a335d7
-  MSGraphMSALAuthProvider: cdd3114898fbe43a6e3b4cc0ba7a032c2a1e65a8
   "NSData+Base64": 4e84902c4db907a15673474677e57763ef3903e4
   ObjectiveDropboxOfficial: 1b9ca679750487f770fda3f38c106d6e17fe2d73
   OBSlider: 490f108007bfdd5414a38650b211fe403a95b8a0
@@ -218,11 +191,10 @@ SPEC CHECKSUMS:
   SimulatorStatusMagic: 4e15e56530b367e90dcd3b94fd272e833e9d8a44
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
   TVVLCKit: 6bfbc34ea11ce60f31992a6a0ec574507e65573d
-  VLC-MSAL: 752652c8ae6aa352d6452baac202db6b62c98ba5
   VLCMediaLibraryKit: d7a3f1bbcccabddfc5faa010058f92bc96c34ad3
   XKKeychain: 852ef663c56a7194c73d3c68e8d9d4f07b121d4f
   xmlrpc: 2849d2a71cedfab68b1a8c82fb8373ce2ea0d0f3
 
-PODFILE CHECKSUM: 0ef0df60f7dc169677c6a8f7b5532c8acd576272
+PODFILE CHECKSUM: 03a7c67909cbeef9abeb5648a41b91696639c736
 
 COCOAPODS: 1.12.0
