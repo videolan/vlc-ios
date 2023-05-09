@@ -81,17 +81,17 @@
 - (void)updateOneDriveDisplayAsItem
 {
     int64_t duration = 0;
-    NSString *title = _oneDriveFile.name;
+    NSString *title = self.oneDriveFile.name;
     NSMutableString *subtitle = [[NSMutableString alloc] init];
 
     _downloadButton.hidden = NO;
     _titleLabel.text = title;
 
-    if (_oneDriveFile.audio || title.isSupportedAudioMediaFormat) {
+    if (_oneDriveFile.audio) {
         _thumbnailView.image = [UIImage imageNamed:@"audio"];
         duration = _oneDriveFile.audio.duration;
         [self loadThumbnail];
-    } else if (_oneDriveFile.video || title.isSupportedMediaFormat) {
+    } else if (_oneDriveFile.video) {
         _thumbnailView.image = [UIImage imageNamed:@"movie"];
         duration = _oneDriveFile.video.duration;
         [self loadThumbnail];

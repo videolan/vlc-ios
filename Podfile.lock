@@ -15,11 +15,11 @@ PODS:
   - AFNetworking/Serialization (4.0.0)
   - AFNetworking/UIKit (4.0.0):
     - AFNetworking/NSURLSession
-  - AppAuth (1.6.1):
-    - AppAuth/Core (= 1.6.1)
-    - AppAuth/ExternalUserAgent (= 1.6.1)
-  - AppAuth/Core (1.6.1)
-  - AppAuth/ExternalUserAgent (1.6.1):
+  - AppAuth (1.6.2):
+    - AppAuth/Core (= 1.6.2)
+    - AppAuth/ExternalUserAgent (= 1.6.2)
+  - AppAuth/Core (1.6.2)
+  - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
   - box-ios-sdk-v2 (1.2.3):
     - box-ios-sdk-v2/no-arc (= 1.2.3)
@@ -167,7 +167,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ADAL: f2eb2158b9bcd2c8416ff2d026c176b98ea6651f
   AFNetworking: 42892080606935f7a9ec3fda4927fdd37e9cd369
-  AppAuth: e48b432bb4ba88b10cb2bcc50d7f3af21e78b9c2
+  AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   box-ios-sdk-v2: 9423bd75373350ea40b92f3d2d6e89f81d96d634
   CocoaHTTPServer: 07df8b05a8bde406fe367d22c90a24a2fd4ca49f
   GoogleAPIClientForREST: a8b95a252014ce2e618df6b75dc72eca2c00b4af
