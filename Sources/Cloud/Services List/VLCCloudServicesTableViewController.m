@@ -16,6 +16,8 @@
 #import "VLCGoogleDriveTableViewController.h"
 #import "VLCBoxTableViewController.h"
 #import "VLCBoxController.h"
+#import "VLCOneDriveTableViewController.h"
+#import "VLCOneDriveController.h"
 #import "VLCDocumentPickerController.h"
 #import "VLCCloudServiceCell.h"
 
@@ -27,6 +29,7 @@
 @property (nonatomic) VLCDropboxTableViewController *dropboxTableViewController;
 @property (nonatomic) VLCGoogleDriveTableViewController *googleDriveTableViewController;
 @property (nonatomic) VLCBoxTableViewController *boxTableViewController;
+@property (nonatomic) VLCOneDriveTableViewController *oneDriveTableViewController;
 @property (nonatomic) VLCDocumentPickerController *documentPickerController;
 
 @end
@@ -38,11 +41,13 @@
 
     [self.tableView registerNib:[UINib nibWithNibName:@"VLCCloudServiceCell" bundle:nil] forCellReuseIdentifier:@"CloudServiceCell"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationSessionsChanged:) name:VLCOneDriveControllerSessionUpdated object:nil];
     [self themeDidChange];
 
     self.dropboxTableViewController = [[VLCDropboxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.googleDriveTableViewController = [[VLCGoogleDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.boxTableViewController = [[VLCBoxTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
+    self.oneDriveTableViewController = [[VLCOneDriveTableViewController alloc] initWithNibName:@"VLCCloudStorageTableViewController" bundle:nil];
     self.documentPickerController = [VLCDocumentPickerController new];
 }
 
@@ -94,6 +99,7 @@
     int i = [[VLCDropboxController sharedInstance] isAuthorized] ? 1 : 0;
     i += [[VLCGoogleDriveController sharedInstance] isAuthorized] ? 1 : 0;
     i += [[VLCBoxController sharedInstance] isAuthorized] ? 1 : 0;
+    i += [[VLCOneDriveController sharedInstance] isAuthorized] ? 1 : 0;
     return i;
 }
 
@@ -159,7 +165,7 @@
         }
         case 3: {
             //OneDrive
-            BOOL isAuthorized = NO;
+            BOOL isAuthorized = [[VLCOneDriveController sharedInstance] isAuthorized];
             cell.icon.image = [UIImage imageNamed:@"OneDriveCell"];
             cell.cloudTitle.text = @"OneDrive";
             cell.cloudInformation.text = isAuthorized ? NSLocalizedString(@"LOGGED_IN", "") : NSLocalizedString(@"LOGIN", "");
@@ -205,6 +211,7 @@
             break;
         case 3:
             //OneDrive
+            [self.navigationController pushViewController:self.oneDriveTableViewController animated:YES];
             break;
         case 4:
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)

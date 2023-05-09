@@ -185,6 +185,8 @@
 		7D63C19018774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D63C18E18774B1700BD5256 /* VLCFirstStepsiTunesSyncViewController.m */; };
 		7D6B08FA174D716200A05173 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6B08F9174D716200A05173 /* MessageUI.framework */; };
 		7D6B08FC174D773C00A05173 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D6B08FB174D773C00A05173 /* Settings.bundle */; };
+		7D6D2CEE2A0A6056001604B3 /* VLCOneDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6D2CE92A0A6056001604B3 /* VLCOneDriveTableViewController.m */; };
+		7D6D2CEF2A0A6056001604B3 /* VLCOneDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6D2CEB2A0A6056001604B3 /* VLCOneDriveController.m */; };
 		7D71ABD027ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */; };
 		7D71F17F2740041D00F957D4 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418E88402110E51B00DDA6A7 /* URLHandler.swift */; };
 		7D7EF3DB1BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7EF3D91BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.xib */; };
@@ -787,6 +789,11 @@
 		7D6B08F9174D716200A05173 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7D6B08FB174D773C00A05173 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/iOS/Settings.bundle; sourceTree = SOURCE_ROOT; };
 		7D6D13591758D1A00007EA9A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		7D6D2CE92A0A6056001604B3 /* VLCOneDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveTableViewController.m; path = "Sources/Cloud/Services/OneDrive/VLCOneDriveTableViewController.m"; sourceTree = SOURCE_ROOT; };
+		7D6D2CEA2A0A6056001604B3 /* VLCOneDriveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveTableViewController.h; path = "Sources/Cloud/Services/OneDrive/VLCOneDriveTableViewController.h"; sourceTree = SOURCE_ROOT; };
+		7D6D2CEB2A0A6056001604B3 /* VLCOneDriveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOneDriveController.m; path = "Sources/Cloud/Services/OneDrive/VLCOneDriveController.m"; sourceTree = SOURCE_ROOT; };
+		7D6D2CEC2A0A6056001604B3 /* VLCOneDriveConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveConstants.h; path = "Sources/Cloud/Services/OneDrive/VLCOneDriveConstants.h"; sourceTree = SOURCE_ROOT; };
+		7D6D2CED2A0A6056001604B3 /* VLCOneDriveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOneDriveController.h; path = "Sources/Cloud/Services/OneDrive/VLCOneDriveController.h"; sourceTree = SOURCE_ROOT; };
 		7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCStreamingHistoryCell.xib; sourceTree = "<group>"; };
 		7D7DA52F1768A53200C7E95D /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D7EF3D71BD56B5900CD4CEE /* VLCOpenNetworkStreamTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCOpenNetworkStreamTVViewController.h; sourceTree = "<group>"; };
@@ -1715,6 +1722,18 @@
 			name = InAppSettingsKit;
 			sourceTree = "<group>";
 		};
+		7D6D2CE82A0A603F001604B3 /* OneDrive */ = {
+			isa = PBXGroup;
+			children = (
+				7D6D2CEC2A0A6056001604B3 /* VLCOneDriveConstants.h */,
+				7D6D2CED2A0A6056001604B3 /* VLCOneDriveController.h */,
+				7D6D2CEB2A0A6056001604B3 /* VLCOneDriveController.m */,
+				7D6D2CEA2A0A6056001604B3 /* VLCOneDriveTableViewController.h */,
+				7D6D2CE92A0A6056001604B3 /* VLCOneDriveTableViewController.m */,
+			);
+			path = OneDrive;
+			sourceTree = "<group>";
+		};
 		7D8986D7278B0C30005396AA /* Thumbnail Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -2344,6 +2363,7 @@
 		7DC869F128CB89C100EE99F8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7D6D2CE82A0A603F001604B3 /* OneDrive */,
 				7DC869F428CB8A4600EE99F8 /* Dropbox */,
 				7DC869F328CB8A3200EE99F8 /* Google Drive */,
 				7DC869F228CB8A1A00EE99F8 /* Box */,
@@ -3521,6 +3541,7 @@
 				8DB0D71924CED15C00915506 /* VideoPlayerControls.swift in Sources */,
 				41B93C051A53835300102E8B /* VLCCloudServiceCell.m in Sources */,
 				8DE1887421089B3A00A091D2 /* MediaLibraryBaseModel.swift in Sources */,
+				7D6D2CEF2A0A6056001604B3 /* VLCOneDriveController.m in Sources */,
 				7D2DE69D24D5AC0E00E8D84D /* VLCSubtitleItem.m in Sources */,
 				8D9F1F9F24938B680074BDBB /* VideoPlayerViewController.swift in Sources */,
 				7DB40A9D28C77B8900EDACA0 /* VLCHTTPFileDownloader.m in Sources */,
@@ -3614,6 +3635,7 @@
 				7DC7BA8628C8951C00109F28 /* UIDevice+VLC.swift in Sources */,
 				8DE18892210B5BAD00A091D2 /* ArtistModel.swift in Sources */,
 				444E5BFA24C6081B0003B69C /* PasscodeLockController.swift in Sources */,
+				7D6D2CEE2A0A6056001604B3 /* VLCOneDriveTableViewController.m in Sources */,
 				7D30F3DF183AB31E00FFC021 /* VLCWiFiUploadTableViewCell.m in Sources */,
 				7D30F3EA183AB34200FFC021 /* VLCGoogleDriveController.m in Sources */,
 				7D37196428F1F0B800C5A9F2 /* VLCAppSceneDelegate.m in Sources */,

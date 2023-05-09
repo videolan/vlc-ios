@@ -25,6 +25,7 @@ target 'VLC-iOS' do
   pod 'VLCMediaLibraryKit', '0.11.0b2'
   pod 'GTMAppAuth', '~> 1.0'
   pod 'ADAL', :git => 'https://code.videolan.org/fkuehne/azure-activedirectory-library-for-objc.git', :commit => '348e94df'
+  pod 'OneDriveSDK', :git => 'https://code.videolan.org/fkuehne/onedrive-sdk-ios.git', :commit => '810f82da'
   pod 'MarqueeLabel', '4.0.2'
   pod 'ObjectiveDropboxOfficial'
 
