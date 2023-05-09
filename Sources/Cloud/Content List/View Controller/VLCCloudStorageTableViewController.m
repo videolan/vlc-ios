@@ -203,9 +203,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
             [items addObjectsFromArray:@[_numberOfFilesBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
             break;
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self setToolbarItems:items animated:YES];
-    });
+    [self setToolbarItems:items animated:YES];
  }
 
 - (void)updateRemainingTime:(NSString *)time
@@ -271,9 +269,7 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     }
     if (_authorizationInProgress || [self.controller isAuthorized]) {
         if (self.loginToCloudStorageView.superview) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.loginToCloudStorageView removeFromSuperview];
-            });
+            [self.loginToCloudStorageView removeFromSuperview];
         }
     }
     if (![self.controller isAuthorized]) {
@@ -295,6 +291,10 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
     // Reload if we didn't come back from streaming
     if (self.currentPath == nil) {
         self.currentPath = @"";
+    }
+
+    if ([self.controller.currentListFiles count] == 0) {
+        [self requestInformationForCurrentPath];
     }
 }
 
