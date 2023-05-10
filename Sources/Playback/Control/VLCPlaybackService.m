@@ -314,17 +314,22 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     }
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
-    // Set last selected equalizer profile if enabled
-    _mediaPlayer.equalizerEnabled = ![userDefaults boolForKey:kVLCSettingEqualizerProfileDisabled];
+    BOOL equalizerEnabled = ![userDefaults boolForKey:kVLCSettingEqualizerProfileDisabled];
 
-    if (_mediaPlayer.equalizerEnabled) {
+    if (equalizerEnabled) {
+        NSArray *presets = [VLCAudioEqualizer presets];
         unsigned int profile = (unsigned int)[userDefaults integerForKey:kVLCSettingEqualizerProfile];
-        [_mediaPlayer resetEqualizerFromProfile:profile];
-        /* make sure the preset's preamp setting is deployed */
-        [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
+        VLCAudioEqualizer *equalizer = [[VLCAudioEqualizer alloc] initWithPreset:presets[profile]];
+        equalizer.preAmplification = [userDefaults floatForKey:kVLCSettingDefaultPreampLevel];
+        _mediaPlayer.equalizer = equalizer;
     } else {
-        /* the default is 6 dB leading to audio compression */
-        [_mediaPlayer setPreAmplification:[userDefaults floatForKey:kVLCSettingDefaultPreampLevel]];
+        float preampValue = [userDefaults floatForKey:kVLCSettingDefaultPreampLevel];
+        if (preampValue != 0.) {
+            APLog(@"Enforcing presumbly disabled equalizer due to custom preamp value of %f2.0", preampValue);
+            VLCAudioEqualizer *equalizer = [[VLCAudioEqualizer alloc] init];
+            equalizer.preAmplification = preampValue;
+            _mediaPlayer.equalizer = equalizer;
+        }
     }
 
     _mediaWasJustStarted = YES;
@@ -1190,65 +1195,106 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
 - (void)setAmplification:(CGFloat)amplification forBand:(unsigned int)index
 {
-    if (!_mediaPlayer.equalizerEnabled) {
-        [_mediaPlayer setEqualizerEnabled:YES];
+    VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
+    if (!equalizer) {
+        equalizer = [[VLCAudioEqualizer alloc] init];
+        _mediaPlayer.equalizer = equalizer;
     }
 
-    [_mediaPlayer setAmplification:amplification forBand:index];
-
-    // For some reason we have to apply again preamp to apply change
-    [_mediaPlayer setPreAmplification:[_mediaPlayer preAmplification]];
+    NSArray *bands = equalizer.bands;
+    if (index < bands.count) {
+        VLCAudioEqualizerBand *band = equalizer.bands[index];
+        band.amplification = amplification;
+    }
 }
 
 - (CGFloat)amplificationOfBand:(unsigned int)index
 {
-    return [_mediaPlayer amplificationOfBand:index];
+    VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
+    if (!equalizer) {
+        equalizer = [[VLCAudioEqualizer alloc] init];
+        _mediaPlayer.equalizer = equalizer;
+    }
+
+    NSArray *bands = equalizer.bands;
+    if (index < bands.count) {
+        VLCAudioEqualizerBand *band = equalizer.bands[index];
+        return band.amplification;
+    }
+    return 0.;
 }
 
 - (NSArray *)equalizerProfiles
 {
-    return _mediaPlayer.equalizerProfiles;
+    return VLCAudioEqualizer.presets;
 }
 
 - (void)resetEqualizerFromProfile:(unsigned int)profile
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if (profile == 0) {
-        _mediaPlayer.equalizerEnabled = NO;
+        _mediaPlayer.equalizer = nil;
         [userDefaults setBool:YES forKey:kVLCSettingEqualizerProfileDisabled];
-        [_mediaPlayer setPreAmplification:[userDefaults floatForKey:kVLCSettingDefaultPreampLevel]];
+
+        float preampValue = [userDefaults floatForKey:kVLCSettingDefaultPreampLevel];
+        if (preampValue != 6.0) {
+            APLog(@"Enforcing presumbly disabled equalizer due to custom preamp value of %f2.0", preampValue);
+            VLCAudioEqualizer *eq = [[VLCAudioEqualizer alloc] init];
+            eq.preAmplification = preampValue;
+            _mediaPlayer.equalizer = eq;
+        }
         return;
     }
 
     [userDefaults setBool:NO forKey:kVLCSettingEqualizerProfileDisabled];
-    _mediaPlayer.equalizerEnabled = YES;
 
     unsigned int actualProfile = profile - 1;
     [userDefaults setInteger:actualProfile forKey:kVLCSettingEqualizerProfile];
-    [_mediaPlayer resetEqualizerFromProfile:actualProfile];
+
+    NSArray *presets = [VLCAudioEqualizer presets];
+    VLCAudioEqualizer *equalizer = [[VLCAudioEqualizer alloc] initWithPreset:presets[actualProfile]];
+    _mediaPlayer.equalizer = equalizer;
 }
 
 - (void)setPreAmplification:(CGFloat)preAmplification
 {
-    if (!_mediaPlayer.equalizerEnabled)
-        [_mediaPlayer setEqualizerEnabled:YES];
-
-    [_mediaPlayer setPreAmplification:preAmplification];
+    VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
+    if (!equalizer) {
+        equalizer = [[VLCAudioEqualizer alloc] init];
+    }
+    equalizer.preAmplification = preAmplification;
+    _mediaPlayer.equalizer = equalizer;
 }
 
 - (CGFloat)preAmplification
 {
-    return [_mediaPlayer preAmplification];
+    VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
+    if (equalizer) {
+        return equalizer.preAmplification;
+    }
+
+    return [[NSUserDefaults standardUserDefaults] floatForKey:kVLCSettingDefaultPreampLevel];
 }
 
 - (unsigned int)numberOfBands
 {
-    return [_mediaPlayer numberOfBands];
+    /* we need to alloc an equalizer here to get the number of bands to have a proper UI
+     * in case no equalizer was configured yet */
+    VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
+    if (!equalizer) {
+        equalizer = [[VLCAudioEqualizer alloc] init];
+    }
+    return (unsigned int)equalizer.bands.count;
 }
 
 - (CGFloat)frequencyOfBandAtIndex:(unsigned int)index
 {
-    return [_mediaPlayer frequencyOfBandAtIndex:index];
+    VLCAudioEqualizer *equalizer = _mediaPlayer.equalizer;
+    if (!equalizer) {
+        equalizer = [[VLCAudioEqualizer alloc] init];
+    }
+    VLCAudioEqualizerBand *band = equalizer.bands[index];
+    return band.frequency;
 }
 
 - (unsigned int)selectedEqualizerProfile

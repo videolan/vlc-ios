@@ -18,7 +18,7 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
     private let preampValueLabel = UILabel()
     private let preampStackView = UIStackView()
     private let presetsTableView = UITableView()
-    private let profiles: [NSString]
+    private let profiles: [VLCAudioEqualizer.Preset]
     var delegate: EqualizerPresetSelectorDelegate?
     private let presetTableViewReuseIdentifier = "presetTableViewReuseIdentifier"
     var selectedProfileIndex = Int.init(0)
@@ -29,7 +29,7 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         super.init(coder: coder)
     }
 
-    init(profiles: [NSString]) {
+    init(profiles: [VLCAudioEqualizer.Preset]) {
         self.profiles = profiles
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         setupViews()
@@ -110,7 +110,12 @@ class EqualizerPresetSelector: SpoilerButton, UITableViewDataSource, UITableView
         let cell = UITableViewCell.init(style: UITableViewCell.CellStyle.value1, reuseIdentifier: presetTableViewReuseIdentifier)
 
         let colors = PresentationTheme.darkTheme.colors
-        cell.textLabel?.text = String(profiles[indexPath.row])
+        if indexPath.row == 0 {
+            cell.textLabel?.text = NSLocalizedString("OFF", comment: "")
+        } else {
+            cell.textLabel?.text = profiles[indexPath.row].name
+        }
+
         if selectedProfileIndex == indexPath.row {
             cell.textLabel?.textColor = colors.orangeUI
             cell.textLabel?.font = .boldSystemFont(ofSize: 16)
