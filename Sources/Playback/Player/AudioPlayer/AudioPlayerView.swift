@@ -78,7 +78,11 @@ class AudioPlayerView: UIView {
         var constant: CGFloat = 30.0
         let width = UIScreen.main.bounds.width
         if width <= DeviceWidth.iPhone4sPortrait.rawValue {
-            factor = 0.2
+            if UIScreen.main.bounds.height == DeviceWidth.iPhone5Portrait.rawValue {
+                factor = 0.5
+            } else {
+                factor = 0.2
+            }
         } else if width <= DeviceWidth.iPhone6Portrait.rawValue {
             factor = 0.5
         } else {

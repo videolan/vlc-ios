@@ -49,6 +49,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
 
 enum DeviceWidth: CGFloat {
     case iPhone4sPortrait = 320
+    case iPhone5Portrait = 568
     case iPhone6Portrait = 375
     case iPhonePortrait = 414
     case iPhone12ProMaxPortrait = 428
