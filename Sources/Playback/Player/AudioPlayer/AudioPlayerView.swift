@@ -88,8 +88,6 @@ class AudioPlayerView: UIView {
 
         thumbnailImageViewWidthConstraint.constant = width * factor
         thumbnailImageViewBottomConstraint.constant = constant
-
-        setupSliders()
     }
 
     func setupBackgroundColor() {
@@ -137,6 +135,8 @@ class AudioPlayerView: UIView {
         forwardButton.imageView?.contentMode = .scaleAspectFit
         forwardButton.setTitle("", for: .normal)
         forwardButton.tintColor = .white
+
+        setupSliders()
     }
 
     func setupProgressView(with view: MediaScrubProgressBar) {
