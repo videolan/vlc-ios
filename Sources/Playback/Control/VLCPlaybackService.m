@@ -60,7 +60,6 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 
     BOOL _mediaWasJustStarted;
     int _majorPositionChangeInProgress;
-    BOOL _recheckForExistingThumbnail;
     BOOL _externalAudioPlaybackDeviceConnected;
 
     NSLock *_playbackSessionManagementLock;
@@ -1538,7 +1537,9 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
 #if TARGET_OS_IOS
 - (void)savePlaybackState
 {
-    [[VLCAppCoordinator sharedInstance].mediaLibraryService savePlaybackStateFrom:self];
+    BOOL activePlaybackSession = self.isPlaying || _playerIsSetup;
+    if (activePlaybackSession)
+        [[VLCAppCoordinator sharedInstance].mediaLibraryService savePlaybackStateFrom:self];
 }
 #endif
 
