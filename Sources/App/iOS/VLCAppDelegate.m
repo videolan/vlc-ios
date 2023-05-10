@@ -2,7 +2,7 @@
  * VLCAppDelegate.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -226,6 +226,16 @@
         [[VLCPlaybackService sharedInstance] recoverDisplayedMetadata];
     } else if(_isComingFromHandoff) {
         _isComingFromHandoff = NO;
+    }
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    /* save the playback position before the user kills the app */
+    VLCPlaybackService *vps = [VLCPlaybackService sharedInstance];
+    if (vps.isPlaying || vps.playerIsSetup) {
+        VLCAppCoordinator *appCoordinator = [VLCAppCoordinator sharedInstance];
+        [appCoordinator.mediaLibraryService savePlaybackStateFrom:vps];
     }
 }
 
