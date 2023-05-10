@@ -77,13 +77,13 @@ class AudioPlayerView: UIView {
         let factor: CGFloat
         var constant: CGFloat = 30.0
         let width = UIScreen.main.bounds.width
-        if width <= DeviceWidth.iPhone4sPortrait.rawValue {
-            if UIScreen.main.bounds.height == DeviceWidth.iPhone5Portrait.rawValue {
+        if width <= DeviceDimensions.iPhone4sPortrait.rawValue {
+            if UIScreen.main.bounds.height == DeviceDimensions.iPhone5Landscape.rawValue {
                 factor = 0.5
             } else {
                 factor = 0.2
             }
-        } else if width <= DeviceWidth.iPhone6Portrait.rawValue {
+        } else if width <= DeviceDimensions.iPhone6Portrait.rawValue {
             factor = 0.5
         } else {
             factor = 0.65
@@ -145,7 +145,7 @@ class AudioPlayerView: UIView {
 
     func setupProgressView(with view: MediaScrubProgressBar) {
         let constant: CGFloat
-        if UIScreen.main.bounds.width <= DeviceWidth.iPhone4sPortrait.rawValue {
+        if UIScreen.main.bounds.width <= DeviceDimensions.iPhone4sPortrait.rawValue {
             constant = 40
         } else {
             constant = 60

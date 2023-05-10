@@ -557,9 +557,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     // MARK: - Class methods
 
     override class func numberOfColumns(for width: CGFloat) -> CGFloat {
-        if width <= DeviceWidth.iPhone12ProMaxPortrait.rawValue {
+        if width <= DeviceDimensions.iPhone12ProMaxPortrait.rawValue {
             return 1
-        } else if width <= DeviceWidth.iPadLandscape.rawValue {
+        } else if width <= DeviceDimensions.iPadLandscape.rawValue {
             return 2
         } else {
             return 3
