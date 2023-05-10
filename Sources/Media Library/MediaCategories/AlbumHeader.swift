@@ -122,45 +122,6 @@ class AlbumHeader: UICollectionReusableView {
         ])
     }
 
-    private func imageWithGradient(img: UIImage) -> UIImage {
-        UIGraphicsBeginImageContext(img.size)
-        let context = UIGraphicsGetCurrentContext()
-
-        img.draw(at: CGPoint(x: 0, y: 0))
-
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let loc: [CGFloat] = [0.0, 0.65, 1.0]
-
-        let top = UIColor.black.cgColor
-        let middle = UIColor.clear.cgColor
-        let bottom = UIColor.black.cgColor
-
-        let colors = [top, middle, bottom] as CFArray
-
-        let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: loc)
-
-        let startPoint = CGPoint(x: img.size.width/2, y: 0)
-        let endPoint = CGPoint(x: img.size.width/2, y: img.size.height)
-
-        guard let context = context,
-              let gradient = gradient else {
-            UIGraphicsEndImageContext()
-            return img
-        }
-
-        context.drawLinearGradient(gradient, start: startPoint, end: endPoint, options: CGGradientDrawingOptions(rawValue: UInt32(0)))
-
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-
-        UIGraphicsEndImageContext()
-
-        guard let image = image else {
-            return img
-        }
-
-        return image
-    }
-
     private func playAll(shuffle: Bool) {
         if let album = collection as? VLCMLAlbum {
             let playbackService = PlaybackService.sharedInstance()
@@ -176,7 +137,7 @@ class AlbumHeader: UICollectionReusableView {
             return
         }
 
-        let img = imageWithGradient(img: image)
+        let img = image.imageWithGradient()
         imageView.image = img
     }
 
