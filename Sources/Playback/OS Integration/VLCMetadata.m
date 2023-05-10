@@ -175,8 +175,16 @@
 
 #if TARGET_OS_IOS
     if (self.artworkImage) {
+        MPMediaItemArtwork *mpartwork;
+        if (@available(iOS 10.0, *)) {
+            mpartwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:self.artworkImage.size
+                                                        requestHandler:^UIImage * _Nonnull(CGSize size) {
+                return self.artworkImage;
+            }];
+        } else {
+            mpartwork = [[MPMediaItemArtwork alloc] initWithImage:self.artworkImage];
+        }
         @try {
-            MPMediaItemArtwork *mpartwork = [[MPMediaItemArtwork alloc] initWithImage:self.artworkImage];
             currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = mpartwork;
         } @catch (NSException *exception) {
             currentlyPlayingTrackInfo[MPMediaItemPropertyArtwork] = nil;
