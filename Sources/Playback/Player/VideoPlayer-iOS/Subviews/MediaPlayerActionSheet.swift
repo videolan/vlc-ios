@@ -242,6 +242,9 @@ class MediaPlayerActionSheet: ActionSheet {
                 } else {
                     self.add(childView: item)
                 }
+                if let chapterView = item as? ChapterView {
+                    chapterView.updateContent()
+                }
             } else {
                 preconditionFailure("MediaMoreOptionsActionSheet: Action:: Item's could not be cased as UIView")
             }

@@ -29,23 +29,23 @@ class ChapterView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        setupTableView()
-
-        setupTheme()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func update() {
+    func updateContent() {
+        if chapterTableView == nil {
+            setupTableView()
+            setupTheme()
+        }
         chapterTableView.reloadData()
         setNeedsLayout()
         layoutIfNeeded()
     }
 
-    func setupTableView() {
+    private func setupTableView() {
         chapterTableView = UITableView.init(frame: frame)
         chapterTableView.dataSource = self
         chapterTableView.delegate = self
@@ -65,8 +65,7 @@ class ChapterView: UIView {
     func setupTheme() {
         let colors = PresentationTheme.currentExcludingWhite.colors
         backgroundColor = colors.background
-        chapterTableView.backgroundColor = colors.background
-        update()
+        chapterTableView?.backgroundColor = colors.background
     }
 
     private func hasMultipleTitles() -> Bool {

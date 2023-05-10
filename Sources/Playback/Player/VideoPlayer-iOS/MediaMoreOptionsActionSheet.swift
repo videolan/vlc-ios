@@ -88,9 +88,8 @@ protocol MediaMoreOptionsActionSheetDelegate {
     }()
 
     private lazy var sleepTimerView: SleepTimerView = {
-        let sleepTimerView = Bundle.main.loadNibNamed("SleepTimerView",
-                                                      owner: nil,
-                                                      options: nil)?.first as! SleepTimerView
+        let nib = UINib(nibName: "SleepTimerView", bundle: nil)
+        let sleepTimerView = nib.instantiate(withOwner: nil, options: nil).first as! SleepTimerView
         sleepTimerView.frame = offScreenFrame
         if #available(iOS 13.0, *) {
             sleepTimerView.overrideUserInterfaceStyle = .dark
