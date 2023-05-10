@@ -1479,8 +1479,10 @@ extension MediaCategoryViewController: MediaLibraryBaseModelObserver {
 
     func mediaLibraryBaseModelObserverUpdateNavigationBar() {
         if #available(iOS 13.0, *) {
-            navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationBarAlbumAppearance()
-            navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationBarAlbumAppearance()
+            DispatchQueue.main.async {
+                self.navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationBarAlbumAppearance()
+                self.navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationBarAlbumAppearance()
+            }
         }
     }
 }
