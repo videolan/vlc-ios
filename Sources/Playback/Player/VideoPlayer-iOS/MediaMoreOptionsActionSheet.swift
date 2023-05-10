@@ -102,7 +102,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     private lazy var equalizerView: EqualizerView = {
         let equalizerView = EqualizerView()
         if #available(iOS 13.0, *) {
-            sleepTimerView.overrideUserInterfaceStyle = .dark
+            equalizerView.overrideUserInterfaceStyle = .dark
         }
 
         guard let playbackService = PlaybackService.sharedInstance() as? EqualizerViewDelegate else {
