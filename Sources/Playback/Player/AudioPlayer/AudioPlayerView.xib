@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,14 +22,14 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rh8-2h-d4O" userLabel="Navigation Bar">
-                    <rect key="frame" x="0.0" y="59" width="393" height="50"/>
+                    <rect key="frame" x="0.0" y="69" width="393" height="50"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="OFp-we-Kus"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dg3-0F-biw" userLabel="Thumbnail View">
-                    <rect key="frame" x="0.0" y="154" width="393" height="375"/>
+                    <rect key="frame" x="0.0" y="164" width="393" height="375"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mnm-xL-GCY" userLabel="Thumbnail Image View">
                             <rect key="frame" x="61.666666666666657" y="20" width="270" height="270"/>
@@ -71,11 +71,11 @@
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Hm-FU-aOt" userLabel="Playqueue View">
-                    <rect key="frame" x="0.0" y="154" width="393" height="375"/>
+                    <rect key="frame" x="0.0" y="164" width="393" height="375"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="p95-Vl-HBP" userLabel="Controls StackView">
-                    <rect key="frame" x="50" y="564" width="293" height="50"/>
+                    <rect key="frame" x="50" y="574" width="293" height="50"/>
                     <subviews>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MLi-Uo-Lgk" userLabel="Backward Button">
                             <rect key="frame" x="0.0" y="0.0" width="58.666666666666664" height="50"/>
@@ -163,7 +163,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="NCB-YI-ZKS" secondAttribute="trailing" id="acb-eh-azE"/>
                 <constraint firstItem="4Hm-FU-aOt" firstAttribute="bottom" secondItem="dg3-0F-biw" secondAttribute="bottom" id="jAc-ed-oJ3"/>
                 <constraint firstItem="NCB-YI-ZKS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lYo-HR-9jd"/>
-                <constraint firstItem="rh8-2h-d4O" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="n18-Tb-fq4"/>
+                <constraint firstItem="rh8-2h-d4O" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="n18-Tb-fq4"/>
                 <constraint firstItem="dg3-0F-biw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="tHu-kS-Z1i"/>
                 <constraint firstItem="sp5-ts-CeU" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="tWs-PG-mbD"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="dg3-0F-biw" secondAttribute="trailing" id="xTc-ot-auJ"/>
