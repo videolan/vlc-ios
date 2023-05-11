@@ -29,7 +29,7 @@ protocol BookmarksViewDelegate: AnyObject {
 class BookmarksView: UIView {
     private let addBookmarkButton = UIButton()
     private let addBookmarkAtTimeButton = UIButton()
-    private let bookmarksTableView = UITableView()
+    private var bookmarksTableView: UITableView!
     private let bookmarksTableViewCellReuseIdentifier = "bookmarksTableViewCellReuseIdentifier"
     private lazy var addBookmarksView: AddBookmarksView = {
         let addBookmarksView = AddBookmarksView(frame: .zero, tableView: bookmarksTableView)
@@ -52,28 +52,42 @@ class BookmarksView: UIView {
 
     private func commonInit() {
         setupButton()
-        setupTable()
-        setupConstraints()
         setupTheme()
     }
 
     func update() {
+        if bookmarksTableView == nil {
+            setupTable()
+        }
         bookmarksTableView.reloadData()
         setNeedsLayout()
         layoutIfNeeded()
     }
 
     func setupTheme() {
-        backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
-        bookmarksTableView.backgroundColor = PresentationTheme.currentExcludingWhite.colors.background
-        update()
+        let colors = PresentationTheme.currentExcludingWhite.colors
+        backgroundColor = colors.background
+        bookmarksTableView?.backgroundColor = colors.background
     }
 
     private func setupTable() {
+        bookmarksTableView = UITableView()
         addSubview(bookmarksTableView)
         bookmarksTableView.delegate = self
         bookmarksTableView.dataSource = self
         bookmarksTableView.register(UITableViewCell.self, forCellReuseIdentifier: bookmarksTableViewCellReuseIdentifier)
+        setupTableContraints()
+    }
+
+    private func setupTableContraints() {
+        bookmarksTableView.translatesAutoresizingMaskIntoConstraints = false
+        let constraints = [
+            bookmarksTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            bookmarksTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            bookmarksTableView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            bookmarksTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+        ]
+        NSLayoutConstraint.activate(constraints)
     }
 
     private func setupButton() {
@@ -94,17 +108,6 @@ class BookmarksView: UIView {
         addBookmarkAtTimeButton.setContentHuggingPriority(.required, for: .horizontal)
         addBookmarkAtTimeButton.setContentHuggingPriority(.required, for: .vertical)
         addBookmarkAtTimeButton.setContentCompressionResistancePriority(.required, for: .horizontal)
-    }
-
-    private func setupConstraints() {
-        bookmarksTableView.translatesAutoresizingMaskIntoConstraints = false
-        let constraints = [
-            bookmarksTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            bookmarksTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            bookmarksTableView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            bookmarksTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
-        ]
-        NSLayoutConstraint.activate(constraints)
     }
 
     @objc private func addBookmark() {
@@ -273,7 +276,7 @@ extension BookmarksView: UITableViewDelegate, UITableViewDataSource {
 extension BookmarksView: AddBookmarksViewDelegate {
     func addBookmarksViewDidClose() {
         addSubview(bookmarksTableView)
-        setupConstraints()
+        setupTableContraints()
         delegate?.bookmarksViewCloseAddBookmarksView()
         isEditing = false
     }
