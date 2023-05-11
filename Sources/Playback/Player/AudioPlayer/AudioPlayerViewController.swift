@@ -66,7 +66,7 @@ class AudioPlayerViewController: PlayerViewController {
         mediaScrubProgressBar.updateBackgroundAlpha(with: 0.0)
         audioPlayerView.setupProgressView(with: mediaScrubProgressBar)
         audioPlayerView.setupExternalOutputView(with: externalOutputView)
-        self.view = audioPlayerView
+        setupAudioPlayerViewConstraints()
         setupOptionsNavigationBar()
         setupStatusLabel()
     }
@@ -163,6 +163,18 @@ class AudioPlayerViewController: PlayerViewController {
     }
 
     // MARK: - Private methods
+
+    private func setupAudioPlayerViewConstraints() {
+        audioPlayerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(audioPlayerView)
+
+        NSLayoutConstraint.activate([
+            audioPlayerView.topAnchor.constraint(equalTo: view.topAnchor),
+            audioPlayerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            audioPlayerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            audioPlayerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
 
     private func setupOptionsNavigationBar() {
         let padding: CGFloat = 10.0
