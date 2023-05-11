@@ -1,5 +1,21 @@
 # Changelog
 
+## iOS [3.4.2]
+· Fix playback on external displays including AirPlay on iOS 13 to 15
+· Fix audio playback quality regression for mp3, ALAC and Apple Core Audio Format
+· Last playback position is now retained when the app is killed
+· Memory optimizations for audio playback
+· Equalizer and pre-amp behavior improvements
+    · if sounds is too low for you now, enable the pre-amp in settings
+· Fix performance issue within UPnP discovery
+· Improve CarPlay layouts
+
+## tvOS [3.4.2]
+· Fix audio playback quality regression for mp3, ALAC and Apple Core Audio Format
+· Equalizer and pre-amp behavior improvements
+    · if sounds is too low for you now, enable the pre-amp in settings
+· Fix performance issue within UPnP discovery
+
 ## iOS [3.4.1]
 · Fix playback on external displays including AirPlay
 · Fix crash when searching within the audio section of the media library
