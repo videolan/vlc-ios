@@ -105,6 +105,7 @@
 		7AC862A81765E9510011611A /* jquery.iframe-transport.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A01765E90C0011611A /* jquery.iframe-transport.js */; };
 		7AC862A91765E9510011611A /* jquery.ui.widget.js in Resources */ = {isa = PBXBuildFile; fileRef = 7AC862A11765E90C0011611A /* jquery.ui.widget.js */; };
 		7D00161C177056B700649F27 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
+		7D02AE822A0D03FD00FF1FC6 /* AddBookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02AE812A0D03FD00FF1FC6 /* AddBookmarksView.swift */; };
 		7D0C207128C896B800CCFFEF /* URL+isExcludedFromBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BABB28C8959F00109F28 /* URL+isExcludedFromBackup.swift */; };
 		7D0C207628C897DA00CCFFEF /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C207528C897DA00CCFFEF /* About Contents.html */; };
 		7D0C207B28C8980C00CCFFEF /* VLCAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C207928C8980C00CCFFEF /* VLCAboutViewController.xib */; };
@@ -653,6 +654,7 @@
 		7AC862A01765E90C0011611A /* jquery.iframe-transport.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery.iframe-transport.js"; sourceTree = "<group>"; };
 		7AC862A11765E90C0011611A /* jquery.ui.widget.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.ui.widget.js; sourceTree = "<group>"; };
 		7D00161A17704DAC00649F27 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		7D02AE812A0D03FD00FF1FC6 /* AddBookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddBookmarksView.swift; path = "Sources/Playback/Player/VideoPlayer-iOS/Subviews/AddBookmarksView.swift"; sourceTree = "<group>"; };
 		7D0C207528C897DA00CCFFEF /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
 		7D0C207828C8980C00CCFFEF /* VLCAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAboutViewController.h; sourceTree = "<group>"; };
 		7D0C207928C8980C00CCFFEF /* VLCAboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCAboutViewController.xib; sourceTree = "<group>"; };
@@ -1728,6 +1730,7 @@
 		7D94FCD216DE7D1000F2623B = {
 			isa = PBXGroup;
 			children = (
+				7D02AE812A0D03FD00FF1FC6 /* AddBookmarksView.swift */,
 				DD29A3E81BF21E3D00A27A91 /* SharedConfig.xcconfig */,
 				7DC7BA6C28C892EA00109F28 /* Sources */,
 				A7924697170F0ED20036AAF2 /* Resources */,
@@ -3524,6 +3527,7 @@
 				7D3784AD183A9906009EE944 /* VLCDropboxController.m in Sources */,
 				D902E21527F4ADF900DC2B41 /* ArtistViewController.swift in Sources */,
 				41A780E52241EBCD0034BA74 /* CollectionModel.swift in Sources */,
+				7D02AE822A0D03FD00FF1FC6 /* AddBookmarksView.swift in Sources */,
 				7D3784AE183A9906009EE944 /* VLCDropboxTableViewController.m in Sources */,
 				DD3EFF3B1BDEBCE500B68579 /* VLCNetworkServerBrowserVLCMedia.m in Sources */,
 				8DB0D71924CED15C00915506 /* VideoPlayerControls.swift in Sources */,
