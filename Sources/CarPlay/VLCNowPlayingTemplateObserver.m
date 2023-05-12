@@ -23,16 +23,23 @@
 {
     self = [super init];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(playbackMetadataChanged:)
-                                                     name:VLCPlaybackServicePlaybackMetadataDidChange
-                                                   object:nil];
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self
+                               selector:@selector(playbackMetadataChanged:)
+                                   name:VLCPlaybackServicePlaybackMetadataDidChange
+                                 object:nil];
+        [notificationCenter addObserver:self
+                               selector:@selector(playModeUpdated:)
+                                   name:VLCPlaybackServicePlaybackModeUpdated
+                                 object:nil];
     }
     return self;
 }
 
 - (void)configureNowPlayingTemplate
 {
+    [self playModeUpdated:nil];
+
     CPNowPlayingRepeatButton *repeatButton = [[CPNowPlayingRepeatButton alloc] initWithHandler:^(CPNowPlayingRepeatButton *button) {
         VLCPlaybackService *vps = [VLCPlaybackService sharedInstance];
         VLCRepeatMode vlcRepeatMode = vps.repeatMode;
@@ -85,6 +92,33 @@
 - (void)nowPlayingTemplateUpNextButtonTapped:(CPNowPlayingTemplate *)nowPlayingTemplate
 {
     [[VLCPlaybackService sharedInstance] next];
+}
+
+- (void)playModeUpdated:(NSNotification *)aNotification
+{
+    VLCPlaybackService *vps = [VLCPlaybackService sharedInstance];
+
+    VLCRepeatMode vlcRepeatMode = vps.repeatMode;
+    MPRepeatType reportedRepeatType;
+    switch (vlcRepeatMode) {
+        case VLCRepeatCurrentItem:
+            reportedRepeatType = MPRepeatTypeOne;
+            break;
+
+        case VLCRepeatAllItems:
+            reportedRepeatType = MPRepeatTypeAll;
+            break;
+
+        default:
+            reportedRepeatType = MPRepeatTypeOff;
+    }
+    [MPRemoteCommandCenter sharedCommandCenter].changeRepeatModeCommand.currentRepeatType = reportedRepeatType;
+
+    if (vps.shuffleMode) {
+        [MPRemoteCommandCenter sharedCommandCenter].changeShuffleModeCommand.currentShuffleType = MPShuffleTypeItems;
+    } else {
+        [MPRemoteCommandCenter sharedCommandCenter].changeShuffleModeCommand.currentShuffleType = MPShuffleTypeOff;
+    }
 }
 
 @end

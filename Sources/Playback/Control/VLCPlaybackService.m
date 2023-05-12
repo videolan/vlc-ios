@@ -34,6 +34,7 @@ NSString *const VLCPlaybackServicePlaybackDidStop = @"VLCPlaybackServicePlayback
 NSString *const VLCPlaybackServicePlaybackMetadataDidChange = @"VLCPlaybackServicePlaybackMetadataDidChange";
 NSString *const VLCPlaybackServicePlaybackDidFail = @"VLCPlaybackServicePlaybackDidFail";
 NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackServicePlaybackPositionUpdated";
+NSString *const VLCPlaybackServicePlaybackModeUpdated = @"VLCPlaybackServicePlaybackModeUpdated";
 
 #if TARGET_OS_IOS
 @interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, EqualizerViewDelegate>
@@ -508,6 +509,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
         [self.delegate playModeUpdated];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackModeUpdated object:self];
 }
 
 - (BOOL)currentMediaHasChapters
@@ -598,6 +600,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
         [self.delegate playModeUpdated];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackModeUpdated object:self];
 }
 
 - (NSInteger)indexOfCurrentAudioTrack
@@ -840,6 +843,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
     if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
         [self.delegate playModeUpdated];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackModeUpdated object:self];
 }
 
 - (void)shuffleMediaList {
@@ -875,6 +879,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
         if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
             [self.delegate playModeUpdated];
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackModeUpdated object:self];
     } else if (self.repeatMode == VLCRepeatCurrentItem && !isButtonPressed) {
         return _currentIndex;
     }
@@ -946,6 +951,7 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
                 if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
                     [self.delegate playModeUpdated];
                 }
+                [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackModeUpdated object:self];
             }
 
             if(_currentIndex > 0) {

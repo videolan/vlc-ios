@@ -29,6 +29,7 @@ extern NSString *const VLCPlaybackServicePlaybackDidStop;
 extern NSString *const VLCPlaybackServicePlaybackDidFail;
 extern NSString *const VLCPlaybackServicePlaybackMetadataDidChange;
 extern NSString *const VLCPlaybackServicePlaybackPositionUpdated;
+extern NSString *const VLCPlaybackServicePlaybackModeUpdated;
 
 @class VLCPlaybackService;
 @class VLCMetaData;
