@@ -37,21 +37,22 @@
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
 
     for (NSUInteger x = 0; x < count; x++) {
-        CPListImageRowItem *listItem;
+        CPListItem *listItem;
 
         VLCMLGenre *iter = genres[x];
         NSArray *artists = iter.artists;
-        NSMutableArray *artistImages = [NSMutableArray array];
 
+        UIImage *genreImage;
         for (VLCMLArtist *artist in artists) {
-            UIImage *artworkImage = [VLCThumbnailsCache thumbnailForURL:artist.artworkMRL];
-            if (!artworkImage) {
-                artworkImage = [UIImage imageNamed:@"cp-Artist"];
-            }
-            [artistImages addObject:artworkImage];
+            genreImage = [VLCThumbnailsCache thumbnailForURL:artist.artworkMRL];
+            if (genreImage)
+                break;
+        }
+        if (!genreImage) {
+            genreImage = [UIImage imageNamed:@"cp-Genre"];
         }
 
-        listItem = [[CPListImageRowItem alloc] initWithText:iter.name images:artistImages];
+        listItem = [[CPListItem alloc] initWithText:iter.name detailText:iter.numberOfTracksString image:genreImage];
 
         listItem.userInfo = iter;
         listItem.handler = ^(id <CPSelectableListItem> item,
@@ -59,16 +60,6 @@
             VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
             VLCMLGenre *genre = item.userInfo;
             [playbackService playMediaAtIndex:0 fromCollection:[genre tracks]];
-            completionBlock();
-        };
-        listItem.listImageRowHandler = ^(CPListImageRowItem * item, NSInteger index, dispatch_block_t completionBlock) {
-            VLCMLGenre *genres = item.userInfo;
-            NSArray *artists = genres.artists;
-            NSUInteger artistCount = genres.artists.count;
-            if (index < artistCount) {
-                VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
-                [playbackService playMediaAtIndex:0 fromCollection:[artists[index] tracks]];
-            }
             completionBlock();
         };
         [itemList addObject:listItem];
