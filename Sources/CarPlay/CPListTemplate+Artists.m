@@ -39,21 +39,22 @@
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
 
     for (NSUInteger x = 0; x < count; x++) {
-        CPListImageRowItem *listItem;
+        CPListItem *listItem;
 
         VLCMLArtist *iter = artists[x];
         NSArray *albums = iter.albums;
-        NSMutableArray *albumImages = [NSMutableArray array];
+        UIImage *artistImage;
 
         for (VLCMLAlbum *album in albums) {
-            UIImage *artworkImage = [VLCThumbnailsCache thumbnailForURL:album.artworkMRL];
-            if (!artworkImage) {
-                artworkImage = [UIImage imageNamed:@"cp-Artist"];
-            }
-            [albumImages addObject:artworkImage];
+            artistImage = [VLCThumbnailsCache thumbnailForURL:album.artworkMRL];
+            if (artistImage)
+                break;
+        }
+        if (!artistImage) {
+            artistImage = [UIImage imageNamed:@"cp-Artist"];
         }
 
-        listItem = [[CPListImageRowItem alloc] initWithText:iter.name images:albumImages];
+        listItem = [[CPListItem alloc] initWithText:iter.artistName detailText:iter.numberOfTracksString image:artistImage];
 
         listItem.userInfo = iter;
         listItem.handler = ^(id <CPSelectableListItem> item,
@@ -61,15 +62,6 @@
             VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
             VLCMLArtist *artist = item.userInfo;
             [playbackService playMediaAtIndex:0 fromCollection:[artist tracks]];
-            completionBlock();
-        };
-        listItem.listImageRowHandler = ^(CPListImageRowItem * item, NSInteger index, dispatch_block_t completionBlock) {
-            VLCMLArtist *artist = item.userInfo;
-            NSArray *albums = artist.albums;
-            if (index < artist.albumsCount) {
-                VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
-                [playbackService playMediaAtIndex:0 fromCollection:[albums[index] tracks]];
-            }
             completionBlock();
         };
         [itemList addObject:listItem];

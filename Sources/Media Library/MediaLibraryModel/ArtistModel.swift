@@ -181,12 +181,12 @@ extension VLCMLArtist: MediaCollectionModel {
 }
 
 extension VLCMLArtist {
-    func numberOfTracksString() -> String {
+    @objc func numberOfTracksString() -> String {
         let tracksString = tracks()?.count == 1 ? NSLocalizedString("TRACK", comment: "") : NSLocalizedString("TRACKS", comment: "")
         return String(format: tracksString, tracks()?.count ?? 0)
     }
 
-    func artistName() -> String {
+    @objc func artistName() -> String {
         if identifier() == UnknownArtistID {
             return NSLocalizedString("UNKNOWN_ARTIST", comment: "")
         } else if identifier() == VariousArtistID {
@@ -196,7 +196,7 @@ extension VLCMLArtist {
         }
     }
 
-    func accessibilityText() -> String? {
+    @objc func accessibilityText() -> String? {
         return artistName() + " " + numberOfTracksString()
     }
 }
