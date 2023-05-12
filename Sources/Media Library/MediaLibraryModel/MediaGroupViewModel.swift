@@ -16,6 +16,8 @@ class MediaGroupViewModel: MLBaseModel {
     var observable = Observable<MediaLibraryBaseModelObserver>()
 
     var fileArrayLock = NSRecursiveLock()
+    let fileArrayQueue: DispatchQueue
+
     var files: [VLCMLMediaGroup]
 
     var cellType: BaseCollectionViewCell.Type {
@@ -29,41 +31,36 @@ class MediaGroupViewModel: MLBaseModel {
     var indicatorName: String = NSLocalizedString("VIDEO_GROUPS", comment: "")
 
     required init(medialibrary: MediaLibraryService) {
-        defer {
-            fileArrayLock.unlock()
-        }
+        fileArrayQueue = DispatchQueue.init(label: "MediaGroupViewModelDispatchQueue",
+                                            qos: .background,
+                                            attributes: [],
+                                            autoreleaseFrequency: .inherit,
+                                            target: nil)
         self.medialibrary = medialibrary
-        fileArrayLock.lock()
         files = medialibrary.medialib.mediaGroups() ?? []
         medialibrary.observable.addObserver(self)
     }
 
     func append(_ item: VLCMLMediaGroup) {
-        defer {
-            fileArrayLock.unlock()
+        fileArrayQueue.sync {
+            files.append(item)
         }
-        fileArrayLock.lock()
-        files.append(item)
     }
 
     func append(_ media: [VLCMLMedia], to mediaGroup: VLCMLMediaGroup) {
-        defer {
-            fileArrayLock.unlock()
-        }
         let originIds = originMediaGroupsIds(from: media)
 
         for medium in media {
             mediaGroup.add(medium)
         }
-        fileArrayLock.lock()
-        files = swapModels(with: [mediaGroup])
-        filterFilesFromDeletion(of: originIds)
+
+        fileArrayQueue.sync {
+            files = swapModels(with: [mediaGroup])
+            filterFilesFromDeletion(of: originIds)
+        }
     }
 
     func delete(_ items: [VLCMLMediaGroup]) {
-        defer {
-            fileArrayLock.unlock()
-        }
         for item in items {
             guard let media = item.media(of: .video) else {
                 continue
@@ -75,8 +72,9 @@ class MediaGroupViewModel: MLBaseModel {
             item.destroy()
         }
         medialibrary.reload()
-        fileArrayLock.lock()
-        filterFilesFromDeletion(of: items)
+        fileArrayQueue.sync {
+            filterFilesFromDeletion(of: items)
+        }
     }
 
     func rename(_ mediaGroup: VLCMLMediaGroup, to name: String) {
@@ -92,11 +90,9 @@ class MediaGroupViewModel: MLBaseModel {
     }
 
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool) {
-        defer {
-            fileArrayLock.unlock()
+        fileArrayQueue.sync {
+            files = medialibrary.medialib.mediaGroups(with: criteria, desc: desc) ?? []
         }
-        fileArrayLock.lock()
-        files = medialibrary.medialib.mediaGroups(with: criteria, desc: desc) ?? []
         sortModel.currentSort = criteria
         sortModel.desc = desc
         observable.observers.forEach() {
@@ -110,14 +106,12 @@ class MediaGroupViewModel: MLBaseModel {
             assertionFailure("MediaGroupViewModel: Unable to create a mediagroup with name: \(name)")
             return false
         }
-        defer {
-            fileArrayLock.unlock()
-        }
         append(mediaGroup)
-        fileArrayLock.lock()
         content.forEach() { mediaGroup.add($0) }
         if let mediaGroupIds = mediaGroupIds {
-            filterFilesFromDeletion(of: mediaGroupIds)
+            fileArrayQueue.sync {
+                filterFilesFromDeletion(of: mediaGroupIds)
+            }
         }
         return true
     }
@@ -128,9 +122,6 @@ class MediaGroupViewModel: MLBaseModel {
     }
 
     func unGroupMedia(_ media: [VLCMLMedia], from originMediaGroup: VLCMLMediaGroup) -> Bool {
-        defer {
-            fileArrayLock.unlock()
-        }
         for medium in media {
             medium.removeFromGroup()
             guard let newGroup = medialibrary.medialib.createMediaGroup(withName: medium.title) else {
@@ -139,8 +130,9 @@ class MediaGroupViewModel: MLBaseModel {
             newGroup.add(medium)
         }
         if originMediaGroup.nbTotalMedia() == 0 {
-            fileArrayLock.lock()
-            filterFilesFromDeletion(of: [originMediaGroup])
+            fileArrayQueue.sync {
+                filterFilesFromDeletion(of: [originMediaGroup])
+            }
             medialibrary.medialib.deleteMediaGroup(withIdentifier: originMediaGroup.identifier())
         }
         return true
@@ -173,13 +165,11 @@ private extension MediaGroupViewModel {
 extension MediaGroupViewModel: MediaLibraryObserver {
     func medialibrary(_ medialibrary: MediaLibraryService,
                       didAddMediaGroups mediaGroups: [VLCMLMediaGroup]) {
-        defer {
-            fileArrayLock.unlock()
-        }
-        fileArrayLock.lock()
-        for mediaGroup in mediaGroups {
-            if !files.contains(where: { $0.identifier() == mediaGroup.identifier() }) {
-                files.append(mediaGroup)
+        fileArrayQueue.sync {
+            for mediaGroup in mediaGroups {
+                if !files.contains(where: { $0.identifier() == mediaGroup.identifier() }) {
+                    files.append(mediaGroup)
+                }
             }
         }
         observable.observers.forEach() {
@@ -189,9 +179,6 @@ extension MediaGroupViewModel: MediaLibraryObserver {
 
     func medialibrary(_ medialibrary: MediaLibraryService,
                       didModifyMediaGroupsWithIds mediaGroupsIds: [NSNumber]) {
-        defer {
-            fileArrayLock.unlock()
-        }
         var mediaGroups = [VLCMLMediaGroup]()
 
         mediaGroupsIds.forEach() {
@@ -202,8 +189,9 @@ extension MediaGroupViewModel: MediaLibraryObserver {
             mediaGroups.append(safeMediaGroup)
         }
 
-        fileArrayLock.lock()
-        files = swapModels(with: mediaGroups)
+        fileArrayQueue.sync {
+            files = swapModels(with: mediaGroups)
+        }
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
         }
@@ -211,12 +199,10 @@ extension MediaGroupViewModel: MediaLibraryObserver {
 
     func medialibrary(_ medialibrary: MediaLibraryService,
                       didDeleteMediaGroupsWithIds mediaGroupsIds: [NSNumber]) {
-        defer {
-            fileArrayLock.unlock()
-        }
-        fileArrayLock.lock()
-        files.removeAll {
-            mediaGroupsIds.contains(NSNumber(value: $0.identifier()))
+        fileArrayQueue.sync {
+            files.removeAll {
+                mediaGroupsIds.contains(NSNumber(value: $0.identifier()))
+            }
         }
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()

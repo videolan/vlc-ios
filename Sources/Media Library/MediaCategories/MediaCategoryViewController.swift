@@ -349,8 +349,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
 
         // If we are a MediaGroupViewModel, check if there are no empty groups from ungrouping.
         if let mediaGroupModel = model as? MediaGroupViewModel {
-            mediaGroupModel.files = mediaGroupModel.files.filter() {
-                return $0.nbTotalMedia() != 0
+            mediaGroupModel.fileArrayQueue.sync {
+                mediaGroupModel.files = mediaGroupModel.files.filter() {
+                    return $0.nbTotalMedia() != 0
+                }
             }
         }
 
@@ -1511,19 +1513,21 @@ extension MediaCategoryViewController {
         var index = indexPath.row
 
         if let mediaGroupModel = model as? MediaGroupViewModel {
-            var singleGroup = [VLCMLMediaGroup]()
-            // Filter single groups
-            singleGroup = mediaGroupModel.files.filter() {
-                return $0.nbTotalMedia() == 1 && !$0.userInteracted()
-            }
-            singleGroup.forEach() {
-                guard let media = $0.media(of: .unknown)?.first else {
-                    assertionFailure("MediaCategoryViewController: play: Failed to fetch media.")
-                    return
+            mediaGroupModel.fileArrayQueue.sync {
+                var singleGroup = [VLCMLMediaGroup]()
+                // Filter single groups
+                singleGroup = mediaGroupModel.files.filter() {
+                    return $0.nbTotalMedia() == 1 && !$0.userInteracted()
                 }
-                tracks.append(media)
+                singleGroup.forEach() {
+                    guard let media = $0.media(of: .unknown)?.first else {
+                        assertionFailure("MediaCategoryViewController: play: Failed to fetch media.")
+                        return
+                    }
+                    tracks.append(media)
+                }
+                index = tracks.firstIndex(where: { $0.identifier() == media.identifier() }) ?? 0
             }
-            index = tracks.firstIndex(where: { $0.identifier() == media.identifier() }) ?? 0
         } else if let model = model as? MediaCollectionModel {
             tracks = model.files() ?? []
         } else {
