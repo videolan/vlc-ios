@@ -84,9 +84,9 @@ class AudioPlayerView: UIView {
                 factor = 0.2
             }
         } else if width <= DeviceDimensions.iPhone6Portrait.rawValue {
-            factor = 0.5
-        } else {
             factor = 0.65
+        } else {
+            factor = 0.8
             constant = 40.0
         }
 
