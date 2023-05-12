@@ -1,10 +1,11 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2017-2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2017-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Carola Nitz <caro # videolan.org>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -127,7 +128,11 @@
     VLCMediaMetaData *metadata = mediaPlayer.media.metaData;
 
     if (metadata) {
-        self.title = metadata.title;
+        if (metadata.nowPlaying != nil) {
+            self.title = metadata.nowPlaying;
+        } else {
+            self.title = metadata.title;
+        }
         self.artist = metadata.artist;
         self.albumName = metadata.album;
         self.trackNumber = @(metadata.trackNumber);
