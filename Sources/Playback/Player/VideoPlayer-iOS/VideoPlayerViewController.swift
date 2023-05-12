@@ -448,7 +448,14 @@ class VideoPlayerViewController: UIViewController {
         return downSwipeRecognizer
     }()
 
+    private lazy var minimizeGestureRecognizer: UIPanGestureRecognizer = {
+        let dismissGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleMinimizeGesture(_:)))
+        return dismissGestureRecognizer
+    }()
+
     private var isGestureActive: Bool = false
+
+    private var viewTranslation: CGPoint = CGPoint(x: 0, y: 0)
 
     // MARK: - Popup Views
 
@@ -512,6 +519,7 @@ class VideoPlayerViewController: UIViewController {
         self.playerController.delegate = self
         systemBrightness = UIScreen.main.brightness
         NotificationCenter.default.addObserver(self, selector: #selector(systemBrightnessChanged), name: UIApplication.didBecomeActiveNotification, object: nil)
+        self.mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
     }
 
     required init?(coder: NSCoder) {
@@ -595,6 +603,8 @@ class VideoPlayerViewController: UIViewController {
 
         let setIconVisibility = playbackService.adjustFilter.isEnabled ? showIcon : hideIcon
         setIconVisibility(optionsNavigationBar.videoFiltersButton)
+
+        view.transform = .identity
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -1174,6 +1184,45 @@ extension VideoPlayerViewController {
 
         if recognizer.state == .ended {
             statusLabel.showStatusMessage(hudString)
+        }
+    }
+
+    @objc private func handleMinimizeGesture(_ sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .changed:
+            viewTranslation = sender.translation(in: view)
+            if viewTranslation.y < 0 {
+                return
+            }
+
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 0.7,
+                           initialSpringVelocity: 1,
+                           options: .curveEaseOut,
+                           animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+
+            break
+        case .ended:
+            let halfHeight = view.frame.height / 2
+            if viewTranslation.y < halfHeight {
+                UIView.animate(withDuration: 0.5,
+                               delay: 0,
+                               usingSpringWithDamping: 0.7,
+                               initialSpringVelocity: 1,
+                               options: .curveEaseOut,
+                               animations: {
+                    self.view.transform = .identity
+                })
+            } else {
+                delegate?.videoPlayerViewControllerDidMinimize(self)
+            }
+
+            break
+        default:
+            break
         }
     }
 }
