@@ -404,13 +404,8 @@ NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackService
             if (_mediaPlayer.state == VLCMediaPlayerStateStopped && _mediaPlayer.media != nil) {
                 // Since VLCMediaPlayerStateError is sometimes not matched with a valid media.
                 // This checks for decoded Audio & Video blocks.
-#if LIBVLC_VERSION_MAJOR == 3
-                finishedPlaybackWithError = (_mediaPlayer.media.numberOfDecodedAudioBlocks == 0)
-                                             && (_mediaPlayer.media.numberOfDecodedVideoBlocks == 0);
-#else
                 VLCMediaStats stats = _mediaPlayer.media.statistics;
                 finishedPlaybackWithError = (stats.decodedAudio == 0) && (stats.decodedVideo == 0);
-#endif
             } else {
                 finishedPlaybackWithError = _mediaPlayer.state == VLCMediaPlayerStateError;
             }
