@@ -334,6 +334,17 @@
 					<string>VLCAppSceneDelegate</string>
 				</dict>
 			</array>
+			<key>UIWindowSceneSessionRoleExternalDisplay</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string>UIWindowScene</string>
+					<key>UISceneConfigurationName</key>
+					<string>VLCNonInteractiveWindowScene</string>
+					<key>UISceneDelegateClassName</key>
+					<string>VLCNonInteractiveWindowSceneDelegate</string>
+				</dict>
+			</array>
 			<key>UIWindowSceneSessionRoleExternalDisplayNonInteractive</key>
 			<array>
 				<dict>

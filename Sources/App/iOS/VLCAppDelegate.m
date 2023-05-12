@@ -277,7 +277,8 @@
     if ([role isEqualToString:@"CPTemplateApplicationSceneSessionRoleApplication"]) {
         return [[UISceneConfiguration alloc] initWithName:@"VLCCarPlayScene" sessionRole:role];
     }
-    if ([role isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"]) {
+    if ([role isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"] ||
+        [role isEqualToString:@"UIWindowSceneSessionRoleExternalDisplay"]) {
         return [[UISceneConfiguration alloc] initWithName:@"VLCNonInteractiveWindowScene" sessionRole:role];
     }
     return [[UISceneConfiguration alloc] initWithName:@"VLCDefaultAppScene" sessionRole:role];
