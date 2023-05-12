@@ -97,6 +97,10 @@ class AudioPlayerViewController: PlayerViewController {
 
     // MARK: Public methods
 
+    override func minimizePlayer() {
+        delegate?.audioPlayerViewControllerDidMinimize(self)
+    }
+
     override func showPopup(_ popupView: PopupView, with contentView: UIView, accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? = nil) {
         moreOptionsButton.isEnabled = false
         super.showPopup(popupView, with: contentView, accessoryViewsDelegate: accessoryViewsDelegate)

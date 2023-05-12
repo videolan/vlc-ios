@@ -243,6 +243,8 @@ class PlayerViewController: UIViewController {
 
     private var fov: CGFloat = 0
 
+    private var viewTranslation: CGPoint = CGPoint(x: 0, y: 0)
+
     private lazy var deviceMotion: DeviceMotion = {
         let deviceMotion = DeviceMotion()
         deviceMotion.delegate = self
@@ -290,6 +292,12 @@ class PlayerViewController: UIViewController {
         return rightSwipeRecognizer
     }()
 
+    lazy var minimizeGestureRecognizer: UIPanGestureRecognizer = {
+        let minimizeGestureRecognizer = UIPanGestureRecognizer(target: self,
+                                                               action: #selector(handleMinimizeGesture(_:)))
+        return minimizeGestureRecognizer
+    }()
+
     // MARK: - Init
 
     @objc init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
@@ -298,6 +306,7 @@ class PlayerViewController: UIViewController {
         self.playerController = playerController
         super.init(nibName: nil, bundle: nil)
         mediaNavigationBar.chromeCastButton = rendererButton
+        mediaNavigationBar.addGestureRecognizer(minimizeGestureRecognizer)
     }
 
     required init?(coder: NSCoder) {
@@ -316,6 +325,8 @@ class PlayerViewController: UIViewController {
         }
 
         mediaNavigationBar.updateDeviceButton(with: image, color: color)
+
+        view.transform = .identity
     }
 
     // MARK: - Public methods
@@ -353,6 +364,10 @@ class PlayerViewController: UIViewController {
 
     func changeOutputView(to output: UIView?) {
         // Change the content output view if necessary according to the type of the player.
+    }
+
+    func minimizePlayer() {
+        // Minimize the player
     }
 
     // MARK: - Private methods
@@ -654,6 +669,45 @@ class PlayerViewController: UIViewController {
 
         if recognizer.state == .ended {
             statusLabel.showStatusMessage(hudString)
+        }
+    }
+
+    @objc private func handleMinimizeGesture(_ sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .changed:
+            viewTranslation = sender.translation(in: view)
+            if viewTranslation.y < 0 {
+                return
+            }
+
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 0.7,
+                           initialSpringVelocity: 1,
+                           options: .curveEaseOut,
+                           animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+
+            break
+        case .ended:
+            let halfHeight = view.frame.height / 2
+            if viewTranslation.y < halfHeight {
+                UIView.animate(withDuration: 0.5,
+                               delay: 0,
+                               usingSpringWithDamping: 0.7,
+                               initialSpringVelocity: 1,
+                               options: .curveEaseOut,
+                               animations: {
+                    self.view.transform = .identity
+                })
+            } else {
+                minimizePlayer()
+            }
+
+            break
+        default:
+            break
         }
     }
 }
