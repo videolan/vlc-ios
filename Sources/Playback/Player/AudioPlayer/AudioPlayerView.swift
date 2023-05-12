@@ -54,6 +54,7 @@ class AudioPlayerView: UIView {
     override func awakeFromNib() {
         overlayView.backgroundColor = .black.withAlphaComponent(0.4)
         setupLabels()
+        applyCornerRadius()
     }
 
     // MARK: - Public methods
@@ -249,6 +250,12 @@ class AudioPlayerView: UIView {
                 volumeControlView.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor)
             ])
         }
+    }
+
+    private func applyCornerRadius() {
+        let cornerRadius = UIScreen.main.displayCornerRadius
+        overlayView.layer.cornerRadius = cornerRadius
+        backgroundView.layer.cornerRadius = cornerRadius
     }
 
     // MARK: - Buttons handlers
