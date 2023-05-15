@@ -33,6 +33,7 @@
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblocking filter";
+"SETTINGS_SKIP_LOOP_FILTER_INFO" = "Skipping the loop filter (aka deblocking) usually has a detrimental effect on quality. However it provides a big speedup for high definition streams.";
 "SETTINGS_SKIP_LOOP_FILTER_NONE" = "No deblocking (fastest)";
 "SETTINGS_SKIP_LOOP_FILTER_NONREF" = "Medium deblocking";
 "SETTINGS_SKIP_LOOP_FILTER_NONKEY" = "Low deblocking";
@@ -73,11 +74,13 @@
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Thick";
 
 "SETTINGS_DEINTERLACE" = "Deinterlace";
+"SETTINGS_DEINTERLACE_INFO" = "Deinterlacing filters will be applied automatically to interlaced content to prevent motion artifacts and increase playback quality. They can be disabled to save battery life.";
 "SETTINGS_DEINTERLACE_ON" = "On";
 "SETTINGS_DEINTERLACE_OFF" = "Off";
 "SETTINGS_DEINTERLACE_AUTO" = "Automatic";
 
 "SETTINGS_HWDECODING" = "Hardware decoding";
+"SETTINGS_HWDECODING_INFO" = "Content encoded in the H.264 and H.265 formats can be decoded in hardware leading to a significant improvement of battery life and performance. Be careful when disabling this option.";
 "SETTINGS_HWDECODING_ON" = "On";
 "SETTINGS_HWDECODING_OFF" = "Off";
 "SETTINGS_CASTING" = "Casting";
@@ -99,6 +102,7 @@
 
 "SETTINGS_NETWORK" = "Network";
 "SETTINGS_NETWORK_CACHING_TITLE" = "Network caching Level";
+"SETTINGS_NETWORK_CACHING_INFO" = "Increase the cache level if you experience frequent buffering events, notably on unstable connections.";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOWEST" = "Lowest latency";
 "SETTINGS_NETWORK_CACHING_LEVEL_LOW" = "Low latency";
 "SETTINGS_NETWORK_CACHING_LEVEL_NORMAL" = "Normal";
@@ -120,6 +124,7 @@
 "ABOUT_APP_TV" = "About VLC for tvOS";
 
 "SETTINGS_REMEMBER_PLAYER_STATE" = "Remember player state (shuffle, loop)";
+"SETTINGS_REMEMBER_PLAYER_BRIGHTNESS" = "Remember player brightness";
 
 "SETTINGS_PLAYBACK_SKIP_FORWARD" = "Forward skip";
 "SETTINGS_PLAYBACK_SKIP_BACKWARD" = "Backward skip";
