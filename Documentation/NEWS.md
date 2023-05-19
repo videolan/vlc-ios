@@ -1,5 +1,8 @@
 # Changelog
 
+## iOS [3.4.3]
+· Fix playback of audio-only media on iOS 9 and 10
+
 ## iOS [3.4.2]
 · Fix playback on external displays including AirPlay on iOS 13 to 15
 · Fix audio playback quality regression for mp3, ALAC and Apple Core Audio Format
