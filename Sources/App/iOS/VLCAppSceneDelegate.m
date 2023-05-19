@@ -39,6 +39,8 @@
     VLCAppDelegate *appDelegate = (VLCAppDelegate *)[UIApplication sharedApplication].delegate;
     appDelegate.window = window;
     [appDelegate setupTabBarAppearance];
+
+    [self scene:scene openURLContexts:connectionOptions.URLContexts];
 }
 
 - (void)sceneDidDisconnect:(UIScene *)scene
