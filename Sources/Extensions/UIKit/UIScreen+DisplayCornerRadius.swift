@@ -14,10 +14,14 @@ import UIKit
 
 extension UIScreen {
     public var displayCornerRadius: CGFloat {
-        guard let cornerRadius = self.value(forKey: "_displayCornerRadius") as? CGFloat else {
-            return 0
-        }
+        let selector = NSSelectorFromString("_displayCornerRadius")
+        if self.responds(to: selector) {
+            guard let cornerRadius = self.value(forKey: "_displayCornerRadius") as? CGFloat else {
+                return 0.0
+            }
 
-        return cornerRadius
+            return cornerRadius
+        }
+        return 0.0
     }
 }
