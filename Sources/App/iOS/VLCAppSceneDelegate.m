@@ -2,7 +2,7 @@
  * VLCAppSceneDelegate.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2022-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -41,6 +41,12 @@
     [appDelegate setupTabBarAppearance];
 
     [self scene:scene openURLContexts:connectionOptions.URLContexts];
+
+    NSUserActivity *firstActivity = connectionOptions.userActivities.anyObject;
+    if (firstActivity != nil) {
+        [self scene:scene willContinueUserActivityWithType:firstActivity.activityType];
+        [self scene:scene continueUserActivity:firstActivity];
+    }
 }
 
 - (void)sceneDidDisconnect:(UIScene *)scene
@@ -79,6 +85,28 @@
     UIApplication *sharedApplication = [UIApplication sharedApplication];
     VLCAppDelegate *appDelegate = (VLCAppDelegate *)sharedApplication.delegate;
     [appDelegate application:sharedApplication openURL:url options:@{}];
+}
+
+- (void)scene:(UIScene *)scene willContinueUserActivityWithType:(NSString *)userActivityType
+{
+    UIApplication *sharedApplication = [UIApplication sharedApplication];
+    VLCAppDelegate *appDelegate = (VLCAppDelegate *)sharedApplication.delegate;
+    [appDelegate application:sharedApplication willContinueUserActivityWithType:userActivityType];
+}
+
+- (void)scene:(UIScene *)scene continueUserActivity:(NSUserActivity *)userActivity
+{
+    UIApplication *sharedApplication = [UIApplication sharedApplication];
+    VLCAppDelegate *appDelegate = (VLCAppDelegate *)sharedApplication.delegate;
+    [appDelegate application:sharedApplication continueUserActivity:userActivity
+          restorationHandler:^(NSArray<id<UIUserActivityRestoring>> * _Nullable restorableObjects){}];
+}
+
+- (void)scene:(UIScene *)scene didFailToContinueUserActivityWithType:(NSString *)userActivityType error:(NSError *)error
+{
+    UIApplication *sharedApplication = [UIApplication sharedApplication];
+    VLCAppDelegate *appDelegate = (VLCAppDelegate *)sharedApplication.delegate;
+    [appDelegate application:sharedApplication didFailToContinueUserActivityWithType:userActivityType error:error];
 }
 
 @end
