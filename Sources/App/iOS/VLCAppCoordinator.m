@@ -105,7 +105,6 @@
     _tabCoordinator = [[TabBarCoordinator alloc] initWithTabBarController:_tabBarController mediaLibraryService:self.mediaLibraryService];
 
     _playerDisplayController = [[VLCPlayerDisplayController alloc] init];
-    [_tabBarController addChildViewController:_playerDisplayController];
     [_tabBarController.view addSubview:_playerDisplayController.view];
     _playerDisplayController.view.layoutMargins = UIEdgeInsetsMake(0, 0, tabBarController.tabBar.frame.size.height, 0);
     _playerDisplayController.realBottomAnchor = tabBarController.tabBar.topAnchor;
