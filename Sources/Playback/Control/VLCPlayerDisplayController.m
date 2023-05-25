@@ -464,8 +464,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:VLCPlayerDisplayControllerHideMiniPlayer object:self];
             }
-            [self->_queueViewController hide];
-            [self->_queueViewController removeFromParentViewController];
+
             [self resignFirstResponder];
         };
 
@@ -484,6 +483,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)addPlayqueueToMiniPlayer
 {
+    [_queueViewController removeFromParentViewController];
     [_queueViewController didMoveToParentViewController:self];
     [((VLCAudioMiniPlayer*)_miniPlaybackView) setupQueueViewControllerWith:_queueViewController];
     [self becomeFirstResponder];
