@@ -236,7 +236,7 @@ private extension AudioMiniPlayer {
 
     @IBAction private func handleFullScreen(_ sender: Any) {
         if position.vertical == .top {
-            dismissPlayqueue()
+            dismissPlayqueue(with: nil)
         }
 
         let currentMedia: VLCMedia? = playbackService.currentlyPlayingMedia
@@ -315,7 +315,10 @@ extension AudioMiniPlayer {
                     switch position.vertical {
                         case .top:
                             if self.frame.minY > limit || velocity.y > 1000.0 {
-                                dismissPlayqueue()
+                                let completion: ((Bool) -> Void) = { _ in
+                                    self.queueViewController?.hide()
+                                }
+                                dismissPlayqueue(with: completion)
                             } else {
                                 showPlayqueue(in: superview)
                             }
@@ -323,7 +326,10 @@ extension AudioMiniPlayer {
                             if stopGestureEnabled && self.frame.minY > originY + 10 {
                                 playbackService.stopPlayback()
                             } else if self.frame.minY > limit && velocity.y > -1000.0 {
-                                dismissPlayqueue()
+                                let completion: ((Bool) -> Void) = { _ in
+                                    self.queueViewController?.hide()
+                                }
+                                dismissPlayqueue(with: completion)
                             } else {
                                 showPlayqueue(in: superview)
                             }
@@ -453,10 +459,11 @@ extension AudioMiniPlayer {
         }
     }
 
-    func dismissPlayqueue() {
+    func dismissPlayqueue(with completion: ((Bool) -> Void)?) {
         position.vertical = .bottom
         tapticPosition.vertical = .bottom
-        draggingDelegate.miniPlayerPositionToBottom(self)
+
+        draggingDelegate.miniPlayerPositionToBottom(self, completion: completion)
     }
 
     func hidePreviousNextOverlay() {
@@ -564,7 +571,11 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
             UIAction(title: NSLocalizedString("STOP_BUTTON", comment: ""),
                      image: UIImage(named: "stopIcon")?.withTintColor(defaultButtonColor, renderingMode: .alwaysOriginal)) {
                 action in
-                self.playbackService.stopPlayback()
+                         self.playbackService.stopPlayback()
+                         let completion: ((Bool) -> Void) = { _ in
+                             self.queueViewController?.hide()
+                         }
+                         self.dismissPlayqueue(with: completion)
             }
         )
 
@@ -580,7 +591,7 @@ extension AudioMiniPlayer: UIContextMenuInteractionDelegate {
     func miniPlayerDragStateDidChange(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection)
     func miniPlayerDragDidEnd(_ miniPlayer: AudioMiniPlayer, sender: UIPanGestureRecognizer, panDirection: PanDirection)
     func miniPlayerPositionToTop(_ miniPlayer: AudioMiniPlayer)
-    func miniPlayerPositionToBottom(_ miniPlayer: AudioMiniPlayer)
+    func miniPlayerPositionToBottom(_ miniPlayer: AudioMiniPlayer, completion: ((Bool) -> Void)?)
     func miniPlayerCenterHorizontaly(_ miniPlayer: AudioMiniPlayer)
     func miniPlayerNeedsLayout(_ miniPlayer: AudioMiniPlayer)
 }
