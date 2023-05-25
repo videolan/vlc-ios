@@ -1730,6 +1730,7 @@ extension VideoPlayerViewController: MediaNavigationBarDelegate {
         if let qvc = queueViewController {
             shouldDisableGestures(true)
             qvc.removeFromParent()
+            qvc.view.removeFromSuperview()
             qvc.show()
             qvc.topView.isHidden = false
             addChild(qvc)
