@@ -93,6 +93,7 @@ class AudioPlayerViewController: PlayerViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         playerController.isInterfaceLocked = false
+        queueViewController?.hide()
     }
 
     // MARK: Public methods
