@@ -96,8 +96,9 @@
 
 - (void)setupTabBarAppearance
 {
+    VLCAppCoordinator *appCoordinator = [VLCAppCoordinator sharedInstance];
     void (^setupAppCoordinator)(void) = ^{
-        [[VLCAppCoordinator sharedInstance] setTabBarController:(UITabBarController *)self->_window.rootViewController];
+        [appCoordinator setTabBarController:(UITabBarController *)self->_window.rootViewController];
     };
     [self validatePasscodeIfNeededWithCompletion:setupAppCoordinator];
 }
