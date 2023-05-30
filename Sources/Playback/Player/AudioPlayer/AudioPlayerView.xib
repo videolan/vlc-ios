@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,7 +28,7 @@
                         <constraint firstAttribute="height" constant="50" id="OFp-we-Kus"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dg3-0F-biw" userLabel="Thumbnail View">
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dg3-0F-biw" userLabel="Thumbnail View">
                     <rect key="frame" x="0.0" y="164" width="393" height="375"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mnm-xL-GCY" userLabel="Thumbnail Image View">
@@ -39,7 +39,7 @@
                                 <constraint firstAttribute="width" constant="270" id="jRB-6o-PX9"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyF-MX-GWW" userLabel="Title Label">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyF-MX-GWW" userLabel="Title Label">
                             <rect key="frame" x="35" y="325" width="323" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="5EJ-jS-eqc"/>
@@ -48,7 +48,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sp5-ts-CeU" userLabel="Artist Label">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sp5-ts-CeU" userLabel="Artist Label">
                             <rect key="frame" x="35" y="355" width="323" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="vg7-Bs-wQW"/>
@@ -65,16 +65,16 @@
                         <constraint firstItem="mnm-xL-GCY" firstAttribute="top" secondItem="dg3-0F-biw" secondAttribute="top" constant="20" id="Zph-gw-iSW"/>
                         <constraint firstItem="dyF-MX-GWW" firstAttribute="leading" secondItem="dg3-0F-biw" secondAttribute="leading" constant="35" id="lnM-wc-t9i"/>
                         <constraint firstAttribute="bottom" secondItem="sp5-ts-CeU" secondAttribute="bottom" id="tau-sj-y2K"/>
-                        <constraint firstItem="dyF-MX-GWW" firstAttribute="top" secondItem="mnm-xL-GCY" secondAttribute="bottom" constant="35" id="voV-Fu-loz"/>
+                        <constraint firstItem="dyF-MX-GWW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="mnm-xL-GCY" secondAttribute="bottom" constant="10" id="voV-Fu-loz"/>
                         <constraint firstItem="dyF-MX-GWW" firstAttribute="bottom" secondItem="sp5-ts-CeU" secondAttribute="top" id="xTe-di-9NV"/>
                         <constraint firstItem="sp5-ts-CeU" firstAttribute="trailing" secondItem="dyF-MX-GWW" secondAttribute="trailing" id="ynS-g2-rZo"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Hm-FU-aOt" userLabel="Playqueue View">
+                <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Hm-FU-aOt" userLabel="Playqueue View">
                     <rect key="frame" x="0.0" y="164" width="393" height="375"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="p95-Vl-HBP" userLabel="Controls StackView">
+                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="p95-Vl-HBP" userLabel="Controls StackView">
                     <rect key="frame" x="50" y="574" width="293" height="50"/>
                     <subviews>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MLi-Uo-Lgk" userLabel="Backward Button">
