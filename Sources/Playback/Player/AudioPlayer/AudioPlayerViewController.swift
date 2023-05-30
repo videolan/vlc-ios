@@ -2,7 +2,7 @@
  * AudioPlayerViewController.swift
  * VLC for iOS
  *****************************************************************************
- * Copyright © 2022 VLC authors and VideoLAN
+ * Copyright © 2022-2023 VLC authors and VideoLAN
  *
  * Authors: Diogo Simao Marques <dogo@videolabs.io>
  *
@@ -242,22 +242,6 @@ class AudioPlayerViewController: PlayerViewController {
 
         playerController.isInterfaceLocked = !enabled
     }
-
-    private func getCurrentMediaTitle() -> String? {
-        if let audiotrack = VLCMLMedia.init(forPlaying: playbackService.currentlyPlayingMedia) {
-            return audiotrack.title
-        } else {
-            return playbackService.metadata.title
-        }
-    }
-
-    private func getCurrentMediaArtist() -> String? {
-        if let audiotrack = VLCMLMedia.init(forPlaying: playbackService.currentlyPlayingMedia) {
-            return audiotrack.albumTrackArtistName()
-        } else {
-            return nil
-        }
-    }
 }
 
 // MARK: - AudioPlayerViewDelegate
@@ -308,10 +292,9 @@ extension AudioPlayerViewController {
     func prepare(forMediaPlayback playbackService: PlaybackService) {
         audioPlayerView.updatePlayButton(isPlaying: playbackService.isPlaying)
 
-        let title = getCurrentMediaTitle()
-        let artist = getCurrentMediaArtist()
-        audioPlayerView.updateLabels(title: title, artist: artist, isQueueHidden: isQueueHidden)
-        updateNavigationBar(with: isQueueHidden ? nil : playbackService.metadata.title)
+        let metadata = playbackService.metadata
+        audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, isQueueHidden: isQueueHidden)
+        updateNavigationBar(with: isQueueHidden ? nil : metadata.title)
 
         if let qvc = queueViewController, !isQueueHidden {
             showPlayqueue(from: qvc)
@@ -349,16 +332,16 @@ extension AudioPlayerViewController {
     }
 
     func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {
-        let title = getCurrentMediaTitle()
-        let artist = getCurrentMediaArtist()
-        audioPlayerView.updateLabels(title: title, artist: artist, isQueueHidden: isQueueHidden)
+        audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, isQueueHidden: isQueueHidden)
         updateNavigationBar(with: isQueueHidden ? nil : metadata.title)
 
-        audioPlayerView.setupThumbnailView()
-        audioPlayerView.setupBackgroundColor()
+        if metadata.artworkImage != audioPlayerView.thumbnailImageView.image {
+            audioPlayerView.setupThumbnailView()
+            audioPlayerView.setupBackgroundColor()
 
-        if let qvc = queueViewController, !isQueueHidden {
-            qvc.reloadBackground(with: audioPlayerView.thumbnailImageView.image)
+            if let qvc = queueViewController, !isQueueHidden {
+                qvc.reloadBackground(with: audioPlayerView.thumbnailImageView.image)
+            }
         }
     }
 }
@@ -397,10 +380,9 @@ extension AudioPlayerViewController {
     }
 
     func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar) {
-        let title = getCurrentMediaTitle()
-        let artist = getCurrentMediaArtist()
-        audioPlayerView.updateLabels(title: title, artist: artist, isQueueHidden: !isQueueHidden)
-        updateNavigationBar(with: !isQueueHidden ? nil : playbackService.metadata.title)
+        let metadata = playbackService.metadata
+        audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, isQueueHidden: !isQueueHidden)
+        updateNavigationBar(with: !isQueueHidden ? nil : metadata.title)
 
         var isThumbnailViewHidden: Bool = isQueueHidden
         if playbackService.isPlayingOnExternalScreen() {
