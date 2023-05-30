@@ -25,8 +25,8 @@
     if (self) {
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter addObserver:self
-                               selector:@selector(playbackMetadataChanged:)
-                                   name:VLCPlaybackServicePlaybackMetadataDidChange
+                               selector:@selector(playbackDidMoveOnToNextItem:)
+                                   name:VLCPlaybackServicePlaybackDidMoveOnToNextItem
                                  object:nil];
         [notificationCenter addObserver:self
                                selector:@selector(playModeUpdated:)
@@ -83,7 +83,7 @@
     nowPlayingTemplate.albumArtistButtonEnabled = NO;
 }
 
-- (void)playbackMetadataChanged:(NSNotification *)aNotification
+- (void)playbackDidMoveOnToNextItem:(NSNotification *)aNotification
 {
     CPNowPlayingTemplate *nowPlayingTemplate = CPNowPlayingTemplate.sharedTemplate;
     nowPlayingTemplate.upNextButtonEnabled = [VLCPlaybackService sharedInstance].isNextMediaAvailable;
