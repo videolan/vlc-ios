@@ -478,7 +478,11 @@ extension AudioMiniPlayer {
 
 private extension AudioMiniPlayer {
     private func setMediaInfo(_ metadata: VLCMetaData) {
-        titleLabel.text = metadata.title
+        if metadata.descriptiveTitle != nil {
+            titleLabel.text = metadata.descriptiveTitle
+        } else {
+            titleLabel.text = metadata.title
+        }
         artistLabel.text = metadata.artist
         if (!UIAccessibility.isReduceTransparencyEnabled && metadata.isAudioOnly) ||
             playbackService.playAsAudio {

@@ -15,6 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @property(readwrite, copy, nullable) NSString *title;
+@property(readwrite, copy, nullable) NSString *descriptiveTitle;
 @property(readwrite, nullable) UIImage *artworkImage;
 @property(readwrite, copy, nullable) NSString *artist;
 @property(readwrite, copy, nullable) NSString *albumName;

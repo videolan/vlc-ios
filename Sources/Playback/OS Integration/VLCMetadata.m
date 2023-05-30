@@ -64,9 +64,9 @@
     if (self.isAudioOnly) {
         if (self.artworkImage) {
             if (self.artist)
-                self.title = [self.title stringByAppendingFormat:@" — %@", self.artist];
+                self.descriptiveTitle = [self.title stringByAppendingFormat:@" — %@", self.artist];
             if (self.albumName)
-                self.title = [self.title stringByAppendingFormat:@" — %@", self.albumName];
+                self.descriptiveTitle = [self.title stringByAppendingFormat:@" — %@", self.albumName];
         }
         if (self.title.length < 1)
             self.title = [[mediaPlayer.media url] lastPathComponent];
