@@ -869,6 +869,7 @@ NSString *const VLCPlaybackServicePlaybackModeUpdated = @"VLCPlaybackServicePlay
 {
     int mediaListCount = (int) _mediaList.count;
 
+    NSInteger nextIndex = 0;
     if (!_currentIndex) {
         _currentIndex = [_mediaList indexOfMedia:self.currentlyPlayingMedia];
     }
@@ -885,20 +886,23 @@ NSString *const VLCPlaybackServicePlaybackModeUpdated = @"VLCPlaybackServicePlay
     }
 
     // Normal playback
-    if(_currentIndex + 1 < mediaListCount) {
-        _currentIndex += 1;
+    if (_currentIndex + 1 < mediaListCount) {
+        nextIndex = _currentIndex + 1;
     } else {
-        if(self.repeatMode == VLCRepeatAllItems) {
-            _currentIndex = 0;
+        if (self.repeatMode == VLCRepeatAllItems) {
+            nextIndex = 0;
         } else {
-            return -1;
+            nextIndex = -1;
         }
     }
     if (_shuffleMode && mediaListCount > 2) {
-        return [_shuffledOrder[_currentIndex] integerValue];
-    } else {
-        return _currentIndex;
+        nextIndex = [_shuffledOrder[_currentIndex] integerValue];
     }
+
+    if (isButtonPressed) {
+        _currentIndex = nextIndex;
+    }
+    return nextIndex;
 }
 
 - (BOOL)next
