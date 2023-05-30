@@ -1,5 +1,14 @@
 # Changelog
 
+## iOS [3.4.4]
+· Fix opening media from third party apps on iOS 13 and later
+· Fix audio player performance and layout issues
+· Fix rotation lock feature
+· Logic and stability improvements, notably for the CarPlay integration
+
+## tvOS [3.4.4]
+· Logic and stability improvements
+
 ## iOS [3.4.3]
 · Fix playback of audio-only media on iOS 9 and 10
 
