@@ -483,6 +483,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 
 - (void)addPlayqueueToMiniPlayer
 {
+    [_queueViewController hide];
     [_queueViewController removeFromParentViewController];
     [_queueViewController didMoveToParentViewController:self];
     [((VLCAudioMiniPlayer*)_miniPlaybackView) setupQueueViewControllerWith:_queueViewController];
