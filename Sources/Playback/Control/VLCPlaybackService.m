@@ -35,6 +35,7 @@ NSString *const VLCPlaybackServicePlaybackMetadataDidChange = @"VLCPlaybackServi
 NSString *const VLCPlaybackServicePlaybackDidFail = @"VLCPlaybackServicePlaybackDidFail";
 NSString *const VLCPlaybackServicePlaybackPositionUpdated = @"VLCPlaybackServicePlaybackPositionUpdated";
 NSString *const VLCPlaybackServicePlaybackModeUpdated = @"VLCPlaybackServicePlaybackModeUpdated";
+NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackServicePlaybackDidMoveOnToNextItem";
 
 #if TARGET_OS_IOS
 @interface VLCPlaybackService () <VLCMediaPlayerDelegate, VLCMediaDelegate, VLCMediaListPlayerDelegate, EqualizerViewDelegate>
@@ -531,6 +532,7 @@ NSString *const VLCPlaybackServicePlaybackModeUpdated = @"VLCPlaybackServicePlay
 
 - (BOOL)isNextMediaAvailable
 {
+    NSLog(@"%s", __func__);
     if (_mediaList.count == 1) {
         return NO;
     }
@@ -1628,6 +1630,9 @@ NSString *const VLCPlaybackServicePlaybackModeUpdated = @"VLCPlaybackServicePlay
     if ([_delegate respondsToSelector:@selector(playbackService:nextMedia:)]) {
         [_delegate playbackService:self nextMedia:media];
     }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidMoveOnToNextItem
+                                                        object:self];
 }
 
 @end
