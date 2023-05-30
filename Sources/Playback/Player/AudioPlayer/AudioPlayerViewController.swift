@@ -281,7 +281,7 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
         return brightnessControlView
     }
 
-    func audioPlayerViewDeleagteGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView {
+    func audioPlayerViewDelegateGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView {
         return volumeControlView
     }
 }

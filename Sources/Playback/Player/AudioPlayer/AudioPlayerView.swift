@@ -19,7 +19,7 @@ protocol AudioPlayerViewDelegate: AnyObject {
     func audioPlayerViewDelegateDidTapNextButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapForwardButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView
-    func audioPlayerViewDeleagteGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView
+    func audioPlayerViewDelegateGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView
 }
 
 class AudioPlayerView: UIView {
@@ -235,7 +235,7 @@ class AudioPlayerView: UIView {
 
     private func setupSliders() {
         let brightnessControlView = delegate?.audioPlayerViewDelegateGetBrightnessSlider(self)
-        let volumeControlView = delegate?.audioPlayerViewDeleagteGetVolumeSlider(self)
+        let volumeControlView = delegate?.audioPlayerViewDelegateGetVolumeSlider(self)
 
         if let brightnessControlView = brightnessControlView,
            let volumeControlView = volumeControlView {
