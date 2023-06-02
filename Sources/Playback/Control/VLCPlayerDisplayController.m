@@ -394,9 +394,12 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                 _trailingConstraint = [miniPlaybackView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
             }
 
+            NSLayoutConstraint* heightConstraint = [miniPlaybackView.heightAnchor constraintEqualToConstant:((UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer>*)self.miniPlaybackView).contentHeight];
+            heightConstraint.priority = UILayoutPriorityDefaultHigh;
+
             [NSLayoutConstraint activateConstraints:
              @[_bottomConstraint,
-               [miniPlaybackView.heightAnchor constraintEqualToConstant:((UIView<VLCPlaybackServiceDelegate, VLCMiniPlayer>*)self.miniPlaybackView).contentHeight],
+               heightConstraint,
                _leadingConstraint,
                _trailingConstraint,
                ]];
