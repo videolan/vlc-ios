@@ -79,6 +79,8 @@ class QueueViewController: UIViewController {
     }
     var bottomConstraint: NSLayoutConstraint?
 
+    var heightConstraint: NSLayoutConstraint?
+
     private var darkOverlayView: UIView = UIView()
     private var darkOverlayViewConstraints: [NSLayoutConstraint] = []
 
@@ -136,7 +138,10 @@ class QueueViewController: UIViewController {
                 darkOverlayView.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor)
             ]
 
-            let heightConstraint: NSLayoutConstraint?
+            if let heightConstraint = heightConstraint {
+                view.removeConstraint(heightConstraint)
+            }
+
             var miniPlayerView: AudioMiniPlayer? = nil
             if let parent = parent as? VLCPlayerDisplayController, let miniPlaybackView = parent.miniPlaybackView as? AudioMiniPlayer {
                 grabberView.isHidden = true
