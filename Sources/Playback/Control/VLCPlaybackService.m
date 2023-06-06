@@ -827,6 +827,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     VLCMedia *media = [_mediaList mediaAtIndex:index];
     [_listPlayer playItemAtNumber:[NSNumber numberWithUnsignedInteger:index]];
     _mediaPlayer.media = media;
+    _currentIndex = [_mediaList indexOfMedia:media];
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
         [self.delegate prepareForMediaPlayback:self];
 }
