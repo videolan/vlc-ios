@@ -882,6 +882,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
             [self.delegate playModeUpdated];
         }
+
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackModeUpdated object:self];
     } else if (self.repeatMode == VLCRepeatCurrentItem && !isButtonPressed) {
         return _currentIndex;
@@ -897,14 +898,14 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             nextIndex = -1;
         }
     }
+
     if (_shuffleMode && mediaListCount > 2) {
         nextIndex = [_shuffledOrder[_currentIndex] integerValue];
     }
 
-    if (isButtonPressed) {
-        _currentIndex = nextIndex;
-    }
-    return nextIndex;
+    _currentIndex = nextIndex;
+
+    return _currentIndex;
 }
 
 - (BOOL)next
