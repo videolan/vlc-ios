@@ -927,6 +927,8 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             [_listPlayer next];
             [[NSNotificationCenter defaultCenter]
              postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
+        } else if (self.repeatMode == VLCDoNotRepeat) {
+            [self stopPlayback];
         }
         return NO;
     }
