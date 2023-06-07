@@ -1,5 +1,12 @@
 # Changelog
 
+## iOS [3.4.5]
+· Fix playing multiple items in a row in the requested order
+· Fix minor layout issues
+
+## tvOS [3.4.5]
+· Fix playing multiple items in a row in the requested order
+
 ## iOS [3.4.4]
 · Fix opening media from third party apps on iOS 13 and later
 · Fix audio player performance and layout issues
