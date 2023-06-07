@@ -904,6 +904,11 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
 
     func mediaMoreOptionsActionSheetDidTapRepeat(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet) {
         playbackService.toggleRepeatMode()
+
+        if playerController.isRememberStateEnabled {
+            UserDefaults.standard.setValue(playbackService.repeatMode.rawValue, forKey: kVLCPlayerIsRepeatEnabled)
+        }
+
         mediaMoreOptionsActionSheet.collectionView.reloadData()
     }
 }
