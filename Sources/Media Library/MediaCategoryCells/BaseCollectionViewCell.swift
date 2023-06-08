@@ -53,6 +53,7 @@ enum DeviceDimensions: CGFloat {
     case iPhone6Portrait = 375
     case iPhonePortrait = 414
     case iPhone12ProMaxPortrait = 428
+    case iPhone14ProMaxPortrait = 430
     case iPhoneLandscape = 926
     case iPadLandscape = 1024
 }
