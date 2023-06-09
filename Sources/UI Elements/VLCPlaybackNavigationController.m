@@ -29,4 +29,9 @@
     return UIStatusBarAnimationFade;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return [self.topViewController prefersStatusBarHidden];
+}
+
 @end
