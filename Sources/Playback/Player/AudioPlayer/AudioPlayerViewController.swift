@@ -329,6 +329,8 @@ extension AudioPlayerViewController {
         if currentState == .buffering {
             mediaDuration = playbackService.mediaDuration
         }
+
+        moreOptionsActionSheet.currentMediaHasChapters = currentMediaHasChapters
     }
 
     func displayMetadata(for playbackService: PlaybackService, metadata: VLCMetaData) {

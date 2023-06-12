@@ -434,7 +434,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
         let isAudioPlayer: Bool = moreOptionsDelegate is AudioPlayerViewController
 
         MediaPlayerActionSheetCellIdentifier.allCases.forEach {
-            if $0 == .chapters && (currentMediaHasChapters == false || isAudioPlayer) {
+            if $0 == .chapters && currentMediaHasChapters == false {
                 // Do not show the chapters category when there are no chapters.
                 return
             }
