@@ -181,11 +181,19 @@ extension CollectionViewCellPreviewController {
                 return infos
             } else {
                 var collectionDetails: [String] = [collection.numberOfTracksString()]
+                var releaseYear: String?
                 if let collection = collection as? VLCMLAlbum {
                     infos.append(PreviewInformation(value: collection.albumArtistName()))
-                    collectionDetails.append(String(collection.releaseYear()))
+                    releaseYear = String(collection.releaseYear())
+                    let duration = VLCTime(number: NSNumber(value: collection.duration()))
+                    collectionDetails.append(String(describing: duration))
                 }
+
                 infos.append(PreviewInformation(value: collectionDetails.joined(separator: listSeparator)))
+
+                if let releaseYear = releaseYear {
+                    infos.append(PreviewInformation(value: releaseYear))
+                }
             }
         }
 
