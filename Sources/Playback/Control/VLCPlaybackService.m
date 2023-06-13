@@ -1442,8 +1442,11 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     CGFloat lastPosition = media.progress;
     // .95 prevents the controller from opening and closing immediatly when restoring state
-    //  Additionally, check if the media is more than 10 sec
+    //  Additionaly, check if the media is more than 10 sec
+    
+    //VLCMLMedia for external media (SMB/UPnP) does not store the duration.
     if (lastPosition < .95
+        && self.mediaDuration > 10000
         && _mediaPlayer.position < lastPosition) {
         NSInteger continuePlayback;
         if (media.type == VLCMLMediaTypeAudio) {

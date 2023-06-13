@@ -79,7 +79,7 @@ class TabBarCoordinator: NSObject {
             VideoViewController(mediaLibraryService: mediaLibraryService),
             AudioViewController(mediaLibraryService: mediaLibraryService),
             PlaylistViewController(mediaLibraryService: mediaLibraryService),
-            VLCServerListViewController(nibName: nil, bundle: nil),
+            VLCServerListViewController(medialibraryService: mediaLibraryService),
             SettingsController(mediaLibraryService: mediaLibraryService)
         ]
 
@@ -103,7 +103,7 @@ class TabBarCoordinator: NSObject {
             }) ?? 2
         case kVLCApplicationShortcutNetwork:
             tabBarController.selectedIndex = tabBarController.viewControllers?.firstIndex(where: { vc -> Bool in
-                vc is ServerListViewController
+                vc is VLCServerListViewController
             }) ?? 3
         default:
             assertionFailure("unhandled shortcut")

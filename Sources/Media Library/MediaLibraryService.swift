@@ -321,7 +321,7 @@ private extension MediaLibraryService {
     func savePlaybackState(from player: PlaybackService) {
         let media: VLCMedia? = player.currentlyPlayingMedia
 
-        guard let mrl = media?.url.absoluteURL else {
+        guard let mrl = media?.url?.absoluteURL else {
             // No URL from currently played media
             return
         }
