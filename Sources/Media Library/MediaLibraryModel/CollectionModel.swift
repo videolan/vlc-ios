@@ -112,10 +112,6 @@ class CollectionModel: MLBaseModel {
         sortModel.desc = desc
         observable.observers.forEach() {
             $0.value.observer?.mediaLibraryBaseModelReloadView()
-
-            if mediaCollection is VLCMLAlbum {
-                $0.value.observer?.mediaLibraryBaseModelObserverUpdateNavigationBar?()
-            }
         }
     }
 }

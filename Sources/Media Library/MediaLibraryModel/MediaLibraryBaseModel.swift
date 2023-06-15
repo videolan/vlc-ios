@@ -15,7 +15,6 @@ protocol MediaLibraryBaseModelObserver {
     func mediaLibraryBaseModelReloadView()
     @objc optional func mediaLibraryBaseModelReload(at indexPaths: [IndexPath])
     @objc optional func mediaLibraryBaseModelPopView()
-    @objc optional func mediaLibraryBaseModelObserverUpdateNavigationBar()
 }
 
 // Expose a "shadow" version without associatedType in order to use it as a type

@@ -386,6 +386,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         setupSearchBar()
         if let model = model as? CollectionModel {
             if model.mediaCollection is VLCMLAlbum {
+                if #available(iOS 13.0, *) {
+                    self.navigationItem.standardAppearance = AppearanceManager.navigationBarAlbumAppearance()
+                    self.navigationItem.scrollEdgeAppearance = AppearanceManager.navigationBarAlbumAppearance()
+                }
                 searchBar.removeFromSuperview()
                 updateCollectionViewForAlbum()
             }
@@ -1477,15 +1481,6 @@ private extension MediaCategoryViewController {
 extension MediaCategoryViewController: MediaLibraryBaseModelObserver {
     func mediaLibraryBaseModelReloadView() {
         reloadData()
-    }
-
-    func mediaLibraryBaseModelObserverUpdateNavigationBar() {
-        if #available(iOS 13.0, *) {
-            DispatchQueue.main.async {
-                self.navigationController?.navigationBar.standardAppearance = AppearanceManager.navigationBarAlbumAppearance()
-                self.navigationController?.navigationBar.scrollEdgeAppearance = AppearanceManager.navigationBarAlbumAppearance()
-            }
-        }
     }
 }
 
