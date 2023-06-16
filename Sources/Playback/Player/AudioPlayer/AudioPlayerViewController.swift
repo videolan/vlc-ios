@@ -31,7 +31,7 @@ class AudioPlayerViewController: PlayerViewController {
     }
 
     lazy var audioPlayerView: AudioPlayerView = {
-        let audioPlayerView: AudioPlayerView = Bundle.main.loadNibNamed("AudioPlayerView", owner: nil)?.first as! AudioPlayerView
+        let audioPlayerView = AudioPlayerView(frame: .zero)
         audioPlayerView.delegate = self
         return audioPlayerView
     }()
@@ -60,12 +60,12 @@ class AudioPlayerViewController: PlayerViewController {
         self.playerController.delegate = self
         mediaNavigationBar.addMoreOptionsButton(moreOptionsButton)
         audioPlayerView.setupNavigationBar(with: mediaNavigationBar)
-        audioPlayerView.setupThumbnailView()
+        audioPlayerView.updateThumbnailImageView()
         audioPlayerView.setupBackgroundColor()
-        audioPlayerView.setupPlayerControls()
         mediaScrubProgressBar.updateBackgroundAlpha(with: 0.0)
         audioPlayerView.setupProgressView(with: mediaScrubProgressBar)
         audioPlayerView.setupExternalOutputView(with: externalOutputView)
+        audioPlayerView.setupSliders()
         setupAudioPlayerViewConstraints()
         setupOptionsNavigationBar()
         setupStatusLabel()
@@ -82,7 +82,7 @@ class AudioPlayerViewController: PlayerViewController {
         playbackService.recoverPlaybackState()
         seekForwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
         seekBackwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
-        audioPlayerView.setupThumbnailView()
+        audioPlayerView.updateThumbnailImageView()
         audioPlayerView.setupBackgroundColor()
         setupGestures()
 
@@ -338,7 +338,7 @@ extension AudioPlayerViewController {
         updateNavigationBar(with: isQueueHidden ? nil : metadata.title)
 
         if metadata.artworkImage != audioPlayerView.thumbnailImageView.image {
-            audioPlayerView.setupThumbnailView()
+            audioPlayerView.updateThumbnailImageView()
             audioPlayerView.setupBackgroundColor()
 
             if let qvc = queueViewController, !isQueueHidden {
