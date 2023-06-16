@@ -48,6 +48,10 @@ typedef NS_ENUM(NSInteger, VLCToolbarStyle) {
 
     self.modalPresentationStyle = UIModalPresentationFormSheet;
 
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
+    
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_BACK", nil) style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     self.navigationItem.leftBarButtonItem = backButton;
 

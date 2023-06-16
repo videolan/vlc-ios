@@ -114,10 +114,6 @@
     self.controller = _boxController;
     self.controller.delegate = self;
 
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-    }
-
     [self updateViewAfterSessionChange];
 }
 

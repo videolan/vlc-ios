@@ -57,10 +57,6 @@
 {
     [super viewWillAppear:animated];
 
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-    }
-
     [GIDSignIn.sharedInstance restorePreviousSignInWithCallback:^(GIDGoogleUser * _Nullable user,
                                                                   NSError * _Nullable error) {
       if (error) {
