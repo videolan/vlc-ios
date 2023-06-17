@@ -255,7 +255,7 @@ class PlayerViewController: UIViewController {
 
     private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
                                          height: UIScreen.main.bounds.height)
-
+    
     // MARK: - Gestures
 
     lazy var panRecognizer: UIPanGestureRecognizer = {
@@ -312,6 +312,11 @@ class PlayerViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func viewDidLoad() {
+        setupObservers()
+        hideSystemVolumeInfo()
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         setupRendererDiscovererManager()
@@ -360,6 +365,29 @@ class PlayerViewController: UIViewController {
         pinchRecognizer.isEnabled = !disable
         leftSwipeRecognizer.isEnabled = !disable
         rightSwipeRecognizer.isEnabled = !disable
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        // We're observing outputVolume to handle volume changes from physical volume buttons
+        // To processd properly we have to check we're not interacting with UI controls or gesture
+        if  keyPath == "outputVolume" &&
+            !volumeControlView.isBeingTouched && // Check we're not interacting with volume slider
+            !isGestureActive && // Check if the slider did not just changed value
+            currentPanType != .volume { // Check we're not doing pan gestures for volume
+            let appearAnimations = { [volumeControlView] in
+                volumeControlView.alpha = 1
+            }
+            let disappearAnimations = { [volumeControlView] in
+                volumeControlView.alpha = 0
+            }
+            UIView.animate(withDuration:0.2, delay: 0,
+                           options: .beginFromCurrentState,
+                           animations:appearAnimations, completion:nil)
+            UIView.animate(withDuration: 0.2, delay: 1,
+                           options: [],
+                           animations:disappearAnimations, completion:nil)
+            self.volumeControlView.updateIcon(level: AVAudioSession.sharedInstance().outputVolume)
+        }
     }
 
     func changeOutputView(to output: UIView?) {
@@ -484,6 +512,16 @@ class PlayerViewController: UIViewController {
     private func setupRendererDiscovererManager() {
         rendererDiscovererManager.presentingViewController = self
         rendererDiscovererManager.delegate = self
+    }
+    
+    private func hideSystemVolumeInfo() {
+        volumeView.alpha = 0.00001
+        view.addSubview(volumeView)
+    }
+    
+    private func setupObservers() {
+        try? AVAudioSession.sharedInstance().setActive(true)
+        AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
     }
 
     // MARK: - Gesture handlers
