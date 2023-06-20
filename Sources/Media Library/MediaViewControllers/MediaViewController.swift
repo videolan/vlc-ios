@@ -151,8 +151,8 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
 
     func updateButtonsFor(_ viewController: UIViewController) {
         var showButtons = false
-        if let mediaCategoryViewController = viewController as? MediaCategoryViewController,
-            !mediaCategoryViewController.isSearching {
+        if let mediaCategoryViewController = viewController as? MediaCategoryViewController{//,
+           // !mediaCategoryViewController.isSearching {
             showButtons = true
             showButtons = mediaCategoryViewController.isEmptyCollectionView() ? false : true
         }

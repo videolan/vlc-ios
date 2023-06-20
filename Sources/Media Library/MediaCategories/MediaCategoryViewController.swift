@@ -43,7 +43,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private lazy var editController: EditController = {
         let editController = EditController(mediaLibraryService:mediaLibraryService,
                                             model: model,
-                                            presentingView: collectionView)
+                                            presentingView: collectionView,
+                                            searchDataSource: searchDataSource)
         editController.delegate = self
         return editController
     }()
@@ -246,7 +247,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         model = secondModel
         secondModel = previousModel
         self.searchDataSource = LibrarySearchDataSource(model: model)
-        editController = EditController(mediaLibraryService: mediaLibraryService, model: model, presentingView: collectionView)
+        editController = EditController(mediaLibraryService: mediaLibraryService, model: model, presentingView: collectionView, searchDataSource: searchDataSource)
         editController.delegate = self
         model.sort(by: secondModel.sortModel.currentSort, desc: secondModel.sortModel.desc)
         setupCollectionView()
@@ -533,9 +534,8 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         super.setEditing(editing, animated: animated)
 
         editController.shouldResetCells(!isEditing)
+        editController.setSearching(isSearching)
 
-        // might have an issue if the old datasource was search
-        // Most of the edit logic is handled inside editController
         collectionView?.dataSource = editing ? editController : self
         collectionView?.delegate = editing ? editController : self
         if #available(iOS 14.0, *) {
@@ -552,7 +552,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         PlaybackService.sharedInstance().setPlayerHidden(editing)
 
         searchBar.resignFirstResponder()
-        searchBarConstraint?.constant = -self.searchBarSize
+        if !isSearching {
+            searchBarConstraint?.constant = -self.searchBarSize
+        }
 
         // When quitting the edit mode, reset all selection state
         if isEditing == false {
