@@ -32,6 +32,9 @@ class EditController: UIViewController {
     private(set) var editActions: EditActions
     private var isSearching: Bool = false
     private var isAllSelected: Bool = false
+    private var currentDataSet: [VLCMLObject] {
+        return isSearching ? searchDataSource.searchData : model.anyfiles
+    }
 
     weak var delegate: EditControllerDelegate?
 
@@ -169,10 +172,8 @@ private extension EditController {
 
 extension EditController: EditToolbarDelegate {
     private func getSelectedObjects() {
-        let files = isSearching ? searchDataSource.searchData : model.anyfiles
-
-        for index in selectedCellIndexPaths where index.row < files.count {
-            if let mediaCollection = files[index.row] as? MediaCollectionModel {
+        for index in selectedCellIndexPaths where index.row < currentDataSet.count {
+            if let mediaCollection = currentDataSet[index.row] as? MediaCollectionModel {
                 guard let files = mediaCollection.files() else {
                     assertionFailure("EditController: Fail to retrieve tracks.")
                     DispatchQueue.main.async {
@@ -184,7 +185,7 @@ extension EditController: EditToolbarDelegate {
                 }
                 editActions.objects += files
             } else {
-                editActions.objects.append(files[index.row])
+                editActions.objects.append(currentDataSet[index.row])
             }
         }
     }
@@ -211,10 +212,8 @@ extension EditController: EditToolbarDelegate {
         }
         editActions.objects.removeAll()
 
-        let fileArray = isSearching ? searchDataSource.searchData : model.anyfiles
-        
-        for index in selectedCellIndexPaths where index.row < fileArray.count {
-            editActions.objects.append(fileArray[index.row])
+        for index in selectedCellIndexPaths where index.row < currentDataSet.count {
+            editActions.objects.append(currentDataSet[index.row])
         }
 
         editActions.addToMediaGroup() {
@@ -249,10 +248,11 @@ extension EditController: EditToolbarDelegate {
         guard !selectedCellIndexPaths.isEmpty else {
             return
         }
+        
         editActions.objects.removeAll()
-        let files = isSearching ? searchDataSource.searchData : model.anyfiles
+        
         for indexPath in selectedCellIndexPaths.sorted(by: { $0 > $1 }) {
-            editActions.objects.append(files[indexPath.row])
+            editActions.objects.append(currentDataSet[indexPath.row])
         }
 
         editActions.delete({
@@ -285,11 +285,13 @@ extension EditController: EditToolbarDelegate {
         guard !selectedCellIndexPaths.isEmpty else {
             return
         }
+        
         editActions.objects.removeAll()
-        let files = isSearching ? searchDataSource.searchData : model.anyfiles
+        
         for indexPath in selectedCellIndexPaths.sorted(by: { $0 > $1 }) {
-            editActions.objects.append(files[indexPath.row])
+            editActions.objects.append(currentDataSet[indexPath.row])
         }
+        
         editActions.rename({
             [weak self] state in
             if state == .success || state == .fail {
@@ -322,9 +324,7 @@ extension EditController: UICollectionViewDelegate {
             cell.selectionViewOverlay?.isHidden = !showOverlay
         }
         
-        let fileCount = isSearching ? searchDataSource.searchData.count : model.anyfiles.count
-        
-        if fileCount == selectedCellIndexPaths.count {
+        if currentDataSet.count == selectedCellIndexPaths.count {
             isAllSelected = true
             delegate?.editControllerUpdateIsAllSelected(with: true)
         }
@@ -375,7 +375,7 @@ extension EditController: UICollectionViewDelegate {
 
 extension EditController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isSearching ? searchDataSource.searchData.count : model.anyfiles.count
+        return currentDataSet.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -407,7 +407,7 @@ extension EditController: UICollectionViewDataSource {
                 cell.selectionViewOverlay?.isHidden = !showOverlay
             }
             
-            cell.media = (isSearching ? searchDataSource.searchData : model.anyfiles)[indexPath.row]
+            cell.media = currentDataSet[indexPath.row]
             return cell
         } else {
             assertionFailure("We couldn't dequeue a reusable cell, the cell might not be registered or is not a MediaEditCell")
