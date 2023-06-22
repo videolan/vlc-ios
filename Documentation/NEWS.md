@@ -1,5 +1,11 @@
 # Changelog
 
+## iOS [3.4.6]
+· Preserve repeat mode
+· Restore chapter support for audio-only media
+· Hide status bar in fullscreen mode with the dark UI appearance
+· Further UI improvements
+
 ## iOS [3.4.5]
 · Fix playing multiple items in a row in the requested order
 · Fix minor layout issues
