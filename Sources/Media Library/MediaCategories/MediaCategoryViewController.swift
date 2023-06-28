@@ -351,7 +351,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         }
 
         /* this function can be called multiple times from different threads in short
-         * intervalls, but we may not reload the views without the previous to finish */
+         * intervals, but we may not reload the views without the previous to finish */
         reloadLock.lock()
 
         guard Thread.isMainThread else {
