@@ -211,7 +211,7 @@ class AudioPlayerViewController: PlayerViewController {
         view.addSubview(optionsNavigationBar)
         NSLayoutConstraint.activate([
             optionsNavigationBar.topAnchor.constraint(equalTo: audioPlayerView.navigationBarView.bottomAnchor, constant: padding),
-            optionsNavigationBar.trailingAnchor.constraint(equalTo: audioPlayerView.trailingAnchor, constant: -padding)
+            optionsNavigationBar.trailingAnchor.constraint(equalTo: audioPlayerView.layoutGuide.trailingAnchor, constant: -padding)
         ])
     }
 

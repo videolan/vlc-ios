@@ -121,7 +121,7 @@ class AudioPlayerView: UIView {
 
     lazy var progressionView: UIView = UIView()
 
-    private lazy var layoutGuide: UILayoutGuide = {
+    lazy var layoutGuide: UILayoutGuide = {
         var layoutGuide = layoutMarginsGuide
 
         if #available(iOS 11.0, *) {
