@@ -386,7 +386,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     func isEmptyCollectionView() -> Bool {
-        return collectionView?.numberOfItems(inSection: 0) == 0
+        if isSearching {
+            return searchDataSource.searchData.isEmpty
+        }
+        
+        return model.anyfiles.isEmpty
     }
 
     @available(*, unavailable)
