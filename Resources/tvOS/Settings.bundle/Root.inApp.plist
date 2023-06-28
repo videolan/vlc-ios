@@ -44,8 +44,8 @@
 				<real>1.5</real>
 				<real>1.75</real>
 				<real>2</real>
-				<real>2.50</real>
-				<real>3.00</real>
+				<real>2.5</real>
+				<real>3</real>
 				<real>3.5</real>
 				<real>4</real>
 			</array>
@@ -496,7 +496,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 			<key>Key</key>
 			<string>kVLCSaveDebugLogs</string>
 			<key>Title</key>

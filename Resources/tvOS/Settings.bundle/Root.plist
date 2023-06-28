@@ -44,11 +44,21 @@
 				<real>1.5</real>
 				<real>1.75</real>
 				<real>2</real>
-				<real>2.50</real>
-				<real>3.00</real>
+				<real>2.5</real>
+				<real>3</real>
 				<real>3.5</real>
 				<real>4</real>
 			</array>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>AutomaticallyPlayNextItem</string>
+			<key>Title</key>
+			<string>SETTINGS_NETWORK_PLAY_ALL</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -464,12 +474,6 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>SETTINGS_FILE_SYNC</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
 			<string>SETTINGS_ARTWORK</string>
 		</dict>
 		<dict>
@@ -490,7 +494,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 			<key>Key</key>
 			<string>kVLCSaveDebugLogs</string>
 			<key>Title</key>

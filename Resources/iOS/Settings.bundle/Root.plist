@@ -5,22 +5,6 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>PlayerShouldRememberBrightness</string>
-			<key>Title</key>
-			<string>SETTINGS_REMEMBER_PLAYER_BRIGHTNESS</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>SETTINGS_GENERIC_TITLE</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -61,16 +45,6 @@
 			</array>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>AlwaysUseFullscreenForVideo</string>
-			<key>Title</key>
-			<string>SETTINGS_VIDEO_FULLSCREEN</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -78,7 +52,7 @@
 			<key>Key</key>
 			<string>ContinueAudioPlayback</string>
 			<key>DefaultValue</key>
-			<integer>-1</integer>
+			<integer>1</integer>
 			<key>Titles</key>
 			<array>
 				<string>SETTINGS_CONTINUE_PLAYBACK_NEVER</string>
@@ -91,6 +65,16 @@
 				<integer>0</integer>
 				<integer>1</integer>
 			</array>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>AlwaysUseFullscreenForVideo</string>
+			<key>Title</key>
+			<string>SETTINGS_VIDEO_FULLSCREEN</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -184,9 +168,9 @@
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-			<string>EnableCloseGesture</string>
+			<string>EnableSeekGesture</string>
 			<key>Title</key>
-			<string>SETTINGS_GESTURES_CLOSE</string>
+			<string>SETTINGS_GESTURES_SEEK</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
@@ -194,9 +178,9 @@
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-			<string>EnableSeekGesture</string>
+			<string>EnableCloseGesture</string>
 			<key>Title</key>
-			<string>SETTINGS_GESTURES_SEEK</string>
+			<string>SETTINGS_GESTURES_CLOSE</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
@@ -208,7 +192,7 @@
 			<key>Key</key>
 			<string>playback-forward-skip-length</string>
 			<key>DefaultValue</key>
-			<integer>60</integer>
+			<integer>10</integer>
 			<key>Titles</key>
 			<array>
 				<string>SETTINGS_DURATION_FIVE</string>
@@ -234,7 +218,7 @@
 			<key>Key</key>
 			<string>playback-backward-skip-length</string>
 			<key>DefaultValue</key>
-			<integer>60</integer>
+			<integer>10</integer>
 			<key>Titles</key>
 			<array>
 				<string>SETTINGS_DURATION_FIVE</string>
@@ -262,13 +246,13 @@
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>infobuttonvalue</key>
-		<string>SETTINGS_SKIP_LOOP_FILTER_INFO</string>
+			<string>SETTINGS_SKIP_LOOP_FILTER_INFO</string>
 			<key>Title</key>
 			<string>SETTINGS_SKIP_LOOP_FILTER</string>
 			<key>Key</key>
 			<string>avcodec-skiploopfilter</string>
 			<key>DefaultValue</key>
-			<string>3</string>
+			<string>1</string>
 			<key>Titles</key>
 			<array>
 				<string>SETTINGS_SKIP_LOOP_FILTER_NONE</string>
@@ -327,6 +311,16 @@
 				<string></string>
 				<string>avcodec,all</string>
 			</array>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>PlayerShouldRememberBrightness</string>
+			<key>Title</key>
+			<string>SETTINGS_REMEMBER_PLAYER_BRIGHTNESS</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -648,11 +642,11 @@
 			<key>Key</key>
 			<string>audio-time-stretch</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 			<key>Key</key>
 			<string>BackgroundAudioPlayback</string>
 			<key>Title</key>
@@ -708,7 +702,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 			<key>Key</key>
 			<string>MLDecrapifyTitles</string>
 			<key>Title</key>
@@ -826,7 +820,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 			<key>Key</key>
 			<string>kVLCSaveDebugLogs</string>
 			<key>Title</key>
