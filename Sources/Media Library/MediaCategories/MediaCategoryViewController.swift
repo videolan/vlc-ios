@@ -556,9 +556,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         PlaybackService.sharedInstance().setPlayerHidden(editing)
 
         searchBar.resignFirstResponder()
-        if !isSearching {
-            searchBarConstraint?.constant = -self.searchBarSize
-        }
 
         // When quitting the edit mode, reset all selection state
         if isEditing == false {
@@ -573,10 +570,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         if isEditing {
             tabBarController?.editToolBar()?.delegate = editController
             tabBarController?.displayEditToolbar(with: model)
-            UIView.animate(withDuration: 0) {
-                [weak self] in
-                self?.collectionView.contentInset = .zero
-            }
         } else {
             tabBarController?.hideEditToolbar()
         }
@@ -613,7 +606,7 @@ private extension MediaCategoryViewController {
         if isEmpty {
             collectionView?.setContentOffset(.zero, animated: false)
         }
-        searchBar.isHidden = isEmpty || isEditing
+        searchBar.isHidden = isEmpty
         collectionView?.backgroundView = isEmpty ? emptyView : nil
         updateBarButtonItems()
     }
