@@ -30,6 +30,10 @@ class AudioPlayerViewController: PlayerViewController {
         get { return UIInterfaceOrientationMask.portrait }
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     lazy var audioPlayerView: AudioPlayerView = {
         let audioPlayerView = AudioPlayerView(frame: .zero)
         audioPlayerView.delegate = self
