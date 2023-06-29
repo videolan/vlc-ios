@@ -31,6 +31,7 @@
 @property (nonatomic) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic) VLCServerBrowsingController *browsingController;
 @property (nonatomic) NSArray<id<VLCNetworkServerBrowserItem>> *searchArray;
+@property (nonatomic,weak) id favoriteDelegate;
 @end
 
 @implementation VLCNetworkServerBrowserViewController
@@ -74,6 +75,8 @@
                                name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
 
     self.title = self.serverBrowser.title;
+//    self.title = @"Test";
+//    NSLog(@"%@ self.title", self.serverBrowser.title);
     [self update];
 }
 
@@ -128,7 +131,8 @@
 - (void)updateUI
 {
     [self.tableView reloadData];
-    self.title = self.serverBrowser.title;
+//    self.title = self.serverBrowser.title;
+//    self.title = @"Test";
 }
 
 - (void)update
@@ -149,6 +153,10 @@
     if (item.isContainer) {
         VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc]
                                                                        initWithServerBrowser:item.containerBrowser medialibraryService:_medialibraryService];
+        
+//        [self.favoriteDelegate addFolderToFavorites:item];
+        
+        NSLog(@"%@", item);
         [self.navigationController pushViewController:targetViewController animated:YES];
     } else {
         if (singlePlayback) {
@@ -213,7 +221,7 @@
     }
 
     [self.browsingController configureCell:cell withItem:item];
-
+//    cell.title = [NSString stringWithFormat:@"Folder %d",indexPath.row];
     cell.delegate = self;
 
     return cell;
@@ -267,6 +275,23 @@
 
     if ([self.browsingController triggerDownloadForItem:item]) {
         [cell.statusLabel showStatusMessage:NSLocalizedString(@"DOWNLOADING", nil)];
+    }
+}
+
+- (void)triggerFavoriteForCell:(VLCNetworkListCell *)cell
+{
+    id<VLCNetworkServerBrowserItem> item;
+    item = self.serverBrowser.items[[self.tableView indexPathForCell:cell].row];
+    if (!cell.isFavorite) {
+        [cell.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+        cell.isFavorite = YES;
+        NSDictionary* userInfo = @{@"Folder":item};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AddedToFavorite" object:self userInfo:userInfo];
+    }
+    else
+    {
+        [cell.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+        cell.isFavorite = NO;
     }
 }
 

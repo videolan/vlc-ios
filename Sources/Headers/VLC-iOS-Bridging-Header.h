@@ -41,3 +41,6 @@
 #import "VLCGoogleDriveConstants.h"
 #import "VLCMLMedia+App.h"
 #import "VLCNonInteractiveWindowSceneDelegate.h"
+#import "VLCNetworkListCell.h"
+#import "VLCNetworkServerBrowserViewController.h"
+#import "VLCLocalNetworkServiceBrowserDSM.h"

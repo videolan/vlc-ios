@@ -15,6 +15,7 @@
 #import "VLCNetworkImageView.h"
 #import "VLCServerBrowsingController.h"
 
+
 @class VLCStatusLabel;
 
 @interface VLCNetworkListCell : UITableViewCell
@@ -27,6 +28,7 @@
 @property (nonatomic, strong) IBOutlet VLCNetworkImageView *thumbnailView;
 @property (nonatomic, strong) IBOutlet UIButton *downloadButton;
 @property (nonatomic, strong) IBOutlet VLCStatusLabel *statusLabel;
+@property (nonatomic, strong) IBOutlet UIButton *favoriteButton;
 
 @property (nonatomic, readwrite) BOOL isDirectory;
 
@@ -37,6 +39,8 @@
 @property (nonatomic, retain) UIImage *icon;
 @property (nonatomic, retain) NSURL *iconURL;
 @property (nonatomic, readwrite) BOOL isDownloadable;
+@property (nonatomic, readwrite) BOOL isFavoritable;
+@property (nonatomic, readwrite) BOOL isFavorite;
 
 @property (nonatomic, readonly) CGFloat edgePadding;
 @property (nonatomic, readonly) CGFloat interItemPadding;
@@ -45,12 +49,14 @@
 + (CGFloat)heightOfCell;
 
 - (IBAction)triggerDownload:(id)sender;
+- (IBAction)triggerFavorite:(id)sender;
 
 @end
 
 @protocol VLCNetworkListCellDelegate <NSObject>
 
 - (void)triggerDownloadForCell:(VLCNetworkListCell *)cell;
+- (void)triggerFavoriteForCell:(VLCNetworkListCell *)cell;
 
 @end
 

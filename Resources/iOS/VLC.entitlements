@@ -25,9 +25,5 @@
 		<string>$(AppIdentifierPrefix)$(KEYCHAIN_ACCESS_GROUP)</string>
 		<string>$(AppIdentifierPrefix)com.microsoft.adalcache</string>
 	</array>
-	<key>com.apple.developer.networking.multicast</key>
-	<true/>
-	<key>com.apple.developer.carplay-audio</key>
-	<true/>
 </dict>
 </plist>

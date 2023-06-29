@@ -20,6 +20,7 @@ enum RemoteNetworkCellType: Int {
     case streaming
     case download
     case wifi
+    case favorite
     static let first: Int = {
         if let _ = RemoteNetworkCellType(rawValue: 0) {
             return 0
@@ -47,6 +48,7 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     let cloudVC = VLCCloudServicesTableViewController(nibName: "VLCCloudServicesTableViewController", bundle: Bundle.main)
     let streamingVC = VLCOpenNetworkStreamViewController(nibName: "VLCOpenNetworkStreamViewController", bundle: Bundle.main)
     let downloadVC = VLCDownloadViewController(nibName: "VLCDownloadViewController", bundle: Bundle.main)
+    let favoriteVC = VLCFavoriteListViewController()
 
     @objc weak var delegate: RemoteNetworkDataSourceDelegate?
 
@@ -99,6 +101,13 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 wifiCell.delegate = self
                 return wifiCell
             }
+        case .favorite:
+            if let favoriteCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
+                favoriteCell.textLabel?.text = "Favorite"
+                favoriteCell.detailTextLabel?.text = "See your favorite folder"
+                favoriteCell.imageView?.image = UIImage(named: "hearts")
+                return favoriteCell
+            }
         }
         assertionFailure("Cell is nil, did you forget to register the identifier?")
         return UITableViewCell()
@@ -139,6 +148,8 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             return downloadVC
         case .wifi:
             return nil
+        case .favorite:
+            return favoriteVC
         }
     }
 

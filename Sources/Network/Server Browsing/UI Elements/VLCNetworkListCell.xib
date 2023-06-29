@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,14 +32,14 @@
                         </variation>
                     </imageView>
                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="File Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                        <rect key="frame" x="74" y="16" width="178" height="16"/>
+                        <rect key="frame" x="74" y="12.5" width="194" height="19.5"/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
                     <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Downloading..." textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="none" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="28" customClass="VLCStatusLabel">
-                        <rect key="frame" x="112" y="25" width="96" height="18"/>
+                        <rect key="frame" x="52" y="25" width="216" height="18"/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="Zr1-tM-Pyf"/>
@@ -49,12 +49,25 @@
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subtitle — Subtitle" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                        <rect key="frame" x="74" y="36" width="178" height="14.5"/>
+                        <rect key="frame" x="74" y="36" width="194" height="16"/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                         <color key="textColor" red="0.72000002861022949" green="0.72000002861022949" blue="0.72000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xa-8J-nxM">
+                        <rect key="frame" x="260" y="12" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="AEq-0H-4OM"/>
+                            <constraint firstAttribute="height" constant="44" id="mrp-nb-Xj5"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="heart" catalog="system"/>
+                        <state key="selected" image="heart.fill" catalog="system"/>
+                        <connections>
+                            <action selector="triggerFavorite:" destination="3" eventType="touchUpInside" id="QOn-VI-Huo"/>
+                        </connections>
+                    </button>
                     <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25">
                         <rect key="frame" x="260" y="12" width="44" height="44"/>
                         <constraints>
@@ -74,7 +87,7 @@
                         </connections>
                     </button>
                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="Folder Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                        <rect key="frame" x="74" y="26" width="178" height="16"/>
+                        <rect key="frame" x="74" y="24.5" width="194" height="19.5"/>
                         <color key="backgroundColor" red="0.1052877679" green="0.1052846164" blue="0.1052864045" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -84,26 +97,30 @@
                 <constraints>
                     <constraint firstItem="6" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" id="0DO-SK-odg"/>
                     <constraint firstItem="28" firstAttribute="centerX" secondItem="qo4-sr-qnV" secondAttribute="centerX" id="1or-QE-1fQ"/>
+                    <constraint firstItem="25" firstAttribute="leading" secondItem="28" secondAttribute="trailing" constant="-8" id="4w3-Au-kd4"/>
                     <constraint firstItem="23" firstAttribute="leading" secondItem="7" secondAttribute="leading" id="5Ar-JE-Yqx"/>
                     <constraint firstItem="6" firstAttribute="leading" secondItem="23" secondAttribute="leading" id="HEc-tB-oLB"/>
                     <constraint firstItem="4" firstAttribute="centerY" secondItem="qo4-sr-qnV" secondAttribute="centerY" id="JxB-lj-rIe"/>
                     <constraint firstItem="6" firstAttribute="bottom" secondItem="qo4-sr-qnV" secondAttribute="centerY" constant="-2" id="KkA-rA-D7T"/>
-                    <constraint firstItem="23" firstAttribute="trailing" secondItem="25" secondAttribute="leading" constant="-8" id="NTl-Ne-ar5"/>
+                    <constraint firstItem="1xa-8J-nxM" firstAttribute="trailing" secondItem="qo4-sr-qnV" secondAttribute="trailingMargin" id="KqO-og-PTg"/>
                     <constraint firstItem="7" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="qo4-sr-qnV" secondAttribute="bottomMargin" id="Qo6-Gd-U30"/>
                     <constraint firstItem="7" firstAttribute="trailing" secondItem="23" secondAttribute="trailing" id="UsP-hO-cib"/>
                     <constraint firstItem="6" firstAttribute="trailing" secondItem="23" secondAttribute="trailing" id="WvD-3H-DdX"/>
                     <constraint firstItem="25" firstAttribute="centerY" secondItem="qo4-sr-qnV" secondAttribute="centerY" id="ZOR-bw-X93"/>
+                    <constraint firstItem="1xa-8J-nxM" firstAttribute="leading" secondItem="6" secondAttribute="trailing" constant="-8" id="az7-Pc-4aR"/>
                     <constraint firstItem="6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qo4-sr-qnV" secondAttribute="topMargin" id="csN-tj-rK0"/>
                     <constraint firstItem="28" firstAttribute="centerY" secondItem="qo4-sr-qnV" secondAttribute="centerY" id="jOz-Wg-wfW"/>
                     <constraint firstItem="7" firstAttribute="top" secondItem="qo4-sr-qnV" secondAttribute="centerY" constant="2" id="kFU-wc-JfQ"/>
                     <constraint firstItem="23" firstAttribute="centerY" secondItem="qo4-sr-qnV" secondAttribute="centerY" id="nw8-Li-eEV"/>
                     <constraint firstItem="25" firstAttribute="trailing" secondItem="qo4-sr-qnV" secondAttribute="trailingMargin" id="rSC-hz-6v1"/>
+                    <constraint firstItem="1xa-8J-nxM" firstAttribute="centerY" secondItem="qo4-sr-qnV" secondAttribute="centerY" id="sHy-UH-tRa"/>
                     <constraint firstItem="4" firstAttribute="leading" secondItem="qo4-sr-qnV" secondAttribute="leadingMargin" id="zXF-XV-IEW"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="downloadButton" destination="25" id="27"/>
+                <outlet property="favoriteButton" destination="1xa-8J-nxM" id="JVg-yg-auW"/>
                 <outlet property="folderTitleLabel" destination="23" id="24"/>
                 <outlet property="statusLabel" destination="28" id="29"/>
                 <outlet property="subtitleLabel" destination="7" id="8"/>
@@ -115,5 +132,7 @@
     </objects>
     <resources>
         <image name="download" width="24" height="24"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="heart.fill" catalog="system" width="128" height="107"/>
     </resources>
 </document>

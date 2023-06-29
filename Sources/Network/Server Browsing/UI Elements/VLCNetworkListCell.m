@@ -36,6 +36,7 @@
     self.subtitleLabel.text = @"";
     self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
     self.downloadButton.hidden = YES;
+    self.favoriteButton.hidden = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange)
                                                  name:kVLCThemeDidChangeNotification object:nil];
     // If a tableViewCell is highlighted, one needs to manualy set the opaque property
@@ -50,7 +51,7 @@
 {
     self.titleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
     self.subtitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
-    self.folderTitleLabel.textColor = PresentationTheme.current.colors.cellDetailTextColor;
+    self.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor;
     self.titleLabel.highlightedTextColor = PresentationTheme.current.colors.cellTextColor;
     self.subtitleLabel.highlightedTextColor = PresentationTheme.current.colors.cellDetailTextColor;
     self.folderTitleLabel.highlightedTextColor = PresentationTheme.current.colors.cellTextColor;
@@ -116,16 +117,29 @@
     self.downloadButton.hidden = !isDownloadable;
 }
 
+- (void)setIsFavoritable:(BOOL)isFavoritable
+{
+    self.favoriteButton.hidden = !isFavoritable;
+}
+
 - (void)triggerDownload:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(triggerDownloadForCell:)])
         [self.delegate triggerDownloadForCell:self];
 }
 
+- (void)triggerFavorite:(id)sender
+{
+    if([self.delegate respondsToSelector:@selector(triggerFavoriteForCell:)])
+        
+        [self.delegate triggerFavoriteForCell:self];
+}
+
 - (void)prepareForReuse {
     [super prepareForReuse];
     [self.thumbnailView cancelLoading];
     self.isDownloadable = NO;
+    self.isFavoritable = NO;
     self.subtitle = nil;
     self.title = nil;
     self.iconURL = nil;

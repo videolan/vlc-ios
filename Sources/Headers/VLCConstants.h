@@ -90,6 +90,8 @@
 
 #define kVLCForceSMBV1 @"smb-force-v1"
 
+#define kVLCRecentFavoriteTitle @"recent-favorite-title"
+#define kVLCRecentFavoriteURL @"recent-favorite-url"
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
 #define kVLCRecentURLTitles @"recent-url-titles"

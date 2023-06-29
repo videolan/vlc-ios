@@ -10,6 +10,7 @@
 		13925DC647EC27EEB2818FD2 /* libPods-VLC-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E3BE184ED7B95399C04EB6 /* libPods-VLC-tvOS.a */; };
 		2663ACB422497D47000FBB95 /* VLCNetworkLoginTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */; };
 		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
+		27CE104F2A3C5ECF0061C92B /* VLCFavoriteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CE104E2A3C5ECF0061C92B /* VLCFavoriteListViewController.swift */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
 		4072A777258791B8006EA498 /* VideoFiltersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4072A776258791B8006EA498 /* VideoFiltersView.xib */; };
@@ -496,6 +497,7 @@
 		2663ACB122497D21000FBB95 /* VLCNetworkLoginTVViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCNetworkLoginTVViewController.swift; sourceTree = "<group>"; };
 		2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCNetworkLoginTVViewController.xib; sourceTree = "<group>"; };
 		26F1BFCF1A770408001DF30C /* libMediaVLC.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libMediaVLC.xml; sourceTree = "<group>"; };
+		27CE104E2A3C5ECF0061C92B /* VLCFavoriteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCFavoriteListViewController.swift; sourceTree = "<group>"; };
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		2915544217490D4A00B86CAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2E995114543D1E41A5A82486 /* Pods-VLC-iOS-Screenshots.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VLC-iOS-Screenshots.release.xcconfig"; path = "Target Support Files/Pods-VLC-iOS-Screenshots/Pods-VLC-iOS-Screenshots.release.xcconfig"; sourceTree = "<group>"; };
@@ -1249,6 +1251,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		27CE104D2A3C5E820061C92B /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				27CE104E2A3C5ECF0061C92B /* VLCFavoriteListViewController.swift */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
 		29125E5317492219003F03E5 /* web */ = {
 			isa = PBXGroup;
 			children = (
@@ -1986,6 +1996,7 @@
 		7DC869B328CB772D00EE99F8 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				27CE104D2A3C5E820061C92B /* Favorite */,
 				7DC869C928CB806600EE99F8 /* Server Browsing */,
 				7DC869C528CB7EE500EE99F8 /* Server List */,
 				7DC869BE28CB7C7600EE99F8 /* Login */,
@@ -3497,6 +3508,7 @@
 				44C8BBB324AF36F4003F8940 /* SettingsHeaderFooterView.swift in Sources */,
 				8DE1887621089BB100A091D2 /* VideoModel.swift in Sources */,
 				DD3EFF351BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserNetService.m in Sources */,
+				27CE104F2A3C5ECF0061C92B /* VLCFavoriteListViewController.swift in Sources */,
 				413EC987201A329D00BF412F /* SortModel.swift in Sources */,
 				41B93C011A53833B00102E8B /* VLCProgressView.m in Sources */,
 				44C8BBB224AF36F4003F8940 /* SettingsCell.swift in Sources */,
@@ -4473,7 +4485,7 @@
 				CURRENT_PROJECT_VERSION = 560;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 75GAHG3SZQ;
+				DEVELOPMENT_TEAM = YSG9AW6NGQ;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
@@ -4525,7 +4537,7 @@
 				CURRENT_PROJECT_VERSION = 560;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 75GAHG3SZQ;
+				DEVELOPMENT_TEAM = YSG9AW6NGQ;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
@@ -4626,7 +4638,7 @@
 				CURRENT_PROJECT_VERSION = 560;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 75GAHG3SZQ;
+				DEVELOPMENT_TEAM = YSG9AW6NGQ;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "iTunesArtwork*";
