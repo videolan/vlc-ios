@@ -14,7 +14,7 @@
 // The different target bundle identifier automatically use the identifier
 // Using com.example leads to com.example.vlc-ios for the iOS target.
 
-BUNDLE_IDENTIFIER_PREFIX=com.exampleRM
+BUNDLE_IDENTIFIER_PREFIX=com.example
 
 GROUP_IDENTIFIER=group.$(BUNDLE_IDENTIFIER_PREFIX).vlc-ios
 KEYCHAIN_ACCESS_GROUP=$(AppIdentifierPrefix)$(BUNDLE_IDENTIFIER_PREFIX).vlc-ios

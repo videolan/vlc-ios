@@ -184,8 +184,7 @@
 
 - (void)setupUI
 {
-//    self.title = NSLocalizedString(@"NETWORK", nil);
-    self.title = @"Network";
+    self.title = NSLocalizedString(@"NETWORK", nil);
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle: NSLocalizedString(@"NETWORK", nil)
                                                     image: [UIImage imageNamed:@"Network"]
                                             selectedImage: [UIImage imageNamed:@"Network"]];
@@ -360,7 +359,6 @@
     if (cell.iconURL == nil)
         [cell setIcon:service.icon];
     [cell setTitle:service.title];
-    NSLog(@"%@ <- Current Device", service.title);
     [cell setTitleLabelCentered:NO];
     [cell setSubtitle:service.serviceName];
 

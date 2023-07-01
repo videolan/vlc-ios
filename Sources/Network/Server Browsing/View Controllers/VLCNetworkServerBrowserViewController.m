@@ -129,8 +129,8 @@
 - (void)updateUI
 {
     [self.tableView reloadData];
-//    self.title = self.serverBrowser.title;
-//    self.title = @"Test";
+    self.title = self.serverBrowser.title;
+
 }
 
 - (void)update
@@ -219,7 +219,6 @@
     }
 
     [self.browsingController configureCell:cell withItem:item];
-//    cell.title = [NSString stringWithFormat:@"Folder %d",indexPath.row];
     cell.delegate = self;
 
     return cell;
