@@ -12,7 +12,12 @@ import UIKit
 class VLCFavoriteListViewController: UIViewController {
     
     init() {
+        userDefaults = UserDefaults.standard
+        titleArray = userDefaults.stringArray(forKey: kVLCRecentFavoriteTitle) ?? []
+        urlArray = userDefaults.stringArray(forKey: kVLCRecentFavoriteURL) ?? []
+    
         super.init(nibName: nil, bundle: nil)
+        title = NSLocalizedString("FAVORITE", comment: "")
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNotification), name: Notification.Name((NSString("AddedToFavorite")) as String), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: NSNotification.Name(kVLCThemeDidChangeNotification), object: nil)
     }
@@ -29,35 +34,20 @@ class VLCFavoriteListViewController: UIViewController {
     }()
     
     var favoriteArray: [VLCNetworkServerBrowserItem] = []
-    var titleArray: [String] = []
-    var urlArray: [String] = []
-    let keyValueStore = NSUbiquitousKeyValueStore.default
-    let userDefaults = UserDefaults.standard
+    var titleArray: [String]
+    var urlArray: [String]
+    let userDefaults: UserDefaults
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupConstraints()
-        title = "Favorite"
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UINib(nibName: "VLCNetworkListCell", bundle: nil), forCellReuseIdentifier: "LocalNetworkCell")
-        tableView.backgroundColor = PresentationTheme.current.colors.background
-        if let titleArray = userDefaults.stringArray(forKey: kVLCRecentFavoriteTitle) {
-            self.titleArray = titleArray
-        }
-        
-        if let urlArray = userDefaults.stringArray(forKey: kVLCRecentFavoriteURL) {
-            self.urlArray = urlArray
-        }
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        setupTableView()
     }
     
-    private func setupConstraints() {
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = PresentationTheme.current.colors.background
+        tableView.register(UINib(nibName: "VLCNetworkListCell", bundle: nil), forCellReuseIdentifier: "LocalNetworkCell")
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
@@ -67,7 +57,6 @@ class VLCFavoriteListViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
 }
 
 extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -80,21 +69,25 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
         let title = titleArray[indexPath.row]
         let url = urlArray[indexPath.row]
         
-        cell.icon = UIImage(named: "folder")
+        cell.thumbnailImage = UIImage(named: "folder")
         cell.title = title
         cell.subtitle = url
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let networkCell = cell as? VLCNetworkListCell {
-            networkCell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
-        }
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         didSelectItem(stringURL: urlArray[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            titleArray.remove(at: indexPath.row)
+            urlArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            userDefaults.set(titleArray, forKey: kVLCRecentFavoriteTitle)
+            userDefaults.set(urlArray, forKey: kVLCRecentFavoriteURL)
+        }
     }
 }
 
@@ -118,6 +111,10 @@ extension VLCFavoriteListViewController {
         }
         userDefaults.set(titleArray, forKey: kVLCRecentFavoriteTitle)
         userDefaults.set(urlArray, forKey: kVLCRecentFavoriteURL)
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func didSelectItem(stringURL: String) {
@@ -133,4 +130,6 @@ extension VLCFavoriteListViewController {
         self.tableView.backgroundColor = PresentationTheme.current.colors.background
         self.setNeedsStatusBarAppearanceUpdate()
     }
+    
+    
 }

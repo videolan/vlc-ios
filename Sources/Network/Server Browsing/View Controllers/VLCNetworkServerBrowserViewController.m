@@ -75,8 +75,6 @@
                                name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
 
     self.title = self.serverBrowser.title;
-//    self.title = @"Test";
-//    NSLog(@"%@ self.title", self.serverBrowser.title);
     [self update];
 }
 
@@ -285,14 +283,14 @@
     if (!cell.isFavorite) {
         [cell.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
         cell.isFavorite = YES;
-        NSDictionary* userInfo = @{@"Folder":item};
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"AddedToFavorite" object:self userInfo:userInfo];
     }
     else
     {
         [cell.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
         cell.isFavorite = NO;
     }
+    NSDictionary* userInfo = @{@"Folder":item};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"AddedToFavorite" object:self userInfo:userInfo];
 }
 
 #pragma mark - Search Research Updater
