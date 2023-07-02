@@ -67,6 +67,12 @@ class VLCTestMenu: XCTestCase {
         app.cells[VLCAccessibilityIdentifier.stream].tap()
         XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.stream])
     }
+    
+    func testNavigationToFavorite() {
+        helper.tapTabBarItem(VLCAccessibilityIdentifier.localNetwork)
+        app.cells[VLCAccessibilityIdentifier.favorite].tap()
+        XCTAssertNotNil(app.navigationBars[VLCAccessibilityIdentifier.favorite])
+    }
 
     func testNavigationToAbout() {
         helper.tapTabBarItem(VLCAccessibilityIdentifier.settings)

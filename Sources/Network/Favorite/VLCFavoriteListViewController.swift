@@ -33,6 +33,9 @@ class VLCFavoriteListViewController: UIViewController {
         return tableView
     }()
     
+    let detailText = NSLocalizedString("FAVORITEVC_DETAILTEXT", comment: "")
+    let cellImage = UIImage(named: "hearts")
+    
     var favoriteArray: [VLCNetworkServerBrowserItem] = []
     var titleArray: [String]
     var urlArray: [String]

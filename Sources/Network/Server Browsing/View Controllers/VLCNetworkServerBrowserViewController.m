@@ -31,7 +31,6 @@
 @property (nonatomic) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic) VLCServerBrowsingController *browsingController;
 @property (nonatomic) NSArray<id<VLCNetworkServerBrowserItem>> *searchArray;
-@property (nonatomic,weak) id favoriteDelegate;
 @end
 
 @implementation VLCNetworkServerBrowserViewController

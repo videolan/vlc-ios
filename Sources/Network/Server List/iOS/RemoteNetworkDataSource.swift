@@ -103,9 +103,10 @@ class RemoteNetworkDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             }
         case .favorite:
             if let favoriteCell = tableView.dequeueReusableCell(withIdentifier: RemoteNetworkCell.cellIdentifier) {
-                favoriteCell.textLabel?.text = "Favorite"
-                favoriteCell.detailTextLabel?.text = "See your favorite folder"
-                favoriteCell.imageView?.image = UIImage(named: "hearts")
+                favoriteCell.textLabel?.text = favoriteVC.title
+                favoriteCell.detailTextLabel?.text = favoriteVC.detailText
+                favoriteCell.imageView?.image = favoriteVC.cellImage
+                favoriteCell.accessibilityIdentifier = VLCAccessibilityIdentifier.favorite
                 return favoriteCell
             }
         }

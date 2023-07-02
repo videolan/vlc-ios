@@ -23,6 +23,7 @@ import Foundation
     static let cloud = "cloud"
     static let stream = "stream"
     static let downloads = "downloads"
+    static let favorite = "favorite"
     @objc static let done = "done"
     static let contact = "contact"
     @objc static let about = "about"

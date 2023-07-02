@@ -111,6 +111,7 @@
 "SHARING_ERROR_NO_APPLICATIONS" = "Could not find any applications to open this type of file";
 "SHARING_SUCCESS_CAMERA_ROLL" = "File was successfully saved to the Camera Roll";
 
+"FAVORITEVC_DETAILTEXT" = "See your favorite folder";
 "STREAMVC_DETAILTEXT" = "Play streams directly without downloading";
 "DOWNLOADVC_DETAILTEXT" = "Download files directly to your device";
 "HEADER_TITLE_RENDERER" = "Select a casting device";
