@@ -260,8 +260,8 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
         return image
     }
 
-    func audioPlayerViewDelegateDidTapBackwardButton(_ audioPlayerView: AudioPlayerView) {
-        playbackService.jumpBackward(Int32(seekBackwardBy))
+    func audioPlayerViewDelegateDidTapShuffleButton(_ audioPlayerView: AudioPlayerView) {
+        updateShuffleState()
     }
 
     func audioPlayerViewDelegateDidTapPreviousButton(_ audioPlayerView: AudioPlayerView) {
@@ -277,8 +277,8 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
         playbackService.next()
     }
 
-    func audioPlayerViewDelegateDidTapForwardButton(_ audioPlayerView: AudioPlayerView) {
-        playbackService.jumpForward(Int32(seekForwardBy))
+    func audioPlayerViewDelegateDidTapRepeatButton(_ audioPlayerView: AudioPlayerView) {
+        updateRepeatMode()
     }
 
     func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView {
@@ -295,6 +295,7 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
 extension AudioPlayerViewController {
     func prepare(forMediaPlayback playbackService: PlaybackService) {
         audioPlayerView.updatePlayButton(isPlaying: playbackService.isPlaying)
+        audioPlayerView.updateShuffleRepeatState(shuffleEnabled: playbackService.isShuffleMode, repeatMode: playbackService.repeatMode)
 
         let metadata = playbackService.metadata
         audioPlayerView.updateLabels(title: metadata.title, artist: metadata.artist, isQueueHidden: isQueueHidden)
@@ -349,6 +350,10 @@ extension AudioPlayerViewController {
                 qvc.reloadBackground(with: audioPlayerView.thumbnailImageView.image)
             }
         }
+    }
+
+    func playModeUpdated() {
+        audioPlayerView.updateShuffleRepeatState(shuffleEnabled: playbackService.isShuffleMode, repeatMode: playbackService.repeatMode)
     }
 }
 

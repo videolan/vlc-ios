@@ -398,6 +398,22 @@ class PlayerViewController: UIViewController {
         // Minimize the player
     }
 
+    func updateShuffleState() {
+        playbackService.isShuffleMode = !playbackService.isShuffleMode
+
+        if playerController.isRememberStateEnabled {
+            UserDefaults.standard.setValue(playbackService.isShuffleMode, forKey: kVLCPlayerIsShuffleEnabled)
+        }
+    }
+
+    func updateRepeatMode() {
+        playbackService.toggleRepeatMode()
+
+        if playerController.isRememberStateEnabled {
+            UserDefaults.standard.setValue(playbackService.repeatMode.rawValue, forKey: kVLCPlayerIsRepeatEnabled)
+        }
+    }
+
     // MARK: - Private methods
 
     private func jumpBackwards(_ interval: Int = 10) {
@@ -931,21 +947,13 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
     }
 
     func mediaMoreOptionsActionSheetDidToggleShuffle(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet) {
-        playbackService.isShuffleMode = !playbackService.isShuffleMode
-
-        if playerController.isRememberStateEnabled {
-            UserDefaults.standard.setValue(playbackService.isShuffleMode, forKey: kVLCPlayerIsShuffleEnabled)
-        }
+        updateShuffleState()
 
         mediaMoreOptionsActionSheet.collectionView.reloadData()
     }
 
     func mediaMoreOptionsActionSheetDidTapRepeat(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet) {
-        playbackService.toggleRepeatMode()
-
-        if playerController.isRememberStateEnabled {
-            UserDefaults.standard.setValue(playbackService.repeatMode.rawValue, forKey: kVLCPlayerIsRepeatEnabled)
-        }
+        updateRepeatMode()
 
         mediaMoreOptionsActionSheet.collectionView.reloadData()
     }

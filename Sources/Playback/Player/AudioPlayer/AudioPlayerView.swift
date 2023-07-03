@@ -13,11 +13,11 @@ import UIKit
 
 protocol AudioPlayerViewDelegate: AnyObject {
     func audioPlayerViewDelegateGetThumbnail(_ audioPlayerView: AudioPlayerView) -> UIImage?
-    func audioPlayerViewDelegateDidTapBackwardButton(_ audioPlayerView: AudioPlayerView)
+    func audioPlayerViewDelegateDidTapShuffleButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapPreviousButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapPlayButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapNextButton(_ audioPlayerView: AudioPlayerView)
-    func audioPlayerViewDelegateDidTapForwardButton(_ audioPlayerView: AudioPlayerView)
+    func audioPlayerViewDelegateDidTapRepeatButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView
     func audioPlayerViewDelegateGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView
 }
@@ -57,14 +57,14 @@ class AudioPlayerView: UIView {
 
     lazy var controlsStackView: UIStackView = UIStackView()
 
-    private lazy var backwardButton: UIButton = {
-        let backwardButton = UIButton(type: .system)
-        backwardButton.setImage(UIImage(named: "iconSkipBack"), for: .normal)
-        backwardButton.contentMode = .scaleAspectFit
-        backwardButton.imageView?.contentMode = .scaleAspectFit
-        backwardButton.tintColor = .white
-        backwardButton.addTarget(self, action: #selector(handleBackwardButton(_:)), for: .touchUpInside)
-        return backwardButton
+    private lazy var shuffleButton: UIButton = {
+        let shuffleButton = UIButton(type: .system)
+        shuffleButton.setImage(UIImage(named: "iconShuffleLarge"), for: .normal)
+        shuffleButton.contentMode = .scaleAspectFit
+        shuffleButton.imageView?.contentMode = .scaleAspectFit
+        shuffleButton.tintColor = .white
+        shuffleButton.addTarget(self, action: #selector(handleShuffleButton(_:)), for: .touchUpInside)
+        return shuffleButton
     }()
 
     private lazy var previousButton: UIButton = {
@@ -97,14 +97,14 @@ class AudioPlayerView: UIView {
         return nextButton
     }()
 
-    private lazy var forwardButton: UIButton = {
-        let forwardButton = UIButton(type: .system)
-        forwardButton.setImage(UIImage(named: "iconSkipForward"), for: .normal)
-        forwardButton.contentMode = .scaleAspectFit
-        forwardButton.imageView?.contentMode = .scaleAspectFit
-        forwardButton.tintColor = .white
-        forwardButton.addTarget(self, action: #selector(handleForwardButton(_:)), for: .touchUpInside)
-        return forwardButton
+    private lazy var repeatButton: UIButton = {
+        let repeatButton = UIButton(type: .system)
+        repeatButton.setImage(UIImage(named: "iconRepeatLarge"), for: .normal)
+        repeatButton.contentMode = .scaleAspectFit
+        repeatButton.imageView?.contentMode = .scaleAspectFit
+        repeatButton.tintColor = .white
+        repeatButton.addTarget(self, action: #selector(handleRepeatButton(_:)), for: .touchUpInside)
+        return repeatButton
     }()
 
     lazy var progressionView: UIView = UIView()
@@ -255,9 +255,31 @@ class AudioPlayerView: UIView {
         playButton.setImage(icon, for: .normal)
     }
 
+    func updateShuffleRepeatState(shuffleEnabled: Bool, repeatMode: VLCRepeatMode) {
+        let orangeColor = PresentationTheme.current.colors.orangeUI
+
+        let shuffleIcon = shuffleEnabled ? UIImage(named: "iconShuffleOnLarge") : UIImage(named: "iconShuffleLarge")
+        shuffleButton.setImage(shuffleIcon, for: .normal)
+        shuffleButton.tintColor = shuffleEnabled ? orangeColor : .white
+
+        switch repeatMode {
+        case .doNotRepeat:
+            repeatButton.setImage(UIImage(named: "iconRepeatLarge"), for: .normal)
+            repeatButton.tintColor = .white
+        case .repeatCurrentItem:
+            repeatButton.setImage(UIImage(named: "iconRepeatOneOnLarge"), for: .normal)
+            repeatButton.tintColor = orangeColor
+        case .repeatAllItems:
+            repeatButton.setImage(UIImage(named: "iconRepeatOnLarge"), for: .normal)
+            repeatButton.tintColor = orangeColor
+        @unknown default:
+            assertionFailure("AudioPlayerView: unhandled case.")
+        }
+    }
+
     func setControlsEnabled(_ enabled: Bool) {
-        backwardButton.isEnabled = enabled
-        backwardButton.alpha = enabled ? 1.0 : 0.5
+        shuffleButton.isEnabled = enabled
+        shuffleButton.alpha = enabled ? 1.0 : 0.5
 
         previousButton.isEnabled = enabled
         previousButton.alpha = enabled ? 1.0 : 0.5
@@ -268,8 +290,8 @@ class AudioPlayerView: UIView {
         nextButton.isEnabled = enabled
         nextButton.alpha = enabled ? 1.0 : 0.5
 
-        forwardButton.isEnabled = enabled
-        forwardButton.alpha = enabled ? 1.0 : 0.5
+        repeatButton.isEnabled = enabled
+        repeatButton.alpha = enabled ? 1.0 : 0.5
     }
 
     // MARK: - Private methods
@@ -411,11 +433,11 @@ class AudioPlayerView: UIView {
             controlsStackView.heightAnchor.constraint(equalToConstant: 50.0)
         ])
 
-        controlsStackView.addArrangedSubview(backwardButton)
+        controlsStackView.addArrangedSubview(shuffleButton)
         controlsStackView.addArrangedSubview(previousButton)
         controlsStackView.addArrangedSubview(playButton)
         controlsStackView.addArrangedSubview(nextButton)
-        controlsStackView.addArrangedSubview(forwardButton)
+        controlsStackView.addArrangedSubview(repeatButton)
     }
 
     private func setupProgressionView() {
@@ -442,8 +464,8 @@ class AudioPlayerView: UIView {
 
     // MARK: - Buttons handlers
 
-    @objc func handleBackwardButton(_ sender: Any) {
-        delegate?.audioPlayerViewDelegateDidTapBackwardButton(self)
+    @objc func handleShuffleButton(_ sender: Any) {
+        delegate?.audioPlayerViewDelegateDidTapShuffleButton(self)
     }
 
     @objc func handlePreviousButton(_ sender: Any) {
@@ -458,7 +480,7 @@ class AudioPlayerView: UIView {
         delegate?.audioPlayerViewDelegateDidTapNextButton(self)
     }
 
-    @objc func handleForwardButton(_ sender: Any) {
-        delegate?.audioPlayerViewDelegateDidTapForwardButton(self)
+    @objc func handleRepeatButton(_ sender: Any) {
+        delegate?.audioPlayerViewDelegateDidTapRepeatButton(self)
     }
 }
