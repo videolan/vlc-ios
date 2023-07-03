@@ -37,6 +37,7 @@
     self.thumbnailView.contentMode = UIViewContentModeScaleAspectFit;
     self.downloadButton.hidden = YES;
     self.favoriteButton.hidden = YES;
+    self.isFavorite = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange)
                                                  name:kVLCThemeDidChangeNotification object:nil];
     // If a tableViewCell is highlighted, one needs to manualy set the opaque property
@@ -120,6 +121,18 @@
 - (void)setIsFavoritable:(BOOL)isFavoritable
 {
     self.favoriteButton.hidden = !isFavoritable;
+}
+
+- (void)setIsFavorite:(BOOL)isFavorite
+{
+    if (isFavorite) {
+        _isFavorite = isFavorite;
+        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+        
+    } else {
+        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+        _isFavorite = isFavorite;
+    }
 }
 
 - (void)triggerDownload:(id)sender

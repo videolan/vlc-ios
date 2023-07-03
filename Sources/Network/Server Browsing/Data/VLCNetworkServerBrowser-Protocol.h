@@ -59,5 +59,4 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter=isDownloadable, readonly) BOOL downloadable;
 @end
 
-
 NS_ASSUME_NONNULL_END

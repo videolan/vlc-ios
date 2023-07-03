@@ -31,6 +31,7 @@
 @property (nonatomic) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic) VLCServerBrowsingController *browsingController;
 @property (nonatomic) NSArray<id<VLCNetworkServerBrowserItem>> *searchArray;
+@property (nonatomic,retain) NSMutableArray *favoriteArray;
 @end
 
 @implementation VLCNetworkServerBrowserViewController
@@ -48,6 +49,7 @@
                                initWithViewController:self
                                serverBrowser:browser
                                medialibraryService:_medialibraryService];
+        _favoriteArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -72,6 +74,9 @@
                                name:VLCPlayerDisplayControllerDisplayMiniPlayer object:nil];
     [notificationCenter addObserver:self selector:@selector(miniPlayerIsHidden)
                                name:VLCPlayerDisplayControllerHideMiniPlayer object:nil];
+    [notificationCenter addObserver:self selector:@selector(receiveFavoriteNotification:)
+                               name:@"CheckCurrentFavorite" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"AskFavorite" object:nil];
 
     self.title = self.serverBrowser.title;
     [self update];
@@ -130,6 +135,11 @@
     [self.tableView reloadData];
     self.title = self.serverBrowser.title;
 
+}
+
+- (void) receiveFavoriteNotification: (NSNotification *) notification {    
+    _favoriteArray = [NSMutableArray arrayWithArray:[notification.userInfo objectForKey:@"urlArray"]];
+    [self.tableView reloadData];
 }
 
 - (void)update
@@ -216,9 +226,17 @@
     } else {
         item = self.serverBrowser.items[indexPath.row];
     }
+    
+    
 
     [self.browsingController configureCell:cell withItem:item];
     cell.delegate = self;
+    for(NSString* url in _favoriteArray) {
+        if([item.URL.absoluteString isEqualToString:url]) {
+            cell.isFavorite = YES;
+            break;
+        }
+    }
 
     return cell;
 }
@@ -279,16 +297,18 @@
     id<VLCNetworkServerBrowserItem> item;
     item = self.serverBrowser.items[[self.tableView indexPathForCell:cell].row];
     if (!cell.isFavorite) {
-        [cell.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
         cell.isFavorite = YES;
+        [_favoriteArray addObject:item.URL.absoluteString];
     }
     else
     {
-        [cell.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
         cell.isFavorite = NO;
+        [_favoriteArray removeObject:item.URL.absoluteString];
     }
+    
     NSDictionary* userInfo = @{@"Folder":item};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"AddedToFavorite" object:self userInfo:userInfo];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Search Research Updater

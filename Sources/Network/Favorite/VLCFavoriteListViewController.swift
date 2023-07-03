@@ -18,7 +18,8 @@ class VLCFavoriteListViewController: UIViewController {
     
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("FAVORITE", comment: "")
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveNotification), name: Notification.Name((NSString("AddedToFavorite")) as String), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNotification), name: Notification.Name("AddedToFavorite"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(askForFavorite), name: Notification.Name("AskFavorite"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: NSNotification.Name(kVLCThemeDidChangeNotification), object: nil)
     }
     
@@ -118,6 +119,10 @@ extension VLCFavoriteListViewController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    
+    @objc func askForFavorite(notif: NSNotification) {
+        NotificationCenter.default.post(name: Notification.Name("CheckCurrentFavorite"), object: nil, userInfo: ["urlArray": urlArray])
     }
     
     func didSelectItem(stringURL: String) {
