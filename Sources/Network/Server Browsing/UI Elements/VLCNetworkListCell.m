@@ -127,10 +127,9 @@
 {
     if (isFavorite) {
         _isFavorite = isFavorite;
-        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-        
+        [self.favoriteButton setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateNormal];
     } else {
-        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+        [self.favoriteButton setImage:[UIImage imageNamed:@"heart.fill"] forState:UIControlStateNormal];
         _isFavorite = isFavorite;
     }
 }
@@ -144,7 +143,6 @@
 - (void)triggerFavorite:(id)sender
 {
     if([self.delegate respondsToSelector:@selector(triggerFavoriteForCell:)])
-        
         [self.delegate triggerFavoriteForCell:self];
 }
 

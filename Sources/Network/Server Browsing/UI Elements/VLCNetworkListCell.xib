@@ -62,7 +62,7 @@
                             <constraint firstAttribute="height" constant="44" id="mrp-nb-Xj5"/>
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" image="heart" catalog="system"/>
+                        <state key="normal" image="heart"/>
                         <state key="selected" image="heart.fill" catalog="system"/>
                         <connections>
                             <action selector="triggerFavorite:" destination="3" eventType="touchUpInside" id="QOn-VI-Huo"/>
@@ -132,7 +132,7 @@
     </objects>
     <resources>
         <image name="download" width="24" height="24"/>
-        <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="heart" width="24" height="24"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
     </resources>
 </document>

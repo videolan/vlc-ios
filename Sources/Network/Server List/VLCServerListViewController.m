@@ -326,7 +326,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
     return _discoveryController.numberOfSections;
 }
 

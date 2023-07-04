@@ -92,6 +92,9 @@
 
 #define kVLCRecentFavoriteTitle @"recent-favorite-title"
 #define kVLCRecentFavoriteURL @"recent-favorite-url"
+#define kVLCAddToFavorite @"add-to-favorite"
+#define kVLCFetchFavorite @"fetch-favorite"
+#define kVLCSendFavorite @"send-favorite"
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
 #define kVLCRecentURLTitles @"recent-url-titles"

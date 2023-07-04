@@ -8,9 +8,7 @@
 
 import UIKit
 
-
 class VLCFavoriteListViewController: UIViewController {
-    
     init() {
         userDefaults = UserDefaults.standard
         titleArray = userDefaults.stringArray(forKey: kVLCRecentFavoriteTitle) ?? []
@@ -18,9 +16,8 @@ class VLCFavoriteListViewController: UIViewController {
     
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("FAVORITE", comment: "")
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveNotification), name: Notification.Name("AddedToFavorite"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(askForFavorite), name: Notification.Name("AskFavorite"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: NSNotification.Name(kVLCThemeDidChangeNotification), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(receiveNotification), name: Notification.Name(kVLCAddToFavorite), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(themeDidChange), name: NSNotification.Name(kVLCThemeDidChangeNotification), object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -35,12 +32,13 @@ class VLCFavoriteListViewController: UIViewController {
     }()
     
     let detailText = NSLocalizedString("FAVORITEVC_DETAILTEXT", comment: "")
-    let cellImage = UIImage(named: "hearts")
+    let cellImage = UIImage(named: "heart")
     
     var favoriteArray: [VLCNetworkServerBrowserItem] = []
     var titleArray: [String]
     var urlArray: [String]
     let userDefaults: UserDefaults
+    let notificationCenter = NotificationCenter.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +74,6 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
         cell.thumbnailImage = UIImage(named: "folder")
         cell.title = title
         cell.subtitle = url
-        
         return cell
     }
     
@@ -97,20 +94,15 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
 
 extension VLCFavoriteListViewController {
     @objc func receiveNotification(notif: NSNotification) {
-        var indexToRemove: Int? = nil
         if let folder = notif.userInfo?["Folder"] as? VLCNetworkServerBrowserItem {
-            for (index, element) in titleArray.enumerated() {
-                if folder.name == element {
-                    indexToRemove = index
-                    break
-                }
+            guard let newItemURL = folder.url?.absoluteString else { return }
+            if let indexToRemove = urlArray.firstIndex(of: newItemURL) {
+                titleArray.remove(at: indexToRemove)
+                urlArray.remove(at: indexToRemove)
             }
-            if indexToRemove != nil {
-                titleArray.remove(at: indexToRemove!)
-                urlArray.remove(at: indexToRemove!)
-            } else {
+            else {
                 titleArray.append(folder.name)
-                if let url = folder.media?.url { urlArray.append(url.absoluteString) }
+                urlArray.append(newItemURL)
             }
         }
         userDefaults.set(titleArray, forKey: kVLCRecentFavoriteTitle)
@@ -120,17 +112,13 @@ extension VLCFavoriteListViewController {
             self.tableView.reloadData()
         }
     }
-    
-    @objc func askForFavorite(notif: NSNotification) {
-        NotificationCenter.default.post(name: Notification.Name("CheckCurrentFavorite"), object: nil, userInfo: ["urlArray": urlArray])
-    }
-    
+        
     func didSelectItem(stringURL: String) {
         guard let url = URL(string: stringURL) else { return }
         let vlcMedia = VLCMedia(url: url)
         let serverBrowser = VLCNetworkServerBrowserVLCMedia(media: vlcMedia)
-        if let x = VLCNetworkServerBrowserViewController(serverBrowser: serverBrowser) {
-            self.navigationController?.pushViewController(x, animated: true)
+        if let serverBrowserVC = VLCNetworkServerBrowserViewController(serverBrowser: serverBrowser) {
+            self.navigationController?.pushViewController(serverBrowserVC, animated: true)
         }
     }
     
@@ -138,6 +126,4 @@ extension VLCFavoriteListViewController {
         self.tableView.backgroundColor = PresentationTheme.current.colors.background
         self.setNeedsStatusBarAppearanceUpdate()
     }
-    
-    
 }
