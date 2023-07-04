@@ -70,10 +70,16 @@
 #define kVLCSettingEqualizerProfile @"EqualizerProfile"
 #define kVLCSettingEqualizerProfileDisabled @"EqualizerDisabled"
 #define kVLCSettingEqualizerProfileDefaultValue @(0)
+#define kVLCSettingPlaybackForwardBackwardEqual @"playback-forward-backward-equal"
+#define kVLCSettingPlaybackTapSwipeEqual @"playback-tap-swipe-equal"
 #define kVLCSettingPlaybackForwardSkipLength @"playback-forward-skip-length"
 #define kVLCSettingPlaybackForwardSkipLengthDefaultValue @(10)
 #define kVLCSettingPlaybackBackwardSkipLength @"playback-backward-skip-length"
 #define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(10)
+#define kVLCSettingPlaybackForwardSkipLengthSwipe @"playback-forward-skip-length-swipe"
+#define kVLCSettingPlaybackForwardSkipLengthSwipeDefaultValue @(10)
+#define kVLCSettingPlaybackBackwardSkipLengthSwipe @"playback-backward-skip-length-swipe"
+#define kVLCSettingPlaybackBackwardSkipLengthSwipeDefaultValue @(10)
 #define kVLCSettingOpenAppForPlayback @"open-app-for-playback"
 #define kVLCSettingOpenAppForPlaybackDefaultValue @YES
 #define kVLCSettingShowThumbnails @"ShowThumbnails"

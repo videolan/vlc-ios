@@ -132,8 +132,12 @@ class VideoPlayerViewController: UIViewController {
    
     private var numberOfGestureSeek: Int = 0
     private var previousSeekState: VideoPlayerSeekState = .default
+    var tapSwipeEqual: Bool = true
+    var forwardBackwardEqual: Bool = true
     var seekForwardBy: Int = 0
     var seekBackwardBy: Int = 0
+    var seekForwardBySwipe: Int = 0
+    var seekBackwardBySwipe: Int = 0
 
     // MARK: - UI elements
 
@@ -566,11 +570,28 @@ class VideoPlayerViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        let defaults = UserDefaults.standard
         super.viewWillAppear(animated)
         playbackService.delegate = self
         playbackService.recoverPlaybackState()
-        seekForwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
-        seekBackwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
+        tapSwipeEqual = defaults.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
+        forwardBackwardEqual = defaults.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
+        seekForwardBy = defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
+        seekBackwardBy = forwardBackwardEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
+        seekForwardBySwipe = tapSwipeEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLengthSwipe)
+        if tapSwipeEqual, forwardBackwardEqual {
+            // if tap = swipe, and backward = forward, then backward swipe = forward tap
+            seekBackwardBySwipe = seekForwardBy
+        } else if tapSwipeEqual, !forwardBackwardEqual {
+            // if tap = swipe, and backward != forward, then backward swipe = backward tap
+            seekBackwardBySwipe = seekBackwardBy
+        } else if !tapSwipeEqual, forwardBackwardEqual {
+            // if tap != swipe, and backward = forward, then backward swipe = forward swipe
+            seekBackwardBySwipe = seekForwardBySwipe
+        } else {
+            // otherwise backward swipe = backward swipe
+            seekBackwardBySwipe = defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLengthSwipe)
+        }
         playerController.lockedOrientation = .portrait
         navigationController?.navigationBar.isHidden = true
 

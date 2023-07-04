@@ -210,6 +210,9 @@ class SettingsController: UITableViewController {
             assertionFailure("SettingsController: No Preference Key Available.")
             return
         }
+        if sectionType is PlaybackControlOptions {
+            specifierManager.playbackTitle = sectionType.description
+        }
         showActionSheet(preferenceKey: preferenceKey)
     }
 
@@ -322,6 +325,24 @@ extension SettingsController {
         case .gestureControl:
             let gestureControlOptions = PlaybackControlOptions(rawValue: indexPath.row)
             cell.sectionType = gestureControlOptions
+            let forwardBackwardEqual = userDefaults.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
+            let tapSwipeEqual = userDefaults.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
+            if indexPath.row == PlaybackControlOptions.backwardSkipLength.rawValue {
+                if forwardBackwardEqual {
+                    cell.isHidden = true
+                }
+            }
+            if indexPath.row == PlaybackControlOptions.forwardSkipLengthSwipe.rawValue {
+                if tapSwipeEqual {
+                    cell.isHidden = true
+                }
+            }
+            if indexPath.row == PlaybackControlOptions.backwardSkipLengthSwipe.rawValue {
+                if tapSwipeEqual || forwardBackwardEqual {
+                    cell.isHidden = true
+                }
+            }
+            cell.skipDurationDelegate = self
         case .video:
             let videoOptions = VideoOptions(rawValue: indexPath.row)
             cell.sectionType = videoOptions
@@ -472,6 +493,23 @@ extension SettingsController {
                 return 0
             }
             return isPasscodeOn ? automaticDimension : 0 //If Passcode Lock is turned off we hide the biometric options row
+        }
+        let tapSwipeEqual = userDefaults.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
+        let forwardBackwardEqual = userDefaults.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
+        if indexPath == [SettingsSection.gestureControl.rawValue, PlaybackControlOptions.backwardSkipLength.rawValue] {
+            if forwardBackwardEqual {
+                return 0
+            }
+        }
+        if indexPath == [SettingsSection.gestureControl.rawValue, PlaybackControlOptions.forwardSkipLengthSwipe.rawValue] {
+            if tapSwipeEqual {
+                return 0
+            }
+        }
+        if indexPath == [SettingsSection.gestureControl.rawValue, PlaybackControlOptions.backwardSkipLengthSwipe.rawValue] {
+            if tapSwipeEqual || forwardBackwardEqual {
+                return 0
+            }
         }
         return automaticDimension
     }

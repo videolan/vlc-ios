@@ -46,6 +46,7 @@ class SettingsCell: UITableViewCell {
     var showsActivityIndicator = false
     weak var blackThemeSwitchDelegate: BlackThemeActivateDelegate?
     weak var passcodeSwitchDelegate: PasscodeActivateDelegate?
+    weak var skipDurationDelegate: UITableViewController?
     weak var medialibraryHidingSwitchDelegate: MedialibraryHidingActivateDelegate?
     weak var mediaLibraryBackupSwitchDelegate: MediaLibraryBackupActivateDelegate?
     weak var medialibraryDisableGroupingSwitchDelegate: MediaLibraryDisableGroupingDelegate?
@@ -227,6 +228,8 @@ class SettingsCell: UITableViewCell {
             mediaLibraryBackupSwitchDelegate?.mediaLibraryBackupActivateSwitchOn(state: sender.isOn)
         } else if sectionType?.preferenceKey == kVLCSettingsDisableGrouping {
             medialibraryDisableGroupingSwitchDelegate?.medialibraryDisableGroupingSwitchOn(state: sender.isOn)
+        } else if sectionType?.preferenceKey == kVLCSettingPlaybackTapSwipeEqual || sectionType?.preferenceKey == kVLCSettingPlaybackForwardBackwardEqual {
+            skipDurationDelegate?.tableView.reloadData()
         }
     }
 

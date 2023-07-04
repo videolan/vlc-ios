@@ -86,11 +86,9 @@ class AudioPlayerViewController: PlayerViewController {
         navigationController?.navigationBar.isHidden = true
         playbackService.delegate = self
         playbackService.recoverPlaybackState()
-        seekForwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
-        seekBackwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
         audioPlayerView.updateThumbnailImageView()
-        audioPlayerView.setupPlaybackSpeed()
         audioPlayerView.setupBackgroundColor()
+        audioPlayerView.setupPlaybackSpeed()
         setupGestures()
         playModeUpdated()
 

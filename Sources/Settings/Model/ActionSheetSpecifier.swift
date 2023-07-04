@@ -14,6 +14,7 @@ import UIKit
 class ActionSheetSpecifier: NSObject {
 
     var settingsBundle = Bundle()
+    var playbackTitle: String?
     private let userDefaults = UserDefaults.standard
     private var settingSpecifier: SettingSpecifier?
     var preferenceKey: String? {
@@ -70,6 +71,9 @@ extension ActionSheetSpecifier: ActionSheetDelegate {
 extension ActionSheetSpecifier: ActionSheetDataSource {
 
     func headerViewTitle() -> String? {
+        if let title = playbackTitle {
+            return settingsBundle.localizedString(forKey: title, value: title, table: "Root")
+        }
         guard let title = settingSpecifier?.title else {
             assertionFailure("No Title found for Settings Specifier")
             return nil

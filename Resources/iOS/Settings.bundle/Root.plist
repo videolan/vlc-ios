@@ -185,56 +185,24 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Title</key>
-			<string>SETTINGS_PLAYBACK_SKIP_FORWARD</string>
-			<key>Key</key>
-			<string>playback-forward-skip-length</string>
 			<key>DefaultValue</key>
-			<integer>10</integer>
-			<key>Titles</key>
-			<array>
-				<string>SETTINGS_DURATION_FIVE</string>
-				<string>SETTINGS_DURATION_TEN</string>
-				<string>SETTINGS_DURATION_FIFTEEN</string>
-				<string>SETTINGS_DURATION_THIRTY</string>
-				<string>SETTINGS_DURATION_SIXTY</string>
-			</array>
-			<key>Values</key>
-			<array>
-				<integer>5</integer>
-				<integer>10</integer>
-				<integer>15</integer>
-				<integer>30</integer>
-				<integer>60</integer>
-			</array>
+			<true/>
+			<key>Key</key>
+			<string>playback-forward-backward-equal</string>
+			<key>Title</key>
+			<string>SETTINGS_GESTURES_FORWARD_BACKWARD_EQUAL</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Title</key>
-			<string>SETTINGS_PLAYBACK_SKIP_BACKWARD</string>
-			<key>Key</key>
-			<string>playback-backward-skip-length</string>
 			<key>DefaultValue</key>
-			<integer>10</integer>
-			<key>Titles</key>
-			<array>
-				<string>SETTINGS_DURATION_FIVE</string>
-				<string>SETTINGS_DURATION_TEN</string>
-				<string>SETTINGS_DURATION_FIFTEEN</string>
-				<string>SETTINGS_DURATION_THIRTY</string>
-				<string>SETTINGS_DURATION_SIXTY</string>
-			</array>
-			<key>Values</key>
-			<array>
-				<integer>5</integer>
-				<integer>10</integer>
-				<integer>15</integer>
-				<integer>30</integer>
-				<integer>60</integer>
-			</array>
+			<true/>
+			<key>Key</key>
+			<string>playback-tap-swipe-equal</string>
+			<key>Title</key>
+			<string>SETTINGS_GESTURES_TAP_SWIPE_EQUAL</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
 			<key>Type</key>

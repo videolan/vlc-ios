@@ -279,8 +279,12 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
     case swipeUpDownForBrightness
     case swipeRightLeftToSeek
     case pinchToClose
+    case forwardBackwardEqual
+    case tapSwipeEqual
     case forwardSkipLength
     case backwardSkipLength
+    case forwardSkipLengthSwipe
+    case backwardSkipLengthSwipe
 
     var containsInfobutton: Bool { return false }
 
@@ -296,14 +300,24 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return true
         case .pinchToClose:
             return true
+        case .forwardBackwardEqual:
+            return true
+        case .tapSwipeEqual:
+            return true
         case .forwardSkipLength:
             return false
         case .backwardSkipLength:
+            return false
+        case .forwardSkipLengthSwipe:
+            return false
+        case .backwardSkipLengthSwipe:
             return false
         }
     }
 
     var description: String {
+        let forwardBackwardEqual = UserDefaults.standard.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
+        let tapSwipeEqual = UserDefaults.standard.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
         switch self {
         case .swipeUpDownForVolume:
             return "SETTINGS_GESTURES_VOLUME"
@@ -315,10 +329,31 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_GESTURES_SEEK"
         case .pinchToClose:
             return "SETTINGS_GESTURES_CLOSE"
+        case .forwardBackwardEqual:
+            return "SETTINGS_GESTURES_FORWARD_BACKWARD_EQUAL"
+        case .tapSwipeEqual:
+            return "SETTINGS_GESTURES_TAP_SWIPE_EQUAL"
         case .forwardSkipLength:
-            return "SETTINGS_PLAYBACK_SKIP_FORWARD"
+            if forwardBackwardEqual && tapSwipeEqual {
+                return "SETTINGS_PLAYBACK_SKIP_GENERIC"
+            } else if forwardBackwardEqual && !tapSwipeEqual {
+                return "SETTINGS_PLAYBACK_SKIP_TAP"
+            } else if !forwardBackwardEqual && !tapSwipeEqual {
+                return "SETTINGS_PLAYBACK_SKIP_FORWARD_TAP"
+            }
+            return  "SETTINGS_PLAYBACK_SKIP_FORWARD"
         case .backwardSkipLength:
-            return "SETTINGS_PLAYBACK_SKIP_BACKWARD"
+            if tapSwipeEqual {
+                return "SETTINGS_PLAYBACK_SKIP_BACKWARD"
+            }
+            return "SETTINGS_PLAYBACK_SKIP_BACKWARD_TAP"
+        case .forwardSkipLengthSwipe:
+            if forwardBackwardEqual {
+                return "SETTINGS_PLAYBACK_SKIP_SWIPE"
+            }
+            return "SETTINGS_PLAYBACK_SKIP_FORWARD_SWIPE"
+        case .backwardSkipLengthSwipe:
+            return "SETTINGS_PLAYBACK_SKIP_BACKWARD_SWIPE"
         }
     }
 
@@ -336,10 +371,18 @@ enum PlaybackControlOptions: Int, CaseIterable, SectionType {
             return kVLCSettingSeekGesture
         case .pinchToClose:
             return kVLCSettingCloseGesture
+        case .forwardBackwardEqual:
+            return kVLCSettingPlaybackForwardBackwardEqual
+        case .tapSwipeEqual:
+            return kVLCSettingPlaybackTapSwipeEqual
         case .forwardSkipLength:
             return kVLCSettingPlaybackForwardSkipLength
         case .backwardSkipLength:
             return kVLCSettingPlaybackBackwardSkipLength
+        case .forwardSkipLengthSwipe:
+            return kVLCSettingPlaybackForwardSkipLengthSwipe
+        case .backwardSkipLengthSwipe:
+            return kVLCSettingPlaybackBackwardSkipLengthSwipe
         }
     }
 }
