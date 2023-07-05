@@ -99,6 +99,8 @@ class AudioPlayerViewController: PlayerViewController {
     override func viewWillDisappear(_ animated: Bool) {
         playerController.isInterfaceLocked = false
         queueViewController?.hide()
+        numberOfTapSeek = 0
+        previousSeekState = .default
     }
 
     // MARK: Public methods
@@ -147,6 +149,7 @@ class AudioPlayerViewController: PlayerViewController {
         audioPlayerView.thumbnailView.addGestureRecognizer(panRecognizer)
         audioPlayerView.thumbnailView.addGestureRecognizer(leftSwipeRecognizer)
         audioPlayerView.thumbnailView.addGestureRecognizer(rightSwipeRecognizer)
+        audioPlayerView.thumbnailView.addGestureRecognizer(doubleTapGestureRecognizer)
         audioPlayerView.addGestureRecognizer(playPauseRecognizer)
         audioPlayerView.addGestureRecognizer(pinchRecognizer)
 
@@ -170,6 +173,22 @@ class AudioPlayerViewController: PlayerViewController {
         externalOutputView.updateUI(rendererItem: playbackService.renderer, title: nil)
         externalOutputView.isHidden = false
         audioPlayerView.thumbnailView.isHidden = true
+    }
+
+    override func handleDoubleTapGesture(_ sender: UITapGestureRecognizer) {
+        let screenWidth: CGFloat = view.frame.size.width
+        let middleBoundary: CGFloat = screenWidth / 2.0
+
+        let tapPosition = sender.location(in: view)
+
+        // Reset number(set to -1/1) of seek when orientation has been changed.
+        if tapPosition.x < middleBoundary {
+            numberOfTapSeek = previousSeekState == .forward ? -1 : numberOfTapSeek - 1
+        } else {
+            numberOfTapSeek = previousSeekState == .backward ? 1 : numberOfTapSeek + 1
+        }
+
+        super.handleDoubleTapGesture(sender)
     }
 
     // MARK: - Private methods

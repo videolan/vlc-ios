@@ -13,6 +13,12 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 
+enum PlayerSeekState {
+    case `default`
+    case forward
+    case backward
+}
+
 enum PlayerPanType {
     case none
     case brightness
@@ -67,6 +73,8 @@ class PlayerViewController: UIViewController {
     var alertController: UIAlertController?
     var seekForwardBy: Int = 0
     var seekBackwardBy: Int = 0
+    var numberOfTapSeek: Int = 0
+    var previousSeekState: PlayerSeekState = .default
 
     lazy var statusLabel: VLCStatusLabel = {
         var statusLabel = VLCStatusLabel()
@@ -298,6 +306,13 @@ class PlayerViewController: UIViewController {
         return minimizeGestureRecognizer
     }()
 
+    lazy var doubleTapGestureRecognizer: UITapGestureRecognizer = {
+        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                action: #selector(handleDoubleTapGesture(_:)))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        return doubleTapGestureRecognizer
+    }()
+
     // MARK: - Init
 
     @objc init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
@@ -370,6 +385,7 @@ class PlayerViewController: UIViewController {
         pinchRecognizer.isEnabled = !disable
         leftSwipeRecognizer.isEnabled = !disable
         rightSwipeRecognizer.isEnabled = !disable
+        doubleTapGestureRecognizer.isEnabled = !disable
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
@@ -427,6 +443,33 @@ class PlayerViewController: UIViewController {
 
     private func jumpForwards(_ interval: Int = 10) {
         playbackService.jumpForward(Int32(interval))
+    }
+
+    private func stringInTimeFormat(from duration: Int) -> String {
+        if duration < 60 {
+            return String(format: "%is", duration)
+        } else {
+            return String(format: "%im%is", duration / 60, duration % 60)
+        }
+    }
+
+    private func executeSeekFromTap() {
+        var hudString: String = ""
+        let currentSeek = numberOfTapSeek > 0 ? seekForwardBy : seekBackwardBy
+        let seekDuration: Int = numberOfTapSeek * currentSeek
+
+        if seekDuration > 0 {
+            hudString = "⇒ "
+            jumpForwards(currentSeek)
+            previousSeekState = .forward
+        } else {
+            hudString = "⇐ "
+            jumpBackwards(currentSeek)
+            previousSeekState = .backward
+        }
+
+        hudString.append(stringInTimeFormat(from: abs(seekDuration)))
+        statusLabel.showStatusMessage(hudString)
     }
 
     private func showIcon(button: UIButton) {
@@ -768,6 +811,12 @@ class PlayerViewController: UIViewController {
         default:
             break
         }
+    }
+
+    @objc func handleDoubleTapGesture(_ sender: UITapGestureRecognizer) {
+        // CHECK THE TAP LOCATION
+
+        executeSeekFromTap()
     }
 }
 
