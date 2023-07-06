@@ -503,33 +503,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         resetScrollView()
     }
 
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // This ensures that the search bar is always visible like a sticky while searching
-        if isSearching {
-            searchBar.endEditing(true)
-            delegate?.enableCategorySwitching(for: self, enable: true)
-            // End search if scrolled and the textfield is empty
-            if let searchBarText = searchBar.text, searchBarText.isEmpty {
-                searchBarCancelButtonClicked(searchBar)
-            }
-            return
-        }
-
-        searchBarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
-        if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
-            collectionView.contentInset.top = searchBarSize
-        }
-        if scrollView.contentOffset.y >= 0 && scrollView.contentInset.top != 0 {
-            collectionView.contentInset.top = 0
-        }
-
-        if let model = model as? CollectionModel,
-           model.mediaCollection is VLCMLAlbum {
-
-            updateAlbumHeader()
-        }
-    }
-
     override func setEditing(_ editing: Bool, animated: Bool) {
         guard editing != isEditing else {
             // Guard in case where setEditing is called twice with the same state
@@ -1344,6 +1317,33 @@ extension MediaCategoryViewController: ActionSheetSortSectionHeaderDelegate {
 // MARK: - EditControllerDelegate
 
 extension MediaCategoryViewController: EditControllerDelegate {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // This ensures that the search bar is always visible like a sticky while searching
+        if isSearching {
+            searchBar.endEditing(true)
+            delegate?.enableCategorySwitching(for: self, enable: true)
+            // End search if scrolled and the textfield is empty
+            if let searchBarText = searchBar.text, searchBarText.isEmpty {
+                searchBarCancelButtonClicked(searchBar)
+            }
+            return
+        }
+
+        searchBarConstraint?.constant = -min(scrollView.contentOffset.y, searchBarSize) - searchBarSize
+        if scrollView.contentOffset.y < -searchBarSize && scrollView.contentInset.top != searchBarSize {
+            collectionView.contentInset.top = searchBarSize
+        }
+        if scrollView.contentOffset.y >= 0 && scrollView.contentInset.top != 0 {
+            collectionView.contentInset.top = 0
+        }
+
+        if let model = model as? CollectionModel,
+           model.mediaCollection is VLCMLAlbum {
+
+            updateAlbumHeader()
+        }
+    }
+    
     func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> BaseCollectionViewCell? {
         return collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell
     }

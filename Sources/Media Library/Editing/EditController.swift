@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 protocol EditControllerDelegate: AnyObject {
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
     func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> BaseCollectionViewCell?
     func editController(editController: EditController, present viewController: UIViewController)
     func editControllerDidSelectMultipleItem(editContrller: EditController)
@@ -449,10 +450,7 @@ extension EditController: UICollectionViewDataSource {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if let model = model as? CollectionModel,
-           model.mediaCollection is VLCMLAlbum {
-            delegate?.editControllerUpdateNavigationBar(offset: scrollView.contentOffset.y)
-        }
+        delegate?.scrollViewDidScroll(scrollView)
     }
 }
 
