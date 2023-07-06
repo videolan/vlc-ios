@@ -986,6 +986,18 @@ private extension MediaCategoryViewController {
 // MARK: - UICollectionViewDelegate
 
 extension MediaCategoryViewController {
+    override func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
+        // Set collectionView.isEditing to true
+        return true
+    }
+
+
+    override func collectionView(_ collectionView: UICollectionView, didBeginMultipleSelectionInteractionAt indexPath: IndexPath) {
+        // Put the collection view into editing mode.
+        delegate?.setEditingStateChanged(for: self, editing: true)
+    }
+    
+    
     private func selectedItem(at indexPath: IndexPath) {
         let mediaObjectArray = isSearching ? searchDataSource.searchData : model.anyfiles
         let modelContent = mediaObjectArray.objectAtIndex(index: indexPath.row)
