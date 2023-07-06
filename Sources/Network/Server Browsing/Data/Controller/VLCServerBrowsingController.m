@@ -95,7 +95,7 @@
     if (item.isContainer) {
         cell.isDirectory = YES;
         cell.thumbnailImage = self.folderImage;
-        cell.isFavoritable = YES;
+        cell.isFavorable = YES;
     } else {
         cell.isDirectory = NO;
         cell.thumbnailImage = self.genericFileImage;

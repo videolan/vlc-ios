@@ -39,7 +39,7 @@
 @property (nonatomic, retain) UIImage *icon;
 @property (nonatomic, retain) NSURL *iconURL;
 @property (nonatomic, readwrite) BOOL isDownloadable;
-@property (nonatomic, readwrite) BOOL isFavoritable;
+@property (nonatomic, readwrite) BOOL isFavorable;
 @property (nonatomic, readwrite) BOOL isFavorite;
 
 @property (nonatomic, readonly) CGFloat edgePadding;

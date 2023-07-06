@@ -10,13 +10,14 @@ import UIKit
 
 class VLCFavoriteListViewController: UIViewController {
     init() {
-        userDefaults = UserDefaults.standard
+        let notificationCenter = NotificationCenter.default
         titleArray = userDefaults.stringArray(forKey: kVLCRecentFavoriteTitle) ?? []
         urlArray = userDefaults.stringArray(forKey: kVLCRecentFavoriteURL) ?? []
     
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("FAVORITE", comment: "")
-        notificationCenter.addObserver(self, selector: #selector(receiveNotification), name: Notification.Name(kVLCAddToFavorite), object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(receiveNotification), name: Notification.Name(kVLCNetworkServerFavoritesUpdated), object: nil)
         notificationCenter.addObserver(self, selector: #selector(themeDidChange), name: NSNotification.Name(kVLCThemeDidChangeNotification), object: nil)
     }
     
@@ -37,8 +38,7 @@ class VLCFavoriteListViewController: UIViewController {
     var favoriteArray: [VLCNetworkServerBrowserItem] = []
     var titleArray: [String]
     var urlArray: [String]
-    let userDefaults: UserDefaults
-    let notificationCenter = NotificationCenter.default
+    let userDefaults: UserDefaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()

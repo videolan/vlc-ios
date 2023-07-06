@@ -118,20 +118,19 @@
     self.downloadButton.hidden = !isDownloadable;
 }
 
-- (void)setIsFavoritable:(BOOL)isFavoritable
+- (void)setIsFavorable:(BOOL)isFavorable
 {
-    self.favoriteButton.hidden = !isFavoritable;
+    self.favoriteButton.hidden = !isFavorable;
 }
 
 - (void)setIsFavorite:(BOOL)isFavorite
 {
     if (isFavorite) {
-        _isFavorite = isFavorite;
-        [self.favoriteButton setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateNormal];
-    } else {
         [self.favoriteButton setImage:[UIImage imageNamed:@"heart.fill"] forState:UIControlStateNormal];
-        _isFavorite = isFavorite;
+    } else {
+        [self.favoriteButton setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateNormal];
     }
+    _isFavorite = isFavorite;
 }
 
 - (void)triggerDownload:(id)sender
@@ -150,7 +149,7 @@
     [super prepareForReuse];
     [self.thumbnailView cancelLoading];
     self.isDownloadable = NO;
-    self.isFavoritable = NO;
+    self.isFavorable = NO;
     self.subtitle = nil;
     self.title = nil;
     self.iconURL = nil;

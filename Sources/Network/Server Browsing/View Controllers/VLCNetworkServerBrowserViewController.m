@@ -293,7 +293,7 @@
     }
     
     NSDictionary* userInfo = @{@"Folder":item};
-    [[NSNotificationCenter defaultCenter] postNotificationName:kVLCAddToFavorite object:self userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kVLCNetworkServerFavoritesUpdated object:self userInfo:userInfo];
     [self.tableView reloadData];
 }
 
