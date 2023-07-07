@@ -445,14 +445,6 @@ class PlayerViewController: UIViewController {
         playbackService.jumpForward(Int32(interval))
     }
 
-    private func stringInTimeFormat(from duration: Int) -> String {
-        if duration < 60 {
-            return String(format: "%is", duration)
-        } else {
-            return String(format: "%im%is", duration / 60, duration % 60)
-        }
-    }
-
     private func executeSeekFromTap() {
         var hudString: String = ""
         let currentSeek = numberOfTapSeek > 0 ? seekForwardBy : seekBackwardBy
@@ -468,7 +460,9 @@ class PlayerViewController: UIViewController {
             previousSeekState = .backward
         }
 
-        hudString.append(stringInTimeFormat(from: abs(seekDuration)))
+        // Convert the time in seconds into milliseconds in order to the get the right VLCTime value.
+        let duration: VLCTime = VLCTime(number: NSNumber(value: abs(seekDuration) * 1000))
+        hudString.append(duration.stringValue)
         statusLabel.showStatusMessage(hudString)
     }
 
