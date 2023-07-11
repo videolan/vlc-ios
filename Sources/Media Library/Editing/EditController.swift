@@ -10,7 +10,6 @@
  *****************************************************************************/
 
 protocol EditControllerDelegate: AnyObject {
-    func scrollViewDidScroll(_ scrollView: UIScrollView)
     func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> BaseCollectionViewCell?
     func editController(editController: EditController, present viewController: UIViewController)
     func editControllerDidSelectMultipleItem(editContrller: EditController)
@@ -450,7 +449,9 @@ extension EditController: UICollectionViewDataSource {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        delegate?.scrollViewDidScroll(scrollView)
+        if let delegate = delegate as? MediaCategoryViewController {
+            delegate.scrollViewDidScroll(scrollView)
+        }
     }
 }
 
