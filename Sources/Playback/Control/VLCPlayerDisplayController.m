@@ -152,8 +152,7 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
     BOOL enforceFullscreen = [[defaults objectForKey:kVLCSettingVideoFullscreenPlayback] boolValue];
 
     if (self.playbackController.fullscreenSessionRequested && enforceFullscreen) {
-        [self showFullscreenPlayback];
-        return;
+        [self setDisplayMode:VLCPlayerDisplayControllerDisplayModeFullscreen];
     }
 
     VLCMedia *currentMedia = _playbackController.currentlyPlayingMedia;
