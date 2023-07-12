@@ -331,6 +331,11 @@ class PlayerViewController: UIViewController {
 
         mediaNavigationBar.updateDeviceButton(with: image, color: color)
 
+        if playerController.isRememberStateEnabled {
+            playbackService.isShuffleMode = playerController.isShuffleEnabled
+            playbackService.repeatMode = playerController.isRepeatEnabled
+        }
+
         view.transform = .identity
     }
 

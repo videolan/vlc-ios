@@ -89,6 +89,7 @@ class AudioPlayerViewController: PlayerViewController {
         audioPlayerView.updateThumbnailImageView()
         audioPlayerView.setupBackgroundColor()
         setupGestures()
+        playModeUpdated()
 
         if playbackService.isPlayingOnExternalScreen() {
             changeOutputView(to: externalOutputView.displayView)
