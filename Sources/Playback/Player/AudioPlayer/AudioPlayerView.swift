@@ -138,10 +138,11 @@ class AudioPlayerView: UIView {
         return isSmallerScreen ? 40 : 60
     }()
 
-    private lazy var progressionViewBottomConstraint: NSLayoutConstraint = {
-        let progressionViewBottomConstraint = progressionView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: -progressionViewBottomConstant)
-        return progressionViewBottomConstraint
-    }()
+    private lazy var progressionViewBottomConstraint: NSLayoutConstraint = progressionView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: -progressionViewBottomConstant)
+
+    private lazy var progressionViewHeightConstraint: NSLayoutConstraint = progressionView.heightAnchor.constraint(equalToConstant: 70)
+
+    private lazy var thumbnailViewTopConstraint: NSLayoutConstraint = thumbnailView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor, constant: 35)
 
     weak var delegate: AudioPlayerViewDelegate?
 
@@ -323,6 +324,21 @@ class AudioPlayerView: UIView {
         repeatButton.alpha = enabled ? 1.0 : 0.5
     }
 
+    func updateConstraints(for orientation: UIDeviceOrientation) {
+        if orientation.isLandscape {
+            thumbnailViewTopConstraint.constant = 5
+            progressionViewBottomConstraint.constant = -5.0
+            progressionViewHeightConstraint.constant = 30
+        } else {
+            thumbnailViewTopConstraint.constant = 35
+            progressionViewBottomConstraint.constant = -progressionViewBottomConstant
+            progressionViewHeightConstraint.constant = 70
+        }
+
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+
     // MARK: - Private methods
 
     private func setupCommonSliderConstraints(for slider: UIView) {
@@ -383,13 +399,12 @@ class AudioPlayerView: UIView {
     }
 
     private func setupThumbnailView() {
-        let padding: CGFloat = 35.0
         thumbnailView.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(thumbnailView)
         NSLayoutConstraint.activate([
             thumbnailView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
-            thumbnailView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor, constant: padding),
+            thumbnailViewTopConstraint,
             thumbnailView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
         ])
 
@@ -442,7 +457,8 @@ class AudioPlayerView: UIView {
             playqueueView.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor),
             playqueueView.topAnchor.constraint(equalTo: thumbnailView.topAnchor),
             playqueueView.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor),
-            playqueueView.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor)
+            playqueueView.bottomAnchor.constraint(equalTo: thumbnailView.bottomAnchor),
+            playqueueView.heightAnchor.constraint(equalTo: thumbnailView.heightAnchor, multiplier: 1)
         ])
     }
 
@@ -481,7 +497,7 @@ class AudioPlayerView: UIView {
             progressionView.topAnchor.constraint(equalTo: controlsStackView.bottomAnchor, constant: padding),
             progressionView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -padding),
             progressionViewBottomConstraint,
-            progressionView.heightAnchor.constraint(equalToConstant: 70)
+            progressionViewHeightConstraint
         ])
     }
 

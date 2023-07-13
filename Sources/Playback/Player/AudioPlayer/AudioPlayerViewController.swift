@@ -27,7 +27,7 @@ class AudioPlayerViewController: PlayerViewController {
     private var isQueueHidden: Bool = true
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        get { return UIInterfaceOrientationMask.portrait }
+        get { return UIInterfaceOrientationMask.allButUpsideDown }
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -94,6 +94,10 @@ class AudioPlayerViewController: PlayerViewController {
         if playbackService.isPlayingOnExternalScreen() {
             changeOutputView(to: externalOutputView.displayView)
         }
+
+        let orientation = getDeviceOrientation()
+        audioPlayerView.updateConstraints(for: orientation)
+        mediaScrubProgressBar.shouldHideScrubLabels = orientation.isLandscape ? true : false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -101,6 +105,12 @@ class AudioPlayerViewController: PlayerViewController {
         queueViewController?.hide()
         numberOfTapSeek = 0
         previousSeekState = .default
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        let orientation = getDeviceOrientation()
+        audioPlayerView.updateConstraints(for: orientation)
+        mediaScrubProgressBar.shouldHideScrubLabels = orientation.isLandscape ? true : false
     }
 
     // MARK: Public methods
@@ -265,6 +275,30 @@ class AudioPlayerViewController: PlayerViewController {
         shouldDisableGestures(!enabled)
 
         playerController.isInterfaceLocked = !enabled
+    }
+
+    private func getDeviceOrientation() -> UIDeviceOrientation {
+        // Return the correct device orientation even if it is detected
+        // as flat.
+        let orientation = UIDevice.current.orientation
+
+        if orientation.isFlat {
+            let statusBarOrientation = UIApplication.shared.statusBarOrientation
+            switch statusBarOrientation {
+            case .portrait:
+                return .portrait
+            case .landscapeLeft:
+                return .landscapeLeft
+            case .landscapeRight:
+                return .landscapeRight
+            case .portraitUpsideDown:
+                return .portraitUpsideDown
+            default:
+                return .unknown
+            }
+        }
+
+        return orientation
     }
 }
 

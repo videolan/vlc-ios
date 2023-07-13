@@ -161,7 +161,7 @@ class QueueViewController: UIViewController {
                     bottomConstraint = view.bottomAnchor.constraint(equalTo: parent.view.bottomAnchor,
                                                                     constant: self.view.frame.height)
                 } else if let parent = parent as? AudioPlayerViewController {
-                    heightConstraint = view.heightAnchor.constraint(equalToConstant: parent.audioPlayerView.playqueueView.bounds.height)
+                    heightConstraint = nil
                     grabberView.isHidden = true
                     closeButton.isHidden = true
                     topConstraint = view.topAnchor.constraint(equalTo: parent.audioPlayerView.playqueueView.topAnchor)
