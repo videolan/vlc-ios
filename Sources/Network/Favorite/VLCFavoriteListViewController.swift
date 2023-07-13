@@ -11,9 +11,19 @@ import UIKit
 class VLCFavoriteListViewController: UIViewController {
     init() {
         let notificationCenter = NotificationCenter.default
-        titleArray = userDefaults.stringArray(forKey: kVLCRecentFavoriteTitle) ?? []
         urlArray = userDefaults.stringArray(forKey: kVLCRecentFavoriteURL) ?? []
-    
+        hostnameArray = []
+        layoutArray = [:]
+        
+        for urlItem in urlArray {
+            let component = URLComponents(string: urlItem)
+            if let hostNameValue = component?.host { hostnameArray.insert(hostNameValue) }
+        }
+        
+        for hostname in hostnameArray {
+            layoutArray[hostname] = urlArray.filter { $0.contains(hostname) }
+        }
+
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("FAVORITE", comment: "")
         
@@ -32,13 +42,12 @@ class VLCFavoriteListViewController: UIViewController {
         return tableView
     }()
     
+    let userDefaults: UserDefaults = UserDefaults.standard
     let detailText = NSLocalizedString("FAVORITEVC_DETAILTEXT", comment: "")
     let cellImage = UIImage(named: "heart")
-    
-    var favoriteArray: [VLCNetworkServerBrowserItem] = []
-    var titleArray: [String]
     var urlArray: [String]
-    let userDefaults: UserDefaults = UserDefaults.standard
+    var hostnameArray: Set<String>
+    var layoutArray: [String: [String]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,32 +71,61 @@ class VLCFavoriteListViewController: UIViewController {
 }
 
 extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return layoutArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let hostname = fetchHostnameFromSection(folderList: layoutArray, for: section)
+        return hostname
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titleArray.count
+        let hostname = fetchHostnameFromSection(folderList: layoutArray, for: section)
+        guard let folderCount = layoutArray[hostname]?.count else { return 0 }
+        return folderCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocalNetworkCell", for: indexPath) as! VLCNetworkListCell
-        let title = titleArray[indexPath.row]
-        let url = urlArray[indexPath.row]
+        let hostname = fetchHostnameFromSection(folderList: layoutArray, for: indexPath.section)
         
+        let folderURL = layoutArray[hostname]![indexPath.row]
+        let url = URL(string: folderURL)
+        
+        if let cellTitle = url?.lastPathComponent { cell.title = cellTitle }
+        cell.isDirectory = true
         cell.thumbnailImage = UIImage(named: "folder")
-        cell.title = title
-        cell.subtitle = url
+        cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        didSelectItem(stringURL: urlArray[indexPath.row])
+        let hostname = fetchHostnameFromSection(folderList: layoutArray, for: indexPath.section)
+        let hostnameContent = layoutArray[hostname]![indexPath.row]
+        didSelectItem(stringURL: hostnameContent)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            titleArray.remove(at: indexPath.row)
-            urlArray.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            userDefaults.set(titleArray, forKey: kVLCRecentFavoriteTitle)
+            let hostname = fetchHostnameFromSection(folderList: layoutArray, for: indexPath.section)
+            guard let hostnameContent = layoutArray[hostname]?[indexPath.row] else { return }
+            
+            urlArray = urlArray.filter { $0 != hostnameContent }
+            layoutArray[hostname] = urlArray.filter { $0.contains(hostname) }
+            
+            checkForEmptyHostname()
             userDefaults.set(urlArray, forKey: kVLCRecentFavoriteURL)
+            if layoutArray[hostname] == nil {
+                let sectionToDelete = IndexSet(arrayLiteral: indexPath.section)
+                tableView.deleteSections(sectionToDelete, with: .automatic)
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
     }
 }
@@ -96,20 +134,42 @@ extension VLCFavoriteListViewController {
     @objc func receiveNotification(notif: NSNotification) {
         if let folder = notif.userInfo?["Folder"] as? VLCNetworkServerBrowserItem {
             guard let newItemURL = folder.url?.absoluteString else { return }
+            guard let newItemHostname = URLComponents(string: newItemURL)?.host else { return }
+            
             if let indexToRemove = urlArray.firstIndex(of: newItemURL) {
-                titleArray.remove(at: indexToRemove)
                 urlArray.remove(at: indexToRemove)
             }
             else {
-                titleArray.append(folder.name)
                 urlArray.append(newItemURL)
+                hostnameArray.insert(newItemHostname)
             }
+            layoutArray[newItemHostname] = urlArray.filter {$0.contains(newItemHostname)}
         }
-        userDefaults.set(titleArray, forKey: kVLCRecentFavoriteTitle)
+        
         userDefaults.set(urlArray, forKey: kVLCRecentFavoriteURL)
+        checkForEmptyHostname()
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    func fetchHostnameFromSection(folderList dict: [String: [String]], for section: Int) -> String {
+        let keys = dict.index(dict.startIndex, offsetBy: section)
+        let hostname = dict.keys[keys]
+        return hostname
+    }
+    
+    func checkForEmptyHostname() {
+        var deletedHostname: [String] = []
+        hostnameArray.forEach { hostname in
+            if let favoredArray = layoutArray[hostname] {
+                if favoredArray.isEmpty { deletedHostname.append(hostname) }
+            }
+        }
+        deletedHostname.forEach { hostname in
+            hostnameArray.remove(hostname)
+            layoutArray.removeValue(forKey: hostname)
         }
     }
         
