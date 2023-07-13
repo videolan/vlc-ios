@@ -20,6 +20,7 @@ class MediaScrubProgressBar: UIStackView {
     private var playbackService = PlaybackService.sharedInstance()
     private var positionSet: Bool = true
     private(set) var isScrubbing: Bool = false
+    var shouldHideScrubLabels: Bool = false
     
     @objc lazy private(set) var progressSlider: VLCOBSlider = {
         var slider = VLCOBSlider()
@@ -196,6 +197,10 @@ private extension MediaScrubProgressBar {
     }
 
     @objc private func updateScrubLabel() {
+        guard !shouldHideScrubLabels else {
+            return
+        }
+
         let speed = progressSlider.scrubbingSpeed
         if  speed == 1 {
             scrubbingIndicatorLabel.text = NSLocalizedString("PLAYBACK_SCRUB_HIGH", comment:"")
@@ -262,12 +267,12 @@ private extension MediaScrubProgressBar {
     @objc private func progressSliderTouchDown() {
         updateScrubLabel()
         isScrubbing = true
-        scrubInfoStackView.isHidden = !isScrubbing
+        scrubInfoStackView.isHidden = shouldHideScrubLabels ? true : !isScrubbing
     }
 
     @objc private func progressSliderTouchUp() {
         isScrubbing = false
-        scrubInfoStackView.isHidden = !isScrubbing
+        scrubInfoStackView.isHidden = shouldHideScrubLabels ? true : !isScrubbing
     }
 
     @objc private func handleWillResignActive() {
