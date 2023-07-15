@@ -20,5 +20,6 @@
 
 - (void)handlePlayPausePress;
 - (void)deleteFileAtIndex:(NSIndexPath * _Nullable)indexPathToDelete;
+- (void)renameFileAtIndex:(NSIndexPath * _Nullable)indexPathToRename;
 
 @end
