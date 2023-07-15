@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #import "VLCSettingsViewController.h"
-
+#import "VLCAppCoordinator.h"
 #import "IASKSettingsReader.h"
 #import "IASKSpecifier.h"
 #import "VLCAboutViewController.h"
@@ -220,11 +220,21 @@
 
         [self presentViewController:alertController animated:YES completion:nil];
     } else {
-        VLCAboutViewController *targetViewController = [[VLCAboutViewController alloc] initWithNibName:nil bundle:nil];
-        targetViewController.title = specifier.title;
-        [self presentViewController:targetViewController
-                           animated:YES
-                         completion:nil];
+        NSString *forceRescan = @"Force VLC to rescan the media library";
+        if ([specifier.title isEqual : forceRescan]) {
+            _mediaLibraryService = [[VLCAppCoordinator sharedInstance] mediaLibraryService];
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+            dispatch_async(queue, ^{
+                [self.mediaLibraryService forceRescan];
+            });
+
+        } else {
+            VLCAboutViewController *targetViewController = [[VLCAboutViewController alloc] initWithNibName:nil bundle:nil];
+            targetViewController.title = specifier.title;
+            [self presentViewController:targetViewController
+                               animated:YES
+                             completion:nil];
+        }
     }
 }
 

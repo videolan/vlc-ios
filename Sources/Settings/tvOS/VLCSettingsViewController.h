@@ -10,9 +10,13 @@
  *****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import "VLC-Swift.h"
+
+@class MediaLibraryService;
 
 @interface VLCSettingsViewController : UIViewController
 
 @property (readwrite, weak, nonatomic) IBOutlet UITableView *tableView;
+@property (readonly) MediaLibraryService *mediaLibraryService;
 
 @end
