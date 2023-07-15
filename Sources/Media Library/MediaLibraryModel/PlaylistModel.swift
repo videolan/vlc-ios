@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class PlaylistModel: MLBaseModel {
+class PlaylistModel: NSObject, MLBaseModel {
     typealias MLType = VLCMLPlaylist
 
     var sortModel = SortModel([.alpha, .duration])
@@ -18,11 +18,13 @@ class PlaylistModel: MLBaseModel {
     var observable = VLCObservable<MediaLibraryBaseModelObserver>()
 
     var fileArrayLock = NSRecursiveLock()
-    var files = [VLCMLPlaylist]()
+    @objc var files = [VLCMLPlaylist]()
 
+    #if !os(tvOS)
     var cellType: BaseCollectionViewCell.Type {
         return UserDefaults.standard.bool(forKey: "\(kVLCAudioLibraryGridLayout)\(name)") ? MovieCollectionViewCell.self : MediaCollectionViewCell.self
     }
+    #endif
 
     var medialibrary: MediaLibraryService
 
@@ -30,11 +32,12 @@ class PlaylistModel: MLBaseModel {
 
     var indicatorName: String = NSLocalizedString("PLAYLISTS", comment: "")
 
-    required init(medialibrary: MediaLibraryService) {
+   @objc required init(medialibrary: MediaLibraryService) {
         defer {
             fileArrayLock.unlock()
         }
         self.medialibrary = medialibrary
+        super.init()
         medialibrary.observable.addObserver(self)
         fileArrayLock.lock()
         files = medialibrary.playlists()

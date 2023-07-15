@@ -9,7 +9,6 @@
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
-
 #import "VLCMLMedia+App.h"
 #import "VLCAppCoordinator.h"
 #import "VLC-Swift.h"

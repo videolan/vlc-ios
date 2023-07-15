@@ -26,11 +26,9 @@ protocol MediaLibraryBaseModel {
     var sortModel: SortModel { get }
 
     var indicatorName: String { get }
-    
-    #if !os(watchOS)
+    #if !os(tvOS) && !os(watchOS)
     var cellType: BaseCollectionViewCell.Type { get }
     #endif
-
     func anyAppend(_ item: VLCMLObject)
     func anyDelete(_ items: [VLCMLObject])
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool)
@@ -55,6 +53,7 @@ protocol MLBaseModel: AnyObject, MediaLibraryBaseModel {
 
     func append(_ item: MLType)
     func delete(_ items: [MLType])
+
     func sort(by criteria: VLCMLSortingCriteria, desc: Bool)
 }
 
@@ -174,11 +173,10 @@ extension MediaCollectionModel {
         if image == nil
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && self is VLCMLMediaGroup)
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && !(self is VLCMLMediaGroup)) {
-            #if !os(watchOS)
-            let isDarktheme = PresentationTheme.current.isDark
-            #elseif os(watchOS)
-            // watchOS only has a dark theme
+            #if os(tvOS) || os(watchOS)
             let isDarktheme = true
+            #else
+            let isDarktheme = PresentationTheme.current.isDark
             #endif
             if self is VLCMLMediaGroup {
                 image = isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")

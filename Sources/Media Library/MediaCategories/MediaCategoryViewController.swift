@@ -1163,6 +1163,7 @@ private extension MediaCategoryViewController {
         return [VLCMLObject]()
     }
 
+#if !os(tvOS)
     private func createSpotlightItem(media: VLCMLMedia) {
         if KeychainCoordinator.passcodeService.hasSecret {
             return
@@ -1175,6 +1176,7 @@ private extension MediaCategoryViewController {
         userActivity?.isEligibleForHandoff = true
         userActivity?.becomeCurrent()
     }
+#endif
 
     @objc func preferredContentSizeChanged(_ notification: Notification) {
         cachedCellSize = .zero
@@ -1646,7 +1648,9 @@ extension MediaCategoryViewController {
                 return
             }
             play(media: media, at: indexPath)
+#if !os(tvOS)
             createSpotlightItem(media: media)
+#endif
             return
         }
 
@@ -1660,7 +1664,9 @@ extension MediaCategoryViewController {
 
         if let media = modelContent as? VLCMLMedia {
             play(media: media, at: indexPath)
+#if !os(tvOS)
             createSpotlightItem(media: media)
+#endif
         } else if let artist = modelContent as? VLCMLArtist {
             let artistViewController = ArtistViewController(mediaLibraryService: mediaLibraryService, mediaCollection: artist)
             navigationController?.pushViewController(artistViewController, animated: true)

@@ -9,7 +9,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class ShowEpisodeModel: MediaModel {
+class ShowEpisodeModel: NSObject, MediaModel {
     typealias MLType = VLCMLMedia
 
     var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize])
@@ -29,6 +29,7 @@ class ShowEpisodeModel: MediaModel {
 
     required init(medialibrary: MediaLibraryService) {
         self.medialibrary = medialibrary
+        super.init()
         medialibrary.observable.addObserver(self)
     }
 

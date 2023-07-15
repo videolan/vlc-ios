@@ -9,19 +9,21 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class VideoModel: MediaModel {
+class VideoModel: NSObject, MediaModel {
     typealias MLType = VLCMLMedia
 
-    var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize, .lastPlaybackDate, .playCount])
+    @objc var sortModel = SortModel([.alpha, .duration, .insertionDate, .releaseDate, .fileSize, .lastPlaybackDate, .playCount])
 
     var observable = VLCObservable<MediaLibraryBaseModelObserver>()
 
     var fileArrayLock = NSRecursiveLock()
-    var files = [VLCMLMedia]()
+    @objc var files = [VLCMLMedia]()
 
+#if !os(tvOS)
     var cellType: BaseCollectionViewCell.Type {
         return UserDefaults.standard.bool(forKey: "\(kVLCVideoLibraryGridLayout)\(name)") ? MovieCollectionViewCell.self : MediaCollectionViewCell.self
     }
+#endif
 
     var medialibrary: MediaLibraryService
 
@@ -31,14 +33,20 @@ class VideoModel: MediaModel {
 
     var indicatorName: String = NSLocalizedString("ALL_VIDEOS", comment: "")
 
-    required init(medialibrary: MediaLibraryService) {
+    @objc required init(medialibrary: MediaLibraryService) {
         defer {
             fileArrayLock.unlock()
         }
         self.medialibrary = medialibrary
+        super.init()
         medialibrary.observable.addObserver(self)
         fileArrayLock.lock()
         files = medialibrary.media(ofType: .video)
+    }
+
+    @objc func getmedia(at index: Int) -> VLCMLMedia {
+        let media = files[index]
+        return media
     }
 }
 

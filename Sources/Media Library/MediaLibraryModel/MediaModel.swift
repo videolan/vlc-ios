@@ -13,7 +13,7 @@
 import CoreSpotlight
 #endif
 
-protocol MediaModel: MLBaseModel where MLType == VLCMLMedia { }
+protocol MediaModel: NSObject, MLBaseModel where MLType == VLCMLMedia { }
 
 extension MediaModel {
     func append(_ item: VLCMLMedia) {
@@ -34,7 +34,7 @@ extension MediaModel {
 // MARK: - ViewModel
 
 extension VLCMLMedia {
-    func deleteMainFile() {
+    @objc func deleteMainFile() {
         if let mainFile = mainFile() {
             mainFile.delete()
         }
@@ -59,6 +59,7 @@ extension VLCMLMedia {
 
     @objc func thumbnailImage() -> UIImage? {
         var image = VLCThumbnailsCache.thumbnail(for: thumbnail())
+        #if !os(tvOS)
         if image == nil
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowThumbnails) && subtype() != .albumTrack)
             || (!UserDefaults.standard.bool(forKey: kVLCSettingShowArtworks) && subtype() == .albumTrack) {
@@ -74,6 +75,7 @@ extension VLCMLMedia {
                 image = isDarktheme ? UIImage(named: "movie-placeholder-dark") : UIImage(named: "movie-placeholder-white")
             }
         }
+        #endif
         return image
     }
 
@@ -95,8 +97,8 @@ extension VLCMLMedia {
 }
 
 // MARK: - CoreSpotlight
-#if !os(watchOS)
 extension VLCMLMedia {
+#if !os(tvOS) && !os(watchOS)
     func coreSpotlightAttributeSet() -> CSSearchableItemAttributeSet {
         let attributeSet = CSSearchableItemAttributeSet(itemContentType: "public.audiovisual-content")
         attributeSet.title = title
@@ -135,6 +137,15 @@ extension VLCMLMedia {
 
         return attributeSet
     }
+
+    func updateCoreSpotlightEntry() {
+        if !KeychainCoordinator.passcodeService.hasSecret {
+            let groupIdentifier = ProcessInfo.processInfo.environment["GROUP_IDENTIFIER"]
+            let item = CSSearchableItem(uniqueIdentifier: "\(identifier())", domainIdentifier: groupIdentifier, attributeSet: coreSpotlightAttributeSet())
+            CSSearchableIndex.default().indexSearchableItems([item], completionHandler: nil)
+        }
+    }
+#endif
 
     func codecs() -> [String] {
         var codecs = [String]()
@@ -176,20 +187,11 @@ extension VLCMLMedia {
         }
         return languages
     }
-
-    func updateCoreSpotlightEntry() {
-        if !KeychainCoordinator.passcodeService.hasSecret {
-            let groupIdentifier = ProcessInfo.processInfo.environment["GROUP_IDENTIFIER"]
-            let item = CSSearchableItem(uniqueIdentifier: "\(identifier())", domainIdentifier: groupIdentifier, attributeSet: coreSpotlightAttributeSet())
-            CSSearchableIndex.default().indexSearchableItems([item], completionHandler: nil)
-        }
-    }
 }
-#endif
 
 // MARK: - Search
 extension VLCMLMedia: SearchableMLModel {
-    func contains(_ searchString: String) -> Bool {
+    @objc func contains(_ searchString: String) -> Bool {
         var matches = false
 
         matches = matches || search(searchString, in: title)
@@ -200,6 +202,7 @@ extension VLCMLMedia: SearchableMLModel {
             matches = matches || search(searchString, in: album?.title ?? "")
         }
 
+        matches = matches || search(searchString, in: title)
         return matches
     }
 }

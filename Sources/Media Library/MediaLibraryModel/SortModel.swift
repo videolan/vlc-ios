@@ -10,7 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-class SortModel {
+class SortModel: NSObject {
     var currentSort: VLCMLSortingCriteria
     var desc: Bool
     var sortingCriteria: [VLCMLSortingCriteria]
