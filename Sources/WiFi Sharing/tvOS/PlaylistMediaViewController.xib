@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="21225" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
+    <dependencies>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaylistMediaViewController">
+            <connections>
+                <outlet property="playlistMediaCollection" destination="8hg-De-WQS" id="NAa-Vp-WB8"/>
+                <outlet property="playlistTitle" destination="5hv-JS-t6h" id="0ou-na-l3h"/>
+                <outlet property="searchMediaBar" destination="1fj-3C-yjy" id="hmf-98-CRN"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8hg-De-WQS">
+                    <rect key="frame" x="30" y="260" width="1860" height="800"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="800" id="TXy-jj-4Wr"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QoP-ea-M2W">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playlist Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hv-JS-t6h">
+                    <rect key="frame" x="680" y="55" width="560" height="75"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="75" id="mq3-eh-tr6"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="63"/>
+                    <color key="textColor" systemColor="systemOrangeColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1fj-3C-yjy">
+                    <rect key="frame" x="280" y="160" width="1360" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="sBK-nn-gbD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="yIn-56-ToE"/>
+            <constraints>
+                <constraint firstItem="yIn-56-ToE" firstAttribute="trailing" secondItem="1fj-3C-yjy" secondAttribute="trailing" constant="200" id="7xX-Xm-zvv"/>
+                <constraint firstItem="yIn-56-ToE" firstAttribute="trailing" secondItem="5hv-JS-t6h" secondAttribute="trailing" constant="600" id="8Gp-sZ-c6s"/>
+                <constraint firstItem="8hg-De-WQS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="8zc-0U-zL8"/>
+                <constraint firstAttribute="trailing" secondItem="8hg-De-WQS" secondAttribute="trailing" constant="30" id="FNb-6f-iYb"/>
+                <constraint firstItem="8hg-De-WQS" firstAttribute="top" secondItem="5hv-JS-t6h" secondAttribute="bottom" constant="130" id="OHg-vL-QMy"/>
+                <constraint firstItem="5hv-JS-t6h" firstAttribute="leading" secondItem="yIn-56-ToE" secondAttribute="leading" constant="600" id="QbL-qa-Dbr"/>
+                <constraint firstAttribute="bottom" secondItem="8hg-De-WQS" secondAttribute="bottom" constant="20" id="bDt-lj-WY8"/>
+                <constraint firstItem="8hg-De-WQS" firstAttribute="top" secondItem="1fj-3C-yjy" secondAttribute="bottom" constant="30" id="wF6-f6-8aa"/>
+                <constraint firstItem="1fj-3C-yjy" firstAttribute="leading" secondItem="yIn-56-ToE" secondAttribute="leading" constant="200" id="z0M-2p-3Rm"/>
+            </constraints>
+            <point key="canvasLocation" x="185" y="-35"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
