@@ -70,6 +70,7 @@
 #define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
 #define kVLCPlayerUIShouldHide @"PlayerUIShouldHide"
+#define KVLCContinuePlaybackWhereLeftOff @"continuemediaPlayback"
 #define kVLCSettingDownloadArtwork @"download-artwork"
 #define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
