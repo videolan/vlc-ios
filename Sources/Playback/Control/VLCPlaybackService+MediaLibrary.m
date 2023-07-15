@@ -42,6 +42,7 @@
     [self playMedia:media];
 }
 
+#if TARGET_OS_IOS
 - (void)playMedia:(VLCMLMedia *)media withMode:(EditButtonType)mode
 {
     VLCMediaList *list = self.isShuffleMode ? self.shuffledList : self.mediaList;
@@ -117,6 +118,8 @@
     [self playCollection:collection withMode:EditButtonTypeAppendToQueue];
     [VLCPlaybackService.sharedInstance.playerDisplayController hintPlayqueueWithDelay:0.5];
 }
+
+#endif
 
 - (VLCMediaList *)configureMediaListWithMLMedia:(NSArray<VLCMLMedia *> *)mlMedia indexToPlay:(int)index {
     VLCMediaList *list = [[VLCMediaList alloc] init];

@@ -184,8 +184,9 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)togglePictureInPicture;
 - (void)saveSnapshotWithCompletion:(void (^)(BOOL success, NSError *_Nullable error))completion;
 
-#if !TARGET_OS_TV
 - (void)savePlaybackState;
+
+#if TARGET_OS_IOS || TARGET_OS_VISION
 - (void)restoreAudioAndSubtitleTrack;
 - (BOOL)mediaListContains:(NSURL *)url;
 - (void)removeMediaFromMediaListAtIndex:(NSUInteger)index;

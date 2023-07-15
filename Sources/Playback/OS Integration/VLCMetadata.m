@@ -15,7 +15,6 @@
 #import <ImageIO/ImageIO.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "VLCPlaybackService.h"
-#import "VLCMicroMediaLibraryService.h"
 
 #if TARGET_OS_IOS || TARGET_OS_VISION || TARGET_OS_WATCH
 #import "VLC-Swift.h"
@@ -142,24 +141,11 @@
     VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
 
     if (metadata) {
-#if TARGET_OS_TV
-        VLCMediaList *mediaList = playbackService.mediaList;
-        NSInteger currentIndex = [mediaList indexOfMedia:mediaPlayer.media];
-        VLCMicroMediaLibraryService *microMediaLibrary = [VLCMicroMediaLibraryService sharedInstance];
-        NSString *currentTitle = [microMediaLibrary titleForItemAtIndex:currentIndex];
-
-        if (currentTitle == nil) {
-            currentTitle = metadata.title;
-        }
-
-        self.title = [currentTitle stringByDeletingPathExtension];
-#else
         if (metadata.nowPlaying != nil) {
             self.title = metadata.nowPlaying;
         } else {
             self.title = metadata.title;
         }
-#endif
         self.artist = metadata.artist;
         self.albumName = metadata.album;
         self.trackNumber = @(metadata.trackNumber);

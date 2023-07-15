@@ -33,10 +33,8 @@
 
 #import <stdatomic.h>
 
-#if !TARGET_OS_TV
 #import "VLCMLMedia+Podcast.h"
 #import "VLCMLMedia+isWatched.h"
-#endif
 
 #import "VLC-Swift.h"
 
@@ -516,9 +514,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
             if (_mediaPlayer.media) {
                 if (_mediaPlayer.state != VLCMediaPlayerStateStopped) {
                     [_mediaPlayer pause];
-#if !TARGET_OS_TV
                     [self savePlaybackState];
-#endif
                     [_mediaPlayer stop];
                 }
             }
@@ -565,7 +561,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     }
 }
 
-#if !TARGET_OS_TV
 - (void)restoreAudioAndSubtitleTrack
 {
     VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
@@ -620,7 +615,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 #endif
     }
 }
-#endif
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -1236,9 +1230,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
     if (nextIndex < 0) {
         if (self.repeatMode == VLCRepeatAllItems) {
-#if !TARGET_OS_TV
             [self savePlaybackState];
-#endif
             [_listPlayer next];
             [[NSNotificationCenter defaultCenter]
              postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
@@ -1247,9 +1239,7 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         }
         return NO;
     }
-#if !TARGET_OS_TV
     [self savePlaybackState];
-#endif
 
     [_listPlayer playItemAtNumber:@(nextIndex)];
     [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackMetadataDidChange object:self];
@@ -1263,9 +1253,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         if (playedTime.value.longLongValue / 2000 >= 1) {
             self.playbackPosition = .0;
         } else {
-#if !TARGET_OS_TV
             [self savePlaybackState];
-#endif
+
             if (!_currentIndex) {
                 VLCMediaList *currentMediaList = _shuffleMode ? _shuffledList : _mediaList;
                 _currentIndex = [currentMediaList indexOfMedia:self.currentlyPlayingMedia];
@@ -1696,9 +1685,9 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     if (_externalAudioPlaybackDeviceConnected && !externalAudioPlaybackDeviceConnected && [_mediaPlayer isPlaying]) {
         APLog(@"Pausing playback as previously connected external audio playback device was removed");
         [_mediaPlayer pause];
-#if !TARGET_OS_TV
-       [self savePlaybackState];
-#endif
+
+        [self savePlaybackState];
+
         [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
     }
     _externalAudioPlaybackDeviceConnected = externalAudioPlaybackDeviceConnected;
@@ -1745,7 +1734,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     [self recoverDisplayedMetadata];
 }
 
-#if !TARGET_OS_TV
 - (void)_recoverLastPlaybackState
 {
     VLCMedia *media = _mediaPlayer.media;
@@ -1851,7 +1839,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         }
     }
 }
-#endif
 
 - (void)recoverDisplayedMetadata
 {
@@ -1904,9 +1891,8 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
 
 - (void)applicationWillResignActive:(NSNotification *)aNotification
 {
-#if !TARGET_OS_TV
     [self savePlaybackState];
-#endif
+
     if (![self isPlayingOnExternalScreen]
         && ![[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioInBackgroundKey] boolValue]) {
         if ([_mediaPlayer isPlaying]) {
@@ -1976,7 +1962,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
     };
 }
 
-#if !TARGET_OS_TV
 - (void)savePlaybackState
 {
     BOOL activePlaybackSession = self.isPlaying || _playerIsSetup;
@@ -2010,7 +1995,6 @@ NSString *const VLCLastPlaylistPlayedMedia = @"LastPlaylistPlayedMedia";
         [self next];
     }
 }
-#endif
 
 #pragma mark - Renderer
 
