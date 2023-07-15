@@ -27,6 +27,7 @@
 #define MAX_CACHE_SIZE_IPHONE 24  // three times the number of items shown on iPhone 11 Pro
 #define MAX_CACHE_SIZE_IPAD   45  // three times the number of items shown on regular sized iPad
 #define MAX_CACHE_SIZE_WATCH  15  // three times the number of items shown on 42mm Watch
+#define MAX_CACHE_SIZE_tvOS   50
 
 - (instancetype)init
 {
@@ -45,7 +46,8 @@
             case UIUserInterfaceIdiomPhone:
                 MaxCacheSize = MAX_CACHE_SIZE_IPHONE;
                 break;
-
+            case UIUserInterfaceIdiomTV:
+                MaxCacheSize = MAX_CACHE_SIZE_tvOS;
             default:
                 MaxCacheSize = MAX_CACHE_SIZE_WATCH;
                 break;
