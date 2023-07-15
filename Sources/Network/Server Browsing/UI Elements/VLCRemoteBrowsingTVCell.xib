@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="22155" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="appleTV" appearance="light"/>
     <dependencies>
         <deployment identifier="tvOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,13 +18,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3U-B3-AOa">
-                        <rect key="frame" x="8" y="243" width="292" height="30"/>
+                        <rect key="frame" x="8" y="239.5" width="292" height="30"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I51-60-pwl">
-                        <rect key="frame" x="8" y="273" width="292" height="35"/>
+                        <rect key="frame" x="8" y="269.5" width="292" height="35"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -36,36 +36,66 @@
                             <constraint firstAttribute="width" secondItem="tHQ-sR-zn4" secondAttribute="height" multiplier="1:1" id="f9I-1N-eD2"/>
                         </constraints>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" translatesAutoresizingMaskIntoConstraints="NO" id="Atk-SQ-yFf">
-                        <rect key="frame" x="254" y="200" width="40" height="40"/>
+                    <progressView contentMode="scaleAspectFit" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="pqN-nv-I6Z">
+                        <rect key="frame" x="64" y="210" width="180" height="4.5"/>
                         <color key="tintColor" systemColor="systemOrangeColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="2ll-RJ-Lla"/>
-                            <constraint firstAttribute="width" secondItem="Atk-SQ-yFf" secondAttribute="height" multiplier="1:1" id="6GK-Ut-TnU"/>
+                            <constraint firstAttribute="height" constant="4.5" id="ZPK-1X-XhR"/>
+                        </constraints>
+                    </progressView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="NEW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CA8-hB-zq3">
+                        <rect key="frame" x="216" y="219" width="28" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" systemColor="systemOrangeColor"/>
+                        <color key="highlightedColor" systemColor="systemOrangeColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkboxEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="WDU-Ht-4LP">
+                        <rect key="frame" x="221" y="185" width="20" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="6GZ-vK-VrQ"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" translatesAutoresizingMaskIntoConstraints="NO" id="bIV-pt-zuA">
+                        <rect key="frame" x="67" y="185" width="20" height="22"/>
+                        <color key="tintColor" systemColor="systemOrangeColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="B3g-OB-3eG"/>
+                            <constraint firstAttribute="width" constant="20" id="e09-EG-RmT"/>
                         </constraints>
                     </imageView>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="bIV-pt-zuA" firstAttribute="bottom" secondItem="WDU-Ht-4LP" secondAttribute="bottom" id="2SC-3A-X5p"/>
                 <constraint firstItem="tHQ-sR-zn4" firstAttribute="top" secondItem="Q7n-Zw-Frg" secondAttribute="top" constant="30" id="8wr-H9-liN"/>
-                <constraint firstAttribute="trailing" secondItem="Atk-SQ-yFf" secondAttribute="trailing" constant="14" id="Dgq-Gp-k9j"/>
                 <constraint firstAttribute="trailing" secondItem="h3U-B3-AOa" secondAttribute="trailing" constant="8" id="Ge1-kn-QhB"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="leading" secondItem="Q7n-Zw-Frg" secondAttribute="leading" constant="8" id="H8p-nC-etm"/>
                 <constraint firstItem="h3U-B3-AOa" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="Ju6-jJ-msL"/>
-                <constraint firstItem="h3U-B3-AOa" firstAttribute="top" secondItem="tHQ-sR-zn4" secondAttribute="bottom" priority="750" constant="100" id="LuX-cK-Eln"/>
-                <constraint firstItem="h3U-B3-AOa" firstAttribute="centerY" secondItem="Q7n-Zw-Frg" secondAttribute="centerY" priority="250" constant="70" id="MFX-5P-qst"/>
+                <constraint firstItem="pqN-nv-I6Z" firstAttribute="leading" secondItem="tHQ-sR-zn4" secondAttribute="leading" id="LQ7-81-4eb"/>
+                <constraint firstItem="h3U-B3-AOa" firstAttribute="top" secondItem="tHQ-sR-zn4" secondAttribute="bottom" priority="750" constant="50" id="LuX-cK-Eln"/>
+                <constraint firstItem="h3U-B3-AOa" firstAttribute="centerY" secondItem="Q7n-Zw-Frg" secondAttribute="centerY" priority="250" constant="67" id="MFX-5P-qst"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="Oor-FV-rN3"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="top" secondItem="h3U-B3-AOa" secondAttribute="bottom" priority="750" id="UJB-cg-tjo"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="I51-60-pwl" secondAttribute="bottom" id="UxF-cz-tVA"/>
+                <constraint firstItem="pqN-nv-I6Z" firstAttribute="trailing" secondItem="tHQ-sR-zn4" secondAttribute="trailing" id="Vz4-2n-hET"/>
                 <constraint firstItem="I51-60-pwl" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="b1v-nG-XoP"/>
+                <constraint firstItem="pqN-nv-I6Z" firstAttribute="top" secondItem="bIV-pt-zuA" secondAttribute="bottom" constant="3" id="cfx-Or-frm"/>
                 <constraint firstItem="tHQ-sR-zn4" firstAttribute="centerX" secondItem="Q7n-Zw-Frg" secondAttribute="centerX" id="chF-tu-ma8"/>
                 <constraint firstAttribute="trailing" secondItem="I51-60-pwl" secondAttribute="trailing" constant="8" id="ftZ-YD-4bt"/>
-                <constraint firstItem="Atk-SQ-yFf" firstAttribute="top" secondItem="Q7n-Zw-Frg" secondAttribute="top" constant="200" id="jGk-vx-Ybd"/>
+                <constraint firstItem="h3U-B3-AOa" firstAttribute="top" secondItem="pqN-nv-I6Z" secondAttribute="bottom" constant="25" id="oeT-xW-BwE"/>
                 <constraint firstItem="h3U-B3-AOa" firstAttribute="leading" secondItem="Q7n-Zw-Frg" secondAttribute="leading" constant="8" id="p8s-T6-E5f"/>
+                <constraint firstItem="bIV-pt-zuA" firstAttribute="leading" secondItem="Q7n-Zw-Frg" secondAttribute="leading" constant="67" id="sID-kx-XmB"/>
+                <constraint firstAttribute="trailing" secondItem="WDU-Ht-4LP" secondAttribute="trailing" constant="67" id="szx-eN-QJ5"/>
+                <constraint firstItem="pqN-nv-I6Z" firstAttribute="top" secondItem="tHQ-sR-zn4" secondAttribute="bottom" id="z32-8j-xaI"/>
+                <constraint firstItem="WDU-Ht-4LP" firstAttribute="top" secondItem="bIV-pt-zuA" secondAttribute="top" id="z8G-QG-Drm"/>
             </constraints>
             <size key="customSize" width="314" height="270"/>
             <connections>
-                <outlet property="favorite" destination="Atk-SQ-yFf" id="lh2-gx-Cmf"/>
+                <outlet property="checkBoxImageView" destination="WDU-Ht-4LP" id="pch-yN-DB7"/>
+                <outlet property="favorite" destination="bIV-pt-zuA" id="ewG-y7-KSO"/>
+                <outlet property="medianew" destination="CA8-hB-zq3" id="8Fn-uu-SrU"/>
+                <outlet property="progressView" destination="pqN-nv-I6Z" id="i3w-aC-dh8"/>
                 <outlet property="subtitleLabel" destination="I51-60-pwl" id="QAu-qM-AqE"/>
                 <outlet property="thumbnailImageView" destination="tHQ-sR-zn4" id="Lfb-zG-339"/>
                 <outlet property="titleLabel" destination="h3U-B3-AOa" id="skp-ZA-fQ8"/>
@@ -74,10 +104,10 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="checkboxEmpty" width="24" height="24"/>
         <image name="heart.fill" width="24" height="24"/>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
-

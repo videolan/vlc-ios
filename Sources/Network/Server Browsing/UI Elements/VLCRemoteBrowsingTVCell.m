@@ -12,6 +12,7 @@
 
 #import "VLCRemoteBrowsingTVCell.h"
 #import "VLCMDFBrowsingArtworkProvider.h"
+#import "VLC-Swift.h"
 
 NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 
@@ -32,8 +33,11 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     [super awakeFromNib];
     _artworkProvider = [[VLCMDFBrowsingArtworkProvider alloc] init];
     _artworkProvider.artworkReceiver = self;
+    self.medianew.hidden = YES;
+    self.checkBoxImageView.hidden = YES;
     _thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
     _favorite.hidden = YES;
+    self.selectedPreviously = NO;
     [self prepareForReuse];
 }
 
@@ -45,6 +49,7 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     self.title = nil;
     self.subtitle = nil;
     self.downloadArtwork = NO;
+    self.selectedPreviously = NO;
 }
 
 - (void)setCouldBeAudioOnlyMedia:(BOOL)couldBeAudioOnlyMedia
@@ -79,6 +84,11 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     [self.thumbnailImageView setImage:thumbnailImage];
 }
 
+-(void)setCachedThumbnail:(VLCMLMedia *)forMedia
+{
+    [self.thumbnailImageView requestCachedThumbnail:forMedia];
+}
+
 -(UIImage *)thumbnailImage
 {
     return self.thumbnailImageView.image;
@@ -90,6 +100,27 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
     if (title != nil && !_isDirectory && _downloadArtwork) {
         [_artworkProvider searchForArtworkForVideoRelatedString:title];
     }
+}
+
+-(void)setMediaProgress:(float)mediaProgress
+{
+    self.progressView.progress = mediaProgress;
+}
+
+-(void)setMediaisNew:(BOOL)mediaisNew
+{
+    self.medianew.hidden = mediaisNew;
+}
+
+-(void)setCheckBoxImageView
+{
+    self.checkBoxImageView.image =  self.selectedPreviously ? [UIImage imageNamed:@"checkboxEmpty"] : [UIImage imageNamed:@"checkboxSelected"];
+    self.selectedPreviously = !_selectedPreviously;
+}
+
+-(void)setProgressViewHidden:(BOOL)progressViewHidden
+{
+    self.progressView.hidden = progressViewHidden;
 }
 
 - (NSString *)title
@@ -118,5 +149,12 @@ NSString *const VLCRemoteBrowsingTVCellIdentifier = @"VLCRemoteBrowsingTVCell";
 }
 
 @synthesize isFavorable;
+@synthesize mediaProgress;
+
+@synthesize mediaisNew;
+
+@synthesize progressViewHidden;
+
+@synthesize forMedia;
 
 @end
