@@ -448,7 +448,9 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
     if ([fileManager fileExistsAtPath:uploadDirPath])
         [fileManager removeItemAtPath:uploadDirPath error:nil];
 }
+#endif
 
+#if TARGET_OS_IOS
 - (void)resetIdleTimer
 {
     const int timeInterval = 4;
