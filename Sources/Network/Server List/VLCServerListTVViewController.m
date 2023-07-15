@@ -115,15 +115,15 @@
     [self.view addConstraint:xConstraint];
 
     NSArray *classes = @[
-                         [VLCLocalNetworkServiceBrowserManualConnect class],
-                         [VLCLocalNetworkServiceBrowserFavorites class],
-                         [VLCLocalNetworkServiceBrowserHTTP class],
-                         [VLCLocalNetworkServiceBrowserUPnP class],
-                         [VLCLocalNetworkServiceBrowserDSM class],
-                         [VLCLocalNetworkServiceBrowserPlex class],
-                         [VLCLocalNetworkServiceBrowserNFS class],
-                         [VLCLocalNetworkServiceBrowserBonjour class],
-                         ];
+        [VLCLocalNetworkServiceBrowserManualConnect class],
+        [VLCLocalNetworkServiceBrowserFavorites class],
+        [VLCLocalNetworkServiceBrowserHTTP class],
+        [VLCLocalNetworkServiceBrowserUPnP class],
+        [VLCLocalNetworkServiceBrowserDSM class],
+        [VLCLocalNetworkServiceBrowserPlex class],
+        [VLCLocalNetworkServiceBrowserNFS class],
+        [VLCLocalNetworkServiceBrowserBonjour class],
+    ];
     self.discoveryController = [[VLCLocalServerDiscoveryController alloc] initWithServiceBrowserClasses:classes];
     self.discoveryController.delegate = self;
     [self discoveryFoundSomethingNew];
@@ -169,6 +169,7 @@
     browsingCell.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     browsingCell.subtitle = service.serviceName;
     browsingCell.subtitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    [browsingCell setProgressViewHidden:YES];
 
     NSURL *thumbnailURL;
     if ([service respondsToSelector:@selector(iconURL)]) {
@@ -233,9 +234,9 @@
             if (login.protocolIdentifier) {
                 if ([login.protocolIdentifier isEqualToString:@"favorites"]) {
                     FavoriteListViewController *favoriteListViewController = [[FavoriteListViewController alloc] init];
-                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:favoriteListViewController];
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:favoriteListViewController];
                     navController.view.window.translatesAutoresizingMaskIntoConstraints = NO;
-                     [self presentViewController: navController animated:YES completion:nil];
+                    [self presentViewController: navController animated:YES completion:nil];
                 } else {
                     [self showLoginAlertWithLogin:login];
                 }
@@ -272,8 +273,8 @@
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                          [self showLoginAlertWithLogin:login];
-                                                      }]];
+        [self showLoginAlertWithLogin:login];
+    }]];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -298,7 +299,7 @@
 - (void)showLoginAlertWithLogin:(nonnull VLCNetworkServerLoginInformation *)login
 {
     AlertControllerWithMessageHeight *alertController = [AlertControllerWithMessageHeight alertControllerWithTitle:NSLocalizedString(@"CONNECT_TO_SERVER", nil)
-                                                                             message:login.address preferredStyle:UIAlertControllerStyleAlert];
+                                                                                                           message:login.address preferredStyle:UIAlertControllerStyleAlert];
 
     __block UITextField *usernameField = nil;
     __block UITextField *passwordField = nil;
@@ -366,31 +367,31 @@
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"LOGIN", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                          loginBlock(NO);
-                                                      }]];
+        loginBlock(NO);
+    }]];
 
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_SAVE", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                          loginBlock(YES);
-                                                      }]];
+        loginBlock(YES);
+    }]];
     if (login.username.length || login.password.length) {
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_DELETE", nil)
                                                             style:UIAlertActionStyleDestructive
                                                           handler:^(UIAlertAction * _Nonnull action) {
-                                                              NSError *error = nil;
-                                                              if (![login deleteFromKeychainWithError:&error]){
-                                                                  [self showKeychainDeleteError:error];
-                                                              }
-                                                          }]];
+            NSError *error = nil;
+            if (![login deleteFromKeychainWithError:&error]){
+                [self showKeychainDeleteError:error];
+            }
+        }]];
     } else {
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_ANONYMOUS_LOGIN", nil)
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * _Nonnull action) {
-                                                              login.username = nil;
-                                                              login.password = nil;
-                                                              [self showBrowserWithLogin:login];
-                                                          }]];
+            login.username = nil;
+            login.password = nil;
+            [self showBrowserWithLogin:login];
+        }]];
     }
 
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
