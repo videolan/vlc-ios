@@ -179,6 +179,7 @@
 
 #pragma mark - Handoff
 
+#if !TARGET_OS_TV
 - (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType
 {
     return [userActivityType isEqualToString:kVLCUserActivityPlaying];
@@ -203,6 +204,7 @@
         //TODO: present alert
     }
 }
+#endif
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
@@ -256,7 +258,7 @@
     VLCPlaybackService *vps = [VLCPlaybackService sharedInstance];
     if (vps.isPlaying || vps.playerIsSetup) {
         VLCAppCoordinator *appCoordinator = [VLCAppCoordinator sharedInstance];
-        [appCoordinator.mediaLibraryService savePlaybackStateFrom:vps];
+        [appCoordinator.mediaLibraryService saveMetaDataOf:nil from:vps];
     }
 
     VLCFavoriteService *fs = [[VLCAppCoordinator sharedInstance] favoriteService];
