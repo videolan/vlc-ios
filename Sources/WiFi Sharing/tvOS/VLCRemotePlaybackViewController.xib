@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="10089" systemVersion="15C50" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="21225" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="appleTV" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10072.1"/>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VLCRemotePlaybackViewController">
@@ -11,7 +15,10 @@
                 <outlet property="cachedMediaLabel" destination="77q-qM-GSv" id="gs2-sW-Z17"/>
                 <outlet property="cachedMediaLongLabel" destination="JaT-Be-qDp" id="epp-C0-23T"/>
                 <outlet property="deleteHintView" destination="Hxr-bA-eu2" id="04c-3W-B8K"/>
+                <outlet property="editSelectionButton" destination="96d-hs-Fxc" id="HCH-ea-mlb"/>
                 <outlet property="httpServerLabel" destination="mOM-K1-6hX" id="PvM-0r-xq1"/>
+                <outlet property="searchBar" destination="zYp-CG-hFx" id="NDx-cY-z0a"/>
+                <outlet property="sortButton" destination="4tp-OP-T5c" id="Ktw-qW-C7i"/>
                 <outlet property="toggleHTTPServerButton" destination="N4Q-4c-bh0" id="5Je-Lj-ba0"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Eym-vH-oyN"/>
             </connections>
@@ -22,18 +29,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOM-K1-6hX">
-                    <rect key="frame" x="756" y="193" width="409" height="115"/>
+                    <rect key="frame" x="763" y="195" width="394" height="115"/>
                     <string key="text">http://bonjour.local
 http://192.168.1.1</string>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="shadowColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cached Media" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77q-qM-GSv">
-                    <rect key="frame" x="837" y="478" width="246" height="46"/>
+                    <rect key="frame" x="838.5" y="478" width="243" height="46"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="VjG-Gw-i36">
@@ -53,7 +60,7 @@ http://192.168.1.1</string>
                     </connections>
                 </collectionView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cone" translatesAutoresizingMaskIntoConstraints="NO" id="cJM-e2-mIy">
-                    <rect key="frame" x="888" y="776" width="143" height="158"/>
+                    <rect key="frame" x="888.5" y="776" width="143" height="158"/>
                 </imageView>
                 <view hidden="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="550" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="Hxr-bA-eu2" customClass="VLCDeleteHintTVView">
                     <rect key="frame" x="685" y="930" width="550" height="100"/>
@@ -62,11 +69,11 @@ http://192.168.1.1</string>
                     <rect key="frame" x="246" y="532" width="1428" height="71"/>
                     <string key="text">Media shown here is stored locally on your Apple TV. Note that contents can be removed by the operating system without prior notice anytime when VLC is not running if your device runs out of storage.</string>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4Q-4c-bh0">
-                    <rect key="frame" x="748" y="344" width="425" height="77"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4Q-4c-bh0">
+                    <rect key="frame" x="750.5" y="332" width="419" height="77"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                     <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                     <state key="normal" title="Enable Remote Playback"/>
@@ -74,29 +81,76 @@ http://192.168.1.1</string>
                         <action selector="toggleHTTPServer:" destination="-1" eventType="primaryActionTriggered" id="65K-IM-LdJ"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4tp-OP-T5c">
+                    <rect key="frame" x="42" y="440" width="182" height="81"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="81" id="iD7-wg-vki"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal">
+                        <imageReference key="image" image="sort" symbolScale="large" renderingMode="original"/>
+                    </state>
+                    <connections>
+                        <action selector="sortMedia:" destination="-1" eventType="primaryActionTriggered" id="u3s-1T-oRf"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96d-hs-Fxc">
+                    <rect key="frame" x="1696" y="440" width="182" height="81"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="81" id="ikv-1V-Ley"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <size key="titleShadowOffset" width="10" height="10"/>
+                    <state key="normal" image="edit"/>
+                    <connections>
+                        <action selector="toggleEditSelectionMode:" destination="-1" eventType="primaryActionTriggered" id="0SF-T4-sYI"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zYp-CG-hFx">
+                    <rect key="frame" x="524" y="429" width="872" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="WUm-MP-Oor"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <constraints>
+                <constraint firstItem="77q-qM-GSv" firstAttribute="top" secondItem="zYp-CG-hFx" secondAttribute="bottom" constant="1" id="0oH-EO-Dq0"/>
                 <constraint firstItem="cJM-e2-mIy" firstAttribute="centerY" secondItem="VjG-Gw-i36" secondAttribute="centerY" id="3tr-BA-rpi"/>
+                <constraint firstItem="4tp-OP-T5c" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="440" id="6Gv-Wm-hEC"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="top" secondItem="JaT-Be-qDp" secondAttribute="bottom" constant="27" id="77B-WA-TDW"/>
                 <constraint firstItem="JaT-Be-qDp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="246" id="Ake-Ya-Nlg"/>
                 <constraint firstItem="cJM-e2-mIy" firstAttribute="centerX" secondItem="VjG-Gw-i36" secondAttribute="centerX" id="GCV-oF-eIh"/>
+                <constraint firstItem="96d-hs-Fxc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="440" id="Ixp-jw-cRf"/>
+                <constraint firstItem="96d-hs-Fxc" firstAttribute="leading" secondItem="zYp-CG-hFx" secondAttribute="trailing" constant="300" id="Jew-5d-KyY"/>
                 <constraint firstAttribute="trailing" secondItem="JaT-Be-qDp" secondAttribute="trailing" constant="246" id="LLu-x0-uB6"/>
-                <constraint firstItem="N4Q-4c-bh0" firstAttribute="top" secondItem="mOM-K1-6hX" secondAttribute="bottom" constant="36" id="Qix-Vj-JF1"/>
+                <constraint firstItem="N4Q-4c-bh0" firstAttribute="top" secondItem="mOM-K1-6hX" secondAttribute="bottom" constant="22" id="Qix-Vj-JF1"/>
+                <constraint firstItem="96d-hs-Fxc" firstAttribute="leading" secondItem="77q-qM-GSv" secondAttribute="trailing" constant="614.5" id="S4d-1j-hAV"/>
                 <constraint firstItem="mOM-K1-6hX" firstAttribute="centerX" secondItem="N4Q-4c-bh0" secondAttribute="centerX" id="ScU-iV-uMa"/>
                 <constraint firstItem="77q-qM-GSv" firstAttribute="centerX" secondItem="VjG-Gw-i36" secondAttribute="centerX" id="Tcb-Jy-an4"/>
                 <constraint firstItem="N4Q-4c-bh0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="VFF-HR-rhV"/>
-                <constraint firstItem="mOM-K1-6hX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="193" id="WRl-kM-uT3"/>
+                <constraint firstItem="mOM-K1-6hX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="195" id="WRl-kM-uT3"/>
                 <constraint firstAttribute="bottom" secondItem="Hxr-bA-eu2" secondAttribute="bottom" constant="50" id="XV3-Ye-FV9"/>
+                <constraint firstItem="zYp-CG-hFx" firstAttribute="leading" secondItem="4tp-OP-T5c" secondAttribute="trailing" constant="300" id="YHs-Jx-qcY"/>
+                <constraint firstItem="4tp-OP-T5c" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="42" id="cuN-TS-xp2"/>
+                <constraint firstItem="77q-qM-GSv" firstAttribute="leading" secondItem="4tp-OP-T5c" secondAttribute="trailing" constant="614.5" id="gQ3-Ia-KGU"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hSa-3P-bGw"/>
                 <constraint firstItem="Hxr-bA-eu2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="iND-1n-gnL"/>
+                <constraint firstAttribute="trailing" secondItem="96d-hs-Fxc" secondAttribute="trailing" constant="42" id="jpa-J7-zLM"/>
                 <constraint firstItem="VjG-Gw-i36" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="l72-n9-cwb"/>
                 <constraint firstAttribute="trailing" secondItem="VjG-Gw-i36" secondAttribute="trailing" id="lJF-jb-gaz"/>
                 <constraint firstItem="JaT-Be-qDp" firstAttribute="top" secondItem="77q-qM-GSv" secondAttribute="bottom" constant="8" id="udi-Gc-1sY"/>
                 <constraint firstAttribute="bottom" secondItem="VjG-Gw-i36" secondAttribute="bottom" id="v0P-HU-3wm"/>
             </constraints>
+            <point key="canvasLocation" x="140" y="41"/>
         </view>
     </objects>
     <resources>
         <image name="cone" width="143" height="158"/>
+        <image name="edit" width="24" height="24"/>
+        <image name="sort" width="24" height="24"/>
     </resources>
 </document>
