@@ -144,6 +144,9 @@ class AudioPlayerView: UIView {
 
     private lazy var thumbnailViewTopConstraint: NSLayoutConstraint = thumbnailView.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor, constant: 35)
 
+    private lazy var controlsStackViewMinSpacing: CGFloat = 25.0
+    private lazy var controlsStackViewMaxSpacing: CGFloat = 50.0
+
     weak var delegate: AudioPlayerViewDelegate?
 
     // MARK: - Init
@@ -325,14 +328,18 @@ class AudioPlayerView: UIView {
     }
 
     func updateConstraints(for orientation: UIDeviceOrientation) {
+        let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
+
         if orientation.isLandscape {
             thumbnailViewTopConstraint.constant = 5
             progressionViewBottomConstraint.constant = -5.0
             progressionViewHeightConstraint.constant = 30
+            controlsStackView.spacing = isPad ? controlsStackViewMaxSpacing * 2 : controlsStackViewMaxSpacing
         } else {
             thumbnailViewTopConstraint.constant = 35
             progressionViewBottomConstraint.constant = -progressionViewBottomConstant
             progressionViewHeightConstraint.constant = 70
+            controlsStackView.spacing = isPad ? controlsStackViewMinSpacing * 2 : controlsStackViewMinSpacing
         }
 
         setNeedsLayout()
@@ -463,18 +470,16 @@ class AudioPlayerView: UIView {
     }
 
     private func setupControlsStackView() {
-        let padding: CGFloat = 50.0
         let topPadding: CGFloat = 20.0
 
         controlsStackView.translatesAutoresizingMaskIntoConstraints = false
         controlsStackView.alignment = .fill
-        controlsStackView.distribution = .fillEqually
+        controlsStackView.distribution = .equalCentering
 
         addSubview(controlsStackView)
         NSLayoutConstraint.activate([
             controlsStackView.topAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: topPadding),
-            controlsStackView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: padding),
-            controlsStackView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -padding),
+            controlsStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             controlsStackView.heightAnchor.constraint(equalToConstant: 50.0)
         ])
 
