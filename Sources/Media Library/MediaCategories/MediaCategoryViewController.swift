@@ -1354,12 +1354,16 @@ extension MediaCategoryViewController: EditControllerDelegate {
     }
 
     func editControllerDidSelectMultipleItem(editContrller: EditController) {
+        searchBar.isUserInteractionEnabled = false
+        searchBar.alpha = 0.5
         if let editToolbar = tabBarController?.editToolBar() {
             editToolbar.enableEditActions(true)
         }
     }
 
     func editControllerDidDeSelectMultipleItem(editContrller: EditController) {
+        searchBar.isUserInteractionEnabled = true
+        searchBar.alpha = 1
         if let editToolbar = tabBarController?.editToolBar() {
             editToolbar.enableEditActions(false)
         }
