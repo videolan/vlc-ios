@@ -1,5 +1,12 @@
 # Changelog
 
+## iOS [3.4.7]
+· Attempt to fix the heating problem
+· Updates to the audio player UI
+
+## tvOS [3.4.7]
+· Attempt to fix the heating problem
+
 ## iOS [3.4.6]
 · Preserve repeat mode
 · Restore chapter support for audio-only media
