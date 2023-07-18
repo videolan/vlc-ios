@@ -39,4 +39,23 @@ class LibrarySearchDataSource: NSObject {
             }
         }
     }
+    
+    func deleteInSearch(index: Int) {
+        if isSearching {
+            searchData.remove(at: index)
+        }
+    }
+    
+    func deleteInSearch(indexes: Set<IndexPath>?) {
+        if isSearching, let indexes {
+            searchData = searchData
+                .enumerated()
+                .filter { searchItem in
+                    !indexes.contains { index in
+                        index.row == searchItem.offset
+                    }
+                }
+                .map { $0.element }
+        }
+    }
 }

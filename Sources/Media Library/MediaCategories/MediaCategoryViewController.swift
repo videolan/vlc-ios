@@ -969,7 +969,12 @@ private extension MediaCategoryViewController {
                     [weak self] _ in
                     if let modelContent = modelContent {
                         self?.editController.editActions.objects = [modelContent]
-                        self?.editController.editActions.delete()
+                        self?.editController.editActions.delete() {
+                            [weak self] state in
+                            if state == .success {
+                                self?.searchDataSource.deleteInSearch(index: index)
+                            }
+                        }
                     }
                 })
             case .share:
@@ -1576,7 +1581,12 @@ extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
         }
         let modelContent = currentDataSet.objectAtIndex(index: indexPath.row)
         editController.editActions.objects = [modelContent!]
-        editController.editActions.delete()
+        editController.editActions.delete() {
+            [weak self] state in
+            if state == .success {
+                self?.searchDataSource.deleteInSearch(index: indexPath.row)
+            }
+        }
     }
 
     func mediaCollectionViewCellMediaTapped(in cell: MediaCollectionViewCell) {

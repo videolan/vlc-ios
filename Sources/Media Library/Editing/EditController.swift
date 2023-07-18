@@ -253,6 +253,7 @@ extension EditController: EditToolbarDelegate {
         editActions.delete({
             [weak self] state in
             if state == .success || state == .fail {
+                self?.searchDataSource.deleteInSearch(indexes: self?.selectedCellIndexPaths)
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerDidFinishEditing(editController: self)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
