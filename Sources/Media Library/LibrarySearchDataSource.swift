@@ -13,6 +13,7 @@
 class LibrarySearchDataSource: NSObject {
 
     var searchData = [VLCMLObject]()
+    var isSearching: Bool = false
     var model: MediaLibraryBaseModel
 
     init(model: MediaLibraryBaseModel) {

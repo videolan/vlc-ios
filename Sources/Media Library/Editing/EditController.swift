@@ -30,10 +30,9 @@ class EditController: UIViewController {
     private let presentingView: UICollectionView
     private let searchDataSource: LibrarySearchDataSource
     private(set) var editActions: EditActions
-    private var isSearching: Bool = false
     private var isAllSelected: Bool = false
     private var currentDataSet: [VLCMLObject] {
-        return isSearching ? searchDataSource.searchData : model.anyfiles
+        return searchDataSource.isSearching ? searchDataSource.searchData : model.anyfiles
     }
 
     weak var delegate: EditControllerDelegate?
@@ -62,10 +61,6 @@ class EditController: UIViewController {
         }
         selectedCellIndexPaths.removeAll()
         isAllSelected = false
-    }
-    
-    func setSearching(_ searchVal: Bool) {
-        isSearching = searchVal
     }
 
     func shouldResetCells(_ reset: Bool) {

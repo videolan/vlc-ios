@@ -33,7 +33,9 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private var mediaLibraryService: MediaLibraryService
 
     var searchBar = UISearchBar(frame: .zero)
-    var isSearching: Bool = false
+    private var currentDataSet: [VLCMLObject] {
+        return searchDataSource.isSearching ? searchDataSource.searchData : model.anyfiles
+    }
     private let mediaGridCellNibIdentifier = "MediaGridCollectionCell"
     private var searchBarConstraint: NSLayoutConstraint?
     private var searchDataSource: LibrarySearchDataSource
@@ -374,7 +376,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         collectionView?.reloadData()
         updateUIForContent()
 
-        if !isSearching {
+        if !searchDataSource.isSearching {
             popViewIfNecessary()
         }
 
@@ -386,11 +388,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     }
 
     func isEmptyCollectionView() -> Bool {
-        if isSearching {
-            return searchDataSource.searchData.isEmpty
-        }
-        
-        return model.anyfiles.isEmpty
+        return currentDataSet.isEmpty
     }
 
     @available(*, unavailable)
@@ -505,7 +503,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // This ensures that the search bar is always visible like a sticky while searching
-        if isSearching {
+        if searchDataSource.isSearching {
             searchBar.endEditing(true)
             delegate?.enableCategorySwitching(for: self, enable: true)
             // End search if scrolled and the textfield is empty
@@ -538,7 +536,6 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         super.setEditing(editing, animated: animated)
 
         editController.shouldResetCells(!isEditing)
-        editController.setSearching(isSearching)
 
         collectionView?.dataSource = editing ? editController : self
         collectionView?.delegate = editing ? editController : self
@@ -598,7 +595,7 @@ private extension MediaCategoryViewController {
     }
 
     private func updateUIForContent() {
-        if isSearching {
+        if searchDataSource.isSearching {
             return
         }
 
@@ -846,7 +843,7 @@ extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
 extension MediaCategoryViewController {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         reloadData()
-        isSearching = true
+        searchDataSource.isSearching = true
         delegate?.enableCategorySwitching(for: self, enable: false)
         searchBar.setShowsCancelButton(true, animated: true)
     }
@@ -857,7 +854,7 @@ extension MediaCategoryViewController {
         searchBar.text = ""
         searchDataSource.shouldReloadFor(searchString: "")
         searchBar.setShowsCancelButton(false, animated: true)
-        isSearching = false
+        searchDataSource.isSearching = false
         delegate?.enableCategorySwitching(for: self, enable: true)
         reloadData()
     }
@@ -925,9 +922,8 @@ private extension MediaCategoryViewController {
 
     @available(iOS 13.0, *)
     private func generateUIMenuForContent(at indexPath: IndexPath) -> UIMenu {
-        let modelContentArray = isSearching ? searchDataSource.searchData : model.anyfiles
         let index = indexPath.row
-        let modelContent = modelContentArray.objectAtIndex(index: index)
+        let modelContent = currentDataSet.objectAtIndex(index: index)
 
         // Remove addToMediaGroup from quick actions since it is applicable only to multiple media
         let actionList = EditButtonsFactory.buttonList(for: model).filter({
@@ -1027,8 +1023,7 @@ extension MediaCategoryViewController {
     
     
     private func selectedItem(at indexPath: IndexPath) {
-        let mediaObjectArray = isSearching ? searchDataSource.searchData : model.anyfiles
-        let modelContent = mediaObjectArray.objectAtIndex(index: indexPath.row)
+        let modelContent = currentDataSet.objectAtIndex(index: indexPath.row)
 
         // Reset the play as audio variable
         let playbackService = PlaybackService.sharedInstance()
@@ -1071,7 +1066,7 @@ extension MediaCategoryViewController {
     override func collectionView(_ collectionView: UICollectionView,
                                  contextMenuConfigurationForItemAt indexPath: IndexPath,
                                  point: CGPoint) -> UIContextMenuConfiguration? {
-        let modelContent = self.isSearching ? self.searchDataSource.searchData.objectAtIndex(index: indexPath.row) : self.model.anyfiles[indexPath.row]
+        let modelContent = currentDataSet.objectAtIndex(index: indexPath.row)
         let cell = collectionView.cellForItem(at: indexPath)
         var thumbnail: UIImage? = nil
         if let cell = cell as? MovieCollectionViewCell {
@@ -1124,7 +1119,7 @@ extension MediaCategoryViewController {
 
 extension MediaCategoryViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isSearching ? searchDataSource.searchData.count : model.anyfiles.count
+        return currentDataSet.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -1133,8 +1128,7 @@ extension MediaCategoryViewController {
             return UICollectionViewCell()
         }
 
-        let mediaObjectArray = isSearching ? searchDataSource.searchData : model.anyfiles
-        let mediaObject = mediaObjectArray.objectAtIndex(index: indexPath.row)
+        let mediaObject = currentDataSet.objectAtIndex(index: indexPath.row)
 
         guard mediaObject != nil else {
             assertionFailure("MediaCategoryViewController: Failed to fetch media object.")
@@ -1566,7 +1560,7 @@ extension MediaCategoryViewController {
         } else if let model = model as? MediaCollectionModel {
             tracks = model.files() ?? []
         } else {
-            tracks = (isSearching ? searchDataSource.searchData : model.anyfiles) as? [VLCMLMedia] ?? []
+            tracks = currentDataSet as? [VLCMLMedia] ?? []
         }
         playbackController.playMedia(at: index, fromCollection: tracks)
     }
@@ -1580,9 +1574,7 @@ extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
         guard let indexPath = collectionView.indexPath(for: cell) else {
             return
         }
-
-        let modelContentArray = isSearching ? searchDataSource.searchData : model.anyfiles
-        let modelContent = modelContentArray.objectAtIndex(index: indexPath.row)
+        let modelContent = currentDataSet.objectAtIndex(index: indexPath.row)
         editController.editActions.objects = [modelContent!]
         editController.editActions.delete()
     }
