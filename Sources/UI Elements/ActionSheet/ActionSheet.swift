@@ -378,11 +378,14 @@ extension ActionSheet {
                         mainStackView.frame.origin.y += mainStackView.frame.size.height
                         backgroundView.alpha = 0
             }, completion: {
-                [mainStackView, presentingViewController] finished in
+                [mainStackView, presentingViewController, headerView] finished in
                 // When everything is complete, reset the frame for the re-use
                 mainStackView.isHidden = true
                 mainStackView.frame = realMainStackView
                 presentingViewController?.dismiss(animated: false)
+                headerView.accessoryViewsDelegate = nil
+                headerView.updateAccessoryViews()
+                headerView.previousButton.isHidden = true
                 self.delegate?.actionSheetDidFinishClosingAnimation?(self)
         })
     }
