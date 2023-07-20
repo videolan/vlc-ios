@@ -189,7 +189,8 @@ private enum RendererActionSheetContent: Int, CaseIterable {
 
     @objc private func handleLongPressPlayPause(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            updateCloseButton(with: UIImage(named: "close"))
+            let accessibility: (String, String) = (NSLocalizedString("STOP_BUTTON", comment: ""), NSLocalizedString("CLOSE_HINT", comment: ""))
+            updateCloseButton(with: UIImage(named: "close"), accessibility: accessibility)
             delegate?.mediaNavigationBarDisplayCloseAlert?(self)
         } else if sender.state == .ended {
             delegate?.mediaNavigationBarDidCloseLongPress(self)
@@ -220,12 +221,14 @@ private enum RendererActionSheetContent: Int, CaseIterable {
         delegate?.mediaNavigationBarDidToggleChromeCast?(self)
     }
 
-    func updateCloseButton(with icon: UIImage?) {
+    func updateCloseButton(with icon: UIImage?, accessibility: (String, String)) {
         guard closePlaybackButton.imageView?.image != icon else {
             return
         }
 
         closePlaybackButton.setImage(icon, for: .normal)
+        closePlaybackButton.accessibilityLabel = accessibility.0
+        closePlaybackButton.accessibilityHint = accessibility.1
     }
 }
 

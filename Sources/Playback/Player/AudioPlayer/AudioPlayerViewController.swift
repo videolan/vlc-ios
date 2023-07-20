@@ -340,7 +340,9 @@ extension AudioPlayerViewController {
         audioPlayerView.updatePlayButton(isPlaying: isPlaying)
 
         let image: UIImage? = isPlaying ? UIImage(named: "minimize") : UIImage(named: "close")
-        mediaNavigationBar.updateCloseButton(with: image)
+        let accessibilityLabel: String = isPlaying ? NSLocalizedString("MINIMIZE_BUTTON", comment: "") : NSLocalizedString("STOP_BUTTON", comment: "")
+        let accessibilityHint: String = isPlaying ? NSLocalizedString("MINIMIZE_HINT", comment: "") : NSLocalizedString("CLOSE_HINT", comment: "")
+        mediaNavigationBar.updateCloseButton(with: image, accessibility: (accessibilityLabel, accessibilityHint))
 
         if let queueCollectionView = queueViewController?.queueCollectionView {
             queueCollectionView.reloadData()

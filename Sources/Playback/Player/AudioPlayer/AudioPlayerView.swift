@@ -43,6 +43,7 @@ class AudioPlayerView: UIView {
         let titleLabel = UILabel()
         titleLabel.textAlignment = .center
         titleLabel.font = .boldSystemFont(ofSize: 17.0)
+        titleLabel.accessibilityLabel = NSLocalizedString("TITLE", comment: "")
         return titleLabel
     }()
 
@@ -50,6 +51,7 @@ class AudioPlayerView: UIView {
         let artistLabel = UILabel()
         artistLabel.textAlignment = .center
         artistLabel.font = .systemFont(ofSize: 16.0)
+        artistLabel.accessibilityLabel = NSLocalizedString("ARTIST", comment: "")
         return artistLabel
     }()
 
@@ -64,6 +66,8 @@ class AudioPlayerView: UIView {
         shuffleButton.imageView?.contentMode = .scaleAspectFit
         shuffleButton.tintColor = .white
         shuffleButton.addTarget(self, action: #selector(handleShuffleButton(_:)), for: .touchUpInside)
+        shuffleButton.accessibilityLabel = NSLocalizedString("SHUFFLE", comment: "")
+        shuffleButton.accessibilityHint = NSLocalizedString("SHUFFLE_HINT", comment: "")
         return shuffleButton
     }()
 
@@ -74,6 +78,8 @@ class AudioPlayerView: UIView {
         previousButton.imageView?.contentMode = .scaleAspectFit
         previousButton.tintColor = .white
         previousButton.addTarget(self, action: #selector(handlePreviousButton(_:)), for: .touchUpInside)
+        previousButton.accessibilityLabel = NSLocalizedString("PREVIOUS_BUTTON", comment: "")
+        previousButton.accessibilityHint = NSLocalizedString("PREVIOUS_HINT", comment: "")
         return previousButton
     }()
 
@@ -84,6 +90,8 @@ class AudioPlayerView: UIView {
         playButton.imageView?.contentMode = .scaleAspectFit
         playButton.tintColor = .white
         playButton.addTarget(self, action: #selector(handlePlayButton(_:)), for: .touchUpInside)
+        playButton.accessibilityLabel = NSLocalizedString("PLAY_PAUSE_BUTTON", comment: "")
+        playButton.accessibilityHint = NSLocalizedString("PLAY_PAUSE_HINT", comment: "")
         return playButton
     }()
 
@@ -94,6 +102,8 @@ class AudioPlayerView: UIView {
         nextButton.imageView?.contentMode = .scaleAspectFit
         nextButton.tintColor = .white
         nextButton.addTarget(self, action: #selector(handleNextButton(_:)), for: .touchUpInside)
+        nextButton.accessibilityLabel = NSLocalizedString("NEXT_BUTTON", comment: "")
+        nextButton.accessibilityHint = NSLocalizedString("NEXT_HINT", comment: "")
         return nextButton
     }()
 
@@ -104,6 +114,8 @@ class AudioPlayerView: UIView {
         repeatButton.imageView?.contentMode = .scaleAspectFit
         repeatButton.tintColor = .white
         repeatButton.addTarget(self, action: #selector(handleRepeatButton(_:)), for: .touchUpInside)
+        repeatButton.accessibilityLabel = NSLocalizedString("REPEAT_MODE", comment: "")
+        repeatButton.accessibilityHint = NSLocalizedString("REPEAT_HINT", comment: "")
         return repeatButton
     }()
 
@@ -243,7 +255,9 @@ class AudioPlayerView: UIView {
             artistLabel.isHidden = false
 
             titleLabel.text = title
+            titleLabel.accessibilityValue = title
             artistLabel.text = artist
+            artistLabel.accessibilityValue = artist
         } else {
             titleLabel.isHidden = true
             artistLabel.isHidden = true
@@ -256,25 +270,40 @@ class AudioPlayerView: UIView {
     }
 
     func updateShuffleRepeatState(shuffleEnabled: Bool, repeatMode: VLCRepeatMode) {
-        let orangeColor = PresentationTheme.current.colors.orangeUI
+        var color = PresentationTheme.current.colors.orangeUI
 
         let shuffleIcon = shuffleEnabled ? UIImage(named: "iconShuffleOnLarge") : UIImage(named: "iconShuffleLarge")
         shuffleButton.setImage(shuffleIcon, for: .normal)
-        shuffleButton.tintColor = shuffleEnabled ? orangeColor : .white
+        shuffleButton.tintColor = shuffleEnabled ? color : .white
+        shuffleButton.accessibilityLabel = shuffleEnabled ? NSLocalizedString("SHUFFLE", comment: "") : NSLocalizedString("SHUFFLE_DISABLED", comment: "")
+        shuffleButton.accessibilityHint = shuffleEnabled ? NSLocalizedString("SHUFFLE_HINT", comment: "") : NSLocalizedString("SHUFFLE_OFF_HINT", comment: "")
 
+        var icon: UIImage?
+        var accessibilityLabel: String
+        var accessibilityHint: String
         switch repeatMode {
         case .doNotRepeat:
-            repeatButton.setImage(UIImage(named: "iconRepeatLarge"), for: .normal)
-            repeatButton.tintColor = .white
+            icon = UIImage(named: "iconRepeatLarge")
+            color = .white
+            accessibilityLabel = NSLocalizedString("MENU_REPEAT_DISABLED", comment: "")
+            accessibilityHint = NSLocalizedString("DO_NOT_REPEAT_HINT", comment: "")
         case .repeatCurrentItem:
-            repeatButton.setImage(UIImage(named: "iconRepeatOneOnLarge"), for: .normal)
-            repeatButton.tintColor = orangeColor
+            icon = UIImage(named: "iconRepeatOneOnLarge")
+            accessibilityLabel = NSLocalizedString("MENU_REPEAT_SINGLE", comment: "")
+            accessibilityHint = NSLocalizedString("REPEAT_HINT", comment: "")
         case .repeatAllItems:
-            repeatButton.setImage(UIImage(named: "iconRepeatOnLarge"), for: .normal)
-            repeatButton.tintColor = orangeColor
+            icon = UIImage(named: "iconRepeatOnLarge")
+            accessibilityLabel = NSLocalizedString("MENU_REPEAT_ALL", comment: "")
+            accessibilityHint = NSLocalizedString("REPEAT_ALL_HINT", comment: "")
         @unknown default:
             assertionFailure("AudioPlayerView: unhandled case.")
+            return
         }
+
+        repeatButton.setImage(icon, for: .normal)
+        repeatButton.tintColor = color
+        repeatButton.accessibilityLabel = accessibilityLabel
+        repeatButton.accessibilityHint = accessibilityHint
     }
 
     func setControlsEnabled(_ enabled: Bool) {

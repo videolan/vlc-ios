@@ -424,6 +424,8 @@
 "ROTATION_LOCK_HINT" = "Lock video to current orientation";
 
 "REPEAT_HINT" = "Repeat same media";
+"DO_NOT_REPEAT_HINT" = "Do not repeat media list";
+"REPEAT_ALL_HINT" = "Repeat media list";
 
 "BACKWARD_BUTTON" = "Backward";
 "BACKWARD_HINT" = "Jump Backwards";
@@ -437,6 +439,7 @@
 "STOP_BUTTON" = "Stop";
 "CLOSE_HINT" = "Stop the playback";
 
+"MINIMIZE_BUTTON" = "Minimize";
 "MINIMIZE_HINT" = "Minimize the player";
 
 "NEXT_HINT" = "Next media";
@@ -447,6 +450,7 @@
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 
 "SHUFFLE_HINT" = "Shuffle media list";
+"SHUFFLE_OFF_HINT" = "Do not shuffle media list";
 
 "VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
