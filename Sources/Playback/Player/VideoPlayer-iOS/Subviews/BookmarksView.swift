@@ -67,7 +67,6 @@ class BookmarksView: UIView {
     func setupTheme() {
         let colors = PresentationTheme.currentExcludingWhite.colors
         backgroundColor = colors.background
-        bookmarksTableView?.backgroundColor = colors.background
     }
 
     private func setupTable() {
@@ -76,6 +75,7 @@ class BookmarksView: UIView {
         bookmarksTableView.delegate = self
         bookmarksTableView.dataSource = self
         bookmarksTableView.register(UITableViewCell.self, forCellReuseIdentifier: bookmarksTableViewCellReuseIdentifier)
+        bookmarksTableView.backgroundColor = .clear
         setupTableContraints()
     }
 
