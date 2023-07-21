@@ -500,6 +500,14 @@ extension AudioPlayerViewController {
                 bookmarksView.bottomAnchor.constraint(lessThanOrEqualTo: audioPlayerView.controlsStackView.topAnchor),
             ])
         }
+
+        audioPlayerView.shouldDisableControls(true)
+    }
+
+    override func mediaMoreOptionsActionSheetRemoveAddBookmarksView() {
+        super.mediaMoreOptionsActionSheetRemoveAddBookmarksView()
+
+        audioPlayerView.shouldDisableControls(false)
     }
 }
 

@@ -346,6 +346,13 @@ class AudioPlayerView: UIView {
         layoutIfNeeded()
     }
 
+    func shouldDisableControls(_ disable: Bool) {
+        shuffleButton.isEnabled = !disable
+        previousButton.isEnabled = !disable
+        nextButton.isEnabled = !disable
+        repeatButton.isEnabled = !disable
+    }
+
     // MARK: - Private methods
 
     private func setupCommonSliderConstraints(for slider: UIView) {
