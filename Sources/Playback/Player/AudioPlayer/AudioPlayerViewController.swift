@@ -494,10 +494,10 @@ extension AudioPlayerViewController {
             view.addSubview(bookmarksView)
             NSLayoutConstraint.activate([
                 bookmarksView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                bookmarksView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                bookmarksView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                bookmarksView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
-                bookmarksView.bottomAnchor.constraint(lessThanOrEqualTo: audioPlayerView.controlsStackView.topAnchor),
+                bookmarksView.leadingAnchor.constraint(equalTo: audioPlayerView.layoutGuide.leadingAnchor),
+                bookmarksView.trailingAnchor.constraint(equalTo: audioPlayerView.layoutGuide.trailingAnchor),
+                bookmarksView.topAnchor.constraint(equalTo: audioPlayerView.layoutGuide.topAnchor, constant: 16),
+                bookmarksView.bottomAnchor.constraint(equalTo: audioPlayerView.controlsStackView.topAnchor),
             ])
         }
 
