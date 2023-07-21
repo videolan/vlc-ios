@@ -1870,7 +1870,7 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
     }
 
     func mediaMoreOptionsActionSheetDisplayAlert(title: String, message: String, action: BookmarkActionIdentifier, index: Int, isEditing: Bool) {
-        moreOptionsActionSheet.dismiss(animated: true, completion: {
+        let completion = {
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
             var actionTitle = NSLocalizedString("BUTTON_CANCEL", comment: "")
@@ -1921,7 +1921,15 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
             self.setControlsHidden(true, animated: true)
             self.present(alertController, animated: true, completion: nil)
             self.alertController = alertController
-        })
+        }
+
+        // iOS 12.0 and below versions do not execute the completion if the dismiss call is not performed,
+        // here the check is necessary in order to enable the edit actions for these iOS versions.
+        if addBookmarksView == nil {
+            moreOptionsActionSheet.dismiss(animated: true, completion: completion)
+        } else {
+            completion()
+        }
     }
 
     func mediaMoreOptionsActionSheetDisplayAddBookmarksView(_ bookmarksView: AddBookmarksView) {
