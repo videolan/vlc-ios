@@ -59,6 +59,8 @@ class VLCFavoriteListViewController: UIViewController {
         tableView.dataSource = self
         tableView.backgroundColor = PresentationTheme.current.colors.background
         tableView.register(UINib(nibName: "VLCNetworkListCell", bundle: nil), forCellReuseIdentifier: "LocalNetworkCell")
+        tableView.register(FavoriteSectionHeader.self, forHeaderFooterViewReuseIdentifier: FavoriteSectionHeader.identifier)
+        if #available(iOS 15.0, *) { tableView.sectionHeaderTopPadding = 0 }
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
@@ -76,12 +78,14 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return FavoriteSectionHeader.height
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let hostname = fetchHostnameFromSection(folderList: layoutArray, for: section)
-        return hostname
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FavoriteSectionHeader.identifier) as! FavoriteSectionHeader
+        header.hostnameLabel.text = fetchHostnameFromSection(folderList: layoutArray, for: section)
+        header.delegate = self
+        return header
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -108,6 +112,7 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
         let hostname = fetchHostnameFromSection(folderList: layoutArray, for: indexPath.section)
         let hostnameContent = layoutArray[hostname]![indexPath.row]
         didSelectItem(stringURL: hostnameContent)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -130,7 +135,7 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
     }
 }
 
-extension VLCFavoriteListViewController {
+extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
     @objc func receiveNotification(notif: NSNotification) {
         if let folder = notif.userInfo?["Folder"] as? VLCNetworkServerBrowserItem {
             guard let newItemURL = folder.url?.absoluteString else { return }
@@ -184,6 +189,33 @@ extension VLCFavoriteListViewController {
     
     @objc func themeDidChange() {
         self.tableView.backgroundColor = PresentationTheme.current.colors.background
+        DispatchQueue.main.async { self.tableView.reloadData() }
         self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    func renameSection(with oldTitle: String) {
+        let alertController = UIAlertController(title: "Rename", message: "Rename Hostname", preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = oldTitle
+            textField.text = oldTitle
+        }
+        let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
+                                          style: .cancel)
+        let confirmAction = UIAlertAction(title: "Rename",
+                                          style: .default) { [weak alertController] _ in
+            guard let alertController = alertController, let alertTextField = alertController.textFields?.first else { return }
+            print(alertTextField.text ?? "")
+            self.hostnameArray.remove(oldTitle)
+            self.hostnameArray.insert(alertTextField.text ?? "")
+            let folderFromHostname = self.layoutArray[oldTitle]
+            self.layoutArray.removeValue(forKey: oldTitle)
+            self.layoutArray[alertTextField.text!] = folderFromHostname
+            
+            self.tableView.reloadSections([0,1], with: .automatic)
+        }
+        alertController.addAction(cancelButton)
+        alertController.addAction(confirmAction)
+        
+        present(alertController, animated: true)
     }
 }

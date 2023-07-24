@@ -10,6 +10,7 @@
 		13925DC647EC27EEB2818FD2 /* libPods-VLC-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E3BE184ED7B95399C04EB6 /* libPods-VLC-tvOS.a */; };
 		2663ACB422497D47000FBB95 /* VLCNetworkLoginTVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */; };
 		26F1BFD01A770408001DF30C /* libMediaVLC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26F1BFCF1A770408001DF30C /* libMediaVLC.xml */; };
+		277943252A6176170010D5EA /* FavoriteSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277943242A6176170010D5EA /* FavoriteSectionHeader.swift */; };
 		27CE104F2A3C5ECF0061C92B /* VLCFavoriteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CE104E2A3C5ECF0061C92B /* VLCFavoriteListViewController.swift */; };
 		29125E5617492219003F03E5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 29125E5417492219003F03E5 /* index.html */; };
 		2915544317490D4A00B86CAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2915544217490D4A00B86CAD /* Security.framework */; };
@@ -497,6 +498,7 @@
 		2663ACB122497D21000FBB95 /* VLCNetworkLoginTVViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VLCNetworkLoginTVViewController.swift; sourceTree = "<group>"; };
 		2663ACB322497D47000FBB95 /* VLCNetworkLoginTVViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCNetworkLoginTVViewController.xib; sourceTree = "<group>"; };
 		26F1BFCF1A770408001DF30C /* libMediaVLC.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = libMediaVLC.xml; sourceTree = "<group>"; };
+		277943242A6176170010D5EA /* FavoriteSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSectionHeader.swift; sourceTree = "<group>"; };
 		27CE104E2A3C5ECF0061C92B /* VLCFavoriteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCFavoriteListViewController.swift; sourceTree = "<group>"; };
 		29125E5417492219003F03E5 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		2915544217490D4A00B86CAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1255,6 +1257,7 @@
 			isa = PBXGroup;
 			children = (
 				27CE104E2A3C5ECF0061C92B /* VLCFavoriteListViewController.swift */,
+				277943242A6176170010D5EA /* FavoriteSectionHeader.swift */,
 			);
 			path = Favorite;
 			sourceTree = "<group>";
@@ -3448,6 +3451,7 @@
 				DDF908D01CF4CCAA00108B70 /* VLCNetworkLoginViewButtonCell.m in Sources */,
 				7DC7BA7B28C894EC00109F28 /* Array+Safety.swift in Sources */,
 				DD3EFF3D1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
+				277943252A6176170010D5EA /* FavoriteSectionHeader.swift in Sources */,
 				DDEAECBE1BDEBF6700756C83 /* VLCNetworkServerLoginInformation.m in Sources */,
 				418DFE9F211C93C6005D3652 /* CustomDialogRendererHandler.swift in Sources */,
 				7DD71F9828FB421300327ACE /* CPListTemplate+Artists.m in Sources */,
