@@ -70,8 +70,7 @@ class FavoriteSectionHeader: UITableViewHeaderFooterView {
     }
     
     @objc func renameButtonDidPress(_ sender: UIButton) {
-        if let oldTitle = hostnameLabel.text {
-            delegate?.renameSection(with: oldTitle)
-        }
+        guard let oldTitle = hostnameLabel.text else { return }
+        delegate?.renameSection(with: oldTitle)
     }
 }

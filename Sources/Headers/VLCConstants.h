@@ -91,6 +91,7 @@
 #define kVLCForceSMBV1 @"smb-force-v1"
 
 #define kVLCRecentFavoriteURL @"recent-favorite-url"
+#define kVLCFavoriteGroupAlias @"favorite-group-alias"
 #define kVLCNetworkServerFavoritesUpdated @"add-to-favorite"
 #define kVLCShowRemainingTime @"show-remaining-time"
 #define kVLCRecentURLs @"recent-urls"
