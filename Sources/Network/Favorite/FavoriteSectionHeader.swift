@@ -42,17 +42,11 @@ class FavoriteSectionHeader: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         addSubview(renameButton)
         addSubview(hostnameLabel)
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(clickView(_:)))
-//        tapGesture.delegate = self
-//        addGestureRecognizer(tapGesture)
-        
-//        contentView.addSubview(hostnameLabel)
-//        contentView.addSubview(renameButton)
-        
         var guide: LayoutAnchorContainer = self
         if #available(iOS 11.0, *) {
             guide = safeAreaLayoutGuide
         }
+        
         NSLayoutConstraint.activate([
             hostnameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             hostnameLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: buttonPadding),

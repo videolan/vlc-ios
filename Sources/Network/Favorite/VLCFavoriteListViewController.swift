@@ -48,17 +48,20 @@ class VLCFavoriteListViewController: UIViewController {
         for urlItem in urlArray {
             let component = URLComponents(string: urlItem)
             guard let hostname = component?.host else { return }
-            if layoutArray[hostname] == nil {
-                layoutArray[hostname] = [urlItem]
-            } else {
-                layoutArray[hostname]?.append(urlItem)
+            guard let alias = aliasArray.first(where: { $0.value == hostname })?.key else {
+                if layoutArray[hostname] == nil {
+                    layoutArray[hostname] = [urlItem]
+                } else {
+                    layoutArray[hostname]?.append(urlItem)
+                }
+                return
             }
-        }
-        
-        for (alias, hostname) in aliasArray {
-            let newSection = layoutArray[hostname]
-            layoutArray.removeValue(forKey: hostname)
-            layoutArray[alias] = newSection
+            
+            if layoutArray[alias] == nil {
+                layoutArray[alias] = [urlItem]
+            } else {
+                layoutArray[alias]?.append(urlItem)
+            }
         }
     }
     
@@ -128,16 +131,15 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
             let hostname = fetchHostnameFromSection(folderList: layoutArray, for: indexPath.section)
             guard let hostnameContent = layoutArray[hostname]?[indexPath.row] else { return }
             guard let newItemHostname = URLComponents(string: hostnameContent)?.host else { return }
-
-            urlArray = urlArray.filter { $0 != hostnameContent }
             
+            urlArray = urlArray.filter { $0 != hostnameContent }
             if let layoutKey = aliasArray.first(where: { $0.value == newItemHostname })?.key {
                 layoutArray[layoutKey] = urlArray.filter {$0.contains(newItemHostname)}
             } else {
                 layoutArray[newItemHostname] = urlArray.filter {$0.contains(newItemHostname)}
             }
-            
             checkForEmptyHostname()
+            
             userDefaults.set(urlArray, forKey: kVLCRecentFavoriteURL)
             if layoutArray[hostname] == nil {
                 let sectionToDelete = IndexSet(arrayLiteral: indexPath.section)
@@ -154,7 +156,7 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
         if let folder = notif.userInfo?["Folder"] as? VLCNetworkServerBrowserItem {
             guard let newItemURL = folder.url?.absoluteString else { return }
             guard let newItemHostname = URLComponents(string: newItemURL)?.host else { return }
-                        
+            
             if let indexToRemove = urlArray.firstIndex(of: newItemURL) {
                 urlArray.remove(at: indexToRemove)
             }
@@ -189,7 +191,7 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
             }
         }
     }
-        
+    
     func didSelectItem(stringURL: String) {
         guard let url = URL(string: stringURL) else { return }
         let vlcMedia = VLCMedia(url: url)
@@ -221,19 +223,34 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
             let folderFromHostname = self.layoutArray[oldTitle]
             self.layoutArray.removeValue(forKey: oldTitle)
             self.layoutArray[textfieldValue] = folderFromHostname
-            self.aliasArray[textfieldValue] = oldTitle
+            
+            if self.aliasArray[oldTitle] != nil {
+                let originalHostname = self.aliasArray[oldTitle]
+                self.aliasArray.removeValue(forKey: oldTitle)
+                self.aliasArray[textfieldValue] = originalHostname
+            } else {
+                self.aliasArray[textfieldValue] = oldTitle
+            }
             self.userDefaults.setValue(self.aliasArray, forKey: kVLCFavoriteGroupAlias)
-            self.tableView.reloadSections(IndexSet(0...self.layoutArray.count-1), with: .automatic)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadSections(IndexSet(0...self.layoutArray.count-1), with: .automatic)
+            }
         }
+        
         let resetButton = UIAlertAction(title: "Reset", style: .default) { _ in
             guard let favoredFolder = self.layoutArray[oldTitle] else { return }
+            
             let component = URLComponents(string: favoredFolder[0])
             guard let originalName = component?.host else { return }
             self.layoutArray[originalName] = self.layoutArray[oldTitle]
             self.layoutArray.removeValue(forKey: oldTitle)
             self.aliasArray.removeValue(forKey: oldTitle)
             self.userDefaults.setValue(self.aliasArray, forKey: kVLCFavoriteGroupAlias)
-            self.tableView.reloadSections(IndexSet(0...self.layoutArray.count-1), with: .automatic)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadSections(IndexSet(0...self.layoutArray.count-1), with: .automatic)
+            }
         }
         alertController.addAction(cancelButton)
         alertController.addAction(confirmAction)
