@@ -528,11 +528,15 @@ class PlayerViewController: UIViewController {
         let windowWidth: CGFloat = window.bounds.width
         let location: CGPoint = recognizer.location(in: window)
 
-        // Default or right side of the screen
-        var panType: PlayerPanType = .volume
-
-        if location.x < windowWidth / 2 {
-            panType = .brightness
+        var panType: PlayerPanType = .none
+        if location.x < 3 * windowWidth / 3 && playerController.isVolumeGestureEnabled {
+            panType = .volume
+        }
+        if location.x < 2 * windowWidth / 3 {
+            panType = .none
+        }
+        if location.x < 1 * windowWidth / 3 && playerController.isBrightnessGestureEnabled {
+             panType = .brightness
         }
 
         if playbackService.currentMediaIs360Video {
@@ -603,6 +607,9 @@ class PlayerViewController: UIViewController {
         let currentPos = recognizer.location(in: view)
 
         let panType = detectPanType(recognizer)
+        if panType == .none {
+            return handleMinimizeGesture(recognizer)
+        }
 
         guard panType == .projection
                 || (panType == .volume && playerController.isVolumeGestureEnabled)
