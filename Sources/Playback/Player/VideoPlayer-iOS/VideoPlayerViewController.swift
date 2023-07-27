@@ -1208,8 +1208,8 @@ extension VideoPlayerViewController {
 
             break
         case .ended:
-            let halfHeight = view.frame.height / 2
-            if viewTranslation.y < halfHeight {
+            let height = view.frame.height * 0.1
+            if viewTranslation.y < height {
                 UIView.animate(withDuration: 0.5,
                                delay: 0,
                                usingSpringWithDamping: 0.7,
