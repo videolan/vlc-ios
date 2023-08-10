@@ -1,5 +1,18 @@
 # Changelog
 
+## iOS [3.4.8]
+· Second attempt to fix the heating problem
+· Fix shuffle behavior
+· Fix playback continuation for audio content
+· Fix failed start of audio content chosen from a list
+· Fix bookmark appearance on iOS 12 and earlier
+· Audio player: add support for device rotation
+· Player: add swipe gestures to minimize more easily
+· Improved accessibility for the audio player
+
+## tvOS [3.4.8]
+· Second attempt to fix the heating problem
+
 ## iOS [3.4.7]
 · Attempt to fix the heating problem
 · Updates to the audio player UI
