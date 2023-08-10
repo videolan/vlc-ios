@@ -60,7 +60,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     UIView *_actualVideoOutputView;
     UIView *_preBackgroundWrapperView;
 
-    BOOL _mediaWasJustStarted;
     int _majorPositionChangeInProgress;
     BOOL _externalAudioPlaybackDeviceConnected;
 
@@ -334,8 +333,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         }
     }
 
-    _mediaWasJustStarted = YES;
-
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
     [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
 
@@ -371,7 +368,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     _playerIsSetup = YES;
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self];
     [_playbackSessionManagementLock unlock];
 }
 
@@ -454,22 +450,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (_mediaWasJustStarted) {
-        _mediaWasJustStarted = NO;
-#if TARGET_OS_IOS
-        if (self.mediaList) {
-            [self _recoverLastPlaybackState];
-        }
-#else
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        BOOL bValue = [defaults boolForKey:kVLCSettingUseSPDIF];
-
-        if (bValue) {
-           _mediaPlayer.audio.passthrough = bValue;
-        }
-#endif
-    }
-
     if ([self.delegate respondsToSelector:@selector(playbackPositionUpdated:)])
         [self.delegate playbackPositionUpdated:self];
 
@@ -532,7 +512,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (BOOL)isNextMediaAvailable
 {
-    NSLog(@"%s", __func__);
     if (_mediaList.count == 1) {
         return NO;
     }
@@ -747,6 +726,20 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             [_mediaPlayer performSelector:@selector(setTextRendererFontColor:) withObject:[defaults objectForKey:kVLCSettingSubtitlesFontColor]];
             [_mediaPlayer performSelector:@selector(setTextRendererFontForceBold:) withObject:[defaults objectForKey:kVLCSettingSubtitlesBoldFont]];
 #pragma clang diagnostic pop
+        } break;
+
+        case VLCMediaPlayerStateOpening: {
+#if TARGET_OS_IOS
+            [self _recoverLastPlaybackState];
+#else
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            BOOL bValue = [defaults boolForKey:kVLCSettingUseSPDIF];
+
+            if (bValue) {
+                _mediaPlayer.audio.passthrough = bValue;
+            }
+#endif
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self];
         } break;
 
         case VLCMediaPlayerStateError: {
