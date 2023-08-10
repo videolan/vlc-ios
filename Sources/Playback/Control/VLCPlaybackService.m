@@ -742,6 +742,17 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidStart object:self];
         } break;
 
+        case VLCMediaPlayerStatePlaying: {
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidResume object:self];
+        } break;
+
+        case VLCMediaPlayerStatePaused: {
+#if TARGET_OS_IOS
+            [self savePlaybackState];
+#endif
+            [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
+        } break;
+
         case VLCMediaPlayerStateError: {
             APLog(@"Playback failed");
             dispatch_async(dispatch_get_main_queue(),^{
@@ -802,16 +813,11 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 - (void)play
 {
     [_listPlayer play];
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidResume object:self];
 }
 
 - (void)pause
 {
     [_listPlayer pause];
-#if TARGET_OS_IOS
-    [self savePlaybackState];
-#endif
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackDidPause object:self];
 }
 
 - (void)playItemAtIndex:(NSUInteger)index
