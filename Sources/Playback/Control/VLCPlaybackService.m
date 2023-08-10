@@ -25,6 +25,10 @@
 #import "VLCPlayerDisplayController.h"
 #import <stdatomic.h>
 
+#if TARGET_OS_IOS
+#import "VLCMLMedia+Podcast.h"
+#endif
+
 #import "VLC-Swift.h"
 
 NSString *const VLCPlaybackServicePlaybackDidStart = @"VLCPlaybackServicePlaybackDidStart";
@@ -1410,15 +1414,21 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     CGFloat lastPosition = media.progress;
     // .95 prevents the controller from opening and closing immediatly when restoring state
-    //  Additionaly, check if the media is more than 10 sec
+    //  Additionally, check if the media is more than 10 sec
     if (lastPosition < .95
-        && media.duration > 10000
         && _mediaPlayer.position < lastPosition) {
         NSInteger continuePlayback;
-        if (media.type == VLCMLMediaTypeAudio)
+        if (media.type == VLCMLMediaTypeAudio) {
+            if (!media.isPodcast) {
+                goto bailout;
+            }
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
-        else
+        } else {
+            if (media.duration < 10000) {
+                goto bailout;
+            }
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
+        }
 
         if (continuePlayback == 1) {
             [self setPlaybackPosition:lastPosition];
@@ -1440,6 +1450,8 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
         }
     }
+
+    bailout:
     [self restoreAudioAndSubtitleTrack];
 }
 
