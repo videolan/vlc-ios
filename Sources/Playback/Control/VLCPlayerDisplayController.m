@@ -449,7 +449,10 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
                          }
                          completion:completionBlock];
     }
-    [playbackController savePlaybackState];
+
+    if (needsHide) {
+        [playbackController savePlaybackState];
+    }
 #endif
 }
 
