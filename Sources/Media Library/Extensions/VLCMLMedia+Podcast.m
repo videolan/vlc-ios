@@ -21,14 +21,19 @@ long const PODCAST_ABSOLUTE = 1800000L;
 {
     NSString *genre = self.genre.name;
     SInt64 duration = self.duration;
+    BOOL genreIsPodcastIndicator = NO;
+
+    if (genre != nil) {
+        genreIsPodcastIndicator = ([genre caseInsensitiveCompare:@"podcast"] == NSOrderedSame
+                                   || [genre caseInsensitiveCompare:@"audiobooks"] == NSOrderedSame
+                                   || [genre caseInsensitiveCompare:@"audiobook"] == NSOrderedSame
+                                   || [genre caseInsensitiveCompare:@"speech"] == NSOrderedSame
+                                   || [genre caseInsensitiveCompare:@"vocal"] == NSOrderedSame);
+    }
 
     return self.type == VLCMLMediaTypeAudio && (duration > PODCAST_ABSOLUTE
                                                 || (self.album == nil && duration > PODCAST_THRESHOLD)
-                                                || [genre caseInsensitiveCompare:@"podcast"] == NSOrderedSame
-                                                || [genre caseInsensitiveCompare:@"audiobooks"] == NSOrderedSame
-                                                || [genre caseInsensitiveCompare:@"audiobook"] == NSOrderedSame
-                                                || [genre caseInsensitiveCompare:@"speech"] == NSOrderedSame
-                                                || [genre caseInsensitiveCompare:@"vocal"] == NSOrderedSame);
+                                                || genreIsPodcastIndicator);
 }
 
 @end
