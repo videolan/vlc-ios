@@ -125,8 +125,8 @@ class AlbumHeader: UICollectionReusableView {
     private func playAll(shuffle: Bool) {
         if let album = collection as? VLCMLAlbum {
             let playbackService = PlaybackService.sharedInstance()
-            playbackService.playCollection(album.tracks)
             playbackService.isShuffleMode = shuffle
+            playbackService.playCollection(album.tracks)
         }
     }
 

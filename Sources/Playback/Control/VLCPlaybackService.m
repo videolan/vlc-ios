@@ -344,12 +344,19 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     [_mediaPlayer setRendererItem:_renderer];
 #endif
 
+    if (_shuffleMode) {
+        int count = (int)_mediaList.count;
+        if (count > 0) {
+            _currentIndex = arc4random_uniform(count - 1);
+            [self shuffleMediaList];
+            _itemInMediaListToBePlayedFirst = (int)[_shuffledOrder[0] integerValue];
+        }
+    }
+
     [_listPlayer playItemAtNumber:@(_itemInMediaListToBePlayedFirst)];
 
     _currentIndex = _itemInMediaListToBePlayedFirst;
-    if(_shuffleMode) {
-        [self shuffleMediaList];
-    }
+
     if ([self.delegate respondsToSelector:@selector(prepareForMediaPlayback:)])
         [self.delegate prepareForMediaPlayback:self];
 
