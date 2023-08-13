@@ -506,7 +506,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 #if TARGET_OS_IOS
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:kVLCPlayerShouldRememberState]) {
-        [defaults setInteger:_listPlayer.repeatMode forKey:kVLCPlayerIsRepeatEnabled];
+        [defaults setInteger:repeatMode forKey:kVLCPlayerIsRepeatEnabled];
     }
 #endif
 }
@@ -590,23 +590,14 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (void)toggleRepeatMode
 {
+    VLCRepeatMode newRepeatMode;
     if (_listPlayer.repeatMode == VLCRepeatAllItems) {
-        _listPlayer.repeatMode = VLCDoNotRepeat;
+        newRepeatMode = VLCDoNotRepeat;
     } else {
-        _listPlayer.repeatMode += 1;
+        newRepeatMode = _listPlayer.repeatMode + 1;
     }
 
-    if ([self.delegate respondsToSelector:@selector(playModeUpdated)]) {
-        [self.delegate playModeUpdated];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:VLCPlaybackServicePlaybackModeUpdated object:self];
-
-#if TARGET_OS_IOS
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:kVLCPlayerShouldRememberState]) {
-        [defaults setInteger:_listPlayer.repeatMode forKey:kVLCPlayerIsRepeatEnabled];
-    }
-#endif
+    [self setRepeatMode:newRepeatMode];
 }
 
 - (NSInteger)indexOfCurrentAudioTrack
