@@ -44,9 +44,6 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
     func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls) {
         playbackService.toggleRepeatMode()
         self.playModeUpdated()
-        if playerController.isRememberStateEnabled {
-            UserDefaults.standard.setValue(playbackService.repeatMode.rawValue, forKey: kVLCPlayerIsRepeatEnabled)
-        }
     }
 
     func videoPlayerControlsDelegateDidTapDVD(_ videoPlayerControls: VideoPlayerControls) {
@@ -113,10 +110,6 @@ extension VideoPlayerViewController: VideoPlayerControlsDelegate {
         } else {
             playbackService.isShuffleMode = true
             videoPlayerControls.shuffleButton.tintColor = PresentationTheme.current.colors.orangeUI
-        }
-
-        if playerController.isRememberStateEnabled {
-            UserDefaults.standard.setValue(playbackService.isShuffleMode, forKey: kVLCPlayerIsShuffleEnabled)
         }
     }
 

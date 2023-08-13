@@ -421,18 +421,10 @@ class PlayerViewController: UIViewController {
 
     func updateShuffleState() {
         playbackService.isShuffleMode = !playbackService.isShuffleMode
-
-        if playerController.isRememberStateEnabled {
-            UserDefaults.standard.setValue(playbackService.isShuffleMode, forKey: kVLCPlayerIsShuffleEnabled)
-        }
     }
 
     func updateRepeatMode() {
         playbackService.toggleRepeatMode()
-
-        if playerController.isRememberStateEnabled {
-            UserDefaults.standard.setValue(playbackService.repeatMode.rawValue, forKey: kVLCPlayerIsRepeatEnabled)
-        }
     }
 
     // MARK: - Private methods

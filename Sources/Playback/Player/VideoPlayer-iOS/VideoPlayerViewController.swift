@@ -1683,10 +1683,6 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
             assertionFailure("videoPlayerControlsDelegateRepeat: unhandled case.")
         }
 
-        if playerController.isRememberStateEnabled {
-            UserDefaults.standard.setValue(playbackService.repeatMode.rawValue, forKey: kVLCPlayerIsRepeatEnabled)
-        }
-
         videoPlayerControls.shuffleButton.tintColor = playbackService.isShuffleMode ? orangeColor : .white
     }
 }
