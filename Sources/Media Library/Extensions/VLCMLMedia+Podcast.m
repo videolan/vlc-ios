@@ -20,13 +20,15 @@ long const PODCAST_ABSOLUTE = 3600000L;
 - (BOOL)isPodcast
 {
     NSString *genre = self.genre.name;
-    return self.type == VLCMLMediaTypeAudio && (self.duration > PODCAST_ABSOLUTE
-                                                || (self.album == nil && self.duration > PODCAST_THRESHOLD)
-                                                || [genre caseInsensitiveCompare:@"podcast"]
-                                                || [genre caseInsensitiveCompare:@"audiobooks"]
-                                                || [genre caseInsensitiveCompare:@"audiobook"]
-                                                || [genre caseInsensitiveCompare:@"speech"]
-                                                || [genre caseInsensitiveCompare:@"vocal"]);
+    SInt64 duration = self.duration;
+
+    return self.type == VLCMLMediaTypeAudio && (duration > PODCAST_ABSOLUTE
+                                                || (self.album == nil && duration > PODCAST_THRESHOLD)
+                                                || [genre caseInsensitiveCompare:@"podcast"] == NSOrderedSame
+                                                || [genre caseInsensitiveCompare:@"audiobooks"] == NSOrderedSame
+                                                || [genre caseInsensitiveCompare:@"audiobook"] == NSOrderedSame
+                                                || [genre caseInsensitiveCompare:@"speech"] == NSOrderedSame
+                                                || [genre caseInsensitiveCompare:@"vocal"] == NSOrderedSame);
 }
 
 @end
