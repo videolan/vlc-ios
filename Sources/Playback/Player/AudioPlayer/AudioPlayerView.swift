@@ -13,16 +13,19 @@ import UIKit
 
 protocol AudioPlayerViewDelegate: AnyObject {
     func audioPlayerViewDelegateGetThumbnail(_ audioPlayerView: AudioPlayerView) -> UIImage?
+    func audioPlayerViewDelegateGetPlaybackSpeed(_ audioPlayerView: AudioPlayerView) -> Float
     func audioPlayerViewDelegateDidTapShuffleButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapPreviousButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapPlayButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapNextButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateDidTapRepeatButton(_ audioPlayerView: AudioPlayerView)
+    func audioPlayerViewDelegateDidTapPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView)
+    func audioPlayerViewDelegateDidLongPressPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView)
     func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView
     func audioPlayerViewDelegateGetVolumeSlider(_ audioPlayerView: AudioPlayerView) -> VolumeControlView
 }
 
-class AudioPlayerView: UIView {
+class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     // MARK: - Properties
 
     private lazy var backgroundView: UIView = UIView()
@@ -58,6 +61,7 @@ class AudioPlayerView: UIView {
     lazy var playqueueView: UIView = UIView()
 
     lazy var controlsStackView: UIStackView = UIStackView()
+    lazy var secondaryControlStackView: UIStackView = UIStackView()
 
     private lazy var shuffleButton: UIButton = {
         let shuffleButton = UIButton(type: .system)
@@ -81,6 +85,21 @@ class AudioPlayerView: UIView {
         previousButton.accessibilityLabel = NSLocalizedString("PREVIOUS_BUTTON", comment: "")
         previousButton.accessibilityHint = NSLocalizedString("PREVIOUS_HINT", comment: "")
         return previousButton
+    }()
+    
+    private lazy var playbackSpeedButton: UIButton = {
+        let playbackButton = UIButton(type: .system)
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressPlaybackSpeedButton(_:)))
+        playbackButton.contentMode = .scaleAspectFit
+        playbackButton.imageView?.contentMode = .scaleAspectFit
+        playbackButton.tintColor = .white
+        playbackButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        playbackButton.addTarget(self, action: #selector(handlePlaybackSpeedButton(_:)), for: .touchUpInside)
+        longPressGestureRecognizer.minimumPressDuration = 0.5
+        longPressGestureRecognizer.delaysTouchesBegan = true
+        longPressGestureRecognizer.delegate = self
+        playbackButton.addGestureRecognizer(longPressGestureRecognizer)
+        return playbackButton
     }()
 
     private lazy var playButton: UIButton = {
@@ -189,6 +208,11 @@ class AudioPlayerView: UIView {
     func updateThumbnailImageView() {
         thumbnailImageView.image = delegate?.audioPlayerViewDelegateGetThumbnail(self)
         thumbnailImageView.clipsToBounds = true
+    }
+    
+    func setupPlaybackSpeed() {
+        let defaultPlaybackSpeed = delegate?.audioPlayerViewDelegateGetPlaybackSpeed(self)
+        playbackSpeedButton.setTitle(String(format: "%.2fx", defaultPlaybackSpeed ?? 1.00), for: .normal)
     }
 
     func setupBackgroundColor() {
@@ -478,16 +502,24 @@ class AudioPlayerView: UIView {
 
     private func setupControlsStackView() {
         let topPadding: CGFloat = 20.0
-
-        controlsStackView.translatesAutoresizingMaskIntoConstraints = false
-        controlsStackView.alignment = .fill
-        controlsStackView.distribution = .equalCentering
-
-        addSubview(controlsStackView)
+        [controlsStackView, secondaryControlStackView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.alignment = .fill
+            $0.distribution = .equalCentering
+            
+            addSubview($0)
+        }
+        
         NSLayoutConstraint.activate([
             controlsStackView.topAnchor.constraint(equalTo: thumbnailView.bottomAnchor, constant: topPadding),
             controlsStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             controlsStackView.heightAnchor.constraint(equalToConstant: 50.0)
+        ])
+        
+        NSLayoutConstraint.activate([
+            secondaryControlStackView.topAnchor.constraint(equalTo: controlsStackView.bottomAnchor, constant: topPadding/4),
+            secondaryControlStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            secondaryControlStackView.heightAnchor.constraint(equalToConstant: 30.0)
         ])
 
         controlsStackView.addArrangedSubview(shuffleButton)
@@ -495,6 +527,8 @@ class AudioPlayerView: UIView {
         controlsStackView.addArrangedSubview(playButton)
         controlsStackView.addArrangedSubview(nextButton)
         controlsStackView.addArrangedSubview(repeatButton)
+        
+        secondaryControlStackView.addArrangedSubview(playbackSpeedButton)
     }
 
     private func setupProgressionView() {
@@ -506,7 +540,7 @@ class AudioPlayerView: UIView {
         addSubview(progressionView)
         NSLayoutConstraint.activate([
             progressionView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: padding),
-            progressionView.topAnchor.constraint(equalTo: controlsStackView.bottomAnchor, constant: padding),
+            progressionView.topAnchor.constraint(equalTo: secondaryControlStackView.bottomAnchor, constant: padding),
             progressionView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -padding),
             progressionViewBottomConstraint,
             progressionViewHeightConstraint
@@ -539,5 +573,15 @@ class AudioPlayerView: UIView {
 
     @objc func handleRepeatButton(_ sender: Any) {
         delegate?.audioPlayerViewDelegateDidTapRepeatButton(self)
+    }
+    
+    @objc func handlePlaybackSpeedButton(_ sender: Any) {
+        delegate?.audioPlayerViewDelegateDidTapPlaybackSpeedButton(self)
+    }
+    
+    @objc func handleLongPressPlaybackSpeedButton(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            delegate?.audioPlayerViewDelegateDidLongPressPlaybackSpeedButton(self)
+        }
     }
 }

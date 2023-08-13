@@ -60,11 +60,13 @@ class AudioPlayerViewController: PlayerViewController {
 
     @objc override init(mediaLibraryService: MediaLibraryService, rendererDiscovererManager: VLCRendererDiscovererManager, playerController: PlayerController) {
         super.init(mediaLibraryService: mediaLibraryService, rendererDiscovererManager: rendererDiscovererManager, playerController: playerController)
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackSpeedHasChanged(_:)), name: Notification.Name("ChangePlaybackSpeed"), object: nil)
 
         self.playerController.delegate = self
         mediaNavigationBar.addMoreOptionsButton(moreOptionsButton)
         audioPlayerView.setupNavigationBar(with: mediaNavigationBar)
         audioPlayerView.updateThumbnailImageView()
+        audioPlayerView.setupPlaybackSpeed()
         audioPlayerView.setupBackgroundColor()
         mediaScrubProgressBar.updateBackgroundAlpha(with: 0.0)
         audioPlayerView.setupProgressView(with: mediaScrubProgressBar)
@@ -87,6 +89,7 @@ class AudioPlayerViewController: PlayerViewController {
         seekForwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
         seekBackwardBy = UserDefaults.standard.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
         audioPlayerView.updateThumbnailImageView()
+        audioPlayerView.setupPlaybackSpeed()
         audioPlayerView.setupBackgroundColor()
         setupGestures()
         playModeUpdated()
@@ -117,6 +120,11 @@ class AudioPlayerViewController: PlayerViewController {
 
     override func minimizePlayer() {
         delegate?.audioPlayerViewControllerDidMinimize(self)
+    }
+    
+    
+    @objc func playbackSpeedHasChanged(_ notification: NSNotification) {
+        audioPlayerView.setupPlaybackSpeed()
     }
 
     override func showPopup(_ popupView: PopupView, with contentView: UIView, accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? = nil) {
@@ -313,6 +321,10 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
 
         return image
     }
+    
+    func audioPlayerViewDelegateGetPlaybackSpeed(_ audioPlayerView: AudioPlayerView) -> Float {
+        return playbackService.playbackRate
+    }
 
     func audioPlayerViewDelegateDidTapShuffleButton(_ audioPlayerView: AudioPlayerView) {
         updateShuffleState()
@@ -333,6 +345,30 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
 
     func audioPlayerViewDelegateDidTapRepeatButton(_ audioPlayerView: AudioPlayerView) {
         updateRepeatMode()
+    }
+    
+    func audioPlayerViewDelegateDidTapPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView) {
+        var currentSpeed = playbackService.playbackRate
+        let speedOffset: Float = 0.25
+                
+        if currentSpeed + speedOffset > 2.0 {
+            currentSpeed = 1.0
+        } else {
+            currentSpeed += speedOffset
+        }
+        
+        playbackService.playbackRate = currentSpeed
+        audioPlayerView.setupPlaybackSpeed()
+    }
+    
+    func audioPlayerViewDelegateDidLongPressPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView) {
+        //TODO: Currently there's issue with Action Sheet
+        let vc = MediaPlayerActionSheet()
+        let playbackView = Bundle.main.loadNibNamed("PlaybackSpeedView",
+                                                    owner: nil,
+                                                    options: nil)?.first as! PlaybackSpeedView
+        vc.openOptionView(playbackView)
+        present(vc, animated: true)
     }
 
     func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView {

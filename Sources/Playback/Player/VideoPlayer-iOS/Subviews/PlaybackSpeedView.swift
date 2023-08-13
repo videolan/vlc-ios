@@ -48,6 +48,7 @@ class PlaybackSpeedView: UIView {
     private var defaultSpeed: Float = UserDefaults.standard.float(forKey: kVLCSettingPlaybackSpeedDefaultValue)
 
     let vpc = PlaybackService.sharedInstance()
+    let notificationCenter = NotificationCenter.default
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -154,7 +155,7 @@ class PlaybackSpeedView: UIView {
             currentValue = currentSpeed
             currentButtonText = String(format: "%.2fx", currentValue)
             vpc.playbackRate = currentValue
-
+            notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
             if currentValue == defaultSpeed {
                 showIcon = false
             }
@@ -268,7 +269,7 @@ class PlaybackSpeedView: UIView {
             currentValue = currentSpeed
             currentButtonText = String(format: "%.2fx", currentValue)
             vpc.playbackRate = currentValue
-
+            notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
             if currentValue == defaultSpeed {
                 showIcon = false
             }
