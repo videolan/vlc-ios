@@ -13,7 +13,7 @@
 #import "VLCMLMedia+Podcast.h"
 
 long const PODCAST_THRESHOLD = 900000L;
-long const PODCAST_ABSOLUTE = 3600000L;
+long const PODCAST_ABSOLUTE = 1800000L;
 
 @implementation VLCMLMedia(PodcastExtension)
 
