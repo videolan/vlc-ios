@@ -103,7 +103,7 @@ class AudioPlayerViewController: PlayerViewController {
     override func viewWillDisappear(_ animated: Bool) {
         playerController.isInterfaceLocked = false
         queueViewController?.hide()
-        numberOfTapSeek = 0
+        numberOfGestureSeek = 0
         previousSeekState = .default
     }
 
@@ -193,9 +193,9 @@ class AudioPlayerViewController: PlayerViewController {
 
         // Reset number(set to -1/1) of seek when orientation has been changed.
         if tapPosition.x < middleBoundary {
-            numberOfTapSeek = previousSeekState == .forward ? -1 : numberOfTapSeek - 1
+            numberOfGestureSeek = previousSeekState == .forward ? -1 : numberOfGestureSeek - 1
         } else {
-            numberOfTapSeek = previousSeekState == .backward ? 1 : numberOfTapSeek + 1
+            numberOfGestureSeek = previousSeekState == .backward ? 1 : numberOfGestureSeek + 1
         }
 
         super.handleDoubleTapGesture(sender)

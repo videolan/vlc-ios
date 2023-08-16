@@ -73,7 +73,7 @@ class PlayerViewController: UIViewController {
     var alertController: UIAlertController?
     var seekForwardBy: Int = 0
     var seekBackwardBy: Int = 0
-    var numberOfTapSeek: Int = 0
+    var numberOfGestureSeek: Int = 0
     var previousSeekState: PlayerSeekState = .default
 
     lazy var statusLabel: VLCStatusLabel = {
@@ -437,10 +437,10 @@ class PlayerViewController: UIViewController {
         playbackService.jumpForward(Int32(interval))
     }
 
-    private func executeSeekFromTap() {
+    private func executeSeekFromGesture() {
         var hudString: String = ""
-        let currentSeek = numberOfTapSeek > 0 ? seekForwardBy : seekBackwardBy
-        let seekDuration: Int = numberOfTapSeek * currentSeek
+        let currentSeek = numberOfGestureSeek > 0 ? seekForwardBy : seekBackwardBy
+        let seekDuration: Int = numberOfGestureSeek * currentSeek
 
         if seekDuration > 0 {
             hudString = "⇒ "
@@ -736,22 +736,13 @@ class PlayerViewController: UIViewController {
 
         switch recognizer.direction {
         case .right:
-            let timeRemaining = -Int(Double(playbackService.remainingTime().intValue) * 0.001)
-
-            if seekForwardBy < timeRemaining {
-                if seekForwardBy < 1 {
-                    seekForwardBy = 1
-                }
-
-                jumpForwards(seekForwardBy)
-                hudString = String(format: "⇒ %is", seekForwardBy)
-            } else {
-                jumpForwards(timeRemaining - 5)
-                hudString = String(format: "⇒ %is", (timeRemaining - 5))
-            }
+            numberOfGestureSeek = previousSeekState == .backward ? 1 : numberOfGestureSeek + 1
+            executeSeekFromGesture()
+            return
         case .left:
-            jumpBackwards(seekBackwardBy)
-            hudString = String(format: "⇐ %is", seekBackwardBy)
+            numberOfGestureSeek = previousSeekState == .forward ? -1 : numberOfGestureSeek - 1
+            executeSeekFromGesture()
+            return
         case .up:
             playbackService.previous()
             hudString = NSLocalizedString("BWD_BUTTON", comment: "")
@@ -809,7 +800,7 @@ class PlayerViewController: UIViewController {
     @objc func handleDoubleTapGesture(_ sender: UITapGestureRecognizer) {
         // CHECK THE TAP LOCATION
 
-        executeSeekFromTap()
+        executeSeekFromGesture()
     }
 }
 

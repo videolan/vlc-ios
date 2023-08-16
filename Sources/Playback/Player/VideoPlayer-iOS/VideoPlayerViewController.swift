@@ -130,7 +130,7 @@ class VideoPlayerViewController: UIViewController {
 
     // MARK: - Seek
    
-    private var numberOfTapSeek: Int = 0
+    private var numberOfGestureSeek: Int = 0
     private var previousSeekState: VideoPlayerSeekState = .default
     var seekForwardBy: Int = 0
     var seekBackwardBy: Int = 0
@@ -664,7 +664,7 @@ class VideoPlayerViewController: UIViewController {
         volumeControlView.alpha = 0
         brightnessControlView.alpha = 0
 
-        numberOfTapSeek = 0
+        numberOfGestureSeek = 0
         previousSeekState = .default
         titleSelectionView.isHidden = true
     }
@@ -781,7 +781,7 @@ private extension VideoPlayerViewController {
         }
 
         idleTimer = nil
-        numberOfTapSeek = 0
+        numberOfGestureSeek = 0
         if !playerController.isControlsHidden && !isGestureActive {
             setControlsHidden(!playerController.isControlsHidden, animated: true)
         }
@@ -803,13 +803,13 @@ private extension VideoPlayerViewController {
         }
     }
 
-    private func executeSeekFromTap() {
+    private func executeSeekFromGesture() {
         // FIXME: Need to add interface (ripple effect) for seek indicator
         var hudString = ""
 
-        let currentSeek = numberOfTapSeek > 0 ? seekForwardBy : seekBackwardBy
+        let currentSeek = numberOfGestureSeek > 0 ? seekForwardBy : seekBackwardBy
 
-        let seekDuration: Int = numberOfTapSeek * currentSeek
+        let seekDuration: Int = numberOfGestureSeek * currentSeek
 
         if seekDuration > 0 {
             hudString = "⇒ "
@@ -833,7 +833,7 @@ private extension VideoPlayerViewController {
 extension VideoPlayerViewController {
 
     @objc func handleTapOnVideo() {
-        numberOfTapSeek = 0
+        numberOfGestureSeek = 0
         setControlsHidden(!playerController.isControlsHidden, animated: true)
     }
 
@@ -957,15 +957,15 @@ extension VideoPlayerViewController {
 
         // Reset number(set to -1/1) of seek when orientation has been changed.
         if tapPosition.x < backwardBoundary {
-            numberOfTapSeek = previousSeekState == .forward ? -1 : numberOfTapSeek - 1
+            numberOfGestureSeek = previousSeekState == .forward ? -1 : numberOfGestureSeek - 1
         } else if tapPosition.x > forwardBoundary {
-            numberOfTapSeek = previousSeekState == .backward ? 1 : numberOfTapSeek + 1
+            numberOfGestureSeek = previousSeekState == .backward ? 1 : numberOfGestureSeek + 1
         } else {
             playbackService.switchAspectRatio(true)
             return
         }
         //_isTapSeeking = YES;
-        executeSeekFromTap()
+        executeSeekFromGesture()
     }
 
     private func detectPanType(_ recognizer: UIPanGestureRecognizer) -> VideoPlayerPanType {
@@ -1158,22 +1158,13 @@ extension VideoPlayerViewController {
 
         switch recognizer.direction {
         case .right:
-            let timeRemaining = -Int(Double(playbackService.remainingTime().intValue) * 0.001)
-
-            if seekForwardBy < timeRemaining {
-                if seekForwardBy < 1 {
-                    seekForwardBy = 1
-                }
-
-                jumpForwards(seekForwardBy)
-                hudString = String(format: "⇒ %is", seekForwardBy)
-            } else {
-                jumpForwards(timeRemaining - 5)
-                hudString = String(format: "⇒ %is", (timeRemaining - 5))
-            }
+            numberOfGestureSeek = previousSeekState == .backward ? 1 : numberOfGestureSeek + 1
+            executeSeekFromGesture()
+            return
         case .left:
-            jumpBackwards(seekBackwardBy)
-            hudString = String(format: "⇐ %is", seekBackwardBy)
+            numberOfGestureSeek = previousSeekState == .forward ? -1 : numberOfGestureSeek - 1
+            executeSeekFromGesture()
+            return
         case .up:
             playbackService.previous()
             hudString = NSLocalizedString("BWD_BUTTON", comment: "")
