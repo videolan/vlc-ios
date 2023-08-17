@@ -631,7 +631,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (NSInteger)numberOfVideoSubtitlesIndexes
 {
-    return _mediaPlayer.videoSubTitlesIndexes.count + 1;
+    return _mediaPlayer.videoSubTitlesIndexes.count + 2;
 }
 
 - (NSInteger)numberOfTitles
@@ -650,6 +650,10 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     if (index >= 0 && index < count) {
         return _mediaPlayer.videoSubTitlesNames[index];
     } else if (index == count) {
+        NSString *test = @"Access Subtitle from File";
+        return test;
+    }
+    else if (index == count + 1) {
         return NSLocalizedString(@"DOWNLOAD_SUBS_FROM_OSO", nil);
     }
     return @"";

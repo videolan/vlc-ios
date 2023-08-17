@@ -15,6 +15,7 @@ import UIKit
 @objc protocol TitleSelectionViewDelegate: AnyObject {
     func titleSelectionViewDelegateDidSelectTrack(_ titleSelectionView: TitleSelectionView)
     func titleSelectionViewDelegateDidSelectDownloadSPU(_ titleSelectionView: TitleSelectionView)
+    func titleSelectionViewDelegateDidSelectFromFiles(_ titleSelectionView: TitleSelectionView)
     @objc optional func shouldHideTitleSelectionView(_ titleSelectionView: TitleSelectionView)
 }
 
@@ -295,6 +296,7 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
             cellTitle = playbackService.audioTrackName(at: indexPath.row)
 
         } else {
+            print("index of current subtitletrack: \(playbackService.indexOfCurrentSubtitleTrack)")
             if playbackService.indexOfCurrentSubtitleTrack == indexPath.row {
                 cell.textLabel?.textColor = PresentationTheme.darkTheme.colors.orangeUI
                 cell.checkImageView.alpha = 1
@@ -312,14 +314,20 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: false)
 
         let currentCell = tableView.cellForRow(at: indexPath) as? TitleSelectionTableViewCell
-
+        print("indexPath row \(indexPath.row)")
+        print("indexPath number of subtitles \(playbackService.numberOfVideoSubtitlesIndexes)")
         currentCell?.checkImageView.alpha = 1
 
         if tableView == audioTableView {
             playbackService.selectAudioTrack(at: indexPath.row)
             delegate?.titleSelectionViewDelegateDidSelectTrack(self)
         } else {
-            if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 1 {
+            if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 2 {
+                currentCell?.checkImageView.alpha = 0
+                print("Successfully pressed open from files button")
+                delegate?.titleSelectionViewDelegateDidSelectFromFiles(self)
+            }
+            else if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 1 {
                 currentCell?.checkImageView.alpha = 0
                 delegate?.titleSelectionViewDelegateDidSelectDownloadSPU(self)
             } else {

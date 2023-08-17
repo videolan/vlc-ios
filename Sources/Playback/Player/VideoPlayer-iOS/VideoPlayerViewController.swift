@@ -2223,6 +2223,12 @@ extension VideoPlayerViewController {
 // MARK: - TitleSelectionViewDelegate
 
 extension VideoPlayerViewController: TitleSelectionViewDelegate {
+    func titleSelectionViewDelegateDidSelectFromFiles(_ titleSelectionView: TitleSelectionView) {
+        let vc = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .open)
+        vc.delegate = self
+        present(vc, animated: true)
+    }
+    
     func titleSelectionViewDelegateDidSelectTrack(_ titleSelectionView: TitleSelectionView) {
         titleSelectionView.isHidden = true
     }
@@ -2233,5 +2239,14 @@ extension VideoPlayerViewController: TitleSelectionViewDelegate {
 
     func shouldHideTitleSelectionView(_ titleSelectionView: TitleSelectionView) {
         self.titleSelectionView.isHidden = true
+    }
+}
+
+// MARK: - UIDocumentPickerViewDelegate
+
+extension VideoPlayerViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first else { return }
+        playbackService.addSubtitlesToCurrentPlayback(from: url)
     }
 }
