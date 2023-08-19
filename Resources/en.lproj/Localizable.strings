@@ -269,6 +269,7 @@
 "DOWNLOAD_SUBS_FROM_OSO" = "Download subtitles from OpenSubtitles.org...";
 "FOUND_SUBS" = "Found subtitles";
 "NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
+"SELECT_SUBTITLE_FROM_FILES" = "Access Subtitle from File...";
 "USE_SPDIF" = "Use Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Playback";

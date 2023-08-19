@@ -296,7 +296,6 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
             cellTitle = playbackService.audioTrackName(at: indexPath.row)
 
         } else {
-            print("index of current subtitletrack: \(playbackService.indexOfCurrentSubtitleTrack)")
             if playbackService.indexOfCurrentSubtitleTrack == indexPath.row {
                 cell.textLabel?.textColor = PresentationTheme.darkTheme.colors.orangeUI
                 cell.checkImageView.alpha = 1
@@ -314,8 +313,6 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: false)
 
         let currentCell = tableView.cellForRow(at: indexPath) as? TitleSelectionTableViewCell
-        print("indexPath row \(indexPath.row)")
-        print("indexPath number of subtitles \(playbackService.numberOfVideoSubtitlesIndexes)")
         currentCell?.checkImageView.alpha = 1
 
         if tableView == audioTableView {
