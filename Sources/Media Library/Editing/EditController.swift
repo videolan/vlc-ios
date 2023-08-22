@@ -13,7 +13,7 @@ protocol EditControllerDelegate: AnyObject {
     func editController(editController: EditController, cellforItemAt indexPath: IndexPath) -> BaseCollectionViewCell?
     func editController(editController: EditController, present viewController: UIViewController)
     func editControllerDidSelectMultipleItem(editContrller: EditController)
-    func editControllerDidDeSelectMultipleItem(editContrller: EditController)
+    func editControllerDidDeSelectMultipleItem()
     func editControllerDidFinishEditing(editController: EditController?)
     func editControllerGetCurrentThumbnail() -> UIImage?
     func editControllerGetAlbumHeaderSize(with width: CGFloat) -> CGSize
@@ -195,8 +195,8 @@ extension EditController: EditToolbarDelegate {
             [weak self] state in
             if state == .success || state == .fail {
                 self?.resetSelections(resetUI: false)
-                self?.delegate?.editControllerDidFinishEditing(editController: self)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
+                self?.delegate?.editControllerDidDeSelectMultipleItem()
             }
         })
     }
@@ -215,8 +215,8 @@ extension EditController: EditToolbarDelegate {
             [weak self] state in
             if state == .success || state == .fail {
                 self?.resetSelections(resetUI: false)
-                self?.delegate?.editControllerDidFinishEditing(editController: self)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
+                self?.delegate?.editControllerDidDeSelectMultipleItem()
             }
         }
     }
@@ -233,8 +233,8 @@ extension EditController: EditToolbarDelegate {
             [weak self] state in
             if state == .success || state == .fail {
                 self?.resetSelections(resetUI: false)
-                self?.delegate?.editControllerDidFinishEditing(editController: self)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
+                self?.delegate?.editControllerDidDeSelectMultipleItem()
             }
         }
     }
@@ -255,8 +255,8 @@ extension EditController: EditToolbarDelegate {
             if state == .success || state == .fail {
                 self?.searchDataSource.deleteInSearch(indexes: self?.selectedCellIndexPaths)
                 self?.resetSelections(resetUI: false)
-                self?.delegate?.editControllerDidFinishEditing(editController: self)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
+                self?.delegate?.editControllerDidDeSelectMultipleItem()
             }
         })
     }
@@ -271,8 +271,8 @@ extension EditController: EditToolbarDelegate {
             [weak self] state in
             if state == .success || state == .fail {
                 self?.resetSelections(resetUI: false)
-                self?.delegate?.editControllerDidFinishEditing(editController: self)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
+                self?.delegate?.editControllerDidDeSelectMultipleItem()
             }
         })
     }
@@ -292,8 +292,8 @@ extension EditController: EditToolbarDelegate {
             [weak self] state in
             if state == .success || state == .fail {
                 self?.resetSelections(resetUI: true)
-                self?.delegate?.editControllerDidFinishEditing(editController: self)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
+                self?.delegate?.editControllerDidDeSelectMultipleItem()
             }
         })
     }
@@ -334,7 +334,7 @@ extension EditController: UICollectionViewDelegate {
         collectionView.deselectItem(at: indexPath, animated: false)
 
         if selectedCellIndexPaths.isEmpty {
-            delegate?.editControllerDidDeSelectMultipleItem(editContrller: self)
+            delegate?.editControllerDidDeSelectMultipleItem()
         }
         if let cell = collectionView.cellForItem(at: indexPath) as? BaseCollectionViewCell {
             cell.selectionViewOverlay?.isHidden = true
