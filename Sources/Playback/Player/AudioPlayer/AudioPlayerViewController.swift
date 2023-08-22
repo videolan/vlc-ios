@@ -122,7 +122,6 @@ class AudioPlayerViewController: PlayerViewController {
         delegate?.audioPlayerViewControllerDidMinimize(self)
     }
     
-    
     @objc func playbackSpeedHasChanged(_ notification: NSNotification) {
         audioPlayerView.setupPlaybackSpeed()
     }
@@ -362,13 +361,10 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
     }
     
     func audioPlayerViewDelegateDidLongPressPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView) {
-        //TODO: Currently there's issue with Action Sheet
-        let vc = MediaPlayerActionSheet()
-        let playbackView = Bundle.main.loadNibNamed("PlaybackSpeedView",
-                                                    owner: nil,
-                                                    options: nil)?.first as! PlaybackSpeedView
-        vc.openOptionView(playbackView)
-        present(vc, animated: true)
+        present(moreOptionsActionSheet, animated: false) {
+            [unowned self] in
+            self.moreOptionsActionSheet.addView(.playback)
+        }
     }
 
     func audioPlayerViewDelegateGetBrightnessSlider(_ audioPlayerView: AudioPlayerView) -> BrightnessControlView {

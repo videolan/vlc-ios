@@ -349,6 +349,9 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
 
         repeatButton.isEnabled = enabled
         repeatButton.alpha = enabled ? 1.0 : 0.5
+        
+        playbackSpeedButton.isEnabled = enabled
+        playbackSpeedButton.alpha = enabled ? 1.0 : 0.5
     }
 
     func updateConstraints(for orientation: UIDeviceOrientation) {
