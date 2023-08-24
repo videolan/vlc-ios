@@ -1460,11 +1460,10 @@ private extension VideoPlayerViewController {
 
     private func setupMediaNavigationBarConstraints() {
         let padding: CGFloat = 16
-
         NSLayoutConstraint.activate([
             mediaNavigationBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mediaNavigationBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor),
-            mediaNavigationBar.trailingAnchor.constraint(equalTo: videoPlayerControls.trailingAnchor),
+            mediaNavigationBar.leadingAnchor.constraint(equalTo: videoPlayerControls.leadingAnchor, constant: -8),
+            mediaNavigationBar.trailingAnchor.constraint(equalTo: videoPlayerControls.trailingAnchor, constant: 8),
             mediaNavigationBar.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
                                                     constant: padding),
             optionsNavigationBar.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -padding),
@@ -1473,14 +1472,14 @@ private extension VideoPlayerViewController {
     }
 
     private func setupVideoPlayerControlsConstraints() {
-        let padding: CGFloat = 20
+        let padding: CGFloat = 8
         let minPadding: CGFloat = 5
 
         NSLayoutConstraint.activate([
             videoPlayerControlsHeightConstraint,
-            videoPlayerControls.leadingAnchor.constraint(lessThanOrEqualTo: layoutGuide.leadingAnchor,
+            videoPlayerControls.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
                                                          constant: padding),
-            videoPlayerControls.trailingAnchor.constraint(greaterThanOrEqualTo: layoutGuide.trailingAnchor,
+            videoPlayerControls.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
                                                           constant: -padding),
             videoPlayerControls.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor,
                                                        constant: -2 * minPadding),
