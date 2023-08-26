@@ -63,7 +63,7 @@
 
 - (void)playCollection:(NSArray<VLCMLMedia *> *)collection
 {
-    [self playMediaAtIndex:0 fromCollection:collection];
+    [self playMediaAtIndex:-1 fromCollection:collection];
 }
 
 - (void)playCollection:(NSArray<VLCMLMedia *> *)collection withMode:(EditButtonType)mode
@@ -101,7 +101,6 @@
 }
 
 - (void)configureMediaListWithMLMedia:(NSArray<VLCMLMedia *> *)mlMedia indexToPlay:(int)index {
-    NSAssert(index >= 0, @"The index should never be negative");
     VLCMediaList *list = [[VLCMediaList alloc] init];
     VLCMedia *media;
     for (VLCMLMedia *file in mlMedia) {

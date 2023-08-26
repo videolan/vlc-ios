@@ -292,11 +292,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     int deinterlace = [[defaults objectForKey:kVLCSettingDeinterlace] intValue];
     [_mediaPlayer setDeinterlace:deinterlace withFilter:@"blend"];
 
-    VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
-    [media parseWithOptions:VLCMediaParseLocal];
-    media.delegate = self;
-    [media addOptions:self.mediaOptionsDictionary];
-
     [_listPlayer setMediaList:self.mediaList];
 #if TARGET_OS_IOS
     if ([defaults boolForKey:kVLCPlayerShouldRememberState]) {
@@ -344,14 +339,25 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     [_mediaPlayer setRendererItem:_renderer];
 #endif
 
-    if (_shuffleMode) {
-        int count = (int)_mediaList.count;
-        if (count > 0) {
-            _currentIndex = arc4random_uniform(count - 1);
-            [self shuffleMediaList];
-            _itemInMediaListToBePlayedFirst = (int)[_shuffledOrder[0] integerValue];
+    /* we are playing a collection without a valid index,
+     * so this is either 0 or totally random */
+    if (_itemInMediaListToBePlayedFirst == -1) {
+        if (_shuffleMode) {
+            int count = (int)_mediaList.count;
+            if (count > 0) {
+                _currentIndex = arc4random_uniform(count - 1);
+                [self shuffleMediaList];
+                _itemInMediaListToBePlayedFirst = (int)[_shuffledOrder[0] integerValue];
+            }
+        } else {
+            _itemInMediaListToBePlayedFirst = 0;
         }
     }
+
+    VLCMedia *media = [_mediaList mediaAtIndex:_itemInMediaListToBePlayedFirst];
+    [media parseWithOptions:VLCMediaParseLocal];
+    media.delegate = self;
+    [media addOptions:self.mediaOptionsDictionary];
 
     [_listPlayer playItemAtNumber:@(_itemInMediaListToBePlayedFirst)];
 
