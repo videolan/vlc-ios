@@ -61,6 +61,7 @@
         [self checkIsAudioOnly:mediaPlayer];
     }
 
+    self.descriptiveTitle = nil;
     if (self.isAudioOnly) {
         if (self.artworkImage) {
             if (self.artist)
@@ -70,7 +71,6 @@
         }
         if (self.title.length < 1)
             self.title = [[mediaPlayer.media url] lastPathComponent];
-
     }
     [self updatePlaybackRate:mediaPlayer];
 
