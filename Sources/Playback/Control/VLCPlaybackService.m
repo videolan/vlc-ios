@@ -153,6 +153,11 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 #pragma mark - playback management
 
+- (void)addAudioToCurrentPlaybackFromURL:(NSURL *)audioURL
+{
+    [_mediaPlayer addPlaybackSlave:audioURL type:VLCMediaPlaybackSlaveTypeAudio enforce:YES];
+}
+
 - (void)addSubtitlesToCurrentPlaybackFromURL:(NSURL *)subtitleURL
 {
     [_mediaPlayer addPlaybackSlave:subtitleURL type:VLCMediaPlaybackSlaveTypeSubtitle enforce:YES];
@@ -626,7 +631,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
 - (NSInteger)numberOfAudioTracks
 {
-    return [_mediaPlayer numberOfAudioTracks];
+    return [_mediaPlayer numberOfAudioTracks] + 1;
 }
 
 - (NSInteger)numberOfVideoSubtitlesIndexes
@@ -662,6 +667,8 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 {
     if (index >= 0 && index < _mediaPlayer.audioTrackNames.count)
         return _mediaPlayer.audioTrackNames[index];
+    else if (index == _mediaPlayer.audioTrackNames.count)
+        return NSLocalizedString(@"SELECT_AUDIO_FROM_FILES", nil);
     return @"";
 }
 

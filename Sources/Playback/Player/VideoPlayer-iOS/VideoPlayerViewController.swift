@@ -2247,8 +2247,8 @@ extension VideoPlayerViewController: TitleSelectionViewDelegate {
 extension VideoPlayerViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let mediaURL = playbackService.currentlyPlayingMedia?.url else { return }
-        guard let subtitleFileUrl = urls.first else { return }
-
+        guard let fileURL = urls.first else { return }
+                
         let mediaURLPath = mediaURL.path
         let filename = mediaURL.lastPathComponent as NSString
         let fileManager = FileManager.default
@@ -2270,22 +2270,28 @@ extension VideoPlayerViewController: UIDocumentPickerDelegate {
             }
             pathComponent = "\(kVLCSubtitlesCacheFolderName)/\(filename.deletingPathExtension)"
         }
-        var destinationPath = (documentFolderPath as NSString).appendingPathComponent("\(pathComponent).\(subtitleFileUrl.pathExtension)")
+        var destinationPath = (documentFolderPath as NSString).appendingPathComponent("\(pathComponent).\(fileURL.pathExtension)")
         var index = 0
 
         while fileManager.fileExists(atPath: destinationPath) {
             index += 1
-            destinationPath = (documentFolderPath as NSString).appendingPathComponent("\(pathComponent)\(index).\(subtitleFileUrl.pathExtension)")
+            destinationPath = (documentFolderPath as NSString).appendingPathComponent("\(pathComponent)\(index).\(fileURL.pathExtension)")
         }
 
-        if subtitleFileUrl.startAccessingSecurityScopedResource() {
+        if fileURL.startAccessingSecurityScopedResource() {
             do {
-                try fileManager.copyItem(at: subtitleFileUrl, to: URL(fileURLWithPath: destinationPath))
+                try fileManager.copyItem(at: fileURL, to: URL(fileURLWithPath: destinationPath))
             } catch {
                 return
             }
-            subtitleFileUrl.stopAccessingSecurityScopedResource()
-            playbackService.addSubtitlesToCurrentPlayback(from: URL(fileURLWithPath: destinationPath))
+            fileURL.stopAccessingSecurityScopedResource()
+            
+            if fileURL.pathExtension.contains("srt") {
+                playbackService.addSubtitlesToCurrentPlayback(from: URL(fileURLWithPath: destinationPath))
+            } else {
+                playbackService.addAudioToCurrentPlayback(from: URL(fileURLWithPath: destinationPath))
+            }
+            
         } else {
             return
         }

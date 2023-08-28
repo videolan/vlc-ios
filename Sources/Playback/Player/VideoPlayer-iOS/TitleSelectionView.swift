@@ -316,12 +316,15 @@ extension TitleSelectionView: UITableViewDelegate, UITableViewDataSource {
         currentCell?.checkImageView.alpha = 1
 
         if tableView == audioTableView {
+            if indexPath.row == playbackService.numberOfAudioTracks - 1 {
+                currentCell?.checkImageView.alpha = 0
+                delegate?.titleSelectionViewDelegateDidSelectFromFiles(self)
+            }
             playbackService.selectAudioTrack(at: indexPath.row)
             delegate?.titleSelectionViewDelegateDidSelectTrack(self)
         } else {
             if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 2 {
                 currentCell?.checkImageView.alpha = 0
-                print("Successfully pressed open from files button")
                 delegate?.titleSelectionViewDelegateDidSelectFromFiles(self)
             }
             else if indexPath.row == playbackService.numberOfVideoSubtitlesIndexes - 1 {
