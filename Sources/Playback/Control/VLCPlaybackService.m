@@ -1438,6 +1438,10 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     VLCMLMedia *media = [VLCMLMedia mediaForPlayingMedia:_mediaPlayer.media];
     if (!media) return;
 
+    if (self.repeatMode != VLCDoNotRepeat) {
+        goto bailout;
+    }
+
     CGFloat lastPosition = media.progress;
     // .95 prevents the controller from opening and closing immediatly when restoring state
     //  Additionally, check if the media is more than 10 sec
