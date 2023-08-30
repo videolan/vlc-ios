@@ -59,7 +59,7 @@
                              dispatch_block_t completionBlock) {
             VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
             VLCMLGenre *genre = item.userInfo;
-            [playbackService playMediaAtIndex:0 fromCollection:[genre tracks]];
+            [playbackService playCollection:[genre tracks]];
             completionBlock();
         };
         [itemList addObject:listItem];
