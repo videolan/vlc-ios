@@ -38,7 +38,9 @@
 - (void)netServiceDidResolveAddress:(NSNetService *)sender {
 #if !TARGET_OS_TV
     NSString *ownHostname = [[VLCHTTPUploaderController sharedInstance] hostname];
-    if ([[sender hostName] rangeOfString:ownHostname].location != NSNotFound) {
+    if (!ownHostname)
+        return;
+    if ([[sender hostName] rangeOfString:ownHostname options:NSCaseInsensitiveSearch].location != NSNotFound) {
         return;
     }
 #endif
