@@ -180,6 +180,10 @@ extension VLCMLPlaylist {
         return String(format: tracksString, mediaCount)
     }
 
+    func durationString() -> String {
+        return String(format: "%@", VLCTime(number: NSNumber.init(value: duration())))
+    }
+
     @objc func thumbnailImage() -> UIImage? {
         let artworkMRL = URL.init(string: artworkMrl())
         var image = VLCThumbnailsCache.thumbnail(for: artworkMRL)

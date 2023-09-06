@@ -390,7 +390,7 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
         newLabel.isHidden = true
         titleLabel.text = playlist.name
         accessibilityLabel = playlist.accessibilityText()
-        sizeDescriptionLabel.text = playlist.numberOfTracksString()
+        sizeDescriptionLabel.text = playlist.numberOfTracksString() + " — " + playlist.durationString()
         thumbnailView.layer.cornerRadius = 3
         thumbnailView.image = playlist.thumbnail()
         dragIndicatorImageView.image = UIImage(named: "disclosureChevron")
