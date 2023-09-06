@@ -59,7 +59,7 @@ class TabBarCoordinator: NSObject {
                 navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:  colors.navigationbarTextColor]
 
                 if #available(iOS 11.0, *) {
-                    navController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:  colors.navigationbarTextColor]
+                    navController.navigationBar.prefersLargeTitles = false
                 }
                 if #available(iOS 13.0, *) {
                     navController.navigationBar.standardAppearance = AppearanceManager.navigationbarAppearance()

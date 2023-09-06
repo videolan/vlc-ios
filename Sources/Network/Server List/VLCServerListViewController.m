@@ -201,6 +201,10 @@
 {
     [super viewDidLoad];
 
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
+    }
+    
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(themeDidChange) name:kVLCThemeDidChangeNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(contentSizeDidChange) name:UIContentSizeCategoryDidChangeNotification object:nil];
@@ -237,9 +241,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
-    }
     VLCPlaybackService.sharedInstance.playerDisplayController.isMiniPlayerVisible
     ? [self miniPlayerIsShown] : [self miniPlayerIsHidden];
     dispatch_async(dispatch_get_main_queue(), ^{
