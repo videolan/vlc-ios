@@ -333,7 +333,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     }
 
     [_mediaPlayer addObserver:self forKeyPath:@"time" options:0 context:nil];
-    [_mediaPlayer addObserver:self forKeyPath:@"remainingTime" options:0 context:nil];
 
 #if TARGET_OS_IOS
     [_mediaPlayer setRendererItem:_renderer];
@@ -400,7 +399,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     if (_mediaPlayer) {
         @try {
             [_mediaPlayer removeObserver:self forKeyPath:@"time"];
-            [_mediaPlayer removeObserver:self forKeyPath:@"remainingTime"];
         }
         @catch (NSException *exception) {
             APLog(@"we weren't an observer yet");
