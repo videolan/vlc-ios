@@ -1,5 +1,8 @@
 # Changelog
 
+## iOS [3.5.0]
+· Add new playback history feature
+
 ## iOS [3.4.9]
 · Noticable stability improvements
 · Fix distortion when playing MP3 media
