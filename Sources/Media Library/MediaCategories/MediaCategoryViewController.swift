@@ -130,6 +130,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
     private lazy var editBarButton: UIBarButtonItem = {
         return setupEditBarButton()
     }()
+    
+    private lazy var clearHistoryButton: UIBarButtonItem = {
+        return setupClearHistoryButton()
+    }()
 
     private lazy var selectAllBarButton: UIBarButtonItem = {
         return setupSelectAllButton()
@@ -147,6 +151,11 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
         // Check if no playlists
         if model is PlaylistModel {
             emptyView.contentType = .noPlaylists
+        }
+        
+        // Check if history page
+        if model is HistoryModel {
+            emptyView.contentType = .noHistory
         }
 
         // Check if it is inside a playlist
@@ -200,6 +209,10 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             navItemTitle.text = collection.title
         } else if let collection = model as? CollectionModel {
             navItemTitle.text = collection.mediaCollection.title()
+        }
+        
+        if let model = model as? HistoryModel {
+            navItemTitle.text = NSLocalizedString("BUTTON_HISTORY", comment: "")
         }
 
         navItemTitle.textColor = PresentationTheme.current.colors.navigationbarTextColor
@@ -648,6 +661,14 @@ extension MediaCategoryViewController {
         selectAll.accessibilityHint = NSLocalizedString("BUTTON_SELECT_ALL_HINT", comment: "")
         return selectAll
     }
+    
+    private func setupClearHistoryButton() -> UIBarButtonItem {
+        let clearHistory = UIBarButtonItem(title: NSLocalizedString("BUTTON_CLEAR", comment: ""),
+                                        style: .plain, target: self,
+                                           action: #selector(handleClearHistory))
+        clearHistory.accessibilityLabel = NSLocalizedString("BUTTON_CLEAR", comment: "")
+        return clearHistory
+    }
 
 
     private func setupSortButton() -> UIButton {
@@ -754,6 +775,10 @@ extension MediaCategoryViewController {
             handleSortShortcut()
         }
     }
+    
+    @objc func handleClearHistory() {
+        mediaLibraryService.medialib.clearHistory()
+    }
 
     @objc func handleSelectAll() {
         isAllSelected = !isAllSelected
@@ -787,6 +812,10 @@ extension MediaCategoryViewController: VLCRendererDiscovererManagerDelegate {
         if !isEditing {
             navigationItem.rightBarButtonItems = rightBarButtonItems()
             navigationItem.setHidesBackButton(isEditing, animated: true)
+        }
+        
+        if self is HistoryCategoryViewController {
+            navigationItem.rightBarButtonItem = clearHistoryButton
         }
 
         if isEmptyCollectionView() {

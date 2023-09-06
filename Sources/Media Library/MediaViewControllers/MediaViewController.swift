@@ -35,6 +35,16 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         editButton.accessibilityHint = NSLocalizedString("BUTTON_EDIT_HINT", comment: "")
         return editButton
     }()
+    
+    private lazy var historyButton: UIBarButtonItem = {
+        var historyButton = UIBarButtonItem(image: UIImage(named: "HistoryClock"),
+                                     style: .plain, target: self,
+                                     action: #selector(handleHistory))
+        historyButton.tintColor = PresentationTheme.current.colors.orangeUI
+        historyButton.accessibilityLabel = NSLocalizedString("BUTTON_HISTORY", comment: "")
+        historyButton.accessibilityHint = NSLocalizedString("BUTTON_HISTORY_HINT", comment: "")
+        return historyButton
+    }()
 
     private lazy var regroupButton: UIBarButtonItem = {
         var regroup = UIBarButtonItem(image: UIImage(named: "regroupMediaGroups"),
@@ -88,9 +98,10 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         super.viewDidLoad()
         if #available(iOS 14.0, *) {
             rightBarButtons = [menuButton]
+            leftBarButtons = [historyButton]
         } else {
             rightBarButtons = [editButton]
-            leftBarButtons = [sortButton]
+            leftBarButtons = [sortButton, historyButton]
         }
 
         if !rendererButton.isHidden {
@@ -173,18 +184,20 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     }
 
     private func leftBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem]? {
-        var leftBarButtonItems = [UIBarButtonItem]()
-
-        if #available(iOS 14.0, *) {
-            return nil
-        } else if viewController is CollectionCategoryViewController ||
-                    viewController is ArtistAlbumCategoryViewController {
+        if viewController is CollectionCategoryViewController ||
+            viewController is ArtistAlbumCategoryViewController {
             return nil
         }
-
-        leftBarButtonItems.append(sortButton)
-
-        return leftBarButtonItems
+        if #available(iOS 14.0, *) {
+            if viewController is PlaylistViewController || viewController is PlaylistCategoryViewController {
+                return nil
+            }
+            return [historyButton]
+        }
+        if viewController is PlaylistViewController || viewController is PlaylistCategoryViewController {
+            return [sortButton]
+        }
+        return [sortButton, historyButton]
     }
 
     private func rightBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem] {
@@ -282,22 +295,22 @@ extension MediaViewController {
 
         if let mediaCategoryViewController = viewControllers[currentIndex] as? MediaCategoryViewController,
             mediaCategoryViewController.model is MediaGroupViewModel {
-            leftBarButtons = isEditing ? [regroupButton, selectAllButton] : [sortButton]
+            leftBarButtons = isEditing ? [regroupButton, selectAllButton] : [sortButton, historyButton]
             rightButtons = [editButton]
         } else if viewControllers[currentIndex] is ArtistAlbumCategoryViewController ||
                     viewControllers[currentIndex] is CollectionCategoryViewController {
             leftBarButtons = nil
             rightButtons = [editButton, sortButton]
         } else {
-            leftBarButtons = isEditing ? [selectAllButton] : [sortButton]
+            leftBarButtons = isEditing ? [selectAllButton] : [sortButton, historyButton]
             rightButtons = [editButton]
         }
 
         if #available(iOS 14.0, *) {
             rightButtons = [menuButton]
-            // No left buttons with UIMenu
+            // left button is History button
             if isEditing == false {
-                leftBarButtons = nil
+                leftBarButtons = [historyButton]
             }
         }
 
@@ -346,6 +359,12 @@ extension MediaViewController {
             }
             mediaCategoryViewController.handleRegroup()
         }
+    }
+    
+    @objc func handleHistory() {
+        let mediaType: VLCMLMediaType = viewControllers[currentIndex] is MovieCategoryViewController ? .video : .audio
+        let historyView = HistoryCategoryViewController(mediaLibraryService, mediaType: mediaType)
+        navigationController?.pushViewController(historyView, animated: true)
     }
 
     @objc func handleSelectAll() {

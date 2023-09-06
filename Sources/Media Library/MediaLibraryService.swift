@@ -107,6 +107,10 @@ extension NSNotification {
 
     @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
                                      didDeleteMediaGroupsWithIds mediaGroupsIds: [NSNumber])
+    
+    // History
+    @objc optional func medialibrary(_ medialibrary: MediaLibraryService,
+                                     historyChangedOfType type: VLCMLHistoryType)
 
     // Force Rescan
     @objc optional func medialibraryDidStartRescan()
@@ -693,6 +697,14 @@ extension MediaLibraryService {
     func medialibraryDidStartRescan(_ medialibrary: VLCMediaLibrary) {
         for observer in observable.observers {
             observer.value.observer?.medialibraryDidStartRescan?()
+        }
+    }
+}
+
+extension MediaLibraryService {
+    func medialibrary(_ medialibrary: VLCMediaLibrary, historyChangedOf type: VLCMLHistoryType) {
+        for observer in observable.observers {
+            observer.value.observer?.medialibrary?(self, historyChangedOfType: type)
         }
     }
 }

@@ -74,6 +74,14 @@ class ArtistAlbumCategoryViewController: MediaCategoryViewController {
     }
 }
 
+class HistoryCategoryViewController: MediaCategoryViewController {
+    init(_ mediaLibraryService: MediaLibraryService, mediaType: VLCMLMediaType) {
+        let model = HistoryModel(medialibrary: mediaLibraryService, mediaType: mediaType)
+        super.init(mediaLibraryService: mediaLibraryService, model: model)
+        model.observable.addObserver(self)
+    }
+}
+
 class CollectionCategoryViewController: MediaCategoryViewController {
     private lazy var playAllButton: UIBarButtonItem = {
         let playAllButton = UIBarButtonItem(image: UIImage(named: "iconPlay"), style: .plain, target: self, action: #selector(handlePlayAll))

@@ -346,6 +346,7 @@
 		8DF9669D2113317E00D0FCD6 /* EditToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9669C2113317100D0FCD6 /* EditToolbar.swift */; };
 		8DF966B121188BDB00D0FCD6 /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF966B021188BDB00D0FCD6 /* EditController.swift */; };
 		8DF966EF211C643D00D0FCD6 /* PlaylistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF966EE211C643D00D0FCD6 /* PlaylistModel.swift */; };
+		8F67A5912A34E820005A8AC1 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F67A5902A34E820005A8AC1 /* HistoryModel.swift */; };
 		8F91EC79195CEC7900F5BCBA /* VLCOpenInActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */; };
 		8F91EC7F195E1DAB00F5BCBA /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F91EC7E195E1DAB00F5BCBA /* AssetsLibrary.framework */; };
 		917ABA4D272AA91000A20EA4 /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917ABA4C272AA91000A20EA4 /* StoreViewController.swift */; };
@@ -978,6 +979,7 @@
 		8DF9669C2113317100D0FCD6 /* EditToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditToolbar.swift; sourceTree = "<group>"; };
 		8DF966B021188BDB00D0FCD6 /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
 		8DF966EE211C643D00D0FCD6 /* PlaylistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistModel.swift; sourceTree = "<group>"; };
+		8F67A5902A34E820005A8AC1 /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
 		8F91EC77195CEC7900F5BCBA /* VLCOpenInActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenInActivity.h; path = "Sources/Media Library/Activity View/VLCOpenInActivity.h"; sourceTree = SOURCE_ROOT; };
 		8F91EC78195CEC7900F5BCBA /* VLCOpenInActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpenInActivity.m; path = "Sources/Media Library/Activity View/VLCOpenInActivity.m"; sourceTree = SOURCE_ROOT; };
 		8F91EC7E195E1DAB00F5BCBA /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -2634,6 +2636,7 @@
 				8D4F9B462141630000E478BE /* MediaModel.swift */,
 				4120863922323E87006A6630 /* CollectionModel.swift */,
 				8D83219A234256A900B28912 /* MediaGroupViewModel.swift */,
+				8F67A5902A34E820005A8AC1 /* HistoryModel.swift */,
 			);
 			path = MediaLibraryModel;
 			sourceTree = "<group>";
@@ -3556,6 +3559,7 @@
 				7D3784C0183A9938009EE944 /* VLCLinearProgressIndicator.m in Sources */,
 				41CD695D1A29D72600E60BCE /* VLCBoxTableViewController.m in Sources */,
 				DD3EFF4F1BDEBCE500B68579 /* VLCPlexParser.m in Sources */,
+				8F67A5912A34E820005A8AC1 /* HistoryModel.swift in Sources */,
 				8D15A1ED22A9603300CFA758 /* ActionSheetSortSectionHeader.swift in Sources */,
 				41CD695C1A29D72600E60BCE /* VLCBoxController.m in Sources */,
 				91C1BB8025EFD7A40096F97E /* ColorThemeExtension.swift in Sources */,

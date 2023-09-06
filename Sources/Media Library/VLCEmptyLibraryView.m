@@ -68,6 +68,11 @@
                                             nil);
             _learnMoreButton.hidden = YES;
             break;
+        case VLCEmptyLibraryViewContentTypeNoHistory:
+            title = NSLocalizedString(@"EMPTY_HISTORY", nil);
+            description = NSLocalizedString(@"EMPTY_HISTORY_DESCRIPTION", nil);
+            _learnMoreButton.hidden = YES;
+            break;
         case VLCEmptyLibraryViewContentTypeNoPlaylists:
             title = NSLocalizedString(@"EMPTY_NO_PLAYLISTS", nil);
             description = NSLocalizedString(@"EMPTY_NO_PLAYLISTS_DESCRIPTION",

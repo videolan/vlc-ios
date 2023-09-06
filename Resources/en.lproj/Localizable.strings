@@ -179,6 +179,9 @@
 "EMPTY_PLAYLIST" = "Empty playlist";
 "EMPTY_PLAYLIST_DESCRIPTION" = "Add media while editing in the respective categories.";
 
+"EMPTY_HISTORY" = "Empty History";
+"EMPTY_HISTORY_DESCRIPTION" = "No media yet.";
+
 "PLAYBACK_SCRUB_HELP" = "Slide your finger up to adjust the scrubbing rate.";
 "PLAYBACK_SCRUB_HIGH" = "High-Speed Scrubbing";
 "PLAYBACK_SCRUB_HALF" = "Half-Speed Scrubbing";
@@ -325,7 +328,7 @@
 "SONGS" = "Songs";
 "PLAYLISTS" = "Playlists";
 "VIDEO_GROUPS" = "Video groups";
-
+"HISTORY" = "History";
 "MODIFIED_DATE" = "Modified date";
 "NAME" = "Name";
 
@@ -342,6 +345,11 @@
 
 "BUTTON_SELECT_ALL" = "Select all";
 "BUTTON_SELECT_ALL_HINT" = "Select all the media items present in this view";
+
+"BUTTON_HISTORY" = "History";
+"BUTTON_HISTORY_HINT" = "View your recently played media";
+
+"BUTTON_CLEAR" = "Clear";
 
 "ADD_TO_PLAYLIST" = "Add to Playlist";
 "ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";
