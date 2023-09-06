@@ -1,5 +1,21 @@
 # Changelog
 
+## iOS [3.4.9]
+· Noticable stability improvements
+· Fix distortion when playing MP3 media
+· VLC core update to version 3.0.19
+· Fix issue where the last frame remained visible on playback end
+· Playback starts with the selected media even in shuffle mode
+· Playback is no longer continued from the last position in loop mode
+· New translation to Georgian and updated to Korean and Slovenian
+
+## tvOS [3.4.9]
+· Noticable stability improvements
+· Fix distortion when playing MP3 media
+· VLC core update to version 3.0.19
+· Fix issue where the last frame remained visible on playback end
+· New translation to Georgian and updated to Korean and Slovenian
+
 ## iOS [3.4.8]
 · Second attempt to fix the heating problem
 · Fix shuffle behavior
