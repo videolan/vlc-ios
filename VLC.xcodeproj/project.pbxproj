@@ -695,6 +695,8 @@
 		7D1AB290179C98E3004CC271 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D1AB2A4179C99AE004CC271 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D21407E2431F3A40075E767 /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoSubtitlesFetcherViewController.xib; sourceTree = "<group>"; };
+		7D23F3ED2AA8AA7F001FA694 /* ka */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ka; path = ka.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7D23F3EE2AA8AA7F001FA694 /* ka */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ka; path = ka.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D2AEDE017FB775900B5281E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D2AEDE517FB785100B5281E /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D2D7FD21BD2F109002D6B6D /* VLC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = VLC.entitlements; path = Resources/tvOS/VLC.entitlements; sourceTree = SOURCE_ROOT; };
@@ -2934,6 +2936,7 @@
 				co,
 				br,
 				th,
+				ka,
 			);
 			mainGroup = 7D94FCD216DE7D1000F2623B;
 			productRefGroup = 7D94FCDC16DE7D1000F2623B /* Products */;
@@ -3725,6 +3728,7 @@
 				4187303C228F0E8300F7D8B7 /* co */,
 				41873034228F033F00F7D8B7 /* br */,
 				41873030228F017B00F7D8B7 /* th */,
+				7D23F3ED2AA8AA7F001FA694 /* ka */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3782,6 +3786,7 @@
 				4187303D228F0E8300F7D8B7 /* co */,
 				41873035228F033F00F7D8B7 /* br */,
 				41873031228F017B00F7D8B7 /* th */,
+				7D23F3EE2AA8AA7F001FA694 /* ka */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
