@@ -216,7 +216,7 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
     }
 
     func setupBackgroundColor() {
-        backgroundView.backgroundColor = thumbnailImageView.image?.averageColor
+        backgroundView.backgroundColor = thumbnailImageView.image?.averageColor()
     }
 
     func setupLabels() {

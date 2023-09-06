@@ -149,6 +149,7 @@
 		7D30F3EA183AB34200FFC021 /* VLCGoogleDriveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E5183AB34200FFC021 /* VLCGoogleDriveController.m */; };
 		7D30F3EC183AB34200FFC021 /* VLCGoogleDriveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */; };
 		7D310885245F1EE100BC6D79 /* VLCMediaFileDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */; };
+		7D3150A92AA8B8B90068D478 /* UIImage+AverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3150A82AA8B8B90068D478 /* UIImage+AverageColor.m */; };
 		7D37196428F1F0B800C5A9F2 /* VLCAppSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D37196328F1F0B800C5A9F2 /* VLCAppSceneDelegate.m */; };
 		7D378492183A98BF009EE944 /* VLCExternalDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378491183A98BF009EE944 /* VLCExternalDisplayController.m */; };
 		7D3784AD183A9906009EE944 /* VLCDropboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784AA183A9906009EE944 /* VLCDropboxController.m */; };
@@ -381,8 +382,6 @@
 		D9250B7D291BB3190081F729 /* AudioPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9250B7C291BB3180081F729 /* AudioPlayerView.xib */; };
 		D926A50129CDD48100FC3A6C /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = D926A50029CDD48100FC3A6C /* Document.swift */; };
 		D92C186527CD317D0034058F /* ChapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C186427CD317D0034058F /* ChapterView.swift */; };
-		D94E3A9D294384CD000ADB42 /* UIImage+AverageColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E3A9C294384CD000ADB42 /* UIImage+AverageColor.swift */; };
-		D94E3A9E294384CD000ADB42 /* UIImage+AverageColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E3A9C294384CD000ADB42 /* UIImage+AverageColor.swift */; };
 		D960DD0F2892A946008B81D9 /* GoogleSignInAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D960DD0E2892A946008B81D9 /* GoogleSignInAuthenticator.swift */; };
 		D9691C4728F9C30E0047B321 /* UIImage+TintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9691C4628F9C30E0047B321 /* UIImage+TintColor.swift */; };
 		D9691C4828F9C30E0047B321 /* UIImage+TintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9691C4628F9C30E0047B321 /* UIImage+TintColor.swift */; };
@@ -735,6 +734,8 @@
 		7D30F3E9183AB34200FFC021 /* VLCGoogleDriveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCGoogleDriveTableViewController.m; path = "Sources/Cloud/Services/Google Drive/VLCGoogleDriveTableViewController.m"; sourceTree = SOURCE_ROOT; };
 		7D310883245F1EE100BC6D79 /* VLCMediaFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMediaFileDownloader.h; path = Sources/Network/Download/VLCMediaFileDownloader.h; sourceTree = SOURCE_ROOT; };
 		7D310884245F1EE100BC6D79 /* VLCMediaFileDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaFileDownloader.m; path = Sources/Network/Download/VLCMediaFileDownloader.m; sourceTree = SOURCE_ROOT; };
+		7D3150A72AA8B8B90068D478 /* UIImage+AverageColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+AverageColor.h"; sourceTree = "<group>"; };
+		7D3150A82AA8B8B90068D478 /* UIImage+AverageColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AverageColor.m"; sourceTree = "<group>"; };
 		7D31719C19FEC91F0019357A /* VLC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = VLC.entitlements; path = Resources/iOS/VLC.entitlements; sourceTree = SOURCE_ROOT; };
 		7D3323FB18E61DD5000ABEA5 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7D37196228F1F0B800C5A9F2 /* VLCAppSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCAppSceneDelegate.h; sourceTree = "<group>"; };
@@ -1039,7 +1040,6 @@
 		D9250B7C291BB3180081F729 /* AudioPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioPlayerView.xib; sourceTree = "<group>"; };
 		D926A50029CDD48100FC3A6C /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		D92C186427CD317D0034058F /* ChapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterView.swift; sourceTree = "<group>"; };
-		D94E3A9C294384CD000ADB42 /* UIImage+AverageColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+AverageColor.swift"; sourceTree = "<group>"; };
 		D960DD0E2892A946008B81D9 /* GoogleSignInAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInAuthenticator.swift; sourceTree = "<group>"; };
 		D9691C4628F9C30E0047B321 /* UIImage+TintColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TintColor.swift"; sourceTree = "<group>"; };
 		D96C9EBB28105F5B005F13BB /* AlbumHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeader.swift; sourceTree = "<group>"; };
@@ -1955,9 +1955,10 @@
 				7DC7BAA928C8958800109F28 /* UIImage+Blur.h */,
 				7DC7BAAA28C8958900109F28 /* UIImage+Blur.m */,
 				D9691C4628F9C30E0047B321 /* UIImage+TintColor.swift */,
-				D94E3A9C294384CD000ADB42 /* UIImage+AverageColor.swift */,
 				D9B40279298BC614007E923F /* UINavigationController+StatusBar.swift */,
 				D96CC64B2A0E723C00B373DD /* UIScreen+DisplayCornerRadius.swift */,
+				7D3150A72AA8B8B90068D478 /* UIImage+AverageColor.h */,
+				7D3150A82AA8B8B90068D478 /* UIImage+AverageColor.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -3390,7 +3391,6 @@
 				7DC7BAB828C8958900109F28 /* LayoutAnchorContainer.swift in Sources */,
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
 				7DC869BA28CB7A7000EE99F8 /* VLCOpenNetworkStreamTVViewController.m in Sources */,
-				D94E3A9E294384CD000ADB42 /* UIImage+AverageColor.swift in Sources */,
 				7D2DE69424D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */,
 				DD3EFF3E1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				DD8095EB1BE4F04E0065D8E1 /* VLCPlaybackInfoPlaybackTVViewController.m in Sources */,
@@ -3528,6 +3528,7 @@
 				7D2DE69324D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */,
 				D9691C4728F9C30E0047B321 /* UIImage+TintColor.swift in Sources */,
 				7DC2A8F12A04D457002B6704 /* UIViewController+VLCAlert.m in Sources */,
+				7D3150A92AA8B8B90068D478 /* UIImage+AverageColor.m in Sources */,
 				7DC19ADF1868C7BB00810BF7 /* VLCFirstStepsViewController.m in Sources */,
 				DD3EFF331BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
 				7DE56C1A1AD93F9100E8CA00 /* VLCPlaybackService.m in Sources */,
@@ -3656,7 +3657,6 @@
 				44C8BBB124AF36F4003F8940 /* ActionSheetSpecifier.swift in Sources */,
 				44B5822024E434FD001A2583 /* MediaGridCollectionCell.swift in Sources */,
 				8D6E1588223BBAF600077DD3 /* MiniPlayer.swift in Sources */,
-				D94E3A9D294384CD000ADB42 /* UIImage+AverageColor.swift in Sources */,
 				D9F0D67A2937624900A97964 /* PlayerViewController.swift in Sources */,
 				414396C22023316C005E3FAF /* AppearanceManager.swift in Sources */,
 				91F8BF1827318D890058D9DE /* StoreProductCollectionViewCell.swift in Sources */,
