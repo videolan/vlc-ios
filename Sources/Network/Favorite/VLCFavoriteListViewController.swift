@@ -196,7 +196,7 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
         guard let url = URL(string: stringURL) else { return }
         let vlcMedia = VLCMedia(url: url)
         let serverBrowser = VLCNetworkServerBrowserVLCMedia(media: vlcMedia)
-        if let serverBrowserVC = VLCNetworkServerBrowserViewController(serverBrowser: serverBrowser) {
+        if let serverBrowserVC = VLCNetworkServerBrowserViewController(serverBrowser: serverBrowser, medialibraryService: VLCAppCoordinator().mediaLibraryService) {
             self.navigationController?.pushViewController(serverBrowserVC, animated: true)
         }
     }
