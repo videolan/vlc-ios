@@ -4,6 +4,9 @@
 · Add new playback history feature
 · Remember playback position and state for media on network servers and external devices
 · Cache generated artwork for external media
+· Add Siri integration to control playback in VLC and access locally stored media
+· Allow folders on remote shares to be marked as favorites
+· Add support for external subtitles and audio tracks
 
 ## iOS [3.4.9]
 · Noticable stability improvements
