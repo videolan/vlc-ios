@@ -214,7 +214,7 @@ class MediaCategoryViewController: UICollectionViewController, UISearchBarDelega
             navItemTitle.text = collection.mediaCollection.title()
         }
         
-        if let model = model as? HistoryModel {
+        if model is HistoryModel {
             navItemTitle.text = NSLocalizedString("BUTTON_HISTORY", comment: "")
         }
 
