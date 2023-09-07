@@ -2,6 +2,8 @@
 
 ## iOS [3.5.0]
 · Add new playback history feature
+· Remember playback position and state for media on network servers and external devices
+· Cache generated artwork for external media
 
 ## iOS [3.4.9]
 · Noticable stability improvements
