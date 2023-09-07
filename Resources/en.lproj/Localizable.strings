@@ -91,7 +91,6 @@
 
 "SMB_CIFS_FILE_SERVERS_SHORT" = "SMB";
 
-
 "HTTP_DOWNLOAD_CANCELLED" = "Download canceled by user";
 
 "DOWNLOAD_FROM_HTTP" = "Downloads";
@@ -211,7 +210,6 @@
 
 "NEW" = "NEW";
 
-
 "VO_VIDEOPLAYER_TITLE" = "Video Player";
 "VO_VIDEOPLAYER_DOUBLETAP" = "Double tap to show or hide playback controls";
 
@@ -254,13 +252,6 @@
 "DURATION" = "Duration";
 "TITLE" = "Title";
 
-// MARK: - strings from VLCKit
-
-// MARK: - accessibility labels for the playlist
-
-
-
-// MARK: - ATV specific
 "AUDIO_INFO_VC_TITLE" = "Audio Info";
 "CLOUD_LOGIN_LONG" = "To access Cloud Services, sign-in to iCloud on both this Apple TV and an iOS device with the same Apple ID and enable Keychain Sharing in System Settings.\nAfterwards, login to the cloud provider of your choice using the VLC app on your iOS device. Finally, select it on this screen.";
 "ENTER_URL" = "Enter URL to play";
@@ -271,8 +262,8 @@
 "DOWNLOAD_SUBS_FROM_OSO" = "Download subtitles from OpenSubtitles.org...";
 "FOUND_SUBS" = "Found subtitles";
 "NO_SUB_FOUND_OSO" = "No subtitles were found for your media item \"%@\".";
-"SELECT_AUDIO_FROM_FILES" = "Access Audio from File...";
-"SELECT_SUBTITLE_FROM_FILES" = "Access Subtitle from File...";
+"SELECT_AUDIO_FROM_FILES" = "Load External Audio...";
+"SELECT_SUBTITLE_FROM_FILES" = "Load External Subtitles...";
 "USE_SPDIF" = "Use Pass-through (S/PDIF)";
 
 "PLAYBACK" = "Playback";
