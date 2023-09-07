@@ -245,6 +245,16 @@
     [[VLCAppCoordinator sharedInstance] handleShortcutItem:shortcutItem];
 }
 
+- (id)application:(UIApplication *)application handlerForIntent:(INIntent *)intent
+{
+    if (@available(iOS 14.0, *)) {
+        if ([intent isKindOfClass:[INPlayMediaIntent class]] || [intent isKindOfClass:[INAddMediaIntent class]] || [intent isKindOfClass:[INSearchForMediaIntent class]]) {
+            return [[SirikitIntentCoordinator alloc] initWithMediaLibraryService: [[VLCAppCoordinator sharedInstance] mediaLibraryService]];;
+        }
+    }
+    return NULL;
+}
+
 #pragma mark - pass code validation
 - (VLCKeychainCoordinator *)keychainCoordinator
 {

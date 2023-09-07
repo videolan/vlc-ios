@@ -30,6 +30,7 @@
         self.albumName = @"";
         self.artworkImage = nil;
         self.isAudioOnly = NO;
+        self.identifier = nil;
     }
     return self;
 }
@@ -50,6 +51,7 @@
         self.albumName = media.album.title;
         self.artworkImage = [media thumbnailImage];
         self.isAudioOnly = ([media subtype] == VLCMLMediaSubtypeAlbumTrack || media.videoTracks.count == 0) ? YES : NO;
+        self.identifier = @(media.identifier);
     } else { // We're streaming something
         [self fillFromMetaDict:mediaPlayer];
         if (!self.artworkImage) {
@@ -167,6 +169,7 @@
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyIsLiveStream] = @(duration.intValue <= 0);
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyMediaType] = _isAudioOnly ? @(MPNowPlayingInfoMediaTypeAudio) : @(MPNowPlayingInfoMediaTypeVideo);
         currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackProgress] = self.position;
+        currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyExternalContentIdentifier] = self.identifier;
     }
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.elapsedPlaybackTime;
     currentlyPlayingTrackInfo[MPNowPlayingInfoPropertyPlaybackRate] = self.playbackRate;
