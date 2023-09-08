@@ -7,6 +7,9 @@
 · Add Siri integration to control playback in VLC and access locally stored media
 · Allow folders on remote shares to be marked as favorites
 · Add support for external subtitles and audio tracks
+· Improve playback speed configuration for the audio player
+· Allow deleting local media during search
+· Show playlist durations in list view
 
 ## iOS [3.4.9]
 · Noticable stability improvements
