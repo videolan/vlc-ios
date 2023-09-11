@@ -204,6 +204,7 @@
 		7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */; };
 		7D8986D6278B0C25005396AA /* VLCThumbnailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */; };
 		7D8A030F2913D45400789583 /* VLCAppCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8A030E2913D45400789583 /* VLCAppCoordinator.m */; };
+		7D8ED53B2AAF10B200AE0D5E /* AppIntentVocabulary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D8ED53D2AAF10B200AE0D5E /* AppIntentVocabulary.plist */; };
 		7D9289751877459B009108FD /* VLCFirstStepsWifiSharingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289731877459B009108FD /* VLCFirstStepsWifiSharingViewController.m */; };
 		7D92897A1877467E009108FD /* VLCFirstStepsCloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9289781877467E009108FD /* VLCFirstStepsCloudViewController.m */; };
 		7D94FCDF16DE7D1000F2623B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D94FCDE16DE7D1000F2623B /* UIKit.framework */; };
@@ -827,6 +828,56 @@
 		7D8986D5278B0C25005396AA /* VLCThumbnailsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCThumbnailsCache.m; sourceTree = "<group>"; };
 		7D8A030D2913D45400789583 /* VLCAppCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCAppCoordinator.h; sourceTree = "<group>"; };
 		7D8A030E2913D45400789583 /* VLCAppCoordinator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCAppCoordinator.m; sourceTree = "<group>"; };
+		7D8ED53C2AAF10B200AE0D5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED53E2AAF10BF00AE0D5E /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = af; path = af.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED53F2AAF10C300AE0D5E /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ar; path = ar.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5402AAF10C400AE0D5E /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = be; path = be.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5412AAF10C500AE0D5E /* bs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = bs; path = bs.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5422AAF10C600AE0D5E /* br */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = br; path = br.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5432AAF10C700AE0D5E /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ca; path = ca.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5442AAF10C800AE0D5E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hans"; path = "zh-Hans.lproj/AppIntentVocabulary.plist"; sourceTree = "<group>"; };
+		7D8ED5452AAF10C900AE0D5E /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hant"; path = "zh-Hant.lproj/AppIntentVocabulary.plist"; sourceTree = "<group>"; };
+		7D8ED5462AAF10C900AE0D5E /* co */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = co; path = co.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5472AAF10CA00AE0D5E /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = cs; path = cs.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5482AAF10CB00AE0D5E /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = da; path = da.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5492AAF10CC00AE0D5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = nl; path = nl.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED54A2AAF10CC00AE0D5E /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "en-GB"; path = "en-GB.lproj/AppIntentVocabulary.plist"; sourceTree = "<group>"; };
+		7D8ED54B2AAF10CD00AE0D5E /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fo; path = fo.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED54C2AAF10CE00AE0D5E /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fi; path = fi.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED54D2AAF10CF00AE0D5E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fr; path = fr.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED54E2AAF10D000AE0D5E /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = gl; path = gl.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED54F2AAF10D000AE0D5E /* ka */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ka; path = ka.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5502AAF10D100AE0D5E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = de; path = de.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5512AAF10D200AE0D5E /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = el; path = el.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5522AAF10D300AE0D5E /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = he; path = he.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5532AAF10D400AE0D5E /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = hu; path = hu.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5542AAF10D500AE0D5E /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = is; path = is.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5552AAF10D500AE0D5E /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = id; path = id.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5562AAF10D600AE0D5E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = it; path = it.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5572AAF10D700AE0D5E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ja; path = ja.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5582AAF10D700AE0D5E /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = km; path = km.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5592AAF10D800AE0D5E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ko; path = ko.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED55A2AAF10D900AE0D5E /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = lv; path = lv.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED55B2AAF10D900AE0D5E /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ms; path = ms.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED55C2AAF10DA00AE0D5E /* mr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = mr; path = mr.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED55D2AAF10DB00AE0D5E /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = nb; path = nb.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED55E2AAF10DC00AE0D5E /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fa; path = fa.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED55F2AAF10DF00AE0D5E /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = pl; path = pl.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5602AAF10E000AE0D5E /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "pt-BR"; path = "pt-BR.lproj/AppIntentVocabulary.plist"; sourceTree = "<group>"; };
+		7D8ED5612AAF10E100AE0D5E /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "pt-PT"; path = "pt-PT.lproj/AppIntentVocabulary.plist"; sourceTree = "<group>"; };
+		7D8ED5622AAF10E200AE0D5E /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ro; path = ro.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5632AAF10E300AE0D5E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ru; path = ru.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5642AAF10E400AE0D5E /* sc */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = sc; path = sc.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5652AAF10E500AE0D5E /* si */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = si; path = si.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5662AAF10E600AE0D5E /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = sk; path = sk.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5672AAF10E700AE0D5E /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = sl; path = sl.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5682AAF10E700AE0D5E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = es; path = es.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED5692AAF10E800AE0D5E /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "es-MX"; path = "es-MX.lproj/AppIntentVocabulary.plist"; sourceTree = "<group>"; };
+		7D8ED56A2AAF10E900AE0D5E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = sv; path = sv.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED56B2AAF10EA00AE0D5E /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ta; path = ta.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED56C2AAF10EB00AE0D5E /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = th; path = th.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED56D2AAF10EB00AE0D5E /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = tr; path = tr.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
+		7D8ED56E2AAF10EC00AE0D5E /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = uk; path = uk.lproj/AppIntentVocabulary.plist; sourceTree = "<group>"; };
 		7D9289721877459B009108FD /* VLCFirstStepsWifiSharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsWifiSharingViewController.h; path = Sources/Onboarding/VLCFirstStepsWifiSharingViewController.h; sourceTree = SOURCE_ROOT; };
 		7D9289731877459B009108FD /* VLCFirstStepsWifiSharingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFirstStepsWifiSharingViewController.m; path = Sources/Onboarding/VLCFirstStepsWifiSharingViewController.m; sourceTree = SOURCE_ROOT; };
 		7D9289771877467E009108FD /* VLCFirstStepsCloudViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFirstStepsCloudViewController.h; path = Sources/Onboarding/VLCFirstStepsCloudViewController.h; sourceTree = SOURCE_ROOT; };
@@ -2474,6 +2525,7 @@
 			children = (
 				7DAF3E93268F536400C47D95 /* Launch Screen.storyboard */,
 				7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */,
+				7D8ED53D2AAF10B200AE0D5E /* AppIntentVocabulary.plist */,
 				7D3784EA183A9A1E009EE944 /* Info.plist */,
 				7D31719C19FEC91F0019357A /* VLC.entitlements */,
 				7DB638AA185BC0890003887C /* Images.xcassets */,
@@ -3044,6 +3096,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D8ED53B2AAF10B200AE0D5E /* AppIntentVocabulary.plist in Resources */,
 				7D00161C177056B700649F27 /* main.js in Resources */,
 				417E68691F307D8F00DB9BB2 /* InfoPlist.strings in Resources */,
 				7AC862A71765E9510011611A /* jquery.fileupload.js in Resources */,
@@ -3757,6 +3810,63 @@
 				7D23F3ED2AA8AA7F001FA694 /* ka */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7D8ED53D2AAF10B200AE0D5E /* AppIntentVocabulary.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7D8ED53C2AAF10B200AE0D5E /* en */,
+				7D8ED53E2AAF10BF00AE0D5E /* af */,
+				7D8ED53F2AAF10C300AE0D5E /* ar */,
+				7D8ED5402AAF10C400AE0D5E /* be */,
+				7D8ED5412AAF10C500AE0D5E /* bs */,
+				7D8ED5422AAF10C600AE0D5E /* br */,
+				7D8ED5432AAF10C700AE0D5E /* ca */,
+				7D8ED5442AAF10C800AE0D5E /* zh-Hans */,
+				7D8ED5452AAF10C900AE0D5E /* zh-Hant */,
+				7D8ED5462AAF10C900AE0D5E /* co */,
+				7D8ED5472AAF10CA00AE0D5E /* cs */,
+				7D8ED5482AAF10CB00AE0D5E /* da */,
+				7D8ED5492AAF10CC00AE0D5E /* nl */,
+				7D8ED54A2AAF10CC00AE0D5E /* en-GB */,
+				7D8ED54B2AAF10CD00AE0D5E /* fo */,
+				7D8ED54C2AAF10CE00AE0D5E /* fi */,
+				7D8ED54D2AAF10CF00AE0D5E /* fr */,
+				7D8ED54E2AAF10D000AE0D5E /* gl */,
+				7D8ED54F2AAF10D000AE0D5E /* ka */,
+				7D8ED5502AAF10D100AE0D5E /* de */,
+				7D8ED5512AAF10D200AE0D5E /* el */,
+				7D8ED5522AAF10D300AE0D5E /* he */,
+				7D8ED5532AAF10D400AE0D5E /* hu */,
+				7D8ED5542AAF10D500AE0D5E /* is */,
+				7D8ED5552AAF10D500AE0D5E /* id */,
+				7D8ED5562AAF10D600AE0D5E /* it */,
+				7D8ED5572AAF10D700AE0D5E /* ja */,
+				7D8ED5582AAF10D700AE0D5E /* km */,
+				7D8ED5592AAF10D800AE0D5E /* ko */,
+				7D8ED55A2AAF10D900AE0D5E /* lv */,
+				7D8ED55B2AAF10D900AE0D5E /* ms */,
+				7D8ED55C2AAF10DA00AE0D5E /* mr */,
+				7D8ED55D2AAF10DB00AE0D5E /* nb */,
+				7D8ED55E2AAF10DC00AE0D5E /* fa */,
+				7D8ED55F2AAF10DF00AE0D5E /* pl */,
+				7D8ED5602AAF10E000AE0D5E /* pt-BR */,
+				7D8ED5612AAF10E100AE0D5E /* pt-PT */,
+				7D8ED5622AAF10E200AE0D5E /* ro */,
+				7D8ED5632AAF10E300AE0D5E /* ru */,
+				7D8ED5642AAF10E400AE0D5E /* sc */,
+				7D8ED5652AAF10E500AE0D5E /* si */,
+				7D8ED5662AAF10E600AE0D5E /* sk */,
+				7D8ED5672AAF10E700AE0D5E /* sl */,
+				7D8ED5682AAF10E700AE0D5E /* es */,
+				7D8ED5692AAF10E800AE0D5E /* es-MX */,
+				7D8ED56A2AAF10E900AE0D5E /* sv */,
+				7D8ED56B2AAF10EA00AE0D5E /* ta */,
+				7D8ED56C2AAF10EB00AE0D5E /* th */,
+				7D8ED56D2AAF10EB00AE0D5E /* tr */,
+				7D8ED56E2AAF10EC00AE0D5E /* uk */,
+			);
+			name = AppIntentVocabulary.plist;
 			sourceTree = "<group>";
 		};
 		A79246C6170F11DF0036AAF2 /* Localizable.strings */ = {
