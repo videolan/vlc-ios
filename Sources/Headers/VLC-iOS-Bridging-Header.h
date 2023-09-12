@@ -46,3 +46,4 @@
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "UIImage+AverageColor.h"
 #import "VLCFavoriteService.h"
+#import "VLCDonationViewController.h"

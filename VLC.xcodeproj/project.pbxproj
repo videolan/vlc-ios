@@ -109,6 +109,8 @@
 		7D00161C177056B700649F27 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D00161A17704DAC00649F27 /* main.js */; };
 		7D02AE822A0D03FD00FF1FC6 /* AddBookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02AE812A0D03FD00FF1FC6 /* AddBookmarksView.swift */; };
 		7D02C5A52A84F0830046DC5E /* VLCMLMedia+Podcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D02C5A42A84F0830046DC5E /* VLCMLMedia+Podcast.m */; };
+		7D04E1CC2AB0B5FB003AD39F /* VLCDonationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D04E1CA2AB0B5FB003AD39F /* VLCDonationViewController.m */; };
+		7D04E1CD2AB0B5FB003AD39F /* VLCDonationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */; };
 		7D0C207128C896B800CCFFEF /* URL+isExcludedFromBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC7BABB28C8959F00109F28 /* URL+isExcludedFromBackup.swift */; };
 		7D0C207628C897DA00CCFFEF /* About Contents.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C207528C897DA00CCFFEF /* About Contents.html */; };
 		7D0C207B28C8980C00CCFFEF /* VLCAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C207928C8980C00CCFFEF /* VLCAboutViewController.xib */; };
@@ -672,6 +674,9 @@
 		7D02AE812A0D03FD00FF1FC6 /* AddBookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookmarksView.swift; sourceTree = "<group>"; };
 		7D02C5A32A84F0830046DC5E /* VLCMLMedia+Podcast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VLCMLMedia+Podcast.h"; sourceTree = "<group>"; };
 		7D02C5A42A84F0830046DC5E /* VLCMLMedia+Podcast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "VLCMLMedia+Podcast.m"; sourceTree = "<group>"; };
+		7D04E1C92AB0B5FB003AD39F /* VLCDonationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDonationViewController.h; sourceTree = "<group>"; };
+		7D04E1CA2AB0B5FB003AD39F /* VLCDonationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDonationViewController.m; sourceTree = "<group>"; };
+		7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCDonationViewController.xib; sourceTree = "<group>"; };
 		7D0C207528C897DA00CCFFEF /* About Contents.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "About Contents.html"; sourceTree = "<group>"; };
 		7D0C207828C8980C00CCFFEF /* VLCAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCAboutViewController.h; sourceTree = "<group>"; };
 		7D0C207928C8980C00CCFFEF /* VLCAboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCAboutViewController.xib; sourceTree = "<group>"; };
@@ -1452,6 +1457,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		7D04E1C82AB0B5DC003AD39F /* Donation */ = {
+			isa = PBXGroup;
+			children = (
+				7D04E1C92AB0B5FB003AD39F /* VLCDonationViewController.h */,
+				7D04E1CA2AB0B5FB003AD39F /* VLCDonationViewController.m */,
+				7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */,
+			);
+			path = Donation;
+			sourceTree = "<group>";
+		};
 		7D0C207328C8978000CCFFEF /* About */ = {
 			isa = PBXGroup;
 			children = (
@@ -1928,6 +1943,7 @@
 				7D0C20A028C8A5DB00CCFFEF /* UI Elements */,
 				7D0C209F28C8A56E00CCFFEF /* Onboarding */,
 				7DEE16CB242B53B50004E88F /* Store Integration */,
+				7D04E1C82AB0B5DC003AD39F /* Donation */,
 				7D0C209928C89E2A00CCFFEF /* WiFi Sharing */,
 				8D590F622493836A0078D358 /* Playback */,
 				7D0C208E28C89BC800CCFFEF /* Headers */,
@@ -3139,6 +3155,7 @@
 				7DF04F501961F2B8004A5429 /* web-open.png in Resources */,
 				8D3B4C0E2226E49A00B9F652 /* AudioMiniPlayer.xib in Resources */,
 				7D5DD5C717590ABF001421E3 /* About Contents.html in Resources */,
+				7D04E1CD2AB0B5FB003AD39F /* VLCDonationViewController.xib in Resources */,
 				7DBBF19B183AB4300009A339 /* VLCCloudStorageTableViewCell.xib in Resources */,
 				41273A3D1A955C4100A2EF77 /* VLCMigrationViewController.xib in Resources */,
 				4072A777258791B8006EA498 /* VideoFiltersView.xib in Resources */,
@@ -3518,6 +3535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D55A8532A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m in Sources */,
+				7D04E1CC2AB0B5FB003AD39F /* VLCDonationViewController.m in Sources */,
 				7DC7BABD28C8959F00109F28 /* URL+isExcludedFromBackup.swift in Sources */,
 				7D4FBD992B0E0E0A0050C10E /* VLCOpenNetworkSubtitlesFinder.m in Sources */,
 				6D8EC09225F8010E00FDDE17 /* EqualizerPresetSelector.swift in Sources */,

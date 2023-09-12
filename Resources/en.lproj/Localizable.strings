@@ -563,8 +563,6 @@
 
 // MARK: - tip jar
 "GIVE_TIP" = "Give a Tip";
-"MAKE_DONATION_TITLE" = "Make a donation";
-"DONATION_DESCRIPTION" = "Your sponsorship will allow us to improve the VLC-iOS app and support the VideoLAN association.";
 "CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
 "PURCHASE_FAILED" = "Purchase Failed.";
 "SEND_DONATION" = "Send your donation";
@@ -600,6 +598,15 @@
 
 "ACTIONSHEET_BACKGROUND_LABEL" = "Action sheet background";
 "ACTIONSHEET_BACKGROUND_HINT" = "Tap to remove the action sheet.";
+
+// MARK: - Donation
+"DONATION_CUSTOM_AMOUNT" = "Enter Custom Amount";
+"DONATION_MONTHLY" = "Monthly";
+"DONATION_ONE_TIME" = "One-Time";
+"DONATION_TITLE" = "Privacy over profit";
+"DONATION_DESCRIPTION" = "Private, open-source multimedia, funded by you. No ads, no tracking, no comprise. Free for everyone to use. Donate now to support VideoLAN.";
+"DONATION_WINDOW_TITLE" = "Make a Donation to VideoLAN";
+"DONATE_CC_DC" = "Credit or Debit card";
 
 // MARK: - Playback keyboard shortcuts
 

@@ -87,7 +87,7 @@ private extension StoreViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
-        title = NSLocalizedString("MAKE_DONATION_TITLE",
+        title = NSLocalizedString("DONATION_TITLE",
                                   comment: "")
         tippingExplainedLabel.text = NSLocalizedString("DONATION_DESCRIPTION",
                                                        comment: "")
