@@ -2,9 +2,14 @@
 * SettingsSection.swift
 * VLC for iOS
 *****************************************************************************
-* Copyright (c) 2020 VideoLAN. All rights reserved.
+* Copyright (c) 2020-2023 VideoLAN. All rights reserved.
 *
 * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
+*          Soomin Lee < bubu@mikan.io >
+*          Edgar Fouillet <vlc # edgar.fouillet.eu>
+*          Diogo Simao Marques <dogo@videolabs.io>
+*          Felix Paul Kühne <fkuehne # videolan.org>
+*          Eshan Singh <eeeshan789@icloud.com>
 *
 * Refer to the COPYING file of the official project for license.
 *****************************************************************************/
@@ -14,6 +19,7 @@ import LocalAuthentication
 
 enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
     case main
+    case donation
     case generic
     case privacy
     case gestureControl
@@ -29,6 +35,8 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
     var description: String {
         switch self {
         case .main:
+            return ""
+        case .donation:
             return ""
         case .generic:
             return "SETTINGS_GENERIC_TITLE"
@@ -97,6 +105,24 @@ enum MainOptions: Int, CaseIterable, SectionType {
             return kVLCSettingAppTheme
         }
     }
+}
+
+enum DonationOptions: Int, CaseIterable, SectionType {
+    case donate
+
+    var description: String {
+        return "SETTINGS_DONATE"
+    }
+
+    var containsSwitch: Bool { return false }
+
+    var containsInfobutton: Bool { return false }
+
+    var subtitle: String? {
+        return "SETTINGS_DONATE_LONG"
+    }
+
+    var preferenceKey: String? { return nil }
 }
 
 enum GenericOptions: Int, CaseIterable, SectionType {

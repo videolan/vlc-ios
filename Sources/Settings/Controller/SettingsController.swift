@@ -5,6 +5,11 @@
  * Copyright (c) 2013-2020 VideoLAN. All rights reserved.
  *
  * Authors: Swapnanil Dhol <swapnanildhol # gmail.com>
+ *          Soomin Lee < bubu@mikan.io >
+ *          Carola Nitz <caro # videolan.org>
+ *          Edgar Fouillet <vlc # edgar.fouillet.eu>
+ *          Diogo Simao Marques <dogo@videolabs.io>
+ *          Felix Paul Kühne <fkuehne # videolan.org>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -343,6 +348,8 @@ extension SettingsController {
         switch settingsSection {
         case .main:
             return MainOptions.allCases.count
+        case .donation:
+            return DonationOptions.allCases.count
         case .generic:
             return GenericOptions.allCases.count
         case .privacy:
@@ -408,6 +415,8 @@ extension SettingsController {
             if indexPath.row == GenericOptions.automaticallyPlayNextItem.rawValue {
                 cell.subtitleLabel.text = nil
             }
+        case .donation:
+            cell.sectionType = DonationOptions(rawValue: indexPath.row)
         case .privacy:
             let privacy = PrivacyOptions(rawValue: indexPath.row)
             let isPasscodeOn = userDefaults.bool(forKey: kVLCSettingPasscodeOnKey)
@@ -492,6 +501,9 @@ extension SettingsController {
             let mainSection = MainOptions(rawValue: indexPath.row)
             playHaptics(sectionType: mainSection)
             showActionSheet(for: mainSection)
+        case .donation:
+            showTipJar()
+            return
         case .generic:
             let genericSection = GenericOptions(rawValue: indexPath.row)
             playHaptics(sectionType: genericSection)
@@ -549,7 +561,7 @@ extension SettingsController {
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 0 : 64
+        return section >= 2 ? 64 : 0
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
