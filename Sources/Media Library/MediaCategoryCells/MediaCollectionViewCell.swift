@@ -282,6 +282,9 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
                 NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidResume),
                                                        object: nil, queue: OperationQueue.main, using: {_ in
                     self.animateCurrentlyPlayingState()
+                    if let parentCollectionView = self.superview as? UICollectionView {
+                        parentCollectionView.reloadData()
+                    }
                 })
                 animateCurrentlyPlayingState()
                 backupThumbnail = audiotrack.thumbnailImage()

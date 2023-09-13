@@ -1599,6 +1599,7 @@ extension MediaCategoryViewController: MediaCollectionViewCellDelegate {
         }
 
         selectedItem(at: indexPath)
+        collectionView.reloadData()
     }
 
     func mediaCollectionViewCellSetScrolledCellIndex(of cell: MediaCollectionViewCell?) {
