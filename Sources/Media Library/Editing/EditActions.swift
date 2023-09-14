@@ -1,7 +1,7 @@
 /*****************************************************************************
 * EditActions.swift
 *
-* Copyright © 2019 VLC authors and VideoLAN
+* Copyright © 2019-2023 VLC authors and VideoLAN
 *
 * Authors: Edgar Fouillet <vlc # edgar.fouillet.eu>
 *
@@ -137,29 +137,12 @@ extension EditActions {
         self.completion = completion
         if !objects.isEmpty {
             let mlObject = objects.first
-            var mlObjectName = ""
-
-            if let media = mlObject as? VLCMLMedia {
-                mlObjectName = media.title
-            } else if let playlist = mlObject as? VLCMLPlaylist {
-                mlObjectName = playlist.name
-            } else if let mediaGroup = mlObject as? VLCMLMediaGroup {
-                if mediaGroup.nbTotalMedia() == 1 && !mediaGroup.userInteracted() {
-                    guard let media = mediaGroup.media(of: .video)?.first else {
-                        assertionFailure("EditActions: rename: Failed to retrieve media.")
-                        VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
-                                                                errorMessage: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
-                                                                viewController: self.rootViewController)
-                        self.completion?(.fail)
-                        return
-                    }
-                    mlObjectName = media.title
-                }
-                else {
-                    mlObjectName = mediaGroup.name()
-                }
-            } else {
-                assertionFailure("EditActions: Rename called with wrong model.")
+            guard let mlObjectName = getObjectTitle(for: mlObject) else {
+                VLCAlertViewController.alertViewManager(title: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
+                                                        errorMessage: NSLocalizedString("ERROR_RENAME_FAILED", comment: ""),
+                                                        viewController: self.rootViewController)
+                self.completion?(.fail)
+                return
             }
 
             // Not using VLCAlertViewController to have more customization in text fields
@@ -194,9 +177,13 @@ extension EditActions {
     }
 
     func delete(_ completion: ((completionState) -> Void)? = nil) {
+        let mediaTitle = getObjectTitle(for: objects.first) ?? ""
         self.completion = completion
+        var title = String(format: NSLocalizedString("DELETE_SINGLE_TITLE", comment: ""), mediaTitle)
+        if objects.count != 1 {
+            title = String(format: NSLocalizedString("DELETE_MULTIPLE_TITLE", comment: ""), mediaTitle, objects.count-1)
+        }
         var message = NSLocalizedString("DELETE_MESSAGE", comment: "")
-
         if model is PlaylistModel {
             message = NSLocalizedString("DELETE_MESSAGE_PLAYLIST", comment: "")
         } else if (model as? CollectionModel)?.mediaCollection is VLCMLPlaylist {
@@ -214,7 +201,7 @@ extension EditActions {
                                             self.completion?(.success)
         })
 
-        VLCAlertViewController.alertViewManager(title: NSLocalizedString("DELETE_TITLE", comment: ""),
+        VLCAlertViewController.alertViewManager(title: title,
                                                 errorMessage: message,
                                                 viewController: rootViewController,
                                                 buttonsAction: [cancelButton,
@@ -266,6 +253,37 @@ private extension EditActions {
             self.placeHolder = placeHolder
             self.textfieldText = textfieldText
             self.confirmActionTitle = confirmActionTitle
+        }
+    }
+
+    private func getObjectTitle(for mlObject: VLCMLObject?) -> String? {
+        guard let mlObject = mlObject else {
+            return nil
+        }
+        if let media = mlObject as? VLCMLMedia {
+            return media.title
+        } else if let playlist = mlObject as? VLCMLPlaylist {
+            return playlist.name
+        } else if let mediaGroup = mlObject as? VLCMLMediaGroup {
+            if mediaGroup.nbTotalMedia() == 1 && !mediaGroup.userInteracted() {
+                guard let media = mediaGroup.media(of: .video)?.first else {
+                    assertionFailure("EditActions: rename/delete Failed to retrieve media.")
+                    return nil
+                }
+                return media.title
+            }
+            else {
+                return mediaGroup.name()
+            }
+        } else if let artist = mlObject as? VLCMLArtist {
+            return artist.artistName()
+        } else if let album = mlObject as? VLCMLAlbum {
+            return album.albumName()
+        } else if let genre = mlObject as? VLCMLGenre {
+            return genre.title()
+        } else {
+            assertionFailure("EditActions: Rename/Delete called with wrong model.")
+            return nil
         }
     }
 
