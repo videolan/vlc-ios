@@ -197,6 +197,7 @@ extension EditController: EditToolbarDelegate {
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
                 self?.delegate?.editControllerDidDeSelectMultipleItem()
+                self?.delegate?.editControllerDidFinishEditing(editController: self)
             }
         })
     }
@@ -217,6 +218,7 @@ extension EditController: EditToolbarDelegate {
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
                 self?.delegate?.editControllerDidDeSelectMultipleItem()
+                self?.delegate?.editControllerDidFinishEditing(editController: self)
             }
         }
     }
@@ -235,6 +237,7 @@ extension EditController: EditToolbarDelegate {
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
                 self?.delegate?.editControllerDidDeSelectMultipleItem()
+                self?.delegate?.editControllerDidFinishEditing(editController: self)
             }
         }
     }
@@ -257,6 +260,7 @@ extension EditController: EditToolbarDelegate {
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
                 self?.delegate?.editControllerDidDeSelectMultipleItem()
+                self?.delegate?.editControllerDidFinishEditing(editController: self)
             }
         })
     }
@@ -273,6 +277,7 @@ extension EditController: EditToolbarDelegate {
                 self?.resetSelections(resetUI: false)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
                 self?.delegate?.editControllerDidDeSelectMultipleItem()
+                self?.delegate?.editControllerDidFinishEditing(editController: self)
             }
         })
     }
@@ -294,6 +299,7 @@ extension EditController: EditToolbarDelegate {
                 self?.resetSelections(resetUI: true)
                 self?.delegate?.editControllerSetNavigationItemTitle(with: nil)
                 self?.delegate?.editControllerDidDeSelectMultipleItem()
+                self?.delegate?.editControllerDidFinishEditing(editController: self)
             }
         })
     }
