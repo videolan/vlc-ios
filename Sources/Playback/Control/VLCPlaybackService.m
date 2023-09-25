@@ -942,7 +942,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 
     _currentIndex = nextIndex;
 
-    if (_shuffleMode && mediaListCount > 2 && _currentIndex >= 0) {
+    if (_shuffleMode && mediaListCount > 2 && _currentIndex >= 0 && _currentIndex < _shuffledOrder.count) {
         return [_shuffledOrder[_currentIndex] integerValue];
     }
 
