@@ -343,6 +343,8 @@
 "BUTTON_HISTORY_HINT" = "View your recently played media";
 
 "BUTTON_CLEAR" = "Clear";
+"CLEAR_HISTORY_TITLE" = "Clear History";
+"CLEAR_HISTORY_MESSAGE" = "Confirm clearing history";
 
 "ADD_TO_PLAYLIST" = "Add to Playlist";
 "ADD_TO_PLAYLIST_HINT" = "Open the add to playlist menu";

@@ -771,9 +771,21 @@ extension MediaCategoryViewController {
             handleSortShortcut()
         }
     }
-    
+
     @objc func handleClearHistory() {
-        mediaLibraryService.medialib.clearHistory()
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""), style: .cancel)
+
+        let clearAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("BUTTON_CLEAR", comment: ""), style: .destructive) { _ in
+            self.mediaLibraryService.medialib.clearHistory()
+        }
+
+        let alertController: UIAlertController = UIAlertController(title: NSLocalizedString("CLEAR_HISTORY_TITLE", comment: ""),
+                                                                   message: NSLocalizedString("CLEAR_HISTORY_MESSAGE", comment: ""),
+                                                                   preferredStyle: .alert)
+        alertController.addAction(cancelAction)
+        alertController.addAction(clearAction)
+
+        present(alertController, animated: true)
     }
 
     @objc func handleSelectAll() {
