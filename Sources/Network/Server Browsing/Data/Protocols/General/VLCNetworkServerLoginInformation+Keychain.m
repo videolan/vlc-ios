@@ -45,7 +45,14 @@
 - (BOOL)loadLoginInformationFromKeychainWithError:(NSError *__autoreleasing _Nullable *)error
 {
     NSError *localError = nil;
-    XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemsForService:self.keychainServiceIdentifier error:&localError].firstObject;
+    NSString *keychainServiceIdentifier = self.keychainServiceIdentifier;
+    if (!keychainServiceIdentifier) {
+        *error = [NSError errorWithDomain:NSURLErrorDomain
+                                     code:NSURLErrorBadURL
+                                 userInfo:nil];
+        return NO;
+    }
+    XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemsForService:keychainServiceIdentifier error:&localError].firstObject;
     if (localError) {
         if (error) {
             *error = localError;
@@ -72,7 +79,15 @@
 
 - (BOOL)saveLoginInformationToKeychainWithError:(NSError *__autoreleasing  _Nullable *)error
 {
-    XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemForService:self.keychainServiceIdentifier account:self.username error:nil];
+    NSString *keychainServiceIdentifier = self.keychainServiceIdentifier;
+    if (keychainServiceIdentifier == nil) {
+        *error = [NSError errorWithDomain:NSURLErrorDomain
+                                     code:NSURLErrorBadURL
+                                 userInfo:nil];
+        return NO;
+    }
+
+    XKKeychainGenericPasswordItem *keychainItem = [XKKeychainGenericPasswordItem itemForService:keychainServiceIdentifier account:self.username error:nil];
     if (!keychainItem) {
         keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
         keychainItem.service = self.keychainServiceIdentifier;
@@ -98,6 +113,14 @@
 
 - (BOOL)deleteFromKeychainWithError:(NSError *__autoreleasing  _Nullable *)error
 {
+    NSString *keychainServiceIdentifier = self.keychainServiceIdentifier;
+    if (!keychainServiceIdentifier) {
+        *error = [NSError errorWithDomain:NSURLErrorDomain
+                                     code:NSURLErrorBadURL
+                                 userInfo:nil];
+        return NO;
+    }
+
     XKKeychainGenericPasswordItem *keychainItem = [[XKKeychainGenericPasswordItem alloc] init];
     keychainItem.service = self.keychainServiceIdentifier;
     keychainItem.account = self.username;

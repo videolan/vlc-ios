@@ -115,6 +115,12 @@ static NSString *const VLCNetworkLoginSavedLoginCellIdentifier = @"VLCNetworkLog
     }
     // even if the save fails we want to add the server identifier to the iCloud list
     NSString *serviceIdentifier = [login keychainServiceIdentifier];
+    if (!serviceIdentifier) {
+        *error = [NSError errorWithDomain:NSURLErrorDomain
+                                     code:NSURLErrorBadURL
+                                 userInfo:nil];
+        return NO;
+    }
     [_serverList addObject:serviceIdentifier];
     NSUbiquitousKeyValueStore *ukvStore = [NSUbiquitousKeyValueStore defaultStore];
     [ukvStore setArray:_serverList forKey:kVLCStoredServerList];
