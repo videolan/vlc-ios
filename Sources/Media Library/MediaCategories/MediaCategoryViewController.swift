@@ -1370,8 +1370,12 @@ extension MediaCategoryViewController: EditControllerDelegate {
     }
 
     func editControllerDidFinishEditing(editController: EditController?) {
-        // NavigationItems for Collections are create from the parent, there is no need to propagate the information.
-        if self is CollectionCategoryViewController {
+        if let model = model as? CollectionModel,
+           model.mediaCollection is VLCMLMediaGroup {
+            // The media group's view can be discarded when the group is emptied, there is a need to propagate the information.
+            delegate?.setEditingStateChanged(for: self, editing: false)
+        } else if self is CollectionCategoryViewController {
+            // NavigationItems for other Collections are created from the parent, there is no need to propagate the information.
             handleEditingInsideCollection()
         } else {
             delegate?.setEditingStateChanged(for: self, editing: false)
