@@ -14,6 +14,16 @@
 
 @implementation UIImage(AverageColor)
 
+CGImageRef resizeCGImage(CGImageRef image) {
+    CGSize targetSize = CGSizeMake(4096., 4096.);
+    UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextDrawImage(context, CGRectMake(0, 0, targetSize.width, targetSize.height), image);
+    CGImageRef resizedImage = CGBitmapContextCreateImage(context);
+    UIGraphicsEndImageContext();
+    return resizedImage;
+}
+
 - (UIColor *)averageColor
 {
     UIImage *image = self;
@@ -21,6 +31,12 @@
     CGImageRef imageRef = [image CGImage];
     NSUInteger width = CGImageGetWidth(imageRef);
     NSUInteger height = CGImageGetHeight(imageRef);
+
+    if (width > 4096 || height > 4096) {
+        CGImageRef resizedImage = resizeCGImage(imageRef);
+        CFRelease(imageRef);
+        imageRef = resizedImage;
+    }
 
     CGDataProviderRef dataProvider = CGImageGetDataProvider(imageRef);
     CFDataRef imageData = CGDataProviderCopyData(dataProvider);
@@ -43,6 +59,7 @@
     }
 
     CFRelease(imageData);
+    CFRelease(imageRef);
 
     // Calculate the average color
     if (pixelCount > 0) {
