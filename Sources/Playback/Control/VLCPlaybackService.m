@@ -543,7 +543,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         return NO;
     }
 
-    if ([self nextMediaIndex:NO] > 0) {
+    if (_currentIndex < _mediaList.count - 1) {
         return YES;
     }
 
