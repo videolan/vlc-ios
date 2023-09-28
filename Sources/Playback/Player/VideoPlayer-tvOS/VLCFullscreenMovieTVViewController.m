@@ -157,13 +157,10 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
     self.audioTitleLabel.hidden = YES;
     self.audioArtistLabel.hidden = YES;
     self.audioAlbumNameLabel.hidden = YES;
-    self.audioArtworkImageView.image = [UIImage imageNamed:@"about-app-icon"];
-    self.audioLargeBackgroundImageView.image = [UIImage imageNamed:@"about-app-icon"];
-    self.audioArtworkImageView.animateImageSetting = YES;
-    self.audioLargeBackgroundImageView.animateImageSetting = YES;
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     vpc.delegate = self;
+    [self updateThumbnailImageViewsWith:[UIImage imageNamed:@"about-app-icon"]];
     [vpc recoverPlaybackState];
 }
 
@@ -196,6 +193,8 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         [fileManager removeItemAtPath:tempSubsDirPath error:nil];
 
     [self enableIdleTimer];
+
+    self.lastArtist = nil;
 
     [super viewWillDisappear:animated];
 }
@@ -775,6 +774,16 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
     self.disabledIdleTimer = NO;
 }
 
+- (void)updateThumbnailImageViewsWith:(UIImage *)artworkImage
+{
+    if (artworkImage == nil) {
+        artworkImage = [UIImage imageNamed:@"about-app-icon"];
+    }
+
+    self.audioArtworkImageView.image = artworkImage;
+    self.audioLargeBackgroundImageView.image = artworkImage;
+}
+
 #pragma mark - PlaybackControls
 
 - (void)fireHidePlaybackControlsIfNotPlayingTimer:(NSTimer *)timer
@@ -890,7 +899,6 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
     NSString *albumName = metadata.albumName;
     self.titleLabel.text = title;
     if (metadata.isAudioOnly) {
-        self.audioArtworkImageView.image = nil;
         self.audioDescriptionTextView.hidden = YES;
         [self stopAudioDescriptionAnimation];
 
@@ -922,18 +930,17 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
                 self.audioAlbumNameLabel.hidden = YES;
             }];
         }
-        if (![self.lastArtist isEqualToString:artist]) {
-            UIImage *artworkImage = metadata.artworkImage;
 
-            if (artworkImage == nil) {
-                artworkImage = [UIImage imageNamed:@"about-app-icon"];
-            }
+        UIImage *artworkImage = metadata.artworkImage;
 
-            [UIView animateWithDuration:.3 animations:^{
-                self.audioArtworkImageView.image = artworkImage;
-                self.audioLargeBackgroundImageView.image = artworkImage;
-            }];
+        if ((![self.lastArtist isEqualToString:artist]) ||
+            (artworkImage != nil && self.audioArtworkImageView.image != artworkImage) ||
+            playbackService.mediaPlayerState == VLCMediaPlayerStateESAdded) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self updateThumbnailImageViewsWith:artworkImage];
+            });
         }
+
         self.lastArtist = artist;
         self.audioTitleLabel.text = title;
         self.audioTitleLabel.hidden = NO;

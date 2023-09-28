@@ -820,6 +820,8 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             break;
     }
 
+    _mediaPlayerState = currentState;
+
     if ([self.delegate respondsToSelector:@selector(mediaPlayerStateChanged:isPlaying:currentMediaHasTrackToChooseFrom:currentMediaHasChapters:forPlaybackService:)])
         [self.delegate mediaPlayerStateChanged:currentState
                                      isPlaying:_mediaPlayer.isPlaying
