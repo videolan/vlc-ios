@@ -827,7 +827,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
                        currentMediaHasChapters:self.currentMediaHasChapters
                          forPlaybackService:self];
 
-    [self setNeedsMetadataUpdate];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsMetadataUpdate];
+    });
 }
 
 - (void)setPlayAsAudio:(BOOL)playAsAudio
