@@ -11,6 +11,9 @@
 · Allow deleting local media during search
 · Show playlist durations in list view
 
+## tvOS [3.5.0]
+· Fix the display of media's artworks for audio playback.
+
 ## iOS [3.4.9]
 · Noticable stability improvements
 · Fix distortion when playing MP3 media
