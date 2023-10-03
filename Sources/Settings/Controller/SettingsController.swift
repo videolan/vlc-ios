@@ -292,9 +292,11 @@ extension SettingsController {
         switch section {
         case .main:
             let main = MainOptions(rawValue: indexPath.row)
-            let brightThemeForced = userDefaults.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeBright
+            let currentTheme = userDefaults.integer(forKey: kVLCSettingAppTheme)
+            let brightThemeForced = currentTheme == kVLCSettingAppThemeBright
+            let automaticBrightTheme = currentTheme == kVLCSettingAppThemeSystem && !PresentationTheme.current.isDark
             if indexPath.row == MainOptions.blackTheme.rawValue {
-                if brightThemeForced {
+                if brightThemeForced || automaticBrightTheme {
                     //If the user wants the bright theme, we hide black theme settings
                     cell.isHidden = true
                 }
@@ -455,8 +457,10 @@ extension SettingsController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let automaticDimension = UITableView.automaticDimension
         if indexPath == [SettingsSection.main.rawValue, MainOptions.blackTheme.rawValue] {
-            let brightThemeForced = userDefaults.integer(forKey: kVLCSettingAppTheme) == kVLCSettingAppThemeBright
-            return brightThemeForced ? 0 : automaticDimension //If the user wants the bright theme, we hide black theme settings
+            let currentTheme = userDefaults.integer(forKey: kVLCSettingAppTheme)
+            let brightThemeForced = currentTheme == kVLCSettingAppThemeBright
+            let automaticBrightTheme = currentTheme == kVLCSettingAppThemeSystem && !PresentationTheme.current.isDark
+            return (brightThemeForced || automaticBrightTheme) ? 0 : automaticDimension //If the user wants the bright theme, we hide black theme settings
         }
         if indexPath == [SettingsSection.privacy.rawValue, PrivacyOptions.enableBiometrics.rawValue] {
             let isPasscodeOn = userDefaults.bool(forKey: kVLCSettingPasscodeOnKey)
