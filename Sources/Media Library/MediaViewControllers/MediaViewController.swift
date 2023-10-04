@@ -98,7 +98,6 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
         super.viewDidLoad()
         if #available(iOS 14.0, *) {
             rightBarButtons = [menuButton]
-            leftBarButtons = [historyButton]
         } else {
             rightBarButtons = [editButton]
             leftBarButtons = [sortButton, historyButton]
@@ -182,20 +181,23 @@ class MediaViewController: VLCPagingViewController<VLCLabelCell> {
     }
 
     private func leftBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem]? {
-        if viewController is CollectionCategoryViewController ||
-            viewController is ArtistAlbumCategoryViewController {
+        var leftBarButtonItems = [UIBarButtonItem]()
+
+        if #available(iOS 14.0, *) {
+            return nil
+        } else if viewController is CollectionCategoryViewController ||
+                    viewController is ArtistAlbumCategoryViewController {
             return nil
         }
-        if #available(iOS 14.0, *) {
-            if viewController is PlaylistViewController || viewController is PlaylistCategoryViewController {
-                return nil
-            }
-            return [historyButton]
+
+        leftBarButtonItems.append(sortButton)
+
+        if let parentViewController = viewController.parent,
+           parentViewController is AudioViewController || parentViewController is VideoViewController {
+            leftBarButtonItems.append(historyButton)
         }
-        if viewController is PlaylistViewController || viewController is PlaylistCategoryViewController {
-            return [sortButton]
-        }
-        return [sortButton, historyButton]
+
+        return leftBarButtonItems
     }
 
     private func rightBarButtonItems(for viewController: UIViewController) -> [UIBarButtonItem] {
@@ -308,7 +310,7 @@ extension MediaViewController {
             rightButtons = [menuButton]
             // left button is History button
             if isEditing == false {
-                leftBarButtons = [historyButton]
+                leftBarButtons = nil
             }
         }
 
@@ -477,6 +479,19 @@ extension MediaViewController {
     }
 
     @available(iOS 14.0, *)
+    func generateHistoryMenu() -> UIMenu {
+        let historyAction = UIAction(title: NSLocalizedString("BUTTON_HISTORY", comment: ""),
+                                     image: UIImage(systemName: "clock.arrow.2.circlepath")) { _ in
+            self.handleHistory()
+        }
+
+        historyAction.accessibilityLabel = NSLocalizedString("BUTTON_HISTORY", comment: "")
+        historyAction.accessibilityHint = NSLocalizedString("BUTTON_HISTORY_HINT", comment: "")
+
+        return UIMenu(options: .displayInline, children: [historyAction])
+    }
+
+    @available(iOS 14.0, *)
     func generateMenu(viewController: MediaCategoryViewController?) -> UIMenu {
         guard let mediaCategoryViewController = viewController else {
             preconditionFailure("MediaViewControllers: invalid viewController")
@@ -489,6 +504,12 @@ extension MediaViewController {
         if let model = mediaCategoryViewController.model as? CollectionModel,
            model.mediaCollection is VLCMLPlaylist {
             return UIMenu(options: .displayInline, children: rightMenuItems)
+        }
+
+        if let parentViewController = viewController?.parent,
+           parentViewController is VideoViewController || parentViewController is AudioViewController {
+            let historyMenu = generateHistoryMenu()
+            rightMenuItems.append(historyMenu)
         }
 
         let layoutSubMenu = generateLayoutMenu(with: mediaCategoryViewController)
