@@ -345,21 +345,24 @@ extension AudioPlayerViewController: AudioPlayerViewDelegate {
     func audioPlayerViewDelegateDidTapRepeatButton(_ audioPlayerView: AudioPlayerView) {
         updateRepeatMode()
     }
-    
+
     func audioPlayerViewDelegateDidTapPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView) {
         var currentSpeed = playbackService.playbackRate
         let speedOffset: Float = 0.25
-                
+
         if currentSpeed + speedOffset > 2.0 {
             currentSpeed = 1.0
+            mediaMoreOptionsActionSheetHideIcon(for: .playbackSpeed)
         } else {
             currentSpeed += speedOffset
+            mediaMoreOptionsActionSheetShowIcon(for: .playbackSpeed)
         }
-        
+
         playbackService.playbackRate = currentSpeed
         audioPlayerView.setupPlaybackSpeed()
+        NotificationCenter.default.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
     }
-    
+
     func audioPlayerViewDelegateDidLongPressPlaybackSpeedButton(_ audioPlayerView: AudioPlayerView) {
         present(moreOptionsActionSheet, animated: false) {
             [unowned self] in
