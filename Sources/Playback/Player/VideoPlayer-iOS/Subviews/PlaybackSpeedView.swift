@@ -56,6 +56,7 @@ class PlaybackSpeedView: UIView {
         setupResetButton()
         setupSegmentedControl()
         setupTheme()
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackSpeedHasChanged(_:)), name: Notification.Name("ChangePlaybackSpeed"), object: nil)
     }
 
     func setupTheme() {
@@ -105,6 +106,7 @@ class PlaybackSpeedView: UIView {
         if selectedIndex == 0 {
             speedSlider.minimumValue = minSpeed
             speedSlider.maximumValue = maxSpeed
+            currentSpeed = vpc.playbackRate
             speedSlider.setValue(currentSpeed, animated: true)
             minLabel.text = String(minSpeed)
             maxLabel.text = String(maxSpeed)
@@ -137,12 +139,15 @@ class PlaybackSpeedView: UIView {
         decreaseSpeedButton.accessibilityHint = decreaseAccessibilityHint
     }
 
+    @objc func playbackSpeedHasChanged(_ notification: NSNotification) {
+        setupSliderAndButtons()
+    }
+
     @objc func handleSegmentedControlChange(_ control: UISegmentedControl) {
         let selectedIndex = control.selectedSegmentIndex
         delegate?.playbackSpeedViewHandleOptionChange(title: optionsSegmentedControl.titleForSegment(at: selectedIndex)!)
         setupSliderAndButtons()
     }
-
 
     @IBAction func handleSliderMovement(_ sender: VLCSlider) {
         let selectedIndex = optionsSegmentedControl.selectedSegmentIndex
@@ -212,6 +217,7 @@ class PlaybackSpeedView: UIView {
             vpc.playbackRate = defaultSpeed
             currentButton.setTitle(String(format: "%.2fx", currentSpeed), for: .normal)
             speedSlider.setValue(currentSpeed, animated: true)
+            notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
         } else if selectedIndex == 1 {
             currentSubtitlesDelay = defaultDelay
             vpc.subtitleDelay = defaultDelay
@@ -233,6 +239,7 @@ class PlaybackSpeedView: UIView {
         defaultSpeed = UserDefaults.standard.float(forKey: kVLCSettingPlaybackSpeedDefaultValue)
         currentSpeed = defaultSpeed
         vpc.playbackRate = currentSpeed
+        notificationCenter.post(name: Notification.Name("ChangePlaybackSpeed"), object: nil)
 
         currentSubtitlesDelay = defaultDelay
         vpc.subtitleDelay = currentSubtitlesDelay
