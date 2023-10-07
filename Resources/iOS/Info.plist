@@ -466,6 +466,23 @@
 				<string>public.audio</string>
 			</array>
 			<key>UTTypeDescription</key>
+			<string>Matroska</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.matroska.mka</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>mka</string>
+				<key>public.mime-type</key>
+				<string>audio/x-matroska</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
 			<string>Flac</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.videolan.flac</string>
