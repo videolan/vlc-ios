@@ -30,6 +30,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetRemoveAddBookmarksView()
     func mediaMoreOptionsActionSheetDidToggleShuffle(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet)
     func mediaMoreOptionsActionSheetDidTapRepeat(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet)
+    @objc optional func mediaMoreOptionsActionSheetShowPlaybackSpeedShortcut(_ displayView: Bool)
 }
 
 @objc (VLCMediaMoreOptionsActionSheet)
@@ -84,6 +85,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
             playbackSpeedView.overrideUserInterfaceStyle = .dark
         }
         playbackSpeedView.delegate = self
+        playbackSpeedView.setupShortcutView()
         return playbackSpeedView
     }()
 
@@ -278,6 +280,14 @@ extension MediaMoreOptionsActionSheet: PlaybackSpeedViewDelegate {
 
     func playbackSpeedViewHideIcon() {
         moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: .playbackSpeed)
+    }
+
+    func playbackSpeedViewCanDisplayShortcutView() -> Bool {
+        return moreOptionsDelegate is AudioPlayerViewController
+    }
+
+    func playbackSpeedViewHandleShortcutSwitchChange(displayView: Bool) {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetShowPlaybackSpeedShortcut?(displayView)
     }
 }
 

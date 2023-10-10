@@ -15,6 +15,8 @@ protocol PlaybackSpeedViewDelegate: AnyObject {
     func playbackSpeedViewHandleOptionChange(title: String)
     func playbackSpeedViewShowIcon()
     func playbackSpeedViewHideIcon()
+    func playbackSpeedViewCanDisplayShortcutView() -> Bool
+    func playbackSpeedViewHandleShortcutSwitchChange(displayView: Bool)
 }
 
 class PlaybackSpeedView: UIView {
@@ -26,6 +28,9 @@ class PlaybackSpeedView: UIView {
     @IBOutlet weak var increaseSpeedButton: UIButton!
     @IBOutlet weak var decreaseSpeedButton: UIButton!
     @IBOutlet weak var optionsSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var shortcutView: UIView!
+    @IBOutlet weak var shortcutLabel: UILabel!
+    @IBOutlet weak var shortcutSwitch: UISwitch!
     private let resetButton = UIButton()
 
     weak var delegate: PlaybackSpeedViewDelegate?
@@ -96,12 +101,12 @@ class PlaybackSpeedView: UIView {
         handleSegmentedControlChange(optionsSegmentedControl)
     }
 
-
     private func setupSliderAndButtons() {
         let selectedIndex = optionsSegmentedControl.selectedSegmentIndex
         var currentButtonText: String = ""
         var increaseAccessibilityHint: String = ""
         var decreaseAccessibilityHint: String = ""
+        var hideShortcutView: Bool = false
 
         if selectedIndex == 0 {
             speedSlider.minimumValue = minSpeed
@@ -130,6 +135,7 @@ class PlaybackSpeedView: UIView {
             }
 
             currentButtonText = String(format: "%.0f ms", speedSlider.value)
+            hideShortcutView = true
         }
 
         currentButton.setTitle(currentButtonText, for: .normal)
@@ -137,6 +143,28 @@ class PlaybackSpeedView: UIView {
         increaseSpeedButton.accessibilityHint = increaseAccessibilityHint
         decreaseSpeedButton.accessibilityLabel = NSLocalizedString("DECREASE_BUTTON", comment: "")
         decreaseSpeedButton.accessibilityHint = decreaseAccessibilityHint
+
+        if let canDisplayShortcutView = delegate?.playbackSpeedViewCanDisplayShortcutView(),
+           canDisplayShortcutView {
+            UIView.animate(withDuration: 0.3) {
+                self.shortcutView.isHidden = hideShortcutView
+                self.shortcutSwitch.isHidden = hideShortcutView
+                self.shortcutLabel.isHidden = hideShortcutView
+            }
+        }
+    }
+
+    func setupShortcutView() {
+        guard let canDisplayShortcutView = delegate?.playbackSpeedViewCanDisplayShortcutView(), canDisplayShortcutView else {
+            shortcutView.isHidden = true
+            return
+        }
+
+        shortcutView.isHidden = false
+        shortcutLabel.text = NSLocalizedString("DISPLAY_PLAYBACK_SPEED_SHORTCUT", comment: "")
+        shortcutLabel.accessibilityLabel = NSLocalizedString("DISPLAY_PLAYBACK_SPEED_SHORTCUT", comment: "")
+        shortcutLabel.accessibilityHint = NSLocalizedString("DISPLAY_PLAYBACK_SPEED_SHORTCUT_HINT", comment: "")
+        shortcutSwitch.isOn = UserDefaults.standard.bool(forKey: kVLCPlayerShowPlaybackSpeedShortcut)
     }
 
     @objc func playbackSpeedHasChanged(_ notification: NSNotification) {
@@ -313,6 +341,12 @@ class PlaybackSpeedView: UIView {
         if currentSpeed == defaultSpeed && currentSubtitlesDelay == defaultDelay && currentAudioDelay == defaultDelay {
             delegate?.playbackSpeedViewHideIcon()
         }
+    }
+
+    @IBAction func handleShortcutSwitch(_ sender: Any) {
+        let isSwitchOn: Bool = shortcutSwitch.isOn
+        UserDefaults.standard.setValue(isSwitchOn, forKey: kVLCPlayerShowPlaybackSpeedShortcut)
+        delegate?.playbackSpeedViewHandleShortcutSwitchChange(displayView: isSwitchOn)
     }
 }
 

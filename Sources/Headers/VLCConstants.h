@@ -111,6 +111,7 @@
 #define kVLCPlayerIsShuffleEnabledDefaultValue @NO
 #define kVLCPlayerIsRepeatEnabled @"PlayerIsRepeatEnabled"
 #define kVLCPlayerIsRepeatEnabledDefaultValue @(0)
+#define kVLCPlayerShowPlaybackSpeedShortcut @"kVLCPlayerShowPlaybackSpeedShortcut"
 
 #define kSupportedFileExtensions @"\\.(669|3g2|3gp|3gp2|3gpp|amv|asf|avi|bik|bin|crf|divx|drc|dv|evo|f4v|far|flv|gvi|gxf|hevc|iso|it|m1v|m2v|m2t|m2ts|m4v|mkv|mov|mp2|mp2v|mp4|mp4v|mpe|mpeg|mpeg1|mpeg2|mpeg4|mpg|mpv2|mtm|mts|mtv|mxf|mxg|nsv|nuv|ogg|ogm|ogv|ogx|ps|rec|rm|rmvb|rpl|s3m|thp|tod|ts|tts|txd|vlc|vob|vro|webm|wm|wmv|wtv|xesc|xm)$"
 #define kSupportedSubtitleFileExtensions @"\\.(cdg|idx|srt|sub|utf|ass|ssa|aqt|jss|psb|rt|smi|txt|smil|stl|usf|dks|pjs|mpl2|mks|vtt|ttml|dfxp)$"

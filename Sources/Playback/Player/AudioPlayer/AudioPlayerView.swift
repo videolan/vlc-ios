@@ -380,6 +380,10 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         repeatButton.isEnabled = !disable
     }
 
+    func shouldDisplaySecondaryStackView(_ display: Bool) {
+        secondaryControlStackView.isHidden = !display
+    }
+
     // MARK: - Private methods
 
     private func setupCommonSliderConstraints(for slider: UIView) {
@@ -532,6 +536,9 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         controlsStackView.addArrangedSubview(repeatButton)
         
         secondaryControlStackView.addArrangedSubview(playbackSpeedButton)
+
+        let displaySecondaryStackView: Bool = UserDefaults.standard.bool(forKey: kVLCPlayerShowPlaybackSpeedShortcut)
+        secondaryControlStackView.isHidden = !displaySecondaryStackView
     }
 
     private func setupProgressionView() {

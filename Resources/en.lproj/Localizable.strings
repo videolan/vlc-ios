@@ -482,6 +482,8 @@
 "DECREASE_PLAYBACK_SPEED" = "Decrease the playback speed";
 "DECREASE_AUDIO_DELAY" = "Decrease the audio delay";
 "DECREASE_SUBTITLES_DELAY" = "Decrease the subtitles delay";
+"DISPLAY_PLAYBACK_SPEED_SHORTCUT" = "Show playback speed shortcut";
+"DISPLAY_PLAYBACK_SPEED_SHORTCUT_HINT" = "Enable to display the playback speed shortcut";
 
 // MARK: - Settings
 "FORCE_RESCAN_TITLE" = "Force media library rescan";

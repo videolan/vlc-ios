@@ -101,6 +101,9 @@ class AudioPlayerViewController: PlayerViewController {
         let orientation = getDeviceOrientation()
         audioPlayerView.updateConstraints(for: orientation)
         mediaScrubProgressBar.shouldHideScrubLabels = orientation.isLandscape ? true : false
+
+        let displayShortcutView: Bool = UserDefaults.standard.bool(forKey: kVLCPlayerShowPlaybackSpeedShortcut)
+        audioPlayerView.shouldDisplaySecondaryStackView(displayShortcutView)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -543,6 +546,10 @@ extension AudioPlayerViewController {
         super.mediaMoreOptionsActionSheetRemoveAddBookmarksView()
 
         audioPlayerView.shouldDisableControls(false)
+    }
+
+    func mediaMoreOptionsActionSheetShowPlaybackSpeedShortcut(_ displayView: Bool) {
+        audioPlayerView.shouldDisplaySecondaryStackView(displayView)
     }
 }
 

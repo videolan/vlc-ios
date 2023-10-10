@@ -89,7 +89,8 @@
                                   kVLCPlayerShouldRememberState: @(YES),
                                   kVLCPlayerIsShuffleEnabled: kVLCPlayerIsShuffleEnabledDefaultValue,
                                   kVLCPlayerIsRepeatEnabled: kVLCPlayerIsRepeatEnabledDefaultValue,
-                                  kVLCSettingPlaybackSpeedDefaultValue: @(1.0)
+                                  kVLCSettingPlaybackSpeedDefaultValue: @(1.0),
+                                  kVLCPlayerShowPlaybackSpeedShortcut: @(NO)
     };
     [defaults registerDefaults:appDefaults];
 }
