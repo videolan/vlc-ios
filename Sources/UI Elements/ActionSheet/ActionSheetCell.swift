@@ -426,6 +426,12 @@ class ActionSheetCell: UICollectionViewCell {
         if accessoryType == .disclosureChevron || accessoryType == .popup {
             accessoryTypeImageView.tintColor = colors.orangeUI
         }
+
+        if let identifier = model.cellIdentifier {
+            name.accessibilityLabel = identifier.description
+            name.accessibilityHint = identifier.accessibilityHint
+        }
+
         updateColors()
     }
 

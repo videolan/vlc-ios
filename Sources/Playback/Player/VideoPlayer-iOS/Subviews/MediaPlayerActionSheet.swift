@@ -44,6 +44,27 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
             return NSLocalizedString("REPEAT_MODE", comment: "")
         }
     }
+
+    var accessibilityHint: String {
+        switch self {
+        case .filter:
+            return NSLocalizedString("VIDEO_FILTERS_HINT", comment: "")
+        case .playback:
+            return NSLocalizedString("PLAYBACK_SPEED_HINT", comment: "")
+        case .sleepTimer:
+            return NSLocalizedString("SLEEP_TIMER_HINT", comment: "")
+        case .equalizer:
+            return NSLocalizedString("EQUALIZER_HINT", comment: "")
+        case .chapters:
+            return NSLocalizedString("CHAPTERS_HINT", comment: "")
+        case .bookmarks:
+            return NSLocalizedString("BOOKMARKS_HINT", comment: "")
+        case .interfaceLock:
+            return NSLocalizedString("INTERFACE_LOCK_HINT", comment: "")
+        default:
+            return ""
+        }
+    }
 }
 
 @objc (VLCMediaPlayerActionSheetDataSource)
