@@ -469,8 +469,6 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
                 cellModel.viewToPresent = nil
             } else if $0 == .equalizer {
                 cellModel.accessoryType = .popup
-            } else if $0 == .chapters {
-                cellModel.accessoryType = .popup
             } else if $0 == .repeatShuffle {
                 cellModel.accessoryType = .none
                 cellModel.viewToPresent = mockView
