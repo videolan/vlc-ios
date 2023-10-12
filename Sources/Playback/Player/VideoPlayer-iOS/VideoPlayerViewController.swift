@@ -571,32 +571,15 @@ class VideoPlayerViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        let defaults = UserDefaults.standard
         super.viewWillAppear(animated)
         playbackService.delegate = self
         playbackService.recoverPlaybackState()
-        tapSwipeEqual = defaults.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
-        forwardBackwardEqual = defaults.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
-        seekForwardBy = defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
-        seekBackwardBy = forwardBackwardEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
-        seekForwardBySwipe = tapSwipeEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLengthSwipe)
-        if tapSwipeEqual, forwardBackwardEqual {
-            // if tap = swipe, and backward = forward, then backward swipe = forward tap
-            seekBackwardBySwipe = seekForwardBy
-        } else if tapSwipeEqual, !forwardBackwardEqual {
-            // if tap = swipe, and backward != forward, then backward swipe = backward tap
-            seekBackwardBySwipe = seekBackwardBy
-        } else if !tapSwipeEqual, forwardBackwardEqual {
-            // if tap != swipe, and backward = forward, then backward swipe = forward swipe
-            seekBackwardBySwipe = seekForwardBySwipe
-        } else {
-            // otherwise backward swipe = backward swipe
-            seekBackwardBySwipe = defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLengthSwipe)
-        }
         playerController.lockedOrientation = .portrait
         navigationController?.navigationBar.isHidden = true
 
         setControlsHidden(false, animated: false)
+
+        setupSeekDurations()
 
         // Make sure interface is enabled on
         setPlayerInterfaceEnabled(true)
@@ -854,6 +837,30 @@ private extension VideoPlayerViewController {
         let duration: VLCTime = VLCTime(number: NSNumber(value: abs(totalSeekDuration) * 1000))
         hudString.append(duration.stringValue)
         statusLabel.showStatusMessage(hudString)
+    }
+
+    private func setupSeekDurations() {
+        let defaults = UserDefaults.standard
+
+        tapSwipeEqual = defaults.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
+        forwardBackwardEqual = defaults.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
+        seekForwardBy = defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
+        seekBackwardBy = forwardBackwardEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
+        seekForwardBySwipe = tapSwipeEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLengthSwipe)
+
+        if tapSwipeEqual, forwardBackwardEqual {
+            // if tap = swipe, and backward = forward, then backward swipe = forward tap
+            seekBackwardBySwipe = seekForwardBy
+        } else if tapSwipeEqual, !forwardBackwardEqual {
+            // if tap = swipe, and backward != forward, then backward swipe = backward tap
+            seekBackwardBySwipe = seekBackwardBy
+        } else if !tapSwipeEqual, forwardBackwardEqual {
+            // if tap != swipe, and backward = forward, then backward swipe = forward swipe
+            seekBackwardBySwipe = seekForwardBySwipe
+        } else {
+            // otherwise backward swipe = backward swipe
+            seekBackwardBySwipe = defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLengthSwipe)
+        }
     }
 }
 
