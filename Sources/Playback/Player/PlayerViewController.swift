@@ -76,6 +76,8 @@ class PlayerViewController: UIViewController {
     var playbackService: PlaybackService = PlaybackService.sharedInstance()
     var queueViewController: QueueViewController?
     var alertController: UIAlertController?
+
+    // MARK: Seek
     var seekForwardBy: Int = 0
     var seekBackwardBy: Int = 0
     var numberOfGestureSeek: Int = 0
@@ -86,7 +88,8 @@ class PlayerViewController: UIViewController {
     var tapSwipeEqual: Bool = true
     var numberOfTapSeek: Int = 0
     var previousSeekState: PlayerSeekState = .default
-    
+
+    // MARK: UI Elements
     lazy var statusLabel: VLCStatusLabel = {
         var statusLabel = VLCStatusLabel()
         statusLabel.isHidden = true
@@ -270,6 +273,7 @@ class PlayerViewController: UIViewController {
         return deviceMotion
     }()
 
+    // MARK: Constants
     private let ZOOM_SENSITIVITY: CGFloat = 5
 
     private let screenPixelSize = CGSize(width: UIScreen.main.bounds.width,
@@ -354,25 +358,8 @@ class PlayerViewController: UIViewController {
             color = PresentationTheme.current.colors.orangeUI
             image = UIImage(named: "rendererFull")
         }
-        let defaults = UserDefaults.standard
-        tapSwipeEqual = defaults.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
-        forwardBackwardEqual = defaults.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
-        seekForwardBy = defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
-        seekBackwardBy = forwardBackwardEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
-        seekForwardBySwipe = tapSwipeEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLengthSwipe)
-        if tapSwipeEqual, forwardBackwardEqual {
-            // if tap = swipe, and backward = forward, then backward swipe = forward tap
-            seekBackwardBySwipe = seekForwardBy
-        } else if tapSwipeEqual, !forwardBackwardEqual {
-            // if tap = swipe, and backward != forward, then backward swipe = backward tap
-            seekBackwardBySwipe = seekBackwardBy
-        } else if !tapSwipeEqual, forwardBackwardEqual {
-            // if tap != swipe, and backward = forward, then backward swipe = forward swipe
-            seekBackwardBySwipe = seekForwardBySwipe
-        } else {
-            // otherwise backward swipe = backward swipe
-            seekBackwardBySwipe = defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLengthSwipe)
-        }
+
+        setupSeekDurations()
 
         mediaNavigationBar.updateDeviceButton(with: image, color: color)
 
@@ -613,6 +600,30 @@ class PlayerViewController: UIViewController {
     private func setupObservers() {
         try? AVAudioSession.sharedInstance().setActive(true)
         AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
+    }
+
+    private func setupSeekDurations() {
+        let defaults = UserDefaults.standard
+
+        tapSwipeEqual = defaults.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
+        forwardBackwardEqual = defaults.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
+        seekForwardBy = defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLength)
+        seekBackwardBy = forwardBackwardEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLength)
+        seekForwardBySwipe = tapSwipeEqual ? seekForwardBy : defaults.integer(forKey: kVLCSettingPlaybackForwardSkipLengthSwipe)
+
+        if tapSwipeEqual, forwardBackwardEqual {
+            // if tap = swipe, and backward = forward, then backward swipe = forward tap
+            seekBackwardBySwipe = seekForwardBy
+        } else if tapSwipeEqual, !forwardBackwardEqual {
+            // if tap = swipe, and backward != forward, then backward swipe = backward tap
+            seekBackwardBySwipe = seekBackwardBy
+        } else if !tapSwipeEqual, forwardBackwardEqual {
+            // if tap != swipe, and backward = forward, then backward swipe = forward swipe
+            seekBackwardBySwipe = seekForwardBySwipe
+        } else {
+            // otherwise backward swipe = backward swipe
+            seekBackwardBySwipe = defaults.integer(forKey: kVLCSettingPlaybackBackwardSkipLengthSwipe)
+        }
     }
 
     // MARK: - Gesture handlers
