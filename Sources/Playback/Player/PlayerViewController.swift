@@ -26,6 +26,11 @@ enum PlayerPanType {
     case projection
 }
 
+enum PlayerSeekGestureType {
+    case tap
+    case swipe
+}
+
 class PlayerViewController: UIViewController {
     // MARK: - Slider Gesture Contol
 
@@ -74,6 +79,7 @@ class PlayerViewController: UIViewController {
     var seekForwardBy: Int = 0
     var seekBackwardBy: Int = 0
     var numberOfGestureSeek: Int = 0
+    var totalSeekDuration: Int = 0
     var seekForwardBySwipe: Int = 0
     var seekBackwardBySwipe: Int = 0
     var forwardBackwardEqual: Bool = true
@@ -461,23 +467,30 @@ class PlayerViewController: UIViewController {
         playbackService.jumpForward(Int32(interval))
     }
 
-    private func executeSeekFromGesture() {
+    private func executeSeekFromGesture(_ type: PlayerSeekGestureType) {
         var hudString: String = ""
-        let currentSeek = numberOfGestureSeek > 0 ? seekForwardBy : seekBackwardBy
-        let seekDuration: Int = numberOfGestureSeek * currentSeek
 
-        if seekDuration > 0 {
-            hudString = "⇒ "
-            jumpForwards(currentSeek)
+        let currentSeek: Int
+        if numberOfGestureSeek > 0 {
+            currentSeek = type == .tap ? seekForwardBy : seekForwardBySwipe
+            totalSeekDuration = previousSeekState == .backward ? currentSeek : totalSeekDuration + currentSeek
             previousSeekState = .forward
         } else {
-            hudString = "⇐ "
-            jumpBackwards(currentSeek)
+            currentSeek = type == .tap ? seekBackwardBy : seekBackwardBySwipe
+            totalSeekDuration = previousSeekState == .forward ? -currentSeek : totalSeekDuration - currentSeek
             previousSeekState = .backward
         }
 
+        if totalSeekDuration > 0 {
+            hudString = "⇒ "
+            jumpForwards(currentSeek)
+        } else {
+            hudString = "⇐ "
+            jumpBackwards(currentSeek)
+        }
+
         // Convert the time in seconds into milliseconds in order to the get the right VLCTime value.
-        let duration: VLCTime = VLCTime(number: NSNumber(value: abs(seekDuration) * 1000))
+        let duration: VLCTime = VLCTime(number: NSNumber(value: abs(totalSeekDuration) * 1000))
         hudString.append(duration.stringValue)
         statusLabel.showStatusMessage(hudString)
     }
@@ -761,11 +774,11 @@ class PlayerViewController: UIViewController {
         switch recognizer.direction {
         case .right:
             numberOfGestureSeek = previousSeekState == .backward ? 1 : numberOfGestureSeek + 1
-            executeSeekFromGesture()
+            executeSeekFromGesture(.swipe)
             return
         case .left:
             numberOfGestureSeek = previousSeekState == .forward ? -1 : numberOfGestureSeek - 1
-            executeSeekFromGesture()
+            executeSeekFromGesture(.swipe)
             return
         case .up:
             playbackService.previous()
@@ -824,7 +837,7 @@ class PlayerViewController: UIViewController {
     @objc func handleDoubleTapGesture(_ sender: UITapGestureRecognizer) {
         // CHECK THE TAP LOCATION
 
-        executeSeekFromGesture()
+        executeSeekFromGesture(.tap)
     }
 }
 

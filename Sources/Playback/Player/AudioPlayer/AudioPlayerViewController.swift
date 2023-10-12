@@ -108,6 +108,7 @@ class AudioPlayerViewController: PlayerViewController {
         playerController.isInterfaceLocked = false
         queueViewController?.hide()
         numberOfGestureSeek = 0
+        totalSeekDuration = 0
         previousSeekState = .default
     }
 
