@@ -10,6 +10,8 @@
 · Improve playback speed configuration for the audio player
 · Allow deleting local media during search
 · Show playlist durations in list view
+· Add options for more flexible gesture controls during playback
+· Add missing mka support declaration
 
 ## tvOS [3.5.0]
 · Fix the display of media's artworks for audio playback.
