@@ -374,7 +374,6 @@ class ActionSheetCell: UICollectionViewCell {
     }
 
     private func updateColors() {
-        updateTheme()
         let shouldUpdateColors = delegate?.actionSheetCellShouldUpdateColors() ?? true
         let colors = getThemeColors()
         if shouldUpdateColors {
@@ -476,5 +475,15 @@ class ActionSheetCell: UICollectionViewCell {
         name.backgroundColor = backgroundColor
         stackView.backgroundColor = colors.background
         viewToPresent?.backgroundColor = backgroundColor
+        updateColors()
+    }
+
+    func setAccessoryType(to type: ActionSheetCellAccessoryType) {
+        guard type != accessoryType else {
+            // The current accessory type is already the wanted one.
+            return
+        }
+
+        accessoryType = type
     }
 }

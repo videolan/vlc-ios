@@ -449,7 +449,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
                 return
             }
 
-            if $0 == .addBookmarks {
+            if $0 == .addBookmarks || $0 == .blackBackground {
                 return
             }
 

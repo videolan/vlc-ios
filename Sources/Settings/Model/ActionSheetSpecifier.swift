@@ -11,12 +11,17 @@
 
 import UIKit
 
+protocol ActionSheetSpecifierDelegate: AnyObject {
+    func actionSheetSpecifierHandleToggleSwitch(for cell: ActionSheetCell, state: Bool)
+}
+
 class ActionSheetSpecifier: NSObject {
 
     var settingsBundle = Bundle()
     var playbackTitle: String?
     private let userDefaults = UserDefaults.standard
     private var settingSpecifier: SettingSpecifier?
+    weak var delegate: ActionSheetSpecifierDelegate?
     var preferenceKey: String? {
         didSet {
             loadData()
@@ -54,10 +59,19 @@ extension ActionSheetSpecifier: ActionSheetDelegate {
             assertionFailure("No Preference Key Provided")
             return
         }
+
+        guard preferenceKey != kVLCSettingAppTheme ||
+                (!PresentationTheme.current.isDark || indexPath.row != numberOfRows() - 1) else {
+            // Disable the selection for the black background option cell in the appearance action sheet
+            return
+        }
+
         userDefaults.set(settingSpecifier?.specifier[indexPath.row].value, forKey: preferenceKey)
+
         if preferenceKey == kVLCSettingAppTheme {
             PresentationTheme.themeDidUpdate()
         }
+
         if #available(iOS 10, *) {
             NotificationFeedbackGenerator().success()
         }
@@ -86,15 +100,16 @@ extension ActionSheetSpecifier: ActionSheetDataSource {
             assertionFailure("No Content Found for Specifier \(preferenceKey ?? "Null Specifier")")
             return 0
         }
-        if preferenceKey == kVLCSettingAppTheme {
 
-        if #available(iOS 13, *) {
-            return rowCount
+        if preferenceKey == kVLCSettingAppTheme {
+            let isThemeDark: Bool = PresentationTheme.current.isDark
+            if #available(iOS 13, *) {
+                return isThemeDark ? rowCount : rowCount - 1
+            } else {
+                return isThemeDark ? rowCount - 1 : rowCount - 2
+            }
         }
-        else {
-            return rowCount - 1
-        }
-        }
+
         return rowCount
     }
 
@@ -103,10 +118,36 @@ extension ActionSheetSpecifier: ActionSheetDataSource {
             else {
                 return UICollectionViewCell()
         }
+
         guard let itemTitle = settingSpecifier?.specifier[indexPath.row].itemTitle else {
             return UICollectionViewCell()
         }
-        cell.name.text = settingsBundle.localizedString(forKey: itemTitle, value: itemTitle, table: "Root")
+
+        if preferenceKey == kVLCSettingAppTheme &&
+            PresentationTheme.current.isDark && indexPath.row == numberOfRows() - 1 {
+            // Update the black background option cell
+            cell.setAccessoryType(to: .toggleSwitch)
+            cell.setToggleSwitch(state: UserDefaults.standard.bool(forKey: kVLCSettingAppThemeBlack))
+            cell.name.text = settingsBundle.localizedString(forKey: "SETTINGS_THEME_BLACK", value: "", table: "Root")
+            let cellIdentifier = ActionSheetCellIdentifier.blackBackground
+            cell.identifier = cellIdentifier
+            cell.name.accessibilityLabel = cellIdentifier.description
+            cell.name.accessibilityHint = cellIdentifier.accessibilityHint
+            cell.delegate = self
+        } else {
+            cell.name.text = settingsBundle.localizedString(forKey: itemTitle, value: itemTitle, table: "Root")
+        }
+
         return cell
+    }
+}
+
+extension ActionSheetSpecifier: ActionSheetCellDelegate {
+    func actionSheetCellShouldUpdateColors() -> Bool {
+        return true
+    }
+
+    func actionSheetCellDidToggleSwitch(for cell: ActionSheetCell, state: Bool) {
+        delegate?.actionSheetSpecifierHandleToggleSwitch(for: cell, state: state)
     }
 }

@@ -21,6 +21,7 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
     case bookmarks
     case addBookmarks
     case interfaceLock
+    case blackBackground
 
     var description: String {
         switch self {
@@ -42,6 +43,8 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
             return NSLocalizedString("INTERFACE_LOCK_BUTTON", comment: "")
         case .repeatShuffle:
             return NSLocalizedString("REPEAT_MODE", comment: "")
+        case .blackBackground:
+            return NSLocalizedString("SETTINGS_THEME_BLACK", comment: "")
         }
     }
 
@@ -61,6 +64,8 @@ enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, Case
             return NSLocalizedString("BOOKMARKS_HINT", comment: "")
         case .interfaceLock:
             return NSLocalizedString("INTERFACE_LOCK_HINT", comment: "")
+        case .blackBackground:
+            return NSLocalizedString("SETTINGS_THEME_BLACK_SUBTITLE", comment: "")
         default:
             return ""
         }

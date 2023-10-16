@@ -221,6 +221,11 @@ class SettingsController: UITableViewController {
         specifierManager.settingsBundle = settingsBundle
         actionSheet.delegate = specifierManager
         actionSheet.dataSource = specifierManager
+
+        if preferenceKey == MainOptions.appearance.preferenceKey {
+            specifierManager.delegate = self
+        }
+
         present(actionSheet, animated: false) {
             self.actionSheet.collectionView.selectItem(at: self.specifierManager.selectedIndex, animated: false, scrollPosition: .centeredVertically)
         }
@@ -585,5 +590,14 @@ extension SettingsController: MediaLibraryBackupActivateDelegate {
 extension SettingsController: MediaLibraryDisableGroupingDelegate {
     func medialibraryDisableGroupingSwitchOn(state: Bool) {
         notificationCenter.post(name: .VLCDisableGroupingDidChangeNotification, object: self)
+    }
+}
+
+extension SettingsController: ActionSheetSpecifierDelegate {
+    func actionSheetSpecifierHandleToggleSwitch(for cell: ActionSheetCell, state: Bool) {
+        if cell.identifier == .blackBackground {
+            UserDefaults.standard.setValue(state, forKey: kVLCSettingAppThemeBlack)
+            PresentationTheme.themeDidUpdate()
+        }
     }
 }
