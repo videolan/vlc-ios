@@ -11,7 +11,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-enum MediaPlayerActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
+enum ActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
     case repeatShuffle
     case filter
     case playback
@@ -111,17 +111,17 @@ class MediaPlayerActionSheet: ActionSheet {
 
     private func getTitle(of childView: UIView) -> String {
         if childView is VideoFiltersView {
-            return MediaPlayerActionSheetCellIdentifier.filter.description
+            return ActionSheetCellIdentifier.filter.description
         } else if childView is PlaybackSpeedView {
-            return MediaPlayerActionSheetCellIdentifier.playback.description
+            return ActionSheetCellIdentifier.playback.description
         } else if childView is SleepTimerView {
-            return MediaPlayerActionSheetCellIdentifier.sleepTimer.description
+            return ActionSheetCellIdentifier.sleepTimer.description
         } else if childView is EqualizerView {
-            return MediaPlayerActionSheetCellIdentifier.equalizer.description
+            return ActionSheetCellIdentifier.equalizer.description
         } else if childView is ChapterView {
-            return MediaPlayerActionSheetCellIdentifier.chapters.description
+            return ActionSheetCellIdentifier.chapters.description
         } else if childView is BookmarksView {
-            return MediaPlayerActionSheetCellIdentifier.bookmarks.description
+            return ActionSheetCellIdentifier.bookmarks.description
         } else {
             return getDefaultHeaderTitle()
         }

@@ -42,14 +42,14 @@ class ActionSheetCellImageView: UIImageView {
     var iconImage: UIImage?
     var viewToPresent: UIView?
     var accessoryType: ActionSheetCellAccessoryType
-    var cellIdentifier: MediaPlayerActionSheetCellIdentifier?
+    var cellIdentifier: ActionSheetCellIdentifier?
     
     init(
         title: String,
         imageIdentifier: String,
         accessoryType: ActionSheetCellAccessoryType = .checkmark,
         viewToPresent: UIView? = nil,
-        cellIdentifier: MediaPlayerActionSheetCellIdentifier? = nil) {
+        cellIdentifier: ActionSheetCellIdentifier? = nil) {
             self.title = title
             iconImage = UIImage(named: imageIdentifier)?.withRenderingMode(.alwaysTemplate)
             self.accessoryType = accessoryType
@@ -264,7 +264,7 @@ class ActionSheetCell: UICollectionViewCell {
     /// If `viewControllerToPresent` is set, defaults to `disclosureChevron`, otherwise `checkmark` is main default.
     private(set) var accessoryView = UIView ()
     weak var delegate: ActionSheetCellDelegate?
-    var identifier: MediaPlayerActionSheetCellIdentifier?
+    var identifier: ActionSheetCellIdentifier?
     var isMediaPlayerActionSheetCell: Bool = false
 
     @objc static var identifier: String {

@@ -488,7 +488,7 @@ class PlayerViewController: UIViewController {
         }, completion: nil)
     }
 
-    private func openOptionView(view: MediaPlayerActionSheetCellIdentifier) {
+    private func openOptionView(view: ActionSheetCellIdentifier) {
         present(moreOptionsActionSheet, animated: true, completion: {
             self.moreOptionsActionSheet.addView(view)
         })

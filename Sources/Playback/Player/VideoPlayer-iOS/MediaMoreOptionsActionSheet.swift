@@ -227,7 +227,7 @@ protocol MediaMoreOptionsActionSheetDelegate {
         updateThemes()
     }
 
-    func addView(_ view: MediaPlayerActionSheetCellIdentifier) {
+    func addView(_ view: ActionSheetCellIdentifier) {
         switch view {
         case .filter:
             openOptionView(videoFiltersView)
@@ -420,7 +420,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDelegate {
 // MARK: - MediaPlayerActionSheetDataSource
 extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
 
-    private func selectViewToPresent(for cell: MediaPlayerActionSheetCellIdentifier) -> UIView {
+    private func selectViewToPresent(for cell: ActionSheetCellIdentifier) -> UIView {
         switch cell {
         case .filter:
             return videoFiltersView
@@ -443,7 +443,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
         var models: [ActionSheetCellModel] = []
         let isAudioPlayer: Bool = moreOptionsDelegate is AudioPlayerViewController
 
-        MediaPlayerActionSheetCellIdentifier.allCases.forEach {
+        ActionSheetCellIdentifier.allCases.forEach {
             if $0 == .chapters && currentMediaHasChapters == false {
                 // Do not show the chapters category when there are no chapters.
                 return

@@ -1894,7 +1894,7 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
         }
     }
 
-    private func openOptionView(view: MediaPlayerActionSheetCellIdentifier) {
+    private func openOptionView(view: ActionSheetCellIdentifier) {
         present(moreOptionsActionSheet, animated: true, completion: {
             self.moreOptionsActionSheet.addView(view)
         })
