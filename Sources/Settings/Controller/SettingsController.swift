@@ -299,21 +299,9 @@ extension SettingsController {
         }
         switch section {
         case .main:
-            let main = MainOptions(rawValue: indexPath.row)
-            let currentTheme = userDefaults.integer(forKey: kVLCSettingAppTheme)
-            let brightThemeForced = currentTheme == kVLCSettingAppThemeBright
-            let automaticBrightTheme = currentTheme == kVLCSettingAppThemeSystem && !PresentationTheme.current.isDark
-            if indexPath.row == MainOptions.blackTheme.rawValue {
-                if brightThemeForced || automaticBrightTheme {
-                    //If the user wants the bright theme, we hide black theme settings
-                    cell.isHidden = true
-                }
-            }
-            cell.sectionType = main
-            cell.blackThemeSwitchDelegate = self
+            cell.sectionType = MainOptions(rawValue: indexPath.row)
         case .generic:
-            let generic = GenericOptions(rawValue: indexPath.row)
-            cell.sectionType = generic
+            cell.sectionType = GenericOptions(rawValue: indexPath.row)
         case .privacy:
             let privacy = PrivacyOptions(rawValue: indexPath.row)
             let isPasscodeOn = userDefaults.bool(forKey: kVLCSettingPasscodeOnKey)
@@ -349,17 +337,13 @@ extension SettingsController {
             }
             cell.skipDurationDelegate = self
         case .video:
-            let videoOptions = VideoOptions(rawValue: indexPath.row)
-            cell.sectionType = videoOptions
+            cell.sectionType = VideoOptions(rawValue: indexPath.row)
         case .subtitles:
-            let subtitlesOptions = SubtitlesOptions(rawValue: indexPath.row)
-            cell.sectionType = subtitlesOptions
+            cell.sectionType = SubtitlesOptions(rawValue: indexPath.row)
         case .audio:
-            let audioOptions = AudioOptions(rawValue: indexPath.row)
-            cell.sectionType = audioOptions
+            cell.sectionType = AudioOptions(rawValue: indexPath.row)
         case .casting:
-            let castingOptions = CastingOptions(rawValue: indexPath.row)
-            cell.sectionType = castingOptions
+            cell.sectionType = CastingOptions(rawValue: indexPath.row)
         case .mediaLibrary:
             let mediaLibOptions = MediaLibraryOptions(rawValue: indexPath.row)
             if indexPath.row == MediaLibraryOptions.forceVLCToRescanTheMediaLibrary.rawValue {
@@ -383,8 +367,7 @@ extension SettingsController {
                 cell.accessoryType = .none
             }
         case .network:
-            let networkOptions = NetworkOptions(rawValue: indexPath.row)
-            cell.sectionType = networkOptions
+            cell.sectionType = NetworkOptions(rawValue: indexPath.row)
         case .lab:
             let lab = Lab(rawValue: indexPath.row)
             cell.sectionType = lab
@@ -482,12 +465,7 @@ extension SettingsController {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let automaticDimension = UITableView.automaticDimension
-        if indexPath == [SettingsSection.main.rawValue, MainOptions.blackTheme.rawValue] {
-            let currentTheme = userDefaults.integer(forKey: kVLCSettingAppTheme)
-            let brightThemeForced = currentTheme == kVLCSettingAppThemeBright
-            let automaticBrightTheme = currentTheme == kVLCSettingAppThemeSystem && !PresentationTheme.current.isDark
-            return (brightThemeForced || automaticBrightTheme) ? 0 : automaticDimension //If the user wants the bright theme, we hide black theme settings
-        }
+
         if indexPath == [SettingsSection.privacy.rawValue, PrivacyOptions.enableBiometrics.rawValue] {
             let isPasscodeOn = userDefaults.bool(forKey: kVLCSettingPasscodeOnKey)
             let privacySection = PrivacyOptions(rawValue: indexPath.row)
@@ -552,12 +530,6 @@ extension SettingsController: MediaLibraryHidingDelegate {
 }
 
 // MARK: - SwitchOn Delegates
-
-extension SettingsController: BlackThemeActivateDelegate {
-    func blackThemeSwitchOn(state: Bool) {
-        PresentationTheme.themeDidUpdate()
-    }
-}
 
 extension SettingsController: PasscodeActivateDelegate {
 

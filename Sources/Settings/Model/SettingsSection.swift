@@ -56,7 +56,6 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
 enum MainOptions: Int, CaseIterable, SectionType {
     case privacy
     case appearance
-    case blackTheme
 
     var description: String {
         switch self {
@@ -64,8 +63,6 @@ enum MainOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_PRIVACY_TITLE"
         case .appearance:
             return "SETTINGS_DARKTHEME"
-        case .blackTheme:
-            return "SETTINGS_THEME_BLACK"
         }
     }
 
@@ -75,8 +72,6 @@ enum MainOptions: Int, CaseIterable, SectionType {
             return false
         case .appearance:
             return false
-        case .blackTheme:
-            return true
         }
     }
 
@@ -88,8 +83,6 @@ enum MainOptions: Int, CaseIterable, SectionType {
             return "SETTINGS_PRIVACY_SUBTITLE"
         case .appearance:
             return "SETTINGS_THEME_SYSTEM"
-        case .blackTheme:
-            return "SETTINGS_THEME_BLACK_SUBTITLE"
         }
     }
 
@@ -99,8 +92,6 @@ enum MainOptions: Int, CaseIterable, SectionType {
             return kVLCSettingPasscodeOnKey
         case .appearance:
             return kVLCSettingAppTheme
-        case .blackTheme:
-            return kVLCSettingAppThemeBlack
         }
     }
 }

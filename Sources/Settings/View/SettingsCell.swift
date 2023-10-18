@@ -18,10 +18,6 @@ protocol SectionType: CustomStringConvertible {
     var containsInfobutton: Bool { get }
 }
 
-protocol BlackThemeActivateDelegate: AnyObject {
-    func blackThemeSwitchOn(state: Bool)
-}
-
 protocol PasscodeActivateDelegate: AnyObject {
     func passcodeLockSwitchOn(state: Bool)
 }
@@ -44,7 +40,6 @@ class SettingsCell: UITableViewCell {
     private let notificationCenter = NotificationCenter.default
     var settingsBundle = Bundle()
     var showsActivityIndicator = false
-    weak var blackThemeSwitchDelegate: BlackThemeActivateDelegate?
     weak var passcodeSwitchDelegate: PasscodeActivateDelegate?
     weak var skipDurationDelegate: UITableViewController?
     weak var medialibraryHidingSwitchDelegate: MedialibraryHidingActivateDelegate?
@@ -63,11 +58,8 @@ class SettingsCell: UITableViewCell {
 
     lazy var infoButton: UIButton = {
         var infoButton = UIButton()
-        if blackThemeSwitchDelegate?.blackThemeSwitchOn(state: true) != nil {
-             infoButton = UIButton(type: .infoDark)
-        } else {
-             infoButton = UIButton(type: .infoLight)
-        }
+        let buttonType: UIButton.ButtonType = PresentationTheme.current.isDark ? .infoDark : .infoLight
+        infoButton = UIButton(type: buttonType)
         infoButton.addTarget(self, action: #selector(infoTapped), for: .touchDown)
         return infoButton
     }()
@@ -218,9 +210,8 @@ class SettingsCell: UITableViewCell {
     @objc func handleSwitchAction(sender: UISwitch) {
         guard let key = sectionType?.preferenceKey else { return }
         userDefaults.set(sender.isOn ? true : false, forKey: key)
-        if sectionType?.preferenceKey == kVLCSettingAppThemeBlack {
-            blackThemeSwitchDelegate?.blackThemeSwitchOn(state: sender.isOn)
-        } else if sectionType?.preferenceKey == kVLCSettingPasscodeOnKey {
+
+        if sectionType?.preferenceKey == kVLCSettingPasscodeOnKey {
             passcodeSwitchDelegate?.passcodeLockSwitchOn(state: sender.isOn)
         } else if sectionType?.preferenceKey == kVLCSettingHideLibraryInFilesApp {
             medialibraryHidingSwitchDelegate?.medialibraryHidingLockSwitchOn(state: sender.isOn)
