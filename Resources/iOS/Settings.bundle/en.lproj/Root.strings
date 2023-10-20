@@ -30,6 +30,8 @@
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Always";
 "SETTINGS_NETWORK_PLAY_ALL" = "Automatically play next item";
+"SETTINGS_PLAY_ALL" = "Seamless playback for collections";
+"SETTINGS_PLAYLIST_PLAY_ALL" = "Seamless playback for playlists";
 "SETTINGS_ENABLE_MEDIA_CELL_TEXT_SCROLLING" = "Enable text scrolling in media list";
 
 "SETTINGS_SKIP_LOOP_FILTER" = "Deblocking filter";

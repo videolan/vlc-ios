@@ -24,6 +24,7 @@
 #define kVLCOptimizeItemNamesForDisplay @"MLDecrapifyTitles"
 #define kVLCSettingAbout @"about"
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
+#define kVLCPlaylistPlayNextItem @"PlaylistPlayNextItem"
 #define kVLCSettingEnableMediaCellTextScrolling @"EnableMediaCellTextScrolling"
 #define kVLCSettingContinueAudioInBackgroundKey @"BackgroundAudioPlayback"
 #define kVLCSettingStretchAudio @"audio-time-stretch"

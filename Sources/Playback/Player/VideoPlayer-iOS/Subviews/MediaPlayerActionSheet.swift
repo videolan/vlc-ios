@@ -22,6 +22,8 @@ enum ActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
     case addBookmarks
     case interfaceLock
     case blackBackground
+    case playNextItem
+    case playlistPlayNextItem
 
     var description: String {
         switch self {
@@ -45,6 +47,10 @@ enum ActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
             return NSLocalizedString("REPEAT_MODE", comment: "")
         case .blackBackground:
             return NSLocalizedString("SETTINGS_THEME_BLACK", comment: "")
+        case .playNextItem:
+            return NSLocalizedString("SETTINGS_PLAY_ALL", comment: "")
+        case .playlistPlayNextItem:
+            return NSLocalizedString("SETTINGS_PLAYLIST_PLAY_ALL", comment: "")
         }
     }
 
@@ -66,6 +72,10 @@ enum ActionSheetCellIdentifier: String, CustomStringConvertible, CaseIterable {
             return NSLocalizedString("INTERFACE_LOCK_HINT", comment: "")
         case .blackBackground:
             return NSLocalizedString("SETTINGS_THEME_BLACK_SUBTITLE", comment: "")
+        case .playNextItem:
+            return NSLocalizedString("SETTINGS_PLAY_ALL_HINT", comment: "")
+        case .playlistPlayNextItem:
+            return NSLocalizedString("SETTINGS_PLAYLIST_PLAY_ALL_HINT", comment: "")
         default:
             return ""
         }

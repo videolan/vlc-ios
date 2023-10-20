@@ -81,6 +81,11 @@ extension ActionSheetSpecifier: ActionSheetDelegate {
             return
         }
 
+        guard preferenceKey != kVLCAutomaticallyPlayNextItem else {
+            // Disable the selection for the automatically play next item options
+            return
+        }
+
         userDefaults.set(settingSpecifier?.specifier[indexPath.row].value, forKey: preferenceKey)
 
         if preferenceKey == kVLCSettingAppTheme {
@@ -149,9 +154,26 @@ extension ActionSheetSpecifier: ActionSheetDataSource {
             cell.name.accessibilityLabel = cellIdentifier.description
             cell.name.accessibilityHint = cellIdentifier.accessibilityHint
             cell.delegate = self
-        } else {
-            cell.name.text = settingsBundle.localizedString(forKey: itemTitle, value: itemTitle, table: "Root")
+
+            return cell
+        } else if preferenceKey == kVLCAutomaticallyPlayNextItem {
+            cell.setAccessoryType(to: .toggleSwitch)
+            let isFirstRow: Bool = indexPath.row == 0
+
+            if isFirstRow {
+                cell.setToggleSwitch(state: userDefaults.bool(forKey: kVLCAutomaticallyPlayNextItem))
+            } else {
+                cell.setToggleSwitch(state: userDefaults.bool(forKey: kVLCPlaylistPlayNextItem))
+            }
+
+            let cellIdentifier: ActionSheetCellIdentifier = isFirstRow ? .playNextItem : .playlistPlayNextItem
+            cell.identifier = cellIdentifier
+            cell.name.accessibilityLabel = cellIdentifier.description
+            cell.name.accessibilityHint = cellIdentifier.accessibilityHint
+            cell.delegate = self
         }
+
+        cell.name.text = settingsBundle.localizedString(forKey: itemTitle, value: itemTitle, table: "Root")
 
         return cell
     }
@@ -159,6 +181,10 @@ extension ActionSheetSpecifier: ActionSheetDataSource {
 
 extension ActionSheetSpecifier: ActionSheetCellDelegate {
     func actionSheetCellShouldUpdateColors() -> Bool {
+        guard preferenceKey != kVLCAutomaticallyPlayNextItem else {
+            return false
+        }
+
         return true
     }
 

@@ -222,12 +222,15 @@ class SettingsController: UITableViewController {
         actionSheet.delegate = specifierManager
         actionSheet.dataSource = specifierManager
 
-        if preferenceKey == MainOptions.appearance.preferenceKey {
+        if preferenceKey == MainOptions.appearance.preferenceKey ||
+            preferenceKey == GenericOptions.automaticallyPlayNextItem.preferenceKey {
             specifierManager.delegate = self
         }
 
         present(actionSheet, animated: false) {
-            self.actionSheet.collectionView.selectItem(at: self.specifierManager.selectedIndex, animated: false, scrollPosition: .centeredVertically)
+            if preferenceKey != kVLCAutomaticallyPlayNextItem {
+                self.actionSheet.collectionView.selectItem(at: self.specifierManager.selectedIndex, animated: false, scrollPosition: .centeredVertically)
+            }
         }
     }
 
@@ -374,6 +377,9 @@ extension SettingsController {
             cell.sectionType = MainOptions(rawValue: indexPath.row)
         case .generic:
             cell.sectionType = GenericOptions(rawValue: indexPath.row)
+            if indexPath.row == GenericOptions.automaticallyPlayNextItem.rawValue {
+                cell.subtitleLabel.text = nil
+            }
         case .privacy:
             let privacy = PrivacyOptions(rawValue: indexPath.row)
             let isPasscodeOn = userDefaults.bool(forKey: kVLCSettingPasscodeOnKey)
@@ -647,9 +653,18 @@ extension SettingsController: MediaLibraryDisableGroupingDelegate {
 
 extension SettingsController: ActionSheetSpecifierDelegate {
     func actionSheetSpecifierHandleToggleSwitch(for cell: ActionSheetCell, state: Bool) {
-        if cell.identifier == .blackBackground {
-            UserDefaults.standard.setValue(state, forKey: kVLCSettingAppThemeBlack)
+        switch cell.identifier {
+        case .blackBackground:
+            userDefaults.setValue(state, forKey: kVLCSettingAppThemeBlack)
             PresentationTheme.themeDidUpdate()
+        case .playNextItem:
+            userDefaults.setValue(state, forKey: kVLCAutomaticallyPlayNextItem)
+            break
+        case .playlistPlayNextItem:
+            userDefaults.setValue(state, forKey: kVLCPlaylistPlayNextItem)
+            break
+        default:
+            break
         }
     }
 }

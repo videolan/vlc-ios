@@ -77,6 +77,7 @@
                                   kVLCSettingPlaybackBackwardSkipLengthSwipe : kVLCSettingPlaybackBackwardSkipLengthSwipeDefaultValue,
                                   kVLCSettingOpenAppForPlayback : kVLCSettingOpenAppForPlaybackDefaultValue,
                                   kVLCAutomaticallyPlayNextItem : @(YES),
+                                  kVLCPlaylistPlayNextItem: @(YES),
                                   kVLCSettingEnableMediaCellTextScrolling : @(NO),
                                   kVLCSettingShowThumbnails : kVLCSettingShowThumbnailsDefaultValue,
                                   kVLCSettingShowArtworks : kVLCSettingShowArtworksDefaultValue,

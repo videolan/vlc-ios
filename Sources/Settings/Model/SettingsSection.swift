@@ -138,7 +138,7 @@ enum GenericOptions: Int, CaseIterable, SectionType {
         case .continueVideoPlayback:
             return false
         case .automaticallyPlayNextItem:
-            return true
+            return false
         case .enableTextScrollingInMediaList:
             return true
         case .rememberPlayerState:

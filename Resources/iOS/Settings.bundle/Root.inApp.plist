@@ -153,14 +153,22 @@
 			</array>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<true/>
 			<key>Key</key>
 			<string>AutomaticallyPlayNextItem</string>
 			<key>Title</key>
 			<string>SETTINGS_NETWORK_PLAY_ALL</string>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>PSMultiValueSpecifier</string>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_PLAY_ALL</string>
+				<string>SETTINGS_PLAYLIST_PLAY_ALL</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>

@@ -507,6 +507,11 @@
 "SETTINGS_RESET_TITLE" = "Reset the settings";
 "SETTINGS_RESET_MESSAGE" = "Do you want to reset all the settings to their default values?";
 
+"SETTINGS_PLAY_ALL" = "Seamless playback for collections";
+"SETTINGS_PLAY_ALL_HINT" = "Enable to automatically play the next media in the audio or video tabs";
+"SETTINGS_PLAYLIST_PLAY_ALL" = "Seamless playback for playlists";
+"SETTINGS_PLAYLIST_PLAY_ALL_HINT" = "Enable to automatically play the next media in a playlist";
+
 // MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
