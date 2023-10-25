@@ -24,6 +24,7 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
     case mediaLibrary
     case network
     case lab
+    case reset
 
     var description: String {
         switch self {
@@ -49,6 +50,8 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
             return "SETTINGS_NETWORK"
         case .lab:
             return "SETTINGS_LAB"
+        case .reset:
+            return "Reset"
         }
     }
 }
@@ -763,4 +766,18 @@ enum Lab: Int, CaseIterable, SectionType {
     }
 
     var containsInfobutton: Bool { return false }
+}
+
+enum Reset: Int, CaseIterable, SectionType {
+    case resetOptions
+
+    var containsSwitch: Bool { return false }
+
+    var subtitle: String? { return nil }
+
+    var preferenceKey: String? { return kVLCResetSettings }
+
+    var containsInfobutton: Bool { return false }
+
+    var description: String { return "SETTINGS_RESET" }
 }

@@ -142,3 +142,5 @@
 "SETTINGS_DURATION_FIFTEEN" = "15 seconds";
 "SETTINGS_DURATION_THIRTY" =  "30 seconds";
 "SETTINGS_DURATION_SIXTY" = "60 seconds";
+
+"SETTINGS_RESET" = "Reset the settings";

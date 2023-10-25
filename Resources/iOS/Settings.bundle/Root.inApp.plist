@@ -992,6 +992,14 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
+		<dict>
+			<key>Key</key>
+			<string>kVLCResetSettings</string>
+			<key>Title</key>
+			<string>SETTINGS_RESET</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>

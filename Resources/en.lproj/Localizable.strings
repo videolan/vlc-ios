@@ -504,6 +504,9 @@
 "SETTINGS_THEME_BLACK" = "Use black background on dark mode";
 "SETTINGS_THEME_BLACK_SUBTITLE" = "Improves battery life on devices with an OLED screen";
 
+"SETTINGS_RESET_TITLE" = "Reset the settings";
+"SETTINGS_RESET_MESSAGE" = "Do you want to reset all the settings to their default values?";
+
 // MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
