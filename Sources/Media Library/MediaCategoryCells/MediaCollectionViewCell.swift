@@ -483,8 +483,12 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
 
     private func setupGestureRecognizer() {
         let mediaTapGesture = UITapGestureRecognizer(target: self, action: #selector(mediaTapped(_:)))
-
         scrollContentView.addGestureRecognizer(mediaTapGesture)
+
+        // Add tap gesture recognizer to disable the item selection when tapping on the drag image view
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: nil)
+        dragIndicatorImageView.addGestureRecognizer(tapGestureRecognizer)
+        dragIndicatorImageView.isUserInteractionEnabled = true
     }
 
     @objc private func mediaTapped(_ sender: UITapGestureRecognizer) {
