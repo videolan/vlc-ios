@@ -43,6 +43,7 @@ class QueueViewController: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
 
     private var scrolledCellIndex: IndexPath = IndexPath()
+    private var grabbedCellIndex: IndexPath?
 
     private let cellHeight: CGFloat = 56
 
@@ -418,9 +419,6 @@ private extension QueueViewController {
         if isSelected {
             textColor = PresentationTheme.current.colors.orangeUI
             tintColor = PresentationTheme.current.colors.orangeUI
-            cell.disableScrollView()
-        } else {
-            cell.enableScrollView()
         }
 
         cell.tintColor = tintColor
@@ -443,12 +441,31 @@ private extension QueueViewController {
                     break
             }
             queueCollectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+            grabbedCellIndex = selectedIndexPath
         case .changed:
             var location = gesture.location(in: gesture.view)
             location.x = queueCollectionView.frame.width / 2
             queueCollectionView.updateInteractiveMovementTargetPosition(location)
+            if let selectedIndexPath = queueCollectionView.indexPathForItem(at: gesture.location(in: queueCollectionView)) {
+                grabbedCellIndex = selectedIndexPath
+            }
         case .ended:
             queueCollectionView.endInteractiveMovement()
+            var indexPath: IndexPath? = nil
+
+            if let selectedIndexPath = queueCollectionView.indexPathForItem(at: gesture.location(in: queueCollectionView)) {
+                indexPath = selectedIndexPath
+            } else if let grabbedCellIndex = grabbedCellIndex {
+                indexPath = grabbedCellIndex
+            }
+
+            guard let index = indexPath,
+                  let cell = queueCollectionView.cellForItem(at: index) as? MediaCollectionViewCell else {
+                break
+            }
+
+            cell.animateCurrentlyPlayingState()
+            break
         default:
             queueCollectionView.cancelInteractiveMovement()
         }

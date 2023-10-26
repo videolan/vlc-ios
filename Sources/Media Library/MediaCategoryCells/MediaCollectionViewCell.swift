@@ -213,6 +213,8 @@ class MediaCollectionViewCell: BaseCollectionViewCell, UIScrollViewDelegate {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.isScrollEnabled = isMediaBeingPlayed ? false : true
+
         if scrollView.contentOffset.x < 0 {
             scrollView.contentOffset.x = 0
             hasXGoneNegative = true
