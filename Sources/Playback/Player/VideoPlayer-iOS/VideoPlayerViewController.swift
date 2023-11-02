@@ -214,6 +214,7 @@ class VideoPlayerViewController: UIViewController {
                                                            options: nil)?.first as! VideoPlayerControls
         videoPlayerControls.translatesAutoresizingMaskIntoConstraints = false
         videoPlayerControls.setupAccessibility()
+        videoPlayerControls.setupLongPressGestureRecognizer()
         videoPlayerControls.delegate = self
         let isIPad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
         if isIPad {
@@ -242,6 +243,15 @@ class VideoPlayerViewController: UIViewController {
         var moreOptionsActionSheet = MediaMoreOptionsActionSheet()
         moreOptionsActionSheet.moreOptionsDelegate = self
         return moreOptionsActionSheet
+    }()
+
+    private(set) lazy var aspectRatioActionSheet: ActionSheet = {
+        var aspectRatioActionSheet = ActionSheet()
+        aspectRatioActionSheet.dataSource = self
+        aspectRatioActionSheet.delegate = self
+        aspectRatioActionSheet.modalPresentationStyle = .custom
+        aspectRatioActionSheet.numberOfColums = 2
+        return aspectRatioActionSheet
     }()
 
     private var queueViewController: QueueViewController?
@@ -732,7 +742,7 @@ private extension VideoPlayerViewController {
         }
 
         // 30.0 represents the exact size of the notch
-        let constant: CGFloat = playbackService.currentAspectRatio != .fillToScreen ? 30.0 : 0.0
+        let constant: CGFloat = playbackService.currentAspectRatio != AspectRatio.fillToScreen.rawValue ? 30.0 : 0.0
         let interfaceOrientation = UIApplication.shared.statusBarOrientation
 
         if interfaceOrientation == .landscapeLeft
@@ -1644,7 +1654,7 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         statusLabel.showStatusMessage(statusMessage)
     }
 
-    func playbackServiceDidSwitch(_ aspectRatio: VLCAspectRatio) {
+    func playbackServiceDidSwitch(_ aspectRatio: Int) {
         // subControls.isInFullScreen = aspectRatio == .fillToScreen
 
         if #available(iOS 11.0, *) {
@@ -2332,5 +2342,65 @@ extension VideoPlayerViewController: UIDocumentPickerDelegate {
         } else {
             return
         }
+    }
+}
+
+// MARK: - ActionSheetDelegate
+
+extension VideoPlayerViewController: ActionSheetDelegate {
+    func headerViewTitle() -> String? {
+        return NSLocalizedString("ASPECT_RATIO_TITLE", comment: "")
+    }
+
+    func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
+        return AspectRatio(rawValue: indexPath.row)
+    }
+
+    func actionSheet(collectionView: UICollectionView, didSelectItem item: Any, At indexPath: IndexPath) {
+        guard let aspectRatio = item as? AspectRatio else {
+            return
+        }
+
+        playbackService.setCurrentAspectRatio(aspectRatio.rawValue)
+        showStatusMessage(String(format: NSLocalizedString("AR_CHANGED", comment: ""), aspectRatio.stringToDisplay))
+    }
+}
+
+// MARK: - ActionSheetDataSource
+
+extension VideoPlayerViewController: ActionSheetDataSource {
+    func numberOfRows() -> Int {
+        return AspectRatio.allCases.count
+    }
+
+    func actionSheet(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: ActionSheetCell.identifier,
+            for: indexPath) as? ActionSheetCell else {
+            assertionFailure("VideoPlayerViewController: AspectRatioActionSheet: Unable to dequeue reusable cell")
+            return UICollectionViewCell()
+        }
+
+        let aspectRatio = AspectRatio(rawValue: indexPath.row)
+
+        guard let aspectRatio = aspectRatio else {
+            assertionFailure("VideoPlayerViewController: AspectRatioActionSheet: Unable to retrieve the selected aspect ratio")
+            return UICollectionViewCell()
+        }
+
+        let colors: ColorPalette = PresentationTheme.currentExcludingWhite.colors
+        let isSelected = indexPath.row == playbackService.currentAspectRatio
+        cell.configure(with: aspectRatio.stringToDisplay, colors: colors, isSelected: isSelected)
+        cell.delegate = self
+
+        return cell
+    }
+}
+
+// MARK: - ActionSheetCellDelegate
+
+extension VideoPlayerViewController: ActionSheetCellDelegate {
+    func actionSheetCellShouldUpdateColors() -> Bool {
+        return true
     }
 }

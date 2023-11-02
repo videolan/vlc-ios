@@ -31,6 +31,7 @@ protocol VideoPlayerControlsDelegate: AnyObject {
     // MARK: - Right Controls
 
     func videoPlayerControlsDelegateDidTapAspectRatio(_ videoPlayerControls: VideoPlayerControls)
+    func videoPlayerControlsDelegateDidLongPressAspectRatio(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateDidMoreActions(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateShuffle(_ videoPlayerControls: VideoPlayerControls)
     func videoPlayerControlsDelegateRepeat(_ videoPlayerControls: VideoPlayerControls)
@@ -139,6 +140,11 @@ class VideoPlayerControls: UIView {
                                                                 comment: "")
     }
 
+    func setupLongPressGestureRecognizer() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleAspectRatioLongPress(_:)))
+        aspectRatioButton.addGestureRecognizer(longPressGesture)
+    }
+
     func updatePlayPauseButton(toState isPlaying: Bool) {
         let imageName = isPlaying ? "pause-circle" : "play-circle"
         playPauseButton.setImage(UIImage(named: imageName), for: .normal)
@@ -222,6 +228,12 @@ extension VideoPlayerControls {
 extension VideoPlayerControls {
     @IBAction func handleAspectRatioButton(_ sender: Any) {
         delegate?.videoPlayerControlsDelegateDidTapAspectRatio(self)
+    }
+
+    @objc func handleAspectRatioLongPress(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            delegate?.videoPlayerControlsDelegateDidLongPressAspectRatio(self)
+        }
     }
 
     @IBAction func handleMoreActionsButton(_ sender: Any) {

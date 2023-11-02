@@ -61,7 +61,7 @@ class ActionSheetCellImageView: UIImageView {
 @objc (VLCActionSheetCellDelegate)
 protocol ActionSheetCellDelegate {
     func actionSheetCellShouldUpdateColors() -> Bool
-    func actionSheetCellDidToggleSwitch(for cell: ActionSheetCell, state: Bool)
+    @objc optional func actionSheetCellDidToggleSwitch(for cell: ActionSheetCell, state: Bool)
 }
 
 @objc (VLCDoubleActionSheetCellDelegate)
@@ -386,7 +386,7 @@ class ActionSheetCell: UICollectionViewCell {
     }
 
     @objc private func switchToggled(_ sender: UISwitch) {
-        delegate?.actionSheetCellDidToggleSwitch(for: self, state: sender.isOn)
+        delegate?.actionSheetCellDidToggleSwitch?(for: self, state: sender.isOn)
     }
 
     override func prepareForReuse() {
@@ -432,6 +432,15 @@ class ActionSheetCell: UICollectionViewCell {
         }
 
         updateColors()
+    }
+
+    func configure(with title: String, colors: ColorPalette, isSelected: Bool) {
+        name.text = title
+        name.textColor = isSelected ? colors.orangeUI : colors.cellTextColor
+
+        backgroundColor = colors.background
+        name.backgroundColor = colors.background
+        stackView.backgroundColor = colors.background
     }
 
     func setToggleSwitch(state: Bool) {

@@ -58,7 +58,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     NSTimer *_sleepTimer;
 
     BOOL _isInFillToScreen;
-    NSUInteger _previousAspectRatio;
+    NSInteger _previousAspectRatio;
 
     UIView *_videoOutputViewWrapper;
     UIView *_actualVideoOutputView;
@@ -1070,12 +1070,31 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
         _currentAspectRatio = _isInFillToScreen ? _previousAspectRatio : VLCAspectRatioFillToScreen;
     } else {
         // Increment unless hitting last aspectratio
-        _currentAspectRatio = _currentAspectRatio == VLCAspectRatioSixteenToTen ? VLCAspectRatioDefault : _currentAspectRatio + 1;
+        _currentAspectRatio = _currentAspectRatio == VLCAspectRatioThirtyNineToOne ? VLCAspectRatioDefault : _currentAspectRatio + 1;
     }
 
     // If fullScreen is toggled directly and then the aspect ratio changes, fullScreen is not reset
     if (_isInFillToScreen) _isInFillToScreen = NO;
 
+    [self applyAspectRatio];
+
+    if ([self.delegate respondsToSelector:@selector(showStatusMessage:)]) {
+        [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), [VLCAspectRatioBridge stringToDisplayFor:_currentAspectRatio]]];
+    }
+
+    if ([self.delegate respondsToSelector:@selector(playbackServiceDidSwitchAspectRatio:)]) {
+        [_delegate playbackServiceDidSwitchAspectRatio:_currentAspectRatio];
+    }
+}
+
+- (void)setCurrentAspectRatio:(NSInteger)currentAspectRatio
+{
+    _currentAspectRatio = currentAspectRatio;
+    [self applyAspectRatio];
+}
+
+- (void)applyAspectRatio
+{
     switch (_currentAspectRatio) {
         case VLCAspectRatioDefault:
             _mediaPlayer.scaleFactor = 0;
@@ -1091,41 +1110,20 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             [self switchToFillToScreen];
             break;
         case VLCAspectRatioFourToThree:
+        case VLCAspectRatioFiveToFour:
         case VLCAspectRatioSixteenToTen:
         case VLCAspectRatioSixteenToNine:
+        case VLCAspectRatioTwentyOneToOne:
+        case VLCAspectRatioThirtyFiveToOne:
+        case VLCAspectRatioThirtyNineToOne:
             _mediaPlayer.scaleFactor = 0;
+            NSString *aspectRatio = [VLCAspectRatioBridge valueFor:_currentAspectRatio];
 #if LIBVLC_VERSION_MAJOR == 3
             _mediaPlayer.videoCropGeometry = NULL;
-            _mediaPlayer.videoAspectRatio = (char *)[[self stringForAspectRatio:_currentAspectRatio] UTF8String];
+            _mediaPlayer.videoAspectRatio = (char *)[aspectRatio UTF8String];
 #else
-            _mediaPlayer.videoAspectRatio = [self stringForAspectRatio:_currentAspectRatio];
+            _mediaPlayer.videoAspectRatio = aspectRatio;
 #endif
-    }
-
-    if ([self.delegate respondsToSelector:@selector(showStatusMessage:)]) {
-        [self.delegate showStatusMessage:[NSString stringWithFormat:NSLocalizedString(@"AR_CHANGED", nil), [self stringForAspectRatio:_currentAspectRatio]]];
-    }
-
-    if ([self.delegate respondsToSelector:@selector(playbackServiceDidSwitchAspectRatio:)]) {
-        [_delegate playbackServiceDidSwitchAspectRatio:_currentAspectRatio];
-    }
-}
-
-- (NSString *)stringForAspectRatio:(VLCAspectRatio)ratio
-{
-    switch (ratio) {
-            case VLCAspectRatioFillToScreen:
-            return NSLocalizedString(@"FILL_TO_SCREEN", nil);
-            case VLCAspectRatioDefault:
-            return NSLocalizedString(@"DEFAULT", nil);
-            case VLCAspectRatioFourToThree:
-            return @"4:3";
-            case VLCAspectRatioSixteenToTen:
-            return @"16:10";
-            case VLCAspectRatioSixteenToNine:
-            return @"16:9";
-        default:
-            NSAssert(NO, @"this shouldn't happen");
     }
 }
 

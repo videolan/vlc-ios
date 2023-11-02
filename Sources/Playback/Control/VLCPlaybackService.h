@@ -13,14 +13,6 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-typedef NS_ENUM(NSUInteger, VLCAspectRatio) {
-    VLCAspectRatioDefault = 0,
-    VLCAspectRatioFillToScreen,
-    VLCAspectRatioFourToThree,
-    VLCAspectRatioSixteenToNine,
-    VLCAspectRatioSixteenToTen,
-};
-
 NS_ASSUME_NONNULL_BEGIN
 extern NSString *const VLCPlaybackServicePlaybackDidStart;
 extern NSString *const VLCPlaybackServicePlaybackDidPause;
@@ -50,7 +42,7 @@ currentMediaHasTrackToChooseFrom:(BOOL)currentMediaHasTrackToChooseFrom
 - (void)showStatusMessage:(NSString *)statusMessage;
 - (void)displayMetadataForPlaybackService:(VLCPlaybackService *)playbackService
                                  metadata:(VLCMetaData *)metadata;
-- (void)playbackServiceDidSwitchAspectRatio:(VLCAspectRatio)aspectRatio;
+- (void)playbackServiceDidSwitchAspectRatio:(NSInteger)aspectRatio;
 - (void)playbackService:(VLCPlaybackService *)playbackService
               nextMedia:(VLCMedia *)media;
 - (void)playModeUpdated;
@@ -109,7 +101,7 @@ NS_SWIFT_NAME(PlaybackService)
 @property (nonatomic, nullable) VLCRendererItem *renderer;
 #endif
 
-@property (nonatomic, readonly) VLCAspectRatio currentAspectRatio;
+@property (nonatomic, readonly) NSInteger currentAspectRatio;
 
 @property (nonatomic, readonly) VLCPlayerDisplayController *playerDisplayController;
 
@@ -140,7 +132,7 @@ NS_SWIFT_NAME(PlaybackService)
 - (void)selectChapterAtIndex:(NSInteger)index;
 - (void)setAudioPassthrough:(BOOL)shouldPass;
 - (void)switchAspectRatio:(BOOL)toggleFullScreen;
-- (NSString *)stringForAspectRatio:(VLCAspectRatio)ratio;
+- (void)setCurrentAspectRatio:(NSInteger)currentAspectRatio;
 
 - (void)playItemAtIndex:(NSUInteger)index;
 

@@ -455,6 +455,7 @@
 "SHUFFLE_HINT" = "Shuffle media list";
 "SHUFFLE_OFF_HINT" = "Do not shuffle media list";
 
+"ASPECT_RATIO_TITLE" = "Aspect Ratios";
 "VIDEO_ASPECT_RATIO_BUTTON" = "Video aspect ratio";
 "VIDEO_ASPECT_RATIO_HINT" = "Change the aspect ratio of the current video";
 

@@ -390,6 +390,8 @@
 		D96CC64C2A0E723C00B373DD /* UIScreen+DisplayCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96CC64B2A0E723C00B373DD /* UIScreen+DisplayCornerRadius.swift */; };
 		D9AFDCA527D6383F002326CC /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AFDCA427D6383F002326CC /* BookmarksView.swift */; };
 		D9B2DCD72938A9EC003269D8 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B2DCD62938A9EC003269D8 /* AudioPlayerView.swift */; };
+		D9B36AF52AF3E01200A10C99 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B36AF42AF3E01200A10C99 /* AspectRatio.swift */; };
+		D9B36AF62AF4020000A10C99 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B36AF42AF3E01200A10C99 /* AspectRatio.swift */; };
 		D9B4027A298BC614007E923F /* UINavigationController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B40279298BC614007E923F /* UINavigationController+StatusBar.swift */; };
 		D9B4027D298BEF4F007E923F /* AlbumHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B4027C298BEF4F007E923F /* AlbumHeaderFlowLayout.swift */; };
 		D9D6E989291BDF2200ADBC74 /* AudioPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6E988291BDF2200ADBC74 /* AudioPlayerViewController.swift */; };
@@ -1097,6 +1099,7 @@
 		D96CC64B2A0E723C00B373DD /* UIScreen+DisplayCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+DisplayCornerRadius.swift"; sourceTree = "<group>"; };
 		D9AFDCA427D6383F002326CC /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
 		D9B2DCD62938A9EC003269D8 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
+		D9B36AF42AF3E01200A10C99 /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
 		D9B40279298BC614007E923F /* UINavigationController+StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+StatusBar.swift"; sourceTree = "<group>"; };
 		D9B4027C298BEF4F007E923F /* AlbumHeaderFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderFlowLayout.swift; sourceTree = "<group>"; };
 		D9D6E988291BDF2200ADBC74 /* AudioPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewController.swift; sourceTree = "<group>"; };
@@ -2654,6 +2657,7 @@
 				597B403E2625E85000C0D81E /* SliderInfoView.swift */,
 				918C8E10279065C6002B3CD6 /* TitleSelectionView.swift */,
 				E021B63522FB80360041CB7A /* MediaMoreOptionsActionSheet.swift */,
+				D9B36AF42AF3E01200A10C99 /* AspectRatio.swift */,
 			);
 			path = "VideoPlayer-iOS";
 			sourceTree = "<group>";
@@ -3474,6 +3478,7 @@
 				DD4089F21BF6467E0022745E /* VLCPlaybackInfoTVCollectionViewCell.m in Sources */,
 				4342C3C327474CA000E52334 /* SortedMediaFiles.swift in Sources */,
 				DD3EAC0A1BE2192A003668DA /* VLCServerBrowsingController.m in Sources */,
+				D9B36AF62AF4020000A10C99 /* AspectRatio.swift in Sources */,
 				DD3EFF341BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserMediaDiscoverer.m in Sources */,
 				DD3EFF421BDEBCE500B68579 /* VLCNetworkServerBrowserSharedLibrary.m in Sources */,
 				7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */,
@@ -3524,6 +3529,7 @@
 				7DC7BA8D28C8953800109F28 /* Observable.swift in Sources */,
 				6D5EC85F25C46F0400E25783 /* ExternalMediaProviderCell.swift in Sources */,
 				8D83219B234256A900B28912 /* MediaGroupViewModel.swift in Sources */,
+				D9B36AF52AF3E01200A10C99 /* AspectRatio.swift in Sources */,
 				7DB559BF27E1EED900E83E7C /* VLCFirstStepsBaseViewController.m in Sources */,
 				7DC7BAAF28C8958900109F28 /* UIFont+Styling.swift in Sources */,
 				7DC7BA8428C8951C00109F28 /* FileManager+DeleteMediaFolder.swift in Sources */,
