@@ -297,6 +297,7 @@
 		7DD71F9928FB421300327ACE /* CPListTemplate+Genres.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F9028FB421300327ACE /* CPListTemplate+Genres.m */; };
 		7DD71F9C28FB425A00327ACE /* VLCCarPlaySceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F9B28FB425A00327ACE /* VLCCarPlaySceneDelegate.m */; };
 		7DD9CD5E24223B1300D0324F /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */; };
+		7DDA303D2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA303C2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DDE41931BE925820065C53A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D13294E1BA1F10100BE647E /* Images.xcassets */; };
 		7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */; };
@@ -986,6 +987,8 @@
 		7DD71F9028FB421300327ACE /* CPListTemplate+Genres.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CPListTemplate+Genres.m"; sourceTree = "<group>"; };
 		7DD71F9328FB421300327ACE /* VLCCarPlayArtistsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayArtistsController.h; sourceTree = "<group>"; };
 		7DD71F9B28FB425A00327ACE /* VLCCarPlaySceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlaySceneDelegate.m; sourceTree = "<group>"; };
+		7DDA303B2AF53AF400F96BB8 /* VLCDonationPayPalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDonationPayPalViewController.h; sourceTree = "<group>"; };
+		7DDA303C2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDonationPayPalViewController.m; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VLCCone512x512.png; path = Resources/iOS/VLCCone512x512.png; sourceTree = SOURCE_ROOT; };
 		7DE56C181AD93F9100E8CA00 /* VLCPlaybackService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaybackService.h; path = Sources/Playback/Control/VLCPlaybackService.h; sourceTree = SOURCE_ROOT; };
@@ -1462,6 +1465,8 @@
 			children = (
 				7D04E1C92AB0B5FB003AD39F /* VLCDonationViewController.h */,
 				7D04E1CA2AB0B5FB003AD39F /* VLCDonationViewController.m */,
+				7DDA303B2AF53AF400F96BB8 /* VLCDonationPayPalViewController.h */,
+				7DDA303C2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m */,
 				7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */,
 			);
 			path = Donation;
@@ -3706,6 +3711,7 @@
 				7D5A23DF24756D03001F76D8 /* VLCLocalNetworkServiceBrowserNFS.m in Sources */,
 				E03DECA622BEE27E00F44A05 /* MediaNavigationBar.swift in Sources */,
 				7D30F3C2183AB24C00FFC021 /* VLCHTTPConnection.m in Sources */,
+				7DDA303D2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m in Sources */,
 				6DBCE3CB23684EF500BCA7D5 /* CollectionViewCellPreviewController.swift in Sources */,
 				4072A77E25879577006EA498 /* VideoFiltersView.swift in Sources */,
 				DD3EFF371BDEBCE500B68579 /* VLCLocalNetworkServiceNetService.m in Sources */,

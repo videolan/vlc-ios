@@ -13,6 +13,7 @@
 #import "VLCDonationViewController.h"
 #import <PassKit/PassKit.h>
 #import "VLC-Swift.h"
+#import "VLCDonationPayPalViewController.h"
 
 @interface VLCDonationViewController () <VLCActionSheetDelegate, VLCActionSheetDataSource>
 {
@@ -21,6 +22,7 @@
     PKPaymentButton *_applePayButton;
     UIImageView *_payPalImageView;
     NSArray *_paymentProviders;
+    NSString *_selectedPaymentProvider;
 }
 
 @end
@@ -82,9 +84,7 @@
     [_payPalImageView removeFromSuperview];
     _payPalImageView = nil;
 
-    [self presentViewController:self->_actionSheet animated:YES completion:^{
-
-    }];
+    [self presentViewController:_actionSheet animated:YES completion:nil];
 }
 
 - (IBAction)customAmountFieldAction:(id)sender
@@ -107,10 +107,22 @@
 
 - (void)actionSheetWithCollectionView:(UICollectionView *)collectionView didSelectItem:(id)item At:(NSIndexPath *)indexPath
 {
+    /* Apple Pay is handled by the button directly so no selection will be made */
+    _selectedPaymentProvider = _paymentProviders[indexPath.row];
 }
 
 - (void)actionSheetDidFinishClosingAnimation:(VLCActionSheet *)actionSheet
 {
+    if ([_selectedPaymentProvider isEqualToString:@"PayPal"]) {
+        VLCDonationPayPalViewController *payPalVC = [[VLCDonationPayPalViewController alloc] initWithNibName:nil bundle:nil];
+        [payPalVC setDonationAmount:_selectedDonationAmount];
+        [self.navigationController pushViewController:payPalVC animated:YES];
+    } else if ([_selectedPaymentProvider isEqualToString:@"Apple Pay"]) {
+        APLog(@"Donation done via Apple Pay");
+    } else {
+        // CC payment
+    }
+    _selectedPaymentProvider = nil;
 }
 
 #pragma mark - action sheet data source
