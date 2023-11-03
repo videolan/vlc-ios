@@ -12,11 +12,15 @@
 
 #import "VLCDonationViewController.h"
 #import <PassKit/PassKit.h>
+#import "VLC-Swift.h"
 
-@interface VLCDonationViewController ()
+@interface VLCDonationViewController () <VLCActionSheetDelegate, VLCActionSheetDataSource>
 {
     CGFloat _selectedDonationAmount;
+    VLCActionSheet *_actionSheet;
     PKPaymentButton *_applePayButton;
+    UIImageView *_payPalImageView;
+    NSArray *_paymentProviders;
 }
 
 @end
@@ -35,19 +39,16 @@
     [_frequencySwitch setTitle:NSLocalizedString(@"DONATION_ONE_TIME", nil) forSegmentAtIndex:0];
     [_frequencySwitch setTitle:NSLocalizedString(@"DONATION_MONTHLY", nil) forSegmentAtIndex:1];
     _customAmountField.placeholder = NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil);
-    [_continueButton setTitle:NSLocalizedString(@"DONATE_CC_DC", nil) forState:UIControlStateNormal];
+    [_continueButton setTitle:NSLocalizedString(@"BUTTON_CONTINUE", nil) forState:UIControlStateNormal];
 
-    _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeDonate style:PKPaymentButtonStyleBlack];
-    [_contentScrollView addSubview:_applePayButton];
-    _applePayButton.translatesAutoresizingMaskIntoConstraints = NO;
-    _applePayButton.enabled = NO;
+    _paymentProviders = @[NSLocalizedString(@"DONATE_CC_DC", nil), @"PayPal", @"Apple Pay"];
 
-    NSMutableArray<NSLayoutConstraint*> *constraints = [NSMutableArray array];
-    [constraints addObject:[_applePayButton.centerXAnchor constraintEqualToAnchor:_continueButton.centerXAnchor]];
-    [constraints addObject:[_applePayButton.widthAnchor constraintEqualToAnchor:_continueButton.widthAnchor]];
-    [constraints addObject:[_applePayButton.heightAnchor constraintEqualToAnchor:_continueButton.heightAnchor]];
-    [constraints addObject:[_applePayButton.topAnchor constraintEqualToAnchor:_continueButton.bottomAnchor constant:17.]];
-    [_contentScrollView addConstraints:constraints];
+    _actionSheet = [[VLCActionSheet alloc] init];
+    _actionSheet.dataSource = self;
+    _actionSheet.delegate = self;
+    _actionSheet.modalPresentationStyle = UIModalPresentationCustom;
+    [_actionSheet.collectionView registerClass:[VLCActionSheetCell class]
+                    forCellWithReuseIdentifier:VLCActionSheetCell.identifier];
 }
 
 - (NSString *)title
@@ -76,13 +77,88 @@
 
 - (IBAction)continueButtonAction:(id)sender
 {
+    [_applePayButton removeFromSuperview];
+    _applePayButton = nil;
+    [_payPalImageView removeFromSuperview];
+    _payPalImageView = nil;
 
+    [self presentViewController:self->_actionSheet animated:YES completion:^{
+
+    }];
 }
 
 - (IBAction)customAmountFieldAction:(id)sender
 {
     _continueButton.enabled = _applePayButton.enabled = _customAmountField.text.floatValue > 0.;
     [self uncheckNumberButtons];
+}
+
+#pragma mark - action sheet delegate
+
+- (NSString *)headerViewTitle
+{
+    return NSLocalizedString(@"DONATION_CHOOSE_PP", nil);
+}
+
+- (id)itemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return _paymentProviders[indexPath.row];
+}
+
+- (void)actionSheetWithCollectionView:(UICollectionView *)collectionView didSelectItem:(id)item At:(NSIndexPath *)indexPath
+{
+}
+
+- (void)actionSheetDidFinishClosingAnimation:(VLCActionSheet *)actionSheet
+{
+}
+
+#pragma mark - action sheet data source
+
+- (UICollectionViewCell *)actionSheetWithCollectionView:(UICollectionView *)collectionView cellForItemAt:(NSIndexPath *)indexPath
+{
+    VLCActionSheetCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:VLCActionSheetCell.identifier forIndexPath:indexPath];
+    if (!cell) {
+        cell = [[VLCActionSheetCell alloc] init];
+    }
+    NSString *paymentProviderName = _paymentProviders[indexPath.row];
+    cell.name.text = @"";
+
+    if ([paymentProviderName isEqualToString:@"Apple Pay"]) {
+        _applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeDonate style:PKPaymentButtonStyleBlack];
+        [cell addSubview:_applePayButton];
+        _applePayButton.translatesAutoresizingMaskIntoConstraints = NO;
+
+        NSMutableArray<NSLayoutConstraint*> *constraints = [NSMutableArray array];
+        [constraints addObject:[_applePayButton.centerXAnchor constraintEqualToAnchor:cell.centerXAnchor]];
+        [constraints addObject:[_applePayButton.widthAnchor constraintEqualToAnchor:cell.widthAnchor multiplier:0.8]];
+        [constraints addObject:[_applePayButton.heightAnchor constraintEqualToAnchor:cell.heightAnchor multiplier:0.8]];
+        [constraints addObject:[_applePayButton.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor]];
+        [cell addConstraints:constraints];
+    } else if ([paymentProviderName isEqualToString:@"PayPal"]) {
+        UIImage *paypalLogo = [UIImage imageNamed:@"paypal-color"];
+        UIImageView *_payPalImageView = [[UIImageView alloc] initWithImage:paypalLogo];
+        _payPalImageView.contentMode = UIViewContentModeScaleAspectFit;
+        [cell addSubview:_payPalImageView];
+        _payPalImageView.translatesAutoresizingMaskIntoConstraints = NO;
+
+        NSMutableArray<NSLayoutConstraint*> *constraints = [NSMutableArray array];
+        [constraints addObject:[_payPalImageView.centerXAnchor constraintEqualToAnchor:cell.centerXAnchor]];
+        [constraints addObject:[_payPalImageView.widthAnchor constraintEqualToAnchor:cell.widthAnchor]];
+        [constraints addObject:[_payPalImageView.heightAnchor constraintEqualToAnchor:cell.heightAnchor multiplier:0.8]];
+        [constraints addObject:[_payPalImageView.centerYAnchor constraintEqualToAnchor:cell.centerYAnchor]];
+        [cell addConstraints:constraints];
+    } else {
+        cell.name.text = paymentProviderName;
+        cell.name.textAlignment = NSTextAlignmentCenter;
+    }
+
+    return cell;
+}
+
+- (NSInteger)numberOfRows
+{
+    return _paymentProviders.count;
 }
 
 @end
