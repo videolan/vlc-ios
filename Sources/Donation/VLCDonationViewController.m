@@ -14,6 +14,7 @@
 #import <PassKit/PassKit.h>
 #import "VLC-Swift.h"
 #import "VLCDonationPayPalViewController.h"
+#import "VLCDonationCreditCardViewController.h"
 
 @interface VLCDonationViewController () <VLCActionSheetDelegate, VLCActionSheetDataSource>
 {
@@ -89,7 +90,7 @@
 
 - (IBAction)customAmountFieldAction:(id)sender
 {
-    _continueButton.enabled = _applePayButton.enabled = _customAmountField.text.floatValue > 0.;
+    _continueButton.enabled = _customAmountField.text.floatValue > 0.;
     [self uncheckNumberButtons];
 }
 
@@ -120,7 +121,9 @@
     } else if ([_selectedPaymentProvider isEqualToString:@"Apple Pay"]) {
         APLog(@"Donation done via Apple Pay");
     } else {
-        // CC payment
+        VLCDonationCreditCardViewController *ccVC = [[VLCDonationCreditCardViewController alloc] initWithNibName:nil bundle:nil];
+        [ccVC setDonationAmount:_selectedDonationAmount];
+        [self.navigationController pushViewController:ccVC animated:YES];
     }
     _selectedPaymentProvider = nil;
 }

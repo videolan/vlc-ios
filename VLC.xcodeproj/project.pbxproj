@@ -298,6 +298,8 @@
 		7DD71F9C28FB425A00327ACE /* VLCCarPlaySceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F9B28FB425A00327ACE /* VLCCarPlaySceneDelegate.m */; };
 		7DD9CD5E24223B1300D0324F /* VLCPlaybackInfoSubtitlesFetcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEBF3771C075EBC007A4043 /* VLCPlaybackInfoSubtitlesFetcherViewController.m */; };
 		7DDA303D2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA303C2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m */; };
+		7DDA30412AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA303F2AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m */; };
+		7DDA30422AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDA30402AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib */; };
 		7DDD0429172D98E5005A7B10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDD0428172D98E5005A7B10 /* CFNetwork.framework */; };
 		7DDE41931BE925820065C53A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D13294E1BA1F10100BE647E /* Images.xcassets */; };
 		7DDFF4251BDFD23300913BD1 /* VLCCone512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */; };
@@ -989,6 +991,9 @@
 		7DD71F9B28FB425A00327ACE /* VLCCarPlaySceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlaySceneDelegate.m; sourceTree = "<group>"; };
 		7DDA303B2AF53AF400F96BB8 /* VLCDonationPayPalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDonationPayPalViewController.h; sourceTree = "<group>"; };
 		7DDA303C2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDonationPayPalViewController.m; sourceTree = "<group>"; };
+		7DDA303E2AF54E8900F96BB8 /* VLCDonationCreditCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCDonationCreditCardViewController.h; sourceTree = "<group>"; };
+		7DDA303F2AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCDonationCreditCardViewController.m; sourceTree = "<group>"; };
+		7DDA30402AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCDonationCreditCardViewController.xib; sourceTree = "<group>"; };
 		7DDD0428172D98E5005A7B10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7DDFF4241BDFD23300913BD1 /* VLCCone512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VLCCone512x512.png; path = Resources/iOS/VLCCone512x512.png; sourceTree = SOURCE_ROOT; };
 		7DE56C181AD93F9100E8CA00 /* VLCPlaybackService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaybackService.h; path = Sources/Playback/Control/VLCPlaybackService.h; sourceTree = SOURCE_ROOT; };
@@ -1467,6 +1472,9 @@
 				7D04E1CA2AB0B5FB003AD39F /* VLCDonationViewController.m */,
 				7DDA303B2AF53AF400F96BB8 /* VLCDonationPayPalViewController.h */,
 				7DDA303C2AF53AF400F96BB8 /* VLCDonationPayPalViewController.m */,
+				7DDA303E2AF54E8900F96BB8 /* VLCDonationCreditCardViewController.h */,
+				7DDA303F2AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m */,
+				7DDA30402AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib */,
 				7D04E1CB2AB0B5FB003AD39F /* VLCDonationViewController.xib */,
 			);
 			path = Donation;
@@ -3177,6 +3185,7 @@
 				7D89787D185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib in Resources */,
 				7D71ABD027ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib in Resources */,
 				7AC8629D1765DC560011611A /* style.css in Resources */,
+				7DDA30422AF54E8900F96BB8 /* VLCDonationCreditCardViewController.xib in Resources */,
 				8DB0D71C24CED2BE00915506 /* VideoPlayerControls.xib in Resources */,
 				40C95A00256E9272002DD208 /* PlaybackSpeedView.xib in Resources */,
 				41884A4E214BE0C800D2C6B4 /* MediaCollectionViewCell.xib in Resources */,
@@ -3627,6 +3636,7 @@
 				8D2AD4D822786F4000393833 /* AddToCollectionViewController.swift in Sources */,
 				D9B4027D298BEF4F007E923F /* AlbumHeaderFlowLayout.swift in Sources */,
 				6D63C06B23FEE93C00B9C05A /* VLCMarqueeLabel.swift in Sources */,
+				7DDA30412AF54E8900F96BB8 /* VLCDonationCreditCardViewController.m in Sources */,
 				7D2DE69324D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */,
 				D9691C4728F9C30E0047B321 /* UIImage+TintColor.swift in Sources */,
 				7DC2A8F12A04D457002B6704 /* UIViewController+VLCAlert.m in Sources */,

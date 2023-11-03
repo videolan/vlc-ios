@@ -608,6 +608,12 @@
 "DONATION_WINDOW_TITLE" = "Make a Donation to VideoLAN";
 "DONATE_CC_DC" = "Credit or Debit card";
 "DONATION_CHOOSE_PP" = "Please select your payment provider";
+"DONATION_AMOUNT" = "Donation amount: %0.2f €";
+"DONATION_CC_INFO_NOT_STORED" = "VideoLAN will neither receive nor store your credit card data.";
+"DONATION_CC_NUM" = "Credit Card Number";
+"DONATION_CC_EXPIRY_DATE" = "Expiry Date";
+"DONATION_CC_EXPIRY_DATE_FORMAT" = "DD/YY";
+"DONATION_CC_CVV" = "CVV";
 
 // MARK: - Playback keyboard shortcuts
 
