@@ -271,7 +271,7 @@ class ActionSheetCell: UICollectionViewCell {
         return String(describing: self)
     }
 
-    override var isSelected: Bool {
+    @objc override var isSelected: Bool {
         didSet {
             updateColors()
             // only checkmarks should be hidden if they arent selected
@@ -281,7 +281,7 @@ class ActionSheetCell: UICollectionViewCell {
         }
     }
 
-    let icon: ActionSheetCellImageView = {
+    @objc let icon: ActionSheetCellImageView = {
         let icon = ActionSheetCellImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.setContentHuggingPriority(.required, for: .horizontal)
@@ -289,7 +289,7 @@ class ActionSheetCell: UICollectionViewCell {
         return icon
     }()
 
-    let name: UILabel = {
+    @objc let name: UILabel = {
         let name = UILabel()
         let colors = PresentationTheme.current.colors
         name.textColor = colors.cellTextColor
@@ -299,7 +299,7 @@ class ActionSheetCell: UICollectionViewCell {
         return name
     }()
 
-    lazy private var accessoryTypeImageView: UIImageView = {
+    @objc lazy private var accessoryTypeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .none
@@ -308,7 +308,7 @@ class ActionSheetCell: UICollectionViewCell {
         return imageView
     }()
     
-    lazy private var toggleSwitch: UISwitch = {
+    @objc lazy private var toggleSwitch: UISwitch = {
         let toggleSwitch = UISwitch()
         toggleSwitch.onTintColor = .orange
         toggleSwitch.translatesAutoresizingMaskIntoConstraints = false
