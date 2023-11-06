@@ -125,7 +125,7 @@ class ActionSheet: UIViewController {
 
     var collectionViewHeight: CGFloat {
         let rowsCount: CGFloat = CGFloat(dataSource?.numberOfRows() ?? 0)
-        let collectionViewHeight = rowsCount * (cellHeight + collectionViewEdgeInsets.top)
+        let collectionViewHeight = rowsCount * ((cellHeight + collectionViewEdgeInsets.top) / numberOfColums)
         return collectionViewHeight
     }
 
@@ -141,6 +141,14 @@ class ActionSheet: UIViewController {
         let w = collectionView.frame.size.width
         let h = collectionView.frame.size.height
         return CGRect(x: w, y: y, width: w, height: h)
+    }
+
+    var numberOfColums: CGFloat = 1 {
+        didSet {
+            if numberOfColums == 0 {
+                numberOfColums = 1
+            }
+        }
     }
 
     private var mainStackViewTranslation = CGPoint(x: 0, y: 0)
@@ -421,7 +429,7 @@ extension ActionSheet: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: cellHeight)
+        return CGSize(width: collectionView.frame.width / numberOfColums, height: cellHeight)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
