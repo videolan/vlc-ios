@@ -242,12 +242,14 @@ class SettingsCell: UITableViewCell {
     }
 
     @objc func infoTapped(sender: UIButton) {
-        var settingSpecifier: SettingSpecifier?
-        settingSpecifier = getSettingsSpecifier(for: (sectionType?.preferenceKey)!)
-        let title = settingsBundle.localizedString(forKey: settingSpecifier!.title, value: settingSpecifier!.title, table: "Root")
+        guard let settingSpecifier = getSettingsSpecifier(for: (sectionType?.preferenceKey)!) else {
+            return
+        }
+
+        let title = settingsBundle.localizedString(forKey: settingSpecifier.title, value: settingSpecifier.title, table: "Root")
         let alert = UIAlertController(title: title,
-                                      message: settingsBundle.localizedString(forKey: settingSpecifier!.infobuttonvalue,
-                                                                              value: settingSpecifier!.infobuttonvalue,
+                                      message: settingsBundle.localizedString(forKey: settingSpecifier.infobuttonvalue,
+                                                                              value: settingSpecifier.infobuttonvalue,
                                                                               table: "Root"),
                                       preferredStyle: .actionSheet)
         let donetitle = NSLocalizedString("BUTTON_DONE", comment: "")
