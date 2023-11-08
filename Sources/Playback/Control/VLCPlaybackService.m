@@ -1171,7 +1171,7 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 }
 
 #pragma mark - 360 Support
-#if !TARGET_OS_TV
+
 - (BOOL)updateViewpoint:(CGFloat)yaw pitch:(CGFloat)pitch roll:(CGFloat)roll fov:(CGFloat)fov absolute:(BOOL)absolute
 {
     //adjusting the values
@@ -1242,7 +1242,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
 #endif
     return -1;
 }
-#endif
 
 #pragma mark - equalizer
 
