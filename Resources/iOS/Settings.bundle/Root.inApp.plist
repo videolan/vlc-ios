@@ -190,7 +190,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>NO</string>
+			<false/>
 			<key>Key</key>
 			<string>PasscodeProtection</string>
 			<key>Title</key>
@@ -202,7 +202,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>YES</string>
+			<true/>
 			<key>Key</key>
 			<string>AllowTouchID</string>
 			<key>Title</key>
@@ -212,7 +212,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>YES</string>
+			<true/>
 			<key>Key</key>
 			<string>AllowFaceID</string>
 			<key>Title</key>
@@ -222,7 +222,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>NO</string>
+			<false/>
 			<key>Key</key>
 			<string>HideLibraryInFilesApp</string>
 			<key>Title</key>
@@ -452,7 +452,7 @@
 			<key>Key</key>
 			<string>deinterlace</string>
 			<key>DefaultValue</key>
-			<integer>0</integer>
+			<integer>-1</integer>
 			<key>Titles</key>
 			<array>
 				<string>SETTINGS_DEINTERLACE_ON</string>
@@ -502,7 +502,7 @@
 			<key>Key</key>
 			<string>quartztext-font</string>
 			<key>DefaultValue</key>
-			<string>Helvetica Neue</string>
+			<string>HelveticaNeue</string>
 			<key>Titles</key>
 			<array>
 				<string>American Typewriter</string>
@@ -786,7 +786,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>NO</string>
+			<false/>
 			<key>Key</key>
 			<string>sout-chromecast-audio-passthrough</string>
 			<key>Title</key>
