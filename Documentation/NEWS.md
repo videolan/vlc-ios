@@ -12,6 +12,10 @@
 · Show playlist durations in list view
 · Add options for more flexible gesture controls during playback
 · Add missing mka support declaration
+· Add feature to reset the settings to their default values
+· Split the automatically play next item settings for playlists and other collections
+· Gather the appearance settings
+· Add long press gesture to the aspect ratio button to display the ratios' list
 
 ## tvOS [3.5.0]
 · Fix the display of media's artworks for audio playback.
