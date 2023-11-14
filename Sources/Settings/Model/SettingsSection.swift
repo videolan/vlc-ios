@@ -413,7 +413,18 @@ enum VideoOptions: Int, CaseIterable, SectionType {
         }
     }
 
-    var containsInfobutton: Bool { return true }
+    var containsInfobutton: Bool {
+        switch self {
+        case .deBlockingFilter:
+            return true
+        case .deInterlace:
+            return true
+        case .hardwareDecoding:
+            return true
+        case .rememberPlayerBrightness:
+            return false
+        }
+    }
 
     var subtitle: String? {
         switch self {
