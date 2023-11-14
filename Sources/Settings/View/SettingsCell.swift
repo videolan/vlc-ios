@@ -46,6 +46,14 @@ class SettingsCell: UITableViewCell {
     weak var mediaLibraryBackupSwitchDelegate: MediaLibraryBackupActivateDelegate?
     weak var medialibraryDisableGroupingSwitchDelegate: MediaLibraryDisableGroupingDelegate?
 
+    private lazy var layoutGuide: UILayoutGuide = {
+        var layoutGuide = layoutMarginsGuide
+        if #available(iOS 11.0, *) {
+            layoutGuide = safeAreaLayoutGuide
+        }
+        return layoutGuide
+    }()
+
     lazy var switchControl: UISwitch = {
         let switchControl = UISwitch()
         let colors = PresentationTheme.current.colors
@@ -134,15 +142,15 @@ class SettingsCell: UITableViewCell {
                         selectionStyle = .none
                     } else {
                         addSubview(infoButton)
-                        let guide: LayoutAnchorContainer = self
                         infoButton.translatesAutoresizingMaskIntoConstraints = false
                         NSLayoutConstraint.activate([
                             infoButton.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
-                            infoButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -40),
+                            infoButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -40)
                         ])
+
                         accessoryView = .none
                         accessoryType = .disclosureIndicator
-                        selectionStyle = .none
+                        selectionStyle = .default
                     }
                 }
             }
@@ -176,21 +184,16 @@ class SettingsCell: UITableViewCell {
     }
 
     private func setupView() {
-
-        var guide: LayoutAnchorContainer = self
-        if #available(iOS 11.0, *) {
-            guide = safeAreaLayoutGuide
-        }
         addSubview(stackView)
         addSubview(activityIndicator)
         stackView.addArrangedSubview(mainLabel)
         stackView.addArrangedSubview(subtitleLabel)
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: 20),
-            stackView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10),
-            stackView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -10),
-            stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -70),
-            activityIndicator.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -30),
+            stackView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: 20),
+            stackView.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: 10),
+            stackView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: -10),
+            stackView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -70),
+            activityIndicator.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -30),
             activityIndicator.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)
         ])
         activityIndicator.isHidden = true
