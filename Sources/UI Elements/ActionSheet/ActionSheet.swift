@@ -121,6 +121,16 @@ class ActionSheet: UIViewController {
         return collectionViewHeightConstraint
     }()
 
+    private lazy var layoutGuide: UILayoutGuide = {
+        var layoutGuide = view.layoutMarginsGuide
+
+        if #available(iOS 11.0, *) {
+            layoutGuide = view.safeAreaLayoutGuide
+        }
+
+        return layoutGuide
+    }()
+
     let collectionViewEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
 
     var collectionViewHeight: CGFloat {
@@ -132,7 +142,7 @@ class ActionSheet: UIViewController {
     var maxCollectionViewHeight: CGFloat {
         let maxMargin: CGFloat = 75
         let minCollectionViewHeight: CGFloat = cellHeight * 1.5 + collectionViewEdgeInsets.top * 2
-        let maxCollectionViewHeight = max(view.bounds.height - headerView.bounds.height - maxMargin, minCollectionViewHeight)
+        let maxCollectionViewHeight = max(layoutGuide.layoutFrame.height - headerView.bounds.height - maxMargin, minCollectionViewHeight)
         return maxCollectionViewHeight
     }
 
