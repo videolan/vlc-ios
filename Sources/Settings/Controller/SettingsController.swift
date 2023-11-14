@@ -210,9 +210,13 @@ class SettingsController: UITableViewController {
             assertionFailure("SettingsController: No Preference Key Available.")
             return
         }
+
+        var playbackTitle: String? = nil
         if sectionType is PlaybackControlOptions {
-            specifierManager.playbackTitle = sectionType.description
+            playbackTitle = sectionType.description
         }
+        specifierManager.playbackTitle = playbackTitle
+
         showActionSheet(preferenceKey: preferenceKey)
     }
 
