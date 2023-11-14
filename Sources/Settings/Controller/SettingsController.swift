@@ -376,6 +376,23 @@ extension SettingsController {
             //collapses on given constraints (Top, leading, trailing, Bottom of StackView to Cell)
             return UITableViewCell()
         }
+
+        let forwardBackwardEqual = userDefaults.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
+        let tapSwipeEqual = userDefaults.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
+
+        // Here we skip the Settings Cell's initialization in order to avoid console warnings
+        // when the cell is supposed to be hidden and therefore the cell's height is equal to 0.
+        if indexPath.row == PlaybackControlOptions.backwardSkipLength.rawValue &&
+            forwardBackwardEqual {
+            return UITableViewCell()
+        } else if indexPath.row == PlaybackControlOptions.forwardSkipLengthSwipe.rawValue &&
+                    tapSwipeEqual {
+            return UITableViewCell()
+        } else if indexPath.row == PlaybackControlOptions.backwardSkipLengthSwipe.rawValue &&
+                    (tapSwipeEqual || forwardBackwardEqual) {
+            return UITableViewCell()
+        }
+
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as? SettingsCell else {
             return UITableViewCell()
         }
@@ -407,23 +424,6 @@ extension SettingsController {
         case .gestureControl:
             let gestureControlOptions = PlaybackControlOptions(rawValue: indexPath.row)
             cell.sectionType = gestureControlOptions
-            let forwardBackwardEqual = userDefaults.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
-            let tapSwipeEqual = userDefaults.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
-            if indexPath.row == PlaybackControlOptions.backwardSkipLength.rawValue {
-                if forwardBackwardEqual {
-                    cell.isHidden = true
-                }
-            }
-            if indexPath.row == PlaybackControlOptions.forwardSkipLengthSwipe.rawValue {
-                if tapSwipeEqual {
-                    cell.isHidden = true
-                }
-            }
-            if indexPath.row == PlaybackControlOptions.backwardSkipLengthSwipe.rawValue {
-                if tapSwipeEqual || forwardBackwardEqual {
-                    cell.isHidden = true
-                }
-            }
             cell.skipDurationDelegate = self
         case .video:
             cell.sectionType = VideoOptions(rawValue: indexPath.row)
@@ -574,23 +574,23 @@ extension SettingsController {
             }
             return isPasscodeOn ? automaticDimension : 0 //If Passcode Lock is turned off we hide the biometric options row
         }
+
         let tapSwipeEqual = userDefaults.bool(forKey: kVLCSettingPlaybackTapSwipeEqual)
         let forwardBackwardEqual = userDefaults.bool(forKey: kVLCSettingPlaybackForwardBackwardEqual)
-        if indexPath == [SettingsSection.gestureControl.rawValue, PlaybackControlOptions.backwardSkipLength.rawValue] {
-            if forwardBackwardEqual {
-                return 0
-            }
+        let playbackControlsSection: Int = SettingsSection.gestureControl.rawValue
+
+        // Hide the unused skip duration cells depending on the settings selected by the user
+        if indexPath == [playbackControlsSection, PlaybackControlOptions.backwardSkipLength.rawValue] &&
+            forwardBackwardEqual {
+            return 0
+        } else if indexPath == [playbackControlsSection, PlaybackControlOptions.forwardSkipLengthSwipe.rawValue] &&
+                    tapSwipeEqual {
+            return 0
+        } else if indexPath == [playbackControlsSection, PlaybackControlOptions.backwardSkipLengthSwipe.rawValue] &&
+                    (tapSwipeEqual || forwardBackwardEqual) {
+            return 0
         }
-        if indexPath == [SettingsSection.gestureControl.rawValue, PlaybackControlOptions.forwardSkipLengthSwipe.rawValue] {
-            if tapSwipeEqual {
-                return 0
-            }
-        }
-        if indexPath == [SettingsSection.gestureControl.rawValue, PlaybackControlOptions.backwardSkipLengthSwipe.rawValue] {
-            if tapSwipeEqual || forwardBackwardEqual {
-                return 0
-            }
-        }
+
         return automaticDimension
     }
 }
