@@ -231,6 +231,13 @@ class SettingsController: UITableViewController {
             specifierManager.delegate = self
         }
 
+        var numberOfColumns: CGFloat = 1
+        if preferenceKey == GenericOptions.defaultPlaybackSpeed.preferenceKey ||
+            preferenceKey == SubtitlesOptions.fontColor.preferenceKey {
+            numberOfColumns = 2
+        }
+        actionSheet.numberOfColums = numberOfColumns
+
         present(actionSheet, animated: false) {
             if preferenceKey != kVLCAutomaticallyPlayNextItem {
                 self.actionSheet.collectionView.selectItem(at: self.specifierManager.selectedIndex, animated: false, scrollPosition: .centeredVertically)
