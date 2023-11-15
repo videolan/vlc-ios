@@ -266,8 +266,8 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         setupCommonSliderConstraints(for: volumeControlView)
 
         NSLayoutConstraint.activate([
-            brightnessControlView.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor),
-            volumeControlView.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor)
+            brightnessControlView.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor, constant: 10),
+            volumeControlView.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: -10)
         ])
     }
 
