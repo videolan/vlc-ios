@@ -1383,13 +1383,13 @@ private extension VideoPlayerViewController {
     // MARK: - Constraints
 
     private func setupConstraints() {
-        setupBrightnessControlConstraints()
-        setupVolumeControlConstraints()
         setupVideoOutputConstraints()
         setupExternalVideoOutputConstraints()
         setupVideoPlayerControlsConstraints()
         setupMediaNavigationBarConstraints()
         setupScrubProgressBarConstraints()
+        setupBrightnessControlConstraints()
+        setupVolumeControlConstraints()
         setupStatusLabelConstraints()
         setupTitleSelectionConstraints()
     }
@@ -1424,7 +1424,7 @@ private extension VideoPlayerViewController {
     private func setupBrightnessControlConstraints() {
         setupCommonSliderConstraints(for: brightnessControlView)
         NSLayoutConstraint.activate([
-            brightnessControlView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor),
+            brightnessControlView.leadingAnchor.constraint(equalTo: scrubProgressBar.leadingAnchor),
             brightnessControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
         ])
     }
@@ -1432,7 +1432,7 @@ private extension VideoPlayerViewController {
     private func setupVolumeControlConstraints() {
         setupCommonSliderConstraints(for: volumeControlView)
         NSLayoutConstraint.activate([
-            volumeControlView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor),
+            volumeControlView.trailingAnchor.constraint(equalTo: scrubProgressBar.trailingAnchor),
             volumeControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
         ])
     }

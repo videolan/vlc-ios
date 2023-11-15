@@ -6,6 +6,7 @@
  * Copyright © 2021 Videolabs
  *
  * Authors: Malek BARKAOUI <malek.professional # gmail.com>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -68,24 +69,23 @@ class SliderInfoView: UIView {
         levelSlider.isEnabled = enabled
     }
 
-    override func layoutSubviews() {
+    func setupView() {
         addSubview(levelImageView)
         addSubview(levelSlider)
         bringSubviewToFront(levelSlider)
+
         isUserInteractionEnabled = true
         translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             levelImageView.topAnchor.constraint(equalTo: topAnchor),
             levelImageView.heightAnchor.constraint(equalToConstant: 25),
             levelImageView.widthAnchor.constraint(equalToConstant: 25),
-            levelImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-        ])
 
-        NSLayoutConstraint.activate([
             levelSlider.topAnchor.constraint(equalTo: levelImageView.bottomAnchor, constant: 10),
             levelSlider.bottomAnchor.constraint(equalTo: bottomAnchor),
             levelSlider.widthAnchor.constraint(equalToConstant: 30),
-            levelSlider.centerXAnchor.constraint(equalTo: centerXAnchor),
+            levelSlider.centerXAnchor.constraint(equalTo: levelImageView.centerXAnchor)
         ])
     }
 }
@@ -94,6 +94,9 @@ class BrightnessControlView: SliderInfoView {
 
     init() {
         super.init(frame: .zero)
+
+        setupView()
+
         if  !UIAccessibility.isVoiceOverRunning {
             levelSlider.setThumbImage(image: UIImage(), for: .normal)
         }
@@ -114,6 +117,14 @@ class BrightnessControlView: SliderInfoView {
         UIScreen.main.brightness = CGFloat(levelSlider.value)
         updateIcon(level: levelSlider.value)
     }
+
+    override func setupView() {
+        super.setupView()
+
+        NSLayoutConstraint.activate([
+            levelImageView.leadingAnchor.constraint(equalTo: leadingAnchor)
+        ])
+    }
 }
 
 class VolumeControlView: SliderInfoView {
@@ -122,6 +133,8 @@ class VolumeControlView: SliderInfoView {
     init(volumeView: MPVolumeView?) {
         self.volumeView = volumeView
         super.init(frame: .zero)
+
+        setupView()
 
         self.levelSlider.value = AVAudioSession.sharedInstance().outputVolume
         if  !UIAccessibility.isVoiceOverRunning {
@@ -152,5 +165,13 @@ class VolumeControlView: SliderInfoView {
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func setupView() {
+        super.setupView()
+
+        NSLayoutConstraint.activate([
+            levelImageView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
     }
 }
