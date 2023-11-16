@@ -529,7 +529,7 @@ enum SubtitlesOptions: Int, CaseIterable, SectionType {
         }
     }
 
-    var containsInfobutton: Bool { return false }
+    var containsInfobutton: Bool { return true }
 }
 
 enum CastingOptions: Int, CaseIterable, SectionType {

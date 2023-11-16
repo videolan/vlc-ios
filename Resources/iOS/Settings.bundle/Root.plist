@@ -301,6 +301,8 @@
 			<string>SETTINGS_SUBTITLES_TITLE</string>
 		</dict>
 		<dict>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_SUBTITLES_INFO</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -407,6 +409,8 @@
 			</array>
 		</dict>
 		<dict>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_SUBTITLES_INFO</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -433,6 +437,8 @@
 			</array>
 		</dict>
 		<dict>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_SUBTITLES_INFO</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
@@ -443,6 +449,8 @@
 			<false/>
 		</dict>
 		<dict>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_SUBTITLES_INFO</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -477,6 +485,8 @@
 			</array>
 		</dict>
 		<dict>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_SUBTITLES_INFO</string>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Titles</key>

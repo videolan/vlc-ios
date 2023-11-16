@@ -77,6 +77,7 @@
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THIN" = "Thin";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_NORMAL" = "Normal";
 "SETTINGS_SUBTITLES_OUTLINE_THICKNESS_THICK" = "Thick";
+"SETTINGS_SUBTITLES_INFO" = "This option may not be applicable to subtitles that are based on bitmaps or are stored in the SSA format.";
 
 "SETTINGS_DEINTERLACE" = "Deinterlace";
 "SETTINGS_DEINTERLACE_INFO" = "Deinterlacing filters will be applied automatically to interlaced content to prevent motion artifacts and increase playback quality. They can be disabled to save battery life.";
