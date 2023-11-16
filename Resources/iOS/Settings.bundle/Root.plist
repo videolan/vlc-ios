@@ -65,6 +65,8 @@
 				<integer>0</integer>
 				<integer>1</integer>
 			</array>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_CONTINUE_AUDIO_PLAYBACK_INFO</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -97,6 +99,8 @@
 				<integer>0</integer>
 				<integer>1</integer>
 			</array>
+			<key>infobuttonvalue</key>
+			<string>SETTINGS_CONTINUE_VIDEO_PLAYBACK_INFO</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>

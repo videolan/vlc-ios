@@ -25,7 +25,9 @@
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
+"SETTINGS_CONTINUE_VIDEO_PLAYBACK_INFO" = "This continues playback of video files from the last position.";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
+"SETTINGS_CONTINUE_AUDIO_PLAYBACK_INFO" = "This continues playback of audio files from the last position that are of a certain length or match the podcast criteria.";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Never";
 "SETTINGS_CONTINUE_PLAYBACK_ASK" = "Ask";
 "SETTINGS_CONTINUE_PLAYBACK_ALWAYS" = "Always";

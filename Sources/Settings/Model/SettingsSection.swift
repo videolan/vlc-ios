@@ -146,7 +146,16 @@ enum GenericOptions: Int, CaseIterable, SectionType {
         }
     }
 
-    var containsInfobutton: Bool { return false }
+    var containsInfobutton: Bool {
+        switch self {
+        case .continueAudioPlayback:
+            return true
+        case .continueVideoPlayback:
+            return true
+        default:
+            return false
+        }
+    }
 
     var subtitle: String? {
         switch self {
