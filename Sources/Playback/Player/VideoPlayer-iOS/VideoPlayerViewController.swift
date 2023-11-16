@@ -1070,8 +1070,9 @@ extension VideoPlayerViewController {
         // Limit the gesture to avoid conflicts with top and bottom player controls
         if currentPos.y > scrubProgressBar.frame.origin.y
             || currentPos.y < mediaNavigationBar.frame.origin.y {
-            return
+            recognizer.state = .ended
         }
+
         let panType = detectPanType(recognizer)
         if panType == .none {
             return handleMinimizeGesture(recognizer)
@@ -1119,7 +1120,6 @@ extension VideoPlayerViewController {
 
         switch currentPanType {
         case .volume:
-
             if recognizer.state == .changed || recognizer.state == .ended {
                 let newValue = volumeControl.value - (verticalPanVelocity * volumeControl.speed)
                 volumeControl.value = min(max(newValue, 0), 1)
