@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,7 +28,7 @@
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D61-Eo-fsB">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="80"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w5P-i7-T78">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w5P-i7-T78" userLabel="Content Super View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="80"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhw-Aa-3Q7">
@@ -94,7 +94,6 @@
                                                 <rect key="frame" x="456" y="0.0" width="24" height="80"/>
                                                 <color key="tintColor" systemColor="secondaryLabelColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="24" id="CKC-dW-QST"/>
                                                     <constraint firstAttribute="width" constant="24" id="Fr7-nA-Ngl"/>
                                                 </constraints>
                                             </imageView>
@@ -162,7 +161,6 @@
                 <constraint firstItem="D61-Eo-fsB" firstAttribute="top" secondItem="OaX-w0-CLr" secondAttribute="top" id="8uG-vX-2jB"/>
                 <constraint firstAttribute="bottom" secondItem="D61-Eo-fsB" secondAttribute="bottom" id="CNc-hg-HNZ"/>
                 <constraint firstItem="6Ey-dT-h2f" firstAttribute="leading" secondItem="bhw-Aa-3Q7" secondAttribute="trailing" id="HJo-9A-Lc0"/>
-                <constraint firstItem="D61-Eo-fsB" firstAttribute="centerY" secondItem="L0K-f1-QjV" secondAttribute="centerY" id="Ne1-Ew-CLm"/>
                 <constraint firstItem="6Ey-dT-h2f" firstAttribute="centerY" secondItem="D61-Eo-fsB" secondAttribute="centerY" id="OtS-pq-ndi"/>
                 <constraint firstItem="6Ey-dT-h2f" firstAttribute="centerY" secondItem="bhw-Aa-3Q7" secondAttribute="centerY" id="Xwf-o3-Qba"/>
                 <constraint firstItem="L0K-f1-QjV" firstAttribute="leading" secondItem="Uhx-qs-Aow" secondAttribute="leading" id="drL-F5-v28"/>
