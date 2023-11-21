@@ -464,10 +464,6 @@ extension AudioPlayerViewController: PlayerControllerDelegate {
     func playerControllerApplicationBecameActive(_ playerController: PlayerController) {
         // TODO
     }
-
-    func playerControllerPlaybackDidStop(_ playerController: PlayerController) {
-        delegate?.audioPlayerViewControllerDidMinimize(self)
-    }
 }
 
 // MARK: - MediaNavigationBarDelegate

@@ -20,7 +20,6 @@ protocol PlayerControllerDelegate: AnyObject {
     func playerControllerExternalScreenDidConnect(_ playerController: PlayerController)
     func playerControllerExternalScreenDidDisconnect(_ playerController: PlayerController)
     func playerControllerApplicationBecameActive(_ playerController: PlayerController)
-    func playerControllerPlaybackDidStop(_ playerController: PlayerController)
 }
 
 @objc(VLCPlayerController)
@@ -117,11 +116,6 @@ class PlayerController: NSObject {
                                        selector: #selector(handleAppBecameActive),
                                        name: UIApplication.didBecomeActiveNotification,
                                        object: nil)
-        //
-        notificationCenter.addObserver(self,
-                                       selector: #selector(handlePlaybackDidStop),
-                                       name: NSNotification.Name(rawValue: VLCPlaybackServicePlaybackDidStop),
-                                       object: nil)
     }
 }
 
@@ -138,9 +132,5 @@ extension PlayerController {
 
     @objc func handleAppBecameActive() {
         delegate?.playerControllerApplicationBecameActive(self)
-    }
-
-    @objc func handlePlaybackDidStop() {
-        delegate?.playerControllerPlaybackDidStop(self)
     }
 }

@@ -1744,12 +1744,6 @@ extension VideoPlayerViewController: PlayerControllerDelegate {
             }
         }
     }
-
-    func playerControllerPlaybackDidStop(_ playerController: PlayerController) {
-        delegate?.videoPlayerViewControllerDidMinimize(self)
-        // Reset interface to default icon when dismissed
-//        subControls.isInFullScreen = false
-    }
 }
 
 // MARK: -
