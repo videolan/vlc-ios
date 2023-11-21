@@ -535,7 +535,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 - (void)videoPlayerViewControllerDidMinimize:(VLCVideoPlayerViewController *)videoPlayerViewController
 {
     [self closeFullscreenPlayback];
-    [self addPlayqueueToMiniPlayer];
 }
 
 - (BOOL)videoPlayerViewControllerShouldBeDisplayed:(VLCVideoPlayerViewController *)videoPlayerViewController
@@ -548,7 +547,6 @@ NSString *const VLCPlayerDisplayControllerHideMiniPlayer = @"VLCPlayerDisplayCon
 - (void)audioPlayerViewControllerDidMinimize:(VLCAudioPlayerViewController *)audioPlayerViewController
 {
     [self closeAudioPlayer];
-    [self addPlayqueueToMiniPlayer];
 }
 
 - (void)audioPlayerViewControllerDidClose:(VLCAudioPlayerViewController *)audioPlayerViewController
