@@ -280,24 +280,27 @@
 
 - (void)renameStreamFromCell:(UITableViewCell *)cell {
     NSIndexPath *cellIndexPath = [self.historyTableView indexPathForCell:cell];
-    NSString *renameString = NSLocalizedString(@"BUTTON_RENAME", nil);
-    NSString *cancelString = NSLocalizedString(@"BUTTON_CANCEL", nil);
+    NSInteger row = cellIndexPath.row;
+    NSString *streamName = [_recentURLTitles objectForKey:[@(row) stringValue]];
+    if (streamName == nil) {
+        streamName = [[_recentURLs[row] stringByRemovingPercentEncoding] lastPathComponent];
+    }
 
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:renameString
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"BUTTON_RENAME", nil)
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelString
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *streamTitle = alertController.textFields.firstObject.text;
-        [self renameStreamWithTitle:streamTitle atIndex:cellIndexPath.row];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_RENAME", nil)
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+        [self renameStreamWithTitle:alertController.textFields.firstObject.text atIndex:cellIndexPath.row];
     }];
 
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.text = cell.textLabel.text;
-
+        textField.text = streamName;
         [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
                                                           object:textField
                                                            queue:[NSOperationQueue mainQueue]
@@ -317,13 +320,12 @@
     [_recentURLTitles setObject:title forKey:[@(index) stringValue]];
     if ([self ubiquitousKeyStoreAvailable]) {
         [[NSUbiquitousKeyValueStore defaultStore] setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }];
     } else {
         [[NSUserDefaults standardUserDefaults] setObject:_recentURLTitles forKey:kVLCRecentURLTitles];
-        [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
 }
 
 - (void)editURLFromCell:(UITableViewCell *)cell
