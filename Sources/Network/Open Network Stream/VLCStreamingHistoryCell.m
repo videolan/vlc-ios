@@ -2,7 +2,7 @@
  * VLCStreamingHistoryCell.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2016 VideoLAN. All rights reserved.
+ * Copyright (c) 2016-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Adam Viaud <mcnight # mcnight.fr>
@@ -65,7 +65,7 @@
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    return (action == @selector(copy:) || action == @selector(renameStream:)) || [super canPerformAction:action withSender:sender];
+    return (action == @selector(copy:) || action == @selector(renameStream:)) || action == @selector(editURL:) || [super canPerformAction:action withSender:sender];
 }
 
 - (void)customizeAppearance {
@@ -75,6 +75,11 @@
 
 - (void)renameStream:(id)sender {
     [self.delegate renameStreamFromCell:self];
+}
+
+- (void)editURL:(id)sender
+{
+    [self.delegate editURLFromCell:self];
 }
 
 + (CGFloat)heightOfCell

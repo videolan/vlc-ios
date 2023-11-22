@@ -2,7 +2,7 @@
  * VLCStreamingHistoryCell.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2016-2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2016-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Adam Viaud <mcnight # mcnight.fr>
@@ -15,6 +15,7 @@
 
 @protocol VLCStreamingHistoryCellMenuItemProtocol
 - (void)renameStreamFromCell:(UITableViewCell *)cell;
+- (void)editURLFromCell:(UITableViewCell *)cell;
 @end
 
 @interface VLCStreamingHistoryCell : UITableViewCell
@@ -29,6 +30,7 @@
 + (CGFloat)heightOfCell;
 
 - (void)renameStream:(id)sender;
+- (void)editURL:(id)sender;
 - (void)customizeAppearance;
 
 @end

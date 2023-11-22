@@ -2,7 +2,7 @@
  * VLCOpenNetworkStreamViewController.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -145,12 +145,13 @@
     // This will be called every time this VC is opened by the side menu controller
     [self updatePasteboardTextInURLField];
 
-    // Registering a custom menu item for renaming streams
-    NSString *renameTitle = NSLocalizedString(@"BUTTON_RENAME", nil);
-    SEL renameStreamSelector = @selector(renameStream:);
-    UIMenuItem *renameItem = [[UIMenuItem alloc] initWithTitle:renameTitle action:renameStreamSelector];
+    // Registering a custom menu items for renaming streams and editing their URLs
+    UIMenuItem *renameItem = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_RENAME", nil)
+                                                        action:@selector(renameStream:)];
+    UIMenuItem *editURLItem = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_EDIT", nil)
+                                                         action:@selector(editURL:)];
     UIMenuController *sharedMenuController = [UIMenuController sharedMenuController];
-    [sharedMenuController setMenuItems:@[renameItem]];
+    [sharedMenuController setMenuItems:@[renameItem,editURLItem]];
     [sharedMenuController update];
     [self updateForTheme];
 
@@ -275,6 +276,8 @@
     [self _openURLStringAndDismiss:self.urlField.text];
 }
 
+#pragma mark - table view cell delegation
+
 - (void)renameStreamFromCell:(UITableViewCell *)cell {
     NSIndexPath *cellIndexPath = [self.historyTableView indexPathForCell:cell];
     NSString *renameString = NSLocalizedString(@"BUTTON_RENAME", nil);
@@ -322,6 +325,54 @@
         [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
+
+- (void)editURLFromCell:(UITableViewCell *)cell
+{
+    NSIndexPath *cellIndexPath = [self.historyTableView indexPathForCell:cell];
+    NSString *urlString = _recentURLs[cellIndexPath.row];
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"BUTTON_EDIT", nil)
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_SAVE", nil)
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+        [self updateURL:alertController.textFields.firstObject.text atIndex:cellIndexPath.row];
+    }];
+
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.text = urlString;
+        [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification
+                                                          object:textField
+                                                           queue:[NSOperationQueue mainQueue]
+                                                      usingBlock:^(NSNotification * _Nonnull note) {
+            okAction.enabled = (textField.text.length != 0);
+        }];
+    }];
+
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)updateURL:(NSString *)urlString atIndex:(NSInteger)index
+{
+    [_recentURLs replaceObjectAtIndex:index withObject:urlString];
+    if ([self ubiquitousKeyStoreAvailable]) {
+        [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:_recentURLs forKey:kVLCRecentURLs];
+    }
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+}
+
 
 #pragma mark - table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
