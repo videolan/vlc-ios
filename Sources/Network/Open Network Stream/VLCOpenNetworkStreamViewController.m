@@ -269,11 +269,7 @@
             if (_recentURLs.count >= 100)
                 [_recentURLs removeLastObject];
             [_recentURLs addObject:urlString];
-            if ([self ubiquitousKeyStoreAvailable]) {
-                [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
-            } else {
-                [[NSUserDefaults standardUserDefaults] setObject:_recentURLs forKey:kVLCRecentURLs];
-            }
+            [self _saveData];
 
             [self.historyTableView reloadData];
         }
@@ -329,11 +325,7 @@
 - (void)renameStreamWithTitle:(NSString *)title atIndex:(NSInteger)index
 {
     [_recentURLTitles setObject:title forKey:[@(index) stringValue]];
-    if ([self ubiquitousKeyStoreAvailable]) {
-        [[NSUbiquitousKeyValueStore defaultStore] setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
-    } else {
-        [[NSUserDefaults standardUserDefaults] setObject:_recentURLTitles forKey:kVLCRecentURLTitles];
-    }
+    [self _saveData];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
@@ -376,11 +368,7 @@
 - (void)updateURL:(NSString *)urlString atIndex:(NSInteger)index
 {
     [_recentURLs replaceObjectAtIndex:index withObject:urlString];
-    if ([self ubiquitousKeyStoreAvailable]) {
-        [[NSUbiquitousKeyValueStore defaultStore] setArray:_recentURLs forKey:kVLCRecentURLs];
-    } else {
-        [[NSUserDefaults standardUserDefaults] setObject:_recentURLs forKey:kVLCRecentURLs];
-    }
+    [self _saveData];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.historyTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
@@ -430,15 +418,8 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_recentURLs removeObjectAtIndex:indexPath.row];
         [_recentURLTitles removeObjectForKey:[@(indexPath.row) stringValue]];
-        if ([self ubiquitousKeyStoreAvailable]) {
-            NSUbiquitousKeyValueStore *keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
-            [keyValueStore setArray:_recentURLs forKey:kVLCRecentURLs];
-            [keyValueStore setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
-        } else {
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:_recentURLs forKey:kVLCRecentURLs];
-            [userDefaults setObject:_recentURLTitles forKey:kVLCRecentURLTitles];
-        }
+
+        [self _saveData];
 
         [tableView endEditing:NO];
         [tableView reloadData];
@@ -496,6 +477,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         [_recentURLTitles removeObjectForKey:titleKey];
         [_recentURLTitles setObject:title forKey:[@(destinationIndexPath.row) stringValue]];
     }
+    [self _saveData];
 }
 
 #pragma mark - internals
@@ -510,6 +492,20 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
     if (self.scanSubToggleButton.selected) {
         [VLCOpenNetworkSubtitlesFinder tryToFindSubtitleOnServerForURL:playbackURL];
+    }
+}
+
+- (void)_saveData
+{
+    if ([self ubiquitousKeyStoreAvailable]) {
+        NSUbiquitousKeyValueStore *keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
+        [keyValueStore setArray:_recentURLs forKey:kVLCRecentURLs];
+        [keyValueStore setDictionary:_recentURLTitles forKey:kVLCRecentURLTitles];
+        [keyValueStore synchronize];
+    } else {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:_recentURLs forKey:kVLCRecentURLs];
+        [userDefaults setObject:_recentURLTitles forKey:kVLCRecentURLTitles];
     }
 }
 
