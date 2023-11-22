@@ -266,8 +266,6 @@
             if ([_recentURLs indexOfObject:urlString] != NSNotFound)
                 [_recentURLs removeObject:urlString];
 
-            if (_recentURLs.count >= 100)
-                [_recentURLs removeLastObject];
             [_recentURLs addObject:urlString];
             [self _saveData];
 
