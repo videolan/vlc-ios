@@ -156,6 +156,12 @@
     [self updateForTheme];
 
     self.historyTableView.rowHeight = [VLCStreamingHistoryCell heightOfCell];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                              initWithTitle:NSLocalizedString(@"BUTTON_EDIT", nil)
+                                              style:UIBarButtonItemStylePlain
+                                              target:self
+                                              action:@selector(editTableView:)];
 }
 
 - (NSString *)detailText
@@ -274,6 +280,11 @@
     }
     [self.urlField resignFirstResponder];
     [self _openURLStringAndDismiss:self.urlField.text];
+}
+
+- (void)editTableView:(id)sender
+{
+    [self.historyTableView setEditing:!self.historyTableView.editing animated:YES];
 }
 
 #pragma mark - table view cell delegation
@@ -402,6 +413,7 @@
     cell.subtitleLabel.text = content;
     cell.thumbnailView.image = [UIImage imageNamed:@"serverIcon"];
     cell.delegate = self;
+    cell.showsReorderControl = YES;
 
     return cell;
 }
@@ -428,6 +440,7 @@
             [userDefaults setObject:_recentURLTitles forKey:kVLCRecentURLTitles];
         }
 
+        [tableView endEditing:NO];
         [tableView reloadData];
     }
 }
@@ -465,6 +478,24 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+    NSString *stringURL = _recentURLs[sourceIndexPath.row];
+    NSString *titleKey = [@(sourceIndexPath.row) stringValue];
+    NSString *title = _recentURLTitles[titleKey];
+    [_recentURLs removeObjectAtIndex:sourceIndexPath.row];
+    [_recentURLs insertObject:stringURL atIndex:destinationIndexPath.row];
+    if (title) {
+        [_recentURLTitles removeObjectForKey:titleKey];
+        [_recentURLTitles setObject:title forKey:[@(destinationIndexPath.row) stringValue]];
+    }
 }
 
 #pragma mark - internals
