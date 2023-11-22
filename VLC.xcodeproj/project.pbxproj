@@ -175,6 +175,7 @@
 		7D43A29E28FB40B3002C41B1 /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D43A29D28FB40B3002C41B1 /* CarPlay.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7D4556AC29192F5400276567 /* VLCNowPlayingTemplateObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4556AB29192F5400276567 /* VLCNowPlayingTemplateObserver.m */; };
 		7D4DF2181B55209200739326 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4DF2171B55209200739326 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7D4FBD992B0E0E0A0050C10E /* VLCOpenNetworkSubtitlesFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4FBD982B0E0E0A0050C10E /* VLCOpenNetworkSubtitlesFinder.m */; };
 		7D51B3B01BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */; };
 		7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
 		7D55A8532A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D55A8522A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m */; };
@@ -778,6 +779,8 @@
 		7D4BE733175F82CA00861CD4 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		7D4C484417ACF982008D228B /* bs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bs; path = bs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D4DF2171B55209200739326 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
+		7D4FBD972B0E0E0A0050C10E /* VLCOpenNetworkSubtitlesFinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCOpenNetworkSubtitlesFinder.h; sourceTree = "<group>"; };
+		7D4FBD982B0E0E0A0050C10E /* VLCOpenNetworkSubtitlesFinder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCOpenNetworkSubtitlesFinder.m; sourceTree = "<group>"; };
 		7D51B3AD1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCPlaybackInfoMediaInfoTVViewController.h; sourceTree = "<group>"; };
 		7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlaybackInfoMediaInfoTVViewController.m; sourceTree = "<group>"; };
 		7D55A8512A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCNonInteractiveWindowSceneDelegate.h; sourceTree = "<group>"; };
@@ -2075,6 +2078,8 @@
 				D6E034EB1CC284FC0037F516 /* VLCStreamingHistoryCell.h */,
 				D6E034EC1CC284FC0037F516 /* VLCStreamingHistoryCell.m */,
 				7D71ABCF27ECAB1E003B3B2E /* VLCStreamingHistoryCell.xib */,
+				7D4FBD972B0E0E0A0050C10E /* VLCOpenNetworkSubtitlesFinder.h */,
+				7D4FBD982B0E0E0A0050C10E /* VLCOpenNetworkSubtitlesFinder.m */,
 				7D30F3C5183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.h */,
 				7D30F3C6183AB26F00FFC021 /* VLCOpenNetworkStreamViewController.m */,
 				7D89787C185DF794009BAB5D /* VLCOpenNetworkStreamViewController.xib */,
@@ -3500,6 +3505,7 @@
 			files = (
 				7D55A8532A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m in Sources */,
 				7DC7BABD28C8959F00109F28 /* URL+isExcludedFromBackup.swift in Sources */,
+				7D4FBD992B0E0E0A0050C10E /* VLCOpenNetworkSubtitlesFinder.m in Sources */,
 				6D8EC09225F8010E00FDDE17 /* EqualizerPresetSelector.swift in Sources */,
 				4144C4661A0ED6C700918C89 /* Reachability.m in Sources */,
 				DD846BDF1D1FCCCD00699D17 /* VLCNetworkLoginDataSource.m in Sources */,

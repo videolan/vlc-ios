@@ -16,6 +16,7 @@
 #import "VLCPlaybackService.h"
 #import "VLCStreamingHistoryCell.h"
 #import "VLC-Swift.h"
+#import "VLCOpenNetworkSubtitlesFinder.h"
 
 @interface VLCOpenNetworkStreamViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, VLCStreamingHistoryCellMenuItemProtocol>
 {
@@ -423,61 +424,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     [medialist addMedia:media];
     [[VLCPlaybackService sharedInstance] playMediaList:medialist firstIndex:0 subtitlesFilePath:nil];
 
-    if (([playbackURL.scheme isEqualToString:@"http"] || [playbackURL.scheme isEqualToString:@"https"]) && self.scanSubToggleButton.selected) {
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self _tryToFindSubtitleOnServerForURL:playbackURL];
-        });
+    if (self.scanSubToggleButton.selected) {
+        [VLCOpenNetworkSubtitlesFinder tryToFindSubtitleOnServerForURL:playbackURL];
     }
-}
-
-- (void)_tryToFindSubtitleOnServerForURL:(NSURL *)url
-{
-    NSCharacterSet *characterFilter = [NSCharacterSet characterSetWithCharactersInString:@"\\.():$"];
-    NSString *subtitleFileExtensions = [[kSupportedSubtitleFileExtensions componentsSeparatedByCharactersInSet:characterFilter] componentsJoinedByString:@""];
-    NSArray *arraySubtitleFileExtensions = [subtitleFileExtensions componentsSeparatedByString:@"|"];
-    NSURL *urlWithoutExtension = [url URLByDeletingPathExtension];
-    NSUInteger count = arraySubtitleFileExtensions.count;
-    NSURL *matchedURL = nil;
-
-    for (int i = 0; i < count; i++) {
-        matchedURL = [urlWithoutExtension URLByAppendingPathExtension:arraySubtitleFileExtensions[i]];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:matchedURL];
-        request.HTTPMethod = @"HEAD";
-
-        NSURLResponse *response = nil;
-        NSError *error = nil;
-        [self sendSynchronousRequest:request returningResponse:&response error:&error];
-        NSInteger httpStatus = [(NSHTTPURLResponse *)response statusCode];
-
-        if (httpStatus == 200) {
-            APLog(@"%s:found matching spu file: %@", __PRETTY_FUNCTION__, matchedURL);
-            break;
-        }
-    }
-
-    if (matchedURL) {
-        [[VLCPlaybackService sharedInstance] addSubtitlesToCurrentPlaybackFromURL:matchedURL];
-    }
-}
-
-- (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error
-{
-    NSError __block *erreur = NULL;
-    NSData __block *data;
-    NSURLResponse __block *urlResponse;
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
-        urlResponse = _response;
-        erreur = _error;
-        data = _data;
-        dispatch_semaphore_signal(semaphore);
-    }] resume];
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-    *response = urlResponse;
-    *error = erreur;
-    return data;
 }
 
 #pragma mark - text view delegate
