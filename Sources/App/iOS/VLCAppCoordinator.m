@@ -51,7 +51,7 @@
 
         // Init the HTTP Server and clean its cache
         // FIXME: VLCHTTPUploaderController should perhaps be a service?
-        _httpUploaderController = [VLCHTTPUploaderController sharedInstance];
+        _httpUploaderController = [[VLCHTTPUploaderController alloc] init];
         [_httpUploaderController cleanCache];
         _httpUploaderController.medialibrary = _mediaLibraryService;
 
@@ -72,6 +72,11 @@
     }
 
     return _rendererDiscovererManager;
+}
+
+- (VLCHTTPUploaderController *)httpUploaderController
+{
+    return _httpUploaderController;
 }
 
 - (void)setExternalWindow:(UIWindow *)externalWindow

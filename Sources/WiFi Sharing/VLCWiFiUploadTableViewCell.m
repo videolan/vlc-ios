@@ -20,6 +20,7 @@
 @interface VLCWiFiUploadTableViewCell()
 {
     NSUserActivity *_userActivity;
+    VLCHTTPUploaderController *_httpUploaderController;
 }
 
 @property (nonatomic, strong) UISwitch *serverToggle;
@@ -55,6 +56,8 @@
 {
     self.reachability = [Reachability reachabilityForLocalWiFi];
     [self.reachability startNotifier];
+
+    _httpUploaderController = [[VLCAppCoordinator sharedInstance] httpUploaderController];
 }
 
 - (void)setupCell
@@ -88,13 +91,12 @@
 - (void)updateHTTPServerAddress
 {
     [self stopHandoff];
-    VLCHTTPUploaderController *uploadController = [VLCHTTPUploaderController sharedInstance];
-    BOOL connectedViaWifi = [uploadController isReachable];
+    BOOL connectedViaWifi = [_httpUploaderController isReachable];
     self.serverToggle.enabled = connectedViaWifi;
-    NSString *uploadText = connectedViaWifi ? [uploadController httpStatus] :        NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
+    NSString *uploadText = connectedViaWifi ? [_httpUploaderController httpStatus] :        NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
     self.detailTextLabel.text = uploadText;
-    self.serverToggle.on = connectedViaWifi && uploadController.isServerRunning;
-    if (uploadController.isUsingEthernet) {
+    self.serverToggle.on = connectedViaWifi && _httpUploaderController.isServerRunning;
+    if (_httpUploaderController.isUsingEthernet) {
         self.textLabel.text = NSLocalizedString(@"WEBINTF_ETHERNET", nil);
     } else {
         self.textLabel.text = NSLocalizedString(@"WEBINTF_TITLE", nil);
@@ -109,7 +111,7 @@
 {
     NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
     _userActivity = [[NSUserActivity alloc] initWithActivityType:bundleIdentifier];
-    NSString *address = [[VLCHTTPUploaderController sharedInstance] addressToCopy];
+    NSString *address = [_httpUploaderController addressToCopy];
     _userActivity.webpageURL = [NSURL URLWithString: address];
     _userActivity.eligibleForSearch = YES;
     _userActivity.eligibleForPublicIndexing = YES;
@@ -123,9 +125,9 @@
 
 - (void)toggleHTTPServer
 {
-    BOOL futureHTTPServerState = ![VLCHTTPUploaderController sharedInstance].isServerRunning ;
+    BOOL futureHTTPServerState = !_httpUploaderController.isServerRunning;
     [[NSUserDefaults standardUserDefaults] setBool:futureHTTPServerState forKey:kVLCSettingSaveHTTPUploadServerStatus];
-    [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:futureHTTPServerState];
+    [_httpUploaderController changeHTTPServerState:futureHTTPServerState];
     [self updateHTTPServerAddress];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [_delegate updateTableViewHeight];

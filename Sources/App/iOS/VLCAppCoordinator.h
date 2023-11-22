@@ -14,16 +14,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#if TARGET_OS_IOS
 @class MediaLibraryService;
 @class VLCRendererDiscovererManager;
 @class VLCMLMedia;
+#endif
+
+@class VLCHTTPUploaderController;
 
 @interface VLCAppCoordinator : NSObject
 
 + (nonnull instancetype)sharedInstance;
 
+@property (readonly) VLCHTTPUploaderController *httpUploaderController;
+
+#if TARGET_OS_IOS
 @property (readonly) MediaLibraryService *mediaLibraryService;
 @property (readonly) VLCRendererDiscovererManager *rendererDiscovererManager;
+
 @property (nullable) UIWindow *externalWindow;
 
 - (void)setTabBarController:(UITabBarController *)tabBarController;
@@ -31,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
 
 - (VLCMLMedia *)mediaForUserActivity:(NSUserActivity *)userActivity;
+#endif
 
 @end
 

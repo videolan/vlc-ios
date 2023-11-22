@@ -17,12 +17,14 @@
 #import "VLCMaskView.h"
 #import "CAAnimation+VLCWiggle.h"
 #import "VLCMicroMediaLibraryService.h"
+#import "VLCAppCoordinator.h"
 #import "VLC-Swift.h"
 
 #define remotePlaybackReuseIdentifer @"remotePlaybackReuseIdentifer"
 
 @interface VLCRemotePlaybackViewController () <UICollectionViewDataSource, UICollectionViewDelegate, VLCMicroMediaLibraryServiceDelegate>
 
+@property (strong) VLCHTTPUploaderController *uploaderController;
 @property (strong) VLCMicroMediaLibraryService *microMediaLibraryService;
 @property (strong, nonatomic) Reachability *reachability;
 @property (nonatomic) NSIndexPath *currentlyFocusedIndexPath;
@@ -42,6 +44,8 @@
 
     self.microMediaLibraryService = [VLCMicroMediaLibraryService sharedInstance];
     self.microMediaLibraryService.delegate = self;
+
+    self.uploaderController = [[VLCAppCoordinator sharedInstance] httpUploaderController];
 
     if (@available(tvOS 13.0, *)) {
         self.navigationController.navigationBarHidden = YES;
@@ -130,9 +134,9 @@
 {
     BOOL connectedViaWifi = self.reachability.currentReachabilityStatus == ReachableViaWiFi;
     self.toggleHTTPServerButton.enabled = connectedViaWifi;
-    NSString *uploadText = connectedViaWifi ? [[VLCHTTPUploaderController sharedInstance] httpStatus] : NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
+    NSString *uploadText = connectedViaWifi ? [self.uploaderController httpStatus] : NSLocalizedString(@"HTTP_UPLOAD_NO_CONNECTIVITY", nil);
     self.httpServerLabel.text = uploadText;
-    if (connectedViaWifi && [VLCHTTPUploaderController sharedInstance].isServerRunning)
+    if (connectedViaWifi && self.uploaderController.isServerRunning)
         [self.toggleHTTPServerButton setTitle:NSLocalizedString(@"HTTP_SERVER_ON", nil) forState:UIControlStateNormal];
     else
         [self.toggleHTTPServerButton setTitle:NSLocalizedString(@"HTTP_SERVER_OFF", nil) forState:UIControlStateNormal];
@@ -140,9 +144,9 @@
 
 - (void)toggleHTTPServer:(id)sender
 {
-    BOOL futureHTTPServerState = ![VLCHTTPUploaderController sharedInstance].isServerRunning ;
+    BOOL futureHTTPServerState = !self.uploaderController.isServerRunning ;
     [[NSUserDefaults standardUserDefaults] setBool:futureHTTPServerState forKey:kVLCSettingSaveHTTPUploadServerStatus];
-    [[VLCHTTPUploaderController sharedInstance] changeHTTPServerState:futureHTTPServerState];
+    [self.uploaderController changeHTTPServerState:futureHTTPServerState];
     [self updateHTTPServerAddress];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

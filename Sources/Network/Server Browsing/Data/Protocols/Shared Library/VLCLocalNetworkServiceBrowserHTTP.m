@@ -10,6 +10,7 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
+#import "VLCAppCoordinator.h"
 #import "VLCLocalNetworkServiceBrowserHTTP.h"
 #import "VLCSharedLibraryParser.h"
 #import "VLCHTTPUploaderController.h"
@@ -37,7 +38,7 @@
 }
 - (void)netServiceDidResolveAddress:(NSNetService *)sender {
 #if !TARGET_OS_TV
-    NSString *ownHostname = [[VLCHTTPUploaderController sharedInstance] hostname];
+    NSString *ownHostname = [[[VLCAppCoordinator sharedInstance] httpUploaderController] hostname];
     if (!ownHostname)
         return;
     if ([[sender hostName] rangeOfString:ownHostname options:NSCaseInsensitiveSearch].location != NSNotFound) {

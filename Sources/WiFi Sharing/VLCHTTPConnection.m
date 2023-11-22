@@ -47,6 +47,7 @@
 #if TARGET_OS_TV
     NSMutableArray *_receivedFiles;
 #endif
+    VLCHTTPUploaderController *_httpUploaderController;
 }
 @end
 
@@ -69,7 +70,8 @@ static NSMutableDictionary *authentifiedHosts;
 {
     self = [super initWithAsyncSocket:newSocket configuration:aConfig];
     if (self) {
-        if ([VLCHTTPUploaderController sharedInstance].isUsingEthernet)
+        _httpUploaderController = [[VLCAppCoordinator sharedInstance] httpUploaderController];
+        if (_httpUploaderController.isUsingEthernet)
             _webInterfaceTitle = NSLocalizedString(@"WEBINTF_ETHERNET", nil);
         else
             _webInterfaceTitle = NSLocalizedString(@"WEBINTF_TITLE", nil);
@@ -325,7 +327,7 @@ static NSMutableDictionary *authentifiedHosts;
 
 - (NSArray *)allMedia
 {
-    MediaLibraryService* medialibrary = [[VLCHTTPUploaderController sharedInstance] medialibrary];
+    MediaLibraryService* medialibrary = [[VLCAppCoordinator sharedInstance] mediaLibraryService];
 
     // Adding all Albums
     NSMutableArray *allMedia = [[medialibrary albumsWithSortingCriteria:VLCMLSortingCriteriaDefault desc:false] mutableCopy] ?: [NSMutableArray new];
@@ -515,7 +517,7 @@ static NSMutableDictionary *authentifiedHosts;
     NSMutableCharacterSet *characterSet = [[NSMutableCharacterSet alloc] init];
     [characterSet formUnionWithCharacterSet:NSCharacterSet.URLFragmentAllowedCharacterSet];
     [characterSet removeCharactersInString:@"!#$%&'()*+,/:;=?@[]"];
-    NSString *hostName = [NSString stringWithFormat:@"%@:%@", [[VLCHTTPUploaderController sharedInstance] hostname], [[VLCHTTPUploaderController sharedInstance] hostnamePort]];
+    NSString *hostName = [NSString stringWithFormat:@"%@:%@", [_httpUploaderController hostname], [_httpUploaderController hostnamePort]];
     for (NSObject <VLCMLObject> *mediaObject in media) {
         if ([mediaObject isKindOfClass:[VLCMLMedia class]]) {
             VLCMLMedia *file = (VLCMLMedia *)mediaObject;
@@ -907,7 +909,7 @@ static NSMutableDictionary *authentifiedHosts;
         @try {
             [_storeFile writeData:data];
 #if TARGET_OS_IOS
-            [[VLCHTTPUploaderController sharedInstance] resetIdleTimer];
+            [_httpUploaderController resetIdleTimer];
 #endif
         }
         @catch (NSException *exception) {
@@ -933,7 +935,7 @@ static NSMutableDictionary *authentifiedHosts;
 {
     if (_filepath) {
         if (_filepath.length > 0) {
-            [[VLCHTTPUploaderController sharedInstance] moveFileFrom:_filepath];
+            [_httpUploaderController moveFileFrom:_filepath];
 
 #if TARGET_OS_TV
             [_receivedFiles removeObject:_filepath];

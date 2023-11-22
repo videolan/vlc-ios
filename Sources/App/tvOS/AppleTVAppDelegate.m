@@ -20,7 +20,7 @@
 #import "VLCHTTPUploaderController.h"
 #import "VLCRemotePlaybackViewController.h"
 #import "VLCMicroMediaLibraryService.h"
-#import "VLCRemoteControlService.h"
+#import "VLCAppCoordinator.h"
 
 @interface AppleTVAppDelegate ()
 {
@@ -32,7 +32,6 @@
     VLCOpenNetworkStreamTVViewController *_openNetworkVC;
     VLCOpenManagedServersViewController *_openManagedServersVC;
     VLCSettingsViewController *_settingsVC;
-    VLCRemoteControlService *_remoteControlService;
 }
 
 @end
@@ -97,9 +96,8 @@
     self.window.rootViewController = _mainViewController;
 
     // Init the HTTP Server and the micro media library
-    [VLCHTTPUploaderController sharedInstance];
+    [VLCAppCoordinator sharedInstance];
     [[VLCMicroMediaLibraryService sharedInstance] updateMediaList];;
-    _remoteControlService = [[VLCRemoteControlService alloc] init];
 
     [self.window makeKeyAndVisible];
     return YES;

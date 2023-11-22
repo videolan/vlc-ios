@@ -47,18 +47,6 @@ NSString *VLCHTTPUploaderBackgroundTaskName = @"VLCHTTPUploaderBackgroundTaskNam
 
 @implementation VLCHTTPUploaderController
 
-+ (instancetype)sharedInstance
-{
-    static VLCHTTPUploaderController *sharedInstance = nil;
-    static dispatch_once_t pred;
-
-    dispatch_once(&pred, ^{
-        sharedInstance = [VLCHTTPUploaderController new];
-    });
-
-    return sharedInstance;
-}
-
 - (id)init
 {
     if (self = [super init]) {
