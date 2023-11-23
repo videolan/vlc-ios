@@ -72,72 +72,6 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Title</key>
-			<string>SETTINGS_NETWORK_CACHING_TITLE</string>
-			<key>Key</key>
-			<string>network-caching</string>
-			<key>DefaultValue</key>
-			<integer>999</integer>
-			<key>Titles</key>
-			<array>
-				<string>SETTINGS_NETWORK_CACHING_LEVEL_LOWEST</string>
-				<string>SETTINGS_NETWORK_CACHING_LEVEL_LOW</string>
-				<string>SETTINGS_NETWORK_CACHING_LEVEL_NORMAL</string>
-				<string>SETTINGS_NETWORK_CACHING_LEVEL_HIGH</string>
-				<string>SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST</string>
-			</array>
-			<key>Values</key>
-			<array>
-				<integer>333</integer>
-				<integer>666</integer>
-				<integer>999</integer>
-				<integer>1667</integer>
-				<integer>3333</integer>
-			</array>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<false/>
-			<key>Key</key>
-			<string>wifi-sharing-ipv6</string>
-			<key>Title</key>
-			<string>SETTINGS_WIFISHARING_IPv6</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<false/>
-			<key>Key</key>
-			<string>rtsp-tcp</string>
-			<key>Title</key>
-			<string>SETTINGS_RTSP_TCP</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>smb-force-v1</string>
-			<key>Title</key>
-			<string>SETTINGS_FORCE_SMBV1</string>
-			<key>IASKSubtitle</key>
-			<string>SETTINGS_FORCE_SMBV1_LONG</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST</string>
-			<key>Key</key>
-			<string>satip-channellist-url</string>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>SETTINGS_VIDEO_TITLE</string>
@@ -486,7 +420,73 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>SETTINGS_ARTWORK</string>
+			<string>SETTINGS_NETWORK</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_NETWORK_CACHING_TITLE</string>
+			<key>Key</key>
+			<string>network-caching</string>
+			<key>DefaultValue</key>
+			<integer>999</integer>
+			<key>Titles</key>
+			<array>
+				<string>SETTINGS_NETWORK_CACHING_LEVEL_LOWEST</string>
+				<string>SETTINGS_NETWORK_CACHING_LEVEL_LOW</string>
+				<string>SETTINGS_NETWORK_CACHING_LEVEL_NORMAL</string>
+				<string>SETTINGS_NETWORK_CACHING_LEVEL_HIGH</string>
+				<string>SETTINGS_NETWORK_CACHING_LEVEL_HIGHEST</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>333</integer>
+				<integer>666</integer>
+				<integer>999</integer>
+				<integer>1667</integer>
+				<integer>3333</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>wifi-sharing-ipv6</string>
+			<key>Title</key>
+			<string>SETTINGS_WIFISHARING_IPv6</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>rtsp-tcp</string>
+			<key>Title</key>
+			<string>SETTINGS_RTSP_TCP</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>smb-force-v1</string>
+			<key>Title</key>
+			<string>SETTINGS_FORCE_SMBV1</string>
+			<key>IASKSubtitle</key>
+			<string>SETTINGS_FORCE_SMBV1_LONG</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST</string>
+			<key>Key</key>
+			<string>satip-channellist-url</string>
 		</dict>
 		<dict>
 			<key>Type</key>

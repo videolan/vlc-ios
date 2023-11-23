@@ -114,7 +114,6 @@
 "SETTINGS_RTSP_TCP" = "Use RTP over RTSP (TCP)";
 "SETTINGS_NETWORK_SATIP_CUSTOM_CHANNEL_LIST" = "Custom SAT>IP channel list URL";
 
-"SETTINGS_ARTWORK" = "Artwork";
 "SETTINGS_DOWNLOAD_ARTWORK" = "Download artwork";
 
 "SETTINGS_LAB" = "Lab";
