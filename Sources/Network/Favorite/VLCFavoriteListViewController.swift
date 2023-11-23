@@ -11,7 +11,7 @@ import UIKit
 class VLCFavoriteListViewController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
-        title = NSLocalizedString("FAVORITE", comment: "")
+        title = NSLocalizedString("FAVORITES", comment: "")
         let notificationCenter = NotificationCenter.default
         setupData()
         notificationCenter.addObserver(self, selector: #selector(receiveNotification), name: Notification.Name(kVLCNetworkServerFavoritesUpdated), object: nil)
