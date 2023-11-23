@@ -282,7 +282,8 @@
 - (void)triggerFavoriteForCell:(VLCNetworkListCell *)cell
 {
     id<VLCNetworkServerBrowserItem> item;
-    item = self.serverBrowser.items[[self.tableView indexPathForCell:cell].row];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    item = self.serverBrowser.items[indexPath.row];
     if (!cell.isFavorite) {
         cell.isFavorite = YES;
         [_favoriteArray addObject:item.URL.absoluteString];
@@ -294,7 +295,7 @@
     
     NSDictionary* userInfo = @{@"Folder":item};
     [[NSNotificationCenter defaultCenter] postNotificationName:kVLCNetworkServerFavoritesUpdated object:self userInfo:userInfo];
-    [self.tableView reloadData];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 #pragma mark - Search Research Updater
