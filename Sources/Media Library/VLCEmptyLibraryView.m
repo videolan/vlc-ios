@@ -2,10 +2,11 @@
  * VLCEmptyLibraryView.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2018 VideoLAN. All rights reserved.
+ * Copyright (c) 2018-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Mike JS. Choi <mkchoi212 # icloud.com>
+ *          Soomin Lee <bubu@mikan.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -77,6 +78,11 @@
             title = NSLocalizedString(@"EMPTY_NO_PLAYLISTS", nil);
             description = NSLocalizedString(@"EMPTY_NO_PLAYLISTS_DESCRIPTION",
                                             nil);
+            _learnMoreButton.hidden = YES;
+            break;
+        case VLCEmptyLibraryViewContentTypeNoFavorites:
+            title = NSLocalizedString(@"NO_FAVORITES", nil);
+            description = NSLocalizedString(@"NO_FAVORITES_DESCRIPTION", nil);
             _learnMoreButton.hidden = YES;
             break;
     }

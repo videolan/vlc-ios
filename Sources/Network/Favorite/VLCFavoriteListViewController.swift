@@ -42,6 +42,14 @@ class VLCFavoriteListViewController: UIViewController {
     var layoutArray: [String: [String]] = [:]
     var aliasArray: [String: String] = [:]
 
+    private lazy var emptyView: VLCEmptyLibraryView = {
+        let name = String(describing: VLCEmptyLibraryView.self)
+        let nib = Bundle.main.loadNibNamed(name, owner: self, options: nil)
+        guard let emptyView = nib?.first as? VLCEmptyLibraryView else { fatalError("Can't find nib for \(name)") }
+        emptyView.contentType = .noFavorites
+        return emptyView
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -51,6 +59,7 @@ class VLCFavoriteListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.setEditing(false, animated: false)
+        showEmptyViewIfNeeded()
     }
 
     private func setupData() {
@@ -119,6 +128,19 @@ class VLCFavoriteListViewController: UIViewController {
         } else {
             self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("BUTTON_DONE", comment: "")
             self.navigationItem.rightBarButtonItem?.style = .done
+        }
+    }
+
+    private func showEmptyViewIfNeeded() {
+        if numberOfSections(in: self.tableView) == 0 {
+            self.tableView.backgroundView = self.emptyView
+            self.tableView.isEditing = false
+            self.navigationItem.rightBarButtonItem = nil
+        } else {
+            self.tableView.backgroundView = nil
+            if self.navigationItem.rightBarButtonItem == nil {
+                self.setupBarButton()
+            }
         }
     }
 }
@@ -195,6 +217,7 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
             } else {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
+            self.showEmptyViewIfNeeded()
         }
     }
 }
@@ -223,6 +246,7 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
 
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.showEmptyViewIfNeeded()
         }
     }
 

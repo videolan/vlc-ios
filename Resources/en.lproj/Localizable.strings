@@ -78,6 +78,9 @@
 "UPGRADING_LIBRARY" = "Upgrading Media Library";
 
 "FAVORITES" = "Favorites";
+"NO_FAVORITES" = "There are no Favorites yet";
+"NO_FAVORITES_DESCRIPTION" = "Mark your favorite folders while browsing servers to have them listed here.";
+
 "OPEN_NETWORK" = "Open Network Stream";
 "NETWORK_TITLE" = "Network Stream";
 "OPEN_NETWORK_HELP" = "Enter any HTTP, RTSP, RTMP, MMS, FTP or UDP/RTP address to open the stream directly.";
