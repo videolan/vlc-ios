@@ -212,6 +212,10 @@
     self.privateToggleButton.selected = [defaults boolForKey:kVLCPrivateWebStreaming];
     self.scanSubToggleButton.selected = [defaults boolForKey:kVLChttpScanSubtitle];
 
+    self.historyTableView.editing = NO;
+    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
+    self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
+
     [super viewWillAppear:animated];
 }
 
