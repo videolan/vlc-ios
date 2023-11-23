@@ -278,7 +278,15 @@
 
 - (void)editTableView:(id)sender
 {
-    [self.historyTableView setEditing:!self.historyTableView.editing animated:YES];
+    BOOL editing = self.historyTableView.editing;
+    [self.historyTableView setEditing:!editing animated:YES];
+    if (editing) {
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"BUTTON_EDIT", nil);
+        self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStylePlain;
+    } else {
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"BUTTON_DONE", nil);
+        self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStyleDone;
+    }
 }
 
 #pragma mark - table view cell delegation
