@@ -45,6 +45,12 @@ class VLCFavoriteListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        setupBarButton()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.setEditing(false, animated: false)
     }
 
     private func setupData() {
@@ -92,6 +98,28 @@ class VLCFavoriteListViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+
+    private func setupBarButton() {
+        let editBarButton = UIBarButtonItem(title: NSLocalizedString("BUTTON_EDIT", comment: ""),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(toggleEdit))
+        editBarButton.tintColor = PresentationTheme.current.colors.orangeUI
+        navigationItem.rightBarButtonItem = editBarButton
+    }
+
+    @objc private func toggleEdit() {
+        let editing = self.tableView.isEditing
+        self.tableView.setEditing(!editing, animated: true)
+
+        if editing {
+            self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("BUTTON_EDIT", comment: "")
+            self.navigationItem.rightBarButtonItem?.style = .plain
+        } else {
+            self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("BUTTON_DONE", comment: "")
+            self.navigationItem.rightBarButtonItem?.style = .done
+        }
     }
 }
 

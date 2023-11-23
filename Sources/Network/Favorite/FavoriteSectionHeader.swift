@@ -53,11 +53,7 @@ class FavoriteSectionHeader: UITableViewHeaderFooterView {
             renameButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -buttonPadding)
         ])
     }
-    
-    @objc func clickView(_ sender: UIView) {
-        print("You clicked on view")
-    }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
