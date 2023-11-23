@@ -152,10 +152,7 @@
     if (item.isContainer) {
         VLCNetworkServerBrowserViewController *targetViewController = [[VLCNetworkServerBrowserViewController alloc]
                                                                        initWithServerBrowser:item.containerBrowser medialibraryService:_medialibraryService];
-        
-//        [self.favoriteDelegate addFolderToFavorites:item];
-        
-        NSLog(@"%@", item);
+
         [self.navigationController pushViewController:targetViewController animated:YES];
     } else {
         if (singlePlayback) {
