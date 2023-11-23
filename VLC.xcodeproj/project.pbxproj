@@ -180,6 +180,7 @@
 		7D51B3B01BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D51B3AE1BF0EEF4005AF4D5 /* VLCPlaybackInfoMediaInfoTVViewController.m */; };
 		7D5278E41BD7E37300D0CA0E /* VLCCloudStorageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4184AA141A5492070063DF5A /* VLCCloudStorageController.m */; };
 		7D55A8532A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D55A8522A03BE610009E90E /* VLCNonInteractiveWindowSceneDelegate.m */; };
+		7D577DEC2B0F6C640063A3C1 /* VLCFrostedGlasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BADAF44185FBD9D00108BD8 /* VLCFrostedGlasView.m */; };
 		7D5A23CF24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5A23CE24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m */; };
 		7D5A23D024754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5A23CE24754A1D001F76D8 /* VLCNetworkServerBrowserVLCMedia+FTP.m */; };
 		7D5A23DF24756D03001F76D8 /* VLCLocalNetworkServiceBrowserNFS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5A23DD24756D03001F76D8 /* VLCLocalNetworkServiceBrowserNFS.m */; };
@@ -3458,6 +3459,7 @@
 				7DF90B4A1BE7A8110059C0E3 /* IASKSettingsReader.m in Sources */,
 				7DC869BA28CB7A7000EE99F8 /* VLCOpenNetworkStreamTVViewController.m in Sources */,
 				7D2DE69424D5A9AA00E8D84D /* OROpenSubtitleDownloader.m in Sources */,
+				7D577DEC2B0F6C640063A3C1 /* VLCFrostedGlasView.m in Sources */,
 				DD3EFF3E1BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserHTTP.m in Sources */,
 				DD8095EB1BE4F04E0065D8E1 /* VLCPlaybackInfoPlaybackTVViewController.m in Sources */,
 				7D398DC21CC3E709002C999A /* VLCLocalNetworkServiceBrowserBonjour.m in Sources */,
