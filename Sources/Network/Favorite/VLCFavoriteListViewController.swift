@@ -77,7 +77,7 @@ class VLCFavoriteListViewController: UIViewController {
                 } else {
                     layoutArray[hostname]?.append(urlItem)
                 }
-                return
+                continue
             }
 
             if layoutArray[alias] == nil {
