@@ -44,6 +44,8 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 @property (nonatomic) NSSet<UIGestureRecognizer *> *simultaneousGestureRecognizers;
 @property (nonatomic) BOOL disabledIdleTimer;
 
+@property (nonatomic) BOOL playbackUIShouldHide;
+
 @end
 
 @implementation VLCFullscreenMovieTVViewController
@@ -167,7 +169,17 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
         vpc.repeatMode = [defaults integerForKey:kVLCPlayerIsRepeatEnabled];
     }
 
-    [self updateThumbnailImageViewsWith:[UIImage imageNamed:@"about-app-icon"]];
+    self.playbackUIShouldHide = [defaults boolForKey:kVLCPlayerUIShouldHide];
+    if (self.playbackUIShouldHide) {
+        self.activityIndicator.alpha = 0.;
+        [self.activityIndicator stopAnimating];
+        self.bufferingLabel.hidden = YES;
+        self.audioArtworkImageView.image = nil;
+        self.audioLargeBackgroundImageView.image = nil;
+    } else {
+        [self updateThumbnailImageViewsWith:[UIImage imageNamed:@"about-app-icon"]];
+    }
+
     [vpc recoverPlaybackState];
 }
 
@@ -745,6 +757,9 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 }
 
 - (void)updateActivityIndicatorForState:(VLCMediaPlayerState)state {
+    if (self.playbackUIShouldHide) {
+        return;
+    }
     UIActivityIndicatorView *indicator = self.activityIndicator;
     switch (state) {
         case VLCMediaPlayerStateBuffering:
@@ -783,7 +798,7 @@ static const NSInteger VLCJumpInterval = 10000; // 10 seconds
 
 - (void)updateThumbnailImageViewsWith:(UIImage *)artworkImage
 {
-    if (artworkImage == nil) {
+    if (artworkImage == nil && !self.playbackUIShouldHide) {
         artworkImage = [UIImage imageNamed:@"about-app-icon"];
     }
 

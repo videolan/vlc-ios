@@ -67,6 +67,7 @@
 #define kVLCSettingPlaybackBackwardSkipLengthDefaultValue @(10)
 #define kVLCSettingSaveHTTPUploadServerStatus @"isHTTPServerOn"
 #define kVLCAutomaticallyPlayNextItem @"AutomaticallyPlayNextItem"
+#define kVLCPlayerUIShouldHide @"PlayerUIShouldHide"
 #define kVLCSettingDownloadArtwork @"download-artwork"
 #define kVLCSettingUseSPDIF @"kVLCSettingUseSPDIF"
 #define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"

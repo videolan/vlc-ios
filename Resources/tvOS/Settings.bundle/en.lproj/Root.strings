@@ -24,6 +24,7 @@
 "SETTINGS_PASSCODE_LOCK_ALLOWFACEID" = "Allow Face ID for unlock";
 "SETTINGS_HIDE_LIBRARY_IN_FILES_APP" = "Hide the media library in Files";
 "SETTINGS_VIDEO_FULLSCREEN" = "Play video in fullscreen";
+"SETTINGS_HIDE_UI_DURING_PLAYBACK" = "Hide user interface during playback";
 "SETTINGS_CONTINUE_VIDEO_PLAYBACK" = "Continue video playback";
 "SETTINGS_CONTINUE_AUDIO_PLAYBACK" = "Continue audio playback";
 "SETTINGS_CONTINUE_PLAYBACK_NEVER" = "Never";
