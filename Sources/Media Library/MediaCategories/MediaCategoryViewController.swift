@@ -1568,10 +1568,19 @@ extension MediaCategoryViewController {
         if let mediaGroupModel = model as? MediaGroupViewModel {
             mediaGroupModel.fileArrayQueue.sync {
                 var singleGroup = [VLCMLMediaGroup]()
+
+                if searchDataSource.isSearching,
+                   let dataSet = currentDataSet as? [VLCMLMediaGroup] {
+                    singleGroup = dataSet
+                } else {
+                    singleGroup = mediaGroupModel.files
+                }
+
                 // Filter single groups
-                singleGroup = mediaGroupModel.files.filter() {
+                singleGroup = singleGroup.filter() {
                     return $0.nbTotalMedia() == 1 && !$0.userInteracted()
                 }
+
                 singleGroup.forEach() {
                     guard let media = $0.media(of: .unknown)?.first else {
                         assertionFailure("MediaCategoryViewController: play: Failed to fetch media.")
