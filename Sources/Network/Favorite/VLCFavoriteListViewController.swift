@@ -267,23 +267,8 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
             }
         }
 
-        let resetButton = UIAlertAction(title: "Reset", style: .default) { _ in
-            guard let favoredFolder = self.layoutArray[oldTitle] else { return }
-            
-            let component = URLComponents(string: favoredFolder[0])
-            guard let originalName = component?.host else { return }
-            self.layoutArray[originalName] = self.layoutArray[oldTitle]
-            self.layoutArray.removeValue(forKey: oldTitle)
-            self.aliasArray.removeValue(forKey: oldTitle)
-            self.userDefaults.setValue(self.aliasArray, forKey: kVLCFavoriteGroupAlias)
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadSections(IndexSet(0...self.layoutArray.count-1), with: .automatic)
-            }
-        }
         alertController.addAction(cancelButton)
         alertController.addAction(confirmAction)
-        alertController.addAction(resetButton)
 
         present(alertController, animated: true)
     }
