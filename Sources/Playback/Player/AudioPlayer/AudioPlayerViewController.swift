@@ -89,6 +89,7 @@ class AudioPlayerViewController: PlayerViewController {
         audioPlayerView.updateThumbnailImageView()
         audioPlayerView.setupBackgroundColor()
         audioPlayerView.setupPlaybackSpeed()
+        mediaScrubProgressBar.updateInterfacePosition()
         setupGestures()
         playModeUpdated()
 

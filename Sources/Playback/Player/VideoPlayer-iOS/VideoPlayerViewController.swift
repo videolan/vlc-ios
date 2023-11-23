@@ -586,6 +586,7 @@ class VideoPlayerViewController: UIViewController {
         playbackService.recoverPlaybackState()
         playerController.lockedOrientation = .portrait
         navigationController?.navigationBar.isHidden = true
+        scrubProgressBar.updateInterfacePosition()
 
         setControlsHidden(false, animated: false)
 
