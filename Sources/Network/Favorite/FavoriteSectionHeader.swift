@@ -28,11 +28,10 @@ class FavoriteSectionHeader: UITableViewHeaderFooterView {
     lazy var renameButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Rename", for: .normal)
-        button.setTitleColor(UIColor.orange, for: .normal)
+        button.setTitle(NSLocalizedString("BUTTON_RENAME", comment: ""), for: .normal)
+        button.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(renameButtonDidPress), for: .touchUpInside)
-
         return button
     }()
     
