@@ -161,18 +161,22 @@
         if (singlePlayback) {
             [self.browsingController streamFileForItem:item];
         } else {
-            VLCMediaList *mediaList = self.serverBrowser.mediaList;
-            VLCMediaList *mediaListToPlay = [[VLCMediaList alloc] init];
-            for (NSInteger i = 0; i < [mediaList count]; ++i) {
-                VLCMedia *media = [mediaList mediaAtIndex:i];
+            NSArray<id<VLCNetworkServerBrowserItem>> *items = (self.searchController.isActive) ? _searchArray : _serverBrowser.items;
+            NSMutableArray<VLCMedia *> *mediaArray = [[NSMutableArray alloc] init];
+            VLCMedia *mediaSelected = items[index].media;
+
+            for (NSInteger i = 0, size = items.count; i < size; i++) {
+                VLCMedia *media = items[i].media;
                 if (media.mediaType != VLCMediaTypeDirectory) {
-                    [mediaListToPlay addMedia:media];
+                    [mediaArray addObject:media];
                 }
             }
-            [self.browsingController configureSubtitlesInMediaList:mediaListToPlay];
 
-            NSUInteger indexToPlay = [mediaListToPlay indexOfMedia:[mediaList mediaAtIndex:index]];
-            [self.browsingController streamMediaList:mediaListToPlay startingAtIndex:indexToPlay];
+            VLCMediaList *mediaListToPlay = [[VLCMediaList alloc] initWithArray:mediaArray];
+            [_browsingController configureSubtitlesInMediaList:mediaListToPlay];
+
+            NSUInteger indexToPlay = [mediaListToPlay indexOfMedia:mediaSelected];
+            [_browsingController streamMediaList:mediaListToPlay startingAtIndex:indexToPlay];
         }
     }
 }
@@ -248,7 +252,6 @@
     if (self.searchController.isActive) {
         if (row < _searchArray.count) {
             item = _searchArray[row];
-            singlePlayback = YES;
         }
     } else {
         NSArray *items = self.serverBrowser.items;
