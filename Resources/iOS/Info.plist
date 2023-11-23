@@ -42,6 +42,9 @@
 				<string>com.divx.divx</string>
 				<string>org.xiph.ogv</string>
 				<string>org.videolan.hevc</string>
+				<string>public.3gpp</string>
+				<string>com.adobe.flv</string>
+				<string>public.h264</string>
 			</array>
 		</dict>
 		<dict>
@@ -71,6 +74,9 @@
 				<string>org.videolan.opus</string>
 				<string>org.videolan.flac</string>
 				<string>org.xiph.oga</string>
+				<string>org.matroska.mka</string>
+				<string>org.videolan.a52</string>
+				<string>public.adts</string>
 			</array>
 		</dict>
 		<dict>
@@ -401,7 +407,11 @@
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
-				<string>ogv</string>
+				<array>
+					<string>ogv</string>
+					<string>ogm</string>
+					<string>ogx</string>
+				</array>
 				<key>public.mime-type</key>
 				<string>video/ogg</string>
 			</dict>
@@ -421,6 +431,7 @@
 				<array>
 					<string>ogg</string>
 					<string>oga</string>
+					<string>spx</string>
 				</array>
 				<key>public.mime-type</key>
 				<string>audio/ogg</string>
@@ -844,6 +855,126 @@
 			<string>org.videolan.hevc</string>
 			<key>UTTypeTagSpecification</key>
 			<dict/>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.movie</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>3GPP</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>public.3gpp</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>3g2</string>
+					<string>3ga</string>
+					<string>3gp</string>
+					<string>3gp2</string>
+					<string>3gpp</string>
+					<string>amr</string>
+					<string>amrec</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>audio/3gpp</string>
+					<string>audio/3gpp2</string>
+					<string>audio/amr</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>A52</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>org.videolan.a52</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>a52</string>
+					<string>ac3</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ADTS</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>public.adts</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>aac</string>
+					<string>adt</string>
+					<string>adts</string>
+					<string>adx</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>audio/aac</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.movie</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Flash</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>com.adobe.flv</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>flv</string>
+					<string>f4v</string>
+					<string>f4p</string>
+					<string>f4a</string>
+					<string>f4b</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>video/x-flv</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.movie</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>H264</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>public.h264</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>h264</string>
+					<string>264</string>
+				</array>
+			</dict>
 		</dict>
 	</array>
 	<key>com.apple.developer.networking.multicast</key>
