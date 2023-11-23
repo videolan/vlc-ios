@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015, 2021 VideoLAN. All rights reserved.
+ * Copyright (c) 2015, 2021, 2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -62,6 +62,7 @@
                                   kVLCSettingPlaybackBackwardSkipLength : kVLCSettingPlaybackBackwardSkipLengthDefaultValue,
                                   kVLCSettingWiFiSharingIPv6 : kVLCSettingWiFiSharingIPv6DefaultValue,
                                   kVLCAutomaticallyPlayNextItem : @(YES),
+                                  kVLCPlayerShouldRememberState: @(YES),
                                   kVLCSettingDownloadArtwork : @(YES),
                                   kVLCForceSMBV1 : @(YES),
                                   kVLCSettingBackupMediaLibrary : kVLCSettingBackupMediaLibraryDefaultValue};

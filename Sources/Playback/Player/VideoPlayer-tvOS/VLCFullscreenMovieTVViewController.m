@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2015 VideoLAN. All rights reserved.
+ * Copyright (c) 2015-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -160,6 +160,13 @@ typedef NS_ENUM(NSInteger, VLCPlayerScanState)
 
     VLCPlaybackService *vpc = [VLCPlaybackService sharedInstance];
     vpc.delegate = self;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:kVLCPlayerShouldRememberState]) {
+        vpc.shuffleMode = [defaults boolForKey:kVLCPlayerIsShuffleEnabled];
+        vpc.repeatMode = [defaults integerForKey:kVLCPlayerIsRepeatEnabled];
+    }
+
     [self updateThumbnailImageViewsWith:[UIImage imageNamed:@"about-app-icon"]];
     [vpc recoverPlaybackState];
 }

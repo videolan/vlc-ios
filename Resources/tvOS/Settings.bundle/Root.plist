@@ -61,6 +61,16 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>PlayerShouldRememberState</string>
+			<key>Title</key>
+			<string>SETTINGS_REMEMBER_PLAYER_STATE</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>

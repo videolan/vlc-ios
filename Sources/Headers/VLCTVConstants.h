@@ -2,7 +2,7 @@
  * VLCTVConstants.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2013-2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2013-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne # videolan.org>
@@ -71,6 +71,12 @@
 #define kVLCSettingUseSPDIF @"kVLCSettingUseSPDIF"
 #define kVLCSettingBackupMediaLibrary @"BackupMediaLibrary"
 #define kVLCSettingBackupMediaLibraryDefaultValue @NO
+
+#define kVLCPlayerShouldRememberState @"PlayerShouldRememberState"
+#define kVLCPlayerIsShuffleEnabled @"PlayerIsShuffleEnabled"
+#define kVLCPlayerIsShuffleEnabledDefaultValue @NO
+#define kVLCPlayerIsRepeatEnabled @"PlayerIsRepeatEnabled"
+#define kVLCPlayerIsRepeatEnabledDefaultValue @(0)
 
 #define kVLCSettingLastUsedSubtitlesSearchLanguage @"kVLCSettingLastUsedSubtitlesSearchLanguage"
 #define kVLCSettingWiFiSharingIPv6 @"wifi-sharing-ipv6"
