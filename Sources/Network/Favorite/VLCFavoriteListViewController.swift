@@ -59,6 +59,8 @@ class VLCFavoriteListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.setEditing(false, animated: false)
+        self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("BUTTON_EDIT", comment: "")
+        self.navigationItem.rightBarButtonItem?.style = .plain
         showEmptyViewIfNeeded()
     }
 
