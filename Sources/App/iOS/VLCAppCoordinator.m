@@ -2,7 +2,7 @@
  * VLCAppCoordinator.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2022-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -13,12 +13,14 @@
 #import "VLCAppCoordinator.h"
 #import <CoreSpotlight/CoreSpotlight.h>
 #import "VLCRemoteControlService.h"
+#import "VLCFavoriteService.h"
 #import "VLC-Swift.h"
 
 @interface VLCAppCoordinator()
 {
     MediaLibraryService *_mediaLibraryService;
     VLCRendererDiscovererManager *_rendererDiscovererManager;
+    VLCFavoriteService *_favoriteService;
     VLCHTTPUploaderController *_httpUploaderController;
     UITabBarController *_tabBarController;
     TabBarCoordinator *_tabCoordinator;
@@ -63,6 +65,15 @@
 - (MediaLibraryService *)mediaLibraryService
 {
     return _mediaLibraryService;
+}
+
+- (VLCFavoriteService *)favoriteService
+{
+    if (!_favoriteService) {
+        _favoriteService = [[VLCFavoriteService alloc] init];
+    }
+
+    return _favoriteService;
 }
 
 - (VLCRendererDiscovererManager *)rendererDiscovererManager

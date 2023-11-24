@@ -2,7 +2,7 @@
  * VLCAppCoordinator.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2022-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MediaLibraryService;
 @class VLCRendererDiscovererManager;
 @class VLCMLMedia;
+@class VLCFavoriteService;
 #endif
 
 @class VLCHTTPUploaderController;
@@ -31,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 #if TARGET_OS_IOS
 @property (readonly) MediaLibraryService *mediaLibraryService;
 @property (readonly) VLCRendererDiscovererManager *rendererDiscovererManager;
+@property (readonly) VLCFavoriteService *favoriteService;
 
 @property (nullable) UIWindow *externalWindow;
 
