@@ -449,7 +449,9 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
                 return
             }
 
-            if $0 == .addBookmarks || $0 == .blackBackground {
+            // Do not display these options in the action sheet.
+            if $0 == .addBookmarks || $0 == .blackBackground ||
+                $0 == .playNextItem || $0 == .playlistPlayNextItem {
                 return
             }
 
