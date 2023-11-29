@@ -429,6 +429,10 @@ extension AudioPlayerViewController {
             mediaDuration = playbackService.mediaDuration
         }
 
+        if currentState == .opening || currentState == .stopped {
+            resetABRepeat()
+        }
+
         moreOptionsActionSheet.currentMediaHasChapters = currentMediaHasChapters
     }
 
@@ -546,6 +550,22 @@ extension AudioPlayerViewController {
 
     func mediaMoreOptionsActionSheetShowPlaybackSpeedShortcut(_ displayView: Bool) {
         audioPlayerView.shouldDisplaySecondaryStackView(displayView)
+    }
+
+    override func mediaMoreOptionsActionSheetPresentABRepeatView(with abView: ABRepeatView) {
+        super.mediaMoreOptionsActionSheetPresentABRepeatView(with: abView)
+
+        guard let abRepeatView = abRepeatView else {
+            return
+        }
+
+        audioPlayerView.addSubview(abRepeatView)
+        audioPlayerView.bringSubviewToFront(abRepeatView)
+        abRepeatView.isUserInteractionEnabled = true
+        NSLayoutConstraint.activate([
+            abRepeatView.centerXAnchor.constraint(equalTo: audioPlayerView.layoutGuide.centerXAnchor),
+            abRepeatView.bottomAnchor.constraint(equalTo: mediaScrubProgressBar.topAnchor, constant: -10.0),
+        ])
     }
 }
 

@@ -397,6 +397,7 @@
 		D9B36AF62AF4020000A10C99 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B36AF42AF3E01200A10C99 /* AspectRatio.swift */; };
 		D9B4027A298BC614007E923F /* UINavigationController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B40279298BC614007E923F /* UINavigationController+StatusBar.swift */; };
 		D9B4027D298BEF4F007E923F /* AlbumHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B4027C298BEF4F007E923F /* AlbumHeaderFlowLayout.swift */; };
+		D9B421732B14AB1C000F7318 /* ABRepeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B421722B14AB1C000F7318 /* ABRepeatView.swift */; };
 		D9D6E989291BDF2200ADBC74 /* AudioPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6E988291BDF2200ADBC74 /* AudioPlayerViewController.swift */; };
 		D9F0D67A2937624900A97964 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F0D6792937624900A97964 /* PlayerViewController.swift */; };
 		DD1B31F41BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1B31F21BF637D500A369B6 /* VLCPlaybackInfoTracksTVViewController.m */; };
@@ -1108,6 +1109,7 @@
 		D9B36AF42AF3E01200A10C99 /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
 		D9B40279298BC614007E923F /* UINavigationController+StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+StatusBar.swift"; sourceTree = "<group>"; };
 		D9B4027C298BEF4F007E923F /* AlbumHeaderFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumHeaderFlowLayout.swift; sourceTree = "<group>"; };
+		D9B421722B14AB1C000F7318 /* ABRepeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABRepeatView.swift; sourceTree = "<group>"; };
 		D9D6E988291BDF2200ADBC74 /* AudioPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewController.swift; sourceTree = "<group>"; };
 		D9F0D6792937624900A97964 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		DD13A3791BEE2FAA00A35554 /* VLCMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMaskView.h; sourceTree = "<group>"; };
@@ -1717,6 +1719,7 @@
 				6D86F50425F8168600044C79 /* SpoilerButton.swift */,
 				6D758AA82577DDAF0016F675 /* EqualizerView.swift */,
 				6D8EC09125F8010E00FDDE17 /* EqualizerPresetSelector.swift */,
+				D9B421722B14AB1C000F7318 /* ABRepeatView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -3690,6 +3693,7 @@
 				6DBCE3CD2368811000BCA7D5 /* EditButtons.swift in Sources */,
 				7DEE16CE242B53E50004E88F /* VLCStoreController.m in Sources */,
 				41273A3C1A955C4100A2EF77 /* VLCMigrationViewController.m in Sources */,
+				D9B421732B14AB1C000F7318 /* ABRepeatView.swift in Sources */,
 				597B403F2625E85000C0D81E /* SliderInfoView.swift in Sources */,
 				7D9BF3112991947400B68FEC /* VLCMLMedia+App.m in Sources */,
 				7DD71F9C28FB425A00327ACE /* VLCCarPlaySceneDelegate.m in Sources */,

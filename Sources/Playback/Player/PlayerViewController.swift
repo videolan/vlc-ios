@@ -110,7 +110,22 @@ class PlayerViewController: UIViewController {
 
     lazy var mediaScrubProgressBar: MediaScrubProgressBar = {
         var mediaScrubProgressBar: MediaScrubProgressBar = MediaScrubProgressBar()
+        mediaScrubProgressBar.delegate = self
         return mediaScrubProgressBar
+    }()
+
+    var abRepeatView: ABRepeatView?
+
+    lazy var aMark: ABRepeatMarkView = {
+        let aMark = ABRepeatMarkView(icon: UIImage(named: "abRepeatMarkerFill"))
+        aMark.translatesAutoresizingMaskIntoConstraints = false
+        return aMark
+    }()
+
+    lazy var bMark: ABRepeatMarkView = {
+        let bMark = ABRepeatMarkView(icon: UIImage(named: "abRepeatMarkerFill"))
+        bMark.translatesAutoresizingMaskIntoConstraints = false
+        return bMark
     }()
 
     lazy var moreOptionsActionSheet: MediaMoreOptionsActionSheet = {
@@ -371,6 +386,13 @@ class PlayerViewController: UIViewController {
         view.transform = .identity
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        // Adjust the position of the AB Repeat marks if needed based on the device's orientation.
+        mediaScrubProgressBar.adjustABRepeatMarks(aMark: aMark, bMark: bMark)
+    }
+
     // MARK: - Public methods
 
     func showPopup(_ popupView: PopupView, with contentView: UIView, accessoryViewsDelegate: PopupViewAccessoryViewsDelegate? = nil) {
@@ -534,6 +556,12 @@ class PlayerViewController: UIViewController {
         case optionsNavigationBar.sleepTimerButton:
             resetSleepTimer()
             return
+        case optionsNavigationBar.abRepeatButton:
+            resetABRepeat()
+            break
+        case optionsNavigationBar.abRepeatMarksButton:
+            resetABRepeatMarks(true)
+            break
         default:
             assertionFailure("VideoPlayerViewController: Unvalid button.")
         }
@@ -894,6 +922,12 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
         case .equalizer:
             showIcon(button: optionsNavigationBar.equalizerButton)
             break
+        case .abRepeat:
+            showIcon(button: optionsNavigationBar.abRepeatButton)
+            break
+        case .abRepeatMarks:
+            showIcon(button: optionsNavigationBar.abRepeatMarksButton)
+            break
         default:
             assertionFailure("AudioPlayerViewController: Invalid option.")
         }
@@ -909,6 +943,12 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
             break
         case .equalizer:
             hideIcon(button: optionsNavigationBar.equalizerButton)
+            break
+        case .abRepeat:
+            hideIcon(button: optionsNavigationBar.abRepeatButton)
+            break
+        case .abRepeatMarks:
+            hideIcon(button: optionsNavigationBar.abRepeatMarksButton)
             break
         default:
             assertionFailure("AudioPlayerViewController: Invalid option.")
@@ -1051,6 +1091,30 @@ extension PlayerViewController: MediaMoreOptionsActionSheetDelegate {
 
         mediaMoreOptionsActionSheet.collectionView.reloadData()
     }
+
+    func mediaMoreOptionsActionSheetPresentABRepeatView(with abView: ABRepeatView) {
+        abView.translatesAutoresizingMaskIntoConstraints = false
+        abRepeatView = abView
+
+        guard let abRepeatView = abRepeatView else {
+            return
+        }
+
+        abRepeatView.aMarkView.isHidden = false
+        mediaScrubProgressBar.shouldHideScrubLabels = true
+    }
+
+    func mediaMoreOptionsActionSheetDidSelectAMark() {
+        mediaScrubProgressBar.setMark(aMark)
+        aMark.isEnabled = true
+    }
+
+    func mediaMoreOptionsActionSheetDidSelectBMark() {
+        mediaScrubProgressBar.setMark(bMark)
+        bMark.isEnabled = true
+        mediaScrubProgressBar.shouldHideScrubLabels = false
+        abRepeatView?.removeFromSuperview()
+    }
 }
 
 // MARK: - OptionsNavigationBarDelegate
@@ -1074,6 +1138,46 @@ extension PlayerViewController: OptionsNavigationBarDelegate {
 
     func optionsNavigationBarGetRemainingTime() -> String {
         return moreOptionsActionSheet.getRemainingTime()
+    }
+
+    func resetABRepeat() {
+        hideIcon(button: optionsNavigationBar.abRepeatButton)
+        if let abRepeatView = abRepeatView {
+            abRepeatView.removeFromSuperview()
+        }
+        resetABRepeatMarks()
+    }
+
+    private func resetABRepeatMarks(_ shouldDisplayView: Bool = false) {
+        hideIcon(button: optionsNavigationBar.abRepeatMarksButton)
+        aMark.removeFromSuperview()
+        aMark.isEnabled = false
+
+        bMark.removeFromSuperview()
+        bMark.isEnabled = false
+
+        guard let abRepeatView = abRepeatView,
+              shouldDisplayView else {
+            return
+        }
+
+        mediaMoreOptionsActionSheetPresentABRepeatView(with: abRepeatView)
+    }
+}
+
+// MARK: - MediaScrubProgressBarDelegate
+
+extension PlayerViewController: MediaScrubProgressBarDelegate {
+    func mediaScrubProgressBarSetPlaybackPosition(to value: Float) {
+        playbackService.playbackPosition = value
+    }
+
+    func mediaScrubProgressBarGetAMark() -> ABRepeatMarkView {
+        return aMark
+    }
+
+    func mediaScrubProgressBarGetBMark() -> ABRepeatMarkView {
+        return bMark
     }
 }
 

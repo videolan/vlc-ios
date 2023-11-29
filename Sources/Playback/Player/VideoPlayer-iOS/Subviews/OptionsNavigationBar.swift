@@ -16,6 +16,8 @@ import AVKit
     case playbackSpeed
     case equalizer
     case sleepTimer
+    case abRepeat
+    case abRepeatMarks
 }
 
 protocol OptionsNavigationBarDelegate: AnyObject {
@@ -79,6 +81,32 @@ class OptionsNavigationBar: UIStackView {
         return sleepTimerButton
     }()
 
+    lazy var abRepeatButton: UIButton = {
+        var abRepeatButton = UIButton(type: .system)
+        abRepeatButton.addTarget(self, action: #selector(handleABRepeatTap), for: .touchUpInside)
+        let image = UIImage(named: "abRepeat")?.withRenderingMode(.alwaysTemplate)
+        abRepeatButton.setImage(image, for: .normal)
+        abRepeatButton.tintColor = PresentationTheme.current.colors.orangeUI
+        abRepeatButton.accessibilityLabel = NSLocalizedString("AB_LOOP", comment: "")
+        abRepeatButton.contentHorizontalAlignment = .right
+        abRepeatButton.isHidden = true
+        abRepeatButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        return abRepeatButton
+    }()
+
+    lazy var abRepeatMarksButton: UIButton = {
+        var abRepeatMarksButton = UIButton(type: .system)
+        abRepeatMarksButton.addTarget(self, action: #selector(handleABRepeatMarksTap), for: .touchUpInside)
+        let image = UIImage(named: "abRepeatMarker")?.withRenderingMode(.alwaysTemplate)
+        abRepeatMarksButton.setImage(image, for: .normal)
+        abRepeatMarksButton.tintColor = PresentationTheme.current.colors.orangeUI
+        abRepeatMarksButton.accessibilityLabel = NSLocalizedString("AB_LOOP_MARKS", comment: "")
+        abRepeatMarksButton.contentHorizontalAlignment = .right
+        abRepeatMarksButton.isHidden = true
+        abRepeatMarksButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        return abRepeatMarksButton
+    }()
+
     // MARK: - Initializers
     required init(coder: NSCoder) {
         fatalError("init(coder: NsCoder) not implemented")
@@ -99,6 +127,8 @@ class OptionsNavigationBar: UIStackView {
         addArrangedSubview(playbackSpeedButton)
         addArrangedSubview(equalizerButton)
         addArrangedSubview(sleepTimerButton)
+        addArrangedSubview(abRepeatMarksButton)
+        addArrangedSubview(abRepeatButton)
     }
 
     // MARK: - Button Actions
@@ -126,5 +156,17 @@ class OptionsNavigationBar: UIStackView {
         let secondLine = NSLocalizedString("RESET_SLEEP_TIMER", comment: "")
         let message = firstLine + secondLine
         delegate?.optionsNavigationBarDisplayAlert(title: title, message: message, button: sleepTimerButton)
+    }
+
+    @objc private func handleABRepeatTap() {
+        let title = NSLocalizedString("AB_LOOP", comment: "")
+        let message = NSLocalizedString("RESET_AB_LOOP", comment: "")
+        delegate?.optionsNavigationBarDisplayAlert(title: title, message: message, button: abRepeatButton)
+    }
+
+    @objc private func handleABRepeatMarksTap() {
+        let title = NSLocalizedString("AB_LOOP_MARKS", comment: "")
+        let message = NSLocalizedString("RESET_AB_LOOP_MARKS", comment: "")
+        delegate?.optionsNavigationBarDisplayAlert(title: title, message: message, button: abRepeatMarksButton)
     }
 }

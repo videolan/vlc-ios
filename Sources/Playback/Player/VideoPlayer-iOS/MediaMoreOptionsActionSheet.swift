@@ -30,6 +30,9 @@ protocol MediaMoreOptionsActionSheetDelegate {
     func mediaMoreOptionsActionSheetRemoveAddBookmarksView()
     func mediaMoreOptionsActionSheetDidToggleShuffle(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet)
     func mediaMoreOptionsActionSheetDidTapRepeat(_ mediaMoreOptionsActionSheet: MediaMoreOptionsActionSheet)
+    func mediaMoreOptionsActionSheetPresentABRepeatView(with abView: ABRepeatView)
+    func mediaMoreOptionsActionSheetDidSelectAMark()
+    func mediaMoreOptionsActionSheetDidSelectBMark()
     @objc optional func mediaMoreOptionsActionSheetShowPlaybackSpeedShortcut(_ displayView: Bool)
 }
 
@@ -135,6 +138,12 @@ protocol MediaMoreOptionsActionSheetDelegate {
     private lazy var addBookmarksView: AddBookmarksView = {
         let addBookmarksView = bookmarksView.getAddBookmarksView()
         return addBookmarksView
+    }()
+
+    private lazy var abRepeatView: ABRepeatView = {
+        let abRepeatView = ABRepeatView(frame: CGRect(x: 0, y: 0, width: 500, height: 100))
+        abRepeatView.delegate = self
+        return abRepeatView
     }()
 
     // MARK: - Initializers
@@ -391,6 +400,25 @@ extension MediaMoreOptionsActionSheet: BookmarksViewDelegate {
     }
 }
 
+// MARK: - ABRepeatViewDelegate
+extension MediaMoreOptionsActionSheet: ABRepeatViewDelegate {
+    func abRepeatViewDidSelectAMark() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetDidSelectAMark()
+    }
+
+    func abRepeatViewDidSelectBMark() {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetDidSelectBMark()
+    }
+
+    func abRepeatViewShowIcon(_ option: OptionsNavigationBarIdentifier) {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetShowIcon(for: option)
+    }
+
+    func abRepeatViewHideIcon(_ option: OptionsNavigationBarIdentifier) {
+        moreOptionsDelegate?.mediaMoreOptionsActionSheetHideIcon(for: option)
+    }
+}
+
 // MARK: - MediaPlayerActionSheetDelegate
 extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDelegate {
     func mediaPlayerActionSheetHeaderTitle() -> String? {
@@ -434,6 +462,8 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
             return chapterView
         case .bookmarks:
             return bookmarksView
+        case .abRepeat:
+            return abRepeatView
         default:
             return mockView
         }
@@ -466,6 +496,7 @@ extension MediaMoreOptionsActionSheet: MediaPlayerActionSheetDataSource {
                 viewToPresent: selectViewToPresent(for: $0),
                 cellIdentifier: $0
             )
+
             if $0 == .interfaceLock {
                 cellModel.accessoryType = .toggleSwitch
                 cellModel.viewToPresent = nil

@@ -5,23 +5,27 @@
  *
  * Authors: Robert Gordon <robwaynegordon@gmail.com>
  *          Soomin Lee <bubu@mikan.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
 @objc (VLCMediaScrubProgressBarDelegate)
-protocol MediaScrubProgressBarDelegate {
-    func mediaScrubProgressBarShouldResetIdleTimer()
+protocol MediaScrubProgressBarDelegate: AnyObject {
+    @objc optional func mediaScrubProgressBarShouldResetIdleTimer()
+    func mediaScrubProgressBarSetPlaybackPosition(to value: Float)
+    func mediaScrubProgressBarGetAMark() -> ABRepeatMarkView
+    func mediaScrubProgressBarGetBMark() -> ABRepeatMarkView
 }
 
 @objc (VLCMediaScrubProgressBar)
 class MediaScrubProgressBar: UIStackView {
-    @objc weak var delegate: MediaScrubProgressBarDelegate?
+    weak var delegate: MediaScrubProgressBarDelegate?
     private var playbackService = PlaybackService.sharedInstance()
     private var positionSet: Bool = true
     private(set) var isScrubbing: Bool = false
     var shouldHideScrubLabels: Bool = false
-    
+
     @objc lazy private(set) var progressSlider: VLCOBSlider = {
         var slider = VLCOBSlider()
         slider.minimumValue = 0
@@ -114,6 +118,9 @@ class MediaScrubProgressBar: UIStackView {
         if !isScrubbing {
             progressSlider.value = playbackService.playbackPosition
         }
+
+        updateProgressValueIfNeeded()
+
         elapsedTimeLabel.text = playbackService.playedTime().stringValue
 
         updateCurrentTime()
@@ -149,12 +156,49 @@ class MediaScrubProgressBar: UIStackView {
         elapsedTimeLabel.setNeedsLayout()
 
         positionSet = false
-        delegate?.mediaScrubProgressBarShouldResetIdleTimer()
+        delegate?.mediaScrubProgressBarShouldResetIdleTimer?()
     }
 
     func updateBackgroundAlpha(with alpha: CGFloat) {
         scrubbingIndicatorLabel.backgroundColor = UIColor(white: 0, alpha: alpha)
         scrubbingHelpLabel.backgroundColor = UIColor(white: 0, alpha: alpha)
+    }
+
+    func setMark(_ mark: ABRepeatMarkView) {
+        // Round the value at 4 decimals in order to be able to properly compare
+        // it with the playbackService's playback position value.
+        let roundValue = round(progressSlider.value * 10000) / 10000.0
+        mark.setPosition(at: roundValue)
+        let position = CGFloat(roundValue) * progressSlider.frame.width
+        setupMarkConstraints(for: mark, at: position)
+    }
+
+    func setupMarkConstraints(for mark: ABRepeatMarkView, at position: CGFloat) {
+        addSubview(mark)
+        NSLayoutConstraint.activate([
+            mark.leadingAnchor.constraint(equalTo: progressSlider.leadingAnchor, constant: position),
+            mark.bottomAnchor.constraint(equalTo: progressSlider.topAnchor),
+            mark.widthAnchor.constraint(equalToConstant: 15),
+            mark.heightAnchor.constraint(equalToConstant: 15)
+        ])
+    }
+
+    func adjustABRepeatMarks(aMark: ABRepeatMarkView, bMark: ABRepeatMarkView) {
+        guard aMark.isEnabled else {
+            return
+        }
+
+        aMark.removeFromSuperview()
+        let aMarkPosition = CGFloat(aMark.getPosition()) * progressSlider.frame.width
+        setupMarkConstraints(for: aMark, at: aMarkPosition)
+
+        guard bMark.isEnabled else {
+            return
+        }
+
+        bMark.removeFromSuperview()
+        let bMarkPosition = CGFloat(bMark.getPosition()) * progressSlider.frame.width
+        setupMarkConstraints(for: bMark, at: bMarkPosition)
     }
 }
 
@@ -221,6 +265,26 @@ private extension MediaScrubProgressBar {
         }
     }
 
+    private func updateProgressValueIfNeeded() {
+        let roundProgress = round(progressSlider.value * 10000) / 10000.0
+
+        guard let aMark = delegate?.mediaScrubProgressBarGetAMark(),
+              let bMark = delegate?.mediaScrubProgressBarGetBMark(),
+              aMark.isEnabled && bMark.isEnabled else {
+            return
+        }
+
+        let minPosition = aMark.getPosition() < bMark.getPosition() ? aMark.getPosition() : bMark.getPosition()
+        let maxPosition = aMark.getPosition() > bMark.getPosition() ? aMark.getPosition() : bMark.getPosition()
+
+        guard roundProgress < minPosition || roundProgress > maxPosition else {
+            return
+        }
+
+        delegate?.mediaScrubProgressBarSetPlaybackPosition(to: minPosition)
+        progressSlider.value = minPosition
+    }
+
     // MARK: -
 
     @objc private func handleTimeDisplay() {
@@ -229,7 +293,7 @@ private extension MediaScrubProgressBar {
         userDefault.set(!currentSetting, forKey: kVLCShowRemainingTime)
 
         updateCurrentTime()
-        delegate?.mediaScrubProgressBarShouldResetIdleTimer()
+        delegate?.mediaScrubProgressBarShouldResetIdleTimer?()
     }
 
     // MARK: - Slider Methods
@@ -261,7 +325,7 @@ private extension MediaScrubProgressBar {
             elapsedTimeLabel.setNeedsLayout()
         }
         positionSet = false
-        delegate?.mediaScrubProgressBarShouldResetIdleTimer()
+        delegate?.mediaScrubProgressBarShouldResetIdleTimer?()
     }
 
     @objc private func progressSliderTouchDown() {

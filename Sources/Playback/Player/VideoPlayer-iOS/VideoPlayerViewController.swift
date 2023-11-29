@@ -239,6 +239,20 @@ class VideoPlayerViewController: UIViewController {
         return scrubProgressBar
     }()
 
+    private var abRepeatView: ABRepeatView?
+
+    private lazy var aMark: ABRepeatMarkView = {
+        let aMark = ABRepeatMarkView(icon: UIImage(named: "abRepeatMarkerFill"))
+        aMark.translatesAutoresizingMaskIntoConstraints = false
+        return aMark
+    }()
+
+    private lazy var bMark: ABRepeatMarkView = {
+        let bMark = ABRepeatMarkView(icon: UIImage(named: "abRepeatMarkerFill"))
+        bMark.translatesAutoresizingMaskIntoConstraints = false
+        return bMark
+    }()
+
     private(set) lazy var moreOptionsActionSheet: MediaMoreOptionsActionSheet = {
         var moreOptionsActionSheet = MediaMoreOptionsActionSheet()
         moreOptionsActionSheet.moreOptionsDelegate = self
@@ -652,6 +666,13 @@ class VideoPlayerViewController: UIViewController {
 //        FIXME: - equalizer
 //        self.scrubViewTopConstraint.constant = CGRectGetMaxY(self.navigationController.navigationBar.frame);
 //    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        // Adjust the position of the AB Repeat marks if needed based on the device's orientation.
+        scrubProgressBar.adjustABRepeatMarks(aMark: aMark, bMark: bMark)
+    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -1560,6 +1581,8 @@ private extension VideoPlayerViewController {
         optionsNavigationBar.playbackSpeedButton.isEnabled = enabled
         optionsNavigationBar.equalizerButton.isEnabled = enabled
         optionsNavigationBar.sleepTimerButton.isEnabled = enabled
+        optionsNavigationBar.abRepeatButton.isEnabled = enabled
+        optionsNavigationBar.abRepeatMarksButton.isEnabled = enabled
 
         videoPlayerControls.subtitleButton.isEnabled = enabled
         videoPlayerControls.shuffleButton.isEnabled = enabled
@@ -1638,6 +1661,10 @@ extension VideoPlayerViewController: VLCPlaybackServiceDelegate {
         if currentState == .error {
             statusLabel.showStatusMessage(NSLocalizedString("PLAYBACK_FAILED",
                                                             comment: ""))
+        }
+
+        if currentState == .opening || currentState == .stopped {
+            resetABRepeat()
         }
 
         if titleSelectionView.isHidden == false {
@@ -1805,6 +1832,18 @@ extension VideoPlayerViewController: MediaScrubProgressBarDelegate {
     func mediaScrubProgressBarShouldResetIdleTimer() {
         resetIdleTimer()
     }
+
+    func mediaScrubProgressBarSetPlaybackPosition(to value: Float) {
+        playbackService.playbackPosition = value
+    }
+
+    func mediaScrubProgressBarGetAMark() -> ABRepeatMarkView {
+        return aMark
+    }
+
+    func mediaScrubProgressBarGetBMark() -> ABRepeatMarkView {
+        return bMark
+    }
 }
 
 // MARK: - MediaMoreOptionsActionSheetDelegate
@@ -1836,6 +1875,12 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
         case .sleepTimer:
             showIcon(button: optionsNavigationBar.sleepTimerButton)
             return
+        case .abRepeat:
+            showIcon(button: optionsNavigationBar.abRepeatButton)
+            return
+        case .abRepeatMarks:
+            showIcon(button: optionsNavigationBar.abRepeatMarksButton)
+            return
         default:
             assertionFailure("VideoPlayerViewController: Option not valid.")
         }
@@ -1854,6 +1899,12 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
             return
         case .sleepTimer:
             hideIcon(button: optionsNavigationBar.sleepTimerButton)
+            return
+        case .abRepeat:
+            hideIcon(button: optionsNavigationBar.abRepeatButton)
+            return
+        case .abRepeatMarks:
+            hideIcon(button: optionsNavigationBar.abRepeatMarksButton)
             return
         default:
             assertionFailure("VideoPlayerViewController: Option not valid.")
@@ -2019,6 +2070,39 @@ extension VideoPlayerViewController: MediaMoreOptionsActionSheetDelegate {
         videoPlayerControlsDelegateRepeat(videoPlayerControls)
         mediaMoreOptionsActionSheet.collectionView.reloadData()
     }
+
+    func mediaMoreOptionsActionSheetPresentABRepeatView(with abView: ABRepeatView) {
+        abView.translatesAutoresizingMaskIntoConstraints = false
+        abRepeatView = abView
+
+        guard let abRepeatView = abRepeatView else {
+            return
+        }
+
+        abRepeatView.aMarkView.isHidden = false
+
+        view.addSubview(abRepeatView)
+        view.bringSubviewToFront(abRepeatView)
+        abRepeatView.isUserInteractionEnabled = true
+        NSLayoutConstraint.activate([
+            abRepeatView.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
+            abRepeatView.bottomAnchor.constraint(equalTo: scrubProgressBar.topAnchor, constant: -20.0),
+        ])
+
+        scrubProgressBar.shouldHideScrubLabels = true
+    }
+
+    func mediaMoreOptionsActionSheetDidSelectAMark() {
+        scrubProgressBar.setMark(aMark)
+        aMark.isEnabled = true
+    }
+
+    func mediaMoreOptionsActionSheetDidSelectBMark() {
+        scrubProgressBar.setMark(bMark)
+        bMark.isEnabled = true
+        scrubProgressBar.shouldHideScrubLabels = false
+        abRepeatView?.removeFromSuperview()
+    }
 }
 
 // MARK: - OptionsNavigationBarDelegate
@@ -2042,6 +2126,30 @@ extension VideoPlayerViewController: OptionsNavigationBarDelegate {
     private func resetSleepTimer() {
         hideIcon(button: optionsNavigationBar.sleepTimerButton)
         moreOptionsActionSheet.resetSleepTimer()
+    }
+
+    private func resetABRepeatMarks(_ shouldDisplayView: Bool = false) {
+        hideIcon(button: optionsNavigationBar.abRepeatMarksButton)
+        aMark.removeFromSuperview()
+        aMark.isEnabled = false
+
+        bMark.removeFromSuperview()
+        bMark.isEnabled = false
+
+        guard let abRepeatView = abRepeatView,
+              shouldDisplayView else {
+            return
+        }
+
+        mediaMoreOptionsActionSheetPresentABRepeatView(with: abRepeatView)
+    }
+
+    private func resetABRepeat() {
+        hideIcon(button: optionsNavigationBar.abRepeatButton)
+        if let abRepeatView = abRepeatView {
+            abRepeatView.removeFromSuperview()
+        }
+        resetABRepeatMarks()
     }
 
     private func showIcon(button: UIButton) {
@@ -2069,6 +2177,12 @@ extension VideoPlayerViewController: OptionsNavigationBarDelegate {
             return
         case optionsNavigationBar.sleepTimerButton:
             resetSleepTimer()
+            return
+        case optionsNavigationBar.abRepeatButton:
+            resetABRepeat()
+            return
+        case optionsNavigationBar.abRepeatMarksButton:
+            resetABRepeatMarks(true)
             return
         default:
             assertionFailure("VideoPlayerViewController: Unvalid button.")

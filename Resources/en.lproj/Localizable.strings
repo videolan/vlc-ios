@@ -455,6 +455,12 @@
 
 "INTERFACE_LOCK_BUTTON" = "Lock interface";
 
+"AB_LOOP" = "A→B Loop";
+"AB_LOOP_MARKS" = "A→B Loop Marks";
+
+"RESET_AB_LOOP" = "Do you want to remove the A→B loop?";
+"RESET_AB_LOOP_MARKS" = "Do you want to reset the A→B loop marks?";
+
 "SHUFFLE_HINT" = "Shuffle media list";
 "SHUFFLE_OFF_HINT" = "Do not shuffle media list";
 
