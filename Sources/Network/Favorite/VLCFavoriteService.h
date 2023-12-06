@@ -23,13 +23,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VLCFavoriteService : NSObject
 
-@property (readonly) NSUInteger numberOfFavoritedServers;
-- (NSString *)nameOfFavoritedServerAtIndex:(NSUInteger)index;
+@property (readonly) NSInteger numberOfFavoritedServers;
+- (NSInteger)numberOfFavoritesOfServerAtIndex:(NSInteger)index;
+- (VLCFavorite *)favoriteOfServerWithIndex:(NSInteger)serverIndex atIndex:(NSInteger)favoriteIndex;
+
+- (NSString *)nameOfFavoritedServerAtIndex:(NSInteger)index;
+- (void)setName:(NSString *)name ofFavoritedServerAtIndex:(NSInteger)index;
 
 - (BOOL)isFavoriteURL:(NSURL *)url;
 
 - (void)addFavorite:(VLCFavorite *)favorite;
 - (void)removeFavorite:(VLCFavorite *)favorite;
+- (void)removeFavoriteOfServerWithIndex:(NSInteger)serverIndex atIndex:(NSInteger)favoriteIndex;
 
 @end
 
