@@ -45,3 +45,4 @@
 #import "VLCNetworkServerBrowserViewController.h"
 #import "VLCLocalNetworkServiceBrowserDSM.h"
 #import "UIImage+AverageColor.h"
+#import "VLCFavoriteService.h"

@@ -9,14 +9,15 @@
 import UIKit
 
 protocol FavoriteSectionHeaderDelegate {
-    func renameSection(with oldTitle: String)
+    func renameSection(sectionIndex: NSInteger)
 }
 
 class FavoriteSectionHeader: UITableViewHeaderFooterView {
     static let identifier = "FavoriteSectionHeader"
     static let height: CGFloat = 40
     var delegate: FavoriteSectionHeaderDelegate?
-    
+    var section: NSInteger = -1
+
     lazy var hostnameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +32,7 @@ class FavoriteSectionHeader: UITableViewHeaderFooterView {
         button.setTitle(NSLocalizedString("BUTTON_RENAME", comment: ""), for: .normal)
         button.setTitleColor(PresentationTheme.current.colors.orangeUI, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.addTarget(self, action: #selector(renameButtonDidPress), for: .touchUpInside)
+        button.addTarget(self, action: #selector(renameButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -58,8 +59,7 @@ class FavoriteSectionHeader: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func renameButtonDidPress(_ sender: UIButton) {
-        guard let oldTitle = hostnameLabel.text else { return }
-        delegate?.renameSection(with: oldTitle)
+    @objc func renameButtonAction(_ sender: UIButton) {
+        delegate?.renameSection(sectionIndex: self.section)
     }
 }

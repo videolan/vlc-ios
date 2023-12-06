@@ -13,11 +13,6 @@ class VLCFavoriteListViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("FAVORITES", comment: "")
         let notificationCenter = NotificationCenter.default
-        setupData()
-        notificationCenter.addObserver(self,
-                                       selector: #selector(receiveNotification),
-                                       name: Notification.Name(kVLCNetworkServerFavoritesUpdated),
-                                       object: nil)
         notificationCenter.addObserver(self,
                                        selector: #selector(themeDidChange),
                                        name: NSNotification.Name(kVLCThemeDidChangeNotification),
@@ -38,9 +33,7 @@ class VLCFavoriteListViewController: UIViewController {
     let userDefaults: UserDefaults = UserDefaults.standard
     let detailText = NSLocalizedString("FAVORITEVC_DETAILTEXT", comment: "")
     let cellImage = UIImage(named: "heart")
-    var urlArray: [String] = []
-    var layoutArray: [String: [String]] = [:]
-    var aliasArray: [String: String] = [:]
+    let favoriteService: VLCFavoriteService = VLCAppCoordinator.sharedInstance().favoriteService
 
     private lazy var emptyView: VLCEmptyLibraryView = {
         let name = String(describing: VLCEmptyLibraryView.self)
@@ -61,35 +54,18 @@ class VLCFavoriteListViewController: UIViewController {
         self.tableView.setEditing(false, animated: false)
         self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("BUTTON_EDIT", comment: "")
         self.navigationItem.rightBarButtonItem?.style = .plain
+        self.tableView.reloadData()
         showEmptyViewIfNeeded()
     }
 
-    private func setupData() {
-        urlArray = userDefaults.stringArray(forKey: kVLCRecentFavoriteURL) ?? []
-        aliasArray = userDefaults.value(forKey: kVLCFavoriteGroupAlias) as? [String: String] ?? [:]
-
-        for urlItem in urlArray {
-            let component = URLComponents(string: urlItem)
-            guard let hostname = component?.host else {
-                return
-            }
-            guard let alias = aliasArray.first(where: { $0.value == hostname })?.key else {
-                if layoutArray[hostname] == nil {
-                    layoutArray[hostname] = [urlItem]
-                } else {
-                    layoutArray[hostname]?.append(urlItem)
-                }
-                continue
-            }
-
-            if layoutArray[alias] == nil {
-                layoutArray[alias] = [urlItem]
-            } else {
-                layoutArray[alias]?.append(urlItem)
-            }
+    @objc func themeDidChange() {
+        self.tableView.backgroundColor = PresentationTheme.current.colors.background
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
+        self.setNeedsStatusBarAppearanceUpdate()
     }
-    
+
     private func setupTableView() {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -149,7 +125,7 @@ class VLCFavoriteListViewController: UIViewController {
 
 extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return layoutArray.count
+        return favoriteService.numberOfFavoritedServers
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -158,29 +134,20 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: FavoriteSectionHeader.identifier) as! FavoriteSectionHeader
-        header.hostnameLabel.text = fetchHostnameFromSection(folderList: layoutArray, for: section)
+        header.hostnameLabel.text = favoriteService.nameOfFavoritedServer(at: section)
         header.delegate = self
+        header.section = section
         return header
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let hostname = fetchHostnameFromSection(folderList: layoutArray, for: section)
-        guard let folderCount = layoutArray[hostname]?.count else {
-            return 0
-        }
-        return folderCount
+        return favoriteService.numberOfFavoritesOfServer(at: section)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocalNetworkCell", for: indexPath) as! VLCNetworkListCell
-        let hostname = fetchHostnameFromSection(folderList: layoutArray, for: indexPath.section)
-
-        let folderURL = layoutArray[hostname]![indexPath.row]
-        let url = URL(string: folderURL)
-
-        if let cellTitle = url?.lastPathComponent {
-            cell.title = cellTitle
-        }
+        let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row)
+        cell.title = favorite.userVisibleName
         cell.isDirectory = true
         cell.thumbnailImage = UIImage(named: "folder")
         cell.folderTitleLabel.textColor = PresentationTheme.current.colors.cellTextColor
@@ -188,109 +155,35 @@ extension VLCFavoriteListViewController: UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let hostname = fetchHostnameFromSection(folderList: layoutArray, for: indexPath.section)
-        let hostnameContent = layoutArray[hostname]![indexPath.row]
-        didSelectItem(stringURL: hostnameContent)
+        let favorite = favoriteService.favoriteOfServer(with: indexPath.section, at: indexPath.row)
+        let media = VLCMedia(url: favorite.url)
+        let serverBrowser = VLCNetworkServerBrowserVLCMedia(media: media)
+        if let serverBrowserVC = VLCNetworkServerBrowserViewController(serverBrowser: serverBrowser,
+                                                                       medialibraryService: VLCAppCoordinator().mediaLibraryService) {
+            self.navigationController?.pushViewController(serverBrowserVC, animated: true)
+        }
+
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let hostname = fetchHostnameFromSection(folderList: layoutArray, for: indexPath.section)
-            guard let hostnameContent = layoutArray[hostname]?[indexPath.row] else {
-                return
-            }
-            guard let newItemHostname = URLComponents(string: hostnameContent)?.host else {
-                return
-            }
-            
-            urlArray = urlArray.filter { $0 != hostnameContent }
-            if let layoutKey = aliasArray.first(where: { $0.value == newItemHostname })?.key {
-                layoutArray[layoutKey] = urlArray.filter {$0.contains(newItemHostname)}
-            } else {
-                layoutArray[newItemHostname] = urlArray.filter {$0.contains(newItemHostname)}
-            }
-            checkForEmptyHostname()
-
-            userDefaults.set(urlArray, forKey: kVLCRecentFavoriteURL)
-            if layoutArray[hostname] == nil {
-                let sectionToDelete = IndexSet(arrayLiteral: indexPath.section)
-                tableView.deleteSections(sectionToDelete, with: .automatic)
-            } else {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
+            favoriteService.removeFavoriteOfServer(with: indexPath.section, at: indexPath.row)
+            self.tableView.reloadData()
             self.showEmptyViewIfNeeded()
         }
     }
 }
 
 extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
-    @objc func receiveNotification(notif: NSNotification) {
-        if let folder = notif.userInfo?["Folder"] as? VLCNetworkServerBrowserItem {
-            guard let newItemURL = folder.url?.absoluteString else { return }
-            guard let newItemHostname = URLComponents(string: newItemURL)?.host else { return }
+    func renameSection(sectionIndex: NSInteger) {
+        let previousName = favoriteService.nameOfFavoritedServer(at: sectionIndex)
 
-            if let indexToRemove = urlArray.firstIndex(of: newItemURL) {
-                urlArray.remove(at: indexToRemove)
-            }
-            else {
-                urlArray.append(newItemURL)
-            }
-            if let layoutKey = aliasArray.first(where: { $0.value == newItemHostname })?.key {
-                layoutArray[layoutKey] = urlArray.filter {$0.contains(newItemHostname)}
-            } else {
-                layoutArray[newItemHostname] = urlArray.filter {$0.contains(newItemHostname)}
-            }
-        }
-
-        userDefaults.set(urlArray, forKey: kVLCRecentFavoriteURL)
-        checkForEmptyHostname()
-
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.showEmptyViewIfNeeded()
-        }
-    }
-
-    func fetchHostnameFromSection(folderList dict: [String: [String]], for section: Int) -> String {
-        let keys = dict.index(dict.startIndex, offsetBy: section)
-        let hostname = dict.keys[keys]
-        return hostname
-    }
-
-    func checkForEmptyHostname() {
-        for (key, _) in layoutArray {
-            if layoutArray[key]?.isEmpty == true {
-                layoutArray.removeValue(forKey: key)
-            }
-        }
-    }
-
-    func didSelectItem(stringURL: String) {
-        guard let url = URL(string: stringURL) else { return }
-        let vlcMedia = VLCMedia(url: url)
-        let serverBrowser = VLCNetworkServerBrowserVLCMedia(media: vlcMedia)
-        if let serverBrowserVC = VLCNetworkServerBrowserViewController(serverBrowser: serverBrowser,
-                                                                       medialibraryService: VLCAppCoordinator().mediaLibraryService) {
-            self.navigationController?.pushViewController(serverBrowserVC, animated: true)
-        }
-    }
-
-    @objc func themeDidChange() {
-        self.tableView.backgroundColor = PresentationTheme.current.colors.background
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-        self.setNeedsStatusBarAppearanceUpdate()
-    }
-
-    func renameSection(with oldTitle: String) {
         let alertController = UIAlertController(title: NSLocalizedString("BUTTON_RENAME", comment: ""),
-                                                message: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), oldTitle),
+                                                message: String(format: NSLocalizedString("RENAME_MEDIA_TO", comment: ""), previousName),
                                                 preferredStyle: .alert)
         alertController.addTextField { textField in
-            textField.placeholder = oldTitle
-            textField.text = oldTitle
+            textField.placeholder = previousName
         }
         let cancelButton = UIAlertAction(title: NSLocalizedString("BUTTON_CANCEL", comment: ""),
                                          style: .cancel)
@@ -302,23 +195,8 @@ extension VLCFavoriteListViewController: FavoriteSectionHeaderDelegate {
             guard let textfieldValue = alertTextField.text else {
                 return
             }
-            
-            let folderFromHostname = self.layoutArray[oldTitle]
-            self.layoutArray.removeValue(forKey: oldTitle)
-            self.layoutArray[textfieldValue] = folderFromHostname
-            
-            if self.aliasArray[oldTitle] != nil {
-                let originalHostname = self.aliasArray[oldTitle]
-                self.aliasArray.removeValue(forKey: oldTitle)
-                self.aliasArray[textfieldValue] = originalHostname
-            } else {
-                self.aliasArray[textfieldValue] = oldTitle
-            }
-            self.userDefaults.setValue(self.aliasArray, forKey: kVLCFavoriteGroupAlias)
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadSections(IndexSet(0...self.layoutArray.count-1), with: .automatic)
-            }
+            self.favoriteService.setName(textfieldValue, ofFavoritedServerAt: sectionIndex)
+            self.tableView.reloadData()
         }
 
         alertController.addAction(cancelButton)
