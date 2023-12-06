@@ -17,6 +17,7 @@
 #import "VLCActivityManager.h"
 #import "VLCStatusLabel.h"
 #import "VLCPlaybackService.h"
+#import "VLCFavoriteService.h"
 
 #import "VLCNetworkServerBrowser-Protocol.h"
 #import "VLCServerBrowsingController.h"
@@ -27,11 +28,11 @@
 {
     UIRefreshControl *_refreshControl;
     MediaLibraryService *_medialibraryService;
+    VLCFavoriteService *_favoriteService;
 }
 @property (nonatomic) id<VLCNetworkServerBrowser> serverBrowser;
 @property (nonatomic) VLCServerBrowsingController *browsingController;
 @property (nonatomic) NSArray<id<VLCNetworkServerBrowserItem>> *searchArray;
-@property (nonatomic) NSMutableArray *favoriteArray;
 @end
 
 @implementation VLCNetworkServerBrowserViewController
@@ -49,7 +50,7 @@
                                initWithViewController:self
                                serverBrowser:browser
                                medialibraryService:_medialibraryService];
-        _favoriteArray = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:kVLCRecentFavoriteURL]];
+        _favoriteService = [[VLCAppCoordinator sharedInstance] favoriteService];
     }
     return self;
 }
@@ -221,11 +222,8 @@
     
     [self.browsingController configureCell:cell withItem:item];
     cell.delegate = self;
-    
-    NSUInteger isFavorited = [_favoriteArray indexOfObject:item.URL.absoluteString];
-    if (isFavorited != NSNotFound)
-        cell.isFavorite = YES;
-    
+    cell.isFavorite = [_favoriteService isFavoriteURL:item.URL];
+
     return cell;
 }
 
@@ -284,17 +282,20 @@
     id<VLCNetworkServerBrowserItem> item;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     item = self.serverBrowser.items[indexPath.row];
+
+    VLCFavorite *favorite = [[VLCFavorite alloc] init];
+    favorite.url = item.URL;
+
     if (!cell.isFavorite) {
         cell.isFavorite = YES;
-        [_favoriteArray addObject:item.URL.absoluteString];
+        favorite.userVisibleName = item.name;
+        [_favoriteService addFavorite:favorite];
     }
     else {
         cell.isFavorite = NO;
-        [_favoriteArray removeObject:item.URL.absoluteString];
+        [_favoriteService removeFavorite:favorite];
     }
-    
-    NSDictionary* userInfo = @{@"Folder":item};
-    [[NSNotificationCenter defaultCenter] postNotificationName:kVLCNetworkServerFavoritesUpdated object:self userInfo:userInfo];
+
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
