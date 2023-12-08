@@ -1424,14 +1424,16 @@ private extension VideoPlayerViewController {
     private func setupBrightnessControlConstraints() {
         setupCommonSliderConstraints(for: brightnessControlView)
         NSLayoutConstraint.activate([
-            brightnessControlView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor)
+            brightnessControlView.leadingAnchor.constraint(equalTo: mainLayoutGuide.leadingAnchor),
+            brightnessControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
         ])
     }
 
     private func setupVolumeControlConstraints() {
         setupCommonSliderConstraints(for: volumeControlView)
         NSLayoutConstraint.activate([
-            volumeControlView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor)
+            volumeControlView.trailingAnchor.constraint(equalTo: mainLayoutGuide.trailingAnchor),
+            volumeControlView.topAnchor.constraint(greaterThanOrEqualTo: optionsNavigationBar.bottomAnchor)
         ])
     }
 
