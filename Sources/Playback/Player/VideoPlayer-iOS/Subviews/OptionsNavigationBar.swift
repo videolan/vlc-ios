@@ -35,6 +35,7 @@ class OptionsNavigationBar: UIStackView {
         let image = UIImage(named: "filter")?.withRenderingMode(.alwaysTemplate)
         videoFiltersButton.setImage(image, for: .normal)
         videoFiltersButton.tintColor = PresentationTheme.current.colors.orangeUI
+        videoFiltersButton.imageView?.contentMode = .scaleAspectFit
         videoFiltersButton.accessibilityLabel = NSLocalizedString("VIDEO_FILTER", comment: "")
         videoFiltersButton.contentHorizontalAlignment = .right
         videoFiltersButton.isHidden = true
@@ -48,6 +49,7 @@ class OptionsNavigationBar: UIStackView {
         let image = UIImage(named: "playback")?.withRenderingMode(.alwaysTemplate)
         playbackSpeedButton.setImage(image, for: .normal)
         playbackSpeedButton.tintColor = PresentationTheme.current.colors.orangeUI
+        playbackSpeedButton.imageView?.contentMode = .scaleAspectFit
         playbackSpeedButton.accessibilityLabel = NSLocalizedString("PLAYBACK_SPEED", comment: "")
         playbackSpeedButton.contentHorizontalAlignment = .right
         playbackSpeedButton.isHidden = true
@@ -61,6 +63,7 @@ class OptionsNavigationBar: UIStackView {
         let image = UIImage(named: "equalizer")?.withRenderingMode(.alwaysTemplate)
         equalizerButton.setImage(image, for: .normal)
         equalizerButton.tintColor = PresentationTheme.current.colors.orangeUI
+        equalizerButton.imageView?.contentMode = .scaleAspectFit
         equalizerButton.accessibilityLabel = NSLocalizedString("EQUALIZER_CELL_TITLE", comment: "")
         equalizerButton.contentHorizontalAlignment = .right
         equalizerButton.isHidden = true
@@ -74,6 +77,7 @@ class OptionsNavigationBar: UIStackView {
         let image = UIImage(named: "sleepTimer")?.withRenderingMode(.alwaysTemplate)
         sleepTimerButton.setImage(image, for: .normal)
         sleepTimerButton.tintColor = PresentationTheme.current.colors.orangeUI
+        sleepTimerButton.imageView?.contentMode = .scaleAspectFit
         sleepTimerButton.accessibilityLabel = NSLocalizedString("BUTTON_SLEEP_TIMER", comment: "")
         sleepTimerButton.contentHorizontalAlignment = .right
         sleepTimerButton.isHidden = true
@@ -87,6 +91,7 @@ class OptionsNavigationBar: UIStackView {
         let image = UIImage(named: "abRepeat")?.withRenderingMode(.alwaysTemplate)
         abRepeatButton.setImage(image, for: .normal)
         abRepeatButton.tintColor = PresentationTheme.current.colors.orangeUI
+        abRepeatButton.imageView?.contentMode = .scaleAspectFit
         abRepeatButton.accessibilityLabel = NSLocalizedString("AB_LOOP", comment: "")
         abRepeatButton.contentHorizontalAlignment = .right
         abRepeatButton.isHidden = true
@@ -100,6 +105,7 @@ class OptionsNavigationBar: UIStackView {
         let image = UIImage(named: "abRepeatMarker")?.withRenderingMode(.alwaysTemplate)
         abRepeatMarksButton.setImage(image, for: .normal)
         abRepeatMarksButton.tintColor = PresentationTheme.current.colors.orangeUI
+        abRepeatMarksButton.imageView?.contentMode = .scaleAspectFit
         abRepeatMarksButton.accessibilityLabel = NSLocalizedString("AB_LOOP_MARKS", comment: "")
         abRepeatMarksButton.contentHorizontalAlignment = .right
         abRepeatMarksButton.isHidden = true
