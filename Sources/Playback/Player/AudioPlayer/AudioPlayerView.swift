@@ -258,23 +258,17 @@ class AudioPlayerView: UIView, UIGestureRecognizerDelegate {
         ])
     }
 
-    func setupSliders() {
-        let brightnessControlView = delegate?.audioPlayerViewDelegateGetBrightnessSlider(self)
-        let volumeControlView = delegate?.audioPlayerViewDelegateGetVolumeSlider(self)
+    func setupSliders(with brightnessControlView: BrightnessControlView, and volumeControlView: VolumeControlView) {
+        thumbnailView.addSubview(brightnessControlView)
+        thumbnailView.addSubview(volumeControlView)
 
-        if let brightnessControlView = brightnessControlView,
-           let volumeControlView = volumeControlView {
-            thumbnailView.addSubview(brightnessControlView)
-            thumbnailView.addSubview(volumeControlView)
+        setupCommonSliderConstraints(for: brightnessControlView)
+        setupCommonSliderConstraints(for: volumeControlView)
 
-            setupCommonSliderConstraints(for: brightnessControlView)
-            setupCommonSliderConstraints(for: volumeControlView)
-
-            NSLayoutConstraint.activate([
-                brightnessControlView.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor),
-                volumeControlView.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor)
-            ])
-        }
+        NSLayoutConstraint.activate([
+            brightnessControlView.leadingAnchor.constraint(equalTo: thumbnailView.leadingAnchor),
+            volumeControlView.trailingAnchor.constraint(equalTo: thumbnailView.trailingAnchor)
+        ])
     }
 
     func updateLabels(title: String?, artist: String?, isQueueHidden: Bool) {
