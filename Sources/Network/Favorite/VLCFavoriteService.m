@@ -13,8 +13,27 @@
 #import "VLCFavoriteService.h"
 
 NSString *VLCFavoritesContent = @"VLCFavoritesContent";
+NSString *VLCFavoriteUserVisibleName = @"VLCFavoriteUserVisibleName";
+NSString *VLCFavoriteURL = @"VLCFavoriteURL";
+NSString *VLCFavoriteArray = @"VLCFavoriteArray";
 
 @implementation VLCFavorite
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        self.userVisibleName = [coder decodeObjectForKey:VLCFavoriteUserVisibleName];
+        self.url = [coder decodeObjectForKey:VLCFavoriteURL];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.userVisibleName forKey:VLCFavoriteUserVisibleName];
+    [coder encodeObject:self.url forKey:VLCFavoriteURL];
+}
 
 @end
 
@@ -25,6 +44,21 @@ NSString *VLCFavoritesContent = @"VLCFavoritesContent";
 @end
 
 @implementation VLCFavoriteServer
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.favorites = [NSMutableArray arrayWithArray:[coder decodeObjectForKey:VLCFavoriteArray]];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [super encodeWithCoder:coder];
+    [coder encodeObject:self.favorites forKey:VLCFavoriteArray];
+}
 
 @end
 
@@ -42,7 +76,12 @@ NSString *VLCFavoritesContent = @"VLCFavoritesContent";
     self = [super init];
     if (self) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        _favoriteContentArray = [NSMutableArray arrayWithArray:[defaults objectForKey:VLCFavoritesContent]];
+        NSData *data = [defaults objectForKey:VLCFavoritesContent];
+        if (data != nil) {
+            _favoriteContentArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        } else {
+            _favoriteContentArray = [NSMutableArray array];
+        }
         _serverHostnameArray = [NSMutableArray arrayWithCapacity:_favoriteContentArray.count];
         for (VLCFavoriteServer *server in _favoriteContentArray) {
             [_serverHostnameArray addObject:server.url.host];
@@ -56,7 +95,8 @@ NSString *VLCFavoritesContent = @"VLCFavoritesContent";
     dispatch_async(dispatch_get_main_queue(), ^{
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         @synchronized (self->_favoriteContentArray) {
-            [defaults setObject:self->_favoriteContentArray forKey:VLCFavoritesContent];
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self->_favoriteContentArray];
+            [defaults setObject:data forKey:VLCFavoritesContent];
         }
     });
 }
@@ -124,7 +164,6 @@ NSString *VLCFavoritesContent = @"VLCFavoritesContent";
     VLCFavoriteServer *server;
     NSString *hostname = favorite.url.host;
     if (!hostname) {
-        NSLog(@"%s: Invalid hostname: %@ for url: %@", __func__, hostname, favorite.url);
         NSAssert(!hostname, @"invalid url for favorite");
         return;
     }
@@ -132,13 +171,18 @@ NSString *VLCFavoritesContent = @"VLCFavoritesContent";
         NSInteger serverIndex = [_serverHostnameArray indexOfObject:hostname];
         if (serverIndex == NSNotFound) {
             server = [[VLCFavoriteServer alloc] init];
+            server.userVisibleName = hostname;
+            server.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", favorite.url.scheme, favorite.url.host]];
             [_serverHostnameArray addObject:hostname];
-            serverIndex = _serverHostnameArray.count - 1;
         } else {
             server = _favoriteContentArray[serverIndex];
         }
         [server.favorites addObject:favorite];
-        [_favoriteContentArray replaceObjectAtIndex:serverIndex withObject:server];
+        if (serverIndex == NSNotFound) {
+            [_favoriteContentArray addObject:server];
+        } else {
+            [_favoriteContentArray replaceObjectAtIndex:serverIndex withObject:server];
+        }
     }
     [self storeContent];
 }
@@ -148,14 +192,12 @@ NSString *VLCFavoritesContent = @"VLCFavoritesContent";
     VLCFavoriteServer *server;
     NSString *hostname = favorite.url.host;
     if (!hostname) {
-        NSLog(@"Invalid hostname: %@ for url: %@", hostname, favorite.url);
         NSAssert(!hostname, @"invalid url for favorite");
         return;
     }
     @synchronized (_favoriteContentArray) {
         NSInteger serverIndex = [_serverHostnameArray indexOfObject:hostname];
         if (serverIndex == NSNotFound) {
-            NSLog(@"%s: No server found for hostname %@", __func__, hostname);
             NSAssert(serverIndex == NSNotFound, @"No server for hostname");
             return;
         }
@@ -168,6 +210,20 @@ NSString *VLCFavoritesContent = @"VLCFavoritesContent";
                 [server.favorites removeObjectAtIndex:index];
                 break;
             }
+        }
+    }
+    [self storeContent];
+}
+
+- (void)removeFavoriteOfServerWithIndex:(NSInteger)serverIndex atIndex:(NSInteger)favoriteIndex
+{
+    @synchronized (_favoriteContentArray) {
+        VLCFavoriteServer *server = _favoriteContentArray[serverIndex];
+        [server.favorites removeObjectAtIndex:favoriteIndex];
+        if (server.favorites.count == 0) {
+            [_favoriteContentArray removeObjectAtIndex:serverIndex];
+        } else {
+            [_favoriteContentArray replaceObjectAtIndex:serverIndex withObject:server];
         }
     }
     [self storeContent];
