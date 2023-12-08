@@ -16,6 +16,7 @@ NSString *VLCFavoritesContent = @"VLCFavoritesContent";
 NSString *VLCFavoriteUserVisibleName = @"VLCFavoriteUserVisibleName";
 NSString *VLCFavoriteURL = @"VLCFavoriteURL";
 NSString *VLCFavoriteArray = @"VLCFavoriteArray";
+NSString *VLCFavoritesFile = @"Favorites.plist";
 
 @implementation VLCFavorite
 
@@ -66,6 +67,7 @@ NSString *VLCFavoriteArray = @"VLCFavoriteArray";
 {
     NSMutableArray *_favoriteContentArray;
     NSMutableArray *_serverHostnameArray;
+    NSString *_filePath;
 }
 @end
 
@@ -75,11 +77,18 @@ NSString *VLCFavoriteArray = @"VLCFavoriteArray";
 {
     self = [super init];
     if (self) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSData *data = [defaults objectForKey:VLCFavoritesContent];
-        if (data != nil) {
-            _favoriteContentArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        } else {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        NSString *libraryFolder = [paths firstObject];
+        _filePath = [libraryFolder stringByAppendingPathComponent:VLCFavoritesFile];
+
+        if ([[NSFileManager defaultManager] fileExistsAtPath:_filePath]) {
+            NSData *data = [[NSData alloc] initWithContentsOfFile:_filePath];
+            if (data != nil) {
+                _favoriteContentArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            }
+        }
+
+        if (_favoriteContentArray == nil) {
             _favoriteContentArray = [NSMutableArray array];
         }
         _serverHostnameArray = [NSMutableArray arrayWithCapacity:_favoriteContentArray.count];
@@ -93,10 +102,9 @@ NSString *VLCFavoriteArray = @"VLCFavoriteArray";
 - (void)storeContent
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         @synchronized (self->_favoriteContentArray) {
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self->_favoriteContentArray];
-            [defaults setObject:data forKey:VLCFavoritesContent];
+            [data writeToFile:self->_filePath atomically:YES];
         }
     });
 }
@@ -113,7 +121,7 @@ NSString *VLCFavoriteArray = @"VLCFavoriteArray";
         if (index < _favoriteContentArray.count) {
             server = _favoriteContentArray[index];
         } else {
-            return NSNotFound;
+            return 0;
         }
     }
     return server.favorites.count;
@@ -173,6 +181,7 @@ NSString *VLCFavoriteArray = @"VLCFavoriteArray";
             server = [[VLCFavoriteServer alloc] init];
             server.userVisibleName = hostname;
             server.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", favorite.url.scheme, favorite.url.host]];
+            server.favorites = [NSMutableArray array];
             [_serverHostnameArray addObject:hostname];
         } else {
             server = _favoriteContentArray[serverIndex];
@@ -208,6 +217,12 @@ NSString *VLCFavoriteArray = @"VLCFavoriteArray";
             VLCFavorite *iter = favorites[index];
             if ([iter.url isEqual: favorite.url]) {
                 [server.favorites removeObjectAtIndex:index];
+                if (server.favorites.count == 0) {
+                    [_favoriteContentArray removeObjectAtIndex:serverIndex];
+                    [_serverHostnameArray removeObjectAtIndex:serverIndex];
+                } else {
+                    [_favoriteContentArray replaceObjectAtIndex:serverIndex withObject:server];
+                }
                 break;
             }
         }
@@ -222,6 +237,7 @@ NSString *VLCFavoriteArray = @"VLCFavoriteArray";
         [server.favorites removeObjectAtIndex:favoriteIndex];
         if (server.favorites.count == 0) {
             [_favoriteContentArray removeObjectAtIndex:serverIndex];
+            [_serverHostnameArray removeObjectAtIndex:serverIndex];
         } else {
             [_favoriteContentArray replaceObjectAtIndex:serverIndex withObject:server];
         }

@@ -110,7 +110,7 @@ class VLCFavoriteListViewController: UIViewController {
     }
 
     private func showEmptyViewIfNeeded() {
-        if numberOfSections(in: self.tableView) == 0 {
+        if favoriteService.numberOfFavoritedServers == 0 {
             self.tableView.backgroundView = self.emptyView
             self.tableView.isEditing = false
             self.navigationItem.rightBarButtonItem = nil
