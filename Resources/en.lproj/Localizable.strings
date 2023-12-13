@@ -22,6 +22,8 @@
 "TRACKS" = "%i Tracks";
 "TRACK" = "%i Track";
 "TRACKS_DURATION" = "%u tracks, duration: %@";
+"NB_ALBUM_FORMAT" = "%i Album";
+"NB_ALBUMS_FORMAT" = "%i Albums";
 
 "PLAYING_EXTERNALLY_TITLE" = "TV Connected";
 "PLAYING_EXTERNALLY_DESC" = "This video is playing on the TV";

@@ -187,6 +187,12 @@ extension VLCMLArtist {
         return String(format: tracksString, tracksCount)
     }
 
+    @objc func numberOfAlbumsString() -> String {
+        let albumCount = albumsCount()
+        let albumsString = albumCount == 1 ? NSLocalizedString("NB_ALBUM_FORMAT", comment: "") : NSLocalizedString("NB_ALBUMS_FORMAT", comment: "")
+        return String(format: albumsString, albumCount)
+    }
+
     @objc func artistName() -> String {
         if identifier() == UnknownArtistID {
             return NSLocalizedString("UNKNOWN_ARTIST", comment: "")
