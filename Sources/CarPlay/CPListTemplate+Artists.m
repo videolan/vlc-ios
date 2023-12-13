@@ -54,7 +54,9 @@
             artistImage = [UIImage imageNamed:@"cp-Artist"];
         }
 
-        listItem = [[CPListItem alloc] initWithText:iter.artistName detailText:iter.numberOfTracksString image:artistImage];
+        listItem = [[CPListItem alloc] initWithText:iter.artistName
+                                         detailText:[iter.numberOfAlbumsString stringByAppendingFormat:@", %@", iter.numberOfTracksString]
+                                              image:artistImage];
 
         listItem.userInfo = iter;
         listItem.handler = ^(id <CPSelectableListItem> item,
