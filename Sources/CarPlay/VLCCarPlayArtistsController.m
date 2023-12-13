@@ -2,7 +2,7 @@
  * CPListTemplate+Artists.m
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2022-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -10,15 +10,15 @@
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
 
-#import "CPListTemplate+Artists.h"
+#import "VLCCarPlayArtistsController.h"
 #import "VLC-Swift.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
 
-@implementation CPListTemplate (Artists)
+@implementation VLCCarPlayArtistsController
 
-+ (CPListTemplate *)artistList
+- (CPListTemplate *)artistList
 {
 
     CPListSection *listSection = [[CPListSection alloc] initWithItems:[self listOfArtists]];
@@ -29,7 +29,42 @@
     return template;
 }
 
-+ (NSArray *)listOfArtists
+- (NSArray *)listForAlbumsForArtist:(VLCMLArtist *)artist
+{
+    NSArray *albums = artist.albums;
+    NSMutableArray *itemList = [NSMutableArray arrayWithCapacity:albums.count];
+    for (VLCMLAlbum *album in albums) {
+        UIImage *albumCover = [VLCThumbnailsCache thumbnailForURL:album.artworkMRL];
+        if (!albumCover) {
+            albumCover = [UIImage imageNamed:@"album-placeholder-dark"];
+        }
+
+        NSString *detailText = [NSString stringWithFormat:NSLocalizedString(@"TRACKS_DURATION", nil),
+                                album.numberOfTracks, [VLCTime timeWithNumber:@(album.duration)].stringValue];
+
+        CPListItem *listItem = [[CPListItem alloc] initWithText:album.title
+                                                     detailText:detailText
+                                                          image:albumCover];
+        listItem.userInfo = album;
+        listItem.handler = ^(id <CPSelectableListItem> item,
+                             dispatch_block_t completionBlock) {
+            VLCMLAlbum *album = item.userInfo;
+            VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
+            [playbackService playCollection:[album tracks]];
+            completionBlock();
+            if (@available(iOS 14.0, *)) {
+                [self.interfaceController popToRootTemplateAnimated:YES completion:nil];
+            } else {
+                [self.interfaceController popToRootTemplateAnimated:YES];
+            }
+        };
+
+        [itemList addObject:listItem];
+    }
+    return itemList;
+}
+
+- (NSArray *)listOfArtists
 {
     NSArray *artists = [[VLCAppCoordinator sharedInstance].mediaLibraryService artistsWithSortingCriteria:VLCMLSortingCriteriaDefault
                                                                                                      desc:NO
@@ -61,11 +96,19 @@
         listItem.userInfo = iter;
         listItem.handler = ^(id <CPSelectableListItem> item,
                              dispatch_block_t completionBlock) {
-            VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
             VLCMLArtist *artist = item.userInfo;
-            [playbackService playCollection:[artist tracks]];
+            if (artist.albumsCount > 1) {
+                CPListSection *subitemsSection = [[CPListSection alloc] initWithItems:[self listForAlbumsForArtist:artist]];
+                CPListTemplate *subitemsTemplate = [[CPListTemplate alloc] initWithTitle:artist.name
+                                                                                sections:@[subitemsSection]];
+                [self.interfaceController pushTemplate:subitemsTemplate animated:YES];
+            } else {
+                VLCPlaybackService *playbackService = [VLCPlaybackService sharedInstance];
+                [playbackService playCollection:[artist tracks]];
+            }
             completionBlock();
         };
+
         [itemList addObject:listItem];
     }
 

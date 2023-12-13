@@ -14,7 +14,7 @@
 
 #import <CarPlay/CarPlay.h>
 
-#import "CPListTemplate+Artists.h"
+#import "VLCCarPlayArtistsController.h"
 #import "CPListTemplate+Genres.h"
 #import "CPListTemplate+NetworkStreams.h"
 #import "CPListTemplate+Playlists.h"
@@ -30,6 +30,7 @@
     CPInterfaceController *_interfaceController;
     CarPlayMediaLibraryObserver *_mediaLibraryObserver;
     VLCNowPlayingTemplateObserver *_nowPlayingTemplateObserver;
+    VLCCarPlayArtistsController *_artistsController;
 }
 
 @end
@@ -63,7 +64,12 @@ didDisconnectInterfaceController:(CPInterfaceController *)interfaceController
 
 - (CPTabBarTemplate *)generateRootTemplate
 {
-    CPListTemplate *artists = [CPListTemplate artistList];
+    if (!_artistsController) {
+        _artistsController = [[VLCCarPlayArtistsController alloc] init];
+        _artistsController.interfaceController = _interfaceController;
+    }
+
+    CPListTemplate *artists = [_artistsController artistList];
     CPListTemplate *genres = [CPListTemplate genreList];
     CPListTemplate *streams = [CPListTemplate streamList];
     CPListTemplate *playlists = [CPListTemplate playlists];

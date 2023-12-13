@@ -17,9 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
 
-@interface CPListTemplate (Artists)
+@interface VLCCarPlayArtistsController : NSObject
 
-+ (CPListTemplate *)artistList;
+@property (readwrite) CPInterfaceController *interfaceController;
+
+- (CPListTemplate *)artistList;
 
 @end
 
