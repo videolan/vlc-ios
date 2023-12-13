@@ -11,6 +11,7 @@
  *****************************************************************************/
 
 #import "UIImage+AverageColor.h"
+#import "VLC-Swift.h"
 
 @implementation UIImage(AverageColor)
 
@@ -36,6 +37,11 @@ CGImageRef resizeCGImage(CGImageRef image) {
         CGImageRef resizedImage = resizeCGImage(imageRef);
         CFRelease(imageRef);
         imageRef = resizedImage;
+    }
+
+    CGColorSpaceRef colorSpace = CGImageGetColorSpace(imageRef);
+    if (!colorSpace || CGColorSpaceGetModel(colorSpace) != kCGColorSpaceModelRGB) {
+        return PresentationTheme.current.colors.background;
     }
 
     CGDataProviderRef dataProvider = CGImageGetDataProvider(imageRef);
@@ -70,7 +76,7 @@ CGImageRef resizeCGImage(CGImageRef image) {
         return [UIColor colorWithRed:avgRed green:avgGreen blue:avgBlue alpha:1.0];
     }
 
-    return nil;
+    return PresentationTheme.current.colors.background;
 }
 
 @end
