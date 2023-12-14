@@ -289,7 +289,7 @@
 		7DC869EF28CB890900EE99F8 /* VLCCloudStorageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B088307183D7BEC004B5C2A /* VLCCloudStorageTableViewController.m */; };
 		7DC869F028CB895400EE99F8 /* VLCCloudStorageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3784B0183A990F009EE944 /* VLCCloudStorageTableViewCell.m */; };
 		7DCD84F1242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCD84F0242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */; };
-		7DD71F9528FB421300327ACE /* CPListTemplate+Playlists.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F8928FB421300327ACE /* CPListTemplate+Playlists.m */; };
+		7DD71F9528FB421300327ACE /* VLCCarPlayPlaylistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F8928FB421300327ACE /* VLCCarPlayPlaylistsController.m */; };
 		7DD71F9728FB421300327ACE /* CPListTemplate+NetworkStreams.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F8C28FB421300327ACE /* CPListTemplate+NetworkStreams.m */; };
 		7DD71F9828FB421300327ACE /* VLCCarPlayArtistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F8D28FB421300327ACE /* VLCCarPlayArtistsController.m */; };
 		7DD71F9928FB421300327ACE /* CPListTemplate+Genres.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD71F9028FB421300327ACE /* CPListTemplate+Genres.m */; };
@@ -972,11 +972,11 @@
 		7DCD84F0242F560800329BEB /* VLCPlaybackInfoSubtitlesFetcherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCPlaybackInfoSubtitlesFetcherViewController.xib; sourceTree = "<group>"; };
 		7DD32D22194F1946002510A9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7DD71F8828FB421300327ACE /* CPListTemplate+Genres.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPListTemplate+Genres.h"; sourceTree = "<group>"; };
-		7DD71F8928FB421300327ACE /* CPListTemplate+Playlists.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CPListTemplate+Playlists.m"; sourceTree = "<group>"; };
+		7DD71F8928FB421300327ACE /* VLCCarPlayPlaylistsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayPlaylistsController.m; sourceTree = "<group>"; };
 		7DD71F8B28FB421300327ACE /* CPListTemplate+NetworkStreams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPListTemplate+NetworkStreams.h"; sourceTree = "<group>"; };
 		7DD71F8C28FB421300327ACE /* CPListTemplate+NetworkStreams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CPListTemplate+NetworkStreams.m"; sourceTree = "<group>"; };
 		7DD71F8D28FB421300327ACE /* VLCCarPlayArtistsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCCarPlayArtistsController.m; sourceTree = "<group>"; };
-		7DD71F8E28FB421300327ACE /* CPListTemplate+Playlists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPListTemplate+Playlists.h"; sourceTree = "<group>"; };
+		7DD71F8E28FB421300327ACE /* VLCCarPlayPlaylistsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayPlaylistsController.h; sourceTree = "<group>"; };
 		7DD71F8F28FB421300327ACE /* VLCCarPlaySceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCarPlaySceneDelegate.h; sourceTree = "<group>"; };
 		7DD71F9028FB421300327ACE /* CPListTemplate+Genres.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CPListTemplate+Genres.m"; sourceTree = "<group>"; };
 		7DD71F9328FB421300327ACE /* VLCCarPlayArtistsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCCarPlayArtistsController.h; sourceTree = "<group>"; };
@@ -2583,8 +2583,8 @@
 				7DD71F9028FB421300327ACE /* CPListTemplate+Genres.m */,
 				7DD71F8B28FB421300327ACE /* CPListTemplate+NetworkStreams.h */,
 				7DD71F8C28FB421300327ACE /* CPListTemplate+NetworkStreams.m */,
-				7DD71F8E28FB421300327ACE /* CPListTemplate+Playlists.h */,
-				7DD71F8928FB421300327ACE /* CPListTemplate+Playlists.m */,
+				7DD71F8E28FB421300327ACE /* VLCCarPlayPlaylistsController.h */,
+				7DD71F8928FB421300327ACE /* VLCCarPlayPlaylistsController.m */,
 				7DD71F8F28FB421300327ACE /* VLCCarPlaySceneDelegate.h */,
 				7DD71F9B28FB425A00327ACE /* VLCCarPlaySceneDelegate.m */,
 				7D4556AA29192F5400276567 /* VLCNowPlayingTemplateObserver.h */,
@@ -3722,7 +3722,7 @@
 				7DC7BA8B28C8953800109F28 /* APLog.swift in Sources */,
 				7D30F3CA183AB27A00FFC021 /* VLCDownloadViewController.m in Sources */,
 				DD3EFF491BDEBCE500B68579 /* VLCLocalNetworkServiceBrowserPlex.m in Sources */,
-				7DD71F9528FB421300327ACE /* CPListTemplate+Playlists.m in Sources */,
+				7DD71F9528FB421300327ACE /* VLCCarPlayPlaylistsController.m in Sources */,
 				4170AF9722848DCB008881BA /* LibrarySearchDataSource.swift in Sources */,
 				7D9CB9DC1A4C55EF00BB74B4 /* VLCPlaybackNavigationController.m in Sources */,
 				E0F8980422D399E10061DB2F /* MediaScrubProgressBar.swift in Sources */,

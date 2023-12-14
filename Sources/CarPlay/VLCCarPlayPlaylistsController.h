@@ -1,8 +1,8 @@
 /*****************************************************************************
- * CPListTemplate+Playlists.h
+ * VLCCarPlayPlaylistsController.h
  * VLC for iOS
  *****************************************************************************
- * Copyright (c) 2022 VideoLAN. All rights reserved.
+ * Copyright (c) 2022-2023 VideoLAN. All rights reserved.
  * $Id$
  *
  * Author: Felix Paul Kühne <fkuehne # videolan.org>
@@ -17,9 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
 
-@interface CPListTemplate (Playlists)
+@interface VLCCarPlayPlaylistsController : NSObject
 
-+ (CPListTemplate *)playlists;
+@property (readwrite) CPInterfaceController *interfaceController;
+
+- (CPListTemplate *)playlists;
 
 @end
 
