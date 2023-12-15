@@ -1447,10 +1447,9 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     }
 
     CGFloat lastPosition = media.progress;
-    // .95 prevents the controller from opening and closing immediatly when restoring state
-    //  Additionally, check if the media is more than 10 sec
-    if (lastPosition < .95
-        && _mediaPlayer.position < lastPosition) {
+    SInt64 mediaDuration = media.duration;
+
+    if (_mediaPlayer.position < lastPosition) {
         NSInteger continuePlayback;
         if (media.type == VLCMLMediaTypeAudio) {
             if (!media.isPodcast) {
@@ -1458,14 +1457,16 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
             }
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinueAudioPlayback] integerValue];
         } else {
-            if (media.duration < 10000 && !media.isExternalMedia) {
+            if (mediaDuration < 10000 && !media.isExternalMedia) {
                 goto bailout;
             }
             continuePlayback = [[[NSUserDefaults standardUserDefaults] objectForKey:kVLCSettingContinuePlayback] integerValue];
         }
 
         if (continuePlayback == 1) {
-            [self setPlaybackPosition:lastPosition];
+            if (lastPosition * mediaDuration > 120000.) {
+                [self setPlaybackPosition:lastPosition];
+            }
         } else if (continuePlayback == 0) {
             NSArray<VLCAlertButton *> *buttonsAction = @[[[VLCAlertButton alloc] initWithTitle: NSLocalizedString(@"BUTTON_CANCEL", nil)
                                                                                          style: UIAlertActionStyleCancel
