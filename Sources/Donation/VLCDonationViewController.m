@@ -24,6 +24,8 @@
     UIImageView *_payPalImageView;
     NSArray *_paymentProviders;
     NSString *_selectedPaymentProvider;
+    UIColor *_blueColor;
+    UIColor *_lightBlueColor;
 }
 
 @end
@@ -36,6 +38,9 @@
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
+    if (@available(iOS 14.0, *)) {
+        self.continueButton.role = UIButtonRolePrimary;
+    }
 
     _titleLabel.text = NSLocalizedString(@"DONATION_TITLE", nil);
     _descriptionLabel.text = NSLocalizedString(@"DONATION_DESCRIPTION", nil);
@@ -43,6 +48,14 @@
     [_frequencySwitch setTitle:NSLocalizedString(@"DONATION_MONTHLY", nil) forSegmentAtIndex:1];
     _customAmountField.placeholder = NSLocalizedString(@"DONATION_CUSTOM_AMOUNT", nil);
     [_continueButton setTitle:NSLocalizedString(@"BUTTON_CONTINUE", nil) forState:UIControlStateNormal];
+
+    _continueButton.layer.cornerRadius = 5.;
+    _fiveButton.layer.cornerRadius = 5.;
+    _tenButton.layer.cornerRadius = 5.;
+    _twentyButton.layer.cornerRadius = 5.;
+    _thirtyButton.layer.cornerRadius = 5.;
+    _fiftyButton.layer.cornerRadius = 5.;
+    _hundredButton.layer.cornerRadius = 5.;
 
     _paymentProviders = @[NSLocalizedString(@"DONATE_CC_DC", nil), @"PayPal", @"Apple Pay"];
 
@@ -52,6 +65,35 @@
     _actionSheet.modalPresentationStyle = UIModalPresentationCustom;
     [_actionSheet.collectionView registerClass:[VLCActionSheetCell class]
                     forCellWithReuseIdentifier:VLCActionSheetCell.identifier];
+
+    [self updateColors];
+}
+
+- (void)updateColors
+{
+    ColorPalette *colors = PresentationTheme.current.colors;
+
+    _blueColor = [UIColor colorWithRed:0.0392 green:0.5176 blue:1. alpha:1.0];
+    _lightBlueColor = [UIColor colorWithRed:0.0392 green:0.5176 blue:1. alpha:.5];
+    UIColor *whileColor = [UIColor whiteColor];
+
+    _continueButton.backgroundColor = colors.orangeUI;
+    [_continueButton setTitleColor:whileColor forState:UIControlStateNormal];
+    _customAmountField.backgroundColor = colors.background;
+    _customAmountField.layer.borderColor = colors.textfieldBorderColor.CGColor;
+
+    _fiveButton.backgroundColor = _lightBlueColor;
+    [_fiveButton setTitleColor:whileColor forState:UIControlStateNormal];
+    _tenButton.backgroundColor = _lightBlueColor;
+    [_tenButton setTitleColor:whileColor forState:UIControlStateNormal];
+    _twentyButton.backgroundColor = _lightBlueColor;
+    [_twentyButton setTitleColor:whileColor forState:UIControlStateNormal];
+    _thirtyButton.backgroundColor = _lightBlueColor;
+    [_thirtyButton setTitleColor:whileColor forState:UIControlStateNormal];
+    _fiftyButton.backgroundColor = _lightBlueColor;
+    [_fiftyButton setTitleColor:whileColor forState:UIControlStateNormal];
+    _hundredButton.backgroundColor = _lightBlueColor;
+    [_hundredButton setTitleColor:whileColor forState:UIControlStateNormal];
 }
 
 - (NSString *)title
@@ -67,6 +109,13 @@
     _thirtyButton.selected = NO;
     _fiftyButton.selected = NO;
     _hundredButton.selected = NO;
+
+    _fiveButton.backgroundColor = _lightBlueColor;
+    _tenButton.backgroundColor = _lightBlueColor;
+    _twentyButton.backgroundColor = _lightBlueColor;
+    _thirtyButton.backgroundColor = _lightBlueColor;
+    _fiftyButton.backgroundColor = _lightBlueColor;
+    _hundredButton.backgroundColor = _lightBlueColor;
 }
 
 - (IBAction)numberButtonAction:(UIButton *)sender
@@ -76,6 +125,7 @@
     _selectedDonationAmount = sender.tag;
     _continueButton.enabled = YES;
     _applePayButton.enabled = YES;
+    sender.backgroundColor = _blueColor;
 }
 
 - (IBAction)continueButtonAction:(id)sender

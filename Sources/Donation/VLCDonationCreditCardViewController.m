@@ -37,6 +37,9 @@
         self.expiryDateField.textContentType = UITextContentTypeCreditCardExpiration;
         self.cvvField.textContentType = UITextContentTypeCreditCardSecurityCode;
     }
+    if (@available(iOS 14.0, *)) {
+        self.continueButton.role = UIButtonRolePrimary;
+    }
 
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelDonation:)]];
 }
@@ -66,6 +69,5 @@
 {
     _continueButton.enabled = _cvvField.text.floatValue > 0. && _expiryDateField.text.length == 5 && _creditCardNumberField.text.length == 16;
 }
-
 
 @end

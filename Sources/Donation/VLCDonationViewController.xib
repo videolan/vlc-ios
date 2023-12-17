@@ -54,26 +54,26 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fu9-WU-uRm">
+                        <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fu9-WU-uRm">
                             <rect key="frame" x="55" y="310" width="85" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="85" id="KqN-BU-k47"/>
                                 <constraint firstAttribute="height" constant="40" id="auS-jS-u4i"/>
                             </constraints>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="tinted" title="5 €"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="5 €"/>
                             <connections>
                                 <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="qQw-78-d9O"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDE-wm-Hfp">
+                        <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDE-wm-Hfp">
                             <rect key="frame" x="157" y="310" width="85" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="85" id="Wof-pH-9xg"/>
                                 <constraint firstAttribute="height" constant="40" id="mXa-hZ-rTe"/>
                             </constraints>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="tinted" title="10 €"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="10 €"/>
                             <connections>
                                 <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="nS9-gk-5RR"/>
                             </connections>
@@ -88,50 +88,50 @@
                                 <segment title="Monthly"/>
                             </segments>
                         </segmentedControl>
-                        <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxo-eu-0Ta">
+                        <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxo-eu-0Ta">
                             <rect key="frame" x="259" y="310" width="85" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="37e-FU-0Gp"/>
                                 <constraint firstAttribute="width" constant="85" id="jfC-8g-CNC"/>
                             </constraints>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="tinted" title="20 €"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="20 €"/>
                             <connections>
                                 <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="oYE-YK-0KP"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tT8-UU-5YW">
+                        <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tT8-UU-5YW">
                             <rect key="frame" x="55" y="367" width="85" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="85" id="lKf-MS-Jjl"/>
                                 <constraint firstAttribute="height" constant="40" id="mGY-2O-dDX"/>
                             </constraints>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="tinted" title="30 €"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="30 €"/>
                             <connections>
                                 <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="hpR-wY-fb6"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mgh-to-CMA">
+                        <button opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mgh-to-CMA">
                             <rect key="frame" x="157" y="367" width="85" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="19P-21-ihg"/>
                                 <constraint firstAttribute="width" constant="85" id="p8e-FR-d5u"/>
                             </constraints>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="tinted" title="50 €"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="50 €"/>
                             <connections>
                                 <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="eQM-fE-lPv"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBy-Ki-65a">
+                        <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBy-Ki-65a">
                             <rect key="frame" x="259" y="367" width="85" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="l1p-qH-0V4"/>
                                 <constraint firstAttribute="width" constant="85" id="ovF-Qb-PVr"/>
                             </constraints>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="tinted" title="100 €"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="100 €"/>
                             <connections>
                                 <action selector="numberButtonAction:" destination="-1" eventType="primaryActionTriggered" id="tN4-LT-lMI"/>
                             </connections>
@@ -152,8 +152,9 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="FA0-D0-NyL"/>
                             </constraints>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="filled" title="Donate with Credit or Debit Card"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Donate with Credit or Debit Card"/>
                             <connections>
                                 <action selector="continueButtonAction:" destination="-1" eventType="primaryActionTriggered" id="o1A-g7-tgy"/>
                             </connections>
