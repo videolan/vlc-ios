@@ -29,6 +29,14 @@
     self.expiryDateLabel.text = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE", nil);
     self.expiryDateField.placeholder = NSLocalizedString(@"DONATION_CC_EXPIRY_DATE_FORMAT", nil);
     self.cvvLabel.text = NSLocalizedString(@"DONATION_CC_CVV", nil);
+    if (@available(iOS 15.0, *)) {
+        self.expiryDateField.textContentType = UITextContentTypeDateTime;
+    }
+    if (@available(iOS 17.0, *)) {
+        self.creditCardNumberField.textContentType = UITextContentTypeCreditCardNumber;
+        self.expiryDateField.textContentType = UITextContentTypeCreditCardExpiration;
+        self.cvvField.textContentType = UITextContentTypeCreditCardSecurityCode;
+    }
 
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelDonation:)]];
 }

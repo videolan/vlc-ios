@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment version="4128" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,8 +31,8 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oz4-oI-ttj">
-                    <rect key="frame" x="-3" y="39" width="399" height="593"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oz4-oI-ttj">
+                    <rect key="frame" x="-3" y="39" width="399" height="779"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VLCCone512x512.png" translatesAutoresizingMaskIntoConstraints="NO" id="iXP-bK-0Va">
                             <rect key="frame" x="149.66666666666666" y="20" width="100" height="100"/>
@@ -201,7 +201,7 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="leading" secondItem="oz4-oI-ttj" secondAttribute="leading" constant="3" id="Hj4-p6-Ye8"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="top" secondItem="oz4-oI-ttj" secondAttribute="top" constant="20" id="Hu1-bU-2JV"/>
                 <constraint firstItem="oz4-oI-ttj" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" constant="3" id="JNF-lJ-P4g"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="oz4-oI-ttj" secondAttribute="bottom" id="rgC-c5-Cwd"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="oz4-oI-ttj" secondAttribute="bottom" id="rgC-c5-Cwd"/>
             </constraints>
             <point key="canvasLocation" x="-19.083969465648853" y="-12.67605633802817"/>
         </view>
