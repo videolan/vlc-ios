@@ -37,8 +37,10 @@ UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextConten
     if (@available(iOS 15.0, *)) {
         self.expiryDateField.textContentType = UITextContentTypeDateTime;
     }
-    if (@available(iOS 17.0, *)) {
+    if (@available(iOS 10.0, *)) {
         self.creditCardNumberField.textContentType = UITextContentTypeCreditCardNumber;
+    }
+    if (@available(iOS 17.0, *)) {
         self.expiryDateField.textContentType = UITextContentTypeCreditCardExpiration;
         self.cvvField.textContentType = UITextContentTypeCreditCardSecurityCode;
     }
