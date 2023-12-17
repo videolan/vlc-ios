@@ -12,6 +12,11 @@
 
 #import "VLCDonationCreditCardViewController.h"
 
+#ifndef UITextContentTypeCreditCardExpiration
+UITextContentType const UITextContentTypeCreditCardExpiration = @"UITextContentTypeCreditCardExpiration";
+UITextContentType const UITextContentTypeCreditCardSecurityCode = @"UITextContentTypeCreditCardSecurityCode";
+#endif
+
 @interface VLCDonationCreditCardViewController ()
 {
     float _donationAmount;
