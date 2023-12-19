@@ -259,8 +259,8 @@ class VideoPlayerViewController: UIViewController {
         return moreOptionsActionSheet
     }()
 
-    private(set) lazy var aspectRatioActionSheet: ActionSheet = {
-        var aspectRatioActionSheet = ActionSheet()
+    private(set) lazy var aspectRatioActionSheet: MediaPlayerActionSheet = {
+        var aspectRatioActionSheet = MediaPlayerActionSheet()
         aspectRatioActionSheet.dataSource = self
         aspectRatioActionSheet.delegate = self
         aspectRatioActionSheet.modalPresentationStyle = .custom

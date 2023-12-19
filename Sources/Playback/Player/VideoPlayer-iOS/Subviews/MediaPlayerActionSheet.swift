@@ -291,7 +291,7 @@ class MediaPlayerActionSheet: ActionSheet {
                     bookmarksView.update()
                 }
             } else {
-                preconditionFailure("MediaMoreOptionsActionSheet: Action:: Item's could not be cased as UIView")
+                return
             }
         }
         setTheme()
