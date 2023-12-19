@@ -364,10 +364,8 @@ class ActionSheetCell: UICollectionViewCell {
     }
 
     private func getThemeColors() -> ColorPalette {
-        if isMediaPlayerActionSheetCell && PresentationTheme.current.isBlack {
-            return PresentationTheme.blackTheme.colors
-        } else if isMediaPlayerActionSheetCell {
-            return PresentationTheme.darkTheme.colors
+        if isMediaPlayerActionSheetCell {
+            return PresentationTheme.currentExcludingWhite.colors
         } else {
             return PresentationTheme.current.colors
         }
