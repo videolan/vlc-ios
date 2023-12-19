@@ -2,6 +2,7 @@
 
 ## iOS [3.5.0]
 · Add new playback history feature
+· Add A to B loop support
 · Remember playback position and state for media on network servers and external devices
 · Cache generated artwork for external media
 · Add Siri integration to control playback in VLC and access locally stored media
@@ -16,9 +17,13 @@
 · Split the automatically play next item settings for playlists and other collections
 · Gather the appearance settings
 · Add long press gesture to the aspect ratio button to display the ratios' list
+· Add option to remember the last playback speed
+· Improve CarPlay support for artists and playlists
+· Improve playback continuation for very long media
 
 ## tvOS [3.5.0]
-· Fix the display of media's artworks for audio playback.
+· Fix the display of media's artworks for audio playback
+· Add option to hide playback UI on loop
 
 ## iOS [3.4.9]
 · Noticable stability improvements
