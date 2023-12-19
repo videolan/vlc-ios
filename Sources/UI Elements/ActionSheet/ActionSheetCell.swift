@@ -374,13 +374,17 @@ class ActionSheetCell: UICollectionViewCell {
     private func updateColors() {
         let shouldUpdateColors = delegate?.actionSheetCellShouldUpdateColors() ?? true
         let colors = getThemeColors()
+
         if shouldUpdateColors {
             name.textColor = isSelected ? colors.orangeUI : colors.cellTextColor
             tintColor = isSelected ? colors.orangeUI : colors.cellDetailTextColor
         }
+
         if accessoryType != .toggleSwitch {
             accessoryView.tintColor = isSelected && accessoryType == .checkmark ? colors.orangeUI : colors.cellDetailTextColor
         }
+
+        viewToPresent?.backgroundColor = colors.background
     }
 
     @objc private func switchToggled(_ sender: UISwitch) {
@@ -476,12 +480,8 @@ class ActionSheetCell: UICollectionViewCell {
     }
 
     @objc private func updateTheme() {
-        let colors = getThemeColors()
-        backgroundColor = colors.background
-        name.textColor = colors.cellTextColor
-        name.backgroundColor = backgroundColor
-        stackView.backgroundColor = colors.background
-        viewToPresent?.backgroundColor = backgroundColor
+        backgroundColor = .clear
+        name.backgroundColor = .clear
         updateColors()
     }
 
