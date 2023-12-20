@@ -35,7 +35,6 @@ CGImageRef resizeCGImage(CGImageRef image) {
 
     if (width > 4096 || height > 4096) {
         CGImageRef resizedImage = resizeCGImage(imageRef);
-        CFRelease(imageRef);
         imageRef = resizedImage;
     }
 
@@ -65,7 +64,6 @@ CGImageRef resizeCGImage(CGImageRef image) {
     }
 
     CFRelease(imageData);
-    CFRelease(imageRef);
 
     // Calculate the average color
     if (pixelCount > 0) {
