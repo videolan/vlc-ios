@@ -170,7 +170,7 @@
         [self.navigationController pushViewController:payPalVC animated:YES];
     } else if ([_selectedPaymentProvider isEqualToString:@"Apple Pay"]) {
         APLog(@"Donation done via Apple Pay");
-    } else {
+    } else if ([_selectedPaymentProvider isEqualToString:NSLocalizedString(@"DONATE_CC_DC", nil)]) {
         VLCDonationCreditCardViewController *ccVC = [[VLCDonationCreditCardViewController alloc] initWithNibName:nil bundle:nil];
         [ccVC setDonationAmount:_selectedDonationAmount];
         [self.navigationController pushViewController:ccVC animated:YES];
