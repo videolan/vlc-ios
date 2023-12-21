@@ -524,6 +524,8 @@
 "SETTINGS_PLAYLIST_PLAY_ALL" = "Seamless playback for playlists";
 "SETTINGS_PLAYLIST_PLAY_ALL_HINT" = "Enable to automatically play the next media in a playlist";
 
+"SETTINGS_DOCUMENTATION" = "Documentation";
+
 // MARK: - Local Network
 
 "SMBV1_WARN_TITLE" = "SMBv1 Connection Warning";
@@ -562,7 +564,6 @@
 "MEDIALIBRARY_ADDING_PLACEHOLDER" = "Adding...";
 
 // MARK: - tip jar
-"GIVE_TIP" = "Give a Tip";
 "CANNOT_MAKE_PAYMENTS" = "You are not allowed to make payments on this device.";
 "PURCHASE_FAILED" = "Purchase Failed.";
 "SEND_DONATION" = "Send your donation";

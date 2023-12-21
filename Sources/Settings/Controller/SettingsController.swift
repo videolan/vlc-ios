@@ -112,12 +112,12 @@ class SettingsController: UITableViewController {
         navigationItem.leftBarButtonItem = aboutBarButton
         self.navigationItem.leftBarButtonItem?.accessibilityIdentifier = VLCAccessibilityIdentifier.about
 
-        let tipJarBarButton = UIBarButtonItem(title: NSLocalizedString("GIVE_TIP", comment: ""),
+        let docButton = UIBarButtonItem(title: NSLocalizedString("SETTINGS_DOCUMENTATION", comment: ""),
                                              style: .plain,
                                              target: self,
-                                             action: #selector(showTipJar))
-        aboutBarButton.tintColor = PresentationTheme.current.colors.orangeUI
-        navigationItem.rightBarButtonItem = tipJarBarButton
+                                             action: #selector(showDocumentation))
+        docButton.tintColor = PresentationTheme.current.colors.orangeUI
+        navigationItem.rightBarButtonItem = docButton
     }
 
     private func setNavBarAppearance() {
@@ -137,6 +137,13 @@ class SettingsController: UITableViewController {
         let aboutController = AboutController()
         let aboutNavigationController = AboutNavigationController(rootViewController: aboutController)
         present(aboutNavigationController, animated: true)
+    }
+
+    @objc private func showDocumentation() {
+        if #available(iOS 10, *) {
+            ImpactFeedbackGenerator().selectionChanged()
+        }
+        UIApplication.shared.openURL(URL(string: "https://docs.videolan.me/vlc-user/ios/3.X/en/index.html")!)
     }
 
     @objc private func showTipJar() {
