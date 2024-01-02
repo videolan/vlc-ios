@@ -66,9 +66,10 @@
 
 - (NSArray *)listOfArtists
 {
+    BOOL hideFeatArtists = [[NSUserDefaults standardUserDefaults] boolForKey:kVLCAudioLibraryHideFeatArtists];
     NSArray *artists = [[VLCAppCoordinator sharedInstance].mediaLibraryService artistsWithSortingCriteria:VLCMLSortingCriteriaDefault
                                                                                                      desc:NO
-                                                                                                  listAll:YES];
+                                                                                                  listAll:!hideFeatArtists];
 
     NSUInteger count = artists.count;
     NSMutableArray *itemList = [[NSMutableArray alloc] initWithCapacity:count];
