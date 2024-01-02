@@ -835,11 +835,6 @@ NSString *const VLCPlaybackServicePlaybackDidMoveOnToNextItem = @"VLCPlaybackSer
     });
 }
 
-- (void)setPlayAsAudio:(BOOL)playAsAudio
-{
-    _playAsAudio = playAsAudio;
-}
-
 #pragma mark - playback controls
 - (void)playPause
 {

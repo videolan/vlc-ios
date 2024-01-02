@@ -1791,7 +1791,7 @@ extension VideoPlayerViewController: PlayerControllerDelegate {
 extension VideoPlayerViewController: MediaNavigationBarDelegate {
     func mediaNavigationBarDidTapClose(_ mediaNavigationBar: MediaNavigationBar) {
         playbackService.stopPlayback()
-        playbackService.setPlayAsAudio(false)
+        playbackService.playAsAudio = false
     }
 
     func mediaNavigationBarDidToggleQueueView(_ mediaNavigationBar: MediaNavigationBar) {

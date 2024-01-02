@@ -900,7 +900,7 @@ private extension MediaCategoryViewController {
                 case .appendToQueue:
                     playbackController.appendMediaToQueue(media)
                 case .playAsAudio:
-                    playbackController.setPlayAsAudio(true)
+                    playbackController.playAsAudio = true
                     playbackController.play(media)
                 default:
                     assertionFailure("generatePlayAction: cannot be used with other actions")
@@ -923,7 +923,7 @@ private extension MediaCategoryViewController {
                 case .appendToQueue:
                     playbackController.appendCollectionToQueue(files)
                 case .playAsAudio:
-                    playbackController.setPlayAsAudio(true)
+                    playbackController.playAsAudio = true
                     playbackController.playCollection(files)
                 default:
                     assertionFailure("generatePlayAction: cannot be used with other actions")
@@ -1044,7 +1044,7 @@ extension MediaCategoryViewController {
 
         // Reset the play as audio variable
         let playbackService = PlaybackService.sharedInstance()
-        playbackService.setPlayAsAudio(false)
+        playbackService.playAsAudio = false
 
         if let mediaGroup = modelContent as? VLCMLMediaGroup,
             mediaGroup.nbTotalMedia() == 1 && !mediaGroup.userInteracted() {
