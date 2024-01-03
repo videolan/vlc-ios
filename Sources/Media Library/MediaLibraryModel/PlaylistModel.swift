@@ -5,6 +5,7 @@
  * Copyright © 2018 Videolabs
  *
  * Authors: Soomin Lee <bubu@mikan.io>
+ *          Diogo Simao Marques <dogo@videolabs.io>
  *
  * Refer to the COPYING file of the official project for license.
  *****************************************************************************/
@@ -57,9 +58,7 @@ class PlaylistModel: MLBaseModel {
             fileArrayLock.unlock()
         }
         for case let playlist in items {
-            if !(medialibrary.deletePlaylist(with: playlist.identifier())) {
-                assertionFailure("PlaylistModel: Failed to delete playlist: \(playlist.identifier())")
-            }
+            // An imported playlist (such as .m3u playlists) should be read only and be deleted via the File Manager.
             if playlist.isReadOnly {
                 do {
                     if let path = playlist.mrl?.path, !path.isEmpty {
@@ -68,6 +67,10 @@ class PlaylistModel: MLBaseModel {
                 } catch let error as NSError {
                     assertionFailure("PlaylistModel: Delete failed: \(error.localizedDescription)")
                 }
+            }
+
+            if !(medialibrary.deletePlaylist(with: playlist.identifier())) {
+                assertionFailure("PlaylistModel: Failed to delete playlist: \(playlist.identifier())")
             }
         }
 
