@@ -98,13 +98,13 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
     func updateRepeatButton() {
         switch playbackService.repeatMode {
         case .doNotRepeat:
-            repeatButton.setImage(UIImage(named: "iconNoRepeat"), for: .normal)
+            repeatButton.setImage(UIImage(named: "iconRepeatLarge"), for: .normal)
             repeatButton.tintColor = .white
         case .repeatCurrentItem:
-            repeatButton.setImage(UIImage(named: "iconRepeatOne"), for: .normal)
+            repeatButton.setImage(UIImage(named: "iconRepeatOneOnLarge"), for: .normal)
             repeatButton.tintColor = PresentationTheme.current.colors.orangeUI
         case .repeatAllItems:
-            repeatButton.setImage(UIImage(named: "iconRepeat"), for: .normal)
+            repeatButton.setImage(UIImage(named: "iconRepeatOnLarge"), for: .normal)
             repeatButton.tintColor = PresentationTheme.current.colors.orangeUI
         @unknown default:
             assertionFailure("AudioMiniPlayer.updateRepeatButton: unhandled case.")
@@ -113,8 +113,11 @@ class AudioMiniPlayer: UIView, MiniPlayer, QueueViewControllerDelegate {
 
     func updateShuffleButton() {
         let colors = PresentationTheme.current.colors
-        shuffleButton.tintColor =
-        playbackService.isShuffleMode ? colors.orangeUI : colors.cellTextColor
+        let isShuffleMode = playbackService.isShuffleMode
+        let image = isShuffleMode ? UIImage(named: "iconShuffleOnLarge") : UIImage(named: "iconShuffleLarge")
+
+        shuffleButton.setImage(image, for: .normal)
+        shuffleButton.tintColor = isShuffleMode ? colors.orangeUI : colors.cellTextColor
     }
 
     @objc func setupQueueViewController(with view: QueueViewController) {
