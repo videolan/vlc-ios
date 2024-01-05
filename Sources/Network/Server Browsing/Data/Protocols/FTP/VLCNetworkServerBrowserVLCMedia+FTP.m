@@ -14,7 +14,7 @@
 #import "VLCNetworkServerBrowserVLCMedia+FTP.h"
 #import "VLCNetworkServerLoginInformation.h"
 
-NSString *const VLCNetworkServerProtocolIdentifierFTP = @"ftp";
+NSString *const VLCNetworkServerProtocolIdentifierFTP = @"FTP";
 
 @implementation VLCNetworkServerBrowserVLCMedia (FTP)
 

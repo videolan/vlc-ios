@@ -32,7 +32,7 @@
 - (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
     VLCMedia *media = [self.mediaDiscoverer.discoveredMedia mediaAtIndex:index];
     if (media)
-        return [[VLCLocalNetworkServiceDSM alloc] initWithMediaItem:media serviceName:self.name];
+        return [[VLCLocalNetworkServiceDSM alloc] initWithMediaItem:media serviceName:[self.name uppercaseString]];
     return nil;
 }
 
@@ -45,7 +45,7 @@
 @end
 
 
-NSString *const VLCNetworkServerProtocolIdentifierSMB = @"smb";
+NSString *const VLCNetworkServerProtocolIdentifierSMB = @"SMB";
 static NSString *const VLCLocalNetworkServiceDSMWorkgroupIdentifier = @"VLCLocalNetworkServiceDSMWorkgroup";
 
 @implementation VLCLocalNetworkServiceDSM

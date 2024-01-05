@@ -33,7 +33,7 @@
 - (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
     VLCMedia *media = [self.mediaDiscoverer.discoveredMedia mediaAtIndex:index];
     if (media)
-        return [[VLCLocalNetworkServiceUPnP alloc] initWithMediaItem:media serviceName:self.name];
+        return [[VLCLocalNetworkServiceUPnP alloc] initWithMediaItem:media serviceName:[self.name uppercaseString]];
     return nil;
 }
 
@@ -46,7 +46,7 @@
 @end
 
 
-NSString *const VLCNetworkServerProtocolIdentifierUPnP = @"upnp";
+NSString *const VLCNetworkServerProtocolIdentifierUPnP = @"UPNP";
 
 @implementation VLCLocalNetworkServiceUPnP
 

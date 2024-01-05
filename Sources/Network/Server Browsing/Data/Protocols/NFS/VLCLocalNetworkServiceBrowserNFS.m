@@ -33,7 +33,7 @@
 - (id<VLCLocalNetworkService>)networkServiceForIndex:(NSUInteger)index {
     VLCMedia *media = [self.mediaDiscoverer.discoveredMedia mediaAtIndex:index];
     if (media)
-        return [[VLCLocalNetworkServiceNFS alloc] initWithMediaItem:media serviceName:self.name];
+        return [[VLCLocalNetworkServiceNFS alloc] initWithMediaItem:media serviceName:[self.name uppercaseString]];
     return nil;
 }
 
@@ -46,7 +46,7 @@
 @end
 
 
-NSString *const VLCNetworkServerProtocolIdentifierNFS = @"nfs";
+NSString *const VLCNetworkServerProtocolIdentifierNFS = @"NFS";
 
 @implementation VLCLocalNetworkServiceNFS
 

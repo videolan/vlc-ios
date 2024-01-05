@@ -14,7 +14,7 @@
 #import "VLCNetworkServerBrowserVLCMedia+SFTP.h"
 #import "VLCNetworkServerLoginInformation.h"
 
-NSString *const VLCNetworkServerProtocolIdentifierSFTP = @"sftp";
+NSString *const VLCNetworkServerProtocolIdentifierSFTP = @"SFTP";
 
 @implementation VLCNetworkServerBrowserVLCMedia (SFTP)
 

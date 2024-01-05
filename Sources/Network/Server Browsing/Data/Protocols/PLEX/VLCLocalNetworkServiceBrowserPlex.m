@@ -31,11 +31,11 @@
 
 - (VLCLocalNetworkServiceNetService *)localServiceForNetService:(NSNetService *)netService
 {
-    return [[VLCLocalNetworkServicePlex alloc] initWithNetService:netService serviceName:self.name];
+    return [[VLCLocalNetworkServicePlex alloc] initWithNetService:netService serviceName:[self.name uppercaseString]];
 }
 @end
 
-NSString *const VLCNetworkServerProtocolIdentifierPlex = @"plex";
+NSString *const VLCNetworkServerProtocolIdentifierPlex = @"PLEX";
 
 @implementation VLCLocalNetworkServicePlex
 - (UIImage *)icon
